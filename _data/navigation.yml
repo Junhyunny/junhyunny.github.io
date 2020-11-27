@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "Quick-Start Guide"
-    url: /docs/quick-start-guide/
+    url: https://junhyunny.github.io/docs/quick-start-guide/
   - title: "Posts"
     url: /year-archive/
   - title: "Categories"

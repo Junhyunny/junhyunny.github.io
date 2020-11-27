@@ -99,9 +99,9 @@ author:
   location         : "서울/대한민국(Seoul/South Korea)"
   email            : "kang3966@naver.com"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:kang3966@naver.com"
+    # - label: "Email"
+    #   icon: "fas fa-fw fa-envelope-square"
+    #   url: "mailto:kang3966@naver.com"
     # - label: "Website"
     #   icon: "fas fa-fw fa-link"
     #   url: "https://junhyunny.github.io/"
@@ -113,7 +113,7 @@ author:
     #   url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://junhyunny.github.io/"
+      url: "https://github.com/Junhyunny/action"
     # - label: "Instagram"
     #   icon: "fab fa-fw fa-instagram"
     #   url: "https://instagram.com/"
@@ -129,13 +129,13 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: "https://github.com/Junhyunny/action"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
     - label: "Bitbucket"
       icon: "fab fa-fw fa-bitbucket"
-      # url:
+      # url: 
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url:

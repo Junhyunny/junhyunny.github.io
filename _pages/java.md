@@ -1,6 +1,7 @@
 ---
 title: "Java"
 permalink: /java/
-layout: pJava
+layout: posts
+collection: pJava
 author_profile: true
 ---

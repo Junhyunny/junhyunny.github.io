@@ -295,8 +295,8 @@ defaults:
   #       nav: "docs"
   # _posts_algorithm
   - scope:
-      path: ""
-      type: posts_algorithm
+      path: "_posts_algorithm"
+      type: posts
     values:
       layout: single
       author_profile: false
@@ -306,8 +306,8 @@ defaults:
       related: true
   # _posts_infomation
   - scope:
-      path: ""
-      type: posts_information
+      path: "_posts_information"
+      type: posts
     values:
       layout: single
       author_profile: false
@@ -317,8 +317,8 @@ defaults:
       related: true
   # _posts_java
   - scope:
-      path: ""
-      type: posts_java
+      path: "_posts_java"
+      type: posts
     values:
       layout: single
       author_profile: false
@@ -328,8 +328,8 @@ defaults:
       related: true
   # _posts_spring
   - scope:
-      path: ""
-      type: posts_spring
+      path: "_posts_spring"
+      type: posts
     values:
       layout: single
       author_profile: false

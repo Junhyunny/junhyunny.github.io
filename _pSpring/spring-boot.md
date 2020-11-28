@@ -1,6 +1,6 @@
 ---
 title: "Spring Boot"
 permalink: /spring-boot/
-layout: pSpring
+layout: posts
 author_profile: true
 ---

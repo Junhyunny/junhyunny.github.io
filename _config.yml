@@ -265,16 +265,16 @@ compress_html:
 
 # Collections
 collections:
-  posts_algorithm:
+  posts-algorithm:
     output: true
     permalink: /:collection/:path/
-  posts_information:
+  posts-information:
     output: true
     permalink: /:collection/:path/
-  posts_java:
+  posts-java:
     output: true
     permalink: /:collection/:path/
-  posts_spring:
+  posts-spring:
     output: true
     permalink: /:collection/:path/
 

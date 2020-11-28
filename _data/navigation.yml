@@ -1,13 +1,17 @@
 # main links
 main:
-  - title: "Getting Started"
-    url: /docs/quick-start-guide/
+  - title: "Information"
+    url: /information/
+  - title: "Data Structure / Algorithm"
+    url: /algorithm/
+  - title: "Java"
+    url: /java/
+  - title: "Spring Boot"
+    url: /spring-boot/
 
-# documentation links
-docs:
-  - title: Getting Started
-    children:
-      - title: "TEST1"
-        url: /docs/quick-start-guide/
-      - title: "TEST2"
-        url: /docs/structure/
+# documentation links, side navigation
+# docs:
+#   - title: TEST
+#     children:
+#       - title: "CHILDREN"
+#         url: /children/path/

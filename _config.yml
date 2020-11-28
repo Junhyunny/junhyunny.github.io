@@ -265,31 +265,74 @@ compress_html:
 
 # Collections
 collections:
-  docs:
+  posts_algorithm:
+    output: true
+    permalink: /:collection/:path/
+  posts_infomation:
+    output: true
+    permalink: /:collection/:path/
+  posts_java:
+    output: true
+    permalink: /:collection/:path/
+  posts_spring:
     output: true
     permalink: /:collection/:path/
 
 # Defaults
 defaults:
-  # _docs
+  # side bar example
+  # _docs 
+  # - scope:
+  #     path: ""
+  #     type: docs
+  #   values:
+  #     layout: single
+  #     read_time: false
+  #     author_profile: false
+  #     share: false
+  #     comments: false
+  #     sidebar:
+  #       nav: "docs"
+  # _posts_algorithm
   - scope:
       path: ""
-      type: docs
+      type: posts_algorithm
     values:
       layout: single
-      read_time: false
       author_profile: false
-      share: false
-      comments: false
-      sidebar:
-        nav: "docs"
-  # _posts
+      read_time: true
+      comments: # true
+      share: true
+      related: true
+  # _posts_infomation
   - scope:
       path: ""
-      type: posts
+      type: posts_infomation
     values:
       layout: single
-      author_profile: true
+      author_profile: false
+      read_time: true
+      comments: # true
+      share: true
+      related: true
+  # _posts_java
+  - scope:
+      path: ""
+      type: posts_java
+    values:
+      layout: single
+      author_profile: false
+      read_time: true
+      comments: # true
+      share: true
+      related: true
+  # _posts_spring
+  - scope:
+      path: ""
+      type: posts_spring
+    values:
+      layout: single
+      author_profile: false
       read_time: true
       comments: # true
       share: true

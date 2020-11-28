@@ -293,6 +293,13 @@ defaults:
   #     comments: false
   #     sidebar:
   #       nav: "docs"
+  # _pages
+  - scope:
+      path: "_pages"
+      type: pages
+    values:
+      layout: single
+      author_profile: true
   # pAlgorithm
   - scope:
       path: ""
@@ -301,7 +308,7 @@ defaults:
       layout: single
       author_profile: false
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
   # pInformation
@@ -312,7 +319,7 @@ defaults:
       layout: single
       author_profile: false
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
   # pJava
@@ -323,7 +330,7 @@ defaults:
       layout: single
       author_profile: false
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true
   # _pSpring
@@ -334,6 +341,6 @@ defaults:
       layout: single
       author_profile: false
       read_time: true
-      comments: # true
+      comments: true
       share: true
       related: true

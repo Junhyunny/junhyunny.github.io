@@ -271,6 +271,13 @@ defaults:
   # _posts
   - scope:
       path: ""
+      type: docs
+    values:
+      sidebar:
+      nav: "docs"
+  # _posts
+  - scope:
+      path: ""
       type: posts
     values:
       layout: single

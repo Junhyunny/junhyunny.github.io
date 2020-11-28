@@ -282,7 +282,7 @@ defaults:
       share: false
       comments: false
       sidebar:
-      nav: "docs"
+        nav: "docs"
   # _posts
   - scope:
       path: ""

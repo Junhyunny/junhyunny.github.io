@@ -1,6 +1,6 @@
 ---
 title: "알고리즘"
 permalink: /algorithm/
-layout: pAlgorithm
+layout: docs
 author_profile: true
 ---

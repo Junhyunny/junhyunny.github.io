@@ -302,8 +302,8 @@ defaults:
       author_profile: true
   # pAlgorithm
   - scope:
-      path: "_pAlgorithm"
-      type: posts
+      path: ""
+      type: pAlgorithm
     values:
       layout: single
       author_profile: false
@@ -313,8 +313,8 @@ defaults:
       related: true
   # pInformation
   - scope:
-      path: "_pInformation"
-      type: posts
+      path: ""
+      type: pInformation
     values:
       layout: single
       author_profile: false
@@ -324,8 +324,8 @@ defaults:
       related: true
   # pJava
   - scope:
-      path: "_pJava"
-      type: posts
+      path: ""
+      type: pJava
     values:
       layout: single
       author_profile: false
@@ -335,8 +335,8 @@ defaults:
       related: true
   # _pSpring
   - scope:
-      path: "_pSpring"
-      type: posts
+      path: ""
+      type: pSpring
     values:
       layout: single
       author_profile: false

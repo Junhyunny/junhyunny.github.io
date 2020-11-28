@@ -1,11 +1,11 @@
 # main links
 main:
   - title: "Paging"
-    url: /docs/test/
+    url: /docs/quick-start-guide/
 
 # documentation links
 docs:
   - title: Getting Started
     children:
       - title: "Paging"
-        url: /docs/test/
+        url: /docs/quick-start-guide/

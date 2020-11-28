@@ -268,7 +268,7 @@ collections:
   posts_algorithm:
     output: true
     permalink: /:collection/:path/
-  posts_infomation:
+  posts_information:
     output: true
     permalink: /:collection/:path/
   posts_java:
@@ -307,7 +307,7 @@ defaults:
   # _posts_infomation
   - scope:
       path: ""
-      type: posts_infomation
+      type: posts_information
     values:
       layout: single
       author_profile: false

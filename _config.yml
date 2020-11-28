@@ -296,7 +296,7 @@ defaults:
   # _posts_algorithm
   - scope:
       path: ""
-      type: posts_algorithm
+      type: posts-algorithm
     values:
       layout: single
       author_profile: false
@@ -307,7 +307,7 @@ defaults:
   # _posts_infomation
   - scope:
       path: ""
-      type: posts_information
+      type: posts-information
     values:
       layout: single
       author_profile: false
@@ -318,7 +318,7 @@ defaults:
   # _posts_java
   - scope:
       path: ""
-      type: posts_java
+      type: posts-java
     values:
       layout: single
       author_profile: false
@@ -329,7 +329,7 @@ defaults:
   # _posts_spring
   - scope:
       path: ""
-      type: posts_spring
+      type: posts-spring
     values:
       layout: single
       author_profile: false

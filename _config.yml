@@ -265,11 +265,6 @@ compress_html:
   ignore:
     envs: development
 
-collections:
-  postsAlgorithm:
-    output: true
-    permalink: /:collection/:path/
-
 # Defaults
 defaults:
   # _posts
@@ -290,14 +285,3 @@ defaults:
     values:
       layout: single
       author_profile: true
-  # _postsAlgorithm
-  - scope:
-      path: ""
-      type: postsAlgorithm
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true

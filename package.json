@@ -1,10 +1,7 @@
 {
-    "title": "Clean Blog",
-    "name": "startbootstrap-clean-blog",
-    "version": "5.0.10",
-    "scripts": {
-        "start": "node_modules/.bin/gulp watch"
-    },
+    "title": "Clean Blog Jekyll",
+    "name": "startbootstrap-clean-blog-jekyll",
+    "version": "4.0.10",
     "description": "Clean Blog is a Medium inspired blog theme for Bootstrap.",
     "keywords": [
         "css",
@@ -14,36 +11,28 @@
         "theme",
         "template"
     ],
-    "homepage": "https://startbootstrap.com/theme/clean-blog",
+    "homepage": "https://startbootstrap.com/themes/clean-blog-jekyll",
     "bugs": {
-        "url": "https://github.com/StartBootstrap/startbootstrap-clean-blog/issues",
+        "url": "https://github.com/StartBootstrap/startbootstrap-clean-blog-jekyll/issues",
         "email": "feedback@startbootstrap.com"
     },
     "license": "MIT",
     "author": "Start Bootstrap",
     "contributors": [
-        "David Miller (https://davidmiller.io/)"
+        "David Miller (http://davidmiller.io/)"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/StartBootstrap/startbootstrap-clean-blog.git"
+        "url": "https://github.com/StartBootstrap/startbootstrap-clean-blog-jekyll.git"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "5.15.1",
-        "bootstrap": "4.5.3",
-        "jquery": "3.5.1"
+        "bootstrap": "4.5.0",
+        "font-awesome": "4.7.0",
+        "jquery": "3.5.1",
+        "startbootstrap-clean-blog": "5.0.9"
     },
     "devDependencies": {
-        "browser-sync": "2.26.13",
-        "del": "6.0.0",
-        "gulp": "4.0.2",
-        "gulp-autoprefixer": "7.0.1",
-        "gulp-clean-css": "4.3.0",
-        "gulp-header": "2.0.9",
-        "gulp-plumber": "^1.2.1",
-        "gulp-rename": "2.0.0",
-        "gulp-sass": "4.1.0",
-        "gulp-uglify": "3.0.2",
-        "merge-stream": "2.0.0"
+        "browser-sync": "2.26.7",
+        "gulp": "4.0.2"
     }
 }

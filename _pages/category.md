@@ -1,5 +1,5 @@
 ---
-title: "sts by Category"
+title: "Posts by Category"
 layout: categories
 permalink: /category/
 entries_layout: linear

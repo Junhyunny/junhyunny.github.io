@@ -1,7 +1,7 @@
 ---
 title: "Posts by Category"
 layout: categories
-permalink: /category/
+permalink: /categories/
 entries_layout: linear
 classes: wide
 ---

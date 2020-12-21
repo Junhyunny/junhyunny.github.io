@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "Hello, Dev World!"
+title                    : "Junhyunny's Devlogs"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "강준현"
@@ -99,9 +99,9 @@ author:
   location         : "서울/대한민국(Seoul/South Korea)"
   email            :
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "kang3966@naver.com"
+    # - label: "Email"
+    #   icon: "fas fa-fw fa-envelope-square"
+    #   url: "kang3966@naver.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       url: "https://junhyunny.github.io/"
@@ -114,9 +114,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/Junhyunny/action"
-    # - label: "Instagram"
-    #   icon: "fab fa-fw fa-instagram"
-    #   url: "https://instagram.com/"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://instagram.com/"
 
 # Site Footer
 footer:

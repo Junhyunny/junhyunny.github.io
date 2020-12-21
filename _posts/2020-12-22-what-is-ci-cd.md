@@ -8,17 +8,13 @@ last_modified_at: 2020-12-22T00:00:00
 
 # CI/CD란 무엇인가?
 
-- 참조글
-  - https://www.redhat.com/ko/topics/devops/what-is-ci-cd
-
-- CI/CD의 정의
 > CI/CD는 애플리케이션 개발 단계를 자동화하여 애플리케이션을 보다 짧은 주기로 고객에게 제공하는 방법입니다.
 
 크게 지속적인 통합(Continuous Integration), 지속적인 전달(Continuous Delivery), 지속적인 배포(Continuous Deployment)를 의미하며 
 각 단계에서 구체적으로 무슨 일을 하는지에 대해 알아봤습니다.
 
 ![what-is-ci-cd-1](/images/what-is-ci-cd-1.PNG)
-- 이미지 출처: https://www.redhat.com/ko/topics/devops/what-is-ci-cd
+- 이미지 출처: <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
 
 ## CI, Continuous Integration 이란?
 지속적으로 코드들의 통합을 진행하면서 코드의 품질을 유지하기 위한 방법입니다. **이 과정에서 이루어지는 주된 작업은 빌드와 테스트입니다.**
@@ -37,3 +33,7 @@ last_modified_at: 2020-12-22T00:00:00
 ## CI/CD의 장점
 
 ## 고증
+
+<br>
+- 참조글
+  - <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>

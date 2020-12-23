@@ -32,7 +32,7 @@ last_modified_at: 2020-12-23T00:00:00
 - 뱀부 (Bamboo)
 - 젠킨스 (Jenkins)
 
-아래 이미지는 지속적인 통합에서 각 solution / tool 들이 사용되는 모습입니다.
+지속적인 통합에서 각 solution / tool 들이 사용되는 모습을 흐름으로 그려보았습니다.
 
 ![what-is-ci-cd-2](/images/what-is-ci-cd-2.PNG)
 

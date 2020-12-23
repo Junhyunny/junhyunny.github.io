@@ -32,6 +32,10 @@ last_modified_at: 2020-12-23T00:00:00
 - 뱀부 (Bamboo)
 - 젠킨스 (Jenkins)
 
+아래 이미지는 지속적인 통합에서 각 solution / tool 들이 사용되는 모습입니다.
+
+![what-is-ci-cd-2](/images/what-is-ci-cd-2.PNG)
+
 ## CD, Continuous Delivery 란?
 개발자들이 적용한 변경사항이 테스트를 거쳐 **레포지토리에 자동으로 업로드되는 것을 의미**합니다.
 지속적인 전달을 통해 개발자들은 비즈니스와의 커뮤니케이션 부족 문제를 해결할 수 있습니다. 

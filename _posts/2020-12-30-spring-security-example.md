@@ -1,5 +1,5 @@
 ---
-title:  "Spring security를 활용한 JWT 인증"
+title:  "Spring security 예제"
 search: false
 category: 
   - side project
@@ -7,5 +7,5 @@ category:
 last_modified_at: 2020-12-30T00:00:00
 ---
 
-# Spring security를 활용한 JWT 인증
+# Spring security 예제
 작성 중입니다.

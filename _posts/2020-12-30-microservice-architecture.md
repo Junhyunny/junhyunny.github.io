@@ -3,7 +3,8 @@ title: "Microservice Architecture"
 search: false
 category: 
   - main project
-  - information
+	- information
+	- msa
 last_modified_at: 2020-12-30T00:00:00
 ---
 

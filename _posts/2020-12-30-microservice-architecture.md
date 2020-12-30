@@ -1,14 +1,14 @@
 ---
-title:  "Microservice Architecture"
+title: "Microservice Architecture"
 search: false
 category: 
 	- main project
 	- msa
-  - information
-last_modified_at: 2020-12-30T00:00:00
+last_modified_at: 2020-12-31T00:00:00
 ---
 
 # Microservice Architecture
+
 > 마이크로서비스 아키텍처의 큰 특징은 애플리케이션을 핵심 기능으로 세분화하는 방식입니다.<br>
 > 각 기능을 서비스라고 부르며, 독립적으로 구축하고 배포할 수 있습니다.
 

@@ -1,5 +1,5 @@
 ---
-title:  "CI/CD란 무엇인가?"
+title: "CI/CD란 무엇인가?"
 search: false
 category: 
   - main project

@@ -15,7 +15,7 @@ last_modified_at: 2020-12-31T00:00:00
 
 입사 후 처음 참여한 프로젝트는 기존의 모놀리식 아키텍처(Monilithic Architecture) 시스템을 마이크로서비스 아키텍처(Microservice Architecture)로 재구성하는 일이었습니다. 
 
-![microservice-architecture-1](/images/microservice-architecture-1.JPG)
+<p align="center"><img src="/images/microservice-architecture-1.JPG"></p>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
 기본 설계 당시에는 현재 시스템을 업무 단위로 나누는 작업을 수행하였습니다. 
@@ -38,7 +38,7 @@ last_modified_at: 2020-12-31T00:00:00
 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리합니다. 
 새로운 기능을 구축해야하는 경우 모든 변경 사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
 
-![microservice-architecture-2](/images/microservice-architecture-2.JPG)
+<p align="center"><img src="/images/microservice-architecture-2.JPG"></p>
 <center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
 
 최초 마이크로서비스를 설계할 때 도메인 전문가의 부재로 인해 기존 시스템의 모듈 단위로 비즈니스가 분할되었으며 이를 마이크로서비스들로 도출하였습니다. 

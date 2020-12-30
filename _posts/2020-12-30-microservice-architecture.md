@@ -13,8 +13,8 @@ last_modified_at: 2020-12-30T00:00:00
 
 입사 후 처음 참여한 프로젝트는 기존의 모놀리식 아키텍처(Monilithic Architecture) 시스템을 마이크로서비스 아키텍처(Microservice Architecture)로 재구성하는 일이었습니다. 
 
-![microservice-architecture-1](/images/microservice-architecture-1.JPG)
-<center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center> 
+<center>![microservice-architecture-1](/images/microservice-architecture-1.JPG)</center>
+<center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
 기본 설계 당시에는 현재 시스템을 업무 단위로 나누는 작업을 수행하였습니다. 
 저는 비즈니스적으로 많은 부분을 모르기 때문에 이론상으로 어려울 것이 없어 보였지만 기존 시스템을 비즈니스 영억별로 분할할 때마다 눈에는 보이지 않던 걸림돌들이 저희 팀의 발목을 잡았습니다. 
@@ -22,7 +22,7 @@ last_modified_at: 2020-12-30T00:00:00
 
 ## Microservice Architecture 특징
 ### 단일 목적 수행 (Single Purpose)
-> **Do One Thing, and do it well.**
+> **Do one thing, and do it well.**
 
 마이크로서비스는 단일 역량을 담당합니다. 서비스 하나에 책입도 하나입니다. 이는 비즈니스와 관련될 수도 있고 제삼자와의 연계와 같은 공유 기술 역량일 수도 있습니다. 
 이 특징은 마이크로서비스의 높은 응집도(High Cohesion)로 이어집니다.
@@ -36,8 +36,8 @@ last_modified_at: 2020-12-30T00:00:00
 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리합니다. 
 새로운 기능을 구축해야하는 경우 모든 변경 사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
 
-![microservice-architecture-2](/images/microservice-architecture-2.JPG)
-<center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center> 
+<center>![microservice-architecture-2](/images/microservice-architecture-2.JPG)</center>
+<center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
 
 최초 마이크로서비스를 설계할 때 도메인 전문가의 부재로 인해 기존 시스템의 모듈 단위로 비즈니스가 분할되었으며 이를 마이크로서비스들로 도출하였습니다. 
 잘못된 설계로 인해 아래와 같은 문제점들을 맞닥뜨렸습니다. 
@@ -61,7 +61,7 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 #### 문제 해결
 문제가 되는 서비스들을 하나씩 묶어나갔습니다. 
 **트랜잭션 관리의 용이성, 비즈니스적 독립성 등을 고려하면서 서비스들을 합쳐 나갔으며 최초 48개의 서비스가 최종적으로 8개의 서비스로 통합되었습니다.** 
-서비스들이 합쳐지면서 마이크로서비스라 부르기에는 다소 규모가 있게 되었습니다. 
+서비스들이 합쳐지면서 마이크로서비스라 부르기에는 다소 규모가 있게 되었지만 최선의 선택이었다고 생각합니다.
 
 ## Microservice Architecture 구조
 작성 중입니다.

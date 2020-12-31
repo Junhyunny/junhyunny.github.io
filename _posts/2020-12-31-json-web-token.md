@@ -10,14 +10,14 @@ last_modified_at: 2021-01-01T00:00:00
 
 # JWT, Json Web Token
 
-> json format 데이터를 이용한 claim 기반의 토큰 인증 방식
+> Json Format 데이터를 이용한 클레임(Claim) 기반의 토큰 인증 방식
 
 json 객체를 사용하여 가볍고 자가 수용적인 방식으로 정보를 안정성 있게 주고 받는 방법입니다. 
 C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에서 지원됩니다. 
 
-## Claim 기반이란?
-우선 claim 기반에 대한 정의를 알아보도록 하겠습니다. 
-주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 claim 기반은 토큰 내에 사용자 정보나 데이터 속성 등을 담고 있습니다. 
+## 클레임(Claim) 기반이란?
+우선 클레임 기반에 대한 정의를 알아보도록 하겠습니다. 
+주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 클레임 기반은 토큰 내에 사용자 정보나 데이터 속성 등을 담고 있습니다. 
 
 - 일반  string 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-1.JPG"></p>
@@ -29,7 +29,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)
 
-- claim 기반 토큰 인증 방식
+- 클레임 기반 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-2.JPG"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
@@ -39,7 +39,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)
 
-이러한 인증 방식의 차이로 claim 기반의 경우 토큰을 생성하는 단계에서 토큰을 별도로 서버에 유지할 필요가 없어졌습니다. 
+이러한 인증 방식의 차이로 클레임 기반의 경우 토큰을 생성하는 단계에서 토큰을 별도로 서버에 유지할 필요가 없어졌습니다. 
 API 서버 입장에서는 API 요청을 검증하기 위해 토큰을 이용해 사용자 정보를 별도로 조회할 필요가 없어졌습니다. 
 
 ## Json Web Token 구조
@@ -74,6 +74,7 @@ Base64URL 방식으로 인코딩되어 있습니다.
   - nbf: 토큰 활성화 날짜 (not before)
   - iat: 토큰 발급 시간 (issued at)
   - jti: JWT 고유 식별자, 중복 처리 방지
+
 ```json
 {
     "iss": "junhyunny.github.io",
@@ -82,6 +83,7 @@ Base64URL 방식으로 인코딩되어 있습니다.
 ```
 - 공개된 클레임 (public claim)
   - 충돌 방지를 위해 클레임 이름을 주로 URI 형식으로 지정합니다.
+
 ```json
 {
     "https://junhyunny.github.io/": true
@@ -90,6 +92,7 @@ Base64URL 방식으로 인코딩되어 있습니다.
 - 비공개 클레임 (private claim)
   - 서버와 클라이언트 협의하에 사용되는 클레임 이름입니다.
   - 공개 클레임과 달리 이름이 중복되어 충돌될 수 있으니 사용할 때 유의해야 합니다.
+
 ```json
 {
     "username": "junhyunny"

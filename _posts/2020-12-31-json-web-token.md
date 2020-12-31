@@ -62,7 +62,7 @@ Base64URL 방식으로 인코딩되어 있습니다.
 ```
 
 ### Payload 정보
-헤더 정보와 마찬가지로 Base64URL 방식으로 인코딩되어 있습니다. 
+Header 정보와 마찬가지로 Base64URL 방식으로 인코딩되어 있습니다. 
 담는 정보의 한 조각을 클레임(claim)이라 부르며 name-value 쌍으로 이루어져 있습니다. 
 클레임의 종류는 크게 **등록된 클레임(registered claim), 공개된 클레임(public claim), 비공개 클레임(private claim)**으로 분류됩니다. 
 

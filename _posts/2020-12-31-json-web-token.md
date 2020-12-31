@@ -19,7 +19,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
 우선 클레임 기반에 대한 정의를 알아보도록 하겠습니다. 
 주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 클레임 기반은 토큰 내에 사용자 정보나 데이터 속성 등을 담고 있습니다. 
 
-- 일반  string 토큰 인증 방식
+- 일반 string 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-1.JPG"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
@@ -27,7 +27,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. **토큰 발급 후 토큰과 사용자 정보를 storage에 저장** 
   1. 클라이언트에게 토큰 전달
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
-  1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)
+  1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
 - 클레임 기반 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-2.JPG"></p>
@@ -37,7 +37,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. **사용자 정보를 json data로 만들고, 이를 암호화하여 토큰으로 생성 (이 과정에서 만들어진 토큰은 일반 방식과 다르게 storage에 저장하지 않습니다.)** 
   1. 클라이언트에게 토큰 전달
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
-  1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)
+  1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
 이러한 인증 방식의 차이로 클레임 기반의 경우 토큰을 생성하는 단계에서 토큰을 별도로 서버에 유지할 필요가 없어졌습니다. 
 API 서버 입장에서는 API 요청을 검증하기 위해 토큰을 이용해 사용자 정보를 별도로 조회할 필요가 없어졌습니다. 
@@ -109,6 +109,7 @@ HMACSHA256(
   secret)
 ```
 
+<br>
 <https://jwt.io/> 사이트에서 Header, Payload, Signature 정보를 추가하여 JWT를 생성해보았습니다. 
 
 <p align="center"><img src="/images/json-web-token-4.JPG"></p>

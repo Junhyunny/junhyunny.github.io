@@ -119,7 +119,7 @@ HMACSHA256(
 ## OPINION
 회사에서 업무상 진행하는 프로젝트는 규모가 크고, 모든 일이 협업을 통해 진행되기 때문에 보안과 관련된 내용을 접하기 어려웠습니다. 
 스스로 성장할 수 있는 resource를 얻기 위해 side project를 진행하였으며 이 과정에서 직접 security  구현 및 관련 개념들에 대해서 배우게 되었습니다. 
-이 글에서는 Json Web Token에 대한 개념에 대해서정리했다면 다음 글은 spring security를 이용한 구현에 대해 정리해볼 예정입니다. 
+이 글에서는 Json Web Token에 대한 개념에 대해서정리했다면 다음 글은 spring security를 이용한 구현에 대해 정리할 예정입니다. 
 
 #### 참조글
 - <https://bcho.tistory.com/999>

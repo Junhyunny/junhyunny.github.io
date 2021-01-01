@@ -29,6 +29,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
+<br>
 - 클레임 기반 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-2.JPG"></p>
 

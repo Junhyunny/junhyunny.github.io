@@ -45,7 +45,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 **(In the client–server model, downstream can refer to the direction from the server to the client.)**
 
 ## Speing Security FilterChainProxy
-Spring Security FilterChainProxy라는 타입의 하나의 필터로서 서블릿 필터 체인에 포함됩니다. 
+Spring Security는 하나의 필터로서 FilterChainProxy라는 타입으로 서블릿 필터 체인에 포함됩니다. 
 컨테이너 입장에서 보면 Spring Security는 1개의 필터이지만 그 내부를 살펴보면 각자 특수한 역할을 수행하는 필터들로 구성되어 있습니다. 
 FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보안 로직을 포함하고 있습니다. 
 

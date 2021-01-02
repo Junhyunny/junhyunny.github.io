@@ -57,7 +57,6 @@ FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보�
 <p align="center"><img src="/images/spring-security-3.JPG"></p>
 <center>이미지 출처, https://bamdule.tistory.com/52</center><br>
 
-<br>
 동일한 최상위 FilterChainProxy 레벨에서 Spring Security에 의해 관리되는 여러 개의 필터 체인들이 존재할 수도 있으며 모두 컨테이너에게 알려지지 않습니다. 
 Spring Security 필터는 모든 필터 체인들의 목록을 포함하고 있으며 일치하는 첫 번째 체인에 요청을 전달합니다. 
 아래 그림은 요청 경로별 매칭에 의거하여 요청을 전달하는 모습을 보여줍니다. (<em>/foo/**<em>는 <em>/**<em>보다 매칭됩니다.) 
@@ -79,7 +78,8 @@ Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하�
   - 추출한 유저 정보를 이용한 Authentication Object 생성
 3. AuthenticationManager에게 AuthenticationToken 전달
   - AuthenticationManager 인터페이스의 authenticate 메소드 호출
-  - Authentication Object는 authenticate 메소드의 파라미터로 사용<br>
+  - Authentication Object는 authenticate 메소드의 파라미터로 사용
+
 ```java
 public interface AuthenticationManager {
     Authentication authenticate(Authentication authentication)throws AuthenticationException;
@@ -89,7 +89,8 @@ public interface AuthenticationManager {
   - AuthenticationManager의 구현체인 ProviderManager는 인증에 사용되는 AuthenticationProvider들을 소유
   - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리
 5. UserDetailsService 사용
-  - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용<br>
+  - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용
+
 ```java
 public interface UserDetailsService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;

@@ -11,8 +11,8 @@ last_modified_at: 2021-01-02T00:00:00
 
 # Spring Security<br>
 
-지난 포스트에서는 [JWT, Jason Web Token][blogLink]에 대한 이야기를 해보았습니다. 
-Spring Security Framework와 Jason Web Token을 활용한 서버 구현 전에 Spring Security Framework에 대해 알아보았습니다. 
+지난 포스트에서는 [Jason Web Token][blogLink]에 대한 이야기를 해보았습니다. 
+Jason Web Token을 활용한 서버 구현 전에 Spring Security Framework에 대해 알아보았습니다. 
 
 > Spring Security is a Java/Java EE framework that provides **authentication, authorization** and other security features for enterprise applications.
 > Spring Security in the web tier (for UIs and HTTP back ends) is based on Servlet Filters.

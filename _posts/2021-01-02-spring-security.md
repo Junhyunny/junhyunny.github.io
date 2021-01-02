@@ -73,9 +73,11 @@ Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하�
 
 1\. HTTP 요청 접수
   - 요청은 authentication, authorization 별 용도에 맞는 필터 체인으로 이동<br>
+
 2\. AuthenticationToken 생성
   - 요청이 관련 AuthenticationFilter로 수신되면 요청에서 이름과 비밀번호를 추출
   - 추출한 유저 정보를 이용한 Authentication Object 생성<br>
+
 3\. AuthenticationManager에게 AuthenticationToken 전달
   - AuthenticationManager 인터페이스의 authenticate 메소드 호출
   - Authentication Object는 authenticate 메소드의 파라미터로 사용<br>
@@ -88,6 +90,7 @@ public interface AuthenticationManager {
 4\. AuthenticationProvider들로부터 인증 시도
   - AuthenticationManager의 구현체인 ProviderManager는 인증에 사용되는 AuthenticationProvider들을 소유
   - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리<br>
+
 5\. UserDetailsService 사용
   - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용<br>
 
@@ -98,6 +101,7 @@ public interface UserDetailsService {
 ```
 6\. UserDetails
   - UserDetailsService은 username 정보를 통해 UserDetails 조회<br>
+
 7\. Authentication Object 혹은 AuthenticationException
   - 인증 성공시 Fully populated Authentication Object 반환
   - 인증 실패시 AuthenticationException 전달(throw)
@@ -105,6 +109,7 @@ public interface UserDetailsService {
     - authenticated – true
     - grant authorities list
     - user credentials (username only)<br>
+
 8\. 인증 완료<br>
 9\. SecurityContext 내부에 Authentication Object Setting 
 

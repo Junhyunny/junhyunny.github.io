@@ -3,7 +3,7 @@ title: "Spring Security"
 search: false
 category: 
   - side project
-	- information
+  - information
   - security
   - spring security
 last_modified_at: 2021-01-02T00:00:00
@@ -23,10 +23,10 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
   - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
 - 인증(Authentication)
   - Application 작업을 수행할 수 있는 주체(사용자)임을 증명하는 행위
-	- who are you?
+  - who are you?
 - 권한(Authorization)
   - 인증된 주체가 application의 동작을 수행할 수 있도록 허락되었는지 확인, 결정하는 행위
-	- what are you allowed to do?
+  - what are you allowed to do?
 
 > 권한(Authorization)은 승인이 필요한 부분으로 접근하기 위해서는 인증(Authentication) 과정이 필요
 

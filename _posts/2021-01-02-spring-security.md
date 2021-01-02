@@ -40,6 +40,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 
 컨테이너는 클라이언트 요청 URL에 근거하여 어떤 필터, 어떤 서블릿을 적용할지 결정합니다. 
 기껏해야 하나의 서블릿이 단일 요청을 처리 할 수 ​​있지만 필터는 체인을 형성하므로 순서가 지정됩니다. 
+사용자 요청은 순서가 지정된 필터들을 차례대로 거치게 됩니다. 
 **필터는 downstream 에서 사용되는 요청이나 응답 정보를 수정할 수 있습니다.** 
 **(In the client–server model, downstream can refer to the direction from the server to the client.)**
 

@@ -79,24 +79,33 @@ Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하�
   - 추출한 유저 정보를 이용한 Authentication Object 생성
 1. AuthenticationManager에게 AuthenticationToken 전달
   - AuthenticationManager 인터페이스의 authenticate 메소드 호출
-	- Authentication Object는 authenticate 메소드의 파라미터로 사용
+  - Authentication Object는 authenticate 메소드의 파라미터로 사용
 ```java
-public interface AuthenticationManager
-{
-  Authentication authenticate(Authentication authentication)throws AuthenticationException;
+public interface AuthenticationManager {
+    Authentication authenticate(Authentication authentication)throws AuthenticationException;
 }
 ```
-1. AuthenticationProvider(s)들로부터 인증 시도
-  - 
+1. AuthenticationProvider들로부터 인증 시도
+  - AuthenticationManager의 구현체인 ProviderManager는 인증에 사용되는 AuthenticationProvider들을 소유
+  - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리
 1. UserDetailsService 사용
-
+  - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용
+```java
+public interface UserDetailsService {
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+}
+```
 1. UserDetails
-
+  - UserDetailsService은 username 정보를 통해 UserDetails 조회
 1. Authentication Object 혹은 AuthenticationException
-
+  - 인증 성공시 Fully populated Authentication Object 반환
+  - 인증 실패시 AuthenticationException 전달(throw)
+  - Fully populated Authentication Object
+    - authenticated – true
+    - grant authorities list
+    - user credentials (username only)
 1. 인증 완료
-
-1. SecurityContext 내 Authentication Object Setting 
+1. SecurityContext 내부에 Authentication Object Setting 
 
 ## OPINION
 작성 중입니다.

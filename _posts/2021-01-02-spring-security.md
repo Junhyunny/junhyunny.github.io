@@ -54,7 +54,7 @@ FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보�
 
 - FilterChainProxy 내부 실제 Filters
   - FilterChainProxy 내부 필터들은 각자 수행하는 역할이 있습니다.
-<p align="center"><img src="/images/spring-security-2.JPG"></p>
+<p align="center"><img src="/images/spring-security-3.JPG"></p>
 <center>이미지 출처, https://bamdule.tistory.com/52</center><br>
 
 <br>

@@ -58,7 +58,7 @@ FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보�
 <p align="center"><img src="/images/spring-security-3.JPG"></p>
 <center>이미지 출처, https://bamdule.tistory.com/52</center><br>
 
-동일한 최상위 FilterChainProxy 레벨에서 Spring Security에 의해 관리되는 여러 개의 필터 체인들이 존재할 수도 있으며 모두 컨테이너에게는 알려지지 않습니다. 
+동일한 최상위 FilterChainProxy 레벨에서 Spring Security에 의해 관리되는 여러 개의 필터 체인들이 존재할 수도 있으며 모든 필터 체인들이 컨테이너에게는 알려지지 않습니다. 
 Spring Security 필터는 모든 필터 체인들의 목록을 포함하고 있으며 일치하는 첫 번째 체인에 요청을 전달합니다. 
 아래 그림은 요청 경로별 매칭에 의거하여 요청을 전달하는 모습을 보여줍니다. (<em>/foo/**<em>는 <em>/**<em>보다 매칭됩니다.) 
 

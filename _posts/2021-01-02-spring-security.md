@@ -85,6 +85,7 @@ public interface AuthenticationManager {
     Authentication authenticate(Authentication authentication)throws AuthenticationException;
 }
 ```
+{:start="4"}
 4. AuthenticationProvider들로부터 인증 시도
   - AuthenticationManager의 구현체인 ProviderManager는 인증에 사용되는 AuthenticationProvider들을 소유
   - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리
@@ -96,6 +97,7 @@ public interface UserDetailsService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
 ```
+{:start="6"}
 6. UserDetails
   - UserDetailsService은 username 정보를 통해 UserDetails 조회
 7. Authentication Object 혹은 AuthenticationException

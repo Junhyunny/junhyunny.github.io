@@ -73,15 +73,15 @@ Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하�
 <center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
 
 1\. HTTP 요청 접수
-  - 요청은 authentication, authorization 별 용도에 맞는 필터 체인으로 이동<br>
+  - 요청은 authentication, authorization 별 용도에 맞는 필터 체인으로 이동
 
 2\. AuthenticationToken 생성
   - 요청이 관련 AuthenticationFilter로 수신되면 요청에서 이름과 비밀번호를 추출
-  - 추출한 유저 정보를 이용한 Authentication Object 생성<br>
+  - 추출한 유저 정보를 이용한 Authentication Object 생성
 
 3\. AuthenticationManager에게 AuthenticationToken 전달
   - AuthenticationManager 인터페이스의 authenticate 메소드 호출
-  - Authentication Object는 authenticate 메소드의 파라미터로 사용<br>
+  - Authentication Object는 authenticate 메소드의 파라미터로 사용
 
 ```java
 public interface AuthenticationManager {
@@ -90,10 +90,10 @@ public interface AuthenticationManager {
 ```
 4\. AuthenticationProvider들로부터 인증 시도
   - AuthenticationManager의 구현체인 ProviderManager는 인증에 사용되는 AuthenticationProvider들을 소유
-  - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리<br>
+  - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리
 
 5\. UserDetailsService 사용
-  - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용<br>
+  - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용
 
 ```java
 public interface UserDetailsService {
@@ -101,21 +101,26 @@ public interface UserDetailsService {
 }
 ```
 6\. UserDetails
-  - UserDetailsService은 username 정보를 통해 UserDetails 조회<br>
+  - UserDetailsService은 username 정보를 통해 UserDetails 조회
 
 7\. Authentication Object 혹은 AuthenticationException
   - 인증 성공시 Fully populated Authentication Object 반환
   - 인증 실패시 AuthenticationException 전달(throw)
-  - Fully populated Authentication Object
+  - Fully populated Authentication Object는 다음과 같은 정보들이 지닙니다.
     - authenticated – true
     - grant authorities list
-    - user credentials (username only)<br>
+    - user credentials (username only)
 
-8\. 인증 완료<br>
+8\. 인증 완료
+
 9\. SecurityContext 내부에 Authentication Object Setting 
 
 ## OPINION
-작성 중입니다.
+처음 사이드 프로젝트를 진행할 때 이미 구현되어 있는 인증 기능들로 인해 많이 고생하였습니다. 
+REST API를 추가한 후 기능 테스트를 할 때 권한이 없어 정상적인 요청이 되지 않는 문제를 겪었습니다. 
+구체적인 인증 기능에 대해 이해도가 떨어지는 상태에서 이를 해결하려고 하니 많은 삽질(?)을 하였습니다. 
+문제를 해결한 후에도 기계적으로 configuration 필요 정보들만 setting 할 뿐 정확한 용도는 몰랐습니다. 
+이제 메인 프로젝트와 여러 사이드 프로젝트들을 마무리하고 이 내용에 대해 정리해보니 개냠이 조금 정리되는 듯하여 기분이 좋습니다. 
 
 #### 참조글
 - <https://spring.io/guides/topicals/spring-security-architecture/>

@@ -80,6 +80,7 @@ Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하�
 1. AuthenticationManager에게 AuthenticationToken 전달
   - AuthenticationManager 인터페이스의 authenticate 메소드 호출
   - Authentication Object는 authenticate 메소드의 파라미터로 사용
+
 ```java
 public interface AuthenticationManager {
     Authentication authenticate(Authentication authentication)throws AuthenticationException;
@@ -90,6 +91,7 @@ public interface AuthenticationManager {
   - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리
 1. UserDetailsService 사용
   - 몇 AuthenticationProvider들은 username 정보를 통해 사용자 정보를 조회하기 위해 UserDetailsService를 사용
+
 ```java
 public interface UserDetailsService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;

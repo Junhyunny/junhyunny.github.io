@@ -266,8 +266,8 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 ```
 
 ## ResourceServer 구현
-자원에 대한 접근을 관리하는 설정들을 구현합니다. 
-@EnableResourceServer 애너테이션을 통해 OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증할 수 있게 해줍니다. 
+자원에 대한 접근을 제어, 관리하는 @Configuration입니다. 
+@EnableResourceServer 애너테이션은 OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증할 수 있게 해줍니다. 
 특별 authorization만 접근 가능하도록 제어하는 것이 가능해집니다. 
 ResourceServerConfigurerAdapter 클래스를 확장하여 추가적인 기능들은 Override합니다. 
 자세한 내용은 [API 문서][resource-docLink]에서 확인하시길 바랍니다. 

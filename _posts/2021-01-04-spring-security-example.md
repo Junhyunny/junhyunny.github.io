@@ -337,7 +337,7 @@ Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 Us
 
 - loadUserByUsername 메소드의 debug 포인트 설정시 call stack
   - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
-<p align="center"><img src="/images/spring-security-example-2.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-2.JPG"></p>
 
 ```java
 package blog.in.action.service;
@@ -403,17 +403,17 @@ public class MemberService implements UserDetailsService {
   
 ## 테스트 결과
 - 유저 정보 등록 (ADMIN)
-<p align="center"><img src="/images/spring-security-example-3.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-3.JPG"></p>
 
 - 인증 정보 획득
-<p align="center"><img src="/images/spring-security-example-4.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-4.JPG"></p>
 
 - 인증 정보 헤더 등록
-  - 토큰 정보, bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDk5NjE2NDEsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU0ODljYzQ3LTc5YjQtNDE1Mi04MjUyLTZjNzY3ZTNiODJkYiIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.-J-jWH6QrzeVuKixL4m2fimWClm4BiriCK4Xz-H_sJ4
-<p align="center"><img src="/images/spring-security-example-5.JPG"></p>
+  - 토큰 정보, **bearer** eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAi ~ 전달받은 access_token ~ aWxlIl19.-J-jWH6QrzeVuKixL4m2fimWClm4BiriCK4Xz-H_sJ4
+<p align="left"><img src="/images/spring-security-example-5.JPG"></p>
 
 - 유저 정보 요청 (정상 확인)
-<p align="center"><img src="/images/spring-security-example-6.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-6.JPG"></p>
 
 - <https://jwt.io/> 사이트에서 생성한 Token Decoding 
 <p align="center"><img src="/images/spring-security-example-7.JPG"></p>

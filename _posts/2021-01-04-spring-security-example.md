@@ -15,7 +15,7 @@ Spring Security Framework을 이용하여 Jason Web Token 인증 방식을 구�
 간단한 구현을 위해 h2 메모리 DB를 사용하였습니다.
 
 ## 패키지 구조
-<p align="center"><img src="/images/spring-security-example-1.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-1.JPG"></p>
 
 ## application.yml
 ```yml
@@ -126,7 +126,7 @@ spring:
 ```
 
 ## controller 구현
-유저 정보를 등록할 수 있는 **/api/member/sign-up** path와 조회하는 **/api/member/user-info** path를 만들었습니다. 
+유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
 아래 ResourceServer에서 확인하실 수 있겠지만 **/api/member/sign-up** path는 인증 정보 없이 요청이 가능하지만 **/api/member/user-info** path는 인증 정보 없이 요청이 불가능합니다.
 
 ```java

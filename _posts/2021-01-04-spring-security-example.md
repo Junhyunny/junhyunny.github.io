@@ -408,8 +408,7 @@ public class MemberService implements UserDetailsService {
 - 인증 정보 획득
 <p align="left"><img src="/images/spring-security-example-4.JPG"></p>
 
-- 인증 정보 헤더 등록
-  - 토큰 정보, **bearer** eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAi ~ 전달받은 access_token ~ aWxlIl19.-J-jWH6QrzeVuKixL4m2fimWClm4BiriCK4Xz-H_sJ4
+- 인증 정보 헤더 등록, **bearer (획득한 인증 정보의 access_token)** 
 <p align="left"><img src="/images/spring-security-example-5.JPG"></p>
 
 - 유저 정보 요청 (정상 확인)

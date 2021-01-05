@@ -200,7 +200,7 @@ public class Config {
 ```
 
 ## AuthorizationServer 구현
-인증에 사용 정보되는 설정들을 SETTING 해주는 @Configuration입니다. 
+인증에 사용되는 정보들을 설정해주는 @Configuration입니다. 
 @EnableAuthorizationServer 애너테이션을 붙임으로서 클라이언트 토큰을 저장하는 인메모리 저장소를 가진 권한 서버가 생성됩니다. 
 AuthorizationServerConfigurerAdapter 클래스를 확장함으로써 필요한 설정들을 추가할 수 있도록 메소드들을 Override합니다. 
 자세한 내용은 [API 문서][authentication-docLink]에서 확인하시길 바랍니다. 

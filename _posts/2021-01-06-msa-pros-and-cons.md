@@ -24,7 +24,7 @@ last_modified_at: 2021-01-06T00:00:00
 프로그래밍 언어나 DB는 각자 특성에 따라 활용되는 용도가 다릅니다. 
 비즈니스 별로 특성을 살릴 수 있도록 용도에 맞는 프로그래밍 언어가 사용되어 개발된다면 더 좋은 품질의 서비스를 제공할 수 있을 것입니다. 
 
-이미지-1
+<p align="center"><img src="/images/msa-pros-and-cons-1.JPG"></p>
 
 ### 실험과 혁신 유도
 > 마이크로서비스는 단순하고 크기가 작아 기업들이 적은 비용으로 새로운 프로세스, 알고리즘, 비즈니스 로직 등을 실험해 볼 수 있습니다. 
@@ -38,7 +38,8 @@ last_modified_at: 2021-01-06T00:00:00
 
 스케일 큐브(Scale Cube)는 어플리케이션을 확장하는 데 필요한 세 가지 주요 접근 방식을 정의합니다.
 
-이미지-2, https://akfpartners.com/growth-blog/scale-cube
+<p align="center"><img src="/images/msa-pros-and-cons-2.JPG"></p>
+<center>이미지 출처, https://akfpartners.com/growth-blog/scale-cube</center><br>
 
 - x 축 방향의 확장은 어플리케이션을 복제해서 수평적으로 확장하는 것을 의미
 - y 축 방향의 확장은 서로 다른 기능을 분리하는 것을 의미 - Microservices (or micro-services)

@@ -36,7 +36,7 @@ last_modified_at: 2021-01-09T00:00:00
 어플리케이션 확장성에 대한 설명은 주로 스케일 큐브(Scale cube)를 통해 진행됩니다. 
 **스케일 큐브(Scale Cube)는 어플리케이션을 확장하는 데 필요한 세 가지 주요 접근 방식을 정의합니다.**
 
-<p align="center"><img src="/images/msa-pros-and-cons-2.JPG" width="450"></p>
+<p align="center"><img src="/images/msa-pros-and-cons-2.JPG" width="500"></p>
 <center>이미지 출처, https://akfpartners.com/growth-blog/scale-cube</center><br>
 
 - x 축 방향의 확장은 어플리케이션을 복제해서 수평적으로 확장하는 것을 의미
@@ -86,7 +86,7 @@ y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점을 �
 하지만 마이크로서비스 아키텍처의 경우 기존 버전의 서비스와 신규 버전의 서비스를 공존시킨 상태에서 라우팅 규칙을 이용해 신규 버전의 서비스를 안정적으로 테스트/배포할 수 있습니다. 
 예로 카나리 배포 전략(canary relase)을 들 수 있습니다.
 
-<p align="center"><img src="/images/msa-pros-and-cons-3.JPG"></p>
+<p align="center"><img src="/images/msa-pros-and-cons-3.JPG" width="500"></p>
 <center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 ## MSA Cons

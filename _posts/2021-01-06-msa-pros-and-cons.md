@@ -36,7 +36,7 @@ last_modified_at: 2021-01-09T00:00:00
 어플리케이션 확장성에 대한 설명은 주로 스케일 큐브(Scale cube)를 통해 진행됩니다. 
 **스케일 큐브(Scale Cube)는 어플리케이션을 확장하는 데 필요한 세 가지 주요 접근 방식을 정의합니다.**
 
-<p align="center"><img src="/images/msa-pros-and-cons-2.JPG"></p>
+<p align="center"><img src="/images/msa-pros-and-cons-2.JPG" width="450"></p>
 <center>이미지 출처, https://akfpartners.com/growth-blog/scale-cube</center><br>
 
 - x 축 방향의 확장은 어플리케이션을 복제해서 수평적으로 확장하는 것을 의미

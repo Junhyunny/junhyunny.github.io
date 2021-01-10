@@ -32,7 +32,7 @@ JSON/REST 기반으로 최소한의 기능을 처리하는 경량화 서비스�
 
 ### API Routing
 API Routing에도 다음과 같은 주요 기능들이 존재합니다.
-- Load balancing too back-end API server
+- Load balancing to back-end API server
 - 서비스 및 클라이언트 별 end point 제공
 - 메세지 혹은 헤더 기반 routing
 

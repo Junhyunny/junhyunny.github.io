@@ -40,7 +40,7 @@ API Routing에도 다음과 같은 주요 기능들이 존재합니다.
 API Gateway 특성상 모든 API 서버 앞쪽에 위치하며, 모든 API 호출이 API Gateway를 거쳐갑니다. 
 모든 API가 공통적으로 처리해야 하는 공통 기능이 필요한 경우에 공통 기능을 API Gateway에 구현하게 되면 API 서버들은 더욱 비즈니스에 집중할 수 있습니다. 
 
-<p align="center"><img src="/images/msa-api-gateway-2.JPG"></p>
+<p align="center"><img src="/images/msa-api-gateway-2.JPG" width="550"></p>
 <center>이미지 출처, [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][microsoft-ebookLink]</center><br>
 
 ### 메디에이션(Mediation) 기능

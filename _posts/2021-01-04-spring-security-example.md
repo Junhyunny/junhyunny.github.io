@@ -125,7 +125,7 @@ spring:
 </project>
 ```
 
-## controller 구현
+## MemberController 클래스 구현
 유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
 아래 ResourceServer에서 확인하실 수 있겠지만 **/api/member/sign-up** path는 인증 정보 없이 요청이 가능하지만 **/api/member/user-info** path는 인증 정보 없이 요청이 불가능합니다.
 
@@ -165,7 +165,7 @@ public class MemberController {
 }
 ```
 
-## Config 구현
+## Config 클래스 구현
 인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
 API 문서를 확인해보니 JwtAccessTokenConverter @Bean에 등록되는 signingKey는 암호화에서 필요한 키 용도로 사용되는 듯 합니다.
 
@@ -199,7 +199,7 @@ public class Config {
 }
 ```
 
-## AuthorizationServer 구현
+## AuthorizationServer 클래스 구현
 인증에 필요한 설정이 가능한 @Configuration입니다. 
 @EnableAuthorizationServer 애너테이션을 붙임으로서 클라이언트 토큰을 저장하는 인메모리 저장소를 가진 권한 서버가 생성됩니다. 
 AuthorizationServerConfigurerAdapter 클래스를 확장한 후 필요한 설정들을 추가하기 위한 메소드들을 Override합니다. 
@@ -265,7 +265,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 }
 ```
 
-## ResourceServer 구현
+## ResourceServer 클래스 구현
 자원에 대한 접근을 제어, 관리하는 @Configuration입니다. 
 @EnableResourceServer 애너테이션은 OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증할 수 있게 해줍니다. 
 특별 authorization만 접근 가능하도록 제어하는 것이 가능해집니다. 
@@ -297,7 +297,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 }
 ```
 
-## SecurityConfig 구현
+## SecurityConfig 클래스 구현
 ```java
 package blog.in.action.security;
 

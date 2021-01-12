@@ -420,7 +420,7 @@ public class MemberService implements UserDetailsService {
 ## OPINION
 예전에 작성해둔 블로그 글이 아주 유용하게 사용되었습니다. 
 당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 사용으로 기능으로 조금 확장해보았습니다. 
-해당 코드를 받아보시려면 [github link][github-link]로 이동하세요. 
+해당 코드를 받아보시려면 [github link][github-link]로 이동하시길 바랍니다. 
 테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.
 
 #### 참조글

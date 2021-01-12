@@ -35,29 +35,29 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class Config {
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }
 ```
 ## CustomTokenEnhancer 클래스 구현
 AuthorizationServer 클래스의 내부 클래스로 구현하여 패키지 구조에는 보이지 않습니다. 
 TokenEnhancer 인터페이스를 구현하였으며 enhance 메소드를 통해 토큰에 정보를 추가합니다. OAuth2Authentication 객체에서 principal에 대한 정보를 추출 후 OAuth2AccessToken 객체에 추가하였습니다. 
 ```java
-	private class CustomTokenEnhancer implements TokenEnhancer {
-		// Access Token에 추가하고 싶은 값을 함께 전달한다.
-		@Override
-		public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-			User user = (User) authentication.getPrincipal();
-			Map<String, Object> additionalInfo = new HashMap<String, Object>();
-			// token에 추가 정보 등록
-			additionalInfo.put("memberId", user.getUsername());
-			additionalInfo.put("otherInfomation", "otherInfomation");
-			((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-			return accessToken;
-		}
-	}
+  private class CustomTokenEnhancer implements TokenEnhancer {
+    // Access Token에 추가하고 싶은 값을 함께 전달한다.
+    @Override
+    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+      User user = (User) authentication.getPrincipal();
+      Map<String, Object> additionalInfo = new HashMap<String, Object>();
+      // token에 추가 정보 등록
+      additionalInfo.put("memberId", user.getUsername());
+      additionalInfo.put("otherInfomation", "otherInfomation");
+      ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+      return accessToken;
+    }
+  }
 ```
 
 ## AuthorizationServer 클래스 구현
@@ -94,62 +94,62 @@ import blog.in.action.service.MemberService;
 @EnableAuthorizationServer
 public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
-	private String clientId = "CLIENT_ID";
+  private String clientId = "CLIENT_ID";
 
-	private String clientSecret = "CLIENT_SECRET";
+  private String clientSecret = "CLIENT_SECRET";
 
-	@Autowired
-	private MemberService memberService;
+  @Autowired
+  private MemberService memberService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private AuthenticationManager authenticationManager;
+  @Autowired
+  private AuthenticationManager authenticationManager;
 
-	private class CustomTokenEnhancer implements TokenEnhancer {
-		// Access Token에 추가하고 싶은 값을 함께 전달한다.
-		@Override
-		public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-			User user = (User) authentication.getPrincipal();
-			Map<String, Object> additionalInfo = new HashMap<String, Object>();
-			// token에 추가 정보 등록
-			additionalInfo.put("memberId", user.getUsername());
-			additionalInfo.put("otherInfomation", "otherInfomation");
-			((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-			return accessToken;
-		}
-	}
+  private class CustomTokenEnhancer implements TokenEnhancer {
+    // Access Token에 추가하고 싶은 값을 함께 전달한다.
+    @Override
+    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+      User user = (User) authentication.getPrincipal();
+      Map<String, Object> additionalInfo = new HashMap<String, Object>();
+      // token에 추가 정보 등록
+      additionalInfo.put("memberId", user.getUsername());
+      additionalInfo.put("otherInfomation", "otherInfomation");
+      ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
+      return accessToken;
+    }
+  }
 
-	private CustomTokenEnhancer customTokenEnhancer() {
-		return new CustomTokenEnhancer();
-	}
+  private CustomTokenEnhancer customTokenEnhancer() {
+    return new CustomTokenEnhancer();
+  }
 
-	private JwtAccessTokenConverter jwtAccessTokenConverter() {
-		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-		converter.setSigningKey("JWT_KEY");
-		return converter;
-	}
+  private JwtAccessTokenConverter jwtAccessTokenConverter() {
+    JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+    converter.setSigningKey("JWT_KEY");
+    return converter;
+  }
 
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient(clientId)//
-				.authorizedGrantTypes("password", "refresh_token")//
-				.scopes("read", "profile")//
-				.secret(passwordEncoder.encode(clientSecret))//
-				.accessTokenValiditySeconds(1 * 60 * 60 * 24)// token 유효 시간 등록
-				.refreshTokenValiditySeconds(0);
-	}
+  @Override
+  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+    clients.inMemory().withClient(clientId)//
+        .authorizedGrantTypes("password", "refresh_token")//
+        .scopes("read", "profile")//
+        .secret(passwordEncoder.encode(clientSecret))//
+        .accessTokenValiditySeconds(1 * 60 * 60 * 24)// token 유효 시간 등록
+        .refreshTokenValiditySeconds(0);
+  }
 
-	@Override
-	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-		// tokenEnhancerChain에 tokenEnhancer들 등록
-		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer(), jwtAccessTokenConverter())); // JWT Converter 등록
-		endpoints.userDetailsService(memberService)// UserDetailsService 등록
-				.authenticationManager(authenticationManager)//
-				.tokenEnhancer(tokenEnhancerChain);
-	}
+  @Override
+  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+    // tokenEnhancerChain에 tokenEnhancer들 등록
+    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer(), jwtAccessTokenConverter())); // JWT Converter 등록
+    endpoints.userDetailsService(memberService)// UserDetailsService 등록
+        .authenticationManager(authenticationManager)//
+        .tokenEnhancer(tokenEnhancerChain);
+  }
 
 }
 ```

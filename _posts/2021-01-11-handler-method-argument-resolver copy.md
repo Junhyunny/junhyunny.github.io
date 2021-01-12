@@ -64,39 +64,39 @@ import blog.in.action.entity.Member;
 @Component
 public class CustomMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-	@Autowired
-	private ObjectMapper objectMapper;
+  @Autowired
+  private ObjectMapper objectMapper;
 
-	@Override
-	public boolean supportsParameter(MethodParameter parameter) {
-		// parameter의 annotation이 @TokenMember 이면서 parameter 타입이 Member 클래스인 경우에만 해당 Resolver의 resolveArgument 메소드가 동작
-		return parameter.getParameterAnnotation(TokenMember.class) != null && parameter.getParameterType().equals(Member.class);
-	}
+  @Override
+  public boolean supportsParameter(MethodParameter parameter) {
+    // parameter의 annotation이 @TokenMember 이면서 parameter 타입이 Member 클래스인 경우에만 해당 Resolver의 resolveArgument 메소드가 동작
+    return parameter.getParameterAnnotation(TokenMember.class) != null && parameter.getParameterType().equals(Member.class);
+  }
 
-	@Override
-	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+  @Override
+  public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-		// Header에서 Authorization 정보 획득
-		String authorizationHeader = webRequest.getHeader("Authorization");
-		if (authorizationHeader == null) {
-			return null;
-		}
+    // Header에서 Authorization 정보 획득
+    String authorizationHeader = webRequest.getHeader("Authorization");
+    if (authorizationHeader == null) {
+      return null;
+    }
 
-		// Barear 를 제외한 토큰을 추출
-		String jwtToken = authorizationHeader.substring(7);
+    // Barear 를 제외한 토큰을 추출
+    String jwtToken = authorizationHeader.substring(7);
 
-		// JWT 토큰 decoder 생성
-		Jwt decodedToken = JwtHelper.decode(jwtToken);
+    // JWT 토큰 decoder 생성
+    Jwt decodedToken = JwtHelper.decode(jwtToken);
 
-		@SuppressWarnings("unchecked")
-		Map<String, String> claims = objectMapper.readValue(decodedToken.getClaims(), Map.class);
+    @SuppressWarnings("unchecked")
+    Map<String, String> claims = objectMapper.readValue(decodedToken.getClaims(), Map.class);
 
-		String memberId = String.valueOf(claims.get("memberId"));
+    String memberId = String.valueOf(claims.get("memberId"));
 
-		Member member = new Member();
-		member.setId(memberId);
-		return member;
-	}
+    Member member = new Member();
+    member.setId(memberId);
+    return member;
+  }
 
 }
 ```
@@ -119,13 +119,13 @@ import blog.in.action.resolver.CustomMethodArgumentResolver;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	@Autowired
-	private CustomMethodArgumentResolver customMethodArgumentsHandler;
+  @Autowired
+  private CustomMethodArgumentResolver customMethodArgumentsHandler;
 
-	@Override
-	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(customMethodArgumentsHandler);
-	}
+  @Override
+  public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    resolvers.add(customMethodArgumentsHandler);
+  }
 }
 ```
 
@@ -155,24 +155,24 @@ import blog.in.action.service.MemberService;
 @RequestMapping(value = "/api/member")
 public class MemberController {
 
-	@Autowired
-	private MemberService memberService;
+  @Autowired
+  private MemberService memberService;
 
-	@PostMapping("/sign-up")
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void requestSignUp(@RequestBody Member member) {
-		memberService.registMember(member);
-	}
+  @PostMapping("/sign-up")
+  @Transactional(propagation = Propagation.REQUIRED)
+  public void requestSignUp(@RequestBody Member member) {
+    memberService.registMember(member);
+  }
 
-	@GetMapping("/user-info")
-	public Member requestUserInfo(@RequestParam("id") String id) {
-		return memberService.findById(id);
-	}
+  @GetMapping("/user-info")
+  public Member requestUserInfo(@RequestParam("id") String id) {
+    return memberService.findById(id);
+  }
 
-	@GetMapping("/user-info-using-token")
-	public Member requestUserInfoUsingToken(@TokenMember Member member) {
-		return memberService.findById(member.getId());
-	}
+  @GetMapping("/user-info-using-token")
+  public Member requestUserInfoUsingToken(@TokenMember Member member) {
+    return memberService.findById(member.getId());
+  }
 }
 ```
 

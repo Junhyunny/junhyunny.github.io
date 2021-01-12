@@ -194,7 +194,7 @@ public class MemberController {
 
 ## OPINION
 사이드 프로젝트를 진행하면서 회사 가이드가 아닌 방식으로 프레임워크의 기능들을 샅샅히 사용해보며 서버를 구성해나가는데 큰 재미를 느끼고 있습니다. 
-해당 코드를 받아보시려면 [github link][github-link]로 이동하시길 바랍니다. 
+해당 코드를 받아보시려면 [github link][blog-githubLink]로 이동하시길 바랍니다. 
 
 #### 참조글
 - [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]

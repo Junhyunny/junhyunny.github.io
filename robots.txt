@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: http://junhyunny.github.io/sitemap.xml

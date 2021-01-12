@@ -10,10 +10,10 @@ last_modified_at: 2021-01-12T00:00:00
 # HandlerMethodArgumentResolver 인터페이스<br>
 
 [Token Enhancer][tokenenhancer-blogLink] 글에서 JWT Token에 클라이언트 정보를 추가하는 기능을 구현해보았습니다. 
-이번 글에서는 HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
+이번 글에서는 HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
 
 ## 패키지 구조
-<p align="left"><img src="/images/handler-method-argument-resolver-1.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="250"></p>
 
 ## TokenMember 애너테이션 구현
 작성 중입니다.

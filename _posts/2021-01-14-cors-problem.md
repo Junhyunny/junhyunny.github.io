@@ -21,7 +21,7 @@ last_modified_at: 2021-01-14T00:00:00
 > 동일 출처 정책은 잠재적으로 해로울 수 있는 문서를 분리함으로써 공격받을 수 있는 경로를 줄여줍니다. -MDN Web Docs
 
 두 URL의 **프로토콜, 호스트, 포트**가 모두 같아야 동일한 출처라고 말할 수 있습니다. 
-아래 이미지처럼 **http://domain-a.con/** 에서 **http://domain-a.con/** 서버로의 요청은 same-origin, **http://domain-b.con/** 서버로의 요청은 cross-origin 입니다. 
+아래 이미지처럼 **http://domain-a.con/** 에서 **http://domain-a.con/** 서버로의 요청은 **same-origin**, **http://domain-b.con/** 서버로의 요청은 **cross-origin** 입니다. 
 same-origin 서버로의 요청은 정상적인 응답을 받을 수 있지만 cross-origin 서버로의 요청은 응답받는 헤더 정보에 따라 정상적이거나 아닐 수 있습니다. 
 
 <p align="center"><img src="/images/cors-problem-1.JPG" width="450"></p>

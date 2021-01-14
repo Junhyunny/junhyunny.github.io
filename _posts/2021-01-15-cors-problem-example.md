@@ -5,7 +5,7 @@ category:
   - side project
   - spring web
   - vue
-last_modified_at: 2021-01-14T00:00:00
+last_modified_at: 2021-01-15T00:00:00
 ---
 
 # CROS(Cross Origin Resource Sharing) 문제 해결<br>

@@ -16,6 +16,7 @@ last_modified_at: 2021-01-13T00:00:00
 ## 롤링 배포(rolling deployment)
 
 <p align="center"><img src="/images/msa-release-1.JPG"></p>
+<center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 동일 서버의 인스턴스가 여러 개 존재할 때 이를 신 버전으로 하나씩 교체해가면서 배포하는 방식입니다. 
 구 버전에서 신 버전으로 트래픽을 점진적으로 전환하는 배포입니다. 
@@ -26,6 +27,7 @@ last_modified_at: 2021-01-13T00:00:00
 > 과거 석탄 광산에서 유독가스를 미리 감지하고자 카나리아 새를 날려 보냈던 것에서 유래
 
 <p align="center"><img src="/images/msa-release-2.JPG"></p>
+<center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 위험을 최소화하면서 실제 프로덕션 배포를 테스트하는 방법입니다. 
 사용자 요청의 일부를 신규 서비스로 라우팅하여 이를 테스트해봅니다. 
@@ -41,6 +43,7 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 ## 블루-그린 배포(Blue-green deployments)
 
 <p align="center"><img src="/images/msa-release-3.JPG"></p>
+<center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 구 버전을 블루, 신 버전을 그린으로 표현합니다. 블루-그린 배포는 두 가지 프로덕션 환경을 나란히 운영합니다. 
 배포 시점에 트래픽을 일제히 전환합니다. 

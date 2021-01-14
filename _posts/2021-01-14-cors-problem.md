@@ -103,7 +103,7 @@ API를 사용하는 웹 어플리케이션은 자신의 출처와 동일한 리�
 
 ### 프리플라이트 요청 (Preflight requests)
 단순 요청과 달리 먼저 OPTIONS 메소드를 통해 다른 도메인의 리소스로 HTTP 요청을 보내 실제 요청이 전송하기에 안전한지 확인하는 방법입니다. 
-cross-site 요청은 유저 데이터에 영향을 줄 수 있기 때문에 미리 전송(preflighted)합니다.
+cross-site 요청은 유저 데이터에 영향을 줄 수 있기 때문에 미리 전송(preflighted)해보는 방식입니다.
 
 - https://foo.example 도메인의 웹 컨텐츠가 https://bar.other 도메인의 컨텐츠를 프리플라이트 호출
   - Preflight 요청을 전송합니다.(Preflight request)

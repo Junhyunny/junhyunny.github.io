@@ -30,7 +30,7 @@ same-origin 서버로의 요청은 정상적인 응답을 받을 수 있지만 c
 아래 표는 웹 어플리케이션이 http://store.company.com (기본 포트, 80) 프로토콜, 호스트, 포트 정보를 가질 때 요청 성공 여부입니다.
 
 | URL | 결과 | 이유 |
-|---|:---:|---:|
+|---|:---:|:---|
 | http://store.company.com/dir2/other.html | 성공 | 경로만 다름 |
 | http://store.company.com/dir/inner/another.html | 성공 | 경로만 다름 |
 | https://store.company.com/secure.html | 실패 | 프로토콜 다름 |
@@ -50,7 +50,8 @@ API를 사용하는 웹 어플리케이션은 자신의 추철와 동일한 리�
 ## CORS 작동 방식
 ### 단순 요청 (Simple requests)
 일부 요청은 CORS preflight 트리거를 수행하지 않습니다. 
-이런 단순 요청은 아래 조건들을 만족해야 합니다. (일부만 정리하였으며 구체적인 내용은 [MDN Web Docs - CORS][cors-webDocsLink])
+이런 단순 요청은 아래 조건들을 만족해야 합니다.<br>
+(일부만 정리하였으며 구체적인 내용은 [MDN Web Docs - CORS][cors-webDocsLink])
 - 메소드
   - GET
   - HEAD
@@ -72,8 +73,8 @@ API를 사용하는 웹 어플리케이션은 자신의 추철와 동일한 리�
 
 - https://foo.example 도메인의 웹 컨텐츠가 https://bar.other 도메인의 컨텐츠를 단순 호출
   - 클라이언트와 서버간에 간단한 통신을 하고, CORS 헤더를 사용하여 권한을 처리합니다.
-	- 응답 헤더로 __Access-Control-Allow-Origin: *__ 를 전달받는데 이는 모든 도메인에서 접근할 수 있음을 의미합니다.
-	- 특정 도메인의 요청만 허용하려면 **Access-Control-Allow-Origin: https://foo.example** 와 같은 방식의 응답 헤더가 필요합니다.
+  - 응답 헤더로 __Access-Control-Allow-Origin: *__ 를 전달받는데 이는 모든 도메인에서 접근할 수 있음을 의미합니다.
+  - 특정 도메인의 요청만 허용하려면 **Access-Control-Allow-Origin: https://foo.example** 와 같은 방식의 응답 헤더가 필요합니다.
 
 <p align="center"><img src="/images/cors-problem-2.JPG" width="450"></p>
 <center>이미지 출처, https://developer.mozilla.org/ko/docs/Web/HTTP/CORS</center><br>
@@ -106,15 +107,15 @@ cross-site 요청은 유저 데이터에 영향을 줄 수 있기 때문에 미�
 
 - https://foo.example 도메인의 웹 컨텐츠가 https://bar.other 도메인의 컨텐츠를 프리플라이트 호출
   - Preflight 요청을 전송합니다.(Preflight request)
-	- 이에 대한 응답을 받은 후 실제 요청을 전달합니다.(Main request)
-	- Preflight 요청을 보면 다음과 같은 정보를 확인할 수 있습니다.
-	  - Access-Control-Request-Method: POST (실제 요청에서 사용할 메소드)
-		- Access-Control-Request-Headers: X-PINGOTHER, Content-Type (실제 요청에서 사용할 헤더 정보)
-	- Preflight 응답을 보면 다음과 같은 정보를 확인할 수 있습니다.
-	  - Access-Control-Allow-Origin: https://foo.example (https://foo.example 도메인의 요청만 허용)
-		- Access-Control-Allow-Methods: POST, GET, OPTIONS (허용되는 메소드)
-		- Access-Control-Allow-Headers: X-PINGOTHER, Content-Type (허용되는 헤더 정보)
-		- Access-Control-Max-Age: 86400 (preflight 요청 결과를 캐시할 수 있는 시간)
+  - 이에 대한 응답을 받은 후 실제 요청을 전달합니다.(Main request)
+  - Preflight 요청을 보면 다음과 같은 정보를 확인할 수 있습니다.
+    - Access-Control-Request-Method: POST (실제 요청에서 사용할 메소드)
+    - Access-Control-Request-Headers: X-PINGOTHER, Content-Type (실제 요청에서 사용할 헤더 정보)
+  - Preflight 응답을 보면 다음과 같은 정보를 확인할 수 있습니다.
+    - Access-Control-Allow-Origin: https://foo.example (https://foo.example 도메인의 요청만 허용)
+    - Access-Control-Allow-Methods: POST, GET, OPTIONS (허용되는 메소드)
+    - Access-Control-Allow-Headers: X-PINGOTHER, Content-Type (허용되는 헤더 정보)
+    - Access-Control-Max-Age: 86400 (preflight 요청 결과를 캐시할 수 있는 시간)
   
 <p align="center"><img src="/images/cors-problem-3.JPG" width="450"></p>
 <center>이미지 출처, https://developer.mozilla.org/ko/docs/Web/HTTP/CORS</center><br>

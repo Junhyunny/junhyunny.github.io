@@ -11,9 +11,9 @@ last_modified_at: 2021-01-15T00:00:00
 
 # CROS(Cross Origin Resource Sharing) 서버 구현<br>
 
-Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 구현하여 CORS(Cross Origin Resource Sharing)에 대한 테스트를 진행해보겠습니다. 
-front-end 프로젝트는 새롭게 구현하였지만 back-end 프로젝트는 지난 [HandlerMethodArgumentResolver 인터페이스][resolver-blogLink] 글에서 사용한 프로젝트를 확장하여 사용하였습니다. 
-새로 추가된 클래스나 변경된 클래스가 아닌 경우에는 따로 설명을 추가하지 않았습니다. 
+Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 구현하여 CORS에 대한 테스트를 진행해보겠습니다. 
+front-end 프로젝트는 새롭게 만들었고, back-end 프로젝트는 지난 [HandlerMethodArgumentResolver 인터페이스][resolver-blogLink] 글에서 사용한 프로젝트를 확장하여 사용하였습니다. 
+새로 추가되거나 변경된 클래스가 아닌 경우에는 따로 설명을 추가하지 않았습니다. 
 CORS(Cross Origin Resource Sharing) 개념에 대해서는 [CORS(Cross Origin Resource Sharing)][cors-blogLink] 글을 통해 확인해보시길 바랍니다.
 
 ## front-end 프로젝트 패키지 구조
@@ -22,7 +22,7 @@ CORS(Cross Origin Resource Sharing) 개념에 대해서는 [CORS(Cross Origin Re
 
 ## CorsReuqest.vue
 2가지 API PATH를 통해 테스트를 진행하였습니다. 
-각 버튼에 자신이 요청하는 프로토콜, 호스트, 포트, 경로에 대한 정보가 적혀있습니다. 
+각 버튼에 자신이 요청하는 프로토콜, 호스트, 포트, 경로에 대한 정보가 적혀있습니다.<br>
 버튼 아래 응답에 대한 정보를 출력합니다.
 
 ```vue
@@ -73,7 +73,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/cors-example-2.JPG"></p>
+<p align="left"><img src="/images/cors-example-2.JPG" wdith="250"></p>
 
 ## application.yml
 포트 정보를 추가하였습니다.
@@ -94,7 +94,7 @@ spring:
 ```
 
 ## ResourceServer 클래스 변경
-CORS 테스트를 새로운 API의 경우 권한에 대한 체크가 불필요하여 인증 없이 요청할 수 있도록 허용해두었습니다.
+CORS 테스트 용 API인 경우 권한에 대한 체크가 불필요하여 인증 없이 요청할 수 있도록 허용해두었습니다.
 
 ```java
 package blog.in.action.security;
@@ -123,7 +123,10 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 ```
 
 ## CorsController 클래스 구현
-2개의 API path를 만들었으며 **/api/cors/health** 경로는 일반 GET 요청,  **/api/cors/health-cors-annotaion** 경로는 GET 요청에 @CrossOrigin 애너테이션을 붙여뒀습니다.  
+2개의 API PATH를 만들었습니다.
+
+- **/api/cors/health** 경로는 일반 GET 요청
+- **/api/cors/health-cors-annotaion** 경로는 GET 요청에 @CrossOrigin 애너테이션을 추가
 
 ```java
 package blog.in.action.controller;
@@ -151,14 +154,14 @@ public class CorsController {
 ```
 
 ## Spring-Boot Framework CORS 동작 원리
-이제 테스트 전에 Spring-Boot Framework 에서 CORS 가 어떤 식으로 동작하는 원리에 대해서 알아보겠습니다. 
+테스트 전에 Spring-Boot Framework 에서 CORS 가 동작하는 원리에 대해 알아보도록 하겠습니다. 
 
 ### CorsFilter 객체 생성
-다음과 같은 순서로 CorsFilter 객체를 생상합니다.
+다음과 같은 순서로 CorsFilter 객체를 생성합니다.
 1. CorsConfigurationSource @Bean이 있는지 확인
 1. 존재하는 경우 CorsConfigurationSource @Bean을 CorsFilter 객체의 configSource 로 사용하여 CorsFilter 객체 생성
 1. 없는 경우 HandlerMappingIntrospector @Bean을 생성
-  1. HandlerMappingIntrospector @Bean을 생성하는 과정에서 API endpoint 별로 CorsConfiguration을 생성
+  1\. HandlerMappingIntrospector @Bean을 생성하는 과정에서 API endpoint 별로 CorsConfiguration을 생성
 1. HandlerMappingIntrospector @Bean을 CorsFilter 객체의 configSource 로 사용하여 CorsFilter 객체 생성
 
 <p align="center"><img src="/images/cors-example-3.JPG"></p>

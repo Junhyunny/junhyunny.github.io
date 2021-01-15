@@ -160,8 +160,8 @@ public class CorsController {
 다음과 같은 순서로 CorsFilter 객체를 생성합니다.
 1. CorsConfigurationSource @Bean이 있는지 확인
 1. 존재하는 경우 CorsConfigurationSource @Bean을 CorsFilter 객체의 configSource 로 사용하여 CorsFilter 객체 생성
-1. 없는 경우 HandlerMappingIntrospector @Bean을 생성<br><br>
-  1\. HandlerMappingIntrospector @Bean을 생성하는 과정에서 API endpoint 별로 CorsConfiguration을 생성
+1. 없는 경우 HandlerMappingIntrospector @Bean을 생성<br>
+	1. HandlerMappingIntrospector @Bean을 생성하는 과정에서 API endpoint 별로 CorsConfiguration을 생성
 1. HandlerMappingIntrospector @Bean을 CorsFilter 객체의 configSource 로 사용하여 CorsFilter 객체 생성
 
 <p align="center"><img src="/images/cors-example-3.JPG"></p>
@@ -181,11 +181,11 @@ public class CorsController {
 ### CorsFilter 객체 동작
 다음과 같은 순서로 CorsFilter 객체는 동작합니다.
 1. ApplicationFilterChain에 속하는 Filter들이 순서대로 동작
-1. ApplicationFilterChain에 속하는 DelegatingFilterProxyRegistrationBean 객체의 doFilter 메소드 호출<br><br>
-  1\. FilterChainProxy에 속하는 추가적인 Filter들이 순서대로 동작<br>
-  2\. FilterChainProxy에 속하는 CorsFilter 객체의 doFilter 메소드 호출<br>
-  3\. 해당 요청이 허가된 응답인지 CorsConfiguration 객체를 통해 확인 및 헤더 값 SETTING<br>
-  4\. 필요한 CorsConfiguration 객체는 필터 생성시 SETTING 된 CorsConfigurationSource 객체를 통해 GET
+1. ApplicationFilterChain에 속하는 DelegatingFilterProxyRegistrationBean 객체의 doFilter 메소드 호출<br>
+	1. FilterChainProxy에 속하는 추가적인 Filter들이 순서대로 동작<br>
+	1. FilterChainProxy에 속하는 CorsFilter 객체의 doFilter 메소드 호출<br>
+	1. 해당 요청이 허가된 응답인지 CorsConfiguration 객체를 통해 확인 및 헤더 값 SETTING<br>
+	1. 필요한 CorsConfiguration 객체는 필터 생성시 SETTING 된 CorsConfigurationSource 객체를 통해 GET
 
 <p align="center"><img src="/images/cors-example-6.JPG"></p>
 

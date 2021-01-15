@@ -124,7 +124,6 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 
 ## CorsController 클래스 구현
 2개의 API PATH를 만들었습니다.
-
 - **/api/cors/health** 경로는 일반 GET 요청
 - **/api/cors/health-cors-annotaion** 경로는 GET 요청에 @CrossOrigin 애너테이션을 추가
 

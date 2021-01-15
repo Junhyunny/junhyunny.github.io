@@ -73,7 +73,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/cors-example-2.JPG" wdith="200"></p>
+<p align="left"><img src="/images/cors-example-2.JPG" wdith="150"></p>
 
 ## application.yml
 포트 정보를 추가하였습니다.

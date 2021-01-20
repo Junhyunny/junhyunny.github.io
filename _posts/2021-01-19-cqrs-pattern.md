@@ -18,7 +18,7 @@ last_modified_at: 2021-01-20T00:00:00
 ## CQRS 패턴을 사용하게 된 원인
 
 - 기존 아키텍처 패턴
-<p align="center"><img src="/images/cqrs-pattern-1.JPG" width="450"></p>
+<p align="center"><img src="/images/cqrs-pattern-1.JPG"></p>
 <center>이미지 출처, https://martinfowler.com/bliki/CQRS.html</center><br>
 
 시스템은 다음과 같은 문제점들을 가지고 있습니다.
@@ -31,7 +31,7 @@ last_modified_at: 2021-01-20T00:00:00
 ## CQRS 패턴의 이점/약점
 
 - CQRS 아키택처 패턴
-<p align="center"><img src="/images/cqrs-pattern-2.JPG" width="450"></p>
+<p align="center"><img src="/images/cqrs-pattern-2.JPG"></p>
 <center>이미지 출처, https://martinfowler.com/bliki/CQRS.html</center><br>
 
 이를 해결하기 위한 방법으로 CUD 기능과 R 기능을 분할한 CQRS 패턴 고안되었습니다. 
@@ -62,7 +62,7 @@ CQRS 패턴에 이벤트 소싱은 필수가 아니지만 이벤트 소싱에 CQ
 이런 성능 문제를 snapshot 개념과 CQRS 패턴을 적용하여 해소합니다. (snapshot 기능은 추후 이벤트 소싱에 대해 다루는 글에서 설명)
 
 - CQRS 아키택처 패턴과 이벤트 소싱
-<p align="center"><img src="/images/cqrs-pattern-3.JPG" width="450"></p>
+<p align="center"><img src="/images/cqrs-pattern-3.JPG"></p>
 <center>이미지 출처, https://github.com/jaceshim/springcamp2017/blob/master/springcamp2017_implementing_es_cqrs.pdf</center><br>
 
 ## OPINION

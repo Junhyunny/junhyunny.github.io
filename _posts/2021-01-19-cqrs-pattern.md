@@ -9,7 +9,7 @@ last_modified_at: 2021-01-20T00:00:00
 
 # CQRS(Command Query Responsibility Segregation) Pattern<br>
 
-> CQRS는 Command and Query Responsibility Segregation(명령과 조회의 책임 분리)
+> CQRS(Command and Query Responsibility Segregation) - 명령과 조회의 책임 분리
 
 마이크로 서비스 아키텍처를 도입하여 시스템 개발을 진행하는 초기에 아키텍처 팀에서 사용할지 고민했던 아키텍처 패턴입니다. 
 데이터 정합성, 빠쁜 일정에 쫒기는 와중에 시스템 구현의 복잡도 증가 등의 이유로 최종적으로 채택되진 못했습니다. 

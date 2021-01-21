@@ -31,49 +31,49 @@ selectUploadFile() 함수에서 이미지를 업로드를 위한 element를 만�
 
 ```vue
 <template>
-	<div>
-		<h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
-		<div>
-			<button @click="selectUploadFile()">이미지 선택</button>
-		</div>
-	</div>
+  <div>
+    <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
+    <div>
+      <button @click="selectUploadFile()">이미지 선택</button>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-	name: 'CorsReuqest',
-	data() {
-		return {
-			response: ''
-		}
-	},
-	methods: {
-		selectUploadFile() {
-			var vue = this
-			let elem = document.createElement('input')
-			// 이미지 파일 업로드 / 동시에 여러 파일 업로드
-			elem.id = 'image'
-			elem.type = 'file'
-			elem.accept = 'image/*'
-			elem.multiple = true
-			// 클릭
-			elem.click();
-			// 이벤트 감지
-			elem.onchange = function() {
-				const formData = new FormData()
-				for (var index = 0; index < this.files.length; index++) {
-					formData.append('fileList', this.files[index])
-				}
-				axios.post('http://localhost:8081/api/member/upload/profile-img', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-					vue.response = response.data
-				}).catch(error => {
-					vue.response = error.message
-				})
-			}
-		}
-	}
+  name: 'CorsReuqest',
+  data() {
+    return {
+      response: ''
+    }
+  },
+  methods: {
+    selectUploadFile() {
+      var vue = this
+      let elem = document.createElement('input')
+      // 이미지 파일 업로드 / 동시에 여러 파일 업로드
+      elem.id = 'image'
+      elem.type = 'file'
+      elem.accept = 'image/*'
+      elem.multiple = true
+      // 클릭
+      elem.click();
+      // 이벤트 감지
+      elem.onchange = function() {
+        const formData = new FormData()
+        for (var index = 0; index < this.files.length; index++) {
+          formData.append('fileList', this.files[index])
+        }
+        axios.post('http://localhost:8081/api/member/upload/profile-img', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+          vue.response = response.data
+        }).catch(error => {
+          vue.response = error.message
+        })
+      }
+    }
+  }
 }
 </script>
 ```
@@ -98,17 +98,17 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServer extends ResourceServerConfigurerAdapter {
 
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		http.cors().and() //
-				.authorizeRequests() //
-				.antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
-				.antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
-				.antMatchers("/api/member/upload/profile-img").permitAll() // file upload API는 모든 요청 허용
-				.antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
-				.anyRequest().authenticated().and() //
-				.exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-	}
+  @Override
+  public void configure(HttpSecurity http) throws Exception {
+    http.cors().and() //
+        .authorizeRequests() //
+        .antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
+        .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
+        .antMatchers("/api/member/upload/profile-img").permitAll() // file upload API는 모든 요청 허용
+        .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
+        .anyRequest().authenticated().and() //
+        .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+  }
 }
 ```
 
@@ -143,38 +143,38 @@ import blog.in.action.service.MemberService;
 @RequestMapping(value = "/api/member")
 public class MemberController {
 
-	@Autowired
-	private MemberService memberService;
+  @Autowired
+  private MemberService memberService;
 
-	@PostMapping("/sign-up")
-	@Transactional(propagation = Propagation.REQUIRED)
-	public void requestSignUp(@RequestBody Member member) {
-		memberService.registMember(member);
-	}
+  @PostMapping("/sign-up")
+  @Transactional(propagation = Propagation.REQUIRED)
+  public void requestSignUp(@RequestBody Member member) {
+    memberService.registMember(member);
+  }
 
-	@GetMapping("/user-info")
-	public Member requestUserInfo(@RequestParam("id") String id) {
-		return memberService.findById(id);
-	}
+  @GetMapping("/user-info")
+  public Member requestUserInfo(@RequestParam("id") String id) {
+    return memberService.findById(id);
+  }
 
-	@GetMapping("/user-info-using-token")
-	public Member requestUserInfoUsingToken(@TokenMember Member member) {
-		return memberService.findById(member.getId());
-	}
+  @GetMapping("/user-info-using-token")
+  public Member requestUserInfoUsingToken(@TokenMember Member member) {
+    return memberService.findById(member.getId());
+  }
 
-	@PostMapping(value = "/upload/profile-img")
-	public @ResponseBody String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
-		try {
-			for (MultipartFile multipartFile : fileList) {
-				FileOutputStream writer = new FileOutputStream("./images/" + multipartFile.getOriginalFilename());
-				writer.write(multipartFile.getBytes());
-				writer.close();
-			}
-		} catch (Exception e) {
-			return "upload fail";
-		}
-		return "upload success";
-	}
+  @PostMapping(value = "/upload/profile-img")
+  public @ResponseBody String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
+    try {
+      for (MultipartFile multipartFile : fileList) {
+        FileOutputStream writer = new FileOutputStream("./images/" + multipartFile.getOriginalFilename());
+        writer.write(multipartFile.getBytes());
+        writer.close();
+      }
+    } catch (Exception e) {
+      return "upload fail";
+    }
+    return "upload success";
+  }
 }
 ```
 

@@ -22,14 +22,14 @@ back-end 프로젝트는 이전 [CROS(Cross Origin Resource Sharing) 서버 구�
 
 ## front-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/multipartfile-1.JPG" wdith="150"></p>
+<p align="left"><img src="/images/multipartfile-1.JPG" wdith="100"></p>
 
 ## FileUpload.vue
 파일을 업로드하기 위한 페이지입니다. 
 selectUploadFile() 함수에서 이미지 업로드를 위한 element를 만들고 이를 클릭 처리합니다.
-선택된 이미지를 FormData 객체에 담아 POST 요청시 서버로 전달합니다.
-- 요청에 대한 정상적인 응답 처리, **then()** 수행
-- 요청에 대한 비정상적인 응답 처리, **catch()** 수행
+선택된 이미지를 FormData 객체에 담아 POST 요청시 서버로 전달합니다. 
+요청에 대한 정상적인 응답 처리시 **then()** 함수가 수행됩니다. 
+반대로 요청에 대한 비정상적인 응답 처리시 **catch()** 함수가 수행 수행됩니다.
 
 ```vue
 <template>
@@ -82,7 +82,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/multipartfile-2.JPG" wdith="150"></p>
+<p align="left"><img src="/images/multipartfile-2.JPG" wdith="100"></p>
 
 ## ResourceServer 클래스 변경
 파일 업로드를 위한 **/api/member/upload/profile-img** 경로는 인증없이 사용할 수 있도록 모든 요청에 대해 허용하였습니다.
@@ -255,5 +255,5 @@ spring:
 - <https://spring.io/guides/gs/uploading-files/>
 
 [cors-blogLink]: https://junhyunny.github.io/main%20project/side%20project/spring%20web/vue.js/cors-example/
-[front-gitLink]: https://github.com/Junhyunny/action-in-blog-front/tree/d87e3d024d4909c203390f58c2633c9db61c4269
-[back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/ab53d585cdd265c49a1b4585dfeec92c4c1918cc
+[front-gitLink]: https://github.com/Junhyunny/action-in-blog-front/tree/38f385f791536b04c82ab4a6fd9459c10446710e
+[back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/23cd61abf125435813bcc8e2fadbf843b488c7d3

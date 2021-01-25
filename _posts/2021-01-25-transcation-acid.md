@@ -4,7 +4,7 @@ search: false
 category: 
   - main project
   - information
-  - data base
+  - database
 last_modified_at: 2021-01-25T00:00:00
 ---
 

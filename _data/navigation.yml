@@ -2,8 +2,8 @@
 main:
   - title: "Home"
     url: https://junhyunny.github.io/
-  - title: "About"
-    url: https://junhyunny.github.io/about/
+  # - title: "About"
+  #   url: https://junhyunny.github.io/about/
   - title: "Posts"
     url: https://junhyunny.github.io/posts/
   - title: "Category"

@@ -64,6 +64,7 @@ last_modified_at: 2021-01-26T00:00:00
 - 격리 수준에 따른 문제는 발생하지 않지만 동시성이 저하되는 문제가 발생합니다.
 
 ### 각 격리성 수준에 따라 발생하는 문제점
+
 | 격리 수준 | Dirty Read | Non-Repeatable Read | Phantom Read |
 |---|:---:|:---:|:---:|
 | Read Uncommitted | O | O | O |

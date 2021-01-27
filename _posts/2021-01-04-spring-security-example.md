@@ -1,8 +1,7 @@
 ---
 title: "Spring Security 기반 JWT 인증 방식 예제"
 search: false
-category: 
-  - side project
+category:
   - security
   - spring security
 last_modified_at: 2021-01-06T00:00:00
@@ -12,7 +11,7 @@ last_modified_at: 2021-01-06T00:00:00
 
 지난 포스트에서는 [Jason Web Token][json-blogLink]과 [Spring Security][security-blogLink] 대한 이야기를 해보았습니다.
 Spring Security Framework을 이용하여 Jason Web Token 인증 방식을 구현해보았습니다. 
-간단한 구현을 위해 h2 메모리 DB를 사용하였습니다.
+간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
 <p align="left"><img src="/images/spring-security-example-1.JPG"></p>

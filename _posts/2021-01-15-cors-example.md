@@ -1,9 +1,7 @@
 ---
 title: "CROS(Cross Origin Resource Sharing) 서버 구현"
 search: false
-category: 
-  - main project
-  - side project
+category:
   - spring web
   - vue.js
 last_modified_at: 2021-01-15T00:00:00

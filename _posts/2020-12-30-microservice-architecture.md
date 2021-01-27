@@ -1,8 +1,7 @@
 ---
 title: "Micro Service Architecture"
 search: false
-category: 
-  - main project
+category:
   - information
   - msa
 last_modified_at: 2020-12-31T00:00:00

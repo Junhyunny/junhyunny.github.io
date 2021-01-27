@@ -1,8 +1,7 @@
 ---
 title: "Spring Security"
 search: false
-category: 
-  - side project
+category:
   - information
   - security
   - spring security

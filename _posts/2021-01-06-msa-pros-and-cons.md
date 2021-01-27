@@ -1,8 +1,7 @@
 ---
 title: "MSA Pros And Cons"
 search: false
-category: 
-  - main project
+category:
   - information
   - msa
 last_modified_at: 2021-01-09T00:00:00

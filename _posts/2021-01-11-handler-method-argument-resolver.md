@@ -1,8 +1,7 @@
 ---
 title: "HandlerMethodArgumentResolver 인터페이스"
 search: false
-category: 
-  - side project
+category:
   - spring web
 last_modified_at: 2021-01-12T00:00:00
 ---

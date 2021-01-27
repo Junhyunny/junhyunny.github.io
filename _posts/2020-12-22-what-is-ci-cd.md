@@ -1,8 +1,7 @@
 ---
 title: "CI/CD란 무엇인가?"
 search: false
-category: 
-  - main project
+category:
   - information
 last_modified_at: 2020-12-23T00:00:00
 ---

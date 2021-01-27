@@ -1,8 +1,7 @@
 ---
 title: "JWT, Json Web Token"
 search: false
-category: 
-  - side project
+category:
   - information
   - security
 last_modified_at: 2021-01-01T00:00:00

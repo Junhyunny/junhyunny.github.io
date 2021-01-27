@@ -1,8 +1,7 @@
 ---
 title: "Token Enhancer"
 search: false
-category: 
-  - side project
+category:
   - security
   - spring security
 last_modified_at: 2021-01-11T00:00:00

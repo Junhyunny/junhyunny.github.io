@@ -5,29 +5,29 @@ category:
   - information
   - security
   - spring security
-last_modified_at: 2021-01-02T00:00:00
+last_modified_at: 2021-01-28T00:00:00
 ---
 
 # Spring Security<br>
 
 지난 포스트에서는 [Jason Web Token][blogLink]에 대한 이야기를 해보았습니다. 
-Jason Web Token을 활용한 서버 구현 전에 Spring Security Framework에 대해 알아보았습니다. 
+Jason Web Token을 활용한 서버 구현 전에 Spring Security 프레임워크에 대해 알아보았습니다. 
 
 > Spring Security is a Java/Java EE framework that provides **authentication, authorization** and other security features for enterprise applications.
 > Spring Security in the web tier (for UIs and HTTP back ends) is based on Servlet Filters.
 
 ## 보안 관련 용어
 Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 정의해보았습니다.<br>
-- 접근 주체(Principal)
+- **접근 주체(Principal)**
   - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
-- 인증(Authentication)
+- **인증(Authentication)**
   - Application 작업을 수행할 수 있는 주체(사용자)임을 증명하는 행위
   - who are you?
-- 권한(Authorization)
+- **권한(Authorization)**
   - 인증된 주체가 application의 동작을 수행할 수 있도록 허락되었는지 확인, 결정하는 행위
   - what are you allowed to do?
 
-> 특정 기능을 수행할 수 있는 권한(Authorization)은 승인이 필요한 부분으로 접근하기 위해서는 인증(Authentication) 과정이 필요
+> 특정 기능을 수행할 수 있는 권한(Authorization)은 승인이 필요한 부분이므로 접근하기 위해서는 인증(Authentication) 과정이 필요합니다.
 
 ## Servlet Filters in Web Security
 웹 계층 (UI 및 HTTP 백엔드 용)의 Spring Security는 서블릿 필터(servlet filter)를 기반으로 구현되어 있습니다.
@@ -44,9 +44,9 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 **(In the client–server model, downstream can refer to the direction from the server to the client.)**
 
 ## Speing Security FilterChainProxy
-Spring Security는 하나의 필터로서 FilterChainProxy라는 타입으로 서블릿 필터 체인에 포함됩니다. 
+**Spring Security는 하나의 필터로서 FilterChainProxy라는 타입으로 서블릿 필터 체인에 포함됩니다.** 
 컨테이너 입장에서 보면 Spring Security는 1개의 필터이지만 그 내부를 살펴보면 각자 특수한 역할을 수행하는 필터들로 구성되어 있습니다. 
-FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보안 로직을 포함하고 있습니다. 
+FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보안 로직(필터)들을 포함하고 있습니다. 
 
 - FilterChainProxy 추상화 이미지
 <p align="center"><img src="/images/spring-security-2.JPG"></p>
@@ -116,8 +116,8 @@ public interface UserDetailsService {
 
 ## OPINION
 처음 사이드 프로젝트를 진행할 때 Spring Security에 대한 이해도가 많이 부족한 상태였습니다. 
-이해도가 떨어지는 상태에서 이를 해결하려고 하니 많은 삽질(?)을 하였습니다. 
-이 내용이 다른 분들에게도 많은 도움이 되길 바랍니다.
+이해도가 떨어지는 상태에서 이를 사용하고, 발생하는 문제들을 해결하려고 하니 많은 삽질(?)을 하였습니다. 
+이 개념적인 내용이 다른 분들에게도 많은 도움이 되길 바랍니다.
 
 #### 참조글
 - <https://spring.io/guides/topicals/spring-security-architecture/>
@@ -125,4 +125,4 @@ public interface UserDetailsService {
 - <https://bamdule.tistory.com/52>
 - <https://sjh836.tistory.com/165>
 
-[blogLink]: https://junhyunny.github.io/side%20project/information/security/json-web-token/
+[blogLink]: https://junhyunny.github.io/information/security/json-web-token/

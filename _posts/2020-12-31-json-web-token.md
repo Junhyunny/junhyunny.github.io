@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - security
-last_modified_at: 2021-01-01T00:00:00
+last_modified_at: 2021-01-28T00:00:00
 ---
 
 # JWT, Json Web Token
@@ -15,10 +15,10 @@ Json 객체를 사용하여 가볍고 자가 수용적인 방식으로 정보를
 C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에서 지원됩니다. 
 
 ## 클레임(Claim) 기반이란?
-우선 클레임 기반에 대한 정의를 알아보도록 하겠습니다. 
-주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 클레임 기반은 토큰 내에 사용자 정보나 데이터 속성 등을 담고 있습니다. 
+우선 `클레임 기반`에 대한 정의를 알아보도록 하겠습니다. 
+주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 **클레임 기반 토큰은 내부에 사용자 정보나 데이터 속성 등을 담고 있습니다.** 
 
-- 일반 string 토큰 인증 방식
+#### 일반 string 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-1.JPG"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
@@ -28,8 +28,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
-<br>
-- 클레임 기반 토큰 인증 방식
+#### 클레임 기반 토큰 인증 방식
 <p align="center"><img src="/images/json-web-token-2.JPG"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
@@ -41,11 +40,10 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
 이러한 인증 방식의 차이로 클레임 기반의 경우 토큰을 생성하는 단계에서 토큰을 별도로 서버에 유지할 필요가 없어졌습니다. 
-API 서버 입장에서는 API 요청을 검증하기 위해 토큰을 이용해 사용자 정보를 별도로 조회할 필요가 없어졌습니다. 
+API 서버는 API 요청을 검증하기 위해 토큰을 이용하여 사용자 정보를 별도로 조회할 필요가 없어졌습니다. 
 
 ## Json Web Token 구조
-Header, Payload, Signature 3개의 정보를 담고 있습니다. 
-각 정보에 대해 자세히 알아보도록 하겠습니다.
+Header, Payload, Signature 3개의 정보를 담고 있습니다. 각 정보에 대해 자세히 알아보도록 하겠습니다.
 
 <p align="center"><img src="/images/json-web-token-3.JPG"></p>
 
@@ -117,8 +115,8 @@ HMACSHA256(
 
 ## OPINION
 회사에서 업무상 진행하는 프로젝트는 규모가 크고, 모든 일이 협업을 통해 진행되기 때문에 보안과 관련된 내용을 접하기 어려웠습니다. 
-스스로 성장할 수 있는 resource를 얻기 위해 side project를 진행하였으며 이 과정에서 직접 security  구현 및 관련 개념들에 대해서 배우게 되었습니다. 
-이 글에서는 Json Web Token에 대한 개념에 대해서정리했다면 다음 글은 spring security를 이용한 구현에 대해 정리할 예정입니다. 
+스스로 성장할 수 있는 resource를 얻기 위해 side project를 진행하였으며 이 과정에서 직접 security 구현 및 관련 개념들에 대해 배우게 되었습니다. 
+이 글에서는 Json Web Token에 대한 개념에 대해서 정리했다면 다음 글은 spring security를 이용한 구현에 대해 정리할 예정입니다. 
 
 #### 참조글
 - <https://bcho.tistory.com/999>

@@ -10,7 +10,7 @@ last_modified_at: 2021-01-06T00:00:00
 # Spring Security 기반 JWT 인증 방식 예제<br>
 
 지난 포스트에서는 [Jason Web Token][json-blogLink]과 [Spring Security][security-blogLink] 대한 이야기를 해보았습니다.
-Spring Security Framework을 이용하여 Jason Web Token 인증 방식을 구현해보았습니다. 
+Spring Security 프레임워크를 이용하여 Jason Web Token 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
@@ -200,7 +200,7 @@ public class Config {
 
 ## AuthorizationServer 클래스 구현
 인증에 필요한 설정이 가능한 @Configuration입니다. 
-@EnableAuthorizationServer 애너테이션을 붙임으로서 클라이언트 토큰을 저장하는 인메모리 저장소를 가진 권한 서버가 생성됩니다. 
+@EnableAuthorizationServer 애너테이션을 붙임으로서 클라이언트 토큰을 저장할 수 있는 인메모리 저장소를 가진 권한 서버가 생성됩니다. 
 AuthorizationServerConfigurerAdapter 클래스를 확장한 후 필요한 설정들을 추가하기 위한 메소드들을 Override합니다. 
 자세한 내용은 [API 문서][authentication-docLink]에서 확인하시길 바랍니다. 
 
@@ -330,7 +330,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-## UserDetailsService 인터페이스 구현
+## MemberService 클래스, UserDetailsService 인터페이스 구현
 인증(Authentication)에서 AuthenticationProvider들에 의해 사용되는 UserDetailsService 인터페이스를 구현한 클래스입니다. 
 Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 UserDetails 구현체를 반환합니다.
 
@@ -420,13 +420,13 @@ public class MemberService implements UserDetailsService {
 예전에 작성해둔 블로그 글이 아주 유용하게 사용되었습니다. 
 당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 사용으로 기능으로 조금 확장해보았습니다. 
 해당 코드를 받아보시려면 [github link][github-link]로 이동하시길 바랍니다. 
-테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.
+**테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**
 
 #### 참조글
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
 
 [json-blogLink]: https://junhyunny.github.io/information/security/json-web-token/
-[security-blogLink]: https://junhyunny.github.io/side%20project/information/security/spring%20security/spring-security/
+[security-blogLink]: https://junhyunny.github.io/information/security/spring%20security/spring-security/
 [authentication-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
 [resource-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
 [github-link]: https://github.com/Junhyunny/action-in-blog/tree/441221739c107eaae741276dc8707aa5f83ccab1

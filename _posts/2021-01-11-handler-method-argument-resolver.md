@@ -15,7 +15,7 @@ last_modified_at: 2021-01-12T00:00:00
 <p align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="300"></p>
 
 ## TokenMember 애너테이션 구현
-커스텀 애너테이션을 만들어줍니다. 메소드 파라미터 앞에 붙일 애너테이션이므로 @Target은 ElementType.PARAMETER를 지정합니다. 
+커스텀 애너테이션을 만들어줍니다. 메소드 파라미터 앞에 붙일 애너테이션이므로 @Target은 ElementType.PARAMETER로 지정합니다. 
 프로그램 수행 중에 사용할 애너테이션이므로 @Retention 은 RetentionPolicy.RUNTIME으로 지정합니다. 
 
 ```java
@@ -38,6 +38,7 @@ supportsParameter 메소드를 통해 해당 파라미터에 대한 처리를 �
 이후 resolveArgument 메소드를 통해 토큰에서 필요한 데이터를 추출하여 Member 객체에 SETTING 후 이를 반환합니다. 
 반환된 객체는 요청 Parameter로써 Controller에게 전달됩니다.
 
+- ServletInvocableHandlerMethod 내부 supportsParameter 메소드와 resolveArgument 메소드
 <p align="center"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
 
 ```java
@@ -200,5 +201,5 @@ public class MemberController {
 - [Token Enhancer][tokenenhancer-blogLink]
 
 [jwt-blogLink]: https://junhyunny.github.io/security/spring%20security/spring-security-example/
-[tokenenhancer-blogLink]: https://junhyunny.github.io/side%20project/security/spring%20security/handler-method-argument-resolver/
+[tokenenhancer-blogLink]: https://junhyunny.github.io/security/spring%20security/token-enhancer/
 [blog-githubLink]: https://github.com/Junhyunny/action-in-blog/tree/fcc3f4b90f5eef1d31657d935f338b1150f66e1f

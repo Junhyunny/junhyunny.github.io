@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - msa
-last_modified_at: 2021-01-09T00:00:00
+last_modified_at: 2021-01-29T00:00:00
 ---
 
 # Micro Service Architecture 장점과 단점<br>

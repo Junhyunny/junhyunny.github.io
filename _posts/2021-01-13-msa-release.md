@@ -4,12 +4,12 @@ search: false
 category:
   - information
   - msa
-last_modified_at: 2021-01-13T00:00:00
+last_modified_at: 2021-01-30T00:00:00
 ---
 
 # Micro Service Architecture 배포 전략<br>
 
-마이크로 서비스 아키텍처에서 다양한 배포 전략이 존재하고 이에 대한 정리를 하였습니다. 
+마이크로 서비스 아키텍처에서 다양한 배포 전략이 존재하며 이에 대한 정리를 해보았습니다. 
 롤링 배포 전략 정도만 알고 있었는데 그 이외에도 마이크로 서비스 아키텍처의 장점을 살릴 수 있는 다양한 배포 전략이 존재하는 것에 놀랐습니다. 
 
 ## 롤링 배포(rolling deployment)

@@ -4,7 +4,7 @@ search: false
 category:
   - security
   - spring security
-last_modified_at: 2021-01-06T00:00:00
+last_modified_at: 2021-01-29T00:00:00
 ---
 
 # Spring Security 기반 JWT 인증 방식 예제<br>

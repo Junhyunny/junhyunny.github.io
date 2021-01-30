@@ -1,13 +1,14 @@
 ---
-title: "2단계 Commit(2-Phase Commit)"
+title: "분산 트랜잭션(Distributed transaction)"
 search: false
 category:
   - information
+  - msa
   - database
 last_modified_at: 2021-01-30T00:00:00
 ---
 
-# 2단계 Commit(2-Phase Commit)<br>
+# 분산 트랜잭션(Distributed transaction)<br>
 
 정리 중 입니다.
 

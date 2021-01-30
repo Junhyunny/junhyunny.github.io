@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - database
-last_modified_at: 2021-01-25T00:00:00
+last_modified_at: 2021-01-30T00:00:00
 ---
 
 # Transaction ACID 특징<br>
@@ -12,7 +12,7 @@ last_modified_at: 2021-01-25T00:00:00
 시스템 개발/운영을 하면서 많이 접하게 되는 Transaction 이라는 용어의 정확한 의미와 Transaction ACID 특징에 대해 정리해보았습니다. 
 
 ## 트랜잭션 (Transaction)
-완결성있게 처리되어야 하는 하나의 논리적인 작업 단위를 의미합니다. 
+**완결성있게 처리되어야 하는 하나의 논리적인 작업 단위를 의미합니다.** 
 이 논리적 작업 단위 내에는 여러 동작(질의, query)들이 존재하며 이들은 모두 실행되거나 모두 실행되지 않아야합니다. 
 작업 단위가 중간에 실패한다면 이를 ROLLBACK 하여 이전 상태로 되돌리고 성공한다면 COMMIT 하여 현재 데이터 상태를 확정짓습니다. 
 트랜잭션은 작업 수행의 논리적 단위이기 때문에 DBMS(Database Management System)에서는 **TPS(Transaction per second)**로 성능을 측정합니다. 

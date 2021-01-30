@@ -11,7 +11,7 @@ last_modified_at: 2021-01-20T00:00:00
 
 > CQRS(Command and Query Responsibility Segregation) - 명령과 조회의 책임 분리
 
-마이크로 서비스 아키텍처를 도입하여 시스템 개발을 진행하는 초기에 아키텍처 팀에서 사용할지 고민했던 아키텍처 패턴입니다. 
+마이크로 서비스 아키텍처를 도입하는 초기에 아키텍처 팀에서 사용할지 고민했던 아키텍처 패턴입니다. 
 데이터 정합성, 촉박한 일정과 시스템 구현의 복잡도 증가 등의 이유로 최종적으로 채택되진 못했습니다. 
 실제로 구현해보지는 못했지만 해당 아키텍처에 대한 개념은 알고 있으면 좋을 듯하여 글로 정리해보았습니다.
 
@@ -61,7 +61,13 @@ CQRS 패턴에 대해 이야기할 때 이벤트 소싱에 대한 언급이 항�
 이벤트 수가 적은 경우에는 문제가 되지 않지만 쌓인 이벤트가 많아지면 성능에 큰 문제가 발생합니다. 
 이런 성능 문제를 snapshot 개념과 CQRS 패턴을 적용하여 해소합니다. (snapshot 기능은 추후 이벤트 소싱에 대해 다루는 글에서 설명하도록 하겠습니다.)
 
+상태 변화를 모두 이벤트로 발생시킵니다. 
+발생한 이벤트들을 EventStore(영구 저장소)에 순서대로 저장되며 update/delete 행위는 없이 모두 append 됩니다. 
+EventStore는 RDBMS, NoSql, FileSystem 등 어떤 것을 사용해도 문제가 없지만 반드시 영구 저장소에 저장되어야 합니다.
+
 ### CQRS 아키택처 패턴과 이벤트 소싱
+발생한 순서대로 저장된 이벤트들을 Query Side로 전달(projection)하여 READ를 위한 데이터를 만들어 저장합니다.
+
 <p align="center"><img src="/images/cqrs-pattern-3.JPG"></p>
 <center>이미지 출처, https://github.com/jaceshim/springcamp2017/blob/master/springcamp2017_implementing_es_cqrs.pdf</center><br>
 

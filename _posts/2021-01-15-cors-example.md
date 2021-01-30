@@ -1,13 +1,13 @@
 ---
-title: "CROS(Cross Origin Resource Sharing) 서버 구현"
+title: "CORS(Cross Origin Resource Sharing) 서버 구현"
 search: false
 category:
   - spring web
   - vue.js
-last_modified_at: 2021-01-15T00:00:00
+last_modified_at: 2021-01-30T00:00:00
 ---
 
-# CROS(Cross Origin Resource Sharing) 서버 구현<br>
+# CORS(Cross Origin Resource Sharing) 서버 구현<br>
 
 Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 통해 CORS에 대한 테스트를 진행해보겠습니다. 
 front-end 프로젝트는 새롭게 만들었고, back-end 프로젝트는 지난 [HandlerMethodArgumentResolver 인터페이스][resolver-blogLink] 글에서 사용한 프로젝트를 확장하여 사용하였습니다. 

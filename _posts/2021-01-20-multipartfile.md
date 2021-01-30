@@ -15,7 +15,7 @@ last_modified_at: 2021-01-20T00:00:00
 사용자의 프로필 사진 변경과 같은 간단한 기능도 파일 업로드가 필요합니다.
 Spring 프레임워크에서 파일 업로드 기능으로 사용되는 MultipartFile 인터페이스를 이용하여 기능 구현을 하였습니다.
 
-back-end 프로젝트는 이전 [CROS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 글에서 사용했던 프로젝트를 확장하여 구현하였습니다. 
+back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 글에서 사용했던 프로젝트를 확장하여 구현하였습니다. 
 변경된 파일에 대한 설명만 추가되었습니다. 
 파일 업로드를 위한 front-end 프로젝트는 Vue.js 프레임워크를 사용하였습니다. 
 

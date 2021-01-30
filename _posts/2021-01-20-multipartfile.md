@@ -4,7 +4,7 @@ search: false
 category:
   - spring web
   - vue.js
-last_modified_at: 2021-01-20T00:00:00
+last_modified_at: 2021-01-30T00:00:00
 ---
 
 # MultipartFile 활용 대용량 파일 업로드 예제<br>
@@ -13,11 +13,12 @@ last_modified_at: 2021-01-20T00:00:00
 
 모바일/웹 어플리케이션 대부분의 경우 파일 업로드 기능이 사용됩니다. 
 사용자의 프로필 사진 변경과 같은 간단한 기능도 파일 업로드가 필요합니다.
-Spring 프레임워크에서 파일 업로드 기능으로 사용되는 MultipartFile 인터페이스를 이용하여 기능 구현을 하였습니다.
+Spring 프레임워크에서 쉽게 파일 업로드할 수 있는 MultipartFile 인터페이스를 사용한 내용을 정리해보았습니다.
 
+파일 업로드를 위한 front-end 프로젝트는 Vue.js 프레임워크를 사용하였습니다. 
 back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 글에서 사용했던 프로젝트를 확장하여 구현하였습니다. 
 변경된 파일에 대한 설명만 추가되었습니다. 
-파일 업로드를 위한 front-end 프로젝트는 Vue.js 프레임워크를 사용하였습니다. 
+다른 코드들에 대한 설명이 필요한 경우 이전 글을 참고하시길 바랍니다.
 
 ## front-end 프로젝트 패키지 구조
 
@@ -26,7 +27,7 @@ back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구�
 ## FileUpload.vue
 파일을 업로드하기 위한 페이지입니다. 
 selectUploadFile() 함수에서 이미지 업로드를 위한 element를 만들고 이를 클릭 처리합니다.
-선택된 이미지를 FormData 객체에 담아 POST 요청시 서버로 전달합니다. 
+선택된 이미지를 FormData 객체에 담아 POST 요청으로 서버로 전달합니다. 
 요청에 대한 정상적인 응답 처리시 **then()** 함수가 수행됩니다. 
 반대로 요청에 대한 비정상적인 응답 처리시 **catch()** 함수가 수행 수행됩니다.
 
@@ -252,6 +253,6 @@ spring:
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html>
 - <https://spring.io/guides/gs/uploading-files/>
 
-[cors-blogLink]: https://junhyunny.github.io/main%20project/side%20project/spring%20web/vue.js/cors-example/
+[cors-blogLink]: https://junhyunny.github.io/spring%20web/vue.js/cors-example/
 [front-gitLink]: https://github.com/Junhyunny/action-in-blog-front/tree/38f385f791536b04c82ab4a6fd9459c10446710e
 [back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/23cd61abf125435813bcc8e2fadbf843b488c7d3

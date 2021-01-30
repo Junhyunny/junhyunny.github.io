@@ -4,7 +4,7 @@ search: false
 category:
   - infomation
   - architecture
-last_modified_at: 2021-01-20T00:00:00
+last_modified_at: 2021-01-30T00:00:00
 ---
 
 # CQRS(Command Query Responsibility Segregation) Pattern<br>

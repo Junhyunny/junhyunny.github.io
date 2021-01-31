@@ -70,7 +70,7 @@ JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어�
 
 ## Spring Data Jpa<br>
 
-**JPA, Hibernate까지 알곘는데 Spring Data Jpa는 뭐지?**
+**<br>JPA, Hibernate까지 알겠는데 Spring Data Jpa는 뭐지?**
 
 Spring Data Jpa는 JPA를 사용하기 편하게 만들어 놓은 모듈입니다. 
 개발자는 이를 이용하여 JPA를 더 쉽고 편하게 사용할 수 있습니다. 

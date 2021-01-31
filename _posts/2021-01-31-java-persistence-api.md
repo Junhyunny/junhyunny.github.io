@@ -31,7 +31,7 @@ last_modified_at: 2021-01-31T00:00:00
 Persistence 프레임워크는 MyBatis 같은 SQL Mapper나 Hibernate 같은 Object Relation Mapper가 대표적으로 사용되고 있습니다.
 
 ##### 어플리케이션 계층 구조
-<p align="center"><img src="/images/java-persistence-api-1.JPG" width="550"></p>
+<p align="center"><img src="/images/java-persistence-api-1.JPG" width="650"></p>
 
 ## ORM(Object-Relation Mapping)
 
@@ -42,7 +42,7 @@ Object-Relation Mapping 기법은 어플리케이션 설계와 데이터베이�
 ORM 프레임워크는 객체 간의 관계를 바탕으로 SQL 문을 자동으로 생성하여 이를 수행합니다. 
 
 ##### Object-Relation Mapping을 통한 객체, 테이블 연결
-<p align="center"><img src="/images/java-persistence-api-2.JPG" width="550"></p>
+<p align="center"><img src="/images/java-persistence-api-2.JPG" width="450"></p>
 
 ### Object-Relation Mapping 장점
 Object-Relation Mapping을 사용하는 경우 다음과 같은 장점이 있습니다.
@@ -66,13 +66,15 @@ JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어�
 
 ## Spring Data Jpa
 
-> JPA, Hibernate까지 이해했는데 Spring Data Jpa는 또 뭐야?
+`JPA, Hibernate까지 이해했는데 Spring Data Jpa는 뭐야?`
 
 Spring Data JPA는 JPA를 사용하기 편하게 만들어 놓은 모듈입니다. 
-개발자는 이를 이용하영 JPA를 더 쉽고 편하게 사용할 수 있습니다.
+개발자는 이를 이용하영 JPA를 더 쉽고 편하게 사용할 수 있습니다. 
+
 Spring Data Jpa 모듈은 JPA를 한 단계 추상화시킨 `Repository`라는 인터페이스를 제공합니다. 
 개발자는 이를 확장(extends)한 인터페이스를 만들고 Naming 규칙에 맞도록 메소드를 선언하기만 하면 됩니다. 
 Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등록하고 해당 인터페이스의 메소드가 호출될 때 이를 변환하여 SQL을 수행합니다.
+
 셋의 관계를 직관적으로 이해할 수 있도록 돕는 이미지를 [정다혜님 블로그][Dahye Jeong BlogLink]에서 가져왔습니다.
 
 ##### JPA / Hibernate / Spring Data Jpa 구조도
@@ -80,7 +82,11 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 <center>이미지 출처, https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center><br>
 
 ## OPINION
-작성 중입니다.
+글을 정리하다 보니 JPA를 처음 접했을 때 신선한 충격이 떠올랐습니다. 
+쿼리를 작성하지 않고 Naming 규칙에 맞는 메소드 선언만으로 손쉽게 데이터를 가져오고 단순하게 클래스를 생성하여 테이블을 만들 수 있다는 점이 너무 놀라웠습니다. 
+이후 프로젝트 진행상 급작스럽게 MyBatis로 변경하게 되면서 JPA가 얼마나 프로그래밍을 쉽게 만들어주는지 새삼 깨닫기도 했습니다. 
+사이드 프로젝트를 진행헀을 때 간단한 페이징 처리를 이용하여 쉽게 개발헀던 일도 생각납니다. 
+JPA는 언뜻 개발 과정을 쉽게 만들어주기 때문에 기능이 단순해보이지만 내부 기능을 세심하게 사용하기 위해선 많은 공부가 필요하다고 느끼고 있습니다.
 
 #### 참조글
 - <https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic>

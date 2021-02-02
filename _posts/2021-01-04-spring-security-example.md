@@ -34,92 +34,92 @@ spring:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.1</version>
-    <relativePath /> <!-- lookup parent from repository -->
-  </parent>
-
-  <groupId>blog.in.action</groupId>
-  <artifactId>action-in-blog</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>action-in-blog</name>
-
-  <properties>
-    <java.version>11</java.version>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security.oauth</groupId>
-      <artifactId>spring-security-oauth2</artifactId>
-      <version>2.3.3.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-jwt</artifactId>
-      <version>1.0.10.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>blog.in.action</groupId>
+    <artifactId>action-in-blog</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>action-in-blog</name>
+
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.3.3.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+            <version>1.0.10.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
 ```
@@ -148,19 +148,19 @@ import blog.in.action.service.MemberService;
 @RequestMapping(value = "/api/member")
 public class MemberController {
 
-  @Autowired
-  private MemberService memberService;
+    @Autowired
+    private MemberService memberService;
 
-  @PostMapping("/sign-up")
-  @Transactional(propagation = Propagation.REQUIRED)
-  public void requestSignUp(@RequestBody Member member) {
-    memberService.registMember(member);
-  }
+    @PostMapping("/sign-up")
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void requestSignUp(@RequestBody Member member) {
+        memberService.registMember(member);
+    }
 
-  @GetMapping("/user-info")
-  public Member requestUserInfo(@RequestParam("id") String id) {
-    return memberService.findById(id);
-  }
+    @GetMapping("/user-info")
+    public Member requestUserInfo(@RequestParam("id") String id) {
+        return memberService.findById(id);
+    }
 }
 ```
 
@@ -182,19 +182,19 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 @Configuration
 public class Config {
 
-  private String jwtKey = "JWT_KEY";
+    private String jwtKey = "JWT_KEY";
 
-  @Bean
-  public JwtAccessTokenConverter jwtAccessTokenConverter() {
-    JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-    converter.setSigningKey(jwtKey);
-    return converter;
-  }
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(jwtKey);
+        return converter;
+    }
 
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
 ```
 
@@ -226,40 +226,40 @@ import blog.in.action.service.MemberService;
 @EnableAuthorizationServer
 public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
-  private String clientId = "CLIENT_ID";
+    private String clientId = "CLIENT_ID";
 
-  private String clientSecret = "CLIENT_SECRET";
+    private String clientSecret = "CLIENT_SECRET";
 
-  @Autowired
-  private MemberService memberService;
+    @Autowired
+    private MemberService memberService;
 
-  @Autowired
-  private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-  @Autowired
-  private JwtAccessTokenConverter jwtAccessTokenConverter;
+    @Autowired
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
 
-  @Autowired
-  private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-  @Override
-  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-    clients.inMemory().withClient(clientId)//
-        .authorizedGrantTypes("password", "refresh_token")//
-        .scopes("read", "profile")//
-        .secret(passwordEncoder.encode(clientSecret))//
-        .accessTokenValiditySeconds(1 * 60 * 60 * 24)// token 유효 시간 등록
-        .refreshTokenValiditySeconds(0);
-  }
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients.inMemory().withClient(clientId)//
+                .authorizedGrantTypes("password", "refresh_token")//
+                .scopes("read", "profile")//
+                .secret(passwordEncoder.encode(clientSecret))//
+                .accessTokenValiditySeconds(1 * 60 * 60 * 24)// token 유효 시간 등록
+                .refreshTokenValiditySeconds(0);
+    }
 
-  @Override
-  public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-    TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-    tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter)); // JWT Converter 등록
-    endpoints.userDetailsService(memberService)// UserDetailsService 등록
-        .authenticationManager(authenticationManager)//
-        .tokenEnhancer(tokenEnhancerChain);
-  }
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter)); // JWT Converter 등록
+        endpoints.userDetailsService(memberService)// UserDetailsService 등록
+                .authenticationManager(authenticationManager)//
+                .tokenEnhancer(tokenEnhancerChain);
+    }
 
 }
 ```
@@ -284,15 +284,15 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServer extends ResourceServerConfigurerAdapter {
 
-  @Override
-  public void configure(HttpSecurity http) throws Exception {
-    http.cors().and() //
-        .authorizeRequests() //
-        .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
-        .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
-        .anyRequest().authenticated().and() //
-        .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-  }
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.cors().and() //
+                .authorizeRequests() //
+                .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
+                .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
+                .anyRequest().authenticated().and() //
+                .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+    }
 }
 ```
 
@@ -335,7 +335,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 UserDetails 구현체를 반환합니다.
 
 - loadUserByUsername 메소드의 debug 포인트 설정시 call stack
-  - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
+    - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
 <p align="left"><img src="/images/spring-security-example-2.JPG"></p>
 
 ```java

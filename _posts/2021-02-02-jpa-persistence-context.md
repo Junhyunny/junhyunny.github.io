@@ -38,14 +38,14 @@ JPA가 관리하는 Entity의 라이프사이클을 통해 더 자세히 알아�
 	- Entity 객체에서 발생하는 데이터 변경은 전혀 알 수 없습니다.
 
 ```java
-Member member = new Member();
-member.setId("01012341234");
-member.setPassword("1234");
-List<String> authorities = new ArrayList<>();
-authorities.add("ADMIN");
-member.setAuthroities(authorities);
-member.setMemberName("Junhyunny");
-member.setMemberEmail("kang3966@naver.com");
+    Member member = new Member();
+    member.setId("01012341234");
+    member.setPassword("1234");
+    List<String> authorities = new ArrayList<>();
+    authorities.add("ADMIN");
+    member.setAuthroities(authorities);
+    member.setMemberName("Junhyunny");
+    member.setMemberEmail("kang3966@naver.com");
 ```
 
 - 영속(managed)
@@ -55,16 +55,16 @@ member.setMemberEmail("kang3966@naver.com");
 	- persist 메소드가 수행되는 동시에 데이터가 데이터베이스에 저장되지는 않습니다.
 
 ```java
-Member member = new Member();
-member.setId("01012341234");
-member.setPassword("1234");
-List<String> authorities = new ArrayList<>();
-authorities.add("ADMIN");
-member.setAuthroities(authorities);
-member.setMemberName("Junhyunny");
-member.setMemberEmail("kang3966@naver.com");
-// persistence context에 등록
-entityManager.persist(member);
+    Member member = new Member();
+    member.setId("01012341234");
+    member.setPassword("1234");
+    List<String> authorities = new ArrayList<>();
+    authorities.add("ADMIN");
+    member.setAuthroities(authorities);
+    member.setMemberName("Junhyunny");
+    member.setMemberEmail("kang3966@naver.com");
+    // persistence context에 등록
+    entityManager.persist(member);
 ```
 
 - 준영속(detached)
@@ -74,9 +74,9 @@ entityManager.persist(member);
 	- 영속성 컨텍스트에서만 분리되었을 뿐 실제 데이터가 삭제되지는 않습니다.
 
 ```java
-Member member = entityManager.find(Member.class, "01012341234");
-// persistence context에서 분리
-entityManager.detach(member);
+    Member member = entityManager.find(Member.class, "01012341234");
+    // persistence context에서 분리
+    entityManager.detach(member);
 ```
 
 - 삭제(removed)
@@ -84,9 +84,9 @@ entityManager.detach(member);
 	- **`entityManager.remove(E)`** 메소드를 통해 영속성 컨텍스트에 삭제됩니다.
 
 ```java
-Member member = entityManager.find(Member.class, "01012341234");
-// 데이터베이스에서 삭제
-entityManager.remove(member);
+    Member member = entityManager.find(Member.class, "01012341234");
+    // 데이터베이스에서 삭제
+    entityManager.remove(member);
 ```
 
 ## 테스트
@@ -100,18 +100,18 @@ entityManager.remove(member);
 ### application.yml
 ```yml
 server:
-    port: 8081
+  port: 8081
 spring:
-    datasource:
-        url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
-        username: root
-        password: 1234
-        driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-        show-sql: true
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-        hibernate:
-            ddl-auto: update
+  datasource:
+      url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
+      username: root
+      password: 1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+      show-sql: true
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      hibernate:
+        ddl-auto: update
 ```
 
 ### pom.xml

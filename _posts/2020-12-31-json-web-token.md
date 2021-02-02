@@ -103,9 +103,9 @@ Header 정보와 Payload 정보의 데이터 무결성과 변조 방지를 위�
 서명은 Header 정보의 인코딩 값과 Payload 정보의 인코딩 값을 합친 후 비밀 키로 해싱(hashing)하여 생성한 값입니다. 
 ```java
 HMACSHA256(
-  base64UrlEncode(header) + "." +
-  base64UrlEncode(payload),
-  secret)
+    base64UrlEncode(header) + "." +
+    base64UrlEncode(payload),
+    secret)
 ```
 
 <br>

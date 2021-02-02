@@ -100,17 +100,17 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServer extends ResourceServerConfigurerAdapter {
 
-  @Override
-  public void configure(HttpSecurity http) throws Exception {
-    http.cors().and() //
-        .authorizeRequests() //
-        .antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
-        .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
-        .antMatchers("/api/member/upload/profile-img").permitAll() // file upload API는 모든 요청 허용
-        .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
-        .anyRequest().authenticated().and() //
-        .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-  }
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.cors().and() //
+                .authorizeRequests() //
+                .antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
+                .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
+                .antMatchers("/api/member/upload/profile-img").permitAll() // file upload API는 모든 요청 허용
+                .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
+                .anyRequest().authenticated().and() //
+                .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+    }
 }
 ```
 
@@ -145,38 +145,38 @@ import blog.in.action.service.MemberService;
 @RequestMapping(value = "/api/member")
 public class MemberController {
 
-  @Autowired
-  private MemberService memberService;
+    @Autowired
+    private MemberService memberService;
 
-  @PostMapping("/sign-up")
-  @Transactional(propagation = Propagation.REQUIRED)
-  public void requestSignUp(@RequestBody Member member) {
-    memberService.registMember(member);
-  }
-
-  @GetMapping("/user-info")
-  public Member requestUserInfo(@RequestParam("id") String id) {
-    return memberService.findById(id);
-  }
-
-  @GetMapping("/user-info-using-token")
-  public Member requestUserInfoUsingToken(@TokenMember Member member) {
-    return memberService.findById(member.getId());
-  }
-
-  @PostMapping(value = "/upload/profile-img")
-  public @ResponseBody String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
-    try {
-      for (MultipartFile multipartFile : fileList) {
-        FileOutputStream writer = new FileOutputStream("./images/" + multipartFile.getOriginalFilename());
-        writer.write(multipartFile.getBytes());
-        writer.close();
-      }
-    } catch (Exception e) {
-      return "upload fail";
+    @PostMapping("/sign-up")
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void requestSignUp(@RequestBody Member member) {
+        memberService.registMember(member);
     }
-    return "upload success";
-  }
+
+    @GetMapping("/user-info")
+    public Member requestUserInfo(@RequestParam("id") String id) {
+        return memberService.findById(id);
+    }
+
+    @GetMapping("/user-info-using-token")
+    public Member requestUserInfoUsingToken(@TokenMember Member member) {
+        return memberService.findById(member.getId());
+    }
+
+    @PostMapping(value = "/upload/profile-img")
+    public @ResponseBody String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
+        try {
+            for (MultipartFile multipartFile : fileList) {
+                FileOutputStream writer = new FileOutputStream("./images/" + multipartFile.getOriginalFilename());
+                writer.write(multipartFile.getBytes());
+                writer.close();
+            }
+        } catch (Exception e) {
+            return "upload fail";
+        }
+        return "upload success";
+    }
 }
 ```
 

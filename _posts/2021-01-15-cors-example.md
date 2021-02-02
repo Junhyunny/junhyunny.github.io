@@ -41,7 +41,7 @@ import axios from 'axios'
 export default {
   name: 'CorsReuqest',
   data() {
-    return  {
+    return {
       response: ''
     }
   },
@@ -107,16 +107,16 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
 @EnableResourceServer
 public class ResourceServer extends ResourceServerConfigurerAdapter {
 
-  @Override
-  public void configure(HttpSecurity http) throws Exception {
-    http.cors().and() //
-        .authorizeRequests() //
-        .antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
-        .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
-        .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
-        .anyRequest().authenticated().and() //
-        .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-  }
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.cors().and() //
+                .authorizeRequests() //
+                .antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
+                .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
+                .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
+                .anyRequest().authenticated().and() //
+                .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+    }
 }
 ```
 
@@ -137,16 +137,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/cors")
 public class CorsController {
 
-  @GetMapping("/health")
-  public String health() {
-    return "health";
-  }
+    @GetMapping("/health")
+    public String health() {
+        return "health";
+    }
 
-  @CrossOrigin(origins = "http://localhost:8080")
-  @GetMapping("/health-cors-annotaion")
-  public String healthCorsAnnotation() {
-    return "health-cors-annotaion";
-  }
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/health-cors-annotaion")
+    public String healthCorsAnnotation() {
+        return "health-cors-annotaion";
+    }
 }
 ```
 
@@ -164,15 +164,15 @@ public class CorsController {
 <p align="center"><img src="/images/cors-example-3.JPG"></p>
 
 - CorsFilter 생성 관련 로직, CorsConfigurer 클래스 getCorsFilter 메소드
-  - CorsConfigurationSource @Bean 이 존재하는 경우 CorsFilter 객체 생성 (2. step)
-  - CorsConfigurationSource @Bean 이 존재하지 않는 경우 MvcCorsFilter 클래스를 통해 CorsFilter 객체 생성 (3. step)
+	- CorsConfigurationSource @Bean 이 존재하는 경우 CorsFilter 객체 생성 (2. step)
+	- CorsConfigurationSource @Bean 이 존재하지 않는 경우 MvcCorsFilter 클래스를 통해 CorsFilter 객체 생성 (3. step)
 
 <p align="center"><img src="/images/cors-example-4.JPG"></p>
 
 - HandlerMappingIntrospector @Bean을 생성 중 API endpoint 별 CorsConfiguration 생성 로직 (3-1. step)
-  - CrossOrigin 애너테이션이 존재하는지 확인 
-  - 존재하는 경우 메소드 별로 CorsConfiguration 객체 생성
-  
+	- CrossOrigin 애너테이션이 존재하는지 확인 
+	- 존재하는 경우 메소드 별로 CorsConfiguration 객체 생성
+
 <p align="center"><img src="/images/cors-example-5.JPG"></p>
 
 ### CorsFilter 객체 동작
@@ -187,8 +187,8 @@ public class CorsController {
 <p align="center"><img src="/images/cors-example-6.JPG"></p>
 
 - DelegatingFilterProxyRegistrationBean 객체의 doFilter 내부 로직 (2. step)
-  - originalChain 객체는 ApplicationFilterChain을 의미
-  - additionalFilter 객체는 FilterChainProxy에 속하는 Filer 리스트
+	- originalChain 객체는 ApplicationFilterChain을 의미
+	- additionalFilter 객체는 FilterChainProxy에 속하는 Filer 리스트
 
 <p align="center"><img src="/images/cors-example-7.JPG"></p>
 
@@ -207,7 +207,7 @@ public class CorsController {
 <p align="center"><img src="/images/cors-example-10.JPG"></p>
 
 - **/api/cors/health** 경로 요청시 CorsConfiguration 객체 존재
-  - 내부 allowedOrigins 정보 확인시 http://localhost:8080 존재
+	- 내부 allowedOrigins 정보 확인시 http://localhost:8080 존재
 
 <p align="center"><img src="/images/cors-example-11.JPG"></p>
 
@@ -233,22 +233,22 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class Config {
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.addAllowedOrigin("http://localhost:8080");
-		corsConfiguration.addAllowedHeader("*");
-		corsConfiguration.addAllowedMethod("*");
-		corsConfiguration.setAllowCredentials(true);
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", corsConfiguration);
-		return source;
-	}
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("http://localhost:8080");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
+    }
 }
 ```
 

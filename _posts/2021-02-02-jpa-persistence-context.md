@@ -567,4 +567,4 @@ public class RemoveTest {
 - <https://gunlog.dev/JPA-Persistence-Context/>
 - <https://gmlwjd9405.github.io/2019/08/06/persistence-context.html>
 
-[github-link]: 
+[github-link]: https://github.com/Junhyunny/action-in-blog/tree/6188988e27cce987cff4a5cc64812139910265aa

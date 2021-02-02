@@ -10,9 +10,6 @@ last_modified_at: 2021-02-03T00:00:00
 
 # JPA Persistence Context<br>
 
-JPA에 의해 관리되는 Entity의 생명주기에 대해 알아보겠습니다. 
-새로운 기술을 공부할때마다 접하는 라이프사이클(lifecycle)에 대한 개념은 언제나 흥미롭습니다. 
-
 JPA는 EntityManager를 통해 Entity를 관리합니다. 
 **EntityManager가 @Id 필드를 이용하여 Entity를 구분짓고 이들을 관리합니다.** 
 **ORM(Object-Relation Mapping) 개념상 @Id 필드는 데이터베이스의 PK를 의미하므로 @Id 값이 다른 경우에는 다른 데이터임을 보장합니다.** 
@@ -28,6 +25,8 @@ Entity 객체를 만든 후 EntityManager의 **`persist`** 메소드를 통해 �
 JPA가 관리하는 Entity의 라이프사이클을 통해 더 자세히 알아보도록 하겠습니다. 
 
 ### Entity Lifecycle
+
+새로운 기술을 공부할때마다 접하는 라이프사이클(lifecycle)에 대한 개념은 언제나 흥미롭습니다. 
 
 ##### Entity Lifecycle 흐름
 <p align="center"><img src="/images/jpa-persistence-context-1.JPG"></p>

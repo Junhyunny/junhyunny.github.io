@@ -5,6 +5,7 @@ category:
   - spring
   - jpa
   - database
+  - junit
 last_modified_at: 2021-02-03T00:00:00
 ---
 
@@ -103,15 +104,15 @@ server:
   port: 8081
 spring:
   datasource:
-      url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
-      username: root
-      password: 1234
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-      show-sql: true
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      hibernate:
-        ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
 ```
 
 ### pom.xml

@@ -100,115 +100,115 @@ entityManager.remove(member);
 ### application.yml
 ```yml
 server:
-  port: 8081
+    port: 8081
 spring:
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
+    datasource:
+        url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: 1234
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        show-sql: true
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        hibernate:
+            ddl-auto: update
 ```
 
 ### pom.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.4.1</version>
-    <relativePath /> <!-- lookup parent from repository -->
-  </parent>
-
-  <groupId>blog.in.action</groupId>
-  <artifactId>action-in-blog</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>action-in-blog</name>
-
-  <properties>
-    <java.version>11</java.version>
-  </properties>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.junit.vintage</groupId>
-          <artifactId>junit-vintage-engine</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security.oauth</groupId>
-      <artifactId>spring-security-oauth2</artifactId>
-      <version>2.3.3.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-jwt</artifactId>
-      <version>1.0.10.RELEASE</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-  </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+
+    <groupId>blog.in.action</groupId>
+    <artifactId>action-in-blog</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>action-in-blog</name>
+
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.3.3.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+            <version>1.0.10.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
 ```
@@ -244,70 +244,70 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class PersistTest {
 
-  @PersistenceUnit
-  private EntityManagerFactory factory;
+    @PersistenceUnit
+    private EntityManagerFactory factory;
 
-  @Test
-  @Order(value = 0)
-  void persistTest() {
-    EntityManager em = factory.createEntityManager();
-    log.info("entityManager properties : " + em.getProperties());
-    try {
-      // 트랜잭션 시작
-      em.getTransaction().begin();
-      // 조회
-      Member member = em.find(Member.class, "01012341234");
-      if (member != null) {
-        // 영속된 객체 값 변경
-        log.info("영속된 객체의 값을 변경합니다.");
-        List<String> authorities = new ArrayList<>();
-        authorities.add("MEMBER");
-        member.setAuthroities(authorities);
-      } else {
-        // 새로운 객체 생성
-        log.info("새로운 객체를 생성합니다.");
-        member = new Member();
-        member.setId("01012341234");
-        member.setPassword("1234");
-        List<String> authorities = new ArrayList<>();
-        authorities.add("ADMIN");
-        member.setAuthroities(authorities);
-        member.setMemberName("Junhyunny");
-        member.setMemberEmail("kang3966@naver.com");
-        // persistence context에 등록
-        em.persist(member);
-      }
-      // 트랜잭션 종료
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      // 트랜잭션 롤백
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @Test
+    @Order(value = 0)
+    void persistTest() {
+        EntityManager em = factory.createEntityManager();
+        log.info("entityManager properties : " + em.getProperties());
+        try {
+            // 트랜잭션 시작
+            em.getTransaction().begin();
+            // 조회
+            Member member = em.find(Member.class, "01012341234");
+            if (member != null) {
+                // 영속된 객체 값 변경
+                log.info("영속된 객체의 값을 변경합니다.");
+                List<String> authorities = new ArrayList<>();
+                authorities.add("MEMBER");
+                member.setAuthroities(authorities);
+            } else {
+                // 새로운 객체 생성
+                log.info("새로운 객체를 생성합니다.");
+                member = new Member();
+                member.setId("01012341234");
+                member.setPassword("1234");
+                List<String> authorities = new ArrayList<>();
+                authorities.add("ADMIN");
+                member.setAuthroities(authorities);
+                member.setMemberName("Junhyunny");
+                member.setMemberEmail("kang3966@naver.com");
+                // persistence context에 등록
+                em.persist(member);
+            }
+            // 트랜잭션 종료
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            // 트랜잭션 롤백
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 
-  @Test
-  @Order(value = 1)
-  void valuCheckTest() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member != null) {
-        String actual = member.getAuthroities().get(0);
-        assertEquals("ADMIN", actual);
-        assertEquals("MEMBER", actual);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @Test
+    @Order(value = 1)
+    void valuCheckTest() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member != null) {
+                String actual = member.getAuthroities().get(0);
+                assertEquals("ADMIN", actual);
+                assertEquals("MEMBER", actual);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 }
 ```
 
@@ -374,101 +374,101 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class DetachTest {
 
-  @PersistenceUnit
-  private EntityManagerFactory factory;
+    @PersistenceUnit
+    private EntityManagerFactory factory;
 
-  @BeforeEach
-  void beforeEach() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member == null) {
-        member = new Member();
-        member.setId("01012341234");
-        member.setPassword("1234");
-        List<String> authorities = new ArrayList<>();
-        authorities.add("ADMIN");
-        member.setAuthroities(authorities);
-        member.setMemberName("Junhyunny");
-        member.setMemberEmail("kang3966@naver.com");
-        em.persist(member);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @BeforeEach
+    void beforeEach() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member == null) {
+                member = new Member();
+                member.setId("01012341234");
+                member.setPassword("1234");
+                List<String> authorities = new ArrayList<>();
+                authorities.add("ADMIN");
+                member.setAuthroities(authorities);
+                member.setMemberName("Junhyunny");
+                member.setMemberEmail("kang3966@naver.com");
+                em.persist(member);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 
-  @Test
-  @Order(value = 0)
-  void detachTest() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member != null) {
-        // 영속된 객체를 detached 상태로 변경 후 값 변경
-        log.info("detach한 이후 객체의 값을 변경합니다.");
-        em.detach(member);
-        List<String> authorities = new ArrayList<>();
-        authorities.add("DETACHED_ADMIN");
-        member.setAuthroities(authorities);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @Test
+    @Order(value = 0)
+    void detachTest() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member != null) {
+                // 영속된 객체를 detached 상태로 변경 후 값 변경
+                log.info("detach한 이후 객체의 값을 변경합니다.");
+                em.detach(member);
+                List<String> authorities = new ArrayList<>();
+                authorities.add("DETACHED_ADMIN");
+                member.setAuthroities(authorities);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 
-  @Test
-  @Order(value = 1)
-  void valuCheckTest() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member != null) {
-        String actual = member.getAuthroities().get(0);
-        assertEquals("ADMIN", actual);
-        assertEquals("DETACHED_ADMIN", actual);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @Test
+    @Order(value = 1)
+    void valuCheckTest() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member != null) {
+                String actual = member.getAuthroities().get(0);
+                assertEquals("ADMIN", actual);
+                assertEquals("DETACHED_ADMIN", actual);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 
-  @Test
-  @Order(value = 2)
-  void detachRemoveTest() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member != null) {
-        // 영속된 객체를 detached 상태로 변경 후 remove
-        log.info("detach한 이후 객체를 삭제합니다.");
-        em.detach(member);
-        em.remove(member);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @Test
+    @Order(value = 2)
+    void detachRemoveTest() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member != null) {
+                // 영속된 객체를 detached 상태로 변경 후 remove
+                log.info("detach한 이후 객체를 삭제합니다.");
+                em.detach(member);
+                em.remove(member);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 }
 ```
 
@@ -506,52 +506,52 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 public class RemoveTest {
 
-  @PersistenceUnit
-  private EntityManagerFactory factory;
+    @PersistenceUnit
+    private EntityManagerFactory factory;
 
-  @BeforeEach
-  void beforeEach() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member == null) {
-        member = new Member();
-        member.setId("01012341234");
-        member.setPassword("1234");
-        List<String> authorities = new ArrayList<>();
-        authorities.add("ADMIN");
-        member.setAuthroities(authorities);
-        member.setMemberName("Junhyunny");
-        member.setMemberEmail("kang3966@naver.com");
-        em.persist(member);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @BeforeEach
+    void beforeEach() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member == null) {
+                member = new Member();
+                member.setId("01012341234");
+                member.setPassword("1234");
+                List<String> authorities = new ArrayList<>();
+                authorities.add("ADMIN");
+                member.setAuthroities(authorities);
+                member.setMemberName("Junhyunny");
+                member.setMemberEmail("kang3966@naver.com");
+                em.persist(member);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 
-  @Test
-  void removeTest() {
-    EntityManager em = factory.createEntityManager();
-    try {
-      em.getTransaction().begin();
-      Member member = em.find(Member.class, "01012341234");
-      if (member != null) {
-        em.remove(member);
-      }
-      em.getTransaction().commit();
-    } catch (Exception ex) {
-      em.getTransaction().rollback();
-      log.error("exception occurs", ex);
-    } finally {
-      em.close();
+    @Test
+    void removeTest() {
+        EntityManager em = factory.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Member member = em.find(Member.class, "01012341234");
+            if (member != null) {
+                em.remove(member);
+            }
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            log.error("exception occurs", ex);
+        } finally {
+            em.close();
+        }
     }
-  }
 }
 ```
 

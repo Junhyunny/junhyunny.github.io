@@ -11,7 +11,7 @@ last_modified_at: 2021-02-04T00:00:00
 # 영속성 컨텍스트(Persistence Context) 사용시 이점<br>
 
 지난 [JPA Persistence Context][persistence-context-blogLink]글을 통해 영속성 컨텍스트 개념에 대해 알아보았습니다. 
-Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 삭제되는지 알아보았습니다. 
+Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 삭제되는지 알아보았습니다.<br>
 이번 글에서는 **`영속성 컨텍스트`**라는 별도의 영역을 통해 얻을 수 있는 이점을 영속성 컨텍스트가 지원하는 기능에 대한 설명을 통해 알아보도록 하겠습니다. 
 테스트 코드를 작성하여 영속성 컨텍스트가 지원하는 기능의 이해도를 높여보도록 하겠습니다.
 

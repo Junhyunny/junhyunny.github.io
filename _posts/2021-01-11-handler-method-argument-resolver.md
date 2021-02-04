@@ -177,19 +177,19 @@ public class MemberController {
 ```
 
 ## 테스트 결과
-- 유저 정보 등록 (ADMIN)
+##### 유저 정보 등록 (ADMIN)
 <p align="left"><img src="/images/handler-method-argument-resolver-3.JPG"></p>
 
-- 인증 정보 획득
+##### 인증 정보 획득
 <p align="left"><img src="/images/handler-method-argument-resolver-4.JPG"></p>
 
-- 사용자 정보 요청 (/api/member/user-info-using-token)
+##### 사용자 정보 요청 (/api/member/user-info-using-token)
 <p align="left"><img src="/images/handler-method-argument-resolver-5.JPG"></p>
 
-- resolveArgments 메소드, 토큰 내 사용자 정보 추출
+##### resolveArgments 메소드, 토큰 내 사용자 정보 추출
 <p align="left"><img src="/images/handler-method-argument-resolver-6.JPG"></p>
 
-- requestUserInfoUsingToken 메소드, 사용자 정보 확인
+##### requestUserInfoUsingToken 메소드, 사용자 정보 확인
 <p align="left"><img src="/images/handler-method-argument-resolver-7.JPG"></p>
 
 ## OPINION

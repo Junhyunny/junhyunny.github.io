@@ -26,21 +26,17 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
   - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.<br>
   - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장합니다.**([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
 
-#### 캐싱된 엔티티 조회
+#### [캐싱된 엔티티 조회 시나리오]
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
-
-##### 캐싱된 엔티티 조회 시나리오
 <p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
-#### 캐싱되지 않은 엔티티 조회
+#### [캐싱되지 않은 엔티티 조회 시나리오]
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 존재하지 않으므로 데이터베이스를 조회합니다.
 1. 조회된 데이터를 신규 엔티티를 생성하여 캐싱합니다.
 1. 신규 엔티리를 반환합니다.
-
-##### 캐싱되지 않은 엔티티 조회 시나리오
 <p align="center"><img src="/images/persistence-context-advantages-2.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 

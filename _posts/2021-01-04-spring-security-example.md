@@ -401,19 +401,19 @@ public class MemberService implements UserDetailsService {
 ```
   
 ## 테스트 결과
-- 유저 정보 등록 (ADMIN)
+##### 유저 정보 등록 (ADMIN)
 <p align="left"><img src="/images/spring-security-example-3.JPG"></p>
 
-- 인증 정보 획득
+##### 인증 정보 획득
 <p align="left"><img src="/images/spring-security-example-4.JPG"></p>
 
-- 인증 정보 헤더 등록, **bearer (획득한 인증 정보의 access_token)** 
+##### 인증 정보 헤더 등록, **bearer (획득한 인증 정보의 access_token)** 
 <p align="left"><img src="/images/spring-security-example-5.JPG"></p>
 
-- 유저 정보 요청 (정상 확인)
+##### 유저 정보 요청 (정상 확인)
 <p align="left"><img src="/images/spring-security-example-6.JPG"></p>
 
-- <https://jwt.io/> 사이트에서 생성한 Token Decoding 
+##### <https://jwt.io/> 사이트에서 생성한 Token Decoding 
 <p align="center"><img src="/images/spring-security-example-7.JPG"></p>
 
 ## OPINION

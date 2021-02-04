@@ -246,7 +246,7 @@ public class WriteBehindTest {
 <p align="center"><img src="/images/persistence-context-advantages-8.JPG"></p>
 
 ### 변경 감지(dirty checking)
-지난 [JPA Persistence Context][persistence-context-blogLink]글에서 영속성 컨텍스트에 저장된 객체의 멤버 변수 값들을 변경하기만 하였음에도 데이터가 변경되는 결과를 확인할 수 있었습니다. 
+지난 [JPA Persistence Context][persistence-context-blogLink]글을 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
 이는 영속성 컨텍스트가 지원하는 변경 감지(dirty checking) 기능 덕분입니다. 
 영속성 컨텍스트에 저장된 엔티티들의 변경 사항을 감지하여 데이터베이스에 이를 자동으로 반영합니다. 
 

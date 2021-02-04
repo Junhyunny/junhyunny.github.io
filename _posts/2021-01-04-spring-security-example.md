@@ -413,7 +413,7 @@ public class MemberService implements UserDetailsService {
 ##### 유저 정보 요청 (정상 확인)
 <p align="left"><img src="/images/spring-security-example-6.JPG"></p>
 
-##### <https://jwt.io/> Token Decoding 
+##### <https://jwt.io/>, Token Decoding 
 <p align="center"><img src="/images/spring-security-example-7.JPG"></p>
 
 ## OPINION

@@ -5,6 +5,7 @@ category:
   - spring
   - jpa
   - database
+  - junit
 last_modified_at: 2021-02-04T00:00:00
 ---
 

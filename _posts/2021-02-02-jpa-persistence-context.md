@@ -21,9 +21,9 @@ EntityManager가 Entity를 어떤 방식으로 구분짓는지 알았으니 어�
 > Entity를 영구히 저장하는 환경
 
 영속성 컨텍스트는 EntityManager를 통해 접근이 가능합니다. 
-Entity 객체를 만든 후 EntityManager의 **`persist`** 메소드를 통해 이를 영속성 컨텍스트에 저장합니다. 
+Entity 객체를 만든 후 EntityManager의 **`persist(E)`** 메소드를 호출하여 생성한 Entity를 영속성 컨텍스트에 저장합니다. 
 당연히 Entity 객체를 영속성 컨텍스트에서 제거하는 방법도 존재합니다. 
-JPA가 관리하는 Entity의 라이프사이클을 통해 더 자세히 알아보도록 하겠습니다. 
+JPA가 Entity를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자세히 알아보도록 하겠습니다. 
 
 ### Entity Lifecycle
 
@@ -312,12 +312,12 @@ public class PersistTest {
 }
 ```
 
-- 1차 수행
-	- em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
-	- 데이터가 존재하지 않으므로 em.find() 메소드 수행시 member 객체는 null 입니다.
-	- 새로운 객체를 생성합니다.(new/transient)
-	- em.perist(E) 메소드를 통해 생성한 객체를 영속성 컨텍스트에 추가합니다.(managed)
-	- em.getTransaction().commit() 메소드를 통해 트랜잭션 commit을 하여 영속성 컨텍스트에 저장된 member Entity 정보를 데이터베이스에 반영합니다.(insert)
+#### 1차 수행
+- em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
+- 데이터가 존재하지 않으므로 em.find() 메소드 수행시 member 객체는 null 입니다.
+- 새로운 객체를 생성합니다.(new/transient)
+- em.perist(E) 메소드를 통해 생성한 객체를 영속성 컨텍스트에 추가합니다.(managed)
+- em.getTransaction().commit() 메소드를 통해 트랜잭션 commit을 하여 영속성 컨텍스트에 저장된 member Entity 정보를 데이터베이스에 반영합니다.(insert)
 
 ##### 1차 수행시 데이터베이스
 - 데이터가 추가되었음을 확인할 수 있습니다.
@@ -327,11 +327,11 @@ public class PersistTest {
 - assertEquals 메소드 수행시 예상 값이 "MEMBER"인 경우 실패
 <p align="center"><img src="/images/jpa-persistence-context-4.JPG"></p>
 
-- 2차 수행
-	- em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
-	- 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행시 member 객체가 반환됩니다.(managed)
-	- member 객체의 값을 변경합니다.
-	- em.getTransaction().commit() 메소드를 통해 트랜잭션 commit을 하면 영속성 컨텍스트에 저장된 member Entity의 변경 정보를 데이터베이스에 반영합니다.(update)
+#### 2차 수행
+- em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
+- 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행시 member 객체가 반환됩니다.(managed)
+- member 객체의 값을 변경합니다.
+- em.getTransaction().commit() 메소드를 통해 트랜잭션 commit을 하면 영속성 컨텍스트에 저장된 member Entity의 변경 정보를 데이터베이스에 반영합니다.(update)
 
 ##### 2차 수행시 데이터베이스
 - 데이터가 변경되었음을 확인할 수 있습니다.

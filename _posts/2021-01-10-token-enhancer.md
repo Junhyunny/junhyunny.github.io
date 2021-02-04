@@ -155,13 +155,13 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 ```
 
 ## 테스트 결과
-- 유저 정보 등록 (ADMIN)
+##### 유저 정보 등록 (ADMIN)
 <p align="left"><img src="/images/token-enhancer-2.JPG"></p>
 
-- 인증 정보 획득
+##### 인증 정보 획득
 <p align="left"><img src="/images/token-enhancer-3.JPG"></p>
 
-- <https://jwt.io/> 사이트에서 생성한 Token Decoding 
+##### <https://jwt.io/> 사이트에서 생성한 Token Decoding 
 <p align="center"><img src="/images/token-enhancer-4.JPG"></p>
 
 ## OPINION

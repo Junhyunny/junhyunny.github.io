@@ -38,7 +38,7 @@ supportsParameter 메소드를 통해 해당 파라미터에 대한 처리를 �
 이후 resolveArgument 메소드를 통해 토큰에서 필요한 데이터를 추출하여 Member 객체에 SETTING 후 이를 반환합니다. 
 반환된 객체는 요청 Parameter로써 Controller에게 전달됩니다.
 
-- ServletInvocableHandlerMethod 내부 supportsParameter 메소드와 resolveArgument 메소드
+##### ServletInvocableHandlerMethod 내부 supportsParameter 메소드와 resolveArgument 메소드
 <p align="center"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
 
 ```java

@@ -352,7 +352,7 @@ public class DirtyCheckingTest {
 
 ##### session의 actionQueue에 EntityUpdateAction 객체 추가
 - DefaultFlushEntityEventListener 클래스 scheduleUpdate 메소드
-- 변경된 값이 있으므로 업데이트를 수행할 수 있도록 session의 actionQueue에 Action 추가
+- 변경된 값이 있을 때 업데이트를 수행할 수 있도록 session의 actionQueue에 Action 추가
 <p align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
 
 ##### ActionQueue.ExecutableList에 담긴 Action 수행

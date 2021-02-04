@@ -12,6 +12,7 @@ last_modified_at: 2021-01-30T00:00:00
 Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 통해 CORS에 대한 테스트를 진행해보겠습니다. 
 front-end 프로젝트는 새롭게 만들었고, back-end 프로젝트는 지난 [HandlerMethodArgumentResolver 인터페이스][resolver-blogLink] 글에서 사용한 프로젝트를 확장하여 사용하였습니다. 
 새로 추가되거나 변경된 클래스가 아닌 경우에는 따로 설명을 추가하지 않았습니다. 
+
 CORS(Cross Origin Resource Sharing) 개념에 대해서는 [CORS(Cross Origin Resource Sharing)][cors-blogLink] 글을 통해 확인해보시길 바랍니다.
 
 ## front-end 프로젝트 패키지 구조

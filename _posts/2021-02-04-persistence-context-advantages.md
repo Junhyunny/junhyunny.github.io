@@ -115,7 +115,7 @@ public class CachingTest {
 
 ##### 1차 캐싱 테스트 결과
 - Junit 테스트 통과 및 관련 로그
-<p align="left"><img src="/images/persistence-context-advantages-3.JPG" width="550"></p>
+<p align="left"><img src="/images/persistence-context-advantages-3.JPG" width="450"></p>
 <p align="center"><img src="/images/persistence-context-advantages-4.JPG"></p>
 
 ### 쓰기 지연(transactional write-behind)
@@ -338,7 +338,7 @@ public class DirtyCheckingTest {
 
 ##### 변경 감지 테스트 결과
 - 데이터베이스 쿼리 조회 결과
-<p align="left"><img src="/images/persistence-context-advantages-10.JPG" width="550"></p>
+<p align="left"><img src="/images/persistence-context-advantages-10.JPG" width="650"></p>
 
 #### 변경 감지 디버깅
 변경 감지(dirty checking)과 관련하여 어떤 메커니즘을 통해 변경된 데이터를 탐색하는지 디버깅해보았습니다. 

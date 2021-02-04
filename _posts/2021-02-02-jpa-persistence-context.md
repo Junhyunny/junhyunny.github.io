@@ -346,7 +346,7 @@ public class PersistTest {
 
 `persist 테스트`에서 영속성 컨텍스트에 저장된 객체의 값을 변경하면 데이터가 업데이트되는 것을 확인하였습니다. 
 이번 테스트에서는 영속성 컨텍스트에 저장된 객체를 datch 메소드를 통해 분리한 후 데이터 변경하였을 때 어떤 결과가 나오는지 valuCheckTest 테스트를 통해 확인해보겠습니다. 
-동시에 Entity를 datch 메소드를 통해 분리한 후 삭제하면 어떤 결과가 나오는지 detachRemoveTest 테스트를 통해 알아보겠습니다.
+동시에 datch 메소드를 통해 영속성 컨텍스트에서 분리한 Entity 객체를 삭제하면 어떤 결과가 나오는지 detachRemoveTest 테스트를 통해 알아보겠습니다.
 
 ```java
 package blog.in.action.lifecycle;
@@ -479,7 +479,9 @@ public class DetachTest {
 <p align="center"><img src="/images/jpa-persistence-context-7.JPG"></p>
 
 ##### detachRemoveTest 메소드 수행 결과
+- 영속성 컨텍스트에서 분리된 객체는 삭제하지 못합니다.
 - detach 이후 데이터 삭제시 IllegalArgumentException이 발생
+- Exception Mesage, Removing a detached instance blog.in.action.entity.Member#01012341234
 <p align="center"><img src="/images/jpa-persistence-context-8.JPG"></p>
 
 ### remove 테스트 코드

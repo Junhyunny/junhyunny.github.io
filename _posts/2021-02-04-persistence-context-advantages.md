@@ -12,8 +12,7 @@ last_modified_at: 2021-02-04T00:00:00
 
 지난 [JPA Persistence Context][persistence-context-blogLink]글을 통해 영속성 컨텍스트 개념에 대해 알아보았습니다. 
 Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 삭제되는지 알아보았습니다. 
-
-이번 글에서는 `영속성 컨텍스트`라는 별도의 영역을 통해 얻을 수 있는 이점을 영속성 컨텍스트가 지원하는 기능에 대한 설명을 통해 알아보도록 하겠습니다. 
+이번 글에서는 **`영속성 컨텍스트`**라는 별도의 영역을 통해 얻을 수 있는 이점을 영속성 컨텍스트가 지원하는 기능에 대한 설명을 통해 알아보도록 하겠습니다. 
 테스트 코드를 작성하여 영속성 컨텍스트가 지원하는 기능의 이해도를 높여보도록 하겠습니다.
 
 ## 영속성 컨텍스트 지원 기능
@@ -25,14 +24,15 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 
 - 장점
   - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.<br>
-  - **엔티티의 동일성이 보장됨으로 인해 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.**([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
+  - **동일 트랜잭션 내 엔티티의 동일성이 보장되므로 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.**
+    ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
 
 #### 캐싱된 엔티티 조회
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
 
 ##### 캐싱된 엔티티 조회 시나리오
-<p align="center"><img src="/images/persistence-context-advantages-1.JPG"></p>
+<p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 캐싱되지 않은 엔티티 조회
@@ -42,7 +42,7 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 1. 신규 엔티리를 반환합니다.
 
 ##### 캐싱되지 않은 엔티티 조회 시나리오
-<p align="center"><img src="/images/persistence-context-advantages-2.JPG"></p>
+<p align="center"><img src="/images/persistence-context-advantages-2.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 1차 캐싱 테스트
@@ -120,7 +120,7 @@ public class CachingTest {
 
 ##### 1차 캐싱 테스트 결과
 - Junit 테스트 통과 및 관련 로그
-<p align="left"><img src="/images/persistence-context-advantages-3.JPG"></p>
+<p align="left"><img src="/images/persistence-context-advantages-3.JPG" width="250"></p>
 <p align="center"><img src="/images/persistence-context-advantages-4.JPG"></p>
 
 ### 쓰기 지연(transactional write-behind)
@@ -139,15 +139,15 @@ EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하�
 1. commit 수행 시 쓰기 지연 SQL 저장소에 담긴 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
 
 ##### entityManager.persist(memberA) 수행
-<p align="center"><img src="/images/persistence-context-advantages-5.JPG"></p>
+<p align="center"><img src="/images/persistence-context-advantages-5.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ##### entityManager.persist(memberB) 수행
-<p align="center"><img src="/images/persistence-context-advantages-6.JPG"></p>
+<p align="center"><img src="/images/persistence-context-advantages-6.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ##### entityManager.getTransaction().commit() 수행
-<p align="center"><img src="/images/persistence-context-advantages-7.JPG"></p>
+<p align="center"><img src="/images/persistence-context-advantages-7.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 쓰기 지연 테스트
@@ -262,7 +262,7 @@ public class WriteBehindTest {
 1. flush 메소드 호출 시 캐싱에 저장된 엔티티와 스냅샷에 저장된 엔티티의 모습이 다른 엔티티를 찾아 업데이트 쿼리를 만듭니다. 
 1. 업데이트 쿼리는 쓰기 지연 SQL 저장소로 전달됩니다.
 1. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
-<p align="center"><img src="/images/persistence-context-advantages-9.JPG"></p>
+<p align="center"><img src="/images/persistence-context-advantages-9.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 변경 감지 테스트
@@ -343,7 +343,7 @@ public class DirtyCheckingTest {
 
 ##### 변경 감지 테스트 결과
 - 데이터베이스 쿼리 조회 결과
-<p align="left"><img src="/images/persistence-context-advantages-10.JPG"></p>
+<p align="left"><img src="/images/persistence-context-advantages-10.JPG" width="350"></p>
 
 #### 변경 감지 디버깅
 변경 감지(dirty checking)과 관련하여 어떤 메커니즘을 통해 변경된 데이터를 탐색하는지 디버깅해보았습니다. 

@@ -37,7 +37,7 @@ last_modified_at: 2021-01-30T00:00:00
 - 격리성 보장이 되지 않는다면 병행 트랜잭션에서 수행 결과가 매번 달라질 수 있습니다.
 - 격리성 보장을 위해 LOCK/UNLOCK 메커니즘을 사용합니다.
 
-#### - 격리성을 보장하지 못하는 경우 발생하는 데이터 불일치 CASE
+##### - 격리성을 보장하지 못하는 경우 발생하는 데이터 불일치 CASE
 <p align="center"><img src="/images/transcation-acid-1.JPG"></p>
 
 ### Durability (지속성)

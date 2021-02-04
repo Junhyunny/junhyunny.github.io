@@ -116,7 +116,7 @@ public class CachingTest {
 
 ##### 1차 캐싱 테스트 결과
 - Junit 테스트 통과 및 관련 로그
-<p align="left"><img src="/images/persistence-context-advantages-3.JPG" width="350"></p>
+<p align="left"><img src="/images/persistence-context-advantages-3.JPG" width="300"></p>
 <p align="center"><img src="/images/persistence-context-advantages-4.JPG"></p>
 
 ### 쓰기 지연(transactional write-behind)

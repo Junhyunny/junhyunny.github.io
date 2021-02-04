@@ -161,7 +161,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 ##### 인증 정보 획득
 <p align="left"><img src="/images/token-enhancer-3.JPG"></p>
 
-##### <https://jwt.io/> 사이트에서 생성한 Token Decoding 
+##### <https://jwt.io/> Token Decoding 
 <p align="center"><img src="/images/token-enhancer-4.JPG"></p>
 
 ## OPINION

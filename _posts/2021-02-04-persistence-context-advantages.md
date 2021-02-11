@@ -11,7 +11,7 @@ last_modified_at: 2021-02-04T00:00:00
 
 # 영속성 컨텍스트(Persistence Context) 사용시 이점<br>
 
-지난 [JPA Persistence Context][persistence-context-blogLink]글을 통해 영속성 컨텍스트 개념에 대해 알아보았습니다. 
+지난 [JPA Persistence Context][persistence-context-blogLink] 포스트를 통해 영속성 컨텍스트 개념에 대해 알아보았습니다. 
 Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 삭제되는지 확인하였습니다.<br>
 이번 글에서는 **`영속성 컨텍스트`**라는 별도의 영역을 통해 얻을 수 있는 이점이 무엇인지 영속성 컨텍스트가 지원하는 기능과 연관지어 알아보겠습니다. 
 테스트 코드를 작성하여 기능 사용의 이해도를 함께 높여보도록 하겠습니다.
@@ -246,7 +246,7 @@ public class WriteBehindTest {
 <p align="center"><img src="/images/persistence-context-advantages-8.JPG"></p>
 
 ### 변경 감지(dirty checking)
-지난 [JPA Persistence Context][persistence-context-blogLink]글을 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
+지난 [JPA Persistence Context][persistence-context-blogLink] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
 이는 영속성 컨텍스트가 지원하는 변경 감지(dirty checking) 기능 덕분입니다. 
 영속성 컨텍스트에 저장된 엔티티들의 변경 사항을 감지하여 데이터베이스에 이를 자동으로 반영합니다. 
 

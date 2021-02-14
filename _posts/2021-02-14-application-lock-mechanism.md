@@ -10,7 +10,8 @@ last_modified_at: 2021-02-14T00:00:00
 
 # Application Lock Mechanism<br>
 
-엔터프라이즈 어플리케이션은 많은 요청들을 처리하기 때문에 여러 트랜잭션에 의해 동일한 데이터에 업데이트가 동시에 발생할 수 있습니다. 
+엔터프라이즈 어플리케이션은 많은 요청들을 처리합니다. 
+그렇기 때문에 여러 트랜잭션에 의해 동일한 데이터에 대한 업데이트가 동시에 발생할 수 있습니다. 
 이로 인해 일부 요청의 유실이 발생할 수 있고, 시스템 장애를 유발될 수 있습니다. 
 이런 이유로 어플리케이션에서도 데이터베이스에 대한 동시 접근(concurrency)을 적절히 관리하는 것이 중요합니다. 
 
@@ -34,7 +35,7 @@ LOCK을 처리하는 방법으로 무엇이 있고, 어떤 부분이 다른지 �
   - WHERE 절에 `VERSION = {currentVersion}`이 추가되어 다른 트랜잭션에 의한 VERSION 증가를 확인하면서 쿼리
   - 업데이트 결과가 0 건이라면 다른 트랜잭션에 의한 VERSION 증가로 인지하여 `OptimisticLockException` 발생
 
-<p align="center"><img src="/images/application-lock-mechanism-1.JPG"></p>
+<p align="center"><img src="/images/application-lock-mechanism-1.JPG" width="750"></p>
 
 ## Pessimistic Lock (비관적인 잠금)
 
@@ -49,11 +50,12 @@ LOCK을 처리하는 방법으로 무엇이 있고, 어떤 부분이 다른지 �
 1. 데이터 조회시 `SELECT - FOR UPDATE` 쿼리를 사용하여 조회와 동시에 데이터 LOCK
 1. 다른 트랜잭션이 잠금된 데이터에 대한 업데이트를 시도하는 경우 LOCK을 선점한 트랜잭션이 종료될 때까지 대기
 
-<p align="center"><img src="/images/application-lock-mechanism-2.JPG"></p>
+<p align="center"><img src="/images/application-lock-mechanism-2.JPG" width="750"></p>
 
 ## OPINION
 이번 포스트는 LOCK 메커니즘의 개념에 대해서만 정리해보았습니다. 
-JPA는 어떻게 LOCK 기능을 제공하는지 다음 포스트에서 테스트 코드를 통해 알아보도록 하겠습니다. 
+JPA는 어떻게 LOCK 기능을 제공하는지 다음 포스트에서 테스트 코드들을 통해 알아보도록 하겠습니다. 
+Optimistic Lock / Pessimistic Lock 두 가지 메커니즘을 각기 다른 주제로 정리해보겠습니다.
 
 #### 참조글
 - <https://stackoverflow.com/questions/129329/optimistic-vs-pessimistic-locking>

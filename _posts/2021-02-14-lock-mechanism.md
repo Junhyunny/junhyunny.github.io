@@ -1,5 +1,5 @@
 ---
-title: "Application Lock Mechanism"
+title: "Lock Mechanism"
 search: false
 category:
   - information
@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-02-14T00:00:00
 ---
 
-# Application Lock Mechanism<br>
+# Lock Mechanism<br>
 
 엔터프라이즈 어플리케이션은 많은 요청들을 처리합니다. 
 그렇기 때문에 여러 트랜잭션에 의해 동일한 데이터에 대한 업데이트가 동시에 발생할 수 있습니다. 

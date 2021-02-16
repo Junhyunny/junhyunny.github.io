@@ -235,7 +235,7 @@ public class EntityManagerUseTest {
 <p align="left"><img src="/images/jpa-optimistic-lock-4.JPG"></p>
 
 ## OPINION
-EntityManager를 사용한 테스트에서 entityManager.lock() 메소드를 사용하지 않더라도 OptimisticLockException이 발생하는 것을 확인할 수 있었습니다. 
+EntityManager를 사용한 테스트에서 entityManager.lock() 메소드를 사용하지 않더라도 OptimisticLockException이 발생하는 것을 확인하였습니다. 
 entityManager.lock() 메소드를 사용하지 않아도 Optimistic Lock 기능이 정상적으로 동작하는 것이 이상하여 관련된 내용들을 찾아보았습니다. 
 
 StackOverflow에서 다음과 같은 글을 발견하였습니다. 

@@ -121,8 +121,8 @@ public class RepositoryUseTest {
 
 ##### JpaRepository Inteface 사용 테스트 결과
 - 테스트 로그, 수행된 결과 데이터
-<p align="center"><img src="/images/jpa-optimistic-lock-1.JPG" width="750"></p>
-<p align="center"><img src="/images/jpa-optimistic-lock-2.JPG" width="750"></p>
+<p align="left"><img src="/images/jpa-optimistic-lock-1.JPG"></p>
+<p align="left"><img src="/images/jpa-optimistic-lock-2.JPG"></p>
 
 ### EntityManager 사용
 ```java
@@ -231,8 +231,8 @@ public class EntityManagerUseTest {
 ##### EntityManager 사용 테스트 결과
 - 테스트 로그, 수행된 결과 데이터
 - RollbackException이 발생하고 원인이 OptimisticLockException임을 확인할 수 있습니다.
-<p align="center"><img src="/images/jpa-optimistic-lock-3.JPG" width="750"></p>
-<p align="center"><img src="/images/jpa-optimistic-lock-4.JPG" width="750"></p>
+<p align="left"><img src="/images/jpa-optimistic-lock-3.JPG"></p>
+<p align="left"><img src="/images/jpa-optimistic-lock-4.JPG"></p>
 
 ## OPINION
 EntityManager를 사용한 테스트에서 entityManager.lock() 메소드를 사용하지 않더라도 OptimisticLockException이 발생하는 것을 확인할 수 있었습니다. 

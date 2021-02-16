@@ -13,8 +13,8 @@ last_modified_at: 2021-02-16T00:00:00
 # JPA Optimistic Lock 구현<br>
 
 [Lock Mechanism][lock-mechanism-blogLink] 포스트에서 언급한 Optimistic Lock 방법을 구현해보도록 하겠습니다. 
-Optimistic Lock은 어떤 LOCK 방법인지 궁금하신 분들은 지난 포스트를 참고해주시기 바랍니다. 
-Optimistic Lock에 대한 핵심 내용만 간단히 정리하고 포스트를 진행하도록 하겠습니다. 
+Optimistic Lock이 어떤 LOCK 방법인지 궁금하신 분들은 지난 포스트를 참고해주시기 바랍니다. 
+Optimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 이어나가도록 하겠습니다. 
 
 ##### **`Optimistic Lock`**
 > 트랜잭션 충돌이 발생하지 않는다고 가정한 낙관적인 LOCK<br>

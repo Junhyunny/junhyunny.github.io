@@ -230,7 +230,7 @@ public class EntityManagerUseTest {
 
 ##### EntityManager 사용 테스트 결과
 - 테스트 로그, 수행된 결과 데이터
-- RollbackException이 발생하고 원인이 OptimisticLockException임을 확인할 수 있습니다.
+- RollbackException이 발생하고, 원인이 OptimisticLockException임을 확인할 수 있습니다.
 <p align="left"><img src="/images/jpa-optimistic-lock-3.JPG"></p>
 <p align="left"><img src="/images/jpa-optimistic-lock-4.JPG"></p>
 
@@ -245,8 +245,8 @@ StackOverflow에서 다음과 같은 글을 발견하였습니다.
 > It is accessed and/or set by the persistence provider in the course of performing lifecycle operations on the entity instance. 
 > **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**
 
-다음 글은 JPA는 어떻게 Pessimistic Lock 기능을 제공하는지 테스트 코드를 통해 알아보도록 하겠습니다.
-테스트 코드는 [github link][github-link]에서 확인하시기 바랍니다.
+다음 글은 JPA가 Pessimistic Lock 기능을 어떻게 제공하는지 알아보도록 하겠습니다. 
+테스트 코드는 [github link][github-link]에서 확인하실 수 있습니다.
 
 #### 참조글
 - <https://www.baeldung.com/jpa-optimistic-locking>

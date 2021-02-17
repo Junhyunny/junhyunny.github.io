@@ -375,4 +375,4 @@ Lock을 선점한 트랜잭션의 문제가 발생하는 경우 대기 중인 �
 
 [lock-mechanism-blogLink]: https://junhyunny.github.io/information/database/lock/lock-mechanism/
 [jpa-optimistic-lock-blogLink]: https://junhyunny.github.io/spring/database/lock/jpa/junit/jpa-optimistic-lock/ 
-[github-link]: https://github.com/Junhyunny/action-in-blog/tree/2c09107b51b127f2e6296b6d1e698b73f1f3580a
+[github-link]: https://github.com/Junhyunny/action-in-blog/tree/1fd167ad0d03f06d8ef2fd0a8c26fb17549efae8

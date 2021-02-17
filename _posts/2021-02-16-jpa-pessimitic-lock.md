@@ -32,9 +32,9 @@ Pessimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 �
 
 ### Lock Modes
 세가지 모드가 있으며, 일반적으로 생각하는 Pessimistic Lock은 **PESSIMISTIC_WRITE** 모드입니다. 
-- PESSIMISTIC_READ – allows us to obtain a shared lock and prevent the data from being updated or deleted
-- PESSIMISTIC_WRITE – allows us to obtain an exclusive lock and prevent the data from being read, updated or deleted
-- PESSIMISTIC_FORCE_INCREMENT – works like PESSIMISTIC_WRITE and it additionally increments a version attribute of a versioned entity
+- **PESSIMISTIC_READ** – allows us to obtain a shared lock and prevent the data from being updated or deleted
+- **PESSIMISTIC_WRITE** – allows us to obtain an exclusive lock and prevent the data from being read, updated or deleted
+- **PESSIMISTIC_FORCE_INCREMENT** – works like PESSIMISTIC_WRITE and it additionally increments a version attribute of a versioned entity
 
 ### JpaRepository 인터페이스 사용
 JpaRepository 인터페이스에 조회용 메소드를 하나 선언합니다. 
@@ -229,9 +229,8 @@ public class RepositoryUseTest {
 <p align="left"><img src="/images/jpa-pessimistic-lock-3.JPG"></p>
 
 ### EntityManager 사용
-EntityManager를 사용하는 경우 트랜잭션 처리를 제어할 수 있으므로 스레드의 run() 메소드에 테스트 코드를 작성합니다. 
-Pessimistic Lock 기능 사용을 위해 entityManager.find() 메소드에 LockModeType.PESSIMISTIC_WRITE을 함께 전달합니다. 
-
+EntityManager를 사용하는 경우 트랜잭션 처리를 개발자가 제어할 수 있으므로 Thread 클래스의 run() 메소드에 테스트 코드를 작성하였습니다. 
+Pessimistic Lock 기능 사용을 위해 entityManager.find() 메소드에 LockModeType.PESSIMISTIC_WRITE을 함께 전달하였습니다. 
 ```java
 package blog.in.action.lock.pessimistic;
 
@@ -340,7 +339,7 @@ public class EntityManagerUseTest {
 
 ##### EntityManager 사용 테스트 결과
 - 테스트 로그, 수행된 결과 데이터
-- 먼저 LOCK을 선점한 `1.5 초 대기 스레드`의 트랜잭션 처리가 끝나는 1528ms 동안 `2.0 초 대기 스레드` 트랜잭션의 조회 수행이 대기한 것을 확인할 수 있습니다.
+- `2.0 초 대기 스레드` 트랜잭션은 먼저 LOCK을 선점한 트랜잭션이 종료되기까지 1528ms 동안 데이터 조회를 대기하였습니다.
 - 데이터베이스에 마지막으로 반영된 데이터는 `2.0 초 대기 스레드`의 트랜잭션 결과임을 확인할 수 있습니다.
 <p align="left"><img src="/images/jpa-pessimistic-lock-4.JPG"></p>
 <p align="left"><img src="/images/jpa-pessimistic-lock-5.JPG"></p>

@@ -347,7 +347,7 @@ public class EntityManagerUseTest {
 ## OPINION
 ### JpaRepository 사용시 트랜잭션 처리
 지난 [JPA Optimistic Lock 구현][jpa-optimistic-lock-blogLink] 포스트와 다르게 테스트 케이스를 만드는데 애를 먹었습니다. 
-**JpaRepository 인터페이스 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아 원하는 결과를 얻지 못하였습니다.** 
+**그 이유는 JpaRepository 인터페이스 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아 원하는 결과를 얻지 못했기 때문입니다.** 
 JpaRepository 인터페이스 사용시 트랜잭션 처리에 필요한 @Transactional 애너테이션의 전파 방법, 격리성 모드 등을 공부를 할 예정입니다.
 
 ##### 후순 트랜잭션이 Lock 점유가 가능할때까지 대기하지 않는 현상 발생

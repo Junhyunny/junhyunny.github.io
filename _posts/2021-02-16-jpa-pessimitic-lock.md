@@ -345,13 +345,16 @@ public class EntityManagerUseTest {
 <p align="left"><img src="/images/jpa-pessimistic-lock-5.JPG"></p>
 
 ## OPINION
+### JpaRepository 사용시 트랜잭션 처리
 지난 [JPA Optimistic Lock 구현][jpa-optimistic-lock-blogLink] 포스트와 다르게 테스트 케이스를 만드는데 애를 먹었습니다. 
-**JpaRepository 인터페이스 사용 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아서 원하는 결과를 얻지 못하였습니다.** 
+**JpaRepository 인터페이스 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아 원하는 결과를 얻지 못하였습니다.** 
+JpaRepository 인터페이스를 사용할 때 원하는 트랜잭션 처리를 위한 @Transactional 애너테이션의 전파 방법, 격리성 모드와 관련된 공부를 할 예정입니다.
 
-##### 후순으로 시작한 트랜잭션이 Lock 대기하지 않는 현상 발생
+##### 후순 트랜잭션이 Lock 점유가 가능할때까지 대기하지 않는 현상 발생
 - 각 트랜잭션이 조회에 걸리는 시간이 40ms 수준임을 확인할 수 있습니다.
 <p align="left"><img src="/images/jpa-pessimistic-lock-6.JPG"></p>
 
+### 성능 지연의 문제
 **Pessimistic Lock 기능을 사용한 트랜잭션 동시성 제어의 문제점은 대기로 인한 성능 지연입니다.** 
 Lock을 선점한 트랜잭션의 문제가 발생하는 경우 대기 중인 트랜잭션들은 모두 정지하게 되어 시스템 장애로 연결될 수 있습니다. 
 이런 문제를 해결하려면 Lock 점유를 위해 일정 시간 대기해보고 점유하지 못하면 트랜잭션을 실패 처리하는 `FOR UPDATE WAIT {waitTime}` 기능이 필요합니다. 

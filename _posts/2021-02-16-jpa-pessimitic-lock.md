@@ -13,7 +13,7 @@ last_modified_at: 2021-02-16T00:00:00
 # JPA Pessimistic Lock 구현<br>
 
 [Lock Mechanism][lock-mechanism-blogLink] 포스트에서 언급한 Pessimistic Lock 방법을 구현해보도록 하겠습니다. 
-Pessimistic Lock이 어떤 LOCK 방법인지 궁금하신 분들은 지난 포스트를 참고해주시기 바랍니다. 
+Pessimistic Lock이 어떤 Locking 방법인지 궁금하신 분들은 지난 포스트를 참고해주시기 바랍니다. 
 Pessimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 이어나가도록 하겠습니다. 
 
 ##### **`Pessimistic Lock`**
@@ -27,12 +27,18 @@ Pessimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 �
 두 테스트의 시나리오는 동일하며 아래와 같습니다.
 1. test() 메소드에서 2개의 스레드를 만들어 실행
 1. 각 스레드 별로 대기하는 시간을 다르게 부여
-1. LOCK을 먼저 선점한 트랜잭션이 끝날때까지 후순 트랜잭션 데이터 조회가 대기하는지 확인 
+1. LOCK을 먼저 선점한 트랜잭션이 끝날때까지 후순 트랜잭션의 데이터 조회가 지연되는지 확인 
 1. 후순 트랜잭션으로 업데이트 된 결과가 데이터베이스에 반영되었는지 확인
+
+### Lock Modes
+세가지 모드가 있으며, 일반적으로 생각하는 Pessimistic Lock은 **PESSIMISTIC_WRITE** 모드입니다. 
+- PESSIMISTIC_READ – allows us to obtain a shared lock and prevent the data from being updated or deleted
+- PESSIMISTIC_WRITE – allows us to obtain an exclusive lock and prevent the data from being read, updated or deleted
+- PESSIMISTIC_FORCE_INCREMENT – works like PESSIMISTIC_WRITE and it additionally increments a version attribute of a versioned entity
 
 ### JpaRepository 인터페이스 사용
 JpaRepository 인터페이스에 조회용 메소드를 하나 선언합니다. 
-해당 메소드를 사용하는 경우 Pessimistic Lock 기능이 동작되도록 @Lock(LockModeType.PESSIMISTIC_WRITE)을 선언합니다. 
+해당 메소드를 사용하는 경우 Pessimistic Lock 기능이 동작하도록 @Lock 애너테이션을 선언합니다. 
 JpaRepository 인터페이스 메소드 이름 규칙이 무시되도록 @Query 애너테이션과 JPQL을 함께 작성해줍니다. 
 
 ##### PostRepository 인터페이스
@@ -56,18 +62,17 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-**@Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 메소드 호츨은 JPA 트랜잭션 내부에서 이루어져야 합니다.** 
+**@Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 메소드 호츨은 JPA 트랜잭션 내부에서 동작해야 합니다.** 
 JpaRepository 인터페이스를 사용하는 경우 entityManager.getTransaction().begin() 메소드를 사용할 수 없으니 @Transactional 애너테이션을 사용합니다. 
 @Transactional 애너테이션이 영역(scope) 밖에서 @Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 조회 메소드를 호출하면 다음과 같은 에러를 만나게 됩니다. 
 
 ##### InvalidDataAccessApiUsageException, no transaction is in progress
 <p align="left"><img src="/images/jpa-pessimistic-lock-1.JPG"></p>
 
-Pessimistic Lock 조회에서 업데이트까지 하나의 트랜잭션으로 처리될 수 있도록 PostService @Bean 내부에 @Transactional 애너테이션을 붙힌 메소드를 하나 만들어줍니다. 
-**@Transactional 애너테이션은 @Bean에만 적용되니 주의해야 합니다.** 
-**일반 객체의 메소드에 작성하여도 정상적으로 동작하지 않습니다.**
+조회에서 업데이트까지 하나의 트랜잭션으로 처리될 수 있도록 PostService @Bean 내부에 @Transactional 애너테이션을 붙힌 메소드를 하나 만들어줍니다. 
+**@Transactional 애너테이션은 @Bean인 객체에만 적용되니 주의해야 합니다. 일반 객체의 메소드에 작성하여도 정상적으로 동작하지 않습니다.**
 
-##### PostService @Bean
+##### PostService 클래스
 ```java
 package blog.in.action.domain.post;
 
@@ -133,7 +138,7 @@ public class PostService {
 }
 ```
 
-아래와 같은 테스트 코드를 수행시킵니다.
+##### RepositoryUseTest 클래스
 ```java
 package blog.in.action.lock.pessimistic;
 
@@ -218,7 +223,7 @@ public class RepositoryUseTest {
 
 ##### JpaRepository 인터페이스 사용 테스트 결과
 - 테스트 로그, 수행된 결과 데이터
-- 먼저 LOCK을 선점한 `2.0 초 대기 스레드`의 트랜잭션 처리가 끝나는 2127ms 동안 `1.5 초 대기 스레드` 트랜잭션의 조회 수행이 대기한 것을 확인할 수 있습니다.
+- `1.5 초 대기 스레드` 트랜잭션은 먼저 LOCK을 선점한 트랜잭션이 종료되기까지 2127ms 동안 데이터 조회를 대기하였습니다.
 - 데이터베이스에 마지막으로 반영된 데이터는 `1.5 초 대기 스레드`의 트랜잭션 결과임을 확인할 수 있습니다.
 <p align="left"><img src="/images/jpa-pessimistic-lock-2.JPG"></p>
 <p align="left"><img src="/images/jpa-pessimistic-lock-3.JPG"></p>

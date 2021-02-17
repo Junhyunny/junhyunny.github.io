@@ -29,7 +29,7 @@ Optimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 �
 1. 각 스레드 별로 대기하는 시간을 다르게 부여하여 업데이트 시간 차이를 부여
 1. 늦게 업데이트를 수행한 스레드가 Optimistic Lock과 관련된 Exception이 발생하는지 확인
 
-### JpaRepository Inteface 사용
+### JpaRepository 인터페이스 사용
 ```java
 package blog.in.action.lock.optimistic;
 
@@ -119,7 +119,7 @@ public class RepositoryUseTest {
 }
 ```
 
-##### JpaRepository Inteface 사용 테스트 결과
+##### JpaRepository 인터페이스 사용 테스트 결과
 - 테스트 로그, 수행된 결과 데이터
 <p align="left"><img src="/images/jpa-optimistic-lock-1.JPG"></p>
 <p align="left"><img src="/images/jpa-optimistic-lock-2.JPG"></p>

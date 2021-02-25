@@ -7,8 +7,6 @@ category:
 last_modified_at: 2021-01-30T00:00:00
 ---
 
-# 트랜잭션 격리성(Transaction Isolation)<br>
-
 지난 [Transaction ACID 특징][acid-blogLink] 포스트에서 다뤘던 내용 중 격리성(isolation)에 대한 내용을 더 자세히 다뤄보고자 합니다. 
 트랜잭션에서 발생할 수 있는 문제점들에 대해 알아보고 이를 해결하기 위한 트랜잭션 격리 수준들에 대해 정리하였습니다.
 각 격리 수준 별로 발생할 수 있는 문제들을 한 눈에 확인할 수 있도록 표로 정리하였습니다. 

@@ -7,8 +7,6 @@ category:
 last_modified_at: 2021-01-30T00:00:00
 ---
 
-# MultipartFile 활용 대용량 파일 업로드 예제<br>
-
 > A representation of an uploaded file received in a multipart request.
 
 모바일/웹 어플리케이션 대부분의 경우 파일 업로드 기능이 사용됩니다. 

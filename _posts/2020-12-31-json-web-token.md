@@ -7,8 +7,6 @@ category:
 last_modified_at: 2021-01-28T00:00:00
 ---
 
-# JWT, Json Web Token
-
 > Json Format 데이터를 이용한 클레임(Claim) 기반의 토큰 인증 방식
 
 Json 객체를 사용하여 가볍고 자가 수용적인 방식으로 정보를 안정성 있게 주고 받는 방법입니다. 

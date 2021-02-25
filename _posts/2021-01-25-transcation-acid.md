@@ -7,8 +7,6 @@ category:
 last_modified_at: 2021-01-30T00:00:00
 ---
 
-# Transaction ACID 특징<br>
- 
 시스템 개발/운영을 하면서 많이 접하게 되는 Transaction 이라는 용어의 정확한 의미와 Transaction ACID 특징에 대해 정리해보았습니다. 
 
 ## 트랜잭션 (Transaction)

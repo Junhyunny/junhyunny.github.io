@@ -7,6 +7,8 @@ category:
 last_modified_at: 2021-01-30T00:00:00
 ---
 
+<br>
+
 > CQRS(Command and Query Responsibility Segregation) - 명령과 조회의 책임 분리
 
 마이크로 서비스 아키텍처를 도입하는 초기에 아키텍처 팀에서 사용할지 고민했던 아키텍처 패턴입니다. 

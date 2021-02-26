@@ -7,6 +7,8 @@ category:
 last_modified_at: 2021-01-29T00:00:00
 ---
 
+<br>
+
 지난 포스트에서는 [Jason Web Token][json-blogLink]과 [Spring Security][security-blogLink] 대한 이야기를 해보았습니다.
 Spring Security 프레임워크를 이용하여 Jason Web Token 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.

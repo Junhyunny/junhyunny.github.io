@@ -32,7 +32,7 @@ last_modified_at: 2021-02-26T00:00:00
     - P1 프로세스가 먼저 수행한 경우에는 -100이 저장됩니다.
     - P2 프로세스가 먼저 수행한 경우에는 +100이 저장됩니다.
 
-<p align="center"><img src="/images/race-condition-1.JPG" width="650"></p>
+<p align="center"><img src="/images/race-condition-1.JPG" width="800"></p>
 
 ## 임계 영역(Critical Section)
 
@@ -51,15 +51,15 @@ last_modified_at: 2021-02-26T00:00:00
 ##### 상호 배제(Mutual exclusion)
 - 임계 영역 내에서 한 프로세스가 일을 수행 중이라면 다른 프로세스들은 임계 영역 내에서 일을 할 수 없습니다.
 - 뮤텍스(Mutex), 세마포어(Semaphore) 같은 lock 메커니즘을 통해 구현할 수 있습니다.
-<p align="center"><img src="/images/race-condition-2.JPG" width="650"></p>
+<p align="center"><img src="/images/race-condition-2.JPG" width="800"></p>
 
 ##### 진행(Progress)
 - 임계 영역 내에 일하는 프로세스가 없다면, 대기 중인 프로세스 중에서 다음으로 일을 수행할 프로세스를 선택합니다.
-<p align="center"><img src="/images/race-condition-3.JPG" width="650"></p>
+<p align="center"><img src="/images/race-condition-3.JPG" width="800"></p>
 
 ##### 제한된 대기(Bounded waiting)
 - 프로세스들을 무한정 대기시키지 않습니다. 제한되는 대기 시간을 가집니다.
-<p align="center"><img src="/images/race-condition-4.JPG" width="650"></p>
+<p align="center"><img src="/images/race-condition-4.JPG" width="800"></p>
 
 ## 테스트 시나리오
 - 프로세스가 아닌 스레드 수준에서 테스트하였습니다.
@@ -70,6 +70,7 @@ last_modified_at: 2021-02-26T00:00:00
 
 ##### 임계 영역에 대한 동기화가 없는 CASE
 - 임계 영역에 대한 동시 접근 제어를 수행하지 않습니다.
+
 ```java
 package blog.in.action.raceccondition;
 
@@ -160,6 +161,7 @@ public class NotSynchronizedTest {
 
 ##### 임계 영역에 대한 동기화가 있는 CASE
 - Java `synchronized` 키워드를 이용하여 스레드의 동시 접근을 제어하였습니다.
+
 ```java
 package blog.in.action.raceccondition;
 

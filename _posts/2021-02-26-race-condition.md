@@ -253,7 +253,7 @@ public class SynchronizedTest {
 
 ##### 임계 영역에 대한 동기화가 있는 CASE 결과
 - 총 1000 건의 테스트 모두 정상적으로 수행되었음을 로그를 통해 확인할 수 있습니다.
-<p align="center"><img src="/images/race-condition-5.JPG"></p>
+<p align="center"><img src="/images/race-condition-6.JPG"></p>
 
 ## OPINION
 이전 블로그에 작성한 글을 새로운 블로그로 이전하면서 내용을 조금 더 보완하였습니다. 

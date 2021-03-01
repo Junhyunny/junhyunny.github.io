@@ -11,24 +11,23 @@ last_modified_at: 2021-03-01T00:00:00
 
 <br>
 
-Spring 프레임워크에 대한 공부를 시작하면 IoC(Inversion of Control)과 DI(Dependency Injection)이라는 용어를 가장 먼저 접하게 됩니다. 
+Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, Inversion of Control)과 의존성 주입(DI, Dependency Injection)이라는 용어를 가장 먼저 접하게 됩니다. 
 해당 내용을 포스트하기 위하여 공부하다보니 사실 프레임워크에 대한 내용이라기보다는 소프트웨어 공학과 관련된 내용이라는 사실을 알게 되었습니다. 
-이번 포스트를 통해 제어의 역전(IoC, Inversion of Control)과 의존성 주입(DI, Dependency Injection)에 대한 개념을 정리하고 Spring 프레임워크와 어떤 관계가 있는지 알아보겠습니다.
+이번 포스트를 통해 제어의 역전과 의존성 주입에 대한 개념을 정리하고 Spring 프레임워크와 어떤 관계가 있는지 알아보겠습니다.
 
 ## 제어의 역전(IoC, Inversion of Control)
 
-> 객체 제어에 대한 주체를 프로그래머에서 컨테이너나 프레임워크로 변경한 소프트웨어 공학의 원리<br>
+> 객체 제어에 대한 주체를 프로그래머에서 컨테이너나 프레임워크로 변경한 소프트웨어 공학의 원칙<br>
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
 
-제어의 역전(IoC, Inversion of Control)이라는 개념은 Spring에서 처음 언급된 것은 아닙니다. 
-소프트웨어 공학의 원리(principle)이고 Spring 프레임워크에서 이를 채택하여 사용한 것입니다. 
+제어의 역전(IoC, Inversion of Control)이라는 개념은 소프트웨어 공학의 원칙(principle)이며 Spring 프레임워크에서 처음 언급된 내용은 아닙니다. 
 
 ## 의존성 주입(DI, Dependency Injection)
 
 > IoC를 구현한 **디자인 패턴**으로 객체 간의 의존성이 외부에 의해 선택되는 방식을 의미<br>
 > Dependency injection is a pattern we can use to implement IoC, where the control being inverted is setting an object's dependencies.
 
-의존성 주입은 소프트웨어 공학에서 사용되는 디자인 패턴으로 정의됩니다. 
+의존성 주입(DI, Dependency Injection)은 소프트웨어 디자인 패턴으로 정의됩니다. 
 주입이라는 단어를 통해 외부로부터 전달받는다는 느낌을 얻을 수 있지만 우선 의존성(depndency)이라는 단어에 대한 정의가 필요해보입니다.
 
 ### 의존성(Dependency)이란?
@@ -40,8 +39,8 @@ Spring 프레임워크에 대한 공부를 시작하면 IoC(Inversion of Control
 의존성 주입이란 **`'클래스 A에서 사용할 클래스(인터페이스) B를 외부로부터 전달받는다.'`** 라고 다시 정리할 수 있겠습니다. 
 
 ##### 제어의 역전(IoC, Inversion of Control), 의존성 주입(DI, Dependency Injection) 그리고 프레임워크와의 관계
-- 제어의 역전(IoC)은 소프트웨어 공학의 원리(principle)로써 하나의 컨셉 혹은 가이드라인입니다.
-- 의존성 주입(DI)은 IoC 원리를 구현한 디자인 패턴으로써 외부에 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
+- 제어의 역전(IoC)은 소프트웨어 공학의 원칙(principle)로써 하나의 컨셉 혹은 가이드라인입니다.
+- 의존성 주입(DI)은 IoC 원칙를 구현한 디자인 패턴으로써 외부에 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
 - IoC Containers는 IoC 개념이 적용된 프로그램으로써 프레임워크에서 이를 사용합니다.
 
 <p align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
@@ -49,7 +48,7 @@ Spring 프레임워크에 대한 공부를 시작하면 IoC(Inversion of Control
 
 ## Spring 프레임워크의 제어의 역전(IoC) 적용
 전통적인 프로그래밍은 개발자가 작성한 코드에서 라이브러리를 호출하는 방식이었습니다. 
-**반대로 IoC 원리가 적용된 프레임워크에선 개발자가 구현한 코드가 프레임워크에 의해 흐름 제어를 받는 방식입니다.** 
+**반대로 IoC 원칙가 적용된 프레임워크에선 개발자가 구현한 코드가 프레임워크에 의해 흐름 제어를 받는 방식입니다.** 
 그렇다면 프로그래머가 작성한 코드를 어떻게 프레임워크에게 전달할 수 있을까요? 
 Spring Boot 프레임워크를 중심으로 알아보도록 하겠습니다. 
 

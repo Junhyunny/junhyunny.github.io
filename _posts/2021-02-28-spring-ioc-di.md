@@ -28,7 +28,7 @@ Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, In
 > Dependency injection is a pattern we can use to implement IoC, where the control being inverted is setting an object's dependencies.
 
 의존성 주입(DI, Dependency Injection)은 소프트웨어 디자인 패턴으로 정의됩니다. 
-주입이라는 단어를 통해 외부로부터 전달받는다는 느낌을 얻을 수 있지만 우선 의존성(depndency)이라는 단어에 대한 정의가 필요해보입니다.
+주입이라는 단어를 통해 외부로부터 무언가를 전달받는다는 느낌을 얻을 수 있지만 일단 의존성(depndency)이라는 용어에 대한 정의부터 알아보도록 하겠습니다.
 
 ### 의존성(Dependency)이란?
 - 어떤 클래스 A가 다른 클래스 또는 인터페이스 B를 이용할 때 A가 B에 의존한다고 합니다.
@@ -38,26 +38,144 @@ Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, In
 
 의존성 주입이란 **`'클래스 A에서 사용할 클래스(인터페이스) B를 외부로부터 전달받는다.'`** 라고 다시 정리할 수 있겠습니다. 
 
+##### 의존성 주입이 아닌 코드
+```java
+class A {
+    
+    private B b;
+
+    // 필요한 객체 B 객체를 직접 만들어 사용
+    public A () {
+        this.b = new B();
+    }
+}
+```
+
+##### 의존성 주입인 코드
+```java
+class A {
+    
+    private B b;
+
+    // 외부에서 A 객체에게 B 객체를 전달
+    public A (B b) {
+        this.b = b;
+    }
+}
+```
+
 ##### 제어의 역전(IoC, Inversion of Control), 의존성 주입(DI, Dependency Injection) 그리고 프레임워크와의 관계
-- 제어의 역전(IoC)은 소프트웨어 공학의 원칙(principle)로써 하나의 컨셉 혹은 가이드라인입니다.
+- 제어의 역전(IoC)은 소프트웨어 공학의 원칙(principle)으로써 하나의 컨셉 혹은 가이드 라인입니다.
 - 의존성 주입(DI)은 IoC 원칙를 구현한 디자인 패턴으로써 외부에 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
 - IoC Containers는 IoC 개념이 적용된 프로그램으로써 프레임워크에서 이를 사용합니다.
 
 <p align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
 <center>이미지 출처, https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/</center><br>
 
-## Spring 프레임워크의 제어의 역전(IoC) 적용
+## Spring 프레임워크와 IoC 원칙
 전통적인 프로그래밍은 개발자가 작성한 코드에서 라이브러리를 호출하는 방식이었습니다. 
 **반대로 IoC 원칙가 적용된 프레임워크에선 개발자가 구현한 코드가 프레임워크에 의해 흐름 제어를 받는 방식입니다.** 
+
 그렇다면 프로그래머가 작성한 코드를 어떻게 프레임워크에게 전달할 수 있을까요? 
-Spring Boot 프레임워크를 중심으로 알아보도록 하겠습니다. 
+1. 프레임워크에서 제공하는 특정 인터페이스, 추상 클래스를 구현한다.
+1. 개발자가 작성한 클래스를 @Bean으로 등록하여 필요한 곳에 의존성 주입을 시켜준다.
 
 ### Sprigng Boot IoC Container
 - BeanFactory
-- ApplicationContext
+  - Spring 프레임워크의 핵심 IoC Container
+  - @Bean 객체를 생성, 등록, 조회, 반환하는 등의 관리를 수행합니다.
+  - 의존성 주입과 관련된 기능을 수행합니다.
 
-### Spring Boot @Bean 등록 방법
-작성 중입니다.
+- ApplicationContext
+  - BeanFactory를 확장한 IoC Container
+  - BeanFactory 인터페이스를 상속받아 BeanFactory의 기능을 제공합니다.
+  - 추가적으로 다른 기능들도 함께 제공합니다.
+
+##### 디버깅을 통해 발견한 몇 가지 사실
+- 별도의 설정 없이 만들어진 ApplicationContext의 구현체는 GenericWebApplicationContext 클래스입니다.
+- ApplicationContext 내부 BeanFactory 객체의 주소와 주입 받은 BeanFactory 객체의 주소가 동일함을 확인하였습니다.
+- GenericWebApplicationContext 클래스는 BeanFactory 인터페이스를 상속하였지만 내부 BeanFactory 멤버에게 의존하여 해당 기능들을 제공하는 듯 합니다. 
+
+<p align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
+<p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
+
+### Spring Boot @Bean 등록
+- @Component, @Repository, @Service, @Controller, @Configuration 애너테이션 사용
+  - @Component 애너테이션이 붙은 경우 @Bean으로 등록됩니다.
+  - @Repository, @service, @Controller는 역할 구분을 위해 @Component를 재정의한 것입니다.
+  - @Repository, @Service, @Controller, @Configuration 애너테이션들을 확인해보면 내부에 @Component 애너테이션이 붙어 있음을 알 수 있습니다. 
+
+##### @Repository 애너테이션
+```java
+/*
+ * ...
+ */
+
+package org.springframework.stereotype;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+import org.springframework.core.annotation.AliasFor;
+
+/**
+ * ...
+ */
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface Repository {
+
+    /**
+     * ...
+     */
+    @AliasFor(annotation = Component.class)
+    String value() default "";
+
+}
+```
+
+- @Configruation, @Bean 애너테이션 사용
+  - @Configuration 애너테이션이 붙은 클래스 내부에 @Bean 애너테이션을 붙힌 메소드들을 선언해줍니다.
+  - 메소드 이름으로 @Bean이 등록됩니다.
+
+##### @Configruation, @Bean 애너테이션 사용 예제 코드
+```java
+package blog.in.action.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+@Configuration
+public class Config {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("http://localhost:8080");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return source;
+    }
+}
+```
 
 ### Spring Boot 의존성 주입 방법
 - Setter Injection
@@ -65,6 +183,47 @@ Spring Boot 프레임워크를 중심으로 알아보도록 하겠습니다.
   - memberService 객체는 IoC container를 통해 주입됩니다.
 
 ```java
+package blog.in.action.di;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
+
+import blog.in.action.domain.member.MemberService;
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+public class SetterDependencyInjectionTest {
+
+    @Autowired
+    private SetterInjectionClass setterInjectionClass;
+
+    @Test
+    public void test() {
+        assertTrue(setterInjectionClass != null);
+        assertTrue(setterInjectionClass.getMemberService() != null);
+    }
+}
+
+@Log4j2
+@Component
+class SetterInjectionClass {
+
+    private MemberService memberService;
+
+    public MemberService getMemberService() {
+        return memberService;
+    }
+
+    @Autowired
+    public void setMemberService(MemberService memberService) {
+        log.info("setter dependency injection");
+        this.memberService = memberService;
+    }
+}
 ```
 
 - Constructor Injection
@@ -73,6 +232,46 @@ Spring Boot 프레임워크를 중심으로 알아보도록 하겠습니다.
   - memberService 객체는 IoC container를 통해 주입됩니다.
 
 ```java
+package blog.in.action.di;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
+
+import blog.in.action.domain.member.MemberService;
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+public class ConstructorDependencyInjectionTest {
+
+    @Autowired
+    private ConstructorInjectionClass constructorInjectionClass;
+
+    @Test
+    public void test() {
+        assertTrue(constructorInjectionClass != null);
+        assertTrue(constructorInjectionClass.getMemberService() != null);
+    }
+}
+
+@Log4j2
+@Component
+class ConstructorInjectionClass {
+
+    private final MemberService memberService;
+
+    public ConstructorInjectionClass(MemberService memberService) {
+        log.info("constructor dependency injection");
+        this.memberService = memberService;
+    }
+
+    public MemberService getMemberService() {
+        return memberService;
+    }
+}
 ```
 
 - Method Injection
@@ -80,18 +279,63 @@ Spring Boot 프레임워크를 중심으로 알아보도록 하겠습니다.
   - memberService 객체는 IoC container를 통해 주입됩니다.
 
 ```java
+package blog.in.action.di;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
+
+import blog.in.action.domain.member.MemberService;
+import lombok.extern.log4j.Log4j2;
+
+@SpringBootTest
+public class MethodDependencyInjectionTest {
+
+    @Autowired
+    private MethodInjectionClass methodInjectionClass;
+
+    @Test
+    public void test() {
+        assertTrue(methodInjectionClass != null);
+        assertTrue(methodInjectionClass.getMemberService() != null);
+    }
+}
+
+@Log4j2
+@Component
+class MethodInjectionClass {
+
+    private MemberService memberService;
+
+    public MemberService getMemberService() {
+        return memberService;
+    }
+
+    @Autowired
+    private void method(MemberService memberService) {
+        log.info("method dependency injection");
+        this.memberService = memberService;
+    }
+}
 ```
 
 ## OPINION
 글을 정리하다보니 Spring 프레임워크보다는 소프트웨어 공학, 디자인 패턴에 대해 공부가 되었습니다. 
+간단하다고 생각했던 개념이 정리하다 보니 엄청나게 많은 내용들을 품고 있어서 많이 당황했습니다. 
+정리하고 싶은 내용은 많았으나 중간에 내용을 끊어서 작성하기에 애매하여 많은 고민을 하게 되었습니다. 
+이번 포스트에서 담지 못한 내용들은 이후에 다뤄보도록 하겠습니다. 
+
 아래 추천하는 [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] 글을 보시면 구체적인 예제 코드를 통해 의존성 주입과 관련된 개념을 설명해주고 있습니다. 
 앞으로도 꾸준히 공부해서 추천 글과 같은 좋은 포스트를 작성할 수 있는 날이 왔으면 좋겠습니다. 
 
 #### 참조글
+- <https://jongmin92.github.io/2018/02/11/Spring/spring-ioc-di/>
 - <https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/>
-- [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] **(추천)**
-- <https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection>
 - [의존성이란?][dependency-blogLink]
+- [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] **(추천)**
 
 [IoC-blogLink]: https://develogs.tistory.com/19
 [dependency-blogLink]: https://velog.io/@huttels/%EC%9D%98%EC%A1%B4%EC%84%B1%EC%9D%B4%EB%9E%80

@@ -85,7 +85,7 @@ Spring Boot 프레임워크를 중심으로 알아보도록 하겠습니다.
 ## OPINION
 글을 정리하다보니 Spring 프레임워크보다는 소프트웨어 공학, 디자인 패턴에 대해 공부가 되었습니다. 
 아래 추천하는 [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] 글을 보시면 구체적인 예제 코드를 통해 의존성 주입과 관련된 개념을 설명해주고 있습니다. 
-앞으로도 꾸준히 공부해서 [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] 같은 좋은 포스트를 작성할 수 있는 날이 왔으면 좋겠습니다. 
+앞으로도 꾸준히 공부해서 추천 글과 같은 좋은 포스트를 작성할 수 있는 날이 왔으면 좋겠습니다. 
 
 #### 참조글
 - <https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/>

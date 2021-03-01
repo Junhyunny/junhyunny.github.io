@@ -38,7 +38,7 @@ comments:
   facebook:
     # https://developers.facebook.com/docs/plugins/comments
     appid                :
-    num_posts            : 10 # 5 (default)
+    num_posts            : # 5 (default)
     colorscheme          : # "light" (default), "dark"
   utterances:
     theme                : # "github-light" (default), "github-dark"
@@ -97,7 +97,7 @@ author:
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "서버 사이드 개발자"
   location         : "서울/대한민국(Seoul/South Korea)"
-  email            :
+  email            : "kang3966@naver.com"
   links:
     # - label: "Email"
     #   icon: "fas fa-fw fa-envelope-square"

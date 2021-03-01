@@ -1,6 +1,7 @@
 ---
 title: "About"
 permalink: /about/
-author_profile: true
+entries_layout: linear
 classes: wide
 ---
+

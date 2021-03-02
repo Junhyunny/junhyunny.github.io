@@ -66,21 +66,23 @@ class A {
 
 ##### 제어의 역전(IoC, Inversion of Control), 의존성 주입(DI, Dependency Injection) 그리고 프레임워크와의 관계
 - 제어의 역전(IoC)은 소프트웨어 공학의 원칙(principle)으로써 하나의 컨셉 혹은 가이드 라인입니다.
-- 의존성 주입(DI)은 IoC 원칙를 구현한 디자인 패턴으로써 외부에 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
-- IoC Containers는 IoC 개념이 적용된 프로그램으로써 프레임워크에서 이를 사용합니다.
+- 의존성 주입(DI)은 IoC 원칙를 구현한 디자인 패턴으로써 외부의 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
+- IoC Containers는 IoC 개념이 적용된 프로그램(혹은 객체)으로써 프레임워크에서 이를 사용합니다.
 
 <p align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
 <center>이미지 출처, https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/</center><br>
 
 ## Spring 프레임워크와 IoC 원칙
 전통적인 프로그래밍은 개발자가 작성한 코드에서 라이브러리를 호출하는 방식이었습니다. 
-**반대로 IoC 원칙가 적용된 프레임워크에선 개발자가 구현한 코드가 프레임워크에 의해 흐름 제어를 받는 방식입니다.** 
+또한 `main`이라는 큰 흐름에서 개발자가 필요한 객체들을 생성하고, 이들을 서로 연결해주는 방식으로 프로그래밍이 전개되었습니다. 
+**반대로 IoC 원칙이 적용된 프레임워크에선 개발자가 구현한 코드가 프레임워크에 의해 흐름 제어를 받습니다.** 
 
-그렇다면 프로그래머가 작성한 코드를 어떻게 프레임워크에게 전달할 수 있을까요? 
+그렇다면 Spring 프레임워크에서는 프로그래머가 작성한 코드를 어떻게 프레임워크에게 전달할 수 있을까요? 
 1. 프레임워크에서 제공하는 특정 인터페이스, 추상 클래스를 구현한다.
-1. 개발자가 작성한 클래스를 @Bean으로 등록하여 필요한 곳에 의존성 주입을 시켜준다.
+1. 개발자가 작성한 클래스가 필요한 곳에서 주입받아 사용될 수 있도록 IoC 컨테이너에 @Bean으로 등록한다.
 
-### Sprigng Boot IoC Container
+### Sprigng IoC Container
+IoC 컨테이너는 Spring 프레임워크에서 사용하는 객체입니다. 
 - BeanFactory
   - Spring 프레임워크의 핵심 IoC Container
   - @Bean 객체를 생성, 등록, 조회, 반환하는 등의 관리를 수행합니다.
@@ -99,7 +101,7 @@ class A {
 <p align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
 <p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
 
-### Spring Boot @Bean 등록
+### Spring @Bean 등록
 - @Component, @Repository, @Service, @Controller, @Configuration 애너테이션 사용
   - @Component 애너테이션이 붙은 경우 @Bean으로 등록됩니다.
   - @Repository, @service, @Controller는 역할 구분을 위해 @Component를 재정의한 것입니다.

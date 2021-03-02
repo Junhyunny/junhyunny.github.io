@@ -83,6 +83,10 @@ class A {
 
 ### Sprigng IoC Container
 IoC 컨테이너는 Spring 프레임워크에서 사용하는 객체입니다. 
+IoC 라는 용어는 매우 느슨하기 정의되어 폭 넓게 사용되기 때문에 Spring 프레임워크의 기능을 명확하게 설명하지는 못합니다. 
+이에 의도를 명확히 드러내고자 Spring 프레임워크에서 제공하는 IoC 방식의 핵심인 `의존성 주입(DI, Dependency Injection)`의 영문 약자를 사용하여 DI 컨테이너라고 부르기도 합니다. 
+
+Spring 프레임워크에서 사용하는 IoC 컨테이너는 다음과 같습니다. 
 - BeanFactory
   - Spring 프레임워크의 핵심 IoC Container
   - @Bean 객체를 생성, 등록, 조회, 반환하는 등의 관리를 수행합니다.
@@ -94,14 +98,18 @@ IoC 컨테이너는 Spring 프레임워크에서 사용하는 객체입니다.
   - 추가적으로 다른 기능들도 함께 제공합니다.
 
 ##### 디버깅을 통해 발견한 몇 가지 사실
-- 별도의 설정 없이 만들어진 ApplicationContext의 구현체는 GenericWebApplicationContext 클래스입니다.
-- ApplicationContext 내부 BeanFactory 객체의 주소와 주입 받은 BeanFactory 객체의 주소가 동일함을 확인하였습니다.
-- GenericWebApplicationContext 클래스는 BeanFactory 인터페이스를 상속하였지만 내부 BeanFactory 멤버에게 의존하여 해당 기능들을 제공하는 듯 합니다. 
+IoC 컨테이너인 두 객체의 차이점을 확인하기 위해 간단히 디버깅해보았으며 아래와 같은 사실들을 확인하였습니다.
+- 별도의 설정 없이 만들어진 ApplicationContext의 구현체는 GenericWebApplicationContext 클래스
+- ApplicationContext 내부 BeanFactory 객체의 주소와 주입 받은 BeanFactory 객체의 주소가 동일
+- ApplicationContext 인터페이스는 BeanFactory 인터페이스를 상속 받았기 때문에 ApplicationContext의 구현체는 BeanFactory의 기능들을 모두 제공
+- GenericWebApplicationContext 클래스는 BeanFactory 인터페이스의 기능을 멤버 변수인 BeanFactory 객체에게 모두 위임(delegate)
 
 <p align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
 <p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
 
 ### Spring @Bean 등록
+IoC 컨테이너에 대해 알아봤으니 개발자가 작성한 클래스를 IoC 컨테이너에 등록할 수 있도록 @Bean에 대해 알아보도록 하겠습니다. 
+
 - @Component, @Repository, @Service, @Controller, @Configuration 애너테이션 사용
   - @Component 애너테이션이 붙은 경우 @Bean으로 등록됩니다.
   - @Repository, @service, @Controller는 역할 구분을 위해 @Component를 재정의한 것입니다.

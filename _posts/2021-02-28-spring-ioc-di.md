@@ -107,7 +107,7 @@ IoC 컨테이너인 두 객체의 차이점을 확인하기 위해 간단히 디
 <p align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
 <p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
 
-### Spring Bean 등록
+### IoC 컨테이너에 빈(Bean) 등록하기
 IoC 컨테이너에 대해 알아봤으니 이번엔 빈(Bean)에 대해 알아보도록 하겠습니다. 
 **IoC 컨테이너가 관리하는 객체를 빈(Bean) 이라고 합니다.** 
 개발자가 작성한 클래스가 빈(Bean)으로 등록되면 IoC 컨테이너에 의해 관리되고 필요한 곳에서 사용되어집니다. 
@@ -190,10 +190,13 @@ public class Config {
 }
 ```
 
-### Spring Boot 의존성 주입 방법
+### IoC 컨테이너로부터 의존성 주입받기
+IoC 컨테이너에 빈(Bean)으로 등록된 객체들을 의존성 주입을 통해 전달받는 방법에 대해 알아보도록 하겠습니다. 
+Spring Boot 프레임워크를 기준으로 작성하였습니다. 
+
 - Setter Injection
-  - 의존성을 입력 받을 수 있는 setter 메서드를 만들고 이를 통해 의존성을 주입받습니다.
-  - memberService 객체는 IoC container를 통해 주입됩니다.
+  - 의존 관계의 객체를 전달 받을 수 있는 setter 메소드를 만듭니다.
+  - setter 메소드 위에 @Autowired 애너테이션을 명시합니다.
 
 ```java
 package blog.in.action.di;
@@ -241,8 +244,7 @@ class SetterInjectionClass {
 
 - Constructor Injection
   - 권장되는 방식의 의존성 주입 방법입니다. 
-  - 의존성을 입력 받을 수 있는 생성자를 만들고 이를 통해 의존성을 주입받습니다.
-  - memberService 객체는 IoC container를 통해 주입됩니다.
+  - 의존 관계의 객체를 전달 받을 수 있는 생성자를 만듭니다.
 
 ```java
 package blog.in.action.di;
@@ -288,8 +290,8 @@ class ConstructorInjectionClass {
 ```
 
 - Method Injection
-  - 의존성을 입력 받을 수 있는 일반 메서드를 만들고 이를 통해 의존성을 주입받습니다.
-  - memberService 객체는 IoC container를 통해 주입됩니다.
+  - 의존 관계의 객체를 전달 받을 수 있는 일반 메소드를 만듭니다.
+  - 일반 메소드 위에 @Autowired 애너테이션을 명시합니다.
 
 ```java
 package blog.in.action.di;
@@ -336,7 +338,7 @@ class MethodInjectionClass {
 ```
 
 ## OPINION
-글을 정리하다보니 Spring 프레임워크보다는 소프트웨어 공학, 디자인 패턴에 대해 공부가 되었습니다. 
+글을 정리하다보니 Spring 프레임워크보다는 소프트웨어 공학, 디자인 패턴에 대해 공부를 더 많이하였습니다. 
 간단하다고 생각했던 개념이 정리하다 보니 엄청나게 많은 내용들을 품고 있어서 많이 당황했습니다. 
 정리하고 싶은 내용은 많았으나 중간에 내용을 끊어서 작성하기에 애매하여 많은 고민을 하게 되었습니다. 
 이번 포스트에서 담지 못한 내용들은 이후에 다뤄보도록 하겠습니다. 

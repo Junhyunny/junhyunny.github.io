@@ -23,21 +23,20 @@ Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, In
 제어의 역전(IoC, Inversion of Control)이라는 개념은 소프트웨어 공학의 원칙(principle)이며 Spring 프레임워크에서 처음 언급된 내용은 아닙니다. 
 저는 **`'Spring 프레임워크에 IoC 원칙이 적용되어 있고, 이 의미는 개발자가 작성한 코드가 프레임워크에 제어를 받는다.'`** 라고 정리하였습니다. 
 
-## 의존성 주입(DI, Dependency Injection)
-
-> IoC를 구현한 **디자인 패턴**으로 객체 간의 의존성이 외부에 의해 선택되는 방식을 의미<br>
-> Dependency injection is a pattern we can use to implement IoC, where the control being inverted is setting an object's dependencies.
-
-의존성 주입(DI, Dependency Injection)은 소프트웨어 디자인 패턴으로 정의됩니다. 
-주입이라는 단어를 통해 외부로부터 무언가를 전달받는다는 느낌을 얻을 수 있지만 일단 의존성(depndency)이라는 용어에 대한 정의부터 알아보도록 하겠습니다.
-
-### 의존성(Dependency)이란?
+## 의존성(Dependency)이란?
+일단 의존성(depndency)이라는 용어에 대한 정의부터 알아보도록 하겠습니다.
 - 어떤 클래스 A가 다른 클래스 또는 인터페이스 B를 이용할 때 A가 B에 의존한다고 합니다.
 - A는 B 없이 작동할 수 없고 B를 재사용하지 않으면 A 또한 재사용할 수 없습니다.
 - 이런 상황에서 클래스 A를 `dependant`라 하고 클래스(인터페이스) B를 `dependency`라고 한다.
 - B에 변화에 A는 영향을 받지만, A의 변화에 B는 영향을 받지 않는다.
 
-의존성 주입이란 **`'클래스 A에서 사용할 클래스(인터페이스) B를 외부로부터 전달받는다.'`** 라고 다시 정리할 수 있겠습니다. 
+## 의존성 주입(DI, Dependency Injection)
+
+> IoC를 구현한 **디자인 패턴**으로 객체 간의 의존성이 외부에 의해 선택되는 방식을 의미<br>
+> Dependency injection is a pattern we can use to implement IoC, where the control being inverted is setting an object's dependencies.
+
+의존성 주입이란 **`'클래스 A에서 사용할 클래스(인터페이스) B를 외부로부터 전달받는다.'`** 라고 정리할 수 있겠습니다. 
+이는 클래스 A에서 사용할 클래스(인터페이스) B를 개발자가 생성하여 직접 이어주지 않는다는 의미인데 이를 코드로 작성해보면 더 직관적인 이해가 가능합니다.
 
 ##### 의존성 주입이 아닌 코드
 ```java

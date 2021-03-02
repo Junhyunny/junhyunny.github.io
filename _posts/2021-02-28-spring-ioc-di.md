@@ -12,8 +12,8 @@ last_modified_at: 2021-03-01T00:00:00
 <br>
 
 Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, Inversion of Control)과 의존성 주입(DI, Dependency Injection)이라는 용어를 가장 먼저 접하게 됩니다. 
-해당 내용을 포스트하기 위하여 공부하다보니 사실 프레임워크에 대한 내용이라기보다는 소프트웨어 공학과 관련된 내용이라는 사실을 알게 되었습니다. 
-이번 포스트를 통해 제어의 역전과 의존성 주입에 대한 개념을 정리하고 Spring 프레임워크와 어떤 관계가 있는지 알아보겠습니다.
+해당 내용을 공부하다보니 사실 프레임워크에 대한 내용이라기보다는 소프트웨어 공학과 관련된 내용이라는 사실을 알게 되었습니다. 
+이번 포스트를 통해 제어의 역전과 의존성 주입에 대한 개념을 정리하고 Spring 프레임워크는 이를 어떻게 제공하는지 알아보도록 하겠습니다.
 
 ## 제어의 역전(IoC, Inversion of Control)
 
@@ -21,6 +21,7 @@ Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, In
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
 
 제어의 역전(IoC, Inversion of Control)이라는 개념은 소프트웨어 공학의 원칙(principle)이며 Spring 프레임워크에서 처음 언급된 내용은 아닙니다. 
+저는 **`'Spring 프레임워크에 IoC 원칙이 적용되어 있고, 이 의미는 개발자가 작성한 코드가 프레임워크에 제어를 받는다.'`** 라고 정리하였습니다. 
 
 ## 의존성 주입(DI, Dependency Injection)
 

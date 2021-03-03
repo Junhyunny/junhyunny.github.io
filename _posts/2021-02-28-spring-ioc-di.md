@@ -21,7 +21,7 @@ Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, In
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
 
 제어의 역전(IoC, Inversion of Control)이라는 개념은 소프트웨어 공학의 원칙(principle)이며 Spring 프레임워크에서 처음 언급된 내용은 아닙니다. 
-저는 **`'Spring 프레임워크에는 IoC 원칙이 적용되어 있고, 이 의미는 개발자가 작성한 코드가 프레임워크에 제어를 받는다.'`** 라고 정리하였습니다. 
+저는 **`'Spring 프레임워크에는 IoC 원칙이 적용되어 있고, 이는 개발자가 작성한 코드가 프레임워크에 제어를 받는다는 의미이다.'`** 라고 정리하였습니다. 
 
 ## 의존성(Dependency)이란?
 일단 의존성(depndency)이라는 용어에 대한 정의부터 알아보도록 하겠습니다.

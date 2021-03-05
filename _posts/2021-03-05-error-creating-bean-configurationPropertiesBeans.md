@@ -20,9 +20,8 @@ last_modified_at: 2021-03-06T00:00:00
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-1.JPG"></p>
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-2.JPG"></p>
 
-**`귀찮으니 일단 테스트는 치우고 글부터 쓸까?`** 라는 생각으로 일단 테스트는 일던 건너뛰었습니다. 
-
-##### maven install test skip option 및 install 성공 로그
+##### maven install 테스트 skip 옵션 및 install 성공 로그
+**`귀찮으니 일단 테스트는 치우고 글부터 쓸까?`** 라는 생각으로 처음엔 테스트를 건너뛰었습니다. 
 ```shell
 mvn clean install -Dmaven.test.skip=true
 ```

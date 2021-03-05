@@ -16,8 +16,7 @@ last_modified_at: 2021-03-06T00:00:00
 평소와 같이 간단한 테스트 코드를 작성하고 maven install을 실행하였습니다. 
 테스트 단계(test phase)에서 발생되지 않던 Exception이 테스트마다 발생하였습니다. 
 
-##### 발생한 에러
-- Error creating bean with name ‘configurationPropertiesBeans’ 
+##### 발생한 에러와 테스트 코드 실패 관련 로그
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-1.JPG"></p>
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-2.JPG"></p>
 
@@ -29,6 +28,7 @@ mvn clean install -Dmaven.test.skip=true
 
 하지만 에러를 해결하지 못한 것이 찜찜하여 먼저 해결하기로 하였습니다. 
 한 두어시간 허비했지만 일단 해결했으니 관련된 내용을 정리해서 올려보겠습니다. 
+문제가 계속되면 짜증을 유발하지만 해결되는 순간 큰 기쁨을 안겨주는 버그를 오늘도 한마리 정복했습니다.
 
 ## 발생 에러
 

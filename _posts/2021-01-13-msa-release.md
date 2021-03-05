@@ -60,6 +60,6 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 아키텍처 팀의 동기와 많은 대화를 나누면서 항상 많은 것들을 배우게 됩니다. 
 실제 프로젝트에서 배포 전략 수립 및 수행은 어렵지만 추후에 Kubernetes, Istio를 활용한 배포 전략 실행 케이스를 만들어 볼 예정입니다. 
 
-#### 참조글
+#### REFERENCE
 - <https://reference-m1.tistory.com/211>
 - <https://www.ciokorea.com/news/157642>

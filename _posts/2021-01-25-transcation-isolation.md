@@ -76,7 +76,7 @@ last_modified_at: 2021-01-30T00:00:00
 트랜잭션을 이미지로 시각화하면서 문제 현상에 대해 이해도가 더 높아진 것 같습니다. 
 다음에 기회가 되면 Spring-Jpa를 활용하여 격리성 테스트를 수행하고 이에 대한 글을 정리해보도록 하겠습니다. 
 
-#### 참조글
+#### REFERENCE
 - <https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation>
 
 [acid-blogLink]: https://junhyunny.github.io/information/database/transcation-acid/

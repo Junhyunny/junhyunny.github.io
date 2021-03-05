@@ -77,7 +77,7 @@ EventStore는 RDBMS, NoSql, FileSystem 등 어떤 것을 사용해도 문제가 
 시스템에 적용하였을 때 얻을 수 있는 이점이나 발생되는 장애, 어려움과 같은 이야기를 함께 적으면 더 좋은 글이 되었을거라 생각하니 아쉽습니다. 
 후에 이벤트 소싱에 대한 개념을 더 자세히 다뤄보고 이를 구현해보도록 하겠습니다.
 
-#### 참조글
+#### REFERENCE
 - <https://martinfowler.com/bliki/CQRS.html>
 - <https://docs.microsoft.com/ko-kr/azure/architecture/patterns/cqrs>
 - <https://www.popit.kr/cqrs-eventsourcing/>

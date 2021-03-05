@@ -57,5 +57,5 @@ last_modified_at: 2021-02-14T00:00:00
 JPA는 어떻게 LOCK 기능을 제공하는지 다음 포스트에서 테스트 코드들을 통해 알아보도록 하겠습니다. 
 Optimistic Lock, Pessimistic Lock 두 가지 방법을 각기 다른 주제로 선정하여 정리하도록 하겠습니다.
 
-#### 참조글
+#### REFERENCE
 - <https://stackoverflow.com/questions/129329/optimistic-vs-pessimistic-locking>

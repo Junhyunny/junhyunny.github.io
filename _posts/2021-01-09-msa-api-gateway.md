@@ -64,7 +64,7 @@ API Gateway의 기능들에 대해 간략하게 정리해보았습니다.
 마음 같아서는 블로그 내용을 전부 복사해오고 싶지만 저에게 남는 것 하나 없는 일이 될 듯합니다. 
 저는 [Spring Cloud Gateway][gateway-javadocLink]에 대해 읽어보고 이를 간단히 구현한 포스팅을 쓸 예정입니다.
 
-#### 참조글
+#### REFERENCE
 - [마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook][microsoft-ebookLink]
 - [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][cho-blogLink]
 

@@ -377,7 +377,7 @@ Lock을 선점한 트랜잭션에 문제가 발생하는 경우 대기 중인 �
    EntityManager entityManager = entityManagerFactory.createEntityManager(properties);
 ```
 
-#### 참조글
+#### REFERENCE
 - <https://www.baeldung.com/jpa-pessimistic-locking>
 
 [lock-mechanism-blogLink]: https://junhyunny.github.io/information/database/lock/lock-mechanism/

@@ -116,7 +116,7 @@ y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점을 �
 장점에 대해 공감할 수 있으려면 아직 시간이 필요한 듯 합니다. 
 다만 개발하면서 겪은 마이크로 서비스 아키텍처의 단점에 대해서는 더 많은 공감이 됩니다. 
 
-#### 참조글
+#### REFERENCE
 - 스프링 5.0 마이크로 서비스 2/e, 라제시 RV 지음
 - <https://akfpartners.com/growth-blog/scale-cube>
 - <https://cloudacademy.com/blog/microservices-architecture-challenge-advantage-drawback/>

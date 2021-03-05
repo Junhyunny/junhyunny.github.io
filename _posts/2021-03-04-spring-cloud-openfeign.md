@@ -38,5 +38,5 @@ Discovery 서비스와 함께 사용하는 경우 별도의 URL 없이도 클러
 ## OPINION
 작성 중입니다.
 
-#### 참조글
+#### REFERENCE
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>

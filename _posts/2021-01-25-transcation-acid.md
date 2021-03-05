@@ -49,7 +49,7 @@ last_modified_at: 2021-01-30T00:00:00
 직접 정리하지 못한만큼 이 글을 자주 복습하여 저의 지식으로 만드는 과정이 필요할 것 같습니다. 
 격리성과 관련한 구체적인 LOCK/UNLOCK 메커니즘에 대한 내용에 대해 알고 싶으시다면 [참고 블로그][acid-blogLink]를 방문하시면 됩니다.  
 
-#### 참조글
+#### REFERENCE
 - <https://victorydntmd.tistory.com/129>
 
 [acid-blogLink]: https://victorydntmd.tistory.com/129

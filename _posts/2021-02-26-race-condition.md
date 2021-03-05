@@ -261,7 +261,7 @@ public class SynchronizedTest {
 추후에 기회가 된다면 별도의 주제로 포스팅하도록 하겠습니다. 
 테스트 코드는 [github link][github-link]에서 확인하실 수 있습니다.
 
-#### 참조글
+#### REFERENCE
 - Operating System Concepts 9th
 - <https://junhyunny.blogspot.com/2020/02/race-condition.html>
 

@@ -17,6 +17,7 @@ last_modified_at: 2021-03-06T00:00:00
 테스트 단계(test phase)에서 발생되지 않던 Exception이 테스트마다 발생하였습니다. 
 
 ##### 발생한 에러
+- Error creating bean with name ‘configurationPropertiesBeans’ 
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-1.JPG"></p>
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-2.JPG"></p>
 
@@ -34,9 +35,7 @@ mvn clean install -Dmaven.test.skip=true
 > Error creating bean with name 'configurationPropertiesBeans' defined in class path resource <br>
 > [org/springframework/cloud/autoconfigure/ConfigurationPropertiesRebinderAutoConfiguration.class]
 
-<p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-4.JPG"></p>
-
-에러를 꼼꼼히 살펴보니 모두 같은 에러였습니다. `'configurationPropertiesBeans을 생성하지 못합니다.'` 
+에러를 꼼꼼히 살펴보니 모두 같은 에러였습니다. **`'configurationPropertiesBeans을 생성하지 못합니다.'`** 
 원래 발생하던 것이 아니니 이번에 새로 추가된 dependency에 문제가 있다고 생각했습니다. 
 
 ##### 추가한 dependency
@@ -68,7 +67,9 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 }
 ```
 
-ConfigurationPropertiesBeans 클래스와 spring-cloud-starter-openfeign 관련 에러 내용을 검색하는 중에 [참조 링크][reference-link]에서 해결법을 찾았습니다. 
+클래스를 열어봐도 왜 안만들어지는지 정확히 이유를 알 수 없었습니다. 
+저의 이클립스는 문제가 되는 클래스를 찾는데 왜 maven install은 실패를 하는 것일까요...? 
+해당 에러와 관련된 내용을 검색 중 드디어 [PS PSAwesome님의 포스트][reference-link]에서 해결법을 찾았습니다. 
 **문제는 spring-boot-starter-parent 버전과 spring-cloud-starter-openfeign 버전이 맞지 않아서 발생했던 것입니다.** 
 
 ##### spring-boot-starter-parent 버전 변경
@@ -91,7 +92,7 @@ ConfigurationPropertiesBeans 클래스와 spring-cloud-starter-openfeign 관련 
 
 **시작이 반이니까요.**
 
-#### 참조글
+#### REFERENCE
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 
 [reference-link]: https://woowabros.github.io/experience/2019/05/29/feign.html

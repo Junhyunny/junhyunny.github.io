@@ -569,7 +569,7 @@ public class RemoveTest {
 별도로 이 영역을 만들어서 어떤 이점을 얻을 수 있는지 다음 글에서 영속성 컨텍스트가 제공해주는 기능을 정리하면서 알아보도록 하겠습니다. 
 해당 글과 관련된 테스트 코드는 [github link][github-link]를 확인하실 수 있습니다.
 
-#### 참조글
+#### REFERENCE
 - <https://gunlog.dev/JPA-Persistence-Context/>
 - <https://gmlwjd9405.github.io/2019/08/06/persistence-context.html>
 

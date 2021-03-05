@@ -366,7 +366,7 @@ public class DirtyCheckingTest {
 마지막에 변경 감지(dirty chekcing)가 어떤 식으로 이루어지는지 궁금하여 디버깅한 결과까지 함께 첨부하였습니다. 
 해당 테스트 코드는 [github link][github-link]에서 확인하실 수 있습니다.
 
-#### 참조글
+#### REFERENCE
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]
 
 [reference-blogLink]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe

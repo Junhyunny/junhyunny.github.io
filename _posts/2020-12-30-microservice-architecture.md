@@ -94,7 +94,7 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 비즈니스 도메인의 업무 영억을 의미있게 분할하는 일을 통해 독립적이고 자율성있는 마이크로 서비스를 도출해낼 수 있습니다. 
 **마이크로 서비스 아키텍처가 모든 비즈니스에 적합하진 않겠지만 비즈니스 도메인에 대한 높은 이해도가 아키텍처 설계의 승패를 가른다는 것을 경험하였습니다.**
 
-#### 참조글
+#### REFERENCE
 - <https://12bme.tistory.com/517>
 - <https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7>
 - <https://www.redhat.com/ko/topics/microservices/what-are-microservices>

@@ -257,7 +257,7 @@ public class Config {
 프로젝트 코드들을 확인하시려면 아래 링크를 눌러주시길 바립니다.<br>
 [FRONT-END PROJECT][front-gitLink] / [BACK-END PROJECT][back-gitLink]
 
-#### 참조글
+#### REFERENCE
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
 
 [cors-blogLink]: https://junhyunny.github.io/information/cors/

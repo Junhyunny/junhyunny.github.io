@@ -108,7 +108,7 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 트랜잭션을 시작하지 않은 서비스가 다른 서비스의 요청을 받아 정상적인 처리 후 응답시 수행한 데이터 처리를 commit하지 않고 잠시 대기할 수 있는 방법이 있는지 우선 알아봐야겠습니다. 
 이 방법이 가능하다면 Saga 패턴을 구현하는데 큰 도움이 될 것 같습니다.
 
-#### 참조글
+#### REFERENCE
 - <https://en.wikipedia.org/wiki/Distributed_transaction>
 - <https://cla9.tistory.com/22>
 - <https://sarc.io/index.php/development/2128-saga-pattern>

@@ -93,7 +93,7 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 사이드 프로젝트를 진행했을 때 JPA가 제공하는 간단한 페이징 처리를 이용하여 쉽게 개발했던 일도 생각납니다. 
 JPA는 언뜻 개발 과정을 쉽게 만들어주기 때문에 기능이 단순해보이지만 내부 기능을 세심하게 사용하기 위해선 많은 공부가 필요하다고 느끼고 있습니다.
 
-#### 참조글
+#### REFERENCE
 - <https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic>
 - <https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/>
 - <https://gmlwjd9405.github.io/2019/08/03/reason-why-use-jpa.html>

@@ -119,7 +119,7 @@ public interface UserDetailsService {
 이해도가 떨어지는 상태에서 이를 사용하고, 발생하는 문제들을 해결하려고 하니 많은 삽질(?)을 하였습니다. 
 이 개념적인 내용이 다른 분들에게도 많은 도움이 되길 바랍니다.
 
-#### 참조글
+#### REFERENCE
 - <https://spring.io/guides/topicals/spring-security-architecture/>
 - <https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/>
 - <https://bamdule.tistory.com/52>

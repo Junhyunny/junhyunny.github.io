@@ -422,7 +422,7 @@ public class MemberService implements UserDetailsService {
 해당 코드를 받아보시려면 [github link][github-link]로 이동하시길 바랍니다. 
 **테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**
 
-#### 참조글
+#### REFERENCE
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
 
 [json-blogLink]: https://junhyunny.github.io/information/security/json-web-token/

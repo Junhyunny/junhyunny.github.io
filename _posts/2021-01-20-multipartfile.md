@@ -242,7 +242,7 @@ spring:
 
 [FRONT-END PROJECT][front-gitLink] / [BACK-END PROJECT][back-gitLink]
 
-#### 참조글
+#### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html>
 - <https://spring.io/guides/gs/uploading-files/>
 

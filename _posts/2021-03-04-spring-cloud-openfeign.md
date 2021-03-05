@@ -4,7 +4,7 @@ search: false
 category:
   - spring
   - spring cloud
-last_modified_at: 2021-03-04T00:00:00
+last_modified_at: 2021-03-06T00:00:00
 ---
 
 <br>
@@ -18,28 +18,22 @@ Discovery 서비스와 함께 사용하는 경우 별도의 URL 없이도 클러
 간단한 테스트 코드를 통해 Openfiegn 사용법을 알아보도록 하겠습니다. 
 
 ## 패키지 구조
-<p align="left"><img src="/images/-1.JPG"></p>
+작성 중입니다.
 
 ## application.yml
 ```yml
-spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 123
 ```
 
 ## pom.xml
 ```xml
 ```
 
+## 테스트 시나리오
 
-
+## API end-point 클래스
+## @EnableFeignClients 애너테이션
+## FeignClient 만들기
+## 테스트 코드
 
 ## OPINION
 작성 중입니다.

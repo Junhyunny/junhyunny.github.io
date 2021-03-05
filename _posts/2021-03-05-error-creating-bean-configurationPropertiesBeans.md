@@ -72,7 +72,7 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 클래스를 열어봐도 왜 안만들어지는지 정확히 이유를 알 수 없었습니다. 
 저의 이클립스는 문제가 되는 클래스를 찾는데 왜 maven install은 실패를 하는 것일까요...? 
 해당 에러와 관련된 내용을 검색 중 드디어 [PS PSAwesome님의 포스트][reference-link]에서 해결법을 찾았습니다. 
-**결론을 말씀드리자면 문제는 spring-boot-starter-parent 버전과 spring-cloud-starter-openfeign 버전이 맞지 않아서 발생했던 것입니다.** 
+**결론부터 말씀드리자면 문제는 spring-boot-starter-parent 버전과 spring-cloud-starter-openfeign 버전이 맞지 않아서 발생했던 것입니다.** 
 
 ##### spring-boot-starter-parent 버전 변경
 ```xml

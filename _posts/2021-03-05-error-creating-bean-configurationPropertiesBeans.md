@@ -13,7 +13,6 @@ last_modified_at: 2021-03-06T00:00:00
 <br>
 
 [Spring Cloud Openfeign][openfeign-blogLink] 포스트를 작성하던 중에 발생한 에러입니다. 
-
 평소와 같이 간단한 테스트 코드를 작성하고 maven install을 실행하였습니다. 
 테스트 단계(test phase)에서 발생되지 않던 Exception이 테스트마다 발생하였습니다. 
 

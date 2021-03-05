@@ -20,13 +20,13 @@ last_modified_at: 2021-03-06T00:00:00
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-1.JPG"></p>
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-2.JPG"></p>
 
-`귀찮으니 일단 테스트는 치우고 글부터 쓸까?` 라는 생각으로 일단 테스트는 일던 건너뛰었습니다. 
+**`귀찮으니 일단 테스트는 치우고 글부터 쓸까?`** 라는 생각으로 일단 테스트는 일던 건너뛰었습니다. 
 ```shell
 mvn clean install -Dmaven.test.skip=true
 ```
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-3.JPG"></p>
 
-하지만 에러를 해결하지 못한 것이 찜찜하여 결국 에러를 먼저 해결하기로 하였습니다. 
+하지만 에러를 해결하지 못한 것이 찜찜하여 먼저 해결하기로 하였습니다. 
 한 두어시간 허비했지만 일단은 해결했으니 관련된 내용을 정리해서 올려보겠습니다. 
 
 ## 발생 에러

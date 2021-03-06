@@ -150,7 +150,7 @@ public class SimpleClientTest {
 
 ## OPINION
 FeignClient를 처음 사용할 때 JPARepository 인터페이스를 처음 접하였을 때처럼 매우 신선한 충격을 느꼈습니다. 
-옛 코드들을 살펴보면 Util 성격의 클래스 내부에서 HttpURLConnection, I/O Stream 등을 사용하여 코드가 매우 긴 것을 확인할 수 있습니다. 
+옛 코드들을 살펴보면 Util 성격의 클래스 내부에서 HttpURLConnection, I/O Stream 등을 사용하여 코드가 매우 길게 작성됩니다. 
 반대로 FeignClient은 인터페이스와 몇 개의 애너테이션을 통해 개발자가 API 요청을 매우 간단하게 사용할 수 있게 도와줍니다. 
 
 무엇보다 FeignClient는 Service Registration, Discovery 기능을 제공하는 Eureka 서비스와 함께 사용될 때 더 빛을 바랍니다. 

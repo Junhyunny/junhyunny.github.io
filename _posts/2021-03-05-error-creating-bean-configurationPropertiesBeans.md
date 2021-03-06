@@ -97,4 +97,4 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 
 [reference-link]: https://woowabros.github.io/experience/2019/05/29/feign.html
-[openfeign-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/spring-cloud-openfeign/
+[openfeign-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/openfeign/spring-cloud-openfeign/

@@ -155,7 +155,7 @@ FeignClient를 처음 사용할 때 JPARepository 인터페이스를 처음 접�
 
 무엇보다 FeignClient는 Service Registration, Discovery 기능을 제공하는 Eureka 서비스와 함께 사용될 때 더 빛을 바랍니다. 
 다음 포스트는 Eureka 서비스를 사용한 서비스 등록과 서비스 이름을 이용한 FeignClient API 요청을 주제로 글을 작성하도록 하겠습니다. 
-테스크 코드는 [github link][github-link]에서 확인 가능합니다.
+테스트 코드는 [github link][github-link]에서 확인 가능합니다.
 
 #### REFERENCE
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>

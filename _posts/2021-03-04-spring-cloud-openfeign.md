@@ -25,6 +25,7 @@ Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(
 
 ## pom.xml 의존성 추가
 - spring-cloud-starter-openfeign 의존성을 추가합니다.
+
 ```xml
       <dependency>
           <groupId>org.springframework.cloud</groupId>
@@ -35,6 +36,7 @@ Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(
 
 ## API end-point CorsController 클래스
 - Controller는 이전 예제에서 만들어놓은 CorsController 클래스를 그대로 사용하였습니다.
+
 ```java
 package blog.in.action.controller;
 
@@ -63,6 +65,7 @@ public class CorsController {
 ## @EnableFeignClients 애너테이션
 - FeignClient를 사용하려면 @EnableFeignClients 애너테이션을 main이 선언된 클래스 위에 선언해야합니다.
 - 단순히 테스트를 위해서라면 테스트용 클래스 위에 선언해도 됩니다.
+
 ```java
 package blog.in.action;
 
@@ -85,6 +88,7 @@ public class ActionInBlogApplication {
 - name은 필수입니다. name이 지정되어 있지 않다면 에러가 발생합니다.
 - 요청을 받아줄 url을 지정합니다.
 - 메소드를 하나 만들고 어떤 HTTP 메소드, 어느 경로로 API 요청을 수행할지 명시된 애너테이션을 메소드 위에 추가합니다.
+
 ```java
 @FeignClient(name = "simple-client", url = "http://localhost:8081")
 interface SimpleClient {
@@ -95,6 +99,7 @@ interface SimpleClient {
 ```
 
 ## 테스트 코드
+
 ```java
 package blog.in.action.openfeign.simple;
 
@@ -135,6 +140,7 @@ public class SimpleClientTest {
 ## 테스트 수행
 - 테스트 수행 전 API 요청을 받아줄 action-in-blog 서비스를 기동합니다.
 - junit 테스트를 수행하여 API 응답을 로그로 확인합니다.
+
 ##### action-in-blog 서비스 기동
 <p align="center"><img src="/images/spring-cloud-openfeign-2.JPG"></p>
 

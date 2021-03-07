@@ -26,7 +26,7 @@ mvn clean install -Dmaven.test.skip=true
 ```
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-3.JPG"></p>
 
-하지만 에러를 해결하지 못한 것이 마음에 걸려 이를 먼저 해결하기로 하였습니다. 
+글을 작성하다보니 에러를 해결하지 못한 것이 마음에 걸려 이를 먼저 해결하기로 하였습니다. 
 한 두어시간 허비했지만 일단 해결했으니 관련된 내용을 정리해서 올려보도록 하겠습니다. 
 문제 해결이 오래 걸리는 만큼 큰 기쁨을 안겨주는 버그를 오늘도 한마리 정복했습니다.
 

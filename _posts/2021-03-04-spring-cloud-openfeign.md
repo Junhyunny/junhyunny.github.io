@@ -63,7 +63,7 @@ public class CorsController {
 ```
 
 ## @EnableFeignClients 애너테이션
-- FeignClient를 사용하려면 main 메소드가 작성된 클래스 위에 @EnableFeignClients 애너테이션을 선언해야합니다.
+- FeignClient를 사용하려면 main 메소드가 작성된 클래스 위에 @EnableFeignClients 애너테이션을 선언하면 됩니다.
 - 단순히 테스트를 위해서라면 테스트용 클래스 위에 선언해도 됩니다.
 
 ```java

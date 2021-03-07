@@ -62,6 +62,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
+#### JpaRepository 인터페이스 사용시 주의사항 
 **@Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 메소드 호츨은 JPA 트랜잭션 내부에서 동작해야 합니다.** 
 JpaRepository 인터페이스를 사용하는 경우 entityManager.getTransaction().begin() 메소드를 사용할 수 없으니 @Transactional 애너테이션을 사용합니다. 
 @Transactional 애너테이션이 영역(scope) 밖에서 @Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 조회 메소드를 호출하면 다음과 같은 에러를 만나게 됩니다. 

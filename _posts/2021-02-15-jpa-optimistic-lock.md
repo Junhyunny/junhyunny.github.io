@@ -22,7 +22,7 @@ Optimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 �
 
 ## JPA는 Optimistic Lock을 어떻게 제공하는가?
 짧은 시간 차이로 서로 다른 트랜잭션이 동일 데이터에 대해 업데이트하는 테스트 코드를 작성하였습니다. 
-테스트는 JpaRepository Interface @Bean과 EntityManager를 사용한 두 가지 방법을 준비하였습니다. 
+테스트는 JpaRepository Interface와 EntityManager를 사용한 두 가지 방법을 준비하였습니다. 
 
 두 테스트의 시나리오는 동일하며 아래와 같습니다.
 1. test() 메소드에서 2개의 스레드를 만들어 실행

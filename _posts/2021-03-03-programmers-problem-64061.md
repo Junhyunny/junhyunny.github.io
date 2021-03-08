@@ -12,6 +12,9 @@ last_modified_at: 2021-03-03T00:00:00
 ## 문제 Link
 - <https://programmers.co.kr/learn/courses/30/lessons/64061>
 
+## 문제 설명
+[문제 Link][problem-link]를 챀고하세요.
+
 ## 제한 사항
 - board 배열은 2차원 배열로 크기는 "5 x 5" 이상 "30 x 30" 이하입니다.
 - board의 각 칸에는 0 이상 100 이하인 정수가 담겨있습니다.
@@ -90,3 +93,5 @@ class Solution {
 취업 준비 경험상 단순히 많은 문제들을 풀어본다고 실력 향상이 크게 되지는 않았습니다. 
 풀어봤던 문제들을 다시 복기해보면서 어떤 식으로 문제를 해결했었는지 정리해 나가보려 합니다. 
 다른 분들의 풀이 중에 감탄스러운 best practice가 있다면 이를 분석해보면서 문제 해결을 위한 사고의 확장을 연습해나갈 생각입니다.
+
+[problem-link]: https://programmers.co.kr/learn/courses/30/lessons/64061

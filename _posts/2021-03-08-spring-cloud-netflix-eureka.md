@@ -11,7 +11,7 @@ last_modified_at: 2021-03-08T00:00:00
 
 <br>
 
-> [Spring Cloud Openfeign][openfeign-blogLink] 포스트의 OPINION<br>
+> [Spring Cloud Openfeign][openfeign-blogLink] 포스트 OPINION<br>
 > 무엇보다 FeignClient는 Service Registration, Discovery 기능을 제공하는 Eureka 서비스와 함께 사용될 때 더 빛을 바랍니다.
 
 오늘은 FeignClient를 더 효율적으로 사용할 수 있도록 돕는 Eureka에 대한 내용을 포스트하도록 하겠습니다. 

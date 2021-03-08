@@ -34,15 +34,17 @@ IP, PORT가 시간에 따라 달라진다면 Rest API 같은 HTTP 기반의 통�
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-1.JPG" width="750"></p>
 
 ## Spring Cloud Netflix Eureka
-MSA를 잘 활용한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공하고 있습니다. 
+MSA를 잘 활용한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
+Spring Cloud 프로젝트에서는 Netflix에서 제공하는 대표적인 컴포넌트들을 Spring 프레임워크에서 쉽게 사용할 수 있도록 Spring Cloud Netflix를 제공합니다.
+
+> Spring Cloud Netflix provides Netflix OSS integrations for Spring Boot apps through autoconfiguration 
+> and binding to the Spring Environment and other Spring programming model idioms.
+
+### Spring Cloud Netflix Components
 - Eureka - Service Discovery & Registry
 - Hystrix - Fault Tolerance Library(Circuit Breaker) 
 - Zuul- API Gateway  
 - Ribbon - Client Side Loadbalancer
-
-Spring Cloud 프로젝트는 MSA를 위한 Netflix의 대표적인 컴포넌트들을 Spring 프레임워크에서 쉽게 사용할 수 있도록 Spring Cloud Netflix를 제공합니다.
-> Spring Cloud Netflix provides Netflix OSS integrations for Spring Boot apps through autoconfiguration 
-> and binding to the Spring Environment and other Spring programming model idioms.
 
 이번 포스트의 주제인 Eureka 컴포넌트의 구조에 대해 알아보고 이를 구축, 테스트해보도록 하겠습니다. 
 

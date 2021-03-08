@@ -275,7 +275,7 @@ public class AServiceApplication {
 
 ## OPINION
 MSA 환경에서 필요한 Service Registration, Discovery 기능을 제공하는 Eureka 컴포넌트에 대해 정리해봤습니다. 
-Eureka 클라이언트 구현과 관련된 정보를 찾다보니 @EnableDiscoveryClient 애너테이션 혹은 @EnableEurekaClient 애너테이션을 사용하였습니다. 
+Eureka 클라이언트 구현과 관련된 정보를 찾다보니 글마다 사용하는 애너테이션이 달랐습니다.(@EnableDiscoveryClient 애너테이션 혹은 @EnableEurekaClient 애너테이션 사용)
 어떤 조건으로 두 애너테이션을 구분하여 사용하는지 차이점을 찾아보았습니다. 
 > @EnableDiscoveryClient, @EnableEurekaClient 차이점<br>
 > Service Discovery 라이브러리는 유레카 외에도 주키퍼, 컨설 등이 존재합니다. 

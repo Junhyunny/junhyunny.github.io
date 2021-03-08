@@ -31,7 +31,7 @@ IP, PORT가 시간에 따라 달라진다면 Rest API 같은 HTTP 기반의 통�
 인스턴스가 새로이 생성되는 인스턴스는 자신의 IP, PORT 정보를 Service Registry에 등록합니다. 
 특정 서비스와 통신하고 싶은 서비스는 Service Registry로부터 해당 서비스의 IP, PORT 정보를 획득하여 사용합니다. 
 
-<p align="center"><img src="/images/spring-cloud-netflix-eureka-1.JPG"></p>
+<p align="center"><img src="/images/spring-cloud-netflix-eureka-1.JPG" width="600"></p>
 
 ## Spring Cloud Netflix Eureka
 MSA를 잘 활용한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술과 이슈의 해결책들을 Netflix OSS(open source software)를 통해 제공하고 있습니다. 
@@ -50,7 +50,7 @@ Spring Cloud 프로젝트는 MSA를 위한 Netflix의 대표적인 컴포넌트�
 - Eureka 서버와 Eureka 클라이언트로 구성됩니다.
 - Eureka 서버는 Service Registration, Discovery 기능을 제공합니다.
 - Eureka 클라이언트는 Eureka 서버에 자신의 IP, PORT 정보를 등록하고 Service Discovery 기능을 활용합니다.
-<p align="center"><img src="/images/spring-cloud-netflix-eureka-2.JPG"></p>
+<p align="center"><img src="/images/spring-cloud-netflix-eureka-2.JPG" width="600"></p>
 
 ### Eureka 서버
 우선 Eureka 서버를 구축해보도록 하겠습니다. 
@@ -156,8 +156,8 @@ public class EurekaApplication {
 
 ### Eureka 클라이언트
 다음으로 Eureka 클라이언트를 만들어보도록 하겠습니다. 
-간단한 애너테이션과 설정만으로 Eureka 클라이언트 구축이 가능합니다. 
-같은 방법으로 a-service, b-service 두 개를 구현하였습니다. 
+간단한 애너테이션과 설정만으로 Eureka 클라이언트 구현이 가능합니다. 
+a-service를 Erueka 클라이언트로 구현한 방법에 대해 설명하였지만 같은 방법으로 b-service도 구현하였습니다. 
 
 #### pom.xml
 - spring-cloud-starter-netflix-eureka-client dependency 추가

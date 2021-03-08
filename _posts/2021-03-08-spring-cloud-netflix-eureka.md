@@ -58,6 +58,7 @@ Spring Cloud 프로젝트는 MSA를 위한 Netflix의 대표적인 컴포넌트�
 
 #### pom.xml
 - spring-cloud-starter-netflix-eureka-server dependency 추가
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -122,6 +123,7 @@ Spring Cloud 프로젝트는 MSA를 위한 Netflix의 대표적인 컴포넌트�
 - port를 8761로 지정합니다.
 - eureka.client.register-with-eureka, 자신을 Eureka 서버에 등록할지 여부
 - eureka.client.fetch-registry, 서버로부터 전달받은 서비스 리스트 정보를 로컬에 캐싱할지 여부
+
 ```yml
 server:
   port: 8761
@@ -133,6 +135,7 @@ eureka:
 
 #### EurekaApplication 클래스
 - @EnableEurekaServer 애너테이션을 추가합니다.
+
 ```java
 package cloud.in.action;
 
@@ -158,6 +161,7 @@ public class EurekaApplication {
 
 #### pom.xml
 - spring-cloud-starter-netflix-eureka-client dependency 추가
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -224,6 +228,7 @@ public class EurekaApplication {
 - eureka.client.register-with-eureka, 자신을 Eureka 서버에 등록할지 여부
 - eureka.client.fetch-registry, 서버로부터 전달받은 서비스 리스트 정보를 로컬에 캐싱할지 여부
 - eureka.client.service-url.defaultZone, eureka 서버 정보
+
 ```yml
 server:
   port: 0
@@ -240,6 +245,7 @@ eureka:
 
 #### ACloudServiceApplication 클래스
 - @EnableEurekaClient 애너테이션을 추가합니다.
+
 ```java
 package cloud.in.action;
 

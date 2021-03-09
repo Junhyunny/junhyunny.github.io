@@ -23,7 +23,7 @@ interface SimpleClient {
 }
 ```
 
-하지만 FeignClient는 보다 더 유연한 프로그램 개발을 위해 런타임(runtime) 시 URL을 변경하는 기능을 제공하고 있습니다. 
+사실 FeignClient는 보다 더 유연한 프로그램 개발을 위해 런타임(runtime) 시 URL을 변경하는 기능을 제공하고 있습니다. 
 관련된 내용을 stack overflow 답변에서 확인할 수 있었습니다.
 
 > stack overflow<br>

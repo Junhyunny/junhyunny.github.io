@@ -15,26 +15,26 @@ last_modified_at: 2021-03-08T00:00:00
 > 무엇보다 FeignClient는 Service Registration, Discovery 기능을 제공하는 Eureka 서비스와 함께 사용될 때 더 빛을 바랍니다.
 
 오늘은 FeignClient를 더 효율적으로 사용할 수 있도록 돕는 Eureka에 대한 내용을 포스트하도록 하겠습니다. 
-우선 Eureka가 등장하게 된 배경인 MSA 환경에 대한 이야기를 먼저해보도록 하겠습니다. 
+우선 Eureka가 등장하게 된 배경인 MSA 환경에 대한 이야기를 먼저 해보도록 하겠습니다. 
 
 ## MSA(Micro Service Architecture) 환경에 대한 이해
-MSA(Micro Service Architecture)는 비즈니스 도메인을 중심으로 여러 종류로 나뉘어진 서비스들이 협업하는 아키텍처입니다. 
-MSA 기반의 시스템은 신속한 개발과 배포, 서비스 확장 등의 이점을 가져가기 위해 클라우드 기반의 Paas(Platform as a Service) 환경 위에 구축됩니다. 
+MSA(Micro Service Architecture)는 비즈니스 도메인을 중심으로 나뉘어진 서비스들이 협업하는 아키텍처입니다. 
+MSA 기반의 시스템은 신속한 개발과 배포, 서비스 확장 등의 이점을 가져가기 위하여 클라우드 기반인 PaaS(Platform as a Service) 환경에 구축됩니다. 
 
-Paas 환경에서는 서비스 부하 증감에 따라 서비스 인스턴스들의 수가 조절되는 Auto-Scaling이 발생합니다. 
-각 서비스 별로 인스턴스 수가 동적으로 변경되면서 인스턴스들의 IP, PORT 정보에 대한 변경이 잦아지게 되었습니다. 
-IP, PORT가 시간에 따라 달라진다면 Rest API 같은 HTTP 기반의 통신은 사용이 불가능해집니다. 
-고정적인 IP, PORT를 사용하지 못하는 문제점은 각 인스턴스들의 IP, PORT 정보 관리에 대한 필요성으로 이어지게 됩니다.
+PaaS 환경에선 서비스 부하 증감에 따라 서비스 인스턴스들의 수가 조절되는 Auto-Scaling이 발생합니다. 
+각 서비스 별로 인스턴스 수가 동적으로 변경되기 때문에 인스턴스들의 IP, PORT 정보에 대한 변경도 잦아지게 되었습니다. 
+이런 환경은 Rest API 같은 HTTP 기반의 통신 사용을 불가능하게 만듭니다. 
+고정적인 소켓 주소(socket address)를 사용하지 못하는 문제는 인스턴스들의 IP, PORT 정보 관리에 대한 필요성으로 이어지게 됩니다.
 
 ## Service Registration, Discovery
-특정 서비스(Service Regsitry)가 클라우드에서 동작하는 인스턴스들의 IP, PORT 정보를 관리하도록 하여 이 문제를 해결합니다. 
-인스턴스가 새로이 생성되는 인스턴스는 자신의 IP, PORT 정보를 Service Registry에 등록합니다. 
+MSA는 클라우드에서 동작하는 인스턴스들의 IP, PORT 정보를 특정 서비스(Service Regsitry)가 관리하도록 만들어 이 문제를 해결하였습니다. 
+새롭게 생성되는 인스턴스는 자신의 IP, PORT 정보를 Service Registry에 등록합니다. 
 특정 서비스와 통신하고 싶은 서비스는 Service Registry로부터 해당 서비스의 IP, PORT 정보를 획득하여 사용합니다. 
 
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-1.JPG" width="750"></p>
 
 ## Spring Cloud Netflix Eureka
-MSA를 잘 활용한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
+MSA를 성공적으로 구축한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
 Spring Cloud 프로젝트에서는 Netflix에서 제공하는 대표적인 컴포넌트들을 Spring 프레임워크에서 쉽게 사용할 수 있도록 Spring Cloud Netflix를 제공합니다.
 
 > Spring Cloud Netflix provides Netflix OSS integrations for Spring Boot apps through autoconfiguration 
@@ -267,7 +267,7 @@ public class AServiceApplication {
 ```
 
 ##### 서비스 등록 확인
-- Eureka 서버를 먼저 기동시킵니다.
+- eureka 서버를 먼저 기동시킵니다.
 - a-service, b-service를 기동시킵니다.
 - <http://localhost:8761>로 접속하여 등록된 서비스 정보를 확인합니다. 
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-3.JPG"></p>
@@ -275,7 +275,7 @@ public class AServiceApplication {
 
 ## OPINION
 MSA 환경에서 필요한 Service Registration, Discovery 기능을 제공하는 Eureka 컴포넌트에 대해 정리해봤습니다. 
-Eureka 클라이언트 구현과 관련된 정보를 찾다보니 글마다 사용하는 애너테이션이 달랐습니다.(@EnableDiscoveryClient 애너테이션 혹은 @EnableEurekaClient 애너테이션 사용)
+Eureka 클라이언트 구현과 관련된 정보를 찾다보니 글마다 사용하는 애너테이션이 달랐습니다.(@EnableDiscoveryClient 혹은 @EnableEurekaClient 애너테이션 사용)
 어떤 조건으로 두 애너테이션을 구분하여 사용하는지 차이점을 찾아보았습니다. 
 > @EnableDiscoveryClient, @EnableEurekaClient 차이점<br>
 > Service Discovery 라이브러리는 유레카 외에도 주키퍼, 컨설 등이 존재합니다. 

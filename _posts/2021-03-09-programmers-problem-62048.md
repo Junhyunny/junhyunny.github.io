@@ -30,7 +30,58 @@ last_modified_at: 2021-03-12T00:00:00
 | 8 | 12 | 80 |
 
 ## 코드 해설
-- 작성 중입니다.
+- 폭(w)과 높이(h)가 같은 경우에는 대각선에 위치한 블럭들만 정확히 잘리므로 총 개수에서 w 개수를 뺀 값을 반환합니다.
+- 다른 경우에는 각 x 좌표가 커짐에 따라 차지하는 칸 수를 계산해야합니다.
+- 계산량을 줄이기 위해 폭과 높에 중에 큰 값을 yMax, 작은 값을 xMax로 지정합니다.
+- x좌표가 1인 위치부터 아래 계산을 반복 수행합니다.
+    - x - 1 위치의 y 좌표 값을 내림하여 floor 변수에 저장합니다.
+    - x 위치의 y 좌표 값을 올림하여 ceil 변수에 저장합니다.
+    - (ceil - floor) 값은 빼면 x - 1 좌표에서 x 좌표 사이에 잘라지는 칸 수를 의미합니다.
+- answer(총 칸 수) - cnt(잘라진 칸 수)를 반환합니다.
+
+## 해결 이슈
+- W, H 가 최대 1억까지 값을 가질 수 있기 때문에 오버플로우가 발생합니다. long을 사용합니다.
+- double의 부동 소수점 계산으로 인해 결과 값이 달라집니다.
+    - 컴퓨터의 (yMax * x / (double) xMax) 값과 (yMax / (double) xMax * x) 값은 다릅니다.
+
+##### 테스트 코드
+- 값이 달라지는 케이스가 어느 시점인지 간단한 테스트 코드를 작성해보았습니다.
+
+```java
+package algorithm;
+
+class Solution {
+
+    public static void main(String[] args) {
+        long yMax = 100000000;
+        long xMax = 99999999;
+        int ceilDiff = 0;
+        int floorDiff = 0;
+        for (long x = 0; x <= xMax; x++) {
+            long multipleFirstCeilLong = (new Double(Math.ceil(yMax * x / (double) xMax))).longValue();
+            long multipleLaterCeilLong = (new Double(Math.ceil(yMax / (double) xMax * x))).longValue();
+            long multipleFirstFloorLong = (new Double(Math.floor(yMax * x / (double) xMax))).longValue();
+            long multipleLaterFloorLong = (new Double(Math.floor(yMax / (double) xMax * x))).longValue();
+            double multipleFirst = yMax * x / (double) xMax;
+            double multipleLater = yMax / (double) xMax * x;
+            if (multipleFirstCeilLong != multipleLaterCeilLong) {
+                ceilDiff++;
+                System.out.println("x: " + x + ", 기울기: " + (yMax / (double) xMax) + ", multipleFirst: " + multipleFirst + ", multipleLater: " + multipleLater);
+                System.out.println("multipleFirstCeilLong: " + multipleFirstCeilLong + ", multipleLaterCeilLong: " + multipleLaterCeilLong);
+            }
+            if (multipleFirstFloorLong != multipleLaterFloorLong) {
+                floorDiff++;
+                System.out.println("x: " + x + ", 기울기: " + (yMax / (double) xMax) + ", multipleFirst: " + multipleFirst + ", multipleLater: " + multipleLater);
+                System.out.println("multipleFirstFloorLong: " + multipleFirstFloorLong + ", multipleLaterFloorLong: " + multipleLaterFloorLong);
+            }
+        }
+        System.out.println("계산 결과 값이 달라지는 케이스 올림: " + ceilDiff + ", 내림: " + floorDiff + "회");
+    }
+}
+```
+
+##### 테스트 결과
+<p align="left"><img src="/images/programmers-problem-62048-1.JPG"></p>
 
 ## 제출 코드
 

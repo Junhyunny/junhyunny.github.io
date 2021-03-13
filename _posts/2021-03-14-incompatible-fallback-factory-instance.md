@@ -8,6 +8,7 @@ category:
   - circuit-breaker
   - hystrix
   - netflix-oss
+  - exception
 last_modified_at: 2021-03-13T00:00:00
 ---
 
@@ -21,7 +22,7 @@ last_modified_at: 2021-03-13T00:00:00
 > to interface org.springframework.cloud.openfeign.FallbackFactory for feign client b-service
 
 ## 발생 원인
-import org.springframework.cloud.openfeign.FallbackFactory; not error
+import org.springframework.cloud.openfeign.FallbackFactory; not error<br>
 import feign.hystrix.FallbackFactory; error
 
 ## OPINION

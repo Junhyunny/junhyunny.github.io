@@ -24,17 +24,17 @@ last_modified_at: 2021-03-12T00:00:00
 - b-service는 두 개의 인스턴스를 기동시켜 어느 서비스가 요청을 받았는지 확인합니다.
 
 ##### 테스트 시나리오 구성도
-<p align="center"><img src="/images/feignclient-with-eureka-1.JPG" width="750"></p>
+<p align="center"><img src="/images/feignclient-with-eureka-1.JPG" width="550"></p>
 
 ##### 실제 서비스 기동 정보
-<p align="center"><img src="/images/feignclient-with-eureka-2.JPG" width="750"></p>
-<p align="center"><img src="/images/feignclient-with-eureka-3.JPG" width="750"></p>
+<p align="center"><img src="/images/feignclient-with-eureka-2.JPG"></p>
+<p align="center"><img src="/images/feignclient-with-eureka-3.JPG"></p>
 
 ## a-service 구현
 
 ### 패키지 구조
 
-<p align="left"><img src="/images/feignclient-with-eureka-4.JPG"></p>
+<p align="left"><img src="/images/feignclient-with-eureka-4.JPG" width="400"></p>
 
 ### BServiceFeinClient 인터페이스
 - a-service에서 b-service를 호출할 수 있는 FeignClient를 생성합니다.
@@ -86,7 +86,7 @@ public class AServiceController {
 
 ### 패키지 구조
 
-<p align="left"><img src="/images/feignclient-with-eureka-5.JPG"></p>
+<p align="left"><img src="/images/feignclient-with-eureka-5.JPG" width="400"></p>
 
 ### BServiceController 클래스
 - 서비스에게 처리 부하를 주기 위해 Thread.sleep(50)을 수행합니다.

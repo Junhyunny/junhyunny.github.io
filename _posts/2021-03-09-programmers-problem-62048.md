@@ -37,9 +37,37 @@ last_modified_at: 2021-03-12T00:00:00
     - x - 1 위치의 y 좌표 값을 내림하여 floor 변수에 저장합니다.
     - x 위치의 y 좌표 값을 올림하여 ceil 변수에 저장합니다.
     - ceil 값에서 floor 값을 빼면 x - 1 좌표에서 x 좌표 사이에 잘라지는 칸 수를 구할 수 있습니다.
-- answer(총 칸 수) 값에서 cnt(잘라진 칸 수) 값을 반환합니다.
+- answer(총 칸 수) 값에서 cnt(잘라진 칸 수) 값을 뺀 후 이를 반환합니다.
 
-## 해결 이슈
+## 제출 코드
+
+```java
+class Solution {
+    public long solution(long w, long h) {
+        long cnt = 0;
+        long answer = w * h;
+        if (((double) h / w) == 1) {
+            return answer - w;
+        } else {
+            long yMax = h > w ? h : w;
+            long xMax = h > w ? w : h;
+            for (long x = 1; x <= xMax; x++) {
+                long ceil = (new Double(Math.ceil(yMax * x / (double) xMax))).longValue();
+                long floor = (new Double(Math.floor(yMax * (x - 1) / (double) xMax))).longValue();
+                cnt = cnt + (ceil - floor);
+            }
+        }
+        return answer - cnt;
+    }
+}
+```
+
+## OPINION
+해당 문제를 푸는데 몇 가지 고려할 사항이 있었습니다. 
+로직의 흐름 자체는 문제가 없어 보였지만 계산되는 값이 예상치 못한 케이스를 만들어냈습니다. 
+프로그래밍 지식의 기초라 할 수 있는 자료형에 따른 표현 값 제한에 대한 이슈가 있었고 간단히 정리해보았습니다. 
+
+### 문제 해결 이슈
 - W, H 가 최대 1억까지 값을 가질 수 있기 때문에 오버플로우가 발생합니다. long을 사용합니다.
 - double의 부동 소수점 계산으로 인해 결과 값이 달라집니다.
     - 컴퓨터의 (yMax * x / (double) xMax) 값과 (yMax / (double) xMax * x) 값이 달라집니다.
@@ -82,29 +110,3 @@ class Solution {
 
 ##### 테스트 결과
 <p align="left"><img src="/images/programmers-problem-62048-1.JPG"></p>
-
-## 제출 코드
-
-```java
-class Solution {
-    public long solution(long w, long h) {
-        long cnt = 0;
-        long answer = w * h;
-        if (((double) h / w) == 1) {
-            return answer - w;
-        } else {
-            long yMax = h > w ? h : w;
-            long xMax = h > w ? w : h;
-            for (long x = 1; x <= xMax; x++) {
-                long ceil = (new Double(Math.ceil(yMax * x / (double) xMax))).longValue();
-                long floor = (new Double(Math.floor(yMax * (x - 1) / (double) xMax))).longValue();
-                cnt = cnt + (ceil - floor);
-            }
-        }
-        return answer - cnt;
-    }
-}
-```
-
-## OPINION
-작성 중입니다.

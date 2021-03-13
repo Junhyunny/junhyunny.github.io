@@ -37,8 +37,8 @@ last_modified_at: 2021-03-12T00:00:00
 <p align="left"><img src="/images/feignclient-with-eureka-4.JPG" width="350"></p>
 
 ### BServiceFeinClient 인터페이스
-- a-service에서 b-service를 호출할 수 있는 FeignClient를 생성합니다.
-- 별도 호스트 정보 없이 자신이 호출할 서비스의 이름만 정보로 제공합니다.
+- b-service를 호출할 때 사용할 FeignClient를 작성합니다.
+- URL 정보 없이 호출할 서비스의 이름만 제공합니다.
 
 ```java
 package cloud.in.action.proxy;

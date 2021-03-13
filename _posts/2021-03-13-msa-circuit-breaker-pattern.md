@@ -17,7 +17,7 @@ last_modified_at: 2021-03-13T00:00:00
 동기식 처리 방식의 문제점은 한 서비스에서 장애가 발생하였을 때 다른 서비스들로 장애가 전파된다는 것입니다. 
 
 ##### 마이크로 서비스 아키텍처 장애 전파
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="550"></p>
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="500"></p>
 
 그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][msa-blogLink]) 
 이번 포스트는 마이크로 서비스 아키텍처에서 장애를 격리시켜 전파를 막는 방법에 대해 알아보도록 하겠습니다.

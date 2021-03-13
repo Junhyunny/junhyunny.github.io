@@ -130,7 +130,7 @@ public class BServiceController {
 
 ## 테스트 코드
 - a-service로 1000회의 API 요청을 수행합니다.
-- 응답으로 전달받은 b-service의 정보가 각각 어느 인스턴스에서 전달받았는지 로그를 통해 확인합니다.
+- 응답으로 전달받은 b-service의 정보가 각각 어느 인스턴스로부터 전달받았는지 로그를 통해 확인합니다.
 
 ```java
 package cloud.in.action;

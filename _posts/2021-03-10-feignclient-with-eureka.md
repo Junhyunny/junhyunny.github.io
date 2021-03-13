@@ -202,5 +202,5 @@ Eureka와 FeignClient를 이용하여 서비스 요청 테스트를 진행해보
 
 [eureka-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/netflix-oss/spring-cloud-netflix-eureka/
 [eureka-server-link]: https://github.com/Junhyunny/eureka/tree/05aba484ca1fb35aedaff2f16cb225088a278b52
-[a-service-link]: https://github.com/Junhyunny/a-service/tree/7472c21c74aa906ac8d41308840563b5a05a434e
-[b-service-link]: https://github.com/Junhyunny/b-service/tree/12f7af0e5c4852ab428a6aba83eabaf9bf5e9774
+[a-service-link]: https://github.com/Junhyunny/a-service/tree/8062a2650a3e76bcfd1b77f7f576ff3fc6f035b5
+[b-service-link]: https://github.com/Junhyunny/b-service/tree/8c3e08ec7031ec634f3ae83c9d97e9f6f938255b

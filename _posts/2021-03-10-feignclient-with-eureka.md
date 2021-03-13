@@ -55,8 +55,8 @@ public interface BServiceFeinClient {
 ```
 
 ### AServiceController 클래스
-- Junit 테스트에서 요청 받을 endpoint 입니다.
-- 추가적인 로직 없이 b-service로 요청을 by-pass로 전달합니다.
+- **`/call-b-service`** path는 junit 테스트로부터 요청을 받는 endpoint 입니다.
+- 추가적인 전달받은 요청을 b-service로 by-pass 합니다.
 
 ```java
 package cloud.in.action.controller;
@@ -90,7 +90,7 @@ public class AServiceController {
 
 ### BServiceController 클래스
 - 서비스에게 처리 부하를 주기 위해 Thread.sleep(50)을 수행합니다.
-- 자신의 IP 주소와 PORT 번호를 전달합니다.
+- 자신의 IP 주소와 PORT 번호를 응답으로 전달합니다.
 
 ```java
 package cloud.in.action.controller;

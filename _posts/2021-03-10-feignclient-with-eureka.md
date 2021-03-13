@@ -180,8 +180,8 @@ class AServiceApplicationTests {
 ```
 
 ##### 테스트 수행 로그
-- b-service, 9000 포트를 가진 인스턴스로 500회 요청하였습니다.
-- b-service, 50032 포트를 가진 인스턴스로 500회 요청하였습니다.
+- b-service, 9000 포트를 가진 인스턴스로 500회 응답받았습니다.
+- b-service, 50032 포트를 가진 인스턴스로 500회 응답받았습니다.
 
 <p align="center"><img src="/images/feignclient-with-eureka-6.JPG"></p>
 

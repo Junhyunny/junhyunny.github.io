@@ -1,5 +1,5 @@
 ---
-title: "Spring Cloud Hystrix"
+title: "Spring Cloud Netflix Hystrix"
 search: false
 category:
   - spring

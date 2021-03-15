@@ -1,5 +1,5 @@
 ---
-title: "Error creating bean with name 'configurationPropertiesBeans'"
+title: "[BeanCreationException] Error creating bean with name 'configurationPropertiesBeans'"
 search: false
 category:
   - spring

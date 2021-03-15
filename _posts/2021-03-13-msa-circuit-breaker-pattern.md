@@ -379,13 +379,14 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 이번 포스트에서 Hystrix 컴포넌트를 사용한 방법은 코드의 구현을 복잡하게 만드는 불편한 방식이었습니다. 
 다음 포스트에서 Spring Cloud Netflix Hystrix에 대해 정리하면서 FeignClient와 함께 사용하는 간단한  방법에 대해 정리해보도록 하겠습니다.
 
-글을 작성하다 보니 @EnableHystrix, @EnableCircuitBreaker 두 애너테이션의 차이점이 궁금하여 찾아보았습니다.
+테스트 코드는 [a-service][a-service-link]를 통해 확인이 가능합니다.
+
+글을 작성하다 보니 @EnableHystrix, @EnableCircuitBreaker 두 애너테이션의 차이점이 궁금하여 추가적으로 정리해보았습니다.
 > **@EnableHystrix, @EnableCircuitBreaker 차이점**<br>
 > @EnableHystrix 애너테이션은 Hystrix를 사용하겠다는 의미로 내부에 @EnableCircuitBreaker 애너테이션이 추가되어 있습니다. 
-> @EnableCircuitBreaker 애너테이션은 CircuitBreaker 패턴을 구현한 라이브러리가 있다면 CircuitBreaker 패턴이 적용됩니다. 
+> Hystrix를 이용한 Circuit Breaker 패턴이 적용됩니다. 
+> @EnableCircuitBreaker 애너테이션은 Circuit Breaker 패턴을 구현한 라이브러리가 있다면 패턴이 적용됩니다. 
 > Hystrix를 이 외에 다른 의존성을 사용할 수 있습니다.
-
-테스트 코드는 [a-service][a-service-link]를 통해 확인이 가능합니다.
 
 #### REFERENCE
 - <https://martinfowler.com/bliki/CircuitBreaker.html>

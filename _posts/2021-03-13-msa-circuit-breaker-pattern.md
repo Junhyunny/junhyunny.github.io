@@ -47,11 +47,341 @@ circuit breaker는 실제로 client 서비스에 추가되어 있습니다.
 
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-3.JPG"></p>
 
+## Netflix Hystrix
+지난 [Spring Cloud Netflix Eureka][eureka-blogLink] 포스트에서도 언급했지만 다시 한번 이야기해보도록 하겠습니다. 
+MSA를 성공적으로 구축한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
+Hystrix도 Eureka와 마찬가지로 Netflix가 제공하는 컴포넌트 중 하나입니다. 
+Hystrix 컴포넌트는 Circuit Breaker 패턴을 이용하여 서비스가 장애 내성, 지연 내성을 갖도록 도와줄 뿐만 아니라 모니터링 기능까지 제공합니다. 
+
+### Spring Cloud Netflix Components
+- Eureka - Service Discovery & Registry
+- Hystrix - Fault Tolerance Library(Circuit Breaker) 
+- Zuul- API Gateway  
+- Ribbon - Client Side Loadbalancer
+
+## Hystrix를 사용한 Circuit Breaker 패턴 적용하기
+간단한 테스트 코드를 통해 Circuit Breaker 패턴을 적용시켜보도록 하겠습니다. 
+
+### Circuit Breaker 테스트 시나리오
+- junit 테스트를 통해 a-service의 /hystrix-test/{index} 경로로 API 요청을 수행합니다.
+- API 요청을 100회 반복하며 hystrix 설정에 따라 회로(circuit)이 정상적으로 개폐(open/close) 되는지 확인합니다.
+
+### pom.xml
+- spring-cloud-starter-netflix-hystrix 의존성을 추가합니다.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.7.RELEASE</version>
+        <relativePath /> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>cloud.in.action</groupId>
+    <artifactId>a-service</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>a-service</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <java.version>11</java.version>
+        <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+```
+
+### application.yml
+```yml
+server:
+  port: 8000
+spring:
+  application:
+    name: a-service
+# 이번 테스트에선 eureka 관련 설정은 제외합니다.
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://127.0.0.1:8761/eureka/
+#feign:
+#  circuitbreaker:
+#    enabled: true
+```
+
+### AServiceController 클래스
+- /hystrix-test/{index} 경로로 API 요청을 전달받습니다.
+- index가 10 미만인 경우에는 정상적인 응답을 전달합니다.
+- 10 이상 40 미만인 경우에는 임의로 1초 대기를 수행합니다.(서비스 성능 지연 발생)
+- 40 이상 70 미만인 경우에는 임의로 exception을 발생시킵니다.(서비스 장애 발생)
+- 70 이상부터는 정상적인 응답을 전달합니다.(정상)
+
+```java
+package cloud.in.action.controller;
+
+import java.util.Random;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import cloud.in.action.proxy.BServiceFeinClient;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+@RestController
+public class AServiceController {
+
+   private final BServiceFeinClient client;
+
+   public AServiceController(BServiceFeinClient client) {
+      this.client = client;
+   }
+
+   @GetMapping(value = "/timeout")
+   public String requestWithTimeout() {
+      return client.requestWithTimeout();
+   }
+
+   @GetMapping(value = "/exception")
+   public String requestWithException() {
+      return client.requestWithException();
+   }
+
+   @GetMapping(value = "/hystrix-test/{index}")
+   public String requestHystrixTest(@PathVariable(name = "index") Integer index) {
+      if (index < 10) {
+         return "success";
+      } else if (index >= 10 && index < 40 && new Random().nextBoolean()) {
+         try {
+            Thread.sleep(1000);
+         } catch (Exception e) {
+            log.error(e.getMessage(), e);
+         }
+      } else if (index >= 40 && index < 70 && new Random().nextBoolean()) {
+         throw new RuntimeException("exception occur");
+      }
+      return "success";
+   }
+}
+```
+
+### 테스트 코드
+- @EnableCircuitBreaker 애너테이션을 통해 CircuitBreaker 패턴을 적용합니다.
+- 테스트 코드에서 0.1 초 간격으로 API 요청을 수행합니다.
+- API 요청을 수행하는 getHystrixTest 메소드 위에 @HystrixCommand 애너테이션을 추가합니다.
+- API 응답 결과를 로그로 출력하여 정상적인 응답인지 fallback 메소드로부터 전달받은 응답인지 확인합니다.
+
+#### @HystrixCommand 애너테이션 설정
+- 자세한 설정은 <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy> 참조
+- fallbackMethod, fallback 메소드를 지정합니다. 동일 클래스에 위치해야하며 파라미터가 동일해야합니다.
+- commandProperties, circuit breaker를 적용하는데 필요한 설정들을 추가합니다.
+- execution.isolation.thread.timeoutInMilliseconds 
+  - 메소드 호출 이후 모니터링하는 시간입니다.
+  - 해당 시간이 지나면 fallback 메소드를 수행합니다.
+  - 기본 값 1000ms
+- metrics.rollingStats.timeInMilliseconds
+  - 요청이 들어오는 시점부터 요청에 대한 오류 감지를 수행하는 시간을 설정합니다.
+  - 측정되는 시간동안 오류가 발생한 비율이 얼마나 되느냐에 따라 회로의 개폐 여부가 결정됩니다.
+  - 기본 값 10000ms
+- circuitBreaker.requestVolumeThreshold
+  - 오류 감지 시간동안 최소 요청 회수를 설정할 수 있습니다.
+  - 최소 요청 회수를 달성하면 요청 실패에 대한 통계를 내어 설정 값보다 높으면 회로를 차단합니다.
+  - 이후 요청은 모두 실패로 간주하고 fallback을 전달합니다. 
+  - 기본 값 20회
+- circuitBreaker.errorThresholdPercentage
+  - 오류 감지 시간, 최소 요청 회수를 모두 만족할 때 요청 실패에 대한 통계를 냅니다.
+  - 이 설정 값보다 실패 확률이 높은 경우 회로를 차단하고 이후 요청은 모두 실패로 간주하고 fallback을 전달합니다. 
+  - 기본 값 50%
+- circuitBreaker.sleepWindowInMilliseconds
+  - hystrix가 서비스의 회복 상태를 확인할 때까지 대기하는 시간입니다.
+  - 해당 설정 시간만큼 기다린 후에 재요청을 해보고 서비스 정상 여부를 확인합니다.
+  - 기본 값 5000ms
+
+```java
+package cloud.in.action.hystrix;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
+import lombok.extern.log4j.Log4j2;
+
+@Service
+class HystrixTestService {
+
+    @HystrixCommand(fallbackMethod = "fallbackHystrixTest",
+            commandProperties = { @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "500"),
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "10000"),
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "20"),
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "3000") })
+    public String getHystrixTest(int index) {
+        return new RestTemplate().getForObject("http://localhost:8000/hystrix-test/" + index, String.class);
+    }
+
+    public String fallbackHystrixTest(int index) {
+        return "fallback hystrix test";
+    }
+}
+
+@Log4j2
+@EnableCircuitBreaker
+@SpringBootTest
+public class HystrixTest {
+
+    @Autowired
+    private HystrixTestService service;
+
+    @Test
+    public void test() {
+        for (int index = 0; index < 100; index++) {
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+            long start = System.currentTimeMillis();
+            String response = service.getHystrixTest(index);
+            long end = System.currentTimeMillis();
+            log.info("index: " + index + ", waiting time: " + (end - start) + " ms, response: " + response);
+        }
+    }
+}
+```
+
+### 테스트 결과
+작성 중입니다.
+
+## Hystrix Monitoring 기능 사용
+dependency 와 애너테이션만 추가하면 간단히 모니터링 기능을 사용할 수 있습니다. 
+
+### Hystrix monitoring dependency
+```xml
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-hystrix-dashboard</artifactId>
+    </dependency>
+```
+
+### application.yml
+```yml
+server:
+  port: 8000
+spring:
+  application:
+    name: a-service
+# 이번 테스트에선 eureka 관련 설정은 제외합니다.
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://127.0.0.1:8761/eureka/
+#feign:
+#  circuitbreaker:
+#    enabled: true
+```
+
+### AServiceApplication 클래스
+```java
+package cloud.in.action;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@EnableFeignClients
+@EnableHystrixDashboard
+@SpringBootApplication
+public class AServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AServiceApplication.class, args);
+    }
+
+}
+```
+
+##### Hystrix Monitroing 화면
+- http://localhost:8000/hystrix로 접속하면 아래와 같은 화면이 나옵니다.
+
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-5.JPG"></p>
+
 ## OPINION
+@EnableHystrix, @EnableCircuitBreaker 차이점 작성 필요
 작성 중입니다.
 
 #### REFERENCE
 - <https://martinfowler.com/bliki/CircuitBreaker.html>
 - <https://bcho.tistory.com/1247>
+- <https://sup2is.github.io/2020/04/12/spring-cloud-hystrix-circuit-breaker-with-fallback.html>
+- <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
 
 [msa-blogLink]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[eureka-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/netflix-oss/spring-cloud-netflix-eureka/

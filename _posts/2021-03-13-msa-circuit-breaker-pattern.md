@@ -62,7 +62,7 @@ Hystrix 컴포넌트는 Circuit Breaker 패턴을 이용하여 서비스가 장�
 간단한 테스트 코드를 통해 Circuit Breaker 패턴을 적용시켜보도록 하겠습니다. 
 
 ### Circuit Breaker 테스트 시나리오
-- junit 테스트를 통해 a-service의 /hystrix-test/{index} 경로로 API 요청을 수행합니다.
+- 테스트 코드를 이용해 a-service의 **`/hystrix-test/{index}`** 경로로 API 요청을 수행합니다.
 - API 요청을 100회 반복하며 hystrix 설정에 따라 회로(circuit)이 정상적으로 개폐(open/close) 되는지 확인합니다.
 
 ### pom.xml
@@ -157,7 +157,7 @@ spring:
 ```
 
 ### AServiceController 클래스
-- /hystrix-test/{index} 경로로 API 요청을 전달받습니다.
+- **`/hystrix-test/{index}`** 경로로 API 요청을 전달받습니다.
 - index가 10 미만인 경우에는 정상적인 응답을 전달합니다.
 - 10 이상 40 미만인 경우에는 임의로 1초 대기를 수행합니다.(서비스 성능 지연 발생)
 - 40 이상 70 미만인 경우에는 임의로 exception을 발생시킵니다.(서비스 장애 발생)
@@ -304,7 +304,7 @@ public class HystrixTest {
 ```
 
 ### 테스트 결과
-- a-service를 기동시킨 상태에서 테스트를 수행합니다. 
+a-service를 기동시킨 상태에서 테스트를 수행합니다. 
 
 ##### 서비스 정상인 상태
 - 9번 인덱스까지 정상적으로 API 요청을 수행하였습니다.
@@ -328,7 +328,7 @@ public class HystrixTest {
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-7.JPG"></p>
 
 ## Hystrix Monitoring 기능 사용
-dependency 와 애너테이션만 추가하면 간단히 모니터링 기능을 사용할 수 있습니다. 
+dependency와 애너테이션만 추가하면 간단히 모니터링 기능을 사용할 수 있습니다. 
 
 ### Hystrix monitoring dependency
 ```xml
@@ -370,7 +370,6 @@ public class AServiceApplication {
 
 ##### Hystrix Monitroing 화면
 - http://localhost:8000/hystrix로 접속하면 아래와 같은 화면이 나옵니다.
-
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-8.JPG"></p>
 
 ## OPINION

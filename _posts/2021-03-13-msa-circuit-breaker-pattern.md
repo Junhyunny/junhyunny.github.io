@@ -7,7 +7,7 @@ category:
   - msa
   - circuit-breaker
   - netflix-oss
-last_modified_at: 2021-03-13T00:00:00
+last_modified_at: 2021-03-16T00:00:00
 ---
 
 <br>
@@ -48,7 +48,6 @@ circuit breaker는 실제로 client 서비스에 추가되어 있습니다.
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-3.JPG"></p>
 
 ## Netflix Hystrix
-지난 [Spring Cloud Netflix Eureka][eureka-blogLink] 포스트에서도 언급했지만 다시 한번 이야기해보도록 하겠습니다. 
 MSA를 성공적으로 구축한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
 Hystrix도 Eureka와 마찬가지로 Netflix가 제공하는 컴포넌트 중 하나입니다. 
 Hystrix 컴포넌트는 Circuit Breaker 패턴을 이용하여 서비스가 장애 내성, 지연 내성을 갖도록 도와줄 뿐만 아니라 모니터링 기능까지 제공합니다. 
@@ -155,16 +154,6 @@ server:
 spring:
   application:
     name: a-service
-# 이번 테스트에선 eureka 관련 설정은 제외합니다.
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://127.0.0.1:8761/eureka/
-#feign:
-#  circuitbreaker:
-#    enabled: true
 ```
 
 ### AServiceController 클래스
@@ -315,7 +304,28 @@ public class HystrixTest {
 ```
 
 ### 테스트 결과
-작성 중입니다.
+- a-service를 기동시킨 상태에서 테스트를 수행합니다. 
+
+##### 서비스 정상인 상태
+- 9번 인덱스까지 정상적으로 API 요청을 수행하였습니다.
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-4.JPG"></p>
+
+##### 서비스 응답 지연인 상태
+- 10번 인덱스부터는 API 요청 실패가 발생합니다.
+- API 요청 실패를 하더라도 500ms 대기합니다.
+- 15번 인덱스에서 일정 횟수 API 요청 실패로 인해 회로를 차단합니다. 대기 없이 빠르게 실패합니다.(open)
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-5.JPG"></p>
+
+##### 서비스 정상 여부 확인
+- circuitBreaker.sleepWindowInMilliseconds 설정에 맞게 3초 대기 후 재요청을 수행하였습니다.
+- API 요청이 성공하여 몇 차례 더 수행하지만 성공 확률이 낮아 다시 회로를 차단합니다.(open)
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-6.JPG"></p>
+
+##### 서비스 정상
+- 약 3초 대기 후 재요청을 수행합니다.
+- API 요청이 성공하여 지속적으로 API 요청을 수행합니다.
+- 회로가 다시 닫혔습니다.(close)
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-7.JPG"></p>
 
 ## Hystrix Monitoring 기능 사용
 dependency 와 애너테이션만 추가하면 간단히 모니터링 기능을 사용할 수 있습니다. 
@@ -335,16 +345,6 @@ server:
 spring:
   application:
     name: a-service
-# 이번 테스트에선 eureka 관련 설정은 제외합니다.
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://127.0.0.1:8761/eureka/
-#feign:
-#  circuitbreaker:
-#    enabled: true
 ```
 
 ### AServiceApplication 클래스
@@ -371,11 +371,21 @@ public class AServiceApplication {
 ##### Hystrix Monitroing 화면
 - http://localhost:8000/hystrix로 접속하면 아래와 같은 화면이 나옵니다.
 
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-5.JPG"></p>
+<p align="center"><img src="/images/msa-circuit-breaker-pattern-8.JPG"></p>
 
 ## OPINION
-@EnableHystrix, @EnableCircuitBreaker 차이점 작성 필요
-작성 중입니다.
+MSA에서 장애 전파를 방지하기 위해 어떤 메커니즘을 사용하는지 정리해보았습니다. 
+Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 코드를 통해 Circuit Breaker 패턴의 동작 방식도 확인해보았습니다. 
+이번 포스트에서 Hystrix 컴포넌트를 사용한 방법은 코드의 구현을 복잡하게 만드는 불편한 방식이었습니다. 
+다음 포스트에서 Spring Cloud Netflix Hystrix에 대해 정리하면서 FeignClient와 함께 사용하는 간단한  방법에 대해 정리해보도록 하겠습니다.
+
+글을 작성하다 보니 @EnableHystrix, @EnableCircuitBreaker 두 애너테이션의 차이점이 궁금하여 찾아보았습니다.
+> **@EnableHystrix, @EnableCircuitBreaker 차이점**<br>
+> @EnableHystrix 애너테이션은 Hystrix를 사용하겠다는 의미로 내부에 @EnableCircuitBreaker 애너테이션이 추가되어 있습니다. 
+> @EnableCircuitBreaker 애너테이션은 CircuitBreaker 패턴을 구현한 라이브러리가 있다면 CircuitBreaker 패턴이 적용됩니다. 
+> Hystrix를 이 외에 다른 의존성을 사용할 수 있습니다.
+
+테스트 코드는 [a-service][a-service-link]를 통해 확인이 가능합니다.
 
 #### REFERENCE
 - <https://martinfowler.com/bliki/CircuitBreaker.html>
@@ -385,3 +395,4 @@ public class AServiceApplication {
 
 [msa-blogLink]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [eureka-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/netflix-oss/spring-cloud-netflix-eureka/
+[a-service-link]: https://github.com/Junhyunny/a-service/tree/34529445b58cac8eb34f7bf971ccc5396b9a5474

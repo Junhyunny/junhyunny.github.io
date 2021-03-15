@@ -179,37 +179,37 @@ import lombok.extern.log4j.Log4j2;
 @RestController
 public class AServiceController {
 
-   private final BServiceFeinClient client;
+    private final BServiceFeinClient client;
 
-   public AServiceController(BServiceFeinClient client) {
-      this.client = client;
-   }
+    public AServiceController(BServiceFeinClient client) {
+        this.client = client;
+    }
 
-   @GetMapping(value = "/timeout")
-   public String requestWithTimeout() {
-      return client.requestWithTimeout();
-   }
+    @GetMapping(value = "/timeout")
+    public String requestWithTimeout() {
+        return client.requestWithTimeout();
+    }
 
-   @GetMapping(value = "/exception")
-   public String requestWithException() {
-      return client.requestWithException();
-   }
+    @GetMapping(value = "/exception")
+    public String requestWithException() {
+        return client.requestWithException();
+    }
 
-   @GetMapping(value = "/hystrix-test/{index}")
-   public String requestHystrixTest(@PathVariable(name = "index") Integer index) {
-      if (index < 10) {
-         return "success";
-      } else if (index >= 10 && index < 40 && new Random().nextBoolean()) {
-         try {
-            Thread.sleep(1000);
-         } catch (Exception e) {
-            log.error(e.getMessage(), e);
-         }
-      } else if (index >= 40 && index < 70 && new Random().nextBoolean()) {
-         throw new RuntimeException("exception occur");
-      }
-      return "success";
-   }
+    @GetMapping(value = "/hystrix-test/{index}")
+    public String requestHystrixTest(@PathVariable(name = "index") Integer index) {
+        if (index < 10) {
+            return "success";
+        } else if (index >= 10 && index < 40 && new Random().nextBoolean()) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+        } else if (index >= 40 && index < 70 && new Random().nextBoolean()) {
+            throw new RuntimeException("exception occur");
+        }
+        return "success";
+    }
 }
 ```
 

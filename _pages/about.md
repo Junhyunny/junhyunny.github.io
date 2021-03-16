@@ -5,3 +5,73 @@ entries_layout: linear
 classes: wide
 ---
 
+## Introcduce 😀
+
+안녕하세요, 서버 사이드 개발자 강준현입니다.🙋🏻‍♂️
+
+기술에 대한 이해도가 낮은 개발자는 문제만 일으킨다는 생각으로 끊임없이 공부 중인 개발자입니다. 
+사용해 본 기술 스택, 귀동냥한 정보들에 대해 공부하고 블로그에 정리하면서 자신의 수준을 뒤돌아보는 중입니다. 
+
+잘 부탁 드립니다.
+
+<br>
+
+## Skills ⚒
+##### Language
+- Java
+- JavaScript
+
+##### Framework, Library
+- Spring Boot
+- SPring Cloud
+- JPA/Hibernate
+- MyBatis
+- Vue.js
+
+##### Platform
+- Kafka
+
+##### Tool
+- Git
+- Bamboo
+- Jira
+
+<br>
+
+## Career 📋
+
+|  |  |
+|:---:|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+|<p align="center"><img src="/images/about/about-1.JPG"></p>| 
+##### POSCO ICT Application Developer 정규직, 2018년 7월 – 현재<br>
+- MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 현재
+- MES 3.0(Manufacturing Execution System 3.0), POSCO ICT, 2018년 7월 - 2020년 12월
+  - Microservice architecture 기반 application 설계 및 개발
+  - 물류 야드 관리 시스템 공통 컴포넌트 개발
+  - Custom Rule Engine 개발
+  - 공정 내 물류 시스템 설계, 개발 및 안정화 |
+|<p align="center"><img src="/images/about/about-1.JPG"></p>|
+##### POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월<br>
+- Smart CCTV System, POSCO ICT, 2017년 8월 - 2017년 11월
+  - C++ OpenCV, Support Vector Machine 학습을 통한 영상 인식 SW 개발
+  - 영상 인식을 통한 공정 작업 정상처리 여부 판단 기능, 인식률 90% 이상 |
+
+## Proejct 👨‍💻
+
+##### [MES3.0 개발 프로젝트]
+
+##### [기타 사이드 프로젝트]
+
+## Education 👨🏻‍🎓
+
+|  |  |
+|:---:|:---------------------------------------------------------------------------------------------------------------------------------------------------|
+|<p align="center"><img src="/images/about/about-2.JPG"></p>| 
+##### Hansung University 한성대학교 학사, 2014년 – 2018년<br>
+- 정보통신공학과 전공, 2014년 2월 - 2018년 2월
+- 학점 4.45
+- 아산 성적 우수 장학생 3년 선정, 2015년 - 2017년
+- 제34회 전국 대학생 수학 경시대회(비수학전공분야) 은상 수상
+  - 대한수학회, 고등과학원 주최
+- 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
+  - 국립전파연구원 주최

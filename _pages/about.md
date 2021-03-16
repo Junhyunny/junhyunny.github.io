@@ -14,35 +14,28 @@ classes: wide
 
 잘 부탁 드립니다.
 
-<br>
-
 ## Skills ⚒
 ##### Language
 - Java
 - JavaScript
-
 ##### Framework, Library
 - Spring Boot
 - SPring Cloud
 - JPA/Hibernate
 - MyBatis
 - Vue.js
-
 ##### Platform
 - Kafka
-
 ##### Tool
 - Git
 - Bamboo
 - Jira
 
-<br>
-
 ## Career 📋
 
 |  |  |
 |:---:|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="/images/about/about-1.jpg"> | 
+|<img src="/images/about/about-1.jpg" width="250">| 
 ##### POSCO ICT Application Developer 정규직, 2018년 7월 – 현재<br>
 - MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 현재
 - MES 3.0(Manufacturing Execution System 3.0), POSCO ICT, 2018년 7월 - 2020년 12월
@@ -51,8 +44,7 @@ classes: wide
   - Custom Rule Engine 개발
   - 공정 내 물류 시스템 설계, 개발 및 안정화 
 |
-
-| <img src="/images/about/about-1.jpg"> | 
+|<img src="/images/about/about-1.jpg" width="250">| 
 ##### POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월<br>
 - Smart CCTV System, POSCO ICT, 2017년 8월 - 2017년 11월
   - C++ OpenCV, Support Vector Machine 학습을 통한 영상 인식 SW 개발
@@ -62,14 +54,16 @@ classes: wide
 ## Proejct 👨‍💻
 
 ##### [MES3.0 개발 프로젝트]
+작성 중입니다.
 
 ##### [기타 사이드 프로젝트]
+작성 중입니다.
 
 ## Education 👨🏻‍🎓
 
 |  |  |
 |:---:|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| <img src="/images/about/about-2.jpg"> | 
+|<img src="/images/about/about-2.jpg" width="250">| 
 ##### Hansung University 한성대학교 학사, 2014년 – 2018년<br>
 - 정보통신공학과 전공, 2014년 2월 - 2018년 2월
 - 학점 4.45

@@ -19,20 +19,16 @@ classes: wide
 - Java
 - JavaScript
 
-##### Framework, Library
-- Spring Boot
-- SPring Cloud
-- JPA/Hibernate
-- MyBatis
+##### Framework
+- Spring Boot, Spring Cloud
+- JPA / Hibernate, MyBatis
 - Vue.js
 
 ##### Platform
 - Kafka
 
 ##### Tool
-- Git
-- Bamboo
-- Jira
+- Git, Bamboo, BitBucket, Jira
 
 ## Career 📋
 

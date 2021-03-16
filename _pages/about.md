@@ -51,7 +51,7 @@ classes: wide
 
 ## Education 👨🏻‍🎓
 
-<img src="/images/about/about-2.jpg" width="50"> ##### Hansung University 한성대학교 학사, 2014년 – 2018년<br>
+<img src="/images/about/about-2.jpg" width="50"> <h5> Hansung University 한성대학교 학사, 2014년 – 2018년</h5><br> 
 
 - 정보통신공학과 전공, 2014년 2월 - 2018년 2월
 - 학점 4.45

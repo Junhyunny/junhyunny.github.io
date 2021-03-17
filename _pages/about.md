@@ -26,7 +26,7 @@ classes: wide
 - Vue.js
 
 ##### [Platform]
-- Kafka
+- Apache Kafka
 
 ##### [Tool]
 - Git, BitBucket, Bamboo, Jira

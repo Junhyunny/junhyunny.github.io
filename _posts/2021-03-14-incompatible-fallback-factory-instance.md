@@ -87,15 +87,16 @@ feign:
 ##### circuitBreakerFeignTargeter 빈(Bean) 생성
 <p align="center"><img src="/images/incompatible-fallback-factory-instance-2.JPG"></p>
 
-##### org.springframework.cloud.openfeign.FallbackFactory 타입인지 확인
+##### FeignCircuitBreakerTargeter 클래스 getFromContext 메소드
+- isAssignableFrom 메소드를 통해 org.springframework.cloud.openfeign.FallbackFactory 상속 여부를 확인합니다.
 <p align="center"><img src="/images/incompatible-fallback-factory-instance-3.JPG"></p>
 
 ## OPINION
 잘 알고 있다고 생각했는데 크게 한방 먹었습니다. 
 **`feign.circuitbreaker.enabled=true`** 설정을 사용하는 경우 CircuitBreakerFactory 클래스를 명시적으로 만들게 되면서 문제가 발생하는 것으로 보입니다. 
-**`feign.circuitbreaker.enabled`** 설정과 **`feign.hystrix.enabled`** 의 차이점에 대해 정확히 알고 싶은데 reference를 구하기 힘듭니다. 
+**`feign.circuitbreaker.enabled`** 설정과 **`feign.hystrix.enabled`** 의 차이점에 대해 정확히 알고 싶은데 관련된 reference를 구하는게 쉽지 않습니다. 
 
-차이점에 대한 정확한 내용을 Spring Cloud Openfeign 이슈로 등록한 후 확인해보도록 하겠습니다.
+그래서 차이점에 대한 정확한 내용을 Spring Cloud Openfeign 이슈로 등록 후 확인해보겠습니다.<br>
 [What is difference between feign.circuitbreaker.enabled option and feign.circuitbreaker.enabled option ?][git-issueLink]
 
 [hystrix-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/circuit-breaker/hystrix/netflix-oss/spring-cloud-netflix-hystrix/

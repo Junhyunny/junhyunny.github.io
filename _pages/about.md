@@ -29,7 +29,7 @@ classes: wide
 - Kafka
 
 ##### [Tool]
-- Git, Bamboo, BitBucket, Jira
+- Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
 ##### <img src="/images/about/about-1.jpg" width="50"/>  POSCO ICT Application Developer 정규직, 2018년 7월 – 현재<br> 

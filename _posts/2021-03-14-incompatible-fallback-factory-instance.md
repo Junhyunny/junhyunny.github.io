@@ -96,7 +96,8 @@ feign:
 **`feign.circuitbreaker.enabled=true`** 설정을 사용하는 경우 CircuitBreakerFactory 클래스를 명시적으로 만들게 되면서 문제가 발생하는 것으로 보입니다. 
 **`feign.circuitbreaker.enabled`** 설정과 **`feign.hystrix.enabled`** 설정의 차이점에 대해 정확히 알고 싶은데 관련된 reference를 구하는게 쉽지 않습니다. 
 
-그래서 차이점에 대한 정확한 내용을 Spring Cloud Openfeign 이슈로 등록 후 확인해보겠습니다.<br>
+그래서 차이점에 대한 정확한 내용을 Spring Cloud Openfeign 이슈로 등록 후 확인해보겠습니다.
+
 [What is difference between feign.circuitbreaker.enabled option and feign.circuitbreaker.enabled option ?][git-issueLink]
 
 [hystrix-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/circuit-breaker/hystrix/netflix-oss/spring-cloud-netflix-hystrix/

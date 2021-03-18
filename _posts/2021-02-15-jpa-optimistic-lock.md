@@ -250,5 +250,5 @@ StackOverflow에서 다음과 같은 글을 발견하였습니다.
 - <https://www.baeldung.com/jpa-optimistic-locking>
 - <https://stackoverflow.com/questions/13568475/jpa-and-default-locking-mode>
 
-[lock-mechanism-blogLink]: https://junhyunny.github.io/information/database/lock/lock-mechanism/
+[lock-mechanism-blogLink]: https://junhyunny.github.io/information/lock-mechanism/
 [github-link]: https://github.com/Junhyunny/action-in-blog/tree/2c09107b51b127f2e6296b6d1e698b73f1f3580a

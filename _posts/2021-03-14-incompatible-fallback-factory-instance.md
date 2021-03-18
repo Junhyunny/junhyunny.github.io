@@ -96,5 +96,5 @@ feign:
 
 [What is difference between feign.circuitbreaker.enabled option and feign.circuitbreaker.enabled option ?][git-issueLink]
 
-[hystrix-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/circuit-breaker/hystrix/netflix-oss/spring-cloud-netflix-hystrix/
+[hystrix-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/
 [git-issueLink]: https://github.com/spring-cloud/spring-cloud-openfeign/issues/516

@@ -78,4 +78,4 @@ last_modified_at: 2021-01-30T00:00:00
 #### REFERENCE
 - <https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation>
 
-[acid-blogLink]: https://junhyunny.github.io/information/database/transcation-acid/
+[acid-blogLink]: https://junhyunny.github.io/information/transcation-acid/

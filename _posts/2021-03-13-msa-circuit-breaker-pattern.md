@@ -394,5 +394,5 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 - <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
 
 [msa-blogLink]: https://junhyunny.github.io/information/msa/microservice-architecture/
-[eureka-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/msa/netflix-oss/spring-cloud-netflix-eureka/
+[eureka-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
 [a-service-link]: https://github.com/Junhyunny/a-service/tree/34529445b58cac8eb34f7bf971ccc5396b9a5474

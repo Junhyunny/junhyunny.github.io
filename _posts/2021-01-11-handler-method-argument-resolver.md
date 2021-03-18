@@ -200,6 +200,6 @@ public class MemberController {
 - [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]
 - [Token Enhancer][tokenenhancer-blogLink]
 
-[jwt-blogLink]: https://junhyunny.github.io/security/spring%20security/spring-security-example/
-[tokenenhancer-blogLink]: https://junhyunny.github.io/security/spring%20security/token-enhancer/
+[jwt-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[tokenenhancer-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
 [blog-githubLink]: https://github.com/Junhyunny/action-in-blog/tree/fcc3f4b90f5eef1d31657d935f338b1150f66e1f

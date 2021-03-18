@@ -9,8 +9,8 @@ last_modified_at: 2021-01-29T00:00:00
 
 <br>
 
-지난 포스트에서는 [Jason Web Token][json-blogLink]과 [Spring Security][security-blogLink] 대한 이야기를 해보았습니다.
-Spring Security 프레임워크를 이용하여 Jason Web Token 인증 방식을 구현해보았습니다. 
+지난 포스트에서는 [JWT, Json Web Token][json-blogLink]과 [Spring Security][security-blogLink] 대한 이야기를 해보았습니다.
+Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
@@ -425,8 +425,8 @@ public class MemberService implements UserDetailsService {
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
 
-[json-blogLink]: https://junhyunny.github.io/information/security/json-web-token/
-[security-blogLink]: https://junhyunny.github.io/information/security/spring%20security/spring-security/
+[json-blogLink]: https://junhyunny.github.io/information/json-web-token/
+[security-blogLink]: https://junhyunny.github.io/spring-security/spring-security/
 [authentication-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
 [resource-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
 [github-link]: https://github.com/Junhyunny/action-in-blog/tree/441221739c107eaae741276dc8707aa5f83ccab1

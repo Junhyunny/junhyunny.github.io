@@ -8,7 +8,7 @@ last_modified_at: 2021-01-28T00:00:00
 
 <br>
 
-지난 포스트에서는 [Jason Web Token][blogLink]에 대한 이야기를 해보았습니다. 
+지난 포스트에서는 [Json Web Token][blogLink]에 대한 이야기를 해보았습니다. 
 Jason Web Token을 활용한 서버 구현 전에 Spring Security 프레임워크에 대해 알아보았습니다. 
 
 > Spring Security is a Java/Java EE framework that provides **authentication, authorization** and other security features for enterprise applications.
@@ -123,4 +123,4 @@ public interface UserDetailsService {
 - <https://bamdule.tistory.com/52>
 - <https://sjh836.tistory.com/165>
 
-[blogLink]: https://junhyunny.github.io/information/security/json-web-token/
+[blogLink]: https://junhyunny.github.io/spring-security/spring-security/

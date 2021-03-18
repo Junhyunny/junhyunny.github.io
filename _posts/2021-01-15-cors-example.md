@@ -261,6 +261,6 @@ public class Config {
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
 
 [cors-blogLink]: https://junhyunny.github.io/information/cors/
-[resolver-blogLink]: https://junhyunny.github.io/spring%20web/handler-method-argument-resolver/
+[resolver-blogLink]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/
 [front-gitLink]: https://github.com/Junhyunny/action-in-blog-front/tree/d87e3d024d4909c203390f58c2633c9db61c4269
 [back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/ab53d585cdd265c49a1b4585dfeec92c4c1918cc

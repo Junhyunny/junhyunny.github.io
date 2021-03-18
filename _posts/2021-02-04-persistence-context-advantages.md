@@ -369,6 +369,6 @@ public class DirtyCheckingTest {
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]
 
 [reference-blogLink]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
-[persistence-context-blogLink]: https://junhyunny.github.io/spring/jpa/database/junit/jpa-persistence-context/
-[transaction-isolation-blogLink]: https://junhyunny.github.io/information/database/transcation-isolation/
+[persistence-context-blogLink]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[transaction-isolation-blogLink]: https://junhyunny.github.io/information/transcation-isolation/
 [github-link]: https://github.com/Junhyunny/action-in-blog/tree/82f8467916fe49549f2b98952fd6548ab567661d

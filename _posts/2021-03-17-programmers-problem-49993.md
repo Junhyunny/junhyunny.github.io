@@ -29,7 +29,6 @@ last_modified_at: 2021-03-17T00:00:00
 - skill_trees의 원소는 스킬을 나타내는 문자열입니다.
     - skill_trees의 원소는 길이가 2 이상 26 이하인 문자열이며, 스킬이 중복해 주어지지 않습니다.
 
-
 ## 입출력 예
 
 | skill | skill_trees | return |

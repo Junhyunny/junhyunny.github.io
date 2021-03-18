@@ -2,10 +2,8 @@
 title: "[BeanCreationException] Error creating bean with name 'configurationPropertiesBeans'"
 search: false
 category:
-  - spring
-  - spring cloud
-  - maven
-  - junit
+  - spring-boot
+  - spring-cloud
   - exception
 last_modified_at: 2021-03-06T00:00:00
 ---

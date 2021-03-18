@@ -2,9 +2,9 @@
 title: "Openfeign 런타임(runtime) 시 URI 변경"
 search: false
 category:
-  - spring
-  - spring cloud
-  - openfeign
+  - spring-boot
+  - spring-cloud
+  - junit
 last_modified_at: 2021-03-07T00:00:00
 ---
 

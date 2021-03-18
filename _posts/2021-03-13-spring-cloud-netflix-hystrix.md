@@ -2,12 +2,10 @@
 title: "Spring Cloud Netflix Hystrix"
 search: false
 category:
-  - spring
-  - spring cloud
+  - spring-boot
+  - spring-cloud
   - msa
-  - circuit-breaker
-  - hystrix
-  - netflix-oss
+  - junit
 last_modified_at: 2021-03-17T00:00:00
 ---
 

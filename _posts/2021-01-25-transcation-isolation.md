@@ -3,7 +3,6 @@ title: "트랜잭션 격리성(Transaction Isolation)"
 search: false
 category:
   - information
-  - database
 last_modified_at: 2021-01-30T00:00:00
 ---
 

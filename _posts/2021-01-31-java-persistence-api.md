@@ -2,9 +2,8 @@
 title: "JPA(Java Persistence API)"
 search: false
 category:
-  - spring
+  - spring-boot
   - jpa
-  - database
 last_modified_at: 2021-01-31T00:00:00
 ---
 

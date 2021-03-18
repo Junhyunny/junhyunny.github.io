@@ -2,8 +2,8 @@
 title: "[programmers] 멀쩡한 사각형"
 search: false
 category:
+  - problem
   - algorithm
-  - data-structure
 last_modified_at: 2021-03-12T00:00:00
 ---
 

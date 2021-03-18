@@ -3,7 +3,6 @@ title: "JWT, Json Web Token"
 search: false
 category:
   - information
-  - security
 last_modified_at: 2021-01-28T00:00:00
 ---
 

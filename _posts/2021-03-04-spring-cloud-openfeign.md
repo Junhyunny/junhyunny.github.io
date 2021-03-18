@@ -2,9 +2,8 @@
 title: "Spring Cloud Openfeign"
 search: false
 category:
-  - spring
-  - spring cloud
-  - openfeign
+  - spring-boot
+  - spring-cloud
 last_modified_at: 2021-03-06T00:00:00
 ---
 

@@ -2,8 +2,8 @@
 title: "[programmers] 스킬트리"
 search: false
 category:
+  - problem
   - algorithm
-  - data-structure
 last_modified_at: 2021-03-17T00:00:00
 ---
 

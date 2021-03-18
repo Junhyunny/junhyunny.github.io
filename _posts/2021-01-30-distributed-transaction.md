@@ -2,9 +2,8 @@
 title: "분산 트랜잭션(Distributed transaction)"
 search: false
 category:
-  - information
   - msa
-  - database
+  - design-pattern
 last_modified_at: 2021-01-30T00:00:00
 ---
 

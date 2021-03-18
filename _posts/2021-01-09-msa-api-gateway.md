@@ -2,7 +2,6 @@
 title: "MSA API Gateway"
 search: false
 category:
-  - information
   - msa
 last_modified_at: 2021-01-29T00:00:00
 ---

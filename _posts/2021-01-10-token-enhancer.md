@@ -2,8 +2,8 @@
 title: "Token Enhancer"
 search: false
 category:
-  - security
-  - spring security
+  - spring-boot
+  - spring-security
 last_modified_at: 2021-01-29T00:00:00
 ---
 

@@ -2,6 +2,7 @@
 title: "[programmers] 크레인 인형뽑기 게임"
 search: false
 category:
+  - problem
   - algorithm
   - data-structure
 last_modified_at: 2021-03-03T00:00:00

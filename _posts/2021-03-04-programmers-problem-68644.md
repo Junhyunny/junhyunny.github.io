@@ -2,6 +2,7 @@
 title: "[programmers] 두 개 뽑아서 더하기"
 search: false
 category:
+  - problem
   - algorithm
   - data-structure
 last_modified_at: 2021-03-04T00:00:00

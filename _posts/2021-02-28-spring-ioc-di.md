@@ -2,10 +2,8 @@
 title: "Spring IoC(Inversion of Control), DI(Dependency Injection)"
 search: false
 category:
-  - spring boot
-  - framework
+  - spring-boot
   - design-pattern
-  - software-engineering
 last_modified_at: 2021-03-01T00:00:00
 ---
 

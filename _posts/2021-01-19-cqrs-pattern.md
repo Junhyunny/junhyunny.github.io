@@ -2,8 +2,8 @@
 title: "CQRS(Command Query Responsibility Segregation) Pattern"
 search: false
 category:
-  - infomation
-  - architecture
+  - information
+  - design-pattern
 last_modified_at: 2021-01-30T00:00:00
 ---
 

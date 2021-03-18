@@ -2,10 +2,9 @@
 title: "Spring Cloud Netflix Eureka"
 search: false
 category:
-  - spring
-  - spring cloud
+  - spring-boot
+  - spring-cloud
   - msa
-  - netflix-oss
 last_modified_at: 2021-03-08T00:00:00
 ---
 

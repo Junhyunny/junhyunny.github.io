@@ -2,9 +2,7 @@
 title: "JPA Optimistic Lock 구현"
 search: false
 category:
-  - spring
-  - database
-  - lock
+  - spring-boot
   - jpa
   - junit
 last_modified_at: 2021-02-16T00:00:00

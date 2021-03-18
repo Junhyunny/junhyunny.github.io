@@ -294,7 +294,7 @@ Spring Cloud와 관련된 내용을 정리하다 보니 아직 갈 길이 멀다
 - [spring cloud - eureka 기본 설정!][eureka-reference-link]
 - <https://spring.io/guides/gs/service-registration-and-discovery/>
 
-[openfeign-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/openfeign/spring-cloud-openfeign/
+[openfeign-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 [eureka-server-link]: https://github.com/Junhyunny/eureka/tree/05aba484ca1fb35aedaff2f16cb225088a278b52
 [a-service-link]: https://github.com/Junhyunny/a-service/tree/7472c21c74aa906ac8d41308840563b5a05a434e
 [b-service-link]: https://github.com/Junhyunny/b-service/tree/12f7af0e5c4852ab428a6aba83eabaf9bf5e9774

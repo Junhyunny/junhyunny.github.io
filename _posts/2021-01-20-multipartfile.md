@@ -246,6 +246,6 @@ spring:
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html>
 - <https://spring.io/guides/gs/uploading-files/>
 
-[cors-blogLink]: https://junhyunny.github.io/spring%20web/vue.js/cors-example/
+[cors-blogLink]: https://junhyunny.github.io/spring-boot/vue.js/cors-example/
 [front-gitLink]: https://github.com/Junhyunny/action-in-blog-front/tree/38f385f791536b04c82ab4a6fd9459c10446710e
 [back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/23cd61abf125435813bcc8e2fadbf843b488c7d3

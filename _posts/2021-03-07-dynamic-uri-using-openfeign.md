@@ -102,5 +102,5 @@ Openfeign을 사용하는 프로젝트에서 유용한 정보일 것 같습니�
 #### REFERENCE
 - <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>
 
-[openfeign-blogLink]: https://junhyunny.github.io/spring/spring%20cloud/openfeign/spring-cloud-openfeign/
+[openfeign-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 [github-link]: https://github.com/Junhyunny/action-in-blog/tree/a286ac5111bc476aa2dc44804354cb9dcf004918

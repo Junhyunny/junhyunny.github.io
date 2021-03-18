@@ -264,5 +264,5 @@ public class SynchronizedTest {
 - Operating System Concepts 9th
 - <https://junhyunny.blogspot.com/2020/02/race-condition.html>
 
-[deadlock-blogLink]: https://junhyunny.github.io/computer-science/operating-system/dead-lock/
+[deadlock-blogLink]: https://junhyunny.github.io/information/operating-system/dead-lock/
 [github-link]: https://github.com/Junhyunny/action-in-blog/tree/50f49e7f04523521f3aa99461ce8dc1600cb3a5c

@@ -2,8 +2,8 @@
 title: "[programmers] 주식가격"
 search: false
 category:
+  - problem
   - algorithm
-  - data-structure
 last_modified_at: 2021-03-04T00:00:00
 ---
 

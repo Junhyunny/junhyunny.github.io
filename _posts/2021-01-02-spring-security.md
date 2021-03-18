@@ -2,9 +2,7 @@
 title: "Spring Security"
 search: false
 category:
-  - information
-  - security
-  - spring security
+  - spring-security
 last_modified_at: 2021-01-28T00:00:00
 ---
 

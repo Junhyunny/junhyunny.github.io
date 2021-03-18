@@ -2,7 +2,7 @@
 title: "CORS(Cross Origin Resource Sharing) 서버 구현"
 search: false
 category:
-  - spring web
+  - spring-boot
   - vue.js
 last_modified_at: 2021-01-30T00:00:00
 ---

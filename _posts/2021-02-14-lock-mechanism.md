@@ -3,8 +3,6 @@ title: "Lock Mechanism"
 search: false
 category:
   - information
-  - database
-  - lock
 last_modified_at: 2021-02-14T00:00:00
 ---
 

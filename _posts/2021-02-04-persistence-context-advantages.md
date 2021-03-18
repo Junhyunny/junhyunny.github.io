@@ -2,9 +2,8 @@
 title: "영속성 컨텍스트(Persistence Context) 사용시 이점"
 search: false
 category:
-  - spring
+  - spring-boot
   - jpa
-  - database
   - junit
 last_modified_at: 2021-02-04T00:00:00
 ---

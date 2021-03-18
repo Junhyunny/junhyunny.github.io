@@ -2,12 +2,8 @@
 title: "[IllegalStateException] Incompatible fallbackFactory instance."
 search: false
 category:
-  - spring
-  - spring cloud
-  - msa
-  - circuit-breaker
-  - hystrix
-  - netflix-oss
+  - spring-boot
+  - spring-cloud
   - exception
 last_modified_at: 2021-03-17T00:00:00
 ---

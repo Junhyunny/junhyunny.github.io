@@ -2,11 +2,10 @@
 title: "MSA Circuit Breaker Pattern"
 search: false
 category:
-  - spring
-  - spring cloud
+  - spring-boot
+  - spring-cloud
   - msa
-  - circuit-breaker
-  - netflix-oss
+  - design-pattern
 last_modified_at: 2021-03-16T00:00:00
 ---
 

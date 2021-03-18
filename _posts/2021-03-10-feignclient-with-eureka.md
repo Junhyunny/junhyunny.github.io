@@ -2,11 +2,10 @@
 title: "FeignClient with Eureka"
 search: false
 category:
-  - spring
-  - spring cloud
+  - spring-boot
+  - spring-cloud
   - msa
-  - openfeign
-  - netflix-oss
+  - junit
 last_modified_at: 2021-03-12T00:00:00
 ---
 

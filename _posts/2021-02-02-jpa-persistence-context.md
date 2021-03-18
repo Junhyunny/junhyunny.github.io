@@ -2,9 +2,8 @@
 title: "JPA Persistence Context"
 search: false
 category:
-  - spring
+  - spring-boot
   - jpa
-  - database
   - junit
 last_modified_at: 2021-02-03T00:00:00
 ---

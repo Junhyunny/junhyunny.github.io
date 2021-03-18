@@ -2,9 +2,8 @@
 title: "경쟁 상태(Race Condition)"
 search: false
 category:
-  - computer-science
+  - information
   - operating-system
-  - thread-not-safe
   - junit
 last_modified_at: 2021-02-26T00:00:00
 ---

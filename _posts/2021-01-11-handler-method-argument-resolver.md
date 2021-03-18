@@ -2,7 +2,7 @@
 title: "HandlerMethodArgumentResolver 인터페이스"
 search: false
 category:
-  - spring web
+  - spring-boot
 last_modified_at: 2021-01-30T00:00:00
 ---
 

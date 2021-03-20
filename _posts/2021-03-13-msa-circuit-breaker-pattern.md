@@ -16,7 +16,7 @@ last_modified_at: 2021-03-16T00:00:00
 동기식 처리 방식의 문제점은 한 서비스에서 에러가 발생하거나 느려지면 이를 호출하는 다른 서비스들로 장애가 전파된다는 것입니다. 
 
 ##### 마이크로 서비스 아키텍처 장애 전파
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="500"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="500"></p>
 
 그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][msa-blogLink]) 
 > **Micro Service Architecture 핵심 원칙, 회복성(Resilience)**<br>
@@ -38,13 +38,13 @@ Circuit Breaker 패턴은 이름처럼 회로 차단기 역할을 수행합니�
 1. supplier 서비스에 문제가 발생하면 circuit breaker는 supplier 서비스로의 요청을 차단합니다.(circuit open)
 1. Fall back으로 지정한 응답을 client 서비스로 전달합니다.
 
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-2.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-2.JPG"></p>
 <center>이미지 출처, https://martinfowler.com/bliki/CircuitBreaker.html</center><br>
 
 위 이미지는 circuit breaker가 서비스로 보일 수 있으니 조금 수정해보았습니다. 
 circuit breaker는 실제로 client 서비스에 추가되어 있습니다. 
 
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-3.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-3.JPG"></p>
 
 ## Netflix Hystrix
 MSA를 성공적으로 구축한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
@@ -308,24 +308,24 @@ a-service를 기동시킨 상태에서 테스트를 수행합니다.
 
 ##### 서비스 정상인 상태
 - 9번 인덱스까지 정상적으로 API 요청을 수행하였습니다.
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-4.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-4.JPG"></p>
 
 ##### 서비스 응답 지연인 상태
 - 10번 인덱스부터는 API 요청 실패가 발생합니다.
 - API 요청 실패를 하더라도 500ms 대기합니다.
 - 15번 인덱스에서 일정 횟수 API 요청 실패로 인해 회로를 차단합니다. 대기 없이 빠르게 실패합니다.(open)
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-5.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-5.JPG"></p>
 
 ##### 서비스 정상 여부 확인
 - circuitBreaker.sleepWindowInMilliseconds 설정에 맞게 3초 대기 후 재요청을 수행하였습니다.
 - API 요청이 성공하여 몇 차례 더 수행하지만 성공 확률이 낮아 다시 회로를 차단합니다.(open)
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-6.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-6.JPG"></p>
 
 ##### 서비스 정상
 - 약 3초 대기 후 재요청을 수행합니다.
 - API 요청이 성공하여 지속적으로 API 요청을 수행합니다.
 - 회로가 다시 닫혔습니다.(close)
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-7.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-7.JPG"></p>
 
 ## Hystrix Monitoring 기능 사용
 dependency와 애너테이션만 추가하면 간단히 모니터링 기능을 사용할 수 있습니다. 
@@ -370,7 +370,7 @@ public class AServiceApplication {
 
 ##### Hystrix Monitroing 화면
 - http://localhost:8000/hystrix로 접속하면 아래와 같은 화면이 나옵니다.
-<p align="center"><img src="/images/msa-circuit-breaker-pattern-8.JPG"></p>
+<p class="image" align="center"><img src="/images/msa-circuit-breaker-pattern-8.JPG"></p>
 
 ## OPINION
 MSA에서 장애 전파를 방지하기 위해 어떤 메커니즘을 사용하는지 정리해보았습니다. 

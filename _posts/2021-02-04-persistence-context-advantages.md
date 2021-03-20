@@ -29,7 +29,7 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 #### [캐싱된 엔티티 조회 시나리오]
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
-<p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-1.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### [캐싱되지 않은 엔티티 조회 시나리오]
@@ -37,7 +37,7 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 1. 캐싱된 엔티티가 존재하지 않으므로 데이터베이스를 조회합니다.
 1. 조회된 데이터를 신규 엔티티를 생성하여 캐싱합니다.
 1. 신규 엔티티를 반환합니다.
-<p align="center"><img src="/images/persistence-context-advantages-2.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-2.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 1차 캐싱 테스트
@@ -115,8 +115,8 @@ public class CachingTest {
 
 ##### 1차 캐싱 테스트 결과
 - Junit 테스트 통과 및 관련 로그
-<p align="left"><img src="/images/persistence-context-advantages-3.JPG" width="300"></p>
-<p align="center"><img src="/images/persistence-context-advantages-4.JPG"></p>
+<p class="image" align="left"><img src="/images/persistence-context-advantages-3.JPG" width="300"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-4.JPG"></p>
 
 ### 쓰기 지연(transactional write-behind)
 EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하지 않습니다. 
@@ -134,15 +134,15 @@ EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하�
 1. commit 수행 시 쓰기 지연 SQL 저장소에 담긴 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
 
 ##### entityManager.persist(memberA) 수행
-<p align="center"><img src="/images/persistence-context-advantages-5.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-5.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ##### entityManager.persist(memberB) 수행
-<p align="center"><img src="/images/persistence-context-advantages-6.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-6.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ##### entityManager.getTransaction().commit() 수행
-<p align="center"><img src="/images/persistence-context-advantages-7.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-7.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 쓰기 지연 테스트
@@ -242,7 +242,7 @@ public class WriteBehindTest {
 
 ##### 쓰기 지연 테스트 결과
 - 관련 로그
-<p align="center"><img src="/images/persistence-context-advantages-8.JPG"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-8.JPG"></p>
 
 ### 변경 감지(dirty checking)
 지난 [JPA Persistence Context][persistence-context-blogLink] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
@@ -257,7 +257,7 @@ public class WriteBehindTest {
 1. flush 메소드 호출 시 캐싱에 저장된 엔티티와 스냅샷에 저장된 엔티티의 모습이 다른 엔티티를 찾아 업데이트 쿼리를 만듭니다. 
 1. 업데이트 쿼리는 쓰기 지연 SQL 저장소로 전달됩니다.
 1. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
-<p align="center"><img src="/images/persistence-context-advantages-9.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-9.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 #### 변경 감지 테스트
@@ -338,7 +338,7 @@ public class DirtyCheckingTest {
 
 ##### 변경 감지 테스트 결과
 - 데이터베이스 쿼리 조회 결과
-<p align="left"><img src="/images/persistence-context-advantages-10.JPG" width="650"></p>
+<p class="image" align="left"><img src="/images/persistence-context-advantages-10.JPG" width="650"></p>
 
 #### 변경 감지 디버깅
 변경 감지(dirty checking)과 관련하여 어떤 메커니즘을 통해 변경된 데이터를 탐색하는지 디버깅해보았습니다. 
@@ -347,18 +347,18 @@ public class DirtyCheckingTest {
 - FlushEntityEvent 객체를 만드는 시점에 dirty field 탐색을 수행
 - SingleTableEntityPersister 클래스 findDirty 메소드
 - 해당 메소드에서 변경된 필드의 인덱스 번호를 반환합니다.
-<p align="center"><img src="/images/persistence-context-advantages-11.JPG"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-11.JPG"></p>
 
 ##### session의 actionQueue에 EntityUpdateAction 객체 추가
 - DefaultFlushEntityEventListener 클래스 scheduleUpdate 메소드
 - 변경된 값이 있을 때 업데이트를 수행할 수 있도록 session의 actionQueue에 Action 추가
-<p align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
 
 ##### ActionQueue.ExecutableList에 담긴 Action 수행
 - actionQueue 객체는 수행해야할 ExecutableList를 지니고 있습니다.
 - ExecutableList에 담긴 EntityUpdateAction을 수행합니다.
 - ActionQueue 클래스 executeActions 메소드
-<p align="center"><img src="/images/persistence-context-advantages-13.JPG"></p>
+<p class="image" align="center"><img src="/images/persistence-context-advantages-13.JPG"></p>
 
 ## OPINION
 영속성 컨텍스트의 기능과 이를 통해 얻을 수 있는 장점에 대해서 이야기해보았습니다. 

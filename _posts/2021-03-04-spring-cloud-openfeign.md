@@ -20,7 +20,7 @@ Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(
 ## 테스트 시나리오
 - action-in-blog 서비스에서 action-in-blog 서비스의 /api/cors/health 경로로 API 요청
 - SimpleClient는 테스트 패키지에 존재하며 JUnit 테스트를 통해 API 요청 수행
-<p align="center"><img src="/images/spring-cloud-openfeign-1.JPG" width="350"></p>
+<p class="image" align="center"><img src="/images/spring-cloud-openfeign-1.JPG" width="350"></p>
 
 ## pom.xml 의존성 추가
 - spring-cloud-starter-openfeign 의존성을 추가합니다.
@@ -141,11 +141,11 @@ public class SimpleClientTest {
 - junit 테스트를 수행하여 API 응답을 로그로 확인합니다.
 
 ##### action-in-blog 서비스 기동
-<p align="center"><img src="/images/spring-cloud-openfeign-2.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-cloud-openfeign-2.JPG"></p>
 
 ##### 테스트 수행 로그
 - "health" 응답을 통해 정상적으로 API 요청이 수행되었음을 알 수 있습니다. 
-<p align="center"><img src="/images/spring-cloud-openfeign-3.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-cloud-openfeign-3.JPG"></p>
 
 ## OPINION
 FeignClient는 JpaRepository 인터페이스를 처음 접하였을 때처럼 매우 신선한 충격을 주었습니다. 

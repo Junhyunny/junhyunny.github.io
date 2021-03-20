@@ -89,10 +89,10 @@ public class DynamicUrlTest {
 - 각 결과를 확인합니다.
 
 ##### https://www.naver.com 요청 결과
-<p align="center"><img src="/images/dynamic-uri-using-openfeign-1.JPG"></p>
+<p class="image" align="center"><img src="/images/dynamic-uri-using-openfeign-1.JPG"></p>
 
 ##### https://www.google.com 요청 결과
-<p align="center"><img src="/images/dynamic-uri-using-openfeign-2.JPG"></p>
+<p class="image" align="center"><img src="/images/dynamic-uri-using-openfeign-2.JPG"></p>
 
 ## OPINION
 Openfeign을 사용하는 프로젝트에서 유용한 정보일 것 같습니다. 

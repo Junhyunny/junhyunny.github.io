@@ -32,28 +32,41 @@ classes: wide
 - Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
-##### <img src="/images/about/about-1.jpg" width="50"/>  POSCO ICT Application Developer 정규직, 2018년 7월 – 현재<br> 
-- MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 현재<br> 
-- MES 3.0(Manufacturing Execution System 3.0), POSCO ICT, 2018년 7월 - 2020년 12월<br> 
-    - Microservice architecture 기반 application 설계 및 개발<br>
-    - 물류 야드 관리 시스템 공통 컴포넌트 개발<br>
-    - Custom Rule Engine 개발<br>
-    - 공정 내 물류 시스템 설계, 개발 및 안정화<br>
+##### <img src="/images/about/about-1.jpg" width="50"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재
+- MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 현재
+- MES3.0(Manufacturing Execution System 3.0) 개발, POSCO ICT, 2018년 7월 - 2020년 12월
 
-##### <img src="/images/about/about-1.jpg" width="50"/>  POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월<br>
-- Smart CCTV System, POSCO ICT, 2017년 8월 - 2017년 11월<br>
-    - C++ OpenCV, Support Vector Machine 학습을 통한 영상 인식 SW 개발<br>
-    - 영상 인식을 통한 공정 작업 정상처리 여부 판단 기능, 인식률 90% 이상<br>
+##### <img src="/images/about/about-1.jpg" width="50"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
+- Smart CCTV System, POSCO ICT, 2017년 8월 - 2017년 11월
 
 ## Proejct 👨‍💻
-##### [MES3.0 개발 프로젝트]
-작성 중입니다.
+##### [MES3.0(Manufacturing Execution System 3.0) 개발]
+- Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, Mybatis, Oracle
+- Micro Service architecture 기반 Application 설계 및 개발
+- 공정 내 물류 시스템 설계, 개발 및 안정화 (하루 평균 3000만 RTR 발생)
+- 물류 야드 관리 시스템 공통 컴포넌트 개발
+- Custom Rule Engine 개발 및 속도 개선
+  - 10000건 초과 기준 사용시 1초 미만
 
-##### [기타 사이드 프로젝트]
-작성 중입니다.
+##### [Smart CCTV System 개발]
+- C++ OpenCV, Support Vector Machine 학습을 통한 영상 인식 SW 개발
+- 영상인식을 통한 작업 정상 처리 여부 판단 기능, 인식률 90% 이상
+
+##### [빌라엠]
+- Nativescript-Vue, Vue.js, Spring Boot, Spring Security, JPA, MySql
+- 어플리케이션을 이용한 빌라 주민들의 관리비 관리, 공지사항 알림, 설문 기능, 불편사항 접수 기능 제공 
+- 빌라 주민 모바일 하이브리드 어플리케이션, 관리자 페이지 개발
+- <https://www.villam.co.kr/main.do>
+
+##### [보고싶다]
+- Vue.js, Spring Boot, Spring Security, JPA, MySql
+- 모바일 웹 어플리케이션을 통한 기억 공유 SNS, 부고 알림 전송 서비스 제공
+- 모바일 웹 어플리케이션, 관리자 페이지 개발
+
+<p class="image" align="center"><img src="/images/about/about-3.JPG" width="550"></p>
 
 ## Education 👨🏻‍🎓
-##### <img src="/images/about/about-2.jpg" width="50"/>  Hansung University 한성대학교 학사, 2014년 – 2018년<br> 
+##### <img src="/images/about/about-2.jpg" width="50"/>  Hansung University 한성대학교 학사, 2014년 – 2018년
 - 정보통신공학과 전공, 2014년 2월 - 2018년 2월
 - 학점 4.45
 - 아산 성적 우수 장학생 3년 선정, 2015년 - 2017년

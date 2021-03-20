@@ -44,7 +44,7 @@ last_modified_at: 2021-01-30T00:00:00
   - 하나의 데이터베이스 노드라도 준비 실패 응답을 보낸 경우 트랜잭션 매니저는 rollback 메세지를 보내 모든 작업을 rollback 합니다.
 
 ##### 2단계 commit 성공 / 실패 시나리오
-<p align="center"><img src="/images/distributed-transaction-1.JPG"></p>
+<p class="image" align="center"><img src="/images/distributed-transaction-1.JPG"></p>
 
 ## Saga pattern
 마이크로 서비스 아키텍처 환경에서는 서로 다른 서비스가 각각의 API end point를 통해 요청을 처리하기 때문에 2단계 commit은 사용하기 어렵습니다. 
@@ -64,7 +64,7 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 다음에 수행되어야할 트랜잭션이 있다면 해당 트랜잭션을 수행해야하는 서비스에서 완료 이벤트를 수신받고 다음 트랜잭션을 수행합니다. 
 
 ##### Choreography-based SAGA 수행 시나리오
-<p align="center"><img src="/images/distributed-transaction-2.JPG"></p>
+<p class="image" align="center"><img src="/images/distributed-transaction-2.JPG"></p>
 <center>이미지 출처, https://cla9.tistory.com/22</center><br>
 
 각 서비스 별로 트랜잭션을 관리하는 로직이 존재합니다. 
@@ -72,7 +72,7 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 취소 처리 이벤트를 받은 서비스들은 이를 rollback 처리합니다.
 
 ##### Choreography-based SAGA 보상 트랜잭션 시나리오
-<p align="center"><img src="/images/distributed-transaction-3.JPG"></p>
+<p class="image" align="center"><img src="/images/distributed-transaction-3.JPG"></p>
 <center>이미지 출처, https://cla9.tistory.com/22</center><br>
 
 #### Orchestration-based SAGA
@@ -85,11 +85,11 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 트랜잭션에 참가하는 특정 마이크로 서비스에서 로컬 트랜잭션 오류가 발생하면 오케스트레이터는 보상 트랜잭션을 수행하여 데이터의 일관성을 유지합니다.
 
 ##### Orchestration-based SAGA 수행 시나리오
-<p align="center"><img src="/images/distributed-transaction-4.JPG"></p>
+<p class="image" align="center"><img src="/images/distributed-transaction-4.JPG"></p>
 <center>이미지 출처, https://cla9.tistory.com/22</center><br>
 
 ##### Orchestration-based SAGA 보상 트랜잭션 시나리오
-<p align="center"><img src="/images/distributed-transaction-5.JPG"></p>
+<p class="image" align="center"><img src="/images/distributed-transaction-5.JPG"></p>
 <center>이미지 출처, https://cla9.tistory.com/22</center><br>
 
 ## OPINION

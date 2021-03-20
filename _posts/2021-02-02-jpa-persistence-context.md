@@ -29,7 +29,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 새로운 기술을 공부할때마다 접하는 라이프사이클(lifecycle)에 대한 개념은 언제나 흥미롭습니다. 
 
 ##### Entity Lifecycle 흐름
-<p align="center"><img src="/images/jpa-persistence-context-1.JPG" width="550"></p>
+<p class="image" align="center"><img src="/images/jpa-persistence-context-1.JPG" width="550"></p>
 <center>이미지 출처, https://gunlog.dev/JPA-Persistence-Context/</center><br>
 
 - 비영속(new/transietn)
@@ -95,7 +95,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 
 ### 테스트 패키지 구조
 
-<p align="left"><img src="/images/jpa-persistence-context-2.JPG"></p>
+<p class="image" align="left"><img src="/images/jpa-persistence-context-2.JPG"></p>
 
 ### application.yml
 ```yml
@@ -320,11 +320,11 @@ public class PersistTest {
 
 ##### 1차 수행시 데이터베이스
 - 데이터가 추가되었음을 확인할 수 있습니다.
-<p align="left"><img src="/images/jpa-persistence-context-3.JPG"></p>
+<p class="image" align="left"><img src="/images/jpa-persistence-context-3.JPG"></p>
 
 ##### 1차 수행시 valuCheckTest 메소드 수행 결과
 - assertEquals 메소드 수행시 예상 값이 "MEMBER"인 경우 실패
-<p align="center"><img src="/images/jpa-persistence-context-4.JPG"></p>
+<p class="image" align="center"><img src="/images/jpa-persistence-context-4.JPG"></p>
 
 #### 2차 수행
 - em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
@@ -334,12 +334,12 @@ public class PersistTest {
 
 ##### 2차 수행시 데이터베이스
 - 데이터가 변경되었음을 확인할 수 있습니다.
-<p align="left"><img src="/images/jpa-persistence-context-5.JPG"></p>
+<p class="image" align="left"><img src="/images/jpa-persistence-context-5.JPG"></p>
 
 ##### 2차 수행시 valuCheckTest 메소드 수행 결과
 - 데이터가 변경되었음을 확인할 수 있습니다.
 - assertEquals 메소드 수행시 예상 값이 "ADMIN"인 경우 실패
-<p align="center"><img src="/images/jpa-persistence-context-6.JPG"></p>
+<p class="image" align="center"><img src="/images/jpa-persistence-context-6.JPG"></p>
 
 ### detach 테스트
 
@@ -475,13 +475,13 @@ public class DetachTest {
 ##### valuCheckTest 메소드 수행 결과
 - 데이터가 변경되지 않았음을 확인할 수 있습니다.
 - assertEquals 메소드 수행시 예상 값이 "DETACHED_ADMIN"인 경우 실패
-<p align="center"><img src="/images/jpa-persistence-context-7.JPG"></p>
+<p class="image" align="center"><img src="/images/jpa-persistence-context-7.JPG"></p>
 
 ##### detachRemoveTest 메소드 수행 결과
 - 영속성 컨텍스트에서 분리된 객체는 삭제하지 못합니다.
 - detach 이후 데이터 삭제시 IllegalArgumentException이 발생
 - Exception Mesage, Removing a detached instance blog.in.action.entity.Member#01012341234
-<p align="center"><img src="/images/jpa-persistence-context-8.JPG"></p>
+<p class="image" align="center"><img src="/images/jpa-persistence-context-8.JPG"></p>
 
 ### remove 테스트 코드
 
@@ -560,8 +560,8 @@ public class RemoveTest {
 ##### removeTest 메소드 수행 결과
 - 데이터가 삭제되었음을 확인할 수 있습니다.
 - 데이터베이스 조회 결과 및 관련 로그
-<p align="left"><img src="/images/jpa-persistence-context-9.JPG"></p>
-<p align="center"><img src="/images/jpa-persistence-context-10.JPG"></p>
+<p class="image" align="left"><img src="/images/jpa-persistence-context-9.JPG"></p>
+<p class="image" align="center"><img src="/images/jpa-persistence-context-10.JPG"></p>
 
 ## OPINION
 영속성 컨텍스트가 무엇인지, 이를 통해 JPA EntityManager가 엔티티를 어떻게 관리하고 데이터를 저장하는지에 대해 알아보았습니다. 

@@ -17,17 +17,17 @@ last_modified_at: 2021-01-30T00:00:00
 ### Dirty Read
 - 트랜잭션 작업이 완료되지 않은 데이터를 다른 트랜잭션에서 볼 수 있는 현상
 
-<p align="center"><img src="/images/transcation-isolation-1.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-isolation-1.JPG"></p>
 
 ### Non-Repeatable Read
 - 하나의 트랜잭션에서 같은 쿼리를 두 번 이상 수행할 때 결과가 달라지는 현상
 
-<p align="center"><img src="/images/transcation-isolation-2.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-isolation-2.JPG"></p>
 
 ### Phantom Read
 - 하나의 트랜잭션에서 일정 범위의 레코드를 두 번 이상 수행할 때 처음 수행할 때 없던 레코드가 나타나는 현상
 
-<p align="center"><img src="/images/transcation-isolation-3.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-isolation-3.JPG"></p>
 
 ## 트랜잭션 격리 수준(Transaction Isolation Level)
 
@@ -38,21 +38,21 @@ last_modified_at: 2021-01-30T00:00:00
 - 데이터 정합성이 좋지 않은 격리 수준이므로 사용하지 않습니다.
 - Dirty Read, Non-Repeatable Read, Phantom Read 발생 가능
 
-<p align="center"><img src="/images/transcation-isolation-4.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-isolation-4.JPG"></p>
 
 ### Read Committed
 - 각 트랜잭션은 다른 트랜잭션의 COMMIT 완료된 데이터만 확인 가능합니다.
 - 주로 사용되는 격리 수준입니다.
 - Non-Repeatable Read, Phantom Read 발생 가능
 
-<p align="center"><img src="/images/transcation-isolation-5.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-isolation-5.JPG"></p>
 
 ### Repeatable Read
 - 한 트랜잭션이 시작되면 다른 트랜잭션에서 COMMIT 된 데이터가 있더라도 확인되지 않습니다.
 - 트랜잭션 별로 식별자를 주고 UNDO 영역의 데이터를 백업해둠으로써 트랜잭션의 일관성을 보장합니다.
 - Phantom Read 발생 가능
 
-<p align="center"><img src="/images/transcation-isolation-6.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-isolation-6.JPG"></p>
 
 ### Serializable
 - 가장 높은 수준의 격리 수준입니다. 

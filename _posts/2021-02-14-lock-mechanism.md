@@ -33,7 +33,7 @@ last_modified_at: 2021-02-14T00:00:00
   - WHERE 절에 `VERSION = {currentVersion}`이 추가되어 다른 트랜잭션에 의한 VERSION 증가가 있었는지 확인하는 쿼리 수행
   - 업데이트 결과가 0 건이라면 다른 트랜잭션에 의한 VERSION 증가로 인지하여 `OptimisticLockException` 발생
 
-<p align="center"><img src="/images/application-lock-mechanism-1.JPG" width="750"></p>
+<p class="image" align="center"><img src="/images/application-lock-mechanism-1.JPG" width="750"></p>
 
 ## Pessimistic Lock (비관적인 잠금)
 
@@ -48,7 +48,7 @@ last_modified_at: 2021-02-14T00:00:00
 1. 데이터 조회시 `SELECT - FOR UPDATE` 쿼리를 수행하여 조회와 동시에 데이터 LOCK
 1. 다른 트랜잭션들은 잠금된 데이터에 대해 업데이트 수행시 LOCK을 선점한 특정 트랜잭션 종료 시점까지 대기
 
-<p align="center"><img src="/images/application-lock-mechanism-2.JPG" width="750"></p>
+<p class="image" align="center"><img src="/images/application-lock-mechanism-2.JPG" width="750"></p>
 
 ## OPINION
 이번 포스트는 어플리케이션에서 사용하는 Locking 방법들의 개념에 대해서만 정리해보았습니다. 

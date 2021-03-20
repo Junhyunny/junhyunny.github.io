@@ -32,7 +32,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 때문에 서블릿 필터의 구조에 대해서 먼저 알아보도록 하겠습니다. 
 클라이언트가 서버로 HTTP 요청시 아래와 같은 필터 계층에 의해 처리됩니다.  
 
-<p align="center"><img src="/images/spring-security-1.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-security-1.JPG"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 컨테이너는 클라이언트 요청 URL에 근거하여 어떤 필터, 어떤 서블릿을 적용할지 결정합니다. 
@@ -47,26 +47,26 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보안 로직(필터)들을 포함하고 있습니다. 
 
 - FilterChainProxy 추상화 이미지
-<p align="center"><img src="/images/spring-security-2.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-security-2.JPG"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 - FilterChainProxy 내부 실제 Filters
   - FilterChainProxy 내부 필터들은 각자 수행하는 역할이 있습니다.
-<p align="center"><img src="/images/spring-security-3.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-security-3.JPG"></p>
 <center>이미지 출처, https://bamdule.tistory.com/52</center><br>
 
 동일한 최상위 FilterChainProxy 레벨에서 Spring Security에 의해 관리되는 여러 개의 필터 체인들이 존재할 수도 있으며 모든 필터 체인들이 컨테이너에게는 알려지지 않습니다. 
 Spring Security 필터는 모든 필터 체인들의 목록을 포함하고 있으며 일치하는 첫 번째 체인에 요청을 전달합니다. 
 아래 그림은 요청 경로별 매칭에 의거하여 요청을 전달하는 모습을 보여줍니다. (<em>/foo/**<em>는 <em>/**<em>보다 매칭됩니다.) 
 
-<p align="center"><img src="/images/spring-security-4.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-security-4.JPG"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 ## Spring Security Authentication Architecture
 Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하여 어떤 식으로 웹 요청에 대한 보안 처리를 하는지 확인해보았습니다. 
 다음은 Spring Security Framework이 사용자 인증을 처리하는 프로세스에 대해서 알아보겠습니다. 
 
-<p align="center"><img src="/images/spring-security-5.JPG"></p>
+<p class="image" align="center"><img src="/images/spring-security-5.JPG"></p>
 <center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
 
 1\. HTTP 요청 접수

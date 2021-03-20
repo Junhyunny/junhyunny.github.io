@@ -37,7 +37,7 @@ last_modified_at: 2021-01-30T00:00:00
 - 격리성 보장을 위해 LOCK/UNLOCK 메커니즘을 사용합니다.
 
 ##### 격리성을 보장하지 못하는 경우 발생하는 데이터 불일치 CASE
-<p align="center"><img src="/images/transcation-acid-1.JPG"></p>
+<p class="image" align="center"><img src="/images/transcation-acid-1.JPG"></p>
 
 ### Durability (지속성)
 - 성공적으로 수행된 트랜잭션의 결과가 데이터베이스에 반영이 되는 것을 의미합니다.

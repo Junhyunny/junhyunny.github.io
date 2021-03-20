@@ -203,7 +203,7 @@ public class BServiceController {
 - a-service의 **`/timeout, /exception`** 경로로 API 요청을 수행합니다.
 - 전달받은 응답을 로그로 확인합니다.
 - a-service 로그에서는 어떤 에러가 발생하였는지 로그를 확인합니다.
-- application.yml에 feign.circuitbreaker.enabled 옵션이 true이므로 @SpringBootTest 애너테이션의 value를 이용해 이 값을 테스트에 한해서 false로 변경합니다.
+- **`feign.circuitbreaker.enabled`** 옵션이 true이므로 @SpringBootTest 애너테이션을 이용해 이 테스트에 한해서만 false로 변경합니다.
 
 ```java
 package cloud.in.action;

@@ -123,4 +123,4 @@ public interface UserDetailsService {
 - <https://bamdule.tistory.com/52>
 - <https://sjh836.tistory.com/165>
 
-[blogLink]: https://junhyunny.github.io/spring-security/spring-security/
+[blogLink]: https://junhyunny.github.io/information/json-web-token/

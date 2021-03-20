@@ -64,14 +64,14 @@ classes: wide
 - 모바일 웹 어플리케이션, 관리자 페이지 개발
 
 <figure class="align-center third">
-  <a class="image-popup" href="/images/about/about-remember-1.gif">
-    <p align="center"><img src="/images/about/about-remember-1.gif"></p>
+  <a href="/images/about/about-remember-1.gif">
+    <img src="/images/about/about-remember-1.gif">
   </a>
-  <a class="image-popup" href="/images/about/about-remember-2.gif">
-    <p align="center"><img src="/images/about/about-remember-2.gif"></p>
+  <a href="/images/about/about-remember-2.gif">
+    <img src="/images/about/about-remember-2.gif">
   </a>
-  <a class="image-popup" href="/images/about/about-remember-3.gif">
-    <p align="center"><img src="/images/about/about-remember-3.gif"></p>
+  <a href="/images/about/about-remember-3.gif">
+    <img src="/images/about/about-remember-3.gif">
   </a>
 </figure>
 

@@ -114,7 +114,7 @@ public class AServiceController {
 - Circuit Breaker에 의해 회로가 차단되었을 때 동작할 FallbackFactory를 함께 생성합니다.
 - create 메소드를 오버라이딩하여 b-service로부터 어떤 장애가 발생했는지 확인하는 로그를 작성합니다.
 - BServiceFeinClient을 구현한 BServiceFallback 객체를 반환합니다.
-- BServiceFallback 클래스는 BServiceFeinClient의 메소드를 오버라이딩하여 각 호출 별로 반환할 값을 작성합니다.
+- BServiceFallback 클래스는 BServiceFeinClient의 메소드를 오버라이딩하여 각 호출 별로 반환할 값을 지정합니다.
 
 ```java
 package cloud.in.action.proxy;

@@ -64,11 +64,11 @@ classes: wide
 - 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
 - 모바일 웹 어플리케이션, 관리자 페이지 개발
 
-<figure class="third align-center">
+<div class="third align-center">
   <img src="/images/about/about-remember-1.gif" width="33%">
   <img src="/images/about/about-remember-2.gif" width="33%">
   <img src="/images/about/about-remember-3.gif" width="33%">
-</figure >
+</div>
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="50"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

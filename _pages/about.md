@@ -46,7 +46,7 @@ classes: wide
 - 공정 내 물류 시스템 설계, 개발 및 안정화 (하루 평균 3000만 RTR 발생)
 - 물류 야드 관리 시스템 공통 컴포넌트 개발
 - Custom Rule Engine 개발 및 속도 개선
-  - 10000건 초과 기준 사용시 1초 미만
+  - 10000건이 초과되는 기준 사용시 5초 이상 걸리는 시간을 1초 미만으로 단축
 
 ##### [Smart CCTV System 개발]
 - C++ OpenCV, Support Vector Machine 학습을 통한 영상 인식 SW 개발

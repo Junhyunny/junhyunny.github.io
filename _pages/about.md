@@ -55,7 +55,7 @@ classes: wide
 ##### [빌라엠]
 - Nativescript-Vue, Vue.js, Spring Boot, Spring Security, JPA, MySql
 - 어플리케이션을 이용한 빌라 주민들의 관리비 관리, 공지사항 알림, 설문 기능, 불편사항 접수 기능 제공 
-- 빌라 주민 모바일 하이브리드 어플리케이션, 관리자 페이지 개발
+- 빌라 주민용 모바일 하이브리드 어플리케이션, 관리자 페이지 개발
 - <https://www.villam.co.kr/main.do>
 
 ##### [보고싶다]

@@ -20,11 +20,9 @@ last_modified_at: 2021-01-28T00:00:00
 이미지를 통해 두 아키텍처 사이의 차이점을 간단히 확인해보겠습니다.
 
 <figure>
-<p align="center">
 <a class="image-popup" href="/images/microservice-architecture-1.JPG">
-<img src="/images/microservice-architecture-1.JPG">
+<p align="center"><img src="/images/microservice-architecture-1.JPG"/></p>
 </a>
-</p>
 </figure>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 

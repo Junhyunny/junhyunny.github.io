@@ -109,4 +109,4 @@ class Solution {
 ```
 
 ##### 테스트 결과
-<p class="image" align="left"><img src="/images/programmers-problem-62048-1.JPG"></p>
+<p align="left"><img src="/images/programmers-problem-62048-1.JPG"></p>

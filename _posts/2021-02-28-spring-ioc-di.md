@@ -66,7 +66,7 @@ class A {
 - 의존성 주입(DI)은 IoC 원칙를 구현한 디자인 패턴으로써 외부의 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
 - IoC Containers는 IoC 개념이 적용된 프로그램(혹은 객체)으로써 프레임워크에서 이를 사용합니다.
 
-<p class="image" align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
+<p align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
 <center>이미지 출처, https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/</center><br>
 
 ## Spring 프레임워크와 IoC 원칙
@@ -101,8 +101,8 @@ IoC 컨테이너인 두 객체의 차이점을 확인하기 위해 간단히 디
 - ApplicationContext 인터페이스는 BeanFactory 인터페이스를 상속 받았기 때문에 ApplicationContext의 구현체는 BeanFactory의 기능들을 모두 제공
 - GenericWebApplicationContext 클래스는 BeanFactory 인터페이스의 기능을 멤버 변수인 BeanFactory 객체에게 모두 위임(delegate)
 
-<p class="image" align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
-<p class="image" align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
+<p align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
+<p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
 
 ### IoC 컨테이너에 빈(Bean) 등록하기
 IoC 컨테이너에 대해 알아봤으니 이번엔 빈(Bean)에 대해 알아보도록 하겠습니다. 

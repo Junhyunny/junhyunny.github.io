@@ -22,7 +22,7 @@ back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구�
 
 ## front-end 프로젝트 패키지 구조
 
-<p class="image" align="left"><img src="/images/multipartfile-1.JPG" wdith="100"></p>
+<p align="left"><img src="/images/multipartfile-1.JPG" wdith="100"></p>
 
 ## FileUpload.vue
 파일을 업로드하기 위한 페이지입니다. 
@@ -82,7 +82,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p class="image" align="left"><img src="/images/multipartfile-2.JPG" wdith="100"></p>
+<p align="left"><img src="/images/multipartfile-2.JPG" wdith="100"></p>
 
 ## ResourceServer 클래스 변경
 파일 업로드를 위한 **/api/member/upload/profile-img** 경로는 인증없이 사용할 수 있도록 모든 요청에 대해 허용하였습니다.
@@ -184,22 +184,22 @@ public class MemberController {
 파일 업로드 테스트 결과를 확인해보겠습니다. 
 
 ##### 이미지 선택
-<p class="image" align="center"><img src="/images/multipartfile-3.JPG"></p>
+<p align="center"><img src="/images/multipartfile-3.JPG"></p>
 
 ##### 화면 응답 메세지 확인
-<p class="image" align="center"><img src="/images/multipartfile-4.JPG"></p>
+<p align="center"><img src="/images/multipartfile-4.JPG"></p>
 
 ##### 저장된 파일 확인
-<p class="image" align="center"><img src="/images/multipartfile-5.JPG"></p>
+<p align="center"><img src="/images/multipartfile-5.JPG"></p>
 
 ##### 용량이 큰 이미지 업로드
-<p class="image" align="center"><img src="/images/multipartfile-6.JPG"></p>
+<p align="center"><img src="/images/multipartfile-6.JPG"></p>
 
 ##### 용량이 큰 이미지 업로드시 화면 응답 메세지
-<p class="image" align="center"><img src="/images/multipartfile-7.JPG"></p>
+<p align="center"><img src="/images/multipartfile-7.JPG"></p>
 
 ##### FileSizeLimitExceededException 발생
-<p class="image" align="center"><img src="/images/multipartfile-8.JPG"></p>
+<p align="center"><img src="/images/multipartfile-8.JPG"></p>
 
 용량이 높은 파일을 업로드할 때 발생하는 에러입니다. 
 
@@ -234,7 +234,7 @@ spring:
 ##### 설정 추가 후 테스트 결과
 설정을 추가한 후 위와 동일한 방법으로 이미지를 업로드합니다. 
 파일이 저장되는 폴더에 용량이 큰 파일이 업로드되었는지 확인함으로써 정상적으로 수행되었음을 확인할 수 있습니다. 
-<p class="image" align="center"><img src="/images/multipartfile-9.JPG"></p>
+<p align="center"><img src="/images/multipartfile-9.JPG"></p>
 
 ## OPINION
 간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다. 

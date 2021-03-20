@@ -17,7 +17,7 @@ CORS(Cross Origin Resource Sharing) 개념에 대해서는 [CORS(Cross Origin Re
 
 ## front-end 프로젝트 패키지 구조
 
-<p class="image" align="left"><img src="/images/cors-example-1.JPG"></p>
+<p align="left"><img src="/images/cors-example-1.JPG"></p>
 
 ## CorsReuqest.vue
 2가지 API PATH를 통해 테스트를 진행하였습니다. 
@@ -72,7 +72,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p class="image" align="left"><img src="/images/cors-example-2.JPG" wdith="150"></p>
+<p align="left"><img src="/images/cors-example-2.JPG" wdith="150"></p>
 
 ## application.yml
 포트 정보를 추가하였습니다.
@@ -162,17 +162,17 @@ public class CorsController {
 	1. HandlerMappingIntrospector @Bean을 생성하는 과정에서 API endpoint 별로 CorsConfiguration을 생성
 1. HandlerMappingIntrospector @Bean을 CorsFilter 객체의 configSource 로 사용하여 CorsFilter 객체 생성
 
-<p class="image" align="center"><img src="/images/cors-example-3.JPG"></p>
+<p align="center"><img src="/images/cors-example-3.JPG"></p>
 
 ##### CorsFilter 생성 관련 로직, CorsConfigurer 클래스 getCorsFilter 메소드
 - CorsConfigurationSource @Bean 이 존재하는 경우 CorsFilter 객체 생성 (2. step)
 - CorsConfigurationSource @Bean 이 존재하지 않는 경우 MvcCorsFilter 클래스를 통해 CorsFilter 객체 생성 (3. step)
-<p class="image" align="center"><img src="/images/cors-example-4.JPG"></p>
+<p align="center"><img src="/images/cors-example-4.JPG"></p>
 
 ##### HandlerMappingIntrospector @Bean을 생성 중 API endpoint 별 CorsConfiguration 생성 로직 (3-1. step)
 - CrossOrigin 애너테이션이 존재하는지 확인 
 - 존재하는 경우 메소드 별로 CorsConfiguration 객체 생성
-<p class="image" align="center"><img src="/images/cors-example-5.JPG"></p>
+<p align="center"><img src="/images/cors-example-5.JPG"></p>
 
 ### CorsFilter 객체 동작
 다음과 같은 순서로 CorsFilter 객체는 동작합니다.
@@ -183,30 +183,30 @@ public class CorsController {
 	1. 해당 요청이 허가된 응답인지 CorsConfiguration 객체를 통해 확인 및 헤더 값 SETTING
 	1. 필요한 CorsConfiguration 객체는 필터 생성시 SETTING 된 CorsConfigurationSource 객체를 통해 GET
 
-<p class="image" align="center"><img src="/images/cors-example-6.JPG"></p>
+<p align="center"><img src="/images/cors-example-6.JPG"></p>
 
 ##### DelegatingFilterProxyRegistrationBean 객체의 doFilter 내부 로직 (2. step)
 - originalChain 객체는 ApplicationFilterChain을 의미
 - additionalFilter 객체는 FilterChainProxy에 속하는 Filer 리스트
-<p class="image" align="center"><img src="/images/cors-example-7.JPG"></p>
+<p align="center"><img src="/images/cors-example-7.JPG"></p>
 
 ##### CorsFilter 객체 내부에서 CORS Access 가능 여부 확인 및 헤더 값 SETTING 로직
-<p class="image" align="center"><img src="/images/cors-example-8.JPG"></p>
+<p align="center"><img src="/images/cors-example-8.JPG"></p>
 
 ## @CrossOrigin 애너테이션을 통한 CORS 테스트
 
 ##### **/api/cors/health** 경로 요청시 CorsConfiguration 객체 NULL
-<p class="image" align="center"><img src="/images/cors-example-9.JPG"></p>
+<p align="center"><img src="/images/cors-example-9.JPG"></p>
 
 ##### **/api/cors/health** 경로 요청 결과, 실패
-<p class="image" align="center"><img src="/images/cors-example-10.JPG"></p>
+<p align="center"><img src="/images/cors-example-10.JPG"></p>
 
 ##### **/api/cors/health** 경로 요청시 CorsConfiguration 객체 존재
 - 내부 allowedOrigins 정보 확인시 http://localhost:8080 존재
-<p class="image" align="center"><img src="/images/cors-example-11.JPG"></p>
+<p align="center"><img src="/images/cors-example-11.JPG"></p>
 
 ##### **/api/cors/health-cors-annotaion** 경로 요청 결과, 성공
-<p class="image" align="center"><img src="/images/cors-example-12.JPG"></p>
+<p align="center"><img src="/images/cors-example-12.JPG"></p>
 
 ## CorsConfigurationSource @Bean을 통한 CORS
 Config.java 파일에 CorsConfigurationSource @Bean 생성 로직을 추가합니다. 
@@ -246,10 +246,10 @@ public class Config {
 ```
 
 ##### **/api/cors/health** 경로 요청 결과, 성공
-<p class="image" align="center"><img src="/images/cors-example-13.JPG"></p>
+<p align="center"><img src="/images/cors-example-13.JPG"></p>
 
 ##### **/api/cors/health-cors-annotaion** 경로 요청 결과, 성공
-<p class="image" align="center"><img src="/images/cors-example-14.JPG"></p>
+<p align="center"><img src="/images/cors-example-14.JPG"></p>
 
 ## OPINION
 이전 블로그에서 이 주제를 다룰때는 단순히 문제를 해결하기 위한 글을 썼다면 이번 글은 CORS가 내부에서 어떻게 동작하는지에 대해 초첨을 맞춰서 작성하였습니다. 

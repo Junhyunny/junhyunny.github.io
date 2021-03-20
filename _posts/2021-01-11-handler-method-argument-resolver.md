@@ -12,7 +12,7 @@ last_modified_at: 2021-01-30T00:00:00
 이번 글에서는 HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
 
 ## 패키지 구조
-<p class="image" align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="300"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="300"></p>
 
 ## TokenMember 애너테이션 구현
 커스텀 애너테이션을 만들어줍니다. 메소드 파라미터 앞에 붙일 애너테이션이므로 @Target은 ElementType.PARAMETER로 지정합니다. 
@@ -39,7 +39,7 @@ supportsParameter 메소드를 통해 해당 파라미터에 대한 처리를 �
 반환된 객체는 요청 Parameter로써 Controller에게 전달됩니다.
 
 ##### ServletInvocableHandlerMethod 내부 supportsParameter 메소드와 resolveArgument 메소드
-<p class="image" align="center"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
+<p align="center"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
 
 ```java
 package blog.in.action.resolver;
@@ -178,19 +178,19 @@ public class MemberController {
 
 ## 테스트 결과
 ##### 유저 정보 등록 (ADMIN)
-<p class="image" align="left"><img src="/images/handler-method-argument-resolver-3.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-3.JPG"></p>
 
 ##### 인증 정보 획득
-<p class="image" align="left"><img src="/images/handler-method-argument-resolver-4.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-4.JPG"></p>
 
 ##### 사용자 정보 요청 (/api/member/user-info-using-token)
-<p class="image" align="left"><img src="/images/handler-method-argument-resolver-5.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-5.JPG"></p>
 
 ##### resolveArgments 메소드, 토큰 내 사용자 정보 추출
-<p class="image" align="left"><img src="/images/handler-method-argument-resolver-6.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-6.JPG"></p>
 
 ##### requestUserInfoUsingToken 메소드, 사용자 정보 확인
-<p class="image" align="left"><img src="/images/handler-method-argument-resolver-7.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-7.JPG"></p>
 
 ## OPINION
 사이드 프로젝트를 진행하면서 회사 가이드가 아닌 방식으로 프레임워크의 기능들을 샅샅히 사용해보며 서버를 구성해나가는데 큰 재미를 느끼고 있습니다. 

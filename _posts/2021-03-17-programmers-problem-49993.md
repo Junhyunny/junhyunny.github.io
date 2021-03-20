@@ -4,7 +4,7 @@ search: false
 category:
   - problem
   - algorithm
-last_modified_at: 2021-03-17T00:00:00
+last_modified_at: 2021-03-21T00:00:00
 ---
 
 <br>
@@ -36,7 +36,13 @@ last_modified_at: 2021-03-17T00:00:00
 | "CBD" | ["BACDE", "CBADF", "AECB", "BDA"] | 2 |
 
 ## 코드 해설
-- 
+- 매개변수로 전달받은 스킬 트리를 하나씩 검사합니다.
+- 스킬의 선순 스킬부터 해당 스킬 트리에 존재하는지 확인합니다.
+- 이전에 검사한 스킬의 인덱스 정보는 beforeIndex, 현재 검사한 스킬의 인덱스 정보는 curIndex에 저장합니다.
+- 선순 스킬이 없었는데 현재 검사하는 스킬이 존재하면 false 입니다.
+- 현재 검사하는 스킬의 인덱스보다 선순 스킬의 인덱스가 큰 경우에는 false 입니다.
+- 정상적으로 선순 스킬 트리를 가지는 케이스인 경우 answer를 증가시킵니다.
+- answer를 반환합니다.
 
 ## 제출 코드
 
@@ -77,5 +83,35 @@ class Solution {
 }
 ```
 
+## BEST PRACTICE
+- 정규식을 이용하여 코드를 매우 단순하게 구성하였습니다.
+- 현재 검사하는 스킬 트리에서 skill을 구성하는 문자들을 제외한 모든 문자를 제거합니다.(replaceAll("[^" + skill + "]", ""))
+- 제외한 문자열이 skill 문자열과 동일한지 indexOf 메소드를 이용해 확인합니다.
+- 동일하지 않은 경우 이를 스킬 트리 리스트에서 제거합니다.
+- 남은 스킬 트리 리스트 사이즈를 반환합니다.
+
+```java
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
+class Solution {
+    public int solution(String skill, String[] skill_trees) {
+        int answer = 0;
+        ArrayList<String> skillTrees = new ArrayList<String>(Arrays.asList(skill_trees));
+        Iterator<String> it = skillTrees.iterator();
+        while (it.hasNext()) {
+            if (skill.indexOf(it.next().replaceAll("[^" + skill + "]", "")) != 0) {
+                it.remove();
+            }
+        }
+        answer = skillTrees.size();
+        return answer;
+    }
+}
+```
+
 ## OPINION
-작성 중입니다.
+BEST PRACTICE를 보면 정규식을 이용하여 코딩의 가독성을 높혔습니다. 
+물론 정규식을 모른다면 코드를 이해하는데 어려움이 있을 수 있지만 JAVA 개발자라면 간단한 정규식 패턴 정도는 알고 있는 편이 좋다고 생각합니다. 
+오늘도 알고리즘 풀이 고수에게 한 수 배워가는 하루였습니다.

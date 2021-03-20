@@ -43,9 +43,10 @@ classes: wide
 ##### [MES3.0(Manufacturing Execution System 3.0) 개발]
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, Mybatis, Oracle
 - Micro Service architecture 기반 Application 설계 및 개발
-- 공정 내 물류 시스템 설계, 개발 및 안정화 (하루 평균 3000만 RTR 발생)
-- 신규 비즈니스 도메인 설계, 개발 - 물류 흐름 개선 및 생산률 향상
+- 제철소 공정 내 물류 시스템 개발 및 안정화 (하루 평균 3000만 RTR 발생)
 - 물류 야드 관리 시스템 공통 컴포넌트 개발
+- 신규 비즈니스 도메인 설계, 개발 및 적용 
+  - 차량 이송 물류 흐름 개선
 - Custom Rule Engine 개발 및 속도 개선
   - 10000건이 초과되는 기준 사용시 5초 이상 걸리는 시간을 1초 미만으로 단축
 

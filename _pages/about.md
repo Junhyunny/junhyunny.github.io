@@ -65,9 +65,9 @@ classes: wide
 
 <figure class="third align-center">
   <p align="center">
-    <img src="/images/about/about-remember-1.gif">
-    <img src="/images/about/about-remember-2.gif">
-    <img src="/images/about/about-remember-3.gif">
+    <img src="/images/about/about-remember-1.gif" width="400">
+    <img src="/images/about/about-remember-2.gif" width="400">
+    <img src="/images/about/about-remember-3.gif" width="400">
   </p>
 </figure>
 

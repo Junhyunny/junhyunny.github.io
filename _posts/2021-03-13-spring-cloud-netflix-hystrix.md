@@ -260,13 +260,12 @@ class AServiceApplicationTests {
 ## OPINION
 Circuit Breaker 패턴을 적용한 Hystrix 컴포넌트를 FeignClient와 함께 사용한 테스트 코드를 작성해보았습니다. 
 **`feign.circuitbreaker.enabled`** 옵션을 사용하면서 몇 가지 이슈들이 있었는데 이 내용은 [[IllegalStateException] Incompatible fallbackFactory instance.][exception-blogLink] 포스트에서 확인 가능합니다. 
-FeignClient는 FallbackFactory 없이 Fallback을 사용할 수 있지만 어떤 클라이언트(프록시)에서 문제를 일으키는지 확인이 힘들다고 합니다.([[Spring boot] Circuit Breaker][reference-blogLink])
+FeignClient는 FallbackFactory 없이 Fallback을 사용할 수 있지만 어떤 클라이언트에서 문제를 일으키는지 확인이 힘들다고 합니다.([[Spring boot] Circuit Breaker][reference-blogLink])
 
 테스트 코드는 아래 링크를 통해 확인이 가능합니다.
 - [eureka server][eureka-server-link]
 - [a-service][a-service-link]
 - [b-service][b-service-link]
-
 
 #### REFERENCE
 - <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>

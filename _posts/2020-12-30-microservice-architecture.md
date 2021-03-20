@@ -21,7 +21,7 @@ last_modified_at: 2021-01-28T00:00:00
 
 <figure>
 <a class="image-popup" href="/images/microservice-architecture-1.JPG">
-<p align="center"><img src="/images/microservice-architecture-1.JPG"/></p>
+<p align="center"><img class="align-center" src="/images/microservice-architecture-1.JPG"/></p>
 </a>
 </figure>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>

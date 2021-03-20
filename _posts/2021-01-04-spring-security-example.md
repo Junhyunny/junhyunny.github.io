@@ -14,7 +14,7 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
-<p class="image" align="left"><img src="/images/spring-security-example-1.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-1.JPG"></p>
 
 ## application.yml
 ```yml
@@ -336,7 +336,7 @@ Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 Us
 
 - loadUserByUsername 메소드의 debug 포인트 설정시 call stack
     - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
-<p class="image" align="left"><img src="/images/spring-security-example-2.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-2.JPG"></p>
 
 ```java
 package blog.in.action.service;
@@ -402,19 +402,19 @@ public class MemberService implements UserDetailsService {
   
 ## 테스트 결과
 ##### 유저 정보 등록 (ADMIN)
-<p class="image" align="left"><img src="/images/spring-security-example-3.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-3.JPG"></p>
 
 ##### 인증 정보 획득
-<p class="image" align="left"><img src="/images/spring-security-example-4.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-4.JPG"></p>
 
 ##### 인증 정보 헤더 등록, **bearer (획득한 인증 정보의 access_token)** 
-<p class="image" align="left"><img src="/images/spring-security-example-5.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-5.JPG"></p>
 
 ##### 유저 정보 요청 (정상 확인)
-<p class="image" align="left"><img src="/images/spring-security-example-6.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-6.JPG"></p>
 
 ##### <https://jwt.io/>, Token Decoding 
-<p class="image" align="center"><img src="/images/spring-security-example-7.JPG"></p>
+<p align="center"><img src="/images/spring-security-example-7.JPG"></p>
 
 ## OPINION
 예전에 작성해둔 블로그 글이 아주 유용하게 사용되었습니다. 

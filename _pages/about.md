@@ -63,7 +63,7 @@ classes: wide
 - 모바일 웹 어플리케이션을 통한 기억 공유 SNS, 부고 알림 전송 서비스 제공
 - 모바일 웹 어플리케이션, 관리자 페이지 개발
 
-<p class="image" align="center"><img src="/images/about/about-3.JPG" width="550"></p>
+<p align="center"><img src="/images/about/about-3.JPG"></p>
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="50"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

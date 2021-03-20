@@ -66,7 +66,7 @@ JpaRepository 인터페이스를 사용하는 경우 entityManager.getTransactio
 @Transactional 애너테이션이 영역(scope) 밖에서 @Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 조회 메소드를 호출하면 다음과 같은 에러를 만나게 됩니다. 
 
 ##### InvalidDataAccessApiUsageException, no transaction is in progress
-<p class="image" align="left"><img src="/images/jpa-pessimistic-lock-1.JPG"></p>
+<p align="left"><img src="/images/jpa-pessimistic-lock-1.JPG"></p>
 
 조회에서 업데이트까지 하나의 트랜잭션으로 처리될 수 있도록 PostService @Bean 내부에 @Transactional 애너테이션을 붙힌 메소드를 하나 만들어줍니다. 
 **@Transactional 애너테이션은 @Bean인 객체에만 적용되니 주의해야 합니다. 일반 객체의 메소드에 작성하여도 정상적으로 동작하지 않습니다.**
@@ -224,8 +224,8 @@ public class RepositoryUseTest {
 - 테스트 로그, 수행된 결과 데이터
 - `1.5 초 대기 스레드` 트랜잭션은 먼저 LOCK을 선점한 트랜잭션이 종료되기까지 2127ms 동안 데이터 조회를 대기하였습니다.
 - 데이터베이스에 마지막으로 반영된 데이터는 `1.5 초 대기 스레드`의 트랜잭션 결과임을 확인할 수 있습니다.
-<p class="image" align="left"><img src="/images/jpa-pessimistic-lock-2.JPG"></p>
-<p class="image" align="left"><img src="/images/jpa-pessimistic-lock-3.JPG"></p>
+<p align="left"><img src="/images/jpa-pessimistic-lock-2.JPG"></p>
+<p align="left"><img src="/images/jpa-pessimistic-lock-3.JPG"></p>
 
 ### EntityManager 사용
 EntityManager를 사용하는 경우 트랜잭션 처리를 개발자가 제어할 수 있으므로 Thread 클래스의 run() 메소드에 테스트 코드를 작성하였습니다. 
@@ -340,8 +340,8 @@ public class EntityManagerUseTest {
 - 테스트 로그, 수행된 결과 데이터
 - `2.0 초 대기 스레드` 트랜잭션은 먼저 LOCK을 선점한 트랜잭션이 종료되기까지 1528ms 동안 데이터 조회를 대기하였습니다.
 - 데이터베이스에 마지막으로 반영된 데이터는 `2.0 초 대기 스레드`의 트랜잭션 결과임을 확인할 수 있습니다.
-<p class="image" align="left"><img src="/images/jpa-pessimistic-lock-4.JPG"></p>
-<p class="image" align="left"><img src="/images/jpa-pessimistic-lock-5.JPG"></p>
+<p align="left"><img src="/images/jpa-pessimistic-lock-4.JPG"></p>
+<p align="left"><img src="/images/jpa-pessimistic-lock-5.JPG"></p>
 
 ## OPINION
 ### JpaRepository 사용시 트랜잭션 처리
@@ -351,7 +351,7 @@ JpaRepository 인터페이스 사용시 트랜잭션 처리에 필요한 @Transa
 
 ##### 후순 트랜잭션이 Lock 점유가 가능할때까지 대기하지 않는 현상 발생
 - 각 트랜잭션이 조회에 걸리는 시간이 40ms 수준임을 확인할 수 있습니다.
-<p class="image" align="left"><img src="/images/jpa-pessimistic-lock-6.JPG"></p>
+<p align="left"><img src="/images/jpa-pessimistic-lock-6.JPG"></p>
 
 ### 성능 지연의 문제
 **Pessimistic Lock 기능을 사용한 트랜잭션 동시성 제어의 문제점은 스레드 대기로 인한 성능 지연이라고 생각합니다.** 

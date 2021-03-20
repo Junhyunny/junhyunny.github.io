@@ -33,7 +33,7 @@ JPA에 대한 글 작성 전에 우선 JPA에 대한 정의를 찾아보았습�
 Persistence 프레임워크는 MyBatis 같은 `SQL Mapper`나 Hibernate 같은 `Object Relation Mapper`가 대표적으로 사용되고 있습니다.
 
 ##### 어플리케이션 계층 구조
-<p class="image" align="center"><img src="/images/java-persistence-api-1.JPG" width="450"></p>
+<p align="center"><img src="/images/java-persistence-api-1.JPG" width="450"></p>
 
 ## ORM(Object-Relation Mapping)
 
@@ -44,7 +44,7 @@ Object-Relation Mapping은 어플리케이션 설계와 데이터베이스 설�
 ORM 프레임워크는 객체 간의 관계를 바탕으로 SQL을 자동으로 생성하고 이를 수행합니다. 
 
 ##### Object-Relation Mapping을 통한 객체, 테이블 연결
-<p class="image" align="center"><img src="/images/java-persistence-api-2.JPG" width="650"></p>
+<p align="center"><img src="/images/java-persistence-api-2.JPG" width="650"></p>
 
 ### Object-Relation Mapping 장점
 Object-Relation Mapping을 사용하는 경우 다음과 같은 장점이 있습니다.
@@ -81,7 +81,7 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 셋의 관계를 직관적으로 이해할 수 있도록 돕는 이미지를 [정다혜님 블로그][Dahye Jeong BlogLink]에서 가져왔습니다.
 
 ##### JPA / Hibernate / Spring Data Jpa 구조도
-<p class="image" align="center"><img src="/images/java-persistence-api-3.JPG" width="400"></p>
+<p align="center"><img src="/images/java-persistence-api-3.JPG" width="400"></p>
 <center>이미지 출처, https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center><br>
 
 ## OPINION

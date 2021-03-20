@@ -14,7 +14,7 @@ last_modified_at: 2021-03-17T00:00:00
 
 ##### Run 실패 로그
 
-<p class="image" align="center"><img src="/images/incompatible-fallback-factory-instance-1.JPG"></p>
+<p align="center"><img src="/images/incompatible-fallback-factory-instance-1.JPG"></p>
 
 ## 발생 에러
 
@@ -81,11 +81,11 @@ feign:
 빈(Bean) 내부에서 fallbackFactory를 만들때 org.springframework.cloud.openfeign.FallbackFactory 클래스를 상속받는 클래스만 사용이 가능하도록 되어있습니다. 
 
 ##### circuitBreakerFeignTargeter 빈(Bean) 생성
-<p class="image" align="center"><img src="/images/incompatible-fallback-factory-instance-2.JPG"></p>
+<p align="center"><img src="/images/incompatible-fallback-factory-instance-2.JPG"></p>
 
 ##### FeignCircuitBreakerTargeter 클래스 getFromContext 메소드
 - isAssignableFrom 메소드를 통해 org.springframework.cloud.openfeign.FallbackFactory 상속 여부를 확인합니다.
-<p class="image" align="center"><img src="/images/incompatible-fallback-factory-instance-3.JPG"></p>
+<p align="center"><img src="/images/incompatible-fallback-factory-instance-3.JPG"></p>
 
 ## OPINION
 잘 알고 있다고 생각했는데 크게 한방 먹었습니다. 

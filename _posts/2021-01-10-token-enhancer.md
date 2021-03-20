@@ -17,7 +17,7 @@ last_modified_at: 2021-01-29T00:00:00
 아래 설명되어 있지 않은 클래스나 파일들은 지난 글을 참조하시면 됩니다. 
 
 ## 패키지 구조
-<p class="image" align="left"><img src="/images/token-enhancer-1.JPG"></p>
+<p align="left"><img src="/images/token-enhancer-1.JPG"></p>
 
 ## Config 클래스 구현
 지난 글에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
@@ -156,13 +156,13 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 ## 테스트 결과
 ##### 유저 정보 등록 (ADMIN)
-<p class="image" align="left"><img src="/images/token-enhancer-2.JPG"></p>
+<p align="left"><img src="/images/token-enhancer-2.JPG"></p>
 
 ##### 인증 정보 획득
-<p class="image" align="left"><img src="/images/token-enhancer-3.JPG"></p>
+<p align="left"><img src="/images/token-enhancer-3.JPG"></p>
 
 ##### <https://jwt.io/>, Token Decoding 
-<p class="image" align="center"><img src="/images/token-enhancer-4.JPG"></p>
+<p align="center"><img src="/images/token-enhancer-4.JPG"></p>
 
 ## OPINION
 이 글에선 TokenEnhancer를 커스터마이즈한 기능을 통해 token에 필요한 내용을 추가하는 것으로 마무리하였습니다. 

@@ -14,15 +14,15 @@ last_modified_at: 2021-03-06T00:00:00
 간단한 테스트 코드를 작성한 후에 maven install 골(goal)을 실행했더니 테스트 단계(test phase)에서 발생되지 않던 Exception이 발생하였습니다. 
 
 ##### 발생한 에러와 테스트 코드 실패 관련 로그
-<p class="image" align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-1.JPG"></p>
-<p class="image" align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-2.JPG"></p>
+<p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-1.JPG"></p>
+<p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-2.JPG"></p>
 
 ##### maven install 테스트 skip 옵션 사용
 **`귀찮으니 일단 테스트는 치우고 글부터 쓸까?`** 라는 생각으로 처음엔 테스트를 건너뛰었습니다. 
 ```shell
 mvn clean install -Dmaven.test.skip=true
 ```
-<p class="image" align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-3.JPG"></p>
+<p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-3.JPG"></p>
 
 글을 작성하다보니 에러를 해결하지 못한 것이 마음에 걸려 이를 먼저 해결하기로 하였습니다. 
 한 두어시간 허비했지만 일단 해결했으니 관련된 내용을 정리해서 올려보도록 하겠습니다. 
@@ -81,7 +81,7 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 ```
 
 ##### spring-boot-starter-parent 버전 변경 후 maven install
-<p class="image" align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-4.JPG"></p>
+<p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-4.JPG"></p>
 
 ## OPINION
 회사 프로젝트나 사이드 프로젝트에서 만났던 에러들은 모두 메모장에 적어두었습니다. 

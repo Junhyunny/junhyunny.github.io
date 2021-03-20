@@ -36,7 +36,7 @@ last_modified_at: 2021-03-17T00:00:00
 | "CBD" | ["BACDE", "CBADF", "AECB", "BDA"] | 2 |
 
 ## 코드 해설
-- 작성 중입니다.
+- 
 
 ## 제출 코드
 

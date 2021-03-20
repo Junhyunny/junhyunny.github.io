@@ -19,7 +19,13 @@ last_modified_at: 2021-01-28T00:00:00
 많은 마이크로 서비스 아키텍처에 대한 설명들이 모놀리식 아키텍처에 대한 언급 후 진행되지만 저는 이 부분은 스킵하고 바로 마이크로 서비스 아키텍처에 대한 이야기를 해볼까합니다. 
 이미지를 통해 두 아키텍처 사이의 차이점을 간단히 확인해보겠습니다.
 
-<p align="center"><img src="/images/microservice-architecture-1.JPG"></p>
+<p align="center">
+<figure>
+<a class="image-popup" href="/images/microservice-architecture-1.JPG">
+<img src="/images/microservice-architecture-1.JPG">
+</a>
+</figure>
+</p>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
 기본 설계 당시에는 현재 시스템을 업무 단위로 나누는 작업을 수행하였습니다. 

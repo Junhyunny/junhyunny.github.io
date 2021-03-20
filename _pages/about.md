@@ -63,7 +63,7 @@ classes: wide
 - 모바일 웹 어플리케이션을 통한 기억 공유 SNS, 부고 알림 전송 서비스 제공
 - 모바일 웹 어플리케이션, 관리자 페이지 개발
 
-<figure class="third">
+<figure class="third align-center">
   <img src="/images/about/about-remember-1.gif">
   <img src="/images/about/about-remember-2.gif">
   <img src="/images/about/about-remember-3.gif">

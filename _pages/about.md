@@ -64,11 +64,9 @@ classes: wide
 - 모바일 웹 어플리케이션, 관리자 페이지 개발
 
 <figure class="third align-center">
-  <p align="center">
-    <img src="/images/about/about-remember-1.gif" width="400">
-    <img src="/images/about/about-remember-2.gif" width="400">
-    <img src="/images/about/about-remember-3.gif" width="400">
-  </p>
+  <img src="/images/about/about-remember-1.gif">
+  <img src="/images/about/about-remember-2.gif">
+  <img src="/images/about/about-remember-3.gif">
 </figure>
 
 ## Education 👨🏻‍🎓
@@ -80,12 +78,3 @@ classes: wide
   - 대한수학회, 고등과학원 주최
 - 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
   - 국립전파연구원 주최
-
-<div align=center>
-    
-[![Github Badge](http://img.shields.io/badge/-Github-black?style=flat-square&logo=github&link=https://github.com/dydtjr1128/)](https://github.com/Junhyunny/) 
-[![Tech Blog Badge](http://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://dydtjr1128.github.io/)](https://junhyunny.github.io/)
-[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/%EC%A4%80%ED%98%84-%EA%B0%95-32b972201/)](https://www.linkedin.com/in/%EC%A4%80%ED%98%84-%EA%B0%95-32b972201/) 
-[![Email Badge](https://img.shields.io/badge/-Email-6BEC62?style=flat-square&logo=e-mail&logoColor=white&link=mailto:kang3966@naver.com)](mailto:kang3966@naver.com)
-
-</div>

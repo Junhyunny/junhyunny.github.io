@@ -20,9 +20,9 @@ last_modified_at: 2021-01-28T00:00:00
 이미지를 통해 두 아키텍처 사이의 차이점을 간단히 확인해보겠습니다.
 
 <figure class="align-center">
-<a class="image-popup" href="/images/microservice-architecture-1.JPG">
-<p align="center"><img src="/images/microservice-architecture-1.JPG"/></p>
-</a>
+  <a class="image-popup" href="/images/microservice-architecture-1.JPG">
+    <p align="center"><img src="/images/microservice-architecture-1.JPG"/></p>
+  </a>
 </figure>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
@@ -47,7 +47,11 @@ last_modified_at: 2021-01-28T00:00:00
 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리합니다. 
 새로운 기능을 구축해야하는 경우 모든 변경 사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
 
-<p align="center"><img src="/images/microservice-architecture-2.JPG"></p>
+<figure class="align-center">
+  <a class="image-popup" href="/images/microservice-architecture-2.JPG">
+    <p align="center"><img src="/images/microservice-architecture-2.JPG"></p>
+  </a>
+</figure>
 <center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
 
 최초 마이크로 서비스를 설계할 때 도메인 전문가의 부재로 인해 잘못된 방향으로 시스템의 비즈니스가 분할되었고 이들이 마이크로 서비스들로 도출되었습니다.

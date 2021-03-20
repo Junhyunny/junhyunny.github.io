@@ -44,6 +44,7 @@ classes: wide
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, Mybatis, Oracle
 - Micro Service architecture 기반 Application 설계 및 개발
 - 공정 내 물류 시스템 설계, 개발 및 안정화 (하루 평균 3000만 RTR 발생)
+- 신규 비즈니스 도메인 설계, 개발 - 물류 흐름 개선 및 생산률 향상
 - 물류 야드 관리 시스템 공통 컴포넌트 개발
 - Custom Rule Engine 개발 및 속도 개선
   - 10000건이 초과되는 기준 사용시 5초 이상 걸리는 시간을 1초 미만으로 단축
@@ -63,11 +64,11 @@ classes: wide
 - 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
 - 모바일 웹 어플리케이션, 관리자 페이지 개발
 
-<figure class="third align-center" style="width: 650">
-  <img src="/images/about/about-remember-1.gif">
-  <img src="/images/about/about-remember-2.gif">
-  <img src="/images/about/about-remember-3.gif">
-</figure>
+<div class="third align-center">
+  <img src="/images/about/about-remember-1.gif" width="300">
+  <img src="/images/about/about-remember-2.gif" width="300">
+  <img src="/images/about/about-remember-3.gif" width="300">
+</div>
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="50"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

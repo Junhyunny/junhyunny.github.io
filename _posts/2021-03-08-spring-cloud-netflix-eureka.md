@@ -295,7 +295,7 @@ Spring Cloud와 관련된 내용을 정리하다 보니 아직 갈 길이 멀다
 - <https://spring.io/guides/gs/service-registration-and-discovery/>
 
 [openfeign-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
-[eureka-server-link]: https://github.com/Junhyunny/eureka/tree/05aba484ca1fb35aedaff2f16cb225088a278b52
-[a-service-link]: https://github.com/Junhyunny/a-service/tree/7472c21c74aa906ac8d41308840563b5a05a434e
-[b-service-link]: https://github.com/Junhyunny/b-service/tree/12f7af0e5c4852ab428a6aba83eabaf9bf5e9774
+[eureka-server-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/3b93294927c3c786093f5b7ad69cb356a5fe4970
+[a-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/3b93294927c3c786093f5b7ad69cb356a5fe4970
+[b-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/3b93294927c3c786093f5b7ad69cb356a5fe4970
 [eureka-reference-link]: https://kouzie.github.io/spring/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-eureka-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95/#eureka-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%A4%EC%A0%95

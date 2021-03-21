@@ -32,11 +32,11 @@ classes: wide
 - TortoiseSVN, Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
-##### <img src="/images/about/about-1.jpg" width="50"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재
+##### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재
 - MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 현재
 - MES3.0(Manufacturing Execution System 3.0) 개발, POSCO ICT, 2018년 7월 - 2020년 12월
 
-##### <img src="/images/about/about-1.jpg" width="50"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
+##### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
 - Smart CCTV System, POSCO ICT, 2017년 8월 - 2017년 11월
 
 ## Proejct 👨‍💻
@@ -74,7 +74,7 @@ classes: wide
 </div>
 
 ## Education 👨🏻‍🎓
-##### <img src="/images/about/about-2.jpg" width="50"/>  Hansung University 한성대학교 학사, 2014년 – 2018년
+##### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년
 - 정보통신공학과 전공, 2014년 2월 - 2018년 2월
 - 학점 4.45 / 4.5
 - 아산 성적 우수 장학생 3년 선정, 2015년 - 2017년

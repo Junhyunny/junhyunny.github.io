@@ -237,9 +237,9 @@ spring:
 <p align="center"><img src="/images/multipartfile-9.JPG"></p>
 
 ## OPINION
-간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다. 
-프로젝트 코드를 확인하고 싶으신 분은 아래 링크를 눌러주시길 바랍니다.
+간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다.
 
+프로젝트 코드를 확인하고 싶으신 분은 아래 링크를 눌러주시길 바랍니다.
 [FRONT-END PROJECT][front-gitLink] / [BACK-END PROJECT][back-gitLink]
 
 #### REFERENCE
@@ -247,5 +247,5 @@ spring:
 - <https://spring.io/guides/gs/uploading-files/>
 
 [cors-blogLink]: https://junhyunny.github.io/spring-boot/vue.js/cors-example/
-[front-gitLink]: https://github.com/Junhyunny/action-in-blog-front/tree/38f385f791536b04c82ab4a6fd9459c10446710e
-[back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/23cd61abf125435813bcc8e2fadbf843b488c7d3
+[front-gitLink]: https://github.com/Junhyunny/blog-in-action/tree/020474b757a30968739de1de25e6bf948c6205f7
+[back-gitLink]: https://github.com/Junhyunny/blog-in-action/tree/020474b757a30968739de1de25e6bf948c6205f7

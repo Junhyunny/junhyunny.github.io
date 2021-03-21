@@ -160,4 +160,4 @@ FeignClient는 JpaRepository 인터페이스를 처음 접하였을 때처럼 �
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 - <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
 
-[github-link]: https://github.com/Junhyunny/action-in-blog/tree/b9002875d1ae2ab8a70323efae0c6358adcee741
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/0dfd74375250b34a8f5357922b1136f6f3f6c270

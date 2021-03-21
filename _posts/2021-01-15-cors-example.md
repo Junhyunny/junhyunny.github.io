@@ -262,5 +262,5 @@ public class Config {
 
 [cors-blogLink]: https://junhyunny.github.io/information/cors/
 [resolver-blogLink]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/
-[front-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/45705982eac3f09dfd724fdea5cdc812a1a817ee
-[back-gitLink]: https://github.com/Junhyunny/action-in-blog/tree/45705982eac3f09dfd724fdea5cdc812a1a817ee
+[front-gitLink]: https://github.com/Junhyunny/blog-in-action/tree/85fcd87b21776cb39cc461385fc1c118e30cf919
+[back-gitLink]: https://github.com/Junhyunny/blog-in-action/tree/85fcd87b21776cb39cc461385fc1c118e30cf919

@@ -8,6 +8,6 @@
 - [front-end service][front-end repository]
 - [spring-cloud-cluster][spring-cloud-cluster repository]
 
-[back-end repository]: https://github.com/Junhyunny/action-in-blog
-[front-end repository]: https://github.com/Junhyunny/action-in-blog
+[back-end repository]: https://github.com/Junhyunny/blog-in-action
+[front-end repository]: https://github.com/Junhyunny/blog-in-action
 [spring-cloud-cluster repository]: https://github.com/Junhyunny/spring-cloud-cluster

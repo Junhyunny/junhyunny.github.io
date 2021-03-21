@@ -173,4 +173,4 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 - [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]
 
 [jwt-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
-[blog-githubLink]: https://github.com/Junhyunny/action-in-blog/tree/82a5d41f5679b30787a9fecfe25ffbce62853c01
+[blog-githubLink]: https://github.com/Junhyunny/blog-in-action/tree/891cf74e3fd698b4462df9c4d7f3be5f5cc73763

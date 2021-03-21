@@ -429,4 +429,4 @@ public class MemberService implements UserDetailsService {
 [security-blogLink]: https://junhyunny.github.io/spring-security/spring-security/
 [authentication-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
 [resource-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
-[github-link]: https://github.com/Junhyunny/action-in-blog/tree/1eefd30af0762c459ef4893c418d1125a8bafbe9
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/f1d415643c85006168c91d5d855fe2ccfba07d0a

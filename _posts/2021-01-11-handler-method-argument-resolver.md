@@ -202,4 +202,4 @@ public class MemberController {
 
 [jwt-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [tokenenhancer-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
-[blog-githubLink]: https://github.com/Junhyunny/action-in-blog/tree/ba5e27217c0fd470b66bf218b366105db9d641d0
+[blog-githubLink]: https://github.com/Junhyunny/blog-in-action/tree/a04ebc77cb98844e1d73f18b6e85213c66bbb1eb

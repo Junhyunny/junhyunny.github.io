@@ -395,4 +395,4 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 
 [msa-blogLink]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [eureka-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
-[a-service-link]: https://github.com/Junhyunny/a-service/tree/34529445b58cac8eb34f7bf971ccc5396b9a5474
+[a-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/b5683110d7c510a57c5c1260a2a1c89aaa44565f

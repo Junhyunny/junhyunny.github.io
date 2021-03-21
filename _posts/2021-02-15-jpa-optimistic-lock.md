@@ -251,4 +251,4 @@ StackOverflow에서 다음과 같은 글을 발견하였습니다.
 - <https://stackoverflow.com/questions/13568475/jpa-and-default-locking-mode>
 
 [lock-mechanism-blogLink]: https://junhyunny.github.io/information/lock-mechanism/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/ad5532441e35c0c7a4d1817efef33057c5bdd5c5
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/f763a3c654c564677876e33ffb111d9433eb373b

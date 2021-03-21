@@ -265,4 +265,4 @@ public class SynchronizedTest {
 - <https://junhyunny.blogspot.com/2020/02/race-condition.html>
 
 [deadlock-blogLink]: https://junhyunny.github.io/information/operating-system/dead-lock/
-[github-link]: https://github.com/Junhyunny/action-in-blog/tree/50f49e7f04523521f3aa99461ce8dc1600cb3a5c
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/69d2c40ff405c132b61643b4f31f1044b8ef17ef

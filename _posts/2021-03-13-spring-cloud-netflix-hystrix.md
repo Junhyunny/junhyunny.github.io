@@ -275,6 +275,6 @@ FeignClient는 FallbackFactory 없이 Fallback을 사용할 수 있지만 어떤
 
 [exception-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/exception/incompatible-fallback-factory-instance/
 [reference-blogLink]: https://twowinsh87.github.io/etc/2019/01/19/etc-springboot-circuitbreaker/
-[eureka-server-link]: https://github.com/Junhyunny/eureka/tree/05aba484ca1fb35aedaff2f16cb225088a278b52
-[a-service-link]: https://github.com/Junhyunny/a-service/tree/aa5b7b005ade47d8ec05d1f4db43cc496b992aa1
-[b-service-link]: https://github.com/Junhyunny/b-service/tree/6d3da3ba21208fa8beb7499c0f4cde7cfcb4be76
+[eureka-server-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/ff503e5fc672fa570bca4a473c90fca6f972311a
+[a-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/ff503e5fc672fa570bca4a473c90fca6f972311a
+[b-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/ff503e5fc672fa570bca4a473c90fca6f972311a

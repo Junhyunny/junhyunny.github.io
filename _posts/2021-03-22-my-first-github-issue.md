@@ -56,7 +56,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 <p align="left"><img src="/images/my-first-github-issue-5.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/OpenFeign/feign/issues/1170</center><br>
 
-😢😭😰😥 몇 시간 고생했는데 결국 PR을 받아내지는 못헀습니다. 
+😢😭😰😥 몇 시간 고생했는데 결국 PR을 받아내진 못헀습니다. 
 결국 이슈를 해결하기 위해 얻은 경험을 위안으로 삼고 다음 이슈를 찾아 떠났습니다. 
 
 ## OPINION

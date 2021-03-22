@@ -30,19 +30,19 @@ last_modified_at: 2021-03-16T00:00:00
 
 마이크로 서비스 아키텍처는 장애 전파를 막기 위해 **`Circuit Breaker 패턴`**을 사용합니다. 
 Circuit Breaker 패턴은 이름처럼 회로 차단기 역할을 수행하는 모듈을 이용해 장애가 발생하는 경로를 차단하는 기능을 제공합니다. 
-서비스와 서비스 사이에 API 요청을 차단할 수 있는 circuit breaker를 추가합니다. 
+서비스와 서비스 사이에 API 요청을 차단할 수 있는 Circuit Breaker를 추가합니다. 
 
 ##### Circuit Breaker 동작
 1. client 서비스에서 supplier 서비스로 요청을 수행합니다.
-1. 장애가 없다면 circuit breaker는 요청은 이상없이 전달됩니다.(circuit close)
-1. supplier 서비스에 문제가 발생하면 circuit breaker는 supplier 서비스로의 요청을 차단합니다.(circuit open)
+1. 장애가 없다면 Circuit Breaker는 요청은 이상없이 전달됩니다.(circuit close)
+1. supplier 서비스에 문제가 발생하면 Circuit Breaker는 supplier 서비스로의 요청을 차단합니다.(circuit open)
 1. Fall back으로 지정한 응답을 client 서비스로 전달합니다.
 
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-2.JPG"></p>
 <center>이미지 출처, https://martinfowler.com/bliki/CircuitBreaker.html</center><br>
 
-위 이미지는 circuit breaker가 서비스로 보일 수 있으니 조금 수정해보았습니다. 
-circuit breaker는 실제로 client 서비스에 추가되어 있습니다. 
+위 이미지는 Circuit Breaker가 서비스로 보일 수 있으니 조금 수정해보았습니다. 
+Circuit Breaker는 실제로 client 서비스에 추가되어 있습니다. 
 
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-3.JPG"></p>
 
@@ -222,7 +222,7 @@ public class AServiceController {
 #### @HystrixCommand 애너테이션 설정
 - 자세한 설정은 <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy> 참조
 - fallbackMethod, fallback 메소드를 지정합니다. 동일 클래스에 위치해야하며 파라미터가 동일해야합니다.
-- commandProperties, circuit breaker를 적용하는데 필요한 설정들을 추가합니다.
+- commandProperties, Circuit Breaker를 적용하는데 필요한 설정들을 추가합니다.
 - execution.isolation.thread.timeoutInMilliseconds 
   - 메소드 호출 이후 모니터링하는 시간입니다.
   - 해당 시간이 지나면 fallback 메소드를 수행합니다.

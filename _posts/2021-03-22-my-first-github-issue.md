@@ -35,7 +35,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 <p align="center"><img src="/images/my-first-github-issue-2.JPG" width="600"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 
-##### **`@spencergibb`**의 한마디, "응, 우리 이슈 아니네 저리로 가요~" 
+##### **`@spencergibb`**의 한마디, "응, 우리 이슈 아니네. 저리로 가세요~" 
 <p align="center"><img src="/images/my-first-github-issue-3.JPG" width="600"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 

@@ -10,26 +10,23 @@ last_modified_at: 2021-03-22T00:00:00
 
 <br>
 
-첫 사랑에 관한 글처럼 수줍은 느낌의 제목입니다...😅 
-처음으로 github 이슈에 의견을 달고 해결 방안까지 제시했던 경험을 포스트로 작성해보려고 합니다. 
+첫 사랑에 관한 글처럼 수줍은 느낌의 제목입니다.😅 
+처음 github 이슈에 의견을 달고 해결 방안까지 제시했던 경험을 포스트로 작성해보았습니다. 
 
 ## MOTIVATION
 저의 친애하는 동료이자 친구인 [@jskim1991][jskim1991-githubLink]이 
-spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 사실이 제가 github에서 이슈를 찾아보기 시작하게 된 계기입니다. 
-
-`'나도 해결할 수 있는 이슈가 있을까?'`<br>
-`'open source 프로젝트에 contributor가 되고 싶어!'`
-
+spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 사실이 제가 github에서 이슈를 찾아보기 시작한 계기입니다. 
 한동안 회사에서 퇴근하면 Spring 프로젝트에 등록된 이슈들을 뒤져보면서 호시탐탐 PR을 노리는 하이에나로 살았습니다.🤔
 
+> '나도 해결할 수 있는 이슈가 있을까?'<br>
+> 'open source 프로젝트에 contributor가 되고 싶어!'
+
 ## 이슈 해결 과정
-
-만만한 이슈를 하나 찾았습니다. 
-
 ##### 이슈 발견
 <p align="left"><img src="/images/my-first-github-issue-1.JPG"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center> 
 
+해결할만한 이슈를 하나 찾았습니다. 
 String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한 것으로 예상됩니다. 
 이제 해당 코드가 어디 부분에 있는지 디버깅 노가다 시작!🥵 
 몇 시간 디버깅해서 해당 문제를 일으키는 코드 위치와 해결 방법을 제시하였습니다. 

@@ -5,7 +5,7 @@ entries_layout: linear
 classes: wide
 ---
 
-## Introcduce 😀
+## Introduction 😀
 
 안녕하세요, 서버 사이드 개발자 강준현입니다.🙋🏻‍♂️
 

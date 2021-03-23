@@ -35,7 +35,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 <p align="left"><img src="/images/my-first-github-issue-2.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 
-##### **`@spencergibb`**의 한마디, "응, 우리 이슈 아니네. 저리로 가세요~" 
+##### **`@spencergibb`** 님의 한마디, "응, 우리 이슈 아니네. 저리로 가세요~" 
 <p align="left"><img src="/images/my-first-github-issue-3.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 
@@ -50,9 +50,9 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 > [@jskim1991][jskim1991-githubLink] said<br>
 > 걔네 엄청 게을러, 답변을 안해줘
 
-한참을 지나 올린 이슈가 잊혀질 때 쯤 **`@kdavisk6`**이 답장을 달아주셨습니다. 
+한참을 지나 올린 이슈가 잊혀질 때 쯤 **`@kdavisk6`** 님이 답장을 달아주셨습니다. 
 
-##### **`@kdavisk6`**에게 전달받은 답변, "오 그럴싸하네, 이제부턴 우리가 할께."
+##### **`@kdavisk6`** 님에게 전달받은 답변, "오 그럴싸하네, 이제부턴 우리가 할께."
 <p align="left"><img src="/images/my-first-github-issue-5.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/OpenFeign/feign/issues/1170</center><br>
 
@@ -64,7 +64,8 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 이후에도 해결할 수 있는 이슈들을 찾아봤지만 당시 실력으로는 만만치 않았습니다. 
 
 지금의 저는 이슈를 바라보는 관점이 조금 바뀌었을까요? 
-이슈를 바라보는 시각이 한층 더 발전시켜 더 좋은 개발자로 성장하고 싶습니다. 
+해결할 수 있는 역량은 더 키워졌을까요?  
+이슈를 바라보는 시각을 한층 더 발전시켜 실력있는 개발자로 성장하고 싶습니다. 
 시스템 운영을 하면서 한가해진 일정이 저를 더 조급하게 만드는 이 모순적인 상황은 무엇일까요? 
 이직이라는 기회를 발판 삼아 개발자로서의 역량을 향상시킬 수 있는 프로젝트에 다시 한번 뛰어들고 싶습니다.
 

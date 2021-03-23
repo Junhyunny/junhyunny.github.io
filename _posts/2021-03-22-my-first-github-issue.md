@@ -15,7 +15,7 @@ last_modified_at: 2021-03-22T00:00:00
 
 ## MOTIVATION
 저의 친애하는 동료이자 친구인 [@jskim1991][jskim1991-githubLink]이 
-spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 사실이 제가 github에서 이슈를 찾아보기 시작한 계기입니다. 
+spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 이야기를 듣고 저도 github에서 이슈를 찾아보기 시작하였습니다. 
 한동안 회사에서 퇴근하면 Spring 프로젝트에 등록된 이슈들을 뒤져보면서 호시탐탐 PR을 노리는 하이에나로 살았습니다.🤔
 
 > '나도 해결할 수 있는 이슈가 있을까?'<br>

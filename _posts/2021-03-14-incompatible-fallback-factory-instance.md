@@ -97,7 +97,7 @@ feign:
 [What is difference between feign.hystrix.enabled option and feign.circuitbreaker.enabled option ? ][git-issueLink]
 
 ##### @ryanjbaxter 님의 답변
-<p align="center"><img src="/images/incompatible-fallback-factory-instance-3.JPG"></p>
+<p align="center"><img src="/images/incompatible-fallback-factory-instance-4.JPG"></p>
 
 [hystrix-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/
 [git-issueLink]: https://github.com/spring-cloud/spring-cloud-openfeign/issues/516

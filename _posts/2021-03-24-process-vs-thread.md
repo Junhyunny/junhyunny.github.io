@@ -24,7 +24,7 @@ last_modified_at: 2021-03-24T00:00:00
 - stack 영역, 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
 - heap 영역, 런타임시 동적으로 메모리를 할당받는 영역
 
-<p align="center"><img src="/images/process-vs-thread-1.JPG" width="45%"></p>
+<p align="center"><img src="/images/process-vs-thread-1.JPG" width="25%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## 스레드(Thread)
@@ -65,7 +65,8 @@ last_modified_at: 2021-03-24T00:00:00
 - <https://brunch.co.kr/@kd4/3>
 - <https://gbsb.tistory.com/312>
 - <https://juyoung-1008.tistory.com/47>
-- Operating System Concepts 9th
+- [Operating System Concepts 9th]
 - [프로세스와-스레드의-차이][difference-of-process-thread-link]
 
+[operating-system-link]: http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788998886813
 [difference-of-process-thread-link]: https://velog.io/@raejoonee/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9C%EC%9D%98-%EC%B0%A8%EC%9D%B4

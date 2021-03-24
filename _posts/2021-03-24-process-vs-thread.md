@@ -1,5 +1,5 @@
 ---
-title: "Process와 Thread의 차이점"
+title: "프로세스(Process)와 스레드(Thread)의 차이점"
 search: false
 category:
   - information
@@ -23,7 +23,8 @@ last_modified_at: 2021-03-24T00:00:00
 - data 영역, 전역 변수, 정적 변수가 담기는 영역
 - stack 영역, 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
 - heap 영역, 런타임시 동적으로 메모리를 할당받는 영역
-<p align="left"><img src="/images/process-vs-thread-1.JPG" width="45%"></p>
+
+<p align="center"><img src="/images/process-vs-thread-1.JPG" width="45%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## 스레드(Thread)
@@ -34,7 +35,7 @@ last_modified_at: 2021-03-24T00:00:00
 여러 개의 스레드가 모여 하나의 프로세스를 이루게 됩니다. 
 프로세스 내의 주소 공간이나 자원들을 프로세스 내 스레드들끼리 공유하여 사용합니다. 
 메모리를 공유하기 때문에 동기화, 데드락 등의 문제가 발생할 수 있습니다.  
-각 스레드는 독자적인 스택(Stack) 메모리를 가집니다. 
+각 스레드는 독자적인 스택(stack) 메모리를 가집니다. 
 
 ### 프로세스가 멀티 스레드를 사용하는 이유
 
@@ -44,7 +45,7 @@ last_modified_at: 2021-03-24T00:00:00
 여러 개의 프로세스를 생성하는 일은 부담이 생깁니다. 
 또한 프로세스 간의 IPC 통신 방식은 복잡합니다. 
 
-하지만 프로세스가 멀티 스레드를 사용한다면 시스템 콜을 한번만 해도 되기 때문에 효율적입니다. 
+이와 다르게 프로세스가 멀티 스레드를 사용한다면 시스템 콜을 한번만 해도 되기 때문에 효율적입니다. 
 스레드 간 통신은 덜 복잡하고 시스템 자원 사용이 적으므로 통신의 부담도 줄일 수 있습니다. 
 스레드 간 동기화 문제가 생겨서 개발자가 신경써야 하는 단점이 있지만 작업(Task)의 비용을 줄인다는 장점이 있습니다.   
 
@@ -64,6 +65,7 @@ last_modified_at: 2021-03-24T00:00:00
 - <https://brunch.co.kr/@kd4/3>
 - <https://gbsb.tistory.com/312>
 - <https://juyoung-1008.tistory.com/47>
+- Operating System Concepts 9th
 - [프로세스와-스레드의-차이][difference-of-process-thread-link]
 
 [difference-of-process-thread-link]: https://velog.io/@raejoonee/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9C%EC%9D%98-%EC%B0%A8%EC%9D%B4

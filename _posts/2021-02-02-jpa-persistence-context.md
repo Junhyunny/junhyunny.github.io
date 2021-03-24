@@ -316,7 +316,8 @@ public class PersistTest {
 - 데이터가 존재하지 않으므로 em.find() 메소드 수행시 member 객체는 null 입니다.
 - 새로운 객체를 생성합니다.(new/transient)
 - em.perist(E) 메소드를 통해 생성한 객체를 영속성 컨텍스트에 추가합니다.(managed)
-- em.getTransaction().commit() 메소드를 통해 트랜잭션 commit을 하여 영속성 컨텍스트에 저장된 member 엔티티 정보를 데이터베이스에 반영합니다.(insert)
+- em.getTransaction().commit() 메소드를 통해 트랜잭션을 commit 합니다.
+- 영속성 컨텍스트에 저장된 member 엔티티 정보를 데이터베이스에 반영됩니다.(insert)
 
 ##### 1차 수행시 데이터베이스
 - 데이터가 추가되었음을 확인할 수 있습니다.
@@ -330,7 +331,8 @@ public class PersistTest {
 - em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
 - 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행시 member 객체가 반환됩니다.(managed)
 - member 객체의 값을 변경합니다.
-- em.getTransaction().commit() 메소드를 통해 트랜잭션 commit을 하면 영속성 컨텍스트에 저장된 member 엔티티의 변경 정보를 데이터베이스에 반영합니다.(update)
+- em.getTransaction().commit() 메소드를 통해 트랜잭션을 commit 합니다.
+- 영속성 컨텍스트에 저장된 member 엔티티의 변경 정보를 데이터베이스에 반영됩니다.(update)
 
 ##### 2차 수행시 데이터베이스
 - 데이터가 변경되었음을 확인할 수 있습니다.

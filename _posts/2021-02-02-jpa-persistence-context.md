@@ -11,8 +11,8 @@ last_modified_at: 2021-02-03T00:00:00
 <br>
 
 JPA는 EntityManager를 통해 엔티티(Entity)를 관리합니다. 
-**EntityManager가 @Id 필드를 이용하여 엔티티를 구분짓고 이들을 관리합니다.** 
-**ORM(Object-Relation Mapping) 개념상 @Id 필드는 데이터베이스의 PK를 의미하므로 @Id 값이 다른 경우에는 다른 데이터임을 보장합니다.** 
+**EntityManager는 @Id 필드를 이용해 엔티티를 구분짓고 이들을 관리합니다.** 
+ORM(Object-Relation Mapping) 개념상 @Id 필드는 데이터베이스의 PK를 의미하므로 @Id 값이 다른 경우에는 다른 데이터임을 보장합니다. 
 EntityManager가 엔티티를 어떤 방식으로 구분짓는지 알았으니 어떤 방법으로 관리하는지 알아보도록 하겠습니다.
 
 ## 영속성 컨텍스트(Persistence Context)

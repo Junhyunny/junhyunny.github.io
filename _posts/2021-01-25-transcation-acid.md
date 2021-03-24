@@ -14,7 +14,7 @@ last_modified_at: 2021-01-30T00:00:00
 **완결성있게 처리되어야 하는 하나의 논리적인 작업 단위를 의미합니다.** 
 이 논리적 작업 단위 내에는 여러 동작(질의, query)들이 존재하며 이들은 모두 실행되거나 모두 실행되지 않아야합니다. 
 작업 단위가 중간에 실패한다면 이를 ROLLBACK 하여 이전 상태로 되돌리고 성공한다면 COMMIT 하여 현재 데이터 상태를 확정짓습니다. 
-트랜잭션은 작업 수행의 논리적 단위이기 때문에 DBMS(Database Management System)에서는 **TPS(Transaction per second)**로 성능을 측정합니다. 
+트랜잭션은 작업 수행의 논리적 단위이기 때문에 DBMS(Database Management System)에서는 **TPS(Transaction Per Second)**로 성능을 측정합니다. 
 **트랜잭션은 데이터의 부정합성을 방지하기 위해 사용합니다.** 
 
 ## ACID 특징

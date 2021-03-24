@@ -15,7 +15,7 @@ API Gateway를 이용하여 API 서버들을 하나로 묶어서 단일화 관�
 <p align="center"><img src="/images/msa-api-gateway-1.JPG"></p>
 <center>이미지 출처, 마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center><br>
 
-마이크로 서비스 아키텍처에서 입구 역할을 하는 API Gateway는 API 서버들의 end point 단일화, 인증, 인가, 라우팅 등의 여러가지 기능을 수행합니다. 
+마이크로 서비스 아키텍처에서 입구 역할을 하는 API Gateway는 API 서버들의 END POINT 단일화, 인증, 인가, 라우팅 등의 여러가지 기능을 수행합니다. 
 JSON/REST 기반으로 최소한의 기능을 처리하는 경량화 서비스인 API Gateway가 제공하는 기능을 아래 글을 통해 알아보도록 하겠습니다. 
 
 ## API Gateway 주요 기능
@@ -31,7 +31,7 @@ JSON/REST 기반으로 최소한의 기능을 처리하는 경량화 서비스�
 ### API Routing
 API Routing에도 다음과 같은 주요 기능들이 존재합니다.
 - Load balancing
-- 서비스 및 클라이언트 별 end point 제공
+- 서비스 및 클라이언트 별 END POINT 제공
 - 메세지 혹은 헤더 기반 routing
 
 ### 공통 로직 수행

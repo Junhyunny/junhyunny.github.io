@@ -24,7 +24,7 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 
 - 장점
   - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.<br>
-  - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장합니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
+  - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
 
 #### [캐싱된 엔티티 조회 시나리오]
 1. 식별자 값을 이용해 엔티티를 조회합니다.

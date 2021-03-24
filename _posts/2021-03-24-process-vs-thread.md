@@ -65,7 +65,7 @@ last_modified_at: 2021-03-24T00:00:00
 - <https://brunch.co.kr/@kd4/3>
 - <https://gbsb.tistory.com/312>
 - <https://juyoung-1008.tistory.com/47>
-- [Operating System Concepts 9th]
+- [Operating System Concepts 9th][operating-system-link]
 - [프로세스와-스레드의-차이][difference-of-process-thread-link]
 
 [operating-system-link]: http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788998886813

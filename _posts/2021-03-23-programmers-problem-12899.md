@@ -74,6 +74,8 @@ last_modified_at: 2021-03-25T00:00:00
     - 다음 자리 수는 3(subIndex)이므로 4가 됩니다.
     - base를 12 + 3(1 * 3) 만큼 증가시켜 15을 만듭니다.
 
+## 제출 코드
+
 ```java
 class Solution {
     public String solution(int n) {
@@ -100,6 +102,23 @@ class Solution {
             }
         }
         return answer.toString();
+    }
+}
+```
+
+## BEST PRACTICE
+- 작성 중입니다.
+
+```java
+class Solution {
+    public String solution(int n) {
+        String[] num = { "4", "1", "2" };
+        String answer = "";
+        while (n > 0) {
+            answer = num[n % 3] + answer;
+            n = (n - 1) / 3;
+        }
+        return answer;
     }
 }
 ```

@@ -9,12 +9,17 @@ last_modified_at: 2021-03-24T00:00:00
 
 <br>
 
+## 프로그램(Program)
+
+> 실행 가능한 명령어의 집합, 운영체제로부터 메모리를 할당받지 못한 정적인 상태
+
 ## 프로세스(Process)
 
-> 프로세스(Process)는 운영체제로부터 자원을 할당받는 작업의 단위
+> 프로세스(Process)는 운영체제로부터 자원을 할당받는 작업의 단위<br>
+> 메모리에 적재되어 실행되고 있는 프로그램
 
 프로세스는 실행될 때 운영체제로부터 프로세서, 필요한 주소 공간, 메모리(code, data, stack, heap) 등의 자원을 할당 받습니다. 
-프로세스는 서로 메모리 공간을 독자적으로 갖기 때문에 프로세스 간 메모리 공간을 공유하지 못합니다. 
+프로세스는 서로 메모리 공간을 독자적으로 갖습니다.
 다른 프로세스의 메모리에 접근하려면 IPC(InterProcess Communication)과 같은 방식이 필요합니다. 
 프로세스는 하나 이상의 스레드를 포함합니다.
 
@@ -24,30 +29,43 @@ last_modified_at: 2021-03-24T00:00:00
 - stack 영역, 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
 - heap 영역, 런타임시 동적으로 메모리를 할당받는 영역
 
-<p align="center"><img src="/images/process-vs-thread-1.JPG" width="25%"></p>
+<p align="center"><img src="/images/process-vs-thread-1.JPG" width="30%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## 스레드(Thread)
 
 > 스레드는 프로세스가 할당받은 자원을 이용하는 실행의 단위
 
-스레드는 프로세스 내에서 동작되는 여러 실행의 흐름입니다. 
-여러 개의 스레드가 모여 하나의 프로세스를 이루게 됩니다. 
-프로세스 내의 주소 공간이나 자원들을 프로세스 내 스레드들끼리 공유하여 사용합니다. 
+스레드는 프로세스 내에서 동작되는 여러 개의 실행 흐름입니다. 
+프로세스 내의 주소 공간이나 자원들을 프로세스 내 스레드들끼리 공유하여 사용합니다.(전역 변수 등) 
 메모리를 공유하기 때문에 동기화, 데드락 등의 문제가 발생할 수 있습니다. 
 각 스레드는 독자적인 스택(stack) 메모리를 가집니다. 
 
-### 프로세스가 멀티 스레드를 사용하는 이유
+### 스레드 메모리 구조
 
-> 운영체제의 시스템 자원을 효율적으로 관리하기 위해 스레드를 사용합니다. 
+<p align="center"><img src="/images/process-vs-thread-2.JPG" width="30%"></p>
+<center>이미지 출처, Operating System Concepts 9th</center><br>
 
-프로세스는 운영체제로부터 시스템 콜(call)을 통해 자원을 할당받습니다. 
-여러 개의 프로세스를 생성하는 일은 부담이 생깁니다. 
-또한 프로세스 간의 IPC 통신 방식은 복잡합니다. 
+### 스레드 사용시 장점
+- 프로세스 간 통신에 비해 스레드 간 통신은 간단하다.
+  - 서로 공유하는 변수만으로 쉽게 데이터를 주고 받을 수 있다.
+- 시스템 자원 소모가 줄어든다.
+  - 기존 프로세스의 자원을 스레드들이 공유하기 때문에 자원을 새로 할당하지 않아도 된다.
+  - 자원을 할당하기 위한 시스템 콜 횟수가 줄어듭니다.
 
-이와 다르게 프로세스가 멀티 스레드를 사용한다면 시스템 콜을 한번만 해도 되기 때문에 효율적입니다. 
-스레드 간 통신은 덜 복잡하고 시스템 자원 사용이 적으므로 통신의 부담도 줄일 수 있습니다. 
-스레드 간 동기화 문제가 생겨서 개발자가 신경써야 하는 단점이 있지만 작업(Task)의 비용을 줄인다는 장점이 있습니다.   
+### 스레드 사용시 단점
+- 멀티 스레드를 사용하는 프로그램을 작성하는 경우 공유되는 메모리에 대한 설계가 필요한다.
+
+##### 프로세스와 스레드 차이점 요약
+
+| 차이 | 프로세스 | 스레드 |
+|:---:|:---:|:---:|
+| 자원 할당 여부 | 실행 시마다 새로운 자원을 할당 | 자신을 실행한 프로세스의 자원을 공유 |
+| 자원 공유 여부 | 자원을 공유하지 않는다. 같은 프로그램의 프로세스일 경우 코드를 공유하기는 한다. | 같은 프로세스 내 스레드들은 스택을 제외한 나머지 세 영역을 공유한다. | 
+| 독립성 여부 |	일반적으로 독립적 | 일반적으로 프로세스의 하위 집합 |
+| 주소 소유 여부 | 별개의 주소 공간을 갖는다. | 주소 공간을 공유한다.
+| 통신 여부 | 오직 시스템이 제공하는 IPC 방법으로만 통신 | 공유 변수 수정 등 자유롭게 다른 스레드와 소통 |
+| Context Switch | 일반적으로 프로세스보다 스레드의 Context Switching이 더 빠를 수 있다. | 하지만 상황에 따라 그렇지 않을 수도 있다. |
 
 ## OPINION
 
@@ -62,11 +80,11 @@ last_modified_at: 2021-03-24T00:00:00
 오늘 대답하지 못한 내용들을 다시 정리해보면서 다음 기회를 노려보도록 하겠습니다. 
 
 #### REFERENCE
-- <https://brunch.co.kr/@kd4/3>
-- <https://gbsb.tistory.com/312>
-- <https://juyoung-1008.tistory.com/47>
 - [Operating System Concepts 9th][operating-system-link]
 - [프로세스와-스레드의-차이][difference-of-process-thread-link]
+- <https://gbsb.tistory.com/312>
+- <https://juyoung-1008.tistory.com/47>
+- <https://shoark7.github.io/programming/knowledge/difference-between-process-and-thread>
 
 [operating-system-link]: http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788998886813
 [difference-of-process-thread-link]: https://velog.io/@raejoonee/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9C%EC%9D%98-%EC%B0%A8%EC%9D%B4

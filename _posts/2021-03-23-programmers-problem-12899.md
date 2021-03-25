@@ -4,7 +4,6 @@ search: false
 category:
   - problem
   - algorithm
-  - data-structure
 last_modified_at: 2021-03-25T00:00:00
 ---
 

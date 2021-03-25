@@ -306,7 +306,7 @@ class Solution {
 - ~~getCandidateTruck 메소드에서 다음으로 출발할 차량이 존재하는지 확인~~
 - ~~findArrivedTruck 메소드에서 도착한 차량이 있는지 확인하는 탐색~~
 
-제가 제출한 코드의 부끄러운 성능을 보여드리고 글을 마무리하도록 하곘습니다.
+제가 제출한 코드의 부끄러운 성능을 보여드리고 글을 마무리하도록 하겠습니다.
 
 ##### 제출한 코드 성능
 <p align="center"><img src="/images/programmers-problem-42583-1.JPG"></p>

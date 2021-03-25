@@ -26,7 +26,7 @@ PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사�
 - Accounting information, CPU 사용시간, 실제 사용된 시간, 시간 제한 등
 - I/O status information, 프로세스에 할당된 I/O 기기에 해당하는 정보
 
-<p align="center"><img src="/images/process-control-block-and-context-switching-1.JPG" width="25%"></p>
+<p align="center"><img src="/images/process-control-block-and-context-switching-1.JPG" width="45%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## 문맥 교환(Context Switching)
@@ -49,7 +49,7 @@ PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사�
 1. 다음 수행할 P0 프로세스의 PCB0에서 P0 프로세스의 상태 정보가 CPU에 재로딩됩니다.
 1. P0 프로세스를 일정 시간 수행합니다.
 
-<p align="center"><img src="/images/process-control-block-and-context-switching-2.JPG" width="45%"></p>
+<p align="center"><img src="/images/process-control-block-and-context-switching-2.JPG" width="65%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## OPINION

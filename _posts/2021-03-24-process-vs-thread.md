@@ -29,7 +29,7 @@ last_modified_at: 2021-03-24T00:00:00
 - stack 영역, 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
 - heap 영역, 런타임시 동적으로 메모리를 할당받는 영역
 
-<p align="center"><img src="/images/process-vs-thread-1.JPG" width="450"></p>
+<p align="center"><img src="/images/process-vs-thread-1.JPG" width="15%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## 스레드(Thread)
@@ -43,7 +43,7 @@ last_modified_at: 2021-03-24T00:00:00
 
 ### 스레드 메모리 구조
 
-<p align="center"><img src="/images/process-vs-thread-2.JPG" width="450"></p>
+<p align="center"><img src="/images/process-vs-thread-2.JPG" width="30%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ### 스레드 사용시 장점

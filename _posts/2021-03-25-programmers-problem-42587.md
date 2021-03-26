@@ -26,7 +26,8 @@ last_modified_at: 2021-03-25T00:00:00
 
 내가 인쇄를 요청한 문서가 몇 번째로 인쇄되는지 알고 싶습니다. 위의 예에서 C는 1번째로, A는 3번째로 인쇄됩니다.
 
-현재 대기목록에 있는 문서의 중요도가 순서대로 담긴 배열 priorities와 내가 인쇄를 요청한 문서가 현재 대기목록의 어떤 위치에 있는지를 알려주는 location이 매개변수로 주어질 때, 
+현재 대기목록에 있는 문서의 중요도가 순서대로 담긴 배열 priorities와 
+내가 인쇄를 요청한 문서가 현재 대기목록의 어떤 위치에 있는지를 알려주는 location이 매개변수로 주어질 때, 
 내가 인쇄를 요청한 문서가 몇 번째로 인쇄되는지 return 하도록 solution 함수를 작성해주세요.
 
 ## 제한 사항
@@ -42,7 +43,14 @@ last_modified_at: 2021-03-25T00:00:00
 | [1, 1, 9, 1, 1, 1] | 0 | 5 |
 
 ## 코드 해설
-- 
+- 전달받은 우선순위를 큐에 담습니다.
+- location이 -1이 될 때까지 반복 수행합니다.
+- 큐에서 맨 앞에 있는 값을 꺼냅니다.
+- 가장 우선순위가 높아서 프린트가 가능한지 큐를 탐색합니다.
+- 프린트가 가능한 경우 위치(location)를 감소시키고 순번(answer)을 증가시킵니다. 
+- 프린트가 불가능한 경우 다음과 같이 행동합니다.
+    - 현재 위치가 맨 앞인 경우 맨 마지막으로 이동합니다.
+    - 현재 위치가 맨 앞이 아닌 경우에는 앞으로 한 칸 이동합니다.
 
 ```java
 import java.util.LinkedList;
@@ -68,7 +76,7 @@ class Solution {
             }
             // 프린트가 가능한 경우
             if (possiblePrint) {
-                // 순번 감소
+                // 순번 감소ㅇㅅ
                 location--;
                 // 프린트 횟수 증가
                 answer++;
@@ -86,5 +94,56 @@ class Solution {
 }
 ```
 
+## BEST PRACTICE
+- 전달받은 우선순위를 큐에 담습니다.
+- 우선순위를 오름차순으로 정렬합니다.
+- 큐가 모두 비워질 때까지 반복 수행합니다.
+- 현재 큐에서 꺼낸 값이 최우선 순위인지 priorities 배열 맨 마지막부터 확인합니다.
+- 최우선 순위인 경우 순서(answer)를 증가시키고 위치(l)를 감소시킵니다.
+- 위치가 0보다 작아진 경우 반복문을 탈출합니다.
+- 최우선 순위가 아닌 경우 큐의 맨 뒤로 이동시킵니다.
+- 위치 값을 감소시키고, 만약 0보다 작아진 경우에는 위치 값을 리스트의 맨 마지막 값으로 변경합니다.
+
+```java
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        int l = location;
+        Queue<Integer> que = new LinkedList<Integer>();
+        for (int i : priorities) {
+            que.add(i);
+        }
+        Arrays.sort(priorities);
+        int size = priorities.length - 1;
+        while (!que.isEmpty()) {
+            Integer i = que.poll();
+            if (i == priorities[size - answer]) {
+                answer++;
+                l--;
+                if (l < 0) {
+                    break;
+                }
+            } else {
+                que.add(i);
+                l--;
+                if (l < 0) {
+                    l = que.size() - 1;
+                }
+            }
+        }
+        return answer;
+    }
+}
+```
+
 ## OPINION
-작성 중입니다.
+문제 요건 자체가 굉장히 단순합니다. 
+문제를 꼼꼼히 읽어본다면 어려움 없이 풀 수 있습니다. 
+
+BEST PRACTICE는 아이디어가 좋아서 정리해보았습니다. 
+priorities 값을 정렬하여 순서(answer)가 증가할 때마다 가장 높은 우선순위부터 인덱스로 접근하여 검사합니다. 
+이로써 제가 제출한 코드처럼 매번 반복문을 수행할 필요가 없어졌습니다. 

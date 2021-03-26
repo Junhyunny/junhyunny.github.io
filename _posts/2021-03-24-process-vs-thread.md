@@ -26,7 +26,7 @@ last_modified_at: 2021-03-24T00:00:00
 > 프로세스는 프로그램의 인스턴스(instance)
 
 하나의 프로그램에서 여러 개의 프로세스가 실행 가능합니다. 
-예를 들어 윈도우즈 **'메모장'** 이라는 프로그램을 여러 번 동작시키면 여러 개의 **'메모장(프로세스)'**이 실행됩니다. 
+예를 들어 Windows **'메모장'** 이라는 프로그램을 여러 번 동작시키면 여러 개의 **'메모장(프로세스)'**이 실행됩니다. 
 추가적으로 프로세스들은 서로 메모리 공간을 독자적으로 갖는다고 하였는데 예외 사항으로 code 영역은 같은 프로그램의 프로세스들끼리 공유합니다. 
 
 ### 프로세스 메모리 구조
@@ -35,7 +35,7 @@ last_modified_at: 2021-03-24T00:00:00
 - stack 영역, 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
 - heap 영역, 런타임시 동적으로 메모리를 할당받는 영역
 
-<p align="center"><img src="/images/process-vs-thread-1.JPG" width="25%"></p>
+<p align="center"><img src="/images/process-vs-thread-1.JPG" width="35%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ## 스레드(Thread)
@@ -49,7 +49,7 @@ last_modified_at: 2021-03-24T00:00:00
 
 ### 스레드 메모리 구조
 
-<p align="center"><img src="/images/process-vs-thread-2.JPG" width="45%"></p>
+<p align="center"><img src="/images/process-vs-thread-2.JPG" width="55%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
 ### 스레드 사용시 장점

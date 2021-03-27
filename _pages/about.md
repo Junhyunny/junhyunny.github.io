@@ -12,11 +12,11 @@ classes: wide
 기술에 대한 이해도가 낮은 개발자는 문제만 일으킨다는 생각으로 끊임없이 공부 중인 개발자입니다. 
 제가 하는 정보 공유 활동이 많은 분들께 도움이 될 수 있기를 바라며 사용해 본 기술 스택, 귀동냥한 정보들에 관해 공부한 내용을 블로그에 정리하고 있습니다. 
 
-대규모 서버 사이드 개발 및 사이드 프로젝트로 웹 어플리케이션, 모바일 어플리케이션 및 서버 개발 경험이 있습니다. 
-Java, Spring Boot, Spring Cloud, Spring Security, JPA / Hibernate, Mybatis 등을 사용한 서비스 개발 및 운영 경험이 있습니다. 
+대규모 서버 사이드 개발 및 운영 경험과 사이드 프로젝트로 웹 어플리케이션, 모바일 어플리케이션 및 서버를 개발한 경험이 있습니다. 
+서버 개발시 주로 사용한 기술 스택은 Java, Spring Boot, Spring Cloud, Spring Security, JPA / Hibernate, Mybatis 입니다. 
 Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바일 어플리케이션 개발이 가능합니다. 
 
-잘 부탁 드립니다.
+잘 부탁드립니다.
 
 ## Skills ⚒
 ##### [Language]
@@ -25,7 +25,7 @@ Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바�
 
 ##### [Database]
 - Oracle
-- MySql
+- MySQL
 
 ##### [Framework]
 - Spring Boot, Spring Cloud

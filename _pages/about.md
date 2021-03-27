@@ -20,6 +20,10 @@ classes: wide
 - Java
 - JavaScript
 
+##### [Databbase]
+- Oracle
+- MySql
+
 ##### [Framework]
 - Spring Boot, Spring Cloud
 - JPA / Hibernate, MyBatis

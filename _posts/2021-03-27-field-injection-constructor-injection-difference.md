@@ -1,5 +1,5 @@
 ---
-title: "Feild Injection, Constructor Injection의 차이"
+title: "Feild Injection, Constructor Injection 방식의 차이"
 search: false
 category:
   - information

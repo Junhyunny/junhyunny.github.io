@@ -20,7 +20,7 @@ classes: wide
 - Java
 - JavaScript
 
-##### [Databbase]
+##### [Database]
 - Oracle
 - MySql
 

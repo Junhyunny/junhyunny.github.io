@@ -1,5 +1,5 @@
 ---
-title: "@Bean 그리고 @Component 애너테이션의 차이"
+title: "@Bean, @Component 애너테이션의 차이"
 search: false
 category:
   - information

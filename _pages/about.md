@@ -44,7 +44,7 @@ Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바�
 - MES3.0(Manufacturing Execution System 3.0) 개발, POSCO ICT, 2018년 7월 - 2020년 12월
 
 ##### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
-- Smart CCTV System, POSCO ICT, 2017년 8월 - 2017년 11월
+- Smart CCTV System 개발, POSCO ICT, 2017년 8월 - 2017년 11월
 
 ## Proejcts 👨‍💻
 ##### [MES3.0(Manufacturing Execution System 3.0) 개발]
@@ -89,13 +89,30 @@ Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바�
 </div>
 
 ## Trouble Shooting 🔫
-##### [Custom Rule Engine 사용시 성능 개선 사례]
+##### [MES3.0, Custom Rule Engine 사용시 성능 개선 사례]
 - 문제
   - 작성 중입니다.
 - 원인
   - 작성 중입니다.
 - 해결
   - 작성 중입니다.
+
+##### [MES3.0, Oracle DeadLock 발생으로 인한 서비스 장애 개선 사례]
+- 문제
+  - 작성 중입니다.
+- 원인
+  - 작성 중입니다.
+- 해결
+  - 작성 중입니다.
+
+##### [K-ICT Bigdata Center, Hadoop 서비스 제공 시스템 보안 이슈 사례]
+- 문제
+  - 작성 중입니다.
+- 원인
+  - 작성 중입니다.
+- 해결
+  - 작성 중입니다.
+
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

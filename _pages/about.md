@@ -14,8 +14,8 @@ classes: wide
 
 대규모 서버 사이드 개발 및 운영 경험이 있습니다. 
 간단한 웹 어플리케이션, 모바일 어플리케이션 및 서버를 개발한 경험이 있습니다. 
-주로 사용하는 기술 스택은 Java, Spring Boot, Spring Cloud, Spring Security, JPA / Hibernate, MyBatis 입니다. 
-Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바일 어플리케이션 개발도 가능합니다. 
+사용 가능한 기술 스택은 Java, Spring Boot, Spring Cloud, Spring Security, JPA / Hibernate, MyBatis 입니다. 
+Vue.js, NativeScript-Vue를 이용하여 간단한 웹 어플리케이션, 모바일 어플리케이션 개발이 가능합니다. 
 
 잘 부탁드립니다.
 

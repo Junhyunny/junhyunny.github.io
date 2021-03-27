@@ -69,7 +69,6 @@ Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바�
 - NativeScript-Vue, Vue.js, Spring Boot, Spring Security, JPA, MySQL
 - 빌라 주민들의 관리비 결제 및 관리, 공지사항 알림, 설문 기능, 불편사항 접수 기능 제공
 - 빌라 주민용 모바일 하이브리드 어플리케이션, 관리자용 웹 사이트
-- 관리자용 웹 사이트 개발
 - 전자 투표 및 모바일 서명 기능 개발
 - 불편사항, 주민소통, 게시판, 설문조사 기능 개발
 - <https://www.villam.co.kr/main.do>
@@ -78,9 +77,9 @@ Vue.js, NativeScript-Vue를 이용한 간단한 웹 어플리케이션, 모바�
 - Vue.js, Spring Boot, Spring Security, JPA, MySQL
 - 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
 - 모바일 웹 어플리케이션, 관리자용 웹 사이트
-- 관리자용 웹 사이트 개발
 - 기억 남기기, 기억 공유, 기억 예약 전송 기능 개발
-- 부고 작성, 부고 문자 전송 BATCH 기능 개발
+- 개인, 상주 부고 작성 기능 개발
+- 부고 문자 전송 BATCH 기능 개발
 
 <div class="third align-center">
   <img src="/images/about/about-remember-1.gif" width="32%">

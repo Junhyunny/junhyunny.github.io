@@ -43,7 +43,7 @@ classes: wide
 ##### [MES3.0(Manufacturing Execution System 3.0) 개발]
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, Mybatis, Oracle
 - Micro Service architecture 기반 Application 설계 및 개발
-- 물류 야드 관리 시스템 공통 컴포넌트 개발
+- 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 개발
 - 제철소 공정 내 물류 야드 관리 서비스 개발 및 안정화
   - 하루 평균 3000만 RTR
 - 신규 비즈니스 도메인 설계, 개발 및 적용 
@@ -59,13 +59,19 @@ classes: wide
 ##### [빌라엠]
 - Nativescript-Vue, Vue.js, Spring Boot, Spring Security, JPA, MySql
 - 빌라 주민들의 관리비 결제 및 관리, 공지사항 알림, 설문 기능, 불편사항 접수 기능 제공
-- 빌라 주민용 모바일 하이브리드 어플리케이션, 관리자 페이지 개발
+- 빌라 주민용 모바일 하이브리드 어플리케이션, 관리자용 웹 사이트
+- 관리자용 웹 사이트 개발
+- 전자 투표 및 모바일 서명 기능 개발
+- 불편사항, 주민소통, 게시판, 설문조사 기능 개발
 - <https://www.villam.co.kr/main.do>
 
 ##### [보고싶다]
 - Vue.js, Spring Boot, Spring Security, JPA, MySql
 - 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
-- 모바일 웹 어플리케이션, 관리자 페이지 개발
+- 모바일 웹 어플리케이션, 관리자용 웹 사이트
+- 관리자용 웹 사이트 개발
+- 기억 남기기, 기억 공유, 기억 예약 전송 기능 개발
+- 부고 작성, 부고 문자 전송 BATCH 기능 개발
 
 <div class="third align-center">
   <img src="/images/about/about-remember-1.gif" width="32%">

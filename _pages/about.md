@@ -51,14 +51,12 @@ Vue.js, NativeScript-Vue를 이용하여 간단한 웹 어플리케이션, 모�
 ##### [MES3.0(Manufacturing Execution System 3.0) 개발]
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
 - Monolithic Architecture > Micro Service Architecture 전환
-- Micro Service Architecture 기반 Application 설계 및 개발
-- 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 개발
+- 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
 - 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발 
+- 기존 차량 이송 비즈니스 도메인에 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
 - 제철소 공정 내 물류 야드 관리 서비스 개발 및 안정화
   - 하루 평균 3000만 RTR
-- 신규 비즈니스 도메인 설계, 개발 및 적용 
-  - 차량 이송 물류 흐름 개선
-- Custom Rule Engine 개발 및 속도 개선
+- Custom Rule Engine 리팩토링 및 속도 개선
   - 10000건 초과되는 기준 사용시 5초 이상 걸리는 시간을 1초 미만으로 단축
 
 ##### [Smart CCTV System 개발]

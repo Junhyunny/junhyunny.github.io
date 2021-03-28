@@ -76,7 +76,7 @@ class Solution {
             }
             // 프린트가 가능한 경우
             if (possiblePrint) {
-                // 순번 감소ㅇㅅ
+                // 순번 감소
                 location--;
                 // 프린트 횟수 증가
                 answer++;

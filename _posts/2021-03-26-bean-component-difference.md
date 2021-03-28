@@ -61,7 +61,7 @@ public class MyClass {}
 > 불가능합니다.
 
 위에서도 언급했듯이 @Bean 애너테이션은 메소드에 사용 가능합니다. 
-@Target 애너테이션을 통해 ElementType.METHOD, ElementType.ANNOTATION_TYPE 만 가능하도록 지정되어 있습니다. 
+@Target 애너테이션을 통해 ElementType.METHOD, ElementType.ANNOTATION_TYPE 타입에만 사용 가능하도록 지정되어 있습니다. 
 클래스 위에 @Bean 애너테이션을 선언하는 경우 컴파일 에러가 발생합니다.
 
 ##### @Bean 애너테이션 Target

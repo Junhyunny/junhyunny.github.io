@@ -17,14 +17,14 @@ PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스
 PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사용자가 접근하지 못하는 보호된 메모리 영역에 존재합니다. 
 
 ### PCB에 담기는 프로세스 정보
-- Process id, 프로세스 ID
-- Process state, 프로세스의 상태(new ready waiting, running, terminated)
-- Program counter, 다음 명령의 주소를 가리키고 있는 계수기
-- CPU register, CPU 레지스터
-- CPU-scheduling information, 프로세스의 우선순위, 최종 실행 시간, 스케줄링 큐를 가리키는 포인터 등
-- Memory-management information, register, 페이지 테이블, 세그먼트 테이블의 base, limit 값에 대한 정보
-- Accounting information, CPU 사용시간, 실제 사용된 시간, 시간 제한 등
-- I/O status information, 프로세스에 할당된 I/O 기기에 해당하는 정보
+- Process id - 프로세스 ID
+- Process state - 프로세스의 상태(new ready waiting, running, terminated)
+- Program counter - 다음 명령의 주소를 가리키고 있는 계수기
+- CPU register - CPU 레지스터
+- CPU-scheduling information - 프로세스의 우선순위, 최종 실행 시간, 스케줄링 큐를 가리키는 포인터 등
+- Memory-management information - register, 페이지 테이블, 세그먼트 테이블의 base, limit 값에 대한 정보
+- Accounting information - CPU 사용시간, 실제 사용된 시간, 시간 제한 등
+- I/O status information - 프로세스에 할당된 I/O 기기에 해당하는 정보
 
 <p align="center"><img src="/images/process-control-block-and-context-switching-1.JPG" width="45%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>

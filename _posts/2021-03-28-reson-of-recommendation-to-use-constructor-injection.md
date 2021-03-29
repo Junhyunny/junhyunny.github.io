@@ -58,16 +58,15 @@ public class PostService {
 
 ## 생성자 주입(Constructor Injection) 방식으로부터 얻는 이점
 
-### 불변성(Immutability), final 키워드 사용 가능
+### 불변성(Immutability)
 **`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 
-생성자 주입 방식을 통해서만 final 키워드가 붙은 참조 변수를 이용하여 빈(bean) 객체를 사용할 수 있습니다. 
+생성자 주입 방식을 통해서만 final 키워드가 붙은 변수를 이용해 빈(bean) 객체를 참조하여 사용할 수 있습니다. 
 Setter, Method, Field Injection 방식들의 경우 final 키워드 사용시 모두 컴파일 에러가 발생합니다. 
 final 키워드를 사용하면 클래스 내부에서 참조에 대한 변경이 이루어질 수 없기 때문에 참조 변경으로 인해 발생될 수 있는 에러들을 사전에 잡아낼 수 있습니다.
 
 ### NullPointException 방지
 **`'객체가 null이 아님을 보장'`** 이라는 설명과 동일합니다. 
-스프링 프레임워크는 생성자를 통해 주입받는 객체가 null이 아님을 보장합니다. 
-final 키워드에 의해 참조 변수가 중간에 null로 변경될 수 없으므로 NullPointException 에러가 발생되지 않습니다.
+final 키워드에 의해 참조 변수가 중간에 null로 변경될 수 없으므로 생성자를 통해 주입받는 객체가 null이 아님이 보장된다면 NullPointException 에러가 발생되지 않습니다. 
 
 ```java
 @Component
@@ -86,9 +85,6 @@ public class PostController {
     }
 }
 ```
-
-##### 생성자 주입시 PostService 빈(bean)이 존재하지 않는 경우 RUNNING 에러 발생
-<p align="center"><img src="/images/reson-of-recommendation-to-use-constructor-injection-1.JPG"></p>
 
 ### 클래스에 대한 과도한 책임 방지
 
@@ -181,7 +177,7 @@ class BComponent {
 ```
 
 ##### StackOverflow 에러 발생
-<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG" width="45%"></p>
+<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-1.JPG" width="45%"></p>
 
 #### 생성자 주입 사용, 서비스 기동시 순환 참조 확인
 - 생성자 주입을 사용하였습니다.
@@ -237,7 +233,7 @@ class DComponent {
 ```
 
 ##### 서비스 기동 에러 발생
-<p align="center"><img src="/images/reson-of-recommendation-to-use-constructor-injection-3.JPG"></p>
+<p align="center"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG"></p>
 
 ### 생성자 주입의 경우 순환 참조가 감지되는 이유
 

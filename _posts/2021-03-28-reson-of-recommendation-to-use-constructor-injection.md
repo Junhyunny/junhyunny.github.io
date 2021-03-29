@@ -181,7 +181,7 @@ class BComponent {
 ```
 
 ##### StackOverflow 에러 발생
-<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG" width="20%"></p>
+<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG" width="40%"></p>
 
 #### 생성자 주입 사용, 서비스 기동시 순환 참조 확인
 - 생성자 주입을 사용하였습니다.

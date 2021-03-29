@@ -61,7 +61,7 @@ public class PostService {
 ### 불변성(Immutability), final 키워드 사용 가능
 **`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 
 생성자 주입 방식을 통해서만 final 키워드가 붙은 참조 변수를 이용하여 빈(bean) 객체를 사용할 수 있습니다. 
-Setter, Method, Field Injection 방식의 경우 모두 컴파일 에러가 발생합니다. 
+Setter, Method, Field 주입 방식들의 경우 모두 컴파일 에러가 발생합니다. 
 final 키워드를 사용하면 클래스 내부에서 참조에 대한 변경이 이루어질 수 없기 때문에 참조 변경으로 인해 발생될 수 있는 에러들을 사전에 잡아낼 수 있습니다.
 
 ### NullPointException 방지
@@ -181,11 +181,11 @@ class BComponent {
 ```
 
 ##### StackOverflow 에러 발생
-<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG" width="40%"></p>
+<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG" width="45%"></p>
 
 #### 생성자 주입 사용, 서비스 기동시 순환 참조 확인
 - 생성자 주입을 사용하였습니다.
-- 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 종료합니다.
+- 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 서비스가 종료됩니다.
 
 ```java
 package blog.in.action.di.recycle;
@@ -242,18 +242,18 @@ class DComponent {
 ### 생성자 주입의 경우 순환 참조가 감지되는 이유
 
 > KimTaeng 님 블로그, [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
-> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.
+> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br>
 > 순환 참조는 생성자 주입에서만 문제가 된다.<br> 
 > 순환 참조가 있는 객체 설계는 잘못된 설계이기 때문에 오히려 생성자 주입을 사용하여 순환 참조되는 설계를 사전에 막아야 한다. 
 
-KimTaeng 님 블로그의 글을 읽어보면 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
+KimTaeng 님 블로그의 글을 읽어보면 생성자 주입은 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
 제가 이해하기 쉽도록 이 부분을 다시 정리해보았습니다.
 
-#### 수정자 주입(Setter Injection), 필드 주입(Field Injection)
+#### 수정자 주입(Setter Injection), 필드 주입(Field Injection) 방식
 1. 모든 빈(bean)을 우선 만들고 BeanFactory에 등록합니다.
 1. 빈(bean)을 주입 받아야 하는 A 객체에 필요한 빈(bean)들을 주입합니다.
 
-#### 생성자 주입(Constructor Injection)
+#### 생성자 주입(Constructor Injection) 방식
 1. 클래스 A 빈(bean) 생성시 생성자를 이용하며 이때 필요한 빈(bean)인 B 객체를 주입하려고 시도합니다.
 1. 필요한 B 객체는 존재하지 않으므로 이를 생성자로 만들려고 시도합니다.
 1. B 객체도 생성하는 시점에 A 객체가 필요합니다.

@@ -167,10 +167,10 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 ## OPINION
 이 글에선 TokenEnhancer를 커스터마이즈한 기능을 통해 token에 필요한 내용을 추가하는 것으로 마무리하였습니다. 
 다음 글에선 token에 추가된 정보를 커스터마이즈한 애너테이션을 통해 쉽게 추출하는 방법에 대해서 정리해보겠습니다.
-해당 코드를 받아보시려면 [github link][blog-githubLink]로 이동하시길 바랍니다.
+해당 코드를 받아보시려면 [blog-in-action 저장소][github-link]로 이동하시길 바랍니다.
 
 #### REFERENCE
 - [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]
 
 [jwt-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
-[blog-githubLink]: https://github.com/Junhyunny/blog-in-action/tree/891cf74e3fd698b4462df9c4d7f3be5f5cc73763
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/891cf74e3fd698b4462df9c4d7f3be5f5cc73763

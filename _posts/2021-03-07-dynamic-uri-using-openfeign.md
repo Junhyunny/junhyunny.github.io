@@ -97,7 +97,7 @@ public class DynamicUrlTest {
 ## OPINION
 Openfeign을 사용하는 프로젝트에서 유용한 정보일 것 같습니다. 
 간단한 테스트 코드와 기능 설명으로 짧은 글을 작성할 수 있을 것 같아서 해당 주제를 먼저 포스트하였습니다. 
-테스트 코드는 [github link][github-link]에서 확인 가능합니다.
+테스트 코드는 [blog-in-action 저장소][github-link]에서 확인 가능합니다.
 
 #### REFERENCE
 - <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>

@@ -244,7 +244,7 @@ StackOverflow에서 다음과 같은 글을 발견하였습니다.
 > **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**
 
 다음 글은 JPA가 Pessimistic Lock 기능을 어떻게 제공하는지 알아보도록 하겠습니다. 
-테스트 코드는 [github link][github-link]에서 확인하실 수 있습니다.
+테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
 
 #### REFERENCE
 - <https://www.baeldung.com/jpa-optimistic-locking>

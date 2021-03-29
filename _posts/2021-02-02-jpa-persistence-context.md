@@ -568,7 +568,7 @@ public class RemoveTest {
 ## OPINION
 영속성 컨텍스트가 무엇인지, 이를 통해 JPA EntityManager가 엔티티를 어떻게 관리하고 데이터를 저장하는지에 대해 알아보았습니다. 
 별도로 이 영역을 만들어서 어떤 이점을 얻을 수 있는지 다음 글에서 영속성 컨텍스트가 제공해주는 기능을 정리하면서 알아보도록 하겠습니다. 
-해당 글과 관련된 테스트 코드는 [github link][github-link]를 확인하실 수 있습니다.
+해당 글과 관련된 테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
 
 #### REFERENCE
 - <https://gunlog.dev/JPA-Persistence-Context/>

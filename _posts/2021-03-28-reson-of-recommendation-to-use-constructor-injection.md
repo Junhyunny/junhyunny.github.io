@@ -10,7 +10,8 @@ last_modified_at: 2021-03-28T00:00:00
 
 <br>
 
-이전 [Spring IoC(Inversion of Control), DI(Dependency Injection)][ioc-di-blogLink] 포스트에서 Setter/Constructor/Method 총 3개의 Inejection 방식을 소개했었는데 
+이전 [Spring IoC(Inversion of Control), DI(Dependency Injection)][ioc-di-blogLink] 포스트에서 
+Setter Injection, Constructor Injection, Method Injection 총 3개의 Inejection 방식을 소개했었는데 
 Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 권장한다고 합니다. 
 
 > **Spring Doc**<br>
@@ -263,7 +264,7 @@ KimTaeng 님 블로그의 글을 제가 보기 쉽도록 정리해보았습니�
 한가지 주제에 대해 포스트를 작성하는 일도 하루 이상 걸리니 조바심이 납니다. 
 모든 것들을 알 순 없지만 많은 것들을 알아야하기 때문에 개발자는 평생 공부해야하는 직업이라는 말이 최근에 크게 와닿는 중입니다. 
 
-테스트 코드는 [blog-in-action][github-link]
+테스트 코드는 [blog-in-action][github-link]에서 확인 가능합니다.
 
 #### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html>
@@ -272,4 +273,4 @@ KimTaeng 님 블로그의 글을 제가 보기 쉽도록 정리해보았습니�
 
 [ioc-di-blogLink]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
 [kim-taeng-blogLink]: https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection
-[github-link]: 
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/7c2031fb6a1c64016e646c4f3745428c2476bb40

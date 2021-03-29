@@ -61,7 +61,7 @@ public class PostService {
 ### 불변성(Immutability), final 키워드 사용 가능
 **`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 
 생성자 주입 방식을 통해서만 final 키워드가 붙은 참조 변수를 이용하여 빈(bean) 객체를 사용할 수 있습니다. 
-Setter, Method, Field 주입 방식들의 경우 모두 컴파일 에러가 발생합니다. 
+Setter, Method, Field Injection 방식들의 경우 final 키워드 사용시 모두 컴파일 에러가 발생합니다. 
 final 키워드를 사용하면 클래스 내부에서 참조에 대한 변경이 이루어질 수 없기 때문에 참조 변경으로 인해 발생될 수 있는 에러들을 사전에 잡아낼 수 있습니다.
 
 ### NullPointException 방지
@@ -92,7 +92,7 @@ public class PostController {
 
 ### 클래스에 대한 과도한 책임 방지
 
-> KimTaeng 님 블로그, [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
+> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
 > 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 
 > 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다.
 
@@ -241,7 +241,7 @@ class DComponent {
 
 ### 생성자 주입의 경우 순환 참조가 감지되는 이유
 
-> KimTaeng 님 블로그, [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
+> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
 > 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br>
 > 순환 참조는 생성자 주입에서만 문제가 된다.<br> 
 > 순환 참조가 있는 객체 설계는 잘못된 설계이기 때문에 오히려 생성자 주입을 사용하여 순환 참조되는 설계를 사전에 막아야 한다. 

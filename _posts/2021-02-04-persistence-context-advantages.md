@@ -363,7 +363,7 @@ public class DirtyCheckingTest {
 ## OPINION
 영속성 컨텍스트의 기능과 이를 통해 얻을 수 있는 장점에 대해서 이야기해보았습니다. 
 마지막에 변경 감지(dirty chekcing)가 어떤 식으로 이루어지는지 궁금하여 디버깅한 결과까지 함께 첨부하였습니다. 
-해당 테스트 코드는 [github link][github-link]에서 확인하실 수 있습니다.
+해당 테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
 
 #### REFERENCE
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]

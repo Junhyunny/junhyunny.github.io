@@ -25,7 +25,7 @@ Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 �
 - 어플리케이션 컴포넌트를 immutable 객체로 사용 가능
 - 객체가 null이 아님을 보장
 - 초기화 된 상태로 사용 가능
-- 특정 클래스에 과도한 책임이 주어질 가능성이 높은 구린내나는(?) 코드에 대한 리팩토링 여지를 제공
+- 특정 클래스에 과도한 책임이 주어질 가능성이 높은 구린내 나는(?) 코드에 대한 리팩토링 여지를 제공
 
 ## 필드 주입(Field Injection)
 - 간단히 @Autowired 애너테이션을 통해 빈(bean)을 주입받는 방식입니다. 
@@ -181,7 +181,7 @@ class BComponent {
 ```
 
 ##### StackOverflow 에러 발생
-<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG"></p>
+<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG" width="20%"></p>
 
 #### 생성자 주입 사용, 서비스 기동시 순환 참조 확인
 - 생성자 주입을 사용하였습니다.
@@ -242,29 +242,29 @@ class DComponent {
 ### 생성자 주입의 경우 순환 참조가 감지되는 이유
 
 > KimTaeng 님 블로그, [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
-> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈을 주입하는 순서가 다르다.
+> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.
+> 순환 참조는 생성자 주입에서만 문제가 된다.<br> 
+> 순환 참조가 있는 객체 설계는 잘못된 설계이기 때문에 오히려 생성자 주입을 사용하여 순환 참조되는 설계를 사전에 막아야 한다. 
 
-KimTaeng 님 블로그의 글을 제가 보기 쉽도록 정리해보았습니다.
+KimTaeng 님 블로그의 글을 읽어보면 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
+제가 이해하기 쉽도록 이 부분을 다시 정리해보았습니다.
 
 #### 수정자 주입(Setter Injection), 필드 주입(Field Injection)
 1. 모든 빈(bean)을 우선 만들고 BeanFactory에 등록합니다.
 1. 빈(bean)을 주입 받아야 하는 A 객체에 필요한 빈(bean)들을 주입합니다.
 
 #### 생성자 주입(Constructor Injection)
-- 클래스 A 빈(bean) 생성시 생성자를 이용하며 이때 필요한 빈(bean)인 B 객체를 주입하려고 시도합니다.
-- 필요한 B 객체는 존재하지 않으므로 이를 생성자로 만들려고 시도합니다.
-- B 객체도 생성하는 시점에 A 객체가 필요합니다.
-- 순환 참조가 감지됩니다.
-
-> 순환 참조는 생성자 주입에서만 문제가 된다. 
-> 순환 참조가 있는 객체 설계는 잘못된 설계이기 때문에 오히려 생성자 주입을 사용하여 순환 참조되는 설계를 사전에 막아야 한다.
+1. 클래스 A 빈(bean) 생성시 생성자를 이용하며 이때 필요한 빈(bean)인 B 객체를 주입하려고 시도합니다.
+1. 필요한 B 객체는 존재하지 않으므로 이를 생성자로 만들려고 시도합니다.
+1. B 객체도 생성하는 시점에 A 객체가 필요합니다.
+1. 순환 참조가 감지됩니다.
 
 ## OPINION
 한번 면접을 통해 많은 것들을 배우고 정리하고 있습니다. 
 한가지 주제에 대해 포스트를 작성하는 일도 하루 이상 걸리니 조바심이 납니다. 
 모든 것들을 알 순 없지만 많은 것들을 알아야하기 때문에 개발자는 평생 공부해야하는 직업이라는 말이 최근에 크게 와닿는 중입니다. 
 
-테스트 코드는 [blog-in-action][github-link]에서 확인 가능합니다.
+테스트 코드는 [blog-in-action 저장소][github-link]에서 확인 가능합니다.
 
 #### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html>

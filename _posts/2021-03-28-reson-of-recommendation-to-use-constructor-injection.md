@@ -179,7 +179,7 @@ class BComponent {
 ##### StackOverflow 에러 발생
 <p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-1.JPG" width="45%"></p>
 
-##### 생성자 주입 사용시 서비스 기동 순환 참조 체크 테스트
+##### 생성자 주입 사용시 순환 참조 체크 테스트
 - 생성자 주입을 사용하였습니다.
 - 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 서비스가 종료됩니다.
 
@@ -243,13 +243,13 @@ class DComponent {
 > 순환 참조가 있는 객체 설계는 잘못된 설계이기 때문에 오히려 생성자 주입을 사용하여 순환 참조되는 설계를 사전에 막아야 한다. 
 
 KimTaeng 님 블로그의 글을 읽어보면 생성자 주입은 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
-제가 이해하기 쉽도록 이 부분을 다시 정리해보았습니다.
+제 스스로가 이해하기 쉽도록 이 부분을 다시 정리해보았습니다.
 
-#### 수정자 주입(Setter Injection), 필드 주입(Field Injection) 방식
+##### 수정자 주입(Setter Injection), 필드 주입(Field Injection) 방식
 1. 모든 빈(bean)을 우선 만들고 BeanFactory에 등록합니다.
 1. 빈(bean)을 주입 받아야 하는 A 객체에 필요한 빈(bean)들을 주입합니다.
 
-#### 생성자 주입(Constructor Injection) 방식
+##### 생성자 주입(Constructor Injection) 방식
 1. 클래스 A 빈(bean) 생성시 생성자를 이용하며 이때 필요한 빈(bean)인 B 객체를 주입하려고 시도합니다.
 1. 필요한 B 객체는 존재하지 않으므로 이를 생성자로 만들려고 시도합니다.
 1. B 객체도 생성하는 시점에 A 객체가 필요합니다.

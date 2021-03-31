@@ -42,7 +42,7 @@ last_modified_at: 2021-01-28T00:00:00
 서비스 간에 트랜잭션이 필요한 경우에는 이를 처리해주기 위한 로직이 별도로 필요합니다. 
 분산 환경이기 때문에 장애 포인트가 늘어나고 모니터링에 어려움을 겪을 수 있습니다.  
 
-##### 모놀리식 아키텍처와 마이크로 서비스 아키텍처의 차이점
+##### 모놀리식 아키텍처와 마이크로 서비스 아키텍처 구조 차이
 <p align="center"><img src="/images/microservice-architecture-1.JPG"/></p>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 

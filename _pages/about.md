@@ -53,7 +53,7 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - Monolithic Architecture > Micro Service Architecture 전환
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
 - 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발 
-- 기존 차량 이송 비즈니스 도메인에 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
+- 기존 차량 이송 도메인에서 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
 - 제철소 공정 내 물류 야드 관리 서비스 개발 및 안정화
   - 하루 평균 3000만 요청 발생
 - Custom Rule Engine 리팩토링 및 속도 개선

@@ -14,7 +14,7 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
-<p align="left"><img src="/images/spring-security-example-1.JPG" width="45%"></p>
+<p align="left"><img src="/images/spring-security-example-1.JPG" width="35%"></p>
 
 ## application.yml
 ```yml

@@ -3,12 +3,13 @@ title: "Micro Service Architecture 장점과 단점"
 search: false
 category:
   - msa
-last_modified_at: 2021-01-29T00:00:00
+last_modified_at: 2021-04-01T00:00:00
 ---
 
 <br>
 
-[Micro Service Architecture][msa-blogLink] 포스트에서는 마이크로 서비스 아키텍처와 이를 구성하는 서비스의 특징과 원칙에 대한 이야기를 해보았습니다.
+[Micro Service Architecture][msa-blogLink] 포스트에서는 마이크로 서비스 아키텍처에 대한 개념과 
+이를 구성하는 마이크로 서비스들이 가져야하는 특징과 원칙에 대한 이야기를 해보았습니다.
 이번 포스트에서는 마이크로 서비스 아키텍처의 장점과 단점에 대해서 정리해보았습니다. 
 
 ## Micro Service Architecture 장점

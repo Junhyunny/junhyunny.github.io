@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2021-01-29T00:00:00
+last_modified_at: 2021-04-01T00:00:00
 ---
 
 <br>
@@ -14,7 +14,7 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
-<p align="left"><img src="/images/spring-security-example-1.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-1.JPG" width="45%"></p>
 
 ## application.yml
 ```yml
@@ -126,7 +126,8 @@ spring:
 
 ## MemberController 클래스 구현
 유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
-아래 ResourceServer에서 확인하실 수 있겠지만 **/api/member/sign-up** path는 인증 정보 없이 요청이 가능하지만 **/api/member/user-info** path는 인증 정보 없이 요청이 불가능합니다.
+아래 ResourceServer에서 확인하실 수 있겠지만 **/api/member/sign-up** path는 인증 정보 없이 요청이 가능하지만 
+**/api/member/user-info** path는 인증 정보 없이 요청이 불가능합니다.
 
 ```java
 package blog.in.action.controller;
@@ -166,7 +167,7 @@ public class MemberController {
 
 ## Config 클래스 구현
 인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
-API 문서를 확인해보니 JwtAccessTokenConverter @Bean에 등록되는 signingKey는 암호화에서 필요한 키 용도로 사용되는 듯 합니다.
+JwtAccessTokenConverter @Bean에 등록되는 signingKey 용도가 무엇인지 찾아보니 API 문서에 암호화에서 필요한 키 용도로 사용된다는 설명을 찾았습니다.
 
 > Sets the JWT signing key. It can be either a simple MAC key or an RSA key. RSA keys should be in OpenSSH format, as produced by ssh-keygen.
 
@@ -336,7 +337,7 @@ Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 Us
 
 - loadUserByUsername 메소드의 debug 포인트 설정시 call stack
     - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
-<p align="left"><img src="/images/spring-security-example-2.JPG"></p>
+<p align="left"><img src="/images/spring-security-example-2.JPG" width="75%"></p>
 
 ```java
 package blog.in.action.service;
@@ -417,8 +418,8 @@ public class MemberService implements UserDetailsService {
 <p align="center"><img src="/images/spring-security-example-7.JPG"></p>
 
 ## OPINION
-예전에 작성해둔 블로그 글이 아주 유용하게 사용되었습니다. 
-당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 사용으로 기능으로 조금 확장해보았습니다. 
+예전에 작성했던 블로그 글이 아주 유용하게 사용되었습니다. 
+당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 기능을 추가하였습니다. 
 해당 코드를 받아보시려면 [blog-in-action 저장소][github-link]로 이동하시길 바랍니다. 
 **테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**
 

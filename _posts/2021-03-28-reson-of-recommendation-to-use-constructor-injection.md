@@ -180,7 +180,7 @@ class BComponent {
 ##### StackOverflow 에러 발생
 <p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-1.JPG" width="45%"></p>
 
-##### 생성자 주입 사용시 순환 참조 체크 테스트
+##### 생성자 주입 사용시 순환 참조 에러 확인 테스트
 - 생성자 주입을 사용하였습니다.
 - 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 서비스가 종료됩니다.
 
@@ -233,7 +233,7 @@ class DComponent {
 }
 ```
 
-##### 서비스 기동 에러 발생
+##### 서비스 기동시 에러 로그
 <p align="center"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG"></p>
 
 ### 생성자 주입의 경우 순환 참조가 감지되는 이유

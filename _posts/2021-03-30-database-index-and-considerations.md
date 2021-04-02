@@ -24,7 +24,7 @@ last_modified_at: 2021-04-02T00:00:00
 데이터베이스도 목차처럼 데이터와 데이터 위치를 포함하는 자료구조를 통해 데이터 조회를 빠르게 도우며 이를 인덱스라고 합니다.
 
 ##### DB 인덱스 활용시 데이터 검색
-<p align="left"><img src="/images/database-index-and-precautions-1.JPG"></p>
+<p align="left"><img src="/images/database-index-and-precautions-1.JPG" width="80%"></p>
 <center>이미지 출처, https://mangkyu.tistory.com/96</center><br>
 
 ## DB 인덱스 사용 시 장점과 단점

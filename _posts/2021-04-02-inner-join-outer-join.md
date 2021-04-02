@@ -1,9 +1,9 @@
 ---
-title: "DB INDEX 개념 및 사용시 주의점"
+title: "INNER JOIN 그리고 OUTER JOIN"
 search: false
 category:
   - information
-last_modified_at: 2021-04-01T00:00:00
+last_modified_at: 2021-04-02T00:00:00
 ---
 
 <br>

@@ -57,7 +57,7 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - 제철소 공정 내 물류 야드 관리 서비스 개발 및 안정화
   - 하루 평균 3000만 요청 발생
 - Custom Rule Engine 리팩토링 및 속도 개선
-  - 10000건 초과되는 기준 사용시 5초 이상 걸리는 시간을 1초 미만으로 단축
+  - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
 
 ##### [Smart CCTV System 개발]
 - C++, OpenCV, Machine Learing(Support Vector Machine)
@@ -97,7 +97,7 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 ##### 해결
 - 작성 중입니다.
 
-##### [MES3.0, Custom Rule Engine 사용시 성능 개선 사례]
+##### [MES3.0, Custom Rule Engine 사용 시 성능 개선 사례]
 ##### 문제
 - 작성 중입니다.
 

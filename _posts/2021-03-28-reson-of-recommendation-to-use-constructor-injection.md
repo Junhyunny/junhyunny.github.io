@@ -61,7 +61,7 @@ public class PostService {
 ### 불변성(Immutability)
 **`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 
 생성자 주입 방식을 통해서만 final 키워드가 붙은 변수를 이용해 빈(bean) 객체를 참조하여 사용할 수 있습니다. 
-Setter, Method, Field Injection 방식들의 경우 final 키워드 사용시 모두 컴파일 에러가 발생합니다. 
+Setter, Method, Field Injection 방식들의 경우 final 키워드 사용 시 모두 컴파일 에러가 발생합니다. 
 final 키워드를 사용하면 클래스 내부에서 참조에 대한 변경이 이루어질 수 없기 때문에 참조 변경으로 인해 발생될 수 있는 에러들을 사전에 잡아낼 수 있습니다.
 
 ### NullPointException 방지
@@ -126,7 +126,7 @@ public class PostController {
 순환 참조가 있는 객체 설계는 잘못된 설계이므로 생성자 주입을 통해 사전에 이를 방지하는 것이 좋습니다. 
 아래 테스트 코드를 통해 확인해 보겠습니다. 
 
-##### 필드 주입 사용시 순환 참조로 인한 StackOverflow 에러 발생 테스트
+##### 필드 주입 사용 시 순환 참조로 인한 StackOverflow 에러 발생 테스트
 - 필드 주입을 사용하였습니다.
 - AComponent 빈(bean)과 BComponent 빈(bean)은 서로를 참조하고 있습니다. 
 - 서비스 기동은 정상적으로 수행됩니다.
@@ -180,7 +180,7 @@ class BComponent {
 ##### StackOverflow 에러 발생
 <p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-1.JPG" width="45%"></p>
 
-##### 생성자 주입 사용시 순환 참조 에러 확인 테스트
+##### 생성자 주입 사용 시 순환 참조 에러 확인 테스트
 - 생성자 주입을 사용하였습니다.
 - 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 서비스가 종료됩니다.
 

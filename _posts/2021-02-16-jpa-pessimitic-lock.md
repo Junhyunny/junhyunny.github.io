@@ -60,7 +60,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-#### JpaRepository 인터페이스 사용시 주의사항 
+#### JpaRepository 인터페이스 사용 시 주의사항 
 **@Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 메소드 호출은 JPA 트랜잭션 내부에서 동작해야 합니다.** 
 JpaRepository 인터페이스를 사용하는 경우 entityManager.getTransaction().begin() 메소드를 사용할 수 없으니 @Transactional 애너테이션을 사용합니다. 
 @Transactional 애너테이션이 영역(scope) 밖에서 @Lock(LockModeType.PESSIMISTIC_WRITE) 애너테이션이 붙은 조회 메소드를 호출하면 다음과 같은 에러를 만나게 됩니다. 
@@ -344,10 +344,10 @@ public class EntityManagerUseTest {
 <p align="left"><img src="/images/jpa-pessimistic-lock-5.JPG"></p>
 
 ## OPINION
-### JpaRepository 사용시 트랜잭션 처리
+### JpaRepository 사용 시 트랜잭션 처리
 지난 [JPA Optimistic Lock 구현][jpa-optimistic-lock-blogLink] 포스트와 다르게 테스트 케이스를 만드는데 애를 먹었습니다. 
 **그 이유는 JpaRepository 인터페이스 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아 원하는 결과를 얻지 못했기 때문입니다.** 
-JpaRepository 인터페이스 사용시 트랜잭션 처리에 필요한 @Transactional 애너테이션의 전파 방법, 격리성 모드 등을 공부를 할 예정입니다.
+JpaRepository 인터페이스 사용 시 트랜잭션 처리에 필요한 @Transactional 애너테이션의 전파 방법, 격리성 모드 등을 공부를 할 예정입니다.
 
 ##### 후순 트랜잭션이 Lock 점유가 가능할때까지 대기하지 않는 현상 발생
 - 각 트랜잭션이 조회에 걸리는 시간이 40ms 수준임을 확인할 수 있습니다.
@@ -364,14 +364,14 @@ Lock을 선점한 트랜잭션에 문제가 발생하는 경우 대기 중인 �
 해결하지 못하였으니 관련된 코드만 메모하고, 포스팅은 다음 숙제로 남겨두록 하겠습니다. 
 테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
 
-##### JpaRepository 인터페이스 사용시 @QueryHints 애너테이션 사용
+##### JpaRepository 인터페이스 사용 시 @QueryHints 애너테이션 사용
 ```java
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @QueryHints({@QueryHint(name = "javax.persistence.lock.timeout", value ="5000")})
     Optional<Post> findById(Long id)
 ```
 
-##### EntityManager 사용시 property 전달
+##### EntityManager 사용 시 property 전달
 ```java
    Map<String,Object> properties = new HashMap();
    properties.put("javax.persistence.query.timeout", 5000);

@@ -335,7 +335,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 인증(Authentication)에서 AuthenticationProvider들에 의해 사용되는 UserDetailsService 인터페이스를 구현한 클래스입니다. 
 Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 UserDetails 구현체를 반환합니다.
 
-- loadUserByUsername 메소드의 debug 포인트 설정시 call stack
+- loadUserByUsername 메소드의 debug 포인트 설정 시 call stack
     - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
 <p align="left"><img src="/images/spring-security-example-2.JPG" width="75%"></p>
 

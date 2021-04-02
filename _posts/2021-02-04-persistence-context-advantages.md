@@ -1,5 +1,5 @@
 ---
-title: "영속성 컨텍스트(Persistence Context) 사용시 이점"
+title: "영속성 컨텍스트(Persistence Context) 사용 시 이점"
 search: false
 category:
   - spring-boot

@@ -32,9 +32,9 @@ last_modified_at: 2021-03-17T00:00:00
 특정 설정과 클래스를 같이 사용하면 문제가 됩니다. 
 디버그를 통해 원인을 확인하였고 간단히 정리해보도록 하겠습니다. 
 
-### **`feign.circuitbreaker.enabled=true`** 설정 사용시
-- **`feign.hystrix.FallbackFactory`** 클래스를 사용시 문제 발생
-- **`org.springframework.cloud.openfeign.FallbackFactory`** 클래스를 사용시 정상 동작
+### **`feign.circuitbreaker.enabled=true`** 설정 사용 시
+- **`feign.hystrix.FallbackFactory`** 클래스를 사용 시 문제 발생
+- **`org.springframework.cloud.openfeign.FallbackFactory`** 클래스를 사용 시 정상 동작
 
 ##### application.yml
 ```yml
@@ -54,9 +54,9 @@ feign:
     enabled: true
 ```
 
-### **`feign.hystrix.enabled=true`** 설정 사용시
-- **`feign.hystrix.FallbackFactory`** 클래스를 사용시 정상 동작
-- **`org.springframework.cloud.openfeign.FallbackFactory`** 클래스를 사용시 정상 동작
+### **`feign.hystrix.enabled=true`** 설정 사용 시
+- **`feign.hystrix.FallbackFactory`** 클래스를 사용 시 정상 동작
+- **`org.springframework.cloud.openfeign.FallbackFactory`** 클래스를 사용 시 정상 동작
 
 ##### application.yml
 ```yml
@@ -77,7 +77,7 @@ feign:
 ```
 
 ### 문제 발생 지점 확인 내용
-**`feign.circuitbreaker.enabled=true`** 설정 사용시에는 circuitBreakerFeignTargeter 라는 빈(Bean)을 만듭니다. 
+**`feign.circuitbreaker.enabled=true`** 설정 사용 시에는 circuitBreakerFeignTargeter 라는 빈(Bean)을 만듭니다. 
 빈(Bean) 내부에서 fallbackFactory를 만들때 org.springframework.cloud.openfeign.FallbackFactory 클래스를 상속받는 클래스만 사용이 가능하도록 되어있습니다. 
 
 ##### circuitBreakerFeignTargeter 빈(Bean) 생성

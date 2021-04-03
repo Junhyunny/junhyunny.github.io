@@ -24,7 +24,7 @@ last_modified_at: 2021-04-02T00:00:00
 데이터베이스도 목차처럼 데이터와 데이터 위치를 포함하는 자료구조를 통해 데이터 조회를 빠르게 도우며 이를 인덱스라고 합니다.
 
 ##### DB 인덱스 활용시 데이터 검색
-<p align="left"><img src="/images/database-index-and-precautions-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/database-index-and-precautions-1.JPG" width="80%"></p>
 <center>이미지 출처, https://mangkyu.tistory.com/96</center><br>
 
 ## DB 인덱스 사용 시 장점과 단점
@@ -63,7 +63,7 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 
 ##### 선택도(Selectivity)
 
-> 선택도 - 데이터 집합에서 특정 값을 얼마나 잘 선택할 수 있는지에 대한 지표<br>
+> 선택도(Selectivity), 데이터 집합에서 특정 값을 얼마나 잘 선택할 수 있는지에 대한 지표<br>
 > = Selectivity = Cardinality / Total Number Of Records
 
 선택도는 기수성으로부터 계산할 수 있습니다. 

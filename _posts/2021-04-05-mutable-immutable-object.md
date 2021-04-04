@@ -1,5 +1,5 @@
 ---
-title: "MUTABLE, IMMUTABLE 객체"
+title: "MUTABLE, IMMUTABLE 객체 차이점"
 search: false
 category:
   - information

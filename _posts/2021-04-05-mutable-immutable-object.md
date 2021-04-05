@@ -68,7 +68,7 @@ public class MutableTest {
 ```
 
 ##### MUTABLE 객체 값 변경 이미지
-<p align="center"><img src="/images/mutable-immutable-object-1.gif" width="85%"></p>
+<p align="center"><img src="/images/mutable-immutable-object-1.gif" width="65%"></p>
 
 ### MUTABLE 객체 사용시 주의점
 Java에선 객체가 참조를 통해 공유되기 때문에 어떤 스레드에서 객체의 값을 변경할지 모릅니다. 
@@ -116,7 +116,7 @@ public class ImmutableTest {
 ```
 
 ##### IMMUTABLE 객체 값 변경 이미지
-<p align="center"><img src="/images/mutable-immutable-object-2.gif" width="85%"></p>
+<p align="center"><img src="/images/mutable-immutable-object-2.gif" width="65%"></p>
 
 ### 대표적인 Java IMMUTABLE 객체
 - String, Boolean, Integer, Float, Long, Double

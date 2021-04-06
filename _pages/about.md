@@ -52,11 +52,12 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
 - Monolithic Architecture > Micro Service Architecture 전환
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
-- 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발 
+- 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발
 - 기존 차량 이송 도메인에서 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
+- DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선 사례(구체적인 트러블 슈팅 사례 업로드 필요🔫)
 - 제철소 공정 내 물류 야드 관리 서비스 개발 및 안정화
   - 하루 평균 3000만 요청 발생
-- Custom Rule Engine 리팩토링 및 속도 개선
+- Custom Rule Engine 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
   - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
 
 ##### [Smart CCTV System 개발]
@@ -75,38 +76,6 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
 - 기억 남기기, 기억 공유, 기억 예약 전송, 부고 작성, 부고 문자 전송 BATCH 기능 개발
 
-<div class="third align-center">
-  <img src="/images/about/about-remember-1.gif" width="32%">
-  <img src="/images/about/about-remember-2.gif" width="32%">
-  <img src="/images/about/about-remember-3.gif" width="32%">
-</div>
-
-## Side Proejcts 💻
-##### 추가 예정입니다.
-
-## Trouble Shooting 🔫
-##### [MES3.0, DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선 사례]
-##### 문제
-- 서비스에 command 요청 자체가 많아 트랜잭션으로 인한 DB 자원 경합이 치열합니다.
-
-##### 원인
-- 서로 다른 2개의 설비가 동일 저장위치에 대한 상태 업데이트 이벤트를 요청합니다.
-- 이와 동시에 수행되는 시뮬레이션과 설비 이벤트에서 테이블을 업데이트하는 순서가 달랐습니다.
-- 일부 위치에 교착상태 발생을 방지하는 코드가 있었지만 정상적인 동작이 되지 않는 상태였습니다.
-
-##### 해결
-- 작성 중입니다.
-
-##### [MES3.0, Custom Rule Engine 사용 시 성능 개선 사례]
-##### 문제
-- 작성 중입니다.
-
-##### 원인
-- 작성 중입니다.
-
-##### 해결
-- 작성 중입니다.
-
 <!-- ##### [K-ICT Bigdata Center, Hadoop 서비스 제공 시스템 보안 이슈 사례]
 ##### 문제
 - 작성 중입니다.
@@ -116,6 +85,11 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 
 ##### 해결
 - 작성 중입니다. -->
+
+## Side Proejcts 💻
+##### Slack ChatBot, 2021-04-06 ~
+- slack chat-bot write comment test success using RestTemplate
+- github search junhyunny repository check success
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

@@ -30,14 +30,14 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 
 ##### [Framework]
 - Spring Boot, Spring Cloud
-- JPA / Hibernate, MyBatis
+- JPA/Hibernate, MyBatis
 - Vue.js, NativeScript-Vue
 
 ##### [Platform]
 - Apache Kafka
 
 ##### [Tool]
--  Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
+- Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
 ##### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재
@@ -65,16 +65,16 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - 영상인식을 통한 작업 정상 처리 여부 판단 기능 개발
   - 인식률 90% 이상
 
+##### [보고싶다]
+- Vue.js, Spring Boot, Spring Security, JPA, MySQL
+- 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
+- 기억 남기기, 기억 공유, 기억 예약 전송, 부고 작성, 부고 문자 전송 BATCH 기능 개발
+
 ##### [빌라엠]
 - NativeScript-Vue, Vue.js, Spring Boot, Spring Security, JPA, MySQL
 - 빌라 주민들의 관리비 결제 및 관리, 공지사항 알림, 설문 기능, 불편사항 접수 기능 제공
 - 전자 투표 및 모바일 서명 기능, 불편사항, 주민소통, 게시판, 설문조사 기능 개발
 - <https://www.villam.co.kr/main.do>
-
-##### [보고싶다]
-- Vue.js, Spring Boot, Spring Security, JPA, MySQL
-- 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
-- 기억 남기기, 기억 공유, 기억 예약 전송, 부고 작성, 부고 문자 전송 BATCH 기능 개발
 
 <!-- ##### [K-ICT Bigdata Center, Hadoop 서비스 제공 시스템 보안 이슈 사례]
 ##### 문제
@@ -87,9 +87,10 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - 작성 중입니다. -->
 
 ## Side Proejcts 💻
-##### Slack ChatBot, 2021-04-06 ~
+##### [Slack ChatBot] 2021-04-06 ~
 - slack chat-bot write comment test success using RestTemplate
 - github search junhyunny repository check success
+- finding how to deploy java application to amazone lambda 
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

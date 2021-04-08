@@ -13,31 +13,18 @@ classes: wide
 사용한 기술 스택, 귀동냥한 정보들에 관해 공부한 내용을 블로그에 정리하고 있습니다. 
 제가 하는 정보 공유 활동이 많은 분들께 도움이 될 수 있기를 바랍니다. 
 
-대규모 서버 사이드 개발 및 운영 경험이 있으며, 간단한 웹 어플리케이션, 모바일 어플리케이션 개발이 가능합니다. 
-Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워크를 주력으로 사용합니다. 
-간단한 웹 어플리케이션, 모바일 어플리케이션 개발은 Vue.js, NativeScript-Vue 프레임워크를 주로 사용합니다.
-
 잘 부탁드립니다.
 
 ## Skills ⚒
-##### [Language]
-- Java
-- JavaScript
+##### [Language], Java, JavaScript
 
-##### [Database]
-- Oracle
-- MySQL
+##### [Database], Oracle, MySQL
 
-##### [Framework]
-- Spring Boot, Spring Cloud
-- JPA/Hibernate, MyBatis
-- Vue.js, NativeScript-Vue
+##### [Framework], Spring Boot, Spring Cloud, JPA/Hibernate, MyBatis, Vue.js, NativeScript-Vue
 
-##### [Platform]
-- Apache Kafka
+##### [Platform], Apache Kafka
 
-##### [Tool]
-- Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
+##### [Tool], Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
 ##### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재

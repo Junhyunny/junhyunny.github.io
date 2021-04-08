@@ -102,7 +102,7 @@ IPing 인터페이스는 각 서버가 살아있는지 검사하는 역할을 �
 개발자가 직접 IPing 인터페이스를 구현한 클래스를 만들어 PING 기능을 커스터마이징 할 수 있습니다.
 
 IPing 인터페이스를 구현한 클래스들입니다.
-- com.netflix.loadbalancer.DummyPing(default)
+- com.netflix.loadbalancer.DummyPing (default)
 - com.netflix.niws.loadbalancer.NIWSDiscoveryPing 
   - 각 서버들이 유레카에 여전히 등록되어 있는지 주기적으로 확인
 
@@ -128,7 +128,7 @@ ServerList 인터페이스를 구현한 클래스들입니다.
 - com.netflix.loadbalancer.ConfigurationBasedServerList 
   - 서버 목록을 property(혹은 yml)을 통해 획득
 - com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList 
-  - 유레카 서버로부터 얻은 서버 리스트를 획득
+  - 유레카 서버로부터 얻은 서버 목록을 획득
 
 ##### ServerList 인터페이스
 ```java

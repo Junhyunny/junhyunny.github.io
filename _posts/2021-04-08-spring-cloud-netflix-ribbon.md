@@ -126,7 +126,7 @@ ServerList 인터페이스는 대상 서버 목록을 제공합니다.
 
 ServerList 인터페이스를 구현한 클래스들입니다.
 - com.netflix.loadbalancer.ConfigurationBasedServerList 
-  - 서버 목록을 property(혹은 yml)을 통해 획득
+  - 서버 목록을 .properties(혹은 .yml)을 통해 획득
 - com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList 
   - 유레카 서버로부터 얻은 서버 목록을 획득
 
@@ -151,7 +151,7 @@ Ribbon은 Eureka, FeignClient를 사용하면 함께 적용되기 때문에 @Rib
 이전 [FeignClient with Eureka][feign-with-eureka-blogLink] 포스트에서 
 FeignClient, Eureka 컴포넌트를 함께 사용할 때 로드 밸런스가 동작하는 되는 테스트 코드를 확인하실 수 있습니다. 
 
-추가적으로 property(혹은 yml) 파일에 아래 설정을 추가하여 개발자가 커스터마이징한 기능들을 사용할 수 있습니다.
+추가적으로 .properties(혹은 .yml) 파일에 아래 설정을 추가하여 개발자가 커스터마이징한 기능들을 사용할 수 있습니다.
 - **`{clientName}.ribbon.NFLoadBalancerClassName`**: Should implement ILoadBalancer
 - **`{clientName}.ribbon.NFLoadBalancerRuleClassName`**: Should implement IRule
 - **`{clientName}.ribbon.NFLoadBalancerPingClassName`**: Should implement IPing

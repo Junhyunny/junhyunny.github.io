@@ -74,9 +74,9 @@ classes: wide
 
 ## Side Proejcts 💻
 ##### [Slack ChatBot]
-- **'1일 1 COMMIT'**을 독촉하는 메세지를 보내는 Slack 챗봇
-- Slack, Github API 연동 테스트(포스트 업로드 필요)
-- AWS Lambda 배포(포스트 업로드 필요)
+- **'1일 1 COMMIT'**을 독촉하는 메세지를 보내는 Slack 채팅 봇
+- Slack, Github API 연동 테스트(POST 작성 필요✍️)
+- AWS Lambda 배포(POST 작성 필요✍️)
 - <https://github.com/Junhyunny/slack-chatbot>
 
 ## Education 👨🏻‍🎓

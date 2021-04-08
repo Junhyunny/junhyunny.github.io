@@ -16,13 +16,13 @@ classes: wide
 잘 부탁드립니다.
 
 ## Skills ⚒
-### [Programming Language]
-- Java, JavaScript
+##### [Programming Language]
+- Java
 
-### [Backend Development]
+##### [Backend Development]
 - Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL
 
-### [Tools]
+##### [Tools]
 - Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
 
 ## Career 📋

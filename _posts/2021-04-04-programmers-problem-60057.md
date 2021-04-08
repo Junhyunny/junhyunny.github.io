@@ -48,14 +48,14 @@ last_modified_at: 2021-04-04T00:00:00
 | "xababcdcdababcdcd" | 17 |
 
 ## 코드 해설
-- 문자열을 얼만큼씩 압축할지 compressLength 변수로 지정하여 반복 수행합니다.
-- 총 문자열의 절반까지만 수행하면 되므로 length / 2 횟수만큼 반복합니다.
+- 문자열을 압축할 길이를 compressLength 변수로 지정하여 반복 수행합니다.
+- 총 문자열의 절반까지만 수행하면 되므로 (length / 2) 횟수만큼 반복합니다.
 - compress 메소드를 이용해 문자열을 압축해보고 가장 작은 수가 나오면 이를 answer 변수에 저장합니다.
-- startIndex부터 compressLength 만큼 substring 해나갑니다.
-- startIndex + compressLength 값이 총 문자열 길이를 넘지 않을 때까지 반복 수행합니다. 
+- startIndex 부터 compressLength 만큼 substring 메소드를 수행합니다.
+- (startIndex + compressLength) 값이 총 문자열 길이를 넘지 않을 때까지 반복 수행합니다. 
 - 이전 문자열 before와 현재 문자열 current가 같다면 반복 횟수 count를 증가시킵니다.
 - 같아지지 않는 경우에 압축 결과를 담는 buf 객체에 해당 before 문자열을 추가합니다.
-- count가 1인 경우에는 문자열만 2 이상인 경우에는 앞에 숫자를 함께 전달합니다.
+- count가 1인 경우에는 문자열만, 2 이상인 경우에는 앞에 숫자를 함께 전달합니다.
 - 반복문 수행이 끝난 이후에 남은 문자열을 buf 객체에 추가합니다.
 
 ```java
@@ -114,12 +114,12 @@ class Solution {
 - 압축할 길이를 증가시키며 getSplitedLength 메소드를 반복 수행합니다.
 - preString 변수는 앞에 잘라낸 문자열, postString 변수는 남은 문자열을 참조합니다.
 - startsWith 메소드를 통해 postString 객체가 preString 객체 값으로 시작하는지 확인합니다. 
-- 아닌 CASE
+- postString 객체가 preString 객체 값으로 시작하지 않는 CASE
     - repeat 값이 1 이라면 앞 문자열을 그래로 붙혀 재귀 함수를 수행합니다.<br>
       (preString + getSplitedLength(postString, n, 1))
     - repeat 값이 1 아니라면 반복 수행 횟수 repeat 값을 앞에 붙혀 재귀 함수를 수행합니다.<br>
       (Integer.toString(repeat) + preString + getSplitedLength(postString, n, 1))
-- 맞는 CASE
+- postString 객체가 preString 객체 값으로 시작하는 CASE
     - repeat 값에 1을 증가시켜 getSplitedLength 재귀 함수를 수행합니다.
 
 ```java
@@ -155,5 +155,5 @@ class Solution {
 
 ## OPINION
 정말 획기적입니다.😍 
-재귀 함수를 사용하는 경우 가독성이 좋아진다는 장점이 있다고 알고 있었지만 정말 감탄스럽습니다. 
+재귀 함수를 사용하는 경우 가독성이 좋아진다는 장점에 대해 알고 있었지만 정말 감탄스럽습니다. 
 오늘도 좋은 코드를 보며 자괴감과 존경심이 동시에 드는 하루였습니다. 

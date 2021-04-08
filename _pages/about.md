@@ -20,7 +20,7 @@ classes: wide
 - Java
 
 ##### [Backend Development]
-- Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL
+- Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL, Apache Kafka
 
 ##### [Tools]
 - Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira

@@ -59,7 +59,7 @@ MSA는 서비스들끼리 협업하는 세상입니다.
 ### RULE
 로드 밸런싱 방식을 지정하기 위한 인터페이스입니다. 
 해당 인터페이스 구현체들은 로드 밸런싱을 수행하기 위한 기준을 제공합니다. 
-application.yml 파일에 <clientName>.ribbon.NFLoadBalancerRuleClassName 설정을 통해 기준을 제공하는 클래스를 지정할 수 있습니다. 
+application.yml 파일에 {clientName}.ribbon.NFLoadBalancerRuleClassName 설정을 통해 기준을 제공하는 클래스를 지정할 수 있습니다. 
 개발자가 직접 IRule 인터페이스를 구현한 클래스를 만들어 로드 밸런싱 기준을 커스터마이징 할 수 있습니다.
 
 IRule 인터페이스를 구현한 클래스들입니다.
@@ -152,11 +152,11 @@ Ribbon은 Eureka, FeignClient를 사용하면 함께 적용되기 때문에 @Rib
 이전 [FeignClient with Eureka][feign-with-eureka-blogLink] 포스트에서 FeignClient, Eureka 컴포넌트를 함께 사용하여 로드 밸런싱이 되는 테스트 코드를 확인하실 수 있습니다. 
 
 추가적으로 property(혹은 yml) 파일에 아래 설정을 추가하여 개발자가 커스터마이징한 기능들을 사용할 수 있습니다.
-- <clientName>.ribbon.NFLoadBalancerClassName: Should implement ILoadBalancer
-- <clientName>.ribbon.NFLoadBalancerRuleClassName: Should implement IRule
-- <clientName>.ribbon.NFLoadBalancerPingClassName: Should implement IPing
-- <clientName>.ribbon.NIWSServerListClassName: Should implement ServerList
-- <clientName>.ribbon.NIWSServerListFilterClassName: Should implement ServerListFilter
+- {clientName}.ribbon.NFLoadBalancerClassName: Should implement ILoadBalancer
+- {clientName}.ribbon.NFLoadBalancerRuleClassName: Should implement IRule
+- {clientName}.ribbon.NFLoadBalancerPingClassName: Should implement IPing
+- {clientName}.ribbon.NIWSServerListClassName: Should implement ServerList
+- {clientName}.ribbon.NIWSServerListFilterClassName: Should implement ServerListFilter
 
 #### REFERENCE
 - <https://sabarada.tistory.com/54>

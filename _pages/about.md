@@ -87,10 +87,11 @@ Java를 주력 언어로 사용하며 서버 개발 시 Spring Boot 프레임워
 - 작성 중입니다. -->
 
 ## Side Proejcts 💻
-##### [Slack ChatBot] 2021-04-06 ~
-- slack chat-bot write comment test success using RestTemplate
-- github search junhyunny repository check success
-- finding how to deploy java application to amazone lambda 
+##### [Slack ChatBot]
+- **'1일 1 COMMIT'**을 독촉하는 메세지를 보내는 Slack 챗봇
+- Slack, Github API 연동 테스트(포스트 업로드 필요)
+- AWS Lambda 배포(포스트 업로드 필요)
+- <https://github.com/Junhyunny/slack-chatbot>
 
 ## Education 👨🏻‍🎓
 ##### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

@@ -30,7 +30,7 @@ Ribbon은 클라이언트 사이드 로드 밸런서라고 하는데 정확히 �
 이미지를 통해 조금 더 쉽게 이해해보도록 하겠습니다. 
 
 ##### 서버 사이드 로드 밸런서(server-side load balancer)
-<p align="center"><img src="/images/spring-cloud-netflix-ribbon-1.jpg" width="50%"></p>
+<p align="center"><img src="/images/spring-cloud-netflix-ribbon-1.JPG" width="50%"></p>
 <center>이미지 출처, https://sabarada.tistory.com/54</center><br>
 
 서버 사이드 로드 밸런서를 사용하는 경우 다음과 같은 한계점이 있습니다. 
@@ -46,7 +46,7 @@ MSA는 서비스들끼리 협업하는 세상입니다.
 그렇기 때문에 서비스는 클라이언트의 요청을 받아주는 서버가 될 수도 있고 다른 서비스에게 도움을 요청하는 클라이언트가 될 수도 있습니다. 
 
 ##### 클라이언트 사이드 로드 밸런서(server-side load balancer)
-<p align="center"><img src="/images/spring-cloud-netflix-ribbon-2.jpg" width="50%"></p>
+<p align="center"><img src="/images/spring-cloud-netflix-ribbon-2.JPG" width="50%"></p>
 <center>이미지 출처, https://sabarada.tistory.com/54</center><br>
 
 클라이언트 사이드 로드 밸런서는 클라우드 환경에서 다음과 같은 이점을 얻을 수 있습니다.

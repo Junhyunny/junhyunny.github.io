@@ -16,15 +16,14 @@ classes: wide
 잘 부탁드립니다.
 
 ## Skills ⚒
-##### [Language], Java, JavaScript
+### [Programming Language]
+- Java, JavaScript
 
-##### [Database], Oracle, MySQL
+### [Backend Development]
+- Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL
 
-##### [Framework], Spring Boot, Spring Cloud, JPA/Hibernate, MyBatis, Vue.js, NativeScript-Vue
-
-##### [Platform], Apache Kafka
-
-##### [Tool], Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
+### [Tools]
+- Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
 ##### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재
@@ -41,7 +40,7 @@ classes: wide
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
 - 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발
 - 기존 차량 이송 도메인에서 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
-- DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선 사례(구체적인 트러블 슈팅 사례 업로드 필요🔫)
+- DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
 - 제철소 공정 내 물류 야드 관리 서비스 개발 및 안정화
   - 하루 평균 3000만 요청 발생
 - Custom Rule Engine 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)

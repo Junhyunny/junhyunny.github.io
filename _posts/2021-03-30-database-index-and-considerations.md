@@ -55,7 +55,7 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 ##### 기수성(Cardinality)
 
 > 기수성(Cardinality), 특정 데이터 집합의 유니크(Unique)한 값의 개수<br>
-> = Cardinality = Distinct Key 개수 = select count(distinct (column)) from table
+> = Cardinality = Distinct Value 개수 = select count(distinct (column)) from table
 
 전체 행에 대한 특정 컬럼의 데이터 중복 수치에 대한 정보를 기수성(Cardinality)라고 합니다. 
 중복되는 횟수가 높으면 기수성 값이 낮고, 중복되는 횟수가 낮으면 기수성 값이 높다고 표현합니다. 

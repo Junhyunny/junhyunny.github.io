@@ -75,8 +75,8 @@ public @interface Bean {
 ```
 
 ## OPINION
-공부하지 않고 프로젝트를 위해 Spring Boot 프레임워크를 사용해서 그런지 근본이 없습니다. 
-프레임워크와 관련된 서적이나 글을 읽어봤다면 무리없이 대답할 수 있는 질문이어서 아쉽습니다. 
+Spring Boot 프레임워크와 관련된 서적이나 글을 읽어봤다면 무리없이 대답할 수 있는 질문이어서 아쉽습니다. 
+프로젝트를 위해 사용한 것이지 근본적인 것에 대해 공부하지 않은 것이 낱낱이 밝혀지는 순간이었습니다.😰
 
 #### REFERENCE
 - <https://goodgid.github.io/Spring-Component-vs-Bean/>

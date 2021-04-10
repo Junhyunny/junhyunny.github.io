@@ -73,8 +73,7 @@ classes: wide
 ## Side Proejcts 💻
 ##### [Slack ChatBot]
 - **'1일 1 COMMIT'**을 독촉하는 메세지를 보내는 Slack 채팅 봇
-- Slack, Github API 연동 테스트(POST 작성 필요✍️)
-- AWS Lambda 배포(POST 작성 필요✍️)
+- [[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]
 - <https://github.com/Junhyunny/slack-chatbot>
 
 ## Education 👨🏻‍🎓
@@ -86,3 +85,5 @@ classes: wide
   - 대한수학회, 고등과학원 주최
 - 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
   - 국립전파연구원 주최
+
+  [side-project-slack-chatbot-link: https://

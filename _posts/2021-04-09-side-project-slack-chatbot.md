@@ -161,10 +161,11 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 </dependency>
 ```
 
-내가 필요한 기능은 간단하고 해당 라이브러리에서 필요한 기능을 제공하지 않는 것으로 보여 사용하지 않기로 했다. 
-특정 사용자가 사용하는 repository 정보들과 해당 repository에 오늘 push 한 이력이 있는지만 확인하면 되기 때문에 Github API 문서를 찾아봤다. 
+해당 라이브러리에서 필요한 기능을 제공하지 않는 것 같아서 사용하지 않기로 했다. 
+내가 필요한 기능은 간단하다. 
+특정 사용자의 repository 정보들과 해당 repository에 오늘 push 한 이력이 있는지만 확인하면 되기 때문에 Github API 문서를 찾아봤다. 
 딱 원하는 기능을 발견했다.😄 
-각 repository 별로 마지막에 push 한 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했다.
+각 repository 별로 마지막 push 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했다.
 
 ##### Github API, List repositories for a user
 <p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="75%"></p>

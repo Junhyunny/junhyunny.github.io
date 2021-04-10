@@ -217,6 +217,8 @@ Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜�
 ### Event Trigger 주기 설정 및 요청 parameter 등록
 프로그램에 repository 사용자 정보, Slack token 정보, Slack Channel 정보가 코드에 하드 코딩되어 있으면 
 불필요한 정보가 노출되기 때문에 아래와 같은 요청 parameter로 전달하기로 했다. 
+EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter를 등록할 수 있는 Console 화면이 존재한다. 
+해당 화면에서 주기와 요청 parameter를 등록한다. 
 
 ##### AWS Lambda 요청 parameter
 ```json
@@ -226,9 +228,6 @@ Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜�
   "channelName": "your slack channel"
 }
 ```
-
-EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter를 등록할 수 있는 Console 화면이 존재한다. 
-해당 화면에서 주기와 요청 parameter를 등록한다. 
 
 ##### EventBridge 설정 편집 화면 이동
 <p align="center"><img src="/images/side-project-slack-chatbot-7.JPG"></p>

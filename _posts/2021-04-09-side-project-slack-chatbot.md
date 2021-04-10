@@ -20,7 +20,7 @@ Slack 어플리케이션이랑 안 친해서 많이 헤맸다.
 ## Slack API 테스트
 이제 봇도 등록했으니 본격적으로 코드를 작성했다. 
 Slack API 기능과 Github API 기능을 이어 붙히면 되기 때문에 먼저 필요한 Slack API 기능들을 찾아봤다. 
-기능 테스트시 겪은 간단한 이슈들만 정리해보겠다. 
+기능 테스트 시 겪은 간단한 이슈들만 정리해보겠다. 
 
 ### Slack 인증 에러
 [Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 느낌을 받았다.  

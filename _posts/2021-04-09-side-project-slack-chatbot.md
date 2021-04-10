@@ -23,7 +23,7 @@ Slack API 기능과 Github API 기능을 이어 붙히면 되기 때문에 먼�
 기능 테스트 시 겪은 간단한 이슈들만 정리해보겠다. 
 
 ### Slack 인증 에러
-[Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 느낌을 받았다.  
+[Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 느낌을 받았다. 
 보통 Content-Type 같은 정보는 HTTP Header를 통해 전달하는데 참고한 코드를 보면 쿼리 parameter로 전달하는 느낌? 
 일단 해당 포스트를 작성한 분은 성공한 것으로 보이나 내 방식대로 Content-Type 정보는 HTTP Header로 전달하기로 했다.
 

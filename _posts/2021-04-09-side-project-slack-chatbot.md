@@ -245,8 +245,10 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 
 ##### Message from Slack Chatbot
 <div class="align-center">
-  <p align="center"><img src="/images/side-project-slack-chatbot-10.JPG" width="35%"></p>
-  <p align="center"><img src="/images/side-project-slack-chatbot-11.JPG" width="35%"></p>
+  <p align="center">
+    <img src="/images/side-project-slack-chatbot-10.JPG" width="35%">
+    <img src="/images/side-project-slack-chatbot-11.JPG" width="35%">
+  </p>
 </div>
 
 정상적으로 동작한다. 앞으로 공부하라는 메세지를 받을 일만 남았다.😂

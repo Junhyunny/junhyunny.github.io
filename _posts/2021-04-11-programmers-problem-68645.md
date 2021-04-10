@@ -17,7 +17,7 @@ last_modified_at: 2021-04-11T00:00:00
 다음 그림과 같이 밑변의 길이와 높이가 n인 삼각형에서 맨 위 꼭짓점부터 반시계 방향으로 달팽이 채우기를 진행한 후, 
 첫 행부터 마지막 행까지 모두 순서대로 합친 새로운 배열을 return 하도록 solution 함수를 완성해주세요.
 
-<p align="center"><img src="/images/programmers-problem-68645-1.JPG"></p>
+<p align="center"><img src="/images/programmers-problem-68645-1.JPG" width="80%"></p>
 <center>이미지 출처, https://programmers.co.kr/learn/courses/30/lessons/68645</center><br>
 
 ## 제한 사항
@@ -39,7 +39,7 @@ last_modified_at: 2021-04-11T00:00:00
     - turnMode = 2 - row 감소, col 감소
 - turnMode 값은 turnPoint 값이 0 이 되는 지점마다 변경됩니다.
 - turnMode 값은 0 > 1 > 2 > 0 순서로 반복적으로 변경됩니다.
-- turnPoint 값이 0 이 되면 새로운 turnPoint 값으로 이전 값보다 1 작은 값으로 지정합니다.
+- turnPoint 값이 0 이 되면 새로운 turnPoint 에 이전 초기 turnPoint 값보다 1 작은 값을 지정합니다.
 - value 값이 answerSize + 1 값이 될 떄까지 반복 수행합니다.
 - map 배열에 저장된 값을 순차적으로 answer 배열에 넣어줍니다.(0 인 값 제외)
 
@@ -143,6 +143,6 @@ class Solution {
 ```
 
 ## OPINION
-같은 모양을 가진 배열을 만드는 코드를 작성하는데 반복문의 모습이 다른 것이 인상 깊어서 BEST PRACTICE로 선정하였습니다. 
+같은 모양의 배열을 만드는 코드이지만 반복문 제어가 제 풀이와 많이 다른 점이 인상 깊어서 BEST PRACTICE로 선정하였습니다. 
 이중 반복문으로 해결할 수 있을거라곤 생각도 못 했습니다. 
-값을 입력해 나가는 방향 별로 반복되는 규칙을 파악하는데 집중했다면 BEST PRACTICE와 비슷한 코드를 작성할 수 있을거라는 생각에 아쉬움이 남습니다.
+값을 입력해 나가는 방향 별로 반복되는 규칙을 파악하는데 집중했다면 BEST PRACTICE와 비슷하게 풀어낼 수 있었을거라는 생각에 아쉬움이 남습니다.

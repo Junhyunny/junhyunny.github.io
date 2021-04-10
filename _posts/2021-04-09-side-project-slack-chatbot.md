@@ -11,10 +11,10 @@ last_modified_at: 2021-04-09T00:00:00
 공부하다 흘러들어간 블로그에 Github 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았다.([일일커밋 알림봇 개발기][mingrammer-blogLink]) 
 **`'기능도 간단해 보이는데 Java 언어로 개발한 사람이 없다면 내가 만들어볼까?'`**🤔 
 하던 공부는 접고 바로 개발에 착수했다. 
-Slack 앱을 사용하지 않고 있었지만 일단 다운받고 채팅 봇 만드는 것부터 찾아봤다. 
+Slack 어플리케이션을 안 사용하고 있었기 때문에 일단 다운받고 채팅 봇 만드는 방법을 찾아봤다. 
 
 ## Slack 봇 등록
-Slack 앱이랑 안 친해서 많이 헤맸다. 
+Slack 어플리케이션이랑 안 친해서 많이 헤맸다. 
 [Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 참고해서 간신히 채널 생성과 채팅 봇 등록을 했다. 
 
 ## Slack API 테스트
@@ -23,8 +23,9 @@ Slack API 기능과 Github API 기능을 이어 붙히면 되기 때문에 먼�
 기능 테스트시 겪은 간단한 이슈들만 정리해보겠다. 
 
 ### Slack 인증 에러
-[Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 부분이 느껴졌다. 
-보통 Content-Type 같은 정보는 HTTP Header를 통해 전달하는데 참고한 코드를 보면 쿼리 parameter로 전달하는 느낌?
+[Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 느낌을 받았다.  
+보통 Content-Type 같은 정보는 HTTP Header를 통해 전달하는데 참고한 코드를 보면 쿼리 parameter로 전달하는 느낌? 
+일단 해당 포스트를 작성한 분은 성공한 것으로 보이나 내 방식대로 Content-Type 정보는 HTTP Header로 전달하기로 했다.
 
 ##### [Python으로 Slack Bot 만들기] 참조한 코드
 ```python
@@ -41,11 +42,12 @@ params = {
 res = requests.get(URL, params = params)
 ```
 
-Python 이랑은 별로 안 친해서 잘 모르니 일단 내가 아는데로 Header에 Content-Type, Token 정보를 담아서 전달했다. 역시 실패했다. 
+##### 채널 조회 요청 실패 로그
 ```
 2021-04-09 19:26:50.695  INFO 10572 --- [           main] io.junhyunny.SlackChatBotTest            : {ok=false, error=invalid_auth}
 ```
 
+역시나 실패. 
 **`음~, 그래도 역시 URL에 노출하고 싶지 않은데? 다른 방법 없을까?`🤔** 
 Slack API 문서를 뒤지다보니 다른 방법이 있었다. 
 확인해보니 HTTP Header로 전달하려면 **`application/json`**, 
@@ -53,7 +55,7 @@ Slack API 문서를 뒤지다보니 다른 방법이 있었다.
 또, HTTP Header에서 토큰 정보는 Authorization 키워드를 키로 전달하고, 토큰 앞에 Bearer 키워드도 추가해야한다. 
 
 ##### Slack API 문서
-<p align="center"><img src="/images/side-project-slack-chatbot-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-1.JPG" width="50%"></p>
 
 ##### Slack 채널 정보를 가져오는 테스트 코드
 ```java
@@ -107,7 +109,7 @@ res = requests.post(URL, data=data)
 StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 발생한 것으로 보인다. 
 
 ##### StackOverflow 답변
-<p align="center"><img src="/images/side-project-slack-chatbot-2.JPG" width="80%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-2.JPG" width="50%"></p>
 
 ##### Slack 특정 채널에 글 작성 테스트 코드
 ```java
@@ -146,7 +148,7 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
 ```
 
 ##### Slack 특정 채널에 글 작성 테스트 결과
-<p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="45%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="50%"></p>
 
 ## Github API 테스트
 Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러리를 이용하는 것으로 보인다. 
@@ -165,7 +167,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 각 repository 별로 마지막에 push 한 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했다.
 
 ##### Github API, List repositories for a user
-<p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="80%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="50%"></p>
 
 ##### 사용자 Github repository push 이력 확인
 ```java
@@ -204,7 +206,7 @@ Java Application의 경우 아래와 같은 과정이 필요한데 API 문서를
 Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜주는 EventBridge(CloudWatch Events) 트리거를 등록한다. 
 
 ##### Slack Chatbot AWS Lambda 구성
-<p align="center"><img src="/images/side-project-slack-chatbot-5.JPG" width="80%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-5.JPG"></p>
 
 ### Lambda 어플리케이션 등록
 빌드 .jar를 올려주고 RequestStreamHandler 인터페이스를 구현한 클래스를 등록해준다. 
@@ -232,17 +234,17 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 <p align="center"><img src="/images/side-project-slack-chatbot-7.JPG"></p>
 
 ##### Event Trigger 주기 설정
-<p align="center"><img src="/images/side-project-slack-chatbot-8.JPG"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-8.JPG" width="50%"></p>
 
 ##### Event Trigger 요청 parameter 등록
-<p align="center"><img src="/images/side-project-slack-chatbot-9.JPG"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-9.JPG" width="50%"></p>
 
 ## Slack Chatbot 배포 후 확인
-내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 push 하라는 메세지를 전달한다. 
-일부러 repositorydp push 하지 않고 기다려봤다. 
+내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 commit 하라는 메세지를 전달한다. 
+일부러 push 하지 않고 기다려봤다. 
 
 ##### Message from Slack Chatbot
-<div class="second align-center">
+<div class="align-center">
   <img src="/images/side-project-slack-chatbot-10.JPG" width="45%">
   <img src="/images/side-project-slack-chatbot-11.JPG" width="45%">
 </div>

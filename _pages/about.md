@@ -72,7 +72,7 @@ classes: wide
 
 ## Side Proejcts 💻
 ##### [Slack ChatBot]
-- **'1일 1 COMMIT'**을 독촉하는 메세지를 보내는 Slack 채팅 봇
+- **'1일 1 COMMIT'** 독촉 메세지를 보내는 Slack 채팅 봇
 - [[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]
 - <https://github.com/Junhyunny/slack-chatbot>
 

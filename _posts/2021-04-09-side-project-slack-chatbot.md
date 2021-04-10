@@ -199,7 +199,7 @@ AWS는 사용해본 적이 없어서 이 작업을 하는데 제일 시간이 �
 일단 AWS Lambda 기능이 무엇인지 찾아보고 Java 어플리케이션을 올리는 방법을 알아봤다. 
 
 Java Application의 경우 아래와 같은 과정이 필요한데 API 문서를 읽어보면 쉽게 이해할 수 있다.
-1. [RequestStreamHandler 인터페이스 구현체 작성하기][java-handler-awsLink]
+1. [RequestStreamHandler 인터페이스 구현 클래스 작성하기][java-handler-awsLink]
 1. [.zip(혹은 .jar) 파일로 배포하기][java-deploy-awsLink]
 
 위 과정을 걸쳐서 배포에 필요한 .jar 파일을 만들었으면 이제 Lamda 어플리케이션을 등록해보자. 
@@ -211,7 +211,7 @@ Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜�
 ### Lambda 어플리케이션 등록
 빌드 .jar를 올려주고 RequestStreamHandler 인터페이스를 구현한 클래스를 등록해준다. 
 
-##### .jar 파일 업로드 및 RequestStreamHandler 인터페이스 구현체 등록
+##### .jar 파일 업로드 및 RequestStreamHandler 인터페이스 구현 클래스 등록
 <p align="center"><img src="/images/side-project-slack-chatbot-6.JPG"></p>
 
 ### Event Trigger 주기 설정 및 요청 parameter 등록

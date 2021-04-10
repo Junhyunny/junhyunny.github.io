@@ -240,12 +240,15 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 
 ## Slack Chatbot 배포 후 확인
 내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 commit 하라는 메세지를 전달한다. 
-일부러 push 하지 않고 기다려봤다. 
+일부러 push 하지 않고 commit 독촉 메세지가 오기를 기다려봤다. 
+과연... 결과는?🤨
 
 ##### Message from Slack Chatbot
-<div class="third align-center">
-  <img src="/images/side-project-slack-chatbot-10.JPG" width="30%">
-  <img src="/images/side-project-slack-chatbot-11.JPG" width="30%">
+<div class="align-center">
+  <div>
+    <img src="/images/side-project-slack-chatbot-10.JPG" width="35%">
+    <img src="/images/side-project-slack-chatbot-11.JPG" width="35%">
+  </div>
 </div>
 
 정상적으로 동작한다. 앞으로 공부하라는 메세지를 받을 일만 남았다.😂

@@ -55,7 +55,7 @@ Slack API 문서를 뒤지다보니 다른 방법이 있었다.
 또, HTTP Header에서 토큰 정보는 Authorization 키워드를 키로 전달하고, 토큰 앞에 Bearer 키워드도 추가해야한다. 
 
 ##### Slack API 문서
-<p align="center"><img src="/images/side-project-slack-chatbot-1.JPG" width="50%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-1.JPG" width="75%"></p>
 
 ##### Slack 채널 정보를 가져오는 테스트 코드
 ```java
@@ -109,9 +109,9 @@ res = requests.post(URL, data=data)
 StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 발생한 것으로 보인다. 
 
 ##### StackOverflow 답변
-<p align="center"><img src="/images/side-project-slack-chatbot-2.JPG" width="50%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-2.JPG" width="75%"></p>
 
-##### Slack 특정 채널에 글 작성 테스트 코드
+##### Slack 채널에 글 작성하기 테스트 코드
 ```java
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
@@ -147,7 +147,7 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
     }
 ```
 
-##### Slack 특정 채널에 글 작성 테스트 결과
+##### Slack 채널에 글 작성하기 테스트 결과
 <p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="50%"></p>
 
 ## Github API 테스트
@@ -167,7 +167,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 각 repository 별로 마지막에 push 한 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했다.
 
 ##### Github API, List repositories for a user
-<p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="50%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="75%"></p>
 
 ##### 사용자 Github repository push 이력 확인
 ```java
@@ -234,17 +234,17 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 <p align="center"><img src="/images/side-project-slack-chatbot-7.JPG"></p>
 
 ##### Event Trigger 주기 설정
-<p align="center"><img src="/images/side-project-slack-chatbot-8.JPG" width="50%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-8.JPG" width="75%"></p>
 
 ##### Event Trigger 요청 parameter 등록
-<p align="center"><img src="/images/side-project-slack-chatbot-9.JPG" width="50%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-9.JPG" width="75%"></p>
 
 ## Slack Chatbot 배포 후 확인
 내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 commit 하라는 메세지를 전달한다. 
 일부러 push 하지 않고 기다려봤다. 
 
 ##### Message from Slack Chatbot
-<div class="align-center">
+<div class="half align-center">
   <img src="/images/side-project-slack-chatbot-10.JPG" width="45%">
   <img src="/images/side-project-slack-chatbot-11.JPG" width="45%">
 </div>

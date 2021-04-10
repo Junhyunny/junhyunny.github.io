@@ -252,7 +252,7 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 간단한 chatbot 개발기를 작성해봤는데 개발하는 시간보다 개발한 내용들을 정리하는게 더 시간이 오래 걸렸다. 
 정리하는 시간이 귀찮기는 하지만 정리해놓으면 추후에 필요한 날이 오겠지? 
 공부나 일을 하다가 필요한 기능을 자동화 할 방법이 있는지 궁리해보면서 이런 프로그램 개발기들을 하나씩 늘려가야겠다. 
-**([slack-chatbot repository][slack-chatbot-gitLink])**
+(프로젝트 저장소 - **[slack-chatbot repository][slack-chatbot-gitLink]**)
 
 #### REFERENCE
 - <https://mingrammer.com/dev-commit-alarm-bot/>

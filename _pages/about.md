@@ -86,4 +86,4 @@ classes: wide
 - 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
   - 국립전파연구원 주최
 
-  [side-project-slack-chatbot-link: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
+[side-project-slack-chatbot-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/

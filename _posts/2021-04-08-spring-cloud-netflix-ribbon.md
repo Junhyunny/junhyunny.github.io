@@ -57,7 +57,7 @@ Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면
 ## Ribbon 주요 기능
 ### RULE
 IRule 인터페이스는 로드 밸런스 방식을 지정하기 위해 사용합니다. 
-IRule 인터페이스 구현체들은 로드 밸런스를 수행하기 위한 기준을 제공합니다. 
+IRule 인터페이스 구현체들은 로드 밸런싱을 수행하기 위한 기준을 제공합니다. 
 application.yml 파일에 **`{clientName}.ribbon.NFLoadBalancerRuleClassName`** 설정을 통해 기준을 제공하는 클래스를 지정할 수 있습니다. 
 개발자가 직접 IRule 인터페이스를 구현한 클래스를 만들어 로드 밸런스 기준을 커스터마이징 할 수 있습니다.
 
@@ -98,7 +98,7 @@ public interface IRule {
 
 ### PING
 IPing 인터페이스는 각 서버가 살아있는지 검사하는 역할을 수행합니다. 
-더 이상 살아있지 않는 서버는 로드 밸런스를 위한 서비스 목록에서 제거합니다. 
+더 이상 살아있지 않는 서버는 로드 밸런싱을 위한 서비스 목록에서 제거합니다. 
 개발자가 직접 IPing 인터페이스를 구현한 클래스를 만들어 PING 기능을 커스터마이징 할 수 있습니다.
 
 IPing 인터페이스를 구현한 클래스들입니다.
@@ -149,7 +149,7 @@ public interface ServerList<T extends Server> {
 이번 포스트는 테스트 코드 없이 설명 위주로 작성하였습니다. 
 Ribbon은 Eureka, FeignClient를 사용하면 함께 적용되기 때문에 @RibbonClient 애너테이션을 이용한 테스트 코드는 별도로 작성하지 않았습니다. 
 이전 [FeignClient with Eureka][feign-with-eureka-blogLink] 포스트에서 
-FeignClient, Eureka 컴포넌트를 함께 사용할 때 로드 밸런스가 동작하는 되는 테스트 코드를 확인하실 수 있습니다. 
+FeignClient, Eureka 컴포넌트를 함께 사용할 때 로드 밸런싱이 동작하는 테스트 코드를 확인하실 수 있습니다. 
 
 추가적으로 .properties(혹은 .yml) 파일에 아래 설정을 추가하여 개발자가 커스터마이징한 기능들을 사용할 수 있습니다.
 - **`{clientName}.ribbon.NFLoadBalancerClassName`**: Should implement ILoadBalancer

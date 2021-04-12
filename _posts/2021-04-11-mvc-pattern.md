@@ -260,7 +260,7 @@ public class JspController {
 ```
 
 ### MemberService 클래스
-- 데이터 CRUD 혹은 인증과 관련된 비즈니스 로직을 수행합니다.
+- 서비스 객체는 데이터 CRUD 혹은 인증과 관련된 비즈니스 로직을 수행합니다.
 
 ```java
 package blog.in.action.domain.member;

@@ -160,6 +160,7 @@ spring:
 ```
 
 ### /src/main/webapp/WEB-INF/jsp/home.jsp
+- 뷰(View) 역할을 수행하는 JSP 파일입니다.
 - **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
 
 ```jsp
@@ -205,6 +206,7 @@ spring:
 ```
 
 ### JspController 클래스
+- 컨트롤러(Controller) 역할을 수행하는 클래스입니다.
 - **`/jsp/member/index`** 경로로 전달받은 POST 요청을 memberService 클래스를 이용해 INSERT
 - memberService 클래스를 이용해 데이터 조회 후 JSP 화면 렌더링 시 사용하는 model 객체에게 데이터를 전달합니다.
 
@@ -260,7 +262,8 @@ public class JspController {
 ```
 
 ### MemberService 클래스
-- 서비스 객체는 데이터 CRUD 혹은 인증과 관련된 비즈니스 로직을 수행합니다.
+- 모델(Model) 역할을 수행하는 클래스입니다.
+- 서비스 객체는 데이터 CRUD, 인증과 관련된 비즈니스 로직을 수행합니다.
 
 ```java
 package blog.in.action.domain.member;

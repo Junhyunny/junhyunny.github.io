@@ -61,7 +61,7 @@ last_modified_at: 2021-04-01T00:00:00
 ### 높은 응집도 (High Cohesion)
 마이크로 서비스는 단일 비즈니스를 수행하기 때문에 서비스의 기능들은 자연스럽게 높은 응집도를 가지게 됩니다. 
 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리합니다. 
-새로운 기능을 구축해야하는 경우 모든 변경 사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
+새로운 기능을 구축해야하는 경우 모든 변경사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
 
 <p align="center"><img src="/images/microservice-architecture-2.JPG"></p>
 <center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>

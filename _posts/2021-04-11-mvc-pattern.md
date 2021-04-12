@@ -103,12 +103,12 @@ MVC 패턴은 Spring 프레임워크와 JSP(Java Servlet Page)를 사용한 웹 
 Spring Web MVC 가 아닌 Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, 개발은 가능하므로 이를 이용해 간단한 예제를 구현해보았습니다.   
 
 ##### MVC 패턴 적용 시나리오
-- 브라우저에서 서버로 데이터를 전달합니다.
-- 컨트롤러에서 데이터를 받아 서비스에게 받은 데이터를 전달합니다.
-- 서비스는 JpaRepository를 이용하여 DB에 전달받은 데이터를 INSERT 합니다.
-- INSERT 동작 후 데이터를 다시 조회합니다.
-- 컨트롤러는 조회한 데이터를 뷰에게 전달합니다.
-- 화면에 변경이 발생하는지 확인합니다.
+1. 브라우저 화면에서 서버로 데이터를 전달합니다.
+1. 컨트롤러에서 데이터를 전달받아 서비스에게 데이터를 전달합니다.
+1. 서비스는 JpaRepository를 이용하여 데이터를 데이터베이스에 INSERT 합니다.
+1. INSERT 수행 후 컨트롤러는 서비스를 통해 데이터를 다시 조회합니다.
+1. 조회한 데이터를 모델 객체를 통해 뷰에게 전달합니다.
+1. 화면에 변경이 발생하는지 확인합니다.
 <p align="center"><img src="/images/mvc-pattern-4.JPG" width="75%"></p>
 
 ### 패키지 구조
@@ -117,6 +117,7 @@ Spring Web MVC 가 아닌 Spring Boot 프레임워크는 공식적으로 JSP를 
 ### pom.xml 파일 dependency 추가
 - jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
 - jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능을 제공
+
 ```xml
     <dependencies>
     ...
@@ -137,6 +138,7 @@ Spring Web MVC 가 아닌 Spring Boot 프레임워크는 공식적으로 JSP를 
 - .jsp 파일 경로를 알려주기 위해 다음과 같은 설정을 추가합니다.
 - spring.mvc.view.prefix=/WEB-INF/jsp/
 - spring.mvc.view.suffix=.jsp
+
 ```yml
 server:
   port: 8081
@@ -159,6 +161,7 @@ spring:
 
 ### /src/main/webapp/WEB-INF/jsp/home.jsp
 - **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
+
 ```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -204,6 +207,7 @@ spring:
 ### JspController 클래스
 - **`/jsp/member/index`** 경로로 전달받은 POST 요청을 memberService 클래스를 이용해 INSERT
 - memberService 클래스를 이용해 데이터 조회 후 JSP 화면 렌더링 시 사용하는 model 객체에게 데이터를 전달합니다.
+
 ```java
 package blog.in.action.controller;
 
@@ -257,6 +261,7 @@ public class JspController {
 
 ### MemberService 클래스
 - 데이터 CRUD 혹은 인증과 관련된 비즈니스 로직을 수행합니다.
+
 ```java
 package blog.in.action.domain.member;
 

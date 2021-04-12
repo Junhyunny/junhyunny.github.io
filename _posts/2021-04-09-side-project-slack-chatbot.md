@@ -51,7 +51,7 @@ res = requests.get(URL, params = params)
 **`음~, 그래도 역시 URL에 노출하고 싶지 않은데? 다른 방법 없을까?`🤔** 
 Slack API 문서를 뒤지다보니 다른 방법이 있었다. 
 확인해보니 HTTP Header로 전달하려면 **`application/json`**, 
-쿼리 parameter 혹은 요청 Body로 전달하려면 **`application/x-www-form-urlencoded`** 사용하면 된다. 
+Request Parameter 혹은 Request Body로 전달하려면 **`application/x-www-form-urlencoded`** 사용하면 된다. 
 또, HTTP Header에서 토큰 정보는 Authorization 키워드를 키로 전달하고, 토큰 앞에 Bearer 키워드도 추가해야한다. 
 
 ##### Slack API 문서

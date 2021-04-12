@@ -24,7 +24,7 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 ##### MVC 패턴 다이어그램 및 웹 어플리케이션에서 사용하는 일반적인 MVC 패턴
 <div align="center">
   <img src="/images/mvc-pattern-1.JPG" width="35%">
-  <img src="/images/mvc-pattern-2.JPG" width="60%">
+  <img src="/images/mvc-pattern-2.JPG" width="50%">
 </div>
 <center>이미지 출처, [Wiki, 모델-뷰-컨트롤러][wiki-link]</center><br>
 
@@ -88,7 +88,7 @@ MVC 패턴을 가진 시스템의 각 컴포넌트는 자신이 맡은 역할만
 복잡한 화면을 구성하는 경우에도 동일한 현상이 발생하는데 이를 **`'Massive ViewController'`** 라고 합니다. 
 
 ##### Massive ViewController
-<p align="center"><img src="/images/mvc-pattern-3.JPG" width="80%"></p>
+<p align="center"><img src="/images/mvc-pattern-3.JPG" width="75%"></p>
 <center>이미지 출처, https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center><br>
 
 이런 문제점을 보완하기 위해 다양한 패턴이 파생되었습니다. 
@@ -105,30 +105,224 @@ Spring Web MVC 가 아닌 Spring Boot 프레임워크는 공식적으로 JSP를 
 ##### MVC 패턴 적용 시나리오
 - 브라우저에서 서버로 데이터를 전달합니다.
 - 컨트롤러에서 데이터를 받아 서비스에게 받은 데이터를 전달합니다.
-- 서비스는 JPA Repository를 이용하여 DB에 데이터를 INSERT 합니다.
-- INSERT 동작 후 데이터를 조회하여 컨트롤러에게 반환합니다.
-- 컨트롤러는 서비스가 반환한 데이터를 뷰로 전달합니다.
-<p align="center"><img src="/images/mvc-pattern-4.JPG" width="90%"></p>
+- 서비스는 JpaRepository를 이용하여 DB에 전달받은 데이터를 INSERT 합니다.
+- INSERT 동작 후 데이터를 다시 조회합니다.
+- 컨트롤러는 조회한 데이터를 뷰에게 전달합니다.
+- 화면에 변경이 발생하는지 확인합니다.
+<p align="center"><img src="/images/mvc-pattern-4.JPG" width="75%"></p>
+
+### 패키지 구조
+<p align="left"><img src="/images/mvc-pattern-5.JPG" width="35%"></p>
 
 ### pom.xml 파일 dependency 추가
 - jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
 - jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능을 제공
 ```xml
-	<dependencies>
+    <dependencies>
     ...
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-jasper</artifactId>
+        </dependency>
     ...
-	</dependencies>
+    </dependencies>
 ```
 
+### application.yml
+- .jsp 파일 경로를 알려주기 위해 다음과 같은 설정을 추가합니다.
+- spring.mvc.view.prefix=/WEB-INF/jsp/
+- spring.mvc.view.suffix=.jsp
+```yml
+server:
+  port: 8081
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+```
+
+### /src/main/webapp/WEB-INF/jsp/home.jsp
+- **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>멤버 등록</title>
+</head>
+<body>
+    <div>
+        <form action="/jsp/member/index" method="post">
+            <p>
+                ID : <input type="text" name="id" />
+                비밀번호 : <input type="password" name="password" />
+                이름 : <input type="text" name="memberName" />
+                E-MAIL : <input type="text" name="memberEmail" />
+            </p>
+            <p>
+                <input type="submit" value="전송" />
+        </form>
+    </div>
+    <div class="container">
+        <table class="table table-hover table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>이름</th>
+                <th>E-MAIL</th>
+            </tr>
+            <c:forEach items="${memberList}" var="member">
+                <tr>
+                    <th>${member.getId()}</th>
+                    <th>${member.getMemberName()}</th>
+                    <th>${member.getMemberEmail()}</th>
+                </tr>
+            </c:forEach>
+        </table>
+    </div>
+</body>
+</html>
+```
+
+### JspController 클래스
+- **`/jsp/member/index`** 경로로 전달받은 POST 요청을 memberService 클래스를 이용해 INSERT
+- memberService 클래스를 이용해 데이터 조회 후 JSP 화면 렌더링 시 사용하는 model 객체에게 데이터를 전달합니다.
+```java
+package blog.in.action.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import blog.in.action.domain.member.Member;
+import blog.in.action.domain.member.MemberService;
+
+@Controller
+@RequestMapping(value = "/jsp/member")
+public class JspController {
+
+    private final MemberService memberService;
+
+    public JspController(MemberService memberService) {
+        this.memberService = memberService;
+    }
+
+    @GetMapping("/index")
+    public String index(Model model) {
+        List<Member> memberList = memberService.findAll();
+        model.addAttribute("memberList", memberList);
+        return "index";
+    }
+
+    @PostMapping(path = "/index")
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String register(HttpServletRequest servletRequest, Model model) {
+        Member member = new Member();
+        member.setId(servletRequest.getParameter("id"));
+        member.setPassword(servletRequest.getParameter("password"));
+        member.setMemberName(servletRequest.getParameter("memberName"));
+        member.setMemberEmail(servletRequest.getParameter("memberEmail"));
+        memberService.registMember(member);
+        List<Member> memberList = memberService.findAll();
+        model.addAttribute("memberList", memberList);
+        return "index";
+    }
+}
+```
+
+### MemberService 클래스
+- 데이터 CRUD 혹은 인증과 관련된 비즈니스 로직을 수행합니다.
+```java
+package blog.in.action.domain.member;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MemberService implements UserDetailsService {
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public Member registMember(Member member) {
+        String encodedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encodedPassword);
+        return memberRepository.save(member);
+    }
+
+    public Member findById(String id) {
+        Optional<Member> option = memberRepository.findById(id);
+        if (!option.isPresent()) {
+            return null;
+        }
+        return option.get();
+    }
+
+    public List<Member> findAll() {
+        return memberRepository.findAll();
+    }
+
+    // 계정이 갖고있는 권한 목록을 return
+    private Collection<? extends GrantedAuthority> authorities(Member member) {
+        return member.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Member> option = memberRepository.findById(username);
+        if (!option.isPresent()) {
+            throw new UsernameNotFoundException(username);
+        }
+        // ID, PASSWORD, AUTHORITIES 반환
+        Member member = option.get();
+        return new User(member.getId(), member.getPassword(), authorities(member));
+    }
+}
+```
+
+##### 테스트 결과
+
+<p align="center"><img src="/images/mvc-pattern-6.gif" width="75%"></p>
 
 ## OPINION
 사용자 인터페이스가 필요한 어플리케이션에서 가장 즐겨 사용되는 디자인 패턴입니다. 
@@ -149,10 +343,8 @@ Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 
 > 또한 그 이전에 그렇게 설계된 스프링 프레임워크 등의 API를 이해하려면 결국 디자인 패턴을 공부해야 합니다.
 
 조금은 공부 방법에 힌트가 되어 주는 글이었습니다. 
-아직 디자인 패턴과 친하지 않고 경험이 적은 개발자이기 때문에 
-디자인 패턴을 적용할 사례를 만든다거나 예시를 제시하는 방식은 제 수준과는 맞지 않다는 생각이 들었습니다. 
-그래서 먼저 제가 주로 사용하는 프레임워크에 디자인 패턴이 적용된 사례를 찾아보고 
-왜 적용되었는지, 이 디자인 패턴을 사용하여 얻을 수 있는 이점은 무엇인지에 대해 고민해보고 정리하는 식의 공부를 진행해볼까 합니다.
+아직 경험이 적은 개발자이기 때문에 프레임워크에 적용된 좋은 사례를 찾아보고 
+왜 적용되었는지, 해당 디자인 패턴을 적용하여 얻을 수 있는 이점은 무엇인지에 대해 고민해보고 정리하는 식의 공부를 진행해보려 합니다.
 
 #### REFERENCE
 - [[아키텍처 패턴] MVC 패턴이란?][mvc-pattern-blogLink]

@@ -17,7 +17,7 @@ CORS(Cross Origin Resource Sharing) 개념에 대해서는 [CORS(Cross Origin Re
 
 ## front-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/cors-example-1.JPG"></p>
+<p align="left"><img src="/images/cors-example-1.JPG" width="35%"></p>
 
 ## CorsReuqest.vue
 2가지 API PATH를 통해 테스트를 진행하였습니다. 
@@ -72,7 +72,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/cors-example-2.JPG" wdith="150"></p>
+<p align="left"><img src="/images/cors-example-2.JPG" width="35%"></p>
 
 ## application.yml
 포트 정보를 추가하였습니다.

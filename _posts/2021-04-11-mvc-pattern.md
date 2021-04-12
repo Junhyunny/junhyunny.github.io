@@ -100,7 +100,7 @@ MVC 패턴을 가진 시스템의 각 컴포넌트는 자신이 맡은 역할만
 
 ## MVC 패턴의 적용 사례
 MVC 패턴은 Spring 프레임워크와 JSP(Java Servlet Page)를 사용한 웹 어플리케이션 개발에서 가장 즐겨 사용되는 개발 방식입니다. 
-Spring Web MVC 가 아닌 Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, 개발은 가능하므로 이를 이용해 간단한 예제를 구현해보았습니다.   
+Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, 개발은 가능하므로 이를 이용해 간단한 예제를 구현해보았습니다.   
 
 ##### MVC 패턴 적용 시나리오
 1. 브라우저 화면에서 서버로 데이터를 전달합니다.
@@ -115,6 +115,7 @@ Spring Web MVC 가 아닌 Spring Boot 프레임워크는 공식적으로 JSP를 
 <p align="left"><img src="/images/mvc-pattern-5.JPG" width="35%"></p>
 
 ### pom.xml 파일 dependency 추가
+- Spring Boot 프레임워크는 JSP를 공식적으로 지원하지 않기 때문에 아래와 같은 의존성들이 필요합니다.
 - jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
 - jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능을 제공
 
@@ -160,7 +161,7 @@ spring:
 ```
 
 ### /src/main/webapp/WEB-INF/jsp/home.jsp
-- 뷰(View) 역할을 수행하는 JSP 파일입니다.
+- 뷰(View) 역할을 수행하는 JSP 입니다.
 - **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
 
 ```jsp
@@ -336,10 +337,9 @@ public class MemberService implements UserDetailsService {
 사용자 인터페이스가 필요한 어플리케이션에서 가장 즐겨 사용되는 디자인 패턴입니다. 
 MVC 패턴에 대해 주어 들은 건 있어서 어느 정도 설명은 가능하지만, 
 구체적으로 정리해보지 않았기 때문에 좋은 설명이 불가능하여 포스트로 한번 정리해보았습니다. 
-
 디자인 패턴에 대해 공부하고, 이를 적용하고 싶은 마음은 굴뚝 같지만 쉽지 않습니다. 
 책을 읽어봐도 이해가 쉽지 않아 관련된 공부 방법을 찾아 보던 중 
-Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 블로그에 모셔놨습니다.
+Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 블로그에 옮겨왔습니다.
 
 > [디자인패턴과 알고리즘][okky-link]<br>
 > 일단 그런 질문을 하는 개발자들의 수준을 대략적으로 일반화해보면 

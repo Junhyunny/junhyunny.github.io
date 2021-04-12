@@ -33,7 +33,7 @@ last_modified_at: 2021-03-12T00:00:00
 
 ### 패키지 구조
 
-<p align="left"><img src="/images/feignclient-with-eureka-4.JPG" width="350"></p>
+<p align="left"><img src="/images/feignclient-with-eureka-4.JPG" width="35%"></p>
 
 ### BServiceFeinClient 인터페이스
 - b-service를 호출할 때 사용할 FeignClient를 작성합니다.
@@ -85,7 +85,7 @@ public class AServiceController {
 
 ### 패키지 구조
 
-<p align="left"><img src="/images/feignclient-with-eureka-5.JPG" width="350"></p>
+<p align="left"><img src="/images/feignclient-with-eureka-5.JPG" width="35%"></p>
 
 ### BServiceController 클래스
 - 서비스에게 처리 부하를 주기 위해 Thread.sleep(50)을 수행합니다.

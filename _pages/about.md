@@ -34,7 +34,7 @@ classes: wide
 - Smart CCTV System 개발, POSCO ICT, 2017년 8월 - 2017년 11월
 
 ## Proejcts 👨‍💻
-#### [MES3.0(Manufacturing Execution System 3.0) 개발]
+#### [MES3.0(Manufacturing Execution System 3.0)]
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
 - Monolithic Architecture > Micro Service Architecture 전환
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
@@ -44,7 +44,7 @@ classes: wide
 - Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
   - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
 
-#### [Smart CCTV System 개발]
+#### [Smart CCTV System]
 - C++, OpenCV, Machine Learing(Support Vector Machine)
 - 영상인식을 통한 작업 정상 처리 여부 판단 기능 개발
   - 인식률 90% 이상

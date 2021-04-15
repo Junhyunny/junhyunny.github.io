@@ -417,14 +417,14 @@ Okky 커뮤니티에 항상 좋은 글을 써주시는 하마님, fender 님의 
 [빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글을 보면 
 fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는데 초보자들에게 쉬운 이해를 도울 수 있는 부분이라 생각하여 박제...⭐
 
-<p align="center"><img src="/images/builder-pattern-2.JPG" width="45%"></p>
+<p align="center"><img src="/images/builder-pattern-2.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
 
 빌더 패턴과 관련된 포스트를 보면 주로 **'Effective Java'**의 설명을 기반으로 정리해주고 있습니다. 
 저는 아무래도 **'GoF 디자인 패턴'**의 빌더 패턴을 Java 식으로 풀어낸 것이라 생각이 듭니다. 
 [빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 하마님의 댓글이 공감되어 제 포스트에 함께 박제...⭐ 
 
-<p align="center"><img src="/images/builder-pattern-3.JPG" width="45%"></p>
+<p align="center"><img src="/images/builder-pattern-3.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
 
 #### REFERENCE

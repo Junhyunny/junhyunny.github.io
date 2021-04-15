@@ -46,7 +46,12 @@ last_modified_at: 2021-04-14T00:00:00
 ## 코드 해설
 ##### solution 메소드
 - 문제 풀이의 흐름을 제어합니다.
-- 
+- 픽셀의 방문 여부를 체크하는 visited 배열과 사진 배열을 이용해 전처리를 수행합니다.(preProcess 메소드)
+- 전처리 이후 사진의 전 픽셀을 탐색합니다.
+- 방문하지 않은 위치만 탐색을 수행합니다.
+- 해당 위치를 기반으로 search 메소드를 이용하여 DFS 탐색을 수행합니다.
+- 이전 탐색보다 큰 사이즈를 가지는 영역 탐색이 성공했다면 이를 maxSizeOfOneArea 변수에 저장합니다.
+- 분할된 영역의 개수와 가장 큰 영역의 사이즈 정보를 배열에 담아 반환합니다.
 
 ```java
     public int[] solution(int m, int n, int[][] picture) {
@@ -80,6 +85,9 @@ last_modified_at: 2021-04-14T00:00:00
 ```
 
 ##### preProcess 메소드
+- 데이터의 전처리를 수행합니다.
+- 특정 위치 값이 0 이라면 방문한 것으로 처리합니다.
+
 ```java
     private void preProcess(boolean[][] visited, int[][] picture) {
         int rows = picture.length;
@@ -95,6 +103,17 @@ last_modified_at: 2021-04-14T00:00:00
 ```
 
 ##### search 메소드
+- DFS 탐색을 수행합니다.
+- 현재 방문하는 사진 위치는 rowIndex, colIndex 입니다.
+- cnt 는 여태 방문한 픽셀의 수입니다.
+- valus 는 현재 탐색의 기준이 되는 색상 정보입니다.
+- 영역을 벗어나면 현재까지 방문한 픽셀 수를 반환합니다.
+- 방문한 위치인 경우 현재까지 방문한 픽셀 수를 반환합니다.
+- 현재 탐색 중인 색상과 다른 색상을 가지는 위치인 경우 현재까지 방문한 픽셀 수를 반환합니다.
+- 현재 위치를 방문 처리합니다.
+- 상, 하, 좌, 우 위치를 탐색합니다.
+- 재귀 함수를 이용해 구한 cnt 값을 반환합니다.
+
 ```java
     public int search(boolean[][] visited, int[][] picture, int rowIndex, int colIndex, int cnt, int value) {
         int rows = picture.length;
@@ -205,3 +224,4 @@ class Solution {
 
 ## OPINION
 대체로 문제 풀이 방식이 비슷하여 BEST PRACTICE 선정은 없습니다. 
+이번 문제를 통해 재귀 방식을 이용한 DFS 탐색과 한 걸음 가까워졌습니다.

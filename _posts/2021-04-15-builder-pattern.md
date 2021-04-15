@@ -34,7 +34,7 @@ GoF 디자인 패턴에서는 어떤 방식으로 객체의 생성을 표현으�
 - Builder - Product를 만드는 방법을 정의하고 있는 인터페이스
 - ConcreteBuilder - Builder 인터페이스를 구현한 클래스(Product를 만드는 방법을 구체적으로 구현)
 
-<p align="center"><img src="/images/builder-pattern-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/builder-pattern-1.JPG" width="70%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Builder_pattern</center><br>
 
 ### ENUM 타입
@@ -222,9 +222,11 @@ class Rectangular {
 }
 ```
 
-점층적 생성자 패턴은 다음과 같은 문제점이 있습니다. 
-- 객체 생성 시 필수인 값 width, height 이 외에 padding 값이 필요한데 반드시 margin 값에 0 을 넣어줘야 합니다.
-- 객체 생성 시 생성자에 숫자들이 들어가면서 어떤 항목에 어떤 값을 추가하는지 코드만 봐서 확인하기 힘듭니다.
+##### 점층적 생성자 패턴은 다음과 같은 문제점이 있습니다. 
+- 불필요한 값 SETTING 이 발생합니다.
+    - 객체 생성 시 필수인 값 width, height 이 외에 padding 값이 필요한데 반드시 margin 값에 0 을 넣어줘야 합니다.
+- 생성자가 많아질수록 생성자에 값을 SETTING 하는 코드에 의도를 파악하기 어려워집니다. 
+    - 객체 생성 시 생성자에 숫자들이 들어가면서 어떤 항목에 어떤 값을 추가하는지 코드만 봐서 확인하기 힘듭니다.
 
 ```java
 public class EffectiveJavaBuuilderPatttern {
@@ -278,11 +280,11 @@ class Rectangular {
 }
 ```
 
-자바빈(JavaBean) 패턴은 다음과 같은 문제점이 있습니다. 
+##### 자바빈(JavaBean) 패턴은 다음과 같은 문제점이 있습니다. 
 - 객체 일관성(consistency)이 꺠집니다. 
     - 1회의 호출로 객체 생성이 끝나지 않고, 생성한 객체에 값을 변경합니다.
 - setter 메서드가 있으므로 변경 불가능(immutable)클래스를 만들 수가 없습니다.
-    - 스레드 안전성을 확보하려면 점층적 생성자 패턴보다 많은 일을 해야 한다.
+    - 스레드 안전성을 확보하려면 점층적 생성자 패턴보다 많은 일을 해야 합니다.
 
 ```java
 public class EffectiveJavaBuuilderPatttern {
@@ -406,22 +408,23 @@ class NutritionFacts {
 - build 메소드에서 잘못된 값이 입력되었는지 검증할 수 있습니다.
 
 ## OPINION
-빌더 패턴과 관련한 대부분의 포스트들이 'Effective Java'의 빌더 패턴을 정리한 내용들입니다. 
-'GoF 디자인 패턴'에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋을 것 같습니다. 
-또, 'Effective Java'의 빌더 패턴의 객체 생성 방식은 장점만 있는 것처럼 보이지만 
+빌더 패턴과 관련한 대부분의 포스트들이 **'Effective Java'**의 빌더 패턴을 정리한 내용들입니다. 
+**'GoF 디자인 패턴'**에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋을 것 같습니다. 
+또, **'Effective Java'**의 빌더 패턴의 객체 생성 방식은 장점만 있는 것처럼 보이지만 
 굳이 사용하지 않아도 되는 상황에서 이 패턴을 적용하는 일은 불필요한 코드만 늘리는 일이기 때문에 적절한 상황에만 적용하는 것이 좋을 것 같습니다. 
 
 Okky 커뮤니티에 항상 좋은 글을 써주시는 하마님, fender 님의 글은 많은 도움이 됩니다. 
 [빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글을 보면 
-fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는데 초보자들에게 쉬운 이해를 도울 수 있는 부분이라 생각하여 박제해두겠습니다. 
+fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는데 초보자들에게 쉬운 이해를 도울 수 있는 부분이라 생각하여 박제...⭐
 
-<p align="center"><img src="/images/builder-pattern-2.JPG" width="80%"></p>
+<p align="center"><img src="/images/builder-pattern-2.JPG" width="45%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
 
 빌더 패턴과 관련된 포스트를 보면 주로 **'Effective Java'**의 설명을 기반으로 정리해주고 있습니다. 
-[빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 하마님이 해주신 다음과 같은 설명이 공감되어 제 포스트에 함께 남겨두겠습니다. 
+저는 아무래도 **'GoF 디자인 패턴'**의 빌더 패턴을 Java 식으로 풀어낸 것이라 생각이 듭니다. 
+[빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 하마님의 댓글이 공감되어 제 포스트에 함께 박제...⭐ 
 
-<p align="center"><img src="/images/builder-pattern-3.JPG" width="80%"></p>
+<p align="center"><img src="/images/builder-pattern-3.JPG" width="45%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
 
 #### REFERENCE

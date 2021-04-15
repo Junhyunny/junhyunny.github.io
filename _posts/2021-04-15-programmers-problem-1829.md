@@ -20,7 +20,7 @@ last_modified_at: 2021-04-14T00:00:00
 
 그림에 몇 개의 영역이 있는지와 가장 큰 영역의 넓이는 얼마인지 계산하는 프로그램을 작성해보자.
 
-<p align="center"><img src="/images/programmers-problem-1829-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/programmers-problem-1829-1.JPG" width="45%"></p>
 <center>이미지 출처, https://programmers.co.kr/learn/courses/30/lessons/1829</center><br>
 
 위의 그림은 총 12개 영역으로 이루어져 있으며, 가장 넓은 영역은 어피치의 얼굴면으로 넓이는 120이다.
@@ -44,7 +44,89 @@ last_modified_at: 2021-04-14T00:00:00
 | 6 | 4 | [[1, 1, 1, 0], [1, 2, 2, 0], [1, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 3], [0, 0, 0, 3]] | [4, 5] |
 
 ## 코드 해설
-- 작성 중 입니다.
+##### solution 메소드
+- 문제 풀이의 흐름을 제어합니다.
+- 
+
+```java
+    public int[] solution(int m, int n, int[][] picture) {
+
+        boolean[][] visited = new boolean[m][n];
+
+        // 데이터 전처리, 0인 영역은 제외
+        preProcess(visited, picture);
+
+        int numberOfArea = 0;
+        int maxSizeOfOneArea = 0;
+
+        for (int r = 0; r < m; r++) {
+            for (int c = 0; c < n; c++) {
+                if (!visited[r][c]) {
+                    // 새로운 영역 추가
+                    numberOfArea++;
+                    // 새로운 영역을 만나면 탐색 시작, 연결된 모든 영역을 탐색한다.
+                    int temp = search(visited, picture, r, c, 0, picture[r][c]);
+                    // 가장 큰 영역을 결정한다.
+                    maxSizeOfOneArea = maxSizeOfOneArea > temp ? maxSizeOfOneArea : temp;
+                }
+            }
+        }
+
+        int[] answer = new int[2];
+        answer[0] = numberOfArea;
+        answer[1] = maxSizeOfOneArea;
+        return answer;
+    }
+```
+
+##### preProcess 메소드
+```java
+    private void preProcess(boolean[][] visited, int[][] picture) {
+        int rows = picture.length;
+        int cols = picture[0].length;
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (picture[r][c] == 0) {
+                    visited[r][c] = true;
+                }
+            }
+        }
+    }
+```
+
+##### search 메소드
+```java
+    public int search(boolean[][] visited, int[][] picture, int rowIndex, int colIndex, int cnt, int value) {
+        int rows = picture.length;
+        int cols = picture[0].length;
+        // 영역을 벗어나는 순간 stop
+        if (rowIndex >= rows || rowIndex < 0) {
+            return cnt;
+        }
+        if (colIndex >= cols || colIndex < 0) {
+            return cnt;
+        }
+        // 방문한 영역이면 stop
+        if (visited[rowIndex][colIndex]) {
+            return cnt;
+        }
+        // 탐색할 영역이 기준인 값이랑 다르면 탐색 종료
+        if (picture[rowIndex][colIndex] != value) {
+            return cnt;
+        }
+        // 방문한 영역이 아니면 위, 아래, 좌, 우 탐색
+        // 현재 영역 개수 추가
+        cnt++;
+        visited[rowIndex][colIndex] = true;
+        cnt = search(visited, picture, rowIndex - 1, colIndex, cnt, value);
+        cnt = search(visited, picture, rowIndex + 1, colIndex, cnt, value);
+        cnt = search(visited, picture, rowIndex, colIndex - 1, cnt, value);
+        cnt = search(visited, picture, rowIndex, colIndex + 1, cnt, value);
+        return cnt;
+    }
+```
+
+## 제출 코드
 
 ```java
 class Solution {

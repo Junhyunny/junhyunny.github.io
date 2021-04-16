@@ -279,7 +279,7 @@ class Rectangular {
 ```
 
 ##### 자바빈(JavaBean) 패턴은 다음과 같은 문제점이 있습니다. 
-- 객체 일관성(consistency)이 꺠집니다. 
+- 객체 일관성(consistency)이 깨집니다. 
     - 1회의 호출로 객체 생성이 끝나지 않고, 생성한 객체에 값을 변경합니다.
 - setter 메서드가 있으므로 변경 불가능(immutable)클래스를 만들 수가 없습니다.
     - 스레드 안전성을 확보하려면 점층적 생성자 패턴보다 많은 일을 해야 합니다.
@@ -418,9 +418,8 @@ fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는�
 <p align="center"><img src="/images/builder-pattern-2.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
 
-빌더 패턴과 관련된 포스트를 보면 주로 **'Effective Java'**의 설명을 기반으로 정리해주고 있습니다. 
-저는 아무래도 **'GoF 디자인 패턴'**의 빌더 패턴을 Java 식으로 풀어낸 것이라 생각이 듭니다. 
-[빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 하마님의 댓글이 공감되어 제 포스트에 함께 박제...⭐ 
+[빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 
+**'GoF 디자인 패턴'**의 빌더 패턴을 **'Effective Java'**에서 좁혀서 정의했다는 하마님의 댓글이 공감되어 제 포스트에 함께 박제...⭐ 
 
 <p align="center"><img src="/images/builder-pattern-3.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>

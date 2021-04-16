@@ -2,7 +2,6 @@
 title: "@Bean, @Component 애너테이션의 차이"
 search: false
 category:
-  - information
   - spring-boot
 last_modified_at: 2021-03-27T00:00:00
 ---

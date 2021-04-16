@@ -2,7 +2,6 @@
 title: "생성자 주입(Constructor Injection) 방식을 권장하는 이유"
 search: false
 category:
-  - information
   - spring-boot
   - junit
 last_modified_at: 2021-03-28T00:00:00

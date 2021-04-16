@@ -26,8 +26,8 @@ classes: wide
 - Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
 
 ## Career 📋
-#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 현재
-- MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 현재
+#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 4월
+- MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 4월
 - MES3.0(Manufacturing Execution System 3.0) 개발, POSCO ICT, 2018년 7월 - 2020년 12월
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
@@ -43,32 +43,6 @@ classes: wide
 - DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
 - Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
   - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
-
-#### [Smart CCTV System]
-- C++, OpenCV, Machine Learing(Support Vector Machine)
-- 영상인식을 통한 작업 정상 처리 여부 판단 기능 개발
-  - 인식률 90% 이상
-
-#### [보고싶다]
-- Vue.js, Spring Boot, Spring Security, JPA, MySQL
-- 기억 공유 SNS, 자신의 부고, 상주 부고 알림 전송 서비스 제공
-- 기억 남기기, 기억 공유, 기억 예약 전송, 부고 작성, 부고 문자 전송 BATCH 기능 개발
-
-#### [빌라엠]
-- NativeScript-Vue, Vue.js, Spring Boot, Spring Security, JPA, MySQL
-- 빌라 주민들의 관리비 결제 및 관리, 공지사항 알림, 설문 기능, 불편사항 접수 기능 제공
-- 전자 투표 및 모바일 서명 기능, 불편사항, 주민소통, 게시판, 설문조사 기능 개발
-- <https://www.villam.co.kr/main.do>
-
-<!-- ##### [K-ICT Bigdata Center, Hadoop 서비스 제공 시스템 보안 이슈 사례]
-##### 문제
-- 작성 중입니다.
-
-##### 원인
-- 작성 중입니다.
-
-##### 해결
-- 작성 중입니다. -->
 
 ## Side Proejcts 💻
 #### [Slack ChatBot]

@@ -128,6 +128,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 ##### 쿠키와 세션의 차이점 요약
 
 <div align="center">
+<table>
 
 | | 쿠키(Cookie) | 세션(Session) |
 |:---:|:---:|:---:|
@@ -137,6 +138,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 | 속도 | 세션보다 빠르다 | 쿠키보다 느리다 |
 | 보안 | 세션보다 좋지 않다 | 쿠키보다 좋다 |
 
+</table>
 </div>
 
 <center>표 출처, https://hahahoho5915.tistory.com/32</center><br>

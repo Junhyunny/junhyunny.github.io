@@ -160,3 +160,4 @@ Update policy 16/04/02
 - <https://meetup.toast.com/posts/106>
 - <https://chris.beams.io/posts/git-commit/>
 - <https://doublesprogramming.tistory.com/256>
+- <https://junwoo45.github.io/2020-02-06-commit_template/>

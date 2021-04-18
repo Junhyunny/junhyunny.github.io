@@ -1,5 +1,5 @@
 ---
-title: "Sourcetree, not found organization repository"
+title: "Sourcetree - not found organization repository"
 search: false
 category:
   - information

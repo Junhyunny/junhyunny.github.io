@@ -35,9 +35,9 @@ HTTP 프로토콜은 stateless 특징을 가지지만 stateful 한 서비스를 
 <p align="center"><img src="/images/cookie-and-session-1.JPG" width="80%"></p>
 
 ### Stateless 서버의 장점
-Stateful 한 서비스를 제공할거면 stateful 특징을 가지는 통신 방식을 이용하면 되는데 굳이 HTTP 통신을 사용하는 것일까요. 
+Stateful 한 서비스를 제공할거면 stateful 특징을 가지는 통신 방식을 사용하면 되는데 굳이 HTTP 통신을 사용하는 것일까요. 
 Stateless 특징은 스케일링(scaling)이 자유롭다는 장점이 있습니다. 
-아래 이미지를 통해 쉽게 이해해보겠습니다. 
+아래 이미지와 설명을 통해 이해를 돕도록 하겠습니다. 
 
 ##### Stateful 서버 scale out
 1. 사용자 A가 로그인을 하면 사용자에 대한 정보가 서버에 저장됩니다.
@@ -127,7 +127,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 
 ##### 쿠키와 세션의 차이점 요약
 
-<div align="center">
+<center>
 
 | | 쿠키(Cookie) | 세션(Session) |
 |:---:|:---:|:---:|
@@ -137,7 +137,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 | 속도 | 세션보다 빠르다 | 쿠키보다 느리다 |
 | 보안 | 세션보다 좋지 않다 | 쿠키보다 좋다 |
 
-</div>
+</center>
 
 <center>표 출처, https://hahahoho5915.tistory.com/32</center><br>
 

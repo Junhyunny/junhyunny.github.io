@@ -35,7 +35,7 @@ Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organi
 
 ##### Settings > Applications > Authorized OAuth Apps
 <div align="center">
-  <img src="/images/grant-sourcetree-app-2.JPG" width="15%">
+  <img src="/images/grant-sourcetree-app-2.JPG" width="25%">
   <img src="/images/grant-sourcetree-app-3.JPG" width="60%">
 </div>
 

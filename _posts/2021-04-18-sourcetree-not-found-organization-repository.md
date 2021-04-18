@@ -16,7 +16,7 @@ last_modified_at: 2021-04-18T00:00:00
 Sourcetree 설치 후 Github의 repository들을 클론(clone)하던 중 일부 문제가 발생되었습니다. 
 
 ##### '유효한 소스 경로 URL이 아닙니다.' 경고 메세지
-<p align="left"><img src="/images/grant-sourcetree-app-1.JPG" width="45%"></p>
+<p align="center"><img src="/images/grant-sourcetree-app-1.JPG" width="50%"></p>
 
 **`'음...?🤔 분명히 존재하는 repository 인데?'`** 
 일단 해당 URL을 찾지 못하는 점이 이상했습니다. 
@@ -33,18 +33,18 @@ Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organi
 1. SourcetreeForWindows(or Mac)
 1. target oranization grant
 
-##### 사용자 Settings
-<p align="left"><img src="/images/grant-sourcetree-app-2.JPG" width="15%"></p>
-
-##### Applications > Authorized OAuth Apps
-<p align="center"><img src="/images/grant-sourcetree-app-3.JPG" width="60%"></p>
+##### Settings > Applications > Authorized OAuth Apps
+<div align="center">
+  <img src="/images/grant-sourcetree-app-2.JPG" width="15%">
+  <img src="/images/grant-sourcetree-app-3.JPG" width="60%">
+</div>
 
 ##### SourcetreeForWindows
 - 이미지 아래 빨간 네모 칸에 grant 버튼을 눌러 승인하기
 <p align="center"><img src="/images/grant-sourcetree-app-4.JPG" width="60%"></p>
 
 ##### 정상적인 동작 확인
-<p align="left"><img src="/images/grant-sourcetree-app-5.JPG" width="45%"></p>
+<p align="center"><img src="/images/grant-sourcetree-app-5.JPG" width="50%"></p>
 
 ## OPINION
 이전 회사에선 CI/CD 팀에서 이런 이슈들을 처리해줬기 때문에 쉽게 사용했었는데, 

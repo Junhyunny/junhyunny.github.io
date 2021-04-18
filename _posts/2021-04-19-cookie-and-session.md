@@ -127,20 +127,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 
 ##### 쿠키와 세션의 차이점 요약
 
-<div align="center">
-<table>
-
-| | 쿠키(Cookie) | 세션(Session) |
-|:---:|:---:|:---:|
-| 저장 위치 | 클라이언트(=접속자 PC) | 웹 서버 | 
-| 저장 형식 | Text | Object | 
-| 만료 시점 | 쿠키 저장시 설정<br>(브라우저가 종료되도, 만료시점이 지나지 않으면 자동 삭제되지 않습니다.) | 브라우저 종료시 삭제<br>(기간 지정이 가능합니다.) |
-| 속도 | 세션보다 빠르다 | 쿠키보다 느리다 |
-| 보안 | 세션보다 좋지 않다 | 쿠키보다 좋다 |
-
-</table>
-</div>
-
+<p align="center"><img src="/images/cookie-and-session-6.JPG" width="80%"></p>
 <center>표 출처, https://hahahoho5915.tistory.com/32</center><br>
 
 ## OPINION

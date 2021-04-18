@@ -35,7 +35,7 @@ last_modified_at: 2021-04-17T00:00:00
 
 본문(Body)
 
-꼬리말(Footter)
+꼬리말(Footer)
 ```
 
 ### 타입(Type)
@@ -73,7 +73,7 @@ Feat: 신규 RFID 인식 기능 추가
   - RFIDReader.java: 사용자 요건 사항으로 인한 RFID 인식 기능 추가
 ```
 
-### 꼬리말(Footter)
+### 꼬리말(Footer)
 - 선택 사항이므로 모든 commit에 꼬리말을 작성할 필요는 없습니다.
 - Issue tracker ID를 작성할 때 사용합니다.
 - 해결: 이슈 해결 시 사용
@@ -86,7 +86,7 @@ Feat: 신규 RFID 인식 기능 추가
 참고: #222
 ```
 
-##### 작성할 Commit 메세지 
+##### 작성할 Commit 메세지 예시
 
 ```
 Feat: 신규 RFID 인식 기능 추가(#123)

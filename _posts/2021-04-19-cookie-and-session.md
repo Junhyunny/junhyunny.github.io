@@ -36,23 +36,120 @@ HTTP 프로토콜은 stateless 특징을 가지지만 stateful 한 서비스를 
 ### Stateless 서버의 장점
 Stateful 한 서비스를 제공할거면 stateful 특징을 가지는 통신 방식을 이용하면 되는데 굳이 HTTP 통신을 사용하는 것일까요. 
 Stateless 특징은 스케일링(scaling)이 자유롭다는 장점이 있습니다. 
-요청 트래픽 양에 따라 서비스가 증가, 감소하게 되는 스케일링이 발생하게 되면 stateful 서버는 
+아래 이미지를 통해 쉽게 이해해보겠습니다. 
 
 ##### Stateful 서버 scale out
+1. 사용자 A가 로그인을 하면 사용자에 대한 정보가 서버에 저장됩니다.
+1. 사용자가 늘어나 트래픽 증가합니다.
+1. 서버의 스케일 아웃이 발생되었으나 기존 서버의 메모리는 복제되지 않습니다.
+1. 사용자 A가 새로 생긴 서버로 요청하는 경우 사용자 정보가 없으므로 정상 응답이 불가능합니다.
 
+<p align="center"><img src="/images/cookie-and-session-2.gif" width="80%"></p>
 
 ##### Stateless 서버 scale out
+1. 사용자 A가 로그인을 하면 사용자에 대한 정보가 외부 저장소에 저장됩니다.
+1. 사용자가 늘어나 트래픽 증가합니다.
+1. 서버의 스케일 아웃이 발생됩니다.
+1. 사용자 A가 새로 생긴 서버로 요청하는 경우 정상 응답이 가능합니다.
 
+<p align="center"><img src="/images/cookie-and-session-3.gif" width="80%"></p>
 
 ## 쿠키(Cookie)
 
+> 웹 사이트에 접속할 때 생성되는 정보를 담은 임시 파일
+
+사용자 PC에 사용자에 대한 정보를 저장하기 위한 임시 파일입니다. 
+Key-Value 형태로 사용자에 대한 정보가 저장됩니다. 
+이후 서버로 요청을 보낼 때 쿠키 정보를 함께 보내고, 응답 받을 때 함께 전달받아 사용자의 상태 정보를 이어나갑니다. 
+
+### 쿠키의 구성 요소
+- 이름 - 각각의 쿠키를 구별하는 데 사용되는 이름
+- 값 - 쿠키의 이름과 관련된 값
+- 유효시간 - 쿠키의 유지시간
+- 도메인 - 쿠키를 전송할 도메인
+- 경로 - 쿠키를 전송할 요청 경로
+
+### 쿠키의 특징
+쿠키는 다음과 같은 특징을 가집니다.
+- 이름, 값, 만료일(저장 기간 설정), 경로 정보로 구성되어 있습니다.
+- 클라이언트는 총 300개 쿠키를 저장할 수 있습니다.
+- 하나의 도메인 당 20개 쿠키를 가질 수 있습니다
+- 하나의 쿠키는 4KB(=4096byte)까지 저장 가능합니다.
+
+##### 쿠키의 동작 순서
+
+<p align="center"><img src="/images/cookie-and-session-4.JPG" width="80%"></p>
+<center>이미지 출처, 잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)</center><br>
+
+1. 클라이언트가 페이지를 요청합니다.(사용자가 웹사이트 접근)
+1. 웹 서버는 쿠키를 생성합니다.
+1. 생성한 쿠키에 정보를 담아 클라이언트에게 전달합니다.(Response Header에 Set-Cookie 속성 사용)
+1. 전달받은 쿠키는 클라이언트 PC에 저장됩니다. 
+1. 이후 다시 서버에 요청할 때 요청과 쿠키를 함께 전달합니다.(브라우저에 의해 자동 처리)
+1. 서버는 전달받은 쿠키를 확인 후 변경사항을 반영하여 다시 클라이언트에게 전달합니다.
+
+### 쿠키의 한계
+쿠키는 다음과 같은 한계점이 존재합니다.
+- 사용자 측에 저장되고 정보를 임의로 고쳐 사용할 수 있으므로 악용 가능합니다.
+- 요청 정보는 가로채기 쉽기 때문에 보안에 취약합니다.
+
 ## 세션(Session)
+보안이 취약하다는 쿠키의 한계점을 극복하기 위해 사용합니다. 
+쿠키를 기반으로 하여 동작하기는 하지만 사용자 정보를 클라이언트 측이 아닌 서버 측에서 관리한다는 점이 다릅니다. 
+클라이언트는 서버로부터 서버에서 관리하고 있는 세션 정보를 찾기 위한 세션 ID만 전달받습니다. 
+세션 정보를 저장하는 장소는 서버 메모리일수도 있지만 다중 서버 환경에서는 외부 저장소를 사용합니다.
+[(관련 포스트, 다중 서버 환경에서 Session 공유법 (Sticky Session, Session Clustering, Inmemory DB))][multi-servers-env-blogLink]
+
+### 세션의 특징
+세션은 다음과 같은 특징을 가집니다.
+- 각 클라이언트에게 고유 ID를 부여합니다.
+- 서버는 세션 ID로 클라이언트를 구분하고 클라이언트의 요구에 맞는 서비스를 제공합니다.
+- 접속 시간에 제한을 두어 일정 시간 응답이 없다면 정보가 유지되지 않도록 설정 가능합니다.
+- 클라이언트는 고유 ID만 가지고 있고 서버가 이에 대응하는 클라이언트 정보를 관리하므로 비교적으로 보안성이 좋습니다.
+
+##### 세션 동작 순서
+
+<p align="center"><img src="/images/cookie-and-session-5.JPG" width="80%"></p>
+<center>이미지 출처, 잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)</center><br>
+
+1. 클라이언트가 페이지를 요청합니다.(사용자가 웹사이트 접근)
+1. 서버는 접근한 클라이언트의 Request-Header 필드인 Cookie를 확인하여, 클라이언트가 해당 session-id를 보냈는지 확인한다.
+1. session-id가 존재하지 않는다면, 서버는 session-id를 생성해 클라이언트에게 돌려준다.
+1. 서버에서 클라이언트로 돌려준 session-id를 쿠키를 사용해 서버에 저장한다.
+1. 쿠키 이름 : JSESSIONID
+1. 클라이언트는 재접속 시, 이 쿠키(JSESSIONID)를 이용하여 session-id 값을 서버에 전달
+
+### 세션의 한계
+세션은 다음과 같은 한계점이 존재합니다.
+- 사용자가 많아질수록 서버의 메모리를 많이 차지합니다.
+- 동접자 수가 많은 경우 서버에 과부하를 주게 되므로 성능 저하의 요인이 됩니다. 
+
+##### 쿠키와 세션의 차이점 요약
+
+| | 쿠키(Cookie) | 세션(Session) |
+|:---:|:---:|:---:|
+| 저장 위치 | 클라이언트(=접속자 PC) | 웹 서버 | 
+| 저장 형식 | text | Object | 
+| 만료 시점 | 쿠키 저장시 설정<br>(브라우저가 종료되도, 만료시점이 지나지 않으면 자동 삭제되지 않습니다.) | 브라우저 종료시 삭제<br>(기간 지정이 가능합니다.) |
+| 속도 | 세션보다 빠르다 | 쿠키보다 느리다 |
+| 보안 | 세션보다 좋지 않다 | 쿠키보다 좋다 |
+
+<center>표 출처, https://hahahoho5915.tistory.com/32</center><br>
 
 ## OPINION
-첫 프로젝트로 레거시 시스템을 마이크로 서비스 아키텍처로 변환하는 
-약 3년이라는 경력을 가지고 있지만 쿠키, 세션이라는 
+SI 대기업의 그늘에서 3년차 백엔드 개발자라는 경력을 얻었지만 쿠키나 세션과 같은 웹 서버 개발자로서 알아야 하는 기본적인 개념도 부족한 상태입니다. 
+빛 좋은 개살구 같은 경력입니다.😥 
+기본적인 CS 지식이나 서버 개발자서 알아야하는 개념들을 정리해나가는 시간이 많이 필요할 것 같습니다. 
+다음 포스트로 쿠키나 세션 정보를 활용할 수 있는 간단한 테스트 코드를 작성해보도록 하겠습니다.
 
 #### REFERENCE
 - [[Stateful/Stateless] Stateful vs. Stateless 서비스와 HTTP 및 REST][stateless-service-blogLink]
+- [잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)][cookie-and-session-blogLink]
+- <https://devuna.tistory.com/23>
+- <https://junshock5.tistory.com/84>
+- <https://hahahoho5915.tistory.com/32>
+- <https://interconnection.tistory.com/74>
 
+[multi-servers-env-blogLink]: https://junshock5.tistory.com/84
 [stateless-service-blogLink]: https://5equal0.tistory.com/entry/StatefulStateless-Stateful-vs-Stateless-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%99%80-HTTP-%EB%B0%8F-REST
+[cookie-and-session-blogLink]: https://www.fun-coding.org/crawl_advance1.html#6.1.-%EC%BF%A0%ED%82%A4(cookie):-%EC%83%81%ED%83%9C-%EC%A0%95%EB%B3%B4%EB%A5%BC-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EC%8B%9D

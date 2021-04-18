@@ -34,17 +34,14 @@ Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organi
 1. target oranization grant
 
 ##### Settings > Applications > Authorized OAuth Apps
-<div align="center">
-  <img src="/images/grant-sourcetree-app-2.JPG" width="25%">
-  <img src="/images/grant-sourcetree-app-3.JPG" width="60%">
-</div>
+<p align="center"><img src="/images/grant-sourcetree-app-2.JPG" width="80%"></p>
 
 ##### SourcetreeForWindows
 - 이미지 아래 빨간 네모 칸에 grant 버튼을 눌러 승인하기
-<p align="center"><img src="/images/grant-sourcetree-app-4.JPG" width="60%"></p>
+<p align="center"><img src="/images/grant-sourcetree-app-3.JPG" width="60%"></p>
 
 ##### 정상적인 동작 확인
-<p align="center"><img src="/images/grant-sourcetree-app-5.JPG" width="50%"></p>
+<p align="center"><img src="/images/grant-sourcetree-app-4.JPG" width="50%"></p>
 
 ## OPINION
 이전 회사에선 CI/CD 팀에서 이런 이슈들을 처리해줬기 때문에 쉽게 사용했었는데, 

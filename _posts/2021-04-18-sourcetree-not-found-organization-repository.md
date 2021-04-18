@@ -38,7 +38,7 @@ Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organi
 
 ##### SourcetreeForWindows
 - 이미지 아래 빨간 네모 칸에 grant 버튼을 눌러 승인하기
-<p align="center"><img src="/images/grant-sourcetree-app-3.JPG" width="60%"></p>
+<p align="center"><img src="/images/grant-sourcetree-app-3.JPG" width="50%"></p>
 
 ##### 정상적인 동작 확인
 <p align="center"><img src="/images/grant-sourcetree-app-4.JPG" width="50%"></p>

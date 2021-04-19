@@ -37,7 +37,7 @@ Maven도 external jar를 사용하는 방법이 있을 것 같다는 생각이 �
 규칙대로 필요한 라이브러리를 **`/src/libs`** 폴더에 옮겨 놓고 pom.xml 파일에 아래와 같이 의존성을 추가하였습니다.
 
 ##### /src/libs 폴더
-<p align="left"><img src="/images/maven-using-external-jar-1.JPG" width="45%"></p>
+<p align="left"><img src="/images/maven-using-external-jar-1.JPG" width="75%"></p>
 
 ##### pom.xml 파일
 ```xml

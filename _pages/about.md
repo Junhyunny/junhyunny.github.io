@@ -23,7 +23,10 @@ classes: wide
 - Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL, Apache Kafka
 
 #### [Tools]
-- Maven, TortoiseSVN, Git, BitBucket, Bamboo, Jira
+- Maven, TortoiseSVN, Git, Sourcetree
+
+#### [Etc]
+- Github, BitBucket, Bamboo, Jira
 
 ## Career 📋
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 4월
@@ -34,7 +37,7 @@ classes: wide
 - Smart CCTV System 개발, POSCO ICT, 2017년 8월 - 2017년 11월
 
 ## Proejcts 👨‍💻
-#### [MES3.0(Manufacturing Execution System 3.0)]
+#### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
 - Monolithic Architecture > Micro Service Architecture 전환
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
@@ -43,6 +46,10 @@ classes: wide
 - DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
 - Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
   - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
+
+#### [K-ICT BigData Center 홈페이지 리뉴얼], 2021년 04월 ~ 
+- 기존 레거시 시스템을 최신 기술 스택으로 변환하는 작업 수행
+- 특정 솔루션 업체의 라이브리러 제거 작업 수행
 
 ## Side Proejcts 💻
 #### [Slack ChatBot]

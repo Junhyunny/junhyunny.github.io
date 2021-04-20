@@ -17,7 +17,7 @@ last_modified_at: 2021-04-21T00:00:00
 컴파일 에러가 나는 클래스들의 의존성(dependency)을 찾아서 pom.xml에 추가하는 중에 이상한 문제가 발생했습니다. 
 
 ##### Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
-<p align="center"><img src="/images/maven-using-multiple-repositories-1.JPG" width="80%"></p>
+<p align="left"><img src="/images/maven-using-multiple-repositories-1.JPG" width="100%"></p>
 
 [MVN Repository][mvn-repository-link]에는 버젓이 제공하는 것처럼 올려두고 실제로는 없다구요?😡 
 일단 작업이 급하니 이런 에러가 나는 의존성들은 모두 레거시 시스템에서 그대로 들고 왔습니다. 
@@ -45,7 +45,7 @@ last_modified_at: 2021-04-21T00:00:00
 ```
 
 ##### 정상적인 의존성 추가 확인
-<p align="center"><img src="/images/maven-using-multiple-repositories-3.JPG" width="80%"></p>
+<p align="left"><img src="/images/maven-using-multiple-repositories-3.JPG" width="50%"></p>
 
 ## OPINION
 이틀 동안 작업해서 기존 레거시 시스템에서 사용하던 오래된 프레임워크 의존성들은 일부 덜어냈습니다. 

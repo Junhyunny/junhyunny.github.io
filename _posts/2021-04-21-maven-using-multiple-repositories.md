@@ -12,12 +12,11 @@ last_modified_at: 2021-04-21T00:00:00
 최근 공공 기관 레거시 시스템의 기술 부채를 덜어내는 프로젝트를 맡게 되었습니다. 
 컴파일도 되지 않는 기존 레거시 시스템 코드를 전달받았을 땐 어찌나 답답하던지...😭 
 기존 시스템 운영자도 인수인계 받은 뒤에 한번도 빌드해 본 적이 없다는 말에 할 말을 잃었습니다. 
-
 일단 빌드시키기 위해 코드 옮기는 작업과 정말 불가피하게 필요한 라이브러리들만 옮기는 작업을 수행하였습니다. 
 컴파일 에러가 나는 클래스들의 의존성(dependency)을 찾아서 pom.xml에 추가하는 중에 이상한 문제가 발생했습니다. 
 
 ##### Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
-<p align="left"><img src="/images/maven-using-multiple-repositories-1.JPG" width="100%"></p>
+<p align="left"><img src="/images/maven-using-multiple-repositories-1.JPG" width="75%"></p>
 
 [MVN Repository][mvn-repository-link]에는 버젓이 제공하는 것처럼 올려두고 실제로는 없다구요?😡 
 일단 작업이 급하니 이런 에러가 나는 의존성들은 모두 레거시 시스템에서 그대로 들고 왔습니다. 

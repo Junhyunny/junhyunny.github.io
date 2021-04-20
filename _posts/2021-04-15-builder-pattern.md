@@ -186,7 +186,7 @@ public class GofBuilderPattern {
 생성자의 멤버 변수가 많아질수록 생성자의 종류가 많아집니다. 
 
 ```java
-public class EffectiveJavaBuuilderPatttern {
+public class EffectiveJavaBuilderPatttern {
     public static void main(String[] args) {
         Rectangular rectangular = new Rectangular(300, 200, 0, 25);
     }
@@ -227,7 +227,7 @@ class Rectangular {
     - 객체 생성 시 생성자에 숫자들이 들어가면서 어떤 항목에 어떤 값을 추가하는지 코드만 봐서 확인하기 힘듭니다.
 
 ```java
-public class EffectiveJavaBuuilderPatttern {
+public class EffectiveJavaBuilderPatttern {
     public static void main(String[] args) {
         Rectangular rectangular = new Rectangular(300, 200, 0, 25);
     }
@@ -285,7 +285,7 @@ class Rectangular {
     - 스레드 안전성을 확보하려면 점층적 생성자 패턴보다 많은 일을 해야 합니다.
 
 ```java
-public class EffectiveJavaBuuilderPatttern {
+public class EffectiveJavaBuilderPatttern {
     public static void main(String[] args) {
         Rectangular rectangular = new Rectangular(300, 200);
         rectangular.setMargin(0);
@@ -301,7 +301,7 @@ public class EffectiveJavaBuuilderPatttern {
 객체의 멤버 변수 값을 변경할 수 없으므로 immutable 객체임이 보장됩니다. 
 
 ```java
-public class EffectiveJavaBuuilderPatttern {
+public class EffectiveJavaBuilderPatttern {
     public static void main(String[] args) {
         NutritionFacts cocaCola = new NutritionFacts
                 .Builder(240, 8) // 필수값 입력

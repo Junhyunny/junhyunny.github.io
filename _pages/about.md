@@ -37,6 +37,11 @@ classes: wide
 - Smart CCTV System 개발, POSCO ICT, 2017년 8월 - 2017년 11월
 
 ## Proejcts 👨‍💻
+#### [K-ICT BigData Center 시스템 개선 작업], 2021년 04월 ~ 
+- 기존 레거시 시스템의 기술 스택 변경 작업
+  - 레거시 시스템 기술 스택- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 특정 회사 솔루션 라이브러리 사용
+  - 변경 기술 스택 - JDK 11, Srping Boot 2.4.5, 특정 회사 솔루션 라이브러리 제거
+
 #### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
 - Monolithic Architecture > Micro Service Architecture 전환
@@ -46,11 +51,6 @@ classes: wide
 - DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
 - Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
   - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
-
-#### [K-ICT BigData Center 시스템 개선 작업], 2021년 04월 ~ 
-- 기존 레거시 시스템의 기술 스택 변경 작업
-  - 레거시 시스템 기술 스택- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 특정 회사 솔루션 라이브러리 사용
-  - 변경 기술 스택 - JDK 11, Srping Boot 2.4.5, 특정 회사 솔루션 라이브러리 제거
 
 ## Side Proejcts 💻
 #### [Slack ChatBot]

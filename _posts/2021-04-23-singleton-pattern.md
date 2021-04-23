@@ -41,9 +41,8 @@ last_modified_at: 2021-04-23T00:00:00
 - 싱글톤 객체가 너무 많은 일을 하거나 많은 데이터를 공유하는 경우 인스턴스들 간의 결합도가 높아집니다.
 
 ## 싱글톤 패턴 구현 방법
-### 'GoF 디자인 패턴'의 싱글톤 패턴 구현
-
 ### Eager Initialization
+- 생성자를 외부에서 호출하지 못하도록 private 으로 지정합니다.
 - static 키워드를 사용하여 클래스 로더가 초기화하는 시점에 정적 바인딩되도록 구현합니다.
 - 해당 방법은 클래스가 최초 로딩될 때 객체가 생성되기 때문에 thread-safe 합니다.
 ```java
@@ -104,7 +103,6 @@ public class Singleton {
 }
 ```
 
-
 ### Lazy Initialization, Double Checking Locking
 - Lazy Initialization, synchronized 방식을 이용할 때 성능 지연 문제를 해결합니다.
 - 생성된 인스턴스가 없는 경우에만 동기화 블럭이 실행됩니다.
@@ -137,9 +135,11 @@ volatile 키워드를 사용하는 이유는 멀티 스레드 환경에서 threa
 volatile 키워드를 붙힌 경우 MM에 값을 저장하고 읽기 때문에 변수 값 불일치 문제를 해결합니다.([자바 volatile 키워드][volatile-reference-link])
 
 ### Lazy Initialization, LazyHolder
-<p align="center"><img src="/images/singleton-pattern-2.JPG" width="80%"></p>
-<center>이미지 출처, https://en.wikipedia.org/wiki/singleton-pattern-2.JPG</center><br>
-
+- Enum 생성은 기본적으로 thread-safe 함을 보장합니다.(Enum 내의 다르 메소드가 있는 경우는 제외)
+- Enum 방식을 사용하면 아주 복잡한 직렬화 상황이나, 리플렉션 공격에도 제 2의 인스턴스가 생성되는 것이 방지됩니다.
+- volatile 이나 synchronized 키워드 없이도 동시성 문제를 해결하기 때문에 성능이 뛰어납니다.
+- InnerInstanceClazz 클래스는 static 멤버 클래스이지만 
+  Singleton 클래스 내에 InnerInstanceClazz 변수가 없으므로 getInstance() 메서드를 호출할 때 클래스 로더에 의해 초기화 됩니다. 
 ```java
 public class Singleton {
 
@@ -170,19 +170,69 @@ public class Singleton {
 ```
 
 ##### getIntance에 따른 객체 생성자 호출 시기 확인 로그
-
+<p align="center"><img src="/images/singleton-pattern-2.JPG" width="80%"></p>
+<center>이미지 출처, https://en.wikipedia.org/wiki/singleton-pattern-2.JPG</center><br>
 
 ## 싱글톤 패턴은 사실 안티 패턴
 싱글톤 패턴은 사실 안티 패턴이라고 합니다. 
-안티라는 단어만 들어도 좋지 느낌을 주지는 않습니다. 
+안티라는 단어만 들어도 좋은 느낌을 주지는 않습니다. 
 
 > 안티 패턴(anti-pattern)<br>
 > 소프트웨어 공학 분야 용어이며, 실제 많이 사용되는 패턴이지만 비효율적이거나 비생산적인 패턴을 의미한다.
 
+왜 싱글톤 패턴은 안티 패턴이 되었을까요? 이유는 다음과 같습니다.
+- 객체 지향적 설계를 적용할 수 없습니다.
+    - 하나의 객체만 만들기 위해 private 생성자를 사용합니다.
+    - 이는 상속이 불가능하고 다형성 또한 제공할 수 없다는 의미입니다.
+- 테스트하기 힘들다.
+    - 만들어지는 방식이 제한적이기 때문에 mock 오브젝트 등으로 대체하기 어렵습니다.
+- 서버 환경에서는 1개의 instance를 보장하지 못한다.
+    - 서버에서 클래스 로더를 어떻게 구성하고 있느냐에 따라서 하나 이상의 instnace가 만들어질 수 있습니다.
+- 전역 상태를 만들 수 있기 때문에 바람직하지 못하다.
+    - 싱글톤 패턴이 적용된 객체는 어디에서든지 누구나 접근할 수 있습니다. 
+    - 이는 어떤 객체든 싱글톤 객체를 자유롭게 수정하고 데이터를 공유할 수 있다라는 의미입니다. 
+    - 이는 객체 지향 프로그래밍에서는 권장되지 않는 프로그래밍 모델입니다.
+
 ### Singleton in Spring 
+`싱글톤 패턴이 안티 패턴이라는데 Spring에서는 해당 패턴을 많이 사용하지 않아?🤨` 
+심지어 Spring의 대가 토비님께서 싱글톤 패턴이 안티 패턴인 이유에 대해서 설명해주십니다. 
+
+사실 Spring은 싱글톤 패턴을 사용하는 것은 아닙니다. 
+싱글톤 패턴은 어플리케이션 내에 객체가 1개만 존재하도록 보장하기 위해 클래스를 정의하는 패턴입니다. 
+이에 반해 Spring에서는 객체가 1개만 만들도록 제한하지는 않습니다. 
+static 메소드, private 생성자를 이용해 클래스들을 정의하지 않습니다. 
+일반적인 클래스를 만들고 해당 인스턴스를 1개만 만들어 이를 등록하고 재사용합니다. 
+이를 **Singleton Registry** 방식이라고 합니다. 
 
 ## OPINION
-작성 중 입니다.
+저는 항상 제가 아는게 많다는 착각에 자주 빠지곤 합니다. 
+모르는 내용이 생겨서 공부를 하다보면 아직도 모르는 것이 많다는 자괴감이나 박탈감이 듭니다. 
+하지만 또 그 시기가 지나가고 얼마 지나지 않으면 다시 아는게 많다는 착각에 빠집니다.(무한 반복) 
+
+그리고 오늘 다시 한번 자괴감에 빠지는 날이었습니다...😂 
+
+싱글톤 패턴에 대해 정리하다보니 **`GoF 디자인 패턴`** 에서 설명하는 싱글톤 패턴과 일부 다른 점이 있어서 함께 정리하였습니다. 
+
+##### 'GoF 디자인 패턴'의 싱글톤 패턴 구현
+- 생성자를 protected로 지정합니다.(GoF 디자인 패턴에서는 싱글톤 패턴이 적용된 클래스의 상속을 보장합니다.)
+```java
+class Singleton {
+    public:
+        static Singleton* Instance();
+    protected:
+        Singleton();
+    private:
+        static Singletone* _instance;
+}
+
+Singleton* Singleton::_instance = 0;
+Singleton* Singleton::Instance () {
+    if (_instance == 0) {
+        _instance = new Singleton;
+    }
+    return _instance;
+}
+```
 
 #### REFERENCE
 - [싱글턴 패턴(Singleton Pattern)][singleton-pattern-post-link]

@@ -25,7 +25,7 @@ last_modified_at: 2021-04-23T00:00:00
 그렇기 때문에 싱글톤 패턴이 적용된 인스턴스에 대한 전역적인 접근점을 제공해야 합니다. 
 
 ##### 싱글톤 패턴 클래스 다이어그램
-<p align="center"><img src="/images/singleton-pattern-1.JPG" width="50%"></p>
+<p align="center"><img src="/images/singleton-pattern-1.JPG" width="30%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center><br>
 
 ### 싱글톤 패턴 사용 시 이점
@@ -45,6 +45,7 @@ last_modified_at: 2021-04-23T00:00:00
 - 생성자를 외부에서 호출하지 못하도록 private 으로 지정합니다.
 - static 키워드를 사용하여 클래스 로더가 초기화하는 시점에 정적 바인딩되도록 구현합니다.
 - 해당 방법은 클래스가 최초 로딩될 때 객체가 생성되기 때문에 thread-safe 합니다.
+
 ```java
 public class Singleton {
     // Eager Initialization
@@ -64,6 +65,7 @@ public class Singleton {
 - 호출된 적이 없는 경우에는 자기 참조 코드가 null로 존재하다가 호출되었을 때 해당 객체를 만들어 반합니다.
 - 그 이후에는 만들어진 객체를 반환합니다.
 - 다만 아래와 같은 방법은 멀티 스레드 환경에서 thread-safe 하지 않습니다.
+
 ```java
 public class Singleton {
 
@@ -85,6 +87,7 @@ public class Singleton {
 ### Lazy Initialization, synchronized
 - getInstance 메소드 호출 시 synchronized 키워드를 사용하여 임계영역을 만들어줍니다.
 - 해당 방법은 thread-safe 하지만 getInstance() 메소드를 호출이 잦은 경우 성능이 느려질 수 있습니다.
+
 ```java
 public class Singleton {
 
@@ -106,6 +109,7 @@ public class Singleton {
 ### Lazy Initialization, Double Checking Locking
 - Lazy Initialization, synchronized 방식을 이용할 때 성능 지연 문제를 해결합니다.
 - 생성된 인스턴스가 없는 경우에만 동기화 블럭이 실행됩니다.
+
 ```java
 public class Singleton {
 
@@ -140,6 +144,7 @@ volatile 키워드를 붙힌 경우 MM에 값을 저장하고 읽기 때문에 �
 - volatile 이나 synchronized 키워드 없이도 동시성 문제를 해결하기 때문에 성능이 뛰어납니다.
 - InnerInstanceClazz 클래스는 static 멤버 클래스이지만 
   Singleton 클래스 내에 InnerInstanceClazz 변수가 없으므로 getInstance() 메서드를 호출할 때 클래스 로더에 의해 초기화 됩니다. 
+
 ```java
 public class Singleton {
 
@@ -215,6 +220,7 @@ static 메소드, private 생성자를 이용해 클래스들을 정의하지 �
 
 ##### 'GoF 디자인 패턴'의 싱글톤 패턴 구현
 - 생성자를 protected로 지정합니다.(GoF 디자인 패턴에서는 싱글톤 패턴이 적용된 클래스의 상속을 보장합니다.)
+
 ```java
 class Singleton {
     public:

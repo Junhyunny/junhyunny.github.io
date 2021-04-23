@@ -135,7 +135,7 @@ public class Singleton {
 #### volatile 키워드를 사용하는 이유
 volatile 키워드를 사용하는 이유는 멀티 스레드 환경에서 thread-safe 함을 보장하기 위함입니다. 
 멀티 스레드 어플리케이션에서는 작업을 수행하는 동안 성능 향상을 위해 MM(Main Memory)에서 읽은 값을 CPU Cache에 저장합니다. 
-멀티 스레드 환경에서 스레드가 변수 값을 읽어올 때 CPU Cache에 저장된 값을 읽는 경우 스레드마다 값이 다른 불일치 현상이 발생할 수 있습니다.  
+멀티 스레드 환경에서 스레드가 변수 값을 읽어올 때 CPU Cache에 저장된 값을 읽는 경우 스레드마다 값이 다른 불일치 현상이 발생할 수 있습니다. 
 volatile 키워드를 붙힌 경우 MM에 값을 저장하고 읽기 때문에 변수 값 불일치 문제를 해결합니다.([자바 volatile 키워드][volatile-reference-link])
 
 ### Lazy Initialization, LazyHolder
@@ -176,7 +176,6 @@ public class Singleton {
 
 ##### getIntance에 따른 객체 생성자 호출 시기 확인 로그
 <p align="center"><img src="/images/singleton-pattern-2.JPG" width="80%"></p>
-<center>이미지 출처, https://en.wikipedia.org/wiki/singleton-pattern-2.JPG</center><br>
 
 ## 싱글톤 패턴은 사실 안티 패턴
 싱글톤 패턴은 사실 안티 패턴이라고 합니다. 
@@ -211,9 +210,8 @@ static 메소드, private 생성자를 이용해 클래스들을 정의하지 �
 
 ## OPINION
 저는 항상 제가 아는게 많다는 착각에 자주 빠지곤 합니다. 
-모르는 내용이 생겨서 공부를 하다보면 아직도 모르는 것이 많다는 자괴감이나 박탈감이 듭니다. 
-하지만 또 그 시기가 지나가고 얼마 지나지 않으면 다시 아는게 많다는 착각에 빠집니다.(무한 반복) 
-
+모르는 내용이 생겨서 공부를 하다보면 아직도 모르는 것이 많다는 자괴감이나 박탈감이 들었다가도 
+그 시기가 지나가고 얼마 지나지 않으면 다시 아는게 많다는 착각에 빠집니다.(무한 반복) 
 그리고 오늘 다시 한번 자괴감에 빠지는 날이었습니다...😂 
 
 싱글톤 패턴에 대해 정리하다보니 **`GoF 디자인 패턴`** 에서 설명하는 싱글톤 패턴과 일부 다른 점이 있어서 함께 정리하였습니다. 

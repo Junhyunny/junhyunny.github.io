@@ -136,7 +136,7 @@ public class Singleton {
 volatile 키워드를 사용하는 이유는 멀티 스레드 환경에서 thread-safe 함을 보장하기 위함입니다. 
 멀티 스레드 어플리케이션에서는 작업을 수행하는 동안 성능 향상을 위해 MM(Main Memory)에서 읽은 값을 CPU Cache에 저장합니다. 
 멀티 스레드 환경에서 스레드가 변수 값을 읽어올 때 CPU Cache에 저장된 값을 읽는 경우 스레드마다 값이 다른 불일치 현상이 발생할 수 있습니다. 
-volatile 키워드를 붙힌 경우 MM에 값을 저장하고 읽기 때문에 변수 값 불일치 문제를 해결합니다.([자바 volatile 키워드][volatile-reference-link])
+volatile 키워드를 붙힌 경우 MM에 값을 저장하고 읽기 때문에 변수 값 불일치 문제를 해결합니다.[참고, 자바 volatile 키워드][volatile-reference-link])
 
 ### Lazy Initialization, LazyHolder
 - Enum 생성은 기본적으로 thread-safe 함을 보장합니다.(Enum 내의 다르 메소드가 있는 경우는 제외)
@@ -200,7 +200,6 @@ public class Singleton {
 ### Singleton in Spring 
 `싱글톤 패턴이 안티 패턴이라는데 Spring에서는 해당 패턴을 많이 사용하지 않아?🤨` 
 심지어 Spring의 대가 토비님께서 싱글톤 패턴이 안티 패턴인 이유에 대해서 설명해주십니다. 
-
 사실 Spring은 싱글톤 패턴을 사용하는 것은 아닙니다. 
 싱글톤 패턴은 어플리케이션 내에 객체가 1개만 존재하도록 보장하기 위해 클래스를 정의하는 패턴입니다. 
 이에 반해 Spring에서는 객체가 1개만 만들도록 제한하지는 않습니다. 

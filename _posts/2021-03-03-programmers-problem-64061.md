@@ -14,7 +14,7 @@ last_modified_at: 2021-03-03T00:00:00
 - <https://programmers.co.kr/learn/courses/30/lessons/64061>
 
 ## 문제 설명
-[문제 Link][problem-link]를 챀고하세요.
+[문제 Link][problem-link]를 참고하세요.
 
 ## 제한 사항
 - board 배열은 2차원 배열로 크기는 "5 x 5" 이상 "30 x 30" 이하입니다.

@@ -38,9 +38,8 @@ classes: wide
 
 ## Proejcts 👨‍💻
 #### [K-ICT BigData Center 시스템 개선 작업], 2021년 04월 ~ 
-- 기존 레거시 시스템의 기술 스택 변경 작업
-  - 레거시 시스템 기술 스택- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 특정 회사 솔루션 라이브러리 사용
-  - 변경 기술 스택 - JDK 11, Srping Boot 2.4.5, 특정 회사 솔루션 라이브러리 제거
+- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 특정 회사 솔루션 프레임워크(Enview)
+- 기존 레거시 시스템 세션 문제 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
 
 #### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle

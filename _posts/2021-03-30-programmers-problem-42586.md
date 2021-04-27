@@ -43,6 +43,8 @@ last_modified_at: 2021-04-01T00:00:00
 - 동시에 배포할 수 있는 작업 수를 result 리스트에 담고 1로 초기화합니다.
 - result 리스트를 Stream API를 통해 배열로 만들어 반환합니다. 
 
+## 제출 코드
+
 ```java
 import java.util.ArrayList;
 import java.util.List;

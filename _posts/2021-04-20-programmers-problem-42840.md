@@ -44,6 +44,8 @@ last_modified_at: 2021-04-20T00:00:00
 - 0이 아닌 수포자들 중에 최고 점수인 수포자들을 리스트에 담습니다.
 - 리스트에 담은 수포자들을 stream 연산을 이용해 배열로 바꿔 반환합니다.
 
+## 제출 코드
+
 ```java
 import java.util.ArrayList;
 import java.util.List;

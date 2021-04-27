@@ -43,6 +43,8 @@ last_modified_at: 2021-04-11T00:00:00
 - value 값이 answerSize + 1 값이 될 떄까지 반복 수행합니다.
 - map 배열에 저장된 값을 순차적으로 answer 배열에 넣어줍니다.(0 인 값 제외)
 
+## 제출 코드
+
 ```java
 class Solution {
     public int[] solution(int n) {

@@ -41,7 +41,77 @@ last_modified_at: 2021-04-26T00:00:00
 | 3 | [3] | [1] | 2 |
 
 ## 코드 해설
-- 작성 중 입니다.
+##### solution 메소드
+- 여분의 옷을 가진 사람이 옷을 잃어버린 경우에는 자신이 입어야하므로 lost, reserve 배열에서 제거합니다.
+- 여분의 옷을 가진 첫번째 사람을 기준으로 양 옆의 사람에게 옷을 빌려줘봅니다.(reserve 메소드)
+- 왼쪽을 빌려줬을 때 경우의 수(minusCount), 오른쪽을 빌려줬을 때 경우의 수(plusCount) 중 큰 값을 결정합니다.
+- 전체 사람 수에서 잃어버린 사람을 뺀 값에 빌려준 수를 더해줍니다.
+
+```java
+    public int solution(int n, int[] lost, int[] reserve) {
+        // 여별의 옷이 있는 학생이 도두맞은 케이스 제거
+        int lostLength = lost.length;
+        int reserveLength = reserve.length;
+        for (int index = 0; index < reserveLength; index++) {
+            for (int subIndex = 0; subIndex < lostLength; subIndex++) {
+                if (lost[subIndex] == reserve[index]) {
+                    lost[subIndex] = -1;
+                    reserve[index] = -2;
+                    break;
+                }
+            }
+        }
+        int minusCount = reserve(lost, reserve, 1, reserve[0] - 1);
+        int plusCount = reserve(lost, reserve, 1, reserve[0] + 1);
+        int result = minusCount > plusCount ? minusCount : plusCount;
+        int answer = n - lost.length + result;
+        return answer;
+    }
+```
+
+##### reserve 메소드
+- DFS 탐색을 수행합니다.
+- 빌려줄 수 있는 사람을 찾으면 해당 사람에게 빌려줬다는 표시를 합니다.
+
+```java
+    public int reserve(int[] lost, int[] reserve, int curIndex, int canReserveNumer) {
+        int index = 0;
+        int temp = 0;
+        int result = 0;
+        int length = lost.length;
+        for (index = 0; index < length; index++) {
+            if (canReserveNumer == lost[index]) {
+                temp = lost[index];
+                lost[index] = -1;
+                result = 1;
+                break;
+            }
+        }
+        // 마지막 체크할 학생 수 초과
+        if (curIndex == reserve.length) {
+            restore(lost, index, temp);
+            return result;
+        }
+        int minusCount = reserve(lost, reserve, curIndex + 1, reserve[curIndex] - 1);
+        int plusCount = reserve(lost, reserve, curIndex + 1, reserve[curIndex] + 1);
+        // 탐색을 마친 후 데이터 값 복구
+        restore(lost, index, temp);
+        return (minusCount > plusCount ? minusCount : plusCount) + result;
+    }
+```
+
+##### restore 메소드
+
+```java
+    public void restore(int[] lost, int index, int beforeValue) {
+        // 탐색을 마친 후 데이터 값 복구
+        if (index < lost.length && lost[index] == -1) {
+            lost[index] = beforeValue;
+        }
+    }
+```
+
+## 제출 코드
 
 ```java
 class Solution {
@@ -96,6 +166,32 @@ class Solution {
         int plusCount = reserve(lost, reserve, 1, reserve[0] + 1);
         int result = minusCount > plusCount ? minusCount : plusCount;
         int answer = n - lost.length + result;
+        return answer;
+    }
+}
+```
+
+## BEST PRACTICE
+- 작성 중 입니다.
+
+```java
+class Solution {
+    public int solution(int n, int[] lost, int[] reserve) {
+        int[] people = new int[n];
+        int answer = n;
+        for (int l : lost) people[l - 1]--;
+        for (int r : reserve) people[r - 1]++;
+        for (int i = 0; i < people.length; i++) {
+            if (people[i] == -1) {
+                if (i - 1 >= 0 && people[i - 1] == 1) {
+                    people[i]++;
+                    people[i - 1]--;
+                } else if (i + 1 < people.length && people[i + 1] == 1) {
+                    people[i]++;
+                    people[i + 1]--;
+                } else answer--;
+            }
+        }
         return answer;
     }
 }

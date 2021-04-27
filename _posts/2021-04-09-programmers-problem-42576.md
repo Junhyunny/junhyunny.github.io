@@ -40,6 +40,8 @@ last_modified_at: 2021-04-09T00:00:00
 - 참여자 수와 완주자 수가 다른 경우 해당 이름이 완주하지 못한 사람의 이름입니다.
 - 참여자 이름이 완주자 명단에 없으면 해당 이름이 완주하지 못한 사람의 이름입니다.
 
+## 제출 코드
+
 ```java
 import java.util.HashMap;
 import java.util.Map;

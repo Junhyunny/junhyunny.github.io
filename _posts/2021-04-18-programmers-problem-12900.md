@@ -50,6 +50,8 @@ last_modified_at: 2021-04-18T00:00:00
     - 앞에 1칸을 채운다면 나머지 n - 1칸은 n - 1 일 때 경우의 수와 동일합니다.
     - 앞에 2칸을 채운다면 나머지 n - 2칸은 n - 2 일 때 경우의 수와 동일합니다.
 
+## 제출 코드
+
 ```java
 class Solution {
     public int solution(int n) {

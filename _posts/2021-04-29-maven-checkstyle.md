@@ -76,9 +76,10 @@ last_modified_at: 2021-04-28T00:00:00+09:00
   mvn clean checkstyle:checkstyle
 ```
 
-어김없이 발생하는 에러. 
+어김없이 에러가 발생하하였습니다. 
 역시 한번에 되는 일은 없습니다. 
 즐기면서 가보도록 하겠습니다. 
+이것은 개발자의 숙명입니다.
 
 ##### 발생 에러, checkstyle failed, given name COMPACT_CTOR_DEF
 <p align="center"><img src="/images/maven-checkstyle-2.JPG" width="50%"></p>
@@ -164,13 +165,11 @@ API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다.
 
 이후 빌드를 하니 정상적으로는 동작하는데 이상합니다. 
 분명히 일부러 잘못된 코드 스타일로 작성하여 warning은 발생하는데 빌드가 성공합니다. 
-아씨... 즐기면서...🤬 
-
-##### Warning 그리고 빌드 성공
-<p align="center"><img src="/images/maven-checkstyle-6.JPG" width="70%"></p>
+아씨... 즐기면서...해브즈...🤬 
 
 ##### 잘못된 코드 스타일
-- 들여쓰기와 중괄호 `{}` 위치를 어긋나게 작성해두었습니다. 
+- 들여쓰기와 중괄호 `{}` 위치를 일부러 어긋나게 작성해두었습니다. 
+- 빌드가 실패되기를 기대하고 작성하였습니다. 
 
 ```java
 package com.geneuin.spring;
@@ -188,13 +187,16 @@ public class GeneuineTemplateApplication {
 }
 ```
 
+##### Warning 그리고 빌드 성공
+<p align="center"><img src="/images/maven-checkstyle-6.JPG" width="70%"></p>
+
 이에 대해 확인해보니 위반에 대한 심각성을 어느 레벨에서 측정할 것인지 설정으로 추가해줘야지 warning에서도 빌드를 실패시킬 수 있다고 합니다. 
 관련된 설정을 추가하였습니다. 
 **이제 마지막이길 바랍니다. 잘 시간이 한참 지났습니다.**
 
 ##### Stackoverflow 답변
 <p align="center"><img src="/images/maven-checkstyle-7.JPG" width="60%"></p>
-<center>이미지 출처, https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center><br>
+<center>이미지 출처, https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center>
 
 ##### 최종 pom.xml
 

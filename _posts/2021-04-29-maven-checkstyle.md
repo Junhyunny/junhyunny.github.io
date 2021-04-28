@@ -24,7 +24,7 @@ last_modified_at: 2021-04-28T00:00:00+09:00
 - <https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml>
 
 ##### google_checks.xml 파일 디렉토리 위치
-<p align="center"><img src="/images/maven-checkstyle-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/maven-checkstyle-1.JPG" width="35%"></p>
 
 ##### 코드 스타일 변경
 - 구글 코드 스타일의 들여쓰기(indentation) 크기는 2이므로 이를 4로 조절하였습니다.
@@ -81,7 +81,7 @@ last_modified_at: 2021-04-28T00:00:00+09:00
 즐기면서 가보도록 하겠습니다. 
 
 ##### 발생 에러, checkstyle failed, given name COMPACT_CTOR_DEF
-<p align="center"><img src="/images/maven-checkstyle-2.JPG" width="70%"></p>
+<p align="center"><img src="/images/maven-checkstyle-2.JPG" width="50%"></p>
 
 관련된 내용을 찾아보니 maven-checkstyle-plugin에서 checkstyle에 해당하는 특정 버전을 찾지 못한다는 내용이 있습니다. 
 필요한 checkstyle 관련 dependency를 추가하면 해결된다고 합니다. 
@@ -193,7 +193,7 @@ public class GeneuineTemplateApplication {
 **이제 마지막이길 바랍니다. 잘 시간이 한참 지났습니다.**
 
 ##### Stackoverflow 답변
-<p align="center"><img src="/images/maven-checkstyle-7.JPG" width="70%"></p>
+<p align="center"><img src="/images/maven-checkstyle-7.JPG" width="60%"></p>
 <center>이미지 출처, https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center><br>
 
 ##### 최종 pom.xml
@@ -238,7 +238,7 @@ public class GeneuineTemplateApplication {
 
 성공적으로 빌드를 실패시켰습니다. 
 자기 전까지 코드 정리 후 빌드 에러가 나지 않도록 작업하고 올려야겠습니다. 
-글 정리는 언제해야될지 막막해지는 순간입니다.
+글 정리는 언제할지 막막해지는 순간입니다.
 
 ##### 잘못된 스타일 감지 및 빌드 에러
 <p align="center"><img src="/images/maven-checkstyle-8.JPG" width="70%"></p>
@@ -246,7 +246,6 @@ public class GeneuineTemplateApplication {
 ## OPINION
 해당 포스트는 제 개인 블로그에 작성하였지만 팀 블로그에도 같은 내용으로 작성 후 공유해야겠습니다. 
 제가 얼마나 고생했는지 팀원들에게 생색을 내기 위해서입니다.🤣 
-
 코드 스타일이 반영된 프로젝트는 [Geneuin/spring-backend-template][github-repo-link]에서 확인 가능합니다. 
 
 #### REFERENCE

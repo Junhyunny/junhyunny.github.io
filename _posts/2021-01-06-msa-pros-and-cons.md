@@ -3,7 +3,7 @@ title: "Micro Service Architecture 장점과 단점"
 search: false
 category:
   - msa
-last_modified_at: 2021-04-01T00:00:00
+last_modified_at: 2021-04-01T09:00:00
 ---
 
 <br>

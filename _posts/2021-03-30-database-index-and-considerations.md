@@ -3,7 +3,7 @@ title: "DB 인덱스(INDEX) 개념 및 설정 시 고려사항"
 search: false
 category:
   - information
-last_modified_at: 2021-04-02T00:00:00
+last_modified_at: 2021-04-02T09:00:00
 ---
 
 <br>

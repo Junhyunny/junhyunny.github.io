@@ -3,7 +3,7 @@ title: "정적 타입 언어와 동적 타입 언어"
 search: false
 category:
   - information
-last_modified_at: 2021-04-04T00:00:00
+last_modified_at: 2021-04-04T09:00:00
 ---
 
 <br>

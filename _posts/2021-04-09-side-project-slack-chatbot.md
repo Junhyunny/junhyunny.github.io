@@ -3,7 +3,7 @@ title: "[Side-Project] Slack Chatbot 개발"
 search: false
 category:
   - side-project
-last_modified_at: 2021-04-09T00:00:00
+last_modified_at: 2021-04-09T09:00:00
 ---
 
 <br>

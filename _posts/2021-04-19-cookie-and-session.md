@@ -3,7 +3,7 @@ title: "쿠키(Cookie)와 세션(Session)"
 search: false
 category:
   - information
-last_modified_at: 2021-04-19T00:00:00
+last_modified_at: 2021-04-19T09:00:00
 ---
 
 <br>

@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - data-structure
-last_modified_at: 2021-04-29T00:00:00
+last_modified_at: 2021-04-29T09:00:00
 ---
 
 <br>
@@ -47,11 +47,25 @@ B-Tree는 자식 노드의 개수가 2개 이상인 트리를 말합니다.
 가장 상단을 구성하는 것이 루트 노드(root node), 중간에 위치한 브랜치 노드(branch node), 마지막에 위치한 리프 노드(leaf node)로 구성됩니다. 
 B-Tree는 이진 트리(Binary Tree)와 유사하지만 한 노드 당 자식 노드가 2개 이상 가능합니다. 
 
+##### B-Tree 구조
+- 최상위 노드를 Root 노드라고 합니다.
+- 중간에 위치한 노드들을 Branck 노드라고 합니다.
+- 맨 말단에 위치한 노드를 Leaf 노드라고 합니다.
+- 하나의 노드에 매달린 자식 노드는 2개 이상 가능합니다.
+- 데이터 값들이 항상 정렬된 상태로 유지됩니다.
+- 균형 트리(Balanced Tree)로 Root 노드에서 Leaf 노드까지의 거리가 모두 동일합니다.
+
 <p align="center"><img src="/images/db-index-data-structure-3.JPG" width="70%"></p>
 <center>이미지 출처, https://zorba91.tistory.com/293</center><br>
 
+<p align="center"><img src="/images/db-index-data-structure-4.JPG" width="70%"></p>
+<center>이미지 출처, https://zorba91.tistory.com/293</center><br>
 
-<p align="center"><img src="/images/db-index-data-structure-4.gif" width="100%"></p>
+균형 트리인 B-Tree는 Root 노드에서 Leaf 노드까지 동일한 거리를 가지기 때문에 어떤 값에 대해서도 같은 시간에 결과를 얻을 수 있습니다. 
+데이터 CUD 명령으로 인해 데이터의 균형이 깨지고 성능이 악화됩니다. 
+
+##### B-Tree 아이템 ISNERT 시뮬레이션
+<p align="center"><img src="/images/db-index-data-structure-5.gif" width="100%"></p>
 
 ### B-Tree 특징
 ### B-Tree 사용 시 장점
@@ -81,6 +95,7 @@ B-Tree는 이진 트리(Binary Tree)와 유사하지만 한 노드 당 자식 �
 
 #### REFERENCE
 - <https://mangkyu.tistory.com/96>
+- <https://beelee.tistory.com/37>
 - <https://mangkyu.tistory.com/102>
 - <https://zorba91.tistory.com/293>
 - <https://potatoggg.tistory.com/174>

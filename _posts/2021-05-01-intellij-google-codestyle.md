@@ -9,7 +9,7 @@ last_modified_at: 2021-05-01T09:00:00
 <br>
 
 팀원들을 위한 [Maven CheckStyle 적용][maven-checkstyle-link] 포스트 작성 후에 
-팀원들이 IntelliJ를 이용하여 코드 자동 완성을 쉽게 할 수 있도록 이번 포스트를 작성하였습니다. 
+팀원들이 IntelliJ를 이용하여 코드 자동 줄 맞춤을 쉽게 할 수 있도록 이번 포스트를 작성하였습니다. 
 
 ##### intellij-java-google-style.xml 다운로드
 - 아래 링크로 접속하여 intellij-java-google-style.xml 파일을 다운받습니다. 
@@ -43,7 +43,7 @@ JAVA 이 외에 다른 언어도 모두 4로 변경하였습니다.
   <img src="/images/intellij-google-codestyle-4.JPG" width="35%">
 </div>
 
-해당 설정을 IMPORT 한 이후에 자동 완성 단축키를 누르면 구글의 코드 스타일로 코드 자동 줄 맞춤이 수행됩니다.
+해당 설정을 IMPORT 한 이후에 자동 줄 맞춤 단축키를 누르면 구글의 코드 스타일로 코드 정렬이 수행됩니다.
 
 ## OPINION
 팀원들이 사소한 것으로 개발에 불편함을 겪지 않았으면 하는 마음에 이런 부분도 함께 정리하여 올렸습니다. 

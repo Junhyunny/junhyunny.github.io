@@ -16,8 +16,8 @@ last_modified_at: 2021-05-01T09:00:00
 - 해당 파일은 구글에서 사용하는 코드 스타일 규칙입니다.
 - <https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml>
 
-해당 스타일을 받아서 그냥 사용하면 들여쓰기(indent) 칸이 2로 설정되어 있어서 보기에 불편하였습니다. 
-들여쓰기와 관련된 설정을 저희 팀에 맞도록 4로 변경하였습니다. 
+해당 스타일을 받아서 그냥 사용하면 들여쓰기(indent) 칸이 2로 설정되어 있습니다. 
+저희 팀은 보기에 불편하여 들여쓰기와 관련된 설정을 4로 변경하였습니다. 
 JAVA 이 외에 다른 언어도 모두 4로 변경하였습니다.
 
 ```xml
@@ -42,6 +42,8 @@ JAVA 이 외에 다른 언어도 모두 4로 변경하였습니다.
   <img src="/images/intellij-google-codestyle-3.JPG" width="60%">
   <img src="/images/intellij-google-codestyle-4.JPG" width="35%">
 </div>
+
+해당 설정을 IMPORT 한 이후에 자동 완성 단축키를 누르면 구글의 코드 스타일로 코드 자동 줄 맞춤이 수행됩니다.
 
 ## OPINION
 팀원들이 사소한 것으로 개발에 불편함을 겪지 않았으면 하는 마음에 이런 부분도 함께 정리하여 올렸습니다. 

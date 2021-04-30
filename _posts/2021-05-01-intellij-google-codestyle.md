@@ -52,3 +52,4 @@ JAVA 이 외에 다른 언어도 모두 4로 변경하였습니다.
 - <https://jiyeonseo.github.io/2016/11/15/setting-java-google-style-to-intellij/>
 
 [maven-checkstyle-link]: https://junhyunny.github.io/information/maven/maven-checkstyle/
+[github-repo-link]: https://github.com/Geneuin/spring-backend-template

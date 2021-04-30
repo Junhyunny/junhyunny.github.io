@@ -25,7 +25,7 @@ Key-Value 형태로 데이터를 저장하는 자료구조입니다.
 데이터 탐색 시 해시 함수(Hash Function)를 이용해 Key에 해당하는 index 값을 구합니다. 
 index를 이용하여 배열에 저장된 value에 접근하기 때문에 해시 테이블의 평균 시간복잡도는 O(1)입니다.
 
-<p align="center"><img src="/images/db-index-data-structure-1.JPG" width="70%"></p>
+<p align="center"><img src="/images/db-index-data-structure-1.JPG" width="60%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
 
 #### 해시 함수(Hash Function)
@@ -35,7 +35,7 @@ Key를 사용해 적절한 배열의 index를 계산하는 계산식입니다.
 Key 충돌이 있는 경우에는 정책에 따라 부가적인 처리가 필요합니다. 
 자세한 내용은 별도 포스트를 통해 정리하도록 하겠습니다. 
 
-<p align="center"><img src="/images/db-index-data-structure-2.JPG" width="70%"></p>
+<p align="center"><img src="/images/db-index-data-structure-2.JPG" width="60%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
 
 ## B-Tree

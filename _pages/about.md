@@ -29,7 +29,7 @@ classes: wide
 - Github, BitBucket, Bamboo, Jira
 
 ## Career 📋
-#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 4월
+#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
 - MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 4월
 - MES3.0(Manufacturing Execution System 3.0) 개발, POSCO ICT, 2018년 7월 - 2020년 12월
 

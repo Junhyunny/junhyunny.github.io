@@ -296,7 +296,7 @@ $ mvn clean install
             <limit>
                 <counter>LINE</counter>
                 <value>TOTALCOUNT</value>
-                <maximum>30</maximum>
+                <maximum>2</maximum>
             </limit>
         </limits>
     </rule>

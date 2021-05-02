@@ -1,5 +1,5 @@
 ---
-title: "Maven CheckStyle 적용"
+title: "Maven CheckStyle 적용하기"
 search: false
 category:
   - information

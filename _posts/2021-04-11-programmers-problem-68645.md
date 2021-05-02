@@ -40,7 +40,7 @@ last_modified_at: 2021-04-11T09:00:00
 - turnMode 값은 turnPoint 값이 0 이 되는 지점마다 변경됩니다.
 - turnMode 값은 0 > 1 > 2 > 0 순서로 반복적으로 변경됩니다.
 - turnPoint 값이 0 이 되면 새로운 turnPoint 에 이전 초기 turnPoint 값보다 1 작은 값을 지정합니다.
-- value 값이 answerSize + 1 값이 될 떄까지 반복 수행합니다.
+- value 값이 answerSize + 1 값이 될 때까지 반복 수행합니다.
 - map 배열에 저장된 값을 순차적으로 answer 배열에 넣어줍니다.(0 인 값 제외)
 
 ## 제출 코드

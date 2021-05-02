@@ -1,5 +1,5 @@
 ---
-title: "IntelliJ Google CodeStyle 적용"
+title: "IntelliJ Google CodeStyle 적용하기"
 search: false
 category:
   - information

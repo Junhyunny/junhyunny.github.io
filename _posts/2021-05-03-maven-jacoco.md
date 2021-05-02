@@ -11,13 +11,13 @@ last_modified_at: 2021-05-03T09:00:00
 
 좋은 서비스 개발에 대한 객관적인 지표를 얻기 위해 코드 커버리지 측정을 수행하자고 팀원들에게 제시하였고 이를 적용하기로 하였습니다. 
 현재 팀이 JAVA 언어를 사용하고 있기 때문에 JaCoCo 플러그인을 적용하고 특정 테스트 커버리지를 만족하지 못하면 빌드를 실패시키기로 하였습니다. 
-JaCoCo 플러그인을 적용하는 과정을 정리하고 팀원들에게 이를 공유하기로 하였습니다.  
-JaCoCo가 무엇인지 공식 레퍼런스의 소개하는 글을 가져왔습니다. 
+JaCoCo 플러그인을 적용하는 과정을 정리하고 팀원들에게 이를 공유하기로 하였습니다. 
+JaCoCo 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글을 가져왔습니다. 
 
 > JaCoCo(Java Code Coverage)<br>
 > JaCoCo is a free code coverage library for Java, which has been created by the EclEmma team based on the lessons learned from using and integration existing libraries for many years. 
 
-해당 플러그인을 적용하면 얻을 수 있는 이점에 대해 생각해보았습니다. 
+테스트 커버리지를 강제할 수 있는 JaCoCo 플러그인을 적용하면 얻을 수 있는 이점에 대해 생각해보았습니다. 
 - 안정적인 시스템을 구축할 수 있습니다.
 - 개발자가 생각하지 못한 버그를 개발 단계에서 잡아낼 수 있습니다. 
 - 테스트 코드를 적용하면서 필요한 리팩토링을 수행하면서 좋은 코드 작성할 수 있다.
@@ -84,8 +84,8 @@ JaCoCo가 무엇인지 공식 레퍼런스의 소개하는 글을 가져왔습�
     </plugin>
 ```
 
-`<plugin>...</plugin>` 태그를 이용해 JaCoCo 플러그인을 추가합니다. 
-`<executions>...</executions>` 태그 내부를 살펴보면 플러그인 실행에 대한 내용을 정리하고 있는 것으로 보입니다. 
+`<plugin> </plugin>` 태그를 이용해 JaCoCo 플러그인을 추가합니다. 
+`<executions> </executions>` 태그 내부를 살펴보면 플러그인 실행에 대한 내용을 정리하고 있는 것으로 보입니다. 
 JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 정리해보겠습니다. 
 
 ### JaCoCo Execution Goal
@@ -98,11 +98,11 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
 - aggregate - reacter 안에 있는 여러 프로젝트로부터 code coverage 리포트를 생성하는 명령입니다.
 - check - code coverage metric이 충돌하는지 확인하는 명령입니다.
 - dump - TCP 서버 모드에서 실행중인 JaCoCo Agent로부터 TCP/IP 덤프(dump)를 요청하는 명령입니다.
-- instrument - 오프라인 측정을 수행하는 명령입니다. 테스트 실행 후에, ‘restore-instrumented-classes’ 명령으로 원본 클래스 파일들을 저장해야 합니다. 
+- instrument - 오프라인 측정을 수행하는 명령. 테스트 실행 후 ‘restore-instrumented-classes’ 명령으로 원본 클래스 파일들을 저장해야 합니다. 
 - restore-instrumented-class - 오프라인 측정 이전에 원본 파일들을 저장하는 명령입니다. 
 
 ### JaCoCo Rule
-- JaCoCo 코드 커버리지 기준을 설정할 때 다음과 같은 속성들이 있습니다.
+- JaCoCo 플러그인 코드 커버리지 기준을 설정할 때 다음과 같은 속성들이 있습니다.
 - Element type - 코드 커버리지 체크 기준
   - BUNDLE (default) - 패키지 번들
   - PACKAGE - 패키지
@@ -123,7 +123,7 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
   - MISSEDRATIO - 커버되지 않은 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
   - COVEREDRATIO (default) - 커버된 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
 
-### 설정한 내용 정리
+### Geneuin Team 프로젝트 JaCoCo 설정 내용 정리
 #### 특정 클래스 테스트 커버리지 측정 제외
 - 서비스 Run을 수행하는 main 메소드가 있는 *Application.class는 테스트 커버리지 측정에서 제거
 
@@ -256,14 +256,14 @@ public class JacocoTest {
 
 ### Maven Lifecycle
 - validate > compile > test > package > install > deploy
-- `test` phase 이후에 JaCoCo 플러그인에 의해 테스트 커버리지 측정이 가능하므로 `package` 이상부터 가능합니다.
+- **`test`** phase 이후에 JaCoCo 플러그인에 의해 테스트 커버리지 측정이 가능하므로 **`package`** 이상부터 가능합니다.
 
 ```
 $ mvn clean install
 ```
 
 ##### 테스트 커버리지 측정 내용
-<p align="center"><img src="/images/maven-jacoco-1.JPG" width="75%"></p>
+<p align="center"><img src="/images/maven-jacoco-1.JPG" width="100%"></p>
 
 ##### 빌드 실패 시 에러 로그
 - 일부 테스트 코드 주석 후 테스트 커버리지 불만족
@@ -279,8 +279,8 @@ $ mvn clean install
     }
 ```
 
-<p align="center"><img src="/images/maven-jacoco-2.JPG" width="75%"></p>
-<p align="center"><img src="/images/maven-jacoco-3.JPG" width="75%"></p>
+<p align="center"><img src="/images/maven-jacoco-2.JPG" width="100%"></p>
+<p align="center"><img src="/images/maven-jacoco-3.JPG" width="100%"></p>
 
 - pom.xml 파일 변경 후 코드 라인 수 제약사항 불만족
 
@@ -297,7 +297,7 @@ $ mvn clean install
     </rule>
 ```
 
-<p align="center"><img src="/images/maven-jacoco-4.JPG" width="75%"></p>
+<p align="center"><img src="/images/maven-jacoco-4.JPG" width="100%"></p>
 
 ## OPINION
 2020년 초반 시작한 회사가 최근에 좋은 입소문을 탔는지 1년만에 억 단위의 큰 프로젝트들을 수주하기 시작하면서 프리랜서 도입이 필요한 시점이 왔습니다. 

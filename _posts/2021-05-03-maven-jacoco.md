@@ -258,12 +258,16 @@ public class JacocoTest {
 ### Maven Lifecycle
 - validate > compile > test > package > install > deploy
 - **`test`** phase 이후에 JaCoCo 플러그인에 의해 테스트 커버리지 측정이 가능하므로 **`package`** 이상부터 가능합니다.
+- 다음과 같은 명령어를 수행합니다.
 
 ```
 $ mvn clean install
 ```
 
 ##### 테스트 커버리지 측정 내용
+- **`maven install`** 명령어를 수행하면 JaCoCo Report 파일이 생성됩니다. 
+- 해당 프로젝트의 **/target/site/jacoco/index.html** 파일을 열면 아래와 같은 화면을 확인할 수 있습니다. 
+
 <p align="center"><img src="/images/maven-jacoco-1.JPG" width="100%"></p>
 
 ##### 빌드 실패 시 에러 로그

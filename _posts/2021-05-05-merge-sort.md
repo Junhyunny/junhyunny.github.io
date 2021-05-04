@@ -19,7 +19,7 @@ last_modified_at: 2021-05-05T09:00:00
 - 병합하는 과정에서 정렬된 아이템들을 담을 공간이 필요하여 메모리가 많이 사용됩니다.
 
 ##### 합병 정렬 동작 방식
-<p align="center"><img src="/images/merge-sort-1.gif" width="70%"></p>
+<p align="center"><img src="/images/merge-sort-1.gif" width="50%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Merge_sort</center><br>
 
 ## 합병 정렬 수행 과정

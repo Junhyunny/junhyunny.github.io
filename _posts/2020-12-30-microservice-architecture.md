@@ -25,7 +25,7 @@ last_modified_at: 2021-04-01T09:00:00
 
 하지만 기능이 늘어나면서 규모가 커짐에 따라 어플리케이션 기동, 빌드, 배포 등에 시간이 길어집니다. 
 간단한 기능이 추가되더라도 전체를 다시 빌드하고 배포해야 합니다. 
-시간이 지나면서 최초 설계와 다른 방향으로 유집보수가 일어나게 되면 프로그램의 결합도가 높아지게 됩니다. 
+시간이 지나면서 최초 설계와 다른 방향으로 유지보수가 일어나게 되면 프로그램의 결합도가 높아지게 됩니다. 
 추가되는 기능별로 적절한 기술 스택을 선정하는 것도 불가능합니다. 
 기술이 발전함에 따라 시스템에 적용된 기술도 함께 발전해야 하지만 시스템이 커지면서 쉽지 않은 작업이 되고 기술의 부채가 증가하게 됩니다.
 
@@ -43,7 +43,7 @@ last_modified_at: 2021-04-01T09:00:00
 분산 환경이기 때문에 장애 포인트가 늘어나고 모니터링에 어려움을 겪을 수 있습니다.  
 
 ##### 모놀리식 아키텍처와 마이크로 서비스 아키텍처 구조 차이
-<p align="center"><img src="/images/microservice-architecture-1.JPG"/></p>
+<p align="center"><img src="/images/microservice-architecture-1.JPG" width="80%"/></p>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
 ## Micro Service Architecture 특징
@@ -63,7 +63,7 @@ last_modified_at: 2021-04-01T09:00:00
 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리합니다. 
 새로운 기능을 구축해야하는 경우 모든 변경사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
 
-<p align="center"><img src="/images/microservice-architecture-2.JPG"></p>
+<p align="center"><img src="/images/microservice-architecture-2.JPG" width="80%"></p>
 <center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
 
 ## Micro Service Architecture 핵심 원칙

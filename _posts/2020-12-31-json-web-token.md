@@ -18,7 +18,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
 주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 **클레임 기반 토큰은 내부에 사용자 정보나 데이터 속성 등을 담고 있습니다.** 
 
 #### 일반 string 토큰 인증 방식
-<p align="center"><img src="/images/json-web-token-1.JPG"></p>
+<p align="center"><img src="/images/json-web-token-1.JPG" width="80%"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
   1. 토큰 요청을 받은 authorization server는 사용자 계정을 확인 후 토큰 지급이 가능한지 여부를 판정하여 토큰 발급
@@ -28,7 +28,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
 #### 클레임 기반 토큰 인증 방식
-<p align="center"><img src="/images/json-web-token-2.JPG"></p>
+<p align="center"><img src="/images/json-web-token-2.JPG" width="80%"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
   1. 토큰 요청을 받은 authorization server는 사용자 계정을 확인 후 토큰 지급이 가능한지 여부를 판정하여 토큰 발급
@@ -44,7 +44,7 @@ API 서버는 API 요청을 검증하기 위해 토큰을 이용하여 사용자
 ## Json Web Token 구조
 Header, Payload, Signature 3개의 정보를 담고 있습니다. 각 정보에 대해 자세히 알아보도록 하겠습니다.
 
-<p align="center"><img src="/images/json-web-token-3.JPG"></p>
+<p align="center"><img src="/images/json-web-token-3.JPG" width="80%"></p>
 
 ### Header 정보
 토큰 유형이나 해시 알고리즘이 무엇인지 등의 정보가 담깁니다. 

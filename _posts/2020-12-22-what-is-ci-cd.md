@@ -14,14 +14,14 @@ last_modified_at: 2021-03-31T09:00:00
 CI/CD는 크게 **지속적인 통합(Continuous Integration), 지속적인 전달(Continuous Delivery), 지속적인 배포(Continuous Deployment)**로 구분되며 
 각 단계에서 구체적으로 무슨 일을 하는지에 대해 정리해보았습니다.<br>
 
-![what-is-ci-cd-1](/images/what-is-ci-cd-1.PNG)
-<center>이미지 출처, https://www.redhat.com/ko/topics/devops/what-is-ci-cd</center> 
+<p align="center"><img src="/images/what-is-ci-cd-1.PNG" width="70%"/></p>
+<center>이미지 출처, https://www.redhat.com/ko/topics/devops/what-is-ci-cd</center>
 
 ## Continuous Integration 이란?
 지속적으로 코드들의 통합을 진행하면서 코드의 품질을 유지하기 위한 방법입니다. 이 과정에서 이루어지는 주된 작업은 **빌드, 테스트 그리고 병합**입니다.<br>
 시스템 개발이 여러 개발자들의 협업에 의해 진행되기 때문에 특정 시점에 개발된 코드들을 모두 병합하고 이를 테스트하는 일은 쉽지 않습니다. 
 `CI는 이런 문제점을 해결하기 위한 개발 방법입니다.` 빌드, 테스트 그리고 병합하는 자동화 된 프로세스를 이용하여 최대한 자주 코드를 통합합니다. 
-이 단계에서 테스트는 테스트 자동화에 의해 진행됩니다. 개발 과정에서 쌓이는 테스트 코드들을 통해 시스템의 품질 향상을 도모하고 버그를 최소화할 수 있습니다. 
+이 단계에서 테스트는 자동화된 프로세스를 통해 진행됩니다. 개발 과정에서 쌓이는 테스트 코드들을 통해 시스템의 품질 향상을 도모하고 버그를 최소화할 수 있습니다. 
 
 ### Continuous Integration 장점
 - 빌드와 테스트가 자동화되어 개발자는 개발에 집중할 수 있습니다.
@@ -35,7 +35,7 @@ CI/CD는 크게 **지속적인 통합(Continuous Integration), 지속적인 전�
 
 #### 지속적인 통합에서 각 solution / tool 사용 흐름
 
-![what-is-ci-cd-2](/images/what-is-ci-cd-2.PNG)
+<p align="center"><img src="/images/what-is-ci-cd-2.PNG" width="70%"/></p>
 
 ## Continuous Delivery 란?
 개발자들이 적용한 변경사항이 테스트를 거쳐 **레포지토리에 자동으로 업로드되는 것을 의미**합니다.

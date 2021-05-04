@@ -29,17 +29,20 @@ classes: wide
 - Github, BitBucket, Bamboo, Jira
 
 ## Career 📋
+#### <img src="/images/about/about-3.jpg" width="5%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
+- K-ICT BigData Center 시스템 개선 작업, 2021년 4월 ~
+
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
-- MES(Manufacturing Execution System) 운영, POSCO ICT, 2021년 1월 - 4월
-- MES3.0(Manufacturing Execution System 3.0) 개발, POSCO ICT, 2018년 7월 - 2020년 12월
+- MES(Manufacturing Execution System) 운영, 2021년 1월 - 4월
+- MES3.0(Manufacturing Execution System 3.0) 개발, 2018년 7월 - 2020년 12월
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
-- Smart CCTV System 개발, POSCO ICT, 2017년 8월 - 2017년 11월
+- Smart CCTV System 개발, 2017년 8월 - 2017년 11월
 
 ## Proejcts 👨‍💻
 #### [K-ICT BigData Center 시스템 개선 작업], 2021년 04월 ~ 
-- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 솔루션 회사 프레임워크(Enview)
-- 기존 레거시 시스템 세션 문제 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
+- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 솔루션 기업 프레임워크(Enview Framework, Saltware)
+- 사용자 
 
 #### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle

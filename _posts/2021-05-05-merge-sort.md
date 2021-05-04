@@ -37,7 +37,7 @@ last_modified_at: 2021-05-05T09:00:00
 ## 합병 정렬 코드 설명
 ### main 메소드
 - mergeSort 메소드에 변수로 배열의 시작 index, 마지막 index를 전달합니다. 
-- 추가한 index는 정렬 범위에 포함됩니다.
+- 매개변수로 전달한 index들은 정렬 범위에 포함됩니다.
 
 ```java
     public static void main(String args[]) {

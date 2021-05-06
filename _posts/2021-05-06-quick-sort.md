@@ -175,7 +175,7 @@ public class Main {
 - 각 깊이 별로 값을 비교를 n 번씩 수행합니다. 
 - 최종적으로 계산된 시간 복잡도는 **`깊이 * 각 깊이 별 비교 횟수 = n * log2n`** 입니다. 
 
-<p align="center"><img src="/images/quick-sort-1.JPG" width="55%"></p>
+<p align="center"><img src="/images/quick-sort-1.JPG" width="65%"></p>
 <center>이미지 출처, https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center><br>
 
 ##### 최악의 pivot 값을 이용하여 정렬 수행
@@ -184,7 +184,7 @@ public class Main {
 - 각 깊이 별로 값을 비교를 n 번씩 수행합니다. 
 - 최종적으로 계산된 시간 복잡도는 **`깊이 * 각 깊이 별 비교 횟수 = n * n = pow(2, 2)`** 입니다. 
 
-<p align="center"><img src="/images/quick-sort-2.JPG" width="55%"></p>
+<p align="center"><img src="/images/quick-sort-2.JPG" width="65%"></p>
 <center>이미지 출처, https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center><br>
 
 #### REFERENCE

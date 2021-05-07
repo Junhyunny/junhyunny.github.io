@@ -14,4 +14,9 @@ last_modified_at: 2021-05-07T09:00:00
 작성 중 입니다.
 
 #### REFERENCE
-- <>
+- [MongoDB - 도입기][mongo-db-instruction-link]
+- <https://esckey.tistory.com/107>
+- <https://www.samsungsds.com/kr/insights/1232564_4627.html>
+- <https://shoark7.github.io/programming/knowledge/what-is-NoSQL>
+
+[mongo-db-instruction-link]: https://www.blog-dreamus.com/post/flo-tech-mongodb-%EB%8F%84%EC%9E%85%EA%B8%B0

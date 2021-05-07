@@ -29,7 +29,7 @@ classes: wide
 - Github, BitBucket, Bamboo, Jira
 
 ## Career 📋
-#### <img src="/images/about/about-3.jpg" width="5%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
+#### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
 - K-ICT BigData Center 시스템 개선 작업, 2021년 4월 ~
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
@@ -41,7 +41,7 @@ classes: wide
 
 ## Proejcts 👨‍💻
 #### [K-ICT BigData Center 시스템 개선 작업], 2021년 04월 ~ 
-- JDK 1.7, Spring Webmvc 3.2.9.RELEASE, 솔루션 기업 프레임워크(Enview Framework, Saltware)
+- 솔루션 기업 프레임워크(Enview Framework, Saltware), JDK1.7, Ant, Tomcat6
 
 #### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle

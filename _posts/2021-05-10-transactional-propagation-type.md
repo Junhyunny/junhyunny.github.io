@@ -19,9 +19,9 @@ Spring Boot 프레임워크은 어플리케이션이 트랜잭션 원자성을 �
 **`@Transactional`** 애너테이션이 제공하는 기능과 트랜잭션 전파 타입(propagation type)에 대해 정리해보았습니다.  
 
 ## @Transactional 애너테이션
-Spring 프레임워크는 AOP(Aspect Oriented Programming) 기능을 지원합니다. 
-AOP 기능이란 특정 시점의 동작을 가로채어 해당하는 동작의 앞, 뒤로 필요한 기능을 수행하는 프로그래밍 방식입니다. 
-Spring 프레임워크는 개발자가 트랜잭션에 대한 제어를 쉽게 처리할 수 있도록 AOP 기능과 애너테이션을 이용합니다. 
+Spring 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming) 기능을 지원합니다. 
+관점 지향 프로그래밍이란 특정 시점의 동작을 가로채어 해당하는 동작의 앞, 뒤로 부가적인 일을 추가적으로 수행하는 프로그래밍 방식입니다. 
+Spring 프레임워크는 AOP 기능과 애너테이션을 이용하여 개발자가 트랜잭션에 대한 제어를 쉽게 할 수 있도록 돕습니다. 
 
 ##### AOP 기능을 이용한 트랜잭션 처리 개념도
 <p align="center"><img src="/images/transactional-propagation-type-1.jpg" width="70%"></p>
@@ -214,7 +214,7 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 통해 OrderService.createOrderWithRequiredChildRequired 메소드를 통해 트랜잭션이 시작됨을 알 수 있습니다.
+- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildRequired 메소드에서 트랜잭션이 생성됩니다.
 - **`Participating in existing transaction`** 로그를 통해 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
 - **`Rolling back JPA transaction on EntityManager`** 로그를 통해 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
 

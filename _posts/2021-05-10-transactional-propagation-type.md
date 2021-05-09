@@ -57,6 +57,7 @@ new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너�
 > However, if we put the annotation on a private or protected method, Spring will ignore it without an error.
 
 ##### @Transactional 애너테이션 코드
+
 ```java
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -102,6 +103,7 @@ JpaRepository 인터페이스를 이용하여 테스트를 진행하였으며 �
 
 ##### application.yml
 - 테스트 로그를 확인하기 위해 JPA 패키지 로그 레벨을 DEBUG로 조정하였습니다.
+
 ```yml
 server:
   port: 8081

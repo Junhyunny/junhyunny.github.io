@@ -24,7 +24,7 @@ AOP 기능이란 특정 시점의 동작을 가로채어 해당하는 동작의 
 Spring 프레임워크는 개발자가 트랜잭션에 대한 제어를 쉽게 처리할 수 있도록 AOP 기능과 애너테이션을 이용합니다. 
 
 ##### AOP 기능을 이용한 트랜잭션 처리 개념도
-<p align="center"><img src="/images/transactional-propagation-type-1.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-1.jpg" width="70%"></p>
 
 ##### @Transactional 애너테이션 적용 메소드 호출 시 Call Stack
 - 디버그를 통해 확인
@@ -36,7 +36,7 @@ new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너�
 가능한 방법이 있는 듯 하지만 이번 포스트에서는 다루지 않겠습니다. 
 
 ##### 빈(Bean)이 아닌 객체 @Transactional 애너테이션 적용 시 
-<p align="center"><img src="/images/transactional-propagation-type-3.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-3.jpg" width="70%"></p>
 
 ##### 빈(Bean)이 아닌 객체 @Transactional 애너테이션 적용 메소드 호출 시 Call Stack
 - 디버그를 통해 확인
@@ -134,7 +134,7 @@ logging:
 부모 메소드에서 트랜잭션을 시작하였더라도 자식 메소드에서 exception이 발생한다면 전체 트랜잭션이 롤백됩니다. 
 이는 동일한 트랜잭션으로 묶이기 때문입니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-5.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-5.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 메소드 REQUIRED - 자식 메소드 REQUIRED
@@ -375,7 +375,7 @@ Hibernate: insert into delivery (id) values (?)
 부모 메소드에서 트랜잭션을 시작하였다면 트랜잭션이 이어지지만 없다면 트랜잭션 없이 진행됩니다. 
 자식 메소드에서 exception이 발생한다면 부모 메소드에서 실행한 트랜잭션이 있는지 여부에 따라 롤백 여부가 결정됩니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-8.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-8.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 REQUIRED - 자식 SUPPORTS
@@ -597,7 +597,7 @@ Hibernate: insert into delivery (id) values (?)
 부모 메소드에서 트랜잭션을 시작하였다면 트랜잭션이 이어지지만 없다면 exception을 전달합니다. 
 부모에서 트랜재션을 시작하지 않은 케이스에 대해서만 테스트를 진행하였습니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-10.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-10.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 X - 자식 MANDATORY
@@ -708,7 +708,7 @@ org.springframework.transaction.IllegalTransactionStateException: No existing tr
 부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드는 별도의 트랜잭션으로 분리합니다. 
 자식 메소드에서 발생하는 트랜잭션 롤백은 부모 메소드에서 시작한 트랜잭션과 상관이 없습니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-11.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-11.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 REQUIRED - 자식 REQUIRES_NEW
@@ -843,7 +843,7 @@ java.lang.RuntimeException: null
 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
 부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드에서는 트랜잭션 처리를 수행하지 않습니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-13.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-13.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 REQUIRED - 자식 NOT_SUPPORTED
@@ -970,7 +970,7 @@ java.lang.RuntimeException: null
 ### NEVER
 부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-15.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-15.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 REQUIRED - 자식 NEVER
@@ -1085,7 +1085,7 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 자식 메소드에서 commit 되기 전까지 부모 메소드에서는 자식 메소드에서 처리하는 내용이 보이지 않습니다. 
 자식 메소드의 트랜잭션은 자체적으로 commit, rollback이 가능합니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-16.jpg" width="80%"></p>
+<p align="center"><img src="/images/transactional-propagation-type-16.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
 #### 부모 REQUIRED - 자식 NESTED

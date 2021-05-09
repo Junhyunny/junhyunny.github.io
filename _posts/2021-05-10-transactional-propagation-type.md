@@ -216,9 +216,9 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildRequired 메소드에서 트랜잭션이 생성됩니다.
-- **`Participating in existing transaction`** 로그를 통해 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
-- **`Rolling back JPA transaction on EntityManager`** 로그를 통해 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
+- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildRequired 메소드를 통해 트랜잭션을 생성합니다.
+- **`Participating in existing transaction`**, 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
+- **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
 
 ```
 2021-05-10 01:51:45.682 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
@@ -336,9 +336,9 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Initiating transaction commit`** 로그를 통해 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
-- **`Rolling back JPA transaction on EntityManager`** 로그를 통해 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
+- **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
+- **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
+- **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
 
 ```
 2021-05-10 01:02:47.632 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
@@ -452,9 +452,9 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildSupports 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Participating in existing transaction`** 로그를 통해 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
-- **`Rolling back JPA transaction on EntityManager`** 로그를 통해 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
+- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildSupports 메소드를 통해 트랜잭션을 생성합니다. 
+- **`Participating in existing transaction`**, 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
+- **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
 
 ```
 2021-05-10 01:25:59.507 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
@@ -557,8 +557,8 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Initiating transaction commit`** 로그를 통해 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
+- **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
+- **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
 - 롤백과 관련된 로그가 확인되지 않습니다.
 
 ```
@@ -671,8 +671,8 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Initiating transaction commit`** 로그를 통해 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다.
+- **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
+- **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다.
 - **`No existing transaction found for transaction marked with propagation 'mandatory'`**, IllegalTransactionStateException이 발생합니다.
 
 ```
@@ -790,9 +790,9 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildRequiresNew 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Suspending current transaction, creating new transaction with name`** 로그를 통해 기존 트랜잭션에 참가하지 않고 DeliveryService.createDeliveryWithRequiresNew 메소드를 새로운 트랜잭션을 생성함을 알 수 있습니다. 
-- **`Rolling back JPA transaction on EntityManager`** 로그를 통해 롤백이 수행되었음이 확인됩니다.
+- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildRequiresNew 메소드를 통해 트랜잭션을 생성합니다. 
+- **`Suspending current transaction, creating new transaction with name`**, 기존 트랜잭션에 참가하지 않고 DeliveryService.createDeliveryWithRequiresNew 메소드를 통해 새로운 트랜잭션을 생성합니다. 
+- **`Rolling back JPA transaction on EntityManager`**, 롤백이 수행되었음이 확인됩니다.
 
 ```
 2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
@@ -920,9 +920,9 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildNotSupported 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Suspending current transaction`** 로그를 통해 기존 트랜잭션에 참가하지 않음을 알 수 있습니다.
-- **`Rolling back JPA transaction on EntityManager`** 로그를 통해 롤백이 수행되었음을 알 수 있습니다.
+- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNotSupported 메소드를 통해 트랜잭션을 생성합니다. 
+- **`Suspending current transaction`**, 기존 트랜잭션에 참가하지 않음을 알 수 있습니다.
+- **`Rolling back JPA transaction on EntityManager`**, 롤백이 수행되었음을 알 수 있습니다.
 
 ```
 2021-05-10 02:14:46.896 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
@@ -1046,7 +1046,7 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildNever 메소드를 통해 트랜잭션이 생성됩니다. 
+- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNever 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Existing transaction found for transaction marked with propagation 'never'`**, IllegalTransactionStateException이 발생합니다.
 
 ```
@@ -1168,10 +1168,10 @@ class OrderService {
 ```
 
 ##### 테스트 실행 결과 로그
-- **`Creating new transaction with name`** 로그를 보면 OrderService.createOrderWithRequiredChildNested 메소드를 통해 트랜잭션이 생성됩니다. 
-- **`Creating nested transaction with name`** 로그를 보면 DeliveryService.createDeliveryWithNested 메소드로 중첩된 트랜잭션을 생성하려고 합니다.
-- **`JpaDialect does not support savepoints - check your JPA provider's capabilities`**, NestedTransactionNotSupportedException이 발생합니다. 
-- **`JpaDialect does not support savepoints`** 로그를 통해 savepoint 기능을 수행하려는 모습이 보이지만 지원되지 않는 WAS이므로 exception이 발생합니다. 
+- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNested 메소드로 트랜잭션을 생성합니다.
+- **`Creating nested transaction with name`**, DeliveryService.createDeliveryWithNested 메소드로 중첩된 트랜잭션을 생성합니다.
+- **`JpaDialect does not support savepoints`**, NestedTransactionNotSupportedException이 발생합니다. 
+- **`check your JPA provider's capabilities`**, JPA provider's capabilities를 확인하라고 경고합니다.
 
 ```
 2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit

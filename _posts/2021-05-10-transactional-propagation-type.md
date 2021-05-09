@@ -31,7 +31,6 @@ Spring 프레임워크는 개발자가 트랜잭션에 대한 제어를 쉽게 �
 <p align="center"><img src="/images/transactional-propagation-type-2.jpg" width="80%"></p>
 
 ### @Transactional 애너테이션 사용 시 주의사항
-
 주의사항으로 AOP 기능은 Spring 프레임워크에서 관리하는 빈(Bean)에게만 적용할 수 있습니다. 
 new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너테이션이 붙어 있더라도 정상적으로 동작하지 않습니다. 
 가능한 방법이 있는 듯 하지만 이번 포스트에서는 다루지 않겠습니다. 

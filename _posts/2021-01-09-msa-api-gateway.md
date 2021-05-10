@@ -41,7 +41,7 @@ API Gateway 특성상 모든 API 서버 앞쪽에 위치하며, 모든 API 호�
 <p align="center"><img src="/images/msa-api-gateway-2.JPG" width="550"></p>
 <center>이미지 출처, 조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center><br>
 
-### 메디에이션(Mediation) 기능
+### 중개(Mediation) 기능
 API Gateway는 다음과 같은 중재(mediation) 기능을 수행합니다. 
 서비스가 제공하는 API 형태가 클라이언트가 원하는 형태와 다를때 이 기능을 수행합니다. 
 - 메세지 포맷 변환(message format transformation)

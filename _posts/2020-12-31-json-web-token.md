@@ -28,7 +28,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
 #### 클레임 기반 토큰 인증 방식
-<p align="center"><img src="/images/json-web-token-2.JPG" width="80%"></p>
+<p align="center"><img src="/images/json-web-token-2.JPG" width="50%"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
   1. 토큰 요청을 받은 authorization server는 사용자 계정을 확인 후 토큰 지급이 가능한지 여부를 판정하여 토큰 발급

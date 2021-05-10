@@ -23,7 +23,7 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 
 ##### MVC 패턴 다이어그램 및 웹 어플리케이션에서 사용하는 일반적인 MVC 패턴
 <div align="center">
-  <img src="/images/mvc-pattern-1.JPG" width="35%">
+  <img src="/images/mvc-pattern-1.JPG" width="30%">
   <img src="/images/mvc-pattern-2.JPG" width="50%">
 </div>
 <center>이미지 출처, [Wiki, 모델-뷰-컨트롤러][wiki-link]</center><br>
@@ -111,7 +111,7 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
 <p align="center"><img src="/images/mvc-pattern-4.JPG" width="75%"></p>
 
 ### 패키지 구조
-<p align="left"><img src="/images/mvc-pattern-5.JPG" width="35%"></p>
+<p align="left"><img src="/images/mvc-pattern-5.JPG" width="30%"></p>
 
 ### pom.xml 파일 dependency 추가
 - Spring Boot 프레임워크는 JSP를 공식적으로 지원하지 않기 때문에 아래와 같은 의존성들이 필요합니다.

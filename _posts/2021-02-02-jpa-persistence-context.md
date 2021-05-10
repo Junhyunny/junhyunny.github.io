@@ -95,7 +95,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 
 ### 테스트 패키지 구조
 
-<p align="left"><img src="/images/jpa-persistence-context-2.JPG" width="35%"></p>
+<p align="left"><img src="/images/jpa-persistence-context-2.JPG" width="30%"></p>
 
 ### application.yml
 ```yml

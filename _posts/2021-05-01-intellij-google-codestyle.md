@@ -41,7 +41,7 @@ JAVA 이 외에 다른 언어도 모두 4로 변경하였습니다.
 
 <div align="center">
   <img src="/images/intellij-google-codestyle-3.JPG" width="60%">
-  <img src="/images/intellij-google-codestyle-4.JPG" width="35%">
+  <img src="/images/intellij-google-codestyle-4.JPG" width="30%">
 </div>
 
 ## OPINION

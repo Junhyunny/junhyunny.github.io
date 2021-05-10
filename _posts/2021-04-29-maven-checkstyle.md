@@ -24,7 +24,7 @@ last_modified_at: 2021-04-28T09:00:00
 - <https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml>
 
 ##### google_checks.xml 파일 디렉토리 위치
-<p align="left"><img src="/images/maven-checkstyle-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/maven-checkstyle-1.JPG" width="30%"></p>
 
 ##### 코드 스타일 변경
 - 구글 코드 스타일의 들여쓰기(indentation) 크기는 2이므로 이를 4로 조절하였습니다.

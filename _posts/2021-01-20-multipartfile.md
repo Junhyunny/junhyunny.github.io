@@ -22,7 +22,7 @@ back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구�
 
 ## front-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/multipartfile-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/multipartfile-1.JPG" width="30%"></p>
 
 ## FileUpload.vue
 파일을 업로드하기 위한 페이지입니다. 
@@ -82,7 +82,7 @@ export default {
 
 ## back-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/multipartfile-2.JPG" width="35%"></p>
+<p align="left"><img src="/images/multipartfile-2.JPG" width="30%"></p>
 
 ## ResourceServer 클래스 변경
 파일 업로드를 위한 **/api/member/upload/profile-img** 경로는 인증없이 사용할 수 있도록 모든 요청에 대해 허용하였습니다.

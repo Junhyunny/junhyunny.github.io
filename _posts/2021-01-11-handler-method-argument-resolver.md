@@ -12,7 +12,7 @@ last_modified_at: 2021-01-30T09:00:00
 이번 글에서는 HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
 
 ## 패키지 구조
-<p align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="30%"></p>
 
 ## TokenMember 애너테이션 구현
 커스텀 애너테이션을 만들어줍니다. 메소드 파라미터 앞에 붙일 애너테이션이므로 @Target은 ElementType.PARAMETER로 지정합니다. 

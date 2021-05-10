@@ -44,7 +44,7 @@ API 서버는 API 요청을 검증하기 위해 토큰을 이용하여 사용자
 ## Json Web Token 구조
 Header, Payload, Signature 3개의 정보를 담고 있습니다. 각 정보에 대해 자세히 알아보도록 하겠습니다.
 
-<p align="center"><img src="/images/json-web-token-3.JPG" width="80%"></p>
+<p align="center"><img src="/images/json-web-token-3.JPG" width="50%"></p>
 
 ### Header 정보
 토큰 유형이나 해시 알고리즘이 무엇인지 등의 정보가 담깁니다. 

@@ -17,7 +17,7 @@ last_modified_at: 2021-01-29T09:00:00
 아래 설명되어 있지 않은 클래스나 파일들은 지난 글을 참조하시면 됩니다. 
 
 ## 패키지 구조
-<p align="left"><img src="/images/token-enhancer-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/token-enhancer-1.JPG" width="30%"></p>
 
 ## Config 클래스 구현
 지난 글에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 

@@ -148,7 +148,7 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
 ```
 
 ##### Slack 채널에 글 작성하기 테스트 결과
-<p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="35%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="30%"></p>
 
 ## Github API 테스트
 Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러리를 이용하는 것으로 보인다. 
@@ -246,8 +246,8 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 
 ##### Message from Slack Chatbot
 <div align="center">
-  <img src="/images/side-project-slack-chatbot-10.JPG" width="35%">
-  <img src="/images/side-project-slack-chatbot-11.JPG" width="35%">
+  <img src="/images/side-project-slack-chatbot-10.JPG" width="30%">
+  <img src="/images/side-project-slack-chatbot-11.JPG" width="30%">
 </div>
 
 정상적으로 동작한다. 앞으로 공부하라는 메세지를 받을 일만 남았다.😂

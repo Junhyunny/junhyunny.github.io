@@ -263,7 +263,7 @@ java.lang.RuntimeException: null
 - 이는 동일 트랜잭션으로 취급되었기 때문에 트랜잭션 자식 메소드에서 찍힌 rollback flag에 의해 부모 메소드도 함께 롤백 처리됩니다.
 - <https://woowabros.github.io/experience/2019/01/29/exception-in-transaction.html>
 
-<p align="left"><img src="/images/transactional-propagation-type-6.jpg" width="35%"></p>
+<p align="left"><img src="/images/transactional-propagation-type-6.jpg" width="30%"></p>
 
 #### 부모 메소드 X - 자식 메소드 REQUIRED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -370,7 +370,7 @@ Hibernate: insert into delivery (id) values (?)
 - 자식 메소드만 롤백되어 데이터가 존재하지 않습니다.
 - 부모 메소드는 트랜잭션 처리에 대한 애너테이션이 없었기에 JpaRepository 레벨에서 수행 후 commit 처리됩니다.
 
-<p align="left"><img src="/images/transactional-propagation-type-7.jpg" width="35%"></p>
+<p align="left"><img src="/images/transactional-propagation-type-7.jpg" width="30%"></p>
 
 ### SUPPORTS
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
@@ -592,7 +592,7 @@ Hibernate: insert into delivery (id) values (?)
 - 자식 메소드에서 exception을 throw 하였지만 롤백이 수행되지 않았음을 확인할 수 있습니다.
 - 두 메소드 모두 트랜잭션 처리에 대한 코드가 없으므로 JpaRepository 레벨에서 commit이 수행됩니다.
 
-<p align="left"><img src="/images/transactional-propagation-type-9.jpg" width="35%"></p>
+<p align="left"><img src="/images/transactional-propagation-type-9.jpg" width="30%"></p>
 
 ### MANDATORY
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다. 
@@ -839,7 +839,7 @@ java.lang.RuntimeException: null
 - 던져진 exception은 부모 메소드에서 catch 되었으므로 부모 메소드의 트랜잭션을 정상 수행됩니다.
 - 동일한 트랜잭션으로 처리되는 **`PARENT REQUIRED - CHILD REQUIRED`** 테스트와는 대조적입니다. 
 
-<p align="left"><img src="/images/transactional-propagation-type-12.jpg" width="35%"></p>
+<p align="left"><img src="/images/transactional-propagation-type-12.jpg" width="30%"></p>
 
 ### NOT_SUPPORTED
 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
@@ -967,7 +967,7 @@ java.lang.RuntimeException: null
 - 자식 메소드에서 던진 exception이 부모 메소드까지 전파되어 부모 메소드에서 시작한 트랜잭션만 롤백됩니다. 
 - 자식 메소드는 부모 메소드에서 시작한 트랜잭션에 참여하지 않았기에 JpaRepository 트랜잭션이 새로 생성되어 commit 처리됩니다.
 
-<p align="left"><img src="/images/transactional-propagation-type-14.jpg" width="35%"></p>
+<p align="left"><img src="/images/transactional-propagation-type-14.jpg" width="30%"></p>
 
 ### NEVER
 부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다. 

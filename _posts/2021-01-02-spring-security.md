@@ -33,7 +33,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 때문에 서블릿 필터의 구조에 대해서 먼저 알아보도록 하겠습니다. 
 클라이언트가 서버로 HTTP 요청시 아래와 같은 필터 계층에 의해 처리됩니다.  
 
-<p align="center"><img src="/images/spring-security-1.JPG" width="20%"></p>
+<p align="center"><img src="/images/spring-security-1.JPG" width="30%"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 컨테이너는 클라이언트 요청 URL에 근거하여 어떤 필터, 어떤 서블릿을 적용할지 결정합니다. 

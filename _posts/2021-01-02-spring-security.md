@@ -33,7 +33,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 때문에 서블릿 필터의 구조에 대해서 먼저 알아보도록 하겠습니다. 
 클라이언트가 서버로 HTTP 요청시 아래와 같은 필터 계층에 의해 처리됩니다.  
 
-<p align="center"><img src="/images/spring-security-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-security-1.JPG" width="50%"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 컨테이너는 클라이언트 요청 URL에 근거하여 어떤 필터, 어떤 서블릿을 적용할지 결정합니다. 
@@ -48,7 +48,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보안 로직(필터)들을 포함하고 있습니다. 
 
 - FilterChainProxy 추상화 이미지
-<p align="center"><img src="/images/spring-security-2.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-security-2.JPG" width="50%"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 - FilterChainProxy 내부 실제 Filters
@@ -61,7 +61,7 @@ FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보�
 Spring Security 필터는 모든 필터 체인들의 목록을 포함하고 있으며 경로(API PATH)가 일치하는 첫 번째 체인에 요청을 전달합니다. 
 아래 그림은 요청 경로별 매칭에 의거하여 요청을 전달하는 모습을 보여줍니다. (<em>/foo/**<em>는 <em>/**<em>보다 매칭됩니다.) 
 
-<p align="center"><img src="/images/spring-security-4.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-security-4.JPG" width="50%"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 ## Spring Security Authentication Architecture

@@ -51,10 +51,13 @@ Object-Relation Mapping을 사용하는 경우 다음과 같은 장점이 있습
 - 객체 지향적 코드로 더 직관적인 프로그래밍이 가능합니다.
 - 재사용 및 유지보수, 리팩토링의 편리성이 증가합니다.
 - DBMS에 대한 종속성이 줄어듭니다.
+- 개발자가 개발에 집중할 수 있습니다.
 
 ### Object-Relation Mapping 단점
 Object-Relation Mapping을 사용하는 경우 다음과 같은 단점이 있습니다.
 - 모든 비즈니스를 Object-Relation Mapping만으로 완벽하게 구현하기 힘듭니다.
+- 클래스, 애너테이션 등을 이용하여 테이블 설계를 해야하기 때문에 다소 러닝 커브가 존재합니다.
+- 잘못된 설계는 성능에 직접적인 영향을 미칩니다.
 
 ## 그래서 JPA(Java Persistence API)란?
 JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어들을 정리해보았습니다. 

@@ -51,18 +51,17 @@ Object-Relation Mapping을 사용하는 경우 다음과 같은 장점이 있습
 - 객체 지향적 코드로 더 직관적인 프로그래밍이 가능합니다.
 - 재사용 및 유지보수, 리팩토링의 편리성이 증가합니다.
 - DBMS에 대한 종속성이 줄어듭니다.
-- 개발자가 개발에 집중할 수 있습니다.
+- 프로그램 개발에 집중할 수 있습니다.
 
 ### Object-Relation Mapping 단점
 Object-Relation Mapping을 사용하는 경우 다음과 같은 단점이 있습니다.
 - 모든 비즈니스를 Object-Relation Mapping만으로 완벽하게 구현하기 힘듭니다.
 - 클래스, 애너테이션 등을 이용하여 테이블 설계를 해야하기 때문에 다소 러닝 커브가 존재합니다.
-- 잘못된 설계는 성능에 직접적인 영향을 미칩니다.
+- 잘못된 엔티티 설계는 성능에 직접적인 영향을 미칩니다.
 
 ## 그래서 JPA(Java Persistence API)란?
 JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어들을 정리해보았습니다. 
 이 포스트가 JPA를 설명하는 글인지 혼동이 오기 시작합니다. 
-
 여기에서 다시 위에 작성한 내용들을 바탕으로 JPA가 무엇인지 정리하고 글을 이어가겠습니다.
 - JPA(Java Persistence API)
   - Object-Relation Mapping을 쉽게하기 위하여 Java에서 사용하는 인터페이스입니다.
@@ -73,10 +72,8 @@ JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어�
 ## Spring Data Jpa<br>
 
 **<br>JPA, Hibernate까지 알겠는데 Spring Data Jpa는 뭐지?**
-
 **Spring Data Jpa는 JPA를 사용하기 편하게 만들어 놓은 모듈입니다.** 
 개발자는 이를 이용하여 JPA를 더 쉽고 편하게 사용할 수 있습니다. 
-
 Spring Data Jpa 모듈은 JPA를 한 단계 추상화시킨 `Repository`라는 인터페이스를 제공합니다. 
 개발자는 이를 확장(extends)한 인터페이스를 만들고 Naming 규칙에 맞도록 메소드를 선언하기만 하면 됩니다. 
 Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등록하고 해당 인터페이스의 메소드가 호출될 때 이를 SQL로 변환하여 수행합니다.

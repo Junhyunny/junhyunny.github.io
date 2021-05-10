@@ -32,7 +32,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 <p align="center"><img src="/images/jpa-persistence-context-1.JPG" width="550"></p>
 <center>이미지 출처, https://gunlog.dev/JPA-Persistence-Context/</center><br>
 
-- 비영속(new/transietn)
+- 비영속(new/transient)
 	- 엔티티 객체를 새로 생성하였지만 EntityManager에 의해 관리되고 있지 않는 상태
 	- 영속성 컨텍스트와 전혀 관계가 없는 상태
 	- 엔티티 객체에서 발생하는 데이터 변경은 전혀 알 수 없습니다.

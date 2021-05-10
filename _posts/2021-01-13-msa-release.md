@@ -10,10 +10,11 @@ last_modified_at: 2021-01-30T09:00:00
 
 마이크로 서비스 아키텍처에서 다양한 배포 전략이 존재하며 이에 대한 정리를 해보았습니다. 
 롤링 배포 전략 정도만 알고 있었는데 그 이외에도 마이크로 서비스 아키텍처의 장점을 살릴 수 있는 다양한 배포 전략이 존재하는 것에 놀랐습니다. 
+다양한 배포 전략들에 대해 정리해보았습니다. 
 
 ## 롤링 배포(rolling deployment)
 
-<p align="center"><img src="/images/msa-release-1.JPG"></p>
+<p align="center"><img src="/images/msa-release-1.JPG" width="80%"></p>
 <center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 동일 서버의 인스턴스가 여러 개 존재할 때 이를 신 버전으로 하나씩 교체해가면서 배포하는 방식입니다. 
@@ -24,7 +25,7 @@ last_modified_at: 2021-01-30T09:00:00
 
 > 과거 석탄 광산에서 유독가스를 미리 감지하고자 카나리아 새를 날려 보냈던 것에서 유래
 
-<p align="center"><img src="/images/msa-release-2.JPG"></p>
+<p align="center"><img src="/images/msa-release-2.JPG" width="80%"></p>
 <center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 위험을 최소화하면서 실제 프로덕션 배포를 테스트하는 방법입니다. 
@@ -40,7 +41,7 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 
 ## 블루-그린 배포(Blue-green deployments)
 
-<p align="center"><img src="/images/msa-release-3.JPG"></p>
+<p align="center"><img src="/images/msa-release-3.JPG" width="80%"></p>
 <center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
 
 구 버전을 블루, 신 버전을 그린으로 표현합니다. 블루-그린 배포는 두 가지 프로덕션 환경을 나란히 운영합니다. 

@@ -17,7 +17,7 @@ Java 언어를 사용하면 면접에서 필연적으로 마주치는 질문입�
 제발 질문을 멈춰주세요.😭 
 오늘도 면접 마지막에 질문을 받았는데 JVM 메모리 중 Method Area가 생각이 나지 않아 대답을 못 했습니다. 
 
-<p align="center"><img src="/images/what-is-jvm-1.jpg" width="50%"></p>
+<p align="center"><img src="/images/what-is-jvm-1.jpg" width="65%"></p>
 <center>이미지 출처, One Piece 126화</center><br>
 
 JVM에 대한 정리는 자주 시도했었는데, 매번 끝까지 작성하지 못했던 주제입니다. 
@@ -34,7 +34,7 @@ JVM과 관련된 내용을 읽다보면 방대한 자료와 어려운 내용에 
 **`‘write once and run anywhere’`**이라는 별명을 얻을 수 있었습니다. 
 
 ##### JVM 구조
-<p align="center"><img src="/images/what-is-jvm-2.jpg" width="50%"></p>
+<p align="center"><img src="/images/what-is-jvm-2.jpg" width="65%"></p>
 <center>이미지 출처, https://jeong-pro.tistory.com/148</center><br>
 
 ### JVM 구성 요소
@@ -101,7 +101,7 @@ JVM은 이 영역에 자바 어플리케이션에서 사용하는 데이터들�
 - Permanent - 클래스 로더에 의해 적재된 클래스 저장 (JDK1.8부터는 Metaspace)
 
 ##### Runtime Data Area 구조
-<p align="center"><img src="/images/what-is-jvm-3.jpg" width="50%"></p>
+<p align="center"><img src="/images/what-is-jvm-3.jpg" width="65%"></p>
 <center>이미지 출처, 자바와 JVM 메모리 구조</center><br>
 
 #### 가비지 컬렉터(Garbage Collector)

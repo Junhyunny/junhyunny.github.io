@@ -269,7 +269,7 @@ Hibernate: select orders0_.id as id1_1_, orders0_.value as value2_1_ from orders
 ```
 
 ##### updateAllWithReadOnlyTrue 메소드 테스트 결과
-<p align="left"><img src="/images/transactional-readonly-1.JPG" width="20%"></p>
+<p align="left"><img src="/images/transactional-readonly-1.JPG" width="15%"></p>
 
 ##### updateAllWithReadOnlyFalse 메소드 테스트 결과 로그, **`readOnly = false`**
 - blog.in.action.transcation.entity.Orders.value is dirty, dirty checking 관련 로그가 출력됩니다.
@@ -315,7 +315,7 @@ Hibernate: update orders set value=? where id=?
 ```
 
 ##### updateAllWithReadOnlyFalse 메소드 테스트 결과
-<p align="left"><img src="/images/transactional-readonly-2.JPG" width="20%"></p>
+<p align="left"><img src="/images/transactional-readonly-2.JPG" width="15%"></p>
 
 ## OPINION
 이전 [영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link] 포스트를 정리하면서 

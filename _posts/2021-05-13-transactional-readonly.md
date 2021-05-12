@@ -174,8 +174,9 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement; nes
 다음과 같은 시나리오를 생각해보았습니다.
 - 모든 데이터 조회 후 id 값을 value 값에 set 합니다.
 - 조회된 entity 들은 JPA Lifecycle 중 **`managed`** 상태입니다.
-- 만약, DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트 된다.
-- 만약, DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 되지 않는다.
+- 다음과 같이 가정해보았습니다.
+  - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
+  - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
 - readOnly 값을 true, false로 각각 테스트 해봅니다.
 - dirty checking 관련 포스트 ([영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link])
 

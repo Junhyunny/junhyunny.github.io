@@ -96,7 +96,7 @@ logging:
           entity: TRACE
 ```
 
-### 의도지 않게 데이터를 변경 방지 테스트
+### 의도지 않은 데이터 변경 방지 테스트
 다음과 같은 시나리오를 생각해보았습니다.
 - @Transactional 애너테이션에 **`readOnly=true`** 설정
 - 해당 메소드 내부에서 saveAndFlush 메소드 호출

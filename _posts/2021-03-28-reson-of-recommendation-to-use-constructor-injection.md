@@ -94,7 +94,7 @@ public class PostController {
 아래 클래스를 보면 생성자 주입 방식으로 인해 복잡해진 코드가 하나의 컴포넌트가 과도한 책임을 가졌다는 것을 알 수 있도록 만듭니다. 
 이는 개발자로 하여금 리팩토링의 필요성을 느끼도록 할 수 있습니다. 
 
-##### Field Injection 방식
+##### Constructor Injection 방식
 ```java
     @Component
     public class BadSmelledComponent {

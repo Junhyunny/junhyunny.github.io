@@ -9,8 +9,8 @@ last_modified_at: 2021-05-13T21:00:00
 <br>
 
 > **`'Spring 필터(Filter)와 인터셉터(Interceptor)의 차이점에 대해 설명해주세요.'`**<br>
-> **`'필터는 서블릿 컨테이너에 이전에 공통적으로 처리해야되는 부분을 처리합니다.'`** 
-> **`'인터셉터는 AOP 처럼 특정 시점을 빼앗아 동작하는 것을 의미하는 것 같습니다.'`** 
+> **`'필터는 서블릿 컨테이너에 이전에 공통적으로 처리해야되는 부분을 처리합니다.`** 
+> **`인터셉터는 AOP 처럼 특정 시점을 빼앗아 동작하는 것을 의미하는 것 같습니다.'`** 
 
 <p align="center"><img src="/images/filter-interceptor-and-aop-1.JPG" width="50%"></p>
 <center>이미지 출처, https://torbjorn.tistory.com/120</center><br>

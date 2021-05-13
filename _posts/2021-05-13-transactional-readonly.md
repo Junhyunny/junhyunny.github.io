@@ -173,7 +173,8 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement; nes
 ### Hibernate 사용 시 Dirty Checking 생략 가능 여부 테스트
 다음과 같은 시나리오를 생각해보았습니다.
 - 모든 데이터 조회 후 id 값을 value 값에 set 합니다.
-- 조회된 entity 들은 JPA Lifecycle 중 **`managed`** 상태입니다.
+- 조회된 엔티티(entity) 들은 JPA Lifecycle 중 **`managed`** 상태입니다.
+- 관리되는(managed) 엔티티들은 변경이 발생하는 경우 dirty checking에 의해서 감지되고 업데이트 됩니다.
 - 다음과 같이 가정해보았습니다.
   - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
   - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.

@@ -12,7 +12,7 @@ last_modified_at: 2021-05-13T21:00:00
 > **`'필터는 서블릿 컨테이너에 이전에 공통적으로 처리해야되는 부분을 처리합니다.'`** 
 > **`'인터셉터는 AOP 처럼 특정 시점을 빼앗아 동작하는 것을 의미하는 것 같습니다.'`** 
 
-<p align="center"><img src="/images/filter-interceptor-and-aop-1.JPG" width="70%"></p>
+<p align="center"><img src="/images/filter-interceptor-and-aop-1.JPG" width="50%"></p>
 <center>이미지 출처, https://torbjorn.tistory.com/120</center><br>
 
 똑같은 질문을 화상 면접, 1차 면접에서 총 2 번 받았습니다. 

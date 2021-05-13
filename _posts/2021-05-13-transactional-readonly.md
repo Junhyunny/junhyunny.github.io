@@ -56,7 +56,7 @@ last_modified_at: 2021-05-13T00:00:00
 
 제 머리 속에서 쉽게 정리될 수 있도록 다시 요약해보았습니다. 
 - 의도지 않게 데이터를 변경하는 것을 막아줍니다. 
-- Hibernate를 사용하는 경우에는 FlushMode를 Manual로 변경하여 dirty checking 생략이 가능합니다. 속도 향상 효과를 얻습니다.
+- Hibernate를 사용하는 경우에는 FlushMode를 Manual로 변경하여 DIRTY CHECKING 생략이 가능합니다. 속도 향상 효과를 얻습니다.
 - 데이터베이스에 따라 DataSource Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.
 
 ## readOnly 속성 관련 테스트
@@ -170,16 +170,16 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement; nes
 	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:255) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 ```
 
-### Hibernate 사용 시 Dirty Checking 생략 가능 여부 테스트
+### Hibernate 사용 시 DIRTY CHECKING 생략 가능 여부 테스트
 다음과 같은 시나리오를 생각해보았습니다.
 - 모든 데이터 조회 후 id 값을 value 값에 set 합니다.
 - 조회된 엔티티(entity) 들은 JPA Lifecycle 중 **`managed`** 상태입니다.
-- 관리되는(managed) 엔티티들은 변경이 발생하는 경우 dirty checking에 의해서 감지되고 업데이트 됩니다.
+- 관리되는(managed) 엔티티들은 변경이 발생하는 경우 DIRTY CHECKING에 의해서 감지되고 업데이트 됩니다.
 - 다음과 같이 가정해보았습니다.
   - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
   - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
 - readOnly 값을 true, false로 각각 테스트 해봅니다.
-- dirty checking 관련 포스트 ([영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link])
+- DIRTY CHECKING 관련 포스트 ([영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link])
 
 ##### 테스트 코드
 
@@ -274,7 +274,7 @@ Hibernate: select orders0_.id as id1_1_, orders0_.value as value2_1_ from orders
 <p align="left"><img src="/images/transactional-readonly-1.JPG" width="15%"></p>
 
 ##### updateAllWithReadOnlyFalse 메소드 테스트 결과 로그, **`readOnly = false`**
-- blog.in.action.transcation.entity.Orders.value is dirty, dirty checking 관련 로그가 출력됩니다.
+- blog.in.action.transcation.entity.Orders.value is dirty, DIRTY CHECKING 관련 로그가 출력됩니다.
 - Updating entity: [blog.in.action.transcation.entity.Orders#0], 업데이트 수행이 확인됩니다.
 - 60 ms 소요되었습니다.
 
@@ -321,8 +321,8 @@ Hibernate: update orders set value=? where id=?
 
 ## OPINION
 이전 [영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link] 포스트를 정리하면서 
-dirty checking을 수행하는 위치가 궁금해 정리해둔 것이 이번 포스트에 큰 도움을 줬습니다. 
-dirty checking 관련 로그를 출력할 수 있어서 실제 동작 여부에 대한 검증을 쉽게 성공할 수 있었습니다. 
+DIRTY CHECKING을 수행하는 위치가 궁금해 정리해둔 것이 이번 포스트에 큰 도움을 줬습니다. 
+DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 대한 검증을 쉽게 성공할 수 있었습니다. 
 
 또, 관련된 포스트들을 확인하니 데이터베이스 제품에 따라 readOnly 기능 제공 여부가 다르다고 합니다. 
 특정 버전 이후부터 가능하다는데 다행히도 제가 가진 MySQL에서는 정상적으로 동작하였습니다. 

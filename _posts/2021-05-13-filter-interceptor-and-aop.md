@@ -27,6 +27,7 @@ last_modified_at: 2021-05-13T21:00:00
 ## 필터, 인터셉터 그리고 AOP 기능별 위치
 필터, 인터셉터 그리고 AOP 기능은 모두 다른 기능입니다. 
 그리고 처리하는 일과 기능이 구현된 위치가 다릅니다. 
+필터, 인터셉터, AOP 기능이 위치를 알아보고, 각자 해야할 역할에 대한 설명을 이어가보겠습니다. 
 
 ##### 필터와 인터셉터 위치
 
@@ -38,9 +39,40 @@ last_modified_at: 2021-05-13T21:00:00
 <p align="center"><img src="/images/filter-interceptor-and-aop-3.JPG" width="60%"></p>
 <center>이미지 출처, https://programming.vip/docs/spring-aop-basic-use.html</center><br>
 
+## 필터(Filter)
+필터는 Web Application에 등록합니다. 
+요청 스레드가 서블릿 컨테이너(Servlet Container)에 도착하기 전에 수행됩니다. 
+필터는 사용자의 요청 정보에 대한 검증하고 필요에 따라 데이터를 추가하거나 변조할 수 있습니다. 
+응답 정보에 대한 변경도 가능합니다. 
+주로 전역적으로 처리해야하는 인코딩, 보안 관련된 일을 수행합니다. 
+
+#### 필터 사용 예
+- 로그인 여부, 권한 검사 같은 인증 기능
+- 요청이나 응답에 대한 로그
+- 오류 처리 기능
+- 웹 보안 관련 기능 처리, XSS 방어
+- 데이터 압축이나 변환 기능
+- 인코딩 처리 기능
+
+### 필터 메소드
+- init() - 필터 인스턴스 초기화
+- doFilter() - 전/후 처리
+- destroy() - 필터 인스턴스 종료
+
+### 필터에서만 할 수 있는 일
+ServletRequest 혹은 ServletResponse를 교체할 수 있습니다. 아래와 같은 일이 가능합니다. 
+
+## 인터셉터(Interceptor)
+인터셉터는 스프링 컨텍스트(Context)에 등록합니다. 
+
+### 인터셉터에서만 할 수 있는 일
+
+## AOP 기능
+
 ## OPINION
 작성 중 입니다.
 
 #### REFERENCE
+- <https://yzlosmik.tistory.com/24>
 - <https://goddaehee.tistory.com/154>
 - <https://supawer0728.github.io/2018/04/04/spring-filter-interceptor/>

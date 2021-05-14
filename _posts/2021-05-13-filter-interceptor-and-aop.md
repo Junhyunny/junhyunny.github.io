@@ -429,8 +429,13 @@ public class SomeFilter implements Filter {
 > View를 렌더링하기 전에 추가 작업을 할 수 있다. 
 > 예를 들어 웹 페이지가 권한에 따라 GNB(Global Navigation Bar)이 항목이 다르게 노출되어야 할 때 등의 처리를 하기 좋다.
 
+
+테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
+
 #### REFERENCE
 - <https://yzlosmik.tistory.com/24>
 - <https://goddaehee.tistory.com/154>
 - <https://supawer0728.github.io/2018/04/04/spring-filter-interceptor/>
 - <https://jaehun2841.github.io/2018/08/25/2018-08-18-spring-filter-interceptor/#spring-request-flow>
+
+[github-link]: https://github.com/Junhyunny/blog-in-action/tree/293f4abe4957bf0fd4bc01bb1f9be72e1a804948

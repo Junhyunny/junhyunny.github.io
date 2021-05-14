@@ -60,10 +60,10 @@ last_modified_at: 2021-05-15T00:00:00
 - destroy() - 필터 인스턴스 종료
 
 ### 필터 구현
-
 ##### BlogFilter 클래스
 - Filter 인터페이스를 구현합니다.
-- doFilter() 메소드는 필수, init(), destroy() 메소드는 필요에 따라 구현합니다.
+- doFilter() 메소드는 필수입니다.
+- init(), destroy() 메소드는 디폴트(default) 메소드이므로 필요에 따라 구현합니다.
 
 ```java
 package blog.in.action.filters;
@@ -98,14 +98,12 @@ public class BlogFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-        throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("==========\t" + value + " before doFilter");
         chain.doFilter(request, response);
         log.info("==========\t" + value + " after doFilter");
     }
 }
-
 ```
 
 ##### WebMvcConfiguration 클래스
@@ -138,7 +136,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new BlogHandlerInterceptor())
-            .addPathPatterns("/*");
+            .addPathPatterns("/**");
     }
 }
 ```
@@ -161,7 +159,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 - HandlerInterceptor 인터페이스를 구현합니다.
 
 ```java
-package blog.in.action.interceptor;
+ppackage blog.in.action.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -220,7 +218,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new BlogHandlerInterceptor())
-            .addPathPatterns("/*");
+            .addPathPatterns("/**");
     }
 }
 ```
@@ -342,50 +340,53 @@ foo
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.2.5.RELEASE)
 
-2021-05-15 00:25:43.397  INFO 18516 --- [           main] blog.in.action.ActionInBlogApplication   : No active profile set, falling back to default profiles: default
-2021-05-15 00:25:43.737  INFO 18516 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2021-05-15 00:25:43.750  INFO 18516 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 JPA repository interfaces.
-2021-05-15 00:25:43.855  INFO 18516 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=4f893516-1aef-34f5-a2bd-26d6c4e1dd20
-2021-05-15 00:25:44.141  INFO 18516 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
-2021-05-15 00:25:44.148  INFO 18516 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-05-15 00:25:44.148  INFO 18516 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
-2021-05-15 00:25:44.253  INFO 18516 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-05-15 00:25:44.253  INFO 18516 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 836 ms
-2021-05-15 00:25:44.294  INFO 18516 --- [           main] blog.in.action.filters.BlogFilter        : ==========	BlogFilter init filter
-2021-05-15 00:25:44.358  INFO 18516 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2021-05-15 00:25:44.405  INFO 18516 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
-2021-05-15 00:25:44.488  INFO 18516 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
-2021-05-15 00:25:44.550  INFO 18516 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2021-05-15 00:25:44.621  INFO 18516 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2021-05-15 00:25:44.637  INFO 18516 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2021-05-15 00:25:44.769  INFO 18516 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2021-05-15 00:25:44.774  INFO 18516 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2021-05-15 00:25:44.805  WARN 18516 --- [           main] o.s.c.n.a.ArchaiusAutoConfiguration      : No spring.application.name found, defaulting to 'application'
-2021-05-15 00:25:44.821  WARN 18516 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
-2021-05-15 00:25:44.821  INFO 18516 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
-2021-05-15 00:25:44.821  WARN 18516 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
-2021-05-15 00:25:44.821  INFO 18516 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
-2021-05-15 00:25:44.859  WARN 18516 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-05-15 00:25:44.955  INFO 18516 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-05-15 00:25:45.419  INFO 18516 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
-2021-05-15 00:25:45.672  INFO 18516 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 3.468 seconds (JVM running for 4.425)
-2021-05-15 00:25:58.275  INFO 18516 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2021-05-15 00:25:58.275  INFO 18516 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2021-05-15 00:25:58.275  INFO 18516 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2021-05-15 00:25:58.290  INFO 18516 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter before doFilter
-2021-05-15 00:25:58.328  INFO 18516 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller before foo
-2021-05-15 00:25:58.344  INFO 18516 --- [nio-8081-exec-1] b.in.action.controller.BlogController    : ==========	controller foo
-2021-05-15 00:25:58.344  INFO 18516 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around service before foo
-2021-05-15 00:25:58.344  INFO 18516 --- [nio-8081-exec-1] blog.in.action.service.BlogService       : ==========	service foo
-2021-05-15 00:25:58.344  INFO 18516 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around service after foo
-2021-05-15 00:25:58.344  INFO 18516 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller after foo
-2021-05-15 00:25:58.359  INFO 18516 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter after doFilter
-Disconnected from the target VM, address: '127.0.0.1:58436', transport: 'socket'
-2021-05-15 00:27:11.993  INFO 18516 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2021-05-15 00:27:11.993  INFO 18516 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2021-05-15 00:27:11.993  INFO 18516 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2021-05-15 00:27:12.008  INFO 18516 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2021-05-15 00:27:12.194  INFO 18516 --- [extShutdownHook] blog.in.action.filters.BlogFilter        : ==========	BlogFilter destroy filter
+2021-05-15 00:57:42.166  INFO 17332 --- [           main] blog.in.action.ActionInBlogApplication   : No active profile set, falling back to default profiles: default
+2021-05-15 00:57:42.484  INFO 17332 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-15 00:57:42.500  INFO 17332 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7ms. Found 0 JPA repository interfaces.
+2021-05-15 00:57:42.600  INFO 17332 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=4f893516-1aef-34f5-a2bd-26d6c4e1dd20
+2021-05-15 00:57:42.870  INFO 17332 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2021-05-15 00:57:42.870  INFO 17332 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-05-15 00:57:42.870  INFO 17332 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
+2021-05-15 00:57:42.970  INFO 17332 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-05-15 00:57:42.970  INFO 17332 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 792 ms
+2021-05-15 00:57:43.001  INFO 17332 --- [           main] blog.in.action.filters.BlogFilter        : ==========	BlogFilter init filter
+2021-05-15 00:57:43.087  INFO 17332 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-15 00:57:43.118  INFO 17332 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
+2021-05-15 00:57:43.199  INFO 17332 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2021-05-15 00:57:43.260  INFO 17332 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-05-15 00:57:43.341  INFO 17332 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-05-15 00:57:43.356  INFO 17332 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-05-15 00:57:43.473  INFO 17332 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-15 00:57:43.473  INFO 17332 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-15 00:57:43.525  WARN 17332 --- [           main] o.s.c.n.a.ArchaiusAutoConfiguration      : No spring.application.name found, defaulting to 'application'
+2021-05-15 00:57:43.525  WARN 17332 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2021-05-15 00:57:43.525  INFO 17332 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-05-15 00:57:43.525  WARN 17332 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2021-05-15 00:57:43.525  INFO 17332 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-05-15 00:57:43.574  WARN 17332 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-05-15 00:57:43.656  INFO 17332 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-15 00:57:44.111  INFO 17332 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2021-05-15 00:57:44.364  INFO 17332 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 3.188 seconds (JVM running for 4.066)
+2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter before doFilter
+2021-05-15 00:57:46.263  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor preHandle
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller before foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] b.in.action.controller.BlogController    : ==========	controller foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around service before foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.service.BlogService       : ==========	service foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around service after foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller after foo
+2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor postHandle
+2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor afterCompletion
+2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter after doFilter
+Disconnected from the target VM, address: '127.0.0.1:59594', transport: 'socket'
+2021-05-15 01:00:10.300  INFO 17332 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-15 01:00:10.300  INFO 17332 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-15 01:00:10.300  INFO 17332 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-05-15 01:00:10.316  INFO 17332 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-05-15 01:00:10.495  INFO 17332 --- [extShutdownHook] blog.in.action.filters.BlogFilter        : ==========	BlogFilter destroy filter
 ```
 
 ## OPINION

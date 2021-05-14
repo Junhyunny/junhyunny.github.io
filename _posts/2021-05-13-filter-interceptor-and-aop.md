@@ -396,7 +396,7 @@ Disconnected from the target VM, address: '127.0.0.1:59594', transport: 'socket'
 해당 프레임워크와 관련된 API 문서 없이 기능 추가, 버그 수정을 위해 프레임워크 구조를 분석하면서 필터에 대해 많은 공부가 되었습니다. 
 아쉽게도 인터셉터에 대한 공부가 부족했는데 이 참에 어떤 부분이 다른지 정리해보았습니다. 
 
-필터에서만 할 수 있는 일과 인터셉터에서만 할 수 있는 일에 대해 **`기록은 재산이다 블로그의 [(Spring)Filter와 Interceptor의 차이][spring-filter-interceptor-link]`** 포스트에서 정리한 내용을 가져왔습니다. 
+필터에서만 할 수 있는 일과 인터셉터에서만 할 수 있는 일에 대해 **`기록은 재산이다 블로그`**의 [(Spring)Filter와 Interceptor의 차이][spring-filter-interceptor-link] 포스트에서 정리한 내용을 가져왔습니다. 
 본인은 경험해보지는 못 했지만 나중에 도움이 될 것 같아서 OPINION 부분에 함께 기록해두겠습니다.
 
 ### 필터에서만 할 수 있는 일

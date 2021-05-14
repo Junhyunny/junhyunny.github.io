@@ -1206,8 +1206,7 @@ org.springframework.transaction.NestedTransactionNotSupportedException: JpaDiale
 ##### 데이터베이스 테이블 확인
 - 자식 메소드는 기능이 지원되지 않는 WAS에 의해 수행되지 않았습니다.
 - 부모 메소드에서 catch를 수행하였기에 부모 메소드는 롤백되지 않았습니다. 
-- 이는 동일 트랜잭션으로 처리하지 않았다는 것을 의미합니다. 
-- 동일한 트랜잭션으로 처리되는 **`PARENT REQUIRED - CHILD REQUIRED`** 테스트와는 대조적입니다. 
+- NESTED 속성 테스트는 지원되는 WAS에서 재검증이 필요합니다.
 - 별도의 이미지는 참조하지 않았습니다. 
 
 ## OPINION

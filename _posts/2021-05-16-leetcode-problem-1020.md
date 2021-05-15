@@ -26,7 +26,7 @@ Return the number of land cells in grid for which we cannot walk off the boundar
 ## 입출력 예
 
 ### 예시1
-<p align="left"><img src="/images/leetcode-problem-1020-1.JPG" width="50%"></p>
+<p align="center"><img src="/images/leetcode-problem-1020-1.JPG" width="30%"></p>
 <center>이미지 출처, https://leetcode.com/problems/number-of-enclaves/</center><br>
 
 - Input: grid = [[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]]
@@ -34,7 +34,7 @@ Return the number of land cells in grid for which we cannot walk off the boundar
 - Explanation: There are three 1s that are enclosed by 0s, and one 1 that is not enclosed because its on the boundary.
 
 ### 예시2
-<p align="left"><img src="/images/leetcode-problem-1020-2.JPG" width="50%"></p>
+<p align="center"><img src="/images/leetcode-problem-1020-2.JPG" width="30%"></p>
 <center>이미지 출처, https://leetcode.com/problems/number-of-enclaves/</center><br>
 
 - Input: grid = [[0,1,1,0],[0,0,1,0],[0,0,1,0],[0,0,0,0]]

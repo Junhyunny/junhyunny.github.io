@@ -1,0 +1,124 @@
+---
+title: "[Side-Project] Slack Chatbot Commit 확인 기능 확장"
+search: false
+category:
+  - side-project
+last_modified_at: 2021-05-18T00:00:00
+---
+
+<br>
+
+예전 사이드 프로젝트로 진행했던 단순 commit 확인 채팅 봇의 기능을 확장해보려고 합니다.([[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]) 
+사람 손은 부족하니 제가 틈틈히 제 업무를 수행하면서 취미로 기능을 구현할 예정입니다. 
+일단 추가적으로 필요한 기능들을 명세해보았습니다.
+- 기존 commit 여부 확인 기능 확장, 특정 채널 내 사용자들의 개인 public push 여부 확인
+- webhook 연동
+- 업로드한 이미지 수집 및 Team Geneuin 공식 이메일로 사진 전송
+
+딱히 요구사항은 없었지만 늘어나는 법인 카드 영수증을 관리하는 것도 힘이 들기 시작했습니다. 
+그렇기 때문에 제가 편하고자 공식 이메일로 법인 카드 사용 내역을 전달할 예정입니다. 
+우선 제가 사용하고 있는 개인 봇의 기능을 특정 채널에 존재하는 사용자들에게 적용하기로 하였습니다. 
+사실 제가 계속 쓰고 싶어서...😅 
+
+## 특정 채널 내 사용자 정보 가져오기
+- <https://api.slack.com/methods/conversations.members>, 채널 내 사용자 정보
+- <https://api.slack.com/methods/users.info/test>, 사용자
+
+사용자 정보를 반환하기 위한 테스트를 진행해보니 다음과 같은 에러가 발생하였습니다. 
+**`missing_scope, users:read`** 권한이 없다는 의미이므로 이를 추가합니다. 
+
+##### missing_scope, users:read
+
+```json
+{
+    "ok": false,
+    "error": "missing_scope",
+    "needed": "users:read",
+    "provided": "incoming-webhook,channels:read,groups:read,im:read,mpim:read,channels:history,groups:history,im:history,mpim:history,chat:write"
+}
+```
+
+##### 정상 메세지 리턴
+- 정상적인 응답
+
+```json
+{
+    "ok": true,
+    "user": {
+        "name": "kang3966",
+        "deleted": false,
+        "real_name": "강준현",
+        "tz": "Asia/Seoul",
+        "tz_label": "Korea Standard Time",
+        "tz_offset": 32400,
+        "profile": {
+            "real_name": "강준현",
+            "real_name_normalized": "강준현",
+            "display_name": "Junhyunny",
+            "display_name_normalized": "Junhyunny",
+            // ...
+        },
+        // ...
+    }
+}
+```
+
+### 사용자 정보를 담는 클래스 추가
+- 정상적으로 전달받은 사용자 정보를 바탕으로 필요한 데이터만 사용하기 위한 클래스를 추가하였습니다. 
+- 제공되는 json의 key는 under_score 방식이므로 이를 lowCamel 방식으로 파싱하는 Gson 객체를 만듭니다. 
+- 어디서든 사용할 수 있도록 static 메소드로 제공합니다.
+
+##### GeneuinMember 클래스
+
+```java
+package io.junhyunny.entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class GeneuinMember {
+
+    private String name;
+    private String realName;
+    private Profile profile;
+}
+```
+
+##### Profile 클래스
+
+```java
+package io.junhyunny.entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class Profile {
+
+    private String realName;
+    private String realNameNormalized;
+    private String displayName;
+    private String diplayNamedNormalized;
+}
+```
+
+##### JsonUtils
+- <>
+
+```java
+```
+
+
+### 특정 채널 내의 사용자 정보 반환하는 메소드
+- 
+
+
+#### REFERENCE
+- <>

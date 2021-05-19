@@ -1,5 +1,5 @@
 ---
-title: "[Side-Project] Slack Chatbot Commit 확인 기능 확장"
+title: "[Side-Project] Slack Chatbot 1차 기능 확장"
 search: false
 category:
   - side-project
@@ -185,4 +185,5 @@ public class Slack {
 - <https://api.slack.com/methods/conversations.members>
 - <https://api.slack.com/methods/users.info>
 
+[side-project-slack-chatbot-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
 [github-link]: https://github.com/Junhyunny/slack-chatbot/tree/3fa414becee52eca1424660b188cfdba223def0c

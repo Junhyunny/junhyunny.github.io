@@ -57,7 +57,7 @@ classes: wide
 #### [Slack ChatBot]
 - **'1일 1 COMMIT'** 독촉 메세지를 보내는 Slack 채팅 봇
 - [[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]
-<!-- - [[Side-Project] Slack Chatbot 기능 개선][side-project-slack-chatbot-renewal-link] -->
+- [[Side-Project] Slack Chatbot 1차 기능 확장][side-project-slack-chatbot-first-expansion-link]
 - <https://github.com/Junhyunny/slack-chatbot>
 
 ## Education 👨🏻‍🎓
@@ -71,4 +71,4 @@ classes: wide
   - 국립전파연구원 주최
 
 [side-project-slack-chatbot-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
-[side-project-slack-chatbot-renewal-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
+[side-project-slack-chatbot-first-expansion-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot-first-expansion/

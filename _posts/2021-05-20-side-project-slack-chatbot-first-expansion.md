@@ -48,7 +48,10 @@ Slack의 사용자 정보를 가져오는 기능 테스트 중 다음과 같은 
 ##### 'users:read' 권한 추가
 - OAuth & Permissions > Scopes > Add an OAuth Scope 클릭
 
-<p align="center"><img src="/images/side-project-slack-chatbot-first-expansion-1.JPG" width="70%"></p>
+<div align="center">
+    <img src="/images/side-project-slack-chatbot-first-expansion-1.JPG" width="25%">
+    <img src="/images/side-project-slack-chatbot-first-expansion-2.JPG" width="70%">
+</div>
 
 ##### 권한 추가 후 정상 응답
 
@@ -171,7 +174,7 @@ public class Slack {
 - `'display_name'` 사용자의 Github 원격 저장소가 존재하지 않는 경우 관련된 에러 메세지를 전달합니다.
 - 해당 이름으로 관리되는 원격 저장소가 존재하는 경우 commit 후 push 수행된 이력이 존재하는지 여부를 확인합니다. 
 
-<p align="center"><img src="/images/side-project-slack-chatbot-first-expansion-2.JPG" width="70%"></p>
+<p align="center"><img src="/images/side-project-slack-chatbot-first-expansion-3.JPG" width="100%"></p>
 
 
 ## OPINION

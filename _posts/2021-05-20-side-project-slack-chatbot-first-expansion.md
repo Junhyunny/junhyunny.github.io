@@ -176,7 +176,6 @@ public class Slack {
 
 <p align="center"><img src="/images/side-project-slack-chatbot-first-expansion-3.JPG" width="100%"></p>
 
-
 ## OPINION
 이 외에 리팩토링과 메소드 변경이 있었으나 신규로 추가된 기능에 대해서만 포스트로 작성하였습니다. 
 리팩토링 된 부분들은 크게 기능에 대한 변경이 없었기 때문에 별도로 추가하지는 않았습니다. 

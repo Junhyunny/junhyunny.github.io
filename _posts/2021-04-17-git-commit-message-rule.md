@@ -3,7 +3,7 @@ title: "Github commit 메세지 규칙"
 search: false
 category:
   - information
-  - git
+  - github
 last_modified_at: 2021-04-17T09:00:00
 ---
 

@@ -29,7 +29,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 새로운 기술을 공부할때마다 접하는 라이프사이클(lifecycle)에 대한 개념은 언제나 흥미롭습니다. 
 
 ##### Entity Lifecycle 흐름
-<p align="center"><img src="/images/jpa-persistence-context-1.JPG" width="550"></p>
+<p align="center"><img src="/images/jpa-persistence-context-1.JPG" width="60%"></p>
 <center>이미지 출처, https://gunlog.dev/JPA-Persistence-Context/</center><br>
 
 - 비영속(new/transient)

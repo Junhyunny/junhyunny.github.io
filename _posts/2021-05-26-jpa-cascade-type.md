@@ -81,7 +81,7 @@ JPA에서 테이블 사이의 관계를 맺어주는 방법으로 @OneToOne, @On
 이해된 개념을 바탕으로 테스트 시나리오를 구상하여 원하는대로 동작하는지 확인해보겠습니다.
 
 ## 엔티티 구성
-<p align="left"><img src="/images/jpa-cascade-type-2.JPG" width="30%"></p>
+<p align="left"><img src="/images/jpa-cascade-type-2.JPG" width="20%"></p>
 
 ##### Post 클래스
 - Post 클래스와 Comment 클래스의 관계를 @OneToMany 애너테이션을 통해 지정합니다.

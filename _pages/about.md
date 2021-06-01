@@ -41,20 +41,20 @@ classes: wide
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
 - Smart CCTV System 개발, 2017년 8월 - 2017년 11월
 
-## Proejcts 👨‍💻
-#### [[한국보건산업진흥원] IoT 돌봄 서비스 개발], 2021년 04월 ~
+## Experience 👨‍💻
+#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 04월 ~
 - Spring Boot, JSP, MyBatis, MySQL, VernMQ, MQTT
 
-#### [[KC Industrial] 가스 입출고 시스템 개발], 2021년 04월 ~
+#### [KC Industrial] 가스 입출고 시스템, 2021년 04월 ~
 - Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, MySQL, Vue.js
 - 가스 입출고 비즈니스 도메인 분석 및 설계
 
-#### [[K-ICT BigData Center] 레거시 시스템 기능 개선 및 유지보수], 2021년 04월 ~
+#### [K-ICT BigData Center] 레거시 시스템 기능 개선 및 유지보수, 2021년 04월 ~
 - 솔루션 기업 프레임워크(Enview Framework, Saltware), JDK1.7, Ant, Tomcat6
 - 사용자 정보 접근 추척 로그 기능 추가
 - XSS(Cross-Site Scripting) 공격 방어 필터 추가
 
-#### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
+#### [POSCO] MES3.0(Manufacturing Execution System 3.0), 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
 - Monolithic Architecture > Micro Service Architecture 전환
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링

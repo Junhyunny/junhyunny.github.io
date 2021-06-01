@@ -30,7 +30,9 @@ classes: wide
 
 ## Career 📋
 #### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
-- K-ICT BigData Center 시스템 개선 작업, 2021년 4월 ~
+- [한국보건산업진흥원] IoT 돌봄 서비스 개발, 2021년 4월 ~
+- [KC Industrial] 가스 입출고 시스템 개발, 2021년 4월 ~
+- [K-ICT 빅데이터 센터] 레거시 시스템 기능 개선 및 유지보수, 2021년 4월 ~
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
 - MES(Manufacturing Execution System) 운영, 2021년 1월 - 4월
@@ -40,8 +42,17 @@ classes: wide
 - Smart CCTV System 개발, 2017년 8월 - 2017년 11월
 
 ## Proejcts 👨‍💻
-#### [K-ICT BigData Center 시스템 개선 작업], 2021년 04월 ~ 
+#### [[한국보건산업진흥원] IoT 돌봄 서비스 개발], 2021년 04월 ~
+- Spring Boot, JSP, MyBatis, MySQL, VernMQ, MQTT
+
+#### [[KC Industrial] 가스 입출고 시스템 개발], 2021년 04월 ~
+- Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, MySQL, Vue.js
+- 가스 입출고 비즈니스 도메인 분석 및 설계
+
+#### [[K-ICT BigData Center] 레거시 시스템 기능 개선 및 유지보수], 2021년 04월 ~
 - 솔루션 기업 프레임워크(Enview Framework, Saltware), JDK1.7, Ant, Tomcat6
+- 사용자 정보 접근 추척 로그 기능 추가
+- XSS(Cross-Site Scripting) 공격 방어 필터 추가
 
 #### [MES3.0(Manufacturing Execution System 3.0)], 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
@@ -49,8 +60,8 @@ classes: wide
 - 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
 - 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발
 - 기존 차량 이송 도메인에서 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
-- DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
-- Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선(구체적인 트러블 슈팅 사례 업로드 필요🔫)
+- DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선
+- Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선
   - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
 
 ## Side Proejcts 💻

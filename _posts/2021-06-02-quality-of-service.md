@@ -18,7 +18,7 @@ last_modified_at: 2021-06-03T03:00:00
 ### 정의
 
 > Wiki<br>
-> QoS(Quality of Service)는 다른 응용 프로그램, 사용자, 데이터 흐름 등에 우선 순위를 정하여, 
+> QoS(Quality of Service)는 다른 응용 프로그램, 사용자, 데이터 흐름 등에 우선 순위를 정하여,<br>
 > 데이터 전송에 특정 수준의 성능을 보장하기 위한 능력을 말한다. 
 
 > CISCO<br>
@@ -61,12 +61,14 @@ last_modified_at: 2021-06-03T03:00:00
 - 연속 지연(Serialization Delay), 전달 지연(Propagation Delay), 큐잉 지연(Queuing Delay)
 - 제어 기술 - Queuing 
 
-## VerneMQ QoS
-QoS 개념을 찾아보게 된 근본적인 원인은 VerneMQ에 대한 공부를 진행하면서 궁금증이 생겼기 때문입니다. 
-위의 내용에서 정리한 내용들은 VerneMQ에서 설명하는 QoS 개념은 앞서 정리한 내용과 다소 차이가 있습니다. 
-VerneMQ의 QoS 개념은 MQTT 프로토콜이 제공하는 서비스의 신뢰도와 속도에 대한 내용입니다. 
-MQTT 프로토콜이 제공하는 QoS는 수준(level)에 따라 다른 신뢰도와 속도를 제공합니다.
-내용을 살펴보도록 하겠습니다.
+## QoS in VerneMQ
+QoS 개념을 찾아보게 된 근본적인 원인은 VerneMQ에 대한 공부를 하다가 궁금증이 생겼기 때문입니다. 
+관련된 내용들을 정리하다보니 VerneMQ에서 설명하는 QoS 개념은 앞서 정리한 내용과 다소 차이가 있다고 느꼈습니다. 
+VerneMQ가 제공하는 docs에 설명된 QoS 개념은 MQTT 프로토콜이 제공하는 서비스의 신뢰도와 속도에 대한 내용으로 보여집니다. 
+
+그렇기 때문에 MQTT 프로토콜에서 의미하는 QoS 개념에 대해 정리해보았습니다. 
+MQTT 프로토콜이 제공하는 QoS는 수준(level)에 따라 다른 신뢰도와 속도를 제공합니다. 
+관련된 내용을 살펴보도록 하겠습니다.
 
 ### Fire and forget (QoS 0)
 - 메세지를 한번만 전달됩니다.
@@ -109,7 +111,6 @@ Docker, Kubernetes, Kafka 관련된 내용들도 공부와 정리를 시작해�
 - <https://dalkomit.tistory.com/111>
 - <https://wnsgml972.github.io/mqtt/2018/03/05/mqtt/>
 - <https://vernemq.com/>
-- <https://kafka.apache.org/documentation/>
 
 [naver-blog-link]: https://m.blog.naver.com/bi1189/221472713258
 [vernemq-link]: https://vernemq.com/

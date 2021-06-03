@@ -1,5 +1,5 @@
 ---
-title: "JPA Cascade Type"
+title: "JPA CascadeType"
 search: false
 category:
   - spring-boot
@@ -66,12 +66,12 @@ JPA에서 테이블 사이의 관계를 맺어주는 방법으로 @OneToOne, @On
 지정된 CascadeType에 따라 엔티티의 변경 상태를 반영하는 시점을 지정할 수 있습니다. 
 
 각 CascadeType 별로 영속성 전이가 이루어지는 시점입니다. 
-- PERSIST, 대상(target) 엔티티가 new 상태에서 managed 상태로 변경되는 시점에 종속된 엔티티들의 영속 상태를 함께 반영
-- REMOVE, 대상 엔티티가 managed 상태에서 removed 상태로 변경되는 시점에 종속된 엔티티들의 영속 상태를 함께 반영
-- DETACH, 대상 엔티티가 managed 상태에서 detached 상태로 변경되는 시점에 종속된 엔티티들의 영속 상태를 함께 반영
-- MERGE, 대상 엔티티가 detached 상태에서 managed 상태로 변경되는 시점에 종속된 엔티티들의 영속 상태를 함께 반영
-- REFRESH, 엔티티 매니저의 refresh() 메소드 호출 시점에 종속된 엔티티들의 영속 상태를 함께 반영
-- ALL, 모든 상태 변화에 대해 종속된 엔티티들의 영속 상태를 함께 반영
+- PERSIST - 대상(target) 엔티티가 new 상태에서 managed 상태로 변경되는 시점
+- REMOVE - 대상 엔티티가 managed 상태에서 removed 상태로 변경되는 시점
+- DETACH - 대상 엔티티가 managed 상태에서 detached 상태로 변경되는 시점
+- MERGE - 대상 엔티티가 detached 상태에서 managed 상태로 변경되는 시점
+- REFRESH - 엔티티 매니저의 refresh() 메소드 호출 시점
+- ALL - 모든 상태 변화에 대해 종속된 엔티티들의 영속 상태를 함께 반영
 
 제가 이해하기 쉽게 다시 정의해보았습니다. 
 - 특정 엔티티의 영속 상태가 변경되었을 때 종속된 엔티티들의 영속 상태가 대상 엔티티를 따라 함께 반영되는 것을 `영속성 전이`라고 합니다. 

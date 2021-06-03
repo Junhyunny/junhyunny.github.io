@@ -3,7 +3,7 @@ title: "QoS(Quality of Service)"
 search: false
 category:
   - information
-last_modified_at: 2021-06-02T03:00:00
+last_modified_at: 2021-06-03T03:00:00
 ---
 
 <br>
@@ -62,38 +62,42 @@ last_modified_at: 2021-06-02T03:00:00
 - 제어 기술 - Queuing 
 
 ## VerneMQ QoS
-QoS 개념을 공부하게 된 근본적인 원인은 `VerneMQ`에 대한 공부 때문이지만, 
-`VerneMQ`에서 설명하는 QoS 개념은 앞서 정리한 내용과 다소 차이가 있습니다. 
-`VerneMQ`가 제공하는 서비스의 신뢰성과 관련된 내용으로 보여집니다. 
-우선 `VerneMQ`에서 제공하는 QoS 수준을 살펴보겠습니다. 
+QoS 개념을 찾아보게 된 근본적인 원인은 VerneMQ에 대한 공부를 진행하면서 궁금증이 생겼기 때문입니다. 
+위의 내용에서 정리한 내용들은 VerneMQ에서 설명하는 QoS 개념은 앞서 정리한 내용과 다소 차이가 있습니다. 
+VerneMQ의 QoS 개념은 MQTT 프로토콜이 제공하는 서비스의 신뢰도와 속도에 대한 내용입니다. 
+MQTT 프로토콜이 제공하는 QoS는 수준(level)에 따라 다른 신뢰도와 속도를 제공합니다.
+내용을 살펴보도록 하겠습니다.
 
 ### Fire and forget (QoS 0)
-- 클라이언트는 메세지를 전달받았을 때 브로커에게 확인을 받지 않습니다.
-- 마찬가지로 브로커에서 클라이언트로 전달된 메세지는 확인이 필요하지 않습니다.
-- 메세지를 발행하고 구독할 때 가장 빠른 속도를 가집니다.
-- 하지만 메세지 수신이 빈번하게 발생합니다. 
+- 메세지를 한번만 전달됩니다.
+- 한번만 전달하지만 전달 여부는 확인하지 않습니다.
 
 ### At least once (QoS 1)
-- 클라이언트는 수신 시 브로커로부터 수신에 대한 확인 메세지를 전달받습니다.
-- 예상하고 있는 응답 메세지를 특정 시간내 전달받지 못하는 경우 브로커는 메세지를 재전송합니다.
+- 메세지는 최소 한번은 전달됩니다. 
+- 브로커가 발행자(publisher)에게 `PUBACK`를 보내어 전달 성공을 알립니다.
+- 정상적인 통신이 이루어지지 않은 경우 `PUBACK`을 받지 못한 발행자는 적정시간이 지난 후 다시 메세지를 전달합니다.
+- 구독자(Subscriber)에게 중복 메세지를 보내는 경우가 발생합니다.
 
 ### Exactly once (QoS 2)
-- QoS 2는 Qos 1과 유사힙니다. 
-- 클라이언트는 수신 시 브로커로부터 수신에 대한 확인 메세지를 전달받습니다.
-
-The first part of the QoS 2 flow is similar to QoS 1. A second flow ensures that sender and receiver (broker) agree on where the message stands. The point is to avoid duplicate routing, i.e. delivery to the subscribers downstream of the broker, as the broker can recognize duplicates itself. QoS 2 doesn't necessarily imply that the publisher will only send the message once, it will still retry if it gets no acks from the broker.
+- 메세지는 반드시 한번 전달됩니다.
+- `PUBACK` 과정을 `PUBREC`, `PUBREL`으로 핸드 쉐이킹을 수행합니다.
+- 브로커는 전달받은 메세지를 저장합니다.
+- `PUBREC`가 분실되어 발행자가 다시 메세지를 보내도 브로커는 메세지를 알고 있기 때문에 다시 구독자에게 전달하지 않습니다.
+- 발행자가 `PUBREC`을 받으면 `PUBREL` 메세지를 전달합니다.
+- 브로커가 `PUBREL`을 받으면 저장해둔 메세지를 지운 후 `PUBCOMP`을 전달합니다. 
 
 ##### MQTT QoS(Qaulity of Service)
+- `VernMQ`에서 지원하는 QoS 수준은 MQTT 프로토콜의 QoS 수준을 의미합니다. 
 
 <p align="center"><img src="/images/quality-of-service-1.jpg" width="75%"></p>
 <center>이미지 출처, https://devopedia.org/mqtt</center><br>
 
-## Apache Kafka
-
-작성 중 입니다.
-
 ## OPINION
-작성 중 입니다.
+관련된 내용들을 정리하다보니 Apache Kafka에도 `idempotent producer`라는 비슷한 개념이 있었던 것이 기억났습니다.(혹은 `exactly once producer`) 
+생각난 김에 관련된 내용을 찾아 읽다보니 문득 걱정이 들기 시작했습니다. 
+Docker, Kubernetes, Kafka 관련된 내용들도 공부와 정리를 시작해야하는데 시간이 부족하다보니 시작도 못하는게 아닐지...😭 
+이번 포스트도 거의 일주일만에 작성한 귀한 글입니다. 
+나태해지지 않도록 조금 분발해야겠습니다. 
 
 #### REFERENCE
 - <https://ko.wikipedia.org/wiki/QoS>
@@ -102,7 +106,10 @@ The first part of the QoS 2 flow is similar to QoS 1. A second flow ensures that
 - <https://itwiki.kr/w/QoS#QoS_.EB.A0.88.EB.B2.A8>
 - <https://m.blog.naver.com/bi1189/221472713258>
 - <https://devopedia.org/mqtt>
+- <https://dalkomit.tistory.com/111>
+- <https://wnsgml972.github.io/mqtt/2018/03/05/mqtt/>
 - <https://vernemq.com/>
+- <https://kafka.apache.org/documentation/>
 
 [naver-blog-link]: https://m.blog.naver.com/bi1189/221472713258
 [vernemq-link]: https://vernemq.com/

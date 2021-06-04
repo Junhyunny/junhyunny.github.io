@@ -37,7 +37,7 @@ Read Timeout도 Socket Timeout과 마찬가지로 서버와 정상적인 연결�
 ## OPINION
 Read Timeout과 달리 Connection Timeout, Socket Timeout 두 가지는 상황 재현이 쉽지 않았습니다. 
 상황 재현을 할 수 있는 테스트 코드를 작성하지 못하여 아쉽습니다. 
-가능하다면 다음에라도 테스트 코드를 올리도록 하겠습니다. 
+프로젝트 수행 중 관련된 에러를 만나면 재현 테스트 코드를 정리하여 올려야겠습니다. 
 
 #### REFERENCE
 - <https://cornswrold.tistory.com/401>

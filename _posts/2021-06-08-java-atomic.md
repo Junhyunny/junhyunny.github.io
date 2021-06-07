@@ -12,7 +12,7 @@ last_modified_at: 2021-06-08T06:00:00
 Java는 멀티 스레드 환경에서 thread-safe 한 개발을 할 수 있도록 `Atomic`이라는 키워드가 붙은 클래스를 제공합니다. 
 멀티 스레드 프로그램을 지원하는 클래스이므로 `java.util.concurrent.atomic` 패키지에 위치합니다. 
 이름에 `Atomic`이라는 키워드가 붙은 이유가 무엇일까요? 
-제 느낌상 컴퓨터의 원자적인 연산(Atomic operation)이라는 개념과 연관이 있어 보입니다. 
+아마도 컴퓨터의 원자적인 연산(Atomic operation)이라는 개념과 연관이 있어보입니다. 
 우선 원자적인 연산이 무엇인지 알아보겠습니다.
 
 ## 원자적인 연산(Atomic operation)

@@ -30,8 +30,8 @@ classes: wide
 
 ## Career 📋
 #### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
-- [한국보건산업진흥원] IoT 돌봄 서비스 개발, 2021년 4월 ~
-- [KC Industrial] 가스 입출고 시스템 개발, 2021년 4월 ~
+- [한국보건산업진흥원] IoT 돌봄 서비스 개발, 2021년 6월 ~
+- [KC Industrial] 가스 입출고 시스템 개발, 2021년 5월 ~
 - [K-ICT 빅데이터 센터] 레거시 시스템 기능 개선 및 유지보수, 2021년 4월 ~
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
@@ -42,14 +42,15 @@ classes: wide
 - Smart CCTV System 개발, 2017년 8월 - 2017년 11월
 
 ## Experience 👨‍💻
-#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 04월 ~
+#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 6월 ~
 - Spring Boot, JSP, MyBatis, MySQL, VernMQ, MQTT
 
-#### [KC Industrial] 가스 입출고 시스템, 2021년 04월 ~
+#### [KC Industrial] 가스 입출고 시스템, 2021년 5월 ~
 - Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, MySQL, Vue.js
 - 가스 입출고 비즈니스 도메인 분석 및 설계
+- 코드 리팩토링, 비즈니스 단위의 패키지 분리
 
-#### [K-ICT BigData Center] 레거시 시스템 기능 개선 및 유지보수, 2021년 04월 ~
+#### [K-ICT BigData Center] 레거시 시스템 기능 개선 및 유지보수, 2021년 4월 ~
 - 솔루션 기업 프레임워크(Enview Framework, Saltware), JDK1.7, Ant, Tomcat6
 - 사용자 정보 접근 추척 로그 기능 추가
 - XSS(Cross-Site Scripting) 공격 방어 필터 추가

@@ -43,7 +43,7 @@ classes: wide
 
 ## Experience 👨‍💻
 #### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 6월 ~
-- Spring Boot, JSP, MyBatis, MySQL, VernMQ, MQTT
+- Spring Boot, JSP, MyBatis, MySQL, VerneMQ, MQTT
 
 #### [KC Industrial] 가스 입출고 시스템, 2021년 5월 ~
 - Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, MySQL, Vue.js

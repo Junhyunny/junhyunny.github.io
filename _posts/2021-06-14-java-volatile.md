@@ -21,6 +21,7 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 데이터에 조금 더 빠른 접근을 위해 CPU 캐시를 사용합니다. 
 
 ##### CPU 캐시 사용(Multi CPU 환경)
+
 <p align="center"><img src="/images/java-volatile-1.JPG" width="50%"></p>
 <center>이미지 출처, http://tutorials.jenkov.com/java-concurrency/volatile.html</center><br>
 
@@ -33,6 +34,7 @@ N개의 CPU, 멀티 스레드 환경의 경우 데이터 동기화 문제가 발
 - CPU1은 Thread1을 수행하면서 count 변수를 읽어 증가시키면서 작업을 수행합니다.
 - CPU2는 Thread2를 수해하면서 값의 변경은 없이 사용합니다.
 - 같은 변수를 다른 값으로 사용하게 되면서 로직 상의 문제가 발생합니다.
+
 <p align="center"><img src="/images/java-volatile-2.JPG" width="50%"></p>
 <center>이미지 출처, http://tutorials.jenkov.com/java-concurrency/volatile.html</center><br>
 

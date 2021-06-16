@@ -3,7 +3,7 @@ title: "White Box, Black Box Test"
 search: false
 category:
   - information
-last_modified_at: 2021-06-15T00:00:00
+last_modified_at: 2021-06-16T00:00:00
 ---
 
 <br>

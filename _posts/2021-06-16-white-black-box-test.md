@@ -61,7 +61,7 @@ last_modified_at: 2021-06-16T00:00:00
 두 테스트에 대한 내용을 정리하다보니 한 눈에 보기 쉽게 정리할 필요가 있다는 생각이 듭니다. 
 도리의 디지털라이프 블로그에 [블랙박스 테스트와 화이트박스 테스트 비교][difference-blog-link] 포스트에 잘 정리된 표가 있어서 제 블로그에 옮겨왔습니다. 
 
-<p align="center"><img src="/images/white-box-black-box-test-3.JPG" width="45%"></p>
+<p align="center"><img src="/images/white-box-black-box-test-3.JPG" width="50%"></p>
 <center>출처, 블랙박스 테스트와 화이트박스 테스트 비교</center><br>
 
 ## OPINION

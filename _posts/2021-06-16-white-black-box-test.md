@@ -25,7 +25,7 @@ last_modified_at: 2021-06-16T00:00:00
 흔히 말하는 코드 테스트 커버러지 퍼센트(%)를 측정하는 일이 여기에 속하는 것으로 보입니다. 
 테스트를 수행하기 위해 내부적으로 소프트웨어와 코드가 어떻게 동작하는지 이해하고 있어야 합니다. 
 
-<p align="center"><img src="/images/white-box-black-box-test-1.JPG" width="65%"></p>
+<p align="center"><img src="/images/white-box-black-box-test-1.JPG" width="40%"></p>
 <center>이미지 출처, http://www.splex.co.kr/black-white-box-test</center><br>
 
 ### White Box Test 종류
@@ -47,7 +47,7 @@ last_modified_at: 2021-06-16T00:00:00
 제품의 각 기능이 정상적으로 작동하는지 입증하는 검사입니다. 
 입력은 적절한지, 출력은 정확한지 확인할 수 있습니다. 
 
-<p align="center"><img src="/images/white-box-black-box-test-2.JPG" width="65%"></p>
+<p align="center"><img src="/images/white-box-black-box-test-2.JPG" width="40%"></p>
 <center>이미지 출처, http://www.splex.co.kr/black-white-box-test</center><br>
 
 ### Black Box Test 종류
@@ -61,6 +61,8 @@ last_modified_at: 2021-06-16T00:00:00
 두 테스트에 대한 내용을 정리하다보니 한 눈에 보기 쉽게 정리할 필요가 있다는 생각이 듭니다. 
 도리의 디지털라이프 블로그에 [블랙박스 테스트와 화이트박스 테스트 비교][difference-blog-link] 포스트에 잘 정리된 표가 있어서 제 블로그에 옮겨왔습니다. 
 
+<center>
+
 | 비교 항목 | 블랙박스 테스트 | 화이트박스 테스트 |
 |:---:|:---:|:---:|
 | 관심 항목 | Input/Output 검증 | 내부 로직 검증 |
@@ -70,6 +72,8 @@ last_modified_at: 2021-06-16T00:00:00
 | V 모델 위치 | 상위 레벨 (사용 환경) | 하위 레벨 (개발 환경) |
 | Test Case 설계 유형 | 동등 분할, 경계값 분석 테스트 등 | 루프, 제어구조 테스트 등 |
 | 결함 여부 기준 | 예상된 출력 값과 일치 여부 | 설계 문서와 논리 구조 일치 여부 |
+
+</center>
 
 <center>출처, 블랙박스 테스트와 화이트박스 테스트 비교</center><br>
 

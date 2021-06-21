@@ -86,7 +86,7 @@ public class GroupByTest {
 ##### 테스트 결과
 - 테스트가 통과하여 findItemNameGroupUsingClass 메소드 수행 시 ConverterNotFoundException이 정상적으로 발생하였음을 알 수 있습니다.
 
-<p align="left"><img src="/images/spring-data-jpa-group-by-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/spring-data-jpa-group-by-1.JPG" width="45%"></p>
 
 ## Use Object[]
 
@@ -151,7 +151,7 @@ public class GroupByTest {
 ##### 테스트 결과
 - 결과 값으로 반환되는 Object 배열에는 GROUP BY 된 결과가 저장되어 있음을 확인할 수 있습니다.
 
-<p align="left"><img src="/images/spring-data-jpa-group-by-2.JPG" width="35%"></p>
+<p align="left"><img src="/images/spring-data-jpa-group-by-2.JPG" width="45%"></p>
 
 ```
 2021-06-21 22:22:53.468  INFO 18172 --- [           main] blog.in.action.groupby.GroupByTest       : [3, 0, 0, 0, 0, ]
@@ -227,7 +227,7 @@ public class GroupByTest {
 ```
 
 ## Interface With Native Query
-Native Query를 사용하면서 명시적이고 가독성 높은 코드를 작성하고 싶었습니다.  
+Native Query를 사용하면서 명시적이고 가독성 높은 코드를 작성하고 싶었습니다. 
 문제를 해결하기 위해 이 방법을 사용했습니다. 
 구체적인 클래스가 아닌 인터페이스를 사용하지만 집계 정보를 보여주는 조회성 화면이기 때문에 단순한 Getter만 있어도 사용에는 문제가 없었습니다. 
 

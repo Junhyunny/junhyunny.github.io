@@ -234,17 +234,17 @@ Native Query를 사용하면서 명시적이고 가독성 높은 코드를 작�
 ##### ItemNameGroup 인터페이스
 
 ```java
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
-class ItemNameGroupVo {
+interface ItemNameGroup {
 
-    long aCount;
-    long bCount;
-    long cCount;
-    long dCount;
-    long eCount;
+    long getACount();
+
+    long getBCount();
+
+    long getCCount();
+
+    long getDCount();
+
+    long getECount();
 }
 ```
 

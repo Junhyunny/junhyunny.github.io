@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-06-26T04:00:00
+last_modified_at: 2021-06-27T03:00:00
 ---
 
 <br>

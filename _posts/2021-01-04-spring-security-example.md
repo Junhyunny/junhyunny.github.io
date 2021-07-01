@@ -14,9 +14,47 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
 ## 패키지 구조
-<p align="left"><img src="/images/spring-security-example-1.JPG" width="30%"></p>
+
+```
+|-- action-in-blog.iml
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- java
+    |   |   `-- blog
+    |   |       `-- in
+    |   |           `-- action
+    |   |               |-- ActionInBlogApplication.java
+    |   |               |-- config
+    |   |               |   `-- Config.java
+    |   |               |-- controller
+    |   |               |   `-- MemberController.java
+    |   |               |-- converter
+    |   |               |   `-- StringListConverter.java
+    |   |               |-- entity
+    |   |               |   `-- Member.java
+    |   |               |-- repository
+    |   |               |   `-- MemberRepository.java
+    |   |               |-- security
+    |   |               |   |-- AuthorizationServer.java
+    |   |               |   |-- ResourceServer.java
+    |   |               |   `-- SecurityConfig.java
+    |   |               `-- service
+    |   |                   `-- MemberService.java
+    |   `-- resources
+    |       `-- application.yml
+    `-- test
+        `-- java
+            `-- blog
+                `-- in
+                    `-- action
+                        `-- ActionInBlogApplicationTests.java
+```
 
 ## application.yml
+
 ```yml
 spring:
   h2:
@@ -298,6 +336,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 ```
 
 ## SecurityConfig 클래스 구현
+
 ```java
 package blog.in.action.security;
 
@@ -337,7 +376,7 @@ Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 Us
 
 - loadUserByUsername 메소드의 debug 포인트 설정 시 call stack
     - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
-<p align="left"><img src="/images/spring-security-example-2.JPG" width="75%"></p>
+<p align="left"><img src="/images/spring-security-example-1.JPG" width="75%"></p>
 
 ```java
 package blog.in.action.service;
@@ -420,8 +459,10 @@ public class MemberService implements UserDetailsService {
 ## OPINION
 예전에 작성했던 블로그 글이 아주 유용하게 사용되었습니다. 
 당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 기능을 추가하였습니다. 
-해당 코드를 받아보시려면 [blog-in-action 저장소][github-link]로 이동하시길 바랍니다. 
 **테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
@@ -430,4 +471,3 @@ public class MemberService implements UserDetailsService {
 [security-blogLink]: https://junhyunny.github.io/spring-security/spring-security/
 [authentication-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
 [resource-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/f1d415643c85006168c91d5d855fe2ccfba07d0a

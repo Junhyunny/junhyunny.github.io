@@ -208,7 +208,7 @@ public class MemberController {
 인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
 JwtAccessTokenConverter @Bean에 등록되는 `signingKey`는 암호화 복호화에 필요한 키 용도로 사용됩니다.
 
-> [Class JwtAccessTokenConverter][spring-doc-link]
+> [Class JwtAccessTokenConverter][spring-doc-link]<br>
 > Sets the JWT signing key. It can be either a simple MAC key or an RSA key. RSA keys should be in OpenSSH format, as produced by ssh-keygen.
 
 ```java
@@ -240,10 +240,11 @@ public class Config {
 ```
 
 ## AuthorizationServer 클래스 구현
-인증에 필요한 설정이 가능한 @Configuration입니다. 
-@EnableAuthorizationServer 애너테이션을 붙임으로서 클라이언트 토큰을 저장할 수 있는 인메모리 저장소를 가진 권한 서버가 생성됩니다. 
-AuthorizationServerConfigurerAdapter 클래스를 확장한 후 필요한 설정들을 추가하기 위한 메소드들을 Override합니다. 
+인증에 필요한 설정이 가능한 `@Configuration` 입니다. 
 자세한 내용은 [API 문서][authentication-link]에서 확인하시길 바랍니다. 
+
+- @EnableAuthorizationServer 애너테이션 - 클라이언트 토큰을 저장할 수 있는 인메모리 저장소를 가진 권한 서버 생성
+- AuthorizationServerConfigurerAdapter 클래스 - 상속을 통해 필요한 설정들을 추가할 수 있는 메소드 오버라이드(Override)
 
 ```java
 package blog.in.action.security;
@@ -306,12 +307,12 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 ```
 
 ## ResourceServer 클래스 구현
-자원에 대한 접근을 제어, 관리하는 @Configuration입니다. 
-@EnableResourceServer 애너테이션은 OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증할 수 있게 해줍니다. 
-특정 권한(authorization)만 접근 가능하도록 제어하는 것이 가능해집니다. 
-
-ResourceServerConfigurerAdapter 클래스를 확장하여 추가적인 기능들은 Override합니다. 
+자원에 대한 접근을 제어, 관리하는 `@Configuration` 입니다. 
 자세한 내용은 [API 문서][resource-link]에서 확인하시길 바랍니다. 
+
+- @EnableResourceServer 애너테이션 - OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증
+    - 특정 권한(authorization)만 접근 가능하도록 제어하는 것이 가능해집니다. 
+- ResourceServerConfigurerAdapter 클래스 - 상속을 통해 추가적인 기능들은 오버라이드(Override) 
 
 ```java
 package blog.in.action.security;

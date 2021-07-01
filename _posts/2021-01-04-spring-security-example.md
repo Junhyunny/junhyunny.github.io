@@ -9,7 +9,7 @@ last_modified_at: 2021-04-01T09:00:00
 
 <br>
 
-지난 포스트에서는 [JWT, Json Web Token][json-blogLink]과 [Spring Security][security-blogLink] 대한 이야기를 해보았습니다.
+지난 포스트에서는 [JWT, Json Web Token][json-link]과 [Spring Security][security-link] 대한 이야기를 해보았습니다.
 Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
@@ -164,8 +164,9 @@ spring:
 
 ## MemberController 클래스 구현
 유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
-아래 ResourceServer에서 확인하실 수 있겠지만 **/api/member/sign-up** path는 인증 정보 없이 요청이 가능하지만 
-**/api/member/user-info** path는 인증 정보 없이 요청이 불가능합니다.
+아래 ResourceServer 클래스를 이용해 자원에 대한 요청 접근을 제어합니다. 
+- **/api/member/sign-up** path는 인증 정보 없이 요청이 가능
+- **/api/member/user-info** path는 인증 정보 없이 요청이 불가능
 
 ```java
 package blog.in.action.controller;
@@ -205,8 +206,9 @@ public class MemberController {
 
 ## Config 클래스 구현
 인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
-JwtAccessTokenConverter @Bean에 등록되는 signingKey 용도가 무엇인지 찾아보니 API 문서에 암호화에서 필요한 키 용도로 사용된다는 설명을 찾았습니다.
+JwtAccessTokenConverter @Bean에 등록되는 `signingKey`는 암호화 복호화에 필요한 키 용도로 사용됩니다.
 
+> [Class JwtAccessTokenConverter][spring-doc-link]
 > Sets the JWT signing key. It can be either a simple MAC key or an RSA key. RSA keys should be in OpenSSH format, as produced by ssh-keygen.
 
 ```java
@@ -241,7 +243,7 @@ public class Config {
 인증에 필요한 설정이 가능한 @Configuration입니다. 
 @EnableAuthorizationServer 애너테이션을 붙임으로서 클라이언트 토큰을 저장할 수 있는 인메모리 저장소를 가진 권한 서버가 생성됩니다. 
 AuthorizationServerConfigurerAdapter 클래스를 확장한 후 필요한 설정들을 추가하기 위한 메소드들을 Override합니다. 
-자세한 내용은 [API 문서][authentication-docLink]에서 확인하시길 바랍니다. 
+자세한 내용은 [API 문서][authentication-link]에서 확인하시길 바랍니다. 
 
 ```java
 package blog.in.action.security;
@@ -306,9 +308,10 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 ## ResourceServer 클래스 구현
 자원에 대한 접근을 제어, 관리하는 @Configuration입니다. 
 @EnableResourceServer 애너테이션은 OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증할 수 있게 해줍니다. 
-특별 authorization만 접근 가능하도록 제어하는 것이 가능해집니다. 
+특정 권한(authorization)만 접근 가능하도록 제어하는 것이 가능해집니다. 
+
 ResourceServerConfigurerAdapter 클래스를 확장하여 추가적인 기능들은 Override합니다. 
-자세한 내용은 [API 문서][resource-docLink]에서 확인하시길 바랍니다. 
+자세한 내용은 [API 문서][resource-link]에서 확인하시길 바랍니다. 
 
 ```java
 package blog.in.action.security;
@@ -376,7 +379,8 @@ Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 Us
 
 - loadUserByUsername 메소드의 debug 포인트 설정 시 call stack
     - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
-<p align="left"><img src="/images/spring-security-example-1.JPG" width="75%"></p>
+
+<p align="left"><img src="/images/spring-security-example-1.JPG" width="50%"></p>
 
 ```java
 package blog.in.action.service;
@@ -441,20 +445,86 @@ public class MemberService implements UserDetailsService {
 ```
   
 ## 테스트 결과
-##### 유저 정보 등록 (ADMIN)
-<p align="left"><img src="/images/spring-security-example-3.JPG"></p>
+API 테스트는 Insomnia Tool을 사용하였습니다. 
+테스트 정보는 복사하여 사용할 수 있도록 이미지가 아닌 Timeline 정보로 변경하였습니다.(2021-07-02)
 
-##### 인증 정보 획득
-<p align="left"><img src="/images/spring-security-example-4.JPG"></p>
+##### 유저 정보 등록(ADMIN) 요청
 
-##### 인증 정보 헤더 등록, **bearer (획득한 인증 정보의 access_token)** 
-<p align="left"><img src="/images/spring-security-example-5.JPG"></p>
+```
+> POST /api/member/sign-up HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2021.3.0
+> Content-Type: application/json
+> Accept: */*
+> Content-Length: 74
 
-##### 유저 정보 요청 (정상 확인)
-<p align="left"><img src="/images/spring-security-example-6.JPG"></p>
+| {
+| 	"id": "junhyunny",
+| 	"password": "123",
+| 	"authroities": [
+| 		"ADMIN"
+| 	]
+| }
+```
+
+##### 인증 토큰 획득 요청
+- 요청은 `Form`을 사용합니다.
+- 인증 방식은 `Basic` 입니다.
+    - USERNAME - CLIENT_ID
+    - PASSWORD - CLIENT_SECRET
+
+```
+> POST /oauth/token HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2021.3.0
+> Content-Type: application/x-www-form-urlencoded
+> Authorization: Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ=
+> Accept: */*
+> Content-Length: 51
+
+| username=junhyunny&password=123&grant_type=password
+```
+
+##### 인증 토큰 응답
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo",
+  "token_type": "bearer",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJqdGkiOiI0YTQyNTFiMS1iZjQ2LTQ5YWItYTdiNi1hYmNiZWJmOGJkMzQiLCJjbGllbnRfaWQiOiJDTElFTlRfSUQiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJhdGkiOiI1NTUwNDYwMC1hN2MxLTRkYmUtYmI5ZC0yNzI4NTMyZjUwOGMifQ.PBvsBK6PAZhlgXeMiLHRF7STX8D3x2pIv5N6t7YwrHc",
+  "expires_in": 86171,
+  "scope": "read profile",
+  "jti": "55504600-a7c1-4dbe-bb9d-2728532f508c"
+}
+```
+
+##### 인증 토큰을 사용한 사용자 정보 요청
+- 응답 받은 인증 토큰을 사용합니다.
+- 헤더 정보에 `Authorization` 키로 접두어 `bearar` 를 추가한 토큰을 함께 전달합니다.
+- 요청 파라미터로 id 값을 전달합니다.
+
+```
+> GET /api/member/user-info?id=junhyunny HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2021.3.0
+> Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo
+> Accept: */*
+```
+
+##### 사용자 정보 응답
+
+```json
+{
+  "id": "junhyunny",
+  "password": "$2a$10$KdarSqArLPXsGkLuX0jWhubndBpqkOX5PBRwsk0Fs/GtI4uKU6lx6",
+  "authroities": [
+    "ADMIN"
+  ]
+}
+```
 
 ##### <https://jwt.io/>, Token Decoding 
-<p align="center"><img src="/images/spring-security-example-7.JPG"></p>
+<p align="center"><img src="/images/spring-security-example-2.JPG"></p>
 
 ## OPINION
 예전에 작성했던 블로그 글이 아주 유용하게 사용되었습니다. 
@@ -467,7 +537,8 @@ public class MemberService implements UserDetailsService {
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
 
-[json-blogLink]: https://junhyunny.github.io/information/json-web-token/
-[security-blogLink]: https://junhyunny.github.io/spring-security/spring-security/
-[authentication-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
-[resource-docLink]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
+[json-link]: https://junhyunny.github.io/information/json-web-token/
+[security-link]: https://junhyunny.github.io/spring-security/spring-security/
+[spring-doc-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html
+[authentication-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
+[resource-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html

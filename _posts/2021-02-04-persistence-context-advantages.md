@@ -363,7 +363,9 @@ public class DirtyCheckingTest {
 ## OPINION
 영속성 컨텍스트의 기능과 이를 통해 얻을 수 있는 장점에 대해서 이야기해보았습니다. 
 마지막에 변경 감지(dirty chekcing)가 어떤 식으로 이루어지는지 궁금하여 디버깅한 결과까지 함께 첨부하였습니다. 
-해당 테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]
@@ -371,4 +373,3 @@ public class DirtyCheckingTest {
 [reference-blogLink]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
 [persistence-context-blogLink]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
 [transaction-isolation-blogLink]: https://junhyunny.github.io/information/transcation-isolation/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/18a18969dad272fe632483e72a4f232e2ad6d7a2

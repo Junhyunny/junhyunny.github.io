@@ -181,11 +181,11 @@ public class Slack {
 리팩토링 된 부분들은 크게 기능에 대한 변경이 없었기 때문에 별도로 추가하지는 않았습니다. 
 이 후에 Webhook 연동, 이미지 파일 획득, 메일 전달 기능 등을 차근차근 구현하고 포스트로 공유하도록 하겠습니다. 
 
-전체 코드는 [slack-chatbot 저장소][github-link]에서 확인하실 수 있습니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/slack-chatbot>
 
 #### REFERENCE
 - <https://api.slack.com/methods/conversations.members>
 - <https://api.slack.com/methods/users.info>
 
 [side-project-slack-chatbot-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
-[github-link]: https://github.com/Junhyunny/slack-chatbot/tree/3fa414becee52eca1424660b188cfdba223def0c

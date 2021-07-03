@@ -258,11 +258,12 @@ public class SynchronizedTest {
 이전 블로그에 작성한 글을 새로운 블로그로 이전하면서 내용을 조금 더 보완하였습니다. 
 뮤텍스나 세마포어와 같은 메커니즘을 직접 구현하여 스레드를 동기화시키진 않았습니다. 
 추후에 기회가 된다면 별도의 주제로 포스팅하도록 하겠습니다. 
-테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - Operating System Concepts 9th
 - <https://junhyunny.blogspot.com/2020/02/race-condition.html>
 
 [deadlock-blogLink]: https://junhyunny.github.io/information/operating-system/dead-lock/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/69d2c40ff405c132b61643b4f31f1044b8ef17ef

@@ -239,12 +239,11 @@ spring:
 ## OPINION
 간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다.
 
-프로젝트 코드를 확인하고 싶으신 분은 아래 링크를 눌러주시길 바랍니다.
-- [blog-in-action 저장소][github-link]
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html>
 - <https://spring.io/guides/gs/uploading-files/>
 
 [cors-blogLink]: https://junhyunny.github.io/spring-boot/vue.js/cors-example/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/020474b757a30968739de1de25e6bf948c6205f7

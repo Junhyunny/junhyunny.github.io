@@ -255,12 +255,11 @@ public class Config {
 이전 블로그에서 이 주제를 다룰때는 단순히 문제를 해결하기 위한 글을 썼다면 이번 글은 CORS가 내부에서 어떻게 동작하는지에 대해 초첨을 맞춰서 작성하였습니다. 
 2020년 1월에 작성한 글인데 1년만에 조금은 성장한 듯 합니다. 
 
-프로젝트 코드들을 확인하시려면 아래 링크를 눌러주시길 바립니다.
-- [blog-in-action 저장소][github-link]
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
 
 [cors-blogLink]: https://junhyunny.github.io/information/cors/
 [resolver-blogLink]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/85fcd87b21776cb39cc461385fc1c118e30cf919

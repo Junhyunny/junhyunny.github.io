@@ -1214,7 +1214,8 @@ org.springframework.transaction.NestedTransactionNotSupportedException: JpaDiale
 그래도 포스트를 작성하고 나니 기분은 좋습니다. 
 대부분 디폴트인 **`REQUIRED`** 만으로도 충분하지만, 기능에 대해 정확하게 알고 사용하는 것이 개발자의 필수 덕목이라 생각합니다. 
 
-테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://www.nextree.co.kr/p3180/>
@@ -1223,4 +1224,3 @@ org.springframework.transaction.NestedTransactionNotSupportedException: JpaDiale
 - <https://stackoverflow.com/questions/23132822/what-is-the-difference-between-defining-transactional-on-class-vs-method>
 
 [transaction-acid-link]: https://junhyunny.github.io/information/transcation-acid/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/65859757f696724513ce017beef9bef33e53f5ef

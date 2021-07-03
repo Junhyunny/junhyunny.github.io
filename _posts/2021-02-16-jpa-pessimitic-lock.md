@@ -362,7 +362,6 @@ Lock을 선점한 트랜잭션에 문제가 발생하는 경우 대기 중인 �
 저의 경우 MySql을 사용하는데 Workbench에서 직접 쿼리를 수행해도 에러가 발생합니다. 
 아마도 DBMS 종류에 따른 문제로 생각됩니다. 
 해결하지 못하였으니 관련된 코드만 메모하고, 포스팅은 다음 숙제로 남겨두록 하겠습니다. 
-테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
 
 ##### JpaRepository 인터페이스 사용 시 @QueryHints 애너테이션 사용
 ```java
@@ -378,9 +377,11 @@ Lock을 선점한 트랜잭션에 문제가 발생하는 경우 대기 중인 �
    EntityManager entityManager = entityManagerFactory.createEntityManager(properties);
 ```
 
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
+
 #### REFERENCE
 - <https://www.baeldung.com/jpa-pessimistic-locking>
 
 [lock-mechanism-blogLink]: https://junhyunny.github.io/information/lock-mechanism/
 [jpa-optimistic-lock-blogLink]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/5987750efa9119c5404e44a9e4d0fa1577240976

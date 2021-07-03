@@ -328,7 +328,8 @@ DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 
 특정 버전 이후부터 가능하다는데 다행히도 제가 가진 MySQL에서는 정상적으로 동작하였습니다. 
 관련된 내용은 아래 참조 링크를 열어보시면 확인이 가능합니다. 
 
-테스트 코드는 [blog-in-action 저장소][github-link]에서 확인하실 수 있습니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://www.inflearn.com/questions/7185>
@@ -337,4 +338,3 @@ DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 
 - <https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/>
 
 [persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/5c8db7a410d0e54cabd9c6dba1080f3b7d227329

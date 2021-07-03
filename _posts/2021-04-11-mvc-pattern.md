@@ -353,7 +353,8 @@ Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 
 아직 경험이 적은 개발자이기 때문에 프레임워크에 적용된 좋은 사례를 찾아보고 
 왜 적용되었는지, 해당 디자인 패턴을 적용하여 얻을 수 있는 이점은 무엇인지에 대해 고민해보고 정리하는 식의 공부를 진행해보려 합니다.
 
-해당 코드는 [blog-in-action 저장소][github-link]에서 확인 가능합니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - [[아키텍처 패턴] MVC 패턴이란?][mvc-pattern-blogLink]
@@ -365,4 +366,3 @@ Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 
 [wiki-link]: https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%8D%B8-%EB%B7%B0-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC
 [okky-link]: https://okky.kr/article/380619
 [mvc-pattern-blogLink]: https://medium.com/@jang.wangsu/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4-mvc-%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80-1d74fac6e256
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/117df7add72c2bfae50b237bd1e65302914cdf37

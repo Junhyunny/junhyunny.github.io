@@ -347,7 +347,8 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
 공부하다보면 동시성 제어에 대한 흥미로운 글들이 매우 많습니다. 
 차근차근 공부하면서 관련된 내용들을 포스트로 남기도록 해야겠습니다. 
 
-해당 코드를 받아보시려면 [blog-in-action 저장소][github-link]로 이동하시길 바랍니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - [[JAVA] concurrent programming - Atomic(원자성)][java-blog-link]
@@ -355,4 +356,3 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
 - <https://happyourlife.tistory.com/142>
 
 [java-blog-link]: https://rightnowdo.tistory.com/entry/JAVA-concurrent-programming-Atomic%EC%9B%90%EC%9E%90%EC%84%B1 
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/d3af8f565639daab511826b068ded1e98d17a662

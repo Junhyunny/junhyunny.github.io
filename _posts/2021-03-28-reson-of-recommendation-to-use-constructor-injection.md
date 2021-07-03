@@ -259,7 +259,8 @@ KimTaeng 님의 포스트를 읽어보니 매우 정리가 잘되어 있어서 �
 한가지 주제에 대해 포스트를 작성하는 일도 하루 이상 걸리니 조바심이 납니다. 
 모든 것들을 알 순 없지만 많은 것들을 알아야하기 때문에 개발자는 평생 공부해야하는 직업이라는 말이 최근에 크게 공감되었습니다. 
 
-테스트 코드는 [blog-in-action 저장소][github-link]에서 확인 가능합니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html>
@@ -268,4 +269,3 @@ KimTaeng 님의 포스트를 읽어보니 매우 정리가 잘되어 있어서 �
 
 [ioc-di-blogLink]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
 [kim-taeng-blogLink]: https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/7c2031fb6a1c64016e646c4f3745428c2476bb40

@@ -835,7 +835,8 @@ Hibernate: select post0_.id as id1_3_1_, post0_.contents as contents2_3_1_, post
 > **고아(Orphan) 객체**<br>
 > 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제 하는 기능을 고아 객체 라고 합니다. 
 
-해당 코드를 받아보시려면 [blog-in-action 저장소][github-link]로 이동하시길 바랍니다.
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/>
@@ -844,4 +845,3 @@ Hibernate: select post0_.id as id1_3_1_, post0_.contents as contents2_3_1_, post
 - [JPA 프로그래밍 입문 - Chapter11 영속성 전이][cascade-blog-link-1]
 
 [cascade-blog-link-1]: https://gunju-ko.github.io/jpa/2019/05/21/JPA-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9E%85%EB%AC%B8-chapter11-%EC%98%81%EC%86%8D%EC%84%B1-%EC%A0%84%EC%9D%B4.html
-[github-link]: https://github.com/Junhyunny/blog-in-action/tree/ca9f44f18f285e3a6fb3a23918c5472c0e8f869a

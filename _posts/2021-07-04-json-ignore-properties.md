@@ -19,7 +19,7 @@ Jackson 라이브러리를 통해 직렬화(Serialize) 된 Json 응답을 받는
 - B 인스턴스를 직렬화하는 경우 참조하는 A 인스턴스가 함게 직렬화됩니다.
 - 이를 계속 반복 수행하다 StackOverFlow 에러가 발생합니다.
 
-<p align="left"><img src="/images/json-ignore-properties-1.jpg" width="65%"></p>
+<p align="center"><img src="/images/json-ignore-properties-1.jpg" width="65%"></p>
 
 직렬화 시점에 둘 사이의 순환 참조를 끊어주기 위한 방법으로 `@JsonIgnoreProperties` 애너테이션을 사용합니다. 
 `@JsonIgnoreProperties` 애너테이션을 살펴보면 다양한 위치에서 사용할 수 있음을 확인할 수 있습니다.
@@ -53,7 +53,7 @@ public @interface JsonIgnoreProperties {
 - A 인스턴스를 직렬화하는 경우 참조하는 B 인스턴스가 함께 직렬화됩니다.
 - B 인스턴스를 직렬화하는 경우 @JsonIgnoreProperties 애너테이션을 통해 지정한 항목을 제외하고 직렬화를 수행합니다.
 
-<p align="left"><img src="/images/json-ignore-properties-2.jpg" width="75%"></p>
+<p align="center"><img src="/images/json-ignore-properties-2.jpg" width="75%"></p>
 
 ## 테스트 코드
 간단한 테스트 코드를 통해 만날 수 있는 에러 상황과 해결 방법에 대해 알아보도록 하겠습니다. 

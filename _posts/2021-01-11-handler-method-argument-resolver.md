@@ -12,7 +12,50 @@ last_modified_at: 2021-01-30T09:00:00
 이번 글에서는 HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
 
 ## 패키지 구조
-<p align="left"><img src="/images/handler-method-argument-resolver-1.JPG" width="30%"></p>
+
+```
+.
+|-- action-in-blog.iml
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- java
+    |   |   `-- blog
+    |   |       `-- in
+    |   |           `-- action
+    |   |               |-- ActionInBlogApplication.java
+    |   |               |-- annotation
+    |   |               |   `-- TokenMember.java
+    |   |               |-- config
+    |   |               |   |-- Config.java
+    |   |               |   `-- WebConfig.java
+    |   |               |-- controller
+    |   |               |   `-- MemberController.java
+    |   |               |-- converter
+    |   |               |   `-- StringListConverter.java
+    |   |               |-- entity
+    |   |               |   `-- Member.java
+    |   |               |-- repository
+    |   |               |   `-- MemberRepository.java
+    |   |               |-- resolver
+    |   |               |   `-- CustomMethodArgumentResolver.java
+    |   |               |-- security
+    |   |               |   |-- AuthorizationServer.java
+    |   |               |   |-- ResourceServer.java
+    |   |               |   `-- SecurityConfig.java
+    |   |               `-- service
+    |   |                   `-- MemberService.java
+    |   `-- resources
+    |       `-- application.yml
+    `-- test
+        `-- java
+            `-- blog
+                `-- in
+                    `-- action
+                        `-- ActionInBlogApplicationTests.java
+```
 
 ## TokenMember 애너테이션 구현
 커스텀 애너테이션을 만들어줍니다. 메소드 파라미터 앞에 붙일 애너테이션이므로 @Target은 ElementType.PARAMETER로 지정합니다. 
@@ -34,12 +77,13 @@ public @interface TokenMember {
 ```
 
 ## CustomMethodArgumentResolver 클래스 구현
-supportsParameter 메소드를 통해 해당 파라미터에 대한 처리를 수행할지 말지 여부를 체크합니다. 
-이후 resolveArgument 메소드를 통해 토큰에서 필요한 데이터를 추출하여 Member 객체에 SETTING 후 이를 반환합니다. 
-반환된 객체는 요청 Parameter로써 Controller에게 전달됩니다.
+HandlerMethodArgumentResolver 클래스를 상속하여 supportsParameter 메소드와 resolveArgument 메소드를 오버라이딩(overriding)합니다. 
+1. supportsParameter 메소드를 통해 해당 파라미터에 대한 처리를 수행할지 말지 여부를 체크합니다. 
+1. resolveArgument 메소드를 통해 토큰에서 필요한 데이터를 추출하여 Member 객체에 SETTING 후 이를 반환합니다. 
+1. 반환된 객체는 요청 Parameter로써 Controller에게 전달됩니다.
 
-##### ServletInvocableHandlerMethod 내부 supportsParameter 메소드와 resolveArgument 메소드
-<p align="center"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
+##### ServletInvocableHandlerMethod 내부 supportsParameter 메소드와 resolveArgument 메소드 수행 위치
+<p align="center"><img src="/images/handler-method-argument-resolver-1.JPG"></p>
 
 ```java
 package blog.in.action.resolver;
@@ -177,20 +221,85 @@ public class MemberController {
 ```
 
 ## 테스트 결과
-##### 유저 정보 등록 (ADMIN)
-<p align="left"><img src="/images/handler-method-argument-resolver-3.JPG"></p>
+API 테스트는 Insomnia Tool을 사용하였습니다. 
+테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-05)
 
-##### 인증 정보 획득
-<p align="left"><img src="/images/handler-method-argument-resolver-4.JPG"></p>
+##### 사용자 정보 등록 요청
 
-##### 사용자 정보 요청 (/api/member/user-info-using-token)
-<p align="left"><img src="/images/handler-method-argument-resolver-5.JPG"></p>
+```
+> POST /api/member/sign-up HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2021.4.0
+> Cookie: JSESSIONID=49EC0B7588ED248E1DECE1A16049416E
+> Content-Type: application/json
+> Accept: */*
+> Content-Length: 69
+
+| {
+| 	"id": "junhyunny",
+| 	"password": "123",
+| 	"authroities": ["ADMIN"]
+| }
+```
+
+##### 인증 정보 요청
+
+```
+> POST /oauth/token HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2021.4.0
+> Cookie: JSESSIONID=49EC0B7588ED248E1DECE1A16049416E
+> content-type: application/x-www-form-urlencoded
+> Authorization: Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ=
+> Accept: */*
+> Content-Length: 51
+
+| username=junhyunny&password=123&grant_type=password
+```
+
+##### 인증 토큰 응답
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJvdGhlckluZm9tYXRpb24iOiJvdGhlckluZm9tYXRpb24iLCJleHAiOjE2MjU1NTMzOTgsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjljZjIxMjAyLTI1NjMtNDE4MS1iZmE2LWY4NjNhOTg2M2VlMiIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsIm1lbWJlcklkIjoianVuaHl1bm55In0.ERx7jP7ZHkkihWQltFnq_GhgTmbNpMqgxw7_PI777BQ",
+  "token_type": "bearer",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJhdGkiOiI5Y2YyMTIwMi0yNTYzLTQxODEtYmZhNi1mODYzYTk4NjNlZTIiLCJvdGhlckluZm9tYXRpb24iOiJvdGhlckluZm9tYXRpb24iLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJqdGkiOiI0MjM2NjRlOS0yZDQ5LTQ3NTktOWM2ZS0xOTZjOWEwYjhkZjEiLCJjbGllbnRfaWQiOiJDTElFTlRfSUQiLCJtZW1iZXJJZCI6Imp1bmh5dW5ueSJ9.JoIolZ0ezaWIzqMKW-03kB3T4SXpk7-qvx-dc1ApR4Y",
+  "expires_in": 86399,
+  "scope": "read profile",
+  "otherInfomation": "otherInfomation",
+  "memberId": "junhyunny",
+  "jti": "9cf21202-2563-4181-bfa6-f863a9863ee2"
+}
+```
+
+##### 사용자 정보 요청(api/member/user-info-using-token)
+
+```
+> GET /api/member/user-info-using-token HTTP/1.1
+> Host: localhost:8080
+> User-Agent: insomnia/2021.4.0
+> Cookie: JSESSIONID=49EC0B7588ED248E1DECE1A16049416E
+> Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJvdGhlckluZm9tYXRpb24iOiJvdGhlckluZm9tYXRpb24iLCJleHAiOjE2MjU1NTMzOTgsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjljZjIxMjAyLTI1NjMtNDE4MS1iZmE2LWY4NjNhOTg2M2VlMiIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsIm1lbWJlcklkIjoianVuaHl1bm55In0.ERx7jP7ZHkkihWQltFnq_GhgTmbNpMqgxw7_PI777BQ
+> Accept: */*
+```
+
+##### 사용자 정보 응답
+
+```
+{
+  "id": "junhyunny",
+  "password": "$2a$10$i8z0rp0kCko7OMZIqGvrled7ARlWbMW8hFXrPMkmHVbG66Cxwtey6",
+  "authroities": [
+    "ADMIN"
+  ]
+}
+```
 
 ##### resolveArgments 메소드, 토큰 내 사용자 정보 추출
-<p align="left"><img src="/images/handler-method-argument-resolver-6.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
 
 ##### requestUserInfoUsingToken 메소드, 사용자 정보 확인
-<p align="left"><img src="/images/handler-method-argument-resolver-7.JPG"></p>
+<p align="left"><img src="/images/handler-method-argument-resolver-3.JPG"></p>
 
 ## OPINION
 사이드 프로젝트를 진행하면서 회사 가이드가 아닌 방식으로 프레임워크의 기능들을 샅샅히 사용해보며 서버를 구성해나가는데 큰 재미를 느끼고 있습니다. 

@@ -19,7 +19,7 @@ last_modified_at: 2021-07-09T00:00:00
 - hotfix: 다음 버전이 배포되기까지 기다릴 수 없는 치명적인 장애 해결을 위한 브랜치, 해결 후 master, dev 브랜치로 머징(merging)
 - release, feature 브랜치 운영 제외
 
-<p align="center"><img src="/images/git-ignore-1.jpg" width="65%"></p>
+<p align="center"><img src="/images/git-ignore-1.JPG" width="65%"></p>
 <center>이미지 출처, https://www.campingcoder.com/2018/04/how-to-use-git-flow/</center><br>
 
 ##### application.yml
@@ -100,7 +100,7 @@ rm 'src/main/resources/application.yml'
 캐시를 지움으로써 Git 추적에서는 제외했지만, 원격 저장소에 있는 파일까지 삭제되어야 했습니다. 
 하마터면 설정 파일을 날려버릴 뻔했습니다.🥶
 
-<p align="center"><img src="/images/git-ignore-2.jpg" width="75%"></p>
+<p align="center"><img src="/images/git-ignore-2.JPG" width="75%"></p>
 
 ## exclude 파일
 제가 원하는 방법은 다음과 같습니다. 

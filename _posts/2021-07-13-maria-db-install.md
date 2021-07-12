@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - linux
-last_modified_at: 2021-07-12T00:00:00
+last_modified_at: 2021-07-13T00:00:00
 ---
 
 <br>

@@ -4,13 +4,13 @@ search: false
 category:
   - information
   - linux
-last_modified_at: 2021-07-16T00:00:00
+last_modified_at: 2021-07-16T23:59:00
 ---
 
 <br>
 
 [Linux Maria DB 설치하기][maria-db-install] 포스트를 통해 Maria DB 설치하는 방법을 정리하였습니다. 
-이번 포스트에서는 사용자 정보를 등록하고, IP 접근 제어, 사용자 별 권한 부여를 하는 방법을 알아보겠습니다. 
+이번 포스트에서는 사용자 정보를 등록 후 접속하는데 발생했던 문제를 해결한 방법을 공유하겠습니다.
 
 ## 테스트 환경
 - VMWare
@@ -57,7 +57,7 @@ MariaDB [(none)]> flush privileges;
 Query OK, 0 rows affected (0.000 sec)
 ```
 
-변경된 내용이 잘 반영되었는지 추가된 사용자로 접속합니다.
+변경된 내용이 잘 반영되었는지 추가된 사용자로 접속을 해봅니다. 
 
 ```
 $ mysql -u jun -p
@@ -79,9 +79,10 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 <p align="center"><img src="/images/maria-db-add-host-1.JPG" width="50%"></p>
 
 host 정보를 `'%'` 로 지정하여 모든 IP 에서 접근을 허용하였는데 이상합니다. 
-원인은 `netstat -lntp` 명령어를 통해 확인이 가능합니다. 
-해당 명령어를 통해 3306 포트로 열려있는 주소를 보면 `127.0.0.1:3306` 을 가집니다. 
+`netstat -lntp` 명령어를 통해 3306 포트(port) 번호를 가지는 프로세스 정보를 보면 Local Address가 `127.0.0.1` IP 주소를 가집니다. 
+Local Address IP 주소가 `0.0.0.0` 이라면 모든 인터페이스를 허용하겠다는 의미이며, `127.0.0.1` 이라면 자기 자신만 호출이 가능한 상태입니다. 
 
+### 127.0.0.1 IP LISTEN(대기, PORT OPEN) 상태 확인 
 ```
 $ netstat -lntp | grep 3306
 (Not all processes could be identified, non-owned process info
@@ -89,12 +90,60 @@ $ netstat -lntp | grep 3306
 tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      - 
 ```
 
+이를 모든 IP에 대해 접근을 허가하려면 설정 파일을 변경해줘야합니다. 
 
-## IP 접근 제어
+```
+$ sudo vi /etc/mysql/mariadb.conf.d/50-server.cnf
+```
 
+50-server.cnf 설정에서 `bind-address` 항목 값을 `0.0.0.0` 으로 변경합니다. 
+
+```
+#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+#
+# See the examples of server my.cnf files in /usr/share/mysql
+
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
+[mysqld]
+
+#
+# * Basic Settings
+#
+user                    = mysql
+pid-file                = /run/mysqld/mysqld.pid
+socket                  = /run/mysqld/mysqld.sock
+#port                   = 3306
+basedir                 = /usr
+datadir                 = /var/lib/mysql
+tmpdir                  = /tmp
+lc-messages-dir         = /usr/share/mysql
+#skip-external-locking
+
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
+bind-address            = 127.0.0.1
+```
+
+서비스를 재시작 후 IP 정보를 다시 확인합니다. 
+
+```
+$ sudo systemctl restart mysqld
+$ sudo netstat -lntp | grep 3306
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      4758/mysqld  
+```
+
+##### 접속 Connection 정보
+
+<p align="center"><img src="/images/maria-db-add-host-2.JPG" width="50%"></p>
 
 ## OPINION
-
+권한 부여, 특정 IP 제어와 관련된 내용도 작성하려고 했으나 포스트가 길어지게 되어 별도의 주제로 작성해야겠습니다. 
+정보량에 비해 집중도가 떨어지는 글을 작성할까 우려스럽습니다. 
 
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Netstat>

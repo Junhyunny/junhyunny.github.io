@@ -183,6 +183,12 @@ Hibernate: update book set last_updated_at=?, default_value=?, title=? where id=
 2021-07-20 02:22:50.365  INFO 3284 --- [           main] blog.in.action.PrePersistUpdateTest      : after second save
 ```
 
+##### 데이터베이스 확인
+
+<p align="center"><img src="/images/pre-persist-pre-update-3.JPG" width="45%"></p>
+
 ## OPINION
+
+
 
 #### REFERENCE

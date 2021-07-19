@@ -1,11 +1,9 @@
 ---
-title: "@PrePersist, @PreUpdate 애너테이션"
+title: "Java Wrapper 클래스"
 search: false
 category:
-  - spring-boot
-  - jpa
-  - juint
-last_modified_at: 2021-07-17T04:00:00
+  - java
+last_modified_at: 2021-07-19T04:00:00
 ---
 
 <br>

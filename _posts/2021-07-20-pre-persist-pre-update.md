@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - juint
-last_modified_at: 2021-07-20T02:00:00
+last_modified_at: 2021-07-20T15:00:00
 ---
 
 <br>
@@ -146,13 +146,14 @@ Hibernate: insert into book (created_at, last_updated_at, default_value, title, 
 
 ```java
     @Test
-    public void test_preUpdate() {
+    public void test_preUpdate() throws InterruptedException {
         Book book = new Book();
         log.info("before first save");
         Book returnedBook = bookRepository.save(book);
         log.info("after first save");
         assertThat(book).isEqualTo(returnedBook);
         book.setTitle("CHANGED");
+        Thread.sleep(1000L);
         log.info("before second save");
         returnedBook = bookRepository.save(book);
         log.info("after second save");
@@ -170,25 +171,24 @@ Hibernate: insert into book (created_at, last_updated_at, default_value, title, 
 - 로그를 통해 `before first save` > `prePersist` > `INSERT QUERY` > `after first save` > `before second save` > `preUpdate` > `after second save` 순으로 동작하였습니다.
 
 ```
-2021-07-20 02:22:50.247  INFO 3284 --- [           main] blog.in.action.PrePersistUpdateTest      : before first save
-2021-07-20 02:22:50.262  INFO 3284 --- [           main] blog.in.action.Base                      : prePersist
+2021-07-20 13:57:20.779  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : before first save
+2021-07-20 13:57:20.795  INFO 7156 --- [           main] blog.in.action.Base                      : prePersist
 Hibernate: select next_val as id_val from hibernate_sequence for update
 Hibernate: update hibernate_sequence set next_val= ? where next_val=?
 Hibernate: insert into book (created_at, last_updated_at, default_value, title, id) values (?, ?, ?, ?, ?)
-2021-07-20 02:22:50.313  INFO 3284 --- [           main] blog.in.action.PrePersistUpdateTest      : after first save
-2021-07-20 02:22:50.349  INFO 3284 --- [           main] blog.in.action.PrePersistUpdateTest      : before second save
+2021-07-20 13:57:20.885  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : after first save
+2021-07-20 13:57:21.934  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : before second save
 Hibernate: select book0_.id as id1_0_0_, book0_.created_at as created_2_0_0_, book0_.last_updated_at as last_upd3_0_0_, book0_.default_value as default_4_0_0_, book0_.title as title5_0_0_ from book book0_ where book0_.id=?
-2021-07-20 02:22:50.349  INFO 3284 --- [           main] blog.in.action.Base                      : preUpdate
+2021-07-20 13:57:21.977  INFO 7156 --- [           main] blog.in.action.Base                      : preUpdate
 Hibernate: update book set last_updated_at=?, default_value=?, title=? where id=?
-2021-07-20 02:22:50.365  INFO 3284 --- [           main] blog.in.action.PrePersistUpdateTest      : after second save
+2021-07-20 13:57:21.981  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : after second save
 ```
 
 ##### 데이터베이스 확인
 
-<p align="center"><img src="/images/pre-persist-pre-update-3.JPG" width="45%"></p>
+<p align="center"><img src="/images/pre-persist-pre-update-3.JPG" width="40%"></p>
 
 ## OPINION
 
-
-
-#### REFERENCE
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>

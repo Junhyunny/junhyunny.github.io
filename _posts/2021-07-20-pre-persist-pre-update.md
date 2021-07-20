@@ -15,12 +15,12 @@ JPA 사용 시 자주 사용하는 기능을 간단한 예시 코드와 함께 �
 ## @PrePersist 애너테이션
 JPA 엔티티(Entity)가 비영속(new/transient) 상태에서 영속(managed) 상태가 되는 시점 이전에 실행됩니다. 
 
-<p align="center"><img src="/images/pre-persist-pre-update-1.JPG" width="75%"></p>
+<p align="center"><img src="/images/pre-persist-pre-update-1.JPG" width="70%"></p>
 
 ## @PreUpdate 애너테이션
 영속 상태의 엔티티를 이용하여 데이터 업데이트를 수행하기 이전에 실행됩니다. 
 
-<p align="center"><img src="/images/pre-persist-pre-update-2.JPG" width="75%"></p>
+<p align="center"><img src="/images/pre-persist-pre-update-2.JPG" width="70%"></p>
 
 ## createdAt, lastUpdatedAt 필드 적용하기
 데이터 설계 시 기본적으로 반드시 필요한 데이터들이 필요합니다. 
@@ -186,9 +186,11 @@ Hibernate: update book set last_updated_at=?, default_value=?, title=? where id=
 
 ##### 데이터베이스 확인
 
-<p align="center"><img src="/images/pre-persist-pre-update-3.JPG" width="40%"></p>
+<p align="left"><img src="/images/pre-persist-pre-update-3.JPG" width="80%"></p>
 
 ## OPINION
+Default 값 지정을 위하여 `@PrePersist`, `@PreUpdate` 애너테이션을 이용하는 방법을 소개하였습니다. 
+물론 더 나은 방법들이 있을 것이고, 앞으로 만나게 될 좋은 코드나 방법들은 계속해서 블로그에 기록하고 잘 활용해야겠습니다.  
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action>

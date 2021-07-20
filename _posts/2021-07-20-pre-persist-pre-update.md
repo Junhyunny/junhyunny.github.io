@@ -186,7 +186,7 @@ Hibernate: update book set last_updated_at=?, default_value=?, title=? where id=
 
 ##### 데이터베이스 확인
 
-<p align="left"><img src="/images/pre-persist-pre-update-3.JPG" width="80%"></p>
+<p align="left"><img src="/images/pre-persist-pre-update-3.JPG" width="50%"></p>
 
 ## OPINION
 Default 값 지정을 위하여 `@PrePersist`, `@PreUpdate` 애너테이션을 이용하는 방법을 소개하였습니다. 

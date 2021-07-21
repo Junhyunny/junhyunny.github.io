@@ -23,11 +23,11 @@ JPA 엔티티(Entity)가 비영속(new/transient) 상태에서 영속(managed) �
 <p align="center"><img src="/images/pre-persist-pre-update-2.JPG" width="70%"></p>
 
 ## createdAt, lastUpdatedAt 필드 적용하기
-데이터 설계 시 기본적으로 반드시 필요한 데이터들이 필요합니다. 
+데이터베이스 엔티티 설계 시 기본적으로 반드시 필요한 데이터가 존재합니다. 
 대표적으로 데이터 생성 시점(createdAt), 데이터 마지막 업데이트 시점(lastUpdatedAt)을 예로 들어보겠습니다. 
 
-저는 두 필드를 모든 엔티티에 포함시키고 싶었습니다. 
-가장 좋은 방법은 상속(Inheritance)이라고 생각하였고 아래와 같은 모습을 갖도록 엔티티 설계를 수행하였습니다. 
+두 필드를 모든 엔티티에 포함시키고 싶어서 상속(Inheritance)을 이용하였습니다. 
+아래와 같은 모습을 갖도록 엔티티 설계를 수행하였습니다. 
 
 ### Base 엔티티 설계 모습
 - 자식 클래스에서 부모 클래스의 필드를 컬럼으로 사용할 수 있도록 `@MappedSuperclass` 애너테이션을 사용합니다. 

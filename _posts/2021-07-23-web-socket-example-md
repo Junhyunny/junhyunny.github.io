@@ -1,0 +1,231 @@
+---
+title: "WebSocket 구현"
+search: false
+category:
+  - spring-boot
+last_modified_at: 2021-07-23T00:00:00
+---
+
+<br>
+
+[WebSocket 이해하기][web-socket-link]] 포스트에서 WebSocket 개념에 대해 간단하게 정리했었습니다. 
+이번 포스트는 WebSocket 예제 코드를 정리해서 올려보도록 하겠습니다. 
+다음과 같은 환경에서 테스트하였습니다.
+- Spring Boot 2.2.5.RELEASE
+- spring-boot-starter-thymeleaf 사용
+- spring-websocket 사용
+
+## 패키지 구조
+
+```
+./
+|-- README.md
+|-- action-in-blog.iml
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- java
+    |   |   `-- blog
+    |   |       `-- in
+    |   |           `-- action
+    |   |               |-- ActionInBlogApplication.java
+    |   |               |-- component
+    |   |               |   `-- WebSocketComponent.java
+    |   |               |-- configure
+    |   |               |   `-- CustomWebsocketConfiguration.java
+    |   |               `-- controller
+    |   |                   `-- ChatController.java
+    |   `-- resources
+    |       |-- application.yml
+    |       `-- templates
+    |           `-- chat.html
+    `-- test
+        `-- java
+```
+
+## WebSocketComponent 클래스
+
+```java
+package blog.in.action.component;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+@Log4j2
+@Component
+public class WebSocketComponent extends TextWebSocketHandler {
+
+    public static Map<String, WebSocketSession> sessionMap = new ConcurrentHashMap<>();
+
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) {
+        sessionMap.put(session.getId(), session);
+    }
+
+    @Override
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+        sessionMap.forEach((sessionId, sessionInMap) -> {
+            try {
+                sessionInMap.sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) {
+        sessionMap.forEach((sessionId, sessionInMap) -> {
+            try {
+                sessionInMap.sendMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        sessionMap.remove(session.getId());
+    }
+}
+```
+
+## CustomWebsocketConfiguration 클래스
+
+```java
+package blog.in.action.configure;
+
+import blog.in.action.component.WebSocketComponent;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+
+@Configuration
+@EnableWebSocket
+public class CustomWebsocketConfiguration implements WebSocketConfigurer {
+
+    private final WebSocketComponent webSocketComponent;
+
+    public CustomWebsocketConfiguration(WebSocketComponent webSocketComponent) {
+        this.webSocketComponent = webSocketComponent;
+    }
+
+    @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
+        webSocketHandlerRegistry.addHandler(webSocketComponent, "/chat")
+            .setAllowedOrigins("*")
+            .withSockJS()
+            .setClientLibraryUrl("https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js");
+    }
+}
+```
+
+
+## ChatController 클래스
+
+```java
+package blog.in.action.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class ChatController {
+
+    @GetMapping("/chat")
+    public String chat() {
+        return "chat";
+    }
+}
+```
+
+## chat.html
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>채팅</title>
+</head>
+<body>
+<h1>채팅방</h1>
+<div id="chatConnect">
+    <button onclick="connectSocket()">채팅 시작하기</button>
+</div>
+
+<div id="chat" hidden="hidden">
+    <input id="message">
+    <button id="sendBtn">전송</button>
+    <div id="chatBox"></div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.5/sockjs.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    let sock;
+
+    function connectSocket() {
+        sock = new SockJS("/chat");
+        sock.onopen = function () {
+            alert('연결에 성공하였습니다.');
+            sock.onmessage = (data => {
+                $("<p>" + data.data + "</p>").prependTo('#chatBox');
+            });
+            $('#chatConnect').hide();
+            $('#chat').show();
+        }
+        sock.onerror = function (e) {
+            alert('연결에 실패하였습니다.');
+            $('#chatConnect').show();
+            $('#chat').hide();
+        }
+        sock.onclose = function () {
+            alert('연결을 종료합니다.');
+            $('#chatConnect').show();
+            $('#chat').hide();
+        };
+    }
+
+    function sendMessage() {
+        sock.send($("#message").val());
+        $('#message').val("");
+    }
+
+    $("#message").keyup(e => {
+        if (e.keyCode == 13) {
+            sendMessage();
+        }
+    });
+
+    $("#sendBtn").click(() => {
+        sendMessage();
+    });
+</script>
+</body>
+</html>
+```
+
+## OPINION
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
+
+#### REFERENCE
+- <https://supawer0728.github.io/2018/03/30/spring-websocket/>
+- <>
+
+[web-socket-link]: https://junhyunny.github.io/information/web-socket/

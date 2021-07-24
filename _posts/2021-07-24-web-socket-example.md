@@ -8,7 +8,7 @@ last_modified_at: 2021-07-24T12:00:00
 
 <br>
 
-[WebSocket 이해하기][web-socket-link]] 포스트에서 WebSocket 개념에 대해 간단하게 정리했었습니다. 
+[WebSocket 이해하기][web-socket-link] 포스트에서 WebSocket 개념에 대해 간단하게 정리했었습니다. 
 이번 포스트는 WebSocket 예제 코드를 정리해서 올려보도록 하겠습니다. 
 다음과 같은 환경에서 테스트하였습니다.
 - spring boot 2.2.5.RELEASE

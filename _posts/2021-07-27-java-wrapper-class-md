@@ -1,0 +1,57 @@
+---
+title: "Java Wrapper 클래스"
+search: false
+category:
+  - java
+last_modified_at: 2021-07-24T03:00:00
+---
+
+<br>
+
+> Java primitive type 변수가 존재하는데 wrapper 클래스가 생긴 이유가 무엇일까요?<br>
+
+어려운 질문이었습니다. 
+이 포스트에서 위 질문에 대한 답변을 정리하기 이전에 우선 wrapper 클래스가 무엇인지 알아보겠습니다. 
+
+## Wrapper 클래스
+Java에는 기본형(primitive type) 데이터가 존재합니다. 
+프로그램 언어를 처음 접할 때 주로 사용하는 자료형으로 int, char, byre, short, long, float, double, boolean 등이 이에 속합니다. 
+이런 기본형 데이터를 감싸서(wrapping) 만든 것이 바로 Wrapper 클래스입니다. 
+각 기본형 데이터에 대응하는 Wrapper 클래스가 존재합니다.
+
+##### 기본형 데이터와 Wrapper 클래스 대응 
+
+| 기본형 타입(primitive type) | Wrapper 클래스 |
+|:---:|:---:|
+| boolean | Boolean |
+| char | Character |
+| byte | Byte |
+| short | Short |
+| int | Integer |
+| long | Long |
+| float | Float |
+| double | Double |
+
+##### Wrapper 클래스 상속 관계도
+- Boolean, Character 클래스를 제외하고 Number 클래스를 상속받습니다.
+
+<p align="center"><img src="/images/java-wrapper-class-1.JPG" width="70%"></p>
+<center>이미지 출처, https://codepumpkin.com/interview-questions-wrapper-classes/</center>
+
+### Wrapper 클래스 내부 구조
+- 기본형 데이터 변수를 멤버로 두고, 관련된 연산을 메소드로 정의해두고 있습니다.
+
+```java
+
+```
+
+### Boxing / Unboxing
+
+## Wrapper 클래스는 왜 필요한가?
+
+## OPINION
+
+#### REFERENCE
+- <http://tcpschool.com/java/java_api_wrapper>
+- <https://junhyunny.blogspot.com/2019/03/wrapper.html>
+- <https://junhyunny.blogspot.com/2019/03/wrapper-boxing-unboxing.html>

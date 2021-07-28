@@ -4,10 +4,12 @@ search: false
 category:
   - spring-boot
   - vue.js
-last_modified_at: 2021-01-30T09:00:00
+last_modified_at: 2021-07-28T12:00:00
 ---
 
 <br>
+
+⚠️ 해당 포스트는 2021년 7월 28일에 재작성되었습니다.(spring-security dependency로 인한 불필요 설명 제거)
 
 > A representation of an uploaded file received in a multipart request.
 
@@ -16,13 +18,29 @@ last_modified_at: 2021-01-30T09:00:00
 Spring 프레임워크에서 쉽게 파일 업로드할 수 있는 MultipartFile 인터페이스를 사용한 내용을 정리해보았습니다.
 
 파일 업로드를 위한 front-end 프로젝트는 Vue.js 프레임워크를 사용하였습니다. 
-back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 포스트에서 사용했던 프로젝트를 확장하여 구현하였습니다. 
-변경된 파일에 대한 설명만 추가되었습니다. 
-다른 코드들에 대한 설명이 필요한 경우 이전 글을 참고하시길 바랍니다.
+~~back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 포스트에서 사용했던 프로젝트를 확장하여 구현하였습니다.~~ 
+~~변경된 파일에 대한 설명만 추가되었습니다.~~ 
+~~다른 코드들에 대한 설명이 필요한 경우 이전 글을 참고하시길 바랍니다.~~
 
 ## front-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/multipartfile-1.JPG" width="30%"></p>
+```
+./
+|-- README.md
+|-- babel.config.js
+|-- package-lock.json
+|-- package.json
+|-- public
+|   |-- favicon.ico
+|   `-- index.html
+`-- src
+    |-- App.vue
+    |-- assets
+    |   `-- logo.png
+    |-- components
+    |   `-- FileUpload.vue
+    `-- main.js
+```
 
 ## FileUpload.vue
 파일을 업로드하기 위한 페이지입니다. 
@@ -33,139 +51,104 @@ selectUploadFile() 함수에서 이미지 업로드를 위한 element를 만들�
 
 ```vue
 <template>
-  <div>
-    <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
     <div>
-      <button @click="selectUploadFile()">이미지 선택</button>
+        <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
+        <div>
+            <button @click="selectUploadFile()">이미지 선택</button>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-  name: 'CorsReuqest',
-  data() {
-    return {
-      response: ''
-    }
-  },
-  methods: {
-    selectUploadFile() {
-      var vue = this
-      let elem = document.createElement('input')
-      // 이미지 파일 업로드 / 동시에 여러 파일 업로드
-      elem.id = 'image'
-      elem.type = 'file'
-      elem.accept = 'image/*'
-      elem.multiple = true
-      // 클릭
-      elem.click();
-      // 이벤트 감지
-      elem.onchange = function() {
-        const formData = new FormData()
-        for (var index = 0; index < this.files.length; index++) {
-          formData.append('fileList', this.files[index])
+    name: 'CorsReuqest',
+    data() {
+        return {
+            response: ''
         }
-        axios.post('http://localhost:8081/api/member/upload/profile-img', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
-          vue.response = response.data
-        }).catch(error => {
-          vue.response = error.message
-        })
-      }
+    },
+    methods: {
+        selectUploadFile() {
+            var vue = this
+            let elem = document.createElement('input')
+            // 이미지 파일 업로드 / 동시에 여러 파일 업로드
+            elem.id = 'image'
+            elem.type = 'file'
+            elem.accept = 'image/*'
+            elem.multiple = true
+            // 클릭
+            elem.click();
+            // 이벤트 감지
+            elem.onchange = function() {
+                const formData = new FormData()
+                for (var index = 0; index < this.files.length; index++) {
+                    formData.append('fileList', this.files[index])
+                }
+                axios.post('http://localhost:8081/api/member/upload/profile-img', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(response => {
+                    vue.response = response.data
+                }).catch(error => {
+                    vue.response = error.message
+                })
+            }
+        }
     }
-  }
 }
 </script>
 ```
 
 ## back-end 프로젝트 패키지 구조
 
-<p align="left"><img src="/images/multipartfile-2.JPG" width="30%"></p>
-
-## ResourceServer 클래스 변경
-파일 업로드를 위한 **/api/member/upload/profile-img** 경로는 인증없이 사용할 수 있도록 모든 요청에 대해 허용하였습니다.
-
-```java
-package blog.in.action.security;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
-
-@Configuration
-@EnableResourceServer
-public class ResourceServer extends ResourceServerConfigurerAdapter {
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.cors().and() //
-                .authorizeRequests() //
-                .antMatchers("/api/cors/**").permitAll() // cors 테스트를 위해 해당 path 모든 요청 허용
-                .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
-                .antMatchers("/api/member/upload/profile-img").permitAll() // file upload API는 모든 요청 허용
-                .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
-                .anyRequest().authenticated().and() //
-                .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-    }
-}
+```
+./
+|-- action-in-blog.iml
+|-- images
+|   |-- a.jpg
+|   `-- b.JPG
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    `-- main
+        |-- java
+        |   `-- blog
+        |       `-- in
+        |           `-- action
+        |               |-- ActionInBlogApplication.java
+        |               `-- controller
+        |                   `-- FileController.java
+        `-- resources
+            `-- application.yml
 ```
 
-## MemberController 클래스 변경
-파일 업로드를 위한 **/api/member/upload/profile-img** 요청 경로를 만들었습니다. 
+## FileController 클래스
+파일 업로드를 위한 **/api/file/upload/profile-img** 요청 경로를 만들었습니다. 
 FileOutputStream 클래스를 이용하여 전송된 파일을 **./images** 폴더에 저장합니다. 
-정상적인 경우 "upload success" 메세지를 응답하고 Exception이 발생한 경우 "upload fail" 메세지를 응답합니다.
+정상적인 경우 "upload success" 메세지를 응답하고 Exception이 발생한 경우 "upload fail" 메세지를 응답합니다. 
+CORS 문제 해결을 위해 `@CORS` 애너테이션을 추가합니다.
 
 ```java
 package blog.in.action.controller;
 
 import java.io.FileOutputStream;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import blog.in.action.annotation.TokenMember;
-import blog.in.action.entity.Member;
-import blog.in.action.service.MemberService;
-
 @RestController
-@RequestMapping(value = "/api/member")
-public class MemberController {
+@RequestMapping(value = "/api/file")
+public class FileController {
 
-    @Autowired
-    private MemberService memberService;
-
-    @PostMapping("/sign-up")
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void requestSignUp(@RequestBody Member member) {
-        memberService.registMember(member);
-    }
-
-    @GetMapping("/user-info")
-    public Member requestUserInfo(@RequestParam("id") String id) {
-        return memberService.findById(id);
-    }
-
-    @GetMapping("/user-info-using-token")
-    public Member requestUserInfoUsingToken(@TokenMember Member member) {
-        return memberService.findById(member.getId());
-    }
-
+    @CrossOrigin("*")
     @PostMapping(value = "/upload/profile-img")
-    public @ResponseBody String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
+    public @ResponseBody
+    String requestUploadFile(@RequestParam("fileList") List<MultipartFile> fileList) {
         try {
             for (MultipartFile multipartFile : fileList) {
                 FileOutputStream writer = new FileOutputStream("./images/" + multipartFile.getOriginalFilename());
@@ -184,22 +167,22 @@ public class MemberController {
 파일 업로드 테스트 결과를 확인해보겠습니다. 
 
 ##### 이미지 선택
-<p align="center"><img src="/images/multipartfile-3.JPG"></p>
+<p align="center"><img src="/images/multipartfile-1.JPG"></p>
 
 ##### 화면 응답 메세지 확인
-<p align="center"><img src="/images/multipartfile-4.JPG"></p>
+<p align="center"><img src="/images/multipartfile-2.JPG"></p>
 
 ##### 저장된 파일 확인
-<p align="center"><img src="/images/multipartfile-5.JPG"></p>
+<p align="center"><img src="/images/multipartfile-3.JPG"></p>
 
 ##### 용량이 큰 이미지 업로드
-<p align="center"><img src="/images/multipartfile-6.JPG"></p>
+<p align="center"><img src="/images/multipartfile-4.JPG"></p>
 
 ##### 용량이 큰 이미지 업로드시 화면 응답 메세지
-<p align="center"><img src="/images/multipartfile-7.JPG"></p>
+<p align="center"><img src="/images/multipartfile-5.JPG"></p>
 
 ##### FileSizeLimitExceededException 발생
-<p align="center"><img src="/images/multipartfile-8.JPG"></p>
+<p align="center"><img src="/images/multipartfile-6.JPG"></p>
 
 용량이 높은 파일을 업로드할 때 발생하는 에러입니다. 
 
@@ -216,15 +199,6 @@ Exception에서 위와 같은 힌트가 나와있습니다. 해결하기 위한 
 server:
   port: 8081
 spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 123
   servlet:
     multipart:
       max-file-size: 20MB
@@ -234,7 +208,7 @@ spring:
 ##### 설정 추가 후 테스트 결과
 설정을 추가한 후 위와 동일한 방법으로 이미지를 업로드합니다. 
 파일이 저장되는 폴더에 용량이 큰 파일이 업로드되었는지 확인함으로써 정상적으로 수행되었음을 확인할 수 있습니다. 
-<p align="center"><img src="/images/multipartfile-9.JPG"></p>
+<p align="center"><img src="/images/multipartfile-7.JPG"></p>
 
 ## OPINION
 간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다.

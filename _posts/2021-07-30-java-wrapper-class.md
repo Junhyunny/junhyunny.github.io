@@ -85,6 +85,14 @@ public final class Integer extends Number implements Comparable<Integer> {
 }
 ```
 
+### Wrapper 클래스 사용 시 주의사항
+#### 크기 비교 가능, 동일 여부 판단은 불가능
+
+
+#### NullPointException
+
+
+
 ### Boxing / Unboxing
 Wrapper 클래스에 대해 이야기하면 빠지지 않는 내용이 있습니다. 
 `Boxing / Unboxing` 입니다. 
@@ -143,3 +151,4 @@ Wrapper 클래스는 무엇이고 왜 사용하는지 질문을 받았는데 시
 - <https://junhyunny.blogspot.com/2019/03/wrapper.html>
 - <https://junhyunny.blogspot.com/2019/03/wrapper-boxing-unboxing.html>
 - <https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Performance-cost-of-Java-autoboxing-and-unboxing-of-primitive-types>
+- <https://jaehun2841.github.io/2019/03/01/effective-jave-item61/#%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85-primitive-type>

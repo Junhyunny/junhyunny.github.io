@@ -3,7 +3,7 @@ title: "Java Wrapper 클래스"
 search: false
 category:
   - java
-last_modified_at: 2021-07-30T03:00:00
+last_modified_at: 2021-08-03T01:30:00
 ---
 
 <br>
@@ -16,8 +16,11 @@ last_modified_at: 2021-07-30T03:00:00
 ## Wrapper 클래스
 Java에는 기본형(primitive type) 데이터가 존재합니다. 
 프로그램 언어를 처음 접할 때 주로 사용하는 자료형으로 int, char, byre, short, long, float, double, boolean 등이 이에 속합니다. 
+이런 기본 타입의 값들은 JVM 내의 스택(stack) 메모리에 저장됩니다.
+
 이런 기본형 데이터를 감싸서(wrapping) 만든 것이 바로 Wrapper 클래스입니다. 
-각 기본형 데이터에 대응하는 Wrapper 클래스가 존재합니다.
+각 기본형 데이터에 대응하는 Wrapper 클래스가 존재합니다. 
+참조 타입인 wrapper 클래스 객체는 JVM 내의 힙(heap) 메모리에 저장됩니다.
 
 ##### 기본형 데이터와 Wrapper 클래스 대응 
 
@@ -85,14 +88,6 @@ public final class Integer extends Number implements Comparable<Integer> {
 }
 ```
 
-### Wrapper 클래스 사용 시 주의사항
-#### 크기 비교 가능, 동일 여부 판단은 불가능
-
-
-#### NullPointException
-
-
-
 ### Boxing / Unboxing
 Wrapper 클래스에 대해 이야기하면 빠지지 않는 내용이 있습니다. 
 `Boxing / Unboxing` 입니다. 
@@ -131,6 +126,83 @@ JDK 1.5 버전부터 `Boxing, Unboxing`이 필요하면 컴파일러에 의해 �
     //list.add(wrapper);
 ```
 
+### Wrapper 클래스 사용 시 주의사항
+Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나지 않지만, 개발자의 의도치 않은 버그를 만들어내기도 합니다. 
+아래 테스트 코드를 통해 예시를 들어보겠습니다. 
+
+#### 크기 비교 연산자 정상, 동일 판단 연산자는 비정상
+- 크기 비교 연산자의 경우 auto unboxing 되면서 크기 비교가 정상적으로 수행됩니다.
+- == 연산자를 이용하여 동일 여부 판단 시에는 정상적인 비교가 수행되지 않습니다. == 연산자는 객체의 주소를 비교하기 때문입니다.
+- 객체 담긴 값을 이용한 동일 판단은 equals 메소드를 이용해야 합니다.
+
+##### 테스트 코드
+```java
+    @Test
+    public void test_comparisonOperatorTrue_equalOperatorFalse_equalsMethodTrue() {
+        Integer a = new Integer(1);
+        Integer b = 2;
+        Integer c = new Integer(1);
+        assertThat(a < b).isTrue();
+        assertThat(a == c).isFalse();
+        assertThat(a.equals(c)).isTrue();
+    }
+```
+
+#### valueOf 메소드를 사용하여 만든 객체는 `==` 연산자가 정상적으로 동작하는가? 
+- Integer 생성자는 JDk 9 버전부터 사용을 권장하지 않습니다.(@Deprecated(since="9"))
+- Integer.valueOf 메소드를 사용하여 만든 객체를 `==` 연산자의 피연산자로 사용하는 경우 동일 여부 판단이 성공합니다.
+- 이는 valueOf 메소드 내부 캐시(cache) 처리에 의해 그렇게 보이는 것일 뿐 마찬가지로 equals 메소드를 사용하는 것이 좋습니다.
+
+##### 테스트 코드
+```java
+    @Test
+    public void test_comparisonOperatorTrue_equalOperatorTrueWithValueOf() {
+        Integer a = Integer.valueOf(1);
+        Integer b = Integer.valueOf(1);
+        log.info(System.identityHashCode(a));
+        log.info(System.identityHashCode(b));
+        assertThat(a == b).isTrue();
+    }
+```
+
+##### 결과
+- valueOf 메소드를 통해 얻은 두 객체가 동일한 주소임을 알 수 있습니다. 
+
+```
+2021-08-03 01:15:56.001  INFO 6300 --- [           main] blog.in.action.wrapper.WrapperClassTest  : 1486944091
+2021-08-03 01:15:56.001  INFO 6300 --- [           main] blog.in.action.wrapper.WrapperClassTest  : 1486944091
+```
+
+##### valueOf 메소드
+- valueOf 메소드를 보면 특정 범위 내 값들에 한해서 캐시 처리를 수행합니다.
+- 필요한 경우 새로운 객체를 만들기 때문에 주소가 다른 객체가 생성될 수 있습니다.
+
+```java
+    @HotSpotIntrinsicCandidate
+    public static Integer valueOf(int i) {
+        if (i >= IntegerCache.low && i <= IntegerCache.high)
+            return IntegerCache.cache[i + (-IntegerCache.low)];
+        return new Integer(i);
+    }
+```
+
+#### NullPointException
+- null 값을 가지는 wrapper 클래스 객체와 기본형(primitive type) 값을 `==` 연산의 피연산자로 사용하는 경우 NullPointException이 발생합니다.
+- 이는 피연산자에 기본형 int 값이 존재하여 wrapper 클래스 객체를 auto unboxing 하는 중에 발생하는 에러입니다.
+
+##### 테스트 코드
+```java
+    @Test
+    public void test_throwNullPointException() {
+        Integer a = null;
+        assertThrows(NullPointerException.class, () -> {
+            if (a == 1) {
+                log.info("do something");
+            }
+        });
+    }
+```
+
 ## Wrapper 클래스는 왜 필요한가?
 이유를 찾기 위해 관련된 내용들을 찾아보고 고민도 해보았습니다. 
 아래와 같은 몇 가지 이유로 추려지는 것 같습니다. 
@@ -145,6 +217,9 @@ Wrapper 클래스는 무엇이고 왜 사용하는지 질문을 받았는데 시
 이번 포스트를 다시 정리해보면 관련된 내용들을 찾아보는 과정에서 과도한 Auto Boxing 수행이 성능에 미치는 영향에 대한 내용을 읽어보았습니다. 
 직접 테스트해보고 모니터링하는 방법을 확인하고 싶은 마음이 들었습니다. 
 다음 포스트는 JVM 성능 모니터링 툴 사용 방법과 과도한 Auto Boxing 수행 시 발생하는 현상에 대한 내용을 작성해야겠습니다.
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
 - <http://tcpschool.com/java/java_api_wrapper>

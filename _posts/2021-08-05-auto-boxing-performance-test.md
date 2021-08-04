@@ -197,7 +197,7 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 <p align="center"><img src="/images/auto-boxing-performance-test-4.JPG" width="85%"></p>
 
 ## OPINION
-제가 인상깊게 읽었던 포스트 중에 이런 내용이 있었습니다.
+인상 깊게 읽었던 포스트 중에 이런 내용이 있어서 공유하고 글을 마무리 짓겠습니다.
 
 > [Naver - Java Garbage Collection][garbage-collection-link]<br>
 > GC에 대해서 알아보기 전에 알아야 할 용어가 있다. 
@@ -209,10 +209,6 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 > Java는 프로그램 코드에서 메모리를 명시적으로 지정하여 해제하지 않는다. 
 > 가끔 명시적으로 해제하려고 해당 객체를 null로 지정하거나 System.gc() 메서드를 호출하는 개발자가 있다. 
 > null로 지정하는 것은 큰 문제가 안 되지만, System.gc() 메서드를 호출하는 것은 시스템의 성능에 매우 큰 영향을 끼치므로 System.gc() 메서드는 절대로 사용하면 안 된다. 
-
-GC 기능이 동작하는 것은 Java 세상이 멈춰버리는 것과 동일하다고 합니다. 
-동시 사용자가 많은 서비스의 경우 치명적인 성능 문제가 있을 것으로 예상됩니다. 
-기회가 된다면 그런 서비스 운영 경험을 꼭 겪어보고 싶습니다.🤓
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action>

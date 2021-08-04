@@ -10,7 +10,7 @@ last_modified_at: 2021-08-05T03:00:00
 
 지난 [Java Wrapper 클래스][wrapper-class-link] 포스트에서 예고했던 바와 같이 Auto Boxing이 성능에 얼마나 영향을 주는지 확인해보았습니다. 
 성능 분석을 위해 사용한 모니터링 툴(tool)은 [VisualVM][visualvm-link]을 사용하였습니다. 
-[VisualVM][visualvm-link] 툴에 Visual GC 플러그인(plugin)을 설치하여 가비지 컬렉션에서 사용하는 힙(heap) 메모리 상태도 확인해보았습니다.
+`VisualVM`에 `Visual GC` 플러그인(plugin)을 설치하여 가비지 컬렉션(Garvage Collection, GC)도 확인해보았습니다.
 
 ## Auto Boxing 테스트 코드
 ### SnoopInt 클래스
@@ -96,13 +96,13 @@ public final class MikeTyson implements Runnable {
 - Heap 메모리 사용률을 보면 3300MB의 75% 수준인 2500MB까지 사용률이 높아졌다가 떨어지는 것이 반복됩니다.
 - Heap 사용률이 떨어지는 것으로 GC(Garbage Collection, 가비지 컬렉션)가 동작하였다는 것을 예상할 수 있습니다. 
 
-<p align="center"><img src="/images/auto-boxing-performance-test-1.JPG" width="75%"></p>
+<p align="center"><img src="/images/auto-boxing-performance-test-1.JPG" width="85%"></p>
 
 ##### Visual GC
 - 객체가 처음 생성되면 위치하는 Eden 영역의 메모리가 높아졌다 떨어지는 것이 자주 반복됩니다.
-- Eden 영역의 메모리가 떨어지는 시점에 GC Time이 올라가는 것을 보아 GC 기능이 동작하였음을 확인할 수 있습니다.
+- Eden 영역의 메모리가 떨어지는 시점에 `GC Time`이 올라가는 것을 보아 가비지 컬렉션이 동작하였음을 확인할 수 있습니다.
 
-<p align="center"><img src="/images/auto-boxing-performance-test-2.JPG" width="75%"></p>
+<p align="center"><img src="/images/auto-boxing-performance-test-2.JPG" width="85%"></p>
 
 ## 성능 최적화 테스트 코드
 SnoopInt 클래스의 멤버 변수를 wrapper 클래스로 변경하여 auto boxing이 동작하지 않도록 변경하였습니다.
@@ -186,15 +186,15 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 ##### CPU / Heap 메모리 사용률
 - CPU 사용률이 크게 감소하는 지점이 있었습니다.(원인 불명)
 - Heap 메모리 사용률을 보면 3700MB의 33% 수준인 1250MB까지 사용률이 높아졌다 감소합니다.
-- Auto Boxing 테스트에 비해 GC 동작 빈도 수가 현저히 적습니다.
+- Auto Boxing 테스트에 비해 가비지 컬렉션 수행 빈도 수가 현저히 적습니다.
 
-<p align="center"><img src="/images/auto-boxing-performance-test-3.JPG" width="75%"></p>
+<p align="center"><img src="/images/auto-boxing-performance-test-3.JPG" width="85%"></p>
 
 ##### Visual GC
 - Eden 영역의 메모리가 높아졌다 떨어지는 주기가 매우 깁니다.
-- Auto Boxing 테스트에 비해 GC 기능의 동작 빈도 수가 매우 적습니다.
+- Auto Boxing 테스트에 비해 가비지 컬렉션 수행 빈도 수가 매우 적습니다.
 
-<p align="center"><img src="/images/auto-boxing-performance-test-4.JPG" width="75%"></p>
+<p align="center"><img src="/images/auto-boxing-performance-test-4.JPG" width="85%"></p>
 
 ## OPINION
 제가 인상깊게 읽었던 포스트 중에 이런 내용이 있었습니다.
@@ -205,7 +205,7 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 > stop-the-world가 발생하면 GC를 실행하는 쓰레드를 제외한 나머지 쓰레드는 모두 작업을 멈춘다. 
 > GC 작업을 완료한 이후에야 중단했던 작업을 다시 시작한다. 
 > 어떤 GC 알고리즘을 사용하더라도 stop-the-world는 발생한다. 
-> 대개의 경우 GC 튜닝이란 이 stop-the-world 시간을 줄이는 것이다.<br>
+> 대개의 경우 GC 튜닝이란 이 stop-the-world 시간을 줄이는 것이다.<br><br>
 > Java는 프로그램 코드에서 메모리를 명시적으로 지정하여 해제하지 않는다. 
 > 가끔 명시적으로 해제하려고 해당 객체를 null로 지정하거나 System.gc() 메서드를 호출하는 개발자가 있다. 
 > null로 지정하는 것은 큰 문제가 안 되지만, System.gc() 메서드를 호출하는 것은 시스템의 성능에 매우 큰 영향을 끼치므로 System.gc() 메서드는 절대로 사용하면 안 된다. 

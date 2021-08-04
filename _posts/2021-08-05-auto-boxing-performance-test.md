@@ -220,6 +220,7 @@ GC 기능이 동작하는 것은 Java 세상이 멈춰버리는 것과 동일하
 #### REFERENCE
 - <https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Performance-cost-of-Java-autoboxing-and-unboxing-of-primitive-types>
 - <https://d2.naver.com/helloworld/6043>
+- <https://d2.naver.com/helloworld/1329>
 
 [wrapper-class-link]: https://junhyunny.github.io/java/java-wrapper-class/
 [visualvm-link]: https://visualvm.github.io/

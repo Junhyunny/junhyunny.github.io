@@ -8,6 +8,15 @@ last_modified_at: 2021-08-06T23:00:00
 
 <br>
 
+클라이언트가 요청한 특정 문자열에 해당하는 바코드 이미지를 생성한 후 페이지에 담아 반환하는 기능에서 서버가 이미지를 찾지 못하는 문제가 발생하였습니다. 
+조금 자세히 문제 현상에 대해 설명하면 다음과 같습니다. 
+- 기존 /static/images 폴더에 이미지는 잘 찾는다.
+- 클라이언트 요청으로 새롭게 생성한 이미지는 찾지 못한다.
+
+<p align="center"><img src="/images/cannot-find-static-resource-1.JPG" width="75%"></p>
+<center>이미지 출처, https://post.naver.com/viewer/postView.nhn?volumeNo=17690733&memberNo=32787874</center><br>
+
+처음에는 서버의 정적 자원(static resource)가 캐싱(caching)되어 있는 줄 알고 관련된 설정을 찾아봤지만 해결책을 구하진 못했습니다. 
 
 ## OPINION
 작성 중 입니다.

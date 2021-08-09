@@ -3,7 +3,7 @@ title: "Thymeleaf - Cannot found images"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-08-06T23:00:00
+last_modified_at: 2021-08-09T23:00:00
 ---
 
 <br>
@@ -16,7 +16,8 @@ last_modified_at: 2021-08-06T23:00:00
 <p align="center"><img src="/images/cannot-find-static-resource-1.JPG" width="75%"></p>
 <center>이미지 출처, https://post.naver.com/viewer/postView.nhn?volumeNo=17690733&memberNo=32787874</center><br>
 
-처음에는 서버의 정적 자원(static resource)가 캐싱(caching)되어 있는 줄 알고 관련된 설정을 찾아봤지만 해결책을 구하진 못했습니다. 
+처음엔 서버의 정적 자원(static resource)가 캐싱(caching)되어 있을 것으로 예상하여 관련된 설정을 확인해보았지만 해결책을 찾지 못했습니다. 
+`StackOverFlow`에서 비슷한 이슈를 찾아보는 중 해결의 실마리를 찾았습니다. 
 
 ## OPINION
 작성 중 입니다.
@@ -26,3 +27,4 @@ last_modified_at: 2021-08-06T23:00:00
 
 #### REFERENCE
 - <https://stackoverflow.com/questions/45651119/spring-boot-images-uploading-and-serving>
+- <https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.static-content>

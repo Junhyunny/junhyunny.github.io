@@ -1,5 +1,5 @@
 ---
-title: "Thymeleaf - Cannot found images"
+title: "Thymeleaf - cannot find images"
 search: false
 category:
   - spring-boot
@@ -16,7 +16,8 @@ last_modified_at: 2021-08-11T12:00:00
 <p align="center"><img src="/images/cannot-find-static-resource-1.JPG" width="45%"></p>
 <center>이미지 출처, https://post.naver.com/viewer/postView.nhn?volumeNo=17690733&memberNo=32787874</center><br>
 
-처음엔 서버의 정적 자원(static resource)가 캐싱(caching)되어 있을 것으로 예상하여 관련된 설정을 확인해보았지만 해결책을 찾지 못했습니다. 
+동일 폴더에서 기존에 있던 이미지는 잘 찾아오는데, 신규 이미지는 찾지 못하는 이상한 현상이 발생했습니다. 
+처음엔 서버의 정적 자원(static resource)이 캐싱(caching)되어 발생하는 문제로 예상하여 관련된 설정을 확인해보았지만 해결책을 찾지 못했습니다. 
 동적으로 생성되는 이미지 자원을 서비스하지 못한다는 내용의 에러를 찾아보는 중 `StackOverFlow`에서 해결의 실마리를 찾았습니다. 
 
 <p align="center"><img src="/images/cannot-find-static-resource-2.JPG" width="60%"></p>
@@ -24,7 +25,7 @@ last_modified_at: 2021-08-11T12:00:00
 
 요약하자면 다음과 같습니다.
 - 보통 `static/images/` 폴더를 이미지 저장에 사용한다.
-- `Thymeleaf`는 `static/images` 폴더에 랜더링(rendering)에 필요한 정적인 이미지들이 있다고 예상한다. 
+- `Thymeleaf`는 `static/images` 폴더에 렌더링(rendering)에 필요한 정적인 이미지들이 있다고 예상한다. 
 - `static/images/` 폴더에 업로드한(동적인) 컨텐츠를 올리는 것은 좋지 않은 방식이다.
 
 해당 힌트를 바탕으로 문제를 해결하였고, 관련된 코드를 정리하여 공유하겠습니다.

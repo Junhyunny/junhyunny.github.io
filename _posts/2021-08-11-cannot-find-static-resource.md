@@ -19,7 +19,7 @@ last_modified_at: 2021-08-11T12:00:00
 처음엔 서버의 정적 자원(static resource)가 캐싱(caching)되어 있을 것으로 예상하여 관련된 설정을 확인해보았지만 해결책을 찾지 못했습니다. 
 동적으로 생성되는 이미지 자원을 서비스하지 못한다는 내용의 에러를 찾아보는 중 `StackOverFlow`에서 해결의 실마리를 찾았습니다. 
 
-<p align="center"><img src="/images/cannot-find-static-resource-2.JPG" width="50%"></p>
+<p align="center"><img src="/images/cannot-find-static-resource-2.JPG" width="60%"></p>
 <center>이미지 출처, https://stackoverflow.com/questions/45651119/spring-boot-images-uploading-and-serving</center><br>
 
 요약하자면 다음과 같습니다.
@@ -317,7 +317,7 @@ public class BlogController {
 ```
 
 ## 테스트 결과
-<p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="50%"></p>
+<p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="75%"></p>
 
 ## OPINION
 정적 자원을 관리하는 경로 내 자원 변화에 대한 감지가 불가능하다는 레퍼런스(reference)는 확인하지 못하였습니다. 

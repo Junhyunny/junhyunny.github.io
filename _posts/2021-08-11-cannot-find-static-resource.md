@@ -317,7 +317,7 @@ public class BlogController {
 ```
 
 ## 테스트 결과
-<p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="75%"></p>
+<p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="100%"></p>
 
 ## OPINION
 정적 자원을 관리하는 경로 내 자원 변화에 대한 감지가 불가능하다는 레퍼런스(reference)는 확인하지 못하였습니다. 

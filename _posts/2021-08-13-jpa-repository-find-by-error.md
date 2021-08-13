@@ -152,12 +152,12 @@ class ChildEntity {
 ### 테스트 결과
 - 두 테스트 모두 정상적으로 통과하였습니다.
 
-<p align="center"><img src="/images/jpa-repository-find-by-error-1.JPG" width="35%"></p>
+<p align="left"><img src="/images/jpa-repository-find-by-error-1.JPG" width="35%"></p>
 
 ### 원인 분석
 에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행하였기 때문입니다. 
-분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각됩니다.   
-에러가 발생한 call stack을 추적해보면 AbstractEntityPersister 클래스의 isTransient 메소드에서 버전 관리 유무에 따른 임시 객체 판단이 이루어집니다. 
+분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각됩니다. 
+에러가 발생한 CallStack을 추적해보면 AbstractEntityPersister 클래스의 isTransient 메소드에서 버전 관리 유무에 따른 임시 객체 판단이 이루어지는 것을 확인할 수 있습니다.
 
 - this.isVersioned() 메소드를 통해 버전 관리가 되는 엔티티인지 확인합니다.
 - 버전 관리가 되는 엔티티는 버전 값 여부를 추가적으로 확인합니다.

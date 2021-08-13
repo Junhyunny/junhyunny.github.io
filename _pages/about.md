@@ -43,7 +43,7 @@ classes: wide
 ## Experience 👨‍💻
 #### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 6월 ~
 - Spring MVC, JSP, MyBatis, Tibero, Sybase, VerneMQ, MQTT
-- Legacy System Sybase Database > Tibero Database 전환 작업
+- (Legacy) Sybase Database > (Newly) Tibero Database 전환
 
 #### [KC Industrial] 가스 입출고 시스템, 2021년 5월 ~
 - Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, MySQL, Vue.js

@@ -42,11 +42,12 @@ classes: wide
 
 ## Experience 👨‍💻
 #### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 6월 ~
-- Spring Boot, JSP, MyBatis, MySQL, VerneMQ, MQTT
+- Spring MVC, JSP, MyBatis, Tibero, Sybase, VerneMQ, MQTT
+- Legacy System Sybase Database > Tibero Database 전환 작업
 
 #### [KC Industrial] 가스 입출고 시스템, 2021년 5월 ~
 - Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, MySQL, Vue.js
-- 가스 입출고 비즈니스 도메인 분석 및 설계
+- 가스 입출고 시스템 비즈니스 도메인 분석 및 설계
 
 #### [POSCO] MES3.0(Manufacturing Execution System 3.0), 2018년 7월 - 2020년 12월
 - Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle

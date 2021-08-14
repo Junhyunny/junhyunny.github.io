@@ -185,7 +185,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 ```
 
 ##### 테스트 코드 
-- ConverterNotFoundException이 감지되는지 확인하기 위해 assertThrows 메소드를 사용합니다.
+- 테스트 수행 시 출력되는 로그와 데이터베이스에 저장된 데이터를 비교해보겠습니다. 
 
 ```java
 @Log4j2

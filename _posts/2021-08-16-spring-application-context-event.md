@@ -11,7 +11,7 @@ last_modified_at: 2021-08-16T12:45:00
 새로운 기능 추가를 해야하는데 문제가 생겼습니다. 
 공통 비즈니스 로직(business logic) 패키지(package)에서 다른 비즈니스 로직 패키지에 위치한 기능이 필요한 상황이 발생하였습니다. 
 
-<p align="center"><img src="/images/spring-application-context-event-1.JPG" width="45%"></p>
+<p align="center"><img src="/images/spring-application-context-event-1.JPG" width="30%"></p>
 <center>이미지 출처, https://giphy.com/gifs/lego-lego-reactions-l4FGzF4Z2lKktzjHi</center><br>
 
 비즈니스적으로 독립적인 기능들을 패키지 단위로 나눈 설계를 생각하면 개발자를 매우 피곤하게 만드는 기능이 아닐 수 없습니다. 

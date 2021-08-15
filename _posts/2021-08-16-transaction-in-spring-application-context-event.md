@@ -8,8 +8,9 @@ last_modified_at: 2021-08-16T03:00:00
 
 <br>
 
-👉 [Spring Application Context Event][spring-application-context-event-link] 포스트는 해당 포스트를 읽는데 도움을 줍니다.<br>
-👉 [@Transactional Propagtaion Type][transactional-propagation-type-link] 포스트를 해당 포스트를 읽는데 도움을 줍니다.
+👉 아래 포스트들은 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring Application Context Event][spring-application-context-event-link]
+- [@Transactional Propagtaion Type][transactional-propagation-type-link]
 
 [Spring Application Context Event][spring-application-context-event-link] 포스트에서 간단한 시나리오와 함께 `Spring Application Context Event` 사용 방법에 대해 알아보았습니다. 
 이번 포스트는 이전 포스트를 작성하면서 생겼던 궁금증을 해소하기 위해 작성하였습니다. 
@@ -199,7 +200,8 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 1. updateOrderDeliveryComplete 메소드까지 배달 서비스의 트랜잭션이 연결됩니다.
 1. updateOrderDeliveryComplete 메소드에서 exception이 발생하면서 해당 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
 1. listenIntentionalExceptionEvent 메소드에서 try-catch 구문으로 묶어 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지는 않습니다.
-1. 주문 서비스에서 발생한 예외에 의해 해당 트랜잭션의 롤백 처리가 예정되어 있기 때문에 updateDeliveryComplete 메소드는 정상적인 트랜잭션 처리에 실패합니다.
+1. updateDeliveryComplete 메소드는 정상적인 트랜잭션 처리에 실패합니다.
+    - 주문 서비스에서 발생한 예외에 의해 해당 트랜잭션의 롤백 처리가 예정되어 있기 때문입니다.
 1. UnexpectedRollbackException 예외가 발생합니다.
 
 ## 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
@@ -338,15 +340,15 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 #### UnexpectedRollbackException 발생하지 않은 이유
 동일 트랜잭션으로 묶어서 처리하는 것과 다르게 UnexpectedRollbackException 예외가 발생하지 않았습니다. 
 해당 이유는 다음과 같습니다. 
-1. updateOrderDeliveryCompleteInRequiresNewTransaction 메소드에서 별도 트랜잭션을 생성하면서 배달 서비스의 트랜잭션을 잠시 중단합니다.
-1. updateOrderDeliveryCompleteInRequiresNewTransaction 메소드에서 exception이 발생하면서 새로 생긴 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
-1. listenIntentionalExceptionInRequiresNewEvent 메소드에서 try-catch 구문으로 묶어 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않습니다.
+1. updateOrderDeliveryCompleteInRequiresNewTransaction 메소드에서 신규 트랜잭션을 생성하여 배달 서비스의 트랜잭션을 잠시 중단합니다.
+1. updateOrderDeliveryCompleteInRequiresNewTransaction 메소드에서 예외가 발생하여 신규 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
+1. listenIntentionalExceptionInRequiresNewEvent 메소드에서 try-catch 에 의해 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않습니다.
 1. 주문 서비스에서 발생한 예외는 새로 생성된 트랜잭션에만 영향을 미치기 때문에 updateDeliveryComplete 메소드는 정상적으로 처리됩니다.
 
 ## OPINION
 이벤트 발생과 더불어 트랜잭션 처리까지 함께 정리해보는 시간이었습니다. 
 관련된 포스트를 연달아 작성하다보니 벌써 새벽 4시가 되었습니다. 
-푹 자고 내일 비동기 이벤트 처리 방법에 대해 정리해야겠습니다.
+자고 일어나서 비동기 이벤트 처리 방법에 대해서 정리해봐야겠습니다.
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action>

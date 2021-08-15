@@ -11,7 +11,7 @@ last_modified_at: 2021-08-16T12:45:00
 새로운 기능 추가를 해야하는데 문제가 생겼습니다. 
 공통 비즈니스 로직(business logic) 패키지(package)에서 다른 비즈니스 로직 패키지에 위치한 기능이 필요한 상황이 발생하였습니다. 
 
-<p align="center"><img src="/images/spring-application-context-event-1.JPG" width="65%"></p>
+<p align="center"><img src="/images/spring-application-context-event-1.JPG" width="45%"></p>
 <center>이미지 출처, https://giphy.com/gifs/lego-lego-reactions-l4FGzF4Z2lKktzjHi</center><br>
 
 비즈니스적으로 독립적인 기능들을 패키지 단위로 나눈 설계를 생각하면 개발자를 매우 피곤하게 만드는 기능이 아닐 수 없습니다. 
@@ -23,7 +23,7 @@ last_modified_at: 2021-08-16T12:45:00
 - 패키지 단위로 독립적으로 수행 가능
 - 혹시 모르는 MSA 전환에서 API Call, Message Queue 등 다른 기술 스택으로 대체 가능
 
-<p align="center"><img src="/images/spring-application-context-event-2.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-application-context-event-2.JPG" width="100%"></p>
 
 ## 예제 코드
 
@@ -292,7 +292,7 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<p align="left"><img src="/images/spring-application-context-event-4.JPG" width="45%"></p>
+<p align="left"><img src="/images/spring-application-context-event-4.JPG" width="65%"></p>
 
 ## OPINION
 주문, 배달 관련된 도메인을 직접 경험해보지는 않아서 테스트 시나리오가 좋지 않을 수 있습니다.(양해 부탁드립니다.😓) 

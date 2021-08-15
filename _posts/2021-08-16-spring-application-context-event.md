@@ -21,7 +21,7 @@ last_modified_at: 2021-08-16T12:45:00
 다음과 같은 이유로 `Spring Application Context Event` 기능을 사용하였습니다. 
 - Spring 프레임워크에서 손쉽게 사용할 수 있도록 기능 제공 
 - 패키지 단위로 독립적으로 수행 가능
-- 혹시 모르는 MSA 전환에서 API Call, Message Queue 등 다른 기술 스택으로 대체 가능
+- 혹시 모르는 MSA 전환에서 API Call, Message Queue 등 다른 기술 스택으로 대체 가능(아래 이미지 참조)
 
 <p align="center"><img src="/images/spring-application-context-event-2.JPG" width="100%"></p>
 

@@ -9,15 +9,17 @@ last_modified_at: 2021-08-16T03:00:00
 <br>
 
 👉 아래 포스트들은 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Application Context Event][spring-application-context-event-link]
 - [@Transactional Propagtaion Type][transactional-propagation-type-link]
+- [Spring Application Context Event][spring-application-context-event-link]
 
 [Spring Application Context Event][spring-application-context-event-link] 포스트에서 간단한 시나리오와 함께 `Spring Application Context Event` 사용 방법에 대해 알아보았습니다. 
 이번 포스트는 이전 포스트를 작성하면서 생겼던 궁금증을 해소하기 위해 작성하였습니다. 
 
 > [Spring Application Context Event][spring-application-context-event-link] 포스트 OPINION<br>
-> 전달한 이벤트까지 트랜잭션이 이어지는가?<br>
-> 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
+> 기능을 정리하다보니 몇 가지 궁금한 사항들이 생겼습니다.<br>
+> - 비동기(async) 방식의 이벤트 처리는 어떻게 수행하는가?
+> - 전달한 이벤트까지 트랜잭션이 이어지는가?
+> - 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
 
 ## 패키지 구조
 
@@ -355,8 +357,8 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/02/spring-applicationcontext-event.html>
-- <https://junhyunny.github.io/spring-boot/spring-application-context-event/>
 - <https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/>
+- <https://junhyunny.github.io/spring-boot/spring-application-context-event/>
 
 [spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/spring-application-context-event/
 [transactional-propagation-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/

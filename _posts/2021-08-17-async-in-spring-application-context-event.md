@@ -228,7 +228,7 @@ Hibernate: select order0_.id as id1_1_0_, order0_.order_code as order_co2_1_0_, 
 ### 테스트 결과 - Junit
 - 테스트 통과를 통해 메인 스레드에서 처리한 배달 정보는 롤백이 되지 않았음을 확인할 수 있습니다. 
 
-<p align="left"><img src="/images/transaction-in-spring-application-context-event-1.JPG" width="45%"></p>
+<p align="left"><img src="/images/async-spring-application-context-event-1.JPG" width="45%"></p>
 
 ### 테스트 결과 - SQL
 
@@ -238,7 +238,7 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<p align="left"><img src="/images/transaction-in-spring-application-context-event-2.JPG" width="65%"></p>
+<p align="left"><img src="/images/async-spring-application-context-event-2.JPG" width="65%"></p>
 
 ## OPINION
 

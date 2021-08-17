@@ -247,6 +247,9 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 <p align="left"><img src="/images/async-spring-application-context-event-2.JPG" width="65%"></p>
 
 ## OPINION
+관련된 글을 정리하다보니 `@EnableAsync`, `@Async` 두 애너테이션은 `Spring Application Context Event` 와 관련된 애너테이션은 아닌 것 같습니다. 
+여러가지 활용 방법이 있고 그 중 하나가 `Spring Application Context Event` 인 것 같습니다. 
+나중에 시간이 되면 다양한 활용 용도에 대해서 정리해야겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action>

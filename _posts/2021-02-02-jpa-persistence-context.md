@@ -474,7 +474,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0
 - assertEquals 메소드 수행 시 예상 값 "ADMIN" 인 경우에 성공합니다.
 - 데이터가 변경되지 않았음을 확인할 수 있습니다.
 
-<p align="center"><img src="/images/jpa-persistence-context-4.JPG"></p>
+<p align="left"><img src="/images/jpa-persistence-context-4.JPG"></p>
 
 ##### detachRemoveTest 메소드 수행 결과
 - 영속성 컨텍스트에서 분리된 객체는 삭제하지 못합니다.
@@ -487,7 +487,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0
 Hibernate: select member_.id, member_.authorities as authorit2_0_, member_.member_email as member_e3_0_, member_.member_name as member_n4_0_, member_.password as password5_0_ from tb_member member_ where member_.id=?
 ```
 
-<p align="center"><img src="/images/jpa-persistence-context-5.JPG"></p>
+<p align="left"><img src="/images/jpa-persistence-context-5.JPG"></p>
 
 ### remove 테스트 코드
 
@@ -583,3 +583,5 @@ Hibernate: delete from tb_member where id=?
 #### REFERENCE
 - <https://gunlog.dev/JPA-Persistence-Context/>
 - <https://gmlwjd9405.github.io/2019/08/06/persistence-context.html>
+
+[jpa-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/

@@ -5,13 +5,17 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-02-04T09:00:00
+last_modified_at: 2021-08-19T09:00:00
 ---
 
 <br>
 
-지난 [JPA Persistence Context][persistence-context-blogLink] 포스트를 통해 영속성 컨텍스트 개념에 대해 알아보았습니다. 
-Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 삭제되는지 확인하였습니다. 
+⚠️ 해당 포스트는 2021년 8월 19일에 재작성되었습니다.(불필요 코드 제거)
+
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [JPA Persistence Context][jpa-persistence-context-link]
+- [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink]
+
 이번 글에서는 **`영속성 컨텍스트`**라는 별도의 영역을 통해 얻을 수 있는 이점이 무엇인지 영속성 컨텍스트가 지원하는 기능과 연관지어 알아보겠습니다. 
 테스트 코드를 작성하여 기능 사용의 이해도를 함께 높여보도록 하겠습니다.
 
@@ -23,12 +27,13 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 동일 트랜잭션 내에서 캐싱된 엔티티를 반환하기 때문에 엔티티의 동일성이 함께 보장됩니다. 
 
 - 장점
-  - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.<br>
-  - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
+    - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.
+    - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
 
 #### [캐싱된 엔티티 조회 시나리오]
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
+
 <p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
@@ -37,6 +42,7 @@ Entity Lifecycle 개념을 통해 어떤 식으로 엔티티가 저장, 변경, 
 1. 캐싱된 엔티티가 존재하지 않으므로 데이터베이스를 조회합니다.
 1. 조회된 데이터를 신규 엔티티를 생성하여 캐싱합니다.
 1. 신규 엔티티를 반환합니다.
+
 <p align="center"><img src="/images/persistence-context-advantages-2.JPG" width="550"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
@@ -124,7 +130,7 @@ EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하�
 이를 `트랜잭션을 지원하는 쓰기 지연(transactional write-behind)`이라고 합니다.
 
 - 장점
-  - 쓰기 지연은 모아둔 쿼리를 데이터베이스에 한 번에 전달해서 성능을 최적화할 수 있는 장점이 있습니다. 
+    - 쓰기 지연은 모아둔 쿼리를 데이터베이스에 한 번에 전달해서 성능을 최적화할 수 있는 장점이 있습니다. 
 
 #### [쓰기 지연 시나리오(insert)]
 1. memberA 객체를 영속성 컨텍스트에 저장합니다.
@@ -245,7 +251,7 @@ public class WriteBehindTest {
 <p align="center"><img src="/images/persistence-context-advantages-8.JPG"></p>
 
 ### 변경 감지(dirty checking)
-지난 [JPA Persistence Context][persistence-context-blogLink] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
+지난 [JPA Persistence Context][jpa-persistence-context-link] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
 이는 영속성 컨텍스트가 지원하는 변경 감지(dirty checking) 기능 덕분입니다. 
 영속성 컨텍스트에 저장된 엔티티들의 변경사항을 감지하여 데이터베이스에 이를 자동으로 반영합니다. 
 
@@ -371,5 +377,5 @@ public class DirtyCheckingTest {
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]
 
 [reference-blogLink]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
-[persistence-context-blogLink]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
 [transaction-isolation-blogLink]: https://junhyunny.github.io/information/transcation-isolation/

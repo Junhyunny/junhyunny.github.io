@@ -8,7 +8,7 @@ last_modified_at: 2021-08-16T03:00:00
 
 <br>
 
-👉 아래 포스트들은 해당 포스트를 읽는데 도움을 줍니다.
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [@Transactional Propagtaion Type][transactional-propagation-type-link]
 - [Spring Application Context Event][spring-application-context-event-link]
 

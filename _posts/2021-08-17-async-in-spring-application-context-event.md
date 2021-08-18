@@ -9,19 +9,12 @@ last_modified_at: 2021-08-17T03:00:00
 <br>
 
 👉 아래 포스트들은 해당 포스트를 읽는데 도움을 줍니다.
-- [@Transactional Propagtaion Type][transactional-propagation-type-link]
 - [Spring Application Context Event][spring-application-context-event-link]
 - [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
 
-[Spring Application Context Event][spring-application-context-event-link] 포스트를 작성하면서 생긴 궁금한 사항을 주제로 포스트를 작성하였습니다. 이번 포스트는 비동기 처리 방법에 대해서 정리해보았습니다. 
-
-> [Spring Application Context Event][spring-application-context-event-link] 포스트 OPINION<br>
-> 기능을 정리하다보니 몇 가지 궁금한 사항들이 생겼습니다.<br>
-> - 비동기(async) 방식의 이벤트 처리는 어떻게 수행하는가?
-> - 전달한 이벤트까지 트랜잭션이 이어지는가?
-> - 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
-
-이번 포스트는 크게 두 가지 주제로 예제 코드를 작성하였습니다. 
+[Spring Application Context Event][spring-application-context-event-link] 포스트를 작성하면서 생긴 궁금한 사항을 주제로 포스트를 작성하였습니다. 
+이번 포스트는 비동기 처리 방법에 대해서 정리해보았습니다. 
+크게 두 가지 주제로 예제 코드를 작성하였습니다. 
 - 비동기 처리 구현 방법
 - 비동기 처리 시 트랜잭션 연결
 
@@ -260,6 +253,5 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 - <https://junhyunny.github.io/spring-boot/spring-application-context-event/>
 - <https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/>
 
-[transactional-propagation-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/
 [spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/spring-application-context-event/
 [transaction-in-spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/

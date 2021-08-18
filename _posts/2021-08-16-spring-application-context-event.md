@@ -313,6 +313,5 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/02/spring-applicationcontext-event.html>
 
-
 [transaction-in-spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/
 [async-in-spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/async-in-spring-application-context-event/

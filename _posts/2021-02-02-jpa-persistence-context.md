@@ -5,10 +5,12 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-02-03T09:00:00
+last_modified_at: 2021-08-18T09:00:00
 ---
 
 <br>
+
+⚠️ 해당 포스트는 2021년 8월 18일에 재작성되었습니다.(불필요 코드 제거)
 
 JPA는 EntityManager를 통해 엔티티(Entity)를 관리합니다. 
 **EntityManager는 @Id 필드를 이용해 엔티티를 구분짓고 이들을 관리합니다.** 
@@ -93,9 +95,42 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 
 테스트는 간단하게 JUnit을 이용하여 진행하였습니다.
 
-### 테스트 패키지 구조
+### 패키지 구조
 
-<p align="left"><img src="/images/jpa-persistence-context-2.JPG" width="30%"></p>
+```
+./
+`-- action-in-blog-back
+    |-- README.md
+    |-- action-in-blog.iml
+    |-- images
+    |   |-- a.jpg
+    |   `-- b.JPG
+    |-- mvnw
+    |-- mvnw.cmd
+    |-- pom.xml
+    `-- src
+        |-- main
+        |   |-- java
+        |   |   `-- blog
+        |   |       `-- in
+        |   |           `-- action
+        |   |               |-- ActionInBlogApplication.java
+        |   |               |-- converter
+        |   |               |   `-- StringListConverter.java
+        |   |               `-- entity
+        |   |                   `-- Member.java
+        |   `-- resources
+        |       `-- application.yml
+        `-- test
+            `-- java
+                `-- blog
+                    `-- in
+                        `-- action
+                            `-- lifecycle
+                                |-- DetachTest.java
+                                |-- PersistTest.java
+                                `-- RemoveTest.java
+```
 
 ### application.yml
 ```yml
@@ -103,7 +138,7 @@ server:
   port: 8081
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -125,7 +160,7 @@ spring:
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.4.1</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
     <groupId>blog.in.action</groupId>
@@ -145,18 +180,7 @@ spring:
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -169,24 +193,6 @@ spring:
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.3.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-            <version>1.0.10.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -215,32 +221,23 @@ spring:
 
 ### persist 테스트
 
-해당 테스트는 2번 테스트를 수행하면 됩니다. 
-1차 수행했을 때와 2차 수행했을 때 valuCheckTest 테스트에서 결과가 달라집니다.
+해당 테스트는 두 번 수행합니다. 
+처음 실행할 때와 두 번쨰 실행할 때 결과가 다릅니다. 
 
 ```java
 package blog.in.action.lifecycle;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import blog.in.action.entity.Member;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-
-import org.junit.jupiter.api.Order;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import blog.in.action.entity.Member;
-import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
-@TestMethodOrder(OrderAnnotation.class)
 @SpringBootTest
 public class PersistTest {
 
@@ -248,7 +245,6 @@ public class PersistTest {
     private EntityManagerFactory factory;
 
     @Test
-    @Order(value = 0)
     void persistTest() {
         EntityManager em = factory.createEntityManager();
         log.info("entityManager properties : " + em.getProperties());
@@ -262,7 +258,7 @@ public class PersistTest {
                 log.info("영속된 객체의 값을 변경합니다.");
                 List<String> authorities = new ArrayList<>();
                 authorities.add("MEMBER");
-                member.setAuthroities(authorities);
+                member.setAuthorities(authorities);
             } else {
                 // 새로운 객체 생성
                 log.info("새로운 객체를 생성합니다.");
@@ -271,7 +267,7 @@ public class PersistTest {
                 member.setPassword("1234");
                 List<String> authorities = new ArrayList<>();
                 authorities.add("ADMIN");
-                member.setAuthroities(authorities);
+                member.setAuthorities(authorities);
                 member.setMemberName("Junhyunny");
                 member.setMemberEmail("kang3966@naver.com");
                 // persistence context에 등록
@@ -287,65 +283,55 @@ public class PersistTest {
             em.close();
         }
     }
-
-    @Test
-    @Order(value = 1)
-    void valuCheckTest() {
-        EntityManager em = factory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                String actual = member.getAuthroities().get(0);
-                assertEquals("ADMIN", actual);
-                assertEquals("MEMBER", actual);
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            em.getTransaction().rollback();
-            log.error("exception occurs", ex);
-        } finally {
-            em.close();
-        }
-    }
 }
 ```
 
 #### 1차 수행
 - em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
-- 데이터가 존재하지 않으므로 em.find() 메소드 수행시 member 객체는 null 입니다.
+- 데이터가 존재하지 않으므로 em.find() 메소드 수행 시 member 객체는 null 입니다.
 - 새로운 객체를 생성합니다.(new/transient)
 - em.perist(E) 메소드를 통해 생성한 객체를 영속성 컨텍스트에 추가합니다.(managed)
-- em.getTransaction().commit() 메소드를 통해 트랜잭션을 commit 합니다.
+- em.getTransaction().commit() 메소드를 통해 트랜잭션을 커밋(commit) 합니다.
 - 영속성 컨텍스트에 저장된 member 엔티티 정보를 데이터베이스에 반영됩니다.(insert)
 
-##### 1차 수행시 데이터베이스
-- 데이터가 추가되었음을 확인할 수 있습니다.
-<p align="left"><img src="/images/jpa-persistence-context-3.JPG"></p>
+##### 1차 수행 시 로그
 
-##### 1차 수행시 valuCheckTest 메소드 수행 결과
-- assertEquals 메소드 수행시 예상 값이 "MEMBER"인 경우 실패
-<p align="center"><img src="/images/jpa-persistence-context-4.JPG"></p>
+```
+2021-08-18 19:53:40.298  INFO 6672 --- [           main] blog.in.action.lifecycle.PersistTest     : entityManager properties : {org.hibernate.flushMode=AUTO, javax.persistence.lock.timeout=-1, javax.persistence.cache.retrieveMode=USE, javax.persistence.lock.scope=EXTENDED, javax.persistence.cache.storeMode=USE}
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+2021-08-18 19:53:40.326  INFO 6672 --- [           main] blog.in.action.lifecycle.PersistTest     : 새로운 객체를 생성합니다.
+Hibernate: insert into tb_member (authorities, member_email, member_name, password, id) values (?, ?, ?, ?, ?)
+```
+
+##### 1차 수행 시 데이터베이스
+- 새로운 데이터가 추가되었습니다.
+
+<p align="left"><img src="/images/jpa-persistence-context-2.JPG"></p>
 
 #### 2차 수행
 - em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
-- 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행시 member 객체가 반환됩니다.(managed)
+- 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행 시 member 객체가 반환됩니다.(managed)
 - member 객체의 값을 변경합니다.
-- em.getTransaction().commit() 메소드를 통해 트랜잭션을 commit 합니다.
+- em.getTransaction().commit() 메소드를 통해 트랜잭션을 커밋(commit) 합니다.
 - 영속성 컨텍스트에 저장된 member 엔티티의 변경 정보를 데이터베이스에 반영됩니다.(update)
 
-##### 2차 수행시 데이터베이스
-- 데이터가 변경되었음을 확인할 수 있습니다.
-<p align="left"><img src="/images/jpa-persistence-context-5.JPG"></p>
+##### 2차 수행 시 로그
 
-##### 2차 수행시 valuCheckTest 메소드 수행 결과
-- 데이터가 변경되었음을 확인할 수 있습니다.
-- assertEquals 메소드 수행시 예상 값이 "ADMIN"인 경우 실패
-<p align="center"><img src="/images/jpa-persistence-context-6.JPG"></p>
+```
+2021-08-18 19:54:47.978  INFO 21324 --- [           main] blog.in.action.lifecycle.PersistTest     : entityManager properties : {org.hibernate.flushMode=AUTO, javax.persistence.lock.timeout=-1, javax.persistence.cache.retrieveMode=USE, javax.persistence.lock.scope=EXTENDED, javax.persistence.cache.storeMode=USE}
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+2021-08-18 19:54:48.012  INFO 21324 --- [           main] blog.in.action.lifecycle.PersistTest     : 영속된 객체의 값을 변경합니다.
+Hibernate: update tb_member set authorities=?, member_email=?, member_name=?, password=? where id=?
+```
+
+##### 2차 수행 시 데이터베이스
+- 데이터가 변경되었습니다.
+
+<p align="left"><img src="/images/jpa-persistence-context-3.JPG"></p>
 
 ### detach 테스트
 
-`persist 테스트`에서 영속성 컨텍스트에 저장된 객체의 값을 변경하면 데이터가 업데이트되는 것을 확인하였습니다. 
+`persist 테스트`에서 영속성 컨텍스트에 저장된 객체의 값을 변경하면 데이터가 업데이트 되는 것을 확인하였습니다. 
 이번 테스트에서는 영속성 컨텍스트에 저장된 객체를 datch 메소드를 통해 분리한 후 데이터 변경하였을 때 어떤 결과가 나오는지 valuCheckTest 테스트를 통해 확인해보겠습니다. 
 동시에 datch 메소드를 통해 영속성 컨텍스트에서 분리한 엔티티 객체를 삭제하면 어떤 결과가 나오는지 detachRemoveTest 테스트를 통해 알아보겠습니다.
 
@@ -353,23 +339,20 @@ public class PersistTest {
 package blog.in.action.lifecycle;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import blog.in.action.entity.Member;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import blog.in.action.entity.Member;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @TestMethodOrder(OrderAnnotation.class)
@@ -391,10 +374,14 @@ public class DetachTest {
                 member.setPassword("1234");
                 List<String> authorities = new ArrayList<>();
                 authorities.add("ADMIN");
-                member.setAuthroities(authorities);
+                member.setAuthorities(authorities);
                 member.setMemberName("Junhyunny");
                 member.setMemberEmail("kang3966@naver.com");
                 em.persist(member);
+            } else {
+                List<String> authorities = new ArrayList<>();
+                authorities.add("ADMIN");
+                member.setAuthorities(authorities);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -418,7 +405,7 @@ public class DetachTest {
                 em.detach(member);
                 List<String> authorities = new ArrayList<>();
                 authorities.add("DETACHED_ADMIN");
-                member.setAuthroities(authorities);
+                member.setAuthorities(authorities);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -431,15 +418,14 @@ public class DetachTest {
 
     @Test
     @Order(value = 1)
-    void valuCheckTest() {
+    void valueCheckTest() {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
             Member member = em.find(Member.class, "01012341234");
             if (member != null) {
-                String actual = member.getAuthroities().get(0);
+                String actual = member.getAuthorities().get(0);
                 assertEquals("ADMIN", actual);
-                assertEquals("DETACHED_ADMIN", actual);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -461,9 +447,8 @@ public class DetachTest {
                 // 영속된 객체를 detached 상태로 변경 후 remove
                 log.info("detach한 이후 객체를 삭제합니다.");
                 em.detach(member);
-                em.remove(member);
+                assertThrows(IllegalArgumentException.class, () -> em.remove(member));
             }
-            em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
             log.error("exception occurs", ex);
@@ -476,12 +461,12 @@ public class DetachTest {
 
 ##### valuCheckTest 메소드 수행 결과
 - 데이터가 변경되지 않았음을 확인할 수 있습니다.
-- assertEquals 메소드 수행시 예상 값이 "DETACHED_ADMIN"인 경우 실패
+- assertEquals 메소드 수행 시 예상 값 "ADMIN" 이 성공합니다.
 <p align="center"><img src="/images/jpa-persistence-context-7.JPG"></p>
 
 ##### detachRemoveTest 메소드 수행 결과
 - 영속성 컨텍스트에서 분리된 객체는 삭제하지 못합니다.
-- detach 이후 데이터 삭제시 IllegalArgumentException이 발생
+- detach 이후 데이터 삭제시 IllegalArgumentException이 발생합니다.
 - Exception Mesage, Removing a detached instance blog.in.action.entity.Member#01012341234
 <p align="center"><img src="/images/jpa-persistence-context-8.JPG"></p>
 

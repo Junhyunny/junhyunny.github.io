@@ -332,8 +332,10 @@ Hibernate: update tb_member set authorities=?, member_email=?, member_name=?, pa
 ### detach 테스트
 
 `persist 테스트`에서 영속성 컨텍스트에 저장된 객체의 값을 변경하면 데이터가 업데이트 되는 것을 확인하였습니다. 
-이번 테스트에서는 영속성 컨텍스트에 저장된 객체를 datch 메소드를 통해 분리한 후 데이터 변경하였을 때 어떤 결과가 나오는지 valuCheckTest 테스트를 통해 확인해보겠습니다. 
-동시에 datch 메소드를 통해 영속성 컨텍스트에서 분리한 엔티티 객체를 삭제하면 어떤 결과가 나오는지 detachRemoveTest 테스트를 통해 알아보겠습니다.
+이번 테스트에서는 영속성 컨텍스트에 저장된 객체를 detach 메소드를 통해 영속성 컨텍스트에서 분리하면 어떤 동작을 하는지 정리하겠습니다. 
+- detachTest 메소드 - detach 후 데이터 변경 테스트
+- valuCheckTest 메소드 - 특정 데이터가 변경되어 데이터베이스에 반영되었는지 확인
+- detachRemoveTest 메소드 - detach 후 엔티티 제거 테스트
 
 ```java
 package blog.in.action.lifecycle;
@@ -401,7 +403,7 @@ public class DetachTest {
             Member member = em.find(Member.class, "01012341234");
             if (member != null) {
                 // 영속된 객체를 detached 상태로 변경 후 값 변경
-                log.info("detach한 이후 객체의 값을 변경합니다.");
+                log.info("detach 이후 객체의 값을 변경합니다.");
                 em.detach(member);
                 List<String> authorities = new ArrayList<>();
                 authorities.add("DETACHED_ADMIN");
@@ -445,7 +447,7 @@ public class DetachTest {
             Member member = em.find(Member.class, "01012341234");
             if (member != null) {
                 // 영속된 객체를 detached 상태로 변경 후 remove
-                log.info("detach한 이후 객체를 삭제합니다.");
+                log.info("detach 이후 객체를 삭제합니다.");
                 em.detach(member);
                 assertThrows(IllegalArgumentException.class, () -> em.remove(member));
             }
@@ -459,37 +461,51 @@ public class DetachTest {
 }
 ```
 
+##### detachTest 메소드 수행 결과
+- 로그를 보면 `detach 이후 객체의 값을 변경합니다.` 메세지 이후에 별도 업데이트 쿼리가 수행되지 않았습니다.
+
+```
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+2021-08-19 06:07:29.815  INFO 7828 --- [           main] blog.in.action.lifecycle.DetachTest      : detach 이후 객체의 값을 변경합니다.
+```
+
 ##### valuCheckTest 메소드 수행 결과
+- assertEquals 메소드 수행 시 예상 값 "ADMIN" 인 경우에 성공합니다.
 - 데이터가 변경되지 않았음을 확인할 수 있습니다.
-- assertEquals 메소드 수행 시 예상 값 "ADMIN" 이 성공합니다.
-<p align="center"><img src="/images/jpa-persistence-context-7.JPG"></p>
+
+<p align="center"><img src="/images/jpa-persistence-context-4.JPG"></p>
 
 ##### detachRemoveTest 메소드 수행 결과
 - 영속성 컨텍스트에서 분리된 객체는 삭제하지 못합니다.
-- detach 이후 데이터 삭제시 IllegalArgumentException이 발생합니다.
-- Exception Mesage, Removing a detached instance blog.in.action.entity.Member#01012341234
-<p align="center"><img src="/images/jpa-persistence-context-8.JPG"></p>
+- detach 이후 데이터 삭제 시 IllegalArgumentException이 발생하는 것을 assertThrows 메소드를 통해 확인할 수 있습니다.
+
+```
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+2021-08-19 06:10:52.526  INFO 10528 --- [           main] blog.in.action.lifecycle.DetachTest      : detach 이후 객체를 삭제합니다.
+Hibernate: select member_.id, member_.authorities as authorit2_0_, member_.member_email as member_e3_0_, member_.member_name as member_n4_0_, member_.password as password5_0_ from tb_member member_ where member_.id=?
+```
+
+<p align="center"><img src="/images/jpa-persistence-context-5.JPG"></p>
 
 ### remove 테스트 코드
 
-이번 테스트에서는 영속성 컨텍스트에 저장된 데이터를 remove 메소드를 통해 제거할 시 실제 데이터도 삭제가 되는지 확인해보겠습니다.
+이번 테스트에서는 영속성 컨텍스트에 저장된 엔티티를 remove 메소드를 통해 제거할 시 실제 데이터도 삭제가 되는지 확인해보았습니다.
 
 ```java
 package blog.in.action.lifecycle;
 
+import blog.in.action.entity.Member;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import blog.in.action.entity.Member;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
@@ -510,10 +526,14 @@ public class RemoveTest {
                 member.setPassword("1234");
                 List<String> authorities = new ArrayList<>();
                 authorities.add("ADMIN");
-                member.setAuthroities(authorities);
+                member.setAuthorities(authorities);
                 member.setMemberName("Junhyunny");
                 member.setMemberEmail("kang3966@naver.com");
                 em.persist(member);
+            } else {
+                List<String> authorities = new ArrayList<>();
+                authorities.add("ADMIN");
+                member.setAuthorities(authorities);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -545,10 +565,13 @@ public class RemoveTest {
 ```
 
 ##### removeTest 메소드 수행 결과
-- 데이터가 삭제되었음을 확인할 수 있습니다.
-- 데이터베이스 조회 결과 및 관련 로그
-<p align="left"><img src="/images/jpa-persistence-context-9.JPG"></p>
-<p align="center"><img src="/images/jpa-persistence-context-10.JPG"></p>
+- delete 쿼리가 수행되었음을 로그를 통해 확인할 수 있습니다.
+
+```
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: delete from tb_member where id=?
+```
 
 ## OPINION
 영속성 컨텍스트가 무엇인지, 이를 통해 JPA EntityManager가 엔티티를 어떻게 관리하고 데이터를 저장하는지에 대해 알아보았습니다. 

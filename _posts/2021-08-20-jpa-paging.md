@@ -365,7 +365,7 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 
 조회 조건으로 대문자 "A"를 주었지만 소문자 "a"로 시작하는 값들이 조회되는 것이 이상합니다. 
 관련된 내용을 찾아보니 MySQL 데이터베이스는 VARCHAR 타입 사용시 대소문자를 구분하지 않는다고 합니다. 
-대소문자 구분을 위해선 `BINARY` 옵션을 추가하면 해결된다고 하니 참조하시길 바랍니다. 
+대소문자 구분을 위해선 `BINARY` 키워드를 추가해야한다고 하니 참조하시길 바랍니다. 
 
 > [Controlling Case Sensitivity in String Comparisons][case-insensitive-ref-link]<br>
 > String comparisons in MySQL are not case sensitive by default:<br>

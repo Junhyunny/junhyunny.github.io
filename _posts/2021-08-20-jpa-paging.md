@@ -74,8 +74,8 @@ Spring 프레임워크에서는 Pageable 인터페이스 구현체를 쉽게 생
 - getTotalElements 메소드 - 조회 조건에 일치하는 총 항목 수
 - getTotalPages 메소드 - 총 페이지 개수
 
-PageRequest 클래스 of 메소드를 통해 얻은 Pageable 구현체를 이용한 코드를 살펴보겠습니다. 
-JapRepository에서 기본적으로 제공하는 findAll 메소드를 사용하였습니다. 
+PageRequest 클래스 of 메소드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있습니다. 
+JapRepository에서 기본적으로 제공하는 findAll 메소드를 이용하였습니다. 
 
 ```java
     Pageable pageable = PageRequest.of(0, 10, Sort.by(Direction.DESC, "testValue"));
@@ -83,7 +83,7 @@ JapRepository에서 기본적으로 제공하는 findAll 메소드를 사용하�
 ```
 
 ## 테스트 코드
-간단한 테스트 코드를 통해 활용 방법을 알아보겠습니다. 
+간단한 테스트 코드를 통해 JPA 페이징 처리 방법을 알아보겠습니다. 
 세 가지 방법으로 구현하였습니다. 
 - JpaRepository 메소드 이름 규칙을 활용한 findBy- 메소드 사용
 - @Query 애너테이션 with JPQL

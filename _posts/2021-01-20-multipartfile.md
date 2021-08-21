@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - vue.js
-last_modified_at: 2021-07-28T12:00:00
+last_modified_at: 2021-08-22T00:30:00
 ---
 
 <br>
@@ -16,13 +16,15 @@ last_modified_at: 2021-07-28T12:00:00
 모바일/웹 어플리케이션 대부분의 경우 파일 업로드 기능이 사용됩니다. 
 사용자의 프로필 사진 변경과 같은 간단한 기능도 파일 업로드가 필요합니다.
 Spring 프레임워크에서 쉽게 파일 업로드할 수 있는 MultipartFile 인터페이스를 사용한 내용을 정리해보았습니다.
-
 파일 업로드를 위한 front-end 프로젝트는 Vue.js 프레임워크를 사용하였습니다. 
+
 ~~back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 포스트에서 사용했던 프로젝트를 확장하여 구현하였습니다.~~ 
 ~~변경된 파일에 대한 설명만 추가되었습니다.~~ 
 ~~다른 코드들에 대한 설명이 필요한 경우 이전 글을 참고하시길 바랍니다.~~
 
-## front-end 프로젝트 패키지 구조
+## 1. 예제 코드
+
+### 1.1. front-end 프로젝트 패키지 구조
 
 ```
 ./
@@ -42,7 +44,7 @@ Spring 프레임워크에서 쉽게 파일 업로드할 수 있는 MultipartFile
     `-- main.js
 ```
 
-## FileUpload.vue
+### 1.2. FileUpload.vue
 파일을 업로드하기 위한 페이지입니다. 
 selectUploadFile() 함수에서 이미지 업로드를 위한 element를 만들고 이를 클릭 처리합니다.
 선택된 이미지를 FormData 객체에 담아 POST 요청으로 서버로 전달합니다. 
@@ -98,7 +100,7 @@ export default {
 </script>
 ```
 
-## back-end 프로젝트 패키지 구조
+### 1.3. back-end 프로젝트 패키지 구조
 
 ```
 ./
@@ -122,7 +124,7 @@ export default {
             `-- application.yml
 ```
 
-## FileController 클래스
+### 1.4. FileController 클래스
 파일 업로드를 위한 **/api/file/upload/profile-img** 요청 경로를 만들었습니다. 
 FileOutputStream 클래스를 이용하여 전송된 파일을 **./images** 폴더에 저장합니다. 
 정상적인 경우 "upload success" 메세지를 응답하고 Exception이 발생한 경우 "upload fail" 메세지를 응답합니다. 
@@ -163,25 +165,33 @@ public class FileController {
 }
 ```
 
-## 테스트 결과
+## 2. 테스트 결과
 파일 업로드 테스트 결과를 확인해보겠습니다. 
 
-##### 이미지 선택
+### 2.1. 이미지 선택
 <p align="center"><img src="/images/multipartfile-1.JPG"></p>
 
-##### 화면 응답 메세지 확인
+### 2.2. 화면 응답 메세지 확인
 <p align="center"><img src="/images/multipartfile-2.JPG"></p>
 
-##### 저장된 파일 확인
+### 2.3. 저장된 파일 확인
 <p align="center"><img src="/images/multipartfile-3.JPG"></p>
 
-##### 용량이 큰 이미지 업로드
+### 2.4. 용량이 큰 이미지 업로드
 <p align="center"><img src="/images/multipartfile-4.JPG"></p>
 
-##### 용량이 큰 이미지 업로드시 화면 응답 메세지
+### 2.5. 용량이 큰 이미지 업로드 시 화면 응답 메세지
 <p align="center"><img src="/images/multipartfile-5.JPG"></p>
 
-##### FileSizeLimitExceededException 발생
+## 3. FileSizeLimitExceededException 발생
+위의 테스트 결과에서 확인할 수 있듯이 용량이 큰 이미지 파일 업로드하면 에러가 발생합니다. 
+서버 로그를 확인해보면 다음과 같은 에러 메세지를 볼 수 있습니다. 
+
+> The field fileList exceeds its maximum permitted size of 1048576 bytes.
+
+용량이 높은 파일을 업로드할 때 발생하는 에러입니다. 
+에러 로그를 보면 용량 제한이 되어있다는 힌트를 확인할 수 있습니다. 
+해결을 위한 설정을 추가하도록 하겠습니다. 
 
 ```
 2021-07-28 12:11:38.102 ERROR 16988 --- [nio-8081-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.multipart.MaxUploadSizeExceededException: Maximum upload size exceeded; nested exception is java.lang.IllegalStateException: org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The field fileList exceeds its maximum permitted size of 1048576 bytes.] with root cause
@@ -219,13 +229,7 @@ org.apache.tomcat.util.http.fileupload.impl.FileSizeLimitExceededException: The 
 ...
 ```
 
-용량이 높은 파일을 업로드할 때 발생하는 에러입니다. 
-
-> The field fileList exceeds its maximum permitted size of 1048576 bytes.
-
-Exception에서 위와 같은 힌트가 나와있습니다. 해결하기 위한 설정을 추가하도록 하겠습니다. 
-
-### application.yml 설정 추가
+### 3.1. application.yml 설정 추가
 다음과 같은 설정을 추가합니다. 
 - spring.servlet.multipart.max-file-size, meaning total file size cannot exceed option byte.
 - spring.servlet.multipart.max-request-size, meaning total request size for a multipart/form-data cannot exceed option byte.
@@ -240,9 +244,10 @@ spring:
       max-request-size: 20MB
 ```
 
-##### 설정 추가 후 테스트 결과
+### 3.2. 설정 추가 후 테스트 결과
 설정을 추가한 후 위와 동일한 방법으로 이미지를 업로드합니다. 
 파일이 저장되는 폴더에 용량이 큰 파일이 업로드되었는지 확인함으로써 정상적으로 수행되었음을 확인할 수 있습니다. 
+
 <p align="center"><img src="/images/multipartfile-6.JPG"></p>
 
 ## OPINION

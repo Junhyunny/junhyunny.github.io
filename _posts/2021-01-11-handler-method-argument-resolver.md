@@ -3,15 +3,16 @@ title: "HandlerMethodArgumentResolver 인터페이스"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-01-30T09:00:00
+last_modified_at: 2021-08-21T17:00:00
 ---
 
 <br>
 
-[Token Enhancer][tokenenhancer-blogLink] 포스트에서 JWT Token에 클라이언트 정보를 추가하는 기능을 구현해보았습니다. 
-이번 글에서는 HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
+HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
 
-## 패키지 구조
+## 1. 예제 코드
+
+### 1.1. 패키지 구조
 
 ```
 .
@@ -57,7 +58,7 @@ last_modified_at: 2021-01-30T09:00:00
                         `-- ActionInBlogApplicationTests.java
 ```
 
-## TokenMember 애너테이션 구현
+### 1.2. TokenMember 애너테이션 구현
 커스텀 애너테이션을 만들어줍니다. 메소드 파라미터 앞에 붙일 애너테이션이므로 @Target은 ElementType.PARAMETER로 지정합니다. 
 프로그램 수행 중에 사용할 애너테이션이므로 @Retention 은 RetentionPolicy.RUNTIME으로 지정합니다. 
 
@@ -76,7 +77,7 @@ public @interface TokenMember {
 }
 ```
 
-## CustomMethodArgumentResolver 클래스 구현
+### 1.3. CustomMethodArgumentResolver 클래스 구현
 HandlerMethodArgumentResolver 클래스를 상속하여 supportsParameter 메소드와 resolveArgument 메소드를 오버라이딩(overriding)합니다. 
 1. supportsParameter 메소드를 통해 해당 파라미터에 대한 처리를 수행할지 말지 여부를 체크합니다. 
 1. resolveArgument 메소드를 통해 토큰에서 필요한 데이터를 추출하여 Member 객체에 SETTING 후 이를 반환합니다. 
@@ -145,7 +146,7 @@ public class CustomMethodArgumentResolver implements HandlerMethodArgumentResolv
 }
 ```
 
-## WebConfig 클래스 구현
+### 1.4. WebConfig 클래스 구현
 WebMvcConfigurer 인터페이스의 addArgumentResolvers 메소드를 오버라이드하여 CustomMethodArgumentResolver 객체를 추가합니다.
 
 ```java
@@ -173,7 +174,7 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
-## MemberController 클래스 구현
+### 1.5. MemberController 클래스 구현
 Controller에 새로운 메소드를 추가하였습니다. 
 requestUserInfoUsingToken 메소드를 보면 요청 파라미터에 @TokenMember 애너테이션이 붙어있습니다. 
 **/api/member/user-info-using-token** API 요청시 CustomMethodArgumentResolver @Bean에 의해 Member 객체에 값이 SETTING 됩니다.
@@ -220,11 +221,11 @@ public class MemberController {
 }
 ```
 
-## 테스트 결과
+## 2. 테스트 결과
 API 테스트는 Insomnia Tool을 사용하였습니다. 
 테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-05)
 
-##### 사용자 정보 등록 요청
+### 2.1. 사용자 정보 등록 요청
 
 ```
 > POST /api/member/sign-up HTTP/1.1
@@ -242,7 +243,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 | }
 ```
 
-##### 인증 정보 요청
+### 2.2. 인증 정보 요청
 
 ```
 > POST /oauth/token HTTP/1.1
@@ -257,7 +258,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 | username=junhyunny&password=123&grant_type=password
 ```
 
-##### 인증 토큰 응답
+### 2.3. 인증 토큰 응답
 
 ```json
 {
@@ -272,7 +273,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 }
 ```
 
-##### 사용자 정보 요청(api/member/user-info-using-token)
+### 2.4. 사용자 정보 요청(api/member/user-info-using-token)
 
 ```
 > GET /api/member/user-info-using-token HTTP/1.1
@@ -283,7 +284,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 > Accept: */*
 ```
 
-##### 사용자 정보 응답
+### 2.5. 사용자 정보 응답
 
 ```
 {
@@ -294,12 +295,6 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
   ]
 }
 ```
-
-##### resolveArgments 메소드, 토큰 내 사용자 정보 추출
-<p align="left"><img src="/images/handler-method-argument-resolver-2.JPG"></p>
-
-##### requestUserInfoUsingToken 메소드, 사용자 정보 확인
-<p align="left"><img src="/images/handler-method-argument-resolver-3.JPG"></p>
 
 ## OPINION
 사이드 프로젝트를 진행하면서 회사 가이드가 아닌 방식으로 프레임워크의 기능들을 샅샅히 사용해보며 서버를 구성해나가는데 큰 재미를 느끼고 있습니다. 

@@ -3,7 +3,7 @@ title: "Transaction ACID 특징"
 search: false
 category:
   - information
-last_modified_at: 2021-01-30T09:00:00
+last_modified_at: 2021-08-22T00:30:00
 ---
 
 <br>

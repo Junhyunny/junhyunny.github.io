@@ -9,14 +9,16 @@ last_modified_at: 2021-01-29T09:00:00
 
 <br>
 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link]
+
 사이드 프로젝트를 진행할 때 URL에 사용자ID 같은 정보를 노출시키지 않고 유저 정보를 가져올 수 있는 방법에 대해 고민을 많이 했습니다. 
 @RequestBody에 유저 정보를 담는 방법도 있지만 클라이언트 유저 정보와 동시에 다른 유저 정보를 함께 전달해야되는 경우에는 처리가 곤란했습니다. 
 이를 해결하기 위해 JWT 토큰에 추가적인 클라이언트 정보를 함께 전달할 수 있는 TokenEnhancer 인터페이스의 기능을 이용하기로 하였습니다. 
 
-지난 [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink] 포스트에서 정리한 내용을 기반으로 기능을 확장하여 구현하였습니다. 
-아래 설명되어 있지 않은 클래스나 파일들은 지난 글을 참조하시면 됩니다. 
+## 1. 예제 코드
 
-## 패키지 구조
+### 1.1. 패키지 구조
 
 ```
 .
@@ -57,8 +59,8 @@ last_modified_at: 2021-01-29T09:00:00
                         `-- ActionInBlogApplicationTests.java
 ```
 
-## Config 클래스 구현
-지난 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
+### 1.2. Config 클래스 구현
+[Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link] 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
 이유는 아래 AuthorizationServer 클래스 구현에서 확인하실 수 있습니다. 
 
 ```java
@@ -78,7 +80,8 @@ public class Config {
     }
 }
 ```
-## CustomTokenEnhancer 클래스 구현
+
+### 1.3. CustomTokenEnhancer 클래스 구현
 AuthorizationServer 클래스의 내부 클래스로 구현하여 패키지 구조에는 보이지 않습니다. 
 TokenEnhancer 인터페이스를 구현하였으며 enhance 메소드를 통해 토큰에 정보를 추가합니다. 
 OAuth2Authentication 객체에서 principal에 대한 정보를 추출 후 OAuth2AccessToken 객체에 추가하였습니다. 
@@ -99,7 +102,7 @@ OAuth2Authentication 객체에서 principal에 대한 정보를 추출 후 OAuth
     }
 ```
 
-## AuthorizationServer 클래스 구현
+###  1.4. AuthorizationServer 클래스 구현
 AuthorizationServer 클래스을 통해 CustomTokenEnhancer, JwtAccessTokenConverter를 등록합니다. 
 **CustomTokenEnhancer, JwtAccessTokenConverter 모두 TokenEnhancer를 상속받았기 때문에 둘 모두를 @Bean으로 등록하는 경우 충돌이 발생합니다.** 
 @Bean 충돌을 방지하기 위해 생성자를 통해 객체들을 만들었으며 TokenEnhancerChain에 두 tokenEnhancer 객체를 모두 추가해줬습니다. 
@@ -193,11 +196,11 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 }
 ```
 
-## 테스트 결과
+## 2. 테스트 결과
 API 테스트는 Insomnia Tool을 사용하였습니다.
 테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-04)
 
-##### 유저 정보 등록 요청
+### 2.1. 유저 정보 등록 요청
 
 ```
 > POST /api/member/sign-up HTTP/1.1
@@ -216,7 +219,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 | }
 ```
 
-##### 인증 정보 획득
+### 2.2. 인증 정보 획득
 - 요청은 `Form`을 사용합니다.
 - 인증 방식은 `Basic` 입니다.
     - USERNAME - CLIENT_ID
@@ -234,7 +237,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 | username=junhyunny&password=123&grant_type=password
 ```
 
-##### 인증 토큰 응답
+### 2.3. 인증 토큰 응답
 
 ```json
 {
@@ -249,8 +252,9 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 }
 ```
 
-##### <https://jwt.io/>, Token Decoding 
+### 2.4. Token Decoding 
 <p align="center"><img src="/images/token-enhancer-1.JPG"></p>
+<center>이미지 출처, https://jwt.io/</center><br>
 
 ## OPINION
 이 포스트에선 TokenEnhancer 기능을 이용해 token에 필요한 데이터를 추가하는 것으로 마무리하였습니다. 
@@ -260,6 +264,6 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 - <https://github.com/Junhyunny/blog-in-action>
 
 #### REFERENCE
-- [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]
+- [Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link]
 
-[jwt-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[jwrt-security-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/

@@ -14,7 +14,7 @@ Json Web Token을 활용한 서버 구현 전에 Spring Security 프레임워크
 > Spring Security is a Java/Java EE framework that provides **authentication, authorization** and other security features for enterprise applications.
 > Spring Security in the web tier (for UIs and HTTP back ends) is based on Servlet Filters.
 
-## 보안 관련 용어
+## 1. 보안 관련 용어
 Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 정의해보았습니다.<br>
 - **접근 주체(Principal)**
   - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
@@ -28,7 +28,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 > 한 줄 요약<br>
 > 특정 기능을 수행할 수 있는 권한(Authorization)은 승인이 필요한 부분이므로 접근하기 위해서는 인증(Authentication) 과정이 필요합니다.
 
-## Servlet Filters in Web Security
+## 2. Servlet Filters in Web Security
 웹 계층 (UI 및 HTTP 백엔드 용)의 Spring Security는 서블릿 필터(servlet filter)를 기반으로 구현되어 있습니다.
 때문에 서블릿 필터의 구조에 대해서 먼저 알아보도록 하겠습니다. 
 클라이언트가 서버로 HTTP 요청시 아래와 같은 필터 계층에 의해 처리됩니다.  
@@ -42,7 +42,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 **필터는 downstream 에서 사용되는 요청이나 응답 정보를 수정할 수 있습니다.** 
 **(In the client–server model, downstream can refer to the direction from the server to the client.)**
 
-## Speing Security FilterChainProxy
+## 3. Speing Security FilterChainProxy
 **Spring Security는 하나의 필터로서 FilterChainProxy라는 타입으로 서블릿 필터 체인에 포함됩니다.** 
 컨테이너 입장에서 보면 Spring Security는 1개의 필터이지만 그 내부를 살펴보면 각자 특수한 역할을 수행하는 필터들로 구성되어 있습니다. 
 FilterChainProxy는 필터 체인으로서 내부적으로 배열된 모든 보안 로직(필터)들을 포함하고 있습니다. 
@@ -64,7 +64,7 @@ Spring Security 필터는 모든 필터 체인들의 목록을 포함하고 있�
 <p align="center"><img src="/images/spring-security-4.JPG" width="50%"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
-## Spring Security Authentication Architecture
+## 4. Spring Security Authentication Architecture
 Spring Security가 컨테이너의 서블릿 필터 체인 구조를 활용하여 어떤 식으로 웹 요청에 대한 보안 처리를 하는지 확인해보았습니다. 
 다음은 Spring Security Framework이 사용자 인증을 처리하는 프로세스에 대해서 알아보겠습니다. 
 
@@ -87,6 +87,7 @@ public interface AuthenticationManager {
     Authentication authenticate(Authentication authentication)throws AuthenticationException;
 }
 ```
+
 4\. AuthenticationProvider들로부터 인증 시도
   - AuthenticationManager의 구현체인 ProviderManager는 인증에 사용되는 AuthenticationProvider들을 소유
   - AuthenticationProvider들은 전달받은 authentication object을 활용하여 사용자 인증을 처리
@@ -99,6 +100,7 @@ public interface UserDetailsService {
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }
 ```
+
 6\. UserDetails
   - UserDetailsService은 username 정보를 통해 UserDetails 조회
 

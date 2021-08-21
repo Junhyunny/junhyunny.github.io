@@ -4,14 +4,17 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2021-08-21T09:00:00
+last_modified_at: 2021-08-21T16:00:00
 ---
 
 <br>
 
 ⚠️ 해당 포스트는 2021년 8월 21일에 재작성되었습니다.
 
-지난 포스트에서는 [JWT, Json Web Token][json-link]과 [Spring Security][security-link] 대한 이야기를 해보았습니다.
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [JWT, Json Web Token][json-link]
+- [Spring Security][security-link]
+
 Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 

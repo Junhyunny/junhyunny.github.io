@@ -3,7 +3,7 @@ title: "Micro Service Architecture 배포 전략"
 search: false
 category:
   - msa
-last_modified_at: 2021-01-30T09:00:00
+last_modified_at: 2021-08-21T17:00:00
 ---
 
 <br>
@@ -12,7 +12,7 @@ last_modified_at: 2021-01-30T09:00:00
 롤링 배포 전략 정도만 알고 있었는데 그 이외에도 마이크로 서비스 아키텍처의 장점을 살릴 수 있는 다양한 배포 전략이 존재하는 것에 놀랐습니다. 
 다양한 배포 전략들에 대해 정리해보았습니다. 
 
-## 롤링 배포(rolling deployment)
+## 1. 롤링 배포(rolling deployment)
 
 <p align="center"><img src="/images/msa-release-1.JPG" width="70%"></p>
 <center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
@@ -21,7 +21,7 @@ last_modified_at: 2021-01-30T09:00:00
 구 버전에서 신 버전으로 트래픽을 점진적으로 전환하는 배포입니다. 
 배포 중에 인스턴스 수가 감소되므로 서버 처리 용량을 미리 고려해야 합니다.
 
-## 카나리 배포(Canary deployment)
+## 2. 카나리 배포(Canary deployment)
 
 > 과거 석탄 광산에서 유독가스를 미리 감지하고자 카나리아 새를 날려 보냈던 것에서 유래
 
@@ -34,12 +34,12 @@ last_modified_at: 2021-01-30T09:00:00
 트래픽 라우팅을 통해 신규 서비스를 검증할 수 있습니다. 
 트래픽 분산은 랜덤하게 하거나 사용자로 분류할 수 있습니다. 
 
-## A/B 테스팅(A/B testing)
+## 3. A/B 테스팅(A/B testing)
 A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있습니다. 
 카나리 배포는 버그와 병목 현상 식별에 초점을 맞춘다면, A/B 테스팅은 신규 어플리케이션 기능에 관한 사용자 반응을 측정하는데 초점을 맞춥니다. 
 해당 기능에 대한 사용자 호응, 주목도, 작동 여부 등을 확인할 수 있습니다. 
 
-## 블루-그린 배포(Blue-green deployments)
+## 4. 블루-그린 배포(Blue-green deployments)
 
 <p align="center"><img src="/images/msa-release-3.JPG" width="100%"></p>
 <center>이미지 출처, https://reference-m1.tistory.com/211</center><br>
@@ -49,7 +49,7 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 빠른 롤백이 가능하고, 운영 환경에 영향을 주지 않고 실제 서비스 환경으로 신 버전 테스트가 가능합니다. 
 이 구성은 시스템 자원이 두배로 필요하여 비용이 더 많이 발생합니다. 
 
-## 트래픽 섀도잉(Traffic shadowing)
+## 4. 트래픽 섀도잉(Traffic shadowing)
 트래픽 섀도잉은 블루-그린 배포와 비슷하지만 그린 환경 검증을 위한 종합적인 테스트에 집중하진 않습니다. 
 대신 라우팅을 통해 들어오는 모든 트래픽을 복제하여 아직 공개되지 않은 별도 테스트 배포로 미러링한다는 점에서 차이점이 있습니다. 
 트래픽 섀도잉을 통해 실제 트래픽을 기준으로 새 버전을 배포했을 때 무슨 일이 발생하는지 정확하기 파악할 수 있습니다. 

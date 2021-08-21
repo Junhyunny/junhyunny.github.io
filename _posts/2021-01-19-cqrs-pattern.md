@@ -18,7 +18,7 @@ last_modified_at: 2021-01-30T09:00:00
 ## 기존 시스템 아키텍처 패턴의 문제점
 
 ### 기존 아키텍처 패턴
-<p align="center"><img src="/images/cqrs-pattern-1.JPG"></p>
+<!-- <p align="center"><img src="/images/cqrs-pattern-1.JPG"></p> -->
 <center>이미지 출처, https://martinfowler.com/bliki/CQRS.html</center><br>
 
 기존 시스템에서 사용하는 아키택처 패턴은 다음과 같은 문제점들을 가지고 있습니다.
@@ -30,7 +30,7 @@ last_modified_at: 2021-01-30T09:00:00
 ## CQRS 패턴의 이점/약점
 
 ### CQRS 아키택처 패턴
-<p align="center"><img src="/images/cqrs-pattern-2.JPG"></p>
+<!-- <p align="center"><img src="/images/cqrs-pattern-2.JPG"></p> -->
 <center>이미지 출처, https://martinfowler.com/bliki/CQRS.html</center><br>
 
 이를 해결하기 위한 방법으로 CUD 기능과 R 기능을 분할한 CQRS 패턴 고안되었습니다. 

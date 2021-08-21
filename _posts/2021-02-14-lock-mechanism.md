@@ -3,7 +3,7 @@ title: "Lock Mechanism"
 search: false
 category:
   - information
-last_modified_at: 2021-02-14T09:00:00
+last_modified_at: 2021-08-22T02:30:00
 ---
 
 <br>
@@ -16,7 +16,7 @@ last_modified_at: 2021-02-14T09:00:00
 어플리케이션은 동시에 수행되는 트랜잭션들을 일관되도록 처리하기 위해 **`DATA LOCK`**을 사용합니다. 
 어플리케이션에서 DATA LOCK을 위한 방법으로 무엇을 사용하는지, 방법에 따라 어떤 부분들이 다른지 알아보도록 하겠습니다. 
 
-## Optimistic Lock (낙관적인 잠금)
+## 1. Optimistic Lock (낙관적인 잠금)
 
 > 트랜잭션 충돌이 발생하지 않는다고 가정한 낙관적인 LOCK
 
@@ -24,7 +24,7 @@ last_modified_at: 2021-02-14T09:00:00
 실제 업데이트시 트랜잭션 충돌을 감지하면 Excpeiton을 발생시켜 해당 트랜잭션을 실패시킵니다. 
 트랜잭션을 재시도를 할지 종료시킬지는 비즈니스적으로 결정합니다. 
 
-### Optimistic Lock 시나리오
+### 1.1. Optimistic Lock 시나리오
 트랜잭션 충돌에 대한 감지는 조회한 데이터의 VERSION 값을 통해 이루어집니다. 
 아래와 같은 시나리오를 통해 트랜잭션 충돌 여부를 감지합니다. 
 1. 데이터를 조회할 때 해당 시점의 VERSION 값이 함께 조회됩니다.
@@ -35,7 +35,7 @@ last_modified_at: 2021-02-14T09:00:00
 
 <p align="center"><img src="/images/application-lock-mechanism-1.JPG" width="750"></p>
 
-## Pessimistic Lock (비관적인 잠금)
+## 2. Pessimistic Lock (비관적인 잠금)
 
 > 트랜잭션 충돌을 예상하고 미리 데이터에 대한 LOCK을 점유하는 비관적인 LOCK
 
@@ -43,7 +43,7 @@ last_modified_at: 2021-02-14T09:00:00
 예를 들어 어플리케이션은 데이터를 조회할 때 `SELECT - FOR UPDATE` 쿼리를 수행하여 조회와 동시에 데이터 LOCK을 시도할 수 있습니다. 
 이 Locking 방법은 특정 트랜잭션이 데이터에 대한 LOCK을 선점하기 때문에 다른 트랜잭션들의 지연(WAIT)을 유발할 수 있습니다.
 
-### Pessimistic Lock 시나리오
+### 2.1. Pessimistic Lock 시나리오
 어플리케이션은 아래와 같은 시나리오를 통해 Pessimistic Lock을 수행합니다.
 1. 데이터 조회시 `SELECT - FOR UPDATE` 쿼리를 수행하여 조회와 동시에 데이터 LOCK
 1. 다른 트랜잭션들은 잠금된 데이터에 대해 업데이트 수행시 LOCK을 선점한 특정 트랜잭션 종료 시점까지 대기

@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-08-18T09:00:00
+last_modified_at: 2021-08-22T01:00:00
 ---
 
 <br>
@@ -17,7 +17,7 @@ JPA는 EntityManager를 통해 엔티티(Entity)를 관리합니다.
 ORM(Object-Relation Mapping) 개념상 @Id 필드는 데이터베이스의 PK를 의미하므로 @Id 값이 다른 경우에는 다른 데이터임을 보장합니다. 
 EntityManager가 엔티티를 어떤 방식으로 구분짓는지 알았으니 어떤 방법으로 관리하는지 알아보도록 하겠습니다.
 
-## 영속성 컨텍스트(Persistence Context)
+## 1. 영속성 컨텍스트(Persistence Context)
 
 > 엔티티(Entity)를 영구히 저장하는 환경
 
@@ -26,11 +26,11 @@ EntityManager가 엔티티를 어떤 방식으로 구분짓는지 알았으니 �
 당연히 엔티티 객체를 영속성 컨텍스트에서 제거하는 방법도 존재합니다. 
 JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자세히 알아보도록 하겠습니다. 
 
-### Entity Lifecycle
+## 2. Entity Lifecycle
 
 새로운 기술을 공부할때마다 접하는 라이프사이클(lifecycle)에 대한 개념은 언제나 흥미롭습니다. 
 
-##### Entity Lifecycle 흐름
+### 2.1. Entity Lifecycle 흐름
 <p align="center"><img src="/images/jpa-persistence-context-1.JPG" width="60%"></p>
 <center>이미지 출처, https://gunlog.dev/JPA-Persistence-Context/</center><br>
 
@@ -91,11 +91,9 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
     entityManager.remove(member);
 ```
 
-## 테스트
+## 3. 테스트 코드
 
-테스트는 간단하게 JUnit을 이용하여 진행하였습니다.
-
-### 패키지 구조
+### 3.1. 패키지 구조
 
 ```
 ./
@@ -132,7 +130,8 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
                                 `-- RemoveTest.java
 ```
 
-### application.yml
+### 3.2. application.yml
+
 ```yml
 server:
   port: 8081
@@ -149,7 +148,8 @@ spring:
       ddl-auto: update
 ```
 
-### pom.xml
+### 3.3. pom.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -219,7 +219,7 @@ spring:
 </project>
 ```
 
-### persist 테스트
+### 3.4. persist 테스트
 
 해당 테스트는 두 번 수행합니다. 
 처음 실행할 때와 두 번쨰 실행할 때 결과가 다릅니다. 
@@ -286,7 +286,7 @@ public class PersistTest {
 }
 ```
 
-#### 1차 수행
+#### 3.4.1. 1차 수행
 - em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
 - 데이터가 존재하지 않으므로 em.find() 메소드 수행 시 member 객체는 null 입니다.
 - 새로운 객체를 생성합니다.(new/transient)
@@ -308,7 +308,7 @@ Hibernate: insert into tb_member (authorities, member_email, member_name, passwo
 
 <p align="left"><img src="/images/jpa-persistence-context-2.JPG"></p>
 
-#### 2차 수행
+#### 3.4.2. 2차 수행
 - em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
 - 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행 시 member 객체가 반환됩니다.(managed)
 - member 객체의 값을 변경합니다.
@@ -329,7 +329,7 @@ Hibernate: update tb_member set authorities=?, member_email=?, member_name=?, pa
 
 <p align="left"><img src="/images/jpa-persistence-context-3.JPG"></p>
 
-### detach 테스트
+### 3.5. detach 테스트
 
 `persist 테스트`에서 영속성 컨텍스트에 저장된 객체의 값을 변경하면 데이터가 업데이트 되는 것을 확인하였습니다. 
 이번 테스트에서는 영속성 컨텍스트에 저장된 객체를 detach 메소드를 통해 영속성 컨텍스트에서 분리하면 어떤 동작을 하는지 정리하겠습니다. 
@@ -489,7 +489,7 @@ Hibernate: select member_.id, member_.authorities as authorit2_0_, member_.membe
 
 <p align="left"><img src="/images/jpa-persistence-context-5.JPG"></p>
 
-### remove 테스트 코드
+### 3.6. remove 테스트 코드
 
 이번 테스트에서는 영속성 컨텍스트에 저장된 엔티티를 remove 메소드를 통해 제거할 시 실제 데이터도 삭제가 되는지 확인해보았습니다.
 

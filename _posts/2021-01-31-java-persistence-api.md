@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - jpa
-last_modified_at: 2021-01-31T09:00:00
+last_modified_at: 2021-08-22T01:00:00
 ---
 
 <br>
@@ -19,14 +19,14 @@ JPA에 대한 글 작성 전에 우선 JPA에 대한 정의를 찾아보았습�
 정의를 적어두고 보니 JPA 기술과 항상 붙어다니는 용어들이 하나같이 익숙하지 않습니다. 
 우선 용어에 대해 정리해보도록 하겠습니다. 
 
-## 영속성(Persistence)
+## 1. 영속성(Persistence)
 **'특정 데이터를 생성한 프로그램이 종료되더라도 해당 데이터는 사라지지 않는다.'**는 데이터 특성을 의미합니다. 
 영속성을 지니지 못한 데이터는 메모리에만 존재하기 때문에 프로그램이 종료되면 그 즉시 소멸됩니다. 
 반대로 영속성을 지닌 데이터는 어플리케이션이 종료되더라도 삭제되지 않고 남아있습니다. 
 
 **파일 시스템, 데이터베이스 등을 통해 데이터를 영구적으로 저장하는 행위는 `'데이터에 영속성을 부여한다.'` 라고 표현할 수 있습니다.** 
 
-### 영속성 계층(Persistence Layer)
+### 1.1. 영속성 계층(Persistence Layer)
 어플리케이션에서 데이터에 영속성을 부여해주는 계층을 의미합니다. 
 조금 더 풀어 설명하면 데이터베이스에 데이터를 저장할 수 있는 프로그램 영역을 의미합니다. 
 개발자는 Persistence 프레임워크를 사용하여 보다 쉽게 데이터에 영속성을 부여할 수 있습니다. 
@@ -35,7 +35,7 @@ Persistence 프레임워크는 MyBatis 같은 `SQL Mapper`나 Hibernate 같은 `
 ##### 어플리케이션 계층 구조
 <p align="center"><img src="/images/java-persistence-api-1.JPG" width="45%"></p>
 
-## ORM(Object-Relation Mapping)
+## 2. ORM(Object-Relation Mapping)
 
 > 어플리케이션의 객체와 관계형 데이터베이스의 테이블을 자동으로 연결하는 행위
 
@@ -46,20 +46,20 @@ ORM 프레임워크는 객체 간의 관계를 바탕으로 SQL을 자동으로 
 ##### Object-Relation Mapping을 통한 객체, 테이블 연결
 <p align="center"><img src="/images/java-persistence-api-2.JPG" width="70%"></p>
 
-### Object-Relation Mapping 장점
+### 2.1. Object-Relation Mapping 장점
 Object-Relation Mapping을 사용하는 경우 다음과 같은 장점이 있습니다.
 - 객체 지향적 코드로 더 직관적인 프로그래밍이 가능합니다.
 - 재사용 및 유지보수, 리팩토링의 편리성이 증가합니다.
 - DBMS에 대한 종속성이 줄어듭니다.
 - 프로그램 개발에 집중할 수 있습니다.
 
-### Object-Relation Mapping 단점
+### 2.2. Object-Relation Mapping 단점
 Object-Relation Mapping을 사용하는 경우 다음과 같은 단점이 있습니다.
 - 모든 비즈니스를 Object-Relation Mapping만으로 완벽하게 구현하기 힘듭니다.
 - 클래스, 애너테이션 등을 이용하여 테이블 설계를 해야하기 때문에 다소 러닝 커브가 존재합니다.
 - 잘못된 엔티티 설계는 성능에 직접적인 영향을 미칩니다.
 
-## 그래서 JPA(Java Persistence API)란?
+## 3. 그래서 JPA(Java Persistence API)란?
 JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어들을 정리해보았습니다. 
 이 포스트가 JPA를 설명하는 글인지 혼동이 오기 시작합니다. 
 여기에서 다시 위에 작성한 내용들을 바탕으로 JPA가 무엇인지 정리하고 글을 이어가겠습니다.
@@ -69,7 +69,7 @@ JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어�
   - Hibernate는 Persistence 프레임워크이며, Persistence란 데이터를 영구히 저장한다는 특징을 의미합니다.
   - **객체 지향적인 프로그래밍을 통해 데이터를 영구적으로 보관, 관리할 수 있도록 만드는 Java 인터페이스 모음**
 
-## Spring Data Jpa<br>
+### 3.1. Spring Data Jpa<br>
 
 **<br>JPA, Hibernate까지 알겠는데 Spring Data Jpa는 뭐지?**
 **Spring Data Jpa는 JPA를 사용하기 편하게 만들어 놓은 모듈입니다.** 
@@ -81,6 +81,7 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 셋의 관계를 직관적으로 이해할 수 있도록 돕는 이미지를 [정다혜님 블로그][Dahye Jeong BlogLink]에서 가져왔습니다.
 
 ##### JPA / Hibernate / Spring Data Jpa 구조도
+
 <p align="center"><img src="/images/java-persistence-api-3.JPG" width="45%"></p>
 <center>이미지 출처, https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center><br>
 

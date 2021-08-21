@@ -253,7 +253,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 ```
 
 ### 2.4. Token Decoding 
-<p align="center"><img src="/images/token-enhancer-1.JPG"></p>
+<p align="center"><img src="/images/token-enhancer-1.JPG" width="75%"></p>
 <center>이미지 출처, https://jwt.io/</center><br>
 
 ## OPINION

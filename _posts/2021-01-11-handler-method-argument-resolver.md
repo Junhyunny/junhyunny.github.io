@@ -8,7 +8,9 @@ last_modified_at: 2021-08-21T17:00:00
 
 <br>
 
-HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용하여 토큰에서 필요한 정보를 쉽게 추출하는 방법에 대해서 알아보도록 하겠습니다.
+HandlerMethodArgumentResolver 인터페이스와 커스텀 애너테이션을 이용해 아래와 기능을 수행하는 예제 코드입니다.
+- 토큰에서 필요한 정보를 추출
+- 커스텀 애너테이션이 붙은 클래스에 추출한 값 지정
 
 ## 1. 예제 코드
 
@@ -222,7 +224,6 @@ public class MemberController {
 ```
 
 ## 2. 테스트 결과
-API 테스트는 Insomnia Tool을 사용하였습니다. 
 테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-05)
 
 ### 2.1. 사용자 정보 등록 요청
@@ -286,7 +287,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 
 ### 2.5. 사용자 정보 응답
 
-```
+```json
 {
   "id": "junhyunny",
   "password": "$2a$10$i8z0rp0kCko7OMZIqGvrled7ARlWbMW8hFXrPMkmHVbG66Cxwtey6",
@@ -297,7 +298,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 ```
 
 ## OPINION
-사이드 프로젝트를 진행하면서 회사 가이드가 아닌 방식으로 프레임워크의 기능들을 샅샅히 사용해보며 서버를 구성해나가는데 큰 재미를 느끼고 있습니다. 
+사이드 프로젝트를 통해 사용해보지 못한 프레임워크의 기능들을 구현해나가면서 큰 재미를 느끼고 있습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action>

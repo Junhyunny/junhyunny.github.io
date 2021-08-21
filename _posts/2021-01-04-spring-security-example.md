@@ -15,10 +15,9 @@ last_modified_at: 2021-08-21T16:00:00
 - [JWT, Json Web Token][json-link]
 - [Spring Security][security-link]
 
-Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
-간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
-
 ## 1. 예제 코드
+Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
+간단한 구현을 위해 H2 데이터베이스를 사용하였습니다. 
 보통 Security Service는 별도의 서비스로 구현되지만 예제 구현의 편의를 위해 하나의 서비스로 구현하였습니다. 
 
 ### 1.1. 패키지 구조

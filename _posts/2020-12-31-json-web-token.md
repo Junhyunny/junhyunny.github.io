@@ -13,11 +13,12 @@ last_modified_at: 2021-04-01T09:00:00
 Json 객체를 사용하여 가볍고 자가 수용적인 방식으로 정보를 안정성 있게 주고 받는 방법입니다. 
 C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에서 지원됩니다. 
 
-## 클레임(Claim) 기반이란?
+## 1. 클레임(Claim) 기반이란?
 우선 `클레임 기반`에 대한 정의를 알아보도록 하겠습니다. 
 주로 의미없는 문자열을 전달하는 일반 string 토큰과 달리 **클레임 기반 토큰은 내부에 사용자 정보나 데이터 속성 등을 담고 있습니다.** 
 
-#### 일반 string 토큰 인증 방식
+### 1.1. 일반 string 토큰 인증 방식
+
 <p align="center"><img src="/images/json-web-token-1.JPG" width="80%"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
@@ -27,7 +28,8 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
   1. 클라이언트는 토큰과 함께 resource server에 api 요청
   1. 토큰을 이용한 사용자 정보 확인 후 응답 (권한 등)<br>
 
-#### 클레임 기반 토큰 인증 방식
+### 1.2. 클레임 기반 토큰 인증 방식
+
 <p align="center"><img src="/images/json-web-token-2.JPG" width="50%"></p>
 
   1. 클라이언트가 authorization server에 토큰 요청
@@ -41,12 +43,12 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
 이러한 인증 방식의 차이로 클레임 기반의 경우 토큰을 생성하는 단계에서 토큰을 별도로 서버에 유지할 필요가 없어졌습니다. 
 API 서버는 API 요청을 검증하기 위해 토큰을 이용하여 사용자 정보를 별도로 조회할 필요가 없어졌습니다. 
 
-## Json Web Token 구조
+## 2. Json Web Token 구조
 Header, Payload, Signature 3개의 정보를 담고 있습니다. 각 정보에 대해 자세히 알아보도록 하겠습니다.
 
 <p align="center"><img src="/images/json-web-token-3.JPG" width="50%"></p>
 
-### Header 정보
+### 2.1. Header 정보
 토큰 유형이나 해시 알고리즘이 무엇인지 등의 정보가 담깁니다. 
 Base64URL 방식으로 인코딩되어 있습니다. 
 "typ", "alg" 두가지 정보를 가집니다. 
@@ -59,7 +61,7 @@ Base64URL 방식으로 인코딩되어 있습니다.
 }
 ```
 
-### Payload 정보
+### 2.2. Payload 정보
 Header 정보와 마찬가지로 Base64URL 방식으로 인코딩되어 있습니다. 
 담는 정보의 한 조각을 클레임(claim)이라 부르며 name-value 쌍으로 이루어져 있습니다. 
 클레임의 종류는 크게 **등록된 클레임(registered claim), 공개된 클레임(public claim), 비공개 클레임(private claim)**으로 분류됩니다. 
@@ -97,9 +99,10 @@ Header 정보와 마찬가지로 Base64URL 방식으로 인코딩되어 있습�
 }
 ```
 
-### Signature 정보
+### 2.3. Signature 정보
 Header 정보와 Payload 정보의 데이터 무결성과 변조 방지를 위한 서명을 의미합니다. 
 서명은 Header 정보의 인코딩 값과 Payload 정보의 인코딩 값을 합친 후 비밀 키로 해싱(hashing)하여 생성한 값입니다. 
+
 ```java
 HMACSHA256(
     base64UrlEncode(header) + "." +
@@ -107,8 +110,7 @@ HMACSHA256(
     secret)
 ```
 
-<br>
-<https://jwt.io/> 사이트에서 Header, Payload, Signature 정보를 추가하여 JWT를 생성해보았습니다. 
+<br><https://jwt.io/> 사이트에서 Header, Payload, Signature 정보를 추가하여 JWT를 생성해보았습니다. 
 
 <p align="center"><img src="/images/json-web-token-4.JPG"></p>
 

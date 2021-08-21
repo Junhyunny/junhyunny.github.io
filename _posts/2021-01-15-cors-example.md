@@ -4,17 +4,21 @@ search: false
 category:
   - spring-boot
   - vue.js
-last_modified_at: 2021-07-07T12:00:00
+last_modified_at: 2021-08-21T23:50:00
 ---
 
 <br>
 
 ⚠️ 해당 포스트는 2021년 7월 7일에 재작성되었습니다.(spring-security dependency로 인한 설명 오류)
 
-Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 통해 CORS에 대한 테스트를 진행해보겠습니다. 
-CORS(Cross Origin Resource Sharing) 개념은 [CORS(Cross Origin Resource Sharing)][cors-blogLink] 포스트를 통해 확인해보시길 바랍니다.
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [CORS(Cross Origin Resource Sharing)][cors-link] 
 
-## front-end 프로젝트 패키지 구조
+## 1. 예제 코드
+
+Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 통해 CORS에 대한 테스트를 진행해보겠습니다. 
+
+### 1.1. front-end 프로젝트 패키지 구조
 
 ```
 .
@@ -34,7 +38,7 @@ CORS(Cross Origin Resource Sharing) 개념은 [CORS(Cross Origin Resource Sharin
     `-- main.js
 ```
 
-## CorsReuqest.vue
+### 1.2. CorsReuqest.vue
 2가지 API PATH를 통해 테스트를 진행하였습니다. 
 각 버튼에 자신이 요청하는 프로토콜, 호스트, 포트, 경로에 대한 정보가 적혀있습니다. 
 버튼 아래 응답에 대한 정보를 출력합니다.
@@ -83,7 +87,7 @@ export default {
 </script>
 ```
 
-## back-end 프로젝트 패키지 구조
+### 1.3. back-end 프로젝트 패키지 구조
 
 ```
 .
@@ -110,7 +114,7 @@ export default {
                         `-- ActionInBlogApplicationTests.java
 ```
 
-## application.yml
+### 1.4. application.yml
 포트 정보를 추가하였습니다.
 
 ```yml
@@ -118,7 +122,7 @@ server:
   port: 8081
 ```
 
-## CorsController 클래스 구현
+### 1.5. CorsController 클래스 구현
 2개의 API PATH를 만들었습니다.
 - **/api/cors/health** 경로는 일반 GET 요청
 - **/api/cors/health-cors-annotaion** 경로는 GET 요청에 @CrossOrigin 애너테이션을 추가
@@ -148,7 +152,7 @@ public class CorsController {
 }
 ```
 
-## Spring-Boot CORS 동작 원리
+### 1.6. Spring-Boot CORS 동작 원리
 테스트 전에 Spring-Boot CORS 동작 원리에 대해 알아보도록 하겠습니다. 
 크게 3개의 과정으로 정리하였습니다.
 
@@ -156,7 +160,7 @@ public class CorsController {
 1. CORS Interceptor 추가
 1. Interceptor 수행
 
-### CorsConfiguration 생성 과정
+#### 1.6.1. CorsConfiguration 생성 과정
 1. Controller 객체의 API EndPoint 단위로 Handler 객체 생성
 1. 각 Handler 별로 mappingRegistry SETTING 시 @CrossOrigin 애너테이션이 붙었는지 확인
 1. CORS 처리가 필요한 경우 AbstractHandlerMethodMapping 클래스의 MappingRegistry 객체에 CorsConfiguration 객체 SETTING
@@ -234,7 +238,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 }
 ```
 
-### CORS 인터셉터 SETTING
+#### 1.6.2. CORS 인터셉터 SETTING
 1. AbstractHandlerMapping 클래스가 요청에 대한 Handler를 매칭시키는 시점에 CORS 적용 여부 확인
 1. 서버 부팅 시 생성된 CorsConfiguration 객체가 존재하는지 확인 후 유효성 확인
 1. CORS 적용을 위한 Handler Interceptor 추가
@@ -289,7 +293,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 }
 ```
 
-### Handler 별 Interceptor List 수행
+#### 1.6.3. Handler 별 Interceptor List 수행
 1. interceptorList에 담겨있는 각 Interceptor 별 기능 수행(preHandle 메소드)
 
 ```java
@@ -310,13 +314,14 @@ public class HandlerExecutionChain {
 }
 ```
 
-## 테스트 수행 결과
-##### CORS 에러 응답
+## 2. 테스트 수행 결과
+
+### 2.1. CORS 에러 응답
 - `/api/cors/health` 경로로 요청
 
 <p align="center"><img src="/images/cors-example-1.JPG"></p>
 
-##### 정상 응답
+### 2.2. 정상 응답
 - `/api/cors/health-cors-annotaion` 경로로 요청
 
 <p align="center"><img src="/images/cors-example-2.JPG"></p>
@@ -337,5 +342,5 @@ public class HandlerExecutionChain {
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
 
-[cors-blogLink]: https://junhyunny.github.io/information/cors/
+[cors-link]: https://junhyunny.github.io/information/cors/
 [resolver-blogLink]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/

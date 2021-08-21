@@ -4,16 +4,21 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2021-04-01T09:00:00
+last_modified_at: 2021-08-21T09:00:00
 ---
 
 <br>
+
+⚠️ 해당 포스트는 2021년 8월 21일에 재작성되었습니다.
 
 지난 포스트에서는 [JWT, Json Web Token][json-link]과 [Spring Security][security-link] 대한 이야기를 해보았습니다.
 Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다.
 
-## 패키지 구조
+## 1. 예제 코드
+보통 Security Service는 별도의 서비스로 구현되지만 예제 구현의 편의를 위해 하나의 서비스로 구현하였습니다. 
+
+### 1.1. 패키지 구조
 
 ```
 |-- action-in-blog.iml
@@ -53,7 +58,8 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
                         `-- ActionInBlogApplicationTests.java
 ```
 
-## application.yml
+### 1.2. application.yml
+- H2 데이터베이스와 관련된 
 
 ```yml
 spring:
@@ -68,7 +74,7 @@ spring:
     password: 123
 ```
 
-## pom.xml
+### 1.3. pom.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -162,7 +168,7 @@ spring:
 </project>
 ```
 
-## MemberController 클래스 구현
+### 1.4. MemberController 클래스 구현
 유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
 아래 ResourceServer 클래스를 이용해 자원에 대한 요청 접근을 제어합니다. 
 - **/api/member/sign-up** path는 인증 정보 없이 요청이 가능
@@ -204,7 +210,7 @@ public class MemberController {
 }
 ```
 
-## Config 클래스 구현
+### 1.5. Config 클래스 구현
 인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
 JwtAccessTokenConverter @Bean에 등록되는 `signingKey`는 암호화 복호화에 필요한 키 용도로 사용됩니다.
 
@@ -239,7 +245,7 @@ public class Config {
 }
 ```
 
-## AuthorizationServer 클래스 구현
+### 1.6. AuthorizationServer 클래스 구현
 인증에 필요한 설정이 가능한 `@Configuration` 입니다. 
 자세한 내용은 [API 문서][authentication-link]에서 확인하시길 바랍니다. 
 
@@ -306,7 +312,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 }
 ```
 
-## ResourceServer 클래스 구현
+### 1.7. ResourceServer 클래스 구현
 자원에 대한 접근을 제어, 관리하는 `@Configuration` 입니다. 
 자세한 내용은 [API 문서][resource-link]에서 확인하시길 바랍니다. 
 
@@ -339,7 +345,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 }
 ```
 
-## SecurityConfig 클래스 구현
+### 1.8. SecurityConfig 클래스 구현
 
 ```java
 package blog.in.action.security;
@@ -374,7 +380,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-## MemberService 클래스, UserDetailsService 인터페이스 구현
+### 1.9. MemberService 클래스, UserDetailsService 인터페이스 구현
 인증(Authentication)에서 AuthenticationProvider들에 의해 사용되는 UserDetailsService 인터페이스를 구현한 클래스입니다. 
 Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 UserDetails 구현체를 반환합니다.
 
@@ -445,11 +451,11 @@ public class MemberService implements UserDetailsService {
 }
 ```
   
-## 테스트 결과
+## 2. 테스트 결과
 API 테스트는 Insomnia Tool을 사용하였습니다. 
 테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-02)
 
-##### 유저 정보 등록 요청
+### 2.1. 유저 정보 등록 요청
 
 ```
 > POST /api/member/sign-up HTTP/1.1
@@ -468,7 +474,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 | }
 ```
 
-##### 인증 토큰 획득 요청
+### 2.2. 인증 토큰 획득 요청
 - 요청은 `Form`을 사용합니다.
 - 인증 방식은 `Basic` 입니다.
     - USERNAME - CLIENT_ID
@@ -486,7 +492,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 | username=junhyunny&password=123&grant_type=password
 ```
 
-##### 인증 토큰 응답
+### 2.3. 인증 토큰 응답
 
 ```json
 {
@@ -499,7 +505,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 }
 ```
 
-##### 인증 토큰을 사용한 사용자 정보 요청
+### 2.4. 인증 토큰을 사용한 사용자 정보 요청
 - 응답 받은 인증 토큰을 사용합니다.
 - 헤더 정보에 `Authorization` 키로 접두어 `bearar` 를 추가한 토큰을 함께 전달합니다.
 - 요청 파라미터로 id 값을 전달합니다.
@@ -512,7 +518,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 > Accept: */*
 ```
 
-##### 사용자 정보 응답
+### 2.5. 사용자 정보 응답
 
 ```json
 {

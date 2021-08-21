@@ -222,7 +222,7 @@ spring:
 ### 3.4. persist 테스트
 
 해당 테스트는 두 번 수행합니다. 
-처음 실행할 때와 두 번쨰 실행할 때 결과가 다릅니다. 
+처음 실행 결과와 두번째 실행한 결과가 다릅니다. 
 
 ```java
 package blog.in.action.lifecycle;

@@ -3,19 +3,20 @@ title: "Spring Security"
 search: false
 category:
   - spring-security
-last_modified_at: 2021-04-01T09:00:00
+last_modified_at: 2021-08-21T16:00:00
 ---
 
 <br>
 
-지난 포스트에서는 [Json Web Token][blogLink]에 대한 이야기를 해보았습니다. 
-Json Web Token을 활용한 서버 구현 전에 Spring Security 프레임워크에 대해 알아보았습니다. 
+이번 포스트에서는 Spring Security 프레임워크에 대해 알아보았습니다. 
 
 > Spring Security is a Java/Java EE framework that provides **authentication, authorization** and other security features for enterprise applications.
 > Spring Security in the web tier (for UIs and HTTP back ends) is based on Servlet Filters.
 
 ## 1. 보안 관련 용어
-Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 정의해보았습니다.<br>
+
+Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 정의해보았습니다.
+
 - **접근 주체(Principal)**
   - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
 - **인증(Authentication)**

@@ -69,7 +69,7 @@ EventStore는 RDBMS, NoSql, FileSystem 등 어떤 것을 사용해도 문제가 
 발생한 순서대로 저장된 이벤트들을 Query Side로 전달(projection)하여 READ를 위한 데이터를 만들어 저장합니다.
 
 <p align="center"><img src="/images/cqrs-pattern-3.JPG"></p>
-<center>이미지 출처, https://github.com/jaceshim/springcamp2017/blob/master/springcamp2017_implementing_es_cqrs.pdf</center><br>
+<center>이미지 출처, Spring Camp 2017 - CQRS 패턴</center><br>
 
 ## OPINION
 이 글에서 CQRS 패턴과 항상 같이 언급되는 이벤트 소싱에 대한 내용도 함께 정리해보았습니다. 
@@ -82,4 +82,6 @@ EventStore는 RDBMS, NoSql, FileSystem 등 어떤 것을 사용해도 문제가 
 - <https://docs.microsoft.com/ko-kr/azure/architecture/patterns/cqrs>
 - <https://www.popit.kr/cqrs-eventsourcing/>
 - <https://engineering-skcc.github.io/microservice%20outer%20achitecture/inner-architecture-cqrs/>
-- <https://github.com/jaceshim/springcamp2017/blob/master/springcamp2017_implementing_es_cqrs.pdf>
+- [Spring Camp 2017 - CQRS 패턴][cqrs-pattern-link]
+
+[cqrs-pattern-link]: https://github.com/jaceshim/springcamp2017/blob/master/springcamp2017_implementing_es_cqrs.pdf

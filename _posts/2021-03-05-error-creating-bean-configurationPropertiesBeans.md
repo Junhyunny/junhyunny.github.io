@@ -13,7 +13,7 @@ last_modified_at: 2021-08-22T20:30:00
 [Spring Cloud Openfeign][openfeign-blogLink] 포스트를 작성하던 중에 발생한 에러입니다. 
 간단한 테스트 코드를 작성한 후에 maven install 골(goal)을 실행했더니 테스트 단계(test phase)에서 발생되지 않던 Exception이 발생하였습니다. 
 
-## 1. 현상과 에러 회피
+## 1. 에러 현상과 회피 과정
 
 ### 1.1. 발생한 에러와 테스트 코드 실패 관련 로그
 

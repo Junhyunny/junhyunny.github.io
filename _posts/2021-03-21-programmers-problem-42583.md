@@ -10,10 +10,10 @@ last_modified_at: 2021-03-21T09:00:00
 
 <br>
 
-## 문제 Link
+## 1. 문제 Link
 - <https://programmers.co.kr/learn/courses/30/lessons/42583>
 
-## 문제 설명
+## 2. 문제 설명
 트럭 여러 대가 강을 가로지르는 일 차선 다리를 정해진 순으로 건너려 합니다. 
 모든 트럭이 다리를 건너려면 최소 몇 초가 걸리는지 알아내야 합니다. 
 트럭은 1초에 1만큼 움직이며, 다리 길이는 bridge_length이고 다리는 무게 weight까지 견딥니다. 
@@ -37,13 +37,13 @@ last_modified_at: 2021-03-21T09:00:00
 solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜 수 있는 무게 weight, 트럭별 무게 truck_weights가 주어집니다. 
 이때 모든 트럭이 다리를 건너려면 최소 몇 초가 걸리는지 return 하도록 solution 함수를 완성하세요. 
 
-## 제한 사항
+## 3. 제한 사항
 - bridge_length는 1 이상 10,000 이하입니다.
 - weight는 1 이상 10,000 이하입니다.
 - truck_weights의 길이는 1 이상 10,000 이하입니다.
 - 모든 트럭의 무게는 1 이상 weight 이하입니다.
 
-## 입출력 예
+## 4. 입출력 예
 
 | bridge_length | weight | truck_weights | return |
 |---|---|---|---|
@@ -51,8 +51,8 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
 | 100 | 100 | [10] | 101 |
 | 100 | 100 | [10,10,10,10,10,10,10,10,10,10] | 110 |
 
-## 코드 해설
-##### solution 메소드
+## 5. 코드 해설
+### 5.1. solution 메소드
 - 문제의 주요 흐름을 진행합니다.
 - checkAllTrucksPassed 메소드를 통해 모든 차량이 통과하였는지 확인합니다.
 - 모든 차량이 통과하지 못했다면 시간을 증가시키면서 아래 반복문을 지속적으로 수행합니다.
@@ -91,7 +91,7 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
     }
 ```
 
-##### checkAllTrucksPassed 메소드
+### 5.2. checkAllTrucksPassed 메소드
 - 모든 차량이 이동 완료했는지 확인합니다.
 - 이동 완료한 차량은 -1 값을 가집니다.
 
@@ -107,7 +107,7 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
     }
 ```
 
-##### getCandidateTruck 메소드
+### 5.3. getCandidateTruck 메소드
 - 대기하는 차량 중 가장 빠른 순번의 차량을 반환합니다.
 
 ```java
@@ -122,7 +122,7 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
     }
 ```
 
-##### moveTrucks 메소드
+### 5.4. moveTrucks 메소드
 - 모두 도착한 차량(-1)이거나 대기 중인 차량(0)을 제외하고는 현재 위치를 1씩 증가시켜준다.
 
 ```java
@@ -136,7 +136,7 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
     }
 ```
 
-##### findArrivedTruck 메소드
+### 5.5. findArrivedTruck 메소드
 - 차량의 위치가 다리 길이보다 1 커지는 경우 도착한 차량입니다.
 - 도착한 차량의 위치를 -1로 만들고 해당 인덱스를 반환합니다.
 
@@ -153,7 +153,7 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
     }
 ```
 
-## 제출 코드
+## 6. 제출 코드
 
 ```java
 class Solution {
@@ -227,7 +227,7 @@ class Solution {
 }
 ```
 
-## BEST PRACTICE
+## 7. BEST PRACTICE
 - 트럭 클래스를 생성합니다. 자신의 무게와 이동한 거리를 멤버 변수로 가집니다.
 - 대기 중인 차량은 waitQ에 이동 중인 차량은 moveQ에 저장합니다.
 - 처음 모든 차량은 waitQ에 존재합니다.

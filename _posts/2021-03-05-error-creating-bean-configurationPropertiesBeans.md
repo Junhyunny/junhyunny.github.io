@@ -30,11 +30,9 @@ mvn clean install -Dmaven.test.skip=true
 
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-3.JPG"></p>
 
+## 2. 에러 해결 과정
 글을 작성하다보니 에러를 해결하지 못한 것이 마음에 걸려 이를 먼저 해결하기로 하였습니다. 
 한 두어시간 허비했지만 일단 해결했으니 관련된 내용을 정리해서 올려보도록 하겠습니다. 
-문제 해결이 오래 걸리는 만큼 큰 기쁨을 안겨주는 버그를 오늘도 한마리 정복했습니다.
-
-## 2. 에러 해결 과정
 
 ### 2.1. 에러 로그
 
@@ -94,6 +92,7 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-4.JPG"></p>
 
 ## OPINION
+문제 해결이 오래 걸리는 만큼 큰 기쁨을 안겨주는 버그를 오늘도 한마리 정복했습니다. 
 회사 프로젝트나 사이드 프로젝트에서 만났던 에러들은 모두 메모장에 적어두었습니다. 
 물론 해결 방법이나 힌트까지 적어두긴 했지만 바쁜 일정으로 인해 **`'나중에 정리해야지...'`** 라고 미뤄두다보니 아직 시작도 못하고 있습니다. 
 이제 다시 새로운 블로그를 꾸려나가는 중에 처음 만난 에러이니만큼 바로 정리해서 포스트하였습니다. 

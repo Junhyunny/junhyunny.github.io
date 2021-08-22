@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - design-pattern
-last_modified_at: 2021-03-01T09:00:00
+last_modified_at: 2021-08-22T17:00:00
 ---
 
 <br>
@@ -12,7 +12,7 @@ last_modified_at: 2021-03-01T09:00:00
 Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, Inversion of Control)과 의존성 주입(DI, Dependency Injection)이라는 용어를 가장 먼저 접하게 됩니다. 
 이번 포스트를 통해 제어의 역전과 의존성 주입에 대한 개념을 정리하고 Spring 프레임워크는 이를 어떻게 제공하는지 알아보도록 하겠습니다.
 
-## 제어의 역전(IoC, Inversion of Control)
+## 1. 제어의 역전(IoC, Inversion of Control)
 
 > 객체 제어에 대한 주체를 프로그래머에서 컨테이너나 프레임워크로 변경한 소프트웨어 공학의 원칙<br>
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
@@ -20,14 +20,14 @@ Spring 프레임워크에 대한 공부를 시작하면 제어의 역전(IoC, In
 제어의 역전(IoC, Inversion of Control)이라는 개념은 소프트웨어 공학의 원칙(principle)이며 Spring 프레임워크에서 처음 언급된 내용은 아닙니다. 
 저는 **`'Spring 프레임워크에는 IoC 원칙이 적용되어 있고, 이는 개발자가 작성한 코드가 프레임워크에 제어를 받는다는 의미이다.'`** 라고 정리하였습니다. 
 
-## 의존성(Dependency)이란?
+## 2. 의존성(Dependency)이란?
 일단 의존성(depndency)이라는 용어에 대한 정의부터 알아보도록 하겠습니다.
 - 어떤 클래스 A가 다른 클래스 또는 인터페이스 B를 이용할 때 A가 B에 의존한다고 합니다.
 - 클래스 A를 `dependant`라 하고 클래스(인터페이스) B를 `dependency`라고 합니다.
 - A는 B 없이 작동할 수 없고 B를 재사용하지 않으면 A 또한 재사용할 수 없습니다.
 - B에 변화에 A는 영향을 받지만, A의 변화에 B는 영향을 받지 않는다.
 
-## 의존성 주입(DI, Dependency Injection)
+### 2.1. 의존성 주입(DI, Dependency Injection)
 
 > IoC를 구현한 **디자인 패턴**으로 객체 간의 의존성이 외부에 의해 선택되는 방식을 의미<br>
 > Dependency injection is a pattern we can use to implement IoC, where the control being inverted is setting an object's dependencies.
@@ -61,7 +61,7 @@ class A {
 }
 ```
 
-##### 제어의 역전(IoC, Inversion of Control), 의존성 주입(DI, Dependency Injection) 그리고 프레임워크와의 관계
+## 3. 제어의 역전(IoC, Inversion of Control), 의존성 주입(DI, Dependency Injection) 그리고 프레임워크와의 관계
 - 제어의 역전(IoC)은 소프트웨어 공학의 원칙(principle)으로써 하나의 컨셉 혹은 가이드 라인입니다.
 - 의존성 주입(DI)은 IoC 원칙를 구현한 디자인 패턴으로써 외부의 제어를 통해 의존성을 주입받는 프로그래밍 방식입니다. 
 - IoC Containers는 IoC 개념이 적용된 프로그램(혹은 객체)으로써 프레임워크에서 이를 사용합니다.
@@ -69,7 +69,7 @@ class A {
 <p align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
 <center>이미지 출처, https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/</center><br>
 
-## Spring 프레임워크와 IoC 원칙
+## 4. Spring 프레임워크와 IoC 원칙
 전통적인 프로그래밍은 개발자가 작성한 코드에서 라이브러리를 호출하는 방식이었습니다. 
 또한 `main`이라는 큰 흐름에서 개발자가 필요한 객체들을 생성하고, 이들을 서로 연결해주는 방식으로 프로그래밍이 전개되었습니다. 
 **반대로 IoC 원칙이 적용된 프레임워크에선 개발자가 구현한 코드가 프레임워크에 의해 흐름 제어를 받습니다.** 
@@ -78,7 +78,7 @@ class A {
 1. 프레임워크에서 제공하는 특정 인터페이스, 추상 클래스를 구현한다.
 1. 개발자가 작성한 클래스가 필요한 곳에서 주입받아 사용될 수 있도록 IoC 컨테이너에 빈(Bean)으로 등록한다.
 
-### Sprigng IoC Container
+### 4.1. Sprigng IoC Container
 IoC 컨테이너는 Spring 프레임워크에서 사용하는 객체입니다. 
 IoC 라는 용어는 매우 느슨하기 정의되어 폭 넓게 사용되기 때문에 Spring 프레임워크의 기능을 명확하게 설명하지는 못합니다. 
 이에 의도를 명확히 드러내고자 Spring 프레임워크에서 제공하는 IoC 방식의 핵심인 `의존성 주입(DI, Dependency Injection)`의 영문 약자를 사용하여 DI 컨테이너라고 부르기도 합니다. 
@@ -94,7 +94,7 @@ Spring 프레임워크에서 사용하는 IoC 컨테이너는 다음과 같습�
   - BeanFactory 인터페이스를 상속받아 BeanFactory의 기능을 제공합니다.
   - 추가적으로 다른 기능들도 함께 제공합니다.
 
-##### 디버깅을 통해 발견한 몇 가지 사실
+#### 4.1.1. 디버깅을 통해 발견한 몇 가지 사실
 IoC 컨테이너인 두 객체의 차이점을 확인하기 위해 간단히 디버깅해보았으며 아래와 같은 사실들을 확인하였습니다.
 - 별도의 설정 없이 만들어진 ApplicationContext의 구현체는 GenericWebApplicationContext 클래스
 - ApplicationContext 내부 BeanFactory 객체의 주소와 주입 받은 BeanFactory 객체의 주소가 동일
@@ -102,9 +102,10 @@ IoC 컨테이너인 두 객체의 차이점을 확인하기 위해 간단히 디
 - GenericWebApplicationContext 클래스는 BeanFactory 인터페이스의 기능을 멤버 변수인 BeanFactory 객체에게 모두 위임(delegate)
 
 <p align="left"><img src="/images/spring-ioc-di-2.JPG" width="450"></p>
+
 <p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
 
-### IoC 컨테이너에 빈(Bean) 등록하기
+### 4.2. IoC 컨테이너에 빈(Bean) 등록하기
 IoC 컨테이너에 대해 알아봤으니 이번엔 빈(Bean)에 대해 알아보도록 하겠습니다. 
 **IoC 컨테이너가 관리하는 객체를 빈(Bean) 이라고 합니다.** 
 개발자가 작성한 클래스가 빈(Bean)으로 등록되면 IoC 컨테이너에 의해 관리되고 필요한 곳에서 사용되어집니다. 
@@ -115,7 +116,8 @@ IoC 컨테이너에 대해 알아봤으니 이번엔 빈(Bean)에 대해 알아�
   - @Repository, @service, @Controller는 역할 구분을 위해 @Component를 재정의한 것입니다.
   - @Repository, @Service, @Controller, @Configuration 애너테이션들 상단에는 @Component 애너테이션이 붙어있습니다.
 
-##### @Repository 애너테이션
+#### 4.2.1. @Repository 애너테이션
+
 ```java
 /*
  * ...
@@ -149,11 +151,11 @@ public @interface Repository {
 }
 ```
 
+#### 4.2.2. @Configruation, @Bean 애너테이션 사용 예제 코드
 - @Configruation, @Bean 애너테이션 사용
   - @Configuration 애너테이션이 붙은 클래스 내부에 @Bean 애너테이션을 붙힌 메소드들을 선언해줍니다.
   - 메소드에서 반환하는 객체가 메소드의 이름을 가진 빈(Bean)으로 등록됩니다.
 
-##### @Configruation, @Bean 애너테이션 사용 예제 코드
 ```java
 package blog.in.action.config;
 
@@ -187,13 +189,13 @@ public class Config {
 }
 ```
 
-### IoC 컨테이너로부터 의존성 주입받기
+### 4.3. IoC 컨테이너로부터 의존성 주입받기
 IoC 컨테이너에 빈(Bean)으로 등록된 객체들을 의존성 주입을 통해 전달받는 방법에 대해 알아보도록 하겠습니다. 
 Spring Boot 프레임워크를 기준으로 작성하였습니다. 
 
-- Setter Injection
-  - 의존 관계의 객체를 전달 받을 수 있는 setter 메소드를 만듭니다.
-  - setter 메소드 위에 @Autowired 애너테이션을 명시합니다.
+#### 4.3.1. Setter Injection
+- 의존 관계의 객체를 전달 받을 수 있는 setter 메소드를 만듭니다.
+- setter 메소드 위에 @Autowired 애너테이션을 명시합니다.
 
 ```java
 package blog.in.action.di;
@@ -239,9 +241,9 @@ class SetterInjectionClass {
 }
 ```
 
-- Constructor Injection
-  - 권장되는 방식의 의존성 주입 방법입니다. 
-  - 의존 관계의 객체를 전달 받을 수 있는 생성자를 만듭니다.
+#### 4.3.2. Constructor Injection
+- 권장되는 방식의 의존성 주입 방법입니다. 
+- 의존 관계의 객체를 전달 받을 수 있는 생성자를 만듭니다.
 
 ```java
 package blog.in.action.di;
@@ -286,9 +288,9 @@ class ConstructorInjectionClass {
 }
 ```
 
-- Method Injection
-  - 의존 관계의 객체를 전달 받을 수 있는 일반 메소드를 만듭니다.
-  - 일반 메소드 위에 @Autowired 애너테이션을 명시합니다.
+#### 4.3.3. Method Injection
+- 의존 관계의 객체를 전달 받을 수 있는 일반 메소드를 만듭니다.
+- 일반 메소드 위에 @Autowired 애너테이션을 명시합니다.
 
 ```java
 package blog.in.action.di;

@@ -5,7 +5,7 @@ category:
   - information
   - operating-system
   - junit
-last_modified_at: 2021-02-26T09:00:00
+last_modified_at: 2021-08-22T12:30:00
 ---
 
 <br>
@@ -14,7 +14,7 @@ last_modified_at: 2021-02-26T09:00:00
 오늘의 주제는 `경쟁 상태(Race Condition)`입니다. 
 경쟁 상태는 무엇이고 이를 해결하기 위해 운영체제에서는 어떤 메커니즘을 사용하는지 정리해보도록 하겠습니다.
 
-## 경쟁 상태(Race Condition)란?
+## 1. 경쟁 상태(Race Condition)란?
 
 > Wiki<br>
 > 공유 자원에 대해 여러 개의 프로세스가 동시에 접근을 시도할 때 접근의 타이밍이나 순서 등이 결과 값에 영향을 줄 수 있는 상태
@@ -23,7 +23,7 @@ last_modified_at: 2021-02-26T09:00:00
 접근하는 순서, 프로세스의 실행 기간 등에 영향을 받기 때문에 매번 실행 결과가 달라지게 됩니다. 
 아래 시나리오를 통해 해당 개념을 쉽게 알아보도록 하겠습니다.
 
-##### 경쟁 상태 시나리오
+### 1.1. 경쟁 상태 시나리오
 1. 두 프로세스 P1, P2가 존재합니다. 
 1. 두 프로세스의 수행 시간은 동일합니다.
 1. 두 프로세스의 연산은 각기 다릅니다.
@@ -33,7 +33,7 @@ last_modified_at: 2021-02-26T09:00:00
 
 <p align="center"><img src="/images/race-condition-1.JPG" width="800"></p>
 
-## 임계 영역(Critical Section)
+## 2. 임계 영역(Critical Section)
 
 경쟁 상태를 해결하는 방법을 알아보기 전에 임계 영역(Critical Section)이 무엇인지 우선 알아보도록 하겠습니다. 
 
@@ -44,39 +44,38 @@ last_modified_at: 2021-02-26T09:00:00
 임계 영역 내부에서 둘 이상의 프로세스가 공유 자원을 사용하게되면 에측할 수 없는 결과를 얻게 됩니다. 
 임계 영역에 대한 프로세스들의 동시적인 접근을 잘 제어한다면 경쟁 상태를 해결할 수 있습니다. 
 
-### 임계 영역 문제 해결
+### 2.1. 임계 영역 문제 해결
 임계 영역 문제를 해결하기 위해선 다음과 같은 조건들이 필요합니다.
 
-##### 상호 배제(Mutual exclusion)
+#### 2.1.1. 상호 배제(Mutual exclusion)
 - 임계 영역 내에서 한 프로세스가 일을 수행 중이라면 다른 프로세스들은 임계 영역 내에서 일을 할 수 없습니다.
 - 뮤텍스(Mutex), 세마포어(Semaphore) 같은 lock 메커니즘을 통해 구현할 수 있습니다.
 <p align="center"><img src="/images/race-condition-2.JPG" width="800"></p>
 
-##### 진행(Progress)
+#### 2.1.2. 진행(Progress)
 - 임계 영역 내에 일하는 프로세스가 없다면, 대기 중인 프로세스 중에서 다음으로 일을 수행할 프로세스를 선택합니다.
 <p align="center"><img src="/images/race-condition-3.JPG" width="800"></p>
 
-##### 제한된 대기(Bounded waiting)
+#### 2.1.3. 제한된 대기(Bounded waiting)
 - 프로세스들을 무한정 대기시키지 않습니다. 제한되는 대기 시간을 가집니다.
 <p align="center"><img src="/images/race-condition-4.JPG" width="800"></p>
 
-## 테스트 시나리오
+## 3. 테스트 시나리오
 - 프로세스가 아닌 스레드 수준에서 테스트하였습니다.
 - 공유 자원(동일한 객체)을 두 스레드가 각자 사용합니다.
 - 각 스레드는 공유 자원을 동일한 횟수만큼 증가, 감소시킵니다.
 - 테스트를 100회 수행하여 결과가 0인 회수가 몇 번이었는지 확인합니다.
 - synchronized 키워드를 통해 임계 영역을 지정한 경우와 아닌 경우의 결과를 비교합니다.
 
-##### 임계 영역에 대한 동기화가 없는 CASE
+### 3.1. 임계 영역에 대한 동기화가 없는 CASE
 - 임계 영역에 대한 동시 접근 제어를 수행하지 않습니다.
 
 ```java
 package blog.in.action.raceccondition;
 
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @SpringBootTest
@@ -107,7 +106,7 @@ public class NotSynchronizedTest {
 
         @Override
         public void run() {
-            // 1번 Thread의 임계 영역
+            // 1번 스레드의 임계 영역
             for (int index = 0; index < time; index++) {
                 resource.add(1);
             }
@@ -126,7 +125,7 @@ public class NotSynchronizedTest {
 
         @Override
         public void run() {
-            // 2번 Thread의 임계 영역
+            // 2번 스레드의 임계 영역
             for (int index = 0; index < time; index++) {
                 resource.substract(1);
             }
@@ -156,9 +155,12 @@ public class NotSynchronizedTest {
 
 ##### 임계 영역에 대한 동기화가 없는 CASE 결과
 - 총 1000 건의 테스트 중에서 일부 케이스의 결과가 0이 아닌 것을 로그를 통해 확인할 수 있습니다.
-<p align="center"><img src="/images/race-condition-5.JPG"></p>
 
-##### 임계 영역에 대한 동기화가 있는 CASE
+```
+2021-08-22 16:40:25.433  INFO 14848 --- [           main] b.i.a.r.NotSynchronizedTest              : 정상적인 결과 / 총 테스트 시도 = 994 / 1000
+```
+
+### 3.2. 임계 영역에 대한 동기화가 있는 CASE
 - Java `synchronized` 키워드를 이용하여 스레드의 동시 접근을 제어하였습니다.
 
 ```java
@@ -252,7 +254,10 @@ public class SynchronizedTest {
 
 ##### 임계 영역에 대한 동기화가 있는 CASE 결과
 - 총 1000 건의 테스트 모두 정상적으로 수행되었음을 로그를 통해 확인할 수 있습니다.
-<p align="center"><img src="/images/race-condition-6.JPG"></p>
+
+```
+2021-08-22 16:42:34.312  INFO 16736 --- [           main] b.i.a.raceccondition.SynchronizedTest    : 정상적인 결과 / 총 테스트 시도 = 1000 / 1000
+```
 
 ## OPINION
 이전 블로그에 작성한 글을 새로운 블로그로 이전하면서 내용을 조금 더 보완하였습니다. 

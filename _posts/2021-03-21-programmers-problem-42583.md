@@ -5,7 +5,7 @@ category:
   - problem
   - algorithm
   - data-structure
-last_modified_at: 2021-03-21T09:00:00
+last_modified_at: 2021-08-22T18:00:00
 ---
 
 <br>
@@ -52,6 +52,7 @@ solution 함수의 매개변수로 다리 길이 bridge_length, 다리가 견딜
 | 100 | 100 | [10,10,10,10,10,10,10,10,10,10] | 110 |
 
 ## 5. 코드 해설
+
 ### 5.1. solution 메소드
 - 문제의 주요 흐름을 진행합니다.
 - checkAllTrucksPassed 메소드를 통해 모든 차량이 통과하였는지 확인합니다.

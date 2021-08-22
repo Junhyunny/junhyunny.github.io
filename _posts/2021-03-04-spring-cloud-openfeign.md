@@ -23,7 +23,7 @@ Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(
 - action-in-blog 서비스에서 action-in-blog 서비스의 /api/cors/health 경로로 API 요청
 - SimpleClient는 테스트 패키지에 존재하며 JUnit 테스트를 통해 API 요청 수행
 
-<p align="center"><img src="/images/spring-cloud-openfeign-1.JPG" width="50%"></p>
+<p align="center"><img src="/images/spring-cloud-openfeign-1.JPG" width="45%"></p>
 
 ## 2. 예제 코드
 

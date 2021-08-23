@@ -1,0 +1,105 @@
+---
+title: "JVM - Interpreter / JIT(Just In Time)"
+search: false
+category:
+  - information
+  - java
+last_modified_at: 2021-08-24T12:00:00
+---
+
+<br>
+
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [JVM, Java Virtual Machine][jvm-link]
+
+최근에 작성했던 포스트를 다시 읽어볼 겸 다시 정리하는 중에 JVM(Java Virtual Machine)에 대한 넓고 얕은 지식이라는 주제로 작성한 포스트를 보았습니다. 
+전반적인 JVM 구조에 대한 글이었는데 오늘은 `실행 엔진(Execution Engine)`에 대한 내용을 정리하였습니다. 
+
+## 1. 실행 엔진(Execution Engine)
+
+> 실행 엔진(Execution Engine)은 메모리에 적재된 클래스(바이트 코드)들을 기계어로 변경하여 명령어(instruction) 단위로 실행합니다.<br> 
+> 바이트 코드를 운영체제에 맞게 해석해주는 역할을 수행합니다.<br> 
+> 실행 엔진이 바이트 코드를 명령어 단위로 읽어서 수행하는데 크게 두 가지 방식이 사용된다고 합니다. 
+> - 인터프리터(Interpreter)
+> - JIT(Just In Time)
+
+실행 엔진에 대해 자세히 알아보기 전에 선행될 필요가 있는 개념들도 함께 정리하였습니다. 
+
+### 1.1. `.class` 확장자 파일
+개발자가 Eclipse 혹은 IntelliJ 같은 IDE(Integrated Development Environment)에서 `.java` 확장자를 가진 파일에 소스 코드를 작성합니다. 
+소스 코드는 사람이 알아보기 쉽게 영여로 작성되어 있지만 기계는 이를 해석하지 못합니다.  
+자바 언어의 경우 JVM 에 의해 프로그램이 동작되므로 JVM 이 해석할 수 있는 내용으로 소스 코드를 변경해줘야 합니다. 
+이 과정을 컴파일(compile)이라고 합니다. 
+JDK(Java Development kit)을 다운 받으면 `/bin` 디렉토리에 있는 `javac` 프로그램에 의해 수행됩니다. 
+
+<p align="center"><img src="/images/jvm-interpreter-jit-1.JPG" width="50%"></p>
+<center>이미지 출처, https://techvidvan.com/tutorials/java-virtual-machine/</center>
+
+컴파일이 완료되면 JVM 이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자를 가지는 클래스 파일이 생성됩니다. 
+클래스 파일은 실행 엔진에 의해  
+컴파일 완료 후에 IDE를 보면 `/bin` 혹은 `/target` 폴더에 소스 코드가 위치한 패키지 구조대로 클래스 파일들이 생성되어 있습니다. 
+
+<p align="left"><img src="/images/jvm-interpreter-jit-2.JPG" width="50%"></p>
+
+##### 소스 코드
+
+```java
+package blog.in.action;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ActionInBlogApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ActionInBlogApplication.class, args);
+    }
+
+}
+```
+
+##### 바이트 코드
+- JDK 에서 제공하는 `javap` 명령어를 사용하면 .class 파일에 담긴 바이트 코드를 확인할 수 있습니다. 
+
+```
+$ javap.exe -l ActionInBlogApplication.class
+```
+
+```
+Compiled from "ActionInBlogApplication.java"
+public class blog.in.action.ActionInBlogApplication {
+  public blog.in.action.ActionInBlogApplication();
+    LineNumberTable:
+      line 7: 0
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0       5     0  this   Lblog/in/action/ActionInBlogApplication;
+
+  public static void main(java.lang.String[]);
+    LineNumberTable:
+      line 10: 0
+      line 11: 7
+    LocalVariableTable:
+      Start  Length  Slot  Name   Signature
+          0       8     0  args   [Ljava/lang/String;
+}
+```
+
+### 1.2. 실행 엔진이 바이트 코드를 실행하기까지 과정
+
+<p align="center"><img src="/images/jvm-interpreter-jit-3.JPG" width="70%"></p>
+<center>이미지 출처, https://techvidvan.com/tutorials/java-virtual-machine/</center>
+
+## 2. 인터프리터(Interpreter)
+
+## 3. JIT(Just In Time)
+
+## OPINION
+
+#### REFERENCE
+- <https://junhyunny.github.io/information/java/what-is-jvm/>
+- <https://www.javatpoint.com/java-interpreter>
+- <https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/>
+
+[jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/

@@ -26,7 +26,7 @@ Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 �
 - 초기화된 상태로 사용 가능
 - 특정 클래스에 과도한 책임이 주어질 가능성이 높은 구린내 나는(?) 코드에 대한 리팩토링 여지를 제공
 
-## 필드 주입(Field Injection)
+## 1. 필드 주입(Field Injection)
 - 간단히 @Autowired 애너테이션을 통해 빈(bean)을 주입받는 방식입니다. 
 
 ```java
@@ -39,7 +39,7 @@ public class PostService {
 }
 ```
 
-## 생성자 주입(Constructor Injection)
+## 2. 생성자 주입(Constructor Injection)
 - 생성자를 통해 빈(bean)을 주입받습니다.
 
 ```java
@@ -55,7 +55,7 @@ public class PostService {
 }
 ```
 
-## 생성자 주입(Constructor Injection) 방식으로부터 얻는 이점
+## 3. 생성자 주입(Constructor Injection) 방식으로부터 얻는 이점
 
 ### 불변성(Immutability)
 **`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 

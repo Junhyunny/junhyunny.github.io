@@ -37,7 +37,7 @@ FeignClient와 Hystrix 기능을 함께 사용한 테스트를 진행해보겠�
 
 <p align="center"><img src="/images/spring-cloud-netflix-hystrix-1.JPG" width="55%"></p>
 
-### 2.2. a-service 구현
+### 2.2. a-service 구현 코드
 
 #### 2.2.1. application.yml
 - **`feign.circuitbreaker.enabled=true`** 설정을 추가합니다.
@@ -144,7 +144,7 @@ class BServiceFallbackFactory implements FallbackFactory<BServiceFeinClient> {
 }
 ```
 
-### 2.3. b-service 구현
+### 2.3. b-service 구현 코드
 
 #### 2.3.1. BServiceController
 - a-service로부터 전달받은 요청에 대해 고의적인 장애를 발생시키는 컨트롤러입니다.

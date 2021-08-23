@@ -233,8 +233,8 @@ class AServiceApplicationTests {
 - ereka, a-service, b-service 서비스들을 순차적으로 기동시킵니다.
 - Junit 테스트를 수행 후 로그를 확인합니다.(테스트 코드는 a-service 프로젝트에 있습니다.)
 
-##### a-service **`/timeout`** 요청 시 에러 로그
-- b-service 의 `/timeout` 경로로 전달한 요청에서 timeout 에러가 발생하였습니다.
+##### a-service **`/timeout`** 경로 에러 로그
+- JUnit 테스트에서 받은 요청을 b-service `/timeout` 경로로 재전달한 후 timeout 에러가 발생하였습니다.
 
 ```
 2021-08-24 00:45:43.554 ERROR 15784 --- [ HystrixTimer-1] c.i.a.proxy.BServiceFallbackFactory      : null
@@ -254,8 +254,8 @@ com.netflix.hystrix.exception.HystrixTimeoutException: null
 	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
 ```
 
-##### a-service **`/exception`** 요청 시 에러 로그
-- b-service 의 `/exception` 경로로 전달한 요청에서 서버 에러(500, Internal Server Error)가 발생하였습니다.
+##### a-service **`/exception`** 경로 에러 로그
+- JUnit 테스트에서 받은 요청을 b-service `/exception` 경로로 재전달한 후 서버 에러(500, Internal Server Error)가 발생하였습니다.
 
 ```
 2021-08-24 00:45:43.632 ERROR 15784 --- [reakerFactory-8] c.i.a.proxy.BServiceFallbackFactory      : [500] during [GET] to [http://b-service/exception] [BServiceFeinClient#requestWithException()]: [{"timestamp":"2021-08-23T15:45:43.617+0000","status":500,"error":"Internal Server Error","message":"exception occur","path":"/exception"}]

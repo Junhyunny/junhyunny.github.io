@@ -343,14 +343,14 @@ class MethodInjectionClass {
 정리하고 싶은 내용들은 많았지만 글이 주제와 다르게 전개되거나 중간에 끊길까봐 내용을 줄여서 작성하였습니다. 
 이번 포스트에서 담지 못한 내용들은 이후에 다뤄보도록 하겠습니다. 
 
-아래 추천하는 [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] 글을 보시면 구체적인 예제 코드를 통해 의존성 주입과 관련된 개념을 설명해주고 있습니다. 
+아래 추천하는 [제어의 역전(Inversion of Control, IoC) 이란?][IoC-link] 글을 보시면 구체적인 예제 코드를 통해 의존성 주입과 관련된 개념을 설명해주고 있습니다. 
 앞으로도 꾸준히 공부해서 추천 글과 같은 좋은 포스트를 작성할 수 있는 날이 왔으면 좋겠습니다. 
 
 #### REFERENCE
 - <https://jongmin92.github.io/2018/02/11/Spring/spring-ioc-di/>
 - <https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/>
-- [의존성이란?][dependency-blogLink]
-- [제어의 역전(Inversion of Control, IoC) 이란?][IoC-blogLink] **(추천)**
+- [의존성이란?][dependency-link]
+- [제어의 역전(Inversion of Control, IoC) 이란?][IoC-link] **(추천)**
 
-[IoC-blogLink]: https://develogs.tistory.com/19
-[dependency-blogLink]: https://velog.io/@huttels/%EC%9D%98%EC%A1%B4%EC%84%B1%EC%9D%B4%EB%9E%80
+[IoC-link]: https://develogs.tistory.com/19
+[dependency-link]: https://velog.io/@huttels/%EC%9D%98%EC%A1%B4%EC%84%B1%EC%9D%B4%EB%9E%80

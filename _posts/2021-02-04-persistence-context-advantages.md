@@ -392,7 +392,7 @@ public class DirtyCheckingTest {
 마지막에 변경 감지(dirty chekcing)가 어떤 식으로 이루어지는지 궁금하여 디버깅한 결과까지 함께 첨부하였습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-04-persistence-context-advantages>
 
 #### REFERENCE
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]

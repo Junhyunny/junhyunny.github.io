@@ -337,7 +337,7 @@ public class HandlerExecutionChain {
 - spring-security 종속성(dependency) 제거
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-15-cors-example>
 
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>

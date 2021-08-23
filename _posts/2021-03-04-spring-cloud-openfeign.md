@@ -176,7 +176,7 @@ FeignClient는 JpaRepository 인터페이스를 처음 접하였을 때처럼 �
 다음 포스트는 Eureka 서비스를 구축하여 서비스 등록과 서비스 이름을 이용한 FeignClient API 요청을 주제로 글을 작성하도록 하겠습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-04-spring-cloud-openfeign>
 
 #### REFERENCE
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>

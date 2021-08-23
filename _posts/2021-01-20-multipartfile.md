@@ -254,7 +254,7 @@ spring:
 간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-20-multipartfile>
 
 #### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html>

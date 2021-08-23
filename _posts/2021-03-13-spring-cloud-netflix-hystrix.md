@@ -13,6 +13,9 @@ last_modified_at: 2021-08-24T01:00:00
 
 ⚠️ 해당 포스트는 2021년 8월 24일에 재작성되었습니다.(불필요 코드 제거)
 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [MSA Circuit Breaker Pattern][circuitbreaker-link]
+
 ## 1. Netflix Hystrix
 MSA를 성공적으로 구축한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
 Hystrix도 Eureka와 마찬가지로 Netflix가 제공하는 컴포넌트 중 하나입니다. 
@@ -294,3 +297,4 @@ FeignClient는 FallbackFactory 없이 Fallback을 사용할 수 있지만 어떤
 
 [exception-link]: https://junhyunny.github.io/spring-boot/spring-cloud/exception/incompatible-fallback-factory-instance/
 [reference-link]: https://twowinsh87.github.io/etc/2019/01/19/etc-springboot-circuitbreaker/
+[circuitbreaker-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/design-pattern/msa-circuit-breaker-pattern/

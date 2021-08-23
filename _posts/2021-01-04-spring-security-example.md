@@ -539,7 +539,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 **테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-04-spring-security-example>
 
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>

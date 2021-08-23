@@ -107,7 +107,7 @@ Openfeign을 사용하는 프로젝트에서 유용한 정보일 것 같습니�
 간단한 테스트 코드와 기능 설명으로 짧은 글을 작성할 수 있을 것 같아서 해당 주제를 먼저 포스트하였습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-07-dynamic-uri-using-openfeign>
 
 #### REFERENCE
 - <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>

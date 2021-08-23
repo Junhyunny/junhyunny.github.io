@@ -35,7 +35,8 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 
 ### 2.2. 해결 방안 제시
 나름대로 분석한 내용과 해결책을 제시하여 답변을 달았습니다. 
-특정 클래스에서 Iterable 상속 여부만 체크하기 때문에 배열(array)에 대한 체크를 추가하면 다른 곳에 큰 영향없이 사용할 수 있을 것이라 생각하였습니다. 
+특정 클래스에서 Iterable 상속 여부만 체크하기 때문에 발생한 문제입니다. 
+배열(array)에 대한 확인 코드를 추가하면 큰 영향없이 사용할 수 있을 것이라 생각하였습니다. 
 
 <p align="left"><img src="/images/my-first-github-issue-2.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>

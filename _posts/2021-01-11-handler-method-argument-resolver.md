@@ -301,7 +301,7 @@ public class MemberController {
 사이드 프로젝트를 통해 사용해보지 못한 프레임워크의 기능들을 구현해나가면서 큰 재미를 느끼고 있습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-11-handler-method-argument-resolver>
 
 #### REFERENCE
 - [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]

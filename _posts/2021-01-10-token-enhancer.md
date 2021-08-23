@@ -261,7 +261,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 다음 포스트에선 token에 추가된 데이터를 쉽게 추출하는 방법에 대해서 정리해보겠습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-10-token-enhancer>
 
 #### REFERENCE
 - [Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link]

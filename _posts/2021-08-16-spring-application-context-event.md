@@ -25,7 +25,7 @@ last_modified_at: 2021-08-16T12:45:00
 
 <p align="center"><img src="/images/spring-application-context-event-2.JPG" width="100%"></p>
 
-## 예제 코드
+## 1. 예제 코드
 
 간단한 예제 코드를 통해 `Spring Application Context Event` 기능을 정리해보겠습니다. 
 테스트 시나리오는 다음과 같습니다.
@@ -33,7 +33,7 @@ last_modified_at: 2021-08-16T12:45:00
 - 주문-배달 완료 이벤트를 발행합니다. 
 - 주문-배달 완료 이벤트를 구독한 후 주문(order) 서비스를 통해 해당 주문 상태를 배달 완료 상태로 변경합니다.
 
-### 패키지 구조
+### 1.1. 패키지 구조
 
 ```
 ./
@@ -81,7 +81,7 @@ last_modified_at: 2021-08-16T12:45:00
                                     `-- DeliveryServiceTest.java
 ```
 
-### application.yml
+### 1.2. application.yml
 - 테스트를 위한 로컬 데이터베이스를 사용합니다.
 
 ```yml
@@ -98,7 +98,7 @@ spring:
       ddl-auto: update
 ```
 
-### DeliveryService 클래스
+### 1.3. DeliveryService 클래스
 - 특정 배달 코드에 해당하는 배달 정보를 완료 처리합니다.
 - 해당 배달과 연관된 주문(Order) ID와 배달 코드를 담은 주문-배달 완료 이벤트(OrderDeliveryCompleteEvent)를 발행합니다.
 
@@ -139,7 +139,7 @@ public class DeliveryService {
 }
 ```
 
-### OrderDeliveryCompleteEvent 클래스
+### 1.4. OrderDeliveryCompleteEvent 클래스
 - 주문 정보와 배달 정보를 담은 주문-배달 완료 이벤트입니다.
 
 ```java
@@ -165,7 +165,7 @@ public class OrderDeliveryCompleteEvent {
 }
 ```
 
-### OrderEventListener 클래스
+### 1.5. OrderEventListener 클래스
 - 주문-배달 완료 이벤트를 수신한 후 관련된 정보를 주문 서비스에게 전달합니다.
 
 ```java
@@ -192,7 +192,7 @@ public class OrderEventListener {
 }
 ```
 
-### OrderService 클래스
+### 1.6. OrderService 클래스
 - 주문 정보를 조회하여 주문 상태를 `DELIVERY_COMPLETE`로 변경합니다.
 
 ```java
@@ -224,7 +224,7 @@ public class OrderService {
 }
 ```
 
-### 테스트 코드
+## 2. 테스트 코드
 - `DELIVERY_CODE` 코드를 가진 배달 정보를 배달 완료 상태로 업데이트합니다.
 - `ORDER_CODE` 코드를 가진 주문 정보가 `배달 완료(DELIVERY_COMPLETE)` 상태가 되었는지 확인합니다.
 
@@ -280,11 +280,11 @@ public class DeliveryServiceTest {
 }
 ```
 
-### 테스트 결과 - Junit
+##### 테스트 결과 - Junit
 
 <p align="left"><img src="/images/spring-application-context-event-3.JPG" width="45%"></p>
 
-### 테스트 결과 - SQL
+##### 테스트 결과 - SQL
 
 ```sql
 SELECT *
@@ -308,7 +308,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 - [Spring Application Context Event - 비동기 처리][async-in-spring-application-context-event-link]
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-15-spring-application-context-event>
 
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/02/spring-applicationcontext-event.html>

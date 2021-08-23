@@ -88,7 +88,7 @@ public class PostController {
 
 ### 3.3. 클래스에 대한 과도한 책임 방지
 
-> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
+> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br>
 > 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 
 > 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다.
 
@@ -279,7 +279,7 @@ java.lang.IllegalStateException: Failed to load ApplicationContext
 
 #### 3.4.3. 생성자 주입의 경우 순환 참조가 감지되는 이유
 
-> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
+> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br>
 > 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br>
 
 KimTaeng 님 블로그의 글을 읽어보면 생성자 주입은 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
@@ -310,4 +310,4 @@ KimTaeng 님의 포스트를 읽어보니 매우 정리가 잘되어 있어서 �
 - <https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection>
 
 [ioc-di-link]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
-[kim-taeng-blogLink]: https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection
+[kim-taeng-blog-link]: https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection

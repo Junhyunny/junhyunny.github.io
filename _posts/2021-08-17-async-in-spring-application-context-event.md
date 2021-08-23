@@ -18,12 +18,12 @@ last_modified_at: 2021-08-17T03:00:00
 - 비동기 처리 구현 방법
 - 비동기 처리 시 트랜잭션 연결
 
-## 구현 방법
+## 1. 구현 방법
 구현은 두 개의 애너테이션을 통해 손쉽게 구현 가능합니다. 아래 예제 코드를 통해서도 확인이 가능합니다.
 - @EnableAsync - 어플리케이션을 실행시키는 클래스 위에 선언
 - @Async - 이벤트를 수신하는 메소드 위에 선언
 
-## 비동기 처리 시 트랜잭션 연결
+## 2. 비동기 처리 시 트랜잭션 연결
 비동기 이벤트 처리 시 트랜잭션이 어떻게 연결되는지 궁금하였습니다. 
 [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link] 포스트에서도 확인할 수 있듯이 일반적인 이벤트 발행은 트랜잭션이 연결됩니다. 
 비동기 이벤트 처리에서 만약 일반적인 이벤트 발행처럼 트랜잭션이 연결된다면 아래와 같은 이상한 상황이 벌어질 수 있습니다.
@@ -33,10 +33,10 @@ last_modified_at: 2021-08-17T03:00:00
 
 당연히 트랜잭션이 나뉘어질 것이라고 예상되지만 정확한 결과는 테스트를 통해 확인해보도록 하겠습니다. 
 
-## 예제 코드
+## 3. 예제 코드
 예제 코드 시나리오는 [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link] 포스트와 동일합니다.
 
-### ActionInBlogApplication 클래스
+### 3.1. ActionInBlogApplication 클래스
 - @EnableAsync 애너테이션을 추가합니다.
 
 ```java
@@ -56,7 +56,7 @@ public class ActionInBlogApplication {
 }
 ```
 
-### DeliveryService 클래스
+### 3.2. DeliveryService 클래스
 - 비동기 여부를 확인하기 위해 AsyncEvent 이벤트 발행 전, 후 로그를 출력합니다.
 
 ```java
@@ -100,7 +100,7 @@ public class DeliveryService {
 }
 ```
 
-### OrderEventListener 클래스
+### 3.3. OrderEventListener 클래스
 - @Async 애너테이션을 추가합니다.
 - 비동기 처리이므로 별도 콜 스택(call stack)에서 동작합니다. 
 - try-catch 구문으로 묶지 않아도 주문 서비스에서 발생시킨 예외가 배달 서비스로 이어지지 않습니다.
@@ -134,7 +134,7 @@ public class OrderEventListener {
 }
 ```
 
-### OrderService 클래스
+### 3.4. OrderService 클래스
 - 이전 포스트와 마찬가지로 조회 후 의도적인 예외를 발생시킵니다.
 
 ```java
@@ -167,7 +167,7 @@ public class OrderService {
 }
 ```
 
-### 테스트 코드
+## 4. 테스트 코드
 - 특정 배달 정보를 완료 처리합니다.
 - 주문 서비스에서 예외가 발생하지만 별도 트랜잭션이 나눠지므로 배달 정보는 완료 처리됩니다.
 
@@ -187,7 +187,7 @@ public class TransactionInEventTest {
 }
 ```
 
-### 테스트 결과 - 로그
+##### 테스트 결과 - 로그
 - 비동기 이벤트 발행 전 > 비동기 이벤트 발행 후 > 비동기 이벤트 수신 순으로 로그가 출력되었습니다.
 - 이벤트를 발행한 메인 스레드는 계속 진행되고 별도의 스레드가 이벤트 처리를 수행하였음을 알 수 있습니다.
 
@@ -224,12 +224,12 @@ Hibernate: select delivery0_.id as id1_0_, delivery0_.delivery_code as delivery2
 Hibernate: select order0_.id as id1_1_0_, order0_.order_code as order_co2_1_0_, order0_.order_state as order_st3_1_0_ from tb_order order0_ where order0_.id=?
 ```
 
-### 테스트 결과 - Junit
+##### 테스트 결과 - Junit
 - 테스트 통과를 통해 메인 스레드에서 처리한 배달 정보는 롤백이 되지 않았음을 확인할 수 있습니다. 
 
 <p align="left"><img src="/images/async-spring-application-context-event-1.JPG" width="45%"></p>
 
-### 테스트 결과 - SQL
+##### 테스트 결과 - SQL
 
 ```sql
 SELECT *
@@ -245,7 +245,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 나중에 시간이 되면 다양한 활용 용도에 대해서 정리해야겠습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-17-async-in-spring-application-context-event>
 
 #### REFERENCE
 - <https://www.baeldung.com/spring-events>

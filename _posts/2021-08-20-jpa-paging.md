@@ -14,7 +14,7 @@ JPA를 사용하면서 정말 편해졌다고 느낀 이유 중 한가지가 페
 간단한 예제 코드를 통해 사용 방법에 대해 알아보겠습니다. 
 예제 코드를 만나보기 전에 페이징 처리에 사용되는 인터페이스와 클래스를 살펴보겠습니다. 
 
-## Pageable 인터페이스
+## 1. Pageable 인터페이스
 예제 코드에서 확인할 수 있겠지만, `Pageable` 인터페이스 구현체를 JpaRepository 메소드에 파라미터로 넘겨주면 자동으로 페이징 처리가 됩니다. 
 개발자가 `Pageable` 인터페이스를 직접 조작하는 일은 별로 없겠지만 어떤 기능을 제공하는지는 확인해보겠습니다. 
 
@@ -29,7 +29,7 @@ JPA를 사용하면서 정말 편해졌다고 느낀 이유 중 한가지가 페
     - 이전 페이지를 조회할 때 사용하는 `Pageable` 인터페이스를 반환
     - 가장 첫 페이지인 경우에는 첫 페이지를 위한 `Pageable` 인터페이스를 반환
 
-### Pageable 인터페이스 구조
+### 1.1. Pageable 인터페이스 구조
 
 ```java
 public interface Pageable {
@@ -50,12 +50,12 @@ public interface Pageable {
 }
 ```
 
-## PageRequest 클래스
+## 2. PageRequest 클래스
 위에서도 언급했듯이 페이징 처리를 할 수 있도록 Pageable 인터페이스를 구현한 객체를 JpaRepository에게 전달해야 합니다. 
 Spring 프레임워크에서는 Pageable 인터페이스 구현체를 쉽게 생성할 수 있도록 `PageRequest` 클래스를 제공합니다. 
 간단한 예제 코드를 통해 직관적으로 이해해보겠습니다.  
 
-### PageRequest 클래스 of 메소드
+### 2.1. PageRequest 클래스 of 메소드
 - of 메소드에 들어간 파라미터를 기준으로 이해하기 쉽게 문장으로 풀어 설명하였습니다.
     - Sort.by(Direction.DESC, "testValue") - "testValue 필드 값으로 정렬한 항목(row)들을"
     - 100 - "100개씩 하나의 페이지로 만들었을 때"
@@ -66,7 +66,7 @@ Spring 프레임워크에서는 Pageable 인터페이스 구현체를 쉽게 생
     Pageable pageable = PageRequest.of(0, 100, Sort.by(Direction.DESC, "testValue"));
 ```
 
-## Page<T> 클래스
+## 3. Page<T> 클래스
 페이징 처리가 되어 반환되는 결과는 `Page<T>` 클래스에 담겨 반환됩니다. 
 `Page<T>` 클래스는 다음과 같은 정보를 지니고 있습니다. 
 - getPageable 메소드 - 페이징 처리에서 사용한 Pageable 인터페이스 구현체 정보
@@ -82,14 +82,14 @@ JapRepository에서 기본적으로 제공하는 findAll 메소드를 이용하�
     Page<TestEntity> testEntities = testRepository.findAll(pageable);
 ```
 
-## 테스트 코드
+## 4. 테스트 코드
 간단한 테스트 코드를 통해 JPA 페이징 처리 방법을 알아보겠습니다. 
 세 가지 방법으로 구현하였습니다. 
 - JpaRepository 메소드 이름 규칙을 활용한 findBy- 메소드 사용
 - @Query 애너테이션 with JPQL
 - @Query 애너테이션 with Native Query
 
-### TestEntity 클래스
+### 4.1. TestEntity 클래스
 
 ```java
 @Getter
@@ -125,7 +125,7 @@ class TestEntity {
 }
 ```
 
-### beforeEach 메소드
+### 4.2. beforeEach 메소드
 - 각 테스트마다 데이터를 초기화합니다.
 - 모든 데이터를 삭제하고 250개의 데이터를 추가합니다.
 - TestEntity 객체의 testValue 필드 값으로 랜덤한 문자열을 지정합니다.
@@ -140,7 +140,7 @@ class TestEntity {
     }
 ```
 
-### findBy- 메소드 테스트
+### 4.3. findBy- 메소드 테스트
 - testValue 필드 값을 내림차순(desc)으로 정렬합니다.
 - 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회합니다.
 - testValue 필드 값이 'A'로 시작되는 데이터를 조회합니다.
@@ -177,7 +177,7 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 }
 ```
 
-#### findBy- 메소드 테스트 결과
+##### findBy- 메소드 테스트 결과
 - 조회 시 사용된 쿼리 로그를 보면 `order by testentity0_.test_value desc limit ?` 조건이 추가되었습니다.
 - 페이징 처리를 위한 count 쿼리가 추가 수행되었습니다.
 
@@ -209,7 +209,7 @@ Hibernate: select testentity0_.id as id1_0_, testentity0_.created_at as created_
 2021-08-20 11:15:57.298  INFO 10968 --- [           main] blog.in.action.paging.JpaPagingTest      : id: 5474, testValue: a020c2e1-ca7b-4259-a7b6-a094d37e5315-123, createdAt: 2021-08-20T11:15:56
 ```
 
-### @Query + JPQL 테스트
+### 4.4. @Query + JPQL 테스트
 - testValue 필드 값을 내림차순(desc)으로 정렬합니다.
 - 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회합니다.
 - testValue 필드 값이 'A'로 시작되는 데이터를 조회합니다.
@@ -247,7 +247,7 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 }
 ```
 
-#### @Query + JPQL 테스트 결과
+##### @Query + JPQL 테스트 결과
 - 조회 시 사용된 쿼리 로그를 보면 `order by testentity0_.test_value desc limit ?` 조건이 추가되었습니다.
 - 페이징 처리를 위한 count 쿼리가 추가 수행되었습니다.
 
@@ -286,7 +286,7 @@ Hibernate: select count(testentity0_.id) as col_0_0_ from tb_table testentity0_ 
 2021-08-20 11:27:05.862  INFO 19416 --- [           main] blog.in.action.paging.JpaPagingTest      : id: 6129, testValue: a1c1e5cc-dbf0-4360-8b14-b172576352d5-28, createdAt: 2021-08-20T11:27:04
 ```
 
-### @Query + Native Query 테스트
+### 4.5. @Query + Native Query 테스트
 - TEST_VALUE 컬럼 값을 내림차순(desc)으로 정렬합니다.
 - 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회합니다.
 - TEST_VALUE 컬럼 값이 'A'로 시작되는 데이터를 조회합니다.
@@ -325,15 +325,7 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 }
 ```
 
-#### Sort.by 메소드에 "testValue" 값 사용 시 에러 발생 로그
-- testValue 컬럼을 찾을 수 없다는 에러가 발생합니다.
-
-```
-2021-08-20 11:28:52.948  WARN 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1054, SQLState: 42S22
-2021-08-20 11:28:52.948 ERROR 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Unknown column 't.testValue' in 'order clause'
-```
-
-#### @Query + Native Query 테스트 결과
+##### @Query + Native Query 테스트 결과
 - 조회 시 사용된 쿼리 로그를 보면 `order by t.TEST_VALUE desc limit ?` 조건이 추가되었습니다.
 - 페이징 처리를 위한 count 쿼리가 추가 수행되었습니다.
 - 조건에 일치하는 항목(row) 수가 7개이므로 두번째 페이지 요청에 대해서는 데이터가 조회되지 않습니다.
@@ -359,6 +351,14 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 2021-08-20 11:30:15.503  INFO 7932 --- [           main] blog.in.action.paging.JpaPagingTest      : 조건 일치 총 항목 수: 7
 ```
 
+##### Sort.by 메소드에 "testValue" 값 사용 시 에러 발생 로그
+- testValue 컬럼을 찾을 수 없다는 에러가 발생합니다.
+
+```
+2021-08-20 11:28:52.948  WARN 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1054, SQLState: 42S22
+2021-08-20 11:28:52.948 ERROR 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Unknown column 't.testValue' in 'order clause'
+```
+
 ## OPINION
 오늘 주제와는 맞지 않아서 MyBatis 페이징 처리에 대해 언급하진 않았습니다. 
 다음 기회에 MyBatis에서 사용하는 페이징 처리 예제 코드를 정리하면서 JPA 페이징 처리 방법과 비교해보겠습니다. 
@@ -373,7 +373,7 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 > To make a string comparison case sensitive that normally would not be, cast (convert) one of the strings to binary form by using the BINARY keyword. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-18-jpa-paging>
 
 #### REFERENCE
 - <https://www.baeldung.com/spring-jpa-like-queries>

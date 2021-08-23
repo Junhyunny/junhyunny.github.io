@@ -298,7 +298,7 @@ StackOverflow에서 다음과 같은 글을 발견하였습니다.
 다음 글은 JPA가 Pessimistic Lock 기능을 어떻게 제공하는지 알아보도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-15-jpa-optimistic-lock>
 
 #### REFERENCE
 - <https://www.baeldung.com/jpa-optimistic-locking>

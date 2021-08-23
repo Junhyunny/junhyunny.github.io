@@ -415,7 +415,7 @@ Lock을 선점한 트랜잭션에 문제가 발생하는 경우 대기 중인 �
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-16-jpa-pessimitic-lock>
 
 #### REFERENCE
 - <https://www.baeldung.com/jpa-pessimistic-locking>

@@ -5,7 +5,7 @@ category:
   - spring-boot
   - spring-cloud
   - github
-last_modified_at: 2021-03-22T09:00:00
+last_modified_at: 2021-08-24T01:00:00
 ---
 
 <br>
@@ -13,7 +13,7 @@ last_modified_at: 2021-03-22T09:00:00
 첫 사랑에 관한 글처럼 수줍은 느낌의 제목입니다.😅 
 처음 github 이슈에 의견을 달고 해결 방안까지 제시했던 경험을 포스트로 작성해보았습니다. 
 
-## MOTIVATION
+## 1. MOTIVATION
 저의 친애하는 동료이자 친구인 [@jskim1991][jskim1991-githubLink]이 
 spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 이야기를 듣고 저도 github에서 이슈를 찾아보기 시작하였습니다. 
 한동안 회사에서 퇴근하면 Spring 프로젝트에 등록된 이슈들을 뒤져보면서 호시탐탐 PR을 노리는 하이에나로 살았습니다.🤔
@@ -21,8 +21,10 @@ spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 이야기를 �
 > '나도 해결할 수 있는 이슈가 있을까?'<br>
 > 'open source 프로젝트에 contributor가 되고 싶어!'
 
-## 이슈 해결 과정
-##### 이슈 발견
+## 2. 이슈 해결 과정
+
+### 2.1. 이슈 발견
+
 <p align="left"><img src="/images/my-first-github-issue-1.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 
@@ -31,17 +33,23 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 이제 해당 코드가 어디 부분에 있는지 디버깅 노가다 시작!🥵 
 몇 시간 디버깅해서 해당 문제를 일으키는 코드 위치와 해결 방법을 제시하였습니다. 
 
-##### 해결 방안 제시
+### 2.2. 해결 방안 제시
+나름대로 분석한 내용과 해결책을 제시하여 답변을 달았습니다.
+
 <p align="left"><img src="/images/my-first-github-issue-2.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 
-##### **`@spencergibb`** 님의 한마디, "응, 우리 이슈 아니네. 저리로 가세요~" 
-<p align="left"><img src="/images/my-first-github-issue-3.JPG" width="92.5%"></p>
-<center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
+### 2.3. **`@spencergibb`** 님의 한마디
+
+> "응, 우리 이슈 아니네. 저리로 가세요~" 
 
 눈물을 머금고 Openfeign 프로젝트 쪽에 이슈를 등록하였습니다.😭 
 
-##### Openfeign 프로젝트 이슈 등록
+<p align="left"><img src="/images/my-first-github-issue-3.JPG" width="92.5%"></p>
+<center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
+
+### 2.4. Openfeign 프로젝트 이슈 등록
+
 <p align="left"><img src="/images/my-first-github-issue-4.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/OpenFeign/feign/issues/1170</center><br>
 
@@ -52,7 +60,10 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 
 한참을 지나 올린 이슈가 잊혀질 때 쯤 **`@kdavisk6`** 님이 답장을 달아주셨습니다. 
 
-##### **`@kdavisk6`** 님에게 전달받은 답변, "오 그럴싸하네, 이제부턴 우리가 할께."
+### 2.5.  **`@kdavisk6`** 님에게 전달받은 답변
+
+>  "오 그럴싸하네, 이제부턴 우리가 할께."
+
 <p align="left"><img src="/images/my-first-github-issue-5.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/OpenFeign/feign/issues/1170</center><br>
 

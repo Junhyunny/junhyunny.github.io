@@ -22,7 +22,7 @@ last_modified_at: 2021-08-24T12:00:00
 ##### 마이크로 서비스 아키텍처 장애 전파
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="55%"></p>
 
-그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][msa-blogLink]) 
+그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][msa-link]) 
 > **Micro Service Architecture 핵심 원칙, 회복성(Resilience)**<br>
 > 마이크로 서비스는 자연스러운 메커니즘을 통해 장애를 격리시킵니다.
 
@@ -406,8 +406,6 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 이번 포스트에서 Hystrix 컴포넌트를 사용한 방법은 코드의 구현을 복잡하게 만드는 불편한 방식이었습니다. 
 다음 포스트에서 Spring Cloud Netflix Hystrix에 대해 정리하면서 FeignClient와 함께 사용하는 간단한  방법에 대해 정리해보도록 하겠습니다.
 
-테스트 코드는 [a-service][a-service-link]를 통해 확인이 가능합니다.
-
 글을 작성하다 보니 @EnableHystrix, @EnableCircuitBreaker 두 애너테이션의 차이점이 궁금하여 추가적으로 정리해보았습니다.
 > **@EnableHystrix, @EnableCircuitBreaker 차이점**<br>
 > **@EnableHystrix 애너테이션**은 Hystrix를 사용하겠다는 의미로 내부에 @EnableCircuitBreaker 애너테이션이 추가되어 있습니다. 
@@ -424,6 +422,4 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 - <https://sup2is.github.io/2020/04/12/spring-cloud-hystrix-circuit-breaker-with-fallback.html>
 - <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
 
-[msa-blogLink]: https://junhyunny.github.io/information/msa/microservice-architecture/
-[eureka-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
-[a-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/b5683110d7c510a57c5c1260a2a1c89aaa44565f
+[msa-link]: https://junhyunny.github.io/information/msa/microservice-architecture/

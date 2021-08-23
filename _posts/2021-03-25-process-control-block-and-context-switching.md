@@ -4,19 +4,19 @@ search: false
 category:
   - information
   - operating-system
-last_modified_at: 2021-03-25T09:00:00
+last_modified_at: 2021-08-24T01:30:00
 ---
 
 <br>
 
-## PCB(Process Control Block)
+## 1. PCB(Process Control Block)
 
 PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스에 대한 정보를 담고 있는 자료구조입니다. 
 운영체제는 PCB에 담긴 프로세스 정보를 이용하여 프로세스를 관리/제어합니다. 
 프로세스가 생성될 때마다 고유의 PCB가 생성되고 프로세스가 완료되면 제거됩니다. 
 PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사용자가 접근하지 못하는 보호된 메모리 영역에 존재합니다. 
 
-### PCB에 담기는 프로세스 정보
+### 1.1. PCB에 담기는 프로세스 정보
 - Process id - 프로세스 ID
 - Process state - 프로세스의 상태(new ready waiting, running, terminated)
 - Program counter - 다음 명령의 주소를 가리키고 있는 계수기
@@ -29,7 +29,7 @@ PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사�
 <p align="center"><img src="/images/process-control-block-and-context-switching-1.JPG" width="45%"></p>
 <center>이미지 출처, Operating System Concepts 9th</center><br>
 
-## 문맥 교환(Context Switching)
+## 2. 문맥 교환(Context Switching)
 
 문맥 교환을 한다고 하는데 우선 문맥(Context)가 무엇인지 먼저 정의해보겠습니다. 
 
@@ -41,7 +41,7 @@ PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사�
 즉, 프로세스A를 실행 중이던 CPU가 프로세스B를 실행하기 위해 프로세스A의 정보를 **`'어딘가'`**에 저장하고 프로세스B의 정보를 **`'어딘가'`**로부터 꺼내오는 것을 의미합니다. 
 **여기서 말하는 `'어딘가'`가 바로 PCB(Process Control Block)입니다.**
 
-##### 문맥 교환 시나리오
+### 2.1. 문맥 교환 시나리오
 1. P0 프로세스가 인터럽트되면서 PCB0에 P0 프로세스의 상태 정보를 저장합니다.
 1. 다음 수행할 P1 프로세스의 PCB1에서 P1 프로세스의 상태 정보가 CPU에 재로딩됩니다.
 1. P1 프로세스를 일정 시간 수행합니다.

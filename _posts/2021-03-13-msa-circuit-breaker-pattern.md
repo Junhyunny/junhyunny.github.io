@@ -257,6 +257,10 @@ class HystrixTestService {
     public String getHystrixTest(int index) {
         return new RestTemplate().getForObject("http://localhost:8000/hystrix-test/" + index, String.class);
     }
+
+    public String fallbackHystrixTest(int index) {
+        return "fallback hystrix test";
+    }
 }
 
 @Log4j2

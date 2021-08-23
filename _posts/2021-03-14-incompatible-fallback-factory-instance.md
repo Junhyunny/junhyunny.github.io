@@ -5,7 +5,7 @@ category:
   - spring-boot
   - spring-cloud
   - exception
-last_modified_at: 2021-03-17T09:00:00
+last_modified_at: 2021-08-24T01:00:00
 ---
 
 <br>
@@ -80,7 +80,7 @@ feign:
 
 ##### circuitBreakerFeignTargeter 빈(Bean) 생성
 
-<p align="center"><img src="/images/incompatible-fallback-factory-instance-2.JPG"></p>
+<p align="left"><img src="/images/incompatible-fallback-factory-instance-2.JPG" width="50%"></p>
 
 ##### FeignCircuitBreakerTargeter 클래스 getFromContext 메소드
 - isAssignableFrom 메소드를 통해 org.springframework.cloud.openfeign.FallbackFactory 상속 여부를 확인합니다.

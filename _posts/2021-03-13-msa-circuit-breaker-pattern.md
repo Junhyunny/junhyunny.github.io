@@ -411,6 +411,9 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 > **@EnableCircuitBreaker 애너테이션**은 Circuit Breaker 패턴을 구현한 라이브러리가 있다면 패턴이 적용됩니다. 
 > Hystrix를 이 외에 다른 의존성을 사용할 수 있습니다.
 
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-msa-circuit-breaker-pattern>
+
 #### REFERENCE
 - <https://martinfowler.com/bliki/CircuitBreaker.html>
 - <https://bcho.tistory.com/1247>

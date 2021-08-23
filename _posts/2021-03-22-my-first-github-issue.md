@@ -81,9 +81,10 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 시스템 운영을 하면서 한가해진 일정이 저를 더 조급하게 만드는 이 모순적인 상황은 무엇일까요? 
 이직이라는 기회를 발판 삼아 개발자로서의 역량을 향상시킬 수 있는 프로젝트에 다시 한번 뛰어들고 싶습니다.
 
-관련된 테스트 코드는 [github][test-githubLink]에서 확인이 가능합니다.
-
 마지막으로 항상 긍정적인 자극을 주는 [@jskim1991][jskim1991-githubLink]에게 감사한 마음을 전달합니다.
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/openfeign-test>
 
 #### REFERENCE
 - <https://github.com/spring-cloud/spring-cloud-openfeign/issues/256>
@@ -91,4 +92,3 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 
 [jskim1991-githubLink]: https://github.com/jskim1991
 [issue-link]: https://github.com/spring-cloud/spring-cloud-openfeign/issues/256
-[test-githubLink]: https://github.com/Junhyunny/openfeign-test

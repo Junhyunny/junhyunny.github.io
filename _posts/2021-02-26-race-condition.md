@@ -265,7 +265,7 @@ public class SynchronizedTest {
 추후에 기회가 된다면 별도의 주제로 포스팅하도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-26-race-condition>
 
 #### REFERENCE
 - Operating System Concepts 9th

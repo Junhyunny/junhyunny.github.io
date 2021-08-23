@@ -578,7 +578,7 @@ Hibernate: delete from tb_member where id=?
 별도로 이 영역을 만들어서 어떤 이점을 얻을 수 있는지 다음 글에서 영속성 컨텍스트가 제공해주는 기능을 정리하면서 알아보도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-02-jpa-persistence-context>
 
 #### REFERENCE
 - <https://gunlog.dev/JPA-Persistence-Context/>

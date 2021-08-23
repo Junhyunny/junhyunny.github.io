@@ -6,15 +6,19 @@ category:
   - spring-cloud
   - msa
   - junit
-last_modified_at: 2021-03-12T09:00:00
+last_modified_at: 2021-08-23T11:30:00
 ---
 
 <br>
 
-[Spring Cloud Netflix Eureka][eureka-blogLink] 포스트를 통해 Eureka가 제공해주는 기능에 대해 알아보았습니다. 
-이번 포스트는 Ereka 서버가 클라이언트 서비스들을 관리하는 환경에서 FeignClient를 사용해보도록 하겠습니다. 
+⚠️ 해당 포스트는 2021년 8월 23일에 재작성되었습니다.(불필요 코드 제거)
 
-## 테스트 시나리오
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring Cloud Openfeign][openfeign-link]
+- [Spring Cloud Netflix Eureka][eureka-link]
+
+## 1. 테스트 시나리오
+Ereka 서버가 클라이언트 서비스들을 관리하는 환경에서 FeignClient를 사용해보도록 하겠습니다. 
 - Eureka 서버를 기동합니다.
 - Enreka 클라이언트 서비스인 a-service(1 instance), b-service(2 instances)를 기동합니다.
 - junit 테스트를 통해 a-service로 b-service 정보를 요청합니다. 
@@ -23,19 +27,46 @@ last_modified_at: 2021-03-12T09:00:00
 - b-service는 두 개의 인스턴스를 기동시켜 어느 서비스가 요청을 받았는지 확인합니다.
 
 ##### 테스트 시나리오 구성도
-<p align="center"><img src="/images/feignclient-with-eureka-1.JPG" width="550"></p>
+<p align="center"><img src="/images/feignclient-with-eureka-1.JPG" width="65%"></p>
 
 ##### 실제 서비스 기동 정보
+
 <p align="center"><img src="/images/feignclient-with-eureka-2.JPG"></p>
+
 <p align="center"><img src="/images/feignclient-with-eureka-3.JPG"></p>
 
-## a-service 구현
+## 2. a-service 구현 코드
 
-### 패키지 구조
+### 2.1. 패키지 구조
 
-<p align="left"><img src="/images/feignclient-with-eureka-4.JPG" width="30%"></p>
+```
+./
+|-- a-service.iml
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- java
+    |   |   `-- cloud
+    |   |       `-- in
+    |   |           `-- action
+    |   |               |-- AServiceApplication.java
+    |   |               |-- controller
+    |   |               |   `-- AServiceController.java
+    |   |               `-- proxy
+    |   |                   `-- BServiceFeinClient.java
+    |   `-- resources
+    |       `-- application.yml
+    `-- test
+        `-- java
+            `-- cloud
+                `-- in
+                    `-- action
+                        `-- AServiceApplicationTests.java
+```
 
-### BServiceFeinClient 인터페이스
+### 2.2. BServiceFeinClient 인터페이스
 - b-service를 호출할 때 사용할 FeignClient를 작성합니다.
 - URL 정보 없이 호출할 서비스의 이름만 제공합니다.
 
@@ -53,7 +84,7 @@ public interface BServiceFeinClient {
 }
 ```
 
-### AServiceController 클래스
+### 2.3. AServiceController 클래스
 - **`/call-b-service`** path는 junit 테스트로부터 요청을 받는 endpoint 입니다.
 - 추가적인 전달받은 요청을 b-service로 by-pass 합니다.
 
@@ -81,13 +112,36 @@ public class AServiceController {
 }
 ```
 
-## b-service 구현
+## 3. b-service 구현 코드
 
-### 패키지 구조
+### 3.1. 패키지 구조
 
-<p align="left"><img src="/images/feignclient-with-eureka-5.JPG" width="30%"></p>
+```
+./
+|-- b-service.iml
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- java
+    |   |   `-- cloud
+    |   |       `-- in
+    |   |           `-- action
+    |   |               |-- BServiceApplication.java
+    |   |               `-- controller
+    |   |                   `-- BServiceController.java
+    |   `-- resources
+    |       `-- application.yml
+    `-- test
+        `-- java
+            `-- cloud
+                `-- in
+                    `-- action
+                        `-- BServiceApplicationTests.java
+```
 
-### BServiceController 클래스
+### 3.2. BServiceController 클래스
 - 서비스에게 처리 부하를 주기 위해 Thread.sleep(50)을 수행합니다.
 - 자신의 IP 주소와 PORT 번호를 응답으로 전달합니다.
 
@@ -127,7 +181,7 @@ public class BServiceController {
 }
 ```
 
-## 테스트 코드
+## 4. 테스트 코드
 - a-service로 1000회의 API 요청을 수행합니다.
 - 응답으로 전달받은 b-service의 정보가 각각 어느 인스턴스로부터 전달받았는지 로그를 통해 확인합니다.
 
@@ -182,7 +236,7 @@ class AServiceApplicationTests {
 - b-service, 9000 포트를 가진 인스턴스로 500회 응답받았습니다.
 - b-service, 50032 포트를 가진 인스턴스로 500회 응답받았습니다.
 
-<p align="center"><img src="/images/feignclient-with-eureka-6.JPG"></p>
+<p align="center"><img src="/images/feignclient-with-eureka-4.JPG"></p>
 
 ## OPINION
 Eureka와 FeignClient를 이용하여 서비스 요청 테스트를 진행해보았습니다. 
@@ -190,16 +244,12 @@ Eureka와 FeignClient를 이용하여 서비스 요청 테스트를 진행해보
 터미널로 여러 개의 서비스를 띄우기보다는 쿠버네티스(kubernetes)를 활용하였다면 더 좋은 글이 되었을 것 같습니다. 
 이후에 도커, 쿠버네티스 관련된 글을 포스팅하고 클라우드 환경을 구축하여 테스트해보도록 하겠습니다. 
 
-테스트 코드는 아래 링크를 통해 확인이 가능합니다.
-- [eureka server][eureka-server-link]
-- [a-service][a-service-link]
-- [b-service][b-service-link]
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-10-feignclient-with-eureka>
 
 #### REFERENCE
 - <https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/>
 - <https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/>
 
-[eureka-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
-[eureka-server-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/1330c308e0769ec250754e33e4c750b43368a6d8
-[a-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/1330c308e0769ec250754e33e4c750b43368a6d8
-[b-service-link]: https://github.com/Junhyunny/spring-cloud-cluster/tree/1330c308e0769ec250754e33e4c750b43368a6d8
+[openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
+[eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/

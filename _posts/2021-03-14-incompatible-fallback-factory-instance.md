@@ -100,7 +100,7 @@ feign:
 <p align="center"><img src="/images/incompatible-fallback-factory-instance-4.JPG"></p>
 
 ##### @ryanjbaxter 님의 답변
-<p align="center"><img src="/images/incompatible-fallback-factory-instance-5.JPG"></p>
+<p align="center"><img src="/images/incompatible-fallback-factory-instance-5.JPG" width="70%"></p>
 
 [hystrix-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/
 [git-link]: https://github.com/spring-cloud/spring-cloud-openfeign/issues/516

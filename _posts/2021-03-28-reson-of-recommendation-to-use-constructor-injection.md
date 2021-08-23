@@ -4,14 +4,15 @@ search: false
 category:
   - spring-boot
   - junit
-last_modified_at: 2021-03-28T09:00:00
+last_modified_at: 2021-08-24T02:00:00
 ---
 
 <br>
 
-이전 [Spring IoC(Inversion of Control), DI(Dependency Injection)][ioc-di-blogLink] 포스트에서 
-Setter Injection, Constructor Injection, Method Injection 총 3개의 Inejection 방식을 소개했었는데 
-Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 권장한다고 합니다. 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring IoC(Inversion of Control), DI(Dependency Injection)][ioc-di-link]
+
+Setter Injection, Constructor Injection, Method Injection 총 3개의 Inejection 방식이 존재하는데 Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 권장한다고 합니다. 
 
 > **Spring Doc**<br>
 > The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects 
@@ -57,13 +58,13 @@ public class PostService {
 
 ## 3. 생성자 주입(Constructor Injection) 방식으로부터 얻는 이점
 
-### 불변성(Immutability)
+### 3.1. 불변성(Immutability)
 **`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 
 생성자 주입 방식을 통해서만 final 키워드가 붙은 멤버 변수를 이용해 빈(bean) 객체를 사용할 수 있습니다. 
 Setter, Method, Field Injection 방식들의 경우 final 키워드 사용 시 모두 컴파일 에러가 발생합니다. 
 final 키워드를 사용하면 클래스 내부에서 참조에 대한 변경이 이루어질 수 없기 때문에 참조 변경으로 인해 발생될 수 있는 에러들을 사전에 잡아낼 수 있습니다.
 
-### NullPointException 방지
+### 3.2. NullPointException 방지
 **`'객체가 null이 아님을 보장'`** 이라는 설명과 동일합니다. 
 final 키워드가 붙은 변수는 중간에 다른 객체를 참조할 수 없으므로 생성자를 통해 주입받는 객체가 null이 아님이 보장된다면 NullPointException 에러가 발생되지 않습니다. 
 
@@ -85,7 +86,7 @@ public class PostController {
 }
 ```
 
-### 클래스에 대한 과도한 책임 방지
+### 3.3. 클래스에 대한 과도한 책임 방지
 
 > [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
 > 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 
@@ -120,12 +121,12 @@ public class PostController {
     }
 ```
 
-### 순환 참조 방지
+### 3.4. 순환 참조 방지
 순환 참조 문제는 생성자 주입을 이용할 때 감지할 수 있습니다. 
 순환 참조가 있는 객체 설계는 잘못된 설계이므로 생성자 주입을 통해 사전에 이를 방지하는 것이 좋습니다. 
 아래 테스트 코드를 통해 확인해 보겠습니다. 
 
-##### 필드 주입 사용 시 순환 참조로 인한 StackOverflow 에러 발생 테스트
+#### 3.4.1. 필드 주입 사용 시 순환 참조로 인한 StackOverflow 에러 발생 테스트
 - 필드 주입을 사용하였습니다.
 - AComponent 빈(bean)과 BComponent 빈(bean)은 서로를 참조하고 있습니다. 
 - 서비스 기동은 정상적으로 수행됩니다.
@@ -176,10 +177,25 @@ class BComponent {
 }
 ```
 
-##### StackOverflow 에러 발생
-<p align="left"><img src="/images/reson-of-recommendation-to-use-constructor-injection-1.JPG" width="45%"></p>
+##### StackOverflow 에러 발생 로그
 
-##### 생성자 주입 사용 시 순환 참조 에러 확인 테스트
+```
+java.lang.StackOverflowError
+	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    ...
+```
+
+#### 3.4.2. 생성자 주입 사용 시 순환 참조 에러 확인 테스트
 - 생성자 주입을 사용하였습니다.
 - 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 서비스가 종료됩니다.
 
@@ -233,9 +249,35 @@ class DComponent {
 ```
 
 ##### 서비스 기동시 에러 로그
-<p align="center"><img src="/images/reson-of-recommendation-to-use-constructor-injection-2.JPG"></p>
 
-### 생성자 주입의 경우 순환 참조가 감지되는 이유
+```
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2021-08-24 01:51:55.105 ERROR 984 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌─────┐
+|  CComponent defined in file [D:\workspace\blog\blog-in-action\2021-03-28-reson-of-recommendation-to-use-constructor-injection\action-in-blog-back\target\test-classes\blog\in\action\di\recycle\CComponent.class]
+↑     ↓
+|  DComponent defined in file [D:\workspace\blog\blog-in-action\2021-03-28-reson-of-recommendation-to-use-constructor-injection\action-in-blog-back\target\test-classes\blog\in\action\di\recycle\DComponent.class]
+└─────┘
+
+
+2021-08-24 01:51:55.109 ERROR 984 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@db57326] to prepare test instance [blog.in.action.di.recycle.RecycleCatchTest@17b6d426]
+
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:132) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:123) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+```
+
+#### 3.4.3. 생성자 주입의 경우 순환 참조가 감지되는 이유
 
 > [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blogLink]<br>
 > 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br>
@@ -260,12 +302,12 @@ KimTaeng 님의 포스트를 읽어보니 매우 정리가 잘되어 있어서 �
 모든 것들을 알 순 없지만 많은 것들을 알아야하기 때문에 개발자는 평생 공부해야하는 직업이라는 말이 최근에 크게 공감되었습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-28-reson-of-recommendation-to-use-constructor-injection>
 
 #### REFERENCE
 - <https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html>
 - <https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/>
 - <https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection>
 
-[ioc-di-blogLink]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
+[ioc-di-link]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
 [kim-taeng-blogLink]: https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection

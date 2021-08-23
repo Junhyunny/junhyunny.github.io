@@ -34,7 +34,8 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 몇 시간 디버깅해서 해당 문제를 일으키는 코드 위치와 해결 방법을 제시하였습니다. 
 
 ### 2.2. 해결 방안 제시
-나름대로 분석한 내용과 해결책을 제시하여 답변을 달았습니다.
+나름대로 분석한 내용과 해결책을 제시하여 답변을 달았습니다. 
+특정 클래스에서 Iterable 상속 여부만 체크하기 때문에 배열(array)에 대한 체크를 추가하면 다른 곳에 큰 영향없이 사용할 수 있을 것이라 생각하였습니다. 
 
 <p align="left"><img src="/images/my-first-github-issue-2.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
@@ -43,12 +44,12 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 
 > "응, 우리 이슈 아니네. 저리로 가세요~" 
 
-눈물을 머금고 Openfeign 프로젝트 쪽에 이슈를 등록하였습니다.😭 
-
 <p align="left"><img src="/images/my-first-github-issue-3.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
 
 ### 2.4. Openfeign 프로젝트 이슈 등록
+
+눈물을 머금고 Openfeign 프로젝트 쪽에 이슈를 등록하였습니다.😭 
 
 <p align="left"><img src="/images/my-first-github-issue-4.JPG" width="92.5%"></p>
 <center>이미지 출처, https://github.com/OpenFeign/feign/issues/1170</center><br>
@@ -58,9 +59,9 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 > [@jskim1991][jskim1991-githubLink] said<br>
 > 걔네 엄청 게을러, 답변을 안해줘
 
-한참을 지나 올린 이슈가 잊혀질 때 쯤 **`@kdavisk6`** 님이 답장을 달아주셨습니다. 
-
 ### 2.5.  **`@kdavisk6`** 님에게 전달받은 답변
+
+한참을 지나 올린 이슈가 잊혀질 때 쯤 **`@kdavisk6`** 님이 답장을 달아주셨습니다. 
 
 >  "오 그럴싸하네, 이제부턴 우리가 할께."
 

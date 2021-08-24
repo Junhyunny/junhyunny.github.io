@@ -3,7 +3,7 @@ title: "DB 인덱스(INDEX) 개념 및 설정 시 고려사항"
 search: false
 category:
   - information
-last_modified_at: 2021-04-02T09:00:00
+last_modified_at: 2021-08-25T12:00:00
 ---
 
 <br>
@@ -14,7 +14,7 @@ last_modified_at: 2021-04-02T09:00:00
 직접 설정해 본 적이 없으니 모를 수 있다고 생각할 수도 있지만, 만능 개발자가 되려면 공부해야 하겠죠?😢 
 이번 포스트에서 DB INDEX에 대해 정리해보도록 하겠습니다. 
 
-## DB 인덱스(INDEX) 란?
+## 1. DB 인덱스(INDEX) 란?
 
 > 데이터베이스 테이블의 검색 속도를 향상시키기 위한 자료구조
 
@@ -28,7 +28,7 @@ last_modified_at: 2021-04-02T09:00:00
 <p align="center"><img src="/images/database-index-and-precautions-1.JPG" width="80%"></p>
 <center>이미지 출처, https://mangkyu.tistory.com/96</center><br>
 
-## DB 인덱스 사용 시 장점과 단점
+## 2. DB 인덱스 사용 시 장점과 단점
 
 > 인덱스를 사용하여 속도가 빨라진다면 무조건 사용해야겠네?🤔
 
@@ -36,23 +36,23 @@ last_modified_at: 2021-04-02T09:00:00
 무엇이든 장점이 있으면 단점도 있는 법입니다. 
 DB 인덱스 사용 시 어떤 장단점이 있는지 알아보도록 하겠습니다. 
 
-##### DB 인덱스 장점
+### 2.1. DB 인덱스 장점
 - 테이블에서 검색과 정렬 속도를 향상시킵니다.
 - 질의나 보고서에서 그룹화 작업의 속도를 향상시킵니다.
 - 인덱스를 사용하면 테이블 행의 고유성을 강화시킬 수 있습니다.
 
-##### DB 인덱스 단점
+### 2.2. DB 인덱스 단점
 - 인덱스가 데이터베이스 공간을 차지해 추가적인 공간이 필요합니다.(약 10%)
 - 인덱스 관리를 위한 추가 작업이 필요합니다.
 - 잘못 사용하는 경우 성능 저하를 일으킬 수 있습니다.
 - 데이터 변경 작업이 자주 일어날 때 인덱스를 재작성해야 할 필요가 있어 성능에 영향을 끼칠 수 있습니다.
 
-## DB 인덱스 설정 시 고려사항
+## 3. DB 인덱스 설정 시 고려사항
 인덱스는 하나 혹은 여러 개의 컬럼에 설정할 수 있습니다. 
 DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때문에 적절한 조건을 가지는 컬럼을 인덱스로 설정할 필요가 있습니다. 
 어떤 컬럼을 인덱스로 설정하면 좋은지 찾아보았습니다.
 
-##### 기수성(Cardinality)
+### 3.1. 기수성(Cardinality)
 
 > 기수성(Cardinality), 특정 데이터 집합의 유니크(Unique)한 값의 개수<br>
 > = Cardinality = Distinct Value 개수 = select count(distinct (column)) from table
@@ -66,7 +66,7 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 
 **기수성(Cardinality) 값이 높은 컬럼을 인덱스로 설정하였을 때 성능이 좋습니다.**
 
-##### 선택도(Selectivity)
+### 3.2. 선택도(Selectivity)
 
 > 선택도(Selectivity), 데이터 집합에서 특정 값을 얼마나 잘 선택할 수 있는지에 대한 지표<br>
 > = Selectivity = Cardinality / Total Number Of Records
@@ -76,7 +76,7 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 선택도가 '1' 이라는 의미는 모든 값이 유일(unique)하다는 의미입니다. 
 높은 선택도를 가지는 컬럼을 인덱스로 설정하는 경우 조회 성능이 향상됩니다.
 
-## 인덱스가 DML(Data Manipulation Language) 미치는 영향
+## 4. 인덱스가 DML(Data Manipulation Language) 미치는 영향
 SELECT 쿼리에서 성능이 잘 나오지만, INSERT, UPDATE, DELETE 쿼리에서는 상황에 따라 다르다고 합니다. 
 UPDATE, DELETE는 WHERE 절에 잘 설정된 인덱스로 조건을 붙여주면 성능은 크게 저하되지 않습니다. 
 UPDATE, DELETE를 하기 위한 데이터를 찾을 때 속도가 빨라지게 됩니다. 

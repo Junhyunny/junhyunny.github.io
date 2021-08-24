@@ -155,7 +155,6 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
 ### 3.1. pom.xml - 의존성 추가
 Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러리를 이용하는 것으로 보입니다. 
 
-##### github-api dependency for pom.xml
 ```xml
 <dependency>
     <groupId>org.kohsuke</groupId>
@@ -169,7 +168,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 딱 원하는 기능을 발견했습니다.😄 
 각 repository 별로 마지막 push 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했습니다.
 
-##### Github API, List repositories for a user
+##### Github API
 <p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="75%"></p>
 
 ### 3.2. 사용자 Github repository push 이력 확인
@@ -202,8 +201,8 @@ AWS는 사용해본 적이 없어서 이 작업을 하는데 제일 시간이 �
 일단 AWS Lambda 기능이 무엇인지 찾아보고 Java 어플리케이션을 올리는 방법을 알아봤습니다. 
 
 Java Application의 경우 아래와 같은 과정이 필요한데 API 문서를 읽어보면 쉽게 이해할 수 있습니다.
-1. [RequestStreamHandler 인터페이스 구현 클래스 작성하기][java-handler-awsLink]
-1. [.zip(혹은 .jar) 파일로 배포하기][java-deploy-awsLink]
+1. [RequestStreamHandler 인터페이스 구현 클래스 작성하기][java-handler-link]
+1. [.zip(혹은 .jar) 파일로 배포하기][java-deploy-link]
 
 위 과정을 걸쳐서 배포에 필요한 .jar 파일을 만들었으면 이제 Lamda 어플리케이션을 등록해보겠습니다. 
 Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜주는 EventBridge(CloudWatch Events) 트리거를 등록합니다. 
@@ -271,5 +270,5 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 
 [mingrammer-blogLink]: https://mingrammer.com/dev-commit-alarm-bot/
 [python-slack-chatbot-blogLink]: https://wooiljeong.github.io/python/slack-bot/
-[java-handler-awsLink]: https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html
-[java-deploy-awsLink]: https://docs.aws.amazon.com/lambda/latest/dg/java-package.html
+[java-handler-link]: https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html
+[java-deploy-link]: https://docs.aws.amazon.com/lambda/latest/dg/java-package.html

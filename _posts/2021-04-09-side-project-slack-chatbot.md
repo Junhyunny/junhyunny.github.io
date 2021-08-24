@@ -3,7 +3,7 @@ title: "[Side-Project] Slack Chatbot 개발"
 search: false
 category:
   - side-project
-last_modified_at: 2021-04-09T09:00:00
+last_modified_at: 2021-08-25T00:00:00
 ---
 
 <br>
@@ -13,21 +13,21 @@ last_modified_at: 2021-04-09T09:00:00
 하던 공부는 접고 바로 개발에 착수했습니다. 
 Slack 어플리케이션을 안 사용하고 있었기 때문에 일단 다운받고 채팅 봇 만드는 방법을 찾아봤습니다. 
 
-## Slack 봇 등록
+## 1. Slack 봇 등록
 Slack 어플리케이션이랑 안 친해서 많이 헤맸습니다. 
 [Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 참고해서 간신히 채널 생성과 채팅 봇 등록을 했습니다. 
 
-## Slack API 테스트
+## 2. Slack API 테스트
 이제 봇도 등록했으니 본격적으로 코드를 작성했습니다. 
 Slack API 기능과 Github API 기능을 이어 붙히면 되기 때문에 먼저 필요한 Slack API 기능들을 찾아봤습니다. 
 기능 테스트 시 겪은 간단한 이슈들만 정리해보겠습니다. 
 
-### Slack 인증 에러
+### 2.1. Slack 채널 정보 조회 기능
 [Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 느낌을 받았습니다. 
 보통 Content-Type 같은 정보는 HTTP Header를 통해 전달하는데 참고한 코드를 보면 쿼리 parameter로 전달하는 느낌? 
 일단 해당 포스트를 작성한 분은 성공한 것으로 보이나 내 방식대로 Content-Type 정보는 HTTP Header로 전달하기로 했습니다.
 
-##### [Python으로 Slack Bot 만들기] 참조한 코드
+#### 2.1.1. [Python으로 Slack Bot 만들기] 참조한 코드
 ```python
 # 채널 조회 API 메소드: conversations.list
 URL = 'https://slack.com/api/conversations.list'
@@ -42,7 +42,7 @@ params = {
 res = requests.get(URL, params = params)
 ```
 
-##### 채널 조회 요청 실패 로그
+##### 채널 조회 요청 실패 로그, Slack 인증 에러
 ```
 2021-04-09 19:26:50.695  INFO 10572 --- [           main] io.junhyunny.SlackChatBotTest            : {ok=false, error=invalid_auth}
 ```
@@ -57,7 +57,7 @@ Request Parameter 혹은 Request Body로 전달하려면 **`application/x-www-fo
 ##### Slack API 문서
 <p align="center"><img src="/images/side-project-slack-chatbot-1.JPG" width="75%"></p>
 
-##### Slack 채널 정보를 가져오는 테스트 코드
+### 2.1.2. Slack 채널 정보 조회 테스트 코드
 ```java
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
@@ -81,10 +81,10 @@ Request Parameter 혹은 Request Body로 전달하려면 **`application/x-www-fo
     }
 ```
 
-### 채널에 글 작성 시 Warning, 'warning=missing_charset'
+### 2.2. Slack 채널에 글 작성 기능
 이제 채널에 글 작성을 위한 요청을 하는 코드를 작성합니다. 
 
-##### [Python으로 Slack Bot 만들기] 참조한 코드
+#### 2.2.1. [Python으로 Slack Bot 만들기] 참조한 코드
 ```python
 # 파라미터
 data = {'Content-Type': 'application/x-www-form-urlencoded',
@@ -111,7 +111,7 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
 ##### StackOverflow 답변
 <p align="center"><img src="/images/side-project-slack-chatbot-2.JPG" width="75%"></p>
 
-##### Slack 채널에 글 작성하기 테스트 코드
+#### 2.2.2. Slack 채널에 글 작성하기 테스트 코드
 ```java
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
@@ -150,7 +150,9 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
 ##### Slack 채널에 글 작성하기 테스트 결과
 <p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="30%"></p>
 
-## Github API 테스트
+## 3. Github API 테스트
+
+### 3.1. pom.xml - 의존성 추가
 Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러리를 이용하는 것으로 보입니다. 
 
 ##### github-api dependency for pom.xml
@@ -170,7 +172,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 ##### Github API, List repositories for a user
 <p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="75%"></p>
 
-##### 사용자 Github repository push 이력 확인
+### 3.2. 사용자 Github repository push 이력 확인
 ```java
     @SuppressWarnings({ "unchecked" })
     @Test
@@ -194,7 +196,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
     }
 ```
 
-## AWS Lambda 어플리케이션 등록하기
+## 4. AWS Lambda 어플리케이션 등록하기
 AWS는 사용해본 적이 없어서 이 작업을 하는데 제일 시간이 오래 걸렸습니다. 
 [일일커밋 알림봇 개발기][mingrammer-blogLink] 포스트를 보면 특정 시간부터 트리거를 통해 어플리케이션을 동작시키는 기능인 것으로 추정됩니다. 
 일단 AWS Lambda 기능이 무엇인지 찾아보고 Java 어플리케이션을 올리는 방법을 알아봤습니다. 
@@ -209,13 +211,13 @@ Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜�
 ##### Slack Chatbot AWS Lambda 구성
 <p align="center"><img src="/images/side-project-slack-chatbot-5.JPG"></p>
 
-### Lambda 어플리케이션 등록
+### 4.1. Lambda 어플리케이션 등록
 빌드 .jar를 올려주고 RequestStreamHandler 인터페이스를 구현한 클래스를 등록합니다. 
 
 ##### .jar 파일 업로드 및 RequestStreamHandler 인터페이스 구현 클래스 등록
 <p align="center"><img src="/images/side-project-slack-chatbot-6.JPG"></p>
 
-### Event Trigger 주기 설정 및 요청 parameter 등록
+### 4.2. Event Trigger 주기 설정 및 요청 parameter 등록
 프로그램에 repository 사용자 정보, Slack token 정보, Slack Channel 정보가 코드에 하드 코딩되어 있으면 
 불필요한 정보가 노출되기 때문에 아래와 같은 요청 parameter로 전달하기로 했습니다. 
 EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter를 등록할 수 있는 Console 화면이 존재합니다. 
@@ -239,7 +241,7 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 ##### Event Trigger 요청 parameter 등록
 <p align="center"><img src="/images/side-project-slack-chatbot-9.JPG" width="75%"></p>
 
-## Slack Chatbot 배포 후 확인
+## 5. Slack Chatbot 배포 후 확인
 내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 commit 하라는 메세지를 전달합니다. 
 일부러 push 하지 않고 commit 독촉 메세지가 오기를 기다려봤습니다. 
 과연... 결과는?🤨
@@ -254,7 +256,9 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 간단한 chatbot 개발기를 작성해봤는데 개발하는 시간보다 개발한 내용들을 정리하는게 더 시간이 오래 걸렸습니다. 
 정리하는 일이 귀찮기는 하지만 정리해놓으면 나중에 필요한 날이 올 것이라 믿습니다. 
 공부나 일을 하다가 필요한 기능이 생기면 자동화 할 방법이 있는지 궁리해보면서 이런 프로그램 개발기들을 하나씩 늘려가야겠습니다. 
-(프로젝트 저장소 - **[slack-chatbot repository][slack-chatbot-gitLink]**)
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/slack-chatbot>
 
 #### REFERENCE
 - <https://mingrammer.com/dev-commit-alarm-bot/>
@@ -269,4 +273,3 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 [python-slack-chatbot-blogLink]: https://wooiljeong.github.io/python/slack-bot/
 [java-handler-awsLink]: https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html
 [java-deploy-awsLink]: https://docs.aws.amazon.com/lambda/latest/dg/java-package.html
-[slack-chatbot-gitLink]: https://github.com/Junhyunny/slack-chatbot

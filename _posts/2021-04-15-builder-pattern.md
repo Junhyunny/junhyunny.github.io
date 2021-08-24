@@ -17,7 +17,7 @@ last_modified_at: 2021-04-15T09:00:00
 관련된 포스트들을 읽어보니 무슨 책을 읽었느냐에 따라 다른 관점에서 빌더 패턴의 장점을 설명해주고 있습니다. 
 유명한 저서인 **'GoF 디자인 패턴'**과 **'Effective Java'** 에서 각자 표현하는 빌더 패턴의 내용을 정리해보았습니다. 
 
-## 'GoF 디자인 패턴'의 빌더 패턴
+## 1. 'GoF 디자인 패턴'의 빌더 패턴
 
 > Separate the construction of a complex object from its representation 
 > so that the same construction process can create different representations. [GoF, p97]
@@ -26,7 +26,7 @@ last_modified_at: 2021-04-15T09:00:00
 직역하지면 **`'복잡한 객체 생성을 표현으로부터 분리한다.'`** 일 것 같습니다. 
 GoF 디자인 패턴에서는 어떤 방식으로 객체의 생성을 표현으로부터 분리하는지 확인해보도록 하겠습니다. 
 
-##### 'GoF 디자인 패턴'의 빌더 패턴
+### 1.1. 'GoF 디자인 패턴'의 빌더 패턴
 - Director - Builder를 이용해 Product를 만드는 클래스
 - Product - Director가 Builder로 만들어낸 결과물
 - Builder - Product를 만드는 방법을 정의하고 있는 인터페이스
@@ -35,12 +35,13 @@ GoF 디자인 패턴에서는 어떤 방식으로 객체의 생성을 표현으�
 <p align="center"><img src="/images/builder-pattern-1.JPG" width="70%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Builder_pattern</center><br>
 
-### 'GoF 디자인 패턴'의 빌더 패턴을 통해 얻는 이점
+### 1.2. 'GoF 디자인 패턴'의 빌더 패턴을 통해 얻는 이점
 - 제품에 대한 내부 표현을 다양하게 변화할 수 있습니다. 
 - 생성과 표현에 필요한 코드를 분리할 수 있습니다.
 - 복합 객체(Product)를 생성하는 절차를 조금 더 세밀하게 나눌 수 있습니다.
 
-### ENUM 타입
+### 1.3. 빌더 패턴 예시(GoF 디자인 패턴) 
+#### 1.3.1. ENUM 타입
 - 필요한 CPU, RAM 정보를 enum 으로 선언합니다.
 
 ```java
@@ -53,7 +54,7 @@ enum RAM {
 }
 ```
 
-### Director 클래스
+#### 1.3.2. Director 클래스
 - builder를 사용하여 각 성능에 맞는 Labtop을 만들어 반환합니다.
 
 ```java
@@ -85,7 +86,7 @@ class LabtopDirector {
 }
 ```
 
-### Product 클래스
+#### 1.3.3. Product 클래스
 - 만들고 싶은 클래스입니다. 
 - 필요에 따라 클래스 내 멤버 변수가 추가, 제거될 수 있습니다.
 
@@ -114,7 +115,7 @@ class Labtop {
 }
 ```
 
-### Builder 인터페이스
+#### 1.3.4. Builder 인터페이스
 - Labtop 객체에 필요한 부품들을 추가하는 기능을 명시하고 있습니다.
 - Labtop 객체에 필요한 부품 종류에 따라 메소드가 추가, 제거될 수 있습니다.
 - 조립할 부품을 모두 모았으면 객체를 만들어 반환하는 기능을 명시하고 있습니다.
@@ -130,7 +131,7 @@ interface LabtopBuilder {
 }
 ```
 
-### ConcreteBuilder 클래스
+#### 1.3.5. ConcreteBuilder 클래스
 - Labtop 객체를 만들어 반환하는 클래스입니다.
 - 전달받은 부품들을 조립하여 Labtop 객체를 만듭니다.
 
@@ -161,7 +162,7 @@ class ConcreteLabtopBuilder implements LabtopBuilder {
 }
 ```
 
-### GoF 빌더 패턴
+#### 1.3.6. 빌더 패턴 적용
 - Director 클래스는 필요한 성능을 가진 Labtop 객체를 만들어 반환합니다.
 
 ```java
@@ -178,7 +179,7 @@ public class GofBuilderPattern {
 
 ```
 
-## 'Effective Java'의 빌더 패턴
+## 2. 'Effective Java'의 빌더 패턴
 
 > In summary, the Builder pattern is a good choice when designing classes 
 > whose constructors or static factories would have more than a handful of parameters, 
@@ -186,7 +187,7 @@ public class GofBuilderPattern {
 
 직역하자면 `'생성자나 정적 팩토리에 파라미터가 많은 경우 사용하기 좋다.'` 일 것 같습니다. 
 
-### 점층적 생성자 패턴
+### 2.1. 점층적 생성자 패턴
 생성자를 오버로딩(Overloading)하여 사용하는 방법입니다. 
 생성자의 멤버 변수가 많아질수록 생성자의 종류가 많아집니다. 
 
@@ -225,7 +226,7 @@ class Rectangular {
 }
 ```
 
-##### 점층적 생성자 패턴은 다음과 같은 문제점이 있습니다. 
+##### 점층적 생성자 패턴의 문제점
 - 불필요한 값 SETTING 이 발생합니다.
     - 객체 생성 시 필수인 값 width, height 이 외에 padding 값이 필요한데 반드시 margin 값에 0 을 넣어줘야 합니다.
 - 생성자가 많아질수록 생성자에 값을 SETTING 하는 코드에 의도를 파악하기 어려워집니다. 
@@ -239,7 +240,7 @@ public class EffectiveJavaBuilderPatttern {
 }
 ```
 
-### 자바빈(JavaBean) 패턴
+### 2.2. 자바빈(JavaBean) 패턴
 점층적 생성자 패턴의 문제점을 해결하기 위한 방법입니다. 
 setter 메소드를 이용해 필요한 값들만 setting 하도록 만든 패턴입니다. 
 가독성이 좋아지고 불필요한 생성자 오버로딩이 필요 없어졌습니다. 
@@ -283,7 +284,7 @@ class Rectangular {
 }
 ```
 
-##### 자바빈(JavaBean) 패턴은 다음과 같은 문제점이 있습니다. 
+##### 자바빈(JavaBean) 패턴 문제점
 - 객체 일관성(consistency)이 깨집니다. 
     - 1회의 호출로 객체 생성이 끝나지 않고, 생성한 객체에 값을 변경합니다.
 - setter 메서드가 있으므로 변경 불가능(immutable)클래스를 만들 수가 없습니다.
@@ -299,7 +300,7 @@ public class EffectiveJavaBuilderPatttern {
 }
 ```
 
-### 빌더(Builder) 패턴
+### 2.3. 빌더(Builder) 패턴
 빌더(Builder)를 통해 객체를 생성하는 방법입니다. 
 생성자가 private 이므로 외부에서 해당 객체를 만들 수 없으며 반드시 빌더를 통해서만 객체 생성이 가능합니다. 
 생성된 객체는 setter 메소드를 제공하지 않기 때문에 멤버 변수 값을 변경할 수 없습니다. 
@@ -404,7 +405,7 @@ class NutritionFacts {
 }
 ```
 
-### 빌더 패턴을 사용하여 얻는 이점
+##### 빌더 패턴을 사용하여 얻는 이점
 - 각 인자가 어떤 의미인지 알기 쉽습니다.
 - 한 번에 객체를 생성하므로 객체 일관성이 깨지지 않습니다.
 - setter 메소드가 없으므로 변경 불가능한 객체를 만들 수 있습니다.
@@ -428,6 +429,9 @@ fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는�
 
 <p align="center"><img src="/images/builder-pattern-3.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-15-builder-pattern>
 
 #### REFERENCE
 - [자바에서 builder를 쓰는 이유는 뭔가요?][ashcode-link]

@@ -181,17 +181,17 @@ class BComponent {
 
 ```
 java.lang.StackOverflowError
-	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
-	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
-	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
-	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
-	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
-	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
-	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
-	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
-	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
-	at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
-	at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+    at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+    at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+    at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+    at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
+    at blog.in.action.di.recycle.AComponent.doThing(RecycleErrorTest.java:27)
+    at blog.in.action.di.recycle.BComponent.doThing(RecycleErrorTest.java:38)
     ...
 ```
 
@@ -272,9 +272,9 @@ The dependencies of some of the beans in the application context form a cycle:
 2021-08-24 01:51:55.109 ERROR 984 --- [           main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@db57326] to prepare test instance [blog.in.action.di.recycle.RecycleCatchTest@17b6d426]
 
 java.lang.IllegalStateException: Failed to load ApplicationContext
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:132) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:123) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+    at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:132) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+    at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:123) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+    at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
 ```
 
 #### 3.4.3. 생성자 주입의 경우 순환 참조가 감지되는 이유

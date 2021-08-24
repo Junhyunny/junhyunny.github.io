@@ -242,13 +242,13 @@ Hibernate: insert into delivery (id) values (?)
 2021-05-10 01:51:45.727  WARN 17924 --- [           main] blog.in.action.transcation.OrderService  : null
 
 java.lang.RuntimeException: null
-	at blog.in.action.transcation.DeliveryService.createDeliveryWithRequired(TransactionalTest.java:161) ~[test-classes/:na]
-	at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at blog.in.action.transcation.DeliveryService.createDeliveryWithRequired(TransactionalTest.java:161) ~[test-classes/:na]
+    at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
+    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 
 2021-05-10 01:51:45.728 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
 2021-05-10 01:51:45.728 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1210315984<open>)]
@@ -690,12 +690,12 @@ Hibernate: insert into orders (id) values (?)
 2021-05-10 01:38:55.030  WARN 17696 --- [           main] b.i.a.transcation.TransactionalTest      : No existing transaction found for transaction marked with propagation 'mandatory'
 
 org.springframework.transaction.IllegalTransactionStateException: No existing transaction found for transaction marked with propagation 'mandatory'
-	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:362) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:362) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 
 2021-05-10 01:38:55.030  INFO 17696 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD MANDATORY END
 ```
@@ -820,13 +820,13 @@ Hibernate: insert into delivery (id) values (?)
 2021-05-10 01:58:16.504  WARN 7364 --- [           main] blog.in.action.transcation.OrderService  : null
 
 java.lang.RuntimeException: null
-	at blog.in.action.transcation.DeliveryService.createDeliveryWithRequiresNew(TransactionalTest.java:188) ~[test-classes/:na]
-	at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at blog.in.action.transcation.DeliveryService.createDeliveryWithRequiresNew(TransactionalTest.java:188) ~[test-classes/:na]
+    at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
+    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 
 2021-05-10 01:58:16.510 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
 2021-05-10 01:58:16.510 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(552085610<open>)]
@@ -954,11 +954,11 @@ Hibernate: insert into delivery (id) values (?)
 2021-05-10 02:14:46.954  WARN 7240 --- [           main] b.i.a.transcation.TransactionalTest      : null
 
 java.lang.RuntimeException: null
-	at blog.in.action.transcation.DeliveryService.createDeliveryWithNotSupported(TransactionalTest.java:210) ~[test-classes/:na]
-	at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at blog.in.action.transcation.DeliveryService.createDeliveryWithNotSupported(TransactionalTest.java:210) ~[test-classes/:na]
+    at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
+    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 
 2021-05-10 02:14:46.954  INFO 7240 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NOT_SUPPORTED END
 ```
@@ -1067,10 +1067,10 @@ Hibernate: insert into orders (id) values (?)
 2021-05-10 02:23:51.954  WARN 16928 --- [           main] b.i.a.transcation.TransactionalTest      : Existing transaction found for transaction marked with propagation 'never'
 
 org.springframework.transaction.IllegalTransactionStateException: Existing transaction found for transaction marked with propagation 'never'
-	at org.springframework.transaction.support.AbstractPlatformTransactionManager.handleExistingTransaction(AbstractPlatformTransactionManager.java:413) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:352) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.support.AbstractPlatformTransactionManager.handleExistingTransaction(AbstractPlatformTransactionManager.java:413) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:352) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 
 2021-05-10 02:23:51.954  INFO 16928 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NEVER END
 ```
@@ -1189,13 +1189,13 @@ Hibernate: insert into orders (id) values (?)
 2021-05-10 02:30:12.082  WARN 18720 --- [           main] blog.in.action.transcation.OrderService  : JpaDialect does not support savepoints - check your JPA provider's capabilities
 
 org.springframework.transaction.NestedTransactionNotSupportedException: JpaDialect does not support savepoints - check your JPA provider's capabilities
-	at org.springframework.orm.jpa.JpaTransactionManager$JpaTransactionObject.getSavepointManager(JpaTransactionManager.java:734) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.orm.jpa.JpaTransactionManager$JpaTransactionObject.createSavepoint(JpaTransactionManager.java:713) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.support.AbstractTransactionStatus.createAndHoldSavepoint(AbstractTransactionStatus.java:140) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.support.AbstractPlatformTransactionManager.handleExistingTransaction(AbstractPlatformTransactionManager.java:457) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:352) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.JpaTransactionManager$JpaTransactionObject.getSavepointManager(JpaTransactionManager.java:734) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.JpaTransactionManager$JpaTransactionObject.createSavepoint(JpaTransactionManager.java:713) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.support.AbstractTransactionStatus.createAndHoldSavepoint(AbstractTransactionStatus.java:140) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.support.AbstractPlatformTransactionManager.handleExistingTransaction(AbstractPlatformTransactionManager.java:457) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:352) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 
 2021-05-10 02:30:12.084 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
 2021-05-10 02:30:12.084 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(747909318<open>)]

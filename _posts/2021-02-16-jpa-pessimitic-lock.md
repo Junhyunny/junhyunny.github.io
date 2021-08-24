@@ -71,22 +71,22 @@ JpaRepository 인터페이스를 사용하는 경우 entityManager.getTransactio
 
 ```
 org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in progress; nested exception is javax.persistence.TransactionRequiredException: no transaction is in progress
-	at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:403) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:257) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:528) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:153) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.EntityManagerFactoryUtils.convertJpaAccessExceptionIfPossible(EntityManagerFactoryUtils.java:403) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:257) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:528) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:153) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
     ...
 Caused by: javax.persistence.TransactionRequiredException: no transaction is in progress
-	at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1557) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
-	at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1530) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
-	at org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1578) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
-	at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:409) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.hibernate.query.internal.AbstractProducedQuery.doList(AbstractProducedQuery.java:1557) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
+    at org.hibernate.query.internal.AbstractProducedQuery.list(AbstractProducedQuery.java:1530) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
+    at org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1578) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+    at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
+    at org.springframework.orm.jpa.SharedEntityManagerCreator$DeferredQueryInvocationHandler.invoke(SharedEntityManagerCreator.java:409) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
     ...
 ```
 

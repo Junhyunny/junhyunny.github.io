@@ -26,19 +26,19 @@ last_modified_at: 2021-05-13T00:00:00
 ##### @Transcational readOnly javadoc
 
 ```java
-	/**
-	 * A boolean flag that can be set to {@code true} if the transaction is
-	 * effectively read-only, allowing for corresponding optimizations at runtime.
-	 * <p>Defaults to {@code false}.
-	 * <p>This just serves as a hint for the actual transaction subsystem;
-	 * it will <i>not necessarily</i> cause failure of write access attempts.
-	 * A transaction manager which cannot interpret the read-only hint will
-	 * <i>not</i> throw an exception when asked for a read-only transaction
-	 * but rather silently ignore the hint.
-	 * @see org.springframework.transaction.interceptor.TransactionAttribute#isReadOnly()
-	 * @see org.springframework.transaction.support.TransactionSynchronizationManager#isCurrentTransactionReadOnly()
-	 */
-	boolean readOnly() default false;
+    /**
+     * A boolean flag that can be set to {@code true} if the transaction is
+     * effectively read-only, allowing for corresponding optimizations at runtime.
+     * <p>Defaults to {@code false}.
+     * <p>This just serves as a hint for the actual transaction subsystem;
+     * it will <i>not necessarily</i> cause failure of write access attempts.
+     * A transaction manager which cannot interpret the read-only hint will
+     * <i>not</i> throw an exception when asked for a read-only transaction
+     * but rather silently ignore the hint.
+     * @see org.springframework.transaction.interceptor.TransactionAttribute#isReadOnly()
+     * @see org.springframework.transaction.support.TransactionSynchronizationManager#isCurrentTransactionReadOnly()
+     */
+    boolean readOnly() default false;
 ```
 
 어느 정도 의미는 알 것 같은데 정확한 기능에 대한 설명은 아닌 것 같습니다. 
@@ -166,8 +166,8 @@ Hibernate: insert into orders (value, id) values (?, ?)
 2021-05-13 03:38:57.260  WARN 10876 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement
 
 org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement
-	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:353) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:255) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:353) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:255) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 ```
 
 ### Hibernate 사용 시 DIRTY CHECKING 생략 가능 여부 테스트

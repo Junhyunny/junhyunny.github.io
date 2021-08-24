@@ -238,9 +238,9 @@ public class MemberController {
 > Content-Length: 69
 
 | {
-| 	"id": "junhyunny",
-| 	"password": "123",
-| 	"authroities": ["ADMIN"]
+|     "id": "junhyunny",
+|     "password": "123",
+|     "authroities": ["ADMIN"]
 | }
 ```
 

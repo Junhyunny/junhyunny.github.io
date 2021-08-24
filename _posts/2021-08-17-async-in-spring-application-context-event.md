@@ -213,12 +213,12 @@ Hibernate: select order0_.id as id1_1_0_, order0_.order_code as order_co2_1_0_, 
 2021-08-17 01:11:31.121 ERROR 5628 --- [         task-1] .a.i.SimpleAsyncUncaughtExceptionHandler : Unexpected exception occurred invoking async method: public void blog.in.action.order.listner.OrderEventListener.listenAsyncEvent(blog.in.action.common.event.AsyncEvent)
 
 java.lang.RuntimeException: DELIVERY_CODE 배송 코드에 해당하는 주문 정보가 존재합니다.
-	at blog.in.action.order.service.OrderService.updateOrderDeliveryComplete(OrderService.java:24) ~[classes/:na]
-	at blog.in.action.order.service.OrderService$$FastClassBySpringCGLIB$$793adfdb.invoke(<generated>) ~[classes/:na]
-	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-	...
+    at blog.in.action.order.service.OrderService.updateOrderDeliveryComplete(OrderService.java:24) ~[classes/:na]
+    at blog.in.action.order.service.OrderService$$FastClassBySpringCGLIB$$793adfdb.invoke(<generated>) ~[classes/:na]
+    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+    ...
 
 Hibernate: select delivery0_.id as id1_0_, delivery0_.delivery_code as delivery2_0_, delivery0_.delivery_end_tp as delivery3_0_, delivery0_.order_id as order_id4_0_ from tb_delivery delivery0_ where delivery0_.delivery_code=?
 Hibernate: select order0_.id as id1_1_0_, order0_.order_code as order_co2_1_0_, order0_.order_state as order_st3_1_0_ from tb_order order0_ where order0_.id=?

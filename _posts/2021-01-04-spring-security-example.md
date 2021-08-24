@@ -466,11 +466,11 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 > Content-Length: 74
 
 | {
-| 	"id": "junhyunny",
-| 	"password": "123",
-| 	"authroities": [
-| 		"ADMIN"
-| 	]
+|     "id": "junhyunny",
+|     "password": "123",
+|     "authroities": [
+|         "ADMIN"
+|     ]
 | }
 ```
 
@@ -496,12 +496,12 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo",
-  "token_type": "bearer",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJqdGkiOiI0YTQyNTFiMS1iZjQ2LTQ5YWItYTdiNi1hYmNiZWJmOGJkMzQiLCJjbGllbnRfaWQiOiJDTElFTlRfSUQiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJhdGkiOiI1NTUwNDYwMC1hN2MxLTRkYmUtYmI5ZC0yNzI4NTMyZjUwOGMifQ.PBvsBK6PAZhlgXeMiLHRF7STX8D3x2pIv5N6t7YwrHc",
-  "expires_in": 86171,
-  "scope": "read profile",
-  "jti": "55504600-a7c1-4dbe-bb9d-2728532f508c"
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo",
+    "token_type": "bearer",
+    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJqdGkiOiI0YTQyNTFiMS1iZjQ2LTQ5YWItYTdiNi1hYmNiZWJmOGJkMzQiLCJjbGllbnRfaWQiOiJDTElFTlRfSUQiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJhdGkiOiI1NTUwNDYwMC1hN2MxLTRkYmUtYmI5ZC0yNzI4NTMyZjUwOGMifQ.PBvsBK6PAZhlgXeMiLHRF7STX8D3x2pIv5N6t7YwrHc",
+    "expires_in": 86171,
+    "scope": "read profile",
+    "jti": "55504600-a7c1-4dbe-bb9d-2728532f508c"
 }
 ```
 
@@ -522,11 +522,11 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 
 ```json
 {
-  "id": "junhyunny",
-  "password": "$2a$10$KdarSqArLPXsGkLuX0jWhubndBpqkOX5PBRwsk0Fs/GtI4uKU6lx6",
-  "authroities": [
-    "ADMIN"
-  ]
+    "id": "junhyunny",
+    "password": "$2a$10$KdarSqArLPXsGkLuX0jWhubndBpqkOX5PBRwsk0Fs/GtI4uKU6lx6",
+    "authroities": [
+        "ADMIN"
+    ]
 }
 ```
 

@@ -243,18 +243,18 @@ class AServiceApplicationTests {
 2021-08-24 00:45:43.554 ERROR 15784 --- [ HystrixTimer-1] c.i.a.proxy.BServiceFallbackFactory      : null
 
 com.netflix.hystrix.exception.HystrixTimeoutException: null
-	at com.netflix.hystrix.AbstractCommand$HystrixObservableTimeoutOperator$1.run(AbstractCommand.java:1142) ~[hystrix-core-1.5.18.jar:1.5.18]
-	at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable$1.call(HystrixContextRunnable.java:41) ~[hystrix-core-1.5.18.jar:1.5.18]
-	at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable$1.call(HystrixContextRunnable.java:37) ~[hystrix-core-1.5.18.jar:1.5.18]
-	at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable.run(HystrixContextRunnable.java:57) ~[hystrix-core-1.5.18.jar:1.5.18]
-	at com.netflix.hystrix.AbstractCommand$HystrixObservableTimeoutOperator$2.tick(AbstractCommand.java:1159) ~[hystrix-core-1.5.18.jar:1.5.18]
-	at com.netflix.hystrix.util.HystrixTimer$1.run(HystrixTimer.java:99) ~[hystrix-core-1.5.18.jar:1.5.18]
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
-	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
-	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
-	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+    at com.netflix.hystrix.AbstractCommand$HystrixObservableTimeoutOperator$1.run(AbstractCommand.java:1142) ~[hystrix-core-1.5.18.jar:1.5.18]
+    at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable$1.call(HystrixContextRunnable.java:41) ~[hystrix-core-1.5.18.jar:1.5.18]
+    at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable$1.call(HystrixContextRunnable.java:37) ~[hystrix-core-1.5.18.jar:1.5.18]
+    at com.netflix.hystrix.strategy.concurrency.HystrixContextRunnable.run(HystrixContextRunnable.java:57) ~[hystrix-core-1.5.18.jar:1.5.18]
+    at com.netflix.hystrix.AbstractCommand$HystrixObservableTimeoutOperator$2.tick(AbstractCommand.java:1159) ~[hystrix-core-1.5.18.jar:1.5.18]
+    at com.netflix.hystrix.util.HystrixTimer$1.run(HystrixTimer.java:99) ~[hystrix-core-1.5.18.jar:1.5.18]
+    at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515) ~[na:na]
+    at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305) ~[na:na]
+    at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128) ~[na:na]
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628) ~[na:na]
+    at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
 ```
 
 ##### a-service **`/exception`** 경로 에러 로그
@@ -264,11 +264,11 @@ com.netflix.hystrix.exception.HystrixTimeoutException: null
 2021-08-24 00:45:43.632 ERROR 15784 --- [reakerFactory-8] c.i.a.proxy.BServiceFallbackFactory      : [500] during [GET] to [http://b-service/exception] [BServiceFeinClient#requestWithException()]: [{"timestamp":"2021-08-23T15:45:43.617+0000","status":500,"error":"Internal Server Error","message":"exception occur","path":"/exception"}]
 
 feign.FeignException$InternalServerError: [500] during [GET] to [http://b-service/exception] [BServiceFeinClient#requestWithException()]: [{"timestamp":"2021-08-23T15:45:43.617+0000","status":500,"error":"Internal Server Error","message":"exception occur","path":"/exception"}]
-	at feign.FeignException.serverErrorStatus(FeignException.java:231) ~[feign-core-10.10.1.jar:na]
-	at feign.FeignException.errorStatus(FeignException.java:180) ~[feign-core-10.10.1.jar:na]
-	at feign.FeignException.errorStatus(FeignException.java:169) ~[feign-core-10.10.1.jar:na]
-	at feign.codec.ErrorDecoder$Default.decode(ErrorDecoder.java:92) ~[feign-core-10.10.1.jar:na]
-	at feign.AsyncResponseHandler.handleResponse(AsyncResponseHandler.java:96) ~[feign-core-10.10.1.jar:na]
+    at feign.FeignException.serverErrorStatus(FeignException.java:231) ~[feign-core-10.10.1.jar:na]
+    at feign.FeignException.errorStatus(FeignException.java:180) ~[feign-core-10.10.1.jar:na]
+    at feign.FeignException.errorStatus(FeignException.java:169) ~[feign-core-10.10.1.jar:na]
+    at feign.codec.ErrorDecoder$Default.decode(ErrorDecoder.java:92) ~[feign-core-10.10.1.jar:na]
+    at feign.AsyncResponseHandler.handleResponse(AsyncResponseHandler.java:96) ~[feign-core-10.10.1.jar:na]
     ...
 ```
 

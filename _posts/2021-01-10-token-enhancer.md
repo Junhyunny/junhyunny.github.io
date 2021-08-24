@@ -211,11 +211,11 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 > Content-Length: 74
 
 | {
-| 	"id": "junhyunny",
-| 	"password": "123",
-| 	"authroities": [
-| 		"ADMIN"
-| 	]
+|     "id": "junhyunny",
+|     "password": "123",
+|     "authroities": [
+|         "ADMIN"
+|     ]
 | }
 ```
 

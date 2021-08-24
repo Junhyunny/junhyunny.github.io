@@ -349,7 +349,7 @@ foo
 2021-05-15 00:57:42.870  INFO 17332 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
 2021-05-15 00:57:42.970  INFO 17332 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
 2021-05-15 00:57:42.970  INFO 17332 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 792 ms
-2021-05-15 00:57:43.001  INFO 17332 --- [           main] blog.in.action.filters.BlogFilter        : ==========	BlogFilter init filter
+2021-05-15 00:57:43.001  INFO 17332 --- [           main] blog.in.action.filters.BlogFilter        : ==========    BlogFilter init filter
 2021-05-15 00:57:43.087  INFO 17332 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
 2021-05-15 00:57:43.118  INFO 17332 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.12.Final
 2021-05-15 00:57:43.199  INFO 17332 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
@@ -370,23 +370,23 @@ foo
 2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
-2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter before doFilter
-2021-05-15 00:57:46.263  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor preHandle
-2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller before foo
-2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] b.in.action.controller.BlogController    : ==========	controller foo
-2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around service before foo
-2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.service.BlogService       : ==========	service foo
-2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around service after foo
-2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller after foo
-2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor postHandle
-2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor afterCompletion
-2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter after doFilter
+2021-05-15 00:57:46.248  INFO 17332 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========    BlogFilter before doFilter
+2021-05-15 00:57:46.263  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========    interceptor preHandle
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========    around controller before foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] b.in.action.controller.BlogController    : ==========    controller foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========    around service before foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.service.BlogService       : ==========    service foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========    around service after foo
+2021-05-15 00:57:46.302  INFO 17332 --- [nio-8081-exec-1] blog.in.action.aop.BlogAop               : ==========    around controller after foo
+2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========    interceptor postHandle
+2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========    interceptor afterCompletion
+2021-05-15 00:57:46.318  INFO 17332 --- [nio-8081-exec-1] blog.in.action.filters.BlogFilter        : ==========    BlogFilter after doFilter
 Disconnected from the target VM, address: '127.0.0.1:59594', transport: 'socket'
 2021-05-15 01:00:10.300  INFO 17332 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 2021-05-15 01:00:10.300  INFO 17332 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-05-15 01:00:10.300  INFO 17332 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-05-15 01:00:10.316  INFO 17332 --- [extShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2021-05-15 01:00:10.495  INFO 17332 --- [extShutdownHook] blog.in.action.filters.BlogFilter        : ==========	BlogFilter destroy filter
+2021-05-15 01:00:10.495  INFO 17332 --- [extShutdownHook] blog.in.action.filters.BlogFilter        : ==========    BlogFilter destroy filter
 ```
 
 ## OPINION

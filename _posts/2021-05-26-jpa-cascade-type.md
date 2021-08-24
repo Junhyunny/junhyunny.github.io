@@ -22,25 +22,25 @@ last_modified_at: 2021-05-26T00:00:00
 <center>이미지 출처, https://gunlog.dev/JPA-Persistence-Context/</center><br>
 
 - 비영속(new/transient)
-	- 엔티티 객체를 새로 생성하였지만 EntityManager에 의해 관리되고 있지 않는 상태
-	- 영속성 컨텍스트와 전혀 관계가 없는 상태
-	- 엔티티 객체에서 발생하는 데이터 변경은 전혀 알 수 없습니다.
+    - 엔티티 객체를 새로 생성하였지만 EntityManager에 의해 관리되고 있지 않는 상태
+    - 영속성 컨텍스트와 전혀 관계가 없는 상태
+    - 엔티티 객체에서 발생하는 데이터 변경은 전혀 알 수 없습니다.
 
 - 영속(managed)
-	- 엔티티 객체가 EntityManager에 의해 관리되고 있는 상태
-	- 엔티티 객체가 영속성 컨텍스트에 저장되어 상태
-	- **`entityManager.persist(E)`** 메소드를 통해 영속성 컨텍스트에 저장됩니다.
-	- persist 메소드가 수행되는 동시에 데이터가 데이터베이스에 저장되지는 않습니다.
+    - 엔티티 객체가 EntityManager에 의해 관리되고 있는 상태
+    - 엔티티 객체가 영속성 컨텍스트에 저장되어 상태
+    - **`entityManager.persist(E)`** 메소드를 통해 영속성 컨텍스트에 저장됩니다.
+    - persist 메소드가 수행되는 동시에 데이터가 데이터베이스에 저장되지는 않습니다.
 
 - 준영속(detached)
-	- 엔티티를 영속성 컨텍스트에서 분리된 상태
-	- **`entityManager.detach(E)`** 메소드를 통해 영속성 컨텍스트에 분리됩니다.
-	- 엔티티가 영속성 컨텍스트에서 분리된 상태이므로 EntityManager가 변경을 감지하지 못합니다.
-	- 영속성 컨텍스트에서만 분리되었을 뿐 실제 데이터가 삭제되지는 않습니다.
+    - 엔티티를 영속성 컨텍스트에서 분리된 상태
+    - **`entityManager.detach(E)`** 메소드를 통해 영속성 컨텍스트에 분리됩니다.
+    - 엔티티가 영속성 컨텍스트에서 분리된 상태이므로 EntityManager가 변경을 감지하지 못합니다.
+    - 영속성 컨텍스트에서만 분리되었을 뿐 실제 데이터가 삭제되지는 않습니다.
 
 - 삭제(removed)
-	- 엔티티에 해당하는 데이터를 데이터베이스에서 삭제된 상태
-	- **`entityManager.remove(E)`** 메소드를 통해 영속성 컨텍스트에 삭제됩니다.
+    - 엔티티에 해당하는 데이터를 데이터베이스에서 삭제된 상태
+    - **`entityManager.remove(E)`** 메소드를 통해 영속성 컨텍스트에 삭제됩니다.
 
 ## JPA Cascade
 이제 본격적으로 JPA Cascade에 관련된 내용을 정리해보겠습니다. 
@@ -403,10 +403,10 @@ Hibernate: delete from tb_post where id=?
 2021-05-26 00:33:50.230 ERROR 1540 --- [           main] b.i.a.cascade.CascadeTypeRemoveTest      : exception occurs
 
 javax.persistence.RollbackException: Error while committing the transaction
-	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:81) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
-	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:104) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
-	at blog.in.action.cascade.CascadeTypeRemoveTest.test_removeTargetEntity_cascadeType_remove(CascadeTypeRemoveTest.java:65) ~[test-classes/:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+    at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:81) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
+    at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:104) ~[hibernate-core-5.4.12.Final.jar:5.4.12.Final]
+    at blog.in.action.cascade.CascadeTypeRemoveTest.test_removeTargetEntity_cascadeType_remove(CascadeTypeRemoveTest.java:65) ~[test-classes/:na]
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
   ...
 
 2021-05-26 00:33:50.245  INFO 1540 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

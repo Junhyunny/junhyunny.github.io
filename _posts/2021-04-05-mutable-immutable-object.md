@@ -9,7 +9,7 @@ last_modified_at: 2021-04-06T09:00:00
 
 <br>
 
-## MUTABLE 객체
+## 1/. MUTABLE 객체
 
 > liable to change. '변경될 수 있습니다.'
 
@@ -17,9 +17,10 @@ MUTABLE 이라는 단어를 사전에서 찾아보면 `'변경될 수 있다.'`�
 이는 객체 생성 이후에도 객체의 속성이 변할 수 있음을 의미합니다. 
 아래 테스트 코드를 통해 MUTABLE 객체에 대한 설명을 진행하겠습니다. 
 
-##### MUTABLE 객체 테스트 코드
+### 1.1. MUTABLE 객체 테스트 코드
+
 ```java
-package blog.in.action.java;
+package blog.in.action;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,11 +71,11 @@ public class MutableTest {
 ##### MUTABLE 객체 값 변경 이미지
 <p align="center"><img src="/images/mutable-immutable-object-1.gif" width="65%"></p>
 
-### MUTABLE 객체 사용시 주의점
+### 1.2. MUTABLE 객체 사용시 주의점
 Java에선 객체가 참조를 통해 공유되기 때문에 어떤 스레드에서 객체의 값을 변경할지 모릅니다. 
 그렇기 때문에 MUTABLE 객체는 자연스럽게 **'thread-not-safe'** 하게 됩니다. 
 
-## IMMUTABLE 객체
+## 2. IMMUTABLE 객체
 
 > unchanging over time or unable to be changed.
 
@@ -82,9 +83,9 @@ IMMUTABLE 이라는 단어를 사전에서 찾아보면 `'변경될 수 없다.'
 MUTABLE 객체와 반대로 객체 생성 이후에 객체의 속성이 변할 수 없음을 의미합니다. 
 대표적인 IMMUTABLE 객체인 String 클래스를 이용한 테스트를 통해 IMMUTABLE 객체의 특징을 알아보겠습니다. 
 
-##### IMMUTABLE 객체 테스트 코드
+### 2.1. IMMUTABLE 객체 테스트 코드
 ```java
-package blog.in.action.java;
+package blog.in.action;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -94,6 +95,9 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @SpringBootTest
 public class ImmutableTest {
+
+    // ...
+
     @Test
     public void test() {
         String str = "A";
@@ -103,6 +107,7 @@ public class ImmutableTest {
         log.info("값 변경 후 객체 주소: " + System.identityHashCode(str) + ", 객체 value 값: " + str);
     }
 }
+
 ```
 
 ##### 결과 로그
@@ -118,10 +123,10 @@ public class ImmutableTest {
 ##### IMMUTABLE 객체 값 변경 이미지
 <p align="center"><img src="/images/mutable-immutable-object-2.gif" width="65%"></p>
 
-### 대표적인 Java IMMUTABLE 객체
+### 2.2. 대표적인 Java IMMUTABLE 객체
 - String, Boolean, Integer, Float, Long, Double
 
-### IMMUTABLE 객체를 사용하여 얻는 장단점
+### 2.3. IMMUTABLE 객체를 사용하여 얻는 장단점
 ##### 장점
 - 생성자, 접근 메소드에 대한 방어 복사가 필요없습니다.
 - 멀티 스레드 환경에서 동기화 처리없이 객체를 공유할 수 있습니다. (thread-safe) 
@@ -131,23 +136,23 @@ public class ImmutableTest {
 - 객체가 가지는 값마다 새로운 객체가 필요하므로 메모리 누수의 위험이 존재합니다.
 - 객체를 계속 생성해야하기 때문에 성능 저하를 발생시킬 수 있습니다.
 
-### IMMUTABLE 객체 만드는 방법
+### 2.4. IMMUTABLE 객체 만드는 방법
 - 멤버 변수를 final로 선언합니다.
 - 접근 메소드를 제공하지 않습니다. 
 
 ```java
-    class ImmutableObject {
+class ImmutableObject {
 
-        private final int value;
+    private final int value;
 
-        public ImmutableObject(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
+    public ImmutableObject(int value) {
+        this.value = value;
     }
+
+    public int getValue() {
+        return value;
+    }
+}
 ```
 
 ## OPINION
@@ -157,6 +162,9 @@ public class ImmutableTest {
 질문 세례를 통해 머리가 **'띵~'**한 상태에서 아는 내용을 질문 받더라도 준비가 덜 되어있다면 정작 핵심 키워드들이 떠오르지 않습니다. 
 받은 질문들 중에 그나마 잘 대답했던 내용들은 블로그에 정리해놓고 글을 다듬을 겸 항상 읽어보던 몇 주제들 뿐이었습니다. 
 다시 한번 기록하는 습관의 중요함을 느꼈습니다.
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-05-mutable-immutable-object>
 
 #### REFERENCE
 - <https://limkydev.tistory.com/68>

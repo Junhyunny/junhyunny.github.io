@@ -139,12 +139,12 @@ Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post
 2021-08-22 03:10:09.140 ERROR 6892 --- [   1.1 초 대기 스레드] b.i.a.lock.optimistic.RepositoryUseTest  : Optimistic Lock 포스트는 다른 트랜잭션에 의해 업데이트되었습니다.
 
 org.springframework.orm.ObjectOptimisticLockingFailureException: Object of class [blog.in.action.domain.post.Post] with identifier [1191]: optimistic locking failed; nested exception is org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [blog.in.action.domain.post.Post#1191]
-	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:315) ~[spring-orm-5.3.2.jar:5.3.2]
-	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233) ~[spring-orm-5.3.2.jar:5.3.2]
-	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551) ~[spring-orm-5.3.2.jar:5.3.2]
-	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-5.3.2.jar:5.3.2]
-	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242) ~[spring-tx-5.3.2.jar:5.3.2]
-	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152) ~[spring-tx-5.3.2.jar:5.3.2]
+    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:315) ~[spring-orm-5.3.2.jar:5.3.2]
+    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233) ~[spring-orm-5.3.2.jar:5.3.2]
+    at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551) ~[spring-orm-5.3.2.jar:5.3.2]
+    at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-5.3.2.jar:5.3.2]
+    at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242) ~[spring-tx-5.3.2.jar:5.3.2]
+    at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152) ~[spring-tx-5.3.2.jar:5.3.2]
     ...
 ```
 
@@ -267,20 +267,20 @@ Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post
 2021-08-22 03:12:29.830 ERROR 15408 --- [   1.1 초 대기 스레드] b.i.a.l.optimistic.EntityManagerUseTest  : Optimistic Lock 포스트는 다른 트랜잭션에 의해 업데이트되었습니다.
 
 javax.persistence.RollbackException: Error while committing the transaction
-	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:81) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:104) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at blog.in.action.lock.optimistic.EntityManagerUseTest$UpdatePostTask.run(EntityManagerUseTest.java:87) ~[test-classes/:na]
-	at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
+    at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:81) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:104) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at blog.in.action.lock.optimistic.EntityManagerUseTest$UpdatePostTask.run(EntityManagerUseTest.java:87) ~[test-classes/:na]
+    at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
 Caused by: javax.persistence.OptimisticLockException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [blog.in.action.domain.post.Post#1191]
-	at org.hibernate.internal.ExceptionConverterImpl.wrapStaleStateException(ExceptionConverterImpl.java:226) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:93) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:181) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:65) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	... 3 common frames omitted
+    at org.hibernate.internal.ExceptionConverterImpl.wrapStaleStateException(ExceptionConverterImpl.java:226) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:93) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:181) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:65) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    ... 3 common frames omitted
 Caused by: org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [blog.in.action.domain.post.Post#1191]
-	at org.hibernate.persister.entity.AbstractEntityPersister.check(AbstractEntityPersister.java:2651) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at org.hibernate.persister.entity.AbstractEntityPersister.update(AbstractEntityPersister.java:3495) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-	at org.hibernate.persister.entity.AbstractEntityPersister.updateOrInsert(AbstractEntityPersister.java:3358) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.persister.entity.AbstractEntityPersister.check(AbstractEntityPersister.java:2651) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.persister.entity.AbstractEntityPersister.update(AbstractEntityPersister.java:3495) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
+    at org.hibernate.persister.entity.AbstractEntityPersister.updateOrInsert(AbstractEntityPersister.java:3358) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
     ...
 ```
 

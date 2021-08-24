@@ -66,21 +66,21 @@ public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T
 
     // ... 
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
-	 */
-	@Transactional
-	@Override
-	public <S extends T> S save(S entity) {
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
+     */
+    @Transactional
+    @Override
+    public <S extends T> S save(S entity) {
 
-		if (entityInformation.isNew(entity)) {
-			em.persist(entity);
-			return entity;
-		} else {
-			return em.merge(entity);
-		}
-	}
+        if (entityInformation.isNew(entity)) {
+            em.persist(entity);
+            return entity;
+        } else {
+            return em.merge(entity);
+        }
+    }
 
     // ...
 }
@@ -96,22 +96,22 @@ public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSu
 
     // ...
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.repository.core.support.AbstractEntityInformation#isNew(java.lang.Object)
-	 */
-	@Override
-	public boolean isNew(T entity) {
+    /*
+     * (non-Javadoc)
+     * @see org.springframework.data.repository.core.support.AbstractEntityInformation#isNew(java.lang.Object)
+     */
+    @Override
+    public boolean isNew(T entity) {
 
-		if (!versionAttribute.isPresent()
-				|| versionAttribute.map(Attribute::getJavaType).map(Class::isPrimitive).orElse(false)) {
-			return super.isNew(entity);
-		}
+        if (!versionAttribute.isPresent()
+                || versionAttribute.map(Attribute::getJavaType).map(Class::isPrimitive).orElse(false)) {
+            return super.isNew(entity);
+        }
 
-		BeanWrapper wrapper = new DirectFieldAccessFallbackBeanWrapper(entity);
+        BeanWrapper wrapper = new DirectFieldAccessFallbackBeanWrapper(entity);
 
-		return versionAttribute.map(it -> wrapper.getPropertyValue(it.getName()) == null).orElse(true);
-	}
+        return versionAttribute.map(it -> wrapper.getPropertyValue(it.getName()) == null).orElse(true);
+    }
 
     // ...
 

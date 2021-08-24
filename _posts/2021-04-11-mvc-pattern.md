@@ -25,8 +25,8 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 
 ##### MVC 패턴 다이어그램 및 웹 어플리케이션에서 사용하는 일반적인 MVC 패턴
 <div align="center">
-  <img src="/images/mvc-pattern-1.JPG" width="30%">
-  <img src="/images/mvc-pattern-2.JPG" width="50%">
+    <img src="/images/mvc-pattern-1.JPG" width="30%">
+    <img src="/images/mvc-pattern-2.JPG" width="50%">
 </div>
 <center>이미지 출처, [Wiki, 모델-뷰-컨트롤러][wiki-link]</center><br>
 

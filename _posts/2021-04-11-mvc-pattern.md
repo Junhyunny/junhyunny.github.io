@@ -4,10 +4,12 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2021-04-11T09:00:00
+last_modified_at: 2021-08-25T01:00:00
 ---
 
 <br>
+
+⚠️ 해당 포스트는 2021년 8월 25일에 재작성되었습니다.(불필요 코드 제거)
 
 > Wiki<br>
 > 모델-뷰-컨트롤러(model–view–controller, MVC)는 소프트웨어 공학에서 사용되는 소프트웨어 디자인 패턴이다.
@@ -16,7 +18,7 @@ last_modified_at: 2021-04-11T09:00:00
 MVC 패턴을 도입하면 도메인(비즈니스 로직) 영역과 UI 영역이 분리되므로 서로 영향을 주지 않고 유지보수가 가능합니다. 
 MVC 패턴의 구조를 살펴보면서 각 컴포넌트가 무슨 역할을 수행하는지 알아보도록 하겠습니다.
 
-## MVC 패턴 구조
+## 1. MVC 패턴 구조
 MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트롤러(Controller) 세 개의 컴포넌트로 이루어졌습니다. 
 각 컴포넌트는 고유한 역할을 수행합니다. 
 이미지를 통해 전체적인 구조를 파악하고 컴포넌트 별로 무슨 역할을 수행하는지 정리해보았습니다.  
@@ -28,7 +30,7 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 </div>
 <center>이미지 출처, [Wiki, 모델-뷰-컨트롤러][wiki-link]</center><br>
 
-### 모델(Model)
+### 1.1. 모델(Model)
 
 > DATA, 정보들의 가공을 책임지는 컴포넌트를 말합니다.
 
@@ -41,7 +43,7 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 - 뷰나 컨트롤러에 대해서 어떤 정보도 알지 말아야 합니다.
 - 변경이 일어나면, 변경 통지에 대한 처리 방법을 구현해야만 합니다.
 
-### 뷰(View)
+### 1.2. 뷰(View)
 
 > 사용자에게 보여지는 부분, 즉 유저 인터페이스(User interface)를 의미합니다.
 
@@ -55,7 +57,7 @@ MVC 패턴은 여러 개의 뷰(View)가 존재할 수 있으며, 모델에게 �
 - 모델이나 컨트롤러와 같이 다른 구성요소들을 몰라야 됩니다.
 - 변경이 일어나면 변경통지에 대한 처리방법을 구현해야만 합니다.
 
-### 컨트롤러(Controller)
+### 1.3. 컨트롤러(Controller)
 
 > 모델(Model)과 뷰(View) 사이를 이어주는 브릿지(Bridge) 역할을 의미합니다.
 
@@ -68,7 +70,7 @@ MVC 패턴은 여러 개의 뷰(View)가 존재할 수 있으며, 모델에게 �
 - 모델이나 뷰에 대해서 알고 있어야 합니다.
 - 모델이나 뷰의 변경을 모니터링 해야 합니다.
 
-## MVC 패턴 왜 사용할까?
+## 2. MVC 패턴 왜 사용할까?
 MVC 패턴에 대한 여러 글을 읽어봤지만 결국 **`'유지보수의 편리성'`**이라는 하나의 결론으로 수렴합니다. 
 최초 설계를 꼼꼼하게 진행한 시스템이라도 유지보수가 발생하기 시작하면 각 기능간의 결합도(coupling)가 높아지는 경우가 발생합니다. 
 이는 최초 설계 이념을 정했던 사람들의 부재 혹은 비즈니스 요건 변경으로 인해 필연적으로 발생하는 것 같습니다. 
@@ -81,7 +83,7 @@ MVC 패턴을 가진 시스템의 각 컴포넌트는 자신이 맡은 역할만
 유지보수 시에도 특정 컴포넌트만 수정하면 되기 때문에 보다 쉽게 시스템 변경이 가능합니다.
 (화면의 변경은 only 뷰, 데이터나 비즈니스 요건이 변경은 only 모델, 뷰와 모델 변경에 따른 일부 컨트롤러 변경)
 
-## MVC 패턴의 한계
+## 3. MVC 패턴의 한계
 세상에 완벽이라는 단어는 없습니다. MVC 패턴에도 한계가 존재합니다. 
 복잡한 대규모 프로그램의 경우 다수의 뷰와 모델이 컨트롤러를 통해 연결되기 때문에 컨트롤러가 불필요하게 커지는 현상이 발생합니다. 
 복잡한 화면을 구성하는 경우에도 동일한 현상이 발생하는데 이를 **`'Massive-View-Controller'`** 라고 합니다. 
@@ -97,23 +99,54 @@ MVC 패턴을 가진 시스템의 각 컴포넌트는 자신이 맡은 역할만
 - Redux
 - RxMVVM
 
-## MVC 패턴의 적용 사례
+## 4. MVC 패턴의 적용 사례
 MVC 패턴은 Spring 프레임워크와 JSP(Java Servlet Page)를 사용한 웹 어플리케이션 개발에서 가장 즐겨 사용되는 개발 방식입니다. 
 Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, 개발은 가능하므로 이를 이용해 간단한 예제를 구현해보았습니다.   
 
-##### MVC 패턴 적용 시나리오
+### 4.1. MVC 패턴 적용 시나리오
 1. 브라우저 화면에서 서버로 데이터를 전달합니다.
 1. 컨트롤러에서 데이터를 전달받아 서비스에게 데이터를 전달합니다.
 1. 서비스는 JpaRepository를 이용하여 전달받은 데이터를 데이터베이스에 INSERT 합니다.
 1. INSERT 수행 후 컨트롤러는 서비스를 통해 데이터를 다시 조회합니다.
 1. 조회한 데이터를 모델 객체를 통해 뷰에게 전달합니다.
 1. 화면에 변경이 발생하는지 확인합니다.
+
 <p align="center"><img src="/images/mvc-pattern-4.JPG" width="75%"></p>
 
-### 패키지 구조
-<p align="left"><img src="/images/mvc-pattern-5.JPG" width="30%"></p>
+### 4.2. 패키지 구조
 
-### pom.xml 파일 dependency 추가
+```
+./
+|-- README.md
+|-- action-in-blog.iml
+|-- mvnw
+|-- mvnw.cmd
+|-- pom.xml
+`-- src
+    `-- main
+        |-- java
+        |   `-- blog
+        |       `-- in
+        |           `-- action
+        |               |-- ActionInBlogApplication.java
+        |               |-- controller
+        |               |   `-- JspController.java
+        |               |-- converter
+        |               |   `-- StringListConverter.java
+        |               `-- domain
+        |                   `-- member
+        |                       |-- Member.java
+        |                       |-- MemberRepository.java
+        |                       `-- MemberService.java
+        |-- resources
+        |   `-- application.yml
+        `-- webapp
+            `-- WEB-INF
+                `-- jsp
+                    `-- index.jsp
+```
+
+### 4.3. pom.xml 파일 dependency 추가
 - Spring Boot 프레임워크는 JSP를 공식적으로 지원하지 않기 때문에 아래와 같은 의존성들이 필요합니다.
 - jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
 - jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능을 제공
@@ -134,7 +167,7 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
     </dependencies>
 ```
 
-### application.yml
+### 4.4. application.yml
 - .jsp 파일 경로를 알려주기 위해 다음과 같은 설정을 추가합니다.
 - spring.mvc.view.prefix=/WEB-INF/jsp/
 - spring.mvc.view.suffix=.jsp
@@ -148,7 +181,7 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/mysqldb?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -159,7 +192,7 @@ spring:
       ddl-auto: update
 ```
 
-### index.jsp
+### 4.5. index.jsp
 - 뷰(View) 역할을 수행하는 JSP 입니다.
 - **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
 
@@ -205,7 +238,7 @@ spring:
 </html>
 ```
 
-### JspController 클래스
+### 4.6. JspController 클래스
 - 컨트롤러(Controller) 역할을 수행하는 클래스입니다.
 - **`/jsp/member/index`** 경로로 전달받은 POST 요청을 memberService 클래스를 이용해 INSERT
 - memberService 클래스를 이용해 데이터 조회 후 JSP 화면 렌더링 시 사용하는 model 객체에게 데이터를 전달합니다.
@@ -261,40 +294,27 @@ public class JspController {
 }
 ```
 
-### MemberService 클래스
+### 4.7. MemberService 클래스
 - 모델(Model) 역할을 수행하는 클래스입니다.
 - 서비스 객체는 데이터 CRUD, 인증과 관련된 비즈니스 로직을 수행합니다.
 
 ```java
 package blog.in.action.domain.member;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MemberService implements UserDetailsService {
+public class MemberService {
 
-    @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     public Member registMember(Member member) {
-        String encodedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encodedPassword);
         return memberRepository.save(member);
     }
 
@@ -309,28 +329,12 @@ public class MemberService implements UserDetailsService {
     public List<Member> findAll() {
         return memberRepository.findAll();
     }
-
-    // 계정이 갖고있는 권한 목록을 return
-    private Collection<? extends GrantedAuthority> authorities(Member member) {
-        return member.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> option = memberRepository.findById(username);
-        if (!option.isPresent()) {
-            throw new UsernameNotFoundException(username);
-        }
-        // ID, PASSWORD, AUTHORITIES 반환
-        Member member = option.get();
-        return new User(member.getId(), member.getPassword(), authorities(member));
-    }
 }
 ```
 
 ##### 테스트 결과
 
-<p align="center"><img src="/images/mvc-pattern-6.gif" width="75%"></p>
+<p align="center"><img src="/images/mvc-pattern-5.gif" width="75%"></p>
 
 ## OPINION
 사용자 인터페이스가 필요한 어플리케이션에서 가장 즐겨 사용되는 디자인 패턴입니다. 
@@ -354,10 +358,10 @@ Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 
 왜 적용되었는지, 해당 디자인 패턴을 적용하여 얻을 수 있는 이점은 무엇인지에 대해 고민해보고 정리하는 식의 공부를 진행해보려 합니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-11-mvc-pattern>
 
 #### REFERENCE
-- [[아키텍처 패턴] MVC 패턴이란?][mvc-pattern-blogLink]
+- [[아키텍처 패턴] MVC 패턴이란?][mvc-pattern-link]
 - <https://luckygg.tistory.com/182>
 - <https://m.blog.naver.com/jhc9639/220967034588>
 - <https://okky.kr/article/380619>
@@ -365,4 +369,4 @@ Okky 커뮤니티 멘토이신 fender 님의 글이 굉장히 인상 깊어 제 
 
 [wiki-link]: https://ko.wikipedia.org/wiki/%EB%AA%A8%EB%8D%B8-%EB%B7%B0-%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC
 [okky-link]: https://okky.kr/article/380619
-[mvc-pattern-blogLink]: https://medium.com/@jang.wangsu/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4-mvc-%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80-1d74fac6e256
+[mvc-pattern-link]: https://medium.com/@jang.wangsu/%EB%94%94%EC%9E%90%EC%9D%B8%ED%8C%A8%ED%84%B4-mvc-%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80-1d74fac6e256

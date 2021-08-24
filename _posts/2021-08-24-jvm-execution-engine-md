@@ -86,10 +86,17 @@ public class blog.in.action.ActionInBlogApplication {
 }
 ```
 
-### 1.2. 실행 엔진이 바이트 코드를 실행하기까지 과정
+### 1.2. 실행 엔진에게 바이트 코드가 전달되는 과정
+1. 
+1. 
 
 <p align="center"><img src="/images/jvm-interpreter-jit-3.JPG" width="70%"></p>
-<center>이미지 출처, https://techvidvan.com/tutorials/java-virtual-machine/</center>
+<center>이미지 출처, https://www.tcpschool.com/java/java_intro_programming</center>
+
+<p align="center"><img src="/images/jvm-interpreter-jit-3.JPG" width="70%"></p>
+<center>이미지 출처, https://www.tcpschool.com/java/java_intro_programming</center>
+
+### 1.3. 바이트 코드 실행 과정
 
 ## 2. 인터프리터(Interpreter)
 
@@ -99,7 +106,9 @@ public class blog.in.action.ActionInBlogApplication {
 
 #### REFERENCE
 - <https://junhyunny.github.io/information/java/what-is-jvm/>
+- <https://d2.naver.com/helloworld/1230>
 - <https://www.javatpoint.com/java-interpreter>
+- <https://www.tcpschool.com/java/java_intro_programming>
 - <https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/>
 
 [jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/

@@ -9,7 +9,7 @@ last_modified_at: 2021-04-06T09:00:00
 
 <br>
 
-## 1/. MUTABLE 객체
+## 1. MUTABLE 객체
 
 > liable to change. '변경될 수 있습니다.'
 

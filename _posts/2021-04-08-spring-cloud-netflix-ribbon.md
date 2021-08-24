@@ -11,6 +11,7 @@ last_modified_at: 2021-08-25T01:00:00
 <br>
 
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring Cloud Netflix Eureka][eureka-link]
 - [FeignClient with Eureka][feign-with-eureka-link]
 
 ## 1. Netflix Ribbon
@@ -41,7 +42,7 @@ Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면
 
 <br> 
 
-[Spring Cloud Netflix Eureka][eureka-blogLink] 포스트에서 설명했듯이 
+[Spring Cloud Netflix Eureka][eureka-link] 포스트에서 설명했듯이 
 클라우드 환경에선 인스턴스들의 IP, PORT 정보에 대한 변경이 잦아 서버 사이드 로드 밸런서는 크게 유용하지 못합니다. 
 **이를 S/W 적인 방식으로 보완한 방법이 클라이언트 사이드 로드 밸런서입니다.**
 마이크로 서비스 아키텍처는 서비스들끼리 협업하는 세상입니다. 
@@ -168,5 +169,5 @@ Ribbon은 Eureka, FeignClient를 사용하면 함께 적용되기 때문에 @Rib
 - <https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/>
 - <https://www.linkedin.com/pulse/microservices-client-side-load-balancing-amit-kumar-sharma>
 
-[eureka-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
+[eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
 [feign-with-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/

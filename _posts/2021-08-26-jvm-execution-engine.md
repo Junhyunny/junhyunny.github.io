@@ -12,10 +12,9 @@ last_modified_at: 2021-08-26T06:00:00
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [JVM, Java Virtual Machine][jvm-link]
 
-최근에 작성했던 포스트를 다시 읽어볼 겸 다시 정리하는 중에 JVM(Java Virtual Machine)에 대한 넓고 얕은 지식이라는 주제로 작성한 포스트를 보았습니다. 
+최근에 작성했던 포스트들을 다시 정리하는 중에 JVM(Java Virtual Machine)에 대한 넓고 얕은 지식이라는 주제로 작성한 포스트를 발견했습니다. 
 전반적인 JVM 구조에 대한 글이었는데 오늘은 `실행 엔진(Execution Engine)`에 대한 내용을 정리하였습니다. 
 
-> [JVM, Java Virtual Machine][jvm-link]<br>
 > 실행 엔진(Execution Engine)은 메모리에 적재된 클래스(바이트 코드)들을 기계어로 변경하여 명령어(instruction) 단위로 실행합니다.<br> 
 > 바이트 코드를 운영체제에 맞게 해석해주는 역할을 수행합니다.<br> 
 > 실행 엔진이 바이트 코드를 명령어 단위로 읽어서 수행하는데 크게 두 가지 방식이 사용된다고 합니다. 
@@ -28,13 +27,13 @@ last_modified_at: 2021-08-26T06:00:00
 
 ### 1.1. `.class` 파일 
 개발자가 Eclipse 혹은 IntelliJ 같은 IDE(Integrated Development Environment)에서 `.java` 확장자를 가진 파일에 소스 코드를 작성합니다. 
-소스 코드는 사람이 알아보기 쉽게 영여로 작성되어 있지만 기계는 이를 해석하지 못합니다.  
+소스 코드는 사람이 알아보기 쉽게 영여로 작성되어 있지만 기계는 이를 해석하지 못합니다. 
 자바 언어의 경우 JVM 에 의해 프로그램이 동작되므로 JVM 이 해석할 수 있는 내용으로 소스 코드를 변경해줘야 합니다. 
 이 과정을 컴파일(compile)이라고 합니다. 
 JDK(Java Development kit)을 설치하면 `/bin` 폴더에 있는 `javac` 프로그램에 의해 수행됩니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-1.JPG" width="55%"></p>
-<center>이미지 출처, https://math.hws.edu/javanotes/c1/s3.html</center>
+<center>이미지 출처, https://math.hws.edu/javanotes/c1/s3.html</center><br>
 
 컴파일이 완료되면 JVM 이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자를 가지는 클래스 파일이 생성됩니다. 
 클래스 파일은 어플리케이션이 동작할 때 메모리에 적재되어 JVM 실행 엔진에 의해 수행됩니다. 
@@ -105,13 +104,13 @@ public class blog.in.action.ActionInBlogApplication {
 
 > interpreter 통역사
 
-자바의 특징에 대한 대표적인 표현 중에 `Write Once Run Anywhere` 이라는 문구가 있습니다.  
+자바의 특징에 대한 대표적인 표현 중에 `Write Once Run Anywhere` 이라는 문구가 있습니다. 
 자바가 플랫폼에 독립적이고, 이식성이 높은 언어인 이유는 인터프리터 덕분입니다. 
 각 플랫폼에 맞는 인터프리터가 바이트 코드를 실행하기 때문에 Windows, Linux, Mac 어디에서든 실행될 수 있습니다. 
 인터프리터는 바이트 코드를 읽고(read), 운영체제가 실행할 수 있도록 기계어로 변경하는 역할을 수행합니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-4.JPG" width="55%"></p>
-<center>이미지 출처, https://www.javatpoint.com/java-interpreter</center>
+<center>이미지 출처, https://www.javatpoint.com/java-interpreter</center><br>
 
 JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인씩 읽고 실행합니다. 
 여기에서 속도가 문제가 발생합니다. 
@@ -134,20 +133,19 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 - back-edge loop counter - 메소드가 루프를 빠져나오기까지 회전한 횟수
 
 컴파일 임계치가 일정 횟수에 도달하면 컴파일러는 컴파일이 하기에 충분한 정보가 쌓였다고 판단합니다. 
-대상 코드는 컴파일을 기다리는 큐에 들어가 컴파일 스레드에 의해 컴파일되기를 대기합니다. 
-`method entry counter` 값을 위해 사용하는 한계치는 `CompileThreashold`이고, `back-edge loop counter` 값을 위한 한계치는 계산됩니다. 
+대상 코드는 특정 큐에 들어가 컴파일 스레드에 의해 컴파일 되기를 대기합니다. 
+`method entry counter` 값에 해당되는 한계치는 `CompileThreashold`이고, `back-edge loop counter` 값에 대한 한계치는 계산됩니다. 
 
-> CompileThreashold * OnStackReplacePercentage / 100
+> back-edge loop counter 값을 위한 한계치 = CompileThreashold * OnStackReplacePercentage / 100
 
 두 항목 모두 JVM 옵션 설정을 통해 지정할 수 있습니다. 
+`CompileThreshold` 항목은 옵션에 따라 클라이언트(-client, C1), 서버(-server, C2)로 구분됩니다. 
+클라이언트 컴파일은 1500, 서버 컴파일은 10000 값이 디폴트(default)입니다. 
 
 ```
 -XX:CompileThreshold=N
 -XX:OnStackReplacePercentage=N
 ```
-
-`CompileThreshold` 항목은 옵션에 따라 클라이언트(-client, C1), 서버(-server, C2)로 구분됩니다. 
-클라이언트 컴파일은 1500, 서버 컴파일은 10000 값이 디폴트(default)입니다. 
 
 #### 2.2.2. OSR, On-Stack Replacement
 컴파일이 완료된 코드로 변경하는 작업을 의미합니다. 
@@ -156,9 +154,10 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 루프가 끝나지 않고 지속적으로 수행되고 있는 경우에 큰 도움을 줄 수 있습니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-5.JPG" width="55%"></p>
-(위 이미지는 이해를 돕기 위해 임의로 그렸습니다.) 
+<center>(위 이미지는 이해를 돕기 위해 임의로 그렸습니다.)</center><br>
 
 #### 2.2.2. JIT 컴파일러 실행 확인 테스트
+- 반복문을 수행하는 코드를 작성하고 실행시킵니다. 
 
 ```java
 package blog.in.action;
@@ -187,36 +186,25 @@ public class JitCompilerTest {
 loop count: 0, execution time: 8300
 loop count: 1, execution time: 9000
 loop count: 2, execution time: 8300
-loop count: 3, execution time: 8400
-loop count: 4, execution time: 8300
-loop count: 5, execution time: 8100
 ...
 loop count: 51, execution time: 8100
 loop count: 52, execution time: 890200
 loop count: 53, execution time: 8500
 ...
-loop count: 107, execution time: 8200
-loop count: 108, execution time: 8200
 loop count: 109, execution time: 231500
 loop count: 110, execution time: 7700
-loop count: 111, execution time: 1600
 loop count: 112, execution time: 1600
 ... 
-loop count: 333, execution time: 1600
-loop count: 334, execution time: 1600
 loop count: 335, execution time: 36000
 loop count: 336, execution time: 3000
 loop count: 337, execution time: 0
-loop count: 338, execution time: 0
-loop count: 339, execution time: 0
-loop count: 340, execution time: 0
 ...
 ```
 
 #### 2.2.3. 컴파일 임계치 최소 지정 테스트
 프로젝트 루트(root) 경로에서 다음 VM 옵션을 추가한 커맨드를 실행시킵니다.
-- -XX:CompileThreshold=1, 1 미만 불가
-- -XX:OnStackReplacePercentage=33, 33 미만 불가
+- -XX:CompileThreshold=1(1 미만 불가)
+- -XX:OnStackReplacePercentage=33(33 미만 불가)
 
 ```
 $ java -XX:CompileThreshold=1 -XX:OnStackReplacePercentage=33 src/test/java/blog/in/action/JitCompilerTest.java
@@ -233,23 +221,16 @@ $ java -XX:CompileThreshold=1 -XX:OnStackReplacePercentage=33 src/test/java/blog
 loop count: 0, execution time: 8300
 loop count: 1, execution time: 10100
 loop count: 2, execution time: 10100
-loop count: 3, execution time: 9900
-loop count: 4, execution time: 9300
-loop count: 5, execution time: 9700
 ...
-loop count: 72, execution time: 9900
-loop count: 73, execution time: 9600
 loop count: 74, execution time: 9700
 loop count: 75, execution time: 10700
 loop count: 76, execution time: 1600
 ...
-loop count: 114, execution time: 1700
 loop count: 115, execution time: 2800
 loop count: 116, execution time: 58000
 loop count: 117, execution time: 8000
 loop count: 118, execution time: 0
 loop count: 119, execution time: 0
-loop count: 120, execution time: 0
 ...
 ```
 

@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - java
-last_modified_at: 2021-08-25T12:00:00
+last_modified_at: 2021-08-26T06:00:00
 ---
 
 <br>
@@ -126,29 +126,153 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 
 인터프리터의 속도 문제를 해결하기 위해 디자인 된 기능입니다. 
 개념을 간단하게 설명하면 `'자주 실행되는 바이트 코드 영역을 런타임 중에 기계어로 컴파일하여 사용한다.'` 라고 볼 수 있습니다. 
-프로그램의 전체 코드 중 일부 자주 실행되는 영역이 존재하고 이를 `핫스팟(hotspot)`이라고 합니다. 
 
-#### 2.2.1. 컴파일 임계치(Invocation-count threshold)
+#### 2.2.1. 컴파일 임계치(compile threshold)
 코드 컴파일을 수행할 기준을 의미합니다. 
+두 가지 횟수를 합친 것을 의미합니다. 
+- method entry counter - JVM 내에 있는 메소드가 호출된 횟수
+- back-edge loop counter - 메소드가 루프를 빠져나오기까지 회전한 횟수
 
+컴파일 임계치가 일정 횟수에 도달하면 컴파일러는 컴파일이 하기에 충분한 정보가 쌓였다고 판단합니다. 
+대상 코드는 컴파일을 기다리는 큐에 들어가 컴파일 스레드에 의해 컴파일되기를 대기합니다. 
+`method entry counter` 값을 위해 사용하는 한계치는 `CompileThreashold`이고, `back-edge loop counter` 값을 위한 한계치는 계산됩니다. 
+
+> CompileThreashold * OnStackReplacePercentage / 100
+
+두 항목 모두 JVM 옵션 설정을 통해 지정할 수 있습니다. 
+
+```
+-XX:CompileThreshold=N
+-XX:OnStackReplacePercentage=N
+```
+
+`CompileThreshold` 항목은 옵션에 따라 클라이언트(-client, C1), 서버(-server, C2)로 구분됩니다. 
+클라이언트 컴파일은 1500, 서버 컴파일은 10000 값이 디폴트(default)입니다. 
 
 #### 2.2.2. OSR, On-Stack Replacement
+컴파일이 완료된 코드로 변경하는 작업을 의미합니다. 
+대상 코드가 컴파일이 완료된 상태가 되었음에도 최적화되지 않은 코드가 수행되고 있는 것이 발견되는 경우 이를 수행합니다. 
+인터프리터에 의해 수행되는 중에 오랫동안 루프가 지속되는 경우 사용됩니다. 
+루프가 끝나지 않고 지속적으로 수행되고 있는 경우에 큰 도움을 줄 수 있습니다. 
 
-#### 2.2.2. JIT 컴파일러 실행 
+<p align="center"><img src="/images/jvm-execution-engine-5.JPG" width="55%"></p>
+(위 이미지는 이해를 돕기 위해 임의로 그렸습니다.) 
+
+#### 2.2.2. JIT 컴파일러 실행 확인 테스트
+
+```java
+package blog.in.action;
+
+public class JitCompilerTest {
+
+    public static void main(String[] args) {
+        int a = 0;
+        for (int index = 0; index < 500; index++) {
+            long startTime = System.nanoTime();
+            for (int subIndex = 0; subIndex < 1000; subIndex++) {
+                a++;
+            }
+            System.out.println("loop count: " + index + ", execution time: " + (System.nanoTime() - startTime));
+        }
+    }
+}
+```
+
+##### 테스트 결과
+- 반복 수행 초반부에는 수행 종종 시간이 특출나게 오래 걸리는 구간이 있습니다.
+- 109회 반복 수행 이후 시간이 1차로 감소합니다. 
+- 336회 반복 수행 이후 시간이 2차로 감소합니다. 
+
+```
+loop count: 0, execution time: 8300
+loop count: 1, execution time: 9000
+loop count: 2, execution time: 8300
+loop count: 3, execution time: 8400
+loop count: 4, execution time: 8300
+loop count: 5, execution time: 8100
+...
+loop count: 51, execution time: 8100
+loop count: 52, execution time: 890200
+loop count: 53, execution time: 8500
+...
+loop count: 107, execution time: 8200
+loop count: 108, execution time: 8200
+loop count: 109, execution time: 231500
+loop count: 110, execution time: 7700
+loop count: 111, execution time: 1600
+loop count: 112, execution time: 1600
+... 
+loop count: 333, execution time: 1600
+loop count: 334, execution time: 1600
+loop count: 335, execution time: 36000
+loop count: 336, execution time: 3000
+loop count: 337, execution time: 0
+loop count: 338, execution time: 0
+loop count: 339, execution time: 0
+loop count: 340, execution time: 0
+...
+```
+
+#### 2.2.3. 컴파일 임계치 최소 지정 테스트
+프로젝트 루트(root) 경로에서 다음 VM 옵션을 추가한 커맨드를 실행시킵니다.
+- -XX:CompileThreshold=1, 1 미만 불가
+- -XX:OnStackReplacePercentage=33, 33 미만 불가
+
+```
+$ java -XX:CompileThreshold=1 -XX:OnStackReplacePercentage=33 src/test/java/blog/in/action/JitCompilerTest.java
+```
+
+##### 테스트 결과
+- 75회 반복 수행 이후 시간이 1차적으로 감소합니다.
+- 117회 반복 수행 이후 시간이 1차적으로 감소합니다. 
+- 시간이 감소되는 반복 횟수 시점이 감소되었습니다.
+    - 109회 > 75회
+    - 336회 > 117회
+
+```
+loop count: 0, execution time: 8300
+loop count: 1, execution time: 10100
+loop count: 2, execution time: 10100
+loop count: 3, execution time: 9900
+loop count: 4, execution time: 9300
+loop count: 5, execution time: 9700
+...
+loop count: 72, execution time: 9900
+loop count: 73, execution time: 9600
+loop count: 74, execution time: 9700
+loop count: 75, execution time: 10700
+loop count: 76, execution time: 1600
+...
+loop count: 114, execution time: 1700
+loop count: 115, execution time: 2800
+loop count: 116, execution time: 58000
+loop count: 117, execution time: 8000
+loop count: 118, execution time: 0
+loop count: 119, execution time: 0
+loop count: 120, execution time: 0
+...
+```
 
 ## OPINION
-JIT 컴파일러에 대한 내용을 찾아보니 
+처음 JVM을 주제로 포스트를 작성하고 약 3달이 지났습니다. 
+의욕적으로 빠른 시일 내에 관련된 모든 주제에 대해 공부하고 싶었지만 바쁜 일정들로 인해 잊고 살았습니다.😥 
+최근 이전 포스트들을 다시 읽어보면서 정리하는 중에 생각이 나서 포스트를 작성하였습니다. 
+역시 어려운 주제여서 글을 작성하는 시간도 3일이나 소비되었지만, 작성해놓고 보니 조금씩 JVM에 대한 개념이 잡혀가는 느낌이 듭니다.  
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-26-jvm-execution-engine>
 
 #### REFERENCE
 - <https://junhyunny.github.io/information/java/what-is-jvm/>
+- [자바 JIT 컴파일러][jit-link]
 - <https://beststar-1.tistory.com/3>
 - <https://d2.naver.com/helloworld/1230>
+- <https://colinch4.github.io/2020-07-30/t-16/>
 - <https://www.javatpoint.com/java-interpreter>
 - <https://www.tcpschool.com/java/java_intro_programming>
-- <https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/>
 - <https://www.geeksforgeeks.org/how-to-increase-heap-size-in-java-virtual-machine/>
-- <https://stackoverflow.com/questions/7991877/why-is-an-interpreter-slower-than-a-compiler-in-practice>
-- [자바 JIT 컴파일러][jit-link]
+- <https://www.slipp.net/wiki/display/SLS/%231+Java+Compiler>
+- <https://www.slipp.net/wiki/pages/viewpage.action?pageId=30770279>
 
 [jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/
 [jit-link]: https://velog.io/@youngerjesus/%EC%9E%90%EB%B0%94-JIT-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC#4-%EC%9E%90%EB%B0%94%EC%99%80-jit-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC-%EB%B2%84%EC%A0%84

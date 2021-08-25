@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - java
-last_modified_at: 2021-08-24T12:00:00
+last_modified_at: 2021-08-25T12:00:00
 ---
 
 <br>
@@ -33,7 +33,7 @@ last_modified_at: 2021-08-24T12:00:00
 이 과정을 컴파일(compile)이라고 합니다. 
 JDK(Java Development kit)을 설치하면 `/bin` 폴더에 있는 `javac` 프로그램에 의해 수행됩니다. 
 
-<p align="center"><img src="/images/jvm-execution-engine-1.JPG" width="50%"></p>
+<p align="center"><img src="/images/jvm-execution-engine-1.JPG" width="55%"></p>
 <center>이미지 출처, https://math.hws.edu/javanotes/c1/s3.html</center>
 
 컴파일이 완료되면 JVM 이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자를 가지는 클래스 파일이 생성됩니다. 
@@ -93,8 +93,8 @@ public class blog.in.action.ActionInBlogApplication {
 <center>이미지 출처, https://www.tcpschool.com/java/java_intro_programming</center>
 
 ##### JVM 메모리 구조
-<p align="center"><img src="/images/jvm-execution-engine-3.JPG" width="70%"></p>
-<center>이미지 출처, https://www.tcpschool.com/java/java_intro_programming</center>
+<p align="center"><img src="/images/jvm-execution-engine-3.JPG" width="55%"></p>
+<center>이미지 출처, https://www.geeksforgeeks.org/how-to-increase-heap-size-in-java-virtual-machine/</center>
 
 ## 2. 실행 엔진(Execution Engine)
 클래스 파일을 실행시키는 방법에 따라 크게 두 가지로 분류됩니다. 
@@ -106,25 +106,49 @@ public class blog.in.action.ActionInBlogApplication {
 > interpreter 통역사
 
 자바의 특징에 대한 대표적인 표현 중에 `Write Once Run Anywhere` 이라는 문구가 있습니다.  
-자바가 플랫폼에 독립적인 언어인 이유는 인터프리터 덕분입니다. 
+자바가 플랫폼에 독립적이고, 이식성이 높은 언어인 이유는 인터프리터 덕분입니다. 
 각 플랫폼에 맞는 인터프리터가 바이트 코드를 실행하기 때문에 Windows, Linux, Mac 어디에서든 실행될 수 있습니다. 
-인터프린터는 바이트 코드를 읽고(read), 운영체제가 실행할 수 있도록 기계어로 변경하는 역할을 수행합니다. 
+인터프리터는 바이트 코드를 읽고(read), 운영체제가 실행할 수 있도록 기계어로 변경하는 역할을 수행합니다. 
 
-다른 인터프리터 언어처럼 런타임(runtime) 중에 한 라인씩 명령어를 수행합니다. 
-여기에서 한 가지 문제가 발생합니다. 
+<p align="center"><img src="/images/jvm-execution-engine-4.JPG" width="55%"></p>
+<center>이미지 출처, https://www.javatpoint.com/java-interpreter</center>
+
+JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인씩 읽고 실행합니다. 
+여기에서 속도가 문제가 발생합니다. 
+바이트 코드 역시 기계어로 변환되어야 하기 때문에 C, C++ 처럼 미리 컴파일을 통해 기계어로 변경되는 언어에 비해 속도가 느려집니다. 
+반복문 같은 경우 컴파일 언어와 다르게 인터프리터는 코드 각 줄을 매번 번역해야 합니다. 
+
+### 2.2. JIT(Just In Time) 컴파일러
+
+> Wiki - Just-in-time compilation<br>
+> In computing, just-in-time (JIT) compilation (also dynamic translation or run-time compilations) is a way of executing computer code 
+> that involves compilation during execution of a program (at run time) rather than before execution.
+
+인터프리터의 속도 문제를 해결하기 위해 디자인 된 기능입니다. 
+개념을 간단하게 설명하면 `'자주 실행되는 바이트 코드 영역을 런타임 중에 기계어로 컴파일하여 사용한다.'` 라고 볼 수 있습니다. 
+프로그램의 전체 코드 중 일부 자주 실행되는 영역이 존재하고 이를 `핫스팟(hotspot)`이라고 합니다. 
+
+#### 2.2.1. 컴파일 임계치(Invocation-count threshold)
+코드 컴파일을 수행할 기준을 의미합니다. 
 
 
-### 3.1. JIT(Just In Time) 컴파일러
+#### 2.2.2. OSR, On-Stack Replacement
 
+#### 2.2.2. JIT 컴파일러 실행 
 
 ## OPINION
+JIT 컴파일러에 대한 내용을 찾아보니 
 
 #### REFERENCE
 - <https://junhyunny.github.io/information/java/what-is-jvm/>
+- <https://beststar-1.tistory.com/3>
 - <https://d2.naver.com/helloworld/1230>
 - <https://www.javatpoint.com/java-interpreter>
 - <https://www.tcpschool.com/java/java_intro_programming>
 - <https://aboullaite.me/understanding-jit-compiler-just-in-time-compiler/>
+- <https://www.geeksforgeeks.org/how-to-increase-heap-size-in-java-virtual-machine/>
 - <https://stackoverflow.com/questions/7991877/why-is-an-interpreter-slower-than-a-compiler-in-practice>
+- [자바 JIT 컴파일러][jit-link]
 
 [jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/
+[jit-link]: https://velog.io/@youngerjesus/%EC%9E%90%EB%B0%94-JIT-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC#4-%EC%9E%90%EB%B0%94%EC%99%80-jit-%EC%BB%B4%ED%8C%8C%EC%9D%BC%EB%9F%AC-%EB%B2%84%EC%A0%84

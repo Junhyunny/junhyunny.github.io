@@ -155,15 +155,15 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 
 ##### 어플리케이션 수행 시 VM 옵션 지정 예시
 - **아래 설명은 이해하기 쉽도록 예시를 들은 내용이며 실제로 동작하는 방법과 관련된 레퍼런스는 확인 중 입니다.**
-- CompileThreshold 값은 1로 지정합니다.
-    - method entry counter 임계치가 1로 지정됩니다.
-    - 특정 메소드가 1번 호출 시 해당 임계치를 만족하게 됩니다. 
+- CompileThreshold 값은 100로 지정합니다.
+    - method entry counter 임계치가 100로 지정됩니다.
+    - 특정 메소드가 100번 호출 시 해당 임계치를 만족하게 됩니다. 
 - OnStackReplacePercentage 값은 33 퍼센트로 지정합니다.
     - back-edge loop counter 임계치 값은 계산식에 의해 33으로 지정됩니다.
     - 특정 메소드 내 반복문이 33회 회전하면 해당 임계치를 만족하게 됩니다. 
 
 ```
-$ java -XX:CompileThreshold=1 -XX:OnStackReplacePercentage=33 src/test/java/blog/in/action/JitCompilerTest.java
+$ java -XX:CompileThreshold=100 -XX:OnStackReplacePercentage=33 src/test/java/blog/in/action/JitCompilerTest.java
 ```
 
 #### 2.2.2. OSR, On-Stack Replacement

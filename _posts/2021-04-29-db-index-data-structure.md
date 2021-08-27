@@ -4,13 +4,13 @@ search: false
 category:
   - information
   - data-structure
-last_modified_at: 2021-05-01T09:00:00
+last_modified_at: 2021-08-28T02:00:00
 ---
 
 <br>
 
-[DB 인덱스(INDEX) 개념 및 설정 시 고려사항][db-index-blogLink] 포스트에서 DB 인덱스를 잘 설정할 수 있는 방법에 관해 정리하였습니다. 
-당시 글을 정리하면서도 몇 가지 의문사항들이 있었는데, 하필 최근에 이와 관련된 질문을 받았었습니다. 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [DB 인덱스(INDEX) 개념 및 설정 시 고려사항][db-index-link]
 
 > 인덱스 자료구조로 가장 많이 사용되는 B+Tree 는 어떤 특징을 가지고 있는가? 
 
@@ -19,7 +19,9 @@ last_modified_at: 2021-05-01T09:00:00
 이번에 포스트로 정리하면서 저의 지식으로 만들어보겠습니다. 
 DB 인덱스를 위한 자료구조로 언급되는 몇 가지들을 소개하고 가장 적합한 자료구조와 그 이유를 정리해보았습니다. 
 
-## 해시 테이블(Hash Table)
+## 1. 데이터베이스 인덱스 자료구조 
+
+### 1.1. 해시 테이블(Hash Table)
 Key-Value 형태로 데이터를 저장하는 자료구조입니다. 
 내부적으로 배열(버킷)을 사용하여 데이터를 저장하기 때문에 빠른 검색 속도를 제공합니다. 
 데이터 탐색 시 해시 함수(Hash Function)를 이용해 Key에 해당하는 index 값을 구합니다. 
@@ -28,7 +30,7 @@ index를 이용하여 배열에 저장된 value에 접근하기 때문에 해시
 <p align="center"><img src="/images/db-index-data-structure-1.JPG" width="60%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
 
-#### 해시 함수(Hash Function)
+### 1.2. 해시 함수(Hash Function)
 해시 테이블 자료구조의 핵심입니다. 
 Key를 사용해 적절한 배열의 index를 계산하는 계산식입니다. 
 적절한 index를 찾아내야만 Key 충돌을 줄이므로 빠른 속도를 유지할 수 있습니다. 
@@ -38,7 +40,7 @@ Key 충돌이 있는 경우에는 정책에 따라 부가적인 처리가 필요
 <p align="center"><img src="/images/db-index-data-structure-2.JPG" width="60%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
 
-## B-Tree(Balanced Tree)
+### 1.3. B-Tree(Balanced Tree)
 트리를 구성하는 아이템 하나 하나를 노드(node)라고 합니다. 
 B-Tree는 자식 노드의 개수가 2개 이상인 트리를 말합니다. 
 가장 상단을 구성하는 것이 루트 노드(root node), 중간에 위치한 브랜치 노드(branch node), 마지막에 위치한 리프 노드(leaf node)로 구성됩니다. 
@@ -68,7 +70,7 @@ B-Tree는 트리의 차수에 따라 노드 내 최대 Key-Value 수가 달라�
 - <https://www.cs.usfca.edu/~galles/visualization/BTree.html>
 <p align="center"><img src="/images/db-index-data-structure-5.gif" width="100%"></p>
 
-## B+Tree
+### 1.4. B+Tree
 B+Tree는 B-Tree의 확장된 개념입니다. 
 B-Tree 노드는 B-Tree와 다르게 브랜치 노드는 Value에 대한 정보가 존재하지 않고 단순히 Key 값만 존재합니다. 
 맨 말단 노드인 리프 노드에서만 Value를 관리합니다. 
@@ -83,8 +85,9 @@ B+Tree는 브랜치 노드에 Value가 없기 때문에 B-Tree에 비해 차지�
 <p align="center"><img src="/images/db-index-data-structure-6.JPG" width="70%"></p>
 <center>이미지 출처, https://ssup2.github.io/theory_analysis/B_Tree_B+_Tree/</center><br>
 
-## DB 인덱스에 적합한 자료구조
-### 해시 테이블
+## 2. 데이터베이스 인덱스에 적합한 자료구조
+
+### 2.1. 해시 테이블
 모든 자료구조를 가져다놔도 탐색 시간이 가장 빠른 것이 해시 테이블입니다. 
 해시 함수를 통해 얻은 해시 값을 이용하여 메모리 공간에 한 번에 접근하기 때문에 평균적으로 O(1)이라는 시간 복잡도를 가집니다. 
 하지만 이는 단 하나의 값을 검색하기 위한 시간 복잡도입니다. 
@@ -92,13 +95,13 @@ B+Tree는 브랜치 노드에 Value가 없기 때문에 B-Tree에 비해 차지�
 SQL은 <, > 등의 부등호 연산을 수행할 수 있는데, 해시 테이블은 내부적으로 데이터 정렬이 되어 있지 않으므로 탐색이 비효율적으로 이루어집니다. 
 DB 인덱스는 기준 값보다 크거나 작은 요소들을 탐색할 수 있어야하므로 해시 테이블은 어울리지 않은 자료구조입니다. 
 
-### B-Tree
+### 2.2. B-Tree
 B-Tree 자료구조는 탐색에 대해 O(logN)이라는 시간 복잡도를 가집니다. 
 B-Tree에 저장된 데이터들은 항상 정렬된 상태로 유지됩니다. 
 그렇기 때문에 부등호 연산에 대한 효율적인 데이터 탐색이 가능합니다. 
 데이터 탐색뿐 아니라, 저장, 수정, 삭제에도 항상 O(logN)의 시간 복잡도를 가지므로 DB 인덱스를 위한 자료구조로 적합합니다. 
 
-### B+Tree
+### 2.3. B+Tree
 B-Tree를 확장한 자료구조이므로 다음과 같은 이점이 존재합니다. 
 리프 노드를 제외하고 Value를 담아두지 않기 때문에 노드의 메모리에 더 많은 Key를 저장할 수 있습니다. 
 하나의 노드에 더 많은 Key들을 담을 수 있기에 트리의 높이는 더 낮아집니다. 
@@ -123,4 +126,4 @@ DB 인덱스를 위한 자료구조에 대한 내용을 정리하는데 꼬박 �
 - <https://www.cs.usfca.edu/~galles/visualization/BTree.html>
 - <https://junhyunny.github.io/information/database-index-and-considerations/>
 
-[db-index-blogLink]: https://junhyunny.github.io/information/database-index-and-considerations/
+[db-index-link]: https://junhyunny.github.io/information/database-index-and-considerations/

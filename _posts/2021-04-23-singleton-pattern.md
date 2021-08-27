@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2021-04-23T09:00:00
+last_modified_at: 2021-08-28T01:00:00
 ---
 
 <br>
@@ -14,7 +14,7 @@ last_modified_at: 2021-04-23T09:00:00
 관련된 글을 찾아보면서 제가 몰랐던 이야기들도 있었고, 
 공부하지 않으면 머리 속에서 정리되지 않으니 관련된 내용을 이번 포스트에서 정리해보도록 하겠습니다.
 
-## 싱글톤 패턴(Singleton Pattern)
+## 1. 싱글톤 패턴(Singleton Pattern)
 
 > Wiki<br>
 > In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "single" instance.
@@ -28,20 +28,20 @@ last_modified_at: 2021-04-23T09:00:00
 <p align="center"><img src="/images/singleton-pattern-1.JPG" width="30%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center><br>
 
-### 싱글톤 패턴 사용 시 이점
+### 1.1. 싱글톤 패턴 사용 시 이점
 싱글톤 패턴을 사용하는 경우 아래와 같은 이점을 얻을 수 있습니다.
 - 객체 로딩 시간이 줄어듭니다.
 - 전역적으로 사용되므로 다른 인스턴스들이 데이터를 공유하기 쉽습니다.
 - 하나의 인스턴스만 만들어 사용하기 때문에 메모리 낭비를 방지할 수 있습니다.
 
-### 싱글톤 패턴 사용 시 주의점
+### 1.2. 싱글톤 패턴 사용 시 주의점
 싱글톤 패턴을 사용하는 경우 아래와 같은 주의사항이 있습니다.
 - 멀티 스레드 환경에서 인스턴스가 1개를 초과하여 생성될 수 있습니다.
 - 객체가 하나뿐이니 동시성(Concurrency) 문제를 고려해서 설계해야 합니다.
 - 싱글톤 객체가 너무 많은 일을 하거나 많은 데이터를 공유하는 경우 인스턴스들 간의 결합도가 높아집니다.
 
-## 싱글톤 패턴 구현 방법
-### Eager Initialization
+## 2. 싱글톤 패턴 구현 방법
+### 2.1. Eager Initialization
 - 생성자를 외부에서 호출하지 못하도록 private 으로 지정합니다.
 - static 키워드를 사용하여 클래스 로더가 초기화하는 시점에 정적 바인딩되도록 구현합니다.
 - 해당 방법은 클래스가 최초 로딩될 때 객체가 생성되기 때문에 thread-safe 합니다.
@@ -60,7 +60,7 @@ public class Singleton {
 }
 ```
 
-### Lazy Initialization
+### 2.2. Lazy Initialization
 - 객체를 사용하지 않는데 미리 만들 필요는 없습니다.
 - 호출된 적이 없는 경우에는 자기 참조 코드가 null로 존재하다가 호출되었을 때 해당 객체를 만들어 반합니다.
 - 그 이후에는 만들어진 객체를 반환합니다.
@@ -84,7 +84,7 @@ public class Singleton {
 }
 ```
 
-### Lazy Initialization, synchronized
+### 2.3. Lazy Initialization, synchronized
 - getInstance 메소드 호출 시 synchronized 키워드를 사용하여 임계영역을 만들어줍니다.
 - 해당 방법은 thread-safe 하지만 getInstance() 메소드를 호출이 잦은 경우 성능이 느려질 수 있습니다.
 
@@ -106,7 +106,7 @@ public class Singleton {
 }
 ```
 
-### Lazy Initialization, Double Checking Locking
+### 2.4. Lazy Initialization, Double Checking Locking
 - Lazy Initialization, synchronized 방식을 이용할 때 성능 지연 문제를 해결합니다.
 - 생성된 인스턴스가 없는 경우에만 동기화 블럭이 실행됩니다.
 
@@ -132,13 +132,13 @@ public class Singleton {
 }
 ```
 
-#### volatile 키워드를 사용하는 이유
+##### volatile 키워드를 사용하는 이유
 volatile 키워드를 사용하는 이유는 멀티 스레드 환경에서 thread-safe 함을 보장하기 위함입니다. 
 멀티 스레드 어플리케이션에서는 작업을 수행하는 동안 성능 향상을 위해 MM(Main Memory)에서 읽은 값을 CPU Cache에 저장합니다. 
 멀티 스레드 환경에서 스레드가 변수 값을 읽어올 때 CPU Cache에 저장된 값을 읽는 경우 스레드마다 값이 다른 불일치 현상이 발생할 수 있습니다. 
 volatile 키워드를 붙힌 경우 MM에 값을 저장하고 읽기 때문에 변수 값 불일치 문제를 해결합니다.([참고, 자바 volatile 키워드][volatile-reference-link])
 
-### Lazy Initialization, LazyHolder
+### 2.5. Lazy Initialization, LazyHolder
 - Enum 생성은 기본적으로 thread-safe 함을 보장합니다.(Enum 내의 다르 메소드가 있는 경우는 제외)
 - Enum 방식을 사용하면 아주 복잡한 직렬화 상황이나, 리플렉션 공격에도 제 2의 인스턴스가 생성되는 것이 방지됩니다.
 - volatile 이나 synchronized 키워드 없이도 동시성 문제를 해결하기 때문에 성능이 뛰어납니다.
@@ -177,7 +177,7 @@ public class Singleton {
 ##### getIntance에 따른 객체 생성자 호출 시기 확인 로그
 <p align="center"><img src="/images/singleton-pattern-2.JPG" width="80%"></p>
 
-## 싱글톤 패턴은 사실 안티 패턴
+## 3. 싱글톤 패턴은 사실 안티 패턴
 싱글톤 패턴은 사실 안티 패턴이라고 합니다. 
 안티라는 단어만 들어도 좋은 느낌을 주지는 않습니다. 
 
@@ -197,7 +197,7 @@ public class Singleton {
     - 이는 어떤 객체든 싱글톤 객체를 자유롭게 수정하고 데이터를 공유할 수 있다라는 의미입니다. 
     - 이는 객체 지향 프로그래밍에서는 권장되지 않는 프로그래밍 모델입니다.
 
-### Singleton in Spring 
+### 3.1. Singleton in Spring 
 `싱글톤 패턴이 안티 패턴이라는데 Spring에서는 해당 패턴을 많이 사용하지 않아?🤨` 
 심지어 Spring의 대가 토비님께서 싱글톤 패턴이 안티 패턴인 이유에 대해서 설명해주십니다. 
 사실 Spring은 싱글톤 패턴을 사용하는 것은 아닙니다. 

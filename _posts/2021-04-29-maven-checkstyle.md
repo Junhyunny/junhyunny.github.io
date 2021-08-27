@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - maven
-last_modified_at: 2021-04-28T09:00:00
+last_modified_at: 2021-08-28T02:30:00
 ---
 
 <br>
@@ -18,15 +18,19 @@ last_modified_at: 2021-04-28T09:00:00
 무엇보다 빌드가 되지 않도록 막아둘 것이기 때문에 공식적인 지적질(?)을 할 수 있습니다.😃 
 적용기에 대해 하나씩 작성해보겠습니다. 
 
-##### google_checks.xml 다운로드
+## 1. google_checks.xml 다운로드
 - 아래 링크로 접속하여 google_checks.xml 파일을 다운받아 프로젝트 root path에 위치시킵니다.
 - 해당 파일은 구글에서 사용하는 코드 스타일 체크 규칙입니다.
 - <https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml>
 
 ##### google_checks.xml 파일 디렉토리 위치
+- 해당 파일 위치는 어디든 상관없습니다. 
+- 프로젝트와 함께 관리될 수 있도록 프로젝트 폴더에 위치시켰습니다.
 <p align="left"><img src="/images/maven-checkstyle-1.JPG" width="30%"></p>
 
-##### 코드 스타일 변경
+## 2. 코드 스타일 커스터마이징(customizing)
+
+### 2.1. 코드 스타일 변경
 - 구글 코드 스타일의 들여쓰기(indentation) 크기는 2이므로 이를 4로 조절하였습니다.
 
 ```xml
@@ -40,7 +44,7 @@ last_modified_at: 2021-04-28T09:00:00
     </module>
 ```
 
-##### pom.xml 파일 plugin 추가
+## 3. pom.xml 파일 plugin 추가 및 빌드
 
 ```xml
 
@@ -76,21 +80,25 @@ last_modified_at: 2021-04-28T09:00:00
   mvn clean checkstyle:checkstyle
 ```
 
+## 4. 스타일 적용 시 에러 발생
+
 어김없이 에러가 발생하하였습니다. 
 역시 한번에 되는 일은 없습니다. 
 즐기면서 가보도록 하겠습니다. 
 이것은 개발자의 숙명입니다.
 
-##### 발생 에러, checkstyle failed, given name COMPACT_CTOR_DEF
+### 4.1. 발생 에러, checkstyle failed, given name COMPACT_CTOR_DEF
+
 <p align="center"><img src="/images/maven-checkstyle-2.JPG" width="50%"></p>
 
 관련된 내용을 찾아보니 maven-checkstyle-plugin에서 checkstyle에 해당하는 특정 버전을 찾지 못한다는 내용이 있습니다. 
 필요한 checkstyle 관련 dependency를 추가하면 해결된다고 합니다. 
 
-##### StackOverflow 답변
+#### 4.1.1. StackOverflow 답변
+
 <p align="center"><img src="/images/maven-checkstyle-3.JPG" width="70%"></p>
 
-##### 변경 pom.xml
+### 4.1.2. 변경 pom.xml
 
 ```xml
     <build>
@@ -117,22 +125,23 @@ last_modified_at: 2021-04-28T09:00:00
     </build>
 ```
 
+### 4.2. RecordComponentName class not found error
 관련된 dependency를 추가하니 또 다른 에러가 발생합니다. 
 RecordComponentName 클래스를 찾지 못한다고 합니다. 
 하... 즐기면서 가보도록 하겠습니다...😂 
 
-##### RecordComponentName class not found error
 <p align="center"><img src="/images/maven-checkstyle-4.JPG" width="70%"></p>
 
 검색해보니 `com.puppycrawl.tools.checkstyle` 라이브러리에서 특정 버전부터 제공해주는 기능으로 확인됬습니다. 
 API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다. 
 확인 후 관련된 버전을 올렸습니다. 
 
-##### Codestyle API Docs
+#### 4.2.1. Codestyle API Docs
+
 <p align="center"><img src="/images/maven-checkstyle-5.JPG" width="70%"></p>
 <center>이미지 출처, https://checkstyle.sourceforge.io/config_naming.html</center><br>
 
-##### 변경 pom.xml
+#### 4.2.2. 변경 pom.xml
 
 ```xml
       <plugin>
@@ -163,11 +172,12 @@ API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다.
       </plugin>
 ```
 
+### 4.3. Error 아닌 Warning 처리
 이후 빌드를 하니 정상적으로는 동작하는데 이상합니다. 
-분명히 일부러 잘못된 코드 스타일로 작성하여 warning은 발생하는데 빌드가 성공합니다. 
+빌드 실패 여부를 확인하려고 분명히 일부러 잘못된 코드 스타일로 작성했는데 Warning 후 빌드가 성공합니다. 
 아씨... 즐기면서...해브즈...🤬 
 
-##### 잘못된 코드 스타일
+#### 4.3.1. 잘못된 코드 스타일
 - 들여쓰기와 중괄호 `{}` 위치를 일부러 어긋나게 작성해두었습니다. 
 - 빌드가 실패되기를 기대하고 작성하였습니다. 
 
@@ -190,15 +200,15 @@ public class GeneuineTemplateApplication {
 ##### Warning 그리고 빌드 성공
 <p align="center"><img src="/images/maven-checkstyle-6.JPG" width="70%"></p>
 
+#### 4.3.2. Stackoverflow 답변
 이에 대해 확인해보니 위반에 대한 심각성을 어느 레벨에서 측정할 것인지 설정으로 추가해줘야지 warning에서도 빌드를 실패시킬 수 있다고 합니다. 
 관련된 설정을 추가하였습니다. 
 **이제 마지막이길 바랍니다. 잘 시간이 한참 지났습니다.**
 
-##### Stackoverflow 답변
 <p align="center"><img src="/images/maven-checkstyle-7.JPG" width="60%"></p>
 <center>이미지 출처, https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center>
 
-##### 최종 pom.xml
+#### 4.3.4. 최종 pom.xml 적용
 
 ```xml
     <build>

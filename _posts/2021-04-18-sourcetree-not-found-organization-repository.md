@@ -23,7 +23,7 @@ Sourcetree 설치 후 Github의 repository들을 클론(clone)하던 중 일부 
 개인 repository 들은 정상적으로 탐색이 되는걸로 미루어볼 때 organization에 소속된 repository라는 점이 마음에 걸렸습니다. 
 관련된 내용을 찾아보던 중 우연히 해당 이슈를 해결할 수 있었습니다. 
 
-## 문제 원인과 해결 과정
+## 1. 문제 원인과 해결 과정
 Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organization에 대한 접근 승인이 되지 않았기 때문입니다. 
 해결 방법을 정리한 후 Github 초보인 팀원들에게 이를 공유해줄 필요가 있어 보입니다. 
 

@@ -4,10 +4,12 @@ search: false
 category:
   - information
   - maven
-last_modified_at: 2021-04-21T09:00:00
+last_modified_at: 2021-08-28T01:00:00
 ---
 
 <br>
+
+## 1. 문제 상황
 
 최근 공공 기관 레거시 시스템의 기술 부채를 덜어내는 프로젝트를 맡게 되었습니다. 
 컴파일도 되지 않는 기존 레거시 시스템 코드를 전달받았을 땐 어찌나 답답하던지...😭 
@@ -21,7 +23,7 @@ last_modified_at: 2021-04-21T09:00:00
 [MVN Repository][mvn-repository-link]에는 버젓이 제공하는 것처럼 올려두고 실제로는 없다구요?😡 
 일단 작업이 급하니 이런 에러가 나는 의존성들은 모두 레거시 시스템에서 그대로 들고 왔습니다. 
 
-## Maven - Multi Remote Repository 사용하기
+## 2. Maven - Multi Remote Repository 사용하기
 생각보다 작업이 빠르게 진행되어 여유가 생겼습니다. 
 아까 central repository에서 못 찾은 의존성과 관련되어 여기 저기 찾아보니 이런 링크를 발견할 수 있었습니다.(등잔 밑이 어두웠습니다.) 
 

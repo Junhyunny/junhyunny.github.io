@@ -126,6 +126,7 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
   - COVEREDRATIO (default) - 커버된 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
 
 ### 1.3. Geneuin Team 프로젝트 JaCoCo 설정 내용 정리
+
 #### 1.3.1. 특정 클래스 테스트 커버리지 측정 제외
 - 서비스 Run을 수행하는 main 메소드가 있는 *Application.class는 테스트 커버리지 측정에서 제거
 

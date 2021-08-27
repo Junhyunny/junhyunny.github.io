@@ -23,9 +23,10 @@ last_modified_at: 2021-08-28T02:30:00
 - 해당 파일은 구글에서 사용하는 코드 스타일 체크 규칙입니다.
 - <https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml>
 
-##### google_checks.xml 파일 디렉토리 위치
+### 1.1. google_checks.xml 파일 디렉토리 위치
 - 해당 파일 위치는 어디든 상관없습니다. 
 - 프로젝트와 함께 관리될 수 있도록 프로젝트 폴더에 위치시켰습니다.
+
 <p align="left"><img src="/images/maven-checkstyle-1.JPG" width="30%"></p>
 
 ## 2. 코드 스타일 커스터마이징(customizing)

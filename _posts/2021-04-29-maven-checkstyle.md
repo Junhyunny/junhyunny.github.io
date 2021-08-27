@@ -92,10 +92,9 @@ last_modified_at: 2021-08-28T02:30:00
 
 <p align="center"><img src="/images/maven-checkstyle-2.JPG" width="50%"></p>
 
+#### 4.1.1. StackOverflow 답변
 관련된 내용을 찾아보니 maven-checkstyle-plugin에서 checkstyle에 해당하는 특정 버전을 찾지 못한다는 내용이 있습니다. 
 필요한 checkstyle 관련 dependency를 추가하면 해결된다고 합니다. 
-
-#### 4.1.1. StackOverflow 답변
 
 <p align="center"><img src="/images/maven-checkstyle-3.JPG" width="70%"></p>
 
@@ -133,11 +132,10 @@ RecordComponentName 클래스를 찾지 못한다고 합니다.
 
 <p align="center"><img src="/images/maven-checkstyle-4.JPG" width="70%"></p>
 
+#### 4.2.1. Codestyle API Docs
 검색해보니 `com.puppycrawl.tools.checkstyle` 라이브러리에서 특정 버전부터 제공해주는 기능으로 확인됬습니다. 
 API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다. 
 확인 후 관련된 버전을 올렸습니다. 
-
-#### 4.2.1. Codestyle API Docs
 
 <p align="center"><img src="/images/maven-checkstyle-5.JPG" width="70%"></p>
 <center>이미지 출처, https://checkstyle.sourceforge.io/config_naming.html</center><br>

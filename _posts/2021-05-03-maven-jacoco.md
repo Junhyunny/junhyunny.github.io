@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - maven
-last_modified_at: 2021-05-03T09:00:00
+last_modified_at: 2021-08-28T03:00:00
 ---
 
 <br>
@@ -26,7 +26,7 @@ JaCoCo 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글�
 
 이제 본격적으로 JaCoCo 플러그인을 적용해보도록 하겠습니다.
 
-## pom.xml - JaCoCo 플러그인 추가
+## 1. pom.xml - JaCoCo 플러그인 추가
 우선 JaCoCo 플러그인을 pom.xml 파일에 추가합니다. 
 추가한 내용을 바탕으로 각 설정에 대해 정리해보겠습니다. 
 
@@ -90,7 +90,7 @@ JaCoCo 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글�
 `<executions> </executions>` 태그 내부를 살펴보면 플러그인 실행에 대한 내용을 정리하고 있는 것으로 보입니다. 
 JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 정리해보겠습니다. 
 
-### JaCoCo Execution Goal
+### 1.1. JaCoCo Execution Goal
 - help - jacoco-maven-plugin의 도움말을 보여주는 명령입니다.
 - prepare-agent - 테스트 중인 어플리케이션에서 인수를 전달하는 JaCoCo Runtime Agent에 대한 property를 준비하는 명령입니다.
 - prepare-agent-integration - prepare-agent와 같은 기능을 하지만 integration test에 대해서 기본 설정 값들을 제공하는 명령입니다.
@@ -103,7 +103,7 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
 - instrument - 오프라인 측정을 수행하는 명령. 테스트 실행 후 ‘restore-instrumented-classes’ 명령으로 원본 클래스 파일들을 저장해야 합니다. 
 - restore-instrumented-class - 오프라인 측정 이전에 원본 파일들을 저장하는 명령입니다. 
 
-### JaCoCo Rule
+### 1.2. JaCoCo Rule
 - JaCoCo 플러그인 코드 커버리지 기준을 설정할 때 다음과 같은 속성들이 있습니다.
 - Element type - 코드 커버리지 체크 기준
   - BUNDLE (default) - 패키지 번들
@@ -125,8 +125,8 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
   - MISSEDRATIO - 커버되지 않은 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
   - COVEREDRATIO (default) - 커버된 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
 
-### Geneuin Team 프로젝트 JaCoCo 설정 내용 정리
-#### 특정 클래스 테스트 커버리지 측정 제외
+### 1.3. Geneuin Team 프로젝트 JaCoCo 설정 내용 정리
+#### 1.3.1. 특정 클래스 테스트 커버리지 측정 제외
 - 서비스 Run을 수행하는 main 메소드가 있는 *Application.class는 테스트 커버리지 측정에서 제거
 
 ```xml
@@ -138,7 +138,7 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
     </configuration>
 ```
 
-#### 측정 기준
+#### 1.3.2. 측정 기준
 - 패키지 번들 단위로 바이트 코드 명령 수에 80% 미만 수행 시 에러
 - 메소드의 라인 수가 30이 초과되는 경우 에러
 
@@ -165,12 +165,13 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
     </rule>
 ```
 
-## 테스트 커버리지 측정
+## 2. 테스트 커버리지 측정
 JaCoCo 플러그인이 정상적으로 적용되었는지 확인하기 위해 테스트 코드를 작성해보았습니다. 
 다음과 같은 테스트 코드를 작성 후 maven 명령어를 수행하여 빌드가 정상적으로 수행되는지 확인하였습니다. 
 **빌드 실패를 확인하시려면 JacocoTest 클래스의 테스트 코드를 일부 주석하거나 METHOD 제약사항의 maximum 값을 2로 조정해보시면 됩니다.**
 
-### Jacoco 클래스
+### 2.1. Jacoco 클래스
+
 ```java
 package com.geneuin.spring.jacoco;
 
@@ -216,7 +217,8 @@ public class Jacoco {
 }
 ```
 
-### JacocoTest 클래스
+### 2.2. JacocoTest 클래스
+
 ```java
 package com.geneuin.spring.jacoco;
 
@@ -257,7 +259,7 @@ public class JacocoTest {
 }
 ```
 
-### Maven Lifecycle
+### 2.3. Maven Lifecycle
 - validate > compile > test > package > install > deploy
 - **`test`** phase 이후에 JaCoCo 플러그인에 의해 테스트 커버리지 측정이 가능하므로 **`package`** 이상부터 가능합니다.
 - 아래와 같은 명령어를 수행합니다.
@@ -272,8 +274,10 @@ $ mvn clean install
 
 <p align="center"><img src="/images/maven-jacoco-1.JPG" width="100%"></p>
 
-##### 빌드 실패 시 에러 로그
-- 일부 테스트 코드 주석 후 테스트 커버리지 불만족
+## 3. 빌드 실패 시 에러 로그
+테스트 커버리지를 불만족시키기 위해 일부 테스트 코드를 주석 처리 후 테스트를 돌려보겠습니다. 
+
+### 3.1. 테스트 코드
 
 ```java
     /**
@@ -286,10 +290,13 @@ $ mvn clean install
     }
 ```
 
+##### 빌드 결과
+
 <p align="center"><img src="/images/maven-jacoco-2.JPG" width="100%"></p>
 <p align="center"><img src="/images/maven-jacoco-3.JPG" width="100%"></p>
 
-- pom.xml 파일 변경 후 코드 라인 수 제약사항 불만족
+### 3.2. pom.xml 변경
+코드 라인 수 제약사항이 불만족하도록 pom.xml 파일을 변경합니다. 
 
 ```xml
     <rule>
@@ -304,15 +311,11 @@ $ mvn clean install
     </rule>
 ```
 
+##### 빌드 결과
+
 <p align="center"><img src="/images/maven-jacoco-4.JPG" width="100%"></p>
 
 ## OPINION
-2020년 초반 시작한 회사가 최근에 입소문을 탔는지 1년만에 큰 규모의 프로젝트들을 수주하기 시작하면서 프리랜서 도입이 필요한 시점이 왔습니다. 
-물론 프리랜서 말고 함께할 팀원을 구하고 싶지만 작은 팀 규모의 사업체이다 보니 좋은 사람을 구하기가 쉽지 않습니다. 
-프리랜서들과 일하면서 책임감 없고 주도적으로 일하지 않는 모습을 많이 봐았기 때문에 함께 일하기도 꺼려지는 것은 사실입니다. 
-만약 대충 일을 때우는 분들과 함께 작업한다면 프로젝트 코드의 품질, 
-안정적인 프로젝트 진행 그리고 책임 회피를 방지하기 위한 코드 스타일 적용과 코드 커버리지 체크는 필수라고 생각됩니다. 
-
 작년에 개발을 진행했던 시스템이나 서비스 플랫폼들, 유지보수하고 있는 서비스들에 JaCoCo 플러그인 적용 후 테스트 커버리지를 높이는 작업을 수행할 예정입니다. 
 테스트 코드를 작성하면서 수행하는 리팩토링 작업들이 앞으로 저희 팀에서 개발할 서비스 플랫폼을 구축을 위한 좋은 연습이 될 것 같습니다. 
 

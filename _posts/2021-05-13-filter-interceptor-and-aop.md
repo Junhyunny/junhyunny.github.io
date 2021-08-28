@@ -3,7 +3,7 @@ title: "Spring Filter, Interceptor 그리고 AOP"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-05-15T00:00:00
+last_modified_at: 2021-08-29T03:00:00
 ---
 
 <br>
@@ -24,7 +24,7 @@ last_modified_at: 2021-05-15T00:00:00
 인터셉터는 요청 처리를 위해 별도로 사용되는 기능이었습니다. 
 필터와 인터셉터의 차이점을 포스트로 정리해보겠습니다. 
 
-## 필터, 인터셉터 그리고 AOP 기능별 위치
+## 1. 필터, 인터셉터 그리고 AOP 기능별 위치
 필터, 인터셉터 그리고 AOP 기능은 모두 다른 기능입니다. 
 그리고 처리하는 일과 기능이 구현된 위치가 다릅니다. 
 필터, 인터셉터, AOP 기능이 위치를 알아보고, 각자 해야할 역할에 대한 설명을 이어가보겠습니다. 
@@ -39,14 +39,14 @@ last_modified_at: 2021-05-15T00:00:00
 <p align="center"><img src="/images/filter-interceptor-and-aop-3.JPG" width="60%"></p>
 <center>이미지 출처, https://programming.vip/docs/spring-aop-basic-use.html</center><br>
 
-## 필터(Filter)
+## 2. 필터(Filter)
 필터는 Web Application에 등록합니다. 
 요청 스레드가 서블릿 컨테이너(Servlet Container)에 도착하기 전에 수행됩니다. 
 필터는 사용자의 요청 정보에 대한 검증하고 필요에 따라 데이터를 추가하거나 변조할 수 있습니다. 
 응답 정보에 대한 변경도 가능합니다. 
 주로 전역적으로 처리해야하는 인코딩, 보안 관련된 일을 수행합니다. 
 
-#### 필터 사용 예
+### 2.1. 필터 사용 예
 - 오류 처리 기능
 - 인코딩 처리 기능
 - 웹 보안 관련 기능 처리
@@ -54,13 +54,14 @@ last_modified_at: 2021-05-15T00:00:00
 - 요청이나 응답에 대한 로그
 - 로그인 여부, 권한 검사 같은 인증 기능
 
-### 필터 메소드
+### 2.2. 필터 메소드
 - init() - 필터 인스턴스 초기화
 - doFilter() - 전/후 처리
 - destroy() - 필터 인스턴스 종료
 
-### 필터 구현
-##### BlogFilter 클래스
+### 2.3. 필터 구현 예제 코드
+
+#### 2.3.1. BlogFilter 클래스
 - Filter 인터페이스를 구현합니다.
 - doFilter() 메소드는 필수입니다.
 - init(), destroy() 메소드는 디폴트(default) 메소드이므로 필요에 따라 구현합니다.
@@ -106,7 +107,7 @@ public class BlogFilter implements Filter {
 }
 ```
 
-##### WebMvcConfiguration 클래스
+#### 2.3.2. WebMvcConfiguration 클래스
 - Spring Boot에서는 web.xml 파일이 존재하지 않으므로 FilterRegistrationBean 빈(bean)을 정의하여 필터를 등록합니다.
 - 필터가 처리할 path를 지정합니다.
 - WebMvcConfigurer 인터페이스를 상속받는 것과는 무관합니다.
@@ -141,21 +142,21 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 }
 ```
 
-## 인터셉터(Interceptor)
+## 3. 인터셉터(Interceptor)
 인터셉터는 스프링 컨텍스트(Context)에 등록합니다. 
 서블릿 컨테이너를 통과한 후 컨트롤러에게 요청이 전달되기 전, 후에 대한 처리를 수행합니다. 
 스프링 컨텍스트 내에 존재하기 때문에 모든 빈(Bean) 객체에 접근할 수 있습니다. 
 여러 개의 인터셉터를 사용할 수 있으며 세션 처리, 로그인 처리, 권한 체크, 프로그램 실행 시간 계산 등을 수행합니다. 
 필터와 다르게 hanlderMethod 파라미터를 이용하여 AOP와 같은 기능 수행이 가능합니다. 
 
-### 인터셉터 메소드
+### 3.1. 인터셉터 메소드
 - preHandler() - 컨트롤러 메소드가 실행되기 전
 - postHandler() - 컨트롤러 메소드 실행 후 view 페이지 렌더링 전
 - afterCompletion() - view 페이지 렌더링 후
 
-### 인터셉터 구현
+### 3.2. 인터셉터 구현 예제 코드
 
-#### BlogHandlerInterceptor 클래스
+#### 3.2.1. BlogHandlerInterceptor 클래스
 - HandlerInterceptor 인터페이스를 구현합니다.
 
 ```java
@@ -188,7 +189,7 @@ public class BlogHandlerInterceptor implements HandlerInterceptor {
 }
 ```
 
-##### WebMvcConfiguration 클래스
+#### 3.2.2. WebMvcConfiguration 클래스
 - WebMvcConfigurer 인터페이스를 상속받습니다.
 - addInterceptors 메소드를 재구현하여 개발자가 직접 구현한 인터셉터를 등록합니다.
 - 인터셉터가 처리할 path를 지정합니다.
@@ -223,16 +224,16 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 }
 ```
 
-## AOP(Aspect Oriented Programming)
+## 4. AOP(Aspect Oriented Programming)
 비즈니스 로직을 수행하는데 중복되는 코드를 줄이기 위한 프로그래밍 방법입니다. 
 비즈니스 로직의 특정 시점을 바라보고 해당 시점이 수행되는 순간을 가로채어 전, 후 기능을 처리합니다. 
 주로 로깅, 트랜잭션 처리, 에러 처리 같은 기능을 수행합니다. 
 AOP 기능은 다양한 방법으로 처리가 가능하기 때문에 추후에 관련된 기능과 용어를 정리해보도록 하겠습니다. 
 이 포스트에서는 간단한 테스트 코드를 통해 기능 소개만 하겠습니다.
 
-### AOP 구현
+### 4.1. AOP 구현 예제 코드
 
-#### BlogAop 클래스
+#### 4.1.1. BlogAop 클래스
 - BlogService 빈(bean)이 수행하는 메소드의 시점을 가로채어 전, 후 동작을 수행합니다.
 - BlogController 빈(bean)이 수행하는 메소드의 시점을 가로채어 전, 후 동작을 수행합니다.
 
@@ -268,11 +269,11 @@ public class BlogAop {
 }
 ```
 
-## 테스트 코드
+## 5. 테스트 코드
 테스트에 필요한 컨트롤러(Controller)와 서비스(Service) 객체를 만들어줍니다. 
 서비스 동작 후 **`curl`** 명령어를 통해 API 요청을 수행합니다.  
 
-#### BlogController 클래스
+#### 5.1. BlogController 클래스
 
 ```java
 package blog.in.action.controller;
@@ -303,7 +304,7 @@ public class BlogController {
 }
 ```
 
-#### BlogService 클래스
+#### 5.2. BlogService 클래스
 
 ```java
 package blog.in.action.service;
@@ -322,14 +323,14 @@ public class BlogService {
 }
 ```
 
-#### 테스트 명령어 수행
+#### 5.3. 테스트 명령어 수행
 
 ```
 C:\Users\kang3>curl http://localhost:8081/api/foo
 foo
 ```
 
-#### 테스트 후 종료 결과 로그
+#### 5.4. 테스트 결과 로그
 
 ```
   .   ____          _            __ _ _
@@ -430,7 +431,7 @@ public class SomeFilter implements Filter {
 > 예를 들어 웹 페이지가 권한에 따라 GNB(Global Navigation Bar)이 항목이 다르게 노출되어야 할 때 등의 처리를 하기 좋다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-13-filter-interceptor-and-aop>
 
 #### REFERENCE
 - <https://yzlosmik.tistory.com/24>

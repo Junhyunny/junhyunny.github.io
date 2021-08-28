@@ -303,7 +303,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 
 다음 포스트 주제로 궁금한 사항과 관련된 내용들을 확인해보고 정리해야겠습니다.
 
-👉 관련된 내용을 정리했어요.
+👉 추가적인 내용을 정리했어요.
 - [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
 - [Spring Application Context Event - 비동기 처리][async-in-spring-application-context-event-link]
 

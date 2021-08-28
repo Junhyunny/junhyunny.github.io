@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - algorithm
-last_modified_at: 2021-05-07T00:00:00
+last_modified_at: 2021-08-28T13:30:00
 ---
 
 <br>
@@ -12,7 +12,7 @@ last_modified_at: 2021-05-07T00:00:00
 이번 포스트는 퀵 정렬에 대해 정리해보도록 하겠습니다. 
 지난 포스트에서 정리한 [합병 정렬(Merge Sort)][merge_sort_link]과는 어떤 차이점이 있는지 함께 정리해보겠습니다. 
 
-## 퀵 정렬(Merge Sort)
+## 1. 퀵 정렬(Merge Sort)
 퀵 정렬은 다음과 같은 특징을 가집니다. 
 - 불안정 정렬이며, 다른 원소와의 비교를 통해 정렬을 수행합니다. 
 - 분할 정복 알고리즘 중 하나로 평균적으로 매우 빠른 수행 속도를 가집니다. 
@@ -24,7 +24,7 @@ last_modified_at: 2021-05-07T00:00:00
 <p align="center"><img src="/images/quick-sort-1.gif" width="50%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Quick_sort</center><br>
 
-## 퀵 정렬 수행 과정(오름 차순 정렬)
+## 2. 퀵 정렬 수행 과정(오름 차순 정렬)
 퀵 정렬은 다음과 같은 과정을 통해 수행됩니다.
 1. 리스트 가운데서 하나의 원소를 고릅니다. 이렇게 고른 원소를 피벗(pivot)이라고 합니다.
 1. 피벗 앞에는 피벗보다 값이 작은 원소들이 오고, 피벗 뒤에는 피벗보다 값이 큰 원소들이 오도록 정렬하면서 리스트를 둘로 나눕니다. 
@@ -32,13 +32,14 @@ last_modified_at: 2021-05-07T00:00:00
 1. 분할된 두 개의 작은 리스트에 대해 재귀(Recursion)적으로 이 과정을 반복합니다. 
 1. 재귀는 리스트의 크기가 0이나 1이 될 때까지 반복됩니다.
 
-## 퀵 정렬의 분할 정복
+## 3. 퀵 정렬의 분할 정복
 - 분할(Divide) - 입력 배열을 피벗을 기준으로 비균등하게 2개의 부분으로 나눕니다.(왼쪽에는 작은 값, 오른쪽에는 큰 값)
 - 정복(Conquer) - 부분 배열을 정렬합니다. 부분 배열의 크기가 충분히 작지 않으면 재귀적으로 분할을 수행합니다.
 - 결합(Combine) - 정렬된 배열들을 하나의 배열로 합병합니다.
 
-## 퀵 정렬 코드 설명
-### main 메소드
+## 4. 퀵 정렬 코드 설명
+
+### 4.1. main 메소드
 - mergeSort 메소드에 변수로 배열의 시작 index, 마지막 index를 전달합니다. 
 - 매개변수로 전달한 index들은 정렬 범위에 포함됩니다.
 
@@ -50,7 +51,7 @@ last_modified_at: 2021-05-07T00:00:00
     }
 ```
 
-### partition 메소드
+### 4.2. partition 메소드
 - pivotIndex 위치의 값을 기준으로 값을 정렬합니다. 
 - pivotIndex 위치의 값보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 변경합니다.
 - lowIndex 위치의 값이 pivotIndex 위치의 값보다 작은 경우 계속 증가시킵니다. lowIndex가 right를 넘지 않는 시점까지 반복합니다.
@@ -86,7 +87,7 @@ last_modified_at: 2021-05-07T00:00:00
     }
 ```
 
-### quickSort 메소드
+### 4.3. quickSort 메소드
 - 분할과 정렬 과정을 통해 반환된 pivotIndex를 기준으로 왼쪽 배열, 오른쪽 배열을 재정렬합니다.
 - pivotIndex 위치는 제외합니다.
 
@@ -100,10 +101,10 @@ last_modified_at: 2021-05-07T00:00:00
     }
 ```
 
-### 전체 코드
+### 4.4. 전체 코드
 
 ```java
-package blog.in.action.algorithm;
+package blog.in.action;
 
 import java.util.Arrays;
 
@@ -186,6 +187,9 @@ public class Main {
 
 <p align="center"><img src="/images/quick-sort-2.JPG" width="65%"></p>
 <center>이미지 출처, https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center><br>
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-06-quick-sort>
 
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Quicksort>

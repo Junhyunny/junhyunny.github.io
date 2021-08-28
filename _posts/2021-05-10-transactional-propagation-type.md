@@ -5,12 +5,16 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-05-10T00:00:00
+last_modified_at: 2021-08-29T01:00:00
 ---
 
 <br>
 
-기본적으로 트랜잭션은 [ACID 특징][transaction-acid-link]을 만족해야합니다. 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [ACID 특징][transaction-acid-link]
+
+기본적으로 트랜잭션은 [ACID 특징][transaction-acid-link]의 원자성을 만족해야합니다. 
+
 > 트랜잭션 ACID 특징 중 원자성(Atomic)<br>
 > 트랜잭션의 작업이 부분적으로 실행되거나 중단되지 않는 것을 보장합니다.<br>
 > All or Noting의 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
@@ -18,7 +22,7 @@ last_modified_at: 2021-05-10T00:00:00
 Spring Boot 프레임워크은 어플리케이션이 트랜잭션 원자성을 만족시킬 수 있도록 **`@Transactional`** 애너테이션을 제공합니다. 
 **`@Transactional`** 애너테이션이 제공하는 기능과 트랜잭션 전파 타입(propagation type)에 대해 정리해보았습니다.  
 
-## @Transactional 애너테이션
+## 1. @Transactional 애너테이션
 Spring 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming) 기능을 지원합니다. 
 관점 지향 프로그래밍이란 특정 시점의 동작을 가로채어 해당하는 동작의 앞, 뒤로 부가적인 일을 추가적으로 수행하는 프로그래밍 방식입니다. 
 Spring 프레임워크는 AOP 기능과 애너테이션을 이용하여 개발자가 트랜잭션에 대한 제어를 쉽게 할 수 있도록 돕습니다. 
@@ -30,7 +34,7 @@ Spring 프레임워크는 AOP 기능과 애너테이션을 이용하여 개발�
 - 디버그를 통해 확인
 <p align="center"><img src="/images/transactional-propagation-type-2.jpg" width="100%"></p>
 
-### @Transactional 애너테이션 사용 시 주의사항
+### 1.1. @Transactional 애너테이션 사용 시 주의사항
 주의사항으로 AOP 기능은 Spring 프레임워크에서 관리하는 빈(Bean)에게만 적용할 수 있습니다. 
 new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너테이션이 붙어 있더라도 정상적으로 동작하지 않습니다. 
 가능한 방법이 있는 듯 하지만 이번 포스트에서는 다루지 않겠습니다. 
@@ -42,7 +46,7 @@ new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너�
 - 디버그를 통해 확인
 <p align="center"><img src="/images/transactional-propagation-type-4.jpg" width="100%"></p>
 
-### @Transactional 애너테이션 적용 가능 위치
+### 1.2. @Transactional 애너테이션 적용 가능 위치
 @Transactional 애너테이션을 살펴보면 @Target이 TYPE, METHOD 임을 확인할 수 있습니다. 
 각 타입 별 적용 가능 범위입니다.
 - ElementType.TYPE - Class, interface (including annotation type), or enum declaration
@@ -68,7 +72,7 @@ public @interface Transactional {
 }
 ```
 
-## 트랜잭션 전파 타입(Propagation Type)
+## 2. 트랜잭션 전파 타입(Propagation Type)
 트랜잭션의 전파 타입은 어떤 메소드에서 다른 메소드 호출 시 트랜잭션을 이어나갈 것인지에 대한 설정입니다. 
 총 7개 존재하며 각 타입 별로 기능에 대해 정리하였습니다. 
 - REQUIRED
@@ -130,7 +134,7 @@ logging:
           jpa: DEBUG
 ```
 
-### REQUIRED
+## 3. REQUIRED
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만듭니다. 
 @Transactional 애너테이션 전파 타입의 디폴트 값입니다. 
 부모 메소드에서 트랜잭션을 시작하였더라도 자식 메소드에서 exception이 발생한다면 전체 트랜잭션이 롤백됩니다. 
@@ -139,14 +143,14 @@ logging:
 <p align="center"><img src="/images/transactional-propagation-type-5.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 메소드 REQUIRED - 자식 메소드 REQUIRED
+### 3.1. 부모 메소드 REQUIRED - 자식 메소드 REQUIRED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
 - 자식 메소드 exception throw
 - 부모 메소드에서 catch 수행
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 3.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -215,7 +219,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 3.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildRequired 메소드를 통해 트랜잭션을 생성합니다.
 - **`Participating in existing transaction`**, 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
 - **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
@@ -257,7 +261,7 @@ java.lang.RuntimeException: null
 2021-05-10 01:51:45.731  INFO 17924 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD REQUIRED END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 3.1.3. 데이터베이스 테이블 확인
 - 부모와 자식 메소드 모두 롤백되어 데이터가 존재하지 않습니다.
 - 자식 메소드에서 exception을 throw 하였고 부모 메소드에서 catch 하였음에도 모두 롤백되었습니다.
 - 이는 동일 트랜잭션으로 취급되었기 때문에 트랜잭션 자식 메소드에서 찍힌 rollback flag에 의해 부모 메소드도 함께 롤백 처리됩니다.
@@ -265,13 +269,13 @@ java.lang.RuntimeException: null
 
 <p align="left"><img src="/images/transactional-propagation-type-6.jpg" width="30%"></p>
 
-#### 부모 메소드 X - 자식 메소드 REQUIRED
+### 3.2. 부모 메소드 X - 자식 메소드 REQUIRED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
 - 자식 메소드 exception throw
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 3.2.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -335,7 +339,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 3.2.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
 - **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
@@ -366,13 +370,13 @@ Hibernate: insert into delivery (id) values (?)
 2021-05-10 01:02:47.673  INFO 12040 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD REQUIRED END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 3.2.3. 데이터베이스 테이블 확인
 - 자식 메소드만 롤백되어 데이터가 존재하지 않습니다.
 - 부모 메소드는 트랜잭션 처리에 대한 애너테이션이 없었기에 JpaRepository 레벨에서 수행 후 commit 처리됩니다.
 
 <p align="left"><img src="/images/transactional-propagation-type-7.jpg" width="30%"></p>
 
-### SUPPORTS
+## 4. SUPPORTS
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
 부모 메소드에서 트랜잭션을 시작하였다면 트랜잭션이 이어지지만 없다면 트랜잭션 없이 진행됩니다. 
 자식 메소드에서 exception이 발생한다면 부모 메소드에서 실행한 트랜잭션이 있는지 여부에 따라 롤백 여부가 결정됩니다. 
@@ -380,13 +384,13 @@ Hibernate: insert into delivery (id) values (?)
 <p align="center"><img src="/images/transactional-propagation-type-8.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 REQUIRED - 자식 SUPPORTS
+### 4.1. 부모 REQUIRED - 자식 SUPPORTS
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
 - 자식 메소드 exception throw
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 4.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -451,7 +455,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 4.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildSupports 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Participating in existing transaction`**, 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
 - **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
@@ -482,17 +486,17 @@ Hibernate: insert into delivery (id) values (?)
 2021-05-10 01:25:59.549  INFO 3076 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD SUPPORTS END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 4.1.3. 데이터베이스 테이블 확인
 - 부모와 자식 메소드 모두 롤백되어 데이터가 존재하지 않습니다.
 - 이미지는 생략하였습니다.
 
-#### 부모 X - 자식 SUPPORTS
+### 4.2. 부모 X - 자식 SUPPORTS
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
 - 자식 메소드 exception throw
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 4.2.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -556,7 +560,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 4.2.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
 - 롤백과 관련된 로그가 확인되지 않습니다.
@@ -587,14 +591,14 @@ Hibernate: insert into delivery (id) values (?)
 2021-05-10 01:30:22.702  INFO 7860 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD SUPPORTS END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 4.2.3. 데이터베이스 테이블 확인
 - 부모, 자식 메소드 모두 롤백되지 않아 데이터가 존재합니다.
 - 자식 메소드에서 exception을 throw 하였지만 롤백이 수행되지 않았음을 확인할 수 있습니다.
 - 두 메소드 모두 트랜잭션 처리에 대한 코드가 없으므로 JpaRepository 레벨에서 commit이 수행됩니다.
 
 <p align="left"><img src="/images/transactional-propagation-type-9.jpg" width="30%"></p>
 
-### MANDATORY
+## 5. MANDATORY
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다. 
 부모 메소드에서 트랜잭션을 시작하였다면 트랜잭션이 이어지지만 없다면 exception을 전달합니다. 
 부모에서 트랜재션을 시작하지 않은 케이스에 대해서만 테스트를 진행하였습니다. 
@@ -602,11 +606,11 @@ Hibernate: insert into delivery (id) values (?)
 <p align="center"><img src="/images/transactional-propagation-type-10.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 X - 자식 MANDATORY
+### 5.1. 부모 X - 자식 MANDATORY
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 시 exception 발생 여부 확인
 
-##### 테스트 코드
+#### 5.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -670,7 +674,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 5.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다.
 - **`No existing transaction found for transaction marked with propagation 'mandatory'`**, IllegalTransactionStateException이 발생합니다.
@@ -700,12 +704,12 @@ org.springframework.transaction.IllegalTransactionStateException: No existing tr
 2021-05-10 01:38:55.030  INFO 17696 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD MANDATORY END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 5.1.3. 데이터베이스 테이블 확인
 - 부모 메소드는 트랜잭션 처리가 없으므로 commit 처리되어 데이터가 존재합니다.
 - 자식 메소드는 수행되지 않았습니다.
 - 이미지는 별도로 추가하지 않았습니다. 
 
-### REQUIRES_NEW
+## 6. REQUIRES_NEW
 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
 부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드는 별도의 트랜잭션으로 분리합니다. 
 자식 메소드에서 발생하는 트랜잭션 롤백은 부모 메소드에서 시작한 트랜잭션과 상관이 없습니다. 
@@ -713,14 +717,14 @@ org.springframework.transaction.IllegalTransactionStateException: No existing tr
 <p align="center"><img src="/images/transactional-propagation-type-11.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 REQUIRED - 자식 REQUIRES_NEW
+### 6.1. 부모 REQUIRED - 자식 REQUIRES_NEW
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 
 - 자식 메소드 exception throw
 - 부모 메소드에서 catch 수행
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 6.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -789,7 +793,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 6.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildRequiresNew 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Suspending current transaction, creating new transaction with name`**, 기존 트랜잭션에 참가하지 않고 DeliveryService.createDeliveryWithRequiresNew 메소드를 통해 새로운 트랜잭션을 생성합니다. 
 - **`Rolling back JPA transaction on EntityManager`**, 롤백이 수행되었음이 확인됩니다.
@@ -834,27 +838,27 @@ java.lang.RuntimeException: null
 2021-05-10 01:58:16.512  INFO 7364 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD REQUIRES_NEW END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 6.1.3. 데이터베이스 테이블 확인
 - 자식 메소드에서 던진 exception은 자식 메소드에서 수행한 트랜잭션만 롤백합니다. 
 - 던져진 exception은 부모 메소드에서 catch 되었으므로 부모 메소드의 트랜잭션을 정상 수행됩니다.
 - 동일한 트랜잭션으로 처리되는 **`PARENT REQUIRED - CHILD REQUIRED`** 테스트와는 대조적입니다. 
 
 <p align="left"><img src="/images/transactional-propagation-type-12.jpg" width="30%"></p>
 
-### NOT_SUPPORTED
+## 7. NOT_SUPPORTED
 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
 부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드에서는 트랜잭션 처리를 수행하지 않습니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-13.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 REQUIRED - 자식 NOT_SUPPORTED
+### 7.1. 부모 REQUIRED - 자식 NOT_SUPPORTED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
 - 자식 메소드 exception throw
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 7.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -919,7 +923,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 7.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNotSupported 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Suspending current transaction`**, 기존 트랜잭션에 참가하지 않음을 알 수 있습니다.
 - **`Rolling back JPA transaction on EntityManager`**, 롤백이 수행되었음을 알 수 있습니다.
@@ -963,24 +967,24 @@ java.lang.RuntimeException: null
 2021-05-10 02:14:46.954  INFO 7240 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NOT_SUPPORTED END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 7.1.3. 데이터베이스 테이블 확인
 - 자식 메소드에서 던진 exception이 부모 메소드까지 전파되어 부모 메소드에서 시작한 트랜잭션만 롤백됩니다. 
 - 자식 메소드는 부모 메소드에서 시작한 트랜잭션에 참여하지 않았기에 JpaRepository 트랜잭션이 새로 생성되어 commit 처리됩니다.
 
 <p align="left"><img src="/images/transactional-propagation-type-14.jpg" width="30%"></p>
 
-### NEVER
+## 8. NEVER
 부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-15.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 REQUIRED - 자식 NEVER
+### 8.1. 부모 REQUIRED - 자식 NEVER
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 시 exception 발생 여부 확인
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 8.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -1045,7 +1049,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 8.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNever 메소드를 통해 트랜잭션을 생성합니다. 
 - **`Existing transaction found for transaction marked with propagation 'never'`**, IllegalTransactionStateException이 발생합니다.
 
@@ -1075,12 +1079,12 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 2021-05-10 02:23:51.954  INFO 16928 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NEVER END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 8.1.3. 데이터베이스 테이블 확인
 - 자식 메소드는 수행되지 않았습니다.
 - 부모 메소드는 자식 메소드가 던진 exception에 의해 롤백 처리됩니다.
 - 별도의 이미지는 참조하지 않았습니다. 
 
-### NESTED
+## 9. NESTED
 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작합니다. 
 중첩된 트랜잭션을 지원하는 WAS에서만 사용이 가능합니다. 
 부모 메소드에서 시작한 트랜잭션이 있으면, 자식 메소드에서 중첩된 트랜잭션을 실행합니다. 
@@ -1090,7 +1094,7 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 <p align="center"><img src="/images/transactional-propagation-type-16.jpg" width="70%"></p>
 <center>이미지 출처, https://www.nextree.co.kr/p3180/</center><br>
 
-#### 부모 REQUIRED - 자식 NESTED
+### 9.1. 부모 REQUIRED - 자식 NESTED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
 - 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
 - 부모 메소드에서 수행한 내용이 보이는지 확인
@@ -1098,7 +1102,7 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 - 부모 메소드에 catch 수행
 - 롤백 여부 확인
 
-##### 테스트 코드
+#### 9.1.1. 테스트 코드
 - 중복되는 코드가 많으므로 메소드만 정리하였습니다.
 
 ```java
@@ -1167,7 +1171,7 @@ class OrderService {
 }
 ```
 
-##### 테스트 실행 결과 로그
+#### 9.1.2. 테스트 실행 결과 로그
 - **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNested 메소드로 트랜잭션을 생성합니다.
 - **`Creating nested transaction with name`**, DeliveryService.createDeliveryWithNested 메소드로 중첩된 트랜잭션을 생성합니다.
 - **`JpaDialect does not support savepoints`**, NestedTransactionNotSupportedException이 발생합니다. 
@@ -1203,7 +1207,7 @@ org.springframework.transaction.NestedTransactionNotSupportedException: JpaDiale
 2021-05-10 02:30:12.087  INFO 18720 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NESTED END
 ```
 
-##### 데이터베이스 테이블 확인
+#### 9.1.3. 데이터베이스 테이블 확인
 - 자식 메소드는 기능이 지원되지 않는 WAS에 의해 수행되지 않았습니다.
 - 부모 메소드에서 catch를 수행하였기에 부모 메소드는 롤백되지 않았습니다. 
 - NESTED 속성 테스트는 지원되는 WAS에서 재검증이 필요합니다.
@@ -1215,7 +1219,7 @@ org.springframework.transaction.NestedTransactionNotSupportedException: JpaDiale
 대부분 디폴트인 **`REQUIRED`** 만으로도 충분하지만, 기능에 대해 정확하게 알고 사용하는 것이 개발자의 필수 덕목이라 생각합니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-10-transactional-propagation-type>
 
 #### REFERENCE
 - <https://www.nextree.co.kr/p3180/>

@@ -9,8 +9,8 @@ last_modified_at: 2021-08-29T11:50:00
 
 <br>
 
-최근 우분투에서 `.rpm` 확장자를 다운받아 `.deb` 파일로 변환하여 설치하는 작업을 하였습니다. 
-주로 우분투를 사용하였기에 `.rpm` 확장자는 처음 본 것 같습니다. 
+최근 우분투에서 `.rpm` 확장자 파일을 다운받아 `.deb` 확장자 파일로 변환하여 특정 소프트웨어를 설치하였습니다. 
+저는 주로 우분투를 사용하였기에 `.rpm` 확장자를 가지는 프로그램은 처음 본 것 같습니다. 
 관련된 내용을 정리해둬야겠습니다. 
 
 ## 1. .rpm 파일 
@@ -92,9 +92,44 @@ Usage: alien [options] file [...]
 ```
 
 ### 3.3. 명령어 사용
+
+#### 3.3.1. 변경 전 디렉토리
+```
+~/Downloads$ ls
+galera-4-26.4.9-1.el8.x86_64.rpm
+```
+
+#### 3.3.2. 명령어 수행
 - `.rpm` 파일을 `.deb` 파일로 변경하는 `-d` 옵션을 사용합니다.
+- `--scripts` 옵션으로 패키지 내 스크립트도 함께 포함시킵니다.
+- `warning`의 원인과 해결 방법에 대해서 확인 중 입니다.
 
 ```
+~/Downloads$ sudo alien --scripts -d galera-4-26.4.9-1.el8.x86_64.rpm 
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+galera-4_26.4.9-2_amd64.deb generated
+```
+
+#### 3.3.3. 변경 전 디렉토리
+```
+~/Downloads$ ls
+galera-4-26.4.9-1.el8.x86_64.rpm  galera-4_26.4.9-2_amd64.deb
 ```
 
 ## OPINION

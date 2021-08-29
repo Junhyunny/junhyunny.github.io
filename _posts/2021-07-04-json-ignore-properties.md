@@ -1,5 +1,5 @@
 ---
-title: "StackOverflowError 해결(feat. @JsonIgnoreProperties 애너테이션)"
+title: "StackOverflowError 해결 (feat. @JsonIgnoreProperties 애너테이션)"
 search: false
 category:
   - spring-boot

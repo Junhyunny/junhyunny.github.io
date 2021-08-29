@@ -1,5 +1,5 @@
 ---
-title: "[Linux] alien 명령어(feat. 확장자 변환 .rpm > .deb)"
+title: "[Linux] alien 명령어 (feat. 확장자 변환 .rpm > .deb)"
 search: false
 category:
   - information

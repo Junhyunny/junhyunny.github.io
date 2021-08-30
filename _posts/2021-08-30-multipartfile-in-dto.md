@@ -37,7 +37,7 @@ DTO 클래스에 MultipartFile 리스트를 담고 싶어 했는데, 관련된 �
 
 ### 2.1. Form Example 
 
-[Spring MVC and the @ModelAttribute Annotation][baeldung-form-link] 포스트 세 번째 예시를 보면 폼(Form) 정보를 특정 클래스에 매칭시키는 기능을 제공하는 듯 합니다. 
+[Spring MVC and the @ModelAttribute Annotation][baeldung-form-link] 글의 세 번째 예시를 보면 폼(Form) 정보를 특정 클래스에 매칭시키는 기능을 제공하는 듯 합니다. 
 
 #### 2.1.1. View
 ```html

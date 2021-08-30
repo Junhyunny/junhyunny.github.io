@@ -12,16 +12,18 @@ last_modified_at: 2021-08-30T23:55:00
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [MultipartFile 활용 대용량 파일 업로드 예제][multipart-link]
 
-## 1. 추가 요건 사항
+## 1. 추가 기능 요건 사항
 어제 같이 일하는 동료가 특정 기능 구현에 대한 도움을 요청하였고, 이를 돕다 보니 블로그 포스트 주제로 좋을 것 같아서 정리하였습니다. 
 지난 [MultipartFile 활용 대용량 파일 업로드 예제][multipart-link] 포스트의 예제 코드는 단순하게 이미지들을 선택해서 업로드하는 기능이었습니다. 
-새로운 기능 추가가 필요한 요건 사항에 대해 간략히 요약하면 다음과 같습니다. 
+너무 단순한 기능이어서 필요로하는 기능엔 적용할 수 없었습니다. 
+
+새롭게 추가되야하는 기능의 요건 사항에 대해 간략히 요약하면 다음과 같습니다. 
 - N 건의 item 업데이트가 필요하다.
 - item 별로 이미지가 M 개 매칭되는데 함께 업로드 되어야 한다.
 - item 데이터와 함께 업로드 된 이미지들은 item 데이터 PK에 매칭되어 저장되어야 한다. 
 
-동료는 DTO 클래스에 MultipartFile 리스트를 담고 싶어 했는데, 관련된 내용을 찾아보니 `@ModelAttribute` 애너테이션이 눈에 띄었습니다. 
-이번 기능을 구현하면서 몇 가지 추가적인 내용들을 확인했는데, 아래 예제 코드로 정리하였습니다. 
+DTO 클래스에 MultipartFile 리스트를 담고 싶어 했는데, 관련된 내용을 찾아보니 `@ModelAttribute` 애너테이션이 눈에 띄었습니다. 
+이번 기능을 구현하면서 몇 가지 추가적인 내용들을 확인했는데, 관련된 내용은 아래 예제 코드를 통해 설명하도록 하겠습니다. 
 일단 `@ModelAttribute` 애너테이션에 대해 알아보겠습니다. 
 
 ## 2. @ModelAttribute 애너테이션
@@ -67,7 +69,7 @@ public class EmployeeController {
         employeeMap.put(employee.getId(), employee);
         return "employeeView";
     }
-	// ...
+    // ...
 }
 ```
 
@@ -133,7 +135,7 @@ export default {
             }
         },
 
-		// ...
+        // ...
 
     }
 }
@@ -197,7 +199,7 @@ public class FileController {
         return "upload success";
     }
 
-	// ...
+    // ...
 
 }
 ```
@@ -207,15 +209,15 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Multipart in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-1.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-1.JPG" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 file 멤버 변수에 프론트에서 전달한 파일 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-2.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-2.JPG" width="80%"></p>
 
 ## 4. MultipartFile List in DTO 예제 코드
-DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니다. 
+DTO 클래스 안에 N개의 파일을 리스트(List)로 담아서 전달하는 예제 코드입니다. 
 `FileUpload.vue` 파일은 프론트 엔드 프로젝트, 나머지 클래스 파일들은 백 엔드 프로젝트의 예제 코드입니다.
 
 ### 4.1. FileUpload.vue
@@ -276,9 +278,9 @@ export default {
             }
         },
 
-		// ...
+        // ...
     
-	}
+    }
 }
 </script>
 ```
@@ -342,7 +344,7 @@ public class FileController {
         return "upload success";
     }
 
-	// ...
+    // ...
 }
 ```
 
@@ -351,16 +353,16 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Images List in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-3.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-3.JPG" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 files 멤버 변수에 프론트에서 전달한 파일들의 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-4.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-4.JPG" width="80%"></p>
 
 ### 4.5. FormData append 함수 특징
-append 함수는 이름처럼 뒤에 추가해서 붙히는 기능을 제공합니다. 
-따라서, `'files'`라는 이름으로 파일을 계속 추가(append)하면 `'files'`를 키(key)로 가지는 리스트가 담기게 됩니다. 
+append 함수는 이름처럼 추가된 항목 뒤에 새로 추가할 항목들을 붙히는 기능을 제공합니다. 
+따라서, `'files'`라는 이름으로 파일을 계속 추가(append)하면 `'files'` 라는 이름을 가진 리스트가 생성됩니다. 
 
 ##### 예시 코드
 ```javascript
@@ -372,7 +374,7 @@ formData.getAll('name'); // ["true", "74", "John"]
 
 ##### FormData append 함수 호출
 
-<p align="center"><img src="/images/multipartfile-in-dto-5.gif" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-5.gif" width="80%"></p>
 
 ## 5. MultipartFile Map in DTO 예제 코드
 DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니다. 
@@ -437,7 +439,7 @@ export default {
             }
         },
 
-		// ...
+        // ...
 
     }
 }
@@ -505,7 +507,7 @@ public class FileController {
         return "upload success";
     }
 
-	// ...
+    // ...
 }
 ```
 
@@ -514,18 +516,18 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Images Map in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-6.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-6.JPG" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 file 멤버 변수에 프론트에서 전달한 파일 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-7.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-7.JPG" width="80%"></p>
 
 ### 5.5. FormData append 함수 특징
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식합니다. 
 `'files[index]'` 값은 files 라는 멤버 변수의 키 값으로 index를 사용한다는 의미입니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-8.gif" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-8.gif" width="80%"></p>
 
 ## 6. MultipartFile Map-List in DTO 예제 코드
 DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니다. 
@@ -579,7 +581,7 @@ export default {
             return elem;
         },
 
-		// ...
+        // ...
 
         uploadFileMapListInDto() {
             var context = this;
@@ -646,7 +648,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class FileController {
 
-	// ...
+    // ...
 
     @PostMapping(value = "/dto/multipart/map/list")
     public @ResponseBody
@@ -672,19 +674,19 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Images Map-List in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-9.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-9.JPG" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 file 멤버 변수에 프론트에서 전달한 파일 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-10.JPG" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-10.JPG" width="80%"></p>
 
 ### 5.5. FormData append 함수 특징
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식합니다. 
 `'files[' + (index % 3) + ']'` 값은 files 라는 멤버 변수의 키 값으로 `(index % 3)` 값을 사용한다는 의미입니다. 
 중첩되는 키가 존재하는 경우 맵의 Value 위치에는 리스트로 데이터가 담깁니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-11.gif" width="75%"></p>
+<p align="center"><img src="/images/multipartfile-in-dto-11.gif" width="80%"></p>
 
 ## OPINION
 항상 느끼지만 블로그 포스트로 이해하기 쉽게 다시 정리하는 일이 쉽지 않습니다. 

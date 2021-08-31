@@ -27,7 +27,7 @@ last_modified_at: 2021-08-26T06:00:00
 
 ### 1.1. `.class` 파일 
 개발자가 Eclipse 혹은 IntelliJ 같은 IDE(Integrated Development Environment)에서 `.java` 확장자를 가진 파일에 소스 코드를 작성합니다. 
-소스 코드는 사람이 알아보기 쉽게 영여로 작성되어 있지만 기계는 이를 해석하지 못합니다. 
+소스 코드는 사람이 알아보기 쉽게 영어로 작성되어 있지만 기계는 이를 해석하지 못합니다. 
 자바 언어의 경우 JVM 에 의해 프로그램이 동작되므로 JVM 이 해석할 수 있는 내용으로 소스 코드를 변경해줘야 합니다. 
 이 과정을 컴파일(compile)이라고 합니다. 
 JDK(Java Development kit)을 설치하면 `/bin` 폴더에 있는 `javac` 프로그램에 의해 수행됩니다. 

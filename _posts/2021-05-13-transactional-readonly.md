@@ -5,17 +5,19 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-05-13T00:00:00
+last_modified_at: 2021-09-01T02:00:00
 ---
 
 <br>
+
+⚠️ 해당 포스트는 2021년 9월 1일에 재작성되었습니다.
 
 **`'@Transactional readOnly 속성에 대해 아시나요?'`**<br>
 **`'아니요, 처음 들어봤습니다. 이 참에 공부해봐야겠네요.'`**
 
 공부하였습니다. 포스트를 통해 정리해보겠습니다. 
 
-## @Transactional readOnly 속성 의미
+## 1. @Transactional 'readOnly' 속성
 일단 관련된 내용을 찾아보기 전에 javadoc을 살펴봤습니다. 
 - 트랜잭션이 effectively read-only일 경우 true로 설정될 수 있는 플래그입니다.
 - 런타임 시 해당 트랜잭션에 대한 최적화를 해줍니다.
@@ -59,7 +61,7 @@ last_modified_at: 2021-05-13T00:00:00
 - Hibernate를 사용하는 경우에는 FlushMode를 Manual로 변경하여 DIRTY CHECKING 생략이 가능합니다. 속도 향상 효과를 얻습니다.
 - 데이터베이스에 따라 DataSource Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.
 
-## readOnly 속성 관련 테스트
+## 2. 'readOnly' 속성 관련 테스트
 요약한 내용들에 대한 검증 테스트를 보았습니다. 
 직접 검증하지 못하면 모르는 것과 마찬가지입니다. 
 하지만 DataSource Connection 레벨 설정에 대한 테스트는 못하였습니다.😰 
@@ -96,13 +98,44 @@ logging:
           entity: TRACE
 ```
 
-### 의도지 않은 데이터 변경 방지 테스트
+### 2.1. 의도지 않은 데이터 변경 방지 테스트
 다음과 같은 시나리오를 생각해보았습니다.
 - @Transactional 애너테이션에 **`readOnly=true`** 설정
 - 해당 메소드 내부에서 saveAndFlush 메소드 호출
 - 에러 메세지 기대
 
-##### 테스트 코드
+#### 2.1.1. OrderService 클래스
+
+```java
+package blog.in.action.transcation.service;
+
+
+import blog.in.action.transcation.entity.Orders;
+import blog.in.action.transcation.repository.OrderRepository;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Log4j2
+@Component
+@RequiredArgsConstructor
+public class OrderService {
+
+    private final OrderRepository orderRepository;
+
+    @Transactional(readOnly = true)
+    public Orders createOrderWithReadOnlyTrue(Orders order) {
+        return orderRepository.saveAndFlush(order);
+    }
+
+    // ...
+}
+```
+
+#### 2.1.2. 테스트 코드
 
 ```java
 @Log4j2
@@ -139,7 +172,7 @@ public class OrderService {
 }
 ```
 
-##### 테스트 결과 로그
+#### 2.1.3. 테스트 결과 로그
 - Connection is read-only. Queries leading to data modification are not allowed, 메세지 출력
 - Participating transaction failed - marking existing transaction as rollback-only, 롤백 수행
 - could not execute statement, GenericJDBCException 발생
@@ -170,25 +203,66 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement; nes
     at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:255) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
 ```
 
-### Hibernate 사용 시 DIRTY CHECKING 생략 가능 여부 테스트
+### 2.2. Hibernate 사용 시 DIRTY CHECKING 생략 가능 여부 테스트
 다음과 같은 시나리오를 생각해보았습니다.
 - 모든 데이터 조회 후 id 값을 value 값에 set 합니다.
 - 조회된 엔티티(entity) 들은 JPA Lifecycle 중 **`managed`** 상태입니다.
 - 관리되는(managed) 엔티티들은 변경이 발생하는 경우 DIRTY CHECKING에 의해서 감지되고 업데이트 됩니다.
 - 다음과 같이 가정해보았습니다.
-  - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
-  - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
-- readOnly 값을 true, false로 각각 테스트 해봅니다.
+    - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
+    - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
 - DIRTY CHECKING 관련 포스트 ([영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link])
 
-##### 테스트 코드
+#### 2.2.1. OrderService 클래스(readOnly=true)
+
+```java
+package blog.in.action.transcation.service;
+
+
+import blog.in.action.transcation.entity.Orders;
+import blog.in.action.transcation.repository.OrderRepository;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Log4j2
+@Component
+@RequiredArgsConstructor
+public class OrderService {
+
+    private final OrderRepository orderRepository;
+
+    // ...
+
+    @Transactional(readOnly = true)
+    public void updateAllWithReadOnlyTrue() {
+        List<Orders> orders = orderRepository.findAll();
+        for (Orders order : orders) {
+            order.setValue(order.getId());
+        }
+    }
+
+    @Transactional
+    public void updateAllWithReadOnlyFalse() {
+        List<Orders> orders = orderRepository.findAll();
+        for (Orders order : orders) {
+            order.setValue(order.getId());
+        }
+    }
+}
+```
+
+#### 2.2.2. 테스트 코드
 
 ```java
 @Log4j2
 @SpringBootTest
 public class TransactionalReadOnlyTest {
 
-    // 기타 다른 코드
+    // ... 
 
     @Test
     @DisplayName("FIND ALL READ ONLY TRUE")
@@ -220,33 +294,9 @@ public class TransactionalReadOnlyTest {
         }
     }
 }
-
-@Log4j2
-@Component
-@RequiredArgsConstructor
-public class OrderService {
-
-    // 기타 다른 코드
-
-    @Transactional(readOnly = true)
-    public void updateAllWithReadOnlyTrue() {
-        List<Orders> orders = orderRepository.findAll();
-        for (Orders order : orders) {
-            order.setValue(order.getId());
-        }
-    }
-
-    @Transactional
-    public void updateAllWithReadOnlyFalse() {
-        List<Orders> orders = orderRepository.findAll();
-        for (Orders order : orders) {
-            order.setValue(order.getId());
-        }
-    }
-}
 ```
 
-##### updateAllWithReadOnlyTrue 메소드 테스트 결과 로그, **`readOnly = true`**
+#### 2.2.2. updateAllWithReadOnlyTrue 메소드 테스트 결과 로그, **`readOnly = true`**
 - 특이한 로그는 확인되지 않습니다.
 - 12 ms 소요되었습니다.
 
@@ -270,10 +320,12 @@ Hibernate: select orders0_.id as id1_1_, orders0_.value as value2_1_ from orders
 2021-05-13 03:50:43.156  INFO 1988 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : FIND ALL READ ONLY TRUE
 ```
 
-##### updateAllWithReadOnlyTrue 메소드 테스트 결과
+#### 2.2.3. updateAllWithReadOnlyTrue 메소드 테스트 결과
+- DIRTY CHECKING이 수행되지 않았으므로 데이터 업데이트가 발생하지 않았습니다.
+
 <p align="left"><img src="/images/transactional-readonly-1.JPG" width="15%"></p>
 
-##### updateAllWithReadOnlyFalse 메소드 테스트 결과 로그, **`readOnly = false`**
+#### 2.2.4. updateAllWithReadOnlyFalse 메소드 테스트 결과 로그, **`readOnly = false`**
 - blog.in.action.transcation.entity.Orders.value is dirty, DIRTY CHECKING 관련 로그가 출력됩니다.
 - Updating entity: [blog.in.action.transcation.entity.Orders#0], 업데이트 수행이 확인됩니다.
 - 60 ms 소요되었습니다.
@@ -316,7 +368,9 @@ Hibernate: update orders set value=? where id=?
 2021-05-13 03:53:14.571  INFO 17128 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : FIND ALL READ ONLY FALSE
 ```
 
-##### updateAllWithReadOnlyFalse 메소드 테스트 결과
+#### 2.2.5. updateAllWithReadOnlyFalse 메소드 테스트 결과
+- DIRTY CHECKING이 수행되었으므로 value 컬럼에 id 컬럼과 동일한 값이 업데이트 되었습니다.
+
 <p align="left"><img src="/images/transactional-readonly-2.JPG" width="15%"></p>
 
 ## OPINION
@@ -329,7 +383,7 @@ DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 
 관련된 내용은 아래 참조 링크를 열어보시면 확인이 가능합니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-13-transactional-readonly>
 
 #### REFERENCE
 - <https://www.inflearn.com/questions/7185>

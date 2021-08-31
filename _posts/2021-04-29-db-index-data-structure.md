@@ -30,7 +30,7 @@ index를 이용하여 배열에 저장된 value에 접근하기 때문에 해시
 <p align="center"><img src="/images/db-index-data-structure-1.JPG" width="60%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
 
-### 1.2. 해시 함수(Hash Function)
+#### 1.1.1. 해시 함수(Hash Function)
 해시 테이블 자료구조의 핵심입니다. 
 Key를 사용해 적절한 배열의 index를 계산하는 계산식입니다. 
 적절한 index를 찾아내야만 Key 충돌을 줄이므로 빠른 속도를 유지할 수 있습니다. 
@@ -40,7 +40,7 @@ Key 충돌이 있는 경우에는 정책에 따라 부가적인 처리가 필요
 <p align="center"><img src="/images/db-index-data-structure-2.JPG" width="60%"></p>
 <center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
 
-### 1.3. B-Tree(Balanced Tree)
+### 1.2. B-Tree(Balanced Tree)
 트리를 구성하는 아이템 하나 하나를 노드(node)라고 합니다. 
 B-Tree는 자식 노드의 개수가 2개 이상인 트리를 말합니다. 
 가장 상단을 구성하는 것이 루트 노드(root node), 중간에 위치한 브랜치 노드(branch node), 마지막에 위치한 리프 노드(leaf node)로 구성됩니다. 
@@ -70,7 +70,7 @@ B-Tree는 트리의 차수에 따라 노드 내 최대 Key-Value 수가 달라�
 - <https://www.cs.usfca.edu/~galles/visualization/BTree.html>
 <p align="center"><img src="/images/db-index-data-structure-5.gif" width="100%"></p>
 
-### 1.4. B+Tree
+### 1.3. B+Tree
 B+Tree는 B-Tree의 확장된 개념입니다. 
 B-Tree 노드는 B-Tree와 다르게 브랜치 노드는 Value에 대한 정보가 존재하지 않고 단순히 Key 값만 존재합니다. 
 맨 말단 노드인 리프 노드에서만 Value를 관리합니다. 

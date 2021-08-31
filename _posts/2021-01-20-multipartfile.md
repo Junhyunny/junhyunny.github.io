@@ -9,7 +9,7 @@ last_modified_at: 2021-08-22T00:30:00
 
 <br>
 
-⚠️ 해당 포스트는 2021년 7월 28일에 재작성되었습니다.(spring-security dependency로 인한 불필요 설명 제거)
+⚠️ 해당 포스트는 2021년 7월 28일에 재작성되었습니다.
 
 👉 아래 글에서 해당 기능을 확장하였어요.
 - [DTO 클래스, MultipartFile 활용 파일 업로드 (feat. @ModelAttribute 애너테이션)][multipartfile-in-dto-link]

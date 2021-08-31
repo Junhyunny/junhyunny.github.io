@@ -21,10 +21,6 @@ last_modified_at: 2021-08-22T00:30:00
 Spring 프레임워크에서 쉽게 파일 업로드할 수 있는 MultipartFile 인터페이스를 사용한 내용을 정리해보았습니다.
 파일 업로드를 위한 front-end 프로젝트는 Vue.js 프레임워크를 사용하였습니다. 
 
-~~back-end 프로젝트는 이전 [CORS(Cross Origin Resource Sharing) 서버 구현][cors-blogLink] 포스트에서 사용했던 프로젝트를 확장하여 구현하였습니다.~~ 
-~~변경된 파일에 대한 설명만 추가되었습니다.~~ 
-~~다른 코드들에 대한 설명이 필요한 경우 이전 글을 참고하시길 바랍니다.~~
-
 ## 1. 예제 코드
 
 ### 1.1. front-end 프로젝트 패키지 구조
@@ -263,5 +259,4 @@ spring:
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/multipart/MultipartFile.html>
 - <https://spring.io/guides/gs/uploading-files/>
 
-[cors-blogLink]: https://junhyunny.github.io/spring-boot/vue.js/cors-example/
 [multipartfile-in-dto-link]: https://junhyunny.github.io/spring-boot/vue.js/multipartfile-in-dto/

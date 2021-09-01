@@ -3,7 +3,7 @@ title: "[Side-Project] Slack Chatbot 1차 기능 확장"
 search: false
 category:
   - side-project
-last_modified_at: 2021-05-20T00:00:00
+last_modified_at: 2021-09-02T00:00:00
 ---
 
 <br>
@@ -22,15 +22,15 @@ last_modified_at: 2021-05-20T00:00:00
 
 우선 기존 commit 여부 확인 기능을 확장하였습니다. 
 
-## 채널 내 사용자 정보 가져오기
+## 1. 채널 내 사용자 정보 가져오기
 우선 1일 1 commit 여부를 확인하는 채널에 초대된 사용자 정보를 가져오는 기능이 필요했습니다. 
 관련된 Slack API 기능을 살펴보니 아래와 같은 기능을 사용할 수 있을 것 같았습니다.
 
-### Slack API
+### 1.1. Slack API
 - 채널 내 사용자 ID 가져오기, <https://api.slack.com/methods/conversations.members>
 - 사용자 정보 가져오기, <https://api.slack.com/methods/users.info>
 
-### '사용자 정보 가져오기' 기능 구현
+### 1.2. '사용자 정보 가져오기' 기능 구현
 Slack의 사용자 정보를 가져오는 기능 테스트 중 다음과 같은 에러가 발생하였습니다. 
 **`users:read`** 권한이 없다는 의미이므로 이를 추가합니다. 
 
@@ -77,9 +77,34 @@ Slack의 사용자 정보를 가져오는 기능 테스트 중 다음과 같은 
 }
 ```
 
-##### GeneuinMember 클래스
-- 정상적인 응답 정보를 담는 클래스를 생성합니다.
-- Json 타입의 정보를 쉽게 다루기 위한 클래스입니다.
+## 2. 프로젝트 기능 변경하기
+
+### 2.1. Profile 클래스
+- Slack 사용자 정보를 담을 수 있는 클래스를 생성합니다.
+
+```java
+package io.junhyunny.entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class Profile {
+
+    private String realName;
+    private String realNameNormalized;
+    private String displayName;
+    private String displayNameNormalized;
+}
+```
+
+### 2.2. GeneuinMember 클래스
+- Slack 특정 채널에 참여하고 있는 인원들의 정보를 담는 클래스입니다. 
+- Profile 클래스에 해당하는 멤버를 지니고 있습니다. 
+- Slack 서버로부터 전달받은 Json 타입의 사용자 정보를 객체화하기 위한 클래스입니다.
 
 ```java
 package io.junhyunny.entity;
@@ -107,28 +132,7 @@ public class GeneuinMember {
 }
 ```
 
-##### Profile 클래스
-
-```java
-package io.junhyunny.entity;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-public class Profile {
-
-    private String realName;
-    private String realNameNormalized;
-    private String displayName;
-    private String displayNameNormalized;
-}
-```
-
-##### Slack 클래스 getMembersInChannel 메소드
+### 2.3. Slack 클래스 getMembersInChannel 메소드
 - 채널 내 멤버 정보를 가져오는 기능이 추가되었습니다. 
 - `https://slack.com/api/conversations.members` 경로로 채널 내 멤버들의 Key 정보를 요청합니다.
 - 받은 응답을 기준으로 `https://slack.com/api/users.info` 경로로 사용자 상세 정보를 요청합니다.

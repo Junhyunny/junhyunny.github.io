@@ -5,12 +5,14 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-05-26T00:00:00
+last_modified_at: 2021-09-02T03:00:00
 ---
 
 <br>
 
-우선 JPA CascadeType과 관계가 깊은 JPA 엔티티(entity) 라이프사이클(lifecycle)과 영속성(Persistenc)에 대해 다시 정리해보겠습니다. 
+## 1. 엔티티 라이프사이클(Entity Lifecycle)과 영속성(Persistenc)
+
+JPA CascadeType과 관계가 깊은 JPA 엔티티(entity) 라이프사이클(lifecycle)과 영속성(Persistenc)에 대해 다시 정리해보겠습니다. 
 
 > **영속성(Persistence)**<br>
 > **'특정 데이터를 생성한 프로그램이 종료되더라도 해당 데이터는 사라지지 않는다.'**는 데이터 특성을 의미합니다. 
@@ -42,7 +44,7 @@ last_modified_at: 2021-05-26T00:00:00
     - 엔티티에 해당하는 데이터를 데이터베이스에서 삭제된 상태
     - **`entityManager.remove(E)`** 메소드를 통해 영속성 컨텍스트에 삭제됩니다.
 
-## JPA Cascade
+## 2. JPA Cascade
 이제 본격적으로 JPA Cascade에 관련된 내용을 정리해보겠습니다. 
 우선 `Casecade` 라는 용어가 무슨 의미인지 알아보았습니다.  
 
@@ -80,10 +82,12 @@ JPA에서 테이블 사이의 관계를 맺어주는 방법으로 @OneToOne, @On
 개념은 어느 정도 이해가 되지만 역시 테스트를 통해 눈으로 확인하지 않으면 완벽하게 이해했다고 말할 수 없습니다. 
 이해된 개념을 바탕으로 테스트 시나리오를 구상하여 원하는대로 동작하는지 확인해보겠습니다.
 
-## 엔티티 구성
+## 3. 테스트 코드
+
+### 3.1. 엔티티 구성
 <p align="left"><img src="/images/jpa-cascade-type-2.JPG" width="20%"></p>
 
-##### Post 클래스
+### 3.2. Post 클래스
 - Post 클래스와 Comment 클래스의 관계를 @OneToMany 애너테이션을 통해 지정합니다.
 - @OneToMany 애너테이션의 cascade 값을 변경해가면서 테스트를 진행합니다.
 
@@ -123,7 +127,7 @@ public class Post {
 }
 ```
 
-##### Comment 클래스
+### 3.3. Comment 클래스
 
 ```java
 package blog.in.action.cascade.entity;
@@ -159,9 +163,11 @@ public class Comment {
 }
 ```
 
-## CascadeType.PERSIST
+## 4. 테스트 수행
 
-##### Post 클래스 cascade 값 변경
+### 4.1. CascadeType.PERSIST 테스트
+
+#### 4.1.1. Post 클래스 cascade 값 변경
 - 아래와 같이 변경합니다.
 
 ```java
@@ -169,7 +175,7 @@ public class Comment {
     private List<Comment> commentList;
 ```
 
-##### 테스트 코드
+#### 4.1.2. 테스트 코드
 - Post 객체를 새로 생성합니다.(new, transient 상태)
 - Comment 객체를 새로 생성합니다.(new, transient 상태)
 - Post 객체에 Comment 객체 리스트를 setting 합니다.
@@ -259,9 +265,9 @@ Hibernate: insert into tb_comment (comment, post_id, id) values (?, ?, ?)
 
 <p align="center"><img src="/images/jpa-cascade-type-3.JPG" width="50%"></p>
 
-## CascadeType.REMOVE
+### 4.2. CascadeType.REMOVE 테스트
 
-##### Post 클래스 cascade 값 변경
+#### 4.2.1. Post 클래스 cascade 값 변경
 - 아래와 같이 변경합니다.
 
 ```java
@@ -269,7 +275,7 @@ Hibernate: insert into tb_comment (comment, post_id, id) values (?, ?, ?)
     private List<Comment> commentList;
 ```
 
-##### 테스트 코드
+#### 4.2.2. 테스트 코드
 - @BeforeEach 애너테이션을 통해 테스트 수행 전 데이터를 초기화합니다.
 - Post 객체를 조회합니다.(managed 상태)
 - Post 객체를 em.remove(E) 메소드를 통해 removed 상태로 변경합니다.
@@ -413,9 +419,9 @@ javax.persistence.RollbackException: Error while committing the transaction
 2021-05-26 00:33:50.247  INFO 1540 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 ```
 
-## CascadeType.DETACH
+### 4.3. CascadeType.DETACH 테스트
 
-##### Post 클래스 cascade 값 변경
+#### 4.3.1. Post 클래스 cascade 값 변경
 - 아래와 같이 변경합니다.
 
 ```java
@@ -423,7 +429,7 @@ javax.persistence.RollbackException: Error while committing the transaction
     private List<Comment> commentList;
 ```
 
-##### 테스트 코드
+#### 4.3.2. 테스트 코드
 - @BeforeEach 애너테이션을 통해 테스트 수행 전 데이터를 초기화합니다.
 - Post 객체를 조회합니다.(managed 상태)
 - Comment 객체를 Lazy Loading을 통해 획득한 후 값을 변경합니다.(managed 상태)
@@ -567,9 +573,9 @@ Hibernate: update tb_comment set comment=?, post_id=? where id=?
 
 <p align="center"><img src="/images/jpa-cascade-type-5.JPG" width="60%"></p>
 
-## CascadeType.MERGE
+### 4.4. CascadeType.MERGE 테스트
 
-##### Post 클래스 cascade 값 변경
+#### 4.4.1. Post 클래스 cascade 값 변경
 - 아래와 같이 변경합니다.
 
 ```java
@@ -577,7 +583,7 @@ Hibernate: update tb_comment set comment=?, post_id=? where id=?
     private List<Comment> commentList;
 ```
 
-##### 테스트 코드
+#### 4.4.2. 테스트 코드
 - @BeforeEach 애너테이션을 통해 테스트 수행 전 데이터를 초기화합니다.
 - Post 객체를 조회합니다.(managed 상태)
 - Comment 객체를 Lazy Loading을 통해 획득한 후 값을 변경합니다.(managed 상태)
@@ -694,9 +700,9 @@ Hibernate: update tb_comment set comment=?, post_id=? where id=?
 
 <p align="center"><img src="/images/jpa-cascade-type-6.JPG" width="60%"></p>
 
-## CascadeType.REFRESH
+### 4.5. CascadeType.REFRESH 테스트
 
-##### Post 클래스 cascade 값 변경
+#### 4.5.1. Post 클래스 cascade 값 변경
 - 아래와 같이 변경합니다.
 
 ```java
@@ -704,7 +710,7 @@ Hibernate: update tb_comment set comment=?, post_id=? where id=?
     private List<Comment> commentList;
 ```
 
-##### 테스트 코드
+#### 4.5.2. 테스트 코드
 - @BeforeEach 애너테이션을 통해 테스트 수행 전 데이터를 초기화합니다.
 - Post 객체를 조회합니다.(managed 상태)
 - Comment 객체를 Lazy Loading을 통해 획득합니다.(managed 상태)
@@ -836,7 +842,7 @@ Hibernate: select post0_.id as id1_3_1_, post0_.contents as contents2_3_1_, post
 > 부모 엔티티와 연관관계가 끊어진 자식 엔티티를 자동으로 삭제 하는 기능을 고아 객체 라고 합니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-26-jpa-cascade-type>
 
 #### REFERENCE
 - <https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/>

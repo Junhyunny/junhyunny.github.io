@@ -8,14 +8,8 @@ classes: wide
 <h2>Junhyunny's Devlogs</h2>
 
 <div>
-  안녕하세요, 백엔드 개발자 강준현입니다.<br>
-  저의 삽질, 노력, 일상을 담은 개발 블로그입니다. 
-  제가 정리한 내용들이 많은 분들에게 도움이 되길 바랍니다.<br><br>
-  <ul>
-    <li>화려한 기술 스택이 아니라 필요한 것을 공부하자.</li>
-    <li>겪었던 경험이나 사용한 것은 정리하자.</li>
-    <li>무엇이든 이유가 존재한다. 의문을 가지고 접근하자.</li>
-  </ul> 
+    안녕하세요, 개발자 강준현입니다.<br>
+    저의 일상과 개발 관련 정보를 담는 블로그입니다. 
 </div>
 
 <br>
@@ -23,16 +17,16 @@ classes: wide
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
 {% if paginator %}
-  {% assign posts = paginator.posts %}
+    {% assign posts = paginator.posts %}
 {% else %}
-  {% assign posts = site.posts %}
+    {% assign posts = site.posts %}
 {% endif %}
 
 {% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
-  {% for post in posts %}
-    {% include archive-single.html type=entries_layout %}
-  {% endfor %}
+    {% for post in posts %}
+        {% include archive-single.html type=entries_layout %}
+    {% endfor %}
 </div>
 
 {% include paginator.html %}

@@ -1,13 +1,9 @@
 
 ## Junhyunny's Devlogs
-진행했던 프로젝트들을 바탕으로 기술적 내용들을 정리하는 블로그입니다.
+저의 일상과 개발 관련 정보를 담는 블로그입니다. 
 
 ### Repository for blog posting 
-블로그 포스팅을 위한 프로젝트입니다. 
-- [back-end service][back-end repository]
-- [front-end service][front-end repository]
-- [spring-cloud-cluster][spring-cloud-cluster repository]
+포스팅에 사용한 테스트 코드를 정리해놓은 저장소입니다. 
+- [blog-in-action][blog-in-action-repository]
 
-[back-end repository]: https://github.com/Junhyunny/blog-in-action
-[front-end repository]: https://github.com/Junhyunny/blog-in-action
-[spring-cloud-cluster repository]: https://github.com/Junhyunny/spring-cloud-cluster
+[blog-in-action-repository]: https://github.com/Junhyunny/blog-in-action

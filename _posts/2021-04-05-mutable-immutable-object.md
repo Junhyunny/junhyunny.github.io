@@ -155,7 +155,7 @@ class ImmutableObject {
 }
 ```
 
-## OPINION
+## CLOSING
 한번의 기술 면접을 통해 준비가 안되어 있으면 알고 있는 내용에 대해 제대로 설명하지 못한다는 것을 깨달았습니다. 
 제대로 답하지 못한 질문 중 하나가 MUTABLE, IMMUTABLE 객체에 대한 내용이었습니다. 
 

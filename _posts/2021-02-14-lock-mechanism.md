@@ -50,7 +50,7 @@ last_modified_at: 2021-08-22T02:30:00
 
 <p align="center"><img src="/images/application-lock-mechanism-2.JPG" width="750"></p>
 
-## OPINION
+## CLOSING
 이번 포스트는 어플리케이션에서 사용하는 Locking 방법들의 개념에 대해서만 정리해보았습니다. 
 JPA는 어떻게 LOCK 기능을 제공하는지 다음 포스트에서 테스트 코드들을 통해 알아보도록 하겠습니다. 
 Optimistic Lock, Pessimistic Lock 두 가지 방법을 각기 다른 주제로 선정하여 정리하도록 하겠습니다.

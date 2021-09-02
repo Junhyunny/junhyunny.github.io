@@ -259,7 +259,7 @@ public class SynchronizedTest {
 2021-08-22 16:42:34.312  INFO 16736 --- [           main] b.i.a.raceccondition.SynchronizedTest    : 정상적인 결과 / 총 테스트 시도 = 1000 / 1000
 ```
 
-## OPINION
+## CLOSING
 이전 블로그에 작성한 글을 새로운 블로그로 이전하면서 내용을 조금 더 보완하였습니다. 
 뮤텍스나 세마포어와 같은 메커니즘을 직접 구현하여 스레드를 동기화시키진 않았습니다. 
 추후에 기회가 된다면 별도의 주제로 포스팅하도록 하겠습니다. 

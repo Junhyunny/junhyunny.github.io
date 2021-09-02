@@ -320,7 +320,7 @@ public class BlogController {
 ## 테스트 결과
 <p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="100%"></p>
 
-## OPINION
+## CLOSING
 정적 자원을 관리하는 경로 내 자원 변화에 대한 감지가 불가능하다는 레퍼런스(reference)는 확인하지 못하였습니다. 
 추후에라도 정확한 원인이 확인된다면 해당 포스트에 추가하도록 하겠습니다.
 

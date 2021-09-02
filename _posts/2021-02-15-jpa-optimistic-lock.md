@@ -284,7 +284,7 @@ Caused by: org.hibernate.StaleObjectStateException: Row was updated or deleted b
     ...
 ```
 
-## OPINION
+## CLOSING
 EntityManager를 사용한 테스트에서 entityManager.lock() 메소드를 사용하지 않더라도 OptimisticLockException이 발생하는 것을 확인하였습니다. 
 entityManager.lock() 메소드를 사용하지 않아도 Optimistic Lock 기능이 정상적으로 동작하는 것이 이상하여 관련된 내용들을 찾아보았습니다. 
 

@@ -256,7 +256,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 <p align="center"><img src="/images/token-enhancer-1.JPG" width="75%"></p>
 <center>이미지 출처, https://jwt.io/</center><br>
 
-## OPINION
+## CLOSING
 이 포스트에선 TokenEnhancer 기능을 이용해 token에 필요한 데이터를 추가하는 것으로 마무리하였습니다. 
 다음 포스트에선 token에 추가된 데이터를 쉽게 추출하는 방법에 대해서 정리해보겠습니다.
 

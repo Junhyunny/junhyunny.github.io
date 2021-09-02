@@ -74,7 +74,7 @@ CQRS 패턴에 대해 이야기할 때 이벤트 소싱에 대한 언급이 항�
 <p align="center"><img src="/images/cqrs-pattern-3.JPG"></p>
 <center>이미지 출처, Spring Camp 2017 - CQRS 패턴</center><br>
 
-## OPINION
+## CLOSING
 이 글에서 CQRS 패턴과 항상 같이 언급되는 이벤트 소싱에 대한 내용도 함께 정리해보았습니다. 
 실제로 이 패턴을 적용해보지는 않아 이해도가 높지는 않습니다. 
 시스템에 적용하였을 때 얻을 수 있는 이점이나 발생되는 장애, 어려움과 같은 이야기를 함께 적으면 더 좋은 글이 되었을거라 생각하니 아쉽습니다. 

@@ -249,7 +249,7 @@ spring:
 
 <p align="center"><img src="/images/multipartfile-6.JPG"></p>
 
-## OPINION
+## CLOSING
 간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다.
 
 #### TEST CODE REPOSITORY

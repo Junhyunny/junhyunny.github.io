@@ -101,7 +101,7 @@ Date: Wed, 21 Jul 2021 00:50:56 GMT
 Keep-Alive: timeout=60
 ```
 
-## OPINION
+## CLOSING
 간단한 테스트 코드를 작성하여 관련된 내용을 확인해보았는데 이는 다음 포스트를 통해 공유하겠습니다. 
 
 #### REFERENCE

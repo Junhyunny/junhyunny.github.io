@@ -94,7 +94,7 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 <p align="center"><img src="/images/distributed-transaction-5.JPG"></p>
 <center>이미지 출처, https://cla9.tistory.com/22</center><br>
 
-## OPINION
+## CLOSING
 분산 트랜잭션에 대한 개념과 이를 처리하기 위한 방법에 대해 정리해보았습니다. 
 `2단계 커밋` 방법은 데이터베이스에 의해 처리되는 방식이라고 하니 예제를 만드는 것이 어려울 듯 합니다. 
 

@@ -316,7 +316,7 @@ $ mvn clean install
 
 <p align="center"><img src="/images/maven-jacoco-4.JPG" width="100%"></p>
 
-## OPINION
+## CLOSING
 작년에 개발을 진행했던 시스템이나 서비스 플랫폼들, 유지보수하고 있는 서비스들에 JaCoCo 플러그인 적용 후 테스트 커버리지를 높이는 작업을 수행할 예정입니다. 
 테스트 코드를 작성하면서 수행하는 리팩토링 작업들이 앞으로 저희 팀에서 개발할 서비스 플랫폼을 구축을 위한 좋은 연습이 될 것 같습니다. 
 

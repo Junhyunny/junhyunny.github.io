@@ -149,7 +149,7 @@ public interface ServerList<T extends Server> {
 }
 ```
 
-## OPINION
+## CLOSING
 이번 포스트는 테스트 코드 없이 설명 위주로 작성하였습니다. 
 Ribbon은 Eureka, FeignClient를 사용하면 함께 적용되기 때문에 @RibbonClient 애너테이션을 이용한 테스트 코드는 별도로 작성하지 않았습니다. 
 [FeignClient with Eureka][feign-with-eureka-link] 포스트에서 FeignClient, Eureka 컴포넌트를 함께 사용할 때 로드 밸런싱이 동작하는 테스트 코드를 확인하실 수 있습니다. 

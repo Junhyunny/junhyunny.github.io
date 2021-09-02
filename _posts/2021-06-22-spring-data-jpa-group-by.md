@@ -311,7 +311,7 @@ public class GroupByTest {
 2021-06-22 03:48:23.326  INFO 13756 --- [           main] blog.in.action.groupby.GroupByTest       : [0, 0, 0, 0, 5]
 ```
 
-## OPINION
+## CLOSING
 테스트 결과는 매번 랜덤한 값이 사용되기 때문에 테스트 결과는 다를 수 있습니다. 
 이번 포스트를 통해 정리한 JPA의 새로운 기능에 대한 내용은 시간이 될 때 팀원들에게 공유해야겠습니다.  
 

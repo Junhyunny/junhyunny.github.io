@@ -277,7 +277,7 @@ public class AServiceApplication {
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-3.JPG"></p>
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-4.JPG"></p>
 
-## OPINION
+## CLOSING
 MSA 환경에서 필요한 Service Registration, Discovery 기능을 제공하는 Eureka 컴포넌트에 대해 정리해봤습니다. 
 Eureka 클라이언트 구현과 관련된 정보를 찾다보니 글마다 사용하는 애너테이션이 달랐습니다.(@EnableDiscoveryClient 혹은 @EnableEurekaClient 애너테이션 사용)
 어떤 조건으로 두 애너테이션을 구분하여 사용하는지 차이점을 찾아보았습니다. 

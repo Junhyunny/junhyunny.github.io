@@ -125,11 +125,6 @@ public class VolatileTest {
 00:17:16.098 [main] INFO blog.in.action.volatilekeyword.VolatileTest - operation time: 7784, value: 7979137
 ```
 
-## CLOSING
-요즘들어 포스트를 작성하는데 많은 시간을 투자하지 못하고 있습니다. 
-구멍난 프로젝트 일정을 메꾸느라 시간이 모자랍니다.😭 
-언제쯤이면 프로젝트에서 자유로울 수 있을까요.
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-14-java-volatile>
 

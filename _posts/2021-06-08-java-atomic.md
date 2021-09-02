@@ -346,7 +346,7 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-08-java-atomic>
 
 #### REFERENCE
 - [[JAVA] concurrent programming - Atomic(원자성)][java-blog-link]

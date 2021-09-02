@@ -326,7 +326,7 @@ public class HandlerExecutionChain {
 
 <p align="center"><img src="/images/cors-example-2.JPG"></p>
 
-## OPINION
+## CLOSING
 이전 블로그에서 이 주제를 다룰때는 단순히 문제를 해결하기 위한 글을 썼다면 이번 글은 CORS가 내부에서 어떻게 동작하는지에 대해 초첨을 맞춰서 작성하였습니다. 
 2020년 1월에 작성한 글인데 1년만에 조금은 성장한 듯 합니다. 
 

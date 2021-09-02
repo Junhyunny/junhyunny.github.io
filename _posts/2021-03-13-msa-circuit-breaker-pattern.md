@@ -400,7 +400,7 @@ public class AServiceApplication {
 
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-4.JPG"></p>
 
-## OPINION
+## CLOSING
 MSA에서 장애 전파를 방지하기 위해 어떤 메커니즘을 사용하는지 정리해보았습니다. 
 Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 코드를 통해 Circuit Breaker 패턴의 동작 방식도 확인해보았습니다. 
 이번 포스트에서 Hystrix 컴포넌트를 사용한 방법은 코드의 구현을 복잡하게 만드는 불편한 방식이었습니다. 

@@ -831,7 +831,7 @@ Hibernate: select post0_.id as id1_3_1_, post0_.contents as contents2_3_1_, post
 2021-05-26 01:24:21.950  INFO 3852 --- [extShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
 ```
 
-## OPINION
+## CLOSING
 예전에 JPA를 주제로 작성한 포스트들을 다시 한번 훑어볼 수 있어서 유익한 시간이었습니다. 
 `CascadeType.ALL`의 경우 모든 케이스에 대한 적용이므로 별도의 테스트 코드를 작성하지는 않았습니다. 
 영속성 전이와 관련한 포스트들을 읽어보는 중 `고아(Orphan) 객체`라는 용어를 발견했습니다. 

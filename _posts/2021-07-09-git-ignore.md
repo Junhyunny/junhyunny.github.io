@@ -146,7 +146,7 @@ git update-index --assume-unchanged src/main/resources/application.yml
 git update-index --no-assume-unchanged src/main/resources/application.yml
 ```
 
-## OPINION
+## CLOSING
 이전 직장에서는 CI/CD, 운영환경 분리에 대한 고민과 작업을 다른 팀에서 해주었습니다. 
 저는 큰 고민없이 가이드에 맞춰 개발, 운영, 관리하였습니다. 
 스타트업에서 일 하다보니 전에는 신경쓰지 않았던 부분까지 고민하고 해결할 방법 찾아나가면서 조금 더 성장하고 있음을 느끼고 있습니다. 

@@ -341,7 +341,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 1. listenIntentionalExceptionInRequiresNewEvent 메소드에서 try-catch 에 의해 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않습니다.
 1. 주문 서비스에서 발생한 예외는 새로 생성된 트랜잭션에만 영향을 미치기 때문에 updateDeliveryComplete 메소드는 정상적으로 처리됩니다.
 
-## OPINION
+## CLOSING
 이벤트 발생과 더불어 트랜잭션 처리까지 함께 정리해보는 시간이었습니다. 
 관련된 포스트를 연달아 작성하다보니 벌써 새벽 4시가 되었습니다. 
 자고 일어나서 비동기 이벤트 처리 방법에 대해서 정리해봐야겠습니다.

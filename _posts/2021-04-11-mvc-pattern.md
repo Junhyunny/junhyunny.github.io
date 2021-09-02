@@ -336,7 +336,7 @@ public class MemberService {
 
 <p align="center"><img src="/images/mvc-pattern-5.gif" width="75%"></p>
 
-## OPINION
+## CLOSING
 사용자 인터페이스가 필요한 어플리케이션에서 가장 즐겨 사용되는 디자인 패턴입니다. 
 MVC 패턴에 대해 주어 들은 건 있어서 어느 정도 설명은 가능하지만, 
 구체적으로 정리해보지 않았기 때문에 포스트로 한번 정리해보았습니다. 

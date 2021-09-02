@@ -533,7 +533,7 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 ##### <https://jwt.io/>, Token Decoding 
 <p align="center"><img src="/images/spring-security-example-2.JPG"></p>
 
-## OPINION
+## CLOSING
 예전에 작성했던 블로그 글이 아주 유용하게 사용되었습니다. 
 당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 기능을 추가하였습니다. 
 **테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**

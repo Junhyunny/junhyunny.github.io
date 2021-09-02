@@ -87,7 +87,7 @@ feign:
 
 <p align="center"><img src="/images/incompatible-fallback-factory-instance-3.JPG"></p>
 
-## OPINION
+## CLOSING
 잘 알고 있다고 생각했는데 크게 한방 먹었습니다. 
 **`feign.circuitbreaker.enabled=true`** 설정을 사용하는 경우 CircuitBreakerFactory 클래스를 명시적으로 만들게 되면서 문제가 발생하는 것으로 보입니다. 
 **`feign.circuitbreaker.enabled`** 설정과 **`feign.hystrix.enabled`** 설정의 차이점에 대해 정확히 알고 싶은데 관련된 reference를 구하는게 쉽지 않습니다. 

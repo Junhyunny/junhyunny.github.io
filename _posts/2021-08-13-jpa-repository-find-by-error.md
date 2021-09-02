@@ -204,7 +204,7 @@ public abstract class AbstractEntityPersister implements OuterJoinLoadable, Quer
 }
 ```
 
-## OPINION
+## CLOSING
 가벼운 마음으로 추가한 애너테이션 덕분에(?) 많은 삽질을 했습니다. 
 다른 분들은 이런 에러 사항들을 제 포스트를 통해 쉽게 해결할 수 있기를 바랍니다. 
 

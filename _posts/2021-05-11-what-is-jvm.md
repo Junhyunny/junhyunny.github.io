@@ -126,7 +126,7 @@ JAVA 개발자는 **`'STOP-THE-WORLD'`** 시간을 줄이기 위해 가비지 �
 - Z garbage collector(JDK11)
 - Shenandoah Garbage Collector(JDK12)
 
-## OPINION
+## CLOSING
 이번 포스트에서는 JVM을 구성하고 있는 것들이 무엇인지 간단하게 정리해보았습니다. 
 JVM 관련된 내용들이 너무 방대하기에 관련된 글들을 읽다보면 끝이 나질 않습니다. 
 관련된 글들을 읽다보니 벌써 새벽 5시가 다 되었습니다. 

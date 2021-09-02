@@ -117,7 +117,7 @@ public interface UserDetailsService {
 
 9\. SecurityContext 내부에 Authentication Object Setting 
 
-## OPINION
+## CLOSING
 처음 사이드 프로젝트를 진행할 때 Spring Security에 대한 이해도가 많이 부족한 상태였습니다. 
 이해도가 떨어지는 상태에서 이를 사용하고, 발생하는 문제들을 해결하려고 하니 많은 삽질(?)을 하였습니다. 
 이 개념적인 내용이 다른 분들에게도 많은 도움이 되길 바랍니다.

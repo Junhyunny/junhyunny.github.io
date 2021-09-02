@@ -387,7 +387,7 @@ public class DirtyCheckingTest {
 
 <p align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
 
-## OPINION
+## CLOSING
 영속성 컨텍스트의 기능과 이를 통해 얻을 수 있는 장점에 대해서 이야기해보았습니다. 
 마지막에 변경 감지(dirty chekcing)가 어떤 식으로 이루어지는지 궁금하여 디버깅한 결과까지 함께 첨부하였습니다. 
 

@@ -84,7 +84,7 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 <p align="center"><img src="/images/java-persistence-api-3.JPG" width="45%"></p>
 <center>이미지 출처, https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center><br>
 
-## OPINION
+## CLOSING
 글을 정리하다 보니 JPA를 처음 접했을 때 신선한 충격이 떠올랐습니다. 
 쿼리를 작성하지 않고 Naming 규칙에 맞는 메소드 선언만으로 손쉽게 데이터를 가져오고, 클래스를 생성하여 테이블을 만들 수 있다는 점이 너무 놀라웠습니다. 
 

@@ -300,7 +300,7 @@ class Solution {
 }
 ```
 
-## OPINION
+## CLOSING
 큐를 이용한 BEST RPACTICE는 가독성과 성능이 모두 좋아서 이를 함께 정리하였습니다. 
 제가 제출한 코드를 보면 불필요한 탐색을 하는 코드가 존재하는데 큐를 사용하는 경우 모두 제거 가능한 연산입니다.
 - ~~checkAllTrucksPassed 메소드에서 모든 차량이 통과했는지 확인하는 탐색~~

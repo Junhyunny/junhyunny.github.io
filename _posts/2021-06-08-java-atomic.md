@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - java
-last_modified_at: 2021-06-08T06:00:00
+last_modified_at: 2021-09-03T02:00:00
 ---
 
 <br>
@@ -334,7 +334,7 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
 06:25:35.780 [main] INFO blog.in.action.atomic.AtomicIntegerTest - operation time: 6407, value: 0
 ```
 
-## OPINION
+## CLOSING
 흥미로운 사실은 synchronized 키워드를 제거하고 수행한 결과의 속도도 Atomic 클래스를 사용한 테스트보다 느리다는 점입니다. 
 물론 동시성 제어도 실패하였습니다. 
 

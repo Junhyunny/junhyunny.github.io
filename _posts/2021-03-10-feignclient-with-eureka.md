@@ -238,7 +238,7 @@ class AServiceApplicationTests {
 
 <p align="center"><img src="/images/feignclient-with-eureka-4.JPG"></p>
 
-## OPINION
+## CLOSING
 Eureka와 FeignClient를 이용하여 서비스 요청 테스트를 진행해보았습니다. 
 단순하게 b-service로 API 요청하는 테스트를 구현해도 되지만 다음 주제로 load balancing에 대한 이야기를 하고 싶어 두 개의 b-service 인스턴스를 사용하였습니다. 
 터미널로 여러 개의 서비스를 띄우기보다는 쿠버네티스(kubernetes)를 활용하였다면 더 좋은 글이 되었을 것 같습니다. 

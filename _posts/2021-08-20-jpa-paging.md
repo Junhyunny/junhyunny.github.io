@@ -359,7 +359,7 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 2021-08-20 11:28:52.948 ERROR 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Unknown column 't.testValue' in 'order clause'
 ```
 
-## OPINION
+## CLOSING
 오늘 주제와는 맞지 않아서 MyBatis 페이징 처리에 대해 언급하진 않았습니다. 
 다음 기회에 MyBatis에서 사용하는 페이징 처리 예제 코드를 정리하면서 JPA 페이징 처리 방법과 비교해보겠습니다. 
 

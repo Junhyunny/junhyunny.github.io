@@ -233,7 +233,7 @@ Server: Apache
 * schannel: clear security context handle
 ```
 
-## OPINION
+## CLOSING
 포스트를 작성하면서 몇 가지 테스트를 해보니 다음과 같은 사항을 확인하였습니다. 
 
 > 클라이언트 요청 메세지의 Keep-Alive 헤더<br>

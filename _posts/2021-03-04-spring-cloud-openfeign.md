@@ -167,7 +167,7 @@ public class SimpleClientTest {
 2021-08-22 20:16:25.502  INFO 8312 --- [           main] b.i.a.openfeign.simple.SimpleClientTest  : response from simpleClient: health
 ```
 
-## OPINION
+## CLOSING
 FeignClient는 JpaRepository 인터페이스를 처음 접하였을 때처럼 매우 신선한 충격을 주었습니다. 
 옛 코드들을 살펴보면 유틸리티(Utility)성 클래스에서 HttpURLConnection, I/O Stream 등을 사용하여 매우 길고 불편하게 API 요청을 수행합니다. 
 이와 반대로 FeignClient은 인터페이스와 몇 개의 애너테이션을 통해 개발자가 매우 쉽게 API 요청을 수행할 수 있도록 도와줍니다. 

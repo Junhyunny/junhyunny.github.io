@@ -294,7 +294,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 
 <p align="left"><img src="/images/spring-application-context-event-4.JPG" width="65%"></p>
 
-## OPINION
+## CLOSING
 주문, 배달 관련된 도메인을 직접 경험해보지는 않아서 테스트 시나리오가 좋지 않을 수 있습니다.(양해 부탁드립니다.😓) 
 기능을 정리하다보니 몇 가지 궁금한 사항들이 생겼습니다. 
 - 비동기(async) 방식의 이벤트 처리는 어떻게 수행하는가?

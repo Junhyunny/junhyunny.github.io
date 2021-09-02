@@ -15,7 +15,7 @@ Java는 멀티 스레드 환경에서 thread-safe 한 개발을 할 수 있도�
 아마도 컴퓨터의 원자적인 연산(Atomic operation)이라는 개념과 연관이 있어보입니다. 
 우선 원자적인 연산이 무엇인지 알아보겠습니다.
 
-## 원자적인 연산(Atomic operation)
+## 1. 원자적인 연산(Atomic operation)
 
 > 원자성(atomicity) - Wiki<br>
 > 어떤 것이 더 이상 쪼개질 수 없는 성질을 말한다. 
@@ -33,7 +33,7 @@ Java는 멀티 스레드 환경에서 thread-safe 한 개발을 할 수 있도�
 Java는 이런 동시성 문제를 제어하기 위한 기능을 제공하는데 그 중 한가지가 `Atomic` 키워드가 붙은 클래스들입니다. 
 `Atomic` 키워드가 붙은 클래스들 중 대표적으로 AtomicInteger를 살펴보도록 하겠습니다. 
 
-## AtomicInteger 클래스
+##### AtomicInteger 클래스
 - volatile 키워드가 붙은 value 변수를 사용합니다.
 - volatile 키워드가 붙어있기 때문에 CPU 캐시가 아닌 메인 메모리에서 데이터를 가져옵니다. 
 
@@ -71,12 +71,12 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 }
 ```
 
+## 2. CAS(Compare-And-Swap)
+
 Java AtomicInteger 클래스는 compareAndSet() 이라는 이름의 메소드를 제공합니다. 
 compareAndSet() 메소드는 Atomic 클래스들의 핵심 기능이라고 소개해도 과언이 아닙니다. 
 Java의 메소드 명은 compareAndSet() 이지만 관련된 내용을 찾아보면 CAS(Compare-And-Swap) 매커니즘을 구현한 듯 합니다. 
 자세한 내용을 알아보도록 하겠습니다. 
-
-### CAS(Compare-And-Swap)
 
 > CAS(Compare-And-Swap) - Wiki<br>
 > In computer science, compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization.
@@ -85,12 +85,12 @@ Java의 메소드 명은 compareAndSet() 이지만 관련된 내용을 찾아보
 직역하자면 CAS(Compare-And-Swap)는 멀티 스레드 환경에서 직렬화를 이루기 위한 원자적인 연산입니다. 
 이전 값(old value)과 새로운 값(new value)을 전달한 후 이전 값과 현재 메모리에 있는 데이터가 같은 경우에 새로운 값으로 해당 메모리 위치의 값을 변경합니다. 
 변경 성공 여부에 따라 true, false를 반환합니다. 
-AtomicInteger 클래스가 제공하는 주요 메소드들을 복호화(decompile)하여 확인해보면 아래와 같습니다. 
+CAS 알고리즘을 구현하고 있는 Java 코드를 살펴보겠습니다. 
 
-##### AtomicInteger 클래스 주요 메소드
+### 2.1. AtomicInteger 클래스 주요 메소드
 - getAndSet() 메소드는 이전 값을 반환하고 새로운 값을 메모리에 업데이트합니다.
 - compareAndSet() 메소드는 이전 값을 새로운 값으로 변경하고 성공 여부를 반환합니다. 
-  - 메모리에 있는 값과 expectedValue 변수의 값이 같은 경우에 수행됩니다.
+    - 메모리에 있는 값과 expectedValue 변수의 값이 같은 경우에 수행됩니다.
 - 두 메소드 모두 U(Unsafe 객체)에게 역할을 위임하고 있습니다.
 
 ```java
@@ -119,7 +119,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
      * @return {@code true} if successful. False return indicates that
      * the actual value was not equal to the expected value.
      */
-    public final boolean compareAndSet(int expectedValue, int newValue) {
+    public final boolean compareAndSet(int expectedValue, int newValue) {`
         return U.compareAndSetInt(this, VALUE, expectedValue, newValue);
     }
 
@@ -127,7 +127,7 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 }
 ```
 
-##### Unsafe 클래스 주요 메소드
+### 2.2. Unsafe 클래스 주요 메소드
 - native 메소드이며 원자적인 업데이트를 수행한다는 설명을 볼 수 있습니다.
 - getAndSetInt() 메소드는 compareAndSet 메소드를 반복 수행하여 변경에 성공하면 이전 값을 반환합니다.
 
@@ -173,16 +173,16 @@ public final class Unsafe {
 }
 ```
 
-## synchronized 키워드, Atomic 클래스 성능 비교  
+## 3. synchronized 키워드, Atomic 클래스 성능 비교  
 
 `'Java는 synchronized 키워드를 이용해 이미 동시성 제어가 가능한데 Atomic 클래스를 왜 제공하는거지?'🤨`
 
 관련된 글들을 찾아보던 중에 흥미로운 내용이 있었습니다. 
 synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비교한 글인데 저도 비슷한 코드를 작성해보았습니다. 
 
-### synchronized 키워드를 이용한 동시성 제어
+### 3.1. synchronized 키워드를 이용한 동시성 제어
 
-#### NormalInteger 클래스
+#### 3.1.1. NormalInteger 클래스
 - 테스트를 위한 NormalInteger 클래스를 작성합니다.
 
 ```java
@@ -196,7 +196,7 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
     }
 
 ```
-#### SynchronizedThread 클래스
+#### 3.1.2. SynchronizedThread 클래스
 - Thread 클래스를 상속받습니다.
 - 외부에서 전달받은 normalInteger 객체의 값을 변경합니다.
 - operation 변수 값에 따라 증감 연산을 수행합니다.
@@ -239,7 +239,8 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
         }
     }
 ```
-#### 테스트 수행
+
+#### 3.1.3. 테스트 수행
 - 데이터를 공유할 integer 객체를 생성합니다.
 - 증가시키는 연산을 수행하는 addTh 객체를 생성합니다.
 - 감소시키는 연산을 수행하는 subTh 객체를 생성합니다.
@@ -268,9 +269,9 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
 06:25:01.928 [main] INFO blog.in.action.atomic.AtomicIntegerTest - operation time: 15583, value: 0
 ```
 
-### Atomic 클래스를 이용한 동시성 제어
+### 3.2. Atomic 클래스를 이용한 동시성 제어
 
-#### AtomicThread 클래스
+#### 3.2.1. AtomicThread 클래스
 - AtomicInteger 객체를 사용했다는 것을 제외하면 SynchronizedThread 클래스 구현과 동일합니다.
 
 ```java
@@ -307,7 +308,7 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
     }
 ```
 
-#### 테스트 수행
+#### 3.2.2. 테스트 수행
 - AtomicInteger 객체를 사용했다는 것을 제외하면 synchronized_test 메소드 구현과 동일합니다.
 
 ```java
@@ -343,9 +344,6 @@ synchronized 키워드와 Atomic 클래스를 이용하였을 때 성능을 비�
 ```
 06:26:54.011 [main] INFO blog.in.action.atomic.AtomicIntegerTest - operation time: 7204, value: 5661441
 ```
-
-공부하다보면 동시성 제어에 대한 흥미로운 글들이 매우 많습니다. 
-차근차근 공부하면서 관련된 내용들을 포스트로 남기도록 해야겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action>

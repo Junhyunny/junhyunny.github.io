@@ -222,6 +222,6 @@ class Solution {
 }
 ```
 
-## OPINION
+## CLOSING
 대체로 문제 풀이 방식이 비슷하여 BEST PRACTICE 선정은 없습니다. 
 이번 문제를 통해 재귀 방식을 이용한 DFS 탐색과 한 걸음 가까워졌습니다.

@@ -94,7 +94,7 @@ MQTT 프로토콜이 제공하는 QoS는 수준(level)에 따라 다른 신뢰�
 <p align="center"><img src="/images/quality-of-service-1.jpg" width="75%"></p>
 <center>이미지 출처, https://devopedia.org/mqtt</center><br>
 
-## OPINION
+## CLOSING
 관련된 내용들을 정리하다보니 Apache Kafka에도 `idempotent producer`라는 비슷한 개념이 있었던 것이 기억났습니다.(혹은 `exactly once producer`) 
 생각난 김에 관련된 내용을 찾아 읽다보니 문득 걱정이 들기 시작했습니다. 
 Docker, Kubernetes, Kafka 관련된 내용들도 공부와 정리를 시작해야하는데 시간이 부족하다보니 시작도 못하는게 아닐지...😭 

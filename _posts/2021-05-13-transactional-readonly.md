@@ -373,7 +373,7 @@ Hibernate: update orders set value=? where id=?
 
 <p align="left"><img src="/images/transactional-readonly-2.JPG" width="15%"></p>
 
-## OPINION
+## CLOSING
 이전 [영속성 컨텍스트(Persistence Context) 사용 시 이점][persistence-context-advantages-link] 포스트를 정리하면서 
 DIRTY CHECKING을 수행하는 위치가 궁금해 정리해둔 것이 이번 포스트에 큰 도움을 줬습니다. 
 DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 대한 검증을 쉽게 성공할 수 있었습니다. 

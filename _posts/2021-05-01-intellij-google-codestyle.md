@@ -48,7 +48,7 @@ JAVA 이 외에 다른 언어도 모두 4로 변경하였습니다.
     <img src="/images/intellij-google-codestyle-4.JPG" width="30%">
 </div>
 
-## OPINION
+## CLOSING
 팀원들이 사소한 것으로 개발에 불편함을 겪지 않았으면 하는 마음에 이런 부분도 함께 정리하여 올렸습니다. 
 코드 스타일 파일은 프로젝트는 [Geneuin/spring-backend-template][github-repo-link]에서 함께 받으실 수 있습니다. 
 

@@ -102,7 +102,7 @@ public class DynamicUrlTest {
 ##### https://www.google.com 요청 결과
 <p align="center"><img src="/images/dynamic-uri-using-openfeign-2.JPG"></p>
 
-## OPINION
+## CLOSING
 Openfeign을 사용하는 프로젝트에서 유용한 정보일 것 같습니다. 
 간단한 테스트 코드와 기능 설명으로 짧은 글을 작성할 수 있을 것 같아서 해당 주제를 먼저 포스트하였습니다. 
 

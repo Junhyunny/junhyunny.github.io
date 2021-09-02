@@ -97,7 +97,7 @@ class Solution {
 }
 ```
 
-## OPINION
+## CLOSING
 Java Collection을 쉽게 정렬할 수 있는 방법이 있음에도 불구하고 비효율적인 코드를 작성하였습니다.
 - 정렬을 위한 별도 메모리 공간 생성
 - 불필요한 반복문을 두 차례 수행

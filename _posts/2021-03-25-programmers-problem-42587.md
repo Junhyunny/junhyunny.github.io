@@ -142,7 +142,7 @@ class Solution {
 }
 ```
 
-## OPINION
+## CLOSING
 문제 요건 자체는 단순합니다. 
 문제를 꼼꼼히 읽어본다면 어려움 없이 풀 수 있습니다. 
 BEST PRACTICE는 아이디어가 좋아서 정리해보았습니다. 

@@ -297,7 +297,7 @@ public class MemberController {
 }
 ```
 
-## OPINION
+## CLOSING
 사이드 프로젝트를 통해 사용해보지 못한 프레임워크의 기능들을 구현해나가면서 큰 재미를 느끼고 있습니다. 
 
 #### TEST CODE REPOSITORY

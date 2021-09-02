@@ -147,7 +147,7 @@ Update policy 16/04/02
 - master 브랜치에 commit 후 push - 해당 번호의 이슈 종료
 - child 브랜치에 commit 후 push - child 브랜치가 master 브랜치로 merge 하는 시점에 이슈 종료
 
-## OPINION
+## CLOSING
 전 회사는 Bitbucket을 사용하기는 했지만, commit 메세지를 규칙에 맞춰서 작성하진 않았습니다. 
 생각해보면 다음과 같은 이유들이 있었던 것 같습니다.
 - 최근 추세에 맞는 개발 문화가 정착되어 있지 않다. 

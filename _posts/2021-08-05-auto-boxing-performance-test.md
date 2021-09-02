@@ -196,7 +196,7 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 
 <p align="center"><img src="/images/auto-boxing-performance-test-4.JPG" width="85%"></p>
 
-## OPINION
+## CLOSING
 인상 깊게 읽었던 포스트 중에 이런 내용이 있어서 공유하고 글을 마무리 짓겠습니다.
 
 > [Naver - Java Garbage Collection][garbage-collection-link]<br>

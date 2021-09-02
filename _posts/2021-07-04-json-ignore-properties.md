@@ -226,7 +226,7 @@ MockHttpServletResponse:
           Cookies = []
 ```
 
-## OPINION
+## CLOSING
 개발 초기에 이런 에러를 많이 만났었습니다. 
 양방향 참조가 되도록 JPA 엔티티(Entity) 설계를 해놓은 모습이 컨트롤러 영역까지 그대로 반영되는 경우 주로 발생하였습니다. 
 별도의 애너테이션 추가 작업 없이도 StackOverFlow 같은 에러를 피해나갈 수 있도록 많은 고민을 통한 설계, 개발을 진행해야겠습니다. 

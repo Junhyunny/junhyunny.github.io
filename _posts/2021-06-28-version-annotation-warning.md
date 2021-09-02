@@ -234,7 +234,7 @@ public class VersionNoTest {
 
 <p align="left"><img src="/images/version-annotation-warning-1.JPG" width="50%"></p>
 
-## OPINION
+## CLOSING
 딱 코드 한 줄만 추가하였는데 여파가 무시무시했습니다. 
 영향도에 대한 충분한 확인 없이 코드를 올리는 일은 주의해야겠습니다. 
 코드 한 줄의 무서움을 마음 속에 다시 되새기는 계기가 되었습니다. 

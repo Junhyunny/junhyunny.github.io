@@ -390,7 +390,7 @@ Disconnected from the target VM, address: '127.0.0.1:59594', transport: 'socket'
 2021-05-15 01:00:10.495  INFO 17332 --- [extShutdownHook] blog.in.action.filters.BlogFilter        : ==========    BlogFilter destroy filter
 ```
 
-## OPINION
+## CLOSING
 최근 공공기관 시스템 유지 보수와 관련된 일을 수행하였습니다. 
 해당 시스템에 특정 회사 프레임워크가 사용되었는데 보안 관련된 많은 처리를 필터를 이용해 수행하고 있었습니다. 
 업무를 수행하면서 필터에서 처리하는 방법에 대해 관심도 많아졌고, 

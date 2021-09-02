@@ -64,7 +64,7 @@ last_modified_at: 2021-06-16T00:00:00
 <p align="center"><img src="/images/white-box-black-box-test-3.JPG" width="50%"></p>
 <center>출처, 블랙박스 테스트와 화이트박스 테스트 비교</center><br>
 
-## OPINION
+## CLOSING
 오늘도 새로운 개념에 대해 알게 되었습니다. 
 아는 것들이 많아졌다는 생각이 들다가도 처음 듣는 단어들을 접하게 되면 다시끔 좌절합니다.🤯 
 자주 좌절을 맛보지 않도록 틈만 나면 꾸준히 공부해야겠습니다. 

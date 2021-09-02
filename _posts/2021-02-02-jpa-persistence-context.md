@@ -573,7 +573,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0
 Hibernate: delete from tb_member where id=?
 ```
 
-## OPINION
+## CLOSING
 영속성 컨텍스트가 무엇인지, 이를 통해 JPA EntityManager가 엔티티를 어떻게 관리하고 데이터를 저장하는지에 대해 알아보았습니다. 
 별도로 이 영역을 만들어서 어떤 이점을 얻을 수 있는지 다음 글에서 영속성 컨텍스트가 제공해주는 기능을 정리하면서 알아보도록 하겠습니다. 
 

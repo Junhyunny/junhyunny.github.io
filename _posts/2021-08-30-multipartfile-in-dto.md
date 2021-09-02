@@ -683,7 +683,7 @@ FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는
 
 <p align="center"><img src="/images/multipartfile-in-dto-11.gif" width="80%"></p>
 
-## OPINION
+## CLOSING
 항상 느끼지만 블로그 포스트로 이해하기 쉽게 다시 정리하는 일이 쉽지 않습니다. 
 하지만 나중에 저 스스로에게나 내일 이 글을 읽을 동료에게나 이런 정보 공유가 큰 힘이 되리라 믿습니다. 
 

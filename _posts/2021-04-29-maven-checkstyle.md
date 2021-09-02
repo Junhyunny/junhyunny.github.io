@@ -254,7 +254,7 @@ public class GeneuineTemplateApplication {
 ##### 잘못된 스타일 감지 및 빌드 에러
 <p align="center"><img src="/images/maven-checkstyle-8.JPG" width="70%"></p>
 
-## OPINION
+## CLOSING
 해당 포스트는 제 개인 블로그에 작성하였지만 팀 블로그에도 같은 내용으로 작성 후 공유해야겠습니다. 
 제가 얼마나 고생했는지 팀원들에게 생색을 내기 위해서입니다.🤣 
 코드 스타일이 반영된 프로젝트는 [Geneuin/spring-backend-template][github-repo-link]에서 확인 가능합니다. 

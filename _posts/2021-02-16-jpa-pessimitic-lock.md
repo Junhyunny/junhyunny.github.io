@@ -378,7 +378,7 @@ Hibernate: update tb_post set contents=?, title=?, version_no=? where id=?
 Hibernate: update tb_post set contents=?, title=?, version_no=? where id=?
 ```
 
-## OPINION
+## CLOSING
 ### JpaRepository 사용 시 트랜잭션 처리
 지난 [JPA Optimistic Lock 구현][jpa-optimistic-lock-blogLink] 포스트와 다르게 테스트 케이스를 만드는데 애를 먹었습니다. 
 **그 이유는 JpaRepository 인터페이스 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아 원하는 결과를 얻지 못했기 때문입니다.** 

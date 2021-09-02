@@ -73,7 +73,7 @@ last_modified_at: 2021-08-22T00:30:00
 | Repeatable Read | X | X | O |
 | Serializable | X | X | X |
 
-## OPINION
+## CLOSING
 트랜잭션 격리 수준에 따라 발생하는 문제들에 대해 알아보았습니다. 
 트랜잭션을 이미지로 시각화하면서 문제 현상에 대해 이해도가 더 높아진 것 같습니다. 
 다음에 기회가 되면 Spring-Jpa를 활용하여 격리성 테스트를 수행하고 이에 대한 글을 정리해보도록 하겠습니다. 

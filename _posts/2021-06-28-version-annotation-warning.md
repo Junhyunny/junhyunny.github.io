@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-06-28T00:00:00
+last_modified_at: 2021-09-04T03:30:00
 ---
 
 <br>
@@ -14,16 +14,16 @@ last_modified_at: 2021-06-28T00:00:00
 간단한 테스트를 수행하는데 여기 저기서 에러가 터져나오기 시작했습니다. 
 빨리 문제 원인과 현상을 찾아서 고쳐야겠습니다.🥶 
 
-## 기존 코드
-개발 중인 코드는 노출이 불가능하므로 문제가 발생한 코드 부분과 비슷한 테스트 코드를 작성하였습니다.
+## 1. 기존 코드
+프로젝트에서 개발 중인 코드는 노출이 불가능하므로 문제가 발생한 코드 부분과 비슷한 테스트 코드를 작성하였습니다.
 
-### 기존 코드 실행 흐름
+### 1.1. 기존 코드 실행 흐름
 1. 신규 A 엔티티 객체 생성, A 엔티티 new
 1. JpaRepository save 메소드 수행, A 엔티티 persist
 1. save 메소드의 파라미터로 전달한 객체를 지속해서 사용
 1. A 엔티티의 자식 엔티티 save 메소드 수행, A 자식 엔티티 persist 
 
-### 테스트 코드 
+### 1.2. 테스트 코드 
 
 ```java
     @Test
@@ -39,14 +39,14 @@ last_modified_at: 2021-06-28T00:00:00
     }
 ```
 
-### 에러 로그
+### 1.3. 에러 로그
 - 기존에 발생하지 않던 InvalidDataAccessApiUsageException 감지 
 
 ```
 org.springframework.dao.InvalidDataAccessApiUsageException: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing
 ```
 
-## 에러 발생 원인 탐색
+## 2. 에러 발생 원인 탐색
 Jpa Entity Manager는 기본적으로 save 메소드에 파라미터로 전달한 객체를 영속성 컨텍스트(persistence context)에서 관리합니다. 
 save 메소드를 통해 저장한 객체와 save 메소드를 통해 반환되는 객체가 동일한 객체입니다.(주소가 동일) 
 그렇기 때문에 기존에 코드의 실행 흐름은 크게 문제가 없었습니다. 
@@ -55,7 +55,7 @@ save 메소드를 통해 저장한 객체와 save 메소드를 통해 반환되�
 이런 현상은 영속성 컨텍스트에서 관리되지 않는 부모 엔티티를 참조하는 자식 엔티티를 save 하도록 만들기 때문에 에러가 발생합니다. 
 정확히 어느 위치에서 이런 현상을 유발시키는지 확인해보았습니다. 
 
-### SimpleJpaRepository 클래스
+### 2.1. SimpleJpaRepository 클래스
 - SimpleJpaRepository 클래스의 save 메소드를 보면 전달받은 엔티티가 new 상태인지 아닌지 확인합니다.
 - new 상태의 엔티티인 경우에는 엔티티를 영속성 컨텍스트 영역에 추가하고 엔티티 객체를 반환합니다.
 
@@ -86,7 +86,7 @@ public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T
 }
 ```
 
-### JpaMetamodelEntityInformation 클래스
+### 2.2. JpaMetamodelEntityInformation 클래스
 - version 관리를 위한 항목이 존재하는지 확인합니다.
 - version 관리 항목이 존재하지 않거나 해당 field가 primitive 타입인 경우에는 부모 클래스의 isNew 메소드를 수행합니다.
 - version 관리 항목이 null 인 경우에는 new 상태이고, null 이 아닌 경우에는 new 상태가 아닙니다.
@@ -118,11 +118,11 @@ public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSu
 }
 ```
 
-## 에러 유발 원인
+## 3. 에러 유발 원인
 JPA 내부 코드를 살펴보니 에러 유발하는 범인이 밝혀졌습니다. 
 엔티티 버전 관리의 불편함을 덜기 위해 default 값을 지정한 것이 문제가 되었습니다. 
 
-### 에러 유발 코드
+### 3.1. 에러 유발 코드
 
 ```java
     // ...
@@ -130,10 +130,10 @@ JPA 내부 코드를 살펴보니 에러 유발하는 범인이 밝혀졌습니�
     private Long versionNo = 0L;
 ```
 
-## 테스트를 통한 점검
+## 4. 테스트를 통한 점검
 간단한 테스트 코드를 통해 @Version 애너테이션의 에러 유발 케이스를 다시 정리해보았습니다. 
 
-### 엔티티 구현
+### 4.1. 엔티티 구현
 - DefaultVersionEntity - versionNo default 값 사용 
 - NonDefaultVersionEntity - versionNo default 값 미사용
 
@@ -181,7 +181,7 @@ class NonDefaultVersionEntity {
 }
 ```
 
-### 테스트 코드
+### 4.2. 테스트 코드
 - save 메소드에게 파라미터로 전달한 엔티티와 반환된 엔티티가 동일한지 확인
 - test_registerEntity_isEqualWithReturned - NonDefaultVersionEntity 사용
     - 파라미터 엔티티와 반환된 엔티티가 동일함을 예상
@@ -230,7 +230,7 @@ public class VersionNoTest {
 }
 ```
 
-### 테스트 결과
+##### 테스트 결과
 
 <p align="left"><img src="/images/version-annotation-warning-1.JPG" width="50%"></p>
 
@@ -240,4 +240,4 @@ public class VersionNoTest {
 코드 한 줄의 무서움을 마음 속에 다시 되새기는 계기가 되었습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-28-version-annotation-warning>

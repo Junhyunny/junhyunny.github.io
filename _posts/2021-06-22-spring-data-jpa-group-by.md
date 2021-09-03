@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-06-22T04:00:00
+last_modified_at: 2021-09-04T06:00:00
 ---
 
 <br>
@@ -22,10 +22,10 @@ org.springframework.core.convert.ConverterNotFoundException: No converter found 
 에러를 해결하기 위한 방법이 세 가지 존재합니다. 
 관련된 내용들을 정리해보겠습니다.
 
-## Error 발생 상황
+## 1. Error 발생 재현
 `GROUP BY` 키워드가 들어간 쿼리를 사용할 때 반환 타입으로 클래스를 사용하면 에러가 발생합니다. 상황을 재현해보았습니다. 
 
-##### ItemNameGroupVo 클래스
+### 1.1. ItemNameGroupVo 클래스
 
 ```java
 @Getter
@@ -42,7 +42,7 @@ class ItemNameGroupVo {
 }
 ```
 
-##### ItemRepository 인터페이스
+### 1.2. ItemRepository 인터페이스
 
 ```java
 interface ItemRepository extends JpaRepository<Item, Long> {
@@ -57,7 +57,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 }
 ```
 
-##### 테스트 코드 
+### 1.3. 테스트 코드 
 - ConverterNotFoundException이 감지되는지 확인하기 위해 assertThrows 메소드를 사용합니다.
 
 ```java
@@ -88,7 +88,7 @@ public class GroupByTest {
 
 <p align="left"><img src="/images/spring-data-jpa-group-by-1.JPG" width="45%"></p>
 
-## Use Object[]
+## 2. Use Object[] 사용하기
 
 > JPA queries typically produce their results as instances of a mapped entity. 
 > However, queries with aggregation functions normally return the result as Object[].
@@ -96,7 +96,7 @@ public class GroupByTest {
 JPA 쿼리는 Entity 객체를 결과로 만들지만 집계 함수가 있는 쿼리의 경우 Object 배열을 반환한다고 합니다. 
 Object 배열을 반환하는 메소드와 테스크 코드를 작성해보았습니다. 
 
-##### ItemRepository 인터페이스
+### 2.1. ItemRepository 인터페이스
 
 ```java
 interface ItemRepository extends JpaRepository<Item, Long> {
@@ -113,7 +113,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 }
 ```
 
-##### 테스트 코드
+### 2.2. 테스트 코드
 - 테스트 수행 시 출력되는 로그와 데이터베이스에 저장된 데이터를 비교해보겠습니다. 
 
 ```java
@@ -161,12 +161,12 @@ public class GroupByTest {
 2021-06-21 22:22:53.468  INFO 18172 --- [           main] blog.in.action.groupby.GroupByTest       : [0, 0, 0, 0, 5, ]
 ```
 
-## Custom Class With JPQL
+## 3. Custom Class With JPQL
 JPQL(Java Persistence Query Language) 문법을 이용하면 사용자가 원하는 클래스를 사용할 수 있습니다. 
 JpaRepository 메소드의 반환 타입으로는 위 테스트에서 사용한 ItemNameGroupVo 클래스를 그대로 이용하였습니다. 
 반환 타입으로 Object 배열이 아닌 구체적인 타입을 받아서 사용하니 코드 가독성이 향상됩니다.
 
-##### ItemRepository 인터페이스
+### 3.1. ItemRepository 인터페이스
 
 ```java
 interface ItemRepository extends JpaRepository<Item, Long> {
@@ -184,7 +184,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 }
 ```
 
-##### 테스트 코드 
+### 3.2. 테스트 코드 
 - 테스트 수행 시 출력되는 로그와 데이터베이스에 저장된 데이터를 비교해보겠습니다. 
 
 ```java
@@ -226,12 +226,12 @@ public class GroupByTest {
 2021-06-22 03:32:06.508  INFO 15176 --- [           main] blog.in.action.groupby.GroupByTest       : [ItemNameGroupVo(aCount=0, bCount=0, cCount=0, dCount=0, eCount=3), ]
 ```
 
-## Interface With Native Query
+## 4. Interface With Native Query
 Native Query를 사용하면서 명시적이고 가독성 높은 코드를 작성하고 싶었습니다. 
 문제를 해결하기 위해 이 방법을 사용했습니다. 
 구체적인 클래스가 아닌 인터페이스를 사용하지만 집계 정보를 보여주는 조회성 화면이기 때문에 단순한 Getter만 있어도 사용에는 문제가 없었습니다. 
 
-##### ItemNameGroup 인터페이스
+### 4.1. ItemNameGroup 인터페이스
 
 ```java
 interface ItemNameGroup {
@@ -248,7 +248,7 @@ interface ItemNameGroup {
 }
 ```
 
-##### ItemRepository 인터페이스
+### 4.2. ItemRepository 인터페이스
 
 ```java
 interface ItemRepository extends JpaRepository<Item, Long> {
@@ -265,7 +265,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 }
 ```
 
-##### 테스트 코드 
+### 4.3. 테스트 코드 
 
 ```java
 @Log4j2
@@ -311,12 +311,8 @@ public class GroupByTest {
 2021-06-22 03:48:23.326  INFO 13756 --- [           main] blog.in.action.groupby.GroupByTest       : [0, 0, 0, 0, 5]
 ```
 
-## CLOSING
-테스트 결과는 매번 랜덤한 값이 사용되기 때문에 테스트 결과는 다를 수 있습니다. 
-이번 포스트를 통해 정리한 JPA의 새로운 기능에 대한 내용은 시간이 될 때 팀원들에게 공유해야겠습니다.  
-
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-22-spring-data-jpa-group-by>
 
 #### REFERENCE
 - <https://algorithmstudy-mju.tistory.com/153>

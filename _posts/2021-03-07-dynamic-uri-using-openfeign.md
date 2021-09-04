@@ -32,7 +32,8 @@ interface SimpleClient {
 ### 1.2. 런타임 시 URI 지정할 수 있는 FeignClient 생성하기
 
 사실 FeignClient는 보다 더 유연한 프로그램 개발을 위해 런타임(runtime) 시 URL을 변경하는 기능을 제공하고 있습니다. 
-관련된 내용을 stack overflow 답변에서 확인할 수 있었습니다.
+관련된 내용을 stack overflow 답변에서 확인할 수 있었습니다. 
+설명을 보면 애너테이션이 붙어있지 않은 URI 파라미터를 추가하면 해당 URI로 요청을 보낸다는 내용 같습니다. 
 
 > stack overflow - How can I change the feign URL during the runtime?<br>
 > You can add an unannotated URI parameter (that can potentially be determined at runtime) and that will be the base path that will be used for the request. E.g.:
@@ -46,8 +47,6 @@ public interface MyClient {
 ```
 
 ## 2. 테스트 코드
-설명을 보아하니 애너테이션이 붙어있지 않은 URI 파라미터를 추가하면 해당 URI로 요청을 보낸다는 내용 같습니다. 
-유사한 방법으로 테스트 코드를 작성해보았습니다. 
 
 ```java
 package blog.in.action.openfeign.dynamic;

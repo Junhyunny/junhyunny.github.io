@@ -9,10 +9,12 @@ last_modified_at: 2021-07-04T13:00:00
 
 <br>
 
+## 1. 객체 순환 참조
+
 Jackson 라이브러리를 통해 직렬화(Serialize) 된 Json 응답을 받는 경우 종종 StackOverFlowError가 발생합니다. 
 이런 경우 대부분 객체 사이의 순환 참조가 문제 발생의 원인입니다. 
 
-##### 순환 참조 예시
+### 1.1. 순환 참조 예시
 - A 인스턴스가 B 인스턴스를 참조합니다.
 - B 인스턴스가 A 인스턴스를 참조합니다.
 - A 인스턴스를 직렬화하는 경우 참조하는 B 인스턴스가 함께 직렬화됩니다.
@@ -47,7 +49,7 @@ public @interface JsonIgnoreProperties {
 
 저의 경우 주로 필드에 사용하며 다음과 같은 동작이 수행되도록 클래스를 구성합니다. 
 
-##### 순환 참조 방지 예시
+### 1.2. 순환 참조 방지 예시
 - A 인스턴스가 B 인스턴스를 참조합니다.
 - B 인스턴스가 A 인스턴스를 참조합니다.
 - A 인스턴스를 직렬화하는 경우 참조하는 B 인스턴스가 함께 직렬화됩니다.
@@ -55,10 +57,10 @@ public @interface JsonIgnoreProperties {
 
 <p align="center"><img src="/images/json-ignore-properties-2.jpg" width="75%"></p>
 
-## 테스트 코드
+## 2. 테스트 코드
 간단한 테스트 코드를 통해 만날 수 있는 에러 상황과 해결 방법에 대해 알아보도록 하겠습니다. 
 
-### Dto 클래스
+### 2.1. Dto 클래스
 - ADto, BDto, CDto 클래스를 작성합니다.
 - ADto 클래스와 BDto 클래스는 서로 순환 참조합니다.
 - ADto 클래스와 CDto 클래스는 서로 순환 참조합니다.
@@ -105,7 +107,7 @@ class CDto {
 }
 ```
 
-### ErrorController 클래스
+### 2.2. ErrorController 클래스
 - error 메소드는 ADto 인스턴스와 BDto 인스턴스의 순환 참조를 만들어 반환합니다.
 - ok 메소드는 ADto 인스턴스와 CDto 인스턴스의 순환 참조를 만들어 반환합니다.
 
@@ -129,7 +131,7 @@ class ErrorController {
 }
 ```
 
-### test_withoutJsonIgnoreProperties_throwStackOverFlowException 메소드
+### 2.3. test_withoutJsonIgnoreProperties_throwStackOverFlowException 메소드
 - `@JsonIgnoreProperties` 애너테이션이 적용되지 않은 `/error` 경로로 API 요청을 수행합니다.
 - 서블릿(Servlet) 영역에서 직렬화 수행 중에 에러가 발생하기 때문에 NestedServletException을 예상할 수 있습니다.
 
@@ -147,7 +149,7 @@ class ErrorController {
     }
 ```
 
-### test_withoutJsonIgnoreProperties_throwStackOverFlowException 메소드 수행 결과
+##### test_withoutJsonIgnoreProperties_throwStackOverFlowException 메소드 수행 결과
 - NestedServletException이 발생하여 테스트를 통과합니다.
 - 아래와 같은 로그를 확인할 수 있습니다.
 
@@ -171,7 +173,7 @@ Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursi
     at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:722) ~[jackson-databind-2.10.2.jar:2.10.2]
 ```
 
-### test_withJsonIgnoreProperties_isOk 메소드
+### 2.4. test_withJsonIgnoreProperties_isOk 메소드
 - `@JsonIgnoreProperties` 애너테이션이 적용된 `/ok` 경로로 API 요청을 수행합니다.
 
 ```java
@@ -183,7 +185,7 @@ Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursi
     }
 ```
 
-### test_withJsonIgnoreProperties_isOk 메소드 수행 결과
+##### test_withJsonIgnoreProperties_isOk 메소드 수행 결과
 - 에러 없이 테스트가 통과합니다.
 - `{"bdto":null,"cdto":{"name":"CDto"}}` 응답을 받았음을 로그를 통해 확인이 가능합니다. 
 
@@ -229,7 +231,6 @@ MockHttpServletResponse:
 ## CLOSING
 개발 초기에 이런 에러를 많이 만났었습니다. 
 양방향 참조가 되도록 JPA 엔티티(Entity) 설계를 해놓은 모습이 컨트롤러 영역까지 그대로 반영되는 경우 주로 발생하였습니다. 
-별도의 애너테이션 추가 작업 없이도 StackOverFlow 같은 에러를 피해나갈 수 있도록 많은 고민을 통한 설계, 개발을 진행해야겠습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>

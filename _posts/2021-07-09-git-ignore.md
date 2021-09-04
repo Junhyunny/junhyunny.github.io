@@ -3,10 +3,12 @@ title: "Git 파일 추적 제거하기"
 search: false
 category:
   - github
-last_modified_at: 2021-07-09T00:00:00
+last_modified_at: 2021-09-04T01:00:00
 ---
 
 <br>
+
+## 1. 배경
 
 현재 맡고 있는 프로젝트가 막바지에 다다랐습니다. 
 안정적인 시스템 운영을 위해서는 개발/운영 환경을 분리하여 관리해야 합니다. 
@@ -61,7 +63,7 @@ spring:
 잘못된 데이터로 계산된 값들이 금전적 손해를 일으킬 수도 있습니다. 
 이런 문제를 방지하고자 특정 파일들에 대해 git 추적 제외를 시도해보았습니다. 
 
-## .gitignore 파일 추가
+## 2. .gitignore 파일 추가
 `.gitignore` 파일에 추적에서 제외하고 싶은 파일들을 다음과 같이 추가하였습니다. 
 
 ```
@@ -86,7 +88,7 @@ bin/
 
 설정을 추가하였음에도 불구하고 정상적으로 Git 추적 대상에서 제외되지는 않았습니다. 
 
-## Git 캐시 지우기
+## 3. Git 캐시 지우기
 이미 추적되고 있는 파일들은 `.gitignore` 파일에 추가하여도 추적이 멈추지 않습니다. 
 스테이지(stage)에 올라간 파일들은 캐시 처리가 되어 추적에 대한 기록이 남아있기 때문입니다. 
 그렇다면 캐시를 지워보도록 하겠습니다. 
@@ -102,7 +104,7 @@ rm 'src/main/resources/application.yml'
 
 <p align="center"><img src="/images/git-ignore-2.JPG" width="75%"></p>
 
-## exclude 파일
+## 4. exclude 파일
 제가 원하는 방법은 다음과 같습니다. 
 - 개발자가 필요한 설정을 변경/적용할 수 있도록 application.yml 파일 삭제는 불가하고, 파일 변경 이력 관리는 필요
 - 원격 레퍼지토리에서 관리되는 application.yml 파일은 원격 저장소 상에서만 관리
@@ -130,24 +132,24 @@ application.yml
 
 exclude 파일에 여러가지 방법으로 파일을 추가해봤지만 추적에서 제외되지는 않았습니다.  
 
-## git update-index 명령어
+## 5. git update-index 명령어
 exclude 파일로 해결이 되지 않는 경우 git 명령어를 통해 수동으로 이를 제외시킬 수 있습니다. 
 저 같은 경우 이 방법을 통해 해결하였습니다. 
 `git update-index` 명령어를 통해 특정 파일의 변경 여부 감지를 on/off 할 수 있습니다. 
 
-##### 제외 명령어
+### 5.1. 제외 명령어
 ```
 git update-index --assume-unchanged <파일명>
 git update-index --assume-unchanged src/main/resources/application.yml
 ```
 
-##### 제외 취소 명령어
+### 5.2. 제외 취소 명령어
 ```
 git update-index --no-assume-unchanged src/main/resources/application.yml
 ```
 
 ## CLOSING
-이전 직장에서는 CI/CD, 운영환경 분리에 대한 고민과 작업을 다른 팀에서 해주었습니다. 
+이전 직장에서는 CI/CD, 운영 환경 분리에 대한 고민과 작업을 다른 팀에서 해주었습니다. 
 저는 큰 고민없이 가이드에 맞춰 개발, 운영, 관리하였습니다. 
 스타트업에서 일 하다보니 전에는 신경쓰지 않았던 부분까지 고민하고 해결할 방법 찾아나가면서 조금 더 성장하고 있음을 느끼고 있습니다. 
 

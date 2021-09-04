@@ -18,7 +18,7 @@ last_modified_at: 2021-09-04T12:59:00
 - VMWare
 - Ubuntu-20.04.2.0
 
-## 사용자 등록하기
+## 2. 사용자 등록하기
 간단한 명령어를 통해 사용자 정보를 등록할 수 있습니다. 
 - user_id - 사용자 ID
 - host_name - 허용하는 호스트 정보
@@ -73,7 +73,7 @@ Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
 Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 ```
 
-## 데이터베이스 접근 제어
+## 3. 데이터베이스 접근 제어
 설치한 데이터베이스에 접근을 시도하면 다음과 같은 에러가 발생합니다. 
 host 정보를 `'%'` 로 지정하여 모든 IP 에서 접근을 허용하였는데 이상합니다.😕 
 
@@ -86,7 +86,7 @@ host 정보를 `'%'` 로 지정하여 모든 IP 에서 접근을 허용하였는
 Local Address IP 주소가 `0.0.0.0` 이라면 모든 인터페이스를 허용하겠다는 의미이며, `127.0.0.1` 이라면 자기 자신만 호출이 가능한 상태입니다. 
 현재는 IP 주소가 `127.0.0.1`이므로 로컬 호스트만 접근이 가능한 상태입니다.  
 
-### 127.0.0.1 IP LISTEN(대기, PORT OPEN) 상태 확인 
+### 3.1. 127.0.0.1 IP LISTEN(대기, PORT OPEN) 상태 확인 
 ```
 $ netstat -lntp | grep 3306
 (Not all processes could be identified, non-owned process info

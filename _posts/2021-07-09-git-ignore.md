@@ -3,7 +3,7 @@ title: "Git 파일 추적 제거하기"
 search: false
 category:
   - github
-last_modified_at: 2021-09-04T01:00:00
+last_modified_at: 2021-09-04T12:59:00
 ---
 
 <br>

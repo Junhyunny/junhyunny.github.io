@@ -5,31 +5,32 @@ category:
   - spring-boot
   - jpa
   - juint
-last_modified_at: 2021-07-20T15:00:00
+last_modified_at: 2021-09-04T13:00:00
 ---
 
 <br>
 
 JPA 사용 시 자주 사용하는 기능을 간단한 예시 코드와 함께 정리해보았습니다. 
 
-## @PrePersist 애너테이션
+## 1. 애너테이션 소개
+### 1.1. @PrePersist 애너테이션
 JPA 엔티티(Entity)가 비영속(new/transient) 상태에서 영속(managed) 상태가 되는 시점 이전에 실행됩니다. 
 
 <p align="center"><img src="/images/pre-persist-pre-update-1.JPG" width="70%"></p>
 
-## @PreUpdate 애너테이션
+### 1.2. @PreUpdate 애너테이션
 영속 상태의 엔티티를 이용하여 데이터 업데이트를 수행하기 이전에 실행됩니다. 
 
 <p align="center"><img src="/images/pre-persist-pre-update-2.JPG" width="70%"></p>
 
-## createdAt, lastUpdatedAt 필드 적용하기
+### 1.3. createdAt, lastUpdatedAt 필드 적용하기
 데이터베이스 엔티티 설계 시 기본적으로 반드시 필요한 데이터가 존재합니다. 
 대표적으로 데이터 생성 시점(createdAt), 데이터 마지막 업데이트 시점(lastUpdatedAt)을 예로 들어보겠습니다. 
 
 두 필드를 모든 엔티티에 포함시키고 싶어서 상속(Inheritance)을 이용하였습니다. 
 아래와 같은 모습을 갖도록 엔티티 설계를 수행하였습니다. 
 
-### Base 엔티티 설계 모습
+#### 1.3.1. Base 엔티티 설계 모습
 - 자식 클래스에서 부모 클래스의 필드를 컬럼으로 사용할 수 있도록 `@MappedSuperclass` 애너테이션을 사용합니다. 
 - 두 항목이 NULL 값을 가질 수 없도록 NOT_NULL 제약사항을 주었습니다. 
 - createdAt 필드는 INSERT 시점에만 필요한 항목이므로 updatable 옵션을 false 값으로 지정합니다.
@@ -64,7 +65,7 @@ class Base {
 }
 ```
 
-### 일반 엔티티 설계 모습
+#### 1.3.2. 일반 엔티티 설계 모습
 - `@PrePersist` 애너테이션을 추가한 prePersist 메소드를 재정의합니다. 
 - 부모 클래스의 prePersist 메소드 호출 후 해당 엔티티에서 default 값이 필요한 필드를 채웁니다.
 - `@PreUpdate` 애너테이션을 추가한 preUpdate 메소드를 재정의합니다. 
@@ -102,9 +103,9 @@ class Book extends Base {
 }
 ```
 
-### 테스트 코드
+## 2. 테스트 코드
 
-#### test_prePersist_createdAtIsNotNull 메소드
+### 2.1. test_prePersist_createdAtIsNotNull 메소드
 - 새로운 book 객체를 만듭니다.
 - JpaRepository save 메소드를 통해 해당 객체를 영속 상태로 만들어줍니다.
 - createdAt 항목이 NULL 값이 아닌지 확인합니다.
@@ -121,7 +122,7 @@ class Book extends Base {
     }
 ```
 
-#### test_prePersist_createdAtIsNotNull 메소드 수행 로그
+##### test_prePersist_createdAtIsNotNull 메소드 수행 로그
 - book 객체의 createdAt 항목을 별도로 지정해주지 않았음에도 NULL 값이 아님을 확인할 수 있습니다.
 - 로그를 통해 `before save` > `prePersist` > `INSERT QUERY` > `after save` 순으로 동작했음을 확인할 수 있습니다.
 
@@ -134,7 +135,7 @@ Hibernate: insert into book (created_at, last_updated_at, default_value, title, 
 2021-07-20 02:16:47.246  INFO 18388 --- [           main] blog.in.action.PrePersistUpdateTest      : after save
 ```
 
-#### test_preUpdate 메소드
+##### 2.2. test_preUpdate 메소드
 - 새로운 book 객체를 만듭니다.
 - 해당 객체를 영속 상태로 만듭니다.
 - book 객체의 title 필드를 변경합니다.
@@ -163,7 +164,7 @@ Hibernate: insert into book (created_at, last_updated_at, default_value, title, 
     }
 ```
 
-#### test_preUpdate 메소드 수행 로그
+##### test_preUpdate 메소드 수행 로그
 - 비영속 객체를 영속 상태로 만드는 save 메소드 수행 시 반환된 returnedBook 객체는 book 객체와 동일함을 확인할 수 있습니다.
 - 영속 상태의 객체 필드 값 변경 후 save 메소드 수행 시 반환된 returnedBook 객체는 book 객체와 동일하지 않음을 확인할 수 있습니다. 
 - book 객체의 createdAt 필드와 lastUpdatedAt 필드의 값이 동일함을 알 수 있습니다.
@@ -188,9 +189,5 @@ Hibernate: update book set last_updated_at=?, default_value=?, title=? where id=
 
 <p align="left"><img src="/images/pre-persist-pre-update-3.JPG" width="50%"></p>
 
-## CLOSING
-Default 값 지정을 위하여 `@PrePersist`, `@PreUpdate` 애너테이션을 이용하는 방법을 소개하였습니다. 
-물론 더 나은 방법들이 있을 것이고, 앞으로 만나게 될 좋은 코드나 방법들은 계속해서 블로그에 기록하고 잘 활용해야겠습니다.  
-
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-20-pre-persist-pre-update>

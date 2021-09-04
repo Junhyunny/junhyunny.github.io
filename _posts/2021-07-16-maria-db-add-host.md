@@ -4,15 +4,17 @@ search: false
 category:
   - information
   - linux
-last_modified_at: 2021-07-16T23:59:00
+last_modified_at: 2021-09-04T12:59:00
 ---
 
 <br>
 
+
+
 [Linux Maria DB 설치하기][maria-db-install] 포스트를 통해 Maria DB 설치하는 방법을 정리하였습니다. 
 이번 포스트에서는 Maria DB 서버에 새로운 사용자 정보를 등록하는 방법과 외부에서 접속하는데 발생했던 문제를 해결한 방법을 공유해보겠습니다. 
 
-## 테스트 환경
+## 1. 테스트 환경
 - VMWare
 - Ubuntu-20.04.2.0
 

@@ -3,7 +3,7 @@ title: "Java Wrapper 클래스"
 search: false
 category:
   - java
-last_modified_at: 2021-08-03T01:30:00
+last_modified_at: 2021-09-04T15:30:00
 ---
 
 <br>
@@ -13,7 +13,7 @@ last_modified_at: 2021-08-03T01:30:00
 선뜻 대답이 나오지 않는 어려운 질문이었습니다. 
 이 포스트에서 위 질문에 대한 답변을 정리하기 이전에 우선 wrapper 클래스가 무엇인지 알아보겠습니다. 
 
-## Wrapper 클래스
+## 1. Wrapper 클래스
 Java에는 기본형(primitive type) 데이터가 존재합니다. 
 프로그램 언어를 처음 접할 때 주로 사용하는 자료형으로 int, char, byre, short, long, float, double, boolean 등이 이에 속합니다. 
 이런 기본 타입의 값들은 JVM 내의 스택(stack) 메모리에 저장됩니다.
@@ -22,7 +22,7 @@ Java에는 기본형(primitive type) 데이터가 존재합니다.
 각 기본형 데이터에 대응하는 Wrapper 클래스가 존재합니다. 
 참조 타입인 wrapper 클래스 객체는 JVM 내의 힙(heap) 메모리에 저장됩니다.
 
-##### 기본형 데이터와 Wrapper 클래스 대응 
+### 1.1. 기본형 데이터와 Wrapper 클래스 대응 
 
 | 기본형 타입(primitive type) | Wrapper 클래스 |
 |:---:|:---:|
@@ -35,13 +35,13 @@ Java에는 기본형(primitive type) 데이터가 존재합니다.
 | float | Float |
 | double | Double |
 
-##### Wrapper 클래스 상속 관계도
+### 1.2. Wrapper 클래스 상속 관계도
 - Boolean, Character 클래스를 제외하고 Number 클래스를 상속받습니다.
 
 <p align="center"><img src="/images/java-wrapper-class-1.JPG" width="70%"></p>
 <center>이미지 출처, https://codepumpkin.com/interview-questions-wrapper-classes/</center>
 
-### Wrapper 클래스 내부 구조
+### 1.3. Wrapper 클래스 내부 구조
 - 기본형 데이터 변수를 멤버로 두고, 관련된 연산을 메소드로 정의해두고 있습니다.
 - 타입 정보, 최대 값, 최소 값 등 부가적인 기능을 위한 값을 별도로 저장하고 있습니다. 
 - 객체가 생성될 때 지정되는 값은 변경되지 않습니다. 
@@ -88,7 +88,7 @@ public final class Integer extends Number implements Comparable<Integer> {
 }
 ```
 
-### Boxing / Unboxing
+## 2. Boxing / Unboxing
 Wrapper 클래스에 대해 이야기하면 빠지지 않는 내용이 있습니다. 
 `Boxing / Unboxing` 입니다. 
 `Boxing`은 기본형 데이터를 Wrapper 클래스의 인스턴스로 변환하는 과정을 의미합니다. 
@@ -100,7 +100,7 @@ Wrapper 클래스에 대해 이야기하면 빠지지 않는 내용이 있습니
 JDK 1.5 버전부터 `Boxing, Unboxing`이 필요하면 컴파일러에 의해 자동으로 수행되었습니다. 
 이를 `Auto Boxing, Auto Unboxing`이라고 합니다. 
 
-#### 예시 코드
+### 2.1. 예시 코드
 ```java
     Integer num = new Integer(17); // boxing, Deprecated since JDK1.9
     int n = num.intValue(); // unboxing
@@ -126,11 +126,11 @@ JDK 1.5 버전부터 `Boxing, Unboxing`이 필요하면 컴파일러에 의해 �
     //list.add(wrapper);
 ```
 
-### Wrapper 클래스 사용 시 주의사항
+## 3. Wrapper 클래스 사용 시 주의사항
 Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나지 않지만, 개발자의 의도치 않은 버그를 만들어내기도 합니다. 
 아래 테스트 코드를 통해 예시를 들어보겠습니다. 
 
-#### 크기 비교 연산자 정상, 동일 판단 연산자는 비정상
+### 3.1. 크기 비교 연산자 정상, 동일 판단 연산자는 비정상
 - 크기 비교 연산자의 경우 auto unboxing 되면서 크기 비교가 정상적으로 수행됩니다.
 - == 연산자를 이용하여 동일 여부 판단 시에는 정상적인 비교가 수행되지 않습니다. == 연산자는 객체의 주소를 비교하기 때문입니다.
 - 객체 담긴 값을 이용한 동일 판단은 equals 메소드를 이용해야 합니다.
@@ -148,7 +148,7 @@ Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나�
     }
 ```
 
-#### valueOf 메소드를 사용하여 만든 객체는 `==` 연산자가 정상적으로 동작하는가? 
+### 3.2. valueOf 메소드를 사용하여 만든 객체는 `==` 연산자가 정상적으로 동작하는가? 
 - Integer 생성자는 JDk 9 버전부터 사용을 권장하지 않습니다.(@Deprecated(since="9"))
 - Integer.valueOf 메소드를 사용하여 만든 객체를 `==` 연산자의 피연산자로 사용하는 경우 동일 여부 판단이 성공합니다.
 - 이는 valueOf 메소드 내부 캐시(cache) 처리에 의해 그렇게 보이는 것일 뿐 마찬가지로 equals 메소드를 사용하는 것이 좋습니다.
@@ -173,7 +173,7 @@ Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나�
 2021-08-03 01:15:56.001  INFO 6300 --- [           main] blog.in.action.wrapper.WrapperClassTest  : 1486944091
 ```
 
-##### valueOf 메소드
+#### 3.3. valueOf 메소드
 - valueOf 메소드를 보면 특정 범위 내 값들에 한해서 캐시 처리를 수행합니다.
 - 필요한 경우 새로운 객체를 만들기 때문에 주소가 다른 객체가 생성될 수 있습니다.
 
@@ -186,7 +186,7 @@ Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나�
     }
 ```
 
-#### NullPointException
+### 3.4. NullPointException
 - null 값을 가지는 wrapper 클래스 객체와 기본형(primitive type) 값을 `==` 연산의 피연산자로 사용하는 경우 NullPointException이 발생합니다.
 - 이는 피연산자에 기본형 int 값이 존재하여 wrapper 클래스 객체를 auto unboxing 하는 중에 발생하는 에러입니다.
 
@@ -203,23 +203,23 @@ Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나�
     }
 ```
 
-## Wrapper 클래스는 왜 필요한가?
+## 4. Wrapper 클래스는 왜 필요한가?
 이유를 찾기 위해 관련된 내용들을 찾아보고 고민도 해보았습니다. 
 아래와 같은 몇 가지 이유로 추려지는 것 같습니다. 
 - List, Map 같은 Collection은 객체만 담을 수 있습니다. 
-- 멀티 스레드 환경에서 동시성(concurrency)를 위한 코드 작성 시 동기화(synchronized) 기능은 객체만 지원됩니다. 
 - Java Generics 기능을 사용하려면 클래스를 명시해야 합니다.
+- 멀티 스레드 환경에서 동시성(concurrency)를 위한 코드 작성 시 동기화(synchronized) 기능은 객체만 지원됩니다. 
 
 ## CLOSING
 예전 블로그에 작성한 포스트를 현재 운영 중인 블로그에 재작성하였습니다. 
 Wrapper 클래스는 무엇이고 왜 사용하는지 질문을 받았는데 시원하게 대답하지 못했던 것이 마음에 걸려 다시 정리하였습니다. 
 
-이번 포스트를 다시 정리해보면 관련된 내용들을 찾아보는 과정에서 과도한 Auto Boxing 수행이 성능에 미치는 영향에 대한 내용을 읽어보았습니다. 
-직접 테스트해보고 모니터링하는 방법을 확인하고 싶은 마음이 들었습니다. 
-다음 포스트는 JVM 성능 모니터링 툴 사용 방법과 과도한 Auto Boxing 수행 시 발생하는 현상에 대한 내용을 작성해야겠습니다.
+이번 글을 정리하면서 과도한 Auto Boxing 수행이 성능에 미치는 영향에 대한 내용을 읽어보았습니다. 
+직접 테스트해보고 싶은 마음이 들었습니다. 
+다음 포스트는 JVM 성능 모니터링 툴 사용 방법과 과도한 Auto Boxing 수행 시 발생하는 현상에 대한 내용으로 작성해야겠습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-30-java-wrapper-class>
 
 #### REFERENCE
 - <http://tcpschool.com/java/java_api_wrapper>

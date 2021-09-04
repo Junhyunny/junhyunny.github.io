@@ -135,7 +135,7 @@ Hibernate: insert into book (created_at, last_updated_at, default_value, title, 
 2021-07-20 02:16:47.246  INFO 18388 --- [           main] blog.in.action.PrePersistUpdateTest      : after save
 ```
 
-##### 2.2. test_preUpdate 메소드
+### 2.2. test_preUpdate 메소드
 - 새로운 book 객체를 만듭니다.
 - 해당 객체를 영속 상태로 만듭니다.
 - book 객체의 title 필드를 변경합니다.

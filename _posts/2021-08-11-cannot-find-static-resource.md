@@ -3,10 +3,12 @@ title: "Thymeleaf - cannot find images"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-08-11T12:00:00
+last_modified_at: 2021-09-04T16:30:00
 ---
 
 <br>
+
+## 1. 문제 상황과 해결 실마리
 
 클라이언트가 요청한 특정 문자열에 해당하는 바코드 이미지를 생성한 후 페이지에 담아 반환하는 기능을 구현하는 중에 이미지를 찾지 못하는 문제가 발생하였습니다. 
 문제 현상에 대해 요약하여 설명하면 다음과 같습니다. 
@@ -30,7 +32,9 @@ last_modified_at: 2021-08-11T12:00:00
 
 해당 힌트를 바탕으로 문제를 해결하였고, 관련된 코드를 정리하여 공유하겠습니다.
 
-## 패키지 구조
+## 2. 예제 코드
+
+### 2.1. 패키지 구조
 ```
 ./
 |-- README.md
@@ -61,7 +65,7 @@ last_modified_at: 2021-08-11T12:00:00
                 `-- image.html
 ```
 
-## application.yml
+### 2.2. application.yml
 - Thymeleaf 관련 설정입니다.
 
 ```yml
@@ -76,7 +80,7 @@ spring:
     cache: false
 ```
 
-## image.html
+### 2.3. image.html
 - 기존 이미지(/static/images 경로) - resources 폴더 내 /static/images 경로에 존재하는 기존 이미지가 담긴 페이지를 반환합니다.
 - 바코드 문자열(/static/images 경로) - resources 폴더 내 /static/images 경로에 신규 이미지 생성 후 페이지를 반환합니다.
 - 바코드 문자열(별도 images 경로) - 서버 ROOT 폴더 내 /images 경로에 신규 이미지 생성 후 페이지를 반환합니다.
@@ -168,7 +172,7 @@ spring:
 </html>
 ```
 
-## Barcode 클래스
+### 2.4. Barcode 클래스
 - 페이지로부터 데이터를 전달받기 위한 Dto 클래스입니다.
 
 ```java
@@ -187,7 +191,7 @@ public class Barcode {
 }
 ```
 
-## WebMvcConfiguration 클래스
+### 2.5. WebMvcConfiguration 클래스
 - resource 자원 조회를 위한 URL 경로와 파일 위치를 지정합니다. 
 - `/images/**` 경로 요청 시 자원(resource) 위치는 파일 시스템 `images/` 위치를 사용합니다.
 
@@ -208,7 +212,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 }
 ```
 
-## BarcodeUtil 클래스
+### 2.6. BarcodeUtil 클래스
 - 바코드 이미지를 생성하는 클래스입니다.
 - createBarcodeImage 메소드 - 이미지 생성 후 파일의 이름을 반환합니다.
 
@@ -241,7 +245,7 @@ class BarcodeUtil {
 }
 ```
 
-## BlogController 클래스
+### 2.7. BlogController 클래스
 - `/static` 경로 - resources 폴더 내 `/static/images` 경로에 있는 `TEST.png` 이미지를 페이지에 담아서 반환합니다.
 - `/static/barcode` 경로 - resources 폴더 내 `/static/images` 경로에 신규 이미지를 생성 후 해당 이미지 경로를 페이지에 담아서 반환합니다.
 - `/extra/barcode` 경로 - 서버 ROOT 폴더 내 `/images` 경로에 신규 이미지를 생성 후 해당 이미지 경로를 페이지에 담아서 반환합니다.
@@ -317,7 +321,14 @@ public class BlogController {
 }
 ```
 
-## 테스트 결과
+##### 테스트 결과
+- 맨 왼쪽 버튼을 누르면 `/resources/static/images` 폴더에 저장되어 있던 이미지를 페이지에 담아 반환한다.
+    - 이미지가 정상적으로 보인다.
+- 가운데 버튼을 누르면 `/resources/static/images` 폴더에 이미지를 생성하고 페이지에 담아 반환한다.
+    - 이미지가 정상적으로 보이지 않는다.
+- 맨 오른쪽 버튼을 누르면 `/images` 폴더에 이미지를 생성하고 페이지에 담아 반환한다.
+    - 이미지가 정상적으로 보인다.
+
 <p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="100%"></p>
 
 ## CLOSING
@@ -325,7 +336,7 @@ public class BlogController {
 추후에라도 정확한 원인이 확인된다면 해당 포스트에 추가하도록 하겠습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-06-cannot-find-static-resource>
 
 #### REFERENCE
 - <https://stackoverflow.com/questions/45651119/spring-boot-images-uploading-and-serving>

@@ -55,6 +55,9 @@ classes: wide
 - [[Side-Project] Slack Chatbot 1차 기능 확장][side-project-slack-chatbot-first-expansion-link]
 - <https://github.com/Junhyunny/slack-chatbot>
 
+#### [Invest Supporter]
+- 투자 관련 지표를 쉽게 확인할 수 있도록 시각화하는 어플리케이션 
+
 ## Education
 #### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년
 - 정보통신공학과 전공, 2014년 2월 - 2018년 2월

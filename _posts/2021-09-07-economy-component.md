@@ -26,7 +26,7 @@ last_modified_at: 2021-09-07T23:50:00
 중앙 은행은 금리(빌려준 돈에 대한 이자, 이율)을 조절하거나 화폐를 발행할 수 있습니다. 
 둘은 이런 특성으로 경제 안의 돈(money)와 신용(credit)의 규모를 조절할 수 있습니다. 
 
-<p align="center"><img src="/images/economy-component-1.gif" width="90%"></p>
+<p align="center"><img src="/images/economy-component-1.gif" width="55%"></p>
 
 ## 2. 거래(Transaction)
 모든 경기 순환과 경제 움직임은 거래(transaction)에서부터 시작합니다. 
@@ -34,7 +34,7 @@ last_modified_at: 2021-09-07T23:50:00
 구매자의 소비(spending)는 판매자의 소득(income)이 됩니다. 
 조금 더 나아가면 누군가의 큰 지출은 누군가에겐 큰 소득이 되는 것입니다. 
 
-<p align="center"><img src="/images/economy-component-2.gif" width="65%"></p>
+<p align="center"><img src="/images/economy-component-2.gif" width="55%"></p>
 
 ## 3. 시장(Market)
 시장(market)은 구매자와 판매자로 구성됩니다. 
@@ -42,7 +42,7 @@ last_modified_at: 2021-09-07T23:50:00
 예를 들어 자동차를 거래하는 구매자와 판매자로 구성된 집단이 있으면 자동차 시장, 반도체를 거래한다면 반도체 시장이라 부릅니다. 
 구매자, 판매자, 거래로 구성된 여러 시장들은 톱니바퀴처럼 상호 작용하여 경제를 움직입니다. 
 
-<p align="center"><img src="/images/economy-component-3.gif" width="75%"></p>
+<p align="center"><img src="/images/economy-component-3.gif" width="55%"></p>
 
 ## 4. 신용(Credit)
 `신용 거래`, `신용 대출` 많이 들어본 단어입니다. 
@@ -62,14 +62,14 @@ last_modified_at: 2021-09-07T23:50:00
 대출하는 사람은 대출 기관으로부터 원금(빌린 돈)과 이자(추가적인 돈)을 특정 일자까지 갚겠다고 약속합니다. 
 대출 기관이 이 약속을 믿는 다면 둘 사이에는 신용이 성립합니다. 
 
-<p align="center"><img src="/images/economy-component-4.gif" width="65%"></p>
+<p align="center"><img src="/images/economy-component-4.gif" width="55%"></p>
 
 신용 거래가 성립되면 부채(debt)가 생겨납니다. 
 부채는 대출 기관 입장에서는 자산(asset)입니다. 
 빌린 사람 입장에서는 채무(liability)가 됩니다. 
 후에 빌린 사람이 원금과 이자를 갚게 된다면 둘 사이의 거래는 마무리되고 대출 기관의 자산과 빌린 사람의 채무는 사라지게 됩니다. 
  
-<p align="center"><img src="/images/economy-component-5.gif" width="65%"></p>
+<p align="center"><img src="/images/economy-component-5.gif" width="55%"></p>
 
 ### 4.3. 신용의 중요성
 신용이 중요한 이유는 지출의 규모를 늘릴 수 있기 때문입니다. 

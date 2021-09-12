@@ -70,17 +70,17 @@ classes: wide
 - Java, AWS Lambda function 사용 
 - [[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]
 - [[Side-Project] Slack Chatbot 1차 기능 확장][side-project-slack-chatbot-first-expansion-link]
-- https://github.com/Junhyunny/slack-chatbot 
+- <https://github.com/Junhyunny/slack-chatbot>
 
 #### [장례박사] 장례 플랫폼 Raspberry Pi 어플리케이션 개발 
 - 장례식장 호실 상태 화면을 전광판을 보여주는 Raspberry Pi 어플리케이션 개발 
 - 파이썬, Kivy 프레임워크 사용 
-- https://www.jrbaksa.com/main.do 
+- <https://www.jrbaksa.com/main.do> 
  
 #### [빌라엠] 빌라 관리 플랫폼 모바일 어플리케이션 개발 
 - 각종 게시판, 거주자 투표 기능 개발 
 - Nativescript-Vue 프레임워크 사용 
-- https://www.villam.co.kr/vote/vote.do  
+- <https://www.villam.co.kr/vote/vote.do>  
 
 ## Education
 #### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

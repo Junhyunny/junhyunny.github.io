@@ -5,6 +5,10 @@ entries_layout: linear
 classes: wide
 ---
 
+## Resume
+- [Resume - English][resume-eng-link]
+<!-- - [이력서 - 한글][] -->
+
 ## Skills
 #### [Programming Language]
 - Java
@@ -70,3 +74,4 @@ classes: wide
 
 [side-project-slack-chatbot-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
 [side-project-slack-chatbot-first-expansion-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot-first-expansion/
+[resume-eng-link]: /images/about/about-1.jpg

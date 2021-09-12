@@ -9,6 +9,8 @@ last_modified_at: 2021-09-12T23:55:00
 
 <br>
 
+⚠️ Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(Theme 예약어로 인한 표기 에러)
+
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [JPA 페이징(paging) 처리][pageable-link]
 
@@ -50,12 +52,12 @@ $ tree -I 'node_modules|public' ./
     - totalPages - 총 페이지 수
     - pageChange - 페이지 변경 이벤트
 
-```html
+```vue
 <template>
     <input type="button" value="조회" @click="search()" />
     <select @change="onSortChange($event)">
         <option value="" disabled selected>정렬 기준</option>
-        <option v-for="(header, index) in headerList" :value="itemKeyList[index]" :key="'select-' + index">{{headerList[index]}}</option>
+        <option v-for="(header, index) in headerList" :value="itemKeyList[index]" :key="'select-' + index">{ { headerList[index] } }</option>
     </select>
     <select @change="onSortDirectionChange($event)">
         <option value="" disabled selected>정렬 방향</option>
@@ -132,7 +134,7 @@ export default {
     - totalPages - 총 페이지 수
     - pageChange - 페이지 변경 이벤트
 
-```html
+```vue
 <template>
     <div class="tableDiv">
         <table>
@@ -141,13 +143,13 @@ export default {
             </colgroup>
             <thead>
                 <tr>
-                    <th v-for="(column, index) in headerList" :key="'header-' + index">{{headerList[index]}}</th>
+                    <th v-for="(column, index) in headerList" :key="'header-' + index">{ { headerList[index] } }</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, index) in itemList" :key="'item-' + index">
                     <td v-for="(itemKey, subIndex) in itemKeyList" :key="'item-key-' + subIndex">
-                        {{item[itemKey]}}
+                        { { item[itemKey] } }
                     </td>
                 </tr>
             </tbody>
@@ -195,11 +197,11 @@ export default {
 - 간단한 계산식을 이용해 5개 단위로 숫자를 출력합니다. 
 - `pageChange` props 정보를 이용해 상위 컴포넌트로 선택한 페이지 번호를 전달합니다.  
 
-```html
+```vue
 <template>
     <div class="pointer">
         <a @click="onPageChange(currentPage - 1)">&lt;</a>
-        <a v-for="(paging, index) in pages" :key="index" @click="onPageChange(paging - 1)" :class="paging - 1 === currentPage ? 'currentPage' : ''"> {{paging}} </a>
+        <a v-for="(paging, index) in pages" :key="index" @click="onPageChange(paging - 1)" :class="paging - 1 === currentPage ? 'currentPage' : ''">{ { paging } }</a>
         <a @click="onPageChange(currentPage + 1)">&gt;</a>
     </div>
 </template>

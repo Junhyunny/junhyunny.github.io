@@ -23,43 +23,64 @@ classes: wide
 
 ## Career
 #### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
-- [한국보건산업진흥원] IoT 돌봄 서비스 개발, 2021년 6월 ~ 
-- [KC Industrial] 가스 입출고 시스템 개발, 2021년 5월 - 8월
+- [한국보건산업진흥원] IoT 돌봄 서비스 고도화, 2021년 8월 - present 
+- [KC Industrial] 가스 산업 MES 신규 구축, 2021년 5월 - 8월
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
-- MES(Manufacturing Execution System) 운영, 2021년 1월 - 4월
-- MES3.0(Manufacturing Execution System 3.0) 개발, 2018년 7월 - 2020년 12월
+- MES3.0 야드 관리 시스템 운영, 2021년 1월 - 4월
+- MES3.0 야드 관리 시스템 개발, 2018년 7월 - 2020년 12월
 
 #### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
-- Smart CCTV System 개발, 2017년 8월 - 2017년 11월
+- Smart CCTV 시스템 개발, 2017년 8월 - 2017년 11월
 
 ## Experience
-#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 6월 ~
-- Spring MVC, JSP, MyBatis, Tibero, Sybase, VerneMQ, MQTT
-- (Legacy) Sybase Database > (Newly) Tibero Database 전환
+#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 8월 -
+- 데이터베이스 솔루션 변경 작업 AS-IS(SYBASE), TO-BE(TIBERO)
+- JDK 1.8 버전 변경 작업 및 레거시 시스템 소스 코드 리팩토링
+- Spring MVC, JSP, MyBatis 프레임워크를 사용한 신규 모니터링 화면 개발
+- 레거시 화면 신규 기능 추가 및 개선 작업
 
 #### [KC Industrial] 가스 입출고 시스템, 2021년 5월 - 8월
-- Spring Boot, Spring-Batch, JPA / Hibernate, Thymeleaf, Vue.js
+- 가스 산업 비즈니스 도메인에 대한 시스템 프로세스 정립
+- Vue.js, Spring Boot 프레임워크를 사용한 가스 용기 현황 모니터링 개발
+- 브라우저를 통한 ZEBRA 라벨 프린터 프린팅 기능 구현
 
-#### [POSCO] MES3.0(Manufacturing Execution System 3.0), 2018년 7월 - 2020년 12월
-- Spring Boot, Spring Cloud, Apache Kafka, JPA / Hibernate, MyBatis, Oracle
-- Monolithic Architecture > Micro Service Architecture 전환
-- 물류 야드 관리 시스템 비즈니스 공통 컴포넌트 리팩토링
-- 타 체인 서비스를 위한 REST API 제공을 위한 FeignClient, FallbackFactory 개발
-- 기존 차량 이송 도메인에서 이송 효율 향상을 위한 신규 과제 설계, 개발 및 적용 
-- DB 교착상태(deadLock) 발생으로 인한 서비스 장애 개선
-- Custom Rule Engine 컴포넌트 리팩토링 및 속도 개선
-  - 10000건 초과되는 기준 사용 시 5초 이상 걸리는 시간을 1초 미만으로 단축
+#### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영, 2021년 1월 - 4월
+- 서비스 요청 건에 따른 기존 시스템 기능 수정 
+- 시스템 모니터링 및 장애 대응 
+- 비즈니스 로직 및 쿼리 최적화를 통한 시스템 성능 개선
 
-## Side Proejcts
-#### [Slack ChatBot]
-- **'1일 1 COMMIT'** 독촉 메세지를 보내는 Slack 채팅 봇
-- [[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]
-- [[Side-Project] Slack Chatbot 1차 기능 확장][side-project-slack-chatbot-first-expansion-link]
-- <https://github.com/Junhyunny/slack-chatbot>
+#### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 개발, 2018년 7월 – 2020년 12월
+- 야드 관리 시스템 어플리케이션 재구축 및 서비스로 시스템 마이크로 서비스 아키텍처 전환 
+- 물류 야드 관리 시스템 공통 컴포넌트 개발 
+- 타 조업 시스템과 협업을 위한 API 개발 및 Spring Cloud 적용 
+- 차량 이송 효율 향상을 위한 신규 야드 스케줄링 구현 
+- 야드 관리 시스템 Rule 엔진 컴포넌트 80% 성능 향상
 
+ #### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
+- OpenCV(C, C++)을 이용한 물체 인식 어플리케이션 개발 
+- SVM(Support Vector Machine) 머신 러닝 알고리즘 사용
+
+## Side Proejcts 
 #### [Invest Supporter]
 - 투자 관련 지표를 쉽게 확인할 수 있도록 시각화하는 어플리케이션 
+
+#### [Slack bot] Notice bot on slack 
+- 1일 1 커밋(commit) 알림 봇 
+- Java, AWS Lambda function 사용 
+- [[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]
+- [[Side-Project] Slack Chatbot 1차 기능 확장][side-project-slack-chatbot-first-expansion-link]
+- https://github.com/Junhyunny/slack-chatbot 
+
+#### [장례박사] 장례 플랫폼 Raspberry Pi 어플리케이션 개발 
+- 장례식장 호실 상태 화면을 전광판을 보여주는 Raspberry Pi 어플리케이션 개발 
+- 파이썬, Kivy 프레임워크 사용 
+- https://www.jrbaksa.com/main.do 
+ 
+#### [빌라엠] 빌라 관리 플랫폼 모바일 어플리케이션 개발 
+- 각종 게시판, 거주자 투표 기능 개발 
+- Nativescript-Vue 프레임워크 사용 
+- https://www.villam.co.kr/vote/vote.do  
 
 ## Education
 #### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년

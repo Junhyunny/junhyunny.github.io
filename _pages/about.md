@@ -74,4 +74,4 @@ classes: wide
 
 [side-project-slack-chatbot-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot/
 [side-project-slack-chatbot-first-expansion-link]: https://junhyunny.github.io/side-project/side-project-slack-chatbot-first-expansion/
-[resume-eng-link]: /images/about/about-1.jpg
+[resume-eng-link]: /resume/resume-eng.pdf

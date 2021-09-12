@@ -55,7 +55,7 @@ $ tree -I 'node_modules|public' ./
     <input type="button" value="조회" @click="search()" />
     <select @change="onSortChange($event)">
         <option value="" disabled selected>정렬 기준</option>
-        <option v-for="(header, index) in headerList" :value="itemKeyList[index]" :key="'select-' + index">\{\{headerList[index]\}\}</option>
+        <option v-for="(header, index) in headerList" :value="itemKeyList[index]" :key="'select-' + index">\{{headerList[index]}}</option>
     </select>
     <select @change="onSortDirectionChange($event)">
         <option value="" disabled selected>정렬 방향</option>
@@ -141,13 +141,13 @@ export default {
             </colgroup>
             <thead>
                 <tr>
-                    <th v-for="(column, index) in headerList" :key="'header-' + index">\{\{headerList[index]\}\}</th>
+                    <th v-for="(column, index) in headerList" :key="'header-' + index">\{{headerList[index]}}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item, index) in itemList" :key="'item-' + index">
                     <td v-for="(itemKey, subIndex) in itemKeyList" :key="'item-key-' + subIndex">
-                        \{\{item[itemKey]\}\}
+                        \{{item[itemKey]}}
                     </td>
                 </tr>
             </tbody>
@@ -199,7 +199,7 @@ export default {
 <template>
     <div class="pointer">
         <a @click="onPageChange(currentPage - 1)">&lt;</a>
-        <a v-for="(paging, index) in pages" :key="index" @click="onPageChange(paging - 1)" :class="paging - 1 === currentPage ? 'currentPage' : ''"> \{\{ paging \}\} </a>
+        <a v-for="(paging, index) in pages" :key="index" @click="onPageChange(paging - 1)" :class="paging - 1 === currentPage ? 'currentPage' : ''"> \{{ paging }} </a>
         <a @click="onPageChange(currentPage + 1)">&gt;</a>
     </div>
 </template>

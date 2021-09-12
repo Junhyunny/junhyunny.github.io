@@ -57,7 +57,7 @@ classes: wide
 - 차량 이송 효율 향상을 위한 신규 야드 스케줄링 구현 
 - 야드 관리 시스템 Rule 엔진 컴포넌트 80% 성능 향상
 
- #### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
+#### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
 - OpenCV(C, C++)을 이용한 물체 인식 어플리케이션 개발 
 - SVM(Support Vector Machine) 머신 러닝 알고리즘 사용
 

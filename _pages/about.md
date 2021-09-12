@@ -6,7 +6,7 @@ classes: wide
 ---
 
 ## Resume
-- [Resume - English][resume-eng-link]
+- [English][resume-eng-link]
 <!-- - [이력서 - 한글][] -->
 
 ## Skills

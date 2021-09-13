@@ -20,14 +20,45 @@ Java 언어를 주력으로 사용하는 백 엔드 개발자이지만, 일을 �
 
 공식 홈페이지에서 `Webpack`을 모듈 번들러(module bundler)라고 소개하고 있습니다. 
 번들러(bundler)는 무엇인가를 한데 모아준다는 의미인데, 모듈(module)에 대한 감이 잘 잡히지 않습니다. 
-우선 모듈에 대한 개념을 정리해보겠습니다. 
+우선 모듈에 대한 개념부터 정리해보겠습니다. 
 
 ### 1.1. 모듈(module)
 
 > Module from dictionary<br>
 > any of a number of distinct but interrelated units from which a program may be built up or into which a complex activity may be analyzed.
 
-모듈이란 구분되는 기능을 Javascript 세상엔 모듈이라는 개념이 없었다고 합니다. 
+보통 개발 분야에서 모듈이란 특정 기능을 수행할 수 있는 코드를 집약시켜놓은 것을 의미합니다. 
+간단한 기능을 수행하는 모듈을 모아서 더 복잡한 기능을 수행하는 모듈을 만들 수도 있습니다. 
+
+모듈은 자신만의 고유한 영역(scope)를 가지고 있는 것이 특징인데, 이전 Javascript 세상엔 모듈이라는 개념이 없었다고 합니다. 
+간단하게 예를 들어보겠습니다.
+
+##### hello.js
+```javascript
+var message = 'Hello';
+```
+
+##### world.js
+```javascript
+var message = 'World';
+```
+
+##### index.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="./hello.js"></script>
+    <script src="./world.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        document.getElementById("root").innerHTML = message;
+    </script>
+</body>
+</html>
+```
 
 ## CLOSING
 

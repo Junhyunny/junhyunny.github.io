@@ -96,7 +96,7 @@ analytics:
 author:
   name             : "강준현"
   avatar           : /images/profile/profile.jpg # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "서버 사이드 개발자"
+  bio              : "개발자"
   location         : "서울/대한민국(Seoul/South Korea)"
   email            : "kang3966@naver.com"
   links:

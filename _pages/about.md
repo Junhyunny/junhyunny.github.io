@@ -10,10 +10,13 @@ classes: wide
 
 ## Skills
 #### [Programming Language]
-- Java
+- Java, Javascript
 
 #### [Backend Development]
 - Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL, Apache Kafka
+
+#### [Frontend Development]
+- Vue.js
 
 #### [Tools]
 - Maven, TortoiseSVN, Git, Sourcetree

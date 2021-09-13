@@ -401,9 +401,25 @@ public class PostController {
 }
 ```
 
-#### 2.3.1. @PageableDefault 애너테이션
-- 해당 애너테이션을 살펴보면 모두 디폴트(default) 값이 지정되어 있습니다. 
-- `sort` 값만 추가하면 정렬 기능을 사용 가능합니다. 
+#### 2.3.1. API End-Point에서 Pageable 인터페이스 파라미터(parameter) 사용하기
+Spring Boot 프레임워크는 API End-Point 메소드에 `Pageable` 인터페이스가 파라미터(parameter)로 들어있는 경우 특별한 기능을 제공합니다. 
+API 질의(query)를 통해 전달받은 정보를 이용하여 `Pageable` 구현체를 만들어 제공합니다. 
+간단한 예시를 들어보겠습니다. 
+
+##### 예시 질의(query)
+- `page=1` - 1번 페이지를 조회
+- `size=10` - 10개 항목씩 페이징 처리
+- `sort=createdAt,desc` - createdAt 항목으로 내림차순 정렬하여 조회
+- 위와 같은 조건으로 조회할 수 있는 `Pageable` 구현체를 만들어 제공합니다. 
+
+```
+?page=1&size=10&sort=createdAt,desc
+```
+
+#### 2.3.2. @PageableDefault 애너테이션
+API 요청 질의에 page, size, sort 같은 정보가 없는 경우 `@PageableDefault` 애너테이션에서 지정한 디폴트 값으로 `Pageable` 구현체가 생성됩니다. 
+해당 애너테이션을 살펴보면 모두 디폴트(default) 값이 지정되어 있습니다. 
+`sort` 값만 추가하면 정렬 기능을 사용 가능합니다. 
 
 ```java
 @Documented
@@ -428,23 +444,6 @@ public @interface PageableDefault {
 	Direction direction() default Direction.ASC;
 }
 ```
-
-#### 2.3.2. API End-Point에서 Pageable 인터페이스 파라미터(parameter) 사용하기
-Spring Boot 프레임워크는 API End-Point 메소드에 `Pageable` 인터페이스가 파라미터(parameter)로 들어있는 경우 특별한 기능을 제공합니다. 
-API 질의(query)를 통해 전달받은 정보를 이용하여 `Pageable` 구현체를 만들어 제공합니다. 
-간단한 예시를 들어보겠습니다. 
-
-##### 예시 질의(query)
-- `page=1` - 1번 페이지를 조회
-- `size=10` - 10개 항목씩 페이징 처리
-- `sort=createdAt,desc` - createdAt 항목으로 내림차순 정렬하여 조회
-- 위와 같은 조건으로 조회할 수 있는 `Pageable` 구현체를 만들어 제공합니다. 
-
-```
-?page=1&size=10&sort=createdAt,desc
-```
-
-API 요청 질의에 page, size, sort 같은 정보가 없는 경우 `@PageableDefault` 애너테이션에서 지정한 디폴트 값으로 `Pageable` 구현체가 생성됩니다. 
 
 ### 2.4. Post 클래스
 - 제목, 내용, 생성 일시 정보를 담은 엔티티(entity)입니다.

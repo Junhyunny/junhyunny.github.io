@@ -9,12 +9,14 @@ last_modified_at: 2021-08-28T03:00:00
 
 <br>
 
-좋은 서비스 개발에 대한 객관적인 지표를 얻기 위해 코드 커버리지 측정을 수행하자고 팀원들에게 제시하였습니다.
-테스트 커버리지를 적용하자는 결정 후 어떤 방법이 좋을지 알아보았습니다. 
-현재 저희 팀은 JAVA 언어를 사용하고 있기 때문에 JaCoCo 플러그인을 적용하기로 정하였습니다. 
-몇 가지 기준(rule)을 적용하여 이를 만족하지 못하면 빌드를 실패시키기로 하였습니다. 
-JaCoCo 플러그인을 적용하는 과정을 정리하고 팀원들에게 이를 공유하기로 하였습니다. 
-JaCoCo 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글을 가져왔습니다. 
+## 0. 들어가면서
+
+안정적인 서비스 개발을 위해 코드 커버리지 측정을 수행하자고 팀원들에게 제시하였습니다.
+테스트 커버리지 적용을 위한 도구들 중 어떤 것이 좋을지 찾아보았습니다. 
+저희 팀은 JAVA 언어를 사용하고 있기 때문에 `JaCoCo` 플러그인이 좋을 것 같습니다. 
+팀원들에게 `JaCoCo` 플러그인을 적용하는 과정을 정리하여 공유해야겠습니다. 
+
+`JaCoCo` 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글을 가져왔습니다. 
 
 > JaCoCo(Java Code Coverage)<br>
 > JaCoCo is a free code coverage library for Java, which has been created by the EclEmma team based on the lessons learned from using and integration existing libraries for many years. 
@@ -24,9 +26,9 @@ JaCoCo 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글�
 - 개발자가 생각하지 못한 버그를 개발 단계에서 잡아낼 수 있습니다. 
 - 테스트 코드를 적용하면서 필요한 리팩토링을 수행하면서 좋은 코드 작성할 수 있다.
 
-이제 본격적으로 JaCoCo 플러그인을 적용해보도록 하겠습니다.
-
 ## 1. pom.xml - JaCoCo 플러그인 추가
+
+이제 본격적으로 JaCoCo 플러그인을 적용해보도록 하겠습니다. 
 우선 JaCoCo 플러그인을 pom.xml 파일에 추가합니다. 
 추가한 내용을 바탕으로 각 설정에 대해 정리해보겠습니다. 
 
@@ -86,11 +88,12 @@ JaCoCo 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글�
     </plugin>
 ```
 
+### 1.1. JaCoCo Execution Goal
+
 `<plugin> </plugin>` 태그를 이용해 JaCoCo 플러그인을 추가합니다. 
 `<executions> </executions>` 태그 내부를 살펴보면 플러그인 실행에 대한 내용을 정리하고 있는 것으로 보입니다. 
 JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 정리해보겠습니다. 
 
-### 1.1. JaCoCo Execution Goal
 - help - jacoco-maven-plugin의 도움말을 보여주는 명령입니다.
 - prepare-agent - 테스트 중인 어플리케이션에서 인수를 전달하는 JaCoCo Runtime Agent에 대한 property를 준비하는 명령입니다.
 - prepare-agent-integration - prepare-agent와 같은 기능을 하지만 integration test에 대해서 기본 설정 값들을 제공하는 명령입니다.
@@ -104,6 +107,7 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
 - restore-instrumented-class - 오프라인 측정 이전에 원본 파일들을 저장하는 명령입니다. 
 
 ### 1.2. JaCoCo Rule
+
 - JaCoCo 플러그인 코드 커버리지 기준을 설정할 때 다음과 같은 속성들이 있습니다.
 - Element type - 코드 커버리지 체크 기준
   - BUNDLE (default) - 패키지 번들
@@ -125,7 +129,7 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
   - MISSEDRATIO - 커버되지 않은 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
   - COVEREDRATIO (default) - 커버된 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
 
-### 1.3. Geneuin Team 프로젝트 JaCoCo 설정 내용 정리
+### 1.3. JaCoCo 설정 예시
 
 #### 1.3.1. 특정 클래스 테스트 커버리지 측정 제외
 - 서비스 Run을 수행하는 main 메소드가 있는 *Application.class는 테스트 커버리지 측정에서 제거
@@ -166,7 +170,8 @@ JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 �
     </rule>
 ```
 
-## 2. 테스트 커버리지 측정
+## 2. 테스트 커버리지 측정 테스트
+
 JaCoCo 플러그인이 정상적으로 적용되었는지 확인하기 위해 테스트 코드를 작성해보았습니다. 
 다음과 같은 테스트 코드를 작성 후 maven 명령어를 수행하여 빌드가 정상적으로 수행되는지 확인하였습니다. 
 **빌드 실패를 확인하시려면 JacocoTest 클래스의 테스트 코드를 일부 주석하거나 METHOD 제약사항의 maximum 값을 2로 조정해보시면 됩니다.**
@@ -261,9 +266,10 @@ public class JacocoTest {
 ```
 
 ### 2.3. Maven Lifecycle
-- validate > compile > test > package > install > deploy
+- maven phase는 다음과 같은 순서를 가집니다. `validate > compile > test > package > install > deploy`
 - **`test`** phase 이후에 JaCoCo 플러그인에 의해 테스트 커버리지 측정이 가능하므로 **`package`** 이상부터 가능합니다.
-- 아래와 같은 명령어를 수행합니다.
+
+##### maven install phase 실행 명령어
 
 ```
 $ mvn clean install
@@ -315,10 +321,6 @@ $ mvn clean install
 ##### 빌드 결과
 
 <p align="center"><img src="/images/maven-jacoco-4.JPG" width="100%"></p>
-
-## CLOSING
-작년에 개발을 진행했던 시스템이나 서비스 플랫폼들, 유지보수하고 있는 서비스들에 JaCoCo 플러그인 적용 후 테스트 커버리지를 높이는 작업을 수행할 예정입니다. 
-테스트 코드를 작성하면서 수행하는 리팩토링 작업들이 앞으로 저희 팀에서 개발할 서비스 플랫폼을 구축을 위한 좋은 연습이 될 것 같습니다. 
 
 #### REFERENCE
 - [코드 분석 도구 적용기 - 1편, 코드 커버리지(Code Coverage)가 뭔가요?][code-coverage-link-1]

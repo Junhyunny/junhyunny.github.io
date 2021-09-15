@@ -45,7 +45,9 @@ last_modified_at: 2021-09-15T23:55:00
 ### 3.1. live-server 설치
 `npm` 명령어를 통해 설치가 가능합니다. 
 아래와 같이 명령어를 실행하면 `liver-server`가 설치됩니다. 
-로컬 PC 전역에서 사용할 것이므로 -g 옵션을 사용합니다.
+
+##### 설치 명령어
+- 로컬 PC 전역에서 사용할 것이므로 -g 옵션을 사용합니다.
 
 ```
 $ npm install -g live-server
@@ -67,9 +69,33 @@ npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@
 added 194 packages from 149 contributors in 15.354s
 ```
 
-### 3.2. liver-server 실행 및 정상 확인
-설치가 완료되면 해당 HTML 파일이 윛
+### 3.2. liver-server 실행
+설치가 완료되면 해당 HTML 파일이 위치한 폴더로 이동합니다.
+다시 말해 프로젝트의 root 디렉토리로 이동하면 됩니다. 
+보통 `index.html` 파일이 위치한 폴더입니다.
 
+```
+$ cd <directory>
+```
+
+##### 실행 명령어
+
+```
+$ live-server
+```
+
+##### 실행 로그
+
+```
+$ live-server
+Serving "D:\workspace\blog\blog-in-action\2021-09-14-webpack\use_module" at http://127.0.0.1:8080
+Ready for changes
+GET /favicon.ico 404 1.704 ms - 150
+```
+
+##### 실행 결과
+
+<p align="center"><img src="/images/live-server-1.JPG"></p>
 
 #### REFERENCE
 - <https://taehyos.blogspot.com/2018/11/live-server.html>

@@ -13,7 +13,7 @@ last_modified_at: 2021-09-15T23:55:00
 - [CORS(Cross Origin Resource Sharing)][cors-link] 
 
 ## 1. 브라우저 페이지 렌더링 문제
-[Webpack][webpack-link] 포스트를 위한 테스트를 작성하는 중에 다음과 같은 에러를 만났습니다. 
+[Webpack][webpack-link] 포스트를 작성하면서 간단한 테스트 코드를 구현하는 중에 다음과 같은 에러를 만났습니다. 
 
 > Access to script at 'file:///C:/Users/kang3/.../hello.js' from origin 'null' has been blocked by CORS policy: 
 > Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.

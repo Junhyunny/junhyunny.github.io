@@ -1,5 +1,5 @@
 ---
-title: "페이징 테이블(Paging Table) 구현 (feat. Spring Boot, Vue.js)"
+title: "테이블 페이징(paging) 처리 구현 (feat. Spring Boot, Vue.js)"
 search: false
 category:
   - spring-boot

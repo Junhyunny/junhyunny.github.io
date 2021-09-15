@@ -88,7 +88,7 @@ public class GroupByTest {
 
 <p align="left"><img src="/images/spring-data-jpa-group-by-1.JPG" width="45%"></p>
 
-## 2. Use Object[] 사용하기
+## 2. Use Object Array
 
 > JPA queries typically produce their results as instances of a mapped entity. 
 > However, queries with aggregation functions normally return the result as Object[].

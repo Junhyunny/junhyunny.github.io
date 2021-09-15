@@ -343,4 +343,4 @@ public class HandlerExecutionChain {
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
 
 [cors-link]: https://junhyunny.github.io/information/cors/
-[resolver-blogLink]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/
+[resolver-link]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/

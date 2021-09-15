@@ -19,9 +19,10 @@ last_modified_at: 2021-09-15T23:55:00
 > Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.
 
 흔하게 만나는 CORS(Cross Orgin Resource Sharing) 에러이지만 굉장히 의아했습니다. 
-브라우저로 실행시킨 `index.html` 파일은 로컬 PC 특정 폴더에 위치하였고, 모듈(module)로써 추가(import)한 `hello.js` 파일은 한 디렉토리에 존재하였습니다. 
-로컬에 위치한 HTML 파일을 브라우저로 실행시켰는데 동일 디렉토리에 위치한 Javascript 파일을 읽어오는데 CORS 에러가 웬말인지. 
-일단 의심스러운 부분은 있습니다. 
+브라우저로 실행시킨 `index.html` 파일은 로컬 PC 특정 폴더에 위치하였고, 모듈(module)로써 추가(import)한 `hello.js` 파일은 같은 디렉토리에 존재하였습니다. 
+로컬에 위치한 HTML 파일을 브라우저로 실행시켰는데 동일 디렉토리에 위치한 Javascript 파일을 읽어오는데 CORS 에러가 발생한다니 이해가 안 됬습니다. 
+
+일단 의심스러운 부분은 있었습니다. 
 스크립트(script) 태그를 이용해 단순하게 정적 자원으로 사용한 것이 아니라 `type="module"` 키워드를 통해 모듈을 사용했다는 점입니다. 
 해당 에러를 해결할 수 있는 방법을 찾아보았습니다. 
 
@@ -36,7 +37,8 @@ last_modified_at: 2021-09-15T23:55:00
 
 `StackOverflow`에서 관련된 내용을 찾았습니다. 
 일반적인 스크립트와 다르게 ES6 모듈들은 Same Origin 정책을 따르기 때문에, 파일 시스템이나 크로스 오리진(Cross Orign)이 허용되지 않은 모듈은 사용하지 못한다고 합니다. 
-단순한 Javascript 모듈 테스트를 위해 Spring 서버를 띄우고 싶지는 않았습니다. 
+
+이는 테스트를 위해서 웹 서버가 필요하다는 의미인데, 단순한 Javascript 모듈 테스트를 위해 Spring 프로젝트를 만들고 싶지는 않았습니다. 
 이를 손쉽게 테스트할 수 있는 방법을 찾아보았습니다. 
 
 ## 3. 문제 해결, live-server 명령어

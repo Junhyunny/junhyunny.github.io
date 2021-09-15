@@ -103,3 +103,4 @@ GET /favicon.ico 404 1.704 ms - 150
 - <https://stackoverflow.com/questions/46992463/es6-module-support-in-chrome-62-chrome-canary-64-does-not-work-locally-cors-er?rq=1>
 
 [webpack-link]: https://junhyunny.github.io/information/webpack/
+[cors-link]: https://junhyunny.github.io/information/cors/

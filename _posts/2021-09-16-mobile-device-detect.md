@@ -1,5 +1,5 @@
 ---
-title: "사용자 디바이스 식별하기(Identify user device using Javascript or )"
+title: "사용자 디바이스 식별하기(Identify user device)"
 search: false
 category:
   - information

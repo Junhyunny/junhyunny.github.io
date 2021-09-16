@@ -9,6 +9,8 @@ last_modified_at: 2021-08-30T23:55:00
 
 <br>
 
+⚠️ Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(github blog theme 예약어로 인한 표기 에러)
+
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [MultipartFile 활용 대용량 파일 업로드 예제][multipart-link]
 
@@ -88,7 +90,7 @@ DTO 클래스 안에 MultipartFile 객체를 1개 담아서 전달하는 예제 
 ```vue
 <template>
     <div>
-        <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
+        <h3>파일 업로드 결과: { { this.response === '' ? 'waiting' : this.response } }</h3>
         <div>
             <button @click="uploadFileInDto()">Multipart in DTO Upload</button>
             <button @click="uploadFileListInDto()">Images List in DTO Upload</button>
@@ -228,7 +230,7 @@ DTO 클래스 안에 N개의 파일을 리스트(List)로 담아서 전달하는
 ```vue
 <template>
     <div>
-        <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
+        <h3>파일 업로드 결과: { { this.response === '' ? 'waiting' : this.response } }</h3>
         <div>
             <button @click="uploadFileInDto()">Multipart in DTO Upload</button>
             <button @click="uploadFileListInDto()">Images List in DTO Upload</button>
@@ -388,7 +390,7 @@ DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니�
 ```vue
 <template>
     <div>
-        <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
+        <h3>파일 업로드 결과: { { this.response === '' ? 'waiting' : this.response } }</h3>
         <div>
             <button @click="uploadFileInDto()">Multipart in DTO Upload</button>
             <button @click="uploadFileListInDto()">Images List in DTO Upload</button>
@@ -541,7 +543,7 @@ DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니�
 ```vue
 <template>
     <div>
-        <h3>파일 업로드 결과: {{this.response === '' ? 'waiting' : this.response}}</h3>
+        <h3>파일 업로드 결과: { { this.response === '' ? 'waiting' : this.response } }</h3>
         <div>
             <button @click="uploadFileInDto()">Multipart in DTO Upload</button>
             <button @click="uploadFileListInDto()">Images List in DTO Upload</button>

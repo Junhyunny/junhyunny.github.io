@@ -80,12 +80,13 @@ Ready for changes
 GET /favicon.ico 404 2.051 ms - 150
 ```
 
-##### PC 환경 / 모바일 환경 브라우저
+##### PC 환경 브라우저
 
-<p align="center">
-    <img src="/images/mobile-device-detect-1.JPG">
-    <img src="/images/mobile-device-detect-2.JPG" width="25%">
-</p>
+<p align="left"><img src="/images/mobile-device-detect-1.JPG"></p>
+
+##### 모바일 환경 브라우저
+
+<p align="left"><img src="/images/mobile-device-detect-2.JPG" width="25%"></p>
 
 ## 2. 백 엔드에서 사용자 디바이스 식별 (Spring Boot)
 
@@ -364,12 +365,13 @@ public class MobileController {
 
 ### 2.6. 테스트 수행
 
-#### 2.6.1. PC 환경 / 모바일 환경 접근
+##### PC 환경 접근
 
-<p align="center">
-    <img src="/images/mobile-device-detect-3.gif">
-    <img src="/images/mobile-device-detect-4.gif">
-</p>
+<p align="center"><img src="/images/mobile-device-detect-3.gif"></p>
+
+##### 모바일 환경 접근
+
+<p align="center"><img src="/images/mobile-device-detect-4.gif"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-16-mobile-device-detect>

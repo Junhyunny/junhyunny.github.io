@@ -86,7 +86,7 @@ GET /favicon.ico 404 2.051 ms - 150
 
 ##### 모바일 환경 브라우저
 
-<p align="center"><img src="/images/mobile-device-detect-2.JPG"></p>
+<p align="center"><img src="/images/mobile-device-detect-2.JPG" width="25%"></p>
 
 ## 2. 백 엔드에서 사용자 디바이스 식별 (Spring Boot)
 

@@ -10,6 +10,7 @@ last_modified_at: 2021-08-21T23:50:00
 <br>
 
 ⚠️ 해당 포스트는 2021년 7월 7일에 재작성되었습니다.(spring-security dependency로 인한 설명 오류)
+⚠️ Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(github blog theme 예약어로 인한 표기 에러)
 
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [CORS(Cross Origin Resource Sharing)][cors-link] 
@@ -50,7 +51,7 @@ Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레
         <div>
             <button @click="request1()">http://localhost:8081/api/cors/health</button>
             <button @click="request2()">http://localhost:8081/api/cors/health-cors-annotaion</button>
-            <div>{{this.response}}</div>
+            <div>{ { this.response } }</div>
         </div>
     </div>
 </template>

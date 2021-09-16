@@ -109,7 +109,7 @@ public class WebSocketComponent extends TextWebSocketHandler {
 ### 2.3. CustomWebsocketConfiguration 클래스
 - @EnableWebSocket 애너테이션을 추가합니다.
 - WebSocketConfigurer 인터페이스를 구현합니다.
-- WebSocket Connection 관리를 위해 생성한 WebSocketComponent 빈(Bean)을 주입받습니다.
+- WebSocket Connection 관리를 위해 생성한 WebSocketComponent 빈(bean)을 주입받습니다.
 - registerWebSocketHandlers 메소드 - WebSocket 기능을 위해 필요한 정보들을 지정합니다.
     - `/chat` 경로의 WebSocket 연결 정보는 WebSocketComponent 객체로 지정합니다.
     - CORS 문제 해결을 위해 setAllowedOrigins() 메소드를 사용합니다. 테스트이므로 모든 CORS 정보를 허용합니다.

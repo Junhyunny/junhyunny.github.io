@@ -75,10 +75,10 @@ feign:
 ```
 
 ### 2.3. 문제 발생 지점 확인 내용
-**`feign.circuitbreaker.enabled=true`** 설정 사용 시에는 circuitBreakerFeignTargeter 라는 빈(Bean)을 만듭니다. 
-빈(Bean) 내부에서 fallbackFactory를 만들때 org.springframework.cloud.openfeign.FallbackFactory 클래스를 상속받는 클래스만 사용이 가능하도록 되어있습니다. 
+**`feign.circuitbreaker.enabled=true`** 설정 사용 시에는 circuitBreakerFeignTargeter 라는 빈(bean)을 만듭니다. 
+빈(bean) 내부에서 fallbackFactory를 만들때 org.springframework.cloud.openfeign.FallbackFactory 클래스를 상속받는 클래스만 사용이 가능하도록 되어있습니다. 
 
-##### circuitBreakerFeignTargeter 빈(Bean) 생성
+##### circuitBreakerFeignTargeter 빈(bean) 생성
 
 <p align="left"><img src="/images/incompatible-fallback-factory-instance-2.JPG" width="50%"></p>
 

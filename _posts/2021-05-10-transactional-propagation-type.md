@@ -35,14 +35,14 @@ Spring 프레임워크는 AOP 기능과 애너테이션을 이용하여 개발�
 <p align="center"><img src="/images/transactional-propagation-type-2.jpg" width="100%"></p>
 
 ### 1.1. @Transactional 애너테이션 사용 시 주의사항
-주의사항으로 AOP 기능은 Spring 프레임워크에서 관리하는 빈(Bean)에게만 적용할 수 있습니다. 
+주의사항으로 AOP 기능은 Spring 프레임워크에서 관리하는 빈(bean)에게만 적용할 수 있습니다. 
 new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너테이션이 붙어 있더라도 정상적으로 동작하지 않습니다. 
 가능한 방법이 있는 듯 하지만 이번 포스트에서는 다루지 않겠습니다. 
 
-##### 빈(Bean)이 아닌 객체 @Transactional 애너테이션 적용 시 
+##### 빈(bean)이 아닌 객체 @Transactional 애너테이션 적용 시 
 <p align="center"><img src="/images/transactional-propagation-type-3.jpg" width="70%"></p>
 
-##### 빈(Bean)이 아닌 객체 @Transactional 애너테이션 적용 메소드 호출 시 Call Stack
+##### 빈(bean)이 아닌 객체 @Transactional 애너테이션 적용 메소드 호출 시 Call Stack
 - 디버그를 통해 확인
 <p align="center"><img src="/images/transactional-propagation-type-4.jpg" width="100%"></p>
 

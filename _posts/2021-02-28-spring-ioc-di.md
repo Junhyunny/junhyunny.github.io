@@ -76,7 +76,7 @@ class A {
 
 그렇다면 Spring 프레임워크에서는 프로그래머가 작성한 코드를 어떻게 프레임워크에게 전달할 수 있을까요? 
 1. 프레임워크에서 제공하는 특정 인터페이스, 추상 클래스를 구현한다.
-1. 개발자가 작성한 클래스가 필요한 곳에서 주입받아 사용될 수 있도록 IoC 컨테이너에 빈(Bean)으로 등록한다.
+1. 개발자가 작성한 클래스가 필요한 곳에서 주입받아 사용될 수 있도록 IoC 컨테이너에 빈(bean)으로 등록한다.
 
 ### 4.1. Sprigng IoC Container
 IoC 컨테이너는 Spring 프레임워크에서 사용하는 객체입니다. 
@@ -86,7 +86,7 @@ IoC 라는 용어는 매우 느슨하기 정의되어 폭 넓게 사용되기 �
 Spring 프레임워크에서 사용하는 IoC 컨테이너는 다음과 같습니다. 
 - BeanFactory
   - Spring 프레임워크의 핵심 IoC Container
-  - 빈(Bean) 객체를 생성, 등록, 조회, 반환하는 등의 관리를 수행합니다.
+  - 빈(bean) 객체를 생성, 등록, 조회, 반환하는 등의 관리를 수행합니다.
   - 의존성 주입과 관련된 기능을 수행합니다.
 
 - ApplicationContext
@@ -105,14 +105,14 @@ IoC 컨테이너인 두 객체의 차이점을 확인하기 위해 간단히 디
 
 <p align="left"><img src="/images/spring-ioc-di-3.JPG" width="450"></p>
 
-### 4.2. IoC 컨테이너에 빈(Bean) 등록하기
-IoC 컨테이너에 대해 알아봤으니 이번엔 빈(Bean)에 대해 알아보도록 하겠습니다. 
-**IoC 컨테이너가 관리하는 객체를 빈(Bean) 이라고 합니다.** 
-개발자가 작성한 클래스가 빈(Bean)으로 등록되면 IoC 컨테이너에 의해 관리되고 필요한 곳에서 사용되어집니다. 
+### 4.2. IoC 컨테이너에 빈(bean) 등록하기
+IoC 컨테이너에 대해 알아봤으니 이번엔 빈(bean)에 대해 알아보도록 하겠습니다. 
+**IoC 컨테이너가 관리하는 객체를 빈(bean) 이라고 합니다.** 
+개발자가 작성한 클래스가 빈(bean)으로 등록되면 IoC 컨테이너에 의해 관리되고 필요한 곳에서 사용되어집니다. 
 
-개발자가 작성한 클래스를 빈(Bean)으로 등록하는 방법은 다음과 같습니다. (Spring Boot 기준)
+개발자가 작성한 클래스를 빈(bean)으로 등록하는 방법은 다음과 같습니다. (Spring Boot 기준)
 - @Component, @Repository, @Service, @Controller, @Configuration 애너테이션 사용
-  - 클래스에 @Component 애너테이션이 붙은 경우 빈(Bean)으로 등록됩니다.
+  - 클래스에 @Component 애너테이션이 붙은 경우 빈(bean)으로 등록됩니다.
   - @Repository, @service, @Controller는 역할 구분을 위해 @Component를 재정의한 것입니다.
   - @Repository, @Service, @Controller, @Configuration 애너테이션들 상단에는 @Component 애너테이션이 붙어있습니다.
 
@@ -154,7 +154,7 @@ public @interface Repository {
 #### 4.2.2. @Configruation, @Bean 애너테이션 사용 예제 코드
 - @Configruation, @Bean 애너테이션 사용
   - @Configuration 애너테이션이 붙은 클래스 내부에 @Bean 애너테이션을 붙힌 메소드들을 선언해줍니다.
-  - 메소드에서 반환하는 객체가 메소드의 이름을 가진 빈(Bean)으로 등록됩니다.
+  - 메소드에서 반환하는 객체가 메소드의 이름을 가진 빈(bean)으로 등록됩니다.
 
 ```java
 package blog.in.action.config;
@@ -190,7 +190,7 @@ public class Config {
 ```
 
 ### 4.3. IoC 컨테이너로부터 의존성 주입받기
-IoC 컨테이너에 빈(Bean)으로 등록된 객체들을 의존성 주입을 통해 전달받는 방법에 대해 알아보도록 하겠습니다. 
+IoC 컨테이너에 빈(bean)으로 등록된 객체들을 의존성 주입을 통해 전달받는 방법에 대해 알아보도록 하겠습니다. 
 Spring Boot 프레임워크를 기준으로 작성하였습니다. 
 
 #### 4.3.1. Setter Injection

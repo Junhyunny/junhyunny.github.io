@@ -333,7 +333,7 @@ public class HandlerExecutionChain {
 해당 포스트는 2021년 01월 30일에 작성되었으며 2021년 07월 07일에 재작성되었습니다.
 
 ##### 2021-07-07 POST 내용 변경
-- CorsConfigurationSource 빈(Bean) 사용 코드 제거
+- CorsConfigurationSource 빈(bean) 사용 코드 제거
 - spring-security 종속성(dependency) 제거
 
 #### TEST CODE REPOSITORY

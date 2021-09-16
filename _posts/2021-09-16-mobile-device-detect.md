@@ -82,7 +82,7 @@ GET /favicon.ico 404 2.051 ms - 150
 
 ##### PC 환경 브라우저
 
-<p align="left"><img src="/images/mobile-device-detect-1.JPG"></p>
+<p align="left"><img src="/images/mobile-device-detect-1.JPG" width="50%"></p>
 
 ##### 모바일 환경 브라우저
 
@@ -367,11 +367,11 @@ public class MobileController {
 
 ##### PC 환경 접근
 
-<p align="center"><img src="/images/mobile-device-detect-3.gif"></p>
+<p align="left"><img src="/images/mobile-device-detect-3.gif"></p>
 
 ##### 모바일 환경 접근
 
-<p align="center"><img src="/images/mobile-device-detect-4.gif"></p>
+<p align="left"><img src="/images/mobile-device-detect-4.gif"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-16-mobile-device-detect>

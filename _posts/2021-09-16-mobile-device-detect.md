@@ -11,6 +11,7 @@ last_modified_at: 2021-09-16T23:55:00
 
 👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-link]
+- [간편 웹 서버 구축하기 (feat. live-server)][live-server-link]
 
 ## 0. 들어가면서
 
@@ -41,20 +42,43 @@ last_modified_at: 2021-09-16T23:55:00
 이번 프로젝트의 성격 상 모바일(혹은 태블릿)과 PC 환경에서 제공하는 서비스는 전혀 다르기 때문에 서버 측에서 수행하기로 결정하였습니다. 
 이제 구현 방법을 알아보겠습니다. 
 
-## 1. 프론트 엔드에서 사용자 디바이스 식별 (Using Javascript)
+## 1. 프론트 엔드에서 사용자 디바이스 식별 (Javascript)
 
 서버 측에서 디바이스 식별을 수행할 예정이지만 포스트를 정리하는 김에 함께 정리하였습니다. 
 정규식과 `navigator.userAgent` 정보를 이용하여 모바일 여부를 판단하는 코드입니다. 
 
 ### 1.1. 예제 코드
+- 브라우저로 접속한 사용자 디바이스에 따라 `root` ID를 가지는 div 태그에 true, false 값이 지정됩니다. 
 
-```javascript
-function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+    </script>
+</head>
+<body>
+    <div id="root"></div>
+    <script>
+        document.getElementById("root").innerHTML = isMobile();
+    </script>
+</body>
+</html>
 ```
 
 ### 1.2. 테스트 수행
+
+##### live-server 실행
+
+```
+$ live-server
+Serving "D:\workspace\blog\blog-in-action\2021-09-16-mobile-device-detect\javascript" at http://127.0.0.1:8080
+Ready for changes
+GET /favicon.ico 404 2.051 ms - 150
+```
 
 ##### PC 환경 브라우저
 
@@ -64,12 +88,33 @@ function isMobile() {
 
 <p align="center"><img src="/images/mobile-device-detect-2.JPG"></p>
 
-## 2. 백 엔드에서 사용자 디바이스 식별 (Using Spring Boot)
+## 2. 백 엔드에서 사용자 디바이스 식별 (Spring Boot)
 
 대부분의 사람들이 포스팅한 예제 코드를 보면 `spring-mobile-device` 의존성을 사용하기는 했지만, 
 단순하게 컨트롤러(controller) 영역에서 디바이스를 판단하는 단순한 코드만 제공하고 있었습니다. 
-이는 벌써 비즈니스 로직 시작 위치까지 진입을 했다고 보여지기 때문에 이런 방식을 사용하고 싶진 않았습니다. 
 
+##### 컨트롤러 디바이스 식별 예시
+
+```java
+@Controller
+public class HomeController {
+
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+    @RequestMapping("/")
+    public void home(Device device) {
+        if (device.isMobile()) {
+            logger.info("Hello mobile user!");
+        } else if (device.isTablet()) {
+            logger.info("Hello tablet user!");
+        } else {
+            logger.info("Hello desktop user!");         
+        }
+    }
+}
+```
+
+제 생각에 위 방법은 이미 비즈니스 로직 시작 위치까지 진입을 했다고 보여지기 때문에 이런 방식을 사용하고 싶진 않았습니다. 
 저는 필터 혹은 인터셉터를 사용한 경로 라우팅을 수행하고 싶었습니다. 
 관련된 내용을 찾다보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 사용법이 나와 있었습니다. 
 역시 공식 API 문서가 최고입니다.  
@@ -322,9 +367,14 @@ public class MobileController {
 
 #### 2.6.1. PC 환경 접근
 
+<p align="center"><img src="/images/mobile-device-detect-3.gif"></p>
 
 #### 2.6.2. 모바일 환경 접근
 
+<p align="center"><img src="/images/mobile-device-detect-4.gif"></p>
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-16-mobile-device-detect>
 
 #### REFERENCE
 - <https://docs.spring.io/spring-mobile/docs/current/reference/html/device.html>
@@ -332,4 +382,5 @@ public class MobileController {
 - <https://stackoverflow.com/questions/13093629/is-it-better-faster-to-detect-mobile-browser-on-server-side-php-or-client-side>
 
 [filter-interceptor-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/
+[live-server-link]: https://junhyunny.github.io/information/live-server/
 [spring-doc-link]: https://docs.spring.io/spring-mobile/docs/current/reference/html/device.html

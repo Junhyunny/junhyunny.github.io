@@ -15,13 +15,13 @@ last_modified_at: 2021-09-16T23:55:00
 
 ## 0. 들어가면서
 
-현재 리뉴얼 중인 시스템의 모바일 기능을 추가하는데, 사용자의 디바이스 식별을 어디에서 수행할지 고민이 되었습니다. 
+현재 리뉴얼 중인 시스템의 모바일 기능을 추가하는데 사용자의 디바이스 식별을 어디에서 수행할지 고민되었습니다. 
 
 - 브라우저에서 판단하여 경로를 다르게 호출한다.
 - 브라우저는 일단 호출하고 서버의 필터(filter) 혹은 인터셉터(interceptor)에서 경로를 라우팅(routing)해준다.
 
 아무래도 서버에서 사용자 디바이스를 식별하고 적절한 서비스를 제공하는 것이 좋은 모양새이지만, 표준으로 사용되는 방법이 있을 것 같다는 생각이 들었습니다. 
-저와 같은 고민을 가진 사람이 있었는지 찾아보았으며, `StackOverflow`에서 찾을 수 있었습니다. 
+저와 같은 고민을 한 사람을 `StackOverflow`에서 찾을 수 있었습니다. 
 
 > StackOverflow<br>
 > Is it better/faster to detect mobile browser on server side (PHP) or client side (Javascript)?
@@ -38,13 +38,13 @@ last_modified_at: 2021-09-16T23:55:00
 > - If you want to present the same general experience, but need to account for browser compatibility issues, do it at the client.
 
 모바일, 태블릿, PC 환경에 따라 다른 경험을 제공해주고 싶다면 서버 측에서 수행하고, 
-일반적으로 같은 경험을 제공해주고 싶지만 브라우저 호환성 문제를 고려해야하는 경우는 클라이언트 측에서 수행하는 것이 좋다고 합니다. 
-이번 프로젝트의 성격 상 모바일(혹은 태블릿)과 PC 환경에서 제공하는 서비스는 전혀 다르기 때문에 서버 측에서 수행하기로 결정하였습니다. 
+일반적으로 같은 경험을 제공해주고 싶지만, 브라우저 호환성 문제를 고려해야 하는 경우는 클라이언트 측에서 수행하는 것이 좋다고 합니다. 
+이번 프로젝트에서 추가되는 모바일(혹은 태블릿) 서비스는 PC 환경에서 제공하는 서비스와 전혀 다르기 때문에 서버 측에서 수행하기로 하였습니다. 
 이제 구현 방법을 알아보겠습니다. 
 
 ## 1. 프론트 엔드에서 사용자 디바이스 식별 (Javascript)
 
-서버 측에서 디바이스 식별을 수행할 예정이지만 포스트를 정리하는 김에 함께 정리하였습니다. 
+서버 측에서 디바이스 식별을 수행할 예정이지만 포스트를 작성하는 김에 함께 정리하였습니다. 
 정규식과 `navigator.userAgent` 정보를 이용하여 모바일 여부를 판단하는 코드입니다. 
 
 ### 1.1. 예제 코드
@@ -91,7 +91,7 @@ GET /favicon.ico 404 2.051 ms - 150
 ## 2. 백 엔드에서 사용자 디바이스 식별 (Spring Boot)
 
 대부분의 사람들이 포스팅한 예제 코드를 보면 `spring-mobile-device` 의존성을 사용하기는 했지만, 
-단순하게 컨트롤러(controller) 영역에서 디바이스를 판단하는 단순한 코드만 제공하고 있었습니다. 
+컨트롤러(controller) 영역에서 디바이스를 판단하는 단순한 코드만 제공하고 있었습니다. 
 
 ##### 컨트롤러 디바이스 식별 예시
 
@@ -114,11 +114,11 @@ public class HomeController {
 }
 ```
 
-제 생각에 위 방법은 이미 비즈니스 로직 시작 위치까지 진입을 했다고 보여지기 때문에 이런 방식을 사용하고 싶진 않았습니다. 
+위 방법은 이미 비즈니스 로직 시작 위치까지 진입했다고 보이기 때문에 이런 방식을 사용하고 싶진 않았습니다. 
 저는 필터 혹은 인터셉터를 사용한 경로 라우팅을 수행하고 싶었습니다. 
-관련된 내용을 찾다보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 사용법이 나와 있었습니다. 
-역시 공식 API 문서가 최고입니다.  
-이번 리뉴얼 프로젝트가 JSP를 사용하는 중이었는데, 운이 좋게도 설명의 예제 코드로 JSP를 사용하여 안성맞춤이었습니다. 
+관련된 내용을 찾다보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 방법이 나와 있었습니다. 
+
+이번 리뉴얼 프로젝트가 JSP를 사용하는 중이었는데, 운 좋게 API 문서 설명에서 사용한 코드도 JSP로 제공해주고 있었습니다. 
 간단한 예제 코드를 통해 잘 동작하는지 확인해보겠습니다. 
 
 ### 2.1. 패키지 구성
@@ -271,9 +271,9 @@ spring:
 
 - `LiteDeviceDelegatingViewResolver` 빈(bean) 생성
     - 디바이스 별로 사용되는 페이지에 대한 자원 경로를 지정합니다.
-    - 모바일은 mobile 폴더 안에 위치한 JSP 자원을 사용합니다.
-    - 태블릿은 mobile 폴더 안에 위치한 JSP 자원을 사용합니다.
-    - 일반은 pc 폴더 안에 위치한 JSP 자원을 사용합니다.
+    - 모바일은 `/mobile` 폴더 안에 위치한 JSP 자원을 사용합니다.
+    - 태블릿은 `/mobile` 폴더 안에 위치한 JSP 자원을 사용합니다.
+    - 일반은 `/pc` 폴더 안에 위치한 JSP 자원을 사용합니다.
 
 ```java
 package blog.in.action.config;
@@ -363,7 +363,45 @@ public class MobileController {
 }
 ```
 
-### 2.6. 테스트 수행
+### 2.6. JSP 파일
+
+#### 2.6.1. /pc 경로 index.jsp 파일
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+<body>
+</head>
+
+<div>
+    <h1>PC 메인 화면</h1>
+</div>
+
+</body>
+</html>
+```
+
+#### 2.6.2. /mobile 경로 index.jsp 파일
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Title</title>
+<body>
+</head>
+
+<div>
+    <h1>모바일/태블릿 메인 화면</h1>
+</div>
+
+</body>
+</html>
+```
+
+### 2.7. 테스트 수행
 
 ##### PC 환경 접근
 

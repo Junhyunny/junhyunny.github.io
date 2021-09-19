@@ -1,16 +1,98 @@
 ---
-title: "Tomcat Session 획득과 관리"
+title: "Tomcat Session 획득과 만료"
 search: false
 category:
   - information
   - server
-last_modified_at: 2021-09-18T23:55:00
+last_modified_at: 2021-09-19T23:55:00
 ---
 
 <br>
 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [쿠키(Cookie)와 세션(Session)][cookie-session-link]
+- [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-aop-link]
+
 ## 0. 들어가면서
 
-## 1. 
+이번 시스템 리뉴얼 중인 프로젝트의 코드를 보면 많은 사용자 정보가 세션에 담겨 사용되고 있었습니다. 
+특히 로그인 성공시 많은 데이터가 세션에 추가되는데, 모바일 로그인 기능 추가를 위해 세션 동작을 정확히 이해할 필요가 있을 것 같아서 정리해보았습니다. 
+`Tomcat` 서버와 `JSP` 기술 스택을 기준으로 분석하였습니다. 
+해당 기술 스택을 사용할 때 동작하는 방법에 대해서 정리한 것이므로 글을 읽어보시는 분들은 주의하시길 바랍니다.
+
+## 1. 세션(Session) 획득
+
+### 1.1. 세션 생성 및 쿠키(Cookie) 세팅
+처음 서버에 접근하는 시점엔 쿠키에 정보가 존재하지 않습니다. 
+쿠키 정보는 응답 헤더를 통해 서버로부터 전달받습니다. 
+서버로부터 한번 응답을 받은 시점에 쿠키가 생성되며, 이후부터는 브라우저가 쿠키 정보를 스스로 요청 헤더(request header)에 추가하여 데이터를 요청합니다. 
+
+##### 첫 요청 정보와 그 이후 요청 정보의 차이점
+
+<p align="center"><img src="/images/tomcat-session-management-1.JPG" width="80%"></p>
+
+### 1.1. 세션 생성과 쿠키 생성 시점
+처음 요청 시에는 없었던 쿠키 정보가 어느 시점에 생성되는지 코드를 살펴보았습니다. 
+프로세스 순서를 크게 나눠보면 다음과 같습니다.
+1. 컨트롤러(controller)에서 응답 페이지 반환합니다.
+1. `DispatcherServlet`에서 전달받은 페이지를 `JstlViewer` 객체를 이용하여 렌더링(rendering)합니다. 
+1. 렌더링 수행 중 `JspServlet` 객체에 의해 PageContext 정보가 초기화되는 시점에 세션이 생성됩니다.
+1. 세션을 생성하고 세션ID 정보를 응답 헤더에 쿠키로 담아서 전달합니다.
+
+<p align="center"><img src="/images/tomcat-session-management-2.JPG" width="75%"></p>
+
+### 1.2. org.apache.catalina.connector.Request 클래스 doGetSession 메소드
+실제로 세션이 생성되고, 쿠키에 담기는 코드는 org.apache.catalina.connector 패키지에 Request 클래스에서 이루어집니다. 
+스프링 영역이 아닌 톰캣 영역에서 이런 행위가 일어납니다. 
+
+- 아파치(apache) 카탈리나(catalina) 패키지에 위치한 Request 클래스에서 생성됩니다. 
+- createSession 메소드에서 중복되지 않는 세션ID를 만들고 세션 객체를 만들어 반환합니다.
+- 세션이 생성되고 트랙킹 모드(tracking mode)에 쿠키가 포함된다면 세션 정보를 쿠키에 담고 응답 정보에 저장합니다.
+
+```java
+public class Request implements HttpServletRequest {
+
+    // ...
+
+    protected Session doGetSession(boolean create) {
+
+        // ...
+
+        // 세션 생성 및 세션ID 생성
+        session = manager.createSession(sessionId);
+
+        // Creating a new session cookie based on that session
+        if (session != null && trackModesIncludesCookie) {
+            Cookie cookie = ApplicationSessionCookieConfig.createSessionCookie(
+                    context, session.getIdInternal(), isSecure());
+
+            // 응답에 세션 정보가 담긴 쿠키 정보 추가
+            response.addSessionCookieInternal(cookie);
+        }
+    }
+}
+```
+
+### 1.2. 쿠키를 사용한 세션ID 획득
+
+### 1.3. 필터 영역에서 세션 획득
+
+### 1.4. 인터셉터 영역에서 세션 획득
+
+### 1.5. 어플리케이션 영역에서 세션 획득
+
+## 2. Session 만료
+획득하는 과정을 모두 살펴보았는데 
+
+### 2.1. 세션 만료 처리 위치
+
+### 2.1. Tomcat Server 세션 만료 설정
+
+### 2.2. Embedded Tomcat 세션 만료 설정
+
+## 3. Rest API 사용시 세션 미생성
 
 #### REFERENCE
+
+[cookie-session-link]: https://junhyunny.github.io/information/cookie-and-session/
+[filter-interceptor-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/

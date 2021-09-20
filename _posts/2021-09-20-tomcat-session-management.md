@@ -38,7 +38,7 @@ last_modified_at: 2021-09-20T23:55:00
 1. 렌더링 수행 중 `JspServlet` 객체에 의해 PageContext 정보가 초기화되는 시점에 세션이 생성됩니다.
 1. 세션을 생성하고 세션ID 정보를 응답 헤더에 쿠키로 담아서 전달합니다.
 
-<p align="center"><img src="/images/tomcat-session-management-2.JPG" width="60%"></p>
+<p align="center"><img src="/images/tomcat-session-management-2.JPG" width="55%"></p>
 <center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
 
 ### 1.3. 주요 클래스와 메소드
@@ -126,10 +126,113 @@ public class Response implements HttpServletResponse {
 1. URL에서 추출할 수 있다면 URL 요청 정보에서 세션ID를 획득합니다.
 1. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메소드를 통해 쿠키에서 세션ID를 추출합니다. 
 
-<p align="center"><img src="/images/tomcat-session-management-3.JPG" width="60%"></p>
+<p align="center"><img src="/images/tomcat-session-management-3.JPG" width="55%"></p>
 <center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
 
-### 2.2. 필터 영역에서 세션 획득
+### 2.2. 주요 클래스와 메소드
+
+#### 2.2.1. org.apache.catalina.connector.CoyoteAdapter 클래스 postParseRequest 메소드
+
+```java
+
+package org.apache.catalina.connector;
+
+public class CoyoteAdapter implements Adapter {
+    
+    // ...
+
+    protected boolean postParseRequest(org.apache.coyote.Request req, Request request, org.apache.coyote.Response res, Response response) throws IOException, ServletException {
+        
+        // ...
+
+        while (mapRequired) {
+
+            // ...
+
+            String sessionID;
+            if (request.getServletContext().getEffectiveSessionTrackingModes().contains(SessionTrackingMode.URL)) {
+                // Get the session ID if there was one
+                sessionID = request.getPathParameter(SessionConfig.getSessionUriParamName(request.getContext()));
+                if (sessionID != null) {
+                    request.setRequestedSessionId(sessionID);
+                    request.setRequestedSessionURL(true);
+                }
+            }
+
+            // Look for session ID in cookies and SSL session
+            try {
+                parseSessionCookiesId(request);
+            } catch (IllegalArgumentException e) {
+                // Too many cookies
+                if (!response.isError()) {
+                    response.setError();
+                    response.sendError(400);
+                }
+                return true;
+            }
+
+            parseSessionSslId(request);
+
+        // ...
+        
+        return true;
+    }
+}
+```
+
+
+#### 2.2.2. org.apache.catalina.connector.CoyoteAdapter 클래스 postParseRequest 메소드
+
+```java
+package org.apache.catalina.connector;
+
+public class CoyoteAdapter implements Adapter {
+
+    // ...
+
+    protected void parseSessionCookiesId(Request request) {
+        
+        // ...
+
+        Context context = request.getMappingData().context;
+        if (context != null && !context.getServletContext().getEffectiveSessionTrackingModes().contains(SessionTrackingMode.COOKIE)) {
+            return;
+        }
+
+        ServerCookies serverCookies = request.getServerCookies();
+        int count = serverCookies.getCookieCount();
+        if (count <= 0) {
+            return;
+        }
+
+        String sessionCookieName = SessionConfig.getSessionCookieName(context);
+        for (int i = 0; i < count; i++) {
+            ServerCookie scookie = serverCookies.getCookie(i);
+            if (scookie.getName().equals(sessionCookieName)) {
+                // Override anything requested in the URL
+                if (!request.isRequestedSessionIdFromCookie()) {
+                    // Accept only the first session id cookie
+                    convertMB(scookie.getValue());
+                    request.setRequestedSessionId(scookie.getValue().toString());
+                    request.setRequestedSessionCookie(true);
+                    request.setRequestedSessionURL(false);
+                    if (log.isDebugEnabled()) {
+                        log.debug(" Requested cookie session id is " + request.getRequestedSessionId());
+                    }
+                } else {
+                    if (!request.isRequestedSessionIdValid()) {
+                        // Replace the session id until one is valid
+                        convertMB(scookie.getValue());
+                        request.setRequestedSessionId(scookie.getValue().toString());
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### 2.3. 필터 영역에서 세션 획득
 - `ServletRequest` 객체로부터 세션을 획득할 수 있습니다.
 - 필터 클래스를 상속받는 경우 오버라이드 한 메소드의 파라미터는 `ServletRequest` 클래스이므로 `HttpServletRequest` 클래스로 형변환(casting)하여 사용합니다.
 - 필터에서 세션에 접근 성공한 횟수를 파악하기 위해 카운트하는 코드를 추가합니다.
@@ -167,7 +270,7 @@ public class BlogFilter implements Filter {
 }
 ```
 
-### 2.3. 인터셉터 영역에서 세션 획득
+### 2.4. 인터셉터 영역에서 세션 획득
 - `HttpServletRequest` 객체로부터 세션을 획득할 수 있습니다.
 - 인터셉터에서 세션에 접근 성공한 횟수를 파악하기 위해 카운트하는 코드를 추가합니다.
 
@@ -209,7 +312,7 @@ public class BlogHandlerInterceptor implements HandlerInterceptor {
 }
 ```
 
-### 2.4. 컨트롤러 영역에서 세션 획득
+### 2.5. 컨트롤러 영역에서 세션 획득
 - `ServletRequest` 객체로부터 세션을 획득할 수 있습니다.
 - 컨트롤러 클래스의 메소드에서 전달받는 파라미터는 `ServletRequest` 클래스이므로 `HttpServletRequest` 클래스로 형변환(casting)하여 사용합니다.
 - 컨트롤러에서 세션에 접근 성공한 횟수를 파악하기 위해 카운트하는 코드를 추가합니다.
@@ -246,7 +349,7 @@ public class PageController {
 }
 ```
 
-### 2.5. 세션 획득 테스트
+### 2.6. 세션 획득 테스트
 - 두 개의 브라우저를 이용하여 페이지를 요청합니다. (Chrome, Edge)
 - 화면을 새로고침(F5)하여 서버에게 페이지를 요청합니다. 
 - 각 화면 별로 기존 세션이 유지되므로 세션 접근 횟수가 증가됩니다. 

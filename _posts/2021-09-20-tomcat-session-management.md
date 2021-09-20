@@ -28,7 +28,7 @@ last_modified_at: 2021-09-20T23:55:00
 
 ##### 첫 요청 정보와 그 이후 요청 정보의 차이점
 
-<p align="center"><img src="/images/tomcat-session-management-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/tomcat-session-management-1.JPG" width="100%"></p>
 
 ### 1.2. 세션 생성과 쿠키 생성 시점
 처음 요청 시에는 없었던 쿠키 정보가 어느 시점에 생성되는지 코드를 살펴보았습니다. 
@@ -38,7 +38,8 @@ last_modified_at: 2021-09-20T23:55:00
 1. 렌더링 수행 중 `JspServlet` 객체에 의해 PageContext 정보가 초기화되는 시점에 세션이 생성됩니다.
 1. 세션을 생성하고 세션ID 정보를 응답 헤더에 쿠키로 담아서 전달합니다.
 
-<p align="center"><img src="/images/tomcat-session-management-2.JPG" width="75%"></p>
+<p align="center"><img src="/images/tomcat-session-management-2.JPG" width="60%"></p>
+<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
 
 ### 1.3. 주요 클래스와 메소드
 
@@ -125,7 +126,8 @@ public class Response implements HttpServletResponse {
 1. URL에서 추출할 수 있다면 URL 요청 정보에서 세션ID를 획득합니다.
 1. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메소드를 통해 쿠키에서 세션ID를 추출합니다. 
 
-<p align="center"><img src="/images/tomcat-session-management-3.JPG" width="75%"></p>
+<p align="center"><img src="/images/tomcat-session-management-3.JPG" width="60%"></p>
+<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
 
 ### 2.2. 필터 영역에서 세션 획득
 - `ServletRequest` 객체로부터 세션을 획득할 수 있습니다.

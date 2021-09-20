@@ -134,7 +134,6 @@ public class Response implements HttpServletResponse {
 #### 2.2.1. org.apache.catalina.connector.CoyoteAdapter 클래스 postParseRequest 메소드
 
 ```java
-
 package org.apache.catalina.connector;
 
 public class CoyoteAdapter implements Adapter {
@@ -451,7 +450,6 @@ public class StandardSession implements HttpSession, Session, Serializable {
   <!-- ==================== Default Session Configuration ================= -->
   <!-- You can set the default session timeout (in minutes) for all newly   -->
   <!-- created sessions by modifying the value below.                       -->
-
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>

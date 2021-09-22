@@ -23,7 +23,7 @@ last_modified_at: 2021-09-22T23:55:00
 - <https://www.google.com/intl/ko_kr/adsense/start/> 사이트로 이동합니다.
 - `시작하기` 버튼을 클릭합니다.
 
-<p align="center"><img src="/images/minimal-mistakes-adsense-1.JPG" width="100%"></p>
+<p align="center"><img src="/images/minimal-mistakes-adsense-1.JPG" width="80%"></p>
 
 ### 1.2. Google Adsense 가입 정보 입력
 - `웹사이트` 항목에 본인이 운영 중인 블로그 주소를 추가합니다.
@@ -33,7 +33,7 @@ last_modified_at: 2021-09-22T23:55:00
 - `저장하고 계속하기` 버튼을 누른 후 기타 부가적인 정보들을 입력합니다.
     - 저의 경우 이미 가입되어 있기 때문에 다른 화면으로 리다이렉트(redirect)됩니다.
 
-<p align="center"><img src="/images/minimal-mistakes-adsense-2.JPG" width="100%"></p>
+<p align="center"><img src="/images/minimal-mistakes-adsense-2.JPG" width="80%"></p>
 
 ## 2. HTML 헤드(head) 영역에 애드센스 코드 추가하기
 
@@ -41,7 +41,7 @@ last_modified_at: 2021-09-22T23:55:00
 - 가입에 성공하였다면 다음과 같은 화면을 볼 수 있습니다.
 - `애드센스 코드` 영역의 태그를 복사합니다.
 
-<p align="center"><img src="/images/minimal-mistakes-adsense-3.JPG" width="100%"></p>
+<p align="center"><img src="/images/minimal-mistakes-adsense-3.JPG" width="80%"></p>
 
 ### 2.2. /_includes/head/custom.html 파일에 애드센스 코드 붙여넣기
 - `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태크를 추가합니다.
@@ -62,7 +62,7 @@ last_modified_at: 2021-09-22T23:55:00
 - 실수로 `애드센스 코드`를 복사하지 않고 지나간 경우 이를 다시 찾아야 합니다.
 - `광고 > 개요 > 코드 가져오기` 링크를 누르면 다음 창이 뜨면서 다시 애드센스 코드를 확인할 수 있습니다.
 
-<p align="center"><img src="/images/minimal-mistakes-adsense-4.JPG" width="100%"></p>
+<p align="center"><img src="/images/minimal-mistakes-adsense-4.JPG" width="80%"></p>
 
 ### 2.4. 지속적인 승인 실패시 애드센스 코드 양식 변경
 저의 경우 블로그 포스트 양도 충분하고, 컨텐츠에도 문제가 없다고 생각했으나 지속적으로 탈락하였습니다. 
@@ -94,7 +94,7 @@ last_modified_at: 2021-09-22T23:55:00
 - 대기 중인 사이트는 `준비 중...` 이라고 표시됩니다.
 - 승인된 사이트는 `준비됨` 이라고 표시됩니다.
 
-<p align="center"><img src="/images/minimal-mistakes-adsense-5.JPG" width="100%"></p>
+<p align="center"><img src="/images/minimal-mistakes-adsense-5.JPG" width="80%"></p>
 
 #### REFERENCE
 - <https://shryu8902.github.io/jekyll/adsense/>

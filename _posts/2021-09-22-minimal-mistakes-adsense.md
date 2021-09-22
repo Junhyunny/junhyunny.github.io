@@ -8,6 +8,9 @@ last_modified_at: 2021-09-22T23:55:00
 
 <br>
 
+👉 아래 글은 해당 애드센스 승인 후 도움을 줍니다.
+- [Github 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)][adsense-position-setting-link]
+
 ## 0. 들어가면서
 올해 초 시작했던 이 블로그에 유입되는 사용자 수가 꽤 많이 증가했습니다. 
 공부하는 내용을 정리할 겸 시작한 블로그였는데 사용자 유입량이 늘어나니 광고를 통해 부가적인 수입도 얻어볼 생각이 문득 들었습니다. 
@@ -97,3 +100,5 @@ last_modified_at: 2021-09-22T23:55:00
 - <https://shryu8902.github.io/jekyll/adsense/>
 - <https://seungwubaek.github.io/blog/google_adsense/>
 - <https://theorydb.github.io/envops/2020/04/20/envops-blog-how-to-register-google-adsense/>
+
+[adsense-position-setting-link]: 

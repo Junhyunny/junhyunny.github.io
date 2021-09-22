@@ -8,6 +8,10 @@ last_modified_at: 2021-08-28T01:00:00
 
 <br>
 
+👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+- [Tomcat Session 획득과 만료][tomcat-session-link]
+
+## 0. 들어가면서
 웹 서버 개발에 기본적인 개념인 쿠키(Cookie)와 세션(Session)에 대해서 정리해보도록 하겠습니다. 
 쿠키와 세션에 대해 정리하기 전에 우선 HTTP(Hyper Text Transfer Protocol) 통신의 stateless 특징이 무엇인지 알아보겠습니다.
 
@@ -147,3 +151,4 @@ SI 대기업의 그늘에서 3년차 백엔드 개발자라는 경력을 얻었�
 [multi-servers-env-blogLink]: https://junshock5.tistory.com/84
 [stateless-service-blogLink]: https://5equal0.tistory.com/entry/StatefulStateless-Stateful-vs-Stateless-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%99%80-HTTP-%EB%B0%8F-REST
 [cookie-and-session-blogLink]: https://www.fun-coding.org/crawl_advance1.html#6.1.-%EC%BF%A0%ED%82%A4(cookie):-%EC%83%81%ED%83%9C-%EC%A0%95%EB%B3%B4%EB%A5%BC-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EC%8B%9D
+[tomcat-session-link]: https://junhyunny.github.io/information/server/tomcat-session-management/

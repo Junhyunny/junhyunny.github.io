@@ -43,6 +43,8 @@ last_modified_at: 2021-09-22T23:55:00
 ### 2.2. /_includes/head/custom.html 파일에 애드센스 코드 붙여넣기
 - `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태크를 추가합니다.
 
+##### /_includes/head/custom.html 파일
+
 ```html
 <!-- start custom head snippets -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234123412341234"
@@ -62,9 +64,12 @@ last_modified_at: 2021-09-22T23:55:00
 ### 2.4. 지속적인 승인 실패시 애드센스 코드 양식 변경
 저의 경우 블로그 포스트 양도 충분하고, 컨텐츠에도 문제가 없다고 생각했으나 지속적으로 탈락하였습니다. 
 두 가지를 변경하였더니 성공하였습니다. 
-- 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있었습니다.  
-- 해당 영역은 HTML 파일의 바디(body)이므로 구글 애드센스에서 요구하는 헤드(head) 영역이 아닙니다.
+
+- 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라하였습니다.
+- 하지만, 해당 영역은 HTML 파일의 바디(body)이므로 구글 애드센스에서 요구하는 헤드(head) 영역이 아닙니다.
 - 애드센스 코드 양식을 아래와 같이 변경하여 `/_includes/head/custom.html` 파일에 추가하였습니다.
+
+##### /_includes/head/custom.html 파일
 
 ```html
 <!-- start custom head snippets -->

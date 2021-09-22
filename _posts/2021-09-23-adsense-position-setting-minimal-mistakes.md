@@ -99,8 +99,6 @@ layout: default
 <!-- 글 메인 영역 -->
 <div id="main" role="main">
   
-  {% include sidebar.html %}
-  
   ...
 
 </div>

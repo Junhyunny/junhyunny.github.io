@@ -101,4 +101,4 @@ last_modified_at: 2021-09-22T23:55:00
 - <https://seungwubaek.github.io/blog/google_adsense/>
 - <https://theorydb.github.io/envops/2020/04/20/envops-blog-how-to-register-google-adsense/>
 
-[adsense-position-setting-link]: 
+[adsense-position-setting-link]: https://junhyunny.github.io/information/adsense-position-setting-minimal-mistakes/

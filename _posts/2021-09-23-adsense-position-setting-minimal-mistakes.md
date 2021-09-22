@@ -37,7 +37,7 @@ last_modified_at: 2021-09-22T23:55:00
      - 콘텐츠 내 자동 삽입 광고
      - 검색 엔진
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-1.JPG" width="100%"></p>
+<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-1.JPG" width="80%"></p>
 
 ### 1.2. 광고 이름 지정
 
@@ -45,21 +45,21 @@ last_modified_at: 2021-09-22T23:55:00
 1. 사각형, 수평형, 수직형인지 종류를 선택합니다.
 1. 이름을 작성 후 `만들기` 버튼을 누릅니다. 
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-2.JPG" width="100%"></p>
+<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-2.JPG" width="80%"></p>
 
 ### 1.3. 광고 코드 확인
 
 1. 애드센스 연결시와 동일하게 광고 코드를 부여받습니다.
 1. 부여받은 광고 코드를 포스트 적절한 위치에 삽입합니다.
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-3.JPG" width="100%"></p>
+<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-3.JPG" width="80%"></p>
 
 ### 1.4. 광고 코드 재확인
 - 부여받은 코드를 복사하지 않고 `완료` 버튼을 누르는 경우 광고 코드를 재확인할 수 있습니다.
 - `광고 > 개요 > 광고 단위 기준` 화면에 `기존 광고 단위` 테이블에서 생성한 광고를 확인할 수 있습니다.
 - 생성한 광고 오른쪽에 `<>` 모양의 `코드 가져오기` 버튼을 클릭합니다. 
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-4.JPG" width="100%"></p>
+<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-4.JPG" width="80%"></p>
 
 ## 2. 광고 위치 잡기
 `minimal-mistakes` 테마를 기준으로 포스트를 작성하였으며, 같은 테마를 사용하시는 분들만 참조하시면 됩니다. 
@@ -120,6 +120,6 @@ layout: default
 
 ##### 실제 애드센스 광고 삽입 결과
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-5.gif" width="100%"></p>
+<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-5.gif" width="80%"></p>
 
 [adsense-minimal-mistakes-link]: https://junhyunny.github.io/information/minimal-mistakes-adsense/

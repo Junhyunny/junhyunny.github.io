@@ -8,11 +8,8 @@ last_modified_at: 2021-09-04T03:00:00
 
 <br>
 
-👉 [WebSocket 구현][websocket-implement-link] 포스트에 간단한 구현 코드가 있습니다.
-
-WebSocket 적용 검토를 위해 관련된 내용을 먼저 찾아보고 공부해보았습니다. 
-스스로 기술에 대한 이해가 있어야 대화가 시작될 수 있겠죠?😌 
-알아본 내용들을 정리해보겠습니다. 
+👉 이어서 읽기를 추천합니다.
+- [WebSocket 구현][websocket-implement-link]
 
 ## 1. WebSocket
 

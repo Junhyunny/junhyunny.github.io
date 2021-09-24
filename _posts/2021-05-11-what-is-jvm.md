@@ -4,17 +4,22 @@ search: false
 category:
   - information
   - java
-last_modified_at: 2021-08-29T02:00:00
+last_modified_at: 2021-09-24T16:00:00
 ---
 
 <br>
+
+👉 이어서 읽기를 추천합니다.
+- [JVM - 실행 엔진(Execution Engine)][jvm-execution-engine-link]
+
+## 0. 들어가면서
 
 > JVM 메모리 구조에 대해서 설명해주세요.<br>
 > JVM GC 동작 방법에 대해서 설명해주세요.<br>
 > JVM GC 옵션에 대해서 설명해주세요
 
 Java 언어를 사용하면 면접에서 필연적으로 마주치는 질문입니다. 
-제발 질문을 멈춰주세요.😭 
+제발 질문을 멈춰주세요. 
 오늘도 면접 마지막에 질문을 받았는데 JVM 메모리 중 Method Area가 생각이 나지 않아 대답을 못 했습니다. 
 
 <p align="center"><img src="/images/what-is-jvm-1.jpg" width="65%"></p>
@@ -127,14 +132,10 @@ JAVA 개발자는 **`'STOP-THE-WORLD'`** 시간을 줄이기 위해 가비지 �
 - Shenandoah Garbage Collector(JDK12)
 
 ## CLOSING
-이번 포스트에서는 JVM을 구성하고 있는 것들이 무엇인지 간단하게 정리해보았습니다. 
+JVM을 구성하고 있는 것들이 무엇인지 간단하게 정리해보았습니다. 
 JVM 관련된 내용들이 너무 방대하기에 관련된 글들을 읽다보면 끝이 나질 않습니다. 
 관련된 글들을 읽다보니 벌써 새벽 5시가 다 되었습니다. 
 제가 이해할 수 있는 수준의 내용들로만 얇고 넓게 정리하고 저의 것으로 만들어나가야겠습니다. 
-다음 포스트들을 통해 각 컴포넌트 별로 더 자세히 알아보는 시간을 가져볼 예정입니다. 
-
-👉 추가적인 내용을 정리했어요.
-- [JVM - 실행 엔진(Execution Engine)][jvm-execution-engine-link]
 
 #### REFERENCE
 - [JVM 이란?][jvm-blog-link]

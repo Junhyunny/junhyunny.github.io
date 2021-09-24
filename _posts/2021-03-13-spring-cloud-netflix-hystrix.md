@@ -13,7 +13,7 @@ last_modified_at: 2021-08-24T01:00:00
 
 ⚠️ 해당 포스트는 2021년 8월 24일에 재작성되었습니다.(불필요 코드 제거)
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [MSA Circuit Breaker Pattern][circuitbreaker-link]
 
 ## 1. Netflix Hystrix

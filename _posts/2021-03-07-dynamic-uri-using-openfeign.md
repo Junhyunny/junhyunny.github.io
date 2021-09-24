@@ -10,7 +10,7 @@ last_modified_at: 2021-08-23T00:30:00
 
 <br>
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Cloud Openfeign][openfeign-link]
 
 `Eureka 서비스 구축 및 관련 API 요청 테스트`에 대한 글을 작성하기 전에 간단한 기능을 먼저 소개하려고 합니다. 

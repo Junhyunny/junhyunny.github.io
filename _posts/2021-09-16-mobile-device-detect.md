@@ -9,7 +9,7 @@ last_modified_at: 2021-09-16T23:55:00
 
 <br>
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-link]
 - [간편 웹 서버 구축하기 (feat. live-server)][live-server-link]
 

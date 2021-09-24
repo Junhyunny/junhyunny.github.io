@@ -9,7 +9,7 @@ last_modified_at: 2021-08-26T06:00:00
 
 <br>
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JVM, Java Virtual Machine][jvm-link]
 
 최근에 작성했던 포스트들을 다시 정리하는 중에 JVM(Java Virtual Machine)에 대한 넓고 얕은 지식이라는 주제로 작성한 포스트를 발견했습니다. 

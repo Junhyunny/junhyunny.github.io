@@ -3,10 +3,15 @@ title: "Java Wrapper 클래스"
 search: false
 category:
   - java
-last_modified_at: 2021-09-04T15:30:00
+last_modified_at: 2021-09-24T15:30:00
 ---
 
 <br>
+
+👉 이어서 읽기를 추천합니다.
+- [Wrapper 클래스 Auto Boxing 그리고 성능 이슈][auto-boxing-performance-link]
+
+## 0. 들어가면서
 
 > Java primitive type 변수가 존재하는데 wrapper 클래스가 생긴 이유가 무엇일까요?<br>
 
@@ -210,14 +215,6 @@ Boxing, Unboxing 기능이 자동으로 수행되면서 컴파일 에러는 나�
 - Java Generics 기능을 사용하려면 클래스를 명시해야 합니다.
 - 멀티 스레드 환경에서 동시성(concurrency)를 위한 코드 작성 시 동기화(synchronized) 기능은 객체만 지원됩니다. 
 
-## CLOSING
-예전 블로그에 작성한 포스트를 현재 운영 중인 블로그에 재작성하였습니다. 
-Wrapper 클래스는 무엇이고 왜 사용하는지 질문을 받았는데 시원하게 대답하지 못했던 것이 마음에 걸려 다시 정리하였습니다. 
-
-이번 글을 정리하면서 과도한 Auto Boxing 수행이 성능에 미치는 영향에 대한 내용을 읽어보았습니다. 
-직접 테스트해보고 싶은 마음이 들었습니다. 
-다음 포스트는 JVM 성능 모니터링 툴 사용 방법과 과도한 Auto Boxing 수행 시 발생하는 현상에 대한 내용으로 작성해야겠습니다.
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-30-java-wrapper-class>
 
@@ -227,3 +224,5 @@ Wrapper 클래스는 무엇이고 왜 사용하는지 질문을 받았는데 시
 - <https://junhyunny.blogspot.com/2019/03/wrapper-boxing-unboxing.html>
 - <https://www.theserverside.com/blog/Coffee-Talk-Java-News-Stories-and-Opinions/Performance-cost-of-Java-autoboxing-and-unboxing-of-primitive-types>
 - <https://jaehun2841.github.io/2019/03/01/effective-jave-item61/#%EA%B8%B0%EB%B3%B8-%ED%83%80%EC%9E%85-primitive-type>
+
+[auto-boxing-performance-link]: https://junhyunny.github.io/java/auto-boxing-performance-test/

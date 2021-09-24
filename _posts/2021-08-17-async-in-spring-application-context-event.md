@@ -8,7 +8,7 @@ last_modified_at: 2021-08-17T03:00:00
 
 <br>
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Application Context Event][spring-application-context-event-link]
 - [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
 

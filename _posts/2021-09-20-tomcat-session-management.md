@@ -9,7 +9,7 @@ last_modified_at: 2021-09-20T23:55:00
 
 <br>
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [쿠키(Cookie)와 세션(Session)][cookie-session-link]
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-aop-link]
 

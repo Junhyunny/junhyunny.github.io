@@ -8,7 +8,7 @@ last_modified_at: 2021-09-04T03:30:00
 
 <br>
 
-👉 아래 글은 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Java Wrapper 클래스][wrapper-class-link]
 
 성능 분석을 위해 사용한 모니터링 툴(tool)은 [VisualVM][visualvm-link]을 사용하였습니다. 

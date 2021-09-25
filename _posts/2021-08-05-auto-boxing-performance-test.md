@@ -11,6 +11,8 @@ last_modified_at: 2021-09-04T03:30:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Java Wrapper 클래스][wrapper-class-link]
 
+## 0. 들어가면서
+
 성능 분석을 위해 사용한 모니터링 툴(tool)은 [VisualVM][visualvm-link]을 사용하였습니다. 
 `VisualVM`에 `Visual GC` 플러그인(plugin)을 설치하여 가비지 컬렉션(Garvage Collection, GC)도 확인해보았습니다.
 

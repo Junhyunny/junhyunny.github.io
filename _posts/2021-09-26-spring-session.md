@@ -58,7 +58,7 @@ public class Config {
 
 ##### IntelliJ 'schema-h2.sql' 파일 검색
 
-<p align="center"><img src="/images/spring-session-2.JPG"></p>
+<p align="left"><img src="/images/spring-session-2.JPG"></p>
 
 ##### 테이블 스키마 정보 변경 - MySQL 데이터베이스
 H2 데이터베이스를 위한 스키마이므로, MySQL 데이터베이스에서 사용할 수 있도록 변경합니다.

@@ -396,7 +396,7 @@ public class PageController {
 
 ### 4.1. 브라우저 화면
 
-<p align="left"><img src="/images/spring-session-5.gif"></p>
+<p align="center"><img src="/images/spring-session-5.gif"></p>
 
 ### 4.2. 데이터베이스
 

@@ -233,9 +233,9 @@ SELECT * FROM SPRING_SESSION_ATTRIBUTES;
 ```
 
 ### 3.3. application.yml
-- spring.session.store-type=jdbc - jdbc 타입으로 세션 정보를 저장합니다.
-- spring.session.jdbc.initialize-schema=never - 스키마 정보 초기화는 하지 않습니다.
-- spring.session.jdbc.table-name=SPRING_SESSION - 세션 정보를 저장할 테이블 명을 지정합니다.
+- `spring.session.store-type=jdbc` - jdbc 타입으로 세션 정보를 저장합니다.
+- `spring.session.jdbc.initialize-schema=never` - 스키마 정보 초기화는 하지 않습니다.
+- `spring.session.jdbc.table-name=SPRING_SESSION` - 세션 정보를 저장할 테이블 명을 지정합니다.
 
 ```yml
 server:

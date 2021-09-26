@@ -134,12 +134,6 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 <p align="center"><img src="/images/cookie-and-session-6.JPG" width="80%"></p>
 <center>표 출처, https://hahahoho5915.tistory.com/32</center><br>
 
-## CLOSING
-SI 대기업의 그늘에서 3년차 백엔드 개발자라는 경력을 얻었지만 쿠키나 세션과 같은 웹 서버 개발자로서 알아야 하는 기본적인 개념도 부족한 상태입니다. 
-빛 좋은 개살구 같은 경력입니다.😥 
-기본적인 CS 지식이나 서버 개발자서 알아야하는 개념들을 정리해나가는 시간이 많이 필요할 것 같습니다. 
-다음 포스트로 쿠키나 세션 정보를 활용할 수 있는 간단한 테스트 코드를 작성해보도록 하겠습니다.
-
 #### REFERENCE
 - [[Stateful/Stateless] Stateful vs. Stateless 서비스와 HTTP 및 REST][stateless-service-blogLink]
 - [잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)][cookie-and-session-blogLink]

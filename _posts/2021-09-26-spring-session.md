@@ -16,7 +16,7 @@ last_modified_at: 2021-09-26T23:55:00
 ## 0. 들어가면서
 [Tomcat Session 획득과 만료][tomcat-session-link]를 주제로 글을 작성하면서 이전에 작성한 [쿠키(Cookie)와 세션(Session)][cookie-and-session-link] 포스트를 다시 읽어보았습니다. 
 다중 인스턴스인 경우 세션을 처리하는 방법에 대한 내용을 언급했었는데, 이를 쉽게 구현할 수 있게 도와주는 Spring 프레임워크의 기능을 발견했습니다. 
-`Spring Session`으로 `Redis(Cache Server)`, `JDBC(Database)` 등을 통해 세션 정보를 저장, 관리할 수 있는 기능을 제공합니다. 
+`Spring Session`이라는 이름의 이 기능은 `Redis(Cache Server)`, `JDBC(Database)` 등을 통해 세션 정보를 저장, 관리할 수 있는 서비스를 제공합니다. 
 주말에 공부할 겸 간단하게 `Spring Session JDBC`를 이용하여 구현해보았습니다. 
 
 ## 1. 테스트 시나리오

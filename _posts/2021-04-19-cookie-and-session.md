@@ -8,7 +8,7 @@ last_modified_at: 2021-08-28T01:00:00
 
 <br>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+👉 이어서 읽기를 추천합니다.
 - [Tomcat Session 획득과 만료][tomcat-session-link]
 
 ## 0. 들어가면서

@@ -22,8 +22,8 @@ last_modified_at: 2021-09-26T23:55:00
 ## 1. 테스트 시나리오
 가정하는 상황과 테스트 시나리오는 다음과 같습니다.
 - 브라우저를 통해 각기 다른 호스트(host)로 페이지를 요청합니다.
-    - http://localhost:8081
-    - http://localhost:8082
+    - http://localhost:8081 (a-service)
+    - http://localhost:8082 (b-service)
 - 동일 브라우저를 사용하여 요청하기 때문에 쿠키에 담긴 `JSESSIONID` 정보는 변경되지 않습니다.
 - 동일 `JSESSIONID`를 이용하여 요청하므로 서버에서 관리하는 세션(Session) 정보는 변경되지 않습니다.
 - 세션에 저장한 데이터를 페이지 표시하여, 두 인스턴스의 세션 데이터가 공유되는지 확인합니다.

@@ -56,6 +56,8 @@ public class Config {
 여기서 테이블을 만들 때 사용되는 스키마(schema)정보는 `schema-h2.sql` 파일에 존재하는 것 같습니다. 
 해당 파일은 `pom.xml` 파일에 `spring-session-jdbc` 의존성 주입 시 함께 다운받아지므로 `IntelliJ` 파일 검색에서 검색됩니다. 
 
+##### IntelliJ 'schema-h2.sql' 파일 검색
+
 <p align="center"><img src="/images/spring-session-2.JPG"></p>
 
 ##### 테이블 스키마 정보 변경 - MySQL 데이터베이스

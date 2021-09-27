@@ -28,7 +28,7 @@ last_modified_at: 2021-09-26T23:55:00
 - 동일 `JSESSIONID`를 이용하여 요청하므로 서버에서 관리하는 세션(Session) 정보는 변경되지 않습니다.
 - 세션에 저장한 데이터를 페이지 표시하여, 두 인스턴스의 세션 데이터가 공유되는지 확인합니다.
 
-<p align="center"><img src="/images/spring-session-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-session-1.JPG" width="95%"></p>
 
 ## 2. 세션 관리 테이블 생성
 세션과 관련된 정보를 데이터베이스에서 관리하려면 테이블이 필요합니다. 

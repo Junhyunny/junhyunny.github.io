@@ -284,8 +284,8 @@ public class SessionConfiguration {
 
 ### 3.5. PageController 클래스
 - 세션에 해당 컨트롤러(controller)에 접근한 횟수를 저장합니다.
-- 세션 정보를 `ModelAndView` 객체를 사용하여 페이지에 함께 반환합니다.
-- @Value 애너테이션을 통해 얻은 어플리케이션 이름도 함께 페이지에 반환합니다.
+- 세션 정보를 `ModelAndView` 객체를 이용해 페이지에 담아서 반환합니다.
+- @Value 애너테이션을 통해 얻은 어플리케이션 이름도 함께 페이지에 담아서 반환합니다.
 
 ```java
 package blog.in.action.controller;
@@ -327,7 +327,7 @@ public class PageController {
 ### 3.6. index.jsp
 - 요청 버튼을 눌러 `http://localhost:8081`, `http://localhost:8082` 호스트 중 하나로 랜덤하게 요청을 보냅니다. 
 - 응답받은 어플리케이션의 이름을 화면에 출력합니다.
-- 컨트롤러에 접근한 횟수를 출력합니다.
+- 세션에 저장된 컨트롤러 접근 횟수를 출력합니다.
 
 ```html
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

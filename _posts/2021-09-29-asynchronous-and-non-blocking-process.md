@@ -37,8 +37,8 @@ last_modified_at: 2021-09-29T23:55:00
 
 ## 2. 동기(Synchronous) / 비동기(Asynchronous) 처리
 이번엔 동기(Synchronous)와 비동기(Asynchronous) 처리에 대해 정리해보겠습니다. 
-어렵게 생각했던 블로킹 방식보다 오히려 더 헷갈렸습니다. 
-동기 방식과 비동기 방식의 차이는 스레드(thread)로 인해 발생하는 동시 실행 유무로 생각하고 있었는데, 예외적인 경우도 존재합니다.
+동기 방식과 비동기 방식의 차이는 스레드(thread)로 인해 발생하는 동시 실행 유무로 생각하고 있었는데, 예외인 경우도 존재합니다.
+이 예외 케이스(case) 때문에 어렵게 생각했던 블로킹 방식보다 오히려 더 헷갈렸습니다. 
 
 특정 일(work) `A`와 `B`가 있다고 가정합니다. 
 동시에 실행하더라도 둘 사이에 어떤 인과 관계 때문에 항상 `A`가 종료된 뒤에야 `B`가 종료될 수 있다면 이는 동기 처리로 볼 수 있습니다. 
@@ -120,6 +120,7 @@ public class SyncBlockingTest {
 ```
 
 ##### 결과 로그
+- `WorkerB`가 일을 마친 뒤 `WorkerA`가 일을 수행합니다.
 
 ```
 B doing something.
@@ -135,7 +136,8 @@ I'm worker A. And I'm done.
 ### 3.2. 비동기 논블로킹 처리
 - `WorkerA`는 자신이 해야하는 일과 `WorkerB`가 해야하는 일을 모두 가지고 있습니다. 
 - `WorkerA`는 `WorkerB`에게 일을 건냅니다. 
-- `WorkerB`는 `WorkerA`에게 즉각 응답을 준 후 자신의 일을 시작합니다.,
+- `WorkerB`는 `WorkerA`에게 즉각 응답을 준 후 자신의 일을 시작합니다.
+    - CompletableFuture.runAsync() 메소드에 의해 새로운 스레드가 `WorkerB`의 일을 수행합니다.
 - `WorkerA`는 응답을 받았으니 자신의 일을 수행합니다.
 
 ```java

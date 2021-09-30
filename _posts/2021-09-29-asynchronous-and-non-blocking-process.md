@@ -157,7 +157,7 @@ public class AsyncNonBlockingTest {
 
         Consumer<String> workForB = (message) -> {
             for (int index = 0; index < 5; index++) {
-                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
+                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("B doing something.");
             }
@@ -186,7 +186,7 @@ public class AsyncNonBlockingTest {
         CompletableFuture<Void> joinPoint = b.takeMyWorkAndDoMyWork(a.getWorkForB());
         a.doMyWork();
         // WorkerB가 일을 마치지 않았는데 메인(main) 스레드가 종료되는 경우 어플리케이션이 종료되므로 이런 현상을 방지하는 코드 추가
-        while (!joinPoint.isDone());
+        joinPoint.join();
         System.out.println("All workers done.");
     }
 }
@@ -194,6 +194,7 @@ public class AsyncNonBlockingTest {
 
 ##### 결과 로그
 - `WorkerA`와 `WorkerB`가 동시에 일하는 구간이 생깁니다.
+- 여러번 실행시 일을 먼저 마치는 Worker가 매번 바뀝니다.
 
 ```
 A doing something.
@@ -208,6 +209,22 @@ B doing something.
 B doing something.
 B doing something.
 I'm worker B. And I'm done.
+All workers done.
+```
+
+```
+A doing something.
+B doing something.
+B doing something.
+B doing something.
+B doing something.
+B doing something.
+I'm worker B. And I'm done.
+A doing something.
+A doing something.
+A doing something.
+A doing something.
+I'm worker A. And I'm done.
 All workers done.
 ```
 

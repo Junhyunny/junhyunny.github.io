@@ -53,7 +53,7 @@ last_modified_at: 2021-09-29T23:55:00
 ## 3. 상황 별 코드 (feat. Java)
 블로킹, 논블로킹 방식과 동기식, 비동기식 처리에 대한 용어를 혼합하여 사용하면서 혼돈을 일으키고 있는 것 같습니다. 
 각 상황을 코드 수준으로 정리하면 좋을 것 같아서 구현해보았습니다. 
-구현이 난해한 `비동기 블로킹 처리 방식`이나 `동기 논블로킹 처리 방식`에 대한 구현은 가능하다면 이후 업데이트하겠습니다. 
+`동기 논블로킹 처리 방식`에 대한 구현은 추후 업데이트하겠습니다. 
 
 ### 3.1. 동기 블록킹 처리 방식
 - `WorkerA`는 자신이 해야하는 일과 `WorkerB`가 해야하는 일을 모두 가지고 있습니다. 
@@ -130,7 +130,133 @@ A doing something.
 I'm worker A. And I'm done.
 ```
 
-### 3.2. 비동기 논블로킹 처리 방식
+### 3.2. 비동기 블로킹 처리 방식
+- `WorkerA`는 자신의 일을 수행하기 전에 `WorkerB`에게 callBack 메소드를 전달합니다.
+- callBack 메소드는 `WorkerB`가 자신의 일을 어느 정도 마치면 `WorkerA`에게 이를 통지하는 용도로 사용됩니다.
+- `WorkerA`와 `WorkerB` 모두 각자 자신의 일을 수행합니다.
+    - CompletableFuture.runAsync() 메소드에 의해 새로운 스레드가 `WorkerB`의 일을 수행합니다.
+- `WorkerA`는 자신의 일을 수행 중에 `WorkerB`의 일이 끝나기를 기다리는 구간이 존재합니다. **블로킹 구간입니다.**
+- `WorkerB`는 자신의 첫 업무가 종료되면 callBack 메소드를 통해 `workerA`에게 중간 일의 종료를 알리고, 자신의 업무를 마저 진행합니다. 
+- 블로킹 되어있던 `WorkerA`는 `WorkerB`의 첫 업무가 종료되는 시점부터 자신의 남은 업무를 수행합니다.
+
+```java
+package blog.in.action;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+
+public class AsyncBlockingTest {
+
+    static class WorkerA {
+
+        boolean isWorkBFinished;
+
+        Consumer<String> ownJob = (message) -> {
+            for (int index = 0; index < 5; index++) {
+                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
+                }
+                System.out.println("A doing something.");
+            }
+            System.out.println(message);
+        };
+
+        Consumer<Void> callMeLater = (Void) -> {
+            isWorkBFinished = true;
+            System.out.println("Hey, Worker A. Worker B is finished.");
+        };
+
+        void waitWorkBFinished() {
+            while (!isWorkBFinished) {
+                System.out.println("Waiting work for WorkerB.");
+                for (int subIndex = 0; subIndex < 20000; subIndex++) {
+                }
+            }
+        }
+
+        void doMyWork() {
+            ownJob.accept("I'm worker A. And I'm done my first job.");
+            waitWorkBFinished();
+            ownJob.accept("I'm worker A. And I'm done my second job.");
+        }
+
+        Consumer<Void> getCallMeLater() {
+            return callMeLater;
+        }
+    }
+
+    static class WorkerB {
+
+        Consumer<String> ownJob = (message) -> {
+            for (int index = 0; index < 5; index++) {
+                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
+                }
+                System.out.println("B doing something.");
+            }
+            System.out.println(message);
+        };
+
+        CompletableFuture<Void> doWorkAndCallToALater(Consumer<Void> callBack) {
+            return CompletableFuture.runAsync(() -> {
+                ownJob.accept("I'm worker B. And I'm my first job.");
+                callBack.accept(null);
+                ownJob.accept("I'm worker B. And I'm my second job.");
+            });
+        }
+    }
+
+    public static void main(String[] args) {
+        WorkerA a = new WorkerA();
+        WorkerB b = new WorkerB();
+        CompletableFuture<Void> joinPoint = b.doWorkAndCallToALater(a.getCallMeLater());
+        a.doMyWork();
+        // WorkerB가 일을 마치지 않았는데 메인(main) 스레드가 종료되는 경우 어플리케이션이 종료되므로 이런 현상을 방지하는 코드 추가
+        joinPoint.join();
+        System.out.println("All workers done.");
+    }
+}
+```
+
+##### 테스트 결과
+- `WorkerA`와 `WorkerB`가 동시에 업무를 진행합니다.
+- "Waiting work for WorkerB." - `WorkerA`가 `WorkerB`의 첫 업무 종료를 기다립니다.
+- "Hey, Worker A. Worker B is finished." - `WorkerB`가 `WorkerA`에게 자신의 첫 업무 종료를 알립니다.
+- `WorkerA`와 `WorkerB`가 동시에 업무를 마무립합니다.
+- 최종적인 업무 종료의 순서는 매번 달라질 수 있습니다.
+
+```
+A doing something.
+B doing something.
+A doing something.
+A doing something.
+A doing something.
+A doing something.
+I'm worker A. And I'm done my first job.
+Waiting work for WorkerB.
+Waiting work for WorkerB.
+Waiting work for WorkerB.
+B doing something.
+B doing something.
+B doing something.
+B doing something.
+Waiting work for WorkerB.
+I'm worker B. And I'm my first job.
+Hey, Worker A. Worker B is finished.
+B doing something.
+A doing something.
+A doing something.
+A doing something.
+A doing something.
+A doing something.
+I'm worker A. And I'm done my second job.
+B doing something.
+B doing something.
+B doing something.
+B doing something.
+I'm worker B. And I'm my second job.
+All workers done.
+```
+
+### 3.3. 비동기 논블로킹 처리 방식
 - `WorkerA`는 자신이 해야하는 일과 `WorkerB`가 해야하는 일을 모두 가지고 있습니다. 
 - `WorkerA`는 `WorkerB`에게 일을 건내면, `WorkerB`는 전달받은 일을 수행합니다.
     - CompletableFuture.runAsync() 메소드에 의해 새로운 스레드가 `WorkerB`의 일을 수행합니다.

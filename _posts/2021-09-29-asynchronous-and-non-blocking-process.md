@@ -10,10 +10,11 @@ last_modified_at: 2021-09-29T23:55:00
 <br>
 
 ## 0. 들어가면서
-최슨 기술 스택을 공부하다보면 비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식에 대한 이야기를 많이 볼 수 있습니다. 
-어떤 내용인지 찾아 읽어보긴 했지만, 명확하게 이해하진 못 하였습니다. 
-그러다 최근에 사용했던 `Spring Cloud Gateway`는 논블로킹 처리를 수행하는 네티(Netty)를 기반으로 동작한다는 글을 읽었습니다. 
-기술 스택을 사용하기 이전에 근본적인 개념에 대해 먼저 정리하는 것이 좋을 것 같아 포스트로 작성하였습니다. 
+최근 기술 스택을 공부하다보면 비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식에 대한 이야기를 많이 볼 수 있습니다. 
+어떤 내용인지 찾아 읽어보긴 했지만, 명확하게 이해하진 못 했었습니다.
+
+그러다 최근에 접해본 `Spring Cloud Gateway`가 논블로킹 처리를 수행하는 네티(Netty) 기반으로 동작한다는 글을 보았습니다. 
+관심이 가는 기술 스택에 대해 공부하기 이전에 근본적인 개념에 대해 먼저 정리하는 것이 좋을 것 같아 포스트로 작성하였습니다. 
 
 > Spring Doc - Spring Cloud Gateway<br>
 > Spring Cloud Gateway requires the Netty runtime provided by Spring Boot and Spring Webflux. 
@@ -381,7 +382,7 @@ public class AsyncNonBlockingTest {
 
         Consumer<String> workForA = (message) -> {
             for (int index = 0; index < 5; index++) {
-                for (int subIndex = 0; subIndex < Integer.MAX_VALUE; subIndex++) {
+                for (int subIndex = Integer.MIN_VALUE; subIndex < Integer.MAX_VALUE; subIndex++) {
                 }
                 System.out.println("A: doing something.");
             }

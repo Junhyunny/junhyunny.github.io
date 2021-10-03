@@ -12,6 +12,7 @@ last_modified_at: 2021-10-03T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [MSA API Gateway][msa-gateway-link]
+- [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
 
 ## 0. 들어가면서
 
@@ -24,4 +25,4 @@ last_modified_at: 2021-10-03T23:55:00
 - <https://cheese10yun.github.io/spring-cloud-gateway/>
 
 [msa-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
-[spring-session-link]: https://junhyunny.github.io/information/spring-boot/spring-session/
+[async-nonblocking-link]: https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/

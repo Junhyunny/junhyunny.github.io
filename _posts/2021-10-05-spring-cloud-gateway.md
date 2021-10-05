@@ -44,6 +44,7 @@ last_modified_at: 2021-10-05T23:55:00
 ### 1.1. Spring Cloud Gateway 구조
 `Spring Cloud Gateway`는 논블로킹 방식으로 동작하는 `Spring Webflux`를 기반으로 동작합니다. 
 해당 개념을 모르는 경우 다소 어려움을 겪을 수 있습니다. 
+기존에 사용하던 서블릿(servlet)과 동작하는 방법이 다릅니다. 
 
 클라이언트가 `Spring Cloud Gateway`로 요청합니다. 
 요청을 처음 받는 `Gateway Handler Mapping`은 요청이 매칭되는 경로가 있다면 `Gateway Web Handler`에게 전달합니다. 

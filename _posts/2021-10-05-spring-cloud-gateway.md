@@ -66,6 +66,23 @@ last_modified_at: 2021-10-05T23:55:00
 
 ### 2.2. 패키지 구조
 
+```
+./
+|-- pom.xml
+|-- spring-cloud-gateway.iml
+`-- src
+    `-- main
+        |-- java
+        |   `-- blog
+        |       `-- in
+        |           `-- action
+        |               |-- GatewayApplication.java
+        |               `-- config
+        |                   `-- GatewayConfiguration.java
+        `-- resources
+            `-- application.yml
+```
+
 ### 2.3. pom.xml
 - `spring-cloud-starter-gateway` 의존성을 추가합니다.
 

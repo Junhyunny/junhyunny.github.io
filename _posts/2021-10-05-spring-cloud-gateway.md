@@ -15,10 +15,10 @@ last_modified_at: 2021-10-05T23:55:00
 - [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
 
 ## 0. 들어가면서
-[[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트를 작성할 때 다른 서비스로 포트(port) 번호를 바꿔가며 요청하는 것이 번거롭다는 생각을 헀습니다. 
+[[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트의 테스트를 구현할 때 포트(port)를 바꿔가며 요청하는 것이 번거롭다는 생각이 들었습니다. 
 그래서 `Spring Cloud Gateway`를 사용하여 간단한 기능을 제공하는 게이트웨이(gateway)를 적용해볼 생각이었는데, 생각보다 구현이 어려웠습니다. 
 이번 포스트는 엄청 간단한 게이트웨이를 구현하고 이를 테스트한 내용을 공유할 생각입니다. 
-이 포스트를 읽기 전에 미리 [MSA API Gateway][msa-gateway-link] 글에서 게이트웨이가 무슨 기능을 수행하는지 확인해보는 것을 추천드립니다. 
+이 포스트를 읽기 전에 미리 [MSA API Gateway][msa-gateway-link] 글에서 게이트웨이가 무엇인지 읽어보실 것을 추천드립니다. 
 
 ## 1. Spring Cloud Gateway
 `Spring Cloud` 측에서는 쉬운 마이크로 서비스 아키텍처 구현을 위한 여러가지 컴포넌트(component)들을 제공해주고 있습니다. 
@@ -39,7 +39,7 @@ last_modified_at: 2021-10-05T23:55:00
 - Filter
 	- Spring 프레임워크의 `GatewayFilter` 구현체입니다.
 	- 특별한 `Factory` 클래스를 통해 생성됩니다.
-	- 이 곳에서 다운스트림(downstream) 요청을 보내기 전이나 후에 요청, 응답 정보를 변경할 수 있습니다.
+	- 다운스트림(downstream) 요청을 보내기 전이나 후에 요청, 응답 정보를 변경할 수 있습니다.
 
 ### 1.1. Spring Cloud Gateway 구조
 `Spring Cloud Gateway`는 논블로킹 방식으로 동작하는 `Spring Webflux`를 기반으로 동작합니다. 
@@ -50,10 +50,11 @@ last_modified_at: 2021-10-05T23:55:00
 핸들러(handler)는 특정 필터 체인(filter chain)으로 요청을 전달합니다. 
 필터 체인은 요청을 받을 때와 응답을 보내기 전에 각각 수행되므로 총 2회 수행됩니다. 
 
-<p align="center"><img src="/images/spring-cloud-gateway-1.JPG" width="65%"></p>
+<p align="center"><img src="/images/spring-cloud-gateway-1.JPG" width="45%"></p>
 <center>이미지 출처, https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/</center>
 
 ## 2. Spring Cloud Gatewy 구현하기
+요청 경로(request path)를 통한 API routing 기능을 구현하였습니다.
 
 ### 2.1. 테스트 시나리오
 `Spring Cloud Gateway`를 구현하기 전에 어떤 역할을 수행할 것인지 구상해보았습니다.
@@ -196,10 +197,10 @@ public class GatewayConfiguration {
 
 ## 3. 테스트
 테스트에 사용하는 `A-SERVICE`, `B-SERVICE`는 [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트에서 사용한 서비스입니다. 
-테스트를 위해 `A-SERVICE`, `B-SERVICE`, 게이트웨이 서비스 모두 동작시킵니다. 
-버튼을 누를 때마다 `http://localhost:8080/a-service/index` 혹은 `http://localhost:8080/b-service/index`로 요청합니다.
-게이트웨이는 경로(path) 중간에 위치한 정보를 이용해 요청을 각 서비스로 라우팅합니다. 
-요청을 전달받은 `A-SERVICE`, `B-SERVICE`는 응답을 보내고, 브라우저는 게이트웨이를 통해 응답을 전달받습니다. 
+- 테스트를 위해 `A-SERVICE`, `B-SERVICE`, 게이트웨이 서비스 모두 동작시킵니다. 
+- 버튼을 누를 때마다 `http://localhost:8080/a-service/index` 혹은 `http://localhost:8080/b-service/index`로 요청합니다.
+- 게이트웨이는 경로(path) 중간에 위치한 정보를 이용해 요청을 각 서비스로 라우팅합니다. 
+- 요청을 전달받은 `A-SERVICE`, `B-SERVICE`는 응답을 보내고, 브라우저는 게이트웨이를 통해 응답을 전달받습니다. 
 
 ##### 테스트 결과
 

@@ -5,7 +5,7 @@ category:
   - information
   - spring-boot
   - spring-cloud
-last_modified_at: 2021-10-03T23:55:00
+last_modified_at: 2021-10-05T23:55:00
 ---
 
 <br>
@@ -15,7 +15,6 @@ last_modified_at: 2021-10-03T23:55:00
 - [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
 
 ## 0. 들어가면서
-
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-27-spring-cloud-gateway>

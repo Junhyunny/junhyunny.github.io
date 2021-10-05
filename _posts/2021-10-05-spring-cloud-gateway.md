@@ -215,7 +215,7 @@ public class GatewayConfiguration {
 ```
 
 ## 3. 테스트
-테스트에 사용하는 `A-SERVICE`, `B-SERVICE`는 [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트에서 사용한 서비스입니다. 
+`A-SERVICE`, `B-SERVICE`는 [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트에서 사용한 서비스입니다. 
 - 테스트를 위해 `A-SERVICE`, `B-SERVICE`, 게이트웨이 서비스 모두 동작시킵니다. 
 - 버튼을 누를 때마다 `http://localhost:8080/a-service/index` 혹은 `http://localhost:8080/b-service/index`로 요청합니다.
 - 게이트웨이는 경로(path) 중간에 위치한 정보를 이용해 요청을 각 서비스로 라우팅합니다. 

@@ -11,8 +11,21 @@ last_modified_at: 2021-10-12T12:55:00
 
 ## 1. 프로토타입 패턴(Prototype Pattern)
 
+##### 프로토타입 패턴 클래스 다이어그램
+<p align="center"><img src="/images/prototype-pattern-1.JPG" width="60%"></p>
+<center>이미지 출처, https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/</center>
+
+### 1.1. 프로토타입 패턴 사용시 이점
+
+### 1.2. 프로토타입 패턴 사용시 주의점
+
+## 2. 프로토타입 패턴 활용
+
+
 #### TEST CODE REPOSITORY
 - <>
 
 #### REFERENCE
-- <>
+- <https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85_%ED%8C%A8%ED%84%B4>
+- <https://en.wikipedia.org/wiki/Prototype_pattern>
+- <https://readystory.tistory.com/122>

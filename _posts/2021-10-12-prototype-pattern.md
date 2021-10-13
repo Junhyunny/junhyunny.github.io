@@ -46,7 +46,12 @@ clone() 메소드가 핵심이며, 메소드 구현에 주의해야합니다.
 데이터베이스에서 데이터를 매번 조회하여 사용하는 것은 큰 비용이 필요합니다. 
 조회(read-only) 성격의 데이터로만 사용한다면 프로토타입 패턴을 사용하는 것도 좋은 방법입니다. 
 
-#### 2.2.1. 프로토타입 패턴 사용
+서버에 바뀌지 않는 특정 정보를 요청하는 경우를 간단한 예로 들어보겠습니다. 
+- 프로토타입 패턴을 사용하는 경우 최초에 조회하여 메모리에 올려둔 데이터를 복사해서 전달합니다. 
+- 프로토타입 패턴을 사용하지 않는 경우 매번 데이터베이스에서 조회 후 데이터를 전달합니다.
+
+#### 2.2.1. 프로토타입 패턴을 사용하는 경우
+- 사용자 요청이 10000회 들어왔다는 가정하에 성능을 테스트합니다.
 - 처음 조회하여 생성한 데이터 객체를 clone() 메소드로 10000회 복사합니다.
 
 ```java
@@ -102,6 +107,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 ```
 
 ##### 테스트 결과
+- 108 ms 소요
 
 ```
 2021-10-13 03:10:54.959  INFO 6272 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
@@ -111,7 +117,8 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 2021-10-13 03:10:55.431  INFO 6272 --- [extShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 ```
 
-#### 2.2.2. 데이터 조회 쿼리 수행
+#### 2.2.2. 프로토타입 패턴을 사용하지 않는 경우
+- 사용자 요청이 10000회 들어왔다는 가정하에 성능을 테스트합니다.
 - 조회 쿼리를 10000회 수행합니다.
 
 ```java
@@ -166,6 +173,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 ```
 
 ##### 테스트 결과
+- 2423 ms 소요
 
 ```
 2021-10-13 03:11:31.684  INFO 13472 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
@@ -181,7 +189,7 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 - 그림판 같은 툴(tool)에서 사용자 임의대로 도형을 그립니다.
 - 사용자가 처음 임의대로 그린 도형은 `originShape` 객체입니다.
 - 사용자가 그린 도형을 선택하여 복사하면 새로운 도형이 생성됩니다.
-- clone() 메소드를 이용해 `clonedShape` 객체를 생성하였다고 가정합니다.
+- clone() 메소드를 이용해 `clonedShape` 객체를 생성합니다.
 
 사용자가 도형을 임의로 그렸기 때문에 `originShape` 객체에 포함된 정보를 이용해 일반적인 방법으로 도형 객체를 만드는 것은 큰 어려움이 있습니다.
 또한, 두 도형은 서로 다른 객체이고 각자의 변경이 서로에게 영향이 없어야하므로 clone() 메소드에서 깊은 복사를 수행합니다. 

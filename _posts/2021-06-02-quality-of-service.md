@@ -8,9 +8,10 @@ last_modified_at: 2021-09-03T01:00:00
 
 <br>
 
+## 0. 들어가면서
 6월부터 새로운 프로젝트가 시작되면서 새로운 기술 스택에 대한 공부를 시작했습니다. 
 시스템의 일부가 이미 구현되어 있어서, 기존 기술 스택에 맞추어 프로젝트를 진행해야하는 부분이 조금 불편합니다. 
-그래도 새로운 내용을 배우고 공부할 수 있는 기회를 얻었다고 긍적적으로 생각하고 있습니다.😃
+그래도 새로운 내용을 배우고 공부할 수 있는 기회를 얻었다고 긍적적으로 생각하고 있습니다. 
 [VerneMQ][vernemq-link]에 대한 알아보는 중 QoS(Quality of Service)라는 단어에 대한 내용이 생소하여 짧은 글로 정리해보았습니다. 
 
 ## 1. QoS(Quality of Service)
@@ -93,11 +94,6 @@ MQTT 프로토콜이 제공하는 QoS는 수준(level)에 따라 다른 신뢰�
 
 <p align="center"><img src="/images/quality-of-service-1.jpg" width="75%"></p>
 <center>이미지 출처, https://devopedia.org/mqtt</center><br>
-
-## CLOSING
-관련된 내용들을 정리하다보니 Apache Kafka에도 `idempotent producer`라는 비슷한 개념이 있었던 것이 기억났습니다.(혹은 `exactly once producer`) 
-생각난 김에 관련된 내용을 찾아 읽다보니 문득 걱정이 들기 시작했습니다. 
-Docker, Kubernetes, Kafka 관련된 내용들도 공부와 정리를 시작해야하는데 시간이 부족하다보니 시작도 못하는게 아닐지...😭 
 
 #### REFERENCE
 - <https://ko.wikipedia.org/wiki/QoS>

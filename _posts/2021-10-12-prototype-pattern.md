@@ -11,10 +11,10 @@ last_modified_at: 2021-10-12T23:55:00
 
 ## 1. 프로토타입 패턴(Prototype Pattern)
 
-> Prototype<br>
+> 프로토타입(Prototype)<br>
 > 프로토타입(prototype)은 원래의 형태 또는 전형적인 예, 기초 또는 표준이다.
 
-`프로토타입`이라는 이름처럼 원본을 두고 복사하여 사용하는 방법입니다. 
+"프로토타입"이라는 이름처럼 원본을 두고 복사하여 사용하는 방법입니다. 
 이미 생성된 인스턴스로 자신을 닮은 새로운 인스턴스를 복사해내어 사용합니다. 
 새로운 객체를 일반적인 방법(생성자)으로 생성할 때 비용이 큰 경우 이용할 수 있는 디자인 패턴입니다. 
 
@@ -182,43 +182,81 @@ interface ItemRepository extends JpaRepository<Item, Long> {
 - 사용자가 처음 임의대로 그린 도형은 `originShape` 객체입니다.
 - 사용자가 그린 도형을 선택하여 복사하면 새로운 도형이 생성됩니다.
 - clone() 메소드를 이용해 `clonedShape` 객체를 생성하였다고 가정합니다.
-- 사용자가 임의로 그렸기 때문에 `originShape` 객체에 포함된 정보를 이용해 단순한 방법으로 도형 객체를 만드는 것은 큰 어려움이 있습니다.
 
-#### 2.2.1. 도형 복사하기
+사용자가 도형을 임의로 그렸기 때문에 `originShape` 객체에 포함된 정보를 이용해 일반적인 방법으로 도형 객체를 만드는 것은 큰 어려움이 있습니다.
+또한, 두 도형은 서로 다른 객체이고 각자의 변경이 서로에게 영향이 없어야하므로 clone() 메소드에서 깊은 복사를 수행합니다. 
+
+#### 2.2.1. Point 클래스
 - Point 클래스는 x, y 좌표로 구성됩니다.
-- Line 클래스는 2 개의 Point 클래스로 구성됩니다.
-- Shape 클래스는 여러 개의 Line 클래스로 구성됩니다. 
-- 두 도형은 서로 다른 객체이며 각자의 변경이 서로에게 영향이 없어야하므로 clone() 메소드에서 깊은 복사를 수행합니다. 
+- clone() 메소드에서 새로운 Point 객체를 만들어 반환합니다.
 
 ```java
-package blog.in.action;
+@Getter
+@Setter
+class Point implements Cloneable {
 
-import java.util.ArrayList;
-import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
+    private int x;
+    private int y;
 
-public class CaseSecondTest {
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    @Override
+    protected Point clone() throws CloneNotSupportedException {
+        return new Point(x, y);
+    }
 
-        Shape originShape = new Shape();
-        originShape.addLine(new Line(new Point(0, 0), new Point(0, 1)));
-        originShape.addLine(new Line(new Point(0, 1), new Point(1, 1)));
-        originShape.addLine(new Line(new Point(1, 1), new Point(1, 0)));
-        originShape.addLine(new Line(new Point(1, 0), new Point(0, 0)));
-
-        Shape clonedShape = originShape.clone();
-        Line line = clonedShape.getLineAtIndex(0);
-        Point secondPoint = line.getSecondPoint();
-        secondPoint.setX(-1);
-        secondPoint.setY(-1);
-
-        System.out.println("origin shape: " + originShape);
-        System.out.println("cloned shape: " + clonedShape);
+    @Override
+    public String toString() {
+        return "[x: " + x + ", y: " + y + "]";
     }
 }
+```
 
+#### 2.2.2. Line 클래스
+- Line 클래스는 2 개의 Point 클래스로 구성됩니다.
+- clone() 메소드에서 새로운 Line 객체를 만들어 반환합니다. 
+- Point 객체를 복사하여 새로운 객체로 할당합니다.(깊은 복사 수행)
+
+```java
+class Line implements Cloneable {
+
+    private Point point1;
+    private Point point2;
+
+    public Line(Point point1, Point point2) {
+        this.point1 = point1;
+        this.point2 = point2;
+    }
+
+    public Point getFirstPoint() {
+        return point1;
+    }
+
+    public Point getSecondPoint() {
+        return point2;
+    }
+
+    @Override
+    protected Line clone() throws CloneNotSupportedException {
+        return new Line(point1.clone(), point2.clone());
+    }
+
+    @Override
+    public String toString() {
+        return "[point1: " + point1 + ", point2: " + point2 + "]";
+    }
+}
+```
+
+#### 2.2.3. Shape 클래스
+- Shape 클래스는 여러 개의 Line 클래스로 구성됩니다. 
+- clone() 메소드에서 새로운 Shape 객체를 만들어 반환합니다. 
+- 새로운 리스트 객체를 만들고 Line 객체를 복사하여 담습니다.(깊은 복사 수행)
+
+```java
 class Shape implements Cloneable {
 
     private List<Line> lines;
@@ -254,56 +292,33 @@ class Shape implements Cloneable {
         return lines.toString();
     }
 }
+```
 
-@Getter
-@Setter
-class Point implements Cloneable {
+#### 2.2.4. 테스트 수행
+- 사용자가 임의로 그렸다고 가정하는 `originShape` 객체를 만듭니다.
+- clone() 메소드를 이용해  `originShape` 객체를 복사합니다.
+- `clonedShape` 객체의 정보를 변경합니다.
+- 두 도형의 데이터가 서로 다른지 로그를 통해 확인합니다.
 
-    private int x;
-    private int y;
+```java
+public class CaseSecondTest {
 
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+    public static void main(String[] args) throws CloneNotSupportedException {
 
-    @Override
-    protected Point clone() throws CloneNotSupportedException {
-        return new Point(x, y);
-    }
+        Shape originShape = new Shape();
+        originShape.addLine(new Line(new Point(0, 0), new Point(0, 1)));
+        originShape.addLine(new Line(new Point(0, 1), new Point(1, 1)));
+        originShape.addLine(new Line(new Point(1, 1), new Point(1, 0)));
+        originShape.addLine(new Line(new Point(1, 0), new Point(0, 0)));
 
-    @Override
-    public String toString() {
-        return "[x: " + x + ", y: " + y + "]";
-    }
-}
+        Shape clonedShape = originShape.clone();
+        Line line = clonedShape.getLineAtIndex(0);
+        Point secondPoint = line.getSecondPoint();
+        secondPoint.setX(-1);
+        secondPoint.setY(-1);
 
-class Line implements Cloneable {
-
-    private Point point1;
-    private Point point2;
-
-    public Line(Point point1, Point point2) {
-        this.point1 = point1;
-        this.point2 = point2;
-    }
-
-    public Point getFirstPoint() {
-        return point1;
-    }
-
-    public Point getSecondPoint() {
-        return point2;
-    }
-
-    @Override
-    protected Line clone() throws CloneNotSupportedException {
-        return new Line(point1.clone(), point2.clone());
-    }
-
-    @Override
-    public String toString() {
-        return "[point1: " + point1 + ", point2: " + point2 + "]";
+        System.out.println("origin shape: " + originShape);
+        System.out.println("cloned shape: " + clonedShape);
     }
 }
 ```

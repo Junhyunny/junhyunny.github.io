@@ -12,6 +12,8 @@ last_modified_at: 2021-08-26T06:00:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JVM, Java Virtual Machine][jvm-link]
 
+## 0. 들어가면서
+
 최근에 작성했던 포스트들을 다시 정리하는 중에 JVM(Java Virtual Machine)에 대한 넓고 얕은 지식이라는 주제로 작성한 포스트를 발견했습니다. 
 전반적인 JVM 구조에 대한 글이었는데 오늘은 `실행 엔진(Execution Engine)`에 대한 내용을 정리하였습니다. 
 

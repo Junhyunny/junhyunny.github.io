@@ -13,6 +13,8 @@ last_modified_at: 2021-08-29T01:00:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [ACID 특징][transaction-acid-link]
 
+## 0. 들어가면서
+
 기본적으로 트랜잭션은 [ACID 특징][transaction-acid-link]의 원자성을 만족해야합니다. 
 
 > 트랜잭션 ACID 특징 중 원자성(Atomic)<br>

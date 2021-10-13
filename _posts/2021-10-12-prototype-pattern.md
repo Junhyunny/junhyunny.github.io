@@ -24,7 +24,7 @@ last_modified_at: 2021-10-12T23:55:00
 - Client - 원형(prototype)에게 자기 복사를 요청하는 클래스
 
 <p align="center"><img src="/images/prototype-pattern-1.JPG" width="60%"></p>
-<center>이미지 출처, Wiki - 프로토타입 패턴</center>
+<center>이미지 출처, https://www.java2novice.com/java-design-patterns/prototype-pattern/</center>
 
 ### 1.1. 프로토타입 패턴 활용
 다음과 같은 상황에 프로토타입 패턴을 활용할 수 있습니다. 
@@ -337,9 +337,7 @@ cloned shape: [[point1: [x: 0, y: 0], point2: [x: -1, y: -1]], [point1: [x: 0, y
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-10-12-prototype-pattern>
 
 #### REFERENCE
-- [Wiki - 프로토타입 패턴][prototype-wiki-link]
+- <https://www.java2novice.com/java-design-patterns/prototype-pattern/>
 - <https://en.wikipedia.org/wiki/Prototype_pattern>
 - <https://lee1535.tistory.com/76>
 - <https://readystory.tistory.com/122>
-
-[prototype-wiki-link]: https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85_%ED%8C%A8%ED%84%B4

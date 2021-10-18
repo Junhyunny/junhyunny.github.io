@@ -12,6 +12,8 @@ last_modified_at: 2021-08-16T03:00:00
 - [@Transactional Propagtaion Type][transactional-propagation-type-link]
 - [Spring Application Context Event][spring-application-context-event-link]
 
+## 0. 들어가면서
+
 [Spring Application Context Event][spring-application-context-event-link] 포스트에서 간단한 시나리오와 함께 `Spring Application Context Event` 사용 방법에 대해 알아보았습니다. 
 이전 포스트를 작성하면서 생겼던 궁금증을 해소하기 위해 작성하였습니다. 
 

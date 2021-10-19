@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2021-10-18T23:55:00
+last_modified_at: 2021-10-19T23:55:00
 ---
 
 <br>

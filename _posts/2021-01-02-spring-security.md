@@ -8,6 +8,8 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
+## 0. 들어가면서
+
 이번 포스트에서는 Spring Security 프레임워크에 대해 알아보았습니다. 
 
 > Spring Security is a Java/Java EE framework that provides **authentication, authorization** and other security features for enterprise applications.

@@ -21,7 +21,7 @@ API Gateway를 이용하여 API 서버들을 하나로 묶어서 단일화 관�
 JSON/REST 기반으로 최소한의 기능을 처리하는 경량화 서비스인 API Gateway가 제공하는 기능을 아래 글을 통해 알아보도록 하겠습니다. 
 
 ## 1. API Gateway 주요 기능
-### 1.1. 인증 및 인가 (Authentication and Authroization)
+### 1.1. 인증 및 인가 (Authentication and Authorization)
 
 > API Gateway의 가장 기본적인 기능은 API 에 대한 인증과 인가 관련 기능입니다. 
 

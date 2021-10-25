@@ -14,7 +14,7 @@ last_modified_at: 2021-08-22T00:30:00
 - Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(github blog theme 예약어로 인한 표기 에러)
 
 👉 이어서 읽기를 추천합니다.
-- [DTO 클래스, MultipartFile 활용 파일 업로드 (feat. @ModelAttribute 애너테이션)][multipartfile-in-dto-link]
+- [DTO 클래스, MultipartFile 활용 파일 업로드 (feat. @ModelAttribute)][multipartfile-in-dto-link]
 
 ## 0. 들어가면서
 
@@ -252,9 +252,6 @@ spring:
 파일이 저장되는 폴더에 용량이 큰 파일이 업로드되었는지 확인함으로써 정상적으로 수행되었음을 확인할 수 있습니다. 
 
 <p align="center"><img src="/images/multipartfile-6.JPG"></p>
-
-## CLOSING
-간단하게 파일 업로드 기능을 구현하고 발생하는 Exception의 해결 방법에 대해서 정리해보았습니다.
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-20-multipartfile>

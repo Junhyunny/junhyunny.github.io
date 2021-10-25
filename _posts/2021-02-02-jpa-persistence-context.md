@@ -12,6 +12,8 @@ last_modified_at: 2021-08-22T01:00:00
 
 ⚠️ 해당 포스트는 2021년 8월 18일에 재작성되었습니다.(불필요 코드 제거)
 
+## 0. 들어가면서
+
 JPA는 EntityManager를 통해 엔티티(Entity)를 관리합니다. 
 **EntityManager는 @Id 필드를 이용해 엔티티를 구분짓고 이들을 관리합니다.** 
 ORM(Object-Relation Mapping) 개념상 @Id 필드는 데이터베이스의 PK를 의미하므로 @Id 값이 다른 경우에는 다른 데이터임을 보장합니다. 
@@ -572,10 +574,6 @@ Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0
 Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
 Hibernate: delete from tb_member where id=?
 ```
-
-## CLOSING
-영속성 컨텍스트가 무엇인지, 이를 통해 JPA EntityManager가 엔티티를 어떻게 관리하고 데이터를 저장하는지에 대해 알아보았습니다. 
-별도로 이 영역을 만들어서 어떤 이점을 얻을 수 있는지 다음 글에서 영속성 컨텍스트가 제공해주는 기능을 정리하면서 알아보도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-02-jpa-persistence-context>

@@ -8,6 +8,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Spring Cloud Gateway][spring-cloud-gateway-link]
+
 ## 0. 들어가면서
 
 마이크로 서비스 아키텍처에서 마이크로 서비스는 최소 2개 이상 존재합니다. 
@@ -64,7 +67,6 @@ API 호출 로그는 사용자 사용 패턴 분석이나 문제 발생시 문�
 API Gateway의 기능들에 대해 간략하게 정리해보았습니다. 
 예시나 사례는 [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][cho-blogLink]에 상당히 구체적으로 작성되어 있습니다. 
 마음 같아서는 블로그 내용을 전부 복사해오고 싶지만 저에게 남는 것 하나 없는 일이 될 듯합니다. 
-저는 [Spring Cloud Gateway][gateway-javadocLink]에 대해 읽어보고 이를 간단히 구현한 포스팅을 쓸 예정입니다.
 
 #### REFERENCE
 - [마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook][microsoft-ebookLink]
@@ -72,4 +74,4 @@ API Gateway의 기능들에 대해 간략하게 정리해보았습니다.
 
 [microsoft-ebookLink]: https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
 [cho-blogLink]: https://bcho.tistory.com/1005
-[gateway-javadocLink]: https://docs.spring.io/spring-cloud-gateway/docs/current/reference/html/
+[spring-cloud-gateway-link]: https://junhyunny.github.io/information/spring-boot/spring-cloud/spring-cloud-gateway/

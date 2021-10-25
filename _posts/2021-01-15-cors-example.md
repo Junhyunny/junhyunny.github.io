@@ -154,7 +154,19 @@ public class CorsController {
 }
 ```
 
-### 1.6. Spring-Boot CORS 동작 원리
+## 2. 테스트 수행 결과
+
+### 2.1. CORS 에러 응답
+- `/api/cors/health` 경로로 요청
+
+<p align="center"><img src="/images/cors-example-1.JPG"></p>
+
+### 2.2. 정상 응답
+- `/api/cors/health-cors-annotaion` 경로로 요청
+
+<p align="center"><img src="/images/cors-example-2.JPG"></p>
+
+## 3. Spring-Boot CORS 동작 원리
 테스트 전에 Spring-Boot CORS 동작 원리에 대해 알아보도록 하겠습니다. 
 크게 3개의 과정으로 정리하였습니다.
 
@@ -162,7 +174,7 @@ public class CorsController {
 1. CORS Interceptor 추가
 1. Interceptor 수행
 
-#### 1.6.1. CorsConfiguration 생성 과정
+### 3.1. CorsConfiguration 생성 과정
 1. Controller 객체의 API EndPoint 단위로 Handler 객체 생성
 1. 각 Handler 별로 mappingRegistry SETTING 시 @CrossOrigin 애너테이션이 붙었는지 확인
 1. CORS 처리가 필요한 경우 AbstractHandlerMethodMapping 클래스의 MappingRegistry 객체에 CorsConfiguration 객체 SETTING
@@ -240,7 +252,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 }
 ```
 
-#### 1.6.2. CORS 인터셉터 SETTING
+### 3.2. CORS 인터셉터 SETTING
 1. AbstractHandlerMapping 클래스가 요청에 대한 Handler를 매칭시키는 시점에 CORS 적용 여부 확인
 1. 서버 부팅 시 생성된 CorsConfiguration 객체가 존재하는지 확인 후 유효성 확인
 1. CORS 적용을 위한 Handler Interceptor 추가
@@ -295,7 +307,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 }
 ```
 
-#### 1.6.3. Handler 별 Interceptor List 수행
+### 3.3. Handler 별 Interceptor List 수행
 1. interceptorList에 담겨있는 각 Interceptor 별 기능 수행(preHandle 메소드)
 
 ```java
@@ -316,22 +328,7 @@ public class HandlerExecutionChain {
 }
 ```
 
-## 2. 테스트 수행 결과
-
-### 2.1. CORS 에러 응답
-- `/api/cors/health` 경로로 요청
-
-<p align="center"><img src="/images/cors-example-1.JPG"></p>
-
-### 2.2. 정상 응답
-- `/api/cors/health-cors-annotaion` 경로로 요청
-
-<p align="center"><img src="/images/cors-example-2.JPG"></p>
-
 ## CLOSING
-이전 블로그에서 이 주제를 다룰때는 단순히 문제를 해결하기 위한 글을 썼다면 이번 글은 CORS가 내부에서 어떻게 동작하는지에 대해 초첨을 맞춰서 작성하였습니다. 
-2020년 1월에 작성한 글인데 1년만에 조금은 성장한 듯 합니다. 
-
 해당 포스트는 2021년 01월 30일에 작성되었으며 2021년 07월 07일에 재작성되었습니다.
 
 ##### 2021-07-07 POST 내용 변경

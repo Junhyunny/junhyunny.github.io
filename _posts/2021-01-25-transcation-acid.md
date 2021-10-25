@@ -8,12 +8,14 @@ last_modified_at: 2021-08-22T00:30:00
 
 <br>
 
-시스템 개발/운영을 하면서 많이 접하게 되는 Transaction 이라는 용어의 정확한 의미와 Transaction ACID 특징에 대해 정리해보았습니다. 
+## 0. 들어가면서
+
+시스템 개발/운영을 하면서 많이 접하게 되는 트랜잭션(Transaction)이라는 용어의 정확한 의미와 Transaction ACID 특징에 대해 정리해보았습니다. 
 
 ## 1. 트랜잭션 (Transaction)
 **완결성있게 처리되어야 하는 하나의 논리적인 작업 단위를 의미합니다.** 
 이 논리적 작업 단위 내에는 여러 동작(질의, query)들이 존재하며 이들은 모두 실행되거나 모두 실행되지 않아야합니다. 
-작업 단위가 중간에 실패한다면 이를 ROLLBACK 하여 이전 상태로 되돌리고 성공한다면 COMMIT 하여 현재 데이터 상태를 확정짓습니다. 
+작업 단위가 중간에 실패한다면 이를 롤백(rollback)하여 이전 상태로 되돌리고 성공한다면 커밋(commit)하여 현재 데이터 상태를 확정짓습니다. 
 트랜잭션은 작업 수행의 논리적 단위이기 때문에 DBMS(Database Management System)에서는 **TPS(Transaction Per Second)**로 성능을 측정합니다. 
 **트랜잭션은 데이터의 부정합성을 방지하기 위해 사용합니다.** 
 
@@ -41,14 +43,14 @@ last_modified_at: 2021-08-22T00:30:00
 
 ### 2.4. Durability (지속성)
 - 성공적으로 수행된 트랜잭션의 결과가 데이터베이스에 반영이 되는 것을 의미합니다.
-- COMMIT 수행시 현재 상태는 영원히 보장됩니다.
+- 커밋(commit) 수행시 현재 상태는 영원히 보장됩니다.
 
 ## CLOSING
-[참고 블로그][acid-blogLink]가 너무 잘 정리되어 있어서 내용 대부분이 유사합니다. 
+[참고 블로그][acid-link]가 너무 잘 정리되어 있어서 내용 대부분이 유사합니다. 
 직접 정리하지 못한만큼 이 글을 자주 복습하여 저의 지식으로 만드는 과정이 필요할 것 같습니다. 
-격리성과 관련한 구체적인 LOCK/UNLOCK 메커니즘에 대한 내용에 대해 알고 싶으시다면 [참고 블로그][acid-blogLink]를 방문하시면 됩니다.  
+격리성과 관련한 구체적인 LOCK/UNLOCK 메커니즘에 대한 내용에 대해 알고 싶으시다면 [참고 블로그][acid-link]를 방문하시면 됩니다.  
 
 #### REFERENCE
 - <https://victorydntmd.tistory.com/129>
 
-[acid-blogLink]: https://victorydntmd.tistory.com/129
+[acid-link]: https://victorydntmd.tistory.com/129

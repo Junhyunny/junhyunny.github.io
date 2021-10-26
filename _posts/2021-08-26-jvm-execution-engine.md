@@ -255,12 +255,6 @@ loop count: 119, execution time: 0
 ...
 ```
 
-## CLOSING
-처음 JVM을 주제로 포스트를 작성하고 약 3달이 지났습니다. 
-의욕적으로 빠른 시일 내에 관련된 모든 주제에 대해 공부하고 싶었지만 바쁜 일정들로 인해 잊고 살았습니다.😥 
-최근 이전 포스트들을 다시 읽어보면서 정리하는 중에 생각이 나서 포스트를 작성하였습니다. 
-역시 어려운 주제여서 글을 작성하는 시간도 3일이나 소비되었지만, 작성해놓고 보니 조금씩 JVM에 대한 개념이 잡혀가는 느낌이 듭니다.  
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-26-jvm-execution-engine>
 

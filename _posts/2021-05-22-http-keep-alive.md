@@ -8,9 +8,8 @@ last_modified_at: 2021-09-01T03:00:00
 
 <br>
 
-HTTP Keep-Alive 기능에 대한 설명 전에 해당 기능이 등장하게 된 배경부터 알아보겠습니다. 
-
 ## 1. HTTP 비연결성(Connectionless) 특징
+HTTP Keep-Alive 기능에 대한 설명 전에 해당 기능이 등장하게 된 배경부터 알아보겠습니다. 
 Keep-Alive 기능이 등장하게 된 이유는 [HTTP(HyperText Transfer Protocol)][http-blog-link] 포스트에서 소개한 HTTP 특징 중 한가지인 비연결성(Connectionless)과 연관있습니다. 
 
 > [HTTP(HyperText Transfer Protocol)][http-blog-link]<br>

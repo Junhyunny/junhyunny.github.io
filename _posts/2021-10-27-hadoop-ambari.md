@@ -217,8 +217,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 ### 4.4. ambari-metrics-common 컴파일 에러
 
 #### 4.4.1. 에러 로그
-- 다음과 같은 컴파일 에러가 발생합니다. 
-- 특정 클래스, 애너테이션들을 확인할 수 없습니다.
+- 특정 클래스, 애너테이션들을 찾을 수 없다는 컴파일 에러가 발생합니다. 
 
 ```
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.2:compile (default-compile) on project ambari-metrics-common: Compilation failure: Compilation failure: 

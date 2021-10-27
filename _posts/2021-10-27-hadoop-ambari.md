@@ -169,7 +169,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 ```
 
 #### 4.2.2. 해결 방법
-- `StackOverflow` - <https://stackoverflow.com/questions/26053982/setup-script-exited-with-error-command-x86-64-linux-gnu-gcc-failed-with-exit>
+- `StackOverflow` 참조 - <https://stackoverflow.com/questions/61654584/ambari-admin-view-2-7-5-0-0-build-failure>
 - pom.xml 설정 중 `admin-web` 설정에 대한 버전 값을 변경합니다.
 
 ##### 이전 버전
@@ -274,8 +274,39 @@ Download HBase:
     - ambari-metrics/pom.xml
 - 3개의 파일 모두를 다운받아서 각 폴더 위치에 있는 pom.xml 파일과 변경합니다.
 
+### 4.4. Ambari Metrics Monitor 에러
+
+#### 4.4.1. 에러 로그
+- 파이썬 헤더를 찾지 못하는 현상이 있습니다.
+
+```
+ild/psutil
+     [exec] running build_ext
+     [exec] building '_psutil_linux' extension
+     [exec] creating build
+     [exec] creating build/temp.linux-x86_64-2.7
+     [exec] creating build/temp.linux-x86_64-2.7/psutil
+     [exec] x86_64-linux-gnu-gcc -pthread -fno-strict-aliasing -Wdate-time -D_FORTIFY_SOURCE=2 -g -fdebug-prefix-map=/build/python2.7-QDqKfA/python2.7-2.7.18=. -fstack-protector-strong -Wformat -Werror=format-security -fPIC -I/usr/include/python2.7 -c psutil/_psutil_linux.c -o build/temp.linux-x86_64-2.7/psutil/_psutil_linux.o
+     [exec] psutil/_psutil_linux.c:12:10: fatal error: Python.h: No such file or directory
+     [exec]    12 | #include <Python.h>
+     [exec]       |          ^~~~~~~~~~
+     [exec] compilation terminated.
+     [exec] error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+```
+
+#### 4.4.2. 해결 방법
+- `StackOverflow` 참조 - <https://stackoverflow.com/questions/26053982/setup-script-exited-with-error-command-x86-64-linux-gnu-gcc-failed-with-exit>
+- 필요한 패키지들을 설치합니다. 
+
+```
+$ sudo apt-get install python-dev libffi-dev 
+```
+
 #### REFERENCE
 - <https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5>
 - <https://jjeong.tistory.com/1014>
+- <https://stackoverflow.com/questions/61654584/ambari-admin-view-2-7-5-0-0-build-failure>
 - <https://stackoverflow.com/questions/64494636/install-ambari-cant-download-hortonworks-hdp-from-amazon-s3>
 - <https://stackoverflow.com/questions/26053982/setup-script-exited-with-error-command-x86-64-linux-gnu-gcc-failed-with-exit>

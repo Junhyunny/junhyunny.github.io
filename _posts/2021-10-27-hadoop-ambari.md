@@ -194,29 +194,9 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
      </configuration>
 ```
 
-### 4.3. Cannot get from amazone A3
+### 4.3. ambari-metrics-common 컴파일 에러
 
 #### 4.3.1. 에러 로그
-- `ambari-metrics` 의존성 빌드시 아마존 스토리지에 접근할 때 다음과 같은 에러가 발생합니다. 
-- 해당 URL을 브라우저를 통해 접근해보면 `Access Denied` 상태입니다. 
-
-```
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-antrun-plugin:1.7:run (default) on project ambari-metrics-timelineservice: An Ant BuildException has occured: Can't get https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz to /root/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz
-[ERROR] around Ant part ...<get usetimestamp="true" src="https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz" dest="/root/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz"/>... @ 5:273 in /root/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/antrun/build-Download HBase.xml
-```
-
-#### 4.3.2. 해결 방법
-- `StackOverflow` 참조 - <https://stackoverflow.com/questions/64494636/install-ambari-cant-download-hortonworks-hdp-from-amazon-s3>
-- `Github` 참조 - <https://github.com/apache/ambari/pull/3283/commits/3dca705f831383274a78a8c981ac2b12e2ecce85>
-- Github 링크로 접근하면 총 3개의 파일이 변경된 커밋(commit) 이력을 확인할 수 있습니다.
-    - ambari-infra/ambari-infra-assembly/pom.xml
-    - ambari-metrics/ambari-metrics-timelineservice/pom.xml
-    - ambari-metrics/pom.xml
-- 3개의 파일 모두를 다운받아서 각 폴더 위치에 있는 pom.xml 파일과 변경합니다.
-
-### 4.4. ambari-metrics-common 컴파일 에러
-
-#### 4.4.1. 에러 로그
 - 특정 클래스, 애너테이션들을 찾을 수 없다는 컴파일 에러가 발생합니다. 
 
 ```
@@ -229,7 +209,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 ...
 ```
 
-#### 4.4.2. 해결 방법
+#### 4.3.2. 해결 방법
 - Java 버전을 확인 후 JDK 1.8 버전으로 변경합니다.
 
 ##### Java 버전 확인
@@ -264,6 +244,35 @@ openjdk version "1.8.0_292"
 OpenJDK Runtime Environment (build 1.8.0_292-8u292-b10-0ubuntu1~20.04-b10)
 OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 ```
+
+### 4.4. Ambari Metrics Collector 설치 에러
+
+#### 4.4.1. 에러 로그
+- `ambari-metrics-timelineservice` 의존성 빌드시 아마존 스토리지에 접근할 때 다음과 같은 에러가 발생합니다. 
+- 해당 URL을 브라우저를 통해 접근해보면 `Access Denied` 상태입니다. 
+
+```
+Download HBase:
+    [mkdir] Created dir: /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded
+      [get] Getting: https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz
+      [get] To: /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz
+      [get] Error opening connection java.io.IOException: Server returned HTTP response code: 403 for URL: https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz
+      [get] Error opening connection java.io.IOException: Server returned HTTP response code: 403 for URL: https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz
+      [get] Error opening connection java.io.IOException: Server returned HTTP response code: 403 for URL: https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz
+      [get] Can't get https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz to /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz
+...
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-antrun-plugin:1.7:run (default) on project ambari-metrics-timelineservice: An Ant BuildException has occured: Can't get https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz to /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz
+[ERROR] around Ant part ...<get usetimestamp="true" src="https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz" dest="/home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz"/>... @ 5:277 in /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/antrun/build-Download HBase.xml
+```
+
+#### 4.4.2. 해결 방법
+- `StackOverflow` 참조 - <https://stackoverflow.com/questions/64494636/install-ambari-cant-download-hortonworks-hdp-from-amazon-s3>
+- `Github` 참조 - <https://github.com/apache/ambari/pull/3283/commits/3dca705f831383274a78a8c981ac2b12e2ecce85>
+- Github 링크로 접근하면 총 3개의 파일이 변경된 커밋(commit) 이력을 확인할 수 있습니다.
+    - ambari-infra/ambari-infra-assembly/pom.xml
+    - ambari-metrics/ambari-metrics-timelineservice/pom.xml
+    - ambari-metrics/pom.xml
+- 3개의 파일 모두를 다운받아서 각 폴더 위치에 있는 pom.xml 파일과 변경합니다.
 
 #### REFERENCE
 - <https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5>

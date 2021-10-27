@@ -59,37 +59,61 @@ Ambari는 시스템 관리자가 다음과 같은 세 가지를 가능하도록 
 설치 방법은 아래 링크를 참조해주시길 바랍니다.
 - <https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5>
 
-##### 코드 다운로드 및 버전 설정
+### 3.1. 코드 다운로드 및 버전 설정
 
 ```
-wget https://www-eu.apache.org/dist/ambari/ambari-2.7.5/apache-ambari-2.7.5-src.tar.gz (use the suggested mirror from above)
-tar xfvz apache-ambari-2.7.5-src.tar.gz
-cd apache-ambari-2.7.5-src
-mvn versions:set -DnewVersion=2.7.5.0.0
+$ sudo wget https://www-eu.apache.org/dist/ambari/ambari-2.7.5/apache-ambari-2.7.5-src.tar.gz (use the suggested mirror from above)
+$ tar xfvz apache-ambari-2.7.5-src.tar.gz
+$ cd apache-ambari-2.7.5-src
+$ sudo mvn versions:set -DnewVersion=2.7.5.0.0
  
-pushd ambari-metrics
-mvn versions:set -DnewVersion=2.7.5.0.0
-popd
+$ pushd ambari-metrics
+$ sudo mvn versions:set -DnewVersion=2.7.5.0.0
+$ popd
 ```
 
-##### 빌드 및 패키지 생성
+### 3.2. 빌드 및 패키지 생성
 
 ```
-mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30a2da8a90fee2403b6cab91d19972 -DskipTests -Dpython.ver="python >= 2.6"
+$ sudo mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30a2da8a90fee2403b6cab91d19972 -DskipTests -Dpython.ver="python >= 2.6"
 ```
 
-##### 패키지 파일 설치
-설명 글에는 `ambari-server/target/rpm/ambari-server/RPMS/noarch/` 경로라고 설명되어 있지만, `ambari-server/target` 폴더에 존재합니다. 
+### 3.3. 서버 패키지 파일 설치
+설명 글에는 `ambari-server/target/rpm/ambari-server/RPMS/noarch/` 경로라고 설명되어 있지만, `ambari-server/target` 폴더에 존재합니다. 파일명은 `ambari-server_2.7.5.0-0-dist.deb` 입니다.
 
 ```
-apt-get install ./ambari-server*.deb
+$ cd ./ambari-server/target
+$ sudo apt-get install ./ambari-server_2.7.5.0-0-dist.deb
+```
+
+### 3.4. Ambari 서버 설정 및 시작
+
+```
+$ sudo ambari-server setup
+$ sudo ambari-server start
+```
+
+### 3.5. 에이전트 패키지 파일 설치 
+설명 글에는 `ambari-agent/target/rpm/ambari-agent/RPMS/x86_64/` 경로라고 설명되어 있지만, `ambari-agent/target` 폴더에 존재합니다. 파일명은 `ambari-agent_2.7.5.0-0.deb` 입니다.
+
+```
+$ cd ./ambari-agent/target
+$ sudo apt-get install ./ambari-agent_2.7.5.0-0.deb
+```
+
+### 3.6. 에이전트 시작
+
+```
+$ sudo ambari-agent start
 ```
 
 ## 4. Ambari 설치 관련 오류 및 해결 방법
 
 ### 4.1. apache-rat-plugin 문제
 
-처음으로 다음과 같은 에러를 만날 수 있습니다. 
+#### 4.1.1. 에러 로그
+- 오픈 소스를 사용할 때 라이센스가 붙어 있지 않은 파일들이 있는 경우 에러가 발생한다고 합니다. 
+- 라이센스 내용을 넣어주면 에러가 나지 않지만, 파일이 너무 많습니다.
 
 ```
 [INFO] ------------------------------------------------------------------------
@@ -102,10 +126,7 @@ apt-get install ./ambari-server*.deb
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 ```
 
-찾아보니 오픈 소스를 사용할 때 라이센스가 붙어 있지 않은 파일들이 있는 경우 에러가 발생한다고 합니다. 
-라이센스 내용을 넣어주면 에러가 나지 않지만, 파일이 너무 많습니다.
-
-##### 해결 방법
+#### 4.1.2. 해결 방법
 - `-Drat.skip=true` 옵션을 통해 해결 가능합니다.
 - 해당 옵션을 추가한 명령어는 아래와 같습니다. 
 
@@ -114,7 +135,10 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 ```
 
 ### 4.2. Ambari Amdin View 설치 에러
-`Ambari Amdin View` 설치 중 발생하는 에러입니다. 
+
+#### 4.2.1. 에러 로그
+- `Ambari Amdin View` 설치 중 발생하는 에러입니다. 
+- 특정 의존성의 버전이 맞지 않아 발생하는 것으로 보입니다.
 
 ```
 [INFO] Copying extracted folder /tmp/phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2-extract-1635360411327/phantomjs-2.1.1-linux-x86_64 -> /home/jun/apache-ambari-2.7.5-src/ambari-admin/src/main/resources/ui/admin-web/node_modules/phantomjs/lib/phantom
@@ -144,7 +168,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 [ERROR] npm ERR!     /home/jun/apache-ambari-2.7.5-src/ambari-admin/src/main/resources/ui/admin-web/npm-debug.log
 ```
 
-##### 해결 방법
+#### 4.2.2. 해결 방법
 - `StackOverflow` - <https://stackoverflow.com/questions/26053982/setup-script-exited-with-error-command-x86-64-linux-gnu-gcc-failed-with-exit>
 - pom.xml 설정 중 `admin-web` 설정에 대한 버전 값을 변경합니다.
 
@@ -171,22 +195,76 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 ```
 
 ### 4.3. Cannot get from amazone A3
-`ambari-metrics` 의존성 빌드 시 아마존 스토리지에 접근할 때 다음과 같은 에러가 발생합니다. 
-브라우저를 통해 접근해보니 `Access Denied` 상태입니다. 
+
+#### 4.3.1. 에러 로그
+- `ambari-metrics` 의존성 빌드시 아마존 스토리지에 접근할 때 다음과 같은 에러가 발생합니다. 
+- 해당 URL을 브라우저를 통해 접근해보면 `Access Denied` 상태입니다. 
 
 ```
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-antrun-plugin:1.7:run (default) on project ambari-metrics-timelineservice: An Ant BuildException has occured: Can't get https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz to /root/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz
 [ERROR] around Ant part ...<get usetimestamp="true" src="https://s3.amazonaws.com/dev.hortonworks.com/HDP/centos7/3.x/BUILDS/3.1.4.0-315/tars/hbase/hbase-2.0.2.3.1.4.0-315-bin.tar.gz" dest="/root/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/embedded/hbase.tar.gz"/>... @ 5:273 in /root/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-timelineservice/target/antrun/build-Download HBase.xml
 ```
 
-##### 해결 방법
-- `StackOverflow` - <https://stackoverflow.com/questions/64494636/install-ambari-cant-download-hortonworks-hdp-from-amazon-s3>
-- `Github` - <https://github.com/apache/ambari/pull/3283/commits/3dca705f831383274a78a8c981ac2b12e2ecce85>
+#### 4.3.2. 해결 방법
+- `StackOverflow` 참조 - <https://stackoverflow.com/questions/64494636/install-ambari-cant-download-hortonworks-hdp-from-amazon-s3>
+- `Github` 참조 - <https://github.com/apache/ambari/pull/3283/commits/3dca705f831383274a78a8c981ac2b12e2ecce85>
 - Github 링크로 접근하면 총 3개의 파일이 변경된 커밋(commit) 이력을 확인할 수 있습니다.
     - ambari-infra/ambari-infra-assembly/pom.xml
     - ambari-metrics/ambari-metrics-timelineservice/pom.xml
     - ambari-metrics/pom.xml
 - 3개의 파일 모두를 다운받아서 각 폴더 위치에 있는 pom.xml 파일과 변경합니다.
+
+### 4.4. ambari-metrics-common 컴파일 에러
+
+#### 4.4.1. 에러 로그
+- 다음과 같은 컴파일 에러가 발생합니다. 
+- 특정 클래스, 애너테이션들을 확인할 수 없습니다.
+
+```
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.2:compile (default-compile) on project ambari-metrics-common: Compilation failure: Compilation failure: 
+[ERROR] /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-common/src/main/java/org/apache/hadoop/metrics2/sink/timeline/ContainerMetric.java:[24,33] package javax.xml.bind.annotation does not exist
+...
+[ERROR] /home/jun/apache-ambari-2.7.5-src/ambari-metrics/ambari-metrics-common/src/main/java/org/apache/hadoop/metrics2/sink/timeline/TimelineMetricMetadata.java:[140,4] cannot find symbol
+[ERROR]   symbol:   class XmlElement
+[ERROR]   location: class org.apache.hadoop.metrics2.sink.timeline.TimelineMetricMetadata
+...
+```
+
+#### 4.4.2. 해결 방법
+- Java 버전을 확인 후 JDK 1.8 버전으로 변경합니다.
+
+##### Java 버전 확인
+
+```
+$ java -version
+openjdk version "11.0.11" 2021-04-20
+OpenJDK Runtime Environment (build 11.0.11+9-Ubuntu-0ubuntu2.20.04)
+OpenJDK 64-Bit Server VM (build 11.0.11+9-Ubuntu-0ubuntu2.20.04, mixed mode, sharing)
+```
+
+##### JDK 1.8 설치
+
+```
+$ sudo apt get install opendjdk-8-jdk
+```
+
+##### JDK 1.8 대체 가능 리스트 확인
+
+```
+$ sudo update-java-alternatives -l
+java-1.11.0-openjdk-amd64      1111       /usr/lib/jvm/java-1.11.0-openjdk-amd64
+java-1.8.0-openjdk-amd64       1081       /usr/lib/jvm/java-1.8.0-openjdk-amd64
+```
+
+##### JDK 1.8 변경, 버전 확인
+
+```
+$ sudo update-java-alternatives -s java-1.8.0-openjdk-amd64 
+$ java -version
+openjdk version "1.8.0_292"
+OpenJDK Runtime Environment (build 1.8.0_292-8u292-b10-0ubuntu1~20.04-b10)
+OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
+```
 
 #### REFERENCE
 - <https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5>

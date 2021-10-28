@@ -34,7 +34,7 @@ Ambari는 시스템 관리자가 다음과 같은 세 가지를 가능하도록 
     - Ambari leverages Ambari Metrics System for metrics collection.
     - Ambari leverages Ambari Alert Framework for system alerting and will notify you when your attention is needed (e.g., a node goes down, remaining disk space is low, etc).
 
-<p align="center"><img src="/images/hadoop-ambari-1.JPG" width="60%"></p>
+<p align="center"><img src="/images/hadoop-ambari-1.JPG" width="80%"></p>
 <center>이미지 출처, https://docs.microsoft.com/ko-kr/azure/hdinsight/hdinsight-cluster-availability</center>
 
 ## 2. Ambari 설치 환경
@@ -303,6 +303,11 @@ ild/psutil
 ```
 $ sudo apt-get install python-dev libffi-dev 
 ```
+
+### 5. 설치 완료 화면
+초기 로그인 정보는 ID, 비밀번호 모두 admin 입니다.
+
+<p align="center"><img src="/images/hadoop-ambari-2.JPG" width="80%"></p>
 
 #### REFERENCE
 - <https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5>

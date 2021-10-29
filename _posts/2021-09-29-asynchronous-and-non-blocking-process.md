@@ -47,7 +47,7 @@ last_modified_at: 2021-09-29T23:55:00
 예를 들어, `B`라는 사람의 일은 `A`라는 사람이 일을 잘하는지 감시하는 것이라고 합니다. 
 그렇다면 `A`, `B` 모두 동시에 일을 하고는 있지만 필연적으로 `A`가 일을 마친 후에야 `B`의 일이 종료됩니다. 
 
-##### 동기(Synchronous) 처리
+##### 싱글/멀티 스레드 환경 동기(Synchronous) 처리
 
 <p align="center"><img src="/images/asynchronous-and-non-blocking-process-3.gif"></p>
 

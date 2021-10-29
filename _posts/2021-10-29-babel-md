@@ -87,27 +87,109 @@ TypeScript, JSX 같은 다른 언어로 작성된 코드도 변경이 가능합�
 3. Generate
     - babel-generator 모듈을 사용하여 AST를 일반 코드로 변환합니다. 
 
-<p align="center"><img src="/images/babel-2.JPG" width="100%"></p>
+<p align="center"><img src="/images/babel-2.JPG" width="90%"></p>
 <center>이미지 출처, https://www.sitepoint.com/understanding-asts-building-babel-plugin/</center>
 
-### 3.1. 추상 구문 트리(AST, Abstract Syntax Tree)
+### 3.1. 추상 구문 트리(AST, Abstract Syntax Tree)란?
 
-추상 구문 트리라는 
+다소 생소할 수 있는 용어인 추상 구문 트리(AST, Abstract Syntax Tree)에 대해 간단한 정리를 하였습니다. 
 
-## 4.Babel 용어
+- 프로그래밍 언어로 작성된 코드를 각 의미별로 분리하여 컴퓨터가 이해할 수 있는 구조로 변경시킨 트리를 의미합니다. 
+- 컴파일러에 자주 사용되는 자료구조입니다. 
+- 트리의 각 노드는 소스 코드로 구성됩니다. 
+- <https://astexplorer.net/> 사이트에서 코드를 사용한 추상 구문 트리를 만들 수 있습니다.
+
+##### JavaScript 코드
+- 추상 구문 트리로 변경할 매우 간단한 기능의 JavaScript 코드입니다.
+
+```javascript
+function addFive(num) {
+    return num + 5;
+}
+```
+
+##### 추상 구문 트리
+- 위의 간단한 JavaScript 코드를 변경하면 아래와 같습니다.
+
+```json
+{
+  "type": "Program",
+  "start": 0,
+  "end": 43,
+  "body": [
+    {
+      "type": "FunctionDeclaration",
+      "start": 0,
+      "end": 43,
+      "id": {
+        "type": "Identifier",
+        "start": 9,
+        "end": 16,
+        "name": "addFive"
+      },
+      "expression": false,
+      "generator": false,
+      "async": false,
+      "params": [
+        {
+          "type": "Identifier",
+          "start": 17,
+          "end": 20,
+          "name": "num"
+        }
+      ],
+      "body": {
+        "type": "BlockStatement",
+        "start": 22,
+        "end": 43,
+        "body": [
+          {
+            "type": "ReturnStatement",
+            "start": 26,
+            "end": 41,
+            "argument": {
+              "type": "BinaryExpression",
+              "start": 33,
+              "end": 40,
+              "left": {
+                "type": "Identifier",
+                "start": 33,
+                "end": 36,
+                "name": "num"
+              },
+              "operator": "+",
+              "right": {
+                "type": "Literal",
+                "start": 39,
+                "end": 40,
+                "value": 5,
+                "raw": "5"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "sourceType": "module"
+}
+```
+
+## 4.Babel 추가 설명
 ### 4.1. 프리셋(Preset)
 ### 4.2. 폴리필(Polyfill)
-
 ## 5. Babel 사용 예제
 
 #### REFERENCE
 - <https://babeljs.io/docs/en/>
 - <https://en.wikipedia.org/wiki/ECMAScript>
 - <https://d2.naver.com/helloworld/4268738>
+- <https://code-giraffe.tistory.com/44>
 - <https://ideveloper2.tistory.com/166>
 - <https://devowen.com/293>
 - <https://hbsowo58.tistory.com/407>
 - <https://www.daleseo.com/js-babel/>
 - <https://tecoble.techcourse.co.kr/post/2021-07-07-babel/>
+- <https://medium.com/@su_bak/javascript-ast-abstract-syntax-tree-606554e29898>
 
 [webpack-link]: https://junhyunny.github.io/information/webpack/

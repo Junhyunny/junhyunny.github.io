@@ -338,7 +338,6 @@ origin shape: [[point1: [x: 0, y: 0], point2: [x: 0, y: 1]], [point1: [x: 0, y: 
 cloned shape: [[point1: [x: 0, y: 0], point2: [x: -1, y: -1]], [point1: [x: 0, y: 1], point2: [x: 1, y: 1]], [point1: [x: 1, y: 1], point2: [x: 1, y: 0]], [point1: [x: 1, y: 0], point2: [x: 0, y: 0]]]
 ```
 
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-10-12-prototype-pattern>
 

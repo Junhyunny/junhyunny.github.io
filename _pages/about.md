@@ -66,9 +66,6 @@ classes: wide
 - SVM(Support Vector Machine) 머신 러닝 알고리즘 사용
 
 ## Side Proejcts 
-#### [Invest Supporter]
-- 투자 관련 지표를 쉽게 확인할 수 있도록 시각화하는 어플리케이션 
-
 #### [Slack bot] Notice bot on slack 
 - 1일 1 커밋(commit) 알림 봇 
 - Java, AWS Lambda function 사용 

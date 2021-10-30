@@ -174,7 +174,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 
 ##### 이전 버전
 
-```
+```xml
     <configuration>
         <nodeVersion>v4.5.0</nodeVersion>
         <npmVersion>2.15.0</npmVersion>
@@ -185,7 +185,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 
 ##### 변경된 버전
 
-```
+```xml
     <configuration>
         <nodeVersion>v11.10.0</nodeVersion>
         <npmVersion>6.7.0</npmVersion>

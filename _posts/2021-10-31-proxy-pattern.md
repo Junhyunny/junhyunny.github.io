@@ -350,7 +350,7 @@ public class ProxyPatternTest {
 ```
 
 ##### when_printGoogleByRemoteProxy_then_printHTML 테스트 결과
-- 원격 프록시 객체 내부에서 구글 서버로 페이지 요청 성공 후 내용을 출력하였습니다.
+- 원격 프록시 객체 내부에서 구글 서버로 페이지 요청 성공 후 내용을 출력합니다.
 
 ```
 02:58:54.436 [main] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://www.google.com

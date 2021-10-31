@@ -56,7 +56,7 @@ Ambari는 시스템 관리자가 다음과 같은 세 가지를 가능하도록 
 1. 패키지 파일 설치
 1. 서버 설정 및 실행
 
-설치 방법은 아래 링크를 참조해주시길 바랍니다.
+설치 방법은 아래 링크를 참조하였습니다.
 - <https://cwiki.apache.org/confluence/display/AMBARI/Installation+Guide+for+Ambari+2.7.5>
 
 ### 3.1. 코드 다운로드 및 버전 설정

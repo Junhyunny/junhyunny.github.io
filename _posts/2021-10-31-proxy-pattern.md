@@ -367,7 +367,9 @@ public class ProxyPatternTest {
 권한이 있는 경우에만 출력이 가능한 보호 프록시 객체를 만들어보겠습니다. 
 
 #### 3.3.1. AUTHORITY enum
-- 두 개의 권한이 존재합니다.(ADMIN, NORMAL)
+- 두 개의 권한이 존재합니다. 
+    - ADMIN - 관리자
+    - NORMAL - 일반
 - `accessLevel` 값이 낮을수록 권한이 높습니다.
 
 ```java

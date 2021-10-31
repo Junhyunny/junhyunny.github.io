@@ -540,14 +540,12 @@ public class ProxyPatternTest {
 ```
 
 ##### when_hasAccessibleAuthorization_then_print 테스트 결과
-- 출력 성공하였습니다.
 
 ```
 03:19:23.415 [main] INFO blog.in.action.proxy.protection.ProtectionRealSubject - Junhyunny님이 출력하였습니다. 접근권한: NORMAL
 ```
 
 ##### when_hasNotAccessibleAuthorization_then_occurException 테스트 결과
-- 출력 실패하였습니다.
 
 ```
 03:22:06.217 [main] INFO blog.in.action.proxy.ProxyPatternTest - 관리자 등급 이상만 접근할 수 있습니다.

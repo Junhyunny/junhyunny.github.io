@@ -8,6 +8,12 @@ last_modified_at: 2021-08-16T12:45:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
+- [Spring Application Context Event - 비동기 처리][async-in-spring-application-context-event-link]
+
+## 0. 들어가면서
+
 새로운 기능 추가를 해야하는데 문제가 생겼습니다. 
 공통 비즈니스 로직(business logic) 패키지(package)에서 다른 비즈니스 로직 패키지에 위치한 기능이 필요한 상황이 발생하였습니다. 
 
@@ -297,15 +303,10 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 ## CLOSING
 주문, 배달 관련된 도메인을 직접 경험해보지는 않아서 테스트 시나리오가 좋지 않을 수 있습니다.(양해 부탁드립니다.😓) 
 기능을 정리하다보니 몇 가지 궁금한 사항들이 생겼습니다. 
+다음 포스트 주제로 정리해봐야겠습니다.
 - 비동기(async) 방식의 이벤트 처리는 어떻게 수행하는가?
 - 전달한 이벤트까지 트랜잭션이 이어지는가?
 - 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
-
-다음 포스트 주제로 궁금한 사항과 관련된 내용들을 확인해보고 정리해야겠습니다.
-
-👉 추가적인 내용을 정리했어요.
-- [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
-- [Spring Application Context Event - 비동기 처리][async-in-spring-application-context-event-link]
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-15-spring-application-context-event>

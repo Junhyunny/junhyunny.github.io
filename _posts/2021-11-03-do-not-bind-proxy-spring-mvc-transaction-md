@@ -1,0 +1,50 @@
+---
+title: "[Spring MVC] Not binding proxy bean for transaction"
+search: false
+category:
+  - spring-mvc
+last_modified_at: 2021-11-03T23:55:00
+---
+
+<br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Proxy Pattern][proxy-pattern-link]
+
+## 0. 들어가면서
+제가 다뤄본 레거시(legacy) 시스템들을 보면 대부분 Spring MVC 프레임워크를 기반으로 구현되어 있습니다. 
+처음부터 Spring Boot 프레임워크를 사용해서 그런지 XML 파일을 이용한 컨텍스트 설정들이 되게 불편하고 어색했습니다. 
+이번에 작성할 포스트 주제도 Spring MVC 프레임워크가 익숙하지 않아서 발생한 문제입니다. 
+아직 Spring MVC 프레임워크를 사용하시는 분들에게 도움이 되길 바랍니다. 
+
+## 1. 문제 현상
+문제 현상을 간략하게 정리해보겠습니다. 
+- 트랜잭션 처리를 위한 AOP 설정은 문제가 없다.
+- 빈(bean) 생성은 정상적으로 수행되고, 빈(bean) 주입도 잘 동작한다.
+- **주입되는 빈(bean)이 프록시(proxy) 객체가 아니라 일반 객체이다.**
+
+처음엔 트랜잭션 처리를 위한 AOP 설정에 문제가 있는 줄 알았습니다. 
+30분 정도를 허비한 후에야 디버깅(debugging)을 통해 문제점을 정확히 파악할 수 있었습니다. 
+스프링(spring)에서 제공하는 트랜잭션 처리는 프록시 객체를 통해 이루어집니다. 
+그렇기 때문에 메소드(method) 호출시 콜 스택(call stack)의 모양이 달라집니다. 
+
+##### 일반 메소드 호출시 스택 
+
+<p align="center"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-1.JPG" width="80%"></p>
+
+##### 트랜잭션 처리 가능한 메소드 호출시 스택
+
+<p align="center"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-2.JPG" width="80%"></p>
+
+## 2. 문제 원인
+
+## 3. 해결방법
+
+#### TEST CODE REPOSITORY
+- <>
+
+#### REFERENCE
+- <https://stackoverflow.com/questions/18995298/why-proxy-is-not-used-to-autowire>
+- <https://stackoverflow.com/questions/11486401/autowired-spring-bean-is-not-a-proxy>
+
+[proxy-pattern-link]: https://junhyunny.github.io/information/design-pattern/proxy-pattern/

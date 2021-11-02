@@ -48,7 +48,7 @@ Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면
 마이크로 서비스 아키텍처는 서비스들끼리 협업하는 세상입니다. 
 그렇기 때문에 서비스는 클라이언트의 요청을 받아주는 서버가 될 수도 있고 다른 서비스에게 도움을 요청하는 클라이언트가 될 수도 있습니다. 
 
-##### 클라이언트 사이드 로드 밸런서(server-side load balancer)
+##### 클라이언트 사이드 로드 밸런서(client-side load balancer)
 <p align="center"><img src="/images/spring-cloud-netflix-ribbon-2.JPG" width="50%"></p>
 <center>이미지 출처, https://sabarada.tistory.com/54</center><br>
 

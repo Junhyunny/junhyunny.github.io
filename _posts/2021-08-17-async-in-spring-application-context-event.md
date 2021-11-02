@@ -12,6 +12,8 @@ last_modified_at: 2021-08-17T03:00:00
 - [Spring Application Context Event][spring-application-context-event-link]
 - [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
 
+## 0. 들어가면서
+
 [Spring Application Context Event][spring-application-context-event-link] 포스트를 작성하면서 생긴 궁금한 사항을 주제로 포스트를 작성하였습니다. 
 이번 포스트는 비동기 처리 방법에 대해서 정리해보았습니다. 
 크게 두 가지 주제로 예제 코드를 작성하였습니다. 

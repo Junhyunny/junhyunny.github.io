@@ -12,10 +12,10 @@ last_modified_at: 2021-11-04T23:55:00
 - [Proxy Pattern][proxy-pattern-link]
 
 ## 0. 들어가면서
-제가 다뤄본 레거시(legacy) 시스템들을 보면 대부분 Spring MVC 프레임워크를 기반으로 구현되어 있습니다. 
-처음부터 Spring Boot 프레임워크를 사용해서 그런지 XML 파일을 이용한 컨텍스트 설정들이 되게 불편하고 어색했습니다. 
-이번에 작성할 포스트 주제도 Spring MVC 프레임워크가 익숙하지 않아서 발생한 문제입니다. 
-아직 Spring MVC 프레임워크를 사용하시는 분들에게 도움이 되길 바랍니다. 
+제가 다룬 레거시(legacy) 시스템들은 대부분 Spring MVC 프레임워크를 기반이었습니다. 
+커리어 초반부터 Spring Boot 프레임워크를 사용했던 저는 XML 파일을 이용한 컨텍스트 설정들을 많이 어려워합니다. 
+이번 포스트도 Spring MVC 프레임워크가 익숙하지 않아서 발생한 문제에 대해 정리하였습니다. 
+Spring MVC 프레임워크를 사용하시는 분들에게 도움이 되길 바랍니다. 
 
 ## 1. 문제 현상
 문제 현상을 간략하게 정리해보겠습니다. 
@@ -23,22 +23,22 @@ last_modified_at: 2021-11-04T23:55:00
 - 빈(bean) 생성과 주입(injection)도 정상적으로 동작한다.
 
 처음엔 트랜잭션 처리를 위한 AOP(aspect oriented programming) 설정에 문제가 있는 줄 알았습니다. 
-오타를 찾는다거나 스프링 버전에 따라 트랜잭션 AOP 설정 방법이 다른지 확인해보았습니다. 
-`@Transactional` 애너테이션을 이용해보았지만 트랜잭션 처리가 안되기는 마찬가지였습니다. 
+오타를 찾는다거나 스프링 버전에 의래 트랜잭션 AOP 설정 방법이 달라졌는지 확인해보았습니다. 
+`@Transactional` 애너테이션을 사용해보기도 했지만, 트랜잭션 처리가 안되기는 마찬가지였습니다. 
 거의 1시간 정도를 허비한 후에야 디버깅(debugging)에서 문제를 정확히 파악할 수 있었습니다. 
 
-**주입되는 빈(bean)이 프록시(proxy) 객체가 아니라 일반 객체였습니다.** 
+**사용되는 빈(bean) 객체가 프록시(proxy) 객체가 아니라 일반 객체였습니다.** 
 스프링(spring)에서 제공하는 트랜잭션 처리는 프록시 객체를 통해 이루어집니다. 
 그렇기 때문에 메소드(method) 호출시 콜 스택(call stack)의 모양이 달라집니다. 
 
 ##### 빈(bean) 메소드 호출시 스택 모습
-- Controller 객체에서 Service 객체의 메소드 호출시 바로 콜 스택이 이어집니다.
+- Controller 객체에서 Service 객체의 메소드 호출시 스택이 바로 이어집니다.
 
 <p align="center"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-1.JPG" width="80%"></p>
 
 ##### 트랜잭션 처리된 빈(bean) 메소드 호출시 스택 모습
-- Controller 객체에서 Service 객체의 메소드 호출시 프록시 객체를 거치게 됩니다.
-- 스택을 보면 트랜잭션 처리를 위한 인터셉터가 존재합니다.(빨간 박스)
+- Controller 객체에서 Service 객체의 메소드 호출시 프록시 객체의 중간 로직을 거치게 됩니다.
+- 스택을 보면 트랜잭션 처리를 위한 인터셉터가 존재합니다. (빨간 박스)
 
 <p align="center"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-2.JPG" width="80%"></p>
 
@@ -54,12 +54,12 @@ last_modified_at: 2021-11-04T23:55:00
 <p align="center"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-3.JPG" width="80%"></p>
 <center>이미지 출처, hthttps://en.wikipedia.org/wiki/Proxy_pattern</center>
 
-저도 마찬가지 이유로 프록시 객체가 아닌 객체를 사용하고 있었기에 문제가 발생했습니다. 
-`applicationContext.xml`, `dispatcher-servlet.xml` 두 군데 파일에서 컴포넌트 스캔(component-scan) 작업을 수행하고 있었습니다. 
-이는 스프링의 동작 순서와 연관되어 있으며, 이번 포스트의 주제에선 다루지 않겠습니다.
+확인해보니 `applicationContext.xml`, `dispatcher-servlet.xml` 두 파일에서 컴포넌트 스캔(component-scan) 작업을 수행하고 있었습니다. 
+컴포넌트 스캔이 두 번 발생한 원인은 스프링의 동작 순서와 연관되어 있지만, 이번 포스트에선 다루지 않겠습니다.
 
 ##### component-scan 설정
-- 별도 제거에 관련된 설정이 없으므로 `blog.in.action` 하위 패키지에 모든 컴포넌트를 찾습니다.
+- 아래와 같은 컴포넌트 스캔 설정이 `applicationContext.xml`, `dispatcher-servlet.xml` 파일에 존재하였습니다. 
+- 프로젝트 `blog.in.action` 하위 패키지에 모든 컴포넌트를 찾습니다.
 
 ```xml
     <mvc:annotation-driven/>
@@ -75,7 +75,6 @@ last_modified_at: 2021-11-04T23:55:00
 
 ```xml
     <mvc:annotation-driven/>
-
     <context:component-scan base-package="blog.in.action" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
@@ -89,7 +88,6 @@ last_modified_at: 2021-11-04T23:55:00
 
 ```xml
     <mvc:annotation-driven/>
-
     <context:component-scan base-package="blog.in.action" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
@@ -209,7 +207,7 @@ public class BlogServiceImpl implements BlogService {
 
 <p align="left"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-4.JPG"></p>
 
-##### updateBlog 메소드 테스트
+##### updateBlog 메소드 - curl 명령어
 
 ```
 $ curl http://localhost:8080/update
@@ -220,7 +218,7 @@ $ curl http://localhost:8080/update
 
 <p align="left"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-5.JPG"></p>
 
-##### rollbackAfterException 메소드 테스트
+##### rollbackAfterException 메소드 - curl 명령어
 
 ```
 $ curl http://localhost:8080/rollback
@@ -228,8 +226,7 @@ $ curl http://localhost:8080/rollback
 
 ##### rollbackAfterException 메소드 테스트 결과 로그
 - 데이터가 변경되지 않았으므로 별도 이미지를 첨부하지 않았습니다. 
-- 서버 에러가 발생합니다. 
-- 쿼리를 통해 데이터 상태를 확인합니다.
+- 서버 에러가 발생한 것을 확인 후 쿼리를 통해 데이터를 확인합니다.
 
 ```
 $ curl http://localhost:8080/rollback

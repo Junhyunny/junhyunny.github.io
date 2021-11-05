@@ -170,7 +170,7 @@ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30
 
 #### 4.2.2. 해결 방법
 - `StackOverflow` 참조 - <https://stackoverflow.com/questions/61654584/ambari-admin-view-2-7-5-0-0-build-failure>
-- pom.xml 설정 중 `admin-web` 설정에 대한 버전 값을 변경합니다.
+- pom.xml 설정 중 `admin-web` 모듈 버전 값을 변경합니다.
 
 ##### 이전 버전
 

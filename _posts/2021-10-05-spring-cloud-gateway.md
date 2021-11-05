@@ -13,6 +13,7 @@ last_modified_at: 2021-10-05T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [MSA API Gateway][msa-gateway-link]
 - [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
+- [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link]
 
 ## 0. 들어가면서
 [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트의 테스트를 구현할 때 포트(port)를 바꿔가며 요청하는 것이 번거롭다는 생각이 들었습니다. 

@@ -28,6 +28,8 @@ last_modified_at: 2021-11-06T23:55:00
 ## 1. 테스트 환경
 시스템 구성시 버전으로 인한 이슈가 발생할 수 있습니다. 
 제가 테스트에서 사용한 버전과 원하시는 버전을 확인하시고 변경하여 사용하시길 바랍니다. 
+테스트를 위해선 MariaDB 데이터베이스와 PostgreSQL 데이터베이스가 로컬(local) PC에 설치되어 있어야 합니다. 
+
 - MariaDB 10.5.9
 - PostgreSQL 14.0, compiled by Visual C++ build 1914, 64-bit
 - Spring Framework 5.2.3.RELEASE

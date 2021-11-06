@@ -343,7 +343,8 @@ available: expected single matching bean but found 2: sqlSession4MySql,sqlSessio
 ```
 
 해당 에러는 사용할 `SqlSessionFactory` 객체가 두 개 이상 발견되기 때문에 발생됩니다. 
-DAO 객체 생성시 사용할 팩토리 빈(bean) 객체를 지정하면 에러가 발생하지 않습니다. 
+`mapper:scan` 행위를 할 때 필요한 `SqlSessionFactory` 객체를 찾으면 `sqlSession4MySql`, `sqlSession4PostgreSql` 두 개가 발견되기 때문입니다. 
+각 DAO 객체 생성시 사용할 팩토리 빈(bean) 객체를 지정하면 에러가 발생하지 않습니다. 
 
 ##### 에러가 발생하는 설정
 

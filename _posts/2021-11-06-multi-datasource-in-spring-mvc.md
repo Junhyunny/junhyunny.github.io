@@ -328,23 +328,139 @@ $ tree -I 'idea|lib|out|test|target' ./
 ```
 
 #### 2.3.3. NoUniqueBeanDefinitionException: No qualifying bean of type 'org.apache.ibatis.session.SqlSessionFactory' available
+`contextApplication.xml` 설정을 잘못하면 다음과 같은 에러를 만날 수 있습니다. 
 
+##### 에러 로그
 ```
 ...
-Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.apache.ibatis.session.SqlSessionFactory' available: expected single matching bean but found 2: sqlSession4MySql,sqlSession4PostgreSql
+Unsatisfied dependency expressed through bean property 'sqlSessionFactory'; 
+nested exception is org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'org.apache.ibatis.session.SqlSessionFactory' 
+available: expected single matching bean but found 2: sqlSession4MySql,sqlSession4PostgreSql
 06-Nov-2021 16:56:22.643 SEVERE [RMI TCP Connection(3)-127.0.0.1] org.springframework.web.context.ContextLoader.initWebApplicationContext Context initialization failed
 ...
 ```
 
+해당 에러는 사용할 `SqlSessionFactory` 객체가 두 개 이상 발견되기 때문에 발생됩니다. 
+DAO 객체 생성시 팩토리 빈(bean)을 지정하면 에러가 발생하지 않습니다. 
+
+##### 에러가 발생하는 설정
+
+```xml
+    ... 
+    <mapper:scan base-package="blog.in.action.mysql.dao"/>
+    ...
+    <mapper:scan base-package="blog.in.action.postgresql.dao"/>
+```
+
+##### 에러가 발생하지 않는 설정
+
+```xml 
+    ...
+    <mapper:scan base-package="blog.in.action.mysql.dao" factory-ref="sqlSession4MySql"/>
+    ...
+    <mapper:scan base-package="blog.in.action.postgresql.dao" factory-ref="sqlSession4PostgreSql"/>
+```
+
 ### 2.4. Controller 클래스
+클래스 이름과 요청 path만 다르기 때문에 MySQL 데이터소스에 접근할 수 있는 컨트롤러 클래스만 소개하겠습니다. 
+
+```java
+package blog.in.action.mysql.controller;
+
+import blog.in.action.mysql.service.MySqlService;
+import java.util.List;
+import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class MySqlController {
+
+    private final MySqlService service;
+
+    public MySqlController(MySqlService service) {
+        this.service = service;
+    }
+
+    @RequestMapping("/")
+    public String index() {
+        return "Hello. This is Junhyunny's blog";
+    }
+
+    @RequestMapping("/mysql")
+    public @ResponseBody
+    List<Map<String, Object>> selectTest() {
+        return service.selectTest();
+    }
+}
+```
 
 ### 2.5. ServiceImpl 클래스
+클래스 이름만 다르기 때문에 MySQL 데이터소스에 접근할 수 있는 서비스 구현 클래스만 소개하겠습니다. 
+
+```java
+package blog.in.action.mysql.service.impl;
+
+import blog.in.action.mysql.dao.MySqlDao;
+import blog.in.action.mysql.service.MySqlService;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MySqlServiceImpl implements MySqlService {
+
+    private final MySqlDao mySqlDao;
+
+    public MySqlServiceImpl(MySqlDao mySqlDao) {
+        this.mySqlDao = mySqlDao;
+    }
+
+    @Override
+    public List<Map<String, Object>> selectTest() {
+        return mySqlDao.selectTest();
+    }
+}
+```
 
 ### 2.6. DAO 인터페이스
+인터페이스 이름만 다르기 때문에 MySQL 데이터소스에 접근할 수 있는 DAO 인터페이스만 소개하겠습니다.
+
+```java
+package blog.in.action.mysql.dao;
+
+import java.util.List;
+import java.util.Map;
+
+public interface MySqlDao {
+
+    List<Map<String, Object>> selectTest();
+}
+```
 
 ### 2.7. Mapper XML 파일
+XML 파일 이름과 위치만 다르므로 MySQL 데이터베이스에 접근할 수 있는 XML 파일만 소개하겠습니다.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog.in.action.mysql.dao.MySqlDao">
+
+    <select id="selectTest" resultType="java.util.Map">
+        select *
+        from TB_TEST
+    </select>
+
+</mapper>
+```
 
 ## 3. 테스트 수행
+두 데이터소스로부터 데이터를 조회하는 API 요청 테스트 코드를 작성하였습니다. 
+`localhost:8080/mysql` API 요청을 통해 MySQL 데이터베이스에 저장된 데이터를 확인할 수 있습니다. 
+`localhost:8080/postgresql` API 요청을 통해 PostgreSQL 데이터베이스에 저장된 데이터를 확인할 수 있습니다.
+
 
 ### 3.1. MySQL 데이터베이스 접근
 

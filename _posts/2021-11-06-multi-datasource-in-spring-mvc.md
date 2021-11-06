@@ -219,7 +219,7 @@ $ tree -I 'idea|lib|out|test|target' ./
 
 ### 2.3. applicationContext.xml
 스프링 컨텍스트에 필요한 정보들을 정의하는 `applicationContext.xml` 파일입니다. 
-별도의 데이터소스 객체를 갖기 위해 같은 설정을 이름을 바꿔 두 개로 나눈 것 뿐입니다. 
+별도의 데이터소스 객체를 갖기 위해 비슷한 설정을 이름만 바꿔 두 개로 나눴습니다. 
 
 #### 2.3.1. MySql 데이터베이스 접근 설정
 - 빈(bean) 객체 이름에 접미사로 `4MySql`을 붙혔습니다.

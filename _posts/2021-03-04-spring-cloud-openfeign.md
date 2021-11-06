@@ -9,7 +9,7 @@ last_modified_at: 2021-08-22T20:30:00
 
 <br>
 
-⚠️ 해당 포스트는 2021년 8월22일에 재작성되었습니다.(불필요 코드 제거)
+⚠️ 해당 포스트는 2021년 8월22일에 재작성되었습니다. (불필요 코드 제거)
 
 > Spring Cloud Openfeign API Reference<br>
 > Feign is a declarative web service client. It makes writing web service clients easier.

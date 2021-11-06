@@ -365,7 +365,7 @@ available: expected single matching bean but found 2: sqlSession4MySql,sqlSessio
 ```
 
 ### 2.4. Controller 클래스
-클래스 이름과 요청 path만 다르기 때문에 MySQL 데이터소스에 접근할 수 있는 컨트롤러 클래스만 소개하겠습니다. 
+클래스 이름과 요청 path만 다르기 때문에 MySQL 데이터베이스에 접근할 수 있는 컨트롤러 클래스만 소개하겠습니다. 
 
 ```java
 package blog.in.action.mysql.controller;
@@ -400,7 +400,7 @@ public class MySqlController {
 ```
 
 ### 2.5. ServiceImpl 클래스
-클래스 이름만 다르기 때문에 MySQL 데이터소스에 접근할 수 있는 서비스 구현 클래스만 소개하겠습니다. 
+클래스 이름만 다르기 때문에 MySQL 데이터베이스에 접근할 수 있는 서비스 구현 클래스만 소개하겠습니다. 
 
 ```java
 package blog.in.action.mysql.service.impl;
@@ -428,7 +428,7 @@ public class MySqlServiceImpl implements MySqlService {
 ```
 
 ### 2.6. DAO 인터페이스
-인터페이스 이름만 다르기 때문에 MySQL 데이터소스에 접근할 수 있는 DAO 인터페이스만 소개하겠습니다.
+인터페이스 이름만 다르기 때문에 MySQL 데이터베이스에 접근할 수 있는 DAO 인터페이스만 소개하겠습니다.
 
 ```java
 package blog.in.action.mysql.dao;

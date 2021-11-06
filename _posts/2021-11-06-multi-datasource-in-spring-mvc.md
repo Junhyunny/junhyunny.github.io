@@ -23,7 +23,7 @@ last_modified_at: 2021-11-06T23:55:00
 - 기존에 사용하고 있는 데이터베이스가 MySQL이라고 가정합니다.
 - 신규로 연결할 데이터베이스가 PostgreSQL 이라고 가정합니다.
 
-<p align="center"><img src="/images/multi-datasource-in-spring-mvc-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/multi-datasource-in-spring-mvc-1.JPG" width="50%"></p>
 
 ## 1. 테스트 환경
 시스템 구성시 버전으로 인한 이슈가 발생할 수 있습니다. 

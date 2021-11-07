@@ -35,8 +35,9 @@ last_modified_at: 2021-11-06T23:55:00
 - Spring Framework 5.2.3.RELEASE
 
 ## 2. Spring MVC Framework
-현재 진행하고 있는 프로젝트에서 사용 중인 Spring MVC(Spring Legacy) 프레임워크에서 다중 데이터소스를 연결해보겠습니다. 
+현재 진행하는 프로젝트 기술 스택인 Spring MVC(Spring Legacy) 프레임워크에서 다중 데이터소스를 연결해보겠습니다. 
 Spring MVC 프레임워크에서 주로 사용하는 영속(persistence) 프레임워크인 MyBatis를 사용하였습니다.
+시간이나 기회가 된다면 Spring Boot 프레임워크를 이용한 구현 예제도 포스트할 예정입니다. 
 
 ### 2.1. 패키지(package) 구조
 - 기존 운영 중인 시스템 자원은 `mysql` 하위 패키지에 위치한다고 가정합니다.

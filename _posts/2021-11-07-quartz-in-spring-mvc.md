@@ -87,7 +87,7 @@ Quatz 구조도와 함께 관련된 용어들을 정리하였습니다.
 - 7개의 필드로 구성되어 있습니다.
 
 | 필드명 | 위치 | 값의 허용 범위 | 허용된 특수문자 |
-|:---:|:---:|:---:|:---|
+|:---:|:---:|:---:|:---:|
 | 초(seconds) | 1번 | 0 ~ 59 | , - * / | 
 | 분(minutes) | 2번 | 0 ~ 59 | , - * / | 
 | 시(hours) | 3번 | 0 ~ 23 | , - * / | 
@@ -316,7 +316,7 @@ public interface BlogDao {
 - TB_TEST 테이블의 `CHANGED_AT` 항목이 5초마다 갱신되는지 확인합니다.
 - 예외(exception)가 발생한 경우에는 `CHANGED_AT` 항목이 갱신되지 않음을 확인합니다.
 
-<p align="center"><img src="/images/quartz-in-spring-mvc-2.gif"></p>
+<p align="center"><img src="/images/quartz-in-spring-mvc-2.gif" width="100%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-07-quartz-in-spring-mvc>

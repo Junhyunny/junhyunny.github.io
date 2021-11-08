@@ -11,6 +11,7 @@ last_modified_at: 2021-11-07T23:55:00
 ## 0. 들어가면서
 시스템을 구성하다보면 실시간 요청에 따라 서비스를 제공하는 것뿐만 아니라 특정 시간마다 혹은 일정 시간 간격마다 동작하여 필요한 데이터를 처리하는 기능이 필요합니다. 
 이런 경우 스케줄러(scheduler)를 이용하여 업무(job)을 수행하도록 구현합니다. 
+
 Spring 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능들을 제공합니다. 
 대표적으로 `Spring Scheduler`와 `Spring Quartz`가 있습니다. 
 간단하게 `Spring Scheduler`를 사용할 수도 있지만, 이번 포스트에서는 몇 가지 특장점이 있는 `Spring Quartz`에 대해 정리해보려 합니다.
@@ -19,16 +20,15 @@ Spring 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능
 
 공식 홈페이지에선 아래와 같이 소개하고 있습니다. 
 
-> Quartz is a richly featured, open source job scheduling library that can be integrated within virtually any Java application
->  - from the smallest stand-alone application to the largest e-commerce system.
+> Quartz is a richly featured, open source job scheduling library that can be integrated within virtually any Java application - 
+> from the smallest stand-alone application to the largest e-commerce system.
 > Quartz can be used to create simple or complex schedules for executing tens, hundreds, or even tens-of-thousands of jobs; 
 > jobs whose tasks are defined as standard Java components that may execute virtually anything you may program them to do. 
 
-Job 스케줄링을 구현할 수 있는 오픈 소스 라이브러리이며 Java 어플리케이션에서 사용, 통합이 가능합니다. 
+`Quartz`는 Job 스케줄링을 구현할 수 있는 오픈 소스 라이브러리이며 Java 어플리케이션에서 사용, 통합이 가능합니다. 
 간단하거나 복잡한 스케줄들을 수십 개에서 수만 개까지 구현 가능합니다. 
 스케줄의 종료 시점부터 다음 실행 시점까지 시간 간격을 두는 인터벌(interval) 형식의 스케줄링이 가능합니다. 
 혹은 크론 표현식(cron expression) 방식을 이용한 복잡한 스케줄링도 지원합니다. 
-크론 표현식은 잠시 뒤에 다시 정리하겠습니다.
 
 ##### Quartz 구조도
 Quatz 구조도와 함께 관련된 용어들을 정리하였습니다. 

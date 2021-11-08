@@ -31,18 +31,16 @@ Spring 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능
 혹은 크론 표현식(cron expression) 방식을 이용한 복잡한 스케줄링도 지원합니다. 
 
 ##### Quartz 구조도
-Quatz 구조도와 함께 관련된 용어들을 정리하였습니다. 
-- Job 인터페이스 - execute 메소드를 정의하고 있으며, 실제 수행할 작업은 해당 메소드 구현을 통해 정의합니다.
-- JobDetail 인터페이스 - Job 인스턴스를 실행시키기 위한 정보를 담고 있는 구현체의 기능들을 정의합니다.
-- JobDataMap 클래스 - Job 인스턴스가 실행할 때 필요한 정보를 담을 수 있는 클래스입니다. JobDetail 인스턴스 생성시 전달합니다.
-- Trigger 인터페이스 - Job을 실행시킬 스케줄링 조건을 정의합니다. Scheduler는 이 정보를 기준으로 Job을 수행시킵니다.
-- SchedulerFactory 인터페이스 - Scheduler를 생성하는데 필요한 기능들을 정의합니다. 
-- Scheduler 인터페이스 - 등록된 Job과 Trigger를 관리합니다. Trigger에 따라 연관된 Job을 실행시킵니다. 
-- Misfire Instructions - 스레드 부족 등의 이유로 Job이 실행되지 못한 경우 정책을 지원합니다. 
-    - MISFIREINSTRUCTIONFIRE_NOW - 바로 실행
-    - MISFIREINSTRUCTIONDO_NOTHING - 아무것도 하지 않음
-- JobListener 인터페이스 - Job 실행 전, 후의 이벤트를 받을 수 있는 기능들을 정의합니다.
-- JobStore 인터페이스 - Job, Trigger 정보를 저장하는 기능들을 정의합니다. 저장공간으로 메모리 혹은 데이터베이스를 이용합니다. 
+Quatz 구조도와 함께 관련된 인터페이스 클래스들을 정리하였습니다. 
+- Job 인터페이스 - 실제 수행되는 execute 메소드를 명시합니다. 개발자는 해당 메소드를 구현합니다.
+- JobDetail 인터페이스 - Job 구현 객체를 실행시키기 위한 정보를 정의합니다. 
+    - JobClass - Job 구현 클래스
+    - Description - Job 설명
+    - JobDataMap - Job 실행시 필요한 정보들
+- Trigger 인터페이스 - Job 실행 조건을 정의합니다. 
+- Scheduler 인터페이스 - 등록된 Job과 Trigger를 관리하는 기능들을 정의합니다.
+- JobListener 인터페이스 - Job 수행 전, 완료 이벤트와 중단 이벤트를 확인할 수 있는 기능을 정의합니다.
+- JobStore 인터페이스 - Job, Trigger 정보를 저장하는 메커니즘을 정의합니다. 메모리 혹은 데이터베이스를 사용합니다.
 
 <p align="center"><img src="/images/quartz-in-spring-mvc-1.JPG" width="80%"></p>
 <center>이미지 출처, https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>

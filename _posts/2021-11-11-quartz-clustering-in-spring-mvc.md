@@ -19,14 +19,14 @@ last_modified_at: 2021-11-11T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="65%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="65%"></p><br>
 
 [Quartz in Spring MVC][quartz-in-spring-mvc-link] 포스트에서 `Quartz` 스케줄러에 대한 장점 중에 클러스터링(clustering)을 언급했었습니다. 
 
 > Quartz 특장점<br> 
 > 데이터베이스를 기반으로 클러스터링(clustering) 기능을 제공합니다. 
 
-`Quartz CLustering`을 이용하면 제가 가졌던 의문점을 해결할 수 있습니다. 
+`Quartz Clustering`을 이용하면 제가 가졌던 의문점을 해결할 수 있습니다. 
 이번 포스트에선 클러스터링 사용시 얻는 이점에 대해 정리하고, 간단한 구현 예제를 구현하였습니다.  
 
 ##### 다중 서버 환경에서 Quartz 클러스터링 동작

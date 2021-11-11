@@ -45,15 +45,15 @@ last_modified_at: 2021-11-11T23:55:00
 
 ### 2.1. 고가용성(High Availability)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="65%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="45%"></p>
 
 ### 2.2. 확장성(Scalability)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="65%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="45%"></p>
 
 ### 2.3. 부하 분산(Loading Balancing)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="65%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="45%"></p>
 
 ## 2. Spring Quartz 클러스터링 구현
 

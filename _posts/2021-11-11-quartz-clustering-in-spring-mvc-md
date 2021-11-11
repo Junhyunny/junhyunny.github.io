@@ -117,6 +117,9 @@ ENGINE=InnoDB;
 
 ### 2.3. applicationContext.xml
 
+```xml
+```
+
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-11-quartz-clustering-in-spring-mvc>

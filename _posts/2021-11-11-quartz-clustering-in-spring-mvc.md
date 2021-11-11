@@ -39,19 +39,25 @@ last_modified_at: 2021-11-11T23:55:00
 정보를 저장하는 방법으로 `메모리` 방식과 `데이터베이스` 방식이 사용됩니다. 
 다중 서버 환경에서 `데이터베이스` 방식을 사용하면 서버들간의 `Job`, `Trigger` 정보를 공유할 수 있으므로 클러스터링이 가능합니다. 
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="65%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="45%"></p>
 
 ## 2. Spring Quartz Clustering 이점
 
 ### 2.1. 고가용성(High Availability)
+- 서버 중 하나가 다운(down)되더라도 다른 서버에 의해 `Job`이 실행됩니다.
+- 다운 타임(time)이 없습니다.
 
 <p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="45%"></p>
 
 ### 2.2. 확장성(Scalability)
+- Quartz 설정이 된 서버를 구동하면 자동으로 데이터베이스에 스케줄 서버로 등록됩니다.
+- 스케일-아웃(scale-out)으로 인해 서버가 늘어나더라도 함께 클러스터로 관리됩니다.
 
 <p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="45%"></p>
 
 ### 2.3. 부하 분산(Loading Balancing)
+- 클러스터(cluster) 구성으로 `Job`이 여러 서버에 분산되어 실행됩니다.
+- Quartz에서는 랜덤 알고리즘(random algorithm)만 구현되어 있습니다.
 
 <p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="45%"></p>
 

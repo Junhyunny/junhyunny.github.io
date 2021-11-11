@@ -3,7 +3,7 @@ title: "Quartz Clustering in Spring MVC"
 search: false
 category:
   - spring-mvc
-last_modified_at: 2021-11-08T23:55:00
+last_modified_at: 2021-11-11T23:55:00
 ---
 
 <br>
@@ -43,23 +43,22 @@ last_modified_at: 2021-11-08T23:55:00
 
 ## 2. Spring Quartz Clustering 이점
 
-### 1.1. 고가용성(High Availability)
+### 2.1. 고가용성(High Availability)
 
 <p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="80%"></p>
 
-### 1.2. 확장성(Scalability)
+### 2.2. 확장성(Scalability)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="80%"></p>
 
-### 1.3. 부하 분산(Loading Balancing)
+### 2.3. 부하 분산(Loading Balancing)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="80%"></p>
 
 ## 2. Spring Quartz 클러스터링 구현
 
-
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-08-quartz-clustering-in-spring-mvc>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-11-quartz-clustering-in-spring-mvc>
 
 #### REFERENCE
 - <https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/>

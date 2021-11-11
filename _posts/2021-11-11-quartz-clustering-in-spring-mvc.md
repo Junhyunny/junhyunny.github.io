@@ -19,7 +19,7 @@ last_modified_at: 2021-11-11T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="65%"></p>
 
 [Quartz in Spring MVC][quartz-in-spring-mvc-link] 포스트에서 `Quartz` 스케줄러에 대한 장점 중에 클러스터링(clustering)을 언급했었습니다. 
 
@@ -31,7 +31,7 @@ last_modified_at: 2021-11-11T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 클러스터링 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-2.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-2.gif" width="65%"></p>
 
 ## 1. Spring Quartz Clustering
 `Quartz` 구조를 살펴보면 `JobStore` 기능이 존재합니다. 
@@ -39,21 +39,21 @@ last_modified_at: 2021-11-11T23:55:00
 정보를 저장하는 방법으로 `메모리` 방식과 `데이터베이스` 방식이 사용됩니다. 
 다중 서버 환경에서 `데이터베이스` 방식을 사용하면 서버들간의 `Job`, `Trigger` 정보를 공유할 수 있으므로 클러스터링이 가능합니다. 
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="65%"></p>
 
 ## 2. Spring Quartz Clustering 이점
 
 ### 2.1. 고가용성(High Availability)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="65%"></p>
 
 ### 2.2. 확장성(Scalability)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="65%"></p>
 
 ### 2.3. 부하 분산(Loading Balancing)
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="80%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="65%"></p>
 
 ## 2. Spring Quartz 클러스터링 구현
 

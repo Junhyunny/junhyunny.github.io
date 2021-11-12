@@ -3,7 +3,7 @@ title: "Quartz Clustering in Spring MVC"
 search: false
 category:
   - spring-mvc
-last_modified_at: 2021-11-11T23:55:00
+last_modified_at: 2021-11-12T23:55:00
 ---
 
 <br>
@@ -115,11 +115,63 @@ ENGINE=InnoDB;
 ...
 ```
 
+##### 생성된 테이블 리스트
+
+<p align="left"><img src="/images/quartz-clustering-in-spring-mvc-7.JPG"></p>
+
 ### 2.3. applicationContext.xml
+- `JobDetailFactoryBean` 생성
+    - `Job Class`를 지정합니다.
+    - `BLOG_GROUP` 이름으로 그룹을 지정합니다.
+- `CronTriggerFactoryBean` 생성
+    - `Job Detail`은 위에서 생성한 `blogJob` 빈(bean)으로 지정합니다.
+    - `cronExpression`을 지정합니다. 5초동안 지속적으로 실행합니다.
+- `SchedulerFactoryBean` 생성
+    - `trigger`는 위에서 생성한 `cronTrigger`를 사용합니다.
+    - `dataSource`는 위에서 생성한 `dataSource`를 사용합니다.
+    - `applicationContextSchedulerContextKey` 스케줄러에서 `applicationContext`를 사용하도록 등록합니다.
+    - `quartzProperties` 설정을 추가적으로 지정합니다. 
 
 ```xml
-```
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="connectionProperties">
+            <value>zeroDateTimeBehavior=convertToNull</value>
+        </property>
+        <property name="url" value="jdbc:mysql://localhost:3306/test"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </bean>
+    ...
+    <bean name="blogJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="blog.in.action.job.BlogJob"/>
+        <property name="durability" value="true"/>
+        <property name="group" value="BLOG_GROUP"/>
+    </bean>
 
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="blogJob"/>
+        <property name="cronExpression" value="0/5 * * * * ?"/>
+    </bean>
+
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger"/>
+            </list>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <property name="quartzProperties">
+            <props>
+                <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
+                <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
+                <prop key="org.quartz.jobStore.dataSource">dataSource</prop>
+                <prop key="spring.quartz.job-store-type">jdbc</prop>
+            </props>
+        </property>
+    </bean>
+```
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-11-quartz-clustering-in-spring-mvc>

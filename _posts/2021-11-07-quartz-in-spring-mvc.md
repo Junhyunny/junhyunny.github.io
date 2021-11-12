@@ -47,7 +47,7 @@ Quatz 구조도와 함께 관련된 인터페이스 클래스들을 정리하였
 
 ### 1.1. Quartz와 Batch는 어떻게 다른가?
 저는 `Quartz`에 대해 공부해보기 전인 최근까지도 배치(batch)라는 용어와 혼동하여 사용하였습니다. 
-공부하기 전까지는 `Quartz`가 제공하는 기능이 `Batch Job`이라고 생각었는데, 실제 `Quartz`가 제공하는 기능은 `Job Scheduling`입니다. 
+공부하기 전까지는 `Quartz`가 제공하는 기능이 `Batch Job`이라고 생각었는데, 실제로 제공하는 기능은 `Job Scheduling`입니다. 
 둘은 다른 개념이므로 포스트를 이어가기 전에 짚고 넘어가겠습니다. 
 
 ##### Job Scheduling

@@ -125,7 +125,7 @@ ENGINE=InnoDB;
     - `BLOG_GROUP` 이름으로 그룹을 지정합니다.
 - `CronTriggerFactoryBean` 생성
     - `Job Detail`은 위에서 생성한 `blogJob` 빈(bean)으로 지정합니다.
-    - `cronExpression`을 지정합니다. 5초동안 지속적으로 실행합니다.
+    - `cronExpression`을 지정합니다. 1초동안 지속적으로 실행합니다.
 - `SchedulerFactoryBean` 생성
     - `trigger`는 위에서 생성한 `cronTrigger`를 사용합니다.
     - `dataSource`는 위에서 생성한 `dataSource`를 사용합니다.

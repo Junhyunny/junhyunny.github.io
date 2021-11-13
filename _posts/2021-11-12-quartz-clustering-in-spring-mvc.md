@@ -19,7 +19,7 @@ last_modified_at: 2021-11-12T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="65%"></p><br>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="55%"></p><br>
 
 [Quartz in Spring MVC][quartz-in-spring-mvc-link] 포스트에서 `Quartz` 스케줄러에 대한 장점 중에 클러스터링(clustering)을 언급했었습니다. 
 
@@ -31,7 +31,7 @@ last_modified_at: 2021-11-12T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 클러스터링 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-2.gif" width="65%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-2.gif" width="55%"></p>
 
 ## 1. Spring Quartz Clustering
 `Quartz` 구조를 살펴보면 `JobStore` 기능이 존재합니다. 
@@ -39,7 +39,7 @@ last_modified_at: 2021-11-12T23:55:00
 정보를 저장하는 방법으로 `메모리` 방식과 `데이터베이스` 방식이 사용됩니다. 
 다중 서버 환경에서 `데이터베이스` 방식을 사용하면 서버들간의 `Job`, `Trigger` 정보를 공유할 수 있으므로 클러스터링이 가능합니다. 
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="45%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="35%"></p>
 
 ## 2. Spring Quartz Clustering 이점
 
@@ -47,19 +47,19 @@ last_modified_at: 2021-11-12T23:55:00
 - 서버 중 하나가 다운(down)되더라도 다른 서버에 의해 `Job`이 실행됩니다.
 - Quartz Job 실행에 대한 다운-타임(down-time)이 없습니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="45%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="35%"></p>
 
 ### 2.2. 확장성(Scalability)
 - Quartz 설정이 된 서버를 구동하면 자동으로 데이터베이스에 스케줄 서버로 등록됩니다.
 - 스케일-아웃(scale-out)으로 인해 서버가 늘어나더라도 함께 클러스터로 관리됩니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="45%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="35%"></p>
 
 ### 2.3. 부하 분산(Loading Balancing)
 - 클러스터 구성으로 `Job`이 여러 서버에 분산되어 실행됩니다.
 - Quartz에서는 랜덤 알고리즘(random algorithm)만 구현되어 있습니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="45%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="35%"></p>
 
 ## 2. Spring Quartz 클러스터 구현
 
@@ -129,20 +129,10 @@ ENGINE=InnoDB;
 - `SchedulerFactoryBean` 생성
     - `trigger`는 위에서 생성한 `cronTrigger`를 사용합니다.
     - `dataSource`는 위에서 생성한 `dataSource`를 사용합니다.
-    - `applicationContextSchedulerContextKey` 스케줄러에서 `applicationContext`를 사용하도록 등록합니다.
+    - `applicationContextSchedulerContextKey` 스케줄러에서 `applicationContext`를 꺼낼 수 있는 키로 지정합니다.
     - `quartzProperties` 설정을 추가적으로 지정합니다. 
 
 ```xml
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="connectionProperties">
-            <value>zeroDateTimeBehavior=convertToNull</value>
-        </property>
-        <property name="url" value="jdbc:mysql://localhost:3306/test"/>
-        <property name="username" value="root"/>
-        <property name="password" value="1234"/>
-    </bean>
-    ...
     <bean name="blogJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
         <property name="jobClass" value="blog.in.action.job.BlogJob"/>
         <property name="durability" value="true"/>
@@ -151,7 +141,7 @@ ENGINE=InnoDB;
 
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="blogJob"/>
-        <property name="cronExpression" value="0/5 * * * * ?"/>
+        <property name="cronExpression" value="0/1 * * * * ?"/>
     </bean>
 
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
@@ -162,25 +152,109 @@ ENGINE=InnoDB;
         </property>
         <property name="dataSource" ref="dataSource"/>
         <property name="applicationContextSchedulerContextKey" value="applicationContext"/>
+        <property name="autoStartup" value="true"/>
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="waitForJobsToCompleteOnShutdown" value="true"/>
         <property name="quartzProperties">
             <props>
                 <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
                 <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
                 <prop key="org.quartz.jobStore.dataSource">dataSource</prop>
                 <prop key="spring.quartz.job-store-type">jdbc</prop>
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+                <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
+                <prop key="org.quartz.jobStore.isClustered">true</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
+                <prop key="org.quartz.jobStore.misfireThreshold">1000</prop>
+                <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
             </props>
         </property>
     </bean>
 ```
 
+#### 2.3.1. quartzProperties 속성 설명
+
+> 현재 API 레퍼런스를 보며 정리 중 입니다.
+
+### 2.4. BlogJob 클래스
+- `jobExecutionContext`의 스케줄러에서 `applicationContext`를 이용해 BlogService 빈(bean)을찾습니다.
+
+```java
+package blog.in.action.job;
+
+import blog.in.action.service.BlogService;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+
+public class BlogJob extends QuartzJobBean {
+
+    private BlogService blogService;
+
+    @Override
+    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+        try {
+            blogService = ((ApplicationContext) jobExecutionContext.getScheduler().getContext().get("applicationContext")).getBean(BlogService.class);
+            blogService.updateTest();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### 2.5. BlogServiceImpl 클래스
+- "update test table" 로그를 출력합니다.
+
+```java
+package blog.in.action.service.impl;
+
+import blog.in.action.dao.BlogDao;
+import blog.in.action.service.BlogService;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Logger;
+import org.springframework.stereotype.Service;
+
+@Service("blobService")
+public class BlogServiceImpl implements BlogService {
+
+    private Logger logger = Logger.getLogger(BlogServiceImpl.class.getName());
+
+    private final BlogDao blogDao;
+
+    public BlogServiceImpl(BlogDao blogDao) {
+        this.blogDao = blogDao;
+    }
+
+    @Override
+    public void updateTest() {
+        logger.info("update test table");
+        List<Map<String, Object>> itemList = blogDao.selectTest();
+        for (Map<String, Object> item : itemList) {
+            blogDao.updateTest(item);
+        }
+    }
+}
+```
+
+## 3. 테스트 결과 확인
+고가용성(HA, High Availability) 테스트를 수행합니다. 
+
+> 테스트 결과 이미지는 현재 준비 중 입니다.
+
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-11-quartz-clustering-in-spring-mvc>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-12-quartz-clustering-in-spring-mvc>
 
 #### REFERENCE
 - <https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/>
-- [[Quartz-3] Multi WAS 환경을 위한 Cluster 환경의 Quartz Job Scheduler 구현][quartz-clustering-in-spring-mvc-link]
-- <https://webprogrammer.tistory.com/2362>
 - <https://www.baeldung.com/spring-quartz-schedule>
+- <https://advenoh.tistory.com/56>
+- <https://uchupura.tistory.com/113>
+- <https://developyo.tistory.com/251>
+- <https://webprogrammer.tistory.com/2362>
+- [[Quartz-3] Multi WAS 환경을 위한 Cluster 환경의 Quartz Job Scheduler 구현][quartz-clustering-in-spring-mvc-link]
 
 [quartz-in-spring-mvc-link]: https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/
 [quartz-clustering-in-spring-mvc-link]: https://blog.advenoh.pe.kr/spring/Multi-WAS-%ED%99%98%EA%B2%BD%EC%9D%84-%EC%9C%84%ED%95%9C-Cluster-%ED%99%98%EA%B2%BD%EC%9D%98-Quartz-Job-Scheduler-%EA%B5%AC%ED%98%84/

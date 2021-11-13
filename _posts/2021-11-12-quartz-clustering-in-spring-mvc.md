@@ -129,7 +129,10 @@ ENGINE=InnoDB;
 - `SchedulerFactoryBean` 생성
     - `trigger`는 위에서 생성한 `cronTrigger`를 사용합니다.
     - `dataSource`는 위에서 생성한 `dataSource`를 사용합니다.
-    - `applicationContextSchedulerContextKey` 스케줄러에서 `applicationContext`를 꺼낼 수 있는 키로 지정합니다.
+    - `applicationContextSchedulerContextKey`로 스케줄러에서 `applicationContext`를 꺼낼 수 있는 키로 지정합니다.
+    - `autoStartup` 설정은 스케줄러 초기화 후 자동으로 실행 여부를 지정합니다.
+    - `overwriteExistingJobs` 설정은 존재하는 Job 정의들을 덮어씁니다.
+    - `waitForJobsToCompleteOnShutdown` 설정은 서버 셧다운(shutdown) 시 실행 중인 Job 종료를 기다릴지 여부를 결정합니다.
     - `quartzProperties` 설정을 추가적으로 지정합니다. 
 
 ```xml
@@ -160,21 +163,25 @@ ENGINE=InnoDB;
                 <prop key="org.quartz.jobStore.class">org.quartz.impl.jdbcjobstore.JobStoreTX</prop>
                 <prop key="org.quartz.jobStore.driverDelegateClass">org.quartz.impl.jdbcjobstore.StdJDBCDelegate</prop>
                 <prop key="org.quartz.jobStore.dataSource">dataSource</prop>
-                <prop key="spring.quartz.job-store-type">jdbc</prop>
-                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
                 <prop key="org.quartz.jobStore.tablePrefix">QRTZ_</prop>
                 <prop key="org.quartz.jobStore.isClustered">true</prop>
                 <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
                 <prop key="org.quartz.jobStore.misfireThreshold">1000</prop>
-                <prop key="org.quartz.jobStore.clusterCheckinInterval">1000</prop>
+                <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
             </props>
         </property>
     </bean>
 ```
 
 #### 2.3.1. quartzProperties 속성 설명
-
-> 현재 API 레퍼런스를 보며 정리 중 입니다.
+- `org.quartz.jobStore.class` - `JobStore` 클래스를 지정합니다. 
+- `org.quartz.jobStore.driverDelegateClass` - 데이터베이스 별로 다른 SQL을 이해할 수 있는 클래스를 지정합니다.
+- `org.quartz.jobStore.dataSource` - `JobStore`가 사용할 데이터소스를 지정합니다.
+- `org.quartz.jobStore.tablePrefix` - 데이터베이스에 생성된 `Quartz` 테이블에 주어진 접두사를 지정합니다. 
+- `org.quartz.jobStore.isClustered` - 클러스터링 기능을 사용하려면 true로 설정합니다.
+- `org.quartz.jobStore.clusterCheckinInterval` - 클러스터의 다른 인스턴스에 체크인 하는 빈도를 설정합니다. 실패한 인스턴스를 감지하는 속도에 영향을 줍니다. (ms 단위)
+- `org.quartz.jobStore.misfireThreshold` - 스케줄러가 실패한 것으로 간주되기 전에 다음 실행 시간을 전달하는 트리거를 허용하는 시간입니다. (ms 단위)
+- `org.quartz.scheduler.instanceId` - 모든 스케줄러들 중 유일해야합니다. `AUTO`인 경우 인스턴스 ID를 임의로 생성합니다. `SYS_PROP`인 경우 시스템 속성에서 사용합니다.
 
 ### 2.4. BlogJob 클래스
 - `jobExecutionContext`의 스케줄러에서 `applicationContext`를 이용해 BlogService 빈(bean)을찾습니다.
@@ -241,6 +248,8 @@ public class BlogServiceImpl implements BlogService {
 
 ## 3. 테스트 결과 확인
 고가용성(HA, High Availability) 테스트를 수행합니다. 
+테스트 `Quartz` 수행 주기는 1초 간격이므로 1초마다 로그가 출력됩니다. 
+
 - 8080, 8081 포트(port)를 가진 두 개의 Tomcat 서버가 동작합니다. 
 - 8081 포트 서버를 다운시키면 8080 포트 서버의 Quartz Job이 실행됩니다.
 - 8081 포트 서버를 다시 시작시킵니다.
@@ -259,6 +268,8 @@ public class BlogServiceImpl implements BlogService {
 - <https://developyo.tistory.com/251>
 - <https://webprogrammer.tistory.com/2362>
 - [[Quartz-3] Multi WAS 환경을 위한 Cluster 환경의 Quartz Job Scheduler 구현][quartz-clustering-in-spring-mvc-link]
+- <https://github.com/quartz-scheduler/quartz/blob/master/docs/configuration.adoc>
+- <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/quartz/SchedulerFactoryBean.html>
 
 [quartz-in-spring-mvc-link]: https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/
 [quartz-clustering-in-spring-mvc-link]: https://blog.advenoh.pe.kr/spring/Multi-WAS-%ED%99%98%EA%B2%BD%EC%9D%84-%EC%9C%84%ED%95%9C-Cluster-%ED%99%98%EA%B2%BD%EC%9D%98-Quartz-Job-Scheduler-%EA%B5%AC%ED%98%84/

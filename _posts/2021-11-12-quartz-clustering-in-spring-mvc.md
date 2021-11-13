@@ -133,7 +133,23 @@ ENGINE=InnoDB;
     - `autoStartup` 설정은 스케줄러 초기화 후 자동으로 실행 여부를 지정합니다.
     - `overwriteExistingJobs` 설정은 존재하는 Job 정의들을 덮어씁니다.
     - `waitForJobsToCompleteOnShutdown` 설정은 서버 셧다운(shutdown) 시 실행 중인 Job 종료를 기다릴지 여부를 결정합니다.
-    - `quartzProperties` 설정을 추가적으로 지정합니다. 
+    - `quartzProperties` 설정을 추가적으로 지정합니다.
+
+##### quartzProperties 속성 설명
+- `org.quartz.jobStore.class` - `JobStore` 클래스를 지정합니다. 
+- `org.quartz.jobStore.driverDelegateClass` - 데이터베이스 별로 다른 SQL을 이해할 수 있는 클래스를 지정합니다.
+- `org.quartz.jobStore.dataSource` - `JobStore`가 사용할 데이터소스를 지정합니다.
+- `org.quartz.jobStore.tablePrefix` - 데이터베이스에 생성된 `Quartz` 테이블에 주어진 접두사를 지정합니다. 
+- `org.quartz.jobStore.isClustered` - 클러스터링 기능을 사용하려면 true로 설정합니다.
+- `org.quartz.jobStore.clusterCheckinInterval`
+    - 클러스터의 다른 인스턴스에 체크인 하는 빈도를 설정합니다. 
+    - 실패한 인스턴스를 감지하는 속도에 영향을 줍니다. (ms 단위)
+- `org.quartz.jobStore.misfireThreshold`
+    - 스케줄러가 실패한 것으로 간주되기 전에 다음 실행 시간을 전달하는 트리거를 허용하는 시간입니다. (ms 단위)
+- `org.quartz.scheduler.instanceId`
+    - 모든 스케줄러들 중 유일해야합니다. 
+    - `AUTO`인 경우 인스턴스 ID를 임의로 생성합니다. 
+    - `SYS_PROP`인 경우 시스템 속성에서 사용합니다.
 
 ```xml
     <bean name="blogJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
@@ -172,16 +188,6 @@ ENGINE=InnoDB;
         </property>
     </bean>
 ```
-
-#### 2.3.1. quartzProperties 속성 설명
-- `org.quartz.jobStore.class` - `JobStore` 클래스를 지정합니다. 
-- `org.quartz.jobStore.driverDelegateClass` - 데이터베이스 별로 다른 SQL을 이해할 수 있는 클래스를 지정합니다.
-- `org.quartz.jobStore.dataSource` - `JobStore`가 사용할 데이터소스를 지정합니다.
-- `org.quartz.jobStore.tablePrefix` - 데이터베이스에 생성된 `Quartz` 테이블에 주어진 접두사를 지정합니다. 
-- `org.quartz.jobStore.isClustered` - 클러스터링 기능을 사용하려면 true로 설정합니다.
-- `org.quartz.jobStore.clusterCheckinInterval` - 클러스터의 다른 인스턴스에 체크인 하는 빈도를 설정합니다. 실패한 인스턴스를 감지하는 속도에 영향을 줍니다. (ms 단위)
-- `org.quartz.jobStore.misfireThreshold` - 스케줄러가 실패한 것으로 간주되기 전에 다음 실행 시간을 전달하는 트리거를 허용하는 시간입니다. (ms 단위)
-- `org.quartz.scheduler.instanceId` - 모든 스케줄러들 중 유일해야합니다. `AUTO`인 경우 인스턴스 ID를 임의로 생성합니다. `SYS_PROP`인 경우 시스템 속성에서 사용합니다.
 
 ### 2.4. BlogJob 클래스
 - `jobExecutionContext`의 스케줄러에서 `applicationContext`를 이용해 BlogService 빈(bean)을찾습니다.

@@ -241,8 +241,12 @@ public class BlogServiceImpl implements BlogService {
 
 ## 3. 테스트 결과 확인
 고가용성(HA, High Availability) 테스트를 수행합니다. 
+- 8080, 8081 포트(port)를 가진 두 개의 Tomcat 서버가 동작합니다. 
+- 8081 포트 서버를 다운시키면 8080 포트 서버의 Quartz Job이 실행됩니다.
+- 8081 포트 서버를 다시 시작시킵니다.
+- 8080 포트 서버를 다운시키면 8081 포트 서버의 Quartz Job이 실행됩니다.
 
-> 테스트 결과 이미지는 현재 준비 중 입니다.
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-8.gif" width="75%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-12-quartz-clustering-in-spring-mvc>

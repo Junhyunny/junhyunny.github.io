@@ -24,6 +24,7 @@ last_modified_at: 2021-11-15T23:55:00
 		at org.quartz.impl.jdbcjobstore.JobStoreSupport.storeJob(JobStoreSupport.java:1115)
     ...
 ```
+<br>
 
 에러 로그를 보면 `BlogServiceImpl` 클래스 정보를 데이터베이스에 저장하기 위해 직렬화 작업이 실패한 것으로 보입니다. 
 해당 클래스에 `Serializable` 인터페이스를 추가하여도 MyBatis의 `SqlSessionTemplate` 클래스를 직렬화할 수 없다는 에러가 발생합니다.
@@ -37,6 +38,7 @@ last_modified_at: 2021-11-15T23:55:00
 		at org.quartz.impl.jdbcjobstore.JobStoreSupport.storeJob(JobStoreSupport.java:1115)
     ...
 ```
+<br>
 
 문제 상황을 정리해보면 다음과 같았습니다.
 - `QuartzJobBean`을 상속한 클래스에서 `@Autowired` 키워드를 사용한 빈(bean) 주입이 안된다.

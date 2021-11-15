@@ -8,6 +8,9 @@ last_modified_at: 2021-11-07T23:55:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Quartz Clustering in Spring MVC][quartz-clustering-link]
+
 ## 0. 들어가면서
 시스템을 구성하다보면 실시간 요청에 따라 서비스를 제공하는 것뿐만 아니라 특정 시간마다 혹은 일정 시간 간격마다 동작하여 필요한 데이터를 처리하는 기능이 필요합니다. 
 이런 경우 스케줄러(scheduler)를 이용하여 업무(job)을 수행하도록 구현합니다. 
@@ -330,3 +333,4 @@ public interface BlogDao {
 
 [spring-boot-quartz-link]: https://kouzie.github.io/spring/Spring-Boot-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-Quartz/#%EA%B5%AC%EC%A1%B0
 [what-is-quartz-job-link]: <https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/>
+[quartz-clustering-link]: https://junhyunny.github.io/spring-mvc/quartz-clustering-in-spring-mvc/

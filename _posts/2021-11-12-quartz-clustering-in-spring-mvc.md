@@ -257,6 +257,7 @@ public class BlogServiceImpl implements BlogService {
 테스트 `Quartz` 수행 주기는 1초 간격이므로 1초마다 로그가 출력됩니다. 
 
 - 8080, 8081 포트(port)를 가진 두 개의 Tomcat 서버가 동작합니다. 
+- 8081 포트 서버에서 Quartz Job이 실행되고 있습니다.
 - 8081 포트 서버를 다운시키면 8080 포트 서버의 Quartz Job이 실행됩니다.
 - 8081 포트 서버를 다시 시작시킵니다.
 - 8080 포트 서버를 다운시키면 8081 포트 서버의 Quartz Job이 실행됩니다.

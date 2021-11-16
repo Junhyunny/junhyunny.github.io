@@ -262,7 +262,7 @@ public class BlogServiceImpl implements BlogService {
 - 8081 포트 서버를 다시 시작시킵니다.
 - 8080 포트 서버를 다운시키면 8081 포트 서버의 Quartz Job이 실행됩니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-8.gif" width="75%"></p>
+<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-8.gif" width="100%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-12-quartz-clustering-in-spring-mvc>

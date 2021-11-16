@@ -45,10 +45,10 @@ export default {
 
 <p align="left"><img src="/images/vue-js-korean-length-2.gif"></p>
 
+#### 공식 홈페이지 설명
+
 `Vue.js` 측에서도 해당 문제점을 인지하고 있습니다. 
 공식 홈페이지를 가면 다음과 같이 설명되어 있습니다. 
-
-#### 공식 홈페이지 설명
 
 > For languages that require an IME (Chinese, Japanese, Korean, etc.), 
 > you’ll notice that v-model doesn’t get updated during IME composition. 

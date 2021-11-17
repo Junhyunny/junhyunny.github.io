@@ -13,15 +13,15 @@ last_modified_at: 2021-10-17T23:55:00
 
 ## 0. 들어가면서
 
-> 비동기 처리에 대해서 아시나요?
+> 논-블로킹이나 비동기 처리에 대해서 아시나요?
 
 어설프게 아는 지식을 주절주절 말했더니, 다음 질문이 이어왔습니다. 
 
-> 싱글 스레드 환경에서 비동기 처리를 수행할 방법이 있을까요? 
+> 싱글 스레드 환경에서 비동기적인 처리를 수행할 방법이 있을까요? 
 
 비동기 처리는 멀티 스레드 환경에서나 가능하다고 생각했던 얕은 지식 수준에 발목을 잡혀버리고 말았습니다. 
-실제로 `Node.js` 환경에서는 싱글 스레드임에도 비동기 처리가 가능합니다. 
-어떤 매커니즘을 통해 싱글 스레드 환경에서 비동기 처리가 가능한지 확인해보겠습니다.
+실제로 `Node.js` 환경의 JavaScript 엔진은 싱글 스레드임에도 비동기적인 처리가 가능합니다. 
+어떤 매커니즘을 통해 싱글 스레드 환경에서 비동기적인 처리가 가능한지 확인해보겠습니다.
 
 ## 1. JavaScript Runtime
 우선 JavaScript 런타임(Runtime)에 대해 알아둘 필요가 있습니다. 
@@ -48,20 +48,20 @@ V8 엔진은 크롬과 Node.js에서 사용 중이며, 메모리 힙(memory heap
 - 메모리 힙(Memory Heap) - 변수 및 객체들에게 할당된 메모리가 위치한 공간
 - 콜 스택(Call Stack) - 함수 호출을 스택(stack)으로 관리하는 공간
 
-##### V8 JavaScript Engine 구조
-
-<p align="center"><img src="/images/how-to-work-javascript-async-2.JPG" width="75%"></p>
-<center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
-
 JavaScript 엔진의 인터프리터(interpreter)는 코드를 분석하고, 실행 가능한 명령으로 변환합니다. 
 코드에 맞춰 메모리를 할당하고, 호출한 함수는 콜 스택에 추가(push)합니다. 
 최상위 스택에 위치한 함수를 실행하고, 완료되면 콜 스택에서 제거(pop)합니다. 
 JavaScript 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 스레드의 동기식 방식으로 실행됩니다. 
 최상위 스택에 위치한 함수가 실행되는 동안 하위 스택은 실행되지 않습니다.
 
+##### V8 JavaScript Engine 구조
+
+<p align="center"><img src="/images/how-to-work-javascript-async-2.JPG" width="40%"></p>
+<center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+
 ### 1.3. Web APIs
-브라우저가 제공하는 기능입니다. 
-브라우저마다 제공하는 기능이 다르지만 공통적으로 제공해주는 기능들을 살펴보면 다음과 같습니다.
+멀티 스레드로 실행되며, 브라우저가 제공하는 기능입니다. 
+브라우저마다 제공하는 기능이 다르지만 공통적으로 제공해주는 기능들을 살펴보면 다음과 같습니다. 
 - Manipulate documents(DOM API) - 개발자가 HTML, CSS을 조작할 수 있는 기능
 - Draw and manipulate graphics(Canvas, WebGL API) - `<canvas>`에 포함된 픽섹(pixel) 데이터를 변경할 수 있는 기능
 - Fetch data from a server - 네트워크를 통해 서버로부터 리소스를 가져오는 기능
@@ -72,6 +72,7 @@ Web APIs가 종료되고 보내지는 콜백 함수(callback function)들을 순
 큐의 특성상 먼저 들어온 콜백 함수가 먼저 콜 스택으로 채워집니다. (FIFO, First In First Out)
 
 JavaScript 런타임에는 여러가지 큐가 존재합니다. 
+Micro Task Queue는 항상 최우선 순위를 가지며, Task Queue와 Animation frames의 우선순위는 브라우저에 따라 다릅니다.
 - Micro Task Queue
     - 콜 스택이 비워지면 최우선적으로 처리되는 큐입니다.
     - Promise, process.nextTick, Object.observe, MutationObserver 등이 속합니다.
@@ -81,14 +82,12 @@ JavaScript 런타임에는 여러가지 큐가 존재합니다.
 - Animation frames
     - Micro Task Queue가 완전히 비어지면 Event Loop에 의해 처리됩니다. 
 
-Micro Task Queue는 항상 최우선 순위를 가지며, Task Queue와 Animation frames의 우선순위는 브라우저에 따라 다릅니다.
-
 ### 1.5. Event Loop
-이벤트 루프(event loop)는 Callback Queue에 담긴 콜백 함수들을 콜 스택으로 전달합니다. 
+싱글 스레드로 실행되며, 이벤트 루프(event loop)는 Callback Queue에 담긴 콜백 함수들을 콜 스택으로 전달합니다. 
 콜 스택에 실행 중인 함수가 없고, 큐에 실행시킬 콜백 함수가 있다면 콜 스택으로 가장 우선순위가 높은 콜백 함수를 이동시킵니다. 
 
-## 2. Event Loop 동작 과정
-<http://latentflip.com/loupe> 링크로 접속하면 JavaScript 런타임의 동작을 직접 확인할 수 있습니다. 
+## 2. JavaScript 런타임 동작 과정
+<http://latentflip.com/loupe> 사이트에서 직접 작성한 JavaScript 코드가 JavaScript 런타임에서 동작하는 모습을 확인할 수 있습니다. 
 
 ### 2.1. JavaScript 코드
 
@@ -137,6 +136,14 @@ console.log("Welcome to loupe.");
 
 <p align="center"><img src="/images/how-to-work-javascript-async-3.gif" width="100%"></p>
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+
+## CLOSING
+사용자에게 보여지는 브라우저의 기능은 JavaScript 엔진에 위치한 콜 스택에서 실행되는 함수들이 동작하는 모습입니다. 
+JavaScript 엔진은 싱글 스레드로 동작함에도 불구하고 여러가지 기능을 동시에 처리하는 것처럼 비동기적인 모습을 보입니다. 
+**JavaScript 엔진이 비동기적인 처리가 가능한 이유는 JavaScript 런타임의 Web API들을 이용하여 논-블로킹(non-blocking) 처리를 수행하기 때문입니다.** 
+JavaScript 엔진은 자신이 수행하지 않는 기능들을 Web APIs 영역 스레드에게 맡기고 바로 다음 일을 수행합니다. 
+Web APIs 영역의 스레드는 자신이 수행할 일을 마치고, 콜백 함수를 콜백 큐와 이벤트 루프를 통해 JavaScript 엔진에게 다시 전달합니다. 
+콜백 함수가 콜 스택에 추가되면 JavaScript 엔진은 이를 수행합니다.
 
 #### REFERENCE
 - <http://jaynewho.com/post/25>

@@ -1,5 +1,5 @@
 ---
-title: "JavaScript 비동기 처리 방법"
+title: "Asynchronous Task In JavaScript"
 search: false
 category:
   - information
@@ -39,7 +39,7 @@ JavaScript 런타임은 크게 4개로 구성되어 있습니다.
 
 ##### JavaScript Runtime 구조
 
-<p align="center"><img src="/images/how-to-work-javascript-async-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/how-to-work-javascript-async-1.JPG" width="75%"></p>
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ### 1.2. JavaScript Engine
@@ -50,7 +50,7 @@ V8 엔진은 크롬과 Node.js에서 사용 중이며, 메모리 힙(memory heap
 
 ##### V8 JavaScript Engine 구조
 
-<p align="center"><img src="/images/how-to-work-javascript-async-2.JPG" width="80%"></p>
+<p align="center"><img src="/images/how-to-work-javascript-async-2.JPG" width="75%"></p>
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 JavaScript 엔진의 인터프리터(interpreter)는 코드를 분석하고, 실행 가능한 명령으로 변환합니다. 

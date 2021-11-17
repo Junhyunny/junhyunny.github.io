@@ -363,7 +363,7 @@ public class PageController {
 - 필터, 인터셉터 그리고 컨트롤러에서 몇 회 접근하였는지 화면으로 표기합니다. 
 - 쿠키에 세션ID를 삭제하는 경우 세션이 없다는 메세지가 출력됩니다.
 
-<p align="center"><img src="/images/tomcat-session-management-4.gif"></p>
+<p align="center"><img src="/images/tomcat-session-management-4.gif" width="100%"></p>
 
 ## 3. Session 만료
 

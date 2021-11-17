@@ -67,12 +67,12 @@ JavaScript 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 �
 - Fetch data from a server - 네트워크를 통해 서버로부터 리소스를 가져오는 기능
 
 ### 1.4. Callback Queue
-Web APIs가 종료되고 보내지는 콜백 함수(callback function)들을 순서대로 저장됩니다. 
+Web APIs 기능이 종료되면서 보내지는 콜백 함수(callback function)들을 순서대로 저장됩니다. 
 콜백 큐(callback queue)에 담긴 콜백 함수들은 JavaScript 엔진의 콜 스택이 비워지기를 기다리다가 이벤트 루프(event loop)에 의해 이동됩니다. 
-큐의 특성상 먼저 들어온 콜백 함수가 먼저 콜 스택으로 채워집니다. (FIFO, First In First Out)
+큐의 특성상 먼저 들어온 콜백 함수가 먼저 콜 스택으로 빠져나갑니다. (FIFO, First In First Out)
 
 JavaScript 런타임에는 여러가지 큐가 존재합니다. 
-Micro Task Queue는 항상 최우선 순위를 가지며, Task Queue와 Animation frames의 우선순위는 브라우저에 따라 다릅니다.
+동일한 큐 내에선 먼저 들어온 콜백 함수가 먼저 나가지만, 큐 사이에는 우선순위가 존재합니다. 
 - Micro Task Queue
     - 콜 스택이 비워지면 최우선적으로 처리되는 큐입니다.
     - Promise, process.nextTick, Object.observe, MutationObserver 등이 속합니다.
@@ -83,7 +83,7 @@ Micro Task Queue는 항상 최우선 순위를 가지며, Task Queue와 Animatio
     - Micro Task Queue가 완전히 비어지면 Event Loop에 의해 처리됩니다. 
 
 ### 1.5. Event Loop
-싱글 스레드로 실행되며, 이벤트 루프(event loop)는 Callback Queue에 담긴 콜백 함수들을 콜 스택으로 전달합니다. 
+싱글 스레드로 실행되며, 이벤트 루프는 콜백 큐에 담긴 콜백 함수들을 콜 스택으로 전달합니다. 
 콜 스택에 실행 중인 함수가 없고, 큐에 실행시킬 콜백 함수가 있다면 콜 스택으로 가장 우선순위가 높은 콜백 함수를 이동시킵니다. 
 
 ## 2. JavaScript 런타임 동작 과정

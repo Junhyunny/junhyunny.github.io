@@ -24,8 +24,8 @@ last_modified_at: 2021-09-16T23:55:00
 저와 같은 고민을 한 사람을 `StackOverflow`에서 찾을 수 있었습니다. 
 
 > StackOverflow<br>
-> Is it better/faster to detect mobile browser on server side (PHP) or client side (Javascript)?
-> I've seen code that detects whether someone is using a mobile browser in Javascript (e.g. a jQuery script) 
+> Is it better/faster to detect mobile browser on server side (PHP) or client side (JavaScript)?
+> I've seen code that detects whether someone is using a mobile browser in JavaScript (e.g. a jQuery script) 
 > and I've seen some that work in PHP (or other server-side language). 
 > But I've never seen a good explanation for whether one is a better choice than the other in all or any situations. 
 > Is there a reason why one is a better choice?
@@ -42,7 +42,7 @@ last_modified_at: 2021-09-16T23:55:00
 이번 프로젝트에서 추가되는 모바일(혹은 태블릿) 서비스는 PC 환경에서 제공하는 서비스와 전혀 다르기 때문에 서버 측에서 수행하기로 하였습니다. 
 이제 구현 방법을 알아보겠습니다. 
 
-## 1. 프론트 엔드에서 사용자 디바이스 식별 (Javascript)
+## 1. 프론트 엔드에서 사용자 디바이스 식별 (JavaScript)
 
 서버 측에서 디바이스 식별을 수행할 예정이지만 포스트를 작성하는 김에 함께 정리하였습니다. 
 정규식과 `navigator.userAgent` 정보를 이용하여 모바일 여부를 판단하는 코드입니다. 

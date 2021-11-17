@@ -11,7 +11,7 @@ last_modified_at: 2021-08-22T00:30:00
 
 ⚠️ 다음 사항을 주의하세요.
 - 해당 포스트는 2021년 7월 28일에 재작성되었습니다.
-- Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(github blog theme 예약어로 인한 표기 에러)
+- Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다. (github blog theme 예약어로 인한 표기 에러)
 
 👉 이어서 읽기를 추천합니다.
 - [DTO 클래스, MultipartFile 활용 파일 업로드 (feat. @ModelAttribute)][multipartfile-in-dto-link]

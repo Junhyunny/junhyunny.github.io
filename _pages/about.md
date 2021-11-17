@@ -11,7 +11,7 @@ classes: wide
 
 ## Skills
 #### [Programming Language]
-- Java, Javascript
+- Java, JavaScript
 
 #### [Backend Development]
 - Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL, Apache Kafka

@@ -141,12 +141,14 @@ console.log("Welcome to loupe.");
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ## CLOSING
-사용자에게 보여지는 브라우저의 기능은 JavaScript 엔진에 위치한 콜 스택에서 실행되는 함수들이 동작하는 모습입니다. 
-JavaScript 엔진은 싱글 스레드로 동작함에도 불구하고 여러가지 기능을 동시에 처리하는 것처럼 비동기적인 모습을 보입니다. 
-**JavaScript 엔진이 비동기적인 처리가 가능한 이유는 JavaScript 런타임의 Web API들을 이용하여 논-블로킹(non-blocking) 처리를 수행하기 때문입니다.** 
-JavaScript 엔진은 자신이 수행하지 않는 기능들을 Web APIs 영역 스레드에게 맡기고 바로 다음 일을 수행합니다. 
-Web APIs 영역의 스레드는 자신이 수행할 일을 마치고, 콜백 함수를 콜백 큐와 이벤트 루프를 통해 JavaScript 엔진에게 다시 전달합니다. 
-콜백 함수가 콜 스택에 추가되면 JavaScript 엔진은 이를 수행합니다.
+이해한 내용들을 나중에 쉽게 알아보기 위해 요약, 정리해보았습니다. 
+- 사용자에게 보여지는 브라우저의 기능은 JavaScript 엔진에 위치한 콜 스택에서 실행되는 함수들이 동작하는 모습입니다.
+- JavaScript 엔진은 싱글 스레드로 동작함에도 불구하고 여러가지 기능을 동시에 처리하는 것처럼 비동기적인 모습을 보입니다. 
+- **JavaScript 엔진이 비동기적인 처리가 가능한 이유는 JavaScript 런타임의 Web API들을 이용한 논-블로킹(non-blocking) 처리를 수행하기 때문입니다.** 
+- JavaScript 엔진은 Web API 기능 사용시 일을 맡긴 후 바로 다음 일을 수행합니다. 
+- Web API는 자신이 수행할 일을 마치고, 콜 스택으로부터 전달받은 콜백 함수를 콜백 큐에 이동시킵니다.
+- 이벤트 루프는 우선순위에 따라 콜백 큐에 담긴 콜백 함수들을 JavaScript 엔진의 콜 스택으로 이동시킵니다.
+- 콜백 함수가 콜 스택에 추가되면 JavaScript 엔진은 이를 수행합니다.
 
 #### REFERENCE
 - <https://ingg.dev/js-work/>

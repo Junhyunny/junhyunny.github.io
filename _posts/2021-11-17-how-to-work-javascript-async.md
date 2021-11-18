@@ -153,10 +153,8 @@ console.log("Welcome to loupe.");
 #### REFERENCE
 - <https://ingg.dev/js-work/>
 - <http://jaynewho.com/post/25>
-- <https://joshua1988.github.io/web-development/translation/javascript/how-js-works-inside-engine/>
-- <https://medium.com/@gemma.stiles/understanding-the-javascript-runtime-environment-4dd8f52f6fca>
 - <https://dkje.github.io/2020/09/20/AsyncAndEventLoop/>
-- <https://github.com/latentflip/loupe>
+- <https://medium.com/@gemma.stiles/understanding-the-javascript-runtime-environment-4dd8f52f6fca>
 - <http://latentflip.com/loupe>
 
 [asynchronous-non-blocking-link]: https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/

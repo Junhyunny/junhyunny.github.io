@@ -67,7 +67,7 @@ JavaScript 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 �
 - Fetch data from a server - 네트워크를 통해 서버로부터 리소스를 가져오는 기능
 
 ### 1.4. Callback Queue
-Web APIs 기능이 종료되면서 보내지는 콜백 함수(callback function)들을 순서대로 저장됩니다. 
+Web API 기능이 종료되면서 보내지는 콜백 함수(callback function)들을 순서대로 저장됩니다. 
 콜백 큐(callback queue)에 담긴 콜백 함수들은 JavaScript 엔진의 콜 스택이 비워지기를 기다리다가 이벤트 루프(event loop)에 의해 이동됩니다. 
 큐의 특성상 먼저 들어온 콜백 함수가 먼저 콜 스택으로 빠져나갑니다. (FIFO, First In First Out)
 
@@ -84,7 +84,10 @@ JavaScript 런타임에는 여러가지 큐가 존재합니다.
 
 ### 1.5. Event Loop
 싱글 스레드로 실행되며, 이벤트 루프는 콜백 큐에 담긴 콜백 함수들을 콜 스택으로 전달합니다. 
-콜 스택에 실행 중인 함수가 없고, 큐에 실행시킬 콜백 함수가 있다면 가장 우선순위가 높은 함수를 콜 스택으로 이동시킵니다. 
+다음과 같은 조건을 만족할 때 콜백 함수를 콜 스택으로 전달합니다.
+- 콜 스택에 실행 중인 함수가 없어야 합니다. 
+- 큐에 실행시킬 콜백 함수가 존재해야 합니다.
+- 큐의 우선순위를 고려하여 가장 우선순위가 높은 함수를 콜 스택으로 이동시킵니다. 
 
 ## 2. JavaScript 런타임 동작 과정
 <http://latentflip.com/loupe> 사이트에서 직접 작성한 JavaScript 코드가 JavaScript 런타임에서 동작하는 모습을 확인할 수 있습니다. 
@@ -146,6 +149,7 @@ Web APIs 영역의 스레드는 자신이 수행할 일을 마치고, 콜백 함
 콜백 함수가 콜 스택에 추가되면 JavaScript 엔진은 이를 수행합니다.
 
 #### REFERENCE
+- <https://ingg.dev/js-work/>
 - <http://jaynewho.com/post/25>
 - <https://joshua1988.github.io/web-development/translation/javascript/how-js-works-inside-engine/>
 - <https://medium.com/@gemma.stiles/understanding-the-javascript-runtime-environment-4dd8f52f6fca>

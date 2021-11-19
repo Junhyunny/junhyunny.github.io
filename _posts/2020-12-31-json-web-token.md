@@ -119,11 +119,6 @@ HMACSHA256(
 
 <p align="center"><img src="/images/json-web-token-4.JPG"></p>
 
-## CLOSING
-회사에서 업무상 진행하는 프로젝트는 규모가 크고, 모든 일이 협업을 통해 진행되기 때문에 보안과 관련된 내용을 접하기 어려웠습니다. 
-스스로 성장하기 위해 진행한 사이드 프로젝트를 통해 새로운 것들을 배우고 있습니다. 
-다음 포스트는 Spring Security를 이용한 구현에 대해 정리할 예정입니다. 
-
 #### REFERENCE
 - <https://bcho.tistory.com/999>
 - <https://velopert.com/2389>

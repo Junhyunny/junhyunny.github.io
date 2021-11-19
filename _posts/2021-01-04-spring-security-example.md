@@ -59,7 +59,7 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
 ```
 
 ### 1.2. application.yml
-- H2 데이터베이스와 관련된 
+- H2 데이터베이스 설정
 
 ```yml
 spring:

@@ -288,16 +288,11 @@ Caused by: org.hibernate.StaleObjectStateException: Row was updated or deleted b
 
 ## CLOSING
 EntityManager를 사용한 테스트에서 entityManager.lock() 메소드를 사용하지 않더라도 OptimisticLockException이 발생하는 것을 확인하였습니다. 
-entityManager.lock() 메소드를 사용하지 않아도 Optimistic Lock 기능이 정상적으로 동작하는 것이 이상하여 관련된 내용들을 찾아보았습니다. 
-
-StackOverflow에서 다음과 같은 글을 발견하였습니다. 
-3.2 버전부터는 @Version 애너테이션 필드만 있어도 Optimistic Lock 기능이 가능하다고 합니다. 
+entityManager.lock() 메소드를 사용하지 않아도 Optimistic Lock 기능이 정상적으로 동작하는 것이 이상하여 찾아보니 `StackOverflow`에서 3.2 버전부터는 @Version 애너테이션 필드만 있어도 Optimistic Lock 기능이 가능하다는 글을 발견하였습니다. 
 > 3.2 Version Attributes<br><br>
 > The Version field or property is used by the persistence provider to perform optimistic locking. 
 > It is accessed and/or set by the persistence provider in the course of performing lifecycle operations on the entity instance. 
 > **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**
-
-다음 글은 JPA가 Pessimistic Lock 기능을 어떻게 제공하는지 알아보도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-15-jpa-optimistic-lock>

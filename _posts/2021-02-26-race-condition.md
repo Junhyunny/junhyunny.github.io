@@ -10,6 +10,8 @@ last_modified_at: 2021-08-22T12:30:00
 
 <br>
 
+## 0. 들어가면서
+
 [교착 상태(Deadlock)][deadlock-blogLink]에 대한 포스트를 작성하다보니 운영체제에 대한 내용을 몇 가지 더 정리하고 싶어졌습니다. 
 오늘의 주제는 `경쟁 상태(Race Condition)`입니다. 
 경쟁 상태는 무엇이고 이를 해결하기 위해 운영체제에서는 어떤 메커니즘을 사용하는지 정리해보도록 하겠습니다.
@@ -258,11 +260,6 @@ public class SynchronizedTest {
 ```
 2021-08-22 16:42:34.312  INFO 16736 --- [           main] b.i.a.raceccondition.SynchronizedTest    : 정상적인 결과 / 총 테스트 시도 = 1000 / 1000
 ```
-
-## CLOSING
-이전 블로그에 작성한 글을 새로운 블로그로 이전하면서 내용을 조금 더 보완하였습니다. 
-뮤텍스나 세마포어와 같은 메커니즘을 직접 구현하여 스레드를 동기화시키진 않았습니다. 
-추후에 기회가 된다면 별도의 주제로 포스팅하도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-26-race-condition>

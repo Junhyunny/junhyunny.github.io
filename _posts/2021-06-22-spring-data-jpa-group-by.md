@@ -5,7 +5,6 @@ category:
   - spring-boot
   - jpa
   - junit
-  - exception
 last_modified_at: 2021-09-04T06:00:00
 ---
 

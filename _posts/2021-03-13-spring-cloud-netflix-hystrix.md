@@ -281,11 +281,6 @@ feign.FeignException$InternalServerError: [500] during [GET] to [http://b-servic
 2021-08-24 00:45:43.632  INFO 19928 --- [           main] c.in.action.AServiceApplicationTests     : requestWithException response: exception fallback
 ```
 
-## CLOSING
-Circuit Breaker 패턴을 적용한 Hystrix 컴포넌트를 FeignClient와 함께 사용한 테스트 코드를 작성해보았습니다. 
-**`feign.circuitbreaker.enabled`** 옵션을 사용하면서 몇 가지 이슈들이 있었는데 이 내용은 [[IllegalStateException] Incompatible fallbackFactory instance.][exception-link] 포스트에서 확인 가능합니다. 
-FeignClient는 FallbackFactory 없이 Fallback을 사용할 수 있지만 어떤 클라이언트에서 문제를 일으키는지 확인이 힘들다고 합니다.([[Spring boot] Circuit Breaker][reference-link])
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-spring-cloud-netflix-hystrix>
 
@@ -295,6 +290,4 @@ FeignClient는 FallbackFactory 없이 Fallback을 사용할 수 있지만 어떤
 - <https://junhyunny.github.io/spring-boot/spring-cloud/msa/design-pattern/msa-circuit-breaker-pattern/>
 - <https://junhyunny.github.io/spring-boot/spring-cloud/exception/incompatible-fallback-factory-instance/>
 
-[exception-link]: https://junhyunny.github.io/spring-boot/spring-cloud/exception/incompatible-fallback-factory-instance/
-[reference-link]: https://twowinsh87.github.io/etc/2019/01/19/etc-springboot-circuitbreaker/
 [circuitbreaker-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/design-pattern/msa-circuit-breaker-pattern/

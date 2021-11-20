@@ -10,7 +10,8 @@ last_modified_at: 2021-08-24T01:00:00
 
 <br>
 
-[Spring Cloud Netflix Hystrix][hystrix-link] 포스트를 작성하던 중에 발생한 에러입니다. 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring Cloud Netflix Hystrix][hystrix-link]
 
 ## 1. 발생 에러
 

@@ -13,8 +13,6 @@ last_modified_at: 2021-08-23T00:30:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Cloud Openfeign][openfeign-link]
 
-`Eureka 서비스 구축 및 관련 API 요청 테스트`에 대한 글을 작성하기 전에 간단한 기능을 먼저 소개하려고 합니다. 
-
 ## 1. Dynamic URI FeignClient on Runtime
 
 ### 1.1. [Spring Cloud Openfeign][openfeign-link] 포스트에서 사용한 SimpleClient 인터페이스
@@ -100,10 +98,6 @@ public class DynamicUrlTest {
 
 ##### https://www.google.com 요청 결과
 <p align="center"><img src="/images/dynamic-uri-using-openfeign-2.JPG"></p>
-
-## CLOSING
-Openfeign을 사용하는 프로젝트에서 유용한 정보일 것 같습니다. 
-간단한 테스트 코드와 기능 설명으로 짧은 글을 작성할 수 있을 것 같아서 해당 주제를 먼저 포스트하였습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-07-dynamic-uri-using-openfeign>

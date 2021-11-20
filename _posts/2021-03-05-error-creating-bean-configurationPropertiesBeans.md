@@ -10,6 +10,8 @@ last_modified_at: 2021-08-22T20:30:00
 
 <br>
 
+## 0. 들어가면서
+
 [Spring Cloud Openfeign][openfeign-blogLink] 포스트를 작성하던 중에 발생한 에러입니다. 
 간단한 테스트 코드를 작성한 후에 maven install 골(goal)을 실행했더니 테스트 단계(test phase)에서 발생되지 않던 Exception이 발생하였습니다. 
 
@@ -90,14 +92,6 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 
 ##### spring-boot-starter-parent 버전 변경 후 maven install
 <p align="left"><img src="/images/error-creating-bean-configurationPropertiesBeans-4.JPG"></p>
-
-## CLOSING
-문제 해결이 오래 걸리는 만큼 큰 기쁨을 안겨주는 버그를 오늘도 한마리 정복했습니다. 
-회사 프로젝트나 사이드 프로젝트에서 만났던 에러들은 모두 메모장에 적어두었습니다. 
-물론 해결 방법이나 힌트까지 적어두긴 했지만 바쁜 일정으로 인해 **`'나중에 정리해야지...'`** 라고 미뤄두다보니 아직 시작도 못하고 있습니다. 
-이제 다시 새로운 블로그를 꾸려나가는 중에 처음 만난 에러이니만큼 바로 정리해서 포스트하였습니다. 
-
-**시작이 반이니까요.**
 
 #### REFERENCE
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>

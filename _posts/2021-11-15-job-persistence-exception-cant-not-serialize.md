@@ -3,6 +3,7 @@ title: "JobPersistenceException: Unable to serialize JobDataMap"
 search: false
 category:
   - spring-mvc
+  - exception
 last_modified_at: 2021-11-15T23:55:00
 ---
 

@@ -29,14 +29,14 @@ last_modified_at: 2021-08-22T01:30:00
     - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.
     - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
 
-### 1.1. [캐싱된 엔티티 조회 시나리오]
+### 1.1. 캐싱된 엔티티 조회 시나리오
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
 
 <p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="75%"></p>
 <center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
-### 1.2. [캐싱되지 않은 엔티티 조회 시나리오]
+### 1.2. 캐싱되지 않은 엔티티 조회 시나리오
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 존재하지 않으므로 데이터베이스를 조회합니다.
 1. 조회된 데이터를 신규 엔티티를 생성하여 캐싱합니다.
@@ -136,7 +136,7 @@ EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하�
 - 장점
     - 쓰기 지연은 모아둔 쿼리를 데이터베이스에 한 번에 전달해서 성능을 최적화할 수 있는 장점이 있습니다. 
 
-### 2.1. [쓰기 지연 시나리오(insert)]
+### 2.1. 쓰기 지연 시나리오(insert)
 1. memberA 객체를 영속성 컨텍스트에 저장합니다.
 1. 이때 memberA 엔티티는 1차 캐싱, insert 쿼리는 쓰기 지연 SQL 저장소에 저장됩니다.
 1. memberB 객체를 영속성 컨텍스트에 저장합니다.
@@ -274,7 +274,7 @@ Hibernate: insert into tb_member (authorities, member_email, member_name, passwo
 - 장점
   - 지속적으로 바뀌는 비즈니스 요건 사항을 따라 매번 SQL을 변경할 필요가 없습니다.
 
-### 3.1. [변경 감지 시나리오]
+### 3.1. 변경 감지 시나리오
 1. 영속성 컨텍스트는 데이터베이스에서 조회할 때 엔티티의 모습을 스냅샷(snapshot) 형태로 저장해둡니다.
 1. flush 메소드 호출 시 캐싱에 저장된 엔티티와 스냅샷에 저장된 엔티티의 모습이 다른 엔티티를 찾아 업데이트 쿼리를 만듭니다. 
 1. 업데이트 쿼리는 쓰기 지연 SQL 저장소로 전달됩니다.
@@ -386,10 +386,6 @@ public class DirtyCheckingTest {
 - ActionQueue 클래스 executeActions 메소드
 
 <p align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
-
-## CLOSING
-영속성 컨텍스트의 기능과 이를 통해 얻을 수 있는 장점에 대해서 이야기해보았습니다. 
-마지막에 변경 감지(dirty chekcing)가 어떤 식으로 이루어지는지 궁금하여 디버깅한 결과까지 함께 첨부하였습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-04-persistence-context-advantages>

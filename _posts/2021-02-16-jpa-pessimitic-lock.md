@@ -96,7 +96,7 @@ Caused by: javax.persistence.TransactionRequiredException: no transaction is in 
 
 ### 2.1. PostService 클래스
 조회에서 업데이트까지 하나의 트랜잭션으로 처리될 수 있도록 PostService @Bean 내부에 @Transactional 애너테이션을 붙힌 메소드를 하나 만들어줍니다. 
-**@Transactional 애너테이션은 @Bean인 객체에만 적용되니 주의해야 합니다. 일반 객체의 메소드에 작성하여도 정상적으로 동작하지 않습니다.**
+**@Transactional 애너테이션은 빈(bean)인 객체에만 적용되니 주의해야 합니다. 일반 객체의 메소드에 작성하여도 정상적으로 동작하지 않습니다.**
 
 ```java
 package blog.in.action.domain.post;

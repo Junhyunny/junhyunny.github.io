@@ -9,7 +9,7 @@ last_modified_at: 2021-08-25T00:00:00
 <br>
 
 공부하다 흘러들어간 블로그에 Github 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았습니다.([일일커밋 알림봇 개발기][mingrammer-blogLink]) 
-**`'기능도 간단해 보이는데 Java 언어로 개발한 사람이 없다면 내가 만들어볼까?'`**🤔 
+**`'기능도 간단해 보이는데 Java 언어로 개발한 사람이 없다면 내가 만들어볼까?'`** 
 하던 공부는 접고 바로 개발에 착수했습니다. 
 Slack 어플리케이션을 안 사용하고 있었기 때문에 일단 다운받고 채팅 봇 만드는 방법을 찾아봤습니다. 
 
@@ -48,7 +48,7 @@ res = requests.get(URL, params = params)
 ```
 
 역시나 실패. 
-**`음~, 그래도 역시 URL에 노출하고 싶지 않은데? 다른 방법 없을까?`🤔** 
+**`음~, 그래도 역시 URL에 노출하고 싶지 않은데? 다른 방법 없을까?`** 
 Slack API 문서를 뒤지다보니 다른 방법이 있었습니다. 
 확인해보니 HTTP Header로 전달하려면 Content-Type을 **`application/json`**, 
 Request Parameter 혹은 Request Body로 전달하려면 **`application/x-www-form-urlencoded`** 사용합니다. 
@@ -165,7 +165,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 해당 라이브러리에서 필요한 기능을 제공하지 않는 것 같아서 사용하지 않기로 했습니다. 
 제가 필요한 기능은 간단합니다. 
 특정 사용자의 repository 정보들과 해당 repository에 오늘 push 한 이력이 있는지만 확인하면 되기 때문에 Github API 문서를 찾아봤습니다. 
-딱 원하는 기능을 발견했습니다.😄 
+딱 원하는 기능을 발견했습니다. 
 각 repository 별로 마지막 push 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했습니다.
 
 ##### Github API
@@ -243,7 +243,7 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 ## 5. Slack Chatbot 배포 후 확인
 내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 commit 하라는 메세지를 전달합니다. 
 일부러 push 하지 않고 commit 독촉 메세지가 오기를 기다려봤습니다. 
-과연... 결과는?🤨
+과연... 결과는?
 
 ##### Message from Slack Chatbot
 <div align="center">
@@ -251,7 +251,7 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
   <img src="/images/side-project-slack-chatbot-11.JPG" width="30%">
 </div>
 
-정상적으로 동작합니다. 앞으로 공부하라는 메세지를 받을 일만 남았습니다.😂
+정상적으로 동작합니다. 앞으로 공부하라는 메세지를 받을 일만 남았습니다.
 간단한 chatbot 개발기를 작성해봤는데 개발하는 시간보다 개발한 내용들을 정리하는게 더 시간이 오래 걸렸습니다. 
 정리하는 일이 귀찮기는 하지만 정리해놓으면 나중에 필요한 날이 올 것이라 믿습니다. 
 공부나 일을 하다가 필요한 기능이 생기면 자동화 할 방법이 있는지 궁리해보면서 이런 프로그램 개발기들을 하나씩 늘려가야겠습니다. 

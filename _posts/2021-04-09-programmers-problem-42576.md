@@ -120,9 +120,3 @@ class Solution {
     }
 }
 ```
-
-## CLOSING
-BEST PRACTICE를 보면 HashMap 클래스에 getOrDefault() 메소드를 통해 불필요한 if-else 구문이 없앴습니다. 
-참여자 수와 완주자 수가 다름을 더하고 뺏을 때 0 값이 되는 것을 이용하여 짧고 가독성 좋은 코드가 되었습니다. 
-또한 하나의 MAP 객체만 이용 가능하여 메모리 측면에서도 더 효율적인 코드를 작성하였습니다. 
-👍👍 **'Two thumbs up!'** 드리도록 하겠습니다.

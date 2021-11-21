@@ -155,14 +155,6 @@ class ImmutableObject {
 }
 ```
 
-## CLOSING
-한번의 기술 면접을 통해 준비가 안되어 있으면 알고 있는 내용에 대해 제대로 설명하지 못한다는 것을 깨달았습니다. 
-제대로 답하지 못한 질문 중 하나가 MUTABLE, IMMUTABLE 객체에 대한 내용이었습니다. 
-
-질문 세례를 통해 머리가 **'띵~'**한 상태에서 아는 내용을 질문 받더라도 준비가 덜 되어있다면 정작 핵심 키워드들이 떠오르지 않습니다. 
-받은 질문들 중에 그나마 잘 대답했던 내용들은 블로그에 정리해놓고 글을 다듬을 겸 항상 읽어보던 몇 주제들 뿐이었습니다. 
-다시 한번 기록하는 습관의 중요함을 느꼈습니다.
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-05-mutable-immutable-object>
 

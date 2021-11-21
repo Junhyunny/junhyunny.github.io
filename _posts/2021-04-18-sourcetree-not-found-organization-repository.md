@@ -45,12 +45,6 @@ Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organi
 ##### 정상적인 동작 확인
 <p align="center"><img src="/images/grant-sourcetree-app-4.JPG" width="65%"></p>
 
-## CLOSING
-이전 회사에선 CI/CD 팀에서 이런 이슈들을 처리해줬기 때문에 쉽게 사용했었는데, 
-스타트업에서 이런 부분들까지 하나씩 맞춰나가다보니 다소 시간이 허비되는 중입니다. 
-대기업의 R&R에 맞춰 일하는 방식은 개인의 개발 역량을 제한한다는 느낌을 많이 받았는데, 
-스타트업에서 하나, 둘 씩 체계를 정립해나가다보니 바쁘지만 많을 것을 배우고 성장하고 있다고 생각됩니다. 
-
 #### REFERENCE
 - <https://junhyunny.github.io/information/git/git-commit-message-rule/>
  

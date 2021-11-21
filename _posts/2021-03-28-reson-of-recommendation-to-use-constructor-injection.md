@@ -12,6 +12,8 @@ last_modified_at: 2021-08-24T02:00:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring IoC(Inversion of Control), DI(Dependency Injection)][ioc-di-link]
 
+## 0. 들어가면서
+
 Setter Injection, Constructor Injection, Method Injection 총 3개의 Inejection 방식이 존재하는데 Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 권장한다고 합니다. 
 
 > **Spring Doc**<br>

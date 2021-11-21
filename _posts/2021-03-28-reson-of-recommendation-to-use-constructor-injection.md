@@ -297,12 +297,6 @@ KimTaeng 님 블로그의 글을 읽어보면 생성자 주입은 빈(bean)을 �
 1. B 객체도 생성하는 시점에 A 객체가 필요합니다.
 1. 순환 참조가 감지됩니다.
 
-## CLOSING
-KimTaeng 님의 포스트를 읽어보니 매우 정리가 잘되어 있어서 글을 작성하는데 도움이 되었습니다. 
-한번 면접을 통해 많은 것들을 배우고 정리하고 있습니다. 
-한가지 주제에 대해 포스트를 작성하는 일도 하루 이상 걸리니 조바심이 납니다. 
-모든 것들을 알 순 없지만 많은 것들을 알아야하기 때문에 개발자는 평생 공부해야하는 직업이라는 말이 최근에 크게 공감되었습니다. 
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-28-reson-of-recommendation-to-use-constructor-injection>
 

@@ -9,6 +9,8 @@ last_modified_at: 2021-04-15T09:00:00
 
 <br>
 
+## 0. 들어가면서
+
 빌더 패턴(Builder Pattern)은 Spring 프레임워크를 사용할 때 자주 마주쳤던 디자인 패턴입니다. 
 디자인 패턴에 대한 개념이 없었을 적에는 **`'왜 이런 방식으로 객체를 만들지? 생성자를 사용하면 되잖아...'`** 라는 생각을 하곤 했습니다. 
 최근 들어서 클린 코드, 객체 지향적 프로그래밍에 관련된 글들을 많이 접하다보니 디자인 패턴의 중요성이나 필요성에 대한 공감대가 높아지고 있습니다. 
@@ -419,13 +421,13 @@ class NutritionFacts {
 
 Okky 커뮤니티에 항상 좋은 글을 써주시는 하마님, fender 님의 글은 많은 도움이 됩니다. 
 [빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글을 보면 
-fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는데 초보자들에게 쉬운 이해를 도울 수 있는 부분이라 생각하여 박제...⭐
+fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는데 초보자들에게 쉬운 이해를 도울 수 있는 부분이라 생각합니다. 
 
 <p align="center"><img src="/images/builder-pattern-2.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>
 
 [빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 
-**'GoF 디자인 패턴'**의 빌더 패턴을 **'Effective Java'**에서 좁혀서 정의했다는 하마님의 댓글이 공감되어 제 포스트에 함께 박제...⭐ 
+**'GoF 디자인 패턴'**의 빌더 패턴을 **'Effective Java'**에서 좁혀서 정의했다는 하마님의 댓글이 공감됩니다. 
 
 <p align="center"><img src="/images/builder-pattern-3.JPG" width="65%"></p>
 <center>이미지 출처, https://okky.kr/article/396206</center><br>

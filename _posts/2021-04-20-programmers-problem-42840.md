@@ -91,6 +91,3 @@ class Solution {
     }
 }
 ```
-
-## CLOSING
-대체로 푸는 방식이 비슷하여 별도 BEST PRACTICE 소개는 없습니다. 

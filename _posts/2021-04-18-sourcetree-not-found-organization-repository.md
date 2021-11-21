@@ -9,6 +9,8 @@ last_modified_at: 2021-04-18T09:00:00
 
 <br>
 
+## 0. 들어가면서
+
 얼마 전까지만 해도 터미널을 이용해 git을 사용하곤 했습니다. 
 굳이 무거운 어플리케이션을 설치할 필요가 없다고 생각했는데, 
 이번 [Github commit 메세지 규칙][commit-message-rule-blogLink] 포스트를 작성하면서 이 참에 Sourcetree를 사용해보자고 생각했습니다. 

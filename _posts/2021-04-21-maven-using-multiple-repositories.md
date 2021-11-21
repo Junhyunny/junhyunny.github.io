@@ -24,9 +24,9 @@ last_modified_at: 2021-08-28T01:00:00
 
 ## 2. Maven - Multi Remote Repository 사용하기
 실제로 해당 라이브러리는 `https://maven.onehippo.com/maven2/` 저장소에서 관리되고 있습니다. 
-아까 central repository에서 못 찾은 의존성과 관련되어 여기 저기 찾아보니 이런 링크를 발견할 수 있었습니다. 
+해당 라이브러리 버전 오른편을 보면 다음과 같은 링크를 발견할 수 있었습니다. 
 
-##### OneHippo Repository 발견
+##### OneHippo Repository
 <p align="center"><img src="/images/maven-using-multiple-repositories-2.JPG" width="80%"></p>
 
 > **`'기본 central repository가 아니라 다른 remote repository에 존재하는구나!'`** 

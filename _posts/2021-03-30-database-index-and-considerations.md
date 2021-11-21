@@ -83,9 +83,9 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 
 ## 4. 인덱스가 DML(Data Manipulation Language) 미치는 영향
 SELECT 쿼리에서 성능이 잘 나오지만, INSERT, UPDATE, DELETE 쿼리에서는 상황에 따라 다르다고 합니다. 
-UPDATE, DELETE는 WHERE 절에 잘 설정된 인덱스로 조건을 붙여주면 성능은 크게 저하되지 않습니다. 
-UPDATE, DELETE를 하기 위한 데이터를 찾을 때 속도가 빨라지게 됩니다. 
-INSERT의 경우, 새로운 데이터가 추가되면서 기존 인덱스 페이지에 저장되어 있던 탐색 위치가 수정되어야 하므로 효율이 좋지 않습니다. 
+- UPDATE, DELETE는 WHERE 절에 잘 설정된 인덱스로 조건을 붙여주면 성능은 크게 저하되지 않습니다. 
+- UPDATE, DELETE를 하기 위한 데이터를 찾을 때 속도가 빨라지게 됩니다. 
+- INSERT는 새로운 데이터가 추가되면서 기존 인덱스 페이지에 저장되었던 탐색 위치가 수정되므로 효율이 좋지 않습니다. 
 
 #### REFERENCE
 - <https://12bme.tistory.com/138>

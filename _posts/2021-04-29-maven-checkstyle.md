@@ -200,7 +200,6 @@ public class GeneuineTemplateApplication {
 #### 4.3.2. Stackoverflow 답변
 이에 대해 확인해보니 위반에 대한 심각성을 어느 레벨에서 측정할 것인지 설정으로 추가해줘야지 warning에서도 빌드를 실패시킬 수 있다고 합니다. 
 관련된 설정을 추가하였습니다. 
-**이제 마지막이길 바랍니다. 잘 시간이 한참 지났습니다.**
 
 <p align="center"><img src="/images/maven-checkstyle-7.JPG" width="60%"></p>
 <center>이미지 출처, https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center>
@@ -245,11 +244,9 @@ public class GeneuineTemplateApplication {
     </build>
 ```
 
-성공적으로 빌드를 실패시켰습니다. 
-자기 전까지 코드 정리 후 빌드 에러가 나지 않도록 작업하고 올려야겠습니다. 
-글 정리는 언제할지 막막해지는 순간입니다.
-
 ##### 잘못된 스타일 감지 및 빌드 에러
+- 성공적으로 빌드가 실패하였습니다. 
+
 <p align="center"><img src="/images/maven-checkstyle-8.JPG" width="70%"></p>
 
 #### REFERENCE

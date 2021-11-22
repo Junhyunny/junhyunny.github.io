@@ -9,13 +9,15 @@ last_modified_at: 2021-08-28T02:30:00
 
 <br>
 
+## 0. 들어가면서
+
 현재 작은 팀으로 일하고 있지만 많은 부분들을 정립해나가는 중 입니다. 
 서로 코드를 작성하는 방식이 다르다보니 각자 작업하는 방식이 아니면 코드를 확인하는데 어려움이 있었습니다. 
 그리고 서로가 작업한 코드에 대해 자기 주관적으로 지적하는 것도 민망할 뿐입니다.
 
 저희 팀은 이런 상황을 개선하기 위해 maven plugin codestyle을 적용하기로 결정하였습니다. 
 코드 품질에 대해 객관적인 판단 요소가 될 수 있고, 하나의 포맷으로 코드를 관리하기 때문에 누가 작성한 코드라도 가독성이 좋을 것으로 기대됩니다. 
-무엇보다 빌드가 되지 않도록 막아둘 것이기 때문에 공식적인 지적질(?)을 할 수 있습니다.😃 
+무엇보다 빌드가 되지 않도록 막아둘 것이기 때문에 공식적인 지적질(?)을 할 수 있습니다. 
 적용기에 대해 하나씩 작성해보겠습니다. 
 
 ## 1. google_checks.xml 다운로드
@@ -85,8 +87,6 @@ last_modified_at: 2021-08-28T02:30:00
 
 어김없이 에러가 발생하하였습니다. 
 역시 한번에 되는 일은 없습니다. 
-즐기면서 가보도록 하겠습니다. 
-이것은 개발자의 숙명입니다.
 
 ### 4.1. 발생 에러, checkstyle failed, given name COMPACT_CTOR_DEF
 
@@ -128,7 +128,6 @@ last_modified_at: 2021-08-28T02:30:00
 ### 4.2. RecordComponentName class not found error
 관련된 dependency를 추가하니 또 다른 에러가 발생합니다. 
 RecordComponentName 클래스를 찾지 못한다고 합니다. 
-하... 즐기면서 가보도록 하겠습니다...😂 
 
 <p align="center"><img src="/images/maven-checkstyle-4.JPG" width="70%"></p>
 
@@ -173,8 +172,7 @@ API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다.
 
 ### 4.3. Error 아닌 Warning 처리
 이후 빌드를 하니 정상적으로는 동작하는데 이상합니다. 
-빌드 실패 여부를 확인하려고 분명히 일부러 잘못된 코드 스타일로 작성했는데 Warning 후 빌드가 성공합니다. 
-아씨... 즐기면서...해브즈...🤬 
+빌드 실패 여부를 확인하려고 분명히 일부러 잘못된 코드 스타일로 작성했는데 Warning 후 빌드가 성공하였습니다.
 
 #### 4.3.1. 잘못된 코드 스타일
 - 들여쓰기와 중괄호 `{}` 위치를 일부러 어긋나게 작성해두었습니다. 
@@ -254,15 +252,8 @@ public class GeneuineTemplateApplication {
 ##### 잘못된 스타일 감지 및 빌드 에러
 <p align="center"><img src="/images/maven-checkstyle-8.JPG" width="70%"></p>
 
-## CLOSING
-해당 포스트는 제 개인 블로그에 작성하였지만 팀 블로그에도 같은 내용으로 작성 후 공유해야겠습니다. 
-제가 얼마나 고생했는지 팀원들에게 생색을 내기 위해서입니다.🤣 
-코드 스타일이 반영된 프로젝트는 [Geneuin/spring-backend-template][github-repo-link]에서 확인 가능합니다. 
-
 #### REFERENCE
 - <https://sg-choi.tistory.com/101>
 - <https://checkstyle.sourceforge.io/config_naming.html>
 - <https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors>
 - <https://stackoverflow.com/questions/63852780/creating-a-customized-version-of-the-google-java-checkstyle-xml-file/64694410#64694410>
-
-[github-repo-link]: https://github.com/Geneuin/spring-backend-template

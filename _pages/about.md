@@ -26,11 +26,14 @@ classes: wide
 - Github, BitBucket, Bamboo, Jira
 
 ## Career
-#### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer 정규직, 2021년 4월 ~
-- [한국보건산업진흥원] IoT 돌봄 서비스 고도화, 2021년 8월 - present 
+#### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - 
+- VMWare Tunzu Labs Software Engineer, 2021년 11월 - 현재
+
+#### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer, 2021년 4월 - 11월
+- [한국보건산업진흥원] IoT 돌봄 서비스 고도화, 2021년 8월 - 11월 
 - [KC Industrial] 가스 산업 MES 신규 구축, 2021년 5월 - 8월
 
-#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 정규직, 2018년 7월 – 2021년 4월
+#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer, 2018년 7월 – 2021년 4월
 - MES3.0 야드 관리 시스템 운영, 2021년 1월 - 4월
 - MES3.0 야드 관리 시스템 개발, 2018년 7월 - 2020년 12월
 
@@ -38,7 +41,7 @@ classes: wide
 - Smart CCTV 시스템 개발, 2017년 8월 - 2017년 11월
 
 ## Experience
-#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 8월 -
+#### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 8월 - 11월
 - 데이터베이스 솔루션 변경 작업 AS-IS(SYBASE), TO-BE(TIBERO)
 - JDK 1.8 버전 변경 작업 및 레거시 시스템 소스 코드 리팩토링
 - Spring MVC, JSP, MyBatis 프레임워크를 사용한 신규 모니터링 화면 개발

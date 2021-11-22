@@ -9,6 +9,9 @@ last_modified_at: 2021-08-28T02:30:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [IntelliJ Google CodeStyle 적용하기][google-codestyle-link]
+
 ## 0. 들어가면서
 
 현재 작은 팀으로 일하고 있지만 많은 부분들을 정립해나가는 중 입니다. 
@@ -254,3 +257,5 @@ public class GeneuineTemplateApplication {
 - <https://checkstyle.sourceforge.io/config_naming.html>
 - <https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors>
 - <https://stackoverflow.com/questions/63852780/creating-a-customized-version-of-the-google-java-checkstyle-xml-file/64694410#64694410>
+
+[google-codestyle-link]: https://junhyunny.github.io/information/intellij-google-codestyle/

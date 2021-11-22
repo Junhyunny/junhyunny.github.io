@@ -8,12 +8,11 @@ last_modified_at: 2021-08-28T03:00:00
 
 <br>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+👉 이어서 읽기를 추천합니다.
 - [Maven CheckStyle 적용][maven-checkstyle-link]
 
-팀원들이 IntelliJ를 이용하여 코드 자동 줄 맞춤을 쉽게 할 수 있도록 이번 포스트를 작성하였습니다. 
-
 ## 1. intellij-java-google-style.xml 다운로드
+팀원들이 IntelliJ를 이용하여 코드 자동 줄 맞춤을 쉽게 할 수 있도록 이번 포스트를 작성하였습니다. 
 - 아래 링크로 접속하여 intellij-java-google-style.xml 파일을 다운받습니다. 
 - 해당 파일은 구글에서 사용하는 코드 스타일 규칙입니다.
 - <https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml>

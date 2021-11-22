@@ -12,11 +12,6 @@ last_modified_at: 2021-09-01T02:00:00
 
 ⚠️ 해당 포스트는 2021년 9월 1일에 재작성되었습니다.
 
-**`'@Transactional readOnly 속성에 대해 아시나요?'`**<br>
-**`'아니요, 처음 들어봤습니다. 이 참에 공부해봐야겠네요.'`**
-
-공부하였습니다. 포스트를 통해 정리해보겠습니다. 
-
 ## 1. @Transactional 'readOnly' 속성
 일단 관련된 내용을 찾아보기 전에 javadoc을 살펴봤습니다. 
 - 트랜잭션이 effectively read-only일 경우 true로 설정될 수 있는 플래그입니다.

@@ -9,6 +9,9 @@ last_modified_at: 2021-08-28T03:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [퀵 정렬(Quick Sort)][quick-sort-link]
+
 ## 1. 합병 정렬(Merge Sort)
 합병 정렬은 다음과 같은 특징을 가집니다. 
 - 안정 정렬이며, 분할 정복 알고리즘 중 하나입니다. 
@@ -161,3 +164,5 @@ public class Main {
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Merge_sort>
 - <https://gmlwjd9405.github.io/2018/05/08/algorithm-merge-sort.html>
+
+[quick-sort-link]: https://junhyunny.github.io/information/algorithm/quick-sort/

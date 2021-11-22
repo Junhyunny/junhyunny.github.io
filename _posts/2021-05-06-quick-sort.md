@@ -9,8 +9,8 @@ last_modified_at: 2021-08-28T13:30:00
 
 <br>
 
-이번 포스트는 퀵 정렬에 대해 정리해보도록 하겠습니다. 
-지난 포스트에서 정리한 [합병 정렬(Merge Sort)][merge_sort_link]과는 어떤 차이점이 있는지 함께 정리해보겠습니다. 
+👉 이어서 읽기를 추천합니다.
+- [합병 정렬(Merge Sort)][merge_sort_link]
 
 ## 1. 퀵 정렬(Merge Sort)
 퀵 정렬은 다음과 같은 특징을 가집니다. 

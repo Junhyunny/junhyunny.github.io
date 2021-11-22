@@ -1215,11 +1215,6 @@ org.springframework.transaction.NestedTransactionNotSupportedException: JpaDiale
 - NESTED 속성 테스트는 지원되는 WAS에서 재검증이 필요합니다.
 - 별도의 이미지는 참조하지 않았습니다. 
 
-## CLOSING
-테스트 코드와 개념을 정리하는데 상당한 시간이 소요되었습니다. 
-그래도 포스트를 작성하고 나니 기분은 좋습니다. 
-대부분 디폴트인 **`REQUIRED`** 만으로도 충분하지만, 기능에 대해 정확하게 알고 사용하는 것이 개발자의 필수 덕목이라 생각합니다. 
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-10-transactional-propagation-type>
 

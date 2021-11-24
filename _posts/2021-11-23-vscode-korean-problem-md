@@ -1,5 +1,5 @@
 ---
-title: "VSCode 한글 입력 문제 in Mac"
+title: "VSCode 한글 입력 문제 on Mac"
 search: false
 category:
   - information
@@ -8,16 +8,9 @@ last_modified_at: 2021-11-23T23:55:00
 
 <br>
 
-⚠️ Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다. (github blog theme 예약어로 인한 표기 에러)
-
 ## 0. 들어가면서
 
-## 1. Computed 속성
-
-## 2. Computed with parameter
-
-#### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-22-vue-js-computed-with-parameter>
-
 #### REFERENCE
-- <https://kr.vuejs.org/v2/guide/computed.html>
+- [Visual Studio Code for Mac (M1) 에서 한글 씹힐때][vscode-korean-problem-link]
+
+[vscode-korean-problem-link]: https://blog.ddoong2.com/2021/09/16/visual-studio-code-for-mac-%ED%95%9C%EA%B8%80-%EC%94%B9%ED%9E%90%EB%95%8C/#

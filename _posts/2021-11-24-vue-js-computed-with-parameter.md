@@ -76,8 +76,9 @@ export default {
 ```
 
 ##### 브라우저 에러 발생
+- `computedMessage`는 함수가 아니라는 에러 메세지를 확인할 수 있습니다.
 
-<p align="left"><img src="/images/vue-js-computed-with-parameter-1.JPG"></p>
+<p align="left"><img src="/images/vue-js-computed-with-parameter-1.JPG" width="50%"></p>
 
 ### 2.1. 에러 해결 방법
 
@@ -129,7 +130,7 @@ export default {
 
 ##### 정상 동작 확인
 
-<p align="left"><img src="/images/vue-js-computed-with-parameter-2.JPG"></p>
+<p align="left"><img src="/images/vue-js-computed-with-parameter-2.JPG" width="50%"></p>
 
 ## CLOSING
 
@@ -140,7 +141,7 @@ export default {
 - `computed 속성`을 파라미터를 전달받는 함수로 반환하여 사용하는 경우 캐싱의 이점을 가져갈 수 없습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-22-vue-js-computed-with-parameter>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-24-vue-js-computed-with-parameter>
 
 #### REFERENCE
 - <https://kr.vuejs.org/v2/guide/computed.html>

@@ -55,12 +55,5 @@ last_modified_at: 2021-11-24T23:55:00
 
 <p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-5.JPG"></p>
 
-## CLOSING
-위와 같은 설정을 마치면 정상적으로 private 레포지토리에 접근 가능하고, push도 가능합니다.
-
-##### 정상적인 push 동작 확인
-
-<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-6.JPG"></p>
-
 #### REFERENCE
 - <https://community.atlassian.com/t5/Sourcetree-questions/Sourcetree-for-Mac-GitHub-account-permissions/qaq-p/961120?lightbox-message-images-961120=40149i1DE67E42DD58B647>

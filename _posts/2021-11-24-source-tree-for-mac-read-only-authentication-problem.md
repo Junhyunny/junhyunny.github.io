@@ -24,16 +24,16 @@ last_modified_at: 2021-11-24T23:55:00
 ##### Authorize SourcetreeForMac
 - `Public Data Only` 문구 확인
 
-<p align="center"><img src="/images/source-tree-for-mac-read-only-authentication-problem-1.JPG" width="45%"></p>
+<p align="center"><img src="/images/source-tree-for-mac-read-only-authentication-problem-1.JPG" width="55%"></p>
 
 ##### Permissions - Access public information (read-only)
 - 오른쪽 상단 사용자 이미지 > Settings > Applications > Authorized OAuth Apps > SourcetreeForMac 선택
 
-<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-2.JPG" width="20%"></p>
+<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-2.JPG" width="25%"></p>
 
 - 해당 어플리케이션의 권한을 확인하면 `Access public information (read-only)` 문구 확인
 
-<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-3.JPG"></p>
+<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-3.JPG" width="80%"></p>
 
 ## 2. 문제 해결
 해당 문제는 Github 토큰(token)을 발급받아 사용하면 해결할 수 있습니다.
@@ -44,7 +44,7 @@ last_modified_at: 2021-11-24T23:55:00
 - Expiration - `no expiration` 선택
 - `repo` 체크박스 선택
 
-<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-4.JPG"></p>
+<p align="left"><img src="/images/source-tree-for-mac-read-only-authentication-problem-4.JPG" width="80%"></p>
 
 ## 2.2. 토큰 사용
 - 발급받은 토큰을 복사합니다. 
@@ -53,7 +53,7 @@ last_modified_at: 2021-11-24T23:55:00
 - 사용자 이름 - Github User Name
 - 암호 - 복사한 토큰
 
-<p align="center"><img src="/images/source-tree-for-mac-read-only-authentication-problem-5.JPG" width="45%"></p>
+<p align="center"><img src="/images/source-tree-for-mac-read-only-authentication-problem-5.JPG" width="55%"></p>
 
 #### REFERENCE
 - <https://community.atlassian.com/t5/Sourcetree-questions/Sourcetree-for-Mac-GitHub-account-permissions/qaq-p/961120?lightbox-message-images-961120=40149i1DE67E42DD58B647>

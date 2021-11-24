@@ -43,7 +43,7 @@ export default {
 
 ## 2. Computed with parameter
 단순하게 계산만 하면 좋을텐겠지만, 간혹 `computed 속성`에 파라미터(parameter)가 필요한 경우도 발생합니다. 
-`computed 속성`의 모양이 함수 형태이니 파라미터를 전달하면 될 것 같지만 에러가 발생합니다.
+`computed 속성`은 함수 형태이므로 파라미터 전달이 가능해보이지만, 에러가 발생합니다.
 
 ##### 에러 유발 코드
 

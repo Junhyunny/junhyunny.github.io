@@ -455,7 +455,14 @@ public class TestDoubleTest {
 ```
 
 ## CLOSING
-작성 중 입니다.
+테스트 더블을 지원하는 많은 프레임워크들이 존재하는데, 몇 가지 소개하고 포스트를 마치도록 하겠습니다. 
+
+##### Java 테스트 더블 지원 프레임워크
+- spockframework - <https://spockframework.org/>
+- mockito - <https://site.mockito.org/>
+
+##### JavaScript 테스트 더블 지원 프레임워크
+-  sinonjs - <https://sinonjs.org/>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-26-test-double>

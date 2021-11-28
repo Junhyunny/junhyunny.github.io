@@ -25,13 +25,13 @@ last_modified_at: 2021-11-26T23:55:00
 
 ## 1. Test Double
 
-테스트 더블(Test Double)이라는 단어는 영화 산업에서 위험한 장면을 찍을 때 배우를 대체할 대역인 스턴트 더블(stunt double)에서 유래했습니다. 
-테스트 목적으로 실제 클래스를 사용하는 것이 아니라 이와 동일한 형태를 가진 테스트 더블을 사용합니다. 
+테스트 더블(Test Double)이라는 단어는 영화 산업에서 위험한 장면을 촬영할 때 배우를 대체할 대역인 스턴트 더블(stunt double)에서 유래했습니다. 
+테스트를 진행할 때 실제 클래스를 사용하는 것이 아니라 이와 동일한 형태를 가진 테스트 더블을 사용합니다. 
 
 ### 1.1. Why Using Test Double
 
 단위 테스트(unit test)는 시스템이 커질수록 쉽지 않아지기 마련입니다. 
-좋지 않은 모습이지만 테스트하고 싶은 메소드 내부에 다른 컴포넌트(component)에 의존한 기능들로 인해 결합도(coupling)가 높을수도 있고, 
+테스트하고 싶은 메소드 내부에 다른 컴포넌트(component)에 의존한 기능들로 인해 결합도(coupling)가 높을수도 있고, 
 제어하기 어려운 네트워크나 데이터베이스를 사용하는 기능들이 존재할 수 있습니다. 
 위와 같은 여러가지 제약 사항들로 어려운 테스트를 빠르고 쉽게 진행하기 위해 테스트 더블을 사용합니다.
 
@@ -52,13 +52,14 @@ last_modified_at: 2021-11-26T23:55:00
 각 테스트 더블이 어떤 특성을 가졌는지 살펴보고, 어떻게 사용되는지 간단한 예제를 통해 알아보겠습니다.
 
 ##### Test Double Type
+
 <p align="center"><img src="/images/test-double-2.JPG" width="50%"></p>
-<center>이미지 출처, https://www.crocus.co.kr/1555</center>
+<center>이미지 출처, http://xunitpatterns.com/Test%20Double.html</center>
 
 ### 2.1. 테스트 시나리오
 아래와 같은 클래스의 기능을 테스트하고 싶습니다. 
 - API 요청 기능이 필요한 클래스이며, 새로 구현한 saveOrder, findOrderById, isAdmin 메소드 기능을 테스트하고 싶습니다. 
-- 테스트를 진행하는 날에 개발 환경 네트워크 문제로 인해 다른 서비스로 API 요청은 불가능합니다.
+- 개발 환경 네트워크 문제로 인해 다른 서비스로 API 요청은 불가능합니다.
 
 ##### RemoteProxy 클래스
 - `RequestDelegator` 클래스를 이용하여 API 요청을 수행합니다.
@@ -106,9 +107,8 @@ public class RemoteProxy implements RemoteSubject {
 `isAdmin` 메소드 기능 테스트를 위해 `RequestDelegator` 클래스는 필요하지 않습니다. 
 하지만, 아이러니하게도 `RequestDelegator` 클래스 없이는 테스트할 수 없습니다. 
 `RequestDelegator` 클래스가 생성자에 포함되어 있기 때문입니다. 
-
 이런 경우에 테스트 더블 `Dummy`를 사용합니다. 
-실제 기능을 사용하진 않지만, 생성자 파라미터로 전달될 인스턴스는 필요합니다.
+**실제 기능을 사용하진 않지만, 생성자 파라미터로 전달될 인스턴스는 필요합니다.**
 
 ##### Dummy Delegator 클래스
 - `RequestDelegator` 인터페이스를 구현(implement)합니다. 
@@ -162,9 +162,8 @@ public class TestDoubleTest {
 ### 2.3. Spy
 개발자는 `saveOrder` 메소드에 대한 테스트를 수행하고 싶습니다. 
 `ADMIN` 권한으로 `saveOrder` 메소드를 호출하였을 때 실제 API 호출이 수행되었는지 확인하고 싶습니다. 
-
 이런 경우에 테스트 더블 `Spy`를 사용합니다. 
-`Spy`는 테스트에 사용되는 객체, 메소드의 사용 여부 및 정상 호출 여부를 기록하고 요청시 알려줍니다. 
+**`Spy`는 테스트에 사용되는 객체, 메소드의 사용 여부 및 정상 호출 여부를 기록하고 요청시 알려줍니다.** 
 
 ##### SpyDelegator 클래스
 
@@ -228,10 +227,9 @@ public class TestDoubleTest {
 
 ### 2.4. Stub
 개발자는 `findByOrderId` 메소드를 테스트하고 싶습니다. 
-`findByOrderId` 메소드를 호출하였을 때 전달한 ID를 가진 Order 인스턴스를 반환받기를 기대합니다.
-
+`findByOrderId` 메소드를 호출하였을 때 전달한 ID를 가진 Order 인스턴스를 반환받기를 기대합니다. 
 이런 경우에 테스트 더블 `Stub`를 사용합니다. 
-`Stub`는 테스트 호출 요청에 대해 미리 준비해둔 결과를 반환합니다.
+**`Stub`는 테스트 호출 요청에 대해 미리 준비해둔 결과를 반환합니다.**
 
 ##### StubDelegator 클래스
 
@@ -288,10 +286,8 @@ public class TestDoubleTest {
 ### 2.5. Fake
 개발자는 이번엔 복합적인 테스트를 진행하고 싶습니다. 
 `saveOrder` 메소드로 저장한 Order 정보가 `findByOrderId` 메소드로 조회되기를 원합니다. 
-
 이런 경우에 테스트 더블 `Fake`를 사용합니다. 
-`Stub`보다는 조금 더 실제 인스턴스와 비슷하게 동작합니다. 
-미리 준비한 결과를 전달하는 것이 아니라 실제 인스턴스처럼 동작하도록 비즈니스 로직이 필요합니다.
+**`Stub`보다는 조금 더 실제 인스턴스와 비슷하게 동작하지만, 미리 준비한 결과를 전달하는 것이 아니라 실제 인스턴스처럼 동작하도록 비즈니스 로직이 추가됩니다.**
 
 ##### FakeDelegator 클래스
 - 데이터를 저장할 수 있는 Map 인스턴스를 멤버로 가지고 있습니다. 

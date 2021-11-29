@@ -10,8 +10,6 @@ last_modified_at: 2021-09-04T13:00:00
 
 <br>
 
-JPA 사용 시 자주 사용하는 기능을 간단한 예시 코드와 함께 정리해보았습니다. 
-
 ## 1. 애너테이션 소개
 ### 1.1. @PrePersist 애너테이션
 JPA 엔티티(Entity)가 비영속(new/transient) 상태에서 영속(managed) 상태가 되는 시점 이전에 실행됩니다. 
@@ -23,7 +21,7 @@ JPA 엔티티(Entity)가 비영속(new/transient) 상태에서 영속(managed) �
 
 <p align="center"><img src="/images/pre-persist-pre-update-2.JPG" width="70%"></p>
 
-### 1.3. createdAt, lastUpdatedAt 필드 적용하기
+### 1.3. @MappedSuperclass 애너테이션 - createdAt, lastUpdatedAt 필드 적용하기
 데이터베이스 엔티티 설계 시 기본적으로 반드시 필요한 데이터가 존재합니다. 
 대표적으로 데이터 생성 시점(createdAt), 데이터 마지막 업데이트 시점(lastUpdatedAt)을 예로 들어보겠습니다. 
 

@@ -145,11 +145,6 @@ tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      
 
 <p align="center"><img src="/images/maria-db-add-host-2.JPG" width="40%"></p>
 
-## CLOSING
-권한 부여, 사용자 별 접근 IP 제어와 관련된 내용도 작성하려고 했으나 포스트가 길어지게 되어 별도의 주제로 작성하기로 했습니다. 
-정보량에 비해 집중도가 떨어지는 글을 작성하지 않도록 노력하고 있습니다. 
-문제 해결 방법을 다시 정리하고, 납득할만 한 이유를 얻기 위해 궁금한 내용들은 찾아보면서 더 많은 공부가 되는 것 같습니다. 
-
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Netstat>
 - <https://yhmane.tistory.com/73>

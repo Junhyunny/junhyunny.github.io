@@ -243,12 +243,6 @@ public class ChatController {
 
 <p align="center"><img src="/images/web-socket-example-2.gif" width="70%"></p>
 
-## CLOSING
-예제 구현은 간단하게 되었습니다. 
-하지만 실제로 이런 방식을 사용하지 않는다고 합니다. 
-Spring 프레임워크에서 제공하는 `STOMP`를 사용하면 개발자가 직접 session 관리를 위한 코드를 작성하지 않고도 메세지 발행, 구독이 가능하다고 합니다. 
-시간이 된다면 관련된 내용에 대해 공부하고, 해당 예제를 확장시켜봐야겠습니다. 
-
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-21-web-socket>
 

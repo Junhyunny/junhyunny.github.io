@@ -10,9 +10,11 @@ last_modified_at: 2021-09-04T03:30:00
 
 <br>
 
+## 0. 들어가면서
 여러 사용자에 의한 특정 데이터 동시 수정 문제를 해결하기 위해 @Version 애너테이션을 사용하였습니다. 
 간단한 테스트를 수행하는데 여기 저기서 에러가 터져나오기 시작했습니다. 
-빨리 문제 원인과 현상을 찾아서 고쳐야겠습니다.🥶 
+딱 코드 한 줄만 추가하였는데 여파가 무시무시했습니다. 
+영향도에 대한 충분한 확인 없이 코드를 올리는 일은 주의해야겠습니다. 
 
 ## 1. 기존 코드
 프로젝트에서 개발 중인 코드는 노출이 불가능하므로 문제가 발생한 코드 부분과 비슷한 테스트 코드를 작성하였습니다.
@@ -233,11 +235,6 @@ public class VersionNoTest {
 ##### 테스트 결과
 
 <p align="left"><img src="/images/version-annotation-warning-1.JPG" width="50%"></p>
-
-## CLOSING
-딱 코드 한 줄만 추가하였는데 여파가 무시무시했습니다. 
-영향도에 대한 충분한 확인 없이 코드를 올리는 일은 주의해야겠습니다. 
-코드 한 줄의 무서움을 마음 속에 다시 되새기는 계기가 되었습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-28-version-annotation-warning>

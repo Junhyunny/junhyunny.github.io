@@ -9,6 +9,8 @@ last_modified_at: 2021-09-03T02:00:00
 
 <br>
 
+## 0. 들어가면서
+
 Java는 멀티 스레드 환경에서 thread-safe 한 개발을 할 수 있도록 `Atomic`이라는 키워드가 붙은 클래스를 제공합니다. 
 멀티 스레드 프로그램을 지원하는 클래스이므로 `java.util.concurrent.atomic` 패키지에 위치합니다. 
 이름에 `Atomic`이라는 키워드가 붙은 이유가 무엇일까요? 

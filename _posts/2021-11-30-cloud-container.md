@@ -113,9 +113,20 @@ last_modified_at: 2021-11-30T23:55:00
 <p align="center"><img src="/images/cloud-container-4.JPG" width="50%"></p>
 <center>이미지 출처, https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
 
-### 2.3. 컨테이너 장점
-다음과 같은 장점들이 있습니다.
-- 
+### 2.3. Why using container?
+최근 클라우드 시장을 가상 머신이 아닌 컨테이너가 점유하게 되었는지, 컨테이너의 장점을 정리하면서 알아보겠습니다. 
+
+##### 이식성이 좋다.
+컨테이너 런타임만 존재한다면 어디서든 실행 가능합니다. 
+개발자는 자신이 개발한 어플리케이션을 컨테이너로 만들면 컨테이너 런타임이 지원되는 어느 환경에서도 실행 가능합니다.
+
+##### 가볍다.
+가상화를 위한 에뮬레이터, 게스트 운영체제(guest OS)가 필요 없습니다. 
+가상 머신의 경우 크기가 GB 단위이지만, 컨테이너는 MB 단위로 굉장히 작습니다. 
+
+##### 배포가 쉽다.
+어플리케이션 종속 항목들을 하나의 패키지로 묶어 이미지로 만들었기 때문에 쉽게 복제, 배포가 가능합니다. 
+
 
 #### REFERENCE
 - <https://www.ibm.com/kr-ko/cloud/learn/containers>

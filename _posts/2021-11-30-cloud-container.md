@@ -38,7 +38,7 @@ last_modified_at: 2021-11-30T23:55:00
 - 가상 머신 내부에서 운영체제(Guest OS)와 실행 파일, 라이브러리, 어플리케이션이 동작합니다.
 - 가상 머신들끼리는 독립적(independent)으로 구성되며 서로의 존재를 알 수 없습니다. 
 
-<p align="center"><img src="/images/cloud-container-1.gif" width="85%"></p>
+<p align="center"><img src="/images/cloud-container-1.gif" width="50%"></p>
 
 ## 1.2. 가상 머신 장점
 다음과 같은 장점을 가지고 있습니다.
@@ -69,7 +69,7 @@ last_modified_at: 2021-11-30T23:55:00
 - 컨테이너 런타임에서 컨테이너 이미지들을 실행합니다. 
 - 컨테이너 런타임에서 실행되는 프로세스들은 호스트 머신(host machine)의 커널(kernel)을 공유합니다.
 
-<p align="center"><img src="/images/cloud-container-2.gif" width="85%"></p>
+<p align="center"><img src="/images/cloud-container-2.gif" width="50%"></p>
 
 ### 2.2. 프로세스 격리 기능
 
@@ -98,7 +98,7 @@ last_modified_at: 2021-11-30T23:55:00
 - `PID namespace` 분리 시 특정 네임스페이스 영역의 프로세스는 다른 네임스페이스 영역의 프로세스를 알 수 없습니다. 
     - `NS namepsace` 분리까지 이뤄진 경우 정확하게 동작합니다.
 
-<p align="center"><img src="/images/cloud-container-3.JPG" width="85%"></p>
+<p align="center"><img src="/images/cloud-container-3.JPG" width="50%"></p>
 <center>이미지 출처, https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
 
 #### 2.2.2. 컨트롤 그룹(cgroup)
@@ -110,11 +110,12 @@ last_modified_at: 2021-11-30T23:55:00
 
 하드웨어 자원(CPU, memory, disk I/O, network, etc.)을 프로세스 집합에게 할당하고 제한하는 기능입니다. 
 
-<p align="center"><img src="/images/cloud-container-4.JPG" width="85%"></p>
+<p align="center"><img src="/images/cloud-container-4.JPG" width="50%"></p>
 <center>이미지 출처, https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
 
 ### 2.3. 컨테이너 장점
-작성 중 입니다.
+다음과 같은 장점들이 있습니다.
+- 
 
 #### REFERENCE
 - <https://www.ibm.com/kr-ko/cloud/learn/containers>

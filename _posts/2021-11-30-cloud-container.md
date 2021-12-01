@@ -38,7 +38,7 @@ last_modified_at: 2021-11-30T23:55:00
 - 가상 머신 내부에서 운영체제(Guest OS)와 실행 파일, 라이브러리, 어플리케이션이 동작합니다.
 - 가상 머신들끼리는 독립적(independent)으로 구성되며 서로의 존재를 알 수 없습니다. 
 
-<p align="center"><img src="/images/cloud-container-1.gif" width="50%"></p>
+<p align="center"><img src="/images/cloud-container-1.gif" width="40%"></p>
 
 ## 1.2. 가상 머신 장점
 다음과 같은 장점을 가지고 있습니다.
@@ -69,7 +69,7 @@ last_modified_at: 2021-11-30T23:55:00
 - 컨테이너 런타임에서 컨테이너 이미지들을 실행합니다. 
 - 컨테이너 런타임에서 실행되는 프로세스들은 호스트 머신(host machine)의 커널(kernel)을 공유합니다.
 
-<p align="center"><img src="/images/cloud-container-2.gif" width="50%"></p>
+<p align="center"><img src="/images/cloud-container-2.gif" width="40%"></p>
 
 ### 2.2. 프로세스 격리 기능
 

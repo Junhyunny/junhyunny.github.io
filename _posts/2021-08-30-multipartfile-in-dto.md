@@ -39,6 +39,7 @@ DTO 클래스에 MultipartFile 리스트를 담고 싶어 했는데, 관련된 �
 ### 2.1. Form Example 
 
 [Spring MVC and the @ModelAttribute Annotation][baeldung-form-link] 글의 세 번째 예시를 보면 폼(Form) 정보를 특정 클래스에 매칭시키는 기능을 제공하는 듯 합니다. 
+해당 예제를 활용하여 `Vue.js`, `Spring boot` 환경에서도 동일하게 동작하도록 구현해보겠습니다.
 
 #### 2.1.1. View
 ```html
@@ -73,8 +74,6 @@ public class EmployeeController {
     // ...
 }
 ```
-
-해당 예제를 활용하여 `Vue.js`, `Spring boot` 환경에서도 동일하게 동작하도록 구현해보겠습니다.
 
 ## 3. MultipartFile in DTO 예제 코드
 DTO 클래스 안에 MultipartFile 객체를 1개 담아서 전달하는 예제 코드입니다. 

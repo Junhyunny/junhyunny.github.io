@@ -458,7 +458,8 @@ public class TestDoubleTest {
 - mockito - <https://site.mockito.org/>
 
 ##### JavaScript 테스트 더블 지원 프레임워크
--  sinonjs - <https://sinonjs.org/>
+- sinonjs - <https://sinonjs.org/>
+- jest - <https://jestjs.io/>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-26-test-double>

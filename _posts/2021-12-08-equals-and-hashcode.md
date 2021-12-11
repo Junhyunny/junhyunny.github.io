@@ -140,3 +140,126 @@ public class TodoDto {
         return result;
     }
 ```
+
+## 3. @EqualsAndHashCode 애너테이션 속성
+
+`@EqualsAndHashCode` 애너테이션 속성들 몇 가지를 추가적으로 정리하였습니다. 
+
+### 3.1. of 속성
+특정 필드만 선택하여 `equals`, `hashCode` 메소드를 오버라이딩 합니다.
+
+##### 사용 예시 코드
+
+```java
+@EqualsAndHashCode(of = {"id"})
+public class TodoDto {
+
+    private long id;
+    private String value;
+    private String userId;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+}
+```
+
+##### 클래스 디컴파일 코드
+
+```java
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof TodoDto)) {
+            return false;
+        } else {
+            TodoDto other = (TodoDto)o;
+            if (!other.canEqual(this)) {
+                return false;
+            } else {
+                return this.getId() == other.getId();
+            }
+        }
+    }
+
+    public int hashCode() {
+        int PRIME = true;
+        int result = 1;
+        long $id = this.getId();
+        int result = result * 59 + (int)($id >>> 32 ^ $id);
+        return result;
+    }
+```
+
+### 3.2. exclude 속성
+특정 필드를 제외하고 `equals`, `hashCode` 메소드를 오버라이딩 합니다.
+
+##### 사용 예시 코드
+
+```java
+@EqualsAndHashCode(exclude = {"userId", "createdAt", "updatedAt"})
+public class TodoDto {
+
+    private long id;
+    private String value;
+    private String userId;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
+}
+```
+
+##### 클래스 디컴파일 코드
+
+```java
+    public boolean equals(final Object o) {
+        if (o == this) {
+            return true;
+        } else if (!(o instanceof TodoDto)) {
+            return false;
+        } else {
+            TodoDto other = (TodoDto)o;
+            if (!other.canEqual(this)) {
+                return false;
+            } else if (this.getId() != other.getId()) {
+                return false;
+            } else {
+                Object this$value = this.getValue();
+                Object other$value = other.getValue();
+                if (this$value == null) {
+                    if (other$value != null) {
+                        return false;
+                    }
+                } else if (!this$value.equals(other$value)) {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+    }
+
+    public int hashCode() {
+        int PRIME = true;
+        int result = 1;
+
+        long $id = this.getId();
+        int result = result * 59 + (int)($id >>> 32 ^ $id);
+        Object $value = this.getValue();
+        result = result * 59 + ($value == null ? 43 : $value.hashCode());
+        return result;
+    }
+```
+
+### 3.3. 기타 속성
+
+위에 언급한 `of`, `exclude` 속성 이 외에 다른 속성들에 대한 간단한 설명으로 포스트를 마무리하겠습니다.
+- `cacheStrategy` - Determines how the result of the hashCode method will be cached.
+- `callSuper` - Call on the superclass's implementations of equals and hashCode before calculating for the fields in this class.
+- `doNotUseGetters` - Normally, if getters are available, those are called.
+- `onlyExplicitlyIncluded` - Only include fields and methods explicitly marked with @EqualsAndHashCode.Include.
+- `onParam` - Any annotations listed here are put on the generated parameter of equals and canEqual.
+
+##### 애너테이션 속성 및 디폴드(default) 값
+
+<p align="center"><img src="/images/equals-and-hashcode-1.JPG" width="45%"></p>
+
+#### REFERENCE
+- <https://lars-sh.github.io/lombok-annotations/apidocs/lombok/EqualsAndHashCode.html>

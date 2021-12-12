@@ -65,6 +65,8 @@ HTML 파서(parser)가 HTML 문서에 적힌 HTML 코드들을 파싱하여 메�
 DOM은 HTML 문서의 각 요소(element)들을 트리 형태로 표현하고, 스크립트 언어가 문서의 렌더링(rendering) 되는 모습을 쉽게 조작할 수 있는 기능을 제공합니다. 
 `JavaScript`는 `DOM API`를 이용해 동적으로 DOM을 조작할 수 있으며, 변경된 DOM은 다시 렌더링에 반영됩니다.
 
+##### Webkit 엔진 HTML 문서 렌더링 과정
+
 <p align="center"><img src="/images/document-object-model-3.JPG" width="65%"></p>
 <center>이미지 출처, https://it-eldorado.tistory.com/87</center>
 

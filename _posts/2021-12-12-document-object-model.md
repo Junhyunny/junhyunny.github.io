@@ -94,7 +94,7 @@ DOM 트리를 구성하는 노드들은 크게 4가지로 구분됩니다.
 
 ##### DOM 트리 내 구성 요소별 위치 
 
-<p align="center"><img src="/images/document-object-model-5.JPG" width="85%"></p>
+<p align="center"><img src="/images/document-object-model-5.JPG" width="65%"></p>
 <center>이미지 출처, https://poiemaweb.com/js-dom</center>
 
 ## CLOSING

@@ -22,7 +22,7 @@ DOM은 JavaScript 같은 프로그래밍 언어가 문서의 내용을 조작할
 
 헷갈릴 수 있는 `DOM`과 `DOM API` 개념에 대해 정리하면 다음과 같습니다. 
 - 정적인 HTML 문서를 동적으로 제어하기 위해선 JavaScript 같은 프로그래밍 언어로 DOM을 조작해야합니다.
-- 브라우저는 HTML을 분석한 후 DOM을 메모리에 트리 형태의 모델로 로드(load)합니다. 
+- 브라우저는 HTML을 분석한 후 메모리에 트리 형태의 모델을 로드(load)하며, 이를 DOM(Document Object Model)이라고 합니다. 
 - DOM은 HTML 요소를 찾고 조작할 수 있도록 속성(property)과 메소드(method)들을 제공합니다. 
 - DOM에 접근하고 변경하는 기능들의 집합을 `DOM API`라고 합니다.
 
@@ -65,7 +65,7 @@ HTML 파서(parser)가 HTML 문서에 적힌 HTML 코드들을 파싱하여 메�
 DOM은 HTML 문서의 각 요소(element)들을 트리 형태로 표현하고, 스크립트 언어가 문서의 렌더링(rendering) 되는 모습을 쉽게 조작할 수 있는 기능을 제공합니다. 
 `JavaScript`는 `DOM API`를 이용해 동적으로 DOM을 조작할 수 있으며, 변경된 DOM은 다시 렌더링에 반영됩니다.
 
-<p align="center"><img src="/images/document-object-model-3.JPG" width="85%"></p>
+<p align="center"><img src="/images/document-object-model-3.JPG" width="65%"></p>
 <center>이미지 출처, https://it-eldorado.tistory.com/87</center>
 
 ### 2.2. DOM 트리 구성 요소
@@ -89,13 +89,24 @@ DOM 트리를 구성하는 노드들은 크게 4가지로 구분됩니다.
 
 ##### DOM 트리 구성 요소
 
-<p align="center"><img src="/images/document-object-model-4.JPG" width="85%"></p>
+<p align="center"><img src="/images/document-object-model-4.JPG" width="65%"></p>
 <center>이미지 출처, https://poiemaweb.com/js-dom</center>
 
 ##### DOM 트리 내 구성 요소별 위치 
 
 <p align="center"><img src="/images/document-object-model-5.JPG" width="85%"></p>
 <center>이미지 출처, https://poiemaweb.com/js-dom</center>
+
+## CLOSING
+최근 리액트를 공부하면서 관련된 내용을 정리하려다보니 DOM에 대한 포스트를 작성하게 되었습니다. 
+다음과 같은 의식의 흐름으로 주제 선정이 여기까지 이어졌습니다. 
+1. 리액트 `useEffect` 훅(hook)에 대해서 정리하려고보니 라이프 사이클에 대한 내용을 잘 모르겠다.
+1. 라이프 사이클에 대한 내용을 정라히려고보니 리액트 컴포넌트에 대한 내용을 잘 모르겠다.
+1. 리액트 컴포넌트에 대한 내용을 정리하려고 보니 가상 DOM(Virtual DOM)에 대한 내용을 잘 모르겠다.
+1. 가상 DOM에 대한 내용을 정리하려고 보니 DOM이 무엇인지 잘 모르겠다.
+
+빠르게 나가야하는 상황에서 본질적인 부분들까지 정리하다보니 시간이 많이 소모되는 것 같습니다. 
+지금 시간을 투자하여 정리해놓는 것들이 나중에 큰 도움이 되기를 바라며 꾸준히 정리해나가야겠습니다.
 
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Document_Object_Model>

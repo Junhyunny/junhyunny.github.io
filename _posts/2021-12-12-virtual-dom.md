@@ -146,9 +146,8 @@ JavaScript 같은 프로그래밍 언어로 인해 뷰(view)에 변화가 생겼
 ## CLOSING
 
 프론트 엔드 기술 스택에 대한 지식이 많이 부족한 편인데, 이번 글을 정리하면서 조금 더 친해질 수 있었습니다. 
-최근에 들었던 SSR(Server Side Rendering)과 관련된 글도 곁다리로 함께 읽어볼 수 있었고, 프론트 엔드 진영에서 기술력에 감탄하기도 했습니다. 
-참조한 포스트 중에 [Vanilla Javascript로 가상돔(VirtualDOM) 만들기][vanilla-javascript-virtual-dom-link]에선 
-순수 JavaScript로 컴포넌트 구현, 가상 DOM 구현, 리액트 훅스 구현과 관련된 코드를 읽어볼 수 있었는데 덕분에 많은 공부가 되었습니다. 
+최근에 들었던 SSR(Server Side Rendering)과 관련된 글도 곁다리로 함께 읽어볼 수 있었고, 프론트 엔드 진영의 기술력에 감탄하기도 했습니다. 
+참조한 포스트 중에 [Vanilla Javascript로 가상돔(VirtualDOM) 만들기][vanilla-javascript-virtual-dom-link]에선 순수 JavaScript로 컴포넌트 구현, 가상 DOM 구현, 리액트 훅스 구현과 관련된 코드를 읽어볼 수 있었는데 덕분에 많은 공부가 되었습니다. 
 누군가는 프레임워크나 라이브러리의 본질을 파고들기 위한 공부를 하고 있다는 것에 큰 자극을 느꼈습니다. 
 
 #### REFERENCE

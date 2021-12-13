@@ -117,13 +117,13 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 - DOM이 추가, 삭제되거나 요소의 기하적인 영향을 주는 CSS 값이 변경되는 경우 레이아웃부터 이후 과정을 다시 수행해야합니다. 
 - 이를 `레이아웃(layout) 혹은 리플로우(reflow)`라고 합니다. 
 
-<p align="center"><img src="/images/virtual-dom-8.JPG" width="75%"></p>
+<p align="center"><img src="/images/virtual-dom-8.JPG" width="55%"></p>
 <center>이미지 출처, TOSS - 성능 최적화</center>
 
 ##### 리페인트(repaint) 작업
 - 반대로 기하적인 변경이 없는 경우에는 레이아웃 과정을 건너뛰고, 페인트부터 수행하므로 이를 `리페인트(repaint)`라고 합니다.
 
-<p align="center"><img src="/images/virtual-dom-9.JPG" width="75%"></p>
+<p align="center"><img src="/images/virtual-dom-9.JPG" width="55%"></p>
 <center>이미지 출처, TOSS - 성능 최적화</center>
 
 ## 2. Virtual DOM

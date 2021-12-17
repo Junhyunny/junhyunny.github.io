@@ -485,7 +485,7 @@ public class MemberService implements UserDetailsService {
 ```
   
 ## 2. 테스트 결과
-API 테스트는 Insomnia Tool을 사용하였습니다. 
+API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다. 
 테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-02)
 
 ### 2.1. 유저 정보 등록 요청

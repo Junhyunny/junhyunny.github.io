@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2021-08-21T16:00:00
+last_modified_at: 2021-12-17T23:55:00
 ---
 
 <br>
@@ -12,6 +12,38 @@ last_modified_at: 2021-08-21T16:00:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT, Json Web Token][json-link]
 - [Spring Security][security-link]
+
+## 0. 들어가면서
+
+OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬야하는 개념에 대해 정리하고 글을 이어나가겠습니다. 
+
+##### 보안 관련 용어
+- 접근 주체(Principal)
+    - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
+- 인증(Authentication)
+    - Application 작업을 수행할 수 있는 주체(사용자)임을 증명하는 행위
+    - Who are you?
+- 권한(Authorization)
+    - 인증된 주체가 application의 동작을 수행할 수 있도록 허락되었는지 확인, 결정하는 행위
+    - What are you allowed to do?
+
+##### OAuth(OpenID Authentication) 관련 용어
+- Application 
+    - 사용자가 사용하는 어플리케이션입니다. 
+    - 이번 포스트에서 `Insomnia` 툴(tool)입니다.
+- Authorization Server 
+    - 사용자 정보를 인증하는 서버입니다. 
+    - 인증된 사용자에게 토큰을 발급해줍니다. 
+    - `clientId`, `clientSecret`을 통해 어플리케이션 인증을 수행합니다.
+    - `userName`, `password`, `grantType`을 통해 사용자 인증을 수행합니다.
+    - 이번 포스트에서 `@EnableAuthorizationServer` 애너테이션이 붙은 빈(bean)을 통해 필요한 값이 설정됩니다.
+- Resource Server 
+    - 사용자 정보를 지닌 서버입니다. 
+    - 인증된 사용자에게만 발급된 토큰을 통해 접근 가능합니다.
+    - 이번 포스트에서 `@EnableResourceServer` 애너테이션이 붙은 빈을 통해 필요한 값이 설정됩니다.
+
+<p align="center"><img src="/images/spring-security-example-0.JPG"></p>
+<center>이미지 출처, https://docs.pivotal.io/p-identity/1-14/grant-types.html</center><br>
 
 ## 1. 예제 코드
 Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
@@ -75,6 +107,7 @@ spring:
 ```
 
 ### 1.3. pom.xml
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"

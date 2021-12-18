@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2021-12-17T23:55:00
+last_modified_at: 2021-12-19T23:55:00
 ---
 
 <br>
@@ -44,6 +44,28 @@ OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬�
 
 <p align="center"><img src="/images/spring-security-example-0.JPG" width="80%"></p>
 <center>이미지 출처, https://docs.pivotal.io/p-identity/1-14/grant-types.html</center><br>
+
+##### 주의사항 (2021-12-19 업데이트)
+- 현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다. (Deprecated)
+
+> 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br>
+> No Authorization Server Support<br>
+> ...<br>
+> Spring Security’s Authorization Server support was never a good fit. 
+> An Authorization Server requires a library to build a product. 
+> Spring Security, being a framework, is not in the business of building libraries or products. 
+> For example, we don’t have a JWT library, but instead we make Nimbus easy to use. 
+> And we don’t maintain our own SAML IdP, CAS or LDAP products.<br>
+> In 2019, there are plenty of both commercial and open-source authorization servers available. 
+> Thus, the Spring Security team has decided to no longer provide support for authorization servers.<br>
+> UPDATE: We’d like to thank everyone for your feedback on the decision to not support Authorization Server. 
+> Due to this feedback and some internal discussions, we are taking another look at this decision. 
+> We’ll notify the community on any progress.
+
+- 해당 포스트에서 사용한 `spring-security-oauth2` 의존성 버전은 보안 취약점이 발견된 버전입니다. (2.3.3.RELEASE, 프로덕션 코드로 사용 불가)
+
+<p align="center"><img src="/images/spring-security-example-0-1.JPG" width="55%"></p>
+<center>이미지 출처, https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
 
 ## 1. 예제 코드
 Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 

@@ -17,7 +17,7 @@ last_modified_at: 2021-12-08T09:00:00
 
 ##### 테스트 코드
 - `todoDto` 인스턴스를 요청 정보(request body)로 전달합니다.
-- `verify` 메소드로 `mockTodoService` 테스트 더블 인스턴스의 `createTodo` 메소드가 1회 호출되었는지 확인합니다.
+- `verify` 메소드로 `mockTodoService` 테스트 더블 인스턴스의 `createTodo` 메소드가 1회 호출되었는지 확인합니다.
 - `todoDto` 인스턴스가 전달되어 `createTodo` 메소드의 파라미터로 사용되었는지 확인합니다.
 
 ```java

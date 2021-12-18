@@ -29,8 +29,53 @@ last_modified_at: 2021-12-18T23:55:00
 
 ### 2.1. 테스트 코드
 
-```javascript
+#### 2.1.1. element rendering 테스트
+- 컴포넌트 렌더링 후 화면에 element들이 존재하는지 확인합니다.
 
+```javascript
+    describe('test rendering elements', () => {
+
+        it('exists input box for search and message when rendered', () => {
+
+            // setup, act
+            render(<App/>);
+
+            // assert
+            expect(screen.getByPlaceholderText('검색어')).toBeInTheDocument()
+            expect(screen.getByText('현재 API 호출 횟수 = 0')).toBeInTheDocument();
+        });
+    });
+```
+
+#### 2.1.2. 사용자 조작 테스트
+- 입력창에 검색 키워드 입력 후 적절한 파라미터와 함께 `axios` 호출이 1회 있었는지 확인합니다.
+- 화면에 보이는 문구가 변경되
+
+```javascript
+    describe('test user interaction', () => {
+
+        it('call axios get method one time when typed some keyword', () => {
+
+            // setup
+            jest.useFakeTimers();
+            const spyAxios = jest.spyOn(axios, 'get').mockResolvedValue({data: {}});
+
+            // act
+            render(<App/>);
+            userEvent.type(screen.getByPlaceholderText('검색어'), 'Junhyunny');
+            act(() => {
+                jest.advanceTimersByTime(500);
+            });
+
+            // assert
+            expect(spyAxios).toHaveBeenNthCalledWith(1, 'http://localhost:8080/search', {
+                params: {
+                    keyword: 'Junhyunny'
+                }
+            });
+            expect(screen.getByText('현재 API 호출 횟수 = 1')).toBeInTheDocument();
+        });
+    });
 ```
 
 ### 2.2. 디바운싱 코드

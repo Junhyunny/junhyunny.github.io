@@ -64,7 +64,7 @@ OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬�
 
 - 해당 포스트에서 사용한 `spring-security-oauth2` 의존성 2.3.3.RELEASE 버전은 보안 취약점이 발견된 버전입니다. (프로덕션 코드로 사용 불가)
 
-<p align="center"><img src="/images/spring-security-example-0-1.JPG" width="55%"></p>
+<p align="center"><img src="/images/spring-security-example-0-1.JPG" width="80%"></p>
 <center>이미지 출처, https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
 
 ## 1. 예제 코드

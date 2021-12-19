@@ -165,7 +165,7 @@ describe('test authentication client', () => {
 
 ### 1.2. 구현 코드
 
-```javascript
+```react
 import axios from "axios";
 
 const authenticate = async (params) => {
@@ -207,7 +207,7 @@ export default {
 
 - `call authenticate method with params and clear inputs when click submit button` 테스트
 
-```javascript
+```react
 import {render, screen, waitFor} from '@testing-library/react';
 import Login from "./Login";
 import userEvent from "@testing-library/user-event";
@@ -288,7 +288,7 @@ describe('test login', () => {
 
 ### 2.2. 구현 코드
 
-```javascript
+```react
 import {useContext, useState} from "react";
 import AuthenticationClient from "../../utils/AuthenticationClient";
 import {useNavigate} from "react-router";
@@ -358,7 +358,7 @@ export default Login;
 
 - `re-render component when context change` 테스트
 
-```javascript
+```react
 import AuthenticateProvider from "./AuthenticationProvider";
 import {render, screen} from "@testing-library/react";
 import App from "../App";
@@ -426,7 +426,7 @@ describe('test authentication provider', () => {
 
 #### 3.2.1. AuthenticationContext.js
 
-```javascript
+```react
 import React from "react";
 
 const AuthenticationContext = React.createContext({
@@ -439,7 +439,7 @@ export default AuthenticationContext;
 
 #### 3.2.2. AuthenticateProvider.js
 
-```javascript
+```react
 import AuthenticationContext from "./AuthenticationContext";
 import {useReducer} from "react";
 
@@ -493,7 +493,7 @@ export default AuthenticateProvider;
 - `route to login page when have not been authenticated` 테스트
 - `route to login page when have been authenticated` 테스트
 
-```javascript
+```react
 import {render, screen, waitFor} from '@testing-library/react';
 import App from './App';
 import {MemoryRouter} from "react-router";
@@ -586,7 +586,7 @@ describe('test app', () => {
 
 #### 4.2.1. index.js
 
-```javascript
+```react
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -611,7 +611,7 @@ reportWebVitals();
 
 #### 4.2.2. App.js
 
-```javascript
+```react
 import Login from "./components/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import TodoList from "./components/Todo/TodoList";

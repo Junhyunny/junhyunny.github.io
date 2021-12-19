@@ -652,3 +652,10 @@ export default App;
 - <https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/>
 - <https://spring.io/blog/2019/11/14/spring-security-oauth-2-0-roadmap-update>
 - <https://cotak.tistory.com/108>
+
+[json-link]: https://junhyunny.github.io/information/json-web-token/
+[security-link]: https://junhyunny.github.io/spring-security/spring-security/
+[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[login-service-link]: http://
+[authorization-service-link]: http://
+[resource-service-link]: http://

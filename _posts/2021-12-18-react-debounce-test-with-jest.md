@@ -25,7 +25,7 @@ last_modified_at: 2021-12-18T23:55:00
 <p align="center"><img src="/images/react-debounce-test-with-jest-1.JPG" width="75%"></p>
 <center>이미지 출처, https://codepen.io/jaehee/pen/XoKeRW</center>
 
-## 2. Jest 테스트
+## 2. 디바운스 처리 구현
 
 ### 2.1. 테스트 코드
 
@@ -148,7 +148,7 @@ export default App;
 ```
 
 ## 3. 테스트 결과
-디바운스 처리를 하지 않았을 때와 했을 때 어떻게 다른지 비교해보았습니다.  
+디바운스 처리를 하지 않았을 때와 했을 때 어떻게 다른지 비교해보았습니다. 
 또, `useCallback` 훅(hook)을 사용하지 않으면 어떤 현상이 발생하는지 확인해았습니다. 
 
 ### 3.1. 디바운스 처리하지 않았을 때 현상

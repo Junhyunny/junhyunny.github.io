@@ -66,13 +66,13 @@ last_modified_at: 2021-12-19T23:55:00
 
 ### 1.1. 테스트 코드
 - `call axios post with proper params method when authenticate` 테스트
-    - 
+    - 전달한 파라미터를 기반으로 API 요청을 수행하였는지 확인합니다. 
 - `get true as a result when succeed authentication` 테스트
-    - 
+    - axios 요청이 성공한 경우 결과 값이 `true`인지 확인합니다.
 - `save access token and refresh token when succeed authentication` 테스트
-    - 
+    - 스터빙(stubbing) 한 결과를 `localStorage`에 잘 담았는지 확인합니다.
 - `get false as a result when fail authentication` 테스트
-    - 
+    - axios 요청이 실패한 경우 결과 값이 `true`인지 확인합니다.
 
 ```react
 import axios from "axios";
@@ -202,10 +202,12 @@ export default {
 
 ### 2.1. 테스트 코드
 - `render elements when rendering` 테스트
-
+    - 화면에 필요한 요소(element)들이 화면에 잘 렌더링 되는지 확인합니다.
 - `exists error message when click submit button with empty inputs` 테스트
-
+    - 입력 값 없이 `Submit` 버튼을 누르는 경우 에러 메세지가 뜨는지 확인합니다. 
 - `call authenticate method with params and clear inputs when click submit button` 테스트
+    - 입력 값을 넣고 `Submit` 버튼을 누르면 원하는 파라미터로 인증 요청이 되는지 확인합니다.
+    - 화면에 입력한 값들이 사라지는지 확인합니다.
 
 ```react
 import {render, screen, waitFor} from '@testing-library/react';
@@ -355,8 +357,9 @@ export default Login;
 
 ### 3.1. 테스트 코드
 - `render children component` 테스트
-
+    - Provider 컴포넌트에 전달한 컴포넌트가 정상적으로 렌더링 되는지 확인합니다.
 - `re-render component when context change` 테스트
+    - Context 정보가 바뀌는 경우 다시 렌더링을 수행하는지 확인합니다.
 
 ```react
 import AuthenticateProvider from "./AuthenticationProvider";
@@ -489,9 +492,13 @@ export default AuthenticateProvider;
 
 ### 4.1. 테스트 코드
 - `redirect to login page when access to root` 테스트
+    - '/' 경로로 접근하는 경우 '/login' 경로로 리다이렉트(redirect) 되는지 확인합니다. 
 - `route to todo list page when succeed login` 테스트
+    - '/login' 경로로 접근하여 로그인 처리시 TODO LIST 화면으로 이동하는지 확인합니다.
 - `route to login page when have not been authenticated` 테스트
+    - 인증되지 않은 사용자가 '/todo' 경로로 접근하는 경우 로그인 화면으로 이동되는지 확인합니다.
 - `route to login page when have been authenticated` 테스트
+    - '/todo' 경로로 접근한 사용자가 로그인 처리 후 다시 '/todo' 경로로 변경되는지 확인합니다.
 
 ```react
 import {render, screen, waitFor} from '@testing-library/react';

@@ -74,7 +74,7 @@ last_modified_at: 2021-12-19T23:55:00
 - `get false as a result when fail authentication` 테스트
     - 
 
-```javascript
+```react
 import axios from "axios";
 import AuthenticationClient from "./AuthenticationClient";
 

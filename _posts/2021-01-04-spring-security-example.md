@@ -28,7 +28,7 @@ OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬�
     - What are you allowed to do?
 
 ##### OAuth(OpenID Authentication) 관련 용어
-- Application 
+- Application (혹은 Client)
     - 사용자가 사용하는 어플리케이션입니다. 
     - 이번 포스트에서 `Insomnia` 툴(tool)입니다.
 - Authorization Server 

@@ -639,14 +639,33 @@ function App() {
 export default App;
 ```
 
-## 5. 화면 / 인증 / 리소스 서비스 연동 결과
-- 현재 백엔드 서버 구현이 되지 않았습니다. 구현 후 내용 추가할 예정입니다. 
+## 5. 화면 / 인증 / 리소스 서비스 연동하기
+위 작업 내용은 모두 커밋(commit)하고, 구현 완료된 인증 서비스, 리소스 서비스와 연결하면서 변경된 내용만 정리해보겠습니다. 
+결과부터 말하면, 생각한 시나리오에 맞도록 미리 테스트를 통과하였기 때문에 큰 에러 사항은 없었습니다. 
+변경된 내용은 위 코드에 반영하지 않았습니다. 
+필요하신 분께서는 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
 
-<!-- ### 5.1. 프론트엔드 서비스 코드 변경 사항 -->
+### 5.1. 프론트엔드 서비스 코드 변경 사항
+- CSS 추가 
+    - 보기 좋도록 화면 구성을 일부 변경하였습니다. 
+    - 관련 코드 - Login.module.css, TodoList.module.css
+- 로그인 화면 구성, 비밀번호 타입 'password'로 변경
+    - 관련 코드 - Login.js
+- 리소스 서비스에 조회한 데이터 렌더링 및 테스트 코드
+    - 관련 코드 - TodoList.js, TodoList.test.js
+- 화면 리프레쉬(refresh)하는 경우 컨텍스트 정보 초기화
+    - `localStorage`에 값 존재 여부를 이용하여 초기값 결정
+    - 관련 코드 - AuthenticationProvider.js
+- `localStorage` 세팅 데이터 변경
+    - 인증 API 요청 실패시 모두 빈 문자열로 초기화
+    - 인증 성공시 사용자 이름 `localStorage`에 추가
+    - 관련 코드 - AuthenticationClient.js
+- API 요청을 위한 Util 파일 생성
+    - 관련 코드 - HttpClient.js, HttpClient.test.js
 
-<!-- ### 5.2. 테스트 결과 화면 -->
+### 5.2. 테스트 결과 화면
 
-<!-- ## CLOSING -->
+<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="85%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-19-split-login-authorization-resource-service>

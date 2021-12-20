@@ -18,9 +18,8 @@ last_modified_at: 2021-12-19T23:55:00
 - [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
 
 👉 이어서 읽기를 추천합니다.
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front End][login-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link](현재 미구현)
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link](현재 미구현)
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link](구현 예정)
 
 ## 0. 들어가면서
 
@@ -33,14 +32,13 @@ last_modified_at: 2021-12-19T23:55:00
 - `Authorization Server`와 `Resource Server` 분리하기
 - `spring-security-oauth2` 의존성 - 보안 취약점이 발견된 2.3.3.RELEASE 버전 사용 (2.3.5.RELEASE 버전으로 변경)
 - 선 테스트 코드 작성, 후 코드 구현 (RED-GREEN-REFACTORING 사이클 연습)
-- 아래 작성된 테스트 코드는 최종적인 모습이며, 기능 구현이 늘어남에 따라 테스트가 실패하는 경우 테스트 코드들을 일부 보완하였습니다. (git commit 이력 확인)
 
 ##### Spring Security 기반 JWT 인증 방식 예제 서비스 구조
 
 <p align="center"><img src="/images/split-login-authorization-resource-service-1.JPG" width="70%"></p>
 
 ##### Oauth2 JWT 인증 서비스 / 리소스 서비스 분할 서비스 구조
-- 이번 포스트에선 프론트엔드 서비스를 구현하겠습니다.  
+- 이번 포스트에선 `프론트 엔드 서비스`를 구현하였습니다.  
 
 <p align="center"><img src="/images/split-login-authorization-resource-service-2.JPG" width="70%"></p>
 
@@ -70,7 +68,7 @@ last_modified_at: 2021-12-19T23:55:00
 - `get true as a result when succeed authentication` 테스트
     - axios 요청이 성공한 경우 결과 값이 `true`인지 확인합니다.
 - `save access token and refresh token when succeed authentication` 테스트
-    - 스터빙(stubbing) 한 결과를 `localStorage`에 잘 담았는지 확인합니다.
+    - 스터빙(stubbing) 한 데이터가 `localStorage`에 저장되었는지 확인합니다.
 - `get false as a result when fail authentication` 테스트
     - axios 요청이 실패한 경우 결과 값이 `true`인지 확인합니다.
 
@@ -641,7 +639,7 @@ function App() {
 export default App;
 ```
 
-## 5. 인증 / 리소스 서비스 연동 결과
+## 5. 화면 / 인증 / 리소스 서비스 연동 결과
 - 현재 백엔드 서버 구현이 되지 않았습니다. 구현 후 내용 추가할 예정입니다. 
 
 <!-- ### 5.1. 프론트엔드 서비스 코드 변경 사항 -->
@@ -663,6 +661,5 @@ export default App;
 [json-link]: https://junhyunny.github.io/information/json-web-token/
 [security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
-[login-service-link]: http://
-[authorization-service-link]: http://
-[resource-service-link]: http://
+[authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/
+[resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/

@@ -38,8 +38,8 @@ last_modified_at: 2021-12-19T23:55:00
 
 <p align="center"><img src="/images/split-login-authorization-resource-service-1.JPG" width="70%"></p>
 
-##### Oauth2 JWT 인증 서비스 / 리소스 서비스 분할 서비스 구조
-- 이번 포스트에선 `Oauth2 JWT 인증 서비스`를 구현하였습니다.  
+##### 해당 포스트에서 다루는 서비스 구조
+- 이번 포스트에선 `인증 서비스`를 구현하였습니다.  
 
 <p align="center"><img src="/images/split-login-authorization-resource-service-2.JPG" width="70%"></p>
 

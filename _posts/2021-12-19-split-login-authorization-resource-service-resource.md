@@ -419,6 +419,8 @@ public class MemberControllerTests {
     - 관련 코드 - MemberController.AuthorizationServer.java
 - JWT 토큰을 변경하는 JwtAccessTokenConverter 객체를 ResourceServerSecurityConfigurer 객체에 추가합니다.
     - 관련 코드 - ResourceServer.java
+- 테스트 용 사용자를 등록하기 위한 CommandLineRunner 기능을 추가합니다.
+    - 관련 코드 - ActionInBlogApplication.java
 
 ### 4.2. 테스트 결과 화면
 

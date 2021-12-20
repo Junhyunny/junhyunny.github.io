@@ -236,7 +236,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 - `@EnableResourceServer` 애너테이션을 추가합니다. 
 - `ResourceServerConfigurerAdapter` 클래스를 상속받습니다. 
 - `configure(HttpSecurity http)` 메소드
-    - 리소스 서비스에서 관리하는 API 경로에 대한 접근 제어를 실시합니다.
+    - 리소스 서비스에서 제공하는 API 경로에 대한 접근 제어를 실시합니다.
     - `/member` 경로는 `"ADMIN"` 권한을 가진 사용자만 접근 가능하도록 제어합니다.
 
 ```java

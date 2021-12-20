@@ -13,6 +13,11 @@ last_modified_at: 2021-12-19T23:55:00
 - [JWT, Json Web Token][json-link]
 - [Spring Security][security-link]
 
+👉 이어서 읽기를 추천합니다.
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front End][front-end-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link]
+
 ## 0. 들어가면서
 
 OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬야하는 개념에 대해 정리하고 글을 이어나가겠습니다. 
@@ -604,3 +609,7 @@ API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다.
 [spring-doc-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html
 [authentication-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
 [resource-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
+
+[front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
+[authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/
+[resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/

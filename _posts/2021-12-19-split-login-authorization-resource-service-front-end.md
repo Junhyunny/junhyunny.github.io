@@ -665,7 +665,7 @@ export default App;
 
 ### 5.2. 테스트 결과 화면
 
-<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="85%"></p>
+<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="100%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-19-split-login-authorization-resource-service>

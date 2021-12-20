@@ -19,7 +19,7 @@ last_modified_at: 2021-12-19T23:55:00
 
 👉 이어서 읽기를 추천합니다.
 - [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link](구현 예정)
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link]
 
 ## 0. 들어가면서
 

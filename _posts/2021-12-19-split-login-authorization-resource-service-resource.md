@@ -1,5 +1,5 @@
 ---
-title: "Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization"
+title: "Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource"
 search: false
 category:
   - spring-boot
@@ -19,7 +19,7 @@ last_modified_at: 2021-12-19T23:55:00
 
 👉 이어서 읽기를 추천합니다.
 - [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front End][front-end-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
 
 ## 0. 들어가면서
 
@@ -39,7 +39,7 @@ last_modified_at: 2021-12-19T23:55:00
 <p align="center"><img src="/images/split-login-authorization-resource-service-1.JPG" width="70%"></p>
 
 ##### Oauth2 JWT 인증 서비스 / 리소스 서비스 분할 서비스 구조
-- 이번 포스트에선 `Oauth2 JWT 인증 서비스`를 구현하였습니다.  
+- 이번 포스트에선 `리소스 서비스`를 구현하였습니다.  
 
 <p align="center"><img src="/images/split-login-authorization-resource-service-2.JPG" width="70%"></p>
 
@@ -60,12 +60,12 @@ last_modified_at: 2021-12-19T23:55:00
 > Due to this feedback and some internal discussions, we are taking another look at this decision. 
 > We’ll notify the community on any progress.
 
-## 1. 인증 서비스 구조, 설정 및 의존성
+## 1. 리소스 서비스 구조, 설정 및 의존성
 
 ### 1.1. 패키지 구조
 
 ```
-.
+./
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml
@@ -76,8 +76,12 @@ last_modified_at: 2021-12-19T23:55:00
     │   │       └── in
     │   │           └── action
     │   │               ├── ActionInBlogApplication.java
+    │   │               ├── controller
+    │   │               │   └── MemberController.java
     │   │               ├── converter
     │   │               │   └── StringListConverter.java
+    │   │               ├── dto
+    │   │               │   └── MemberDto.java
     │   │               ├── entity
     │   │               │   └── Member.java
     │   │               ├── filter
@@ -85,7 +89,7 @@ last_modified_at: 2021-12-19T23:55:00
     │   │               ├── repository
     │   │               │   └── MemberRepository.java
     │   │               ├── security
-    │   │               │   ├── AuthorizationServer.java
+    │   │               │   ├── ResourceServer.java
     │   │               │   └── SecurityConfig.java
     │   │               └── service
     │   │                   └── MemberService.java
@@ -98,14 +102,14 @@ last_modified_at: 2021-12-19T23:55:00
                     └── action
                         ├── ActionInBlogApplicationTests.java
                         └── controller
-                            └── AuthenticationControllerTests.java
+                            └── MemberControllerTests.java
 ```
 
 ### 1.2. application.yml
 
 ```yml
 server:
-  port: 8080
+  port: 8081
 spring:
   h2:
     console:
@@ -182,15 +186,12 @@ spring:
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 ```
 
-## 2. Authorization 서비스 구축
-Authorization 서비스 구축은 쉽습니다. 
-두 개의 Configuration 빈을 만들어주면 됩니다. 
+## 2. Resource 서비스 구축
 
 ### 2.1. SecurityConfig 클래스
 - `@EnableWebSecurity` 애너테이션을 추가합니다. 
@@ -212,11 +213,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final MemberService memberService;
 
     @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        return new JwtAccessTokenConverter();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -231,34 +227,53 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService);
         auth.inMemoryAuthentication().withUser("Junhyunny").password(passwordEncoder().encode("123")).authorities("ADMIN");
+        auth.inMemoryAuthentication().withUser("TestUser").password(passwordEncoder().encode("123")).authorities("USER");
     }
 }
 ```
 
-### 2.2. AuthorizationServer 클래스
-- `@EnableAuthorizationServer` 애너테이션을 추가합니다. 
-- `AuthorizationServerConfigurerAdapter` 클래스를 상속받습니다. 
-- `configure(ClientDetailsServiceConfigurer clients)` 메소드
-    - 메모리에만 올려 사용하는 임시 `client` 정보를 추가합니다. 
-    - 해당 클라이언트는 `password`, `refresh_token`을 이용하여 `access_token`을 발급받을 수 있습니다.
-    - 임시 `client` 정보이므로 매번 신규 `client` 추가를 위해서는 별도 데이터 소스 연결이 필요합니다.
-    - [OAuth2.0 and Dynamic Client Registration (using the Spring Security OAuth legacy stack)][spring-security-dynamic-clients-link]
-- `configure(AuthorizationServerEndpointsConfigurer endpoints)` 메소드
-    - 사용자 인증을 위한 `AuthenticationManager`을 등록합니다. 
-    - JWT 토큰 발급을 위한 `TokenEnhancerChain`을 등록합니다.
-    - `TokenEnhancerChain`을 등록하지 않으면 일반 토큰이 발급됩니다.
+### 2.2. ResourceServer 클래스
+- `@EnableResourceServer` 애너테이션을 추가합니다. 
+- `ResourceServerConfigurerAdapter` 클래스를 상속받습니다. 
+- `configure(HttpSecurity http)` 메소드
+    - 리소스 서비스에서 관리하는 API 경로에 대한 접근 제어를 실시합니다.
+    - `/member` 경로는 `"ADMIN"` 권한을 가진 사용자만 접근 가능하도록 제어합니다.
 
 ```java
 package blog.in.action.security;
 
 // ...
 
-import java.util.Arrays;
-
-@RequiredArgsConstructor
 @Configuration
+@EnableResourceServer
+public class ResourceServer extends ResourceServerConfigurerAdapter {
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.cors().and() //
+                .authorizeRequests() //
+                .antMatchers("/h2-console/**").permitAll()
+                .antMatchers("/member/**").hasAnyAuthority("ADMIN") // member API는 ADMIN 권한을 가지는 유저만 요청 허용
+                .anyRequest().authenticated()
+                .and() //
+                .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
+        // H2 데이터베이스 접근 허가
+        http.headers().frameOptions().disable();
+    }
+}
+```
+
+## 3. 사용자 접근 제어 테스트
+
+### 3.1. 테스트 전용 Authorization Server 구축
+- `Authorization Server` 기능이 존재하지 않아서 테스트에 어려움을 겪을 수 있습니다. 
+- `@TestConfiguration` 애너테이션을 이용해 임시 `Authorization Server`를 구축합니다.
+
+```java
+@TestConfiguration
+@RequiredArgsConstructor
 @EnableAuthorizationServer
-public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
+class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     private String clientId = "CLIENT_ID";
 
@@ -268,11 +283,16 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     private int REFRESH_TOKEN_VALID_SECONDS = 60 * 60 * 24;
 
+    private final MemberService memberService;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
-    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        return new JwtAccessTokenConverter();
+    }
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -281,25 +301,28 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .secret(passwordEncoder.encode(clientSecret))//
                 .authorizedGrantTypes("password", "refresh_token")//
                 .scopes("read")//
-                .accessTokenValiditySeconds(ACCESS_TOKEN_VALID_SECONDS)// access token 유효 시간 등록
-                .refreshTokenValiditySeconds(REFRESH_TOKEN_VALID_SECONDS);// refresh token 유효 시간 등록
+                .accessTokenValiditySeconds(ACCESS_TOKEN_VALID_SECONDS)// token 유효 시간 등록
+                .refreshTokenValiditySeconds(REFRESH_TOKEN_VALID_SECONDS);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter)); // JWT Converter 등록
-        endpoints.authenticationManager(authenticationManager)//
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter())); // JWT Converter 등록
+        endpoints.userDetailsService(memberService)// UserDetailsService 등록
+                .authenticationManager(authenticationManager)//
                 .tokenEnhancer(tokenEnhancerChain);
     }
 }
 ```
 
-## 3. 사용자 인증 테스트 코드
-- `givenImproperInfo_whenGetAccessToken_thenBadRequest` 테스트
-    - 등록되지 않은 사용자로 토큰 요청시 `400 Bad Request` 응답을 받습니다.
-- `givenProperInfo_whenGetAccessToken_thenAuthorized` 테스트
-    - 정상적인 정보로 토큰 요청시 `access_token`, `refresh_token`, `token_type`을 전달받습니다. 
+### 3.2. 사용자 접근 제어 테스트
+- `givenMemberId_whenWithoutToken_thenIsUnauthorized` 테스트
+    - 토큰 없이 접근하는 경우 `401 Unauthorized` 에러가 발생합니다.
+- `givenMemberId_whenWithBearerToken_thenIsOk` 테스트
+    - 적절한 권한을 가진 사용자가 토큰을 이용해 접근하는 경우 정상적으로 데이터를 조회할 수 있습니다.
+- `givenMemberId_whenUnsupportedAuthorization_thenIsForbidden` 테스트
+    - 부적절한 권한을 가진 사용자가 토큰을 이용해 접근하는 경우 `403 Forbidden` 에러가 발생합니다.
 
 ```java
 package blog.in.action.controller;
@@ -309,10 +332,14 @@ package blog.in.action.controller;
 @RunWith(SpringRunner.class)
 @WebAppConfiguration
 @SpringBootTest(classes = ActionInBlogApplication.class)
-public class AuthenticationControllerTests {
+@Import(AuthorizationServer.class)
+public class MemberControllerTests {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @MockBean
+    private MemberRepository memberRepository;
 
     private MockMvc mockMvc;
 
@@ -325,27 +352,41 @@ public class AuthenticationControllerTests {
     }
 
     @Test
-    public void givenImproperInfo_whenGetAccessToken_thenBadRequest() throws Exception {
+    public void givenMemberId_whenWithoutToken_thenIsUnauthorized() throws Exception {
 
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("grant_type", "password");
-        params.add("username", "testUser");
-        params.add("password", "12345");
-
-        mockMvc.perform(post("/oauth/token")
-                        .params(params)
-                        .with(httpBasic("CLIENT_ID", "CLIENT_SECRET"))
-                        .accept("application/json;charset=UTF-8"))
-                .andExpect(status().isBadRequest());
+        mockMvc.perform(get("/member/Junhyunny"))
+                .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void givenProperInfo_whenGetAccessToken_thenAuthorized() throws Exception {
+    public void givenMemberId_whenWithBearerToken_thenIsOk() throws Exception {
+
+        when(memberRepository.findById("Junhyunny"))
+                .thenReturn(Optional.of(new Member("Junhyunny", "123", Collections.singletonList("ADMIN"))));
+
+        mockMvc.perform(get("/member/Junhyunny")
+                        .header("Authorization", "Bearer " + getAccessToken("Junhyunny", "123")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is("Junhyunny")))
+                .andExpect(jsonPath("$.authorities").isArray())
+                .andExpect(jsonPath("$.authorities").isNotEmpty())
+                .andExpect(jsonPath("$.authorities[0]", is("ADMIN")));
+    }
+
+    @Test
+    public void givenMemberId_whenUnsupportedAuthorization_thenIsForbidden() throws Exception {
+
+        mockMvc.perform(get("/member/TestUser")
+                        .header("Authorization", "Bearer " + getAccessToken("TestUser", "123")))
+                .andExpect(status().isForbidden());
+    }
+
+    public String getAccessToken(String username, String password) throws Exception {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "password");
-        params.add("username", "Junhyunny");
-        params.add("password", "123");
+        params.add("username", username);
+        params.add("password", password);
 
         ResultActions result = mockMvc.perform(post("/oauth/token")
                         .params(params)
@@ -361,6 +402,7 @@ public class AuthenticationControllerTests {
         assertThat(parsedMap.get("access_token")).isNotNull();
         assertThat(parsedMap.get("refresh_token")).isNotNull();
         assertThat(parsedMap.get("token_type")).isEqualTo("bearer");
+        return parsedMap.get("access_token").toString();
     }
 }
 ```
@@ -368,9 +410,9 @@ public class AuthenticationControllerTests {
 ## 4. 화면 / 인증 / 리소스 서비스 연동 결과
 - 현재 리소스 서버 구현이 되지 않았습니다. 구현 후 내용 추가할 예정입니다. 
 
-<!-- ### 4.1. 프론트엔드 서비스 코드 변경 사항 -->
+<!-- ### 5.1. 프론트엔드 서비스 코드 변경 사항 -->
 
-<!-- ### 4.2. 테스트 결과 화면 -->
+<!-- ### 5.2. 테스트 결과 화면 -->
 
 <!-- ## CLOSING -->
 
@@ -386,5 +428,4 @@ public class AuthenticationControllerTests {
 [security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
-[resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/
-[spring-security-dynamic-clients-link]: https://www.baeldung.com/spring-security-oauth-dynamic-client-registration
+[authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/

@@ -408,13 +408,21 @@ public class MemberControllerTests {
 ```
 
 ## 4. 화면 / 인증 / 리소스 서비스 연동 결과
-- 현재 리소스 서버 구현이 되지 않았습니다. 구현 후 내용 추가할 예정입니다. 
+위 작업 내용은 모두 커밋(commit)하고, 구현 완료된 인증 서비스, 리소스 서비스와 연결하면서 변경된 내용만 정리해보겠습니다. 
+테스트를 모두 통과하였기에 쉽게 연결될 것으로 기대했지만, 인증 서비스와 연결시에 예상치 못한 에러를 만났습니다. 
+해당 사항에 구체적인 내용은 다음 포스트를 통해 정리해보겠습니다. 
+변경된 내용은 위 코드에 반영하지 않았습니다. 
+필요하신 분께서는 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
 
-<!-- ### 5.1. 프론트엔드 서비스 코드 변경 사항 -->
+### 4.1. 리소스 서비스 코드 변경 사항
+- JWT 토큰을 변경하는 빈에 Sign Key를 지정해주고, 부가적인 기능을 호출합니다.(afterPropertiesSet 메소드)
+    - 관련 코드 - MemberController.AuthorizationServer.java
+- JWT 토큰을 변경하는 JwtAccessTokenConverter 객체를 ResourceServerSecurityConfigurer 객체에 추가합니다.
+    - 관련 코드 - ResourceServer.java
 
-<!-- ### 5.2. 테스트 결과 화면 -->
+### 4.2. 테스트 결과 화면
 
-<!-- ## CLOSING -->
+<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="85%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-19-split-login-authorization-resource-service>

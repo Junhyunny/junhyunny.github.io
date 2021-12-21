@@ -68,7 +68,7 @@ classes: wide
 - OpenCV(C, C++)을 이용한 물체 인식 어플리케이션 개발 
 - SVM(Support Vector Machine) 머신 러닝 알고리즘 사용
 
-## Side Proejcts 
+## Side Projects 
 #### [Slack bot] Notice bot on slack 
 - 1일 1 커밋(commit) 알림 봇 
 - Java, AWS Lambda function 사용 

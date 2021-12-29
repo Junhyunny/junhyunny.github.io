@@ -54,8 +54,8 @@ last_modified_at: 2021-12-29T23:55:00
 
 ### 1.2. CSRF 전제 조건과 공격 과정
 
-쿠키와 세션이 동작하는 방식을 이해했다면 CSRF 공격이 성공하기 위한 조건과 공격 과정에 대해 알아보겠습니다. 
-CSRF 공격을 시도하기 위해선 몇 가지 조건이 필요합니다.
+CSRF 공격을 위한 조건과 과정에 대해 알아보겠습니다. 
+CSRF 공격을 시도하기 위해선 아래와 같은 몇 가지 조건이 필요합니다.
 - 사용자가 보안이 취약한 서버로부터 이미 인증을 받은 상태여야 합니다. 
 - 쿠키 기반으로 서버 세션 정보를 획득할 수 있어야 합니다. 
 - 공격자는 서버를 공격하기 위한 요청 방법에 대해 미리 파악하고 있어야 합니다. 예상치 못한 파라미터가 있으면 불가능합니다. 
@@ -141,7 +141,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 - 이미지 태그를 통해 페이지 로딩시 보안 취약 서버로 GET 요청을 보냅니다.
 - width, height 값이 0px이므로 화면에서 보이지 않습니다.
 
-```HTML
+```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -171,7 +171,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 ##### 공격자 악성 페이지 - POST 방식
 - form 태그와 hidden 타입의 input 태그로 POST 요청을 수행합니다.
 
-```HTML
+```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -257,7 +257,7 @@ public class ReferrerCheckInterceptor implements HandlerInterceptor {
 
 ##### 세션 및 hidden input 값으로 CSRF 토큰 설정하기 - JSP
 
-```HTML
+```html
 <form action="http://server-host:port/path" method="POST">
     <input type="hidden" name="_csrf" value="${CSRF_TOKEN}"/>
     <!-- ... -->
@@ -355,7 +355,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 - `uuidv4()` 함수로 임의의 토큰을 생성합니다.
 - `doubleSubmitHandler()` 함수를 이용해 생성한 토큰 정보를 요청 헤더와 쿠키에 저장 후 서버에게 전달합니다.
 
-```HTML
+```html
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

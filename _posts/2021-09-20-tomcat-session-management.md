@@ -9,12 +9,12 @@ last_modified_at: 2021-09-20T23:55:00
 
 <br>
 
-👉 이어서 읽기를 추천합니다.
-- [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link]
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [쿠키(Cookie)와 세션(Session)][cookie-session-link]
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-aop-link]
+
+👉 이어서 읽기를 추천합니다.
+- [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link]
 
 ## 0. 들어가면서
 이번 시스템 리뉴얼 중인 프로젝트의 코드를 보면 많은 사용자 정보가 세션에 담겨 사용되고 있었습니다. 

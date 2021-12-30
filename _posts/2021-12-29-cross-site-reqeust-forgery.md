@@ -50,7 +50,7 @@ last_modified_at: 2021-12-29T23:55:00
 1. 클라이언트(브라우저)는 해당 도메인을 가진 서버로 요청시 쿠키에 저장된 `sessionID`를 자동으로 전달합니다.
 1. 서버는 쿠키에 담긴 `sessionID`를 통해 인증된 사용자인지 여부를 확인합니다. 
 
-<!-- <p align="center"><img src="/images/cross-site-reqeust-forgery-1.JPG" width="85%"></p> -->
+<p align="center"><img src="/images/cross-site-reqeust-forgery-1.JPG" width="85%"></p>
 
 ### 1.2. CSRF 전제 조건과 공격 과정
 
@@ -70,7 +70,7 @@ CSRF 공격을 시도하기 위해선 아래와 같은 몇 가지 조건이 필�
 1. 사용자가 악성 스크립트가 작성된 페이지 접근시 쿠키에 저장된 `sessionID`는 브라우저에 의해 자동적으로 함께 서버로 요청됩니다.
 1. 서버는 쿠키에 담긴 `sessionID`를 통해 해당 요청이 인증된 사용자로부터 온 것으로 판단하고 처리합니다.
 
-<!-- <p align="center"><img src="/images/cross-site-reqeust-forgery-2.JPG" width="85%"></p> -->
+<p align="center"><img src="/images/cross-site-reqeust-forgery-2.JPG" width="85%"></p>
 
 ## 2. CSRF 공격 방법
 
@@ -318,9 +318,8 @@ public class CsrfTokenInterceptor implements HandlerInterceptor {
 
 ### 3.3. Double Submit Cookie 검증
 
-브라우저의 Same Origin 정책을 이용하는 검증 방법입니다. 
-Same Origin이 아닌 경우 `JavaScript`로 쿠키 값을 확인, 수정하지 못한다는 것을 이용한 방어 기법입니다. 
-
+브라우저의 Same Origin 정책을 이용합니다. 
+Same Origin이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수정하지 못한다는 점을 이용한 검증 방법입니다. 
 클라이언트(브라우저)에서 `JavaScript`로 임의의 생성한 토큰을 쿠키와 요청 헤더에 각각 담아서 서버에게 전달합니다. 
 서버는 전달받은 쿠키와 요청 헤더에서 각자 토큰 값을 꺼내어 이를 비교합니다. 
 이때, 쿠키에 저장된 토큰 정보는 이후에 재사용하지 못하도록 만료 처리합니다. 
@@ -451,7 +450,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 <p align="center"><img src="/images/cross-site-reqeust-forgery-5.gif"></p>
 
-## 4. CSRF disable 설정은 괜찮은가?
+## 4. CSRF disable 설정 안전한가?
 
 작성 중 입니다.
 

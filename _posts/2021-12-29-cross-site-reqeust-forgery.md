@@ -19,8 +19,9 @@ last_modified_at: 2021-12-29T23:55:00
 ## 0. 들어가면서
 
 `Spring Security`를 사용하면 종종 CSRF(Cross-Site Request Forgery) 설정을 비활성화시키는 코드를 발견할 수 있습니다. 
-보안 관련된 설정을 잘 모르고 비활성화하는 것은 위험하다고 생각됩니다. 
-`CSRF`가 무엇인지, 어째서 비활성화시키는지 정리해보았습니다. 
+예전 프로젝트들을 돌이켜보면 CSRF 공격에 대비하기 위한 코드들이 많았던 것 같습니다. 
+내용을 잘 모르면서 보안에 관련된 내용을 비활성화시키는 일은 위험하다고 생각됩니다. 
+`CSRF` 공격이 무엇인지, 어째서 공격을 방어하는 코드를 비활성화시키는지 정리해보았습니다. 
 
 ##### CSRF 보안 비활성화 설정
 
@@ -325,7 +326,7 @@ Same Origin이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수�
 이때, 쿠키에 저장된 토큰 정보는 이후에 재사용하지 못하도록 만료 처리합니다. 
 
 ##### DoubleSubmitCookieInterceptor 인터셉터 추가
-- 위에서 만든 CSRF 토큰 검증 방법과 동시에 테스트가 불가능하므로 이번에 생성한 인터셉터만 활성화시킵니다.
+- 위에서 만든 CSRF 토큰 검증 방법과 동시에 테스트가 어려워서 DoubleSubmitCookieInterceptor 인터셉터만 사용합니다.
 
 ```java
 package blog.in.action.config;
@@ -452,7 +453,23 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 ## 4. CSRF disable 설정 안전한가?
 
-작성 중 입니다.
+`Spring Security`는 기본적으로 CSRF 공격에 대한 방지를 수행합니다. 
+CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 안전한지 알아봤습니다. 
+
+예전에 많이 사용했던 MVC 구조는 세션과 쿠키를 통해 사용자 인증을 수행했기 때문에 CSRF 공격에 취약합니다. 
+Stateful 한 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생합니다. 
+
+> StackExchange - Should I use CSRF protection on Rest API endpoints?<br>
+> No cookies = No CSRF
+
+최근 REST API 방식에서는 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방지를 끄는 경우가 많습니다. 
+쿠키 대신에 로컬 스토리지(localStorage)와 요청 헤더(Request Header) 사용한거나, 
+세션 대신에 JWT(Json Web Token)을 사용하기 때문입니다. 
+CSRF 공격에 대한 방지를 `disable` 시키더라도 인터셉터 등에서 적절한 방어 코드를 통해 보안 수준을 높이는 것이 좋을 것 같습니다. 
+
+## CLOSING
+
+로컬 스토리지에 저장하는 경우 XSS(Cross Site Scripting) 공격에 취약하지만 관련된 내용은 다음 포스트로 정리하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
@@ -462,6 +479,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 - [CSRF-공격이란-그리고-CSRF-방어-방법][csrf-attack-and-protection-link]
 - <https://portswigger.net/web-security/csrf>
 - <https://swk3169.tistory.com/24?category=712648>
+- <https://security.stackexchange.com/questions/166724/should-i-use-csrf-protection-on-rest-api-endpoints/166798#166798>
 
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [tomcat-session-link]: https://junhyunny.github.io/information/server/tomcat-session-management/

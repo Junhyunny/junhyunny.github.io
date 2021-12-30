@@ -50,7 +50,7 @@ last_modified_at: 2021-12-29T23:55:00
 1. 클라이언트(브라우저)는 해당 도메인을 가진 서버로 요청시 쿠키에 저장된 `sessionID`를 자동으로 전달합니다.
 1. 서버는 쿠키에 담긴 `sessionID`를 통해 인증된 사용자인지 여부를 확인합니다. 
 
-<p align="center"><img src="/images/cross-site-reqeust-forgery-1.JPG" width="85%"></p>
+<p align="center"><img src="/images/cross-site-reqeust-forgery-1.JPG" width="65%"></p>
 
 ### 1.2. CSRF 전제 조건과 공격 과정
 
@@ -70,7 +70,7 @@ CSRF 공격을 시도하기 위해선 아래와 같은 몇 가지 조건이 필�
 1. 사용자가 악성 스크립트가 작성된 페이지 접근시 쿠키에 저장된 `sessionID`는 브라우저에 의해 자동적으로 함께 서버로 요청됩니다.
 1. 서버는 쿠키에 담긴 `sessionID`를 통해 해당 요청이 인증된 사용자로부터 온 것으로 판단하고 처리합니다.
 
-<p align="center"><img src="/images/cross-site-reqeust-forgery-2.JPG" width="85%"></p>
+<p align="center"><img src="/images/cross-site-reqeust-forgery-2.JPG" width="65%"></p>
 
 ## 2. CSRF 공격 방법
 

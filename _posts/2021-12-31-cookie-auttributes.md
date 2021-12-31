@@ -38,7 +38,7 @@ HTTP 쿠키는 서버에서 브라우저로 전달한 작은 데이터 조각을
 
 쿠키는 브라우저가 서버로부터 다음과 같은 헤더 정보를 받으면 자동으로 생성됩니다. 
 
-> Set-Cookie: <cookie-name>=<cookie-value>
+> Set-Cookie: `<cookie-name>=<cookie-value>`
 
 ##### 응답 헤더에 쿠키 정보 설정 - Spring Boot 서버
 - 다음과 같은 코드로 응답 헤더에 값을 넣으면 브라우저에서 자동적으로 쿠키가 생성됩니다.
@@ -75,7 +75,7 @@ Connection: keep-alive
 
 ##### 저장된 쿠키 정보 확인 - 크롬 브라우저 개발자 도구
 
-<p align="left"><img src="/images/cookie-auttributes-1.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-1.JPG"></p>
 
 ### 1.2. 쿠키 사용
 
@@ -124,7 +124,7 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 - /docsets
 - /fr/docs
 
-##### Path=/index 설정 쿠키
+##### 쿠키 생성 - Path=/index 설정
 
 ```
 HTTP/1.1 200
@@ -137,7 +137,7 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-##### / 경로 요청시 헤더
+##### '/' 경로 요청시 헤더 정보
 
 ```
 GET / HTTP/1.1
@@ -150,7 +150,7 @@ Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
 Cookie: JSESSIONID=E27D97843642FBAD34540221DF74844B
 ```
 
-##### /index 경로 요청시 헤더
+##### '/index' 경로 요청시 헤더 정보
 
 ```
 GET /index HTTP/1.1
@@ -165,7 +165,7 @@ Cookie: customCookie=pathCookie; JSESSIONID=E27D97843642FBAD34540221DF74844B
 
 ##### 저장된 쿠키 정보 확인 - 크롬 브라우저 개발자 도구
 
-<p align="left"><img src="/images/cookie-auttributes-2.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-2.JPG"></p>
 
 ### 3.3. Expires & Max-Age 속성
 
@@ -224,7 +224,7 @@ Connection: keep-alive
 - 첫 응답시에 생성된 쿠키 정보를 확인할 수 있습니다.
 - 만료 시간이 지난 후에 쿠키 정보가 사라지는 것을 확인할 수 있습니다. 
 
-<p align="left"><img src="/images/cookie-auttributes-3.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-3.JPG"></p>
 
 ### 3.4. Secure 속성
 
@@ -235,7 +235,7 @@ Connection: keep-alive
 - LAN IP를 사용하여 서버로 접근합니다. (http://192.168.1.3:8080/)
 - 크롬 브라우저를 통해 `Secure` 속성이 설정된 쿠키 정보를 확인하면 경고와 함께 쿠키가 저장되지 않음을 확인할 수 있습니다.
 
-<p align="left"><img src="/images/cookie-auttributes-4.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-4.JPG"></p>
 
 ### 3.5. HttpOnly 속성
 
@@ -289,7 +289,7 @@ public class CookieController {
 
 ##### 브라우저 페이지 로딩시 alert 메세지
 
-<p align="left"><img src="/images/cookie-auttributes-5.JPG"></p>
+<p align="left"><img src="/images/cookie-auttributes-5.JPG" width="55%"></p>
 
 ### 3.6. SameSite 속성
 
@@ -334,7 +334,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 - [Root Zone Database][root-zone-database-link]에 명시된 `.com`, `.org`이 `eTLD(effective TLD)`입니다.
 - `eTLD` 한 칸 앞에 있는 단어까지 포함하여 `eTLD+1`입니다. 
 
-<p align="left"><img src="/images/cookie-auttributes-6.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-6.JPG" width="55%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### 예시 사이트 - 2
@@ -342,23 +342,23 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 - 식별 가능한 eTLDs가 만들어지고, 해당 리스트들은 하단 링크에서 확인할 수 있습니다. 
 - <https://publicsuffix.org/list/> 
 
-<p align="left"><img src="/images/cookie-auttributes-7.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-7.JPG" width="55%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### SameSite, CrossSite 비교표
 
-<p align="center"><img src="/images/cookie-auttributes-8.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-8.JPG" width="65%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite
 - 요청시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 합니다.
 
-<p align="left"><img src="/images/cookie-auttributes-9.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-9.JPG" width="55%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite, CrossSite 비교표
 
-<p align="center"><img src="/images/cookie-auttributes-10.JPG"></p>
+<p align="center"><img src="/images/cookie-auttributes-10.JPG" width="65%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 #### REFERENCE

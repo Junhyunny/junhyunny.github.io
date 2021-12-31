@@ -454,22 +454,20 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 ## 4. CSRF disable 설정 안전한가?
 
 `Spring Security`는 기본적으로 CSRF 공격에 대한 방지를 수행합니다. 
-CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 안전한지 알아봤습니다. 
-
+CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 안전한 것인지 찾아보았습니다. 
 예전에 많이 사용했던 MVC 구조는 세션과 쿠키를 통해 사용자 인증을 수행했기 때문에 CSRF 공격에 취약합니다. 
 Stateful 한 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생합니다. 
 
 > StackExchange - Should I use CSRF protection on Rest API endpoints?<br>
 > No cookies = No CSRF
 
-최근 REST API 방식에서는 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방지를 끄는 경우가 많습니다. 
-쿠키 대신에 로컬 스토리지(localStorage)와 요청 헤더(Request Header) 사용한거나, 
-세션 대신에 JWT(Json Web Token)을 사용하기 때문입니다. 
+최근 REST API 방식에서는 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방어 설정을 비활성화시키는 경우가 많습니다. 
+쿠키 대신에 로컬 스토리지(localStorage)와 요청 헤더(Request Header) 사용하거나, 세션 대신에 JWT(Json Web Token)을 사용하기 때문입니다. 
 CSRF 공격에 대한 방지를 `disable` 시키더라도 인터셉터 등에서 적절한 방어 코드를 통해 보안 수준을 높이는 것이 좋을 것 같습니다. 
 
 ## CLOSING
 
-로컬 스토리지에 저장하는 경우 XSS(Cross Site Scripting) 공격에 취약하지만 관련된 내용은 다음 포스트로 정리하겠습니다. 
+로컬 스토리지을 사용하는 경우 XSS(Cross Site Scripting) 공격에 취약하지만, 관련된 내용은 다음 포스트로 정리하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>

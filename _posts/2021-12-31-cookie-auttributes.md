@@ -289,7 +289,7 @@ public class CookieController {
 
 ##### 브라우저 페이지 로딩시 alert 메세지
 
-<p align="left"><img src="/images/cookie-auttributes-5.JPG" width="55%"></p>
+<p align="left"><img src="/images/cookie-auttributes-5.JPG" width="45%"></p>
 
 ### 3.6. SameSite 속성
 
@@ -334,7 +334,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 - [Root Zone Database][root-zone-database-link]에 명시된 `.com`, `.org`이 `eTLD(effective TLD)`입니다.
 - `eTLD` 한 칸 앞에 있는 단어까지 포함하여 `eTLD+1`입니다. 
 
-<p align="center"><img src="/images/cookie-auttributes-6.JPG" width="55%"></p>
+<p align="center"><img src="/images/cookie-auttributes-6.JPG" width="45%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### 예시 사이트 - 2
@@ -342,7 +342,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 - 식별 가능한 eTLDs가 만들어지고, 해당 리스트들은 하단 링크에서 확인할 수 있습니다. 
 - <https://publicsuffix.org/list/> 
 
-<p align="center"><img src="/images/cookie-auttributes-7.JPG" width="55%"></p>
+<p align="center"><img src="/images/cookie-auttributes-7.JPG" width="45%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### SameSite, CrossSite 비교표
@@ -353,7 +353,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 ##### Schemeful SameSite
 - 요청시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 합니다.
 
-<p align="center"><img src="/images/cookie-auttributes-9.JPG" width="55%"></p>
+<p align="center"><img src="/images/cookie-auttributes-9.JPG" width="45%"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite, CrossSite 비교표

@@ -328,6 +328,8 @@ SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리해보겠습�
 #### 3.6.4. SameSite VS CrossSite
 SameSite, CrossSite에 대한 기준을 제대로 알고 있어야 할 것 같아서 찾아 정리하였습니다. 
 Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSite`로 구분하고 있습니다. 
+`'이게 무슨 소리야?'`라는 생각이 드실 것 같습니다. 
+아래 예시를 통해 이해를 돕도록 하겠습니다.
 
 ##### 예시 사이트 - 1
 - [Root Zone Database][root-zone-database-link]에 명시된 `.com`, `.org`이 `eTLD(effective TLD)`입니다.

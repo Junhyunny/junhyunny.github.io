@@ -295,7 +295,6 @@ public class CookieController {
 
 CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속성입니다. 
 [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link] 포스트를 통해 관련된 내용을 확인하실 수 있습니다. 
-
 SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리해보겠습니다. 
 총 세 가지 옵션이 있으며 아래 설명을 통해 이해를 돕도록 하겠습니다.
 

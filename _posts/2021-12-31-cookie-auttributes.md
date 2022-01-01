@@ -22,11 +22,11 @@ last_modified_at: 2021-12-31T23:55:00
 ## 1. HTTP 쿠키(Cookie)
 
 HTTP 쿠키는 서버에서 브라우저로 전달한 작은 데이터 조각을 의미합니다. 
-인코딩(encoding)한 값이 최대 4KB 까지 허용됩니다. 
+인코딩(encoding)한 값으로 최대 4KB 까지 저장할 수 있습니다. 
 브라우저는 이를 저장하고 있다가 서버로 다음 요청시 함께 전달합니다. 
 쿠키를 사용하는 이유는 `stateless`인 HTTP 프로토콜을 `stateful`하게 사용하기 위해 등장하였습니다.
 
-크게 다음과 같은 용도로 사용됩니다. 
+쿠키는 다음과 같은 용도로 사용됩니다. 
 - Session management
     - Logins, shopping carts, game scores, or anything else the server should remember
 - Personalization
@@ -41,7 +41,8 @@ HTTP 쿠키는 서버에서 브라우저로 전달한 작은 데이터 조각을
 > Set-Cookie: `<cookie-name>=<cookie-value>`
 
 ##### 응답 헤더에 쿠키 정보 설정 - Spring Boot 서버
-- 다음과 같은 코드로 응답 헤더에 값을 넣으면 브라우저에서 자동적으로 쿠키가 생성됩니다.
+- 다음과 같은 코드를 통해 응답 헤더에 쿠키를 담을 수 있습니다.
+- 브라우저가 응답을 받으면 자동적으로 쿠키가 생성됩니다.
 
 ```java
 @Controller
@@ -97,7 +98,7 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 
 ## 2. 쿠키 관련 속성
 
-쿠키는 브라우저에 의해 자동적으로 요청에 함께 전달되지만, 개발자는 쿠키와 관련된 속성을 이용하여 이를 제어할 수 있습니다. 
+쿠키는 브라우저에 의해 자동적으로 요청과 함께 전달되지만, 개발자는 쿠키와 관련된 속성을 이용하여 이를 제어할 수 있습니다. 
 어떤 속성들이 있는지 살펴보겠습니다.  
 
 ### 3.1. Domain 속성
@@ -113,13 +114,13 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 ### 3.2. Path 속성
 
 쿠키가 포함되어야하는 URL 경로를 지정할 수 있습니다. 
-예들 들어 A 쿠키의 Path 속성을 `Path=/docs`로 설정하는 경우 아래 URL 요청시 A 쿠키가 포함됩니다.
+예들 들어 A 쿠키의 Path 속성을 `'Path=/docs'`로 설정하는 경우 아래 URL 요청시 A 쿠키가 포함됩니다.
 - /docs
 - /docs/
 - /docs/Web/
 - /docs/Web/HTTP
 
-아래 경로로 요청시에는 A 쿠키는 포함되지 않습니다. 
+아래 경로로 요청시 A 쿠키는 포함되지 않습니다. 
 - /
 - /docsets
 - /fr/docs
@@ -175,7 +176,7 @@ Cookie: customCookie=pathCookie; JSESSIONID=E27D97843642FBAD34540221DF74844B
 - Max-Age - 유효 시간을 지정하며 쿠키를 받은 시간으로부터 계산하며 만료된 경우 브라우저가 삭제합니다.
 
 ##### 쿠키 Max-Age 설정 - Spring Boot 서버
-- Spring Boot 서비스에서 다음과 같이 쿠키를 설정할 수 있습니다.
+- 다음과 같은 코드를 통해 쿠키의 만료 시간을 설정할 수 있습니다.
 - 해당 쿠키는 10초 뒤에 만료됩니다.
 
 ```java
@@ -294,7 +295,8 @@ public class CookieController {
 ### 3.6. SameSite 속성
 
 CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속성입니다. 
-[CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link] 포스트를 통해 관련된 내용을 확인하실 수 있습니다. 
+자세한 내용은 [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link] 포스트를 통해 관련된 내용을 확인하실 수 있습니다. 
+
 SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리해보겠습니다. 
 총 세 가지 옵션이 있으며 아래 설명을 통해 이해를 돕도록 하겠습니다.
 
@@ -348,7 +350,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 
 ##### SameSite, CrossSite 비교표
 
-<p align="center"><img src="/images/cookie-auttributes-8.JPG" width="65%"></p>
+<p align="center"><img src="/images/cookie-auttributes-8.JPG" width="75%" style="border: 1px solid #ccc;"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite
@@ -359,7 +361,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 
 ##### Schemeful SameSite, CrossSite 비교표
 
-<p align="center"><img src="/images/cookie-auttributes-10.JPG" width="65%"></p>
+<p align="center"><img src="/images/cookie-auttributes-10.JPG" width="75%" style="border: 1px solid #ccc;"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 #### REFERENCE

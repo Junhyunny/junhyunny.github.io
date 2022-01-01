@@ -13,6 +13,7 @@ last_modified_at: 2021-12-29T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
+- [쿠키(Cookie) - 어디까지 알고 있니][cookie-attributes-link]
 - [Tomcat Session 획득과 만료][tomcat-session-link]
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-aop-link]
 
@@ -484,3 +485,4 @@ CSRF 공격에 대한 방지를 `disable` 시키더라도 인터셉터 등에서
 [filter-interceptor-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/
 [csrf-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%9A%94%EC%B2%AD_%EC%9C%84%EC%A1%B0
 [csrf-attack-and-protection-link]: https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95
+[cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-auttributes/

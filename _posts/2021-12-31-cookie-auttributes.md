@@ -342,7 +342,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 
 ##### 예시 사이트 - 2
 - `.co.kr` 이나 `.github.io` 같은 도메인을 가지는 경우 `.kr`, `.io` 도메인을 통해 사이트 구분이 어렵습니다.
-- 식별 가능한 eTLDs가 만들어지고, 해당 리스트들은 하단 링크에서 확인할 수 있습니다. 
+- 식별 가능한 eTLDs가 만들어졌고, 해당 리스트들은 하단 링크에서 확인할 수 있습니다. 
 - <https://publicsuffix.org/list/> 
 
 <p align="center"><img src="/images/cookie-auttributes-7.JPG" width="45%"></p>
@@ -350,7 +350,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 
 ##### SameSite, CrossSite 비교표
 
-<p align="center"><img src="/images/cookie-auttributes-8.JPG" width="75%" style="border: 1px solid #ccc;"></p>
+<p align="center"><img src="/images/cookie-auttributes-8.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite
@@ -361,7 +361,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 
 ##### Schemeful SameSite, CrossSite 비교표
 
-<p align="center"><img src="/images/cookie-auttributes-10.JPG" width="75%" style="border: 1px solid #ccc;"></p>
+<p align="center"><img src="/images/cookie-auttributes-10.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 #### REFERENCE

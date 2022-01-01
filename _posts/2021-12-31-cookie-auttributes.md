@@ -101,7 +101,7 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 쿠키는 브라우저에 의해 자동적으로 요청과 함께 전달되지만, 개발자는 쿠키와 관련된 속성을 이용하여 이를 제어할 수 있습니다. 
 어떤 속성들이 있는지 살펴보겠습니다.  
 
-### 3.1. Domain 속성
+### 2.1. Domain 속성
 도메인(Domain) 속성은 해당 쿠키를 전달받을 도메인을 지정하는 속성입니다. 
 해당 속성을 이용해 도메인을 지정하면 해당되는 도메인으로 요청할 때만 함께 포함됩니다. 
 서브 도메인에도 함께 적용됩니다. 
@@ -111,7 +111,7 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 > Invalid cookie domain<br>
 > If the current domain were to be example.com, it would not be possible to add a cookie for the domain example.org:
 
-### 3.2. Path 속성
+### 2.2. Path 속성
 
 쿠키가 포함되어야하는 URL 경로를 지정할 수 있습니다. 
 예들 들어 A 쿠키의 Path 속성을 `'Path=/docs'`로 설정하는 경우 아래 URL 요청시 A 쿠키가 포함됩니다.
@@ -168,7 +168,7 @@ Cookie: customCookie=pathCookie; JSESSIONID=E27D97843642FBAD34540221DF74844B
 
 <p align="center"><img src="/images/cookie-auttributes-2.JPG"></p>
 
-### 3.3. Expires & Max-Age 속성
+### 2.3. Expires & Max-Age 속성
 
 쿠키의 유효 시간을 설정할 수 있는 속성입니다. 
 사용 방법에 약간의 차이가 있습니다. 
@@ -227,7 +227,7 @@ Connection: keep-alive
 
 <p align="center"><img src="/images/cookie-auttributes-3.JPG"></p>
 
-### 3.4. Secure 속성
+### 2.4. Secure 속성
 
 `Secure` 속성이 설정된 쿠키는 암호화 된 `HTTPS`을 사용하는 요청시에만 전송됩니다. 
 `localhost(혹은 127.0.0.1)`를 제외하고 `HTTP`를 사용하는 요청에는 쿠키가 전송되지 않습니다. 
@@ -238,7 +238,7 @@ Connection: keep-alive
 
 <p align="center"><img src="/images/cookie-auttributes-4.JPG"></p>
 
-### 3.5. HttpOnly 속성
+### 2.5. HttpOnly 속성
 
 `HttpOnly` 속성이 설정된 쿠키는 JavaScript `Document.cookie` API를 통해서 접근할 수 없습니다. (Read / Write 불가능)
 해당 설정은 XSS(Cross-Site Scritping) 공격을 방지할 수 있습니다. 
@@ -292,7 +292,7 @@ public class CookieController {
 
 <p align="left"><img src="/images/cookie-auttributes-5.JPG" width="45%"></p>
 
-### 3.6. SameSite 속성
+### 2.6. SameSite 속성
 
 CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속성입니다. 
 자세한 내용은 [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link] 포스트를 통해 관련된 내용을 확인하실 수 있습니다. 
@@ -300,7 +300,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리해보겠습니다. 
 총 세 가지 옵션이 있으며 아래 설명을 통해 이해를 돕도록 하겠습니다.
 
-#### 3.6.1. None
+#### 2.6.1. None
 - 도메인 검증을 하지 않습니다. 
 - `Secure` 속성을 설정해야합니다.
 - 예를 들면 다음과 같습니다.
@@ -308,14 +308,14 @@ SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리해보겠습�
     1. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누릅니다. 
     1. 이전에 A.com 사이트에서 발급 받았던 쿠키들이 함께 요청에 전달됩니다.
 
-#### 3.6.2. Strict
+#### 2.6.2. Strict
 - 쿠키를 발급한 사이트와 동일한 사이트에서만 사용이 가능합니다.
 - 예를 들면 다음과 같습니다.
     1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리합니다. 이때 쿠키를 저장합니다.
     1. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누릅니다. 
     1. 동일한 사이트에서 접근한 것이 아니므로 A.com 사이트에서 발급 받았던 쿠키들은 함께 전달되지 않습니다.
 
-#### 3.6.3. Lax
+#### 2.6.3. Lax
 - 쿠키를 발급한 사이트와 동일한 사이트가 아니더라도 일부 케이스에서 사용 가능합니다.
 - 안전한 HTTP 메소드인 경우에만 쿠키를 전달합니다.
 - 작업이 최상위 레벨 탐색에서 이루어질 때(브라우저 주소창에서 URL을 변경하는 경우)만 쿠키가 전달됩니다.
@@ -327,7 +327,7 @@ SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리해보겠습�
     1. 이번엔 B.com 사이트 화면에서 A.com 사이트에서 사용하는 비밀번호 변경을 시도합니다.
     1. A.com 사이트의 정보를 바꾸는 행위이므로 이전에 A.com 사이트에서 발급 받았던 쿠키들은 함께 전달되지 않습니다.
 
-#### 3.6.4. SameSite VS CrossSite
+#### 2.6.4. SameSite VS CrossSite
 SameSite, CrossSite에 대한 기준을 제대로 알고 있어야 할 것 같아서 찾아 정리하였습니다. 
 Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSite`로 구분하고 있습니다. 
 `'이게 무슨 소리야?'`라는 생각이 드실 것 같습니다. 

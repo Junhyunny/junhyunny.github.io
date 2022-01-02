@@ -11,7 +11,7 @@ last_modified_at: 2021-12-18T23:55:00
 <br>
 
 👉 이어서 읽기를 추천합니다.
-- [Throttle test with Jest][react-throttle-test-link]
+- [Throttle test with Jest][throttle-test-link]
 
 ## 1. 디바운스, Debounce
 
@@ -196,4 +196,4 @@ export default App;
 - <https://webclub.tistory.com/607>
 - <https://codepen.io/jaehee/pen/XoKeRW>
 
-[react-throttle-test-link]: 
+[throttle-test-link]: https://junhyunny.github.io/information/react/jest/throttle-test-with-jest/

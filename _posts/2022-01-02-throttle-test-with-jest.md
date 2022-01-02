@@ -145,10 +145,10 @@ function App() {
 
     return (
         <div className={classes.App}>
-            <div className={classes.normalDiv} style={{width: `${normalWidth}px`}}>
+            <div className={classes.normalDiv} style={ { width: `${normalWidth}px` } } >
                 div block normal scroll event
             </div>
-            <div className={classes.throttledDiv} style={{width: `${throttledWidth}px`}}>
+            <div className={classes.throttledDiv} style={ { width: `${throttledWidth}px` } } >
                 div block throttled scroll event
             </div>
         </div>

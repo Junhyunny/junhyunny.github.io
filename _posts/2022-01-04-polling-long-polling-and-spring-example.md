@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - spring-boot
-last_modified_at: 2022-01-03T23:55:00
+last_modified_at: 2022-01-04T23:55:00
 ---
 
 <br>
@@ -125,8 +125,8 @@ DeferredResult 클래스는 비동기 처리를 위해 등장하였습니다.
 
 ### 2.2. DeferredResultController 클래스 테스트
 
-테스트 코드를 통해 먼저 기능을 정의하였습니다. 
 롱 폴링을 이용한 2차 인증 대기 기능을 위한 컨트롤러 개발을 가정하여 테스트를 작성하였습니다. 
+테스트 코드를 통해 먼저 기능을 정의하였습니다. 
 다음 테스트 코드들은 `Given-When-Then 패턴`에 맞춰 명명하였습니다. 
 
 ```java
@@ -256,7 +256,7 @@ public class DeferredResultControllerTest {
 
 ### 2.3. DeferredResultController 클래스 구현
 
-테스트 스펙에 맞도록 기능을 확장해나가면서 작성한 코드입니다. 
+테스트를 통과시킬 수 있도록 기능을 확장해나가면서 구현하였습니다. 
 - authenticate 메소드
     - 스터빙(stubing), 스파이(spy) 사용이 제한되어 테스트를 위해 메소드입니다.
     - 타임아웃이나 이벤트 처리 완료시 정상적으로 요청 풀에서 삭제되었는지 확인합니다.
@@ -326,7 +326,7 @@ public class DeferredResultController {
 
 ### 3.1. 타임아웃 시간 감소
 - 비동기 응답시 사용하는 `AsyncContext`을 이용해 타임아웃 발생 시간을 감소시킵니다.
-- `asyncDispatch(result)` 혹은 `result.getAsyncResult()` 메소드 호출시 타임아웃으로 인한 `IllegalStateException` 예외 발생을 확인합니다.
+- `asyncDispatch()` 혹은 `result.getAsyncResult()` 메소드 호출시 타임아웃으로 인한 `IllegalStateException` 예외를 확인합니다.
 
 ```java
         // given
@@ -367,12 +367,8 @@ public class DeferredResultController {
                 .andExpect(status().is5xxServerError());
 ```
 
-## CLOSING
-
-다음은 클라이언트 사이드 폴링, 롱 폴링 기능을 테스트와 함께 정리할 예정입니다. 
-
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-26-spring-session>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-04-polling-long-polling-and-spring-async-task/action-in-blog-back>
 
 #### REFERENCE
 - <https://rubberduck-debug.tistory.com/123>

@@ -106,7 +106,7 @@ DeferredResult 클래스는 비동기 처리를 위해 등장하였습니다.
 
 디컴파일과 디버깅을 통해 분석한 내용을 일부 추가, 정리하겠습니다.
 - `nio-http-worker` 스레드가 최초 사용자 요청을 받습니다.
-- `nio-http-worker` 스레드가 `DeferredResult` 객체를 반환시키면서 다음과 같은 객체들 사이에 참조를 만들어줍니다.
+- 컨트롤러가 `DeferredResult` 객체를 반환하면 `nio-http-worker` 스레드에 의해 아래 객체들 사이에 참조를 만들어집니다.
     - DeferredResult
     - WebAsyncManager
     - AsyncWebRequest

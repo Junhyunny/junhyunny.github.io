@@ -36,7 +36,9 @@ last_modified_at: 2022-01-03T23:55:00
 
 ##### 폴링 방식
 
-<p align="center"><img src="/images/polling-long-polling-and-spring-example-1.JPG" width="65%"></p>
+<p align="center">
+    <img src="/images/polling-long-polling-and-spring-example-1.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+</p>
 <center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
 
 ### 1.2. 롱 폴링(Long Polling) 방식
@@ -51,10 +53,12 @@ last_modified_at: 2022-01-03T23:55:00
 
 ##### 롱 폴링 방식
 
-<p align="center"><img src="/images/polling-long-polling-and-spring-example-2.JPG" width="65%"></p>
+<p align="center">
+    <img src="/images/polling-long-polling-and-spring-example-2.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+</p>
 <center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
 
-### 1.3. 폴링보다 롱 폴링 방식이 항상 유리한가?
+### 1.3. 롱 폴링 방식은 항상 유리한가?
 
 폴링은 주기적으로 데이터를 요청하면서 의미없이 서버의 리소스를 소비하게 됩니다. 
 언뜻 보기에 이벤트가 발생했을 때만 클라이언트로 응답을 주는 롱 폴링 방식이 유용해보입니다. 
@@ -62,8 +66,8 @@ last_modified_at: 2022-01-03T23:55:00
 예를 들어 100명이 채팅하는 단체 채팅방을 롱 폴링으로 구현했다고 가정합니다. 
 누군가 한마디 메세지를 작성하면 100명이 동시에 응답을 받고, 100명이 동시에 다시 요청을 수행합니다. 
 서버의 요청 큐(request queue)에 급작스런 요청이 몰리면서 서버에 부하가 발생할 수 있습니다. 
-
 클라이언트에게 제공해야하는 서비스 성격과 특징에 따라 적절한 방식을 선택하는 것이 좋아보입니다. 
+
 참고한 포스트에서는 다음과 같이 정리하고 있습니다. 
 - 롱 폴링 방식 선택
     - 응답을 실시간으로 받아야하는 경우
@@ -76,7 +80,8 @@ last_modified_at: 2022-01-03T23:55:00
 
 ## 2. 스프링(spring)에서 롱 폴링 구현하기
 
-이번 포스트를 작성하게 된 계기, 스프링에서 어떻게 롱 폴링을 구현하는지 정리해보겠습니다. 
+폴링을 위해 서버에서 별도로 필요한 작업은 없습니다. 
+지금부터 이번 포스트를 작성하게 된 계기, 스프링에서 어떻게 롱 폴링을 구현하는지 정리해보겠습니다. 
 일반적으로 HTTP 요청에 대한 응답 방식은 동기식으로 처리됩니다. 
 요청에 대한 처리를 수행하는 동안 블록킹(blocking)되며, 모든 처리가 완료된 후에 응답을 전달합니다. 
 
@@ -99,10 +104,27 @@ DeferredResult 클래스는 비동기 처리를 위해 등장하였습니다.
 
 ##### DeferredResult 인스턴스 반환을 통한 비동기 처리 방식
 
-<p align="center"><img src="/images/polling-long-polling-and-spring-example-3.JPG" width="75%"></p>
+디컴파일과 디버깅을 통해 분석한 내용을 일부 추가, 정리하겠습니다.
+- `nio-http-worker` 스레드가 최초 사용자 요청을 받습니다.
+- `nio-http-worker` 스레드가 `DeferredResult` 객체를 반환시키면서 다음과 같은 객체들 사이에 참조를 만들어줍니다.
+    - DeferredResult
+    - WebAsyncManager
+    - AsyncWebRequest
+    - AsyncContext
+    - ServletRequest
+    - ServletResponse
+    - 이 시점에 클라이언트에게 응답을 보내지 않습니다.
+- `서블릿 요청/응답 객체 - 비동기 컨텍스트 객체 - 비동기 매니저 객체 - 지연 응답 객체` 사이에 참조를 모두 생성해주면 스레드 풀로 이동합니다.
+- 이후 타임아웃이나 다른 스레드(`nio-http-worker` 혹은 다른 종류의 worker)에 의해 발생한 이벤트로 `DeferredResult` 객체의 결과가 변경됩니다.
+- `nio-http-worker` 스레드가 다시 스레드 풀에서 나와 타임아웃되거나 완료된 대상을 처리합니다.
+
+<p align="center">
+    <img src="/images/polling-long-polling-and-spring-example-3.JPG" width="60%" style="border: 1px solid #ccc; border-radius: 10px;">
+</p>
 <center>이미지 출처, https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center><br>
 
 ### 2.2. DeferredResultController 클래스 테스트
+
 테스트 코드를 통해 먼저 기능을 정의하였습니다. 
 롱 폴링을 이용한 2차 인증 대기 기능을 위한 컨트롤러 개발을 가정하여 테스트를 작성하였습니다. 
 다음 테스트 코드들은 `Given-When-Then 패턴`에 맞춰 명명하였습니다. 

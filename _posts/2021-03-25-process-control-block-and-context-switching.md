@@ -9,6 +9,9 @@ last_modified_at: 2021-08-24T01:30:00
 
 <br>
 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [프로세스(Process)와 스레드(Thread)의 차이점][process-vs-thread-link]
+
 ## 1. PCB(Process Control Block)
 
 PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스에 대한 정보를 담고 있는 자료구조입니다. 
@@ -57,3 +60,5 @@ PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사�
 - <https://shoark7.github.io/programming/knowledge/difference-between-process-and-thread>
 
 [operating-system-link]: http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788998886813
+
+[process-vs-thread-link]: https://junhyunny.github.io/information/operating-system/process-vs-thread/

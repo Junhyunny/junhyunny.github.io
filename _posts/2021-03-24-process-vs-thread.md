@@ -9,6 +9,9 @@ last_modified_at: 2021-08-24T01:30:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [PCB(Process Control Block)와 문맥 교환(Context Switching)][process-control-block-and-context-switching-link]
+
 ## 1. 프로그램(Program)
 
 > 실행 가능한 명령어의 집합, 운영체제로부터 메모리를 할당받지 못한 정적인 상태
@@ -93,3 +96,5 @@ last_modified_at: 2021-08-24T01:30:00
 
 [operating-system-link]: http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788998886813
 [difference-of-process-thread-link]: https://velog.io/@raejoonee/%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%99%80-%EC%8A%A4%EB%A0%88%EB%93%9C%EC%9D%98-%EC%B0%A8%EC%9D%B4
+
+[process-control-block-and-context-switching-link]: https://junhyunny.github.io/information/operating-system/process-control-block-and-context-switching/

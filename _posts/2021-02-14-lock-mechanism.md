@@ -8,6 +8,10 @@ last_modified_at: 2021-08-22T02:30:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [JPA Optimistic Lock 구현][jpa-optimistic-lock-link]
+- [JPA Pessimistic Lock 구현][jpa-pessimitic-lock-link]
+
 ## 0. 들어가면서
 
 엔터프라이즈 어플리케이션은 많은 요청들을 처리합니다. 
@@ -54,3 +58,6 @@ last_modified_at: 2021-08-22T02:30:00
 
 #### REFERENCE
 - <https://stackoverflow.com/questions/129329/optimistic-vs-pessimistic-locking>
+
+[jpa-optimistic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/
+[jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/

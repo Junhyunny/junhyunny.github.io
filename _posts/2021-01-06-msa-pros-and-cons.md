@@ -18,6 +18,7 @@ last_modified_at: 2021-08-21T16:00:00
 ## 1. Micro Service Architecture 장점
 
 ### 1.1. 폴리글랏 아키텍처(Polyglot Architecture)
+
 생소한 `폴리글랏(Polyglot)`이라는 단어의 의미부터 찾아보았습니다. 
 
 > knowing or using several languages.
@@ -131,5 +132,6 @@ y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점을 �
 [joo-blogLink]: https://medium.com/giljae/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%83%9D%EA%B0%81%ED%95%B4%EB%B3%B4%EA%B8%B0-1529a94e624e
 
 [msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+
 [msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/

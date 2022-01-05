@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - jpa
-  - juint
+  - junit
 last_modified_at: 2021-09-04T13:00:00
 ---
 

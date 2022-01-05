@@ -8,6 +8,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
+
 ## 0. 들어가면서
 
 우선 `JWT(Json Web Token)` 개념에 대한 정의를 찾아보았습니다.
@@ -122,3 +125,5 @@ HMACSHA256(
 #### REFERENCE
 - <https://bcho.tistory.com/999>
 - <https://velopert.com/2389>
+
+[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/

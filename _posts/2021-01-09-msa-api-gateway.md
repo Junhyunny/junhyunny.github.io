@@ -8,7 +8,12 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Micro Service Architecture][msa-blog-link]
+
 👉 이어서 읽기를 추천합니다.
+- [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
+- [Micro Service Architecture 배포 전략][msa-release-link]
 - [Spring Cloud Gateway][spring-cloud-gateway-link]
 
 ## 0. 들어가면서
@@ -65,12 +70,17 @@ API 호출 로그는 사용자 사용 패턴 분석이나 문제 발생시 문�
 
 ## CLOSING
 API Gateway의 기능들에 대해 간략하게 정리해보았습니다. 
-예시나 사례는 [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][cho-blogLink]에 상당히 구체적으로 작성되어 있습니다. 
+예시나 사례는 [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][cho-blog-link]에 상당히 구체적으로 작성되어 있습니다. 
 
 #### REFERENCE
-- [마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook][microsoft-ebookLink]
-- [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][cho-blogLink]
+- [마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook][microsoft-ebook-link]
+- [조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1][cho-blog-link]
 
-[microsoft-ebookLink]: https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
-[cho-blogLink]: https://bcho.tistory.com/1005
+[microsoft-ebook-link]: https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
+[cho-blog-link]: https://bcho.tistory.com/1005
+
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+
+[msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
+[msa-release-link]: https://junhyunny.github.io/msa/msa-release/
 [spring-cloud-gateway-link]: https://junhyunny.github.io/information/spring-boot/spring-cloud/spring-cloud-gateway/

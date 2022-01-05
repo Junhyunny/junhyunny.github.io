@@ -20,7 +20,7 @@ classes: wide
 - MySQL, Oracle
 
 ## Career
-#### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - 
+#### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - PRESENT
 - VMWare Tunzu Labs Software Engineer, 2021년 11월 - 현재
 
 #### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer, 2021년 4월 - 11월

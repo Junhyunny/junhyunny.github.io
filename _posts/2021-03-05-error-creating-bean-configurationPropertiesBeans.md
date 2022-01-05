@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T20:30:00
 
 ## 0. 들어가면서
 
-[Spring Cloud Openfeign][openfeign-blogLink] 포스트를 작성하던 중에 발생한 에러입니다. 
+[Spring Cloud Openfeign][openfeign-blog-link] 포스트를 작성하던 중에 발생한 에러입니다. 
 간단한 테스트 코드를 작성한 후에 maven install 골(goal)을 실행했더니 테스트 단계(test phase)에서 발생되지 않던 Exception이 발생하였습니다. 
 
 ## 1. 에러 현상과 회피 과정
@@ -97,4 +97,4 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 
 [reference-link]: https://woowabros.github.io/experience/2019/05/29/feign.html
-[openfeign-blogLink]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
+[openfeign-blog-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/

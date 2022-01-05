@@ -15,7 +15,8 @@ last_modified_at: 2021-08-23T00:30:00
 
 ## 1. Dynamic URI FeignClient on Runtime
 
-### 1.1. [Spring Cloud Openfeign][openfeign-link] 포스트에서 사용한 SimpleClient 인터페이스
+### 1.1. [Spring Cloud Openfeign][openfeign-link] 포스트의 SimpleClient 인터페이스
+
 [Spring Cloud Openfeign][openfeign-link] 포스트에서 사용한 FeignClient 코드를 보면 직관적으로 URL이 고정되어 있다고 느낄 수 있습니다. 
 
 ```java

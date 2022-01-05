@@ -11,12 +11,20 @@ last_modified_at: 2021-08-22T20:30:00
 
 ⚠️ 해당 포스트는 2021년 8월22일에 재작성되었습니다. (불필요 코드 제거)
 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Micro Service Architecture][msa-blog-link]
+
+👉 이어서 읽기를 추천합니다.
+- [Openfeign 런타임(runtime) 시 URI 변경][dynamic-uri-using-openfeign-link]
+- [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
+- [FeignClient with Eureka][feignclient-with-eureka-link]
+
 ## 0. 들어가면서
 
 > Spring Cloud Openfeign API Reference<br>
 > Feign is a declarative web service client. It makes writing web service clients easier.
 
-Micro Service Architecture를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 
+`Micro Service Architecture`를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 
 서비스들간에 보다 쉬운 API 요청을 지원하는 라이브러리입니다. 
 Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(cluster)를 형성하는 서비스들로 API 요청이 가능합니다. 
 우선 이번 포스트에서는 간단한 테스트를 통해 Openfiegn 사용법에 대해 알아보도록 하겠습니다. 
@@ -181,3 +189,9 @@ public class SimpleClientTest {
 #### REFERENCE
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 - <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
+
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+
+[dynamic-uri-using-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/
+[spring-cloud-netflix-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
+[feignclient-with-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/

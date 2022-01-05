@@ -14,8 +14,12 @@ last_modified_at: 2021-08-23T11:30:00
 ⚠️ 해당 포스트는 2021년 8월 23일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Cloud Openfeign][openfeign-link]
-- [Spring Cloud Netflix Eureka][eureka-link]
+- [Micro Service Architecture][msa-blog-link]
+- [Spring Cloud Openfeign][spring-cloud-openfeign]
+- [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka]
+
+👉 이어서 읽기를 추천합니다.
+- [Spring Cloud Netflix Ribbon][spring-cloud-netflix-ribbon-link]
 
 ## 1. 테스트 시나리오
 Ereka 서버가 클라이언트 서비스들을 관리하는 환경에서 FeignClient를 사용해보도록 하겠습니다. 
@@ -245,5 +249,8 @@ class AServiceApplicationTests {
 - <https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/>
 - <https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/>
 
-[openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
-[eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[spring-cloud-openfeign]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
+[spring-cloud-netflix-eureka]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
+
+[spring-cloud-netflix-ribbon-link]:https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-ribbon/

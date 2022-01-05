@@ -243,6 +243,7 @@ const pocPolling = (callback, path, config, interval, maxAttempts = -1) => {
 
 관련된 내용은 스택 오버플로우 질문 후 해당 포스트에 계속 업데이트하겠습니다. 
 ~~(스택 오버플로우 첫 질문을 통해 얻는 `student` 브론즈 뱃지가 탐나는 것은 절대 아닙니다.)~~
+- 질문 링크 - [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
 
 ##### 테스트 코드
 
@@ -272,10 +273,10 @@ const pocPolling = (callback, path, config, interval, maxAttempts = -1) => {
 
 ## 5. 다른 테스트 통과 코드
 
-관련된 내용을 팀원들과 공유하여 얻은 또 다른 테스트 코드입니다. 
-`jest.setTimeout()` 함수를 이용해 테스트 타임아웃 시간을 10초로 늘려줍니다. 
-`setTimeout()`함수를 이용해 7초 뒤에 결과를 확인합니다. 
-`done()` 함수를 이용해 비동기 테스트가 끝났음을 알립니다. 
+관련된 내용을 팀원들과 공유하여 얻은 또 다른 테스트 코드입니다.(이런 방법은 생각 못 했습니다.) 
+- `jest.setTimeout()` 함수를 이용해 테스트 타임아웃 시간을 10초로 늘려줍니다. 
+- `setTimeout()`함수를 이용해 7초 뒤에 결과를 확인합니다. 
+- `done()` 함수를 이용해 비동기 테스트가 끝났음을 알립니다. 
 
 ```react
 import axios from 'axios';
@@ -347,10 +348,12 @@ polling(checkSecondAuthentication, 5000);
 ```
 
 #### TEST CODE REPOSITORY
-- <>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-05-recursive-set-timeout-test/action-in-blog-react>
 
 #### REFERENCE
 - <https://stackoverflow.com/questions/56124733/how-to-use-jest-to-test-the-time-course-of-recursive-functions>
 - <https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function>
 - <https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop>
 - <https://262.ecma-international.org/6.0/#sec-jobs-and-job-queues>
+
+[stack-overflow-question-link]: https://stackoverflow.com/questions/70600151/does-spyaxios-mocked-by-jest-spyonaxios-get-make-promise-when-it-is-called

@@ -10,20 +10,14 @@ classes: wide
 - [English][resume-eng-link] / [한국어][resume-kor-link]
 
 ## Skills
-#### [Programming Language]
-- Java, JavaScript
+#### [Language]
+- Java, JavaScript, 
 
-#### [Backend Development]
-- Spring Boot, Spring Cloud, JPA, MyBatis, Oracle, MySQL, Apache Kafka
+#### [Framework and Library]
+- Spring Boot, Spring Cloud, JPA, MyBatis, Apache Kafka, Vue.js
 
-#### [Frontend Development]
-- Vue.js
-
-#### [Tools]
-- Maven, TortoiseSVN, Git, Sourcetree
-
-#### [Etc]
-- Github, BitBucket, Bamboo, Jira
+#### [Database]
+- MySQL, Oracle
 
 ## Career
 #### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - 

@@ -13,6 +13,7 @@ last_modified_at: 2021-08-23T09:30:00
 ⚠️ 해당 포스트는 2021년 8월 23일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Micro Service Architecture][msa-blog-link]
 - [Spring Cloud Openfeign][openfeign-link]
 
 👉 이어서 읽기를 추천합니다.
@@ -279,6 +280,7 @@ public class AServiceApplication {
 - eureka 서버를 먼저 기동시킵니다.
 - a-service, b-service를 기동시킵니다.
 - <http://localhost:8761>로 접속하여 등록된 서비스 정보를 확인합니다. 
+
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-3.JPG"></p>
 <p align="center"><img src="/images/spring-cloud-netflix-eureka-4.JPG"></p>
 
@@ -304,6 +306,7 @@ Spring Cloud와 관련된 내용을 정리하다 보니 아직 갈 길이 멀다
 
 [eureka-reference-link]: https://kouzie.github.io/spring/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-eureka-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95/#eureka-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%A4%EC%A0%95
 
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 
 [feignclient-with-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/

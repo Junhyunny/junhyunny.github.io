@@ -8,6 +8,13 @@ last_modified_at: 2021-08-21T17:00:00
 
 <br>
 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Micro Service Architecture][msa-blog-link]
+
+👉 이어서 읽기를 추천합니다.
+- [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
+- [MSA API Gateway][msa-api-gateway-link]
+
 ## 0. 들어가면서
 
 마이크로 서비스 아키텍처에서 다양한 배포 전략이 존재하며 이에 대한 정리를 해보았습니다. 
@@ -60,3 +67,8 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 #### REFERENCE
 - <https://reference-m1.tistory.com/211>
 - <https://www.ciokorea.com/news/157642>
+
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+
+[msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
+[msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/

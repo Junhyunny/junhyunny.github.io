@@ -15,6 +15,9 @@ last_modified_at: 2021-08-22T03:00:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Lock Mechanism][lock-mechanism-link]
 
+👉 이어서 읽기를 추천합니다.
+- [JPA Pessimistic Lock 구현][jpa-pessimitic-lock-link]
+
 ## 0. 들어가면서
 
 Optimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 이어나가도록 하겠습니다. 
@@ -302,3 +305,5 @@ entityManager.lock() 메소드를 사용하지 않아도 Optimistic Lock 기능�
 - <https://stackoverflow.com/questions/13568475/jpa-and-default-locking-mode>
 
 [lock-mechanism-link]: https://junhyunny.github.io/information/lock-mechanism/
+
+[jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/

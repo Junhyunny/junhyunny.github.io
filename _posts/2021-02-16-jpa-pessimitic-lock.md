@@ -15,6 +15,9 @@ last_modified_at: 2021-08-22T03:30:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Lock Mechanism][lock-mechanism-link]
 
+👉 이어서 읽기를 추천합니다.
+- [JPA Optimistic Lock 구현][jpa-optimistic-lock-link]
+
 ## 0. 들어가면서
 
 Pessimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 이어나가도록 하겠습니다. 
@@ -382,7 +385,7 @@ Hibernate: update tb_post set contents=?, title=?, version_no=? where id=?
 
 ## CLOSING
 ### JpaRepository 사용 시 트랜잭션 처리
-지난 [JPA Optimistic Lock 구현][jpa-optimistic-lock-blogLink] 포스트와 다르게 테스트 케이스를 만드는데 애를 먹었습니다. 
+지난 [JPA Optimistic Lock 구현][jpa-optimistic-lock-link] 포스트와 다르게 테스트 케이스를 만드는데 애를 먹었습니다. 
 **그 이유는 JpaRepository 인터페이스 테스트 코드를 처음 작성할 때 조회와 업데이트를 하나의 트랜잭션으로 처리하지 않아 원하는 결과를 얻지 못했기 때문입니다.** 
 JpaRepository 인터페이스 사용 시 트랜잭션 처리는 @Transactional 애너테이션에 의해 적용됩니다. 
 이번 기회에 @Transactional 애너테이션에서 사용되는 옵션인 전파 방법, 격리성 모드 등을 공부해야겠습니다.
@@ -423,4 +426,5 @@ Lock을 선점한 트랜잭션에 문제가 발생하는 경우 대기 중인 �
 - <https://www.baeldung.com/jpa-pessimistic-locking>
 
 [lock-mechanism-link]: https://junhyunny.github.io/information/lock-mechanism/
-[jpa-optimistic-lock-blogLink]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/
+
+[jpa-optimistic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/

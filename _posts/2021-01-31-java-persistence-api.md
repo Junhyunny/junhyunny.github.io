@@ -9,6 +9,12 @@ last_modified_at: 2021-08-22T01:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [JPA Persistence Context][jpa-persistence-context-link]
+- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+- [JPA Flush][jpa-flush-link]
+- [JPA Clear][jpa-clear-link]
+
 ## 0. 들어가면서
 
 두서없이 JPA를 사용하다가 지금에 와서 보니 제대로 된 정의조차 모르고 있었습니다. 
@@ -79,7 +85,7 @@ Spring Data Jpa 모듈은 JPA를 한 단계 추상화시킨 `Repository`라는 �
 개발자는 이를 확장(extends)한 인터페이스를 만들고 Naming 규칙에 맞도록 메소드를 선언하기만 하면 됩니다. 
 Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등록하고 해당 인터페이스의 메소드가 호출될 때 이를 SQL로 변환하여 수행합니다.
 
-셋의 관계를 직관적으로 이해할 수 있도록 돕는 이미지를 [정다혜님 블로그][Dahye Jeong BlogLink]에서 가져왔습니다.
+셋의 관계를 직관적으로 이해할 수 있도록 돕는 이미지를 [정다혜님 블로그][dahye-jeong-blog-link]에서 가져왔습니다.
 
 ##### JPA / Hibernate / Spring Data Jpa 구조도
 
@@ -91,4 +97,9 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 - <https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/>
 - <https://gmlwjd9405.github.io/2019/08/03/reason-why-use-jpa.html>
 
-[Dahye Jeong BlogLink]: https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic
+[dahye-jeong-blog-link]: https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic
+
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
+[jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
+[jpa-clear-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/

@@ -14,6 +14,7 @@ last_modified_at: 2021-08-21T16:00:00
 👉 이어서 읽기를 추천합니다.
 - [MSA API Gateway][msa-api-gateway-link]
 - [Micro Service Architecture 배포 전략][msa-release-link]
+- [분산 트랜잭션(Distributed transaction)][distributed-transaction-link]
 
 ## 1. Micro Service Architecture 장점
 
@@ -135,3 +136,4 @@ y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점을 �
 
 [msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/
+[distributed-transaction-link]: https://junhyunny.github.io/msa/design-pattern/distributed-transaction/

@@ -13,6 +13,7 @@ last_modified_at: 2021-08-21T16:00:00
 - [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
 - [MSA API Gateway][msa-api-gateway-link]
 - [Micro Service Architecture 배포 전략][msa-release-link]
+- [분산 트랜잭션(Distributed transaction)][distributed-transaction-link]
 
 ## 0. 들어가면서
 
@@ -149,3 +150,4 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 [msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
 [msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/
+[distributed-transaction-link]: https://junhyunny.github.io/msa/design-pattern/distributed-transaction/

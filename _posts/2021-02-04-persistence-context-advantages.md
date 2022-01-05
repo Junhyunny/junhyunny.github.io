@@ -1,5 +1,5 @@
 ---
-title: "영속성 컨텍스트(Persistence Context) 사용 시 이점"
+title: "영속성 컨텍스트(Persistence Context) 장점"
 search: false
 category:
   - spring-boot
@@ -13,8 +13,15 @@ last_modified_at: 2021-08-22T01:30:00
 ⚠️ 해당 포스트는 2021년 8월 19일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JPA Persistence Context][jpa-persistence-context-link]
 - [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink]
+- [JPA(Java Persistence API)][jpa-blog-link]
+- [JPA Persistence Context][jpa-persistence-context-link]
+
+👉 이어서 읽기를 추천합니다.
+- [JPA Flush][jpa-flush-link]
+- [JPA Clear][jpa-clear-link]
+
+## 0. 들어가면서
 
 이번 글에서는 **`영속성 컨텍스트`**라는 별도의 영역을 통해 얻을 수 있는 이점이 무엇인지 영속성 컨텍스트가 지원하는 기능과 연관지어 알아보겠습니다. 
 테스트 코드를 통해 포스트의 이해도를 함께 높여보겠습니다.
@@ -391,8 +398,13 @@ public class DirtyCheckingTest {
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-04-persistence-context-advantages>
 
 #### REFERENCE
-- [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blogLink]
+- [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blog-link]
 
-[reference-blogLink]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
-[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[reference-blog-link]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
+
 [transaction-isolation-blogLink]: https://junhyunny.github.io/information/transcation-isolation/
+[jpa-blog-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+
+[jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
+[jpa-clear-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/

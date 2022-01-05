@@ -8,6 +8,9 @@ last_modified_at: 2021-08-22T00:30:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
+
 ## 0. 들어가면서
 
 시스템 개발/운영을 하면서 많이 접하게 되는 트랜잭션(Transaction)이라는 용어의 정확한 의미와 Transaction ACID 특징에 대해 정리해보았습니다. 
@@ -53,3 +56,5 @@ last_modified_at: 2021-08-22T00:30:00
 - <https://victorydntmd.tistory.com/129>
 
 [acid-link]: https://victorydntmd.tistory.com/129
+
+[transaction-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/

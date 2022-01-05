@@ -10,7 +10,7 @@ last_modified_at: 2021-08-21T17:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link]
+- [Spring Security 기반 JWT 인증 방식 예제][jwt-security-link]
 
 ## 0. 들어가면서
 
@@ -62,7 +62,7 @@ last_modified_at: 2021-08-21T17:00:00
 ```
 
 ### 1.2. Config 클래스 구현
-[Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link] 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
+[Spring Security 기반 JWT 인증 방식 예제][jwt-security-link] 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
 이유는 아래 AuthorizationServer 클래스 구현에서 확인하실 수 있습니다. 
 
 ```java
@@ -261,7 +261,4 @@ API 테스트는 Insomnia Tool을 사용하였습니다.
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-10-token-enhancer>
 
-#### REFERENCE
-- [Spring Security 기반 JWT 인증 방식 예제][jwrt-security-link]
-
-[jwrt-security-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[jwt-security-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/

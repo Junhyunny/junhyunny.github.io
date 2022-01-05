@@ -9,7 +9,11 @@ last_modified_at: 2021-08-21T16:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][msa-blogLink]
+- [Micro Service Architecture][msa-blog-link]
+
+👉 이어서 읽기를 추천합니다.
+- [MSA API Gateway][msa-api-gateway-link]
+- [Micro Service Architecture 배포 전략][msa-release-link]
 
 ## 1. Micro Service Architecture 장점
 
@@ -124,5 +128,8 @@ y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점을 �
 - <https://cloudacademy.com/blog/microservices-architecture-challenge-advantage-drawback/>
 - [주길재님 블로그 - 마이크로 서비스에 대해서 생각해보기][joo-blogLink]
 
-[msa-blogLink]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [joo-blogLink]: https://medium.com/giljae/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%83%9D%EA%B0%81%ED%95%B4%EB%B3%B4%EA%B8%B0-1529a94e624e
+
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
+[msa-release-link]: https://junhyunny.github.io/msa/msa-release/

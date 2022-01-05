@@ -8,6 +8,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
+
 ## 0. 들어가면서
 
 이번 포스트에서는 Spring Security 프레임워크에 대해 알아보았습니다. 
@@ -125,4 +128,5 @@ public interface UserDetailsService {
 - <https://bamdule.tistory.com/52>
 - <https://sjh836.tistory.com/165>
 
-[blogLink]: https://junhyunny.github.io/information/json-web-token/
+[jwt-blog-link]: https://junhyunny.github.io/information/json-web-token/
+[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/

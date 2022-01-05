@@ -9,6 +9,11 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
+- [MSA API Gateway][msa-api-gateway-link]
+- [Micro Service Architecture 배포 전략][msa-release-link]
+
 ## 0. 들어가면서
 
 첫 프로젝트는 모놀리식 아키텍처(Monilithic Architecture)기반의 기존 시스템을 마이크로 서비스 아키텍처(Micro Service Architecture)로 재구성하는 일이었습니다. 
@@ -137,6 +142,10 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 - <https://12bme.tistory.com/517>
 - <https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7>
 - <https://www.redhat.com/ko/topics/microservices/what-are-microservices>
-- [(마이크로 서비스 vs 모놀리식 아키텍처) MicroService vs Monolithic Architecture 간단 소개 및 주관적 의견][msa-blogLink]
+- [(마이크로 서비스 vs 모놀리식 아키텍처) MicroService vs Monolithic Architecture 간단 소개 및 주관적 의견][msa-blog-link]
 
-[msa-blogLink]: https://lion-king.tistory.com/entry/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4-vs-%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-MicroService-vs-Monolithic-Architecture-%EA%B0%84%EB%8B%A8-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%A3%BC%EA%B4%80%EC%A0%81-%EC%9D%98%EA%B2%AC
+[msa-blog-link]: https://lion-king.tistory.com/entry/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4-vs-%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-MicroService-vs-Monolithic-Architecture-%EA%B0%84%EB%8B%A8-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%A3%BC%EA%B4%80%EC%A0%81-%EC%9D%98%EA%B2%AC
+
+[msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
+[msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
+[msa-release-link]: https://junhyunny.github.io/msa/msa-release/

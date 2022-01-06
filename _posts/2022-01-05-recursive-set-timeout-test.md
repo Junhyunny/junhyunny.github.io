@@ -98,25 +98,25 @@ const polling = (callback, path, config, interval) => {
 설명과 함께 제가 알고 있는 지식을 일부 추가하여 내용을 작성하였습니다. 
 MQ(Macrotask Queue), mQ(Microtask Queue)입니다. 
 
-- `jest.useFakeTimers()` - `setTimeout(fn, timeout)`을 목(mock)으로 대체합니다.
+- `jest.useFakeTimers()` - `setTimeout(callback, timeout)`을 모킹(mocking)합니다.
 - `simpleTimer(callback)` 수행 내용
     - `await callback()` - `await` 키워드로 인해 `callback()` 수행 후 남은 작업이 마이크로태스크(microtask) 큐로 빠집니다.
     - `마이크로태스크_1` 생성. (큐 상태, MQ: 0 / mQ: 1)
     - 실행할 작업이 없으므로 `마이크로태스크_1`를 바로 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
-    - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
+    - `setTimeout(callback, timeout)` - `callback` 함수는 모킹된 `setTimeout()`의 콜백 함수로 등록됩니다.
     - `simpleTimer(callback)` 종료
 - `await` 키워드로 인해 `simpleTimer(callback)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
 - `마이크로태스크_2` 생성. (큐 상태, MQ: 0 / mQ: 1)
 - 실행할 작업이 없으므로 `마이크로태스크_2`를 바로 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
-- `jest.advanceTimersByTime(8000)` - 지정한 타임아웃(1000)보다 8000이 크므로 `fn` 함수를 실행합니다. 
-- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
+- `jest.advanceTimersByTime(8000)` - 지정한 타임아웃(1000)보다 8000이 크므로 `callback` 함수를 실행합니다. 
+- **`callback` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
 - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
-- `fn()` 수행 내용 
+- `callback()` 수행 내용 
     - `simpleTimer(callback)` 재귀 함수 호출, 수행 내용
         - `await callback()` - `await` 키워드로 인해 `callback()` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
         - **현재 콜 스택에서 advanceTimersByTime()가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
         - `마이크로태스크_3` 생성. (큐 상태, MQ: 0 / mQ: 1)
-    - `fn()` 종료
+    - `callback()` 종료
 - `expect(callback).toHaveBeenCalledTimes(9)` - 2회 수행으로 실패
 
 <p align="center">
@@ -152,22 +152,22 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 
 ##### 실행 흐름
 
-- `jest.useFakeTimers()` - 타이머 모킹
+- `jest.useFakeTimers()` - `setTimeout(callback, timeout)`을 모킹합니다.
 - `polling(...)` 수행 내용
-    - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
+    - `setTimeout(callback, timeout)` - `callback` 함수는 모킹된 `setTimeout()`의 콜백 함수로 등록됩니다.
     - `polling(...)` 종료
-- `jest.advanceTimersByTime(6000)` - 지정한 타임아웃(1000)보다 6000이 크므로 `fn` 함수를 실행합니다. 
-- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
+- `jest.advanceTimersByTime(6000)` - 지정한 타임아웃(1000)보다 6000이 크므로 `callback` 함수를 실행합니다. 
+- **`callback` 함수는 매크로태스크 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
 - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
-- `fn()` 수행 내용
+- `callback()` 수행 내용
     - `console.log(5)` - 5 출력
     - `await axios.get(...)` - `await` 키워드로 인해 `axios.get(...)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
     - **현재 콜 스택에서 advanceTimersByTime()가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
     - `마이크로태스크_1` 생성 (큐 상태, MQ: 0 / mQ: 1)
-    - `fn()` 종료
+    - `callback()` 종료
 - `console.log(1)` - 1 출력
-- `await waitFor(fn)` - `await` 키워드로 인해 `waitFor(fn)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-- `fn()` - `waitFor(fn)`의 내부 콜백 함수 `fn`이 실행, 수행 내용
+- `await waitFor(callback)` - `await` 키워드로 인해 `waitFor(callback)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+- `callback()` - `waitFor(callback)`의 내부 콜백 함수 `callback`이 실행, 수행 내용
     - `console.log(2)` - 2 반복 출력
     - 정확한 내부 동작은 모르겠지만 타임아웃이 나기까지 동작하는 것으로 보입니다.
 - `마이크로태스크_2` 생성 (큐 상태, MQ: 0 / mQ: 2)
@@ -176,7 +176,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
     - `console.log(6)` - 6 출력
     - `callback(response)` - 스파이 기능 수행
     - `polling(...)` - 재귀 함수 호출, 수행 내용
-        - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
+        - `setTimeout(callback, timeout)` - `callback` 함수는 모킹된 `setTimeout()`의 콜백 함수로 등록됩니다.
     - `마이크로태스크_1` 종료
 - 테스트 타임아웃 종료
 
@@ -235,27 +235,27 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 
 ##### 실행 흐름
 
-- `jest.useFakeTimers()` - 타이머 모킹
+- `jest.useFakeTimers()` - `setTimeout(callback, timeout)`을 모킹(mocking)합니다.
 - `pocPolling(...)` 수행 내용
-    - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
+    - `setTimeout(callback, timeout)` - `callback` 함수는 모킹된 `setTimeout()`의 콜백 함수로 등록됩니다.
     - `pocPolling(...)` 종료
 - 하위 로직은 반복 수행합니다.
-    - `jest.advanceTimersByTime(1000)` - 지정한 타임아웃(1000)을 만족하므로 `fn` 함수를 실행합니다. 
-    - **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
+    - `jest.advanceTimersByTime(1000)` - 지정한 타임아웃(1000)을 만족하므로 `callback` 함수를 실행합니다. 
+    - **`callback` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
     - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
-    - `fn()` 수행 내용
+    - `callback()` 수행 내용
         - `console.log(3)` - 3 출력
         - `await new Promise(resolveFn)` - `await` 키워드로 인해 `new Promise(resolveFn)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
         - **현재 콜 스택에서 advanceTimersByTime()가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
         - `마이크로태스크_1` 생성 (큐 상태, MQ: 0 / mQ: 1)
-        - `fn()` 종료
+        - `callback()` 종료
     - `console.log(1)` - 1 출력
     - `await Promise.resolve()` - `await` 키워드로 인해 `Promise.resolve()` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
     - `마이크로태스크_2` 생성 (큐 상태, MQ: 0 / mQ: 2)
     - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_1` 을 수행합니다. (큐 상태, MQ: 0 / mQ: 1)
     - `console.log(4)` - 4 출력
     - `pocPolling(...)` 수행 내용
-        - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
+        - `setTimeout(callback, timeout)` - `callback` 함수는 모킹된 `setTimeout()`의 콜백 함수로 등록됩니다.
         - `pocPolling(...)` 종료
     - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_2` 을 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
     - `console.log(2)` - 2 출력

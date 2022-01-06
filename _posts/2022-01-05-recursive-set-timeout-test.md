@@ -92,7 +92,7 @@ const polling = (callback, path, config, interval) => {
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
-#### 2.1.2 Stack Overflow 답변
+#### 2.1.2 Analysis logic flow based on Stack Overflow answer 
 
 답변을 보면 문장 중간에 `setTimer(callback)`가 등장하는데, 문맥상 `simpleTimer(callback)`을 잘못 작성한 것으로 보입니다. 
 설명과 함께 제가 알고 있는 지식을 일부 추가하여 내용을 작성하였습니다. 
@@ -118,6 +118,8 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
         - `마이크로태스크_3` 생성. (큐 상태, MQ: 0 / mQ: 1)
     - `callback()` 종료
 - `expect(callback).toHaveBeenCalledTimes(9)` - 2회 수행으로 실패
+
+##### Stack Overflow 답변
 
 <p align="center">
     <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">

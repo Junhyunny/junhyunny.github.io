@@ -10,6 +10,10 @@ last_modified_at: 2022-01-04T23:55:00
 
 <br>
 
+⚠️ 해당 포스트는 2022년 1월 7일에 재작성되었습니다.
+- 최초 작성일 1월 5일
+- 코드 흐름에 대한 설명 불충분 - 매크로태스크, 마이크로태스크 수행에 대한 공부 후 코드 흐름 재작성
+
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Asynchronous Task In JavaScript][how-to-work-javascript-async-link]
 
@@ -18,7 +22,7 @@ last_modified_at: 2022-01-04T23:55:00
 간단한 폴링(polling) 기능을 구현하다가 마주친 문제입니다. 
 `setTimeout` API 함수와 재귀적인 호출로 구현했는데 `Jest`를 사용한 테스트 코드 작성이 쉽지 않았습니다. 
 실제 구현 코드는 정상적으로 동작했지만, 테스트를 정상적으로 통과시키지 못 했습니다. 
-스택 오버플로우를 뒤적이다 해결 방법을 찾았고 이에 대해 정리하였습니다. 
+스택 오버플로우를 뒤적이다 찾은 해결 방법에 대해 정리하였습니다. 
 비슷한 문제를 겪으시는 분들께 도움이 되길 바랍니다.
 
 ## 1. 문제 상황
@@ -46,12 +50,12 @@ const polling = (callback, path, config, interval) => {
 
 ### 1.2. 테스트 코드
 - 문제가 되었던 테스트 코드에 대해 간단히 설명해보겠습니다. 
-    - `jest`를 이용해 가짜 타이머를 사용하도록 설정합니다.
+    - `jest.useFakeTimers()` - 가짜 타이머를 사용하도록 설정합니다.
     - 테스트 정상 동작 여부를 확인할 스파이, 스텁(stub)을 생성합니다.
-    - `polling` 함수를 실행합니다.
-    - `jest` 타이머를 6초 진행시킵니다. 
-    - 원하는 횟수만큼 호출되었는지, 원하는 결과를 얻었는지 확인합니다.
-- 실제 해당 테스트 코드를 돌리면 `callback` 스파이가 1회 수행되었다는 결과를 얻게 됩니다.
+    - `polling(callback, '/second-auth', {}, 1000)` - 폴링 함수를 실행합니다.
+    - `jest.advanceTimersByTime(6000)` - 타이머를 6초 진행시킵니다. 
+    - 결과를 확인합니다.
+- `callback` 스파이가 6회 수행되었길 기대하지만, 1회 수행되었다는 결과를 얻게 됩니다.
 
 ```react
     it('given 1 second interval with 6 seconds waiting when call polling method then 6 times call', async () => {
@@ -76,48 +80,57 @@ const polling = (callback, path, config, interval) => {
 ## 2. 문제 원인
 
 이제 문제의 원인을 파헤쳐보겠습니다. 
-해결 방법은 스택 오버플로우에서 찾을 수 있었습니다. 
-스택 오버플로우 설명에 대해 이해하고, 제 코드에서 문제를 찾아보도록 하겠습니다. 
+스택 오버플로우에서 찾은 설명을 정리하고, 제 코드에서 문제를 찾아보도록 하겠습니다. 
 
 ### 2.1. Stack Overflow QnA 정리
 
-##### Stack Overflow 질문
+#### 2.1.1. Stack Overflow 질문
+- 9회 수행을 기대하였지만, 실제 2회만 동작하여 테스트가 실패했다고 합니다.
 
 <p align="center">
     <img src="/images/recursive-set-timeout-test-1.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
-##### Stack Overflow 답변
+#### 2.1.2 Stack Overflow 답변
 
 답변을 보면 문장 중간에 `setTimer(callback)`가 등장하는데, 문맥상 `simpleTimer(callback)`을 잘못 작성한 것으로 보입니다. 
+설명과 함께 제가 알고 있는 지식을 일부 추가하여 내용을 작성하였습니다. 
 
-- `jest.useFakeTimers()`를 사용하면 `setTimeout()`을 목(mock)으로 대체됩니다.
-- `jest.advanceTimersByTime(8000)`를 호출하면 1000보다 8000이 크므로 `setTimeout()` 내부 코드가 동작합니다.
-- `simpleTimer(callback)` 내부에서 `await callback()` 호출에 의해 프로미스가 생성됩니다. 
-- 이로 인해 두번째 `setTimeout()` 함수가 동작하지 않습니다. 
-    - `PromiseJobs` 큐에 쌓인 프로미스로 인해 이후 `setTimout()`은 실행될 기회를 얻지 못 합니다.
-- `PromiseJobs` 관련 설명 링크 - <https://262.ecma-international.org/6.0/#sec-jobs-and-job-queues>
+- `jest.useFakeTimers()` - `setTimeout(fn, timeout)`을 목(mock)으로 대체합니다.
+- `simpleTimer(callback)` 수행 내용
+    - `await callback()` - `await` 키워드로 인해 `callback()` 수행 후 남은 작업이 마이크로태스크(microtask) 큐로 빠집니다.
+    - 이전에 대기 중인 마이크로태스크가 없으므로 바로 남은 작업을 수행합니다.
+    - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `simpleTimer(callback)` 종료
+- `await` 키워드로 인해 `simpleTimer(callback)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+- 이전에 대기 중인 마이크로태스크가 없으므로 바로 남은 작업을 수행합니다.
+- `jest.advanceTimersByTime(8000)` - 지정한 타임아웃(1000)보다 8000이 크므로 `fn` 함수를 실행합니다. 
+- **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
+- `fn()` 수행 내용
+    - `simpleTimer(callback)` 재귀 함수 호출, 수행 내용
+        - `await callback()` - `await` 키워드로 인해 `callback()` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+        - **현재 매크로태스크가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
+    - `fn()` 종료
+- `expect(callback).toHaveBeenCalledTimes(9)` - 2회 수행으로 실패
 
 <p align="center">
     <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
-##### Additional Information - PromiseJobs Queue
+#### 2.1.3. Additional Information - PromiseJobs Queue
 
 추가 내용을 달아주셨는데, `JavaScript`가 동작하는 방식에 대한 간략한 설명을 통해 이런 문제가 왜 발생하는지 이해하는데 도움을 줍니다. 
+`ECMA` 진영에서 사용하는 용어가 일부 달라서 헷갈릴 수 있으므로 용어도 함께 정리하였습니다.
 
-- Message Queue
-    - `Message Queue`에 담기는 메세지들은 다음 메세지를 읽기 전에 완전히 종료됩니다. 
-    - `setTimeout()` 같은 함수는 `Message Queue`에 담깁니다.
-- Job Queues
-    - `PromiseJobs`은 여러 `Job Queues` 중 하나입니다. 
-    - 안에 담긴 잡(job)은 현재 메세지가 완료된 후 다음 메세지가 시작되기 전에 실행됩니다.
-    - 프로미스(promise)의 `then` 함수는 호출된 프로미스가 해결(resolve)되면 잡을 `PromiseJobs`에 담습니다.
-- async / await
-    - `async` 키워드는 항상 프로미스를 반환합니다.
-    - `await` 키워드는 `then` 콜백 함수를 랩핑합니다. 
+##### 용어 정리
+
+| ECAM | V8 엔진 | 기타 정보 | 
+|:---:|:---:|:---|
+| Message Queue | Macrotask Queue | setTimeout, setInterval, setImmediate 콜백 함수 저장 |
+| Message | Macrotask | setTimeout, setInterval, setImmediate 콜백 함수 |
+| PromiseJobs | Microtask Queue | Promise.then, Promise.catch 콜백 함수 및 await 키워드 이후 로직 저장 |
 
 <p align="center">
     <img src="/images/recursive-set-timeout-test-3.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
@@ -130,26 +143,32 @@ const polling = (callback, path, config, interval) => {
 
 ##### 실행 흐름
 
-1. `polling` 호출시 `setTimeout()` 메세지 큐에 추가
-    - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
-    - `PromiseJobs` 상태 - (empty)
-1. `jest.advanceTimersByTime(6000)` 호출시 1000보다 6000이 크므로 `setTimeout(func, timeout)` 메세지 실행
-    - `Message Queue` 상태 - (empty)
-    - `PromiseJobs` 상태 - (empty)
-1. `setTimeout()`이 실행한 함수 내부에서 `await`으로 인해 생성된 프로미스 `PromiseJobs` 큐에 추가
-    - `Message Queue` 상태 - (empty)
-    - `PromiseJobs` 상태 - `[Promise]`
-1. `await waitFor(func)` 수행
-    - `func` 함수를 계속 반복 실행합니다.
-    - 반복 실행 중 `axios.get()` 함수로부터 스터빙(stubing) 된 결과를 받고 코드가 진행됩니다.
-1. 내부 `polling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
-    - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
-    - `PromiseJobs` 상태 - `[Promise]`
-1. `Message Queue`에 담긴 `setTimeout()`을 수행하기 위해선 `PromiseJobs`에 담긴 프로미스 해소 필요
-1. 이후 진행되는 로직 없이 종료
+- `jest.useFakeTimers()` - 타이머 모킹
+- `polling(...)` 수행 내용
+    - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+- `jest.advanceTimersByTime(6000)` - 지정한 타임아웃(1000)보다 6000이 크므로 `fn` 함수를 실행합니다. 
+- **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
+- `fn()` 수행 내용
+    - `console.log(5)` - 5 출력
+    - `await axios.get(...)` - `await` 키워드로 인해 `axios.get(...)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+    - **현재 매크로태스크가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다. - 마이크로태스크_1**
+    - `fn()` 종료
+- `await waitFor(fn)` - `await` 키워드로 인해 `waitFor(fn)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+- `waitFor(fn)` - 내부 콜백 함수 `fn`이 실행됩니다.
+- `fn()` - 수행 내용
+    - `console.log(2)` - 2 반복 출력
+    - 정확한 내부 동작은 모르겠지만 타임아웃이 나기까지 동작하는 것으로 보입니다.
+- `waitFor(fn)` 종료 및 이후 로직 `마이크로태스크_2`로 마이크로태스크 큐에 추가됩니다.
+- 이후 수행할 별도 로직은 없으므로 마이크로태스크 큐에 먼저 들어있던 `마이크로태스크_1` 수행
+- `마이크로태스크_1` 수행 내용
+    - `console.log(6)` - 6 출력
+    - `callback(response)` - 스파이 기능 수행
+    - `polling(...)` - 재귀 함수 호출, 수행 내용
+        - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `마이크로태스크_1` 종료
+- 테스트 타임아웃 종료
 
 ##### 테스트 코드
-- 콘솔 로그를 통해 실행 흐름을 확인하였습니다.
 - 로그 흐름 - `5 > 1 > 2 > 2 > ... > 6 > 2 > 2 > ... 종료`
 
 ```react
@@ -203,27 +222,31 @@ const polling = (callback, path, config, interval) => {
 
 ##### 실행 흐름
 
-1. `pocPolling` 호출시 `setTimeout()` 메세지 큐에 추가
-    - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
-    - `PromiseJobs` 상태 - (empty)
-1. `for loop`을 통한 반복 호출
-    1. `jest.advanceTimersByTime(1000)` 호출시 대기시간 1000을 만족하므로 `setTimeout(func, timeout)` 메세지 실행
-        - `Message Queue` 상태 - (empty)
-        - `PromiseJobs` 상태 - (empty)
-    1. `setTimeout()`이 실행한 함수 내부에서 `await`으로 인해 생성된 프로미스 `PromiseJobs` 큐에 추가
-        - `Message Queue` 상태 - (empty)
-        - `PromiseJobs` 상태 - `[Promise]`
-    1. `await Promise.resolve()` 호출시 `PromiseJobs`에 담긴 프로미스 해소 후 남은 로직 수행
-        - `callback` 스파이 1회 호출 
-        - `Message Queue` 상태 - (empty)
-        - `PromiseJobs` 상태 - (empty)
-    1. 내부 `pocPolling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
-        - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
-        - `PromiseJobs` 상태 - (empty)
-1. `callback` 스파이 확인시 6회 동작 확인
+- `jest.useFakeTimers()` - 타이머 모킹
+- `pocPolling(...)` 수행 내용
+    - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `pocPolling(...)` 종료
+- 하위 로직은 반복 수행합니다.
+    - `jest.advanceTimersByTime(1000)` - 지정한 타임아웃(1000)을 만족하므로 `fn` 함수를 실행합니다. 
+    - **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
+    - `fn()` 수행 내용
+        - `console.log(3)` - 3 출력
+        - `await new Promise(resolveFn)` - `await` 키워드로 인해 `new Promise(resolveFn)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+        - **현재 매크로태스크가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다. - 마이크로태스크_1**
+        - `fn()` 종료
+    - `console.log(1)` - 1 출력
+    - `await Promise.resolve()` - `await` 키워드로 인해 `Promise.resolve()` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
+    - `Promise.resolve()` 이후 로직은 모두 `마이크로태스크_2`로 마이크로태스크 큐에 추가됩니다.
+    - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_1` 을 수행합니다.
+    - `console.log(4)` - 4 출력
+    - `pocPolling(...)` 수행 내용
+        - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+        - `pocPolling(...)` 종료
+    - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_2` 을 수행합니다.
+    - `console.log(2)` - 2 출력
+- 반복 로직 종료 및 테스트 결과 정상
 
 ##### 테스트 코드
-- 콘솔 로그를 통해 실행 흐름을 확인하였습니다.
 - 로그 흐름 - `3 > 1 > 4 > 2 > ... > 3 > 1 > 4 > 2 종료`
 
 ```react
@@ -267,15 +290,13 @@ const pocPolling = (callback, path, config, interval) => {
 
 ## 4. jest.spyOn(axios, 'get') 사용시 생기는 문제
 
-`jest.spyOn()`를 사용하여 `axios.get()` 함수를 모킹하면 `await Promise.resolve()` 호출을 2회 추가적으로 수행해야 정상적으로 동작합니다. 
+`jest.spyOn()`를 사용하여 `axios.get(...)` 함수를 모킹하면 `await Promise.resolve()` 호출을 2회 추가적으로 수행해야 정상적으로 동작합니다. 
 모킹된 함수를 호출하는 시점에 두 개의 프로미스가 추가되는 것 같습니다. 
 정확한 답을 찾을 수 없어서 관련된 내용은 `Stack Overflow`에 질문을 남겼습니다. 
 업데이트 사항들은 지속적으로 싱크-업(sync-up)하겠습니다. 
 - 질문 링크 - [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
-- ~~스택 오버플로우 첫 질문을 통해 얻는 `student` 브론즈 뱃지가 탐나는 것은 절대 아닙니다.~~
 
 ##### 테스트 코드
-- 콘솔 로그를 통해 실행 흐름을 확인하였습니다.
 - 로그 흐름 - `5 > 1 > 2 > 3 > 6 > 4 > ... > 5 > 1 > 2 > 3 > 6 > 4 종료`
 
 ```react
@@ -386,6 +407,7 @@ polling(checkSecondAuthentication, 5000);
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-05-recursive-set-timeout-test/action-in-blog-react>
 
 #### REFERENCE
+- <https://jestjs.io/docs/jest-object>
 - <https://stackoverflow.com/questions/56124733/how-to-use-jest-to-test-the-time-course-of-recursive-functions>
 - <https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function>
 - <https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop>

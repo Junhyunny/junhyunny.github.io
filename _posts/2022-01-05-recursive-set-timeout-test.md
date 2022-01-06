@@ -132,6 +132,8 @@ const polling = (callback, path, config, interval) => {
 | Message | Macrotask | setTimeout, setInterval, setImmediate 콜백 함수 |
 | PromiseJobs | Microtask Queue | Promise.then, Promise.catch 콜백 함수 및 await 키워드 이후 로직 저장 |
 
+##### Additional Information
+
 <p align="center">
     <img src="/images/recursive-set-timeout-test-3.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>

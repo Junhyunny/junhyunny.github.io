@@ -124,10 +124,8 @@ const polling = (callback, path, config, interval) => {
 ### 2.2. Return to my code
 
 이제 다시 제 코드로 돌아왔습니다. 테스트 코드의 흐름을 따라가보겠습니다. 
-콘솔 로그를 통해 실행 흐름을 확인하면서 정리하였습니다.
 
-> 로그 추적<br>
-> 5 > 1 > 2 > 2 > ... > 6 > 2 > 2 > ... 종료 
+##### 실행 흐름
 
 1. `polling` 호출시 `setTimeout()` 메세지 큐에 추가
     - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
@@ -148,6 +146,8 @@ const polling = (callback, path, config, interval) => {
 1. 이후 진행되는 로직 없이 종료
 
 ##### 테스트 코드
+- 콘솔 로그를 통해 실행 흐름을 확인하였습니다.
+- 로그 흐름 - `5 > 1 > 2 > 2 > ... > 6 > 2 > 2 > ... 종료`
 
 ```react
     it('given timeout 1 second with 6 seconds when call polling method then 6 times call', async () => {
@@ -196,12 +196,9 @@ const polling = (callback, path, config, interval) => {
 ## 3. 문제 해결
 
 `axios`를 `jest.spyOn()` 함수로 모킹(mocking)하는 경우 또 다른 문제가 발생하였는데, 관련된 내용은 아래에서 다루도록 하겠습니다. 
-일단 `axios` 관련 로직은 제거하고 관련된 컨셉을 이해할 수 있도록 코드를 재구성하였습니다. 
-테스트 코드의 흐름을 따라가보곘습니다. 
-마찬가지로 콘솔 로그를 통해 확인한 실행 흐름을 정리하였습니다.
+일단 `axios` 관련 로직은 제거하고 이 컨셉(concept)을 이해할 수 있도록 코드를 재구성하였습니다. 
 
-> 로그 추적<br>
-> 3 > 1 > 4 > 2 > ... > 3 > 1 > 4 > 2 종료 
+##### 실행 흐름
 
 1. `pocPolling` 호출시 `setTimeout()` 메세지 큐에 추가
     - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
@@ -214,7 +211,7 @@ const polling = (callback, path, config, interval) => {
         - `Message Queue` 상태 - (empty)
         - `PromiseJobs` 상태 - `[Promise]`
     1. `await Promise.resolve()` 호출시 `PromiseJobs`에 담긴 프로미스 해소 후 남은 로직 수행
-        - 이 시점에 `callback` 스파이 1회 호출 
+        - `callback` 스파이 1회 호출 
         - `Message Queue` 상태 - (empty)
         - `PromiseJobs` 상태 - (empty)
     1. 내부 `pocPolling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
@@ -223,6 +220,8 @@ const polling = (callback, path, config, interval) => {
 1. `callback` 스파이 확인시 6회 동작 확인
 
 ##### 테스트 코드
+- 콘솔 로그를 통해 실행 흐름을 확인하였습니다.
+- 로그 흐름 - `3 > 1 > 4 > 2 > ... > 3 > 1 > 4 > 2 종료`
 
 ```react
     it('PoC Message queues, PromiseJobs and Mock Timers', async () => {
@@ -265,19 +264,16 @@ const pocPolling = (callback, path, config, interval) => {
 
 ## 4. jest.spyOn(axios, 'get') 사용시 생기는 문제
 
-실제로 제가 작성한 폴링 코드를 위와 같은 방법으로 해결하진 못 했습니다. 
 `jest.spyOn()`를 사용하여 `axios.get()` 함수를 모킹하면 `await Promise.resolve()` 호출을 2회 추가적으로 수행해야 정상적으로 동작합니다. 
 모킹된 함수를 호출하는 시점에 두 개의 프로미스가 추가되는 것 같습니다. 
-마찬가지로 콘솔 로그를 통해 확인한 실행 흐름을 정리하면 다음과 같습니다.
-
-> 로그 추적<br>
-> 5 > 1 > 2 > 3 > 6 > 4 > ... > 5 > 1 > 2 > 3 > 6 > 4 종료
-
-관련된 내용은 스택 오버플로우 질문 후 해당 포스트에 계속 업데이트하겠습니다. 
+정확한 답을 찾을 수 없어서 관련된 내용은 `Stack Overflow`에 질문을 남겼습니다. 
+업데이트 사항들은 지속적으로 싱크-업(sync-up)하겠습니다. 
 - 질문 링크 - [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
-- ~~(스택 오버플로우 첫 질문을 통해 얻는 `student` 브론즈 뱃지가 탐나는 것은 절대 아닙니다.)~~
+- ~~스택 오버플로우 첫 질문을 통해 얻는 `student` 브론즈 뱃지가 탐나는 것은 절대 아닙니다.~~
 
 ##### 테스트 코드
+- 콘솔 로그를 통해 실행 흐름을 확인하였습니다.
+- 로그 흐름 - `5 > 1 > 2 > 3 > 6 > 4 > ... > 5 > 1 > 2 > 3 > 6 > 4 종료`
 
 ```react
     it('guess something two wierd promises are made by axios.get method mocking', async () => {
@@ -309,7 +305,7 @@ const pocPolling = (callback, path, config, interval) => {
 
 ## 5. 다른 테스트 통과 코드
 
-관련된 내용을 팀원들과 공유하여 얻은 또 다른 테스트 코드입니다.(이런 방법은 생각 못 했습니다.) 
+관련된 내용을 팀원들과 공유하여 얻은 또 다른 테스트 코드입니다. 이런 방법은 생각 못 했습니다. 
 - `jest.setTimeout()` 함수를 이용해 테스트 타임아웃 시간을 10초로 늘려줍니다. 
 - `setTimeout()`함수를 이용해 7초 뒤에 결과를 확인합니다. 
 - `done()` 함수를 이용해 비동기 테스트가 끝났음을 알립니다. 
@@ -349,10 +345,10 @@ it('given 1 second interval with 6 seconds waiting when call polling method then
 여담이지만 현재 `클린 코드(clean code)`를 읽는 중인데 예시로 든 `polling` 함수는 문제가 많은 코드입니다. 
 
 > 클린 코드(clean code)<br>
-> 함수에서 이상적인 인수 개수는 0개(무항)다. 
-> 다음은 1개(단항)고, 다음은 2개(이항)다. 
-> 3개(삼항)는 가능한 피하는 편이 좋다. 
-> 4개 이상(다항)은 특별한 이유가 필요하다. 
+> 함수에서 이상적인 인수 개수는 0개다. 
+> 다음은 1개고, 다음은 2개다. 
+> 3개는 가능한 피하는 편이 좋다. 
+> 4개 이상은 특별한 이유가 필요하다. 
 
 별 생각 없이 `callback`, `path`, `config`들을 인수(parameter)로 넘기니 코드가 장황해졌습니다. 
 이들을 별도 함수로 묶으면 코드가 어느 정도 깔끔해집니다. 

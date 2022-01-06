@@ -148,6 +148,7 @@ const polling = (callback, path, config, interval) => {
 - `jest.useFakeTimers()` - 타이머 모킹
 - `polling(...)` 수행 내용
     - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `polling(...)` 종료
 - `jest.advanceTimersByTime(6000)` - 지정한 타임아웃(1000)보다 6000이 크므로 `fn` 함수를 실행합니다. 
 - **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
 - `fn()` 수행 내용

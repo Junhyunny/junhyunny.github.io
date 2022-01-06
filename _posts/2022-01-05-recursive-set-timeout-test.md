@@ -96,21 +96,26 @@ const polling = (callback, path, config, interval) => {
 
 답변을 보면 문장 중간에 `setTimer(callback)`가 등장하는데, 문맥상 `simpleTimer(callback)`을 잘못 작성한 것으로 보입니다. 
 설명과 함께 제가 알고 있는 지식을 일부 추가하여 내용을 작성하였습니다. 
+MQ(Macrotask Queue), mQ(Microtask Queue)입니다. 
 
 - `jest.useFakeTimers()` - `setTimeout(fn, timeout)`을 목(mock)으로 대체합니다.
 - `simpleTimer(callback)` 수행 내용
     - `await callback()` - `await` 키워드로 인해 `callback()` 수행 후 남은 작업이 마이크로태스크(microtask) 큐로 빠집니다.
-    - 이전에 대기 중인 마이크로태스크가 없으므로 바로 남은 작업을 수행합니다.
-    - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `마이크로태스크_1` 생성. (큐 상태, MQ: 0 / mQ: 1)
+    - 실행할 작업이 없으므로 `마이크로태스크_1`를 바로 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
+    - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
     - `simpleTimer(callback)` 종료
 - `await` 키워드로 인해 `simpleTimer(callback)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-- 이전에 대기 중인 마이크로태스크가 없으므로 바로 남은 작업을 수행합니다.
+- `마이크로태스크_2` 생성. (큐 상태, MQ: 0 / mQ: 1)
+- 실행할 작업이 없으므로 `마이크로태스크_2`를 바로 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
 - `jest.advanceTimersByTime(8000)` - 지정한 타임아웃(1000)보다 8000이 크므로 `fn` 함수를 실행합니다. 
-- **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
-- `fn()` 수행 내용
+- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다.([Github Link][advanceTimersByTime-link])**
+- (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
+- `fn()` 수행 내용 
     - `simpleTimer(callback)` 재귀 함수 호출, 수행 내용
         - `await callback()` - `await` 키워드로 인해 `callback()` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-        - **현재 매크로태스크가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
+        - **현재 콜 스택에서 advanceTimersByTime()가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
+        - `마이크로태스크_3` 생성. (큐 상태, MQ: 0 / mQ: 1)
     - `fn()` 종료
 - `expect(callback).toHaveBeenCalledTimes(9)` - 2회 수행으로 실패
 
@@ -141,33 +146,37 @@ const polling = (callback, path, config, interval) => {
 
 ### 2.2. Return to my code
 
-이제 다시 제 코드로 돌아왔습니다. 테스트 코드의 흐름을 따라가보겠습니다. 
+이제 다시 제 코드로 돌아왔습니다. 
+테스트 코드의 흐름을 따라가보겠습니다. 
+MQ(Macrotask Queue), mQ(Microtask Queue)입니다. 
 
 ##### 실행 흐름
 
 - `jest.useFakeTimers()` - 타이머 모킹
 - `polling(...)` 수행 내용
-    - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
     - `polling(...)` 종료
 - `jest.advanceTimersByTime(6000)` - 지정한 타임아웃(1000)보다 6000이 크므로 `fn` 함수를 실행합니다. 
-- **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
+- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다.([Github Link][advanceTimersByTime-link])**
+- (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
 - `fn()` 수행 내용
     - `console.log(5)` - 5 출력
     - `await axios.get(...)` - `await` 키워드로 인해 `axios.get(...)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-    - **현재 매크로태스크가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다. - 마이크로태스크_1**
+    - **현재 콜 스택에서 advanceTimersByTime()가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
+    - `마이크로태스크_1` 생성 (큐 상태, MQ: 0 / mQ: 1)
     - `fn()` 종료
+- `console.log(1)` - 1 출력
 - `await waitFor(fn)` - `await` 키워드로 인해 `waitFor(fn)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-- `waitFor(fn)` - 내부 콜백 함수 `fn`이 실행됩니다.
-- `fn()` - 수행 내용
+- `fn()` - `waitFor(fn)`의 내부 콜백 함수 `fn`이 실행, 수행 내용
     - `console.log(2)` - 2 반복 출력
     - 정확한 내부 동작은 모르겠지만 타임아웃이 나기까지 동작하는 것으로 보입니다.
-- `waitFor(fn)` 종료 및 이후 로직 `마이크로태스크_2`로 마이크로태스크 큐에 추가됩니다.
-- 이후 수행할 별도 로직은 없으므로 마이크로태스크 큐에 먼저 들어있던 `마이크로태스크_1` 수행
+- `마이크로태스크_2` 생성 (큐 상태, MQ: 0 / mQ: 2)
+- 이후 수행할 별도 로직은 없으므로 마이크로태스크 큐에 먼저 들어있던 `마이크로태스크_1` 수행합니다. (큐 상태, MQ: 0 / mQ: 1)
 - `마이크로태스크_1` 수행 내용
     - `console.log(6)` - 6 출력
     - `callback(response)` - 스파이 기능 수행
     - `polling(...)` - 재귀 함수 호출, 수행 내용
-        - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+        - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
     - `마이크로태스크_1` 종료
 - 테스트 타임아웃 종료
 
@@ -222,30 +231,33 @@ const polling = (callback, path, config, interval) => {
 
 `axios`를 `jest.spyOn()` 함수로 모킹(mocking)하는 경우 또 다른 문제가 발생하였는데, 관련된 내용은 아래에서 다루도록 하겠습니다. 
 일단 `axios` 관련 로직은 제거하고 이 컨셉(concept)을 이해할 수 있도록 코드를 재구성하였습니다. 
+MQ(Macrotask Queue), mQ(Microtask Queue)입니다. 
 
 ##### 실행 흐름
 
 - `jest.useFakeTimers()` - 타이머 모킹
 - `pocPolling(...)` 수행 내용
-    - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+    - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
     - `pocPolling(...)` 종료
 - 하위 로직은 반복 수행합니다.
     - `jest.advanceTimersByTime(1000)` - 지정한 타임아웃(1000)을 만족하므로 `fn` 함수를 실행합니다. 
-    - **여기서 `fn` 함수를 매크로태스크(microtask)로써 실행하는 것으로 보입니다.**
+    - **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다.([Github Link][advanceTimersByTime-link])**
+    - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
     - `fn()` 수행 내용
         - `console.log(3)` - 3 출력
         - `await new Promise(resolveFn)` - `await` 키워드로 인해 `new Promise(resolveFn)` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-        - **현재 매크로태스크가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다. - 마이크로태스크_1**
+        - **현재 콜 스택에서 advanceTimersByTime()가 실행 중이므로 마이크로태스크는 큐에서 대기하게 됩니다.**
+        - `마이크로태스크_1` 생성 (큐 상태, MQ: 0 / mQ: 1)
         - `fn()` 종료
     - `console.log(1)` - 1 출력
     - `await Promise.resolve()` - `await` 키워드로 인해 `Promise.resolve()` 수행 후 남은 작업이 마이크로태스크 큐로 빠집니다.
-    - `Promise.resolve()` 이후 로직은 모두 `마이크로태스크_2`로 마이크로태스크 큐에 추가됩니다.
-    - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_1` 을 수행합니다.
+    - `마이크로태스크_2` 생성 (큐 상태, MQ: 0 / mQ: 2)
+    - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_1` 을 수행합니다. (큐 상태, MQ: 0 / mQ: 1)
     - `console.log(4)` - 4 출력
     - `pocPolling(...)` 수행 내용
-        - `setTimeout(fn, timeout)` - `fn` 함수가 WEB API 영역으로 빠집니다.
+        - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
         - `pocPolling(...)` 종료
-    - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_2` 을 수행합니다.
+    - 수행할 로직이 없어졌으므로 마이크로태스크 큐에 먼저 들어와있던 `마이크로태스크_2` 을 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
     - `console.log(2)` - 2 출력
 - 반복 로직 종료 및 테스트 결과 정상
 
@@ -415,6 +427,8 @@ polling(checkSecondAuthentication, 5000);
 - <https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function>
 - <https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop>
 - <https://262.ecma-international.org/6.0/#sec-jobs-and-job-queues>
+
+[advanceTimersByTime-link]: https://github.com/facebook/jest/blob/790abe71b9e342170c06a9b75783d929cdd2bb89/packages/jest-util/src/fake_timers.js#L260-L294
 
 [stack-overflow-question-link]: https://stackoverflow.com/questions/70600151/does-spyaxios-mocked-by-jest-spyonaxios-get-make-promise-when-it-is-called
 

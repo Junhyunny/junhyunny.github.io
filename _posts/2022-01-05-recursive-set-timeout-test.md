@@ -1,5 +1,5 @@
 ---
-title: "Recursive setTimeout test with Jest (feat. Jest fakeTimer 해부하기)"
+title: "Recursive setTimeout test with Jest (feat. advanceTimersByTime 열어보기)"
 search: false
 category:
   - react
@@ -109,7 +109,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 - `마이크로태스크_2` 생성. (큐 상태, MQ: 0 / mQ: 1)
 - 실행할 작업이 없으므로 `마이크로태스크_2`를 바로 수행합니다. (큐 상태, MQ: 0 / mQ: 0)
 - `jest.advanceTimersByTime(8000)` - 지정한 타임아웃(1000)보다 8000이 크므로 `fn` 함수를 실행합니다. 
-- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다.([Github Link][advanceTimersByTime-link])**
+- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
 - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
 - `fn()` 수행 내용 
     - `simpleTimer(callback)` 재귀 함수 호출, 수행 내용
@@ -157,7 +157,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
     - `setTimeout(fn, timeout)` - `fn` 함수는 모킹된 `fakeTimer`의 콜백 함수로 등록됩니다.
     - `polling(...)` 종료
 - `jest.advanceTimersByTime(6000)` - 지정한 타임아웃(1000)보다 6000이 크므로 `fn` 함수를 실행합니다. 
-- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다.([Github Link][advanceTimersByTime-link])**
+- **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
 - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
 - `fn()` 수행 내용
     - `console.log(5)` - 5 출력
@@ -241,7 +241,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
     - `pocPolling(...)` 종료
 - 하위 로직은 반복 수행합니다.
     - `jest.advanceTimersByTime(1000)` - 지정한 타임아웃(1000)을 만족하므로 `fn` 함수를 실행합니다. 
-    - **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다.([Github Link][advanceTimersByTime-link])**
+    - **`fn` 함수는 매크로태스크(macrotask) 큐로 이동하지 않고 advanceTimersByTime 내부에서 바로 실행합니다. ([Github Link][advanceTimersByTime-link])**
     - (`advanceTimersByTime(msToRun: number) > _runTimerHandle(timerHandle: TimerID) > callback() 순으로 수행`)
     - `fn()` 수행 내용
         - `console.log(3)` - 3 출력

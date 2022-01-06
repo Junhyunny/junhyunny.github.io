@@ -180,6 +180,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
     - `callback(response)` - 스파이 기능 수행
     - `polling(...)` - 재귀 함수 호출, 수행 내용
         - `setTimeout(callback, timeout)` - `callback` 함수는 모킹된 `setTimeout()`의 콜백 함수로 등록됩니다.
+        - `polling(...)` 종료
     - `마이크로태스크_1` 종료
 - 테스트 타임아웃 종료
 

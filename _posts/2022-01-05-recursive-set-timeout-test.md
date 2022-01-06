@@ -136,6 +136,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 | Message Queue | Macrotask Queue | setTimeout, setInterval, setImmediate 콜백 함수 저장 |
 | Message | Macrotask | setTimeout, setInterval, setImmediate 콜백 함수 |
 | PromiseJobs | Microtask Queue | Promise.then, Promise.catch 콜백 함수 및 await 키워드 이후 로직 저장 |
+| PromiseJob | Microtask | Promise.then, Promise.catch 콜백 함수 및 await 키워드 이후 로직 |
 
 ##### Additional Information
 

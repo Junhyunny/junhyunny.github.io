@@ -1,5 +1,5 @@
 ---
-title: "Recursive setTimeout test with Jest"
+title: "Recursive setTimeout test with Jest (feat. Jest fakeTimer 해부하기)"
 search: false
 category:
   - react

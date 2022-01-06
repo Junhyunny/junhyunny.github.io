@@ -76,7 +76,16 @@ const polling = (callback, path, config, interval) => {
 해결 방법은 스택 오버플로우에서 찾을 수 있었습니다. 
 스택 오버플로우 설명에 대해 이해하고, 제 코드에서 문제를 찾아보도록 하겠습니다. 
 
-### 2.1. Stack Overflow 답변 정리
+### 2.1. Stack Overflow QnA 정리
+
+##### Stack Overflow 질문
+
+<p align="center">
+    <img src="/images/recursive-set-timeout-test-1.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
+</p>
+<center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
+
+##### Stack Overflow 답변
 
 답변을 보면 문장 중간에 `setTimer(callback)`가 등장하는데, 문맥상 `simpleTimer(callback)`을 잘못 작성한 것으로 보입니다. 
 
@@ -88,11 +97,11 @@ const polling = (callback, path, config, interval) => {
 - `PromiseJobs` 관련 설명 링크 - <https://262.ecma-international.org/6.0/#sec-jobs-and-job-queues>
 
 <p align="center">
-    <img src="/images/recursive-set-timeout-test-1.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
-### 2.2. Additional Information - PromiseJobs Queue
+##### Additional Information - PromiseJobs Queue
 
 추가 내용을 달아주셨는데, `JavaScript`가 동작하는 방식에 대한 간략한 설명을 통해 이런 문제가 왜 발생하는지 이해하는데 도움을 줍니다. 
 
@@ -108,34 +117,40 @@ const polling = (callback, path, config, interval) => {
     - `await` 키워드는 `then` 콜백 함수를 랩핑합니다. 
 
 <p align="center">
-    <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/recursive-set-timeout-test-3.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
 ### 2.3. Return to my code
 
 이제 다시 제 코드로 돌아왔습니다. 테스트 코드의 흐름을 따라가보겠습니다. 
+콘솔 로그를 통해 실행 흐름을 확인하면서 정리하였습니다.
+
+> 로그 추적<br>
+> 5 > 1 > 2 > 2 > ... > 6 > 2 > 2 > ... 종료 
 
 1. `polling` 호출시 `setTimeout()` 메세지 큐에 추가
-    - Message Queue 상태 - |`setTimeout(func, timeout)`|
-    - PromiseJobs 상태 - (empty)
-1. `jest.advanceTimersByTime(6000)` 호출시 1000보다 6000이 크므로 메세지 실행
-    - Message Queue 상태 - (empty)
-    - PromiseJobs 상태 - (empty)
-1. `setTimeout()`이 실행한 함수 내부에 `await`으로 인해 프로미스 생성 후 남은 로직 수행
-    - 이 시점에 `callback` 스파이 1회 호출 
-    - Message Queue 상태 - (empty)
-    - PromiseJobs 상태 - |`Promise`|
+    - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+    - `PromiseJobs` 상태 - (empty)
+1. `jest.advanceTimersByTime(6000)` 호출시 1000보다 6000이 크므로 `setTimeout(func, timeout)` 메세지 실행
+    - `Message Queue` 상태 - (empty)
+    - `PromiseJobs` 상태 - (empty)
+1. `setTimeout()`이 실행한 함수 내부에서 `await`으로 인해 생성된 프로미스 `PromiseJobs` 큐에 추가
+    - `Message Queue` 상태 - (empty)
+    - `PromiseJobs` 상태 - |`Promise`|
+1. `await waitFor(func)` 수행
+    - `func` 함수를 계속 반복 실행합니다.
+    - 반복 실행 중 `axios.get()` 함수로부터 스터빙(stubing) 된 결과를 받고 코드가 진행됩니다.
 1. 내부 `polling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
-    - Message Queue 상태 - |`setTimeout(func, timeout)`|
-    - PromiseJobs 상태 - |`Promise`|
-1. Message Queue에 담긴 `setTimeout()`을 수행하기 위해선 PromiseJobs에 담긴 프로미스 해소 필요
+    - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+    - `PromiseJobs` 상태 - |`Promise`|
+1. `Message Queue`에 담긴 `setTimeout()`을 수행하기 위해선 `PromiseJobs`에 담긴 프로미스 해소 필요
 1. 이후 진행되는 로직 없이 종료
 
 ##### 테스트 코드
 
 ```react
-    it('given 1 second interval with 6 seconds waiting when call polling method then 6 times call', async () => {
+    it('given timeout 1 second with 6 seconds when call polling method then 6 times call', async () => {
 
         jest.useFakeTimers();
         const spyAxios = jest.spyOn(axios, 'get').mockResolvedValue({data: true});
@@ -143,10 +158,14 @@ const polling = (callback, path, config, interval) => {
 
         PollingClient.polling(callback, '/second-auth', {}, 1000);
 
+        // 1 time run
         jest.advanceTimersByTime(6000);
+        console.log(1);
 
         await waitFor(() => {
+            console.log(2);
             expect(callback).toHaveBeenCalledTimes(6);
+            console.log(3);
         });
         expect(callback).toHaveBeenLastCalledWith({data: true});
         expect(spyAxios).toHaveBeenCalledTimes(6);
@@ -162,7 +181,9 @@ import axios from 'axios';
 const polling = (callback, path, config, interval) => {
     setTimeout(async () => {
         try {
+            console.log(5);
             const response = await axios.get(`http://localhost:8080${path}`, config);
+            console.log(6);
             callback(response);
         } catch (error) {
             console.error(error);
@@ -176,25 +197,29 @@ const polling = (callback, path, config, interval) => {
 
 `axios`를 `jest.spyOn()` 함수로 모킹(mocking)하는 경우 또 다른 문제가 발생하였는데, 관련된 내용은 아래에서 다루도록 하겠습니다. 
 일단 `axios` 관련 로직은 제거하고 관련된 컨셉을 이해할 수 있도록 코드를 재구성하였습니다. 
-마찬가지로 테스트 코드의 흐름을 따라가보곘습니다. 
+테스트 코드의 흐름을 따라가보곘습니다. 
+마찬가지로 콘솔 로그를 통해 확인한 실행 흐름을 정리하였습니다.
+
+> 로그 추적<br>
+> 3 > 1 > 4 > 2 > ... > 3 > 1 > 4 > 2 종료 
 
 1. `pocPolling` 호출시 `setTimeout()` 메세지 큐에 추가
-    - Message Queue 상태 - |`setTimeout(func, timeout)`|
-    - PromiseJobs 상태 - (empty)
+    - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+    - `PromiseJobs` 상태 - (empty)
 1. `for loop`을 통한 반복 호출
-    1. `jest.advanceTimersByTime(1000)` 호출시 대기시간 1000을 만족하므로 메세지 실행
-        - Message Queue 상태 - (empty)
-        - PromiseJobs 상태 - (empty)
-    1. `setTimeout()`이 실행한 함수 내부에 `await`으로 인해 프로미스 생성 후 남은 로직 수행
+    1. `jest.advanceTimersByTime(1000)` 호출시 대기시간 1000을 만족하므로 `setTimeout(func, timeout)` 메세지 실행
+        - `Message Queue` 상태 - (empty)
+        - `PromiseJobs` 상태 - (empty)
+    1. `setTimeout()`이 실행한 함수 내부에서 `await`으로 인해 생성된 프로미스 `PromiseJobs` 큐에 추가
+        - `Message Queue` 상태 - (empty)
+        - `PromiseJobs` 상태 - |`Promise`|
+    1. `await Promise.resolve()` 호출시 `PromiseJobs`에 담긴 프로미스 해소 후 남은 로직 수행
         - 이 시점에 `callback` 스파이 1회 호출 
-        - Message Queue 상태 - (empty)
-        - PromiseJobs 상태 - |`Promise`|
+        - `Message Queue` 상태 - (empty)
+        - `PromiseJobs` 상태 - (empty)
     1. 내부 `pocPolling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
-        - Message Queue 상태 - |`setTimeout(func, timeout)`|
-        - PromiseJobs 상태 - |`Promise`|
-    1. `await Promise.resolve()` 호출시 `PromiseJobs`에 담긴 프로미스 해소
-        - Message Queue 상태 - |`setTimeout(func, timeout)`|
-        - PromiseJobs 상태 - (empty)
+        - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+        - `PromiseJobs` 상태 - (empty)
 1. `callback` 스파이 확인시 6회 동작 확인
 
 ##### 테스트 코드
@@ -209,8 +234,10 @@ const polling = (callback, path, config, interval) => {
 
         // 6 times run
         for (let i = 0; i < 6; i++) {
-            jest.advanceTimersByTime(1000); //
-            await Promise.resolve(); // await 해소
+            jest.advanceTimersByTime(1000); // message queue is resolved
+            console.log(1)
+            await Promise.resolve(); // `await` is resolved here
+            console.log(2)
         }
 
         expect(callback).toHaveBeenCalledTimes(6);
@@ -221,18 +248,17 @@ const polling = (callback, path, config, interval) => {
 ##### 구현 코드
 
 ```react
-const pocPolling = (callback, path, config, interval, maxAttempts = -1) => {
-    if (maxAttempts === 0) {
-        return;
-    }
+const pocPolling = (callback, path, config, interval) => {
     setTimeout(async () => {
         try {
+            console.log(3);
             const response = await new Promise((response) => response({data: true}));
+            console.log(4);
             callback(response);
         } catch (error) {
             console.error(error);
         }
-        pocPolling(callback, path, config, interval, maxAttempts - 1);
+        pocPolling(callback, path, config, interval);
     }, interval);
 };
 ```
@@ -242,6 +268,10 @@ const pocPolling = (callback, path, config, interval, maxAttempts = -1) => {
 실제로 제가 작성한 폴링 코드를 위와 같은 방법으로 해결하진 못 했습니다. 
 `jest.spyOn()`를 사용하여 `axios.get()` 함수를 모킹하면 `await Promise.resolve()` 호출을 2회 추가적으로 수행해야 정상적으로 동작합니다. 
 모킹된 함수를 호출하는 시점에 두 개의 프로미스가 추가되는 것 같습니다. 
+마찬가지로 콘솔 로그를 통해 확인한 실행 흐름을 정리하면 다음과 같습니다.
+
+> 로그 추적<br>
+> 5 > 1 > 2 > 3 > 6 > 4 > ... > 5 > 1 > 2 > 3 > 6 > 4 종료
 
 관련된 내용은 스택 오버플로우 질문 후 해당 포스트에 계속 업데이트하겠습니다. 
 - 질문 링크 - [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
@@ -261,9 +291,13 @@ const pocPolling = (callback, path, config, interval, maxAttempts = -1) => {
         // 6 times run
         for (let i = 0; i < 6; i++) {
             jest.advanceTimersByTime(1000); // message queue is resolved
-            await Promise.resolve(); // `await` in `setTimeout()` is resolved
+            console.log(1)
             await Promise.resolve(); // something wierd promise
+            console.log(2)
             await Promise.resolve(); // something wierd promise
+            console.log(3)
+            await Promise.resolve(); // `await` is resolved here
+            console.log(4)
         }
 
         expect(callback).toHaveBeenCalledTimes(6);
@@ -312,7 +346,7 @@ it('given 1 second interval with 6 seconds waiting when call polling method then
 또 다른 팀원이 이전에 작성한 `polling` 함수를 보여주었는데, 타이머 관련된 모킹을 하지 않고도 테스트가 가능한 아주 훌룡한 코드였습니다. 
 클라이언트 측 폴링, 롱 폴링 코드는 다음 포스트에서 소개하겠습니다.
 
-여담이지만 현재 `클린 코드(clean code)`를 읽는 중인데 예시로 든 `polling` 함수는 냄새나는 코드입니다. 
+여담이지만 현재 `클린 코드(clean code)`를 읽는 중인데 예시로 든 `polling` 함수는 문제가 많은 코드입니다. 
 
 > 클린 코드(clean code)<br>
 > 함수에서 이상적인 인수 개수는 0개(무항)다. 

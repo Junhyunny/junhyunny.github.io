@@ -121,7 +121,7 @@ const polling = (callback, path, config, interval) => {
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
-### 2.3. Return to my code
+### 2.2. Return to my code
 
 이제 다시 제 코드로 돌아왔습니다. 테스트 코드의 흐름을 따라가보겠습니다. 
 콘솔 로그를 통해 실행 흐름을 확인하면서 정리하였습니다.
@@ -130,20 +130,20 @@ const polling = (callback, path, config, interval) => {
 > 5 > 1 > 2 > 2 > ... > 6 > 2 > 2 > ... 종료 
 
 1. `polling` 호출시 `setTimeout()` 메세지 큐에 추가
-    - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+    - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
     - `PromiseJobs` 상태 - (empty)
 1. `jest.advanceTimersByTime(6000)` 호출시 1000보다 6000이 크므로 `setTimeout(func, timeout)` 메세지 실행
     - `Message Queue` 상태 - (empty)
     - `PromiseJobs` 상태 - (empty)
 1. `setTimeout()`이 실행한 함수 내부에서 `await`으로 인해 생성된 프로미스 `PromiseJobs` 큐에 추가
     - `Message Queue` 상태 - (empty)
-    - `PromiseJobs` 상태 - |`Promise`|
+    - `PromiseJobs` 상태 - `[Promise]`
 1. `await waitFor(func)` 수행
     - `func` 함수를 계속 반복 실행합니다.
     - 반복 실행 중 `axios.get()` 함수로부터 스터빙(stubing) 된 결과를 받고 코드가 진행됩니다.
 1. 내부 `polling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
-    - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
-    - `PromiseJobs` 상태 - |`Promise`|
+    - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
+    - `PromiseJobs` 상태 - `[Promise]`
 1. `Message Queue`에 담긴 `setTimeout()`을 수행하기 위해선 `PromiseJobs`에 담긴 프로미스 해소 필요
 1. 이후 진행되는 로직 없이 종료
 
@@ -204,7 +204,7 @@ const polling = (callback, path, config, interval) => {
 > 3 > 1 > 4 > 2 > ... > 3 > 1 > 4 > 2 종료 
 
 1. `pocPolling` 호출시 `setTimeout()` 메세지 큐에 추가
-    - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+    - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
     - `PromiseJobs` 상태 - (empty)
 1. `for loop`을 통한 반복 호출
     1. `jest.advanceTimersByTime(1000)` 호출시 대기시간 1000을 만족하므로 `setTimeout(func, timeout)` 메세지 실행
@@ -212,13 +212,13 @@ const polling = (callback, path, config, interval) => {
         - `PromiseJobs` 상태 - (empty)
     1. `setTimeout()`이 실행한 함수 내부에서 `await`으로 인해 생성된 프로미스 `PromiseJobs` 큐에 추가
         - `Message Queue` 상태 - (empty)
-        - `PromiseJobs` 상태 - |`Promise`|
+        - `PromiseJobs` 상태 - `[Promise]`
     1. `await Promise.resolve()` 호출시 `PromiseJobs`에 담긴 프로미스 해소 후 남은 로직 수행
         - 이 시점에 `callback` 스파이 1회 호출 
         - `Message Queue` 상태 - (empty)
         - `PromiseJobs` 상태 - (empty)
     1. 내부 `pocPolling` 재귀 호출로 인한 `setTimeout()` 메세지 큐에 추가
-        - `Message Queue` 상태 - |`setTimeout(func, timeout)`|
+        - `Message Queue` 상태 - `[setTimeout(func, timeout)]`
         - `PromiseJobs` 상태 - (empty)
 1. `callback` 스파이 확인시 6회 동작 확인
 

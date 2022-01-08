@@ -40,7 +40,7 @@ last_modified_at: 2022-01-08T23:55:00
 
 ##### 매크로태스크와 마이크로태스크 실행 순서
 
-<p align="center"><img src="/images/microtask-macrotask-in-javascript-1.gif" width="75%"></p>
+<p align="center"><img src="/images/microtask-macrotask-in-javascript-1.gif" width="100%"></p>
 <center>이미지 출처, https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center><br>
 
 ##### 용어 정리
@@ -87,7 +87,7 @@ baz();
 ##### 코드 동작 과정
 - 이미지에서 보이는 큐가 매크로태스크 큐입니다.
 
-<p align="center"><img src="/images/microtask-macrotask-in-javascript-2.gif" width="75%"></p>
+<p align="center"><img src="/images/microtask-macrotask-in-javascript-2.gif" width="100%"></p>
 <center>이미지 출처, https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif</center><br>
 
 ### 2.2. 마이크로태스크 생성
@@ -138,25 +138,34 @@ console.log('After function!');
     console.log(res);
 ```
 
-<p align="center"><img src="/images/microtask-macrotask-in-javascript-3.gif" width="75%"></p>
+<p align="center"><img src="/images/microtask-macrotask-in-javascript-3.gif" width="100%"></p>
 <center>이미지 출처, https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center><br>
 
 ## 3. 태스크 실행 순서 맞추기
 
 모든 내용을 이해했다면 아래 코드를 통해 동작 순서를 예상해보겠습니다. 
-아래 코드팬(codepen)을 통해 자신이 생각한 동작 과정과 일치하는지 확인해보시길 바랍니다.
+아래 코드팬(codepen)을 통해 자신이 생각한 동작 과정과 일치하는지 확인해보시길 바랍니다. 
+정답은 `Rerun` 버튼을 누른 후 3초 뒤에 출력됩니다.
 
 ### 3.1. 1번 문제
 
 {% include codepen.html hash="QWqBOPJ" title="Test" %}
-<!-- 
+
 ### 3.2. 2번 문제
+
+{% include codepen.html hash="QWqBOPJ" title="Test" %}
 
 ### 3.3. 3번 문제
 
+{% include codepen.html hash="poWOvQv" title="Test" %}
+
 ### 3.4. 4번 문제
 
-### 3.5. 5번 문제 -->
+{% include codepen.html hash="YzrOPdL" title="Test" %}
+
+### 3.5. 5번 문제
+
+{% include codepen.html hash="ZEXMYwW" title="Test" %}
 
 #### REFERENCE
 - <https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke>

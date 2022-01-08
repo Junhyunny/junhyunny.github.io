@@ -131,7 +131,8 @@ console.log('After function!');
 ##### 예시 코드 동작 과정
 - `aync` 키워드가 붙은 함수도 호출하면 일단 실행이 됩니다.
 - `await` 키워드를 만나면 마이크로태스크가 생성됩니다.
-- `await` 키워드 하위 코드가 모두 마이크로 태스크의 대상입니다.
+- 이때, 주의할 사항으로 `await` 키워드 뒤에 오는 함수는 실행되고, 결과가 반환되는 시점에 마이크로태스크가 생성됩니다.
+- `await` 키워드 하위 코드가 모두 마이크로태스크 대상입니다.
 - 예시 코드의 마이크로태스크 대상 영역
 
 ```javascript
@@ -154,7 +155,7 @@ console.log('After function!');
 
 ### 3.2. 2번 문제
 
-{% include codepen.html hash="QWqBOPJ" title="Test" %}
+{% include codepen.html hash="yLzxyxy" title="Test" %}
 
 ### 3.3. 3번 문제
 

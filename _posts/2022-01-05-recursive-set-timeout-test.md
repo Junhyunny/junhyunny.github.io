@@ -17,6 +17,9 @@ last_modified_at: 2022-01-04T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Asynchronous Task In JavaScript][how-to-work-javascript-async-link]
 
+👉 이어서 읽기를 추천합니다.
+- [Microtask & Macrotask in Javascript][microtask-macrotask-in-javascript-link]
+
 ## 0. 들어가면서
 
 간단한 폴링(polling) 기능을 구현하다가 마주친 문제입니다. 
@@ -436,4 +439,6 @@ polling(checkSecondAuthentication, 5000);
 
 [stack-overflow-question-link]: https://stackoverflow.com/questions/70600151/does-spyaxios-mocked-by-jest-spyonaxios-get-make-promise-when-it-is-called
 
-[how-to-work-javascript-async-link]: https://junhyunny.github.io/information/how-to-work-javascript-async/
+[how-to-work-javascript-async-link]: https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/
+
+[microtask-macrotask-in-javascript-link]: https://junhyunny.github.io/information/javascript/microtask-macrotask-in-javascript/

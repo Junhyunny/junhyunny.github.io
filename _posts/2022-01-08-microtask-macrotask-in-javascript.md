@@ -133,6 +133,7 @@ console.log('After function!');
 - `await` 키워드를 만나면 마이크로태스크가 생성됩니다.
 - `await` 키워드 하위 코드가 모두 마이크로 태스크의 대상입니다.
 - 예시 코드의 마이크로태스크 대상 영역
+
 ```javascript
     const result = 'One!';
     console.log(res);

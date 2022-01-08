@@ -187,6 +187,8 @@ lsi: false
 excerpt_separator: "\n\n"
 incremental: false
 
+# codepen
+codepen_username: Junhyunny
 
 # Markdown Processing
 kramdown:

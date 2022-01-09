@@ -207,7 +207,7 @@ export const sleepPolling = async (func, validateFunc, timeout) => {
 
 ### 2.1. 롱 폴링 구현하기
 
-[Long polling][https://javascript.info/long-polling] 포스트의 코드를 일부 변경하였습니다. 
+[Long polling][long-polling-link] 포스트의 코드를 일부 변경하였습니다. 
 
 ### 2.1.1. 테스트 코드
 
@@ -280,6 +280,8 @@ export const longPolling = async (func, validateFunc, timeout) => {
 - <https://ko.javascript.info/long-polling>
 
 [jskim1991-github-link]: https://github.com/jskim1991
+
+[long-polling-link]: https://javascript.info/long-polling
 
 [polling-long-polling-and-spring-example-link]: https://junhyunny.github.io/information/spring-boot/polling-long-polling-and-spring-example/
 

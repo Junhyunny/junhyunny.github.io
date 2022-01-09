@@ -75,8 +75,8 @@ export const timeoutPolling = (func, timeout, maxAttempts = -1) => {
 #### 1.1.3. 함수 실행 간격
 - 콜백 함수 실행 시간과 상관없이 콜백 함수 실행 간격이 일정하게 보장됩니다.
 
-<p align="left">
-    <img src="/images/polling-long-polling-and-javascript-example-2.JPG" width="40%" style="border: 1px solid #ccc; border-radius: 10px;">
+<p align="center">
+    <img src="/images/polling-long-polling-and-javascript-example-2.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 <center>이미지 출처, https://ko.javascript.info/settimeout-setinterval</center><br>
 
@@ -124,8 +124,8 @@ export const intervalPolling = (func, interval, maxAttempts = -1) => {
     - 콜백 함수 실행 시간이 30ms라면 다음 콜백 함수 실행은 70ms 뒤 입니다.
     - 콜백 함수 실행 시간이 60ms라면 다음 콜백 함수 실행은 40ms 뒤 입니다.
 
-<p align="left">
-    <img src="/images/polling-long-polling-and-javascript-example-3.JPG" width="40%" style="border: 1px solid #ccc; border-radius: 10px;">
+<p align="center">
+    <img src="/images/polling-long-polling-and-javascript-example-3.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 <center>이미지 출처, https://ko.javascript.info/settimeout-setinterval</center><br>
 

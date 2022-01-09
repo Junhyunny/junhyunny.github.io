@@ -1,5 +1,5 @@
 ---
-title: "폴링(Polling), 롱 폴링(Long polling) 그리고 스프링 예제(Spring example)"
+title: "폴링(Polling), 롱 폴링(Long polling) 그리고 스프링 예제"
 search: false
 category:
   - information
@@ -11,6 +11,9 @@ last_modified_at: 2022-01-04T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
+
+👉 이어서 읽기를 추천합니다.
+- [폴링(Polling), 롱 폴링(Long polling) 그리고 JavaScript 예제][polling-long-polling-and-javascript-example-link]
 
 ## 0. 들어가면서
 
@@ -62,7 +65,7 @@ last_modified_at: 2022-01-04T23:55:00
 
 폴링은 주기적으로 데이터를 요청하면서 의미없이 서버의 리소스를 소비하게 됩니다. 
 언뜻 보기에 이벤트가 발생했을 때만 클라이언트로 응답을 주는 롱 폴링 방식이 유용해보입니다. 
-하지만, 항상 그렇지는 않습니다. 
+**하지만, 항상 그렇지는 않습니다.** 
 예를 들어 100명이 채팅하는 단체 채팅방을 롱 폴링으로 구현했다고 가정합니다. 
 누군가 한마디 메세지를 작성하면 100명이 동시에 응답을 받고, 100명이 동시에 다시 요청을 수행합니다. 
 서버의 요청 큐(request queue)에 급작스런 요청이 몰리면서 서버에 부하가 발생할 수 있습니다. 
@@ -378,3 +381,5 @@ public class DeferredResultController {
 - <https://jongmin92.github.io/2019/03/31/Java/java-async-1/>
 
 [async-nonblocking-link]: https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/
+
+[polling-long-polling-and-javascript-example-link]: https://junhyunny.github.io/information/javascript/polling-long-polling-and-javascript-example/

@@ -15,7 +15,7 @@ last_modified_at: 2021-08-24T01:00:00
 처음 github 이슈에 의견을 달고 해결 방안까지 제시했던 경험을 포스트로 작성해보았습니다. 
 
 ## 1. MOTIVATION
-저의 친애하는 동료이자 친구인 [@jskim1991][jskim1991-githubLink]이 
+저의 친애하는 동료이자 친구인 [@jskim1991][jskim1991-github-link]이 
 spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 이야기를 듣고 저도 github에서 이슈를 찾아보기 시작하였습니다. 
 한동안 회사에서 퇴근하면 Spring 프로젝트에 등록된 이슈들을 뒤져보면서 호시탐탐 PR을 노리는 하이에나로 살았습니다. 
 
@@ -57,7 +57,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 
 등록한 이슈를 매일같이 들어가보며 답변을 기다렸지만 묵묵부답입니다.
 
-> [@jskim1991][jskim1991-githubLink] said<br>
+> [@jskim1991][jskim1991-github-link] said<br>
 > 걔네 엄청 게을러, 답변을 안해줘
 
 ### 2.5.  **`@kdavisk6`** 님에게 전달받은 답변
@@ -75,7 +75,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 ## CLOSING
 이슈를 해결하기 위해 프로젝트를 fork 해보고 해당 클래스를 IDE에서 변경해보면서 많은 공부가 되었습니다. 
 이후에도 해결할 수 있는 이슈들을 찾아봤지만 당시 실력으로는 만만치 않았습니다. 
-마지막으로 항상 긍정적인 자극을 주는 [@jskim1991][jskim1991-githubLink]에게 감사한 마음을 전달합니다.
+마지막으로 항상 긍정적인 자극을 주는 [@jskim1991][jskim1991-github-link]에게 감사한 마음을 전달합니다.
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/openfeign-test>
@@ -84,5 +84,5 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 - <https://github.com/spring-cloud/spring-cloud-openfeign/issues/256>
 - <https://github.com/OpenFeign/feign/issues/1170>
 
-[jskim1991-githubLink]: https://github.com/jskim1991
+[jskim1991-github-link]: https://github.com/jskim1991
 [issue-link]: https://github.com/spring-cloud/spring-cloud-openfeign/issues/256

@@ -10,6 +10,9 @@ last_modified_at: 2021-08-20T12:00:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [테이블 페이징(paging) 처리 구현 (feat. Spring Boot, Vue.js)][spring-boot-vue-js-paging-table-link]
+
 ## 0. 들어가면서
 
 JPA를 사용하면서 정말 편해졌다고 느낀 이유 중 한가지가 페이징(paging) 처리 방법입니다. 
@@ -382,3 +385,5 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 - <https://www.oreilly.com/library/view/mysql-cookbook/0596001452/ch04s10.html>
 
 [case-insensitive-ref-link]: https://www.oreilly.com/library/view/mysql-cookbook/0596001452/ch04s10.html
+
+[spring-boot-vue-js-paging-table-link]: https://junhyunny.github.io/spring-boot/vue.js/spring-boot-vue-js-paging-table/

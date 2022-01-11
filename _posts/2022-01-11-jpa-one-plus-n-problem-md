@@ -1,5 +1,5 @@
 ---
-title: "Jpa 1 + N 문제"
+title: "JPA N+1 문제 (feat. @ManyToOne, @OneToMany)"
 search: false
 category:
   - spring-boot
@@ -11,10 +11,17 @@ last_modified_at: 2022-01-11T23:55:00
 
 ## 0. 들어가면서
 
+JPA 1+N 현상으로 인해 성능 문제가 발생했습니다. 
+관련된 내용을 다뤄보질 않아서 이번에 포스트로 정리하였습니다. 
+해결 방법이 조금 다르기 때문에 `@OneToMany`, `@ManyToOne` 애너테이션과 `@OneToOne` 애너테이션을 구분하여 정리하였습니다. 
+우선 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 시작하겠습니다.
+
+## 1. 
+
 ## CLOSING
 
 #### TEST CODE REPOSITORY
-- <>
+- <https://jojoldu.tistory.com/165>
 
 #### REFERENCE
 - <>

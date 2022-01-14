@@ -1,0 +1,258 @@
+---
+title: "JPA N+1 문제 (feat. @ManyToOne, @OneToMany)"
+search: false
+category:
+  - spring-boot
+  - jpa
+last_modified_at: 2022-01-12T23:55:00
+---
+
+<br>
+
+## 0. 들어가면서
+
+`클린 코드`를 읽다보니 이런 문구가 있었습니다. 
+
+> 우리 모두는 자신이 짠 쓰레기 코드를 쳐다보며 나중에 손보겠다고 생각한 경험이 있다. 
+> 우리 모두는 대충 짠 프로그램이 돌아간다는 사실에 안도감을 느끼며 그래도 안 돌아가는 프로그램보다 돌아가는 쓰레기가 좋다고 스스로를 위로한 경험이 있다. 
+> 다시 돌아와 나중에 정리하겠다고 다짐했었다. 
+> 물론 그 시절 우리는 르블랑의 법칙(leblanc's law)을 몰랐다. 
+> **`나중은 결코 오지 않는다.`**
+
+이전 프로젝트 코드에서 JPA N+1 현상으로 인해 성능 문제로 인해 성능이 좋지 않은 부분이 있었는데, 이를 너무 개선하고 싶어졌습니다. 
+좋지 않은 코드를 작성해놓고 나중에 고쳐야지라고 생각만하고 고치지 않았던 자신에 대해 반성했습니다. 
+
+에전 문제가 있는 코드에 대해 테스트를 작성해나가면서 관련된 기능을 천천히 분리해나가니 생각보다 재밌었습니다. 
+성능을 개선하는 과정을 통해 몇 가지를 배웠는데, 우선 JPA N+1 현상과 관련된 내용을 정리해놓질 않았기 때문에 공부할 겸 포스트로 정리하였습니다. 
+해결 방법이 조금 다르기 때문에 `@OneToMany`, `@ManyToOne` 애너테이션과 `@OneToOne` 애너테이션을 구분하여 정리하였습니다. 
+이번엔 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 시작하겠습니다.
+
+## 1. JPA N+1 문제
+
+`@OneToOne`, `@OneToMany`, `@ManyToOne` 같은 애너테이션으로 엔티티 사이에 관계가 형성되어 있을 때 불필요한 쿼리가 더 수행되는 현상을 의미합니다. 
+
+##### N+1 문제 현상
+- 아래 보이는 이미지를 보면 Post 엔티티와 Reply 엔티티는 1 대 N 관계입니다.
+- JPA `findBy-` 메소드를 사용하여 1개의 Post 엔티티를 조회하면, 쿼리가 총 2회 수행됩니다.
+    - 지연 로딩(lazy loading)인 경우 해당 객체를 사용했다고 가정합니다.
+    - Post 엔티티를 조회하는 쿼리 1회
+    - Reply 엔티티들을 조회하는 쿼리 1회
+
+```
+Hibernate: select post0_.id as id1_0_, post0_.content as content2_0_, post0_.title as title3_0_ from post post0_ where post0_.title=? limit ?
+Hibernate: select replies0_.post_id as post_id3_1_0_, replies0_.id as id1_1_0_, replies0_.id as id1_1_1_, replies0_.content as content2_1_1_, replies0_.post_id as post_id3_1_1_ from reply replies0_ where replies0_.post_id=?
+```
+
+- 만약, 2개의 Post 엔티티를 조회하면, 쿼리는 총 3회 수행됩니다.
+    - 지연 로딩(lazy loading)인 경우 해당 객체를 사용했다고 가정합니다.
+    - 2개의 Post 엔티티들을 조회하는 쿼리 1회
+    - (각 Post 엔티티 별로 Reply 엔티티들을 조회하는 쿼리 1회) * (Post 엔티티 갯수 2개) = 2회
+
+```
+Hibernate: select post0_.id as id1_0_, post0_.content as content2_0_, post0_.title as title3_0_ from post post0_
+Hibernate: select replies0_.post_id as post_id3_1_0_, replies0_.id as id1_1_0_, replies0_.id as id1_1_1_, replies0_.content as content2_1_1_, replies0_.post_id as post_id3_1_1_ from reply replies0_ where replies0_.post_id=?
+Hibernate: select replies0_.post_id as post_id3_1_0_, replies0_.id as id1_1_0_, replies0_.id as id1_1_1_, replies0_.content as content2_1_1_, replies0_.post_id as post_id3_1_1_ from reply replies0_ where replies0_.post_id=?
+```
+
+- 만약, N개의 Post 엔티티를 조회하면, 쿼리는 총 N+1회 수행됩니다.
+
+<p align="left"><img src="/images/jpa-one-plus-n-problem-1.JPG"></p>
+
+## 2. N+1 문제 해결하기
+
+N+1 문제에 대해 알아보았으니 이를 해결할 수 있는 방법을 찾아보겠습니다. 
+우선 테스트에 사용될 엔티티들을 살펴보고, 다음으로 해결 방법들을 알아보겠습니다. 
+
+## 2.1. 테스트에 사용한 엔티티
+
+##### Post 엔티티
+
+```java
+package blog.in.action.post;
+
+import blog.in.action.reply.Reply;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column
+    private String title;
+
+    @Column
+    private String content;
+
+    @OneToMany(mappedBy = "post")
+    private List<Reply> replies;
+
+    public void addReply(Reply reply) {
+        if (replies == null) {
+            replies = new ArrayList<>();
+        }
+        replies.add(reply);
+    }
+}
+```
+
+##### Reply 엔티티
+
+```java
+package blog.in.action.reply;
+
+import blog.in.action.post.Post;
+import lombok.*;
+
+import javax.persistence.*;
+
+@Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Reply {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @Column
+    private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+}
+```
+
+### 2.2. join fetch 키워드 사용하기
+
+`@Query` 애너테이션과 JPQL(Java Persistence Query Language)를 사용하여 fetch 조인(join) 쿼리를 작성합니다. 
+
+#### 2.2.1. 테스트 코드
+
+```java
+package blog.in.action.post;
+
+import blog.in.action.reply.Reply;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@DataJpaTest
+public class PostRepositoryTest {
+
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @BeforeEach
+    public void setup() {
+
+        Post post = Post.builder()
+                .title("first post")
+                .content("this is the first post.")
+                .build();
+
+        postRepository.save(post);
+
+        for (int index = 0; index < 10; index++) {
+            Reply reply = Reply.builder()
+                    .content("reply-" + index)
+                    .post(post)
+                    .build();
+            post.addReply(reply);
+            em.persist(reply);
+        }
+
+        // ...
+
+        em.flush();
+        em.clear();
+    }
+
+    // ...
+
+    @Test
+    public void givenFindTopByTitleFetchJoin_whenGetReplies_thenJustOneQuery() {
+
+        Post post = postRepository.findByTitleFetchJoin("first post");
+
+        List<String> replyContents = post.getReplies()
+                .stream()
+                .map(reply -> reply.getContent())
+                .collect(Collectors.toList());
+
+        assertThat(replyContents.size()).isEqualTo(10);
+    }
+}
+```
+
+#### 2.2.2. 구현 코드
+
+```java
+package blog.in.action.post;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+public interface PostRepository extends JpaRepository<Post, Long> {
+
+    // ...
+
+    @Query(value = "SELECT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
+    Post findByTitleFetchJoin(String title);
+}
+```
+
+##### 쿼리 수행 내용
+- inner join 쿼리가 수행되면서 한번에 Reply 엔티티 정보를 조회합니다. 
+
+```sql
+select post0_.id         as id1_0_0_,
+       replies1_.id      as id1_1_1_,
+       post0_.content    as content2_0_0_,
+       post0_.title      as title3_0_0_,
+       replies1_.content as content2_1_1_,
+       replies1_.post_id as post_id3_1_1_,
+       replies1_.post_id as post_id3_1_0__,
+       replies1_.id      as id1_1_0__
+from post post0_ inner join reply replies1_ on post0_.id = replies1_.post_id
+where post0_.title = ?
+```
+
+### 2.3. @EntityGraph 애너테이션 사용
+
+
+
+
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+- <https://jojoldu.tistory.com/165>
+
+#### REFERENCE
+- <>

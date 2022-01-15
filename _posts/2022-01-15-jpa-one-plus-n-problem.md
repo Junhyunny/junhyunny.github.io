@@ -199,7 +199,7 @@ public class PostRepositoryTest {
     // ...
     
     @Test
-    public void givenFindDistinctByTitleFetchJoin_whenGetReplies_thenJustOneQuery() {
+    public void whenFindDistinctByTitleFetchJoin_thenJustOneQuery() {
 
         List<Post> posts = postRepository.findDistinctByTitleFetchJoin("first post");
 
@@ -215,7 +215,7 @@ public class PostRepositoryTest {
 
 
     @Test
-    public void givenFindByTitleFetchJoin_whenGetReplies_thenJustOneQuery() {
+    public void whenFindByTitleFetchJoin_thenJustOneQuery() {
 
         Set<Post> posts = postRepository.findByTitleFetchJoin("first post");
 
@@ -258,7 +258,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 ```
 
 #### 2.2.3. 테스트 수행 결과
-- `givenFindDistinctByTitleFetchJoin_whenGetReplies_thenJustOneQuery` 테스트 수행 쿼리
+- `whenFindDistinctByTitleFetchJoin_thenJustOneQuery` 테스트 수행 쿼리
 
 ```sql
 -- inner join 쿼리가 수행되면서 한번에 Reply 엔티티 정보를 조회합니다. 
@@ -275,7 +275,7 @@ from post post0_
 where post0_.title = ?
 ```
 
-- `givenFindByTitleFetchJoin_whenGetReplies_thenJustOneQuery` 테스트 수행 쿼리
+- `whenFindByTitleFetchJoin_thenJustOneQuery` 테스트 수행 쿼리
 
 ```sql
 -- inner join 쿼리가 수행되면서 한번에 Reply 엔티티 정보를 조회합니다. 
@@ -350,7 +350,7 @@ public class PostRepositoryTest {
     // ...
 
     @Test
-    public void givenFindDistinctByTitleEntityGraph_whenGetReplies_thenJustOneQuery() {
+    public void whenFindDistinctByTitleEntityGraph_thenJustOneQuery() {
 
         List<Post> posts = postRepository.findDistinctByTitleEntityGraph("first post");
 
@@ -366,7 +366,7 @@ public class PostRepositoryTest {
     }
 
     @Test
-    public void givenFindByTitleEntityGraph_whenGetReplies_thenJustOneQuery() {
+    public void whenFindByTitleEntityGraph_thenJustOneQuery() {
 
         Set<Post> posts = postRepository.findByTitleEntityGraph("first post");
 
@@ -413,7 +413,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 #### 2.3.3. 테스트 수행 결과
 
-- `givenFindDistinctByTitleEntityGraph_whenGetReplies_thenJustOneQuery` 테스트 수행 쿼리
+- `whenFindDistinctByTitleEntityGraph_thenJustOneQuery` 테스트 수행 쿼리
 
 ```sql
 -- left outer join 쿼리가 수행되면서 한번에 Reply 엔티티 정보를 조회합니다. 
@@ -430,7 +430,7 @@ from post post0_
 where post0_.title = ?
 ```
 
-- `givenFindByTitleEntityGraph_whenGetReplies_thenJustOneQuery` 테스트 수행 쿼리
+- `whenFindByTitleEntityGraph_thenJustOneQuery` 테스트 수행 쿼리
 
 ```sql
 -- left outer join 쿼리가 수행되면서 한번에 Reply 엔티티 정보를 조회합니다. 

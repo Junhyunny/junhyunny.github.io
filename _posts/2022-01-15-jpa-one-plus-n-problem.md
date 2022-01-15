@@ -32,7 +32,7 @@ last_modified_at: 2022-01-15T23:55:00
 `@OneToOne`, `@OneToMany`, `@ManyToOne` 같은 애너테이션으로 엔티티 사이에 관계가 형성되어 있을 때 불필요한 쿼리가 더 수행되는 현상을 의미합니다. 
 
 ##### N+1 문제 현상
-- 아래 보이는 이미지를 보면 Post 엔티티와 Reply 엔티티는 1 대 N 관계입니다.
+- 아래 이미지를 보면 Post 엔티티와 Reply 엔티티는 1 대 N 관계입니다.
 
 <p align="left"><img src="/images/jpa-one-plus-n-problem-1.JPG" width="20%"></p>
 

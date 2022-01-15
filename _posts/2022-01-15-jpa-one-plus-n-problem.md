@@ -33,6 +33,9 @@ last_modified_at: 2022-01-15T23:55:00
 
 ##### N+1 문제 현상
 - 아래 보이는 이미지를 보면 Post 엔티티와 Reply 엔티티는 1 대 N 관계입니다.
+
+<p align="left"><img src="/images/jpa-one-plus-n-problem-1.JPG" width="20%"></p>
+
 - JPA `findBy-` 메소드를 사용하여 1개의 Post 엔티티를 조회하면, 쿼리가 총 2회 수행됩니다.
     - 지연 로딩(lazy loading)인 경우 해당 객체를 사용했다고 가정합니다.
     - Post 엔티티를 조회하는 쿼리 1회
@@ -55,8 +58,6 @@ Hibernate: select replies0_.post_id as post_id3_1_0_, replies0_.id as id1_1_0_, 
 ```
 
 - 만약, N개의 Post 엔티티를 조회하면, 쿼리는 총 N+1회 수행됩니다.
-
-<p align="left"><img src="/images/jpa-one-plus-n-problem-1.JPG"></p>
 
 ## 2. N+1 문제 해결하기
 

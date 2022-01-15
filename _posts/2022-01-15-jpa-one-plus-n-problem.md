@@ -1,5 +1,5 @@
 ---
-title: "JPA N+1 문제 (feat. @ManyToOne, @OneToMany)"
+title: "JPA N+1 문제"
 search: false
 category:
   - spring-boot
@@ -8,6 +8,9 @@ last_modified_at: 2022-01-15T23:55:00
 ---
 
 <br>
+
+<!-- 👉 이어서 읽기를 추천합니다.
+- [JPA N+1 문제와 페이징 처리][jpa-one-plus-n-problem-with-paging-link] -->
 
 ## 0. 들어가면서
 
@@ -24,8 +27,7 @@ last_modified_at: 2022-01-15T23:55:00
 
 문제가 있는 코드에 대한 테스트를 작성해나가면서 관련된 기능을 천천히 고쳐나가는 일은 생각보다 재밌었습니다. 
 성능을 개선하는 과정을 통해 몇 가지를 배웠는데, 우선 JPA N+1 현상과 관련된 내용을 정리해놓질 않았기 때문에 공부할 겸 포스트로 정리하였습니다. 
-해결 방법이 조금 다르기 때문에 `@OneToMany`, `@ManyToOne` 애너테이션과 `@OneToOne` 애너테이션을 구분하여 정리하였습니다. 
-이번엔 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 시작하겠습니다.
+이번 포스트에선 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 진행하겠습니다.
 
 ## 1. JPA N+1 문제
 
@@ -524,14 +526,16 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 저도 마찬가지 의견을 가지고 있기 때문에 추가적인 정리는 하지 않았습니다. 
 혹시 나중에 사용할 일이 생긴다면 그때 관련된 내용을 정리해보도록 하겠습니다.
 
-추가적으로 `@EntityGraph` 애너테이션을 사용하는 경우 데이터 중복 현상을 없애기 위한 처리 없이도 정상적으로 엔티티가 조회됩니다. 
-리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드를 붙히지 않아도 중복 없이 엔티티 리스트가 반환됩니다. 
-저는 `left outer join`에서도 `inner join`과 같은 현상이 있어야한다고 생각됩니다. 
-관련 내용은 Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Overflow` 질문을 통해 확인해보겠습니다. 
-다음 블로그 포스트에서 자세한 내용을 정리해보도록 하겠습니다. 
+추가적으로 `@EntityGraph` 애너테이션을 사용하면 데이터 중복 현상을 없애기 위한 처리 없이도 정상적으로 엔티티가 조회됩니다. 
+리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드가 없어도 중복되지 않은 엔티티 리스트가 반환됩니다. 
+`@EntityGraph` 애너테이션을 사용할 때는 왜 중복 현상이 없는지 관련 내용을 문의할 생각입니다. 
+Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Overflow` 질문을 통해 확인해보겠습니다. 
+다음 포스트에서 자세한 내용을 정리해보도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-15-jpa-one-plus-n-problem/action-in-blog>
 
 #### REFERENCE
 - <https://jojoldu.tistory.com/165>
+
+[jpa-one-plus-n-problem-with-paging-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-one-plus-n-problem-with-paging/

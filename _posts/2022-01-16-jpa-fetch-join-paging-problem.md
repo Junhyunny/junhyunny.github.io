@@ -103,7 +103,7 @@ public class Reply {
 
 ##### 엔티티 관계 다이어그램 (ERD, Entity Relationship Diagram)
 
-<p align="left"><img src="/images/jpa-fetch-join-paging-problem-1.JPG"></p>
+<p align="left"><img src="/images/jpa-fetch-join-paging-problem-1.JPG" width="20%"></p>
 
 ### 1.2. 문제 상황 확인
 
@@ -369,7 +369,7 @@ from post post0_
 where post0_.content like ?
 limit ? offset ?
 
--- count 쿼리 수행
+-- count 쿼리
 select count(post0_.id) as col_0_0_
 from post post0_
 where post0_.content like ?
@@ -429,6 +429,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 #### 3.1.3. SQL 로그
 
 ```sql
+-- limit, offset 쿼리
 select distinct post0_.id      as id1_0_,
                 post0_.content as content2_0_,
                 post0_.title   as title3_0_
@@ -437,11 +438,13 @@ from post post0_
 where post0_.content like ?
 limit ? offset ?
 
+-- count 쿼리
 select count(distinct post0_.id) as col_0_0_
 from post post0_
          inner join reply replies1_ on post0_.id = replies1_.post_id
 where post0_.content like ?
 
+-- default_batch_fetch_size 설정을 통해 N+1 문제를 IN 쿼리로 변경
 select replies0_.post_id as post_id3_1_1_,
        replies0_.id      as id1_1_1_,
        replies0_.id      as id1_1_0_,
@@ -491,6 +494,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 #### 3.2.3. SQL 로그
 
 ```sql
+-- limit, offset 처리되지 않은 쿼리
 select post0_.id         as id1_0_0_,
        replies1_.id      as id1_1_1_,
        post0_.content    as content2_0_0_,
@@ -503,6 +507,7 @@ from post post0_
          left outer join reply replies1_ on post0_.id = replies1_.post_id
 where post0_.content like ?
 
+-- count 쿼리
 select count(post0_.id) as col_0_0_
 from post post0_
 where post0_.content like ?
@@ -539,6 +544,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 #### 3.3.3. SQL 로그
 
 ```sql
+-- limit, offset, fetch 처리된 쿼리
 select reply0_.id      as id1_1_0_,
        post1_.id       as id1_0_1_,
        reply0_.content as content2_1_0_,
@@ -550,6 +556,7 @@ from reply reply0_
 where reply0_.content like ?
 limit ? offset ?
 
+-- count 쿼리
 select count(reply0_.id) as col_0_0_
 from reply reply0_
          inner join post post1_ on reply0_.post_id = post1_.id
@@ -590,6 +597,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 #### 3.4.3. SQL 로그
 
 ```sql
+-- limit, offset 쿼리
 select reply0_.id      as id1_1_,
        reply0_.content as content2_1_,
        reply0_.post_id as post_id3_1_
@@ -598,12 +606,14 @@ from reply reply0_
 where reply0_.content like ?
 limit ? offset ?
 
+-- Fetch 타입 Eager로 인한 데이터 조회
 select post0_.id      as id1_0_0_,
        post0_.content as content2_0_0_,
        post0_.title   as title3_0_0_
 from post post0_
 where post0_.id = ?
 
+-- count 쿼리
 select count(reply0_.id) as col_0_0_
 from reply reply0_
          inner join post post1_ on reply0_.post_id = post1_.id
@@ -642,6 +652,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 #### 3.6.3. SQL 로그
 
 ```sql
+-- limit, offset, fetch 처리된 쿼리
 select reply0_.id      as id1_1_0_,
        post1_.id       as id1_0_1_,
        reply0_.content as content2_1_0_,
@@ -653,6 +664,7 @@ from reply reply0_
 where reply0_.content like ?
 limit ? offset ?
 
+-- count 쿼리
 select count(reply0_.id) as col_0_0_
 from reply reply0_
          left outer join post post1_ on reply0_.post_id = post1_.id

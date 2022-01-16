@@ -9,8 +9,8 @@ last_modified_at: 2022-01-15T23:55:00
 
 <br>
 
-<!-- 👉 이어서 읽기를 추천합니다.
-- [JPA N+1 문제와 페이징 처리][jpa-one-plus-n-problem-with-paging-link] -->
+👉 이어서 읽기를 추천합니다.
+- [JPA Fetch 조인(Join)과 페이징(paging) 처리][jpa-fetch-join-paging-problem-link]
 
 ## 0. 들어가면서
 
@@ -146,13 +146,9 @@ public class Reply {
 `@Query` 애너테이션과 JPQL(Java Persistence Query Language)를 사용하여 fetch 조인(join) 쿼리를 작성합니다. 
 fetch 조인은 inner join 처리됩니다.
 
-#### 2.2.1. 테스트 코드
+#### 2.2.1. setup 메소드
 
 ```java
-package blog.in.action.post;
-
-// ...
-
 @DataJpaTest
 public class PostRepositoryTest {
 
@@ -195,9 +191,21 @@ public class PostRepositoryTest {
         em.flush();
         em.clear();
     }
+}
+```
 
-    // ...
-    
+#### 2.2.2. 테스트 코드
+
+```java
+@DataJpaTest
+public class PostRepositoryTest {
+
+    @Autowired
+    private EntityManager em;
+
+    @Autowired
+    private PostRepository postRepository;
+
     @Test
     public void whenFindDistinctByTitleFetchJoin_thenJustOneQuery() {
 
@@ -213,7 +221,6 @@ public class PostRepositoryTest {
         assertThat(replyContents.size()).isEqualTo(10);
     }
 
-
     @Test
     public void whenFindByTitleFetchJoin_thenJustOneQuery() {
 
@@ -228,12 +235,10 @@ public class PostRepositoryTest {
 
         assertThat(replyContents.size()).isEqualTo(10);
     }
-
-    // ...
 }
 ```
 
-#### 2.2.2. 구현 코드
+#### 2.2.3. 구현 코드
 - `findDistinctByTitleFetchJoin` 메소드
     - 반환 타입이 `List`
     - 쿼리 결과 DISTINCT 처리
@@ -241,13 +246,7 @@ public class PostRepositoryTest {
     - 반환 타입이 `Set`
 
 ```java
-package blog.in.action.post;
-
-// ...
-
 public interface PostRepository extends JpaRepository<Post, Long> {
-
-    // ...
 
     @Query(value = "SELECT DISTINCT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
     List<Post> findDistinctByTitleFetchJoin(String title);
@@ -257,7 +256,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-#### 2.2.3. 테스트 수행 결과
+#### 2.2.4. 테스트 수행 결과
 - `whenFindDistinctByTitleFetchJoin_thenJustOneQuery` 테스트 수행 쿼리
 
 ```sql
@@ -295,15 +294,12 @@ where post0_.title = ?
 ### 2.3. @EntityGraph 애너테이션 사용
 
 `@EntityGraph` 애너테이션을 사용하여 조인할 대상 필드를 지정합니다. 
-해당 애너테이션에 포함된 필드는 쿼리시 `left outer join` 대상 테이블이 됩니다.
+해당 애너테이션에 포함된 필드는 쿼리시 `left outer join` 대상 테이블이 됩니다. 
+`setup` 메소드는 위와 동일합니다.
 
 #### 2.3.1. 테스트 코드
 
 ```java
-package blog.in.action.post;
-
-// ...
-
 @DataJpaTest
 public class PostRepositoryTest {
 
@@ -312,42 +308,6 @@ public class PostRepositoryTest {
 
     @Autowired
     private PostRepository postRepository;
-
-    Post getPost(String title, String content) {
-        return Post.builder()
-                .title(title)
-                .content(content)
-                .build();
-    }
-
-    void insertReply(Post post, String content) {
-        for (int index = 0; index < 10; index++) {
-            Reply reply = Reply.builder()
-                    .content(content + index)
-                    .post(post)
-                    .build();
-            post.addReply(reply);
-            em.persist(reply);
-        }
-    }
-
-    @BeforeEach
-    public void setup() {
-
-        Post post = getPost("first post", "this is the first post.");
-        Post secondPost = getPost("second post", "this is the second post.");
-
-        postRepository.save(post);
-        postRepository.save(secondPost);
-
-        insertReply(post, "first-reply-");
-        insertReply(secondPost, "second-reply-");
-
-        em.flush();
-        em.clear();
-    }
-    
-    // ...
 
     @Test
     public void whenFindDistinctByTitleEntityGraph_thenJustOneQuery() {
@@ -393,13 +353,7 @@ public class PostRepositoryTest {
     - `@EntityGraph` 애너테이션에 함께 조회할 엔티티 정보 표시
 
 ```java
-package blog.in.action.post;
-
-// ...
-
 public interface PostRepository extends JpaRepository<Post, Long> {
-
-    // ...
 
     @EntityGraph(attributePaths = {"replies"})
     @Query(value = "SELECT DISTINCT p FROM Post p WHERE p.title = :title")
@@ -538,4 +492,4 @@ Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Ov
 #### REFERENCE
 - <https://jojoldu.tistory.com/165>
 
-[jpa-one-plus-n-problem-with-paging-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-one-plus-n-problem-with-paging/
+[jpa-fetch-join-paging-problem-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-fetch-join-paging-problem/

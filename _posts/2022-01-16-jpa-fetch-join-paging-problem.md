@@ -666,7 +666,7 @@ where reply0_.content like ?
 - `-ToMany` 애너테이션을 통해 형성된 관계인 경우 테이블 조인에 따라 데이터가 변경되어 페이징 처리와 페치 조인이 동시에 불가능합니다.
 
 <p align="center">
-    <img src="/images/jpa-fetch-join-paging-problem-2.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/jpa-fetch-join-paging-problem-2.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;">
 </p>
 
 #### TEST CODE REPOSITORY

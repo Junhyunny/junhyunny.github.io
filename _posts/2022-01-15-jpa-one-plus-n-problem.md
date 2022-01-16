@@ -22,7 +22,7 @@ last_modified_at: 2022-01-15T23:55:00
 > 물론 그 시절 우리는 르블랑의 법칙(leblanc's law)을 몰랐다. 
 > **`나중은 결코 오지 않는다.`**
 
-책을 읽고 나니 이전 프로젝트 코드에서 JPA N+1 현상으로 인해 성능 문제가 있었던 코드가 생각났습니다. 
+책을 읽고 나니 이전 프로젝트에서 JPA N+1 현상으로 인해 성능 문제가 있었던 코드가 생각났습니다. 
 갑자기 이를 너무 개선하고 싶어졌습니다. 
 
 문제가 있는 코드에 대한 테스트를 작성해나가면서 관련된 기능을 천천히 고쳐나가는 일은 생각보다 재밌었습니다. 
@@ -146,9 +146,24 @@ public class Reply {
 `@Query` 애너테이션과 JPQL(Java Persistence Query Language)를 사용하여 fetch 조인(join) 쿼리를 작성합니다. 
 fetch 조인은 inner join 처리됩니다.
 
-#### 2.2.1. setup 메소드
+#### 2.2.1. 테스트 코드
 
 ```java
+package blog.in.action.post;
+
+import blog.in.action.reply.Reply;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @DataJpaTest
 public class PostRepositoryTest {
 
@@ -191,20 +206,6 @@ public class PostRepositoryTest {
         em.flush();
         em.clear();
     }
-}
-```
-
-#### 2.2.2. 테스트 코드
-
-```java
-@DataJpaTest
-public class PostRepositoryTest {
-
-    @Autowired
-    private EntityManager em;
-
-    @Autowired
-    private PostRepository postRepository;
 
     @Test
     public void whenFindDistinctByTitleFetchJoin_thenJustOneQuery() {
@@ -238,7 +239,7 @@ public class PostRepositoryTest {
 }
 ```
 
-#### 2.2.3. 구현 코드
+#### 2.2.2. 구현 코드
 - `findDistinctByTitleFetchJoin` 메소드
     - 반환 타입이 `List`
     - 쿼리 결과 DISTINCT 처리
@@ -246,6 +247,15 @@ public class PostRepositoryTest {
     - 반환 타입이 `Set`
 
 ```java
+package blog.in.action.post;
+
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
+import java.util.Set;
+
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query(value = "SELECT DISTINCT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
@@ -256,7 +266,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-#### 2.2.4. 테스트 수행 결과
+#### 2.2.3. 테스트 수행 결과
 - `whenFindDistinctByTitleFetchJoin_thenJustOneQuery` 테스트 수행 쿼리
 
 ```sql
@@ -295,11 +305,25 @@ where post0_.title = ?
 
 `@EntityGraph` 애너테이션을 사용하여 조인할 대상 필드를 지정합니다. 
 해당 애너테이션에 포함된 필드는 쿼리시 `left outer join` 대상 테이블이 됩니다. 
-`setup` 메소드는 위와 동일합니다.
 
 #### 2.3.1. 테스트 코드
 
 ```java
+package blog.in.action.post;
+
+import blog.in.action.reply.Reply;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 @DataJpaTest
 public class PostRepositoryTest {
 
@@ -308,6 +332,40 @@ public class PostRepositoryTest {
 
     @Autowired
     private PostRepository postRepository;
+
+    Post getPost(String title, String content) {
+        return Post.builder()
+                .title(title)
+                .content(content)
+                .build();
+    }
+
+    void insertReply(Post post, String content) {
+        for (int index = 0; index < 10; index++) {
+            Reply reply = Reply.builder()
+                    .content(content + index)
+                    .post(post)
+                    .build();
+            post.addReply(reply);
+            em.persist(reply);
+        }
+    }
+
+    @BeforeEach
+    public void setup() {
+
+        Post post = getPost("first post", "this is the first post.");
+        Post secondPost = getPost("second post", "this is the second post.");
+
+        postRepository.save(post);
+        postRepository.save(secondPost);
+
+        insertReply(post, "first-reply-");
+        insertReply(secondPost, "second-reply-");
+
+        em.flush();
+        em.clear();
+    }
 
     @Test
     public void whenFindDistinctByTitleEntityGraph_thenJustOneQuery() {
@@ -405,8 +463,8 @@ where post0_.title = ?
 
 ### 3.1. SQL 데이터 조회 결과
 
-실제 쿼리를 보면 `inner join`과 `left outer join`으로 데이터를 조회합니다. 
-1 대 N 관계에서 `1`인 테이블을 기준으로 데이터를 조회하면 중복되는 데이터가 발생합니다. 
+테스트를 보면 fetch 조인과 `@EntityGraph` 애너테이션을 사용하면 `inner join`과 `left outer join` 방식을 사용한 쿼리로 데이터를 조회합니다. 
+두 조인 방식 모두 일대다 관계에서 `"일"`인 테이블을 기준으로 데이터를 조회하면 중복되는 데이터가 발생합니다. 
 
 ##### Post 테이블 조회 쿼리 수행 및 결과
 
@@ -457,13 +515,13 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 | 1 | this is the first post. | first post | 9 | first-reply-9 | 1 |
 | 1 | this is the first post. | first post | 10 | first-reply-10 | 1 |
 
-### 3.2. JPA 엔티티 조회 메소드 수행 결과
+### 3.2. JPA 엔티티 중복 처리 미수행 조회 결과
 
 위처럼 중복되는 데이터 행(row)의 모습은 JPA를 이용한 엔티티 조회에서도 반영됩니다. 
 이런 중복 현상을 없애기 위해선 메소드의 리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드를 붙혀야 합니다. 
 중복을 없애기 위한 처리를 하지 않으면 아래와 같은 결과를 확인할 수 있습니다. 
 
-##### 중복 데이터 조회 결과
+##### 중복 데이터 조회
 - 리턴 타입은 `List`이며, 쿼리 내부에 `DISTINCT` 키워드를 붙히지 않은 경우입니다.
 - 결과 리스트에 주소가 같은 엔티티 객체가 10개 담겨서 반환됩니다.
 
@@ -482,9 +540,9 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 
 추가적으로 `@EntityGraph` 애너테이션을 사용하면 데이터 중복 현상을 없애기 위한 처리 없이도 정상적으로 엔티티가 조회됩니다. 
 리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드가 없어도 중복되지 않은 엔티티 리스트가 반환됩니다. 
-`@EntityGraph` 애너테이션을 사용할 때는 왜 중복 현상이 없는지 관련 내용을 문의할 생각입니다. 
+`@EntityGraph` 애너테이션을 사용할 때는 왜 중복 현상이 발생하지 않는지 관련 내용을 문의할 생각입니다. 
 Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Overflow` 질문을 통해 확인해보겠습니다. 
-다음 포스트에서 자세한 내용을 정리해보도록 하겠습니다. 
+이후 포스트에서 자세한 내용을 정리해보도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-15-jpa-one-plus-n-problem/action-in-blog>

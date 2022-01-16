@@ -519,7 +519,7 @@ where post0_.content like ?
 
         Pageable pageable = PageRequest.of(1, 5);
 
-        Page<Reply> replyPage = replyRepository.findByPostIdFetchJoin(1L, pageable);
+        Page<Reply> replyPage = replyRepository.findByContentLikeFetchJoin("0-reply-", pageable);
 
         assertThat(replyPage.getContent().size()).isEqualTo(5);
     }
@@ -530,9 +530,9 @@ where post0_.content like ?
 ```java
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
-    @Query(value = "SELECT r FROM Reply r JOIN FETCH r.post WHERE r.post.id = :postId",
-            countQuery = "SELECT COUNT(r) FROM Reply r INNER JOIN r.post WHERE r.post.id = :postId")
-    Page<Reply> findByPostIdFetchJoin(Long postId, Pageable pageable);
+    @Query(value = "SELECT r FROM Reply r JOIN FETCH r.post WHERE r.content LIKE %:content%",
+            countQuery = "SELECT COUNT(r) FROM Reply r INNER JOIN r.post WHERE r.content LIKE %:content%")
+    Page<Reply> findByContentLikeFetchJoin(String content, Pageable pageable);
 }
 ```
 
@@ -547,13 +547,13 @@ select reply0_.id      as id1_1_0_,
        post1_.title    as title3_0_1_
 from reply reply0_
          inner join post post1_ on reply0_.post_id = post1_.id
-where reply0_.post_id = ?
+where reply0_.content like ?
 limit ? offset ?
 
 select count(reply0_.id) as col_0_0_
 from reply reply0_
          inner join post post1_ on reply0_.post_id = post1_.id
-where reply0_.post_id = ?
+where reply0_.content like ?
 ```
 
 ### 3.4. @ManyToOne 애너테이션과 일반 조인 사용
@@ -569,7 +569,7 @@ where reply0_.post_id = ?
 
         Pageable pageable = PageRequest.of(1, 5);
 
-        Page<Reply> replyPage = replyRepository.findByPostIdInnerJoin(1L, pageable);
+        Page<Reply> replyPage = replyRepository.findByContentLikeInnerJoin("0-reply-", pageable);
 
         assertThat(replyPage.getContent().size()).isEqualTo(5);
     }
@@ -581,9 +581,9 @@ where reply0_.post_id = ?
 
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
-    @Query(value = "SELECT r FROM Reply r INNER JOIN r.post WHERE r.post.id = :postId",
-            countQuery = "SELECT COUNT(r) FROM Reply r INNER JOIN r.post WHERE r.post.id = :postId")
-    Page<Reply> findByPostIdInnerJoin(Long postId, Pageable pageable);
+    @Query(value = "SELECT r FROM Reply r INNER JOIN r.post WHERE r.content LIKE %:content%",
+            countQuery = "SELECT COUNT(r) FROM Reply r INNER JOIN r.post WHERE r.content LIKE %:content%")
+    Page<Reply> findByContentLikeInnerJoin(String content, Pageable pageable);
 }
 ```
 
@@ -595,7 +595,7 @@ select reply0_.id      as id1_1_,
        reply0_.post_id as post_id3_1_
 from reply reply0_
          inner join post post1_ on reply0_.post_id = post1_.id
-where reply0_.post_id = ?
+where reply0_.content like ?
 limit ? offset ?
 
 select post0_.id      as id1_0_0_,
@@ -607,7 +607,7 @@ where post0_.id = ?
 select count(reply0_.id) as col_0_0_
 from reply reply0_
          inner join post post1_ on reply0_.post_id = post1_.id
-where reply0_.post_id = ?
+where reply0_.content like ?
 ```
 
 ### 3.5. @ManyToOne 애너테이션과 @EntityGraph 애너테이션 사용
@@ -621,7 +621,7 @@ where reply0_.post_id = ?
 
         Pageable pageable = PageRequest.of(1, 5);
 
-        Page<Reply> replyPage = replyRepository.findByPostIdEntityGraph(1L, pageable);
+        Page<Reply> replyPage = replyRepository.findByContentLikeEntityGraph("0-reply-", pageable);
 
         assertThat(replyPage.getContent().size()).isEqualTo(5);
     }
@@ -633,9 +633,9 @@ where reply0_.post_id = ?
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     @EntityGraph(attributePaths = {"post"})
-    @Query(value = "SELECT r FROM Reply r WHERE r.post.id = :postId",
-            countQuery = "SELECT COUNT(r) FROM Reply r LEFT OUTER JOIN r.post WHERE r.post.id = :postId")
-    Page<Reply> findByPostIdEntityGraph(Long postId, Pageable pageable);
+    @Query(value = "SELECT r FROM Reply r WHERE r.content LIKE %:content%",
+            countQuery = "SELECT COUNT(r) FROM Reply r LEFT OUTER JOIN r.post WHERE r.content LIKE %:content%")
+    Page<Reply> findByContentLikeEntityGraph(String content, Pageable pageable);
 }
 ```
 
@@ -650,13 +650,13 @@ select reply0_.id      as id1_1_0_,
        post1_.title    as title3_0_1_
 from reply reply0_
          left outer join post post1_ on reply0_.post_id = post1_.id
-where reply0_.post_id = ?
+where reply0_.content like ?
 limit ? offset ?
 
 select count(reply0_.id) as col_0_0_
 from reply reply0_
          left outer join post post1_ on reply0_.post_id = post1_.id
-where reply0_.post_id = ?
+where reply0_.content like ?
 ```
 
 ## CLOSING

@@ -1,0 +1,31 @@
+---
+title: "내가 생각하는 TDD(Test Driven Development)"
+search: false
+category:
+  - information
+last_modified_at: 2022-01-20T23:55:00
+---
+
+<br>
+
+## 0. 들어가면서
+
+오늘 프로젝트를 함께 진행하는 고객사의 한 분이 TDD(Test Driven Development)에 대한 개념에 대해 질문을 하셨습니다. 
+친절히 답변드리고 싶었지만, 좀처럼 입이 떨어지지 않았습니다. 
+비전공자가 알아 들을 수 있도록 쉽게 설명할 방법이 쉽게 떠오르지 않았습니다. 
+정신없이 하루를 마무리하고 집으로 돌아가는 길에서도, 운동을 하면서도 `TDD`를 소개할 좋은 아이디어를 고민했습니다. 
+
+번뜩 최근 클린 코드(Clean Code)에서 읽은 문구가 떠올랐는데, 이를 바탕으로 `TDD`를 소개하면 좋을 것 같다는 생각이 들었습니다. 
+
+> 
+
+
+
+## 1. 일반 개발 프로세스
+
+## 2. TDD(Test Driven Development) 개발 프로세스
+
+## CLOSING
+
+#### REFERENCE
+- <>

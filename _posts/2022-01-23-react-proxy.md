@@ -51,14 +51,14 @@ CORS 정책 위반 문제를 정석으로 해결하려면 백엔드 서비스 �
 - 응답 헤더 정보에 `Access-Control-Allow-Origin: http://localhost:3000`가 추가됩니다.
 - 백엔드 서비스가 `http://localhost:3000` 출처로부터 오는 요청은 허가한다는 의미입니다.
 
-<p align="center"><img src="/images/react-proxy-1.JPG"></p>
+<p align="center"><img src="/images/react-proxy-1.JPG" width="60%"></p>
 
 ##### 리액트 어플리케이션 프록시 구축
 - 리액트 어플리케이션에 프록시를 구축하고, 이를 통해 백엔드 서비스를 호출합니다. 
 - 브라우저는 리액트 어플리케이션으로 데이터를 요청합니다.
 - 리액트 어플리케이션은 구축된 프록시 설정에 따라 요청을 적절하게 백엔드 서비스로 전달합니다. 
 
-<p align="center"><img src="/images/react-proxy-2.JPG"></p>
+<p align="center"><img src="/images/react-proxy-2.JPG" width="60%"></p>
 
 ## 3. 테스트 코드
 
@@ -243,7 +243,7 @@ CRA(create-react-app)을 이용해 리액트 어플리케이션을 만드는 경
     - 특정 경로에 해당되는 프록시 설정을 하지 않았지만, 백엔드 서비스로 요청이 전달됩니다.
     - 서버로부터 전달받은 데이터를 정상적으로 화면에 출력합니다.
 
-<p align="center"><img src="/images/react-proxy-3.gif"></p>
+<p align="center"><img src="/images/react-proxy-3.gif" width="100%"></p>
 
 ## 4. http-proxy-middleware 모듈 사용하기
 
@@ -298,7 +298,7 @@ module.exports = app => {
     - `/proxy` 경로에 해당하는 프록시 설정이 존재합니다.
     - `http://localhost:8080` 호스트 서버로부터 전달받은 데이터를 정상적으로 화면에 출력합니다.
 
-<p align="center"><img src="/images/react-proxy-4.gif"></p>
+<p align="center"><img src="/images/react-proxy-4.gif" width="100%"></p>
 
 ## CLOSING
 
@@ -319,8 +319,7 @@ module.exports = app => {
     - 별도 백엔드 서비스로 라우팅되지 않습니다.
 
 관련 내용은 `Stack Overflow`에 문의하였으며 자세한 내용이 궁금하신 분은 아래 링크에서 확인하실 수 있습니다.
-
-[What is different between using package.json and usign http-proxy-middleware module to create proxy?][stackoverflow-proxy-link]
+- [What is different between using package.json and usign http-proxy-middleware module to create proxy?][stackoverflow-proxy-link]
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-23-react-proxy>

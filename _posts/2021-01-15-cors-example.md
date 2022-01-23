@@ -16,6 +16,9 @@ last_modified_at: 2021-08-21T23:50:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CORS(Cross Origin Resource Sharing)][cors-link] 
 
+👉 이어서 읽기를 추천합니다.
+- [리액트(React) CORS 해결하기 (feat. 프록시(Proxy) 구축)][react-proxy-link]
+
 ## 1. 예제 코드
 
 Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 통해 CORS에 대한 테스트를 진행해보겠습니다. 
@@ -342,4 +345,4 @@ public class HandlerExecutionChain {
 - <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
 
 [cors-link]: https://junhyunny.github.io/information/cors/
-[resolver-link]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/
+[react-proxy-link]: https://junhyunny.github.io/information/react/react-proxy/

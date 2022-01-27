@@ -1,0 +1,40 @@
+
+---
+title: "요청 헤더 Content-Type 자세히 알아보기" 
+search: false
+category:
+  - information
+  - spring-boot
+  - javascript
+last_modified_at: 2022-01-25T23:55:00
+---
+
+<br>
+
+## 0. 들어가면서
+
+프로젝트에 신규 기능(feature)를 추가하다보면 종종 아래와 같은 에러를 만납니다. 
+
+##### HttpMessageNotReadableException: Required request body is missing
+
+```
+08:19:18.788 [main] WARN org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public java.lang.String action.in.blog.controller.ContentTypeController.requestBody(action.in.blog.dto.ContentTypeDto)]
+```
+
+`@RequestBdoy`를 API 종점(end point)에 설정했으나 클라이언트에서 데이터 없이 요청하는 경우 이런 에러가 발생합니다. 
+프론트엔드 서비스에서 API 요청에 분명히 데이터를 담아서 요청했지만, 
+
+
+
+
+
+
+## 1. 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+- <>
+
+#### REFERENCE
+- <https://blog.naver.com/writer0713/221853596497>

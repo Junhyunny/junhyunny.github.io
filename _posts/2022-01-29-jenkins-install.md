@@ -15,12 +15,12 @@ last_modified_at: 2022-01-29T23:55:00
 ## 0. 들어가면서
 
 `Extream Programming(XP)` 책을 보면 지속적인 통합(CI, Continuous Integration), 지속적인 전달(CD, Continuous Delivery) 그리고 테스트 주도 개발(TDD, Test Driven Development)를 강조합니다. 
-이터레이션(iteration)마다 쌓이는 테스트들과 기능들을 개발자들이 일일이 `통합-빌드-테스트-배포`하는 일은 피로도만 높히게 됩니다. 
-시간을 절약하고, 개발자의 피로도를 낮추기 위해선 CI/CD 구축이 필요합니다. 
+개발 과정에서 이터레이션(iteration)마다 쌓이는 테스트들과 기능들을 개발자들이 일일이 `통합-빌드-테스트-배포`한다면 개발자들의 피로도가 높아지게 됩니다. 
+시간을 절약하고, 개발자의 피로도를 낮추기 위해선 CI/CD 파이프라인 구축이 필요합니다. 
 
-마침 지난번 프로젝트에서 CI/CD 구축이 필요하다는 피드백을 받은 팀원이 이번엔 CI/CD 구축을 해보자는 제의를 하였습니다. 
-좋은 의견이었기에 여러가지 아이디어들을 주고 받다가 많은 곳에서 사랑받는 오픈 소스인 젠킨스(Jenkins)를 사용하기로 했습니다. 
-CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작성할 예정입나다. 
+마침 지난번 프로젝트에서 CI/CD 환경이 필요하다는 피드백을 받은 팀원이 이번 프로젝트에서 우선 구축해보자는 제의를 하였습니다. 
+좋은 의견이었기에 여러가지 아이디어들을 주고 받다가 많은 곳에서 사랑받는 젠킨스(Jenkins)를 사용하기로 했습니다. 
+CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작성할 예정입니다. 
 첫 주제로 젠킨스 설치 방법에 대해 정리하였습니다. 
 
 ## 1. 개발 및 테스트 환경
@@ -34,14 +34,14 @@ CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작
 - 젠킨스 서버는 `ngrok`을 사용하여 로컬 서버를 외부 인터넷으로 노출하였습니다.
 - 테스트를 위한 어플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
 
-<p align="center"><img src="/images/jenkins-install-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/jenkins-install-1.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ## 2. 젠킨스 설치 및 실행
 
 ### 2.1. 젠킨스 설치
 
 맥에서는 `brew` 명령어를 이용하면 쉽게 설치할 수 있습니다. 
-아래와 같은 설치 명령어를 실행합니다.
+아래와 같은 설치 명령어를 실행합니다. 
 
 ```
 % brew install jenkins
@@ -158,7 +158,7 @@ $ ngrok http 8080
 - 로그인하여 토큰을 발급받아 인증시 세션 만료가 없습니다. 
 - `Free Plan`인 경우 ngrok 클라이언트를 동시에 1개만 사용할 수 있습니다.
 
-<p align="left"><img src="/images/jenkins-install-7.JPG" width="55%"></p>
+<p align="left"><img src="/images/jenkins-install-7.JPG" width="75%"></p>
 
 ##### ngrok 도메인 접속
 - `ngrok`이 만든 도메인으로 접근시 젠킨스 화면을 볼 수 있습니다. 

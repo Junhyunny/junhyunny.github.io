@@ -25,14 +25,16 @@ CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작
 
 ## 1. 개발 및 테스트 환경
 
-자사 클라우드 플랫폼인 PCF(Pivotal Cloud Foundry) 지원은 쉽지 않지만, 다행히 회사에 남는 맥북을 지원받았습니다. 
+여러가지 이유로 개발을 위한 CI/CD 구축에 어려움을 겪었습니다. 
+특히 젠킨스를 올릴 호스팅(hosting) 서버가 없었는데, 다행히 회사에 남는 맥북을 지원받았습니다. 
 처음엔 도커 이미지로 젠킨스를 설치하였지만, 맥북 자원을 모두 사용하는 편이 좋겠다는 판단하여 로컬에 설치하였습니다. 
-개발 환경은 다음과 같습니다. 
+개발용 CI/CD 환경은 다음과 같습니다. 
 
-##### 개발 환경
-- `ngrok`을 사용하여 로컬 서버를 외부 인터넷으로 노출하였습니다.
+##### 개발용 CI/CD 환경
+- 젠킨스 서버는 `ngrok`을 사용하여 로컬 서버를 외부 인터넷으로 노출하였습니다.
+- 테스트를 위한 어플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
 
-<p align="center"><img src="/images/jenkins-install-1.JPG" width="60%"></p>
+<p align="center"><img src="/images/jenkins-install-1.JPG" width="80%"></p>
 
 ## 2. 젠킨스 설치 및 실행
 
@@ -156,12 +158,12 @@ $ ngrok http 8080
 - 로그인하여 토큰을 발급받아 인증시 세션 만료가 없습니다. 
 - `Free Plan`인 경우 ngrok 클라이언트를 동시에 1개만 사용할 수 있습니다.
 
-<p align="left"><img src="/images/jenkins-install-6.JPG" width="55%"></p>
+<p align="left"><img src="/images/jenkins-install-7.JPG" width="55%"></p>
 
 ##### ngrok 도메인 접속
 - `ngrok`이 만든 도메인으로 접근시 젠킨스 화면을 볼 수 있습니다. 
 
-<p align="cent"><img src="/images/jenkins-install-7.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-install-8.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 #### REFERENCE
 - <https://wan-blog.tistory.com/74>

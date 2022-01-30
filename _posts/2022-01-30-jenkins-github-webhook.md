@@ -183,7 +183,6 @@ $ xcode-select --install
 Scripted 방식과 Declarative 방식이 존재하며 둘을 혼동하지 않도록 조심하시기 바랍니다. 
 
 ##### Scripted 방식과 Declarative 방식 차이
-- 각 방식은 아래와 같은 구조를 가집니다.
 - Scripted 방식은 `node` 블럭으로 감싸져 있습니다.
 
 ```

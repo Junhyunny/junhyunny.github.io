@@ -118,7 +118,7 @@ $ cat /Users/junhyunk/.jenkins/secrets/initialAdminPassword
 <p align="center"><img src="/images/jenkins-install-3.JPG" width="80%"></p>
 
 ##### 젠킨스 플러그인(plugin) 설치
-- 고민 없이 추천 플러그인들을 설치하였습니다.
+- 추천 플러그인들을 설치하였습니다.
 
 <p align="center"><img src="/images/jenkins-install-4.JPG" width="80%"></p>
 
@@ -131,7 +131,7 @@ $ cat /Users/junhyunk/.jenkins/secrets/initialAdminPassword
 ##### 젠킨스 대시보드
 - 모든 설정을 마치면 다음과 같은 화면을 볼 수 있습니다.
 
-<p align="center"><img src="/images/jenkins-install-6.JPG" width="80%"></p>
+<p align="center"><img src="/images/jenkins-install-6.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ## 3. ngrok 터널링(tunneling)
 
@@ -165,7 +165,7 @@ $ ngrok http 8080
 ##### ngrok 도메인 접속
 - `ngrok`이 만든 도메인으로 접근시 젠킨스 화면을 볼 수 있습니다. 
 
-<p align="center"><img src="/images/jenkins-install-8.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-install-8.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 #### REFERENCE
 - <https://wan-blog.tistory.com/74>

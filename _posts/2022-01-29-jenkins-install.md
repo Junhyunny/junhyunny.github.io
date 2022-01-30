@@ -12,6 +12,9 @@ last_modified_at: 2022-01-29T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 
+👉 이어서 읽기를 추천합니다.
+- [젠킨스(Jenkins)와 Github Webhooks 연동][jenkins-github-webhook-link]
+
 ## 0. 들어가면서
 
 `Extream Programming(XP)` 책을 보면 지속적인 통합(CI, Continuous Integration), 지속적인 전달(CD, Continuous Delivery) 그리고 테스트 주도 개발(TDD, Test Driven Development)를 강조합니다. 
@@ -169,3 +172,5 @@ $ ngrok http 8080
 - <https://blog.outsider.ne.kr/1159>
 
 [what-is-ci-cd-link]: https://junhyunny.github.io/information/what-is-ci-cd/
+
+[jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/

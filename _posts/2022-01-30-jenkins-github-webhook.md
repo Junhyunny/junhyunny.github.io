@@ -21,7 +21,7 @@ last_modified_at: 2022-01-30T23:55:00
 
 ##### Github Webhook 작업 영역 
 
-<p align="center"><img src="/images/jenkins-github-webhook-1.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-1.JPG" width="85%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ## 1. Github 액세스 토큰(access token) 생성
 
@@ -47,7 +47,7 @@ Github에 로그인하면 오른쪽 상단에 사용자 프로필 이미지가 �
 - **토큰을 잃어버리지 않도록 다른 곳에 저장합니다.**
 - 해당 화면을 벗어나면 토큰을 찾을 방법이 없으므로 다시 생성해야 합니다. 
 
-<p align="center"><img src="/images/jenkins-github-webhook-4.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-4.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ## 2. Github 개인 레포지토리 webhook 설정
 
@@ -59,7 +59,7 @@ Github 웹훅(webhook)을 이용하면 특정 이벤트를 감지하여 CI/CD �
 - `Settings > Webhooks`
 - `Add webhook` 버튼을 클릭합니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-5.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-5.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ##### 웹훅 추가
 - Payload URL - 젠킨스 서버 주소에 `/github-webhook/` 경로를 추가하여 입력합니다.
@@ -187,7 +187,7 @@ Scripted 방식과 Declarative 방식이 존재하며 둘을 혼동하지 않도
 - Scripted 방식은 `node` 블럭으로 감싸져 있습니다.
 - Declarative 방식은 `pipeline` 블럭으로 감싸져 있습니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-17.JPG" width="55%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-17.JPG" width="30%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 #### REFERENCE
 - <https://jojoldu.tistory.com/139?category=777282>

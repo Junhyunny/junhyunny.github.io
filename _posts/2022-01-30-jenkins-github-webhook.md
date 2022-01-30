@@ -185,9 +185,45 @@ Scripted 방식과 Declarative 방식이 존재하며 둘을 혼동하지 않도
 ##### Scripted 방식과 Declarative 방식 차이
 - 각 방식은 아래와 같은 구조를 가집니다.
 - Scripted 방식은 `node` 블럭으로 감싸져 있습니다.
+
+```
+node {
+    stage('Build') {
+
+    }
+    stage('Test') {
+        
+    }
+    stage('Deploy') {
+        
+    }
+}
+```
+
 - Declarative 방식은 `pipeline` 블럭으로 감싸져 있습니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-17.JPG" width="30%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+```
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+
+            }
+        }
+        stage('Test') {
+            steps {
+                
+            }
+        }
+        stage('Deploy') {
+            steps {
+                
+            }
+        }
+    }
+}
+```
 
 #### REFERENCE
 - <https://jojoldu.tistory.com/139?category=777282>

@@ -15,7 +15,7 @@ last_modified_at: 2022-01-29T23:55:00
 ## 0. 들어가면서
 
 `Extream Programming(XP)` 책을 보면 지속적인 통합(CI, Continuous Integration), 지속적인 전달(CD, Continuous Delivery) 그리고 테스트 주도 개발(TDD, Test Driven Development)를 강조합니다. 
-개발 과정에서 이터레이션(iteration)마다 쌓이는 테스트들과 기능들을 개발자들이 일일이 `통합-빌드-테스트-배포`한다면 개발자들의 피로도가 높아지게 됩니다. 
+개발 과정에서 이터레이션(iteration)마다 쌓이는 테스트들과 기능들을 개발자들이 일일이 `통합 > 빌드 > 테스트 > 배포`한다면 개발자들의 피로도가 높아지게 됩니다. 
 시간을 절약하고, 개발자의 피로도를 낮추기 위해선 CI/CD 파이프라인 구축이 필요합니다. 
 
 마침 지난번 프로젝트에서 CI/CD 환경이 필요하다는 피드백을 받은 팀원이 이번 프로젝트에서 우선 구축해보자는 제의를 하였습니다. 
@@ -83,13 +83,13 @@ Or, if you don't want/need a background service you can just run:
 $ brew services start jenkins
 ```
 
-##### 젠킨스 실행 명령어
+##### 젠킨스 종료 명령어
 
 ```
 $ brew services stop jenkins
 ```
 
-##### 젠킨스 실행 명령어
+##### 젠킨스 재실행 명령어
 
 ```
 $ brew services restart jenkins
@@ -135,7 +135,6 @@ $ cat /Users/junhyunk/.jenkins/secrets/initialAdminPassword
 로컬 호스트에서만 젠킨스 대시보드를 확인하는 것이 아니라 외부에서도 확인이 필요하여 `ngrok`을 사용하였습니다.
 `ngrok`은 외부에서 인터넷을 통해 로컬 서비스로 접근할 수 있도록 터널링(tunneling)을 수행하는 어플리케이션입니다. 
 
-> ngrok<br>
 > ngrok allows you to expose a web server running on your local machine to the internet. 
 > Just tell ngrok what port your web server is listening on. 
 

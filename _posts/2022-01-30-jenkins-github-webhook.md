@@ -1,5 +1,5 @@
 ---
-title: "젠킨스(Jenkins)와 Github Webhooks 연동" 
+title: "젠킨스(Jenkins) Github Webhooks 연동" 
 search: false
 category:
   - information

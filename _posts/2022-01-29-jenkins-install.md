@@ -13,7 +13,7 @@ last_modified_at: 2022-01-29T23:55:00
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 
 👉 이어서 읽기를 추천합니다.
-- [젠킨스(Jenkins)와 Github Webhooks 연동][jenkins-github-webhook-link]
+- [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
 
 ## 0. 들어가면서
 

@@ -119,7 +119,7 @@ writing RSA key
 
 ```
 $ ls
-server.crt  server.csr  server.key
+server.crt  server.csr  server.key  server.key.origin
 ```
 
 ## 2. 클라이언트 인증서 적용

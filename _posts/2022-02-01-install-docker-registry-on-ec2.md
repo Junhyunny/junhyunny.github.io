@@ -164,25 +164,25 @@ AWS EC2 설정 대시보드에서 포트 접근을 설정할 수 있습니다.
     - `EC2 > Instances > {container id}` 화면
 - 선택한 EC2 인스턴스 상세 정보 화면 하단에 `Security` 탭에서 `security groups`를 선택합니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-2.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-2.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ##### Inbound rule 설정 화면
 - `Edit inbound rules` 버튼을 눌러 인바운드(inbound) 규칙 설정 화면으로 이동합니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-3.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-3.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ##### Inbound rule 추가
 - `Custom TCP`를 선택하여 포트 5000번을 허용합니다.
 - 소스(source)는 `0.0.0.0/0`으로 지정하여 모든 IP에서 접근을 허용합니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-4.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-4.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
 
 ### 2.3. 도커 이미지 push & pull
 
 이제 맥북에서 이미지를 만들어 `push`, `pull` 해보겠습니다. 
 간단한 테스트로 도커 허브에서 nginx 이미지를 다운받아서 EC2 인스턴스에 위치한 개인 저장소에 올리겠습니다.
 
-##### nginx 다운로드 from 도커 허브 on Macbook
+##### nginx 이미지 pull from 도커 허브 on Macbook
 
 ```
 % docker pull nginx
@@ -211,7 +211,7 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 nginx                     latest    c316d5a335a5   5 days ago   142MB
 ```
 
-##### 개인 저장소에 이미지 PUSH on Macbook
+##### 개인 저장소에 이미지 push on Macbook
 - `docker push` 명령어를 통해 쉽게 이미지를 업로드할 수 있습니다.
 
 ```

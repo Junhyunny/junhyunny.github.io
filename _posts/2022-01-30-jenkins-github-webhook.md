@@ -16,6 +16,7 @@ last_modified_at: 2022-01-30T23:55:00
 
 👉 이어서 읽기를 추천합니다.
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
+- [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
 
 ## 0. 들어가면서
 
@@ -235,3 +236,4 @@ pipeline {
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 
 [install-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/install-docker-registry-on-ec2/
+[make-private-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/make-private-docker-registry-on-ec2/

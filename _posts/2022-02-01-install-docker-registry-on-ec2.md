@@ -14,6 +14,9 @@ last_modified_at: 2022-02-01T23:55:00
 - [젠킨스(Jenkins) 설치][jenkins-install-link]
 - [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
 
+👉 이어서 읽기를 추천합니다.
+- [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
+
 ## 0. 들어가면서
 
 이번 포스트에선 도커 개인 이미지 저장소 구축과 관련된 내용을 정리하였습니다. 
@@ -295,4 +298,4 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/
 
-[docker-registry-link]: https://docs.docker.com/registry/
+[make-private-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/make-private-docker-registry-on-ec2/

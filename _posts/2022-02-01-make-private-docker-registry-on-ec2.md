@@ -292,7 +292,7 @@ latest: digest: sha256:bb129a712c2431ecce4af8dde831e980373b26368233ef0f3b2bae9e9
 ```
 
 ##### 이미지 pull 실패 from 레지스트리 on Macbook
-- 위 단계에서 로그인하여 생긴 `credential`와 도커 이미지를 제거합니다.
+- 이전 단계에서 로그인하여 생긴 `credential`와 도커 이미지를 제거합니다.
 
 ```
 ~ % docker logout {ec2-instance-public-ip}:5000      

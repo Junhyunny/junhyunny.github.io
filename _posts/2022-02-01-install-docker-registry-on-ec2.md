@@ -26,7 +26,7 @@ last_modified_at: 2022-02-01T23:55:00
 - `on EC2 인스턴스` 접미사가 붙은 것은 AWS EC2 인스턴스에서 작업한 내용입니다. 
 - `on Macbook` 접미사가 붙은 것은 맥북에서 작업한 내용입니다. 
 
-##### AWS EC2 서비스 배포 작업 영역 
+##### 도커 레지스트리 설치 작업 영역 
 - EC2 인스턴스에 도커 개인 이미지 저장소를 구축하였습니다.
 
 <p align="center"><img src="/images/install-docker-registry-on-ec2-1.JPG" width="85%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
@@ -211,7 +211,7 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 nginx                     latest    c316d5a335a5   5 days ago   142MB
 ```
 
-##### 개인 저장소에 이미지 push on Macbook
+##### 이미지 push on Macbook
 - `docker push` 명령어를 통해 쉽게 이미지를 업로드할 수 있습니다.
 
 ```

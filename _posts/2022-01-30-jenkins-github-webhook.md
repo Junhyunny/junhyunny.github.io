@@ -14,6 +14,9 @@ last_modified_at: 2022-01-30T23:55:00
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 - [젠킨스(Jenkins) 설치][jenkins-install-link]
 
+👉 이어서 읽기를 추천합니다.
+- [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
+
 ## 0. 들어가면서
 
 [젠킨스(Jenkins) 설치][jenkins-install-link] 포스트에선 젠킨스 설치 과정을 정리하였습니다. 
@@ -230,3 +233,5 @@ pipeline {
 
 [what-is-ci-cd-link]: https://junhyunny.github.io/information/what-is-ci-cd/
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
+
+[install-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/install-docker-registry-on-ec2/

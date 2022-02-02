@@ -1,5 +1,5 @@
 ---
-title: "젠킨스(Jenkins) AWS EC2 서비스 배포" 
+title: "젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스" 
 search: false
 category:
   - information

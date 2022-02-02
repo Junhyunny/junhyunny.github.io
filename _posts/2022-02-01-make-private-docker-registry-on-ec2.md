@@ -18,8 +18,8 @@ last_modified_at: 2022-02-01T23:55:00
 
 ## 0. 들어가면서
 
-[도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]는 이미지 저장소를 만드는 내용을 정리한 포스트였습니다. 
-다른 비공개를 위한 작업이 없다면 IP와 포트(port) 정보를 알고 있는 사용자는 해당 레지스트리를 공개 저장소처럼 사용할 수 있게 됩니다. 
+[도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link] 포스트에선 이미지 저장소를 만드는 내용에 대해 다뤘습니다. 
+단순히 이미지 저장소를 만든 것이므로 별도의 비공개 처리를 하지 않았다면 IP와 포트(port)를 알고 있는 사용자들은 모두 해당 레지스트리를 공개 저장소처럼 사용할 수 있습니다. 
 프로젝트를 위한 비공개 이미지들을 올릴 예정이므로 이전에 만들었던 레지스트리를 비공개 처리해보겠습니다. 
 이번 포스트에선 이미 도커 레지스트리가 설치되어 있다는 가정하에 설명을 진행하겠습니다. 
 
@@ -40,19 +40,19 @@ last_modified_at: 2022-02-01T23:55:00
 - 인증서를 저장할 디렉토리를 만들고, 해당 디렉토리로 이동합니다.
 
 ```
-$ mkdir -p ~/docker-registry/cert
-$ cd ~/docker-registry/cert
+~ $ mkdir -p ~/docker-registry/cert
+~ $ cd ~/docker-registry/cert
 ```
 
 - 개인 키를 만듭니다.
-	- `openssl genrsa` - 키를 생성하는 명령어입니다.
-	- `-des3` - `3DES` 알고리즘으로 암호화합니다.
-	- `-out server.key` - 파일명 `server.key`으로 키를 생성합니다.
-	- `2048` - `2048` bit long modulus 사용
-	- 암호화 비밀번호를 입력하고, 확인을 위한 재입력을 수행합니다.
+    - `openssl genrsa` - 키를 생성하는 명령어입니다.
+    - `-des3` - `3DES` 알고리즘으로 암호화합니다.
+    - `-out server.key` - 파일명 `server.key`으로 키를 생성합니다.
+    - `2048` - `2048` bit long modulus 사용
+    - 암호화 비밀번호를 입력하고, 확인을 위한 재입력을 수행합니다.
 
 ```
-$ openssl genrsa -des3 -out server.key 2048
+cert $ openssl genrsa -des3 -out server.key 2048
 Generating RSA private key, 2048 bit long modulus
 ......................................+++
 .....+++
@@ -62,12 +62,12 @@ Verifying - Enter pass phrase for server.key:
 ```
 
 - 인증 요청서(CSR, Certificate Signing Request) 만들기
-	- SSL 서버를 운영하는 회사의 정보를 암호화하여 인증 기관으로 보내 인증서를 발급받기 위한 신청서입니다.
-	- `Common Name (eg, your name or your server's hostname)` 항목에서 EC2 인스턴스 공개IP를 등록합니다.
-	- `Common Name`은 레지스트리로 사용할 서버의 도메인 이름과 동일해야하며 반드시 IP가 들어가지는 않습니다.
+    - SSL 서버를 운영하는 회사의 정보를 암호화하여 인증 기관으로 보내 인증서를 발급받기 위한 신청서입니다.
+    - `Common Name (eg, your name or your server's hostname)` 항목에서 EC2 인스턴스 공개IP를 등록합니다.
+    - `Common Name`은 레지스트리로 사용할 서버의 도메인 이름과 동일해야하며 반드시 IP가 들어가지는 않습니다.
 
 ```
-$ openssl req -new -key server.key -out server.csr
+cert $ openssl req -new -key server.key -out server.csr
 Enter pass phrase for server.key:
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -91,15 +91,15 @@ An optional company name []:
 ```
 
 - 자체 인증서(.crt) 만들기
-	- `openssl x509` - 인증서를 만드는 명령어입니다.
-	- `-req` - 입력 값으로 `certificate request`, `sign` 그리고 `output`이 필요하다는 옵션입니다.
-	- `-days 365` - 인증서 유효기간입니다.
-	- `-in server.csr` - 인증서 생성시 필요한 요청서는 `server.csr`입니다.
-	- `-signkey server.key` - 인증서 생성시 필요한 개인 키를 지정합니다.
-	- `-out server.crt` - 생성할 인증서 이름을 `server.crt`로 지정합니다.
+    - `openssl x509` - 인증서를 만드는 명령어입니다.
+    - `-req` - 입력 값으로 `certificate request`, `sign` 그리고 `output`이 필요하다는 옵션입니다.
+    - `-days 365` - 인증서 유효기간입니다.
+    - `-in server.csr` - 인증서 생성시 필요한 요청서는 `server.csr`입니다.
+    - `-signkey server.key` - 인증서 생성시 필요한 개인 키를 지정합니다.
+    - `-out server.crt` - 생성할 인증서 이름을 `server.crt`로 지정합니다.
 
 ```
-$ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+cert $ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 Signature ok
 subject=/C=KR/ST=Seoul/L=Seoul/O=VMware/CN={ec2-instance-public-ip}
 Getting Private key
@@ -109,8 +109,8 @@ Enter pass phrase for server.key:
 - 개인 키 복호화를 통한 RSA Private Key 추출
 
 ```
-$ cp server.key server.key.origin
-$ openssl rsa -in server.key.origin -out server.key
+cert $ cp server.key server.key.origin
+cert $ openssl rsa -in server.key.origin -out server.key
 Enter pass phrase for server.key.origin:
 writing RSA key
 ```
@@ -118,7 +118,7 @@ writing RSA key
 - 인증서 생성 확인
 
 ```
-$ ls
+cert $ ls
 server.crt  server.csr  server.key  server.key.origin
 ```
 
@@ -149,16 +149,16 @@ server.key.origin                                                               
 - ubuntu
 
 ```
-$ cp ~/Desktop/cert/server.crt /usr/share/ca-certificates/
-$ echo server.crt >> /etc/ca-certificates.conf
-$ update-ca-certificates
+~ $ cp ~/Desktop/cert/server.crt /usr/share/ca-certificates/
+~ $ echo server.crt >> /etc/ca-certificates.conf
+~ $ update-ca-certificates
 ```
 
 - centos
 
 ```
-cp ~/Desktop/cert/server.crt /etc/pki/ca-trust/source/anchors/ 
-$ update-ca-trust
+~ $ cp ~/Desktop/cert/server.crt /etc/pki/ca-trust/source/anchors/ 
+~ $ update-ca-trust
 ```
 
 ## 3. 로그인 정보 설정 및 레지스트리 실행
@@ -169,30 +169,30 @@ $ update-ca-trust
 - 아이디와 비밀번호를 만들어 저장할 디렉토리를 만듭니다.
 
 ```
-$ mkdir -p ~/docker-registry/auth
-$ cd ~/docker-registry/auth
+~ $ mkdir -p ~/docker-registry/auth
+~ $ cd ~/docker-registry/auth
 ```
 
 - 이전 레지스트리 버전에 포함되었던 `htpasswd` 기능이 최근 이미지에서 빠진 것 같습니다.
 - htpasswd 툴(tool) 설치 후 아이디와 비밀번호를 만들어줍니다.
-	- 아이디는 `cicduser`, 비밀번호는 `0000`입니다.
+    - 아이디는 `cicduser`, 비밀번호는 `0000`입니다.
 
 ```
-$ sudo yum install httpd-tools -y
-$ htpasswd -Bbn cicduser 0000 > ./htpasswd
+auth $ sudo yum install httpd-tools -y
+auth $ htpasswd -Bbn cicduser 0000 > ./htpasswd
 ```
 
 ##### 도커 레지스트리 실행 on EC2 인스턴스
 - 레지스트리에서 사용할 루트 디랙토리를 생성합니다.
 
 ```
-$ mkdir -p ~/docker-registry/volume
+~ $ mkdir -p ~/docker-registry/volume
 ```
 
 - 이전에 실행 중인 레지스트리 컨테이너가 있다면 종료 후 재실행합니다.
 
 ```
-$ docker run -d \
+~ $ docker run -d \
   -p 5000:5000 \
   --restart=always \
   --name private-registry \
@@ -207,7 +207,7 @@ $ docker run -d \
   -e REGISTRY_HTTP_TLS_CERTIFICATE=/certs/server.crt \
   registry
 
-$ docker ps
+~ $ docker ps
 CONTAINER ID   IMAGE      COMMAND                  CREATED         STATUS         PORTS                                       NAMES
 d204d32fc574   registry   "/entrypoint.sh /etc…"   9 seconds ago   Up 8 seconds   0.0.0.0:5000->5000/tcp, :::5000->5000/tcp   private-registry
 ```
@@ -220,7 +220,7 @@ d204d32fc574   registry   "/entrypoint.sh /etc…"   9 seconds ago   Up 8 second
 ##### nginx 이미지 pull from 도커 허브 on Macbook
 
 ```
-% docker pull nginx
+~ % docker pull nginx
 Using default tag: latest
 latest: Pulling from library/nginx
 5eb5b503b376: Already exists 
@@ -270,7 +270,7 @@ unauthorized: authentication required
 Password: 
 Login Succeeded
 
- ~ % docker push {ec2-instance-public-ip}:5000/nginx               
+~ % docker push {ec2-instance-public-ip}:5000/nginx               
 Using default tag: latest
 The push refers to repository [{ec2-instance-public-ip}:5000/nginx]
 762b147902c0: Pushed 

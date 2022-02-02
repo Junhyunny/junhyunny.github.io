@@ -43,14 +43,14 @@ last_modified_at: 2022-02-01T23:55:00
 - 접속 시도 확인시 `yes` 입력합니다.
 
 ```
-% ssh -i private-key.pem ec2-user@{your-own-ec2-service-address}.ap-northeast-1.compute.amazonaws.com
+~ % ssh -i private-key.pem ec2-user@{your-own-ec2-service-address}.ap-northeast-1.compute.amazonaws.com
 ```
 
 ##### 도커 설치 on EC2 인스턴스
 - 다음 명령어를 통해 도커를 설치합니다. 
 
 ```
-$ sudo yum install docker
+~ $ sudo yum install docker
 ```
 
 ##### 도커 설치 성공 로그 on EC2 인스턴스
@@ -188,7 +188,7 @@ AWS EC2 설정 대시보드에서 포트 접근을 설정할 수 있습니다.
 ##### nginx 이미지 pull from 도커 허브 on Macbook
 
 ```
-% docker pull nginx
+~ % docker pull nginx
 Using default tag: latest
 latest: Pulling from library/nginx
 5eb5b503b376: Already exists 

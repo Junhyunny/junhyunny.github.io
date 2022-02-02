@@ -268,7 +268,7 @@ pipeline {
                         sh '$SSH_CMD $DOCKER stop front-end'
                         sh '$SSH_CMD $DOCKER rm front-end'
                     } catch (e) {
-                        sh 'fail to stop and remove container'
+                        sh 'echo "fail to stop and remove container"'
                     }
                     withCredentials([usernamePassword(credentialsId: 'private_registry_credential', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh 'docker login $AWS_PUBLIC_IP:5000 -u $USERNAME -p $PASSWORD'

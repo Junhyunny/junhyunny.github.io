@@ -206,7 +206,7 @@ server {
 - `Manage Jenkins > Configure System` 화면으로 이동합니다.
 - `Global properties` 항목을 찾습니다.
 - `Environment varaibles` 체크 박스를 선택합니다.
-- 맥북에서 사용하는 `$PATH` 변수와 동일한 값을 `Value`에 넣습니다.
+- 맥북에서 사용하는 `$PATH` 변수와 동일한 값을 `Value` 항목에 넣습니다.
 - `Add` 버튼을 눌러 환경 변수를 추가합니다.
 
 <p align="center">

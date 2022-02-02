@@ -16,6 +16,9 @@ last_modified_at: 2022-02-01T23:55:00
 - [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
 
+👉 이어서 읽기를 추천합니다.
+- [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
+
 ## 0. 들어가면서
 
 [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link] 포스트에선 이미지 저장소를 만드는 내용에 대해 다뤘습니다. 
@@ -348,5 +351,7 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/
 [install-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/install-docker-registry-on-ec2/
+
+[jenkins-deploy-ec2-using-docker-link]: https://junhyunny.github.io/information/jenkins/jenkins-deploy-ec2-using-docker/
 
 [docker-registry-secrete-link]: https://5equal0.tistory.com/entry/Docker-Registry-%EC%82%AC%EC%84%A4-%EC%9B%90%EA%B2%A9-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EB%A7%8C%EB%93%A4%EA%B8%B0

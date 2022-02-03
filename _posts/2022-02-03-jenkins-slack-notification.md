@@ -38,8 +38,8 @@ last_modified_at: 2022-02-03T23:55:00
 ##### Slack 워크스페이스 URL 확인
 - Slack 어플리케이션 왼쪽 상단 워크스페이스 이미지를 누르면 워크스페이스 URL 정보를 확인할 수 있습니다.
 
-<p align="center">
-  <img src="/images/jenkins-slack-notification-2.JPG" width="80%" class="image__border">
+<p align="left">
+  <img src="/images/jenkins-slack-notification-2.JPG" width="45%" class="image__border">
 </p>
 
 ##### Slack app directory 화면
@@ -199,7 +199,7 @@ Github 웹훅을 통해 프로젝트 코드의 변경 사항을 감지합니다.
 빌드가 정상적으로 완료되면 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 링크를 메세지로 전달합니다.
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-10.gif" width="80%" class="image__border">
+  <img src="/images/jenkins-slack-notification-10.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

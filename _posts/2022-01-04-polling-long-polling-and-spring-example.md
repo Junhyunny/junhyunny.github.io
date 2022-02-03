@@ -40,7 +40,7 @@ last_modified_at: 2022-01-04T23:55:00
 ##### 폴링 방식
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-spring-example-1.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-spring-example-1.JPG" width="50%" class="image__border">
 </p>
 <center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
 
@@ -57,7 +57,7 @@ last_modified_at: 2022-01-04T23:55:00
 ##### 롱 폴링 방식
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-spring-example-2.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-spring-example-2.JPG" width="50%" class="image__border">
 </p>
 <center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
 
@@ -122,7 +122,7 @@ DeferredResult 클래스는 비동기 처리를 위해 등장하였습니다.
 - `nio-http-worker` 스레드가 다시 스레드 풀에서 나와 타임아웃되거나 완료된 대상을 처리합니다.
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-spring-example-3.JPG" width="60%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-spring-example-3.JPG" width="60%" class="image__border">
 </p>
 <center>이미지 출처, https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center><br>
 

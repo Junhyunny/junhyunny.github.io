@@ -32,7 +32,7 @@ last_modified_at: 2022-02-01T23:55:00
 
 ##### 비공개 도커 레지스트리 만들기 작업 영역 
 
-<p align="center"><img src="/images/make-private-docker-registry-on-ec2-1.JPG" width="85%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/make-private-docker-registry-on-ec2-1.JPG" width="85%" class="image__border"></p>
 
 ## 1. SSL 인증서 생성
 

@@ -40,7 +40,7 @@ CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작
 - 젠킨스 서버는 `ngrok`을 사용하여 로컬 서버를 외부 인터넷으로 노출하였습니다.
 - 테스트를 위한 어플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
 
-<p align="center"><img src="/images/jenkins-install-1.JPG" width="85%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-install-1.JPG" width="85%" class="image__border"></p>
 
 ## 2. 젠킨스 설치 및 실행
 
@@ -107,7 +107,7 @@ $ brew services restart jenkins
 
 ##### 젠킨스 준비 화면
 
-<p align="center"><img src="/images/jenkins-install-2.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-install-2.JPG" width="80%" class="image__border"></p>
 
 ##### 젠킨스 초기 비밀번호 찾기
 - `/Users/junhyunk/.jenkins/secrets/initialAdminPassword` 파일에 초기 비밀번호가 있다고 안내해줍니다.
@@ -134,7 +134,7 @@ $ cat /Users/junhyunk/.jenkins/secrets/initialAdminPassword
 ##### 젠킨스 대시보드
 - 모든 설정을 마치면 다음과 같은 화면을 볼 수 있습니다.
 
-<p align="center"><img src="/images/jenkins-install-6.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-install-6.JPG" width="100%" class="image__border"></p>
 
 ## 3. ngrok 터널링(tunneling)
 
@@ -168,7 +168,7 @@ $ ngrok http 8080
 ##### ngrok 도메인 접속
 - `ngrok`이 만든 도메인으로 접근시 젠킨스 화면을 볼 수 있습니다. 
 
-<p align="center"><img src="/images/jenkins-install-8.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-install-8.JPG" width="100%" class="image__border"></p>
 
 #### REFERENCE
 - <https://wan-blog.tistory.com/74>

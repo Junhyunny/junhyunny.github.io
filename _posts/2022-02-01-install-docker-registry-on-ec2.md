@@ -33,7 +33,7 @@ last_modified_at: 2022-02-01T23:55:00
 ##### 도커 레지스트리 설치 작업 영역 
 - EC2 인스턴스에 도커 개인 이미지 저장소를 구축하였습니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-1.JPG" width="85%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-1.JPG" width="85%" class="image__border"></p>
 
 ## 1. 도커 설치하기
 
@@ -168,18 +168,18 @@ AWS EC2 설정 대시보드에서 포트 접근을 설정할 수 있습니다.
     - `EC2 > Instances > {container id}` 화면
 - 선택한 EC2 인스턴스 상세 정보 화면 하단에 `Security` 탭에서 `security groups`를 선택합니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-2.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-2.JPG" width="80%" class="image__border"></p>
 
 ##### Inbound rule 설정 화면
 - `Edit inbound rules` 버튼을 눌러 인바운드(inbound) 규칙 설정 화면으로 이동합니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-3.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-3.JPG" width="80%" class="image__border"></p>
 
 ##### Inbound rule 추가
 - `Custom TCP`를 선택하여 포트 5000번을 허용합니다.
 - 소스(source)는 `0.0.0.0/0`으로 지정하여 모든 IP에서 접근을 허용합니다.
 
-<p align="center"><img src="/images/install-docker-registry-on-ec2-4.JPG" width="80%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/install-docker-registry-on-ec2-4.JPG" width="80%" class="image__border"></p>
 
 ### 2.3. 도커 이미지 push & pull
 

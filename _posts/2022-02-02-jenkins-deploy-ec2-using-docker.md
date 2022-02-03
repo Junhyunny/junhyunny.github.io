@@ -237,7 +237,7 @@ server {
 - `{ec2-instance-public-ip}` 대신 EC2 인스턴스 공개 IP를 입력합니다.
 - `private_registry_credential`은 이전 단계에서 등록한 비공개 레지스트리 `credential` 아이디를 사용합니다.
 
-```javascript
+```s
 pipeline {
     agent any
     environment {
@@ -257,6 +257,7 @@ pipeline {
         stage('build') {
             steps {
                 dir ('front-end') {
+                    sh 'rm -rf build'
                     sh 'npm install'
                     sh 'npm run build'
                     sh 'docker build -t $AWS_PUBLIC_IP:5000/front-end:latest .'

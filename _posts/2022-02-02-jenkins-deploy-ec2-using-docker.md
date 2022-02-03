@@ -16,6 +16,9 @@ last_modified_at: 2022-02-02T23:55:00
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
 - [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
 
+👉 이어서 읽기를 추천합니다.
+- [젠킨스(Jenkins) 슬랙(Slack) 알림 메세지 전송 ][jenkins-slack-notification-link]
+
 ## 0. 들어가면서
 
 Github 웹훅(webhook)으로 코드 변경 사항을 감지했다면 이를 빌드, 테스트하고 서비스로 배포해야합니다. 
@@ -307,3 +310,5 @@ Github에서 커밋(commit)을 만들고, 젠킨스 파이프라인이 정상적
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/
 [install-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/install-docker-registry-on-ec2/
 [make-private-docker-registry-on-ec2-link]: https://junhyunny.github.io/information/docker/make-private-docker-registry-on-ec2/
+
+[jenkins-slack-notification-link]: https://junhyunny.github.io/information/jenkins/jenkins-slack-notification/

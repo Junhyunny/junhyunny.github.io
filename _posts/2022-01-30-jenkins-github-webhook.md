@@ -26,7 +26,7 @@ last_modified_at: 2022-01-30T23:55:00
 
 ##### Github Webhook 작업 영역 
 
-<p align="center"><img src="/images/jenkins-github-webhook-1.JPG" width="85%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-1.JPG" width="85%" class="image__border"></p>
 
 ## 1. Github 액세스 토큰(access token) 생성
 
@@ -38,21 +38,21 @@ Github에 로그인하면 오른쪽 상단에 사용자 프로필 이미지가 �
 - `Settings > Developer settings > Personal access tokens`
 - 화면에 보이는 `Generate new token` 버튼을 누릅니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-2.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-2.JPG" width="100%" class="image__border"></p>
 
 ##### 토큰 생성 화면
 - 만료 시간은 무제한으로 설정하였습니다.
 - 해당 토큰으로 접근할 수 있는 스코프(scope)를 지정합니다. 
     - `repo`, `admin:repo_hook` 스코프를 선택합니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-3.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-3.JPG" width="75%" class="image__border"></p>
 
 ##### 토큰 생성 완료
 - 토큰이 생성되면 아래와 같은 화면을 볼 수 있습니다.
 - **토큰을 잃어버리지 않도록 다른 곳에 저장합니다.**
 - 해당 화면을 벗어나면 토큰을 찾을 방법이 없으므로 다시 생성해야 합니다. 
 
-<p align="center"><img src="/images/jenkins-github-webhook-4.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-4.JPG" width="100%" class="image__border"></p>
 
 ## 2. Github 개인 레포지토리 webhook 설정
 
@@ -64,7 +64,7 @@ Github 웹훅(webhook)을 이용하면 특정 이벤트를 감지하여 CI/CD �
 - `Settings > Webhooks`
 - `Add webhook` 버튼을 클릭합니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-5.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-5.JPG" width="100%" class="image__border"></p>
 
 ##### 웹훅 추가
 - Payload URL - 젠킨스 서버 주소에 `/github-webhook/` 경로를 추가하여 입력합니다.
@@ -87,15 +87,15 @@ Github 웹훅(webhook)을 이용하면 특정 이벤트를 감지하여 CI/CD �
 - 젠킨스 대시보드 메인에서 `Manage Jenkins` 버튼을 눌러 `Credentials` 등록 화면으로 이동합니다. 
 - `Manage Jenkins > Manage Credentials`
 
-<p align="center"><img src="/images/jenkins-github-webhook-7.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-7.JPG" width="100%" class="image__border"></p>
 
 ##### Credentials 등록 화면 이동
 - (global) 링크를 눌러 `Credentials` 등록 화면으로 이동합니다.
 - Credentials 등록 화면에서 `Add Credentials` 버튼을 누릅니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-8.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-8.JPG" width="100%" class="image__border"></p>
 
-<p align="center"><img src="/images/jenkins-github-webhook-9.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-9.JPG" width="100%" class="image__border"></p>
 
 ##### Credentials 등록
 - 2021년 8월 13일부터 비밀번호를 사용한 인증은 불가능하므로 액세스 토큰을 사용합니다.
@@ -107,7 +107,7 @@ Github 웹훅(webhook)을 이용하면 특정 이벤트를 감지하여 CI/CD �
 > remote: Support for password authentication was removed on August 13, 2021. 
 > Please use a personal access token instead.
 
-<p align="center"><img src="/images/jenkins-github-webhook-10.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-10.JPG" width="100%" class="image__border"></p>
 
 ## 4. 젠킨스 파이프라인(pipeline) 프로젝트 생성
 
@@ -116,12 +116,12 @@ Github와 연결할 잡(Job)을 만들어보겠습니다.
 ##### 젠킨스 메인 대시보드
 - 메인 대시보드 화면에 `Create a Job` 혹은 왼쪽 상단에 `New Item` 버튼을 누릅니다. 
 
-<p align="center"><img src="/images/jenkins-github-webhook-11.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-11.JPG" width="100%" class="image__border"></p>
 
 ##### 파이프라인 생성
 - 적절한 이름으로 파이프라인을 생성합니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-12.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-12.JPG" width="100%" class="image__border"></p>
 
 ##### 파이프라인 설정
 - 체크 박스를 선택합니다.
@@ -146,24 +146,24 @@ pipeline {
 }
 ```
 
-<p align="center"><img src="/images/jenkins-github-webhook-13.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-13.JPG" width="100%" class="image__border"></p>
 
 ##### 최초 빌드 수행
 - 파이프라인 생성에 성공하였으면 `Build Now` 버튼을 눌러 빌드를 실행합니다. 
 
-<p align="center"><img src="/images/jenkins-github-webhook-14.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-14.JPG" width="100%" class="image__border"></p>
 
 ##### 성공 로그
 - 성공한 로그를 확인하면 다음과 같은 창을 확인할 수 있습니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-15.JPG" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-15.JPG" width="100%" class="image__border"></p>
 
 ## 5. 젠킨스 Webhook 동작 확인
 
 마지막으로 Github 웹훅이 잘 연결되었는지 확인합니다. 
 Github 개인 레포지토리에서 커밋(commit)을 만들고 젠킨스 서버에서 정상적으로 빌드가 수행되는지 확인합니다.
 
-<p align="center"><img src="/images/jenkins-github-webhook-16.gif" width="100%" style="border: 1px solid #ccc; border-radius: 10px;"></p>
+<p align="center"><img src="/images/jenkins-github-webhook-16.gif" width="100%" class="image__border"></p>
 
 ## CLOSING
 

@@ -27,7 +27,7 @@ last_modified_at: 2022-01-09T23:55:00
 `setTimeout` 함수와 `setInterval` 함수를 사용할 때 미묘하게 기능이 다르기 때문에 관련된 내용도 함께 정리하였습니다. 
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-1.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-javascript-example-1.JPG" width="50%" class="image__border">
 </p>
 <center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
 
@@ -76,7 +76,7 @@ export const timeoutPolling = (func, timeout, maxAttempts = -1) => {
 - 콜백 함수 실행 시간과 상관없이 콜백 함수 실행 간격이 일정하게 보장됩니다.
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-2.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-javascript-example-2.JPG" width="50%" class="image__border">
 </p>
 <center>이미지 출처, https://ko.javascript.info/settimeout-setinterval</center><br>
 
@@ -125,7 +125,7 @@ export const intervalPolling = (func, interval, maxAttempts = -1) => {
     - 콜백 함수 실행 시간이 60ms라면 다음 콜백 함수 실행은 40ms 뒤 입니다.
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-3.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-javascript-example-3.JPG" width="50%" class="image__border">
 </p>
 <center>이미지 출처, https://ko.javascript.info/settimeout-setinterval</center><br>
 
@@ -201,7 +201,7 @@ export const sleepPolling = async (func, validateFunc, timeout) => {
 ##### 롱 폴링 방식
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-4.JPG" width="50%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/polling-long-polling-and-javascript-example-4.JPG" width="50%" class="image__border">
 </p>
 <center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
 

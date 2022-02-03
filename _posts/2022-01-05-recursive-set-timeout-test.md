@@ -89,7 +89,7 @@ const polling = (callback, path, config, interval) => {
 - 9회 수행을 기대하였지만, 실제 2회만 동작하여 테스트가 실패했다고 합니다.
 
 <p align="center">
-    <img src="/images/recursive-set-timeout-test-1.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/recursive-set-timeout-test-1.JPG" width="75%" class="image__border">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
@@ -123,7 +123,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 ##### Stack Overflow 답변
 
 <p align="center">
-    <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" class="image__border">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
@@ -144,7 +144,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 ##### Additional Information
 
 <p align="center">
-    <img src="/images/recursive-set-timeout-test-3.JPG" width="75%" style="border: 1px solid #ccc; border-radius: 10px;">
+    <img src="/images/recursive-set-timeout-test-3.JPG" width="75%" class="image__border">
 </p>
 <center>이미지 출처, https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 

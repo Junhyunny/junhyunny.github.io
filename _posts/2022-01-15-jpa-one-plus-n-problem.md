@@ -544,6 +544,9 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Overflow` 질문을 통해 확인해보겠습니다. 
 이후 포스트에서 자세한 내용을 정리해보도록 하겠습니다. 
 
+##### Stack Overflow 질문
+- <https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s>
+
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-15-jpa-one-plus-n-problem/action-in-blog>
 

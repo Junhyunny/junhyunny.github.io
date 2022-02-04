@@ -542,7 +542,9 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드가 없어도 중복되지 않은 엔티티 리스트가 반환됩니다. 
 `@EntityGraph` 애너테이션을 사용할 때는 왜 중복 현상이 발생하지 않는지 관련 내용을 문의할 생각입니다. 
 Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Overflow` 질문을 통해 확인해보겠습니다. 
-이후 포스트에서 자세한 내용을 정리해보도록 하겠습니다. 
+
+##### Github issue
+- <https://github.com/spring-projects/spring-data-jpa/issues/2430>
 
 ##### Stack Overflow 질문
 - <https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s>

@@ -26,13 +26,15 @@ last_modified_at: 2021-12-12T23:55:00
 
 ##### Webkit 엔진 HTML 문서 렌더링 과정
 
-<p align="center"><img src="/images/virtual-dom-1.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-1.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, https://it-eldorado.tistory.com/87</center>
 
 ### 1.1. DOM 트리 생성
 
 HTML 파서는 HTML 파일을 파싱하여 DOM(Document Object Model) 트리를 생성합니다. 
-`"바이트 > 문자 > 토큰 > 노드 > 객체 모델"`이라는 과정을 거쳐서 DOM 트리를 생성합니다. 
+`"바이트 > 문자 > 토큰 > 노드 > 객체 모델"` 과정을 거쳐서 DOM 트리를 생성합니다. 
 
 ##### HTML 문서 예시
 
@@ -53,7 +55,9 @@ HTML 파서는 HTML 파일을 파싱하여 DOM(Document Object Model) 트리를 
 
 ##### 생성된 DOM 트리
 
-<p align="center"><img src="/images/virtual-dom-2.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-2.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
 ### 1.2. 스타일 규칙 생성
@@ -73,8 +77,12 @@ img { float: right }
 
 ##### 생성된 CSSOM 트리
 
-<p align="center"><img src="/images/virtual-dom-3.JPG" width="75%"></p>
-<p align="center"><img src="/images/virtual-dom-4.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-3.JPG" width="75%" class="image__border">
+</p>
+<p align="center">
+    <img src="/images/virtual-dom-4.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
 ### 1.3. 렌더 트리 생성
@@ -84,7 +92,9 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 일부 노드는 CSS를 통해 숨겨지며 렌더 트리에서 생략될 수 있습니다. 
 렌더 트리의 노드들은 화면에 최종적으로 출력하기 위한 정보들을 각자 지니고 있습니다. 
 
-<p align="center"><img src="/images/virtual-dom-5.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-5.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
 ### 1.4. 레이아웃(layout)
@@ -93,7 +103,9 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 렌더 트리는 스타일 정보를 가지고 있지만, 기기의 뷰포트(viewport) 내에서 정확한 위치와 크기가 계산되어 있지 않습니다. 
 레이아웃 프로세스에서는 각 요소들의 상대적인 측정 값들은 절대적인 픽셀(pixel)로 변환됩니다. 
 
-<p align="center"><img src="/images/virtual-dom-6.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-6.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, TOSS - 성능 최적화</center>
 
 ### 1.5. 페인트(paint)
@@ -105,7 +117,9 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 - 전체적인 브라우저 로딩 과정을 나타냅니다.
 - 아래 이미지에서 `STYLE 과정`은 렌더 트리 생성과 동일한 과정입니다. 
 
-<p align="center"><img src="/images/virtual-dom-7.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-7.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, TOSS - 성능 최적화</center>
 
 ### 1.6. 레이아웃(layout) 혹은 리플로우(reflow)와 리페인트(repaint)
@@ -117,13 +131,17 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 - DOM이 추가, 삭제되거나 요소의 기하적인 영향을 주는 CSS 값이 변경되는 경우 레이아웃부터 이후 과정을 다시 수행해야합니다. 
 - 이를 `레이아웃(layout) 혹은 리플로우(reflow)`라고 합니다. 
 
-<p align="center"><img src="/images/virtual-dom-8.JPG" width="55%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-8.JPG" width="55%" class="image__border">
+</p>
 <center>이미지 출처, TOSS - 성능 최적화</center>
 
 ##### 리페인트(repaint) 작업
 - 반대로 기하적인 변경이 없는 경우에는 레이아웃 과정을 건너뛰고, 페인트부터 수행하므로 이를 `리페인트(repaint)`라고 합니다.
 
-<p align="center"><img src="/images/virtual-dom-9.JPG" width="55%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-9.JPG" width="55%" class="image__border">
+</p>
 <center>이미지 출처, TOSS - 성능 최적화</center>
 
 ## 2. Virtual DOM
@@ -146,8 +164,8 @@ JavaScript 같은 프로그래밍 언어로 인해 뷰(view)에 변화가 생겼
 
 ## CLOSING
 
-프론트 엔드 기술 스택에 대한 지식이 많이 부족한 편인데, 이번 글을 정리하면서 조금 더 친해질 수 있었습니다. 
-최근에 들었던 SSR(Server Side Rendering)과 관련된 글도 곁다리로 함께 읽어볼 수 있었고, 프론트 엔드 진영의 기술력에 감탄하기도 했습니다. 
+프론트엔드에 관련된 기술 스택을 잘 모르는 편인데, 이번 글을 정리하면서 조금 더 친해질 수 있었습니다. 
+최근에 들었던 SSR(Server Side Rendering)과 관련된 글도 곁다리로 함께 읽어볼 수 있었고, 프론트엔드 진영의 기술력에 감탄하기도 했습니다. 
 참조한 포스트 중에 [Vanilla Javascript로 가상돔(VirtualDOM) 만들기][vanilla-javascript-virtual-dom-link]에선 순수 JavaScript로 컴포넌트 구현, 가상 DOM 구현, 리액트 훅스 구현과 관련된 코드를 읽어볼 수 있었는데 덕분에 많은 공부가 되었습니다. 
 누군가는 프레임워크나 라이브러리의 본질을 파고들기 위한 공부를 하고 있다는 것에 큰 자극을 느꼈습니다. 
 

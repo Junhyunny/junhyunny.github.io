@@ -1,5 +1,5 @@
 ---
-title: "Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource"
+title: "Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service"
 search: false
 category:
   - spring-boot
@@ -18,20 +18,19 @@ last_modified_at: 2021-12-19T23:55:00
 - [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
 
 👉 이어서 읽기를 추천합니다.
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front End][front-end-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
 
 ## 0. 들어가면서
 
 `TDD(Test Driven Development)`를 연습하면서 로그인 기능을 `Spring Security`와 함께 구현해보는 것도 좋을 것 같다는 생각이 들었습니다. 
-이전에 작성한 [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 글을 참조했는데, 
-마음에 들지 않는 부분들이 있어서 이번 포스트를 계기로 다시 정리해보려고 합니다. 
+이전에 작성했던 [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 글을 참조했는데, 마음에 들지 않는 부분들이 있어서 다시 정리하였습니다.
 
 다시 정리해보려고 하는 내용들은 다음과 같습니다. 
-- `Insomnia 툴(tool)`을 이용한 테스트를 실제 로그인 화면으로 변경하기
-- `Authorization Server`와 `Resource Server` 분리하기
+- `Insomnia 툴(tool)`을 이용한 테스트를 실제 로그인 화면으로 변경
+- `Authorization Server`와 `Resource Server` 분리
 - `spring-security-oauth2` 의존성 - 보안 취약점이 발견된 2.3.3.RELEASE 버전 사용 (2.3.5.RELEASE 버전으로 변경)
-- 선 테스트 코드 작성, 후 코드 구현 (RED-GREEN-REFACTORING 사이클 연습)
+- 선 테스트 코드 작성 후 코드 구현 (RED-GREEN-REFACTORING 사이클 연습)
     - 프레임워크 기능에 의존적인 부분은 선 테스트 코드 작성에 실패하였습니다. 
 
 ##### Spring Security 기반 JWT 인증 방식 예제 서비스 구조
@@ -199,6 +198,8 @@ spring:
 - `configure(AuthenticationManagerBuilder auth)` 메소드
     - AuthenticationManagerBuilder 객체에 사용자 인증시 필요한 AuthenticationProvider 혹은 UserDetailsService를 설정합니다.
     - 임시 사용자 정보를 메모리에 등록합니다.
+        - 아이디 `Junhyunny`, 비밀번호 `encoding(123)`
+        - 아이디 `TestUser`, 비밀번호 `encoding(123)`
 
 ```java
 package blog.in.action.security;
@@ -411,8 +412,7 @@ public class MemberControllerTests {
 위 작업 내용은 모두 커밋(commit)하고, 구현 완료된 인증 서비스, 리소스 서비스와 연결하면서 변경된 내용만 정리해보겠습니다. 
 테스트를 모두 통과하였기에 쉽게 연결될 것으로 기대했지만, 인증 서비스와 연결시에 예상치 못한 에러를 만났습니다. 
 해당 사항에 구체적인 내용은 다음 포스트를 통해 정리해보겠습니다. 
-변경된 내용은 위 코드에 반영하지 않았습니다. 
-필요하신 분께서는 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
+변경된 내용은 위 코드에 반영하지 않았으며, 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
 
 ### 4.1. 리소스 서비스 코드 변경 사항
 - JWT 토큰을 변경하는 빈에 Sign Key를 지정해주고, 부가적인 기능을 호출합니다.(afterPropertiesSet 메소드)
@@ -437,5 +437,6 @@ public class MemberControllerTests {
 [json-link]: https://junhyunny.github.io/information/json-web-token/
 [security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+
 [front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
 [authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/

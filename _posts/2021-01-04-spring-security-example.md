@@ -14,9 +14,9 @@ last_modified_at: 2021-12-19T23:55:00
 - [Spring Security][security-link]
 
 👉 이어서 읽기를 추천합니다. - 로그인 기능 구현 (By using Spring-Boot, Spring-Security, ReactJS)
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front End][front-end-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service][resource-service-link]
 
 ## 0. 들어가면서
 

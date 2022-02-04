@@ -1,5 +1,5 @@
 ---
-title: "Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front End"
+title: "Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service"
 search: false
 category:
   - spring-boot
@@ -18,20 +18,19 @@ last_modified_at: 2021-12-19T23:55:00
 - [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
 
 👉 이어서 읽기를 추천합니다.
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization][authorization-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource][resource-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service][resource-service-link]
 
 ## 0. 들어가면서
 
 `TDD(Test Driven Development)`를 연습하면서 로그인 기능을 `Spring Security`와 함께 구현해보는 것도 좋을 것 같다는 생각이 들었습니다. 
-이전에 작성한 [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 글을 참조했는데, 
-마음에 들지 않는 부분들이 있어서 이번 포스트를 계기로 다시 정리해보려고 합니다. 
+이전에 작성했던 [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 글을 참조했는데, 마음에 들지 않는 부분들이 있어서 다시 정리하였습니다.
 
 다시 정리해보려고 하는 내용들은 다음과 같습니다. 
-- `Insomnia 툴(tool)`을 이용한 테스트를 실제 로그인 화면으로 변경하기
-- `Authorization Server`와 `Resource Server` 분리하기
+- `Insomnia 툴(tool)`을 이용한 테스트를 실제 로그인 화면으로 변경
+- `Authorization Server`와 `Resource Server` 분리
 - `spring-security-oauth2` 의존성 - 보안 취약점이 발견된 2.3.3.RELEASE 버전 사용 (2.3.5.RELEASE 버전으로 변경)
-- 선 테스트 코드 작성, 후 코드 구현 (RED-GREEN-REFACTORING 사이클 연습)
+- 선 테스트 코드 작성 후 코드 구현 (RED-GREEN-REFACTORING 사이클 연습)
 
 ##### Spring Security 기반 JWT 인증 방식 예제 서비스 구조
 

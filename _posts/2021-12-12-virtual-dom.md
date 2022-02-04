@@ -159,7 +159,9 @@ JavaScript 같은 프로그래밍 언어로 인해 뷰(view)에 변화가 생겼
 
 ##### 가상 DOM에 의한 렌더링
 
-<p align="center"><img src="/images/virtual-dom-10.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/virtual-dom-10.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, https://www.oreilly.com/library/view/learning-react-native/9781491929049/ch02.html</center>
 
 ## CLOSING

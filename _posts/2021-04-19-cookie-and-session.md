@@ -147,4 +147,4 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 [stateless-service-blogLink]: https://5equal0.tistory.com/entry/StatefulStateless-Stateful-vs-Stateless-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%99%80-HTTP-%EB%B0%8F-REST
 [cookie-and-session-blogLink]: https://www.fun-coding.org/crawl_advance1.html#6.1.-%EC%BF%A0%ED%82%A4(cookie):-%EC%83%81%ED%83%9C-%EC%A0%95%EB%B3%B4%EB%A5%BC-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EC%8B%9D
 [tomcat-session-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
-[cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-auttributes/
+[cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/

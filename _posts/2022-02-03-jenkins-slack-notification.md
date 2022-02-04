@@ -19,9 +19,9 @@ last_modified_at: 2022-02-03T23:55:00
 
 ## 0. 들어가면서
 
-도커 비공개 레지스트리와 젠킨스 CI/CD 파이프라인까지 모두 구축 완료하였는데 조금 아쉽습니다. 
+도커 비공개 레지스트리와 젠킨스 CI/CD 파이프라인까지 모두 구축 완료하였는데, 조금 아쉬움이 남습니다. 
 파이프라인 수행 성공/실패 여부나 테스트 URL 등을 파이프라인 종료시 자동으로 팀원들에게 알림을 주고 싶었습니다. 
-찾아보니 슬랙과 젠킨스를 쉽게 연결할 수 있어서 이를 이용하였습니다.  
+슬랙과 젠킨스를 쉽게 연결하는 방법을 발견하여 이를 이용하였습니다.  
 
 ##### 슬랙(Slack) 알림 메세지 전송 작업 영역
 
@@ -65,9 +65,9 @@ last_modified_at: 2022-02-03T23:55:00
 
 ## 2. Jenkins - Slack Notification 플러그인 설치 및 설정
 
-채널에 `Jenkins CI` 앱을 설치하면 젠킨스에서 설치해야할 플러그인과 설정 방법을 상세히 알려줍니다. 
+채널에 `Jenkins CI` 앱을 설치하면 젠킨스에서 설치해야 할 플러그인과 설정 방법을 상세히 알려줍니다. 
 일부 달라진 부분이 있어서 해당 부분만 다시 정리하였습니다. 
-설치된 젠킨스 서버에 접속합니다.
+우선 젠킨스 서버 메인 대시보드에 접속합니다.
 
 ##### 젠킨스 Slack Notification 플러그인 설치
 - 젠킨스 메인 대시보드에서 `Manage Jenkins > Manage Plugins` 화면으로 이동합니다.
@@ -79,8 +79,8 @@ last_modified_at: 2022-02-03T23:55:00
 
 ##### 젠킨스 플러그인 프로퍼티 설정
 - 젠킨스 메인 대시보드에서 `Manage Jenkins > Configure Sytstem` 화면으로 이동합니다.
-- 슬랙 `Jenkins CI` 설치 화면에서 제공하는 `Team Subdomain`과 `Integration Token Credential ID`를 Slack 프로퍼티에 추가합니다.
-    - 젠킨스 이전 버전의 화면과 달라졌습니다.
+- `Jenkins CI` 가이드 화면에서 제공하는 `Team Subdomain`과 `Integration Token Credential ID`를 Slack 속성에 입력합니다.
+    - 가이드에서 제공하는 이전 화면과 다릅니다.
     - `Team Subdomain` 값을 `Workspace` 항목에 입력합니다.
     - `Integration Token Credential ID` 값은 신규 `credential` 추가시 사용합니다.
 - 기본 채널명을 입력합니다.
@@ -107,7 +107,7 @@ last_modified_at: 2022-02-03T23:55:00
 ## 3. Jenkins 파이프라인 스크립트 변경
 - `jenkins-github-webhook 프로젝트 > configure` 화면으로 이동합니다.
 - `Pipelin` 항목의 `Script` 영역에 입력합니다.
-- `{ec2-instance-public-ip}` 대신 EC2 인스턴스 공개 IP를 입력합니다.
+- `{ec2-instance-public-ip}`는 EC2 인스턴스 공개 IP입니다.
 - `slackSend` 함수를 사용하여 필요한 메세지를 전달합니다.
     - `channel` - 메세지를 전달할 채널
     - `message` - 슬랙 해당 채널에 전당할 메세지
@@ -195,8 +195,8 @@ SUCCESS: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${NGROK_DOMAIN})
 ## 4. 슬랙 알림 테스트
 
 Github 웹훅을 통해 프로젝트 코드의 변경 사항을 감지합니다. 
-젠킨스 파이프라인이 동작하면서 빌드 시작 정보를 슬랙 메세지로 전달합니다.
-빌드가 정상적으로 완료되면 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 링크를 메세지로 전달합니다.
+젠킨스 파이프라인이 동작하면서 빌드 시작 정보를 슬랙 메세지로 전달합니다. 
+빌드가 정상적으로 완료된 후 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 URL이 담긴 메세지를 슬랙에서 확인할 수 있습니다. 
 
 <p align="center">
   <img src="/images/jenkins-slack-notification-10.gif" width="100%" class="image__border">

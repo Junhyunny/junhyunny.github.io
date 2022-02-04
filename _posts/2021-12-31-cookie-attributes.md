@@ -238,7 +238,7 @@ Connection: keep-alive
 - LAN IP를 사용하여 서버로 접근합니다. (http://192.168.1.3:8080/)
 - 크롬 브라우저를 통해 `Secure` 속성이 설정된 쿠키 정보를 확인하면 경고와 함께 쿠키가 저장되지 않음을 확인할 수 있습니다.
 
-<p align="center"><img src="/images/cookie-attributes-4.JPG"></p>
+<p align="center"><img src="/images/cookie-attributes-4.JPG" class="image__border"></p>
 
 ### 2.5. HttpOnly 속성
 
@@ -292,7 +292,7 @@ public class CookieController {
 
 ##### 브라우저 페이지 로딩시 alert 메세지
 
-<p align="left"><img src="/images/cookie-attributes-5.JPG" width="45%" class="images__border"></p>
+<p align="left"><img src="/images/cookie-attributes-5.JPG" width="45%" class="image__border"></p>
 
 ### 2.6. SameSite 속성
 

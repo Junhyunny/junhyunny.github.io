@@ -14,15 +14,12 @@ last_modified_at: 2021-12-29T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
 - [쿠키(Cookie) - 어디까지 알고 있니][cookie-attributes-link]
-- [Tomcat Session 획득과 만료][tomcat-session-link]
-- [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-aop-link]
 
 ## 0. 들어가면서
 
-`Spring Security`를 사용하면 종종 CSRF(Cross-Site Request Forgery) 설정을 비활성화시키는 코드를 발견할 수 있습니다. 
-예전 프로젝트들을 돌이켜보면 CSRF 공격에 대비하기 위한 코드들이 많았던 것 같습니다. 
-내용을 잘 모르면서 보안에 관련된 내용을 비활성화시키는 일은 위험하다고 생각됩니다. 
-`CSRF` 공격이 무엇인지, 어째서 공격을 방어하는 코드를 비활성화시키는지 정리해보았습니다. 
+`Spring Security` 관련된 자료들을 찾다보면 종종 CSRF(Cross-Site Request Forgery) 설정을 비활성화시키라는 글들을 많이 발견할 수 있습니다. 
+예전 프로젝트들을 돌이켜보면 CSRF 공격에 대비하기 위한 코드들이 많았던 것 같은데, 이를 비활성화시켜도 될지 의문스럽습니다.  
+내용을 잘 모르면서 보안에 관련된 설정을 비활성화시키는 것은 위험하다고 생각되어 `CSRF` 공격이 무엇인지, 어째서 방어 코드를 비활성화시키는지 정리해보았습니다. 
 
 ##### CSRF 보안 비활성화 설정
 
@@ -45,7 +42,7 @@ last_modified_at: 2021-12-29T23:55:00
 ### 1.1. 쿠키(Cookie)와 세션(Session)
 
 우선 쿠키와 세션에 대한 간단한 이해가 필요합니다. 
-사용자가 특정 서버에 로그인하면 다음과 같은 작업이 이루어집니다. 
+사용자가 특정 서버에 로그인하면 일반적으로 다음과 같은 작업들이 수행됩니다. 
 1. 서버는 로그인 시 인증된 사용자의 정보를 세션(session)에 저장하고, 이를 찾을 수 있는 `sessionID`을 만듭니다.
 1. 서버는 저장된 세션 정보를 클라이언트(브라우저)가 사용할 수 있도록 `sessionID`를 `Set-Cookie` 헤더에 담아서 전달합니다. 
 1. 클라이언트(브라우저)는 전달된 `sessionID`를 쿠키에 저장합니다.
@@ -62,7 +59,7 @@ CSRF 공격을 시도하기 위해선 아래와 같은 몇 가지 조건이 필�
 - 쿠키 기반으로 서버 세션 정보를 획득할 수 있어야 합니다. 
 - 공격자는 서버를 공격하기 위한 요청 방법에 대해 미리 파악하고 있어야 합니다. 예상치 못한 파라미터가 있으면 불가능합니다. 
 
-위와 같은 조건이 만족되면 다음과 같은 과정에 의해 공격이 수행됩니다.
+위와 같은 조건이 만족되면 다음과 같은 과정을 통해 CSRF 공격이 수행됩니다.
 1. 사용자는 보안이 취약한 서버에 로그인합니다. 
 1. 로그인 이후 서버에 저장된 세션 정보를 사용할 수 있는 `sessionID`가 사용자 브라우저 쿠키에 저장됩니다.  
 1. 공격자는 서버에 인증된 브라우저의 사용자가 악성 스크립트 페이지를 누르도록 유도합니다. 
@@ -77,8 +74,8 @@ CSRF 공격을 시도하기 위해선 아래와 같은 몇 가지 조건이 필�
 ## 2. CSRF 공격 방법
 
 간단한 POC(Proof Of Concept) 코드를 작성하여 CSRF 공격을 재현해보겠습니다. 
-공격자는 사용자 이름을 변경하는 방법을 파악하고, 악성 스크립트가 작성된 페이지를 사용자가 클릭하도록 유도했다고 가정합니다. 
-아래 Github 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
+공격자는 취약 서버의 사용자 이름을 변경하는 방법을 파악하고, 악성 스크립트가 작성된 페이지를 사용자가 클릭하도록 유도했다고 가정합니다. 
+Github 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
     - action-in-blog-back - 보안 취약 서버 (DOMAIN - localhost / PORT - 8081)
     - action-in-blog-attacker - 공격자 서버 (DOMAIN - 127.0.0.1 / PORT - 8080)
@@ -136,8 +133,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 ### 2.1. GET 방식 공격
 
-`img` 태그(tag)를 사용하거나 하이퍼링크를 걸어주는 `a` 태그를 이용합니다. 
-이번 테스트에서는 `img` 태그를 사용하였습니다.
+`<img />` 태그(tag)를 사용하거나 하이퍼링크를 걸어주는 `<a></a>` 태그를 이용합니다. 
+이번 테스트에서는 `<img />` 태그를 사용하였습니다.
 
 ##### 공격자 악성 페이지 - GET 방식
 - 이미지 태그를 통해 페이지 로딩시 보안 취약 서버로 GET 요청을 보냅니다.
@@ -163,11 +160,11 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 ##### CSRF 공격 후 사용자 이름 변경 확인
 
-<p align="center"><img src="/images/cross-site-reqeust-forgery-3.gif"></p>
+<p align="center"><img src="/images/cross-site-reqeust-forgery-3.gif" class="image__border"></p>
 
 ### 2.2. POST 방식 공격
 
-`form` 태그와 hidden 타입의 `input` 태그를 사용합니다. 
+`<form></form>` 태그와 hidden 타입의 `<input />` 태그를 사용합니다. 
 `JavaScript`를 이용해 페이지 렌더링이 수행되자마자 폼 전송을 시도합니다.
 
 ##### 공격자 악성 페이지 - POST 방식
@@ -200,12 +197,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 ##### CSRF 공격 후 사용자 이름 변경 확인
 
-<p align="center"><img src="/images/cross-site-reqeust-forgery-4.gif"></p>
+<p align="center"><img src="/images/cross-site-reqeust-forgery-4.gif" class="image__border"></p>
 
 ## 3. CSRF 방어 방법
 
 공격 방법에 대해 알아보았으니 방어 방법에 대해 정리해보겠습니다. 
-아래 Github 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
+Github 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
     - action-in-blog-enhanced - 보안 강화 서버 (DOMAIN - localhost / PORT - 8081)
 
@@ -214,7 +211,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 서버에서 사용자의 요청에 `Referrer` 정보를 확인하는 방법이 있습니다. 
 요청 헤더(request header) 정보에서 `Referrer` 정보를 확인할 수 있습니다. 
 보통이라면 호스트(host)와 `Referrer` 값이 일치하므로 둘을 비교합니다.
-대부분의 CSRF 공격의 경우 `Referrer` 값에 대한 검증만으로 방어가 가능하다고 합니다. 
+CSRF 공격의 대부분 `Referrer` 값에 대한 검증만으로 방어가 가능하다고 합니다. 
 
 ##### ReferrerCheckInterceptor 클래스 - Referrer 검증 방어 코드
 
@@ -320,14 +317,14 @@ public class CsrfTokenInterceptor implements HandlerInterceptor {
 
 ### 3.3. Double Submit Cookie 검증
 
-브라우저의 Same Origin 정책을 이용합니다. 
-Same Origin이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수정하지 못한다는 점을 이용한 검증 방법입니다. 
+브라우저의 `Same Origin 정책`을 이용합니다. 
+`Same Origin`이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수정하지 못한다는 점을 이용한 검증 방법입니다. 
 클라이언트(브라우저)에서 `JavaScript`로 임의의 생성한 토큰을 쿠키와 요청 헤더에 각각 담아서 서버에게 전달합니다. 
 서버는 전달받은 쿠키와 요청 헤더에서 각자 토큰 값을 꺼내어 이를 비교합니다. 
 이때, 쿠키에 저장된 토큰 정보는 이후에 재사용하지 못하도록 만료 처리합니다. 
 
 ##### DoubleSubmitCookieInterceptor 인터셉터 추가
-- 위에서 만든 CSRF 토큰 검증 방법과 동시에 테스트가 어려워서 DoubleSubmitCookieInterceptor 인터셉터만 사용합니다.
+- 이전 단계의 CSRF 토큰 검증 방법과 동시 사용이 어려워 DoubleSubmitCookieInterceptor 인터셉터만 사용합니다.
 
 ```java
 package blog.in.action.config;
@@ -450,21 +447,24 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 ##### CSRF 공격에 대한 방어 성공 여부 확인
 
-<p align="center"><img src="/images/cross-site-reqeust-forgery-5.gif"></p>
+<p align="center"><img src="/images/cross-site-reqeust-forgery-5.gif" class="image__border"></p>
 
 ## 4. CSRF disable 설정 안전한가?
 
-`Spring Security`는 기본적으로 CSRF 공격에 대한 방지를 수행합니다. 
-CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 안전한 것인지 찾아보았습니다. 
+`Spring Security` 프레임워크는 기본적으로 CSRF 공격에 대한 방지를 수행합니다. 
+CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 과연 좋은 방법인지 찾아봤습니다. 
+
 예전에 많이 사용했던 MVC 구조는 세션과 쿠키를 통해 사용자 인증을 수행했기 때문에 CSRF 공격에 취약합니다. 
-Stateful 한 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생합니다. 
+`Stateful` 한 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생합니다. 
 
 > StackExchange - Should I use CSRF protection on Rest API endpoints?<br>
 > No cookies = No CSRF
 
-최근 REST API 방식에서는 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방어 설정을 비활성화시키는 경우가 많습니다. 
+네, 쿠키가 없으면 CSRF 공격도 없습니다. 
+브라우저에 저장되는 쿠키가 CSRF 공격의 매개체입니다. 
+최근 많이 사용하는 REST API 방식은 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방어 설정을 비활성화시키는 경우가 많다고 합니다. 
 쿠키 대신에 로컬 스토리지(localStorage)와 요청 헤더(Request Header) 사용하거나, 세션 대신에 JWT(Json Web Token)을 사용하기 때문입니다. 
-CSRF 공격에 대한 방지를 `disable` 시키더라도 인터셉터 등에서 적절한 방어 코드를 통해 보안 수준을 높이는 것이 좋을 것 같습니다. 
+하지만, CSRF 공격에 대한 방지를 `disable` 시키더라도 인터셉터 등에서 적절한 방어 코드를 통해 보안 수준을 높이는 것이 좋을 것 같습니다. 
 
 ## CLOSING
 
@@ -481,8 +481,7 @@ CSRF 공격에 대한 방지를 `disable` 시키더라도 인터셉터 등에서
 - <https://security.stackexchange.com/questions/166724/should-i-use-csrf-protection-on-rest-api-endpoints/166798#166798>
 
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
-[tomcat-session-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
-[filter-interceptor-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/
+[cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/
+
 [csrf-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%9A%94%EC%B2%AD_%EC%9C%84%EC%A1%B0
 [csrf-attack-and-protection-link]: https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95
-[cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/

@@ -189,7 +189,7 @@ spring:
 
 ## 2. Authorization 서비스 구축
 Authorization 서비스 구축은 쉽습니다. 
-두 개의 Configuration 빈을 만들어주면 됩니다. 
+두 개의 `Configuration` 빈(bean)을 만들면 됩니다. 
 
 ### 2.1. SecurityConfig 클래스
 - `@EnableWebSecurity` 애너테이션을 추가합니다. 
@@ -368,8 +368,7 @@ public class AuthenticationControllerTests {
 위 작업 내용은 모두 커밋(commit)하고, 구현 완료된 인증 서비스, 리소스 서비스와 연결하면서 변경된 내용만 정리해보겠습니다. 
 테스트를 모두 통과하였기에 쉽게 연결될 것으로 기대했지만, 리소스 서비스와 연결시에 예상치 못한 에러를 만났습니다. 
 해당 사항에 구체적인 내용은 다음 포스트를 통해 정리해보겠습니다. 
-변경된 내용은 위 코드에 반영하지 않았습니다. 
-필요하신 분께서는 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
+변경된 내용은 위 코드에 반영하지 않았으며, 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
 
 ### 4.1. 인증 서비스 코드 변경 사항
 - JWT 토큰을 변경하는 빈에 Sign Key를 지정해주고, 부가적인 기능을 호출합니다.(afterPropertiesSet 메소드)
@@ -377,7 +376,9 @@ public class AuthenticationControllerTests {
 
 ### 4.2. 테스트 결과 화면
 
-<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="100%"></p>
+<p align="center">
+    <img src="/images/split-login-authorization-resource-service-3.gif" width="100%" class="image__border">
+</p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-19-split-login-authorization-resource-service>

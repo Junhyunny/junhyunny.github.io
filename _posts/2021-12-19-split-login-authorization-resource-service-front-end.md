@@ -640,9 +640,7 @@ export default App;
 
 ## 5. 화면 / 인증 / 리소스 서비스 연동하기
 위 작업 내용은 모두 커밋(commit)하고, 구현 완료된 인증 서비스, 리소스 서비스와 연결하면서 변경된 내용만 정리해보겠습니다. 
-결과부터 말하면, 생각한 시나리오에 맞도록 미리 테스트를 통과하였기 때문에 큰 에러 사항은 없었습니다. 
-변경된 내용은 위 코드에 반영하지 않았습니다. 
-필요하신 분께서는 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
+변경된 내용은 위 코드에 반영하지 않았으며, 테스트 코드 레포지토리에서 확인하시길 바랍니다. 
 
 ### 5.1. 프론트 엔드 서비스 코드 변경 사항
 - CSS 추가 
@@ -652,7 +650,7 @@ export default App;
     - 관련 코드 - Login.js
 - 리소스 서비스에 조회한 데이터 렌더링 및 테스트 코드
     - 관련 코드 - TodoList.js, TodoList.test.js
-- 화면 리프레쉬(refresh)하는 경우 컨텍스트 정보 초기화
+- 화면을 리프레시(refresh)하는 경우 컨텍스트 정보 초기화
     - `localStorage`에 값 존재 여부를 이용하여 초기값 결정
     - 관련 코드 - AuthenticationProvider.js
 - `localStorage` 세팅 데이터 변경
@@ -664,7 +662,9 @@ export default App;
 
 ### 5.2. 테스트 결과 화면
 
-<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="100%"></p>
+<p align="center">
+    <img src="/images/split-login-authorization-resource-service-3.gif" width="100%" class="image__border">
+</p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-19-split-login-authorization-resource-service>

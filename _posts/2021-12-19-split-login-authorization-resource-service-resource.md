@@ -198,8 +198,8 @@ spring:
 - `configure(AuthenticationManagerBuilder auth)` 메소드
     - AuthenticationManagerBuilder 객체에 사용자 인증시 필요한 AuthenticationProvider 혹은 UserDetailsService를 설정합니다.
     - 임시 사용자 정보를 메모리에 등록합니다.
-        - 아이디 `Junhyunny`, 비밀번호 `encoding(123)`
-        - 아이디 `TestUser`, 비밀번호 `encoding(123)`
+        - 아이디 `Junhyunny`, 비밀번호 `encode(123)`
+        - 아이디 `TestUser`, 비밀번호 `encode(123)`
 
 ```java
 package blog.in.action.security;
@@ -424,7 +424,9 @@ public class MemberControllerTests {
 
 ### 4.2. 테스트 결과 화면
 
-<p align="center"><img src="/images/split-login-authorization-resource-service-3.gif" width="100%"></p>
+<p align="center">
+    <img src="/images/split-login-authorization-resource-service-3.gif" width="100%" class="image__border">
+</p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-19-split-login-authorization-resource-service>

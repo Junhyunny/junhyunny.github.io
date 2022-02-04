@@ -25,7 +25,7 @@ last_modified_at: 2021-12-23T23:55:00
 - Green — think about how to make your tests pass
 - Refactor — think about how to improve your existing implementation
 
-이런 관점에서 `redux`, `redux-thunk`에 대한 테스트를 작성하는게 많이 어려웠는데, 고민한 내용들을 이번 포스트에서 정리해보았습니다. 
+이런 관점에서 `redux`, `redux-thunk`에 대한 테스트를 작성하는게 많이 어려웠는데, 고민한 내용들을 포스트로 정리해보았습니다. 
 글 제목에 `전략`이라는 단어가 거창해보이지만, 고민했던 내용을 끄적거린 글이니 가볍게 읽어주시면 감사하겠습니다. 
 "사용자는 로그인 화면에서 정상적인 ID와 비밀번호를 입력하면 로그인에 성공하고, 아니면 실패합니다."라는 시나리오를 기준으로 작성하였습니다. 
 
@@ -42,7 +42,9 @@ last_modified_at: 2021-12-23T23:55:00
 
 ##### Redux Async Data Flow
 
-<p align="center"><img src="/images/how-to-test-react-redux-thunk-1.gif" width="65%"></p>
+<p align="center">
+    <img src="/images/how-to-test-react-redux-thunk-1.gif" width="65%" class="image__border">
+</p>
 <center>이미지 출처, https://redux.js.org/tutorials/fundamentals/part-6-async-logic</center>
 
 ## 2. 화면에서 미들웨어에서 실행하는 함수를 실행했는가?
@@ -202,7 +204,9 @@ export default Login;
 - 리덕스 테스트에 필요한 모듈은 테스트 더블(test double)으로서 사용합니다.
 - 최대한 다른 패키지에 대한 종속성(dependency)이 없도록 테스트를 구성합니다. 
 
-<p align="center"><img src="/images/how-to-test-react-redux-thunk-2.JPG" width="100%"></p>
+<p align="center">
+    <img src="/images/how-to-test-react-redux-thunk-2.JPG" width="100%" class="image__border">
+</p>
 
 ## 3. 미들웨어에서 비동기 처리 후 시나리오에 맞는 `액션 크리에이터`를 디스패치했는가?
 
@@ -302,7 +306,9 @@ export default (state = initialState, action) => {
 
 ##### 테스트 코드 구조 및 관계
 
-<p align="center"><img src="/images/how-to-test-react-redux-thunk-3.JPG" width="100%"></p>
+<p align="center">
+    <img src="/images/how-to-test-react-redux-thunk-3.JPG" width="100%" class="image__border">
+</p>
 
 ## 4. Redux 테스트 작성 가이드 원칙들 - 공식 문서
 
@@ -317,8 +323,8 @@ export default (state = initialState, action) => {
 > with API calls mocked out so app code doesn't have to change, 
 > and assert that the UI is updated appropriately.
 
-결합 테스트를 이용해 함께 동작하는 모든 것들을 테스트해야 합니다.  
-실제 사용하는 스토어를 그대로 이용하고, 사용자 인터랙션에 의한 실제 리덕스 로직으로 화면이 적절하게 바뀌었는지 확인하는 것을 추천합니다. 
+결합 테스트를 이용해 함께 동작하는 모든 것들을 테스트해야하고, 
+실제 사용하는 스토어를 그대로 이용하고, 사용자 인터랙션에 의한 실제 리덕스 로직으로 화면이 적절하게 바뀌었는지 확인하는 것을 추천한다고 합니다. 
 
 ### 4.2. 리듀서(Reducer) 테스트에 대한 고민
 
@@ -328,9 +334,9 @@ export default (state = initialState, action) => {
 ##### 가이드 라인 예시 구현 코드
 - `todoAdded` 리듀서를 보면 이전 스테이트와 이번 액션에 따라 간단한 연산이 들어가 있습니다. 
 - 개발자 실수로 인해 중복된 `id`나 이빨 빠진 `id` 값을 가진 스테이트 리스트가 만들어진다면 컴포넌트 랜더링 시 의도치 않은 에러가 발생할 수 있습니다. 
-- 이런 실수를 막기 위해 초기 스테이트 값 확인과 적절한 스테이트 변경이 이루어졌는지 확인하는 작업은 필요해보입니다. 
+- 이런 실수를 막기 위해 초기 스테이트 값 확인과 적절한 스테이트 변경이 이루어졌는지 확인하는 작업은 필요하다고 생각됩니다. 
 
-```react
+```javascript
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = [
@@ -358,6 +364,55 @@ const todosSlice = createSlice({
 export const { todoAdded } = todosSlice.actions
 
 export default todosSlice.reducer
+```
+
+- 테스트 코드
+
+```javascript
+import reducer, { todoAdded } from './todosSlice'
+
+test('should return the initial state', () => {
+  expect(reducer(undefined, {})).toEqual([
+    {
+      text: 'Use Redux',
+      completed: false,
+      id: 0
+    }
+  ])
+})
+
+test('should handle a todo being added to an empty list', () => {
+  const previousState = []
+  expect(reducer(previousState, todoAdded('Run the tests'))).toEqual([
+    {
+      text: 'Run the tests',
+      completed: false,
+      id: 0
+    }
+  ])
+})
+
+test('should handle a todo being added to an existing list', () => {
+  const previousState = [
+    {
+      text: 'Run the tests',
+      completed: true,
+      id: 0
+    }
+  ]
+  expect(reducer(previousState, todoAdded('Use Redux'))).toEqual([
+    {
+      text: 'Run the tests',
+      completed: true,
+      id: 0
+    },
+    {
+      text: 'Use Redux',
+      completed: false,
+      id: 1
+    }
+  ])
+})
 ```
 
 ## CLOSING

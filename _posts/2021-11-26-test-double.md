@@ -33,7 +33,7 @@ last_modified_at: 2021-11-26T23:55:00
 단위 테스트(unit test)는 시스템이 커질수록 쉽지 않아지기 마련입니다. 
 테스트하고 싶은 메소드 내부에 다른 컴포넌트(component)에 의존한 기능들로 인해 결합도(coupling)가 높을수도 있고, 
 제어하기 어려운 네트워크나 데이터베이스를 사용하는 기능들이 존재할 수 있습니다. 
-위와 같은 여러가지 제약 사항들로 어려운 테스트를 빠르고 쉽게 진행하기 위해 테스트 더블을 사용합니다.
+이런 여러가지 제약 사항들 때문에 어려운 테스트를 빠르고 쉽게 진행하기 위해 테스트 더블을 사용합니다.
 
 ##### 시스템 컴포넌트 단위 테스트
 
@@ -53,12 +53,14 @@ last_modified_at: 2021-11-26T23:55:00
 
 ##### Test Double Type
 
-<p align="center"><img src="/images/test-double-2.JPG" width="50%"></p>
+<p align="center">
+    <img src="/images/test-double-2.JPG" width="50%" class="image__border">
+</p>
 <center>이미지 출처, http://xunitpatterns.com/Test%20Double.html</center>
 
 ### 2.1. 테스트 시나리오
 아래와 같은 클래스의 기능을 테스트하고 싶습니다. 
-- API 요청 기능이 필요한 클래스이며, 새로 구현한 saveOrder, findOrderById, isAdmin 메소드 기능을 테스트하고 싶습니다. 
+- API 요청 기능이 필요한 클래스이며, 새로 구현한 `saveOrder`, `findOrderById`, `isAdmin` 메소드 기능을 테스트하고 싶습니다. 
 - 개발 환경 네트워크 문제로 인해 다른 서비스로 API 요청은 불가능합니다.
 
 ##### RemoteProxy 클래스

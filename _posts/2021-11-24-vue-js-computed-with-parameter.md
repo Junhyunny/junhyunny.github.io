@@ -78,7 +78,9 @@ export default {
 ##### 브라우저 에러 발생
 - `computedMessage`는 함수가 아니라는 에러 메세지를 확인할 수 있습니다.
 
-<p align="left"><img src="/images/vue-js-computed-with-parameter-1.JPG" width="50%"></p>
+<p align="left">
+    <img src="/images/vue-js-computed-with-parameter-1.JPG" width="50%" class="image__border">
+</p>
 
 ### 2.1. 에러 해결 방법
 
@@ -130,7 +132,9 @@ export default {
 
 ##### 정상 동작 확인
 
-<p align="left"><img src="/images/vue-js-computed-with-parameter-2.JPG" width="50%"></p>
+<p align="left">
+    <img src="/images/vue-js-computed-with-parameter-2.JPG" width="50%" class="image__border">
+</p>
 
 ## CLOSING
 

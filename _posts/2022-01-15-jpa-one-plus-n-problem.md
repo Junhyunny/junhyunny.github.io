@@ -540,10 +540,9 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 
 추가적으로 `@EntityGraph` 애너테이션을 사용하면 데이터 중복 현상을 없애기 위한 처리 없이도 정상적으로 엔티티가 조회됩니다. 
 리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드가 없어도 중복되지 않은 엔티티 리스트가 반환됩니다. 
-`@EntityGraph` 애너테이션을 사용할 때는 왜 중복 현상이 발생하지 않는지 관련 내용을 문의할 생각입니다. 
-Github `spring-boot-starter-data-jpa` 레포지토리 이슈 등록과 `Stack Overflow` 질문을 통해 확인해보겠습니다. 
+Github `spring-data-jpa` 레포지토리 이슈와 `Stack Overflow` 질문으로 `@EntityGraph` 애너테이션을 사용할 때 왜 중복 현상이 발생하지 않는지 문의하였습니다. 
 
-##### Github issue
+##### Github 이슈
 - <https://github.com/spring-projects/spring-data-jpa/issues/2430>
 
 ##### Stack Overflow 질문

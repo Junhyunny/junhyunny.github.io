@@ -312,9 +312,10 @@ const pocPolling = (callback, path, config, interval) => {
 
 `jest.spyOn()`를 사용하여 `axios.get(...)` 함수를 모킹하면 `await Promise.resolve()` 호출을 2회 추가적으로 수행해야 정상적으로 동작합니다. 
 모킹된 함수를 호출하는 시점에 두 개의 프로미스가 추가되는 것 같습니다. 
-정확한 답을 찾을 수 없어서 관련된 내용은 `Stack Overflow`에 질문을 남겼습니다. 
-업데이트 사항들은 지속적으로 싱크-업(sync-up)하겠습니다. 
-- 질문 링크 - [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
+정확한 답을 찾을 수 없어서 관련된 내용은 `Stack Overflow`에 질문으로 남겼습니다. 
+
+##### Stack Overflow 질문
+- [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
 
 ##### 테스트 코드
 - 로그 흐름 - `5 > 1 > 2 > 3 > 6 > 4 > ... > 5 > 1 > 2 > 3 > 6 > 4 종료`

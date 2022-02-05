@@ -325,8 +325,8 @@ module.exports = app => {
     - 별도 백엔드 서비스로 라우팅되지 않습니다.
 
 ##### Stack Overflow 질문
-- 관련 내용은 `Stack Overflow`에 질문으로 남겨보았습니다.
-- [What is different between using package.json and usign http-proxy-middleware module to create proxy?][stackoverflow-proxy-link]
+- 관련 내용은 `Stack Overflow`에 질문으로 남겼습니다.
+- [What is different between using package.json and usign http-proxy-middleware module to create proxy?][stack-overflow-question-link]
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-23-react-proxy>
@@ -342,4 +342,4 @@ module.exports = app => {
 
 [react-dev-cors-link]: https://velog.io/@tw4204/React-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-CORS%EB%A5%BC-%EC%9C%84%ED%95%9C-proxy-%EC%84%A4%EC%A0%95
 
-[stackoverflow-proxy-link]: https://stackoverflow.com/questions/70824183/what-is-different-between-using-package-json-and-usign-http-proxy-middleware-mod
+[stack-overflow-question-link]: https://stackoverflow.com/questions/70824183/what-is-different-between-using-package-json-and-usign-http-proxy-middleware-mod

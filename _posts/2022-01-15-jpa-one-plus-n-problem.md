@@ -543,10 +543,10 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 Github `spring-data-jpa` 레포지토리 이슈와 `Stack Overflow` 질문으로 `@EntityGraph` 애너테이션을 사용할 때 왜 중복 현상이 발생하지 않는지 문의하였습니다. 
 
 ##### Github 이슈
-- <https://github.com/spring-projects/spring-data-jpa/issues/2430>
+- [Why does not @EntityGraph annotation in JPA need to use "distinct" keyword or "Set" data structure?][github-issue-link]
 
 ##### Stack Overflow 질문
-- <https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s>
+- [Why does not @EntityGraph annotation in JPA need to use "distinct" keyword or "Set" data structure?][stack-overflow-question-link]
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-15-jpa-one-plus-n-problem/action-in-blog>
@@ -555,3 +555,6 @@ Github `spring-data-jpa` 레포지토리 이슈와 `Stack Overflow` 질문으로
 - <https://jojoldu.tistory.com/165>
 
 [jpa-fetch-join-paging-problem-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-fetch-join-paging-problem/
+
+[github-issue-link]: https://github.com/spring-projects/spring-data-jpa/issues/2430
+[stack-overflow-question-link]: https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s

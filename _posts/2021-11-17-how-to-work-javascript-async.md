@@ -123,25 +123,26 @@ console.log("Welcome to loupe.");
 
 ### 2.3. 테스트 수행 결과
 코드 동작을 간단하게 설명해보겠습니다. 
-콜 스택에 추가되어 실행된 함수는 콜 스택에서 제거되며, 해당 내용에 대한 설명은 생략하였습니다.
 
-1. `$.on('button', 'click', function onClick() {...});` 함수가 콜 스택에 추가되어 실행됩니다.
-1.  `onClick()` 함수가 Web APIs 위치에 버튼에 대한 클릭 이벤트로 추가됩니다.
-1. `console.log("Hi!");` 함수가 콜 스택에 추가되어 실행됩니다.
-1. `setTimeout(function timeout() {...})` 함수가 콜 스택에 추가되어 실행됩니다.
+1. `$.on('button', 'click', function onClick() {...});` 함수가 콜 스택에서 실행됩니다.
+1. `function onClick() {...}` 함수가 버튼에 대한 클릭 이벤트가 `Web Apis` 영역에 추가됩니다.
+1. `console.log("Hi!");` 함수가 콜 스택에서 실행됩니다.
+1. `setTimeout(function timeout() {...})` 함수가 콜 스택에서 실행됩니다.
 1. 아래 기능은 동시에 동작합니다.
-    - Web API 영역에서 `setTimeout()` 함수에 지정된 시간(2초)만큼 대기 후 `timeout()` 콜백 함수를 콜백 큐로 이동시킵니다.
-    - `console.log("Welcome to loupe.");` 함수가 콜 스택에 추가되어 실행됩니다.
-1. 콜 스택이 비워진 것을 확인한 이벤트 루프는 `timeout()` 함수를 콜 스택으로 이동시킵니다.
-1. `console.log("Click the button!");` 함수가 콜 스택에 추가되어 실행됩니다.
-1. 하단 "Click me!" 버튼을 누릅니다.
-1. Web APIs 영역에 등록된 `onClick()` 함수가 콜 스택에 추가되어 실행됩니다.
-1. `onClick()` 함수 내부에 `setTimeout(function timer() {...})` 함수가 콜 스택에 추가되어 실행됩니다.
-1. Web API 영역에서 `setTimeout()` 함수에 지정된 시간(1초)만큼 대기 후 `timer()` 콜백 함수를 콜백 큐로 이동시킵니다.
-1. 콜 스택이 비워진 것을 확인한 이벤트 루프는 `timer()` 함수를 콜 스택으로 이동시킵니다.
-1. `console.log("You clicked the button!");` 함수가 콜 스택에 추가되어 실행됩니다.
+    - `Web Apis` 영역에서 2초 이후에 `timeout()` 함수를 콜백 큐로 이동시킵니다.
+    - `console.log("Welcome to loupe.");` 함수가 콜 스택에서 실행됩니다.
+1. 콜 스택이 비워지면 이벤트 루프는 `timeout()` 함수를 콜 스택으로 이동시킵니다.
+1. `console.log("Click the button!");` 함수가 콜 스택에서 실행됩니다.
+1. 사용자가 하단 "Click me!" 버튼을 누릅니다.
+1. Web APIs 영역에 등록된 `onClick()` 함수가 콜 스택에서 실행됩니다.
+1. `onClick()` 함수 내부에 `setTimeout(function timer() {...})` 함수가 콜 스택에서 실행됩니다.
+1. `Web Apis` 영역에서 1초 이후에 `timer()` 함수를 콜백 큐로 이동시킵니다.
+1. 콜 스택이 비워지면 이벤트 루프는 `timer()` 함수를 콜 스택으로 이동시킵니다.
+1. `console.log("You clicked the button!");` 함수가 콜 스택에서 실행됩니다.
 
-<p align="center"><img src="/images/how-to-work-javascript-async-3.gif" width="100%"></p>
+<p align="center">
+    <img src="/images/how-to-work-javascript-async-3.gif" width="100%" class="image__border">
+</p>
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ## CLOSING

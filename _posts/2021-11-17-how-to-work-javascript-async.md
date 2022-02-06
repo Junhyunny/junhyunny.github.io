@@ -43,7 +43,9 @@ JavaScript 런타임은 크게 4개로 구성되어 있습니다.
 
 ##### JavaScript Runtime 구조
 
-<p align="center"><img src="/images/how-to-work-javascript-async-1.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/how-to-work-javascript-async-1.JPG" width="75%" class="image__border">
+</p>
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ### 1.2. JavaScript Engine
@@ -60,7 +62,9 @@ JavaScript 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 �
 
 ##### V8 JavaScript Engine 구조
 
-<p align="center"><img src="/images/how-to-work-javascript-async-2.JPG" width="40%"></p>
+<p align="center">
+    <img src="/images/how-to-work-javascript-async-2.JPG" width="40%" class="image__border">
+</p>
 <center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ### 1.3. Web APIs

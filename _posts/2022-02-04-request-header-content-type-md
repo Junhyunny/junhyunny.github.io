@@ -30,12 +30,9 @@ Spring 프레임워크를 사용하는 프로젝트에서 신규 API 기능을 �
 
 ### 1.2. 요청 방법별 기본 Content-Type in Front End
 
-## 2. Content-Type 별 요청 데이터 받기
+## 2. AnnotationMethodHandlerAdapter in Spring
 
-### 2.1. AnnotationMethodHandlerAdapter in Spring
-
-### 2.2. 
-
+## 3. 각 Content-Type 별 처리 애너테이션
 
 ## CLOSING
 

@@ -9,8 +9,9 @@ last_modified_at: 2021-08-21T17:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security 기반 JWT 인증 방식 예제][jwt-blogLink]
-- [Token Enhancer][tokenenhancer-blogLink]
+- [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
+- [Token Enhancer][token-enhancer-link]
+- [Content-Type and Spring Boot annotation][content-type-and-spring-annotation-link]
 
 ## 0. 들어가면서
 
@@ -306,5 +307,6 @@ public class MemberController {
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-11-handler-method-argument-resolver>
 
-[jwt-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
-[tokenenhancer-blogLink]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
+[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[token-enhancer-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
+[content-type-and-spring-annotation-link]: https://junhyunny.github.io/information/spring-boot/javascript/content-type-and-spring-annotation/

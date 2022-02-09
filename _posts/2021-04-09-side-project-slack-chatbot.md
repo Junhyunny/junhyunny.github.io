@@ -10,14 +10,14 @@ last_modified_at: 2021-08-25T00:00:00
 
 ## 0. 들어가면서
 
-공부하다 흘러들어간 블로그에 Github 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았습니다.([일일커밋 알림봇 개발기][mingrammer-blogLink]) 
+공부하다 흘러들어간 블로그에 Github 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았습니다.([일일커밋 알림봇 개발기][mingrammer-blog-link]) 
 **`'기능도 간단해 보이는데 Java 언어로 개발한 사람이 없다면 내가 만들어볼까?'`** 
 하던 공부는 접고 바로 개발에 착수했습니다. 
 Slack 어플리케이션을 안 사용하고 있었기 때문에 일단 다운받고 채팅 봇 만드는 방법을 찾아봤습니다. 
 
 ## 1. Slack 봇 등록
 Slack 어플리케이션이랑 안 친해서 많이 헤맸습니다. 
-[Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 참고해서 간신히 채널 생성과 채팅 봇 등록을 했습니다. 
+[Python으로 Slack Bot 만들기][python-slack-chatbot-blog-link] 포스트를 참고해서 간신히 채널 생성과 채팅 봇 등록을 했습니다. 
 
 ## 2. Slack API 테스트
 이제 봇도 등록했으니 본격적으로 코드를 작성했습니다. 
@@ -25,7 +25,7 @@ Slack API 기능과 Github API 기능을 이어 붙히면 되기 때문에 먼�
 기능 테스트 시 겪은 간단한 이슈들만 정리해보겠습니다. 
 
 ### 2.1. Slack 채널 정보 조회 기능
-[Python으로 Slack Bot 만들기][python-slack-chatbot-blogLink] 포스트를 보면 이상한 느낌을 받았습니다. 
+[Python으로 Slack Bot 만들기][python-slack-chatbot-blog-link] 포스트를 보면 이상한 느낌을 받았습니다. 
 보통 Content-Type 같은 정보는 HTTP Header를 통해 전달하는데 참고한 코드를 보면 쿼리 parameter로 전달하는 느낌? 
 일단 해당 포스트를 작성한 분은 성공한 것으로 보이나 내 방식대로 Content-Type 정보는 HTTP Header로 전달하기로 했습니다.
 
@@ -97,7 +97,7 @@ data = {'Content-Type': 'application/x-www-form-urlencoded',
         'thread_ts': ts
         } 
 
-# 메시지 등록 API 메소드: chat.postMessage
+# 메세지 등록 API 메소드: chat.postMessage
 URL = "https://slack.com/api/chat.postMessage"
 res = requests.post(URL, data=data)
 ```
@@ -199,7 +199,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 
 ## 4. AWS Lambda 어플리케이션 등록하기
 AWS는 사용해본 적이 없어서 이 작업을 하는데 제일 시간이 오래 걸렸습니다. 
-[일일커밋 알림봇 개발기][mingrammer-blogLink] 포스트를 보면 특정 시간부터 트리거를 통해 어플리케이션을 동작시키는 기능인 것으로 추정됩니다. 
+[일일커밋 알림봇 개발기][mingrammer-blog-link] 포스트를 보면 특정 시간부터 트리거를 통해 어플리케이션을 동작시키는 기능인 것으로 추정됩니다. 
 일단 AWS Lambda 기능이 무엇인지 찾아보고 Java 어플리케이션을 올리는 방법을 알아봤습니다. 
 
 Java Application의 경우 아래와 같은 과정이 필요한데 API 문서를 읽어보면 쉽게 이해할 수 있습니다.
@@ -270,7 +270,7 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 - <https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html>
 - <https://docs.aws.amazon.com/lambda/latest/dg/java-package.html>
 
-[mingrammer-blogLink]: https://mingrammer.com/dev-commit-alarm-bot/
-[python-slack-chatbot-blogLink]: https://wooiljeong.github.io/python/slack-bot/
+[mingrammer-blog-link]: https://mingrammer.com/dev-commit-alarm-bot/
+[python-slack-chatbot-blog-link]: https://wooiljeong.github.io/python/slack-bot/
 [java-handler-link]: https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html
 [java-deploy-link]: https://docs.aws.amazon.com/lambda/latest/dg/java-package.html

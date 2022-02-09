@@ -37,7 +37,7 @@ Spring Security 프레임워크에 대해 알아보기 전에 보안과 관련�
 ## 2. Servlet Filters in Web Security
 웹 계층 (UI 및 HTTP 백엔드 용)의 Spring Security는 서블릿 필터(servlet filter)를 기반으로 구현되어 있습니다.
 때문에 서블릿 필터의 구조에 대해서 먼저 알아보도록 하겠습니다. 
-클라이언트가 서버로 HTTP 요청시 아래와 같은 필터 계층에 의해 처리됩니다.  
+클라이언트가 서버로 HTTP 요청 시 아래와 같은 필터 계층에 의해 처리됩니다.  
 
 <p align="center"><img src="/images/spring-security-1.JPG" width="30%"></p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>

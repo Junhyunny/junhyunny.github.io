@@ -20,7 +20,7 @@ last_modified_at: 2021-11-24T23:55:00
 ```vue
 <template>
     <div>
-        <p>계산된 메시지: "{ { computedMessage } }"</p>
+        <p>계산된 메세지: "{ { computedMessage } }"</p>
     </div>
 </template>
 
@@ -50,8 +50,8 @@ export default {
 ```vue
 <template>
     <div>
-        <p>계산된 메시지 with true: "{ { computedMessage(true) } }"</p>
-        <p>계산된 메시지 with false: "{ { computedMessage(false) } }"</p>
+        <p>계산된 메세지 with true: "{ { computedMessage(true) } }"</p>
+        <p>계산된 메세지 with false: "{ { computedMessage(false) } }"</p>
     </div>
 </template>
 
@@ -103,8 +103,8 @@ computed: {
 ```vue
 <template>
     <div>
-        <p>계산된 메시지 with true: "{ { computedMessage(true) } }"</p>
-        <p>계산된 메시지 with false: "{ { computedMessage(false) } }"</p>
+        <p>계산된 메세지 with true: "{ { computedMessage(true) } }"</p>
+        <p>계산된 메세지 with false: "{ { computedMessage(false) } }"</p>
     </div>
 </template>
 

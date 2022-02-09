@@ -13,8 +13,8 @@ last_modified_at: 2021-08-22T01:30:00
 ⚠️ 해당 포스트는 2021년 8월 19일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink]
-- [JPA(Java Persistence API)][jpa-blog-link]
+- [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
+- [JPA(Java Persistence API)][java-persistence-api-link]
 - [JPA Persistence Context][jpa-persistence-context-link]
 
 👉 이어서 읽기를 추천합니다.
@@ -34,7 +34,7 @@ last_modified_at: 2021-08-22T01:30:00
 
 - 장점
     - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.
-    - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-blogLink])
+    - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link])
 
 ### 1.1. 캐싱된 엔티티 조회 시나리오
 1. 식별자 값을 이용해 엔티티를 조회합니다.
@@ -402,8 +402,8 @@ public class DirtyCheckingTest {
 
 [reference-blog-link]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
 
-[transaction-isolation-blogLink]: https://junhyunny.github.io/information/transcation-isolation/
-[jpa-blog-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
+[transaction-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/
+[java-persistence-api-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
 [jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
 
 [jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/

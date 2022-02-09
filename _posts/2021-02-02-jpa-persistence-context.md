@@ -13,7 +13,7 @@ last_modified_at: 2021-08-22T01:00:00
 ⚠️ 해당 포스트는 2021년 8월 18일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JPA(Java Persistence API)][jpa-blog-link]
+- [JPA(Java Persistence API)][java-persistence-api-link]
 
 👉 이어서 읽기를 추천합니다.
 - [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
@@ -590,7 +590,7 @@ Hibernate: delete from tb_member where id=?
 - <https://gunlog.dev/JPA-Persistence-Context/>
 - <https://gmlwjd9405.github.io/2019/08/06/persistence-context.html>
 
-[jpa-blog-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
+[java-persistence-api-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
 
 [persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
 [jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/

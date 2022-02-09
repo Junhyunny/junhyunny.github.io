@@ -11,7 +11,7 @@ last_modified_at: 2021-12-31T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
-- [Tomcat Session 획득과 만료][tomcat-session-link]
+- [Tomcat Session 획득과 만료][tomcat-session-management-link]
 
 👉 이어서 읽기를 추천합니다.
 - [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link]
@@ -25,7 +25,7 @@ last_modified_at: 2021-12-31T23:55:00
 
 쿠키는 서버에서 브라우저로 전달한 작은 데이터 조각을 의미합니다. 
 인코딩(encoding)한 값으로 최대 4KB 까지 저장할 수 있습니다. 
-브라우저는 이를 저장하고 있다가 서버로 다음 요청시 함께 전달합니다. 
+브라우저는 이를 저장하고 있다가 서버로 다음 요청 시 함께 전달합니다. 
 쿠키를 사용하는 이유는 `stateless`인 HTTP 프로토콜을 `stateful`하게 사용하기 위해 등장하였습니다.
 
 쿠키는 다음과 같은 용도로 사용됩니다. 
@@ -107,7 +107,7 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 도메인(Domain) 속성은 해당 쿠키를 전달받을 도메인을 지정하는 속성입니다. 
 해당 속성을 이용해 도메인을 지정하면 해당되는 도메인으로 요청할 때만 함께 포함됩니다. 
 서브 도메인에도 함께 적용됩니다. 
-만약, A 쿠키에 `Domain=mozilla.org`이라고 속성을 설정하면 `developer.mozilla.org` 도메인으로 요청시 A 쿠키가 함께 전달됩니다. 
+만약, A 쿠키에 `Domain=mozilla.org`이라고 속성을 설정하면 `developer.mozilla.org` 도메인으로 요청 시 A 쿠키가 함께 전달됩니다. 
 
 테스트 케이스를 만들어보고 싶었지만, 타 도메인으로 설정은 안되는 것으로 확인됩니다.
 > Invalid cookie domain<br>
@@ -116,13 +116,13 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 ### 2.2. Path 속성
 
 쿠키가 포함되어야하는 URL 경로를 지정할 수 있습니다. 
-예들 들어 A 쿠키의 Path 속성을 `'Path=/docs'`로 설정하는 경우 아래 URL 요청시 A 쿠키가 포함됩니다.
+예들 들어 A 쿠키의 Path 속성을 `'Path=/docs'`로 설정하는 경우 아래 URL 요청 시 A 쿠키가 포함됩니다.
 - /docs
 - /docs/
 - /docs/Web/
 - /docs/Web/HTTP
 
-아래 경로로 요청시 A 쿠키는 포함되지 않습니다. 
+아래 경로로 요청 시 A 쿠키는 포함되지 않습니다. 
 - /
 - /docsets
 - /fr/docs
@@ -140,7 +140,7 @@ Keep-Alive: timeout=60
 Connection: keep-alive
 ```
 
-##### '/' 경로 요청시 헤더 정보
+##### '/' 경로 요청 시 헤더 정보
 
 ```
 GET / HTTP/1.1
@@ -153,7 +153,7 @@ Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
 Cookie: JSESSIONID=E27D97843642FBAD34540221DF74844B
 ```
 
-##### '/index' 경로 요청시 헤더 정보
+##### '/index' 경로 요청 시 헤더 정보
 
 ```
 GET /index HTTP/1.1
@@ -231,7 +231,7 @@ Connection: keep-alive
 
 ### 2.4. Secure 속성
 
-`Secure` 속성이 설정된 쿠키는 암호화 된 `HTTPS`을 사용하는 요청시에만 전송됩니다. 
+`Secure` 속성이 설정된 쿠키는 암호화 된 `HTTPS`을 사용하는 요청 시에만 전송됩니다. 
 `localhost(혹은 127.0.0.1)`를 제외하고 `HTTP`를 사용하는 요청에는 쿠키가 전송되지 않습니다. 
 
 ##### 전달받은 쿠키 정보 확인 - 크롬 브라우저 개발자 도구
@@ -320,7 +320,7 @@ SameSite 속성이 가질 수 있는 옵션에 대해 먼저 정리하였습니�
 - 쿠키를 발급한 사이트와 동일한 사이트가 아니더라도 일부 케이스에서 사용 가능합니다.
 - 안전한 HTTP 메소드인 경우에만 쿠키를 전달합니다.
 - 작업이 최상위 레벨 탐색에서 이루어질 때(브라우저 주소창에서 URL을 변경하는 경우)만 쿠키가 전달됩니다.
-    - `<iframe>` 태크를 사용하거나 AJAX 요청시에는 쿠키가 전송되지 않습니다.
+    - `<iframe>` 태크를 사용하거나 AJAX 요청 시에는 쿠키가 전송되지 않습니다.
 - 예를 들면 다음과 같습니다.
     1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리합니다. 이때 쿠키를 저장합니다.
     1. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누릅니다.
@@ -359,7 +359,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite
-- 요청시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 합니다.
+- 요청 시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 합니다.
 
 <p align="center"><img src="/images/cookie-attributes-9.JPG" width="40%" class="image__border"></p>
 <center>이미지 출처, https://web.dev/same-site-same-origin/</center>
@@ -381,6 +381,6 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 
 [cookie-samesite-link]: https://seob.dev/posts/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EC%BF%A0%ED%82%A4%EC%99%80-SameSite-%EC%86%8D%EC%84%B1/
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
-[tomcat-session-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
+[tomcat-session-management-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
 [csrf-attack-and-defense-link]: https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/
 [root-zone-database-link]: https://www.iana.org/domains/root/db

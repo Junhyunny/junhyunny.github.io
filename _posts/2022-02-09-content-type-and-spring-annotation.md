@@ -117,7 +117,7 @@ MIME(Multipurpose Internet Mail Extensions)에 대해 알아보겠습니다.
 프론트엔드 서비스를 개발하면서 자주 만나는 데이터 요청 방식들이 어떤 `MIME` 타입인지 정리해보겠습니다. 
 
 #### 1.3.1. <form></form> 태그
-`<form></form>` 태그로 POST 요청시 기본적으로 `application/x-www-form-urlencoded` 타입이 사용됩니다. 
+`<form></form>` 태그로 POST 요청 시 기본적으로 `application/x-www-form-urlencoded` 타입이 사용됩니다. 
 `application/x-www-form-urlencoded` 타입은 메세지가 `key=value` 형태로 전달됩니다.
 
 ##### <form></form> 태그 POST 요청
@@ -414,7 +414,7 @@ public class ContentTypeDto {
 
 #### 3.2.3. application/json 타입
 
-REST API 요청시 주로 사용하는 `application/json` 타입은 어떤 애너테이션을 통해 처리되는지 확인해보겠습니다. 
+REST API 요청 시 주로 사용하는 `application/json` 타입은 어떤 애너테이션을 통해 처리되는지 확인해보겠습니다. 
 
 ##### @RequestBody Annotaion
 - `RequestResponseBodyMethodProcessor` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.

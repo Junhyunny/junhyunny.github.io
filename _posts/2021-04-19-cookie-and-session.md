@@ -9,7 +9,7 @@ last_modified_at: 2021-08-28T01:00:00
 <br>
 
 👉 이어서 읽기를 추천합니다.
-- [Tomcat Session 획득과 만료][tomcat-session-link]
+- [Tomcat Session 획득과 만료][tomcat-session-management-link]
 - [쿠키(Cookie) - 어디까지 알고 있니][cookie-attributes-link]
 
 ## 0. 들어가면서
@@ -104,7 +104,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 쿠키를 기반으로 하여 동작하기는 하지만 사용자 정보를 클라이언트 측이 아닌 서버 측에서 관리한다는 점이 다릅니다. 
 클라이언트는 서버로부터 서버에서 관리하고 있는 세션 정보를 찾기 위한 세션 ID만 전달받습니다. 
 세션 정보를 저장하는 장소는 서버 메모리일수도 있지만 다중 서버 환경에서는 외부 저장소를 사용합니다.
-[(관련 포스트, 다중 서버 환경에서 Session 공유법 (Sticky Session, Session Clustering, Inmemory DB))][multi-servers-env-blogLink]
+[(관련 포스트, 다중 서버 환경에서 Session 공유법 (Sticky Session, Session Clustering, Inmemory DB))][multi-servers-env-blog-link]
 
 ### 3.1. 세션의 특징
 세션은 다음과 같은 특징을 가집니다.
@@ -136,15 +136,16 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 <center>표 출처, https://hahahoho5915.tistory.com/32</center><br>
 
 #### REFERENCE
-- [[Stateful/Stateless] Stateful vs. Stateless 서비스와 HTTP 및 REST][stateless-service-blogLink]
+- [[Stateful/Stateless] Stateful vs. Stateless 서비스와 HTTP 및 REST][stateless-service-blog-link]
 - [잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)][cookie-and-session-blogLink]
 - <https://devuna.tistory.com/23>
 - <https://junshock5.tistory.com/84>
 - <https://hahahoho5915.tistory.com/32>
 - <https://interconnection.tistory.com/74>
 
-[multi-servers-env-blogLink]: https://junshock5.tistory.com/84
-[stateless-service-blogLink]: https://5equal0.tistory.com/entry/StatefulStateless-Stateful-vs-Stateless-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%99%80-HTTP-%EB%B0%8F-REST
+[multi-servers-env-blog-link]: https://junshock5.tistory.com/84
+[stateless-service-blog-link]: https://5equal0.tistory.com/entry/StatefulStateless-Stateful-vs-Stateless-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%99%80-HTTP-%EB%B0%8F-REST
 [cookie-and-session-blogLink]: https://www.fun-coding.org/crawl_advance1.html#6.1.-%EC%BF%A0%ED%82%A4(cookie):-%EC%83%81%ED%83%9C-%EC%A0%95%EB%B3%B4%EB%A5%BC-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8%EC%97%90-%EC%A0%80%EC%9E%A5%ED%95%98%EB%8A%94-%EB%B0%A9%EC%8B%9D
-[tomcat-session-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
+
+[tomcat-session-management-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
 [cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/

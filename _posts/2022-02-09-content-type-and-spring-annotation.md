@@ -149,11 +149,6 @@ Referer: http://localhost:3000/
 item=Hello+World
 ```
 
-<br>
-
-`<form></form>` 태그를 사용하면 내부에 파일을 담아 전달하는 경우가 있습니다. 
-이런 경우엔 `encType` 속성을 통해 `Content-Type` 값을 변경합니다. 
-
 ##### <form></form> 태그 Content-Type 변경
 - 파일을 서버로 전송하는 경우 `multipart/form-data` 타입을 사용해야 합니다.
 - `enctype` 속성을 통해 `multipart/form-data`으로 `MIME` 타입을 변경합니다.

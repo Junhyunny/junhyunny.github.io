@@ -186,7 +186,7 @@ public class WebConfig implements WebMvcConfigurer {
 ### 1.5. MemberController 클래스 구현
 Controller에 새로운 메소드를 추가하였습니다. 
 requestUserInfoUsingToken 메소드를 보면 요청 파라미터에 @TokenMember 애너테이션이 붙어있습니다. 
-**/api/member/user-info-using-token** API 요청시 CustomMethodArgumentResolver @Bean에 의해 Member 객체에 값이 SETTING 됩니다.
+**/api/member/user-info-using-token** API 요청 시 CustomMethodArgumentResolver @Bean에 의해 Member 객체에 값이 SETTING 됩니다.
 
 ```java
 package blog.in.action.controller;

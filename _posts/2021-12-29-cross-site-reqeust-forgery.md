@@ -46,7 +46,7 @@ last_modified_at: 2021-12-29T23:55:00
 1. 서버는 로그인 시 인증된 사용자의 정보를 세션(session)에 저장하고, 이를 찾을 수 있는 `sessionID`을 만듭니다.
 1. 서버는 저장된 세션 정보를 클라이언트(브라우저)가 사용할 수 있도록 `sessionID`를 `Set-Cookie` 헤더에 담아서 전달합니다. 
 1. 클라이언트(브라우저)는 전달된 `sessionID`를 쿠키에 저장합니다.
-1. 클라이언트(브라우저)는 해당 도메인을 가진 서버로 요청시 쿠키에 저장된 `sessionID`를 자동으로 전달합니다.
+1. 클라이언트(브라우저)는 해당 도메인을 가진 서버로 요청 시 쿠키에 저장된 `sessionID`를 자동으로 전달합니다.
 1. 서버는 쿠키에 담긴 `sessionID`를 통해 인증된 사용자인지 여부를 확인합니다. 
 
 <p align="center"><img src="/images/cross-site-reqeust-forgery-1.JPG" width="65%"></p>

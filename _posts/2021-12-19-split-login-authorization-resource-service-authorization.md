@@ -296,9 +296,9 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 ## 3. 사용자 인증 테스트 코드
 - `givenImproperInfo_whenGetAccessToken_thenBadRequest` 테스트
-    - 등록되지 않은 사용자로 토큰 요청시 `400 Bad Request` 응답을 받습니다.
+    - 등록되지 않은 사용자로 토큰 요청 시 `400 Bad Request` 응답을 받습니다.
 - `givenProperInfo_whenGetAccessToken_thenAuthorized` 테스트
-    - 정상적인 정보로 토큰 요청시 `access_token`, `refresh_token`, `token_type`을 전달받습니다. 
+    - 정상적인 정보로 토큰 요청 시 `access_token`, `refresh_token`, `token_type`을 전달받습니다. 
 
 ```java
 package blog.in.action.controller;

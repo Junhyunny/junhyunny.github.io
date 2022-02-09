@@ -267,7 +267,7 @@ public class DeferredResultControllerTest {
     - 인증 요청 발생시 DeferredResult 객체를 인증 풀에 담고, 이를 반환합니다.
     - 타임아웃, 완료, 에러 발생시 수행할 콜백 메소드들을 매칭시킵니다. 
 - authenticate 메소드
-    - 인증 완료 요청시 풀에서 사용자 이름으로 DeferredResult 객체를 찾음과 동시에 제거합니다.
+    - 인증 완료 요청 시 풀에서 사용자 이름으로 DeferredResult 객체를 찾음과 동시에 제거합니다.
     - 찾지 못하였으면 메소드를 종료합니다.
     - 찾은 경우 결과를 `true`로 설정합니다.
 

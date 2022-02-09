@@ -217,24 +217,24 @@ public class AServiceController {
 - execution.isolation.thread.timeoutInMilliseconds 
   - 메소드 호출 이후 모니터링하는 시간입니다.
   - 해당 시간이 지나면 fallback 메소드를 수행합니다.
-  - 기본 값 1000ms
+  - 기본값 1000ms
 - metrics.rollingStats.timeInMilliseconds
   - 요청이 들어오는 시점부터 요청에 대한 오류 감지를 수행하는 시간을 설정합니다.
   - 측정되는 시간동안 오류가 발생한 비율이 얼마나 되느냐에 따라 회로의 개폐 여부가 결정됩니다.
-  - 기본 값 10000ms
+  - 기본값 10000ms
 - circuitBreaker.requestVolumeThreshold
   - 오류 감지 시간동안 최소 요청 회수를 설정할 수 있습니다.
   - 최소 요청 회수를 달성하면 요청 실패에 대한 통계를 내어 설정 값보다 높으면 회로를 차단합니다.
   - 이후 요청은 모두 실패로 간주하고 fallback을 전달합니다. 
-  - 기본 값 20회
+  - 기본값 20회
 - circuitBreaker.errorThresholdPercentage
   - 오류 감지 시간, 최소 요청 회수를 모두 만족할 때 요청 실패에 대한 통계를 냅니다.
   - 이 설정 값보다 실패 확률이 높은 경우 회로를 차단하고 이후 요청은 모두 실패로 간주하고 fallback을 전달합니다. 
-  - 기본 값 50%
+  - 기본값 50%
 - circuitBreaker.sleepWindowInMilliseconds
   - hystrix가 서비스의 회복 상태를 확인할 때까지 대기하는 시간입니다.
   - 해당 설정 시간만큼 기다린 후에 재요청을 해보고 서비스 정상 여부를 확인합니다.
-  - 기본 값 5000ms
+  - 기본값 5000ms
 
 ### 5.2. HystrixTest 클래스
 

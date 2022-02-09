@@ -518,20 +518,20 @@ API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다.
 ### 2.1. 유저 정보 등록 요청
 
 ```
-> POST /api/member/sign-up HTTP/1.1
-> Host: localhost:8080
-> User-Agent: insomnia/2021.3.0
-> Content-Type: application/json
-> Accept: */*
-> Content-Length: 74
+POST /api/member/sign-up HTTP/1.1
+Host: localhost:8080
+User-Agent: insomnia/2021.3.0
+Content-Type: application/json
+Accept: */*
+Content-Length: 74
 
-| {
-|     "id": "junhyunny",
-|     "password": "123",
-|     "authroities": [
-|         "ADMIN"
-|     ]
-| }
+{
+    "id": "junhyunny",
+    "password": "123",
+    "authroities": [
+        "ADMIN"
+    ]
+}
 ```
 
 ### 2.2. 인증 토큰 획득 요청
@@ -541,15 +541,15 @@ API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다.
     - PASSWORD - CLIENT_SECRET
 
 ```
-> POST /oauth/token HTTP/1.1
-> Host: localhost:8080
-> User-Agent: insomnia/2021.3.0
-> Content-Type: application/x-www-form-urlencoded
-> Authorization: Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ=
-> Accept: */*
-> Content-Length: 51
+POST /oauth/token HTTP/1.1
+Host: localhost:8080
+User-Agent: insomnia/2021.3.0
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ=
+Accept: */*
+Content-Length: 51
 
-| username=junhyunny&password=123&grant_type=password
+username=junhyunny&password=123&grant_type=password
 ```
 
 ### 2.3. 인증 토큰 응답
@@ -571,11 +571,11 @@ API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다.
 - 요청 파라미터로 id 값을 전달합니다.
 
 ```
-> GET /api/member/user-info?id=junhyunny HTTP/1.1
-> Host: localhost:8080
-> User-Agent: insomnia/2021.3.0
-> Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo
-> Accept: */*
+GET /api/member/user-info?id=junhyunny HTTP/1.1
+Host: localhost:8080
+User-Agent: insomnia/2021.3.0
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo
+Accept: */*
 ```
 
 ### 2.5. 사용자 정보 응답

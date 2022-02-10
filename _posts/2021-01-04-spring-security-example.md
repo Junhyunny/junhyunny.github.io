@@ -567,7 +567,7 @@ username=junhyunny&password=123&grant_type=password
 
 ### 2.4. 인증 토큰을 사용한 사용자 정보 요청
 - 응답 받은 인증 토큰을 사용합니다.
-- 헤더 정보에 `Authorization` 키로 접두어 `bearar` 를 추가한 토큰을 함께 전달합니다.
+- 헤더 정보에 `Authorization` 키로 접두어 `bearer`를 추가한 토큰을 함께 전달합니다.
 - 요청 파라미터로 id 값을 전달합니다.
 
 ```

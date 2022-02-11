@@ -61,7 +61,7 @@ last_modified_at: 2022-01-08T23:55:00
 - setTimeout(callback, timeout) 
     - 매크로태스크 대상은 callback 함수입니다.
     - `timeout` 시간이 지난 후 callback 함수가 큐로 이동합니다. 
-    - 한번만 실행합니다.
+    - 한 번만 실행합니다.
 - setInterval(callback, timeout)
     - 매크로태스크 대상은 callback 함수입니다.
     - `timeout` 시간이 지난 후 callback 함수가 큐로 이동합니다. 

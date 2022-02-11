@@ -13,7 +13,9 @@ last_modified_at: 2021-08-29T03:00:00
 > **'Spring 필터(Filter)와 인터셉터(Interceptor)의 차이점에 대해 설명해주세요.'**<br>
 > **'필터는 서블릿 컨테이너에 이전에 공통적으로 처리해야되는 부분을 처리합니다. 인터셉터는 AOP 처럼 특정 시점을 빼앗아 동작하는 것을 의미하는 것 같습니다.'** 
 
-<p align="center"><img src="/images/filter-interceptor-and-aop-1.JPG" width="30%"></p>
+<p align="center">
+    <img src="/images/filter-interceptor-and-aop-1.JPG" width="30%" class="image__border">
+</p>
 <center>이미지 출처, https://torbjorn.tistory.com/120</center><br>
 
 똑같은 질문을 화상 면접, 1차 면접에서 총 2 번 받았습니다. 
@@ -22,7 +24,7 @@ last_modified_at: 2021-08-29T03:00:00
 
 **`'이전 면접에 대한 내용들이 기록되어 있을텐데 같은 질문을 다시 했다? 이건 뭔가 잘못되었다.'`** 
 
-네, 단단히 잘못 되었습니다.😢 
+네, 단단히 잘못 되었습니다. 
 인터셉터는 요청 처리를 위해 별도로 사용되는 기능이었습니다. 
 필터와 인터셉터의 차이점을 포스트로 정리해보겠습니다. 
 
@@ -33,16 +35,21 @@ last_modified_at: 2021-08-29T03:00:00
 
 ##### 필터와 인터셉터 위치
 
-<p align="center"><img src="/images/filter-interceptor-and-aop-2.JPG" width="60%"></p>
-<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
+<p align="center">
+    <img src="/images/filter-interceptor-and-aop-2.JPG" width="60%" class="image__border">
+</p>
+<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
+<br>
 
 ##### AOP 기능 위치
 
-<p align="center"><img src="/images/filter-interceptor-and-aop-3.JPG" width="60%"></p>
+<p align="center">
+    <img src="/images/filter-interceptor-and-aop-3.JPG" width="60%" class="image__border">
+</p>
 <center>이미지 출처, https://programming.vip/docs/spring-aop-basic-use.html</center><br>
 
 ## 2. 필터(Filter)
-필터는 Web Application에 등록합니다. 
+필터는 웹 어플리케이션(Web Application)에 등록합니다. 
 요청 스레드가 서블릿 컨테이너(Servlet Container)에 도착하기 전에 수행됩니다. 
 필터는 사용자의 요청 정보에 대한 검증하고 필요에 따라 데이터를 추가하거나 변조할 수 있습니다. 
 응답 정보에 대한 변경도 가능합니다. 

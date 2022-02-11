@@ -1,5 +1,5 @@
 ---
-title: "OncePerRequestFilter"
+title: "NIO, Non-blocking IO"
 search: false
 category:
   - spring-boot
@@ -18,5 +18,4 @@ last_modified_at: 2022-02-09T23:55:00
 - <>
 
 #### REFERENCE
-- <http://aeternum.egloos.com/2798098>
-- <https://stackoverflow.com/questions/1103363/why-is-hibernate-open-session-in-view-considered-a-bad-practice>
+- <>

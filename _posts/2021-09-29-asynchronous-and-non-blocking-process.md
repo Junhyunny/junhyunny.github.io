@@ -428,7 +428,7 @@ public class AsyncNonBlockingTest {
 
 ##### 결과 로그
 - `WorkerA`와 `WorkerB`가 동시에 일하는 구간이 생깁니다.
-- 여러번 실행시 업무를 먼저 마치는 Worker가 매번 바뀝니다.
+- 여러 번 실행시 업무를 먼저 마치는 Worker가 매번 바뀝니다.
 
 ```
 A: doing something.

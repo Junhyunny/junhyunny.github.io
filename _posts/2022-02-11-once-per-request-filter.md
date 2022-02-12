@@ -48,7 +48,7 @@ last_modified_at: 2022-02-11T23:55:00
 ##### 포워딩 과정
 
 <p align="center">
-    <img src="/images/once-per-request-filter-2.JPG" width="80%" class="image__border">
+    <img src="/images/once-per-request-filter-2.JPG" width="100%" class="image__border">
 </p>
 
 ### 2.1. OncePerRequestFilter 클래스의 doFilter 메소드
@@ -269,7 +269,7 @@ public class TestController {
 ##### 리다이렉트 과정
 
 <p align="center">
-    <img src="/images/once-per-request-filter-3.JPG" width="80%" class="image__border">
+    <img src="/images/once-per-request-filter-3.JPG" width="100%" class="image__border">
 </p>
 
 ##### Github spring-mvc-showcase 레포지토리 이슈

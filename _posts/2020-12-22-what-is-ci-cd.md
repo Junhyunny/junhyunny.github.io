@@ -24,7 +24,9 @@ last_modified_at: 2021-08-21T16:00:00
 CI/CD는 크게 **지속적인 통합(Continuous Integration), 지속적인 전달(Continuous Delivery), 지속적인 배포(Continuous Deployment)**로 구분되며 
 각 단계에서 구체적으로 무슨 일을 하는지에 대해 정리해보았습니다.<br>
 
-<p align="center"><img src="/images/what-is-ci-cd-1.PNG" width="70%"/></p>
+<p align="center">
+    <img src="/images/what-is-ci-cd-1.PNG" width="70%" class="image__border"/>
+</p>
 <center>이미지 출처, https://www.redhat.com/ko/topics/devops/what-is-ci-cd</center>
 
 ## 1. Continuous Integration 이란?
@@ -45,7 +47,9 @@ CI/CD는 크게 **지속적인 통합(Continuous Integration), 지속적인 전�
 
 #### 지속적인 통합에서 각 solution / tool 사용 흐름
 
-<p align="center"><img src="/images/what-is-ci-cd-2.PNG" width="70%"/></p>
+<p align="center">
+    <img src="/images/what-is-ci-cd-2.PNG" width="70%" class="image__border"/>
+</p>
 
 ## 2. Continuous Delivery 란?
 개발자들이 적용한 변경사항이 테스트를 거쳐 **레퍼지토리에 자동으로 업로드되는 것을 의미**합니다.

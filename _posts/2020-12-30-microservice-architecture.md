@@ -52,7 +52,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 ##### 모놀리식 아키텍처와 마이크로 서비스 아키텍처 구조 차이
 
-<p align="center"><img src="/images/microservice-architecture-1.JPG" width="80%"/></p>
+<p align="center">
+    <img src="/images/microservice-architecture-1.JPG" width="80%" class="image__border"/>
+</p>
 <center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
 ## 3. Micro Service Architecture 특징
@@ -73,7 +75,9 @@ last_modified_at: 2021-08-21T16:00:00
 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리합니다. 
 새로운 기능을 구축해야하는 경우 모든 변경사항이 하나의 단일 서비스에서만 수정되도록 해야합니다. 
 
-<p align="center"><img src="/images/microservice-architecture-2.JPG" width="80%"></p>
+<p align="center">
+    <img src="/images/microservice-architecture-2.JPG" width="80%" class="image__border">
+</p>
 <center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
 
 ## 4. Micro Service Architecture 핵심 원칙

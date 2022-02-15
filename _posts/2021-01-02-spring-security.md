@@ -54,11 +54,11 @@ last_modified_at: 2021-08-21T16:00:00
 
 **Spring Security 프레임워크는 인증에 필요한 기능들을 하나의 필터로 제공합니다.** 
 `FilterChainProxy` 클래스라는 필터를 제공하는데, 이는 서블릿 필터 체인에 한 개의 필터로써 포함됩니다. 
-서블릿 컨테이너 입장에선 단순히 1개의 필터지만, 그 내부를 살펴보면 각자 특수한 역할을 수행하는 필터들로 구성되어 있습니다. 
+서블릿 컨테이너 입장에선 단순히 한 개의 필터지만, 그 내부를 살펴보면 각자 특수한 역할을 수행하는 필터들로 구성되어 있습니다. 
 `FilterChainProxy`는 또 하나의 필터 체인으로써 내부적으로 배열된 모든 보안 로직(필터)들을 지니고 있습니다. 
 
 ##### FilterChainProxy 클래스 
-- `GenericFilterBean` 클래스를 상속받아 서블릿 필터 체인에선 한 개의 필터로써 일을 수행합니다.
+- `GenericFilterBean` 클래스를 상속 받아서 서블릿 필터 체인에선 한 개의 필터로써 일을 수행합니다.
 - 내부에서 처리할 필터들은 `filterChains` 리스트 변수에 담아서 사용합니다.
 - `filterChains` 리스트에 담긴 필터 체인 중 먼저 매칭되는 필터 체인을 사용합니다.
 
@@ -100,7 +100,7 @@ public class FilterChainProxy extends GenericFilterBean {
 사용자 요청 URL 경로에 따라 사용되는 필터들이 다른데, 동일한 요청 URL 경로를 처리할 수 있는 필터들은 `SecurityFilterChain` 인터페이스를 상속한 클래스에 보관됩니다.
 
 ##### 요청 별 Spring Security 필터 매칭 개념도
-- 요청 URL 경로(path)에 따라 실행될 필터들이 다릅니다.
+- 요청 URL 경로에 따라 실행될 필터들이 다릅니다.
 - 경로 별로 실행될 필터들의 묶음은 `SecurityFilterChain` 인터페이스를 상속한 클래스에 담겨서 관리됩니다.
 
 <p align="center">
@@ -261,13 +261,16 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
         if (this.postOnly && !request.getMethod().equals("POST")) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         } else {
+            // 요청 정보에서 사용자 이름과 비밀번호를 추출합니다.
             String username = this.obtainUsername(request);
             username = username != null ? username : "";
             username = username.trim();
             String password = this.obtainPassword(request);
             password = password != null ? password : "";
+            // 사용자 인증을 위한 토큰 객체를 생성합니다.
             UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
             this.setDetails(request, authRequest);
+            // 인증 매니저에게 토큰을 전달하여 인증을 위임합니다.
             return this.getAuthenticationManager().authenticate(authRequest);
         }
     }
@@ -281,6 +284,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 
 ##### ProviderManager 클래스
 - 매니저가 관리하는 프로바이더들에게 인증을 요청합니다.
+    - 반복문 내부에 `provider.authenticate(authentication)`
 - 먼저 결과가 나오면 인증을 마치고, 인증된 사용자 정보를 필터에게 반환합니다.
 
 ```java
@@ -300,6 +304,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
             if (provider.supports(toTest)) {
                 // ...
                 try {
+                    // 인증이 프로바이더에게 인증을 위임합니다.
                     result = provider.authenticate(authentication);
                     if (result != null) {
                         this.copyDetails(authentication, result);
@@ -352,10 +357,13 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements Authe
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
        
         // ...
+
         String username = this.determineUsername(authentication);
         UserDetails user = this.userCache.getUserFromCache(username);
+
         if (user == null) {
             try {
+                // 사용자 정보를 조회합니다.
                 user = this.retrieveUser(username, (UsernamePasswordAuthenticationToken)authentication);
             } catch (UsernameNotFoundException var6) {
                 if (!this.hideUserNotFoundExceptions) {
@@ -367,6 +375,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements Authe
 
         try {
             this.preAuthenticationChecks.check(user);
+            // 비밀번호를 통해 사용자 인증을 수행합니다.
             this.additionalAuthenticationChecks(user, (UsernamePasswordAuthenticationToken)authentication);
         } catch (AuthenticationException var7) {
             if (!cacheWasUsed) {
@@ -402,6 +411,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
             this.logger.debug("Failed to authenticate since no credentials provided");
             throw new BadCredentialsException(this.messages.getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
         } else {
+            // 암호화 된 비밀번호를 매칭시켜봅니다.
             String presentedPassword = authentication.getCredentials().toString();
             if (!this.passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
                 this.logger.debug("Failed to authenticate since password does not match stored value");
@@ -413,6 +423,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
     protected final UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         this.prepareTimingAttackProtection();
         try {
+            // 개발자가 오버라이드 한 loadUserByUsername 메소드를 통해 사용자를 조회합니다.
             UserDetails loadedUser = this.getUserDetailsService().loadUserByUsername(username);
             if (loadedUser == null) {
                 throw new InternalAuthenticationServiceException("UserDetailsService returned null, which is an interface contract violation");
@@ -489,10 +500,12 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
             chain.doFilter(request, response);
         } else {
             try {
+                // 4.1. HTTP 요청 접수, AuthenticationToken 생성 및 전달에서 UsernamePasswordAuthenticationFilter 클래스의 attemptAuthentication 메소드를 호출하는 위치입니다.
                 Authentication authenticationResult = this.attemptAuthentication(request, response);
                 if (authenticationResult == null) {
                     return;
                 }
+                // 인증에 성공한 정보를 세션 정보에 담습니다.
                 this.sessionStrategy.onAuthentication(authenticationResult, request, response);
                 if (this.continueChainBeforeSuccessfulAuthentication) {
                     chain.doFilter(request, response);

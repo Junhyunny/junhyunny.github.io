@@ -20,7 +20,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 ## 1. 보안 관련 용어
 
-`Spring Security` 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 정의해보았습니다.
+`Spring Security` 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 정의해보았습니다. 
 
 - **접근 주체(Principal)**
   - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
@@ -31,21 +31,22 @@ last_modified_at: 2021-08-21T16:00:00
   - 인증된 주체가 application의 동작을 수행할 수 있도록 허락되었는지 확인, 결정하는 행위
   - What are you allowed to do?
 
-특정 기능을 수행할 수 있는 권한(Authorization)은 승인이 필요한 부분이므로 접근하기 위해서는 인증(Authentication) 과정이 필요합니다.
+특정 기능을 수행할 수 있는 권한(Authorization)은 승인이 필요한 부분이므로 접근하기 위해서는 인증(Authentication) 과정이 필요하다고 정리할 수 있습니다. 
 
 ## 2. Servlet Filters in Web Security
 `Spring Security` 프레임워크는 웹 계층(UI 및 HTTP 백엔드 서비스)에 대한 보안 기능을 서블릿 필터(servlet filter)를 기반으로 제공합니다. 
 우선 서블릿 필터의 구조에 대해서 먼저 알아보겠습니다. 
 클라이언트가 서버로 HTTP 요청 시 아래와 같은 필터 계층에 의해 처리됩니다. 
 
+##### Servlet filter chain
+- 서블릿 컨테이너는 클라이언트 요청 URL에 근거하여 어떤 필터, 어떤 서블릿을 적용할지 결정합니다. 
+- 하나의 서블릿은 단일 요청을 처리하며, 필터들의 집합인 `필터 체인(filter chain)`을 통과 후 실행됩니다. 
+- 사용자 요청은 순서가 지정된 필터들을 차례대로 거치게 됩니다. 
+
 <p align="center">
     <img src="/images/spring-security-1.JPG" width="20%" class="image__border">
 </p>
 <center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
-
-서블릿 컨테이너는 클라이언트 요청 URL에 근거하여 어떤 필터, 어떤 서블릿을 적용할지 결정합니다. 
-하나의 서블릿은 단일 요청을 처리하며, 필터들의 집합인 `필터 체인(filter chain)`을 통과 후 실행됩니다. 
-사용자 요청은 순서가 지정된 필터들을 차례대로 거치게 됩니다. 
 
 ## 3. Speing Security FilterChainProxy
 
@@ -59,6 +60,7 @@ last_modified_at: 2021-08-21T16:00:00
 ##### FilterChainProxy 클래스 
 - `GenericFilterBean` 클래스를 상속받아 서블릿 필터 체인에선 한 개의 필터로써 일을 수행합니다.
 - 내부에서 처리할 필터들은 `filterChains` 리스트 변수에 담아서 사용합니다.
+- `filterChains` 리스트에 담긴 필터 체인 중 먼저 매칭되는 필터 체인을 사용합니다.
 
 ```java
 public class FilterChainProxy extends GenericFilterBean {
@@ -226,7 +228,7 @@ public final class DefaultSecurityFilterChain implements SecurityFilterChain {
 불필요한 코드들은 일부 제거하고 설명하였습니다. 
 
 ### 4.1. HTTP 요청 접수, AuthenticationToken 생성 및 전달
-- 아래 과정에서 1, 2, 3 순번에 대한 내용입니다.
+- 아래 인증 과정을 표현한 이미지에서 1, 2, 3 순번에 대한 내용입니다.
 - 사용자 요청이 인증을 위한 필터에게 전달됩니다. 
 - `UsernamePasswordAuthenticationFilter` 클래스를 기준으로 정리하였습니다.
 
@@ -266,7 +268,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 ```
 
 ### 4.2. AuthenticationManager 인증 처리
-- 아래 그림에서 4번, 9번 순번에 대한 설명입니다.
+- 아래 인증 과정을 표현한 이미지에서 4번, 9번 순번에 대한 설명입니다.
 - 매니저가 관리하는 프로바이더(provider)들에게 전달받은 토큰을 위임하여 인증을 요청합니다.
 - `ProviderManager` 클래스를 기준으로 정리하였습니다.
 
@@ -325,7 +327,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 ```
 
 ### 4.3. AuthenticationProvider 인증 처리
-- 아래 그림에서 5번, 8번에 대한 내용입니다.
+- 아래 인증 과정을 표현한 이미지에서 5번, 8번에 대한 내용입니다.
 - `AbstractUserDetailsAuthenticationProvider`와 `DaoAuthenticationProvider` 클래스를 기준으로 정리하였습니다.
 
 ##### AbstractUserDetailsAuthenticationProvider 클래스
@@ -423,7 +425,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 ```
 
 ### 4.4. UserDetailsService, UserDetails 인터페이스 구현
-- 아래 그림에서 6번, 7번에 대한 내용입니다.
+- 아래 인증 과정을 표현한 이미지에서 6번, 7번에 대한 내용입니다.
 - `Spring Security` 프레임워크를 사용하는 개발자는 아래 인터페이스를 구현합니다.
     - `UserDetailsService` 인터페이스 - 개발하는 서비스의 리소스로부터 사용자 정보가 있는지 조회합니다.
     - `UserDetails` 인터페이스 - 사용자 정보. 사용자 이름, 비밀번호, 권한 등에 대한 정보를 가집니다.
@@ -464,7 +466,7 @@ public interface UserDetails extends Serializable {
 ```
 
 ### 4.5. 인증된 사용자 저장하기
-- 아래 그림에서 10번에 대한 내용입니다.
+- 아래 인증 과정을 표현한 이미지에서 10번에 대한 내용입니다.
 - 아래 그림에선 `SecurityContextHolder`에게 전달하지만, 예시로 든 클래스를 보면 세션에 인증된 사용자 정보를 담습니다.
 - `AbstractAuthenticationProcessingFilter` 클래스를 기준으로 정리하였습니다.
 

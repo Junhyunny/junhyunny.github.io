@@ -227,8 +227,15 @@ public final class DefaultSecurityFilterChain implements SecurityFilterChain {
 이해하기 쉽게 대표적으로 사용되는 클래스들의 코드를 들여다보면서 설명을 이어가겠습니다. 
 불필요한 코드들은 일부 제거하고 설명하였습니다. 
 
+##### Spring Security 사용자 인증 프로세스 과정 
+
+<p align="center">
+    <img src="/images/spring-security-5.JPG" width="80%" class="image__border">
+</p>
+<center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
+
 ### 4.1. HTTP 요청 접수, AuthenticationToken 생성 및 전달
-- 아래 인증 과정을 표현한 이미지에서 1, 2, 3 순번에 대한 내용입니다.
+- 위 인증 과정을 표현한 이미지에서 1, 2, 3 순번에 대한 내용입니다.
 - 사용자 요청이 인증을 위한 필터에게 전달됩니다. 
 - `UsernamePasswordAuthenticationFilter` 클래스를 기준으로 정리하였습니다.
 
@@ -268,7 +275,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 ```
 
 ### 4.2. AuthenticationManager 인증 처리
-- 아래 인증 과정을 표현한 이미지에서 4번, 9번 순번에 대한 설명입니다.
+- 위 인증 과정을 표현한 이미지에서 4번, 9번 순번에 대한 설명입니다.
 - 매니저가 관리하는 프로바이더(provider)들에게 전달받은 토큰을 위임하여 인증을 요청합니다.
 - `ProviderManager` 클래스를 기준으로 정리하였습니다.
 
@@ -327,7 +334,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 ```
 
 ### 4.3. AuthenticationProvider 인증 처리
-- 아래 인증 과정을 표현한 이미지에서 5번, 8번에 대한 내용입니다.
+- 위 인증 과정을 표현한 이미지에서 5번, 8번에 대한 내용입니다.
 - `AbstractUserDetailsAuthenticationProvider`와 `DaoAuthenticationProvider` 클래스를 기준으로 정리하였습니다.
 
 ##### AbstractUserDetailsAuthenticationProvider 클래스
@@ -425,7 +432,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 ```
 
 ### 4.4. UserDetailsService, UserDetails 인터페이스 구현
-- 아래 인증 과정을 표현한 이미지에서 6번, 7번에 대한 내용입니다.
+- 위 인증 과정을 표현한 이미지에서 6번, 7번에 대한 내용입니다.
 - `Spring Security` 프레임워크를 사용하는 개발자는 아래 인터페이스를 구현합니다.
     - `UserDetailsService` 인터페이스 - 개발하는 서비스의 리소스로부터 사용자 정보가 있는지 조회합니다.
     - `UserDetails` 인터페이스 - 사용자 정보. 사용자 이름, 비밀번호, 권한 등에 대한 정보를 가집니다.
@@ -466,7 +473,7 @@ public interface UserDetails extends Serializable {
 ```
 
 ### 4.5. 인증된 사용자 저장하기
-- 아래 인증 과정을 표현한 이미지에서 10번에 대한 내용입니다.
+- 위 인증 과정을 표현한 이미지에서 10번에 대한 내용입니다.
 - 아래 그림에선 `SecurityContextHolder`에게 전달하지만, 예시로 든 클래스를 보면 세션에 인증된 사용자 정보를 담습니다.
 - `AbstractAuthenticationProcessingFilter` 클래스를 기준으로 정리하였습니다.
 
@@ -502,13 +509,6 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
     }
 }
 ```
-
-##### Spring Security 사용자 인증 프로세스 과정 
-
-<p align="center">
-    <img src="/images/spring-security-5.JPG" width="80%" class="image__border">
-</p>
-<center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
 
 #### REFERENCE
 - <https://spring.io/guides/topicals/spring-security-architecture/>

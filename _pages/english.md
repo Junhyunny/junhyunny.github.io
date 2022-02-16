@@ -1,7 +1,7 @@
 ---
 title: "English Posts by Year"
-layout: eng-posts
-permalink: /eng-posts/
+layout: english
+permalink: /english/
 author_profile: true
 classes: wide
 ---

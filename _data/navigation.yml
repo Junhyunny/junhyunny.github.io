@@ -6,6 +6,8 @@ main:
     url: https://junhyunny.github.io/about/
   - title: "Posts"
     url: https://junhyunny.github.io/posts/
+  - title: "English Posts"
+    url: https://junhyunny.github.io/eng-posts/
   - title: "Category"
     url: https://junhyunny.github.io/categories/
   # - title: "Sample Posts"

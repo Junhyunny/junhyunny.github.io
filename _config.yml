@@ -274,7 +274,7 @@ defaults:
   # _english
   - scope:
       path: "_english"
-      type: english
+      type: posts
     values:
       layout: single
       classes: wide

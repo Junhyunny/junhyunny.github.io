@@ -272,8 +272,8 @@ defaults:
       related: true
   # _english
   - scope:
-      path: ""
-      type: english
+      path: "_english"
+      type: posts
     values:
       layout: single
       classes: wide

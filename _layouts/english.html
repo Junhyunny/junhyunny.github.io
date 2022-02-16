@@ -6,9 +6,10 @@ layout: archive
 
 <ul class="taxonomy__index">
   <script type="javascript">
-    console.log({{ site.english }})
+    console.log(1111, site)
   </script>
   <strong>{{ site }}</strong>
+  <strong>{{ site.english }}</strong>
   {% assign postsInYear = site.english | where_exp: "item", "item.hidden != true" | group_by_exp: 'post', 'post.date | date: "%Y"' %}
   {% for year in postsInYear %}
     <li>

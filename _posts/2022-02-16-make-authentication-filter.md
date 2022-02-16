@@ -111,7 +111,7 @@ last_modified_at: 2022-02-16T23:55:00
     - 헤더에서 추출한 토큰을 기반으로 `JwtAuthenticationToken` 객체를 만듭니다.
     - `AuthenticationManager` 객체에게 `JwtAuthenticationToken` 객체를 전달하여 인증을 요청합니다.
     - 인증이 성공하면 `SecurityContextHolder` 클래스에 담습니다.
-    - 인증 과정에서 예외가 발생하면 `SecurityContextHolder` 클래스에 담긴 인증 정보를 클리어합니다.
+    - 인증 과정에서 예외가 발생하면 `SecurityContextHolder` 클래스에 담긴 인증 정보를 제거합니다.
 - `SecurityContextHolder` 클래스는 별도로 설정이 없는 경우 `ThreadLocal` 클래스를 이용해 스레드 별로 컨텍스트를 관리합니다.
 
 ```java
@@ -216,9 +216,9 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 ```
 
 ### 2.3. JwtSecurityConfig 클래스
-- `SecurityConfigurerAdapter` 클래스를 상속 받아서 추가로 필요한 설정 메소드를 구현합니다.
-- `AuthenticationManager`는 다른 클래스로부터 주입받습니다. 
-- 이번 포스트에서 구현한 `JwtAuthenticationFilter`를 필터 체인 프록시(filter chain proxy)에 존재하는 `LogoutFilter` 이후에 실행되도록 추가합니다.
+- `SecurityConfigurerAdapter` 클래스를 상속받아서 추가로 필요한 설정들을 추가할 수 있는 `configure` 메소드를 구현합니다.
+- `AuthenticationManager` 객체는 `SecurityConfig` 클래스로부터 주입받습니다. 
+- 구현한 `JwtAuthenticationFilter`를 `LogoutFilter` 다음에 실행되도록 추가합니다.
 
 ```java
 package action.in.blog.security.config;
@@ -245,7 +245,7 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 ```
 
 ### 2.4. JwtAuthenticationProvider 클래스
-- 이번 포스트에서 구현을 하진 않지만, `AuthenticationManager` 클래스에 등록하기 위해 만들었습니다.
+- 이번 포스트에서 구현을 하진 않지만, `AuthenticationManager` 클래스에 등록하기 위한 `AuthenticationProvider` 클래스입니다.
 - `@Component` 애너테이션을 붙혀 빈(bean)으로 생성합니다.
 
 ```java
@@ -278,9 +278,10 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 ### 2.5. SecurityConfig 클래스
 - `SecurityConfig` 생성자
     - `AuthenticationManagerBuilder` 빈을 주입 받습니다.
-    - `AuthenticationManager` 생성 시 필요한 `AuthenticationProvider`를 추가합니다. 
+    - 구현한 `AuthenticationProvider` 빈을 주입 받습니다. 
+    - `AuthenticationManager`에서 사용할 `AuthenticationProvider`를 `AuthenticationManagerBuilder`에 추가합니다. 
 - `configure` 메소드
-    - 코드에 주석을 참고하시기 바랍니다.
+    - 코드 주석을 참고하시기 바랍니다.
 
 ```java
 package action.in.blog.security.config;

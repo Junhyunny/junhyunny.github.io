@@ -249,6 +249,10 @@ tag_archive:
 #     category: /categories/:name/
 #     tag: /tags/:name/
 
+collections:
+  english:
+    output: true
+    permalink: /:collection/:path/
 
 # HTML Compression
 # - https://jch.penibelst.de/
@@ -274,7 +278,7 @@ defaults:
   # _english
   - scope:
       path: "_english"
-      type: posts
+      type: english
     values:
       layout: single
       classes: wide

@@ -270,10 +270,10 @@ defaults:
       comments: true
       share: true
       related: true
-  # _eng-posts
+  # _english
   - scope:
       path: ""
-      type: eng-posts
+      type: english
     values:
       layout: single
       classes: wide

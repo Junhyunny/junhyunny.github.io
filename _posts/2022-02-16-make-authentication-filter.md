@@ -1,5 +1,5 @@
 ---
-title: "JWT Authentication Filter 만들기"
+title: "JWT AuthenticationFilter 만들기"
 search: false
 category:
   - spring-boot
@@ -10,13 +10,12 @@ last_modified_at: 2022-02-16T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JWT, Json Web Token][json-web-token-link]
 - [Spring Security][spring-security-link]
 - [OncePerRequestFilter][once-per-request-filter-link]
 
 ## 0. 들어가면서
 
-[Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 포스트를 작성할 때 사실 내부 동작을 정확하게 이해하진 못 했습니다. 
+[Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 포스트를 작성할 시점엔 사실 내부 동작을 정확하게 이해하지 못 했습니다. 
 인증 과정은 `@EnableAuthorizationServer` 애너테이션과 `AuthorizationServerConfigurerAdapter` 클래스 상속만으로 쉽게 인증과 토큰 발급이 가능하다보니 내부 프로세스에 대해 크게 관심이 없었던 것 같습니다. 
 최근에 이전 글들을 다시 정리하는 과정에서 `Spring Security` 진영이 더는 OAuth2.0 인증 서버와 관련된 기능을 제공하지 않는다는 사실을 알았습니다. 
 
@@ -36,23 +35,20 @@ last_modified_at: 2022-02-16T23:55:00
 
 `'그러면 Spring Security 프레임워크를 이용한 사용자 인증 과정은 어떻게 처리하지?'`라는 의문이 들어서 관련된 내용을 찾아보았습니다. 
 좋은 글들이 많았지만, 필터에서 직접 `AuthenticationProvider` 클래스나 `UserDetailsService` 인터페이스 구현체를 사용하는 예제들이 대부분이었습니다. 
-저는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 조금 변경하였습니다. 
+저는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 변경하고 정리하였습니다. 
 
 ##### Spring Security Authentication Process
-- [Spring Security][spring-security-link] 포스트에 실행 흐름에 대한 자세한 설명이 적혀 있습니다.
-- 이번 포스트에서는 아래 JWT 인증 필터 부분을 구현하였습니다. 
+- [Spring Security][spring-security-link]에 인증 과정에 대한 자세한 설명이 있습니다.
+- 아래 그림에 AuthenticationFilter 부분을 JWT(Json Web Token)을 사용한다는 가정하에 구현하였습니다. 
 
 <p align="center">
     <img src="/images/make-authentication-filter-1.JPG" width="80%" class="image__border">
 </p>
 <center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
 
-## 1. 패키지 구조 및 관련 의존성
-
-### 1.1. 패키지 구조
+## 1. 패키지 구조 
 
 ```
-action-in-blog % tree -I ".mvn|.idea|target" .
 .
 ├── HELP.md
 ├── action-in-blog.iml
@@ -99,110 +95,24 @@ action-in-blog % tree -I ".mvn|.idea|target" .
 24 directories, 17 files
 ```
 
-### 1.2. 의존성 확인
+## 2. 기능 구현하기
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.3</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>action.in.blog</groupId>
-    <artifactId>action-in-blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>action-in-blog</name>
-    <description>action-in-blog</description>
-    <properties>
-        <java.version>11</java.version>
-    </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-inline</artifactId>
-            <version>3.8.0</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-```
-
-## 2. 구현 코드
-
-이번 포스트에선 `JwtAuthenticationFilter` 클래스에 초점을 맞추었으며, 일부 클래스들은 메소드 부분이 비어있습니다. 
+이번 포스트에선 `JwtAuthenticationFilter` 클래스에 초점을 맞추었으며, 일부 클래스들은 메소드 구현 부분이 비어있습니다. 
+다음에 이어지는 포스트를 통해 구현할 예정입니다.
 
 ### 2.1. JwtAuthenticationFilter 클래스
-- `OncePerRequestFilter` 클래스를 상속받아 한 요청에 대해 여러번 수행하지 않습니다. 
+- `OncePerRequestFilter` 클래스를 상속받아서 한 요청에 대해 한 번만 수행합니다. 
 - 필터 내부에서 사용할 `AuthenticationManager` 객체를 외부로부터 전달받습니다.
 - `resolveToken` 메소드
     - 헤더에 `Authorization` 키가 존재하는지 확인합니다.
-    - 헤더에 담긴 인증 토큰 값의 인증 타입(grant type)이 `Bearer `인지 확인합니다.
-    - `Bearer ` 부분을 잘라내어 토큰을 추출하고, 이를 반환합니다.
+    - 인증 토큰의 인증 타입(grant type)이 `Bearer `인지 확인합니다.
+    - `Bearer ` 부분을 잘라내어 토큰을 추출하여 반환합니다.
 - `doFilterInternal` 메소드
-    - 추출한 토큰으로 `JwtAuthenticationToken` 토큰 객체를 만듭니다.
-    - `AuthenticationManager` 객체에게 토큰 객체를 전달하며 인증을 요청합니다.
+    - 헤더에서 추출한 토큰을 기반으로 `JwtAuthenticationToken` 객체를 만듭니다.
+    - `AuthenticationManager` 객체에게 `JwtAuthenticationToken` 객체를 전달하여 인증을 요청합니다.
     - 인증이 성공하면 `SecurityContextHolder` 클래스에 담습니다.
-    - 인증 시 예외가 발생하면 `SecurityContextHolder` 클래스에 담긴 인증 정보를 클리어합니다.
-- `SecurityContextHolder` 클래스는 기타 설정이 없는 경우 `ThreadLocal` 클래스를 이용해 스레드 별로 컨텍스트를 관리합니다.
+    - 인증 과정에서 예외가 발생하면 `SecurityContextHolder` 클래스에 담긴 인증 정보를 클리어합니다.
+- `SecurityContextHolder` 클래스는 별도로 설정이 없는 경우 `ThreadLocal` 클래스를 이용해 스레드 별로 컨텍스트를 관리합니다.
 
 ```java
 package action.in.blog.filters;
@@ -261,10 +171,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 ```
 
 ### 2.2. JwtAuthenticationToken 클래스
-- `AuthenticationManager` 클래스에게 인증을 위해 전달할 토큰 클래스입니다.
-- `AbstractAuthenticationToken` 클래스를 상속받았으므로 `AuthenticationProvider`에서 사용이 가능합니다.
-- 필터에서 인증 성공 전에 파라미터가 한 개인 생성자를 이용해 객체를 생성합니다.
-- `AuthenticationManager` 내부에서 인증 성공 후 파라미터가 세 개인 생성자를 이용해 객체를 생성합니다.
+- 인증을 위해 `AuthenticationManager` 클래스에게 전달될 클래스입니다.
+- `AuthenticationProvider`에서 사용하기 위해 `AbstractAuthenticationToken` 클래스를 상속받았습니다.
 
 ```java
 package action.in.blog.security.tokens;

@@ -485,15 +485,39 @@ public interface UserDetails extends Serializable {
 
 ### 4.5. 인증된 사용자 저장하기
 - 위 인증 과정을 표현한 이미지에서 10번에 대한 내용입니다.
-- 아래 그림에선 `SecurityContextHolder`에게 전달하지만, 예시로 든 클래스를 보면 세션에 인증된 사용자 정보를 담습니다.
 - `AbstractAuthenticationProcessingFilter` 클래스를 기준으로 정리하였습니다.
 
 ##### AbstractAuthenticationProcessingFilter 클래스
 - `AbstractAuthenticationProcessingFilter` 클래스를 상속한 클래스에게 `Authentication` 객체를 반환받습니다.
 - 이를 서비스에서 사용할 수 있도록 `SessionAuthenticationStrategy` 클래스에 저장합니다.
+- 인증 성공 시 `SecurityContext` 클래스에 인증된 결과를 넣고 `SecurityContextHolder` 클래스에 담습니다.
+- 인증 실패 시 `SecurityContextHolder` 클래스를 정리합니다.
 
 ```java
 public abstract class AbstractAuthenticationProcessingFilter extends GenericFilterBean implements ApplicationEventPublisherAware, MessageSourceAware {
+
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authResult);
+        SecurityContextHolder.setContext(context);
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug(LogMessage.format("Set SecurityContextHolder to %s", authResult));
+        }
+        this.rememberMeServices.loginSuccess(request, response, authResult);
+        if (this.eventPublisher != null) {
+            this.eventPublisher.publishEvent(new InteractiveAuthenticationSuccessEvent(authResult, this.getClass()));
+        }
+        this.successHandler.onAuthenticationSuccess(request, response, authResult);
+    }
+
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        SecurityContextHolder.clearContext();
+        this.logger.trace("Failed to process authentication request", failed);
+        this.logger.trace("Cleared SecurityContextHolder");
+        this.logger.trace("Handling authentication failure");
+        this.rememberMeServices.loginFail(request, response);
+        this.failureHandler.onAuthenticationFailure(request, response, failed);
+    }
 
     private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (!this.requiresAuthentication(request, response)) {
@@ -510,9 +534,11 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
                 if (this.continueChainBeforeSuccessfulAuthentication) {
                     chain.doFilter(request, response);
                 }
+                // SecurityContextHolder 클래스에 인증 정보를 담습니다.
                 this.successfulAuthentication(request, response, chain, authenticationResult);
             } catch (InternalAuthenticationServiceException var5) {
                 this.logger.error("An internal error occurred while trying to authenticate the user.", var5);
+                // 실패에 대한 처리를 수행합니다.
                 this.unsuccessfulAuthentication(request, response, var5);
             } catch (AuthenticationException var6) {
                 this.unsuccessfulAuthentication(request, response, var6);

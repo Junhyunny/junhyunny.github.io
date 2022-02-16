@@ -17,6 +17,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 👉 이어서 읽기를 추천합니다.
 - [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
+- [JWT AuthenticationFilter 만들기][make-authentication-filter-link]
 
 ## 1. 보안 관련 용어
 
@@ -58,7 +59,7 @@ last_modified_at: 2021-08-21T16:00:00
 `FilterChainProxy`는 또 하나의 필터 체인으로써 내부적으로 배열된 모든 보안 로직(필터)들을 지니고 있습니다. 
 
 ##### FilterChainProxy 클래스 
-- `GenericFilterBean` 클래스를 상속 받아서 서블릿 필터 체인에선 한 개의 필터로써 일을 수행합니다.
+- `GenericFilterBean` 클래스를 상속받아서 서블릿 필터 체인에선 한 개의 필터로써 일을 수행합니다.
 - 내부에서 처리할 필터들은 `filterChains` 리스트 변수에 담아서 사용합니다.
 - `filterChains` 리스트에 담긴 필터 체인 중 먼저 매칭되는 필터 체인을 사용합니다.
 
@@ -558,3 +559,4 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 [filter-interceptor-and-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/
 
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/

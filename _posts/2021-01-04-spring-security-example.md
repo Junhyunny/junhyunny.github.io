@@ -23,16 +23,18 @@ last_modified_at: 2021-02-17T23:55:00
 
 ## 0. 들어가면서
 
-이 글을 최초 2021년 1월 4일에 작성하였습니다. 
-시간이 지나 2021년 12월 19일에 약간 수정하였습니다. 
-이 글을 작성하는 시점엔 `Spring Security` 프레임워크에 대한 깊은 이해가 없던지라 동작하는 코드를 정리해서 올렸습니다. 
-촤근에 이전 글들을 다시 정리하면서 읽어보니 마음에 들지 않는 글이라 전면적으로 변경하고 싶었습니다. 
+이 포스트는 2021년 1월 4일에 최초로 작성하였습니다. 
+시간이 약 1년정도 지나고 2021년 12월 19일에 수정하였습니다. 
+이 글을 작성하는 시점엔 `Spring Security` 프레임워크에 대한 깊은 이해가 없던지라 동작하는 코드를 대충 정리해서 올렸습니다. 
+작년 12월에 이전 글들을 다시 정리하다보니 마음에 들지 않는 글이라 생각되어 삭제하거나 내용을 전면 변경하고 싶었습니다. 
 
-하지만, 높은 누적 조회 수를 가진 글이라 내용을 뒤집기엔 걱정스러운 마음이 컸고, 감사하게도 다른 분들께서 참조를 걸어두시기도 해서 내용을 크게 변경하진 않았습니다. 
+하지만, 높은 누적 조회 수를 가진 글이라 내용을 뒤집기엔 걱정스러웠고, 감사하게도 다른 분들께서 참조를 걸어두시기도 해서 내용을 크게 변경하진 않았습니다. 
 이 글은 JWT(Json Web Token) 인증이나 `Spring Security` 프레임워크의 인증 과정에 대한 인사이트를 얻기엔 부족할 수 있습니다. 
 애너테이션만으로 프레임워크에 의해 인증 프로세를 위한 빈(bean)들이 생성되기 때문에 거의 블랙 박스라고 볼 수 있습니다. 
+
 방문하시는 분들의 이해를 조금 더 돕고 싶은 마음에 다시 정리한 포스트들을 참조로 걸어두었습니다. 
 제 블로그를 찾아주시는 분들에게 좋은 컨텐츠와 정보가 전달되길 바랍니다. 
+감사합니다.
 
 ## 1. 용어 정리
 
@@ -69,7 +71,7 @@ last_modified_at: 2021-02-17T23:55:00
 ## 2. 주의사항
 
 위에서 `OAuth` 관련 용어에 대한 설명을 보면 인증을 위한 서버와 실제 사용자에게 서비스를 제공하는 서버는 구분되어 있습니다. 
-`spring-security-oauth2` 의존성을 이용하면 인증 서버(authorization server)와 리소스 서버(resource server)를 분리하여 구현할 수 있지만, 이번 포스트에선 한 서비스에 모두 인증, 리소스 기능이 모두 포함되어 있습니다. 
+`spring-security-oauth2` 의존성을 이용하면 인증 서버(authorization server)와 리소스 서버(resource server)를 분리하여 구현할 수 있지만, 이번 포스트에선 그렇지 않습니다. 
 
 이 글을 읽을 때 다음과 같은 주의사항들이 있습니다.
 - 해당 포스트에선 한 개 서비스에 인증, 리소스와 관련된 기능이 모두 포함되어 있습니다. 
@@ -83,7 +85,7 @@ last_modified_at: 2021-02-17T23:55:00
 ##### 서비스 분할 관련 포스트 서비스 구조
 
 - 인증 서버, 리소스 서버가 분할된 예제를 확인 가능합니다.
-- 하지만, 구 버전 `spring-security-oauth2` 의존성을 사용하고 있습니다.
+- 아래 예제도 구 버전 `spring-security-oauth2` 의존성을 사용하고 있습니다.
 - [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
 - [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
 - [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service][resource-service-link]
@@ -110,7 +112,9 @@ last_modified_at: 2021-02-17T23:55:00
 
 ##### 보안 취약점 버전 확인
 
-<p align="center"><img src="/images/spring-security-example-0-3.JPG" width="80%"></p>
+<p align="center">
+    <img src="/images/spring-security-example-0-3.JPG" width="80%" style="image__border">
+</p>
 <center>이미지 출처, https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
 
 ## 3. 예제 코드

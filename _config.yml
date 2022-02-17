@@ -277,7 +277,7 @@ defaults:
       related: true
   # _english
   - scope:
-      path: "_posts/english"
+      path: "_posts-english"
       type: english
     values:
       layout: single

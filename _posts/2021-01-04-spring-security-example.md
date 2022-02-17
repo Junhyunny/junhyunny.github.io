@@ -113,7 +113,7 @@ last_modified_at: 2021-02-17T23:55:00
 ##### 보안 취약점 버전 확인
 
 <p align="center">
-    <img src="/images/spring-security-example-0-3.JPG" width="80%" style="image__border">
+    <img src="/images/spring-security-example-0-3.JPG" width="80%" class="image__border">
 </p>
 <center>이미지 출처, https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
 
@@ -638,7 +638,7 @@ Accept: */*
 ##### <https://jwt.io/>, Token Decoding 
 
 <p align="center">
-    <img src="/images/spring-security-example-2.JPG" style="image__border">
+    <img src="/images/spring-security-example-2.JPG" class="image__border">
 </p>
 
 ## CLOSING
@@ -652,15 +652,16 @@ Accept: */*
 #### REFERENCE
 - <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
 
-[json-link]: https://junhyunny.github.io/information/json-web-token/
-[security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [spring-doc-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html
 [authentication-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
 [resource-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
 
-[front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
-[authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/
-[resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/
+[json-link]: https://junhyunny.github.io/information/json-web-token/
+[security-link]: https://junhyunny.github.io/spring-security/spring-security/
 
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
 [make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/
+
+[front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
+[authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/
+[resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/

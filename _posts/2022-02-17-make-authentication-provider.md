@@ -492,6 +492,7 @@ public class AuthControllerTest {
 #### REFERENCE
 - <https://bcp0109.tistory.com/301>
 - <https://silvernine.me/wp/?p=1135>
+- <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>
 
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
 [spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/

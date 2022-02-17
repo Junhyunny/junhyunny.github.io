@@ -102,7 +102,7 @@ jwt:
 - `authenticate` 메소드
     - 전달 받은 JWT(Json Web Token)을 파싱(parsing)하여 인증된 토큰 정보를 생성합니다.
     - 유효하지 않거나 시간이 만료된 토큰에 대해 예외(exception)을 던집니다.
-    - `JwtParser` 클래스의 `parse` 메소드는 아래와 같은 예외를 던질 수 있으며 이에 대한 처리를 하였습니다.
+    - `JwtParser` 클래스의 `parse` 메소드는 아래와 같은 예외를 던질 수 있으며, 이에 대한 처리를 하였습니다.
         - MalformedJwtException
         - SignatureException
         - ExpiredJwtException

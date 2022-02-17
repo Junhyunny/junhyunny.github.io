@@ -4,25 +4,40 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2021-12-19T23:55:00
+last_modified_at: 2021-02-17T23:55:00
 ---
 
 <br>
+
+⚠️ 다음 사항을 주의하세요.
+- 해당 포스트는 2022년 2월 18일에 재작성되었습니다. 
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT, Json Web Token][json-link]
 - [Spring Security][security-link]
 
-👉 이어서 읽기를 추천합니다.
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service][resource-service-link]
+👉 Spring Security 프레임워크의 인증 절차를 더 자세히 들여다봤습니다.
+- [AuthenticationFilter 만들기][make-authentication-filter-link]
+- [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
+- JWT(Json Web Token) 발행과 재발행 - 작성 중 입니다.
 
 ## 0. 들어가면서
 
-OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬야하는 개념에 대해 정리하고 글을 이어나가겠습니다. 
+이 글을 최초 2021년 1월 4일에 작성하였습니다. 
+시간이 지나 2021년 12월 19일에 약간 수정하였습니다. 
+이 글을 작성하는 시점엔 `Spring Security` 프레임워크에 대한 깊은 이해가 없던지라 동작하는 코드를 정리해서 올렸습니다. 
+촤근에 이전 글들을 다시 정리하면서 읽어보니 마음에 들지 않는 글이라 전면적으로 변경하고 싶었습니다. 
 
-##### 보안 관련 용어
+하지만, 높은 누적 조회 수를 가진 글이라 내용을 뒤집기엔 걱정스러운 마음이 컸고, 감사하게도 다른 분들께서 참조를 걸어두시기도 해서 내용을 크게 변경하진 않았습니다. 
+이 글은 JWT(Json Web Token) 인증이나 `Spring Security` 프레임워크의 인증 과정에 대한 인사이트를 얻기엔 부족할 수 있습니다. 
+애너테이션만으로 프레임워크에 의해 인증 프로세를 위한 빈(bean)들이 생성되기 때문에 거의 블랙 박스라고 볼 수 있습니다. 
+방문하시는 분들의 이해를 조금 더 돕고 싶은 마음에 다시 정리한 포스트들을 참조로 걸어두었습니다. 
+제 블로그를 찾아주시는 분들에게 좋은 컨텐츠와 정보가 전달되길 바랍니다. 
+
+## 1. 용어 정리
+
+### 1.1. 보안 관련 용어
+
 - 접근 주체(Principal)
     - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
 - 인증(Authentication)
@@ -32,7 +47,8 @@ OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬�
     - 인증된 주체가 application의 동작을 수행할 수 있도록 허락되었는지 확인, 결정하는 행위
     - What are you allowed to do?
 
-##### OAuth(OpenID Authentication) 관련 용어
+### 1.2. OAuth(OpenID Authentication) 관련 용어
+
 - Application (혹은 Client)
     - 사용자가 사용하는 어플리케이션입니다. 
     - 이번 포스트에서 `Insomnia` 툴(tool)입니다.
@@ -47,11 +63,36 @@ OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬�
     - 인증된 사용자에게만 발급된 토큰을 통해 접근 가능합니다.
     - 이번 포스트에서 `@EnableResourceServer` 애너테이션이 붙은 빈을 통해 필요한 값이 설정됩니다.
 
-<p align="center"><img src="/images/spring-security-example-0.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-security-example-0-0.JPG" width="80%"></p>
 <center>이미지 출처, https://docs.pivotal.io/p-identity/1-14/grant-types.html</center><br>
 
-##### 주의사항 (2021-12-19 업데이트)
-- 현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다. (Deprecated)
+## 2. 주의사항
+
+위에서 `OAuth` 관련 용어에 대한 설명을 보면 인증을 위한 서버와 실제 사용자에게 서비스를 제공하는 서버는 구분되어 있습니다. 
+`spring-security-oauth2` 의존성을 이용하면 인증 서버(authorization server)와 리소스 서버(resource server)를 분리하여 구현할 수 있지만, 이번 포스트에선 한 서비스에 모두 인증, 리소스 기능이 모두 포함되어 있습니다. 
+
+이 글을 읽을 때 다음과 같은 주의사항들이 있습니다.
+- 해당 포스트에선 한 개 서비스에 인증, 리소스와 관련된 기능이 모두 포함되어 있습니다. 
+- 해당 포스트에서 사용한 `spring-security-oauth2` 의존성 2.3.3.RELEASE 버전은 보안 취약점이 발견된 버전입니다. (프로덕션 코드로 사용 불가)
+- 현재 `Spring Security` 진영에서 인증 서버를 구현하는 기능 지원을 중지하였습니다. 최신 버전에선 인증 서버 기능을 사용할 수 없습니다.
+
+##### 이번 포스트 서비스 구조
+
+<p align="center"><img src="/images/spring-security-example-0-1.JPG" width="70%"></p>
+
+##### 서비스 분할 관련 포스트 서비스 구조
+
+- 인증 서버, 리소스 서버가 분할된 예제를 확인 가능합니다.
+- 하지만, 구 버전 `spring-security-oauth2` 의존성을 사용하고 있습니다.
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
+- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service][resource-service-link]
+
+<p align="center"><img src="/images/spring-security-example-0-2.JPG" width="70%"></p>
+
+##### Spring Security 진영 정책 변경
+
+현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다. (Deprecated)
 
 > 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br>
 > No Authorization Server Support<br>
@@ -67,17 +108,17 @@ OAuth2, JWT 인증 서비스에 대한 예제를 구현하기 전에 알아둬�
 > Due to this feedback and some internal discussions, we are taking another look at this decision. 
 > We’ll notify the community on any progress.
 
-- 해당 포스트에서 사용한 `spring-security-oauth2` 의존성 2.3.3.RELEASE 버전은 보안 취약점이 발견된 버전입니다. (프로덕션 코드로 사용 불가)
+##### 보안 취약점 버전 확인
 
-<p align="center"><img src="/images/spring-security-example-0-1.JPG" width="80%"></p>
+<p align="center"><img src="/images/spring-security-example-0-3.JPG" width="80%"></p>
 <center>이미지 출처, https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
 
-## 1. 예제 코드
-Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 구현해보았습니다. 
+## 3. 예제 코드
+`Spring Security` 프레임워크를 이용하여 JWT(Json Web Token) 인증 방식을 구현해보았습니다. 
 간단한 구현을 위해 H2 데이터베이스를 사용하였습니다. 
 보통 Security Service는 별도의 서비스로 구현되지만 예제 구현의 편의를 위해 하나의 서비스로 구현하였습니다. 
 
-### 1.1. 패키지 구조
+### 3.1. 패키지 구조
 
 ```
 |-- action-in-blog.iml
@@ -117,7 +158,7 @@ Spring Security 프레임워크를 이용하여 Json Web Token 인증 방식을 
                         `-- ActionInBlogApplicationTests.java
 ```
 
-### 1.2. application.yml
+### 3.2. application.yml
 - H2 데이터베이스 설정
 
 ```yml
@@ -133,7 +174,7 @@ spring:
     password: 123
 ```
 
-### 1.3. pom.xml
+### 3.3. pom.xml
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -228,7 +269,7 @@ spring:
 </project>
 ```
 
-### 1.4. MemberController 클래스 구현
+### 3.4. MemberController 클래스 구현
 유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
 아래 ResourceServer 클래스를 이용해 자원에 대한 요청 접근을 제어합니다. 
 - **/api/member/sign-up** path는 인증 정보 없이 요청이 가능
@@ -270,7 +311,7 @@ public class MemberController {
 }
 ```
 
-### 1.5. Config 클래스 구현
+### 3.5. Config 클래스 구현
 인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
 JwtAccessTokenConverter @Bean에 등록되는 `signingKey`는 암호화 복호화에 필요한 키 용도로 사용됩니다.
 
@@ -305,7 +346,7 @@ public class Config {
 }
 ```
 
-### 1.6. AuthorizationServer 클래스 구현
+### 3.6. AuthorizationServer 클래스 구현
 인증에 필요한 설정이 가능한 `@Configuration` 입니다. 
 자세한 내용은 [API 문서][authentication-link]에서 확인하시길 바랍니다. 
 
@@ -372,7 +413,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 }
 ```
 
-### 1.7. ResourceServer 클래스 구현
+### 3.7. ResourceServer 클래스 구현
 자원에 대한 접근을 제어, 관리하는 `@Configuration` 입니다. 
 자세한 내용은 [API 문서][resource-link]에서 확인하시길 바랍니다. 
 
@@ -405,7 +446,7 @@ public class ResourceServer extends ResourceServerConfigurerAdapter {
 }
 ```
 
-### 1.8. SecurityConfig 클래스 구현
+### 3.8. SecurityConfig 클래스 구현
 
 ```java
 package blog.in.action.security;
@@ -440,7 +481,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-### 1.9. MemberService 클래스, UserDetailsService 인터페이스 구현
+### 3.9. MemberService 클래스, UserDetailsService 인터페이스 구현
 인증(Authentication)에서 AuthenticationProvider들에 의해 사용되는 UserDetailsService 인터페이스를 구현한 클래스입니다. 
 Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 UserDetails 구현체를 반환합니다.
 
@@ -511,11 +552,11 @@ public class MemberService implements UserDetailsService {
 }
 ```
   
-## 2. 테스트 결과
+## 4. 테스트 결과
 API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다. 
 테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-02)
 
-### 2.1. 유저 정보 등록 요청
+### 4.1. 유저 정보 등록 요청
 
 ```
 POST /api/member/sign-up HTTP/1.1
@@ -534,7 +575,7 @@ Content-Length: 74
 }
 ```
 
-### 2.2. 인증 토큰 획득 요청
+### 4.2. 인증 토큰 획득 요청
 - 요청은 `Form`을 사용합니다.
 - 인증 방식은 `Basic` 입니다.
     - USERNAME - CLIENT_ID
@@ -552,7 +593,7 @@ Content-Length: 51
 username=junhyunny&password=123&grant_type=password
 ```
 
-### 2.3. 인증 토큰 응답
+### 4.3. 인증 토큰 응답
 
 ```json
 {
@@ -565,7 +606,7 @@ username=junhyunny&password=123&grant_type=password
 }
 ```
 
-### 2.4. 인증 토큰을 사용한 사용자 정보 요청
+### 4.4. 인증 토큰을 사용한 사용자 정보 요청
 - 응답 받은 인증 토큰을 사용합니다.
 - 헤더 정보에 `Authorization` 키로 접두어 `bearer`를 추가한 토큰을 함께 전달합니다.
 - 요청 파라미터로 id 값을 전달합니다.
@@ -578,7 +619,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5N
 Accept: */*
 ```
 
-### 2.5. 사용자 정보 응답
+### 4.5. 사용자 정보 응답
 
 ```json
 {
@@ -591,7 +632,10 @@ Accept: */*
 ```
 
 ##### <https://jwt.io/>, Token Decoding 
-<p align="center"><img src="/images/spring-security-example-2.JPG"></p>
+
+<p align="center">
+    <img src="/images/spring-security-example-2.JPG" style="image__border">
+</p>
 
 ## CLOSING
 예전에 작성했던 블로그 글이 아주 유용하게 사용되었습니다. 
@@ -613,3 +657,6 @@ Accept: */*
 [front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
 [authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/
 [resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/
+
+[make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
+[make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/

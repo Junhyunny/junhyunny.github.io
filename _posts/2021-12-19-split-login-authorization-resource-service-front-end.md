@@ -61,7 +61,42 @@ last_modified_at: 2021-12-19T23:55:00
 ## 1. 로그인 인증 클라이언트 구현
 인증시 요청, 응답에 대한 API 명세를 알고 있다는 가정하에 테스트를 먼저 작성하였습니다. 
 
-### 1.1. 테스트 코드
+### 1.1. 구현 코드
+
+```react
+import axios from "axios";
+
+const authenticate = async (params) => {
+    let result = true;
+    try {
+        const {data} = await axios.post('http://localhost:8080/oauth/token', {}, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: 'CLIENT_ID',
+                password: 'CLIENT_SECRET'
+            },
+            params: {
+                ...params,
+                grant_type: 'password'
+            }
+        });
+        localStorage.setItem('access_token', data['access_token']);
+        localStorage.setItem('refresh_token', data['refresh_token']);
+        localStorage.setItem('token_type', data['token_type']);
+    } catch (error) {
+        result = false;
+    }
+    return result;
+};
+
+export default {
+    authenticate
+};
+```
+
+### 1.2. 테스트 코드
 - `call axios post with proper params method when authenticate` 테스트
     - 전달한 파라미터를 기반으로 API 요청을 수행하였는지 확인합니다. 
 - `get true as a result when succeed authentication` 테스트
@@ -160,44 +195,74 @@ describe('test authentication client', () => {
 });
 ```
 
-### 1.2. 구현 코드
-
-```react
-import axios from "axios";
-
-const authenticate = async (params) => {
-    let result = true;
-    try {
-        const {data} = await axios.post('http://localhost:8080/oauth/token', {}, {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            auth: {
-                username: 'CLIENT_ID',
-                password: 'CLIENT_SECRET'
-            },
-            params: {
-                ...params,
-                grant_type: 'password'
-            }
-        });
-        localStorage.setItem('access_token', data['access_token']);
-        localStorage.setItem('refresh_token', data['refresh_token']);
-        localStorage.setItem('token_type', data['token_type']);
-    } catch (error) {
-        result = false;
-    }
-    return result;
-};
-
-export default {
-    authenticate
-};
-```
-
 ## 2. 로그인 화면 구현
 
-### 2.1. 테스트 코드
+### 2.1. 구현 코드
+
+```react
+import {useContext, useState} from "react";
+import AuthenticationClient from "../../utils/AuthenticationClient";
+import {useNavigate} from "react-router";
+import AuthenticationContext from "../../store/AuthenticationContext";
+
+const Login = () => {
+
+    const [isValid, setIsValid] = useState(true);
+    const [userId, setUserId] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+    const {setAuthenticate} = useContext(AuthenticationContext);
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+        if (userId.trim().length <= 0) {
+            setIsValid(false);
+            return;
+        }
+        if (password.trim().length <= 0) {
+            setIsValid(false);
+            return;
+        }
+        setIsValid(true);
+        setUserId('');
+        setPassword('');
+        AuthenticationClient.authenticate({
+            username: userId,
+            password: password
+        }).then(result => {
+            if (result) {
+                setAuthenticate(result);
+                navigate('/todo');
+            }
+        });
+    };
+
+    const userIdChangeHandler = ({target: {value}}) => {
+        setUserId(value);
+    };
+
+    const passwordChangeHandler = ({target: {value}}) => {
+        setPassword(value);
+    };
+
+    return (
+        <div>
+            <form onSubmit={submitHandler}>
+                <input placeholder="USER ID" onChange={userIdChangeHandler} value={userId}/>
+                {!isValid && !userId && <p>ID가 유효하지 않습니다.</p>}
+                <input placeholder="PASSWORD" onChange={passwordChangeHandler} value={password}/>
+                {!isValid && !password && <p>비밀번호가 유효하지 않습니다.</p>}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    );
+};
+
+export default Login;
+```
+
+### 2.2. 테스트 코드
 - `render elements when rendering` 테스트
     - 화면에 필요한 요소(element)들이 화면에 잘 렌더링 되는지 확인합니다.
 - `exists error message when click submit button with empty inputs` 테스트
@@ -285,74 +350,72 @@ describe('test login', () => {
 });
 ```
 
-### 2.2. 구현 코드
+## 3. 인증 정보 전역 Context 구현
+
+### 3.1. 구현 코드
+
+#### 3.1.1. AuthenticationContext.js
 
 ```react
-import {useContext, useState} from "react";
-import AuthenticationClient from "../../utils/AuthenticationClient";
-import {useNavigate} from "react-router";
-import AuthenticationContext from "../../store/AuthenticationContext";
+import React from "react";
 
-const Login = () => {
+const AuthenticationContext = React.createContext({
+    authenticate: false,
+    setAuthenticate: (authenticate) => {},
+});
 
-    const [isValid, setIsValid] = useState(true);
-    const [userId, setUserId] = useState('');
-    const [password, setPassword] = useState('');
+export default AuthenticationContext;
+```
 
-    const navigate = useNavigate();
-    const {setAuthenticate} = useContext(AuthenticationContext);
+#### 3.1.2. AuthenticateProvider.js
 
-    const submitHandler = (event) => {
-        event.preventDefault();
-        if (userId.trim().length <= 0) {
-            setIsValid(false);
-            return;
-        }
-        if (password.trim().length <= 0) {
-            setIsValid(false);
-            return;
-        }
-        setIsValid(true);
-        setUserId('');
-        setPassword('');
-        AuthenticationClient.authenticate({
-            username: userId,
-            password: password
-        }).then(result => {
-            if (result) {
-                setAuthenticate(result);
-                navigate('/todo');
-            }
+```react
+import AuthenticationContext from "./AuthenticationContext";
+import {useReducer} from "react";
+
+const defaultAuthenticateState = {
+    authenticate: false
+};
+
+const authenticateReducer = (state, action) => {
+    if (action.type === 'LOGIN') {
+        return {
+            authenticate: true
+        };
+    } else if (action.type === 'LOGOUT') {
+        return {
+            authenticate: false
+        };
+    }
+    return defaultAuthenticateState;
+};
+
+const AuthenticateProvider = ({children}) => {
+
+    const [authenticateState, dispatchAuthenticationAction] = useReducer(authenticateReducer, defaultAuthenticateState);
+
+    const setAuthenticate = (isAuthenticated) => {
+        dispatchAuthenticationAction({
+            type: isAuthenticated ? 'LOGIN' : 'LOGOUT'
         });
     };
 
-    const userIdChangeHandler = ({target: {value}}) => {
-        setUserId(value);
-    };
-
-    const passwordChangeHandler = ({target: {value}}) => {
-        setPassword(value);
+    const authenticateContext = {
+        authenticate: authenticateState.authenticate,
+        setAuthenticate,
     };
 
     return (
-        <div>
-            <form onSubmit={submitHandler}>
-                <input placeholder="USER ID" onChange={userIdChangeHandler} value={userId}/>
-                {!isValid && !userId && <p>ID가 유효하지 않습니다.</p>}
-                <input placeholder="PASSWORD" onChange={passwordChangeHandler} value={password}/>
-                {!isValid && !password && <p>비밀번호가 유효하지 않습니다.</p>}
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+        <AuthenticationContext.Provider value={authenticateContext}>
+            {children}
+        </AuthenticationContext.Provider>
     );
-};
+}
 
-export default Login;
+export default AuthenticateProvider;
 ```
 
-## 3. 인증 정보 전역 Context 구현
-
-### 3.1. 테스트 코드
+### 3.2. 테스트 코드
 - `render children component` 테스트
     - Provider 컴포넌트에 전달한 컴포넌트가 정상적으로 렌더링 되는지 확인합니다.
 - `re-render component when context change` 테스트
@@ -422,72 +485,61 @@ describe('test authentication provider', () => {
 });
 ```
 
-### 3.2. 구현 코드
+## 4. 화면 라우팅 구현
 
-#### 3.2.1. AuthenticationContext.js
+### 4.1. 구현 코드
+
+#### 4.1.1. index.js
 
 ```react
-import React from "react";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
+import AuthenticateProvider from "./store/AuthenticationProvider";
 
-const AuthenticationContext = React.createContext({
-    authenticate: false,
-    setAuthenticate: (authenticate) => {},
-});
+ReactDOM.render(
+    <React.StrictMode>
+        <AuthenticateProvider>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
+        </AuthenticateProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
+);
 
-export default AuthenticationContext;
+reportWebVitals();
 ```
 
-#### 3.2.2. AuthenticateProvider.js
+#### 4.1.2. App.js
 
 ```react
-import AuthenticationContext from "./AuthenticationContext";
-import {useReducer} from "react";
+import Login from "./components/Login/Login";
+import {Navigate, Route, Routes} from "react-router-dom";
+import TodoList from "./components/Todo/TodoList";
+import {useContext} from "react";
+import AuthenticationContext from "./store/AuthenticationContext";
 
-const defaultAuthenticateState = {
-    authenticate: false
-};
+function App() {
 
-const authenticateReducer = (state, action) => {
-    if (action.type === 'LOGIN') {
-        return {
-            authenticate: true
-        };
-    } else if (action.type === 'LOGOUT') {
-        return {
-            authenticate: false
-        };
-    }
-    return defaultAuthenticateState;
-};
-
-const AuthenticateProvider = ({children}) => {
-
-    const [authenticateState, dispatchAuthenticationAction] = useReducer(authenticateReducer, defaultAuthenticateState);
-
-    const setAuthenticate = (isAuthenticated) => {
-        dispatchAuthenticationAction({
-            type: isAuthenticated ? 'LOGIN' : 'LOGOUT'
-        });
-    };
-
-    const authenticateContext = {
-        authenticate: authenticateState.authenticate,
-        setAuthenticate,
-    };
+    const {authenticate} = useContext(AuthenticationContext);
 
     return (
-        <AuthenticationContext.Provider value={authenticateContext}>
-            {children}
-        </AuthenticationContext.Provider>
+        <Routes>
+            <Route path="/" element={<Navigate to="/login"/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/todo" element={authenticate ? <TodoList/> : <Navigate to="/login"/>}/>
+        </Routes>
     );
 }
 
-export default AuthenticateProvider;
+export default App;
 ```
 
-## 4. 화면 라우팅 구현
-
-### 4.1. 테스트 코드
+### 4.2. 테스트 코드
 - `redirect to login page when access to root` 테스트
     - '/' 경로로 접근하는 경우 '/login' 경로로 리다이렉트(redirect) 되는지 확인합니다. 
 - `route to todo list page when succeed login` 테스트
@@ -584,58 +636,6 @@ describe('test app', () => {
         });
     });
 });
-```
-
-### 4.2. 구현 코드
-
-#### 4.2.1. index.js
-
-```react
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from "react-router-dom";
-import AuthenticateProvider from "./store/AuthenticationProvider";
-
-ReactDOM.render(
-    <React.StrictMode>
-        <AuthenticateProvider>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </AuthenticateProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
-);
-
-reportWebVitals();
-```
-
-#### 4.2.2. App.js
-
-```react
-import Login from "./components/Login/Login";
-import {Navigate, Route, Routes} from "react-router-dom";
-import TodoList from "./components/Todo/TodoList";
-import {useContext} from "react";
-import AuthenticationContext from "./store/AuthenticationContext";
-
-function App() {
-
-    const {authenticate} = useContext(AuthenticationContext);
-
-    return (
-        <Routes>
-            <Route path="/" element={<Navigate to="/login"/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/todo" element={authenticate ? <TodoList/> : <Navigate to="/login"/>}/>
-        </Routes>
-    );
-}
-
-export default App;
 ```
 
 ## 5. 화면 / 인증 / 리소스 서비스 연동하기

@@ -13,6 +13,9 @@ last_modified_at: 2022-02-16T23:55:00
 - [Spring Security][spring-security-link]
 - [OncePerRequestFilter][once-per-request-filter-link]
 
+👉 이어서 읽기를 추천합니다.
+- [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
+
 ## 0. 들어가면서
 
 [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link] 포스트를 작성할 시점엔 사실 내부 동작을 정확하게 이해하지 못 했습니다. 
@@ -564,7 +567,10 @@ public class AuthControllerTest {
 - <https://silvernine.me/wp/?p=1135>
 - <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>
 
+[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
 [spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
-[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [once-per-request-filter-link]: https://junhyunny.github.io/spring-boot/once-per-request-filter/
+
+[make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/

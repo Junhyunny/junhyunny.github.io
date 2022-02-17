@@ -33,7 +33,7 @@ last_modified_at: 2022-02-17T23:55:00
 [AuthenticationFilter 만들기][make-authentication-filter-link] 포스트와 비교하여 어떤 내용이 변경되었는지 확인해보겠습니다. 
 
 ### 1.1. 패키지 구성
-- `JwtAuthenticationProviderTest` 클래스 구현을 위한 테스트를 작성하였습니다.
+- `JwtAuthenticationProviderTest` 클래스에서 `JwtAuthenticationProvider` 구현을 위한 테스트를 작성하였습니다.
 - `JwtAuthenticationProvider` 클래스를 구현하였습니다.
 - `AuthControllerTest` 클래스에서 API 테스트를 추가하였습니다.
 
@@ -485,8 +485,20 @@ public class AuthControllerTest {
 
 ## CLOSING
 
+`JwtAuthenticationProvider` 클래스를 보면 토큰이 파싱하는 행위만으로 인증을 수행합니다. 
+파싱 과정에서 예외가 발생하는지 여부만으로 토큰의 유효성을 검사합니다. 
+발생한 예외는 모두 `JwtInvalidException` 클래스로 감싸서 외부로 던지는데, 던져진 예외는 모두 `Spring Security` 프레임워크에서 제공하는 `ProviderManager` 클래스에 의해 처리됩니다. 
+`ProviderManager` 클래스는 자신이 관리하는 `Provider`들에게 인증 행위를 위임하고, `Provider`가 내부에서 `AuthenticationException` 예외를 던지면 인증 실패에 대한 로직을 수행합니다. 
+인증 성공이나 실패에 대한 이벤트 발행도 해주기 때문에 `ProviderManager`를 그대로 사용하는 것이 좋다고 생각했습니다. 
 
 ##### ProviderManager 클래스
+- `ProviderManager` 클래스 인증 로직에서 불필요한 로직은 제거하고, 살펴보겠습니다.
+- 이번 포스트에서 구현한 `JwtAuthenticationProvider` 클래스는 `List<AuthenticationProvider>`에 담깁니다.
+- `JwtAuthenticationProvider` 클래스가 오버라이딩(overriding) 메소드는 `supports`, `authenticate` 입니다.
+    - `supports` 메소드를 통해 지원하는 타입의 인증인지 먼저 확인합니다.
+    - `authenticate` 메소드를 통해 인증을 수행합니다.
+    - `supports` 메소드를 먼저 수행함으로써 `ClassCastException`을 회피할 수 있습니다. 
+        - `authenticate` 메소드 내부 `((JwtAuthenticationToken) authentication)` 코드는 `ClassCastException`를 유발할 수 있습니다.
 
 ```java
 package org.springframework.security.authentication;
@@ -497,31 +509,25 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 
     private AuthenticationEventPublisher eventPublisher;
     private List<AuthenticationProvider> providers;
-    protected MessageSourceAccessor messages;
-    private AuthenticationManager parent;
-    private boolean eraseCredentialsAfterAuthentication;
 
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
         Class<? extends Authentication> toTest = authentication.getClass();
         AuthenticationException lastException = null;
-        AuthenticationException parentException = null;
         Authentication result = null;
-        Authentication parentResult = null;
-        int currentPosition = 0;
-        int size = this.providers.size();
+
         Iterator var9 = this.getProviders().iterator();
-
         while(var9.hasNext()) {
-            AuthenticationProvider provider = (AuthenticationProvider)var9.next();
-            if (provider.supports(toTest)) {
-                if (logger.isTraceEnabled()) {
-                    Log var10000 = logger;
-                    String var10002 = provider.getClass().getSimpleName();
-                    ++currentPosition;
-                    var10000.trace(LogMessage.format("Authenticating request with %s (%d/%d)", var10002, currentPosition, size));
-                }
 
+            AuthenticationProvider provider = (AuthenticationProvider)var9.next();
+
+            // JwtAuthenticationProvider 클래스에서 오버라이딩하였하였습니다.
+            // 해당 위치에서 자신이 처리할 인증 타입인지 확인합니다. 
+            if (provider.supports(toTest)) {
                 try {
+
+                    // JwtAuthenticationProvider 클래스에서 오버라이딩하였하였습니다.
+                    // JwtAuthenticationProvider가 지원하는 경우에만 authenticate 메소드를 수행합니다.
                     result = provider.authenticate(authentication);
                     if (result != null) {
                         this.copyDetails(authentication, result);
@@ -536,39 +542,46 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
             }
         }
 
-        if (result == null && this.parent != null) {
-            try {
-                parentResult = this.parent.authenticate(authentication);
-                result = parentResult;
-            } catch (ProviderNotFoundException var12) {
-            } catch (AuthenticationException var13) {
-                parentException = var13;
-                lastException = var13;
-            }
-        }
-
         if (result != null) {
             if (this.eraseCredentialsAfterAuthentication && result instanceof CredentialsContainer) {
                 ((CredentialsContainer)result).eraseCredentials();
             }
-
             if (parentResult == null) {
+                // 인증 성공 이벤트 발행
                 this.eventPublisher.publishAuthenticationSuccess(result);
             }
-
             return result;
         } else {
             if (lastException == null) {
                 lastException = new ProviderNotFoundException(this.messages.getMessage("ProviderManager.providerNotFound", new Object[]{toTest.getName()}, "No AuthenticationProvider found for {0}"));
             }
-
             if (parentException == null) {
+                // 인증 실패 이벤트 발행
                 this.prepareException((AuthenticationException)lastException, authentication);
             }
-
             throw lastException;
         }
     }
+```
+
+##### JwtInvalidException 클래스
+- `AuthenticationException` 클래스를 상속하였으므로 `ProviderManager` 클래스 내부 `catch (AuthenticationException var15)` 위치에서 잡힙니다.
+
+```java
+package action.in.blog.security.exception;
+
+import org.springframework.security.core.AuthenticationException;
+
+public class JwtInvalidException extends AuthenticationException {
+
+    public JwtInvalidException(String msg) {
+        super(msg);
+    }
+
+    public JwtInvalidException(String msg, Throwable cause) {
+        super(msg, cause);
+    }
+}
 ```
 
 #### TEST CODE REPOSITORY

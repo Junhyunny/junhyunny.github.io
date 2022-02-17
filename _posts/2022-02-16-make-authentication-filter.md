@@ -34,7 +34,7 @@ last_modified_at: 2022-02-16T23:55:00
 > We’ll notify the community on any progress.
 
 `'그러면 Spring Security 프레임워크를 이용한 사용자 인증 과정은 어떻게 처리하지?'`라는 의문이 들어서 관련된 내용을 찾아보았습니다. 
-좋은 글들이 많았지만, 필터에서 직접 `AuthenticationProvider` 클래스나 `UserDetailsService` 인터페이스 구현체를 사용하는 예제들이 대부분이었습니다. 
+좋은 글들이 많았지만, 필터에서 `AuthenticationProvider` 클래스나 `UserDetailsService` 인터페이스 구현체를 직접 사용하는 예제들이 대부분이었습니다. 
 저는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 변경하고 정리하였습니다. 
 
 ##### Spring Security Authentication Process

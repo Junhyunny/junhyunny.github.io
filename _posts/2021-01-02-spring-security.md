@@ -18,6 +18,7 @@ last_modified_at: 2021-08-21T16:00:00
 👉 이어서 읽기를 추천합니다.
 - [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
 - [AuthenticationFilter 만들기][make-authentication-filter-link]
+- [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
 
 ## 1. 보안 관련 용어
 
@@ -560,3 +561,4 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
+[make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/

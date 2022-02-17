@@ -17,7 +17,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 👉 이어서 읽기를 추천합니다.
 - [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
-- [JWT AuthenticationFilter 만들기][make-authentication-filter-link]
+- [AuthenticationFilter 만들기][make-authentication-filter-link]
 
 ## 1. 보안 관련 용어
 

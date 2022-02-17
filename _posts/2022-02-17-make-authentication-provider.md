@@ -497,7 +497,7 @@ public class AuthControllerTest {
     - `supports` 메소드를 통해 지원하는 타입의 인증인지 먼저 확인합니다.
     - `authenticate` 메소드를 통해 인증을 수행합니다.
     - `supports` 메소드를 먼저 수행함으로써 `ClassCastException`을 피할 수 있습니다. 
-        - `authenticate` 메소드 내부 `((JwtAuthenticationToken) authentication)` 코드는 `ClassCastException`의 위험이 있습니다.
+        - `authenticate` 메소드 내부 `((JwtAuthenticationToken) authentication)` 코드는 `ClassCastException` 발생 위험이 있습니다.
 
 ```java
 package org.springframework.security.authentication;

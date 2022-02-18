@@ -486,18 +486,21 @@ public class AuthControllerTest {
 ## CLOSING
 
 `JwtAuthenticationProvider` 클래스를 보면 토큰을 파싱 과정에서 예외가 발생하는지 여부만으로 토큰의 유효성을 검사합니다. 
-발생한 예외는 모두 `JwtInvalidException` 클래스로 감싸서 외부로 던졌는데, 던져진 예외는 모두 `Spring Security` 프레임워크의 `ProviderManager`에 의해 처리됩니다. 
-`ProviderManager` 클래스는 자신이 관리하는 `Provider`들에게 인증 행위를 위임하고, `Provider`가 내부에서 `AuthenticationException` 예외를 던지면 인증 실패에 대한 로직을 수행해줍니다. 
+발생한 예외는 모두 `JwtInvalidException` 클래스로 감싸서 외부로 던졌습니다. 
+던져진 예외는 모두 `Spring Security` 프레임워크의 `ProviderManager` 클래스에 의해 처리됩니다. 
+
+`ProviderManager`는 자신이 관리하는 `Provider`들에게 인증 행위를 위임합니다. 
+`Provider`가 내부에서 `AuthenticationException` 예외를 던지면 인증 실패에 대한 로직을 수행해줍니다. 
 인증 성공이나 실패에 대한 이벤트 발행도 해주기 때문에 `ProviderManager`를 그대로 사용하였습니다. 
 
 ##### ProviderManager 클래스
-- `ProviderManager` 클래스 인증 로직에서 불필요한 로직은 제거하고, 일부만 살펴보겠습니다.
+- `ProviderManager` 클래스 인증 로직에서 일부만 살펴보겠습니다.
 - 이번 포스트에서 구현한 `JwtAuthenticationProvider` 클래스는 `List<AuthenticationProvider>`에 담깁니다.
 - `JwtAuthenticationProvider` 클래스가 오버라이딩(overriding) 메소드는 `supports`, `authenticate` 입니다.
     - `supports` 메소드를 통해 지원하는 타입의 인증인지 먼저 확인합니다.
     - `authenticate` 메소드를 통해 인증을 수행합니다.
     - `supports` 메소드를 먼저 수행함으로써 `ClassCastException`을 피할 수 있습니다. 
-        - `authenticate` 메소드 내부 `((JwtAuthenticationToken) authentication)` 코드는 `ClassCastException` 발생 위험이 있습니다.
+        - `authenticate` 메소드의 `((JwtAuthenticationToken) authentication)` 라인은 `ClassCastException` 발생 위험이 있습니다.
 
 ```java
 package org.springframework.security.authentication;
@@ -564,7 +567,8 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 ```
 
 ##### JwtInvalidException 클래스
-- `AuthenticationException` 클래스를 상속하였으므로 `ProviderManager` 클래스 내부 `catch (AuthenticationException var15)` 위치에서 잡힙니다.
+- `JwtInvalidException` 클래스는 `AuthenticationException` 클래스를 상속하였습니다.
+- `ProviderManager` 클래스 내부 `catch (AuthenticationException var15)` 위치에서 처리됩니다.
 
 ```java
 package action.in.blog.security.exception;

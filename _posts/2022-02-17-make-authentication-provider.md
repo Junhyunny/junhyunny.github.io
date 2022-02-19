@@ -91,7 +91,7 @@ last_modified_at: 2022-02-17T23:55:00
 
 ```yml
 jwt:
-  secret: validSecreteKey
+  secret: validSecretKey
 ```
 
 ## 2. 기능 구현하기
@@ -437,7 +437,7 @@ public class AuthControllerTest {
                 Collections.singletonList("ROLE_ADMIN"),
                 new Date(),
                 30,
-                "invalidSecreteKey");
+                "invalidSecretKey");
 
         mockMvc.perform(
                         post("/something-other").

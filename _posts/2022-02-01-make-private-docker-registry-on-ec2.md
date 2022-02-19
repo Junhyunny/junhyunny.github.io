@@ -340,7 +340,7 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 ```
 
 #### REFERENCE
-- [도커 사설 원격 레지스트리 만들기][docker-registry-secrete-link]
+- [도커 사설 원격 레지스트리 만들기][docker-registry-secret-link]
 - <https://ikcoo.tistory.com/60>
 - <https://setyourmindpark.github.io/2018/02/06/docker/docker-4/>
 - <https://www.comodossl.co.kr/certificate/ssl-installation-guides/Apache-csr-crt.aspx>
@@ -356,4 +356,4 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 [jenkins-deploy-ec2-using-docker-link]: https://junhyunny.github.io/information/jenkins/jenkins-deploy-ec2-using-docker/
 [jenkins-slack-notification-link]: https://junhyunny.github.io/information/jenkins/jenkins-slack-notification/
 
-[docker-registry-secrete-link]: https://5equal0.tistory.com/entry/Docker-Registry-%EC%82%AC%EC%84%A4-%EC%9B%90%EA%B2%A9-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EB%A7%8C%EB%93%A4%EA%B8%B0
+[docker-registry-secret-link]: https://5equal0.tistory.com/entry/Docker-Registry-%EC%82%AC%EC%84%A4-%EC%9B%90%EA%B2%A9-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EB%A7%8C%EB%93%A4%EA%B8%B0

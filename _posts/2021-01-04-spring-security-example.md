@@ -19,7 +19,7 @@ last_modified_at: 2021-02-17T23:55:00
 👉 Spring Security 프레임워크의 인증 절차를 더 자세히 들여다봤습니다.
 - [AuthenticationFilter 만들기][make-authentication-filter-link]
 - [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
-- JWT(Json Web Token) 발행과 재발행 - 작성 중 입니다.
+- [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]
 
 ## 0. 들어가면서
 
@@ -659,6 +659,7 @@ Accept: */*
 
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
 [make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/
+[issue-and-reissue-json-web-token-link]: https://junhyunny.github.io/spring-boot/spring-security/issue-and-reissue-json-web-token/
 
 [front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
 [authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/

@@ -64,7 +64,7 @@ last_modified_at: 2021-02-17T23:55:00
     - 이번 포스트에서 `@EnableResourceServer` 애너테이션이 붙은 빈을 통해 필요한 값이 설정됩니다.
 
 <p align="center"><img src="/images/spring-security-example-0-0.JPG" width="80%"></p>
-<center>이미지 출처, https://docs.pivotal.io/p-identity/1-14/grant-types.html</center><br>
+<center>https://docs.pivotal.io/p-identity/1-14/grant-types.html</center><br>
 
 ## 2. 주의사항
 
@@ -113,7 +113,7 @@ last_modified_at: 2021-02-17T23:55:00
 <p align="center">
     <img src="/images/spring-security-example-0-3.JPG" width="80%" class="image__border">
 </p>
-<center>이미지 출처, https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
+<center>https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center><br>
 
 ## 3. 예제 코드
 `Spring Security` 프레임워크를 이용하여 JWT(Json Web Token) 인증 방식을 구현해보았습니다. 

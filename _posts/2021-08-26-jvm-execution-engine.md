@@ -35,7 +35,7 @@ last_modified_at: 2021-08-26T06:00:00
 JDK(Java Development kit)을 설치하면 `/bin` 폴더에 있는 `javac` 프로그램에 의해 수행됩니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-1.JPG" width="55%"></p>
-<center>이미지 출처, https://math.hws.edu/javanotes/c1/s3.html</center><br>
+<center>https://math.hws.edu/javanotes/c1/s3.html</center><br>
 
 컴파일이 완료되면 JVM 이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자를 가지는 클래스 파일이 생성됩니다. 
 클래스 파일은 어플리케이션이 동작할 때 메모리에 적재되어 JVM 실행 엔진에 의해 수행됩니다. 
@@ -91,11 +91,11 @@ public class blog.in.action.ActionInBlogApplication {
 
 ##### 클래스 적재 과정
 <p align="center"><img src="/images/jvm-execution-engine-2.JPG" width="70%"></p>
-<center>이미지 출처, https://www.tcpschool.com/java/java_intro_programming</center>
+<center>https://www.tcpschool.com/java/java_intro_programming</center>
 
 ##### JVM 메모리 구조
 <p align="center"><img src="/images/jvm-execution-engine-3.JPG" width="55%"></p>
-<center>이미지 출처, https://www.geeksforgeeks.org/how-to-increase-heap-size-in-java-virtual-machine/</center>
+<center>https://www.geeksforgeeks.org/how-to-increase-heap-size-in-java-virtual-machine/</center>
 
 ## 2. 실행 엔진(Execution Engine)
 클래스 파일을 실행시키는 방법에 따라 크게 두 가지로 분류됩니다. 
@@ -112,7 +112,7 @@ public class blog.in.action.ActionInBlogApplication {
 인터프리터는 바이트 코드를 읽고(read), 운영체제가 실행할 수 있도록 기계어로 변경하는 역할을 수행합니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-4.JPG" width="55%"></p>
-<center>이미지 출처, https://www.javatpoint.com/java-interpreter</center><br>
+<center>https://www.javatpoint.com/java-interpreter</center><br>
 
 JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인씩 읽고 실행합니다. 
 여기에서 속도가 문제가 발생합니다. 

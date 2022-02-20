@@ -25,7 +25,7 @@ last_modified_at: 2021-10-31T23:55:00
 - 주체 클래스(RealSubject) - 실제 제공하는 기능이나 서비스를 구현한 클래스
 
 <p align="center"><img src="/images/proxy-pattern-1.JPG" width="75%"></p>
-<center>이미지 출처, hthttps://en.wikipedia.org/wiki/Proxy_pattern</center>
+<center>hthttps://en.wikipedia.org/wiki/Proxy_pattern</center>
 
 ### 1.2. 장점
 - 주체 클래스가 로딩(loading)되기 전에 프록시 클래스를 통해 참조 가능합니다. 

@@ -46,7 +46,7 @@ JavaScript 런타임은 크게 4개로 구성되어 있습니다.
 <p align="center">
     <img src="/images/how-to-work-javascript-async-1.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+<center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ### 1.2. JavaScript Engine
 대표적인 JavaScript 엔진(engine)인 Google의 V8 엔진의 간략화 된 구조를 살펴보겠습니다. 
@@ -65,7 +65,7 @@ JavaScript 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 �
 <p align="center">
     <img src="/images/how-to-work-javascript-async-2.JPG" width="40%" class="image__border">
 </p>
-<center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+<center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ### 1.3. Web APIs
 멀티 스레드로 실행되며, 브라우저가 제공하는 기능입니다. 
@@ -147,7 +147,7 @@ console.log("Welcome to loupe.");
 <p align="center">
     <img src="/images/how-to-work-javascript-async-3.gif" width="100%" class="image__border">
 </p>
-<center>이미지 출처, https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+<center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 
 ## CLOSING
 이해한 내용들을 나중에 쉽게 알아보기 위해 요약, 정리해보았습니다. 

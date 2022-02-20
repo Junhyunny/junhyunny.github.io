@@ -22,7 +22,7 @@ last_modified_at: 2021-09-04T12:59:00
 - release, feature 브랜치 운영 제외
 
 <p align="center"><img src="/images/git-ignore-1.JPG" width="65%"></p>
-<center>이미지 출처, https://www.campingcoder.com/2018/04/how-to-use-git-flow/</center><br>
+<center>https://www.campingcoder.com/2018/04/how-to-use-git-flow/</center><br>
 
 ##### application.yml
 `spring.profiles` 설정을 이용하여 개발/운영 환경을 다음과 같이 나누었습니다. 

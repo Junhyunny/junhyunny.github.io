@@ -100,7 +100,7 @@ last_modified_at: 2021-11-30T23:55:00
     - `NS namepsace` 분리까지 이뤄진 경우 정확하게 동작합니다.
 
 <p align="center"><img src="/images/cloud-container-3.JPG" width="50%"></p>
-<center>이미지 출처, https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
+<center>https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
 
 #### 2.2.2. 컨트롤 그룹(cgroup)
 
@@ -112,7 +112,7 @@ last_modified_at: 2021-11-30T23:55:00
 하드웨어 자원(CPU, memory, disk I/O, network, etc.)을 프로세스 집합에게 할당하고 제한하는 기능입니다. 
 
 <p align="center"><img src="/images/cloud-container-4.JPG" width="50%"></p>
-<center>이미지 출처, https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
+<center>https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
 
 ### 2.3. Why using container?
 최근 클라우드 시장을 가상 머신이 아닌 컨테이너가 점유하게 되었는지, 컨테이너의 장점을 정리하면서 알아보겠습니다. 

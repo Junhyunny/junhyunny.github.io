@@ -42,7 +42,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 
 ### 2.1. Entity Lifecycle 흐름
 <p align="center"><img src="/images/jpa-persistence-context-1.JPG" width="60%"></p>
-<center>이미지 출처, https://gunlog.dev/JPA-Persistence-Context/</center><br>
+<center>https://gunlog.dev/JPA-Persistence-Context/</center><br>
 
 - 비영속(new/transient)
     - 엔티티 객체를 새로 생성하였지만 EntityManager에 의해 관리되고 있지 않는 상태

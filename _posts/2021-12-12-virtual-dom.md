@@ -29,7 +29,7 @@ last_modified_at: 2021-12-12T23:55:00
 <p align="center">
     <img src="/images/virtual-dom-1.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://it-eldorado.tistory.com/87</center>
+<center>https://it-eldorado.tistory.com/87</center>
 
 ### 1.1. DOM 트리 생성
 
@@ -58,7 +58,7 @@ HTML 파서는 HTML 파일을 파싱하여 DOM(Document Object Model) 트리를 
 <p align="center">
     <img src="/images/virtual-dom-2.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
+<center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
 ### 1.2. 스타일 규칙 생성
 
@@ -83,7 +83,7 @@ img { float: right }
 <p align="center">
     <img src="/images/virtual-dom-4.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
+<center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
 ### 1.3. 렌더 트리 생성
 
@@ -95,7 +95,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 <p align="center">
     <img src="/images/virtual-dom-5.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
+<center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
 ### 1.4. 레이아웃(layout)
 
@@ -106,7 +106,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 <p align="center">
     <img src="/images/virtual-dom-6.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, TOSS - 성능 최적화</center>
+<center>TOSS - 성능 최적화</center>
 
 ### 1.5. 페인트(paint)
 
@@ -120,7 +120,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 <p align="center">
     <img src="/images/virtual-dom-7.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, TOSS - 성능 최적화</center>
+<center>TOSS - 성능 최적화</center>
 
 ### 1.6. 레이아웃(layout) 혹은 리플로우(reflow)와 리페인트(repaint)
 
@@ -134,7 +134,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 <p align="center">
     <img src="/images/virtual-dom-8.JPG" width="55%" class="image__border">
 </p>
-<center>이미지 출처, TOSS - 성능 최적화</center>
+<center>TOSS - 성능 최적화</center>
 
 ##### 리페인트(repaint) 작업
 - 반대로 기하적인 변경이 없는 경우에는 레이아웃 과정을 건너뛰고, 페인트부터 수행하므로 이를 `리페인트(repaint)`라고 합니다.
@@ -142,7 +142,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 <p align="center">
     <img src="/images/virtual-dom-9.JPG" width="55%" class="image__border">
 </p>
-<center>이미지 출처, TOSS - 성능 최적화</center>
+<center>TOSS - 성능 최적화</center>
 
 ## 2. Virtual DOM
 
@@ -162,7 +162,7 @@ JavaScript 같은 프로그래밍 언어로 인해 뷰(view)에 변화가 생겼
 <p align="center">
     <img src="/images/virtual-dom-10.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://www.oreilly.com/library/view/learning-react-native/9781491929049/ch02.html</center>
+<center>https://www.oreilly.com/library/view/learning-react-native/9781491929049/ch02.html</center>
 
 ## CLOSING
 

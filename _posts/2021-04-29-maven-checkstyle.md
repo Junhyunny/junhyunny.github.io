@@ -140,7 +140,7 @@ API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다.
 확인 후 관련된 버전을 올렸습니다. 
 
 <p align="center"><img src="/images/maven-checkstyle-5.JPG" width="70%"></p>
-<center>이미지 출처, https://checkstyle.sourceforge.io/config_naming.html</center><br>
+<center>https://checkstyle.sourceforge.io/config_naming.html</center><br>
 
 #### 4.2.2. 변경 pom.xml
 
@@ -205,7 +205,7 @@ public class GeneuineTemplateApplication {
 관련된 설정을 추가하였습니다. 
 
 <p align="center"><img src="/images/maven-checkstyle-7.JPG" width="60%"></p>
-<center>이미지 출처, https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center>
+<center>https://stackoverflow.com/questions/50681818/run-maven-checkstyle-and-fail-on-errors</center>
 
 #### 4.3.4. 최종 pom.xml 적용
 

@@ -23,7 +23,7 @@ last_modified_at: 2021-08-21T16:00:00
 API Gateway를 이용하여 API 서버들을 하나로 묶어서 단일화 관리하면 클라이언트는 하나의 호스트를 통해 여러 서비스들에게 데이터를 요청할 수 있습니다. 
 
 <p align="center"><img src="/images/msa-api-gateway-1.JPG"></p>
-<center>이미지 출처, 마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center><br>
+<center>마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center><br>
 
 마이크로 서비스 아키텍처에서 입구 역할을 하는 API Gateway는 API 서버들의 END POINT 단일화, 인증, 인가, 라우팅 등의 여러가지 기능을 수행합니다. 
 JSON/REST 기반으로 최소한의 기능을 처리하는 경량화 서비스인 API Gateway가 제공하는 기능을 아래 글을 통해 알아보도록 하겠습니다. 
@@ -50,7 +50,7 @@ API Gateway 특성상 모든 API 서버 앞쪽에 위치하며, 모든 API 호�
 모든 API가 공통적으로 처리해야하는 공통 기능들을 API Gateway에 구현하게 되면 API 서버들은 더욱 비즈니스에 집중할 수 있습니다. 
 
 <p align="center"><img src="/images/msa-api-gateway-2.JPG" width="550"></p>
-<center>이미지 출처, 조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center><br>
+<center>조대협님 블로그-MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center><br>
 
 ### 1.4. 중개(Mediation) 기능
 API Gateway는 다음과 같은 중재(mediation) 기능을 수행합니다. 

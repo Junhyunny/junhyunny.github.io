@@ -341,7 +341,7 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 <p align="center">
     <img src="/images/cookie-attributes-6.JPG" width="40%" class="image__border">
 </p>
-<center>이미지 출처, https://web.dev/same-site-same-origin/</center>
+<center>https://web.dev/same-site-same-origin/</center>
 
 ##### 예시 사이트 - 2
 - `.co.kr` 이나 `.github.io` 같은 도메인을 가지는 경우 `.kr`, `.io` 도메인만으로 사이트 구분이 어렵습니다.
@@ -351,23 +351,23 @@ Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에는 `SameSit
 <p align="center">
     <img src="/images/cookie-attributes-7.JPG" width="40%" class="image__border">
 </p>
-<center>이미지 출처, https://web.dev/same-site-same-origin/</center>
+<center>https://web.dev/same-site-same-origin/</center>
 
 ##### SameSite, CrossSite 비교표
 
 <p align="center"><img src="/images/cookie-attributes-8.JPG" width="75%" class="image__border"></p>
-<center>이미지 출처, https://web.dev/same-site-same-origin/</center>
+<center>https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite
 - 요청 시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 합니다.
 
 <p align="center"><img src="/images/cookie-attributes-9.JPG" width="40%" class="image__border"></p>
-<center>이미지 출처, https://web.dev/same-site-same-origin/</center>
+<center>https://web.dev/same-site-same-origin/</center>
 
 ##### Schemeful SameSite, CrossSite 비교표
 
 <p align="center"><img src="/images/cookie-attributes-10.JPG" width="75%" class="image__border"></p>
-<center>이미지 출처, https://web.dev/same-site-same-origin/</center>
+<center>https://web.dev/same-site-same-origin/</center>
 
 #### REFERENCE
 - <https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies>

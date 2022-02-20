@@ -30,7 +30,7 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
     <img src="/images/mvc-pattern-1.JPG" width="30%">
     <img src="/images/mvc-pattern-2.JPG" width="50%">
 </div>
-<center>이미지 출처, 모델-뷰-컨트롤러</center><br>
+<center>모델-뷰-컨트롤러</center><br>
 
 ### 1.1. 모델(Model)
 
@@ -91,7 +91,7 @@ MVC 패턴을 가진 시스템의 각 컴포넌트는 자신이 맡은 역할만
 
 ##### Massive-View-Controller
 <p align="center"><img src="/images/mvc-pattern-3.JPG" width="75%"></p>
-<center>이미지 출처, https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center><br>
+<center>https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center><br>
 
 이런 문제점을 보완하기 위해 다양한 패턴이 파생되었습니다. 
 - MVP 패턴

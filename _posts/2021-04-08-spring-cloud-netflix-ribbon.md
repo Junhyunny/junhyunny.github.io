@@ -33,7 +33,7 @@ Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면
 
 ##### 서버 사이드 로드 밸런서(server-side load balancer)
 <p align="center"><img src="/images/spring-cloud-netflix-ribbon-1.JPG" width="50%"></p>
-<center>이미지 출처, https://sabarada.tistory.com/54</center><br>
+<center>https://sabarada.tistory.com/54</center><br>
 
 서버 사이드 로드 밸런서를 사용하는 경우 다음과 같은 한계가 존재합니다. 
 - H/W 기반이므로 상대적으로 비용이 많이 소모됩니다.
@@ -50,7 +50,7 @@ Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면
 
 ##### 클라이언트 사이드 로드 밸런서(client-side load balancer)
 <p align="center"><img src="/images/spring-cloud-netflix-ribbon-2.JPG" width="50%"></p>
-<center>이미지 출처, https://sabarada.tistory.com/54</center><br>
+<center>https://sabarada.tistory.com/54</center><br>
 
 클라이언트 사이드 로드 밸런서는 클라우드 환경에서 다음과 같은 이점을 얻을 수 있습니다.
 - 어플리케이션에서 서버 리스트를 관리하므로 Scale Out 등으로 인해 서버 리스트가 변경되어도 유연한 대응이 가능합니다.

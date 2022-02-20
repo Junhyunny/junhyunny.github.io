@@ -33,7 +33,7 @@ last_modified_at: 2021-12-18T23:55:00
 - 위의 이벤트가 발생하는 동안 실제로 함수가 실행되는 일은 설정한 시간 간격만큼 주기적임을 알 수 있습니다.  
 
 <p align="center"><img src="/images/throttle-test-with-jest-1.JPG" width="75%"></p>
-<center>이미지 출처, https://codepen.io/jaehee/pen/XoKeRW</center>
+<center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
 ## 2. 스로틀 처리 구현
 

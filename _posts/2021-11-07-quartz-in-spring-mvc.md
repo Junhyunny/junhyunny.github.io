@@ -46,7 +46,7 @@ Quatz 구조도와 함께 관련된 인터페이스 클래스들을 정리하였
 - JobStore 인터페이스 - Job, Trigger 정보를 저장하는 메커니즘을 정의합니다. 메모리 혹은 데이터베이스를 사용합니다.
 
 <p align="center"><img src="/images/quartz-in-spring-mvc-1.JPG" width="80%"></p>
-<center>이미지 출처, https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
+<center>https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
 
 ### 1.1. Quartz와 Batch는 어떻게 다른가?
 저는 `Quartz`에 대해 공부해보기 전인 최근까지도 배치(batch)라는 용어와 혼동하여 사용하였습니다. 

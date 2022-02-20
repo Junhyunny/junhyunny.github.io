@@ -22,7 +22,7 @@ last_modified_at: 2021-08-22T00:00:00
 ### 1.1. 기존 아키텍처 패턴
 
 <p align="center"><img src="/images/cqrs-pattern-1.JPG"></p>
-<center>이미지 출처, https://martinfowler.com/bliki/CQRS.html</center><br>
+<center>https://martinfowler.com/bliki/CQRS.html</center><br>
 
 기존 시스템에서 사용하는 아키택처 패턴은 다음과 같은 문제점들을 가지고 있습니다.
 - 비즈니스 요건 사항이 변경되는 속도를 시스템의 비즈니스 모델 변경이 따라가질 못한다.
@@ -35,7 +35,7 @@ last_modified_at: 2021-08-22T00:00:00
 ### 2.1. CQRS 아키택처 패턴
 
 <p align="center"><img src="/images/cqrs-pattern-2.JPG"></p>
-<center>이미지 출처, https://martinfowler.com/bliki/CQRS.html</center><br>
+<center>https://martinfowler.com/bliki/CQRS.html</center><br>
 
 이를 해결하기 위한 방법으로 CUD 기능과 R 기능을 분할한 CQRS 패턴 고안되었습니다. 
 시스템에서 쓰기/조회 기능을 분리하고, 나아가서 물리적인 저장소를 따로 준비하면 조회 대기 시간을 줄이는 등의 이점을 얻을 수 있습니다. 
@@ -74,7 +74,7 @@ CQRS 패턴에 대해 이야기할 때 이벤트 소싱에 대한 언급이 항�
 4. 이벤트 저장소에 쌓이는 이벤트들을 Query 영역으로 전달하여 조회하기 위한 데이터를 만듭니다.
 
 <p align="center"><img src="/images/cqrs-pattern-3.JPG"></p>
-<center>이미지 출처, Spring Camp 2017 - CQRS 패턴</center><br>
+<center>Spring Camp 2017 - CQRS 패턴</center><br>
 
 #### REFERENCE
 - <https://martinfowler.com/bliki/CQRS.html>

@@ -49,7 +49,7 @@ Circuit Breaker 패턴은 이름처럼 회로 차단기 역할을 수행하는 �
 1. Fall back으로 지정한 응답을 client 서비스로 전달합니다.
 
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-2.JPG"></p>
-<center>이미지 출처, https://martinfowler.com/bliki/CircuitBreaker.html</center><br>
+<center>https://martinfowler.com/bliki/CircuitBreaker.html</center><br>
 
 위 이미지는 Circuit Breaker가 서비스로 보일 수 있으니 조금 수정해보았습니다. 
 Circuit Breaker는 실제로 client 서비스에 추가되어 있습니다. 

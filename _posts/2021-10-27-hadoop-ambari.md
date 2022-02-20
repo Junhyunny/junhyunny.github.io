@@ -35,7 +35,7 @@ Ambari는 시스템 관리자가 다음과 같은 세 가지를 가능하도록 
     - Ambari leverages Ambari Alert Framework for system alerting and will notify you when your attention is needed (e.g., a node goes down, remaining disk space is low, etc).
 
 <p align="center"><img src="/images/hadoop-ambari-1.JPG" width="80%"></p>
-<center>이미지 출처, https://docs.microsoft.com/ko-kr/azure/hdinsight/hdinsight-cluster-availability</center>
+<center>https://docs.microsoft.com/ko-kr/azure/hdinsight/hdinsight-cluster-availability</center>
 
 ## 2. Ambari 설치 환경
 다음과 같은 환경에서 Ambari 설치를 수행하였습니다.

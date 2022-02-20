@@ -21,7 +21,7 @@ last_modified_at: 2021-08-22T18:00:00
 그림에 몇 개의 영역이 있는지와 가장 큰 영역의 넓이는 얼마인지 계산하는 프로그램을 작성해보자.
 
 <p align="center"><img src="/images/programmers-problem-1829-1.JPG" width="45%"></p>
-<center>이미지 출처, https://programmers.co.kr/learn/courses/30/lessons/1829</center><br>
+<center>https://programmers.co.kr/learn/courses/30/lessons/1829</center><br>
 
 위의 그림은 총 12개 영역으로 이루어져 있으며, 가장 넓은 영역은 어피치의 얼굴면으로 넓이는 120이다.
 

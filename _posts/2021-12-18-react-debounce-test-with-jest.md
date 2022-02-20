@@ -32,7 +32,7 @@ last_modified_at: 2021-12-18T23:55:00
 <p align="center">
     <img src="/images/react-debounce-test-with-jest-1.JPG" width="75%" class="image__border">
 </p>
-<center>이미지 출처, https://codepen.io/jaehee/pen/XoKeRW</center>
+<center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
 ## 2. 디바운스 처리 구현
 

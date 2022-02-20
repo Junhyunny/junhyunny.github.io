@@ -18,7 +18,7 @@ last_modified_at: 2021-08-16T12:45:00
 공통 비즈니스 로직(business logic) 패키지(package)에서 다른 비즈니스 로직 패키지에 위치한 기능이 필요한 상황이 발생하였습니다. 
 
 <p align="center"><img src="/images/spring-application-context-event-1.JPG" width="30%"></p>
-<center>이미지 출처, https://giphy.com/gifs/lego-lego-reactions-l4FGzF4Z2lKktzjHi</center><br>
+<center>https://giphy.com/gifs/lego-lego-reactions-l4FGzF4Z2lKktzjHi</center><br>
 
 비즈니스적으로 독립적인 기능들을 패키지 단위로 나눈 설계를 생각하면 개발자를 매우 피곤하게 만드는 기능이 아닐 수 없습니다. 
 패키지를 넘나들며 시스템 모듈 간에 결합도를 높이는 기능은 추후에 시스템 규모가 커짐에 따른 MSA(마이크로 서비스 아키텍처) 전환 작업에 어려움을 줄 수도 있습니다. 

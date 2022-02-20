@@ -18,7 +18,7 @@ last_modified_at: 2022-02-20T23:55:00
 ## 0. 들어가면서
 
 이번 포스트에선 토큰 발행과 재발행과 관련된 로직을 구현하였습니다. 
-구현 설명에 앞서 `Spring Security` 프레임워크의 기본적인 인증 프로스세스와 제가 의도하고 있는 프로세스를 다시 정리해보겠습니다. 
+구현 설명에 앞서 `Spring Security` 프레임워크의 기본적인 인증 프로스세스와 제가 의도하고 있는 인증 프로세스를 다시 정리해보겠습니다. 
 
 ##### Basic Spring Security Authentication Process
 - `AuthenticationFilter`는 `AuthenticationManager`에게 인증 절차를 위임합니다.
@@ -28,7 +28,7 @@ last_modified_at: 2022-02-20T23:55:00
 - 이 단계에서 프레임워크를 이용하는 개발자가 구현한 클래스가 사용됩니다.
     - `UserDetailsService` 인터페이스를 구현한 `CustomUserDetailsService`
     - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회합니다.
-- 위 단계를 거쳐 인증이 이뤄지기 때문에 대부분의 예제는 `UserDetailsService` 인터페이스를 구현하였습니다. 
+- 위와 같은 단계를 거쳐 인증이 이뤄지기 때문에 대부분의 `Spring Security` 프레임워크 예제는 `UserDetailsService` 인터페이스를 구현한 내용들이 많습니다. 
 
 <p align="center">
     <img src="/images/issue-and-reissue-json-web-token-1.JPG" width="80%" class="image__border">
@@ -218,8 +218,8 @@ values ('Junhyunny', '{bcrypt}$2a$10$LDwzHdFsoeeo0CjXoYdmwelLK4CjdiMtGvPHDYPQ039
 
 ## 2. 기능 구현하기
 
-단순하게 필드만 있는 DTO(Data Transfer Object)와 엔티티(Entity) 클래스는 설명하지 않았습니다. 
-또, `JpaRepository` 인터페이스를 상속받은 `AuthRepository` 인터페이스도 추가적으로 명세한 기능이 없으므로 설명하지 않았습니다.
+단순하게 필드만 있는 DTO(Data Transfer Object)와 엔티티(Entity) 클래스에 대한 내용은 다루지 않았습니다. 
+`AuthRepository` 인터페이스도 `JpaRepository` 인터페이스를 상속하였을 뿐 추가한 기능이 없으므로 설명하지 않았습니다.
 
 ### 2.1. JsonWebTokenIssuer 클래스
 - 토큰 발행과 리프래시 토큰에서 클레임 정보를 추출하는 기능을 제공합니다.

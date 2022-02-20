@@ -265,7 +265,7 @@ compress_html:
 defaults:
   # _posts
   - scope:
-      path: "_posts"
+      path: ""
       type: posts
     values:
       layout: single
@@ -277,7 +277,7 @@ defaults:
       related: true
   # _english
   - scope:
-      path: "_posts-english"
+      path: "/_posts-english/"
       type: english
     values:
       layout: single

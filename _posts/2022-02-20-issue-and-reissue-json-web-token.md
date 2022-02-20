@@ -28,7 +28,7 @@ last_modified_at: 2022-02-20T23:55:00
 - 이 단계에서 프레임워크를 이용하는 개발자가 구현한 클래스가 사용됩니다.
     - `UserDetailsService` 인터페이스를 구현한 `CustomUserDetailsService`
     - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회합니다.
-- 위와 같은 단계를 거쳐 인증이 이뤄지기 때문에 대부분의 `Spring Security` 프레임워크 예제는 `UserDetailsService` 인터페이스를 구현한 내용들이 많습니다. 
+- 위 단계를 거쳐 인증이 이뤄지기 때문에 `Spring Security` 프레임워크 예제는 `UserDetailsService` 인터페이스를 구현한 내용들이 많습니다. 
 
 <p align="center">
     <img src="/images/issue-and-reissue-json-web-token-1.JPG" width="80%" class="image__border">

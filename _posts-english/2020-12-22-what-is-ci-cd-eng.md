@@ -50,7 +50,7 @@ So, the quality of system can be improved and the bugs can be minimized.
 ### 1.1. Advantages of Continuous Integration
 - Builds and tests are automated so developers can focus on development.
 - All changes are automatically built together and can be tested.
-- The codes are merged together in a short period through automated process, so developers can find out problems in a whole system quickly.
+- The codes are merged together in shorter cycle time on the automated process, so developers can find out problems quickly in the whole system.
 
 ### 1.2. Continuous Integration Tools
 - Hudson

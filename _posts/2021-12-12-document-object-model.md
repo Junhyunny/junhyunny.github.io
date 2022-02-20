@@ -42,7 +42,7 @@ DOM(Document Object Model)은 HTML, XML 같은 웹 문서를 위한 프로그래
 <p align="center">
     <img src="/images/document-object-model-1.JPG" width="85%" class="image__border">
 </p>
-<center>이미지 출처, https://velog.io/@lucylou/DOM</center>
+<center>https://velog.io/@lucylou/DOM</center>
 
 ## 2. DOM 트리(Tree)
 
@@ -60,7 +60,7 @@ DOM은 XML, HTML 같은 문서를 논리적인 트리 구조로 표현합니다.
 <p align="center">
     <img src="/images/document-object-model-2.JPG" width="85%" class="image__border">
 </p>
-<center>이미지 출처, https://velog.io/@lucylou/DOM</center>
+<center>https://velog.io/@lucylou/DOM</center>
 
 ### 2.1. DOM 트리 생성
 
@@ -75,7 +75,7 @@ DOM API는 스크립트 언어가 문서의 렌더링(rendering) 되는 모습�
 <p align="center">
     <img src="/images/document-object-model-3.JPG" width="65%" class="image__border">
 </p>
-<center>이미지 출처, https://it-eldorado.tistory.com/87</center>
+<center>https://it-eldorado.tistory.com/87</center>
 
 ### 2.2. DOM 트리 구성 요소
 
@@ -101,14 +101,14 @@ DOM 트리를 구성하는 노드들은 크게 4가지로 구분됩니다.
 <p align="center">
     <img src="/images/document-object-model-4.JPG" width="65%" class="image__border">
 </p>
-<center>이미지 출처, https://poiemaweb.com/js-dom</center>
+<center>https://poiemaweb.com/js-dom</center>
 
 ##### DOM 트리 내 구성 요소별 위치 
 
 <p align="center">
     <img src="/images/document-object-model-5.JPG" width="65%" class="image__border">
 </p>
-<center>이미지 출처, https://poiemaweb.com/js-dom</center>
+<center>https://poiemaweb.com/js-dom</center>
 
 ## CLOSING
 최근 리액트를 공부하면서 관련된 내용을 정리하려다보니 DOM에 대한 포스트를 작성하게 되었습니다. 

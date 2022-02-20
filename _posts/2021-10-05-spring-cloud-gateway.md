@@ -54,7 +54,7 @@ last_modified_at: 2021-10-05T23:55:00
 필터 체인은 요청을 받을 때와 응답을 보내기 전에 각각 수행되므로 총 2회 수행됩니다. 
 
 <p align="center"><img src="/images/spring-cloud-gateway-1.JPG" width="45%"></p>
-<center>이미지 출처, https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/</center>
+<center>https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/</center>
 
 ## 2. Spring Cloud Gatewy 구현하기
 요청 경로(request path)를 통한 API routing 기능을 구현하였습니다.

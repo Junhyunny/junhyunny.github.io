@@ -45,13 +45,13 @@ WebSocket 등장 이전 실시간 데이터를 확인하고 싶은 경우 클라
 - 서버와 클라이언트 모두 연결을 종료할 수 있습니다.
 
 <p align="center"><img src="/images/web-socket-1.JPG" width="70%"></p>
-<center>이미지 출처, https://www.programmersought.com/article/55824983394/</center>
+<center>https://www.programmersought.com/article/55824983394/</center>
 
 ### 1.4. WebSocket API 사용 가능 브라우저
 <https://caniuse.com/?search=websocket> 링크에서 WebSocket API 사용 가능한 브라우저를 확인할 수 있습니다. 
 
 <p align="center"><img src="/images/web-socket-2.JPG" width="70%"></p>
-<center>이미지 출처, https://caniuse.com/?search=websocket</center>
+<center>https://caniuse.com/?search=websocket</center>
 
 ## 2. WebSocket Handshake
 WebSocket 연결 요청인 Handshake 과정에서 서버와 주고 받는 정보를 확인해보겠습니다.

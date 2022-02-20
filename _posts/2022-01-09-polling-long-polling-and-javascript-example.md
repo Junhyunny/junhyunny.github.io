@@ -29,7 +29,7 @@ last_modified_at: 2022-01-09T23:55:00
 <p align="center">
     <img src="/images/polling-long-polling-and-javascript-example-1.JPG" width="50%" class="image__border">
 </p>
-<center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
+<center>https://rubberduck-debug.tistory.com/123</center><br>
 
 ### 1.1. setTimeout(callback, timeout) 사용
 
@@ -78,7 +78,7 @@ export const timeoutPolling = (func, timeout, maxAttempts = -1) => {
 <p align="center">
     <img src="/images/polling-long-polling-and-javascript-example-2.JPG" width="50%" class="image__border">
 </p>
-<center>이미지 출처, https://ko.javascript.info/settimeout-setinterval</center><br>
+<center>https://ko.javascript.info/settimeout-setinterval</center><br>
 
 ### 1.2. setInterval(callback, timeout) 사용
 
@@ -127,7 +127,7 @@ export const intervalPolling = (func, interval, maxAttempts = -1) => {
 <p align="center">
     <img src="/images/polling-long-polling-and-javascript-example-3.JPG" width="50%" class="image__border">
 </p>
-<center>이미지 출처, https://ko.javascript.info/settimeout-setinterval</center><br>
+<center>https://ko.javascript.info/settimeout-setinterval</center><br>
 
 ### 1.3. sleep(timeout) 함수 사용 (feat. [@jskim1991][jskim1991-github-link])
 
@@ -203,7 +203,7 @@ export const sleepPolling = async (func, validateFunc, timeout) => {
 <p align="center">
     <img src="/images/polling-long-polling-and-javascript-example-4.JPG" width="50%" class="image__border">
 </p>
-<center>이미지 출처, https://rubberduck-debug.tistory.com/123</center><br>
+<center>https://rubberduck-debug.tistory.com/123</center><br>
 
 ### 2.1. 롱 폴링 구현하기
 

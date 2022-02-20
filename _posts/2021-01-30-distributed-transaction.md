@@ -77,12 +77,12 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 ##### 트랜잭션 성공 시 트랜잭션 완료 처리
 
 <p align="center"><img src="/images/distributed-transaction-2.JPG"></p>
-<center>이미지 출처, https://cla9.tistory.com/22</center><br>
+<center>https://cla9.tistory.com/22</center><br>
 
 ##### 트랜잭션 실패 시 보상 트랜잭션 수행
 
 <p align="center"><img src="/images/distributed-transaction-3.JPG"></p>
-<center>이미지 출처, https://cla9.tistory.com/22</center><br>
+<center>https://cla9.tistory.com/22</center><br>
 
 ### 3.2. Orchestration-based SAGA
 분산 트랜잭션을 관리하는 오케스트레이터(orchestrator)가 존재합니다. 
@@ -95,12 +95,12 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 ##### 트랜잭션 성공 시 트랜잭션 완료 처리
 
 <p align="center"><img src="/images/distributed-transaction-4.JPG"></p>
-<center>이미지 출처, https://cla9.tistory.com/22</center><br>
+<center>https://cla9.tistory.com/22</center><br>
 
 ##### 트랜잭션 실패 시 보상 트랜잭션 수행
 
 <p align="center"><img src="/images/distributed-transaction-5.JPG"></p>
-<center>이미지 출처, https://cla9.tistory.com/22</center><br>
+<center>https://cla9.tistory.com/22</center><br>
 
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Distributed_transaction>

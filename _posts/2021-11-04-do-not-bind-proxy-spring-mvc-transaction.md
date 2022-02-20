@@ -52,7 +52,7 @@ Spring MVC 프레임워크를 사용하시는 분들에게 도움이 되길 바�
 - 처음은 Proxy 객체, 두번째는 Non-Proxy 객체가 생성된다.
 
 <p align="center"><img src="/images/do-not-bind-proxy-spring-mvc-transaction-3.JPG" width="80%"></p>
-<center>이미지 출처, hthttps://en.wikipedia.org/wiki/Proxy_pattern</center>
+<center>hthttps://en.wikipedia.org/wiki/Proxy_pattern</center>
 
 확인해보니 `applicationContext.xml`, `dispatcher-servlet.xml` 두 파일에서 컴포넌트 스캔(component-scan) 작업을 수행하고 있었습니다. 
 컴포넌트 스캔이 두 번 발생한 원인은 스프링의 동작 순서와 연관되어 있지만, 이번 포스트에선 다루지 않겠습니다.

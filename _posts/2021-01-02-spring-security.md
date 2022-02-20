@@ -49,7 +49,7 @@ last_modified_at: 2021-08-21T16:00:00
 <p align="center">
     <img src="/images/spring-security-1.JPG" width="20%" class="image__border">
 </p>
-<center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
+<center>https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 ## 3. Speing Security FilterChainProxy
 
@@ -86,7 +86,7 @@ public class FilterChainProxy extends GenericFilterBean {
 <p align="center">
     <img src="/images/spring-security-2.JPG" width="40%" class="image__border">
 </p>
-<center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
+<center>https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 ##### FilterChainProxy 내부 필터들
 - `FilterChainProxy` 클래스 내부엔 다양한 필터들이 존재하며, 각 필터는 맡아서 수행하는 역할이 있습니다.
@@ -94,7 +94,7 @@ public class FilterChainProxy extends GenericFilterBean {
 <p align="center">
     <img src="/images/spring-security-3.JPG" width="70%" class="image__border">
 </p>
-<center>이미지 출처, https://bamdule.tistory.com/52</center><br>
+<center>https://bamdule.tistory.com/52</center><br>
 
 ### 3.2. 요청 별 SecurityFilterChain 매칭 과정
 
@@ -109,7 +109,7 @@ public class FilterChainProxy extends GenericFilterBean {
 <p align="center">
     <img src="/images/spring-security-4.JPG" width="40%" class="image__border">
 </p>
-<center>이미지 출처, https://spring.io/guides/topicals/spring-security-architecture/</center><br>
+<center>https://spring.io/guides/topicals/spring-security-architecture/</center><br>
 
 ##### FilterChainProxy 클래스 doFilterInternal 메소드
 - `getFilters` 메소드를 통해 이번 요청에 해당되는 필터들만 추려냅니다.
@@ -235,7 +235,7 @@ public final class DefaultSecurityFilterChain implements SecurityFilterChain {
 <p align="center">
     <img src="/images/spring-security-5.JPG" width="80%" class="image__border">
 </p>
-<center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
+<center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
 
 ### 4.1. HTTP 요청 접수, AuthenticationToken 생성 및 전달
 - 위 인증 과정을 표현한 이미지에서 1, 2, 3 순번에 대한 내용입니다.

@@ -43,7 +43,7 @@ last_modified_at: 2022-01-08T23:55:00
 <p align="center">
     <img src="/images/microtask-macrotask-in-javascript-1.gif" width="100%" class="image__border">
 </p>
-<center>이미지 출처, https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center><br>
+<center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center><br>
 
 ##### 용어 정리
 `ECMAScript` 진영은 다른 용어를 사용하는데, 간략한 표로 정리하겠습니다.
@@ -92,7 +92,7 @@ baz();
 <p align="center">
     <img src="/images/microtask-macrotask-in-javascript-2.gif" width="100%" class="image__border">
 </p>
-<center>이미지 출처, https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif</center><br>
+<center>https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif</center><br>
 
 ### 2.2. 마이크로태스크 생성
 
@@ -147,7 +147,7 @@ console.log('After function!');
 <p align="center">
     <img src="/images/microtask-macrotask-in-javascript-3.gif" width="100%" class="image__border">
 </p>
-<center>이미지 출처, https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center><br>
+<center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center><br>
 
 ## 3. 태스크 실행 순서 맞추기
 

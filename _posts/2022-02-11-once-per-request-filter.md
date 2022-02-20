@@ -39,7 +39,7 @@ last_modified_at: 2022-02-11T23:55:00
 <p align="center">
     <img src="/images/once-per-request-filter-1.JPG" width="60%" class="image__border">
 </p>
-<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
+<center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
 ## 2. OncePerRequestFilter
 

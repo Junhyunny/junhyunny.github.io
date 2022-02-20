@@ -85,7 +85,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 ### 2.3. 쿠키의 동작 순서
 
 <p align="center"><img src="/images/cookie-and-session-4.JPG" width="80%"></p>
-<center>이미지 출처, 잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)</center><br>
+<center>잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)</center><br>
 
 1. 클라이언트가 페이지를 요청합니다.(사용자가 웹사이트 접근)
 1. 웹 서버는 쿠키를 생성합니다.
@@ -116,7 +116,7 @@ Key-Value 형태로 사용자에 대한 정보가 저장됩니다.
 ### 3.2. 세션 동작 순서
 
 <p align="center"><img src="/images/cookie-and-session-5.JPG" width="80%"></p>
-<center>이미지 출처, 잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)</center><br>
+<center>잔재미코딩님 블로그-쿠키(Cookie)와 세션(Session)</center><br>
 
 1. 클라이언트가 페이지를 요청합니다.(사용자가 웹사이트 접근)
 1. 서버는 세션 ID를 만들고 해당 사용자의 정보를 세션 ID와 함께 저장합니다. 

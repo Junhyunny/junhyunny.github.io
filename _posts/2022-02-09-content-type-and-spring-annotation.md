@@ -110,7 +110,7 @@ MIME(Multipurpose Internet Mail Extensions)에 대해 알아보겠습니다.
 <p align="center">
     <img src="/images/content-type-and-spring-annotation-2.JPG" width="85%">
 </p>
-<center>이미지 출처, https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types</center>
+<center>https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types</center>
 
 ### 1.3. MIME Type in Front End Service
 

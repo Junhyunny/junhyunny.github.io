@@ -907,6 +907,64 @@ public class AuthControllerTest {
 그 과정에서 좋은 인사이트를 얻는다면 정리해서 포스트로 올릴 예정입니다. 
 `Spring Security` 프레임워크를 파헤치다보니 몇 가지 디자인 패턴들이 눈에 띄었는데 관련된 내용도 정리해야겠습니다. 
 
+##### cURL 테스트
+- 마지막으로 `cURL`을 이용한 테스트 결과를 첨부하겠습니다.
+- `jq` 커맨드 라인을 파이프라인에 추가하여 결과를 보기 좋게 변경하였습니다.
+- 로그인 시 토큰 발행
+```
+% curl -X POST -H 'Content-Type: x-www-form-urlencoded' "http://localhost:8080/auth/login?userName=Junhyunny&password=123" | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   391    0   391    0     0   4286      0 --:--:-- --:--:-- --:--:--  4887
+{
+  "grantType": "Bearer",
+  "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM1MTAyfQ.J0bLVWblxErXUNElduA6_KZ4_iUZkJoP1_XQ32KL65M",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM2MzAyfQ.DwMVC7qRdRjAEmdZcJqcc1gckxwB-DyfRBwDniYF9mE"
+}
+```
+
+- 액세스 토큰을 이용 시 토큰 재발행 실패
+    - 403 응답 에러 코드
+```
+% curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM1MTAyfQ.J0bLVWblxErXUNElduA6_KZ4_iUZkJoP1_XQ32KL65M' -v "http://localhost:8080/auth/reissue" | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1:8080...
+* Connected to localhost (::1) port 8080 (#0)
+> POST /auth/reissue HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/7.77.0
+> Accept: */*
+> Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM1MTAyfQ.J0bLVWblxErXUNElduA6_KZ4_iUZkJoP1_XQ32KL65M
+> 
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 403 
+< X-Content-Type-Options: nosniff
+< X-XSS-Protection: 1; mode=block
+< Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+< Pragma: no-cache
+< Expires: 0
+< X-Frame-Options: SAMEORIGIN
+< Content-Length: 0
+< Date: Sun, 20 Feb 2022 05:29:51 GMT
+< 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+* Connection #0 to host localhost left intact
+```
+
+- 리프레시 토큰을 이용 시 토큰 재발행 성공
+```
+ % curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM2MzAyfQ.DwMVC7qRdRjAEmdZcJqcc1gckxwB-DyfRBwDniYF9mE' "http://localhost:8080/auth/reissue" | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   391    0   391    0     0   4607      0 --:--:-- --:--:-- --:--:--  5077
+{
+  "grantType": "Bearer",
+  "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNTA4OSwiZXhwIjoxNjQ1MzM1Njg5fQ.X0IWDRvNVjMslKeeDK05W5OZB92sdYbpAIvXETFRJ0w",
+  "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNTA4OSwiZXhwIjoxNjQ1MzM2ODg5fQ.n49-T3y8F_aq1PAHxI08AieIgAye5lSD4inO0SI_q54"
+}
+```
+
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-02-15-make-authentication-filter>
 

@@ -22,13 +22,13 @@ last_modified_at: 2022-02-18T23:55:00
 
 When I first encountered this definition, I thought it was an abstract concept. 
 However, I naturally have understood what this concept is in my project experience. 
+
 CI/CD is divided into three steps. 
 - Continuous Integration
 - Continuous Delivery
 - Continuous Deployment
-I have summarized what happens at each steps. 
 
-<br>
+I have summarized what happens at each steps. 
 
 <p align="center">
     <img src="/images/what-is-ci-cd-1.JPG" width="80%" class="image__border"/>

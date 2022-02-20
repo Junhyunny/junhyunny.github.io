@@ -14,6 +14,9 @@ last_modified_at: 2022-02-17T23:55:00
 - [Spring Security][spring-security-link]
 - [AuthenticationFilter 만들기][make-authentication-filter-link]
 
+👉 이어서 읽기를 추천합니다.
+- [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]
+
 ## 0. 들어가면서
 
 [AuthenticationFilter 만들기][make-authentication-filter-link] 포스트에 이어서 이번엔 `JWT(Json Web Token)`을 통한 사용자 인증과 관련된 내용을 구현하였습니다. 
@@ -598,3 +601,5 @@ public class JwtInvalidException extends AuthenticationException {
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
 [spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
+
+[issue-and-reissue-json-web-token-link]: https://junhyunny.github.io/spring-boot/spring-security/issue-and-reissue-json-web-token/

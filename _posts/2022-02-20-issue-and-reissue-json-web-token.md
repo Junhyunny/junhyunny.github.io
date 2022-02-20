@@ -911,6 +911,7 @@ public class AuthControllerTest {
 - 마지막으로 `cURL`을 이용한 테스트 결과를 첨부하겠습니다.
 - `jq` 커맨드 라인을 파이프라인에 추가하여 결과를 보기 좋게 변경하였습니다.
 - 로그인 시 토큰 발행
+
 ```
 % curl -X POST -H 'Content-Type: x-www-form-urlencoded' "http://localhost:8080/auth/login?userName=Junhyunny&password=123" | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -925,6 +926,7 @@ public class AuthControllerTest {
 
 - 액세스 토큰을 이용 시 토큰 재발행 실패
     - 403 응답 에러 코드
+
 ```
 % curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM1MTAyfQ.J0bLVWblxErXUNElduA6_KZ4_iUZkJoP1_XQ32KL65M' -v "http://localhost:8080/auth/reissue" | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -953,6 +955,7 @@ public class AuthControllerTest {
 ```
 
 - 리프레시 토큰을 이용 시 토큰 재발행 성공
+
 ```
  % curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM2MzAyfQ.DwMVC7qRdRjAEmdZcJqcc1gckxwB-DyfRBwDniYF9mE' "http://localhost:8080/auth/reissue" | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current

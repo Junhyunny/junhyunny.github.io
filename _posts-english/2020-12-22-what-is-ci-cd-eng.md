@@ -2,7 +2,6 @@
 title: "What is CI/CD?"
 search: false
 category:
-  - english
   - information
 last_modified_at: 2022-02-18T23:55:00
 ---

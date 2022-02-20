@@ -15,6 +15,7 @@ last_modified_at: 2022-02-16T23:55:00
 
 👉 이어서 읽기를 추천합니다.
 - [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
+- [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]
 
 ## 0. 들어가면서
 
@@ -574,3 +575,4 @@ public class AuthControllerTest {
 [once-per-request-filter-link]: https://junhyunny.github.io/spring-boot/once-per-request-filter/
 
 [make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/
+[issue-and-reissue-json-web-token-link]: https://junhyunny.github.io/spring-boot/spring-security/issue-and-reissue-json-web-token/

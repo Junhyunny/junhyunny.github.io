@@ -22,13 +22,13 @@ last_modified_at: 2021-08-21T16:00:00
 
 처음 용어에 대한 정의를 접하였을 땐 추상적인 개념이라는 생각이 들었습니다. 
 여러 프로젝트들을 경험하면서 이 개념에 대한 정의를 자연스럽게 이해하게 되었습니다. 
+
 CI/CD는 크게 3단계로 나뉘어집니다. 
 - 지속적인 통합(Continuous Integration)
 - 지속적인 전달(Continuous Delivery)
 - 지속적인 배포(Continuous Deployment)
-각 단계 별로 무슨 일을 하는지 정리하였습니다.
 
-<br>
+각 단계 별로 무슨 일을 하는지 정리하였습니다.
 
 <p align="center">
     <img src="/images/what-is-ci-cd-1.JPG" width="80%" class="image__border"/>

@@ -31,7 +31,7 @@ last_modified_at: 2022-02-20T23:55:00
 - 위 단계를 거쳐 인증이 이뤄지기 때문에 `Spring Security` 프레임워크 예제는 `UserDetailsService` 인터페이스를 구현한 내용들이 많습니다. 
 
 <p align="center">
-    <img src="/images/issue-and-reissue-json-web-token-1.JPG" width="80%" class="image__border">
+    <img src="/images/issue-and-reissue-json-web-token-1.JPG" width="100%" class="image__border">
 </p>
 
 ##### JWT(Json Web Token) Authentication Process in before posts
@@ -42,7 +42,7 @@ last_modified_at: 2022-02-20T23:55:00
     - 토큰의 유효성만 확인하기 때문에 `UserDetailsService` 인터페이스를 사용할 필요가 없습니다.
 
 <p align="center">
-    <img src="/images/issue-and-reissue-json-web-token-2.JPG" width="80%" class="image__border">
+    <img src="/images/issue-and-reissue-json-web-token-2.JPG" width="100%" class="image__border">
 </p>
 
 ##### Issue and reissue JWT at this post
@@ -58,7 +58,7 @@ last_modified_at: 2022-02-20T23:55:00
     - 추출한 사용자 ID를 이용해 사용자 정보를 조회하고 새로운 액세스 토큰과 리프레시 토큰을 발급합니다.
 
 <p align="center">
-    <img src="/images/issue-and-reissue-json-web-token-3.JPG" width="80%" class="image__border">
+    <img src="/images/issue-and-reissue-json-web-token-3.JPG" width="100%" class="image__border">
 </p>
 
 ## 1. 패키지 구성 및 설정 변경 내용
@@ -908,7 +908,7 @@ public class AuthControllerTest {
 `Spring Security` 프레임워크를 파헤치다보니 몇 가지 디자인 패턴들이 눈에 띄었는데 관련된 내용도 정리해야겠습니다. 
 
 ##### cURL 테스트
-- `cURL`을 이용한 테스트 결과를 첨부하겠습니다.
+- `cURL`을 이용한 테스트 결과를 함께 첨부하였습니다.
 - `jq` 커맨드 라인을 파이프라인에 추가하여 결과를 보기 좋게 변경하였습니다.
 - 로그인 시 토큰 발행
 

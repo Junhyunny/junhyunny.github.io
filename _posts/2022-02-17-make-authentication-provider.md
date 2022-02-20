@@ -28,7 +28,7 @@ last_modified_at: 2022-02-17T23:55:00
 </p>
 <center>이미지 출처, https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
 
-## 1. 변경 내용
+## 1. 패키지 구성 및 설정 변경 내용
 
 [AuthenticationFilter 만들기][make-authentication-filter-link] 포스트와 비교하여 어떤 내용이 변경되었는지 확인해보겠습니다. 
 

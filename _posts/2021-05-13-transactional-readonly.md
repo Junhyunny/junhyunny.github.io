@@ -59,7 +59,7 @@ last_modified_at: 2021-09-01T02:00:00
 ## 2. 'readOnly' 속성 관련 테스트
 요약한 내용들에 대한 검증 테스트를 보았습니다. 
 직접 검증하지 못하면 모르는 것과 마찬가지입니다. 
-하지만 DataSource Connection 레벨 설정에 대한 테스트는 못하였습니다.😰 
+하지만 DataSource Connection 레벨 설정에 대한 테스트는 못하였습니다. 
 관련된 로그를 확인하기 위해서 application.yml 설정의 **`org.hibernate.persister.entity`** 패키지 로그 레벨을 **`TRACE`**로 변경하였습니다.
 
 ##### application.yml

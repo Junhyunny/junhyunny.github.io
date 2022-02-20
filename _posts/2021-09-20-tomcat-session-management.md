@@ -43,7 +43,7 @@ last_modified_at: 2021-09-20T23:55:00
 1. 세션을 생성하고 세션ID 정보를 응답 헤더에 쿠키로 담아서 전달합니다.
 
 <p align="center"><img src="/images/tomcat-session-management-2.JPG" width="55%"></p>
-<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
+<center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
 
 ### 1.3. 세션(session) 생성 주요 클래스와 메소드
 
@@ -126,7 +126,7 @@ public class Response implements HttpServletResponse {
 1. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메소드를 통해 쿠키에서 세션ID를 추출합니다. 
 
 <p align="center"><img src="/images/tomcat-session-management-3.JPG" width="55%"></p>
-<center>이미지 출처, https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
+<center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center><br>
 
 ### 2.2. 세션ID 획득 주요 클래스와 메소드
 

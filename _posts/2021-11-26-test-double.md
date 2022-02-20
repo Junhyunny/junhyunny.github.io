@@ -38,7 +38,7 @@ last_modified_at: 2021-11-26T23:55:00
 ##### 시스템 컴포넌트 단위 테스트
 
 <p align="center"><img src="/images/test-double-1.JPG" width="50%"></p>
-<center>이미지 출처, https://www.crocus.co.kr/1555</center>
+<center>https://www.crocus.co.kr/1555</center>
 
 ### 1.2. When Using Test Double 
 테스트 더블은 다음과 같은 시기에 사용합니다.
@@ -56,7 +56,7 @@ last_modified_at: 2021-11-26T23:55:00
 <p align="center">
     <img src="/images/test-double-2.JPG" width="50%" class="image__border">
 </p>
-<center>이미지 출처, http://xunitpatterns.com/Test%20Double.html</center>
+<center>http://xunitpatterns.com/Test%20Double.html</center>
 
 ### 2.1. 테스트 시나리오
 아래와 같은 클래스의 기능을 테스트하고 싶습니다. 

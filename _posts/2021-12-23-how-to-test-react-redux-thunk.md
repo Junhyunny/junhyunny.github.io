@@ -45,7 +45,7 @@ last_modified_at: 2021-12-23T23:55:00
 <p align="center">
     <img src="/images/how-to-test-react-redux-thunk-1.gif" width="65%" class="image__border">
 </p>
-<center>이미지 출처, https://redux.js.org/tutorials/fundamentals/part-6-async-logic</center>
+<center>https://redux.js.org/tutorials/fundamentals/part-6-async-logic</center>
 
 ## 2. 화면에서 미들웨어에서 실행하는 함수를 실행했는가?
 

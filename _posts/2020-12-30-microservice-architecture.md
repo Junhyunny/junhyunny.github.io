@@ -55,7 +55,7 @@ last_modified_at: 2021-08-21T16:00:00
 <p align="center">
     <img src="/images/microservice-architecture-1.JPG" width="80%" class="image__border"/>
 </p>
-<center>이미지 출처, https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
+<center>https://www.redhat.com/ko/topics/microservices/what-are-microservices</center><br>
 
 ## 3. Micro Service Architecture 특징
 ### 3.1. 단일 목적 수행 (Single Purpose)
@@ -78,7 +78,7 @@ last_modified_at: 2021-08-21T16:00:00
 <p align="center">
     <img src="/images/microservice-architecture-2.JPG" width="80%" class="image__border">
 </p>
-<center>이미지 출처, https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
+<center>https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center><br>
 
 ## 4. Micro Service Architecture 핵심 원칙
 ### 4.1. 자율성 (Autonomy)

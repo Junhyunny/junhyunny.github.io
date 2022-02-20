@@ -30,7 +30,7 @@ Key-Value 형태로 데이터를 저장하는 자료구조입니다.
 index를 이용하여 배열에 저장된 value에 접근하기 때문에 해시 테이블의 평균 시간복잡도는 O(1)입니다.
 
 <p align="center"><img src="/images/db-index-data-structure-1.JPG" width="60%"></p>
-<center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
+<center>https://en.wikipedia.org/wiki/Hash_table</center><br>
 
 #### 1.1.1. 해시 함수(Hash Function)
 해시 테이블 자료구조의 핵심입니다. 
@@ -40,7 +40,7 @@ Key 충돌이 있는 경우에는 정책에 따라 부가적인 처리가 필요
 자세한 내용은 별도 포스트를 통해 정리하도록 하겠습니다. 
 
 <p align="center"><img src="/images/db-index-data-structure-2.JPG" width="60%"></p>
-<center>이미지 출처, https://en.wikipedia.org/wiki/Hash_table</center><br>
+<center>https://en.wikipedia.org/wiki/Hash_table</center><br>
 
 ### 1.2. B-Tree(Balanced Tree)
 트리를 구성하는 아이템 하나 하나를 노드(node)라고 합니다. 
@@ -58,10 +58,10 @@ B-Tree는 트리의 차수에 따라 노드 내 최대 Key-Value 수가 달라�
 - 균형 트리(Balanced Tree)로 루트 노드에서 리프 노드까지의 거리가 모두 동일합니다.
 
 <p align="center"><img src="/images/db-index-data-structure-3.JPG" width="70%"></p>
-<center>이미지 출처, https://zorba91.tistory.com/293</center><br>
+<center>https://zorba91.tistory.com/293</center><br>
 
 <p align="center"><img src="/images/db-index-data-structure-4.JPG" width="70%"></p>
-<center>이미지 출처, https://zorba91.tistory.com/293</center><br>
+<center>https://zorba91.tistory.com/293</center><br>
 
 균형 트리인 B-Tree는 루트 노드에서 리프 노드까지 동일한 거리를 가지기 때문에 어떤 값에 대해서도 같은 시간에 결과를 얻을 수 있습니다. 
 처음에는 균형 트리 형태이지만 시간이 지나면서 테이블 데이터 갱신(INSERT, UPDATE, DELETE)에 따라 데이터의 균형이 깨지면서 성능이 악화됩니다. 
@@ -85,7 +85,7 @@ B+Tree는 브랜치 노드에 Value가 없기 때문에 B-Tree에 비해 차지�
 - 리프 노드들은 LinkedList 구조로 서로를 참조하고 있으므로 B-Tree에 비해 노드 순회가 쉽습니다. 
 - 브랜치 노드와 리프 노드에 모두 Key가 존재하므로 Key 중복이 발생합니다. 
 <p align="center"><img src="/images/db-index-data-structure-6.JPG" width="70%"></p>
-<center>이미지 출처, https://ssup2.github.io/theory_analysis/B_Tree_B+_Tree/</center><br>
+<center>https://ssup2.github.io/theory_analysis/B_Tree_B+_Tree/</center><br>
 
 ## 2. 데이터베이스 인덱스에 적합한 자료구조
 

@@ -28,7 +28,7 @@ last_modified_at: 2021-06-16T00:00:00
 테스트를 수행하기 위해 내부적으로 소프트웨어와 코드가 어떻게 동작하는지 이해하고 있어야 합니다. 
 
 <p align="center"><img src="/images/white-box-black-box-test-1.JPG" width="40%"></p>
-<center>이미지 출처, http://www.splex.co.kr/black-white-box-test</center><br>
+<center>http://www.splex.co.kr/black-white-box-test</center><br>
 
 ### 1.1. White Box Test 종류
 - 기초 경로 검사(구조 검사, Basic Path Testing): 수행 가능한 모든 경로 검사
@@ -50,7 +50,7 @@ last_modified_at: 2021-06-16T00:00:00
 입력은 적절한지, 출력은 정확한지 확인할 수 있습니다. 
 
 <p align="center"><img src="/images/white-box-black-box-test-2.JPG" width="45%"></p>
-<center>이미지 출처, http://www.splex.co.kr/black-white-box-test</center><br>
+<center>http://www.splex.co.kr/black-white-box-test</center><br>
 
 ### 2.1 Black Box Test 종류
 - 균등 분할(동등 분할, Equivalence Partitioning): 프로그램의 입력 데이터를 여러 분류로 나누어 검사

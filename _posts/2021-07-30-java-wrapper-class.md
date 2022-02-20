@@ -44,7 +44,7 @@ Java에는 기본형(primitive type) 데이터가 존재합니다.
 - Boolean, Character 클래스를 제외하고 Number 클래스를 상속받습니다.
 
 <p align="center"><img src="/images/java-wrapper-class-1.JPG" width="70%"></p>
-<center>이미지 출처, https://codepumpkin.com/interview-questions-wrapper-classes/</center>
+<center>https://codepumpkin.com/interview-questions-wrapper-classes/</center>
 
 ### 1.3. Wrapper 클래스 내부 구조
 - 기본형 데이터 변수를 멤버로 두고, 관련된 연산을 메소드로 정의해두고 있습니다.
@@ -100,7 +100,7 @@ Wrapper 클래스에 대해 이야기하면 빠지지 않는 내용이 있습니
 반대로 `Unboxing`은 Wrapper 클래스의 인스턴스를 기본형 데이터로 변환하는 과정을 의미합니다. 
 
 <p align="center"><img src="/images/java-wrapper-class-2.JPG" width="45%"></p>
-<center>이미지 출처, http://tcpschool.com/java/java_api_wrapper</center><br>
+<center>http://tcpschool.com/java/java_api_wrapper</center><br>
 
 JDK 1.5 버전부터 `Boxing, Unboxing`이 필요하면 컴파일러에 의해 자동으로 수행되었습니다. 
 이를 `Auto Boxing, Auto Unboxing`이라고 합니다. 

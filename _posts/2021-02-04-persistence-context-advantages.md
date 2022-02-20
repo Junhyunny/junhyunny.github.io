@@ -41,7 +41,7 @@ last_modified_at: 2021-08-22T01:30:00
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
 
 <p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="75%"></p>
-<center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
+<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ### 1.2. 캐싱되지 않은 엔티티 조회 시나리오
 1. 식별자 값을 이용해 엔티티를 조회합니다.
@@ -50,7 +50,7 @@ last_modified_at: 2021-08-22T01:30:00
 1. 신규 엔티티를 반환합니다.
 
 <p align="center"><img src="/images/persistence-context-advantages-2.JPG" width="75%"></p>
-<center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
+<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ### 1.3. 1차 캐싱 테스트
 동일한 식별자(@Id, PK)를 가진 데이터를 조회하여 반환된 엔티티 객체가 동일한 메모리 주소를 가지는지 확인합니다.
@@ -153,17 +153,17 @@ EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하�
 ##### entityManager.persist(memberA) 수행
 
 <p align="center"><img src="/images/persistence-context-advantages-5.JPG" width="75%"></p>
-<center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
+<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ##### entityManager.persist(memberB) 수행
 
 <p align="center"><img src="/images/persistence-context-advantages-6.JPG" width="75%"></p>
-<center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
+<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ##### entityManager.getTransaction().commit() 수행
 
 <p align="center"><img src="/images/persistence-context-advantages-7.JPG" width="75%"></p>
-<center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
+<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ### 2.2. 쓰기 지연 테스트
 persist 메소드 수행 전과 commit 이전, 이후에 로그를 남겨 insert 쿼리가 어느 시점에 수행되는지 확인해보겠습니다.
@@ -288,7 +288,7 @@ Hibernate: insert into tb_member (authorities, member_email, member_name, passwo
 1. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
 
 <p align="center"><img src="/images/persistence-context-advantages-8.JPG" width="75%"></p>
-<center>이미지 출처, conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
+<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center><br>
 
 ### 3.2. 변경 감지 테스트
 

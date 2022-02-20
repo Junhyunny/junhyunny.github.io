@@ -28,7 +28,7 @@ Java는 멀티 스레드 환경에서 thread-safe 한 개발을 할 수 있도�
 
 ##### 단항 연산자 > 기계어 변경 시 수행 내용
 <p align="center"><img src="/images/java-atomic-1.JPG" width="50%"></p>
-<center>이미지 출처, [JAVA] concurrent programming - Atomic(원자성)</center><br>
+<center>[JAVA] concurrent programming - Atomic(원자성)</center><br>
 
 기계어로 변경되어 원자적이지 않은 연산이 된 코드는 수행할 때 다른 스레드에 데이터의 변형이 발생할 수 있습니다. 
 프로세스 내 스레드 사이에는 변수를 이용하여 데이터를 공유할 수 있기 때문입니다. 

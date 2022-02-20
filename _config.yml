@@ -250,7 +250,7 @@ tag_archive:
 #     tag: /tags/:name/
 
 collections:
-  english:
+  posts-english:
     output: true
     permalink: /:collection/:path/
 
@@ -278,7 +278,7 @@ defaults:
   # _english
   - scope:
       path: "/_posts-english/"
-      type: english
+      type: posts-english
     values:
       layout: single
       classes: wide

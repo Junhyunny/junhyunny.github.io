@@ -11,9 +11,9 @@ last_modified_at: 2022-03-01T23:55:00
 
 ## 0. 들어가면서
 
-## 1. 어댑터 패턴(Adapter Pattern)
+## 1. 전략 패턴(Strategy Pattern)
 
-## 2. Adapter pattern in Spring
+## 2. Strategy pattern in Spring
 
 ## CLOSING
 

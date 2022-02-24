@@ -3,29 +3,25 @@ layout: default
 ---
 
 {% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
-  {% include page__hero.html %}
+{% include page__hero.html %}
 {% elsif page.header.video.id and page.header.video.provider %}
-  {% include page__hero_video.html %}
+{% include page__hero_video.html %}
 {% endif %}
 
 {% if page.url != "/" and site.breadcrumbs %}
-  {% unless paginator %}
-    {% include breadcrumbs.html %}
-  {% endunless %}
+{% unless paginator %}
+{% include breadcrumbs.html %}
+{% endunless %}
 {% endif %}
 
 <div style="text-align: center;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3270204283865249"
-  crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
   <!-- junhyunny.github.io -->
-  <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-3270204283865249"
-      data-ad-slot="1592931158"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3270204283865249" data-ad-slot="1592931158"
+    data-ad-format="auto" data-full-width-responsive="true"></ins>
   <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>
 
@@ -34,46 +30,57 @@ layout: default
   {% include sidebar.html %}
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
-    {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.excerpt %}<meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
-    {% if page.date %}<meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
-    {% if page.last_modified_at %}<meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+    {% if page.title %}
+    <meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{%
+    endif %}
+    {% if page.excerpt %}
+    <meta itemprop="description" content="{{ page.excerpt | markdownify | strip_html | strip_newlines | escape_once }}">
+    {% endif %}
+    {% if page.date %}
+    <meta itemprop="datePublished" content="{{ page.date | date_to_xmlschema }}">{% endif %}
+    {% if page.last_modified_at %}
+    <meta itemprop="dateModified" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
 
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title %}<h1 id="page-title" class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
-          {% include page__meta.html %}
-        </header>
+      <header>
+        {% if page.title %}<h1 id="page-title" class="page__title" itemprop="headline">{{ page.title | markdownify |
+          remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
+        {% include page__meta.html %}
+      </header>
       {% endunless %}
 
-      <br>
+      <br><br>
 
       <div>
         안녕하세요. 블로그 운영자 강준현입니다. <br>
-        현재 제가 속한 VMware 주관으로 KB국민은행 서비스 개발 프로젝트를 위해서 간단한 설문 조사를 진행하고 있습니다. <br>
-        아래의 설문지를 작성해 주신 분들 중 인터뷰에 선정된 분들과 함께 약 한 시간 동안 화상으로 인터뷰를 진행하고자 합니다. <br>
-        인터뷰에 선정되어 진행까지 완료하신 분에게는 사례를 드릴 예정입니다. <br>
-        감사합니다.<br>
+        현재 제가 속한 VMware 주관으로 KB국민은행 서비스 개발을 위해 간단한 설문 조사를 진행하고 있습니다. <br>
+        아래 설문지를 작성해 주신 분들 중 몇 분들과 약 한 시간 동안 화상으로 인터뷰를 진행하고자 합니다. <br>
+        <b>인터뷰</b>에 참여하신 분들께는 소중한 시간을 내어주신 감사한 마음과 함께 사례를 드릴 예정입니다. <br>
+        많은 참여 부탁드립니다. <br>
         참여 링크 - <a href="https://forms.gle/6m2K2BAhwKr9yKAM6">인터뷰 관련 설문 조사</a>
-    </div>
+      </div>
 
       <section class="page__content" itemprop="text">
         {% if page.toc %}
-          <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-            <nav class="toc">
-              <header><h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4></header>
-              {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" %}
-            </nav>
-          </aside>
+        <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
+          <nav class="toc">
+            <header>
+              <h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label
+                | default: site.data.ui-text[site.locale].toc_label | default: "On this page" }}</h4>
+            </header>
+            {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" %}
+          </nav>
+        </aside>
         {% endif %}
         {{ content }}
-        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
+        {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{
+            site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
 
       <footer class="page__meta">
         {% if site.data.ui-text[site.locale].meta_label %}
-          <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
+        <h4 class="page__meta-title">{{ site.data.ui-text[site.locale].meta_label }}</h4>
         {% endif %}
         {% include page__taxonomy.html %}
         {% include page__date.html %}
@@ -85,48 +92,48 @@ layout: default
     </div>
 
     {% if jekyll.environment == 'production' and site.comments.provider and page.comments %}
-      {% include comments.html %}
+    {% include comments.html %}
     {% endif %}
   </article>
 
-  {% comment %}<!-- only show related on a post page when `related: true` -->{% endcomment %}
+  {% comment %}
+  <!-- only show related on a post page when `related: true` -->{% endcomment %}
   {% if page.id and page.related and site.related_posts.size > 0 %}
-    <div class="page__related">
-      <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
-      <div class="grid__wrapper">
-        {% for post in site.related_posts limit:4 %}
-          {% include archive-single.html type="grid" %}
-        {% endfor %}
-      </div>
+  <div class="page__related">
+    <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}
+    </h4>
+    <div class="grid__wrapper">
+      {% for post in site.related_posts limit:4 %}
+      {% include archive-single.html type="grid" %}
+      {% endfor %}
     </div>
-  {% comment %}<!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
+  </div>
+  {% comment %}
+  <!-- otherwise show recent posts if no related when `related: true` -->{% endcomment %}
   {% elsif page.id and page.related %}
-    <div class="page__related">
-      <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}</h4>
-      <div class="grid__wrapper">
-        {% for post in site.posts limit:4 %}
-          {% if post.id == page.id %}
-            {% continue %}
-          {% endif %}
-          {% include archive-single.html type="grid" %}
-        {% endfor %}
-      </div>
+  <div class="page__related">
+    <h4 class="page__related-title">{{ site.data.ui-text[site.locale].related_label | default: "You May Also Enjoy" }}
+    </h4>
+    <div class="grid__wrapper">
+      {% for post in site.posts limit:4 %}
+      {% if post.id == page.id %}
+      {% continue %}
+      {% endif %}
+      {% include archive-single.html type="grid" %}
+      {% endfor %}
     </div>
+  </div>
   {% endif %}
 
 </div>
 
 <div style="text-align: center;">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3270204283865249"
-  crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
   <!-- junhyunny.github.io -->
-  <ins class="adsbygoogle"
-      style="display:block"
-      data-ad-client="ca-pub-3270204283865249"
-      data-ad-slot="1592931158"
-      data-ad-format="auto"
-      data-full-width-responsive="true"></ins>
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3270204283865249" data-ad-slot="1592931158"
+    data-ad-format="auto" data-full-width-responsive="true"></ins>
   <script>
-      (adsbygoogle = window.adsbygoogle || []).push({});
+    (adsbygoogle = window.adsbygoogle || []).push({});
   </script>
 </div>

@@ -268,27 +268,7 @@ public abstract class GsonBuilderUtils {
 ```java
 package org.springframework.security.config.crypto;
 
-import java.beans.PropertyEditorSupport;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.security.interfaces.RSAPrivateKey;
-import java.security.interfaces.RSAPublicKey;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.core.convert.ConversionService;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.core.convert.converter.ConverterRegistry;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.security.converter.RsaKeyConverters;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
+// import classes
 
 public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProcessor {
 
@@ -365,7 +345,6 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
             return (inputStream) -> {
                 try {
                     InputStream is = inputStream;
-
                     Object var3;
                     try {
                         var3 = inputStreamKeyConverter.convert(is);
@@ -377,14 +356,11 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
                                 var6.addSuppressed(var5);
                             }
                         }
-
                         throw var6;
                     }
-
                     if (inputStream != null) {
                         inputStream.close();
                     }
-
                     return var3;
                 } catch (IOException var7) {
                     throw new UncheckedIOException(var7);
@@ -410,7 +386,6 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
             } else {
                 this.setValue((Object)null);
             }
-
         }
     }
 }

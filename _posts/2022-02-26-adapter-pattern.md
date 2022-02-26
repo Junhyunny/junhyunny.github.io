@@ -201,7 +201,8 @@ public class DelegateUsage {
 
 `Spring` 프레임워크에서 어댑터 패턴이 적용된 케이스를 찾아보았습니다. 
 
-### 2.1. Base64TypeAdapter 클래스
+### 2.1. GsonBuilderUtils 클래스
+- 클래스 내부에 `Base64TypeAdapter`가 존재합니다.
 - 클라이언트는 `GsonBuilder` 클래스입니다.
     - `GsonBuilder` 클래스는 `Gson` 객체를 만들 때 바이트 배열 (역)직렬화를 위한 어댑터를 주입할 것으로 예상됩니다.
     - `Gson` 객체는 어댑터 클래스를 이용해 특정 자료형에 대한 직렬화, 역직렬화 기능을 처리합니다.

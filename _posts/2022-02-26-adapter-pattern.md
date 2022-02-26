@@ -48,7 +48,7 @@ last_modified_at: 2022-02-26T23:55:00
     - 어댑터는 어댑티를 상속받거나, 어댑티에게 기능을 위임합니다.
 
 <p align="center">
-    <img src="/images/adapter-pattern-01.JPG" class="image__border">
+    <img src="/images/adapter-pattern-01.JPG" width="80%" class="image__border">
 </p>
 <center>https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/</center>
 
@@ -146,7 +146,7 @@ public class InheritanceUsage {
 ##### 클래스 상속 어댑터 패턴 클래스 다이어그램
 
 <p align="center">
-    <img src="/images/adapter-pattern-02.JPG" class="image__border">
+    <img src="/images/adapter-pattern-02.JPG" width="80%" class="image__border">
 </p>
 
 ### 1.6. 인스턴스 어댑터 패턴
@@ -194,7 +194,7 @@ public class DelegateUsage {
 ##### 인스턴스 어댑터 패턴 클래스 다이어그램
 
 <p align="center">
-    <img src="/images/adapter-pattern-03.JPG" class="image__border">
+    <img src="/images/adapter-pattern-03.JPG" width="80%" class="image__border">
 </p>
 
 ## 2. Adapter pattern in Spring

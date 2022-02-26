@@ -24,7 +24,7 @@ last_modified_at: 2022-02-26T23:55:00
 
 `GoF 디자인 패턴` 책을 읽다보면 위에 설명처럼 이해하기 난해한 문장이 많습니다. 
 다른 분들은 이해하셨을지 모르겠지만, 저에겐 다소 어려운 느낌입니다. 
-`GoF 디자인 패턴` 책과 다른 레퍼런스(reference)들을 읽어 보고 얻은 인사이트로 제가 이해할 수 있도록 리워딩(rewording)해보았습니다. 
+`GoF 디자인 패턴`과 다른 레퍼런스(reference)들을 읽고, 제가 이해할 수 있도록 리워딩(rewording)하였습니다. 
 - 기존 클래스를 대신하는 다른 기능의 클래스로 변경하는 디자인 패턴입니다. 
 - 어댑터 패턴은 인터페이스를 통한 다형성(polymorphism)을 이용한 패턴입니다.
 - 어댑터 패턴은 두 가지 방법을 통해 운영 중인 코드를 최소한의 부담으로 변경할 수 있도록 도움을 줍니다.
@@ -218,15 +218,7 @@ public class DelegateUsage {
 ```java
 package org.springframework.http.converter.json;
 
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import java.lang.reflect.Type;
-import org.springframework.util.Base64Utils;
+// import classes
 
 public abstract class GsonBuilderUtils {
 
@@ -259,7 +251,8 @@ public abstract class GsonBuilderUtils {
 - `ResourceKeyConverterAdapter` 클래스
     - 클라이언트는 `ConverterRegistry` 클래스이며, 이 곳에 등록되어 프레임워크 내부에서 사용될 것으로 예상됩니다.
     - 대상 인터페이스는 `Converter`이며, `convert` 기능을 새로운 기능으로 변경합니다.
-    - 어댑티는 `this.pemInputStreamConverter().andThen(this.autoclose(delegate));` 메소드 호출을 통해 만들어진 `Converter` 인스턴스입니다.
+    - 어댑티는 `Converter` 인스턴스입니다.
+        - `this.pemInputStreamConverter().andThen(this.autoclose(delegate))` 메소드 호출을 통해 생성됩니다.
 - `ConverterPropertyEditorAdapter` 클래스
     - 클라이언트는 `PropertyEditorRegistrar` 클래스이며, 이 곳에 등록되어 프레임워크 내부에서 사용될 것으로 예상됩니다.
     - 대상은 `PropertyEditorSupport` 클래스이며, `getAsText`과 `setAsText` 기능을 새로운 기능으로 변경합니다.

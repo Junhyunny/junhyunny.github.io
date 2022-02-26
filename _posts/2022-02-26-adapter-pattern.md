@@ -202,9 +202,9 @@ public class DelegateUsage {
 
 ### 2.1. GsonBuilderUtils 클래스
 - 클래스 내부에 `Base64TypeAdapter`가 존재합니다.
-- 클라이언트는 `GsonBuilder` 클래스입니다.
+- 클라이언트는 `Gson` 클래스입니다.
     - `GsonBuilder` 클래스는 `Gson` 객체를 만들 때 바이트 배열 (역)직렬화를 위한 어댑터를 주입할 것으로 예상됩니다.
-    - `Gson` 객체는 어댑터 클래스를 이용해 특정 자료형에 대한 직렬화, 역직렬화 기능을 처리합니다.
+    - `Gson` 객체는 어댑터 클래스를 이용해 바이트 배열 자료형에 대한 (역)직렬화 처리를 수행합니다.
 - 대상 인터페이스는 `JsonSerializer` 입니다.
     - `serialize` 기능과 `deserialize` 기능을 새로운 기능으로 변경합니다.
 - 어댑티 클래스는 `Base64Utils` 입니다.
@@ -248,13 +248,13 @@ public abstract class GsonBuilderUtils {
 ### 2.2. RsaKeyConversionServicePostProcessor 클래스
 - 내부적으로 두 개의 어댑터가 사용됩니다.
 - `ResourceKeyConverterAdapter` 클래스
-    - 클라이언트는 `ConverterRegistry` 클래스이며, 이 곳에 등록되어 프레임워크 내부에서 사용될 것으로 예상됩니다.
+    - 클라이언트는 프레임워크 내부에서 `convet` 메소드를 호출하는 클래스입니다.
     - 대상 인터페이스는 `Converter`이며, `convert` 기능을 새로운 기능으로 변경합니다.
     - 어댑티는 `Converter` 인스턴스입니다.
         - `this.pemInputStreamConverter().andThen(this.autoclose(delegate))` 메소드 호출을 통해 생성됩니다.
 - `ConverterPropertyEditorAdapter` 클래스
-    - 클라이언트는 `PropertyEditorRegistrar` 클래스이며, 이 곳에 등록되어 프레임워크 내부에서 사용될 것으로 예상됩니다.
-    - 대상은 `PropertyEditorSupport` 클래스이며, `getAsText`과 `setAsText` 기능을 새로운 기능으로 변경합니다.
+    - 클라이언트는 프레임워크 내부에서 `getAsText`, `setAsText` 메소드를 호출하는 클래스입니다.
+    - 대상은 `PropertyEditorSupport` 클래스이며, `getAsText`, `setAsText` 기능을 새로운 기능으로 변경합니다.
     - 어댑티는 `ResourceKeyConverterAdapter` 어댑터 인스턴스입니다.
 
 ```java

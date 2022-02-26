@@ -41,7 +41,9 @@ CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작
 - 젠킨스 서버는 `ngrok`을 사용하여 로컬 서버를 외부 인터넷으로 노출하였습니다.
 - 테스트를 위한 어플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
 
-<p align="center"><img src="/images/jenkins-install-1.JPG" width="85%" class="image__border"></p>
+<p align="center">
+    <img src="/images/jenkins-install-1.JPG" width="85%" class="image__border">
+</p>
 
 ## 2. 젠킨스 설치 및 실행
 

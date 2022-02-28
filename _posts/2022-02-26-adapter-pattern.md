@@ -33,174 +33,335 @@ last_modified_at: 2022-02-26T23:55:00
 
 ##### 어댑터 패턴 클래스 다이어그램
 - 어댑터 패턴을 이해하기 위해선 패턴을 이루는 몇 가지 요소들에 대해 이해할 필요가 있습니다. 
-- 클라이언트(Client) 
-    - 어댑터를 사용하는 주체입니다. 
-    - 대상 인터페이스를 사용하고 있습니다.
-    - 클라이언트 입장에선 인터페이스라는 껍데기만 바라보고 사용하기 때문에 코드에 변경이 없습니다.
+- 클라이언트(Client)
+    - 대상 인터페이스를 사용하는 클래스입니다.
+    - 클라이언트 클래스 입장에선 인터페이스라는 껍데기만 사용하기 때문에 코드에 변경이 없습니다.
 - 대상 인터페이스(Target Interface) 
     - 클라이언트가 사용할 기능을 명세하고 있는 인터페이스입니다.
+    - 레거시 클래스는 인터페이스를 구현하고 있습니다.(implement) 
 - 어댑터(Adapter)
-    - 대상 인터페이스를 구현하는 클래스입니다.
+    - 기능 확장을 위해 대상 인터페이스를 구현한 클래스입니다.
     - 오버라이드(override) 한 메소드 내부를 신규 기능을 제공하는 코드로 대체합니다.
 - 어댑티(Adaptee)
     - 새로운 기능을 제공하는 클래스입니다.
-    - 어댑터는 어댑티를 상속받거나, 어댑티에게 기능을 위임합니다.
+    - 어댑터는 어댑티를 상속(inheritance)받거나, 어댑티에게 기능을 위임(delegating)합니다.
 
 <p align="center">
     <img src="/images/adapter-pattern-01.JPG" width="80%" class="image__border">
 </p>
 <center>https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/</center>
 
-### 1.1. Client 클래스
-- `TargetInterface` 인터페이스를 사용하는 클래스입니다.
-- 인터페이스를 통해 `doThing` 기능을 제공 받습니다.
-- `doThing` 메소드 내부가 어떻게 바뀌는지 클라이언트는 관심이 없습니다.
+## 2. 어댑터 패턴 적용하기
 
-```java
-public class Client {
+이해도를 높히고자 간단한 예시 코드를 작성해보았습니다. 
+어댑터 패턴을 적용하기 위한 시나리오와 클래스 구조는 다음과 같습니다. 
+- 현재 사용자 세션 정보를 데이터베이스에 저장하고 있습니다.
+- 속도 개선을 위해 레디스(redis) 같은 캐시 서비스를 사용하고 싶습니다.
+- 운영하는 코드의 큰 변경 없이 
+- SessionHandler 클래스
+    - 어댑터 패턴에서 클라이언트 클래스 역할을 수행합니다.
+    - 어플리케이션은 `SessionHandler` 클래스를 통해 사용자 세션 정보를 저장, 획득, 삭제합니다.
+- SessionRegistry 인터페이스
+    - 어댑터 패턴에서 대상 인터페이스 역할을 수행합니다.
+    - `SessionHandler` 클래스는 `SessionRegistry` 구현체를 통해 세션 정보를 저장, 획득, 삭제합니다. 
+- JdbcSessionRegistry 클래스
+    - 어댑터 패턴에서 레거시 기능을 제공하는 클래스입니다. 
+    - `SessionRegistry` 인터페이스를 구현하였으며, 데이터베이스에 세션 정보를 저장, 획득, 삭제합니다.
 
-    private final TargetInterface targetInterface;
-
-    public Client(TargetInterface targetInterface) {
-        this.targetInterface = targetInterface;
-    }
-
-    public void requestSomething() {
-        targetInterface.doThing();
-    }
-}
-```
-
-### 1.2. TargetInterface 인터페이스
-- `Client` 인스턴스에게 `doThing` 기능을 제공합니다.
-
-```java
-public interface TargetInterface {
-
-    void doThing();
-}
-```
-
-### 1.3. Adaptee 클래스
-- 신규 기능을 제공하는 클래스입니다.
-- 서드 파티(third party) 라이브러리의 클래스이거나 신규 비즈니스를 위해 만든 클래스일 수 있습니다.
-
-```java
-public class Adaptee {
-
-    public void doNewThing() {
-        System.out.println("do new thing");
-    }
-}
-```
-
-### 1.4. OldTargetImplementation 클래스
-- 현재 운영 중인 코드에서 사용 중인 클래스입니다.
-- 이 클래스가 제공하는 기능을 `Adaptee` 클래스가 제공하는 신규 기능으로 대체합니다.
-
-```java
-public class OldTargetImplementation implements TargetInterface {
-
-    @Override
-    public void doThing() {
-        System.out.println("do old thing");
-    }
-}
-```
-
-### 1.5. 클래스 상속 어댑터 패턴
-
-상속을 통해 문제를 해결합니다. 
-
-#### 1.5.1. Adapter 클래스
-- `TargetInterface` 인터페이스를 구현합니다.
-- `Adaptee` 클래스를 상속합니다.
-- `TargetInterface` 인터페이스에서 오버라이드 한 기능을 부모 클래스의 기능으로 변경합니다.
-
-```java
-public class Adapter extends Adaptee implements TargetInterface {
-
-    @Override
-    public void doThing() {
-        // do new thing by using method from super class
-        super.doNewThing();
-    }
-}
-```
-
-#### 1.5.2. 사용 방법
-- 클라이언트 인스턴스에 이전 클래스 대신 새로운 어댑터 인스턴스를 전달합니다. 
-
-```java
-public class InheritanceUsage {
-
-    public static void main(String[] args) {
-        // Client client = new Client(new OldTargetImplementation());
-        Client client = new Client(new Adapter());
-        client.requestSomething();
-    }
-}
-```
-
-##### 클래스 상속 어댑터 패턴 클래스 다이어그램
+##### 클래스 다이어그램
 
 <p align="center">
     <img src="/images/adapter-pattern-02.JPG" width="80%" class="image__border">
 </p>
 
-### 1.6. 인스턴스 어댑터 패턴
+### 2.1. 기존 레거시 코드 살펴보기
 
-위임(delegating)을 통해 문제를 해결합니다. 
+#### 2.1.1. SessionHandler 클래스
+- 어댑터 패턴에서 클라이언트 역할입니다.
+- `getSession` 메소드 
+    - `SessionRegistry` 구현체를 이용하여 `sessionId`에 해당하는 세션 정보를 가져옵니다.
+    - 세션 정보가 없다면 예외를 발생시킵니다.
+- `putSession` 메소드
+    - `SessionRegistry` 구현체를 이용하여 `sessionId`에 매칭되는 세션 정보를 입력합니다.
+    - 처리 시 예외가 발생하면 이를 한 차례 묶어서 던집니다.
+- `deleteSession` 메소드
+    - `SessionRegistry` 구현체를 이용하여 `sessionId`에 해당하는 세션 정보를 삭제합니다.
+    - 처리 시 예외가 발생하면 이를 한 차례 묶어서 던집니다.
+     
+```java
+package action.in.blog;
 
-#### 1.5.1. Adapter 클래스
-- `TargetInterface` 인터페이스를 구현합니다.
-- `Adaptee` 클래스를 전달받습니다.
-- 오버라이드 한 메소드 내부에서 `Adaptee` 인스턴스에게 일을 위임합니다.
+public class SessionHandler {
+
+    private final SessionRegistry sessionRegistry;
+
+    public SessionHandler(SessionRegistry sessionRegistry) {
+        this.sessionRegistry = sessionRegistry;
+    }
+
+    public Object getSession(String sessionId) {
+        Object session = sessionRegistry.getSession(sessionId);
+        if (session == null) {
+            throw new RuntimeException("session does not exist");
+        }
+        return session;
+    }
+
+    public void putSession(String sessionId, Object session) {
+        try {
+            sessionRegistry.putSession(sessionId, session);
+        } catch (RuntimeException re) {
+            new RuntimeException("error when putting session", re);
+        }
+    }
+
+    public void deleteSession(String sessionId) {
+        try {
+            sessionRegistry.deleteSession(sessionId);
+        } catch (RuntimeException re) {
+            new RuntimeException("error when deleting session", re);
+        }
+    }
+}
+```
+
+#### 2.1.2. SessionRegistry 인터페이스
+- 어댑터 패턴에서 대상 인터페이스 역할입니다.
+- 세션 레지스트리로서 세선을 저장, 삭제, 조회하는 기능을 제공합니다.
 
 ```java
-public class Adapter implements TargetInterface {
+package action.in.blog;
 
-    private final Adaptee adaptee;
+public interface SessionRegistry {
 
-    public Adapter(Adaptee adaptee) {
-        this.adaptee = adaptee;
+    Object getSession(String sessionId);
+
+    void putSession(String sessionId, Object session);
+
+    void deleteSession(String sessionId);
+}
+```
+
+#### 2.1.3. JdbcSessionRegistry 클래스
+- 기존에 사용하는 레거시 코드입니다.
+- 대상 인터페이스를 구현하고 있습니다.
+- 실제 쿼리를 수행하지 않고 로그로 기능을 표현하였습니다.
+
+```java
+package action.in.blog;
+
+public class JdbcSessionRegistry implements SessionRegistry {
+
+    @Override
+    public Object getSession(String sessionId) {
+        System.out.println("select s from tb_session s where session_id = " + sessionId);
+        return new Object();
     }
 
     @Override
-    public void doThing() {
-        // delegate doing new thing to adaptee
-        adaptee.doNewThing();
+    public void putSession(String sessionId, Object session) {
+        System.out.println(
+                " insert into tb_session " +
+                "   (session_id, session) " +
+                " values " +
+                "   (" + sessionId + ", " + session + " )" +
+                " on duplicate key update " +
+                "   session=" + session
+        );
+    }
+
+    @Override
+    public void deleteSession(String sessionId) {
+        System.out.println("delete from tb_session s where session_id = " + sessionId);
     }
 }
 ```
 
-#### 1.5.2. 사용 방법
-- 어댑터 인스턴스에게 어댑티 인스턴스를 전달합니다.
-- 클라이언트 인스턴스에 이전 클래스 대신 새로운 어댑터 인스턴스를 전달합니다. 
+#### 2.1.4. RedisSessionClient 클래스
+- 어댑터 패턴에서 어댑티(adaptee) 역할입니다.
+- 레디스를 이용한 세션 관리 기능을 제공합니다.
+- 실제 기능 대신 로그로 기능을 표현하였습니다.
+- 타 부서에서 클래스 같은 라이브러리 형태로 제공받은 기능이라고 생각하면 이해하는데 도움이 됩니다.
+    - 클래스로 받았으므로 개발자가 직접 수정 불가능합니다.
 
 ```java
-public class DelegateUsage {
+package action.in.blog;
 
-    public static void main(String[] args) {
-        // Client client = new Client(new OldTargetImplementation());
-        Adapter adapter = new Adapter(new Adaptee());
-        Client client = new Client(adapter);
-        client.requestSomething();
+public class RedisSessionClient {
+
+    public Object get(String sessionId) {
+        System.out.println("find session by session_id(" + sessionId + ") from redis");
+        return new Object();
+    }
+
+    public void post(String sessionId, Object session) {
+        System.out.println("post session info(" +
+                session +
+                ") with session_id(" +
+                sessionId +
+                ") into redis");
+    }
+
+    public void delete(String sessionId) {
+        System.out.println("delete session by session_id(" + sessionId + ") from redis");
     }
 }
 ```
 
-##### 인스턴스 어댑터 패턴 클래스 다이어그램
+### 2.2. 어댑터 클래스 만들기
+
+기존 레지스트리를 사용하는 코드를 레디스 클라이언트를 사용할 수 있도록 확장합니다. 
+중간 어댑터 클래스가 우리가 일상 생활에 사용하는 콘센트 어댑터처럼 중간 변환 작업을 수행해줍니다.
+
+#### 2.2.1. 클래스 상속 어댑터 패턴
+
+클래스 상속을 통해 어댑터 패턴을 구현합니다. 
+
+##### 어댑터 클래스
+- 어댑티 클래스를 부모 클래스로 상속받습니다.
+- 대상 인터페이스를 구현합니다.
+- 대상 인터페이스 내부 기능을 부모 클래스의 기능으로 대체합니다. 
+
+```java
+package action.in.blog.inheritance;
+
+import action.in.blog.RedisSessionClient;
+import action.in.blog.SessionRegistry;
+
+public class ClientRegistryAdapter extends RedisSessionClient implements SessionRegistry {
+
+    @Override
+    public Object getSession(String sessionId) {
+        return super.get(sessionId);
+    }
+
+    @Override
+    public void putSession(String sessionId, Object session) {
+        super.post(sessionId, session);
+    }
+
+    @Override
+    public void deleteSession(String sessionId) {
+        super.delete(sessionId);
+    }
+}
+```
+
+##### 코드 사용 위치 변경
+- `SessionHandler` 클래스를 생성하는 코드만 변경합니다.
+    - `JdbcSessionRegistry` 대신 `ClientRegistryAdapter` 인스턴스를 전달힙니다.
+- 레거시 코드 변경은 없습니다. 
+    - `SessionHandler` 클래스 
+    - `SessionRegistry` 인터페이스
+    - `JdbcSessionRegistry` 클래스
+
+```java
+package action.in.blog.inheritance;
+
+import action.in.blog.SessionHandler;
+
+public class InheritanceUsage {
+
+    public static void main(String[] args) {
+
+        // legacy
+        // SessionHandler sessionHandler = new SessionHandler(new JdbcSessionRegistry());
+
+        // new
+        ClientRegistryAdapter adapter = new ClientRegistryAdapter();
+        SessionHandler sessionHandler = new SessionHandler(adapter);
+
+        sessionHandler.getSession("J12345");
+    }
+}
+```
+
+##### 변경된 클래스 다이어그램
 
 <p align="center">
     <img src="/images/adapter-pattern-03.JPG" width="80%" class="image__border">
 </p>
 
-## 2. Adapter pattern in Spring
+#### 2.2.2. 인스턴스 어댑터 패턴
+
+위임을 통해 어댑터 패턴을 구현합니다.
+
+##### 어댑터 클래스
+
+```java
+package action.in.blog.delegate;
+
+import action.in.blog.RedisSessionClient;
+import action.in.blog.SessionRegistry;
+
+public class ClientRegistryAdapter implements SessionRegistry {
+
+    private final RedisSessionClient redisSessionClient;
+
+    public ClientRegistryAdapter(RedisSessionClient redisSessionClient) {
+        this.redisSessionClient = redisSessionClient;
+    }
+
+    @Override
+    public Object getSession(String sessionId) {
+        return redisSessionClient.get(sessionId);
+    }
+
+    @Override
+    public void putSession(String sessionId, Object session) {
+        redisSessionClient.post(sessionId, session);
+    }
+
+    @Override
+    public void deleteSession(String sessionId) {
+        redisSessionClient.delete(sessionId);
+    }
+}
+```
+
+##### 코드 사용 위치 변경
+- `SessionHandler` 클래스를 생성하는 코드만 변경합니다.
+    - `ClientRegistryAdapter`에게 `RedisSessionClient` 인스턴스를 전달합니다.
+    - `JdbcSessionRegistry` 대신 `ClientRegistryAdapter` 인스턴스를 전달힙니다.
+- 레거시 코드 변경은 없습니다. 
+    - `SessionHandler` 클래스 
+    - `SessionRegistry` 인터페이스
+    - `JdbcSessionRegistry` 클래스
+
+```java
+package action.in.blog.delegate;
+
+import action.in.blog.RedisSessionClient;
+import action.in.blog.SessionHandler;
+
+public class DelegateUsage {
+
+    public static void main(String[] args) {
+
+        // legacy
+        // SessionHandler sessionHandler = new SessionHandler(new JdbcSessionRegistry());
+
+        // new
+        RedisSessionClient adaptee = new RedisSessionClient();
+        ClientRegistryAdapter adapter = new ClientRegistryAdapter(adaptee);
+        SessionHandler sessionHandler = new SessionHandler(adapter);
+
+        sessionHandler.getSession("J12345");
+    }
+}
+```
+
+##### 변경된 클래스 다이어그램
+
+<p align="center">
+    <img src="/images/adapter-pattern-04.JPG" width="80%" class="image__border">
+</p>
+
+## 3. Adapter pattern in Spring
 
 `Spring` 프레임워크에서 어댑터 패턴이 적용된 케이스를 찾아보았습니다. 
 
-### 2.1. GsonBuilderUtils 클래스
+### 3.1. GsonBuilderUtils 클래스
 - 클래스 내부에 `Base64TypeAdapter`가 존재합니다.
 - 클라이언트는 `Gson` 클래스입니다.
     - `GsonBuilder` 클래스는 `Gson` 객체를 만들 때 바이트 배열 (역)직렬화를 위한 어댑터를 주입할 것으로 예상됩니다.
@@ -245,7 +406,7 @@ public abstract class GsonBuilderUtils {
 }
 ```
 
-### 2.2. RsaKeyConversionServicePostProcessor 클래스
+### 3.2. RsaKeyConversionServicePostProcessor 클래스
 - 내부적으로 두 개의 어댑터가 사용됩니다.
 - `ResourceKeyConverterAdapter` 클래스
     - 클라이언트는 프레임워크 내부에서 `convet` 메소드를 호출하는 클래스입니다.

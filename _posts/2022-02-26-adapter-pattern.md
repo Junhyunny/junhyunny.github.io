@@ -25,8 +25,8 @@ last_modified_at: 2022-02-26T23:55:00
 `GoF 디자인 패턴` 책을 읽다보면 위에 설명처럼 이해하기 난해한 문장이 많습니다. 
 다른 분들은 이해하셨을지 모르겠지만, 저에겐 다소 어려운 느낌입니다. 
 `GoF 디자인 패턴`과 다른 레퍼런스(reference)들을 읽고, 제가 이해할 수 있도록 리워딩(rewording)하였습니다. 
-- 기존 클래스를 대신할 새로운 기능의 클래스를 사용하기 위한 디자인 패턴입니다. 
 - 어댑터 패턴은 인터페이스를 통한 다형성(polymorphism)을 이용한 패턴입니다.
+- 기존 클래스를 대신할 새로운 기능의 클래스를 사용하기 위한 디자인 패턴입니다. 
 - 어댑터 패턴은 두 가지 방법을 통해 운영 중인 코드를 최소한의 부담으로 변경할 수 있도록 도움을 줍니다.
     - 새로운 기능을 제공하는 클래스를 상속하여 인터페이스 구현 메소드 내부에서 부모의 메소드 호출
     - 새로운 기능을 제공하는 인스턴스에게 일을 위임하여 인터페이스 구현 메소드 내부에서 인스턴스 메소드 호출
@@ -58,13 +58,13 @@ last_modified_at: 2022-02-26T23:55:00
 - 현재 사용자 세션 정보를 데이터베이스에 저장하고 있습니다.
 - 속도 개선을 위해 레디스(redis) 같은 캐시 서비스를 사용하고 싶습니다.
 - 운영하는 세션 관리 코드를 큰 변경 없이 새로운 기능으로 대체하고 싶습니다.
-- SessionHandler 클래스
+- `SessionHandler` 클래스
     - 어댑터 패턴에서 클라이언트 클래스 역할을 수행합니다.
     - 어플리케이션은 `SessionHandler` 클래스를 통해 사용자 세션 정보를 저장, 획득, 삭제합니다.
-- SessionRegistry 인터페이스
+- `SessionRegistry` 인터페이스
     - 어댑터 패턴에서 대상 인터페이스 역할을 수행합니다.
     - `SessionHandler` 클래스는 `SessionRegistry` 구현체를 통해 세션 정보를 저장, 획득, 삭제합니다. 
-- JdbcSessionRegistry 클래스
+- `JdbcSessionRegistry` 클래스
     - 어댑터 패턴에서 레거시 기능을 제공하는 클래스입니다. 
     - `SessionRegistry` 인터페이스를 구현하였으며, 데이터베이스에 세션 정보를 저장, 획득, 삭제합니다.
 
@@ -550,6 +550,7 @@ public class RsaKeyConversionServicePostProcessor implements BeanFactoryPostProc
 
 #### REFERENCE
 - [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
+- <https://stackoverflow.com/questions/1673841/examples-of-gof-design-patterns-in-javas-core-libraries/2707195#2707195>
 - <https://zion830.tistory.com/44>
 - <https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/>
 

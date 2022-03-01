@@ -9,11 +9,6 @@ last_modified_at: 2022-03-01T23:55:00
 
 <br>
 
-## 0. 들어가면서
-
-`Spring Security` 프레임워크 관련된 내용을 정리하면서 `-Strategy` 접미사가 붙은 클래스를 보았습니다. 
-전략 패턴을 언제쯤 정리해볼까 고민하던 중이었는데, 포스트를 작성할 좋은 계기가 되었습니다. 
-
 ## 1. 전략 패턴(Strategy Pattern)
 
 > Design Patterns: Elements of Reusable Object Oriented Software<br>

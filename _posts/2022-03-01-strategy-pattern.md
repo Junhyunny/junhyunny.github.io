@@ -33,7 +33,7 @@ last_modified_at: 2022-03-01T23:55:00
     - 각자 고유한 전략을 구현한 클래스들입니다. 
 
 <p align="center">
-    <img src="/images/adapter-pattern-01.JPG" width="50%" class="image__border">
+    <img src="/images/strategy-pattern-01.JPG" width="50%" class="image__border">
 </p>
 <center>https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/</center>
 
@@ -204,7 +204,7 @@ public class GameCharacter {
 ##### 변경된 클래스 다이어그램
 
 <p align="center">
-    <img src="/images/adapter-pattern-02.JPG" width="80%" class="image__border">
+    <img src="/images/strategy-pattern-02.JPG" width="80%" class="image__border">
 </p>
 
 ### 2.4. 캐릭터 클래스 사용하기

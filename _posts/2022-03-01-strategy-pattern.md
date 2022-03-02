@@ -35,7 +35,7 @@ last_modified_at: 2022-03-01T23:55:00
 <p align="center">
     <img src="/images/strategy-pattern-01.JPG" width="50%" class="image__border">
 </p>
-<center>https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/</center>
+<center>https://copynull.tistory.com/125</center>
 
 ## 2. 전략 패턴 적용하기
 

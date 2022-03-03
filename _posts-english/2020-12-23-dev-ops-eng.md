@@ -8,17 +8,21 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br>
 
-## 0. 들어가면서
+## 0. Intro
 
-> 개발과 운영이 분리되면서 오는 문제점을 해결하기 위해서 개발과 운영을 하나의 조직으로 합쳐서 팀을 운영하는 문화이자 방법론이다.
+> It is culture and methodology 
+> that combines development and system operation into a single organization to solve the problems 
+> that arise when the development and system operation are seperated.
 
-DevOps 관련된 글 중에 [조대협님의 블로그::개발과 운영의 조화][blog-link] 포스트에 공감되는 부분이 많아 이를 참고하여 저의 경험을 글로 써보았습니다.
- 
-신규 시스템 개발 프로젝트의 주니어 개발자로 입사하여 현재는 프로젝트가 마무리되고 운영팀으로 전환된 상태입니다. 
-개발 초기에는 기존 시스템 운영팀이 별도로 존재하였고 개발팀과 서로 교류는 없었습니다.
-프로젝트 중간 단계에서 운영팀의 비즈니스 노하우를 토대로 현재 운영되는 시스템과 신규 시스템의 간극을 좁히기 위한 협업을 수행하였습니다.
-막바지에 이르러서는 가동 전 테스트, 시스템 가동, 안정화 과정을 운영팀과 함께 헤쳐나가면서 2년 6개월간의 긴 여정을 좋은 결과로 마무리하였습니다. 
-이전엔 공감되지 않았던 DevOps라는 단어가 프로젝트 마무리 단계서부터 저에게 대단히 크게 공감되었습니다.
+I wrote this post based on my experience after reading reference to [조대협님의 블로그::개발과 운영의 조화][blog-link] that I can relate to, among the articles related to `DevOps`. 
+
+I joined as a junior for a project for new system, and now the project has been completed. 
+The development team was converted into the system operation team and I have been used to operate MES(Manufacture Execution System).
+
+In the early stage of the development project, the system operation team for the legacy and the development team where I was in didn't have communication with each other. 
+We collaborated together to narrow the gap between the legacy and the new system based on the business know-how of the operation team in the middle stage of the project. 
+At the end of the project, we had made good results for the long journey which is for two-year and six-month  that we had performed the pre-operational testing, the operation and stabilization system. 
+I could relate to `DevOps` that I did not empathize with before at the end of the project.
 
 > 엔지니어가 프로그래밍하고, 빌드하고, 직접 시스템에 배포 및 서비스를 RUN한다.<br>
 > 그리고 사용자와 끊임없이 interaction 하면서 서비스를 개선해 나가는 일련의 과정이자 문화이다.

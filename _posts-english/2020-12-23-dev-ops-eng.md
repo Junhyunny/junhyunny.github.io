@@ -24,8 +24,8 @@ We collaborated together to narrow the gap between the legacy and the new system
 At the end of the project, we had made good results for the long journey which is for two-year and six-month  that we had performed the pre-operational testing, the operation and stabilization system. 
 I could relate to `DevOps` that I did not empathize with before at the end of the project.
 
-> 엔지니어가 프로그래밍하고, 빌드하고, 직접 시스템에 배포 및 서비스를 RUN한다.<br>
-> 그리고 사용자와 끊임없이 interaction 하면서 서비스를 개선해 나가는 일련의 과정이자 문화이다.
+> Engineers write codes, build, deploy and run services on the system by themselves.<br>
+> And it is the process and culture to improve services while constantly interacting with users.
 
 프로젝트 중간 단계로 접어들면서 운영팀과 함께 협업하는 시점에 저는 오만한 생각을 하고 있었습니다. 
 신규 아키텍처, 새로운 기술들에 익숙해진 저는 기술 수준이 이전 시스템에 머물러 있는 운영 요원들의 능력이 수준 낮다고 생각했었습니다. 

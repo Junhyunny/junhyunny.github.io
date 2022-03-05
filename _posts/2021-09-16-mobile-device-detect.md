@@ -367,7 +367,7 @@ public class MobileController {
 
 #### 2.6.1. /pc 경로 index.jsp 파일
 
-```jsp
+```jsxp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -385,7 +385,7 @@ public class MobileController {
 
 #### 2.6.2. /mobile 경로 index.jsp 파일
 
-```jsp
+```jsxp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

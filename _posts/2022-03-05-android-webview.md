@@ -8,8 +8,8 @@ last_modified_at: 2022-03-05T23:55:00
 
 <br>
 
-👉 이어서 읽기를 추천합니다.
-- [Android Webview - React 통신][android-webview-react-communication-link]
+<!-- 👉 이어서 읽기를 추천합니다.
+- [Android Webview - React 통신][android-webview-react-communication-link] -->
 
 ## 0. 들어가면서
 
@@ -72,11 +72,6 @@ last_modified_at: 2022-03-05T23:55:00
 - HTTP 호출 시 안드로이드 OS 9 Pie 버전부터 추가적인 설정이 필요합니다.
     - `application` 태그 `android:usesCleartextTraffic="true"` 설정
 
-> [Android Developer Center - Opt out of cleartext traffic][cleartext-traffic-link]<br>
-> Applications intending to connect to destinations using only secure connections 
-> can opt-out of supporting cleartext 
-> (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. 
-
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -108,6 +103,14 @@ last_modified_at: 2022-03-05T23:55:00
 
 </manifest>
 ```
+
+###### Android for Developers - Network security configuration
+- `usesCleartextTraffic` 설정 관련된 내용입니다.
+
+> [Opt out of cleartext traffic][cleartext-traffic-link]<br>
+> Applications intending to connect to destinations using only secure connections 
+> can opt-out of supporting cleartext 
+> (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. 
 
 ## 3. 레아이웃 설정
 
@@ -269,15 +272,17 @@ public class FirstFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
+            LayoutInflater inflater,
+            ViewGroup container,
             Bundle savedInstanceState
     ) {
+
         binding = FragmentFirstBinding.inflate(inflater, container, false);
+
         webView = binding.wView;
+
         progressBar = binding.pBar;
         progressBar.setVisibility(View.GONE);
-
-        initWebView();
 
         urlEditText = binding.urlEt;
         urlEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
@@ -286,6 +291,8 @@ public class FirstFragment extends Fragment {
             }
             return false;
         });
+
+        initWebView();
 
         return binding.getRoot();
     }
@@ -321,7 +328,7 @@ public class FirstFragment extends Fragment {
 ## 5. 안드로이드 에뮬레이터 테스트
 
 <p align="left">
-    <img src="/images/android-webview-1.gif" width="50%" class="image__border">
+    <img src="/images/android-webview-1.gif" width="25%" class="image__border">
 </p>
 
 ##### CLOSING
@@ -334,6 +341,6 @@ public class FirstFragment extends Fragment {
 #### REFERENCE
 - <https://jhshjs.tistory.com/57>
 
-[android-webview-react-communication-link]: 
+<!-- [android-webview-react-communication-link]:  -->
 
 [cleartext-traffic-link]: https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted

@@ -340,6 +340,6 @@ public class FirstFragment extends Fragment {
 #### REFERENCE
 - <https://jhshjs.tistory.com/57>
 
-[react-android-webview-communication]: https://junhyunny.github.io/react/android/react-android-webview-communication/
+[react-android-webview-communication-link]: https://junhyunny.github.io/react/android/react-android-webview-communication/
 
 [cleartext-traffic-link]: https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted

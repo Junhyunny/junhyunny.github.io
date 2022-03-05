@@ -63,7 +63,7 @@ last_modified_at: 2021-12-23T23:55:00
     - `spyAuthenticationModule` 스파이를 이용해 원하는 `액션 크리에이터`가 적절한 파라미터로 수행되었는지 확인합니다.
     - 기타 부수적으로 화면에서 데이터가 삭제되었는지 확인합니다.
 
-```react
+```jsx
 import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from "@testing-library/user-event";
 
@@ -124,7 +124,7 @@ describe('test login', () => {
 
 ### 2.2. 구현 코드
 
-```react
+```jsx
 import classes from './Login.module.css';
 import {useState} from "react";
 import {useNavigate} from "react-router";
@@ -223,7 +223,7 @@ export default Login;
 - assert 단계
     - `dispatch` 스파이가 적절한 `액션 크리에이터`를 디스패치했는지 확인합니다. 
 
-```react
+```jsx
 import AuthenticationClient from "../utils/AuthenticationClient";
 import * as authentication from "./authentication";
 
@@ -259,7 +259,7 @@ describe('test groups container', () => {
 
 ### 3.2. 구현 코드
 
-```react
+```jsx
 import AuthenticationClient from "../utils/AuthenticationClient";
 
 const AUTHENTICATION_SUCCESS = 'authentication/AUTHENTICATION_SUCCESS';

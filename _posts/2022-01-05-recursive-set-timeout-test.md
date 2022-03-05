@@ -33,7 +33,7 @@ last_modified_at: 2022-01-04T23:55:00
 ### 1.1. 구현 코드
 - 해당 폴링 코드는 실제 브라우저에서 의도한대로 동작합니다.
 
-```react
+```jsx
 import axios from 'axios';
 
 const polling = (callback, path, config, interval) => {
@@ -58,7 +58,7 @@ const polling = (callback, path, config, interval) => {
     - 결과를 확인합니다.
 - `callback` 스파이가 6회 수행되었길 기대하지만, 1회 수행되었다는 결과를 얻게 됩니다.
 
-```react
+```jsx
     it('given 1 second interval with 6 seconds waiting when call polling method then 6 times call', async () => {
 
         jest.useFakeTimers();
@@ -188,7 +188,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 ##### 테스트 코드
 - 로그 흐름 - `5 > 1 > 2 > 2 > ... > 6 > 2 > 2 > ... 종료`
 
-```react
+```jsx
     it('given timeout 1 second with 6 seconds when call polling method then 6 times call', async () => {
 
         jest.useFakeTimers();
@@ -214,7 +214,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 
 ##### 구현 코드
 
-```react
+```jsx
 import axios from 'axios';
 
 const polling = (callback, path, config, interval) => {
@@ -269,7 +269,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 ##### 테스트 코드
 - 로그 흐름 - `3 > 1 > 4 > 2 > ... > 3 > 1 > 4 > 2 종료`
 
-```react
+```jsx
     it('PoC Message queues, PromiseJobs and Mock Timers', async () => {
 
         jest.useFakeTimers();
@@ -292,7 +292,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 
 ##### 구현 코드
 
-```react
+```jsx
 const pocPolling = (callback, path, config, interval) => {
     setTimeout(async () => {
         try {
@@ -320,7 +320,7 @@ const pocPolling = (callback, path, config, interval) => {
 ##### 테스트 코드
 - 로그 흐름 - `5 > 1 > 2 > 3 > 6 > 4 > ... > 5 > 1 > 2 > 3 > 6 > 4 종료`
 
-```react
+```jsx
     it('guess something two wierd promises are made by axios.get method mocking', async () => {
 
         jest.useFakeTimers();
@@ -355,7 +355,7 @@ const pocPolling = (callback, path, config, interval) => {
 - `setTimeout()`함수를 이용해 7초 뒤에 결과를 확인합니다. 
 - `done()` 함수를 이용해 비동기 테스트가 끝났음을 알립니다. 
 
-```react
+```jsx
 import axios from 'axios';
 import { polling } from '../src/poll';
 import { waitFor } from '@testing-library/react';
@@ -401,7 +401,7 @@ it('given 1 second interval with 6 seconds waiting when call polling method then
 - polling - 전달받은 함수를 `interval` 간격으로 지속적으로 실행
 - checkSecondAuthentication - 서버에게 2차 인증이 되었는지 확인하는 함수
 
-```react
+```jsx
 import axios from 'axios';
 
 const polling = (func, interval) => {

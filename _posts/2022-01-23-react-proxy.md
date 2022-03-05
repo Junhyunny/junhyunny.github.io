@@ -74,7 +74,7 @@ CORS 정책 위반 문제를 정석으로 해결하려면 백엔드 서비스 �
 - nonProxy 버튼 - `localhost:3000` 리액트 어플리케이션으로 요청하고, 경로에 따른 프록시 설정을 하지 않습니다. 
 - proxy 버튼 - `localhost:3000` 리액트 어플리케이션으로 요청하고, 경로에 따른 프록시 설정을 수행합니다. 
 
-```react
+```jsx
 import './App.css';
 import {useState} from "react";
 import axios from "axios";

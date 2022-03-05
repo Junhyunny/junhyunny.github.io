@@ -42,7 +42,7 @@ last_modified_at: 2021-12-18T23:55:00
 - 5ms 시간 간격으로 함수 호출을 100회 실행합니다.
 - 100ms 시간 간격으로 실행하기 때문에 5회만 호출되었는지 스파이(spy)를 통해 확인합니다.
 
-```react
+```jsx
 import throttle from "./throttle";
 
 describe('throttle test', () => {
@@ -68,7 +68,7 @@ describe('throttle test', () => {
 
 #### 2.2. throttle 모듈
 
-```react
+```jsx
 export default (func, timeout) => {
     let wait = false;
     return (...args) => {
@@ -92,7 +92,7 @@ export default (func, timeout) => {
 - `throttledEvent`는 100ms 주기로 이벤트를 실행합니다.
 - 생성한 두 개의 스크롤 이벤트를 등록합니다.
 
-```react
+```jsx
 import {useCallback, useEffect, useState} from "react";
 import classes from './App.module.css';
 import throttle from "./utils/throttle";

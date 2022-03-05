@@ -63,7 +63,7 @@ last_modified_at: 2021-12-19T23:55:00
 
 ### 1.1. 구현 코드
 
-```react
+```jsx
 import axios from "axios";
 
 const authenticate = async (params) => {
@@ -106,7 +106,7 @@ export default {
 - `get false as a result when fail authentication` 테스트
     - axios 요청이 실패한 경우 결과 값이 `true`인지 확인합니다.
 
-```react
+```jsx
 import axios from "axios";
 import AuthenticationClient from "./AuthenticationClient";
 
@@ -199,7 +199,7 @@ describe('test authentication client', () => {
 
 ### 2.1. 구현 코드
 
-```react
+```jsx
 import {useContext, useState} from "react";
 import AuthenticationClient from "../../utils/AuthenticationClient";
 import {useNavigate} from "react-router";
@@ -271,7 +271,7 @@ export default Login;
     - 입력 값을 넣고 `Submit` 버튼을 누르면 원하는 파라미터로 인증 요청이 되는지 확인합니다.
     - 화면에 입력한 값들이 사라지는지 확인합니다.
 
-```react
+```jsx
 import {render, screen, waitFor} from '@testing-library/react';
 import Login from "./Login";
 import userEvent from "@testing-library/user-event";
@@ -356,7 +356,7 @@ describe('test login', () => {
 
 #### 3.1.1. AuthenticationContext.js
 
-```react
+```jsx
 import React from "react";
 
 const AuthenticationContext = React.createContext({
@@ -369,7 +369,7 @@ export default AuthenticationContext;
 
 #### 3.1.2. AuthenticateProvider.js
 
-```react
+```jsx
 import AuthenticationContext from "./AuthenticationContext";
 import {useReducer} from "react";
 
@@ -421,7 +421,7 @@ export default AuthenticateProvider;
 - `re-render component when context change` 테스트
     - Context 정보가 바뀌는 경우 다시 렌더링을 수행하는지 확인합니다.
 
-```react
+```jsx
 import AuthenticateProvider from "./AuthenticationProvider";
 import {render, screen} from "@testing-library/react";
 import App from "../App";
@@ -491,7 +491,7 @@ describe('test authentication provider', () => {
 
 #### 4.1.1. index.js
 
-```react
+```jsx
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -516,7 +516,7 @@ reportWebVitals();
 
 #### 4.1.2. App.js
 
-```react
+```jsx
 import Login from "./components/Login/Login";
 import {Navigate, Route, Routes} from "react-router-dom";
 import TodoList from "./components/Todo/TodoList";
@@ -549,7 +549,7 @@ export default App;
 - `route to login page when have been authenticated` 테스트
     - '/todo' 경로로 접근한 사용자가 로그인 처리 후 다시 '/todo' 경로로 변경되는지 확인합니다.
 
-```react
+```jsx
 import {render, screen, waitFor} from '@testing-library/react';
 import App from './App';
 import {MemoryRouter} from "react-router";

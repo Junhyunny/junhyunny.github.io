@@ -41,7 +41,7 @@ last_modified_at: 2021-12-18T23:55:00
 #### 2.1.1. element rendering 테스트
 - 컴포넌트 렌더링 후 화면에 element들이 존재하는지 확인합니다.
 
-```react
+```jsx
     describe('test rendering elements', () => {
 
         it('exists input box for search and message when rendered', () => {
@@ -60,7 +60,7 @@ last_modified_at: 2021-12-18T23:55:00
 - 입력창에 검색 키워드 입력 후 적절한 파라미터와 함께 `axios` 호출이 1회 있었는지 확인합니다.
 - 화면에 보이는 문구가 변경되었는지 확인합니다.
 
-```react
+```jsx
     describe('test user interaction', () => {
 
         it('call axios get method one time when typed some keyword', () => {
@@ -91,7 +91,7 @@ last_modified_at: 2021-12-18T23:55:00
 
 #### 2.2.1. Debounce 처리
 
-```react
+```jsx
     const debounce = (func, timeout) => {
         let timer;
         return (...args) => {
@@ -108,7 +108,7 @@ last_modified_at: 2021-12-18T23:55:00
 
 ### 2.2.2. 전체 코드
 
-```react
+```jsx
 import {useCallback, useState} from "react";
 import axios from "axios";
 import classes from './App.module.css';
@@ -174,7 +174,7 @@ export default App;
 - 디바운스 코드로 약간의 딜레이가 있지만, 디바운스 처리를 하지 않은 것과 동일한 결과를 얻게 됩니다. 
 - useCallback 훅을 통해 해당 컴포넌트에서 최초 1번만 생성되도록 구현합니다. 
 
-```react
+```jsx
 
     // const deboundHandler = useCallback(debounce(searchKeyword, 500), []);
     const deboundHandler = debounce(searchKeyword, 500);

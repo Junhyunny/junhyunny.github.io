@@ -8,8 +8,8 @@ last_modified_at: 2022-03-05T23:55:00
 
 <br>
 
-<!-- 👉 이어서 읽기를 추천합니다.
-- [React 서비스와 Android Webview 통신][android-webview-react-communication-link] -->
+👉 이어서 읽기를 추천합니다.
+- [React 서비스와 Android Webview 통신][react-android-webview-communication-link]
 
 ## 0. 들어가면서
 
@@ -340,6 +340,6 @@ public class FirstFragment extends Fragment {
 #### REFERENCE
 - <https://jhshjs.tistory.com/57>
 
-<!-- [android-webview-react-communication-link]:  -->
+[react-android-webview-communication]: https://junhyunny.github.io/react/android/react-android-webview-communication/
 
 [cleartext-traffic-link]: https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted

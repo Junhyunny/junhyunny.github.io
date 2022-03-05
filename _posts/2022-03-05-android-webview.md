@@ -280,11 +280,11 @@ public class FirstFragment extends Fragment {
         binding = FragmentFirstBinding.inflate(inflater, container, false);
 
         webView = binding.wView;
-
         progressBar = binding.pBar;
+        urlEditText = binding.urlEt;
+
         progressBar.setVisibility(View.GONE);
 
-        urlEditText = binding.urlEt;
         urlEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_NEXT) {
                 webView.loadUrl("https://" + urlEditText.getText().toString());
@@ -333,7 +333,7 @@ public class FirstFragment extends Fragment {
 
 ##### CLOSING
 
-안드로이드 개발자가 아니기 때문에 틀린 설명이나 잘못된 개념을 설명 중이라면 댓글로 알려주시면 감사하겠습니다. 
+안드로이드 개발자가 아니기 때문에 잘못된 설명을 하고 있다면 댓글로 알려주시길 부탁드립니다. 감사하겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-05-android-webview-communication>

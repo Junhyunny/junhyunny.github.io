@@ -22,7 +22,7 @@ last_modified_at: 2022-03-05T23:55:00
 ## 1. 안드로이드 웹 뷰
 
 리액트 서비스와 안드로이드 웹 뷰의 통신을 이해하기 위해선 둘 사이의 관계를 파악할 필요가 있습니다. 
-웹 뷰는 안드로이드에겐 하나의 뷰(vie)이지만, HTML 문서 입장에서 자신을 렌더링해주는 브라우저입니다. 
+웹 뷰는 안드로이드에겐 하나의 뷰(view)이지만, HTML 문서 입장에서 자신을 렌더링해주는 브라우저입니다. 
 웹 뷰가 리액트 서비스로 요청을 보내면 HTML 문서를 응답으로 받습니다. 
 - 웹 뷰는 전달받은 HTML 문서를 렌더링합니다.
 - 웹 뷰는 리액트 서비스로부터 전달받은 HTML 문서에서 호출할 수 있는 네이티브 함수를 제공할 수 있습니다.
@@ -39,7 +39,7 @@ last_modified_at: 2022-03-05T23:55:00
 
 ##### 안드로이드 웹 뷰와 HTML 문서 통신
 - 웹 뷰 인스턴스에게 렌더링 중인 HTML 문서에게 네이티브 메소드를 호출할 수 있는 인터페이스를 제공합니다.
-- 웹 뷰 인스턴스는 자신의 메소드를 이용하여 `JavaScript` 코드를 실행할 수 있습니다.
+- 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메소드를 통해 `JavaScript` 코드를 실행할 수 있습니다.
 
 <p align="center">
     <img src="/images/react-android-webview-communication-2.JPG" width="55%" class="image__border">
@@ -58,7 +58,6 @@ last_modified_at: 2022-03-05T23:55:00
     - 5초 뒤 `JavaScript` 코드를 이용해 커스텀 이벤트(CustomEvent)를 발행합니다.
     - 커스텀 이벤트의 이름은 `"javascriptFunction"` 입니다.
     - 발행한 이벤트를 이용해 리액트 서비스의 상태를 변경합니다.
-    - [Mozilla - CustomEvent][mozilla-custom-event-link]
 
 ```java
 package com.example.myapplication.web;
@@ -252,6 +251,7 @@ export default App
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-05-android-webview-communication>
 
 #### REFERENCE
+- <https://developer.mozilla.org/ko/docs/Web/API/CustomEvent/CustomEvent>
 - <https://programmer-eun.tistory.com/54>
 
 [android-webview-link]: https://junhyunny.github.io/android/android-webview/

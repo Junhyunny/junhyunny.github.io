@@ -60,7 +60,23 @@ Done. Now run:
 ## 2. 테스트 환경 만들기
 
 ### 2.1. 필요한 라이브러리 설치
-- 
+- 다음과 같은 라이브러리를 설치합니다.
+    - @babel/preset-env 
+        - 타겟 환경에 필요한 구문 변환, 브라우저 폴리필(polyfill)을 제공합니다.
+    - @babel/preset-react 
+        - `JSX`로 작성된 코드들을 `createElement` 함수를 이용한 코드로 변환합니다.
+    - @babel/plugin-transform-runtime 
+        - 바벨이 트랜스파일링하는 과정에서 폴리필이 필요한 부분을 내부 헬퍼 함수로 치환해줍니다.
+    - @testing-library/jest-dom 
+        - `Jest`를 위한 DOM 요소 매쳐(matcher)들을 제공합니다.
+    - @testing-library/react 
+        - 리액트를 위한 테스트 라이브러리입니다.
+    - @testing-library/user-event 
+        - 사용자의 이벤트를 발생시킬 수 있는 라이브러리입니다.
+    - identity-obj-proxy 
+        - 임포트(import)한 CSS 모듈 등을 목(mock) 데이터로 사용할 수 있게 도와주는 라이브러리입니다.
+    - jest 
+        - 테스트 프레임워크입니다.
 
 ``` 
 $ npm install -D @babel/preset-env @babel/preset-react @babel/plugin-transform-runtime @testing-library/jest-dom @testing-library/react @testing-library/user-event identity-obj-proxy jest 
@@ -75,6 +91,9 @@ found 0 vulnerabilities
 ```
 
 ### 2.2. .babelrc 파일
+- 다음과 같은 설정을 추가합니다.
+- presets - 목적에 맞게 여러 개의 플러그인들을 모아놓은 프리셋들을 추가합니다.
+- plugins - 실제 변환 작업을 처리하는 플러그인들을 추가합니다.
 
 ```json
 {
@@ -98,6 +117,17 @@ found 0 vulnerabilities
 ```
 
 ### 2.3. jest.config.js 파일
+- 다른 속성들은 <https://jestjs.io/docs/configuration> 링크를 참조바랍니다. 
+- `testEnvironment`
+    - 테스트 환경을 지정합니다. 기본 값은 `"node"` 입니다.
+- `moduleNameMapper`
+    - 이미지, 스타일 같은 리소스들에 대한 스터빙(stubbing)을 처리할 모듈을 지정합니다.
+- `setupFilesAfterEnv`
+    - 테스트 코드가 실행되기 전에 테스팅 프레임워크 설정을 위한 코드를 수행시킬 모듈의 경로를 지정합니다.
+- `testMatch`
+    - 테스트 대상 파일들의 경로들을 지정합니다.
+- `transformIgnorePatterns`
+    - 변환 대상이 아닌 경로들을 지정합니다.
 
 ```js
 module.exports = {
@@ -127,7 +157,7 @@ module.exports = 'test-file-stub'
 ### 3. 테스트 코드 실행
 
 ##### 테스트 코드
-- `/src/App.test.jsx` 경로로 파일 생성
+- `/src/App.test.jsx` 경로에 테스트 파일을 추가합니다.
 
 ```jsx
 import { render, screen, waitFor } from '@testing-library/react'
@@ -156,7 +186,7 @@ describe('App', () => {
 ##### 테스트 결과
 
 <p align="left">
-    <img src="/images/react-test-environment-1.JPG" width="35%" class="image__border">
+    <img src="/images/react-test-environment-1.JPG" width="50%" class="image__border">
 </p>
 
 
@@ -457,7 +487,7 @@ ReferenceError: React is not defined
 ```
 
 ##### 해결 방법
-- `async-await` 키워드를 해석하기 위한  
+- `async-await` 키워드를 해석하기 위한 `regenerator`를 제공하지 않아서 발생합니다.
 - `.babelrc` 파일에 `@babel/plugin-transform-runtime`을 플러그인에 추가합니다. 
 
 ```json
@@ -487,8 +517,10 @@ ReferenceError: React is not defined
 #### REFERENCE
 - [Native ESM(ECMAScript Module)][esm-link]
 - [React 테스트 환경 구축하기][react-test-environment-link]
-- [regeneratorRuntime is not defined 에러 해결][regenerator-runtime-error-link]
+- [React regeneratorRuntime is not defined 에러 해결][regenerator-runtime-error-link]
+- <https://stackoverflow.com/questions/50726141/symbol-is-not-a-function-react-enzyme-i18n-error>
 - <https://jestjs.io/docs/webpack>
+- <https://jestjs.io/docs/configuration>
 - <https://github.com/facebook/jest/issues/9395>
 
 [babel-link]: https://junhyunny.github.io/information/babel/

@@ -487,7 +487,7 @@ ReferenceError: React is not defined
 ```
 
 ##### 해결 방법
-- `async-await` 키워드를 해석하기 위한 `regenerator`를 제공하지 않아서 발생합니다.
+- `async/await` 문법을 해석하기 위한 `regenerator`를 제공하지 않아서 발생합니다.
 - `.babelrc` 파일에 `@babel/plugin-transform-runtime`을 플러그인에 추가합니다. 
 
 ```json

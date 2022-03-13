@@ -1,0 +1,498 @@
+---
+title: "Test Environment in React by using Vite"
+search: false
+category:
+  - react
+  - vite
+  - jest
+last_modified_at: 2022-03-13T23:55:00
+---
+
+<br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Babel][babel-link]
+
+## 0. 들어가면서
+
+`CRA(Create React App)`을 사용하면 테스트 코드를 작성할 수 있는 환경을 함께 만들어줍니다. 
+[Native ESM(ECMAScript Module)][esm-link]을 사용하여 빌드가 빠르다는 `Vite`로 리액트 프로젝트를 만들면 기본적인 테스트 코드를 위한 환경이 잡혀있지 않습니다. 
+토이 프로젝트를 `Vite`로 시작해보려고 했는데, 테스트 코드를 위한 환경부터 만들어야 했습니다. 
+나중에 참고할 겸 간단하게 블로그에 정리하였습니다. 
+
+## 1. 리액트 프로젝트 만들기
+
+##### 프로젝트 생성
+- 터미널에서 간단한 명령어를 통해 프로젝트를 생성할 수 있습니다.
+
+```
+$ npm create vite@latest web-crawler
+✔ Select a framework: › react
+✔ Select a variant: › react
+
+Scaffolding project in /Users/junhyunk/Desktop/workspace/toy-projects/web-crawler...
+
+Done. Now run:
+
+  cd web-crawler
+  npm install
+  npm run dev
+```
+
+##### 패키지 구조
+- 프로젝트가 생성되면 기본적으로 생기는 패키지 구조입니다.
+
+```
+./
+├── index.html
+├── package-lock.json
+├── package.json
+├── src
+│   ├── App.css
+│   ├── App.jsx
+│   ├── favicon.svg
+│   ├── index.css
+│   ├── logo.svg
+│   └── main.jsx
+└── vite.config.js
+```
+
+## 2. 테스트 환경 만들기
+
+### 2.1. 필요한 라이브러리 설치
+- 
+
+``` 
+$ npm install -D @babel/preset-env @babel/preset-react @babel/plugin-transform-runtime @testing-library/jest-dom @testing-library/react @testing-library/user-event identity-obj-proxy jest 
+npm WARN deprecated source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
+
+added 610 packages, and audited 611 packages in 13s
+
+33 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+
+### 2.2. .babelrc 파일
+
+```json
+{
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
+          }
+        ]
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime"
+      ]
+    }
+  }
+}
+```
+
+### 2.3. jest.config.js 파일
+
+```js
+module.exports = {
+    testEnvironment: 'jsdom',
+    moduleNameMapper: {
+        '\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js',
+        '\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy',
+    },
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    testMatch: ['<rootDir>/**/*.test.(js|jsx|ts|tsx)'],
+    transformIgnorePatterns: ['<rootDir>/node_modules/', 'dist', 'build'],
+}
+```
+
+### 2.4. jest.setup.js 파일
+
+```js
+import '@testing-library/jest-dom'
+```
+
+### 2.5. fileMock.js 파일
+
+```js
+module.exports = 'test-file-stub'
+```
+
+### 3. 테스트 코드 실행
+
+##### 테스트 코드
+- `/src/App.test.jsx` 경로로 파일 생성
+
+```jsx
+import { render, screen, waitFor } from '@testing-library/react'
+import App from './App'
+import userEvent from '@testing-library/user-event'
+
+describe('App', () => {
+    it('renders App', () => {
+        render(<App />)
+
+        expect(screen.getByText('Hello Vite + React!')).toBeInTheDocument()
+    })
+
+    it('click count button', async () => {
+        render(<App />)
+
+        userEvent.click(screen.getByText(/count is: /i))
+
+        await waitFor(() => {
+            expect(screen.getByText('count is: 1')).toBeInTheDocument()
+        })
+    })
+})
+```
+
+##### 테스트 결과
+
+<p align="left">
+    <img src="/images/react-test-environment-1.JPG" width="35%" class="image__border">
+</p>
+
+
+## 4. 테스트 환경 구축하면서 만나는 에러
+
+### 4.1. SyntaxError: Cannot use import statement outside a module
+
+```
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    /Users/junhyunk/Desktop/workspace/toy-projects/web-crawler-test/jest.setup.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import '@testing-library/jest-dom';
+                                                                                      ^^^^^^
+
+    SyntaxError: Cannot use import statement outside a module
+
+      at Runtime.createScriptFromCode (node_modules/jest-runtime/build/index.js:1728:14)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+```
+
+##### 해결 방법
+- `.babelrc` 파일에 `presets` 설정에 `"@babel/preset-env"`을 추가합니다.
+
+```json
+{
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
+          }
+        ]
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime"
+      ]
+    }
+  }
+}
+```
+
+### 4.2. SyntaxError: Unexpected token '<'
+
+```
+  ● Test suite failed to run
+
+    Jest encountered an unexpected token
+
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
+
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
+
+    By default "node_modules" folder is ignored by transformers.
+
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    /Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/src/logo.svg:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 841.9 595.3">
+                                                                                      ^
+
+    SyntaxError: Unexpected token '<'
+
+      1 | import { useState } from 'react'
+    > 2 | import logo from './logo.svg'
+        | ^
+      3 | import './App.css'
+      4 |
+      5 | function App() {
+
+      at Runtime.createScriptFromCode (node_modules/jest-runtime/build/index.js:1728:14)
+      at Object.<anonymous> (src/App.jsx:2:1)
+```
+
+##### 해결 방법
+- `jest.config.js` 파일 변경합니다.
+- `moduleNameMapper` 속성에 `'\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy'` 설정 추가합니다.
+
+```js
+module.exports = {
+    testEnvironment: 'jsdom',
+    moduleNameMapper: {
+        '\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js',
+        '\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy', // 해당 설정
+    },
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    testMatch: ['<rootDir>/**/*.test.(js|jsx|ts|tsx)'],
+    transformIgnorePatterns: ['<rootDir>/node_modules/', 'dist', 'build'],
+}
+```
+
+### 4.3. TypeError: symbol is not a function
+
+```
+  console.error
+    The above error occurred in the <img> component:
+    
+        at img
+        at header
+        at div
+        at App (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/src/App.jsx:6:31)
+    
+    Consider adding an error boundary to your tree to customize error handling behavior.
+    Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+
+      at logCapturedError (node_modules/react-dom/cjs/react-dom.development.js:20085:23)
+      at update.callback (node_modules/react-dom/cjs/react-dom.development.js:20118:5)
+      at callCallback (node_modules/react-dom/cjs/react-dom.development.js:12318:12)
+      at commitUpdateQueue (node_modules/react-dom/cjs/react-dom.development.js:12339:9)
+      at commitLifeCycles (node_modules/react-dom/cjs/react-dom.development.js:20736:11)
+      at commitLayoutEffects (node_modules/react-dom/cjs/react-dom.development.js:23426:7)
+      at HTMLUnknownElement.callCallback (node_modules/react-dom/cjs/react-dom.development.js:3945:14)
+
+
+symbol is not a function
+TypeError: symbol is not a function
+    at setValueForProperty (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/react-dom/cjs/react-dom.development.js:672:29)
+    at setInitialDOMProperties (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/react-dom/cjs/react-dom.development.js:8931:7)
+    at setInitialProperties (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/react-dom/cjs/react-dom.development.js:9135:3)
+```
+
+##### 해결 방법
+- `/__mocks__/fileMock.js` 경로에 파일을 생성합니다.
+
+```js
+module.exports = 'test-file-stub'
+```
+
+- `jest.config.js` 파일 설정 변경합니다.
+- `moduleNameMapper` 속성에 `'\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js'` 설정 추가합니다.
+
+```js
+module.exports = {
+    testEnvironment: 'jsdom',
+    moduleNameMapper: {
+        '\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js', // 해당 설정
+        '\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy',
+    },
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    testMatch: ['<rootDir>/**/*.test.(js|jsx|ts|tsx)'],
+    transformIgnorePatterns: ['<rootDir>/node_modules/', 'dist', 'build'],
+}
+```
+
+### 4.3. toBeInTheDocument is not a function 
+
+```
+expect(...).toBeInTheDocument is not a function
+TypeError: expect(...).toBeInTheDocument is not a function
+    at Object.<anonymous> (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/src/App.test.jsx:9:57)
+    at Promise.then.completed (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/utils.js:316:10)
+    ...
+```
+
+##### 해결 방법
+- `jest.config.js` 파일에 프레임워크 구성과 설정을 위해 필요한 모듈 경로를 지정합니다.
+- `setupFilesAfterEnv: ['<rootDir>/jest.setup.js']` 추가
+
+```js
+module.exports = {
+    testEnvironment: 'jsdom',
+    moduleNameMapper: {
+        '\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js',
+        '\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy',
+    },
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'], // 해당 설정
+    testMatch: ['<rootDir>/**/*.test.(js|jsx|ts|tsx)'],
+    transformIgnorePatterns: ['<rootDir>/node_modules/', 'dist', 'build'],
+}
+```
+
+### 4.4. ReferenceError: document is not defined
+
+```
+document is not defined
+ReferenceError: document is not defined
+    at render (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/@testing-library/react/dist/pure.js:83:5)
+    at Object.<anonymous> (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/src/App.test.jsx:7:9)
+    at Promise.then.completed (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/utils.js:316:10)
+    ...
+```
+
+##### 해결 방법
+- `jest.config.js` 파일에 테스트 환경을 `jsdom`으로 설정합니다.
+- `testEnvironment: 'jsdom'` 추가합니다.
+
+```js
+module.exports = {
+    testEnvironment: 'jsdom', // 해당 설정
+    moduleNameMapper: {
+        '\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js',
+        '\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy',
+    },
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+    testMatch: ['<rootDir>/**/*.test.(js|jsx|ts|tsx)'],
+    transformIgnorePatterns: ['<rootDir>/node_modules/', 'dist', 'build'],
+}
+```
+
+### 4.5. ReferenceError: React is not defined
+
+```
+React is not defined
+ReferenceError: React is not defined
+    at Object.<anonymous> (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/src/App.test.jsx:6:16)
+    at Promise.then.completed (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/utils.js:391:28)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/utils.js:316:10)
+    at _callCircusTest (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/jest-circus/build/run.js:218:40)
+    ...
+```
+
+##### 해결 방법
+- `.babelrc` 파일에 `"@babel/preset-react"`의 런타임 설정을 `automatic`으로 변경합니다.
+
+```json
+{
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
+          }
+        ]
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime"
+      ]
+    }
+  }
+}
+```
+
+### 4.6. ReferenceError: regeneratorRuntime is not defined
+
+```
+  ● Test suite failed to run
+
+    ReferenceError: regeneratorRuntime is not defined
+
+      10 |     })
+      11 |
+    > 12 |     it('click count button', async () => {
+         |       ^
+      13 |         render(<App />)
+      14 |
+      15 |         userEvent.click(screen.getByText(/count is: /i))
+
+      at src/App.test.jsx:12:7
+      at Object.<anonymous> (src/App.test.jsx:5:1)
+      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
+      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
+      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
+      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
+```
+
+##### 해결 방법
+- `async-await` 키워드를 해석하기 위한  
+- `.babelrc` 파일에 `@babel/plugin-transform-runtime`을 플러그인에 추가합니다. 
+
+```json
+{
+  "env": {
+    "test": {
+      "presets": [
+        "@babel/preset-env",
+        [
+          "@babel/preset-react",
+          {
+            "runtime": "automatic"
+          }
+        ]
+      ],
+      "plugins": [
+        "@babel/plugin-transform-runtime"
+      ]
+    }
+  }
+}
+```
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/web-crawler>
+
+#### REFERENCE
+- [Native ESM(ECMAScript Module)][esm-link]
+- [React 테스트 환경 구축하기][react-test-environment-link]
+- [regeneratorRuntime is not defined 에러 해결][regenerator-runtime-error-link]
+- <https://jestjs.io/docs/webpack>
+- <https://github.com/facebook/jest/issues/9395>
+
+[babel-link]: https://junhyunny.github.io/information/babel/
+
+[esm-link]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+[react-test-environment-link]: https://marshallku.com/web/tips/react-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0
+[regenerator-runtime-error-link]: https://velog.io/@haebin/React-regeneratorRuntime-is-not-defined-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0

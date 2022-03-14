@@ -35,7 +35,7 @@ last_modified_at: 2022-03-14T23:55:00
 ##### 가위, 바위, 보 게임
 
 <p align="center">
-    <img src="/images/refactoring-rps-game-1.JPG" width="80%" class="image__border">
+    <img src="/images/refactoring-rps-game-1.JPG" width="50%" class="image__border">
 </p>
 <center>https://en.wikipedia.org/wiki/Rock_paper_scissors</center><br>
 
@@ -171,7 +171,7 @@ public class RpsGameTests {
 ##### 가위, 바위, 보, 도마뱀 그리고 스팍 게임
 
 <p align="center">
-    <img src="/images/refactoring-rps-game-3.JPG" width="80%" class="image__border">
+    <img src="/images/refactoring-rps-game-3.JPG" width="50%" class="image__border">
 </p>
 <center>https://m.post.naver.com/viewer/postView.naver?volumeNo=23912903&memberNo=39735121</center><br>
 
@@ -255,7 +255,7 @@ public class RpsGame {
 
 ##### 변경된 클래스 다이어그램
 
-<p align="center">
+<p align="left">
     <img src="/images/refactoring-rps-game-4.JPG" width="35%" class="image__border">
 </p>
 
@@ -391,7 +391,7 @@ public enum Hand {
 ##### 최종 클래스 다이어그램
 
 <p align="center">
-    <img src="/images/refactoring-rps-game-5.JPG" width="75%" class="image__border">
+    <img src="/images/refactoring-rps-game-5.JPG" width="90%" class="image__border">
 </p>
 
 ## CLOSING
@@ -402,8 +402,8 @@ public enum Hand {
 
 ##### 테스트 코드 성공
 
-<p align="center">
-    <img src="/images/refactoring-rps-game-6.JPG" width="35%" class="image__border">
+<p align="left">
+    <img src="/images/refactoring-rps-game-6.JPG" width="65%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

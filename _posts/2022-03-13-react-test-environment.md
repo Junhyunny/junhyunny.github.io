@@ -190,7 +190,7 @@ describe('App', () => {
 </p>
 
 
-## 4. 테스트 환경 구축하면서 만나는 에러
+## 4. 테스트 환경 구축 시 마주치는 에러
 
 ### 4.1. SyntaxError: Cannot use import statement outside a module
 

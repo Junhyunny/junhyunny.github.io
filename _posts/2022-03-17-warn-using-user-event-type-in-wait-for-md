@@ -1,10 +1,10 @@
 ---
-title: "Adapter Pattern"
+title: "Jest userEvent type 사용 시 주의사항 in waitFor"
 search: false
 category:
-  - information
-  - design-pattern
-last_modified_at: 2022-03-01T23:55:00
+  - jest
+  - test-driven-development
+last_modified_at: 2022-03-17T23:55:00
 ---
 
 <br>

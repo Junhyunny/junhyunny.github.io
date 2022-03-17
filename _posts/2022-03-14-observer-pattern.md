@@ -391,5 +391,7 @@ class Client {
 - <https://k0102575.github.io/articles/2020-04/observer-pattern>
 - <https://junhyunny.github.io/spring-boot/spring-application-context-event/>
 
+[spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/spring-application-context-event/
+
 [design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953
 [make-state-management-system-link]: https://junilhwang.github.io/TIL/Javascript/Design/Vanilla-JS-Store/#_1-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%83%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%AE%E1%84%92%E1%85%A7%E1%86%AB%E1%84%92%E1%85%A2%E1%84%87%E1%85%A9%E1%84%80%E1%85%B5

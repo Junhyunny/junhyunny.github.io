@@ -1,5 +1,5 @@
 ---
-title: "Jest userEvent type 사용 시 주의사항 in waitFor"
+title: "Jest userEvent.type 사용 시 주의사항 in waitFor"
 search: false
 category:
   - react

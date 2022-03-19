@@ -9,6 +9,9 @@ last_modified_at: 2022-03-01T23:55:00
 
 <br>
 
+👉 이어서 읽기를 추천합니다.
+- [Refactoring RPS(Rock, Paper, Scissors) Game][refactoring-rps-game-link]
+
 ## 1. 전략 패턴(Strategy Pattern)
 
 > Design Patterns: Elements of Reusable Object Oriented Software<br>
@@ -415,5 +418,7 @@ public class SecurityContextHolder {
 - <https://joel-dev.site/75>
 - <https://victorydntmd.tistory.com/292>
 - <https://steady-coding.tistory.com/381>
+
+[refactoring-rps-game-link]: https://junhyunny.github.io/java/design-pattern/test-driven-development/refactoring-rps-game/
 
 [design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953

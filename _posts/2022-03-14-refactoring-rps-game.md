@@ -409,7 +409,4 @@ public enum Hand {
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-14-refactoring-rps-game>
 
-#### REFERENCE
-- <https://jojoldu.tistory.com/361>
-
 [strategy-pattern-link]: https://junhyunny.github.io/information/design-pattern/strategy-pattern/

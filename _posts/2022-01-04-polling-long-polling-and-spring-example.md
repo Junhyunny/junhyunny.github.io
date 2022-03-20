@@ -261,7 +261,7 @@ public class DeferredResultControllerTest {
 
 테스트를 통과시킬 수 있도록 기능을 확장해나가면서 구현하였습니다. 
 - authenticate 메소드
-    - 스터빙(stubing), 스파이(spy) 사용이 제한되어 테스트를 위해 메소드입니다.
+    - 스터빙(stubbing), 스파이(spy) 사용이 제한되어 테스트를 위해 메소드입니다.
     - 타임아웃이나 이벤트 처리 완료시 정상적으로 요청 풀에서 삭제되었는지 확인합니다.
 - requestAuthentication 메소드
     - 인증 요청 발생시 DeferredResult 객체를 인증 풀에 담고, 이를 반환합니다.

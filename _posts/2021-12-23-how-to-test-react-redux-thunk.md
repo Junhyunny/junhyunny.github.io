@@ -55,7 +55,7 @@ last_modified_at: 2021-12-23T23:55:00
 - 로그인 화면에서 필요한 리듀서(reducer)로만 이루어진 스토어를 화면 랜더링시 만들어 사용합니다. 
 - setup 단계
     - `authentication` 모듈의 `authenticate` `액션 크리에이터` 수행 여부를 확인할 스파이(spy) 객체를 만듭니다. 
-    - 이때 반환 값은 프로미스 객체를 반환하는 함수이으로 `mockReturnValue`를 통해 스터빙(stubing) 처리합니다.
+    - 이때 반환 값은 프로미스 객체를 반환하는 함수이으로 `mockReturnValue`를 통해 스터빙(stubbing) 처리합니다.
     - 화면을 렌더링하고, 필요한 데이터들을 입력합니다. 
 - act 단계
     - 사용자 클릭 이벤트를 발생시킵니다.

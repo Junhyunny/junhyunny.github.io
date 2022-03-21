@@ -137,7 +137,7 @@ public class OrderService {
 @SpringBootTest
 public class TransactionalReadOnlyTest {
 
-    // 기타 다른 코드
+    // ... 기타 다른 코드
 
     @Test
     @DisplayName("READ ONLY TRUE")
@@ -150,19 +150,6 @@ public class TransactionalReadOnlyTest {
         } finally {
             log.info("READ ONLY TRUE");
         }
-    }
-}
-
-@Log4j2
-@Component
-@RequiredArgsConstructor
-public class OrderService {
-
-    // 기타 다른 코드
-
-    @Transactional(readOnly = true)
-    public Orders createOrderWithReadOnlyTrue(Orders order) {
-        return orderRepository.saveAndFlush(order);
     }
 }
 ```

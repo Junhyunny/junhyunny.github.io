@@ -1,0 +1,18 @@
+---
+title: "How to test cleanUp of useEffect using Jest?"
+search: false
+category:
+  - javascript
+  - react
+  - jest
+last_modified_at: 2022-03-24T23:55:00
+---
+
+<br>
+
+## 0. 들어가면서
+
+## 1. 
+
+#### REFERENCE
+- <https://stackoverflow.com/questions/58194024/how-to-unit-test-useeffect-cleanup-return-function-using-jest-and-enzyme>

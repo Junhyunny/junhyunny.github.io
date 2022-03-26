@@ -27,17 +27,17 @@ I could relate to `DevOps` that I did not empathize with before at the end of th
 > Engineers write codes, build, deploy and run services on the system by themselves.<br>
 > And it is the process and culture to improve services while constantly interacting with users.
 
-프로젝트 중간 단계로 접어들면서 운영팀과 함께 협업하는 시점에 저는 오만한 생각을 하고 있었습니다. 
-신규 아키텍처, 새로운 기술들에 익숙해진 저는 기술 수준이 이전 시스템에 머물러 있는 운영 요원들의 능력이 수준 낮다고 생각했었습니다. 
-**프로젝트 가동과 동시에 저의 생각이 멍청했다는 것이 밝혀졌습니다.** 
-신규 시스템은 가동 시점에 크게 불안정하였습니다. 
-기존 시스템의 기능이 새로운 시스템에서 정상적으로 동작하지 않자 현장에서의 불평과 불만은 끊이지 않았습니다. 
-이때 운영팀의 운영 노하우, 비즈니스 전문성이 빛을 발했습니다. 
-**현장에서 원하는 건 IT 지식이 뛰어난 사람이 아닌 비즈니스적인 대화가 통하는 사람이었습니다.** 
+ 
+I was arrogant in middle phase of the project when I had collaborated with the operation team. 
+I thought that the operation team was not skillful. 
+**It turned out that my thought was stupid, as soon as the system has been run.** 
+The new system had been unstatble and users in the field continued complaints. 
+At that time, the operation team's know-how and business experties shone. 
+System users in the field wanted someone who can have a business conversation, not someone with great IT knowledge. 
 
-**익숙하지 않은 현장 용어<br>**
-**현장에서 발생되는 현상에 대해서만 설명하는 사용자<br>**
-**다른 시스템과의 인터페이스를 통한 업무 수행시 찾기 힘든 문제의 원인**
+**Unfamiliar on-site terminology<br>**
+**User who only explains the phenomena occuring in the field<br>**
+**Cause of problems taht is difficult to find out when performing work through an interface with other systems**
 
 이런 것들이 저를 괴롭히는 동안 운영 요원들은 현장 사람들과 대화하고 현상에 대한 분석을 통해 문제를 일으키는 시스템 모듈을 하나, 둘씩 고쳐나갔습니다. 
 고객과의 비즈니스적 의사소통을 통해 프로그램을 개선해나가는 과정의 중요성을 새삼 깨닫게 되는 경험이었습니다. 

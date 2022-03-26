@@ -43,49 +43,53 @@ It was a valuable exprience that I realzied the business conversation with clien
 
 ## 1. DevOps Features
 - **Cross Functional Team** 
-    - 하나의 팀에 각각 다른 역할을 할 수 있는 팀원들로 모아 전체 END TO END 서비스를 운용할 수 있도록 합니다. 
-    - 뛰어난 개발자이자 비즈니스 전문성까지 갖추고 있는 인원들만 있다면 좋겠지만 현실은 그렇지 않습니다. 
+    - It allows your team which members can play different roles each other to operate the entire end to end service. 
+    - It would be great if there were members who have business know-how and development skill, but the real is not. 
 
 - **Widely Shared Metris**
-    - 팀 전체가 기준으로 삼을 수 있는 서비스에 대한 공통적인 지표(Metric)가 필요합니다.
+    - The team needs a common metric for the baseline. 
 
 - **Automating Repetitive Tasks**
-    - 반복적인 작업을 Tool을 이용해서 자동화 합니다. 
-    - CI/CD Tool을 통해 빌드, 테스트에서 배포까지의 과정을 자동화하여 관리하는 것을 의미합니다. 
+    - Automate repetitive tasks using tools. 
+    - Automate and manage the process from build, test to the deployment by using CI/CD tool.
 
 - **Post Mortems**
-    - 사후 검증. 장애나 이슈가 있을때 처리 후에 그 내용을 전체 팀과 공유해야 합니다.
+    - After handling the problems and issues, those shoul be shared with the whole team. 
 
 - **Regular Release**
-    - 정기적인 배포. 시스템 릴리즈는 많은 협업이 필요한 작업입니다. 
-    - 개발, 테스트, 배포 과정을 거쳐야 하고, 릴리즈가 끝나면 다음 릴리즈를 위한 기능 정의 등의 과정을 거쳐야 합니다.
+    - The system should be regular released. 
+    - It is a very collaborative work. 
+    - It has to process through the development, test and deployment. 
+    - When the release is over, the team has to prepare the next release. 
 
-## 2. Devops 팀의 개발 싸이클
-1. 사용자의 NEEDS 분석. VOC 수집
-1. 사용자 스토리 작성 (요구 사항 작성)
-1. 사용자 스토리에 대한 SCOPE 정의 및 우선순위 지정
-1. Stakeholder에 대한 리포팅 및 관리 (내부 영업, 보고 등)
-1. 다른 프로젝트와 연관성(DEPENDENCY) 관리
-1. 필요의 경우 솔루션 (오픈소스 또는 상용) 평가 및 도입
-1. 개발
-1. TESTING
-1. RELEASE
-1. Security 관리, Compliance 관리 (개인 정보 보호, 국가별 법적 사항 확인 등)
-1. 서비스 운영, 모니터링
-1. 고객 지원 (Customer Support)
+## 2. Development cycle of Devops team
+1. Analyze and collect users' needs and voice of customer 
+1. Write stories for users(write requirment)
+1. Define and prioritize scope for the user stories
+1. Report and manage for stakeholders
+1. Manage dependencies with other projects
+1. Evaluate and introduce solutions if necessary
+1. Development
+1. Test
+1. Release
+1. Manage security asnd compliance(personal information protection, country specific legal matter, etc)
+1. Operate services and monitoring
+1. Customer supoort
 
-## 3. Devops 팀 개발자의 필요 역량
-- **코딩 능력은 필수**
-    - Devops 엔지니어는 기본적으로 개발자이기 때문에, **개발을 위한 기본적인 코딩 능력을 요구합니다.** 
-    - 만약 운영이나 시스템 쪽에 치우친 엔지니어라면 자동화를 만들 수 있는 스크립트 작성 능력 등은 필수입니다.
+## 3. Compentencies for Devops team developer
+- **Coding skills are essential**
+    - Since Devops engineers are basically developer, they require basic coding skills for development.
+    - If an engineer is biased towards operation or systems, the ability to write scripts for automation is essential.
 
-- **다른 사람과 잘 협업하고 커뮤니케이션할 수 있는 능력**
-    - **Devops는 큰 틀에서 협업 문화입니다.** 시작 자체가 개발과 운영간의 소통 문제를 해결하고자 한 것이기 때문입니다. 
-    - 다른 팀원의 의견을 존중하고 문제를 함께 해결해나갈 수 있는 오픈 마인드 기반의 커뮤니케이션 능력이 매우 중요합니다.
+- **Ability to collaborate and communicate well with others**
+    - **Devops is a collaborative culture across the board.** 
+    - It begins to solve the communication problem between development and operation. 
+    - It is very important to have an open-minded communication ability to respect the opinions of other team members and to solve problems together. 
 
-- **프로세스를 이해하고 때로는 그 프로세스를 재정의할 수 있는 능력**
-    - Devops는 언뜻 보기에는 정형화된 프로세스가 없어 보일 수 있지만, **테스트 자동화, 배포, 그리고 요구 사항에 대한 수집 및 정의 등은 모두 프로세스입니다.**
-    - 해당 팀의 모델이나 서비스의 성격에 따라서 만들어 나가야 합니다. 그래서 프로세스를 이해하고 준수하며, 같이 만들어 나갈 수 있는 능력을 가져야 합니다.
+- **Ability to understand processes and sometimes redefine them**
+    - On the face of it, Devops may not seem like a formal process. 
+    - Test automation, deployment and gathering and defining requirments are all processes.
+    - Devops team need to understand the processes and have ability to build it together.
 
 #### REFERENCE
 - <https://bcho.tistory.com/817>

@@ -26,7 +26,6 @@ I could relate to `DevOps` that I did not empathize with before at the end of th
 
 > Engineers write codes, build, deploy and run services on the system by themselves.<br>
 > And it is the process and culture to improve services while constantly interacting with users.
-
  
 I was arrogant in middle phase of the project when I had collaborated with the operation team. 
 I thought that the operation team was not skillful. 
@@ -39,10 +38,10 @@ System users in the field wanted someone who can have a business conversation, n
 **User who only explains the phenomena occuring in the field<br>**
 **Cause of problems taht is difficult to find out when performing work through an interface with other systems**
 
-이런 것들이 저를 괴롭히는 동안 운영 요원들은 현장 사람들과 대화하고 현상에 대한 분석을 통해 문제를 일으키는 시스템 모듈을 하나, 둘씩 고쳐나갔습니다. 
-고객과의 비즈니스적 의사소통을 통해 프로그램을 개선해나가는 과정의 중요성을 새삼 깨닫게 되는 경험이었습니다. 
+While all of those things bothered me, the operation team talked to the users and analyzed the phenomena to fix the problematic system modules. 
+It was a valuable exprience that I realzied the business conversation with clients can improve the system.   
 
-## 1. DevOps 특징
+## 1. DevOps Features
 - **Cross Functional Team** 
     - 하나의 팀에 각각 다른 역할을 할 수 있는 팀원들로 모아 전체 END TO END 서비스를 운용할 수 있도록 합니다. 
     - 뛰어난 개발자이자 비즈니스 전문성까지 갖추고 있는 인원들만 있다면 좋겠지만 현실은 그렇지 않습니다. 

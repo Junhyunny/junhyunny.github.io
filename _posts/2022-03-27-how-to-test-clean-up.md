@@ -15,7 +15,7 @@ last_modified_at: 2022-03-27T23:55:00
 문득 리액트의 `useEffect` 훅(hook)을 사용할 때 이벤트 정리 등을 위한 클린-업(clean-up) 함수를 테스트하는 방법이 있는지 궁금했습니다. 
 간단하게 `useEffect` 훅과 클린-업 함수에 대해 알아보고, 테스트 방법에 대해 정리해보았습니다. 
 
-## 1. useEffect 훅
+## 1. useEffect Hook
 
 > React docs - Using the Effect Hook<br>
 > Effect Hook을 사용하면 함수 컴포넌트에서 side effect를 수행할 수 있습니다.

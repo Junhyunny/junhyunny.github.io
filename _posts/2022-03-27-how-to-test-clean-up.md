@@ -32,7 +32,7 @@ last_modified_at: 2022-03-27T23:55:00
 ##### 리액트 컴포넌트 라이프 사이클
 
 <p align="center">
-    <img src="/images/how-to-test-clean-up-1.JPG" width="80%" class="image__border">
+    <img src="/images/how-to-test-clean-up-1.JPG" width="90%" class="image__border">
 </p>
 <center>https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</center><br>
 
@@ -159,7 +159,7 @@ function App() {
 ### 3.1. EventAPI.js 파일
 - 이벤트를 등록하고, 해제하는 별도의 모듈을 하나 만듭니다. 
 - 다음과 같은 이유로 별도 모듈로 만들었습니다.
-    - 많은 곳에서 사용되기 때문에 `window` 객체를 직접 모킹(mocking)하는 것은 테스트가 어렵습니다. 
+    - 많은 곳에서 사용되는 `window` 객체를 직접 모킹(mocking)하는 것은 테스트가 어렵습니다. 
     - 이벤트를 삭제하기 위해선 이벤트 타입과 등록 시 사용했던 함수와 동일한 참조 값을 가진 함수를 넣어야 합니다.
 
 ```jsx

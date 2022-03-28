@@ -1,5 +1,5 @@
 ---
-title: "useEffect 훅(hook)의 클린-업 함수 테스트"
+title: "useEffect 훅(hook) 클린-업 함수 테스트"
 search: false
 category:
   - javascript

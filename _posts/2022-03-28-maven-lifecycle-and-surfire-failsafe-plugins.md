@@ -203,7 +203,7 @@ $ mvn clean:clean jar:jar install:install
 `IntelliJ` IDE 도구를 이용해 만든 스프링 프로젝트에 기본적으로 포함되는 `spring-boot-maven-plugin` 플러그인 정보를 따라 올라가면 다음과 같은 플러그인들을 확인할 수 있습니다.
 
 ##### spring-boot-dependencies pom
-- `spring-boot-maven-plugin` > `spring-boot-tools` > `spring-boot-parent` > `spring-boot-dependencies` 순으로 pom 파일을 거슬러 올라갑니다.
+- `spring-boot-maven-plugin` > `spring-boot-tools` > `spring-boot-parent` > `spring-boot-dependencies`
 - `spring-boot-dependencies` pom 파일에서 아래와 같은 플러그인들을 확인할 수 있습니다.
 
 ```xml
@@ -286,7 +286,7 @@ $ mvn clean:clean jar:jar install:install
 
 - `maven-surefire-plugin` 플러그인을 추가합니다.
     - 기본적으로 테스트 스킵(skip) 여부는 `false` 입니다.
-    - `-Dskip.unit.tests=true` 명령어 옵션으로 단위 테스트를 스킵하리 수 있습니다.
+    - `-Dskip.unit.tests=true` 명령어 옵션으로 단위 테스트를 생략할 수 있는 설정을 추가합니다.
 - `maven-failsafe-plugin` 플러그인을 추가합니다.
     - 적용 `플러그인-골`은 `integration-test`, `verify` 입니다.
 
@@ -432,7 +432,7 @@ class ActionInBlogApplicationTests {
 - 다음과 같은 명령어를 통해 단위 테스트를 실행합니다.
     - `mvn test`
 - 실행되는 테스트는 `ActionInBlogApplicationTests` 클래스 1개입니다.
-- `maven-surefire-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트만 지원합니다. 
+- `maven-surefire-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원합니다. 
     - "**/Test*.java" - includes all of its subdirectories and all Java filenames that start with "Test".
     - "**/*Test.java" - includes all of its subdirectories and all Java filenames that end with "Test".
     - "**/*Tests.java" - includes all of its subdirectories and all Java filenames that end with "Tests".
@@ -489,9 +489,9 @@ $ mvn test
 
 - 다음과 같은 명령어를 통해 결합 테스트를 실행합니다.
     - `mvn -Dskip.unit.tests=true integration-test`
-    - `integration-test` 페이즈가 나중에 실행되므로 먼저 실행되어야 하는 `test` 페이즈는 `-Dskip.unit.tests=true` 옵션으로 생략시킵니다.
+    - `integration-test` 페이즈 이전에 실행되어야 하는 `test` 페이즈는 `-Dskip.unit.tests=true` 옵션으로 생략합니다.
 - 실행되는 테스트는 `ActionInBlogApplicationIT` 클래스 1개입니다.
-- `maven-failsafe-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트만 지원합니다. 
+- `maven-failsafe-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원합니다. 
     - "**/Test*.java" - includes all of its subdirectories and all Java filenames that start with "Test".
     - "**/*Test.java" - includes all of its subdirectories and all Java filenames that end with "Test".
     - "**/*Tests.java" - includes all of its subdirectories and all Java filenames that end with "Tests".
@@ -626,7 +626,7 @@ class ActionInBlogApplicationTests {
 #### 5.5.1. 단위 테스트
 
 - 테스트가 실패하면서 빌드가 실패합니다.
-    - `BUILD FAILURE` 로그 확인
+    - `BUILD FAILURE` 로그 출력
 
 ```
 $ mvn test            
@@ -695,7 +695,7 @@ java.lang.RuntimeException
 #### 5.5.2. 결합 테스트
 
 - 테스트가 실패하더라도 빌드는 성공합니다.
-    - `BUILD SUCCESS` 로그 확인
+    - `BUILD SUCCESS` 로그 출력
 
 ```
 $ mvn -Dskip.unit.tests=true integration-test
@@ -790,7 +790,7 @@ java.lang.RuntimeException
 
 - `verify` 페이즈는 `integration-test` 페이즈의 통과 여부를 확인합니다.
 - `integration-test` 페이즈에서 테스트가 실패하면 `install` 페이즈로 넘어가지 않습니다. 
-    - `BUILD FAILURE` 로그 확인
+    - `BUILD FAILURE` 로그 출력
 
 ```
 mvn -Dskip.unit.tests=true verify          

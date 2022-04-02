@@ -549,7 +549,7 @@ Github `spring-data-jpa` 레포지토리 이슈와 `Stack Overflow` 질문으로
 - [Why does not @EntityGraph annotation in JPA need to use "distinct" keyword or "Set" data structure?][stack-overflow-question-link]
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-15-jpa-one-plus-n-problem/action-in-blog>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-15-jpa-one-plus-n-problem>
 
 #### REFERENCE
 - <https://jojoldu.tistory.com/165>

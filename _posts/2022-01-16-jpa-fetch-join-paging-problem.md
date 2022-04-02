@@ -682,7 +682,7 @@ where reply0_.content like ?
 </p>
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-16-jpa-fetch-join-paging-problem/action-in-blog>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-16-jpa-fetch-join-paging-problem>
 
 #### REFERENCE
 - <https://bcp0109.tistory.com/304>

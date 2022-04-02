@@ -272,7 +272,7 @@ export const longPolling = async (func, validateFunc, timeout) => {
 - 클라이언트 측 폴링과 롱 폴링 코드의 다른 점은 서버의 타임아웃 처리 여부로 보입니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-09-polling-long-polling-and-javascript-example/action-in-blog-react>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-09-polling-long-polling-and-javascript-example>
 
 #### REFERENCE
 - <https://rubberduck-debug.tistory.com/123>

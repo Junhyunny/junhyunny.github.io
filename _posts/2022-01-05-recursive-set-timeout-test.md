@@ -425,7 +425,7 @@ polling(checkSecondAuthentication, 5000);
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-05-recursive-set-timeout-test/action-in-blog-react>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-05-recursive-set-timeout-test>
 
 #### REFERENCE
 - <https://jestjs.io/docs/jest-object>

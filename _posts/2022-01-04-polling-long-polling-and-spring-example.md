@@ -371,7 +371,7 @@ public class DeferredResultController {
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-04-polling-long-polling-and-spring-async-task/action-in-blog-back>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-04-polling-long-polling-and-spring-async-task>
 
 #### REFERENCE
 - <https://rubberduck-debug.tistory.com/123>

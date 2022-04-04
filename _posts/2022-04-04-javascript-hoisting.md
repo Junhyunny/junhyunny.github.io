@@ -39,7 +39,6 @@ last_modified_at: 2022-04-04T23:55:00
 - `undefined` 값이 출력됩니다.
 - 변수 `foo`를 선언하기 전에 `console.log` 함수에서 사용합니다.
 - `foo`라는 이름의 변수가 선언되었음을 인지한 `JavaScript` 엔진은 `undefined` 값을 출력합니다.
-    - 변수 선언이 안 되어 있으면 발생하는 에러 메세지 - `ReferenceError: foo is not defined` 
 
 {% include codepen.html hash="LYeeLQj" tab="js,result" title="var keyword before hoisting" %}
 
@@ -76,7 +75,7 @@ last_modified_at: 2022-04-04T23:55:00
 - 변수 `bar`의 호이스팅은 함수 `foo` 내부에서만 동작합니다.
     - `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 블럭 내부입니다.
 
-{% include codepen.html hash="NWXXgQK" tab="js,result" title="var keyword after hoisting - 2" %}
+{% include codepen.html hash="OJzzjbL" tab="js,result" title="var keyword after hoisting - 2" %}
 
 #### 1.1.3. 예시 3
 

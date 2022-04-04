@@ -213,7 +213,7 @@ true pen.js:52:9
 - `var` 키워드로 선언된 변수는 `TDZ`가 존재하지 않습니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-3.JPG" width="75%" class="image__border">
+    <img src="/images/javascript-hoisting-3.JPG" width="85%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center><br>
 
@@ -252,7 +252,7 @@ poppxwV:44:1
 - 실행 컨텍스트에 변수를 저장할 때 변수의 선언 단계만 진행됩니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-4.JPG" width="75%" class="image__border">
+    <img src="/images/javascript-hoisting-4.JPG" width="85%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center><br>
 
@@ -281,17 +281,19 @@ class Car {
     this.color = color;
   }
 }
+```
 
+```js
 // 동작하는 코드
-// class Car {
-//   constructor(color) {
-//     this.color = color;
-//   }
-// }
+class Car {
+  constructor(color) {
+    this.color = color;
+  }
+}
 
-// // Works!
-// const myNissan = new Car('red');
-// myNissan.color; // => 'red'
+// Works!
+const myNissan = new Car('red');
+myNissan.color; // => 'red'
 ```
 
 #### 2.3.3. constructor 내부 super()
@@ -308,18 +310,19 @@ class MuscleCar extends Car {
 
 // Does not work!
 const myCar = new MuscleCar(‘blue’, ‘300HP’); // `ReferenceError`
+```
 
-// 동작하는 코드
-// class MuscleCar extends Car {
-//   constructor(color, power) {
-//     super(color);
-//     this.power = power;
-//   }
-// }
+```js
+class MuscleCar extends Car {
+  constructor(color, power) {
+    super(color);
+    this.power = power;
+  }
+}
 
-// // Works!
-// const myCar = new MuscleCar('blue', '300HP');
-// myCar.power; // => '300HP'
+// Works!
+const myCar = new MuscleCar('blue', '300HP');
+myCar.power; // => '300HP'
 ```
 
 #### 2.4. TDZ 영향을 받지 않는 구문 
@@ -363,7 +366,7 @@ import { myFunction } from './myModule';
 - 3 단계의 변수 라이프 사이클을 모두 동시에 수행합니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-5.JPG" width="75%" class="image__border">
+    <img src="/images/javascript-hoisting-5.JPG" width="85%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center><br>
 

@@ -157,23 +157,23 @@ console.log('After function!');
 
 ### 3.1. 1번 문제
 
-{% include codepen.html hash="QWqBOPJ" title="Test" %}
+{% include codepen.html hash="QWqBOPJ" tab="js,result" title="Test" %}
 
 ### 3.2. 2번 문제
 
-{% include codepen.html hash="yLzxyxy" title="Test" %}
+{% include codepen.html hash="yLzxyxy" tab="js,result" title="Test" %}
 
 ### 3.3. 3번 문제
 
-{% include codepen.html hash="poWOvQv" title="Test" %}
+{% include codepen.html hash="poWOvQv" tab="js,result" title="Test" %}
 
 ### 3.4. 4번 문제
 
-{% include codepen.html hash="YzrOPdL" title="Test" %}
+{% include codepen.html hash="YzrOPdL" tab="js,result" title="Test" %}
 
 ### 3.5. 5번 문제
 
-{% include codepen.html hash="ZEXMYwW" title="Test" %}
+{% include codepen.html hash="ZEXMYwW" tab="js,result" title="Test" %}
 
 #### REFERENCE
 - <https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke>

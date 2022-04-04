@@ -41,14 +41,14 @@ last_modified_at: 2022-04-04T23:55:00
 - `foo`라는 이름의 변수가 선언되었음을 인지한 `JavaScript` 엔진은 `undefined` 값을 출력합니다.
     - 변수 선언이 안 되어 있으면 발생하는 에러 메세지 - `ReferenceError: foo is not defined` 
 
-{% include codepen.html hash="LYeeLQj" title="var keyword before hoisting" %}
+{% include codepen.html hash="LYeeLQj" tab="js,console" title="var keyword before hoisting" %}
 
 ##### 동작한 코드 모습
 - 호이스팅이 일어나면 아래 작성한 코드처럼 동작됩니다.
     - 변수 `foo`가 코드 상단에 선언한 것처럼 동작합니다. 
     - 선언 시 별도 값을 지정하지 않았으므로 `undefined` 값으로 초기화합니다.
 
-{% include codepen.html hash="YzYYQva" title="var keyword after hoisting" %}
+{% include codepen.html hash="YzYYQva" tab="js,console" title="var keyword after hoisting" %}
 
 #### 1.1.2. 예시 2
 
@@ -69,14 +69,14 @@ last_modified_at: 2022-04-04T23:55:00
 - 전역에 위치한 `console.log(bar)` 코드를 실행시키면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
 - 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있습니다.
 
-{% include codepen.html hash="NWXXgQK" title="var keyword before hoisting - 2" %}
+{% include codepen.html hash="NWXXgQK" tab="js,console" title="var keyword before hoisting - 2" %}
 
 ##### 동작한 코드 모습
 - 함수 `foo`의 선언부는 코드 최상단에 위치합니다.
 - 변수 `bar`의 호이스팅은 함수 `foo` 내부에서만 동작합니다.
     - `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 블럭 내부입니다.
 
-{% include codepen.html hash="NWXXgQK" title="var keyword after hoisting - 2" %}
+{% include codepen.html hash="NWXXgQK" tab="js,console" title="var keyword after hoisting - 2" %}
 
 #### 1.1.3. 예시 3
 
@@ -98,7 +98,7 @@ last_modified_at: 2022-04-04T23:55:00
     - `bar` 이름의 함수를 선언합니다.
     - `var` 키워드로 변수 `bar`를 선언합니다.
 
-{% include codepen.html hash="BaJJdZy" title="var keyword before hoisting - 3" %}
+{% include codepen.html hash="BaJJdZy" tab="js,console" title="var keyword before hoisting - 3" %}
 
 ##### 동작한 코드 모습
 - 우선 함수 선언부가 먼저 호이스팅 됩니다. 
@@ -107,7 +107,7 @@ last_modified_at: 2022-04-04T23:55:00
     - `foo`, `bar` 변수가 코드 최상단에 선언됩니다.
 - 코드의 흐름에 따라 `function foo() {}`, `function bar() {}` 로그가 출력됩니다.
 
-{% include codepen.html hash="eYyyELV" title="var keyword after hoisting - 3" %}
+{% include codepen.html hash="eYyyELV" tab="js,console" title="var keyword after hoisting - 3" %}
 
 #### 1.1.4. 예시 4
 

@@ -82,13 +82,36 @@ last_modified_at: 2022-04-04T23:55:00
 
 변수와 함수의 호이스팅 적용 우선 순위는 누가 높은지 확인해보겠습니다. 
 
+> Stack Overflow
+> Functions are hoisted first, then variable declarations
+> ECMAScript 5, section 10.5 - <https://262.ecma-international.org/5.1/#sec-10.5>
+
+스택 오버플로우를 살펴보면 함수가 먼저 호이스팅 되고, 그 다음 변수가 호이스팅이 발생한다고 합니다. 
+다음과 같은 테스트 코드를 통해 확인할 수 있습니다.
+
 ##### 작성한 코드
+- `function foo() {}`, `function bar() {}` 로그가 출력됩니다.
+- `foo` 케이스
+    - `var` 키워드로 변수 `foo`를 선언합니다.
+    - `foo` 이름의 함수를 선언합니다.
+- `bar` 케이스
+    - `bar` 이름의 함수를 선언합니다.
+    - `var` 키워드로 변수 `bar`를 선언합니다.
+
+{% include codepen.html hash="BaJJdZy" title="var keyword before hoisting - 3" %}
 
 ##### 동작한 코드 모습
+- 우선 함수 선언부가 먼저 호이스팅 됩니다. 
+    - `foo`, `bar` 이름의 함수가 먼저 선언됩니다.
+- `var` 키워드로 선언한 변수가 호이스팅 됩니다.
+    - `foo`, `bar` 변수가 코드 최상단에 선언됩니다.
+- 코드의 흐름에 따라 `function foo() {}`, `function bar() {}` 로그가 출력됩니다.
+
+{% include codepen.html hash="eYyyELV" title="var keyword after hoisting - 3" %}
 
 #### 1.1.4. 예시 4
 
-##### 작성한 모스
+##### 작성한 모습
 
 ##### 동작한 코드 모습
 

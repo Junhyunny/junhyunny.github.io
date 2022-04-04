@@ -212,7 +212,7 @@ true pen.js:52:9
 - `var` 키워드로 선언된 변수는 `TDZ`가 존재하지 않습니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-3.JPG" width="85%" class="image__border">
+    <img src="/images/javascript-hoisting-3.JPG" width="70%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center><br>
 
@@ -251,7 +251,7 @@ poppxwV:44:1
 - 실행 컨텍스트에 변수를 저장할 때 변수의 선언 단계만 진행됩니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-4.JPG" width="85%" class="image__border">
+    <img src="/images/javascript-hoisting-4.JPG" width="70%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center><br>
 
@@ -365,7 +365,7 @@ import { myFunction } from './myModule';
 - 3 단계의 변수 라이프 사이클을 모두 동시에 수행합니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-5.JPG" width="85%" class="image__border">
+    <img src="/images/javascript-hoisting-5.JPG" width="70%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center><br>
 

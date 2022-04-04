@@ -38,7 +38,7 @@ last_modified_at: 2022-03-20T23:55:00
 - `a link` 블럭을 클릭하면 이벤트 버블링에 의해 `a link` > `paragraph` > `div` 순으로 등록된 클릭 이벤트 핸들러가 동작됩니다.
 - `paragraph` 블럭을 클릭하면 이벤트 버블링에 의해 `paragraph` > `div` 순으로 등록된 클릭 이벤트 핸들러가 동작됩니다.
 
-{% include codepen.html hash="BaJKgKM" title="Test" %}
+{% include codepen.html hash="BaJKgKM" tab="js,result" title="Test" %}
 
 ### 2.1. event.target과 event.currentTarget
 
@@ -54,7 +54,7 @@ last_modified_at: 2022-03-20T23:55:00
     - `event.currentTarget`은 부모 요소입니다.
     - `event.target`은 처음 이벤트가 발생한 요소이므로 자식 요소입니다.
 
-{% include codepen.html hash="bGapPPV" title="Test" %}
+{% include codepen.html hash="bGapPPV" tab="js,result" title="Test" %}
 
 ### 2.2. 버블링 중단하기
 
@@ -62,7 +62,7 @@ last_modified_at: 2022-03-20T23:55:00
 - `paragraph` 요소의 클릭 이벤트 핸들러에서 `event.stopPropagation()` 함수를 호출합니다.
 - `a link` 요소에서 발생한 클릭 이벤트가 `div` 요소까지 전달되지 않습니다. 
 
-{% include codepen.html hash="jOYqgLw" title="Test" %}
+{% include codepen.html hash="jOYqgLw" tab="js,result" title="Test" %}
 
 ##### 버블링 차단 시 주의사항 
 - 프론트 개발 시 이벤트 버블링은 유용하게 사용된다고 합니다. 
@@ -89,7 +89,7 @@ element.addEventListener('click', eventHandler, true)
 - `a link` 블럭을 클릭하면 이벤트 캡처링에 의해 `div` > `paragraph` > `a link` 순으로 등록된 클릭 이벤트 핸들러가 동작됩니다.
 - `paragraph` 블럭을 클릭하면 이벤트 캡처링에 의해 `div` > `paragraph` 순으로 등록된 클릭 이벤트 핸들러가 동작됩니다.
 
-{% include codepen.html hash="MWryNrV" title="Test" %}
+{% include codepen.html hash="MWryNrV" tab="js,result" title="Test" %}
 
 #### REFERENCE
 - <https://www.w3.org/TR/DOM-Level-3-Events/>

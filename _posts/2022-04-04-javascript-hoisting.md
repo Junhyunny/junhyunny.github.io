@@ -153,11 +153,219 @@ var bar = function bar () {
 
 ## 2. TDZ(Temporal Dead Zone)
 
+`TDZ`을 알기 전에 우선 변수의 라이프 사이클을 살펴보겠습니다. 
+
+##### 변수 라이프 사이클
+- 선언 단계(declaration phase)
+    - 변수를 실행 컨텍스트의 변수 객체에 등록합니다.
+    - 코드가 실행되기 전 컴파일되는 시점에 실행 컨텍스트에 저장됩니다.
+- 초기화 단계(initialization phase)
+    - 실행 컨텍스트에 존재하는 변수 객체에 선언 단계의 변수를 위한 메모리를 만듭니다.
+    - 값을 `undefined`로 초기화합니다.
+- 할당 단계(assignment phase)
+    - 사용자가 `undefined`로 초기화된 메모리에 다른 값을 할당합니다.
+
+<p align="center">
+    <img src="/images/javascript-hoisting-1.JPG" width="45%" class="image__border">
+</p>
+<center>https://noogoonaa.tistory.com/78</center><br>
+
+##### TDZ, Temporal Dead Zone
+- 선언 단계와 초기화 단계 사이의 단계를 `TDZ`라고 부릅니다.
+- 이 사이에 위치한 변수는 메모리 초기화가 이뤄지지 않았기 때문에 사용 시 에러가 발생합니다.
+
+<p align="center">
+    <img src="/images/javascript-hoisting-2.JPG" width="45%" class="image__border">
+</p>
+<center>https://blog.naver.com/PostView.nhn?blogId=dlaxodud2388&logNo=222284235839</center><br>
+
 ### 2.1. var 키워드 변수의 선언, 초기화 그리고 할당
+
+다음과 같이 `var` 키워드로 선언된 변수 `foo`를 살펴보겠습니다.
+
+##### 테스트 코드
+
+```js
+console.log(foo);
+
+var foo;
+
+console.log(foo === undefined);
+
+foo = "value";
+
+console.log(foo === "value");
+```
+
+##### 테스트 코드 로그
+
+```
+undefined pen.js:44:9
+true pen.js:48:9
+true pen.js:52:9
+```
+
+##### var 변수의 라이프 사이클
+- 코드가 실행되기 전 컴파일 과정에서 실행 컨텍스트에 변수 `foo`를 등록합니다.
+- 이 때, `var` 키워드로 선언된 변수는 초기화 작업이 함께 이뤄집니다.
+    - `foo` 변수에 `undefined` 값이 할당됩니다.
+- 실행 컨텍스트에 변수를 저장할 때 선언 단계와 초기화 단계가 한번에 이뤄집니다.
+- `var` 키워드로 선언된 변수는 `TDZ`가 존재하지 않습니다.
+
+<p align="center">
+    <img src="/images/javascript-hoisting-3.JPG" width="75%" class="image__border">
+</p>
+<center>https://noogoonaa.tistory.com/78</center><br>
 
 ### 2.2. let 키워드 변수의 선언, 초기화 그리고 할당
 
+다음과 같이 `let` 키워드로 선언된 변수 `bar`를 살펴보겠습니다.
+
+##### 테스트 코드
+
+```js
+console.log(bar);
+
+let bar;
+
+console.log(bar === undefined);
+
+bar = "value";
+
+console.log(bar === "value");
+```
+
+##### 테스트 코드 로그
+- `bar` 변수를 초기화하기 전에 접근할 수 없다는 에러가 발생합니다.
+- `JavaScript` 엔진은 변수 `bar`에 존재를 알고는 있지만, 초기화시키지 않고 사용하여 에러를 발생시킵니다.
+
+```
+Uncaught ReferenceError: can't access lexical declaration 'bar' before initialization
+    <anonymous> pen.js:44
+poppxwV:44:1
+```
+
+##### let 변수의 라이프 사이클 
+- 코드가 실행되기 전 컴파일 과정에서 실행 컨텍스트에 변수 `bar`를 등록합니다.
+- 이 때, `let` 키워드로 선언된 변수는 초기화 작업이 함께 이뤄지지 않습니다.
+- 코드 실행 중 `let bar;` 코드를 만나면 초기화가 이뤄집니다.
+- 실행 컨텍스트에 변수를 저장할 때 변수의 선언 단계만 진행됩니다.
+
+<p align="center">
+    <img src="/images/javascript-hoisting-4.JPG" width="75%" class="image__border">
+</p>
+<center>https://noogoonaa.tistory.com/78</center><br>
+
+### 2.3. TDZ 영향을 받는 구문
+
+#### 2.3.1. let, const 변수
+
+`let`, `const` 키워드로 선언된 변수는 초기화 전에 사용하면 에러가 발생합니다.
+
+```js
+// Does not work!
+pi; // throws `ReferenceError`
+const pi = 3.14;
+```
+
+#### 2.3.2. class 구문
+
+클래스는 선언 전에는 사용할 수 없습니다.
+
+```js
+// Does not work!
+const myNissan = new Car('red'); // throws `ReferenceError`
+
+class Car {
+  constructor(color) {
+    this.color = color;
+  }
+}
+
+// 동작하는 코드
+// class Car {
+//   constructor(color) {
+//     this.color = color;
+//   }
+// }
+
+// // Works!
+// const myNissan = new Car('red');
+// myNissan.color; // => 'red'
+```
+
+#### 2.3.3. constructor 내부 super()
+
+부모 클래스를 상속받았다면, 생성자 안에서 `super()`를 호출하기 전까지 `this` 바인딩은 `TDZ`에 존재합니다.
+
+```js
+class MuscleCar extends Car {
+  constructor(color, power) {
+    this.power = power;
+    super(color);
+  }
+}
+
+// Does not work!
+const myCar = new MuscleCar(‘blue’, ‘300HP’); // `ReferenceError`
+
+// 동작하는 코드
+// class MuscleCar extends Car {
+//   constructor(color, power) {
+//     super(color);
+//     this.power = power;
+//   }
+// }
+
+// // Works!
+// const myCar = new MuscleCar('blue', '300HP');
+// myCar.power; // => '300HP'
+```
+
+#### 2.4. TDZ 영향을 받지 않는 구문 
+
+다음과 같은 경우 `TDZ` 영향을 받지 않습니다.
+
+#### 2.4.1. var 변수
+
+```js
+// Works, but don't do this!
+value; // => undefined
+var value;
+```
+
+#### 2.4.2. function 함수 선언
+
+```js
+// Works!
+greet('World'); // => 'Hello, World!'
+function greet(who) {
+  return `Hello, ${who}!`;
+}
+
+// Works!
+greet('Earth'); // => 'Hello, Earth!'
+```
+
+#### 2.4.3. import 구문
+
+```js
+// Works!
+myFunction();
+import { myFunction } from './myModule';
+```
+
 ## CLOSING
+
+마지막으로 함수의 라이프사이클을 확인하고 포스트를 마치도록 하겠습니다. 
+
+##### 함수의 라이프 사이클
+- 3 단계의 변수 라이프 사이클을 모두 동시에 수행합니다.
+
+<p align="center">
+    <img src="/images/javascript-hoisting-5.JPG" width="75%" class="image__border">
+</p>
+<center>https://noogoonaa.tistory.com/78</center><br>
 
 #### REFERENCE
 - <https://developer.mozilla.org/ko/docs/Glossary/Hoisting>
@@ -167,5 +375,7 @@ var bar = function bar () {
 - <https://gmlwjd9405.github.io/2019/04/22/javascript-hoisting.html>
 - <https://hanamon.kr/javascript-%ED%98%B8%EC%9D%B4%EC%8A%A4%ED%8C%85%EC%9D%B4%EB%9E%80-hoisting/>
 - <https://meetup.toast.com/posts/86>
+- <https://noogoonaa.tistory.com/78>
+- <https://blog.naver.com/PostView.nhn?blogId=dlaxodud2388&logNo=222284235839>
 - <https://velog.io/@yogongman/TDZ-Temporal-Dead-Zone>
 - <https://ui.toast.com/weekly-pick/ko_20191014?fbclid=IwAR3fiR4wiv8kszL6Fz2KqwHpv-bTL8tNHElRN0q0ky5kpOP5BMqMS0wc-9k>

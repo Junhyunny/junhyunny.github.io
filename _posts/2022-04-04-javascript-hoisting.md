@@ -36,19 +36,19 @@ last_modified_at: 2022-04-04T23:55:00
 `var` 키워드로 선언한 변수는 선언 위치에 관계 없이 참조나 호출은 가능합니다.
 
 ##### 작성한 코드
-- `undefined` 값이 로그에 출력됩니다.
+- `undefined` 값이 출력됩니다.
 - 변수 `foo`를 선언하기 전에 `console.log` 함수에서 사용합니다.
 - `foo`라는 이름의 변수가 선언되었음을 인지한 `JavaScript` 엔진은 `undefined` 값을 출력합니다.
     - 변수 선언이 안 되어 있으면 발생하는 에러 메세지 - `ReferenceError: foo is not defined` 
 
-{% include codepen.html hash="LYeeLQj" tab="js,console" title="var keyword before hoisting" %}
+{% include codepen.html hash="LYeeLQj" tab="js,result" title="var keyword before hoisting" %}
 
 ##### 동작한 코드 모습
 - 호이스팅이 일어나면 아래 작성한 코드처럼 동작됩니다.
     - 변수 `foo`가 코드 상단에 선언한 것처럼 동작합니다. 
     - 선언 시 별도 값을 지정하지 않았으므로 `undefined` 값으로 초기화합니다.
 
-{% include codepen.html hash="YzYYQva" tab="js,console" title="var keyword after hoisting" %}
+{% include codepen.html hash="YzYYQva" tab="js,result" title="var keyword after hoisting" %}
 
 #### 1.1.2. 예시 2
 
@@ -56,7 +56,7 @@ last_modified_at: 2022-04-04T23:55:00
 `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 내부입니다.
 
 ##### 작성한 코드
-- `"hello"` 문자열이 로그에 출력됩니다.
+- `"hello"` 문자열이 출력됩니다.
 - `ReferenceError: bar is not defined` 에러 메세지가 출력됩니다.
 - 전역 코드 동작
     - 함수 `foo`를 선언하기 전에 `foo()`로 함수를 호출합니다.
@@ -69,28 +69,28 @@ last_modified_at: 2022-04-04T23:55:00
 - 전역에 위치한 `console.log(bar)` 코드를 실행시키면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
 - 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있습니다.
 
-{% include codepen.html hash="NWXXgQK" tab="js,console" title="var keyword before hoisting - 2" %}
+{% include codepen.html hash="NWXXgQK" tab="js,result" title="var keyword before hoisting - 2" %}
 
 ##### 동작한 코드 모습
 - 함수 `foo`의 선언부는 코드 최상단에 위치합니다.
 - 변수 `bar`의 호이스팅은 함수 `foo` 내부에서만 동작합니다.
     - `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 블럭 내부입니다.
 
-{% include codepen.html hash="NWXXgQK" tab="js,console" title="var keyword after hoisting - 2" %}
+{% include codepen.html hash="NWXXgQK" tab="js,result" title="var keyword after hoisting - 2" %}
 
 #### 1.1.3. 예시 3
 
 변수와 함수의 호이스팅 적용 우선 순위는 누가 높은지 확인해보겠습니다. 
 
-> Stack Overflow
-> Functions are hoisted first, then variable declarations
+> Stack Overflow<br>
+> Functions are hoisted first, then variable declarations<br>
 > ECMAScript 5, section 10.5 - <https://262.ecma-international.org/5.1/#sec-10.5>
 
 스택 오버플로우를 살펴보면 함수가 먼저 호이스팅 되고, 그 다음 변수가 호이스팅이 발생한다고 합니다. 
 다음과 같은 테스트 코드를 통해 확인할 수 있습니다.
 
 ##### 작성한 코드
-- `function foo() {}`, `function bar() {}` 로그가 출력됩니다.
+- `function foo() {}`, `function bar() {}`가 출력됩니다.
 - `foo` 케이스
     - `var` 키워드로 변수 `foo`를 선언합니다.
     - `foo` 이름의 함수를 선언합니다.
@@ -98,36 +98,58 @@ last_modified_at: 2022-04-04T23:55:00
     - `bar` 이름의 함수를 선언합니다.
     - `var` 키워드로 변수 `bar`를 선언합니다.
 
-{% include codepen.html hash="BaJJdZy" tab="js,console" title="var keyword before hoisting - 3" %}
+{% include codepen.html hash="BaJJdZy" tab="js,result" title="var keyword before hoisting - 3" %}
 
 ##### 동작한 코드 모습
 - 우선 함수 선언부가 먼저 호이스팅 됩니다. 
     - `foo`, `bar` 이름의 함수가 먼저 선언됩니다.
 - `var` 키워드로 선언한 변수가 호이스팅 됩니다.
     - `foo`, `bar` 변수가 코드 최상단에 선언됩니다.
-- 코드의 흐름에 따라 `function foo() {}`, `function bar() {}` 로그가 출력됩니다.
+- 코드의 흐름에 따라 `function foo() {}`, `function bar() {}`가 출력됩니다.
 
-{% include codepen.html hash="eYyyELV" tab="js,console" title="var keyword after hoisting - 3" %}
+{% include codepen.html hash="eYyyELV" tab="js,result" title="var keyword after hoisting - 3" %}
 
 #### 1.1.4. 예시 4
 
 함수를 선언하는 방식에 따라 호이스팅 결과가 다르게 나타날 수 있습니다. 
+`JavaScript`에서 함수를 선언하는 방법은 두 가지 있으며, 이를 먼저 정리하고 예시를 살펴보겠습니다.
 
 ##### 함수 선언문
+- 일반적인 함수 선언 방식입니다.
 
 ```js
-
+function foo() {
+    // ...
+}
 ```
 
 ##### 함수 표현식
+- `JavaScript`에선 함수도 객체이므로 변수에 할당하여 사용할 수 있습니다.
+- 익명 함수 표현식 - 함수에 식별자가 주어지지 않습니다.
+- 기명 함수 표현식 - 함수의 식별자가 존재합니다.
 
 ```js
+// (익명) 함수 표현식
+var foo = function () {
+    // ...
+}
 
+// 기명 함수 표현식
+var bar = function bar () {
+    // ...
+}
 ```
 
 ##### 작성한 모습
+- `function foo() {}`, `undefined`가 출력됩니다.
+- 기명 함수 표현식의 경우 변수를 사용하는 것과 동일한 호이스팅 결과를 가집니다.
+
+{% include codepen.html hash="poppONE" tab="js,result" title="var keyword before hoisting - 4" %}
 
 ##### 동작한 코드 모습
+- `var` 키워드로 선언한 변수 `bar`는 상단으로 배치되지만 함수 할당은 아래에서 이루어지므로 `undefined`가 출력됩니다.
+
+{% include codepen.html hash="LYeeJxr" tab="js,result" title="var keyword after hoisting - 4" %}
 
 ## 2. TDZ(Temporal Dead Zone)
 

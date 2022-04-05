@@ -114,12 +114,12 @@ it('route FirstPage - 2', () => {
 })
 ```
 
-## 3. useNavigate 스파이 사용
+## 3. navigate 스파이 사용
 
-`react-router-dom` 모듈의 기능을 오버라이딩(overriding)합니다. 
+`react-router-dom` 모듈의 기능을 재정의합니다. 
 다른 기능들은 모두 실제 기능을 사용하고, `useNavigate` 훅(hook)만 재정의합니다. 
-`useNavigate` 훅을 통해 반환되는 `navigate` 함수를 `jest`가 만들어준 스파이로 변경합니다. 
-화면 이동 이벤트가 발생했을 때 적절한 경로로 `navigate` 스파이를 호출했는지 확인합니다.
+- `useNavigate` 훅을 통해 반환되는 `navigate` 함수를 `jest`가 만들어준 스파이로 변경합니다. 
+- 화면 전환 이벤트가 발생했을 때 적절한 횟수, 경로로 `navigate` 스파이를 호출했는지 확인합니다.
 
 다음과 같은 특징이 있습니다.
 - `useNavigate` 훅을 오버라이딩하였기 때문에 `MemoryRouter`가 불필요합니다.

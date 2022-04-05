@@ -20,10 +20,10 @@ last_modified_at: 2022-04-04T23:55:00
 > 인터프리터가 변수와 함수의 메모리 공간을 선언 전에 미리 할당하는 것을 의미합니다. 
 
 다소 말이 어려웠는데, 조금 더 풀어서 정리를 하면 다음과 같습니다. 
-- 실제로 변수 선언이나 함수 선언이 스코프 최상단으로 끌어올려지는 것은 아닙니다. 
-- 실행 컨텍스트는 코드가 실행되기 위해 필요한 환경이며, `JavaScript` 엔진이 코드를 실행하기 위해 필요한 여러가지 정보를 가지고 있습니다. 
 - 호이스팅(hoisting)은 `JavaScript` 엔진이 코드를 실행하기 전 선언한 변수나 함수를 실행 컨텍스트에 저장하는 것을 의미합니다.
     - `var`, `let`, `const`, `class`, `function` 등
+- 호이스팅을 변수나 함수 선언을 스코프 최상단으로 끌어올리는 일이라고 알려져 있지만, 실제로 변수 선언이나 함수 선언이 스코프 최상단으로 끌어올려지는 것은 아닙니다. 
+- 실행 컨텍스트는 코드가 실행되기 위해 필요한 환경이며, `JavaScript` 엔진이 코드를 실행하기 위해 필요한 여러가지 정보를 가지고 있습니다. 
 - 실행 컨텍스트를 만드는 과정에서 선언한 변수나 함수가 모두 등록되기 때문에 선언부보다 먼저 참조나 호출이 가능합니다.
 - `let`이나 `const` 키워드로 선언한 변수가 호이스팅이 일어나지 않는 것처럼 보이는 이유는 `TDZ(Temporal Dead Zone)` 때문입니다.
 
@@ -37,7 +37,7 @@ last_modified_at: 2022-04-04T23:55:00
 
 ##### 작성한 코드
 - `undefined` 값이 출력됩니다.
-- 변수 `foo`를 선언하기 전에 `console.log` 함수에서 사용합니다.
+- 변수 `foo`를 선언하기 전에 `print` 함수에서 사용합니다.
 - `foo`라는 이름의 변수가 선언되었음을 인지한 `JavaScript` 엔진은 `undefined` 값을 출력합니다.
 
 {% include codepen.html hash="LYeeLQj" tab="js,result" title="var keyword before hoisting" %}
@@ -62,10 +62,10 @@ last_modified_at: 2022-04-04T23:55:00
     - 함수 선언이 나중에 되었음에도 함수 호출에 에러가 발생하지 않습니다.
     - `JavaScript` 엔진은 `foo`라는 이름의 함수를 인지하고 있습니다.
 - `foo` 함수 내부 동작
-    - 변수 `bar`를 `if` 블럭 내부에서 선언하고, `console.log` 함수에서 사용합니다.
+    - 변수 `bar`를 `if` 블럭 내부에서 선언하고, `print` 함수에서 사용합니다.
     - 변수 `bar`는 `if` 블럭 내부에서만 사용 가능하지 않지만, 변수를 선언한 함수 외부에선 사용이 불가능합니다. (함수 내부에서만 유효)
     - `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하고 있습니다.
-- 전역에 위치한 `console.log(bar)` 코드를 실행시키면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
+- 전역에 위치한 `print(bar)` 코드를 실행시키면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
 - 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있습니다.
 
 {% include codepen.html hash="NWXXgQK" tab="js,result" title="var keyword before hoisting - 2" %}

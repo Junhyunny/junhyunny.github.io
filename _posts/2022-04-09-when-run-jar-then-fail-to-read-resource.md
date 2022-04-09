@@ -15,7 +15,7 @@ IDE(Integrated Development Environment)에서 실행 시 리소스(resource) 파
 `jar` 패키지 파일을 실행하면 리소스 파일에 접근이 안되는 현상이 있었습니다. 
 
 ##### action-in-blog-0.0.1-SNAPSHOT.jar 패키지 내부 BOOT-INF 경로
-- 문제가 되는 `jar` 패키지 파일을 열어보면 사용하고 싶은 해당 리소스 파일은 존재합니다. 
+- 문제가 되는 `jar` 패키지 파일의 압축을 풀어보면 사용하고 싶은 해당 리소스 파일은 존재합니다. 
 - 사용하고 싶은 `pokemons.json` 파일은 함께 패키징되어 있습니다. 
 
 ```
@@ -81,8 +81,7 @@ BOOT-INF
 - 클래스 로더(class loader)로부터 리소스 경로를 획득합니다.
 - 획득한 파일 경로를 이용하여 파일을 읽어들일 수 있는 `FileReader` 객체를 만듭니다.
 - `FileReader` 객체를 `BufferedReader` 객체에 전달합니다.
-- 읽은 리소스 파일을 문자열로 변경합니다.
-- 문자열을 반환하려는 `PokemonResponse` 객체로 변경합니다.
+- 읽은 리소스 파일을 문자열로 변경한 후 반환하려는 `PokemonResponse` 객체로 변경합니다.
 
 ```java
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -136,14 +135,14 @@ java.io.FileNotFoundException: file:/Users/junhyunk/Desktop/action-in-blog-0.0.1
 
 ## 3. 문제 해결하기
 
+> `FileNotFoundException` - 파일이 없습니다.
+
 잘 생각해보면 문제 원인은 명확합니다. 
-
-> 파일이 없습니다.
-
 IDE로 어플리케이션을 실행하면 `pokemon.json` 리소스 파일이 프로젝트 패키지 경로에 존재하기 때문에 정상적으로 읽을 수 있습니다. 
-`jar` 패키지 파일을 실행하면 해당 어플리케이션이 사용할 `pokemon.json` 리소스 파일은 존재하지 않습니다. 
-어플리케이션이 리소스를 읽을 클래스 경로가 `jar` 패키지 내부로 잡히고, 
-`pokemon.json` 리소스 파일은 `jar` 패키지 내부에 압축된 이진 데이터로 존재합니다. 
+
+`jar` 패키지 파일로 어플리케이션을 실행하면 해당 어플리케이션이 사용할 `pokemon.json` 리소스 파일은 실제로 존재하지 않습니다. 
+어플리케이션이 리소스를 읽는 경로가 `jar` 패키지 내부로 잡히고, 
+`pokemon.json` 리소스 파일은 `jar` 패키지 내부에 압축된 이진 데이터로 존재하기 때문입니다. 
 
 이를 해결하기 위해 `getResource` 메소드가 아닌 `getResourceAsStream` 메소드를 사용합니다. 
 
@@ -182,7 +181,7 @@ IDE로 어플리케이션을 실행하면 `pokemon.json` 리소스 파일이 프
 ##### 실행 로그 확인
 
 <p align="center">
-    <img src="/images/when-run-jar-then-fail-to-read-resource-1.gif" width="80%" class="image__border">
+    <img src="/images/when-run-jar-then-fail-to-read-resource-1.gif" width="100%" class="image__border">
 </p>
 
 

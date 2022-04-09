@@ -1,5 +1,5 @@
 ---
-title: "@JsonFormat 애너테이션"
+title: "Spring 문자열 시간 정보 변경"
 search: false
 category:
   - spring-boot
@@ -15,4 +15,4 @@ last_modified_at: 2022-04-07T23:55:00
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-02-selective-bean-injection-using-profiles-annotation>
 
 #### REFERENCE
-- <https://jojoldu.tistory.com/361>
+- <https://stackoverflow.com/questions/37871033/spring-datetimeformat-configuration-for-java-time>

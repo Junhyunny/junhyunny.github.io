@@ -105,9 +105,9 @@ public class JacksonController {
 
 ### 1.2. 테스트 코드
 
-- `Content-Type`이 `application/json`입니다.
+- `Content-Type`을 `application/json`.
 - 요청 메세지 데이터를 `ObjectMapper` 객체를 이용해 `json` 문자열 값으로 변경합니다.
-    - 시간을 `"yyyy-MM-dd HH:mm:ss.SSS"` 형태의 문자열로 전달합니다.
+    - 날짜, 시간을 `"yyyy-MM-dd HH:mm:ss.SSS"` 형태의 문자열로 전달합니다.
 - 응답 메세지에 `"yyyy-MM-dd HH:mm:ss.SSS"` 형태의 문자열로 전달했던 데이터가 그대로 반환되었는지 확인합니다.
 
 ```java
@@ -254,6 +254,14 @@ public class DateTimeFormatController {
 ```
 
 ### 2.2. 테스트 코드
+
+- `requestParam` 메소드 테스트
+    - 날짜 형태 문자열을 요청 파라미터로 추가합니다.
+    - 전달한 날짜를 그대로 응답으로 전달해주는지 확인합니다. 
+- `modelAttribute` 메소드 테스트
+    - `Content-type`을 `application/x-www-form-urlencoded`으로 지정합니다.
+    - 날짜 형태 문자열을 요청 파라미터로 추가합니다.
+    - 전달한 날짜를 그대로 응답으로 전달해주는지 확인합니다.
 
 ```java
 package action.in.blog.controller;

@@ -13,17 +13,17 @@ last_modified_at: 2022-04-10T23:55:00
 
 ## 0. 들어가면서
 
-스프링 프레임워크를 사용하는 레거시 시스템들을 돌이켜 보면 날짜 포맷을 문자열(string)으로 넘겨 받는 경우가 종종 있었습니다. 
+스프링 프레임워크를 사용하는 레거시 시스템들을 돌이켜 보면 날짜 포맷을 문자열으로 넘겨 받는 경우가 종종 있었습니다. 
 전달 받은 문자열을 `SimpleDateFormat` 클래스를 이용해 `Date` 객체로 변경하거나 문자열 그대로 데이터베이스에 저장하는 시스템도 있었습니다. 
 이번 포스트에선 스프링 프레임워크를 이용할 때 API 엔드 포인트(end point)에서 시간 문자열 포맷을 쉽게 시간 관련 클래스로 변경하는 방법을 정리하였습니다. 
 
 ## 1. @JsonFormat 애너테이션 사용
 
 스프링 프레임워크는 `application/json` 타입의 요청, 응답 메세지를 만들기 위해 기본적으로 `jackson` 라이브러리를 사용합니다. 
-`@JsonFormat` 애너테이션은 `jackson` 라이브러리의 기능이며, 해당 애너테이션을 사용하면 날짜 데이터를 특정 포맷으로 변경할 수 있습니다. 
+`@JsonFormat` 애너테이션은 `jackson` 라이브러리 기능이며, 해당 애너테이션을 사용하면 날짜 데이터를 특정 포맷으로 변경할 수 있습니다. 
 
 다음과 같은 상황에 적용할 수 있습니다. 
-- 요청 헤더에 `Content-type`이 `application/json`이며 요청 메세지 클래스 앞에 `@RequestBody` 애너테이션이 붙은 경우
+- `Content-type`이 `application/json`이며 요청 메세지 클래스 앞에 `@RequestBody` 애너테이션이 붙은 경우
 - `@RestController` 애너테이션이 붙은 컨트롤러의 응답을 처리하는 경우
 
 ##### Spring Framework Json Formatting
@@ -169,26 +169,30 @@ public class JacksonControllerTests {
 
 ## 2. @DateTimeFormat 애너테이션 사용
 
-`@DateTimeFormat` 애너테이션은 스프링 프레임워크에서 제공하며, 이 애너테이션을 사용하면 날짜, 시간 형태를 쉽게 변경할 수 있습니다. 
+`@DateTimeFormat` 애너테이션은 스프링 프레임워크에서 제공하고, 해당 애너테이션을 사용하면 날짜, 시간 형태를 쉽게 변경할 수 있습니다. 
 
 다음과 같은 상황에 적용할 수 있습니다. 
-- `URL` 뒤에 붙는 질의(query)에 날짜 형태의 문자열을 전달받는 경우
+- URL 뒤에 붙는 질의(query)에 날짜 형태의 문자열을 전달받는 경우
 - 요청 메세지 클래스에 `@ModelAttribute` 애너테이션이 붙은 경우
     - 컨트롤러에서 별도 애너테이션 없이 클래스로 요청 메세지를 받는 경우 `@ModelAttribute` 애너테이션이 붙은 것과 동일합니다.
     - `Content-Type: application/x-www-form-urlencoded`인 경우 요청 메세지에 `@ModelAttribute` 애너테이션을 붙여 처리합니다.
 
 ##### Spring Framework DateTimeFormat 
-- `URL` 뒤에 key-value 형태로 붙는 질의의 경우 `AbstractNamedValueMethodArgumentResolver` 클래스에 의해 처리됩니다.
-    - `AbstractNamedValueMethodArgumentResolver` 클래스 `resolveArgument` 메소드
-- `@ModelAttribute` 애너테이션이 붙은 요청 메세지인 경우 `ModelAttributeMethodProcessor` 클래스에 의해 처리됩니다.
-    - `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메소드
+- `URL`에 붙는 key-value 형태의 질의는 `AbstractNamedValueMethodArgumentResolver` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
+- `@ModelAttribute` 애너테이션이 붙은 요청 메세지인 경우 `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
 
 <p align="center">
   <img src="/images/spring-request-date-format-2.JPG" width="85%" class="image__border">
 </p>
 
-
 ### 2.1. 구현 코드
+
+- `@DateTimeFormat` 애너테이션은 문자열을 `java.sql.Timestamp` 타입으로 변환 시 에러가 발생합니다.
+- `requestParam` 메소드
+    - URL 뒤에 붙은 key-value 형태의 질의를 통해 전달받는 데이터를 처리합니다.
+- `modelAttribute` 메소드
+    - URL 뒤에 붙은 key-value 형태의 질의를 통해 전달받는 데이터를 처리합니다.
+    - `form` 태그를 통해 전달받는 요청 메세지를 처리합니다. 
 
 ```java
 package action.in.blog.controller;
@@ -299,6 +303,9 @@ public class DateTimeFormatControllerTests {
 
 ### 2.3. 응답 결과
 
+- `/request-param` 경로로 요청을 보냅니다. 
+- URL 뒤에 요청 파라미터를 전달합니다.
+
 ```
 % curl "http://localhost:8080/request-param?date=2020-04-10%2010:25:00.000&localDateTime=2020-04-10%2010:25:00.000" | jq .
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -310,6 +317,9 @@ public class DateTimeFormatControllerTests {
 }
 ```
 
+- `/model-attribute` 경로로 요청을 보냅니다. 
+- URL 뒤에 요청 파라미터를 전달합니다.
+
 ```
 curl -X POST "http://localhost:8080/model-attribute?date=2020-04-10%2010:25:00.000&localDateTime=2020-04-10%2010:25:00.000" | jq . 
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
@@ -320,6 +330,10 @@ curl -X POST "http://localhost:8080/model-attribute?date=2020-04-10%2010:25:00.0
   "localDateTime": "2020-04-10 10:25:00.000"
 }
 ```
+
+- `/model-attribute` 경로로 요청을 보냅니다. 
+- `Content-type: x-www-form-urlencoded`으로 지정합니다.
+- 요청 메세지를 key-value 형태로 전달합니다.
 
 ```
 curl -X POST -H "Content-type: application/x-www-form-urlencoded" -d "date=2022-04-10+10:25:00.000&localDateTime=2022-04-10+10:25:00.000"  "http://localhost:8080/model-attribute" | jq .

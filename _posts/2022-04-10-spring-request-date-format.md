@@ -45,9 +45,12 @@ last_modified_at: 2022-04-10T23:55:00
     - `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷을 `java.time.LocalDateTime` 클래스로 전달받습니다.
 - `JacksonResponse` 클래스
     - `@RestController` 애너테이션이 붙은 컨트롤러 클래스의 리턴 값이므로 `json` 형태로 응답합니다.
-    - `java.util.Date` 객체를 `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷으로 응답합니다.(미지정 시 `long`)
-    - `java.sql.Timestamp` 객체를 `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷으로 응답합니다.(미지정 시 `long`)
-    - `java.time.LocalDateTime` 객체를 `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷으로 응답합니다.(미지정 시 `"yyyy-MM-dd'T'HH:mm:ss.SSS"`)
+    - `java.util.Date` 객체를 `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷으로 응답합니다.
+        - 미지정 시 `long`
+    - `java.sql.Timestamp` 객체를 `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷으로 응답합니다.
+        - 미지정 시 `long`
+    - `java.time.LocalDateTime` 객체를 `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷으로 응답합니다.
+        - 미지정 시 `"yyyy-MM-dd'T'HH:mm:ss.SSS"`
 
 ```java
 package action.in.blog.controller;

@@ -1,0 +1,320 @@
+---
+title: "How to test Intersection Observer"
+search: false
+category:
+  - javascript
+  - jest
+  - testing-library
+  - test-driven-development
+last_modified_at: 2022-04-14T23:55:00
+---
+
+<br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Asynchronous Task In JavaScript][how-to-work-javascript-async-link]
+
+## 0. 들어가면서
+
+무한 스크롤(infinite scroll) 기능을 테스트하기 위한 코드를 작성하면서 만난 에러와 해결하는 과정을 정리하였습니다. 
+
+## 1. Intersection Observer API
+
+`Intersection Observer`는 타겟 엘리먼트(target element)가 관찰하고 있는 화면에 보여지는지 확인하는 Web API 기능입니다. 
+이번 포스트는 `Intersection Observer`를 테스트하는 방법을 정리하였기 때문에 간단한 설명과 용어만 정리하고 글을 이어나가겠습니다. 
+
+아래 용어들과 기능에 이해가 필요합니다. 
+- 뷰 포트(View Port)는 관찰하고 있는 영역입니다. 
+- 타겟 엘리먼트(Target Element)는 관심 대상입니다.
+- `Intersection Observer`는 타겟 엘리먼트와 뷰 포트 사이의 교차(cross)를 관찰합니다.
+- `Web API` 기능이므로 메인 스레드에 영향을 주지 않고 비동기적인 콜백 함수 호출로 관찰이 가능합니다.
+
+<p align="center">
+    <img src="/images/how-to-test-intersection-observer-1.JPG" width="75%" class="image__border">
+</p>
+<center>https://cross-code.github.io/posts/IntersectionObserver/</center><br>
+
+## 2. 코드 살펴보기
+
+이해를 돕기 위해 구현 코드, 테스트 코드 순서로 기능을 살펴보겠습니다. 
+발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리하였습니다.
+
+### 2.1. 구현 코드
+- 
+
+```jsx
+import { useCallback, useEffect, useState } from 'react'
+import classes from './InfiniteScroll.module.css'
+import axios from 'axios'
+
+let intersectionObserver
+let offset = 0
+
+export default () => {
+    const [pokemons, setPokemons] = useState([])
+
+    const fetchesData = useCallback(async () => {
+        const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/?offset=${offset}&limit=20`)
+        const results = data.results
+        if (results.length) {
+            results[results.length - 1].isLastItem = true
+        }
+        offset++
+        setPokemons((prevState) => {
+            if (prevState.length) {
+                prevState[prevState.length - 1].isLastItem = false
+            }
+            return [].concat(prevState).concat(results)
+        })
+    }, [])
+
+    useEffect(async () => {
+        await fetchesData()
+    }, [])
+
+    useEffect(() => {
+        intersectionObserver = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach(async (entry) => {
+                    if (!entry.isIntersecting) {
+                        return
+                    }
+                    observer.unobserve(entry.target)
+                    await fetchesData()
+                })
+            },
+            {
+                root: document.querySelector('#region'),
+            }
+        )
+        return () => {
+            intersectionObserver.disconnect()
+        }
+    }, [])
+
+    useEffect(() => {
+        const lastItem = document.querySelector('.last-pokemon')
+        if (lastItem) {
+            intersectionObserver.observe(lastItem)
+        }
+    }, [pokemons])
+
+    return (
+        <div id={'region'} className={classes.region}>
+            {pokemons.map((pokemon, index) => (
+                <div key={index} className={`${classes.box} ${pokemon.isLastItem ? 'last-pokemon' : ''}`}>
+                    {pokemon.name}
+                </div>
+            ))}
+        </div>
+    )
+}
+```
+
+### 2.2. 테스트 코드
+
+```jsx
+import {fireEvent, render, screen, waitFor} from '@testing-library/react'
+
+import axios from 'axios'
+
+import App from '../App'
+
+describe('Intersection Observer', () => {
+    it('when scroll down then fetch data', async () => {
+        const spyAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+            data: {
+                results: [
+                    { name: '1' },
+                    { name: '2' },
+                    { name: '3' },
+                    { name: '4' },
+                    { name: '5' },
+                    { name: '6' },
+                    { name: '7' },
+                    { name: '8' },
+                    { name: '9' },
+                    { name: '10' },
+                ],
+            },
+        })
+        jest.spyOn(axios, 'get').mockResolvedValueOnce({
+            data: {
+                results: [{ name: '11' }, { name: '12' }],
+            },
+        })
+        await waitFor(() => {
+            return render(<App />)
+        })
+
+        fireEvent.scroll(document.querySelector('#region'), { y: '500px' })
+
+        expect(await screen.findByText('11')).toBeInTheDocument()
+        expect(spyAxios).toHaveBeenCalledTimes(2)
+        expect(spyAxios).toHaveBeenNthCalledWith(2, 'https://pokeapi.co/api/v2/pokemon/?offset=1&limit=20')
+    })
+})
+```
+
+##### 에러 발생과 원인
+
+```
+IntersectionObserver is not defined
+ReferenceError: IntersectionObserver is not defined
+    at /Users/junhyunk/Desktop/workspace/blog-in-action/2022-04-13-how-to-test-intersection-observer/intersection-observer-test/src/intersection-observer/InfiniteScroll.js:31:9
+    at invokePassiveEffectCreate (/Users/junhyunk/Desktop/workspace/blog-in-action/2022-04-13-how-to-test-intersection-observer/intersection-observer-test/node_modules/react-dom/cjs/react-dom.development.js:23487:20)
+    at HTMLUnknownElement.callCallback (/Users/junhyunk/Desktop/workspace/blog-in-action/2022-04-13-how-to-test-intersection-observer/intersection-observer-test/node_modules/react-dom/cjs/react-dom.development.js:3945:14)
+    at HTMLUnknownElement.callTheUserObjectsOperation (/Users/junhyunk/Desktop/workspace/blog-in-action/2022-04-13-how-to-test-intersection-observer/intersection-observer-test/node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30)
+    ...
+```
+
+### 2.3. 테스트 코드 보완하기
+
+#### 2.3.1 Mock IntersectionObserver 구현
+
+```jsx
+const mockIntersectionObserver = class {
+    constructor(callback, options) {
+        this.viewPort = options.root ? options.root : window
+        this.observable = []
+        this.viewPort.addEventListener('scroll', () => {
+            this.observable.map((ob) => {
+                ob.isIntersecting = this.isInViewPort(ob.target)
+            })
+            callback(this.observable, this)
+        })
+    }
+
+    isInViewPort(target) {
+        const rect = target.getBoundingClientRect()
+        const viewPortRect = this.viewPort.getBoundingClientRect()
+        return (
+            rect.left >= viewPortRect.x &&
+            rect.top >= viewPortRect.y &&
+            rect.right <= viewPortRect.right &&
+            rect.bottom <= viewPortRect.bottom
+        )
+    }
+
+    observe(target) {
+        this.observable.push({ isIntersecting: false, target })
+    }
+
+    unobserve(target) {
+        this.observable = this.observable.map((ob) => ob.target !== target)
+    }
+
+    disconnect() {
+        this.observable = []
+    }
+}
+```
+
+#### 2.3.2. 전체 코드
+
+```jsx
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+
+import axios from 'axios'
+
+import App from '../App'
+
+const mockIntersectionObserver = class {
+    constructor(callback, options) {
+        this.viewPort = options.root ? options.root : window
+        this.observable = []
+        this.viewPort.addEventListener('scroll', () => {
+            this.observable.map((ob) => {
+                ob.isIntersecting = this.isInViewPort(ob.target)
+            })
+            callback(this.observable, this)
+        })
+    }
+
+    isInViewPort(target) {
+        const rect = target.getBoundingClientRect()
+        const viewPortRect = this.viewPort.getBoundingClientRect()
+        return (
+            rect.left >= viewPortRect.x &&
+            rect.top >= viewPortRect.y &&
+            rect.right <= viewPortRect.right &&
+            rect.bottom <= viewPortRect.bottom
+        )
+    }
+
+    observe(target) {
+        this.observable.push({ isIntersecting: false, target })
+    }
+
+    unobserve(target) {
+        this.observable = this.observable.map((ob) => ob.target !== target)
+    }
+
+    disconnect() {
+        this.observable = []
+    }
+}
+
+window.IntersectionObserver = mockIntersectionObserver
+
+describe('Intersection Observer', () => {
+    it('when scroll down then fetch data', async () => {
+        const spyAxios = jest.spyOn(axios, 'get').mockResolvedValueOnce({
+            data: {
+                results: [
+                    { name: '1' },
+                    { name: '2' },
+                    { name: '3' },
+                    { name: '4' },
+                    { name: '5' },
+                    { name: '6' },
+                    { name: '7' },
+                    { name: '8' },
+                    { name: '9' },
+                    { name: '10' },
+                ],
+            },
+        })
+        jest.spyOn(axios, 'get').mockResolvedValueOnce({
+            data: {
+                results: [{ name: '11' }, { name: '12' }],
+            },
+        })
+        await waitFor(() => {
+            return render(<App />)
+        })
+
+        fireEvent.scroll(document.querySelector('#region'), { y: '500px' })
+
+        expect(await screen.findByText('11')).toBeInTheDocument()
+        expect(spyAxios).toHaveBeenCalledTimes(2)
+        expect(spyAxios).toHaveBeenNthCalledWith(2, 'https://pokeapi.co/api/v2/pokemon/?offset=1&limit=20')
+    })
+})
+```
+
+##### 테스트 성공
+
+<p align="left">
+    <img src="/images/how-to-test-intersection-observer-2.JPG" width="45%" class="image__border">
+</p>
+
+##### 구현 화면
+
+<p align="left">
+    <img src="/images/how-to-test-intersection-observer-3.gif" width="45%" class="image__border">
+</p>
+
+## CLOSING
+
+
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-13-how-to-test-intersection-observer>
+
+#### REFERENCE
+- <https://developer.mozilla.org/ko/docs/Web/API/Intersection_Observer_API>
+- <https://heropy.blog/2019/10/27/intersection-observer/>
+- <https://cross-code.github.io/posts/IntersectionObserver/>
+
+[how-to-work-javascript-async-link]: https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/

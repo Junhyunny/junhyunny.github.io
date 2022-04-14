@@ -42,11 +42,16 @@ last_modified_at: 2022-04-14T23:55:00
 ### 2.1. 구현 코드
 
 - `componentDidMount` 시점에 다음과 같은 동작을 수행합니다.
-    - 포켓몬 API를 사용한 데이터 조회
-    - `IntersectionObserver` 객체 생성 및 뷰 포트 지정
+    - 포켓몬 API를 사용한 데이터 조회합니다.
+    - `IntersectionObserver` 객체를 생성하고 뷰 포트를 등록합니다.
+    - `IntersectionObserver` 콜백 함수
+        - 현재 타겟을 관찰 대상에서 제거합니다.
+        - 데이터를 조회합니다.
 - `componentDidUpdate` 시점에 다음과 같은 동작을 수행합니다.
     - `pokemos` 상태가 변경될 때마다 수행합니다.
-    - 신규 타겟 지정
+    - 관찰하고 싶은 신규 타겟을 등록합니다.
+- `componentWillUnmount` 시점에 다음과 같은 동작을 수행합니다.
+    - 사용한 `IntersectionObserver`을 정리합니다.
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react'
@@ -79,7 +84,7 @@ export default () => {
     }, [])
 
     useEffect(() => {
-        intersectionObserver = new IntersectionObserver(
+        intersectionObserver = new ㅋㅍ(
             (entries, observer) => {
                 entries.forEach(async (entry) => {
                     if (!entry.isIntersecting) {

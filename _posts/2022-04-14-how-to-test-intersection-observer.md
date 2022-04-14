@@ -84,7 +84,7 @@ export default () => {
     }, [])
 
     useEffect(() => {
-        intersectionObserver = new ㅋㅍ(
+        intersectionObserver = new IntersectionObserver(
             (entries, observer) => {
                 entries.forEach(async (entry) => {
                     if (!entry.isIntersecting) {

@@ -368,8 +368,8 @@ describe('Intersection Observer', () => {
 
 ##### 구현 화면
 
-<p align="left">
-    <img src="/images/how-to-test-intersection-observer-3.gif" width="45%" class="image__border">
+<p align="center">
+    <img src="/images/how-to-test-intersection-observer-3.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

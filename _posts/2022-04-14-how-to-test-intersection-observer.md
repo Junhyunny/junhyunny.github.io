@@ -380,7 +380,7 @@ describe('Intersection Observer', () => {
 사용하는 방법과 테스트 코드를 작성하는 포스트는 다음 포스트 주제로 남기겠습니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-13-how-to-test-intersection-observer>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-14-how-to-test-intersection-observer>
 
 #### REFERENCE
 - <https://developer.mozilla.org/ko/docs/Web/API/Intersection_Observer_API>

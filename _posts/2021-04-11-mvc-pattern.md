@@ -197,7 +197,7 @@ spring:
 - 뷰(View) 역할을 수행하는 JSP 입니다.
 - **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
 
-```jsxp
+```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>

@@ -341,7 +341,7 @@ public class MemberService {
 
 ##### 테스트 결과
 
-<p align="center"><img src="/images/mvc-pattern-5.gif" width="75%" class="image__border"></p>
+<p align="center"><img src="/images/mvc-pattern-5.gif" width="100%" class="image__border"></p>
 
 ## CLOSING
 

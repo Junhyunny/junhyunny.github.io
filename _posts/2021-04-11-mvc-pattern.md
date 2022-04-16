@@ -9,8 +9,6 @@ last_modified_at: 2021-08-25T01:00:00
 
 <br>
 
-⚠️ 해당 포스트는 2021년 8월 25일에 재작성되었습니다. (불필요 코드 제거)
-
 ## 0. 들어가면서
 
 > Wiki<br>
@@ -26,7 +24,8 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 이미지를 통해 전체적인 구조를 파악하고 컴포넌트 별로 무슨 역할을 수행하는지 정리해보았습니다.  
 
 ##### MVC 패턴 다이어그램 및 웹 어플리케이션에서 사용하는 일반적인 MVC 패턴
-<div align="center">
+
+<div align="center" class="image__border">
     <img src="/images/mvc-pattern-1.JPG" width="30%">
     <img src="/images/mvc-pattern-2.JPG" width="50%">
 </div>
@@ -73,6 +72,7 @@ MVC 패턴은 여러 개의 뷰(View)가 존재할 수 있으며, 모델에게 �
 - 모델이나 뷰의 변경을 모니터링 해야 합니다.
 
 ## 2. MVC 패턴 왜 사용할까?
+
 MVC 패턴에 대한 여러 글을 읽어봤지만, 결국 **`'유지보수의 편리성'`**이라는 하나의 결론으로 수렴합니다. 
 최초 설계를 꼼꼼하게 진행한 시스템이라도 유지보수가 발생하기 시작하면 각 기능간의 결합도(coupling)가 높아지는 경우가 발생합니다. 
 이는 최초 설계 이념을 정했던 사람들의 부재 혹은 비즈니스 요건 변경으로 인해 필연적으로 발생하는 것 같습니다. 
@@ -85,12 +85,13 @@ MVC 패턴을 가진 시스템의 각 컴포넌트는 자신이 맡은 역할만
 (화면의 변경은 only 뷰, 데이터나 비즈니스 요건이 변경은 only 모델, 뷰와 모델 변경에 따른 일부 컨트롤러 변경)
 
 ## 3. MVC 패턴의 한계
+
 세상에 완벽이라는 단어는 없습니다. MVC 패턴에도 한계가 존재합니다. 
 복잡한 대규모 프로그램의 경우 다수의 뷰와 모델이 컨트롤러를 통해 연결되기 때문에 컨트롤러가 불필요하게 커지는 현상이 발생합니다. 
 복잡한 화면을 구성하는 경우에도 동일한 현상이 발생하는데 이를 **`'Massive-View-Controller'`** 라고 합니다. 
 
 ##### Massive-View-Controller
-<p align="center"><img src="/images/mvc-pattern-3.JPG" width="75%"></p>
+<p align="center"><img src="/images/mvc-pattern-3.JPG" width="75%" class="image__border"></p>
 <center>https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center><br>
 
 이런 문제점을 보완하기 위해 다양한 패턴이 파생되었습니다. 
@@ -112,7 +113,7 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
 1. 조회한 데이터를 모델 객체를 통해 뷰에게 전달합니다.
 1. 화면에 변경이 발생하는지 확인합니다.
 
-<p align="center"><img src="/images/mvc-pattern-4.JPG" width="75%"></p>
+<p align="center"><img src="/images/mvc-pattern-4.JPG" width="75%" class="image__border"></p>
 
 ### 4.2. 패키지 구조
 
@@ -148,6 +149,7 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
 ```
 
 ### 4.3. pom.xml 파일 dependency 추가
+
 - Spring Boot 프레임워크는 JSP를 공식적으로 지원하지 않기 때문에 아래와 같은 의존성들이 필요합니다.
 - jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
 - jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능을 제공
@@ -169,6 +171,7 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
 ```
 
 ### 4.4. application.yml
+
 - .jsp 파일 경로를 알려주기 위해 다음과 같은 설정을 추가합니다.
 - spring.mvc.view.prefix=/WEB-INF/jsp/
 - spring.mvc.view.suffix=.jsp
@@ -194,6 +197,7 @@ spring:
 ```
 
 ### 4.5. index.jsp
+
 - 뷰(View) 역할을 수행하는 JSP 입니다.
 - **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
 
@@ -240,6 +244,7 @@ spring:
 ```
 
 ### 4.6. JspController 클래스
+
 - 컨트롤러(Controller) 역할을 수행하는 클래스입니다.
 - **`/jsp/member/index`** 경로로 전달받은 POST 요청을 memberService 클래스를 이용해 INSERT
 - memberService 클래스를 이용해 데이터 조회 후 JSP 화면 렌더링 시 사용하는 model 객체에게 데이터를 전달합니다.
@@ -296,6 +301,7 @@ public class JspController {
 ```
 
 ### 4.7. MemberService 클래스
+
 - 모델(Model) 역할을 수행하는 클래스입니다.
 - 서비스 객체는 데이터 CRUD, 인증과 관련된 비즈니스 로직을 수행합니다.
 
@@ -335,9 +341,10 @@ public class MemberService {
 
 ##### 테스트 결과
 
-<p align="center"><img src="/images/mvc-pattern-5.gif" width="75%"></p>
+<p align="center"><img src="/images/mvc-pattern-5.gif" width="75%" class="image__border"></p>
 
 ## CLOSING
+
 사용자 인터페이스가 필요한 어플리케이션에서 가장 즐겨 사용되는 디자인 패턴입니다. 
 MVC 패턴에 대해 주어 들은 건 있어서 어느 정도 설명은 가능하지만, 
 구체적으로 정리해보지 않았기 때문에 포스트로 한번 정리해보았습니다. 

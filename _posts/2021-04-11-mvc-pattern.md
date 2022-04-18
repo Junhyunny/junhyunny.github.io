@@ -119,40 +119,36 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
 
 ```
 ./
-|-- README.md
-|-- action-in-blog.iml
-|-- mvnw
-|-- mvnw.cmd
-|-- pom.xml
-`-- src
-    `-- main
-        |-- java
-        |   `-- blog
-        |       `-- in
-        |           `-- action
-        |               |-- ActionInBlogApplication.java
-        |               |-- controller
-        |               |   `-- JspController.java
-        |               |-- converter
-        |               |   `-- StringListConverter.java
-        |               `-- domain
-        |                   `-- member
-        |                       |-- Member.java
-        |                       |-- MemberRepository.java
-        |                       `-- MemberService.java
-        |-- resources
-        |   `-- application.yml
-        `-- webapp
-            `-- WEB-INF
-                `-- jsp
-                    `-- index.jsp
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    └── main
+        ├── java
+        │   └── blog
+        │       └── in
+        │           └── action
+        │               ├── ActionInBlogApplication.java
+        │               ├── controller
+        │               │   ├── MemberController.java
+        │               │   └── MemberDto.java
+        │               └── domain
+        │                   ├── Member.java
+        │                   ├── MemberRepository.java
+        │                   └── MemberService.java
+        ├── resources
+        │   └── application.yml
+        └── webapp
+            └── WEB-INF
+                └── jsp
+                    └── index.jsp
 ```
 
 ### 4.3. pom.xml 파일 dependency 추가
 
 - Spring Boot 프레임워크는 JSP를 공식적으로 지원하지 않기 때문에 아래와 같은 의존성들이 필요합니다.
-- jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
-- jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능을 제공
+    - jstl - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
+    - jasper - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능 제공
 
 ```xml
     <dependencies>
@@ -173,8 +169,8 @@ Spring Boot 프레임워크는 공식적으로 JSP를 지원하지 않지만, �
 ### 4.4. application.yml
 
 - .jsp 파일 경로를 알려주기 위해 다음과 같은 설정을 추가합니다.
-- spring.mvc.view.prefix=/WEB-INF/jsp/
-- spring.mvc.view.suffix=.jsp
+    - spring.mvc.view.prefix=/WEB-INF/jsp/
+    - spring.mvc.view.suffix=.jsp
 
 ```yml
 server:
@@ -185,60 +181,130 @@ spring:
       prefix: /WEB-INF/jsp/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:~/test
+    username: sa
+    password:
   jpa:
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+  h2:
+    console:
+      path: /h2-console
+      enabled: true
 ```
 
 ### 4.5. index.jsp
 
-- 뷰(View) 역할을 수행하는 JSP 입니다.
-- **`/src/main`** 폴더 하위에 **`/webapp/WEB-INF/jsp`** 폴더를 만들고 JSP 파일을 추가합니다.
+- 뷰(View) 역할을 수행하는 `JSP` 파일입니다.
+- `/src/main` 폴더 하위에 `/webapp/WEB-INF/jsp` 폴더를 만들고 JSP 파일을 추가합니다.
+- 다음과 같은 기능을 수행합니다.
+    - 폼(form) 블록으로 컨트롤러에게 추가하고 싶은 사용자 정보를 전달합니다.
+    - 컨트롤러에게 전달받은 사용자 정보를 화면에 렌더링합니다.
 
 ```jsp
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>멤버 등록</title>
+    <style>
+        .form {
+            border: #323232 solid 1px;
+            margin: auto;
+            padding: 10px;
+            width: 70vw;
+            height: 100%;
+        }
+
+        .form__input {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form__input > div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form__button {
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .container {
+            overflow: auto;
+            border: #323232 solid 1px;
+            margin: 10px auto;
+            padding: 10px;
+            width: 70vw;
+            height: 300px;
+        }
+
+        .container__cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .container__card {
+            padding: 10px;
+            border: #323232 solid 1px;
+            border-radius: 4px;
+            box-shadow: 0 2px 1px 1px gray;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>멤버 등록</title>
 </head>
+
 <body>
-    <div>
-        <form action="/jsp/member/index" method="post">
-            <p>
-                ID : <input type="text" name="id" />
-                비밀번호 : <input type="password" name="password" />
-                이름 : <input type="text" name="memberName" />
-                E-MAIL : <input type="text" name="memberEmail" />
-            </p>
-            <p>
-                <input type="submit" value="전송" />
-        </form>
+<div class="form">
+    <form action="/index" method="post">
+        <div class="form__input">
+            <div>
+                <span>ID: </span>
+                <input type="text" name="id"/>
+            </div>
+            <div>
+                <span>비밀번호: </span>
+                <input type="password" name="password"/>
+            </div>
+            <div>
+                <span>이름: </span>
+                <input type="text" name="memberName"/>
+            </div>
+            <div>
+                <span>E-MAIL:</span>
+                <input type="text" name="memberEmail"/>
+            </div>
+        </div>
+        <input class="form__button" type="submit" value="전송"/>
+    </form>
+</div>
+
+<div class="container">
+    <div class="container__cards">
+        <c:forEach items="${memberList}" var="member">
+            <div class="container__card">
+                <div>
+                    <span>ID</span>
+                    <span>${member.getId()}</span>
+                </div>
+                <div>
+                    <span>이름</span>
+                    <span>${member.getMemberName()}</span>
+                </div>
+                <div>
+                    <span>E-MAIL</span>
+                    <span>${member.getMemberEmail()}</span>
+                </div>
+            </div>
+        </c:forEach>
     </div>
-    <div class="container">
-        <table class="table table-hover table table-striped">
-            <tr>
-                <th>ID</th>
-                <th>이름</th>
-                <th>E-MAIL</th>
-            </tr>
-            <c:forEach items="${memberList}" var="member">
-                <tr>
-                    <th>${member.getId()}</th>
-                    <th>${member.getMemberName()}</th>
-                    <th>${member.getMemberEmail()}</th>
-                </tr>
-            </c:forEach>
-        </table>
-    </div>
+</div>
 </body>
 </html>
 ```
@@ -246,13 +312,15 @@ spring:
 ### 4.6. JspController 클래스
 
 - 컨트롤러(Controller) 역할을 수행하는 클래스입니다.
-- **`/jsp/member/index`** 경로로 전달받은 POST 요청을 memberService 클래스를 이용해 INSERT
-- memberService 클래스를 이용해 데이터 조회 후 JSP 화면 렌더링 시 사용하는 model 객체에게 데이터를 전달합니다.
+- 다음과 같은 기능을 수행합니다.
+    - `/index` 경로 POST 요청 - 전달받은 사용자 정보를 모델 영역으로 전달합니다.
+    - `/index` 경로 GET 요청 - 화면에서 렌더링할 사용자들의 정보를 모델 영역으로부터 받아 전달합니다.
 
 ```java
 package blog.in.action.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -262,25 +330,35 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
-import blog.in.action.domain.member.Member;
-import blog.in.action.domain.member.MemberService;
+import blog.in.action.domain.Member;
+import blog.in.action.domain.MemberService;
 
 @Controller
-@RequestMapping(value = "/jsp/member")
-public class JspController {
+public class MemberController {
 
     private final MemberService memberService;
 
-    public JspController(MemberService memberService) {
+    public MemberController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    private List<MemberDto> getAllMembers() {
+        List<Member> memberList = memberService.findAll();
+        return memberList
+                .stream()
+                .map(member -> MemberDto.builder()
+                        .id(member.getId())
+                        .memberName(member.getMemberName())
+                        .memberEmail(member.getMemberEmail())
+                        .build()
+                )
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/index")
     public String index(Model model) {
-        List<Member> memberList = memberService.findAll();
-        model.addAttribute("memberList", memberList);
+        model.addAttribute("memberList", getAllMembers());
         return "index";
     }
 
@@ -293,8 +371,7 @@ public class JspController {
         member.setMemberName(servletRequest.getParameter("memberName"));
         member.setMemberEmail(servletRequest.getParameter("memberEmail"));
         memberService.registMember(member);
-        List<Member> memberList = memberService.findAll();
-        model.addAttribute("memberList", memberList);
+        model.addAttribute("memberList", getAllMembers());
         return "index";
     }
 }
@@ -303,13 +380,15 @@ public class JspController {
 ### 4.7. MemberService 클래스
 
 - 모델(Model) 역할을 수행하는 클래스입니다.
-- 서비스 객체는 데이터 CRUD, 인증과 관련된 비즈니스 로직을 수행합니다.
+- 다음과 같은 기능을 수행합니다.
+    - 모든 사용자들의 정보를 조회합니다.
+    - 사용자 정보를 추가, 업데이트합니다.
 
 ```java
-package blog.in.action.domain.member;
+package blog.in.action.domain;
 
 import java.util.List;
-import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -325,14 +404,6 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public Member findById(String id) {
-        Optional<Member> option = memberRepository.findById(id);
-        if (!option.isPresent()) {
-            return null;
-        }
-        return option.get();
-    }
-
     public List<Member> findAll() {
         return memberRepository.findAll();
     }
@@ -341,7 +412,7 @@ public class MemberService {
 
 ##### 테스트 결과
 
-<p align="center"><img src="/images/mvc-pattern-5.gif" width="100%" class="image__border"></p>
+<p align="left"><img src="/images/mvc-pattern-5.gif" width="60%" class="image__border"></p>
 
 ## CLOSING
 

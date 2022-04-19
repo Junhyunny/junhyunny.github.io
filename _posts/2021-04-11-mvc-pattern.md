@@ -363,14 +363,13 @@ public class MemberController {
     }
 
     @PostMapping(path = "/index")
-    @Transactional(propagation = Propagation.REQUIRED)
     public String register(HttpServletRequest servletRequest, Model model) {
         Member member = new Member();
         member.setId(servletRequest.getParameter("id"));
         member.setPassword(servletRequest.getParameter("password"));
         member.setMemberName(servletRequest.getParameter("memberName"));
         member.setMemberEmail(servletRequest.getParameter("memberEmail"));
-        memberService.registMember(member);
+        memberService.registerMember(member);
         model.addAttribute("memberList", getAllMembers());
         return "index";
     }
@@ -390,6 +389,7 @@ package blog.in.action.domain;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MemberService {
@@ -400,7 +400,8 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public Member registMember(Member member) {
+    @Transactional
+    public Member registerMember(Member member) {
         return memberRepository.save(member);
     }
 

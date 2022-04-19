@@ -1,0 +1,37 @@
+---
+title: "OSIV, Open Session In View"
+search: false
+category:
+  - spring-mvc
+  - jpa
+last_modified_at: 2022-04-20T23:55:00
+---
+
+<br>
+
+## 0. 들어가면서
+
+[MVC(Model, View, Controller) Pattern][mvc-pattern-link]에 대해 정리한 글을 다시 읽다보니 형편없는 예제 코드를 작성해두어서 이를 조금 수정하였습니다. 
+가장 마음에 들지 않았던 부분이 엔티티(entity) 객체를 뷰(view) 영역으로 전달하는 코드였는데, 문득 엔티티의 속성을 뷰 영역인 JSP 파일에서 변경하면 문제가 발생하지 않을지 궁금하였습니다. 
+`OSIV(Open Session In View)` 패턴에서 말하는 `"세션이 유지된다."`라는 의미를 `"트랜잭션이 이어진다."`라고 착각하고 있어서 발생한 오해였습니다. 
+이번 포스트에선 궁금했던 내용과 함께 `OSIV` 패턴에 대한 개념을 정리해보았습니다. 
+
+## 1. 시작하기 전 필요한 JPA 개념
+
+### 1.1. 
+
+## 2. Open Session In View Pattern
+
+## 2. Lazy loading in JSP
+
+## 3. Change entities properties in JSP
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### REFERENCE
+- <http://aeternum.egloos.com/2798098>
+- <http://pds19.egloos.com/pds/201106/28/18/Open_Session_In_View_Pattern.pdf>
+
+[mvc-pattern-link]: https://junhyunny.github.io/information/design-pattern/mvc-pattern/

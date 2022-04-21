@@ -4,10 +4,15 @@ search: false
 category:
   - spring-mvc
   - jpa
-last_modified_at: 2022-04-20T23:55:00
+last_modified_at: 2022-04-21T23:55:00
 ---
 
 <br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [JPA Persistence Context][jpa-persistence-context-link]
+- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+- [JPA Flush][jpa-flush-link]
 
 ## 0. 들어가면서
 
@@ -17,8 +22,6 @@ last_modified_at: 2022-04-20T23:55:00
 이번 포스트에선 궁금했던 내용과 함께 `OSIV` 패턴에 대한 개념을 정리해보았습니다. 
 
 ## 1. 시작하기 전 필요한 JPA 개념
-
-### 1.1. 
 
 ## 2. Open Session In View Pattern
 
@@ -35,3 +38,6 @@ last_modified_at: 2022-04-20T23:55:00
 - <http://pds19.egloos.com/pds/201106/28/18/Open_Session_In_View_Pattern.pdf>
 
 [mvc-pattern-link]: https://junhyunny.github.io/information/design-pattern/mvc-pattern/
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
+[jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/

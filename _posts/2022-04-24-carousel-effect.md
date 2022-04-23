@@ -1,8 +1,10 @@
 ---
-title: "캐러셀 효과(Carousel Effect)"
+title: "Carousel Effect"
 search: false
 category:
-  - javascript
+    - html
+    - css
+    - javascript
 last_modified_at: 2022-04-24T23:55:00
 ---
 

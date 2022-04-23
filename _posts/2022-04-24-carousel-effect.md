@@ -51,8 +51,7 @@ last_modified_at: 2022-04-24T23:55:00
         - `opacity: 1` - 투명하지 않은 정상적인 상태로 종료됩니다.
         - `transform: translateY(0px)` - 현재 위치까지 이동 후 종료합니다.
 
-
-```css
+<!-- ```css
 .items {
     width: 100px;
     height: 50px;
@@ -84,7 +83,7 @@ last_modified_at: 2022-04-24T23:55:00
         transform: translateY(0px);
     }
 }
-```
+``` -->
 
 ### 1.3. JavaScript 코드와 결과
 
@@ -136,7 +135,7 @@ last_modified_at: 2022-04-24T23:55:00
     - 종료 시점
         - `transform: translateX(-100px)` - 현재 위치보다 100px 왼쪽으로 이동 후 종료합니다.
 
-```css
+<!-- ```css
 .items {
     position: relative;
     width: 100px;
@@ -205,7 +204,7 @@ last_modified_at: 2022-04-24T23:55:00
         transform: translateX(-100px);
     }
 }
-```
+``` -->
 
 ### 2.3. JavaScript 코드와 결과
 

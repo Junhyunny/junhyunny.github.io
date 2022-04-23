@@ -658,7 +658,7 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
 > 지연 로딩이 발생할 때마다 커넥션 풀에서 놀고 있는 커넥션을 사용하나?
 
 직접 디버깅한 결과를 차근차근 정리해보겠습니다. 
-분석한 스프링 버전은 다음과 같습니다.
+`spring-boot-starter-data-jpa` 의존성을 사용하였고, 스프링 버전은 다음과 같습니다.
 
 ```xml
     <parent>

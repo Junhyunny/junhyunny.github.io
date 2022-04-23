@@ -329,7 +329,7 @@ public class TeamService {
 ### 2.4. Team.jsp
 
 - 팀에 속한 멤버들의 수를 보여줍니다.
-    - `team.members.size()`를 호출하면 지연 로딩이 실행됩니다.
+    - `${team.members.size()}`를 호출하면 지연 로딩이 실행됩니다.
 
 ```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>

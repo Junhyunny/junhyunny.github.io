@@ -2,7 +2,9 @@
 title: "Carousel Effect"
 search: false
 category:
-  - front-end
+  - html
+  - css
+  - javascript
 last_modified_at: 2022-04-24T23:55:00
 ---
 

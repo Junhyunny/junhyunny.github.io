@@ -403,6 +403,7 @@ JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근�
 
 - `JpaRepository` 빈(bean)은 기본적으로 `@Transacational` 애너테이션이 붙어있습니다.
 - `@Transactional` 애너테이션의 기본 전파 타입인 `REQUIRED` 정책에 의해 이전에 시작한 트랜잭션이 이어집니다.
+- `registerTeam` 메소드 호출 시 흐름을 기준으로 이미지를 표현하였습니다.
 
 <p align="center">
     <img src="/images/open-session-in-view-3.JPG" width="100%" class="image__border">

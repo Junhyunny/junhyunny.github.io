@@ -18,7 +18,7 @@ last_modified_at: 2022-04-23T23:55:00
 
 ## 0. 들어가면서
 
-OSIV(Open Session In View) 패턴을 공부하다가 굉장히 정리가 잘 된 글을 발견하였습니다. 
+OSIV(Open Session In View) 패턴에 대해 공부하다가 굉장히 정리가 잘 된 글을 발견했습니다. 
 이를 바탕으로 OSIV 패턴에 대한 글을 정리해보았습니다. 
 
 ## 1. OSIV 패턴을 위한 사전 개념
@@ -57,7 +57,7 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
     - 영속성 컨텍스트가 닫혀기 때문에 데이터베이스와 동기화를 보장하진 않지만, 어플리케이션의 메모리에 여전히 존재하는 상태를 의미합니다.
 
 <p align="center">
-    <img src="/images/open-session-in-view-1.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-1.JPG" width="80%" class="image__border">
 </p>
 <center>Java Persistence with Hibernate</center>
 
@@ -103,7 +103,7 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
 엔티티 사이에 관계를 맺어 사용하면, 데이터 조횟 시 fetch 방법에 대해 고려해야 합니다. 
 fetch 방법은 두 가지 존재합니다.
 
-##### EAGER 방법
+##### EAGER Fetch 방법
 
 - 어떤 엔티티를 조회할 때 관계를 맺고 있는 엔티티도 함께 조회합니다.
 - 기본적으로 `@ManyToOne` 엔티티의 fetch 방법은 `EAGER` 입니다.
@@ -143,7 +143,7 @@ public class Member {
 
 }
 ```
-##### LAZY 방법
+##### LAZY Fetch 방법
 
 - 어떤 엔티티를 조회할 때 해당되는 엔티티만 조회합니다.
 - 관계를 맺은 엔티티는 사용하는 시점에 조회합니다. 
@@ -387,7 +387,7 @@ public class TeamService {
 ##### LazyInitializationException 발생
 
 <p align="center">
-    <img src="/images/open-session-in-view-2.gif" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-2.gif" width="80%" class="image__border">
 </p>
 
 ### 2.5. 발생 원인 찾아보기
@@ -403,7 +403,7 @@ JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근�
 ##### 실행 흐름과 세션, 트랜잭션 범위
 
 <p align="center">
-    <img src="/images/open-session-in-view-3.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-3.JPG" width="80%" class="image__border">
 </p>
 
 ## 3. Open Session In View Pattern
@@ -469,7 +469,7 @@ public class HibernateSessionRequestFilter implements Filter {
 ##### 실행 흐름과 세션, 트랜잭션 범위
 
 <p align="center">
-    <img src="/images/open-session-in-view-4.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-4.JPG" width="80%" class="image__border">
 </p>
 
 ### 2.2. OSIV Pattern in Spring
@@ -640,7 +640,7 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
 - 아래 그림은 `OpenSessionInViewInterceptor`를 기준으로 작성하였습니다. 
 
 <p align="center">
-    <img src="/images/open-session-in-view-5.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-5.JPG" width="80%" class="image__border">
 </p>
 
 ### 2.3. OSIV Pattern in Spring with JPA
@@ -660,13 +660,13 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 ```
 
 #### 2.3.1. OpenEntityManagerInViewInterceptor 클래스
 
-- 실제 `spring.jpa.open-in-view` 설정으로 제어되는 클래스는 `OpenEntityManagerInViewInterceptor`
+- 실제 `spring.jpa.open-in-view` 설정으로 제어되는 클래스는 `OpenEntityManagerInViewInterceptor`입니다.
 - 대부분 로직이 `OpenSessionInViewInterceptor` 클래스와 유사합니다.
 
 ```java
@@ -780,7 +780,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - JDBC 커넥션 획득은 참고 자료와 마찬가지로 `@Transactional` 애너테이션이 붙은 메소드를 호출하는 시점입니다. 
 
 <p align="center">
-    <img src="/images/open-session-in-view-6.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-6.JPG" width="80%" class="image__border">
 </p>
 
 ##### JDBC 커넥션 반환 콜 스택(call stack)
@@ -788,7 +788,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - JDBC 커넥션 반환은 `OpenEntityManagerInViewInterceptor` 클래스의 `afterCompletion` 메소드에서 실행합니다. 
 
 <p align="center">
-    <img src="/images/open-session-in-view-7.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-7.JPG" width="80%" class="image__border">
 </p>
 
 ##### `spring.jpa.open-in-view` 설정 값이 `false`인 경우 JDBC 커넥션 반환
@@ -797,7 +797,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - `AOP` 마지막 `doCleanupAfterCompletion` 메소드에서 완료 후 트랜잭션을 정리하는 시점에 커넥션을 반납합니다.
 
 <p align="center">
-    <img src="/images/open-session-in-view-8.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-8.JPG" width="80%" class="image__border">
 </p>
 
 ##### `spring.jpa.open-in-view` 설정 값에 따른 분기 지점
@@ -807,7 +807,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - `spring.jpa.open-in-view` 설정 값이 `true`인 경우에는 아래 초록색 블럭을 수행하여 커넥션 정리를 이후로 미룹니다.
 
 <p align="center">
-    <img src="/images/open-session-in-view-9.JPG" width="75%" class="image__border">
+    <img src="/images/open-session-in-view-9.JPG" width="80%" class="image__border">
 </p>
 
 #### 2.3.3. Session 플러시 모드
@@ -822,7 +822,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 ##### 직접 확인한 실행 흐름과 세션, 트랜잭션, 커넥션 범위 
 
 <p align="center">
-    <img src="/images/open-session-in-view-11.JPG" width="100%" class="image__border">
+    <img src="/images/open-session-in-view-11.JPG" width="80%" class="image__border">
 </p>
 
 ## 3. Lazy loading in JSP
@@ -858,7 +858,7 @@ spring:
 ##### 정상 처리 화면
 
 <p align="center">
-    <img src="/images/open-session-in-view-12.gif" width="100%" class="image__border">
+    <img src="/images/open-session-in-view-12.gif" width="80%" class="image__border">
 </p>
 
 ## CLOSING
@@ -870,20 +870,16 @@ spring:
 
 참고한 자료를 보면 다음과 같은 설명이 되어 있습니다. 
 
-> 
-> 
+> 이러한 문제를 방지하기 위해 도메인 객체 대신 DTO 를 사용하자는 주장도 있으나 
+> 이것은 앞에서 살펴 본 POJO FACADE 패턴처럼 뷰에 대한 관심사가 애플리케이션 레이어와 도메인 레이어로 누수되는 문제를 안고 있다. 
+> 뷰에 도메인 객체를 전달하는 것이 캡슐화의 원칙을 위반한다는 견해도 있으나 
+> 도메인 객체가 전달된다고 해서 반드시 캡슐화 위반이라고 볼 수 없으며 DTO를 전달한다고 해서 반드시 캡슐화의 원칙이 지켜진다고 볼 수도 없다. 
+> 아키텍처적인 관점에서 뷰가 도메인 객체에 접근하는 것 역시 "완화된 아키텍처 시스템"의 일종일 뿐이다.
 
- 모든 문제
-
- 발생하기 때문에 좋지 않은  `DTO`
-
-의도치 않은 엔티티 전달이 
-
-
-DTO 설계의 관심사 누수 
-
-
-
+`"레이어 별 관심사의 분리"`라는 심오한 주제를 이야기하시는 것을 보고 어떤 분인지 상당히 궁금해졌는데, 
+찾아보니 [객체지향의 사실과 오해][oop-book-link]과 [오브젝트][object-book-link]라는 책을 지필하신 분이었습니다. 
+이 분께서 생각하는 객체지향에 대한 철학과 원칙에 대해 너무 궁금해서 당일에 구매하였습니다. 
+올해 내에 블로그에 독후감을 남기는 것을 목표로 열심히 읽어야겠습니다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-20-open-session-in-view>
@@ -901,3 +897,5 @@ DTO 설계의 관심사 누수
 [filter-interceptor-and-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/
 
 [hibernate-book-link]: https://hoclaptrinhdanang.com/downloads/pdf/spring/Java%20Persistence%20with%20Hibernate.pdf
+[oop-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9788998139766
+[object-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9791158391409&orderClick=LEa&Kc=

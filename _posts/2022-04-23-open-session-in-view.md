@@ -401,6 +401,9 @@ JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근�
 
 ##### 실행 흐름과 세션, 트랜잭션 범위
 
+- `JpaRepository` 빈(bean)은 기본적으로 `@Transacational` 애너테이션이 붙어있습니다.
+- `@Transactional` 애너테이션의 기본 전파 타입인 `REQUIRED` 정책에 의해 이전에 시작한 트랜잭션이 이어집니다.
+
 <p align="center">
     <img src="/images/open-session-in-view-3.JPG" width="100%" class="image__border">
 </p>
@@ -808,7 +811,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - `spring.jpa.open-in-view` 설정 값이 `false`인 경우에는 위의 파란색 블럭을 수행하여 커넥션을 정리합니다.
 - `spring.jpa.open-in-view` 설정 값이 `true`인 경우에는 아래 초록색 블럭을 수행하여 커넥션 정리를 이후로 미룹니다.
 
-<p align="center">
+<p align="left">
     <img src="/images/open-session-in-view-9.JPG" width="75%" class="image__border">
 </p>
 

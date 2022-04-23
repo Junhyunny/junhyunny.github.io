@@ -1,0 +1,78 @@
+---
+title: "OSIV, Open Session In View"
+search: false
+category:
+  - spring-mvc
+  - jpa
+last_modified_at: 2022-04-22T23:55:00
+---
+
+<br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [JPA Persistence Context][jpa-persistence-context-link]
+- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+- [JPA Flush][jpa-flush-link]
+- [@Transactional Propagtaion Type][transactional-propagation-type-link]
+
+## 0. 들어가면서
+
+[MVC(Model, View, Controller) Pattern][mvc-pattern-link]에 대해 정리한 글을 다시 읽다보니 형편없는 예제 코드를 작성해두어서 이를 조금 수정하였습니다. 
+가장 마음에 들지 않았던 부분이 엔티티(entity) 객체를 뷰(view) 영역으로 전달하는 코드였는데, 문득 엔티티의 속성을 뷰 영역인 JSP 파일에서 변경하면 문제가 발생하지 않을지 궁금하였습니다. 
+`OSIV(Open Session In View)` 패턴에서 말하는 `"세션이 유지된다."`라는 의미를 `"트랜잭션이 이어진다."`라고 착각하고 있어서 발생한 오해였습니다. 
+이번 포스트에선 궁금했던 내용과 함께 `OSIV` 패턴에 대한 개념을 정리해보았습니다. 
+
+## 1. 시작하기 전 필요한 개념
+
+세션
+
+작업단위
+
+변경 감지, dirty check
+
+플러시
+
+하이버네이트 엔티티 라이프사이클
+
+Transient, Persistence, Detached, Removed
+
+레이지 로딩
+- 레이지 로딩을 하려면 persistence 상태이어야 한다.
+- 
+
+지연 쓰기(transactional write-behind)
+- 데이터베이스로 전송되는 쿼리 수를 줄인다.
+- 트랜잭션에 의해 데이터베이스에 락이 걸리는 시간을 최소화한다.
+
+@Transactional 애너테이션
+
+전파 타입
+
+
+## 2. Open Session In View Pattern
+
+### 2.1. Tranditional OSIV Pattern
+
+### 2.2. 
+
+## 3. Lazy loading in JSP
+
+
+## 4. Change entities properties in JSP
+
+
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-20-open-session-in-view>
+
+#### REFERENCE
+- <http://aeternum.egloos.com/2798098>
+- <http://pds19.egloos.com/pds/201106/28/18/Open_Session_In_View_Pattern.pdf>
+
+[mvc-pattern-link]: https://junhyunny.github.io/information/design-pattern/mvc-pattern/
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
+[jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
+[transactional-propagation-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/

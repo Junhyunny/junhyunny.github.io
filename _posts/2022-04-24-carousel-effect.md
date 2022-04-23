@@ -93,7 +93,7 @@ last_modified_at: 2022-04-24T23:55:00
 - 인덱스를 증가시키지만, 모듈라 연산을 통해 인덱스가 배열을 넘어가지 않도록 합니다.
 - 다음 인덱스 엘리먼트에 `active` 클래스를 추가합니다.
 
-{% include codepen.html hash="JjMVgmN" tab="js,result" title="Carousel text fade in" %}
+<!-- {% include codepen.html hash="JjMVgmN" tab="js,result" title="Carousel text fade in" %} -->
 
 ## 2. 이미지 슬라이드 효과
 
@@ -223,7 +223,7 @@ last_modified_at: 2022-04-24T23:55:00
     - 다음 형제 엘리먼트가 없는 경우는 동일 레벨 엘리먼트 중에 마지막 엘리먼트라는 의미입니다.
     - 마지막 엘리먼트 다음에 등장할 엘리먼트는 동일 레벨 엘리먼트 중에 첫 엘리먼트입니다.
 
-{% include codepen.html hash="WNdBeEr" tab="js,result" title="Image Carousel Slide" %}
+<!-- {% include codepen.html hash="WNdBeEr" tab="js,result" title="Image Carousel Slide" %} -->
 
 #### REFERENCE
 - <https://developer.mozilla.org/en-US/docs/Web/API/Element/nextElementSibling>

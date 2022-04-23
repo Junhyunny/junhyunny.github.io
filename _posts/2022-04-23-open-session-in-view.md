@@ -28,7 +28,6 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
 
 ### 1.1. 영속성 컨텍스트(Persistence Context)
 
-> 영속성 컨텍스트(Persistence Context)<br>
 > 엔티티를 영구히 저장하는 환경
 
 영속성 컨텍스트는 서버 어플리케이션과 데이터베이스 사이에서 엔티티를 저장하는 논리적인 영역입니다. 
@@ -57,7 +56,7 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
     - 영속성 컨텍스트가 닫혀기 때문에 데이터베이스와 동기화를 보장하진 않지만, 어플리케이션의 메모리에 여전히 존재하는 상태를 의미합니다.
 
 <p align="center">
-    <img src="/images/open-session-in-view-1.JPG" width="80%" class="image__border">
+    <img src="/images/open-session-in-view-1.JPG" width="65%" class="image__border">
 </p>
 <center>Java Persistence with Hibernate</center>
 
@@ -67,7 +66,7 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
 `JPA`의 `EntityManager`과 동일한 역할을 하는 것으로 보입니다. 
 세션은 하나의 영속성 컨텍스트를 가지고 있으며, 세션을 만들 때 영속성 컨텍스트도 함께 생성됩니다.
 
-하이버네이트의 작업 단위(unit of work)는 원자적으로 처리되어야하는 상태 변경 작업들의 한 집합을 의미합니다. 
+하이버네이트의 작업 단위(unit of work)는 원자적으로 처리되어야하는 상태 변경 작업들의 집합을 의미합니다. 
 일반적으로 하나의 작업 단위는 하나의 영속성 컨텍스트와 연결됩니다. 
 하이버네이트 세션은 하나의 작업 단위에서 발생하는 엔티티 객체의 생성, 조회, 수정, 삭제 등을 영속성 컨텍스트에 저장하고 있습니다. 
 작업 단위가 종료되면 이를 데이터베이스에 반영시킵니다. 
@@ -88,7 +87,7 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
 - FlushMode.COMMIT 
     - 쿼리 실행 전에는 플러시하지 않습니다.
     - 트랜잭션이 커밋되거나 직접 `session.flush()` 함수를 호출하는 경우에 플러시를 수행합니다.
-- FlushMode.MANULA
+- FlushMode.MANUAL
     - 명시적으로 `flush()` 함수를 호출할 때만 영속성 컨텍스트를 플러시합니다.
     - 쿼리 실행 전과 하이버네이트 트랜잭션이 커밋되더라도 영속성 컨텍스트는 플러시되지 않습니다. 
 
@@ -96,14 +95,14 @@ OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이
 커밋하기 직전까지 추가(insert), 수정(update), 삭제(delete) 쿼리를 수행하지 않습니다. 
 수행할 쿼리들을 커밋하는 시점까지 모아서 데이터베이스에 한번에 전달하는데, 이를 `지연 쓰기(Transactional Write-behind)`라고 합니다. 
 쓰기 연산을 지연하면 데이터베이스로 쿼리를 전송하는 횟수를 줄여 성능을 향상시킬 수 있습니다. 
-또, 트랜잭션에 의해 데이터베이스에 락이 걸리는 시간을 최소화할 수 있습니다. 
+또한 트랜잭션에 의해 데이터베이스에 락이 걸리는 시간을 최소화할 수 있습니다. 
 
 ### 1.5. 지연 로딩(Lazy Loading)
 
 엔티티 사이에 관계를 맺어 사용하면, 데이터 조횟 시 fetch 방법에 대해 고려해야 합니다. 
 fetch 방법은 두 가지 존재합니다.
 
-##### EAGER Fetch 방법
+##### EAGER Fetch
 
 - 어떤 엔티티를 조회할 때 관계를 맺고 있는 엔티티도 함께 조회합니다.
 - 기본적으로 `@ManyToOne` 엔티티의 fetch 방법은 `EAGER` 입니다.
@@ -143,13 +142,13 @@ public class Member {
 
 }
 ```
-##### LAZY Fetch 방법
+##### LAZY Fetch
 
-- 어떤 엔티티를 조회할 때 해당되는 엔티티만 조회합니다.
-- 관계를 맺은 엔티티는 사용하는 시점에 조회합니다. 
+- 어떤 엔티티를 조회할 때 해당되는 엔티티만 조회하고, 관계를 맺은 엔티티는 사용하는 시점에 조회합니다. 
 - 기본적으로 `@OneToMany` 엔티티의 fetch 방법은 `LAZY` 입니다.
-- `Team` 엔티티를 조회하면, 연관되는 `Member` 엔티티들은 함께 조회하지 않습니다.
-- 로직 중간에 `team` 엔티티의 `members` 필드에 접근을 시도하면 그 시점에 `SELECT` 쿼리를 이용해 데이터를 조회합니다.
+- 예를 들어 보겠습니다.
+    - `Team` 엔티티를 조회하면, 연관되는 `Member` 엔티티들은 함께 조회하지 않습니다.
+    - 로직 중간에 `team` 엔티티의 `members` 필드에 접근을 시도하면 그 시점에 `SELECT` 쿼리를 이용해 데이터를 조회합니다.
 
 ```java
 package blog.in.action.domain;
@@ -189,14 +188,14 @@ public class Team {
 
 LazyInitializationException 예외는 다음과 같은 조건이 충족되면 발생합니다. 
 - OSIV 패턴 미적용
-- 트랜잭션 영역 밖에서 엔티티 lazy loading 수행
+- 트랜잭션 영역 밖에서 엔티티 지연 로딩(lazy loading) 수행
 
 스프링 프레임워크에선 `@Transactional` 애너테이션으로 트랜잭션 범위를 지정할 수 있습니다. 
 실행 스레드가 `@Transactional` 애너테이션이 붙은 메소드를 호출하면 다음과 같은 일들이 일어납니다.
 - Session 객체이 없다면 생성하고, 있다면 이를 그대로 사용합니다. 
-- 트랜잭션 시작을 지정하면서 동시에 데이터베이스 접근을 위한 `connection`을 획득합니다.
+- 트랜잭션 시작을 지정하면서 동시에 데이터베이스 접근을 위한 JDBC 커넥션(connection)을 획득합니다.
 
-팀 정보를 등록하는 기능을 제공하는 코드로 간단하게 에러 발생을 살펴보겠습니다. 
+팀 정보를 등록하는 기능을 제공하는 예제 코드로 간단하게 에러 발생을 살펴보겠습니다. 
 
 ### 2.1. application.yml
 
@@ -329,7 +328,7 @@ public class TeamService {
 ### 2.4. Team.jsp
 
 - 팀에 속한 멤버들의 수를 보여줍니다.
-    - `${team.members.size()}` 로직을 수행할 때 `lazy loading`을 수행합니다.
+    - `${team.members.size()}` 로직을 수행할 때 지연 로딩을 수행합니다.
 
 ```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -386,8 +385,8 @@ public class TeamService {
 
 ##### LazyInitializationException 발생
 
-<p align="center">
-    <img src="/images/open-session-in-view-2.gif" width="80%" class="image__border">
+<p align="left">
+    <img src="/images/open-session-in-view-2.gif" width="65%" class="image__border">
 </p>
 
 ### 2.5. 발생 원인 찾아보기
@@ -397,13 +396,13 @@ OSIV 패턴을 적용하지 않았기 때문에 `@Transactional` 애너테이션
 `registerTeam` 메소드가 종료될 때 트랜잭션을 커밋하고, 세션을 닫습니다. 
 
 세션이 닫히면 영속성 컨텍스트가 함께 정리되면서 엔티티들은 준영속(Detached) 상태가 됩니다. 
-JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근할 때 `lazy loading`을 시도하지만, 
-`team` 엔티티는 이미 준영속 상태가 되었기 때문에 `lazy loading`을 수행할 수 없다는 에러가 발생한 것입니다. 
+JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근할 때 지연 로딩을 시도하지만, 
+`team` 엔티티는 이미 준영속 상태가 되었기 때문에 지연 로딩을 수행할 수 없다는 에러가 발생한 것입니다. 
 
 ##### 실행 흐름과 세션, 트랜잭션 범위
 
 <p align="center">
-    <img src="/images/open-session-in-view-3.JPG" width="80%" class="image__border">
+    <img src="/images/open-session-in-view-3.JPG" width="100%" class="image__border">
 </p>
 
 ## 3. Open Session In View Pattern
@@ -462,14 +461,13 @@ public class HibernateSessionRequestFilter implements Filter {
 
 전통적인 OSIV 패터은 서블릿 필터에서 세션을 열고, 트랜잭션을 시작합니다. 
 트랜잭션을 시작할 때 JDBC 커낵션을 획득하게 되는데, 필터에서 커넥션을 획득하고 반환하기 때문에 커넥션의 보유 시간이 증가합니다. 
-
-필터까지 트랜잭션이 이어지기 때문에 트랜잭션의 경계가 모호해집니다. 
+또한, 필터까지 트랜잭션이 이어지기 때문에 트랜잭션의 경계가 모호해집니다. 
 뷰나 컨트롤러에서 발생한 혹시 모를 엔티티 필드 변경이 필터에서 커밋하는 시점에 플러시되어 데이터베이스 반영될 수 있습니다. 
 
 ##### 실행 흐름과 세션, 트랜잭션 범위
 
 <p align="center">
-    <img src="/images/open-session-in-view-4.JPG" width="80%" class="image__border">
+    <img src="/images/open-session-in-view-4.JPG" width="100%" class="image__border">
 </p>
 
 ### 2.2. OSIV Pattern in Spring
@@ -490,9 +488,9 @@ public class HibernateSessionRequestFilter implements Filter {
 `@Transactional` 애너테이션이 붙은 메소드 호출이 종료되면, 트랜잭션을 커밋(혹은 롤백)하면서 엔티티들의 변경 사항들을 데이터베이스에 반영합니다. 
 이 시점에 커넥션을 반환하면서 플러시 모드를 다시 매뉴얼로 변경합니다. 
 
-이후 뷰를 렌더링하는 시점엔 세션이 열려있으니 영속성 컨텍스트가 존재하고, 영속성 컨텍스트 내의 엔티티들은 여전히 영속 상태로 남아 있습니다. 
-준영속 상태가 아니므로, `team` 엔티티의 `members` 필드를 사용할 때 발생하는 `lazy loading`이 정상적으로 동작합니다. 
-참고 자료를 보면 커넥션을 반환하였음에도 정상적으로 `lazy loading`이 가능한 이유는 하이버네이트가 `"트랜잭션 미적용 데이터 접근"`을 허용하기 때문이라고 합니다. 
+마지막으로 뷰를 렌더링하는 시점엔 세션이 열려있으니 영속성 컨텍스트가 존재하고, 영속성 컨텍스트 내의 엔티티들은 여전히 영속 상태로 남아 있습니다. 
+준영속 상태가 아니므로, `team` 엔티티의 `members` 필드를 사용할 때 발생하는 지연 로딩이 정상적으로 동작합니다. 
+참고 자료에선 커넥션을 반환하였음에도 정상적으로 지연 로딩이 가능한 이유는 하이버네이트가 `"트랜잭션 미적용 데이터 접근"`을 허용하기 때문이라고 합니다. 
 
 ##### 트랜잭션 미적용 데이터 접근
 - 자동 커밋 모드를 사용해서 데이터에 접근하는 하이버네이트 내부 메커니즘
@@ -530,8 +528,11 @@ import org.springframework.web.context.request.async.WebAsyncManager;
 import org.springframework.web.context.request.async.WebAsyncUtils;
 
 public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor {
+
     public static final String PARTICIPATE_SUFFIX = ".PARTICIPATE";
+
     protected final Log logger = LogFactory.getLog(this.getClass());
+
     @Nullable
     private SessionFactory sessionFactory;
 
@@ -640,7 +641,7 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
 - 아래 그림은 `OpenSessionInViewInterceptor`를 기준으로 작성하였습니다. 
 
 <p align="center">
-    <img src="/images/open-session-in-view-5.JPG" width="80%" class="image__border">
+    <img src="/images/open-session-in-view-5.JPG" width="100%" class="image__border">
 </p>
 
 ### 2.3. OSIV Pattern in Spring with JPA
@@ -650,9 +651,9 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
 무엇보다 `"트랜잭션 미적용 데이터 접근"`이라는 개념이 쉽게 이해되진 않았습니다. 
 
 > 어떻게 데이터베이스 커넥션이 없이 SQL을 실행하지?<br>
-> `lazy loading`이 발생할 때마다 커넥션 풀에서 놀고 있는 커넥션을 사용하나?
+> 지연 로딩이 발생할 때마다 커넥션 풀에서 놀고 있는 커넥션을 사용하나?
 
-직접 디버깅한 결과를 차근차근 정리해보았습니다. 
+직접 디버깅한 결과를 차근차근 정리해보겠습니다. 
 분석한 스프링 버전은 다음과 같습니다.
 
 ```xml
@@ -690,6 +691,7 @@ import org.springframework.web.context.request.async.WebAsyncManager;
 import org.springframework.web.context.request.async.WebAsyncUtils;
 
 public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAccessor implements AsyncWebRequestInterceptor {
+
     public static final String PARTICIPATE_SUFFIX = ".PARTICIPATE";
 
     public OpenEntityManagerInViewInterceptor() {
@@ -779,16 +781,16 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 
 - JDBC 커넥션 획득은 참고 자료와 마찬가지로 `@Transactional` 애너테이션이 붙은 메소드를 호출하는 시점입니다. 
 
-<p align="center">
-    <img src="/images/open-session-in-view-6.JPG" width="80%" class="image__border">
+<p align="left">
+    <img src="/images/open-session-in-view-6.JPG" width="75%" class="image__border">
 </p>
 
 ##### JDBC 커넥션 반환 콜 스택(call stack)
 
 - JDBC 커넥션 반환은 `OpenEntityManagerInViewInterceptor` 클래스의 `afterCompletion` 메소드에서 실행합니다. 
 
-<p align="center">
-    <img src="/images/open-session-in-view-7.JPG" width="80%" class="image__border">
+<p align="left">
+    <img src="/images/open-session-in-view-7.JPG" width="75%" class="image__border">
 </p>
 
 ##### `spring.jpa.open-in-view` 설정 값이 `false`인 경우 JDBC 커넥션 반환
@@ -796,8 +798,8 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - `spring.jpa.open-in-view` 설정이 `false`이면, `@Transactional` 애너테이션이 붙은 메소드 종료 시점에 커넥션을 반환합니다.
 - `AOP` 마지막 `doCleanupAfterCompletion` 메소드에서 완료 후 트랜잭션을 정리하는 시점에 커넥션을 반납합니다.
 
-<p align="center">
-    <img src="/images/open-session-in-view-8.JPG" width="80%" class="image__border">
+<p align="left">
+    <img src="/images/open-session-in-view-8.JPG" width="75%" class="image__border">
 </p>
 
 ##### `spring.jpa.open-in-view` 설정 값에 따른 분기 지점
@@ -807,7 +809,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 - `spring.jpa.open-in-view` 설정 값이 `true`인 경우에는 아래 초록색 블럭을 수행하여 커넥션 정리를 이후로 미룹니다.
 
 <p align="center">
-    <img src="/images/open-session-in-view-9.JPG" width="80%" class="image__border">
+    <img src="/images/open-session-in-view-9.JPG" width="75%" class="image__border">
 </p>
 
 #### 2.3.3. Session 플러시 모드
@@ -822,7 +824,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 ##### 직접 확인한 실행 흐름과 세션, 트랜잭션, 커넥션 범위 
 
 <p align="center">
-    <img src="/images/open-session-in-view-11.JPG" width="80%" class="image__border">
+    <img src="/images/open-session-in-view-11.JPG" width="100%" class="image__border">
 </p>
 
 ## 3. Lazy loading in JSP
@@ -857,8 +859,8 @@ spring:
 
 ##### 정상 처리 화면
 
-<p align="center">
-    <img src="/images/open-session-in-view-12.gif" width="80%" class="image__border">
+<p align="left">
+    <img src="/images/open-session-in-view-12.gif" width="65%" class="image__border">
 </p>
 
 ## CLOSING

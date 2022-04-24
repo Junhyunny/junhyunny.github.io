@@ -36,30 +36,20 @@ last_modified_at: 2022-04-23T23:55:00
 
 ### 1.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하겠습니다.
-- `items`클래스
-    - `overflow: hidden` - 자신의 영역 밖에 위치한 엘리먼트(element)가 보이지 않도록 감춘다.
-- `item` 클래스
-    - `display: none` - 기본적으로 아이템 블럭들을 보이지 않고, 영역을 차지하지 않도록 합니다.
-- `active` 클래스
-    - `animation: appear 1.2s` - `apper` 애니메이션을 1.2초에 걸쳐 실행합니다.
-- `@keyframes appear` 애니메이션
-    - 시작 시점
-        - `opacity: 0` - 투명한 상태에서 시작합니다.
-        - `transform: translateY(20px)` - 현재 위치보다 20px 아래에서 시작합니다.
-    - 종료 시점
-        - `opacity: 1` - 투명하지 않은 정상적인 상태로 종료됩니다.
-        - `transform: translateY(0px)` - 현재 위치까지 이동 후 종료합니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
+- 설명에 대한 가독성을 높이기 위해 주석에 작성하였습니다.
 
 ```css
 .items {
     width: 100px;
     height: 50px;
     border: 1px solid grey;
-    overflow: hidden;
+    /* 자신의 영역 밖에 위치한 엘리먼트(element)가 보이지 않도록 감춘다. */
+    overflow: hidden; 
 }
 
 .item {
+    /* 기본적으로 아이템 블럭들을 보이지 않고, 영역을 차지하지 않도록 합니다. */
     display: none;
     width: 100%;
     height: 100%;
@@ -70,16 +60,23 @@ last_modified_at: 2022-04-23T23:55:00
     display: flex;
     justify-content: center;
     align-items: center;
+    /* `appear` 애니메이션을 1.2초에 걸쳐 실행합니다. */
     animation: appear 1.2s;
 }
 
 @keyframes appear {
+    /* 시작 */
     from {
+        /* 투명한 상태에서 시작합니다. */
         opacity: 0;
+        /* 현재 위치보다 20px 아래에서 시작합니다. */
         transform: translateY(20px);
     }
+    /* 종료 */
     to {
+        /* 투명하지 않은 정상적인 상태로 종료됩니다. */
         opacity: 1;
+        /* 현재 위치까지 이동 후 종료합니다. */
         transform: translateY(0px);
     }
 }
@@ -113,39 +110,24 @@ last_modified_at: 2022-04-23T23:55:00
 
 ### 2.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하겠습니다.
-- `items` 클래스
-    - `position: relative` - 자식 엘리먼트가 절대 위치를 가질 수 있도록 잡아줍니다.
-    - `overflow: hidden` - 자신의 영역 밖은 보이지 않도록 가립니다.
-- `item` 클래스
-    - `position: absolute` - 블럭의 위치가 절대 값을 가지도록 설정합니다. 
-    - `display: none` - 기본적으로 아이템 블럭들은 보이지 않고, 영역을 차지하지 않도록 합니다.
-- `active` 클래스
-    - `animation: appear 1.2s` - 1.2초 동안 `appear` 애니메이션을 수행합니다.
-- `inactive` 클래스
-    - `animation: disappear 1.2s` - 1.2초 동안 `disappear` 애니메이션을 수행합니다.
-- `@keyframes appear` 애니메이션
-    - 시작 시점
-        - `transform: translateX(100px)` - 현재 위치보다 100px 오른쪽에서 시작합니다.
-    - 종료 시점
-        - `transform: translateX(0)` - 현재 위치까지 이동 후 종료합니다.
-- `@keyframes disappear` 애니메이션
-    - 시작 시점
-        - `transform: translateX(0)` - 현재 위치에서 시작합니다.
-    - 종료 시점
-        - `transform: translateX(-100px)` - 현재 위치보다 100px 왼쪽으로 이동 후 종료합니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
+- 설명에 대한 가독성을 높이기 위해 주석에 작성하였습니다.
 
 ```css
 .items {
+    /* 자식 엘리먼트가 절대 위치를 가질 수 있도록 기준을 잡아줍니다. */
     position: relative;
     width: 100px;
     height: 100px;
     border: 1px solid grey;
+    /* 자신의 영역 밖은 보이지 않도록 가립니다. */
     overflow: hidden;
 }
 
 .item {
+    /* 블럭의 위치가 절대 값을 가지도록 설정합니다. */
     position: absolute;
+    /* 기본적으로 아이템 블럭들은 보이지 않고, 영역을 차지하지 않도록 합니다. */
     display: none;
 
     width: 100px;
@@ -157,6 +139,7 @@ last_modified_at: 2022-04-23T23:55:00
     display: flex;
     justify-content: center;
     align-items: center;
+    /* 1.2초 동안 `appear` 애니메이션을 수행합니다. */
     animation: appear 1.2s;
 }
 
@@ -164,6 +147,7 @@ last_modified_at: 2022-04-23T23:55:00
     display: flex;
     justify-content: center;
     align-items: center;
+    /* 1.2초 동안 `disappear` 애니메이션을 수행합니다. */
     animation: disappear 1.2s;
 }
 
@@ -188,19 +172,27 @@ last_modified_at: 2022-04-23T23:55:00
 }
 
 @keyframes appear {
+    /* 시작 */
     from {
+        /* 현재 위치보다 100px 오른쪽에서 시작합니다. */
         transform: translateX(100px);
     }
+    /* 종료 */
     to {
+        /* 현재 위치까지 이동 후 종료합니다. */
         transform: translateX(0);
     }
 }
 
 @keyframes disappear {
+    /* 시작 */
     from {
+        /* 현재 위치에서 시작합니다. */
         transform: translateX(0);
     }
+    /* 종료 */
     to {
+        /* 현재 위치보다 100px 왼쪽으로 이동 후 종료합니다. */
         transform: translateX(-100px);
     }
 }

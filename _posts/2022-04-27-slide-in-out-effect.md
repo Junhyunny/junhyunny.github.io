@@ -154,11 +154,10 @@ last_modified_at: 2022-04-27T23:55:00
 ### 1.3. JavaScript 코드
 
 - `openButton` 클릭 이벤트
-    - `slide` 컴포넌트의 `off` 클래스를 제거합니다.
     - `slide` 컴포넌트의 `on` 클래스를 추가합니다.
 - `closeButton` 클릭 이벤트
     - `slide` 컴포넌트의 `off` 클래스를 추가합니다.
-    - 타이머를 이용해 애니메이션이 끝나는 시점에 `slide` 컴포넌트의 `on` 클래스를 제거합니다.
+    - 타이머를 이용해 애니메이션이 끝나는 시점에 `slide` 컴포넌트의 `on`, `off` 클래스를 제거합니다.
 
 ```javascript
 const slide = document.querySelector(".slide");
@@ -166,7 +165,6 @@ const openButton = document.querySelector(".container button");
 const closeButton = document.querySelector(".slide__close");
 
 openButton.addEventListener("click", () => {
-    slide.classList.remove("off");
     slide.classList.add("on");
 });
 
@@ -174,6 +172,7 @@ closeButton.addEventListener("click", () => {
     slide.classList.add("off");
     setTimeout(() => {
         slide.classList.remove("on");
+        slide.classList.remove("off");
     }, 950);
 });
 ```

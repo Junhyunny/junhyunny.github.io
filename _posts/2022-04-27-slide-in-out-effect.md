@@ -52,8 +52,8 @@ last_modified_at: 2022-04-27T23:55:00
 .container {
     background: yellow;
 
-    width: 350px;
-    height: 400px;
+    width: 120px;
+    height: 200px;
     border: 1px solid black;
 
     display: flex;
@@ -86,8 +86,8 @@ last_modified_at: 2022-04-27T23:55:00
     /* 좌표는 맨 아래 위치시킵니다. */
     bottom: 0;
 
-    width: 350px;
-    height: 250px;
+    width: 120px;
+    height: 120px;
     border: 1px solid black;
     background: orange;
 
@@ -128,8 +128,8 @@ last_modified_at: 2022-04-27T23:55:00
 
 @keyframes slideUp {
     from {
-        /* 하위 250px 에서 시작합니다. */
-        transform: translateY(250px);
+        /* 하위 120px 에서 시작합니다. */
+        transform: translateY(120px);
     }
     to {
         /* 원 위치로 이동합니다. */
@@ -145,8 +145,8 @@ last_modified_at: 2022-04-27T23:55:00
     to {
         /* 화면에 보이지 않으면서 영역을 차지하지 않습니다. */
         display: none;
-        /* 하위 250px로 이동합니다. */
-        transform: translateY(250px);
+        /* 하위 120px로 이동합니다. */
+        transform: translateY(120px);
     }
 }
 ```

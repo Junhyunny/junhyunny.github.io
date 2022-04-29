@@ -1,0 +1,328 @@
+---
+title: "React Transition Group"
+search: false
+category:
+  - react
+last_modified_at: 2022-04-29T23:55:00
+---
+
+<br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Slide In/Out Effect][slide-in-out-effect-link]
+
+## 0. 들어가면서
+
+[React Transition Group][react-transition-group-link]이라는 라이브러리를 사용하면 쉽게 애니메이션 효과를 제어할 수 있습니다. 
+[Slide In/Out Effect][slide-in-out-effect-link] 포스트에서 만들었던 슬라이드 효과를 예시로 사용 방법에 대해 정리해보았습니다. 
+
+## 1. 리액트 프로젝트
+
+[Slide In/Out Effect][slide-in-out-effect-link] 포스트에서 작성한 코드를 리액트 프로젝트로 옮기면서 변경한 사항들을 먼저 살펴보겠습니다. 
+
+### 1.1. 패키지 구조
+
+```
+./
+├── README.md
+├── package-lock.json
+├── package.json
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
+└── src
+    ├── App.css
+    ├── App.js
+    ├── components
+    │   ├── Slide.css
+    │   └── Slide.js
+    ├── index.css
+    ├── index.js
+    ├── logo.svg
+    ├── reportWebVitals.js
+    └── setupTests.js
+
+3 directories, 18 files
+```
+
+### 1.2. App.js 
+
+- `open` 상태(state)를 이용하여 슬라이드 등장을 제어합니다.
+- 슬라이드 부분은 별도 컴포넌트(component)로 만들었습니다.
+
+```jsx
+import './App.css'
+import Slide from './components/Slide'
+import { useState } from 'react'
+
+function App() {
+    const [open, setOpen] = useState(false)
+
+    return (
+        <div className="wrapper">
+            <div className="container">
+                <div className="container__content">
+                    <p>Container</p>
+                </div>
+                <button onClick={() => setOpen(true)}>slide</button>
+            </div>
+            {open && <Slide onClose={() => setOpen(false)} />}
+        </div>
+    )
+}
+
+export default App
+```
+
+
+### 1.3. Slider.js
+
+- 
+
+```jsx
+import { useEffect, useState } from 'react'
+
+import './Slide.css'
+
+const Slide = ({ onClose }) => {
+    const [count, setCount] = useState(0)
+
+    const increase = () => {
+        setCount(count + 1)
+    }
+
+    const decrease = () => {
+        setCount(count - 1)
+    }
+
+    const slideIn = () => {
+        const slide = document.querySelector('.slide')
+        slide.classList.add('on')
+    }
+
+    const slideOut = () => {
+        const slide = document.querySelector('.slide')
+        slide.classList.add('off')
+        setTimeout(() => {
+            slide.classList.remove('on')
+            slide.classList.remove('off')
+            onClose()
+        }, 950)
+    }
+
+    useEffect(() => {
+        slideIn()
+    }, [])
+
+    return (
+        <div className="slide orange">
+            <div className="slide__close">
+                <button onClick={slideOut}>X</button>
+            </div>
+            <div className="slide__content">
+                <p>{count}</p>
+            </div>
+            <div className="slide__buttons">
+                <button onClick={increase}>+</button>
+                <button onClick={decrease}>-</button>
+            </div>
+        </div>
+    )
+}
+
+export default Slide
+```
+
+### 1.4. Slider.css
+
+```css
+.slide {
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+
+    width: 120px;
+    height: 120px;
+    border: 1px solid black;
+}
+
+.slide.orange {
+    background: orange;
+}
+
+.slide.skyblue {
+    background: skyblue;
+}
+
+.slide.on {
+    animation: slideUp 1s;
+}
+
+.slide.off {
+    animation: slideDown 1s;
+}
+
+.slide__close {
+    z-index: 2;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.slide__content {
+    position: relative;
+    height: 80%;
+}
+
+.slide__content p {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slide__buttons {
+    display: flex;
+    justify-content: center;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(120px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(120px);
+    }
+}
+```
+
+## 2. React Transition Group
+
+### 2.1. 설치하기
+
+```
+# npm
+npm install react-transition-group --save
+
+# yarn
+yarn add react-transition-group
+```
+
+### 2.2. App.js
+
+```jsx
+import './App.css'
+import Slide from './components/Slide'
+import { useState } from 'react'
+import { CSSTransition } from 'react-transition-group'
+import TransitionSlide from './components/TransitionSlide'
+
+function App() {
+    const [open, setOpen] = useState(false)
+    const [transitionOpen, setTransitionOpen] = useState(false)
+
+    return (
+        <div className="wrapper">
+            <div className="container">
+                <div className="container__content">
+                    <p>Container</p>
+                </div>
+                <button onClick={() => setOpen(true)}>slide</button>
+                <button onClick={() => setTransitionOpen(true)}>transition slide</button>
+            </div>
+            {open && <Slide onClose={() => setOpen(false)} />}
+            <CSSTransition in={transitionOpen} timeout={1000} classNames="slide" unmountOnExit>
+                <TransitionSlide onClose={() => setTransitionOpen(false)} />
+            </CSSTransition>
+        </div>
+    )
+}
+
+export default App
+```
+
+### 2.3. TransitionSlide.js
+
+```jsx
+import { useState } from 'react'
+
+const TransitionSlide = ({ onClose }) => {
+    const [count, setCount] = useState(0)
+
+    const increase = () => {
+        setCount(count + 1)
+    }
+
+    const decrease = () => {
+        setCount(count - 1)
+    }
+
+    return (
+        <div className="slide skyblue">
+            <div className="slide__close">
+                <button onClick={onClose}>X</button>
+            </div>
+            <div className="slide__content">
+                <p>{count}</p>
+            </div>
+            <div className="slide__buttons">
+                <button onClick={increase}>+</button>
+                <button onClick={decrease}>-</button>
+            </div>
+        </div>
+    )
+}
+
+export default TransitionSlide
+```
+
+### 2.4. Slide.css
+
+```css
+
+/* ... 이전 설명과 동일 */
+
+/* 신규 추가 클래스 */
+.slide-enter {
+    transform: translateY(120px);
+}
+
+.slide-enter-active {
+    transform: translateY(0);
+    transition: transform 1s;
+}
+
+.slide-exit {
+    transform: translateY(0);
+}
+
+.slide-exit-active {
+    transform: translateY(120px);
+    transition: transform 1s;
+}
+```
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-29-react-transition-group>
+
+#### REFERENCE
+- <https://junhyunny.github.io/html/css/javascript/slide-in-out-effect/>
+- <https://reactcommunity.org/react-transition-group/>
+
+[slide-in-out-effect-link]: https://junhyunny.github.io/html/css/javascript/slide-in-out-effect/
+[react-transition-group-link]: https://reactcommunity.org/react-transition-group/

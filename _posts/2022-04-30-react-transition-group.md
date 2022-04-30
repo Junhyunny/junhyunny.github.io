@@ -3,7 +3,7 @@ title: "React Transition Group"
 search: false
 category:
   - react
-last_modified_at: 2022-04-29T23:55:00
+last_modified_at: 2022-04-30T23:55:00
 ---
 
 <br>
@@ -81,7 +81,16 @@ export default App
 
 ### 1.3. Slider.js
 
-- 
+- `count` 상태를 만들고, 슬라이드에서 증가, 감소를 시킵니다.
+    - `increase` 함수 - `count` 증가
+    - `decrease` 함수 - `count` 감소
+- `slideIn` 함수
+    - 슬라이드를 등장하는 `on` 클래스를 추가합니다.
+    - `useEffect` 함수 내에서 호출합니다.
+- `slideOut` 함수
+    - 슬라이드를 제거하는 `off` 클래스를 추가합니다.
+    - 애니메이션이 끝나는 시간에 맞춰 `on`, `off` 클래스를 제거합니다.
+    - 부모 컴포넌트에서 전달받은 `onClose` 함수를 호출합니다.
 
 ```jsx
 import { useEffect, useState } from 'react'
@@ -139,24 +148,12 @@ export default Slide
 
 ### 1.4. Slider.css
 
+- `on` 클래스가 추가되면 `slideUp` 애니메이션이 동작합니다.
+- `off` 클래스가 추가되면 `slideDown` 애니메이션이 동작합니다.
+
 ```css
-.slide {
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
 
-    width: 120px;
-    height: 120px;
-    border: 1px solid black;
-}
-
-.slide.orange {
-    background: orange;
-}
-
-.slide.skyblue {
-    background: skyblue;
-}
+/* ... 이 외 스타일 */
 
 .slide.on {
     animation: slideUp 1s;
@@ -164,30 +161,6 @@ export default Slide
 
 .slide.off {
     animation: slideDown 1s;
-}
-
-.slide__close {
-    z-index: 2;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-.slide__content {
-    position: relative;
-    height: 80%;
-}
-
-.slide__content p {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.slide__buttons {
-    display: flex;
-    justify-content: center;
 }
 
 @keyframes slideUp {
@@ -211,6 +184,9 @@ export default Slide
 
 ## 2. React Transition Group
 
+CSS 트랜지션(transition) 처리를 쉽게 도와주는 라이브러리입니다. 
+`CSSTransition`을 사용하는 간단한 예시 코드를 통해 사용 방법을 알아보겠습니다. 
+
 ### 2.1. 설치하기
 
 ```
@@ -223,11 +199,19 @@ yarn add react-transition-group
 
 ### 2.2. App.js
 
+- 기존 슬라이드 아래 `CSSTransition` 컴포넌트로 감싼 신규 슬라이드를 추가합니다.
+- `CSSTransition` 컴포넌트의 `props`를 살펴보겠습니다.
+    - `in` - 이 값을 이용하여 컴포넌트가 보이는 여부를 제어합니다. `boolean` 값이 들어갑니다.
+    - `timeout` - 트랜지션에 걸리는 시간을 설정합니다.
+    - `classNames` - 트랜지션을 적용할 클래스 이름을 정의합니다.
+    - `unmountOnExit` - 자식 컴포넌트를 보여주지 않을 때 `unmount` 시킬 것인지 결정합니다.
+
 ```jsx
 import './App.css'
-import Slide from './components/Slide'
 import { useState } from 'react'
 import { CSSTransition } from 'react-transition-group'
+
+import Slide from './components/Slide'
 import TransitionSlide from './components/TransitionSlide'
 
 function App() {
@@ -255,6 +239,10 @@ export default App
 ```
 
 ### 2.3. TransitionSlide.js
+
+- 기존 `Slide.js`에서 불필요한 함수를 제거합니다.
+    - `slideIn` 함수 제거
+    - `slideOut` 함수 제거
 
 ```jsx
 import { useState } from 'react'
@@ -291,6 +279,17 @@ export default TransitionSlide
 
 ### 2.4. Slide.css
 
+> `CSSTransition` 컴포넌트 주석<br>
+> `CSSTransition` applies a pair of class names during the `appear`, `enter` and `exit` states of the transition. 
+> The first class is applied and then a second `*-active` class in order to activate the CSS transition. 
+> After the transition, matching `*-done` class names are applied to persist the transition state.
+
+- `CSSTransition` 컴포넌트에서 지정한 `classNames`에 접미사를 붙힌 클래스를 정의합니다.
+    - `-enter` - 자식 컴포넌트를 마운트(mount)시킬 때 추가되는 클래스
+    - `-enter-active` - 자식 컴포넌트의 마운트에 필요한 트랜지션을 활성화하기 위해 2차적으로 붙는 클래스
+    - `-exit` - 자식 컴포넌트가 언마운트(unmount)시킬 때 추가되는 클래스
+    - `-exit-active` - 자식 컴포넌트의 언마운트에 필요한 트랜지션을 활성화하기 위해 2차적으로 붙는 클래스
+
 ```css
 
 /* ... 이전 설명과 동일 */
@@ -315,7 +314,11 @@ export default TransitionSlide
 }
 ```
 
-## CLOSING
+## 3. 결과
+
+<p align="left">
+    <img src="/images/react-transition-group-1.gif" width="65%" class="image__border">
+</p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-29-react-transition-group>

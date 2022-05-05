@@ -1,5 +1,5 @@
 ---
-title: "Dockerfile EXPOSE 명령"
+title: "Dockerfile EXPOSE 명령어"
 search: false
 category:
   - information
@@ -15,7 +15,7 @@ last_modified_at: 2022-05-04T23:55:00
 굳이 작성하지 않아도 도커 이미지를 만들고, 컨테이너를 실행시킬 수 있습니다. 
 공식 문서를 보면 다음과 같은 설명을 찾을 수 있습니다.
 
-> [EXPOSE](https://docs.docker.com/engine/reference/builder/#expose)
+> [EXPOSE](https://docs.docker.com/engine/reference/builder/#expose)<br>
 > The EXPOSE instruction does not actually publish the port. 
 > It functions as a type of documentation between the person who builds the image 
 > and the person who runs the container, about which ports are intended to be published. 

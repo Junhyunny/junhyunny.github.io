@@ -172,7 +172,7 @@ IMAGE          CREATED             CREATED BY                                   
 `Dockerfile`을 통한 빌드 시 변경이 일어난 명령어부터 모두 재실행된다는 점을 고려하고 작성해야합니다. 
 이전 단계에서 작성한 `Dockerfile`을 먼저 살펴보고, 이를 효율적인 모습으로 변경해보겠습니다. 
 
-##### 이전 Dockerfile의 문제점 살펴보기
+##### 이전 Dockerfile 문제점
 
 - `COPY . /app` 명령어를 통해 현재 프로젝트 파일들을 모두 컨테이너로 복사합니다.
 - 프로젝트 내 변경이 있을 때마다 `COPY . /app` 명령어부터 모두 재실행합니다. 
@@ -193,7 +193,7 @@ EXPOSE 80
 CMD ["node", "server.js"]
 ```
 
-##### 효율적인 Dockerfile 작성 방법과 .dockerignore 파일 추가
+##### 효율적인 Dockerfile 그리고 .dockerignore 파일
 
 - 다음과 같이 변경하면 효율적인 빌드가 가능합니다.
 - `COPY package.json /app` 명령어를 통해 의존성 관리를 위한 `package.json` 파일만 복사합니다.
@@ -216,8 +216,8 @@ EXPOSE 80
 CMD ["node", "server.js"]
 ```
 
-- 빌드를 더 효율적으로 개선하기 위해서 `.dockerignore` 파일을 추가합니다.
-- 불필요한 파일이 빌드에 포함되지 않도록 `.dockerignore` 내에 작성합니다.
+- 빌드를 더 효율적으로 개선하기 위해서 `.dockerignore` 파일을 만듭니다.
+- 도커 이미지 빌드 시 불필요한 파일들이 포함되지 않도록 불필요 항목들을 추가합니다.
 
 ```
 .dockerignore

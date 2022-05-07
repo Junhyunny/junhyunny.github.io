@@ -1,0 +1,29 @@
+---
+title: "XSS(Cross Site Scripting) 공격과 방어"
+search: false
+category:
+  - information
+last_modified_at: 2022-05-07T23:55:00
+---
+
+<br>
+
+## 1. XSS(Cross Site Scripting) 공격
+
+## 2. XSS 공격 유형
+
+## 3. XSS 공격 방어
+
+### 3.1. 반사형 XSS
+
+### 3.2. 저장형 XSS
+
+### 3.3. 영구적 XSS
+
+### 3.4. DOM 기반 XSS
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### REFERENCE

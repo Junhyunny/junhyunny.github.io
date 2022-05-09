@@ -65,6 +65,7 @@ $ curl http://vulnerable-site.com/query?keyworkd<script>malicious-script-code</s
 #### 2.2.1. XssAttackController 클래스
 
 - 화면에서 전달한 조회 키워드 파라미터를 그대로 화면에 담아서 전달합니다.
+- 사용자의 입력을 검증 없이 사용합니다.
 
 ```java
     @GetMapping(path = "/reflected")
@@ -77,7 +78,7 @@ $ curl http://vulnerable-site.com/query?keyworkd<script>malicious-script-code</s
 #### 2.2.2. ReflectedXssAttack JSP
 
 - 사용자에게 검색 키워드를 입력받습니다.
-- 컨트롤러에서 모델 객체에 담아서 전달한 검색 키워드를 화면에 표시합니다.
+- 사용자가 자신이 어떤 검색 키워드를 사용했는지 확인할 수 있도록 화면에 보여줍니다.
 
 ```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -347,7 +348,7 @@ JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c
 악성 스크립트를 통한 XSS 공격은 쿠키나 스토리지로부터 사용자 정보를 획득하는 방법만 있는 것이 아닙니다. 
 다음과 같은 스크립트를 통해 악속 코드를 다운받는 사이트 혹은 유사 사이트로 리다이렉트(redirect) 시킬 수 있습니다. 
 
-```javascript
+```jsp
 <script>
     window.open("https://www.google.com/?query=hello+world")
 </script>

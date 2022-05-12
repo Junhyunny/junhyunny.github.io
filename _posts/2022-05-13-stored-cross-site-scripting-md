@@ -1,0 +1,29 @@
+---
+title: "저장형 XSS(Stored Cross Site Scripting) 공격과 방어"
+search: false
+category:
+  - information
+  - security
+  - spring-mvc
+last_modified_at: 2022-05-13T23:55:00
+---
+
+<br>
+
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
+
+## 0. 들어가면서
+
+[반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link] 포스트에서 다루지 못한 저장형 XSS 공격과 방어에 대해 알아보겠습니다. 
+
+## 1. 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### REFERENCE
+
+
+[reflected-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/

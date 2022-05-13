@@ -41,7 +41,7 @@ XSS 공격은 다음과 같은 유형들이 존재합니다.
 악의적인 사용자는 URL 주소 뒤에 붙는 쿼리에 악성 스크립트를 작성해서 전달합니다.
 
 ```
-$ curl http://vulnerable-site.com/query?keyworkd<script>malicious-script-code</script>
+$ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</script>
 ```
 
 ### 2.1. 반사형 XSS 공격 시나리오

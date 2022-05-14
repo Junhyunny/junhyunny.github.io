@@ -120,7 +120,6 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 1. 악의적인 사용자는 악성 스크립트를 만들어 URL로 만들어지는 것을 확인합니다.
 1. 공격 URL 주소를 다른 일반 사용자가 알아보지 못 하도록 다른 URL 주소로 변경한 후 일반 사용자에게 전달합니다.
 1. 공격 URL 주소를 클릭한 사용자의 브라우저는 악성 스크립트를 실행하게 됩니다.
-1. 일반 사용자의 정보는 악의적인 사용자가 만든 서비스로 전달됩니다.
 
 <p align="center">
     <img src="/images/reflected-cross-site-scripting-2.gif" width="100%" class="image__border">
@@ -266,9 +265,9 @@ public class XssAttackFilter implements Filter {
         }
 
         private String cleanXSS(String value) {
+            value = value.replaceAll("&", "&amp;");
             value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
             value = value.replaceAll("\\(", "&#40;").replaceAll("\\)", "&#41;");
-            value = value.replaceAll("&", "&amp;");
             value = value.replaceAll("/", "&#x2F;");
             value = value.replaceAll("'", "&#x27;");
             value = value.replaceAll("\"", "&quot;");
@@ -331,7 +330,7 @@ JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c
 - <https://brownbears.tistory.com/250>
 - <https://www.hahwul.com/cullinan/xss/>
 - <http://blog.plura.io/?p=7614>
-- <https://codingbroker.tistory.com/119>
+- <https://popo015.tistory.com/104>
 - <https://m.blog.naver.com/weekamp/220458872665>
 
 [xss-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8C%85

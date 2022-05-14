@@ -325,7 +325,6 @@ JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c
 #### REFERENCE
 - [XSS(Cross Site Scripting) 공격][xss-wiki-link]
 - <https://bitly.com/>
-- <https://ddungkill.tistory.com/135>
 - <https://kevinthegrey.tistory.com/36>
 - <https://brownbears.tistory.com/250>
 - <https://www.hahwul.com/cullinan/xss/>

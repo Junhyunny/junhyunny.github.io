@@ -53,29 +53,15 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 1. 악성 스크립트를 통해 사용자 정보가 악의적인 사용자에게 전달됩니다.
 
 <p align="center">
-    <img src="/images/reflected-cross-site-scripting-1.JPG" width="80%" class="image__border">
+    <img src="/images/reflected-cross-site-scripting-1.JPG" width="100%" class="image__border">
 </p>
-<center>https://www.researchgate.net/figure/The-process-of-reflected-XSS-Attack_fig2_338000205</center>
 
 ### 2.2. 반사형 XSS 공격 취약 서비스의 코드
 
 이제 보안이 취약한 서버의 코드를 살펴보겠습니다. 
-불필요한 코드는 제외하고 문제를 일으키는 코드만 남겨서 살펴보겠습니다. 
+불필요한 코드는 제외하고 문제를 일으키는 코드만 확인해보겠습니다.
 
-#### 2.2.1. XssAttackController 클래스
-
-- 화면에서 전달한 조회 키워드 파라미터를 그대로 화면에 담아서 전달합니다.
-- 사용자의 입력을 검증 없이 사용합니다.
-
-```java
-    @GetMapping(path = "/reflected")
-    public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
-        model.addAttribute("keyword", keyword);
-        return "ReflectedXssAttack";
-    }
-```
-
-#### 2.2.2. ReflectedXssAttack JSP
+#### 2.2.1. ReflectedXssAttack JSP
 
 - 사용자에게 검색 키워드를 입력받습니다.
 - 사용자가 자신이 어떤 검색 키워드를 사용했는지 확인할 수 있도록 화면에 보여줍니다.
@@ -87,45 +73,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 <html>
 <head>
     <style>
-        .form {
-            border: #323232 solid 1px;
-            margin: auto;
-            padding: 10px;
-            width: 70vw;
-            height: 100%;
-        }
-
-        .form__input {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .form__input > div {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .form__button {
-            margin-top: 10px;
-            width: 100%;
-        }
-
-        .container {
-            position: relative;
-            overflow-x: auto;
-            border: #323232 solid 1px;
-            margin: 10px auto;
-            padding: 10px;
-            width: 70vw;
-            height: 300px;
-        }
-
-        .container__header {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-        }
+        <!-- styles ... -->
     </style>
     <meta charset="UTF-8">
     <title>Reflected XSS 공격</title>
@@ -152,6 +100,19 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 
 </body>
 </html>
+```
+
+#### 2.2.2. XssAttackController 클래스
+
+- 화면에서 전달한 조회 키워드 파라미터를 그대로 화면에 담아서 전달합니다.
+- 사용자의 입력을 검증 없이 사용합니다.
+
+```java
+    @GetMapping(path = "/reflected")
+    public String index(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
+        model.addAttribute("keyword", keyword);
+        return "ReflectedXssAttack";
+    }
 ```
 
 ### 2.3. 반사형 XSS 공격 결과

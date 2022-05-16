@@ -172,12 +172,13 @@ public class DomBasedController {
 window.location.href = decodeURIComponent(hash)
 ```
 
-위 코드는 고의로 XSS 공격을 유도하진 않았지만, 보안에 취약한 사용 방법은 피해서 작성해야 할 것으로 보입니다. 
-또, 클라이언트 측에서 사용자의 입력을 검증 없이 사용하였기 때문에 발생하였습니다.  
-사용자가 입력할 수 있는 값에 대해서는 검증이 필요할 것으로 보입니다. 
+<br>
+
+위 코드는 고의로 XSS 공격을 유도하진 않았지만, 보안에 취약한 사용 방법이므로 피해서 작성하는 것이 좋아보입니다. 
+또, 클라이언트 측에서 사용자의 입력을 검증 없이 사용하였기 때문에 발생하였기 때문에 사용자가 입력할 수 있는 값에 대한 검증이 필요성이 보입니다. 
 DOM 기반 XSS 공격을 유발할 수 있는 취약한 코드 유형에 대해 알아보고 이번 글을 마치겠습니다. 
 
-##### 유형-1
+##### 유형 1.
 
 ```html
 <body>
@@ -188,7 +189,7 @@ DOM 기반 XSS 공격을 유발할 수 있는 취약한 코드 유형에 대해 
 </body>
 ```
 
-##### 유형-2
+##### 유형 2.
 
 ```html
 <script>
@@ -196,9 +197,9 @@ DOM 기반 XSS 공격을 유발할 수 있는 취약한 코드 유형에 대해 
 </script>
 ```
 
-##### 유형-3, jQuery 라이브러리
+##### 유형 3. jQuery 라이브러리
 
-- jQuery 같은 라이브러리를 사용할 때 버그로 인해 XSS 공격이 가능하기도 합니다. 
+- jQuery 라이브러리의 버그로 인해 XSS 공격이 가능하기도 합니다. 
 - <https://security.stackexchange.com/questions/200215/is-this-code-vulnerable-to-dom-based-xss-jquery-animate>
 
 <p align="center">

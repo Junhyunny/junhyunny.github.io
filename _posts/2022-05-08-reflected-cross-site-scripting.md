@@ -12,6 +12,7 @@ last_modified_at: 2022-05-08T23:55:00
 
 👉 이어서 읽기를 추천합니다.
 - [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting-link]
+- [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
 
 ## 0. 들어가면서
 
@@ -336,4 +337,6 @@ JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c
 - <https://m.blog.naver.com/weekamp/220458872665>
 
 [xss-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8C%85
+
 [stored-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/
+[dom-based-cross-site-scripting-link]: https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/

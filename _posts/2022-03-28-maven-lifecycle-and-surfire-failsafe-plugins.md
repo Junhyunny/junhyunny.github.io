@@ -492,10 +492,9 @@ $ mvn test
     - `integration-test` 페이즈 이전에 실행되어야 하는 `test` 페이즈는 `-Dskip.unit.tests=true` 옵션으로 생략합니다.
 - 실행되는 테스트는 `ActionInBlogApplicationIT` 클래스 1개입니다.
 - `maven-failsafe-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원합니다. 
-    - "**/Test*.java" - includes all of its subdirectories and all Java filenames that start with "Test".
-    - "**/*Test.java" - includes all of its subdirectories and all Java filenames that end with "Test".
-    - "**/*Tests.java" - includes all of its subdirectories and all Java filenames that end with "Tests".
-    - "**/*TestCase.java" - includes all of its subdirectories and all Java filenames that end with "TestCase".
+    - "**/IT*.java" - includes all of its subdirectories and all Java filenames that start with "IT".
+    - "**/*IT.java" - includes all of its subdirectories and all Java filenames that end with "IT".
+    - "**/*ITCase.java" - includes all of its subdirectories and all Java filenames that end with "ITCase".
 - 필요한 경우 `<configuration>...</configuration>` 태그 안에 설정을 통해 포함, 제거할 클래스 이름을 지정할 수 있습니다.
 
 ```

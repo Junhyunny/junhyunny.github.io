@@ -231,7 +231,7 @@ console.dir(junhyunny);
 - 생성자 함수를 통해 객체를 생성하는 경우 프로토타입(prototype) 객체가 지정됩니다.
 
 <p align="center">
-    <img src="/images/create-object-in-javascript-6.JPG" width="80%" class="image__border">
+    <img src="/images/create-object-in-javascript-6.JPG" width="100%" class="image__border">
 </p>
 
 ## 4. 강제 인스턴스 생성 패턴

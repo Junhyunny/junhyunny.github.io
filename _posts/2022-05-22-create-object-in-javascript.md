@@ -159,7 +159,7 @@ window.sayName();
 
 #### 2.3.1. 리터럴 객체 반환
 
-- 리터럴 객체를 반환하는 경우 
+- 리터럴 객체를 반환하는 경우 생성자를 통해 만들어진 객체 대신 반환하는 객체가 반환됩니다.
 
 ```javascript
 function Person(name) {
@@ -181,10 +181,11 @@ junhyunny.sayHello();
 console.dir(junhyunny);
 ```
 
+##### 결과
+
 <p align="left">
     <img src="/images/create-object-in-javascript-4.JPG" width="45%" class="image__border">
 </p>
-
 
 #### 2.3.2. 원시 타입(primitive type) 값 반환
 

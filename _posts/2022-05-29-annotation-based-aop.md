@@ -18,7 +18,7 @@ last_modified_at: 2022-05-29T23:55:00
 API 요청을 수행하는 코드들을 모두 따라가면서 필요한 로직을 추가하는 것보단 AOP(Aspect Oriented Programming)를 사용하면 좋겠다는 생각이 들었습니다. 
 API 요청을 위해 사용했던 `@FeignClient`와 커스텀 애너테이션을 기반으로 AOP 기능을 활용하는 방법에 대해 정리하였습니다. 
 
-## 1. 요청 이력 정보 저장
+## 1. API 요청 이력 정보 도메인
 
 API 요청, 응답 정보를 저장하는 엔티티(entity), 레포지토리(repository) 그리고 컨버터(converter)에 대해 정리하였습니다.
 
@@ -104,11 +104,11 @@ public class StringArrayConverter implements AttributeConverter<String[], String
 }
 ```
 
-## 2. 애너테이션 기반의 AOP 
+## 2. 애너테이션 기반 AOP 구현 
 
 필요한 커스텀 애너테이션과 AOP 기능을 구현하였습니다.
 
-### 2.1. 커스텀 애너테이션 만들기
+### 2.1. InterfaceMeta 커스텀 애너테이션
 
 - 어떤 API 요청인지 메타 정보를 담기 위해 사용하는 애너테이션입니다.
 - `@Target(ElementType.METHOD)` - 메소드 위에 붙혀 사용합니다.
@@ -133,7 +133,7 @@ public @interface InterfaceMeta {
 }
 ```
 
-### 2.2. FeignClient 만들기
+### 2.2. SimpleClient 클래스
 
 - `home()` - `Junhyunny` 블로그 홈 정보를 요청합니다.
 - `about()` - 블로그 주인의 자기 소개 페이지를 요청합니다.
@@ -158,7 +158,7 @@ public interface SimpleClient {
 }
 ```
 
-### 2.3. AOP 인터셉터
+### 2.3. InterfaceHistoryInterceptor 클래스
 
 - `aroundCallFeignClient(ProceedingJoinPoint pjp)` 메소드
     - `@Around` 애너테이션을 추가하여 타겟 메소드 실행 전, 후 시점에 필요한 기능을 삽입할 것이라 표시합니다.

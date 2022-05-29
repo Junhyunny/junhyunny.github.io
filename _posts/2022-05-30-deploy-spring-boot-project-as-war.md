@@ -3,6 +3,7 @@ title: "Spring Boot 프로젝트 WAR 패키징 및 배포"
 search: false
 category:
   - spring-boot
+  - server
 last_modified_at: 2022-05-30T23:55:00
 ---
 

@@ -110,11 +110,12 @@ public class StringArrayConverter implements AttributeConverter<String[], String
 
 ### 2.1. InterfaceMeta 커스텀 애너테이션
 
-- 어떤 API 요청인지 메타 정보를 담기 위해 사용하는 애너테이션입니다.
-- `@Target(ElementType.METHOD)` - 메소드 위에 붙혀 사용합니다.
-- `@Retention(RetentionPolicy.RUNTIME)` - 런타임에 사용할 수 있습니다.
-- `explainText()` - 어떤 API 요청인지 설명을 추가합니다.
-- `serviceId()` - 해당 API가 어떤 요청인지 비즈니스 적인 코드를 작성합니다.
+- API 요청에 대한 메타 정보를 담기 위해 사용하는 애너테이션입니다.
+    - `@Target(ElementType.METHOD)` - 해당 애너테이션은 메소드에 사용 가능합니다.
+    - `@Retention(RetentionPolicy.RUNTIME)` - 해당 애너테이션은 런타임에 사용할 수 있습니다.
+- 다음과 같은 속성 값을 가지고 있습니다.
+    - `explainText()` - 어떤 API 요청인지 설명을 추가합니다.
+    - `serviceId()` - 해당 API가 어떤 요청인지 비즈니스 적인 코드를 작성합니다.
 
 ```java
 package blog.in.action.annotation;

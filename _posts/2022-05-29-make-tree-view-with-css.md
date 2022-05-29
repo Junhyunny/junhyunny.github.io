@@ -1,0 +1,166 @@
+---
+title: "Tree View with CSS"
+search: false
+category:
+  - html
+  - css
+  - javascript
+last_modified_at: 2022-05-29T23:55:00
+---
+
+<br>
+
+## 1. Tree View
+
+디렉토리 구조를 표현하는데 많이 사용하는 트리(tree)를 구현하였습니다. 
+
+### 1.1. HTML 코드
+
+- 각 노드 별로 `.node` 클래스를 가집니다.
+- 하위 노드가 없는 경우 `.leaf` 클래스를 가집니다.
+
+```html
+<div class="wrap">
+    <div class="buttons">
+        <button onclick="openAll()">모두 열기</button>
+        <button onclick="closeAll()">모두 닫기</button>
+    </div>
+    <ul class="tree">
+        <li>
+            <input type="checkbox" id="root">
+            <label for="root" class="node">ROOT</label>
+            <ul>
+                <li>
+                    <input type="checkbox" id="node1">
+                    <label for="node1" class="node leaf">node1</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="node2">
+                    <label for="node2" class="node">node2</label>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="node2-1">
+                            <label for="node2-1" class="node leaf">node2-1</label>
+                        </li>
+                    </ul>
+                <li>
+                    <input type="checkbox" id="node3">
+                    <label for="node3" class="node">node3</label>
+                    <ul>
+                        <li>
+                            <input type="checkbox" id="node3-1">
+                            <label for="node3-1" class="node leaf">node3-1</label>
+                        </li>
+                        <li>
+                            <input type="checkbox" id="node3-2">
+                            <label for="node3-2" class="node">node3-2</label>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="node3-2-1">
+                                    <label for="node3-2-1" class="node leaf">node3-2-1</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="node3-2-2">
+                                    <label for="node3-2-2" class="node leaf">node3-2-2</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="node3-2-3">
+                                    <label for="node3-2-3" class="node leaf">node3-2-3</label>
+                                </li>
+                            </ul>
+                        <li>
+                            <input type="checkbox" id="node3-3">
+                            <label for="node3-3" class="node leaf">node3-3</label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+```
+
+### 1.2. CSS 코드
+
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+
+```css
+.wrap {
+    overflow: auto;
+    position: relative;
+    border: 1px solid;
+    width: 90vw;
+    height: 90vh;
+}
+
+.buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.tree,
+.tree ul {
+    /* 리스트 스타일을 제거합니다. 리스트 앞에 오는 닷(dot) 제거 */
+    list-style: none;
+}
+
+.tree .node {
+    cursor: pointer;
+    display: inline-block;
+    margin: 1.5px;
+}
+
+.tree .node:before {
+    /* 트리 노드 앞에 삼각형 모양을 표시합니다. */
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+    transition: transform 100ms;
+}
+
+.tree .node.leaf:before {
+    /* 트리의 노드이면서 리프인 경우에는 네모 모양을 표시합니다. */
+    content: "\25A2";
+}
+
+.tree input[type="checkbox"] {
+    /* 체크 박스는 표시하지 않습니다. */
+    display: none;
+}
+
+.tree input[type="checkbox"]:not(:checked) ~ .node:not(.leaf):before {
+    /* 체크 박스가 선택되지 않은 경우 삼각형을 90도 회전시킵니다. */
+    transform: rotate(90deg);
+    transition: transform 100ms;
+}
+
+.tree input[type="checkbox"]:checked ~ ul {
+    /* 체크 박스가 선택된 경우 하위 트리를 보여주지 않습니다. */
+    display: none;
+}
+```
+
+### 1.3. JavaScript 코드
+
+```javascript
+function openAll() {
+    const checkboxes = document.querySelectorAll('.tree input[type=checkbox]');
+    checkboxes.forEach((box) => {
+        box.checked = false;
+    });
+}
+
+function closeAll() {
+    const checkboxes = document.querySelectorAll('.tree input[type=checkbox]');
+    checkboxes.forEach((box) => {
+        box.checked = true;
+    });
+}
+```
+
+## 2. 결과
+
+{% include codepen.html hash="yLvvvxB" tab="css,result" title="Tree View" %}

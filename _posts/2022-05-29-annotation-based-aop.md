@@ -161,14 +161,18 @@ public interface SimpleClient {
 
 ### 2.3. InterfaceHistoryInterceptor 클래스
 
-- `aroundCallFeignClient(ProceedingJoinPoint pjp)` 메소드
+- `aroundCallFeignClient(ProceedingJoinPoint pjp)` 메소드 부가 설명
     - `@Around` 애너테이션을 추가하여 타겟 메소드 실행 전, 후 시점에 필요한 기능을 삽입할 것이라 표시합니다.
         - `@within(Annotaion)` - `@Annotaion` 애너테이션 붙은 클래스 안에 정의된 코드와 연관된 조인 포인트(join point)
         - `@annotation(Annotaion)` - `@Annotaion` 애너테이션이 대상과 연관된 조인 포인트
     - `ProceedingJoinPoint` 객체의 `proceed` 메소드 실행 전, 후 시점에 필요한 기능을 삽입합니다.
     - 이력 성격의 데이터를 추가하면서 발생하는 예외가 비즈니스 로직에 영향을 주지 않도록 `try-catch` 구문으로 감쌉니다.
-- `getPath(Annotation[] annotations)` 메소드
-    - 해당 메소드에서 요청하는 경로(`path`) 값을 반환합니다.
+
+- `aroundCallFeignClient(ProceedingJoinPoint pjp)` 메소드 동작 과정
+1. 대상 메소드에 연결된 애너테이션 정보를 획득합니다.
+1. 획득한 애너테이션 정보에서 필요한 값들을 추출합니다.
+1. 데이터베이스에 저장할 엔티티 객체를 만듭니다.
+1. 이를 저장합니다.
 
 ```java
 package blog.in.action.aop;
@@ -187,7 +191,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Aspect
 @Component
@@ -215,12 +219,12 @@ public class InterfaceHistoryInterceptor {
 
     @Around("@within(org.springframework.cloud.openfeign.FeignClient) && @annotation(blog.in.action.annotation.InterfaceMeta)")
     public Object aroundCallFeignClient(ProceedingJoinPoint pjp) throws Throwable {
-        Timestamp requestTime = new Timestamp(new Date().getTime());
+        Timestamp requestTime = Timestamp.valueOf(LocalDateTime.now());
 
         Object result = pjp.proceed();
 
         try {
-            Timestamp responseTime = new Timestamp(new Date().getTime());
+            Timestamp responseTime = Timestamp.valueOf(LocalDateTime.now());
             MethodSignature signature = (MethodSignature) pjp.getSignature();
             Method method = signature.getMethod();
             InterfaceMeta interfaceMeta = method.getAnnotation(InterfaceMeta.class);
@@ -247,77 +251,114 @@ public class InterfaceHistoryInterceptor {
 
 ## 3. 테스트 코드
 
-### 3.1. 테스트 용 application.yml
+### 3.1. SimpleClientTests 클래스
 
-- 테스트에서만 사용할 설정 파일을 추가합니다.
-    - 경로 - `/src/test/resources/application.yml`
-
-```yml
-spring:
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:~/test
-    username: sa
-    password:
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: create-drop
-    open-in-view: false
-  h2:
-    console:
-      path: /h2-console
-      enabled: true
-```
-
-### 3.2. SimpleClientIT 클래스
-
-- 스프링 컨텍스트의 기능을 사용하기 때문에 결합 테스트로 작성합니다.
-- `home()` 메소드 테스트
-    - `home()` 메소드 호출 후 데이터베이스에 데이터가 존재하는지 확인합니다.
-    - `@Transactional` 애너테이션을 붙혀 테스트 이후 저장한 데이터는 다음 테스트에 영향이 없도록 롤백합니다.
-- `about()` 메소드 테스트
-    - `about()` 메소드 호출 후 데이터베이스에 데이터가 존재하는지 확인합니다.
-    - `@Transactional` 애너테이션을 붙혀 테스트 이후 저장한 데이터는 다음 테스트에 영향이 없도록 롤백합니다.
+- AOP 기능을 스프링 컨텍스트 없이 호출하기 위해 `AspectJProxyFactory` 클래스를 사용합니다.
+- `AspectJProxyFactory` 클래스를 통해 특정 메소드를 호출할 때 동작하는 AOP 기능을 테스트할 수 있습니다.
+- `home()` 및 `about()` 메소드 테스트
+    - 필요한 값을 스터빙(stubbing)합니다.
+    - 팩토리 객체로부터 대상 메소드를 호출할 수 있는 프록시 객체를 획득합니다.
+    - 프록시 객체의 대상 메소드를 호출합니다.
+    - AOP 기능 내부에서 호출하는 레포지토리 객체의 `save(entity)` 메소드에 적절한 파라미터가 전달됬는지 확인합니다.
 
 ```java
 package blog.in.action.openfeign.simple;
 
+import blog.in.action.aop.InterfaceHistoryInterceptor;
 import blog.in.action.client.SimpleClient;
+import blog.in.action.repository.InterfaceHistory;
 import blog.in.action.repository.InterfaceHistoryRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.mockito.ArgumentCaptor;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
-public class SimpleClientIT {
+public class SimpleClientTests {
 
-    @Autowired
-    private SimpleClient simpleClient;
+    AspectJProxyFactory factory;
 
-    @Autowired
-    private InterfaceHistoryRepository repository;
+    SimpleClient targetClient;
+    InterfaceHistoryRepository mockRepository;
+    InterfaceHistoryInterceptor aspectInterceptor;
 
-    @Test
-    @Transactional
-    public void whenCallHomeMethod_thenExistsHistoryData() {
+    LocalDateTime requestTime;
+    LocalDateTime responseTime;
 
-        simpleClient.home();
+    @BeforeEach
+    void setUp() {
 
-        assertThat(repository.count(), equalTo(1L));
+        targetClient = Mockito.mock(SimpleClient.class);
+        mockRepository = Mockito.mock(InterfaceHistoryRepository.class);
+        
+        factory = new AspectJProxyFactory(targetClient);
+        aspectInterceptor = new InterfaceHistoryInterceptor(mockRepository);
+        
+        factory.addAspect(aspectInterceptor);
+
+        requestTime = LocalDateTime.now();
+        responseTime = requestTime.plusSeconds(1);
     }
 
     @Test
-    @Transactional
-    public void whenCallAboutMethod_thenExistsHistoryData() {
+    public void whenCallHomeMethod_thenCallSaveMethodWithHistory() {
+        MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class);
+        when(targetClient.home()).thenReturn("home");
+        Mockito.when(LocalDateTime.now())
+                .thenReturn(requestTime, responseTime)
+                .thenCallRealMethod();
 
-        simpleClient.about();
 
-        assertThat(repository.count(), equalTo(1L));
+        SimpleClient proxyWrappedClient = factory.getProxy();
+        proxyWrappedClient.home();
+
+
+        ArgumentCaptor<InterfaceHistory> argumentCaptor = ArgumentCaptor.forClass(InterfaceHistory.class);
+        verify(mockRepository).save(argumentCaptor.capture());
+
+        InterfaceHistory interfaceHistory = argumentCaptor.getValue();
+        assertThat(interfaceHistory.getServiceId(), equalTo("0001"));
+        assertThat(interfaceHistory.getExplainText(), equalTo("블로그 홈"));
+        assertThat(interfaceHistory.getPath(), equalTo(new String[]{"/"}));
+        assertThat(interfaceHistory.getRequestTime(), equalTo(Timestamp.valueOf(requestTime)));
+        assertThat(interfaceHistory.getResponseTime(), equalTo(Timestamp.valueOf(responseTime)));
+
+        mockedStatic.close();
+    }
+
+    @Test
+    public void whenCallAboutMethod_thenCallSaveMethodWithHistory() {
+        MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class);
+        when(targetClient.home()).thenReturn("about");
+        Mockito.when(LocalDateTime.now())
+                .thenReturn(requestTime, responseTime)
+                .thenCallRealMethod();
+
+
+        SimpleClient proxyWrappedClient = factory.getProxy();
+        proxyWrappedClient.about();
+
+
+        ArgumentCaptor<InterfaceHistory> argumentCaptor = ArgumentCaptor.forClass(InterfaceHistory.class);
+        verify(mockRepository).save(argumentCaptor.capture());
+
+        InterfaceHistory interfaceHistory = argumentCaptor.getValue();
+        assertThat(interfaceHistory.getServiceId(), equalTo("0002"));
+        assertThat(interfaceHistory.getExplainText(), equalTo("자기소개"));
+        assertThat(interfaceHistory.getPath(), equalTo(new String[]{"/about/"}));
+        assertThat(interfaceHistory.getRequestTime(), equalTo(Timestamp.valueOf(requestTime)));
+        assertThat(interfaceHistory.getResponseTime(), equalTo(Timestamp.valueOf(responseTime)));
+
+        mockedStatic.close();
     }
 }
 ```
@@ -327,6 +368,7 @@ public class SimpleClientIT {
 
 #### REFERENCE
 
+- <https://stackoverflow.com/questions/11436600/unit-testing-spring-around-aop-methods>
 - <https://ecogeo.tistory.com/332>
 - <https://stackoverflow.com/questions/21275819/how-to-get-a-methods-annotation-value-from-a-proceedingjoinpoint>
 

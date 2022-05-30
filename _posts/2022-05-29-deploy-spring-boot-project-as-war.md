@@ -55,7 +55,7 @@ last_modified_at: 2022-05-29T23:55:00
 
 ## 2. SpringBootServletInitializer 클래스 상속
 
-- 예전에는 `configure` 메소드를 오버라이드가 필요헀던 것으로 보이지만, 현재 버전은 해당 메소드를 오버라이드하지 않아도 동작합니다. 
+- 예전에는 `configure` 메소드를 오버라이드가 필요했던 것으로 보이지만, 현재 버전은 해당 메소드를 오버라이드하지 않아도 동작합니다. 
 
 ```java
 package action.in.blog;

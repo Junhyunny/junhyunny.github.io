@@ -29,6 +29,7 @@ API 요청, 응답 정보를 저장하는 엔티티(entity), 레포지토리(rep
     - serviceId - 서비스 아이디
     - path - 요청 경로
     - explainText - 요청에 대한 설명
+    - response - API 응답 결과
     - requestTime - 요청 시간
     - responseTime - 응답 시간
 
@@ -38,11 +39,16 @@ package blog.in.action.repository;
 import blog.in.action.converter.StringArrayConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -56,9 +62,11 @@ public class InterfaceHistory {
     @Convert(converter = StringArrayConverter.class)
     private String[] path;
     private String explainText;
+    private String response;
     private Timestamp requestTime;
     private Timestamp responseTime;
 }
+
 ```
 
 ### 1.2. InterfaceHistoryRepository 인터페이스
@@ -217,7 +225,7 @@ public class InterfaceHistoryInterceptor {
         return null;
     }
 
-    @Around("@within(org.springframework.cloud.openfeign.FeignClient) && @annotation(blog.in.action.annotation.InterfaceMeta)")
+    @Around("@annotation(blog.in.action.annotation.InterfaceMeta)")
     public Object aroundCallFeignClient(ProceedingJoinPoint pjp) throws Throwable {
         Timestamp requestTime = Timestamp.valueOf(LocalDateTime.now());
 
@@ -235,6 +243,7 @@ public class InterfaceHistoryInterceptor {
                     .serviceId(interfaceMeta.serviceId())
                     .explainText(interfaceMeta.explainText())
                     .path(getPath(annotations))
+                    .response(String.valueOf(result))
                     .requestTime(requestTime)
                     .responseTime(responseTime)
                     .build();
@@ -287,76 +296,76 @@ public class SimpleClientTests {
 
     AspectJProxyFactory factory;
 
-    SimpleClient targetClient;
+    SimpleClient mockClient;
     InterfaceHistoryRepository mockRepository;
-    InterfaceHistoryInterceptor aspectInterceptor;
+    InterfaceHistoryInterceptor interceptor;
 
     LocalDateTime requestTime;
     LocalDateTime responseTime;
 
     @BeforeEach
     void setUp() {
-
-        targetClient = Mockito.mock(SimpleClient.class);
+        mockClient = Mockito.mock(SimpleClient.class);
         mockRepository = Mockito.mock(InterfaceHistoryRepository.class);
-        
-        factory = new AspectJProxyFactory(targetClient);
-        aspectInterceptor = new InterfaceHistoryInterceptor(mockRepository);
-        
-        factory.addAspect(aspectInterceptor);
+
+        interceptor = new InterfaceHistoryInterceptor(mockRepository);
+        factory = new AspectJProxyFactory(mockClient);
+        factory.addAspect(interceptor);
 
         requestTime = LocalDateTime.now();
         responseTime = requestTime.plusSeconds(1);
     }
 
     @Test
-    public void whenCallHomeMethod_thenCallSaveMethodWithHistory() {
+    void whenCallHomeMethod_thenExistsHistoryData() {
         MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class);
-        when(targetClient.home()).thenReturn("home");
-        Mockito.when(LocalDateTime.now())
+        when(LocalDateTime.now())
                 .thenReturn(requestTime, responseTime)
                 .thenCallRealMethod();
+        when(mockClient.home()).thenReturn("home");
 
 
-        SimpleClient proxyWrappedClient = factory.getProxy();
-        proxyWrappedClient.home();
+        SimpleClient proxy = factory.getProxy();
+        proxy.home();
 
 
         ArgumentCaptor<InterfaceHistory> argumentCaptor = ArgumentCaptor.forClass(InterfaceHistory.class);
         verify(mockRepository).save(argumentCaptor.capture());
 
-        InterfaceHistory interfaceHistory = argumentCaptor.getValue();
-        assertThat(interfaceHistory.getServiceId(), equalTo("0001"));
-        assertThat(interfaceHistory.getExplainText(), equalTo("블로그 홈"));
-        assertThat(interfaceHistory.getPath(), equalTo(new String[]{"/"}));
-        assertThat(interfaceHistory.getRequestTime(), equalTo(Timestamp.valueOf(requestTime)));
-        assertThat(interfaceHistory.getResponseTime(), equalTo(Timestamp.valueOf(responseTime)));
+        InterfaceHistory entity = argumentCaptor.getValue();
+        assertThat(entity.getServiceId(), equalTo("0001"));
+        assertThat(entity.getPath(), equalTo(new String[]{"/"}));
+        assertThat(entity.getExplainText(), equalTo("블로그 홈"));
+        assertThat(entity.getResponse(), equalTo("home"));
+        assertThat(entity.getRequestTime(), equalTo(Timestamp.valueOf(requestTime)));
+        assertThat(entity.getResponseTime(), equalTo(Timestamp.valueOf(responseTime)));
 
         mockedStatic.close();
     }
 
     @Test
-    public void whenCallAboutMethod_thenCallSaveMethodWithHistory() {
+    void whenCallAboutMethod_thenExistsHistoryData() {
         MockedStatic<LocalDateTime> mockedStatic = Mockito.mockStatic(LocalDateTime.class);
-        when(targetClient.home()).thenReturn("about");
-        Mockito.when(LocalDateTime.now())
+        when(LocalDateTime.now())
                 .thenReturn(requestTime, responseTime)
                 .thenCallRealMethod();
+        when(mockClient.about()).thenReturn("about");
 
 
-        SimpleClient proxyWrappedClient = factory.getProxy();
-        proxyWrappedClient.about();
+        SimpleClient proxy = factory.getProxy();
+        proxy.about();
 
 
         ArgumentCaptor<InterfaceHistory> argumentCaptor = ArgumentCaptor.forClass(InterfaceHistory.class);
         verify(mockRepository).save(argumentCaptor.capture());
 
-        InterfaceHistory interfaceHistory = argumentCaptor.getValue();
-        assertThat(interfaceHistory.getServiceId(), equalTo("0002"));
-        assertThat(interfaceHistory.getExplainText(), equalTo("자기소개"));
-        assertThat(interfaceHistory.getPath(), equalTo(new String[]{"/about/"}));
-        assertThat(interfaceHistory.getRequestTime(), equalTo(Timestamp.valueOf(requestTime)));
-        assertThat(interfaceHistory.getResponseTime(), equalTo(Timestamp.valueOf(responseTime)));
+        InterfaceHistory entity = argumentCaptor.getValue();
+        assertThat(entity.getServiceId(), equalTo("0002"));
+        assertThat(entity.getPath(), equalTo(new String[]{"/about/"}));
+        assertThat(entity.getExplainText(), equalTo("자기소개"));
+        assertThat(entity.getResponse(), equalTo("about"));
+        assertThat(entity.getRequestTime(), equalTo(Timestamp.valueOf(requestTime)));
+        assertThat(entity.getResponseTime(), equalTo(Timestamp.valueOf(responseTime)));
 
         mockedStatic.close();
     }

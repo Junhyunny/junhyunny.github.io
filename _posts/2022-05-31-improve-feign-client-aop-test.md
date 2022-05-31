@@ -452,6 +452,10 @@ public class SimpleClientTests {
 }
 ```
 
+## CLOSING
+
+좋지 않은 테스트 코드를 보완하기 위해 많은 시간이 소요되었지만, 새로운 테스트 방법을 찾은 것만으로 크게 만족했습니다. 
+
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-05-31-improve-feign-client-aop-test>
 

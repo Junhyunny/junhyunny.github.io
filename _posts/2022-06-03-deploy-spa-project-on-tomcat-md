@@ -5,16 +5,52 @@ category:
   - webpack
   - vue.js
   - server
-last_modified_at: 2022-05-29T23:55:00
+last_modified_at: 2022-06-03T23:55:00
 ---
 
 <br>
 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+- [Spring Boot 프로젝트 WAR 패키징 및 배포][deploy-spring-boot-project-as-war-link]
+
 ## 0. 들어가면서
 
-레거시 시스템의 기술 스택을 
+## 1. Vue 프로젝트 빌드
 
-## 1. 
+### 1.1. vue.config.js
+
+```javascript
+const {defineConfig} = require('@vue/cli-service')
+module.exports = defineConfig({
+    transpileDependencies: true,
+    outputDir: './dist'
+})
+```
+
+### 1.2. npm run build
+
+```
+
+```
+
+
+## 2. web.xml  
+
+```xml
+    <!-- The mapping for the default servlet -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+```
+
+```xml
+    <!-- The mapping for the default servlet -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/index.html</url-pattern>
+    </servlet-mapping>
+```
 
 ## CLOSE
 
@@ -23,3 +59,5 @@ last_modified_at: 2022-05-29T23:55:00
 
 #### REFERENCE
 - <>
+
+[deploy-spring-boot-project-as-war-link]: https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/

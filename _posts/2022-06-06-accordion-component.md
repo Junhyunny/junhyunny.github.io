@@ -168,7 +168,7 @@ function openAccordion(event) {
 
 ## 2. 결과
 
-{% include codepen.html hash="XWZBPRN" tab="css,result" title="Accordion View" %}
+{% include codepen.html hash="XWZBPRN" tab="result" title="Accordion View" %}
 
 #### REFERENCE
 - <https://www.w3schools.com/howto/howto_js_accordion.asp>

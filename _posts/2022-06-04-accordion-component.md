@@ -26,10 +26,18 @@ last_modified_at: 2022-06-06T23:55:00
 </div>
 <div class="contract__content">
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
-    <p class="contract__content--detail">amet consectetur adipisicing elit. Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!</p>
+    <p class="contract__content--detail">
+        amet consectetur adipisicing elit. 
+        Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? 
+        Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!
+    </p>
     <br />
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
-    <p class="contract__content--detail">amet consectetur adipisicing elit. Rerum id atque nesciunt vero, debitis culpa dolor. Perspiciatis illo recusandae, facilis reiciendis exercitationem, incidunt ipsam officiis, aut non maiores quis ullam.</p>
+    <p class="contract__content--detail">
+        amet consectetur adipisicing elit. 
+        Rerum id atque nesciunt vero, debitis culpa dolor. 
+        Perspiciatis illo recusandae, facilis reiciendis exercitationem, incidunt ipsam officiis, aut non maiores quis ullam.
+    </p>
 </div>
 
 <div class="contract__header">
@@ -38,10 +46,18 @@ last_modified_at: 2022-06-06T23:55:00
 </div>
 <div class="contract__content">
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
-    <p class="contract__content--detail">amet consectetur adipisicing elit. Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!</p>
+    <p class="contract__content--detail">
+        amet consectetur adipisicing elit. 
+        Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? 
+        Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!
+    </p>
     <br />
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
-    <p class="contract__content--detail">amet consectetur adipisicing elit. Rerum id atque nesciunt vero, debitis culpa dolor. Perspiciatis illo recusandae, facilis reiciendis exercitationem, incidunt ipsam officiis, aut non maiores quis ullam.</p>
+    <p class="contract__content--detail">
+        amet consectetur adipisicing elit. 
+        Rerum id atque nesciunt vero, debitis culpa dolor. 
+        Perspiciatis illo recusandae, facilis reiciendis exercitationem, incidunt ipsam officiis, aut non maiores quis ullam.
+    </p>
 </div>
 ```
 
@@ -53,7 +69,7 @@ last_modified_at: 2022-06-06T23:55:00
 ```css
 body {
     border: 1px solid #555555;
-    width: 50%;
+    width: 75%;
     padding: 5px;
 }
 

@@ -10,6 +10,8 @@ last_modified_at: 2022-06-06T23:55:00
 
 <br>
 
+- https://frontdev.tistory.com/entry/Flexbox%EB%A1%9C-text-ellipsis-%ED%91%9C%ED%98%84%ED%95%98%EA%B8%B0
+
 ## 1. Accordion View
 
 내용이 많을 경우 내부 컨텐츠를 접거나 펴서 볼 수 있는 아코디언(accordion) 뷰를 구현하였습니다.

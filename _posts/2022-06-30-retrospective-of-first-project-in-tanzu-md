@@ -36,6 +36,7 @@ last_modified_at: 2022-06-30T23:55:00
   - Map<String, Object> 변경 못함
 - 꼼꼼하지 못한 스타일 작업 마감과 CSS 클래스 네이밍
 - What is Next? 를 생각하지 못한 점, 리스크에 대한 감지 실패
+- 로컬에서 한번 띄워보지 않고 바로 커밋한거
 
 ## What is next in beach period?
 
@@ -44,3 +45,5 @@ last_modified_at: 2022-06-30T23:55:00
 - TypeScript, Kotlin 공부
 - 네트워크, 인프라 관련된 내용 공부
 - 도커, 쿠버네티스
+
+## 자소서 업데이트

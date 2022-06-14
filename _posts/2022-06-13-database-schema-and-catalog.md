@@ -212,13 +212,27 @@ MySQL Document를 살펴보면 다음과 같은 정보를 얻을 수 있습니�
 > ...<br/>
 > The Connector/ODBC driver does not allow using catalog and schema functionality at the same time because it would cause unsupported naming.
 
-내용을 살펴보면 일반적으로 카탈로그와 스키마는 같은 개념이 아니지만, `MySQL`에서는 동일한 개념으로 사용합니다. 
-또, `MySQL`에서 스키마는 데이터베이스의 동의어로 사용됩니다. 
-결과적으로 `MySQL`에서 `카탈로그 = 스키마 = 데이터베이스`라는 결과를 얻을 수 있습니다.
+내용을 살펴보면 일반적으로 `카탈로그`와 `스키마`는 같은 개념이 아니지만, `MySQL`에서는 동일한 개념으로 사용합니다. 
+`MySQL`에선 시스템 구조상 `스키마`와 `데이터베이스`는 동의어로 사용됩니다. 
+결과적으로 `MySQL`에서 `카탈로그 = 데이터베이스 = 스키마`라는 결과를 얻을 수 있습니다. 
 
-작성 중 입니다.
+`MySQL` ODBC(Open Database Connectivity) 드라이버는 전통적으로 `CATALOG`와 `DATABASE`를 동일한 것으로 사용합니다. 
+동시에 `MySQL`에선 `SCHEMA`도 데이터베이스의 동의어이므로 `MySQL` 서버 컨텍스트에선 `CATALOG`와 `SCHEMA`가 동일한 것으로 사용됩니다. 
+ODBC 드라이버에서 스키마와 카탈로그는 데이터베이스 객체들을 테이블로서 참조하기 위해 사용되기 때문에 두 컨셉을 동시에 사용하지 못하도록 아래와 같은 설정이 존재합니다. 
 
-<!-- ## CLOSE -->
+##### NO_CATALOG, NO_SCHEMA 설정
+- NO_CATALOG, NO_SCHEMA 설정에 따라 드라이버에서 카탈로그와 스키마를 사용할지 여부를 선택합니다.
+
+<p align="center">
+    <img src="/images/database-schema-and-catalog-8.JPG" width="80%" class="image__border">
+</p>
+<center>https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html</center>
+
+### 3.3. 결론
+
+`MySQL`에선 시스템 구조상 `카탈로그 = 스키마 = 데이터베이스`이므로 `MySQL`의 `ODBC` 드라이버는 카탈로그와 스키마를 같은 의미로 사용하게 됩니다. 
+동시에 사용할 순 없어서 둘 중 하나를 `NO_CATALOG`, `NO_SCHEMA` 옵션으로 설정하여 사용합니다. 
+디폴트 설정이 어떤 것인지는 확인하진 못 했지만, 옵션 설정에 따라 카탈로그를 사용한 것이라 생각됩니다.
 
 #### REFERENCE
 

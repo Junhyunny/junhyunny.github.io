@@ -150,13 +150,13 @@ DDL(data definition language) 실행 결과로 생성되는 기본 테이블, �
 #### 3.1.2. MySQL의 스키마
 
 `MySQL`은 3계층 구조로 **데이터베이스와 스키마가 동일한 의미**로 사용됩니다. 
-간단한 DDL을 사용하여 데이터베이스 혹은 스키마를 만들고 내부에 테이블을 만드는 경우 결과가 동일합니다. 
+`MySQL`에선 데이터베이스 생성과 스키마 생성은 동일한 결과를 보여줍니다. 
 아래 예시를 통해 자세히 알아보겠습니다.
 
 ##### 스키마 생성 후 테이블 생성 쿼리
 
 - `TEST_SCHEMA` 이름의 스키마를 생성합니다.
-- `TEST_SCHEMA` 스키마에 이름이 `tb_test` 테이블을 생성합니다.
+- `TEST_SCHEMA` 스키마에 `tb_test` 테이블을 생성합니다.
 
 ```sql
 create schema TEST_SCHEMA;
@@ -173,13 +173,13 @@ create table TEST_SCHEMA.`tb_test` (
 - `TEST_SCHEMA` 스키마에서 방금 생성한 `tb_test` 테이블을 확인할 수 있습니다.
 
 <p align="center">
-    <img src="/images/database-schema-and-catalog-6.gif" width="80%" class="image__border">
+    <img src="/images/database-schema-and-catalog-6.gif" width="100%" class="image__border">
 </p>
 
 ##### 데이터베이스 생성 후 테이블 생성 쿼리
 
 - `TEST_SCHEMA` 이름의 데이터베이스를 생성합니다.
-- `TEST_SCHEMA` 데이터베이스에서 이름이 `tb_test` 테이블을 생성합니다.
+- `TEST_SCHEMA` 데이터베이스에 `tb_test` 테이블을 생성합니다.
 
 ```sql
 create database TEST_SCHEMA;
@@ -194,9 +194,10 @@ create table TEST_SCHEMA.`tb_test` (
 
 - MySQL 인스턴스 아래 스키마 정보가 생긴 것을 확인할 수 있습니다.
 - `TEST_SCHEMA` 데이터베이스에서 방금 생성한 `tb_test` 테이블을 확인할 수 있습니다.
+- 위에서 스키마를 생성한 것과 동일한 결과를 보여줍니다.
 
 <p align="center">
-    <img src="/images/database-schema-and-catalog-7.gif" width="80%" class="image__border">
+    <img src="/images/database-schema-and-catalog-7.gif" width="100%" class="image__border">
 </p>
 
 ### 3.2. MySQL 속성

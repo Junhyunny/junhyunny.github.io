@@ -86,24 +86,25 @@ li {
 }
 
 .menus {
-    padding-right: 4rem;
-    height: 2.5rem;
+    padding-right: 3rem;
+    height: 2rem;
     background-color: rgba(0, 0, 0, 0.5);
 
     /* 메뉴를 오른쪽으로 정렬합니다. */
     display: flex;
     justify-content: right;
-    gap: 5rem;
+    align-items: center;
+    gap: 3rem;
 }
 
 .menus .menus__item {
     /* 각 메뉴 별 width를 지정합니다. */
-    width: 7rem;
+    width: 3rem;
 }
 
 .menus a {
     color: white;
-    font-size: 2rem;
+    font-size: 1rem;
 }
 
 .menus a:hover {
@@ -116,26 +117,26 @@ li {
     /* 컨텐츠 위에 하위 메뉴가 오버레이 될 수 있도록 absolute 값을 지정합니다. */
     position: absolute;
     /* 메뉴의 높이만큼 하위 메뉴 위치를 조정합니다. */
-    top: 2.5rem;
+    top: 2rem;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.3);
 
     /* 최초 화면에는 보이지 않도록 none 처리합니다. */
     display: none;
-    /* 메뉴와 동일한 정렬 방법과 갭(gap)을 지정합니다. */
     justify-content: right;
-    gap: 5rem;
+    /* 메뉴와 동일한 정렬 방법과 갭(gap)을 지정합니다. */
+    gap: 3rem;
 }
 
 .sub-menus .sub-menus__items {
     /* 메뉴와 동일한 width 값을 갖도록 지정합니다. */
-    width: 7rem;
+    width: 3rem;
     /* 하위 메뉴 길이가 긴 경우에도 하단으로 내려가지 않도록 nowrap 값을 지정합니다. */
     white-space: nowrap;
 }
 
 .sub-menus .sub-menus__items:last-child {
-    padding-right: 4rem;
+    padding-right: 3rem;
 }
 
 .sub-menus .sub-menus__items .sub-menus__item {
@@ -150,7 +151,7 @@ li {
 
 .sub-menus a {
     color: white;
-    font-size: 1.5rem;
+    font-size: 0.8rem;
 }
 
 .sub-menus a:hover {
@@ -160,7 +161,7 @@ li {
 .content {
     width: 100%;
     height: 20rem;
-    background-color: red;
+    background-color: #222222;
 }
 
 .content > p {
@@ -170,7 +171,7 @@ li {
     transform: translate(-50%, -50%);
 
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
     text-align: center;
 }
 ```

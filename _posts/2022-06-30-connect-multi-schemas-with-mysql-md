@@ -1,8 +1,9 @@
 ---
-title: "Database Schema and Catalog"
+title: "JPA 다중 스키마 사용 at MySQL"
 search: false
 category:
-  - database
+  - spring-boot
+  - jpa
 last_modified_at: 2022-06-13T23:55:00
 ---
 
@@ -11,9 +12,6 @@ last_modified_at: 2022-06-13T23:55:00
 ## 0. 들어가면서
 
 현재 진행 중인 프로젝트 마지막에 레거시 아키텍처에 위치한 테이블들을 연결하는 과정에서 
-
-
-
 
 올해 진행한 프로젝트 막바지에 
 

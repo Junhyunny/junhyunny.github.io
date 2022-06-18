@@ -79,10 +79,10 @@ last_modified_at: 2022-06-11T23:55:00
 
 #my-swiper .swiper-pagination-bullet {
     /* 페이징 내부에 들어가는 숫자들의 폰트 사이즈를 지정합니다. */
-    font-size: 1.6rem;
+    font-size: 1rem;
     line-height: 2rem;
     margin: 0;
-    width: 7.5%;
+    width: 10%;
     height: 100%;
     /* 동그라미 모양을 제거하기 위해 border-radidus 값을 변경합니다. */
     border-radius: 0;

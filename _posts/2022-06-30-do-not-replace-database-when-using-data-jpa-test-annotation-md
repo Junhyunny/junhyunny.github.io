@@ -1,8 +1,10 @@
 ---
-title: "H2 데이터베이스 영속성 유지하기"
+title: "테스트 데이터베이스 변경 방지하기 (feat. @DataJpaTest 애너테이션)"
 search: false
 category:
-  - sp
+  - spring-boot
+  - jpa
+  - test-driven-development
 last_modified_at: 2022-06-30T23:55:00
 ---
 

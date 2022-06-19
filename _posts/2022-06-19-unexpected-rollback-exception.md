@@ -322,7 +322,7 @@ public class AccessHistoryIT {
 에러 현상을 확인 후 조치하면서 이런 생각이 들었습니다. 
 - 이런 케이스를 커버할 수 있는 단위 테스트를 작성할 수 있을까?
 - 단위 테스트로 커버할 수 없는 상황을 대비하여 로컬에서 동작시킨 후 코드를 올리는 습관을 가지자.
-- JPA 트랜잭션 처리와 관련된 글들을 작성하면서 많은 공부를 했다고 생각했지만, 아직도 모자라구나.
+- JPA 트랜잭션 처리와 관련된 글들을 작성하면서 많은 공부를 했지만, 아직 갈 길이 멀구나.
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-19-unexpected-rollback-exception>

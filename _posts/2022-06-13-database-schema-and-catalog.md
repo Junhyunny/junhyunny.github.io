@@ -55,7 +55,7 @@ JPA(Java Persistence API) `@Table` 애너테이션의 `schema` 속성을 사용�
 물리적 저장 장치 수준과 연관된 데이터베이스 구조입니다. 
 실제로 저장되는 레코드(record)의 물리적인 구조를 정의하고, 저장 데이터 항목의 표현 방법, 내부 레코드의 물리적 순서 등을 나타냅니다. 
 
-##### 데이터베이스 3계층 구조
+##### 데이터베이스 스키마 구조
 
 <p align="center">
     <img src="/images/database-schema-and-catalog-1.JPG" width="80%" class="image__border">
@@ -102,7 +102,7 @@ DDL(data definition language) 실행 결과로 생성되는 기본 테이블, �
 > 왜 `@Table` 애너테이션의 `schema` 속성은 `MySQL`에서 정상적으로 동작하지 않는가?
 
 카탈로그가 스키마보다 상위 개념이라는 점은 파악했지만, 여전히 `@Table` 애너테이션의 `schema`이 아닌 `catalog` 속성 값에 의해 정상 동작하는 이유가 궁금했습니다. 
-명확한 증거를 찾진 못했지만, 몇 가지 추측할 수 있는 근거들을 정리해보았습니다. 
+명확한 증거를 찾진 못했지만, 추측할 수 있는 몇 가지 근거들을 찾아 정리하였습니다. 
 
 ### 3.1. MySQL 구조
 
@@ -199,7 +199,7 @@ create table TEST_SCHEMA.`tb_test` (
     <img src="/images/database-schema-and-catalog-7.gif" width="100%" class="image__border">
 </p>
 
-### 3.2. MySQL 속성
+### 3.2. MySQL 데이터베이스 특징
 
 MySQL Document를 살펴보면 다음과 같은 정보를 얻을 수 있습니다. 
 
@@ -231,7 +231,7 @@ ODBC 드라이버에서 스키마와 카탈로그는 데이터베이스 객체�
 
 `MySQL`에선 시스템 구조상 `카탈로그 = 스키마 = 데이터베이스`이므로 `MySQL`의 `ODBC` 드라이버는 카탈로그와 스키마를 같은 의미로 사용하게 됩니다. 
 동시에 사용할 순 없어서 둘 중 하나를 `NO_CATALOG`, `NO_SCHEMA` 옵션으로 설정하여 사용합니다. 
-디폴트 설정이 어떤 것인지는 확인하진 못 했지만, 옵션 설정에 따라 카탈로그를 사용한 것이라 생각됩니다.
+디폴트 설정이 어떤 것인지는 확인하진 못 했지만, 옵션 설정에 따라 카탈로그를 사용한 것이라 예상됩니다.
 
 #### REFERENCE
 

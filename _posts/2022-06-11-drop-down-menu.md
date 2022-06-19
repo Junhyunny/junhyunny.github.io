@@ -161,7 +161,7 @@ li {
 .content {
     width: 100%;
     height: 20rem;
-    background-color: #222222;
+    background-color: #ccaacc;
 }
 
 .content > p {

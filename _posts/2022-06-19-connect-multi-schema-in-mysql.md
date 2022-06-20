@@ -146,7 +146,7 @@ public class MultiSchemaTests {
 ##### 테스트 수행 결과 - 실패
 
 <p align="center">
-    <img src="/images/connect-multi-schema-in-mysql-1.JPG" width="80%" class="image__border">
+    <img src="/images/connect-multi-schema-in-mysql-1.JPG" width="100%" class="image__border">
 </p>
 
 ##### 테스트 수행 로그
@@ -282,7 +282,7 @@ public class Friend {
 ##### 테스트 수행 결과 - 성공
 
 <p align="center">
-    <img src="/images/connect-multi-schema-in-mysql-2.JPG" width="80%" class="image__border">
+    <img src="/images/connect-multi-schema-in-mysql-2.JPG" width="100%" class="image__border">
 </p>
 
 ##### 테스트 수행 로그
@@ -366,7 +366,7 @@ public class MultiSchemaTests {
 ##### 테스트 수행 결과 - 성공
 
 <p align="center">
-    <img src="/images/connect-multi-schema-in-mysql-3.JPG" width="80%" class="image__border">
+    <img src="/images/connect-multi-schema-in-mysql-3.JPG" width="100%" class="image__border">
 </p>
 
 ## 4. @Table 애너테이션 schema 속성 현상

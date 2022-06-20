@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - database
-last_modified_at: 2022-06-20T23:55:00
+last_modified_at: 2022-06-19T23:55:00
 ---
 
 <br>
@@ -421,7 +421,7 @@ ODBC 드라이버에서 스키마와 카탈로그는 데이터베이스 객체�
 디폴트 설정이 어떤 것인지는 확인하진 못 했지만, 옵션 설정에 따라 카탈로그를 사용한 것이라 예상됩니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-20-connect-multi-schema-in-mysql>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-19-connect-multi-schema-in-mysql>
 
 #### REFERENCE
 - <https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html>

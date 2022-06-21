@@ -127,7 +127,7 @@ Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Schema "WORLD" not found; SQ
 `spring.jpa.hibernate.ddl-auto` 설정을 `create`, `create-drop`, `update` 등을 사용하거나 `schema.sql` 파일을 이용해도 에러가 해결되지 않았습니다. 
 H2 데이터베이스의 경우 스키마 정보를 초기화하는 방법이 따로 존재하며 다음과 같습니다. 
 
-##### application-local.yml
+### 2.1. application-local.yml
 
 - 다음과 같은 설정을 datasource URL 뒤에 추가합니다.
     - `INIT=CREATE SCHEMA IF NOT EXISTS HELLO\;CREATE SCHEMA IF NOT EXISTS WORLD`

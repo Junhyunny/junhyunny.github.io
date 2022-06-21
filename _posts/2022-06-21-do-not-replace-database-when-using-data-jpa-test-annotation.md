@@ -15,8 +15,9 @@ last_modified_at: 2022-06-21T23:55:00
 
 ## 1. 문제 현상
 
-[Not found schemas at H2 database][not-found-schemas-at-h2-database-link] 포스트에서 정리했듯이 H2 데이터베이스는 스키마 정보를 `spring.datasource.url` 설정에 추가해야 합니다. 
-서비스는 정상적으로 동작했지만, `@DataJpaTest` 애너테이션을 사용한 테스트들은 깨졌습니다. 
+[Not found schemas at H2 database][not-found-schemas-at-h2-database-link] 포스트에서 정리했듯이 H2 데이터베이스는 스키마 초기화를 `spring.datasource.url` 설정 뒷 부분에 추가해야 합니다. 
+스키마 초기화 설정을 통해 서비스는 정상적으로 동작했지만, `@DataJpaTest` 애너테이션을 사용한 테스트들은 깨졌습니다. 
+이번 포스트에선 문제 현상과 원인, 해결 방법에 대해 다뤘습니다. 
 
 ### 1.1. Member 클래스
 

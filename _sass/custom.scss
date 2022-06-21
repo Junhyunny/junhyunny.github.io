@@ -6,3 +6,9 @@
 .image__padding {
     padding: 1rem;
 }
+
+@media all and (max-width: 900px) {
+    .image__border {
+        border-radius: 5px;
+    }
+}

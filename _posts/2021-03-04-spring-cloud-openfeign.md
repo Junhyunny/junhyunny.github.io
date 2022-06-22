@@ -41,11 +41,11 @@ Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(
 - spring-cloud-starter-openfeign 의존성을 추가합니다.
 
 ```xml
-      <dependency>
-          <groupId>org.springframework.cloud</groupId>
-          <artifactId>spring-cloud-starter-openfeign</artifactId>
-          <version>2.2.7.RELEASE</version>
-      </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
+        <version>2.2.7.RELEASE</version>
+    </dependency>
 ```
 
 ### 2.2. HealthController 클래스

@@ -1,0 +1,33 @@
+---
+title: "Spring Cloud Sleuth"
+search: false
+category:
+  - spring-boot
+  - spring-cloud
+last_modified_at: 2022-06-22T23:55:00
+---
+
+<br>
+
+## 0. 들어가면서
+
+## 1. Sleuth 필요성과 
+
+### 1.1. 구분되지 않는 요청 정보
+
+### 1.1. Trace ID
+
+### 1.2. Span ID
+
+## 2. Sleuth 적용하기
+
+### 2.1. 로그 주입 시점
+
+## 3. 다중 인스턴스에서 로그 연결
+
+## CLOSE
+
+#### TEST CODE REPOSITORY
+- <>
+
+#### REFERENCE

@@ -5,22 +5,28 @@ category:
   - html
   - css
   - javascript
-last_modified_at: 2022-06-11T23:55:00
+last_modified_at: 2022-06-30T23:55:00
 ---
 
 <br>
 
-## 1. this 키워드 바인딩 규칙
+## 1. Simple Drag and Drop
 
-## CLOSE
+### 1.1. HTML 코드
 
-#### TEST CODE REPOSITORY
-- <>
+```html
+```
 
-#### REFERENCE
+### 1.2. CSS 코드
 
-- [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]
-- [인사이드 자바스크립트 Inside JavaScript 핵심 개념과 원리를 정확하게.][inside-javascript-book-link]
+```css
+```
 
-[modern-javascript-book-link]: http://www.yes24.com/product/goods/92742567
-[inside-javascript-book-link]: http://www.yes24.com/product/goods/37157296
+### 1.3. JavaScript 코드
+
+```javascript
+```
+
+## 2. 결과
+
+{% include codepen.html hash="ZErmmgq" tab="result" title="Simple Drag and Drop" %}

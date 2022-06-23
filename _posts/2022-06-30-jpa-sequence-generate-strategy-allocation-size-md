@@ -1,10 +1,10 @@
 ---
-title: "JPA SequeceKey allocationSize"
+title: "JPA Sequece 생성 전략의 allocationSize"
 search: false
 category:
   - spring-boot
   - jpa
-last_modified_at: 2022-06-03T23:55:00
+last_modified_at: 2022-06-30T23:55:00
 ---
 
 <br>

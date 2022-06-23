@@ -2,7 +2,7 @@
 title: "H2 데이터베이스 영속성 유지하기"
 search: false
 category:
-  - sp
+  - spring-boot
 last_modified_at: 2022-06-30T23:55:00
 ---
 
@@ -13,7 +13,6 @@ last_modified_at: 2022-06-30T23:55:00
 ## 2. 문제 원인
 
 ## 3. 해결 방법
-INIT=CREATE SCHEMA IF NOT EXISTS MYAPP
 
 ## CLOSE
 

@@ -20,6 +20,45 @@ last_modified_at: 2022-03-13T23:55:00
 토이 프로젝트를 `Vite`로 시작해보려고 했는데, 테스트 코드를 위한 환경부터 만들어야 했습니다. 
 나중에 참고할 겸 간단하게 블로그에 정리하였습니다. 
 
+##### 주의사항
+
+- 해당 포스트를 작성하는 시점에는 리액트 17버전을 사용했습니다. 
+- 최근 Vite 버전으로 실행하는 경우 리액트 18 버전으로 설치되면서 아래 방법대로 환경 구축이 되지 않을 수 있습니다.
+- 리액트 17 버전에서 사용한 패키지들은 아래와 같습니다.
+
+```json
+{
+  "name": "web-crawler",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.0",
+    "axios": "^0.26.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "^1.0.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
+    "vite": "^2.8.0"
+  }
+}
+```
+
 ## 1. 리액트 프로젝트 만들기
 
 ##### 프로젝트 생성
@@ -188,7 +227,6 @@ describe('App', () => {
 <p align="left">
     <img src="/images/react-test-environment-1.JPG" width="50%" class="image__border">
 </p>
-
 
 ## 4. 테스트 환경 구축 시 마주치는 에러
 
@@ -512,7 +550,7 @@ ReferenceError: React is not defined
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/web-crawler>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-13-react-test-environment>
 
 #### REFERENCE
 - [Native ESM(ECMAScript Module)][esm-link]

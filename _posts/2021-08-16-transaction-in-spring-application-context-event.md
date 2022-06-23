@@ -20,7 +20,7 @@ last_modified_at: 2021-08-16T03:00:00
 ## 1. 패키지 구조
 
 ```
-`-- action-in-blog-back
+`-- action-in-blog
     |-- README.md
     |-- action-in-blog.iml
     |-- mvnw

@@ -43,7 +43,7 @@ last_modified_at: 2021-08-16T12:45:00
 
 ```
 ./
-`-- action-in-blog-back
+`-- action-in-blog
     |-- README.md
     |-- action-in-blog.iml
     |-- mvnw

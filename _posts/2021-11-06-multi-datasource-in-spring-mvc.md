@@ -47,7 +47,6 @@ Spring MVC 프레임워크에서 주로 사용하는 영속(persistence) 프레�
 ```
 $ tree -I 'idea|lib|out|test|target' ./
 ./
-|-- action-in-blog-back.iml
 |-- pom.xml
 `-- src
     `-- main
@@ -84,8 +83,6 @@ $ tree -I 'idea|lib|out|test|target' ./
                 |-- applicationContext.xml
                 |-- dispatcher-servlet.xml
                 `-- web.xml
-
-22 directories, 15 files
 ```
 
 ### 2.2. pom.xml
@@ -98,7 +95,7 @@ $ tree -I 'idea|lib|out|test|target' ./
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>blog.in.action</groupId>
-    <artifactId>action-in-blog-back</artifactId>
+    <artifactId>action-in-blog</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 

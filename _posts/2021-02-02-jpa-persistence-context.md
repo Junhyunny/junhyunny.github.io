@@ -116,7 +116,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 
 ```
 ./
-`-- action-in-blog-back
+`-- action-in-blog
     |-- README.md
     |-- action-in-blog.iml
     |-- images

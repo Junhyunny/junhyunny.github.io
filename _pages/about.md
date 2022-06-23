@@ -10,18 +10,18 @@ classes: wide
 - [English][resume-eng-link] / [한국어][resume-kor-link]
 
 ## Skills
-#### [Language]
-- Java, JavaScript, 
+#### [Languages]
+- Java, JavaScript, HTML5, CSS, Sass
 
 #### [Framework and Library]
-- Spring Boot, Spring Cloud, JPA, MyBatis, Apache Kafka, Vue.js
+- Spring Boot, Spring Cloud, JPA, MyBatis, Vue.js, React
 
 #### [Database]
 - MySQL, Oracle
 
 ## Career
 #### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - PRESENT
-- VMWare Tunzu Labs Software Engineer, 2021년 11월 - 현재
+- [KB 국민은행] 마이데이터 기반 고객 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월 
 
 #### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer, 2021년 4월 - 11월
 - [한국보건산업진흥원] IoT 돌봄 서비스 고도화, 2021년 8월 - 11월 
@@ -35,6 +35,18 @@ classes: wide
 - Smart CCTV 시스템 개발, 2017년 8월 - 2017년 11월
 
 ## Experience
+#### [KB 국민은행] 마이데이터 기반 고객 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월
+- Minimum Viable Product(MVP) Discovery and Framing
+- Development Frontend Service
+  - React, Sass
+- Development Backend Service
+  - Spring Boot, Spring Data Jpa, Spring Cloud Openfeign
+- Test Driven Development with Jest, React Testing Library, JUnit
+  - About 200 tests for frontend service
+  - About 100 tests for backend service 
+- Pair Programming with clients and enablement
+- Improvement log on backend service using Spring Cloud Sleuth
+
 #### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 8월 - 11월
 - 데이터베이스 솔루션 변경 작업 AS-IS(SYBASE), TO-BE(TIBERO)
 - JDK 1.8 버전 변경 작업 및 레거시 시스템 소스 코드 리팩토링

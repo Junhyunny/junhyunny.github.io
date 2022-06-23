@@ -11,13 +11,13 @@ classes: wide
 
 ## Skills
 #### [Languages]
-- Java, JavaScript, HTML5, CSS, Sass
+- Java, HTML5, CSS, JavaScript
 
 #### [Framework and Library]
-- Spring Boot, Spring Cloud, JPA, MyBatis, Vue.js, React
+- Spring Boot, Spring Cloud, Spring Data Jpa, MyBatis, React, Vue.js, Sass
 
 #### [Database]
-- MySQL, Oracle
+- Oracle, MySQL
 
 ## Career
 #### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - PRESENT
@@ -45,6 +45,7 @@ classes: wide
   - About 200 tests for frontend service
   - About 100 tests for backend service 
 - Pair Programming with clients and enablement
+- Build CI/CD Pipeline and monitoring using Jenkins
 - Improvement log on backend service using Spring Cloud Sleuth
 - Reuse legacy EAI interface service with refactoring
   - Remove unnecessary codes and configuration about 70%

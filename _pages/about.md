@@ -46,6 +46,8 @@ classes: wide
   - About 100 tests for backend service 
 - Pair Programming with clients and enablement
 - Improvement log on backend service using Spring Cloud Sleuth
+- Reuse legacy EAI interface service with refactoring
+  - Remove unnecessary codes and configuration about 70%
 
 #### [한국보건산업진흥원] IoT 돌봄 서비스, 2021년 8월 - 11월
 - 데이터베이스 솔루션 변경 작업 AS-IS(SYBASE), TO-BE(TIBERO)

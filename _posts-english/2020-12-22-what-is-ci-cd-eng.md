@@ -2,13 +2,14 @@
 title: "What is CI/CD?"
 search: false
 category:
-  - information
+    - information
 last_modified_at: 2022-02-18T23:55:00
 ---
 
 <br>
 
 👉 Recommend next posts.
+
 - [Install jenkins][jenkins-install-link]
 - [Integrate github webhooks with jenkins][jenkins-github-webhook-link]
 - [Install docker registry on EC2 instance][install-docker-registry-on-ec2-link]
@@ -47,11 +48,13 @@ The accumulated codes in the development process can be tested easily through th
 So, the quality of system can be improved and the bugs can be minimized.  
 
 ### 1.1. Advantages of Continuous Integration
+
 - Builds and tests are automated so developers can focus on development.
 - All changes are automatically built together and can be tested.
 - The codes are merged together in shorter cycle time on the automated process, so developers can find out problems quickly in the whole system.
 
 ### 1.2. Continuous Integration Tools
+
 - Hudson
 - Bamboo
 - Jenkins
@@ -63,11 +66,13 @@ So, the quality of system can be improved and the bugs can be minimized.
 </p>
 
 ## 2. What is Continuous Delivery?
+
 This means that the changes by developers are built, tested and merged automatically, then uploaded to the remote repository. 
 For an effective continuous delivery process to work, there must be a connected pipeline from continuous integration to continuous delivery. 
 Making pipeline connection is possible through CI tools.
 
 ## 3. What is Continuous Deployment?
+
 As an extended form of continuous delivery, it refers to automating the deployment of applications into the production environment. 
 If the changes of the codes in the remote repository are captured, the modification is released automatically into the production environment for clients. 
 The process is carried out by the manager after making a business decision.

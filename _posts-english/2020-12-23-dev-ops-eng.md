@@ -2,7 +2,7 @@
 title: "DevOps, Development and Operations"
 search: false
 category:
-  - information
+    - information
 last_modified_at: 2021-08-21T16:00:00
 ---
 
@@ -42,6 +42,7 @@ While all of those things bothered me, the operation team talked to the users an
 It was a valuable exprience that I realzied the business conversation with clients can improve the system.   
 
 ## 1. DevOps Features
+
 - **Cross Functional Team** 
     - It allows your team which members can play different roles each other to operate the entire end to end service. 
     - It would be great if there were members who have business know-how and development skill, but the real is not. 
@@ -63,6 +64,7 @@ It was a valuable exprience that I realzied the business conversation with clien
     - When the release is over, the team has to prepare the next release. 
 
 ## 2. Development cycle of Devops team
+
 1. Analyze and collect users' needs and voice of customer 
 1. Write stories for users(write requirment)
 1. Define and prioritize scope for the user stories
@@ -77,6 +79,7 @@ It was a valuable exprience that I realzied the business conversation with clien
 1. Customer supoort
 
 ## 3. Compentencies for Devops team developer
+
 - **Coding skills are essential**
     - Since Devops engineers are basically developer, they require basic coding skills for development.
     - If an engineer is biased towards operation or systems, the ability to write scripts for automation is essential.

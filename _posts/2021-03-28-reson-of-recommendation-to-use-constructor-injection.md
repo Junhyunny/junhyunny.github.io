@@ -265,9 +265,9 @@ Description:
 The dependencies of some of the beans in the application context form a cycle:
 
 ┌─────┐
-|  CComponent defined in file [D:\workspace\blog\blog-in-action\2021-03-28-reson-of-recommendation-to-use-constructor-injection\action-in-blog-back\target\test-classes\blog\in\action\di\recycle\CComponent.class]
+|  CComponent defined in file [D:\workspace\blog\blog-in-action\2021-03-28-reson-of-recommendation-to-use-constructor-injection\action-in-blog\target\test-classes\blog\in\action\di\recycle\CComponent.class]
 ↑     ↓
-|  DComponent defined in file [D:\workspace\blog\blog-in-action\2021-03-28-reson-of-recommendation-to-use-constructor-injection\action-in-blog-back\target\test-classes\blog\in\action\di\recycle\DComponent.class]
+|  DComponent defined in file [D:\workspace\blog\blog-in-action\2021-03-28-reson-of-recommendation-to-use-constructor-injection\action-in-blog\target\test-classes\blog\in\action\di\recycle\DComponent.class]
 └─────┘
 
 

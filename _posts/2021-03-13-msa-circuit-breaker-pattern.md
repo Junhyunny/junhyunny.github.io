@@ -91,9 +91,9 @@ Spring Cloud 프로젝트에서는 Netflix에서 제공하는 대표적인 컴�
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>cloud.in.action</groupId>
-    <artifactId>a-service</artifactId>
+    <artifactId>action-in-blog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>a-service</name>
+    <name>action-in-blog</name>
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
@@ -295,6 +295,7 @@ public class HystrixTest {
 ```
 
 ### 5.3. 테스트 결과 확인
+
 a-service를 선기동 시킨 후에 테스트를 수행합니다. 
 
 ##### 서비스 정상인 상태
@@ -380,7 +381,7 @@ spring:
     name: a-service
 ```
 
-### 6.3. AServiceApplication 클래스
+### 6.3. ActionInBlogApplication 클래스
 ```java
 package cloud.in.action;
 
@@ -392,10 +393,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableHystrixDashboard
 @SpringBootApplication
-public class AServiceApplication {
+public class ActionInBlogApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AServiceApplication.class, args);
+        SpringApplication.run(ActionInBlogApplication.class, args);
     }
 
 }

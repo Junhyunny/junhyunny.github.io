@@ -57,7 +57,7 @@ classes: wide
   - About 200 tests for frontend service
   - About 100 tests for backend service
 - Pair Programming with clients and enablement
-- Build CI/CD Pipeline and monitoring using Jenkins
+- Build CI/CD Pipeline and monitoring using Jenkins in iteration period
 - Improvement log on backend service using Spring Cloud Sleuth
 - Reuse legacy EAI interface service with refactoring
   - Remove unnecessary codes and configuration about 70%

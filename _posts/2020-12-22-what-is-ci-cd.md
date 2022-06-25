@@ -10,12 +10,12 @@ last_modified_at: 2021-08-21T16:00:00
 
 👉 이어서 읽기를 추천합니다.
 
-- [젠킨스(Jenkins) 설치][jenkins-install-link]
-- [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
-- [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
-- [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
-- [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
-- [젠킨스(Jenkins) 슬랙(Slack) 알림 메세지 전송][jenkins-slack-notification-link]
+* [젠킨스(Jenkins) 설치][jenkins-install-link]
+* [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
+* [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
+* [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
+* [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
+* [젠킨스(Jenkins) 슬랙(Slack) 알림 메세지 전송][jenkins-slack-notification-link]
 
 ## 0. 들어가면서
 
@@ -26,9 +26,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 CI/CD는 크게 3단계로 나뉘어집니다. 
 
-- 지속적인 통합(Continuous Integration)
-- 지속적인 전달(Continuous Delivery)
-- 지속적인 배포(Continuous Deployment)
+* 지속적인 통합(Continuous Integration)
+* 지속적인 전달(Continuous Delivery)
+* 지속적인 배포(Continuous Deployment)
 
 각 단계 별로 무슨 일을 하는지 정리하였습니다.
 
@@ -49,15 +49,15 @@ CI/CD는 크게 3단계로 나뉘어집니다.
 
 ### 1.1. 지속적인 통합의 장점
 
-- 빌드와 테스트가 자동화되어 개발자는 개발에 집중할 수 있습니다.
-- 변경된 내용들이 자동으로 함께 빌드되며 이를 테스트할 수 있습니다.
-- 자동화된 프로세스를 통해 자주 코드들이 통합되면서 시스템 전체에서 발생하는 문제점을 빠르게 찾을 수 있습니다.
+* 빌드와 테스트가 자동화되어 개발자는 개발에 집중할 수 있습니다.
+* 변경된 내용들이 자동으로 함께 빌드되며 이를 테스트할 수 있습니다.
+* 자동화된 프로세스를 통해 자주 코드들이 통합되면서 시스템 전체에서 발생하는 문제점을 빠르게 찾을 수 있습니다.
 
 ### 1.2. Continuous Integration Tools
 
-- 허드슨 (Hudson)
-- 뱀부 (Bamboo)
-- 젠킨스 (Jenkins)
+* 허드슨 (Hudson)
+* 뱀부 (Bamboo)
+* 젠킨스 (Jenkins)
 
 #### 지속적인 통합 프로세스
 
@@ -85,7 +85,8 @@ CI/CD는 크게 3단계로 나뉘어집니다.
 </p>
 
 #### REFERENCE
-- <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
+
+* <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
 
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/

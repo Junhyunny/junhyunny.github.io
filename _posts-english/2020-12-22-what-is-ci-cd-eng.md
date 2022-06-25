@@ -10,12 +10,12 @@ last_modified_at: 2022-02-18T23:55:00
 
 👉 Recommend next posts.
 
-- [Install jenkins][jenkins-install-link]
-- [Integrate github webhooks with jenkins][jenkins-github-webhook-link]
-- [Install docker registry on EC2 instance][install-docker-registry-on-ec2-link]
-- [Make private docker registry][make-private-docker-registry-on-ec2-link]
-- [Deploy services using jenkins pipeline on EC2 instance][jenkins-deploy-ec2-using-docker-link]
-- [Send slack notification from jenkins][jenkins-slack-notification-link]
+* [Install jenkins][jenkins-install-link]
+* [Integrate github webhooks with jenkins][jenkins-github-webhook-link]
+* [Install docker registry on EC2 instance][install-docker-registry-on-ec2-link]
+* [Make private docker registry][make-private-docker-registry-on-ec2-link]
+* [Deploy services using jenkins pipeline on EC2 instance][jenkins-deploy-ec2-using-docker-link]
+* [Send slack notification from jenkins][jenkins-slack-notification-link]
 
 ## 0. Intro
 
@@ -25,9 +25,10 @@ When I first encountered this definition, I thought it was an abstract concept.
 However, I naturally have understood what this concept is in my project experience. 
 
 CI/CD is divided into three steps. 
-- Continuous Integration
-- Continuous Delivery
-- Continuous Deployment
+
+* Continuous Integration
+* Continuous Delivery
+* Continuous Deployment
 
 I have summarized what happens at each steps. 
 
@@ -49,15 +50,15 @@ So, the quality of system can be improved and the bugs can be minimized.
 
 ### 1.1. Advantages of Continuous Integration
 
-- Builds and tests are automated so developers can focus on development.
-- All changes are automatically built together and can be tested.
-- The codes are merged together in shorter cycle time on the automated process, so developers can find out problems quickly in the whole system.
+* Builds and tests are automated so developers can focus on development.
+* All changes are automatically built together and can be tested.
+* The codes are merged together in shorter cycle time on the automated process, so developers can find out problems quickly in the whole system.
 
 ### 1.2. Continuous Integration Tools
 
-- Hudson
-- Bamboo
-- Jenkins
+* Hudson
+* Bamboo
+* Jenkins
 
 #### Continuous integration process
 
@@ -84,7 +85,8 @@ The process is carried out by the manager after making a business decision.
 </p>
 
 #### REFERENCE
-- <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
+
+* <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
 
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/

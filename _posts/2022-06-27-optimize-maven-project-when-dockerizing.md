@@ -1,5 +1,5 @@
 ---
-title: "Maven 프로젝트 Docker Image 최적화"
+title: "Maven 프로젝트 Dockerfile 빌드 최적화"
 search: false
 category:
   - docker

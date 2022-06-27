@@ -98,7 +98,7 @@ $ docker build .
     * 위와 마찬가지로 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요됩니다.
 
 ```
-docker build .
+$ docker build .
 [+] Building 277.4s (14/14) FINISHED
  => [internal] load build definition from Dockerfile                                                                                            0.0s
  => => transferring dockerfile: 37B                                                                                                             0.0s
@@ -192,7 +192,7 @@ CMD ["java", "-jar", "app.jar"]
     * 처음 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요됩니다.
 
 ```
-docker build .
+$ docker build .
 [+] Building 270.9s (15/15) FINISHED 
  => [internal] load build definition from Dockerfile                                                                                            0.0s
  => => transferring dockerfile: 376B                                                                                                            0.0s
@@ -226,7 +226,7 @@ docker build .
 * 단순한 소스 코드 변경만 발생하는 경우 이미지 빌드 시간이 크게 감소하였습니다.
 
 ```
-docker build .
+$ docker build .
 [+] Building 10.3s (17/17) FINISHED
  => [internal] load build definition from Dockerfile                                                                                            0.0s
  => => transferring dockerfile: 37B                                                                                                             0.0s

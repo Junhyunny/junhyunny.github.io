@@ -221,7 +221,9 @@ f62a53cf5186   react-app-prod:0.1   "/docker-entrypoint.…"   6 seconds ago    
 * `localhost:8080` 접속 시 기본 리액트 어플리케이션 화면이 보입니다.
 * `localhost:8081` 접속 시 `NOT FOUND` 화면이 보입니다.
 
-<p align="center"><img src="/images/set-react-app-variable-when-docker-build-1.gif" width="100%"></p>
+<p align="center">
+    <img src="/images/set-react-app-variable-when-docker-build-1.gif" width="100%" class="image__border">
+</p>
 
 #### TEST CODE REPOSITORY
 
@@ -230,3 +232,4 @@ f62a53cf5186   react-app-prod:0.1   "/docker-entrypoint.…"   6 seconds ago    
 #### REFERENCE
 
 * <https://create-react-app.dev/docs/adding-custom-environment-variables/>
+* <https://vsupalov.com/docker-arg-env-variable-guide/>

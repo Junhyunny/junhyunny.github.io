@@ -9,6 +9,10 @@ last_modified_at: 2022-06-27T23:55:00
 
 <br>
 
+👉 해당 포스트를 읽는데 도움을 줍니다.
+
+* [Micro Service Architecture][msa-blog-link]
+
 ## 1. Spring Cloud Sleuth
 
 > Spring Cloud Sleuth API Reference<br>
@@ -19,7 +23,7 @@ last_modified_at: 2022-06-27T23:55:00
 다음과 같은 역할을 수행합니다.
 
 * TRACE, SPAN ID를 Slf4j MDC에 추가하여, TRACE 혹은 SPAN_ID를 로그에 출력하여 연결된 요청 정보를 추출해낼 수 있습니다.
-* 스프링 어플리케이션의 일반적인 수신 및 송신 지점을 계측합니다.
+* 다음과 같은 Spring 어플리케이션의 일반적인 수신 및 송신 지점을 계측합니다.
     * servlet filter
     * rest template
     * scheduled actions
@@ -609,3 +613,5 @@ a-service    |  ...
 #### REFERENCE
 
 * <https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/html/getting-started.html#getting-started-terminology>
+
+[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/

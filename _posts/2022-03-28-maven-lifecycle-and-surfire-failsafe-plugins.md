@@ -47,7 +47,6 @@ last_modified_at: 2022-03-28T23:55:00
     - 프로젝트의 구조가 올바른지 확인합니다.
     - 예를 들어, 필요한 모든 의존성들이 로컬 레포지토리에 다운로드되어 사용 가능한지 확인합니다. 
 - `compile` phase
-    - 소스 코드들을 컴파일합니다. 
     - `.java` 파일을 `.class` 파일로 컴파일합니다.
     - `target/classes` 폴더에 컴파일한 클래스 파일들을 저장합니다.
 - `test` phase
@@ -69,13 +68,28 @@ last_modified_at: 2022-03-28T23:55:00
 ## 3. Maven Plugins Goals 
 
 메이븐이 제공하는 기능은 모두 플러그인을 기반으로 동작합니다. 
-`pom.xml` 파일을 보면 `<build><plugins>...</plugins></build>` 태그 안에 필요한 플러그인들이 정의되어 있습니다. 
+`pom.xml` 파일의 `<plugins>...</plugins>` 태그를 보면 필요한 플러그인들이 선언되어 있습니다. 
+
+##### pom.xml
+
+```xml
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+##### 메이븐 실행
+
 메이븐에서 사용하는 플러그인을 동작시키는 명령어를 골(goal)이라고 합니다. 
 `페이즈`로 실행하는 것과 `플러그인:플러그인-골`을 이용해 실행하는 것은 명백히 다르며, `페이즈`로 실행 시 선행되어야 하는 `플러그인:플러그인-골`을 모두 수행합니다.
 
-##### 메이븐 실행 명령어
 - 메이븐 명령어를 터미널에서 다음과 같은 방법으로 실행시킬 수 있습니다. 
-- `페이즈`이나 `플러그인:플러그인-골`을 입력하여 메이븐 빌드를 실행합니다.
+- `페이즈`나 `플러그인:플러그인-골`을 입력하여 메이븐 빌드를 실행합니다.
 
 ```
 $ mvn -help

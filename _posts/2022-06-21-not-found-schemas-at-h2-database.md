@@ -11,7 +11,8 @@ last_modified_at: 2022-06-21T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [MySQL 환경 JPA 다중 스키마 사용하기][connect-multi-schema-in-mysql-link]
+
+* [MySQL 환경 JPA 다중 스키마 사용하기][connect-multi-schema-in-mysql-link]
 
 ## 0. 들어가면서
 

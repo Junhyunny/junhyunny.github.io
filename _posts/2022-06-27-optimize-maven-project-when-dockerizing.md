@@ -2,8 +2,8 @@
 title: "Maven 프로젝트 Dockerfile 빌드 최적화"
 search: false
 category:
-  - docker
-  - maven
+    - docker
+    - maven
 last_modified_at: 2022-06-27T23:55:00
 ---
 

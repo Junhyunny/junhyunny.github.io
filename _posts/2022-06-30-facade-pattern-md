@@ -2,9 +2,9 @@
 title: "Facade Pattern"
 search: false
 category:
-  - information
-  - design-pattern
-last_modified_at: 2022-06-25T23:55:00
+    - information
+    - design-pattern
+last_modified_at: 2022-06-30T23:55:00
 ---
 
 <br>
@@ -21,4 +21,8 @@ last_modified_at: 2022-06-25T23:55:00
 
 #### REFERENCE
 
+* [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
+* <https://refactoring.guru/design-patterns/facade>
 * <https://imasoftwareengineer.tistory.com/29>
+
+[design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953

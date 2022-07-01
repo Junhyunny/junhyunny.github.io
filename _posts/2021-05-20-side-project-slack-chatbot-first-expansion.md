@@ -1,5 +1,5 @@
 ---
-title: "[Side-Project] Slack Chatbot 1차 기능 확장"
+title: "Slack Chatbot 1차 기능 확장"
 search: false
 category:
   - side-project
@@ -10,7 +10,7 @@ last_modified_at: 2021-09-02T00:00:00
 
 ## 0. 들어가면서
 
-예전 사이드 프로젝트로 진행했던 단순 commit 확인 채팅 봇의 기능을 확장해보려고 합니다.([[Side-Project] Slack Chatbot 개발][side-project-slack-chatbot-link]) 
+예전 만들어봤던 단순 commit 확인 채팅 봇의 기능을 확장해보려고 합니다.([Slack Chatbot 개발][side-project-slack-chatbot-link]) 
 딱히 요구사항은 없었지만 계속 늘어나는 법인 카드 영수증 관리가 힘들어지기 시작했습니다. 
 편한 영수증 관리를 위해 특정 키워드와 함께 이미지들을 올리면 이미지들을 팀 공식 이메일로 전달하는 기능을 만들기로 했습니다. 
 기존에 제공하던 1 일 1 commit 여부를 확인해주는 기능은 그대로 사용하되, 특정 채널에 있는 멤버들을 대상으로 삼기로 하였습니다. 

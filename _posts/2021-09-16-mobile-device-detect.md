@@ -1,5 +1,5 @@
 ---
-title: "[Spring Boot] 사용자 디바이스 식별하기(Identify user device)"
+title: "사용자 디바이스 식별하기(Identify user device)"
 search: false
 category:
   - information
@@ -367,7 +367,7 @@ public class MobileController {
 
 #### 2.6.1. /pc 경로 index.jsp 파일
 
-```jsxp
+```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -385,7 +385,7 @@ public class MobileController {
 
 #### 2.6.2. /mobile 경로 index.jsp 파일
 
-```jsxp
+```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -405,11 +405,15 @@ public class MobileController {
 
 ##### PC 환경 접근
 
-<p align="left"><img src="/images/mobile-device-detect-3.gif"></p>
+<p align="left">
+    <img src="/images/mobile-device-detect-3.gif" class="image__border">
+</p>
 
 ##### 모바일 환경 접근
 
-<p align="left"><img src="/images/mobile-device-detect-4.gif"></p>
+<p align="left">
+    <img src="/images/mobile-device-detect-4.gif" class="image__border">
+</p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-16-mobile-device-detect>

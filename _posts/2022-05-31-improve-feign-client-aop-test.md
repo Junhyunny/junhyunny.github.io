@@ -24,6 +24,7 @@ last_modified_at: 2022-05-31T23:55:00
 - `SimpleClient` 빈(bean)을 주입 받아서 테스트에서 호출합니다.
 - `SimpleClient` 빈의 메소드를 호출할 때마다 AOP 로직에서 이력 성격의 데이터를 추가합니다.
 - `InterfaceHistoryRepository` 빈을 주입 받아서 AOP 로직에서 데이터베이스에 추가된 데이터가 있는지 확인합니다.
+- `@Transactional` 애너테이션를 통해 테스트 종료 후 데이터베이스를 롤백합니다.
 
 ```java
 package blog.in.action.openfeign.simple;

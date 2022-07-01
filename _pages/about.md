@@ -52,8 +52,7 @@ classes: wide
 * 10주 이터레이션(iteration)을 통한 MVP(Minimum Viable Product) 서비스 개발
 * 개발 이터레이션 기간동안 사용한 Jenkins CI/CD 파이프라인 구축
 * React, Redux Toolkit, Sass을 사용한 알뜰폰 요금제 추천 및 상세 정보 조회 기능 구현
-* Spring Boot, Spring Cloud를 사용한 알뜰폰 요금제 조회 기능 구현 및 마이데이터 플랫폼 연계
-* LiivM 레거시 시스템 아키텍처 분석 및 기존 레거시 API 연동
+* Spring Boot, Spring Cloud를 사용한 기존 레거시 API 연동 및 마이데이터 플랫폼 연계
 * 페어 프로그래밍을 통한 고객 개발자 Skill Enablement
 * React Testing Library, Jest, JUnit을 사용한 테스트 주도 개발 실천
     * 프론트엔드 서비스 단위 테스트 약 200개 이상
@@ -71,11 +70,12 @@ classes: wide
 * Spring MVC, JSP, JQuery를 사용한 업무 게시판, 시설 도면 내 IoT 센서 매칭 화면 개발
 * 기타 레거시 시스템 화면 49종 개선 작업
 * Spring MVC, Spring Mobile Device, JSP를 사용한 모바일 디바이스 웹 어플리케이션 개발
-    * PIN 번호를 통한 사용자 2차 인증 기능 구현
     * 모바일 화면 18종 구현
+    * PIN 번호를 통한 사용자 2차 인증 기능 구현
 
 #### [KC Industrial] 가스 산업 도메인 MES 신규 구축, 2021년 5월 - 8월
 
+<!-- *  -->
 - 가스 산업 비즈니스 도메인에 대한 시스템 프로세스 정립
 - Vue.js, Spring Boot 프레임워크를 사용한 가스 용기 현황 모니터링 개발
 - 브라우저를 통한 ZEBRA 라벨 프린팅 기능 구현

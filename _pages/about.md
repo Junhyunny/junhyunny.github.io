@@ -19,7 +19,7 @@ classes: wide
 #### [Frameworks and Libraries]
 
 * Spring MVC, Spring Boot, Spring Cloud, Spring Data Jpa, MyBatis
-* React, Vue.js, JQuery, Sass
+* React, Vue.js, jQuery, Sass
 
 #### [Database]
 
@@ -63,11 +63,11 @@ classes: wide
 
 #### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
 
-* AS-IS(SYBASE), TO-BE(TIBERO) 데이터베이스 솔루션 변경 및 쿼리 수정 작업
-* 로그아웃 시 쿠키 내 세션ID 초기화 실패로 인한 재접속 불가능한 현상 개선 
-* 디지털 돌봄 업무 관리 화면 신규 비즈니스 기능 추가 및 코드 리팩토링
-    * 불필요 컴포넌트와 반복되는 JQuery 로직 제거로 인한 약 50% 코드 감소
-* Spring MVC, JSP, JQuery를 사용한 업무 게시판, 시설 도면 내 IoT 센서 매칭 화면 개발
+* AS-IS(SYBASE)에서 TO-BE(TIBERO)로 데이터베이스 변경 및 쿼리 수정 작업
+* 레거시 시스템의 고질적인 버그였던 로그아웃 시 쿠키 내 세션ID 초기화 실패로 인한 재접속 불가능한 현상 개선 
+* 기존 디지털 돌봄 업무 관리 화면에 신규 비즈니스 기능 추가 및 코드 리팩토링
+    * 불필요 컴포넌트와 반복되는 jQuery 로직 제거로 인한 약 50% 코드 감소
+* Spring MVC, JSP, jQuery를 사용한 업무 게시판, 시설 도면 내 IoT 센서 매칭 화면 개발
 * 기타 레거시 시스템 화면 49종 개선 작업
 * Spring MVC, Spring Mobile Device, JSP를 사용한 모바일 디바이스 웹 어플리케이션 개발
     * 모바일 화면 18종 구현

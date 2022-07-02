@@ -161,11 +161,3 @@ classes: wide
     * 대한수학회, 고등과학원 주최
 * 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
     * 국립전파연구원 주최
-
-## 이력서
-
-* [한국어][resume-kor-link]
-* [English][resume-eng-link]
-
-[resume-eng-link]: /resume/resume-eng.pdf
-[resume-kor-link]: /resume/resume-kor.pdf

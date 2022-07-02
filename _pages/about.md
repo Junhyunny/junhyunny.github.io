@@ -105,11 +105,12 @@ classes: wide
     * 효율적인 소재의 적치, 배치를 위한 스케줄링 공통 컴포넌트 리팩토링 
     * 비즈니스 Rule 엔진 컴포넌트 개발
 * 야드 관리 시스템 비즈니스 Rule 엔진 컴포넌트 80% 속도 개선
-    * 과도한 양의 비즈니스 기준 조회 시 5초 이상 걸리는 시간을 1초 미만으로 개선
-* 차량 물류 흐름 개선을 위한 신규 차량 이송 스케줄링 로직 구현
+    * 5초 이상 걸리는 시간을 1초 미만으로 개선
+    * 어플리케이션 메모리 내 업무 기준 캐싱 및 Spring Cloud Stream, Kafka를 사용한 동기화
+* 물류 흐름 개선을 위한 신규 차량 이송 스케줄링 로직 구현
     * 다음 차량 도착 시 이송되어야하는 소재들 선점
     * 창고 내 소재 재고 중 80% 이상 그룹화 및 순번 지정
-    * Spring Cloud Stream, Kafka를 사용한 타 조업 시스템으로 소재 그룹 리스트 전달
+    * Spring Cloud Stream, Kafka를 사용한 타 운송 시스템으로 소재 그룹 리스트 전달
 
 <div class="resume-header"> 
     <img src="/images/about/about-1.jpg" width="5%" class="image__margin-right"/>

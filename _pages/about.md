@@ -6,48 +6,30 @@ entries_layout: linear
 classes: wide
 ---
 
-## Resume
+<br />
 
-* [English][resume-eng-link] / [한국어][resume-kor-link]
+안녕하세요. Tanzu Labs 소프트웨어 엔지니어 강준현입니다.<br />
+생각과 경험을 정리하고, 학습한 지식을 다른 사람들이 알기 쉽게 공유하는 일을 좋아합니다.
 
-## Skills
-
-#### [Languages]
+## 주요 기술
 
 * HTML5, CSS3, JavaScript, Java
-
-#### [Frameworks and Libraries]
-
 * Spring MVC, Spring Boot, Spring Cloud, Spring Data Jpa, MyBatis
 * React, Vue.js, jQuery, Sass
-
-#### [Database]
-
 * Oracle, MySQL
 
-## Career
+## 경력
 
-#### <img src="/images/about/about-4.jpg" width="4%"/> VMWare Tunzu Labs Software Engineer, 2021년 11월 - PRESENT
+<div class="resume-header"> 
+    <img src="/images/about/about-4.jpg" width="5%" class="image__margin-right"/>
+    <h3 class="reusme__company">
+        <span class="reusme__company--name">VMWare</span>
+        <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
+        <span class="reusme__company--period">2021년 11월 - PRESET</span>
+    </h3>
+</div>
 
-* [KB 국민은행] 마이데이터 기반 고객 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월
-
-#### <img src="/images/about/about-3.jpg" width="4%"/> Geneuin Application Developer, 2021년 4월 - 11월
-
-* [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
-* [KC Industrial] 가스 물류 도메인 MES 신규 구축, 2021년 5월 - 8월
-
-#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer, 2018년 7월 – 2021년 4월
-
-* MES3.0 야드 관리 시스템 운영, 2021년 1월 - 4월
-* MES3.0 야드 관리 시스템 개발, 2018년 7월 - 2020년 12월
-
-#### <img src="/images/about/about-1.jpg" width="5%"/> POSCO ICT Application Developer 인턴, 2017년 8월 - 2017년 11월
-
-* Smart CCTV 시스템 개발, 2017년 8월 - 2017년 11월
-
-## Experience
-
-#### [KB 국민은행] 마이데이터 기반 고객 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월
+##### [KB 국민은행] 마이데이터 기반 고객 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월
 
 * 10주 이터레이션을 통한 MVP(Minimum Viable Product) 서비스 개발
 * 개발 이터레이션 기간동안 사용한 Jenkins CI/CD 파이프라인 구축
@@ -61,7 +43,16 @@ classes: wide
     * 테스트 코드를 이용한 안정적인 리팩토링 수행
     * 리팩토링을 통한 소스 코드 및 설정 파일 약 70% 코드 감소
 
-#### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
+<div class="resume-header"> 
+    <img src="/images/about/about-3.jpg" width="4%" class="image__margin-right"/>
+    <h3 class="reusme__company">
+        <span class="reusme__company--name">Geneuin</span>
+        <span class="reusme__company--team-role">Application Developer</span>
+        <span class="reusme__company--period">2021년 4월 - 11월</span>
+    </h3>
+</div>
+
+##### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
 
 * AS-IS(SYBASE)에서 TO-BE(TIBERO)로 데이터베이스 변경 및 쿼리 수정 작업
 * 레거시 시스템 로그아웃 시 쿠키 내 세션ID 초기화 실패로 인한 재접속 불가능 버그 개선
@@ -71,65 +62,110 @@ classes: wide
 * Spring MVC, Spring Mobile Device, JSP를 사용한 모바일 디바이스 웹 어플리케이션 개발
     * 신규 모바일 화면 18종 개발 및 PIN 번호를 통한 사용자 2차 인증 기능 구현
 
-#### [KC Industrial] 가스 물류 도메인 MES 신규 구축, 2021년 5월 - 8월
+
+##### [KC Industrial] 가스 물류 도메인 MES 신규 구축, 2021년 5월 - 8월
 
 * 가스 물류 도메인 분석 및 엔티티 설계
     * 가스 용기(container) 종류 별 비즈니스 특성에 맞는 엔티티 설계
-* 용기 입고, 가열처리, 충전, 품질검사, 부적합, 출고 프로세스 상의 용기 별 상태 정의 및 변경 비즈니스 구현
-* 용기 출고, 회수, 재입고 프로세스 상의 용기 별 상태 정의 및 변경 비즈니스 구현 
+* 입고, 가열처리, 충전, 품질검사, 부적합, 출고, 회수, 재입고 물류 프로세스 내 용기의 상태 정의 및 변경 로직 구현
 * Spring EventListener를 사용한 실린더 번들링(bundling), 부적합 처리 프로세스 구현
 * Vue.js, Spring Boot를 사용한 가스 용기 입출고 관리 웹 어플리케이션 개발
 * 입고, 충전, 출고, 품질 검사 일지(document) 자동 출력 기능 구현
     * 업무 각 단계에서 수기 작성하는 일지들을 시스템 프로세스에 의해 처리된 데이터 기반으로 자동 출력
-* 입고 용기 리스트 PDF 파일 업로드 및 CSV 변경, 다운로드 기능 구현
-    * 수 백개씩 입고되는 용기들의 정보를 CSV 파일로 변경하는 기존 수작업을 자동화 처리
+* 입고된 용기 정보 PDF 파일 업로드 및 CSV 다운로드 기능 구현
+    * 기존 수 백개씩 입고되는 용기들 정보를 CSV 파일로 만드는 수작업 자동화
 
-#### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영, 2021년 1월 - 4월
+<div class="resume-header"> 
+    <img src="/images/about/about-1.jpg" width="5%" class="image__margin-right"/>
+    <h3 class="reusme__company">
+        <span class="reusme__company--name">POSCO ICT</span>
+        <span class="reusme__company--team-role">MES Application Developer</span>
+        <span class="reusme__company--period">2018년 7월 – 2021년 4월</span>
+    </h3>
+</div>
 
-- 서비스 요청 건에 따른 기존 시스템 기능 수정
-- 시스템 모니터링 및 장애 대응
-- 비즈니스 로직 및 쿼리 최적화를 통한 시스템 성능 개선
+##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영, 2020년 6월 - 2021년 4월
 
-#### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 개발, 2018년 7월 – 2020년 12월
+* 시스템 아키텍처 변경으로 발생하는 버그 제거 및 안정화
+    * 데이터베이스 비관적 락(lock) 방식으로 데이터 선점을 이용한 데드락(dead-lock) 현상 완화
+    * 소재, 제품 충돌로 인한 품질 저하를 유발하는 장애, 버그 추적 및 개선
+    * 잘못된 소재 적치 등으로 인한 물류 사고와 지연을 유발하는 장애, 버그 추적 및 개선
+* 포항ㆍ광양 야드 관리 시스템 슬라브, 코일, 후판, 선재 서비스 운영
+    * 하루 평균 3000만 건 이상 API 요청 처리
+* 포항 전강 창고 차량 이송 물류 자동화
+    * 특정 이송 루트의 차량 도착 시 자동 제품 적재로 이송효율 증가 및 작업자 피로도 개선
+* 코드 리팩토링 및 쿼리 최적화를 통한 시스템 성능 개선
+* 현업 서비스 요청에 따른 신규 비즈니스 요건 반영
+* 24시간 시스템 모니터링 및 장애 대응
 
-- 야드 관리 시스템 어플리케이션 재구축 및 서비스로 시스템 마이크로 서비스 아키텍처 전환
-- 물류 야드 관리 시스템 공통 컴포넌트 개발
-- 타 조업 시스템과 협업을 위한 API 개발 및 Spring Cloud 적용
-- 차량 이송 효율 향상을 위한 신규 야드 스케줄링 구현
-- 야드 관리 시스템 Rule 엔진 컴포넌트 80% 성능 향상
+##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 개발, 2018년 7월 – 2020년 5월
 
-#### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
+* 포스코 MES 야드 관리 시스템 마이크로 서비스 아키텍처 전환 작업
+* Spring Cloud를 사용한 타 조업 시스템 API 연동 및 fallback 처리 구현
+* 야드 관리 시스템 공통 컴포넌트 개발 및 리팩토링
+    * 효율적인 소재의 적치, 배치를 위한 스케줄링 공통 컴포넌트 리팩토링 
+    * 비즈니스 Rule 엔진 컴포넌트 개발
+* 야드 관리 시스템 비즈니스 Rule 엔진 컴포넌트 80% 속도 개선
+    * 과도한 양의 비즈니스 기준 조회 시 5초 이상 걸리는 시간을 1초 미만으로 개선
+* 차량 물류 흐름 개선을 위한 신규 차량 이송 스케줄링 로직 구현
+    * 다음 차량 도착 시 이송되어야하는 소재들 선점
+    * 창고 내 소재 재고 중 80% 이상 그룹화 및 순번 지정
+    * Spring Cloud Stream, Kafka를 사용한 타 조업 시스템으로 소재 그룹 리스트 전달
 
-- OpenCV(C, C++)을 이용한 물체 인식 어플리케이션 개발
-- SVM(Support Vector Machine) 머신 러닝 알고리즘 사용
+<div class="resume-header"> 
+    <img src="/images/about/about-1.jpg" width="5%" class="image__margin-right"/>
+    <h3 class="reusme__company">
+        <span class="reusme__company--name">POSCO ICT</span>
+        <span class="reusme__company--team-role">Internship</span>
+        <span class="reusme__company--period">2017년 8월 - 2017년 11월</span>
+    </h3>
+</div>
+
+##### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
+
+* OpenCV(C, C++)을 이용한 물체 인식 어플리케이션 개발
+* SVM(Support Vector Machine) 머신 러닝 알고리즘 사용
 
 ## Side Projects
 
-#### [장례박사] 장례 플랫폼 Raspberry Pi 어플리케이션 개발
+##### [장례박사] 장례식 관련 플랫폼 개발
 
-* 지방/축문 제작 서비스 
-    - 장례식장 빈소 현황판 어플리케이션
-- Raspberry Pi
-- 파이썬, Kivy 프레임워크 사용
-- <https://www.jrbaksa.com/main.do>
+* Vue.js를 사용한 장례 지방/축문 제작 기능 개발
+* Raspberry Pi, Python, Kivy를 사용한 장례식장 빈소 현황판 화면 개발
+* 어플리케이션 관련 링크 - [장례박사](https://www.jrbaksa.com/main.do)
 
-#### [빌라엠] 빌라 관리 플랫폼 모바일 어플리케이션 개발
+##### [빌라엠] 빌라 관리 플랫폼 개발
 
-- 각종 게시판, 거주자 투표 기능 개발
-- Nativescript-Vue 프레임워크 사용
-- <https://www.villam.co.kr/vote/vote.do>
+* Nativescript-Vue를 사용한 모바일 하이브리드 어플리케이션 개발
+* 관리비 내역 조회, 납부 처리 기능 개발
+* 각종 게시판, 거주자 투표 기능 개발
+* Google Firebase를 사용한 모바일
+* 어플리케이션 관련 링크 - [빌라엠 (VILLAM)](https://www.villam.co.kr/)
 
 ## Education
 
-#### <img src="/images/about/about-2.jpg" width="5%"/>  Hansung University 한성대학교 학사, 2014년 – 2018년
+<div class="resume-header"> 
+    <img src="/images/about/about-2.jpg" width="5%" class="image__margin-right"/>
+    <h3 class="reusme__company">
+        <span class="reusme__company--name">Hansung University</span>
+        <span class="reusme__company--team-role">학사</span>
+        <span class="reusme__company--period">2014년 2월 - 2018년 2월</span>
+    </h3>
+</div>
 
-* 정보통신공학과 전공, 2014년 2월 - 2018년 2월
+##### 정보통신공학과 전공
+
 * 학점 4.45 / 4.5
 * 아산 성적 우수 장학생 3년 선정, 2015년 - 2017년
 * 제34회 전국 대학생 수학 경시대회(비수학전공분야) 은상 수상
     * 대한수학회, 고등과학원 주최
 * 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
     * 국립전파연구원 주최
+
+## 이력서
+
+* [한국어][resume-kor-link]
+* [English][resume-eng-link]
 
 [resume-eng-link]: /resume/resume-eng.pdf
 [resume-kor-link]: /resume/resume-kor.pdf

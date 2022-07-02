@@ -1,10 +1,37 @@
-
 .image__border {
-    border: 1px solid #ccc; border-radius: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
 }
 
 .image__padding {
     padding: 1rem;
+}
+
+.image__margin-right {
+    margin-right: 1rem;
+}
+
+.resume-header {
+    margin-top: 2.5em;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    & .reusme__company {
+        margin: 0;
+        padding: 0;
+
+        &--team-role,
+        &--period {
+            font-size: 0.75em;
+            color: #777;
+        }
+
+        &--period::before {
+            content: '\00000a';
+            white-space: pre-wrap;
+        }
+    }
 }
 
 @media all and (max-width: 900px) {

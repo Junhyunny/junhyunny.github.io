@@ -8,6 +8,15 @@ classes: wide
 
 <br />
 
+<div class="personal"> 
+    <h2 class="personal-name">강준현</h2>
+    <p class="personal__information">
+       <span>kang3966@naver.com</span>
+       <span>https://junhyunny.github.io/</span>
+       <span>https://github.com/Junhyunny</span>
+    </p>
+</div>
+
 안녕하세요. Tanzu Labs 소프트웨어 엔지니어 강준현입니다.<br />
 생각과 경험을 정리하고, 학습한 지식을 다른 사람들이 알기 쉽게 공유하는 일을 좋아합니다.
 

@@ -257,7 +257,7 @@ public class DefaultBarcodeImageFacade implements BarcodeImageFacade {
 
 ### 3.3. BlogController 클래스
 
-* 퍼사드 패턴이 제공하는 인터페이스를 사용하는 사용자 클래스입니다.
+* 퍼사드 패턴이 제공하는 인터페이스가 필요한 사용자 클래스입니다.
 * 바코드와 관련된 의존성은 `BarcodeImageFacade` 인터페이스만 존재합니다.
 * `/barcode` 경로로 오는 요청에 대한 응답으로 바코드 이미지를 전달합니다.
 

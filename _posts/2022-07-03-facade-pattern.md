@@ -123,7 +123,7 @@ Spring 프레임워크에서는 마음에 드는 예시 클래스를 찾지 못 
 * [Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트의 예제 클래스입니다.
 * `Code128Bean` 클래스를 사용하며 바코드를 생성합니다.
 * `Code128Bean` 클래스는 `BitmapCanvasProvider` 클래스에 의존하여 바코드를 이미지로 생성합니다.
-* `BitmapCanvasProvider` 클래스는 전달받은 `OutputStream`을 통해 새성한 이미지를 출력합니다.
+* `BitmapCanvasProvider` 클래스는 전달받은 `OutputStream`을 통해 생성한 이미지를 출력합니다.
 
 ```java
 @Log4j2

@@ -194,7 +194,7 @@ public interface BarcodeGenerator {
 
 ## 3. BarcodeImageFacade 인터페이스 만들기
 
-`BarcodeGenerator` 인터페이스만으로 훌륭한 추상화를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
+`BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메소드를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
 사용자가 바코드를 생성하려면 `CanvasProvider` 인터페이스도 함께 알아야한다는 점을 보완하고 싶었습니다. 
 [Thymeleaf - cannot find images][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스를 만들어 보았습니다. 
 

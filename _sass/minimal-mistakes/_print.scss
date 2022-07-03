@@ -25,7 +25,7 @@
     margin: 0 auto;
     background: #fff !important;
     color: #000 !important;
-    font-size: 1rem;
+    font-size: 0.85rem;
     line-height: 1.5;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -40,32 +40,32 @@
   h6 {
     color: #000;
     line-height: 1.2;
+    margin-top: 1.85rem;
     margin-bottom: 0.75rem;
-    margin-top: 0;
   }
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 1.6rem;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 
   h3 {
-    font-size: 1.75rem;
+    font-size: 1.2rem;
   }
 
   h4 {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
 
   h5 {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 
   h6 {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 
   a,
@@ -157,9 +157,9 @@
     page-break-inside: avoid;
   }
 
-  h1 + p,
-  h2 + p,
-  h3 + p {
+  h1+p,
+  h2+p,
+  h3+p {
     page-break-before: avoid;
   }
 
@@ -228,7 +228,53 @@
     }
   }
 
-/*
+  #page-title {
+    display: none;
+  }
+
+  .personal {
+    display: block !important;
+  }
+
+  .resume-header {
+    &+h1,
+    &+h2,
+    &+h3,
+    &+h4,
+    &+h5,
+    &+h6 {
+      margin-top: 0;
+    }
+
+    margin-top: 1.35rem !important;
+    margin-bottom: 1.175rem;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &>img {
+      display: none;
+    }
+
+    & .reusme__company {
+      margin: 0;
+      padding: 0;
+
+      &--team-role,
+      &--period {
+        font-size: 0.75rem;
+        color: #777;
+      }
+
+      &--period::before {
+        content: '\00000a';
+        white-space: pre-wrap;
+      }
+    }
+  }
+
+  /*
    Hide the following elements on print
    ========================================================================== */
 

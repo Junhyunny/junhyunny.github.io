@@ -11,8 +11,27 @@
     margin-right: 1rem;
 }
 
+.personal {
+    display: none;
+    
+    & h2.personal-name {
+        border-bottom: initial;
+        margin-bottom: 0.35rem;
+        padding-bottom: 0;
+    }
+
+    &__information {
+        & span::after {
+            content: '\00000a';
+            white-space: pre-wrap;
+        }
+    }
+}
+
 .resume-header {
-    margin-top: 2.5em;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    
     display: flex;
     justify-content: flex-start;
     align-items: center;

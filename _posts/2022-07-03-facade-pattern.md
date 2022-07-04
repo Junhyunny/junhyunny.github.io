@@ -12,7 +12,7 @@ last_modified_at: 2022-07-03T23:55:00
 ## 0. 들어가면서
 
 최근 읽은 책들에서 퍼사드 패턴(Facade Pattern)을 사용한 예시나 사례가 상당히 많았습니다. 
-Spring 프레임워크으로 개발한 어플리케이션을 디버깅하다 보면 콜스택 저 아래 종종 `Facade`라는 이름을 가진 클래스들을 봤던 것이 떠올랐습니다. 
+Spring 프레임워크로 개발한 어플리케이션을 디버깅하다 보면 콜 스택(call stack) 저 아래 종종 `Facade`라는 이름을 가진 클래스들을 봤던 것이 떠올랐습니다. 
 이번 포스트에선 퍼사드 패턴가 무엇인지, 왜 사용하는지 알아보고 실제 사례를 알아보겠습니다. 
 
 ## 1. 퍼사드 패턴(Facade Pattern)
@@ -26,7 +26,7 @@ Spring 프레임워크으로 개발한 어플리케이션을 디버깅하다 보
 퍼사드(facade)의 어원은 프랑스어 `Façade`에서 유래된 단어로 건물의 외관이라는 뜻입니다. 
 건물을 외부에서 보면 외관만 보이고 내부의 숨은 구조나 복잡함은 보이지 않습니다. 
 퍼사드 패턴은 서브시스템의 복잡함이나 클래스들을 단순한 기능만 제공하는 인터페이스로 가립니다. 
-그로 인해 클라이언트는 서브시스템의 기능을 고민없이 쉽게 사용할 수 있습니다.
+그로 인해 사용자(혹은 클라이언트)는 서브시스템의 기능을 고민없이 쉽게 사용할 수 있습니다.
 
 <p align="center">
     <img src="/images/facade-pattern-1.JPG" width="70%" class="image__border">
@@ -38,11 +38,11 @@ Spring 프레임워크으로 개발한 어플리케이션을 디버깅하다 보
 퍼사드 패턴은 다음과 같은 구조를 가지고 있습니다. 
 
 * 복잡한 서브시스템을 대신하는 단순하고 일관된 인터페이스를 제공합니다. 
-* 사용자(client)는 서브시스템의 클래스들을 직접 사용하지 않으며, 단순한 형태로 통합된 메소드를 호출합니다.
+* 사용자는 서브시스템의 클래스들을 직접 사용하지 않으며, 단순한 형태로 통합된 메소드를 호출합니다.
 * 아래 비디오의 포맷을 변경하는 라이브러리를 예시로 들 수 있습니다.
     * `VideoConverter` 클래스는 외부에는 단순하게 `convertVideo` 메소드만 제공합니다.
     * 비디오를 변경하기 위해선 `AudioMixer`, `VideoFile`, `BitrateReader`, `CodecFactory` 등 많은 클래스들이 필요합니다.
-    * 해당 라이브러리를 사용하는 클라이언트(개발자)는 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메소드만 호출합니다.
+    * 사용자(개발자)의 코드는 해당 라이브러리의 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메소드만 호출합니다.
 
 <p align="center">
     <img src="/images/facade-pattern-2.JPG" width="50%" class="image__border">
@@ -60,8 +60,8 @@ Spring 프레임워크으로 개발한 어플리케이션을 디버깅하다 보
 
 ## 2. 퍼사드 패턴 사용 케이스 찾아보기
 
-퍼사드 패턴과 관련된 글들을 찾아보면 전자레인지, 컴퓨터 등등 여러 부품들의 동작을 추상화한 예시 코드들을 볼 수 있습니다. 
-저는 추상적인 예시 코드보단 실제로 사용되는 케이스는 무엇이 있는지 찾아보았습니다. 
+퍼사드 패턴과 관련된 글들을 찾아보면 전자레인지, 컴퓨터 등등 여러 부품들의 동작을 하나의 기능으로 추상화한 예시 코드들을 볼 수 있습니다. 
+저는 책에서나 볼 수 있는 예시 코드보단 실제로 사용되는 케이스들은 어떤 것들이 있는지 궁금하였습니다. 
 
 ### 2.1. 이름만 "Facade"인 클래스
 
@@ -71,7 +71,7 @@ Spring 프레임워크에서 이름에 `Facade`가 붙은 클래스들을 찾아
 #### 2.2.1. RequestFacade 클래스
 
 * org.apache.catalina.connector 패키지에 존재합니다.
-* Request 클래스를 감싼채 단순한 null 여부 확인만 수행합니다.
+* Request 클래스를 감싼채 단순한 null 여부 확인만 추가 수행합니다.
 
 ```java
 public class RequestFacade implements HttpServletRequest {
@@ -115,12 +115,12 @@ public class RequestFacade implements HttpServletRequest {
 ### 2.2. barcode4j 라이브러리
 
 Spring 프레임워크에서는 마음에 드는 예시 클래스를 찾지 못 했습니다. 
-적절한 사례를 찾던 중에 `VideoConverter` 클래스에 대한 예시를 보고 이전에 사용해봤던 `barcode4j` 라이브러리가 생각났습니다. 
-[Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트에서 소개한 라이브러리이며 문자열을 이용해 바코드 이미지를 생성합니다. 
+적절한 사례를 찾던 중에 위의 `VideoConverter` 클래스에 대한 사례를 보고 이전에 사용했던 `barcode4j` 라이브러리가 생각났습니다. 
+[Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트에서 소개했었는데 문자열을 이용해 바코드 이미지를 생성합니다. 
 
 #### 2.2.1. 사용 코드 예시
 
-* [Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트의 예제 클래스입니다.
+* [Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트의 예제입니다.
 * `Code128Bean` 클래스를 사용하며 바코드를 생성합니다.
 * `Code128Bean` 클래스는 `BitmapCanvasProvider` 클래스에 의존하여 바코드를 이미지로 생성합니다.
 * `BitmapCanvasProvider` 클래스는 전달받은 `OutputStream`을 통해 생성한 이미지를 출력합니다.
@@ -196,11 +196,12 @@ public interface BarcodeGenerator {
 
 `BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메소드를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
 사용자가 바코드를 생성하려면 `CanvasProvider` 인터페이스도 함께 알아야한다는 점을 보완하고 싶었습니다. 
-[Thymeleaf - cannot find images][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스를 만들어 보았습니다. 
+[Thymeleaf - cannot find images][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스와 간단한 화면을 만들어 보았습니다. 
 
 ### 3.1. BarcodeImageFacade 인터페이스
 
-* `OutputStream` 객체와 바코드로 만들고 싶은 문자열을 전달하면 `OutputStream` 객체를 통해 바코드 이미지를 출력합니다.
+* `OutputStream` 객체와 바코드로 만들고 싶은 문자열을 전달합니다. 
+* `BarcodeImageFacade` 객체는 전달받은 `OutputStream` 객체를 통해 바코드 이미지를 출력합니다.
     * `FileOutputStream` 객체를 이용하면 파일 형태로 이미지를 출력합니다.
     * `ServletOutputStream` 객체를 이용하면 HTTP 응답으로 이미지를 출력합니다.
 

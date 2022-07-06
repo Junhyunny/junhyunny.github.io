@@ -1,5 +1,5 @@
 ---
-title: "Posts in English by Year"
+title: "Posts by Year"
 layout: posts-english
 permalink: /posts-english/
 author_profile: true

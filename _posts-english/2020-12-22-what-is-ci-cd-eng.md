@@ -8,15 +8,6 @@ last_modified_at: 2020-12-22T23:55:00
 
 <br>
 
-👉 Recommend next posts.
-
-* [Install jenkins][jenkins-install-link]
-* [Integrate github webhooks with jenkins][jenkins-github-webhook-link]
-* [Install docker registry on EC2 instance][install-docker-registry-on-ec2-link]
-* [Make private docker registry][make-private-docker-registry-on-ec2-link]
-* [Deploy services using jenkins pipeline on EC2 instance][jenkins-deploy-ec2-using-docker-link]
-* [Send slack notification from jenkins][jenkins-slack-notification-link]
-
 ## 0. Intro
 
 > CI/CD is a way to deliver high-quality applications to customers in shorter cycle times by automating application development steps.
@@ -87,6 +78,15 @@ The process is carried out by the manager after making a business decision.
 #### REFERENCE
 
 * <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
+
+#### RECOMMEND NEXT POSTS
+
+* [Install jenkins][jenkins-install-link]
+* [Integrate github webhooks with jenkins][jenkins-github-webhook-link]
+* [Install docker registry on EC2 instance][install-docker-registry-on-ec2-link]
+* [Make private docker registry][make-private-docker-registry-on-ec2-link]
+* [Deploy services using jenkins pipeline on EC2 instance][jenkins-deploy-ec2-using-docker-link]
+* [Send slack notification from jenkins][jenkins-slack-notification-link]
 
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/

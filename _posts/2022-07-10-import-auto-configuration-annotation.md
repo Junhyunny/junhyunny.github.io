@@ -18,15 +18,19 @@ Spring 프레임워크에서 특정 애너테이션만으로 많은 기능들이
 
 > Indicates one or more component classes to import<br/>
 
-`@Import` 애너테이션은 필요한 빈들을 명시적으로 주입받습니다. 
-다음과 같은 빈들을 대상으로 사용합니다.
+`@Import` 애너테이션은 임포트(import)하기 위한 클래스들을 명시적으로 표시합니다. 
+임포트 된 클래스들은 빈 객체로 추가됩니다. 
+공식 문서를 보면 다음과 같은 조건을 가진 대상을 `@Import` 애너테이션에 추가하여 사용하라고 되어 있습니다. 
 
-* `@Configuration` 애너테이션이 추가된 클래스의 `@Bean` 애너테이션으로 정의된 빈
-* `@Component`, `@Service` 애너테이션이 붙은 빈
+* `@Configuration` 애너테이션이 추가된 클래스
+    * 해당 클래스에서 `@Bean` 애너테이션으로 정의된 빈들도 모두 사용 가능합니다.
+* `@Component`, `@Service` 애너테이션이 붙은 클래스
+
+### 1.1. @Import 활용 예제
 
 간단한 테스트 코드를 통해 빈들이 정상적으로 주입되는지 확인해보겠습니다. 
 
-### 1.1. CustomConfiguration 클래스
+#### 1.1.1. CustomConfiguration 클래스
 
 * `@Configuration` 애너테이션을 붙혀서 빈(bean) 객체들을 정의한 설정 클래스입니다.
 * `FirstBean`, `SecondBean` 클래스를 빈으로 정의합니다.
@@ -54,7 +58,7 @@ public class CustomConfiguration {
 }
 ```
 
-### 1.2. POJO 클래스
+#### 1.1.2. POJO 클래스
 
 * 순수한 자바 클래스이며 별도로 기능은 없습니다.
 
@@ -74,7 +78,7 @@ public class SecondBean {
 }
 ```
 
-### 1.3. ThirdBean 클래스
+#### 1.1.3. ThirdBean 클래스
 
 * `@Component` 애너테이션이 붙은 클래스이며 빈 역할을 수행합니다.
 
@@ -88,7 +92,7 @@ public class ThirdBean {
 }
 ```
 
-### 1.4. ImportTests 클래스
+#### 1.1.4. ImportTests 클래스
 
 * `@Import` 애너테이션으로 명시적인 빈 객체들을 주입받습니다. 
 * `@Autowired` 애너테이션에 의해 빈 객체들이 주입 받는지 테스트를 통해 확인합니다.

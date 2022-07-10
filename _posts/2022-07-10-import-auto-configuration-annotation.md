@@ -159,7 +159,7 @@ public class ImportTests {
 
 ### 2.1.1. @AutoConfigureDataJpa 애너테이션 
 
-* `@AutoConfigureDataJpa` 애너테이션 위에 `@ImportAutoConfiguration` 애너테이션이 붙어있습니다.
+* `@AutoConfigureDataJpa` 애너테이션 위에 `@ImportAutoConfiguration` 애너테이션이 추가되어 있습니다.
 
 ```java
 package org.springframework.boot.test.autoconfigure.orm.jpa;
@@ -183,14 +183,16 @@ public @interface AutoConfigureDataJpa {
 
 #### 2.1.2. spring.factories 파일 살펴보기
 
-* `@AutoConfigureDataJpa` 애너테이션이 포함된 `spring-boot-test-autoconfigure` jar 파일을 열어보았습니다.
-* `META-INF/spring.factories` 파일에 관련된 `Configuration` 클래스들이 정의되어 있습니다.
+* `@AutoConfigureDataJpa` 애너테이션이 포함된 `spring-boot-test-autoconfigure.jar` 파일을 확인해보았습니다. 
+* `/META-INF/spring.factories` 파일에는 `AutoConfigureDataJpa` 애너테이션에 의해 임포트 되는 클래스들이 정의되어 있습니다.
 
 <p align="left">
-    <img src="/images/import-auto-configuration-annotation-2.JPG" width="80%" class="image__border">
+    <img src="/images/import-auto-configuration-annotation-2.JPG" width="50%" class="image__border">
 </p>
 
 ```
+... 
+
 # AutoConfigureDataJpa auto-configuration imports
 org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa=\
 org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,\

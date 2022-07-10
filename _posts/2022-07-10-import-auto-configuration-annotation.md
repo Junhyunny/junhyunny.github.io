@@ -190,7 +190,7 @@ public @interface AutoConfigureDataJpa {
     <img src="/images/import-auto-configuration-annotation-2.JPG" width="80%" class="image__border">
 </p>
 
-```factories
+```
 # AutoConfigureDataJpa auto-configuration imports
 org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa=\
 org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration,\
@@ -271,7 +271,7 @@ public @interface CustomAutoConfiguration {
 * `@CustomAutoConfiguration` 애너테이션을 통해 임포트 되는 클래스들을 정의합니다.
     * 상위에서 테스트에서 사용한 `CustomConfiguration`, `ThirdBean` 클래스를 명시하였습니다.
 
-```factories
+```
 blog.in.action.annotation.CustomAutoConfiguration=\
 blog.in.action.config.CustomConfiguration,\
 blog.in.action.beans.ThirdBean

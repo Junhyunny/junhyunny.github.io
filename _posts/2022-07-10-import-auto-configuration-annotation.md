@@ -94,7 +94,7 @@ public class ThirdBean {
 
 #### 1.1.4. ImportTests 클래스
 
-* `@Import` 애너테이션으로 명시적인 빈 객체들을 주입받습니다. 
+* `@Import` 애너테이션에 빈으로써 필요한 클래스들을 명시적으로 추가합니다.
 * `@Autowired` 애너테이션에 의해 빈 객체들이 주입 받는지 테스트를 통해 확인합니다.
 
 ```java

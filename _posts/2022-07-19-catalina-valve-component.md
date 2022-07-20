@@ -145,7 +145,7 @@ public class TraceValve extends ValveBase {
 > A Valve element represents a component that will be inserted into the request processing pipeline for the associated Catalina container (Engine, Host, or Context). 
 > Individual Valves have distinct processing capabilities, and are described individually below.
 
-`Tomcat 4`에서 처음 소개된 기능입니다.  
+`Tomcat 4`에서 처음 소개된 기능입니다. 
 `Valve` 컴포넌트는 카탈리나 컨테이너와 연관된 요청 파이프라인에 추가되어 각각 특정 전처리를 수행합니다. 
 
 ### 2.1. Valve 컴포넌트 실행

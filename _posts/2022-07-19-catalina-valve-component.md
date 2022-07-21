@@ -148,7 +148,78 @@ public class TraceValve extends ValveBase {
 `Tomcat 4`에서 처음 소개된 기능입니다. 
 `Valve` 컴포넌트는 카탈리나 컨테이너와 연관된 요청 파이프라인에 추가되어 각각 특정 전처리를 수행합니다. 
 
-### 2.1. Valve 컴포넌트 실행
+### 2.1. CoyoteAdapter 클래스
+
+`Valve` 컴포넌트를 실행하는 `CoyoteAdapter` 클래스를 살펴보았습니다.
+
+* 오버라이드 한 `service` 메소드에서 `Valve` 컴포넌트를 실행합니다.
+* connector 객체의 체이닝(chaining)을 통해 파이프 라인의 첫 번째 `Valve` 컴포넌트를 `invoke` 합니다.
+* connector 객체의 체이닝 메소드 별 동작을 확인해보았습니다.
+    * .getService() - 요청 처리를 위한 단일 컨테이너를 공유하는 커넥터(connector)들의 모임인 Service 객체 반환
+    * .getContainer() - 전체 카탈리나 서블릿 엔진을 대표하는 Egine 객체 반환
+    * .getPipeline() - `Valve` 컴포넌트의 집합인 PipeLine 객체 반환
+    * .getFirst() - 첫 번째 `Valve` 객체 반환
+    * .invoke(request, response) - `Valve` 객체 실행
+
+```java
+package org.apache.catalina.connector;
+
+// ... imports
+
+public class CoyoteAdapter implements Adapter {
+
+    // fields
+
+    private final Connector connector;
+
+    @Override
+    public void service(org.apache.coyote.Request req, org.apache.coyote.Response res) throws Exception {
+
+        Request request = (Request) req.getNote(ADAPTER_NOTES);
+        Response response = (Response) res.getNote(ADAPTER_NOTES);
+
+        // ...
+
+        boolean async = false;
+        boolean postParseSuccess = false;
+
+        req.getRequestProcessor().setWorkerThreadName(THREAD_NAME.get());
+        req.setRequestThread();
+
+        try {
+            // Parse and set Catalina and configuration specific request parameters
+            postParseSuccess = postParseRequest(req, request, res, response);
+            if (postParseSuccess) {
+                //check valves if we support async
+                request.setAsyncSupported(
+                        connector
+                            .getService()
+                            .getContainer()
+                            .getPipeline()
+                            .isAsyncSupported()
+                        );
+
+                // Calling the container
+                connector
+                    .getService()
+                    .getContainer()
+                    .getPipeline()
+                    .getFirst()
+                    .invoke(request, response); // 
+            }
+            
+            // ...
+            
+        } catch (IOException e) {
+            // Ignore
+        } finally {
+            // ...
+        }
+    }
+}
+```
+
+### 2.2. Valve 컴포넌트 실행
 
 웹 어플리케이션에 한정되어 동작하는 서블릿 필터와 다르게 컨테이너 레벨에서 동작합니다. 
 
@@ -160,7 +231,7 @@ public class TraceValve extends ValveBase {
 </p>
 <center>https://m.blog.naver.com/gallechess/221047184041</center>
 
-### 2.2. Valve 컴포넌트 종류
+### 2.3. Valve 컴포넌트 종류
 
 상세하게 살펴보면 톰캣 버전에 따라 다르지만, 기본적으로 다음과 같은 `Valve` 컴포넌트들로 구성됩니다.
 

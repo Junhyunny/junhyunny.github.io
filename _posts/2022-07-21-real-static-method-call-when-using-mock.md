@@ -109,7 +109,7 @@ public class StaticMethodService {
 * 정상적으로 테스트가 통과합니다.
 
 <p align="left">
-    <img src="/images/real-static-method-call-when-using-mock-1.JPG" width="55%" class="image__border">
+    <img src="/images/real-static-method-call-when-using-mock-1.JPG" width="95%" class="image__border">
 </p>
 
 ### 1.2. 사용자 스토리 추가
@@ -210,7 +210,7 @@ public class StaticMethodService {
 * `NullPointException`가 발생하여 테스트가 실패합니다.
 
 <p align="left">
-    <img src="/images/real-static-method-call-when-using-mock-2.JPG" width="55%" class="image__border">
+    <img src="/images/real-static-method-call-when-using-mock-2.JPG" width="95%" class="image__border">
 </p>
 
 #### 1.2.4. 예외 발생 코드
@@ -326,7 +326,7 @@ public class StaticMethodServiceTests {
 #### 2.1.2. 테스트 결과
 
 <p align="left">
-    <img src="/images/real-static-method-call-when-using-mock-3.JPG" width="55%" class="image__border">
+    <img src="/images/real-static-method-call-when-using-mock-3.JPG" width="95%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

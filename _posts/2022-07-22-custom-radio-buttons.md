@@ -88,10 +88,6 @@ last_modified_at: 2022-07-22T23:55:00
     width: 0;
 }
 
-.radio-button label {
-    display: inline-block;
-}
-
 /* 1번 그룹 라디오 버튼, 외부 원 */
 .radio-buttons-1 .radio-button .custom-radio {
     position: absolute;

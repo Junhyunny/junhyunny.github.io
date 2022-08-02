@@ -38,9 +38,14 @@ last_modified_at: 2022-08-02T23:55:00
 </p>
 <center>https://dev-youngjun.tistory.com/195</center>
 
-<!-- ### 1.2. 팩토리 메소드 패턴을 사용하는 이유
+### 1.2. 팩토리 메소드 패턴 장단점
 
-팩토리 메소드 패턴을 사용하는 이유는 다음과 같습니다. -->
+다음과 같은 장단점이 존재합니다.
+
+* 장점
+    * Creator 클래스를 변경하지 않고, Creator 클래스의 구현체 클래스를 새롭게 정의함으로써 시스템을 확장할 수 있습니다.
+* 단점
+    * 간단한 코드임에도 클래스가 많아질 수 있습니다.
 
 ## 2. 팩토리 메소드 패턴 연습하기
 
@@ -452,15 +457,16 @@ public class TransportManagerTests {
 * 의존관계 역전 원칙 (DIP, Dependency Inversion Principle) 
     * 추상화에 의존해야지, 구체화에 의존하면 안된다.
 
-### 3.1. TransportManager 클래스
+### 3.1. TransportManager 클래스와 하위 타입 클래스
 
 * 단일 책임 원칙
-    * 해당 클래스는 운송 수단 예약과 관련된 변경이 있을 때를 제외하곤 변경될 일이 없습니다.
+    * `TransportManager` 클래스는 운송 수단 예약과 관련된 로직 변경이 있을 때를 제외하곤 코드가 변경될 일이 없습니다.
+    * `RoadTransportManager` 클래스는 지상 운송 수단이 추가되는 것을 제외하곤 코드가 변경될 일이 없습니다.
 * 개방-폐쇄 원칙
-    * 운송 수단이 늘어남에 따라 `TransportManager` 클래스의 변경 없이 새로운 구현체 클래스를 만들 수 있습니다.
+    * 운송 수단이 늘어남에 따라 `TransportManager` 클래스의 변경 없이 새로운 하위 타입 클래스를 만들어 기능을 확장할 수 있습니다.
 * 리스코프 치환 원칙
-    * 기존 `TransportManager` 클래스를 사용 중이던 로직을 적절한 하위 타입 클래스로 변경할 수 있습니다.
-    * 레거시 코드가 모두 수정하면, `getTransport` 메소드를 추상 메소드, `TransportManager` 클래스를 추상 클래스로 변경할 수 있습니다.
+    * 기존 `TransportManager` 클래스를 사용 중이던 코드를 적절한 하위 타입 클래스로 변경할 수 있습니다.
+    * 기존 코드를 모두 적절한 하위 타입 클래스로 변경하면, `getTransport` 메소드를 추상 메소드, `TransportManager` 클래스를 추상 클래스로 변경할 수 있습니다.
 
 ```java
 public class TransportManager {
@@ -477,6 +483,21 @@ public class TransportManager {
                 return new Truck();
             case "AirPlane":
                 return new AirPlane();
+            default:
+                throw new RuntimeException("Not Supported Transport Type: " + transportType);
+        }
+    }
+}
+
+public class RoadTransportManager extends TransportManager {
+
+    @Override
+    protected Transport getTransport(String transportType) {
+        switch (transportType) {
+            case "Truck":
+                return new Truck();
+            case "Trailer":
+                return new Trailer();
             default:
                 throw new RuntimeException("Not Supported Transport Type: " + transportType);
         }

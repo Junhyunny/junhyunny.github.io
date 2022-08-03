@@ -16,7 +16,7 @@ last_modified_at: 2022-08-02T23:55:00
 
 인터넷의 팩토리 메소드 패턴과 관련된 글들을 읽어보면 팩토리 클래스를 만들고 이를 사용하는 예시가 많습니다. 
 [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]의 저자가 팩토리 메소드 패턴의 활용성에 대해 작성한 내용을 보면 팩토리 클래스보단 메소드를 사용하는 클래스 관점에서 해당 패턴을 정리했다는 느낌이 들었습니다. 
-저도 같은 시각에서 이해해보고자 글을 작성해보았습니다.
+저도 같은 시각에서 이해해보고자 노력하면서 글을 작성하였습니다.
 
 > 팩토리 메소드 패턴 활용성 - [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
 > 팩토리 메소드는 다음과 같은 상황에 사용합니다.<br/>

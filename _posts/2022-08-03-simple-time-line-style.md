@@ -133,7 +133,7 @@ last_modified_at: 2022-08-03T23:55:00
     background: #ffffff;
 }
 
-/* 타임라인 중간에 동그라미 포인트 표현, 외부 원 */
+/* 타임라인 위에 동그라미 포인트 표현, 외부 원 */
 .history-items > li::before {
     content: "";
     width: 15px;
@@ -147,7 +147,7 @@ last_modified_at: 2022-08-03T23:55:00
     transform: translateX(-50%);
 }
 
-/* 타임라인 중간에 동그라미 포인트 표현, 내부 원 */
+/* 타임라인 위에 동그라미 포인트 표현, 내부 원 */
 .history-items > li::after {
     content: "";
     width: 7.5px;
@@ -179,7 +179,7 @@ last_modified_at: 2022-08-03T23:55:00
 }
 
 .history-item {
-    /* 현재 자신의 위치를 기준으로 top, left를 이용해 이동할 수 있도록 relative 속성 부여 */
+    /* 요소가 자신의 현재 위치를 기준으로 top, left 속성을 통해 이동할 수 있도록 relative 속성 부여 */
     position: relative;
     width: 400px;
     border: 1px solid #a1a1a1;

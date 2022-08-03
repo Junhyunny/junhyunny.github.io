@@ -457,7 +457,9 @@ public class TransportManagerTests {
 * 의존관계 역전 원칙 (DIP, Dependency Inversion Principle) 
     * 추상화에 의존해야지, 구체화에 의존하면 안된다.
 
-### 3.1. TransportManager 클래스와 하위 타입 클래스
+### 3.1. TransportManager 클래스와 RoadTransportManager 클래스
+
+`TransportManager` 클래스와 하위 타입 중 `RoadTransportManager` 클래스를 대표로 예를 들어 작성하였습니다.
 
 * 단일 책임 원칙
     * `TransportManager` 클래스는 운송 수단 예약과 관련된 로직 변경이 있을 때를 제외하곤 코드가 변경될 일이 없습니다.

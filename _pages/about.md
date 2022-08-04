@@ -22,7 +22,7 @@ classes: wide
 
 ## 주요 기술
 
-* HTML5, CSS3, JavaScript, Java
+* HTML, CSS, JavaScript, Java
 * Spring MVC, Spring Boot, Spring Cloud, Spring Data Jpa, MyBatis
 * React, Vue.js, jQuery, Sass
 * Oracle, MySQL

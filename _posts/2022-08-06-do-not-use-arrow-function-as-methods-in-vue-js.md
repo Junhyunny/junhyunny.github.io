@@ -281,6 +281,10 @@ export default {
 </style>
 ```
 
+#### TEST CODE REPOSITORY
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-06-do-not-use-arrow-function-as-methods-in-vue-js>
+
 #### REFERENCE
 
 * <https://stackoverflow.com/questions/33308121/can-you-bind-this-in-an-arrow-function>

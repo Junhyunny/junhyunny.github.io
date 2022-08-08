@@ -13,14 +13,14 @@ last_modified_at: 2022-08-06T23:55:00
 
 ## 1. 문제 현상
 
-`Vue.js`에서 컴포넌트를 만들 때 화살표 함수(arrow function, =>)를 사용하는 경우 정상적으로 `this` 키워드를 찾지 못하는 현상이 있었습니다.  
+`Vue.js`에서 컴포넌트를 만들 때 화살표 함수(arrow function, =>)를 사용하는 경우 정상적으로 `this` 키워드를 찾지 못하는 현상이 있었습니다. 
 간단하게 코드를 통해 문제를 살펴보겠습니다.
 
 ### 1.1. HelloWorld.vue
 
 * `HelloWorld` 컴포넌트의 `methods` 속성의 `hideAndVisible` 함수를 화살표 함수 형태로 선언하였습니다.
 * `this` 객체를 `alert` 함수로 출력합니다.
-* 출력되는 값이 `undefined` 임을 확인합니다.
+    * 출력되는 `this` 객체가 `undefined` 임을 확인합니다.
 
 ```vue
 <template>
@@ -95,7 +95,7 @@ export default {
 
 `Vue` 어플리케이션을 만들기 위해 사용하는 `createApp` 함수를 탐색해봤습니다. 
 `methods` 속성과 해당 컴포넌트 객체를 연결해주는 코드가 있을 것이라 예상했고, 관련된 코드를 `createApp` 함수 내부에서 찾아보았습니다. 
-파이어폭스 디버깅을 통해 해당 기능으로 의심되는 코드의 실행 여부를 확인하였습니다. 
+파이어폭스(firefox) 디버깅을 통해 해당 기능으로 의심되는 코드의 실행 여부를 확인하였습니다. 
 
 #### 2.1.1. applyOptions 함수 
 

@@ -123,7 +123,7 @@ console.log("global", y); // Uncaught ReferenceError: y is not defined
 `ES5`까지 `JavaScript`의 지역 스코프는 함수 레벨에서만 유효했습니다. 
 `ES6`부터 등장한 변수 선언 키워드인 `let`, `const`를 사용하면 블록 레벨 스코프가 가능합니다. 
 
-### 2.1. 함수 레벨 스코프
+### 3.1. 함수 레벨 스코프
 
 예시 코드를 통해 함수 레벨 스코프를 살펴보겠습니다. 
 
@@ -140,7 +140,7 @@ if (!empty) {
 console.log(foo); // Hello
 ```
 
-### 2.2. 블럭 레벨 스코프
+### 3.2. 블럭 레벨 스코프
 
 다음 예시 코드를 통해 `let`, `const` 키워드로 선언한 변수가 블록 레벨 스코프에서 유효한지 확인 가능합니다.
 
@@ -175,12 +175,12 @@ for(let index = 0; index < 5; index++) {
 console.log(index); // Uncaught ReferenceError: index is not defined
 ```
 
-## 3. 스코프 결정 방법 
+## 4. 스코프 결정 방법 
 
 `JavaScript`를 공부하면서 처음 접한 렉시컬(lexical)이라는 용어를 쫒아가다보니 프로그래밍 언어마다 스코프를 정의하는 방법이 다르다는 사실을 알게 되었습니다. 
 간단하게 관련된 내용을 정리하였습니다. 
 
-### 3.1. 렉시컬 스코프(Lexical Scope)
+### 4.1. 렉시컬 스코프(Lexical Scope)
 
 > [Programming Languages Lecture 9 - Lexical Scope, Closures][zach-tatlock-pdf-link]<br/>
 > Lexical scope: use environment where function [and variable] is defined
@@ -210,7 +210,7 @@ function bar() {
 bar();
 ```
 
-### 3.2. 다이나믹 스코프(Dynamic Scope)
+### 4.2. 다이나믹 스코프(Dynamic Scope)
 
 > [Programming Languages Lecture 9 - Lexical Scope, Closures][zach-tatlock-pdf-link]<br/>
 > Dynamic scope: use environment where function [and variable] is called

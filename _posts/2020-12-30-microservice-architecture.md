@@ -155,6 +155,13 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 비즈니스 도메인의 업무 영억을 의미있게 분할하는 일을 통해 독립적이고 자율성있는 마이크로 서비스를 도출해낼 수 있습니다. 
 **마이크로 서비스 아키텍처가 모든 비즈니스에 적합하진 않겠지만 비즈니스 도메인에 대한 높은 이해도가 아키텍처 설계의 승패를 가른다는 것을 경험하였습니다.**
 
+#### RECOMMEND NEXT POSTS
+
+* [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
+* [MSA API Gateway][msa-api-gateway-link]
+* [Micro Service Architecture 배포 전략][msa-release-link]
+* [분산 트랜잭션(Distributed transaction)][distributed-transaction-link]
+
 #### REFERENCE
 
 * <https://alwayspr.tistory.com/19>
@@ -163,13 +170,6 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 * <https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7>
 * <https://www.redhat.com/ko/topics/microservices/what-are-microservices>
 * [(마이크로 서비스 vs 모놀리식 아키텍처) MicroService vs Monolithic Architecture 간단 소개 및 주관적 의견][msa-blog-link]
-
-#### RECOMMEND NEXT POSTS
-
-* [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
-* [MSA API Gateway][msa-api-gateway-link]
-* [Micro Service Architecture 배포 전략][msa-release-link]
-* [분산 트랜잭션(Distributed transaction)][distributed-transaction-link]
 
 [msa-blog-link]: https://lion-king.tistory.com/entry/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4-vs-%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-MicroService-vs-Monolithic-Architecture-%EA%B0%84%EB%8B%A8-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%A3%BC%EA%B4%80%EC%A0%81-%EC%9D%98%EA%B2%AC
 

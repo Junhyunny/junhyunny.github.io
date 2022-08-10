@@ -75,10 +75,6 @@ CI/CD는 크게 3단계로 나뉘어집니다.
     <img src="/images/what-is-ci-cd-3.JPG" width="80%" class="image__border"/>
 </p>
 
-#### REFERENCE
-
-* <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
-
 #### RECOMMEND NEXT POSTS
 
 * [젠킨스(Jenkins) 설치][jenkins-install-link]
@@ -87,6 +83,10 @@ CI/CD는 크게 3단계로 나뉘어집니다.
 * [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
 * [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
 * [젠킨스(Jenkins) 슬랙(Slack) 알림 메세지 전송][jenkins-slack-notification-link]
+
+#### REFERENCE
+
+* <https://www.redhat.com/ko/topics/devops/what-is-ci-cd>
 
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/

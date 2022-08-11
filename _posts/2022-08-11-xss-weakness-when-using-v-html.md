@@ -165,7 +165,7 @@ XSS 공격을 간단하게 요약하면 다음과 같은 방법으로 이뤄집�
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-06-do-not-use-arrow-function-as-methods-in-vue-js>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-11-xss-weakness-when-using-v-html>
 
 #### REFERENCE
 

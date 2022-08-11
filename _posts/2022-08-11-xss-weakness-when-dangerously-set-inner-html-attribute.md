@@ -18,7 +18,7 @@ last_modified_at: 2022-08-11T23:55:00
 
 ## 1. dangerouslySetInnerHTML 속성(Attribute)
 
-개발 기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있습니다. 
+기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있습니다. 
 `React` 라이브러리는 `dangerouslySetInnerHTML` 속성으로 HTML 코드를 그대로 삽입할 수 있습니다. 
 이름에서 확인할 수 있듯이 위험한 방법입니다. 
 자세한 내용은 예제 코드를 살펴본 후에 알아보겠습니다.

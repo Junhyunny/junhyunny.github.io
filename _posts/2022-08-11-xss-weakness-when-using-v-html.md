@@ -16,7 +16,7 @@ last_modified_at: 2022-08-11T23:55:00
 * [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting-link]
 * [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
 
-## 1. v-html 디렉티브(directive)
+## 1. v-html 디렉티브(Directive)
 
 개발 기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있습니다. 
 `Vue.js` 프레임워크는 `v-html` 디렉티브가 HTML 코드를 템플릿(template)에 그대로 삽입하는 기능을 제공합니다. 
@@ -103,7 +103,7 @@ XSS 공격을 간단하게 요약하면 다음과 같은 방법으로 이뤄집�
 
 `v-html` 디렉티브를 사용할 때 스크립트 코드가 실행되는지 예제 코드를 통해 확인해보겠습니다. 
 
-* `htmlCode` 변수에 이미지 태그를 이용해 간단한 `alert` 함수를 실행할 수 있는 코드를 저장합니다.
+* `htmlCode` 변수에 이미지 태그를 이용하여 `alert` 함수를 실행하는 코드를 저장합니다.
     * 이미지 태그의 크기를 0으로 만들어 화면에서 보이지 않게 만듭니다. 
 * 해당 HTML 문서를 화면에서 확인합니다.
 
@@ -166,8 +166,6 @@ XSS 공격을 간단하게 요약하면 다음과 같은 방법으로 이뤄집�
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-11-xss-weakness-when-using-v-html>
-
-#### REFERENCE
 
 [reflected-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/
 [stored-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/

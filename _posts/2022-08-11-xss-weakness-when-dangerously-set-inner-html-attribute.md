@@ -92,7 +92,7 @@ last_modified_at: 2022-08-11T23:55:00
 * `htmlCode` 함수에서 반환하는 HTML 코드가 화면에 비순차 리스트 형태로 출력되는 것을 확인할 수 있습니다.
 
 <p align="center">
-    <img src="/images/xss-weakness-when-dangerously-set-inner-html-attribute-1.JPG" width="100%" class="image__border">
+    <img src="/images/xss-weakness-when-dangerously-set-inner-html-attribut-1.JPG" width="100%" class="image__border">
 </p>
 
 ## 2. XSS(Cross Site Script) 공격에 대한 취약성

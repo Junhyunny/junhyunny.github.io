@@ -121,7 +121,7 @@ where post0_.title = ?
 
 * Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장됩니다.
 
-<p align="center">
+<p align="left">
     <img src="/images/auto-distinct-when-using-entity-graph-1.JPG" width="80%" class="image__border">
 </p>
 
@@ -186,7 +186,7 @@ where post0_.title = ?
 * `LEFT OUTER JOIN`을 수행하였고, 별도의 중복 처리를 하지 않았음에도 Post 엔티티 객체가 리스트에 1개 저장됩니다.
     * 중복 제거를 위한 `DISTINCT` 키워드 혹은 `Set` 자료구조 미사용
 
-<p align="center">
+<p align="left">
     <img src="/images/auto-distinct-when-using-entity-graph-2.JPG" width="80%" class="image__border">
 </p>
 
@@ -212,7 +212,7 @@ where post0_.title = ?
 
 * `QueryTranslatorImpl` 클래스의 `list` 메소드에서 엔티티 중복이 제거됩니다.
 * `getEntityGraphQueryHint` 메소드 수행 시 결과가 `null`이 아닌 경우 중복을 제거합니다.
-    * `query.getSelectClause().isDistinct()` 메소드의 수행 결과와 상관 없이 중복이 제거됩니다. 
+    * `hasLimit` 값이나 `query.getSelectClause().isDistinct()` 메소드 수행 결과와 상관 없이 중복이 제거됩니다. 
 * `IdentitySet` 클래스를 통해 중복을 제거합니다.
 
 ```java

@@ -324,8 +324,8 @@ module.exports = app => {
     - `http://localhost:3000` 화면 접속시 리액트 어플리케이션의 index.html 파일이 반환됩니다.
     - 별도 백엔드 서비스로 라우팅되지 않습니다.
 
-##### Stack Overflow 질문
-- 관련 내용은 `Stack Overflow`에 질문으로 남겼습니다.
+##### StackOverflow 질문
+- 관련 내용은 `StackOverflow`에 질문으로 남겼습니다.
 - [What is different between using package.json and usign http-proxy-middleware module to create proxy?][stack-overflow-question-link]
 
 #### TEST CODE REPOSITORY

@@ -139,4 +139,5 @@ foo()
 * [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]
 * [인사이드 자바스크립트 Inside JavaScript 핵심 개념과 원리를 정확하게.][inside-javascript-book-link]
 
+[modern-javascript-book-link]: http://www.yes24.com/product/goods/92742567
 [javascript-scope-link]: https://junhyunny.github.io/javascript/javascript-scope/

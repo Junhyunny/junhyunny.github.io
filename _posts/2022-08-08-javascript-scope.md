@@ -239,10 +239,6 @@ bar() {
 bar # bar call
 ```
 
-## CLOSE
-
-`JavaScript`의 스코프 개념에 대해 정리하면서 스코프 체인(scope chain)에 대해 함께 정리하고 싶었지만, 내용이 길어져서 다음으로 미뤄야겠습니다.  
-
 #### REFERENCE
 
 * [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]

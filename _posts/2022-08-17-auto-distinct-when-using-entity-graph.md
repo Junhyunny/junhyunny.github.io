@@ -236,7 +236,7 @@ public class QueryTranslatorImpl implements FilterTranslator {
         
         // ...
             
-		List results = queryLoader.list( session, queryParametersToUse );
+        List results = queryLoader.list( session, queryParametersToUse );
 
         if ( needsDistincting ) {
             int includedCount = -1;

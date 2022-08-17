@@ -31,7 +31,7 @@ last_modified_at: 2022-06-06T23:55:00
         Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? 
         Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!
     </p>
-    <br />
+    <br/>
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
     <p class="contract__content--detail">
         amet consectetur adipisicing elit. 
@@ -51,7 +51,7 @@ last_modified_at: 2022-06-06T23:55:00
         Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? 
         Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!
     </p>
-    <br />
+    <br/>
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
     <p class="contract__content--detail">
         amet consectetur adipisicing elit. 

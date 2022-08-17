@@ -19,11 +19,12 @@ last_modified_at: 2022-08-17T23:55:00
 
 모든 식별자(변수 이름, 함수 이름, 클래스 이름 등)들은 자신이 선언된 위치에 따라 유효한 범위가 결정됩니다. 
 ES6(ECMAScript6) 이후로 함수나 블럭(block) 영역을 기준으로 스코프를 만들 수 있습니다. 
+
 `JavaScript`는 if-else, try-catch 구문 등으로 생기는 블럭은 물론이고, 함수 내부에 새로운 함수를 선언함으로써 스코프의 중첩이 발생합니다. 
 `JavaScript`는 스코프가 중첩되면서 동일한 이름을 가진 식별자가 상위 스코프에 존재할 때 발생하는 식별자 선택의 모호함을 스코프 체인을 통해 해결합니다. 
-또한, 현재 스코프에서 찾을 수 없는 식별자를 상위 스코프에서 찾을 때도 스코프 체인을 사용합니다. 
+또, 현재 스코프에서 찾을 수 없는 식별자를 상위 스코프에서 찾을 때도 스코프 체인을 사용합니다. 
 
-##### 스코프 중첩
+### 1.1. 스코프 중첩
 
 * if 블럭 스코프 내부에서 `console.log(x)`를 수행하면 변수 `x`에 대한 참조가 발생합니다.
 * 스코프가 중첩되어 있으므로 참조할 수 있는 변수 `x`의 후보들은 여러 개 존재합니다. 
@@ -58,9 +59,9 @@ function outer() {
 outer()
 ```
 
-##### 스코프 체인을 통한 식별자 탐색
+### 1.2. 스코프 체인을 통한 식별자 탐색
 
-위 예시 코드를 통해 확인할 수 있듯이 스코프 체인을 통한 식별자 탐색은 다음과 같이 일어납니다.
+스코프 체인을 통한 식별자 탐색 과정은 다음과 같이 일어납니다.
 
 * 최상위 스코프는 전역 스코프입니다.
 * 하위 스코프에서 상위 스코프로 스코프 체인을 따라 단방향 탐색만 수행됩니다.
@@ -70,6 +71,15 @@ outer()
     * 현재 스코프에 참조하려는 식별자가 없다면 상위 스코프를 탐색합니다.
     * 참조하는 식별자를 찾은 경우엔 탐색을 중지합니다.
     * 참조하는 식별자를 전역 스코프에서도 찾지 못하는 경우엔 `ReferenceError`가 발생합니다.
+
+<p align="center">
+    <img src="/images/javascript-scope-chain-1.JPG" width="50%" class="image__border">
+</p>
+
+#### 1.2.1. 식별자 탐색 과정 예시
+
+위 예시 코드를 다시 살펴보면서 식별자 탐색 과정을 정리해보겠습니다. 
+
 * 위 예시 코드에서 `console.log(y)` 실행은 다음과 같이 수행됩니다.
     * 변수 `y`가 if 블럭 스코프에 존재하지 않으므로 상위 inner 함수 스코프를 탐색합니다.
     * 변수 `y`가 inner 함수 지역 스코프에 존재하지 않으므로 상위 outer 함수 스코프를 탐색합니다.
@@ -81,9 +91,33 @@ outer()
     * 변수 `z`가 outer 함수 지역 스코프에 존재하지 않으므로 상위 전역 스코프를 탐색합니다.
     * 변수 `z`가 전역 스코프에 존재하지 않으므로 `ReferenceError`가 발생합니다.
 
-<p align="center">
-    <img src="/images/javascript-scope-chain-1.JPG" width="80%" class="image__border">
-</p>
+```javascript
+// 전역 스코프
+var x = 'global x'
+
+// outer 함수 지역 스코프
+function outer() {
+    var x = 'outer x'
+    var y = 'outer y'
+
+    // inner 함수 지역 스코프
+    function inner() {
+        var x = 'inner x'
+        
+        // if 블럭 지역 스코프
+        if (x) {
+            const x = 'if block scope'
+            console.log(x) // if block scope
+            console.log(y) // outer y
+            console.log(z) // Uncaught ReferenceError: z is not defined
+        }
+    }
+
+    inner()
+}
+
+outer()
+```
 
 ## 2. 스코프 체인 확인
 

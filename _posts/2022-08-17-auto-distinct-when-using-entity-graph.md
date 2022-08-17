@@ -10,8 +10,8 @@ last_modified_at: 2022-08-17T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [JPA N+1 문제][jpa-one-plus-n-problem-link]
 * [SQL JOIN][sql-join-link]
+* [JPA N+1 문제][jpa-one-plus-n-problem-link]
 
 ## 0. 들어가면서
 
@@ -294,7 +294,8 @@ public class QueryTranslatorImpl implements FilterTranslator {
 * <https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s/73348400#73348400>
 * <https://vladmihalcea.com/jpql-distinct-jpa-hibernate/>
 
-[jpa-one-plus-n-problem-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-one-plus-n-problem/
 [sql-join-link]: https://junhyunny.github.io/information/sql-join/
+[jpa-one-plus-n-problem-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-one-plus-n-problem/
+
 [github-issue-link]: https://github.com/spring-projects/spring-data-jpa/issues/2430
 [stack-overflow-question-link]: https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s

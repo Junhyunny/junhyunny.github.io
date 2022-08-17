@@ -83,9 +83,9 @@ const polling = (callback, path, config, interval) => {
 이제 문제의 원인을 파헤쳐보겠습니다. 
 스택 오버플로우에서 찾은 설명을 정리하고, 제 코드에서 문제를 찾아보도록 하겠습니다. 
 
-### 2.1. Stack Overflow QnA 정리
+### 2.1. StackOverflow QnA 정리
 
-#### 2.1.1. Stack Overflow 질문
+#### 2.1.1. StackOverflow 질문
 - 9회 수행을 기대하였지만, 실제 2회만 동작하여 테스트가 실패했다고 합니다.
 
 <p align="center">
@@ -93,7 +93,7 @@ const polling = (callback, path, config, interval) => {
 </p>
 <center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
 
-#### 2.1.2 Analysis logic flow based on Stack Overflow answer 
+#### 2.1.2 Analysis logic flow based on StackOverflow answer 
 
 답변을 보면 문장 중간에 `setTimer(callback)`가 등장하는데, 문맥상 `simpleTimer(callback)`을 잘못 작성한 것으로 보입니다. 
 설명과 함께 제가 알고 있는 지식을 일부 추가하여 내용을 작성하였습니다. 
@@ -120,7 +120,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
     - `callback()` 종료
 - `expect(callback).toHaveBeenCalledTimes(9)` - 2회 수행으로 실패
 
-##### Stack Overflow 답변
+##### StackOverflow 답변
 
 <p align="center">
     <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" class="image__border">
@@ -312,9 +312,9 @@ const pocPolling = (callback, path, config, interval) => {
 
 `jest.spyOn()`를 사용하여 `axios.get(...)` 함수를 모킹하면 `await Promise.resolve()` 호출을 2회 추가적으로 수행해야 정상적으로 동작합니다. 
 모킹된 함수를 호출하는 시점에 두 개의 프로미스가 추가되는 것 같습니다. 
-정확한 답을 찾을 수 없어서 관련된 내용은 `Stack Overflow`에 질문으로 남겼습니다. 
+정확한 답을 찾을 수 없어서 관련된 내용은 `StackOverflow`에 질문으로 남겼습니다. 
 
-##### Stack Overflow 질문
+##### StackOverflow 질문
 - [Does spyAxios mocked by jest.spyOn(axios, 'get') make Promise when it is called?][stack-overflow-question-link]
 
 ##### 테스트 코드

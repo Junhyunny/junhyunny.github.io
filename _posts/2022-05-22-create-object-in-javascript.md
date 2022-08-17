@@ -270,7 +270,7 @@ console.dir(junhyunny);
 
 ### 4.2. instanceof 키워드 사용
 
-- `new.target` 키워드는 `ES6`에서 도입된 최신 문법이며, IE에선 지원하지 않습니다. 
+- `new.target` 키워드는 `ES6`에서 도입된 최신 문법이며, IE(Internet Explorer)에선 지원하지 않습니다. 
 - `instanceof` 키워드로 대체하여 구현할 수 있습니다.
 
 ```javascript
@@ -292,12 +292,6 @@ junhyunny.sayName();
 
 console.dir(junhyunny);
 ```
-
-## CLOSE
-
-이 글은 `JavaScript` 프로토타입(prototype) 객체에 대한 이야기를 작성하기 위해 시작하였습니다. 
-`JavaScript` 프로토타입에 대해 공부를 하다보니, 바로 프로토타입에 대한 이야기를 진행하는 것은 어렵다는 판단이 들었습니다. 
-프로토타입에 관련된 내용을 설명하기 위한 많은 개념들을 천천히 정리하고 빌드-업하여, 이 후에 다시 정리해야겠습니다.
 
 #### REFERENCE
 

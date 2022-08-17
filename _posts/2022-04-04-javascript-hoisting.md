@@ -64,9 +64,9 @@ last_modified_at: 2022-04-04T23:55:00
     - `JavaScript` 엔진은 `foo`라는 이름의 함수를 인지하고 있습니다.
 - `foo` 함수 내부 동작
     - 변수 `bar`를 `if` 블럭 내부에서 선언하고, `print` 함수에서 사용합니다.
-    - 변수 `bar`는 `if` 블럭 내부에서만 사용 가능하지 않지만, 변수를 선언한 함수 외부에선 사용이 불가능합니다. (함수 내부에서만 유효)
-    - `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하고 있습니다.
-- 전역에 위치한 `print(bar)` 코드를 실행시키면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
+    - 변수 `bar`는 함수 내부에선 사용이 가능하지만, 변수를 선언한 함수 외부에선 사용이 불가능합니다.
+    - `print` 함수를 호출하는 시점에 `JavaScript` 엔진은 `if` 블럭 내부에 선언한 `bar` 변수를 인지하고 있습니다.
+- 전역에 위치한 `print(bar)` 코드가 실행되면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
 - 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있습니다.
 
 {% include codepen.html hash="NWXXgQK" tab="js,result" title="var keyword before hoisting - 2" %}
@@ -102,9 +102,10 @@ last_modified_at: 2022-04-04T23:55:00
 
 ##### 동작한 코드 모습
 - 우선 함수 선언부가 먼저 호이스팅 됩니다. 
-    - `foo`, `bar` 이름의 함수가 먼저 선언됩니다.
+    - `foo`, `bar` 이름의 함수가 먼저 코드 위 부분에 선언됩니다.
 - `var` 키워드로 선언한 변수가 호이스팅 됩니다.
     - `foo`, `bar` 변수가 코드 최상단에 선언됩니다.
+    - 먼저 호이스팅 된 함수보다 위로 올라갑니다.
 - 코드의 흐름에 따라 `function foo() {}`, `function bar() {}`가 출력됩니다.
 
 {% include codepen.html hash="eYyyELV" tab="js,result" title="var keyword after hoisting - 3" %}

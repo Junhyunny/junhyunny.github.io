@@ -174,4 +174,6 @@ foo()
 * [인사이드 자바스크립트 Inside JavaScript 핵심 개념과 원리를 정확하게.][inside-javascript-book-link]
 
 [modern-javascript-book-link]: http://www.yes24.com/product/goods/92742567
+[inside-javascript-book-link]: http://www.yes24.com/product/goods/37157296
+
 [javascript-scope-link]: https://junhyunny.github.io/javascript/javascript-scope/

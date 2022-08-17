@@ -15,8 +15,8 @@ last_modified_at: 2022-08-17T23:55:00
 
 ## 0. 들어가면서
 
-[JPA N+1 문제][jpa-one-plus-n-problem-link] 포스트를 작성할 때 `@EntityGraph` 애너테이션을 사용하면 추가적인 처리 없이 자동으로 중복된 엔티티(entity)들이 제거되는 현상을 발견했습니다. 
-당시에 이 현상에 대해 궁금하여 `Github`와 `StackOverflow`에 문의를 남겼었는데, 최근 `StackOverflow`를 통해 얻은 답변을 이번 포스트를 통해 공유하였습니다. 
+[JPA N+1 문제][jpa-one-plus-n-problem-link]와 관련된 포스트를 작성할 때 `@EntityGraph` 애너테이션을 사용하면 추가적인 처리 없이도 자동적으로 중복된 엔티티(entity)들이 제거되는 현상을 발견했습니다. 
+당시에 이 현상에 대해 궁금하여 `Github`와 `StackOverflow`에 문의를 남겼었는데, 최근 `StackOverflow`를 통해 얻은 답변을 이번 포스트를 통해 공유하겠습니다. 
 
 ##### Github 이슈
 
@@ -28,11 +28,11 @@ last_modified_at: 2022-08-17T23:55:00
 
 ## 1. 중복 제거 현상
 
-`StackOverflow` 답변을 보기 전에 `@EntityGraph` 애너테이션 사용 시 중복이 제거되는 현상에 대해 자세히 짚고 넘어가겠습니다. 
+`StackOverflow`의 답변을 보기 전에 `@EntityGraph` 애너테이션 사용 시 중복이 제거되는 현상에 대해 자세히 짚고 넘어가겠습니다. 
 
 ### 1.1. 1-N 관계 시 데이터 중복 현상
 
-다음과 같은 데이터가 존재한다고 가정하였습니다. 
+다음과 같은 데이터가 존재한다고 가정하겠습니다. 
 
 ##### Post 테이블
 
@@ -86,7 +86,7 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 ### 1.2. JPA JOIN FETCH 쿼리
 
 이런 현상은 `JPA`를 사용하더라도 똑같이 발생합니다. 
-`JPA`에서 발생하는 N+1 문제를 해결하기 위해 사용하는 JOIN FETCH 쿼리를 수행하면 다음과 같은 결과를 얻을 수 있습니다. 
+`JPA`에서 발생하는 N+1 문제를 해결하기 위해 사용하는 `JOIN FETCH` 쿼리를 수행하면 다음과 같은 결과를 얻습니다. 
 
 #### 1.2.1. FETCH JOIN 코드 수행 시 SQL 로그
 
@@ -119,17 +119,17 @@ where post0_.title = ?
 
 위 메소드를 수행하여 얻은 결과를 디버깅 모드로 살펴보면 다음과 같습니다. 
 
-* Post 테이블이 Reply 테이블과 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장됩니다.
+* Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장됩니다.
 
 <p align="center">
-    <img src="/images/auto-distinct-when-using-entity-graph-1.JPG" width="100%" class="image__border">
+    <img src="/images/auto-distinct-when-using-entity-graph-1.JPG" width="80%" class="image__border">
 </p>
 
 #### 1.2.3. 해결 방법
 
-위와 같은 현상을 방지하기 위해 두 가지 방법을 사용합니다.
+위와 같은 현상을 방지하기 위한 두 가지 방법이 있습니다.
 
-##### DISTINCT 키워드
+##### DISTINCT 키워드 사용
 
 * JPQL(Java Persistence Query Language) 쿼리에 DISTINCT 키워드 추가하여 중복된 결과를 제거합니다.
 
@@ -138,7 +138,7 @@ where post0_.title = ?
     List<Post> findDistinctByTitleFetchJoin(String title);
 ```
 
-##### Set 자료구조
+##### Set 자료구조 사용
 
 * 중복되는 객체가 담기지 않도록 결과 값에 `Set` 자료구조를 사용합니다.
 
@@ -187,7 +187,7 @@ where post0_.title = ?
     * 중복 제거를 위한 `DISTINCT` 키워드 혹은 `Set` 자료구조 미사용
 
 <p align="center">
-    <img src="/images/auto-distinct-when-using-entity-graph-2.JPG" width="100%" class="image__border">
+    <img src="/images/auto-distinct-when-using-entity-graph-2.JPG" width="80%" class="image__border">
 </p>
 
 ## 2. StackOverflow 답변
@@ -212,6 +212,7 @@ where post0_.title = ?
 
 * `QueryTranslatorImpl` 클래스의 `list` 메소드에서 엔티티 중복이 제거됩니다.
 * `getEntityGraphQueryHint` 메소드 수행 시 결과가 `null`이 아닌 경우 중복을 제거합니다.
+    * `query.getSelectClause().isDistinct()` 메소드의 수행 결과와 상관 없이 중복이 제거됩니다. 
 * `IdentitySet` 클래스를 통해 중복을 제거합니다.
 
 ```java
@@ -274,7 +275,7 @@ public class QueryTranslatorImpl implements FilterTranslator {
 
 해당 코드 위치를 디버깅 모드로 살펴보았습니다. 
 
-* `getEntityGraphQueryHint` 메소드 수행 결과입니다.
+* 아래 그림은 `getEntityGraphQueryHint` 메소드 수행 결과입니다.
 * `@EntityGraph` 애너테이션을 사용하면 `"javax.persistence.fetchgraph"`라는 힌트가 적용되면서 `EntityGraphQueryHint` 객체를 생성합니다.
     * 디버깅 추적을 통해 확인한 힌트 생성과 연관된 클래스들은 다음과 같습니다. 
     * org.hibernate.query.internal.AbstractProducedQuery
@@ -282,7 +283,7 @@ public class QueryTranslatorImpl implements FilterTranslator {
     * org.hibernate.hql.internal.ast.QueryTranslatorImpl
 
 <p align="left">
-    <img src="/images/auto-distinct-when-using-entity-graph-4.JPG" width="60%" class="image__border">
+    <img src="/images/auto-distinct-when-using-entity-graph-4.JPG" width="50%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY
@@ -299,3 +300,4 @@ public class QueryTranslatorImpl implements FilterTranslator {
 
 [github-issue-link]: https://github.com/spring-projects/spring-data-jpa/issues/2430
 [stack-overflow-question-link]: https://stackoverflow.com/questions/70988649/why-does-not-entitygraph-annotation-in-jpa-need-to-use-distinct-keyword-or-s
+[hibernate-release-link]: https://hibernate.atlassian.net/browse/HHH-11569?page=com.atlassian.jira.plugin.system.issuetabpanels%3Aworklog-tabpanel

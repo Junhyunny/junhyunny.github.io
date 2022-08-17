@@ -43,7 +43,7 @@ last_modified_at: 2022-07-22T23:55:00
         <span class="custom-radio"></span>
     </label>
 </div>
-<br />
+<br/>
 <div class="radio-buttons-2">
     <label for="term-1" class="radio-button">1학기
         <input type="radio" id="term-1" name="terms">

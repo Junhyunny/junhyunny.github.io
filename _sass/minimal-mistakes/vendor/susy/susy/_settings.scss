@@ -46,8 +46,6 @@
 /// @see susy-settings
 /// @see susy-get
 
-
-
 // Susy
 // ----
 /// The grid is defined in a single map variable,
@@ -89,14 +87,14 @@
 ///
 ///   - `susy-repeat(8)`:
 ///     an 8-column, symmetrical, fluid grid.
-///     <br />Identical to `(1 1 1 1 1 1 1 1)`.
+///     <br/>Identical to `(1 1 1 1 1 1 1 1)`.
 ///   - `susy-repeat(6, 8em)`:
 ///     a 6-column, symmetrical, em-based grid.
-///     <br />Identical to `(8em 8em 8em 8em 8em 8em)`.
+///     <br/>Identical to `(8em 8em 8em 8em 8em 8em)`.
 ///   - `(300px susy-repeat(4) 300px)`:
 ///     a 6-column, asymmetrical, mixed fluid/static grid
 ///     using `calc()` output.
-///     <br />Identical to `(300px 1 1 1 1 300px)`.
+///     <br/>Identical to `(300px 1 1 1 1 300px)`.
 ///
 ///   **NOTE** that `12` is no longer a valid 12-column grid definition,
 ///   and you must list all the columns individually
@@ -173,8 +171,6 @@
 ///   );
 $susy: () !default;
 
-
-
 // Susy Repeat
 // -----------
 /// Similar to the `repeat(<count>, <value>)` function
@@ -212,10 +208,7 @@ $susy: () !default;
 ///   );
 ///
 ///   /* result: #{susy-get('columns')} */
-@function susy-repeat(
-  $count,
-  $value: 1
-) {
+@function susy-repeat($count, $value: 1) {
   $return: ();
 
   @for $i from 1 through $count {
@@ -224,8 +217,6 @@ $susy: () !default;
 
   @return $return;
 }
-
-
 
 // Susy Defaults
 // -------------
@@ -243,13 +234,11 @@ $susy: () !default;
 /// @prop {string} spread ['narrow']
 /// @prop {string} container-spread ['narrow']
 $_susy-defaults: (
-  'columns': susy-repeat(4),
-  'gutters': 0.25,
-  'spread': 'narrow',
-  'container-spread': 'narrow',
+  "columns": susy-repeat(4),
+  "gutters": 0.25,
+  "spread": "narrow",
+  "container-spread": "narrow",
 );
-
-
 
 // Susy Settings
 // -------------
@@ -283,9 +272,7 @@ $_susy-defaults: (
 ///   @each $key, $value in susy-settings($local) {
 ///     /* #{$key}: #{$value} */
 ///   }
-@function susy-settings(
-  $overrides...
-) {
+@function susy-settings($overrides...) {
   $settings: map-merge($_susy-defaults, $susy);
 
   @each $config in $overrides {
@@ -294,8 +281,6 @@ $_susy-defaults: (
 
   @return $settings;
 }
-
-
 
 // Susy Get
 // --------
@@ -314,15 +299,14 @@ $_susy-defaults: (
 /// @example scss -
 ///   /* columns: #{susy-get('columns')} */
 ///   /* gutters: #{susy-get('gutters')} */
-@function susy-get(
-  $key
-) {
+@function susy-get($key) {
   $settings: susy-settings();
 
   @if not map-has-key($settings, $key) {
     @return _susy-error(
-      'There is no Susy setting called `#{$key}`',
-      'susy-get');
+      "There is no Susy setting called `#{$key}`",
+      "susy-get"
+    );
   }
 
   @return map-get($settings, $key);

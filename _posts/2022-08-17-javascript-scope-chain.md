@@ -166,7 +166,59 @@ foo()
     <img src="/images/javascript-scope-chain-2.JPG" width="65%" class="image__border">
 </p>
 
-<!-- ## CLOSING -->
+## CLOSING
+ 
+식별자 참조 여부에 따라 스코프 체인의 결과가 달라지는 현상을 발견했습니다. 
+관련된 레퍼런스(reference)를 찾을 수가 없어서 `StackOverflow`에 문의를 남겼습니다. 
+
+* [Different result of JavaScript scope chain in the Chrome browser][stack-overflow-link]
+
+예시 코드를 변경하여 간략하게 해당 현상에 대해 설명해보겠습니다. 
+
+##### 예시 코드 변경
+
+* `baz` 함수 내부에 다른 변수를 참조하는 코드를 모두 주석합니다. 
+
+```javascript
+var A = 'Hello'
+
+function foo() {
+    var B = 'World'
+    function bar() {
+        var A = 'Junhyunny'
+        if (A) {
+            const C = 'JavaScript'
+            if (B) {
+                const D = 'Post'
+                function baz() {
+                    // console.log(A)
+                    // console.log(B)
+                    // console.log(C)
+                    // console.log(D)
+                    console.dir(baz)
+                }
+            }
+        }
+        baz()
+    }
+    bar()
+}
+
+foo()
+```
+
+##### 스코프 체인 생성 결과
+
+다음과 같은 원인이 있지 않을까 추정해봤습니다.
+
+* 스코프 체인은 해당 함수가 반드시 필요한 스코프들로만 이뤄진다고 가정하였습니다.
+* 함수 `baz` 선언은 변수 `B`에 영향을 받기 때문에 `Block(foo)` 스코프가 필요합니다.
+* 변수 `B`는 함수 `foo`에 선언되어 있기 때문에 `Closure(foo)` 스코프가 필요합니다.
+* 글로벌 스코프는 필수입니다.
+
+<p align="left">
+    <img src="/images/javascript-scope-chain-3.JPG" width="65%" class="image__border">
+</p>
 
 #### REFERENCE
 
@@ -177,3 +229,5 @@ foo()
 [inside-javascript-book-link]: http://www.yes24.com/product/goods/37157296
 
 [javascript-scope-link]: https://junhyunny.github.io/javascript/javascript-scope/
+
+[stack-overflow-link]: https://stackoverflow.com/questions/73397612/different-result-of-javascript-scope-chain-in-the-chrome-browser

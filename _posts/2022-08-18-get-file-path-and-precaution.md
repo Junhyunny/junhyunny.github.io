@@ -255,7 +255,7 @@ public class FindFilePathTests {
 
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-18-precaution-to-get-file-path>
 
 #### REFERENCE
 

@@ -75,7 +75,7 @@ CSRF 공격을 시도하기 위해선 아래와 같은 몇 가지 조건이 필�
 
 간단한 POC(Proof Of Concept) 코드를 작성하여 CSRF 공격을 재현해보겠습니다. 
 공격자는 취약 서버의 사용자 이름을 변경하는 방법을 파악하고, 악성 스크립트가 작성된 페이지를 사용자가 클릭하도록 유도했다고 가정합니다. 
-Github 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
+GitHub 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
     - backend - 보안 취약 서버 (DOMAIN - localhost / PORT - 8081)
     - attacker - 공격자 서버 (DOMAIN - 127.0.0.1 / PORT - 8080)
@@ -202,7 +202,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 ## 3. CSRF 방어 방법
 
 공격 방법에 대해 알아보았으니 방어 방법에 대해 정리해보겠습니다. 
-Github 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
+GitHub 레포지토리에서 테스트와 관련된 프로젝트를 받을 수 있습니다.
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
     - enhanced-backend - 보안 강화 서버 (DOMAIN - localhost / PORT - 8081)
 

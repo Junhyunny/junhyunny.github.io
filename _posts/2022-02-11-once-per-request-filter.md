@@ -273,7 +273,7 @@ public class TestController {
     <img src="/images/once-per-request-filter-3.JPG" width="100%" class="image__border">
 </p>
 
-##### Github spring-mvc-showcase 레포지토리 이슈
+##### GitHub spring-mvc-showcase 레포지토리 이슈
 - `MockMvc`를 이용한 포워딩 테스트를 진행하고 싶었지만, 관련된 기능은 제공되지 않은 것 같습니다. 
 - 찾아보니 스프링 진영에서도 관련된 내용에 대한 의견을 나누고는 있는 것 같습니다.
 - <https://github.com/spring-attic/spring-mvc-showcase/issues/42>

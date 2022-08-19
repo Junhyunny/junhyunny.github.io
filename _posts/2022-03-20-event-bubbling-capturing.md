@@ -24,7 +24,7 @@ last_modified_at: 2022-03-20T23:55:00
 <p align="center">
     <img src="/images/event-bubbling-capturing-1.JPG" width="80%" class="image__border">
 </p>
-<center>https://www.w3.org/TR/DOM-Level-3-Events/</center><br>
+<center>https://www.w3.org/TR/DOM-Level-3-Events/</center>
 
 ## 2. 이벤트 버블링(Event Bubbling) 
 

@@ -39,7 +39,7 @@ last_modified_at: 2021-08-24T01:30:00
 - heap 영역 - 런타임시 동적으로 메모리를 할당받는 영역
 
 <p align="center"><img src="/images/process-vs-thread-1.JPG" width="30%"></p>
-<center>Operating System Concepts 9th</center><br>
+<center>Operating System Concepts 9th</center>
 
 ## 3. 스레드(Thread)
 
@@ -53,7 +53,7 @@ last_modified_at: 2021-08-24T01:30:00
 ### 3.1. 스레드 메모리 구조
 
 <p align="center"><img src="/images/process-vs-thread-2.JPG" width="55%"></p>
-<center>Operating System Concepts 9th</center><br>
+<center>Operating System Concepts 9th</center>
 
 ### 3.2. 스레드 사용 시 장점
 - 프로세스 간 통신에 비해 스레드 간 통신은 간단하다.

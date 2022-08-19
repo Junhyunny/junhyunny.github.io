@@ -37,7 +37,7 @@ last_modified_at: 2022-03-14T23:55:00
 <p align="center">
     <img src="/images/refactoring-rps-game-1.JPG" width="50%" class="image__border">
 </p>
-<center>https://en.wikipedia.org/wiki/Rock_paper_scissors</center><br>
+<center>https://en.wikipedia.org/wiki/Rock_paper_scissors</center>
 
 ### 1.1. RPSGame 클래스
 
@@ -173,7 +173,7 @@ public class RpsGameTests {
 <p align="center">
     <img src="/images/refactoring-rps-game-3.JPG" width="50%" class="image__border">
 </p>
-<center>https://m.post.naver.com/viewer/postView.naver?volumeNo=23912903&memberNo=39735121</center><br>
+<center>https://m.post.naver.com/viewer/postView.naver?volumeNo=23912903&memberNo=39735121</center>
 
 ### 2.1. 함수형 인터페이스를 이용한 Hand enum 기능 추상화
 - 각 `enum` 객체들이 자신이 겨룰 수 있는 경우의 수를 직접 판단하도록 합니다. 

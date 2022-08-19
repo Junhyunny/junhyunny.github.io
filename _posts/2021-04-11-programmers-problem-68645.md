@@ -18,7 +18,7 @@ last_modified_at: 2021-08-22T18:00:00
 첫 행부터 마지막 행까지 모두 순서대로 합친 새로운 배열을 return 하도록 solution 함수를 완성해주세요.
 
 <p align="center"><img src="/images/programmers-problem-68645-1.JPG" width="80%"></p>
-<center>https://programmers.co.kr/learn/courses/30/lessons/68645</center><br>
+<center>https://programmers.co.kr/learn/courses/30/lessons/68645</center>
 
 ## 3. 제한 사항
 - n은 1 이상 1,000 이하입니다.

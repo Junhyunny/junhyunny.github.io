@@ -34,7 +34,7 @@ last_modified_at: 2022-03-27T23:55:00
 <p align="center">
     <img src="/images/how-to-test-clean-up-1.JPG" width="90%" class="image__border">
 </p>
-<center>https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</center><br>
+<center>https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</center>
 
 ### 1.1. componentDidMount 메소드
 

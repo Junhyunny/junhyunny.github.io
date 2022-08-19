@@ -28,7 +28,7 @@ last_modified_at: 2021-08-28T01:00:00
 
 ##### 싱글톤 패턴 클래스 다이어그램
 <p align="center"><img src="/images/singleton-pattern-1.JPG" width="30%"></p>
-<center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center><br>
+<center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
 
 ### 1.1. 싱글톤 패턴 사용 시 이점
 싱글톤 패턴을 사용하는 경우 아래와 같은 이점을 얻을 수 있습니다.

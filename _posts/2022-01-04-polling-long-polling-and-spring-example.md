@@ -42,7 +42,7 @@ last_modified_at: 2022-01-04T23:55:00
 <p align="center">
     <img src="/images/polling-long-polling-and-spring-example-1.JPG" width="50%" class="image__border">
 </p>
-<center>https://rubberduck-debug.tistory.com/123</center><br>
+<center>https://rubberduck-debug.tistory.com/123</center>
 
 ### 1.2. 롱 폴링(Long Polling) 방식
 
@@ -59,7 +59,7 @@ last_modified_at: 2022-01-04T23:55:00
 <p align="center">
     <img src="/images/polling-long-polling-and-spring-example-2.JPG" width="50%" class="image__border">
 </p>
-<center>https://rubberduck-debug.tistory.com/123</center><br>
+<center>https://rubberduck-debug.tistory.com/123</center>
 
 ### 1.3. 롱 폴링 방식은 항상 유리한가?
 
@@ -124,7 +124,7 @@ DeferredResult 클래스는 비동기 처리를 위해 등장하였습니다.
 <p align="center">
     <img src="/images/polling-long-polling-and-spring-example-3.JPG" width="60%" class="image__border">
 </p>
-<center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center><br>
+<center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center>
 
 ### 2.2. DeferredResultController 클래스 테스트
 

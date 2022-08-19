@@ -131,7 +131,7 @@ $ docker build .
 <p align="center">
     <img src="/images/docker-file-build-and-image-layer-1.JPG" width="100%" class="image__border">
 </p>
-<center>https://kimjingo.tistory.com/62</center><br>
+<center>https://kimjingo.tistory.com/62</center>
 
 ##### docker history command to see the layer
 

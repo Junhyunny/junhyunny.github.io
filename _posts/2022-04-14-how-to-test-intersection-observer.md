@@ -32,7 +32,7 @@ last_modified_at: 2022-04-14T23:55:00
 <p align="center">
     <img src="/images/how-to-test-intersection-observer-1.JPG" width="75%" class="image__border">
 </p>
-<center>https://cross-code.github.io/posts/IntersectionObserver/</center><br>
+<center>https://cross-code.github.io/posts/IntersectionObserver/</center>
 
 ## 2. 코드 살펴보기
 

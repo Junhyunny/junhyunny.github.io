@@ -28,7 +28,7 @@ Return the number of land cells in grid for which we cannot walk off the boundar
 ### 4.1. 예시1
 
 <p align="center"><img src="/images/leetcode-problem-1020-1.JPG" width="25%"></p>
-<center>https://leetcode.com/problems/number-of-enclaves/</center><br>
+<center>https://leetcode.com/problems/number-of-enclaves/</center>
 
 - Input: grid = [[0,0,0,0],[1,0,1,0],[0,1,1,0],[0,0,0,0]]
 - Output: 3
@@ -37,7 +37,7 @@ Return the number of land cells in grid for which we cannot walk off the boundar
 ### 4.2. 예시2
 
 <p align="center"><img src="/images/leetcode-problem-1020-2.JPG" width="25%"></p>
-<center>https://leetcode.com/problems/number-of-enclaves/</center><br>
+<center>https://leetcode.com/problems/number-of-enclaves/</center>
 
 - Input: grid = [[0,1,1,0],[0,0,1,0],[0,0,1,0],[0,0,0,0]]
 - Output: 0

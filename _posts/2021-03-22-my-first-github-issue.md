@@ -27,7 +27,7 @@ spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 이야기를 �
 ### 2.1. 이슈 발견
 
 <p align="left"><img src="/images/my-first-github-issue-1.JPG" width="92.5%"></p>
-<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
+<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 
 해결할만한 이슈를 하나 찾았습니다. 
 String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한 것으로 예상됩니다. 
@@ -39,21 +39,21 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 배열(array)에 대한 확인 코드를 추가하면 큰 영향없이 사용할 수 있을 것이라 생각하였습니다. 
 
 <p align="left"><img src="/images/my-first-github-issue-2.JPG" width="92.5%"></p>
-<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
+<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 
 ### 2.3. **`@spencergibb`** 님의 한마디
 
 > "응, 우리 이슈 아니네. 저리로 가세요~" 
 
 <p align="left"><img src="/images/my-first-github-issue-3.JPG" width="92.5%"></p>
-<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center><br>
+<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 
 ### 2.4. Openfeign 프로젝트 이슈 등록
 
 눈물을 머금고 Openfeign 프로젝트 쪽에 이슈를 등록하였습니다.
 
 <p align="left"><img src="/images/my-first-github-issue-4.JPG" width="92.5%"></p>
-<center>https://github.com/OpenFeign/feign/issues/1170</center><br>
+<center>https://github.com/OpenFeign/feign/issues/1170</center>
 
 등록한 이슈를 매일같이 들어가보며 답변을 기다렸지만 묵묵부답입니다.
 
@@ -67,7 +67,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 >  "오 그럴싸하네, 이제부턴 우리가 할께."
 
 <p align="left"><img src="/images/my-first-github-issue-5.JPG" width="92.5%"></p>
-<center>https://github.com/OpenFeign/feign/issues/1170</center><br>
+<center>https://github.com/OpenFeign/feign/issues/1170</center>
 
 😢😭😰😥 몇 시간 고생했는데 결국 PR을 받아내진 못했습니다. 
 결국 이슈를 해결하기 위해 얻은 경험을 위안으로 삼고 다음 이슈를 찾아 떠났습니다. 

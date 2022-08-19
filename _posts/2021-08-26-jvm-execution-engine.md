@@ -35,7 +35,7 @@ last_modified_at: 2021-08-26T06:00:00
 JDK(Java Development kit)을 설치하면 `/bin` 폴더에 있는 `javac` 프로그램에 의해 수행됩니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-1.JPG" width="55%"></p>
-<center>https://math.hws.edu/javanotes/c1/s3.html</center><br>
+<center>https://math.hws.edu/javanotes/c1/s3.html</center>
 
 컴파일이 완료되면 JVM 이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자를 가지는 클래스 파일이 생성됩니다. 
 클래스 파일은 어플리케이션이 동작할 때 메모리에 적재되어 JVM 실행 엔진에 의해 수행됩니다. 
@@ -112,7 +112,7 @@ public class blog.in.action.ActionInBlogApplication {
 인터프리터는 바이트 코드를 읽고(read), 운영체제가 실행할 수 있도록 기계어로 변경하는 역할을 수행합니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-4.JPG" width="55%"></p>
-<center>https://www.javatpoint.com/java-interpreter</center><br>
+<center>https://www.javatpoint.com/java-interpreter</center>
 
 JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인씩 읽고 실행합니다. 
 여기에서 속도가 문제가 발생합니다. 
@@ -175,7 +175,7 @@ $ java -XX:CompileThreshold=100 -XX:OnStackReplacePercentage=33 src/test/java/bl
 루프가 끝나지 않고 지속적으로 수행되고 있는 경우에 큰 도움을 줄 수 있습니다. 
 
 <p align="center"><img src="/images/jvm-execution-engine-5.JPG" width="55%"></p>
-<center>(위 이미지는 이해를 돕기 위해 임의로 그렸습니다.)</center><br>
+<center>(위 이미지는 이해를 돕기 위해 임의로 그렸습니다.)</center>
 
 #### 2.2.2. JIT 컴파일러 실행 확인 테스트
 - 반복문을 수행하는 코드를 작성하고 실행시킵니다. 

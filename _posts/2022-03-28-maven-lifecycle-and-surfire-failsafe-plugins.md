@@ -36,7 +36,7 @@ last_modified_at: 2022-03-28T23:55:00
 <p align="center">
     <img src="/images/maven-lifecycle-and-surfire-failsafe-plugins-1.JPG" width="90%" class="image__border">
 </p>
-<center>https://medium.com/@yetanothersoftwareengineer/maven-lifecycle-phases-plugins-and-goals-25d8e33fa22</center><br>
+<center>https://medium.com/@yetanothersoftwareengineer/maven-lifecycle-phases-plugins-and-goals-25d8e33fa22</center>
 
 ## 2. Phase 
 
@@ -210,7 +210,7 @@ $ mvn clean:clean jar:jar install:install
 <p align="center">
     <img src="/images/maven-lifecycle-and-surfire-failsafe-plugins-2.JPG" width="80%" class="image__border">
 </p>
-<center>https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html</center><br>
+<center>https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html</center>
 
 ### 3.2. spring-boot-maven-plugin 살펴보기
 

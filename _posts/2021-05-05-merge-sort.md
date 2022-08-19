@@ -20,7 +20,7 @@ last_modified_at: 2021-08-28T03:00:00
 
 ##### 합병 정렬 동작 방식
 <p align="center"><img src="/images/merge-sort-1.gif" width="50%"></p>
-<center>https://en.wikipedia.org/wiki/Merge_sort</center><br>
+<center>https://en.wikipedia.org/wiki/Merge_sort</center>
 
 ## 2. 합병 정렬 수행 과정
 합병 정렬은 다음과 같은 과정을 통해 수행됩니다.

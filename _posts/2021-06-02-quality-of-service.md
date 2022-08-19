@@ -93,7 +93,7 @@ MQTT 프로토콜이 제공하는 QoS는 수준(level)에 따라 다른 신뢰�
 - `VernMQ`에서 지원하는 QoS 수준은 MQTT 프로토콜의 QoS 수준을 의미합니다. 
 
 <p align="center"><img src="/images/quality-of-service-1.jpg" width="75%"></p>
-<center>https://devopedia.org/mqtt</center><br>
+<center>https://devopedia.org/mqtt</center>
 
 #### REFERENCE
 - <https://ko.wikipedia.org/wiki/QoS>

@@ -47,7 +47,7 @@ JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자
 <p align="center">
     <img src="/images/jpa-persistence-context-1.JPG" width="60%" class="image__border">
 </p>
-<center>https://gunlog.dev/JPA-Persistence-Context/</center><br>
+<center>https://gunlog.dev/JPA-Persistence-Context/</center>
 
 ### 2.1. 비영속(new/transient)
 

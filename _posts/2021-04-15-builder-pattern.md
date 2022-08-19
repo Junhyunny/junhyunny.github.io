@@ -35,7 +35,7 @@ GoF 디자인 패턴에서는 어떤 방식으로 객체의 생성을 표현으�
 - ConcreteBuilder - Builder 인터페이스를 구현한 클래스(Product를 만드는 방법을 구체적으로 구현)
 
 <p align="center"><img src="/images/builder-pattern-1.JPG" width="70%"></p>
-<center>https://en.wikipedia.org/wiki/Builder_pattern</center><br>
+<center>https://en.wikipedia.org/wiki/Builder_pattern</center>
 
 ### 1.2. 'GoF 디자인 패턴'의 빌더 패턴을 통해 얻는 이점
 - 제품에 대한 내부 표현을 다양하게 변화할 수 있습니다. 
@@ -424,13 +424,13 @@ Okky 커뮤니티에 항상 좋은 글을 써주시는 하마님, fender 님의 
 fender 님께서는 다음과 같은 부가적인 설명도 작성해주셨는데 초보자들에게 쉬운 이해를 도울 수 있는 부분이라 생각합니다. 
 
 <p align="center"><img src="/images/builder-pattern-2.JPG" width="65%"></p>
-<center>https://okky.kr/article/396206</center><br>
+<center>https://okky.kr/article/396206</center>
 
 [빌더 패턴을 사용하는 이유를 잘 모르겠습니다.][okky-link] 글에서 
 **'GoF 디자인 패턴'**의 빌더 패턴을 **'Effective Java'**에서 좁혀서 정의했다는 하마님의 댓글이 공감됩니다. 
 
 <p align="center"><img src="/images/builder-pattern-3.JPG" width="65%"></p>
-<center>https://okky.kr/article/396206</center><br>
+<center>https://okky.kr/article/396206</center>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-15-builder-pattern>

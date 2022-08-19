@@ -23,7 +23,7 @@ last_modified_at: 2021-08-22T18:00:00
 예를들어서 n이 7인 직사각형은 다음과 같이 채울 수 있습니다.
 
 <p align="center"><img src="/images/programmers-problem-12900-1.JPG" width="45%"></p>
-<center>https://programmers.co.kr/learn/courses/30/lessons/12900</center><br>
+<center>https://programmers.co.kr/learn/courses/30/lessons/12900</center>
 
 직사각형의 가로의 길이 n이 매개변수로 주어질 때, 이 직사각형을 채우는 방법의 수를 return 하는 solution 함수를 완성해주세요.
 

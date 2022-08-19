@@ -169,7 +169,7 @@ var bar = function bar () {
 <p align="center">
     <img src="/images/javascript-hoisting-1.JPG" width="45%" class="image__border">
 </p>
-<center>https://noogoonaa.tistory.com/78</center><br>
+<center>https://noogoonaa.tistory.com/78</center>
 
 ##### TDZ, Temporal Dead Zone
 - 선언 단계와 초기화 단계 사이의 단계를 `TDZ`라고 부릅니다.
@@ -178,7 +178,7 @@ var bar = function bar () {
 <p align="center">
     <img src="/images/javascript-hoisting-2.JPG" width="45%" class="image__border">
 </p>
-<center>https://blog.naver.com/PostView.nhn?blogId=dlaxodud2388&logNo=222284235839</center><br>
+<center>https://blog.naver.com/PostView.nhn?blogId=dlaxodud2388&logNo=222284235839</center>
 
 ### 2.1. var 키워드 변수의 선언, 초기화 그리고 할당
 
@@ -216,7 +216,7 @@ true pen.js:52:9
 <p align="center">
     <img src="/images/javascript-hoisting-3.JPG" width="70%" class="image__border">
 </p>
-<center>https://noogoonaa.tistory.com/78</center><br>
+<center>https://noogoonaa.tistory.com/78</center>
 
 ### 2.2. let 키워드 변수의 선언, 초기화 그리고 할당
 
@@ -255,7 +255,7 @@ poppxwV:44:1
 <p align="center">
     <img src="/images/javascript-hoisting-4.JPG" width="70%" class="image__border">
 </p>
-<center>https://noogoonaa.tistory.com/78</center><br>
+<center>https://noogoonaa.tistory.com/78</center>
 
 ### 2.3. TDZ 영향을 받는 구문
 
@@ -369,7 +369,7 @@ import { myFunction } from './myModule';
 <p align="center">
     <img src="/images/javascript-hoisting-5.JPG" width="70%" class="image__border">
 </p>
-<center>https://noogoonaa.tistory.com/78</center><br>
+<center>https://noogoonaa.tistory.com/78</center>
 
 #### REFERENCE
 - <https://developer.mozilla.org/ko/docs/Glossary/Hoisting>

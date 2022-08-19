@@ -43,7 +43,7 @@ last_modified_at: 2021-08-21T16:00:00
 **스케일 큐브(Scale Cube)는 어플리케이션을 확장하는 데 필요한 세 가지 주요 접근 방식을 정의합니다.**
 
 <p align="center"><img src="/images/msa-pros-and-cons-2.JPG" width="500"></p>
-<center>https://akfpartners.com/growth-blog/scale-cube</center><br>
+<center>https://akfpartners.com/growth-blog/scale-cube</center>
 
 - x 축 방향의 확장은 어플리케이션을 복제해서 수평적으로 확장하는 것을 의미
 - y 축 방향의 확장은 서로 다른 기능을 분리하는 것을 의미 - Micro Services (or micro-services)
@@ -98,7 +98,7 @@ y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점을 �
 예로 카나리 배포 전략(canary relase)을 들 수 있습니다.
 
 <p align="center"><img src="/images/msa-pros-and-cons-3.JPG" width="500"></p>
-<center>https://reference-m1.tistory.com/211</center><br>
+<center>https://reference-m1.tistory.com/211</center>
 
 ## 2. Micro Service Architecture 단점
 

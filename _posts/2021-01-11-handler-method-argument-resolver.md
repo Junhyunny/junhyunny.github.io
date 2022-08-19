@@ -9,7 +9,7 @@ last_modified_at: 2021-08-21T17:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
+- [Spring Security JWT(Json Web Token) 인증 예제][spring-security-example-link]
 - [Token Enhancer][token-enhancer-link]
 - [Content-Type and Spring Boot annotation][content-type-and-spring-annotation-link]
 

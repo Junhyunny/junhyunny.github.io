@@ -140,7 +140,7 @@ API 문서를 확인해보니 해당 내용을 찾을 수 있었습니다.
 확인 후 관련된 버전을 올렸습니다. 
 
 <p align="center"><img src="/images/maven-checkstyle-5.JPG" width="70%"></p>
-<center>https://checkstyle.sourceforge.io/config_naming.html</center><br>
+<center>https://checkstyle.sourceforge.io/config_naming.html</center>
 
 #### 4.2.2. 변경 pom.xml
 

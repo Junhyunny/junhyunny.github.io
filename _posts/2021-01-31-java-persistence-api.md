@@ -90,7 +90,7 @@ Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등
 ##### JPA / Hibernate / Spring Data Jpa 구조도
 
 <p align="center"><img src="/images/java-persistence-api-3.JPG" width="45%"></p>
-<center>https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center><br>
+<center>https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center>
 
 #### REFERENCE
 - <https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic>

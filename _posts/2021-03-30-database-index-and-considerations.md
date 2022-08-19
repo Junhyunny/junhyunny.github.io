@@ -31,7 +31,7 @@ last_modified_at: 2021-08-25T12:00:00
 
 ##### DB 인덱스 활용시 데이터 검색
 <p align="center"><img src="/images/database-index-and-precautions-1.JPG" width="80%"></p>
-<center>https://mangkyu.tistory.com/96</center><br>
+<center>https://mangkyu.tistory.com/96</center>
 
 ## 2. DB 인덱스 사용 시 장점과 단점
 

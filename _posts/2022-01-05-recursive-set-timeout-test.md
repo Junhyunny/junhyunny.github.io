@@ -91,7 +91,7 @@ const polling = (callback, path, config, interval) => {
 <p align="center">
     <img src="/images/recursive-set-timeout-test-1.JPG" width="75%" class="image__border">
 </p>
-<center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
+<center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center>
 
 #### 2.1.2 Analysis logic flow based on StackOverflow answer 
 
@@ -125,7 +125,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 <p align="center">
     <img src="/images/recursive-set-timeout-test-2.JPG" width="75%" class="image__border">
 </p>
-<center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
+<center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center>
 
 #### 2.1.3. Additional Information - PromiseJobs Queue
 
@@ -146,7 +146,7 @@ MQ(Macrotask Queue), mQ(Microtask Queue)입니다.
 <p align="center">
     <img src="/images/recursive-set-timeout-test-3.JPG" width="75%" class="image__border">
 </p>
-<center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center><br>
+<center>https://stackoverflow.com/questions/52177631/jest-timer-and-promise-dont-work-well-settimeout-and-async-function</center>
 
 ### 2.2. Return to my code
 

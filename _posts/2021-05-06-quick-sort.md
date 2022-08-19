@@ -22,7 +22,7 @@ last_modified_at: 2021-08-28T13:30:00
 
 ##### 퀵 정렬 동작 방식
 <p align="center"><img src="/images/quick-sort-1.gif" width="50%"></p>
-<center>https://en.wikipedia.org/wiki/Quick_sort</center><br>
+<center>https://en.wikipedia.org/wiki/Quick_sort</center>
 
 ## 2. 퀵 정렬 수행 과정(오름 차순 정렬)
 퀵 정렬은 다음과 같은 과정을 통해 수행됩니다.
@@ -176,7 +176,7 @@ public class Main {
 - 최종적으로 계산된 시간 복잡도는 **`깊이 * 각 깊이 별 비교 횟수 = n * log2n`** 입니다. 
 
 <p align="center"><img src="/images/quick-sort-1.JPG" width="65%"></p>
-<center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center><br>
+<center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
 
 ##### 최악의 pivot 값을 이용하여 정렬 수행
 - pivot 값이 적절하지 않아 길이가 1개와 n-1개의 배열로 나뉘어지는 경우입니다. 
@@ -185,7 +185,7 @@ public class Main {
 - 최종적으로 계산된 시간 복잡도는 **`깊이 * 각 깊이 별 비교 횟수 = n * n = pow(2, 2)`** 입니다. 
 
 <p align="center"><img src="/images/quick-sort-2.JPG" width="65%"></p>
-<center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center><br>
+<center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-06-quick-sort>

@@ -21,7 +21,7 @@ JPA CascadeType과 관계가 깊은 JPA 엔티티(entity) 라이프사이클(lif
 
 ##### Entity Lifecycle 흐름
 <p align="center"><img src="/images/jpa-cascade-type-1.JPG" width="60%"></p>
-<center>https://gunlog.dev/JPA-Persistence-Context/</center><br>
+<center>https://gunlog.dev/JPA-Persistence-Context/</center>
 
 - 비영속(new/transient)
     - 엔티티 객체를 새로 생성하였지만 EntityManager에 의해 관리되고 있지 않는 상태

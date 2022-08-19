@@ -143,7 +143,7 @@ logging:
 이는 동일한 트랜잭션으로 묶이기 때문입니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-5.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 3.1. 부모 메소드 REQUIRED - 자식 메소드 REQUIRED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -384,7 +384,7 @@ Hibernate: insert into delivery (id) values (?)
 자식 메소드에서 exception이 발생한다면 부모 메소드에서 실행한 트랜잭션이 있는지 여부에 따라 롤백 여부가 결정됩니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-8.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 4.1. 부모 REQUIRED - 자식 SUPPORTS
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -606,7 +606,7 @@ Hibernate: insert into delivery (id) values (?)
 부모에서 트랜재션을 시작하지 않은 케이스에 대해서만 테스트를 진행하였습니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-10.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 5.1. 부모 X - 자식 MANDATORY
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -717,7 +717,7 @@ org.springframework.transaction.IllegalTransactionStateException: No existing tr
 자식 메소드에서 발생하는 트랜잭션 롤백은 부모 메소드에서 시작한 트랜잭션과 상관이 없습니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-11.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 6.1. 부모 REQUIRED - 자식 REQUIRES_NEW
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -852,7 +852,7 @@ java.lang.RuntimeException: null
 부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드에서는 트랜잭션 처리를 수행하지 않습니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-13.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 7.1. 부모 REQUIRED - 자식 NOT_SUPPORTED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -979,7 +979,7 @@ java.lang.RuntimeException: null
 부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-15.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 8.1. 부모 REQUIRED - 자식 NEVER
 - 부모 메소드에서 데이터 INSERT 후 FLUSH
@@ -1094,7 +1094,7 @@ org.springframework.transaction.IllegalTransactionStateException: Existing trans
 자식 메소드의 트랜잭션은 자체적으로 commit, rollback이 가능합니다. 
 
 <p align="center"><img src="/images/transactional-propagation-type-16.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center><br>
+<center>https://www.nextree.co.kr/p3180/</center>
 
 ### 9.1. 부모 REQUIRED - 자식 NESTED
 - 부모 메소드에서 데이터 INSERT 후 FLUSH

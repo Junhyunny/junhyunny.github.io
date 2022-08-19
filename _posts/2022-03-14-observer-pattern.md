@@ -38,7 +38,7 @@ last_modified_at: 2022-03-14T23:55:00
 <p align="center">
     <img src="/images/observer-pattern-1.JPG" width="80%" class="image__border">
 </p>
-<center>https://croute.me/316</center><br>
+<center>https://croute.me/316</center>
 
 ## 2. Observer pattern in Spring 
 

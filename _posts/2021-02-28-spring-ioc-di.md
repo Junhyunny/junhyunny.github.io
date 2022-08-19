@@ -69,7 +69,7 @@ class A {
 - IoC Containers는 IoC 개념이 적용된 프로그램(혹은 객체)으로써 프레임워크에서 이를 사용합니다.
 
 <p align="center"><img src="/images/spring-ioc-di-1.JPG" width="550"></p>
-<center>https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/</center><br>
+<center>https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/</center>
 
 ## 4. Spring 프레임워크와 IoC 원칙
 전통적인 프로그래밍은 개발자가 작성한 코드에서 라이브러리를 호출하는 방식이었습니다. 

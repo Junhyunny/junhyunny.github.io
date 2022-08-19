@@ -37,7 +37,7 @@ HTTP 통신은 비연결성 특징으로 인해 매번 연결을 생성해야 �
 - Keep-Alive 기능 On/Off 시 아래와 같은 차이가 발생합니다.
 
 <p align="center"><img src="/images/http-keep-alive-1.JPG" width="75%"></p>
-<center>https://www.imperva.com/learn/performance/http-keep-alive/</center><br>
+<center>https://www.imperva.com/learn/performance/http-keep-alive/</center>
 
 ## 3. Keep-Alive 장단점
 ### 3.1. 장점

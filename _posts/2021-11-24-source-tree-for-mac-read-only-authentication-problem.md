@@ -1,5 +1,5 @@
 ---
-title: "SourcetreeForMac public data only problem on Github"
+title: "SourcetreeForMac public data only problem on GitHub"
 search: false
 category:
   - information
@@ -17,7 +17,7 @@ last_modified_at: 2021-11-24T23:55:00
 - Github와 연동은 되었으나 Public 레포지토리만 접근이 가능하다.
 - 접근 가능한 레포지토리도 클론(clone)만 가능하고, 푸시(push)에 실패한다.
 
-맥북에서 소스트리와 Github 연동시 권한을 충분히 부여하지 못하는 문제가 있는 것으로 보여집니다. 
+맥북에서 소스트리와 GitHub 연동시 권한을 충분히 부여하지 못하는 문제가 있는 것으로 보여집니다. 
 맥북의 보안상의 문제인지 원인은 확인할 수 없었습니다.
 
 ##### Authorize SourcetreeForMac
@@ -41,7 +41,7 @@ last_modified_at: 2021-11-24T23:55:00
 </p>
 
 ## 2. 문제 해결
-해당 문제는 Github 토큰(token)을 발급받아 사용하면 해결할 수 있습니다.
+해당 문제는 GitHub 토큰(token)을 발급받아 사용하면 해결할 수 있습니다.
 
 ### 2.1. 토큰 발급
 - 오른쪽 상단 사용자 이미지 > Settings > Developer settings > Personal access tokens > Generate new token 선택
@@ -57,7 +57,7 @@ last_modified_at: 2021-11-24T23:55:00
 - 발급받은 토큰을 복사합니다. 
 - 소스트리 어플리케이션에서 Sourcetree > 설정 > 계정 > 추가(훅은 편집) 선택
 - 인증 방식 - 베이직(Basic)
-- 사용자 이름 - Github User Name
+- 사용자 이름 - GitHub User Name
 - 암호 - 복사한 토큰
 
 <p align="center">

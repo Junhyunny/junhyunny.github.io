@@ -267,8 +267,8 @@ Download HBase:
 
 #### 4.4.2. 해결 방법
 - `StackOverflow` 참조 - <https://stackoverflow.com/questions/64494636/install-ambari-cant-download-hortonworks-hdp-from-amazon-s3>
-- `Github` 참조 - <https://github.com/apache/ambari/pull/3283/commits/3dca705f831383274a78a8c981ac2b12e2ecce85>
-- Github 링크로 접근하면 총 3개의 파일이 변경된 커밋(commit) 이력을 확인할 수 있습니다.
+- `GitHub` 참조 - <https://github.com/apache/ambari/pull/3283/commits/3dca705f831383274a78a8c981ac2b12e2ecce85>
+- GitHub 링크로 접근하면 총 3개의 파일이 변경된 커밋(commit) 이력을 확인할 수 있습니다.
     - ambari-infra/ambari-infra-assembly/pom.xml
     - ambari-metrics/ambari-metrics-timelineservice/pom.xml
     - ambari-metrics/pom.xml

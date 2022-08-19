@@ -10,7 +10,7 @@ last_modified_at: 2021-08-21T17:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security JWT(Json Web Token) 인증 예제][jwt-security-link]
+- [Spring Security JWT(Json Web Token) OAuth 인증 예제][jwt-security-link]
 
 ## 0. 들어가면서
 
@@ -62,7 +62,7 @@ URL에 사용자ID 같은 정보를 노출시키지 않고 유저 정보를 가�
 ```
 
 ### 1.2. Config 클래스 구현
-[Spring Security JWT(Json Web Token) 인증 예제][jwt-security-link] 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
+[Spring Security JWT(Json Web Token) OAuth 인증 예제][jwt-security-link] 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
 이유는 아래 AuthorizationServer 클래스 구현에서 확인하실 수 있습니다. 
 
 ```java

@@ -1,5 +1,5 @@
 ---
-title: "Github commit 메세지 규칙"
+title: "GitHub commit 메세지 규칙"
 search: false
 category:
   - information
@@ -22,7 +22,7 @@ last_modified_at: 2021-08-27T09:00:00
 현재 회사에서 사용하는 형상 관리 툴인 TortoiseSVN을 Github로 변경하자는 의견을 내었고, 원할한 협업을 위한 commit 메세지 규칙을 정하자고 제안하습니다. 
 다른 개발자들과 공유하기 위해 commit 메세지 규칙에 대한 포스트를 작성해보았습니다.  
 
-## 1. Github commit 메세지 규칙의 필요성
+## 1. GitHub commit 메세지 규칙의 필요성
 일단 commit 메세지 규칙의 필요성에 대해 공감이 이루어져야 잘 지켜질 것 같아서 규칙의 필요성을 정리해보았습니다. 
 - 팀원과의 소통
 - 편리한 과거의 기록 추적
@@ -145,7 +145,7 @@ Update policy 16/04/02
 
 위 처럼 commit 메세지를 작성하여 push하면 브랜치에 따라 이슈가 자동으로 종료됩니다. 
 
-예를 들어, Github 저장소의 default branch가 master인 case
+예를 들어, GitHub 저장소의 default branch가 master인 case
 - master 브랜치에 commit 후 push - 해당 번호의 이슈 종료
 - child 브랜치에 commit 후 push - child 브랜치가 master 브랜치로 merge 하는 시점에 이슈 종료
 

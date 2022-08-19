@@ -13,7 +13,7 @@ last_modified_at: 2022-01-29T23:55:00
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 
 👉 이어서 읽기를 추천합니다.
-- [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
+- [젠킨스(Jenkins) GitHub Webhooks 연동][jenkins-github-webhook-link]
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
 - [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
 - [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]

@@ -10,7 +10,7 @@ last_modified_at: 2021-08-25T00:00:00
 
 ## 0. 들어가면서
 
-공부하다 흘러들어간 블로그에 Github 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았습니다.([일일커밋 알림봇 개발기][mingrammer-blog-link]) 
+공부하다 흘러들어간 블로그에 GitHub 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았습니다.([일일커밋 알림봇 개발기][mingrammer-blog-link]) 
 **`'기능도 간단해 보이는데 Java 언어로 개발한 사람이 없다면 내가 만들어볼까?'`** 
 하던 공부는 접고 바로 개발에 착수했습니다. 
 Slack 어플리케이션을 안 사용하고 있었기 때문에 일단 다운받고 채팅 봇 만드는 방법을 찾아봤습니다. 
@@ -21,7 +21,7 @@ Slack 어플리케이션이랑 안 친해서 많이 헤맸습니다.
 
 ## 2. Slack API 테스트
 이제 봇도 등록했으니 본격적으로 코드를 작성했습니다. 
-Slack API 기능과 Github API 기능을 이어 붙히면 되기 때문에 먼저 필요한 Slack API 기능들을 찾아봤습니다. 
+Slack API 기능과 GitHub API 기능을 이어 붙히면 되기 때문에 먼저 필요한 Slack API 기능들을 찾아봤습니다. 
 기능 테스트 시 겪은 간단한 이슈들만 정리해보겠습니다. 
 
 ### 2.1. Slack 채널 정보 조회 기능
@@ -152,7 +152,7 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
 ##### Slack 채널에 글 작성하기 테스트 결과
 <p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="30%"></p>
 
-## 3. Github API 테스트
+## 3. GitHub API 테스트
 
 ### 3.1. pom.xml - 의존성 추가
 Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러리를 이용하는 것으로 보입니다. 
@@ -166,14 +166,14 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 
 해당 라이브러리에서 필요한 기능을 제공하지 않는 것 같아서 사용하지 않기로 했습니다. 
 제가 필요한 기능은 간단합니다. 
-특정 사용자의 repository 정보들과 해당 repository에 오늘 push 한 이력이 있는지만 확인하면 되기 때문에 Github API 문서를 찾아봤습니다. 
+특정 사용자의 repository 정보들과 해당 repository에 오늘 push 한 이력이 있는지만 확인하면 되기 때문에 GitHub API 문서를 찾아봤습니다. 
 딱 원하는 기능을 발견했습니다. 
 각 repository 별로 마지막 push 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했습니다.
 
-##### Github API
+##### GitHub API
 <p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="75%"></p>
 
-### 3.2. 사용자 Github repository push 이력 확인
+### 3.2. 사용자 GitHub repository push 이력 확인
 ```java
     @SuppressWarnings({ "unchecked" })
     @Test
@@ -243,7 +243,7 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 <p align="center"><img src="/images/side-project-slack-chatbot-9.JPG" width="75%"></p>
 
 ## 5. Slack Chatbot 배포 후 확인
-내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 Github repository에 push 이력이 없으면 commit 하라는 메세지를 전달합니다. 
+내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 GitHub repository에 push 이력이 없으면 commit 하라는 메세지를 전달합니다. 
 일부러 push 하지 않고 commit 독촉 메세지가 오기를 기다려봤습니다. 
 과연... 결과는?
 

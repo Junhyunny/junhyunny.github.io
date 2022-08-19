@@ -57,7 +57,7 @@ C, C++, C#, Java, Python, Ruby, Go, Switft 등 많은 프로그래밍 언어에�
 <p align="center">
     <img src="/images/json-web-token-3.JPG" width="50%" class="image__border">
 </p>
-<center>https://velopert.com/2389</center><br>
+<center>https://velopert.com/2389</center>
 
 ### 2.1. 헤더(Header) 정보
 
@@ -140,7 +140,7 @@ HMACSHA256(
 
 #### RECOMMEND NEXT POSTS
 
-* [Spring Security 기반 JWT 인증 방식 예제][spring-security-example-link]
+* [Spring Security JWT(Json Web Token) 인증 예제][spring-security-example-link]
 
 #### REFERENCE
 

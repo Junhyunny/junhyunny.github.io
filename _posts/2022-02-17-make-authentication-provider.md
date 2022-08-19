@@ -10,7 +10,7 @@ last_modified_at: 2022-02-17T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JWT, Json Web Token][json-web-token-link]
+- [JWT(Json Web Token)][json-web-token-link]
 - [Spring Security][spring-security-link]
 - [AuthenticationFilter 만들기][make-authentication-filter-link]
 
@@ -29,7 +29,7 @@ last_modified_at: 2022-02-17T23:55:00
 <p align="center">
     <img src="/images/make-authentication-provider-1.JPG" width="80%" class="image__border">
 </p>
-<center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center><br>
+<center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center>
 
 ## 1. 패키지 구성 및 설정 변경 내용
 

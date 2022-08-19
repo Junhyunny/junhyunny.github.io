@@ -16,7 +16,7 @@ last_modified_at: 2021-08-29T03:00:00
 <p align="center">
     <img src="/images/filter-interceptor-and-aop-1.JPG" width="30%" class="image__border">
 </p>
-<center>https://torbjorn.tistory.com/120</center><br>
+<center>https://torbjorn.tistory.com/120</center>
 
 최근 같은 질문을 두 번이나 받았습니다. 
 첫 질문은 받은 이 후에 관련된 개념을 찾아보지 않았기 때문에 두 번째 질문에도 동일하게 답했지만 잘못된 대답이었습니다. 
@@ -41,7 +41,7 @@ last_modified_at: 2021-08-29T03:00:00
 <p align="center">
     <img src="/images/filter-interceptor-and-aop-3.JPG" width="60%" class="image__border">
 </p>
-<center>https://programming.vip/docs/spring-aop-basic-use.html</center><br>
+<center>https://programming.vip/docs/spring-aop-basic-use.html</center>
 
 ## 2. 필터(Filter)
 필터는 웹 어플리케이션(Web Application)에 등록합니다. 

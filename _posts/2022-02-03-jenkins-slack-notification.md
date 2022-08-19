@@ -12,7 +12,7 @@ last_modified_at: 2022-02-03T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 - [젠킨스(Jenkins) 설치][jenkins-install-link]
-- [젠킨스(Jenkins) Github Webhooks 연동][jenkins-github-webhook-link]
+- [젠킨스(Jenkins) GitHub Webhooks 연동][jenkins-github-webhook-link]
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
 - [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
 - [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
@@ -194,7 +194,7 @@ SUCCESS: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${NGROK_DOMAIN})
 
 ## 4. 슬랙 알림 테스트
 
-Github 웹훅을 통해 프로젝트 코드의 변경 사항을 감지합니다. 
+GitHub 웹훅을 통해 프로젝트 코드의 변경 사항을 감지합니다. 
 젠킨스 파이프라인이 동작하면서 빌드 시작 정보를 슬랙 메세지로 전달합니다. 
 빌드가 정상적으로 완료된 후 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 URL이 담긴 메세지를 슬랙에서 확인할 수 있습니다. 
 

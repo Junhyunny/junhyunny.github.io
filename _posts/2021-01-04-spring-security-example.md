@@ -1,5 +1,5 @@
 ---
-title: "Spring Security JWT(Json Web Token) 인증 예제"
+title: "Spring Security JWT(Json Web Token) OAuth 인증 예제"
 search: false
 category:
   - spring-boot
@@ -9,87 +9,750 @@ last_modified_at: 2021-02-17T23:55:00
 
 <br>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JWT(Json Web Token)][json-link]
-- [Spring Security][security-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 Spring Security 프레임워크의 인증 절차를 더 자세히 들여다봤습니다.
-- [AuthenticationFilter 만들기][make-authentication-filter-link]
-- [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
-- [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]
-
-## 0. 들어가면서
-
-이 글을 처음 작성하는 시점엔 `Spring Security` 프레임워크에 대한 깊은 이해가 없던지라 동작하는 코드를 나름 정리해서 올렸었습니다. 
-최근에 이전 글들을 다시 정리하다보니 이 글이 마음에 들지 않아 삭제하거나 내용을 전면 변경하고 싶었습니다. 
-
-감사하게도 많은 분들께서 글을 찾아주시고, 어떤 분들은 링크를 참조 걸어두시기도 하셔서 내용을 크게 변경하거나 삭제하지 않았습니다. 
-**이 글은 JWT(Json Web Token) 인증이나 `Spring Security` 프레임워크의 인증 과정에 대한 인사이트를 얻기엔 부족합니다.** 
-애너테이션만으로 인증 프로세를 위한 빈(bean)들이 너무 쉽게 생성되기 때문에 내부는 블랙 박스로 느껴질 수 있습니다. 
-
-방문하시는 분들의 이해를 조금 더 돕고 싶은 마음에 다시 정리한 포스트들을 위에 참조로 걸어두었습니다. 
-제 블로그를 찾아주시는 분들에게 좋은 컨텐츠와 정보가 전달되길 바랍니다. 
-감사합니다.
+* [JWT(Json Web Token)][json-web-token-link]
+* [Spring Security][spring-security-link]
 
 ## 1. 용어 정리
 
-### 1.1. 보안 관련 용어
+인증 예제를 살펴보기 전에 간단하게 OAuth(OpenID Authentication) 인증과 관련된 용어에 대해 알아보겠습니다. 
 
-- 접근 주체(Principal)
-    - 보안 시스템이 작동되고 있는 application에 접근하려는 유저
-- 인증(Authentication)
-    - Application 작업을 수행할 수 있는 주체(사용자)임을 증명하는 행위
-    - Who are you?
-- 권한(Authorization)
-    - 인증된 주체가 application의 동작을 수행할 수 있도록 허락되었는지 확인, 결정하는 행위
-    - What are you allowed to do?
+* Resource Owner
+    * 사용자이며 개인 정보에 주인입니다.
+* Application (혹은 Client)
+    * 사용자가 이용하고 싶은 서비스 혹은 어플리케이션입니다. 
+* Authorization Server 
+    * 사용자 정보를 인증하는 서버이며 인증된 사용자에게 토큰을 발급해줍니다. 
+    * `clientId`, `clientSecret`을 전달받아 인증을 수행합니다.
+* Resource Server 
+    * 사용자 정보를 지닌 서버이며 인증된 사용자에게만 발급된 토큰을 통해 접근 가능합니다.
 
-### 1.2. OAuth(OpenID Authentication) 관련 용어
+##### 인증 프로세스 예시
 
-- Application (혹은 Client)
-    - 사용자가 사용하는 어플리케이션입니다. 
-    - 이번 포스트에서 `Insomnia` 툴(tool)입니다.
-- Authorization Server 
-    - 사용자 정보를 인증하는 서버입니다. 
-    - 인증된 사용자에게 토큰을 발급해줍니다. 
-    - `clientId`, `clientSecret`을 통해 어플리케이션 인증을 수행합니다.
-    - `userName`, `password`, `grantType`을 통해 사용자 인증을 수행합니다.
-    - 이번 포스트에서 `@EnableAuthorizationServer` 애너테이션이 붙은 빈(bean)을 통해 필요한 값이 설정됩니다.
-- Resource Server 
-    - 사용자 정보를 지닌 서버입니다. 
-    - 인증된 사용자에게만 발급된 토큰을 통해 접근 가능합니다.
-    - 이번 포스트에서 `@EnableResourceServer` 애너테이션이 붙은 빈을 통해 필요한 값이 설정됩니다.
+간단하게 `StackOverflow` 서비스 로그인을 예시로 들어보겠습니다. 
 
-<p align="center"><img src="/images/spring-security-example-0-0.JPG" width="80%"></p>
+* 사용자는 `StackOverflow`에 질문을 남기기 위해 로그인을 시도합니다.
+* `StackOverflow` 서비스는 사용자 로그인 옵션을 제공합니다.
+    * E-Mail, 비밀번호로 로그인
+    * 구글 계정으로 로그인
+    * GitHub 계정으로 로그인
+    * Facebook 계정으로 로그인
+* 사용자는 GitHub 계정으로 로그인 옵션을 선택합니다.
+    * GitHub 계정으로 로그인하기 위한 화면이 연결됩니다.
+    * 사용자는 자신의 GitHub 계정 정보를 입력합니다.
+* 사용자의 GitHub 계정 정보는 GitHub 인증 서버로 전달됩니다.
+* 정상적인 인증이 된다면 GitHub 인증 서버는 `StackOverflow` 서비스로 인증 토큰을 발급합니다.
+* `StackOverflow` 서비스는 발급받은 인증 토큰으로 GitHub 리소스 서버에 필요한 사용자 정보를 요청하여 전달받습니다.
+* 사용자의 화면은 인증 화면에서 `StackOverflow` 화면으로 리다이렉트(redirect)됩니다. 
+* 사용자는 `StackOverflow` 서비스를 이용할 수 있습니다.
+
+<p align="center">
+    <img src="/images/spring-security-example-1.JPG" width="80%">
+</p>
 <center>https://docs.pivotal.io/p-identity/1-14/grant-types.html</center>
 
-## 2. 주의사항
+## 2. 서비스 구조
 
-위에서 `OAuth` 관련 용어에 대한 설명에서 볼 수 있듯이 인증을 위한 서버와 실제 사용자에게 서비스를 제공하는 서버는 구분지어 관리합니다. 
-`spring-security-oauth2` 의존성을 이용하면 인증 서버(authorization server)와 리소스 서버(resource server)를 분리하여 구현할 수 있지만, 이번 포스트에선 그렇지 않습니다. 
+이번 포스트에서 사용한 `spring-security-oauth2` 라이브러리 2.3.3.RELEASE 버전을 사용하면 인증 서버와 리소스 서버 기능을 구현할 수 있습니다. 
+다음과 같은 서비스 인증 과정을 구현하였습니다. 
 
-이 글을 읽을 때 다음과 같은 주의사항들이 있습니다.
-- 해당 포스트에선 서비스 하나에 인증, 리소스와 관련된 기능이 모두 포함되어 있습니다. 
-- 해당 포스트에서 사용한 `spring-security-oauth2` 의존성 2.3.3.RELEASE 버전은 보안 취약점이 발견된 버전입니다. (프로덕션 코드로 사용 불가)
-- 현재 `Spring Security` 진영에서 인증 서버를 구현하는 기능 지원을 중지하였습니다. 최신 버전에선 인증 서버 기능을 사용할 수 없습니다.
+* 터미널에서 cURL 커맨드를 사용하였습니다.
+* cURL 커맨드를 통해 인증 서버로 사용자 정보를 전달합니다.
+* 인증 서버는 사용자 정보가 유효한지 확인합니다.
+* 사용자 정보가 유효하다면 JWT 토큰을 생성 후 클라이언트에게 전달합니다.
+* cURL 커맨드로 전달받은 토큰과 함께 리소스 서버에게 사용자 정보를 요청합니다. 
+* 리소스 서버는 토큰이 유효한지, 권한은 충분한지 확인합니다. 
+* 유효한 토큰인 경우 사용자 리소스를 클라이언트에게 전달합니다.
 
-##### 이번 포스트 서비스 구조
+<p align="center">
+    <img src="/images/spring-security-example-2.JPG" width="80%">
+</p>
 
-<p align="center"><img src="/images/spring-security-example-0-1.JPG" width="70%"></p>
+## 3. Authroization Server 구현
 
-##### 서비스 분할 관련 포스트 서비스 구조
+인증 서비스를 먼저 구현하겠습니다. 
+다음과 같은 패키지 구조를 가지며 주요 클래스들을 위주로 살펴보겠습니다. 
 
-- 인증 서버, 리소스 서버가 분할된 예제를 확인 가능합니다.
-- 아래 예제도 구 버전 `spring-security-oauth2` 의존성을 사용하고 있습니다.
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Authorization Service][authorization-service-link]
-- [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Resource Service][resource-service-link]
+```
+./
+├── Dockerfile
+├── action-in-blog.iml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── blog
+    │   │       └── in
+    │   │           └── action
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── converter
+    │   │               │   └── StringListConverter.java
+    │   │               ├── entity
+    │   │               │   └── Member.java
+    │   │               ├── repository
+    │   │               │   └── MemberRepository.java
+    │   │               ├── security
+    │   │               │   ├── AuthorizationServer.java
+    │   │               │   └── SecurityConfig.java
+    │   │               └── service
+    │   │                   └── MemberService.java
+    │   └── resources
+    │       └── application.yml
+    └── test
+        └── java
+            └── blog
+                └── in
+                    └── action
+                        └── ActionInBlogApplicationTests.java
+```
 
-<p align="center"><img src="/images/spring-security-example-0-2.JPG" width="70%"></p>
+### 3.1. application.yml
+
+* H2 메모리 데이터베이스를 사용하였습니다.
+* 8080 포트를 가집니다.
+
+```yml
+server:
+  port: 8080
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 123
+```
+
+### 3.2. AuthorizationServer 클래스
+
+* `@EnableAuthorizationServer` 애너테이션을 사용해 인증 서버 설정을 위한 빈(bean)으로 등록합니다. 
+* `AuthorizationServerConfigurerAdapter` 클래스를 상속받아 인증 서버 구현에 필요한 기능을 확장합니다.
+* 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
+    * `AuthenticationManager` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참조 바랍니다.
+
+```java
+package blog.in.action.security;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.Arrays;
+
+@RequiredArgsConstructor
+@Configuration
+@EnableAuthorizationServer
+public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
+
+    private String clientId = "CLIENT_ID";
+
+    private String clientSecret = "CLIENT_SECRET";
+
+    private int ACCESS_TOKEN_VALID_SECONDS = 10 * 60 * 24;
+
+    private int REFRESH_TOKEN_VALID_SECONDS = 60 * 60 * 24;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // 해당 인증 서버를 이용하는 클라이언트 어플리케이션 정보를 추가합니다.
+        clients
+                // 인증 서버 메모리에 추가합니다.
+                .inMemory()
+                // 클라이언트 어플리케이션에 미리 발급된 ID
+                .withClient(clientId)
+                // 클라이언트 어플리케이션에 미리 발급된 SECRETE, 암호화하여 추가
+                .secret(passwordEncoder.encode(clientSecret))
+                // 인증 방법은 비밀번호와 리프레시 토큰
+                .authorizedGrantTypes("password", "refresh_token")
+                .scopes("read")
+                // access token 유효 시간 등록
+                .accessTokenValiditySeconds(ACCESS_TOKEN_VALID_SECONDS)
+                // refresh token 유효 시간 등록
+                .refreshTokenValiditySeconds(REFRESH_TOKEN_VALID_SECONDS);
+    }
+
+    @Override
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        // JSON WEB TOKEN 을 사용하기 위한 컨버터 등록
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter));
+        endpoints
+                // Spring Security 프레임워크에서 사용하는 AuthenticationManager 등록
+                .authenticationManager(authenticationManager)
+                // 토큰 강화를 위한 TokenEnhancer 등록
+                .tokenEnhancer(tokenEnhancerChain);
+    }
+}
+```
+
+### 3.4. SecurityConfig 클래스
+
+* `@EnableWebSecurity` 애너테이션을 통해 웹 암호화 설정 빈으로 등록합니다.
+* `WebSecurityConfigurerAdapter` 클래스를 상속하여 필요한 암호화에 필요한 기능을 확장합니다.
+* 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
+    * `UserDetailsService` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참조 바랍니다.
+
+```java
+package blog.in.action.security;
+
+import blog.in.action.service.MemberService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+@RequiredArgsConstructor
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final MemberService memberService;
+
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() throws Exception {
+        // JWT 토큰을 만들기 위한 컨버터 생성
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey("TEMP_SIGN_KEY");
+        converter.afterPropertiesSet();
+        return converter;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // 암호화 인코더 
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        // Spring Security 프레임워크에서 필요한 AuthenticationManager 등록
+        return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // AuthenticationManager에서 사용하는 UserDetailsService 등록
+        auth.userDetailsService(memberService);
+    }
+}
+```
+
+### 3.5. MemberService 클래스
+
+* `UserDetailsService` 클래스를 상속받아서 사용자 정보 조회 기능을 확장합니다.
+* `AuthenticationManager` 클래스가 인증 과정에서 `loadUserByUsername` 메소드를 호출하여 사용자 정보를 확인합니다.
+
+```java
+package blog.in.action.service;
+
+import blog.in.action.entity.Member;
+import blog.in.action.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
+@Service
+public class MemberService implements UserDetailsService {
+
+    private final MemberRepository memberRepository;
+
+    private Collection<? extends GrantedAuthority> authorities(Member member) {
+        return member.getAuthorities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Member> option = memberRepository.findById(username);
+        if (!option.isPresent()) {
+            throw new UsernameNotFoundException(username);
+        }
+        Member member = option.get();
+        return new User(member.getId(), member.getPassword(), authorities(member));
+    }
+}
+```
+
+### 3.6. ActionInBlogApplication 클래스
+
+* `CommandLineRunner` 클래스를 확장하여 서비스 테스트에 필요한 데이터를 미리 추가합니다.
+
+```java
+package blog.in.action;
+
+import blog.in.action.entity.Member;
+import blog.in.action.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Collections;
+
+@RequiredArgsConstructor
+@SpringBootApplication
+public class ActionInBlogApplication implements CommandLineRunner {
+
+    private final MemberRepository memberRepository;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public static void main(String[] args) {
+        SpringApplication.run(ActionInBlogApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        memberRepository.save(Member.builder()
+                .id("Junhyunny")
+                .password(passwordEncoder.encode("123"))
+                .authorities(Collections.singletonList("ADMIN"))
+                .build()
+        );
+    }
+}
+```
+
+## 4. Resource Server 구현
+
+리소스 서비스를 먼저 구현하겠습니다. 
+다음과 같은 패키지 구조를 가지며 주요 클래스들을 위주로 살펴보겠습니다. 
+
+```
+./
+├── Dockerfile
+├── action-in-blog\ (1).iml
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── blog
+    │   │       └── in
+    │   │           └── action
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── controller
+    │   │               │   └── MemberController.java
+    │   │               ├── entity
+    │   │               │   └── Member.java
+    │   │               ├── repository
+    │   │               │   └── MemberRepository.java
+    │   │               ├── security
+    │   │               │   ├── ResourceServer.java
+    │   │               │   └── SecurityConfig.java
+    │   │               └── service
+    │   │                   └── MemberService.java
+    │   └── resources
+    │       └── application.yml
+    └── test
+        └── java
+            └── blog
+                └── in
+                    └── action
+                        └── ActionInBlogApplicationTests.java
+```
+
+### 4.1. application.yml
+
+* H2 메모리 데이터베이스를 사용하였습니다.
+* 8081 포트를 가집니다.
+
+```yml
+server:
+  port: 8081
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 123
+```
+
+### 4.2. ResourceServer 클래스
+
+* `@EnableResourceServer` 애너테이션을 사용해 리소스 서버 설정을 위한 빈으로 등록합니다. 
+* `ResourceServerConfigurerAdapter` 클래스를 상속받아 리소스 서버 구현에 필요한 기능을 확장합니다.
+* 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
+
+```java
+package blog.in.action.security;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+@Configuration
+@EnableResourceServer
+public class ResourceServer extends ResourceServerConfigurerAdapter {
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        super.configure(resources);
+        // 토큰 정보를 다루기 위한 토큰 서비스 객체 생성
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        // JWT 토큰 변경을 위한 컨버터 생성
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        // JWT 토큰 인코딩과 디코딩에 사용되므로 인증 서버와 동일한 암호키를 사용합니다. - TEMP_SIGN_KEY
+        converter.setSigningKey("TEMP_SIGN_KEY");
+        converter.afterPropertiesSet();
+        // JWT 토큰 컨버터와 JWT 토큰 스토어 등록
+        defaultTokenServices.setTokenStore(new JwtTokenStore(converter));
+        defaultTokenServices.setSupportRefreshToken(true);
+        // 토큰 서비스 등록
+        resources.tokenServices(defaultTokenServices);
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.cors().and()
+                // 권한 확인이 필요한 요청 정보 등록
+                .authorizeRequests()
+                // /h2-console/** 경로는 모든 요청에 대해 허용
+                .antMatchers("/h2-console/**").permitAll()
+                // /member/user-info 경로는 ADMIN만 접근 가능
+                .antMatchers("/member/user-info").hasAnyAuthority("ADMIN")
+                // 나머지 요청은 인증만 필요
+                .anyRequest().authenticated()
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(new OAuth2AccessDeniedHandler());
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
+    }
+}
+```
+
+### 4.3. SecurityConfig 클래스
+
+* 암호화에 사용하는 `PasswordEncoder` 빈을 등록합니다.
+
+```java
+package blog.in.action.security;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+@RequiredArgsConstructor
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+```
+
+### 4.4. MemberController 클래스 
+
+* 사용자 정보 획득을 위한 `/member/user-info` API를 노출하고 있습니다.
+
+```java
+package blog.in.action.controller;
+
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import blog.in.action.entity.Member;
+import blog.in.action.service.MemberService;
+
+@AllArgsConstructor
+@RestController
+@RequestMapping(value = "/member")
+public class MemberController {
+
+	private final MemberService memberService;
+
+	@GetMapping("/user-info")
+	public Member requestUserInfo(@RequestParam("id") String id) {
+		return memberService.findById(id);
+	}
+}
+```
+
+### 4.5. MemberService 클래스
+
+* 사용자 ID를 통해 사용자 정보를 조회합니다.
+
+```java
+package blog.in.action.service;
+
+import blog.in.action.entity.Member;
+import blog.in.action.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@RequiredArgsConstructor
+@Service
+public class MemberService {
+
+    private final MemberRepository memberRepository;
+
+    public Member findById(String id) {
+        Optional<Member> option = memberRepository.findById(id);
+        if (!option.isPresent()) {
+            return null;
+        }
+        return option.get();
+    }
+}
+```
+
+### 4.6. ActionInBlogApplication 클래스
+
+* `CommandLineRunner` 클래스를 확장하여 서비스 테스트에 필요한 데이터를 미리 추가합니다.
+
+```java
+package blog.in.action;
+
+import blog.in.action.entity.Member;
+import blog.in.action.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@RequiredArgsConstructor
+@SpringBootApplication
+public class ActionInBlogApplication implements CommandLineRunner {
+
+    private final MemberRepository memberRepository;
+
+    public static void main(String[] args) {
+        SpringApplication.run(ActionInBlogApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        memberRepository.save(Member.builder()
+                .id("Junhyunny")
+                .name("Junhyunny")
+                .email("junhyunny@naver.com")
+                .address("Seoul")
+                .build()
+        );
+    }
+}
+```
+
+## 5. 테스트하기
+
+### 5.1. Docker Compose 실행
+
+도커 컴포즈(docker compose)를 사용하여 인증 서버와 리소스 서버를 동시에 실행시킵니다. 
+
+```
+$ pwd
+/Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-01-04-spring-security-example
+
+$ docker-compose up  
+Creating network "2021-01-04-spring-security-example_default" with the default driver
+Creating 2021-01-04-spring-security-example_resource-server_1      ... done
+Creating 2021-01-04-spring-security-example_authorization-server_1 ... done
+Attaching to 2021-01-04-spring-security-example_authorization-server_1, 2021-01-04-spring-security-example_resource-server_1
+authorization-server_1  | 
+authorization-server_1  |   .   ____          _            __ _ _
+authorization-server_1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+authorization-server_1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+authorization-server_1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+authorization-server_1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+authorization-server_1  |  =========|_|==============|___/=/_/_/_/
+authorization-server_1  |  :: Spring Boot ::                (v2.4.1)
+authorization-server_1  | 
+resource-server_1       | 
+resource-server_1       |   .   ____          _            __ _ _
+resource-server_1       |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+resource-server_1       | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+resource-server_1       |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+resource-server_1       |   '  |____| .__|_| |_|_| |_\__, | / / / /
+resource-server_1       |  =========|_|==============|___/=/_/_/_/
+resource-server_1       |  :: Spring Boot ::                (v2.4.1)
+resource-server_1       | 
+authorization-server_1  | 2022-08-19 18:49:17.871  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : Starting ActionInBlogApplication v0.0.1-SNAPSHOT using Java 11.0.16 on 0df3df36e161 with PID 1 (/app/app.jar started by root in /app)
+authorization-server_1  | 2022-08-19 18:49:17.874  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : No active profile set, falling back to default profiles: default
+resource-server_1       | 2022-08-19 18:49:17.884  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : Starting ActionInBlogApplication v0.0.1-SNAPSHOT using Java 11.0.16 on bd0d9c3a927a with PID 1 (/app/app.jar started by root in /app)
+resource-server_1       | 2022-08-19 18:49:17.887  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : No active profile set, falling back to default profiles: default
+resource-server_1       | 2022-08-19 18:49:18.775  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+authorization-server_1  | 2022-08-19 18:49:18.838  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+resource-server_1       | 2022-08-19 18:49:18.869  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 1 JPA repository interfaces.
+authorization-server_1  | 2022-08-19 18:49:18.903  INFO 1 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 1 JPA repository interfaces.
+resource-server_1       | 2022-08-19 18:49:19.655  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+resource-server_1       | 2022-08-19 18:49:19.671  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+resource-server_1       | 2022-08-19 18:49:19.671  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+resource-server_1       | 2022-08-19 18:49:19.733  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+resource-server_1       | 2022-08-19 18:49:19.733  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1771 ms
+authorization-server_1  | 2022-08-19 18:49:19.752  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+authorization-server_1  | 2022-08-19 18:49:19.768  INFO 1 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+authorization-server_1  | 2022-08-19 18:49:19.769  INFO 1 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+resource-server_1       | 2022-08-19 18:49:19.812  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+authorization-server_1  | 2022-08-19 18:49:19.833  INFO 1 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+authorization-server_1  | 2022-08-19 18:49:19.834  INFO 1 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1831 ms
+authorization-server_1  | 2022-08-19 18:49:19.900  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+resource-server_1       | 2022-08-19 18:49:20.041  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+resource-server_1       | 2022-08-19 18:49:20.050  INFO 1 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+authorization-server_1  | 2022-08-19 18:49:20.137  INFO 1 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+authorization-server_1  | 2022-08-19 18:49:20.145  INFO 1 --- [           main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+resource-server_1       | 2022-08-19 18:49:20.265  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+resource-server_1       | 2022-08-19 18:49:20.320  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.25.Final
+authorization-server_1  | 2022-08-19 18:49:20.351  INFO 1 --- [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+authorization-server_1  | 2022-08-19 18:49:20.404  INFO 1 --- [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.25.Final
+resource-server_1       | 2022-08-19 18:49:20.508  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+authorization-server_1  | 2022-08-19 18:49:20.613  INFO 1 --- [           main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+resource-server_1       | 2022-08-19 18:49:20.671  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+authorization-server_1  | 2022-08-19 18:49:20.766  INFO 1 --- [           main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+resource-server_1       | 2022-08-19 18:49:21.226  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+resource-server_1       | 2022-08-19 18:49:21.234  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+authorization-server_1  | 2022-08-19 18:49:21.316  INFO 1 --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+authorization-server_1  | 2022-08-19 18:49:21.325  INFO 1 --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+resource-server_1       | 2022-08-19 18:49:21.615  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+authorization-server_1  | 2022-08-19 18:49:21.734  WARN 1 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+
+... 
+
+resource-server_1       | 2022-08-19 18:49:22.714  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+resource-server_1       | 2022-08-19 18:49:22.725  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 5.797 seconds (JVM running for 6.389)
+authorization-server_1  | 2022-08-19 18:49:22.748  INFO 1 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+authorization-server_1  | 2022-08-19 18:49:22.966  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+authorization-server_1  | 2022-08-19 18:49:22.976  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 5.992 seconds (JVM running for 6.644)
+
+```
+
+### 5.2. 토큰 정보 받기
+
+* 인증 서버로 토큰 정보를 요청합니다.
+    * POST 요청
+    * /oauth/token 경로는 Spring Security 프레임워크가 내부적으로 생성한 API 경로입니다.
+* 인증 서버에 미리 등록된 클라이언트 `ID`와 `SECRETE` 정보를 함께 전달합니다.
+    * 클라이언트 `ID`와 `SECRETE` 정보는 클라이언트 어플리케이션이 인증 서버로부터 미리 발급 받은 정보입니다.
+* 사용자임을 인증할 수 있도록 사용자 ID, 비밀번호, 인증 방식을 전달합니다.
+
+```
+$ curl -X POST http://localhost:8080/oauth/token\
+   -H "Content-Type: application/x-www-form-urlencoded"\
+   -u 'CLIENT_ID:CLIENT_SECRET'\
+   -d "username=Junhyunny&password=123&grant_type=password" | jq .
+```
+
+##### 결과
+
+* access_token - JWT 토큰 정보
+* token_type - 토큰 타입
+* refresh_token - JWT 액세스 토큰이 만료된 경우 재발급을 받을 때 사용하는 리프레시 토큰
+* expires_in - 토큰 만료 시간
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   818    0   767  100    51   1356     90 --:--:-- --:--:-- --:--:--  1476
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjA5NDk4MTIsInVzZXJfbmFtZSI6Ikp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjlhMGZhOWVkLTk0MTgtNDkzYy1hNzgxLTFkMDNiNjljOGQxNSIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiXX0.MTdH5OFPO4XhsVYd5lVFhL8ufOaPeZMWg9bSnaJ2lyE",
+  "token_type": "bearer",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJKdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIl0sImF0aSI6IjlhMGZhOWVkLTk0MTgtNDkzYy1hNzgxLTFkMDNiNjljOGQxNSIsImV4cCI6MTY2MTAyMTgxMiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiZDM1M2Y1NGQtZTBmNS00NjQ4LTg3NjMtY2UyMWI4N2VkMzNjIiwiY2xpZW50X2lkIjoiQ0xJRU5UX0lEIn0.xdwmp4C7hy3nEjIeD0IPIr1EK-076VlpHV5NnPk5LTI",
+  "expires_in": 14399,
+  "scope": "read",
+  "jti": "9a0fa9ed-9418-493c-a781-1d03b69c8d15"
+}
+```
+
+### 5.3. 사용자 리소스 정보 받기
+
+* 리소스 서버로 사용자 정보를 요청합니다.
+    * 전달받은 토큰을 헤더 정보에 담아 전달합니다. 
+    * 헤더 키는 `Authorization`이며 토큰 앞에 `Bearer` 토큰 타입을 붙혀줍니다.
+
+```
+$ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
+   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjA5NDk4MTIsInVzZXJfbmFtZSI6Ikp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjlhMGZhOWVkLTk0MTgtNDkzYy1hNzgxLTFkMDNiNjljOGQxNSIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiXX0.MTdH5OFPO4XhsVYd5lVFhL8ufOaPeZMWg9bSnaJ2lyE" | jq .
+```
+
+##### 결과
+
+* 사용자 정보를 정상적으로 전달받습니다.
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    85    0    85    0     0    329      0 --:--:-- --:--:-- --:--:--   346
+{
+  "id": "Junhyunny",
+  "name": "Junhyunny",
+  "email": "junhyunny@naver.com",
+  "address": "Seoul"
+}
+```
+
+## CLOSING
+
+리소스 서버에서 `/member/user-info` 경로의 접근 권한을 `USER` 등으로 변경하면 사용자 정보 요청에 실패함을 확인할 수 있습니다. 
+이번 포스트를 참고하시는 분들은 아래 주의사항을 확인바랍니다. 
 
 ##### Spring Security 진영 정책 변경
 
-현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다. (Deprecated)
+이번 포스트에서 사용한 `2.3.3.RELEASE` 버전까지는 인증 서버를 구현할 수 있지만, 최근 버전에선 인증 서버 구현을 위한 기능들이 모두 제거되었습니다. 
+현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다.(Deprecated)
 
 > 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br>
 > No Authorization Server Support<br>
@@ -107,557 +770,32 @@ last_modified_at: 2021-02-17T23:55:00
 
 ##### 보안 취약점 버전 확인
 
+* `2.3.3.RELEASE` 버전은 보안 취약점이 발견된 버전입니다.
+
 <p align="center">
-    <img src="/images/spring-security-example-0-3.JPG" width="80%" class="image__border">
+    <img src="/images/spring-security-example-3.JPG" width="80%" class="image__border">
 </p>
 <center>https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center>
 
-## 3. 예제 코드
-`Spring Security` 프레임워크를 이용하여 JWT(Json Web Token) 인증 방식을 구현해보았습니다. 
-간단한 구현을 위해 H2 데이터베이스를 사용하였습니다. 
-보통 Security Service는 별도의 서비스로 구현되지만 예제 구현의 편의를 위해 하나의 서비스로 구현하였습니다. 
-
-### 3.1. 패키지 구조
-
-```
-|-- action-in-blog.iml
-|-- mvnw
-|-- mvnw.cmd
-|-- pom.xml
-`-- src
-    |-- main
-    |   |-- java
-    |   |   `-- blog
-    |   |       `-- in
-    |   |           `-- action
-    |   |               |-- ActionInBlogApplication.java
-    |   |               |-- config
-    |   |               |   `-- Config.java
-    |   |               |-- controller
-    |   |               |   `-- MemberController.java
-    |   |               |-- converter
-    |   |               |   `-- StringListConverter.java
-    |   |               |-- entity
-    |   |               |   `-- Member.java
-    |   |               |-- repository
-    |   |               |   `-- MemberRepository.java
-    |   |               |-- security
-    |   |               |   |-- AuthorizationServer.java
-    |   |               |   |-- ResourceServer.java
-    |   |               |   `-- SecurityConfig.java
-    |   |               `-- service
-    |   |                   `-- MemberService.java
-    |   `-- resources
-    |       `-- application.yml
-    `-- test
-        `-- java
-            `-- blog
-                `-- in
-                    `-- action
-                        `-- ActionInBlogApplicationTests.java
-```
-
-### 3.2. application.yml
-- H2 데이터베이스 설정
-
-```yml
-spring:
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 123
-```
-
-### 3.3. pom.xml
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
-        <relativePath /> <!-- lookup parent from repository -->
-    </parent>
-
-    <groupId>blog.in.action</groupId>
-    <artifactId>action-in-blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>action-in-blog</name>
-
-    <properties>
-        <java.version>11</java.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.3.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-            <version>1.0.10.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-```
-
-### 3.4. MemberController 클래스 구현
-유저 정보를 등록할 수 있는 **/api/member/sign-up**와 조회하는 **/api/member/user-info** api path를 만들었습니다. 
-아래 ResourceServer 클래스를 이용해 자원에 대한 요청 접근을 제어합니다. 
-- **/api/member/sign-up** path는 인증 정보 없이 요청이 가능
-- **/api/member/user-info** path는 인증 정보 없이 요청이 불가능
-
-```java
-package blog.in.action.controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import blog.in.action.entity.Member;
-import blog.in.action.service.MemberService;
-
-@RestController
-@RequestMapping(value = "/api/member")
-public class MemberController {
-
-    @Autowired
-    private MemberService memberService;
-
-    @PostMapping("/sign-up")
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void requestSignUp(@RequestBody Member member) {
-        memberService.registMember(member);
-    }
-
-    @GetMapping("/user-info")
-    public Member requestUserInfo(@RequestParam("id") String id) {
-        return memberService.findById(id);
-    }
-}
-```
-
-### 3.5. Config 클래스 구현
-인증 토큰을 만들 때 필요한 JwtAccessTokenConverter @Bean과 유저의 비밀번호를 암호화할 때 사용되는 PasswordEncoder @Bean을 생성해줍니다. 
-JwtAccessTokenConverter @Bean에 등록되는 `signingKey`는 암호화 복호화에 필요한 키 용도로 사용됩니다.
-
-> [Class JwtAccessTokenConverter][spring-doc-link]<br>
-> Sets the JWT signing key. It can be either a simple MAC key or an RSA key. RSA keys should be in OpenSSH format, as produced by ssh-keygen.
-
-```java
-package blog.in.action.config;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-
-@Configuration
-public class Config {
-
-    private String jwtKey = "JWT_KEY";
-
-    @Bean
-    public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(jwtKey);
-        return converter;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}
-```
-
-### 3.6. AuthorizationServer 클래스 구현
-인증에 필요한 설정이 가능한 `@Configuration` 입니다. 
-자세한 내용은 [API 문서][authentication-link]에서 확인하시길 바랍니다. 
-
-- @EnableAuthorizationServer 애너테이션 - 클라이언트 토큰을 저장할 수 있는 인메모리 저장소를 가진 권한 서버 생성
-- AuthorizationServerConfigurerAdapter 클래스 - 상속을 통해 필요한 설정들을 추가할 수 있는 메소드 오버라이드(Override)
-
-```java
-package blog.in.action.security;
-
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-
-import blog.in.action.service.MemberService;
-
-@Configuration
-@EnableAuthorizationServer
-public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
-
-    private String clientId = "CLIENT_ID";
-
-    private String clientSecret = "CLIENT_SECRET";
-
-    @Autowired
-    private MemberService memberService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtAccessTokenConverter jwtAccessTokenConverter;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient(clientId)//
-                .authorizedGrantTypes("password", "refresh_token")//
-                .scopes("read", "profile")//
-                .secret(passwordEncoder.encode(clientSecret))//
-                .accessTokenValiditySeconds(1 * 60 * 60 * 24)// token 유효 시간 등록
-                .refreshTokenValiditySeconds(0);
-    }
-
-    @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter)); // JWT Converter 등록
-        endpoints.userDetailsService(memberService)// UserDetailsService 등록
-                .authenticationManager(authenticationManager)//
-                .tokenEnhancer(tokenEnhancerChain);
-    }
-
-}
-```
-
-### 3.7. ResourceServer 클래스 구현
-자원에 대한 접근을 제어, 관리하는 `@Configuration` 입니다. 
-자세한 내용은 [API 문서][resource-link]에서 확인하시길 바랍니다. 
-
-- @EnableResourceServer 애너테이션 - OAuth2 토큰을 검증하는 보안 필터를 활성화해서 접근 토큰을 검증
-    - 특정 권한(authorization)만 접근 가능하도록 제어하는 것이 가능해집니다. 
-- ResourceServerConfigurerAdapter 클래스 - 상속을 통해 추가적인 기능들은 오버라이드(Override) 
-
-```java
-package blog.in.action.security;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
-
-@Configuration
-@EnableResourceServer
-public class ResourceServer extends ResourceServerConfigurerAdapter {
-
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.cors().and() //
-                .authorizeRequests() //
-                .antMatchers("/api/member/sign-up").permitAll() // sign-up API는 모든 요청 허용
-                .antMatchers("/api/member/user-info").hasAnyAuthority("ADMIN")// user-info API는 ADMIN 권한을 가지는 유저만 요청 허용
-                .anyRequest().authenticated().and() //
-                .exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-    }
-}
-```
-
-### 3.8. SecurityConfig 클래스 구현
-
-```java
-package blog.in.action.security;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import blog.in.action.service.MemberService;
-
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private MemberService memberService;
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService);
-    }
-}
-```
-
-### 3.9. MemberService 클래스, UserDetailsService 인터페이스 구현
-인증(Authentication)에서 AuthenticationProvider들에 의해 사용되는 UserDetailsService 인터페이스를 구현한 클래스입니다. 
-Override 된 loadUserByUsername 메소드는 사용자 정보를 조회하여 UserDetails 구현체를 반환합니다.
-
-- loadUserByUsername 메소드의 debug 포인트 설정 시 call stack
-    - DaoAuthenticationProvider에 의해 사용됨을 확인할 수 있습니다.
-
-<p align="left"><img src="/images/spring-security-example-1.JPG" width="50%"></p>
-
-```java
-package blog.in.action.service;
-
-import java.util.Collection;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import blog.in.action.entity.Member;
-import blog.in.action.repository.MemberRepository;
-
-@Service
-public class MemberService implements UserDetailsService {
-
-    @Autowired
-    private MemberRepository memberRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    public Member findById(String id) {
-        Optional<Member> option = memberRepository.findById(id);
-        if (!option.isPresent()) {
-            return null;
-        }
-        return option.get();
-    }
-
-    public Member registMember(Member member) {
-        String encodedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encodedPassword);
-        return memberRepository.save(member);
-    }
-
-    // 계정이 갖고있는 권한 목록을 return
-    private Collection<? extends GrantedAuthority> authorities(Member member) {
-        return member.getAuthroities().stream().map(authority -> new SimpleGrantedAuthority(authority)).collect(Collectors.toList());
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> option = memberRepository.findById(username);
-        if (!option.isPresent()) {
-            throw new UsernameNotFoundException(username);
-        }
-        // ID, PASSWORD, AUTHORITIES 반환
-        Member member = option.get();
-        return new User(member.getId(), member.getPassword(), authorities(member));
-    }
-
-}
-```
-  
-## 4. 테스트 결과
-API 테스트는 `Insomnia 툴(tool)`을 사용하였습니다. 
-테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-02)
-
-### 4.1. 유저 정보 등록 요청
-
-```
-POST /api/member/sign-up HTTP/1.1
-Host: localhost:8080
-User-Agent: insomnia/2021.3.0
-Content-Type: application/json
-Accept: */*
-Content-Length: 74
-
-{
-    "id": "junhyunny",
-    "password": "123",
-    "authroities": [
-        "ADMIN"
-    ]
-}
-```
-
-### 4.2. 인증 토큰 획득 요청
-- 요청은 `Form`을 사용합니다.
-- 인증 방식은 `Basic` 입니다.
-    - USERNAME - CLIENT_ID
-    - PASSWORD - CLIENT_SECRET
-
-```
-POST /oauth/token HTTP/1.1
-Host: localhost:8080
-User-Agent: insomnia/2021.3.0
-Content-Type: application/x-www-form-urlencoded
-Authorization: Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ=
-Accept: */*
-Content-Length: 51
-
-username=junhyunny&password=123&grant_type=password
-```
-
-### 4.3. 인증 토큰 응답
-
-```json
-{
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo",
-    "token_type": "bearer",
-    "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJqdGkiOiI0YTQyNTFiMS1iZjQ2LTQ5YWItYTdiNi1hYmNiZWJmOGJkMzQiLCJjbGllbnRfaWQiOiJDTElFTlRfSUQiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJhdGkiOiI1NTUwNDYwMC1hN2MxLTRkYmUtYmI5ZC0yNzI4NTMyZjUwOGMifQ.PBvsBK6PAZhlgXeMiLHRF7STX8D3x2pIv5N6t7YwrHc",
-    "expires_in": 86171,
-    "scope": "read profile",
-    "jti": "55504600-a7c1-4dbe-bb9d-2728532f508c"
-}
-```
-
-### 4.4. 인증 토큰을 사용한 사용자 정보 요청
-- 응답 받은 인증 토큰을 사용합니다.
-- 헤더 정보에 `Authorization` 키로 접두어 `bearer`를 추가한 토큰을 함께 전달합니다.
-- 요청 파라미터로 id 값을 전달합니다.
-
-```
-GET /api/member/user-info?id=junhyunny HTTP/1.1
-Host: localhost:8080
-User-Agent: insomnia/2021.3.0
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MjUyMzk5NzgsInVzZXJfbmFtZSI6Imp1bmh5dW5ueSIsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1NTA0NjAwLWE3YzEtNGRiZS1iYjlkLTI3Mjg1MzJmNTA4YyIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsInNjb3BlIjpbInJlYWQiLCJwcm9maWxlIl19.5fB4P5Z9N7UuIT_DNRK8auRBBz0nXZLk0u7HGJaHIDo
-Accept: */*
-```
-
-### 4.5. 사용자 정보 응답
-
-```json
-{
-    "id": "junhyunny",
-    "password": "$2a$10$KdarSqArLPXsGkLuX0jWhubndBpqkOX5PBRwsk0Fs/GtI4uKU6lx6",
-    "authroities": [
-        "ADMIN"
-    ]
-}
-```
-
-##### <https://jwt.io/>, Token Decoding 
-
-<p align="center">
-    <img src="/images/spring-security-example-2.JPG" class="image__border">
-</p>
-
-## CLOSING
-예전에 작성했던 블로그 글이 아주 유용하게 사용되었습니다. 
-당시에는 사용자 인증 관련된 글로 단순 토큰 발행 케이스에 대해서 정리하였는데 이번엔 JWT 기능을 추가하였습니다. 
-**테스트 시 ADMIN을 USER로 등록하여 인증 처리한 경우에는 유저 정보 요청에 실패함을 확인하실 수 있습니다.**
-
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-04-spring-security-example>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-04-spring-security-example>
+
+#### RECOMMEND NEXT POSTS
+
+* [AuthenticationFilter 만들기][make-authentication-filter-link]
+* [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
+* [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]
 
 #### REFERENCE
-- <https://junhyunny.blogspot.com/2020/10/srping-boot-user-authentication.html>
 
-[spring-doc-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html
-[authentication-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html
-[resource-link]: https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html
+* <https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html>
+* <https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html>
+* <https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html>
 
-[json-link]: https://junhyunny.github.io/information/json-web-token/
-[security-link]: https://junhyunny.github.io/spring-security/spring-security/
+[json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
+[spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
 [make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/
 [issue-and-reissue-json-web-token-link]: https://junhyunny.github.io/spring-boot/spring-security/issue-and-reissue-json-web-token/
-
-[front-end-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-front-end/
-[authorization-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-authorization/
-[resource-service-link]: https://junhyunny.github.io/spring-boot/spring-security/react/jest/test-driven-development/split-login-authorization-resource-service-resource/

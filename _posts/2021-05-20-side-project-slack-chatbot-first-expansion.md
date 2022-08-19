@@ -177,7 +177,7 @@ public class Slack {
 ```
 
 ##### 테스트 결과
-- `'display_name'` 사용자의 Github 원격 저장소가 존재하지 않는 경우 관련된 에러 메세지를 전달합니다.
+- `'display_name'` 사용자의 GitHub 원격 저장소가 존재하지 않는 경우 관련된 에러 메세지를 전달합니다.
 - 해당 이름으로 관리되는 원격 저장소가 존재하는 경우 commit 후 push 수행된 이력이 존재하는지 여부를 확인합니다. 
 
 <p align="center"><img src="/images/side-project-slack-chatbot-first-expansion-3.JPG" width="100%"></p>

@@ -13,7 +13,7 @@ last_modified_at: 2021-04-18T09:00:00
 
 얼마 전까지만 해도 터미널을 이용해 git을 사용하곤 했습니다. 
 굳이 무거운 어플리케이션을 설치할 필요가 없다고 생각했는데, 
-이번 [Github commit 메세지 규칙][git-commit-message-rule-link] 포스트를 작성하면서 이 참에 Sourcetree를 사용해보자고 생각했습니다. 
+이번 [GitHub commit 메세지 규칙][git-commit-message-rule-link] 포스트를 작성하면서 이 참에 Sourcetree를 사용해보자고 생각했습니다. 
 터미널에서 commit 메세지를 길게 작성하는 일은 당연히 불편할테니까요. 
 Sourcetree 설치 후 Github의 repository들을 클론(clone)하던 중 일부 문제가 발생되었습니다. 
 
@@ -27,7 +27,7 @@ Sourcetree 설치 후 Github의 repository들을 클론(clone)하던 중 일부 
 
 ## 1. 문제 원인과 해결 과정
 Sourcetree 어플리케이션을 이용해 organization 접근 시 해당 organization에 대한 접근 승인이 되지 않았기 때문입니다. 
-해결 방법을 정리한 후 Github 초보인 팀원들에게 이를 공유해줄 필요가 있어 보입니다. 
+해결 방법을 정리한 후 GitHub 초보인 팀원들에게 이를 공유해줄 필요가 있어 보입니다. 
 
 간략하게 정리하면 다음과 같은 순서로 진행됩니다. 
 1. User Settings

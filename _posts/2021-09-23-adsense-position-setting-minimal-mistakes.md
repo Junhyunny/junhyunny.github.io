@@ -1,5 +1,5 @@
 ---
-title: "Github 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)"
+title: "GitHub 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)"
 search: false
 category:
   - information
@@ -9,10 +9,10 @@ last_modified_at: 2021-09-22T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Github 블로그 애드센스 연결 (feat. minimal-mistakes theme)][adsense-minimal-mistakes-link]
+- [GitHub 블로그 애드센스 연결 (feat. minimal-mistakes theme)][adsense-minimal-mistakes-link]
 
 ## 0. 들어가면서
-`구글 애드센스(Google Adsense)` 승인도 어려웠지만, Github 커스텀 블로그에 광고를 등록하는 일도 쉽지 않았습니다. 
+`구글 애드센스(Google Adsense)` 승인도 어려웠지만, GitHub 커스텀 블로그에 광고를 등록하는 일도 쉽지 않았습니다. 
 애드센스의 `자동 광고` 설정에 대한 설명을 보면 구글에서 포스트를 분석하여 적절한 위치에 광고를 삽입한다고 합니다. 
 하지만, 실제 적용하면 글의 가독성이나 몰입도를 떨어뜨리는 광고가 많았습니다. 
 애드센스가 승인된 이전에 운영하던 블로그를 들어가 보면 `자동 광고` 설정 때문에 다음과 같은 불편사항이 있었습니다. 

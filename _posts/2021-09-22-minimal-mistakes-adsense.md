@@ -1,5 +1,5 @@
 ---
-title: "Github 블로그 애드센스 연결 (feat. minimal-mistakes theme)"
+title: "GitHub 블로그 애드센스 연결 (feat. minimal-mistakes theme)"
 search: false
 category:
   - information
@@ -9,12 +9,12 @@ last_modified_at: 2021-09-22T23:55:00
 <br>
 
 👉 이어서 읽기를 추천합니다.
-- [Github 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)][adsense-position-setting-link]
+- [GitHub 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)][adsense-position-setting-link]
 
 ## 0. 들어가면서
 올해 초 시작했던 이 블로그에 유입되는 사용자 수가 꽤 많이 증가했습니다. 
 공부하는 내용을 정리할 겸 시작한 블로그였는데 사용자 유입량이 늘어나니 광고를 통해 부가적인 수입도 얻어볼 생각이 문득 들었습니다. 
-`Github` 플랫폼을 이용한 블로그를 운영 중인데, 이를 위한 자세한 포스팅이 없는 것 같아서 정리하였습니다. 
+`GitHub` 플랫폼을 이용한 블로그를 운영 중인데, 이를 위한 자세한 포스팅이 없는 것 같아서 정리하였습니다. 
 저는 `minimal-mistakes` 테마를 사용하고 있으며, 같은 테마를 사용하시는 분들께 도움이 되길 바랍니다.
 
 ## 1. Google Adsense 가입하기
@@ -27,7 +27,7 @@ last_modified_at: 2021-09-22T23:55:00
 
 ### 1.2. Google Adsense 가입 정보 입력
 - `웹사이트` 항목에 본인이 운영 중인 블로그 주소를 추가합니다.
-    - 중복되는 URL은 입력할 수 없어서 예시 URL으로 Github 주소를 사용하였습니다.
+    - 중복되는 URL은 입력할 수 없어서 예시 URL으로 GitHub 주소를 사용하였습니다.
 - `이메일 주소`에는 사용 중인 구글 이메일 주소를 입력합니다.
 - `애드센스 정보 수신`은 직접 선택하시길 바랍니다.
 - `저장하고 계속하기` 버튼을 누른 후 기타 부가적인 정보들을 입력합니다.

@@ -16,9 +16,9 @@ last_modified_at: 2022-08-17T23:55:00
 ## 0. 들어가면서
 
 [JPA N+1 문제][jpa-one-plus-n-problem-link]와 관련된 포스트를 작성할 때 `@EntityGraph` 애너테이션을 사용하면 추가적인 처리 없이도 자동적으로 중복된 엔티티(entity)들이 제거되는 현상을 발견했습니다. 
-당시에 이 현상에 대해 궁금하여 `Github`와 `StackOverflow`에 문의를 남겼었는데, 최근 `StackOverflow`를 통해 얻은 답변을 이번 포스트를 통해 공유하겠습니다. 
+당시에 이 현상에 대해 궁금하여 `GitHub`와 `StackOverflow`에 문의를 남겼었는데, 최근 `StackOverflow`를 통해 얻은 답변을 이번 포스트를 통해 공유하겠습니다. 
 
-##### Github 이슈
+##### GitHub 이슈
 
 * [Why does not @EntityGraph annotation in JPA need to use "distinct" keyword or "Set" data structure?][github-issue-link]
 

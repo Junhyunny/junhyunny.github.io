@@ -66,7 +66,7 @@ last_modified_at: 2021-02-17T23:55:00
 * 유효한 토큰인 경우 사용자 리소스를 클라이언트에게 전달합니다.
 
 <p align="center">
-    <img src="/images/spring-security-example-2.JPG" width="80%">
+    <img src="/images/spring-security-example-2.JPG" width="100%" class="image__border">
 </p>
 
 ## 3. Authroization Server 구현
@@ -134,7 +134,7 @@ spring:
 * `@EnableAuthorizationServer` 애너테이션을 사용해 인증 서버 설정을 위한 빈(bean)으로 등록합니다. 
 * `AuthorizationServerConfigurerAdapter` 클래스를 상속받아 인증 서버 구현에 필요한 기능을 확장합니다.
 * 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
-    * `AuthenticationManager` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참조 바랍니다.
+    * `AuthenticationManager` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참고 바랍니다.
 
 ```java
 package blog.in.action.security;
@@ -209,7 +209,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 * `@EnableWebSecurity` 애너테이션을 통해 웹 암호화 설정 빈으로 등록합니다.
 * `WebSecurityConfigurerAdapter` 클래스를 상속하여 필요한 암호화에 필요한 기능을 확장합니다.
 * 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
-    * `UserDetailsService` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참조 바랍니다.
+    * `UserDetailsService` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참고 바랍니다.
 
 ```java
 package blog.in.action.security;
@@ -677,14 +677,13 @@ resource-server_1       | 2022-08-19 18:49:22.725  INFO 1 --- [           main] 
 authorization-server_1  | 2022-08-19 18:49:22.748  INFO 1 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 authorization-server_1  | 2022-08-19 18:49:22.966  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 authorization-server_1  | 2022-08-19 18:49:22.976  INFO 1 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 5.992 seconds (JVM running for 6.644)
-
 ```
 
 ### 5.2. 토큰 정보 받기
 
 * 인증 서버로 토큰 정보를 요청합니다.
-    * POST 요청
-    * /oauth/token 경로는 Spring Security 프레임워크가 내부적으로 생성한 API 경로입니다.
+    * POST 요청입니다.
+    * `/oauth/token`는 Spring Security 프레임워크가 자동으로 생성한 API 경로입니다.
 * 인증 서버에 미리 등록된 클라이언트 `ID`와 `SECRETE` 정보를 함께 전달합니다.
     * 클라이언트 `ID`와 `SECRETE` 정보는 클라이언트 어플리케이션이 인증 서버로부터 미리 발급 받은 정보입니다.
 * 사용자임을 인증할 수 있도록 사용자 ID, 비밀번호, 인증 방식을 전달합니다.
@@ -698,7 +697,7 @@ $ curl -X POST http://localhost:8080/oauth/token\
 
 ##### 결과
 
-* access_token - JWT 토큰 정보
+* access_token - JWT 토큰
 * token_type - 토큰 타입
 * refresh_token - JWT 액세스 토큰이 만료된 경우 재발급을 받을 때 사용하는 리프레시 토큰
 * expires_in - 토큰 만료 시간
@@ -721,7 +720,7 @@ $ curl -X POST http://localhost:8080/oauth/token\
 
 * 리소스 서버로 사용자 정보를 요청합니다.
     * 전달받은 토큰을 헤더 정보에 담아 전달합니다. 
-    * 헤더 키는 `Authorization`이며 토큰 앞에 `Bearer` 토큰 타입을 붙혀줍니다.
+    * 헤더 키는 `Authorization`이며 토큰 앞에 `Bearer` 토큰 타입을 추가합니다.
 
 ```
 $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\

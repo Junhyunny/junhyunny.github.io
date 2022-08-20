@@ -185,7 +185,7 @@ console.log(index); // Uncaught ReferenceError: index is not defined
 > [Programming Languages Lecture 9 - Lexical Scope, Closures][zach-tatlock-pdf-link]<br/>
 > Lexical scope: use environment where function [and variable] is defined
 
-`Java`, `JavaScript`처럼 제가 익숙한 언어들은 모두 렉시컬 스코프 방식을 사용합니다. 
+`Java`와 `JavaScript`는 모두 렉시컬 스코프 방식을 사용합니다. 
 렉시컬 스코프 방식은 함수가 선언된 위치의 컨텍스트를 사용하여 스코프를 정의합니다. 
 
 아래 예시 코드를 통해 확인해보겠습니다. 

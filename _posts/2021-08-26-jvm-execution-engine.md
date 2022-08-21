@@ -10,7 +10,7 @@ last_modified_at: 2021-08-26T06:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JVM, Java Virtual Machine][jvm-link]
+- [JVM(Java Virtual Machine)][jvm-link]
 
 ## 0. 들어가면서
 

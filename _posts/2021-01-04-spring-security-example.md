@@ -32,20 +32,20 @@ last_modified_at: 2021-02-17T23:55:00
 
 간단하게 `StackOverflow` 서비스 로그인을 예시로 들어보겠습니다. 
 
-* 사용자는 `StackOverflow`에 질문을 남기기 위해 로그인을 시도합니다.
-* `StackOverflow` 서비스는 사용자 로그인 옵션을 제공합니다.
+1. `사용자(Resource Owner)`는 `StackOverflow(Application) 서비스`에 질문을 남기기 위해 로그인을 시도합니다.
+1. `StackOverflow 서비스`는 사용자 로그인 옵션을 제공합니다.
     * E-Mail, 비밀번호로 로그인
     * 구글 계정으로 로그인
     * GitHub 계정으로 로그인
     * Facebook 계정으로 로그인
-* 사용자는 GitHub 계정으로 로그인 옵션을 선택합니다.
+1. `사용자`는 GitHub 계정으로 로그인 옵션을 선택합니다.
     * GitHub 계정으로 로그인하기 위한 화면이 연결됩니다.
     * 사용자는 자신의 GitHub 계정 정보를 입력합니다.
-* 사용자의 GitHub 계정 정보는 GitHub 인증 서버로 전달됩니다.
-* 정상적인 인증이 된다면 GitHub 인증 서버는 `StackOverflow` 서비스로 인증 토큰을 발급합니다.
-* `StackOverflow` 서비스는 발급받은 인증 토큰으로 GitHub 리소스 서버에 필요한 사용자 정보를 요청하여 전달받습니다.
-* 사용자의 화면은 인증 화면에서 `StackOverflow` 화면으로 리다이렉트(redirect)됩니다. 
-* 사용자는 `StackOverflow` 서비스를 이용할 수 있습니다.
+1. `사용자`의 GitHub 계정 정보는 `GitHub 인증 서버(Authorization Server)`로 전달됩니다.
+1. 정상적인 인증이 된다면 `GitHub 인증 서버`는 `StackOverflow 서비스`로 인증 토큰을 발급합니다.
+1. `StackOverflow 서비스`는 발급받은 인증 토큰으로 `GitHub 리소스 서버(Resource Server)`에 필요한 사용자 정보를 요청하여 전달받습니다.
+1. `사용자`의 화면은 인증 화면에서 `StackOverflow 서비스` 화면으로 리다이렉트(redirect)됩니다. 
+1. `사용자`는 `StackOverflow 서비스`를 이용할 수 있습니다.
 
 <p align="center">
     <img src="/images/spring-security-example-1.JPG" width="80%">

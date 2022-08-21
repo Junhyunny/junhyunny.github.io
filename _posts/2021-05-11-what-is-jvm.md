@@ -1,5 +1,5 @@
 ---
-title: "JVM, Java Virtual Machine"
+title: "JVM(Java Virtual Machine)"
 search: false
 category:
   - information
@@ -103,7 +103,7 @@ JVM은 이 영역에 자바 어플리케이션에서 사용하는 데이터들�
 - Eden - 최초에 new 키워드를 통해 객체가 생성되는 영역, Young Generation, Minor GC 수행
 - Survivor1, Survivor2 - Eden 영역에서 GC 대상이 아닌 객체들을 전달받아 저장하는 영역, Young Generation, Minor GC 수행 영역
 - Old - Young Generation 영역에서 GC 대상이 아니라 살아남은 객체들이 이동하는 영역, Major GC 수행 영역
-- Permanent - 클래스 로더에 의해 적재된 클래스 저장 (JDK1.8부터는 Metaspace)
+- Permanent - 클래스 로더에 의해 적재된 클래스들의 정보를 저장 (JDK1.8부터는 Metaspace)
 
 ##### Runtime Data Area 구조
 <p align="center"><img src="/images/what-is-jvm-3.jpg" width="65%"></p>

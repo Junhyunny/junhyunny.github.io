@@ -196,6 +196,14 @@ $ curl -X POST http://localhost:8080/oauth/token\
 }
 ```
 
+##### Json Web Token Decoding
+
+`JwtAccessTokenConverter` 클래스에서 토큰을 변경할 때 `OAuth2AccessToken` 인스턴스에 담긴 정보를 모두 포함하여 인코딩을 수행하기 때문에 JWT 토큰 값을 디코딩하면 별도로 추가한 정보들도 함께 확인할 수 있습니다. 
+
+<p align="center">
+    <img src="/images/token-enhancer-2.JPG" width="100%" class="image__border">
+</p>
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-10-token-enhancer>

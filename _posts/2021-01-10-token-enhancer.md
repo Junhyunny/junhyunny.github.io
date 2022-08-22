@@ -1,5 +1,5 @@
 ---
-title: "Token Enhancer"
+title: "TokenEnhancer 인터페이스"
 search: false
 category:
   - spring-boot
@@ -9,131 +9,111 @@ last_modified_at: 2021-08-21T17:00:00
 
 <br>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security JWT(Json Web Token) OAuth 인증 예제][jwt-security-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-## 0. 들어가면서
+* [JWT(Json Web Token)][json-web-token-link]
+* [Spring Security][spring-security-link]
+* [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]
 
-URL에 사용자ID 같은 정보를 노출시키지 않고 유저 정보를 가져올 수 있는 방법에 대해 고민을 많이 했습니다. 
-@RequestBody에 유저 정보를 담는 방법도 있지만 클라이언트 유저 정보와 동시에 다른 유저 정보를 함께 전달해야되는 경우에는 처리가 곤란했습니다. 
-이를 해결하기 위해 JWT 토큰에 추가적인 클라이언트 정보를 함께 전달할 수 있는 TokenEnhancer 인터페이스의 기능을 이용하기로 하였습니다. 
+## 1. TokenEnhancer 인터페이스
 
-## 1. 예제 코드
-
-### 1.1. 패키지 구조
-
-```
-.
-|-- action-in-blog.iml
-|-- mvnw
-|-- mvnw.cmd
-|-- pom.xml
-`-- src
-    |-- main
-    |   |-- java
-    |   |   `-- blog
-    |   |       `-- in
-    |   |           `-- action
-    |   |               |-- ActionInBlogApplication.java
-    |   |               |-- config
-    |   |               |   `-- Config.java
-    |   |               |-- controller
-    |   |               |   `-- MemberController.java
-    |   |               |-- converter
-    |   |               |   `-- StringListConverter.java
-    |   |               |-- entity
-    |   |               |   `-- Member.java
-    |   |               |-- repository
-    |   |               |   `-- MemberRepository.java
-    |   |               |-- security
-    |   |               |   |-- AuthorizationServer.java
-    |   |               |   |-- ResourceServer.java
-    |   |               |   `-- SecurityConfig.java
-    |   |               `-- service
-    |   |                   `-- MemberService.java
-    |   `-- resources
-    |       `-- application.yml
-    `-- test
-        `-- java
-            `-- blog
-                `-- in
-                    `-- action
-                        `-- ActionInBlogApplicationTests.java
-```
-
-### 1.2. Config 클래스 구현
-[Spring Security JWT(Json Web Token) OAuth 인증 예제][jwt-security-link] 포스트에서 Config 클래스에 JwtAccessTokenConverter @Bean을 만들어줬지만 이를 제거하고 AuthorizationServer 클래스로 이동하였습니다. 
-이유는 아래 AuthorizationServer 클래스 구현에서 확인하실 수 있습니다. 
+Spring Security 프레임워크의 `TokenEnhancer` 인터페이스를 구현한 클래스를 사용하면 토큰의 모습을 변경할 수 있습니다. 
+[Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트에서 사용한 `JwtAccessTokenConverter` 클래스 또한 `TokenEnhancer` 인터페이스를 구현하고 있습니다. 
 
 ```java
-package blog.in.action.config;
+public class JwtAccessTokenConverter implements TokenEnhancer, AccessTokenConverter, InitializingBean {
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+    public static final String TOKEN_ID = "jti";
+    public static final String ACCESS_TOKEN_ID = "ati";
+    private static final Log logger = LogFactory.getLog(JwtAccessTokenConverter.class);
+    private AccessTokenConverter tokenConverter = new DefaultAccessTokenConverter();
+    private JwtClaimsSetVerifier jwtClaimsSetVerifier = new NoOpJwtClaimsSetVerifier();
+    private JsonParser objectMapper = JsonParserFactory.create();
+    private String verifierKey = (new RandomValueStringGenerator()).generate();
+    private Signer signer;
+    private String signingKey;
+    private SignatureVerifier verifier;
 
-@Configuration
-public class Config {
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public JwtAccessTokenConverter() {
+        this.signer = new MacSigner(this.verifierKey);
+        this.signingKey = this.verifierKey;
     }
+
+    // ...
 }
 ```
 
-### 1.3. CustomTokenEnhancer 클래스 구현
-AuthorizationServer 클래스의 내부 클래스로 구현하여 패키지 구조에는 보이지 않습니다. 
-TokenEnhancer 인터페이스를 구현하였으며 enhance 메소드를 통해 토큰에 정보를 추가합니다. 
-OAuth2Authentication 객체에서 principal에 대한 정보를 추출 후 OAuth2AccessToken 객체에 추가하였습니다. 
+## 2. TokenEnhancer 인스턴스 호출 시점
 
-```java
-    private class CustomTokenEnhancer implements TokenEnhancer {
-        // Access Token에 추가하고 싶은 값을 함께 전달한다.
-        @Override
-        public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-            User user = (User) authentication.getPrincipal();
-            Map<String, Object> additionalInfo = new HashMap<String, Object>();
-            // token에 추가 정보 등록
-            additionalInfo.put("memberId", user.getUsername());
-            additionalInfo.put("otherInfomation", "otherInfomation");
-            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-            return accessToken;
-        }
-    }
-```
+인증 서버에서 토큰을 변경하는 시점은 다음과 같습니다. 
 
-###  1.4. AuthorizationServer 클래스 구현
-AuthorizationServer 클래스을 통해 CustomTokenEnhancer, JwtAccessTokenConverter를 등록합니다. 
-**CustomTokenEnhancer, JwtAccessTokenConverter 모두 TokenEnhancer를 상속받았기 때문에 둘 모두를 @Bean으로 등록하는 경우 충돌이 발생합니다.** 
-@Bean 충돌을 방지하기 위해 생성자를 통해 객체들을 만들었으며 TokenEnhancerChain에 두 tokenEnhancer 객체를 모두 추가해줬습니다. 
+* 사용자가 인증 서버의 `/oauth/token` 경로로 토큰을 요청합니다.
+* 프레임워크에서 제공하는 필터 체인을 통과합니다.
+* 프레임워크에서 제공하는 `TokenEndPoint` 클래스에서 사용자 요청을 전달받습니다.
+* 내부 인증 로직 수행 중 `CompositeTokenGenerator` 클래스에서 토큰을 생성합니다.
+* `TokenEnhancerChain` 클래스에서 등록된 토큰 강화기를 하나씩 수행합니다.
+* 개발자가 구현한 커스텀 토큰 강화기가 호출됩니다.
+
+<p align="center">
+    <img src="/images/token-enhancer-1.JPG" width="80%" class="image__border">
+</p>
+
+## 3. 인증 서버
+
+이번 포스트의 인증 서버는 [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]에서 사용한 서비스를 일부 변경하였습니다. 
+서비스의 구체적인 구조나 코드에 관련된 설명은 해당 포스트를 통해 확인하시길 바랍니다.
+
+### 3.1. CustomTokenEnhancer 클래스
+
+* `TokenEnhancer` 인터페이스의 `enhance` 메소드를 재구현합니다. 
+* 기존 토큰에 담긴 정보를 유지하면서 새로운 정보를 추가합니다. 
+    * OAuth2Authentication 객체에서 추출한 리스소 오너(resource owner)의 이름
+    * 별도 추가적인 정보
 
 ```java
 package blog.in.action.security;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.stereotype.Component;
 
-import org.springframework.beans.factory.annotation.Autowired;
+@Component
+public class CustomTokenEnhancer implements TokenEnhancer {
+
+    @Override
+    public OAuth2AccessToken enhance(OAuth2AccessToken oAuth2AccessToken, OAuth2Authentication oAuth2Authentication) {
+        User user = (User) oAuth2Authentication.getPrincipal();
+        Map<String, Object> additionalInfo = new LinkedHashMap<>(oAuth2AccessToken.getAdditionalInformation());
+        additionalInfo.put("MEMBER_ID", user.getUsername());
+        additionalInfo.put("SERVICE-SECRET-KEY", "JUNHYUNNY AUTH SERVICE");
+        ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(additionalInfo);
+        return oAuth2AccessToken;
+    }
+}
+```
+
+### 3.2. AuthorizationServer 클래스
+
+새로 만든 커스텀 토큰 강화기를 인증 서버의 `TokenEnhancerChain` 인스턴스에 등록합니다.
+
+```java
+package blog.in.action.security;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import blog.in.action.service.MemberService;
+import java.util.Arrays;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
@@ -142,123 +122,84 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
     private String clientSecret = "CLIENT_SECRET";
 
-    @Autowired
-    private MemberService memberService;
+    private int ACCESS_TOKEN_VALID_SECONDS = 10 * 60 * 24;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private int REFRESH_TOKEN_VALID_SECONDS = 60 * 60 * 24;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
-    private class CustomTokenEnhancer implements TokenEnhancer {
-        // Access Token에 추가하고 싶은 값을 함께 전달한다.
-        @Override
-        public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-            User user = (User) authentication.getPrincipal();
-            Map<String, Object> additionalInfo = new HashMap<String, Object>();
-            // token에 추가 정보 등록
-            additionalInfo.put("memberId", user.getUsername());
-            additionalInfo.put("otherInfomation", "otherInfomation");
-            ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
-            return accessToken;
-        }
-    }
+    private final AuthenticationManager authenticationManager;
 
-    private CustomTokenEnhancer customTokenEnhancer() {
-        return new CustomTokenEnhancer();
-    }
+    private final CustomTokenEnhancer customTokenEnhancer;
 
-    private JwtAccessTokenConverter jwtAccessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey("JWT_KEY");
-        return converter;
-    }
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient(clientId)//
-                .authorizedGrantTypes("password", "refresh_token")//
-                .scopes("read", "profile")//
-                .secret(passwordEncoder.encode(clientSecret))//
-                .accessTokenValiditySeconds(1 * 60 * 60 * 24)// token 유효 시간 등록
-                .refreshTokenValiditySeconds(0);
+        // 해당 인증 서버를 이용하는 클라이언트 어플리케이션 정보를 추가합니다.
+        clients
+                // 인증 서버 메모리에 추가합니다.
+                .inMemory()
+                // 클라이언트 어플리케이션에 미리 발급된 ID
+                .withClient(clientId)
+                // 클라이언트 어플리케이션에 미리 발급된 SECRETE, 암호화하여 추가
+                .secret(passwordEncoder.encode(clientSecret))
+                // 인증 방법은 비밀번호와 리프레시 토큰
+                .authorizedGrantTypes("password", "refresh_token")
+                .scopes("read")
+                // access token 유효 시간 등록
+                .accessTokenValiditySeconds(ACCESS_TOKEN_VALID_SECONDS)
+                // refresh token 유효 시간 등록
+                .refreshTokenValiditySeconds(REFRESH_TOKEN_VALID_SECONDS);
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        // tokenEnhancerChain에 tokenEnhancer들 등록
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer(), jwtAccessTokenConverter())); // JWT Converter 등록
-        endpoints.userDetailsService(memberService)// UserDetailsService 등록
-                .authenticationManager(authenticationManager)//
+        // 커스텀 토큰 강화기, JSON WEB TOKEN 을 사용하기 위한 컨버터 등록
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer, jwtAccessTokenConverter));
+        endpoints
+                // Spring Security 프레임워크에서 사용하는 AuthenticationManager 등록
+                .authenticationManager(authenticationManager)
+                // 토큰 강화를 위한 TokenEnhancer 등록
                 .tokenEnhancer(tokenEnhancerChain);
     }
-
 }
 ```
 
-## 2. 테스트 결과
-API 테스트는 Insomnia Tool을 사용하였습니다.
-테스트를 위한 데이터를 복사하여 사용할 수 있도록 이미지가 아닌 Timeline으로 변경하였습니다.(2021-07-04)
+## 4. 테스트 
 
-### 2.1. 유저 정보 등록 요청
+[Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트와 마찬가지로 cURL 커맨드를 사용하여 테스트를 수행하였습니다. 
 
-```
-> POST /api/member/sign-up HTTP/1.1
-> Host: localhost:8080
-> User-Agent: insomnia/2021.4.0
-> Content-Type: application/json
-> Accept: */*
-> Content-Length: 74
+##### 토큰 정보 요청과 처리 결과
 
-| {
-|     "id": "junhyunny",
-|     "password": "123",
-|     "authroities": [
-|         "ADMIN"
-|     ]
-| }
-```
-
-### 2.2. 인증 정보 획득
-- 요청은 `Form`을 사용합니다.
-- 인증 방식은 `Basic` 입니다.
-    - USERNAME - CLIENT_ID
-    - PASSWORD - CLIENT_SECRET
+* 토큰 강화기에서 추가한 정보가 결과에서 확인됩니다.
 
 ```
-> POST /oauth/token HTTP/1.1
-> Host: localhost:8080
-> User-Agent: insomnia/2021.4.0
-> Content-Type: application/x-www-form-urlencoded
-> Authorization: Basic Q0xJRU5UX0lEOkNMSUVOVF9TRUNSRVQ=
-> Accept: */*
-> Content-Length: 51
+$ curl -X POST http://localhost:8080/oauth/token\
+   -H "Content-Type: application/x-www-form-urlencoded"\
+   -u 'CLIENT_ID:CLIENT_SECRET'\
+   -d "username=Junhyunny&password=123&grant_type=password" | jq .
 
-| username=junhyunny&password=123&grant_type=password
-```
-
-### 2.3. 인증 토큰 응답
-
-```json
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1074    0  1023  100    51   6322    315 --:--:-- --:--:-- --:--:--  7019
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJvdGhlckluZm9tYXRpb24iOiJvdGhlckluZm9tYXRpb24iLCJleHAiOjE2MjU0MTQ1MjMsImF1dGhvcml0aWVzIjpbIkFETUlOIl0sImp0aSI6IjU1ZDIwOWMwLWU3MzctNGY1My04OTI3LTJmYWU0Y2I5NDVkNSIsImNsaWVudF9pZCI6IkNMSUVOVF9JRCIsIm1lbWJlcklkIjoianVuaHl1bm55In0.h9IrzH1lSzsicjZO-skvXZjtbwOrLxyEuxQahVvg93s",
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJKdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIl0sIk1FTUJFUl9JRCI6Ikp1bmh5dW5ueSIsImV4cCI6MTY2MTIwNTE5MCwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiZmYxMGIwZjktZWVjMi00YzM4LWFhMWMtNDE3MGQ4YjBhODk0IiwiY2xpZW50X2lkIjoiQ0xJRU5UX0lEIiwiU0VSVklDRS1TRUNSRVQtS0VZIjoiSlVOSFlVTk5ZIEFVVEggU0VSVklDRSJ9.1A0ymrGZk8Pvho4lqGkvUaX6713tvRLFhEaUQXr_SkY",
   "token_type": "bearer",
-  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJqdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIiwicHJvZmlsZSJdLCJhdGkiOiI1NWQyMDljMC1lNzM3LTRmNTMtODkyNy0yZmFlNGNiOTQ1ZDUiLCJvdGhlckluZm9tYXRpb24iOiJvdGhlckluZm9tYXRpb24iLCJhdXRob3JpdGllcyI6WyJBRE1JTiJdLCJqdGkiOiI3YWY5ZTRiYS01Y2Y0LTQ2NWItOGJhMC1mNWJmMTViZWM3ZjQiLCJjbGllbnRfaWQiOiJDTElFTlRfSUQiLCJtZW1iZXJJZCI6Imp1bmh5dW5ueSJ9.ekDhVbhqdkcq9LiG2jOE-rnGk4yDX7x0zCKVdWNSKEI",
-  "expires_in": 86399,
-  "scope": "read profile",
-  "otherInfomation": "otherInfomation",
-  "memberId": "junhyunny",
-  "jti": "55d209c0-e737-4f53-8927-2fae4cb945d5"
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJKdW5oeXVubnkiLCJzY29wZSI6WyJyZWFkIl0sImF0aSI6ImZmMTBiMGY5LWVlYzItNGMzOC1hYTFjLTQxNzBkOGIwYTg5NCIsIk1FTUJFUl9JRCI6Ikp1bmh5dW5ueSIsImV4cCI6MTY2MTI3NzE5MCwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwianRpIjoiYmMyYWM5ZTQtYjQ2MC00OTFmLWI4MDYtNTE4YzVlZTE3MTg4IiwiY2xpZW50X2lkIjoiQ0xJRU5UX0lEIiwiU0VSVklDRS1TRUNSRVQtS0VZIjoiSlVOSFlVTk5ZIEFVVEggU0VSVklDRSJ9.9o2pXUUkP1eqkcMLrSWNONnvZ7-baWWpi-TUgDfxRQg",
+  "expires_in": 14069,
+  "scope": "read",
+  "MEMBER_ID": "Junhyunny",
+  "SERVICE-SECRET-KEY": "JUNHYUNNY AUTH SERVICE",
+  "jti": "ff10b0f9-eec2-4c38-aa1c-4170d8b0a894"
 }
 ```
-
-### 2.4. Token Decoding 
-<p align="center"><img src="/images/token-enhancer-1.JPG" width="75%"></p>
-<center>https://jwt.io/</center>
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-10-token-enhancer>
 
-[jwt-security-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-10-token-enhancer>
+
+[json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
+[spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
+[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/

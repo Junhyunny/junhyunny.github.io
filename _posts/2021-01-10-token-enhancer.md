@@ -55,7 +55,7 @@ public class JwtAccessTokenConverter implements TokenEnhancer, AccessTokenConver
 * 개발자가 구현한 커스텀 토큰 강화기가 호출됩니다.
 
 <p align="center">
-    <img src="/images/token-enhancer-1.JPG" width="80%" class="image__border">
+    <img src="/images/token-enhancer-1.JPG" width="100%" class="image__border">
 </p>
 
 ## 3. 인증 서버

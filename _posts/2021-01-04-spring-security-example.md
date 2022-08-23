@@ -782,6 +782,8 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 
 #### RECOMMEND NEXT POSTS
 
+* [TokenEnhancer 인터페이스][token-enhancer-link]
+* [HandlerMethodArgumentResolver 인터페이스][handler-method-argument-resolver-link]
 * [AuthenticationFilter 만들기][make-authentication-filter-link]
 * [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
 * [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]
@@ -795,6 +797,8 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
 [spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 
+[token-enhancer-link]: https://junhyunny.github.io/spring-boot/spring-security/token-enhancer/
+[handler-method-argument-resolver-link]: https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
 [make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/
 [issue-and-reissue-json-web-token-link]: https://junhyunny.github.io/spring-boot/spring-security/issue-and-reissue-json-web-token/

@@ -11,7 +11,7 @@ last_modified_at: 2022-06-27T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
-* [Micro Service Architecture][msa-blog-link]
+* [Micro Service Architecture][microservice-architecture-link]
 
 ## 1. Spring Cloud Sleuth
 
@@ -614,4 +614,4 @@ a-service    |  ...
 
 * <https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/html/getting-started.html#getting-started-terminology>
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/

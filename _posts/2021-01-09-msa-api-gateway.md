@@ -10,7 +10,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Micro Service Architecture][msa-blog-link]
+* [Micro Service Architecture][microservice-architecture-link]
 
 ## 0. 들어가면서
 
@@ -95,7 +95,7 @@ API 게이트웨이의 기능들에 대해 간략하게 정리해보았습니다
 [microsoft-ebook-link]: https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/architect-microservice-container-applications/direct-client-to-microservice-communication-versus-the-api-gateway-pattern
 [cho-blog-link]: https://bcho.tistory.com/1005
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 
 [msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/

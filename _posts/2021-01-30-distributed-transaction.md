@@ -10,7 +10,7 @@ last_modified_at: 2021-08-22T00:30:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][msa-blog-link]
+- [Micro Service Architecture][microservice-architecture-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
@@ -108,6 +108,6 @@ Saga 패턴은 두 가지 종류가 존재합니다.
 - <https://sarc.io/index.php/development/2128-saga-pattern>
 - <https://technet.tmaxsoft.com/upload/download/online/tibero/pver-20140808-000002/tibero_admin/ch_07.html>
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 
 [msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/

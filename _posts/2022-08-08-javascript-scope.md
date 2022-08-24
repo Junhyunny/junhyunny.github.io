@@ -239,6 +239,10 @@ bar() {
 bar # bar call
 ```
 
+#### RECOMMEND NEXT POSTS
+
+* [JavaScript Scope Chain][javascript-scope-chain-link]
+
 #### REFERENCE
 
 * [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]
@@ -251,5 +255,7 @@ bar # bar call
 
 [modern-javascript-book-link]: http://www.yes24.com/product/goods/92742567
 [inside-javascript-book-link]: http://www.yes24.com/product/goods/37157296
+
+[javascript-scope-chain-link]: https://junhyunny.github.io/javascript/javascript-scope-chain/
 
 [zach-tatlock-pdf-link]: https://courses.cs.washington.edu/courses/cse341/14sp/slides/lec09.pdf

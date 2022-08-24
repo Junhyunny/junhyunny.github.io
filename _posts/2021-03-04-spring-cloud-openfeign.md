@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T20:30:00
 ⚠️ 해당 포스트는 2021년 8월22일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][msa-blog-link]
+- [Micro Service Architecture][microservice-architecture-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Openfeign 런타임(runtime) 시 URI 변경][dynamic-uri-using-openfeign-link]
@@ -190,7 +190,7 @@ public class SimpleClientTest {
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 - <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 
 [dynamic-uri-using-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/
 [spring-cloud-netflix-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/

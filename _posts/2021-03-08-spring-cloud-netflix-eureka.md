@@ -13,7 +13,7 @@ last_modified_at: 2021-08-23T09:30:00
 ⚠️ 해당 포스트는 2021년 8월 23일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][msa-blog-link]
+- [Micro Service Architecture][microservice-architecture-link]
 - [Spring Cloud Openfeign][openfeign-link]
 
 👉 이어서 읽기를 추천합니다.
@@ -306,7 +306,7 @@ Spring Cloud와 관련된 내용을 정리하다 보니 아직 갈 길이 멀다
 
 [eureka-reference-link]: https://kouzie.github.io/spring/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-eureka-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95/#eureka-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%A4%EC%A0%95
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 
 [feignclient-with-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/

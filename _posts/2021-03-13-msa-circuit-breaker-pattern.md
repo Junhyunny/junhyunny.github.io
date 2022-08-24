@@ -14,7 +14,7 @@ last_modified_at: 2021-08-24T12:00:00
 ⚠️ 해당 포스트는 2021년 8월 24일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][msa-blog-link]
+- [Micro Service Architecture][microservice-architecture-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Spring Cloud Netflix Hystrix][spring-cloud-netflix-hystrix-link]
@@ -28,7 +28,7 @@ last_modified_at: 2021-08-24T12:00:00
 ##### 마이크로 서비스 아키텍처 장애 전파
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="55%"></p>
 
-그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][msa-blog-link]) 
+그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][microservice-architecture-link]) 
 > **Micro Service Architecture 핵심 원칙, 회복성(Resilience)**<br>
 > 마이크로 서비스는 자연스러운 메커니즘을 통해 장애를 격리시킵니다.
 
@@ -429,6 +429,6 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 - <https://sup2is.github.io/2020/04/12/spring-cloud-hystrix-circuit-breaker-with-fallback.html>
 - <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 
 [spring-cloud-netflix-hystrix-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/

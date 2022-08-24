@@ -10,7 +10,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Micro Service Architecture][msa-blog-link]
+* [Micro Service Architecture][microservice-architecture-link]
 
 ## 1. Micro Service Architecture 장점
 
@@ -149,7 +149,7 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 [spring-boot-microservice-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791161751108
 [joo-blog-link]: https://medium.com/giljae/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C-%EC%83%9D%EA%B0%81%ED%95%B4%EB%B3%B4%EA%B8%B0-1529a94e624e
 
-[msa-blog-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
+[microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 
 [msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/

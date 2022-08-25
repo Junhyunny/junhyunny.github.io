@@ -21,7 +21,7 @@ CI/CD는 크게 3단계로 나뉘어집니다.
 * 지속적인 전달(Continuous Delivery)
 * 지속적인 배포(Continuous Deployment)
 
-각 단계 별로 무슨 일을 하는지 정리하였습니다.
+단계별로 무슨 일을 하는지 정리하였습니다.
 
 <p align="center">
     <img src="/images/what-is-ci-cd-1.JPG" width="80%" class="image__border"/>

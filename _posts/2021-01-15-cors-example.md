@@ -1,5 +1,5 @@
 ---
-title: "CORS(Cross Origin Resource Sharing) 서버 구현"
+title: "CORS(Cross Origin Resource Sharing) with Spring Boot"
 search: false
 category:
   - spring-boot
@@ -9,128 +9,186 @@ last_modified_at: 2021-08-21T23:50:00
 
 <br>
 
-⚠️ 다음 사항을 주의하세요.
-- 해당 포스트는 2021년 7월 7일에 재작성되었습니다. (spring-security dependency로 인한 설명 오류)
-- Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다. (github blog theme 예약어로 인한 표기 에러)
+#### 다음 사항을 주의하세요.
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [CORS(Cross Origin Resource Sharing)][cors-link] 
+* `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(jekyll theme 예약어로 인한 표기 에러)
 
-👉 이어서 읽기를 추천합니다.
-- [리액트(React) CORS 해결하기 (feat. 프록시(Proxy) 구축)][react-proxy-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-## 1. 예제 코드
+* [CORS(Cross Origin Resource Sharing)][cors-link] 
 
-Vue.js 프레임워크를 사용한 웹 어플리케이션과 Spring boot 프레임워크 서버를 통해 CORS에 대한 테스트를 진행해보겠습니다. 
+## 0. 들어가면서
 
-### 1.1. front-end 프로젝트 패키지 구조
+[CORS(Cross Origin Resource Sharing)][cors-link] 포스트 마지막에 CORS 정책 위반 에러를 방지할 수 있는 방법을 두 가지 소개했습니다. 
 
-```
-.
-|-- README.md
-|-- babel.config.js
-|-- package-lock.json
-|-- package.json
-|-- public
-|   |-- favicon.ico
-|   `-- index.html
-`-- src
-    |-- App.vue
-    |-- assets
-    |   `-- logo.png
-    |-- components
-    |   `-- CorsReuqest.vue
-    `-- main.js
-```
+* 프론트엔드 서비스의 프록시 기능을 사용하여 교차 호출이 발생하지 않도록 우회
+* 백엔드 서비스에서 CORS 허용 헤더를 응답
 
-### 1.2. CorsReuqest.vue
-2가지 API PATH를 통해 테스트를 진행하였습니다. 
-각 버튼에 자신이 요청하는 프로토콜, 호스트, 포트, 경로에 대한 정보가 적혀있습니다. 
-버튼 아래 응답에 대한 정보를 출력합니다.
+이번 포스트는 `Spring Boot` 프레임워크로 구현한 백엔드 서비스에서 `CORS`를 다루는 예제입니다. 
+CORS 에러를 확인할 수 있도록 프론트엔드 서비스를 함께 만들었습니다. 
+
+## 1. 프론트엔드 서비스
+
+각 버튼 별로 어떤 동작을 하는지 간단히 살펴보겠습니다.
+
+* Error 버튼 
+    * `http://localhost:8080/health` 경로 요청을 보냅니다. 
+    * `CORS` 응답 헤더를 반환하지 않으므로 에러가 발생합니다.
+* Annotation 버튼
+    * `http://localhost:8080/cors-health` 경로 요청을 보냅니다. 
+    * 해당 경로는 `@CrossOrigin` 애너테이션 적용으로 정상 작동합니다. 
+* Configure 버튼
+    * `http://localhost:8081/health` 경로 요청을 보냅니다. 
+    * 해당 서비스는 전역 CORS 설정 적용으로 정상 작동합니다.
+* Filter 버튼
+    * `http://localhost:8082/health` 경로로 요청을 보냅니다.
+    * 해당 서비스는 CORS 처리를 위한 필터 적용으로 정상 작동합니다.
+
+<p align="center">
+    <img src="/images/cors-example-1.JPG" width="80%" class="image__border">
+</p>
+
+### 1.1. Request vue
+
+코드는 간단하게 살펴보겠습니다. 
+
+* `axios` 모듈을 사용하여 API 요청을 수행합니다.
+* 상대 경로(path)를 입력하면 프론트엔드 서비스로 요청이 전달되므로 주의합니다.
 
 ```vue
 <template>
-    <div>
-        <h1>Cross Origin Resource Sharing Test</h1>
-        <div>
-            <button @click="request1()">http://localhost:8081/api/cors/health</button>
-            <button @click="request2()">http://localhost:8081/api/cors/health-cors-annotaion</button>
-            <div>{ { this.response } }</div>
-        </div>
+  <div class="wrapper">
+    <h1>Check CORS(Cross Origin Resource Sharing)</h1>
+    <div class="message flex-center" :class="{error: isError}">
+      <p>{ { response } }</p>
     </div>
+    <div class="button-group flex-center">
+      <div class="buttons flex-center">
+        <button @click="requestError()">Error</button>
+        <button @click="requestAnnotation()">Annotation</button>
+      </div>
+      <div class="buttons flex-center">
+        <button @click="requestConfigure()">Configure</button>
+        <button @click="requestFilter()">Filter</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-    name: 'CorsReuqest',
-    data() {
-        return {
-            response: ''
-        }
-    },
-    methods: {
-        request1() {
-            axios.get('http://localhost:8081/api/cors/health').then((res) => {
-                this.response = res.data
-            }).catch((error) => {
-                this.response = error.message
-                console.log('error message: ', error)
-            })
-        },
-        request2() {
-            axios.get('http://localhost:8081/api/cors/health-cors-annotaion').then((res) => {
-                this.response = res.data
-            }).catch((error) => {
-                this.response = error.message
-                console.log('error message: ', error)
-            })
-        }
+  data() {
+    return {
+      response: 'Waiting',
+      isError: false
     }
+  },
+  methods: {
+    requestError() {
+      this.requestApi('http://localhost:8080/health')
+    },
+    requestAnnotation() {
+      this.requestApi('http://localhost:8080/cors-health')
+    },
+    requestConfigure() {
+      this.requestApi('http://localhost:8081/health')
+    },
+    requestFilter() {
+      this.requestApi('http://localhost:8082/health')
+    },
+    requestApi(url) {
+      axios.get(url)
+          .then((res) => {
+            this.response = res.data
+            this.isError = false
+          })
+          .catch((error) => {
+            this.response = error.message
+            this.isError = true
+          })
+    }
+  }
 }
 </script>
+
+<style scoped>
+/* some styles */
+</style>
 ```
 
-### 1.3. back-end 프로젝트 패키지 구조
+## 2. 백엔드 서비스 
 
+백엔드 서비스는 총 3개 존재합니다. 
+서비스 별로 CORS 정책을 다루기 위해 각기 다른 방법을 사용하였습니다. 
+
+### 2.1. 애너테이션 사용 서비스
+
+포트 번호 8080를 가진 서비스입니다. 
+우선 스프링 프레임워크에서 제공하는 `@CrossOrigin` 애너테이션을 먼저 살펴보겠습니다. 
+
+#### 2.1.1. @CrossOrigin 애너테이션
+
+* 해당 애너테이션의 적용 대상은 클래스와 메소드입니다.
+    * ElementType.TYPE - 클래스, 인터페이스, 열거 타입에 사용 가능
+    * ElementType.METHOD - 메소드에 사용 가능
+* CORS 헤더 설정에 필요한 값들을 지정할 수 있습니다.
+
+```java
+package org.springframework.web.bind.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.springframework.core.annotation.AliasFor;
+
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface CrossOrigin {
+    /** @deprecated */
+    @Deprecated
+    String[] DEFAULT_ORIGINS = new String[]{"*"};
+    /** @deprecated */
+    @Deprecated
+    String[] DEFAULT_ALLOWED_HEADERS = new String[]{"*"};
+    /** @deprecated */
+    @Deprecated
+    boolean DEFAULT_ALLOW_CREDENTIALS = false;
+    /** @deprecated */
+    @Deprecated
+    long DEFAULT_MAX_AGE = 1800L;
+
+    @AliasFor("origins")
+    String[] value() default {};
+
+    @AliasFor("value")
+    String[] origins() default {};
+
+    String[] originPatterns() default {};
+
+    String[] allowedHeaders() default {};
+
+    String[] exposedHeaders() default {};
+
+    RequestMethod[] methods() default {};
+
+    String allowCredentials() default "";
+
+    long maxAge() default -1L;
+}
 ```
-.
-|-- action-in-blog.iml
-|-- mvnw
-|-- mvnw.cmd
-|-- pom.xml
-`-- src
-    |-- main
-    |   |-- java
-    |   |   `-- blog
-    |   |       `-- in
-    |   |           `-- action
-    |   |               |-- ActionInBlogApplication.java
-    |   |               `-- controller
-    |   |                   `-- CorsController.java
-    |   `-- resources
-    |       `-- application.yml
-    `-- test
-        `-- java
-            `-- blog
-                `-- in
-                    `-- action
-                        `-- ActionInBlogApplicationTests.java
-```
 
-### 1.4. application.yml
-포트 정보를 추가하였습니다.
+#### 2.1.2. CorsController 클래스
 
-```yml
-server:
-  port: 8081
-```
-
-### 1.5. CorsController 클래스 구현
-2개의 API PATH를 만들었습니다.
-- **/api/cors/health** 경로는 일반 GET 요청
-- **/api/cors/health-cors-annotaion** 경로는 GET 요청에 @CrossOrigin 애너테이션을 추가
+* `/health` 경로는 별다른 처리 없이 노출하였습니다.
+    * "It occurs CORS policy error." 응답 메세지를 반환합니다.
+* `/cors-health` 경로는 `@CrossOrigin` 애너테이션을 적용하였습니다.
+    * 출처(origin)가 `http://localhost`인 경우 응답 헤더를 전달합니다.
+    * "It's okay because of @CrossOrigin annotation." 응답 메세지를 반환합니다.
 
 ```java
 package blog.in.action.controller;
@@ -141,208 +199,201 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/cors")
 public class CorsController {
 
     @GetMapping("/health")
     public String health() {
-        return "health";
+        return "It occurs CORS policy error.";
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
-    @GetMapping("/health-cors-annotaion")
+    @CrossOrigin(origins = "http://localhost")
+    @GetMapping("/cors-health")
     public String healthCorsAnnotation() {
-        return "health-cors-annotaion";
+        return "It's okay because of @CrossOrigin annotation.";
     }
 }
 ```
 
-## 2. 테스트 수행 결과
+### 2.2. Glboal CORS Configuration 사용 서비스
 
-### 2.1. CORS 에러 응답
-- `/api/cors/health` 경로로 요청
+포트 번호 8081를 가진 서비스입니다. 
+전역 CORS 설정을 통해 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 제어합니다.
 
-<p align="center"><img src="/images/cors-example-1.JPG"></p>
+#### 2.2.1. WebConfig 클래스
 
-### 2.2. 정상 응답
-- `/api/cors/health-cors-annotaion` 경로로 요청
-
-<p align="center"><img src="/images/cors-example-2.JPG"></p>
-
-## 3. Spring-Boot CORS 동작 원리
-테스트 전에 Spring-Boot CORS 동작 원리에 대해 알아보도록 하겠습니다. 
-크게 3개의 과정으로 정리하였습니다.
-
-1. 각 Handler 별 CorsConfiguration 생성 과정
-1. CORS Interceptor 추가
-1. Interceptor 수행
-
-### 3.1. CorsConfiguration 생성 과정
-1. Controller 객체의 API EndPoint 단위로 Handler 객체 생성
-1. 각 Handler 별로 mappingRegistry SETTING 시 @CrossOrigin 애너테이션이 붙었는지 확인
-1. CORS 처리가 필요한 경우 AbstractHandlerMethodMapping 클래스의 MappingRegistry 객체에 CorsConfiguration 객체 SETTING
+* `@EnableWebMvc` 애너테이션을 통해 WebMVC 기능을 위한 설정 파일임을 알립니다.
+* `WebMvcConfigurer` 인터페이스를 구현하여 필요한 기능을 확장합니다.
+* `addCorsMappings` 메소드를 재구현합니다.
+    * `/health` 경로에 적용합니다.
+    * `GET` 메소드로 오는 요청은 CORS 헤더 생성을 허용합니다.
+    * `http://localhost` 출처에서 오는 요청은 CORS 헤더 생성을 허용합니다,
+    * 클라이언트에서 프리플라이트(preflight) 요청 결과를 저장하는 시간을 3초로 지정합니다.
 
 ```java
-public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMapping implements InitializingBean {
+package blog.in.action.config;
 
-    // ...
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-    // 1. Controller 객체의 API EndPoint 단위로 Handler 객체 생성
-    protected void detectHandlerMethods(Object handler) {
-        Class<?> handlerType = handler instanceof String ? this.obtainApplicationContext().getType((String)handler) : handler.getClass();
-        if (handlerType != null) {
-            Class<?> userType = ClassUtils.getUserClass(handlerType);
-            Map<Method, T> methods = MethodIntrospector.selectMethods(userType, (method) -> {
-                try {
-                    return this.getMappingForMethod(method, userType);
-                } catch (Throwable var4) {
-                    throw new IllegalStateException("Invalid mapping on handler class [" + userType.getName() + "]: " + method, var4);
-                }
-            });
-            if (this.logger.isTraceEnabled()) {
-                this.logger.trace(this.formatMappings(userType, methods));
-            }
+@Configuration
+@EnableWebMvc
+public class WebConfig implements WebMvcConfigurer {
 
-            methods.forEach((method, mapping) -> {
-                Method invocableMethod = AopUtils.selectInvocableMethod(method, userType);
-                this.registerHandlerMethod(handler, invocableMethod, mapping);
-            });
-        }
-    }
-
-    protected void registerHandlerMethod(Object handler, Method method, T mapping) {
-        this.mappingRegistry.register(mapping, handler, method);
-    }
-    
-    class MappingRegistry {
-        
-        // ...
-
-        public void register(T mapping, Object handler, Method method) {
-            this.readWriteLock.writeLock().lock();
-
-            try {
-                HandlerMethod handlerMethod = AbstractHandlerMethodMapping.this.createHandlerMethod(handler, method);
-                this.validateMethodMapping(handlerMethod, mapping);
-                Set<String> directPaths = AbstractHandlerMethodMapping.this.getDirectPaths(mapping);
-                Iterator var6 = directPaths.iterator();
-
-                while(var6.hasNext()) {
-                    String path = (String)var6.next();
-                    this.pathLookup.add(path, mapping);
-                }
-
-                String name = null;
-                if (AbstractHandlerMethodMapping.this.getNamingStrategy() != null) {
-                    name = AbstractHandlerMethodMapping.this.getNamingStrategy().getName(handlerMethod, mapping);
-                    this.addMappingName(name, handlerMethod);
-                }
-
-                // 2. 각 Handler 별로 mappingRegistry SETTING 시 @CrossOrigin 애너테이션이 붙었는지 확인
-                CorsConfiguration config = AbstractHandlerMethodMapping.this.initCorsConfiguration(handler, method, mapping);
-                if (config != null) {
-                    config.validateAllowCredentials();
-                    // 3. CORS 처리가 필요한 경우 AbstractHandlerMethodMapping 클래스의 MappingRegistry 객체에 CorsConfiguration 객체 SETTING
-                    this.corsLookup.put(handlerMethod, config);
-                }
-
-                this.registry.put(mapping, new AbstractHandlerMethodMapping.MappingRegistration(mapping, handlerMethod, directPaths, name));
-            } finally {
-                this.readWriteLock.writeLock().unlock();
-            }
-        }
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/health")
+                .allowedMethods("GET")
+                .allowedOrigins("http://localhost")
+                .maxAge(3000);
     }
 }
 ```
 
-### 3.2. CORS 인터셉터 SETTING
-1. AbstractHandlerMapping 클래스가 요청에 대한 Handler를 매칭시키는 시점에 CORS 적용 여부 확인
-1. 서버 부팅 시 생성된 CorsConfiguration 객체가 존재하는지 확인 후 유효성 확인
-1. CORS 적용을 위한 Handler Interceptor 추가
+#### 2.3.2. CorsController 클래스
+
+* `/health` 경로에 별다른 처리가 없습니다.
+    * "It's okay because of global CORS configuration." 응답 메세지를 반환합니다.
 
 ```java
-public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport implements HandlerMapping, Ordered, BeanNameAware {
+package blog.in.action.controller;
 
-    // ...
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-    @Nullable
-    public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
-        Object handler = this.getHandlerInternal(request);
-        if (handler == null) {
-            handler = this.getDefaultHandler();
-        }
+@RestController
+public class CorsController {
 
-        if (handler == null) {
-            return null;
-        } else {
-            if (handler instanceof String) {
-                String handlerName = (String)handler;
-                handler = this.obtainApplicationContext().getBean(handlerName);
-            }
-
-            HandlerExecutionChain executionChain = this.getHandlerExecutionChain(handler, request);
-            if (this.logger.isTraceEnabled()) {
-                this.logger.trace("Mapped to " + handler);
-            } else if (this.logger.isDebugEnabled() && !request.getDispatcherType().equals(DispatcherType.ASYNC)) {
-                this.logger.debug("Mapped to " + executionChain.getHandler());
-            }
-
-            // 1. CORS 적용 여부 확인
-            if (this.hasCorsConfigurationSource(handler) || CorsUtils.isPreFlightRequest(request)) {
-                CorsConfiguration config = this.getCorsConfiguration(handler, request);
-                if (this.getCorsConfigurationSource() != null) {
-                    CorsConfiguration globalConfig = this.getCorsConfigurationSource().getCorsConfiguration(request);
-                    config = globalConfig != null ? globalConfig.combine(config) : config;
-                }
-
-                // 2. CORS Configuration 유효성 확인
-                if (config != null) {
-                    config.validateAllowCredentials();
-                }
-                
-                // 3. CORS 처리를 위한 Handler Intercepter 추가
-                executionChain = this.getCorsHandlerExecutionChain(request, executionChain, config);
-            }
-
-            return executionChain;
-        }
+    @GetMapping("/health")
+    public String health() {
+        return "It's okay because of global CORS configuration.";
     }
 }
 ```
 
-### 3.3. Handler 별 Interceptor List 수행
-1. interceptorList에 담겨있는 각 Interceptor 별 기능 수행(preHandle 메소드)
+### 2.3. Filter 사용 서비스
+
+포트 번호 8082를 가진 서비스입니다. 
+CORS 처리를 위한 필터를 생성하여 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 제어합니다.
+
+#### 2.3.1. WebConfig 클래스
+
+* `corsFilter` 빈(bean)을 생성합니다. 
+* `CORS` 설정을 위한 `CorsConfiguration` 객체를 생성합니다. 
+    * `GET` 메소드로 오는 요청은 CORS 헤더 생성을 허용합니다.
+    * `http://localhost` 출처에서 오는 요청은 CORS 헤더 생성을 허용합니다.
+* `UrlBasedCorsConfigurationSource` 객체를 생성합니다.
+    * `/health` 경로에 위에서 `CORS` 설정을 적용합니다.
 
 ```java
-public class HandlerExecutionChain {
+package blog.in.action.config;
 
-    // ...
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
-    boolean applyPreHandle(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        for(int i = 0; i < this.interceptorList.size(); this.interceptorIndex = i++) {
-            HandlerInterceptor interceptor = (HandlerInterceptor)this.interceptorList.get(i);
-            if (!interceptor.preHandle(request, response, this.handler)) {
-                this.triggerAfterCompletion(request, response, (Exception)null);
-                return false;
-            }
-        }
-        return true;
+@Configuration
+public class WebConfig {
+
+    @Bean
+    public FilterRegistrationBean corsFilter() {
+
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(false);
+        config.addAllowedOrigin("http://localhost");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("GET");
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/health", config);
+
+        FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+        bean.setOrder(0);
+        return bean;
     }
 }
 ```
+
+#### 2.3.2. CorsController 클래스
+
+* `/health` 경로에 별다른 처리가 없습니다.
+    * "It's okay because of CORS filter." 응답 메세지를 반환합니다.
+
+```java
+package blog.in.action.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class CorsController {
+
+    @GetMapping("/health")
+    public String health() {
+        return "It's okay because of CORS filter.";
+    }
+}
+```
+
+## 3. 테스트
+
+도커 컴포즈(docker compose)를 통해 총 4개의 서비스를 실행시킨 후 테스트를 진행하였습니다. 
+도커 컴포즈를 사용하지 않는 분들은 IDE(Integrated Development Environment) 도구를 통해 서비스들을 실행 후 테스트하시길 바랍니다.
+
+### 3.1. 서비스 실행
+
+```
+$ docker-compose up -d
+Creating network "2021-01-15-cors-example_default" with the default driver
+Building frontend
+[+] Building 2.7s (15/15) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                          0.0s
+ => => transferring dockerfile: 37B                                                                                                           0.0s
+ => [internal] load .dockerignore                                                                                                             0.0s
+ => => transferring context: 2B                                                                                                               0.0s
+ => [internal] load metadata for docker.io/library/nginx:latest                                                                               1.2s
+
+...
+
+Creating 2021-01-15-cors-example_backend_1           ... done
+Creating 2021-01-15-cors-example_backend-filter_1    ... done
+Creating 2021-01-15-cors-example_frontend_1          ... done
+Creating 2021-01-15-cors-example_backend-configure_1 ... done
+```
+
+### 3.2. 테스트 결과 확인
+
+<http://localhost>에 접속하여 각 버튼을 눌러보면서 응답 헤더 값을 확인합니다.
+
+<p align="center">
+    <img src="/images/cors-example-2.gif" width="100%" class="image__border">
+</p>
 
 ## CLOSING
-해당 포스트는 2021년 01월 30일에 작성되었으며 2021년 07월 07일에 재작성되었습니다.
 
-##### 2021-07-07 POST 내용 변경
-- CorsConfigurationSource 빈(bean) 사용 코드 제거
-- spring-security 종속성(dependency) 제거
+테스트 코드 저장소에 예시에서 사용한 서비스들의 코드가 작성되어 있습니다. 
+
+* `frontend` 폴더는 프론트엔드 서비스 코드입니다.
+* `backend` 폴더는 포트번호 8080 서비스 코드입니다.
+* `backend-configure` 폴더는 포트번호 8081 서비스 코드입니다.
+* `backend-filter` 폴더는 포트번호 8082 서비스 코드입니다.
+
+#### RECOMMEND NEXT POSTS
+
+* [리액트(React) CORS 해결하기 (feat. 프록시(Proxy) 구축)][react-proxy-link]
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-15-cors-example>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-15-cors-example>
 
 #### REFERENCE
-- <https://junhyunny.blogspot.com/2020/01/cors-cross-origin-resource-sharing.html>
+
+* <https://spring.io/blog/2015/06/08/cors-support-in-spring-framework>
+* <https://www.baeldung.com/spring-cors>
 
 [cors-link]: https://junhyunny.github.io/information/cors/
 [react-proxy-link]: https://junhyunny.github.io/information/react/react-proxy/

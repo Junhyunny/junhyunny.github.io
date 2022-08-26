@@ -11,7 +11,7 @@ last_modified_at: 2022-01-23T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CORS(Cross Origin Resource Sharing)][cors-link] 
-- [CORS(Cross Origin Resource Sharing) 서버 구현][cors-server-example-link]
+- [CORS(Cross Origin Resource Sharing) with Spring Boot][cors-server-example-link]
 
 ## 1. CORS(Cross Origin Resource Sharing)
 
@@ -38,7 +38,7 @@ last_modified_at: 2022-01-23T23:55:00
 ## 2. 리액트(React) 어플리케이션 프록시(proxy) 구축하기
 
 CORS 정책 위반 문제를 정석으로 해결하려면 백엔드 서비스 쪽에서 응답 헤더에 필요한 값들을 담아서 전달해야 합니다. 
-[CORS(Cross Origin Resource Sharing) 서버 구현][cors-server-example-link] 포스트에선 @CrossOrigin 애너테이션을 이용해 간단하게 CORS 정책 문제를 해결하였습니다. 
+[CORS(Cross Origin Resource Sharing) with Spring Boot][cors-server-example-link] 포스트에선 @CrossOrigin 애너테이션을 이용해 간단하게 CORS 정책 문제를 해결하였습니다. 
 서버로부터 적절한 응답 헤더를 받지 못하면 브라우저에서 에러가 발생합니다. 
 백엔드 서비스는 정상적인 요청과 응답은 일어나지만, 브라우저에서 에러가 발생한다는 것에 주의해야 합니다. 
 이는 포스트맨(PostMan)이나 인썸니아(Insomnia) 같은 테스트 도구에서는 CORS 정책 위반 관련 에러가 발생하지 않는 이유입니다. 
@@ -47,7 +47,7 @@ CORS 정책 위반 문제를 정석으로 해결하려면 백엔드 서비스 �
 별도의 응답 헤더를 받을 필요 없이 브라우저는 리액트 어플리케이션으로 데이터를 요청하고, 해당 요청을 백엔드 서비스로 전달(pass)합니다. 
 리액트 어플리케이션이 백엔드 서비스로부터 받은 응답 데이터를 다시 브라우저로 재전달하기 때문에 브라우저는 CORS 정책을 위배한지 모릅니다. 
 
-##### [CORS(Cross Origin Resource Sharing) 서버 구현][cors-server-example-link] 시나리오 (@CrossOrigin 애너테이션 사용)
+##### [CORS(Cross Origin Resource Sharing) with Spring Boot][cors-server-example-link] 시나리오 (@CrossOrigin 애너테이션 사용)
 - 리액트 어플리케이션으로부터 화면을 전달받습니다. 이때 호스트는 `http://localhost:3000`입니다. 
 - 화면 버튼을 눌렀을 때 브라우저가 백엔드 서비스(`http://localhost:8080`)로 직접 요청합니다. 
 - 백엔드 서비스는 요청에 대한 응답을 반환합니다.

@@ -248,6 +248,10 @@ compress_html:
   ignore:
     envs: development
 
+collections:
+  problems:
+    output: true
+
 # Defaults
 defaults:
   # _posts
@@ -269,3 +273,15 @@ defaults:
     values:
       layout: single
       author_profile: true
+  - scope:
+      path: ""
+      type: problems
+    values:
+      permalink: /:categories/:title/
+      layout: single
+      classes: wide
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true

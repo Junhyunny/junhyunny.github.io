@@ -6,6 +6,8 @@ main:
     url: https://junhyunny.github.io/about/
   - title: "Posts"
     url: https://junhyunny.github.io/posts/
+  - title: "Problems"
+    url: https://junhyunny.github.io/problems/
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"

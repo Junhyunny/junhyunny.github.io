@@ -21,24 +21,17 @@ last_modified_at: 2021-08-22T00:00:00
 > 명령과 조회의 책임 분리
 
 시스템의 상태를 바꿀 수 있는 커맨드(command) 기능과 시스템의 상태를 확인하는 쿼리(query) 기능을 분할하여 개발하자는 원칙을 가진 패턴입니다. 
-
-### 1.1. CQS(Command Query Segregation)
-
-커맨드와 쿼리를 분리하자는 개념은 `Bertrand Meyer`의 [Object Oriented Software Construction](https://en.wikipedia.org/wiki/Object-Oriented_Software_Construction) 책에서 등장하였습니다. 
+커맨드와 쿼리를 분리하려는 개념은 `Bertrand Meyer`의 [Object Oriented Software Construction][bertrand-meyer-book-link] 책에서 `CQS(Command Query Segregation)`라는 용어로 등장하였습니다. 
 책에선 커맨드와 쿼리를 다음과 같이 정의하고 있습니다. 
 
-* 커맨드(Command) - 상태를 바꾸고 값을 반환하지 않는다.
-* 쿼리(Query) - 상태 변경 없이 조회만 수행한다.
+* 커맨드 - 상태를 바꾸고 값을 반환하지 않는다.
+* 쿼리 - 상태 변경 없이 조회만 수행한다.
 
-해당 설명은 객체의 행동(method)에 대한 정의이지만, 해당 개념이 아키텍처까지 확장되면 `CQRS` 패턴의 모습을 보여줍니다. 
-훌륭한 개발 원칙이지만, 모든 상황에서 적용할 순 없습니다. 
-스택(stack)의 팝(pop)이나 큐(queue)의 폴(poll) 기능이 대표적인 예시입니다. 
+해당 설명은 객체의 행동(method)에 대한 정의이지만, 이 개념이 아키텍처까지 확장되면 `CQRS` 패턴의 모습을 보여줍니다. 
 
 ## 2. CQRS 패턴은 왜 사용하는가?
 
-최초 설계한 도메인 모델은 문제 없이 잘 사용됩니다. 
-시간이 지남에 따라 "데이터가 저장되는 모습"과 "보고 싶어하는 데이터 모습"이 달라집니다. 
-
+최초 설계한 도메인 모델은 시간이 지남에 따라 "데이터가 저장되는 모습"과 "보고 싶어하는 데이터 모습"이 달라집니다. 
 저장하는 데이터의 모습과 보고 싶어하는 데이터의 모습이 바뀌는 이유는 다양합니다. 
 시간이 지남에 따라 비즈니스 요건 사항이 정교해집니다. 
 예를 들면 통계성 데이터의 추가를 원할수도 있고, 여러 모델의 데이터를 조합해서 보고 싶어하는 경우가 있습니다. 
@@ -141,3 +134,4 @@ CQRS 패턴이 맞지 않는 도메인에 적용하는 경우 시스템 복잡�
 * <https://www.youtube.com/watch?v=BnS6343GTkY>
 
 [martin-fowler-cqrs-link]: https://martinfowler.com/bliki/CQRS.html
+[bertrand-meyer-book-link]: https://en.wikipedia.org/wiki/Object-Oriented_Software_Construction

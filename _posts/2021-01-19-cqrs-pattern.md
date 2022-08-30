@@ -21,8 +21,8 @@ last_modified_at: 2021-08-22T00:00:00
 > 명령과 조회의 책임 분리
 
 시스템의 상태를 바꿀 수 있는 커맨드(command) 기능과 시스템의 상태를 확인하는 쿼리(query) 기능을 분할하여 개발하자는 원칙을 가진 패턴입니다. 
-커맨드와 쿼리를 분리하려는 개념은 `Bertrand Meyer`의 [Object Oriented Software Construction][bertrand-meyer-book-link] 책에서 `CQS(Command Query Segregation)`라는 용어로 등장하였습니다. 
-책에선 커맨드와 쿼리를 다음과 같이 정의하고 있습니다. 
+커맨드와 쿼리를 분리하려는 개념은 `Bertrand Meyer`의 [Object Oriented Software Construction][bertrand-meyer-book-link]에서 `CQS(Command Query Segregation)`라는 용어를 통해 소개되었다고 합니다. 
+`CQS(Command Query Segregation)`에서 커맨드와 쿼리를 다음과 같이 정의하고 있습니다. 
 
 * 커맨드 - 상태를 바꾸고 값을 반환하지 않는다.
 * 쿼리 - 상태 변경 없이 조회만 수행한다.

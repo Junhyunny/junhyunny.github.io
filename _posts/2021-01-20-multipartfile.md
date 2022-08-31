@@ -18,14 +18,19 @@ last_modified_at: 2021-08-22T00:30:00
 > A representation of an uploaded file received in a multipart request.
 
 `Spring` 프레임워크는 요청으로 함께 전달되는 파일들을 쉽게 다룰 수 있도록 MultipartFile 인터페이스를 제공합니다. 
-파일의 이름, 바이트 정보를 얻을 수 있고, I/O(input output)를 위한 기능들도 몇 가지 제공합니다. 
-이번 포스트에서 간단한 예시 코드를 통해 사용 방법을 알아보겠습니다. 
-프론트엔드 서비스에서 이미지를 업로드하고, 백엔드 서비스는 업로드 된 이미지를 파일 시스템에 저장합니다. 
+파일의 이름, 바이트 정보를 얻을 수 있고, I/O(input output)를 위한 기능들도 함께 제공합니다. 
+
+##### MultipartFile 인터페이스 주요 메소드
+
+* getOriginalFilename 메소드 - 클라이언트 파일 시스템에서 사용했던 파일 이름을 반환합니다.
+* getBytes 메소드 - 파일의 이진 바이트 값을 반환합니다.
+* getInputStream 메소드 - 파일을 읽기 위한 입력 스트립(stream)을 반환합니다.
+* transferTo 메소드 - 파일 정보를 새로운 파일 인스턴스로 복사합니다. 
 
 ## 2. 프론트엔드 서비스
 
 Vue.js 프레임워크를 사용한 프론트엔드 서비스입니다. 
-파일을 업로드하는 컴포넌트만 살펴보고 백엔드 서비스를 살펴보겠습니다. 
+파일을 업로드하는 컴포넌트 코드를 먼저 살펴보겠습니다. 
 
 ### 2.1. FileUpload vue
 
@@ -113,6 +118,8 @@ Spring Boot 프레임워크를 사용한 백엔드 서비스입니다.
     * 이미지 파일 경로에 위치한 파일들의 이름을 리스트로 반환합니다.
 * `uploadFiles` 메소드
     * 업로드 된 파일을 파일 시스템에 저장합니다.
+    * 파일을 저장할 경로를 결정합니다.
+    * 출력 스트림을 통해 업로드 된 파일의 바이트 정보를 출력합니다.
 
 ```java
 package blog.in.action.controller;

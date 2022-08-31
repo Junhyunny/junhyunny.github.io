@@ -342,9 +342,11 @@ public class CorsController {
 ## 3. 테스트
 
 도커 컴포즈(docker compose)를 통해 총 4개의 서비스를 실행시킨 후 테스트를 진행하였습니다. 
-도커 컴포즈를 사용하지 않는 분들은 IDE(Integrated Development Environment) 도구를 통해 서비스들을 실행 후 테스트하시길 바랍니다.
+도커 컴포즈를 사용하지 않는 분들은 IDE(Integrated Development Environment) 도구를 통해 서비스 실행 후 테스트가 가능합니다.
 
 ### 3.1. 서비스 실행
+
+* `docker-compose up` 명령어를 사용합니다.
 
 ```
 $ docker-compose up -d

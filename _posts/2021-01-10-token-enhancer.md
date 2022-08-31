@@ -196,7 +196,7 @@ $ curl -X POST http://localhost:8080/oauth/token\
 }
 ```
 
-##### Json Web Token Decoding
+##### Decoded Json Web Token
 
 `JwtAccessTokenConverter` 클래스에서 토큰을 변경할 때 `OAuth2AccessToken` 인스턴스에 담긴 정보를 모두 포함하여 인코딩을 수행하기 때문에 JWT 토큰 값을 디코딩하면 별도로 추가한 정보들도 함께 확인할 수 있습니다. 
 

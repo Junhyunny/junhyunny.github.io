@@ -600,9 +600,11 @@ public class ActionInBlogApplication implements CommandLineRunner {
 
 ## 5. 테스트하기
 
-### 5.1. Docker Compose 실행
+### 5.1. 서비스 실행
 
 도커 컴포즈(docker compose)를 사용하여 인증 서버와 리소스 서버를 동시에 실행시킵니다. 
+
+* `docker-compose up` 명령어를 사용합니다.
 
 ```
 $ pwd

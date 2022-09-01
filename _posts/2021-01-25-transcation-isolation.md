@@ -9,7 +9,7 @@ last_modified_at: 2021-08-22T00:30:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Transaction ACID 특징][acid-link]
+- [Transaction ACID][acid-link]
 
 ## 0. 들어가면서
 

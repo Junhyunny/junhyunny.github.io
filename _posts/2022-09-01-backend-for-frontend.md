@@ -67,7 +67,6 @@ last_modified_at: 2022-09-01T23:55:00
 <p align="center">
     <img src="/images/backend-for-frontend-3.JPG" width="80%" class="image__border">
 </p>
-<center>https://philcalcado.com/2015/09/18/the_back_end_for_front_end_pattern_bff.html</center>
 
 ## 3. Benefits
 

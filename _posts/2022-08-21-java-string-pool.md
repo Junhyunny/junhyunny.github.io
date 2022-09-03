@@ -87,6 +87,7 @@ last_modified_at: 2022-08-21T23:55:00
 
 * 리터럴로 생성한 문자열은 힙 영역 내 문자열 풀에 저장됩니다. 
 * `String` 클래스 생성자를 통해 만들어진 객체는 문자열 풀을 제외한 힙 영역에 저장됩니다.
+    * `String` 생성자를 이용해 문자열 객체를 만드는 방식은 문자열 풀을 이용하지 못하는 방식이므로 지양합니다.
 
 <p align="center">
     <img src="/images/java-string-pool-1.JPG" width="80%" class="image__border">

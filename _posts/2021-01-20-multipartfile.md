@@ -17,8 +17,9 @@ last_modified_at: 2021-08-22T00:30:00
 
 > A representation of an uploaded file received in a multipart request.
 
-`Spring` 프레임워크는 요청으로 함께 전달되는 파일들을 쉽게 다룰 수 있도록 MultipartFile 인터페이스를 제공합니다. 
+Spring 프레임워크는 요청으로 함께 전달되는 파일들을 쉽게 다룰 수 있도록 `MultipartFile` 인터페이스를 제공합니다. 
 파일의 이름, 바이트 정보를 얻을 수 있고, I/O(input output)를 위한 기능들도 함께 제공합니다. 
+`MultipartFile` 인터페이스의 사용 방법을 간단한 프론트엔드, 백엔드 서비스를 구성하여 확인해보겠습니다. 
 
 ##### MultipartFile 인터페이스 주요 메소드
 

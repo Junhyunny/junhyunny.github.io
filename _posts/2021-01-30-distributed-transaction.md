@@ -253,7 +253,7 @@ Saga 패턴을 구현해야 한다면 최대한 참여자가 적도록 비즈니
 * <https://azderica.github.io/01-architecture-msa/>
 * <https://www.baeldung.com/cs/saga-pattern-microservices>
 * <https://sarc.io/index.php/development/2128-saga-pattern>
-* ,https://sarc.io/index.php/cloud/1944-msa-transactional-outbox-pattern>
+* <https://sarc.io/index.php/cloud/1944-msa-transactional-outbox-pattern>
 * <https://waspro.tistory.com/735>
 * <https://jjeongil.tistory.com/1100>
 * <https://supawer0728.github.io/2018/03/22/spring-multi-transaction/>

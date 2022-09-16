@@ -38,7 +38,8 @@ last_modified_at: 2022-09-15T23:55:00
 
 설명의 간편함을 위해 쿼리 문장 분석과 컴파일 과정을 합쳐 컴파일로 칭하고 설명을 이어나가겠습니다. 
 `MySQL`, `PostgreSQL` 데이터베이스에서 제공하는 구현 클래스들의 코드들도 살펴봤지만, 전반적인 실행 흐름이 같았기 때문에 H2 데이터베이스의 구현 클래스들을 대표로 살펴보겠습니다. 
-H2 데이터베이스의 `JdbcPreparedStatement` 클래스 객체를 생성하면 아래 클래스들을 통해 컴파일과 캐싱을 수행합니다. 
+
+H2 데이터베이스의 `JdbcPreparedStatement` 클래스 객체를 생성하면 아래 클래스들을 통해 컴파일과 캐싱을 수행됩니다. 
 
 #### 1.1.1. org.h2.jdbc.JdbcConnection 클래스
 
@@ -190,8 +191,8 @@ public final class SessionLocal extends Session implements TransactionStore.Roll
 * MySQL
 * PostgreSQL
 
-PC 사양에 따라 다르겠지만, 결과를 우선 살펴보면 3개의 데이터베이스 모두 `Statement` 구현체와 `PreparedStatement` 구현체의 쿼리 실행 속도가 확연하게 차이나진 않았습니다. 
-데이터베이스 별로 두 구현체 사이의 성능 차이가 다르며 오라클(Oracle) 데이터베이스를 사용할 때 가장 효과적이라는 의견이 있었습니다.  
+PC 사양에 따라 다르겠지만, 결과를 우선 살펴보면 3개의 데이터베이스 모두 `Statement`와 `PreparedStatement` 구현체의 쿼리 실행 속도가 확연하게 차이나진 않았습니다. 
+찾아보니 데이터베이스 별로 `Statement`와 `PreparedStatement` 구현체 사이의 성능 차이가 다르며 오라클(Oracle) 데이터베이스를 사용할 때 가장 효과적이라는 의견이 있었습니다.  
 
 ### 2.1. H2 데이터베이스 테스트
 

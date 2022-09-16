@@ -181,7 +181,7 @@ public final class SessionLocal extends Session implements TransactionStore.Roll
 }
 ```
 
-## 2. Statement 인터페이스와 PreparedStatement 인터페이스의 성능
+## 2. Statement, PreparedStatement 구현 클래스 성능 비교
 
 컴파일 된 쿼리를 캐싱하여 재사용하는 `PreparedStatement` 구현체가 성능이 좋다는 의견이 많아 테스트를 작성하고 속도를 측정해보았습니다. 
 대상 데이터베이스는 다음과 같습니다.

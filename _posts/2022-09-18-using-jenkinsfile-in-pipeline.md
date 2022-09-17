@@ -58,8 +58,9 @@ pipeline {
 다음과 같이 설정합니다.
 
 * Definition - Pipeline script from SCM
-* SCM - Git
+* SCM - Git 
 * Repository URL - 웹 훅이 등록된 원격 저장소 주소
+* Credentials(optional) - 저장소에서 소스 코드를 받을 때 필요한 인증키
 * Branch Specifier - 원격 저장소에서 사용하는 특정 브랜치
 * Script Path - `Jenkinsfile`이 위치한 경로와 파일명
 

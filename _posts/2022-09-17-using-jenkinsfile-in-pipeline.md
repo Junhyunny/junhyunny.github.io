@@ -55,7 +55,10 @@ pipeline {
 
 ## 3. Jenkins Pipeline 설정 변경
 
-다음과 같이 설정합니다.
+GitHub 웹 훅(web hook)이 연결된 젠킨스 파이프라인 잡(job) 하나를 만들고 `Jenkinsfile`을 등록합니다. 
+GitHub 웹 훅이 연결된 젠킨스 파이프라인 만드는 방법은 [젠킨스(Jenkins) GitHub Webhooks 연동][jenkins-github-webhook-link] 포스트를 참고하시기 바랍니다. 
+
+다음과 같이 파이프라인 설정을 변경합니다.
 
 * Definition - Pipeline script from SCM
 * SCM - Git 
@@ -71,7 +74,8 @@ pipeline {
 
 ## 4. Trigger Pipeline by Web Hook
 
-웹 훅을 사용하여 파이프라인을 실행시키면 `Jenkinsfile`에 정의한대로 파이프라인이 실행됩니다. 
+원격 저장소에 변경 이력을 만들면 웹 훅을 통해 파이프라인이 실행됩니다. 
+`Jenkinsfile`에 정의한대로 파이프라인이 실행되는지 확인합니다. 
 
 <p align="center">
     <img src="/images/using-jenkinsfile-in-pipeline-2.gif" width="100%" class="image__border">
@@ -81,9 +85,15 @@ pipeline {
 
 * <https://github.com/Junhyunny/jenkins-pipeline-test>
 
+#### RECOMMEND NEXT POSTS
+
+* [Parallel Tests in Jenkins Pipeline][parallel-tests-in-jenkins-pipeline-link]
+
 #### REFERENCE
 
 * <https://www.jenkins.io/doc/book/pipeline/jenkinsfile/>
 
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/
+
+[parallel-tests-in-jenkins-pipeline-link]: https://junhyunny.github.io/information/jenkins/github/parallel-tests-in-jenkins-pipeline/

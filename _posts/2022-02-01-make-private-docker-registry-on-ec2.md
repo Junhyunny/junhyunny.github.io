@@ -1,5 +1,5 @@
 ---
-title: " 비공개 도커 레지스트리(Private docker registry) 만들기" 
+title: "비공개 도커 레지스트리(Private docker registry) 만들기" 
 search: false
 category:
   - information

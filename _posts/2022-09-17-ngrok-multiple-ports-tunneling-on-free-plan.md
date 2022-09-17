@@ -15,7 +15,7 @@ last_modified_at: 2022-09-17T23:55:00
 `Free Plan`을 사용하는 경우 외부에 노출시킬 수 있는 포트(port) 수가 1개로 제한되지만, `ngrok.yml` 파일을 사용하면 여러 개의 포트를 터널링을 통해 노출할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-1.gif" width="80%" class="image__border">
+    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-1.gif" width="100%" class="image__border">
 </p>
 <center>https://ngrok.com/</center>
 
@@ -39,7 +39,7 @@ ngrok 터널링은 기본적으로 2시간 세션이 유효합니다.
 ##### authtoken 설정
 
 <p align="center">
-    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-2.JPG" width="80%" class="image__border">
+    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-2.JPG" width="100%" class="image__border">
 </p>
 
 ### 2.3. ngrok.yml 파일 수정
@@ -75,7 +75,7 @@ $ ngrok start --all
 ##### 수행 결과
 
 <p align="center">
-    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-3.gif" width="80%" class="image__border">
+    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-3.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

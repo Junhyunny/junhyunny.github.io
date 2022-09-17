@@ -63,9 +63,10 @@ pipeline {
 * Credentials(optional) - 저장소에서 소스 코드를 받을 때 필요한 인증키
 * Branch Specifier - 원격 저장소에서 사용하는 특정 브랜치
 * Script Path - `Jenkinsfile`이 위치한 경로와 파일명
+    * 프로젝트 루트 경로에 위치하였기 때문에 파일명만 추가합니다.
 
-<p align="center">
-    <img src="/images/using-jenkinsfile-in-pipeline-1.JPG" width="100%" class="image__border">
+<p align="left">
+    <img src="/images/using-jenkinsfile-in-pipeline-1.JPG" width="80%" class="image__border">
 </p>
 
 ## 4. Trigger Pipeline by Web Hook

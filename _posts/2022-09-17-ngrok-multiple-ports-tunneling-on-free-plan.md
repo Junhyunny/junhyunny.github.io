@@ -67,7 +67,7 @@ tunnels:
 $ ngrok start --all
 ```
 
-##### 수행 결과
+##### 실행 결과
 
 <p align="center">
     <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-2.gif" width="100%" class="image__border">

@@ -167,7 +167,7 @@ GitHub 웹 훅이 연결된 젠킨스 파이프라인 만드는 방법은 [젠�
     <img src="/images/parallel-tests-in-jenkins-pipeline-2.gif" width="100%" class="image__border">
 </p>
 
-#### Pipeline Graph View 플러그인을 통한 실행 모습 확인
+#### Pipeline Graph View 플러그인으로 확인한 실행 결과
 
 <p align="center">
     <img src="/images/parallel-tests-in-jenkins-pipeline-3.JPG" width="100%" class="image__border">

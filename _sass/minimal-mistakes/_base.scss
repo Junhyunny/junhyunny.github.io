@@ -356,6 +356,7 @@ input[type="submit"],
 }
 
 @media all and (max-width: 768px) {
+  ol,
   ul {
     padding-left: calc(30 * 100vw / 720);
   }

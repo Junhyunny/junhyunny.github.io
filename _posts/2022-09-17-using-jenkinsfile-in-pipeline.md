@@ -98,4 +98,4 @@ GitHub 웹 훅이 연결된 젠킨스 파이프라인 만드는 방법은 [젠�
 [jenkins-install-link]: https://junhyunny.github.io/information/jenkins/jenkins-install/
 [jenkins-github-webhook-link]: https://junhyunny.github.io/information/jenkins/github/jenkins-github-webhook/
 
-[parallel-tests-in-jenkins-pipeline-link]: https://junhyunny.github.io/information/jenkins/github/parallel-tests-in-jenkins-pipeline/
+[parallel-tests-in-jenkins-pipeline-link]: https://junhyunny.github.io/information/jenkins/parallel-tests-in-jenkins-pipeline/

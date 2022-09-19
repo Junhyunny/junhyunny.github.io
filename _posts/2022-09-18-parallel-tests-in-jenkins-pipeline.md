@@ -173,6 +173,10 @@ GitHub 웹 훅이 연결된 젠킨스 파이프라인 만드는 방법은 [젠�
     <img src="/images/parallel-tests-in-jenkins-pipeline-3.JPG" width="100%" class="image__border">
 </p>
 
+#### TEST CODE REPOSITORY
+
+* <https://github.com/Junhyunny/jenkins-pipeline-test>
+
 #### REFERENCE
 
 * <https://www.jenkins.io/blog/2017/09/25/declarative-1/>

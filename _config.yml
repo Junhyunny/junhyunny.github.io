@@ -251,6 +251,8 @@ compress_html:
 collections:
   problems:
     output: true
+  books:
+    output: true
 
 # Defaults
 defaults:
@@ -276,6 +278,18 @@ defaults:
   - scope:
       path: ""
       type: problems
+    values:
+      permalink: /:categories/:title/
+      layout: single
+      classes: wide
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  - scope:
+      path: ""
+      type: books
     values:
       permalink: /:categories/:title/
       layout: single

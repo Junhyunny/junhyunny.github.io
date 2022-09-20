@@ -38,7 +38,7 @@ last_modified_at: 2022-09-20T23:55:00
     * 볼륨(volume) - 호스트 머신의 도커 엔진이 관리 중인 영역에 저장하는 방식
     * bind mount - 호스트 머신의 파일 시스템에 직접 저장하는 방식
     * tmpfs mount - 호스트 머신의 메모리에 저장하는 방식
-* 이번 포스트에선 볼륨, 그 중에서도 이름 볼륨(anonymous volume)에 대해서만 다룹니다. 
+* 이번 포스트에선 볼륨, 그 중에서도 명명 볼륨(named volume)에 대해서만 다룹니다. 
 
 <p align="center">
     <img src="/images/docker-named-volume-1.JPG" width="60%">

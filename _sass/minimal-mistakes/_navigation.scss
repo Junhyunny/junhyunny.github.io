@@ -74,7 +74,7 @@
       margin-bottom: 0.25em;
       padding: 0.5em 1em;
       font-family: $sans-serif;
-      font-size: 14px;
+      font-size: 1em;
       font-weight: bold;
       line-height: 1.5;
       text-align: center;
@@ -200,8 +200,8 @@
       margin-left: 0;
     }
   }
-  
-  img{
+
+  img {
     -webkit-transition: none;
     transition: none;
   }
@@ -568,6 +568,6 @@
   }
 
   li ul li ul li ul li ul li ul > li a {
-    padding-left: 3.25rem
+    padding-left: 3.25rem;
   }
 }

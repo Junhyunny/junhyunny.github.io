@@ -3,7 +3,6 @@
    ========================================================================== */
 
 @media print {
-
   [hidden] {
     display: none;
   }
@@ -157,9 +156,9 @@
     page-break-inside: avoid;
   }
 
-  h1+p,
-  h2+p,
-  h3+p {
+  h1 + p,
+  h2 + p,
+  h3 + p {
     page-break-before: avoid;
   }
 
@@ -176,7 +175,8 @@
 
   a[href^='http://']:after,
   a[href^='https://']:after,
-  a[href^='ftp://']:after {
+  a[href^='ftp://']:after
+  {
     content: " (" attr(href) ")";
     font-size: 80%;
   }
@@ -210,12 +210,12 @@
   }
 
   a.no-reformat:after {
-    content: '';
+    content: "";
   }
 
   abbr[title].no-reformat:after,
   acronym[title].no-reformat:after {
-    content: '';
+    content: "";
   }
 
   .page__hero-caption {
@@ -237,12 +237,12 @@
   }
 
   .resume-header {
-    &+h1,
-    &+h2,
-    &+h3,
-    &+h4,
-    &+h5,
-    &+h6 {
+    & + h1,
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5,
+    & + h6 {
       margin-top: 0;
     }
 
@@ -253,7 +253,7 @@
     justify-content: flex-start;
     align-items: center;
 
-    &>img {
+    & > img {
       display: none;
     }
 
@@ -268,7 +268,7 @@
       }
 
       &--period::before {
-        content: '\00000a';
+        content: "\00000a";
         white-space: pre-wrap;
       }
     }

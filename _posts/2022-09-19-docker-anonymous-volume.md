@@ -505,6 +505,10 @@ DRIVER    VOLUME NAME
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-19-docker-volume>
 
+#### RECOMMEND NEXT POSTS
+
+* [Docker Named Volume][docker-named-volume-link]
+
 #### REFERENCE
 
 * [Docker & Kubernetes: The Practical Guide [2022 Edition]][docker-kube-lecture-link]
@@ -519,3 +523,4 @@ DRIVER    VOLUME NAME
 * <https://arisu1000.tistory.com/27809>
 
 [docker-kube-lecture-link]: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
+[docker-named-volume-link]: 

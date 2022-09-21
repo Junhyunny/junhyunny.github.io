@@ -33,8 +33,6 @@ last_modified_at: 2022-09-21T23:55:00
 </p>
 <center>[Kubernetes] 쿠버네티스 설치 및 클러스터 설정</center>
 
-https://5equal0.tistory.com/entry/Kubernetes-Kubernetes-%EC%84%A4%EC%B9%98-%EB%B0%8F-Cluster-%EC%84%A4%EC%A0%95
-
 ## 2. Node
 
 클러스터에 속한 물리 혹은 가상 머신들입니다. 
@@ -48,7 +46,9 @@ https://5equal0.tistory.com/entry/Kubernetes-Kubernetes-%EC%84%A4%EC%B9%98-%EB%B
 워커 노드는 실제 어플리케이션 컨테이너들이 배포되는 영역으로 개발된 어플리케이션들은 파드(pod)라는 오브젝트에 묶여 실행, 배포됩니다. 
 실제 일을 수행하는 노드이므로 서비스 규모에 따라 여러 대의 VM을 사용합니다. 
 
-노드 종류에 따라 구성 요소(component)들이 다르며, 각 노드를 구성하는 요소들과 역할들을 알아보겠습니다. 
+##### Master Node And Worker Nodes
+
+* 노드 종류에 따라 구성 요소(component)들이 다르며, 각 노드를 구성하는 요소들과 역할들을 알아보겠습니다. 
 
 <p align="center">
     <img src="/images/kubernetes-architecture-2.JPG" width="80%" class="image__border">
@@ -59,7 +59,6 @@ https://5equal0.tistory.com/entry/Kubernetes-Kubernetes-%EC%84%A4%EC%B9%98-%EB%B
 
 클러스터의 마스터 노드가 수행하는 기능들은 아래 컴포넌트들을 통해 이뤄집니다. 
 클러스터의 노드를 살펴보면 `kube-system` 이름 영역(namespace)에 파드 형태로 동작하고 있습니다. 
-
 미니 큐브(minikube) 클러스터 환경에서 아래 `kubectl get pods -A` 커맨드로 조회하면 `kube-system` 이름 영역에 다음과 같은 파드들을 살펴볼 수 있습니다. 
 
 * etcd-minikube - etcd 컴포넌트

@@ -12,24 +12,31 @@ last_modified_at: 2022-09-21T23:55:00
 
 쿠버네티스(kubernetes)는 컨테이너(container)화 된 어플리케이션의 배포, 스케일링 및 관리를 간편하게 해주는 도구입니다. 
 적은 개수의 컨테이너들을 관리하는 것은 사람이 가능하지만, 엔터프라이즈 급의 시스템을 구성하는 수백, 수천 개의 컨테이너들을 사람이 직접 제어, 관리하는 것은 불가능합니다. 
-오픈 소스 기반의 컨테이너 오케스트레이션(container orchestration)인 쿠버네티스는 같은 역할을 수행하는 도커 스웜(docker swarm), 아파치 메소스(apache mesos), 노마드(nomad) 같은 도구들 중에서도 사실상 업계 표준으로 사용되고 있습니다. 
+오픈 소스 기반의 컨테이너 오케스트레이션(container orchestration)인 쿠버네티스는 운영자가 선언한 원하는 상태(desired state)를 맞추기 위해 현재 상태(current state)를 계속 변경합니다. 
+현재 상태를 지속적으로 확인하다가 원하는 상태와 불일치가 발생하면 이를 다시 원하는 상태로 되돌립니다. 
 
-쿠버네티스는 다음과 같은 장점들을 가지고 있습니다. 
+<p align="center">
+    <img src="/images/kubernetes-architecture-1.JPG" width="80%" class="image__border">
+</p>
+<center>https://www.leverege.com/iot-ebook/kubernetes-object-management-model</center>
+
+### 1.1. Kubernetes Benefits
+
+비슷한 역할을 수행하는 도커 스웜(docker swarm), 아파치 메소스(apache mesos), 노마드(nomad) 같은 도구들이 있지만, 사실상 업계 표준으로 사용되는 쿠버네티스는 다음과 같은 장점들을 가지고 있습니다. 
 
 * 많은 앱 컨테이너들을 배포, 관리하기 쉽다.
 * 배포할 앱 컨테이너가 요구하는 리소스 등을 고려하여 배포될 노드를 자동으로 선택한다. 
 * 컨테이너에 문제가 발생하거나 노드에 장애가 발생하는 경우 자동적으로 문제가 없는 다른 노드로 스케줄링한다. 
 * 특정 앱 컨테이너의 부하가 급격하게 발생하는 경우 이를 모니터링하고 있다가 자동으로 스케일 아웃(scale out)한다. 
 
-쿠버네티스가 어떤 아키텍처 구조를 통해 다수의 컨테이너들을 다루는지 살펴보겠습니다. 
-
 ## 1. Cluster
 
+쿠버네티스가 어떤 아키텍처 구조를 통해 다수의 컨테이너들을 다루는지 살펴보겠습니다. 
 쿠버네티스는 클러스터(cluster) 단위로 자원들을 관리합니다. 
 클러스터는 논리적으론 노드(node)들의 집합이고, 실제로는 물리 혹은 가상 머신들의 집합입니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-1.JPG" width="80%" class="image__border">
+    <img src="/images/kubernetes-architecture-2.JPG" width="80%" class="image__border">
 </p>
 <center>[Kubernetes] 쿠버네티스 설치 및 클러스터 설정</center>
 
@@ -51,7 +58,7 @@ last_modified_at: 2022-09-21T23:55:00
 * 노드 종류에 따라 구성 요소(component)들이 다르며, 각 노드를 구성하는 요소들과 역할들을 알아보겠습니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-2.JPG" width="80%" class="image__border">
+    <img src="/images/kubernetes-architecture-3.JPG" width="80%" class="image__border">
 </p>
 <center>Kubernetes in Action</center>
 
@@ -142,7 +149,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 일반적으로 접근용 포트는 `6443`을 사용합니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-3.JPG" width="80%" class="image__border">
+    <img src="/images/kubernetes-architecture-4.JPG" width="80%" class="image__border">
 </p>
 <center>https://sysdig.com/blog/monitor-kubernetes-api-server/</center>
 
@@ -176,11 +183,13 @@ API 서버와 노드를 연결하는 역할을 수행합니다.
 컨테이너 실행을 담당하는 소프트웨어입니다. 
 워커 노드 내부에서 컨테이너 이미지를 가져오고 구동시키는 엔진입니다. 
 
-다음과 같은 컨테이너 런타임이 사용됩니다. 
+다음과 같은 컨테이너 런타임들이 사용됩니다. 
 
-* container_directory
+* containerd
 * CRI-O
-* Docker Engine - 1.2 버전 이후로 deprecated / 1.24 버전부터 완전 중다
+* Docker Engine
+    * 1.2 버전 이후로 deprecated
+    * 1.24 버전부터 완전 중단
 * Mirntis Container Runtime
 
 ## 3. Addons

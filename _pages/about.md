@@ -18,7 +18,7 @@ classes: wide
 </div>
 
 안녕하세요. Tanzu Labs 소프트웨어 엔지니어 강준현입니다.<br/>
-생각과 경험을 정리하고, 학습한 지식을 다른 사람들이 알기 쉽게 공유하는 일을 좋아합니다.
+생각과 경험을 정리하고, 학습한 지식을 알기 쉽게 공유하는 일을 좋아합니다.
 
 ## 주요 기술
 
@@ -40,17 +40,18 @@ classes: wide
 
 ##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월
 
-* 10주 이터레이션을 통한 MVP(Minimum Viable Product) 서비스 개발
-* 개발 이터레이션 기간을 위한 Jenkins CI/CD 파이프라인 구축
-* React, Redux Toolkit, Sass을 사용한 알뜰폰 요금제 추천 및 상세 정보 조회 기능 구현
-* Spring Boot, Spring Cloud를 사용한 기존 레거시 API 연동 및 마이데이터 플랫폼 연계
-* 페어 프로그래밍을 통한 고객사 개발자 Skill Enablement
-* React Testing Library, Jest, JUnit을 사용한 테스트 주도 개발 실천
-    * 프론트엔드 서비스 단위 테스트 약 200개 이상
-    * 백엔드 서비스 단위 테스트 약 100개 이상
-* Spring Boot, Apache Camel을 사용한 사내 EAI 메세징 서비스 분석 및 재구축
-    * 테스트 코드를 이용한 안정적인 리팩토링 수행
-    * 리팩토링을 통한 소스 코드 및 설정 파일 약 70% 코드 감소
+* MVP(Minimum Viable Product) 서비스 개발
+* 개발 이터레이션을 위한 Jenkins CI/CD 파이프라인 구축
+* React, RTK, Sass을 사용한 알뜰폰 요금제 추천 프론트엔드 서비스 개발
+* Spring Boot, Spring Cloud를 사용한 백엔드 서비스 개발
+    * 기존 레거시 시스템 API 연계 
+    * EAI 시스템 연계
+    * 마이데이터 플랫폼 연계
+* Pair Programming 실천
+* Test Driven Development 실천
+    * 프론트엔드 서비스 단위 테스트 약 200개
+    * 백엔드 서비스 단위 테스트 약 100개
+* EAI 메세징 서비스 분석 및 리팩토링을 통한 70% 코드 축소
 
 <div class="resume-header"> 
     <img src="/images/about/about-3.jpg" width="4%" class="image__margin-right"/>
@@ -65,9 +66,9 @@ classes: wide
 
 * SYBASE에서 TIBERO로 데이터베이스 변경으로 인한 레거시 쿼리 변경 작업
 * Spring MVC, JSP, jQuery를 사용한 업무 게시판, 시설 도면 내 IoT 센서 매핑 화면 개발 
-* 로그아웃 시 쿠키 내 세션ID 초기화 실패로 인한 재접속이 불가능했던 레거시 시스템의 에러 디버깅
+* 로그아웃 시 쿠키 내 세션ID 초기화 실패로 인한 재접속이 불가능 버그 개선
 * 기존 디지털 돌봄 업무 관리 화면 개선 및 코드 리팩토링
-    * 불필요 컴포넌트와 반복되는 jQuery 로직 제거로 인한 약 50% 코드 감소
+    * 불필요 컴포넌트와 반복되는 jQuery 로직 제거로 인한 50% 코드 축소
 * Spring MVC, Spring Mobile Device, JSP를 사용한 모바일 디바이스 웹 어플리케이션 개발
     * 신규 모바일 화면 18종 개발 
     * 사용자 PIN 번호를 사용한 2차 인증 구현

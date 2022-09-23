@@ -457,7 +457,7 @@ kubernetes                    ClusterIP      10.96.0.1       <none>        443/T
 
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-23-deploy-container-on-kubernetes-cluster>
 
 #### REFERENCE
 

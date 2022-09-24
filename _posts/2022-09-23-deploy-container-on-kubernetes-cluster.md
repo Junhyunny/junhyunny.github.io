@@ -26,7 +26,7 @@ last_modified_at: 2022-09-23T23:55:00
 * MacBook pro 
 * Intel Core i9
 
-## 1. kubectl 
+## 1. kubectl 설치
 
 사용자가 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI 도구입니다. 
 CLI 명령어를 통해 어플리케이션 배포, 클러스터 리소스 모니터링과 제어를 수행할 수 있습니다. 

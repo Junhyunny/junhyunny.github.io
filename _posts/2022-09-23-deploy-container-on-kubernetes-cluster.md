@@ -155,7 +155,7 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
 `minikube`를 배포하기 위한 환경이 필요합니다. 
 드라이버 설정을 통해 `minikube`를 배포할 가상 머신(virtual machine)을 지정할 수 있습니다. 
 
-`MacOS`에서는 다음과 같은 드라이버들을 지원합니다. 
+`MacOS`의 `minikube`는 다음과 같은 드라이버들을 지원합니다. 
 
 * Docker - VM + Container (preferred)
 * Hyperkit - VM
@@ -392,7 +392,7 @@ react-app-deployment-5fb9b4754d-wrsxr   1/1     Running   0          43s
 ## 5. Expose Service
 
 필요한 오브젝트들은 모두 배포했지만, 로컬 컴퓨터에서 서비스에 직접 붙지 못합니다. 
-먼저 배포한 서비스 정보를 살펴보겠습니다. 
+배포한 서비스 오브젝트의 정보를 다시 살펴보고, 터널링을 통해 외부로 노출시키겠습니다. 
 
 * `external-connection-service` 서비스의 `EXTERNAL-IP` 값이 `pending` 상태입니다. 
 * `EXTERNAL-IP`은 클라우드 프로바이더(cloud provider)에 의해 제공됩니다. 
@@ -431,9 +431,10 @@ $ minikube service external-connection-service
 ## CLOSING
 
 `minikube tunnel` 명령어를 통해 터널링을 수행할 수 있습니다. 
-이 경우 `${EXTERNAL-IP:PORT}`으로 쉽게 접근 가능합니다. 
-한 터미널에서 터널링을 수행하고, 다른 터미널에서 서비스의 `EXTERNAL-IP` 확인하면 `<pending>`에서 IP 값임을 볼 수 있습니다. 
-`127.0.0.1:80` 주소를 통해 서비스에 접근 가능합니다. 
+
+* 한 터미널에서 터널링을 수행합니다. 
+* 다른 터미널에서 서비스의 `EXTERNAL-IP` 확인하면 `<pending>`에서 IP 값으로 바뀐 것을 확인할 수 있습니다.
+* `127.0.0.1:80` 주소를 통해 서비스에 접근 가능합니다. 
 
 ```
 $  minikube tunnel

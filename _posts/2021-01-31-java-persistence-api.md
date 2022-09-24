@@ -9,93 +9,119 @@ last_modified_at: 2021-08-22T01:00:00
 
 <br>
 
-👉 이어서 읽기를 추천합니다.
-- [JPA Persistence Context][jpa-persistence-context-link]
-- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
-- [JPA Flush][jpa-flush-link]
-- [JPA Clear][jpa-clear-link]
+## 1. Java Persistence API
 
-## 0. 들어가면서
+`JPA` 정의를 먼저 살펴보겠습니다.
 
-두서없이 JPA를 사용하다가 지금에 와서 보니 제대로 된 정의조차 모르고 있었습니다. 
-JPA에 대한 글 작성 전에 우선 JPA에 대한 정의를 찾아보았습니다. 
-저는 아래 두 문장이 JPA를 가장 잘 설명한다고 생각합니다. 
+> Java 어플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 인터페이스
 
-> **ORM(Object-Relation Mapping)** 표준 기술<br>
-> Java 어플리케이션에서 관계형 데이터베이스를 사용하는 방식을 정의한 **인터페이스**
+정의를 살펴봤지만, 어떤 역할을 수행하는지 구체적이지 않습니다. 
+`JPA`를 정의에서 사용한 단어들을 살펴보면서 추상적인 개념들을 구체화시켜보겠습니다. 
 
-정의를 적어두고 보니 JPA 기술과 항상 붙어다니는 용어들이 하나같이 익숙하지 않습니다. 
-우선 용어에 대해 정리해보도록 하겠습니다. 
+## 2. 영속성(Persistence)
 
-## 1. 영속성(Persistence)
-**'특정 데이터를 생성한 프로그램이 종료되더라도 해당 데이터는 사라지지 않는다.'**는 데이터 특성을 의미합니다. 
-영속성을 지니지 못한 데이터는 메모리에만 존재하기 때문에 프로그램이 종료되면 그 즉시 소멸됩니다. 
-반대로 영속성을 지닌 데이터는 어플리케이션이 종료되더라도 삭제되지 않고 남아있습니다. 
+> 특정 데이터를 생성한 프로그램이 종료되더라도 해당 데이터는 사라지지 않는다.
 
-**파일 시스템, 데이터베이스 등을 통해 데이터를 영구적으로 저장하는 행위는 `'데이터에 영속성을 부여한다.'` 라고 표현할 수 있습니다.** 
+데이터가 영구적으로 보존될 수 있다는 특성입니다. 
+영속성을 지니지 못하는 데이터는 프로그램이 종료되면 함께 삭제되는 휘발성을 가집니다. 
+영속성을 지닌 데이터는 프로그램이 종료되더라도 다른 곳에 저장되어 다시 조회할 수 있습니다. 
+파일 시스템이나 데이터베이스를 사용해 데이터를 저장하는 행위를 `"데이터에 영속성을 부여한다."` 라고 표현합니다. 
 
-### 1.1. 영속성 계층(Persistence Layer)
-어플리케이션에서 데이터에 영속성을 부여해주는 계층을 의미합니다. 
-조금 더 풀어 설명하면 데이터베이스에 데이터를 저장할 수 있는 프로그램 영역을 의미합니다. 
-개발자는 Persistence 프레임워크를 사용하여 보다 쉽게 데이터에 영속성을 부여할 수 있습니다. 
-Persistence 프레임워크는 MyBatis 같은 `SQL Mapper`나 Hibernate 같은 `Object Relation Mapper`가 대표적으로 사용되고 있습니다.
+### 2.1. 영속성 계층(Persistence Layer)
+
+어떤 어플리케이션의 구조를 살펴봤을 때 데이터에 영속성을 부여해주는 기능들이 모여있는 계층을 의미합니다. 
+물리적으론 데이터베이스에 데이터를 저장하는 프로그램 코드들이 모여있는 패키지(package)입니다. 
+
+일반적으로 영속성 계층의 코드는 영속성 프레임워크(persistence framework)를 사용합니다. 
+영속성 프레임워크가 제공하는 간단한 코드를 사용하면 쉽게 데이터에 영속성을 부여할 수 있습니다. 
+`MyBatis`, `Hibernate`가 대표적인 영속성 프레임워크입니다. 
 
 ##### 어플리케이션 계층 구조
-<p align="center"><img src="/images/java-persistence-api-1.JPG" width="45%"></p>
 
-## 2. ORM(Object-Relation Mapping)
+<p align="center">
+    <img src="/images/java-persistence-api-1.JPG" width="45%" class="image__border">
+</p>
+
+## 3. Object-Relation Mapping
 
 > 어플리케이션의 객체와 관계형 데이터베이스의 테이블을 자동으로 연결하는 행위
 
-Object-Relation Mapping은 어플리케이션 설계와 데이터베이스 설계가 따로 이루어지면서 발생하는 객체 모델과 관계형 모델간의 불일치를 해소하기 위한 방법입니다. 
-개발자가 너무 많은 SQL Mapping 작업에서 벗어나서 보다 더 객체 지향적인 프로그래밍(OOP, Object Oriented Programming)을 할 수 있도록 돕기 위한 방법입니다. 
-ORM 프레임워크는 객체 간의 관계를 바탕으로 SQL을 자동으로 생성하고 이를 수행합니다. 
+`ORM(Object-Relation Mapping)`은 어플리케이션 설계와 데이터베이스 설계가 따로 이루어지면서 발생하는 객체 모델과 관계형 모델간의 불일치를 해소하기 위한 방법입니다. 
 
-##### Object-Relation Mapping을 통한 객체, 테이블 연결
-<p align="center"><img src="/images/java-persistence-api-2.JPG" width="70%"></p>
+다음과 같은 개념으로 객체 모델과 관계형 모델을 연결합니다. 
 
-### 2.1. Object-Relation Mapping 장점
-Object-Relation Mapping을 사용하는 경우 다음과 같은 장점이 있습니다.
-- 객체 지향적 코드로 더 직관적인 프로그래밍이 가능합니다.
-- 재사용 및 유지보수, 리팩토링의 편리성이 증가합니다.
-- DBMS에 대한 종속성이 줄어듭니다.
-- 프로그램 개발에 집중할 수 있습니다.
+* 객체지향 언어의 클래스 - 관계형 데이터베이스의 테이블
+* 객체지향 언어의 객체 - 관계형 데이터베이스의 데이터
+* 객체지향 언어의 객체 사이의 연관 관계 - 관계형 데이터베이스의 테이블 사이의 관계
 
-### 2.2. Object-Relation Mapping 단점
-Object-Relation Mapping을 사용하는 경우 다음과 같은 단점이 있습니다.
-- 모든 비즈니스를 Object-Relation Mapping만으로 완벽하게 구현하기 힘듭니다.
-- 클래스, 애너테이션 등을 이용하여 테이블 설계를 해야하기 때문에 다소 러닝 커브가 존재합니다.
-- 잘못된 엔티티 설계는 성능에 직접적인 영향을 미칩니다.
+객체의 동작을 프레임워크에서 감지하고 SQL 질의(query)로 만들어 수행합니다. 
+`ORM`은 객체의 모습 그대로 데이터로 저장할 수 있게 만듦으로써 객체지향적인 설계가 데이터베이스 모델링에 의해 흐트러지지 않도록 도와줍니다. 
 
-## 3. 그래서 JPA(Java Persistence API)란?
-JPA(Java Persistence API)에 대해 설명하기 위해 관련된 여러 용어들을 정리해보았습니다. 
-이 포스트가 JPA를 설명하는 글인지 혼동이 오기 시작합니다. 
-여기에서 다시 위에 작성한 내용들을 바탕으로 JPA가 무엇인지 정리하고 글을 이어가겠습니다.
-- JPA(Java Persistence API)
-  - Object-Relation Mapping을 쉽게하기 위하여 Java에서 사용하는 인터페이스입니다.
-  - 인테페이스이므로 구현체가 필요한데 대표적으로 사용되는 구현체는 Hibernate, OpenJPA 가 있습니다.
-  - Hibernate는 Persistence 프레임워크이며, Persistence란 데이터를 영구히 저장한다는 특징을 의미합니다.
-  - **객체 지향적인 프로그래밍을 통해 데이터를 영구적으로 보관, 관리할 수 있도록 만드는 Java 인터페이스 모음**
+##### ORM 클래스와 테이블 연결
 
-### 3.1. Spring Data Jpa
-**<br>JPA, Hibernate까지 알겠는데 Spring Data Jpa는 뭐지?**
-**Spring Data Jpa는 JPA를 사용하기 편하게 만들어 놓은 모듈입니다.** 
-개발자는 이를 이용하여 JPA를 더 쉽고 편하게 사용할 수 있습니다. 
-Spring Data Jpa 모듈은 JPA를 한 단계 추상화시킨 `Repository`라는 인터페이스를 제공합니다. 
-개발자는 이를 확장(extends)한 인터페이스를 만들고 Naming 규칙에 맞도록 메소드를 선언하기만 하면 됩니다. 
-Spring Data Jpa 모듈은 개발자가 만든 인터페이스를 @Bean으로 등록하고 해당 인터페이스의 메소드가 호출될 때 이를 SQL로 변환하여 수행합니다.
+<p align="center">
+    <img src="/images/java-persistence-api-2.JPG" width="70%" class="image__border">
+</p>
 
-셋의 관계를 직관적으로 이해할 수 있도록 돕는 이미지를 [정다혜님 블로그][dahye-jeong-blog-link]에서 가져왔습니다.
+### 3.1. ORM 프레임워크 장점과 단점
 
-##### JPA / Hibernate / Spring Data Jpa 구조도
+ORM 프레임워크를 사용하면서 느낀 장점과 단점을 정리하였습니다. 
+다음과 같은 장점이 있습니다.
 
-<p align="center"><img src="/images/java-persistence-api-3.JPG" width="45%"></p>
+* 객체지향적인 코드를 작성할 수 있으며 더 직관적인 개발이 가능합니다. 
+* 클래스 설계를 데이터베이스에 그대로 반영하여 사용할 수 있으므로 초반 개발 속도가 빠릅니다. 
+* 다음과 같은 이유로 질의문 작성이 많지 않습니다.
+    * 객체의 상태 변경이 자동으로 데이터베이스에 반영됩니다.
+    * 객체의 동작이 읽기 질의문 변경되어 동작합니다.
+* SQL을 직접 작성하지 않으므로 데이터베이스 종속성이 저하됩니다.
+
+다음과 같은 단점이 있습니다. 
+
+* 객체지향적인 설계가 성능의 이슈를 발생시킵니다.
+    * 과도한 연결 관계로 인한 조인 쿼리 발생
+    * 지연 로딩(lazy loading)으로 인한 1+N 문제 발생
+* 화면에 복잡한 표현 때문에 많은 객체를 조회하는 경우 성능 문제가 발생합니다. 
+* 잘못된 설정으로 인해 데이터베이스에 저장된 스키마나 데이터를 잃을 수 있습니다. 
+* 직관적인 SQL 질의문을 작성하는 것이 아니라 애너테이션 같은 메타성 코드를 사용하기 때문에 러닝 커브가 있습니다.
+
+## 4. JPA Summary
+
+`JPA` 정의를 바탕으로 관련된 용어들을 정리하였습니다. 
+위에서 정리한 내용들을 바탕으로 `JPA` 개념을 다시 요약해보겠습니다. 
+
+* 어플리케이션은 필요에 따라 데이터에 영속성을 부여할 필요가 있습니다.
+    * 데이터에 영속성을 부여한다는 것은 데이터를 영구적으로 저장하겠다는 의미입니다.
+* 영속성 프레임워크는 데이터를 쉽게 저장할 수 있는 기능을 제공합니다. 
+* `JPA`는 `ORM` 영속성 프레임워크를 쉽게 사용하기 위한 `Java` 인터페이스입니다. 
+    * `ORM`은 객체지향적인 설계를 관계형 데이터베이스의 모델링에 반영하기 위한 메커니즘(mechanism)입니다.
+
+## 5. Spring Data JPA
+
+> Spring 프레임워크에서 JPA를 쉽게 사용하기 위해 만든 컴포넌트
+
+`Spring Data JPA`는 `JPA`를 한 단계 더 추상화시킨 `Repository` 인터페이스를 제공합니다. 
+개발자는 이를 확장하여 사용할 수 있습니다. 
+간단한 이름 규칙에 맞는 메소드를 작성함으로써 쉽게 영속성 프레임워크 기능을 사용할 수 있습니다. 
+
+##### Spring Data JPA - JPA - Hibernate 추상화 구조
+
+<p align="center">
+    <img src="/images/java-persistence-api-3.JPG" width="45%" class="image__border">
+</p>
 <center>https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic</center>
 
+#### RECOMMEND NEXT POSTS
+
+* [JPA Persistence Context][jpa-persistence-context-link]
+* [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+* [JPA Flush][jpa-flush-link]
+* [JPA Clear][jpa-clear-link]
+
 #### REFERENCE
-- <https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic>
-- <https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/>
-- <https://gmlwjd9405.github.io/2019/08/03/reason-why-use-jpa.html>
+
+* <https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic>
+* <https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/>
+* <https://gmlwjd9405.github.io/2019/08/03/reason-why-use-jpa.html>
 
 [dahye-jeong-blog-link]: https://dahye-jeong.gitbook.io/spring/spring/2020-04-11-jpa-basic
 

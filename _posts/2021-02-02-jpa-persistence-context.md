@@ -37,7 +37,7 @@ last_modified_at: 2021-08-22T01:00:00
 영속성 컨텍스트의 구현체는 영속성 프레임워크가 제공합니다. 
 `EntityManager`는 엔티티의 식별 키를 기준으로 엔티티를 영속성 컨텍스트에 저장합니다. 
 `EntityManager`는 호출되는 메소드에 따라 엔티티 객체의 생명주기 상태를 변경합니다. 
-마지막엔 엔티티의 모습을 데이터베이스에 저장, 변경, 삭제할 수 있는 쿼리를 만들어 데이터를 변경합니다.
+트랜잭션 마지막엔 엔티티의 생명주기 상태를 기준으로 저장, 변경, 삭제할 수 있는 쿼리를 만들어 엔티티의 모습을 데이터베이스의 데이터로 반영합니다. 
 
 <p align="center">
     <img src="/images/jpa-persistence-context-1.JPG" width="80%" class="image__border">
@@ -45,28 +45,27 @@ last_modified_at: 2021-08-22T01:00:00
 
 ## 3. Entity Lifecycle
 
-엔티티는 관리 대상인지, 관리 대상이 아닌지, 제거할 대상인지에 따라 `EntityManager`로부터 적절한 상태를 부여받습니다. 
-이를 엔티티의 생명주기(lifecycle)라고 합니다. 
-다음과 같은 생명주기가 있습니다. 
+엔티티는 관리 대상인지, 관리 대상이 아닌지, 제거할 대상인지에 따라 `EntityManager`에게 적절한 상태를 부여받습니다. 
+이를 엔티티의 생명주기(lifecycle)라고 하며 다음과 같은 상태들이 존재합니다. 
 
 * New
 * Managed
 * Detached
 * Removed
 
-각 생명주기 상태로 어떻게 바뀌는지 자세히 살펴보도록 하겠습니다. 
+각 생명주기 상태가 어떤 식으로 반영, 변경되는지 살펴보도록 하겠습니다. 
 
 ### 3.1. Entity Lifecycle Flow
 
 * 각 상태에서 다른 상태로 이동할 수 있는 방향이 화살표로 표시되어 있습니다.
-* 각 상태에서 다른 상태로 이동하기 위한 메소드가 함께 정리되어 있습니다.
+* 각 상태에서 다른 상태로 이동하기 위한 `EntityManager`의 메소드가 표시되어 있습니다.
 
 <p align="center">
     <img src="/images/jpa-persistence-context-2.JPG" width="60%" class="image__border">
 </p>
 <center>https://gunlog.dev/JPA-Persistence-Context/</center>
 
-### 3.2. 비영속 상태(new/transient)
+### 3.2. 비영속(new/transient) 상태
 
 * 엔티티 객체를 새로 생성한 상태입니다.
 * 어플리케이션 메모리에만 존재하는 상태이며 `EntityManager`에 의해 별도로 관리되지 않습니다. 
@@ -77,11 +76,11 @@ last_modified_at: 2021-08-22T01:00:00
     member.setName("Junhyunny");
 ```
 
-### 2.2. 영속 상태(managed)
+### 2.2. 영속(managed) 상태
 
 * 엔티티 객체를 `EntityManager`가 관리하고 있는 상태입니다.
     * 영속성 컨텍스트에 저장된 상태입니다.
-* 다음과 같은 상황에 엔티티는 영속 상태가 됩니다. 
+* 엔티티는 다음과 같은 시점에 영속 상태가 됩니다. 
     * 엔티티가 `persist` 메소드를 통해 영속성 컨텍스트에 저장되는 시점
     * `EntityManager`가 데이터베이스에서 데이터를 조회하는 시점
     * 상태 관리에서 제외된 엔티티가 `merge` 메소드를 통해 영속성 컨텍스트로 복귀하는 시점
@@ -93,23 +92,22 @@ last_modified_at: 2021-08-22T01:00:00
     entityManager.persist(member);
 ```
 
-### 2.3. 준영속 상태(detached)
+### 2.3. 준영속(detached) 상태
 
 * `EntityManager`에 의해 관리되다가 영속성 컨텍스트에서 제외된 상태입니다.
 * `detach` 메소드를 통해 영속성 컨텍스트에서 분리됩니다. 
 * 준영속 상태 객체의 상태 변화는 `EntityManager`가 감지하지 못하여 데이터베이스에 반영되지 않습니다. 
-* `EntityManager`에 의해 관리만 되지 않을 뿐 데이터베이스에서 삭제되진 않습니다. 
+* `EntityManager`에 의해 관리되지 않을 뿐 데이터베이스에서 삭제되진 않습니다. 
 
 ```java
     Member member = entityManager.find(Member.class, "01012341234");
     entityManager.detach(member);
 ```
 
-### 2.4. 삭제 상태(removed)
+### 2.4. 삭제(removed) 상태
 
 * 엔티티를 삭제하겠다고 표시된 상태입니다. 
-* `remove` 메소드에 의해 상태가 변경됩니다. 
-* 트랜잭션이 종료되거나 명시적으로 `flush`를 실행하면 delete 쿼리가 수행됩니다.
+* `remove` 메소드에 의해 삭제 상태로 변경됩니다. 
 
 ```java
     Member member = entityManager.find(Member.class, "01012341234");
@@ -196,7 +194,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 
 ## 4. detach 메소드 테스트
 
-두 가지를 테스트합니다. 
+두 가지를 테스트하였습니다. 
 
 * 준영속 상태 엔티티를 변경하면 데이터베이스에 반영되는가?
 * 준영속 상태 엔티티를 제거(remove)하면 무슨 현상이 발생하는가?
@@ -206,7 +204,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 * 조회한 엔티티를 `detach` 메소드를 통해 준영속 상태로 만듭니다.
 * 객체 이름을 "Jua"로 변경합니다.
 * 트랜잭션을 커밋하고, 영속성 컨텍스트를 모두 정리합니다.
-* `EntityManager`는 `find` 메소드로 엔티티를 데이터베이스에서 다시 조회합니다.
+* `find` 메소드로 엔티티를 데이터베이스에서 다시 조회합니다.
 * 조회한 엔티티의 이름 값이 "Junhyunny"인지 확인합니다.
 
 ```java
@@ -373,8 +371,9 @@ public class DetachTest {
 
 * 테스트 시작 전 테스트 데이터를 삽입하면서 `insert` 쿼리가 수행됩니다.
 * 테스트 초반에 `find` 메소드로 엔티티를 조회하면서 `select` 쿼리가 수행됩니다.
-* 영속성 컨텍스트에서 관리되지 않는 엔티티가 `remove` 메소드에 전달되면서, 해당 엔티티에 매칭되는 데이터가 데이터베이스에 존재하는지 확인하기 위한 `select` 쿼리가 수행됩니다.
-    * 준영속 엔티티가 아닌 비영속 엔티티를 사용해도 `select` 쿼리가 동일하게 발생합니다.
+* 영속성 컨텍스트에서 관리되지 않는 엔티티가 `remove` 메소드에 전달됩니다.
+    * 영속성 컨텍스트에 관리되지 않는 엔티티이므로 데이터베이스에 해당 엔티티가 존재하는지 확인하고자 `select` 쿼리가 수행됩니다.
+    * 비영속 엔티티를 사용해도 `select` 쿼리가 동일하게 발생합니다.
 * `IllegalArgumentException` 예외가 발생하면서 다음과 같은 에러 메세지를 출력합니다. 
     * Removing a detached instance blog.in.action.entity.Member#010-1234-1234
 
@@ -387,7 +386,7 @@ Hibernate: select member_.id, member_.name as name2_0_ from tb_member member_ wh
 
 ## 5. remove 메소드 테스트
 
-`remove` 메소드를 통해 엔티티를 삭제 상태로 만들고, 데이터베이스에서 정말 삭제되었는지 확인합니다. 
+`remove` 메소드를 통해 엔티티를 삭제 상태로 만들고, 데이터베이스에서 삭제되는지 확인합니다. 
 
 * 조회한 엔티티를 `remove` 메소드를 통해 삭제 상태로 만듭니다.
 * 트랜잭션을 커밋하고, 영속성 컨텍스트를 모두 정리합니다.
@@ -482,8 +481,8 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 
 ## CLOSING
 
-`persist`, `remove` 메소드 호출 시점에 쿼리가 수행되지 않는 현상은 `JPA` 지연 쓰기 메커니즘 때문입니다. 
-관련된 내용은 다음 포스트에서 다루도록 하겠습니다. 
+`persist`, `remove` 메소드 호출 시점에 쿼리가 수행되지 않는 현상은 `JPA` 지연 쓰기 메커니즘(mechanism) 때문입니다. 
+관련된 내용은 다음 포스트에서 자세히 다루도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
 

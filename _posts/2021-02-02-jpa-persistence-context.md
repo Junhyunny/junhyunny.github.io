@@ -1,5 +1,5 @@
 ---
-title: "JPA Persistence Context"
+title: "Persistence Context And Entity Lifecycle"
 search: false
 category:
   - spring-boot
@@ -10,294 +10,171 @@ last_modified_at: 2021-08-22T01:00:00
 
 <br>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [JPA(Java Persistence API)][java-persistence-api-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 이어서 읽기를 추천합니다.
-- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
-- [JPA Flush][jpa-flush-link]
-- [JPA Clear][jpa-clear-link]
+* [JPA(Java Persistence API)][java-persistence-api-link]
 
-## 0. 들어가면서
+## 1. EntityManager 
 
-`JPA`는 `EntityManager`를 통해 엔티티(Entity)를 관리합니다. 
-`EntityManager는` @Id 필드를 이용해 엔티티를 구분짓고 이들을 관리합니다. 
-ORM(Object-Relation Mapping) 개념상 @Id 필드는 데이터베이스의 PK를 의미하므로 @Id 값이 다른 경우에는 다른 데이터임을 보장합니다. 
-`EntityManager`가 엔티티를 어떤 방식으로 구분짓는지 알았으니 어떤 방법으로 관리하는지 알아보도록 하겠습니다.
+`JPA`는 데이터를 저장하기 위해 엔티티(entity)를 사용합니다. 
+`JPA`와 관계형 데이터베이스 사이의 관계를 단순하게 정리하면 다음과 같습니다. 
 
-## 1. 영속성 컨텍스트(Persistence Context)
+* 엔티티 클래스 - 테이블
+* 엔티티 객체 - 데이터 한 행(row)
+* 엔티티 객체의 필드와 상태 값 - 데이터 한 행의 열(column)과 값 
 
-> 엔티티(Entity)를 영구히 저장하는 환경
+데이터 저장을 위해 사용되는 엔티티는 `EntityManager`를 통해 관리됩니다. 
 
-영속성 컨텍스트는 EntityManager를 통해 접근이 가능합니다. 
-엔티티 객체를 만든 후 EntityManager의 **`persist(E)`** 메소드를 호출하여 생성한 엔티티를 영속성 컨텍스트에 저장합니다. 
-당연히 엔티티 객체를 영속성 컨텍스트에서 제거하는 방법도 존재합니다. 
-JPA가 엔티티를 어떻게 관리하는지 Entity Lifecycle을 통해 더 자세히 알아보도록 하겠습니다. 
+* 모든 엔티티는 자신을 식별할 수 있도록 `@Id` 애너테이션을 이용합니다.
+* `EntityManager`는 엔티티의 `@Id` 애너테이션으로 정의된 필드들의 값을 통해 엔티티를 구분합니다.
+* 엔티티는 생명주기에 따라 적절한 상태를 부여받고, 상태에 맞는 적절한 쿼리를 통해 데이터베이스에 저장됩니다. 
 
-## 2. Entity Lifecycle
+## 2. Persistence Context
 
-새로운 기술을 공부할 때마다 접하는 라이프사이클(lifecycle)에 대한 개념은 언제나 흥미롭습니다. 
-엔티티의 생명 주기를 각 상태 별로 정리해보겠습니다.
+> 영속성 컨텍스트(Persistence Context)<br/>
+> 엔티티를 영구히 저장하는 환경
 
-##### Entity Lifecycle 흐름
-- `New`, `Managed`, `Detached`, `Removed` 상태가 존재합니다.
-- 각 상태에서 다른 상태로 이동할 수 있는 방향이 화살표로 표시되어 있습니다.
-- 각 상태에서 다른 상태로 이동하기 위한 메소드가 함께 정리되어 있습니다.
+영속성 컨텍스트의 구현체는 영속성 프레임워크가 제공합니다. 
+`EntityManager`는 엔티티의 식별 키를 기준으로 엔티티를 영속성 컨텍스트에 저장합니다. 
+`EntityManager`는 호출되는 메소드에 따라 엔티티 객체의 생명주기 상태를 변경합니다. 
+마지막엔 엔티티의 모습을 데이터베이스에 저장, 변경, 삭제할 수 있는 쿼리를 만들어 데이터를 변경합니다.
 
 <p align="center">
-    <img src="/images/jpa-persistence-context-1.JPG" width="60%" class="image__border">
+    <img src="/images/jpa-persistence-context-1.JPG" width="80%" class="image__border">
+</p>
+
+## 3. Entity Lifecycle
+
+엔티티는 관리 대상인지, 관리 대상이 아닌지, 제거할 대상인지에 따라 `EntityManager`로부터 적절한 상태를 부여받습니다. 
+이를 엔티티의 생명주기(lifecycle)라고 합니다. 
+다음과 같은 생명주기가 있습니다. 
+
+* New
+* Managed
+* Detached
+* Removed
+
+각 생명주기 상태로 어떻게 바뀌는지 자세히 살펴보도록 하겠습니다. 
+
+### 3.1. Entity Lifecycle Flow
+
+* 각 상태에서 다른 상태로 이동할 수 있는 방향이 화살표로 표시되어 있습니다.
+* 각 상태에서 다른 상태로 이동하기 위한 메소드가 함께 정리되어 있습니다.
+
+<p align="center">
+    <img src="/images/jpa-persistence-context-2.JPG" width="60%" class="image__border">
 </p>
 <center>https://gunlog.dev/JPA-Persistence-Context/</center>
 
-### 2.1. 비영속(new/transient)
+### 3.2. 비영속 상태(new/transient)
 
-- 엔티티 객체를 새로 생성하였지만 EntityManager에 의해 관리되고 있지 않는 상태
-- 영속성 컨텍스트와 전혀 관계가 없는 상태
-- 엔티티 객체에서 발생하는 데이터 변경은 전혀 알 수 없습니다.
+* 엔티티 객체를 새로 생성한 상태입니다.
+* 어플리케이션 메모리에만 존재하는 상태이며 `EntityManager`에 의해 별도로 관리되지 않습니다. 
 
 ```java
     Member member = new Member();
-    member.setId("01012341234");
-    member.setPassword("1234");
-    List<String> authorities = new ArrayList<>();
-    authorities.add("ADMIN");
-    member.setAuthroities(authorities);
-    member.setMemberName("Junhyunny");
-    member.setMemberEmail("kang3966@naver.com");
+    member.setId("010-1234-1234");
+    member.setName("Junhyunny");
 ```
 
-### 2.2. 영속(managed)
+### 2.2. 영속 상태(managed)
 
-- 엔티티 객체가 EntityManager에 의해 관리되고 있는 상태
-- 엔티티 객체가 영속성 컨텍스트에 저장되어 상태
-- **`entityManager.persist(E)`** 메소드를 통해 영속성 컨텍스트에 저장됩니다.
-- persist 메소드가 수행되는 동시에 데이터가 데이터베이스에 저장되지는 않습니다.
+* 엔티티 객체를 `EntityManager`가 관리하고 있는 상태입니다.
+    * 영속성 컨텍스트에 저장된 상태입니다.
+* 다음과 같은 상황에 엔티티는 영속 상태가 됩니다. 
+    * 엔티티가 `persist` 메소드를 통해 영속성 컨텍스트에 저장되는 시점
+    * `EntityManager`가 데이터베이스에서 데이터를 조회하는 시점
+    * 상태 관리에서 제외된 엔티티가 `merge` 메소드를 통해 영속성 컨텍스트로 복귀하는 시점
 
 ```java
     Member member = new Member();
-    member.setId("01012341234");
-    member.setPassword("1234");
-    List<String> authorities = new ArrayList<>();
-    authorities.add("ADMIN");
-    member.setAuthroities(authorities);
-    member.setMemberName("Junhyunny");
-    member.setMemberEmail("kang3966@naver.com");
-    // persistence context에 등록
+    member.setId("010-1234-1234");
+    member.setName("Junhyunny");
     entityManager.persist(member);
 ```
 
-### 2.3. 준영속(detached)
+### 2.3. 준영속 상태(detached)
 
-- 엔티티를 영속성 컨텍스트에서 분리된 상태
-- **`entityManager.detach(E)`** 메소드를 통해 영속성 컨텍스트에 분리됩니다.
-- 엔티티가 영속성 컨텍스트에서 분리된 상태이므로 EntityManager가 변경을 감지하지 못합니다.
-- 영속성 컨텍스트에서만 분리되었을 뿐 실제 데이터가 삭제되지는 않습니다.
+* `EntityManager`에 의해 관리되다가 영속성 컨텍스트에서 제외된 상태입니다.
+* `detach` 메소드를 통해 영속성 컨텍스트에서 분리됩니다. 
+* 준영속 상태 객체의 상태 변화는 `EntityManager`가 감지하지 못하여 데이터베이스에 반영되지 않습니다. 
+* `EntityManager`에 의해 관리만 되지 않을 뿐 데이터베이스에서 삭제되진 않습니다. 
 
 ```java
     Member member = entityManager.find(Member.class, "01012341234");
-    // persistence context에서 분리
     entityManager.detach(member);
 ```
 
-### 2.4. 삭제(removed)
+### 2.4. 삭제 상태(removed)
 
-- 엔티티에 해당하는 데이터를 데이터베이스에서 삭제된 상태
-- **`entityManager.remove(E)`** 메소드를 통해 영속성 컨텍스트에 삭제됩니다.
+* 엔티티를 삭제하겠다고 표시된 상태입니다. 
+* `remove` 메소드에 의해 상태가 변경됩니다. 
+* 트랜잭션이 종료되거나 명시적으로 `flush`를 실행하면 delete 쿼리가 수행됩니다.
 
 ```java
     Member member = entityManager.find(Member.class, "01012341234");
-    // 데이터베이스에서 삭제
     entityManager.remove(member);
 ```
 
-## 3. 테스트 코드
+## 3. persist 메소드 테스트
 
-### 3.1. 패키지 구조
+간단한 테스트 코드들을 통해 `EntityManager` 메소드 동작 결과를 살펴보겠습니다. 
+처음은 `persist` 메소드입니다.
 
-```
-./
-`-- action-in-blog
-    |-- README.md
-    |-- action-in-blog.iml
-    |-- images
-    |   |-- a.jpg
-    |   `-- b.JPG
-    |-- mvnw
-    |-- mvnw.cmd
-    |-- pom.xml
-    `-- src
-        |-- main
-        |   |-- java
-        |   |   `-- blog
-        |   |       `-- in
-        |   |           `-- action
-        |   |               |-- ActionInBlogApplication.java
-        |   |               |-- converter
-        |   |               |   `-- StringListConverter.java
-        |   |               `-- entity
-        |   |                   `-- Member.java
-        |   `-- resources
-        |       `-- application.yml
-        `-- test
-            `-- java
-                `-- blog
-                    `-- in
-                        `-- action
-                            `-- lifecycle
-                                |-- DetachTest.java
-                                |-- PersistTest.java
-                                `-- RemoveTest.java
-```
-
-### 3.2. application.yml
-
-```yml
-server:
-  port: 8081
-spring:
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-```
-
-### 3.3. pom.xml
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
-    <groupId>blog.in.action</groupId>
-    <artifactId>action-in-blog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>action-in-blog</name>
-
-    <properties>
-        <java.version>11</java.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-```
-
-### 3.4. persist 테스트
-
-해당 테스트는 두 번 수행합니다. 
-처음 실행 결과와 두번째 실행한 결과가 다릅니다. 
+* 새로 생성한 객체를 `persist` 메소드를 통해 영속성 컨텍스트에 저장합니다.
+* 트랜잭션을 커밋(commit)하고, 영속성 컨텍스트를 모두 정리합니다.
+* `EntityManager`는 `find` 메소드로 엔티티를 데이터베이스에서 조회합니다.
+* 조회한 엔티티의 상태 값을 확인합니다. 
+    * ID 값은 "010-1234-1234" 입니다.
+    * 이름 값은 "Junhyunny" 입니다.
 
 ```java
 package blog.in.action.lifecycle;
 
 import blog.in.action.entity.Member;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 @Slf4j
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.jpa.show-sql=true",
+})
 public class PersistTest {
 
     @PersistenceUnit
     private EntityManagerFactory factory;
 
+    void persistAndClear(EntityManager em, Member member) {
+        em.getTransaction().begin();
+        em.persist(member);
+        em.getTransaction().commit();
+        em.clear();
+    }
+
     @Test
-    void persistTest() {
+    void find_member_after_persist() {
         EntityManager em = factory.createEntityManager();
-        log.info("entityManager properties : " + em.getProperties());
         try {
-            // 트랜잭션 시작
-            em.getTransaction().begin();
-            // 조회
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 영속된 객체 값 변경
-                log.info("영속된 객체의 값을 변경합니다.");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("MEMBER");
-                member.setAuthorities(authorities);
-            } else {
-                // 새로운 객체 생성
-                log.info("새로운 객체를 생성합니다.");
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                // persistence context에 등록
-                em.persist(member);
-            }
-            // 트랜잭션 종료
-            em.getTransaction().commit();
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            persistAndClear(em, member);
+
+            member = em.find(Member.class, "010-1234-1234");
+
+            assertThat(member.getId(), equalTo("010-1234-1234"));
+            assertThat(member.getName(), equalTo("Junhyunny"));
         } catch (Exception ex) {
-            // 트랜잭션 롤백
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
@@ -305,83 +182,54 @@ public class PersistTest {
 }
 ```
 
-#### 3.4.1. 1차 수행
-- em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
-- 데이터가 존재하지 않으므로 em.find() 메소드 수행 시 member 객체는 null 입니다.
-- 새로운 객체를 생성합니다.(new/transient)
-- em.perist(E) 메소드를 통해 생성한 객체를 영속성 컨텍스트에 추가합니다.(managed)
-- em.getTransaction().commit() 메소드를 통해 트랜잭션을 커밋(commit) 합니다.
-- 영속성 컨텍스트에 저장된 member 엔티티 정보를 데이터베이스에 반영됩니다.(insert)
+##### 테스트 수행 로그
 
-##### 1차 수행 시 로그
+테스트는 정상적으로 통과하고, 다음과 같은 수행 로그를 남깁니다.
+
+* 트랜잭션이 커밋되는 시점에 `insert` 쿼리가 수행됩니다.
+* `find` 메소드를 통해 엔티티 조회 시 `select` 쿼리가 수행됩니다.
 
 ```
-2021-08-18 19:53:40.298  INFO 6672 --- [           main] blog.in.action.lifecycle.PersistTest     : entityManager properties : {org.hibernate.flushMode=AUTO, javax.persistence.lock.timeout=-1, javax.persistence.cache.retrieveMode=USE, javax.persistence.lock.scope=EXTENDED, javax.persistence.cache.storeMode=USE}
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-2021-08-18 19:53:40.326  INFO 6672 --- [           main] blog.in.action.lifecycle.PersistTest     : 새로운 객체를 생성합니다.
-Hibernate: insert into tb_member (authorities, member_email, member_name, password, id) values (?, ?, ?, ?, ?)
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
 ```
 
-##### 1차 수행 시 데이터베이스
-- 새로운 데이터가 추가되었습니다.
+## 4. detach 메소드 테스트
 
-<p align="left">
-    <img src="/images/jpa-persistence-context-2.JPG" class="image__border">
-</p>
+두 가지를 테스트합니다. 
 
-#### 3.4.2. 2차 수행
-- em.getTransaction().begin() 메소드를 통해 트랜잭션 시작합니다.
-- 이전 수행에서 저장된 데이터가 있으므로 em.find() 메소드를 수행 시 member 객체가 반환됩니다.(managed)
-- member 객체의 값을 변경합니다.
-- em.getTransaction().commit() 메소드를 통해 트랜잭션을 커밋(commit) 합니다.
-- 영속성 컨텍스트에 저장된 member 엔티티의 변경 정보를 데이터베이스에 반영됩니다.(update)
+* 준영속 상태 엔티티를 변경하면 데이터베이스에 반영되는가?
+* 준영속 상태 엔티티를 제거(remove)하면 무슨 현상이 발생하는가?
 
-##### 2차 수행 시 로그
+### 4.1. Change Detached Entity
 
-```
-2021-08-18 19:54:47.978  INFO 21324 --- [           main] blog.in.action.lifecycle.PersistTest     : entityManager properties : {org.hibernate.flushMode=AUTO, javax.persistence.lock.timeout=-1, javax.persistence.cache.retrieveMode=USE, javax.persistence.lock.scope=EXTENDED, javax.persistence.cache.storeMode=USE}
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-2021-08-18 19:54:48.012  INFO 21324 --- [           main] blog.in.action.lifecycle.PersistTest     : 영속된 객체의 값을 변경합니다.
-Hibernate: update tb_member set authorities=?, member_email=?, member_name=?, password=? where id=?
-```
-
-##### 2차 수행 시 데이터베이스
-- 데이터가 변경되었습니다.
-
-<p align="left">
-    <img src="/images/jpa-persistence-context-3.JPG" class="image__border">
-</p>
-
-### 3.5. detach 테스트
-
-`persist 테스트`에서 영속성 컨텍스트에 저장된 객체의 값을 변경하면 데이터가 업데이트 되는 것을 확인하였습니다. 
-이번 테스트에서는 영속성 컨텍스트에 저장된 객체를 detach 메소드를 통해 영속성 컨텍스트에서 분리하면 어떤 동작을 하는지 정리하겠습니다. 
-- detachTest 메소드 - detach 후 데이터 변경 테스트
-- valuCheckTest 메소드 - 특정 데이터가 변경되어 데이터베이스에 반영되었는지 확인
-- detachRemoveTest 메소드 - detach 후 엔티티 제거 테스트
+* 조회한 엔티티를 `detach` 메소드를 통해 준영속 상태로 만듭니다.
+* 객체 이름을 "Jua"로 변경합니다.
+* 트랜잭션을 커밋하고, 영속성 컨텍스트를 모두 정리합니다.
+* `EntityManager`는 `find` 메소드로 엔티티를 데이터베이스에서 다시 조회합니다.
+* 조회한 엔티티의 이름 값이 "Junhyunny"인지 확인합니다.
 
 ```java
 package blog.in.action.lifecycle;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import blog.in.action.entity.Member;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
-@TestMethodOrder(OrderAnnotation.class)
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.jpa.show-sql=true",
+})
 public class DetachTest {
 
     @PersistenceUnit
@@ -392,91 +240,126 @@ public class DetachTest {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member == null) {
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                em.persist(member);
-            } else {
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
     @Test
-    @Order(value = 0)
-    void detachTest() {
+    void detached_entity_is_not_updated() {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 영속된 객체를 detached 상태로 변경 후 값 변경
-                log.info("detach 이후 객체의 값을 변경합니다.");
-                em.detach(member);
-                List<String> authorities = new ArrayList<>();
-                authorities.add("DETACHED_ADMIN");
-                member.setAuthorities(authorities);
-            }
+            Member member = em.find(Member.class, "010-1234-1234");
+            em.detach(member);
+            member.setName("Jua");
             em.getTransaction().commit();
+            em.clear();
+
+
+            member = em.find(Member.class, "010-1234-1234");
+            assertThat(member.getName(), equalTo("Junhyunny"));
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
-    @Test
-    @Order(value = 1)
-    void valueCheckTest() {
+    // ...
+}
+```
+
+##### 테스트 수행 로그
+
+테스트는 정상적으로 통과하고, 다음과 같은 수행 로그를 남깁니다.
+
+* 테스트 시작 전 테스트 데이터를 삽입하면서 `insert` 쿼리가 수행됩니다.
+* 테스트 초반에 `find` 메소드로 엔티티를 조회하면서 `select` 쿼리가 수행됩니다.
+* 준영속 상태 엔티티 변화는 데이터베이스에 반영되지 않으므로 `update` 쿼리가 수행되지 않습니다.
+* `find` 메소드로 다시 엔티티를 조회할 때 `select` 쿼리가 수행됩니다. 
+
+```
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
+```
+
+### 4.2. Remove Detached Entity
+
+* 조회한 엔티티를 `detach` 메소드를 통해 준영속 상태로 만듭니다.
+* 준영속 상태 객체를 `remove` 메소드를 통해 제거 대상으로 만듭니다.
+* `IllegalArgumentException` 예외가 발생하는지 확인합니다.
+* 발생한 예외의 메세지를 로그로 확인합니다.
+
+```java
+package blog.in.action.lifecycle;
+
+import blog.in.action.entity.Member;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@Slf4j
+@SpringBootTest(properties = {
+        "spring.jpa.show-sql=true",
+})
+public class DetachTest {
+
+    @PersistenceUnit
+    private EntityManagerFactory factory;
+
+    @BeforeEach
+    void beforeEach() {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                String actual = member.getAuthorities().get(0);
-                assertEquals("ADMIN", actual);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
+    // ...
+
     @Test
-    @Order(value = 2)
-    void detachRemoveTest() {
+    void throw_exception_when_remove_detached_entity() {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 영속된 객체를 detached 상태로 변경 후 remove
-                log.info("detach 이후 객체를 삭제합니다.");
-                em.detach(member);
-                assertThrows(IllegalArgumentException.class, () -> em.remove(member));
-            }
+            Member member = em.find(Member.class, "010-1234-1234");
+            em.detach(member);
+
+            Throwable throwable = assertThrows(IllegalArgumentException.class, () -> em.remove(member));
+            log.warn(throwable.getMessage());
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
@@ -484,58 +367,53 @@ public class DetachTest {
 }
 ```
 
-##### detachTest 메소드 수행 결과
-- 로그를 보면 `detach 이후 객체의 값을 변경합니다.` 메세지 이후에 별도 업데이트 쿼리가 수행되지 않았습니다.
+##### 테스트 수행 로그
+
+테스트는 정상적으로 통과하고, 다음과 같은 수행 로그를 남깁니다.
+
+* 테스트 시작 전 테스트 데이터를 삽입하면서 `insert` 쿼리가 수행됩니다.
+* 테스트 초반에 `find` 메소드로 엔티티를 조회하면서 `select` 쿼리가 수행됩니다.
+* 영속성 컨텍스트에서 관리되지 않는 엔티티가 `remove` 메소드에 전달되면서, 해당 엔티티에 매칭되는 데이터가 데이터베이스에 존재하는지 확인하기 위한 `select` 쿼리가 수행됩니다.
+    * 준영속 엔티티가 아닌 비영속 엔티티를 사용해도 `select` 쿼리가 동일하게 발생합니다.
+* `IllegalArgumentException` 예외가 발생하면서 다음과 같은 에러 메세지를 출력합니다. 
+    * Removing a detached instance blog.in.action.entity.Member#010-1234-1234
 
 ```
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-2021-08-19 06:07:29.815  INFO 7828 --- [           main] blog.in.action.lifecycle.DetachTest      : detach 이후 객체의 값을 변경합니다.
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: select member_.id, member_.name as name2_0_ from tb_member member_ where member_.id=?
+2022-09-25 02:40:02.340  WARN 55106 --- [           main] blog.in.action.lifecycle.DetachTest      : Removing a detached instance blog.in.action.entity.Member#010-1234-1234
 ```
 
-##### valuCheckTest 메소드 수행 결과
-- assertEquals 메소드 수행 시 예상 값 "ADMIN" 인 경우에 성공합니다.
-- 데이터가 변경되지 않았음을 확인할 수 있습니다.
+## 5. remove 메소드 테스트
 
-<p align="left">
-    <img src="/images/jpa-persistence-context-4.JPG" class="image__border">
-</p>
+`remove` 메소드를 통해 엔티티를 삭제 상태로 만들고, 데이터베이스에서 정말 삭제되었는지 확인합니다. 
 
-##### detachRemoveTest 메소드 수행 결과
-- 영속성 컨텍스트에서 분리된 객체는 삭제하지 못합니다.
-- detach 이후 데이터 삭제 시 IllegalArgumentException이 발생하는 것을 assertThrows 메소드를 통해 확인할 수 있습니다.
-
-```
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-2021-08-19 06:10:52.526  INFO 10528 --- [           main] blog.in.action.lifecycle.DetachTest      : detach 이후 객체를 삭제합니다.
-Hibernate: select member_.id, member_.authorities as authorit2_0_, member_.member_email as member_e3_0_, member_.member_name as member_n4_0_, member_.password as password5_0_ from tb_member member_ where member_.id=?
-```
-
-<p align="left">
-    <img src="/images/jpa-persistence-context-5.JPG" class="image__border">
-</p>
-
-### 3.6. remove 테스트 코드
-
-이번 테스트에서는 영속성 컨텍스트에 저장된 엔티티를 remove 메소드를 통해 제거할 시 실제 데이터도 삭제가 되는지 확인해보았습니다.
+* 조회한 엔티티를 `remove` 메소드를 통해 삭제 상태로 만듭니다.
+* 트랜잭션을 커밋하고, 영속성 컨텍스트를 모두 정리합니다.
+* `EntityManager`는 `find` 메소드로 엔티티를 데이터베이스에서 다시 조회합니다.
+* 조회된 엔티티가 없음을 확인합니다.
 
 ```java
 package blog.in.action.lifecycle;
 
 import blog.in.action.entity.Member;
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
 @Slf4j
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.jpa.show-sql=true",
+})
 public class RemoveTest {
 
     @PersistenceUnit
@@ -546,44 +424,39 @@ public class RemoveTest {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member == null) {
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                em.persist(member);
-            } else {
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
+    void removeByIdAndClear(EntityManager em, String id) {
+        em.getTransaction().begin();
+        Member member = em.find(Member.class, id);
+        em.remove(member);
+        em.getTransaction().commit();
+        em.clear();
+    }
+
     @Test
-    void removeTest() {
+    void entity_is_null_when_find_removed_entity() {
         EntityManager em = factory.createEntityManager();
         try {
-            em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                em.remove(member);
-            }
-            em.getTransaction().commit();
+            removeByIdAndClear(em, "010-1234-1234");
+
+            Member member = em.find(Member.class, "010-1234-1234");
+
+            assertThat(member, equalTo(null));
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
@@ -591,21 +464,41 @@ public class RemoveTest {
 }
 ```
 
-##### removeTest 메소드 수행 결과
-- delete 쿼리가 수행되었음을 로그를 통해 확인할 수 있습니다.
+##### 테스트 수행 로그
+
+테스트는 정상적으로 통과하고, 다음과 같은 수행 로그를 남깁니다.
+
+* 테스트 시작 전 테스트 데이터를 삽입하면서 `insert` 쿼리가 수행됩니다.
+* 테스트 초반에 `find` 메소드로 엔티티를 조회하면서 `select` 쿼리가 수행됩니다.
+* `remove` 메소드로 엔티티를 삭제 상태로 만들고, 트랜잭션을 커밋하면 `delete` 쿼리가 수행됩니다.
+* `find` 메소드로 다시 엔티티를 조회할 때 `select` 쿼리가 수행됩니다. 
 
 ```
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
 Hibernate: delete from tb_member where id=?
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
 ```
+
+## CLOSING
+
+`persist`, `remove` 메소드 호출 시점에 쿼리가 수행되지 않는 현상은 `JPA` 지연 쓰기 메커니즘 때문입니다. 
+관련된 내용은 다음 포스트에서 다루도록 하겠습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-02-jpa-persistence-context>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-02-jpa-persistence-context>
+
+#### RECOMMEND NEXT POSTS
+
+* [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+* [JPA Flush][jpa-flush-link]
+* [JPA Clear][jpa-clear-link]
 
 #### REFERENCE
-- <https://gunlog.dev/JPA-Persistence-Context/>
-- <https://gmlwjd9405.github.io/2019/08/06/persistence-context.html>
+
+* <https://gunlog.dev/JPA-Persistence-Context/>
+* <https://gmlwjd9405.github.io/2019/08/06/persistence-context.html>
 
 [java-persistence-api-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
 

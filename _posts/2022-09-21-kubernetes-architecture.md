@@ -210,6 +210,10 @@ API 서버와 노드를 연결하는 역할을 수행합니다.
     * 컨테이너 로그들을 저장하는 책임을 가집니다.
     * 검색, 찾아보기 인터페이스가 있는 중앙형 로그 적재 기능을 수행합니다.
 
+#### RECOMMEND NEXT POSTS
+
+* [Deploy Simple Container on Kubernetes Cluster][deploy-container-on-kubernetes-cluster-link]
+
 #### REFERENCE
 
 * [Docker & Kubernetes: The Practical Guide [2022 Edition]][docker-kube-lecture-link]
@@ -228,3 +232,5 @@ API 서버와 노드를 연결하는 역할을 수행합니다.
 [docker-kube-lecture-link]: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 [kubernetes-in-action-book-link]: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 [kubernetes-installation-link]: https://5equal0.tistory.com/entry/Kubernetes-Kubernetes-%EC%84%A4%EC%B9%98-%EB%B0%8F-Cluster-%EC%84%A4%EC%A0%95
+
+[deploy-container-on-kubernetes-cluster-link]: https://junhyunny.github.io/kubernetes/deploy-container-on-kubernetes-cluster/

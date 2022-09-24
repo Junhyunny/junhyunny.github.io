@@ -425,7 +425,7 @@ $ minikube service external-connection-service
 ##### 서비스 터널링 수행 후 브라우저 접근
 
 <p align="center">
-    <img src="/images/deploy-container-on-kubernetes-cluster-2.JPG" width="80%" class="image__border">
+    <img src="/images/deploy-container-on-kubernetes-cluster-2.JPG" width="100%" class="image__border">
 </p>
 
 ## CLOSING

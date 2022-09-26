@@ -112,10 +112,12 @@ ORM 프레임워크를 사용하면서 느낀 장점과 단점을 정리하였�
 
 #### RECOMMEND NEXT POSTS
 
-* [JPA Persistence Context][jpa-persistence-context-link]
+* [Persistence Context And Entity Lifecycle][jpa-persistence-context-link]
 * [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
 * [JPA Flush][jpa-flush-link]
 * [JPA Clear][jpa-clear-link]
+* [JPA N+1 문제][jpa-one-plus-n-problem-link]
+* [JPA Fetch 조인(join)과 페이징(paging) 처리][jpa-fetch-join-paging-problem-link]
 
 #### REFERENCE
 
@@ -129,3 +131,5 @@ ORM 프레임워크를 사용하면서 느낀 장점과 단점을 정리하였�
 [persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
 [jpa-flush-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/
 [jpa-clear-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/
+[jpa-one-plus-n-problem-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-one-plus-n-problem/
+[jpa-fetch-join-paging-problem-link]: https://junhyunny.github.io/spring-boot/jpa/jpa-fetch-join-paging-problem/

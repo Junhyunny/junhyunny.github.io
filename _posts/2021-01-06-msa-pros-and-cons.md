@@ -137,7 +137,7 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 
 * [MSA API Gateway][msa-api-gateway-link]
 * [Micro Service Architecture 배포 전략][msa-release-link]
-* [분산 트랜잭션(Distributed transaction)][distributed-transaction-link]
+* [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE
 

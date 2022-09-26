@@ -1,5 +1,5 @@
 ---
-title: "Benefits of Persistence Context"
+title: "Benefits of EntityManager And Persistence Context"
 search: false
 category:
   - spring-boot
@@ -18,10 +18,10 @@ last_modified_at: 2021-08-22T01:30:00
 
 ## 0. 들어가면서
 
-> 왜 `EntityManager`는 영속성 컨텍스트라는 별도 영역을 만들어 사용할까?
+> `EntityManager`를 통해 엔티티들을 관리하는 이유는 무엇일까?<br/>
+> `EntityManager`는 영속성 컨텍스트라는 별도 영역을 만들어 사용할까?
 
-이번 포스트에선 영속성 컨텍스트가 주는 장점들을 정리하였습니다. 
-영속성 컨텍스트가 주는 장점들과 이와 연관된 `EntityManager`의 동작 특성들도 함께 알아보겠습니다. 
+이번 포스트에선 `EntityManager`와 영속성 컨텍스트가 주는 장점들을 정리하였습니다. 
 
 ## 1. 1차 캐싱(Caching)
 
@@ -35,7 +35,7 @@ last_modified_at: 2021-08-22T01:30:00
 * 캐싱을 사용하여 성능이 향상됩니다.
 * 동일 트랜잭션 내에서 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.
 
-### 1.1. Find Cached Entity
+### 1.1. Process of Finding Cached Entity
 
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
@@ -45,7 +45,7 @@ last_modified_at: 2021-08-22T01:30:00
 </p>
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
-### 1.2. Find Not Cached Entity
+### 1.2. Process of Finding Not Cached Entity
 
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 존재하지 않으므로 데이터베이스를 조회합니다.
@@ -141,83 +141,54 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 ```
 
 ## 2. 쓰기 지연(transactional write-behind)
-EntityManager는 commit 직전까지 insert, update, delete 쿼리를 수행하지 않습니다. 
-내부 `쓰기 지연 SQL 저장소`에 수행할 쿼리들을 모아두고 commit 시점에 모아둔 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다. 
-이를 `트랜잭션을 지원하는 쓰기 지연(transactional write-behind)`이라고 합니다.
 
-- 장점
-    - 쓰기 지연은 모아둔 쿼리를 데이터베이스에 한 번에 전달해서 성능을 최적화할 수 있는 장점이 있습니다. 
+`EntityManager`는 커밋(commit) 직전까지 `insert`, `update`, `delete` 쿼리를 수행하지 않습니다. 
+내부에 수행할 쿼리들을 모아두고 커밋 시점에 모아둔 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다. 
+`쓰기 지연 SQL 저장소`는 `ActionQueue` 클래스 타입의 변수이며, 그림 표현과 다르게 영속성 컨텍스트가 아닌 `Hibernate`가 제공하는 `EntityManager` 구현체 클래스에서 직접 관리합니다.  
 
-### 2.1. 쓰기 지연 시나리오(insert)
-1. memberA 객체를 영속성 컨텍스트에 저장합니다.
-1. 이때 memberA 엔티티는 1차 캐싱, insert 쿼리는 쓰기 지연 SQL 저장소에 저장됩니다.
-1. memberB 객체를 영속성 컨텍스트에 저장합니다.
-1. 이때 memberB 엔티티는 1차 캐싱, insert 쿼리는 쓰기 지연 SQL 저장소에 저장됩니다.
-1. commit 수행 시 쓰기 지연 SQL 저장소에 담긴 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
+* org.hibernate.internal.SessionImpl 클래스 참조
 
-##### entityManager.persist(memberA) 수행
+커밋하는 시점까지 쓰기 연산을 지연하면 다음과 같은 이점을 얻을 수 있습니다. 
 
-<p align="center"><img src="/images/persistence-context-advantages-5.JPG" width="75%"></p>
-<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
+* 쓰기 지연은 모아둔 쿼리를 데이터베이스에 한 번에 전달해서 성능을 최적화할 수 있는 장점이 있습니다. 
 
-##### entityManager.persist(memberB) 수행
+### 2.1. Processing of Write Behind
 
-<p align="center"><img src="/images/persistence-context-advantages-6.JPG" width="75%"></p>
-<center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
+1. 클라이언트가 `memberA` 객체를 영속성 컨텍스트에 저장합니다.
+1. `memberA` 엔티티는 1차 캐싱, insert 쿼리는 쓰기 지연 SQL 저장소에 저장됩니다.
+1. 클라이언트가 `memberB` 객체를 영속성 컨텍스트에 저장합니다.
+1. `memberB` 엔티티는 1차 캐싱, insert 쿼리는 쓰기 지연 SQL 저장소에 저장됩니다.
+1. 커밋 수행 시 쓰기 지연 SQL 저장소에 담긴 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
 
-##### entityManager.getTransaction().commit() 수행
-
-<p align="center"><img src="/images/persistence-context-advantages-7.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/persistence-context-advantages-4.JPG" width="100%" class="image__border">
+</p>
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
 ### 2.2. 쓰기 지연 테스트
-persist 메소드 수행 전과 commit 이전, 이후에 로그를 남겨 insert 쿼리가 어느 시점에 수행되는지 확인해보겠습니다.
+
+검증(assert) 방법이 애매하여 쉽게 로그를 통해 확인하였습니다. 
+
+* `before commit` 로그와 `after commit` 로그 사이에 `insert` 쿼리가 2회 실행되는 것을 확인합니다.
 
 ```java
 package blog.in.action.advantages;
 
-import java.util.ArrayList;
-import java.util.List;
+import blog.in.action.entity.Member;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import blog.in.action.entity.Member;
-import lombok.extern.log4j.Log4j2;
-
 @Log4j2
-@SpringBootTest
+@SpringBootTest(properties = {"spring.jpa.show-sql=true"})
 public class WriteBehindTest {
 
     @PersistenceUnit
     private EntityManagerFactory factory;
-
-    @BeforeEach
-    private void beforeEach() {
-        EntityManager em = factory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341235");
-            if (member != null) {
-                em.remove(member);
-            }
-            member = em.find(Member.class, "01012341236");
-            if (member != null) {
-                em.remove(member);
-            }
-            em.getTransaction().commit();
-        } catch (Exception ex) {
-            em.getTransaction().rollback();
-            log.error("exception occurs", ex);
-        } finally {
-            em.close();
-        }
-    }
 
     @Test
     public void test() {
@@ -225,39 +196,24 @@ public class WriteBehindTest {
         try {
             em.getTransaction().begin();
 
-            // memberA 등록
-            Member memberA = new Member();
-            memberA.setId("01012341235");
-            memberA.setPassword("1234");
-            List<String> authorities = new ArrayList<>();
-            authorities.add("ADMIN");
-            memberA.setAuthorities(authorities);
-            memberA.setMemberName("Junhyunny");
-            memberA.setMemberEmail("kang3966@naver.com");
+            Member junhyunny = new Member();
+            junhyunny.setId("010-1234-1234");
+            junhyunny.setName("Junhyunny");
 
-            log.info("memberA persist 수행");
-            em.persist(memberA);
+            Member jua = new Member();
+            jua.setId("010-1235-1235");
+            jua.setName("Jua");
 
-            // memberB 등록
-            Member memberB = new Member();
-            memberB.setId("01012341236");
-            memberB.setPassword("1234");
-            authorities = new ArrayList<>();
-            authorities.add("MEMBER");
-            memberB.setAuthorities(authorities);
-            memberB.setMemberName("Inkyungee");
-            memberB.setMemberEmail("inkyungee@naver.com");
+            em.persist(junhyunny);
+            em.persist(jua);
 
-            log.info("memberB persist 수행");
-            em.persist(memberB);
-
-            log.info("commit 수행 전");
+            log.info("before commit");
             em.getTransaction().commit();
-            log.info("commit 수행 후");
+            log.info("after commit");
 
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
@@ -265,20 +221,21 @@ public class WriteBehindTest {
 }
 ```
 
-##### 쓰기 지연 테스트 결과
+##### 테스트 결과
+
+테스트는 정상적으로 통과하며, 다음과 같은 로그를 확인할 수 있습니다. 
+
+* 커밋 시작 전, 후에 찍은 로그 사이에 `insert` 쿼리가 2회 실행됩니다.
 
 ```
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-2021-08-19 08:32:08.078  INFO 2072 --- [           main] b.in.action.advantages.WriteBehindTest   : memberA persist 수행
-2021-08-19 08:32:08.098  INFO 2072 --- [           main] b.in.action.advantages.WriteBehindTest   : memberB persist 수행
-2021-08-19 08:32:08.098  INFO 2072 --- [           main] b.in.action.advantages.WriteBehindTest   : commit 수행 전
-Hibernate: insert into tb_member (authorities, member_email, member_name, password, id) values (?, ?, ?, ?, ?)
-Hibernate: insert into tb_member (authorities, member_email, member_name, password, id) values (?, ?, ?, ?, ?)
-2021-08-19 08:32:08.116  INFO 2072 --- [           main] b.in.action.advantages.WriteBehindTest   : commit 수행 후
+2022-09-27 01:47:00.018  INFO 69048 --- [           main] b.in.action.advantages.WriteBehindTest   : before commit
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: insert into tb_member (name, id) values (?, ?)
+2022-09-27 01:47:00.037  INFO 69048 --- [           main] b.in.action.advantages.WriteBehindTest   : after commit
 ```
 
 ## 3. 변경 감지(dirty checking)
+
 지난 [Persistence Context And Entity Lifecycle][jpa-persistence-context-link] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
 이는 영속성 컨텍스트가 지원하는 변경 감지(dirty checking) 기능 덕분입니다. 
 영속성 컨텍스트에 저장된 엔티티들의 변경사항을 감지하여 데이터베이스에 이를 자동으로 반영합니다. 

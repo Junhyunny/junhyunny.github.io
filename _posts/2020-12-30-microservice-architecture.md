@@ -160,7 +160,7 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 * [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
 * [MSA API Gateway][msa-api-gateway-link]
 * [Micro Service Architecture 배포 전략][msa-release-link]
-* [분산 트랜잭션(Distributed transaction)][distributed-transaction-link]
+* [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE
 

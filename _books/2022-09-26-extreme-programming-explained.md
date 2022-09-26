@@ -57,4 +57,4 @@ last_modified_at: 2022-09-26T23:55:00
 * [Extreme Programming Explained Summary][summary-link]
 
 [manifesto-link]: https://agilemanifesto.org/iso/ko/manifesto.html
-[summary-link]: https://github.com/Junhyunny/book-extreme-programming/blob/main/docs/chapter-25.md
+[summary-link]: https://github.com/Junhyunny/book-extreme-programming/blob/main/README.md

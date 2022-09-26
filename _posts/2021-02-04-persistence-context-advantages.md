@@ -1,5 +1,5 @@
 ---
-title: "영속성 컨텍스트(Persistence Context) 장점"
+title: "Benefits of Persistence Context"
 search: false
 category:
   - spring-boot
@@ -10,23 +10,31 @@ last_modified_at: 2021-08-22T01:30:00
 
 <br>
 
-⚠️ 해당 포스트는 2021년 8월 19일에 재작성되었습니다. (불필요 코드 제거)
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
-- [JPA(Java Persistence API)][java-persistence-api-link]
-- [JPA Persistence Context][jpa-persistence-context-link]
-
-👉 이어서 읽기를 추천합니다.
-- [JPA Flush][jpa-flush-link]
-- [JPA Clear][jpa-clear-link]
+* [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
+* [JPA(Java Persistence API)][java-persistence-api-link]
+* [Persistence Context And Entity Lifecycle][jpa-persistence-context-link]
 
 ## 0. 들어가면서
 
-이번 글에서는 **`영속성 컨텍스트`**라는 별도의 영역을 통해 얻을 수 있는 이점이 무엇인지 영속성 컨텍스트가 지원하는 기능과 연관지어 알아보겠습니다. 
-테스트 코드를 통해 포스트의 이해도를 함께 높여보겠습니다.
+> 왜 `EntityManager`는 영속성 컨텍스트라는 별도 영역을 만들어 사용할까?
 
-## 1. 1차 캐싱과 엔티티 동일성 보장
+이번 포스트에선 영속성 컨텍스트가 주는 장점들을 정리하였습니다. 
+영속성 컨텍스트가 주는 장점들과 이와 연관된 `EntityManager`의 동작 특성들도 함께 알아보겠습니다. 
+
+## 1. 1차 캐싱(Caching)
+
+영속성 컨텍스트는 내부적으로 엔티티들을 저장하는 `HashMap<EntityKey, Object>` 자료형의 `entitiesByKey` 변수가 존재합니다. 
+해당 변수에 엔티티들이 저장되는데, 세션 캐시에서 엔티티를 찾는 로직을 살펴보면 `entitiesByKey` 변수로 존재하는 엔티티를 꺼내 사용합니다. 
+
+
+찾는 엔티티가 존재하는지 확인하는 로직을 통해 `entitiesByKey` 변수에서 관리(MANAGED 존재하면 
+
+해당 변수에 관리하는 엔티티들을 저장합니다. 
+
+
+
 영속성 컨텍스트 내부에는 캐시가 존재합니다. 
 영속 상태의 엔티티는 모두 이곳에 저장됩니다. 
 영속 상태의 엔티티를 식별하기 위한 키로 @Id 애너테이션이 선언된 필드를 사용합니다. 
@@ -53,6 +61,7 @@ last_modified_at: 2021-08-22T01:30:00
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
 ### 1.3. 1차 캐싱 테스트
+
 동일한 식별자(@Id, PK)를 가진 데이터를 조회하여 반환된 엔티티 객체가 동일한 메모리 주소를 가지는지 확인합니다.
 
 ```java
@@ -274,7 +283,7 @@ Hibernate: insert into tb_member (authorities, member_email, member_name, passwo
 ```
 
 ## 3. 변경 감지(dirty checking)
-지난 [JPA Persistence Context][jpa-persistence-context-link] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
+지난 [Persistence Context And Entity Lifecycle][jpa-persistence-context-link] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
 이는 영속성 컨텍스트가 지원하는 변경 감지(dirty checking) 기능 덕분입니다. 
 영속성 컨텍스트에 저장된 엔티티들의 변경사항을 감지하여 데이터베이스에 이를 자동으로 반영합니다. 
 
@@ -395,7 +404,13 @@ public class DirtyCheckingTest {
 <p align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-04-persistence-context-advantages>
+
+#### RECOMMEND NEXT POSTS
+
+- [JPA Flush][jpa-flush-link]
+- [JPA Clear][jpa-clear-link]
 
 #### REFERENCE
 - [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blog-link]

@@ -72,7 +72,7 @@ CI/CD는 크게 3단계로 나뉘어집니다.
 #### 지속적인 전달과 지속적인 배포 예시
 
 <p align="center">
-    <img src="/images/what-is-ci-cd-3.JPG" width="80%" class="image__border"/>
+    <img src="/images/what-is-ci-cd-3.JPG" width="100%" class="image__border"/>
 </p>
 
 #### RECOMMEND NEXT POSTS

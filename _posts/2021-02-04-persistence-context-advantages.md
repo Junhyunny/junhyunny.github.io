@@ -152,7 +152,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 
 * 쓰기 지연은 모아둔 쿼리를 데이터베이스에 한 번에 전달해서 성능을 최적화할 수 있는 장점이 있습니다. 
 
-### 2.1. Processing of Write Behind
+### 2.1. Process of Write Behind
 
 1. 클라이언트가 `memberA` 객체를 영속성 컨텍스트에 저장합니다.
 1. `memberA` 엔티티는 1차 캐싱, insert 쿼리는 쓰기 지연 SQL 저장소에 저장됩니다.
@@ -236,43 +236,56 @@ Hibernate: insert into tb_member (name, id) values (?, ?)
 
 ## 3. 변경 감지(dirty checking)
 
-지난 [Persistence Context And Entity Lifecycle][jpa-persistence-context-link] 포스트를 통해 영속성 컨텍스트에 저장된 객체의 멤버 값을 변경하였을 때 데이터베이스의 데이터가 변경되는 결과를 확인할 수 있었습니다. 
-이는 영속성 컨텍스트가 지원하는 변경 감지(dirty checking) 기능 덕분입니다. 
-영속성 컨텍스트에 저장된 엔티티들의 변경사항을 감지하여 데이터베이스에 이를 자동으로 반영합니다. 
+`EntityManager`가 관리 중인 엔티티의 상태가 변경되면, 트랜잭션을 커밋할 때 자동으로 `update` 쿼리가 수행됩니다. 
+`EntityManager`가 `FlushEventListener` 구현체를 통해 플러시(flush) 작업을 수행하는 시점에 `EntityPersister` 구현체 클래스를 통해 변경 감지가 발생합니다. 
 
-- 장점
-  - 지속적으로 바뀌는 비즈니스 요건 사항을 따라 매번 SQL을 변경할 필요가 없습니다.
+* org.hibernate.persister.entity.EntityPersister 인터페이스 findDirty 메소드의 오버라이드 참조
 
-### 3.1. 변경 감지 시나리오
+커밋 시점에 변경이 감지된 엔티티들의 업데이트 이벤트는 `ActionQueue` 객체에 담겨 마지막에 모두 실행됩니다. 
+변경 감지를 통해 다음과 같은 이점을 얻을 수 있습니다. 
+
+* 지속적으로 바뀌는 비즈니스 요건 사항을 따라 매번 SQL을 변경할 필요가 없습니다.
+
+### 3.1. Process of Dirty Checking
+
 1. 영속성 컨텍스트는 데이터베이스에서 조회할 때 엔티티의 모습을 스냅샷(snapshot) 형태로 저장해둡니다.
 1. flush 메소드 호출 시 캐싱에 저장된 엔티티와 스냅샷에 저장된 엔티티의 모습이 다른 엔티티를 찾아 업데이트 쿼리를 만듭니다. 
 1. 업데이트 쿼리는 쓰기 지연 SQL 저장소로 전달됩니다.
 1. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
 
-<p align="center"><img src="/images/persistence-context-advantages-8.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/persistence-context-advantages-8.JPG" width="75%" class="image__border">
+</p>
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
 ### 3.2. 변경 감지 테스트
 
+변경 감지 테스트는 다음과 같이 수행하였습니다. 
+
+* 매 테스트마다 테스팅을 위한 멤버를 추가합니다.
+* 기존에 존재하는 테스트 데이터를 조회합니다.
+* 이름(name) 필드 값을 변경합니다.
+* 트랜잭션을 커밋하고 영속성 컨텍스트에 저장된 데이터를 정리합니다.
+* 해당 데이터를 다시 조회했을 때 이름이 `Jua`로 바뀌어 있는지 검증합니다.
+
 ```java
 package blog.in.action.advantages;
 
-import java.util.ArrayList;
-import java.util.List;
+import blog.in.action.entity.Member;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import blog.in.action.entity.Member;
-import lombok.extern.log4j.Log4j2;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 @Log4j2
-@SpringBootTest
+@SpringBootTest(properties = {"spring.jpa.show-sql=true"})
 public class DirtyCheckingTest {
 
     @PersistenceUnit
@@ -283,44 +296,36 @@ public class DirtyCheckingTest {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member == null) {
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                em.persist(member);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
     @Test
-    public void test() {
+    public void member_name_is_changed_because_of_dirty_check() {
         EntityManager em = factory.createEntityManager();
         try {
+
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member != null) {
-                // 권한 변경
-                List<String> authorities = new ArrayList<>(member.getAuthorities());
-                authorities.add("MEMBER");
-                authorities.add("TESTER");
-                member.setAuthorities(authorities);
-            }
+            Member member = em.find(Member.class, "010-1234-1234");
+            member.setName("Jua");
             em.getTransaction().commit();
+            em.clear();
+
+            Member target = em.find(Member.class, "010-1234-1234");
+            assertThat(target.getName(), equalTo("Jua"));
+
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
@@ -328,15 +333,28 @@ public class DirtyCheckingTest {
 }
 ```
 
-##### 변경 감지 테스트 결과
-- 멤버 변수의 값을 변경함으로 데이터베이스에 저장된 데이터가 함께 변경됩니다.
+##### 테스트 결과
 
-<p align="left"><img src="/images/persistence-context-advantages-9.JPG"></p>
+테스트는 정상적으로 통과하며, 다음과 같은 로그를 확인할 수 있습니다. 
+
+* 테스트를 위한 멤버를 추가하기 위해 `insert` 쿼리를 합니다.
+* 기존에 저장된 데이터 조회를 위해 `select` 쿼리를 수행 합니다.
+* 엔티티의 변경을 확인한 후 `update` 쿼리를 수행합니다.
+* 검증문을 위해 객체를 다시 조회합니다.
+
+```
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
+Hibernate: update tb_member set name=? where id=?
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
+```
 
 ### 3.3. 변경 감지 디버깅
+
 변경 감지(dirty checking)과 관련하여 어떤 메커니즘을 통해 변경된 데이터를 탐색하는지 디버깅해보았습니다. 
 
 #### 3.3.1. dirty field 탐색
+
 - FlushEntityEvent 객체를 만드는 시점에 dirty field 탐색을 수행
 - SingleTableEntityPersister 클래스 findDirty 메소드
 - 해당 메소드에서 변경된 필드의 인덱스 번호를 반환합니다.
@@ -344,12 +362,14 @@ public class DirtyCheckingTest {
 <p align="center"><img src="/images/persistence-context-advantages-10.JPG"></p>
 
 #### 3.3.2. session의 actionQueue에 EntityUpdateAction 객체 추가
+
 - DefaultFlushEntityEventListener 클래스 scheduleUpdate 메소드
 - 변경된 값이 있을 때 업데이트를 수행할 수 있도록 session의 actionQueue에 Action 추가
 
 <p align="center"><img src="/images/persistence-context-advantages-11.JPG"></p>
 
 #### 3.3.3. ActionQueue.ExecutableList에 담긴 Action 수행
+
 - actionQueue 객체는 수행해야할 ExecutableList를 지니고 있습니다.
 - ExecutableList에 담긴 EntityUpdateAction을 수행합니다.
 - ActionQueue 클래스 executeActions 메소드

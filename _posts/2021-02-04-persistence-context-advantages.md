@@ -25,66 +25,64 @@ last_modified_at: 2021-08-22T01:30:00
 
 ## 1. 1차 캐싱(Caching)
 
-영속성 컨텍스트는 내부적으로 엔티티들을 저장하는 `HashMap<EntityKey, Object>` 자료형의 `entitiesByKey` 변수가 존재합니다. 
-해당 변수에 엔티티들이 저장되는데, 세션 캐시에서 엔티티를 찾는 로직을 살펴보면 `entitiesByKey` 변수로 존재하는 엔티티를 꺼내 사용합니다. 
+영속성 컨텍스트는 내부적으로 자신이 관리하는 엔티티들을 저장하기 위해 맵(map) 자료구조를 가지는 변수를 지니고 있습니다. 
+해당 변수에 자신이 관리 중인 엔티티를 보관하고, 필요한 경우 동일한 트랜잭션 내에선 꺼내어 재사용합니다. 
+고유한 엔티티 여부를 파악하기 위해 `EntityKey` 클래스를 만들어 사용합니다. 
+`EntityKey` 클래스는 `@Id` 애너테이션으로 표시한 엔티티의 필드들을 사용하여 만듭니다. 
 
+캐싱 기능을 통해 다음과 같은 이점을 얻을 수 있습니다. 
 
-찾는 엔티티가 존재하는지 확인하는 로직을 통해 `entitiesByKey` 변수에서 관리(MANAGED 존재하면 
+* 캐싱을 사용하여 성능이 향상됩니다.
+* 동일 트랜잭션 내에서 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.
 
-해당 변수에 관리하는 엔티티들을 저장합니다. 
+### 1.1. Find Cached Entity
 
-
-
-영속성 컨텍스트 내부에는 캐시가 존재합니다. 
-영속 상태의 엔티티는 모두 이곳에 저장됩니다. 
-영속 상태의 엔티티를 식별하기 위한 키로 @Id 애너테이션이 선언된 필드를 사용합니다. 
-동일 트랜잭션 내에서 캐싱된 엔티티를 반환하기 때문에 엔티티의 동일성이 함께 보장됩니다. 
-
-- 장점
-    - 동일 트랜잭션 내 캐싱을 통해 성능이 향상됩니다.
-    - **동일 트랜잭션 내 엔티티의 동일성은 `Repeatable Read` 수준의 트랜잭션 격리 수준이 보장됩니다.** ([트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link])
-
-### 1.1. 캐싱된 엔티티 조회 시나리오
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 있으므로 이를 반환합니다.
 
-<p align="center"><img src="/images/persistence-context-advantages-1.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/persistence-context-advantages-1.JPG" width="75%" class="image__border">
+</p>
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
-### 1.2. 캐싱되지 않은 엔티티 조회 시나리오
+### 1.2. Find Not Cached Entity
+
 1. 식별자 값을 이용해 엔티티를 조회합니다.
 1. 캐싱된 엔티티가 존재하지 않으므로 데이터베이스를 조회합니다.
 1. 조회된 데이터를 신규 엔티티를 생성하여 캐싱합니다.
 1. 신규 엔티티를 반환합니다.
 
-<p align="center"><img src="/images/persistence-context-advantages-2.JPG" width="75%"></p>
+<p align="center">
+    <img src="/images/persistence-context-advantages-2.JPG" width="75%" class="image__border">
+</p>
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
 ### 1.3. 1차 캐싱 테스트
 
-동일한 식별자(@Id, PK)를 가진 데이터를 조회하여 반환된 엔티티 객체가 동일한 메모리 주소를 가지는지 확인합니다.
+동일한 식별자를 가진 엔티티를 두 번 조회했을 때 같은 객체인지 주소와 참조 값 비교를 통해 확인합니다.
+
+* `member` 객체와 재조회한 `cachedMember` 객체의 참조 값이 같은지 확인합니다.
+* `member` 객체와 재조회한 `cachedMember` 객체가 같은지 확인합니다.
+* `member` 객체와 재조회한 `cachedMember` 객체의 주소 값이 같은지 확인합니다.
 
 ```java
 package blog.in.action.advantages;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
+import blog.in.action.entity.Member;
+import lombok.extern.log4j.Log4j2;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import blog.in.action.entity.Member;
-import lombok.extern.log4j.Log4j2;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 @Log4j2
-@SpringBootTest
+@SpringBootTest(properties = {"spring.jpa.show-sql=true"})
 public class CachingTest {
 
     @PersistenceUnit
@@ -95,38 +93,34 @@ public class CachingTest {
         EntityManager em = factory.createEntityManager();
         try {
             em.getTransaction().begin();
-            Member member = em.find(Member.class, "01012341234");
-            if (member == null) {
-                member = new Member();
-                member.setId("01012341234");
-                member.setPassword("1234");
-                List<String> authorities = new ArrayList<>();
-                authorities.add("ADMIN");
-                member.setAuthorities(authorities);
-                member.setMemberName("Junhyunny");
-                member.setMemberEmail("kang3966@naver.com");
-                em.persist(member);
-            }
+            Member member = new Member();
+            member.setId("010-1234-1234");
+            member.setName("Junhyunny");
+            em.persist(member);
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
     }
 
     @Test
-    public void test() {
+    public void two_members_are_same_object() {
         EntityManager em = factory.createEntityManager();
         try {
-            Member member = em.find(Member.class, "01012341234");
-            Member cachedMember = em.find(Member.class, "01012341234");
-            log.info("member 주소: " + System.identityHashCode(member) + ", cachedMember 주소: " + System.identityHashCode(cachedMember));
-            assertTrue(member == cachedMember);
+
+            Member member = em.find(Member.class, "010-1234-1234");
+            Member cachedMember = em.find(Member.class, "010-1234-1234");
+
+            assertThat(member == cachedMember, equalTo(true));
+            assertThat(member, equalTo(cachedMember));
+            assertThat(System.identityHashCode(member), equalTo(System.identityHashCode(cachedMember)));
+
         } catch (Exception ex) {
             em.getTransaction().rollback();
-            log.error("exception occurs", ex);
+            throw new RuntimeException(ex);
         } finally {
             em.close();
         }
@@ -134,14 +128,16 @@ public class CachingTest {
 }
 ```
 
-##### 1차 캐싱 테스트 결과
+##### 테스트 결과
 
-<p align="left"><img src="/images/persistence-context-advantages-3.JPG"></p>
+테스트는 정상적으로 통과하며, 다음과 같은 로그를 확인할 수 있습니다. 
+
+* 테스트를 위한 데이터를 테스트 시작 전에 `insert` 합니다. 
+* 처음 엔티티만 조회하므로 `select` 쿼리는 1회 수행됩니다.
 
 ```
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-Hibernate: select member0_.id as id1_0_0_, member0_.authorities as authorit2_0_0_, member0_.member_email as member_e3_0_0_, member0_.member_name as member_n4_0_0_, member0_.password as password5_0_0_ from tb_member member0_ where member0_.id=?
-2021-08-19 08:29:42.828  INFO 7224 --- [           main] blog.in.action.advantages.CachingTest    : member 주소: 415297573, cachedMember 주소: 415297573
+Hibernate: insert into tb_member (name, id) values (?, ?)
+Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
 ```
 
 ## 2. 쓰기 지연(transactional write-behind)
@@ -405,15 +401,16 @@ public class DirtyCheckingTest {
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-04-persistence-context-advantages>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-04-persistence-context-advantages>
 
 #### RECOMMEND NEXT POSTS
 
-- [JPA Flush][jpa-flush-link]
-- [JPA Clear][jpa-clear-link]
+* [JPA Flush][jpa-flush-link]
+* [JPA Clear][jpa-clear-link]
 
 #### REFERENCE
-- [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blog-link]
+
+* [conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2][reference-blog-link]
 
 [reference-blog-link]: https://velog.io/@conatuseus/%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8-2-ipk07xrnoe
 

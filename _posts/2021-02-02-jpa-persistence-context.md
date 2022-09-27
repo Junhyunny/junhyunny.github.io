@@ -1,5 +1,5 @@
 ---
-title: "Persistence Context And Entity Lifecycle"
+title: "PersistenceContext And Entity Lifecycle"
 search: false
 category:
   - spring-boot
@@ -490,7 +490,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 
 #### RECOMMEND NEXT POSTS
 
-* [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+* [Features of EntityManager][persistence-context-advantages-link]
 * [JPA Flush][jpa-flush-link]
 * [JPA Clear][jpa-clear-link]
 

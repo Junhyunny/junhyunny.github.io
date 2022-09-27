@@ -112,8 +112,8 @@ ORM 프레임워크를 사용하면서 느낀 장점과 단점을 정리하였�
 
 #### RECOMMEND NEXT POSTS
 
-* [Persistence Context And Entity Lifecycle][jpa-persistence-context-link]
-* [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+* [PersistenceContext And Entity Lifecycle][jpa-persistence-context-link]
+* [Features of EntityManager][persistence-context-advantages-link]
 * [JPA Flush][jpa-flush-link]
 * [JPA Clear][jpa-clear-link]
 * [JPA N+1 문제][jpa-one-plus-n-problem-link]

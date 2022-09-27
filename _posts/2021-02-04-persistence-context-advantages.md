@@ -1,5 +1,5 @@
 ---
-title: "Benefits of EntityManager And Persistence Context"
+title: "Features of EntityManager"
 search: false
 category:
   - spring-boot
@@ -14,14 +14,14 @@ last_modified_at: 2021-08-22T01:30:00
 
 * [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
 * [JPA(Java Persistence API)][java-persistence-api-link]
-* [Persistence Context And Entity Lifecycle][jpa-persistence-context-link]
+* [PersistenceContext And Entity Lifecycle][jpa-persistence-context-link]
 
 ## 0. 들어가면서
 
 > `EntityManager`를 통해 엔티티들을 관리하는 이유는 무엇일까?<br/>
 > `EntityManager`는 영속성 컨텍스트라는 별도 영역을 만들어 사용할까?
 
-이번 포스트에선 `EntityManager`와 영속성 컨텍스트가 주는 장점들을 정리하였습니다. 
+이번 포스트에선 `EntityManager`와 영속성 컨텍스트의 특징들과 이로 인해 생기는 장점들에 대해 정리하였습니다. 
 
 ## 1. 1차 캐싱(Caching)
 
@@ -254,7 +254,7 @@ Hibernate: insert into tb_member (name, id) values (?, ?)
 1. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장합니다.
 
 <p align="center">
-    <img src="/images/persistence-context-advantages-8.JPG" width="75%" class="image__border">
+    <img src="/images/persistence-context-advantages-5.JPG" width="75%" class="image__border">
 </p>
 <center>conatuseus님 블로그-[JPA] 영속성 컨텍스트 #2</center>
 
@@ -348,33 +348,6 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 Hibernate: update tb_member set name=? where id=?
 Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
 ```
-
-### 3.3. 변경 감지 디버깅
-
-변경 감지(dirty checking)과 관련하여 어떤 메커니즘을 통해 변경된 데이터를 탐색하는지 디버깅해보았습니다. 
-
-#### 3.3.1. dirty field 탐색
-
-- FlushEntityEvent 객체를 만드는 시점에 dirty field 탐색을 수행
-- SingleTableEntityPersister 클래스 findDirty 메소드
-- 해당 메소드에서 변경된 필드의 인덱스 번호를 반환합니다.
-
-<p align="center"><img src="/images/persistence-context-advantages-10.JPG"></p>
-
-#### 3.3.2. session의 actionQueue에 EntityUpdateAction 객체 추가
-
-- DefaultFlushEntityEventListener 클래스 scheduleUpdate 메소드
-- 변경된 값이 있을 때 업데이트를 수행할 수 있도록 session의 actionQueue에 Action 추가
-
-<p align="center"><img src="/images/persistence-context-advantages-11.JPG"></p>
-
-#### 3.3.3. ActionQueue.ExecutableList에 담긴 Action 수행
-
-- actionQueue 객체는 수행해야할 ExecutableList를 지니고 있습니다.
-- ExecutableList에 담긴 EntityUpdateAction을 수행합니다.
-- ActionQueue 클래스 executeActions 메소드
-
-<p align="center"><img src="/images/persistence-context-advantages-12.JPG"></p>
 
 #### TEST CODE REPOSITORY
 

@@ -10,7 +10,7 @@ last_modified_at: 2022-06-18T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+- [Features of EntityManager][persistence-context-advantages-link]
 
 ## 0. 들어가면서
 

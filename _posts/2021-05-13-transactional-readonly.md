@@ -193,7 +193,7 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement; nes
 - 다음과 같이 가정해보았습니다.
     - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
     - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
-- DIRTY CHECKING 관련 포스트 ([영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link])
+- DIRTY CHECKING 관련 포스트 ([Features of EntityManager][persistence-context-advantages-link])
 
 #### 2.2.1. OrderService 클래스(readOnly=true)
 
@@ -356,7 +356,7 @@ Hibernate: update orders set value=? where id=?
 <p align="left"><img src="/images/transactional-readonly-2.JPG" width="15%"></p>
 
 ## CLOSING
-이전 [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link] 포스트를 정리하면서 
+이전 [Features of EntityManager][persistence-context-advantages-link] 포스트를 정리하면서 
 DIRTY CHECKING을 수행하는 위치가 궁금해 정리해둔 것이 이번 포스트에 큰 도움을 줬습니다. 
 DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 대한 검증을 쉽게 성공할 수 있었습니다. 
 

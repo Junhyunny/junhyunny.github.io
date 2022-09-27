@@ -10,8 +10,8 @@ last_modified_at: 2022-04-23T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Persistence Context And Entity Lifecycle][jpa-persistence-context-link]
-- [영속성 컨텍스트(Persistence Context) 장점][persistence-context-advantages-link]
+- [PersistenceContext And Entity Lifecycle][jpa-persistence-context-link]
+- [Features of EntityManager][persistence-context-advantages-link]
 - [JPA Flush][jpa-flush-link]
 - [@Transactional Propagtaion Type][transactional-propagation-type-link]
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-and-aop-link]

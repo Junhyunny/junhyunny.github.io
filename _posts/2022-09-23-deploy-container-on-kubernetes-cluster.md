@@ -251,7 +251,7 @@ docker build -t opop3966/react-application .
  => CACHED [stage-1 2/3] COPY conf/nginx.conf /etc/nginx/conf.d/default.conf                                                           0.0s
  => CACHED [builder 2/6] WORKDIR /app                                                                                                  0.0s
  => CACHED [builder 3/6] COPY package.json .                                                                                           0.0s
- => CACHED [builder 4/6] RUN npm install --slient                                                                                      0.0s
+ => CACHED [builder 4/6] RUN npm install --silent                                                                                      0.0s
  => [builder 5/6] COPY . .                                                                                                             6.6s
  => [builder 6/6] RUN npm run build                                                                                                    8.8s
  => [stage-1 3/3] COPY --from=builder /app/build /usr/share/nginx/html                                                                 0.0s 

@@ -225,7 +225,7 @@ Building frontend
  => [stage-1 1/3] FROM docker.io/library/nginx@sha256:b95a99feebf7797479e0c5eb5ec0bdfa5d9f504bc94da550c2f58e839ea6914f                       0.0s
  => CACHED [builder 2/6] WORKDIR /app                                                                                                        0.0s
  => CACHED [builder 3/6] COPY package.json .                                                                                                 0.0s
- => CACHED [builder 4/6] RUN npm install --slient                                                                                            0.0s
+ => CACHED [builder 4/6] RUN npm install --silent                                                                                            0.0s
  => [builder 5/6] COPY . .                                                                                                                   3.9s
  => [builder 6/6] RUN npm run build                                                                                                          8.7s
  => CACHED [stage-1 2/3] COPY conf/nginx.conf /etc/nginx/conf.d/default.conf                                                                 0.0s 

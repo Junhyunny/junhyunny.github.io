@@ -10,26 +10,23 @@ last_modified_at: 2022-09-30T23:55:00
 
 ## 1. Isolated Docker Containers
 
-도커(docker) 네트워크에 대해 알아보기 전에 네트워크가 없다면 어떤 문제가 발생하는지 살펴보겠습니다. 
+도커(docker) 네트워크에 대해 알아보기 전에 도커 네트워크가 없다면 어떤 문제가 발생하는지 살펴보겠습니다. 
 도커 컨테이너는 격리된 환경에서 동작하기 때문에 기본적으로 다른 컨테이너와 통신이 불가능합니다. 
-
 다음과 같은 상황을 예시로 들어보겠습니다. 
 
-* frontend 컨테이너의 리액트 어플리케이션은 backend 컨테이너의 스프링 어플리케이션으로부터 데이터를 받고 싶습니다.
+* `frontend` 컨테이너의 리액트 어플리케이션은 `backend` 컨테이너의 스프링 어플리케이션으로부터 데이터를 받고 싶습니다.
 * 리액트 어플리케이션에서 `http://backend:8080/todos`으로 데이터를 요청합니다.
-* frontend 컨테이너는 backend 도메인 주소를 가진 서버를 찾을 수 없습니다.
+* `frontend` 컨테이너는 `backend`라는 도메인 주소를 찾을 수 없습니다.
 * 데이터 요청은 실패합니다.
 
 <p align="center">
-    <img src="/images/docker-network-1.JPG" width="100%" class="image__border">
+    <img src="/images/docker-network-1.JPG" width="80%" class="image__border">
 </p>
 
 ## 2. Docker Network
 
-도커 네트워크는 격리된 컨테이너들의 통신을 돕는 논리적인 가상 인터페이스입니다. 
-도커 네트워크를 통해 가상 네트워크 토폴로지(topology)를 구축할 수 있습니다. 
-
-기본적으로 도커 데몬을 실행되면 다음과 같은 네트워크들이 실행됩니다. 
+도커 네트워크는 격리된 컨테이너들의 통신을 돕는 논리적인 가상 인터페이스이며, 이를 통해 가상 네트워크 토폴로지(topology)를 구축할 수 있습니다. 
+도커 데몬(daemon)을 실행하면 다음과 같은 네트워크들이 기본적으로 함께 생성됩니다. 
 
 ```
 $ docker network ls
@@ -42,21 +39,21 @@ d8cd79053c56   bridge    bridge    local
 
 ### 2.1. Docker Network Topology
 
-기본적으로 사용되는 브릿지(bridge) 네트워크 드라이버의 토폴로지를 기준으로 살펴보겠습니다. 
+도커 네트워크의 디폴트 브릿지(bridge)를 기준으로 살펴보겠습니다. 
 브릿지는 동일한 호스트에서 동작하는 서로 다른 컨테이너들 사이의 통신을 위해 사용됩니다. 
 
-* 도커 데몬(daemon)을 실행시키면 기본적으로 `docker0`라는 도커 브릿지 가상 인터페이스가 추가됩니다.
-* 새로운 컨테이너를 실행시킬 때마다 해당 컨테이너와 연결하기 위한 가상 인터페이스가 호스트 네트워크 스택에 추가됩니다.
+* 도커 데몬을 실행하면 기본적으로 `docker0`라는 도커 브릿지 가상 인터페이스가 추가됩니다.
+* 새로운 컨테이너를 실행할 때마다 해당 컨테이너와 연결하기 위한 가상 인터페이스가 호스트 네트워크 스택에 추가됩니다.
     * 이름이 `veth(virtual ethernet)`으로 시작합니다.
 * 격리된 네트워크 환경을 지닌 컨테이너는 내부에 개인 인터페이스와 루프백 인터페이스를 가집니다.
-    * 개인 인터페이스는 이름이 `eth`으로 시작합니다. 
+    * 개인 인터페이스는 이름이 `eth`으로 시작하며, 호스트의 가상 인터페이스(veth)와 연결을 위해 사용합니다.
     * 루프백 인터페이스는 다른 프로세스와 연결할 때 사용하지 않고, 동일 컨테이너에 다른 프로그램과 연결할 때 사용합니다. 
 * 컨테이너의 개인 인터페이스(eth)와 호스트의 가상 인터페이스(veth)가 서로 연결됩니다. 
 * 컨테이너와 연결된 가상 인터페이스(veth)는 도커 브릿지 가상 인터페이스(docker0)와 연결됩니다. 
 * 도커 브릿지 가상 인터페이스(docker0)는 호스트의 네트워크 인터페이스에 연결됩니다. 
 
 <p align="center">
-    <img src="/images/docker-network-2.JPG" width="100%" class="image__border">
+    <img src="/images/docker-network-2.JPG" width="80%" class="image__border">
 </p>
 <center>Docker in Action</center>
 
@@ -75,7 +72,7 @@ d8cd79053c56   bridge    bridge    local
     * 호스트 시스템의 네트워크를 직접 사용합니다.
     * [details](https://docs.docker.com/network/host/)
 * overlay
-    * 여러 개의 도커 데몬들 사이의 연결을 위해 사용합니다.
+    * 여러 개의 분산된 도커 데몬 호스트들 사이의 연결을 위해 사용합니다.
     * `swarm` 서비스들 사이의 통신에 사용합니다.
     * `swarm` 서비스와 독립적으로 실행되는 컨테이너 사이의 통신에 사용합니다. 
     * 서로 다른 도커 데몬에서 실행되는 독립형 컨테이너들 사이의 통신에 사용합니다.
@@ -97,13 +94,13 @@ d8cd79053c56   bridge    bridge    local
 
 ## 3. Connect Containers
 
-`frontend`, `backend` 컨테이너를 연결하는 간단한 예제를 만들어보겠습니다. 
+`frontend`, `backend` 컨테이너를 연결하는 간단한 예제를 살펴보겠습니다. 
 `frontend` 컨테이너는 리액트 어플리케이션을 호스팅합니다. 
 `backend` 컨테이너는 스프링 어플리케이션을 호스팅합니다. 
 두 컨테이너는 `custom-bridge`라는 이름의 브릿지 드라이버를 통해 연결되어 있습니다. 
 
 어플리케이션 코드들은 중요하지 않으므로 이번 포스트에선 다루지 않았습니다. 
-편의상 리액트 어플리케이션을 프론트엔드 서비스, 스프링 어플리케이션을 백엔드 서비스로 지칭하겠습니다. 
+편의상 리액트 어플리케이션을 프론트엔드 서비스, 스프링 어플리케이션을 백엔드 서비스로 지칭하였습니다. 
 두 서비스는 사용자에게 다음과 같은 서비스를 제공합니다. 
 
 * 브라우저를 통해 `TODO` 항목을 등록합니다.
@@ -116,7 +113,7 @@ d8cd79053c56   bridge    bridge    local
     * 백엔드 서비스는 저장하고 있는 `TODO` 항목들을 응답으로 반환합니다.
 
 <p align="center">
-    <img src="/images/docker-network-3.JPG" width="100%" class="image__border">
+    <img src="/images/docker-network-3.JPG" width="80%" class="image__border">
 </p>
 
 ### 3.1. Create Custom Bridge
@@ -148,7 +145,7 @@ d8cd79053c56   bridge          bridge    local
 * `docker network connect custom-bridge backend`
     * 백엔드 컨테이너를 커스텀 브릿지에 연결합니다.
 * `docker network inspect custom-bridge`
-    * 커스텀 브릿지 상세 정보를 봅니다.
+    * 커스텀 브릿지 상세 정보를 확인합니다.
     * `Containers` 항목에 백엔드 컨테이너가 포함된 것을 확인할 수 있습니다.
 
 ```
@@ -234,7 +231,7 @@ $ docker network inspect custom-bridge
 * `docker run -d -p 80:80 --name frontend --network custom-bridge frontend`
     * `--network` 옵션을 통해 컨테이너 실행 시 네트워크 연결을 함께 수행합니다.
 * `docker network inspect custom-bridge`
-    * 커스텀 브릿지 상세 정보를 봅니다.
+    * 커스텀 브릿지 상세 정보를 확인합니다.
     * `Containers` 항목에 프론트엔드 컨테이너가 포함된 것을 확인할 수 있습니다.
 
 ```
@@ -329,7 +326,7 @@ $ docker network inspect custom-bridge
 
 ## 4. Restriction of Default Bridge
 
-`--network` 옵션 없이 컨테이너를 실행하면 도커 데몬 실행 시 기본으로 생성된 디폴트 브릿지 네트워크에 연결됩니다. 
+`--network` 옵션 없이 컨테이너를 실행하면 기본적으로 생성되어 있는 디폴트 브릿지 네트워크에 자동으로 연결됩니다. 
 
 ```
 $ docker run -d -p 8080:8080 --name backend backend 
@@ -384,16 +381,21 @@ $ docker network inspect bridge
 ]
 ```
 
-하지만, 프론트엔드 컨테이너를 디폴트 브릿지에 연결하더라도 백엔드 컨테이너와 통신이 되지 않습니다. 
-이유는 디폴트 브릿지에서 컨테이너들은 IP를 통해서만 통신이 가능하기 때문입니다. 
-도커 공식 문서에 다음과 같은 설명이 있습니다. 
+컨테이너가 자동으로 디폴트 브릿지 네트워크에 연결된다면 별도 네트워크 작업 없이 프론트엔드 컨테이너를 실행만 해도 백엔드 컨테이너와 연결될 것이라 생각했습니다. 
+
+> 왜 사용자 지정 네트워크를 별도로 만들지?
+
+실제로 프론트엔드 컨테이너를 디폴트 브릿지에 연결하면 백엔드 컨테이너와 통신이 되지 않습니다. 
+그 이유는 디폴트 브릿지 위에 컨테이너들은 IP를 통해서만 통신이 가능하기 때문입니다. 
+도커 공식 문서를 보면 다음과 같은 설명이 있습니다. 
 
 > Containers on the default bridge network can only access each other by IP addresses, unless you use the --link option, 
 > which is considered legacy. 
 > On a user-defined bridge network, containers can resolve each other by name or alias.
 
 사용자 정의 브릿지를 사용해야지 컨테이너들을 이름이나 별칭(alias)으로 호출할 수 있습니다. 
-프론트엔드 컨테이너에서 호스팅하는 `nginx` 서버의 설정을 보면 백엔드 컨테이너를 `backend`로 호출하기 때문에 디폴트 브릿지에서는 찾을 수 없습니다.  
+프론트엔드 컨테이너에서 호스팅하는 어플리케이션은 `nginx` 서버를 사용해 서비스합니다. 
+해당 `nginx` 설정을 살펴보면 백엔드 컨테이너를 `backend`라는 이름으로 호출하기 때문에 디폴트 브릿지에선 이를 찾지 못 합니다. 
 
 ```conf
 upstream backend {

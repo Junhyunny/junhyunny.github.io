@@ -386,7 +386,7 @@ Creating 2021-01-15-cors-example_backend-configure_1 ... done
 
 #### RECOMMEND NEXT POSTS
 
-* [리액트(React) CORS 해결하기 (feat. 프록시(Proxy) 구축)][react-proxy-link]
+* [React 개발 서버 CORS 해결하기 with Proxy][react-proxy-link]
 
 #### TEST CODE REPOSITORY
 

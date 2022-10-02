@@ -10,8 +10,7 @@ last_modified_at: 2022-09-30T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [리액트(React) CORS 해결하기 (feat. 프록시(Proxy) 구축)][react-proxy-link]
-* [Docker Network][docker-network-link]
+* [React 개발 서버 CORS 해결하기 with Proxy][react-proxy-link]
 
 ## 0. 들어가면서
 
@@ -539,4 +538,3 @@ Ran all test suites matching /TodoRepository/i.
 * <https://create-react-app.dev/docs/adding-custom-environment-variables/>
 
 [react-proxy-link]: https://junhyunny.github.io/information/react/react-proxy/
-[docker-network-link]: https://junhyunny.github.io/docker/docker-network/

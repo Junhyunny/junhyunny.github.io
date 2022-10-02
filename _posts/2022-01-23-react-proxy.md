@@ -1,5 +1,5 @@
 ---
-title: "리액트(React) CORS 해결하기 (feat. 프록시(Proxy) 구축)" 
+title: "React 개발 서버 CORS 해결하기 with Proxy" 
 search: false
 category:
   - information
@@ -10,6 +10,7 @@ last_modified_at: 2022-01-23T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
+
 - [CORS(Cross Origin Resource Sharing)][cors-link] 
 - [CORS(Cross Origin Resource Sharing) with Spring Boot][cors-server-example-link]
 
@@ -329,7 +330,12 @@ module.exports = app => {
 - [What is different between using package.json and usign http-proxy-middleware module to create proxy?][stack-overflow-question-link]
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-23-react-proxy>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-23-react-proxy>
+
+#### RECOMMEND NEXT POSTS
+
+* [React 환경 변수 설정과 실행 환경 분리][react-env-variable-setting-link]
 
 #### REFERENCE
 - <https://github.com/chimurai/http-proxy-middleware>
@@ -343,3 +349,5 @@ module.exports = app => {
 [react-dev-cors-link]: https://velog.io/@tw4204/React-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-CORS%EB%A5%BC-%EC%9C%84%ED%95%9C-proxy-%EC%84%A4%EC%A0%95
 
 [stack-overflow-question-link]: https://stackoverflow.com/questions/70824183/what-is-different-between-using-package-json-and-usign-http-proxy-middleware-mod
+
+[react-env-variable-setting-link]: https://junhyunny.github.io/react/react-env-variable-setting/

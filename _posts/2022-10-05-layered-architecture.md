@@ -4,7 +4,7 @@ search: false
 category:
   - architecture
   - pattern
-last_modified_at: 2022-10-06T23:55:00
+last_modified_at: 2022-10-05T23:55:00
 ---
 
 <br>
@@ -62,7 +62,7 @@ last_modified_at: 2022-10-06T23:55:00
     * 영속성 프레임워크, 프레임워크 설정, 외부 API 요청 기능, 이벤트 리스너(listener) 등이 있습니다.
 
 <p align="center">
-    <img src="/images/layered-architecture-1.JPG" width="80%" class="image__border">
+    <img src="/images/layered-architecture-1.JPG" width="60%" class="image__border">
 </p>
 <center>http://pds19.egloos.com/pds/201106/28/18/Open_Session_In_View_Pattern.pdf</center>
 
@@ -117,11 +117,13 @@ last_modified_at: 2022-10-06T23:55:00
 * 깔끔하고 얇은 뷰(clean and thin view)를 가져야 합니다.
     * 뷰는 오직 마크업(markup)과 화면 출력 로직만 포함합니다.
     * 시스템의 상태를 변경시킬 수 있는 비즈니스 로직은 포함하지 않습니다.
-* 도메인 계층을 고립시켜야 합니다.
+* 도메인 계층을 기술적 의존성으로부터 고립시켜야 합니다.
     * 도메인 계층은 비즈니스를 구성하는 핵심 개념, 중요한 정보와 준수해야하는 규칙들을 표현합니다.
-    * 도메인 계층에 기술 의존성이 침투하는 것은 비즈니스가 기술의 변경에 강하게 결합되는 것을 의미합니다.
+    * 도메인 계층에 기술 의존성이 침투하는 것은 비즈니스가 기술적 변경에 강하게 결합되는 것을 의미합니다.
+    * 비즈니스 로직에 침투한 기술적 이슈는 시스템을 변경하고 이해하기 어렵게 만듭니다.
     * 시스템을 단순하고 유연한 상태로 유지하기 위해선 도메인 계층을 기술적인 이슈로부터 고립시켜야 합니다.
     * 도메인 계층을 기술적인 이슈와 격리하기 위해 독립적인 `POJO`로 개발합니다.
+    * 실제 기술적 요소를 지닌 구현체들은 인터페이스를 통해 캡슐화하여 사용합니다.
 
 #### REFERENCE
 

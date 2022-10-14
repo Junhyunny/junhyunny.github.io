@@ -136,6 +136,7 @@ export function substract(first, second) {
 #### 2.1.2. Default Export
 
 `export default` 키워드로 하나의 `JavaScript` 모듈 파일에서 기본 객체 한 개를 모듈로 내보낼 수 있습니다. 
+하나의 파일에서 한번만 사용할 수 있으며 별도로 이름을 지정하지 않습니다. 
 
 ##### es-math-second.js 파일
 

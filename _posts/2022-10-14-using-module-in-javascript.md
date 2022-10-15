@@ -106,13 +106,13 @@ $ node commonjs/test-module.js
 5 / 3 = 1.6666666666666667
 ```
 
-## 2. ESM(ECMAScript Module)
+## 2. ECMAScript
 
 표준 문법인 `ECMAScript`도 ES6(ECMAScript2015)부터 모듈을 지원하기 시작했습니다. 
 `import` 같은 키워드를 통해 모듈 사용 코드의 가독성을 높였습니다. 
 `CommonJS`와 다른 점은 모듈을 내보낼 때 이름을 지정할 수 있습니다. 
 
-### 2.1. ES Module 내보내기
+### 2.1. ECMAScript Module 내보내기
 
 #### 2.1.1. Named Export
 
@@ -153,7 +153,7 @@ export default {
 };
 ```
 
-### 2.2. ES Module 사용하기
+### 2.2. ECMAScript Module 사용하기
 
 `import` 키워드를 통해 위에서 지정한 모듈들을 사용할 수 있습니다. 
 

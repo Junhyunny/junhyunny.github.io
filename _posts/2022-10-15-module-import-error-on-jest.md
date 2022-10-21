@@ -82,6 +82,7 @@ last_modified_at: 2022-10-15T23:55:00
 
 테스트가 정상적으로 동작한 프로젝트는 다음과 같은 버전을 사용했습니다. 
 
+* node - v16.13.0
 * @testing-library/jest-dom - ^5.16.1
 * @testing-library/react - ^12.1.2
 * @testing-library/user-event - ^13.5.0
@@ -91,6 +92,7 @@ last_modified_at: 2022-10-15T23:55:00
 
 이번에 만든 CRA 프로젝트는 다음과 같은 버전을 사용했습니다. 
 
+* node - v16.13.0
 * @testing-library/jest-dom - ^5.16.5
 * @testing-library/react - ^13.4.0
 * @testing-library/user-event - ^13.5.0

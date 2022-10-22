@@ -1,5 +1,5 @@
 ---
-title: "Order Startup Container at Docker Compose"
+title: "Order Startup Container on Docker Compose"
 search: false
 category:
   - docker
@@ -171,7 +171,6 @@ database-host             | 2022-10-21T14:48:00.048952Z 0 [System] [MY-010931] [
 * [wait-for-it](https://github.com/vishnubob/wait-for-it)
 * [dockerize](https://github.com/powerman/dockerize)
 * [Wait4X](https://github.com/atkrad/wait4x)
-* 컨테이너 시작 순서 제어 방법 - <https://docs.docker.com/compose/startup-order/>
 
 ##### 문제 해결 - docker-compose.yml 파일
 
@@ -187,7 +186,6 @@ database-host             | 2022-10-21T14:48:00.048952Z 0 [System] [MY-010931] [
     * test - 문자열 혹은 리스트 형태이며 컨테이너 상태를 확인하는 명령어, 옵션 등을 정의합니다. 
     * timeout - 타임아웃 시간을 정의합니다.
     * retries - 반복 횟수를 정의합니다.
-* <https://docs.docker.com/compose/compose-file/compose-file-v3/#healthcheck>
 
 ```yml
 version: '3.8'
@@ -215,7 +213,7 @@ services:
     restart: on-failure
 ```
 
-##### 실행 로그
+##### 도커 컴포즈 실행 로그
 
 * 순서에 맞게 동기적으로 컨테이너들이 실행됩니다.
 

@@ -2,7 +2,8 @@
 title: "Jenkins PATH Environment Variables"
 search: false
 category:
-  - docker
+  - information
+  - jenkins
 last_modified_at: 2022-10-24T23:55:00
 ---
 

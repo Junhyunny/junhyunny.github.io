@@ -1,5 +1,5 @@
 ---
-title: "Optimize Maven Project Dockerfile Build"
+title: "Optimize Docker Build of Maven Project"
 search: false
 category:
     - docker

@@ -15,8 +15,8 @@ last_modified_at: 2022-10-29T23:55:00
 
 ## 0. 들어가면서
 
-[Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link]에서 메이븐(maven) 프로젝트를 컨테이너 이미지로 빌드하는 과정을 최적화하는 방법에 정리하였습니다. 
-해당 포스트에서 설명한 방법은 소스 코드가 바뀌었을 때만 캐싱된 레이어를 통해 빌드 속도를 최적화 가능했습니다. 
+[Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link] 포스트에선 메이븐(maven) 프로젝트를 컨테이너 이미지로 빌드하는 과정을 최적화하는 방법에 대해 다뤘습니다. 
+해당 포스트에서 설명한 방법은 소스 코드가 바뀌었을 때 캐싱된 레이어를 통해 빌드 속도를 최적화한다는 내용이었습니다. 
 안정된 프로젝트인 경우 의존성(dependency) 변경이 거의 없지만, 프로젝트 초기에는 잦은 의존성 변경이 발생하기 때문에 필요한 의존성들을 미리 받아 놓는 캐싱(caching) 레이어를 만들어 얻는 이점이 거의 없습니다. 
 `Docker Buildkit`을 사용하면 이런 문제를 완화할 수 있는데, 이번 포스트에서 `Buildkit`에 대한 내용과 메이븐 프로젝트 빌드를 최적화하는 방법에 대해 알아보겠습니다.
 

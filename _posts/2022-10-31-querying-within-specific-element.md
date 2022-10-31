@@ -6,7 +6,7 @@ category:
   - jest
   - testing-library
   - test-driven-development
-last_modified_at: 2022-11-01T23:55:00
+last_modified_at: 2022-10-31T23:55:00
 ---
 
 <br>
@@ -213,7 +213,7 @@ describe('App Tests', () => {
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-01-querying-within-specific-element>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-10-31-querying-within-specific-element>
 
 #### REFERENCE
 

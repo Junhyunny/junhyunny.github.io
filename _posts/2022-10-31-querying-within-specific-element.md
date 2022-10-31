@@ -78,7 +78,7 @@ describe('App Tests', () => {
         expect(screen.getByText("010-1234-1234")).toBeInTheDocument()
 
         expect(screen.getByText("Jua")).toBeInTheDocument()
-        expect(screen.getByText("0")).toBeInTheDocument()
+        expect(screen.getByText("12")).toBeInTheDocument()
         expect(screen.getByText("Female")).toBeInTheDocument()
         expect(screen.getByText("010-1234-0987")).toBeInTheDocument()
     });

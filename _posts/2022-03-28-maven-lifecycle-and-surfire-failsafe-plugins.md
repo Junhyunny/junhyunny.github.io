@@ -1,5 +1,5 @@
 ---
-title: "Maven Lifecycle and Plugins"
+title: "Maven Lifecycle and Plugins for Test"
 search: false
 category:
   - maven

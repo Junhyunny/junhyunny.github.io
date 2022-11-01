@@ -1,5 +1,5 @@
 ---
-title: "Maven 라이프 사이클과 surefire, failsafe 플러그인"
+title: "Maven Lifecycle and Plugins"
 search: false
 category:
   - maven

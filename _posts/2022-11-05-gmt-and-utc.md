@@ -91,10 +91,47 @@ last_modified_at: 2022-11-05T23:55:00
 | (UTC+09:00) Seoul | Asia/Seoul |
 | (UTC+12:00) Coordinated Universal Time+12 | Etc/GMT-12 |
 
+## 3. Offset and Timezone
+
+오프셋(offset)은 `UTC-03:00`나 `UTC+09:00`에서 `-03:00`, `+09:00`으로 표현한 `UTC`와의 시간 차이를 의미합니다. 
+국가나 지역들은 자신들이 사용하는 타임존에 고유한 이름을 붙혀 사용합니다. 
+예를 들어 대한민국의 타임존은 KST(Korea Standard Time), 일본의 타임존은 JST(Japan Standard Time)이라는 이름을 사용합니다. 
+
+오프셋과 타임존의 관계는 일대다(1:N) 관계입니다. 
+예를 들어 `+09:00` 오프셋 시간에 해당하는 타임존들은 다음과 같습니다. 
+
+* South Korea - Korea Standard Time
+* North Korean - Time in North Korea
+* Japa - Japan Standard Time
+* Russia – Yakutsk Time
+
+다음과 같은 예외 상황들 때문에 특정 지역의 타임존을 단순히 오프셋이라 지칭할 순 없습니다. 
+
+* 서머 타임(DST, Daylight Saving Time)
+    * 국내가 아닌 해외 여러 국가에서 사용하는 시간 개념입니다.
+    * 하절시에 표준시를 원래 시간보다 한 시간 앞당긴 시간으로 이용합니다. 
+    * 서머 타임 적용은 보편적인 규칙이 있지 않고, 국가나 지역의 법에 따라 다르게 적용됩니다.
+* 타임존은 변합니다. 
+    * 각 지역이 어떤 타임존을 사용할 것인지 지역 혹은 국가가 법으로 결정하기 때문에 정치적, 경제적 이유로 변경될 수 있습니다.
+
+## 4. IANA Timezone Database
+
+타임존과 관련된 표준들이 여러 개 있지만, [IANA Time Zone Database][iana-time-zones-link]이 가장 신뢰도가 높다고 합니다. 
+`tz database (혹은 tzdata)`라고 불리며, 현재 역사적으로 확인할 수 있는 모든 데이터가 들어있습니다. 
+UNIX 시간(1970.01.01 00:00:00) 이후의 데이터에 대한 정확도를 보장하도록 정리되어 있습니다. 
+
+타임존 이름은 지역(area)/위치(location) 규칙을 사용합니다. 
+지역은 Asia, America, Pacific 같은 대양명을 지정하며, 위치는 주로 국가명보다는 Seoul, Newyork 같은 큰 도시 위주로 지정됩니다. 
+`tzdata`는 리눅스, MacOS 같은 유닉스 기반의 운영체제나 Java, PHP 같은 유명 프로그래밍 언어들이 이미 내부적으로 사용하고 있습니다. 
+
 #### REFERENCE
 
 * <https://ko.wikipedia.org/wiki/%EA%B7%B8%EB%A6%AC%EB%8B%88%EC%B9%98_%ED%8F%89%EA%B7%A0%EC%8B%9C>
+* <https://en.wikipedia.org/wiki/UTC%2B09:00>
 * <https://meetup.toast.com/posts/125>
-* <https://bobbohee.github.io/2021-01-29/what-is-utc-and-gmt>
+* <https://www.iana.org/time-zones>
 * <https://www.fusioo.com/guide/using-timezones>
 * <https://jp.cybozu.help/general/en/admin/list_systemadmin/list_localization/timezone.html>
+* <https://bobbohee.github.io/2021-01-29/what-is-utc-and-gmt>
+
+[iana-time-zones-link]: https://www.iana.org/time-zones

@@ -446,8 +446,6 @@ $ docker build .
 
 * <https://docs.docker.com/build/buildkit/>
 * <https://github.com/moby/buildkit>
-* <https://github.com/moby/buildkit#exploring-llb>
-* <https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md#run---mount>
 * <https://www.baeldung.com/ops/docker-cache-maven-dependencies>
 * <https://stackoverflow.com/questions/57581943/mount-type-cache-in-buildkit>
 

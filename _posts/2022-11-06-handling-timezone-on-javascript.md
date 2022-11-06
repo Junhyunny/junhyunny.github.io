@@ -269,8 +269,7 @@ Seoul	-  2022-11-06 09:45:00
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-10-31-querying-within-specific-element>
-
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-06-handling-timezone-on-javascript>
 
 #### REFERENCE
 

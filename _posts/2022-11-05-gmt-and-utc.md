@@ -114,6 +114,18 @@ last_modified_at: 2022-11-05T23:55:00
 * 타임존은 변합니다. 
     * 각 지역이 어떤 타임존을 사용할 것인지 지역 혹은 국가가 법으로 결정하기 때문에 정치적, 경제적 이유로 변경될 수 있습니다.
 
+##### 서머 타임에 따른 뉴욕 타임존 변경
+
+* 2022년 뉴욕은 특정일을 기준으로 시간 오프셋이 변경됩니다.
+    * 3월 13일 2시를 기준으로 EDT(Eastern Daylight Time)을 따라 오프셋이 `-04:00`로 변경됩니다.
+    * 11월 6일 2시를 기준으로 EST(Eastern Standard Time)을 따라 오프셋이 `-05:00`로 변경됩니다.
+* 2022년의 서머 타임 적용 시점은 다른 해와 비교해봤을 때 차이가 있습니다.
+
+<p align="left">
+    <img src="/images/gmt-and-utc-1.JPG" width="100%" class="image__border">
+</p>
+<center>https://www.timeanddate.com/time/zone/usa/new-york?year=2022</center>
+
 ## 4. IANA Timezone Database
 
 타임존과 관련된 표준들이 여러 개 있지만, [IANA Time Zone Database][iana-time-zones-link]이 가장 신뢰도가 높다고 합니다. 

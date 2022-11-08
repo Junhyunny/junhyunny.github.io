@@ -25,7 +25,7 @@ last_modified_at: 2022-11-06T23:55:00
 명시적으로 타임존을 변경할 수 있는 방법이 없고, 브라우저마다 구현이 달라 타임존 연산이 다르게 동작할 수 있습니다. 
 API 기능을 잘못 이해하고 사용하면 비즈니스에 영향을 주기 때문에 `JavaScript`에서 지원하는 시간 관련된 기능에 대한 탐구가 먼저 필요합니다. 
 
-## 1. Date Object in JavaScript
+## 2. Date Object in JavaScript
 
 `JavaScript`가 기본적으로 제공하는 시간 관련 기능인 `Date` 객체에 대해 알아보겠습니다. 
 `JavaScript`에서 날짜나 시간과 관련된 작업은 대부분 `Date` 객체를 사용합니다. 
@@ -41,7 +41,7 @@ API 기능을 잘못 이해하고 사용하면 비즈니스에 영향을 주기 
 내부적으로 유닉스 시간이라는 절대값으로 시간 데이터를 관리하지만, `constructor`, `parse`, `getHour`, `setHour` 같은 함수는 클라이언트의 로컬 타임존에 영향을 받습니다. 
 사용자가 입력한 데이터를 그대로 사용해 `Date` 객체를 생성하면 클라이언트의 로컬 타임존을 그대로 반영하게 됩니다. 
 
-### 1.1. Create Time with Date Object
+### 2.1. Create Time with Date Object
 
 생성자를 통해 시간 객체를 만드는 몇 개의 예시들을 살펴보겠습니다. 
 크롬 브라우저에서 테스트를 진행하였습니다. 
@@ -55,7 +55,7 @@ API 기능을 잘못 이해하고 사용하면 비즈니스에 영향을 주기 
 * toISOString 함수 - `Date`를 나타내는 문자열을 `ISO 8601` 확장 형식에 맞춰 반환합니다.
 * toUTCString 함수 - `Date`를 나타내는 문자열을 UTC 기준으로 반환합니다.
 
-#### 1.1.1. 년, 월, 일, 시, 분, 초 사용
+#### 2.1.1. 년, 월, 일, 시, 분, 초 사용
 
 * `Date` 객체는 월(month)이 0부터 시작하기 때문에 숫자 10은 11월에 해당합니다.
 * 다음 함수들은 `KST(Korea Standard Time)` 타임존 기준으로 시간이 출력됩니다.
@@ -77,7 +77,7 @@ console.log(date.toISOString()) // 2022-11-06T13:00:00.000Z
 console.log(date.toUTCString()) // Sun, 06 Nov 2022 13:00:00 GMT
 ```
 
-#### 1.1.2. 유닉스 시간 사용
+#### 2.1.2. 유닉스 시간 사용
 
 * 유닉스 시간을 생성자에 전달하여 객체를 생성합니다.
     * 일반적으로 사용자가 유닉스 시간을 입력할 일은 없지만, 서버로부터 전달받았다고 가정하겠습니다.
@@ -94,7 +94,7 @@ console.log(date.toISOString()) // 2022-11-06T13:00:00.000Z
 console.log(date.toUTCString()) // Sun, 06 Nov 2022 13:00:00 GMT
 ```
 
-#### 1.1.3. yyyy-mm-dd hh:MM:ss 포맷 문자열 사용
+#### 2.1.3. yyyy-mm-dd hh:MM:ss 포맷 문자열 사용
 
 * 자주 사용하는 `yyyy-mm-dd hh:MM:ss` 포맷을 가진 문자열을 사용해 시간 객체를 생성합니다. 
 * `KST` 시간은 입력 받은 시간인 2022년 11월 6일 22시입니다.
@@ -110,7 +110,7 @@ console.log(date.toISOString()) // 2022-11-06T13:00:00.000Z
 console.log(date.toUTCString()) // Sun, 06 Nov 2022 13:00:00 GMT
 ```
 
-#### 1.1.4. ISO 8601 포맷 문자열 사용
+#### 2.1.4. ISO 8601 포맷 문자열 사용
 
 * 가운데 `T`와 마지막에 `Z` 붙는 문자열을 추가 후 시간 객체를 생성합니다.
     * 마지막에 `Z` 문자가 붙지 않으면 `ISO 8601` 포맷으로 인식하지 않으므로 로컬 시간을 입력한 것과 동일합니다. 
@@ -128,7 +128,7 @@ console.log(date.toISOString()) // 2022-11-06T22:00:00.000Z
 console.log(date.toUTCString()) // Sun, 06 Nov 2022 22:00:00 GMT
 ```
 
-## 2. Apply Timezone
+## 3. Apply Timezone
 
 글로벌 서비스에서 타임존을 다루는 가장 쉬운 아이디어는 타임존을 고려하는 코드 영역을 최대한 제한하는 것이라 생각됩니다. 
 예를 들어 다음과 같이 서비스를 구성하면 타임존을 고려하는 코드 영역을 최소화할 수 있습니다.
@@ -150,7 +150,7 @@ console.log(date.toUTCString()) // Sun, 06 Nov 2022 22:00:00 GMT
     * `KST` 기준으로 2022년 11월 5일 20시 45분입니다.
     * 유닉스 시간으로 `1667648700000` 입니다.
 
-### 2.1. getTimezoneOffset 함수 사용
+### 3.1. getTimezoneOffset 함수 사용
 
 `Date` 객체는 타임존을 설정하여 시간을 만들 수 없으므로 오프셋을 이용한 계산이 필요합니다.
 
@@ -192,7 +192,7 @@ console.log(koreaTime.toUTCString()) // Sat, 05 Nov 2022 11:45:00 GMT
     * 2022년 뉴욕의 서머 타임 해지는 11월 6일 2시부터 적용됩니다. 
     * 2022년 11월 6일 2시부터 오프셋이 `-05:00`으로 계산되어야 합니다.
 
-### 2.2. Moment Timezone 라이브러리 사용
+### 3.2. Moment Timezone 라이브러리 사용
 
 지역 시간 별로 시간 오프셋을 모두 알고 있더라도 서머 타임 같은 예외 상황들을 모두 고려하여 시간을 계산하긴 너무 어렵습니다. 
 정확한 시간 계산을 위해선 [IANA timezone Database][iana-timezone-link] 같은 타임존 변경 내역을 모두 담고 있는 데이터베이스가 필요합니다. 

@@ -792,9 +792,9 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 
 #### REFERENCE
 
-* <https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html>
-* <https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html>
-* <https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html>
+* [JwtAccessTokenConverter](https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/provider/token/store/JwtAccessTokenConverter.html)
+* [AuthorizationServerConfigurerAdapter](https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/AuthorizationServerConfigurerAdapter.html)
+* [ResourceServerConfigurerAdapter](https://docs.spring.io/spring-security/oauth/apidocs/org/springframework/security/oauth2/config/annotation/web/configuration/ResourceServerConfigurerAdapter.html)
 
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
 [spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/

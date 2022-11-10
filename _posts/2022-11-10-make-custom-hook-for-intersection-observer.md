@@ -366,3 +366,5 @@ test('스크롤 다운 이벤트를 수행하면 다음 리스트를 볼 수 있
 * <https://junhyunny.github.io/javascript/jest/testing-library/test-driven-development/how-to-test-intersection-observer/>
 
 [how-to-test-intersection-observer-link]: https://junhyunny.github.io/javascript/jest/testing-library/test-driven-development/how-to-test-intersection-observer/
+
+[react-intersection-observer-link]: https://www.npmjs.com/package/react-intersection-observer

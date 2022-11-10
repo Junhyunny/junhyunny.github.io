@@ -380,10 +380,16 @@ describe('Intersection Observer', () => {
 
 사용하는 방법과 테스트 코드를 작성하는 포스트는 다음 포스트 주제로 남기겠습니다.
 
+#### RECOMMEND NEXT POSTS
+
+* [Custom Hook for Intersection Observer][make-custom-hook-for-intersection-observer-link]
+
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-14-how-to-test-intersection-observer>
 
 #### REFERENCE
+
 - <https://developer.mozilla.org/ko/docs/Web/API/Intersection_Observer_API>
 - <https://heropy.blog/2019/10/27/intersection-observer/>
 - <https://cross-code.github.io/posts/IntersectionObserver/>
@@ -394,3 +400,5 @@ describe('Intersection Observer', () => {
 [how-to-work-javascript-async-link]: https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/
 
 [react-intersection-observer-link]: https://www.npmjs.com/package/react-intersection-observer
+
+[make-custom-hook-for-intersection-observer-link]: https://junhyunny.github.io/typescript/jest/testing-library/test-driven-development/make-custom-hook-for-intersection-observer/

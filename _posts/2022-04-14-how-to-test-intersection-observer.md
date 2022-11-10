@@ -1,5 +1,5 @@
 ---
-title: "How to test Intersection Observer"
+title: "How to Test Intersection Observer"
 search: false
 category:
   - javascript
@@ -375,6 +375,7 @@ describe('Intersection Observer', () => {
 ## CLOSING
 
 사실 `IntersectionObserver`를 리액트에서 쉽게 사용하고 테스트할 수 있는 라이브러리가 있습니다. 
+
 - [react-intersection-observer][react-intersection-observer-link]
 
 사용하는 방법과 테스트 코드를 작성하는 포스트는 다음 포스트 주제로 남기겠습니다.

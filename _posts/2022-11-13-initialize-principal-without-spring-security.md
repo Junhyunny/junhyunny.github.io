@@ -259,12 +259,10 @@ class AuthenticationFilterTests {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-13-initialize-principal-without-spring-security>
 
-#### RECOMMEND NEXT POSTS
-
 #### REFERENCE
 
-- <https://stackoverflow.com/questions/47734663/setting-user-principal-in-filter>
-- <https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequestWrapper.html>
+* <https://stackoverflow.com/questions/47734663/setting-user-principal-in-filter>
+* <https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequestWrapper.html>
 
 [filter-interceptor-and-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/
 [once-per-request-filter-link]: https://junhyunny.github.io/spring-boot/once-per-request-filter/

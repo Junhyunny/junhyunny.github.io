@@ -1,5 +1,5 @@
 ---
-title: "Initialize Principal without Spring Security"
+title: "Setup Temporal Principal"
 search: false
 category:
   - tomcat
@@ -16,11 +16,12 @@ last_modified_at: 2022-11-13T23:55:00
 
 ## 0. 들어가면서
 
-어플리케이션을 개발하다보면 자연스럽게 사용자 인증이나 권한과 관련된 기능들이 추가됩니다. 
-아직 사용자 인증, 권한 관리에 대한 내용이 결정되지 않은 시점에 일이 블로킹되면 안 되기 때문에 임시로 사용자 정보를 초기화하고 싶었습니다. 
-다음과 같은 관점에서 필터에 기능을 추가하고 싶었습니다. 
+어플리케이션을 개발하다보면 사용자 인증이나 권한과 관련된 기능들이 필요합니다. 
+아직 사용자 인증, 권한 관리에 대한 내용이 결정되지 않은 시점에 사용자 정보가 필요하다면 이를 어떻게 풀어갈지 고민이 필요합니다. 
+저는 사용자 인증에 대한 문제로 다른 작업들이 블로킹(blocking)되면 안 되기 때문에 임시로 인증된 사용자 정보를 설정하고 싶었습니다. 
+다음과 같은 관점에서 필터에 임시 사용자 정보를 주입하는 기능을 추가하기로 결정했습니다. 
 
-* 세션(session)을 사용하든, 토큰(token)을 사용하든 필터에서 작업 필요
+* 세션(session)을 사용하든, 토큰(token)을 사용하든 필터에서 작업
 * 가장 유력한 선택지인 `Spring Security` 라이브러리를 적용하더라도 비즈니스 기능에 변화가 없도록 구현
 
 이번 포스트에선 임시로 인증된 사용자 정보를 제공하는 필터를 구현해보았습니다.
@@ -257,7 +258,7 @@ class AuthenticationFilterTests {
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-13-initialize-principal-without-spring-security>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-13-setup-temporal-principal>
 
 #### REFERENCE
 

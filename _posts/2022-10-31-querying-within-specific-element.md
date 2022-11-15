@@ -1,5 +1,5 @@
 ---
-title: "Querying Within Specific Element in Testing Library"
+title: "Querying within Specific Element in Testing Library"
 search: false
 category:
   - javascript

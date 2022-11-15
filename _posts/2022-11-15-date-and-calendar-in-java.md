@@ -227,10 +227,14 @@ last_modified_at: 2022-11-14T23:55:00
 
 `JDK 8`부터 날짜와 시간과 관련된 API 기능들이 많이 개선되었고, 관련된 클래스들은 `java.time` 패키지에 위치합니다. 
 
-* java.time.chrono - ISO-8601에 정의된 표준 달력 이외의 달력 시스템을 사용할 때 필요한 클래스들
-* java.time.format - 날짜와 시간에 대한 데이터를 구문분석하고 형식화하는 데 사용되는 클래스들
-* java.time.temporal - 날짜와 시간에 대한 데이터를 연산하는 데 사용되는 보조 클래스들
-* java.time.zone - 타임 존(time-zone)과 관련된 클래스들
+* java.time.chrono 
+    * ISO-8601에 정의된 표준 달력 이외의 달력 시스템을 사용할 때 필요한 클래스들
+* java.time.format 
+    * 날짜와 시간에 대한 데이터를 구문분석하고 형식화하는 데 사용되는 클래스들
+* java.time.temporal 
+    * 날짜와 시간에 대한 데이터를 연산하는 데 사용되는 보조 클래스들
+* java.time.zone 
+    * 타임 존(time-zone)과 관련된 클래스들
 
 #### TEST CODE REPOSITORY
 

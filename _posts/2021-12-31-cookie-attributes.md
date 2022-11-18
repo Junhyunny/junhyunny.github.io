@@ -10,8 +10,8 @@ last_modified_at: 2021-12-31T23:55:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
-- [Tomcat Session 획득과 만료][tomcat-session-management-link]
+- [Cookie and Session][cookie-and-session-link]
+- [Session Management in Tomcat][tomcat-session-management-link]
 
 👉 이어서 읽기를 추천합니다.
 - [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link]

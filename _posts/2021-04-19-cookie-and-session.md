@@ -1,5 +1,5 @@
 ---
-title: "쿠키(Cookie)와 세션(Session)"
+title: "Cookie and Session"
 search: false
 category:
   - information
@@ -9,10 +9,11 @@ last_modified_at: 2021-08-28T01:00:00
 <br>
 
 👉 이어서 읽기를 추천합니다.
-- [Tomcat Session 획득과 만료][tomcat-session-management-link]
+- [Session Management in Tomcat][tomcat-session-management-link]
 - [쿠키(Cookie) - 어디까지 알고 있니][cookie-attributes-link]
 
 ## 0. 들어가면서
+
 웹 서버 개발에 기본적인 개념인 쿠키(Cookie)와 세션(Session)에 대해서 정리해보도록 하겠습니다. 
 쿠키와 세션에 대해 정리하기 전에 우선 HTTP(Hyper Text Transfer Protocol) 통신의 stateless 특징이 무엇인지 알아보겠습니다.
 

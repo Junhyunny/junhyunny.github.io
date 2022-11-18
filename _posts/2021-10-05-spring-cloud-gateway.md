@@ -13,10 +13,10 @@ last_modified_at: 2021-10-05T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [MSA API Gateway][msa-gateway-link]
 - [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
-- [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link]
+- [Spring Session with JDBC][spring-session-link]
 
 ## 0. 들어가면서
-[[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트의 테스트를 구현할 때 포트(port)를 바꿔가며 요청하는 것이 번거롭다는 생각이 들었습니다. 
+[Spring Session with JDBC][spring-session-link] 포스트의 테스트를 구현할 때 포트(port)를 바꿔가며 요청하는 것이 번거롭다는 생각이 들었습니다. 
 그래서 `Spring Cloud Gateway`를 사용하여 간단한 기능을 제공하는 게이트웨이(gateway)를 적용해볼 생각이었는데, 생각보다 구현이 어려웠습니다. 
 
 이번 포스트는 엄청 간단한 게이트웨이를 구현하고 이를 테스트한 내용을 공유할 생각입니다. 
@@ -216,7 +216,7 @@ public class GatewayConfiguration {
 ```
 
 ## 3. 테스트
-`A-SERVICE`, `B-SERVICE`는 [[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리][spring-session-link] 포스트에서 사용한 서비스입니다. 
+`A-SERVICE`, `B-SERVICE`는 [Spring Session with JDBC][spring-session-link] 포스트에서 사용한 서비스입니다. 
 - 테스트를 위해 `A-SERVICE`, `B-SERVICE`, 게이트웨이 서비스 모두 동작시킵니다. 
 - 버튼을 누를 때마다 `http://localhost:8080/a-service/index` 혹은 `http://localhost:8080/b-service/index`로 요청합니다.
 - 게이트웨이는 경로(path) 중간에 위치한 정보를 이용해 요청을 각 서비스로 라우팅합니다. 

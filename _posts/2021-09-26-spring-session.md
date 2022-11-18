@@ -1,5 +1,5 @@
 ---
-title: "[Spring Session] 데이터베이스를 사용한 다중 인스턴스 세션 동기화 처리"
+title: "Spring Session with JDBC"
 search: false
 category:
   - information

@@ -112,7 +112,7 @@ SLF4J: Actual binding is of type [ch.qos.logback.classic.util.ContextSelectorSta
 ```
 
 `SLF4J` 클래스가 중복으로 정의되어 발생하는 문제입니다. 
-`ozimov/embedded-redis` 라이브러리 내부에서 사용하는 `slf4j-simple` 의존성에서 이를 사용하기 때문에 이를 제외하여 문제를 해결합니다.
+`ozimov/embedded-redis` 라이브러리 내부에서 사용하는 `slf4j-simple` 의존성을 빌드 대상에서 제외하여 문제를 해결합니다.
 
 ```xml
     <dependency>

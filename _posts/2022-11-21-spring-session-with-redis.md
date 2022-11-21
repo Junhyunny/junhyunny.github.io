@@ -27,15 +27,17 @@ last_modified_at: 2022-11-21T23:55:00
     * backend-1 - exposed port number 8080
     * backend-2 - exposed port number 8081
     * redis-server - exposed port number 6379
-* 사용자 브라우저를 통해 `localhost:8080/session`, `localhost:8081/session` 경로에 번갈아 접근합니다.
+* 사용자 브라우저로 두 백엔드 서비스에 번갈아 접근합니다.
+    * `localhost:8080/session`, `localhost:8081/session` 주소에 접근합니다.
     * 세션 정보를 식별할 때 사용하는 아이디(id)는 쿠키에 함께 전달됩니다.
-    * `SameSite`인 경우에 쿠키를 공유하기 때문에 두 방향의 요청은 동일한 세션을 사용합니다. 
+    * `SameSite`인 경우 쿠키를 공유하므로 두 요청은 동일한 세션을 사용하게 됩니다. 
     * `SameSite` 기준에 따라 포트 번호는 상관하지 않습니다.
     * [Deep Dive into Cookie][cookie-attributes-link]
-* 동일한 세션 정보를 사용하여 조회마다 세션 접근 카운트가 증가하는지 확인합니다.
+* 세션 접근 카운트가 증가하는지 확인합니다.
+    * 동일한 세션 정보를 사용한다면 세션 접근 카운트는 이어지면서 증가할 것 입니다.
 
 <p align="center">
-    <img src="/images/spring-session-with-redis-1.JPG" width="100%" class="image__border">
+    <img src="/images/spring-session-with-redis-1.JPG" width="80%" class="image__border">
 </p>
 
 ## 1. Spring Session 의존성 추가
@@ -55,10 +57,9 @@ last_modified_at: 2022-11-21T23:55:00
 
 ## 2. application-dev.yml
 
-* `-dev` 설정은 서비스를 배포하여 테스트할 수 있는 개발 환경에 관련된 설정 값이라 가정합니다.
-* 다음과 같은 레디스 접근 정보를 설정합니다.
-    * host - 도커 컴포즈를 통해 실행하는 레디스 컨테이너의 이름
-    * password - 레디스 어플리케이션 접근 비밀번호
+* 레디스 접속 정보를 다음과 같이 설정합니다.
+    * host - 도커 컴포즈 파일의 레디스 컨테이너의 이름
+    * password - 레디스 어플리케이션 접속 비밀번호 (임의 지정)
     * port - 레디스 어플리케이션 포트 번호
 * 세션 저장소 타입을 `redis`로 설정합니다.
 
@@ -74,7 +75,7 @@ spring:
 
 ## 3. SessionFilter 클래스
 
-* 세션 정보를 조회할 때 파라미터를 `false`로 전달하면 세션을 생성하지 않고, 존재하는 세션을 반환합니다.
+* 세션 정보를 조회할 때 파라미터를 `false`인 경우 세션을 새롭게 생성하지 않고, 존재하는 세션을 반환합니다.
 * 세션 생성 URL 호출 시 해당 요청을 계속 진행합니다.
 * 세션 생성 URL이 아닌 경우 다음과 같이 수행합니다.
     * 세션이 없는 경우 세션을 생성하는 경로로 리다이렉트(redirect)합니다.
@@ -114,7 +115,7 @@ public class SessionFilter extends OncePerRequestFilter {
 
 ## 4. SessionController 클래스
 
-* 세션 정보를 조회할 때 파라미터를 주지 않으면 세션 존재 여부에 따라 필요한 경우 새로운 세션을 생성합니다.
+* 세션 정보를 조회할 때 파라미터가 없는 경우 세션 존재 여부에 따라 필요한 경우 새로운 세션을 생성 후 반환합니다.
 * `/session/creation` 경로 접근
     * 기존 세션이 존재하는 경우 존재하는 세션을 획득합니다.
     * 기존 세션이 존재하지 않다면 새로운 세션을 생성 후 획득합니다.
@@ -211,10 +212,42 @@ public class BaseConfig {
 
 ## 6. 테스트 
 
-도커 컴포즈를 사용해 서비스를 실행하고 다음과 같은 내용들을 확인합니다.
+도커 컴포즈를 사용해 서비스를 실행 후 다음과 같은 내용들을 확인합니다.
 
 * 브라우저를 통해 세션이 공유되는지 확인합니다. 
 * redis-server 컨테이너에 접근 후 `redis-cli` 커맨드를 통해 저장된 데이터를 확인합니다. 
+
+##### Dockerfile
+
+* 실행 환경을 `dev`로 주입 받습니다.
+
+```dockerfile
+FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
+
+WORKDIR /build
+
+COPY pom.xml .
+
+RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline
+
+COPY src ./src
+
+RUN --mount=type=cache,target=/root/.m2 mvn package -Dmaven.test.skip=true
+
+FROM openjdk:11-jdk-slim-buster
+
+WORKDIR /app
+
+ARG JAR_FILE=*.jar
+
+COPY --from=MAVEN_BUILD /build/target/${JAR_FILE} ./app.jar
+
+EXPOSE 8080
+
+ENV RUN_ENV dev
+
+CMD ["java", "-Dspring.profiles.active=${RUN_ENV}", "-jar", "app.jar"]
+```
 
 ##### docker-compose.yml
 

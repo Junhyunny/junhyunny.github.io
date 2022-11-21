@@ -13,7 +13,7 @@ last_modified_at: 2021-12-29T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Cookie and Session][cookie-and-session-link]
-- [쿠키(Cookie) - 어디까지 알고 있니][cookie-attributes-link]
+- [Deep Dive into Cookie][cookie-attributes-link]
 
 ## 0. 들어가면서
 

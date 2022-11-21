@@ -10,7 +10,7 @@ last_modified_at: 2021-08-28T01:00:00
 
 👉 이어서 읽기를 추천합니다.
 - [Session Management in Tomcat][tomcat-session-management-link]
-- [쿠키(Cookie) - 어디까지 알고 있니][cookie-attributes-link]
+- [Deep Dive into Cookie][cookie-attributes-link]
 
 ## 0. 들어가면서
 

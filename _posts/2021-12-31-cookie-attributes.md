@@ -1,5 +1,5 @@
 ---
-title: "쿠키(Cookie) - 어디까지 알고 있니"
+title: "Deep Dive into Cookie"
 search: false
 category:
   - information

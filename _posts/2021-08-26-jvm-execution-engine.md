@@ -121,7 +121,7 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 
 ### 2.2. JIT(Just In Time) 컴파일러
 
-> Wiki - Just-in-time compilation<br>
+> Wikipedia - Just-in-time compilation<br>
 > In computing, just-in-time (JIT) compilation (also dynamic translation or run-time compilations) is a way of executing computer code 
 > that involves compilation during execution of a program (at run time) rather than before execution.
 

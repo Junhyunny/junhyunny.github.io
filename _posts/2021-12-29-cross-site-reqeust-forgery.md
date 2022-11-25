@@ -474,7 +474,7 @@ CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 과연 좋은 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
 
 #### REFERENCE
-- [Wiki - 사이트 간 요청 위조][csrf-wiki-link]
+- [Wikipedia - 사이트 간 요청 위조][csrf-wiki-link]
 - [CSRF-공격이란-그리고-CSRF-방어-방법][csrf-attack-and-protection-link]
 - <https://portswigger.net/web-security/csrf>
 - <https://swk3169.tistory.com/24?category=712648>

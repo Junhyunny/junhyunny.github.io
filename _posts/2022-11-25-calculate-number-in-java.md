@@ -116,7 +116,7 @@ last_modified_at: 2022-11-25T23:55:00
     * 가장 작은 실수는 1.175494351E-38 까지 표현 가능합니다.
     * 가장 큰 실수는 3.402823466E+38 까지 표현 가능합니다. 
 
-## 2. Floating Point Number in Java 
+## 3. Floating Point Number in Java 
 
 컴퓨터는 실수를 정확하게 표현하지 못하는 한계를 가지고 있습니다.  
 비단 부동 소수점만의 문제는 아니지만, 어쨋든 부동 소수점 방식은 실수 연산이 부정확하다는 단점을 가지고 있습니다. 
@@ -154,7 +154,7 @@ public class NumberCalculateTests {
 }
 ```
 
-## 3. BigDecimal
+## 4. BigDecimal 클래스
 
 `Java`에서 정확한 계산 결과가 필요한 경우 `BigDecimal`, `int`, `long` 타입을 권장합니다. 
 `BigDecimal` 클래스는 다음과 같은 상황에 사용할 수 있습니다.

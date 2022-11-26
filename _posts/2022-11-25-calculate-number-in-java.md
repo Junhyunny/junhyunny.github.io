@@ -14,14 +14,16 @@ last_modified_at: 2022-11-25T23:55:00
 금융 관련된 계산에 특히 주의하라는 조언이 있었는데, 마침 금융 프로젝트를 진행하게 되면서 잘못된 설계를 피해갈 수 있었습니다. 
 이번 포스트에선 `Java`에서 정확한 숫자 연산과 관련된 내용을 간략하게 정리해보려 합니다. 
 
-## 1. Fixed Point and Floating Point
+## 1. Binary Number
 
-0과 1만으로 값을 표현하는 컴퓨터는 정수는 문제가 없지만, 실수는 표현하기 어렵습니다. 
+0과 1만으로 값을 표현하는 컴퓨터는 숫자를 이진법으로 표현합니다. 
 예를 들어 숫자 `21`을 이진수로 표현하면 `10101`가 됩니다. 
 
 > 10101 = (2^4 * 1) + (2^3 * 0) + (2^2 * 1) + (2^1 * 0) + (2^0 * 1)
 
-실수를 표현하려면 조금 헷갈리는데, 원리는 동일합니다. 
+##### 이진법의 실수 표현
+
+실수 표현은 헷갈릴 수 있는데, 원리는 동일합니다. 
 예를 들어 숫자 0.625를 이진수로 표현하는 방법은 다음과 같습니다.
 
 * 0.625에 2를 곱하는 연산을 수행하여 1.25 값을 얻습니다.
@@ -29,12 +31,18 @@ last_modified_at: 2022-11-25T23:55:00
 * 이전 연산의 소수부인 0.5에 2를 곱하는 연산을 수행하여 1.0 값을 얻습니다.
 * 이전 연산의 소수부는 0이므로 연산을 멈춥니다.
 * 각 연산에서 얻어진 정수부(자리 올림수) 1, 0, 1를 순서대로 나열하면 소수부 이진수 표현이 됩니다.
-
-숫자 `0.625`는 이진수로 표현하면 `0.101`이 됩니다.
+* 숫자 `0.625`는 이진수로 표현하면 `0.101`이 됩니다.
 
 > 0.101 = (2^-1 * 1) + (2^-2 * 0) + (2^-3 * 1)
 
-### 1.1. Fixed Point
+<p align="center">
+    <img src="/images/calculate-number-in-java-1.JPG" width="50%" class="image__border">
+</p>
+<center>https://suyeon96.tistory.com/9</center> 
+
+## 2. Fixed Point and Floating Point
+
+### 2.1. Fixed Point
 
 컴퓨터는 자신의 연산 비트들을 갖고 최대한 다양한 값들을 표현하고자 다음과 같은 방법을 사용합니다. 
 컴퓨터가 실수를 표현하는 방법 중 고정 소수점(fixed point) 방식에 대해 먼저 알아보겠습니다. 
@@ -52,11 +60,11 @@ last_modified_at: 2022-11-25T23:55:00
     * 나머지는 0으로 패딩(padding)
 
 <p align="center">
-    <img src="/images/calculate-number-in-java-1.JPG" width="100%" class="image__border">
+    <img src="/images/calculate-number-in-java-2.JPG" width="100%" class="image__border">
 </p>
 <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
 
-### 1.2. Floating Point
+### 2.2. Floating Point
 
 고정 소수점 방식은 표현할 수 있는 수의 범위가 좁기 때문에 컴퓨터는 실제로 부동 소수점(floating point) 방식을 사용합니다. 
 고정 소수점 방식과 다르게 소수점이 고정되어 있지 않습니다. 
@@ -74,7 +82,7 @@ last_modified_at: 2022-11-25T23:55:00
     * 밑수는 2 입니다.
 
 <p align="center">
-    <img src="/images/calculate-number-in-java-2.JPG" width="30%" class="image__border">
+    <img src="/images/calculate-number-in-java-3.JPG" width="30%" class="image__border">
 </p>
 <center>https:/taejunejoung.github.io/2019/12/24/java-primitive/</center>
 
@@ -93,11 +101,11 @@ last_modified_at: 2022-11-25T23:55:00
     * 가수 1.11101 값에서 소수점 아래 11101
 
 <p align="center">
-    <img src="/images/calculate-number-in-java-3.JPG" width="100%" class="image__border">
+    <img src="/images/calculate-number-in-java-4.JPG" width="100%" class="image__border">
 </p>
 <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
 
-### 1.3. Expression Range
+### 2.3. Expression Range
 
 부동 소수점 방싱은 고정 소수점 방식에 비해 표현할 수 있는 수의 범위가 굉장히 큽니다. 
 
@@ -114,6 +122,9 @@ last_modified_at: 2022-11-25T23:55:00
 비단 부동 소수점만의 문제는 아니지만, 어쨋든 부동 소수점 방식은 실수 연산이 부정확하다는 단점을 가지고 있습니다. 
 (1/2)^n 의 합으로 정확하게 표현할 수 있는 실수는 많지 않습니다. 
 `Java`에서 실수를 표현하는 `float`, `double`은 부동 소수점 방식을 사용하는데, 이를 사용한 연산은 부정확한 결과를 내놓습니다. 
+
+예를 들어 0.1을 이진수로 표현하면 0.0001100110011... 값을 가지는데, 소수점 아래 숫자가 정확하게 나눠 떨어지지 않고 순환됩니다. 
+컴퓨터는 숫자를 무한정으로 표현할 수 없기 때문에 가장 근사치 값이 사용됩니다. 
 
 ##### 부정확한 연산 처리
 
@@ -201,6 +212,7 @@ public class NumberCalculateTests {
 * [이펙티브 자바 3/E][effective-java-book-link]
 * <https://gamedevlog.tistory.com/24>
 * <https://jiminish.tistory.com/81>
+* <https://suyeon96.tistory.com/9>
 * <https:/taejunejoung.github.io/2019/12/24/java-primitive/>
 * <https://gguguk.github.io/posts/fixed_point_and_floating_point/>
 * <https://learn.microsoft.com/ko-kr/cpp/c-language/type-float?view=msvc-170>

@@ -10,7 +10,7 @@ last_modified_at: 2022-02-11T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-and-aop-link]
-- [리다이렉트(Redirect)와 포워딩(Forwarding)][redirect-and-forwarding-link]
+- [Redirect and Forwarding][redirect-and-forwarding-link]
 
 ## 0. 들어가면서
 

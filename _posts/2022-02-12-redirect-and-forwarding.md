@@ -1,5 +1,5 @@
 ---
-title: "리다이렉트(Redirect)와 포워딩(Forwarding)"
+title: "Redirect and Forwarding"
 search: false
 category:
   - information

@@ -1,5 +1,5 @@
 ---
-title: "@Transactional Propagtaion Type"
+title: "Propagtaion Type in @Transactional"
 search: false
 category:
   - spring-boot

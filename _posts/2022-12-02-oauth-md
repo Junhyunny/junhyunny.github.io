@@ -4,10 +4,14 @@ search: false
 category:
   - information
   - security
-last_modified_at: 2022-12-01T23:55:00
+last_modified_at: 2022-12-02T23:55:00
 ---
 
 <br>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Redirect and Forwarding][redirect-and-forwarding-link]
 
 ## 0. 들어가면서
 
@@ -107,15 +111,48 @@ last_modified_at: 2022-12-01T23:55:00
 
 ## 4. Authentication Process
 
-인증 프로세스는 다음과 같은 과정을 
+인증은 다음과 같은 과정을 거쳐 일어납니다. 
 
-## 5. Refresh Process
+1. (A) Authorization Request
+    * 클라이언트 어플리케이션은 리소스 소유자(사용자)에게 권한 위임을 요청합니다.
+    * 보통 이 과정에서 리소스 소유자는 리소스 서버의 로그인 화면으로 브라우저 리다이렉트(redirect)를 통해 연결됩니다.
+    * 리소스 소유자는 로그인을 수행합니다. 
+1. (B) Authorization Grant
+    * 리소스 소유자가 로그인을 수행하면 권한 위임에 대한 자격 증명(credential)이 클라이언트 어플리케이션에게 전달됩니다.
+    * 보통 등록 과정에서 입력한 `callback URL`으로 자격 증명을 전달받습니다. 
+    * 권한 부여 유형은 여러가지 존재하며 권한 부여 서버에서 지원하는 방식에 따라 달라집니다.
+        * Authorization Code
+        * Implicit
+        * Resource Owner Password Credentials
+        * Client Credentials
+1. (C) Authorization Grant
+    * 클라이언트 어플리케이션은 액세스 토큰 발급을 위해 권한 위임에 대한 자격 증명을 인증 서버로 전달합니다.
+1. (D) Access Token
+    * 인증 서버는 권한 위임에 대한 자격 증명의 유효성을 확인합니다.
+    * 정상적인 경우 액세스 토큰을 클라이언트 어플리케이션에게 전달합니다.
+1. (E) Access Token
+    * 클라이언트는 보호된 리소스를 리소스 서버로 요청합니다.
+    * 인증 서버로부터 발급받은 액세스 토큰을 함께 전달하여 인증과 인가를 수행합니다.
+1. (F) Protected Resource
+    * 리소스 서버는 전달받은 액세스 토큰이 유효한 경우 요청에 정상적으로 응답합니다.
+
+<p align="center">
+    <img src="/images/oauth-3.JPG" width="75%" class="image__border">
+</p>
+
+<center>https://www.rfc-editor.org/rfc/rfc6749</center>
+
+## 5. Refresh Token
+
+리프레시 토큰(refresh token)은 액세스 토큰을 재발급 받기 위해 사용합니다. 
+
+<p align="center">
+    <img src="/images/oauth-4.JPG" width="75%" class="image__border">
+</p>
+
+<center>https://www.rfc-editor.org/rfc/rfc6749</center>
 
 ## CLOSING
-
-#### TEST CODE REPOSITORY
-
-#### RECOMMEND NEXT POSTS
 
 #### REFERENCE
 
@@ -124,3 +161,5 @@ last_modified_at: 2022-12-01T23:55:00
 * <https://www.oauth.com/>
 * <https://d2.naver.com/helloworld/24942>
 * <https://tecoble.techcourse.co.kr/post/2021-07-10-understanding-oauth/>
+
+[redirect-and-forwar$ding-link]: https://junhyunny.github.io/information/redirect-and-forwarding/

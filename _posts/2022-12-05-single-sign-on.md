@@ -25,8 +25,10 @@ last_modified_at: 2022-12-05T23:55:00
 > 사용자가 단일 ID로 여러 관련된 독립적인 소프트웨어 시스템에 로그인할 수 있도록 하는 인증 체계입니다.
 
 단일 ID로 한번 인증을 받으면 독립적인 다른 소프트웨어 시스템에서 자동적으로(혹은 쉽게) 인증을 받을 수 있는 방법입니다. 
+한번 자격 증명이 검증된 사용자에겐 반복되는 로그인 없이 보호된 리소스에 접근할 수 있도록 허용합니다. 
 예를 들어 구글에 한번 로그인 하면 Youtube, Gmail, Google Analytics, Google Search Console 같은 다른 서비스들은 로그인 없이 사용할 수 있습니다. 
-사용자 인증 데이터베이스는 주로 LDAP(Lightweight Directory Access Protocol) 데이터베이스를 통해 구현됩니다. 
+
+인증된 사용자 정보 저장은 주로 LDAP(Lightweight Directory Access Protocol) 데이터베이스를 통해 구현됩니다. 
 공통 DNS 상위 도메인을 공유하는 사이트들의 경우 쿠키(cookie)를 사용하여 쉽게 구현할 수도 있습니다. 
 
 SSO 인증 서비스는 다음과 같은 장점이 있습니다.
@@ -71,7 +73,7 @@ ID 공급자와 서비스 제공자는 디지털 인증서와 메타 데이터�
         * OTP 같은 2차 인증 수단을 사용할 수 있습니다.
 1. 정상적인 사용자 인증이 완료되면 SAML 응답을 생성하여 응답합니다.
     * SAML 응답은 브라우저를 거쳐 서비스 제공자에게 전달됩니다.
-1. 수신된 SAML 응답은 서비스 제공자와 ID 공급자 간에 설정된 신뢰 관계에 따라 유효성이 검증이 진행됩니다.
+1. 수신된 SAML 응답은 서비스 제공자와 ID 공급자 간에 미리 설정된 신뢰 관계에 따라 유효성이 검증이 진행됩니다.
     * 유효한 SAML 응답인 경우 사용자에게 인증 토큰을 발급합니다.
 1. 인증 토큰을 전달받은 사용자는 서비스 제공자에 대한 접근 권한을 가지게 됩니다.
 
@@ -118,6 +120,7 @@ SSO 인증 모델은 다음 두가지 모델이 대표적으로 소개됩니다.
 
 * <https://en.wikipedia.org/wiki/Single_sign-on>
 * <https://developers.worksmobile.com/kr/document/10010604?lang=ko>
+* <https://aws.amazon.com/ko/what-is/sso/>
 * <https://www.itworld.co.kr/howto/193849>
 * <https://velog.io/@krafftdj/SSO%EB%9E%80>
 * <https://gruuuuu.github.io/security/ssofriends/>

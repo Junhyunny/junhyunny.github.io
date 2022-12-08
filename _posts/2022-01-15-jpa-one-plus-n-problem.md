@@ -1,5 +1,5 @@
 ---
-title: "JPA N+1 문제"
+title: "JPA N+1 Problem"
 search: false
 category:
   - spring-boot
@@ -29,7 +29,7 @@ last_modified_at: 2022-01-15T23:55:00
 성능을 개선하는 과정을 통해 몇 가지를 배웠는데, 우선 JPA N+1 현상과 관련된 내용을 정리해놓질 않았기 때문에 공부할 겸 포스트로 정리하였습니다. 
 이번 포스트에선 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 진행하겠습니다.
 
-## 1. JPA N+1 문제
+## 1. JPA N+1 Problem
 
 `@OneToOne`, `@OneToMany`, `@ManyToOne` 같은 애너테이션으로 엔티티 사이에 관계가 형성되어 있을 때 불필요한 쿼리가 더 수행되는 현상을 의미합니다. 
 

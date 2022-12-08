@@ -1,5 +1,5 @@
 ---
-title: "PersistenceContext And Entity Lifecycle"
+title: "PersistenceContext and Entity Lifecycle"
 search: false
 category:
   - spring-boot

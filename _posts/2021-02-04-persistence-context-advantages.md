@@ -14,7 +14,7 @@ last_modified_at: 2021-08-22T01:30:00
 
 * [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
 * [JPA(Java Persistence API)][java-persistence-api-link]
-* [PersistenceContext And Entity Lifecycle][jpa-persistence-context-link]
+* [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
 
 ## 0. 들어가면서
 

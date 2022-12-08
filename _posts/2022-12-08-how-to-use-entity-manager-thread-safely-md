@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - jpa
-last_modified_at: 2022-12-06T23:55:00
+last_modified_at: 2022-12-08T23:55:00
 ---
 
 <br>
@@ -20,3 +20,5 @@ last_modified_at: 2022-12-06T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+- <https://stackoverflow.com/questions/74724044/thread-safety-of-entitymanager-when-dependency-injection>

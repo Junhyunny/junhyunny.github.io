@@ -11,11 +11,11 @@ last_modified_at: 2022-01-16T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JPA 페이징(paging) 처리][jpa-paging-link]
-- [JPA N+1 문제][jpa-one-plus-n-problem-link]
+- [JPA N+1 Problem][jpa-one-plus-n-problem-link]
 
 ## 0. 들어가면서
 
-[JPA N+1 문제][jpa-one-plus-n-problem-link] 포스트에선 JPA N+1 문제와 이를 해결하기 위한 방법을 다뤘습니다. 
+[JPA N+1 Problem][jpa-one-plus-n-problem-link] 포스트에선 `JPA`를 사용할 때 발생하는 N+1 문제와 이를 해결하기 위한 방법을 다뤘습니다. 
 이번엔 N+1 문제의 해결 방법인 fetch 조인(join)과 페이징(paging) 처리를 동시에 하면 발생하는 문제에 대해 알아보고 해결법을 정리하였습니다. 
 
 ## 1. fetch 조인(join)시 페이징(paging) 처리 문제

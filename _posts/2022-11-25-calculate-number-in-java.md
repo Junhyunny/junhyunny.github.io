@@ -208,6 +208,44 @@ public class NumberCalculateTests {
 }
 ```
 
+##### BigDecimal 클래스 주의사항
+
+BigDecimal 생성자를 사용하는 방법은 값이 부정확할 수 있습니다. 
+`valueOf` 메소드를 사용하는 것을 권장합니다.
+
+```java
+package app.number;
+
+import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+
+public class NumberCalculateTests {
+
+    @Test
+    void using_valueOf_method() {
+        BigDecimal number1 = BigDecimal.valueOf(12.23);
+        BigDecimal number2 = BigDecimal.valueOf(0.1);
+        BigDecimal number3 = new BigDecimal("12.23");
+        BigDecimal number4 = new BigDecimal("0.1");
+        BigDecimal dontDoThis1 = new BigDecimal(12.23);
+        BigDecimal dontDoThis2 = new BigDecimal(0.1);
+
+        System.out.println(number1); // 12.23
+        System.out.println(number2); // 0.1
+        System.out.println(number3); // 12.23
+        System.out.println(number4); // 0.1
+        System.out.println(dontDoThis1); // 12.230000000000000426325641456060111522674560546875
+        System.out.println(dontDoThis2); // 0.1000000000000000055511151231257827021181583404541015625
+    }
+}
+
+```
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-23-calculate-number-in-java>

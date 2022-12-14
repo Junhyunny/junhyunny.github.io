@@ -3,7 +3,7 @@ title: "LocalStorage in Browser"
 search: false
 category:
   - information
-last_modified_at: 2022-12-13T23:55:00
+last_modified_at: 2022-12-14T23:55:00
 ---
 
 <br>
@@ -46,8 +46,10 @@ last_modified_at: 2022-12-13T23:55:00
 `localStorage` 객체의 특징을 이해하기 위해 몇 가지 실습을 진행하였습니다. 
 브라우저 개발자 도구의 콘솔(console) 창에서 테스트가 가능합니다.
 
-##### 객체 데이터 저장 불가능 
+##### 문자열 저장 
 
+* `localStorage` 객체는 데이터를 문자열 형식으로 저장합니다.
+* 숫자, 객체는 문자열로 변경되어 저장되므로 주의해야합니다.
 * 다음과 데이터를 저장하고 다시 읽어봅니다.
     * 일반적인 문자열
     * 일반 객체
@@ -73,16 +75,17 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
     * 새로운 탭을 열고 `https://junhyunny.github.io/` 사이트로 접속하여 저장된 데이터를 확인합니다.
 * 동일한 출처를 가진 `https://junhyunny.github.io/` 사이트에서만 데이터를 찾을 수 있습니다.
 
+<p align="center">
+    <img src="/images/local-storage-1.gif" width="80%" class="image__border">
+</p>
 
 ##### 브라우저를 다시 열었을 때 데이터 존재 여부
 
-* 브라우저를 열고 
+* 브라우저를 다시 열었을 때 이전에 저장한 데이터가 남아있는지 확인합니다.
 
-
-
-## CLOSING
-
-`localStorage` 객체에 
+<p align="center">
+    <img src="/images/local-storage-2.gif" width="80%" class="image__border">
+</p>
 
 #### RECOMMEND NEXT POSTS
 

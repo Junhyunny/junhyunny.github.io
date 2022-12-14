@@ -76,7 +76,7 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
 * 동일한 출처를 가진 `https://junhyunny.github.io/` 사이트에서만 데이터를 찾을 수 있습니다.
 
 <p align="center">
-    <img src="/images/local-storage-1.gif" width="80%" class="image__border">
+    <img src="/images/local-storage-1.gif" width="100%" class="image__border">
 </p>
 
 ##### 브라우저를 다시 열었을 때 데이터 존재 여부
@@ -84,7 +84,7 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
 * 브라우저를 다시 열었을 때 이전에 저장한 데이터가 남아있는지 확인합니다.
 
 <p align="center">
-    <img src="/images/local-storage-2.gif" width="80%" class="image__border">
+    <img src="/images/local-storage-2.gif" width="100%" class="image__border">
 </p>
 
 #### RECOMMEND NEXT POSTS

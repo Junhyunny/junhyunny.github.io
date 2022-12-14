@@ -90,9 +90,9 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
     <img src="/images/local-storage-2.gif" width="100%" class="image__border">
 </p>
 
-#### RECOMMEND NEXT POSTS
+<!-- #### RECOMMEND NEXT POSTS -->
 
-* [Handling Timezone on JavaScript][handling-timezone-on-javascript-link]
+<!-- * [Handling Timezone on JavaScript][handling-timezone-on-javascript-link] -->
 
 #### REFERENCE
 

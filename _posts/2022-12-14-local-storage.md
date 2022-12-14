@@ -14,7 +14,7 @@ last_modified_at: 2022-12-14T23:55:00
 
 ## 1. LocalStorage
 
-`localStorage` 객체는 웹 스토리지 중 하나입니다. 
+`localStorage` 객체는 웹 스토리지(web storage) 중 하나입니다. 
 `localStorage` 객체를 통해 브라우저 내에 키-값(key-value) 데이터 쌍을 저장할 수 있습니다. 
 
 ## 2. Characteristics of LocalStorage

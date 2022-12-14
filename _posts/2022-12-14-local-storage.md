@@ -24,11 +24,12 @@ last_modified_at: 2022-12-14T23:55:00
 * `localStorage`에 저장한 데이터는 브라우저에 의해 자동으로 서버에게 요청되지 않습니다. 
 * `localStorage`에 저장한 데이터는 브라우저를 다시 실행해도 사라지지 않습니다. 
 * 대부분의 브라우저들은 `localStorage`에 최소 2MB, 최대 5BM 정도의 데이터를 저장할 수 있습니다.
+* 데이터를 문자열(string) 형식으로 저장합니다.
+* 브라우저 탭(tab) 간의 데이터를 공유할 수 있습니다.
 * 서버는 HTTP 응답 헤더를 통해 `localStorage`에 저장된 데이터를 제어할 수 없습니다. 
 * `localStorage` 데이터는 동일 출처(origin)에 따라 관리됩니다.
     * 도메인, 프로토콜, 포트를 통해 동일 출처 여부를 결정합니다.
     * 서브 도메인, 프로토콜, 포트 등이 다른 경우 `localStorage`에 저장된 데이터에 접근할 수 없습니다.
-* 저장할 수 있는 데이터는 문자열(string)만 가능합니다.
 
 ## 3. Main Methods of LocalStorage
 
@@ -67,13 +68,15 @@ localStorage.getItem("Hello") // "{\"a\":\"Hello\",\"b\":\"World\"}"
 JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
 ```
 
-##### 동일 출처(origin)에서만 데이터 공유 여부
+##### 동일 출처(origin) 및 신규 브라우저 탭 데이터 공유 여부
 
 * 출처가 다른 경우 `localStorage`에 저장된 데이터를 볼 수 있는지 확인합니다.
     * `https://junhyunny.github.io/` 경로에 데이터를 저장합니다.
     * 새로운 탭을 열고 `https://github.com` 사이트로 접속하여 저장된 데이터를 확인합니다.
     * 새로운 탭을 열고 `https://junhyunny.github.io/` 사이트로 접속하여 저장된 데이터를 확인합니다.
-* 동일한 출처를 가진 `https://junhyunny.github.io/` 사이트에서만 데이터를 찾을 수 있습니다.
+* 동일 출처를 가진 새로운 브라우저 탭에서 데이터를 찾을 수 있습니다.
+    * `https://github.com` 사이트에서는 데이터를 찾을 수 없습니다.
+    * `https://junhyunny.github.io/` 사이트에서는 데이터를 찾을 수 있습니다.
 
 <p align="center">
     <img src="/images/local-storage-1.gif" width="100%" class="image__border">

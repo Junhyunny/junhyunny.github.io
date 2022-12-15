@@ -23,7 +23,7 @@ last_modified_at: 2022-12-14T23:55:00
 
 * `localStorage`에 저장한 데이터는 브라우저에 의해 자동으로 서버에게 요청되지 않습니다. 
 * `localStorage`에 저장한 데이터는 브라우저를 다시 실행해도 사라지지 않습니다. 
-* 대부분의 브라우저들은 `localStorage`에 최소 2MB, 최대 5BM 정도의 데이터를 저장할 수 있습니다.
+* 대부분의 브라우저들은 도메인 별로 최소 2MB, 최대 5BM 정도의 데이터를 저장할 수 있습니다.
 * 데이터를 문자열(string) 형식으로 저장합니다.
 * 브라우저 탭(tab) 간의 데이터를 공유할 수 있습니다.
 * 서버는 HTTP 응답 헤더를 통해 `localStorage`에 저장된 데이터를 제어할 수 없습니다. 
@@ -85,14 +85,15 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
 ##### 브라우저를 다시 열었을 때 데이터 존재 여부
 
 * 브라우저를 다시 열었을 때 이전에 저장한 데이터가 남아있는지 확인합니다.
+    * 이전에 저장한 데이터가 존재합니다.
 
 <p align="center">
     <img src="/images/local-storage-2.gif" width="100%" class="image__border">
 </p>
 
-<!-- #### RECOMMEND NEXT POSTS -->
+#### RECOMMEND NEXT POSTS
 
-<!-- * [Handling Timezone on JavaScript][handling-timezone-on-javascript-link] -->
+* [SessionStorage in Browser][session-storage-link]
 
 #### REFERENCE
 
@@ -102,3 +103,4 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
 * <https://www.gwtproject.org/doc/latest/DevGuideHtml5Storage.html>
 
 [cors-link]: https://junhyunny.github.io/information/cors/
+[session-storage-link]: https://junhyunny.github.io/information/session-storage/

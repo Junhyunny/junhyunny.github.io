@@ -16,11 +16,6 @@ last_modified_at: 2022-04-23T23:55:00
 - [Propagtaion Type in @Transactional][transactional-propagation-type-link]
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-and-aop-link]
 
-## 0. 들어가면서
-
-OSIV(Open Session In View) 패턴에 대해 공부하다가 굉장히 정리가 잘 된 글을 발견했습니다. 
-이를 바탕으로 OSIV 패턴에 대한 글을 정리해보았습니다. 
-
 ## 1. OSIV 패턴을 위한 사전 개념
 
 OSIV 패턴을 이해하려면 하이버네이트(hibernate) 매커니즘을 이해할 필요가 있습니다. 

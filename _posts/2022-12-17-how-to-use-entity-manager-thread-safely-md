@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - jpa
-last_modified_at: 2022-12-11T23:55:00
+last_modified_at: 2022-12-17T23:55:00
 ---
 
 <br>
@@ -23,13 +23,23 @@ last_modified_at: 2022-12-11T23:55:00
 
 ## 1. EntityManagerFactory
 
+스레드에 안전하지 않은 엔티티 매니저를 필요에 따라 만들 수 있는
+엔티티 매니저가 필요한 시점에
+
 ## 2. @PersistenceContext
+
+트랜잭션 처리 @Transactional 애너테이션으로 사용 가능
 
 ## 3. Dependency Injection
 
 ### 3.1. @Autowired
 
 ### 3.2. Contstructor Injection
+
+## 4. Dependency Injection for EntityManager in Spring
+
+ExtendedEntityManagerCreator
+SharedEntityManagerCreator
 
 ## CLOSING
 

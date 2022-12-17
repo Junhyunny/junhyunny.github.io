@@ -1,5 +1,5 @@
 ---
-title: "CI/CD란 무엇인가?"
+title: "What is CI/CD?"
 search: false
 category:
     - information

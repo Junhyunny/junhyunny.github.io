@@ -41,7 +41,7 @@ last_modified_at: 2022-12-20T23:55:00
 
 ```java
     @Test
-    @DisplayName("EntityManager 는 매번 새롭게 만든다.")
+    @DisplayName("EntityManagerFactory는 EntityManager를 매번 새롭게 만든다.")
     void create_entity_manager() {
         EntityManager firstEntityManager = factory.createEntityManager();
         EntityManager secondEntityManager = factory.createEntityManager();

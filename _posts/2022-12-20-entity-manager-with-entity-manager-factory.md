@@ -1,5 +1,5 @@
 ---
-title: "EntityManager with EntityManagerFactory"
+title: "EntityManagerFactory Class"
 search: false
 category:
   - spring-boot

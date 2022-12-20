@@ -234,13 +234,9 @@ public class FactoryServiceIT {
 }
 ```
 
-## CLOSING
-
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-20-entity-manager-with-entity-manager-factory>
-
-#### RECOMMEND NEXT POSTS
 
 #### REFERENCE
 

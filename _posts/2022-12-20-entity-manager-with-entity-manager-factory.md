@@ -21,7 +21,7 @@ last_modified_at: 2022-12-20T23:55:00
 동시성 문제를 해결하려면 각 스레드 별로 고유한 엔티티 매니저를 사용해야 합니다. 
 이번 포스트에선 동시성 문제가 발생하지 않도록 엔티티 매니저를 사용하는 방법 중 하나인 `EntityManagerFactory`에 대해 살펴보겠습니다.
 
-## 1. EntityManagerFactory
+## 1. EntityManagerFactory 클래스
 
 스레드에 안전하지 않은 엔티티 매니저는 매번 만들어 사용해야 합니다. 
 `EntityManagerFactory` 클래스를 사용하면 엔티티 매니저를 만들 수 있습니다. 

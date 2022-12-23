@@ -1,0 +1,141 @@
+---
+title: "@PersistenceContext Annotation"
+search: false
+category:
+  - spring-boot
+  - jpa
+last_modified_at: 2022-12-23T23:55:00
+---
+
+<br>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Proxy Pattern][proxy-pattern-link]
+* [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
+* [Features of EntityManager][persistence-context-advantages-link]
+* [EntityManagerFactory Class][entity-manager-with-entity-manager-factory-link]
+
+## 0. 들어가면서
+
+[EntityManagerFactory Class][entity-manager-with-entity-manager-factory-link] 포스트에선 스레드 안전(thread safe)하지 않은 엔티티 매니저(EntityManager)를 안전하게 사용하는 방법들 중 한 가지인 `EntityManagerFactory` 클래스에 대해 정리하였습니다. 
+이번엔 `@PersistenceContext` 애너테이션을 통해 엔티티 매니저의 스레드 안전성을 도모하는 방법에 대해 정리해보았습니다. 
+
+## 1. @PersistenceContext 애너테이션
+
+`@Autowired` 애너테이션을 통해 빈(bean)을 주입 받듯이 `@PersistenceContext` 애너테이션을 사용하면 `EntityManager` 빈을 주입받을 수 있습니다. 
+`EntityManager`의 실제 구현 클래스의 객체가 아닌 프록시(proxy) 객체를 주입 받습니다. 
+
+##### EntityManagerProxy 인터페이스
+
+```java
+package org.springframework.orm.jpa;
+
+import javax.persistence.EntityManager;
+
+public interface EntityManagerProxy extends EntityManager {
+
+
+    EntityManager getTargetEntityManager() throws IllegalStateException;
+
+}
+```
+##### @PersistenceContext 애너테이션을 통한 빈 주입
+
+<p align="center">
+    <img src="/images/session-storage-3.gif" width="100%" class="image__border">
+</p>
+
+## 2. SharedEntityManagerInvocationHandler 클래스
+
+주입 받은 엔티티 매니저를 호출하면 프록시 내부에 `invocationHandler` 객체로 등록된 `SharedEntityManagerInvocationHandler` 인스턴스를 사용합니다. 
+`SharedEntityManagerInvocationHandler` 인스턴스의 `invoke` 메소드를 살펴보면 다음과 같은 내용을 확인할 수 있습니다. 
+
+* `EntityManagerFactoryUtils` 클래스 `doGetTransactionalEntityManager` 메소드
+    * 해당 스레드에 트랜잭션이 시작된 엔티티 매니저가 있다면 이를 반환합니다.
+    * 해당 스레드에 엔티티 매니저가 없다면 새로운 엔티티 매니저를 생성 후 반환합니다.
+* `Object result = method.invoke(target, args)`
+    * 엔티티 매니저(target)를 획득하여 외부에서 호출한 메소드를 실행합니다. 
+
+```java
+        @Override
+        @Nullable
+        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+            
+            // ...
+
+            // Determine current EntityManager: either the transactional one managed by the factory or a temporary one for the given invocation.
+            EntityManager target = EntityManagerFactoryUtils.doGetTransactionalEntityManager(
+                    this.targetFactory, this.properties, this.synchronizedWithTransaction);
+
+            switch (method.getName()) {
+                case "getTargetEntityManager":
+                    if (target == null) {
+                        throw new IllegalStateException("No transactional EntityManager available");
+                    }
+                    return target;
+                case "unwrap":
+                    Class<?> targetClass = (Class<?>) args[0];
+                    if (targetClass == null) {
+                        return (target != null ? target : proxy);
+                    }
+                    if (target == null) {
+                        throw new IllegalStateException("No transactional EntityManager available");
+                    }
+                    break;
+            }
+
+            // ...
+
+            // Invoke method on current EntityManager.
+            try {
+                Object result = method.invoke(target, args);
+                if (result instanceof Query) {
+                    Query query = (Query) result;
+                    if (isNewEm) {
+                        Class<?>[] ifcs = cachedQueryInterfaces.computeIfAbsent(query.getClass(), key ->
+                                ClassUtils.getAllInterfacesForClass(key, this.proxyClassLoader));
+                        result = Proxy.newProxyInstance(this.proxyClassLoader, ifcs,
+                                new DeferredQueryInvocationHandler(query, target));
+                        isNewEm = false;
+                    }
+                    else {
+                        EntityManagerFactoryUtils.applyTransactionTimeout(query, this.targetFactory);
+                    }
+                }
+                return result;
+            }
+            catch (InvocationTargetException ex) {
+                throw ex.getTargetException();
+            }
+            finally {
+                if (isNewEm) {
+                    EntityManagerFactoryUtils.closeEntityManager(target);
+                }
+            }
+        }
+```
+
+## 3. Example
+
+`EntityManagerFactory` 클래스를 직접 사용하면 `@Transactional` 애너테이션을 통한  
+
+### 3.1. PcAnnotationService 클래스
+
+```
+```
+
+## 4. Tests
+
+#### TEST CODE REPOSITORY
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-22-entity-manager-with-persistence-context-annotation>
+
+#### REFERENCE
+
+* <https://stackoverflow.com/questions/74724044/thread-safety-of-entitymanager-when-dependency-injection>
+
+[proxy-pattern-link]: https://junhyunny.github.io/information/design-pattern/proxy-pattern/
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
+[entity-manager-with-entity-manager-factory-link]: https://junhyunny.github.io/spring-boot/jpa/entity-manager-with-entity-manager-factory/

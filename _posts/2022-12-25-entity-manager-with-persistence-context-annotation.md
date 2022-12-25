@@ -40,6 +40,7 @@ public interface EntityManagerProxy extends EntityManager {
 
 }
 ```
+
 ##### @PersistenceContext 애너테이션을 통한 빈 주입
 
 <p align="center">
@@ -117,7 +118,7 @@ public interface EntityManagerProxy extends EntityManager {
 ## 3. Example
 
 `EntityManagerFactory` 클래스를 직접 사용하면 `@Transactional` 애너테이션을 통한 트랜잭션 처리가 불가능합니다. 
-반면에 `@PersistenceContext` 애너테이션을 통해 주입받은 엔티티 매니저를 사용하면 `@Transactional` 애너테이션을 통한 트랜잭션 처리가 가능합니다. 
+반면에 `@PersistenceContext` 애너테이션을 통해 주입 받은 엔티티 매니저를 사용하면 `@Transactional` 애너테이션을 통한 트랜잭션 처리가 가능합니다. 
 간단한 예시 코드를 통해 확인해보곘습니다. 
 
 ### 3.1. PcAnnotationService 클래스
@@ -153,7 +154,7 @@ public class PcAnnotationService {
 
 ### 3.2. PcAnnotationStore 클래스
 
-* 엔티티 매니저를 `@PersistenceContext` 애너테이션을 통해 주입받습니다.
+* 엔티티 매니저를 `@PersistenceContext` 애너테이션을 통해 주입 받습니다.
 * 데이터 추가, 조회 기능을 제공합니다.
 
 ```java
@@ -250,6 +251,35 @@ public class PcAnnotationServiceIT {
 }
 ```
 
+## 5. Dependency Injection with @Autowired
+
+위에서 다룬 내용들을 요약하면 다음과 같습니다.
+
+* `@PersistenceContext` 애너테이션을 사용하면 엔티티 매니저 프록시 객체를 주입 받아서 사용합니다. 
+* 프록시 객체를 통해 스레드 별로 엔티티 매니저를 생성하고 사용하기 때문에 스레드 안정성을 보장합니다.
+
+일반적으로 `@Autowired` 애너테이션을 통해 빈을 주입 받으면 어플리케이션 전역에서 사용 중인 객체를 전달받습니다. 
+때문에 엔티티 매니저를 `@Autowired` 애너테이션을 통해 주입 받는 것은 위험해보입니다. 
+하지만, 실제로 `@Autowired` 애너테이션으로 엔티티 매니저를 주입 받으면 `@PersistenceContext` 애너테이션과 동일하게 프록시 객체를 주입받습니다. 
+생성자 주입(constructor injection)을 통해 전달 받는 엔티티 매니저도 동일합니다. 
+
+##### @Autowired 애너테이션을 통한 빈 주입
+
+<p align="center">
+    <img src="/images/entity-manager-with-persistence-context-annotation-2.JPG" width="100%" class="image__border">
+</p>
+
+### 5.1. @PersistenceContext is same with @Autowired
+
+예전엔 반드시 `@PersistenceContext` 애너테이션을 사용해야 했지만, 특정 버전 이상부터는 `@Autowired` 애너테이션도 동일한 기능을 제공하는 것으로 보입니다. 
+공식 문서에선 확인하지 못 했지만, 관련된 내용을 `StackOverflow`에 문의한 결과 다음과 같은 답변을 받을 수 있었습니다. 
+
+* 두 방법은 동일하지만, `@PersistenceContext` 애너테이션을 사용하는 것이 명시적이고, 표준 JPA 사용 방법이다.
+
+<p align="center">
+    <img src="/images/entity-manager-with-persistence-context-annotation-3.JPG" width="100%" class="image__border">
+</p>
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-22-entity-manager-with-persistence-context-annotation>
@@ -257,6 +287,8 @@ public class PcAnnotationServiceIT {
 #### REFERENCE
 
 * <https://stackoverflow.com/questions/74724044/thread-safety-of-entitymanager-when-dependency-injection>
+* <https://stackoverflow.com/questions/31335211/autowired-vs-persistencecontext-for-entitymanager-bean>
+* <https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.misc.jpa-context>
 
 [proxy-pattern-link]: https://junhyunny.github.io/information/design-pattern/proxy-pattern/
 [jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/

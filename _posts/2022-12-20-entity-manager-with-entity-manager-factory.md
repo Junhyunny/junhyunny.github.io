@@ -111,7 +111,7 @@ public abstract class AbstractFactoryService {
 ### 3.2. FactoryService 클래스
 
 * 데이터 생성 후 조회하는 간단한 비즈니스 로직을 `transaction` 메소드에 전달합니다.
-* 롤백을 유도하기 위해 플래그(flag) 값을 통해 의도적으로 예외를 던집니다. 
+* 롤백을 유도하기 위해 플래그(flag) 값으로 의도적인 예외를 던집니다. 
 
 ```java
 package action.in.blog.factory;

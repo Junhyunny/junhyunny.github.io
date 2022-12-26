@@ -1,5 +1,5 @@
 ---
-title: "KeyboardEvent Error with Korean"
+title: "Korean KeyboardEvent Error"
 search: false
 category:
   - react
@@ -68,7 +68,7 @@ export default App;
 ##### 실행 결과
 
 <p align="center">
-    <img src="/images/key-event-error-with-korean-1.gif" width="100%" class="image__border">
+    <img src="/images/korean-keyboard-event-error-1.gif" width="100%" class="image__border">
 </p>
 
 ## 2. IME(Input Method Editor)
@@ -164,7 +164,7 @@ export default App;
 ##### 실행 결과
 
 <p align="center">
-    <img src="/images/key-event-error-with-korean-2.gif" width="100%" class="image__border">
+    <img src="/images/korean-keyboard-event-error-2.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING
@@ -176,7 +176,7 @@ export default App;
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-26-key-event-error-with-korean>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-26-korean-keyboard-event-error>
 
 #### REFERENCE
 

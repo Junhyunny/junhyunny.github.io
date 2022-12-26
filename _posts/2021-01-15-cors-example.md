@@ -11,7 +11,7 @@ last_modified_at: 2021-08-21T23:50:00
 
 #### 다음 사항을 주의하세요.
 
-* `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.(jekyll theme 예약어로 인한 표기 에러)
+* `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 
 #### RECOMMEND POSTS BEFORE THIS
 

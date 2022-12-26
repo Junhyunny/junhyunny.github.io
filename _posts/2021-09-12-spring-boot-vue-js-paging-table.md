@@ -9,7 +9,7 @@ last_modified_at: 2021-09-12T23:55:00
 
 <br>
 
-⚠️ Vue.js 코드에서 `{ { } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다. (github blog theme 예약어로 인한 표기 에러)
+* `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JPA 페이징(paging) 처리][pageable-link]

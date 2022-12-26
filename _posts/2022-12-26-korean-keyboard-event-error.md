@@ -75,7 +75,7 @@ export default App;
 
 ## 2. IME(Input Method Editor)
 
-[[Vue.js] v-model 한글 입력시 에러][vue-js-korean-length-link] 포스트에서 다뤘던 개념입니다. 
+[Error on v-model with Korean in Vue][vue-js-korean-length-link] 포스트에서 다뤘던 개념입니다. 
 이 문제는 IME(Input Method Editor) 과정에서 `KeyDown` 이벤트가 발생할 때 운영체제와 브라우저가 해당 이벤트를 중복 처리하기 때문에 발생합니다. 
 위키피디아(wikipedia)에선 IME를 다음과 같이 정의합니다.
 
@@ -83,7 +83,10 @@ export default App;
 > An input method (or input method editor, commonly abbreviated IME) is an operating system component or program that enables users to generate characters not natively available on their input devices by using sequences of characters (or mouse operations) that are natively available on their input devices. Using an input method is usually necessary for languages that have more graphemes than there are keys on the keyboard.
 
 `IME`는 한글 같은 조합이 필요한 문자의 입력을 지원하기 위한 운영체제(operating system)의 컴포넌트(component) 혹은 프로그램입니다. 
-한글처럼 IME 기능이 필요한 언어를 브라우저에서 입력할 때 정상적인 처리가 안 될 수 있습니다. 
+이 기능을 통해 사용자는 입력 기기를 사용해 직접 입력할 수 없는 문자들을 조합하여 작성할 수 있습니다. 
+예를 들면 사용자는 라틴(latin) 계열 키보드로 중국어, 일본어, 한국어 등을 입력할 수 있습니다.
+
+한글처럼 IME 기능이 필요한 언어를 브라우저에서 입력할 땐 정상적인 처리가 안 될 수 있습니다. 
 문제 양상은 운영체제, 브라우저 종류마다 다를 수 있습니다. 
 
 ## 3. 문제 해결

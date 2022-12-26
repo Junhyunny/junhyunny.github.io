@@ -12,8 +12,8 @@ last_modified_at: 2021-11-16T23:55:00
 
 ## 0. 들어가면서
 
-`Vue` 프로젝트에서 `v-model` 속성을 통해 한글을 입력받을 때 정상적인 처리가 되지 않는 현상을 발견하였습니다. 
-한글 입력 시 발생하는 문제점과 원인, 해결 방법에 대해 정리하였습니다. 
+`Vue` 프로젝트에서 `v-model` 속성을 통해 한글을 입력받으면 정상적으로 처리가 되지 않는 현상을 발견했습니다. 
+이번 포스트에선 한글 입력 시 발생하는 문제점과 원인, 해결 방법에 대해 정리하였습니다. 
 
 ## 1. 문제 현상
 
@@ -68,12 +68,12 @@ export default {
 > you’ll notice that v-model doesn’t get updated during IME composition. 
 > If you want to cater to these updates as well, use the input event instead.
 
-설명에 따르면 `IME` 기능이 필요한 언어들을 `v-model` 속성을 통해 입력 받으면 IME 합성 과정 중 업데이트가 일어나지 않습니다. 
-정상적인 업데이트를 위해선 `input` 이벤트를 사용해야 합니다. 
+설명에 따르면 `IME` 기능이 필요한 언어들을 `v-model` 속성으로 입력 받으면 IME 합성 과정 중 업데이트가 일어나지 않는다고 합니다. 
+정상적인 업데이트를 위해 `input` 이벤트를 사용을 권장하고 있습니다. 
 
 ## 2. IME(Input Method Editor)
 
-이 문제를 해결하기 위해선 `IME(Input Method Editor)`의 개념부터 이해해야 합니다. 
+우선 `IME(Input Method Editor)`의 개념을 짚고 설명을 이어가곘습니다. 
 관련된 내용을 위키피디아(wikipedia)에선 다음과 같이 설명하고 있습니다. 
 
 > IME(Input Method Editor)<br>
@@ -81,8 +81,7 @@ export default {
 
 `IME`는 한글 같은 조합이 필요한 문자의 입력을 지원하기 위한 운영체제(operating system)의 컴포넌트(component) 혹은 프로그램입니다. 
 이 기능을 통해 사용자는 입력 기기를 사용해 직접 입력할 수 없는 문자들을 조합하여 작성할 수 있습니다. 
-예를 들면 사용자는 라틴(latin) 계열 키보드로 중국어, 일본어, 한국어 등을 입력할 수 있습니다.
-
+예를 들면 사용자는 라틴(latin) 계열 키보드로 중국어, 일본어, 한국어 등을 입력할 수 있습니다. 
 한글처럼 IME 기능이 필요한 언어를 브라우저에서 입력할 땐 정상적인 처리가 안 될 수 있습니다. 
 문제 양상은 운영체제, 브라우저 종류마다 다를 수 있습니다. 
 

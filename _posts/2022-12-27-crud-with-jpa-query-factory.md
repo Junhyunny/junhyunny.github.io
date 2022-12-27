@@ -111,11 +111,26 @@ IDE에서 컴파일된 `Q` 클래스들을 사용하려면 컴파일 위치를 �
 `QueryDSL`에서 쿼리 작성을 지원하는 클래스는 5가지 있습니다. 
 각 클래스마다 다른 특징을 가지며 이번에 포스트에서 사용한 클래스는 `JPAQueryFactory` 입니다. 
 
-* SQLQuery
-* SQLQueryFactory
-* JPAQuery
-* JPAQueryFactory
-* JPASQLQuery
+* SQLQuery 클래스
+    * 생성자로 매번 만들어 사용
+    * Native Query 실행
+    * DataSource 객체 사용
+* SQLQueryFactory 클래스
+    * 스레드 안전하므로 싱글톤 객체로 만들어 사용 가능
+    * Native Query 실행
+    * DataSource 객체 사용
+* JPAQuery 클래스
+    * 생성자로 매번 만들어 사용
+    * JPQL(Java Persistence Query Langauge) 문법을 사용한 질의문 작성 및 실행
+    * 엔티티 매니저 사용
+* JPAQueryFactory 클래스
+    * 스레드 안전하므로 싱글톤 객체로 만들어 사용 가능
+    * JPQL 문법을 사용한 질의문 작성 및 실행
+    * 엔티티 매니저 사용
+* JPASQLQuery 클래스
+    * 생성자로 매번 만들어 사용
+    * Native Query 실행
+    * 엔티티 매니저를 사용하지만, 1차 캐싱 기능은 사용 불가능
 
 ## 3. Example
 
@@ -227,7 +242,7 @@ public class DslStore {
     * 그렇기 때문에 검증(assert)하려면 스토어 객체를 사용해야 합니다.
     * 테스트 메소드에서 `@Transactional` 애너테이션의 전파 타입을 `NOT_SUPPORTED` 같은 것으로 오버라이딩(overriding)하면 테스트 전역에 쓰레기 데이터가 남기 때문에 다른 테스트의 정합성이 떨어집니다.
     * 엔티티 매니저의 1차 캐싱 기능 때문에 검증 또한 정확하지 않을 수 있습니다.
-    * 영속성 컨텍스트 캐시에 준비된 데이터를 꺼내는 작업은 정확하게 쿼리가 수행되었는지 검증할 수 없습니다.
+    * 영속성 컨텍스트 캐시에 준비된 데이터가 나오는 경우엔 정확하게 쿼리가 수행되었는지 검증할 수 없습니다.
 
 ```java
 package org.springframework.boot.test.autoconfigure.orm.jpa;
@@ -294,7 +309,7 @@ public @interface DataJpaTest {
 ### 4.2. 테스트 코드
 
 위에서 설명한 문제점 때문에 엔티티 매니저의 동작을 테스트에서 제어할 필요가 있습니다. 
-트랜잭션의 시작, 롤백 등을 제어함과 동시에 적절한 위치에서 플러시(flush)와 클리어(clear)를 호출하여 질의를 실행하고 영속성 컨텍스트 내부의 캐시를 비워야 합니다. 
+트랜잭션의 시작, 롤백 등을 제어함과 동시에 적절한 위치에서 플러시(flush)와 클리어(clear)를 호출하여 질의문을 실행하고 영속성 컨텍스트 내부의 캐시를 비워야 합니다. 
 
 ```java
 package action.in.blog.dsl;
@@ -413,7 +428,10 @@ public class DslStoreIT {
 
 `JPAQueryFactory` 클래스는 `insert` 쿼리를 지원하지 않습니다. 
 `insert` 코드를 작성할 순 있지만, 테스트 코드를 실행하면 다음과 같은 에러를 만나게 됩니다. 
-`insert` 기능을 위해선 엔티티 매니저의 `persist` 메소드를 사용하거나 `SQLQueryFactory` 클래스를 사용해야 합니다.
+`insert` 기능을 사용하기 위해 다음과 같은 옵션이 있습니다.
+
+* 간단한 방법으로 엔티티 매니저의 `persist` 메소드를 사용
+* 동일한 문법 체계를 사용하고자 한다면 `SQLQueryFactory` 클래스를 사용
 
 ```
 2022-12-27 21:56:55.341 ERROR 81152 --- [           main] o.h.hql.internal.ast.ErrorTracker        : line 2:1: unexpected token: dslEntity

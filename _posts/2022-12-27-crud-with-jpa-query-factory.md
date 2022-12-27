@@ -450,9 +450,7 @@ antlr.NoViableAltException: unexpected token: dslEntity
 
 #### TEST CODE REPOSITORY
 
-* <>
-
-#### RECOMMEND NEXT POSTS
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-27-crud-with-jpa-query-factory>
 
 #### REFERENCE
 

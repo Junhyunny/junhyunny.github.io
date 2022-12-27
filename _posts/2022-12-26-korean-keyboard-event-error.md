@@ -1,5 +1,5 @@
 ---
-title: "Korean KeyboardEvent Error"
+title: "Korean KeyboardEvent Error in React"
 search: false
 category:
   - react

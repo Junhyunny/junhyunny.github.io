@@ -264,7 +264,7 @@ public class TradeStoreIT {
 
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-12-28-join-multiple-times-with-same-entity-in-query-dsl>
 
 #### REFERENCE
 

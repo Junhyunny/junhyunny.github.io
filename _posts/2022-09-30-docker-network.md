@@ -59,7 +59,7 @@ d8cd79053c56   bridge    bridge    local
 
 ### 2.2. Docker Network Drivers
 
-도커 네트워크 드라이버는 여러가지 종류가 있습니다. 
+도커 네트워크 드라이버는 여러 가지 종류가 있습니다. 
 각 타입 별로 어떤 기능을 하는지 간략하게 알아보겠습니다. 
 
 * bridge

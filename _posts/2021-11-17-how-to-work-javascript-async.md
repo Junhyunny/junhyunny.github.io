@@ -79,7 +79,7 @@ Web API 기능이 종료되면서 보내지는 콜백 함수(callback function)�
 콜백 큐(callback queue)에 담긴 콜백 함수들은 JavaScript 엔진의 콜 스택이 비워지기를 기다리다가 이벤트 루프(event loop)에 의해 이동됩니다. 
 큐의 특성상 먼저 들어온 콜백 함수가 먼저 콜 스택으로 빠져나갑니다. (FIFO, First In First Out)
 
-JavaScript 런타임에는 여러가지 큐가 존재합니다. 
+JavaScript 런타임에는 여러 가지 큐가 존재합니다. 
 동일한 큐 내에선 먼저 들어온 콜백 함수가 먼저 나가지만, 큐 사이에는 우선순위가 존재합니다. 
 - Micro Task Queue
     - 콜 스택이 비워지면 최우선적으로 처리되는 큐입니다.
@@ -152,7 +152,7 @@ console.log("Welcome to loupe.");
 ## CLOSING
 이해한 내용들을 나중에 쉽게 알아보기 위해 요약, 정리해보았습니다. 
 - 사용자에게 보여지는 브라우저의 기능은 JavaScript 엔진에 위치한 콜 스택에서 실행되는 함수들이 동작하는 모습입니다.
-- JavaScript 엔진은 싱글 스레드로 동작함에도 불구하고 여러가지 기능을 동시에 처리하는 것처럼 비동기적인 모습을 보입니다. 
+- JavaScript 엔진은 싱글 스레드로 동작함에도 불구하고 여러 가지 기능을 동시에 처리하는 것처럼 비동기적인 모습을 보입니다. 
 - **JavaScript 엔진의 비동기적인 처리는 JavaScript 런타임의 Web API를 이용한 논-블로킹(non-blocking) 처리를 통해 이뤄집니다.** 
 - JavaScript 엔진은 Web API 기능 사용시 일을 맡긴 후 바로 다음 일을 수행합니다. 
 - Web API는 자신이 수행할 일을 마치고, 콜 스택으로부터 전달받은 콜백 함수를 콜백 큐에 이동시킵니다.

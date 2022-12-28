@@ -130,7 +130,7 @@ application.yml
 ../../src/main/resources/application.yml
 ```
 
-exclude 파일에 여러가지 방법으로 파일을 추가해봤지만 추적에서 제외되지는 않았습니다.  
+exclude 파일에 여러 가지 방법으로 파일을 추가해봤지만 추적에서 제외되지는 않았습니다.  
 
 ## 5. git update-index 명령어
 exclude 파일로 해결이 되지 않는 경우 git 명령어를 통해 수동으로 이를 제외시킬 수 있습니다. 

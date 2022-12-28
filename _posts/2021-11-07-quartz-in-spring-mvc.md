@@ -64,7 +64,7 @@ Quatz 구조도와 함께 관련된 인터페이스 클래스들을 정리하였
 ### 1.2. Quartz 특장점
 - 데이터베이스를 기반으로 클러스터링(clustering) 기능을 제공합니다.
 - 시스템의 `failover`와 라운드-로빈(round-robbin) 방식의 분산 처리를 지원합니다.
-- 기본적으로 여러가지 플러그인(plug-in)을 제공합니다.
+- 기본적으로 여러 가지 플러그인(plug-in)을 제공합니다.
     - ShutdownHookingPlugin - JVM 종료 이벤트를 확인하고 스케줄러에게 종료를 알립니다.
     - LoggingJobHistoryPlugin - Job 실행에 대한 로그를 남깁니다. 
 

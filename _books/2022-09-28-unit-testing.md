@@ -16,6 +16,6 @@ last_modified_at: 2022-09-28T23:55:00
 
 #### REFERENCE
 
-* [Extreme Programming Explained Summary][summary-link]
+* [Unit Testing Summary][summary-link]
 
 [summary-link]: https://github.com/Junhyunny/book-unit-testing/blob/main/README.md

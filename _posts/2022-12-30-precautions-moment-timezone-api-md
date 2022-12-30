@@ -1,0 +1,95 @@
+---
+title: "Precautions Moment Timezone API"
+search: false
+category:
+  - typescript
+last_modified_at: 2022-12-30T23:55:00
+---
+
+<br>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [GMT and UTC][gmt-and-utc-link]
+* [Handling Timezone on JavaScript][handling-timezone-on-javascript-link]
+
+## 0. 들어가면서
+
+타임존(timezone) 비즈니스를 다루기 위해 `moment-timezone` 라이브러리를 사용하면서 겪은 경험들을 정리하였습니다. 
+API가 익숙치 않은 탓에 의도치 않은 동작들이 어플리케이션 곳곳에 숨어 있었습니다. 
+실제 구현체 코드 없이 간단한 테스트 코드들만 사용하여 설명하였습니다. 
+
+## 1. Use now method of Date Class in Moment
+
+다음 테스트는 실패해야하지만, 정상적으로 통과합니다.
+
+* 테스트 코드 중간에서 일부러 반복문 코드를 수행합니다.
+    * 시간 차이가 있음에도 불구하고 테스트가 통과합니다.
+* 테스트가 통과하는 이유는 다음과 같습니다.
+    * `beforeEach`에서 `Date.now()` 함수를 목(mock) 객체로 감쌉니다.
+    * `moment.now()` 함수 내부에서 `Date.now()` 함수를 사용합니다.
+    * 테스트에서 `moment.now()` 결과는 항상 같은 값을 반환합니다.
+
+```ts
+import moment from "moment-timezone";
+
+describe("moment timezone tests", () => {
+  beforeEach(() => {
+    const now = Date.now();
+    jest.spyOn(Date, "now").mockReturnValue(now);
+  });
+
+  it("mock now method in Date class", () => {
+    const firstValue = moment.now();
+
+    for (let index = 0; index < 10000000; index++) {}
+
+    const secondValue = moment.now();
+    expect(firstValue).toEqual(secondValue);
+  });
+});
+```
+
+##### Considerations
+
+이 테스트 코드에서 다음과 같은 내용들을 고려해 볼 수 있습니다.
+
+* 실패하는 테스트 코드를 먼저 작성하였지만, 정상적으로 통과하였습니다. 
+    * 테스트 코드를 먼저 실패하도록 작성하는 이유는 해당 테스트가 검증력이 있는 여부를 확인하기 위함입니다. 
+    * 이미 통과하는 테스트 코드를 작성했다면 구현체 코드의 비즈니스를 잘 검증하고 있는지 다시 한번 확인해봐야 합니다.
+* 테스트 스위트(test suite) 최상단 `beforeEach`에서 `Date.now()`를 오버라이딩(overriding)합니다.
+    * 연관 없어 보이는 `Date.now()` 함수가 테스트에 영향을 줍니다.
+    * 테스트가 많다면 `beforeEach`
+* 구현체 코드에 문제가 있음에도 통과하는 테스트 코드는 거짓 음성을 야기합니다.
+    * 
+
+실패하는 테스트 코드를 먼저 작성하는데, 의도와 다르게 테스트가 통과하였습니다. 
+먼저 실패하는 테스트를 작성하는 이유는 해당 테스트가 검증력이 있는지 여부를 판단할 수 있습니다. 
+
+
+테스트가 실패했어야 했는데, 
+
+
+
+간단한 예시 코드이지만, 이런 
+
+* 구현체 코드에서 
+
+
+
+## 2. 
+
+
+
+
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+[gmt-and-utc-link]: https://junhyunny.github.io/information/gmt-and-utc/
+[handling-timezone-on-javascript-link]: https://junhyunny.github.io/javascript/handling-timezone-on-javascript/

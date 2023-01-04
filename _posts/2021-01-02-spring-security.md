@@ -39,7 +39,7 @@ last_modified_at: 2021-08-21T16:00:00
 </p>
 <center>https://spring.io/guides/topicals/spring-security-architecture/</center>
 
-## 3. Speing Security FilterChainProxy
+## 3. Spring Security FilterChainProxy
 
 ### 3.1. FilterChainProxy 클래스
 

@@ -1,5 +1,5 @@
 ---
-title: "Spring Application Context Event - 트랜잭션 처리"
+title: "Spring Application Context Event with Transaction"
 search: false
 category:
   - spring-boot

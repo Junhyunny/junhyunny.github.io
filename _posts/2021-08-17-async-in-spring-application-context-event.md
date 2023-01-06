@@ -1,5 +1,5 @@
 ---
-title: "Spring Application Context Event - 비동기 처리"
+title: "Spring Application Context Async Event"
 search: false
 category:
   - spring-boot
@@ -10,7 +10,7 @@ last_modified_at: 2021-08-17T03:00:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Application Context Event][spring-application-context-event-link]
-- [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
+- [Spring Application Context Event with Transaction][transaction-in-spring-application-context-event-link]
 
 ## 0. 들어가면서
 
@@ -27,7 +27,7 @@ last_modified_at: 2021-08-17T03:00:00
 
 ## 2. 비동기 처리 시 트랜잭션 연결
 비동기 이벤트 처리 시 트랜잭션이 어떻게 연결되는지 궁금하였습니다. 
-[Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link] 포스트에서도 확인할 수 있듯이 일반적인 이벤트 발행은 트랜잭션이 연결됩니다. 
+[Spring Application Context Event with Transaction][transaction-in-spring-application-context-event-link] 포스트에서도 확인할 수 있듯이 일반적인 이벤트 발행은 트랜잭션이 연결됩니다. 
 비동기 이벤트 처리에서 만약 일반적인 이벤트 발행처럼 트랜잭션이 연결된다면 아래와 같은 이상한 상황이 벌어질 수 있습니다.
 1. 이벤트를 처리하는 다른 스레드의 수행 결과에 따라 트랜잭션의 커밋(commit), 롤백(rollback) 여부가 결정됩니다.
 1. 이벤트를 발행한 메인 스레드는 자신의 일을 모두 끝냈지만 이벤트의 처리 결과를 기다려야 합니다.
@@ -36,7 +36,7 @@ last_modified_at: 2021-08-17T03:00:00
 당연히 트랜잭션이 나뉘어질 것이라고 예상되지만 정확한 결과는 테스트를 통해 확인해보도록 하겠습니다. 
 
 ## 3. 예제 코드
-예제 코드 시나리오는 [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link] 포스트와 동일합니다.
+예제 코드 시나리오는 [Spring Application Context Event with Transaction][transaction-in-spring-application-context-event-link] 포스트와 동일합니다.
 
 ### 3.1. ActionInBlogApplication 클래스
 - @EnableAsync 애너테이션을 추가합니다.

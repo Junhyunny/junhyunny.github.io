@@ -78,14 +78,13 @@ class ActionInBlogApplicationTests {
 * `D`는 Day of Year 값이므로 년 중 몇 번째 날인지 표현합니다.
 * `d`는 Day of Month 값으로 월 중 몇 번째 날인지 표현합니다.
 
-359번째 날짜를 표현하는데 `DD`로 지정했기 때문에 해당 에러가 발생하였습니다. 
+2022년 11월 25일은 년 중 359일인데, 이를 표현하는데 `DD`로 두 자리로만 지정했기 때문에 에러가 발생하였습니다. 
 
 ##### Date Time Symbol Format in Java
 
-다음은 Java에서 사용하는 날짜 포맷들입니다.
-더 자세한 설명은 다음 링크에서 확인할 수 있습니다. 
-
-* [Date Field Symbol Table][date-time-symbol-table-link]
+* 아래 표는 Java에서 사용하는 날짜 포맷들입니다.
+* 자세한 설명은 다음 링크에서 확인할 수 있습니다. 
+    * [Date Field Symbol Table][date-time-symbol-table-link]
 
 <p align="center">
     <img src="/images/date-of-year-exceeding-error-in-java-1.JPG" width="85%">

@@ -8,176 +8,281 @@ last_modified_at: 2021-08-16T12:45:00
 
 <br>
 
-👉 이어서 읽기를 추천합니다.
-- [Spring Application Context Event - 트랜잭션 처리][transaction-in-spring-application-context-event-link]
-- [Spring Application Context Event - 비동기 처리][async-in-spring-application-context-event-link]
-
 ## 0. 들어가면서
 
-새로운 기능 추가를 해야하는데 문제가 생겼습니다. 
-공통 비즈니스 로직(business logic) 패키지(package)에서 다른 비즈니스 로직 패키지에 위치한 기능이 필요한 상황이 발생하였습니다. 
+새로운 비즈니스 기능을 추가하면서 문제가 발생했습니다. 
 
-<p align="center"><img src="/images/spring-application-context-event-1.JPG" width="30%"></p>
-<center>https://giphy.com/gifs/lego-lego-reactions-l4FGzF4Z2lKktzjHi</center>
+* 현재 비즈니스 영역(capability) 별로 패키지(package)가 구분되어 있습니다. 
+* A 비즈니스 도메인의 특정 동작이 끝나면 B 비즈니스 동작을 연달아 실행해야 합니다. 
+* 단순하게 B 비즈니스 도메인의 기능을 연결하면 A 비즈니스 도메인에 B 비즈니스 의존성(dependency)이 발생합니다. 
 
-비즈니스적으로 독립적인 기능들을 패키지 단위로 나눈 설계를 생각하면 개발자를 매우 피곤하게 만드는 기능이 아닐 수 없습니다. 
-패키지를 넘나들며 시스템 모듈 간에 결합도를 높이는 기능은 추후에 시스템 규모가 커짐에 따른 MSA(마이크로 서비스 아키텍처) 전환 작업에 어려움을 줄 수도 있습니다. 
-독립적인 비즈니스 단위로 설계된 패키지 구조에서 다른 패키지의 기능을 사용할 방법을 궁리하다가 `Spring Application Context Event` 기능을 사용하기로 결정하였습니다. 
+다른 비즈니스 도메인의 의존성이 침투하면 서로 결합도(coupling)이 강해지기 시작합니다. 
+깨진 창문 효과에 따라 한번 침투하기 시작한 의존성은 시간이 지날수록 두 도메인 사이의 결합도를 강하게 연결하게 될 것입니다. 
+시스템이 커지게 되어 비즈니스 별로 서비스를 분리해야하는 시점이 오면 빠른 변화를 만들기 힘들게 됩니다. 
+두 비즈니스 사이에 의존성을 만들지 않을 방법이 필요했습니다. 
 
-다음과 같은 이유로 `Spring Application Context Event` 기능을 사용하였습니다. 
-- Spring 프레임워크에서 손쉽게 사용할 수 있도록 기능 제공 
-- 패키지 단위로 독립적으로 수행 가능
-- 혹시 모르는 MSA 전환에서 API Call, Message Queue 등 다른 기술 스택으로 대체 가능(아래 이미지 참조)
+## 1. Spring Application Context Event 
 
-<p align="center"><img src="/images/spring-application-context-event-2.JPG" width="100%"></p>
+스프링에서 기본으로 제공하는 기능입니다. 
+커스텀 이벤트(custom event)를 정의하고, 이를 발행(publish), 구독(subscribe)할 수 있습니다. 
+어플리케이션 컨텍스트(application context)를 사용해 다른 빈(bean)들 사이의 정보를 교환할 수 있습니다. 
+이벤트 처리는 두 컴포넌트(component) 사이의 결합도를 낮출 수 있습니다. 
+여기서 말하는 컴포넌트는 모듈(module)나 서비스 등이 될 수 있습니다. 
 
-## 1. 예제 코드
+##### 모듈 사이의 이벤트 처리
 
-간단한 예제 코드를 통해 `Spring Application Context Event` 기능을 정리해보겠습니다. 
-테스트 시나리오는 다음과 같습니다.
-- 배달(delivery) 서비스에서 특정 배달 정보들 완료시킵니다.
-- 주문-배달 완료 이벤트를 발행합니다. 
-- 주문-배달 완료 이벤트를 구독한 후 주문(order) 서비스를 통해 해당 주문 상태를 배달 완료 상태로 변경합니다.
+* 하나의 서비스 내에 분리된 모듈 사이의 정보 교환이 이뤄집니다.
+* 동일 서비스이므로 어플리케이션 컨텍스트를 통해 이벤트 처리를 수행합니다.
 
-### 1.1. 패키지 구조
+<p align="center">
+    <img src="/images/spring-application-context-event-1.JPG" width="65%" class="image__border">
+</p>
+
+##### 서비스 사이의 이벤트 처리
+
+* 서로 다른 서비스들 사이의 정보 교환이 이뤄집니다.
+* 이벤트 처리를 위한 카프카(kafka) 같은 큐(queue) 시스템이 필요합니다.
+
+<p align="center">
+    <img src="/images/spring-application-context-event-2.JPG" width="80%" class="image__border">
+</p>
+
+### 1.1. Standard Context Events
+
+이번 포스트에선 커스텀 이벤트를 요청하고 받는 방법에 대한 예시를 다룰 예정이지만, 기본적으로 어떤 이벤트들이 있는지 살펴보겠습니다. 
+기본 이벤트를 사용하면 개발자는 자신의 기능을 어플리케이션의 라이프사이클(lifecycle)에 연결할 수 있습니다. 
+
+* ContextRefreshedEvent
+    * 어플리케이션 컨텍스트를 초기화하거나 리프레시(refresh)할 때 발행됩니다. 
+* ContextStartedEvent
+    * 전형적으로 명시적인 정지 이후 빈들을 재실행할 때 발행됩니다.
+* ContextStoppedEvent
+    * 어플리케이션 컨텍스트가 멈출 때 발행됩니다.
+* ContextClosedEvent
+    * 어플리케이션 컨텍스트가 닫힐 때 발행됩니다.
+
+## 2. Examples
+
+두 모듈 사이의 정보를 커스텀 이벤트로 주고 받는 간단한 예시 코드를 살펴보겠습니다. 
+배달이나 주문과 관련된 비즈니스 도메인에 대해선 잘 모르지만, 정말 간단한 프로세스를 예시로 다뤄보았습니다. 
+
+1. 배달 정보가 "배달 완료" 상태로 업데이트됩니다.
+1. 배달 모듈에서 "배달 완료" 이벤트를 발행합니다.
+1. 주문 모듈에서 "배달 완료" 이벤트를 전달 받습니다. 
+1. 주문 모듈은 해당 주문 상태를 "배달 완료" 상태로 변경합니다.
+
+### 2.1. 패키지 구조
+
+먼저 패키지 구조를 살펴보겠습니다. 
+
+* base 패키지
+    * `DeliveryCompleteEvent`는 정보를 주고 받을 때 사용하는 이벤트 객체입니다.
+* delivery 패키지
+    * DeliveryService 객체를 통해 배달 정보를 변경합니다.
+    * DeliveryEventProxy 구현체를 통해 order 패키지와 정보를 주고 받습니다.
+* order 패키지
+    * OrderEventListener 객체를 통해 delivery 패키지와 정보를 주고 받습니다.
+    * OrderService 객체를 통해 주문 정보를 변경합니다.
 
 ```
 ./
-`-- action-in-blog
-    |-- README.md
-    |-- action-in-blog.iml
-    |-- mvnw
-    |-- mvnw.cmd
-    |-- pom.xml
-    `-- src
-        |-- main
-        |   |-- java
-        |   |   `-- blog
-        |   |       `-- in
-        |   |           `-- action
-        |   |               |-- ActionInBlogApplication.java
-        |   |               |-- common
-        |   |               |   `-- event
-        |   |               |       `-- OrderDeliveryCompleteEvent.java
-        |   |               |-- delivery
-        |   |               |   |-- entity
-        |   |               |   |   `-- Delivery.java
-        |   |               |   |-- repository
-        |   |               |   |   `-- DeliveryRepository.java
-        |   |               |   `-- service
-        |   |               |       `-- DeliveryService.java
-        |   |               `-- order
-        |   |                   |-- entity
-        |   |                   |   `-- Order.java
-        |   |                   |-- listner
-        |   |                   |   `-- OrderEventListener.java
-        |   |                   |-- repository
-        |   |                   |   `-- OrderRepository.java
-        |   |                   `-- service
-        |   |                       `-- OrderService.java
-        |   `-- resources
-        |       `-- application.yml
-        `-- test
-            `-- java
-                `-- blog
-                    `-- in
-                        `-- action
-                            `-- delivery
-                                `-- service
-                                    `-- DeliveryServiceTest.java
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── blog
+    │   │       └── in
+    │   │           └── action
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── base
+    │   │               │   └── DeliveryCompleteEvent.java
+    │   │               ├── delivery
+    │   │               │   ├── domain
+    │   │               │   │   ├── Delivery.java
+    │   │               │   │   └── DeliveryState.java
+    │   │               │   ├── proxy
+    │   │               │   │   ├── ApplicationContextDeliveryEventProxy.java
+    │   │               │   │   └── DeliveryEventProxy.java
+    │   │               │   ├── repository
+    │   │               │   │   └── DeliveryRepository.java
+    │   │               │   └── service
+    │   │               │       └── DeliveryService.java
+    │   │               └── order
+    │   │                   ├── domain
+    │   │                   │   ├── Order.java
+    │   │                   │   └── OrderState.java
+    │   │                   ├── listner
+    │   │                   │   └── OrderEventListener.java
+    │   │                   ├── repository
+    │   │                   │   └── OrderRepository.java
+    │   │                   └── service
+    │   │                       └── OrderService.java
+    │   └── resources
+    │       └── application.yml
+    └── test
+        └── java
+            └── blog
+                └── in
+                    └── action
+                        └── delivery
+                            └── service
+                                └── DeliveryServiceTest.java
 ```
 
-### 1.2. application.yml
-- 테스트를 위한 로컬 데이터베이스를 사용합니다.
+### 2.2. Delivery 클래스
 
-```yml
-spring:
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
+* finishDelivery 메소드는 배달 상태를 완료로 변경합니다.
+
+```java
+package blog.in.action.delivery.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "TB_DELIVERY")
+public class Delivery {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private long orderId;
+    @Enumerated(value = EnumType.STRING)
+    private DeliveryState deliveryState;
+
+    public void finishDelivery() {
+        deliveryState = DeliveryState.FINISH;
+    }
+}
 ```
 
-### 1.3. DeliveryService 클래스
-- 특정 배달 코드에 해당하는 배달 정보를 완료 처리합니다.
-- 해당 배달과 연관된 주문(Order) ID와 배달 코드를 담은 주문-배달 완료 이벤트(OrderDeliveryCompleteEvent)를 발행합니다.
+### 2.3. DeliveryService 클래스
+
+* 배달 정보를 조회 후 배달 완료 상태로 변경합니다.
+* 프록시(proxy) 객체를 통해 배달 완료 이벤트를 발행합니다.
+    * `DeliveryEventProxy` 인터페이스를 통해 구현 상세 정보를 차단합니다.
 
 ```java
 package blog.in.action.delivery.service;
 
-import blog.in.action.common.event.OrderDeliveryCompleteEvent;
-import blog.in.action.delivery.entity.Delivery;
+import blog.in.action.base.DeliveryCompleteEvent;
+import blog.in.action.delivery.domain.Delivery;
+import blog.in.action.delivery.proxy.ApplicationContextDeliveryEventProxy;
+import blog.in.action.delivery.proxy.DeliveryEventProxy;
 import blog.in.action.delivery.repository.DeliveryRepository;
-import java.util.Optional;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
 public class DeliveryService {
 
-    private final ApplicationContext applicationContext;
 
     private final DeliveryRepository deliveryRepository;
+    private final DeliveryEventProxy deliveryEventProxy;
 
-    public DeliveryService(ApplicationContext applicationContext, DeliveryRepository deliveryRepository) {
-        this.applicationContext = applicationContext;
+    public DeliveryService(DeliveryRepository deliveryRepository, ApplicationContextDeliveryEventProxy deliveryEventProxy) {
         this.deliveryRepository = deliveryRepository;
+        this.deliveryEventProxy = deliveryEventProxy;
     }
 
-    public void updateDeliveryComplete(String deliveryCode) {
-        Optional<Delivery> optional = deliveryRepository.findByDeliveryCode(deliveryCode);
-        if (optional.isEmpty()) {
-            throw new RuntimeException(deliveryCode + " 코드에 해당하는 배송 정보가 없습니다.");
-        }
-        Delivery delivery = optional.get();
-        delivery.setDeliveryEndTp("*");
-        deliveryRepository.save(delivery);
-        applicationContext.publishEvent(new OrderDeliveryCompleteEvent(delivery.getOrder().getId(), deliveryCode));
+    public void finishDelivery(long deliveryId) {
+        Optional<Delivery> optional = deliveryRepository.findById(deliveryId);
+        Delivery delivery = optional.orElseThrow(() -> new RuntimeException(String.format("[%s]에 해당하는 배송 정보가 없습니다.", deliveryId)));
+        delivery.finishDelivery();
+        deliveryEventProxy.publishDeliveryCompleteEvent(new DeliveryCompleteEvent(deliveryId));
     }
 }
 ```
 
-### 1.4. OrderDeliveryCompleteEvent 클래스
-- 주문 정보와 배달 정보를 담은 주문-배달 완료 이벤트입니다.
+### 2.4. ApplicationContextDeliveryEventProxy 클래스
+
+* `DeliveryEventProxy` 인터페이스를 구현합니다.
+    * 클라이언트에게 배달 완료 이벤트 발행에 대한 서비스를 제공하지만, 실제 구현은 숨깁니다. 
+    * 현재는 스프링 어플리케이션 컨텍스트를 사용하지만, 향 후에는 다른 기술을 사용하여 이벤트를 발행할 수 있습니다. 
+* 배달 완료 이벤트를 발행합니다.
 
 ```java
-package blog.in.action.common.event;
+package blog.in.action.delivery.proxy;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import blog.in.action.base.DeliveryCompleteEvent;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class OrderDeliveryCompleteEvent {
+@Component
+public class ApplicationContextDeliveryEventProxy implements DeliveryEventProxy {
 
-    private long orderId;
+    private final ApplicationContext applicationContext;
 
-    private String deliveryCode;
+    public ApplicationContextDeliveryEventProxy(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
 
-    public OrderDeliveryCompleteEvent(long orderId, String deliveryCode) {
-        this.orderId = orderId;
-        this.deliveryCode = deliveryCode;
+    @Override
+    public void publishDeliveryCompleteEvent(DeliveryCompleteEvent deliveryCompleteEvent) {
+        applicationContext.publishEvent(deliveryCompleteEvent);
     }
 }
 ```
 
-### 1.5. OrderEventListener 클래스
-- 주문-배달 완료 이벤트를 수신한 후 관련된 정보를 주문 서비스에게 전달합니다.
+### 2.5. Order 클래스
+
+* startDelivery 메소드는 주문의 배달 상태를 시작으로 변경합니다.
+* finishDelivery 메소드는 주문의 배달 상태를 완료로 변경합니다.
+
+```java
+package blog.in.action.order.domain;
+
+import lombok.*;
+
+import javax.persistence.*;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Entity
+@Table(name = "TB_ORDER")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private long deliveryId;
+    @Enumerated(value = EnumType.STRING)
+    private OrderState orderState;
+
+    public void finishDelivery() {
+        orderState = OrderState.DELIVERY_FINISHED;
+    }
+
+    public void startDelivery(long deliveryId) {
+        this.deliveryId= deliveryId;
+        this.orderState = OrderState.DELIVERED;
+    }
+}
+```
+
+### 2.6. OrderEventListener 클래스
+
+* 이벤트를 수신하면 주문 서비스에게 배달 정보를 전달합니다.
 
 ```java
 package blog.in.action.order.listner;
 
-import blog.in.action.common.event.OrderDeliveryCompleteEvent;
+import blog.in.action.base.DeliveryCompleteEvent;
 import blog.in.action.order.service.OrderService;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -192,24 +297,29 @@ public class OrderEventListener {
     }
 
     @EventListener
-    public void listenOrderDeliveryCompleteEvent(OrderDeliveryCompleteEvent orderDeliveryCompleteEvent) {
-        orderService.updateOrderDeliveryComplete(orderDeliveryCompleteEvent.getOrderId(), orderDeliveryCompleteEvent.getDeliveryCode());
+    public void listenOrderDeliveryCompleteEvent(DeliveryCompleteEvent deliveryCompleteEvent) {
+        orderService.finishDelivery(deliveryCompleteEvent.getDeliveryId());
     }
 }
 ```
 
-### 1.6. OrderService 클래스
-- 주문 정보를 조회하여 주문 상태를 `DELIVERY_COMPLETE`로 변경합니다.
+### 2.7. OrderService 클래스
+
+* 수신 받은 배달 정보에 해당하는 주문 정보를 조회합니다.
+* 주문 정보를 배달 완료로 변경합니다.
 
 ```java
 package blog.in.action.order.service;
 
-import blog.in.action.order.entity.Order;
+import blog.in.action.order.domain.Order;
 import blog.in.action.order.repository.OrderRepository;
-import java.util.Optional;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+import java.util.Optional;
+
+@Service
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -218,44 +328,45 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public void updateOrderDeliveryComplete(long orderId, String deliveryCode) {
-        Optional<Order> optional = orderRepository.findById(orderId);
-        if (optional.isEmpty()) {
-            throw new RuntimeException(deliveryCode + " 배송 코드에 해당하는 주문 정보가 없습니다.");
-        }
-        Order order = optional.get();
-        order.setOrderState("DELIVERY_COMPLETE");
-        orderRepository.save(order);
+    public void finishDelivery(long deliveryId) {
+        Optional<Order> optional = orderRepository.findByDeliveryId(deliveryId);
+        Order order = optional.orElseThrow(() -> new RuntimeException("[%s] 배송 아이디에 해당하는 주문 정보가 없습니다."));
+        order.finishDelivery();
     }
 }
 ```
 
-## 2. 테스트 코드
-- `DELIVERY_CODE` 코드를 가진 배달 정보를 배달 완료 상태로 업데이트합니다.
-- `ORDER_CODE` 코드를 가진 주문 정보가 `배달 완료(DELIVERY_COMPLETE)` 상태가 되었는지 확인합니다.
+## 3. Test
+
+* 신규 주문 정보를 생성합니다.
+    * 해당 주문의 배달 상태는 "시작"입니다.
+* 신규 배달 정보를 생성합니다.
+    * 배달 상태는 "시작"입니다.
+* 해당 배달의 상태를 "완료"시킵니다. 
+* 해당 배달와 연관된 주문 정보를 조회합니다.
+    * 주문의 배달 상태가 "배달 완료"인지 확인합니다.
 
 ```java
 package blog.in.action.delivery.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import blog.in.action.delivery.entity.Delivery;
+import blog.in.action.delivery.domain.Delivery;
+import blog.in.action.delivery.domain.DeliveryState;
 import blog.in.action.delivery.repository.DeliveryRepository;
-import blog.in.action.order.entity.Order;
+import blog.in.action.order.domain.Order;
+import blog.in.action.order.domain.OrderState;
 import blog.in.action.order.repository.OrderRepository;
-import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest
 public class DeliveryServiceTest {
-
-    private static String DELIVERY_CODE = "DELIVERY_CODE";
-
-    private static String ORDER_CODE = "ORDER_CODE";
-
-    private static String DELIVERY_COMPLETE = "DELIVERY_COMPLETE";
 
     @Autowired
     private DeliveryRepository deliveryRepository;
@@ -264,54 +375,73 @@ public class DeliveryServiceTest {
     private OrderRepository orderRepository;
 
     @Autowired
-    private DeliveryService deliveryService;
-
-    @BeforeEach
-    public void beforeEach() {
-        deliveryRepository.deleteAll();
-        orderRepository.deleteAll();
-        Order order = new Order(ORDER_CODE);
-        orderRepository.save(order);
-        Delivery delivery = new Delivery(DELIVERY_CODE, order);
-        deliveryRepository.save(delivery);
-    }
+    private DeliveryService sut;
 
     @Test
-    public void test_updateDeliveryComplete_changeOrderState() {
-        deliveryService.updateDeliveryComplete(DELIVERY_CODE);
-        Optional<Order> optional = orderRepository.findByOrderCode(ORDER_CODE);
-        assertThat(optional).isNotEmpty();
-        assertThat(optional.get().getOrderState()).isEqualTo(DELIVERY_COMPLETE);
+    @Transactional
+    public void delivery_is_finished_then_order_state_is_changed() {
+        Order order = Order.builder()
+                .build();
+        orderRepository.save(order);
+        Delivery delivery = Delivery.builder()
+                .orderId(order.getId())
+                .deliveryState(DeliveryState.START)
+                .build();
+        deliveryRepository.save(delivery);
+        order.startDelivery(delivery.getId());
+        orderRepository.flush();
+
+
+        sut.finishDelivery(delivery.getId());
+
+
+        Optional<Order> optional = orderRepository.findByDeliveryId(delivery.getId());
+        Order result = optional.get();
+        assertThat(result.getOrderState(), equalTo(OrderState.DELIVERY_FINISHED));
     }
 }
 ```
 
-##### 테스트 결과 - Junit
+##### 테스트 실행 로그
 
-<p align="left"><img src="/images/spring-application-context-event-3.JPG" width="45%"></p>
-
-##### 테스트 결과 - SQL
-
-```sql
-SELECT *
-FROM tb_order o
-INNER JOIN tb_delivery d ON o.id = d.order_id;
+```
+2023-01-09 23:03:25.189  INFO 68748 --- [           main] o.s.t.c.transaction.TransactionContext   : Began transaction (1) for test context [DefaultTestContext@62727399 testClass = DeliveryServiceTest, testInstance = blog.in.action.delivery.service.DeliveryServiceTest@7698a3d9, testMethod = delivery_is_finished_then_order_state_is_changed@DeliveryServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4d9ac0b4 testClass = DeliveryServiceTest, locations = '{}', classes = '{class blog.in.action.ActionInBlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@66982506, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4bdeaabb, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6f204a1a, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@7e990ed7], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true]]; transaction manager [org.springframework.orm.jpa.JpaTransactionManager@2ee1b017]; rollback [true]
+Hibernate: call next value for hibernate_sequence
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into tb_order (delivery_id, order_state, id) values (?, ?, ?)
+Hibernate: insert into tb_delivery (delivery_state, order_id, id) values (?, ?, ?)
+Hibernate: update tb_order set delivery_id=?, order_state=? where id=?
+Hibernate: select order0_.id as id1_1_, order0_.delivery_id as delivery2_1_, order0_.order_state as order_st3_1_ from tb_order order0_ where order0_.delivery_id=?
+Hibernate: update tb_order set delivery_id=?, order_state=? where id=?
+Hibernate: update tb_delivery set delivery_state=?, order_id=? where id=?
+Hibernate: select order0_.id as id1_1_, order0_.delivery_id as delivery2_1_, order0_.order_state as order_st3_1_ from tb_order order0_ where order0_.delivery_id=?
+2023-01-09 23:03:25.453  INFO 68748 --- [           main] o.s.t.c.transaction.TransactionContext   : Rolled back transaction for test: [DefaultTestContext@62727399 testClass = DeliveryServiceTest, testInstance = blog.in.action.delivery.service.DeliveryServiceTest@7698a3d9, testMethod = delivery_is_finished_then_order_state_is_changed@DeliveryServiceTest, testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@4d9ac0b4 testClass = DeliveryServiceTest, locations = '{}', classes = '{class blog.in.action.ActionInBlogApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@66982506, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@4bdeaabb, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@6f204a1a, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@7e990ed7], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map['org.springframework.test.context.web.ServletTestExecutionListener.activateListener' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.populatedRequestContextHolder' -> true, 'org.springframework.test.context.web.ServletTestExecutionListener.resetRequestContextHolder' -> true]]
 ```
 
-<p align="left"><img src="/images/spring-application-context-event-4.JPG" width="65%"></p>
-
 ## CLOSING
+
 주문, 배달 관련된 도메인을 직접 경험해보지는 않아서 테스트 시나리오가 좋지 않을 수 있습니다. 
-기능을 정리하면서 생긴 궁금한 사항들을 주제로 다음 포스트들을 정리해야겠습니다. 
-- 비동기(async) 방식의 이벤트 처리는 어떻게 수행하는가?
-- 전달한 이벤트까지 트랜잭션이 이어지는가?
-- 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
+해당 포스트를 작성하면서 생긴 궁금한 주제들로 다음 포스트를 정리할 생각입니다.
+
+* 비동기(async) 방식의 이벤트 처리는 어떻게 수행하는가?
+* 전달한 이벤트까지 트랜잭션이 이어지는가?
+* 전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-15-spring-application-context-event>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-15-spring-application-context-event>
+
+#### RECOMMEND NEXT POSTS
+
+* [Proxy Pattern][proxy-pattern-link]
+* [Spring Application Context Event with Transaction][transaction-in-spring-application-context-event-link]
+* [Spring Application Context Async Event][async-in-spring-application-context-event-link]
 
 #### REFERENCE
-- <https://junhyunny.blogspot.com/2020/02/spring-applicationcontext-event.html>
+
+* <https://www.baeldung.com/spring-context-events>
+* <https://junhyunny.blogspot.com/2020/02/spring-applicationcontext-event.html>
 
 [transaction-in-spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/
 [async-in-spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/async-in-spring-application-context-event/
+[proxy-pattern-link]: https://junhyunny.github.io/information/design-pattern/proxy-pattern/

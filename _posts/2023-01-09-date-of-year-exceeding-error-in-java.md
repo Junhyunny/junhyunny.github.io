@@ -87,7 +87,7 @@ class ActionInBlogApplicationTests {
     * [Date Field Symbol Table][date-time-symbol-table-link]
 
 <p align="center">
-    <img src="/images/date-of-year-exceeding-error-in-java-1.JPG" width="85%">
+    <img src="/images/date-of-year-exceeding-error-in-java-1.JPG" width="65%">
 </p>
 <center>https://jenkov.com/tutorials/java-internationalization/simpledateformat.html</center>
 

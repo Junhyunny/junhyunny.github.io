@@ -20,7 +20,7 @@ last_modified_at: 2023-01-11T23:55:00
 
 간단한 API 요청과 에러 응답에 대한 메세지를 출력하는 페이지입니다. 
 
-* 제출(submit) 버튼을 누르면 `axios` 모듈을 사용해 백엔드 서비스로 API 요청을 수행합니다. 
+* 제출(submit) 버튼을 누르면 `axios`를 통해 백엔드 서비스로 API 요청이 수행됩니다. 
 * 서버에 문제가 발생하면 에러 응답을 받고, 메세지를 팝업 창으로 출력합니다.
 
 ```jsx
@@ -88,7 +88,7 @@ export default App;
 
 ## 2. Backend Service
 
-이번엔 백엔드 코드를 살펴보겠습니다.
+이번엔 스프링 어플리케이션의 코드를 살펴보겠습니다.
 
 ### 2.1. FooController 클래스
 
@@ -294,7 +294,7 @@ axios.interceptors.response.use(
 ##### 에러 핸들링 결과
 
 <p align="center">
-    <img src="/images/throw-custom-exception-to-axios-from-spring-1.gif" width="80%">
+    <img src="/images/throw-custom-exception-to-axios-from-spring-1.gif" width="100%">
 </p>
 
 #### TEST CODE REPOSITORY

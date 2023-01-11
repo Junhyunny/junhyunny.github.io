@@ -269,7 +269,7 @@ public class Order {
     }
 
     public void startDelivery(long deliveryId) {
-        this.deliveryId= deliveryId;
+        this.deliveryId = deliveryId;
         this.orderState = OrderState.DELIVERED;
     }
 }

@@ -123,7 +123,7 @@ public class FooController {
 * `@ControllerAdvice` 애너테이션을 사용해 컨트롤러들의 예외를 처리할 수 있는 빈(bean)을 생성합니다. 
 * `@ExceptionHandler` 애너테이션을 사용해 지정한 예외들을 핸들링 할 수 있습니다. 
     * 이번 예제에선 RuntimeException 예외를 명시적으로 핸들링합니다.
-* `@åResponseStatus` 애너테이션을 사용해 HTTP 응답 상태를 정의합니다.
+* `@ResponseStatus` 애너테이션을 사용해 HTTP 응답 상태를 정의합니다.
     * 이번 예제에선 `INTERNAL_SERVER_ERROR(500)` 상태로 정의합니다.
 * `@ResponseBody` 애너테이션을 사용해 처리한 예외를 에러의 응답 데이터로 반환합니다.
     * 별도로 정의한 `ErrorResponse` 클래스를 사용합니다.

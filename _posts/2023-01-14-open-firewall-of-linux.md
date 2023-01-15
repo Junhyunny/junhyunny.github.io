@@ -34,7 +34,7 @@ last_modified_at: 2023-01-14T23:55:00
     * `VM1`에서 SSH 접근을 수행합니다.
 
 <p align="center">
-    <img src="/images/open-firewall-of-linux-1.JPG" width="100%" class="image__border">
+    <img src="/images/open-firewall-of-linux-1.JPG" width="80%" class="image__border">
 </p>
 
 ## 2. Practice

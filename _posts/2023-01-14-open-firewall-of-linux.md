@@ -304,6 +304,7 @@ To                         Action      From
 * <https://help.ubuntu.com/community/UFW>
 * <https://help.iwinv.kr/manual/read.html?idx=96>
 * <https://www.ibm.com/docs/es/spectrum-scale/5.1.0?topic=firewall-examples-how-open-ports>
+* <https://webdir.tistory.com/206>
 * <https://extrememanual.net/12019>
 
 [firewall-link]: https://junhyunny.github.io/information/firewall/

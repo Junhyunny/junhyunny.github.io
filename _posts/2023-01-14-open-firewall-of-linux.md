@@ -39,7 +39,12 @@ last_modified_at: 2023-01-14T23:55:00
 
 ## 2. Practice
 
-### 2.1. Check Open/Close Firewall
+가상 머신이 2개이므로 각 명령어를 어느 머신에서 실행했는지 확인하면서 진행합니다. 
+
+### 2.1. Check Open/Close Firewall on VM1
+
+`VM2`에 방화벽이 열려있는지 먼저 확인합니다. 
+방화벽이 열렸는지 확인하는 명령어는 `VM1`에서 실행합니다. 
 
 #### 2.1.1. Using telnet
 
@@ -105,7 +110,7 @@ $ curl telnet://192.168.78.132:22
 curl: (7) Failed to connect to 192.168.78.132 port 22 after 1 ms: Connection refused
 ```
 
-### 2.2. Open Firewall 
+### 2.2. Open Firewall on VM2
 
 `VM2`에서 `VM1`이 22번 포트로 접근할 수 있도록 방화벽을 열어주는 작업을 수행합니다. 
 
@@ -180,7 +185,7 @@ num  target     prot opt source               destination
 6    ufw-track-output  all  --  anywhere             anywhere  
 ```
 
-#### 2.2.2. Using iptables
+#### 2.2.3. Using iptables
 
 리눅스에서 기본으로 제공하는 `iptables` 명령어를 사용하였습니다. 
 `iptables`를 사용하는 경우 송신, 수신에 따라 체인(chain)을 지정해줘야 합니다. 
@@ -251,7 +256,7 @@ num  target     prot opt source               destination
 7    ACCEPT     tcp  --  anywhere             192.168.78.0/24      tcp spt:ssh
 ```
 
-##### Restart iptables Service
+##### Reload UFW
 
 다음 명령어를 통해 설정한 정책을 적용합니다. 
 

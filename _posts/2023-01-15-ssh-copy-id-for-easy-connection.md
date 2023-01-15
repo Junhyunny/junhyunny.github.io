@@ -62,6 +62,7 @@ id_rsa  id_rsa.pub  known_hosts  known_hosts.old
 
 * 클라이언트가 생성한 공개키(public key)를 서버에 복사합니다.
 * `-i` 옵션으로 식별 공개키를 지정합니다.
+    * 기본 값(default)이 `~/.ssh/id_rsa`이며 별도로 옵션 값을 지정하지 않으면 해당 키가 사용됩니다.
 * SSH 서버의 사용자(user) 정보와 호스트 IP 정보를 추가합니다.
     * `harbor@192.168.78.132`
     * SSH 서버 접속 ID - harbor

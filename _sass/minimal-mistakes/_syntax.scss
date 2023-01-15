@@ -18,6 +18,10 @@ figure.highlight {
     margin: 0;
     padding: 1em;
   }
+
+  & .code {
+    font-size: $type-size-5;
+  }
 }
 
 .highlight table {

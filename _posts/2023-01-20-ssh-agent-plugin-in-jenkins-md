@@ -17,9 +17,23 @@ last_modified_at: 2023-01-20T23:55:00
 
 ## 0. 들어가면서
 
-이번 포스트는 쿠버네티스 환경에서 서비스를 배포하는 클러스터와 CI/CD 파이프라인을 담당한 젠킨스가 위치한 클러스터가 서로 다른 경우 배포 명령(command)을 다른 클러스터로 전달하는 방법에 대해 정리하였습니다. 
+CI/CD 파이프라인을 담당한 젠킨스(jenkins)가 위치한 클러스터와 서비스들을 배포할 쿠버네티스 클러스터가 서로 달라 배포에 어려움이 있었습니다. 
+폐쇄망 작업이라서 별도로 제공되는 클라우드 제공자(cloud provider)가 없었기에 마스터 노드를 담당하는 가상 머신(virtual machine)에 직접 명령어를 전달할 방법이 필요했습니다. 
+젠킨스에서 제공하는 SSH 에이전트(secure shell agent)을 사용해 명령(command)을 전달하는 방법을 알게 되었고, 이번 포스트에선 이를 사용하는 방법에 대해 정리하였습니다. 
 
 ## 1. Context for Practice
+
+다음과 같은 실습 환경을 구축하였습니다. 
+
+* 
+
+## 2. Generate SSH Key
+
+## 3. Copy SSH Key to Virtual Machine
+
+## 4. Regist Private SSH Key
+
+## 5. JenkinsFile for SSH Command
 
 ## CLOSING
 

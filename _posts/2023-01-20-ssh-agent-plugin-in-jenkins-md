@@ -1,5 +1,5 @@
 ---
-title: "Jenkins SSH Agent"
+title: "SSH Agent Plugin in Jenkins"
 search: false
 category:
   - information
@@ -16,6 +16,10 @@ last_modified_at: 2023-01-20T23:55:00
 * [SSH Copy ID for Easy Connection][ssh-copy-id-for-easy-connection-link]
 
 ## 0. 들어가면서
+
+이번 포스트는 쿠버네티스 환경에서 서비스를 배포하는 클러스터와 CI/CD 파이프라인을 담당한 젠킨스가 위치한 클러스터가 서로 다른 경우 배포 명령(command)을 다른 클러스터로 전달하는 방법에 대해 정리하였습니다. 
+
+## 1. Context for Practice
 
 ## CLOSING
 

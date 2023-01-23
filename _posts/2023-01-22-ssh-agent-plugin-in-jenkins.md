@@ -135,7 +135,7 @@ and check to make sure that only the key(s) you wanted were added.
     * `cat .ssh/id_rsa` 명령어 실행 결과
 
 <p align="center">
-    <img src="/images/ssh-agent-plugin-in-jenkins-5.JPG" width="80%" class="image__border">
+    <img src="/images/ssh-agent-plugin-in-jenkins-5.JPG" width="100%" class="image__border">
 </p>
 
 ##### Check Secret Key

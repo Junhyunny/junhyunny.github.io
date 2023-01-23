@@ -169,7 +169,7 @@ JDK 11을 사용하면 예외가 발생하진 않지만, 개발자가 의도치 
 
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-01-09-date-of-year-exceeding-error-in-java>
 
 #### REFERENCE
 

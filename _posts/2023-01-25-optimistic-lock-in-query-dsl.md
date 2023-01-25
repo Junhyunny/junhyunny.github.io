@@ -18,16 +18,17 @@ last_modified_at: 2023-01-25T23:55:00
 
 ## 0. 들어가면서
 
-JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적인 락(lock) 기능을 제공합니다. 
-`spring-data-jpa`는 `save` 메소드 하나로 추가(insert), 업데이트(update) 기능을 제공하고, 내부에 버전 관리 로직이 있기 때문에 쉽게 낙관적 락 기능을 사용할 수 있습니다. 
+JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적 락(optimistic lock) 기능을 제공합니다. 
+`spring-data-jpa`는 `save` 메소드로 추가(insert), 업데이트(update) 기능을 제공하면서 내부에 버전 확인 로직이 있기 때문에 쉽게 낙관적 락 기능을 사용할 수 있습니다. 
 
-반면, `QueryDSL`은 업데이트에 낙관적인 락 방식이 자동으로 적용되지 않습니다. 
+반면에 `QueryDSL`은 업데이트에 낙관적인 락 방식이 자동으로 적용되지 않습니다. 
 다음과 같은 방법으로 낙관적인 락 기능을 사용할 수 있습니다.
 
-* 조회 쿼리와 엔티티의 오염 여부 확인(dirty check)
+* 조회 쿼리와 엔티티의 오염 확인(dirty check)
     * 조회 쿼리에 락 타입(lock type)을 지정합니다.
-    * 조회된 엔티티를 변경하고, 엔티티의 오염 여부 확인 과정을 통해 업데이트를 수행합니다.
-    * 다른 트랜잭션(transaction)에 의해 업데이트가 되어 버전이 다르다면 낙관적 락 예외를 발생합니다.
+    * 조회된 엔티티를 변경하고, 엔티티의 오염 여부를 확인하는 과정을 통해 업데이트가 수행됩니다.
+    * 업데이트를 수행할 때 버전 정보를 증가시킵니다.
+    * 다른 트랜잭션(transaction)에 의해 업데이트가 되었다면 버전이 달라지므로 낙관적 락 예외를 발생합니다.
 * 업데이트 쿼리 사용
     * 업데이트 쿼리 조건에 버전 정보를 추가합니다.
     * 업데이트에 실패하면 버전 정보를 제외한 조회 조건으로 엔티티를 탐색합니다.
@@ -35,7 +36,7 @@ JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적인 락(l
 
 ## 1. Using LockType and Dirty Check
 
-엔티티 오염을 통한 업데이트에서 낙관적 락을 발생시키는 방법에 대해 먼저 알아보겠습니다. 
+엔티티 오염 확인을 통한 업데이트에서 낙관적 락을 발생시키는 방법에 대해 먼저 정리하였습니다. 
 
 ### 1.1. Context for Test
 
@@ -46,24 +47,24 @@ JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적인 락(l
     * 엔티티 필드 값을 변경합니다.
     * 1초 대기합니다.
     * 트랜잭션 종료 시 버전 정보가 맞지 않음을 확인합니다.
-    * 다른 트랜잭션에 의해 해당 엔티티가 업데이트 되었음을 확인하고, 커밋을 실패시키고 예외를 던집니다.
+    * 다른 트랜잭션에 의해 해당 엔티티가 업데이트 되었다고 인지하고, 커밋을 실패시키고 예외를 던집니다.
 * `트랜잭션-2`은 다음과 같이 동작합니다.
     * 엔티티를 조회합니다.
     * 엔티티 필드 값을 변경합니다.
     * 정상적으로 커밋이 수행되고 엔티티 버전이 증가합니다.
 
 <p align="center">
-    <img src="/images/optimistic-lock-in-query-dsl-1.JPG" width="100%" class="image__border">
+    <img src="/images/optimistic-lock-in-query-dsl-1.JPG" width="55%" class="image__border">
 </p>
 
 ### 1.2. Implementation Code
 
-* updateEntityWithLongTransaction 메소드
+* `updateEntityWithLongTransaction` 메소드
     * 엔티티를 조회합니다.
     * 조회 쿼리의 락 모드를 `OPTIMISTIC`으로 지정합니다.
     * 엔티티의 값을 변경합니다.
     * 1초 대기합니다.
-* updateEntity 메소드
+* `updateEntity` 메소드
     * 엔티티를 조회합니다.
     * 조회 쿼리의 락 모드를 `OPTIMISTIC`으로 지정합니다.
     * 엔티티의 값을 변경합니다.
@@ -123,10 +124,10 @@ public class DirtyCheckPostStore {
 
 * 테스트를 위한 엔티티를 하나 생성합니다.
 * 각 트랜잭션 별로 스레드를 만들어 업데이트를 수행합니다.
-    * `tx1` - 중간에 대기 시간이 1초 있는 업데이트를 수행합니다.
-    * `tx2` - 일반적인 업데이트를 수행합니다.
+    * `tx1` - 중간에 대기 시간이 1초 있는 업데이트가 수행됩니다.
+    * `tx2` - 일반적인 업데이트가 수행됩니다.
 * `tx1` 처리 중간에 `OptimisticLockException` 예외가 발생할 것을 예상합니다.
-* `tx1`, `tx2`이 모두 종료된 후 저장된 모습은 `tx2`에서 업데이트한 모습임을 확인합니다.
+* `tx1`, `tx2`이 모두 종료된 후 저장된 모습은 `tx2`의 처리 결과 모습임을 확인합니다.
 
 ```java
 package action.in.blog.dsl;
@@ -228,9 +229,9 @@ public class DirtyCheckPostStoreIT {
 
 ##### Result of Test 
 
+* 업데이트 이전에 엔티티 조회 쿼리가 실행됩니다.
 * 업데이트 쿼리의 조건으로 ID, 버전 정보를 사용합니다.
 * 변경한 필드 값들 이 외에도 버전 정보를 업데이트합니다.
-* 업데이트 이전에 엔티티 조회 쿼리가 실행됩니다.
 
 ```
 Hibernate: call next value for hibernate_sequence
@@ -248,17 +249,16 @@ Hibernate: update post_entity set contents=?, title=?, version_no=? where id=? a
 
 * 테스트가 어렵습니다.
     * 트랜잭션의 경합을 테스트하기 때문에 각 스레드를 만들고 트랜잭션을 커밋해야 합니다.
-    * H2 같은 임베디드 데이터베이스를 사용하지 못하면 데이터를 더럽히게 됩니다.
+    * H2 같은 임베디드(embedded) 데이터베이스를 사용하지 못하면 데이터베이스를 오염시킵니다.
 * 엔티티 객체의 캡슐화가 깨집니다.
     * 엔티티의 오염 확인은 영속성 컨텍스트에서 관리 중인 엔티티를 기준으로 일어납니다.
     * 필드 변경을 위해 엔티티에 `setter` 메소드를 만들어야 합니다. 
 * 트랜잭션 경합이 발생하지 않는다면 낙관적인 락 메커니즘이 동작하지 않습니다.
-    * 매번 트랜잭션 경합이 거의 발생하지 느슨한 상황이라면 매번 조회한 엔티티를 기준으로 업데이트합니다.
-    * 다른 트랜잭션에 의해 버전 정보가 변경되는 상황이 발생하지 않습니다.
+    * 트랜잭션 경합이 거의 발생하지 느슨한 상황이라면 매 트랜잭션마다 조회한 엔티티를 기준으로 업데이트합니다.
 
 ## 2. Update Query and Presence Check
 
-QueryDSL 업데이트 쿼리를 사용하면서 자체적으로 낙관적인 락 메커니즘을 구현합니다. 
+`QueryDSL` 업데이트 쿼리를 사용하면서 자체적으로 낙관적인 락 메커니즘을 구현합니다. 
 
 ### 2.1. Context for Test
 
@@ -271,12 +271,12 @@ QueryDSL 업데이트 쿼리를 사용하면서 자체적으로 낙관적인 락
     * 업데이트가 정상적으로 수행되지 않은 경우 이를 확인하고 예외를 던집니다.
 
 <p align="center">
-    <img src="/images/optimistic-lock-in-query-dsl-2.JPG" width="100%" class="image__border">
+    <img src="/images/optimistic-lock-in-query-dsl-2.JPG" width="55%" class="image__border">
 </p>
 
 ### 2.2. Implementation Code
 
-* 조회 조건에 만족하는 엔티티를 업데이트합니다.
+* 조회 조건을 만족하는 엔티티를 업데이트합니다.
     * 버전 정보 확인을 제외한 다른 조회 조건은 `BooleanExpression` 객체로 만듭니다.
 * 업데이트 된 데이터가 0건이 아니라면 해당 로직을 종료합니다.
 * 업데이트 된 데이터가 0건인 경우 다음과 같이 동작합니다.
@@ -340,11 +340,11 @@ public class UpdateQueryPostStore {
 
 ### 2.3. Test Code
 
-* 2회 업데이트를 수행합니다.
+* 하나의 트랜잭션에서 2회 업데이트를 수행합니다.
 * 1차 업데이트는 정상적인 버전 정보를 지닌 엔티티로 업데이트를 수행합니다.
 * 2차 업데이트는 이전 버전 정보를 지닌 엔티티로 업데이트를 수행합니다.
 * 2차 업데이트에서 `OptimisticLockException` 예외가 발생할 것을 예상합니다.
-* 테이블에 저장된 모습은 1차 업데이트의 결과로 예상합니다.
+* 테이블에 저장된 모습은 1차 업데이트의 수행 결과일 것으로 예상합니다.
 
 ```java
 package action.in.blog.dsl;
@@ -455,7 +455,7 @@ Hibernate: select postentity0_.id as id1_0_, postentity0_.contents as contents2_
 
 ## CLOSING
 
-
+두 가지 방법에 대한 각 고려 사항들과 비즈니스를 고민하여 적절한 방법으로 구현합니다. 
 
 #### TEST CODE REPOSITORY
 

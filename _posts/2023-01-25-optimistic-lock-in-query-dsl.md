@@ -14,7 +14,7 @@ last_modified_at: 2023-01-25T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Lock Mechanism][lock-mechanism-link]
-* [JPA Optimistic Lock 구현][jpa-optimistic-lock-link]
+* [JPA Optimistic Lock][jpa-optimistic-lock-link]
 
 ## 0. 들어가면서
 

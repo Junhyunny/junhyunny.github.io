@@ -1,5 +1,5 @@
 ---
-title: "JPA Optimistic Lock 구현"
+title: "JPA Optimistic Lock"
 search: false
 category:
   - spring-boot
@@ -16,7 +16,7 @@ last_modified_at: 2021-08-22T03:00:00
 - [Lock Mechanism][lock-mechanism-link]
 
 👉 이어서 읽기를 추천합니다.
-- [JPA Pessimistic Lock 구현][jpa-pessimitic-lock-link]
+- [JPA Pessimistic Lock][jpa-pessimitic-lock-link]
 
 ## 0. 들어가면서
 

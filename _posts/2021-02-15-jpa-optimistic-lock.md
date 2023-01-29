@@ -108,12 +108,12 @@ insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'Th
     * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
     * 내용를 변경합니다.
     * 500ms 대기합니다.
-    * 변경 사항을 업데이트합니다.
+    * 오염 감지(dirty check)를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2`는 다음과 같은 작업을 수행합니다.
     * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
     * 내용를 변경합니다.
     * 1s 대기합니다.
-    * 변경 사항을 업데이트합니다.
+    * 오염 감지를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상합니다.
     * 해당 예외의 원인은 `ObjectOptimisticLockingFailureException` 입니다.
 * 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상합니다.
@@ -187,14 +187,12 @@ public class RepositoryTest {
             Post post = postRepository.findByTitle("Hello World");
             post.setContents("This is tx1.");
             sleep(500);
-            postRepository.save(post);
         }));
         Throwable throwable = assertThrows(Exception.class, () -> {
             CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
                 Post post = postRepository.findByTitle("Hello World");
                 post.setContents("This is tx2.");
                 sleep(1000);
-                postRepository.save(post);
             })).join();
         });
         tx.join();
@@ -248,7 +246,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
     * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
     * 내용를 변경합니다.
     * 500ms 대기합니다.
-    * 오염 감지(dirty check)를 통해 변경 사항이 업데이트됩니다.
+    * 오염 감지를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2`는 다음과 같은 작업을 수행합니다.
     * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
     * 내용를 변경합니다.

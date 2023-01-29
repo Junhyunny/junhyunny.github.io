@@ -91,7 +91,7 @@ public class Post {
 * `@Import` 애너테이션을 통한 빈(bean) 주입
 * `@TestPropertySource` 애너테이션을 통한 테스트 환경 설정
 
-테스트를 위해 다음가 같은 데이터를 `data.sql` 파일에 준비합니다. 
+테스트를 위한 데이터를 `data.sql` 파일에 준비합니다. 
 
 ```sql
 insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'This is new contents', 0);
@@ -212,15 +212,15 @@ public class RepositoryTest {
 
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
-    * `트랜잭션1`, `트랜잭션2`가 제목로 포스트 엔티티를 조회합니다.
+    * `트랜잭션1`, `트랜잭션2`가 제목으로 포스트 엔티티를 조회합니다.
 * 아이디로 조회하는 쿼리 
     * `where post0_.id=?`
     * 현재 엔티티의 버전을 확인하기 위한 조회 쿼리로 예상됩니다.
 * 업데이트 쿼리 
     * `update post set contents=?, title=?, version_no=? where id=? and version_no=?` 
     * 버전이 일치하는 경우 업데이트를 수행합니다.
-    * 해당 업데이트 쿼리를 보면 `WHERE` 절에 버전 정보를 확인하는 코드가 존재합니다.
-    * 업데이트 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 엔티티의 버전이 달라 업데이트를 시도하지 않은 것으로 예상됩니다.
+    * `WHERE` 절에 버전 정보를 확인하는 조건이 존재합니다.
+    * 업데이트 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 엔티티 버전이 달라 업데이트를 시도하지 않은 것으로 예상됩니다.
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
     * 검증(assert)을 위한 조회 쿼리가 수행됩니다.
@@ -243,8 +243,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 #### 2.2.1. LockModeType.OPTIMISTIC
 
-테스트 수행 전에 테스트 데이터의 버전 값을 초기화합니다. 
-
+* 테스트 실행 전 데이터 버전 값을 초기화합니다. 
 * `트랜잭션1`는 다음과 같은 작업을 수행합니다.
     * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
     * 내용를 변경합니다.
@@ -368,18 +367,18 @@ public class EntityManagerTest {
     * 테스트를 위해 데이터의 버전 값을 0으로 초기화합니다.
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
-    * `트랜잭션1`, `트랜잭션2`가 제목로 포스트 엔티티를 조회합니다.
+    * `트랜잭션1`, `트랜잭션2`가 제목으로 포스트 엔티티를 조회합니다.
 * 업데이트 쿼리 
     * `update post set contents=?, title=?, version_no=? where id=? and version_no=?` 
     * 버전이 일치하는 경우 업데이트를 수행합니다.
-    * 해당 업데이트 쿼리를 보면 `WHERE` 절에 버전 정보를 확인하는 코드가 존재합니다.
+    * `WHERE` 절에 버전 정보를 확인하는 조건이 존재합니다.
 * 버전 정보만 조회하는 쿼리
     * `select version_no as version_ from post where id =?`
     * 업데이트 이후 엔티티의 버전을 확인하려는 것으로 예상됩니다. 
     * 해당 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 업데이트에 실패하여 버전 조회를 시도하지 않은 것으로 예상됩니다.
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
-    * 검증(assert)을 위한 조회 쿼리가 수행됩니다.
+    * 검증을 위한 조회 쿼리가 수행됩니다.
 
 ```
 Hibernate: update post set version_no=0 where id=1
@@ -438,18 +437,18 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
     * 테스트를 위해 데이터의 버전 값을 0으로 초기화합니다.
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
-    * `트랜잭션1`, `트랜잭션2`가 제목로 포스트 엔티티를 조회합니다.
+    * `트랜잭션1`, `트랜잭션2`가 제목으로 포스트 엔티티를 조회합니다.
 * 업데이트 쿼리 
     * `update post set contents=?, title=?, version_no=? where id=? and version_no=?` 
     * 버전이 일치하는 경우 업데이트를 수행합니다.
-    * 해당 업데이트 쿼리를 보면 `WHERE` 절에 버전 정보를 확인하는 코드가 존재합니다.
+    * `WHERE` 절에 버전 정보를 확인하는 조건이 존재합니다.
 * 버전 정보만 조회하는 쿼리
     * `select version_no as version_ from post where id =?`
     * 업데이트 이후 엔티티의 버전을 확인하려는 것으로 예상됩니다. 
     * 해당 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 업데이트에 실패하여 버전 조회를 시도하지 않은 것으로 예상됩니다.
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
-    * 검증(assert)을 위한 조회 쿼리가 수행됩니다.
+    * 검증을 위한 조회 쿼리가 수행됩니다.
 
 ```
 Hibernate: update post set version_no=0 where id=1

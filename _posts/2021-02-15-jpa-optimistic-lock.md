@@ -1,5 +1,5 @@
 ---
-title: "JPA Optimistic Lock"
+title: "Optimistic Lock in JPA"
 search: false
 category:
   - spring-boot
@@ -10,300 +10,487 @@ last_modified_at: 2021-08-22T03:00:00
 
 <br>
 
-⚠️ 해당 포스트는 2021년 8월 22일에 재작성되었습니다. (불필요 코드 제거)
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Lock Mechanism][lock-mechanism-link]
-
-👉 이어서 읽기를 추천합니다.
-- [JPA Pessimistic Lock][jpa-pessimitic-lock-link]
+* [Lock Mechanism][lock-mechanism-link]
+* [Propagation Type for @Transactional][transactional-propagation-type-link]
+* [@Import, @ImportAutoConfiguration 애너테이션][import-auto-configuration-annotation-link]
 
 ## 0. 들어가면서
 
-Optimistic Lock에 대한 핵심 내용만 다시 정리하고, 글 작성을 이어나가도록 하겠습니다. 
+낙관적인 락(optimistic lock) 개념을 다시 정리 후 글을 이어가겠습니다. 
 
-> **`Optimistic Lock`**<br>
-> 트랜잭션 충돌이 발생하지 않는다고 가정한 낙관적인 LOCK<br>
-> 트랜잭션 충돌에 대한 감지는 조회한 데이터의 VERSION 값을 통해 이루어집니다. 
+> 낙관적인 락(optimistic lock)<br/>
+> 트랜잭션 충돌이 발생하지 않는다고 가정한 낙관적인 락 방식입니다. 
+> 트랜잭션 충돌에 대한 감지는 조회한 데이터의 버전(version)을 통해 이루어집니다. 
 
-## 1. JPA는 Optimistic Lock을 어떻게 제공하는가?
-짧은 시간 차이로 서로 다른 트랜잭션이 동일 데이터에 대해 업데이트하는 테스트 코드를 작성하였습니다. 
-테스트는 JpaRepository Interface와 EntityManager를 사용한 두 가지 방법을 준비하였습니다. 
+## 1. How to use optimistic lock in JPA?
 
-두 테스트의 시나리오는 동일하며 아래와 같습니다.
-1. test() 메소드에서 2개의 스레드를 만들어 실행
-1. 각 스레드 별로 대기하는 시간을 다르게 부여하여 업데이트 시간 차이를 부여
-1. 늦게 업데이트를 수행한 스레드가 Optimistic Lock과 관련된 Exception이 발생하는지 확인
+`JPA`에서 낙관적인 락을 어떤 방식으로 제공하는지 살펴보겠습니다. 
 
-## 2. 테스트 코드
+### 1.1. LockModeType
 
-### 2.1. JpaRepository 인터페이스 사용
+락 모드를 지정하는 방식으로 낙관적인 락 기능을 사용할 수 있습니다. 
+다음과 같은 방식이 존재합니다.
+
+* `LockModeType.OPTIMISTIC`
+    * `LockModeType.READ` 옵션과 동일합니다.
+    * 해당 옵션으로 조회된 엔티티가 변경되면 업데이트 시점에 버전 값이 증가합니다.
+    * 해당 옵션으로 조회된 엔티티의 변경이 없다면 버전 값은 증가하지 않습니다.
+* `LockModeType.OPTIMISTIC_FORCE_INCREMENT`
+    * `LockModeType.WRITE` 옵션과 동일합니다.
+    * 해당 옵션으로 조회된 엔티티가 변경되면 업데이트 시점에 버전 값이 증가합니다.
+    * 해당 옵션으로 조회된 엔티티의 변경이 없더라도 버전 값이 증가합니다.
+    * 엔티티의 변경이 있다면 버전 값은 2 증가합니다.
+    * 엔티티의 변경이 없다면 버전 값은 1 증가합니다.
+    * 해당 옵션은 조회만으로 다른 트랜잭션의 변경을 방지합니다.
+
+### 1.2. @Version Annotation
+
+엔티티(entity) 필드에 버전 정보임을 알려주는 `@Version` 애너테이션을 붙힙니다. 
+`@Version` 애너테이션이 붙은 필드를 가진 엔티티는 자동으로 낙관적인 락이 적용됩니다. 
+버전으로 사용할 수 있는 타입은 int, Integer, long, Long, short, Short, java.sql.Timestamp 등이 있습니다. 
 
 ```java
-package blog.in.action.lock.optimistic;
+package blog.in.action.post;
 
-import blog.in.action.domain.post.Post;
-import blog.in.action.domain.post.PostRepository;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String title;
+    private String contents;
+    @Version
+    private Long versionNo;
+}
+```
+
+## 2. Practice
+
+다음은 낙관적인 락 기능 동작을 확인하기 위한 테스트 코드입니다. 
+서로 다른 트랜잭션이 짧은 시간 차이로 동일한 데이터를 업데이트합니다. 
+업데이트가 나중에 처리되는 트랜잭션은 실패 예외를 던집니다. 
+
+테스트 코드를 잘 이해하기 위해선 다음과 같은 내용을 미리 알면 좋습니다. 
+
+* `@DataJpaTest` 애너테이션의 기본적인 트랜잭션 처리
+* 전파 타입(propagation type)에 따른 트랜잭션 동작
+* `@Import` 애너테이션을 통한 빈(bean) 주입
+* `@TestPropertySource` 애너테이션을 통한 테스트 환경 설정
+
+테스트를 위해 다음가 같은 데이터를 `data.sql` 파일에 준비합니다. 
+
+```sql
+insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'This is new contents', 0);
+```
+
+### 2.1. Use JpaRepository Interface
+
+먼저 `JpaRepository` 인터페이스를 사용한 테스트입니다. 
+`AsyncTransaction` 빈을 사용해 테스트에 필요한 새로운 비동기 트랜잭션을 생성합니다. 
+`Propagation.REQUIRES_NEW` 속성을 지정하여 진행 중인 트랜잭션을 잠시 멈추고 새로운 트랜잭션을 만들어 냅니다. 
+이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행합니다.
+
+* `트랜잭션1`는 다음과 같은 작업을 수행합니다.
+    * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
+    * 내용를 변경합니다.
+    * 500ms 대기합니다.
+    * 변경 사항을 업데이트합니다.
+* `트랜잭션2`는 다음과 같은 작업을 수행합니다.
+    * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
+    * 내용를 변경합니다.
+    * 1s 대기합니다.
+    * 변경 사항을 업데이트합니다.
+* `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상합니다.
+    * 해당 예외의 원인은 `ObjectOptimisticLockingFailureException` 입니다.
+* 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상합니다.
+* 포스트 엔티티의 버전 값이 1만큼 증가 하였음을 예상합니다.
+
+```java
+package blog.in.action;
+
 import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.stereotype.Component;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.concurrent.CompletableFuture;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+interface PostRepository extends JpaRepository<Post, Long> {
+
+    Post findByTitle(String title);
+}
+
+@Component
+class AsyncTransaction {
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public CompletableFuture<Void> runAsync(Runnable runnable) {
+        return CompletableFuture.runAsync(runnable);
+    }
+}
 
 @Log4j2
-@SpringBootTest
-public class RepositoryUseTest {
+@Import(AsyncTransaction.class)
+@DataJpaTest
+@TestPropertySource(
+        properties = {
+                "spring.sql.init.mode=embedded",
+                "spring.sql.init.schema-locations=classpath:db/schema.sql",
+                "spring.sql.init.data-locations=classpath:db/data.sql",
+                "spring.jpa.defer-datasource-initialization=true"
+        }
+)
+public class RepositoryTest {
 
+    @Autowired
+    private AsyncTransaction asyncTransaction;
     @Autowired
     private PostRepository postRepository;
 
-    @BeforeEach
-    private void beforeEach() {
-        Page<Post> page = postRepository.findByTitle("Optimistic Lock", PageRequest.of(0, 10, Sort.by(Direction.DESC, "title")));
-        if (page.isEmpty()) {
-            Post post = new Post();
-            post.setTitle("Optimistic Lock");
-            post.setContents("JPA는 어떤 방식으로 Optimistic Lock을 제공하는지 정리하였습니다.");
-            post.setVersionNo(Long.valueOf(0L));
-            postRepository.save(post);
-        } else {
-            Post post = page.getContent().get(0);
-            post.setContents("JPA는 어떤 방식으로 Optimistic Lock을 제공하는지 정리하였습니다.");
-            postRepository.save(post);
+    void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void test() {
-        Page<Post> page = postRepository.findByTitle("Optimistic Lock", PageRequest.of(0, 10, Sort.by(Direction.DESC, "title")));
-        if (!page.isEmpty()) {
-            Post post = page.getContent().get(0);
-            Thread tx1 = new Thread(new UpdatePostTask(post.getId(), 1100));
-            Thread tx2 = new Thread(new UpdatePostTask(post.getId(), 1000));
-            tx1.setName("1.1 초 대기 스레드");
-            tx2.setName("1.0 초 대기 스레드");
-            tx1.start();
-            tx2.start();
-            try {
-                Thread.sleep(2000);
-            } catch (Exception e) {
-                log.error("main thread sleep error", e);
-            }
-        }
-    }
-
-    private class UpdatePostTask implements Runnable {
-
-        private Long postId;
-
-        private Integer waitingTime;
-
-        public UpdatePostTask(Long postId, Integer waitingTime) {
-            this.postId = postId;
-            this.waitingTime = waitingTime;
-        }
-
-        @Override
-        public void run() {
-            Post post = null;
-            try {
-                post = postRepository.findById(postId).get();
-                post.setContents("JPA는 어떤 방식으로 Optimistic Lock을 제공하는지 정리하였습니다. " + Thread.currentThread().getName() + "에 의해 업데이트되었습니다.");
-                Thread.sleep(waitingTime);
+    public void optimistic_lock_with_repository() {
+        CompletableFuture<Void> tx = asyncTransaction.runAsync(() -> {
+            Post post = postRepository.findByTitle("Hello World");
+            post.setContents("This is tx1.");
+            sleep(500);
+            postRepository.save(post);
+        });
+        Throwable throwable = assertThrows(Exception.class, () -> {
+            asyncTransaction.runAsync(() -> {
+                Post post = postRepository.findByTitle("Hello World");
+                post.setContents("This is tx2.");
+                sleep(1000);
                 postRepository.save(post);
-            } catch (OptimisticLockingFailureException optEx) {
-                log.error(post.getTitle() + " 포스트는 다른 트랜잭션에 의해 업데이트되었습니다.", optEx);
-            } catch (Exception e) {
-                log.error("update thread sleep error", e);
-            }
-        }
+            }).join();
+        });
+        tx.join();
+
+
+        Post post = postRepository.findByTitle("Hello World");
+        assertThat(post.getContents(), equalTo("This is tx1."));
+        assertThat(post.getVersionNo(), equalTo(1L));
+        assertThat(throwable.getCause(), instanceOf(ObjectOptimisticLockingFailureException.class));
     }
 }
 ```
 
-##### JpaRepository 인터페이스 사용 테스트 결과
-- ObjectOptimisticLockingFailureException 예외가 발생하는 것을 볼 수 있습니다.
+##### Result of Test
 
-<p align="left"><img src="/images/jpa-optimistic-lock-1.JPG"></p>
+* 제목으로 조회하는 쿼리
+    * `where post0_.title=?`
+    * `트랜잭션1`, `트랜잭션2`가 제목로 포스트 엔티티를 조회합니다.
+* 아이디로 조회하는 쿼리 
+    * `where post0_.id=?`
+    * 현재 엔티티의 버전을 확인하기 위한 조회 쿼리로 예상됩니다.
+* 업데이트 쿼리 
+    * `update post set contents=?, title=?, version_no=? where id=? and version_no=?` 
+    * 버전이 일치하는 경우 업데이트를 수행합니다.
+    * 해당 업데이트 쿼리를 보면 `WHERE` 절에 버전 정보를 확인하는 코드가 존재합니다.
+    * 업데이트 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 엔티티의 버전이 달라 업데이트를 시도하지 않은 것으로 예상됩니다.
+* 제목으로 조회하는 쿼리
+    * `where post0_.title=?`
+    * 검증(assert)을 위한 조회 쿼리가 수행됩니다.
 
 ```
-Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from tb_post post0_ where post0_.title=? order by post0_.title desc limit ?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-Hibernate: update tb_post set contents=?, title=?, version_no=? where id=? and version_no=?
-Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from tb_post post0_ where post0_.title=? order by post0_.title desc limit ?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-Hibernate: update tb_post set contents=?, title=?, version_no=? where id=? and version_no=?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-2021-08-22 03:10:09.140 ERROR 6892 --- [   1.1 초 대기 스레드] b.i.a.lock.optimistic.RepositoryUseTest  : Optimistic Lock 포스트는 다른 트랜잭션에 의해 업데이트되었습니다.
-
-org.springframework.orm.ObjectOptimisticLockingFailureException: Object of class [blog.in.action.domain.post.Post] with identifier [1191]: optimistic locking failed; nested exception is org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [blog.in.action.domain.post.Post#1191]
-    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:315) ~[spring-orm-5.3.2.jar:5.3.2]
-    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:233) ~[spring-orm-5.3.2.jar:5.3.2]
-    at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:551) ~[spring-orm-5.3.2.jar:5.3.2]
-    at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-5.3.2.jar:5.3.2]
-    at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:242) ~[spring-tx-5.3.2.jar:5.3.2]
-    at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:152) ~[spring-tx-5.3.2.jar:5.3.2]
-    ...
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title=?
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title=?
+Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from post post0_ where post0_.id=?
+Hibernate: update post set contents=?, title=?, version_no=? where id=? and version_no=?
+Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from post post0_ where post0_.id=?
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title=?
 ```
 
-### 2.2. EntityManager 사용
+### 2.2. Use EntityManager
+
+다음 `EntityManager`를 사용한 테스트입니다. 
+위 테스트와 마찬가지로 각기 다른 트랜잭션을 만들어 실행하고 이를 커밋합니다. 
+이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행합니다. 
+각 모드 별로 테스트 코드와 결과를 살펴보겠습니다. 
+
+#### 2.2.1. LockModeType.OPTIMISTIC
+
+테스트 수행 전에 테스트 데이터의 버전 값을 초기화합니다. 
+
+* `트랜잭션1`는 다음과 같은 작업을 수행합니다.
+    * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
+    * 내용를 변경합니다.
+    * 500ms 대기합니다.
+    * 오염 감지를 통해 변경 사항이 업데이트됩니다.
+* `트랜잭션2`는 다음과 같은 작업을 수행합니다.
+    * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
+    * 내용를 변경합니다.
+    * 1s 대기합니다.
+    * 오염 감지를 통해 변경 사항이 업데이트됩니다.
+* `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상합니다.
+    * 해당 예외의 원인은 `RollbackException` 입니다.
+    * `RollbackException` 예외의 원인은 `OptimisticLockException` 입니다.
+* 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상합니다.
+* 포스트 엔티티의 버전 값이 1만큼 증가 하였음을 예상합니다.
 
 ```java
-package blog.in.action.lock.optimistic;
+package blog.in.action;
 
-import blog.in.action.domain.post.Post;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-import javax.persistence.RollbackException;
-import javax.persistence.TypedQuery;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
+
+import javax.persistence.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Log4j2
-@SpringBootTest
-public class EntityManagerUseTest {
+@DataJpaTest
+@TestPropertySource(
+        properties = {
+                "spring.sql.init.mode=embedded",
+                "spring.sql.init.schema-locations=classpath:db/schema.sql",
+                "spring.sql.init.data-locations=classpath:db/data.sql",
+                "spring.jpa.defer-datasource-initialization=true"
+        }
+)
+public class EntityManagerTest {
+
+    String selectQuery = "select p from Post p where p.title= 'Hello World'";
 
     @PersistenceUnit
-    private EntityManagerFactory factory;
+    EntityManagerFactory factory;
 
     @BeforeEach
-    private void beforeEach() {
-        EntityManager em = factory.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            TypedQuery<Post> query = em.createQuery("select p from Post p where p.title = :title", Post.class);
-            query.setParameter("title", "Optimistic Lock");
-            Post post = query.getSingleResult();
-            if (post == null) {
-                post = new Post();
-                post.setTitle("Optimistic Lock");
-                post.setContents("JPA는 어떤 방식으로 Optimistic Lock을 제공하는지 정리하였습니다.");
-                post.setVersionNo(Long.valueOf(0L));
-                em.persist(post);
-            } else {
-                post.setContents("JPA는 어떤 방식으로 Optimistic Lock을 제공하는지 정리하였습니다.");
+    public void beforeEach() {
+        EntityManager entityManager = factory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.createQuery("update Post p set p.versionNo = 0 where p.id = 1").executeUpdate();
+        transaction.commit();
+    }
+
+    CompletableFuture<Void> transactionAsyncWithCommit(Consumer<EntityManager> consumer) {
+        return CompletableFuture.runAsync(() -> {
+            EntityManager entityManager = factory.createEntityManager();
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            try {
+                consumer.accept(entityManager);
+            } catch (Exception ex) {
+                throw ex;
+            } finally {
+                transaction.commit();
+                entityManager.close();
             }
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            log.error("beforeEach thread error", e);
-            em.getTransaction().rollback();
+        });
+    }
+
+    void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @Test
-    public void test() {
-        EntityManager em = factory.createEntityManager();
-        TypedQuery<Post> query = em.createQuery("select p from Post p where p.title = :title", Post.class);
-        query.setParameter("title", "Optimistic Lock");
-        Post post = query.getSingleResult();
-        if (post != null) {
-            Thread tx1 = new Thread(new UpdatePostTask(post.getId(), 1100));
-            Thread tx2 = new Thread(new UpdatePostTask(post.getId(), 1000));
-            tx1.setName("1.1 초 대기 스레드");
-            tx2.setName("1.0 초 대기 스레드");
-            tx1.start();
-            tx2.start();
-            try {
-                Thread.sleep(2000);
-            } catch (Exception e) {
-                log.error("main thread sleep error", e);
-            }
-        }
-    }
+    public void optimistic_lock_with_entity_manager() {
+        CompletableFuture<Void> tx = transactionAsyncWithCommit(entityManager -> {
+            TypedQuery<Post> typedQuery = entityManager.createQuery(selectQuery, Post.class);
+            typedQuery.setLockMode(LockModeType.OPTIMISTIC);
+            Post post = typedQuery.getSingleResult();
+            post.setContents("This is optimistic tx1.");
+            sleep(500);
+        });
+        Throwable throwable = assertThrows(Exception.class, () -> {
+            transactionAsyncWithCommit(entityManager -> {
+                TypedQuery<Post> typedQuery = entityManager.createQuery(selectQuery, Post.class);
+                typedQuery.setLockMode(LockModeType.OPTIMISTIC);
+                Post post = typedQuery.getSingleResult();
+                post.setContents("This is optimistic tx2.");
+                sleep(1000);
+            }).join();
+        });
+        tx.join();
 
-    private class UpdatePostTask implements Runnable {
 
-        private Long postId;
-
-        private Integer waitingTime;
-
-        public UpdatePostTask(Long postId, Integer waitingTime) {
-            this.postId = postId;
-            this.waitingTime = waitingTime;
-        }
-
-        @Override
-        public void run() {
-            EntityManager em = factory.createEntityManager();
-            Post post = null;
-            try {
-                em.getTransaction().begin();
-                post = em.find(Post.class, postId);
-                post.setContents("JPA는 어떤 방식으로 Optimistic Lock을 제공하는지 정리하였습니다. " + Thread.currentThread().getName() + "에 의해 업데이트되었습니다.");
-                // em.lock(post, LockModeType.OPTIMISTIC);
-                Thread.sleep(waitingTime);
-                em.getTransaction().commit();
-            } catch (RollbackException rollbackEx) {
-                log.error(post.getTitle() + " 포스트는 다른 트랜잭션에 의해 업데이트되었습니다.", rollbackEx);
-                em.getTransaction().rollback();
-            } catch (Exception e) {
-                log.error("update thread sleep error", e);
-                em.getTransaction().rollback();
-            }
-        }
+        Throwable cause = throwable.getCause();
+        EntityManager entityManager = factory.createEntityManager();
+        Post result = entityManager.createQuery(selectQuery, Post.class).getSingleResult();
+        assertThat(result.getContents(), equalTo("This is optimistic tx1."));
+        assertThat(result.getVersionNo(), equalTo(1L));
+        assertThat(cause, instanceOf(RollbackException.class));
+        assertThat(cause.getCause(), instanceOf(OptimisticLockException.class));
     }
 }
 ```
 
-##### EntityManager 사용 테스트 결과
-- RollbackException이 발생하고, 원인이 OptimisticLockException임을 확인할 수 있습니다.
+##### Result of Test
 
-<p align="left"><img src="/images/jpa-optimistic-lock-2.JPG"></p>
+* 버전 값을 0으로 업데이트하는 쿼리
+    * `update post set version_no=0 where id=1`
+    * 테스트를 위해 데이터의 버전 값을 0으로 초기화합니다.
+* 제목으로 조회하는 쿼리
+    * `where post0_.title=?`
+    * `트랜잭션1`, `트랜잭션2`가 제목로 포스트 엔티티를 조회합니다.
+* 업데이트 쿼리 
+    * `update post set contents=?, title=?, version_no=? where id=? and version_no=?` 
+    * 버전이 일치하는 경우 업데이트를 수행합니다.
+    * 해당 업데이트 쿼리를 보면 `WHERE` 절에 버전 정보를 확인하는 코드가 존재합니다.
+* 버전 정보만 조회하는 쿼리
+    * `select version_no as version_ from post where id =?`
+    * 업데이트 이후 엔티티의 버전을 확인하려는 것으로 예상됩니다. 
+    * 해당 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 업데이트에 실패하여 버전 조회를 시도하지 않은 것으로 예상됩니다.
+* 제목으로 조회하는 쿼리
+    * `where post0_.title=?`
+    * 검증(assert)을 위한 조회 쿼리가 수행됩니다.
 
 ```
-Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from tb_post post0_ where post0_.title=?
-Hibernate: update tb_post set contents=?, title=?, version_no=? where id=? and version_no=?
-Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from tb_post post0_ where post0_.title=?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-Hibernate: update tb_post set contents=?, title=?, version_no=? where id=? and version_no=?
-Hibernate: update tb_post set contents=?, title=?, version_no=? where id=? and version_no=?
-Hibernate: select post0_.id as id1_0_0_, post0_.contents as contents2_0_0_, post0_.title as title3_0_0_, post0_.version_no as version_4_0_0_ from tb_post post0_ where post0_.id=?
-2021-08-22 03:12:29.830 ERROR 15408 --- [   1.1 초 대기 스레드] b.i.a.l.optimistic.EntityManagerUseTest  : Optimistic Lock 포스트는 다른 트랜잭션에 의해 업데이트되었습니다.
+Hibernate: update post set version_no=0 where id=1
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title='Hello World'
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title='Hello World'
+Hibernate: update post set contents=?, title=?, version_no=? where id=? and version_no=?
+Hibernate: select version_no as version_ from post where id =?
+Hibernate: update post set contents=?, title=?, version_no=? where id=? and version_no=?
+2023-01-29 13:24:45.058  INFO 16124 --- [onPool-worker-2] o.h.e.j.b.internal.AbstractBatchImpl     : HHH000010: On release of batch it still contained JDBC statements
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title='Hello World'
+```
 
-javax.persistence.RollbackException: Error while committing the transaction
-    at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:81) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:104) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at blog.in.action.lock.optimistic.EntityManagerUseTest$UpdatePostTask.run(EntityManagerUseTest.java:87) ~[test-classes/:na]
-    at java.base/java.lang.Thread.run(Thread.java:834) ~[na:na]
-Caused by: javax.persistence.OptimisticLockException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [blog.in.action.domain.post.Post#1191]
-    at org.hibernate.internal.ExceptionConverterImpl.wrapStaleStateException(ExceptionConverterImpl.java:226) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:93) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:181) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:65) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    ... 3 common frames omitted
-Caused by: org.hibernate.StaleObjectStateException: Row was updated or deleted by another transaction (or unsaved-value mapping was incorrect) : [blog.in.action.domain.post.Post#1191]
-    at org.hibernate.persister.entity.AbstractEntityPersister.check(AbstractEntityPersister.java:2651) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at org.hibernate.persister.entity.AbstractEntityPersister.update(AbstractEntityPersister.java:3495) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    at org.hibernate.persister.entity.AbstractEntityPersister.updateOrInsert(AbstractEntityPersister.java:3358) ~[hibernate-core-5.4.25.Final.jar:5.4.25.Final]
-    ...
+#### 2.2.2. LockModeType.OPTIMISTIC_FORCE_INCREMENT
+
+* `OPTIMISTIC` 모드 테스트와 결과가 동일하지만, 증가한 버전 값이 다릅니다. 
+* 버전 값이 2만큼 증가 하였음을 예상합니다.
+    * 오염 감지를 통해 업데이트가 수행되면서 버전 값이 증가합니다.
+    * `OPTIMISTIC_FORCE_INCREMENT` 모드이므로 별도로 버전 값을 증가시킵니다.
+
+```java
+    @Test
+    public void optimistic_force_increment_lock_with_entity_manager() {
+        CompletableFuture<Void> tx = transactionAsyncWithCommit(entityManager -> {
+            TypedQuery<Post> typedQuery = entityManager.createQuery(selectQuery, Post.class);
+            typedQuery.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+            Post post = typedQuery.getSingleResult();
+            post.setContents("This is optimistic force increment tx1.");
+            sleep(500);
+        });
+        Throwable throwable = assertThrows(Exception.class, () -> {
+            transactionAsyncWithCommit(entityManager -> {
+                TypedQuery<Post> typedQuery = entityManager.createQuery(selectQuery, Post.class);
+                typedQuery.setLockMode(LockModeType.OPTIMISTIC_FORCE_INCREMENT);
+                Post post = typedQuery.getSingleResult();
+                post.setContents("This is optimistic force increment tx2.");
+                sleep(1000);
+            }).join();
+        });
+        tx.join();
+
+
+        Throwable cause = throwable.getCause();
+        EntityManager entityManager = factory.createEntityManager();
+        Post result = entityManager.createQuery(selectQuery, Post.class).getSingleResult();
+        assertThat(result.getContents(), equalTo("This is optimistic force increment tx1."));
+        assertThat(result.getVersionNo(), equalTo(2L));
+        assertThat(cause, instanceOf(RollbackException.class));
+        assertThat(cause.getCause(), instanceOf(OptimisticLockException.class));
+    }
+```
+
+##### Result of Test
+
+* 버전 값을 0으로 업데이트하는 쿼리
+    * `update post set version_no=0 where id=1`
+    * 테스트를 위해 데이터의 버전 값을 0으로 초기화합니다.
+* 제목으로 조회하는 쿼리
+    * `where post0_.title=?`
+    * `트랜잭션1`, `트랜잭션2`가 제목로 포스트 엔티티를 조회합니다.
+* 업데이트 쿼리 
+    * `update post set contents=?, title=?, version_no=? where id=? and version_no=?` 
+    * 버전이 일치하는 경우 업데이트를 수행합니다.
+    * 해당 업데이트 쿼리를 보면 `WHERE` 절에 버전 정보를 확인하는 코드가 존재합니다.
+* 버전 정보만 조회하는 쿼리
+    * `select version_no as version_ from post where id =?`
+    * 업데이트 이후 엔티티의 버전을 확인하려는 것으로 예상됩니다. 
+    * 해당 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 업데이트에 실패하여 버전 조회를 시도하지 않은 것으로 예상됩니다.
+* 제목으로 조회하는 쿼리
+    * `where post0_.title=?`
+    * 검증(assert)을 위한 조회 쿼리가 수행됩니다.
+
+```
+Hibernate: update post set version_no=0 where id=1
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title='Hello World'
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title='Hello World'
+Hibernate: update post set contents=?, title=?, version_no=? where id=? and version_no=?
+Hibernate: update post set version_no=? where id=? and version_no=?
+Hibernate: update post set contents=?, title=?, version_no=? where id=? and version_no=?
+2023-01-29 13:24:46.101  INFO 16124 --- [onPool-worker-1] o.h.e.j.b.internal.AbstractBatchImpl     : HHH000010: On release of batch it still contained JDBC statements
+Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.title as title3_0_, post0_.version_no as version_4_0_ from post post0_ where post0_.title='Hello World'
 ```
 
 ## CLOSING
-EntityManager를 사용한 테스트에서 entityManager.lock() 메소드를 사용하지 않더라도 OptimisticLockException이 발생하는 것을 확인하였습니다. 
-entityManager.lock() 메소드를 사용하지 않아도 Optimistic Lock 기능이 정상적으로 동작하는 것이 이상하여 찾아보니 `StackOverflow`에서 3.2 버전부터는 @Version 애너테이션 필드만 있어도 Optimistic Lock 기능이 가능하다는 글을 발견하였습니다. 
+
+사실 락 모드를 설정하지 않아도 낙관적인 락 메커니즘이 잘 동작합니다. 
+3.2 버전부터는 `@Version` 애너테이션만으로 낙관적인 락이 가능하다고 합니다. 
+
 > 3.2 Version Attributes<br><br>
 > The Version field or property is used by the persistence provider to perform optimistic locking. 
 > It is accessed and/or set by the persistence provider in the course of performing lifecycle operations on the entity instance. 
 > **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-15-jpa-optimistic-lock>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-15-jpa-optimistic-lock>
+
+#### RECOMMEND NEXT POSTS
+
+* [Pessimistic Lock in JPA][jpa-pessimitic-lock-link]
+* [Optimistic Lock in QueryDSL][optimistic-lock-in-query-dsl-link]
 
 #### REFERENCE
-- <https://www.baeldung.com/jpa-optimistic-locking>
-- <https://stackoverflow.com/questions/13568475/jpa-and-default-locking-mode>
+
+* <https://www.baeldung.com/jpa-optimistic-locking>
+* <https://www.logicbig.com/tutorials/java-ee-tutorial/jpa/optimistic-lock-force-increment-use-case.html>
+* <https://vitriol95.github.io/posts/optimistic/>
+* <https://stackoverflow.com/questions/13568475/jpa-and-default-locking-mode>
+* <https://stackoverflow.com/questions/15293275/semantic-of-jpa-2-0-optimistic-force-increment>
 
 [lock-mechanism-link]: https://junhyunny.github.io/information/lock-mechanism/
-
+[transactional-propagation-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/
+[import-auto-configuration-annotation-link]: https://junhyunny.github.io/spring-boot/import-auto-configuration-annotation/
 [jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/
+[optimistic-lock-in-query-dsl-link]: https://junhyunny.github.io/java/spring-boot/query-dsl/jpa/optimistic-lock-in-query-dsl/

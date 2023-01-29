@@ -365,8 +365,9 @@ public class EntityManagerTest {
     * 데이터 조회를 위해 대기하는 중 시간이 초과되어 타임아웃 예외가 발생합니다.
     * 해당 예외는 `트랜잭션2`에서 발생한 것으로 예상합니다.
 * 업데이트 쿼리 
+    * `update post set contents=?, title=? where id=?`
     * `트랜잭션1`은 7초 대기 후에 업데이트를 수행합니다.
-    * `This is tx1 before sleep`, `This is tx1 after sleep` 로그 사이의 시간 차이는 약 7초입니다.
+    * `This is tx1 before sleep`, `This is tx1 after sleep` 로그의 시간 차이는 약 7초입니다.
 * 제목으로 조회하는 쿼리
     * `where post0_.title='Hello World`
     * 검증을 위한 조회 쿼리가 수행됩니다.
@@ -387,8 +388,9 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 ##### Error when use JpaRepository Interface
 
-`JpaRepository` 인터페이스로 비관적 락을 사용하는 경우 JPA 트랜잭션 중에만 호출 가능합니다. 
-`JpaRepository` 인터페이스는 `@Transactional` 애너테이션을 통해 트랜잭션이 적용되기 때문에 서비스 빈(bean)을 두어 트랜잭션을 하나로 묶어줍니다. 
+비관적 락 모드는 JPA 트랜잭션 중에만 사용 가능합니다. 
+`JpaRepository` 인터페이스를 사용하는 경우 직접 트랜잭션 제어가 안 되기 때문에 `@Transactional` 애너테이션을 사용합니다. 
+적절한 서비스 빈(bean)을 만들고 필요한 기능들을 하나의 트랜잭션으로 묶는 작업이 필요합니다. 
 만일 트랜잭션을 시작하지 않고, 해당 메소드를 사용하면 다음과 같은 에러를 만나게 됩니다. 
 
 ```

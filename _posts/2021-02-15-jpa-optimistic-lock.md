@@ -107,12 +107,12 @@ insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'Th
 * `트랜잭션1`는 다음과 같은 작업을 수행합니다.
     * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
     * 내용를 변경합니다.
-    * 500ms 대기합니다.
+    * 0.5초 대기합니다.
     * 오염 감지(dirty check)를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2`는 다음과 같은 작업을 수행합니다.
     * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
     * 내용를 변경합니다.
-    * 1s 대기합니다.
+    * 1초 대기합니다.
     * 오염 감지를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상합니다.
     * 해당 예외의 원인은 `ObjectOptimisticLockingFailureException` 입니다.
@@ -245,12 +245,12 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 * `트랜잭션1`는 다음과 같은 작업을 수행합니다.
     * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
     * 내용를 변경합니다.
-    * 500ms 대기합니다.
+    * 0.5초 대기합니다.
     * 오염 감지를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2`는 다음과 같은 작업을 수행합니다.
     * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
     * 내용를 변경합니다.
-    * 1s 대기합니다.
+    * 1초 대기합니다.
     * 오염 감지를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상합니다.
     * 해당 예외의 원인은 `RollbackException` 입니다.

@@ -86,10 +86,10 @@ public class Post {
 
 테스트 코드를 잘 이해하기 위해선 다음과 같은 내용을 미리 알면 좋습니다. 
 
-* `@DataJpaTest` 애너테이션의 기본적인 트랜잭션 처리
-* 전파 타입(propagation type)에 따른 트랜잭션 동작
 * `@Import` 애너테이션을 통한 빈(bean) 주입
 * `@TestPropertySource` 애너테이션을 통한 테스트 환경 설정
+* `@DataJpaTest` 애너테이션의 기본적인 트랜잭션 처리
+* 전파 타입(propagation type)에 따른 트랜잭션 동작
 
 테스트를 위한 데이터를 `data.sql` 파일에 준비합니다. 
 
@@ -150,8 +150,8 @@ interface PostRepository extends JpaRepository<Post, Long> {
 class AsyncTransaction {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public CompletableFuture<Void> runAsync(Runnable runnable) {
-        return CompletableFuture.runAsync(runnable);
+    public void run(Runnable runnable) {
+        runnable.run();
     }
 }
 
@@ -183,19 +183,19 @@ public class RepositoryTest {
 
     @Test
     public void optimistic_lock_with_repository() {
-        CompletableFuture<Void> tx = asyncTransaction.runAsync(() -> {
+        CompletableFuture<Void> tx = CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
             Post post = postRepository.findByTitle("Hello World");
             post.setContents("This is tx1.");
             sleep(500);
             postRepository.save(post);
-        });
+        }));
         Throwable throwable = assertThrows(Exception.class, () -> {
-            asyncTransaction.runAsync(() -> {
+            CompletableFuture.runAsync(() -> asyncTransaction.run(() -> {
                 Post post = postRepository.findByTitle("Hello World");
                 post.setContents("This is tx2.");
                 sleep(1000);
                 postRepository.save(post);
-            }).join();
+            })).join();
         });
         tx.join();
 
@@ -248,7 +248,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
     * 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾습니다.
     * 내용를 변경합니다.
     * 500ms 대기합니다.
-    * 오염 감지를 통해 변경 사항이 업데이트됩니다.
+    * 오염 감지(dirty check)를 통해 변경 사항이 업데이트됩니다.
 * `트랜잭션2`는 다음과 같은 작업을 수행합니다.
     * 제목이 `Hello World`인 포스트 엔티티를 찾습니다.
     * 내용를 변경합니다.

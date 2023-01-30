@@ -1,5 +1,5 @@
 ---
-title: "경쟁 상태(Race Condition)"
+title: "Race Condition"
 search: false
 category:
   - information
@@ -12,11 +12,11 @@ last_modified_at: 2021-08-22T12:30:00
 
 ## 0. 들어가면서
 
-[교착 상태(Deadlock)][deadlock-blog-link]에 대한 포스트를 작성하다보니 운영체제에 대한 내용을 몇 가지 더 정리하고 싶어졌습니다. 
-오늘의 주제는 `경쟁 상태(Race Condition)`입니다. 
+[Deadlock][deadlock-blog-link]에 대한 포스트를 작성하다보니 운영체제에 대한 내용을 몇 가지 더 정리하고 싶어졌습니다. 
+오늘의 주제는 `Race Condition`입니다. 
 경쟁 상태는 무엇이고 이를 해결하기 위해 운영체제에서는 어떤 메커니즘을 사용하는지 정리해보도록 하겠습니다.
 
-## 1. 경쟁 상태(Race Condition)란?
+## 1. Race Condition란?
 
 > Wiki<br>
 > 공유 자원에 대해 여러 개의 프로세스가 동시에 접근을 시도할 때 접근의 타이밍이나 순서 등이 결과 값에 영향을 줄 수 있는 상태

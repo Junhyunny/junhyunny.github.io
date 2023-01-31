@@ -10,7 +10,7 @@ last_modified_at: 2021-08-24T02:00:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring IoC(Inversion of Control), DI(Dependency Injection)][ioc-di-link]
+- [Inversion of Control and Dependency Injection in Spring][ioc-di-link]
 
 ## 0. 들어가면서
 

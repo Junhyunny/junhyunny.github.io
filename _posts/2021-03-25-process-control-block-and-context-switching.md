@@ -10,7 +10,7 @@ last_modified_at: 2021-08-24T01:30:00
 <br>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [프로세스(Process)와 스레드(Thread)의 차이점][process-vs-thread-link]
+- [Proccess and Thread][process-vs-thread-link]
 
 ## 1. PCB(Process Control Block)
 

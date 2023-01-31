@@ -1,5 +1,5 @@
 ---
-title: "프로세스(Process)와 스레드(Thread)의 차이점"
+title: "Proccess and Thread"
 search: false
 category:
   - information

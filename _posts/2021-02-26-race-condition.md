@@ -86,6 +86,9 @@ last_modified_at: 2021-08-22T12:30:00
 위 설명은 프로세스를 기준으로 정리되었지만, 스레드(thread)도 마찬가지로 작은 실행 흐름으로써 공유 자원에 대한 경쟁 상태를 가질 수 있습니다. 
 스레드들끼린 메모리를 공유할 수 있으며, 이번 포스트에선 하나의 객체를 공유하는 스레드들 사이에 발생하는 경쟁 상태를 간단한 코드로 재현하였습니다. 
 
+### 3.1. Race Condition
+
+* 공유 자원 객체를 생성합니다.
 * 동일한 객체를 두 스레드가 동시에 접근합니다.
     * 공유 자원의 초기 값은 0입니다.
 * `스레드1`은 다음과 같은 작업을 수행합니다.
@@ -94,202 +97,118 @@ last_modified_at: 2021-08-22T12:30:00
 * `스레드2`은 다음과 같은 작업을 수행합니다.
     * 공유 자원의 상태를 1씩 감소시킵니다.
     * 이를 100회 반복합니다.
-* 위 작업을 100회 반복 수행하여 공유 자원의 상태가 0으로 끝나는 횟수가 몇 번인지 확인합니다.
-
-### 3.1. Race Condition
+* 위 작업을 100000회 반복 수행하여 공유 자원의 상태가 초기 값 0이 아닌 상태로 끝나는 횟수를 확인합니다.
 
 ```java
-package blog.in.action.raceccondition;
+package blog.in.action;
 
-import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@Log4j2
-@SpringBootTest
-public class NotSynchronizedTest {
+import java.util.concurrent.CompletableFuture;
 
-    class Resource {
+class SharedResource {
+    int state;
 
-        int data = 0;
-
-        public void add(int value) {
-            data += value;
-        }
-
-        public void substract(int value) {
-            data -= value;
-        }
+    void increase() {
+        this.state++;
     }
 
-    class T1 extends Thread {
-
-        int time;
-        Resource resource;
-
-        public T1(int time, Resource resource) {
-            this.time = time;
-            this.resource = resource;
-        }
-
-        @Override
-        public void run() {
-            // 1번 스레드의 임계 영역
-            for (int index = 0; index < time; index++) {
-                resource.add(1);
-            }
-        }
+    void decrease() {
+        this.state--;
     }
 
-    class T2 extends Thread {
-
-        int time;
-        Resource resource;
-
-        public T2(int time, Resource resource) {
-            this.time = time;
-            this.resource = resource;
-        }
-
-        @Override
-        public void run() {
-            // 2번 스레드의 임계 영역
-            for (int index = 0; index < time; index++) {
-                resource.substract(1);
-            }
-        }
+    void initialize() {
+        this.state = 0;
     }
 
-    @Test
-    public void test() throws InterruptedException {
-        int result = 0;
-        int times = 1000;
-        for (int index = 0; index < times; index++) {
-            Resource sharedResource = new Resource();
-            T1 t1 = new T1(100, sharedResource);
-            T2 t2 = new T2(100, sharedResource);
-            t1.start();
-            t2.start();
-            t1.join();
-            t2.join();
-            if (sharedResource.data == 0) {
-                result++;
-            }
-        }
-        log.info("정상적인 결과 / 총 테스트 시도 = " + result + " / " + times);
+    boolean isCorrupted() {
+        return this.state != 0;
     }
 }
-```
 
-##### 임계 영역에 대한 동기화가 없는 CASE 결과
-
-- 총 1000 건의 테스트 중에서 일부 케이스의 결과가 0이 아닌 것을 로그를 통해 확인할 수 있습니다.
-
-```
-2021-08-22 16:40:25.433  INFO 14848 --- [           main] b.i.a.r.NotSynchronizedTest              : 정상적인 결과 / 총 테스트 시도 = 994 / 1000
-```
-
-### 3.2. 임계 영역에 대한 동기화가 있는 CASE
-- Java `synchronized` 키워드를 이용하여 스레드의 동시 접근을 제어하였습니다.
-
-```java
-package blog.in.action.raceccondition;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
-@SpringBootTest
-public class SynchronizedTest {
-
-    class Resource {
-
-        int data = 0;
-
-        public void add(int value) {
-            data += value;
-        }
-
-        public void substract(int value) {
-            data -= value;
-        }
-    }
-
-    class T1 extends Thread {
-
-        int time;
-        Resource resource;
-
-        public T1(int time, Resource resource) {
-            this.time = time;
-            this.resource = resource;
-        }
-
-        @Override
-        public void run() {
-            // 1번 스레드의 임계 영역에 대한 동시 접근 제어
-            synchronized (resource) {
-                for (int index = 0; index < time; index++) {
-                    resource.add(1);
-                }
-            }
-        }
-    }
-
-    class T2 extends Thread {
-
-        int time;
-        Resource resource;
-
-        public T2(int time, Resource resource) {
-            this.time = time;
-            this.resource = resource;
-        }
-
-        @Override
-        public void run() {
-            // 2번 스레드의 임계 영역에 대한 동시 접근 제어
-            synchronized (resource) {
-                for (int index = 0; index < time; index++) {
-                    resource.substract(1);
-                }
-            }
-        }
-    }
+public class RaceConditionTest {
 
     @Test
-    public void test() throws InterruptedException {
-        int result = 0;
-        int times = 1000;
-        for (int index = 0; index < times; index++) {
-            Resource sharedResource = new Resource();
-            T1 t1 = new T1(100, sharedResource);
-            T2 t2 = new T2(100, sharedResource);
-            t1.start();
-            t2.start();
-            t1.join();
-            t2.join();
-            if (sharedResource.data == 0) {
-                result++;
+    void race_condition() {
+        int corruptedStateCount = 0;
+        SharedResource sharedResource = new SharedResource();
+        for (int index = 0; index < 100000; index++) {
+            sharedResource.initialize();
+            CompletableFuture<Void> thread1 = CompletableFuture.runAsync(() -> {
+                for (int subIndex = 0; subIndex < 100; subIndex++) {
+                    sharedResource.increase();
+                }
+            });
+            CompletableFuture<Void> thread2 = CompletableFuture.runAsync(() -> {
+                for (int subIndex = 0; subIndex < 100; subIndex++) {
+                    sharedResource.decrease();
+                }
+            });
+            thread1.join();
+            thread2.join();
+            if (sharedResource.isCorrupted()) {
+                corruptedStateCount++;
             }
         }
-        log.info("정상적인 결과 / 총 테스트 시도 = " + result + " / " + times);
+        System.out.println(String.format("Corrupted shared resource count - %s", corruptedStateCount));
     }
 
 }
 ```
 
-##### 임계 영역에 대한 동기화가 있는 CASE 결과
-
-- 총 1000 건의 테스트 모두 정상적으로 수행되었음을 로그를 통해 확인할 수 있습니다.
+##### Result of Practice
 
 ```
-2021-08-22 16:42:34.312  INFO 16736 --- [           main] b.i.a.raceccondition.SynchronizedTest    : 정상적인 결과 / 총 테스트 시도 = 1000 / 1000
+Corrupted shared resource count - 17
+```
+
+### 3.2. Race Condition with synchronized Keyword
+
+`Java`는 임계 영역에 대한 동시성 제어를 `synchronized` 키워드를 통해 수행합니다. 
+이를 사용하면 공유 자원을 안전하게 변경 가능합니다. 
+
+* 위와 동일한 방법으로 테스트를 수행하였습니다.
+* `synchronized` 키워드를 사용해 공유 자원에 대한 각 스레드 접근을 동기화시킵니다.
+
+```java
+    @Test
+    void race_condition_with_synchronized() {
+        int corruptedStateCount = 0;
+        SharedResource sharedResource = new SharedResource();
+        for (int index = 0; index < 100000; index++) {
+            sharedResource.initialize();
+            CompletableFuture<Void> thread1 = CompletableFuture.runAsync(() -> {
+                for (int subIndex = 0; subIndex < 100; subIndex++) {
+                    synchronized (sharedResource) {
+                        sharedResource.increase();
+                    }
+                }
+            });
+            CompletableFuture<Void> thread2 = CompletableFuture.runAsync(() -> {
+                for (int subIndex = 0; subIndex < 100; subIndex++) {
+                    synchronized (sharedResource) {
+                        sharedResource.decrease();
+                    }
+                }
+            });
+            thread1.join();
+            thread2.join();
+            if (sharedResource.isCorrupted()) {
+                corruptedStateCount++;
+            }
+        }
+        System.out.println(String.format("Corrupted shared resource count - %s", corruptedStateCount));
+    }
+```
+
+##### Result of Practice
+
+```
+Corrupted shared resource count - 0
 ```
 
 #### TEST CODE REPOSITORY
+
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-26-race-condition>
 
 #### RECOMMEND NEXT POSTS

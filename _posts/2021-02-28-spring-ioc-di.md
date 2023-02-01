@@ -29,7 +29,7 @@ last_modified_at: 2021-08-22T17:00:00
 
 ## 2. Dependency Injection
 
-`IoC` 원칙이 스프링의 의존성 주입(dependency injection)과 함께 언급되는 이유에 대해 알아보기 전에 우선 의존성(dependency)이 무엇인지 알아보겠습니다.
+`IoC` 원칙과 의존성 주입(dependency injection)이 함께 언급되는 이유에 대해 알기 전에 우선 의존성(dependency)이 무엇인지 알아보겠습니다.
 
 ### 2.1. What is Dependency?
 
@@ -64,12 +64,110 @@ class A {
     <img src="/images/spring-ioc-di-1.JPG" width="45%" class="image__border">
 </p>
 
-### 2.2. Inversion of Control and Dependency Injection
+### 2.2. Type of Dependency Injection
+
+스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공합니다.
+특정 클래스의 객체가 빈으로써 관리되는 경우에만 적용되는 제약 사항이 있습니다. 
+
+### 2.2.1. Cosntructor Injection
+
+* 생성자를 통해 의존성을 주입 받을 수 있습니다.
+* 다른 의존성 주입 방법보다 안정적인 방법입니다.
+
+```java
+package action.in.blog.service;
+
+import action.in.blog.domain.Delivery;
+import action.in.blog.store.DeliveryStore;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class DefaultDeliveryService {
+
+    private final DeliveryStore deliveryStore;
+
+    public DefaultDeliveryService(DeliveryStore deliveryStore) {
+        this.deliveryStore = deliveryStore;
+    }
+
+    public List<Delivery> getAllDeliveriesOrderByStartTime() {
+        return deliveryStore.getAllDeliveriesOrderByStartTime();
+    }
+}
+```
+
+### 2.2.2. Setter Injection
+
+* 세터(setter) 메소드를 통해 의존성을 주입 받을 수 있습니다.
+* 세터 메소드 위에 `@Autowired` 애너테이션으로 추가합니다.
+
+```java
+package action.in.blog.service;
+
+import action.in.blog.domain.Delivery;
+import action.in.blog.store.DeliveryStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class DefaultDeliveryService {
+
+    private DeliveryStore deliveryStore;
+
+    @Autowired
+    public void setDeliveryService(DeliveryStore deliveryStore) {
+        this.deliveryStore = deliveryStore;
+    }
+
+    public List<Delivery> getAllDeliveriesOrderByStartTime() {
+        return deliveryStore.getAllDeliveriesOrderByStartTime();
+    }
+}
+```
+
+### 2.2.3. Annotation Injection
+
+* `@Autowired` 애너테이션을 필드 위에 추가합니다.
+
+```java
+package action.in.blog.service;
+
+import action.in.blog.domain.Delivery;
+import action.in.blog.store.DeliveryStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class DefaultDeliveryService {
+
+    @Autowired
+    private DeliveryStore deliveryStore;
+
+    public List<Delivery> getAllDeliveriesOrderByStartTime() {
+        return deliveryStore.getAllDeliveriesOrderByStartTime();
+    }
+}
+```
+
+### 2.3. Inversion of Control and Dependency Injection
 
 의존성 주입이란 어떤 `객체A`가 정상적인 기능을 하기 위해 필요한 의존성을 외부에서 주입해주는 것을 의미합니다. 
 개발자가 직접 객체를 생성하고 이를 전달해주는 것이 아니라 프레임워크가 객체를 생성하고 이를 전달합니다. 
-결론은 의존성 주입은 `IoC` 원칙을 따르는 프레임워크의 개발 패턴(pattern)을 의미합니다. 
+결론적으로 의존성 주입(`DI`)은 `IoC` 원칙을 따르는 프레임워크의 개발 패턴(pattern)을 의미합니다. 
 프레임워크에 의해 객체의 생성, 사용, 전달이 제어됩니다.
+
+`IoC` 원칙을 따르면 여러 장점들을 얻을 수 있다고 이야기하지만, 저는 다음 내용들이 가장 공감되었습니다.
+
+* 객체 사이의 결합도(coupling)을 낮춘다.
+* 코드 유지 보수하기 쉬워진다.
+
+간단한 상황을 만들어 `IoC` 원칙이 어떤 문제점을 해결해주는지에 대해 이야기해보겠습니다. 
 
 ## 3. Practice
 
@@ -83,16 +181,7 @@ class A {
 * `ApplicationContext`는 `BeanFactory`를 확장한 `IoC` 컨테이너입니다.
 * `IoC` 컨테이너는 의존성 주입을 수행하기 때문에 `DI` 컨테이너라고 합니다. 
 
-### 3.1. Why do we need IoC principle?
-
-`IoC` 원칙을 따르면 여러 장점들을 얻을 수 있다고 이야기하지만, 저는 다음 내용들이 가장 공감되었습니다.
-
-* 객체 사이의 결합도(coupling)을 낮춘다.
-* 코드 유지 보수하기 쉬워진다.
-
-간단한 상황을 만들어 `IoC` 원칙이 어떤 문제점을 해결해주는지에 대해 이야기해보겠습니다. 
-
-#### 3.1.1. DefaultDeliveryService 클래스
+### 3.1. DefaultDeliveryService 클래스
 
 아래 코드는 다음과 같은 문제점을 가집니다. 
 
@@ -125,7 +214,7 @@ public class DefaultDeliveryService {
 }
 ```
 
-#### 3.1.2. Make Loose Coupling
+### 3.2. Make Loose Coupling
 
 `DeliveryStore` 인터페이스를 만들어 `MyBatisDeliveryStore`, `DefaultDeliveryService` 둘 사이의 결합도를 낮춰줍니다. 
 
@@ -187,7 +276,7 @@ public class DefaultDeliveryService {
 }
 ```
 
-#### 3.1.3. We need IoC Container
+### 3.3. We need IoC Container
 
 시스템에서 `DefaultDeliveryService` 객체를 사용하는 곳의 코드를 다음과 같이 변경해줘야 합니다.
 
@@ -269,97 +358,6 @@ public class JpaDeliveryStore implements DeliveryStore {
     <img src="/images/spring-ioc-di-2.JPG" width="100%" class="image__border">
 </p>
 
-### 3.2. Type of Dependency Injection
-
-스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공합니다.
-특정 클래스의 객체가 빈으로써 관리되는 경우에만 적용되는 제약 사항이 있습니다. 
-
-#### 3.2.1. Cosntructor Injection
-
-* 생성자를 통해 의존성을 주입 받을 수 있습니다.
-* 다른 의존성 주입 방법보다 안정적인 방법입니다.
-
-```java
-package action.in.blog.service;
-
-import action.in.blog.domain.Delivery;
-import action.in.blog.store.DeliveryStore;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class DefaultDeliveryService {
-
-    private final DeliveryStore deliveryStore;
-
-    public DefaultDeliveryService(DeliveryStore deliveryStore) {
-        this.deliveryStore = deliveryStore;
-    }
-
-    public List<Delivery> getAllDeliveriesOrderByStartTime() {
-        return deliveryStore.getAllDeliveriesOrderByStartTime();
-    }
-}
-```
-
-#### 3.2.2. Setter Injection
-
-* 세터(setter) 메소드를 통해 의존성을 주입 받을 수 있습니다.
-* 세터 메소드 위에 `@Autowired` 애너테이션으로 추가합니다.
-
-```java
-package action.in.blog.service;
-
-import action.in.blog.domain.Delivery;
-import action.in.blog.store.DeliveryStore;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class DefaultDeliveryService {
-
-    private DeliveryStore deliveryStore;
-
-    @Autowired
-    public void setDeliveryService(DeliveryStore deliveryStore) {
-        this.deliveryStore = deliveryStore;
-    }
-
-    public List<Delivery> getAllDeliveriesOrderByStartTime() {
-        return deliveryStore.getAllDeliveriesOrderByStartTime();
-    }
-}
-```
-
-#### 3.2.3. Annotation Injection
-
-* `@Autowired` 애너테이션을 필드 위에 추가합니다.
-
-```java
-package action.in.blog.service;
-
-import action.in.blog.domain.Delivery;
-import action.in.blog.store.DeliveryStore;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class DefaultDeliveryService {
-
-    @Autowired
-    private DeliveryStore deliveryStore;
-
-    public List<Delivery> getAllDeliveriesOrderByStartTime() {
-        return deliveryStore.getAllDeliveriesOrderByStartTime();
-    }
-}
-```
-
 ## CLOSING
 
 해당 내용에 대해 공부하다보니 프레임워크에 대한 내용이라기보다는 소프트웨어 공학과 관련된 내용이라는 사실을 알게 되었습니다. 
@@ -386,4 +384,4 @@ public class DefaultDeliveryService {
 
 [ioc-link]: https://develogs.tistory.com/19
 [dependency-link]: https://velog.io/@huttels/%EC%9D%98%EC%A1%B4%EC%84%B1%EC%9D%B4%EB%9E%80
-[reson-of-recommendation-to-use-constructor-injection-link]: https://junhyunny.github.io/spring-boot/junit/reson-of-recommendation-to-use-constructor-injection/
+[reson-of-recommendation-to-use-constructor-injection-link]: https://junhyunny.github.io/spring-boot/junit/reson-of-recommendation-to-use-constructor-injection/``

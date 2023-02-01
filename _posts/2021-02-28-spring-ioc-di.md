@@ -23,7 +23,11 @@ last_modified_at: 2021-08-22T17:00:00
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
 
 객체(object) 생성, 사용, 제거 등의 제어를 개발자가 직접하는 것이 아니라 컨테이너(container) 혹은 프레임워크(framework)에서 수행하자는 소프트웨어 공학의 원칙(principle)입니다. 
-스프링 프레임워크는 `IoC` 원칙을 지킬 수 있도록 설계되었으며 다음과 같은 구조를 가집니다. 
+스프링 프레임워크는 `IoC` 원칙을 지킬 수 있도록 설계되어 있습니다. 
+라이브러리처럼 개발자가 작성한 코드에서 호출하여 사용하는 방식이 아닙니다. 
+프레임워크에서 개발자가 작성한 코드를 실행시켜줌으로써 시스템 흐름 제어의 주도권을 프레임워크가 가져갑니다. 
+
+다음과 같은 구조를 가집니다. 
 
 * 스프링 프레임워크에서 관리하는 객체들은 빈(bean)이라고 합니다.
 * 스프링 프레임워크는 다음과 같은 역할을 수행하는 `IoC` 컨테이너를 가지고 있습니다.
@@ -219,16 +223,51 @@ public class JpaDeliveryStore implements DeliveryStore {
     <img src="/images/spring-ioc-di-1.JPG" width="100%" class="image__border">
 </p>
 
+## 2. Dependency Injection
+
+위에선 스프링 프레임워크는 `IoC` 컨테이너를 통해 객체들을 생성하고 적절한 위치에 주입해주는 것에 대해 다뤘습니다. 
+여기서 말하는 `"적절한 위치"`는 어디일까요. 
+객체를 주입 받는 적절한 위치에 대해 이야기 전에 의존성(dependency)에 대해 알아보겠습니다. 
+
+### 2.1. What is Dependency?
+
+* 어떤 `클래스A`가 다른 `클래스B` 또는 `인터페이스B`를 이용할 때 `클래스A`가 `클래스(인터페이스)B`에 의존한다고 합니다.
+* `클래스A`는 `클래스(인터페이스)B`에 의존적(dependent)이고, `클래스(인터페이스)B`는 `클래스A`의 의존성(dependency)입니다.
+* `클래스A`는 `클래스(인터페이스)B` 없이 작동할 수 없습니다.
+* `클래스(인터페이스)B`에 변화에 `클래스A`는 영향을 받지만, `클래스A`의 변화에 `클래스(인터페이스)B`는 영향을 받지 않는다.
+
+##### Example Code
+
+다음과 같은 코드로 표현할 수 있습니다.
+
+* `클래스A`는 `클래스B`에 의존적입니다. 
+* `클래스B`는 `클래스A`의 의존성입니다.
+
+```java
+class A {
+    
+    private B b;
+
+    public A () {
+        this.b = new B();
+    }
+}
+```
+
+##### Class Diagram
+
+<p align="center">
+    <img src="/images/spring-ioc-di-2.JPG" width="65%" class="image__border">
+</p>
+
+### 2.2. Dependency Injection
+
+의존성 객체를 주입 받는 적절한 위치는 개발자에 의해 정의됩니다. 
+
+스프링 프레임워크에서 의존성 주입
+
 <!-- ## 2. Dependency Injection
 
-## 2.1. What is Dependency?
-
-일단 의존성(depndency)이라는 용어에 대한 정의부터 알아보도록 하겠습니다.
-
-- 어떤 클래스 A가 다른 클래스 또는 인터페이스 B를 이용할 때 A가 B에 의존한다고 합니다.
-- 클래스 A를 `dependant`라 하고 클래스(인터페이스) B를 `dependency`라고 합니다.
-- A는 B 없이 작동할 수 없고 B를 재사용하지 않으면 A 또한 재사용할 수 없습니다.
-- B에 변화에 A는 영향을 받지만, A의 변화에 B는 영향을 받지 않는다.
 
 ### 2.1. 의존성 주입(DI, Dependency Injection)
 
@@ -564,6 +603,7 @@ class MethodInjectionClass {
 
 * <https://jongmin92.github.io/2018/02/11/Spring/spring-ioc-di/>
 * <https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/>
+* <https://justhackem.wordpress.com/2016/05/13/dependency-inversion-terms/>
 * [의존성이란?][dependency-link]
 * [제어의 역전(Inversion of Control, IoC) 이란?][ioc-link]
 

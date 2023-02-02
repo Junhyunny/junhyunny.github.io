@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-25T01:00:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Cloud Netflix Eureka][eureka-link]
@@ -40,7 +40,7 @@ Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면
 - H/W 스위치가 서버 목록에 대한 정보를 알고 있어야 로드 밸런싱이 가능합니다.
 - H/W 스위치의 서버 목록은 수동으로 추가해야하므로 클라우드 환경에서 유연성이 떨어집니다.
 
-<br> 
+<br/> 
 
 [Spring Cloud Netflix Eureka][eureka-link] 포스트에서 설명했듯이 
 클라우드 환경에선 인스턴스들의 IP, PORT 정보에 대한 변경이 잦아 서버 사이드 로드 밸런서는 크게 유용하지 못합니다. 

@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-08-28T01:00:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [Session Management in Tomcat][tomcat-session-management-link]
@@ -21,7 +21,7 @@ last_modified_at: 2021-08-28T01:00:00
 쿠키와 세션을 사용하게 된 배경에는 HTTP 통신의 stateless 특징이 있습니다. 
 우선 **`stateless`** 라는 단어가 무슨 의미인지 찾아보았습니다. 
 
-> Wiki<br>
+> Wiki<br/>
 > 무상태 프로토콜(stateless protocol)은 어떠한 이전 요청과도 무관한 각각의 요청을 독립적인 트랜잭션으로 취급하는 통신 프로토콜, 
 > 통신이 독립적인 쌍의 요청과 응답을 이룰 수 있게 하는 방식이다.
 

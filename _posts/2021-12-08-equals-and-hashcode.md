@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-12-08T09:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. 문제 상황
 

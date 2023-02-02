@@ -8,14 +8,14 @@ category:
 last_modified_at: 2021-08-24T01:00:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Cloud Netflix Hystrix][hystrix-link]
 
 ## 1. 발생 에러
 
-> **IllegalStateException 발생**<br>
+> **IllegalStateException 발생**<br/>
 > Incompatible fallbackFactory instance. 
 > Fallback/fallbackFactory of type class cloud.in.action.proxy.BServiceFeinClient$BServiceFallbackFactory is not assignable 
 > to interface org.springframework.cloud.openfeign.FallbackFactory for feign client b-service

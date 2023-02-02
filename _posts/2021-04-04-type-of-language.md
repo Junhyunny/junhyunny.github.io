@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-08-25T00:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. 정적 타입 언어(Static Typed Language)
 

@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-05-16T18:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. 문제 Link
 - <https://leetcode.com/problems/number-of-enclaves/>

@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-30T23:55:00
 ---
 
-<br>
+<br/>
 
 * `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 
@@ -30,7 +30,7 @@ DTO 클래스에 MultipartFile 리스트를 담고 싶어 했는데, 관련된 �
 
 ## 2. @ModelAttribute 애너테이션
 
-> Spring Framework Doc<br>
+> Spring Framework Doc<br/>
 > Annotation that binds a method parameter or method return value to a named model attribute, exposed to a web view. Supported for controller classes with @RequestMapping methods. 
 
 컨트롤러(controller) 클래스의 @RequestMapping 애너테이션이 붙은 메소드를 지원하는 애너테이션이며 요청 파라미터나 반환 값을 명명된 모델 속성(model attribute)에 바인딩한다고 합니다. 

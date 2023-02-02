@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-01-23T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
@@ -184,7 +184,7 @@ CRA(create-react-app)을 이용해 리액트 어플리케이션을 만드는 경
 `react-scripts`을 이용하면 `package.json` 파일에 `proxy` 옵션을 추가하여 쉽게 프록시를 구축할 수 있습니다. 
 다만, 주의사항으로 `0.2.3` 버전 이상일 경우에 가능한 것으로 보입니다.
 
-> Proxying API Requests in Development<br>
+> Proxying API Requests in Development<br/>
 > Note: this feature is available with react-scripts@0.2.3 and higher.
 
 ##### package.json 파일 - proxy 옵션 추가
@@ -257,7 +257,7 @@ CRA(create-react-app)을 이용해 리액트 어플리케이션을 만드는 경
 `package.json` 파일에 proxy 옵션을 추가하는 방법은 프록시 설정이 전역적으로 적용되는 것처럼 보입니다. 
 이를 조금 더 유연하게 사용하고 싶은 경우 `http-proxy-middleware` 모듈을 사용합니다. 
 
-> Proxying API Requests in Development<br>
+> Proxying API Requests in Development<br/>
 > If the proxy option is not flexible enough for you, alternatively you can:
 > - Configure the proxy yourself (this option is using http-proxy-middleware.)
 > - Enable CORS on your server (here’s how to do it for Express).

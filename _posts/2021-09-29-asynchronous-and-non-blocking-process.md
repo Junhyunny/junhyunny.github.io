@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-09-29T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 최근 기술 스택을 공부하다보면 비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식에 대한 이야기를 많이 볼 수 있습니다. 
@@ -16,7 +16,7 @@ last_modified_at: 2021-09-29T23:55:00
 그러다 최근에 접해본 `Spring Cloud Gateway`가 논블로킹 처리를 수행하는 네티(Netty) 기반으로 동작한다는 글을 보았습니다. 
 관심이 가는 기술 스택에 대해 공부하기 이전에 근본적인 개념에 대해 먼저 정리하는 것이 좋을 것 같아 포스트로 작성하였습니다. 
 
-> Spring Doc - Spring Cloud Gateway<br>
+> Spring Doc - Spring Cloud Gateway<br/>
 > Spring Cloud Gateway requires the Netty runtime provided by Spring Boot and Spring Webflux. 
 > It does not work in a traditional Servlet Container or when built as a WAR. 
 

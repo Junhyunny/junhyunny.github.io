@@ -6,7 +6,7 @@ category:
 last_modified_at: 2022-04-30T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Slide In/Out Effect][slide-in-out-effect-link]
@@ -279,7 +279,7 @@ export default TransitionSlide
 
 ### 2.4. Slide.css
 
-> `CSSTransition` 컴포넌트 주석<br>
+> `CSSTransition` 컴포넌트 주석<br/>
 > `CSSTransition` applies a pair of class names during the `appear`, `enter` and `exit` states of the transition. 
 > The first class is applied and then a second `*-active` class in order to activate the CSS transition. 
 > After the transition, matching `*-done` class names are applied to persist the transition state.

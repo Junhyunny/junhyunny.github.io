@@ -6,7 +6,7 @@ category:
 last_modified_at: 2022-03-05T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [React 서비스 화면과 Android Webview 통신][react-android-webview-communication-link]
@@ -106,7 +106,7 @@ last_modified_at: 2022-03-05T23:55:00
 ###### Android for Developers - Network security configuration
 - `usesCleartextTraffic` 설정 관련된 내용입니다.
 
-> [Opt out of cleartext traffic][cleartext-traffic-link]<br>
+> [Opt out of cleartext traffic][cleartext-traffic-link]<br/>
 > Applications intending to connect to destinations using only secure connections 
 > can opt-out of supporting cleartext 
 > (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. 

@@ -9,7 +9,7 @@ category:
 last_modified_at: 2021-08-24T12:00:00
 ---
 
-<br>
+<br/>
 
 ⚠️ 해당 포스트는 2021년 8월 24일에 재작성되었습니다. (불필요 코드 제거)
 
@@ -29,7 +29,7 @@ last_modified_at: 2021-08-24T12:00:00
 <p align="center"><img src="/images/msa-circuit-breaker-pattern-1.gif" width="55%"></p>
 
 그렇기 때문에 마이크로 서비스 아키텍처는 스스로 회복성(Resilience)를 가지도록 구성되어야 합니다.([Micro Service Architecture][microservice-architecture-link]) 
-> **Micro Service Architecture 핵심 원칙, 회복성(Resilience)**<br>
+> **Micro Service Architecture 핵심 원칙, 회복성(Resilience)**<br/>
 > 마이크로 서비스는 자연스러운 메커니즘을 통해 장애를 격리시킵니다.
 
 이번 포스트는 마이크로 서비스 아키텍처에서 장애를 격리시켜 전파를 막는 방법에 대해 알아보도록 하겠습니다.
@@ -414,7 +414,7 @@ Circuit Breaker 패턴을 구현한 Hystrix 컴포넌트와 간단한 테스트 
 다음 포스트에서 Spring Cloud Netflix Hystrix에 대해 정리하면서 FeignClient와 함께 사용하는 간단한  방법에 대해 정리해보도록 하겠습니다.
 
 글을 작성하다 보니 @EnableHystrix, @EnableCircuitBreaker 두 애너테이션의 차이점이 궁금하여 추가적으로 정리해보았습니다.
-> **@EnableHystrix, @EnableCircuitBreaker 차이점**<br>
+> **@EnableHystrix, @EnableCircuitBreaker 차이점**<br/>
 > **@EnableHystrix 애너테이션**은 Hystrix를 사용하겠다는 의미로 내부에 @EnableCircuitBreaker 애너테이션이 추가되어 있습니다. 
 > Hystrix를 이용한 Circuit Breaker 패턴이 적용됩니다. 
 > **@EnableCircuitBreaker 애너테이션**은 Circuit Breaker 패턴을 구현한 라이브러리가 있다면 패턴이 적용됩니다. 

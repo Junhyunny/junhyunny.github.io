@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-22T03:00:00
 ---
 
-<br>
+<br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
@@ -464,7 +464,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 사실 락 모드를 설정하지 않아도 낙관적인 락 메커니즘이 잘 동작합니다. 
 3.2 버전부터는 `@Version` 애너테이션만으로 낙관적인 락이 가능하다고 합니다. 
 
-> 3.2 Version Attributes<br><br>
+> 3.2 Version Attributes<br/><br/>
 > The Version field or property is used by the persistence provider to perform optimistic locking. 
 > It is accessed and/or set by the persistence provider in the course of performing lifecycle operations on the entity instance. 
 > **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**

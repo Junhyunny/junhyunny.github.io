@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-11-30T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -79,7 +79,7 @@ last_modified_at: 2021-11-30T23:55:00
 
 #### 2.2.1. 네임스페이스(namespace)
 
-> Wiki<br>
+> Wiki<br/>
 > Namespaces are a feature of the Linux kernel that partitions kernel resources such that 
 > one set of processes sees one set of resources 
 > while another set of processes sees a different set of resources.
@@ -104,7 +104,7 @@ last_modified_at: 2021-11-30T23:55:00
 
 #### 2.2.2. 컨트롤 그룹(cgroup)
 
-> Wiki<br>
+> Wiki<br/>
 > cgroups (abbreviated from control groups) is a Linux kernel feature that 
 > limits, accounts for, and isolates the resource usage (CPU, memory, disk I/O, network, etc.) of 
 > a collection of processes. 

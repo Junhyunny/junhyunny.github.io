@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-22T20:30:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -38,7 +38,7 @@ mvn clean install -Dmaven.test.skip=true
 
 ### 2.1. 에러 로그
 
-> Error creating bean with name 'configurationPropertiesBeans' defined in class path resource <br>
+> Error creating bean with name 'configurationPropertiesBeans' defined in class path resource <br/>
 > [org/springframework/cloud/autoconfigure/ConfigurationPropertiesRebinderAutoConfiguration.class]
 
 에러를 꼼꼼히 살펴보니 모두 같은 에러였습니다. **`'configurationPropertiesBeans을 생성하지 못합니다.'`** 

@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-04-15T09:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -23,7 +23,7 @@ last_modified_at: 2021-04-15T09:00:00
 
 > Separate the construction of a complex object from its representation 
 > so that the same construction process can create different representations. [GoF, p97]
-> Parse a complex representation, create one of several targets.<br>
+> Parse a complex representation, create one of several targets.<br/>
 
 직역하지면 **`'복잡한 객체 생성을 표현으로부터 분리한다.'`** 일 것 같습니다. 
 GoF 디자인 패턴에서는 어떤 방식으로 객체의 생성을 표현으로부터 분리하는지 확인해보도록 하겠습니다. 

@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-09-22T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [GitHub 블로그 애드센스 연결 (feat. minimal-mistakes theme)][adsense-minimal-mistakes-link]

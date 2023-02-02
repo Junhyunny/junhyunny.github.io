@@ -8,7 +8,7 @@ category:
 last_modified_at: 2022-08-03T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 1. Simple Timeline Style
 

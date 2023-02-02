@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-23T09:30:00
 ---
 
-<br>
+<br/>
 
 ⚠️ 해당 포스트는 2021년 8월 23일에 재작성되었습니다. (불필요 코드 제거)
 
@@ -21,7 +21,7 @@ last_modified_at: 2021-08-23T09:30:00
 
 ## 0. 들어가면서
 
-> **[Spring Cloud Openfeign][openfeign-link] 포스트 OPINION**<br>
+> **[Spring Cloud Openfeign][openfeign-link] 포스트 OPINION**<br/>
 > 무엇보다 FeignClient는 Service Registration, Discovery 기능을 제공하는 Eureka 서비스와 함께 사용될 때 더 빛을 바랍니다.
 
 오늘은 FeignClient를 더 효율적으로 사용할 수 있도록 돕는 Eureka에 대한 내용을 포스트하도록 하겠습니다. 
@@ -288,7 +288,7 @@ public class AServiceApplication {
 MSA 환경에서 필요한 Service Registration, Discovery 기능을 제공하는 Eureka 컴포넌트에 대해 정리해봤습니다. 
 Eureka 클라이언트 구현과 관련된 정보를 찾다보니 글마다 사용하는 애너테이션이 달랐습니다.(@EnableDiscoveryClient 혹은 @EnableEurekaClient 애너테이션 사용)
 어떤 조건으로 두 애너테이션을 구분하여 사용하는지 차이점을 찾아보았습니다. 
-> **@EnableDiscoveryClient, @EnableEurekaClient 차이점**<br>
+> **@EnableDiscoveryClient, @EnableEurekaClient 차이점**<br/>
 > Service Discovery 라이브러리는 유레카 외에도 주키퍼, 컨설 등이 존재합니다. 
 > @EnableDiscoveryClient 애너테이션은 모든 라이브러리를 지원하며 @EnableEurekaClient 애너테이션은 유레카 라이브러리만을 지원합니다.
 

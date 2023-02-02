@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-04-23T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
@@ -650,7 +650,7 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
 상당히 잘 정리되어 있지만, 2011년도 글이다보니 상당히 많은 변화가 있을 것으로 생각되어 직접 디버깅해보았습니다. 
 무엇보다 `"트랜잭션 미적용 데이터 접근"`이라는 개념이 쉽게 이해되진 않았습니다. 
 
-> 어떻게 데이터베이스 커넥션이 없이 SQL을 실행하지?<br>
+> 어떻게 데이터베이스 커넥션이 없이 SQL을 실행하지?<br/>
 > 지연 로딩이 발생할 때마다 커넥션 풀에서 놀고 있는 커넥션을 사용하나?
 
 직접 디버깅한 결과를 차근차근 정리해보겠습니다. 

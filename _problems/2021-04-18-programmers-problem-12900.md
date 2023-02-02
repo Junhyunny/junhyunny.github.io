@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-04-18T18:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. 문제 Link
 - <https://programmers.co.kr/learn/courses/30/lessons/12900>

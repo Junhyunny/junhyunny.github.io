@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-09-04T13:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. 애너테이션 소개
 ### 1.1. @PrePersist 애너테이션

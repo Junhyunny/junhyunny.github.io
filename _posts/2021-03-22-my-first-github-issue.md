@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-24T01:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -19,7 +19,7 @@ last_modified_at: 2021-08-24T01:00:00
 spring-cloud-openfeign 프로젝트에 PR(Pull Request) 했다는 이야기를 듣고 저도 github에서 이슈를 찾아보기 시작하였습니다. 
 한동안 회사에서 퇴근하면 Spring 프로젝트에 등록된 이슈들을 뒤져보면서 호시탐탐 PR을 노리는 하이에나로 살았습니다. 
 
-> '나도 해결할 수 있는 이슈가 있을까?'<br>
+> '나도 해결할 수 있는 이슈가 있을까?'<br/>
 > 'open source 프로젝트에 contributor가 되고 싶어!'
 
 ## 2. 이슈 해결 과정
@@ -57,7 +57,7 @@ String 객체의 주소가 찍힌 것을 보니 배열을 그대로 toString 한
 
 등록한 이슈를 매일같이 들어가보며 답변을 기다렸지만 묵묵부답입니다.
 
-> [@jskim1991][jskim1991-github-link] said<br>
+> [@jskim1991][jskim1991-github-link] said<br/>
 > 걔네 엄청 게을러, 답변을 안해줘
 
 ### 2.5.  **`@kdavisk6`** 님에게 전달받은 답변

@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-24T01:30:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Proccess and Thread][process-vs-thread-link]
@@ -36,7 +36,7 @@ PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사�
 
 문맥 교환을 한다고 하는데 우선 문맥(Context)가 무엇인지 먼저 정의해보겠습니다. 
 
-> **문맥(Context)**<br>
+> **문맥(Context)**<br/>
 > 현재 CPU가 실행하고 있는 프로세스의 정보
 
 현재 CPU가 현재 실행하고 있는 프로세스의 정보를 문맥이라고 하니 이를 교환하는 행위를 문맥 교환(Context Switching)이라고 정의 내릴 수 있겠습니다. 

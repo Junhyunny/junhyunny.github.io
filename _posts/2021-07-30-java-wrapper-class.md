@@ -6,14 +6,14 @@ category:
 last_modified_at: 2021-09-24T15:30:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [Wrapper 클래스 Auto Boxing 그리고 성능 이슈][auto-boxing-performance-link]
 
 ## 0. 들어가면서
 
-> Java primitive type 변수가 존재하는데 wrapper 클래스가 생긴 이유가 무엇일까요?<br>
+> Java primitive type 변수가 존재하는데 wrapper 클래스가 생긴 이유가 무엇일까요?<br/>
 
 선뜻 대답이 나오지 않는 어려운 질문이었습니다. 
 이 포스트에서 위 질문에 대한 답변을 정리해보겠습니다. 

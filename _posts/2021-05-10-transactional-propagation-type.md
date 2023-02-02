@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-29T01:00:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [ACID 특징][transaction-acid-link]
@@ -17,8 +17,8 @@ last_modified_at: 2021-08-29T01:00:00
 
 기본적으로 트랜잭션은 [ACID 특징][transaction-acid-link]의 원자성을 만족해야합니다. 
 
-> 트랜잭션 ACID 특징 중 원자성(Atomic)<br>
-> 트랜잭션의 작업이 부분적으로 실행되거나 중단되지 않는 것을 보장합니다.<br>
+> 트랜잭션 ACID 특징 중 원자성(Atomic)<br/>
+> 트랜잭션의 작업이 부분적으로 실행되거나 중단되지 않는 것을 보장합니다.<br/>
 > All or Noting의 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
 
 Spring Boot 프레임워크은 어플리케이션이 트랜잭션 원자성을 만족시킬 수 있도록 **`@Transactional`** 애너테이션을 제공합니다. 
@@ -58,7 +58,7 @@ new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너�
 클래스에 적용하는 경우에는 어떻게 트랜잭션 처리 기능이 제공되는지 모호합니다. 
 관련된 내용을 찾아본 결과 클래스에 @Transactional 애너테이션을 추가하는 경우 모든 public 메소드에는 적용되지만, private, protected 메소드에는 적용되지 않는다는 것을 확인하였습니다. 
 
-> StackOverflow<br>
+> StackOverflow<br/>
 > Spring applies the class-level annotation to all public methods of this class that we did not annotate with @Transactional. 
 > However, if we put the annotation on a private or protected method, Spring will ignore it without an error.
 

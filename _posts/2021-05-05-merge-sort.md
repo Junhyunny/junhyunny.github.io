@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-28T03:00:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [퀵 정렬(Quick Sort)][quick-sort-link]

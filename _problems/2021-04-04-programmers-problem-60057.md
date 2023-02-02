@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-04-04T18:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. 문제 Link
 - <https://programmers.co.kr/learn/courses/30/lessons/60057>
@@ -117,9 +117,9 @@ class Solution {
 - preString 변수는 앞에 잘라낸 문자열, postString 변수는 남은 문자열을 참조합니다.
 - startsWith 메소드를 통해 postString 객체가 preString 객체 값으로 시작하는지 확인합니다. 
 - postString 객체가 preString 객체 값으로 시작하지 않는 CASE
-    - repeat 값이 1 이라면 앞 문자열을 그래로 붙혀 재귀 함수를 수행합니다.<br>
+    - repeat 값이 1 이라면 앞 문자열을 그래로 붙혀 재귀 함수를 수행합니다.<br/>
       (preString + getSplitedLength(postString, n, 1))
-    - repeat 값이 1 아니라면 반복 수행 횟수 repeat 값을 앞에 붙혀 재귀 함수를 수행합니다.<br>
+    - repeat 값이 1 아니라면 반복 수행 횟수 repeat 값을 앞에 붙혀 재귀 함수를 수행합니다.<br/>
       (Integer.toString(repeat) + preString + getSplitedLength(postString, n, 1))
 - postString 객체가 preString 객체 값으로 시작하는 CASE
     - repeat 값에 1을 증가시켜 getSplitedLength 재귀 함수를 수행합니다.

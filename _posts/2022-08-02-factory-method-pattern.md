@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-08-02T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 1. 팩토리 메소드 패턴(Factory Method Pattern)
 

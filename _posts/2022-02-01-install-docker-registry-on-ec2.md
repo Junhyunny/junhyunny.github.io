@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-02-01T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
@@ -112,7 +112,7 @@ Complete!
 개인 이미지 저장소로 도커 레지스트리를 가장 많이 사용하는 것 같습니다. 
 EC2 인스턴스에 설치해보겠습니다. 
 
-> [Docker Registry][docker-registry-link]<br>
+> [Docker Registry][docker-registry-link]<br/>
 > The Registry is a stateless, highly scalable server side application that stores and lets you distribute Docker images. 
 > The Registry is open-source, under the permissive Apache license.
 

@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-24T01:30:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [PCB(Process Control Block)와 문맥 교환(Context Switching)][process-control-block-and-context-switching-link]
@@ -18,7 +18,7 @@ last_modified_at: 2021-08-24T01:30:00
 
 ## 2. 프로세스(Process)
 
-> 프로세스(Process)는 운영체제로부터 자원을 할당받는 작업의 단위<br>
+> 프로세스(Process)는 운영체제로부터 자원을 할당받는 작업의 단위<br/>
 > 메모리에 적재되어 실행되고 있는 프로그램
 
 프로세스는 실행될 때 운영체제로부터 프로세서, 필요한 주소 공간, 메모리(code, data, stack, heap) 등의 자원을 할당 받습니다. 
@@ -78,7 +78,7 @@ last_modified_at: 2021-08-24T01:30:00
 
 ## CLOSING
 
-> 프로세스와 스레드에 대해서 설명해주세요.<br>
+> 프로세스와 스레드에 대해서 설명해주세요.<br/>
 > 익숙한 질문입니다. 신입 개발자 면접 질문 목록에서 빠지지 않고 등장하는 질문인데요.
 
 네, 신입 개발자 면접 질문 목록에서 빠지지 않는 질문이라고 합니다. 

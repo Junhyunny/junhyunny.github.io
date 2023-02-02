@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-11-24T23:55:00
 ---
 
-<br>
+<br/>
 
 * `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 
@@ -86,7 +86,7 @@ export default {
 
 `StackOverflow`에서 다음과 같은 답변을 찾을 수 있었습니다.
 
-> StackOverflow<br>
+> StackOverflow<br/>
 > Technically you can use a computed property with a parameter like this:
 
 ```vue

@@ -10,7 +10,7 @@ category:
 last_modified_at: 2021-12-19T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT(Json Web Token)][json-link]
@@ -44,16 +44,16 @@ last_modified_at: 2021-12-19T23:55:00
 ##### 주의사항
 - 현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다. (Deprecated)
 
-> 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br>
-> No Authorization Server Support<br>
-> ...<br>
+> 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br/>
+> No Authorization Server Support<br/>
+> ...<br/>
 > Spring Security’s Authorization Server support was never a good fit. 
 > An Authorization Server requires a library to build a product. 
 > Spring Security, being a framework, is not in the business of building libraries or products. 
 > For example, we don’t have a JWT library, but instead we make Nimbus easy to use. 
-> And we don’t maintain our own SAML IdP, CAS or LDAP products.<br>
+> And we don’t maintain our own SAML IdP, CAS or LDAP products.<br/>
 > In 2019, there are plenty of both commercial and open-source authorization servers available. 
-> Thus, the Spring Security team has decided to no longer provide support for authorization servers.<br>
+> Thus, the Spring Security team has decided to no longer provide support for authorization servers.<br/>
 > UPDATE: We’d like to thank everyone for your feedback on the decision to not support Authorization Server. 
 > Due to this feedback and some internal discussions, we are taking another look at this decision. 
 > We’ll notify the community on any progress.

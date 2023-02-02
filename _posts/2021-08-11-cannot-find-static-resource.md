@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-09-04T16:30:00
 ---
 
-<br>
+<br/>
 
 ## 1. 문제 해결 실마리
 
@@ -130,7 +130,7 @@ spring:
         <form th:action="@{/static}" method="post">
             <table border=1>
                 <tr>
-                    <td>기존 이미지<br>(/static/images 경로)</td>
+                    <td>기존 이미지<br/>(/static/images 경로)</td>
                 </tr>
             </table>
             <br/>
@@ -141,7 +141,7 @@ spring:
         <form th:action="@{/static/barcode}" th:object="${staticBarcode}" method="post">
             <table border=1>
                 <tr>
-                    <td>바코드 문자열<br>(/static/images 경로)</td>
+                    <td>바코드 문자열<br/>(/static/images 경로)</td>
                     <td>
                         <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열">
                     </td>
@@ -155,7 +155,7 @@ spring:
         <form th:action="@{/extra/barcode}" th:object="${dynamicBarcode}" method="post">
             <table border=1>
                 <tr>
-                    <td>바코드 문자열<br>(별도 images 경로)</td>
+                    <td>바코드 문자열<br/>(별도 images 경로)</td>
                     <td>
                         <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열">
                     </td>

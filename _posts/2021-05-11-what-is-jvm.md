@@ -7,15 +7,15 @@ category:
 last_modified_at: 2021-09-24T16:00:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [JVM - 실행 엔진(Execution Engine)][jvm-execution-engine-link]
 
 ## 0. 들어가면서
 
-> JVM 메모리 구조에 대해서 설명해주세요.<br>
-> JVM GC 동작 방법에 대해서 설명해주세요.<br>
+> JVM 메모리 구조에 대해서 설명해주세요.<br/>
+> JVM GC 동작 방법에 대해서 설명해주세요.<br/>
 > JVM GC 옵션에 대해서 설명해주세요
 
 Java 언어를 사용하면 면접에서 필연적으로 마주치는 질문입니다. 

@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-08-25T12:00:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [DB 인덱스(INDEX) 자료구조][db-index-structure-link]
@@ -59,7 +59,7 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 
 ### 3.1. 기수성(Cardinality)
 
-> 기수성(Cardinality), 특정 데이터 집합의 유니크(Unique)한 값의 개수<br>
+> 기수성(Cardinality), 특정 데이터 집합의 유니크(Unique)한 값의 개수<br/>
 > = Cardinality = Distinct Value 개수 = select count(distinct (column)) from table
 
 전체 행에 대한 특정 컬럼의 데이터 중복 수치에 대한 정보를 기수성(Cardinality)라고 합니다. 
@@ -73,7 +73,7 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 
 ### 3.2. 선택도(Selectivity)
 
-> 선택도(Selectivity), 데이터 집합에서 특정 값을 얼마나 잘 선택할 수 있는지에 대한 지표<br>
+> 선택도(Selectivity), 데이터 집합에서 특정 값을 얼마나 잘 선택할 수 있는지에 대한 지표<br/>
 > = Selectivity = Cardinality / Total Number Of Records
 
 선택도는 기수성으로부터 계산할 수 있습니다. 

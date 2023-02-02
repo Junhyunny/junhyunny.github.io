@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-12-18T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [React debounce test with Jest][react-debounce-test-link]

@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-09-16T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-link]
@@ -23,7 +23,7 @@ last_modified_at: 2021-09-16T23:55:00
 아무래도 서버에서 사용자 디바이스를 식별하고 적절한 서비스를 제공하는 것이 좋은 모양새이지만, 표준으로 사용되는 방법이 있을 것 같다는 생각이 들었습니다. 
 저와 같은 고민을 한 사람을 `StackOverflow`에서 찾을 수 있었습니다. 
 
-> StackOverflow<br>
+> StackOverflow<br/>
 > Is it better/faster to detect mobile browser on server side (PHP) or client side (JavaScript)?
 > I've seen code that detects whether someone is using a mobile browser in JavaScript (e.g. a jQuery script) 
 > and I've seen some that work in PHP (or other server-side language). 

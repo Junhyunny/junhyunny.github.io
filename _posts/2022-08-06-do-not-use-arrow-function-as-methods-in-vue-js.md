@@ -6,7 +6,7 @@ category:
 last_modified_at: 2022-08-06T23:55:00
 ---
 
-<br>
+<br/>
 
 #### 다음 사항을 주의하세요.
 
@@ -28,7 +28,7 @@ last_modified_at: 2022-08-06T23:55:00
   <div class="hello">
     <h1>{ { msg } }</h1>
     <p>
-      For a guide and recipes on how to configure / customize this project,<br>
+      For a guide and recipes on how to configure / customize this project,<br/>
       check out the
       <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
     </p>
@@ -187,7 +187,7 @@ function applyOptions(instance) {
 코드만 봐서는 크게 문제가 없어 보이지만, 사실 화살표 함수는 `bind` 함수를 통해 `this`를 재정의할 수 없습니다. 
 
 > MDN<br/>
-> 화살표 함수 표현(arrow function expression)은 전통적인 함수 표현(function)의 간편한 대안입니다. 하지만, 화살표 함수는 몇 가지 제한점이 있고 모든 상황에 사용할 수는 없습니다.<br>
+> 화살표 함수 표현(arrow function expression)은 전통적인 함수 표현(function)의 간편한 대안입니다. 하지만, 화살표 함수는 몇 가지 제한점이 있고 모든 상황에 사용할 수는 없습니다.<br/>
 > * this나 super에 대한 바인딩이 없고, methods 로 사용될 수 없습니다.
 > * new.target키워드가 없습니다.
 > * 일반적으로 스코프를 지정할 때 사용하는 call, apply, bind methods를 이용할 수 없습니다.

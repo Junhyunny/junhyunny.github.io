@@ -8,7 +8,7 @@ category:
 last_modified_at: 2022-02-09T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -91,7 +91,7 @@ username=junhyunny&password=123&grant_type=password
 
 MIME(Multipurpose Internet Mail Extensions)에 대해 알아보겠습니다. 
 
-> Multipurpose Internet Mail Extensions - 다용도 인터넷 메일 확장자<br>
+> Multipurpose Internet Mail Extensions - 다용도 인터넷 메일 확장자<br/>
 > MIME(영어: Multipurpose Internet Mail Extensions)는 전자 우편을 위한 인터넷 표준 포맷이다. 
 > 전자우편은 7비트 ASCII 문자를 사용하여 전송되기 때문에, 8비트 이상의 코드를 사용하는 문자나 이진 파일들은 MIME 포맷으로 변환되어 SMTP로 전송된다. 
 > 실질적으로 SMTP로 전송되는 대부분의 전자 우편은 MIME 형식이다.

@@ -6,11 +6,11 @@ category:
 last_modified_at: 2021-12-12T15:55:00
 ---
 
-<br>
+<br/>
 
 ## 1. DOM(Document Object Model)
 
-> MDN Web Docs<br>
+> MDN Web Docs<br/>
 > The Document Object Model (DOM) is a programming interface for web documents. 
 > It represents the page so that programs can change the document structure, style, and content. 
 > The DOM represents the document as nodes and objects; that way, programming languages can interact with the page.
@@ -46,7 +46,7 @@ DOM(Document Object Model)은 HTML, XML 같은 웹 문서를 위한 프로그래
 
 ## 2. DOM 트리(Tree)
 
-> Wiki<br>
+> Wiki<br/>
 > The Document Object Model (DOM) is a cross-platform and language-independent interface 
 > that treats an XML or HTML document as a tree structure 
 > wherein each node is an object representing a part of the document. 

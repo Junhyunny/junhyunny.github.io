@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-12-26T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -79,7 +79,7 @@ export default App;
 이 문제는 IME(Input Method Editor) 과정에서 `KeyDown` 이벤트가 발생할 때 운영체제와 브라우저가 해당 이벤트를 중복 처리하기 때문에 발생합니다. 
 위키피디아(wikipedia)에선 IME를 다음과 같이 정의합니다.
 
-> IME(Input Method Editor)<br>
+> IME(Input Method Editor)<br/>
 > An input method (or input method editor, commonly abbreviated IME) is an operating system component or program that enables users to generate characters not natively available on their input devices by using sequences of characters (or mouse operations) that are natively available on their input devices. Using an input method is usually necessary for languages that have more graphemes than there are keys on the keyboard.
 
 `IME`는 한글 같은 조합이 필요한 문자의 입력을 지원하기 위한 운영체제(operating system)의 컴포넌트(component) 혹은 프로그램입니다. 

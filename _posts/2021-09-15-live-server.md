@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-09-15T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Webpack][webpack-link]
@@ -28,10 +28,10 @@ last_modified_at: 2021-09-15T23:55:00
 
 ## 2. 문제 원인
 
-> StackOverflow<br>
+> StackOverflow<br/>
 > Unlike regular scripts, ES6 modules are subject to same-origin policy. 
-> This means that you cannot import them from the file system or cross-origin without a CORS header (which cannot be set for local files).<br>
-> <br>
+> This means that you cannot import them from the file system or cross-origin without a CORS header (which cannot be set for local files).<br/>
+> <br/>
 > Basically you need to run this code from a (local) server or disable same-origin in the browser for testing (do not do this permanently). 
 > See: Access to Image from origin 'null' has been blocked by CORS policy.
 

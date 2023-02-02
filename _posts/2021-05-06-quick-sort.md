@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-28T13:30:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [합병 정렬(Merge Sort)][merge_sort_link]

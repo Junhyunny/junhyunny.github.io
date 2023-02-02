@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-12-31T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Cookie and Session][cookie-and-session-link]
@@ -110,7 +110,7 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 만약, A 쿠키에 `Domain=mozilla.org`이라고 속성을 설정하면 `developer.mozilla.org` 도메인으로 요청 시 A 쿠키가 함께 전달됩니다. 
 
 테스트 케이스를 만들어보고 싶었지만, 타 도메인으로 설정은 안되는 것으로 확인됩니다.
-> Invalid cookie domain<br>
+> Invalid cookie domain<br/>
 > If the current domain were to be example.com, it would not be possible to add a cookie for the domain example.org:
 
 ### 2.2. Path 속성

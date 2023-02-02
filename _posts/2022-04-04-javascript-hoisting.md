@@ -6,7 +6,7 @@ category:
 last_modified_at: 2022-04-04T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -17,7 +17,7 @@ last_modified_at: 2022-04-04T23:55:00
 
 ## 1. 호이스팅(Hoisting)
 
-> MDN - 호이스팅<br>
+> MDN - 호이스팅<br/>
 > 인터프리터가 변수와 함수의 메모리 공간을 선언 전에 미리 할당하는 것을 의미합니다. 
 
 다소 말이 어려웠는데, 조금 더 풀어서 정리를 하면 다음과 같습니다. 
@@ -82,8 +82,8 @@ last_modified_at: 2022-04-04T23:55:00
 
 변수와 함수의 호이스팅 적용 우선 순위는 누가 높은지 확인해보겠습니다. 
 
-> StackOverflow<br>
-> Functions are hoisted first, then variable declarations<br>
+> StackOverflow<br/>
+> Functions are hoisted first, then variable declarations<br/>
 > ECMAScript 5, section 10.5 - <https://262.ecma-international.org/5.1/#sec-10.5>
 
 스택 오버플로우를 살펴보면 함수가 먼저 호이스팅 되고, 그 다음 변수가 호이스팅이 발생한다고 합니다. 

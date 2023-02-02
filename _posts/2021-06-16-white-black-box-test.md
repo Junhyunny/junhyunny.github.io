@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-06-16T00:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서 
 
@@ -16,7 +16,7 @@ last_modified_at: 2021-06-16T00:00:00
 
 ## 1. White Box Test
 
-> Wiki<br>
+> Wiki<br/>
 > White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) 
 > is a method of software testing that tests internal structures or workings of an application
 
@@ -38,7 +38,7 @@ last_modified_at: 2021-06-16T00:00:00
 
 ## 2. Black Box Test
 
-> Wiki<br>
+> Wiki<br/>
 > Black-box testing is a method of software testing that examines the functionality of an application 
 > without peering into its internal structures or workings. 
 

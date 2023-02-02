@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-02-17T23:55:00
 ---
 
-<br>
+<br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
@@ -755,16 +755,16 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 이번 포스트에서 사용한 `2.3.3.RELEASE` 버전까지는 인증 서버를 구현할 수 있지만, 최근 버전에선 인증 서버 구현을 위한 기능들이 모두 제거되었습니다. 
 현재 최신 `Spring Security`에서는 `Authorization Server` 구현을 지원하지 않습니다.(Deprecated)
 
-> 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br>
-> No Authorization Server Support<br>
-> ...<br>
+> 2019/11/14 - Spring Security OAuth 2.0 Roadmap Update<br/>
+> No Authorization Server Support<br/>
+> ...<br/>
 > Spring Security’s Authorization Server support was never a good fit. 
 > An Authorization Server requires a library to build a product. 
 > Spring Security, being a framework, is not in the business of building libraries or products. 
 > For example, we don’t have a JWT library, but instead we make Nimbus easy to use. 
-> And we don’t maintain our own SAML IdP, CAS or LDAP products.<br>
+> And we don’t maintain our own SAML IdP, CAS or LDAP products.<br/>
 > In 2019, there are plenty of both commercial and open-source authorization servers available. 
-> Thus, the Spring Security team has decided to no longer provide support for authorization servers.<br>
+> Thus, the Spring Security team has decided to no longer provide support for authorization servers.<br/>
 > UPDATE: We’d like to thank everyone for your feedback on the decision to not support Authorization Server. 
 > Due to this feedback and some internal discussions, we are taking another look at this decision. 
 > We’ll notify the community on any progress.

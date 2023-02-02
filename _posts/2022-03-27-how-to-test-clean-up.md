@@ -8,7 +8,7 @@ category:
 last_modified_at: 2022-03-27T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -17,7 +17,7 @@ last_modified_at: 2022-03-27T23:55:00
 
 ## 1. useEffect Hook
 
-> React docs - Using the Effect Hook<br>
+> React docs - Using the Effect Hook<br/>
 > Effect Hook을 사용하면 함수 컴포넌트에서 side effect를 수행할 수 있습니다.
 
 여기서 말하는 사이드 이펙트(side effect)는 부수적인 효과를 의미합니다. 

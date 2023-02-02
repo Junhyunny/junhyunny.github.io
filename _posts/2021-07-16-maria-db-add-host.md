@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-09-04T12:59:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Linux Maria DB 설치하기][maria-db-install]

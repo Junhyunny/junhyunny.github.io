@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-01-09T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [폴링(Polling), 롱 폴링(Long polling) 그리고 스프링 예제][polling-long-polling-and-spring-example-link]

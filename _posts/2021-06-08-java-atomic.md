@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-09-03T02:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -19,7 +19,7 @@ Java는 멀티 스레드 환경에서 thread-safe 한 개발을 할 수 있도�
 
 ## 1. 원자적인 연산(Atomic operation)
 
-> 원자성(atomicity) - Wiki<br>
+> 원자성(atomicity) - Wiki<br/>
 > 어떤 것이 더 이상 쪼개질 수 없는 성질을 말한다. 
 
 원자성의 사전적 의미를 바탕으로 보면 `원자적인 연산`이라는 것은 `'더는 쪼개질 수 없는 연산'`을 뜻합니다. 
@@ -80,7 +80,7 @@ compareAndSet() 메소드는 Atomic 클래스들의 핵심 기능이라고 소�
 Java의 메소드 명은 compareAndSet() 이지만 관련된 내용을 찾아보면 CAS(Compare-And-Swap) 매커니즘을 구현한 듯 합니다. 
 자세한 내용을 알아보도록 하겠습니다. 
 
-> CAS(Compare-And-Swap) - Wiki<br>
+> CAS(Compare-And-Swap) - Wiki<br/>
 > In computer science, compare-and-swap (CAS) is an atomic instruction used in multithreading to achieve synchronization.
 > It compares the contents of a memory location with a given value and, only if they are the same, modifies the contents of that memory location to a new given value.
 

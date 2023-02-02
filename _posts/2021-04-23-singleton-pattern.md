@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-28T01:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -18,7 +18,7 @@ last_modified_at: 2021-08-28T01:00:00
 
 ## 1. 싱글톤 패턴(Singleton Pattern)
 
-> Wiki<br>
+> Wiki<br/>
 > In software engineering, the singleton pattern is a software design pattern that restricts the instantiation of a class to one "single" instance.
 
 이름에서부터 추측이 가능한 디자인 패턴입니다. 
@@ -183,7 +183,7 @@ public class Singleton {
 싱글톤 패턴은 사실 안티 패턴이라고 합니다. 
 안티라는 단어만 들어도 좋은 느낌을 주지는 않습니다. 
 
-> 안티 패턴(anti-pattern)<br>
+> 안티 패턴(anti-pattern)<br/>
 > 소프트웨어 공학 분야 용어이며, 실제 많이 사용되는 패턴이지만 비효율적이거나 비생산적인 패턴을 의미한다.
 
 왜 싱글톤 패턴은 안티 패턴이 되었을까요? 이유는 다음과 같습니다.

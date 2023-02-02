@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-06-27T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
@@ -15,7 +15,7 @@ last_modified_at: 2022-06-27T23:55:00
 
 ## 1. Spring Cloud Sleuth
 
-> Spring Cloud Sleuth API Reference<br>
+> Spring Cloud Sleuth API Reference<br/>
 > Spring Cloud Sleuth provides Spring Boot auto-configuration for distributed tracing.
 
 `Micro Service Architecture`를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 

@@ -7,13 +7,13 @@ category:
 last_modified_at: 2021-11-26T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 `Kent Beck`의 `XP(Extreme Programming) Explained` 저서에는 이런 문구가 있습니다. 
 
-> 개발의 기본 흐름은 일단 실패하는 테스트를 작성하고, 그 다음으로 그 테스트를 통과하도록 만드는 것이다.<br>
-> ...<br>
+> 개발의 기본 흐름은 일단 실패하는 테스트를 작성하고, 그 다음으로 그 테스트를 통과하도록 만드는 것이다.<br/>
+> ...<br/>
 > 해결하고 싶은 스토리들을 목록으로 만들고, 그 스토리들을 표현하는 테스트들을 작성하고, 
 > 그런 다음 그 테스트들 통과하도록 만든다. 
 > 여러분이 작성해야 할 필요가 있다고 생각하는 테스트들을 목록으로 만들고, 테스트를 하나 작성하고, 
@@ -371,10 +371,10 @@ public class TestDoubleTest {
 
 마틴 파울러(Martin Fowler)는 [Mocks Aren't Stubs][martinfowler-link] 포스트에서 다음과 같이 이야기하고 있습니다. 
 
-> Mocks Aren't Stubs -  The Difference Between Mocks and Stubs<br>
+> Mocks Aren't Stubs -  The Difference Between Mocks and Stubs<br/>
 > In order to use state verification on the stub, 
 > I need to make some extra methods on the stub to help with verification. 
-> As a result the stub implements MailService but adds extra test methods.<br>
+> As a result the stub implements MailService but adds extra test methods.<br/>
 > Mock objects always use behavior verification, a stub can go either way. 
 > Meszaros refers to stubs that use behavior verification as a Test Spy. 
 > The difference is in how exactly the double runs and verifies and I'll leave that for you to explore on your own.

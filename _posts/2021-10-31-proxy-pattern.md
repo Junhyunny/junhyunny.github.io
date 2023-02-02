@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-10-31T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 1. 프록시 패턴(Proxy Pattern)
 

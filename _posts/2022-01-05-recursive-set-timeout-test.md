@@ -8,7 +8,7 @@ category:
 last_modified_at: 2022-01-04T23:55:00
 ---
 
-<br>
+<br/>
 
 ⚠️ 해당 포스트는 2022년 1월 7일에 재작성되었습니다.
 - 최초 작성일 1월 5일
@@ -389,7 +389,7 @@ it('given 1 second interval with 6 seconds waiting when call polling method then
 
 여담이지만 현재 `클린 코드(clean code)`를 읽는 중인데 예시로 든 `polling` 함수는 문제가 많은 코드입니다. 
 
-> 클린 코드(clean code)<br>
+> 클린 코드(clean code)<br/>
 > 함수에서 이상적인 인수 개수는 0개다. 
 > 다음은 1개고, 다음은 2개다. 
 > 3개는 가능한 피하는 편이 좋다. 

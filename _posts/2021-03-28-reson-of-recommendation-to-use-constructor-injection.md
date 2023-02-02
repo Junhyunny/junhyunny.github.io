@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-24T02:00:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Inversion of Control and Dependency Injection in Spring][ioc-di-link]
@@ -16,7 +16,7 @@ last_modified_at: 2021-08-24T02:00:00
 
 Setter Injection, Constructor Injection, Method Injection 총 3개의 Inejection 방식이 존재하는데 Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 권장한다고 합니다. 
 
-> **Spring Doc**<br>
+> **Spring Doc**<br/>
 > The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects 
 > and to ensure that required dependencies are not null. 
 > Furthermore constructor-injected components are always returned to client (calling) code in a fully initialized state. 
@@ -90,7 +90,7 @@ public class PostController {
 
 ### 3.3. 클래스에 대한 과도한 책임 방지
 
-> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br>
+> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br/>
 > 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 
 > 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다.
 
@@ -281,8 +281,8 @@ java.lang.IllegalStateException: Failed to load ApplicationContext
 
 #### 3.4.3. 생성자 주입의 경우 순환 참조가 감지되는 이유
 
-> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br>
-> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br>
+> [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br/>
+> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br/>
 
 KimTaeng 님 블로그의 글을 읽어보면 생성자 주입은 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
 제 스스로 이해하기 쉽도록 이 부분을 다시 정리해보았습니다. 

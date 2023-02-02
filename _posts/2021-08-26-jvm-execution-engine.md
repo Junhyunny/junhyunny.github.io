@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-26T06:00:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JVM(Java Virtual Machine)][jvm-link]
@@ -17,7 +17,7 @@ last_modified_at: 2021-08-26T06:00:00
 최근에 작성했던 포스트들을 다시 정리하는 중에 JVM(Java Virtual Machine)에 대한 넓고 얕은 지식이라는 주제로 작성한 포스트를 발견했습니다. 
 전반적인 JVM 구조에 대한 글이었는데 오늘은 `실행 엔진(Execution Engine)`에 대한 내용을 정리하였습니다. 
 
-> 실행 엔진(Execution Engine)은 메모리에 적재된 클래스(바이트 코드)들을 기계어로 변경하여 명령어(instruction) 단위로 실행합니다.<br> 
+> 실행 엔진(Execution Engine)은 메모리에 적재된 클래스(바이트 코드)들을 기계어로 변경하여 명령어(instruction) 단위로 실행합니다.<br/> 
 > 바이트 코드를 운영체제에 맞게 해석해주는 역할을 수행합니다. 
 > 실행 엔진이 바이트 코드를 명령어 단위로 읽어서 수행하는데 크게 두 가지 방식이 사용된다고 합니다. 
 > - 인터프리터(Interpreter)
@@ -121,7 +121,7 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 
 ### 2.2. JIT(Just In Time) 컴파일러
 
-> Wikipedia - Just-in-time compilation<br>
+> Wikipedia - Just-in-time compilation<br/>
 > In computing, just-in-time (JIT) compilation (also dynamic translation or run-time compilations) is a way of executing computer code 
 > that involves compilation during execution of a program (at run time) rather than before execution.
 

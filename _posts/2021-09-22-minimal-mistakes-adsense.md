@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-09-22T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [GitHub 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)][adsense-position-setting-link]

@@ -1,5 +1,5 @@
 ---
-title: "Openfeign 런타임(runtime) 시 URI 변경"
+title: "Change URI with Openfeign when Runtime"
 search: false
 category:
   - spring-boot
@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-23T00:30:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Spring Cloud Openfeign][openfeign-link]
@@ -34,7 +34,7 @@ interface SimpleClient {
 관련된 내용을 stack overflow 답변에서 확인할 수 있었습니다. 
 설명을 보면 애너테이션이 붙어있지 않은 URI 파라미터를 추가하면 해당 URI로 요청을 보낸다는 내용 같습니다. 
 
-> stack overflow - How can I change the feign URL during the runtime?<br>
+> stack overflow - How can I change the feign URL during the runtime?<br/>
 > You can add an unannotated URI parameter (that can potentially be determined at runtime) and that will be the base path that will be used for the request. E.g.:
 
 ```java

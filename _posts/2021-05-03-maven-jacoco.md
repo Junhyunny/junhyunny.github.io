@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-28T03:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -18,7 +18,7 @@ last_modified_at: 2021-08-28T03:00:00
 
 `JaCoCo` 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글을 가져왔습니다. 
 
-> JaCoCo(Java Code Coverage)<br>
+> JaCoCo(Java Code Coverage)<br/>
 > JaCoCo is a free code coverage library for Java, which has been created by the EclEmma team based on the lessons learned from using and integration existing libraries for many years. 
 
 테스트 커버리지를 강제할 수 있는 JaCoCo 플러그인을 적용하면 얻을 수 있는 이점에 대해 생각해보았습니다. 

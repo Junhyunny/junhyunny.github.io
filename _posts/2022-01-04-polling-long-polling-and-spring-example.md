@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-01-04T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
@@ -95,7 +95,7 @@ last_modified_at: 2022-01-04T23:55:00
 
 ### 2.1. DeferredResult 클래스
 
-> Guide to DeferredResult in Spring<br>
+> Guide to DeferredResult in Spring<br/>
 > DeferredResult, available from Spring 3.2 onwards, 
 > assists in offloading a long-running computation from an http-worker thread to a separate thread.
 

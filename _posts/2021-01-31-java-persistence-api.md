@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-08-22T01:00:00
 ---
 
-<br>
+<br/>
 
 ## 1. Java Persistence API
 

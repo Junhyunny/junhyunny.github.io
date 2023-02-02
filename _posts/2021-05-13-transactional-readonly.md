@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-09-01T02:00:00
 ---
 
-<br>
+<br/>
 
 ⚠️ 해당 포스트는 2021년 9월 1일에 재작성되었습니다.
 
@@ -41,14 +41,14 @@ last_modified_at: 2021-09-01T02:00:00
 어느 정도 의미는 알 것 같은데 정확한 기능에 대한 설명은 아닌 것 같습니다. 
 자세한 내용을 찾아보다가 인프런 강좌에 백기선님이 직접 남겨주신 댓글을 확인하였습니다. 
 
-> `@Transactional(readOnly = true)`에 대한 질문입니다.<br>
-> ...<br>
+> `@Transactional(readOnly = true)`에 대한 질문입니다.<br/>
+> ...<br/>
 > readOnly는 현재 해당 그 트랜잭션 내에서 데이터를 읽기만 할건지 설정하는 겁니다. 
 > 이걸 설정하면 DB 중에 read 락(lock)과 write 락을 따로 쓰는 경우 
 > 해당 트랜잭션에서 의도치 않게 데이터를 변경하는 일을 막아줄 뿐 아니라, 
 > 하이버네이트를 사용하는 경우에는 FlushMode를 Manual로 변경하여 dirty checking을 생략하게 해준다거나 
-> DB에 따라 DataSource의 Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.<br>
-> ...<br>
+> DB에 따라 DataSource의 Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.<br/>
+> ...<br/>
 > <https://www.inflearn.com/questions/7185>
 
 제 머리 속에서 쉽게 정리될 수 있도록 다시 요약해보았습니다. 

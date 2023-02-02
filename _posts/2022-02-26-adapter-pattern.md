@@ -7,7 +7,7 @@ category:
 last_modified_at: 2022-02-26T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
@@ -18,7 +18,7 @@ last_modified_at: 2022-02-26T23:55:00
 
 ## 1. 어댑터 패턴(Adapter Pattern)
 
-> Design Patterns: Elements of Reusable Object Oriented Software<br>
+> Design Patterns: Elements of Reusable Object Oriented Software<br/>
 > 클래스의 인터페이스를 사용자가 기대하는 인터페이스 형태로 적응(변환)시킵니다. 
 > 서로 일치하지 않는 인터페이스를 갖는 클래스들을 함께 동작시킵니다. 
 

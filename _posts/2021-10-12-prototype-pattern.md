@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-10-12T23:55:00
 ---
 
-<br>
+<br/>
 
 ## 1. 프로토타입 패턴(Prototype Pattern)
 

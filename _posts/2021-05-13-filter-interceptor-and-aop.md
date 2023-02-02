@@ -6,11 +6,11 @@ category:
 last_modified_at: 2021-08-29T03:00:00
 ---
 
-<br>
+<br/>
 
 ## 0. 들어가면서
 
-> **'Spring 필터(Filter)와 인터셉터(Interceptor)의 차이점에 대해 설명해주세요.'**<br>
+> **'Spring 필터(Filter)와 인터셉터(Interceptor)의 차이점에 대해 설명해주세요.'**<br/>
 > **'필터는 서블릿 컨테이너에 이전에 공통적으로 처리해야되는 부분을 처리합니다. 인터셉터는 AOP 처럼 특정 시점을 빼앗아 동작하는 것을 의미하는 것 같습니다.'** 
 
 <p align="center">
@@ -34,7 +34,7 @@ last_modified_at: 2021-08-29T03:00:00
     <img src="/images/filter-interceptor-and-aop-2.JPG" width="60%" class="image__border">
 </p>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
-<br>
+<br/>
 
 ##### AOP 기능 위치
 

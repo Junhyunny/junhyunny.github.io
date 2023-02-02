@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-11-07T23:55:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [Quartz Clustering in Spring MVC][quartz-clustering-link]

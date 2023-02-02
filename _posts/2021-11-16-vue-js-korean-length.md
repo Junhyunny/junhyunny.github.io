@@ -6,7 +6,7 @@ category:
 last_modified_at: 2021-11-16T23:55:00
 ---
 
-<br>
+<br/>
 
 * `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 
@@ -76,7 +76,7 @@ export default {
 우선 `IME(Input Method Editor)`의 개념을 짚고 설명을 이어가곘습니다. 
 관련된 내용을 위키피디아(wikipedia)에선 다음과 같이 설명하고 있습니다. 
 
-> IME(Input Method Editor)<br>
+> IME(Input Method Editor)<br/>
 > An input method (or input method editor, commonly abbreviated IME) is an operating system component or program that enables users to generate characters not natively available on their input devices by using sequences of characters (or mouse operations) that are natively available on their input devices. Using an input method is usually necessary for languages that have more graphemes than there are keys on the keyboard.
 
 `IME`는 한글 같은 조합이 필요한 문자의 입력을 지원하기 위한 운영체제(operating system)의 컴포넌트(component) 혹은 프로그램입니다. 

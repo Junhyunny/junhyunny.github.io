@@ -7,7 +7,7 @@ category:
 last_modified_at: 2021-09-12T23:55:00
 ---
 
-<br>
+<br/>
 
 * `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 

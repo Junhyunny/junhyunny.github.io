@@ -6,14 +6,14 @@ category:
 last_modified_at: 2021-09-04T03:00:00
 ---
 
-<br>
+<br/>
 
 👉 이어서 읽기를 추천합니다.
 - [WebSocket 구현][websocket-implement-link]
 
 ## 1. WebSocket
 
-> Wiki<br>
+> Wiki<br/>
 > WebSocket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection. 
 > The WebSocket protocol was standardized by the IETF as RFC 6455 in 2011, and the WebSocket API in Web IDL is being standardized by the W3C. 
 

@@ -7,29 +7,35 @@ category:
 last_modified_at: 2021-08-22T20:30:00
 ---
 
-<br>
+<br/>
 
-⚠️ 해당 포스트는 2021년 8월22일에 재작성되었습니다. (불필요 코드 제거)
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][microservice-architecture-link]
+* [Micro Service Architecture][microservice-architecture-link]
 
-👉 이어서 읽기를 추천합니다.
-- [Openfeign 런타임(runtime) 시 URI 변경][dynamic-uri-using-openfeign-link]
-- [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
-- [FeignClient with Eureka][feignclient-with-eureka-link]
+<!-- ## 1. Spring Cloud Openfeign
 
-## 0. 들어가면서
-
-> Spring Cloud Openfeign API Reference<br>
+> Spring Cloud Openfeign API Reference<br/>
 > Feign is a declarative web service client. It makes writing web service clients easier.
 
-`Micro Service Architecture`를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 
-서비스들간에 보다 쉬운 API 요청을 지원하는 라이브러리입니다. 
-Eureka 서비스와 함께 동작한다면 별도의 URL 없이도 클러스터(cluster)를 형성하는 서비스들로 API 요청이 가능합니다. 
-우선 이번 포스트에서는 간단한 테스트를 통해 Openfiegn 사용법에 대해 알아보도록 하겠습니다. 
+MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring cloud) 프로젝트들 중 하나입니다. 
+서비스들 사이의 API 요청, 응답을 쉽게 할 수 있도록 돕는 라이브러리입니다. 
+간단한 예제 코드를 통해 사용 방법을 살펴보겠습니다. 
+
+## 2. Practice
+
+### 2.1. Context for Practice
+
+다음과 같은 상황을 만들어 사용해보았습니다. 
+
+1. 사용자는 `서비스A`의 `/health` 경로로 API 요청을 수행합니다. 
+1. `서비스A`는 `/health` 요청을 받으면 `서비스B`로 API 요청을 수행합니다.
+1. `서비스B`는 자신의 상태를 응답합니다.
+1. `서비스A`는 `서비스B` 응답과 자신의 상태를 함께 응답합니다.
+1. 사용자는 `서비스A`로부터 결과를 응답 받습니다. -->
 
 ## 1. 테스트 시나리오
+
 - action-in-blog 서비스에서 action-in-blog 서비스의 /api/cors/health 경로로 API 요청
 - SimpleClient는 테스트 패키지에 존재하며 JUnit 테스트를 통해 API 요청 수행
 
@@ -184,9 +190,17 @@ public class SimpleClientTest {
 다음 포스트는 Eureka 서비스를 구축하여 서비스 등록과 서비스 이름을 이용한 FeignClient API 요청을 주제로 글을 작성하도록 하겠습니다.
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-04-spring-cloud-openfeign>
 
+#### RECOMMEND NEXT POSTS
+
+* [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link]
+* [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
+* [FeignClient with Eureka][feignclient-with-eureka-link]
+
 #### REFERENCE
+
 - <https://woowabros.github.io/experience/2019/05/29/feign.html>
 - <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
 

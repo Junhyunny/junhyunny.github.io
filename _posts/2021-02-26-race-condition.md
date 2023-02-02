@@ -8,7 +8,7 @@ category:
 last_modified_at: 2021-08-22T12:30:00
 ---
 
-<br>
+<br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
@@ -16,7 +16,7 @@ last_modified_at: 2021-08-22T12:30:00
 
 ## 1. What is Race Condition?
 
-> Wikipedia<br>
+> Wikipedia<br/>
 > 공유 자원에 대해 여러 개의 프로세스가 동시에 접근을 시도할 때 접근의 타이밍이나 순서 등이 결과 값에 영향을 줄 수 있는 상태
 
 공유되는 자원(resource)을 둘 이상의 프로세스가 동시에 접근해 사용하는 경우 발생합니다. 

@@ -13,7 +13,7 @@ last_modified_at: 2021-08-22T20:30:00
 
 * [Micro Service Architecture][microservice-architecture-link]
 
-<!-- ## 1. Spring Cloud Openfeign
+## 1. Spring Cloud Openfeign
 
 > Spring Cloud Openfeign API Reference<br/>
 > Feign is a declarative web service client. It makes writing web service clients easier.
@@ -32,27 +32,56 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 1. `서비스A`는 `/health` 요청을 받으면 `서비스B`로 API 요청을 수행합니다.
 1. `서비스B`는 자신의 상태를 응답합니다.
 1. `서비스A`는 `서비스B` 응답과 자신의 상태를 함께 응답합니다.
-1. 사용자는 `서비스A`로부터 결과를 응답 받습니다. -->
+1. 사용자는 `서비스A`로부터 결과를 응답 받습니다.
 
-## 1. 테스트 시나리오
+<p align="center">
+    <img src="/images/spring-cloud-openfeign-1.JPG" width="100%">
+</p>
 
-- action-in-blog 서비스에서 action-in-blog 서비스의 /api/cors/health 경로로 API 요청
-- SimpleClient는 테스트 패키지에 존재하며 JUnit 테스트를 통해 API 요청 수행
+### 2.2. pom.xml
 
-<p align="center"><img src="/images/spring-cloud-openfeign-1.JPG" width="45%"></p>
-
-## 2. 예제 코드
-
-### 2.1. pom.xml 의존성(dependency) 추가
-- spring-cloud-starter-openfeign 의존성을 추가합니다.
+* `spring-cloud-starter-openfeign` 의존성을 추가합니다.
 
 ```xml
-    <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-openfeign</artifactId>
-        <version>2.2.7.RELEASE</version>
-    </dependency>
+    <properties>
+        <spring-cloud.version>2021.0.5</spring-cloud.version>
+    </properties>
+    <dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 ```
+
+### 2.3. HealthClient for ServiceA
+
+`ServiceA` 프로젝트에서 작업을 수행합니다.
+
+* API 요청을 위한 클라이언트를 만듭니다.
+
+```java
+
+```
+
+
+### 2.4. HealthController Class for ServiceA
+
+### 2.5. ActionInBlogApplication Class
+
+### 2.6. HealthController Class for ServiceB
+
 
 ### 2.2. HealthController 클래스
 - Feign Client 요청을 받아줄 컨트롤러(controller) 클래스를 하나 만듭니다.

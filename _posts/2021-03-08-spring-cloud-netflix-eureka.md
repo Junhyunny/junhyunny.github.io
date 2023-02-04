@@ -33,7 +33,7 @@ Netflix OSS 컴포넌트 중에서 `Eureka`는 클러스터 내 다른 서비스
 * 특정 서비스가 다른 서비스의 연결 정보가 필요한 경우 `Eureka` 서비스에게 요청합니다.
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-eureka-1.JPG" width="80%" class="image__border">
+    <img src="/images/spring-cloud-netflix-eureka-1.JPG" width="50%" class="image__border">
 </p>
 <center>https://medium.com/@aqibbutt3078/microservices-using-spring-cloud-a4cbe640e14d</center>
 

@@ -10,31 +10,34 @@ last_modified_at: 2021-08-23T00:30:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Cloud Openfeign][openfeign-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-## 1. Dynamic URI FeignClient on Runtime
+* [Spring Cloud Openfeign][openfeign-link]
 
-### 1.1. [Spring Cloud Openfeign][openfeign-link] 포스트의 SimpleClient 인터페이스
+## 1. Dynamic URI FeignClient when Runtime
 
-[Spring Cloud Openfeign][openfeign-link] 포스트에서 사용한 FeignClient 코드를 보면 직관적으로 URL이 고정되어 있다고 느낄 수 있습니다. 
+`FeignClient`를 사용한 코드를 살펴보면 일반적으로 `URL`이 고정되어 있습니다. 
+유연한 사용이 불가능한 것처럼 보이지만, `FeignClient`는 `URL`을 런타임에 바꿀 수 있도록 설계되어 있습니다.  
 
 ```java
-@FeignClient(name = "simple-client", url = "http://localhost:8081")
-interface SimpleClient {
+package action.in.blog.client;
 
-    @GetMapping(path = "/api/cors/health")
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@FeignClient(name = "health-client", url = "http://b-service:8080")
+public interface HealthClient {
+
+    @GetMapping(path = "/health")
     String health();
 }
 ```
 
-### 1.2. 런타임 시 URI 지정할 수 있는 FeignClient 생성하기
+## 2. Change URL when Runtime
 
-사실 FeignClient는 보다 더 유연한 프로그램 개발을 위해 런타임(runtime) 시 URL을 변경하는 기능을 제공하고 있습니다. 
-관련된 내용을 stack overflow 답변에서 확인할 수 있었습니다. 
-설명을 보면 애너테이션이 붙어있지 않은 URI 파라미터를 추가하면 해당 URI로 요청을 보낸다는 내용 같습니다. 
+스택 오버플로우에서 관련된 답변을 찾을 수 있었습니다.
 
-> stack overflow - How can I change the feign URL during the runtime?<br/>
+> StackOverflow<br/>
 > You can add an unannotated URI parameter (that can potentially be determined at runtime) and that will be the base path that will be used for the request. E.g.:
 
 ```java
@@ -45,65 +48,144 @@ public interface MyClient {
 }
 ```
 
-## 2. 테스트 코드
+## 3. Practice
+
+[Spring Cloud Openfeign][openfeign-link] 포스트 예제를 변경하였습니다. 
+변경한 일부 코드만 살펴보겠습니다.
+
+### 3.1. HealthClient Interface
+
+* 기본 URL 정보는 지정합니다.
+    * `http://placeholder-url`
+* 메소드의 매개 변수로 URI 객체를 전달합니다.
 
 ```java
-package blog.in.action.openfeign.dynamic;
+package action.in.blog.client;
 
-import java.net.URI;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import feign.Response;
-import lombok.extern.log4j.Log4j2;
+import java.net.URI;
 
-@FeignClient(name = "dynamic-url-client", url = "any-value")
-interface DynamicUrlClient {
+@FeignClient(name = "health-client", url = "http://placeholder-url")
+public interface HealthClient {
 
-    @GetMapping(path = "/")
-    Response getMethod(URI uri);
+    @GetMapping(path = "/health")
+    String health(URI baseUri);
 }
+```
 
-@Log4j2
-@SpringBootTest
-public class DynamicUrlTest {
+### 3.2. HealthController Class
 
-    @Autowired
-    private DynamicUrlClient dynamicUrlClient;
+* URI 객체를 생성합니다.
+    * `http://b-service:8080`
+* 클라이언트 객체에게 URI를 전달합니다.
 
-    @Test
-    public void test() {
-        try {
-            Response response = dynamicUrlClient.getMethod(new URI("https://www.naver.com"));
-            log.info("response from naver: " + response.body());
-            response = dynamicUrlClient.getMethod(new URI("https://www.google.com"));
-            log.info("response from google: " + response.body());
-        } catch (Exception e) {
-            log.error("error while using feignclient", e);
-        }
+```java
+package action.in.blog.controller;
+
+import action.in.blog.client.HealthClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.net.URI;
+
+@RestController
+public class HealthController {
+
+    private final HealthClient healthClient;
+
+    public HealthController(HealthClient healthClient) {
+        this.healthClient = healthClient;
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        URI baseUri = URI.create("http://b-service:8080");
+        return String.format("ServiceA's Health - OK / ServiceB's Health - %s", healthClient.health(baseUri));
     }
 }
 ```
 
-##### 테스트 수행
-- **`https://www.naver.com`** 주소를 가진 URI 객체를 getMethod() 메소드의 매개변수로 전달합니다.
-- **`https://www.google.com`** 주소를 가진 URI 객체를 getMethod() 메소드의 매개변수로 전달합니다.
-- 각 결과를 확인합니다.
+## 4. Test
 
-##### https://www.naver.com 요청 결과
-<p align="center"><img src="/images/dynamic-uri-using-openfeign-1.JPG"></p>
+### 4.1. Run Docker Compose
 
-##### https://www.google.com 요청 결과
-<p align="center"><img src="/images/dynamic-uri-using-openfeign-2.JPG"></p>
+도커 컴포즈를 사용해 테스트를 수행합니다.
+
+```
+$ docker-compose up -d
+[+] Building 3.8s (23/23) FINISHED
+ => [2021-03-07-dynamic-uri-using-openfeign-a-service internal] load build definition from Dockerfile                                                                                         0.0s
+ => => transferring dockerfile: 32B                                                                                                                                                           0.0s
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load build definition from Dockerfile                                                                                         0.0s
+ => => transferring dockerfile: 32B                                                                                                                                                           0.0s
+ => [2021-03-07-dynamic-uri-using-openfeign-a-service internal] load .dockerignore                                                                                                            0.0s
+ => => transferring context: 2B                                                                                                                                                               0.0s
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load .dockerignore                                                                                                            0.0s
+ => => transferring context: 2B                                                                                                                                                               0.0s
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                                3.5s
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                        3.5s
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa215      0.0s
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9a5dcf55  0.0s
+ => [2021-03-07-dynamic-uri-using-openfeign-a-service internal] load build context                                                                                                            0.0s 
+ => => transferring context: 953B                                                                                                                                                             0.0s 
+ => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load build context                                                                                                            0.0s 
+ => => transferring context: 825B                                                                                                                                                             0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service stage-1 2/3] WORKDIR /app                                                                                                        0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 2/6] WORKDIR /build                                                                                                  0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 3/6] COPY pom.xml .                                                                                                  0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 4/6] RUN mvn dependency:go-offline                                                                                   0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 5/6] COPY src ./src                                                                                                  0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                          0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                               0.0s 
+ => [2021-03-07-dynamic-uri-using-openfeign-a-service] exporting to image                                                                                                                     0.1s 
+ => => exporting layers                                                                                                                                                                       0.0s 
+ => => writing image sha256:fbe6b2b0aefec38c7f5e01684663449508358c3985c674026daa49d8c750e1c0                                                                                                  0.0s 
+ => => naming to docker.io/library/2021-03-07-dynamic-uri-using-openfeign-b-service                                                                                                           0.0s 
+ => => writing image sha256:4df954c8cbac0d7b7900fe98bdaae3757ca1470307213ed556ef455bcaebacc5                                                                                                  0.0s 
+ => => naming to docker.io/library/2021-03-07-dynamic-uri-using-openfeign-a-service                                                                                                           0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 3/6] COPY pom.xml .                                                                                                  0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 4/6] RUN mvn dependency:go-offline                                                                                   0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 5/6] COPY src ./src                                                                                                  0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                          0.0s 
+ => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                               0.0s 
+[+] Running 2/2
+ - Container 2021-03-07-dynamic-uri-using-openfeign-a-service-1  Started                                                                                                                      0.8s 
+ - Container 2021-03-07-dynamic-uri-using-openfeign-b-service-1  Started                                                                                                                      0.7s
+```
+
+##### Result of Test
+
+```
+$  curl http://localhost:8080/health
+
+StatusCode        : 200
+StatusDescription : 
+Content           : ServiceA's Health - OK / ServiceB's Health - OK
+RawContent        : HTTP/1.1 200 
+                    Keep-Alive: timeout=60
+                    Connection: keep-alive
+                    Content-Length: 47
+                    Content-Type: text/plain;charset=UTF-8
+                    Date: Sat, 04 Feb 2023 14:06:50 GMT
+                    
+                    ServiceA's Health - OK / ServiceB's He...
+Forms             : {}
+Headers           : {[Keep-Alive, timeout=60], [Connection, keep-alive], [Content-Length, 47], [Content-Type, text/plain;charset=UTF-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 47
+```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-07-dynamic-uri-using-openfeign>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-07-dynamic-uri-using-openfeign>
 
 #### REFERENCE
-- <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>
+
+* <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>
 
 [openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/

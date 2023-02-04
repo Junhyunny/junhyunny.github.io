@@ -298,16 +298,13 @@ $ docker-compose up -d
 </p>
 
 ## CLOSING
-MSA 환경에서 필요한 Service Registration, Discovery 기능을 제공하는 Eureka 컴포넌트에 대해 정리해봤습니다. 
-Eureka 클라이언트 구현과 관련된 정보를 찾다보니 글마다 사용하는 애너테이션이 달랐습니다.(@EnableDiscoveryClient 혹은 @EnableEurekaClient 애너테이션 사용)
-어떤 조건으로 두 애너테이션을 구분하여 사용하는지 차이점을 찾아보았습니다. 
-> **@EnableDiscoveryClient, @EnableEurekaClient 차이점**<br/>
-> Service Discovery 라이브러리는 유레카 외에도 주키퍼, 컨설 등이 존재합니다. 
-> @EnableDiscoveryClient 애너테이션은 모든 라이브러리를 지원하며 @EnableEurekaClient 애너테이션은 유레카 라이브러리만을 지원합니다.
 
-Eureka 서버 구축이 되었으니 Service Discovery 기능을 이용한 FeignClient 사용과 관련된 글을 작성해보려고 합니다. 
-Spring Cloud와 관련된 내용을 정리하다 보니 아직 갈 길이 멀다고 느껴집니다. 
-앞으로 feign, eureka, ribbon, hystrix, zuul과 관련된 글들을 정리하면서 Spring 프레임워크가 MSA 생태계를 어떻게 지원하는지 알아보겠습니다.
+여러 레퍼런스들을 찾아보면 `Eureka` 클라이언트를 구현할 때 사용하는 애너테이션이 두 개 존재합니다.
+
+* `@EnableDiscoveryClient`
+    * `Eureka` 이 외에 서비스 식별을 위한 라이브러리인 `ZooKeeper`, `Consul` 등을 지원합니다.
+* `@EnableEurekaClient`
+    * `Eureka` 라이브러리만 지원합니다.
 
 #### TEST CODE REPOSITORY
 
@@ -318,9 +315,12 @@ Spring Cloud와 관련된 내용을 정리하다 보니 아직 갈 길이 멀다
 * [FeignClient with Eureka][feignclient-with-eureka-link]
 
 #### REFERENCE
-- <https://bcho.tistory.com/1252>
-- [spring cloud - eureka 기본 설정!][eureka-reference-link]
-- <https://spring.io/guides/gs/service-registration-and-discovery/>
+
+* <https://spring.io/guides/gs/service-registration-and-discovery/>
+* <https://bcho.tistory.com/1252>
+* <https://medium.com/@aqibbutt3078/microservices-using-spring-cloud-a4cbe640e14d>
+* <https://wonit.tistory.com/497>
+* [spring cloud - eureka 기본 설정!][eureka-reference-link]
 
 [eureka-reference-link]: https://kouzie.github.io/spring/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C-eureka-%EA%B8%B0%EB%B3%B8%EC%84%A4%EC%A0%95/#eureka-%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%A4%EC%A0%95
 

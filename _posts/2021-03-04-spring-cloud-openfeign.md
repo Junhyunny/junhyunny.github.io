@@ -69,25 +69,88 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 
 `ServiceA` 프로젝트에서 작업을 수행합니다.
 
-* API 요청을 위한 클라이언트를 만듭니다.
+* `서비스B`에게 API 요청하기 위한 클라이언트를 만듭니다.
+* 이름과 URL을 지정합니다.
+    * 이름은 필수 값입니다.
+    * 테스트를 위해 도커 컴포즈(docker compose)에 명시된 서비스 이름을 작성합니다.
+* GET 요청이므로 `@GetMapping` 애너테이션을 사용합니다.
+    * `서비스B`에는 요청을 받기 위한 `/health` 경로가 존재합니다.
 
 ```java
+package action.in.blog.client;
 
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@FeignClient(name = "health-client", url = "http://b-service:8080")
+public interface HealthClient {
+
+    @GetMapping(path = "/health")
+    String health();
+}
 ```
-
 
 ### 2.4. HealthController Class for ServiceA
 
-### 2.5. ActionInBlogApplication Class
+`ServiceA` 프로젝트에서 작업을 수행합니다.
+
+* 요청을 받을 수 있도록 `/health` 경로 생성합니다.
+
+```java
+package action.in.blog.controller;
+
+import action.in.blog.client.HealthClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HealthController {
+
+    private final HealthClient healthClient;
+
+    public HealthController(HealthClient healthClient) {
+        this.healthClient = healthClient;
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        return String.format("ServiceA's Health - OK / ServiceB's Health - %s", healthClient.health());
+    }
+}
+```
+
+### 2.5. AServiceApplication Class for ServiceA
+
+`ServiceA` 프로젝트에서 작업을 수행합니다.
+
+* `@FeignClient` 사용을 위해 `@EnableFeignClients` 애너테이션을 추가합니다.
+
+```java
+package action.in.blog;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@EnableFeignClients
+@SpringBootApplication
+public class AServiceApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(AServiceApplication.class, args);
+    }
+
+}
+```
 
 ### 2.6. HealthController Class for ServiceB
 
+`ServiceB` 프로젝트에서 작업을 수행합니다.
 
-### 2.2. HealthController 클래스
-- Feign Client 요청을 받아줄 컨트롤러(controller) 클래스를 하나 만듭니다.
+* 요청을 받을 수 있도록 `/health` 경로 생성합니다.
 
 ```java
-package blog.in.action.controller;
+package action.in.blog.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -97,130 +160,150 @@ public class HealthController {
 
     @GetMapping("/health")
     public String health() {
-        return "health";
+        return "OK";
     }
 }
 ```
 
-### 2.3. @EnableFeignClients 애너테이션
-- FeignClient를 사용하기 위해 main 메소드가 작성된 클래스 위에 @EnableFeignClients 애너테이션을 선언합니다.
+## 3. Test
 
-```java
-package blog.in.action;
+테스트를 위해 도커 컴포즈를 사용합니다.
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
+### 3.1. Dockerfile
 
-@EnableFeignClients
-@SpringBootApplication
-public class ActionInBlogApplication {
+```dockerfile
+FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
 
-    public static void main(String[] args) {
-        SpringApplication.run(ActionInBlogApplication.class, args);
-    }
+WORKDIR /build
 
-}
+COPY pom.xml .
+
+RUN mvn dependency:go-offline
+
+COPY src ./src
+
+RUN mvn package -Dmaven.test.skip=true
+
+FROM openjdk:11-jdk-slim-buster
+
+WORKDIR /app
+
+ARG JAR_FILE=*.jar
+
+COPY --from=MAVEN_BUILD /build/target/${JAR_FILE} ./app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
 ```
 
-### 2.4. FeignClient 만들기
-- name은 필수입니다. name이 지정되어 있지 않다면 에러가 발생합니다.
-- 요청을 받아줄 url을 지정합니다.
-- 메소드를 하나 만들고 그 위에 어떤 HTTP 메소드, 어느 경로로 API 요청을 수행할지 정의된 애너테이션을 추가합니다.
+### 3.2. docker-compose.yml
 
-```java
-@FeignClient(name = "simple-client", url = "http://localhost:8080")
-interface SimpleClient {
-
-    @GetMapping(path = "/health")
-    String health();
-}
+```yml
+version: "3.9"
+services:
+  a-service:
+    build: ./a-service
+    ports:
+      - "8080:8080"
+  b-service:
+    build: ./b-service
+    ports:
+      - "8081:8080"
 ```
 
-## 3. 테스트 코드
-
-```java
-package blog.in.action.openfeign.simple;
-
-import lombok.extern.log4j.Log4j2;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-
-@FeignClient(name = "simple-client", url = "http://localhost:8080")
-interface SimpleClient {
-
-    @GetMapping(path = "/health")
-    String health();
-}
-
-@Log4j2
-@SpringBootTest
-public class SimpleClientTest {
-
-    @Autowired
-    private SimpleClient simpleClient;
-
-    @Test
-    public void test() {
-        try {
-            String response = simpleClient.health();
-            log.info("response from simpleClient: " + response);
-        } catch (Exception e) {
-            log.error("error while using feignclient", e);
-        }
-    }
-}
-```
-
-### 3.1. action-in-blog 서비스 기동
-- JUnit 테스트 실행 전에 API 요청을 받아줄 action-in-blog 서비스를 기동합니다.
+### 3.3. Run Docker Compose
 
 ```
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.2.7.RELEASE)
+$ docker-compose build 
+[+] Building 0.0s (0/0)
+[+] Building 0.1s (1/2)
+ => [internal] load build definition from Dockerfile                                                                                                      0.0s
+[+] Building 0.2s (2/4)
+ => [internal] load build definition from Dockerfile                                                                                                      0.0s
+ => => transferring dockerfile: 32B                                                                                                                       0.0s 
+ => [internal] load .dockerignore                                                                                                                         0.0s
+[+] Building 4.6s (15/15) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                      0.0s 
+ => => transferring dockerfile: 32B                                                                                                                       0.0s 
+ => [internal] load .dockerignore                                                                                                                         0.0s
+ => => transferring context: 2B                                                                                                                           0.0s 
+ => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                                             4.3s 
+ => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                                     4.4s 
+ => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa215                   0.0s
+ => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9a5dcf55               0.0s 
+ => [internal] load build context                                                                                                                         0.0s 
+ => => transferring context: 953B                                                                                                                         0.0s 
+ => CACHED [stage-1 2/3] WORKDIR /app                                                                                                                     0.0s 
+ => CACHED [maven_build 2/6] WORKDIR /build                                                                                                               0.0s 
+ => CACHED [maven_build 3/6] COPY pom.xml .                                                                                                               0.0s 
+ => CACHED [maven_build 4/6] RUN mvn dependency:go-offline                                                                                                0.0s 
+[+] Building 4.7s (15/15) FINISHED                                                                                                                        
+ => [internal] load build definition from Dockerfile                                                                                                      0.0s 
+ => => transferring dockerfile: 32B                                                                                                                       0.0s 
+ => [internal] load .dockerignore                                                                                                                         0.0s 
+ => => transferring context: 2B                                                                                                                           0.0s 
+ => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                                             4.3s 
+ => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                                     4.4s 
+ => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa215                   0.0s
+ => [internal] load build context                                                                                                                         0.0s 
+ => => transferring context: 825B                                                                                                                         0.0s 
+ => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9a5dcf55               0.0s 
+ => CACHED [stage-1 2/3] WORKDIR /app                                                                                                                     0.0s 
+ => CACHED [maven_build 2/6] WORKDIR /build                                                                                                               0.0s 
+ => CACHED [maven_build 3/6] COPY pom.xml .                                                                                                               0.0s 
+ => CACHED [maven_build 4/6] RUN mvn dependency:go-offline                                                                                                0.0s 
+ => CACHED [maven_build 5/6] COPY src ./src                                                                                                               0.0s 
+ => CACHED [maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                                       0.0s 
+ => CACHED [stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                                            0.0s 
+ => exporting to image                                                                                                                                    0.0s 
+ => => exporting layers                                                                                                                                   0.0s 
+ => => writing image sha256:a5a64359c420aacc54dbfced07a7ea4f7c5e46faa43e3c58e49031361466831e                                                              0.0s 
+ => => naming to docker.io/library/2021-03-04-spring-cloud-openfeign-backend                                                                              0.0s
 
-2021-08-22 20:14:51.486  INFO 21392 --- [           main] blog.in.action.ActionInBlogApplication   : No active profile set, falling back to default profiles: default
-2021-08-22 20:14:51.781  INFO 21392 --- [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=5d603a03-c38b-3ad5-9c8b-aa98b5432c8a
-2021-08-22 20:14:51.970  INFO 21392 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2021-08-22 20:14:51.970  INFO 21392 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2021-08-22 20:14:51.970  INFO 21392 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.34]
-2021-08-22 20:14:52.058  INFO 21392 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2021-08-22 20:14:52.058  INFO 21392 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 560 ms
-2021-08-22 20:14:52.096  WARN 21392 --- [           main] o.s.c.n.a.ArchaiusAutoConfiguration      : No spring.application.name found, defaulting to 'application'
-2021-08-22 20:14:52.096  WARN 21392 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
-2021-08-22 20:14:52.096  INFO 21392 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
-2021-08-22 20:14:52.096  WARN 21392 --- [           main] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
-2021-08-22 20:14:52.096  INFO 21392 --- [           main] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
-2021-08-22 20:14:52.196  INFO 21392 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-08-22 20:14:52.599  INFO 21392 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2021-08-22 20:14:52.861  INFO 21392 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 2.64 seconds (JVM running for 3.487)
+$  docker-compose up -d
+[+] Running 2/2
+ - Container 2021-03-04-spring-cloud-openfeign-a-service-1  Started                                                                                       0.8s 
+ - Container 2021-03-04-spring-cloud-openfeign-b-service-1  Started
 ```
 
-### 3.2. 테스트 수행 로그
-- JUnit 테스트를 수행하여 API 응답을 로그로 확인합니다.
-- "health" 응답을 통해 정상적으로 API 요청이 수행되었음을 알 수 있습니다. 
+##### Result of Test
+
+사용자 터미널에서 `cURL` 명령어를 통해 테스트를 수행합니다.
 
 ```
-2021-08-22 20:16:25.502  INFO 8312 --- [           main] b.i.a.openfeign.simple.SimpleClientTest  : response from simpleClient: health
+$ curl http://localhost:8080/health
+                        
+
+StatusCode        : 200
+StatusDescription :
+Content           : ServiceA's Health - OK / ServiceB's Health - OK
+RawContent        : HTTP/1.1 200
+                    Keep-Alive: timeout=60
+                    Connection: keep-alive
+                    Content-Length: 47
+                    Content-Type: text/plain;charset=UTF-8
+                    Date: Sat, 04 Feb 2023 12:43:58 GMT
+
+                    ServiceA's Health - OK / ServiceB's He...
+Forms             : {}
+Headers           : {[Keep-Alive, timeout=60], [Connection, keep-alive], [Content-Length, 47], [Content-Type, text/plain;charset=UTF-8]...}
+Images            : {}
+InputFields       : {}
+Links             : {}
+ParsedHtml        : mshtml.HTMLDocumentClass
+RawContentLength  : 47
 ```
 
 ## CLOSING
-이전 코드들을 보면 유틸리티(utility) 클래스에서 HttpURLConnection, I/O Stream 등을 사용하여 매우 길고 불편하게 API 요청을 수행합니다. 
-반면, `FeignClient`는 인터페이스, 몇 개의 애너테이션을 이용해 개발자가 매우 쉽게 API 요청을 수행할 수 있도록 합니다. 
-`FeignClient`는 Service Registration, Discovery 기능을 제공하는 Eureka 서비스와 함께 사용될 때 더 빛을 바랍니다. 
-다음 포스트는 Eureka 서비스를 구축하여 서비스 등록과 서비스 이름을 이용한 FeignClient API 요청을 주제로 글을 작성하도록 하겠습니다.
+
+유틸성 클래스를 만들어 HTTP 요청을 다루는 코드를 오래된 시스템에서 종종 보았습니다. 
+`HttpURLConnection`, `I/O Stream` 클래스를 사용해 불필요한 코드가 많았는데, `FeignClient`는 인터페이스와 애너테이션을 통해 비즈니스와 관련 없는 코드들을 최대한 단순화시킵니다. 
+`spring-cloud` 생태계를 조성하는 다른 컴포넌트들과 함께 사용하면 더욱 좋습니다. 
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-04-spring-cloud-openfeign>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-04-spring-cloud-openfeign>
 
 #### RECOMMEND NEXT POSTS
 
@@ -230,11 +313,10 @@ public class SimpleClientTest {
 
 #### REFERENCE
 
-- <https://woowabros.github.io/experience/2019/05/29/feign.html>
-- <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
+* <https://woowabros.github.io/experience/2019/05/29/feign.html>
+* <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
-
 [dynamic-uri-using-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/
 [spring-cloud-netflix-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
 [feignclient-with-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/

@@ -35,7 +35,7 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 1. 사용자는 `서비스A`로부터 결과를 응답 받습니다.
 
 <p align="center">
-    <img src="/images/spring-cloud-openfeign-1.JPG" width="100%">
+    <img src="/images/spring-cloud-openfeign-1.JPG" width="80%" class="image__border">
 </p>
 
 ### 2.2. pom.xml

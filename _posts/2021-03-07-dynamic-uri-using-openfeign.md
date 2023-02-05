@@ -111,7 +111,7 @@ public class HealthController {
 
 ### 4.1. Run Docker Compose
 
-도커 컴포즈를 사용해 테스트를 수행합니다.
+도커 컴포즈(docker compose)로 테스트 환경을 구축합니다.
 
 ```
 $ docker-compose up -d

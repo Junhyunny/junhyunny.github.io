@@ -231,7 +231,7 @@ public class BServiceApplication {
 
 ## 2. Test
 
-도커 컴포즈를 사용해 테스트 환경을 구축합니다.
+도커 컴포즈(docker compose)로 테스트 환경을 구축합니다.
 
 ### 2.1. docker-compose.yml
 
@@ -314,8 +314,6 @@ $ docker-compose up -d --scale b-service=2
 
 ### 2.3. JUnit Test
 
-다음과 같은 내용을 확인합니다.
-
 * `서비스A`에게 상태 정보를 100회 요청합니다.
 * 응답 정보를 서비스 이름, 포트 정보로 그룹핑(grouping)합니다.
 * 각 서비스로부터 몇 번 응답 받았는지 로그를 통해 확인합니다.
@@ -390,7 +388,7 @@ class AServiceApplicationTests {
 
 상태 정보에 포트 정보를 추가한 이유는 자동으로 이뤄지는 부하 분산(load balance)에 대해 이야기하고 싶었기 때문입니다. 
 테스트 수행 결과를 보면 `서비스A`는 두 개의 `서비스B`에게 고르게 요청을 분산한 것을 볼 수 있습니다. 
-이는 `FeignClient`와 `Eureka` 컴포넌트를 함께 사용하면 자동으로 부하 분산이 이뤄지기 때문입니다. 
+`FeignClient`와 `Eureka` 컴포넌트를 함께 사용하면 자동으로 부하 분산이 이뤄집니다.
 
 * `FeignClient`는 내부에 `Ribbon`이라는 클라이언트 사이드 로드 밸런서 라이브러리를 사용하고 있습니다. 
 * `Ribbon` 라이브러리는 `Eureka` 서버를 통해 각 서비스로의 요청 횟수를 판단할 수 있습니다.

@@ -1,5 +1,5 @@
 ---
-title: "Micro Service Architecture 배포 전략"
+title: "MicroService Architecture 배포 전략"
 search: false
 category:
   - msa
@@ -10,12 +10,12 @@ last_modified_at: 2021-08-21T17:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Micro Service Architecture][microservice-architecture-link]
+* [MicroService Architecture][microservice-architecture-link]
 
 ## 0. 들어가면서
 
-마이크로 서비스 아키텍처의 다양한 배포 전략을 정리하였습니다. 
-롤링(rolling) 배포 정도만 알고 있었는데, 그 이 외에도 마이크로 서비스 아키텍처의 장점을 살릴 수 있는 다양한 배포 전략들에 대해 알아보겠습니다. 
+마이크로서비스 아키텍처의 다양한 배포 전략을 정리하였습니다. 
+롤링(rolling) 배포 정도만 알고 있었는데, 그 이 외에도 마이크로서비스 아키텍처의 장점을 살릴 수 있는 다양한 배포 전략들에 대해 알아보겠습니다. 
 
 ## 1. 롤링 배포(rolling deployment)
 
@@ -71,7 +71,7 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 
 #### RECOMMEND NEXT POSTS
 
-* [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
+* [MicroService Architecture 장점과 단점][msa-pros-and-cons-link]
 * [MSA API Gateway][msa-api-gateway-link]
 
 #### REFERENCE

@@ -144,9 +144,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 public class AServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AServiceApplication.class, args);
+    }
 
 }
 ```
@@ -222,9 +222,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @SpringBootApplication
 public class BServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(BServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(BServiceApplication.class, args);
+    }
 
 }
 ```

@@ -167,7 +167,7 @@ public class HealthController {
 
 ## 3. Test
 
-테스트를 위해 도커 컴포즈를 사용합니다.
+도커 컴포즈(docker compose)로 테스트 환경을 구축합니다.
 
 ### 3.1. Dockerfile
 

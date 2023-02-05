@@ -39,7 +39,7 @@ last_modified_at: 2021-08-24T12:00:00
 
 ### 2.1. How to work circuit breaker?
 
-클라이언트(client), 공급자(supplier) 모두 특정 서비스입니다. 
+클라이언트(client), 공급자(supplier) 모두 서비스입니다. 
 다른 서비스의 기능이 필요해 요청을 하는 서비스가 클라이언트, 클라이언트 서비스의 요청을 처리하는 서비스가 공급자입니다.
 
 1. 클라이언트가 공급자로 요청을 수행합니다.
@@ -56,7 +56,7 @@ last_modified_at: 2021-08-24T12:00:00
 
 ## 3. Practice
 
-`netflix-hystrix`을 통해 회로 차단기를 구현해보겠습니다. 
+`netflix-hystrix` 의존성을 사용해 회로 차단기 패턴을 적용시켜보았습니다. 
 
 ### 3.1. Context for Practice
 
@@ -130,13 +130,13 @@ public class PostController {
         }
     }
 
-    @GetMapping(value = "/post/{index}")
-    public String getPost(@PathVariable(name = "index") Integer index) {
+    @GetMapping(value = "/post/{id}")
+    public String getPost(@PathVariable(name = "id") Integer id) {
         boolean execution = new Random().nextBoolean();
-        String result = String.format("POST(id: %s)", index);
-        if (25 <= index && index < 50 && execution) {
+        String result = String.format("POST(id: %s)", id);
+        if (25 <= id && id < 50 && execution) {
             sleep(1000);
-        } else if (50 <= index && index < 75 && execution) {
+        } else if (50 <= id && id < 75 && execution) {
             throw new RuntimeException("occur intentional exception");
         }
         return result;
@@ -146,7 +146,7 @@ public class PostController {
 
 ## 4. Test
 
-테스트 코드를 실행하기 전 이전 단계에서 준비한 서비스 코드를 실행합니다.
+테스트 코드를 실행하기에 앞서 이전 단계에서 준비한 서비스를 실행합니다.
 
 ### 4.1. Properties for Circuit Breaker
 

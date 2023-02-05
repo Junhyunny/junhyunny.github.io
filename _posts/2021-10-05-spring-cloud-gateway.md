@@ -30,18 +30,18 @@ last_modified_at: 2021-10-05T23:55:00
 ### 1.1. Spring Cloud Gateway 주요 용어
 `Spring Cloud Gateway`를 이해하기 위해선 몇 가지 용어들에 대한 정의를 알아야 합니다.
 - Route
-	- 게이트웨이를 구성하는 기본 블록
-	- 특정 ID를 통해 정의하며, 목적 URI, `predicate` 집합, `filter` 집합으로 구성되어 있습니다.
-	- `predicate` 집합의 결과가 참(true)인 경우에만 경로가 매치됩니다.
+    - 게이트웨이를 구성하는 기본 블록
+    - 특정 ID를 통해 정의하며, 목적 URI, `predicate` 집합, `filter` 집합으로 구성되어 있습니다.
+    - `predicate` 집합의 결과가 참(true)인 경우에만 경로가 매치됩니다.
 - Predicate
-	- `Java 8`의 함수형 인터페이스를 의미합니다. 1 개의 입력 값과 `boolean` 반환 타입을 가지는 함수를 의미합니다.
-	- 입력 타입은 Spring 프레임워크의 `ServerWebExchange`입니다.
-	- HTTP 요청에 있는 파라미터(parameter) 혹은 헤더(header)를 사용하여 매칭할 수 있도록 돕습니다.
-	- 경로 매칭을 위한 조건으로 생각할 수 있습니다.
+    - `Java 8`의 함수형 인터페이스를 의미합니다. 1 개의 입력 값과 `boolean` 반환 타입을 가지는 함수를 의미합니다.
+    - 입력 타입은 Spring 프레임워크의 `ServerWebExchange`입니다.
+    - HTTP 요청에 있는 파라미터(parameter) 혹은 헤더(header)를 사용하여 매칭할 수 있도록 돕습니다.
+    - 경로 매칭을 위한 조건으로 생각할 수 있습니다.
 - Filter
-	- Spring 프레임워크의 `GatewayFilter` 구현체입니다.
-	- 특별한 `Factory` 클래스를 통해 생성됩니다.
-	- 다운스트림(downstream) 요청을 보내기 전이나 후에 요청, 응답 정보를 변경할 수 있습니다.
+    - Spring 프레임워크의 `GatewayFilter` 구현체입니다.
+    - 특별한 `Factory` 클래스를 통해 생성됩니다.
+    - 다운스트림(downstream) 요청을 보내기 전이나 후에 요청, 응답 정보를 변경할 수 있습니다.
 
 ### 1.1. Spring Cloud Gateway 구조
 `Spring Cloud Gateway`는 논블로킹 방식으로 동작하는 `Spring Webflux`를 기반으로 동작합니다. 
@@ -158,10 +158,10 @@ last_modified_at: 2021-10-05T23:55:00
 - `id` - route 정보를 식별하는 키, 개발자 임의로 지정
 - `uri` - 최종 목적지 URI
 - `predicates` - 요청을 최종 목적지 URI에게 매칭시킬 조건
-	- 경로에 특정 키워드가 들어가는 경우 목적지 URI가 달라지도록 변경하였습니다.
+    - 경로에 특정 키워드가 들어가는 경우 목적지 URI가 달라지도록 변경하였습니다.
 - `filters` - 요청 정보나 응답을 변경하는 방법
-	- 요청 경로를 변경하는 필터를 사용하였습니다. 
-	- 예로 들어 게이트웨이가 받은 요청 경로가 `/a-service/index`인 경우 `/index`로 변경하여 `http://localhost:8081`에게 전달합니다.
+    - 요청 경로를 변경하는 필터를 사용하였습니다. 
+    - 예로 들어 게이트웨이가 받은 요청 경로가 `/a-service/index`인 경우 `/index`로 변경하여 `http://localhost:8081`에게 전달합니다.
 
 ```yml
 spring:

@@ -103,10 +103,10 @@ Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Schema "HELLO" not found; SQ
         nick_name varchar(255),
         primary key (id)
     ) [90079-200]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:576) ~[h2-1.4.200.jar:1.4.200]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429) ~[h2-1.4.200.jar:1.4.200]
-	at org.h2.message.DbException.get(DbException.java:205) ~[h2-1.4.200.jar:1.4.200]
-	at org.h2.message.DbException.get(DbException.java:181) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:576) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:429) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.get(DbException.java:205) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.get(DbException.java:181) ~[h2-1.4.200.jar:1.4.200]
     ...
     
 Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Schema "WORLD" not found; SQL statement:
@@ -116,10 +116,10 @@ Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Schema "WORLD" not found; SQ
         nick_name varchar(255),
         primary key (id)
     ) [90079-200]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:576) ~[h2-1.4.200.jar:1.4.200]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429) ~[h2-1.4.200.jar:1.4.200]
-	at org.h2.message.DbException.get(DbException.java:205) ~[h2-1.4.200.jar:1.4.200]
-	at org.h2.message.DbException.get(DbException.java:181) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:576) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.getJdbcSQLException(DbException.java:429) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.get(DbException.java:205) ~[h2-1.4.200.jar:1.4.200]
+    at org.h2.message.DbException.get(DbException.java:181) ~[h2-1.4.200.jar:1.4.200]
     ...
 ```
 

@@ -230,9 +230,9 @@ For java.time.LocalDate, static mocking is already registered in the current thr
 
 To create a new mock, the existing static mock registration must be deregistered
 
-	at action.in.blog.service.StaticMethodServiceTests.given1000AndAprilDate_whenGetEventPrice_thenReturn800(StaticMethodServiceTests.java:18)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at action.in.blog.service.StaticMethodServiceTests.given1000AndAprilDate_whenGetEventPrice_thenReturn800(StaticMethodServiceTests.java:18)
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
     ...
 ```
 

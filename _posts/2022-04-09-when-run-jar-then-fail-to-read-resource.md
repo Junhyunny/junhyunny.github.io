@@ -121,15 +121,15 @@ BOOT-INF
 2022-04-09 11:44:03.761 ERROR 71726 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.RuntimeException: java.io.FileNotFoundException: file:/Users/junhyunk/Desktop/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json (No such file or directory)] with root cause
 
 java.io.FileNotFoundException: file:/Users/junhyunk/Desktop/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json (No such file or directory)
-	at java.base/java.io.FileInputStream.open0(Native Method) ~[na:na]
-	at java.base/java.io.FileInputStream.open(FileInputStream.java:219) ~[na:na]
-	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157) ~[na:na]
-	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112) ~[na:na]
-	at java.base/java.io.FileReader.<init>(FileReader.java:60) ~[na:na]
-	at action.in.blog.controller.PokeomonController.getPokemonsFail(PokeomonController.java:29) ~[classes!/:0.0.1-SNAPSHOT]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+    at java.base/java.io.FileInputStream.open0(Native Method) ~[na:na]
+    at java.base/java.io.FileInputStream.open(FileInputStream.java:219) ~[na:na]
+    at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157) ~[na:na]
+    at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112) ~[na:na]
+    at java.base/java.io.FileReader.<init>(FileReader.java:60) ~[na:na]
+    at action.in.blog.controller.PokeomonController.getPokemonsFail(PokeomonController.java:29) ~[classes!/:0.0.1-SNAPSHOT]
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
         ...
 ```
 

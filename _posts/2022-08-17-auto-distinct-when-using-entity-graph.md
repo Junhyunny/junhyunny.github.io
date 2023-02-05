@@ -266,7 +266,7 @@ public class QueryTranslatorImpl implements FilterTranslator {
             results = tmp;
         }
 
-		return results;
+        return results;
     }
 }
 ```

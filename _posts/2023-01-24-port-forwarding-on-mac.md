@@ -72,25 +72,25 @@ last_modified_at: 2023-01-24T23:55:00
 ```
 $ ifconfig       
 lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
-	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
-	inet 127.0.0.1 netmask 0xff000000
-	inet6 ::1 prefixlen 128
-	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
-	nd6 options=201<PERFORMNUD,DAD>
+    options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+    inet 127.0.0.1 netmask 0xff000000
+    inet6 ::1 prefixlen 128
+    inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1
+    nd6 options=201<PERFORMNUD,DAD>
 
 ...
 
 en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
-	options=6463<RXCSUM,TXCSUM,TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
-	ether 88:66:5a:51:e3:e8
-	inet6 fe80::14e0:10b2:2c77:37d4%en0 prefixlen 64 secured scopeid 0x6
-	inet 192.168.1.100 netmask 0xffffff00 broadcast 192.168.1.255
-	inet6 2001:2d8:f214:bfd5:4b6:7b16:1459:ac5d prefixlen 64 autoconf secured
-	inet6 2001:2d8:f214:bfd5:1c72:46e1:4ff3:93f2 prefixlen 64 autoconf temporary
-	nat64 prefix 64:ff9b:: prefixlen 96
-	nd6 options=201<PERFORMNUD,DAD>
-	media: autoselect
-	status: active
+    options=6463<RXCSUM,TXCSUM,TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+    ether 88:66:5a:51:e3:e8
+    inet6 fe80::14e0:10b2:2c77:37d4%en0 prefixlen 64 secured scopeid 0x6
+    inet 192.168.1.100 netmask 0xffffff00 broadcast 192.168.1.255
+    inet6 2001:2d8:f214:bfd5:4b6:7b16:1459:ac5d prefixlen 64 autoconf secured
+    inet6 2001:2d8:f214:bfd5:1c72:46e1:4ff3:93f2 prefixlen 64 autoconf temporary
+    nat64 prefix 64:ff9b:: prefixlen 96
+    nd6 options=201<PERFORMNUD,DAD>
+    media: autoselect
+    status: active
 
 ...
 

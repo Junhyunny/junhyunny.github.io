@@ -13,7 +13,7 @@ last_modified_at: 2021-08-23T11:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Micro Service Architecture][microservice-architecture-link]
+* [MicroService Architecture][microservice-architecture-link]
 * [Spring Cloud Openfeign][spring-cloud-openfeign]
 * [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka]
 

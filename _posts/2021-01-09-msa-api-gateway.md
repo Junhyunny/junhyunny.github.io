@@ -10,15 +10,15 @@ last_modified_at: 2021-08-21T16:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Micro Service Architecture][microservice-architecture-link]
+* [MicroService Architecture][microservice-architecture-link]
 
 ## 0. 들어가면서
 
-마이크로 서비스 아키텍처에서 마이크로 서비스는 최소 2개 이상 존재합니다. 
+마이크로서비스 아키텍처에서 마이크로 서비스는 최소 2개 이상 존재합니다. 
 만약 필요에 의해 데이터를 여러 서비스들에게 분산하여 요청하게 된다면 클라이언트 프로그램 코드는 좋지 않은 모습을 가지게 됩니다. 
 `API 게이트웨이(gateway)`를 이용하면 API 서버들을 하나로 묶어서 단일화 관리할 수 있고, 클라이언트는 하나의 호스트를 통해 여러 서비스들에게 데이터를 요청할 수 있습니다. 
 
-또, 마이크로 서비스 아키텍처에서 입구 역할을 하는 `API 게이트웨이`는 API 서버들의 엔드 포인트(end point) 단일화, 인증, 인가, 라우팅 등의 여러 가지 기능을 수행합니다. 
+또, 마이크로서비스 아키텍처에서 입구 역할을 하는 `API 게이트웨이`는 API 서버들의 엔드 포인트(end point) 단일화, 인증, 인가, 라우팅 등의 여러 가지 기능을 수행합니다. 
 JSON/REST 기반으로 최소한의 기능을 처리하는 경량화 서비스인 API 게이트웨이가 제공하는 기능들을 이번 포스트에 정리하였습니다. 
 
 <p align="center">
@@ -83,8 +83,8 @@ API 게이트웨이의 기능들에 대해 간략하게 정리해보았습니다
 
 #### RECOMMEND NEXT POSTS
 
-* [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
-* [Micro Service Architecture 배포 전략][msa-release-link]
+* [MicroService Architecture 장점과 단점][msa-pros-and-cons-link]
+* [MicroService Architecture 배포 전략][msa-release-link]
 * [Spring Cloud Gateway][spring-cloud-gateway-link]
 
 #### REFERENCE

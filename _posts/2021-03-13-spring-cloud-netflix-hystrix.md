@@ -14,7 +14,7 @@ last_modified_at: 2021-08-24T01:00:00
 ⚠️ 해당 포스트는 2021년 8월 24일에 재작성되었습니다. (불필요 코드 제거)
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Micro Service Architecture][microservice-architecture-link]
+- [MicroService Architecture][microservice-architecture-link]
 - [MSA Circuit Breaker Pattern][circuitbreaker-link]
 
 ## 1. Netflix Hystrix

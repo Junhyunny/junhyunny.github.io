@@ -207,7 +207,7 @@ const module = {
 };
 
 function normalFunc () {
-	return this.x
+    return this.x
 }
 
 console.log('call normalFunc - ', normalFunc()) // undefined
@@ -217,7 +217,7 @@ const bounedNormalFunc = normalFunc.bind(module)
 console.log('call bounedNormalFunc - ', bounedNormalFunc()) // 42
 
 const arrowFunc = () => {
-	return this.x
+    return this.x
 }
 
 console.log('call arrowFunc - ', arrowFunc()) // undefined

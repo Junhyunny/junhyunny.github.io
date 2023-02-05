@@ -110,12 +110,12 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ```
 server {
-	listen 80;
-	location / {
-		root	/app/build;
-		index	index.html;
-		try_files $uri $uri/ /index.html;
-	}
+    listen 80;
+    location / {
+        root     /app/build;
+        index    index.html;
+        try_files $uri $uri/ /index.html;
+    }
 }
 ```
 

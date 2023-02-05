@@ -19,10 +19,10 @@ last_modified_at: 2021-11-15T23:55:00
 
 ##### BlogServiceImpl 클래스 직렬화(serialization) 에러
 ```
-	Caused by: java.io.NotSerializableException: Unable to serialize JobDataMap for insertion into database because the value of property 'blogService' is not serializable: blog.in.action.service.impl.BlogServiceImpl
-		at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.serializeJobData(StdJDBCDelegate.java:3083)
-		at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.updateJobDetail(StdJDBCDelegate.java:647)
-		at org.quartz.impl.jdbcjobstore.JobStoreSupport.storeJob(JobStoreSupport.java:1115)
+    Caused by: java.io.NotSerializableException: Unable to serialize JobDataMap for insertion into database because the value of property 'blogService' is not serializable: blog.in.action.service.impl.BlogServiceImpl
+        at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.serializeJobData(StdJDBCDelegate.java:3083)
+        at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.updateJobDetail(StdJDBCDelegate.java:647)
+        at org.quartz.impl.jdbcjobstore.JobStoreSupport.storeJob(JobStoreSupport.java:1115)
     ...
 ```
 
@@ -32,10 +32,10 @@ last_modified_at: 2021-11-15T23:55:00
 
 ##### SqlSessionTemplate 클래스 직렬화(serialization) 에러
 ```
-	Caused by: java.io.NotSerializableException: Unable to serialize JobDataMap for insertion into database because the value of property 'blogService' is not serializable: org.mybatis.spring.SqlSessionTemplate
-		at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.serializeJobData(StdJDBCDelegate.java:3083)
-		at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.updateJobDetail(StdJDBCDelegate.java:647)
-		at org.quartz.impl.jdbcjobstore.JobStoreSupport.storeJob(JobStoreSupport.java:1115)
+    Caused by: java.io.NotSerializableException: Unable to serialize JobDataMap for insertion into database because the value of property 'blogService' is not serializable: org.mybatis.spring.SqlSessionTemplate
+        at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.serializeJobData(StdJDBCDelegate.java:3083)
+        at org.quartz.impl.jdbcjobstore.StdJDBCDelegate.updateJobDetail(StdJDBCDelegate.java:647)
+        at org.quartz.impl.jdbcjobstore.JobStoreSupport.storeJob(JobStoreSupport.java:1115)
     ...
 ```
 

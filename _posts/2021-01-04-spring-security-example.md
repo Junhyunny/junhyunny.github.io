@@ -522,12 +522,12 @@ import blog.in.action.service.MemberService;
 @RequestMapping(value = "/member")
 public class MemberController {
 
-	private final MemberService memberService;
+    private final MemberService memberService;
 
-	@GetMapping("/user-info")
-	public Member requestUserInfo(@RequestParam("id") String id) {
-		return memberService.findById(id);
-	}
+    @GetMapping("/user-info")
+    public Member requestUserInfo(@RequestParam("id") String id) {
+        return memberService.findById(id);
+    }
 }
 ```
 

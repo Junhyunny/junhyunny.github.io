@@ -427,21 +427,21 @@ API 요청 질의에 page, size, sort 같은 정보가 없는 경우 `@PageableD
 @Target(ElementType.PARAMETER)
 public @interface PageableDefault {
 
-	/**
-	 * Alias for {@link #size()}. Prefer to use the {@link #size()} method as it makes the annotation declaration more
-	 * expressive and you'll probably want to configure the {@link #page()} anyway.
-	 *
-	 * @return
-	 */
-	int value() default 10;
+    /**
+     * Alias for {@link #size()}. Prefer to use the {@link #size()} method as it makes the annotation declaration more
+     * expressive and you'll probably want to configure the {@link #page()} anyway.
+     *
+     * @return
+     */
+    int value() default 10;
 
-	int size() default 10;
+    int size() default 10;
 
-	int page() default 0;
+    int page() default 0;
 
-	String[] sort() default {};
+    String[] sort() default {};
 
-	Direction direction() default Direction.ASC;
+    Direction direction() default Direction.ASC;
 }
 ```
 

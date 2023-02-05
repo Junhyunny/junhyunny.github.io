@@ -1,5 +1,5 @@
 ---
-title: "Micro Service Architecture"
+title: "MicroService Architecture"
 search: false
 category:
   - information
@@ -11,11 +11,11 @@ last_modified_at: 2021-08-21T16:00:00
 
 ## 0. 들어가면서
 
-저의 첫 프로젝트는 모놀리식 아키텍처(monilithic architecture)기반의 기존 시스템을 마이크로 서비스 아키텍처(micro service architecture)로 재구성하는 일이었습니다. 
+저의 첫 프로젝트는 모놀리식 아키텍처(monilithic architecture)기반의 기존 시스템을 마이크로서비스 아키텍처(micro service architecture)로 재구성하는 일이었습니다. 
 기존 시스템은 약 20년 가까이 운영되어 온 덩치 큰 괴물이었습니다. 
 저는 이 시스템을 비즈니스 영역별로 해체, 재결합하는 개발 프로젝트를 마치고, 안정화하는 운영 업무를 수행하였습니다. 
 
-이번 포스트에선 간단하게 모놀리식 아키텍처와 마이크로 서비스 아키텍처의 개념에 대해 정리하고, 마이크로 서비스 아키텍처의 특징과 원칙에 대해 알아보겠습니다. 
+이번 포스트에선 간단하게 모놀리식 아키텍처와 마이크로서비스 아키텍처의 개념에 대해 정리하고, 마이크로서비스 아키텍처의 특징과 원칙에 대해 알아보겠습니다. 
 마지막으로 마이크로 서비스 설계시 제가 겪었던 문제들에 대해 이야기해보겠습니다. 
 
 ## 1. 모놀리식 아키텍처(Monilithic Architecture)
@@ -31,9 +31,9 @@ last_modified_at: 2021-08-21T16:00:00
 추가되는 기능에 적합한 기술 스택을 선정하는 것이 어렵습니다. 
 기술이 발전함에 따라 시스템에 적용된 기술도 함께 발전해야 하지만, 이는 쉽지 않은 작업이고 시스템의 기술 부채가 증가합니다. 
 
-## 2. 마이크로 서비스 아키텍처(Micro Service Architecture)
+## 2. 마이크로서비스 아키텍처(MicroService Architecture)
 
-> 마이크로 서비스 아키텍처의 큰 특징은 어플리케이션을 비즈니스 단위로 세분화한다는 점입니다.<br/>
+> 마이크로서비스 아키텍처의 큰 특징은 어플리케이션을 비즈니스 단위로 세분화한다는 점입니다.<br/>
 > 각 기능을 서비스라고 부르며, 독립적으로 구축하고 배포할 수 있습니다.
 
 모놀리식 아키텍처에 단점을 극복하기 위해 등장한 아키텍처입니다. 
@@ -45,17 +45,17 @@ last_modified_at: 2021-08-21T16:00:00
 분산 환경이기 때문에 장애 포인트가 늘어나고 모니터링에 어려움을 겪을 수 있습니다. 
 한마디로 시스템의 복잡도가 증가합니다. 
 
-##### 모놀리식 아키텍처와 마이크로 서비스 아키텍처 구조 차이
+##### 모놀리식 아키텍처와 마이크로서비스 아키텍처 구조 차이
 
 * 모놀리식 아키택처는 `UI`, `Business Logic`, `Data Access Layer` 모두 하나의 서비스에 존재합니다.
-* 마이크로 서비스 아키텍처는 `UI` 서비스와 비즈니스 특성에 맞게 설계된 서비스들이 서로 협업합니다.
+* 마이크로서비스 아키텍처는 `UI` 서비스와 비즈니스 특성에 맞게 설계된 서비스들이 서로 협업합니다.
 
 <p align="center">
     <img src="/images/microservice-architecture-1.JPG" width="80%" class="image__border"/>
 </p>
 <center>https://www.redhat.com/ko/topics/microservices/what-are-microservices</center>
 
-## 3. Micro Service Architecture 특징
+## 3. MicroService Architecture 특징
 
 ### 3.1. 단일 목적 수행 (Single Purpose)
 
@@ -82,7 +82,7 @@ last_modified_at: 2021-08-21T16:00:00
 </p>
 <center>https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center>
 
-## 4. Micro Service Architecture 핵심 원칙
+## 4. MicroService Architecture 핵심 원칙
 
 ### 4.1. 자율성 (Autonomy)
 
@@ -109,7 +109,7 @@ last_modified_at: 2021-08-21T16:00:00
 * MSA는 단일 어플리케이션을 개발하는 것보다 복잡한 아키텍처 구조를 가집니다.
 * 자동화된 `CI/CD`를 통해 배포와 운영을 안정적으로 수행해야 합니다.
 
-## 5. Micro Service Architecture 설계시 겪은 문제점
+## 5. MicroService Architecture 설계시 겪은 문제점
 
 기본 설계 시점에 현재 시스템을 업무 단위로 나누는 작업을 수행하였습니다. 
 저는 비즈니스 도메인에 대해 모르는 부분이 많았기 때문에 이론상으로 어려울 것이 없어 보였습니다. 
@@ -125,7 +125,7 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 **이 작업은 현장 근무자 입장에서 업무적인 독립성을 기준으로 업무를 분할하여 서비스로 도출해내는 일입니다.** 
 하지만 잘못된 설계로 인해 기존 시스템의 모듈 단위로 서비스가 분할되면서 특정 모듈의 기능을 API 요청을 통해 제공받는 구조가 되었습니다. 
 이런 설계는 `단일 목적 수행`이라는 특징은 만족하였지만 특정 서비스로 API 요청이 과도하게 집중되어 전체 시스템의 성능이 떨어졌습니다. 
-또한 동기식 요청 방식은 서비스의 결합력을 높이는 행위이기 때문에 마이크로 서비스 아키텍처의 장점을 살리지 못한 결과를 가져다 주었습니다. 
+또한 동기식 요청 방식은 서비스의 결합력을 높이는 행위이기 때문에 마이크로서비스 아키텍처의 장점을 살리지 못한 결과를 가져다 주었습니다. 
 
 ### 5.2. Transaction rollback은 어디까지 되어야 하나?
 
@@ -151,15 +151,15 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 
 ## CLOSING
 
-마이크로 서비스 아키텍처의 성공적인 설계를 위한 핵심은 비즈니스 도메인에 대한 전문성이라고 생각됩니다. 
+마이크로서비스 아키텍처의 성공적인 설계를 위한 핵심은 비즈니스 도메인에 대한 전문성이라고 생각됩니다. 
 비즈니스 도메인의 업무 영억을 의미있게 분할하는 일을 통해 독립적이고 자율성있는 마이크로 서비스를 도출해낼 수 있습니다. 
-**마이크로 서비스 아키텍처가 모든 비즈니스에 적합하진 않겠지만 비즈니스 도메인에 대한 높은 이해도가 아키텍처 설계의 승패를 가른다는 것을 경험하였습니다.**
+**마이크로서비스 아키텍처가 모든 비즈니스에 적합하진 않겠지만 비즈니스 도메인에 대한 높은 이해도가 아키텍처 설계의 승패를 가른다는 것을 경험하였습니다.**
 
 #### RECOMMEND NEXT POSTS
 
-* [Micro Service Architecture 장점과 단점][msa-pros-and-cons-link]
+* [MicroService Architecture 장점과 단점][msa-pros-and-cons-link]
 * [MSA API Gateway][msa-api-gateway-link]
-* [Micro Service Architecture 배포 전략][msa-release-link]
+* [MicroService Architecture 배포 전략][msa-release-link]
 * [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE

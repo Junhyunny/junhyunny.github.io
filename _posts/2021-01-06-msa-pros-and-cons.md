@@ -1,5 +1,5 @@
 ---
-title: "Micro Service Architecture 장점과 단점"
+title: "MicroService Architecture 장점과 단점"
 search: false
 category:
   - msa
@@ -10,9 +10,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Micro Service Architecture][microservice-architecture-link]
+* [MicroService Architecture][microservice-architecture-link]
 
-## 1. Micro Service Architecture 장점
+## 1. MicroService Architecture 장점
 
 ### 1.1. 폴리글랏 아키텍처(Polyglot Architecture)
 
@@ -37,14 +37,14 @@ last_modified_at: 2021-08-21T16:00:00
 
 ### 1.3. 확장성에 대한 이야기
 
-마이크로 서비스 아키텍처의 장점에 대해서 이야기할 때 확장성에 대한 이야기는 빠지지 않습니다. 
+마이크로서비스 아키텍처의 장점에 대해서 이야기할 때 확장성에 대한 이야기는 빠지지 않습니다. 
 어플리케이션 확장성에 대한 설명은 주로 스케일 큐브(Scale cube)를 사용합니다. 
 스케일 큐브(Scale Cube)는 어플리케이션을 확장하는 데 필요한 세 가지 주요 접근 방식을 정의합니다.
 
 * X 축 방향의 확장은 어플리케이션을 복제해서 수평적으로 확장하는 것을 의미합니다.
     * 스케일 아웃(scale out)과 로드 밸런싱을 통해 이뤄집니다. 
 * Y 축 방향의 확장은 서로 다른 기능을 분리하는 것을 의미합니다.
-    * 마이크로 서비스 아키텍처를 통한 비즈니스적 확장을 의미합니다.  
+    * 마이크로서비스 아키텍처를 통한 비즈니스적 확장을 의미합니다.  
 * Z 축 방향의 확장은 데이터 파이셔닝(partitioning) 또는 샤딩(sharding)을 의미합니다.
 
 <p align="center">
@@ -79,7 +79,7 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 > 유기적인 시스템이란 시간이 지남에 따라 점점 더 많은 기능을 추가하면서 성장해가는 시스템을 의미합니다.
 
 마이크로 서비스는 독립적으로 관리 가능한 서비스입니다. 
-덕분에 마이크로 서비스 아키텍처에서는 필요에 따라 서비스를 더 많이 추가하면서도 기존 서비스에 미치는 영향을 최소화할 수 있습니다. 
+덕분에 마이크로서비스 아키텍처에서는 필요에 따라 서비스를 더 많이 추가하면서도 기존 서비스에 미치는 영향을 최소화할 수 있습니다. 
 
 ### 1.6. 기술 부채의 경감
 
@@ -98,7 +98,7 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 
 다양한 버전의 공존은 서버를 무중단으로 버전 업그레이드시 이점을 가질 수 있습니다. 
 일체형 어플리케이션의 경우 무중단 서버 업그레이드는 복잡하고 어려운 작업이 이루어집니다. 
-하지만 마이크로 서비스 아키텍처의 경우 기존 버전의 서비스와 신규 버전의 서비스를 공존시킨 상태에서 라우팅 규칙을 이용해 신규 버전의 서비스를 안정적으로 테스트/배포할 수 있습니다. 
+하지만 마이크로서비스 아키텍처의 경우 기존 버전의 서비스와 신규 버전의 서비스를 공존시킨 상태에서 라우팅 규칙을 이용해 신규 버전의 서비스를 안정적으로 테스트/배포할 수 있습니다. 
 예로 카나리 배포 전략(canary relase)을 들 수 있습니다.
 
 <p align="center">
@@ -106,7 +106,7 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 </p>
 <center>https://reference-m1.tistory.com/211</center>
 
-## 2. Micro Service Architecture 단점
+## 2. MicroService Architecture 단점
 
 ### 2.1. 시스템의 복잡성
 
@@ -130,13 +130,13 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 ### 2.4. 디버깅의 어려움
 
 시스템의 문제가 발생하였을 때 이를 파악하는데 어려움이 발생합니다. 
-문제가 발생하였을 때 모놀리스 아키텍처에서는 서버 하나에 대해 문제의 원인 파악을 수행하면 되지만 마이크로 서비스 아키텍처에서는 의존성 있는 모든 서비스들에 대헤 문제 원인 파악을 수행해야합니다. 
+문제가 발생하였을 때 모놀리스 아키텍처에서는 서버 하나에 대해 문제의 원인 파악을 수행하면 되지만 마이크로서비스 아키텍처에서는 의존성 있는 모든 서비스들에 대헤 문제 원인 파악을 수행해야합니다. 
 만약 통합 로그 관리 시스템이 없다면 문제 해결을 위한 원인 파악은 악몽 수준일 듯 합니다. 
 
 #### RECOMMEND NEXT POSTS
 
 * [MSA API Gateway][msa-api-gateway-link]
-* [Micro Service Architecture 배포 전략][msa-release-link]
+* [MicroService Architecture 배포 전략][msa-release-link]
 * [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE

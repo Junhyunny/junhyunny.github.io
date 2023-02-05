@@ -23,9 +23,9 @@ last_modified_at: 2021-10-05T23:55:00
 이 포스트를 읽기 전에 미리 [MSA API Gateway][msa-gateway-link] 글에서 게이트웨이가 무엇인지 읽어보실 것을 추천드립니다. 
 
 ## 1. Spring Cloud Gateway
-`Spring Cloud` 측에서는 쉬운 마이크로 서비스 아키텍처 구현을 위한 여러 가지 컴포넌트(component)들을 제공해주고 있습니다. 
+`Spring Cloud` 측에서는 쉬운 마이크로서비스 아키텍처 구현을 위한 여러 가지 컴포넌트(component)들을 제공해주고 있습니다. 
 `Spring Cloud Gateway`도 그 중 하나입니다. 
-마이크로 서비스 아키텍처에서 입구 역할을 해주는 게이트웨이(gateway)를 간단한 설정 혹은 빈(bean) 주입을 통해 구현할 수 있습니다.
+마이크로서비스 아키텍처에서 입구 역할을 해주는 게이트웨이(gateway)를 간단한 설정 혹은 빈(bean) 주입을 통해 구현할 수 있습니다.
 
 ### 1.1. Spring Cloud Gateway 주요 용어
 `Spring Cloud Gateway`를 이해하기 위해선 몇 가지 용어들에 대한 정의를 알아야 합니다.

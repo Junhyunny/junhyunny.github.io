@@ -351,6 +351,8 @@ public enum QueueChannel {
 
 ### 2.4. UserController Class
 
+사용자는 ID를 사용해 자신에게 전달된 메세지를 볼 수 있습니다. 
+
 ```java
 package action.in.blog.controller;
 
@@ -377,6 +379,9 @@ public class UserController {
 ```
 
 ### 2.4. RedisUserMessageProxy Class
+
+* `ID`에 해당하는 메세지를 수신합니다.
+* 메세지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메소드를 사용합니다.
 
 ```java
 package action.in.blog.proxy;
@@ -408,15 +413,156 @@ public class RedisUserMessageProxy implements UserMessageProxy {
 
 ## 3. Test
 
-### 3.1. Run Shell Script
+도커 컴포즈(docker compose)로 테스트 환경을 구축합니다.
+
+### 3.1. docker-compose.yml
+
+```yml
+version: "3.9"
+services:
+  redis:
+    image: redis
+    command: redis-server --port 6379
+    container_name: redis-server
+    ports:
+      - '6379:6379'
+  backend:
+    build: .
+    ports:
+      - '8080:8080'
+    depends_on:
+      - redis
+    restart: on-failure
+```
+
+### 3.2. Run Docker Compose
+
+```
+$ docker-compose up -d          
+[+] Running 0/1
+ ⠼ redis Pulling                                                                                                                      2.5s 
+[+] Running 7/7                                                                                                                            
+ ⠿ redis Pulled                                                                                                                      16.7s
+   ⠿ 01b5b2efb836 Pull complete                                                                                                      11.4s
+   ⠿ 038563e09193 Pull complete                                                                                                      11.5s
+   ⠿ 09e93db1172f Pull complete                                                                                                      11.5s
+   ⠿ 33dc85c1365d Pull complete                                                                                                      11.8s
+   ⠿ a94300c1bc96 Pull complete                                                                                                      11.8s
+   ⠿ 94c06f943e48 Pull complete                                                                                                      11.9s
+[+] Building 1.4s (15/15) FINISHED                                                                                                         
+ => [internal] load build definition from Dockerfile                                                                                  0.0s
+ => => transferring dockerfile: 32B                                                                                                   0.0s
+ => [internal] load .dockerignore                                                                                                     0.0s
+ => => transferring context: 2B                                                                                                       0.0s
+ => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                         1.0s
+ => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                 1.3s
+ => [internal] load build context                                                                                                     0.0s
+ => => transferring context: 2.18kB                                                                                                   0.0s
+ => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa  0.0s
+ => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9  0.0s
+ => CACHED [stage-1 2/3] WORKDIR /app                                                                                                 0.0s
+ => CACHED [maven_build 2/6] WORKDIR /build                                                                                           0.0s
+ => CACHED [maven_build 3/6] COPY pom.xml .                                                                                           0.0s
+ => CACHED [maven_build 4/6] RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline                                        0.0s
+ => CACHED [maven_build 5/6] COPY src ./src                                                                                           0.0s
+ => CACHED [maven_build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn package -Dmaven.test.skip=true                               0.0s
+ => CACHED [stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                        0.0s
+ => exporting to image                                                                                                                0.0s
+ => => exporting layers                                                                                                               0.0s
+ => => writing image sha256:6773770f70cde26efb40cf2a2d0b9d1198cbe7003f7accf94c33f482e0d915c9                                          0.0s
+ => => naming to docker.io/library/action-in-blog-backend                                                                             0.0s
+[+] Running 2/2
+ ⠿ Container redis-server              Started                                                                                        0.5s
+ ⠿ Container action-in-blog-backend-1  Started                                                                                        0.6s
+```
+
+### 3.3. Run Shell Script
+
+다음과 같은 명령어를 터미널에서 수행합니다. 
+초대, 초대 취소를 각각 1회씩 요청합니다.
+
+```
+$ curl -X POST\
+  -H "Content-Type: application/json"\
+  -d '{"inviter": "Junhyunny", "invitee": "Jua"}'\
+  http://localhost:8080/invitation
+
+$ curl -X POST\
+  -H "Content-Type: application/json"\
+  -d '{"inviter": "Junhyunny", "invitee": "Jua"}'\
+  http://localhost:8080/invitation/cancel
+```
 
 ##### Result of Test
 
+메세지 조회 명령어를 수행합니다. 
+2회 수행하면 빈 리스트가 오는 것을 확인할 수 있습니다. 
+
+```
+$ curl http://localhost:8080/user/messages/Jua | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   100    0   100    0     0   2025      0 --:--:-- --:--:-- --:--:--  2380
+[
+  {
+    "inviter": "Junhyunny",
+    "status": "INVITATION"
+  },
+  {
+    "inviter": "Junhyunny",
+    "status": "INVITATION_CANCEL"
+  }
+]
+
+$ curl http://localhost:8080/user/messages/Jua | jq .
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100     2    0     2    0     0    135      0 --:--:-- --:--:-- --:--:--   250
+[]
+```
+
 ## CLOSING
+
+개발자 로컬 컴퓨터에서 서비스를 실행할 때마다 매번 레디스 컨테이너를 띄우는 일은 매우 번거롭습니다. 
+내장(embedded) 레디스를 사용하면 별도 컨테이너 없이도 레디스 서버를 이용할 수 있습니다. 
+내장 레디스 서버는 해당 어플리케이션이 실행될 때 함께 실행됩니다. 
+
+한 가지 문제점은 실제 레디스 컨테이너는 아니기 때문에 `RedisTemplate`을 사용하는 특정 메소드에서 에러가 날 수 있습니다. 
+이번 포스트의 경우 `leftPop` 기능이 내장 레디스 서버에선 에러가 발생하기 때문에 다른 방식을 사용하였습니다. 
+
+```java
+package action.in.blog.proxy;
+
+import action.in.blog.domain.InvitationMessage;
+import action.in.blog.domain.QueueChannel;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Profile("local")
+@Component
+@RequiredArgsConstructor
+public class EmbbededRedisUserMessageProxy implements UserMessageProxy {
+
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    @Override
+    public List<InvitationMessage> getInvitationMessage(String userId) {
+        String channel = QueueChannel.INVITATION.of(userId);
+        long size = redisTemplate.opsForList().size(channel);
+        List<InvitationMessage> result = (List) redisTemplate.opsForList().range(channel, 0, size);
+        redisTemplate.delete(channel);
+        return result;
+    }
+}
+```
 
 #### TEST CODE REPOSITORY
 
-#### RECOMMEND NEXT POSTS
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-07-using-redis-template-on-spring-boot>
 
 #### REFERENCE
 

@@ -111,7 +111,7 @@ public class BlogController {
 
 `JPA`와 `QueryDSL`을 사용할 때 `JDK17` 버전으로 변경됨에 따라 호환이 되지 않는 문제가 발생합니다. 
 `EntityManager`가 `javax.persistence.*` 패키지에 속해 있기 때문에 기존 `JPAQueryFactory` 클래스에서 컴파일 에러가 발생합니다. 
-`pom.xml` 파일의 `QueryDSL` 관련 의존성에 식별자를 추가합니다.
+`pom.xml` 파일의 `QueryDSL` 관련 의존성에 `jakarta` 식별자(classifier)를 추가합니다.
 
 ```xml
     <dependency>

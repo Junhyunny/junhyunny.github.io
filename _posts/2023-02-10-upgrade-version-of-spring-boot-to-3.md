@@ -86,6 +86,27 @@ ENTRYPOINT exec java -jar ./app.jar
     * from `javax.servlet.*` to `jakarta.servlet.*`
     * from `javax.persistence.*` to `jakarta.persistence.*`
 
+```java
+package action.in.blog.controller;
+
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@Slf4j
+@RestController
+public class BlogController {
+
+    @GetMapping("/health")
+    public String health(ServletRequest servletRequest, ServletResponse servletResponse) {
+        log.info("health");
+        return "OK";
+    }
+}
+```
+
 ## 2. JPA QueryDSL Compatibility
 
 `JPA`와 `QueryDSL`을 사용할 때 `JDK17` 버전으로 변경됨에 따라 호환이 되지 않는 문제가 발생합니다. 

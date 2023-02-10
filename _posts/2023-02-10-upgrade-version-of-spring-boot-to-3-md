@@ -150,7 +150,7 @@ org.springframework.cloud:spring-cloud-starter-sleuth:jar:unknown was not found 
 
 ### 3.1. Setup for micrometer-tracing in pom.xml
 
-`pom.xml` 파일에 다음과 같은 다음과 같은 작업을 수행합니다. 
+`pom.xml` 파일에 다음과 같은 의존성들을 추가하는 작업을 수행합니다. 
 
 ```xml
 <dependencyManagement>

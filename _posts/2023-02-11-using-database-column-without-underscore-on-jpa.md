@@ -220,7 +220,7 @@ Hibernate: select post0_.postId as postid1_0_, post0_.postContent as postcont2_0
 
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-11-using-database-column-without-underscore-on-jpa>
 
 #### REFERENCE
 

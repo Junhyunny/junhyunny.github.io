@@ -12,8 +12,8 @@ last_modified_at: 2023-02-12T23:55:00
 
 `Java`에서 스레드 안정성(thread-safe)을 이야기하면 항상 문제가 있다고 거론되는 클래스들이 있습니다.
 
-* java.util.Date
-* java.text.SimpleDateFormat
+* `java.util.Date`
+* `java.text.SimpleDateFormat`
 
 `javax.persistence.EntityManager`도 내부 상태(state)가 외부 동작에 의해 변경되므로 문제가 스레드 안전하지 않습니다. 
 이번 포스트에선 간단한 예시 코드를 통해 `SimpleDateFormat` 클래스를 스레드 안전하게 사용하는 방법에 대해 살펴보겠습니다. 

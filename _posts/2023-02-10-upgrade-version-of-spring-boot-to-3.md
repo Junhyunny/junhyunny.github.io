@@ -16,15 +16,16 @@ last_modified_at: 2023-02-10T23:55:00
 `spring-boot-starter-parent` 2.7.4 버전에서 3.0.2 버전으로 업그레이드하면서 마주친 에러들에 대해 정리하였습니다. 
 문제가 발생한 것들은 다음과 같습니다. 
 
-* JDK version
+* JDK 17 and Jakarta EE 9
 * JPA QueryDSL
 * Spring Cloud
 
-## 1. JDK17 is requirement
+## 1. JDK 17 and Jakarta EE 9
 
 2018년 2월 28일부터 약 4년동안 운영된 2.X 버전이 3.X 버전으로 업그레이드 되었습니다. 
 2022년 11월 릴리즈로 계획된 3.X 버전은 `JDK17`를 필수로 사용합니다. 
-`java.*` 패키지의 확장 기능이 모인 `javax.*` 패키지는 `jakarta.*` 패키지로 대체되었습니다. 
+`Java EE(enterprise edition)`은 `Jakarta EE`로 전환하였습니다. 
+이로 인해 `java.*` 패키지의 확장 기능이 모인 `javax.*` 패키지는 `jakarta.*` 패키지로 대체되었습니다. 
 
 > This next major revision will be based on Spring Framework 6.0 and will require Java 17 or above. 
 > It will also be the first version of Spring Boot that makes use of Jakarta EE 9 APIs (jakarta.*) instead of EE 8 (javax.*).

@@ -239,17 +239,17 @@ logging:
 
 ```
 Caused by: java.lang.IllegalArgumentException: name is required.
-	at feign.template.QueryTemplate.create(QueryTemplate.java:78) ~[feign-core-12.1.jar:na]
-	at feign.RequestTemplate.lambda$appendQuery$1(RequestTemplate.java:659) ~[feign-core-12.1.jar:na]
-	at java.base/java.util.HashMap.compute(HashMap.java:1316) ~[na:na]
-	at feign.RequestTemplate.appendQuery(RequestTemplate.java:657) ~[feign-core-12.1.jar:na]
-	at feign.RequestTemplate.query(RequestTemplate.java:621) ~[feign-core-12.1.jar:na]
-	at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721) ~[na:na]
-	at feign.RequestTemplate.extractQueryTemplates(RequestTemplate.java:1024) ~[feign-core-12.1.jar:na]
-	at feign.RequestTemplate.uri(RequestTemplate.java:469) ~[feign-core-12.1.jar:na]
-	at org.springframework.cloud.openfeign.support.SpringMvcContract.processAnnotationOnMethod(SpringMvcContract.java:227) ~[spring-cloud-openfeign-core-4.0.1.jar:4.0.1]
-	at feign.Contract$BaseContract.parseAndValidateMetadata(Contract.java:110) ~[feign-core-12.1.jar:na]
-	at org.springframework.cloud.openfeign.support.SpringMvcContract.parseAndValidateMetadata(SpringMvcContract.java:193) ~[spring-cloud-openfeign-core-4.0.1.jar:4.0.1]
+    at feign.template.QueryTemplate.create(QueryTemplate.java:78) ~[feign-core-12.1.jar:na]
+    at feign.RequestTemplate.lambda$appendQuery$1(RequestTemplate.java:659) ~[feign-core-12.1.jar:na]
+    at java.base/java.util.HashMap.compute(HashMap.java:1316) ~[na:na]
+    at feign.RequestTemplate.appendQuery(RequestTemplate.java:657) ~[feign-core-12.1.jar:na]
+    at feign.RequestTemplate.query(RequestTemplate.java:621) ~[feign-core-12.1.jar:na]
+    at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721) ~[na:na]
+    at feign.RequestTemplate.extractQueryTemplates(RequestTemplate.java:1024) ~[feign-core-12.1.jar:na]
+    at feign.RequestTemplate.uri(RequestTemplate.java:469) ~[feign-core-12.1.jar:na]
+    at org.springframework.cloud.openfeign.support.SpringMvcContract.processAnnotationOnMethod(SpringMvcContract.java:227) ~[spring-cloud-openfeign-core-4.0.1.jar:4.0.1]
+    at feign.Contract$BaseContract.parseAndValidateMetadata(Contract.java:110) ~[feign-core-12.1.jar:na]
+    at org.springframework.cloud.openfeign.support.SpringMvcContract.parseAndValidateMetadata(SpringMvcContract.java:193) ~[spring-cloud-openfeign-core-4.0.1.jar:4.0.1]
     ...
 ```
 

@@ -15,7 +15,6 @@ last_modified_at: 2023-02-12T23:55:00
 * `java.util.Date`
 * `java.text.SimpleDateFormat`
 
-`javax.persistence.EntityManager`도 내부 상태(state)가 외부 동작에 의해 변경되므로 문제가 스레드 안전하지 않습니다. 
 이번 포스트에선 간단한 예시 코드를 통해 `SimpleDateFormat` 클래스를 스레드 안전하게 사용하는 방법에 대해 살펴보겠습니다. 
 
 ## 1. Why is SimpleDateFormat class not thread-safe? 

@@ -27,7 +27,7 @@ last_modified_at: 2023-02-12T23:55:00
 * 객체의 상태를 외부에서 변경할 수 있습니다.
 * 캡슐화가 되지 않은 객체가 여러 스레드에 의해 사용됩니다.
 
-##### applyPattern of SimpleDateFormat Class
+##### applyPattern Method in SimpleDateFormat Class
 
 `applyPattern` 메소드를 통해 `SimpleDateFormat` 클래스의 문제점을 살펴보겠습니다.
 
@@ -226,6 +226,8 @@ public class SimpleDateFormatParseTest {
 
 ##### Result of Test
 
+* 파싱(parsing) 작업이 정상적으로 수행되지 않습니다.
+    * 같은 값을 파싱하지만 결과가 동일하지 않습니다.
 * 일부 스레드에서 에러가 발생합니다.
 
 ```
@@ -245,7 +247,7 @@ Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
 ...
 ```
 
-##### Using Thread-Safely SimpleDateFormat
+### 4.2. Example of Thread-Safely Using
 
 객체의 상태가 변경되기 때문에 마찬가지로 매 스레드마다 새로 생성하여 사용합니다.
 
@@ -275,6 +277,26 @@ public class SimpleDateFormatParseTest {
         executorService.shutdown();
     }
 }
+```
+
+##### Result of Test
+
+* 정상적으로 파싱 작업이 수행됩니다.
+
+```
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
+...
 ```
 
 ## CLOSING

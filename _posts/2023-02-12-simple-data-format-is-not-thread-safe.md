@@ -293,7 +293,7 @@ public class SimpleDateFormatParseTest {
 #### REFERENCE
 
 * <https://www.callicoder.com/java-simpledateformat-thread-safety-issues/>
-* 
+* <https://jmlim.github.io/java/2018/12/13/java8-datetime-example/>
 * [이펙티브 자바 3/E][effective-java-book-link]
 
 [effective-java-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?ejkGb=KOR&mallGb=KOR&barcode=9788966262281&orderClick=LAG&Kc=

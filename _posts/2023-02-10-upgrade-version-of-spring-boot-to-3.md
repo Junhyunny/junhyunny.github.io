@@ -23,19 +23,21 @@ last_modified_at: 2023-02-10T23:55:00
 ## 1. JDK 17 and Jakarta EE 9
 
 2018년 2월 28일부터 약 4년동안 운영된 2.X 버전이 3.X 버전으로 업그레이드 되었습니다. 
-2022년 11월 릴리즈로 계획된 3.X 버전은 `JDK17`를 필수로 사용합니다. 
-`Java EE(enterprise edition)`은 `Jakarta EE`로 전환하였습니다. 
-이로 인해 `java.*` 패키지의 확장 기능이 모인 `javax.*` 패키지는 `jakarta.*` 패키지로 대체되었습니다. 
+다음과 같은 사항들이 변경되었습니다. 
+
+* `JDK17` 버전 이상을 사용해야 합니다.
+* `Java EE(enterprise edition)`은 `Jakarta EE`로 되었습니다.
+    * `javax.*` 패키지에 속하는 기능들이 `jakarta.*` 패키지로 대체되었습니다. 
 
 > This next major revision will be based on Spring Framework 6.0 and will require Java 17 or above. 
 > It will also be the first version of Spring Boot that makes use of Jakarta EE 9 APIs (jakarta.*) instead of EE 8 (javax.*).
 
 해당 문제로 다음과 같은 작업들을 수행하였습니다.
 
-* IDE(integrated development environment)의 JDK 컴파일러(compiler) 버전을 변경합니다.
-    * from `JDK8` to `JDK17`
+* `IDE(integrated development environment)`의 JDK 컴파일러를 변경합니다.
+    * `JDK8`에서 `JDK17`으로 변경합니다.
 * `pom.xml` 파일의 `java.version` 변경합니다.
-    * from `1.8` to `17`
+    * `1.8`에서 `17`으로 변경합니다.
 
 ```xml
     <parent>
@@ -52,8 +54,8 @@ last_modified_at: 2023-02-10T23:55:00
 ```
 
 * `Dockerfile`에서 사용하는 이미지를 변경합니다.
-    * from `maven:3.8.6-jdk-8` to `maven:3.8.3-openjdk-17`
-    * from `openjdk:8` to `openjdk:17-alpine`
+    * `maven:3.8.6-jdk-8`에서 `maven:3.8.3-openjdk-17`으로 변경합니다.
+    * `openjdk:8`에서 `openjdk:17-alpine`으로 변경합니다.
 
 ```dockerfile
 # Maven Build
@@ -84,8 +86,6 @@ ENTRYPOINT exec java -jar ./app.jar
 ```
 
 * `javax.*` 패키지 의존성을 `jakarta.*`로 변경합니다.
-    * from `javax.servlet.*` to `jakarta.servlet.*`
-    * from `javax.persistence.*` to `jakarta.persistence.*`
 
 ```java
 package action.in.blog.controller;
@@ -110,9 +110,11 @@ public class BlogController {
 
 ## 2. JPA QueryDSL Compatibility
 
-`JPA`와 `QueryDSL`을 사용할 때 `JDK17` 버전으로 변경됨에 따라 호환이 되지 않는 문제가 발생합니다. 
-`EntityManager`가 `javax.persistence.*` 패키지에 속해 있기 때문에 기존 `JPAQueryFactory` 클래스에서 컴파일 에러가 발생합니다. 
-`pom.xml` 파일의 `QueryDSL` 관련 의존성에 `jakarta` 식별자(classifier)를 추가합니다.
+`JPA`, `QueryDSL`을 사용한다면 `EntityManager`가 호환이 되지 않는 문제가 발생합니다. 
+기존 `EntityManager`는 `javax.persistence.*` 패키지에 속합니다. 
+`jakarta.persistence.*` 패키지로 대체되면서 `JPAQueryFactory` 클래스에서 컴파일 에러가 발생합니다. 
+
+* `pom.xml` 파일의 `QueryDSL` 관련 의존성에 `jakarta` 식별자(classifier)를 추가합니다.
 
 ```xml
     <dependency>
@@ -133,7 +135,7 @@ public class BlogController {
 ## 3. Substitution for spring-cloud-starter-sleuth
 
 스프링 부트를 `3.0.X` 버전으로 업그레이드 되었으므로 이에 맞는 스프링 클라우드 버전을 사용합니다. 
-스프링 클라우드 공식 홈페이지에 릴리즈 트레인이 표로 정리되어 있습니다. 
+스프링 클라우드 공식 홈페이지에 릴리즈 트레인(release train)이 표로 정리되어 있습니다. 
 
 | Release Train | Release Train |
 |:---:|:---|
@@ -148,7 +150,7 @@ public class BlogController {
 
 다음과 같이 `pom.xml` 파일의 스프링 클라우드 버전을 변경합니다.
 
-* from `2021.0.3` to `2022.0.1`
+* `2021.0.3`에서 `2022.0.1`으로 변경합니다.
 
 ```xml
     <properties>

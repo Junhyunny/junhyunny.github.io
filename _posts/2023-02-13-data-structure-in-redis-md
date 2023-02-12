@@ -1,9 +1,9 @@
 ---
-title: "Why is Redis fast?"
+title: Data Structure in Redis"
 search: false
 category:
-  - information
-last_modified_at: 2023-02-08T23:55:00
+  - redis
+last_modified_at: 2023-02-13T23:55:00
 ---
 
 <br/>
@@ -11,6 +11,8 @@ last_modified_at: 2023-02-08T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 ## 0. 들어가면서
+
+
 
 ## CLOSING
 

@@ -24,7 +24,7 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 
 ## 2. Practice
 
-### 2.1. Context for Practice
+### 2.1. Context of Practice
 
 다음과 같은 상황을 만들어 사용해보았습니다. 
 

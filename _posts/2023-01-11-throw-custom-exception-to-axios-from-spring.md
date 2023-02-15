@@ -297,6 +297,19 @@ axios.interceptors.response.use(
     <img src="/images/throw-custom-exception-to-axios-from-spring-1.gif" width="100%" class="image__border">
 </p>
 
+## 4. Why do we handle exceptions in one point?
+
+코드 곳곳에서 `try-catch` 블럭을 만드는 것은 가독성을 나쁘게 만듭니다. 
+예외를 상위 메소드에게 예외 처리를 위임하는 것도 코드를 복잡하게 만듭니다. 
+`@ControllerAdvice`, `@ExceptionHandler` 애너테이션을 사용해 예외를 한 곳에서 처리하는 컴포넌트를 만들면 다음과 같은 점이 개선됩니다. 
+
+* 각 컴포넌트들은 자신이 맡은 비즈니스에 집중할 수 있습니다.
+* 코드 흐름에 문제가 발생하는 경우 이를 과감하게 상위로 던질 수 있습니다.
+    * 코드 흐름 상 문제가 있는 경우 이를 계속 진행해서는 안 됩니다.
+    * 문제가 있는 상태로 프로세스를 계속 진행하면 데이터가 오염되거나 찾기 힘든 버그를 만들 수 있습니다.
+    * 코드 흐름을 중지하고, 예외를 던지거나 적절한 값을 반환합니다.
+* 서비스에서 발생하는 예외들을 모아서 확인할 수 있고, 비즈니스에 맞는 적절한 에러 메세지, 코드 등을 응답할 수 있습니다.
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-01-11-throw-custom-exception-to-axios-from-spring>

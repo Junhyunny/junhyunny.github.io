@@ -20,7 +20,7 @@ last_modified_at: 2023-01-14T23:55:00
 * 방화벽 OPEN/CLOSE 확인
 * 방화벽 열기
 
-## 1. Context for Practice
+## 1. Context of Practice
 
 다음과 같은 실습 환경을 구축하였습니다. 
 

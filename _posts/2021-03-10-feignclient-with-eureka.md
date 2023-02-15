@@ -22,7 +22,7 @@ last_modified_at: 2021-08-23T11:30:00
 `FeignClient`와 `Eureka`를 함께 사용하는 예제입니다. 
 `Eureka` 서버와 클라이언트를 만들어 연결하는 예제는 [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka] 포스트를 참고하시기 바랍니다. 
 
-### 1.1. Context for Practice
+### 1.1. Context of Practice
 
 다음과 같은 연습 환경을 구축하였습니다.
 

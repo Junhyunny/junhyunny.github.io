@@ -48,7 +48,7 @@ last_modified_at: 2023-01-24T23:55:00
 일반적인 컴퓨터 역시 라우터처럼 운영체제(OS, operating system)의 도움을 받아서 포트 포워딩이 가능합니다. 
 최근에 작업했던 Mac PC의 포트 포워딩에 대한 내용을 바탕으로 이번 포스트를 정리하였습니다. 
 
-### 2.1. Context for Practice
+### 2.1. Context of Practice
 
 다음과 같은 실습 환경을 구축하였습니다.
 

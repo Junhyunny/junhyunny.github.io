@@ -58,7 +58,7 @@ last_modified_at: 2021-08-24T12:00:00
 
 `netflix-hystrix` 의존성을 사용해 회로 차단기 패턴을 적용시켜보았습니다. 
 
-### 3.1. Context for Practice
+### 3.1. Context of Practice
 
 다음과 같은 실습 환경을 구축하였습니다. 
 

@@ -21,7 +21,7 @@ CI/CD 파이프라인을 담당한 젠킨스(jenkins)가 위치한 클러스터�
 마스터 노드를 담당하는 가상 머신(virtual machine)에 직접 명령어(command)를 전달할 방법이 필요했습니다. 
 젠킨스의 SSH 에이전트(secure shell agent) 플러그인을 사용하면 명령어을 직접 전달할 수 있는 데, 이번 포스트에선 이에 대해 정리하였습니다. 
 
-## 1. Context for Practice
+## 1. Context of Practice
 
 다음과 같은 실습 환경을 구축하였습니다. 
 

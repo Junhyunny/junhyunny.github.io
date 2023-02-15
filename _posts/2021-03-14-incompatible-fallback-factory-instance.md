@@ -1,5 +1,5 @@
 ---
-title: "[IllegalStateException] Incompatible fallbackFactory instance."
+title: "Incompatible FallbackFactory Instance Exception"
 search: false
 category:
   - spring-boot

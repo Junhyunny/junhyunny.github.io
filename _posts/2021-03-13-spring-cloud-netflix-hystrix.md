@@ -51,7 +51,7 @@ last_modified_at: 2021-08-24T01:00:00
 * 클라이언트는 예외 대신 `서비스A`가 전달한 대체 응답을 전달 받습니다.
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-hystrix-1.JPG" width="75%" class="image__border">
+    <img src="/images/spring-cloud-netflix-hystrix-1.JPG" width="80%" class="image__border">
 </p>
 
 ### 2.2. Implemantation of Service A

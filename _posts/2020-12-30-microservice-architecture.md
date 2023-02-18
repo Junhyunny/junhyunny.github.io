@@ -11,7 +11,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 ## 0. 들어가면서
 
-저의 첫 프로젝트는 모놀리식 아키텍처(monilithic architecture)기반의 기존 시스템을 마이크로서비스 아키텍처(micro service architecture)로 재구성하는 일이었습니다. 
+저의 첫 프로젝트는 모놀리식 아키텍처(monilithic architecture)기반의 기존 시스템을 마이크로서비스 아키텍처(microservice architecture)로 재구성하는 일이었습니다. 
 기존 시스템은 약 20년 가까이 운영되어 온 덩치 큰 괴물이었습니다. 
 저는 이 시스템을 비즈니스 영역별로 해체, 재결합하는 개발 프로젝트를 마치고, 안정화하는 운영 업무를 수행하였습니다. 
 

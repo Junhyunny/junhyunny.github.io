@@ -229,13 +229,10 @@ Saga 패턴을 구현해야 한다면 최대한 참여자가 적도록 비즈니
 사가 패턴을 지원하는 여러 프레임워크들이 존재합니다. 
 프레임워크를 통해 안정적으로 사가 패턴을 적용하는 것도 좋은 방법이라 생각합니다. 
 
-* 오케스트레이션 사가 관련 프레임워크
-    * [Apache Camel](https://camel.apache.org/components/3.18.x/eips/saga-eip.html)
-    * [Eventuate Tram Sagas](https://eventuate.io/docs/manual/eventuate-tram/latest/getting-started-eventuate-tram-sagas.html)
-* 코리오그래피 사가 관련 프레임워크
-    * [Axon Saga](https://docs.axoniq.io/reference-guide/v/3.1/part-ii-domain-logic/sagas)
-    * [Eclipse MicroProfile LRA](https://github.com/eclipse/microprofile-lra)
-    * [Eventuate Tram Sagas](https://eventuate.io/docs/manual/eventuate-tram/latest/getting-started-eventuate-tram-sagas.html)
+* [Apache Camel](https://camel.apache.org/components/3.18.x/eips/saga-eip.html)
+* [Eventuate Tram Sagas](https://eventuate.io/docs/manual/eventuate-tram/latest/getting-started-eventuate-tram-sagas.html)
+* [Axon Saga](https://docs.axoniq.io/reference-guide/v/3.1/part-ii-domain-logic/sagas)
+* [Eclipse MicroProfile LRA](https://github.com/eclipse/microprofile-lra)
 
 직관적인 코리오그래피 사가에 비해 오케스트레이션 사가의 중앙 컴포넌트 동작 방식은 잘 이해가 되지 않았는데, 크리스 리차든의 오케스트레이션 사가 패턴 예시 코드를 살펴보면서 어느 정도 소화하였습니다. 
 나중에 기회가 된다면 예시 코드를 분석한 내용을 포스트로 작성해볼 생각입니다. 

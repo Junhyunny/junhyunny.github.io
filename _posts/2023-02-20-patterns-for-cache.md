@@ -58,6 +58,7 @@ last_modified_at: 2023-02-20T23:55:00
 * 캐시 서버와 데이터 저장소 사이에 별도 통신은 수행하지 않습니다.
 * 어플리케이션은 캐시 서버와 데이터 저장소 모두와 통신합니다.
 * 어플리케이션이 캐시와 데이터 저장소 사이의 데이터를 직접 동기화합니다.
+* 한번 읽었던 데이터는 잇따라 다시 읽을 가능성이 높기 때문에 캐시 적중률(hit rate)가 높습니다.
 
 <p align="center">
     <img src="/images/patterns-for-cache-4.JPG" width="80%" class="image__border">
@@ -117,6 +118,7 @@ last_modified_at: 2023-02-20T23:55:00
 * <https://hazelcast.com/blog/a-hitchhikers-guide-to-caching-patterns/>
 * <https://learn.microsoft.com/ko-kr/azure/architecture/patterns/cache-aside>
 * <https://aws.amazon.com/ko/builders-library/caching-challenges-and-strategies/>
+* <https://www.gomomento.com/blog/6-common-caching-design-patterns-to-execute-your-caching-strategy>
 * <https://j2wooooo.tistory.com/121>
 
 [lru-algorithm-link]: https://j2wooooo.tistory.com/121

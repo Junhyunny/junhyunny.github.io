@@ -232,47 +232,6 @@ logging:
 2023-02-10T22:53:19.836+09:00  INFO [action-in-blog,63e64c4f25832747b013fc32f0a099f7,b013fc32f0a099f7] 17484 --- [nio-8080-exec-2] a.in.blog.controller.BlogController      : health
 ```
 
-## CLOSING
-
-일부 개발자 컴퓨터에선 `FeignClient` 빈(bean)을 만들 때 에러가 발생하였습니다. 
-모든 컴퓨터에서 발생하지 않았으므로 글 마지막에 추가 내용으로 정리하였습니다. 
-다음과 같은 문제가 발생하였으며, 해결 방법은 바로 아래서 확인할 수 있습니다. 
-
-* 질의(query)를 만드는 과정에서 이름이 없어서 에러가 발생합니다. 
-
-```
-Caused by: java.lang.IllegalArgumentException: name is required.
-    at feign.template.QueryTemplate.create(QueryTemplate.java:78) ~[feign-core-12.1.jar:na]
-    at feign.RequestTemplate.lambda$appendQuery$1(RequestTemplate.java:659) ~[feign-core-12.1.jar:na]
-    at java.base/java.util.HashMap.compute(HashMap.java:1316) ~[na:na]
-    at feign.RequestTemplate.appendQuery(RequestTemplate.java:657) ~[feign-core-12.1.jar:na]
-    at feign.RequestTemplate.query(RequestTemplate.java:621) ~[feign-core-12.1.jar:na]
-    at java.base/java.util.LinkedHashMap.forEach(LinkedHashMap.java:721) ~[na:na]
-    at feign.RequestTemplate.extractQueryTemplates(RequestTemplate.java:1024) ~[feign-core-12.1.jar:na]
-    at feign.RequestTemplate.uri(RequestTemplate.java:469) ~[feign-core-12.1.jar:na]
-    at org.springframework.cloud.openfeign.support.SpringMvcContract.processAnnotationOnMethod(SpringMvcContract.java:227) ~[spring-cloud-openfeign-core-4.0.1.jar:4.0.1]
-    at feign.Contract$BaseContract.parseAndValidateMetadata(Contract.java:110) ~[feign-core-12.1.jar:na]
-    at org.springframework.cloud.openfeign.support.SpringMvcContract.parseAndValidateMetadata(SpringMvcContract.java:193) ~[spring-cloud-openfeign-core-4.0.1.jar:4.0.1]
-    ...
-```
-
-* `@RequestParam` 애너테이션에 명시적으로 키 이름을 지정합니다.
-
-```java
-package action.in.blog.client;
-
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-@FeignClient(name = "blog-client", url = "http://placeholder-service.com")
-public interface BlogClient {
-
-    @GetMapping("/health")
-    String health(@RequestParam(name = "id") String id);
-}
-```
-
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-10-upgrade-version-of-spring-boot-to-3>

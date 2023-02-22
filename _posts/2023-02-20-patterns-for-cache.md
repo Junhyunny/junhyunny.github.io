@@ -110,6 +110,10 @@ last_modified_at: 2023-02-20T23:55:00
     * 데이터 저장소의 항목은 외부 프로세스를 통해 언제든지 변경될 수 있습니다.
     * 데이터 저장소에 변경된 내용들은 다시 캐시에 로드되지 않으면 반영되지 않습니다.
 
+#### RECOMMEND NEXT POSTS
+
+* [Replication in Redis][replication-in-redis-link]
+
 #### REFERENCE
 
 * <https://www.youtube.com/watch?v=mPB2CZiAkKM>
@@ -122,3 +126,4 @@ last_modified_at: 2023-02-20T23:55:00
 * <https://j2wooooo.tistory.com/121>
 
 [lru-algorithm-link]: https://j2wooooo.tistory.com/121
+[replication-in-redis-link]: https://junhyunny.github.io/spring-boot/redis/replication-in-redis/

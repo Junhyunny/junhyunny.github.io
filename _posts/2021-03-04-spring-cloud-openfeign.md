@@ -72,7 +72,7 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 * `서비스B`에게 API 요청하기 위한 클라이언트를 만듭니다.
 * 이름과 URL을 지정합니다.
     * 이름은 필수 값입니다.
-    * 테스트를 위해 도커 컴포즈(docker compose)에 명시된 서비스 이름을 작성합니다.
+    * 테스트를 위해 도커 컴포즈(docker compose) 파일에 명시된 서비스 이름을 작성합니다.
 * GET 요청이므로 `@GetMapping` 애너테이션을 사용합니다.
     * `서비스B`에는 요청을 받기 위한 `/health` 경로가 존재합니다.
 
@@ -167,7 +167,7 @@ public class HealthController {
 
 ## 3. Test
 
-도커 컴포즈(docker compose)로 테스트 환경을 구축합니다.
+도커 컴포즈로 테스트 환경을 구축합니다.
 
 ### 3.1. Dockerfile
 

@@ -58,7 +58,7 @@ last_modified_at: 2023-02-21T23:55:00
 * 이전 화면으로 이동 후 다시 돌아오면 읽은 메세지는 모두 오른쪽으로 이동합니다.
 
 <p align="center">
-    <img src="/images/replication-in-redis-2.JPG" width="80%" class="image__border">
+    <img src="/images/replication-in-redis-2.JPG" width="100%" class="image__border">
 </p>
 
 ### 2.2. Focus this point

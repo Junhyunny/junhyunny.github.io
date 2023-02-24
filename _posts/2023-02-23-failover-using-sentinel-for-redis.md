@@ -16,7 +16,7 @@ last_modified_at: 2023-02-23T23:55:00
 ## 0. 들어가면서
 
 [Replication in Redis][replication-in-redis-link] 포스트에서 설명했듯이 레디스 레플리케이션(replication)은 완벽한 고가용성(HA, high availability)을 책임지지 않습니다. 
-레디스에는 장애 극복 기능(failover)을 향상시키기 위한 센티널(sentinel)이 존재합니다. 
+레디스에는 장애 극복(failover) 기능을 향상시키기 위한 센티널(sentinel)이 존재합니다. 
 이번 포스트에선 센티널을 활용한 레디스의 장애 극복 기능을 살펴보겠습니다. 
 
 ## 1. Redis Sentinel
@@ -24,8 +24,7 @@ last_modified_at: 2023-02-23T23:55:00
 > High availability for non-clustered Redis
 
 센티널은 레디스 클러스터(cluster)를 구축하지 않고도 레디스의 고가용성을 제공합니다. 
-모니터링, 알림 같은 부수적인 작업도 수행합니다. 
-센티널은 크게 보면 다음과 같은 일들을 합니다.
+센티널은 모니터링, 알림 같은 작업들을 수행하며 다음과 같이 정리할 수 있습니다.
 
 * 모니터링(Monitoring)
     * 마스터(master), 슬레이브(slave) 인스턴스들이 정상적으로 동작하는지 확인합니다.
@@ -49,11 +48,11 @@ last_modified_at: 2023-02-23T23:55:00
 ### 2.1. Context of Practice
 
 간단한 시나리오를 바탕으로 어플리케이션 구현과 레디스 센티널을 사용한 고가용성 시스템을 구축해보겠습니다. 
-[Replication in Redis][replication-in-redis-link] 포스트의 예제에서 센티널 연결을 추가하였습니다. 
+[Replication in Redis][replication-in-redis-link] 포스트의 예제에서 3개의 센티널들을 연결하였습니다.
 
 * 어플리케이션 화면을 통해 간단한 메세지를 전송합니다.
-* 전송한 메세지는 레디스 리스트(list)에 저장됩니다.
-* 레디스 리스트는 두 개 존재합니다.
+* 전송한 메세지는 레디스 마스터 인스턴스의 리스트(list)에 저장됩니다.
+* 리스트는 두 종류가 있습니다.
     * 읽지 않은 메세지들을 저장하는 리스트
     * 읽은 메세지들을 저장하는 리스트
 * 메인 화면에서 API 호출을 통해 읽지 않은 메세지가 몇 개인지 확인할 수 있습니다.
@@ -83,7 +82,7 @@ last_modified_at: 2023-02-23T23:55:00
 
 ## 3. Implementation
 
-[Replication in Redis][replication-in-redis-link] 포스트의 내용과 거의 유사하지만, 이 포스트를 처음 접하는 분들이 쉽게 따라할 수 있도록 중요한 내용은 모두 작성하였습니다. 
+[Replication in Redis][replication-in-redis-link] 포스트의 구현과 거의 유사하지만, 중복되는 내용이더라도 이 포스트를 먼저 접한 분들이 쉽게 따라할 수 있도록 중요한 내용은 모두 작성하였습니다. 
 사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용하였습니다. 
 
 ### 3.1. Packages
@@ -211,7 +210,7 @@ public class SentinelConfiguration {
 ### 3.5. RedisTemplateConfig Class
 
 * `application.yml` 파일에 정의한 센티널 설정 값을 사용해 `RedisConnectionFactory` 빈을 생성합니다.
-* `mymaster`라는 이름의 마스터 세트(master set)를 관리합니다.
+* 센티널들은 `mymaster`라는 이름의 마스터 세트(master set)를 관리합니다.
     * 마스터 세트는 마스터와 이에 연결된 레플리케이션 인스턴스들을 의미합니다.
 
 ```java
@@ -424,8 +423,8 @@ public class RedisMessageClient implements MessageClient {
 * `redis-sentinel` 컨테이너
     * 마스터 인스턴스의 정보를 환경 설정 값으로 주입합니다.
     * 마스터 세트의 이름을 `mymaster`로 지정합니다.
-    * 센티널들이 새로운 마스터를 뽑기 위한 의사 결정을 하는데 필요한 정족수를 2로 지정합니다.
-    * 3개 센티널 중 2개가 마스터 인스턴스 다운(down)을 인식하면 새로운 마스터를 뽑습니다. 
+    * 센티널들이 새로운 마스터를 뽑기 위한 의사 결정을 하는데 필요한 정족수(quorum)를 2로 지정합니다.
+    * 예를 들어 정족수가 2인 경우 3개 센티널 중 2개가 마스터 인스턴스 다운(down)을 인식하면 새로운 마스터를 뽑습니다. 
 
 ```yml
 version: "3.9"
@@ -561,7 +560,7 @@ $  sh shell/redis-sentinel.sh
 
 ##### When Stop Master Node
 
-* 도커 데스크탑을 사용해 마스터 인스턴스를 실행 중지합니다.
+* 도커 데스크탑(docker desktop)을 사용해 마스터 인스턴스를 실행 중지합니다.
 * 센티널이 새로운 마스터 승격을 준비하는 잠깐의 시간동안 딜레이가 발생합니다.
 * 슬레이브 중 하나가 마스터로 승격되면 정상적으로 시스템이 동작합니다.
 
@@ -571,8 +570,8 @@ $  sh shell/redis-sentinel.sh
 
 ##### Automatically changed config file when failover
 
-장애 극복(failover) 기능이 동작하면 레디스 설정 파일이 자동으로 변경됩니다. 
-이번 실습에서 도커 `bind-mount` 방식으로 볼륨을 잡고, 마스터의 슬레이브 설정 파일을 지정해줬기 때문에 센티널에 의해 설정이 변경된 것을 확인할 수 있습니다. 
+장애 극복 기능이 동작하면 레디스 설정 파일이 변경됩니다. 
+`bind-mount` 방식의 도커 볼륨으로 마스터, 슬레이브의 설정 파일을 적용했기 때문에 센티널에 의해 설정이 변경되는 것을 확인할 수 있습니다. 
 마스터 인스턴스를 다운시키면 두 슬레이브 노드의 설정 값이 다음과 같이 변경됩니다.
 
 * 1번 슬레이브 인스턴스의 설정인 `redis-slave-1.conf` 파일입니다.

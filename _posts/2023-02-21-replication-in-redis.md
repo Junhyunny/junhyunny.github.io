@@ -27,11 +27,11 @@ last_modified_at: 2023-02-21T23:55:00
 
 레플리케이션(replication)은 레디스의 고가용성 구축을 위한 전략 중 하나입니다. 
 
-* 마스터(master) 노드와 슬레이브(slave) 노드들로 구성됩니다.
-* 클라이언트(client)는 마스터 노드를 통해 읽기(read), 쓰기(write)가 가능합니다.
-* 마스터 노드에 저장된 데이터는 슬레이브 노드에 주기적으로 동기화(syncronize)됩니다.
-* 마스터 노드에 문제가 발생하는 경우 이를 슬레이브 노드가 대체합니다.
-    * 슬레이브 노드는 읽기 연산에 대해서만 정상적인 동작을 보장합니다.
+* 마스터(master) 인스턴스와 슬레이브(slave) 인스턴스들로 구성됩니다.
+* 클라이언트(client)는 마스터 인스턴스를 통해 읽기(read), 쓰기(write)가 가능합니다.
+* 마스터 인스턴스에 저장된 데이터는 슬레이브 인스턴스에 주기적으로 동기화(syncronize)됩니다.
+* 마스터 인스턴스에 문제가 발생하는 경우 이를 슬레이브 인스턴스가 대체합니다.
+    * 슬레이브 인스턴스는 읽기 연산에 대해서만 정상적인 동작을 보장합니다.
 
 <p align="center">
     <img src="/images/replication-in-redis-1.JPG" width="80%" class="image__border">
@@ -69,11 +69,11 @@ last_modified_at: 2023-02-21T23:55:00
 * 새로운 메세지를 작성하는 기능은 쓰기 연산입니다.
 * 메시지 리스트 현황 화면으로 이동할 때 쓰기 연산이 발생합니다.
     * 읽지 않은 메시지 리스트에서 메세지들을 모두 꺼내어(pop) 읽은 메세지 리스트로 이동합니다.
-* 마스터 노드를 중지시켰을 때 다음 내용들을 예상합니다.
+* 마스터 인스턴스를 중지시켰을 때 다음 내용들을 예상합니다.
     * 읽기 연산이 가능한 메인 화면 새로고침은 정상적으로 동작합니다.
     * 새로운 메세지를 작성 후 전송 버튼을 누르면 쓰기 연산이므로 정상 동작하지 않습니다.
     * 리스트 상황 페이지로 이동하면 쓰기 연산이 발생하므로 정상 동작하지 않습니다.
-* 슬레이브 노드를 중지시켰을 때 모든 기능이 정상적으로 동작하는 것을 예상합니다.
+* 슬레이브 인스턴스를 중지시켰을 때 모든 기능이 정상적으로 동작하는 것을 예상합니다.
 
 ## 3. Implementation
 
@@ -146,7 +146,7 @@ last_modified_at: 2023-02-21T23:55:00
 
 ### 3.3. application.yml
 
-* 마스터, 슬레이브 노드 정보를 추가합니다.
+* 마스터, 슬레이브 인스턴스 정보를 추가합니다.
     * 호스트 정보는 도커 컴포즈(docker compose) 파일에 정의된 호스트 이름을 사용합니다.
 
 ```yml
@@ -414,11 +414,11 @@ public class RedisMessageClient implements MessageClient {
 * 주요 설정들을 살펴보겠습니다.
 * `redis-master` 컨테이너
     * 볼륨을 사용해 프로젝트 폴더 내부에 레디스 설정 경로를 컨테이너 내부 설정 디렉토리로 연결합니다.
-    * 마스터 노드 설정을 사용해 레디스를 실행합니다.
+    * 마스터 인스턴스 설정을 사용해 레디스를 실행합니다.
     * 환경 변수를 사용해 복제 모드는 마스터, 비밀번호는 필요 없음으로 설정합니다.
 * `redis-slave-1` 컨테이너
     * 볼륨을 사용해 프로젝트 폴더 내부에 레디스 설정 경로를 컨테이너 내부 설정 디렉토리로 연결합니다.
-    * 슬레이브 노드 설정을 사용해 레디스를 실행합니다.
+    * 슬레이브 인스턴스 설정을 사용해 레디스를 실행합니다.
     * 환경 변수를 사용해 복제 모드는 마스터, 비밀번호는 필요 없음으로 설정합니다.
     * `redis-slave-2` 컨테이너도 동일한 방법으로 실행합니다.
 
@@ -475,14 +475,14 @@ services:
 
 ### 4.2. redis config files
 
-* 마스터 노드 설정 파일은 다음과 같습니다.
+* 마스터 인스턴스 설정 파일은 다음과 같습니다.
 
 ```conf
 port 6379
 ```
 
-* 슬레이브 노드 설정 파일은 다음과 같습니다.
-* 복제할 마스터 노드 정보를 추가합니다.
+* 슬레이브 인스턴스 설정 파일은 다음과 같습니다.
+* 복제할 마스터 인스턴스 정보를 추가합니다.
     * 4.X 버전까진 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었습니다.
 
 ```conf
@@ -535,10 +535,10 @@ $ sh shell/redis-replication.sh
 
 ##### When Stop Master Node
 
-* 도커 데스크탑을 사용해 마스터 노드를 실행 중지합니다.
-* 마스터 노드를 중지시킨 후 읽기 연산은 정상적으로 동작합니다.
+* 도커 데스크탑을 사용해 마스터 인스턴스를 실행 중지합니다.
+* 마스터 인스턴스를 중지시킨 후 읽기 연산은 정상적으로 동작합니다.
     * 새로 고침에 따라 리스트 사이즈 조회는 가능합니다.
-* 마스터 노드를 중지시킨 후 쓰기 연산이 정상적으로 동작하지 않습니다.
+* 마스터 인스턴스를 중지시킨 후 쓰기 연산이 정상적으로 동작하지 않습니다.
     * 메세지 생성 불가능
     * 읽지 않은 메세지 리스트 비우기 불가능
 
@@ -548,7 +548,7 @@ $ sh shell/redis-replication.sh
 
 ##### When Stop Slave Node
 
-* 도커 데스크탑을 사용해 모든 슬레이브 노드들을 실행 중지합니다.
+* 도커 데스크탑을 사용해 모든 슬레이브 인스턴스들을 실행 중지합니다.
 * 정상적으로 동작합니다.
 
 <p align="center">
@@ -558,14 +558,18 @@ $ sh shell/redis-replication.sh
 ## CLOSING
 
 레디스의 레플리케이션만으로 완벽한 고가용성 시스템을 구축하지 못 합니다. 
-마스터 노드가 정지됨과 시스템 대부분의 기능이 정상 동작하지 않았습니다. 
+마스터 인스턴스가 정지됨과 시스템 대부분의 기능이 정상 동작하지 않았습니다. 
 보다 나은 고가용성 시스템을 구축하기 위해 센티널(sentinel) 컴포넌트를 함께 사용합니다. 
-센티널은 마스터, 슬레이브 노드들의 상태를 모니터링하면서 마스터 노드가 죽었을 때 다른 슬레이브 노드를 다시 마스터 노드로 승격시킵니다. 
+센티널은 마스터, 슬레이브 인스턴스들의 상태를 모니터링하면서 마스터 인스턴스가 죽었을 때 다른 슬레이브 인스턴스를 다시 마스터 인스턴스로 승격시킵니다. 
 다음 포스트에서 센티널을 적용과 관련된 내용을 정리할 예정입니다.
 
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-21-replication-in-redis>
+
+#### RECOMMEND NEXT POSTS
+
+* [Failover Using Sentinel for Redis][failover-using-sentinel-for-redis-link]
 
 #### REFERENCE
 
@@ -574,3 +578,4 @@ $ sh shell/redis-replication.sh
 [embedded-redis-server-link]: https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/
 [using-redis-template-on-spring-boot-link]: https://junhyunny.github.io/spring-boot/redis/using-redis-template-on-spring-boot/
 [patterns-for-cache-link]: https://junhyunny.github.io/design-pattern/patterns-for-cache/
+[failover-using-sentinel-for-redis-link]: https://junhyunny.github.io/spring-boot/redis/failover-using-sentinel-for-redis/

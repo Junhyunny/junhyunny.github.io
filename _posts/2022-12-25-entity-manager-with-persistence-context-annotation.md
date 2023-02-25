@@ -119,7 +119,7 @@ public interface EntityManagerProxy extends EntityManager {
 
 `EntityManagerFactory` 클래스를 직접 사용하면 `@Transactional` 애너테이션을 통한 트랜잭션 처리가 불가능합니다. 
 반면에 `@PersistenceContext` 애너테이션을 통해 주입 받은 엔티티 매니저를 사용하면 `@Transactional` 애너테이션을 통한 트랜잭션 처리가 가능합니다. 
-간단한 예시 코드를 통해 확인해보곘습니다. 
+간단한 예시 코드를 통해 확인해보겠습니다. 
 
 ### 3.1. PcAnnotationService 클래스
 

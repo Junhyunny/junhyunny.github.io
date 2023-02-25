@@ -23,7 +23,7 @@ last_modified_at: 2022-12-25T23:55:00
 
 ## 1. @PersistenceContext 애너테이션
 
-`@Autowired` 애너테이션을 통해 빈(bean)을 주입 받듯이 `@PersistenceContext` 애너테이션을 사용하면 `EntityManager` 빈을 주입받을 수 있습니다. 
+`@Autowired` 애너테이션을 통해 빈(bean)을 주입 받듯이 `@PersistenceContext` 애너테이션을 사용하면 `EntityManager` 빈을 주입 받을 수 있습니다. 
 `EntityManager`의 실제 구현 클래스의 객체가 아닌 프록시(proxy) 객체를 주입 받습니다. 
 
 ##### EntityManagerProxy 인터페이스

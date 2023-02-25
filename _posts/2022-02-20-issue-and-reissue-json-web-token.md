@@ -227,7 +227,7 @@ values ('Junhyunny', '{bcrypt}$2a$10$LDwzHdFsoeeo0CjXoYdmwelLK4CjdiMtGvPHDYPQ039
     - `createRefreshToken` 메소드 - 리프레시 토큰을 발급합니다.
     - `parseClaimsFromRefreshToken` 메소드 - 리프레시 토큰에서 클레임 정보를 추출합니다.
 - 액세스 토큰과 리프레시 토큰을 만들 때 사용하는 비밀 키는 다른 값을 사용합니다.
-- 액세스 토큰과 리프레시 토큰 만료 시간은 설정을 통해 주입받을 수 있지만 기본 값을 지정해주었습니다.
+- 액세스 토큰과 리프레시 토큰 만료 시간은 설정을 통해 주입 받을 수 있지만 기본 값을 지정해주었습니다.
     - 액세스 토큰 만료 시간 10분
     - 리프레시 토큰 만료 시간 30분
 

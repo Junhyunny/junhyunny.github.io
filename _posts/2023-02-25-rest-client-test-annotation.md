@@ -110,6 +110,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
@@ -120,6 +121,7 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestToUriTemplate;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -145,6 +147,7 @@ class RestTemplateBuilderTest {
         RestTemplate sut = restTemplateBuilder.build();
         MockRestServiceServer server = MockRestServiceServer.bindTo(sut).build();
         server.expect(requestToUriTemplate(uri, "hello"))
+                .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(expectedResponse, MediaType.APPLICATION_JSON));
 
 
@@ -176,6 +179,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -187,6 +191,7 @@ import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestToUriTemplate;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
@@ -228,6 +233,7 @@ public class BlogProxyTest {
                 )
         );
         server.expect(requestToUriTemplate("http://blog-in-action.com/search?key={key}", "hello"))
+                .andExpect(method(HttpMethod.GET))
                 .andRespond(withSuccess(expectedResponse, MediaType.APPLICATION_JSON));
 
 
@@ -266,6 +272,11 @@ public class BlogResponse {
 
 `FeignClient`의 단위 테스트 방법을 찾다가 `@RestClientTest` 애너테이션을 발견했습니다. 
 `@RestClientTest` 애너테이션은 아쉽게도 `RestTemplate`만 지원하는 것으로 보입니다. 
+공식 문서를 살펴보면 다음과 같은 내용이 있습니다.
+
+> Annotation for a Spring rest client test that focuses `only` on beans that use RestTemplateBuilder. 
+> ...
+> If you are testing a bean that doesn't use RestTemplateBuilder but instead injects a RestTemplate directly, you can add @AutoConfigureWebClient(registerRestTemplate=true). 
 
 #### TEST CODE REPOSITORY
 
@@ -273,6 +284,7 @@ public class BlogResponse {
 
 #### REFERENCE
 
+* <https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/web/client/RestClientTest.html>
 * <https://www.baeldung.com/restclienttest-in-spring-boot>
 * <https://www.jvt.me/posts/2022/02/01/resttemplate-integration-test/>
 * <https://jojoldu.tistory.com/341>

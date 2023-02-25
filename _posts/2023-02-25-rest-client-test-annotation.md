@@ -37,9 +37,8 @@ last_modified_at: 2023-02-25T23:55:00
 외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용합니다. 
 스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인합니다. 
 이런 테스트 방법은 검증의 한계가 있습니다. 
-
 간단한 예시를 들어보겠습니다. 
-JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷 데이터로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
+JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷(format)으로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
 
 ##### Response JSON
 
@@ -71,6 +70,7 @@ public class BlogResponse {
 
 * 스프링에서 JSON 요청, 응답을 위해 사용하는 `Jackson` 라이브러리는 자료형이 `LocalDateTime` 클래스인 경우 기본적으로 `yyyy-MM-dd'T'HH:mm:ss` 포맷 데이터를 지원합니다. 
 * `yyyy-MM-dd HH:mm:ss` 형태의 데이터를 요청, 응답을 하는 경우 발생하는 파싱(parsing) 에러는 런타임에서 발견될 확률이 높습니다.
+* 배포된 후 발생하는 런타임 에러로 인해 정상적인 응답을 못하는 경우 서비스의 신뢰도가 하락합니다.
 
 ```
 Caused by: com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10

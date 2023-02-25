@@ -40,7 +40,7 @@ API 요청을 쉽게 사용할 수 있는 기능을 제공합니다.
 
 * 서비스를 실행시키지 않은 상태로 실제 API 요청을 수행할 수 있습니다.
     * API 요청시 발생할 수 있는 포맷 변경에 대한 테스트가 가능합니다. 
-* `JUnit` 프레임워크와 함께 사용하여 테스트를 쉽게 자동화 할 수 있습니다. 
+* JUnit 프레임워크와 함께 사용하여 테스트를 자동화 할 수 있습니다. 
 * 다양한 예외 케이스들에 대한 테스트가 가능합니다. 
 
 ### 2.1. Why Why do we need API test?
@@ -48,9 +48,8 @@ API 요청을 쉽게 사용할 수 있는 기능을 제공합니다.
 외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용합니다. 
 스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인합니다. 
 이런 테스트 방법은 검증의 한계가 있습니다. 
-
 간단한 예시를 들어보겠습니다. 
-JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷 데이터로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
+JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷(format)으로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
 
 ##### Response JSON
 
@@ -82,6 +81,7 @@ public class BlogResponse {
 
 * 스프링에서 JSON 요청, 응답을 위해 사용하는 `Jackson` 라이브러리는 자료형이 `LocalDateTime` 클래스인 경우 기본적으로 `yyyy-MM-dd'T'HH:mm:ss` 포맷 데이터를 지원합니다. 
 * `yyyy-MM-dd HH:mm:ss` 형태의 데이터를 요청, 응답을 하는 경우 발생하는 파싱(parsing) 에러는 런타임에서 발견될 확률이 높습니다.
+* 배포된 후 발생하는 런타임 에러로 인해 정상적인 응답을 못하는 경우 서비스의 신뢰도가 하락합니다.
 
 ```
 Caused by: com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10
@@ -181,7 +181,7 @@ public class ActionInBlogApplication {
 
 `@SpringBootTest` 애너테이션을 통한 결합 테스트(integration test)를 수행합니다. 
 결합 테스트는 비용이 큰 만큼 적을수록 좋습니다. 
-최대한 적은 컨텍스트를 로딩(loading)하는 방법을 찾아 봤지만, 실패했습니다. 
+최대한 적은 컨텍스트를 로딩(loading)하는 방법은 찾지 못 했습니다.
 
 * `@SpringBootTest` 애너테이션
     * 결합 테스트를 수행합니다.

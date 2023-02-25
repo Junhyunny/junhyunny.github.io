@@ -73,7 +73,7 @@ export default {
 
 ## 2. IME(Input Method Editor)
 
-우선 `IME(Input Method Editor)`의 개념을 짚고 설명을 이어가곘습니다. 
+우선 `IME(Input Method Editor)`의 개념을 짚고 설명을 이어가겠습니다. 
 관련된 내용을 위키피디아(wikipedia)에선 다음과 같이 설명하고 있습니다. 
 
 > IME(Input Method Editor)<br/>

@@ -32,7 +32,7 @@ last_modified_at: 2023-02-25T23:55:00
     * 해당 객체는 테스트를 위한 가상 서버입니다.
     * `RestTemplate` 객체가 API 요청을 수행할 수 있는 경로와 응답 값을 스텁(stub)할 수 있습니다.
 
-## 1.1. Why do we need API test?
+### 1.1. Why do we need API test?
 
 외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용합니다. 
 스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인합니다. 

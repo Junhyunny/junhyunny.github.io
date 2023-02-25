@@ -333,14 +333,9 @@ BUILD SUCCESSFUL in 4s
 2:24:40 AM: Execution finished ':test --tests "action.in.blog.BlogClientIT.get_blog_response_from_wiremock_server_using_feign"'.
 ```
 
-## CLOSING
-
-
-
-
 #### TEST CODE REPOSITORY
 
-#### RECOMMEND NEXT POSTS
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-25-wire-mock-for-feign-client-test>
 
 #### REFERENCE
 

@@ -15,19 +15,22 @@ last_modified_at: 2023-02-25T23:55:00
 
 ## 0. 들어가면서
 
-스프링 부트(spring boot) 프레임워크를 사용하면 `RestTemplate` 클래스를 통해 별도의 의존성 없이도 쉽게 API 요청을 수행할 수 있습니다. 
+스프링 부트(spring boot) 프레임워크는 `RestTemplate` 객체를 사용해 별다른 의존성 없이도 쉽게 API 요청을 수행할 수 있습니다. 
 이번 포스트는 `RestTemplate`을 테스트하는 방법에 대해서 정리하였습니다.
 
 ## 1. @RestClientTest Annotation
 
-`@DataJpaTest` 애너테이션이 쉬운 `JPA` 테스트를 돕듯이 `@RestClientTest` 애너테이션은 `RestTemplate` 테스트를 돕습니다. 
-`@RestClientTest` 애너테이션을 사용한 테스트를 잘 활용하려면 다음 사항들을 알아야 합니다. 
+`@RestClientTest` 애너테이션은 `RestTemplate` 테스트를 쉽게 만듭니다. 
+`@RestClientTest` 애너테이션을 사용하면 서버가 아닌 클라이언트 입장에서 테스트를 수행할 수 있습니다. 
+테스트를 위한 가상 서버를 생성한 후 `RestTemplate` 객체를 사용해 가상 서버로 API 요청을 보내고 응답을 받습니다. 
+테스트 도구로 잘 활용하려면 다음 사항들을 알아야 합니다. 
 
 * 테스트 대상 객체를 지정할 수 있습니다.
-    * 테스트를 위한 최소한의 컨텍스트가 준비됩니다. 
-* `MockRestServiceServer` 객체를 주입 받아 사용할 수 있습니다.
-    * 해당 객체를 통해 `RestTemplate` 객체가 외부 서버로부터 받을 응답 값을 스텁(stub)할 수 있습니다.
-* JSON 형식을 지원하므로 `Jackson` 라이브러리의 `ObjectMapper` 객체를 `MockRestServiceServer`의 응답 값을 반환할 때 사용합니다.
+    * 테스트를 위한 최소한의 컨텍스트(context)가 준비됩니다. 
+    * `@RestClientTest` 애너테이션에 테스트 대상 클래스를 지정할 수 있습니다.
+* `MockRestServiceServer` 클래스를 사용해 가상 서버를 구성할 수 있습니다.
+    * 해당 객체는 테스트를 위한 가상 서버입니다.
+    * `RestTemplate` 객체가 API 요청을 수행할 수 있는 경로와 응답 값을 스텁(stub)할 수 있습니다.
 
 ## 1.1. Why do we need API test?
 
@@ -35,7 +38,7 @@ last_modified_at: 2023-02-25T23:55:00
 스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인합니다. 
 이런 테스트 방법은 검증의 한계가 있습니다. 
 
-`LocalDateTime` 클래스를 간단한 예시로 들 수 있습니다. 
+간단한 예시를 들어보겠습니다. 
 JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷 데이터로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
 
 ##### Response JSON
@@ -287,7 +290,9 @@ public class BlogResponse {
 * <https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/web/client/RestClientTest.html>
 * <https://www.baeldung.com/restclienttest-in-spring-boot>
 * <https://www.jvt.me/posts/2022/02/01/resttemplate-integration-test/>
+* <https://meetup.nhncloud.com/posts/124>
 * <https://jojoldu.tistory.com/341>
 * <https://sup2is.tistory.com/105>
+* <https://wannaqueen.gitbook.io/spring5/spring-boot/undefined-1/46.-testing/46.3-testing-spring-boot-applications/46.3.20-rest>
 
 [spring-request-date-format-link]: https://junhyunny.github.io/spring-boot/spring-request-date-format/

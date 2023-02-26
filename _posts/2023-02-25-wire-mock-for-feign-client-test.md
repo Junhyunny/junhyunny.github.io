@@ -344,6 +344,7 @@ BUILD SUCCESSFUL in 4s
 
 * <https://www.baeldung.com/introduction-to-wiremock>
 * <https://www.baeldung.com/spring-cloud-feign-integration-tests>
+* <https://docs.spring.io/spring-cloud-contract/docs/current/reference/html/project-features.html#features-wiremock>
 * <https://cloud.spring.io/spring-cloud-contract/1.1.x/multi/multi__spring_cloud_contract_wiremock.html>
 * <https://ktko.tistory.com/entry/Spring-Boot-Test-%EB%B0%A9%EB%B2%95>
 * <https://syaku.tistory.com/387>

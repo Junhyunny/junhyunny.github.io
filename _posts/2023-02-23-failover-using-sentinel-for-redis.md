@@ -619,8 +619,10 @@ user default on nopass ~* &* +@all
 
 #### REFERENCE
 
-* <https://redis.io/docs/management/sentinel/>
+* <https://co-de.tistory.com/14>
+* <https://co-de.tistory.com/15>
 * <https://brunch.co.kr/@springboot/151>
+* <https://redis.io/docs/management/sentinel/>
 * <http://redisgate.jp/redis/sentinel/sentinel.php>
 * [Redis Sentinel — High Availability][redis-sentinel-high-availability-link]
 

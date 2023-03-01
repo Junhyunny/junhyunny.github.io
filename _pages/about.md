@@ -24,7 +24,7 @@ classes: wide
 
 * HTML, CSS, JavaScript, Java
 * Spring MVC, Spring Boot, Spring Cloud, Spring Data Jpa, MyBatis
-* React, Vue.js, jQuery, Sass
+* React, Vue.js
 * Oracle, MySQL
 
 ## 경력
@@ -34,16 +34,30 @@ classes: wide
     <h3 class="reusme__company">
         <span class="reusme__company--name">VMWare</span>
         <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
-        <span class="reusme__company--period">2021년 11월 - PRESET</span>
+        <span class="reusme__company--period">2021년 11월 - PRESENT</span>
     </h3>
 </div>
 
-##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022 1월 - 6월
+##### [KB 국민은행] 금융 프론트 오피스 트레이더 전용 거래 서비스, 2022년 10월 - 2023년 2월
+
+* 서비스 확장이 어려운 외산 패키지 솔루션을 대체할 웹 기반 금융 거래 서비스 개발
+* 개발 이터레이션을 위한 Jenkins CI/CD 파이프라인 구축
+* React, React Query, Sass을 사용한 프론트엔드 서비스 개발
+* Spring Boot, Spring Cloud, JPA, QueryDSL를 사용한 백엔드 서비스 개발
+    * 기존 레거시 시스템 API 연계 
+* Pair Programming 실천
+* Test Driven Development 실천
+    * 프론트엔드 서비스 단위 테스트 약 300개
+    * 백엔드 서비스 단위 테스트 약 100개
+* Nifi를 사용한 ACL(anti corruption layer) 구축
+    * 레거시 시스템 연계를 위한 비즈니스 로직으로부터 도메인 오염 방지
+
+##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022년 1월 - 6월
 
 * MVP(Minimum Viable Product) 서비스 개발
 * 개발 이터레이션을 위한 Jenkins CI/CD 파이프라인 구축
-* React, RTK, Sass을 사용한 알뜰폰 요금제 추천 프론트엔드 서비스 개발
-* Spring Boot, Spring Cloud를 사용한 백엔드 서비스 개발
+* React, RTK, Sass을 사용한 프론트엔드 서비스 개발
+* Spring Boot, Spring Cloud, JPA를 사용한 백엔드 서비스 개발
     * 기존 레거시 시스템 API 연계 
     * EAI 시스템 연계
     * 마이데이터 플랫폼 연계

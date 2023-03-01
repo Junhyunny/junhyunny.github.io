@@ -28,15 +28,33 @@ last_modified_at: 2023-02-21T23:55:00
 레플리케이션(replication)은 레디스의 고가용성 구축을 위한 전략 중 하나입니다. 
 
 * 마스터(master) 인스턴스와 슬레이브(slave) 인스턴스들로 구성됩니다.
+    * 마스터는 여러 개의 슬레이브 인스턴스를 가질 수 있습니다.
+    * 슬레이브도 자신을 복제하기 위한 또 다른 슬레이브 인스턴스를 가질 수 있습니다.
 * 클라이언트(client)는 마스터 인스턴스를 통해 읽기(read), 쓰기(write)가 가능합니다.
 * 마스터 인스턴스에 저장된 데이터는 슬레이브 인스턴스에 주기적으로 동기화(syncronize)됩니다.
 * 마스터 인스턴스에 문제가 발생하는 경우 이를 슬레이브 인스턴스가 대체합니다.
     * 슬레이브 인스턴스는 읽기 연산에 대해서만 정상적인 동작을 보장합니다.
+    * 레디스 버전 2.6부터 슬레이브 인스턴스는 기본적으로 읽기 전용입니다.
+    * `redis.conf` 설정 파일의 `replica-read-only` 옵션으로 통해 변경 가능합니다.
 
 <p align="center">
     <img src="/images/replication-in-redis-1.JPG" width="80%" class="image__border">
 </p>
 <center>https://www.vinsguru.com/redis-master-slave-with-spring-boot/</center>
+
+### 1.1. How to synchronize?
+
+레디스는 비동기(asynchronous) 복제를 수행합니다. 
+전체 동기화(full synchronization)은 다음과 같은 순서로 이뤄집니다. 
+
+1. 마스터는 자식 프로세스를 시작해 백그라운드(background)로 RDB파일에 데이터를 저장합니다.
+1. 데이터를 저장하는 동안 마스터에 새로 들어온 명령들은 처리 후 복제 버퍼에 저장됩니다.
+1. RDB 파일 저장이 완료되면, 마스터는 파일을 복제 서버에게 전송합니다.
+1. 복제 서버는 파일을 받아 디스크에 저장하고, 메모리로 로드합니다.
+1. 마스터는 복제 버퍼에 저장된 명령을 복제 서버에게 전송합니다.
+
+마스터와 슬레이브가 일정 시간 연결이 끊긴 경우 부분 동기화를 수행합니다. 
+만약, 장시간 동안 동기화 실패로 부분 동기화가 어려운 경우 전체 동기화를 수행합니다.
 
 ## 2. Practice
 
@@ -573,6 +591,7 @@ $ sh shell/redis-replication.sh
 
 #### REFERENCE
 
+* <http://redisgate.jp/redis/configuration/replication.php>
 * <https://www.vinsguru.com/redis-master-slave-with-spring-boot/>
 
 [embedded-redis-server-link]: https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/

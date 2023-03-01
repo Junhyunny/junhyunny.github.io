@@ -30,7 +30,7 @@ classes: wide
 ## 경력
 
 <div class="resume-header"> 
-    <img src="/images/about/about-4.jpg" width="5%" class="image__margin-right"/>
+    <img src="/images/about/about-4.jpg" width="5%" class=" image__margin-right image__border"/>
     <h3 class="reusme__company">
         <span class="reusme__company--name">VMWare</span>
         <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
@@ -68,7 +68,7 @@ classes: wide
 * EAI 메세징 서비스 분석 및 리팩토링을 통한 70% 코드 축소
 
 <div class="resume-header"> 
-    <img src="/images/about/about-3.jpg" width="4%" class="image__margin-right"/>
+    <img src="/images/about/about-3.jpg" width="4%" class=" image__margin-right image__border"/>
     <h3 class="reusme__company">
         <span class="reusme__company--name">Geneuin</span>
         <span class="reusme__company--team-role">Application Developer</span>
@@ -100,7 +100,7 @@ classes: wide
     * 기존 수백개씩 입고된 용기들 정보를 CSV 파일로 만드는 수작업을 자동화
 
 <div class="resume-header"> 
-    <img src="/images/about/about-1.jpg" width="5%" class="image__margin-right"/>
+    <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
     <h3 class="reusme__company">
         <span class="reusme__company--name">POSCO ICT</span>
         <span class="reusme__company--team-role">MES Application Developer</span>
@@ -138,7 +138,7 @@ classes: wide
     * Spring Cloud Stream, Kafka를 사용한 타 운송 시스템으로 소재 그룹 리스트 전달
 
 <div class="resume-header"> 
-    <img src="/images/about/about-1.jpg" width="5%" class="image__margin-right"/>
+    <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
     <h3 class="reusme__company">
         <span class="reusme__company--name">POSCO ICT</span>
         <span class="reusme__company--team-role">Internship</span>
@@ -170,7 +170,7 @@ classes: wide
 ## Education
 
 <div class="resume-header"> 
-    <img src="/images/about/about-2.jpg" width="5%" class="image__margin-right"/>
+    <img src="/images/about/about-2.jpg" width="5%" class=" image__margin-right image__border"/>
     <h3 class="reusme__company">
         <span class="reusme__company--name">Hansung University</span>
         <span class="reusme__company--team-role">학사</span>

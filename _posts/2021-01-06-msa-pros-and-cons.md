@@ -45,7 +45,7 @@ last_modified_at: 2021-08-21T16:00:00
     * 스케일 아웃(scale out)과 로드 밸런싱을 통해 이뤄집니다. 
 * Y 축 방향의 확장은 서로 다른 기능을 분리하는 것을 의미합니다.
     * 마이크로서비스 아키텍처를 통한 비즈니스적 확장을 의미합니다.  
-* Z 축 방향의 확장은 데이터 파이셔닝(partitioning) 또는 샤딩(sharding)을 의미합니다.
+* Z 축 방향의 확장은 데이터 파티셔닝(partitioning) 또는 샤딩(sharding)을 의미합니다.
 
 <p align="center">
     <img src="/images/msa-pros-and-cons-2.JPG" width="80%" class="image__border">

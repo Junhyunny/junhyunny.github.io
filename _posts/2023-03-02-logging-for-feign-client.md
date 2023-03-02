@@ -18,8 +18,9 @@ last_modified_at: 2023-03-02T23:55:00
 
 로그 레벨은 다음과 같이 정의할 수 있습니다. 
 
-> ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+> DEBUG < INFO < WARN < ERROR < FATAL
 
+오른쪽일수록 로그 레벨이 높다고 표현합니다. 
 어플리케이션의 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 볼 수 있습니다. 
 예를 들어 어플리케이션 로그 레벨이 `INFO`인 경우 `WARN`, `ERROR`, `FATAL` 로그를만 볼 수 있습니다. 
 
@@ -34,6 +35,7 @@ last_modified_at: 2023-03-02T23:55:00
 
 * 특정 클래스 이름, 패키지 이름을 사용해 로그 레벨을 지정할 수 있습니다.
 * 패키지 이름을 지정한 경우 하위 패키지 객체들의 로그 레벨에 모두 적용됩니다.
+    * 프로젝트 최상위 패키지인 `action.in.blog`를 `DEBUG`로 지정합니다.
 
 ```yml
 logging:
@@ -46,17 +48,14 @@ logging:
 설정 빈(bean)을 통해 `FeignClient`의 로거 레벨을 지정할 수 있습니다. 
 
 * NONE
-    * 로깅을 보여주지 않습니다.
-    * 기본(default) 설정입니다.
+    * 기본(default) 설정이며 로깅을 보여주지 않습니다.
 * BASIC
     * 요청 메소드, URL, 응답 코드, 실행 시간 등을 볼 수 있습니다.
 * HEADERS
-    * `BASIC` 설정과 동일합니다.
-    * 추가적으로 요청, 응답에 대한 헤더(header) 정보를 볼 수 있습니다.
+    * `BASIC` 설정에 추가적으로 요청, 응답에 대한 헤더(header) 정보를 볼 수 있습니다.
 * FULL
-    * `HEADERS` 설정과 동일합니다.
-    * 추가적으로 요청, 응답에 대한 바디(body), 메타데이터(metadata) 정보를 볼 수 있습니다.
-* 이번 포스트에서 테스트를 위해 지정한 값은 `FULL` 입니다.
+    * `HEADERS` 설정에 추가적으로 요청, 응답에 대한 바디(body), 메타데이터(metadata) 정보를 볼 수 있습니다.
+* 이번 포스트에서 지정한 값은 `FULL` 입니다.
 
 ```java
 package action.in.blog.config;
@@ -83,8 +82,8 @@ public class FeignLoggerConfig {
 
 * 다음과 같은 메소드들을 수행할 때 출력되는 로그를 살펴보겠습니다.
     * `GET` 요청
-    * 요청 파라미터가 추가된 `GET` 요청
-    * 요청 바디가 추가된 `POST` 요청
+    * `GET` 요청 - 파라미터 추가
+    * `POST` 요청 - 바디 추가
 
 ```java
 package action.in.blog.client;

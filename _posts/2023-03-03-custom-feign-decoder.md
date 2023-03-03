@@ -1,5 +1,5 @@
 ---
-title: "Custom Feign Decoder"
+title: "Custom FeignClient Decoder"
 search: false
 category:
   - spring-boot
@@ -57,7 +57,9 @@ last_modified_at: 2023-03-03T23:55:00
 디코딩 과정은 다음 과정을 거칩니다.
 
 * 메세지 언이스케이프
+    * `[{&#39;id&#39;: &#39;0001&#39;}]` > `[{'id': '0001'}]`
 * 홑따옴표로 구성된 JSON 메세지 객체화
+    * `[{'id': '0001'}]` > `List<Post>`
 
 ### 2.1. build.gradle
 

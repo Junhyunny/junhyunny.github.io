@@ -18,15 +18,15 @@ last_modified_at: 2023-03-02T23:55:00
 
 로그 레벨은 다음과 같이 정의할 수 있습니다. 
 
-> DEBUG < INFO < WARN < ERROR < FATAL
+> TRACE < DEBUG < INFO < WARN < ERROR < FATAL
 
-오른쪽일수록 로그 레벨이 높다고 표현합니다. 
-어플리케이션의 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 볼 수 있습니다. 
+오른쪽으로 갈수록 로그 레벨이 높습니다. 
+어플리케이션은 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 출력합니다. 
 예를 들어 어플리케이션 로그 레벨이 `INFO`인 경우 `WARN`, `ERROR`, `FATAL` 로그를만 볼 수 있습니다. 
 
-스프링(spring) 어플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `DEBUG` 레벨은 보이지 않습니다. 
+스프링(spring) 어플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `TRACE`, `DEBUG` 레벨은 보이지 않습니다. 
 `FeignClient`의 `DEBUG` 로그들을 살펴보기 위해선 로깅 관련 설정이 필요합니다. 
-관련 내용을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있습니다.
+몇 가지 설정을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있습니다.
 
 ### 1.1. application.yml 
 
@@ -55,7 +55,6 @@ logging:
     * `BASIC` 설정에 추가적으로 요청, 응답에 대한 헤더(header) 정보를 볼 수 있습니다.
 * FULL
     * `HEADERS` 설정에 추가적으로 요청, 응답에 대한 바디(body), 메타데이터(metadata) 정보를 볼 수 있습니다.
-* 이번 포스트에서 지정한 값은 `FULL` 입니다.
 
 ```java
 package action.in.blog.config;

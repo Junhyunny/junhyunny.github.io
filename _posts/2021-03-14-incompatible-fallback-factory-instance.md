@@ -200,7 +200,7 @@ Github에 관련된 질문을 올리니 다음과 같은 답변을 얻을 수 �
 * `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하면 해당 문제가 발생합니다.
     * Spring Cloud CircuitBreaker 의존성은 `spring-cloud-starter-netflix-eureka-client`을 통해 적용됩니다.
 * `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하지 않으면 `feign.hystrix.enabled` 설정을 사용합니다.
-    * `OpenFeign` 의존성만 사용하는 경우 `feign.hystrix.enabled` 설정으로 회로 차단기를 활성화시킵니다.
+    * OpenFeign 의존성만 사용하는 경우 `feign.hystrix.enabled` 설정으로 회로 차단기를 활성화시킵니다.
     * `feign.hystrix.FallbackFactory`로 팩토리를 사용합니다.
 
 [hystrix-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/

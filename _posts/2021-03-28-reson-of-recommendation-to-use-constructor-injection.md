@@ -1,5 +1,5 @@
 ---
-title: "생성자 주입(Constructor Injection) 방식을 권장하는 이유"
+title: "Reason for Recommendation Constructor Injection"
 search: false
 category:
   - spring-boot
@@ -9,28 +9,41 @@ last_modified_at: 2021-08-24T02:00:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Inversion of Control and Dependency Injection in Spring][ioc-di-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-## 0. 들어가면서
+* [Inversion of Control and Dependency Injection in Spring][ioc-di-link]
 
-Setter Injection, Constructor Injection, Method Injection 총 3개의 Inejection 방식이 존재하는데 Spring Doc에서는 아래와 같은 이유로 Constructor Injection 방식을 권장한다고 합니다. 
+## 1. Recommend Contrurctor Injection in Spring Document
+
+스프링(spring) 프레임워크에서 의존성을 주입 받는 방법은 3가지가 있습니다.
+
+* 세터 주입(Setter Injection)
+* 생성자 주입(Constructor Injection)
+* 메소드 주입(Method Injection)
+
+스프링 공식 문서에는 아래왁 같은 이유로 생성자 주입을 권장한다고 합니다. 
 
 > **Spring Doc**<br/>
-> The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects 
-> and to ensure that required dependencies are not null. 
+> The Spring team generally advocates constructor injection as it enables one to implement application components as immutable objects and to ensure that required dependencies are not null. 
 > Furthermore constructor-injected components are always returned to client (calling) code in a fully initialized state. 
-> As a side note, a large number of constructor arguments is a bad code smell, 
-> implying that the class likely has too many responsibilities and should be refactored to better address proper separation of concerns.
+> As a side note, a large number of constructor arguments is a bad code smell, implying that the class likely has too many responsibilities and should be refactored to better address proper separation of concerns.
 
 간단하게 정리해보면 이런 내용입니다.
-- 어플리케이션 컴포넌트를 immutable 객체로 사용 가능
-- 객체가 null이 아님을 보장
-- 초기화된 상태로 사용 가능
-- 특정 클래스에 과도한 책임이 주어질 가능성이 높은 구린내 나는(?) 코드에 대한 리팩토링 여지를 제공
 
-## 1. 필드 주입(Field Injection)
-- 간단히 @Autowired 애너테이션을 통해 빈(bean)을 주입받는 방식입니다. 
+* 어플리케이션 컴포넌트를 불변(immutable) 객체로 사용 가능
+* 객체가 널(null)이 아님을 보장
+* 초기화 된 상태로 사용 가능
+* 특정 클래스에 과도한 책임이 주어질 가능성이 높은 구린내 나는 코드에 대한 리팩토링 여지를 제공
+
+이번 포스트에선 간단한 예시를 통해 생성자 주입을 사용하면 좋은 이유에 대해 살펴보겠습니다.
+
+## 2. Field Injection and Contructor Injection
+
+우선 각 주입 방법을 살보겠습니다.
+
+### 2.1. Field Injection
+
+* 필드 주입(field injection)은 `@Autowired` 애너테이션을 통해 빈(bean)을 주입받는 방식입니다. 
 
 ```java
 @Service
@@ -42,8 +55,11 @@ public class PostService {
 }
 ```
 
-## 2. 생성자 주입(Constructor Injection)
-- 생성자를 통해 빈(bean)을 주입받습니다.
+### 2.2. Constructor Injection
+
+* 생성자 주입(constructor injection)은 생성자를 통해 빈을 주입받습니다.
+* 해당 컴포넌트가 빈이고 생성자에 다른 의존성을 주입 받기 위한 코드가 작성되어 있어야 합니다.
+    * 어플리케이션 컨텍스트를 준비하는 과정에서 필요한 의존성들을 추적하면서 빈들이 생성됩니다.
 
 ```java
 @Service
@@ -58,17 +74,34 @@ public class PostService {
 }
 ```
 
-## 3. 생성자 주입(Constructor Injection) 방식으로부터 얻는 이점
+## 3. Benefits of Constructor Injection
 
-### 3.1. 불변성(Immutability)
-**`'어플리케이션 컴포넌트를 immutable 객체로 사용 가능'`** 이라는 설명과 동일합니다. 
-생성자 주입 방식을 통해서만 final 키워드가 붙은 멤버 변수를 이용해 빈(bean) 객체를 사용할 수 있습니다. 
-Setter, Method, Field Injection 방식들의 경우 final 키워드 사용 시 모두 컴파일 에러가 발생합니다. 
-final 키워드를 사용하면 클래스 내부에서 참조에 대한 변경이 이루어질 수 없기 때문에 참조 변경으로 인해 발생될 수 있는 에러들을 사전에 잡아낼 수 있습니다.
+### 3.1. Immutability
 
-### 3.2. NullPointException 방지
-**`'객체가 null이 아님을 보장'`** 이라는 설명과 동일합니다. 
-final 키워드가 붙은 변수는 중간에 다른 객체를 참조할 수 없으므로 생성자를 통해 주입받는 객체가 null이 아님이 보장된다면 NullPointException 에러가 발생되지 않습니다. 
+> 어플리케이션 컴포넌트를 불변(immutable) 객체로 사용 가능
+
+생성자 주입 방식을 통해서만 `final` 키워드가 붙은 멤버 변수를 통해 빈 객체를 주입 받을 수 있습니다. 
+다른 의존성 주입 방법들은 `final` 키워드가 멤버 변수를 사용하면 컴파일 에러가 발생합니다. 
+`final` 키워드를 사용하면 참조 변경이 불가능하므로 이로 인해 발생할 수 있는 에러들을 사전에 방지할 수 있습니다.
+
+##### Compile Error in Field Injection
+
+```java
+@Service
+public class PostService {
+
+    @Autowired
+    private final PostRepository repo;
+
+}
+```
+
+### 3.2. Prevent NullPointException 
+
+> 객체가 `null`이 아님을 보장
+
+`final` 키워드가 붙은 변수는 중간에 다른 객체를 참조할 수 없으므로 생성자를 통해 주입받는 객체가 `null`이 아닌 경우 `NullPointException`이 발생하지 않습니다. 
+스프링 프레임워크가 어플레키이션 컨텍스트를 준비할 때 필요한 의존성에 대한 빈 객체가 없는 경우 서비스가 실행되지 않으므로 `null`이 아님이 보장됩니다. 
 
 ```java
 @Component
@@ -88,16 +121,17 @@ public class PostController {
 }
 ```
 
-### 3.3. 클래스에 대한 과도한 책임 방지
+### 3.3. Prevent Too Many Responsibilty for One Class
 
 > [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br/>
-> 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 
-> 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다.
+> 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다.
 
-아래 클래스를 보면 생성자 주입 방식으로 인해 복잡해진 코드가 하나의 컴포넌트가 과도한 책임을 가졌다는 것을 알 수 있도록 만듭니다. 
-이는 개발자로 하여금 리팩토링의 필요성을 느끼도록 할 수 있습니다. 
+하나의 컴포넌트가 과도한 책임을 가질 경우 생성자 주입을 통해 개발자가 이를 체감할 수 있습니다. 
+아래 클래스를 보면 5개의 의존성이 필요한데, 이를 생성자를 통해 주입 받으려하니 코드가 복잡해짐을 감지할 수 있습니다. 
+개발자는 이를 보고 리팩토링의 필요성을 느끼게 됩니다.
 
-##### Constructor Injection 방식
+##### Too Many Dependencies in One Component
+
 ```java
     @Component
     public class BadSmelledComponent {
@@ -123,18 +157,22 @@ public class PostController {
     }
 ```
 
-### 3.4. 순환 참조 방지
-순환 참조 문제는 생성자 주입을 이용할 때 감지할 수 있습니다. 
-순환 참조가 있는 객체 설계는 잘못된 설계이므로 생성자 주입을 통해 사전에 이를 방지하는 것이 좋습니다. 
+### 3.4. Prevent Circular Reference
+
+순환 참조(circular reference) 문제는 생성자 주입을 이용할 때만 감지할 수 있습니다. 
+순환 참조가 있는 객체 설계는 잘못된 설계일 확률이 높습니다. 
+생성자 주입을 통해 사전에 이를 방지하는 것이 좋습니다. 
+
 아래 테스트 코드를 통해 확인해 보겠습니다. 
 
-#### 3.4.1. 필드 주입 사용 시 순환 참조로 인한 StackOverflow 에러 발생 테스트
-- 필드 주입을 사용하였습니다.
-- AComponent 빈(bean)과 BComponent 빈(bean)은 서로를 참조하고 있습니다. 
-- 서비스 기동은 정상적으로 수행됩니다.
-- 테스트 코드에서 AComponent 객체가 doThing() 메소드를 호출합니다.
-- 내부에서 BComponent 객체의 doThing() 메소드를 호출합니다.
-- 서로 참조하는 두 객체가 서로의 메소드를 지속적으로 호출하니 StackOverflow 에러가 발생합니다.
+#### 3.4.1. StackOverflow Exception When Feild Injection
+
+* 필드 주입을 사용하였습니다.
+* AComponent 빈과 BComponent 빈은 서로를 참조하고 있습니다. 
+* 서비스 기동은 정상적으로 수행됩니다.
+* 테스트 코드에서 AComponent 객체가 `doThing` 메소드를 호출합니다.
+* 내부에서 BComponent 객체의 `doThing` 메소드를 호출합니다.
+* 순환 참조로 인해 두 객체가 서로의 메소드를 지속적으로 호출하게 되면서 `StackOverflow` 예외가 발생합니다.
 
 ```java
 package blog.in.action.di.recycle;
@@ -179,7 +217,7 @@ class BComponent {
 }
 ```
 
-##### StackOverflow 에러 발생 로그
+##### Result of Test
 
 ```
 java.lang.StackOverflowError
@@ -197,9 +235,11 @@ java.lang.StackOverflowError
     ...
 ```
 
-#### 3.4.2. 생성자 주입 사용 시 순환 참조 에러 확인 테스트
-- 생성자 주입을 사용하였습니다.
-- 서비스가 기동되면서 객체를 생성하는 시점에 순환 참조가 감지되어 서비스가 종료됩니다.
+#### 3.4.2. Detect Circular Dependency when Constructor Injection
+
+* 생성자 주입을 사용하였습니다.
+* 서비스가 실행되면서 빈 객체들을 생성하는 시점에 순환 참조가 감지됩니다.
+* 서비스가 실행되지 않고, 종료됩니다.
 
 ```java
 package blog.in.action.di.recycle;
@@ -250,7 +290,7 @@ class DComponent {
 }
 ```
 
-##### 서비스 기동시 에러 로그
+##### Result of Test
 
 ```
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
@@ -279,31 +319,37 @@ java.lang.IllegalStateException: Failed to load ApplicationContext
     at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
 ```
 
-#### 3.4.3. 생성자 주입의 경우 순환 참조가 감지되는 이유
+#### 3.4.3. How to detect circular dependency in constructor injection?
 
 > [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br/>
-> 생성자 주입 방법은 필드 주입이나 수정자 주입과는 빈(bean)을 주입하는 순서가 다르다.<br/>
+> 생성자 주입 방법은 필드 주입이나 세터 주입과 빈 객체를 주입하는 순서가 다르다.<br/>
 
-KimTaeng 님 블로그의 글을 읽어보면 생성자 주입은 빈(bean)을 주입하는 순서가 달라서 순환 참조가 감지된다는 점을 정리해놓은 부분이 있습니다. 
-제 스스로 이해하기 쉽도록 이 부분을 다시 정리해보았습니다. 
+`KimTaeng`님 글에 생성자 주입은 빈을 주입하는 순서가 달라서 순환 참조가 감지된다는 것을 정리해놓은 부분이 있습니다. 
+스스로 이해할 수 있도록 이 부분을 다시 정리해보았습니다. 
 
-##### 수정자 주입(Setter Injection), 필드 주입(Field Injection) 방식
-1. 모든 빈(bean)을 우선 만들고 BeanFactory에 등록합니다.
-1. 빈(bean)을 주입 받아야 하는 A 객체에 필요한 빈(bean)들을 주입합니다.
+##### Case of Setter Injection and Field Injection
 
-##### 생성자 주입(Constructor Injection) 방식
-1. 클래스 A 빈(bean) 생성시 생성자를 이용하며 이때 필요한 빈(bean)인 B 객체를 주입하려고 시도합니다.
+1. 모든 빈 객체들을 우선 만들고, `BeanFactory`에 등록합니다.
+1. A 객체에 필요한 빈(bean)들을 주입합니다.
+
+##### Case of Constructor Injection
+
+1. 클래스 A 객체 생성 시 생성자를 이용해 빈을 주입 받습니다.
+    * 이때 필요한 B 객체를 주입하려고 시도합니다.
 1. 필요한 B 객체는 존재하지 않으므로 이를 생성자로 만들려고 시도합니다.
 1. B 객체도 생성하는 시점에 A 객체가 필요합니다.
 1. 순환 참조가 감지됩니다.
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-28-reson-of-recommendation-to-use-constructor-injection>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-28-reson-of-recommendation-to-use-constructor-injection>
 
 #### REFERENCE
-- <https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html>
-- <https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/>
-- <https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection>
+
+* <https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/beans.html>
+* <https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/>
+* <https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection>
 
 [ioc-di-link]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
+
 [kim-taeng-blog-link]: https://madplay.github.io/post/why-constructor-injection-is-better-than-field-injection

@@ -1,5 +1,5 @@
 ---
-title: "PCB(Process Control Block)와 문맥 교환(Context Switching)"
+title: "PCB(Process Control Block) and Context Switching"
 search: false
 category:
   - information

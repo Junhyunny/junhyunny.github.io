@@ -1,5 +1,5 @@
 ---
-title: "My First GitHub Issue"
+title: "My First Github Issue"
 search: false
 category:
   - spring-boot

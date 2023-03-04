@@ -365,7 +365,7 @@ public class JpaDeliveryStore implements DeliveryStore {
 
 #### RECOMMEND NEXT POSTS 
 
-* [생성자 주입(Constructor Injection) 방식을 권장하는 이유][reson-of-recommendation-to-use-constructor-injection-link]
+* [Reason for Recommendation Constructor Injection][reson-of-recommendation-to-use-constructor-injection-link]
 
 #### REFERENCE
 

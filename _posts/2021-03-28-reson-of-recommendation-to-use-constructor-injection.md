@@ -13,7 +13,7 @@ last_modified_at: 2021-08-24T02:00:00
 
 * [Inversion of Control and Dependency Injection in Spring][ioc-di-link]
 
-## 1. Recommend Contrurctor Injection in Spring Document
+## 1. Recommend of Constructor Injection in Spring
 
 스프링(spring) 프레임워크에서 의존성을 주입 받는 방법은 3가지가 있습니다.
 
@@ -37,7 +37,7 @@ last_modified_at: 2021-08-24T02:00:00
 
 이번 포스트에선 간단한 예시를 통해 생성자 주입을 사용하면 좋은 이유에 대해 살펴보겠습니다.
 
-## 2. Field Injection and Contructor Injection
+## 2. Field Injection and Constructor Injection
 
 우선 각 주입 방법을 살보겠습니다.
 

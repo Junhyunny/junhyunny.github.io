@@ -6,13 +6,5 @@ main:
     url: https://junhyunny.github.io/about/
   - title: "Posts"
     url: https://junhyunny.github.io/posts/
-  - title: "Problems"
-    url: https://junhyunny.github.io/problems/
   - title: "Books"
     url: https://junhyunny.github.io/books/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/

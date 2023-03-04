@@ -8,9 +8,6 @@ last_modified_at: 2021-08-25T12:00:00
 
 <br/>
 
-👉 이어서 읽기를 추천합니다.
-- [DB 인덱스(INDEX) 자료구조][db-index-structure-link]
-
 ## 0. 들어가면서
 
 최근에 DB 인덱스(INDEX)에 대한 질문을 받았습니다. 
@@ -82,12 +79,19 @@ DB 인덱스를 설정한다고 무조건 속도가 빨라지지는 않기 때�
 높은 선택도를 가지는 컬럼을 인덱스로 설정하는 경우 조회 성능이 향상됩니다.
 
 ## 4. 인덱스가 DML(Data Manipulation Language) 미치는 영향
+
 SELECT 쿼리에서 성능이 잘 나오지만, INSERT, UPDATE, DELETE 쿼리에서는 상황에 따라 다르다고 합니다. 
+
 - UPDATE, DELETE는 WHERE 절에 잘 설정된 인덱스로 조건을 붙여주면 성능은 크게 저하되지 않습니다. 
 - UPDATE, DELETE를 하기 위한 데이터를 찾을 때 속도가 빨라지게 됩니다. 
 - INSERT는 새로운 데이터가 추가되면서 기존 인덱스 페이지에 저장되었던 탐색 위치가 수정되므로 효율이 좋지 않습니다. 
 
+#### RECOMMEND NEXT POSTS
+
+- [DB 인덱스(INDEX) 자료구조][db-index-structure-link]
+
 #### REFERENCE
+
 - <https://12bme.tistory.com/138>
 - <https://mangkyu.tistory.com/96>
 - <https://yurimkoo.github.io/db/2020/03/14/db-index.html>

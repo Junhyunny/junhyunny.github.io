@@ -246,14 +246,11 @@ compress_html:
     envs: development
 
 collections:
-  problems:
-    output: true
   books:
     output: true
 
 # Defaults
 defaults:
-  # _posts
   - scope:
       path: ""
       type: posts
@@ -265,25 +262,12 @@ defaults:
       comments: true
       share: true
       related: true
-  # _pages
   - scope:
       path: ""
       type: pages
     values:
       layout: single
       author_profile: true
-  - scope:
-      path: ""
-      type: problems
-    values:
-      permalink: /:categories/:title/
-      layout: single
-      classes: wide
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
   - scope:
       path: ""
       type: books

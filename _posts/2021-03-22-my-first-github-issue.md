@@ -1,5 +1,5 @@
 ---
-title: "나의 첫 GitHub 이슈"
+title: "My First GitHub Issue"
 search: false
 category:
   - spring-boot

@@ -1,5 +1,5 @@
 ---
-title: "Reason for Recommendation Constructor Injection"
+title: "Reason for Recommend of Constructor Injection"
 search: false
 category:
   - spring-boot

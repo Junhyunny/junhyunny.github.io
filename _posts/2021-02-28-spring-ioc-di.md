@@ -365,7 +365,7 @@ public class JpaDeliveryStore implements DeliveryStore {
 
 #### RECOMMEND NEXT POSTS 
 
-* [Reason for Recommendation Constructor Injection][reson-of-recommendation-to-use-constructor-injection-link]
+* [Reason for Recommend of Constructor Injection][reson-of-recommendation-to-use-constructor-injection-link]
 
 #### REFERENCE
 

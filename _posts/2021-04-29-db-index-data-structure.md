@@ -233,11 +233,14 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 둘 사이의 차이점은 다음과 같습니다. 
 
 * 리프 노드에만 데이터를 저장하고, 루트 노드, 브랜치 노드는 자식 노드를 참조하는 포인터만 지니고 있습니다.
+    * 루트 노드, 브랜치 노드의 저장 공간이 남기 때문에 더 많은 자식 노드를 가질 수 있습니다.
+    * 트리의 깊이를 낮출 수 있습니다.
 * 리프 노드들을 연결 리스트(linked list)로 이어져 있습니다. 
+    * 부등호 연산 같은 범위를 검색하는 경우 순차적인 검색을 효율적으로 할 수 있습니다.
 
 MySQL, Oracle, PostgreSQL 등 일부 데이터베이스들은 `B+Tree`를 인덱스 구조로 사용한다고 합니다. 
-마지막으로 `B-Tree` 자료 구조를 시뮬레이션 해주는 사이트가 있습니다. 
-해당 사이트에서 트리 차수 별로 노드를 하나씩 추가할 때마다 어떻게 변경이 일어나는지 살펴볼 수 있습니다. 
+마지막으로 `B-Tree`를 생성, 삭제를 시뮬레이션 해주는 사이트가 있습니다. 
+해당 사이트에서 `B-Tree`의 차수 별로 노드가 하나씩 추가될 때마다 어떤 변경이 일어나는지 살펴볼 수 있습니다. 
 
 <p align="center">
     <img src="/images/db-index-data-structure-4.gif" width="100%" class="image__border">
@@ -249,6 +252,7 @@ MySQL, Oracle, PostgreSQL 등 일부 데이터베이스들은 `B+Tree`를 인덱
 * [SQL 레벨업][sql-level-up-book-link]
 * [Real MySQL 8.0 (1권)][real-my-sql-book-link]
 * <https://ko.wikipedia.org/wiki/%EC%83%89%EC%9D%B8>
+* <https://rebro.kr/167>
 * <https://brunch.co.kr/@skeks463/25>
 * <https://coding-factory.tistory.com/746>
 * <https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree>

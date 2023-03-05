@@ -32,7 +32,7 @@ last_modified_at: 2021-08-28T02:00:00
 <p align="center">
     <img src="/images/db-index-data-structure-1.JPG" width="60%" class="image__border">
 </p>
-<center>https://mangkyu.tistory.com/96</center>
+<center>https://brunch.co.kr/@skeks463/25</center>
 
 ### 1.1. How to create index?
 
@@ -245,6 +245,7 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 * [SQL 레벨업][sql-level-up-book-link]
 * [Real MySQL 8.0 (1권)][real-my-sql-book-link]
 * <https://ko.wikipedia.org/wiki/%EC%83%89%EC%9D%B8>
+* <https://brunch.co.kr/@skeks463/25>
 * <https://coding-factory.tistory.com/746>
 * <https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree>
 

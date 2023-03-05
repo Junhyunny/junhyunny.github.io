@@ -122,7 +122,7 @@ public class PostController {
 }
 ```
 
-### 3.3. Prevent Too Many Responsibilty for One Class
+### 3.3. Prevent Too Many Responsibilty in One Class
 
 > [생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유][kim-taeng-blog-link]<br/>
 > 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다.

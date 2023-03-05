@@ -77,7 +77,7 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 기수성(cardinality)은 값의 균형을 나타내는 개념이며, 선택도(selectivity)와 거의 같은 의미로 사용합니다. 
 특정 데이터 집합의 유니크(unique)한 값의 수를 의미합니다. 
 
-> cardinality = select count(distinct (column)) from table
+* cardinality = select count(distinct (column)) from table
 
 기수성이 높은 필드는 모든 레코드(record)에 다른 값이 들어가 있습니다. 
 유니크 키(unique key) 필드는 기수성이 높습니다. 
@@ -99,18 +99,17 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 * 100명의 사용자 데이터가 존재합니다. 
 * 주민번호로 사용자를 조회합니다. 
     * 주민번호는 사용자마다 고유하기 때문에 1명이 조회됩니다.
-    * 선택률은 1%(= 1 / 100 * 100) 입니다.
+    * 선택률은 1%(=1/100*100)입니다.
 * 남자라는 성별로 사용자를 조회합니다.
     * 남자인 사용자는 56명이 조회됩니다.
-    * 선택률은 56%(= 56 / 100 * 100) 입니다.
+    * 선택률은 56%(=56/100*100)입니다.
 
 당연히 특정 조건을 만족하는 데이터 후보들 중에서 탐색하는 것이 데이터베이스를 풀 스캔(full scan)하는 것에 비해 속도가 빠릅니다. 
 선택률이 낮다는 것은 검색 대상이 줄어들었다는 이야기이므로 그만큼 빠르게 처리됩니다.
-
-> 선택률이 낮을수록 좋은 인덱스 후보입니다.
-
 구체적인 역치는 DBMS 또는 저장소 성능마다 다르지만, 낮은 선택률은 5~10% 이하를 기준으로 합니다. 
 10% 이상이라면 데이터 풀 스캔이 빠를 가능성이 높아집니다. 
+
+> 선택률이 낮을수록 좋은 인덱스 후보입니다.
 
 ### 2.3. Other Factors
 
@@ -142,7 +141,7 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 예를 들어 2차 `B-Tree`는 자식 노드가 2개, 3차인 경우 3개입니다. 
 
 <p align="center">
-    <img src="/images/database-index-and-precautions-2.JPG" width="80%" class="image__border">
+    <img src="/images/db-index-data-structure-2.JPG" width="80%" class="image__border">
 </p>
 <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
 
@@ -167,7 +166,7 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 * 대용량 데이터베이스라도 `B-Tree`의 깊이는 5단계 이상까지 깊어지지 않는다고 합니다.
 
 <p align="center">
-    <img src="/images/database-index-and-precautions-3.JPG" width="80%" class="image__border">
+    <img src="/images/db-index-data-structure-3.JPG" width="80%" class="image__border">
 </p>
 <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
 
@@ -233,7 +232,6 @@ WHERE 조건절에 사용되는 컬럼이라고 해서 모두 인덱스로 생�
 `B-Tree`의 확장판인 `B+Tree` 구조를 인덱스로 많이 사용한다고 합니다. 
 큰 차이점은 리프 노드들을 연결 리스트(linked list)로 이어놨다는 점입니다. 
 여러 자료들을 살펴보면 `B+Tree`를 따로 구분하지 않았기에 저도 별도로 관련된 내용들은 정리하지 않았습니다. 
-
 `B-Tree` 자료 구조를 시뮬레이션 해주는 사이트가 있습니다. 
 해당 사이트에서 트리 차수 별로 노드를 하나씩 추가할 때마다 어떻게 변경이 일어나는지 살펴볼 수 있습니다. 
 

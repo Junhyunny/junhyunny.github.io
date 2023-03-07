@@ -14,7 +14,7 @@ last_modified_at: 2021-08-24T01:00:00
 
 친애하는 동료이자 친구인 [@jskim1991][jskim1991-github-link]이 spring-cloud-openfeign 프로젝트에 PR(Pull Request)을 넣었다는 이야기를 듣고 Github 이슈를 찾기 시작했습니다. 
 한동안 퇴근하면 스프링(spring)에 등록된 이슈들을 읽어보면서 호시탐탐 PR을 노렸습니다. 
-해결할만한 버그나 이슈가 있는지 찾아보면서 지내다 보니 적당한 이슈를 하나 찾았습니다. 
+해결할만한 버그나 이슈가 있는지 찾아보면서 지내다 보니 적당한 이슈를 하나 찾아냈습니다. 
 
 ## 2. Pick the issue
 

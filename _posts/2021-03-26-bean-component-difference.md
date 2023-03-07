@@ -87,6 +87,47 @@ public @interface Bean {
 public class MyClass {}
 ```
 
+### 2.2. Other Annotations
+
+`@Component` 애너테이션으로만 사용 가능한 것은 아닙니다.
+객체 성격에 따라 사용하는 애너테이션이 다르며, 다음과 같은 애너테이션들을 통해 빈을 생성할수 있습니다. 
+
+* @Controller
+* @RestController
+* @Service
+* @Repository
+* @Configuration
+
+애너테이션 별로 특징이 있으며, 만들어진 빈 객체에 따라 동작이 일부 다를 수 있습니다. 
+해당 애너테이션들의 내부를 살펴보면 `@Component` 애너테이션이 함께 정의된 것을 볼 수 있습니다. 
+
+##### @Configuration Annotation
+
+```java
+package org.springframework.context.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.springframework.core.annotation.AliasFor;
+import org.springframework.stereotype.Component;
+
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Component
+public @interface Configuration {
+    @AliasFor(
+        annotation = Component.class
+    )
+    String value() default "";
+
+    boolean proxyBeanMethods() default true;
+}
+```
+
 #### REFERENCE
 
 * <https://goodgid.github.io/Spring-Component-vs-Bean/>

@@ -45,12 +45,11 @@ classes: wide
 * React, React Query, Sass을 사용한 프론트엔드 서비스 개발
 * Spring Boot, Spring Cloud, JPA, QueryDSL를 사용한 백엔드 서비스 개발
     * 기존 레거시 시스템 API 연계 
-* Pair Programming 실천
-* Test Driven Development 실천
+* Pair Programming, Test Driven Development 실천
     * 프론트엔드 서비스 단위 테스트 약 300개
     * 백엔드 서비스 단위 테스트 약 100개
 * Nifi를 사용한 ACL(anti corruption layer) 구축
-    * 레거시 시스템 연계를 위한 비즈니스 로직으로부터 도메인 오염 방지
+    * 레거시 시스템 연계로부터 발생하는 비즈니스 도메인 로직 오염 방지
 
 ##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022년 1월 - 6월
 
@@ -61,8 +60,7 @@ classes: wide
     * 기존 레거시 시스템 API 연계 
     * EAI 시스템 연계
     * 마이데이터 플랫폼 연계
-* Pair Programming 실천
-* Test Driven Development 실천
+* Pair Programming, Test Driven Development 실천
     * 프론트엔드 서비스 단위 테스트 약 200개
     * 백엔드 서비스 단위 테스트 약 100개
 * EAI 메세징 서비스 분석 및 리팩토링을 통한 70% 코드 축소

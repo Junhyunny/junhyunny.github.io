@@ -1,5 +1,5 @@
 ---
-title: "MUTABLE, IMMUTABLE 객체 차이점"
+title: "Mutable/Immutable Object"
 search: false
 category:
   - information
@@ -9,154 +9,222 @@ last_modified_at: 2021-04-06T09:00:00
 
 <br/>
 
-## 1. MUTABLE 객체
+## 1. Mutable Object
 
-> liable to change. '변경될 수 있습니다.'
+> 변경될 수 있는 객체
 
-MUTABLE 이라는 단어를 사전에서 찾아보면 `'변경될 수 있다.'`는 의미를 가지고 있습니다. 
-이는 객체 생성 이후에도 객체의 속성이 변할 수 있음을 의미합니다. 
-아래 테스트 코드를 통해 MUTABLE 객체에 대한 설명을 진행하겠습니다. 
+생성된 이후에 상태(state)가 변경될 수 객체를 의미합니다. 
+상태가 변경된다는 의미는 객체 내부의 값을 외부에서 바꿀 수 있는 수단(method)가 노출되어 있다는 의미입니다. 
 
-### 1.1. MUTABLE 객체 테스트 코드
+### 1.1. Example of Mutable Object
+
+간단한 코드를 통해 변경 가능한 객체는 무엇인지 살펴보겠습니다. 
+
+* change_state_single_thread 메소드
+    * 객체를 생성 후 내부 멤버 변수인 value 값을 변경합니다.
+    * 결과 값이 1임을 확인합니다.
+* change_state_with_multi_thread 메소드
+    * 객체를 생성합니다.
+    * 스레드 10개를 담은 스레드 풀(thread pool)을 생성합니다.
+    * 객체의 value 값을 변경하는 작업을 여러 스레드를 통해 수행합니다.
+        * 100개의 작업을 전달합니다.
+        * 각 수행 차수(index) 값으로 객체 상태를 변경합니다.
+        * 100개의 작업을 10개의 스레드가 나눠 수행합니다.
+    * 모든 스레드가 작업을 마치길 기다립니다.
+    * 종료된 시점에 객체의 상태를 로그로 확인합니다.
 
 ```java
 package blog.in.action;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import lombok.extern.log4j.Log4j2;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-@Log4j2
-@SpringBootTest
-public class MutableTest {
+import static java.lang.Thread.MAX_PRIORITY;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-    class MutableObject {
+class MutableObject {
 
-        private int value;
+    private int value;
 
-        public MutableObject(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-    }
-
-    @Test
-    public void test() {
-        MutableObject mutableObject = new MutableObject(0);
-        log.info("값 변경 전 객체 주소: " + System.identityHashCode(mutableObject) + ", 객체 value 값: " + mutableObject.getValue());
-        mutableObject.setValue(1);
-        log.info("값 변경 후 객체 주소: " + System.identityHashCode(mutableObject) + ", 객체 value 값: " + mutableObject.getValue());
-    }
-}
-```
-
-##### 결과 로그
-- mutableObject 변수에 새로운 객체를 하나 할당합니다.
-- mutableObject이 가리키는 객체의 멤버 변수 value를 변경합니다.
-- 로그를 통해 객체의 주소 값은 변경이 없지만 객체 내부의 value 값은 변경되었음을 확인할 수 있습니다.
-
-```
-2021-04-05 21:52:03.364  INFO 12388 --- [           main] blog.in.action.java.MutableTest          : 값 변경 전 객체 주소: 1200189587, 객체 value 값: 0
-2021-04-05 21:52:03.364  INFO 12388 --- [           main] blog.in.action.java.MutableTest          : 값 변경 후 객체 주소: 1200189587, 객체 value 값: 1
-```
-
-##### MUTABLE 객체 값 변경 이미지
-<p align="center"><img src="/images/mutable-immutable-object-1.gif" width="65%"></p>
-
-### 1.2. MUTABLE 객체 사용시 주의점
-Java에선 객체가 참조를 통해 공유되기 때문에 어떤 스레드에서 객체의 값을 변경할지 모릅니다. 
-그렇기 때문에 MUTABLE 객체는 자연스럽게 **'thread-not-safe'** 하게 됩니다. 
-
-## 2. IMMUTABLE 객체
-
-> unchanging over time or unable to be changed.
-
-IMMUTABLE 이라는 단어를 사전에서 찾아보면 `'변경될 수 없다.'`는 의미를 가지고 있습니다. 
-MUTABLE 객체와 반대로 객체 생성 이후에 객체의 속성이 변할 수 없음을 의미합니다. 
-대표적인 IMMUTABLE 객체인 String 클래스를 이용한 테스트를 통해 IMMUTABLE 객체의 특징을 알아보겠습니다. 
-
-### 2.1. IMMUTABLE 객체 테스트 코드
-```java
-package blog.in.action;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
-@SpringBootTest
-public class ImmutableTest {
-
-    // ...
-
-    @Test
-    public void test() {
-        String str = "A";
-        log.info("값 변경 전 객체 주소: " + System.identityHashCode(str) + ", 객체 value 값: " + str);
-        // str = str + "B";
-        str = str.concat("B");
-        log.info("값 변경 후 객체 주소: " + System.identityHashCode(str) + ", 객체 value 값: " + str);
-    }
-}
-
-```
-
-##### 결과 로그
-- str 변수에 새로운 객체를 하나 할당합니다.
-- str 변수가 가리키는 객체의 concat 메소드를 이용하여 문자열을 추가합니다.
-- 로그를 통해 str 변수가 객체가 가르키는 객체의 주소와 값이 변경되었음을 확인할 수 있습니다.
-
-```
-2021-04-05 21:57:13.500  INFO 9516 --- [           main] blog.in.action.java.ImmutableTest        : 값 변경 전 객체 주소: 1080882047, 객체 value 값: A
-2021-04-05 21:57:13.501  INFO 9516 --- [           main] blog.in.action.java.ImmutableTest        : 값 변경 후 객체 주소: 541434985, 객체 value 값: AB
-```
-
-##### IMMUTABLE 객체 값 변경 이미지
-<p align="center"><img src="/images/mutable-immutable-object-2.gif" width="65%"></p>
-
-### 2.2. 대표적인 Java IMMUTABLE 객체
-- String, Boolean, Integer, Float, Long, Double
-
-### 2.3. IMMUTABLE 객체를 사용하여 얻는 장단점
-##### 장점
-- 생성자, 접근 메소드에 대한 방어 복사가 필요없습니다.
-- 멀티 스레드 환경에서 동기화 처리없이 객체를 공유할 수 있습니다. (thread-safe) 
-- 불변이기 때문에 객체가 안전합니다.
-
-##### 단점
-- 객체가 가지는 값마다 새로운 객체가 필요하므로 메모리 누수의 위험이 존재합니다.
-- 객체를 계속 생성해야하기 때문에 성능 저하를 발생시킬 수 있습니다.
-
-### 2.4. IMMUTABLE 객체 만드는 방법
-- 멤버 변수를 final로 선언합니다.
-- 접근 메소드를 제공하지 않습니다. 
-
-```java
-class ImmutableObject {
-
-    private final int value;
-
-    public ImmutableObject(int value) {
+    public MutableObject(int value) {
         this.value = value;
     }
 
     public int getValue() {
         return value;
     }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+}
+
+@Slf4j
+public class MutableTest {
+
+    @Test
+    void change_state_single_thread() {
+
+        final MutableObject mutableObject = new MutableObject(0);
+
+
+        mutableObject.setValue(1);
+
+
+        assertThat(mutableObject.getValue(), equalTo(1));
+    }
+
+    @Test
+    void change_state_with_multi_thread() throws InterruptedException {
+
+        final MutableObject mutableObject = new MutableObject(0);
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int index = 0; index < 100; index++) {
+            final int value = index;
+            executorService.submit(() -> {
+                mutableObject.setValue(value);
+            });
+        }
+        executorService.shutdown();
+        executorService.awaitTermination(MAX_PRIORITY, TimeUnit.HOURS);
+
+
+        log.info("result - {}", mutableObject.getValue());
+    }
 }
 ```
 
+##### Result of Test
+
+`change_state_single_thread` 메소드는 정상적으로 테스트가 통과하므로 살펴보지 않겠습니다. 
+아래 로그는 `change_state_with_multi_thread` 메소드 수행 결과입니다. 
+
+* 최종 값이 98입니다.
+* 다중 스레드에 의해 처리되면서 매번 결과가 달라집니다. 
+
+```
+23:32:15.953 [main] INFO blog.in.action.MutableTest - result - 98
+```
+
+### 1.2. Conclusion
+
+상태가 변경될 수 있다는 의미는 변수가 가르키는 객체가 바뀌는 것이 아닙니다. 
+`final` 키워드가 붙은 변수로 객체를 참조한다고 해당 객체가 불변이 되는 것은 아닙니다. 
+
+특정 객체가 자신의 상태를 변경시킬 수 있는 기능을 외부로 노출했다면 `변경 가능한(mutable) 객체`라고 판단할 수 있습니다. 
+변경 가능한 객체는 외부 흐름(혹은 제어)에 의해 상태가 변경되면서 의도치 않은 결과가 발생할 수 있습니다. 
+이를 `스레드 안전하지 않다(not thread safe)`고 표현합니다.
+
+<p align="center">
+    <img src="/images/mutable-immutable-object-1.gif" width="80%">
+</p>
+
+## 2. Immutable Object
+
+> 변경될 수 없는 객체
+
+생성된 이후에 상태가 변경되지 않는 객체를 의미합니다. 
+불변 객체라고 표현합니다.
+
+### 2.1. Example of Immutable Object
+
+불변 객체의 특징을 테스트 코드를 통해 살펴보겠습니다.
+
+* change_state_single_thread 메소드
+    * 문자열 객체의 concat 메소드를 사용해 `Kang`을 추가합니다.
+    * concat 메소드를 통해 변경되는 값은 `Junhyunny Kang` 입니다.
+    * immutableObject 변수가 참조하는 객체의 값은 `Junhyunny`로 변함이 없습니다.
+* change_state_with_multi_thread 메소드
+    * 문자열 객체를 생성합니다.
+    * 스레드 10개를 담은 스레드 풀(thread pool)을 생성합니다.
+    * 객체의 value 값을 변경하는 작업을 여러 스레드를 통해 수행합니다.
+        * concat 메소드를 사용해 ` Kang`을 추가합니다.
+        * 100개의 작업을 전달합니다.
+        * 100개의 작업을 10개의 스레드가 나눠 수행합니다.
+    * 모든 스레드가 작업을 마치길 기다립니다.
+    * immutableObject 변수가 참조하는 객체의 값은 `Junhyunny`로 변함이 없습니다.
+
+```java
+package blog.in.action;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Thread.MAX_PRIORITY;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+@Slf4j
+public class ImmutableTest {
+
+    @Test
+    public void change_state_single_thread() {
+
+        final String immutableObject = "Junhyunny";
+
+
+        assertThat(immutableObject.concat(" Kang"), equalTo("Junhyunny Kang"));
+        assertThat(immutableObject, equalTo("Junhyunny"));
+    }
+
+    @Test
+    public void change_state_with_multi_thread() throws InterruptedException {
+
+        final String immutableObject = "Junhyunny";
+
+
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int index = 0; index < 100; index++) {
+            final int value = index;
+            executorService.submit(() -> {
+                immutableObject.concat(" Kang");
+            });
+        }
+        executorService.shutdown();
+        executorService.awaitTermination(MAX_PRIORITY, TimeUnit.HOURS);
+
+
+        assertThat(immutableObject, equalTo("Junhyunny"));
+    }
+}
+```
+
+### 2.2. Conclusion
+
+예시에서 보듯이 `Java`에서 문자열은 변경이 불가능합니다. 
+변경이 발생하는 연산은 내부 상태를 바꾸는 것이 아니라 새로운 객체를 만들어 반환합니다. 
+내부 상태가 변경되지 않기 때문에 여러 스레드에 의해 공유되어도 문제가 없습니다. 
+이를 `스레드 안전하다(thread safe)`고 표현합니다. 
+
+`Java`의 대표적인 불변 객체는 String, Boolean, Integer, Float, Long, Double 등이 있습니다. 
+불변 객체를 사용하면 다음과 같은 장점이 있습니다. 
+
+* 생성자, 접근 메소드에 대한 방어 복사가 필요하지 않습니다.
+* 멀티 스레드 환경에서 동기화 처리 없이 객체를 공유할 수 있습니다.
+
+다음과 같은 단점이 있습니다. 
+
+* 객체의 상태가 변경될 때마다 새로 생성해야하기 때문에 성능 저하나 메모리 누수의 위험이 존재합니다.
+
+<p align="center">
+    <img src="/images/mutable-immutable-object-2.gif" width="80%">
+</p>
+
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-05-mutable-immutable-object>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-04-05-mutable-immutable-object>
 
 #### REFERENCE
-- <https://limkydev.tistory.com/68>
+
+* <https://limkydev.tistory.com/68>

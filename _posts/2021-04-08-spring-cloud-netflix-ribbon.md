@@ -10,70 +10,95 @@ last_modified_at: 2021-08-25T01:00:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Cloud Netflix Eureka][eureka-link]
-- [FeignClient with Eureka][feign-with-eureka-link]
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Spring Cloud Openfeign][spring-cloud-openfeign-link]
+* [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
+* [FeignClient with Eureka][feign-with-eureka-link]
 
 ## 1. Netflix Ribbon
-MSA를 성공적으로 구축한 대표적인 기업인 Netflix는 쉬운 MSA 구축을 돕는 다양한 기술들과 이슈에 대한 해결책들을 Netflix OSS(open source software)를 통해 제공합니다. 
-Ribbon도 Eureka, Hystrix와 마찬가지로 Netflix가 제공하는 컴포넌트 중 하나입니다. 
-Ribbon은 HTTP 및 TCP 클라이언트의 동작에 대한 제어를 제공하는 **클라이언트 사이드 로드 밸런서(client-side load balancer)**입니다. 
-Feign은 이미 Ribbon을 사용하고 있으므로 @FeignClient를 사용하면 함께 적용됩니다.
 
-### 1.1. Spring Cloud Netflix Components
-- Eureka - Service Discovery & Registry
-- Hystrix - Fault Tolerance Library(Circuit Breaker) 
-- Zuul- API Gateway  
-- Ribbon - Client Side Loadbalancer
+> Client Side Load Balancer
 
-## 2. 클라이언트 사이드 로드 밸런서(client-side load balancer)
-클라이언트 사이드 로드 밸런서(client-side load balancer)이 정확히 어떤 개념인지 알고 넘어가도록 하겠습니다. 
-우선 반대되는 개념인 서버 사이드 로브 밸런서(server-side load balancer)에 대해 이야기해보겠습니다. 
-서버 사이드 로드 밸런서는 L4 스위치 같은 H/W를 이용하는 방식입니다. 
+리본(ribbon)은 TCP/HTTP 클라이언트 동작을 제어하는 클라이언트 사이드 로드 밸런서(client side load balancer)입니다. 
+클라이언트 사이드 로드 밸런서는 요청을 보내는 클라이언트 측에서 서버의 부하 분산을 위해 직접 나눠 호출하는 행위입니다. 
+서버 사이드 로드 밸런서(server side load balancer)와 구분하여 알아보겠습니다. 
 
-##### 서버 사이드 로드 밸런서(server-side load balancer)
-<p align="center"><img src="/images/spring-cloud-netflix-ribbon-1.JPG" width="50%"></p>
+### 1.1. Server Side Load Balancer
+
+서버 사이드 로드 밸런서는 다음과 같은 특징을 가집니다. 
+
+* 보통 하드웨어(hardware) 기반으로 처리합니다.
+    * 하드웨어 기반은 상대적으로 비용이 많이 들어갑니다.
+* 클라이언트는 서버 사이드 로드 밸런서에게 요청을 보냅니다.
+* 서버 사이드 로드 밸런서는 해당 요청을 처리하는 서버들에 대한 정보를 알고 있습니다.
+    * 많은 요청을 처리하기 위해 비즈니스적으로 같은 기능을 수행하는 서버가 여러 개 존재합니다.
+* 요청을 서버들에게 나눠 전달합니다.
+* 해당 방법은 클라우드 환경에서 유연성이 떨어집니다.
+    * 수시로 컨테이너가 죽고, 살아나는 과정에서 IP가 변경되기 때문에 서버 사이드 로드 밸런싱은 어렵습니다.
+
+<p align="center">
+    <img src="/images/spring-cloud-netflix-ribbon-1.JPG" width="80%" class="image__border">
+</p>
 <center>https://sabarada.tistory.com/54</center>
 
-서버 사이드 로드 밸런서를 사용하는 경우 다음과 같은 한계가 존재합니다. 
-- H/W 기반이므로 상대적으로 비용이 많이 소모됩니다.
-- H/W 스위치가 서버 목록에 대한 정보를 알고 있어야 로드 밸런싱이 가능합니다.
-- H/W 스위치의 서버 목록은 수동으로 추가해야하므로 클라우드 환경에서 유연성이 떨어집니다.
 
-<br/> 
+### 1.2. Client Side Load Balancer
 
-[Spring Cloud Netflix Eureka][eureka-link] 포스트에서 설명했듯이 
-클라우드 환경에선 인스턴스들의 IP, PORT 정보에 대한 변경이 잦아 서버 사이드 로드 밸런서는 크게 유용하지 못합니다. 
-**이를 S/W 적인 방식으로 보완한 방법이 클라이언트 사이드 로드 밸런서입니다.**
-마이크로서비스 아키텍처는 서비스들끼리 협업하는 세상입니다. 
-그렇기 때문에 서비스는 클라이언트의 요청을 받아주는 서버가 될 수도 있고 다른 서비스에게 도움을 요청하는 클라이언트가 될 수도 있습니다. 
+클라이언트 사이드 로드 밸런서는 다음과 같은 특징을 가집니다. 
 
-##### 클라이언트 사이드 로드 밸런서(client-side load balancer)
-<p align="center"><img src="/images/spring-cloud-netflix-ribbon-2.JPG" width="50%"></p>
+* 소프트웨어적인 방법으로 처리합니다.
+* 클라이언트는 동일한 비즈니스를 처리하는 서버들에게 요청을 나눠 보냅니다.
+    * 클라이언트는 요청 분산을 위해 라운드 로빈(round robin) 같은 부하 분산 전략을 사용합니다.
+* 중앙 집중형 로드 밸런서로 인해 발생하는 문제가 없습니다.
+    * 로드 밸런서 다운으로 인한 장애가 발생하지 않습니다.
+    * 로드 밸런서에 집중되는 부하가 없으므로 병목 현상이 완화됩니다. 
+
+<p align="center">
+    <img src="/images/spring-cloud-netflix-ribbon-2.JPG" width="80%" class="image__border">
+</p>
 <center>https://sabarada.tistory.com/54</center>
 
-클라이언트 사이드 로드 밸런서는 클라우드 환경에서 다음과 같은 이점을 얻을 수 있습니다.
-- 어플리케이션에서 서버 리스트를 관리하므로 Scale Out 등으로 인해 서버 리스트가 변경되어도 유연한 대응이 가능합니다.
-- S/W 기능이므로 H/W 증설과 같은 추가적인 비용이 발생하지 않습니다.
-- 로드 밸런서 서버의 다운으로 인해 장애가 서비스 전체로 전파되는 것을 막을 수 있습니다.
-- 서버 사이드 로드 밸런서처럼 병목 지점이 발생되지 않습니다.
+## 2. Functionality of Ribbon
 
-## 3. Ribbon 주요 기능
-### 3.1. RULE
-IRule 인터페이스는 로드 밸런스 방식을 지정하기 위해 사용합니다. 
-IRule 인터페이스 구현체들은 로드 밸런싱을 수행하기 위한 기준을 제공합니다. 
-application.yml 파일에 **`{clientName}.ribbon.NFLoadBalancerRuleClassName`** 설정을 통해 기준을 제공하는 클래스를 지정할 수 있습니다. 
-개발자가 직접 IRule 인터페이스를 구현한 클래스를 만들어 로드 밸런스 기준을 커스터마이징 할 수 있습니다.
+`FeignClient`를 사용하면 자동으로 리본이 적용됩니다. 
+이번 포스트에선 예제 코드 없이 리본이 해주는 일에 대해서만 정리하였습니다. 
+간단한 로드 밸런싱 기능을 확인하려면 [FeignClient with Eureka][feign-with-eureka-link] 포스트를 참조바랍니다.
 
-IRule 인터페이스를 구현한 클래스들입니다.
-- com.netflix.loadbalancer.RoundRobinRule 
-  - 서비스를 돌아가면서 연결하는 방식(default)
-- com.netflix.loadbalancer.AvailabilityFilteringRule
-  - 가용성이 높은것부터 연결하는 방식, Ribbon에 내장된 별도의 Circuit Breaker 모듈을 이용
-- com.netflix.loadbalancer.WeightedResponseTimeRule 
-  - 응답 시간이 빠른 서비스 인스턴스부터 연결하는 방식
+### 2.1. Rule
 
-##### application.yml 설정 예시
+> 로드 밸런싱 전략을 지정합니다. 
+
+`IRule` 인터페이스를 통해 전략을 정의합니다. 
+`IRule` 인터페이스를 구현한 클래스들 중 하나를 선택하여 로드 밸런싱 방식을 결정합니다. 
+개발자가 직접 구현한 클래스를 만들어 사용해도 됩니다. 
+application.yml 파일에 특정 설정을 통해 로드 밸런싱 전략 클래스를 지정합니다. 
+다음과 같은 클래스들이 존재합니다.
+
+* com.netflix.loadbalancer.RoundRobinRule 
+    * 서비스를 돌아가면서 연결하는 방식입니다.
+    * 기본 방식입니다.
+* com.netflix.loadbalancer.AvailabilityFilteringRule
+    * 가용성이 높은것부터 연결하는 방식입니다.
+    * 리본에 내장된 별도의 회로 차단기(circuit breaker) 모듈을 이용합니다.
+* com.netflix.loadbalancer.WeightedResponseTimeRule 
+    * 응답 시간이 빠른 서비스 인스턴스부터 연결하는 방식입니다.
+
+##### application.yml
+
+* `{clientName}.ribbon.NFLoadBalancerRuleClassName` 설정을 사용합니다.
+* 추가적으로 .properties(혹은 .yml) 파일에 아래 설정을 추가하면 개발자가 커스터마이징한 기능들을 사용할 수 있습니다.
+    * `{clientName}.ribbon.NFLoadBalancerClassName`
+        * Should implement ILoadBalancer
+    * `{clientName}.ribbon.NFLoadBalancerRuleClassName`
+        * Should implement IRule
+    * `{clientName}.ribbon.NFLoadBalancerPingClassName`
+        * Should implement IPing
+    * `{clientName}.ribbon.NIWSServerListClassName`
+        * Should implement ServerList
+    * `{clientName}.ribbon.NIWSServerListFilterClassName`
+        * Should implement ServerListFilter
+
 ```yml
 users:
   ribbon:
@@ -81,7 +106,8 @@ users:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
 ```
 
-##### IRule 인터페이스
+##### IRule Interface
+
 ```java
 public interface IRule {
     /*
@@ -100,17 +126,22 @@ public interface IRule {
 }
 ```
 
-### 3.2. PING
-IPing 인터페이스는 각 서버가 살아있는지 검사하는 역할을 수행합니다. 
-더 이상 살아있지 않는 서버는 로드 밸런싱을 위한 서비스 목록에서 제거합니다. 
-개발자가 직접 IPing 인터페이스를 구현한 클래스를 만들어 PING 기능을 커스터마이징 할 수 있습니다.
+### 2.2. Ping
 
-IPing 인터페이스를 구현한 클래스들입니다.
-- com.netflix.loadbalancer.DummyPing (default)
-- com.netflix.niws.loadbalancer.NIWSDiscoveryPing 
-  - 각 서버들이 유레카에 여전히 등록되어 있는지 주기적으로 확인
+> 서버가 살아있는지 감시하는 역할을 수행합니다. 
 
-##### IPing 인터페이스
+`IPing` 인터페이스를 구현한 클래스를 통해 요청할 서버들이 살아있는지 검사합니다. 
+만약, 서버가 죽었다면 로드 밸런싱을 위한 서비스 목록에서 제거합니다. 
+개발자가 직접 구현한 클래스를 만들어 사용해도 됩니다. 
+다음과 같은 클래스들이 존재합니다.
+
+* com.netflix.loadbalancer.DummyPing
+    * 기본 방식입니다.
+* com.netflix.niws.loadbalancer.NIWSDiscoveryPing 
+    * 각 서버들이 유레카에 여전히 등록되어 있는지 주기적으로 확인합니다.
+
+##### IPing Interface
+
 ```java
 public interface IPing {
     
@@ -123,18 +154,22 @@ public interface IPing {
 }
 ```
 
-### 3.3. SERVER LIST
-ServerList 인터페이스는 대상 서버 목록을 제공합니다. 
-서버 목록은 동적이거나 정적일 수 있습니다. 
-동적인 경우에 백그라운드 스레드에 의해 일정한 간격으로 서버 목록이 업데이트됩니다. 
+### 2.3. ServerList
 
-ServerList 인터페이스를 구현한 클래스들입니다.
-- com.netflix.loadbalancer.ConfigurationBasedServerList 
-  - 서버 목록을 .properties(혹은 .yml)을 통해 획득
-- com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList 
-  - 유레카 서버로부터 얻은 서버 목록을 획득
+> 서버 목록을 제공합니다. 
 
-##### ServerList 인터페이스
+`ServerList` 인터페이스는 대상 서버 목록을 제공합니다. 
+서버 목록은 함께 연계되는 컴포넌트 유무에 따라 동적이거나 정적입니다. 
+동적인 경우 백그라운드 스레드에 의해 일정간 시간 간격으로 목록이 갱신됩니다.
+다음은 `ServerList` 인터페이스를 구현한 클래스들입니다.
+
+* com.netflix.loadbalancer.ConfigurationBasedServerList 
+    * 서버 목록을 .properties(혹은 .yml)을 통해 획득합니다.
+* com.netflix.niws.loadbalancer.DiscoveryEnabledNIWSServerList 
+    * 유레카 서버로부터 얻은 서버 목록을 획득합니다.
+
+##### ServerList Interface
+
 ```java
 public interface ServerList<T extends Server> {
 
@@ -149,25 +184,15 @@ public interface ServerList<T extends Server> {
 }
 ```
 
-## CLOSING
-이번 포스트는 테스트 코드 없이 설명 위주로 작성하였습니다. 
-Ribbon은 Eureka, FeignClient를 사용하면 함께 적용되기 때문에 @RibbonClient 애너테이션을 이용한 테스트 코드는 별도로 작성하지 않았습니다. 
-[FeignClient with Eureka][feign-with-eureka-link] 포스트에서 FeignClient, Eureka 컴포넌트를 함께 사용할 때 로드 밸런싱이 동작하는 테스트 코드를 확인하실 수 있습니다. 
-
-추가적으로 .properties(혹은 .yml) 파일에 아래 설정을 추가하여 개발자가 커스터마이징한 기능들을 사용할 수 있습니다.
-- **`{clientName}.ribbon.NFLoadBalancerClassName`**: Should implement ILoadBalancer
-- **`{clientName}.ribbon.NFLoadBalancerRuleClassName`**: Should implement IRule
-- **`{clientName}.ribbon.NFLoadBalancerPingClassName`**: Should implement IPing
-- **`{clientName}.ribbon.NIWSServerListClassName`**: Should implement ServerList
-- **`{clientName}.ribbon.NIWSServerListFilterClassName`**: Should implement ServerListFilter
-
 #### REFERENCE
-- <https://sabarada.tistory.com/54>
-- <https://gunju-ko.github.io/spring-cloud/netflixoss/2018/12/14/Ribbon.html>
-- <https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-ribbon.html>
-- <https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/>
-- <https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/>
-- <https://www.linkedin.com/pulse/microservices-client-side-load-balancing-amit-kumar-sharma>
 
-[eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
+* <https://sabarada.tistory.com/54>
+* <https://gunju-ko.github.io/spring-cloud/netflixoss/2018/12/14/Ribbon.html>
+* <https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-ribbon.html>
+* <https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/>
+* <https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/>
+* <https://www.linkedin.com/pulse/microservices-client-side-load-balancing-amit-kumar-sharma>
+
+[spring-cloud-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
+[spring-cloud-netflix-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-eureka/
 [feign-with-eureka-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/

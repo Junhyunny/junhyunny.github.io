@@ -1,5 +1,5 @@
 ---
-title: "Slack Chatbot 개발"
+title: "Slack Chatbot"
 search: false
 category:
   - side-project

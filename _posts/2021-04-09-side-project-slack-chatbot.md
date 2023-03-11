@@ -10,56 +10,34 @@ last_modified_at: 2021-08-25T00:00:00
 
 ## 0. 들어가면서
 
-공부하다 흘러들어간 블로그에 GitHub 일일 commit 여부를 알려주는 Slack 채팅 봇 개발기를 보았습니다.([일일커밋 알림봇 개발기][mingrammer-blog-link]) 
-**`'기능도 간단해 보이는데 Java 언어로 개발한 사람이 없다면 내가 만들어볼까?'`** 
-하던 공부는 접고 바로 개발에 착수했습니다. 
-Slack 어플리케이션을 안 사용하고 있었기 때문에 일단 다운받고 채팅 봇 만드는 방법을 찾아봤습니다. 
+토이 프로젝트로 간단한 어플리케이션을 만들고 싶었습니다. 
+백엔드(backend) 관련된 기술만 다룰 줄 아는 탓에 간단한 어플리케이션을 기능을 만들어 보는 것도 쉽지 않았습니다. 
+그러던 중 [일일커밋 알림봇 개발기][mingrammer-blog-link]에 대한 글을 보게 되었습니다. 
+해당 글이나 대부분의 레퍼런스들이 파이썬(python)으로 개발되어 있기 때문에 저는 Java로 만들어보았습니다. 
 
-## 1. Slack 봇 등록
-Slack 어플리케이션이랑 안 친해서 많이 헤맸습니다. 
-[Python으로 Slack Bot 만들기][python-slack-chatbot-blog-link] 포스트를 참고해서 간신히 채널 생성과 채팅 봇 등록을 했습니다. 
+## 1. Make Slack Bot 
 
-## 2. Slack API 테스트
-이제 봇도 등록했으니 본격적으로 코드를 작성했습니다. 
-Slack API 기능과 GitHub API 기능을 이어 붙히면 되기 때문에 먼저 필요한 Slack API 기능들을 찾아봤습니다. 
-기능 테스트 시 겪은 간단한 이슈들만 정리해보겠습니다. 
+우선 슬랙 봇(bot)이 하나 필요합니다. 
+슬랙 API 요청을 수행할 땐 토큰(token) 정보가 필요합니다.  
+자세한 설명은 아래 링크를 참조하시고 따라해보면서 토큰을 하나 발급 받습니다.
 
-### 2.1. Slack 채널 정보 조회 기능
-[Python으로 Slack Bot 만들기][python-slack-chatbot-blog-link] 포스트를 보면 이상한 느낌을 받았습니다. 
-보통 Content-Type 같은 정보는 HTTP Header를 통해 전달하는데 참고한 코드를 보면 쿼리 parameter로 전달하는 느낌? 
-일단 해당 포스트를 작성한 분은 성공한 것으로 보이나 내 방식대로 Content-Type 정보는 HTTP Header로 전달하기로 했습니다.
+* [Python으로 Slack Bot 만들기][python-slack-chatbot-blog-link] 
 
-#### 2.1.1. [Python으로 Slack Bot 만들기] 참조한 코드
-```python
-# 채널 조회 API 메소드: conversations.list
-URL = 'https://slack.com/api/conversations.list'
+## 2. Test Slack API
 
-# 파라미터
-params = {
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'token': slack_token
-          }
+슬랙 봇이 등록되었다면 간단한 API 요청 기능을 테스트합니다. 
+`RestTemplate` 클래스를 사용하여 API 요청을 수행합니다. 
+요청 자체는 매우 단순하기 때문에 해당 기능을 구현하면서 만난 문제들에 대해 정리하였습니다. 
 
-# API 호출
-res = requests.get(URL, params = params)
-```
+### 2.1. Search Channel 
 
-##### 채널 조회 요청 실패 로그, Slack 인증 에러
-```
-2021-04-09 19:26:50.695  INFO 10572 --- [           main] io.junhyunny.SlackChatBotTest            : {ok=false, error=invalid_auth}
-```
+Slack 워크스페이스(workspace)에서 사용하는 
 
-역시나 실패. 
-**`음~, 그래도 역시 URL에 노출하고 싶지 않은데? 다른 방법 없을까?`** 
-Slack API 문서를 뒤지다보니 다른 방법이 있었습니다. 
-확인해보니 HTTP Header로 전달하려면 Content-Type을 **`application/json`**, 
-Request Parameter 혹은 Request Body로 전달하려면 **`application/x-www-form-urlencoded`** 사용합니다. 
-또, HTTP Header에서 토큰 정보는 Authorization 키워드를 키로 전달하고, 토큰 앞에 Bearer 키워드를 추가합니다. 
+* Slack API 관련된 문서를 살펴보면 다음과 같은 내용이 있습니다. 
+* 헤더 인가(Authorization) 항목에 `Bearer`를 추가하고, 토큰을 함께 전달합니다.
+* `WRITE` 기능을 수행하는 메소드에 `application/json` 타입을 사용합니다.
+* 토큰을 쿼리 파라미터로 바디(body)에 담아 던지고 싶으면 `application/x-www-form-urlencoded`을 사용합니다.
 
-##### Slack API 문서
-<p align="center"><img src="/images/side-project-slack-chatbot-1.JPG" width="75%"></p>
-
-### 2.1.2. Slack 채널 정보 조회 테스트 코드
 ```java
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
@@ -83,37 +61,16 @@ Request Parameter 혹은 Request Body로 전달하려면 **`application/x-www-fo
     }
 ```
 
-### 2.2. Slack 채널에 글 작성 기능
-이제 채널에 글 작성을 위한 요청을 하는 코드를 작성합니다. 
+##### Slack API Document
 
-#### 2.2.1. [Python으로 Slack Bot 만들기] 참조한 코드
-```python
-# 파라미터
-data = {'Content-Type': 'application/x-www-form-urlencoded',
-        'token': slack_token,
-        'channel': channel_id, 
-        'text': message,
-        'reply_broadcast': 'True', 
-        'thread_ts': ts
-        } 
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-1.JPG" width="80%" class="image__border">
+</p>
 
-# 메세지 등록 API 메소드: chat.postMessage
-URL = "https://slack.com/api/chat.postMessage"
-res = requests.post(URL, data=data)
-```
+### 2.2. Write Message on Slack Channel
 
-##### Warning 발견, warning=missing_charset
-```
-2021-04-09 19:54:17.638  INFO 8476 --- [           main] io.junhyunny.SlackChatBotTest            : result: {ok=true, ... warning=missing_charset, response_metadata={warnings=[missing_charset]}}
-```
+채널에 글 작성을 위한 API 요청 코드를 작성합니다.
 
-뭔지 모르겠지만 해결해야지 속이 시원할 것 같습니다. 
-StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 발생한 것으로 보입니다. 
-
-##### StackOverflow 답변
-<p align="center"><img src="/images/side-project-slack-chatbot-2.JPG" width="75%"></p>
-
-#### 2.2.2. Slack 채널에 글 작성하기 테스트 코드
 ```java
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Test
@@ -149,31 +106,37 @@ StackOverflow 답변을 보니 HTTP Header에 인코딩 타입을 안 넣어서 
     }
 ```
 
-##### Slack 채널에 글 작성하기 테스트 결과
-<p align="center"><img src="/images/side-project-slack-chatbot-3.JPG" width="30%"></p>
+##### Result of Write Message on Slack Channel
 
-## 3. GitHub API 테스트
+<p align="left">
+    <img src="/images/side-project-slack-chatbot-2.JPG" width="45%" class="image__border">
+</p>
 
-### 3.1. pom.xml - 의존성 추가
-Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러리를 이용하는 것으로 보입니다. 
+## 3. Test GitHub API
 
-```xml
-<dependency>
-    <groupId>org.kohsuke</groupId>
-    <artifactId>github-api</artifactId>
-</dependency>
-```
+슬랙에 필요한 API 요청은 모두 확인하였습니다. 
+이번엔 깃허브(github) API 요청을 테스트합니다.
 
-해당 라이브러리에서 필요한 기능을 제공하지 않는 것 같아서 사용하지 않기로 했습니다. 
-제가 필요한 기능은 간단합니다. 
-특정 사용자의 repository 정보들과 해당 repository에 오늘 push 한 이력이 있는지만 확인하면 되기 때문에 GitHub API 문서를 찾아봤습니다. 
-딱 원하는 기능을 발견했습니다. 
-각 repository 별로 마지막 push 시간까지 알려주기 때문에 해당 API를 사용하기로 결정했습니다.
+### 3.1. Github API Document
 
-##### GitHub API
-<p align="center"><img src="/images/side-project-slack-chatbot-4.JPG" width="75%"></p>
+Java를 사용한 어플리케이션은 주로 **`github-api`** 라이브러리를 사용하는 것으로 보입니다. 
+찾아보니 해당 라이브러리에서 필요한 기능을 따로 제공하지 않는 것으로 보여 직접 구현하기로 결정했습니다. 
+다음과 같은 기능이 필요했습니다. 
 
-### 3.2. 사용자 GitHub repository push 이력 확인
+> 특정 사용자의 저장소(repository) 정보들과 해당 저장소에 오늘 푸시(push)한 이력을 확인한다. 
+
+API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트가 이미 있었습니다. 
+그래서 해당 API 요청을 사용하기로 결정했습니다. 
+
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-4.JPG" width="80%" class="image__border">
+</p>
+
+### 3.2. Check Push History for Github Repository
+
+* API 요청을 통해 다음과 같은 데이터를 추출합니다.
+* 저장소 이름과 푸시 시간을 확인합니다.
+
 ```java
     @SuppressWarnings({ "unchecked" })
     @Test
@@ -198,6 +161,7 @@ Java 언어를 사용하는 개발자들은 주로 **`github-api`** 라이브러
 ```
 
 ## 4. AWS Lambda 어플리케이션 등록하기
+
 AWS는 사용해본 적이 없어서 이 작업을 하는데 제일 시간이 오래 걸렸습니다. 
 [일일커밋 알림봇 개발기][mingrammer-blog-link] 포스트를 보면 특정 시간부터 트리거를 통해 어플리케이션을 동작시키는 기능인 것으로 추정됩니다. 
 일단 AWS Lambda 기능이 무엇인지 찾아보고 Java 어플리케이션을 올리는 방법을 알아봤습니다. 
@@ -210,21 +174,26 @@ Java Application의 경우 아래와 같은 과정이 필요한데 API 문서를
 Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜주는 EventBridge(CloudWatch Events) 트리거를 등록합니다. 
 
 ##### Slack Chatbot AWS Lambda 구성
+
 <p align="center"><img src="/images/side-project-slack-chatbot-5.JPG"></p>
 
 ### 4.1. Lambda 어플리케이션 등록
+
 빌드 .jar를 올려주고 RequestStreamHandler 인터페이스를 구현한 클래스를 등록합니다. 
 
 ##### .jar 파일 업로드 및 RequestStreamHandler 인터페이스 구현 클래스 등록
+
 <p align="center"><img src="/images/side-project-slack-chatbot-6.JPG"></p>
 
 ### 4.2. Event Trigger 주기 설정 및 요청 parameter 등록
+
 프로그램에 repository 사용자 정보, Slack token 정보, Slack Channel 정보가 코드에 하드 코딩되어 있으면 
 불필요한 정보가 노출되기 때문에 아래와 같은 요청 parameter로 전달하기로 했습니다. 
 EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter를 등록할 수 있는 Console 화면이 존재합니다. 
 해당 화면에서 주기와 요청 parameter를 등록합니다. 
 
 ##### AWS Lambda 요청 parameter
+
 ```json
 {
   "owner": "your github repository user name",

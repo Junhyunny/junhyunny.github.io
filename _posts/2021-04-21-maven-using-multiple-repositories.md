@@ -1,5 +1,5 @@
 ---
-title: "Maven - multiple remote repository 사용하기"
+title: "Using Multiple Remote Repositories in Maven"
 search: false
 category:
   - information
@@ -9,32 +9,44 @@ last_modified_at: 2021-08-28T01:00:00
 
 <br/>
 
-## 1. 문제 상황
+## 1. Context of the problem
 
-최근 공공 기관 레거시 시스템의 기능 확장 프로젝트를 맡게 되었습니다. 
-형상 관리가 잘 되고 있지 않아서 컴파일이 되지 않는 기존 레거시 시스템 코드를 전달받았을 땐 굉장히 당황스러웠습니다. 
-기존 시스템 운영자도 인수인계 받은 뒤에 한번도 빌드해 본 적이 없다는 말에 할 말을 잃었습니다. 
-컴파일 에러가 나는 클래스들의 의존성(dependency)을 찾아서 pom.xml에 추가하는 중에 이상한 문제가 발생했습니다. 
+공공 기관 레거시 시스템 기능 확장 프로젝트를 진행하게 되었는데 레거시 코드를 보자마자 당혹스러웠습니다. 
+형상 관리가 잘 되고 있지 않아서 컴파일이 되지 않는 상태였습니다. 
+라이브러리들을 프로젝트 폴더에 직접 관리하고 있었는데, 없는 의존성(dependency)들이 있었습니다. 
+프로젝트 빌드 툴(tool)을 메이븐(maven)으로 변경하고, 필요한 의존성들을 원격에서 받기로 결정하였습니다.  
 
-##### Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
-<p align="left"><img src="/images/maven-using-multiple-repositories-1.JPG" width="75%"></p>
+##### Error when build
 
-실제 [MVN Repository][mvn-repository-link]를 보면 해당 라이브러리를 제공하는 것처럼 보입니다. 
-메이븐(maven)은 해당 라이브러리를 찾지 못 했는데, 그 이유는 `https://repo.maven.apache.org/maven2` 저장소에는 없기 때문입니다. 
+다음과 같은 에러가 발생했습니다.
 
-## 2. Maven - Multi Remote Repository 사용하기
-실제로 해당 라이브러리는 `https://maven.onehippo.com/maven2/` 저장소에서 관리되고 있습니다. 
-해당 라이브러리 버전 오른편을 보면 다음과 같은 링크를 발견할 수 있었습니다. 
+* 원격 저장소에 해당 의존성이 존재하지 않는다는 에러입니다. 
 
-##### OneHippo Repository
-<p align="center"><img src="/images/maven-using-multiple-repositories-2.JPG" width="80%"></p>
+```
+Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
+```
 
-> **`'기본 central repository가 아니라 다른 remote repository에 존재하는구나!'`** 
+<p align="left">
+    <img src="/images/maven-using-multiple-repositories-1.JPG" width="80%" class="image__border">
+</p>
 
-삽질을 통해 또 한가지 배움을 얻었습니다. 
-다른 저장소에 있다는 사실을 알았으니 다른 저장소에서 해당 의존성을 가져오기 위한 설정을 추가할 차례입니다. 
+## 2. Solving the problem
 
-##### pom.xml - 다른 원격 저장소 추가하기
+[메이븐 저장소][simplecaptcha-link]를 가면 해당 라이브러리를 제공하는 것처럼 보이지만, 실제론 다른 저장소에 의존성이 존재합니다. 
+실제 저장소의 URL을 확인하고, 이를 `pom.xml` 파일에 명시해주면 문제를 해결할 수 있습니다. 
+
+##### Check Repository
+
+* 실제 저장소는 오른쪽의 `Repository` 버튼을 통해 확인합니다. 
+
+<p align="center">
+    <img src="/images/maven-using-multiple-repositories-2.JPG" width="80%" class="image__border">
+</p>
+
+##### Declare Real Repository URL
+
+* `pom.xml` 파일에 `url` 정보를 명시합니다. 
+
 ```xml
     <repositories>
         <repository>
@@ -45,10 +57,9 @@ last_modified_at: 2021-08-28T01:00:00
     </repositories>
 ```
 
-##### 정상적인 의존성 추가 확인
-<p align="left"><img src="/images/maven-using-multiple-repositories-3.JPG" width="50%"></p>
-
 #### REFERENCE
-- <https://maven.apache.org/guides/mini/guide-multiple-repositories.html>
 
-[mvn-repository-link]: https://mvnrepository.com/artifact/nl.captcha/simplecaptcha/1.2.1
+* <https://maven.apache.org/guides/mini/guide-multiple-repositories.html>
+* <https://mvnrepository.com/artifact/nl.captcha/simplecaptcha/1.2.1>
+
+[simplecaptcha-link]: https://mvnrepository.com/artifact/nl.captcha/simplecaptcha/1.2.1

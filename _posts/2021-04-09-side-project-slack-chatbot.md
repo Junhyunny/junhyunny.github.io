@@ -258,7 +258,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 ##### Move to EventBridge Setup Page
 
-어플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동합니다. 
+* 어플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동합니다. 
 
 <p align="center">
     <img src="/images/side-project-slack-chatbot-6.JPG" width="100%" class="image__border">
@@ -266,7 +266,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 ##### Setup Cron Job 
 
-이벤트 트리거 주기를 설정합니다. 
+* 이벤트 트리거 주기를 설정합니다. 
 
 <p align="center">
     <img src="/images/side-project-slack-chatbot-7.JPG" width="80%" class="image__border">
@@ -274,7 +274,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 ##### Setup Parameters for Slack Bot
 
-코드에 공개하고 싶지 않은 값들은 람다의 파라미터로 등록합니다. 
+* 코드에 공개하고 싶지 않은 값들은 람다의 파라미터로 등록합니다. 
 
 ```json
 {
@@ -292,9 +292,9 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 이번에 개발한 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없다면 1시간 간격으로 메세지를 전달합니다. 
 
-<div align="left" width="60%" class="image__border">
-  <img src="/images/side-project-slack-chatbot-9.JPG">
-  <img src="/images/side-project-slack-chatbot-10.JPG">
+<div align="left">
+    <img src="/images/side-project-slack-chatbot-9.JPG" width="30%" class="image__border">
+    <img src="/images/side-project-slack-chatbot-10.JPG" width="30%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

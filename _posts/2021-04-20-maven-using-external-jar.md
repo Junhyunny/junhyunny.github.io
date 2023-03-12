@@ -1,5 +1,5 @@
 ---
-title: "Maven - external jar 사용하기"
+title: "Using External Jar in Maven"
 search: false
 category:
   - information
@@ -9,20 +9,29 @@ last_modified_at: 2021-08-28T01:00:00
 
 <br/>
 
-## 1. external jar - dependency 추가하기
-다음과 같은 규칙으로 dependency를 추가하면 됩니다. 
-- External dependencies (library jar location) can be configured in pom.xml in same way as other dependencies.
-- Specify groupId same as the name of the library.
-- Specify artifactId same as the name of the library.
-- Specify scope as system.
-- Specify system path relative to the project location.
+## 1. Add External Jar as Dependency
 
-규칙대로 필요한 라이브러리를 **`/src/libs`** 폴더에 옮겨 놓고 pom.xml 파일에 아래와 같이 의존성을 추가합니다.
+다음과 같은 규칙을 따라 `pom.xml` 파일에 의존성을 추가합니다. 
 
-##### /src/libs 폴더
-<p align="left"><img src="/images/maven-using-external-jar-1.JPG" width="75%"></p>
+* External dependencies (library jar location) can be configured in pom.xml in same way as other dependencies.
+* Specify groupId same as the name of the library.
+* Specify artifactId same as the name of the library.
+* Specify scope as system.
+* Specify system path relative to the project location.
 
-##### pom.xml 파일
+##### Library Directory
+
+* 필요한 의존성들을 프로젝트 특정 폴더에 옮겨 놓습니다. 
+    * 예시에선 `/src/libs` 폴더를 사용하였습니다.
+
+<p align="center">
+    <img src="/images/maven-using-external-jar-1.JPG" width="80%" class="image__border">
+</p>
+
+##### pom.xml
+
+* `pom.xml`에 프로젝트 디렉토리를 상대 경로로 의존성을 추가합니다.
+
 ```xml
     <dependency>
         <groupId>commons-httpclient</groupId>
@@ -31,7 +40,6 @@ last_modified_at: 2021-08-28T01:00:00
         <version>3.0.1</version>
         <systemPath>${basedir}/src/libs/commons-httpclient-3.0.1.jar</systemPath>
     </dependency>
-
     <dependency>
         <groupId>commons-httpclient-contrib</groupId>
         <artifactId>commons-httpclient-contrib</artifactId>
@@ -42,4 +50,5 @@ last_modified_at: 2021-08-28T01:00:00
 ```
 
 #### REFERENCE
-- <https://www.tutorialspoint.com/maven/maven_external_dependencies.htm>
+
+* <https://www.tutorialspoint.com/maven/maven_external_dependencies.htm>

@@ -1,0 +1,32 @@
+---
+title: "@JsonProperties Annotation"
+search: false
+category:
+  - spring-boot
+  - spring-cloud
+last_modified_at: 2023-03-04T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 1. Pain point of legacy system dependencies
+
+레거시 시스템에서 일부 기능이 새로운 서비스로 개발되면 필연적으로 레거시에 대한 의존성(dependency)가 발생합니다. 
+ 
+새로운 서비스를 만들더라도 기존 레거시에 대한 의존성이 
+
+## 2. How to solve this pain point?
+
+### 2.1. 
+
+## 2. @JsonProperties Annotation
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE

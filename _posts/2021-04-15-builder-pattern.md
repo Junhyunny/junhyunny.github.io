@@ -435,8 +435,8 @@ class NutritionFacts {
 OKKY 커뮤니티에서 본 빌더 패턴에 관련된 글들이 읽고 참고할만한 내용이라 포스트 마지막에 추가하였습니다. 
 
 <p align="center">
-    <img src="/images/builder-pattern-2.JPG" width="47.5%">
-    <img src="/images/builder-pattern-3.JPG" width="47.5%">
+    <img src="/images/builder-pattern-2.JPG" width="47.5%" class="image__border">
+    <img src="/images/builder-pattern-3.JPG" width="47.5%" class="image__border">
 </p>
 <center>https://okky.kr/article/396206</center>
 

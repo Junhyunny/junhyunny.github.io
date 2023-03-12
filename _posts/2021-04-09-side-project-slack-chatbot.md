@@ -174,12 +174,72 @@ API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트(endp
 
 AWS(amazone web service)는 많이 사용해보지 않아서 어려웠습니다. 
 이번에 사용한 AWS 람다(lambda)는 특정 시간마다 트리거를 통해 필요한 로직이 수행됩니다. 
-`Java`로 개발한 코드를 실행시키는 방법은 다음과 같습니다.
+`Java`로 개발하는 방법은 다음과 같습니다. 
 
-1. [RequestStreamHandler 인터페이스 구현 클래스 작성하기][java-handler-link]
-1. [.zip(혹은 .jar) 파일로 배포하기][java-deploy-link]
-1. 람다 어플리케이션 등록하기
+1. [RequestStreamHandler 인터페이스 구현][java-handler-link]
+1. [zip(혹은 jar) 파일 빌드 및 배포][java-deploy-link]
     * 주기적으로 어플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결합니다.
+
+### 4.1. Implementation RequestStreamHandler Interface
+
+전체 코드는 아래 깃허브 저장소에서 확인바랍니다.
+
+* 미리 AWS 람다에 등록한 토큰이나 사용자 정보를 추출합니다. 
+* 추출한 정보에 해당하는 깃허브 레포지토리 정보를 가져옵니다.
+* 커밋 이력이 없다면 슬랙으로 메세지를 전송합니다.
+
+```java
+package io.junhyunny.chatbot;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import io.junhyunny.chatbot.github.Github;
+import io.junhyunny.chatbot.slack.Slack;
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
+public class LambdaSlackChatBot implements RequestStreamHandler {
+
+	public LambdaSlackChatBot() {}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("US-ASCII")))) {
+			Map<String, Object> event = gson.fromJson(reader, HashMap.class);
+			log.info("event: " + event);
+			String owner = (String) event.get("owner");
+			String slackToken = (String) event.get("slackToken");
+			String channelName = (String) event.get("channelName");
+			Github github = new Github(owner);
+			if (!github.doCommitToday()) {
+				Slack slack = new Slack(slackToken);
+				slack.sendPushMessage(channelName);
+			}
+		} catch (Exception exception) {
+			log.info(exception.toString(), exception);
+		}
+	}
+}
+```
+
+### 4.2. Deploy
+
+메이븐(maven) 프로젝트이므로 `mvn package` 등의 명령어를 통해 jar 파일을 만들 수 있습니다. 
+빌드한 jar 파일을 배포하는 과정을 위주로 정리하였습니다. 
 
 ##### AWS Lambda Structure for Slack Bot
 
@@ -232,9 +292,9 @@ AWS(amazone web service)는 많이 사용해보지 않아서 어려웠습니다.
 
 이번에 개발한 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없다면 1시간 간격으로 메세지를 전달합니다. 
 
-<div align="left" class="image__border">
-  <img src="/images/side-project-slack-chatbot-9.JPG" width="30%">
-  <img src="/images/side-project-slack-chatbot-10.JPG" width="30%">
+<div align="left" width="60%" class="image__border">
+  <img src="/images/side-project-slack-chatbot-9.JPG">
+  <img src="/images/side-project-slack-chatbot-10.JPG">
 </div>
 
 #### TEST CODE REPOSITORY

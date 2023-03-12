@@ -109,7 +109,7 @@ Slack 워크스페이스(workspace)에서 사용하는
 ##### Result of Write Message on Slack Channel
 
 <p align="left">
-    <img src="/images/side-project-slack-chatbot-2.JPG" width="45%" class="image__border">
+    <img src="/images/side-project-slack-chatbot-2.JPG" width="35%" class="image__border">
 </p>
 
 ## 3. Test GitHub API
@@ -125,11 +125,21 @@ Java를 사용한 어플리케이션은 주로 **`github-api`** 라이브러리�
 
 > 특정 사용자의 저장소(repository) 정보들과 해당 저장소에 오늘 푸시(push)한 이력을 확인한다. 
 
-API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트가 이미 있었습니다. 
-그래서 해당 API 요청을 사용하기로 결정했습니다. 
+API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트(endpoint)가 있었습니다. 
+해당 API를 사용하기로 결정했습니다. 
+
+* GET 요청을 보냅니다.
+* /users/{username}/repos 경로를 호출합니다.
+* 다음과 같은 파라미터가 필요합니다.
+    * accept
+    * username
+    * type
+    * sort
+    * direction
+    * per_page
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-4.JPG" width="80%" class="image__border">
+    <img src="/images/side-project-slack-chatbot-3.JPG" width="80%" class="image__border">
 </p>
 
 ### 3.2. Check Push History for Github Repository
@@ -160,39 +170,51 @@ API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트가 �
     }
 ```
 
-## 4. AWS Lambda 어플리케이션 등록하기
+## 4. AWS Lambda
 
-AWS는 사용해본 적이 없어서 이 작업을 하는데 제일 시간이 오래 걸렸습니다. 
-[일일커밋 알림봇 개발기][mingrammer-blog-link] 포스트를 보면 특정 시간부터 트리거를 통해 어플리케이션을 동작시키는 기능인 것으로 추정됩니다. 
-일단 AWS Lambda 기능이 무엇인지 찾아보고 Java 어플리케이션을 올리는 방법을 알아봤습니다. 
+AWS(amazone web service)는 많이 사용해보지 않아서 어려웠습니다. 
+이번에 사용한 AWS 람다(lambda)는 특정 시간마다 트리거를 통해 필요한 로직이 수행됩니다. 
+`Java`로 개발한 코드를 실행시키는 방법은 다음과 같습니다.
 
-Java Application의 경우 아래와 같은 과정이 필요한데 API 문서를 읽어보면 쉽게 이해할 수 있습니다.
 1. [RequestStreamHandler 인터페이스 구현 클래스 작성하기][java-handler-link]
 1. [.zip(혹은 .jar) 파일로 배포하기][java-deploy-link]
+1. 람다 어플리케이션 등록하기
+    * 주기적으로 어플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결합니다.
 
-위 과정을 걸쳐서 배포에 필요한 .jar 파일을 만들었으면 이제 Lamda 어플리케이션을 등록해보겠습니다. 
-Lambda 어플리케이션과 주기적으로 어플리케이션을 동작시켜주는 EventBridge(CloudWatch Events) 트리거를 등록합니다. 
+##### AWS Lambda Structure for Slack Bot
 
-##### Slack Chatbot AWS Lambda 구성
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-4.JPG" width="100%" class="image__border">
+</p>
 
-<p align="center"><img src="/images/side-project-slack-chatbot-5.JPG"></p>
+##### Register Slack Chat Bot at AWS Lambda
 
-### 4.1. Lambda 어플리케이션 등록
+* 빌드된 jar 파일을 업로드합니다.
+* RequestStreamHandler 인터페이스를 구현한 클래스를 등록합니다. 
 
-빌드 .jar를 올려주고 RequestStreamHandler 인터페이스를 구현한 클래스를 등록합니다. 
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-5.JPG" width="100%" class="image__border">
+</p>
 
-##### .jar 파일 업로드 및 RequestStreamHandler 인터페이스 구현 클래스 등록
+##### Move to EventBridge Setup Page
 
-<p align="center"><img src="/images/side-project-slack-chatbot-6.JPG"></p>
+어플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동합니다. 
 
-### 4.2. Event Trigger 주기 설정 및 요청 parameter 등록
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-6.JPG" width="100%" class="image__border">
+</p>
 
-프로그램에 repository 사용자 정보, Slack token 정보, Slack Channel 정보가 코드에 하드 코딩되어 있으면 
-불필요한 정보가 노출되기 때문에 아래와 같은 요청 parameter로 전달하기로 했습니다. 
-EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter를 등록할 수 있는 Console 화면이 존재합니다. 
-해당 화면에서 주기와 요청 parameter를 등록합니다. 
+##### Setup Cron Job 
 
-##### AWS Lambda 요청 parameter
+이벤트 트리거 주기를 설정합니다. 
+
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-7.JPG" width="80%" class="image__border">
+</p>
+
+##### Setup Parameters for Slack Bot
+
+코드에 공개하고 싶지 않은 값들은 람다의 파라미터로 등록합니다. 
 
 ```json
 {
@@ -202,42 +224,32 @@ EventBridge(CloudWatch Events) 설정에 들어가면 주기 설정과 parameter
 }
 ```
 
-##### EventBridge 설정 편집 화면 이동
-<p align="center"><img src="/images/side-project-slack-chatbot-7.JPG"></p>
+<p align="center">
+    <img src="/images/side-project-slack-chatbot-8.JPG" width="80%" class="image__border">
+</p>
 
-##### Event Trigger 주기 설정
-<p align="center"><img src="/images/side-project-slack-chatbot-8.JPG" width="75%"></p>
+## 5. Check Application
 
-##### Event Trigger 요청 parameter 등록
-<p align="center"><img src="/images/side-project-slack-chatbot-9.JPG" width="75%"></p>
+이번에 개발한 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없다면 1시간 간격으로 메세지를 전달합니다. 
 
-## 5. Slack Chatbot 배포 후 확인
-내 Slack Chatbot은 오후 6시 59분부터 1시간 간격으로 11시 59분까지 GitHub repository에 push 이력이 없으면 commit 하라는 메세지를 전달합니다. 
-일부러 push 하지 않고 commit 독촉 메세지가 오기를 기다려봤습니다. 
-과연... 결과는?
-
-##### Message from Slack Chatbot
-<div align="center">
+<div align="left" class="image__border">
+  <img src="/images/side-project-slack-chatbot-9.JPG" width="30%">
   <img src="/images/side-project-slack-chatbot-10.JPG" width="30%">
-  <img src="/images/side-project-slack-chatbot-11.JPG" width="30%">
 </div>
 
-정상적으로 동작합니다. 앞으로 공부하라는 메세지를 받을 일만 남았습니다.
-간단한 chatbot 개발기를 작성해봤는데 개발하는 시간보다 개발한 내용들을 정리하는게 더 시간이 오래 걸렸습니다. 
-정리하는 일이 귀찮기는 하지만 정리해놓으면 나중에 필요한 날이 올 것이라 믿습니다. 
-공부나 일을 하다가 필요한 기능이 생기면 자동화 할 방법이 있는지 궁리해보면서 이런 프로그램 개발기들을 하나씩 늘려가야겠습니다. 
-
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/slack-chatbot>
+
+* <https://github.com/Junhyunny/slack-chatbot>
 
 #### REFERENCE
-- <https://mingrammer.com/dev-commit-alarm-bot/>
-- <https://wooiljeong.github.io/python/slack-bot/>
-- <https://api.slack.com/legacy/oauth#authenticating-users-with-oauth__using-access-tokens>
-- <https://stackoverflow.com/questions/63550032/slackbot-openmodal-error-missing-charset>
-- <https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user>
-- <https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html>
-- <https://docs.aws.amazon.com/lambda/latest/dg/java-package.html>
+
+* <https://mingrammer.com/dev-commit-alarm-bot/>
+* <https://wooiljeong.github.io/python/slack-bot/>
+* <https://api.slack.com/legacy/oauth#authenticating-users-with-oauth__using-access-tokens>
+* <https://stackoverflow.com/questions/63550032/slackbot-openmodal-error-missing-charset>
+* <https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user>
+* <https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html>
+* <https://docs.aws.amazon.com/lambda/latest/dg/java-package.html>
 
 [mingrammer-blog-link]: https://mingrammer.com/dev-commit-alarm-bot/
 [python-slack-chatbot-blog-link]: https://wooiljeong.github.io/python/slack-bot/

@@ -162,11 +162,16 @@ Connection: keep-alive
 
 ## CLOSING
 
-쿠키와 세션에 대한 많은 글들을 살펴보면 둘의 특성과 차이점을 비교해두었는데, 쿠키와 세션은 서로 비교 대상이 아닙니다. 
-서로 다른 클라이언트, 서버 측 어플리케이션(application)에서 사용하는 저장소이며, 둘을 적절하게 조합해야지 사용자에게 좋은 서비스가 가능하다는 점에 집중해야 합니다. 
+쿠키와 세션에 대한 글들을 살펴보면 둘의 특성과 차이점을 비교해두었는데, 쿠키와 세션은 서로 비교 대상이 아닙니다. 
+쿠키는 클라이언트, 세션은 서버 측 어플리케이션(application)에서 사용하는 저장소이기 때문에 성격이 다릅니다. 
+오히려 쿠키는 브라우저의 세션 스토리지, 로컬 스토리지와 비교하는 것이 적절하다는 생각이 듭니다. 
+
+쿠키는 브라우저에 의해 자동으로 처리되고, 세션은 톰캣(tomcat) 미들웨어를 기반으로 동작하는 서버에선 손쉽게 만들고 다룰 수 있기 때문에 둘의 조합을 많이 사용합니다. 
+개발자는 둘을 적절히 조합하여 사용자에게 좋은 서비스를 제공해야한다는 점에 집중해야 합니다. 
 
 #### RECOMMEND NEXT POSTS
 
+* [HTTP(HyperText Transfer Protocol)][http-link]
 * [Deep Dive into Cookie][cookie-attributes-link]
 * [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
 * [Session Management in Tomcat][tomcat-session-management-link]
@@ -189,6 +194,7 @@ Connection: keep-alive
 [local-storage-link]: https://junhyunny.github.io/information/local-storage/
 [session-storage-link]: https://junhyunny.github.io/information/session-storage/
 [tomcat-session-management-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
+[http-link]: https://junhyunny.github.io/information/http/
 [cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/
 [cross-site-reqeust-forgery-link]: https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/
 [spring-session-link]: https://junhyunny.github.io/information/spring-boot/spring-session/

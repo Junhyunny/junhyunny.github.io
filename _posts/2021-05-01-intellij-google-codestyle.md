@@ -69,7 +69,7 @@ last_modified_at: 2021-08-28T03:00:00
 * 구글 코드 스타일 XML 파일을 지정해 스키마를 추가합니다.  
 
 <p align="center">
-    <img src="/images/intellij-google-codestyle-1.JPG" width="80%" class="image__border">
+    <img src="/images/intellij-google-codestyle-2.JPG" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

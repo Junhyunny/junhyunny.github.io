@@ -1,5 +1,5 @@
 ---
-title: "Jacoco Maven Plugin"
+title: "JaCoCo Maven Plugin"
 search: false
 category:
   - information
@@ -358,7 +358,7 @@ $ mvn install
 ##### Result of Code Coverage
 
 <p align="left">
-    <img src="/images/maven-jacoco-2.JPG" width="50%" class="image__border">
+    <img src="/images/maven-jacoco-2.JPG" width="80%" class="image__border">
 </p>
 
 ## CLOSING
@@ -442,7 +442,7 @@ $ mvn clean install
 ```
 
 <p align="left">
-    <img src="/images/maven-jacoco-3.JPG" width="50%" class="image__border">
+    <img src="/images/maven-jacoco-3.JPG" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

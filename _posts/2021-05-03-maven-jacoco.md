@@ -1,5 +1,5 @@
 ---
-title: "Maven JaCoCo 적용하기"
+title: "Maven Plugin Jacoco"
 search: false
 category:
   - information
@@ -9,38 +9,35 @@ last_modified_at: 2021-08-28T03:00:00
 
 <br/>
 
-## 0. 들어가면서
+#### RECOMMEND POSTS BEFORE THIS
 
-안정적인 서비스 개발을 위해 코드 커버리지 측정을 수행하자고 팀원들에게 제시하였습니다.
-테스트 커버리지 적용을 위한 도구들 중 어떤 것이 좋을지 찾아보았습니다. 
-저희 팀은 JAVA 언어를 사용하고 있기 때문에 `JaCoCo` 플러그인이 좋을 것 같습니다. 
-팀원들에게 `JaCoCo` 플러그인을 적용하는 과정을 정리하여 공유해야겠습니다. 
+* [Maven Lifecycle and Plugins for Test][maven-lifecycle-and-surfire-failsafe-plugins-link]
 
-`JaCoCo` 플러그인에 대한 설명은 공식 레퍼런스의 소개하는 글을 가져왔습니다. 
+## 1. JaCoCo(Java Code Coverage)
 
-> JaCoCo(Java Code Coverage)<br/>
+`Java` 기반의 어플리케이션에 적용할 수 있는 테스트 도구입니다. 
+코드 커버리지(code coverage)는 테스트 코드가 구현체 코드 전체 중 얼만큼 실행시켰는지에 대한 지표입니다. 
+`JaCoCo`는 코드 커버리지에 대한 리포트(report)를 만들어 주는 것이 주된 목적입니다. 
+
 > JaCoCo is a free code coverage library for Java, which has been created by the EclEmma team based on the lessons learned from using and integration existing libraries for many years. 
 
-테스트 커버리지를 강제할 수 있는 JaCoCo 플러그인을 적용하면 얻을 수 있는 이점에 대해 생각해보았습니다. 
-- 안정적인 시스템을 구축할 수 있습니다.
-- 개발자가 생각하지 못한 버그를 개발 단계에서 잡아낼 수 있습니다. 
-- 테스트 코드를 적용하면서 필요한 리팩토링을 수행하면서 좋은 코드 작성할 수 있다.
+## 2. Maven Plugin JaCoCo
 
-## 1. pom.xml - JaCoCo 플러그인 추가
+메이븐 플러그인으로 `JaCoCo`를 추가한 후 골(goal)을 등록할 수 있습니다. 
+메이븐 골로 등록하면 CLI(command line interface)를 통해 동작을 자동화시킬 수 있습니다. 
 
-이제 본격적으로 JaCoCo 플러그인을 적용해보도록 하겠습니다. 
-우선 JaCoCo 플러그인을 pom.xml 파일에 추가합니다. 
-추가한 내용을 바탕으로 각 설정에 대해 정리해보겠습니다. 
+### 2.1. pom.xml
+
+설정 파일의 전체 모습을 보고, 각 설정 별로 자세하게 살펴보겠습니다. 
 
 ```xml
     <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>0.8.6</version>
+        <version>0.8.8</version>
         <configuration>
             <excludes>
-                <!-- Exclude class from test coverage -->
-                <exclude>**/*com/geneuin/spring/*Application.class</exclude>
+                <exclude>**/action/in/blog/*Application.class</exclude>
             </excludes>
         </configuration>
         <executions>
@@ -72,6 +69,8 @@ last_modified_at: 2021-08-28T03:00:00
                                     <minimum>0.80</minimum>
                                 </limit>
                             </limits>
+                        </rule>
+                        <rule>
                             <element>METHOD</element>
                             <limits>
                                 <limit>
@@ -88,249 +87,374 @@ last_modified_at: 2021-08-28T03:00:00
     </plugin>
 ```
 
-### 1.1. JaCoCo Execution Goal
+### 2.2. Exclude Code
 
-`<plugin> </plugin>` 태그를 이용해 JaCoCo 플러그인을 추가합니다. 
-`<executions> </executions>` 태그 내부를 살펴보면 플러그인 실행에 대한 내용을 정리하고 있는 것으로 보입니다. 
-JaCoCo 플러그인을 적용할 때 알아야하는 goal, rule 등에 대해 정리해보겠습니다. 
-
-- help - jacoco-maven-plugin의 도움말을 보여주는 명령입니다.
-- prepare-agent - 테스트 중인 어플리케이션에서 인수를 전달하는 JaCoCo Runtime Agent에 대한 property를 준비하는 명령입니다.
-- prepare-agent-integration - prepare-agent와 같은 기능을 하지만 integration test에 대해서 기본 설정 값들을 제공하는 명령입니다.
-- merge - 여러 개의 실행 데이터 파일들을 하나의 파일들로 통합하는 명령입니다.
-- report - 하나의 프로젝트의 테스트에 대한 code coverage 리포트를 생성하는 명령입니다.
-- report-integration - report와 같은 기능을 하지만 integration test에 대해서 기본 설정 값들을 제공하는 명령입니다.
-- aggregate - reacter 안에 있는 여러 프로젝트로부터 code coverage 리포트를 생성하는 명령입니다.
-- check - code coverage metric이 충돌하는지 확인하는 명령입니다.
-- dump - TCP 서버 모드에서 실행중인 JaCoCo Agent로부터 TCP/IP 덤프(dump)를 요청하는 명령입니다.
-- instrument - 오프라인 측정을 수행하는 명령. 테스트 실행 후 ‘restore-instrumented-classes’ 명령으로 원본 클래스 파일들을 저장해야 합니다. 
-- restore-instrumented-class - 오프라인 측정 이전에 원본 파일들을 저장하는 명령입니다. 
-
-### 1.2. JaCoCo Rule
-
-- JaCoCo 플러그인 코드 커버리지 기준을 설정할 때 다음과 같은 속성들이 있습니다.
-- Element type - 코드 커버리지 체크 기준
-  - BUNDLE (default) - 패키지 번들
-  - PACKAGE - 패키지
-  - CLASS - 클래스
-  - SOURCEFILE - 소스파일
-  - METHOD - 메소드
-- Counter - 코드 커버리지를 측정할 때 사용하는 지표
-  - LINE - 빈 줄을 제외한 실제 코드의 라인 수
-  - BRANCH - 조건문 등의 분기 수
-  - CLASS - 클래스 수
-  - METHOD - 메소드 수
-  - INSTRUCTION (default) - Java 바이트 코드 명령 수. Java bytecode instruction listings
-  - COMPLEXITY - 복잡도. 자세한 복잡도 계산은 Coverage Counters - JaCoCo docs 참고
-- Value - 커버한 정도를 나타내는 지표
-  - TOTALCOUNT - 전체 개수
-  - MISSEDCOUNT - 커버되지 않은 개수
-  - COVEREDCOUNT - 커버된 개수
-  - MISSEDRATIO - 커버되지 않은 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
-  - COVEREDRATIO (default) - 커버된 비율. 0부터 1 사이의 숫자로, 1이 100%입니다.
-
-### 1.3. JaCoCo 설정 예시
-
-#### 1.3.1. 특정 클래스 테스트 커버리지 측정 제외
-- 서비스 Run을 수행하는 main 메소드가 있는 *Application.class는 테스트 커버리지 측정에서 제거
+특정 코드를 테스트 커버리지 측정에서 제외할 수 있습니다. 
+해당 포스트에선 `main` 메소드가 포함된 ActionInBlogApplication 클래스는 제외하였습니다. 
 
 ```xml
     <configuration>
         <excludes>
-            <!-- Exclude class from test coverage -->
-            <exclude>**/*com/geneuin/spring/*Application.class</exclude>
+            <exclude>**/action/in/blog/*Application.class</exclude>
         </excludes>
     </configuration>
 ```
 
-#### 1.3.2. 측정 기준
-- 패키지 번들 단위로 바이트 코드 명령 수에 80% 미만 수행 시 에러
-- 메소드의 라인 수가 30이 초과되는 경우 에러
+### 2.3. Goals
+
+`JaCoCo` 플러그인을 사용하면 다음과 같은 골들을 설정할 수 있습니다.
+
+* help
+    * `jacoco-maven-plugin` 사용을 위한 도움말을 볼 수 있습니다. 
+* prepare-agent
+    * `JaCoCo` 런타임 에이전트에게 테스트 커버리지 측정을 위한 JVM 실행 인수들을 전달합니다.
+    * 해당 골을 정의해야지 테스트 커버리지를 측정할 수 있습니다.
+    * `maven-surefire-plugin`와 함께 사용할 수 있습니다.
+* prepare-agent-integration
+    * `prepare-agent`와 동일하지만, 결합 테스트(integration test)에 적합합니다.
+* merge
+    * 실행 데이터 파일 집합을 단일 파일로 병합합니다.
+* report
+    * 단일 프로젝트에서 테스트에 대한 코드 커버리지 리포트를 다양한 형식으로 만들어냅니다.
+    * HTML, XML, CSV
+* report-integration
+    * `report`와 동일하지만, 결합 테스트에 적합합니다.
+* report-aggregate
+    * 다중 프로젝트에서 테스트에 대한 코드 커버리지 리포트를 다양한 형식으로 만들어냅니다.
+    * HTML, XML, CSV
+* check
+    * 코드 커버리지 메트릭(metric)이 충족되는지 확인합니다.
+    * 쉽게 설명하면 코드 커버리지에 대한 기준을 정의합니다.
+* dump
+    * TCP 서버 모드에서 실행 중인 `JaCoCo` 에이전트로부터 덤프(dump)를 요청합니다.
+* instrument
+    * 오프라인(offline) 측정을 수행하는 명령입니다.
+* restore-instrumented-classes
+    * 오프라인 측정 이전에 원본 파일들을 저장합니다. 
+
+### 2.4. Rules
+
+`check` 골 하위에 코드 커버리지에 대한 기준을 정의할 수 있습니다. 
+다음과 같은 기준들이 존재합니다.
+
+* Element type 
+    * 코드 커버리지를 체크하는 기준이며 다음과 같은 기준들이 존재합니다.
+    * BUNDLE(default)
+    * PACKAGE
+    * CLASS
+    * SOURCEFILE
+    * METHOD
+* Counter 
+    * 코드 커버리지를 측정할 때 사용하는 지표이며 다음과 같은 지표들이 존재합니다.
+    * LINE
+    * BRANCH
+    * CLASS
+    * METHOD
+    * INSTRUCTION(default)
+    * COMPLEXITY 
+* Value 
+    * 코드 커버리지에 대한 결과를 표시하는 방법입니다. 
+    * TOTALCOUNT
+    * MISSEDCOUNT
+    * COVEREDCOUNT
+    * MISSEDRATIO
+    * COVEREDRATIO(default)
+
+##### Example of Rules
+
+* 1번 기준
+    * 패키지 번들 단위로 확인합니다.
+    * 코드 커버리지 비율이 `Java` 바이트 코드 명령어 개수를 기준으로 80%가 넘지 못하면 실패입니다.
+* 2번 기준
+    * 메소드 단위로 확인합니다.
+    * 메소드의 코드 라인이 총 30줄이 넘어가면 실패입니다.
 
 ```xml
-    <rule>
-        <element>BUNDLE</element>
-        <limits>
-            <limit>
-                <counter>INSTRUCTION</counter>
-                <value>COVEREDRATIO</value>
-                <minimum>0.80</minimum>
-            </limit>
-        </limits>
-    </rule>
-    <rule>
-        <element>METHOD</element>
-        <limits>
-            <limit>
-                <counter>LINE</counter>
-                <value>TOTALCOUNT</value>
-                <maximum>30</maximum>
-            </limit>
-        </limits>
-    </rule>
+    <execution>
+        <id>jacoco-check</id>
+        <goals>
+            <goal>check</goal>
+        </goals>
+        <configuration>
+            <rules>
+                <rule>
+                    <element>BUNDLE</element>
+                    <limits>
+                        <limit>
+                            <counter>INSTRUCTION</counter>
+                            <value>COVEREDRATIO</value>
+                            <minimum>0.80</minimum>
+                        </limit>
+                    </limits>
+                </rule>
+                <rule>
+                    <element>METHOD</element>
+                    <limits>
+                        <limit>
+                            <counter>LINE</counter>
+                            <value>TOTALCOUNT</value>
+                            <maximum>30</maximum>
+                        </limit>
+                    </limits>
+                </rule>
+            </rules>
+        </configuration>
+    </execution>
 ```
 
-## 2. 테스트 커버리지 측정 테스트
+## 3. Practice
 
-JaCoCo 플러그인이 정상적으로 적용되었는지 확인하기 위해 테스트 코드를 작성해보았습니다. 
-다음과 같은 테스트 코드를 작성 후 maven 명령어를 수행하여 빌드가 정상적으로 수행되는지 확인하였습니다. 
-**빌드 실패를 확인하시려면 JacocoTest 클래스의 테스트 코드를 일부 주석하거나 METHOD 제약사항의 maximum 값을 2로 조정해보시면 됩니다.**
+`JaCoCo`가 정상적으로 동작하는지 확인해보겠습니다. 
 
-### 2.1. Jacoco 클래스
+### 3.1. System Under Test and Test Codes
+
+간단한 테스트 대상 클래스와 테스트 코드를 준비합니다. 
+
+#### 3.1.1. Calculator Class
 
 ```java
-package com.geneuin.spring.jacoco;
+package action.in.blog.util;
 
-/**
- * Jacoco Class
- */
-public class Jacoco {
+public class Calculator {
 
-    /**
-     * sum num1, num2
-     *
-     * @param num1 num1
-     * @param num2 num2
-     * @return result
-     */
-    int sum(int num1, int num2) {
+    public int sum(int num1, int num2) {
         return num1 + num2;
     }
 
-    /**
-     * subtract num2 from num1 .
-     *
-     * @param num1 num1
-     * @param num2 num2
-     * @return result
-     */
-    int subtract(int num1, int num2) {
+    public int subtract(int num1, int num2) {
         return num1 - num2;
     }
 
-    /**
-     * null check
-     *
-     * @param obj obj
-     * @return result
-     */
-    boolean isNull(Object obj) {
-        if (obj == null) {
-            return true;
-        }
-        return false;
+    public boolean isNull(Object obj) {
+        return obj == null;
     }
 }
 ```
 
-### 2.2. JacocoTest 클래스
+#### 3.1.2. CalculatorTests Class
 
 ```java
-package com.geneuin.spring.jacoco;
+package action.in.blog.util;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-/**
- * Jacoco Class method test
- */
-@SpringBootTest
-public class JacocoTest {
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-    /**
-     * sumTest
-     */
+public class CalculatorTests {
+
     @Test
-    public void sumTest() {
-        Assertions.assertThat(new Jacoco().sum(1, 2)).isEqualTo(3);
+    void sum() {
+        Calculator sut = new Calculator();
+        assertThat(sut.sum(1, 2), equalTo(3));
     }
 
-    /**
-     * subtractTest
-     */
     @Test
-    public void subtractTest() {
-        Assertions.assertThat(new Jacoco().subtract(1, 2)).isEqualTo(-1);
+    void subtract() {
+        Calculator sut = new Calculator();
+        assertThat(sut.subtract(1, 2), equalTo(-1));
     }
 
-    /**
-     * iNullTest
-     */
     @Test
-    public void isNullTest() {
-        Assertions.assertThat(new Jacoco().isNull(null)).isTrue();
-        Assertions.assertThat(new Jacoco().isNull(new Object())).isFalse();
+    void isNull() {
+        Calculator sut = new Calculator();
+        assertThat(sut.isNull(new Object()), equalTo(false));
+        assertThat(sut.isNull(null), equalTo(true));
     }
 }
 ```
 
-### 2.3. Maven Lifecycle
-- maven phase는 다음과 같은 순서를 가집니다. `validate > compile > test > package > install > deploy`
-- **`test`** phase 이후에 JaCoCo 플러그인에 의해 테스트 커버리지 측정이 가능하므로 **`package`** 이상부터 가능합니다.
+## 3.2. Run Maven Phase
 
-##### maven install phase 실행 명령어
+테스트에 대한 코드 커버리지 측정은 테스트 페이즈(phase)를 실행하는 페이즈들부터 가능합니다. 
+
+* test
+* package
+* integration-test
+* verify
+* install
+* deploy
+
+##### Run Install Phase
+
+* 실행 중간에 `jacoco-maven-plugin`에 정의한 골들이 실행되면서 코드 커버리지 리포트를 생성합니다.
+* `initialize` 페이즈에서 `report` 골이 실행됩니다.
+* `test` 페이즈에서 `report` 골이 실행됩니다.
+* `verify` 페이즈에서 `check` 골이 실행됩니다.
+
+```
+$ mvn install
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< action.in.blog:action-in-blog >--------------------
+[INFO] Building action-in-blog 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.8:prepare-agent (jacoco-prepare-agent) @ action-in-blog ---
+[INFO] argLine set to -javaagent:/Users/junhyunk/.m2/repository/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8-runtime.jar=destfile=/Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec,excludes=**/action/in/blog/*Application.class
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.0:resources (default-resources) @ action-in-blog ---
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ action-in-blog ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.0:testResources (default-testResources) @ action-in-blog ---
+[INFO] skip non existing resourceDirectory /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ action-in-blog ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ action-in-blog ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running action.in.blog.util.CalculatorTests
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s - in action.in.blog.util.CalculatorTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-jar-plugin:3.3.0:jar (default-jar) @ action-in-blog ---
+[INFO] Building jar: /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:3.0.4:repackage (repackage) @ action-in-blog ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.8:report (jacoco-report) @ action-in-blog ---
+[INFO] Loading execution data file /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec
+[INFO] Analyzed bundle 'action-in-blog' with 1 classes
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.8:check (jacoco-check) @ action-in-blog ---
+[INFO] Loading execution data file /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec
+[INFO] Analyzed bundle 'action-in-blog' with 1 classes
+[INFO] All coverage checks have been met.
+[INFO] 
+[INFO] --- maven-install-plugin:3.0.1:install (default-install) @ action-in-blog ---
+[INFO] Installing /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/pom.xml to /Users/junhyunk/.m2/repository/action/in/blog/action-in-blog/0.0.1-SNAPSHOT/action-in-blog-0.0.1-SNAPSHOT.pom
+[INFO] Installing /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar to /Users/junhyunk/.m2/repository/action/in/blog/action-in-blog/0.0.1-SNAPSHOT/action-in-blog-0.0.1-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.442 s
+[INFO] Finished at: 2023-03-18T22:37:34+09:00
+[INFO] ------------------------------------------------------------------------
+```
+
+##### Code Coverage Report
+
+프로젝트 `/target/site/jacoco` 경로에 `index.html` 파일로 리포트가 생성된 것을 확인할 수 있습니다. 
+
+<p align="left">
+    <img src="/images/maven-jacoco-1.JPG" width="30%" class="image__border">
+</p>
+
+##### Result of Code Coverage
+
+<p align="left">
+    <img src="/images/maven-jacoco-2.JPG" width="50%" class="image__border">
+</p>
+
+## CLOSING
+
+코드 커버리지에 대한 기준을 변경하거나 테스트를 일부 제거하면 빌드가 실패하는 것을 확인할 수 있습니다.
 
 ```
 $ mvn clean install
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< action.in.blog:action-in-blog >--------------------
+[INFO] Building action-in-blog 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.2.0:clean (default-clean) @ action-in-blog ---
+[INFO] Deleting /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.8:prepare-agent (jacoco-prepare-agent) @ action-in-blog ---
+[INFO] argLine set to -javaagent:/Users/junhyunk/.m2/repository/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8-runtime.jar=destfile=/Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec,excludes=**/action/in/blog/*Application.class
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ action-in-blog ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ action-in-blog ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ action-in-blog ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ action-in-blog ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.22.2:test (default-test) @ action-in-blog ---
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running action.in.blog.util.CalculatorTests
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 s - in action.in.blog.util.CalculatorTests
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- maven-jar-plugin:3.2.2:jar (default-jar) @ action-in-blog ---
+[INFO] Building jar: /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:2.7.8:repackage (repackage) @ action-in-blog ---
+[INFO] Replacing main artifact with repackaged archive
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.8:report (jacoco-report) @ action-in-blog ---
+[INFO] Loading execution data file /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec
+[INFO] Analyzed bundle 'action-in-blog' with 1 classes
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.8.8:check (jacoco-check) @ action-in-blog ---
+[INFO] Loading execution data file /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec
+[INFO] Analyzed bundle 'action-in-blog' with 1 classes
+[WARNING] Rule violated for bundle action-in-blog: instructions covered ratio is 0.52, but expected minimum is 0.80
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.801 s
+[INFO] Finished at: 2023-03-18T23:13:34+09:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.jacoco:jacoco-maven-plugin:0.8.8:check (jacoco-check) on project action-in-blog: Coverage checks have not been met. See log for details. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
 ```
 
-##### 테스트 커버리지 측정 내용
-- **`maven install`** 명령어를 수행하면 JaCoCo Report 파일이 생성됩니다. 
-- 해당 프로젝트의 **/target/site/jacoco/index.html** 파일을 열면 아래와 같은 화면을 확인할 수 있습니다. 
+<p align="left">
+    <img src="/images/maven-jacoco-3.JPG" width="50%" class="image__border">
+</p>
 
-<p align="center"><img src="/images/maven-jacoco-1.JPG" width="100%"></p>
+#### TEST CODE REPOSITORY
 
-## 3. 빌드 실패 시 에러 로그
-테스트 커버리지를 불만족시키기 위해 일부 테스트 코드를 주석 처리 후 테스트를 돌려보겠습니다. 
-
-### 3.1. 테스트 코드
-
-```java
-    /**
-     * iNullTest
-     */
-    @Test
-    public void isNullTest() {
-        // Assertions.assertThat(new Jacoco().isNull(null)).isTrue();
-        // Assertions.assertThat(new Jacoco().isNull(new Object())).isFalse();
-    }
-```
-
-##### 빌드 결과
-
-<p align="center"><img src="/images/maven-jacoco-2.JPG" width="100%"></p>
-<p align="center"><img src="/images/maven-jacoco-3.JPG" width="100%"></p>
-
-### 3.2. pom.xml 변경
-코드 라인 수 제약사항이 불만족하도록 pom.xml 파일을 변경합니다. 
-
-```xml
-    <rule>
-        <element>METHOD</element>
-        <limits>
-            <limit>
-                <counter>LINE</counter>
-                <value>TOTALCOUNT</value>
-                <maximum>2</maximum>
-            </limit>
-        </limits>
-    </rule>
-```
-
-##### 빌드 결과
-
-<p align="center"><img src="/images/maven-jacoco-4.JPG" width="100%"></p>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-03-maven-jacoco>
 
 #### REFERENCE
-- [코드 분석 도구 적용기 - 1편, 코드 커버리지(Code Coverage)가 뭔가요?][code-coverage-link-1]
-- [코드 분석 도구 적용기 - 2편, JaCoCo 적용하기][code-coverage-link-2]
-- <https://www.jacoco.org/jacoco/>
-- <https://kchanguk.tistory.com/53>
-- <https://bottom-to-top.tistory.com/36>
-- <https://mkyong.com/maven/jacoco-java-code-coverage-maven-example/>
-- <https://woowabros.github.io/experience/2020/02/02/jacoco-config-on-gradle-project.html>
-- <https://automationrhapsody.com/automated-code-coverage-of-unit-tests-with-jacoco-and-maven/>
 
-[code-coverage-link-1]: https://velog.io/@lxxjn0/%EC%BD%94%EB%93%9C-%EB%B6%84%EC%84%9D-%EB%8F%84%EA%B5%AC-%EC%A0%81%EC%9A%A9%EA%B8%B0-1%ED%8E%B8-%EC%BD%94%EB%93%9C-%EC%BB%A4%EB%B2%84%EB%A6%AC%EC%A7%80Code-Coverage%EA%B0%80-%EB%AD%94%EA%B0%80%EC%9A%94
-[code-coverage-link-2]: https://velog.io/@lxxjn0/%EC%BD%94%EB%93%9C-%EB%B6%84%EC%84%9D-%EB%8F%84%EA%B5%AC-%EC%A0%81%EC%9A%A9%EA%B8%B0-2%ED%8E%B8-JaCoCo-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0
+* <https://www.jacoco.org/jacoco/>
+* <https://www.eclemma.org/jacoco/trunk/doc/maven.html>
+* <https://woowabros.github.io/experience/2020/02/02/jacoco-config-on-gradle-project.html>
+* <https://mkyong.com/maven/jacoco-java-code-coverage-maven-example/>
+* <https://automationrhapsody.com/automated-code-coverage-of-unit-tests-with-jacoco-and-maven/>
+
+[maven-lifecycle-and-surfire-failsafe-plugins-link]: https://junhyunny.github.io/maven/maven-lifecycle-and-surfire-failsafe-plugins/

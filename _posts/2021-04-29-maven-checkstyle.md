@@ -31,7 +31,7 @@ XML 파일에 정의된 규칙대로 코드 스타일을 강제할 수 있습니
 파일 경로는 상관 없고, 프로젝트 코드들과 함께 관리되도록 위치시킵니다. 
 
 <p align="left">
-    <img src="/images/maven-checkstyle-1.JPG" width="45%" class="image__border">
+    <img src="/images/maven-checkstyle-1.JPG" width="30%" class="image__border">
 </p>
 
 ## 2. Customize Code Style
@@ -44,41 +44,41 @@ XML 파일에 정의된 규칙대로 코드 스타일을 강제할 수 있습니
 * 들여쓰기를 4칸으로 지정합니다.
 
 ```xml
-<!--        <module name="NonEmptyAtclauseDescription"/>-->
-<!--        <module name="InvalidJavadocPosition"/>-->
-<!--        <module name="JavadocTagContinuationIndentation"/>-->
-<!--        <module name="SummaryJavadoc">-->
-<!--            <property name="forbiddenSummaryFragments"-->
-<!--                      value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>-->
-<!--        </module>-->
-<!--        <module name="JavadocParagraph"/>-->
-<!--        <module name="RequireEmptyLineBeforeBlockTagGroup"/>-->
-<!--        <module name="AtclauseOrder">-->
-<!--            <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>-->
-<!--            <property name="target"-->
-<!--                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>-->
-<!--        </module>-->
-<!--        <module name="JavadocMethod">-->
-<!--            <property name="accessModifiers" value="public"/>-->
-<!--            <property name="allowMissingParamTags" value="true"/>-->
-<!--            <property name="allowMissingReturnTag" value="true"/>-->
-<!--            <property name="allowedAnnotations" value="Override, Test"/>-->
-<!--            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>-->
-<!--        </module>-->
-<!--        <module name="MissingJavadocMethod">-->
-<!--            <property name="scope" value="public"/>-->
-<!--            <property name="minLineCount" value="2"/>-->
-<!--            <property name="allowedAnnotations" value="Override, Test"/>-->
-<!--            <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF,-->
-<!--                                   COMPACT_CTOR_DEF"/>-->
-<!--        </module>-->
-<!--        <module name="MissingJavadocType">-->
-<!--            <property name="scope" value="protected"/>-->
-<!--            <property name="tokens"-->
-<!--                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,-->
-<!--                      RECORD_DEF, ANNOTATION_DEF"/>-->
-<!--            <property name="excludeScope" value="nothing"/>-->
-<!--        </module>-->
+<!--    <module name="NonEmptyAtclauseDescription"/>-->
+<!--    <module name="InvalidJavadocPosition"/>-->
+<!--    <module name="JavadocTagContinuationIndentation"/>-->
+<!--    <module name="SummaryJavadoc">-->
+<!--        <property name="forbiddenSummaryFragments"-->
+<!--              value="^@return the *|^This method returns |^A [{]@code [a-zA-Z0-9]+[}]( is a )"/>-->
+<!--    </module>-->
+<!--    <module name="JavadocParagraph"/>-->
+<!--    <module name="RequireEmptyLineBeforeBlockTagGroup"/>-->
+<!--    <module name="AtclauseOrder">-->
+<!--        <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>-->
+<!--        <property name="target"-->
+<!--              value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>-->
+<!--    </module>-->
+<!--    <module name="JavadocMethod">-->
+<!--        <property name="accessModifiers" value="public"/>-->
+<!--        <property name="allowMissingParamTags" value="true"/>-->
+<!--        <property name="allowMissingReturnTag" value="true"/>-->
+<!--        <property name="allowedAnnotations" value="Override, Test"/>-->
+<!--        <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF, COMPACT_CTOR_DEF"/>-->
+<!--    </module>-->
+<!--    <module name="MissingJavadocMethod">-->
+<!--        <property name="scope" value="public"/>-->
+<!--        <property name="minLineCount" value="2"/>-->
+<!--        <property name="allowedAnnotations" value="Override, Test"/>-->
+<!--        <property name="tokens" value="METHOD_DEF, CTOR_DEF, ANNOTATION_FIELD_DEF,-->
+<!--                       COMPACT_CTOR_DEF"/>-->
+<!--    </module>-->
+<!--    <module name="MissingJavadocType">-->
+<!--        <property name="scope" value="protected"/>-->
+<!--        <property name="tokens"-->
+<!--              value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,-->
+<!--              RECORD_DEF, ANNOTATION_DEF"/>-->
+<!--        <property name="excludeScope" value="nothing"/>-->
+<!--    </module>-->
 
     <module name="MissingJavadocType">
         <property name="scope" value="protected"/>
@@ -161,7 +161,7 @@ Token "LITERAL_SWITCH" was not found in Acceptable tokens list in check com.pupp
 ##### Run Package Phase with Checkstyle Goal
 
 ```
-$ mvn checkstyle:checkstyle package 
+$ mvn checkstyle:check package 
 [INFO] Scanning for projects...
 [INFO] 
 [INFO] -------------------< action.in.blog:action-in-blog >--------------------
@@ -302,7 +302,7 @@ Audit done.
 
 #### RECOMMEND NEXT POSTS
 
-* [Apply Google CodeStyle in IntelliJ][google-codestyle-link]
+* [Apply Google CodeStyle for IntelliJ][google-codestyle-link]
 
 #### REFERENCE
 

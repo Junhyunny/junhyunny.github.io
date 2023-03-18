@@ -1,5 +1,5 @@
 ---
-title: "Maven Plugin Jacoco"
+title: "Jacoco Maven Plugin"
 search: false
 category:
   - information
@@ -15,9 +15,9 @@ last_modified_at: 2021-08-28T03:00:00
 
 ## 1. JaCoCo(Java Code Coverage)
 
-`Java` 기반의 어플리케이션에 적용할 수 있는 테스트 도구입니다. 
+`Java` 기반의 어플리케이션 테스트에 적용할 수 있는 리포트(report) 도구입니다. 
 코드 커버리지(code coverage)는 테스트 코드가 구현체 코드 전체 중 얼만큼 실행시켰는지에 대한 지표입니다. 
-`JaCoCo`는 코드 커버리지에 대한 리포트(report)를 만들어 주는 것이 주된 목적입니다. 
+`JaCoCo`는 코드 커버리지에 대한 리포트를 만들어 주는 것이 주된 목적입니다. 
 
 > JaCoCo is a free code coverage library for Java, which has been created by the EclEmma team based on the lessons learned from using and integration existing libraries for many years. 
 

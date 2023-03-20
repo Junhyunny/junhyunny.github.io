@@ -204,7 +204,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 ##### Response Header
 
 * 컨텐츠 인코딩(encoding)이 `gzip`으로 표시됩니다.
-    * 컨텐츠 사이즈는 46.9 킬로바이트(kb)로 표시됩니다.
+    * 컨텐츠 사이즈는 원래 사이즈는 144kB, 작아진 사이즈는 46.9kB로 표시됩니다.
 * 컨텐츠 타입은 `application/javascript`입니다.
 
 <p align="left">
@@ -220,16 +220,16 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 * 서버 응답을 기다리는데 걸리는 시간은 582.17ms 입니다.
     * 서버의 응답이 10ms 정도 증가했으며 이는 서버가 자원을 압축하는데 걸리는 시간입니다.
 * 콘텐츠를 다운로드 받는데 걸리는 시간은 255.91ms 입니다.
-    * 작아진 
+    * 컨텐츠 사이즈가 작아진만큼 다운로드 속도가 감소하였습니다.
 * 총 소요된 시간은 841.87ms 입니다.
 
 <p align="center">
-    <img src="/images/compression-on-nginx-4.JPG" width="100%" class="image__border">
+    <img src="/images/compression-on-nginx-5.JPG" width="100%" class="image__border">
 </p>
 
 ## 3. Result
 
-이 포스트를 작성하면서 얻은 인사이트(insight)와 배운점들을 정리하였습니다.
+이 포스트를 작성하면서 배운점들을 정리하였습니다.
 
 ### 3.1. Consideration
 

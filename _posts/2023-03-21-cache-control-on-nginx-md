@@ -1,0 +1,35 @@
+---
+title: "CacheControl on Nginx"
+search: false
+category:
+  - information
+  - nginx
+last_modified_at: 2023-02-08T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+## 1. CacheControl on Nginx 
+
+##### nginx.conf
+
+```conf
+
+```
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://docs.nginx.com/nginx/admin-guide/web-server/compression/>
+* <https://www.lesstif.com/system-admin/nginx-gzip-59343019.html>
+* <https://yangbongsoo.tistory.com/4>
+*

@@ -1,0 +1,40 @@
+---
+title: "Compression on Nginx"
+search: false
+category:
+  - information
+  - nginx
+last_modified_at: 2023-02-08T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+네트워트 속도가 느린 환경에서 다수의 미디어(media)들을 서비스하는 상황이 발생했습니다. 
+이미지 다운로드 속도가 느리다보니 사용자들에게 버그로 인식되었는데 `Nginx` 압축 설정을 통해 이를 개선하였습니다.
+
+## 1. Compression on Nginx 
+
+`Nginx`로 서비스했습니다. 
+`nginx.conf` 설정을 통해 필요한 리소스(resource)를 압축할 수 있습니다. 
+
+##### nginx.conf
+
+```conf
+```
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://docs.nginx.com/nginx/admin-guide/web-server/compression/>
+* <https://www.lesstif.com/system-admin/nginx-gzip-59343019.html>
+* <https://yangbongsoo.tistory.com/4>
+*

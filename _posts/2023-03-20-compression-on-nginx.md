@@ -33,12 +33,8 @@ last_modified_at: 2023-02-08T23:55:00
     * gzip 설정을 사용할 때 응답 헤더에 `Vary: Accept-Encoding`를 넣을지 여부입니다.
 * gzip_proxied any;
     * 프록시(proxy)나 캐시 서버에서 요청할 경우 동작 여부를 설정합니다.
-    * 프록시 여부는 `via` 헤더의 존재 여부로 확인합니다.
-    * off - 프락시에서 요청할 경우 압축하지 않습니다.
-    * expired - 요청 헤더에 `Expires` 가 있고 만료되었을 경우에만 압축합니다.
-    * no-cache - 요청 헤더에 `Cache-Control`가 있고 `no-cache`일 경우에만 압축합니다.
-    * no-store - 요청 헤더에 `Cache-Control`가 있고 `no-store`일 경우에만 압축합니다.
-    * any - 항상 압축합니다. 
+    * 다음과 같은 설정들을 가질 수 있습니다. 
+        * off, expired, no-cache, no-store, any
 * gzip_comp_level 6;
     * 1~9까지 숫자를 설정할 수 있으며 숫자가 클수록 압축률은 높아지지만, 압축 시간이 길어집니다.
 * gzip_buffers 16 8k;
@@ -51,11 +47,14 @@ last_modified_at: 2023-02-08T23:55:00
     * 압축을 적용할 컨텐츠(contents)의 최소 사이즈를 지정합니다.
     * 이보다 작은 파일은 압축하지 않습니다.
 * gzip_types [types in array];
-    * 컨텐츠 유형에 따른 압축 여부를 설정합니다.
-    * `text/html`은 기본 값이므로 이를 제외합니다. 
+    * 컨텐츠 유형에 따른 압축 여부를 설정하며 기본 값은 `text/html`입니다.
     * 압축할 타입을 MIME(Multipurpose Internet Mail Extensions)으로 작성합니다.
 
 ```conf
+events {
+    worker_connections 1024;
+}
+
 http {
   charset utf-8;
   default_type application/octet-stream;
@@ -69,7 +68,7 @@ http {
   gzip_comp_level 6;
   gzip_buffers 16 8k;
   gzip_http_version 1.1;
-  gzip_min_length 1024;
+  gzip_min_length 1025;
   gzip_types text/plain
              text/css
              application/javascript
@@ -87,9 +86,9 @@ http {
 
 ### 2.1. default.conf
 
-* 기본 설정 이 외에도 서버에 관련된 설정을 추가합니다.
-* 서버 포트를 `80`으로 지정합니다.
-* 서비스 루트 경로와 index 파일을 지정합니다.
+* 서버에 관련된 설정을 추가합니다.
+    * 포트를 `80`으로 지정합니다.
+    * 루트 경로와 index 파일을 지정합니다.
 
 ```conf
 server {
@@ -104,7 +103,7 @@ server {
 
 ### 2.2. Dockerfile
 
-* `nginx.conf`, `default.conf` 설정을 이미지에 복사합니다.
+* `nginx.conf`, `default.conf` 설정을 이미지 특정 경로에 복사합니다.
 
 ```dockerfile
 FROM node:16-buster-slim as builder
@@ -230,7 +229,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 
 ## 3. Result
 
-이 포스트를 작성하면서 얻은 인사이트(insight)나 배운점들을 정리하였습니다.
+이 포스트를 작성하면서 얻은 인사이트(insight)와 배운점들을 정리하였습니다.
 
 ### 3.1. Consideration
 
@@ -252,12 +251,13 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
     * 물리적으로 매우 먼 거리의 통신인 경우 압축을 통해 네트워크 트래픽을 작게 만듭니다.
     * 예를 들면 해외 서버에서 국내 클라이언트를 위한 서비스를 수행하는 경우를 들 수 있습니다.
 
-### 3.2. Not Useful for Images, Videos and Gifs
+### 3.2. Not useful cases
 
 텍스트(text) 파일은 압축 효율이 좋기 때문에 적용 전후에 많은 차이가 있습니다. 
-이미지, 비디오, gif, zip 파일들은 이미 충분히 압축된 바이너리(binary) 파일이므로 `gzip` 압축이 효율적으로 적용되지 않습니다. 
+이미지, 비디오, gif, zip 파일들은 이미 충분히 압축된 바이너리(binary) 파일이므로 추가적인 압축 작업이 효율적으로 적용되지 않습니다. 
 데이터 크기가 줄어든다는 보장이 없고 불필요한 압축/해제 단계만 추가됩니다. 
 이 경우 캐시 컨트롤(cache control)을 활용하여 클라이언트의 속도 향상을 노리는 것이 더 효과적입니다. 
+
 아래 예시를 보면 압축 적용 전후 고용량 이미지들을 다운로드 받는데 걸리는 시간 차이가 얼마 없음을 확인할 수 있습니다. 
 
 ##### Download images without compression

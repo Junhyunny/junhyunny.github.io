@@ -34,7 +34,7 @@ last_modified_at: 2023-02-08T23:55:00
 * gzip_proxied any;
     * 프록시(proxy)나 캐시 서버에서 요청할 경우 동작 여부를 설정합니다.
     * 다음과 같은 설정들을 가질 수 있습니다. 
-        * off, expired, no-cache, no-store, any
+        * off, expired, no-cache, no-store, private, no_last_modified, no_etag, auth, any
 * gzip_comp_level 6;
     * 1~9까지 숫자를 설정할 수 있으며 숫자가 클수록 압축률은 높아지지만, 압축 시간이 길어집니다.
 * gzip_buffers 16 8k;
@@ -245,6 +245,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 
 * 서버 사양 
     * 서버가 자원을 압축 후 전달하기 때문에 서버 사양이 낮으면 속도가 느려질 수 있습니다.
+    * 자원 압축은 서버의 CPU를 소모합니다.
 * 사용자 트래픽
     * 접속 사용자가 많다면 네트워크 트래픽 절감 효과를 얻기 위해 압축을 적용합니다.
 * 해외(혹은 원거리) 통신

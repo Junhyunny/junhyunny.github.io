@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - nginx
-last_modified_at: 2023-02-08T23:55:00
+last_modified_at: 2023-03-20T23:55:00
 ---
 
 <br/>
@@ -299,9 +299,15 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-20-compression-on-nginx>
 
+#### RECOMMEND NEXT POSTS
+
+* [Cache-Control on Nginx][cache-control-on-nginx-link]
+
 #### REFERENCE
 
 * <https://nginx.org/en/docs/http/ngx_http_gzip_module.html>
 * <https://docs.nginx.com/nginx/admin-guide/web-server/compression/>
 * <https://www.lesstif.com/system-admin/nginx-gzip-59343019.html>
 * <https://blog.lael.be/post/6553>
+
+[cache-control-on-nginx-link]: https://junhyunny.github.io/information/nginx/cache-control-on-nginx/

@@ -15,9 +15,9 @@ last_modified_at: 2023-03-21T23:55:00
 
 ## 0. 들어가면서
 
-속도가 느린 네트워크 상황에서 브라우저의 사용자 경험 개선을 위한 압축 설정에 관련된 내용을 [Compression on Nginx][compression-on-nginx-link] 포스트에서 다뤘습니다. 
-이미지, 비디오 같은 파일들은 이미 충분히 압축된 바이너리(binary) 파일이기 때문에 압축 효과를 볼 수 없습니다. 
-이에 대한 사용성 개선을 위해 캐시 컨트롤(cache control)을 적용하였습니다.  
+속도가 느린 네트워크 상황에서 브라우저 사용자의 경험 개선을 위한 압축 설정에 관련된 내용을 [Compression on Nginx][compression-on-nginx-link]에서 다뤘습니다. 
+해당 포스트를 보면 알 수 있듯이 이미지, 비디오 같은 파일들은 이미 충분히 압축된 바이너리(binary) 파일이기 때문에 압축 효과가 거의 없습니다. 
+압축 이 외에도 사용성 개선을 위한 방법인 캐시 컨트롤(cache control)을 알아보겠습니다. 
 
 ## 1. Cache-Control in HTTP Header
 
@@ -29,7 +29,7 @@ HTTP 헤더의 필드 중 하나이며 요청, 응답 헤더에 모두 포함될
 
 ### 1.1. Vocabulary
 
-다음과 같은 용어들에 대해 먼저 정리할 필요가 있습니다. 
+알아둬야 할 용어들을 먼저 정리하겠습니다. 
 
 * (HTTP) cache
     * 다음 요청들에 대해서 이전 요청, 응답의 결과를 재사용하는 것을 의미합니다.
@@ -61,7 +61,7 @@ HTTP 헤더의 필드 중 하나이며 요청, 응답 헤더에 모두 포함될
 
 ### 1.2. Response Directives
 
-응답 헤더의 몇 개 디렉티브들만 살펴보겠습니다. 
+응답 헤더에서 사용하는 몇 개 디렉티브들만 살펴보겠습니다. 
 
 * max-age=N
     * `N`초 동안 해당 응답을 재사용할 수 있다는 것을 의미합니다.
@@ -122,7 +122,7 @@ server {
 ### 3.1. nginx.conf
 
 서버 설정 이 외에 다음과 같은 전역 설정을 가지고 있습니다. 
-캐시 컨트롤과는 무관하지만, [Compression on Nginx][compression-on-nginx-link] 포스트의 내용과 연결되므로 해당 설정을 유지하였습니다.
+캐시 컨트롤과는 무관하지만, [Compression on Nginx][compression-on-nginx-link]의 내용과 연결되므로 해당 설정을 유지하였습니다.
 
 ```conf
 events {

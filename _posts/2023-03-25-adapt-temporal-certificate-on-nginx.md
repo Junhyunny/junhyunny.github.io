@@ -31,7 +31,7 @@ last_modified_at: 2023-03-25T23:55:00
 * 프로젝트에 `ssl` 폴더를 생성합니다.
 * `openssl req` 명령어를 통해 인증서를 생성합니다.
     * PKCS#10 형식의 인증서 서명 요청(CSR, certificate Signing Request)을 생성합니다.
-    * 루트(root) CA(certificate authority)로 사용하기 위한 자체 서명 인증서를 생성할 수 있습니다.
+    * 테스트를 위해 루트(root) CA(certificate authority)로써 자체 서명 인증서를 생성할 수 있습니다.
 * 다음과 같은 추가 설정들을 통해 인증서를 생성합니다.
     * `-x509` 
         * `-x509` 옵션을 통해 인증서 서명 요청이 아닌 인증서를 즉시 발급합니다.

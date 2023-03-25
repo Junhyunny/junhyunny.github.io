@@ -21,13 +21,13 @@ last_modified_at: 2023-03-24T23:55:00
 * SPA(single page application) 방식처럼 페이지는 유지한 채 특정 영역만 다시 렌더링(rendering)
 * `jquery`, `axios` 같은 외부 의존성을 추가하지 않고 기능 구현
 
-이번 포스트에선 브라우저가 기본으로 제공하는 웹 API `fetch` 함수를 사용해 페이지의 부분적인 렌더링을 수행하는 방법에 대해 정리하였습니다. 
+이번 포스트에선 브라우저가 기본으로 제공하는 웹 API `fetch` 함수와 타임리프 프레임워크를 사용해 페이지의 특정 부분만 렌더링하는 방법에 대해 정리하였습니다. 
 
 ## 2. Practice
 
-간단한 예시를 만들어 살펴보겠습니다.
-
 ## 2.1. packages
+
+* 다음과 같은 패키지 구조를 가집니다.
 
 ```
 ./
@@ -67,7 +67,7 @@ last_modified_at: 2023-03-24T23:55:00
 
 ## 2.2. build.gradle
 
-다음과 같은 환경에서 실습을 진행합니다.
+* 다음과 같은 의존성이 필요합니다.
 
 ```
 plugins {
@@ -105,7 +105,7 @@ tasks.named('test') {
 
 ### 2.3. application.yml
 
-타임리프를 위한 설정입니다.
+* 타임리프를 위한 설정입니다.
 
 ```yml
 spring:
@@ -122,8 +122,8 @@ spring:
 ### 2.4. index.html
 
 * submit 함수
-    * `preventDefault` 함수를 호출하여 폼(form) `submit` 이벤트의 고유 기능인 페이지 이동을 막습니다.
-    * 폼 엘리먼트(element)를 폼 데이터 객체로 변경합니다.
+    * `preventDefault` 함수를 통해 폼(form) `submit` 이벤트의 고유 기능인 페이지 이동을 막습니다.
+    * 폼 엘리먼트(element)를 데이터 객체로 변경합니다.
     * API 요청을 수행합니다.
     * 비동기 콜백을 통해 응답을 텍스트로 변경합니다.
     * `#user` 영역의 HTML 텍스트를 응답 결과로 대체합니다.
@@ -226,7 +226,7 @@ public class FormController {
 
 ##### Result of Practice
 
-* 오른쪽 폼에서 입력한 값들이 왼쪽 창으로 그대로 이동됩니다.
+* 오른쪽 폼에서 입력한 값들이 왼쪽 창에 그대로 반영됩니다.
 
 <p align="center">
     <img src="/images/rerender-specific-elements-in-thymeleaf-1.gif" width="100%" class="image__border">

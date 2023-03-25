@@ -260,6 +260,11 @@ e856fc0cf3f3d3d6ca3a127646f4e6cdbe50544a822e1765b57195f0823de512
     <img src="/images/adapt-temporal-certificate-on-nginx-1.gif" width="100%" class="image__border">
 </p>
 
+## CLOSING
+
+이번 포스트에서 다룬 내용은 어디까지나 임시 테스트 환경을 구축하기 위한 인증서 적용 방법입니다. 
+운영 환경을 위해 도메인, 인증서, 비공개 키 등을 이미 발급 받았다면 임시 인증서 생성을 제외하곤 프로젝트 상황에 맞게 적절하게 적용할 수 있습니다.
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-25-adapt-temporal-certificate-on-nginx>

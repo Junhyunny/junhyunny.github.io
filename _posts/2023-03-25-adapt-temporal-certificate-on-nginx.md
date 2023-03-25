@@ -19,8 +19,8 @@ last_modified_at: 2023-03-25T23:55:00
 이 라이브러리는 카메라를 사용해 QR 이미지를 스캔하는 기능을 제공합니다. 
 적용하는데 다음과 같은 문제점이 있었습니다. 
 
-* 브라우저에서 QR 스캔을 위해 카메라를 실행하려면 `HTTPS` 혹은 호스트가 `localhost`만 가능하다.
-* 기능 개발 후 PM(project manager)가 테스트할 수 있는 환경을 구축해야 된다. 
+* 브라우저에서 QR 스캔을 위해 카메라를 실행하려면 `HTTPS` 혹은 `localhost`에서만 가능하다.
+* 기능 개발 후 PM(project manager)들이 테스트할 수 있는 환경을 구축해야 된다. 
 
 위의 문제들을 해결하기 위해 임시 인증서를 만들고 `Nginx`에 적용하여 `HTTPS` 서비스를 하는 방법에 대해 정리하였습니다. 
 
@@ -277,8 +277,6 @@ e856fc0cf3f3d3d6ca3a127646f4e6cdbe50544a822e1765b57195f0823de512
 * <https://www.openssl.org/>
 * <https://www.openssl.org/docs/manmaster/man1/openssl-req.html>
 * <https://docs.3rdeyesys.com/compute/ncloud_compute_lemp_nginx_ssl_setting_ubuntu_guide.html>
-* <https://www.comodossl.co.kr/certificate/ssl-installation-guides/Nginx.aspx>
-* <https://www.sslcert.co.kr/guides/NGINX-SSL-Certificate-Install>
 
 [https-link]: https://junhyunny.github.io/information/https/
 [react-qr-scanner-link]: https://www.npmjs.com/package/react-qr-scanner

@@ -18,13 +18,6 @@ last_modified_at: 2021-08-28T03:00:00
 * 시간 복잡도 O(n log n)를 가집니다. 
 * 병합하는 과정에서 정렬된 아이템들을 담을 공간이 필요하여 메모리가 많이 사용됩니다.
 
-##### How to sort?
-
-<p align="center">
-    <img src="/images/merge-sort-1.gif" width="80%" class="image__border">
-</p>
-<center>https://en.wikipedia.org/wiki/Merge_sort</center>
-
 ## 2. Process of Merge Sort
 
 합병 정렬은 다음과 같은 과정을 통해 수행됩니다.
@@ -44,6 +37,11 @@ last_modified_at: 2021-08-28T03:00:00
     * 부분 배열의 크기가 충분히 작지 않으면 순환 호출을 통해 배열을 분할합니다.
 * 결합(Combine) 
     * 정렬된 부분 배열들을 하나의 배열에 합병합니다.
+
+<p align="center">
+    <img src="/images/merge-sort-1.gif" width="50%" class="image__border">
+</p>
+<center>https://en.wikipedia.org/wiki/Merge_sort</center>
 
 ## 3. Practice
 

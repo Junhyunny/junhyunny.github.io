@@ -284,4 +284,4 @@ last_modified_at: 2023-03-28T23:55:00
 * <https://yozm.wishket.com/magazine/detail/1888/>
 * <https://evan-moon.github.io/2020/04/19/what-is-gtm-google-tag-manager/>
 
-[using-google-tag-manager-link]: ttps://junhyunny.github.io/information/data-science/using-google-tag-manager/
+[using-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/using-google-tag-manager/

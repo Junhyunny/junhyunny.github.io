@@ -27,11 +27,11 @@ last_modified_at: 2023-03-28T23:55:00
 블로그를 운영하기 때문에 애널리틱스는 친숙했지만, 태그 매니저는 잘 몰랐습니다. 
 어떤 서비스를 제공하는지 찾아봤습니다. 
 
-* 브라우저가 보여주는 웹 페이지에서 발생하는 이벤트를 트래킹(tracking)하는 솔루션입니다.
-* 태그(tag)를 기반으로 사용자의 활동을 추적하고 기록합니다.
+* 브라우저가 보여주는 웹 페이지에서 발생하는 이벤트를 트래킹(tracking)하는 도구입니다.
+* 태그를 기반으로 사용자의 활동을 추적하고 기록합니다.
 * 웹 분석, 광고 성과 측정, 제휴 페이지 추적 등을 위해 사용합니다.
 
-태그 매니저를 잘 활용하려면 태그, 트리거(trigger), 변수(variable)에 대한 개념을 잡아야 합니다. 
+태그 매니저를 잘 활용하려면 태그(tag), 트리거(trigger), 변수(variable)에 대한 개념을 잡아야 합니다. 
 이번 포스트는 애널리틱스와 태그 매니저를 연결하는 방법만 다루기 때문에 관련된 내용은 추후 이어질 포스트에서 다루겠습니다. 
 
 ## 2. In Google Analytics
@@ -88,7 +88,7 @@ last_modified_at: 2023-03-28T23:55:00
 이번 포스트에선 태그 매니저의 기능들에 대한 상세한 설명은 다루지 않습니다. 
 간단한 클릭 이벤트만 만들어 구글 애널리틱스에서 감지되는지 살펴보겠습니다. 
 
-### 2.1. Make Account
+### 2.1. Create Account
 
 * 계정 만들기 버튼을 클릭합니다.
 
@@ -128,7 +128,66 @@ last_modified_at: 2023-03-28T23:55:00
     <img src="/images/google-analytics-with-google-tag-manager-11.JPG" width="100%" class="image__border">
 </p>
 
-### 2.3. Make Trigger
+##### index.html in React Project
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-YOUR_GTM_CODE');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-YOUR_GTM_CODE"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+</html>
+```
+
+### 2.3. Create Trigger
 
 * 트리거를 만들어 이벤트를 감지할 방법을 정의합니다. 
 * 새로 만들기 버튼을 클릭합니다.
@@ -144,7 +203,7 @@ last_modified_at: 2023-03-28T23:55:00
     <img src="/images/google-analytics-with-google-tag-manager-13.JPG" width="100%" class="image__border">
 </p>
 
-### 2.4. Make Tag
+### 2.4. Create Tag
 
 * 태그를 만들어 이벤트를 구글 애널리틱스에 연결합니다.
 * 새로 만들기 버튼을 클릭합니다.
@@ -216,7 +275,13 @@ last_modified_at: 2023-03-28T23:55:00
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-28-google-analytics-with-google-tag-manager>
 
+#### RECOMMEND NEXT POSTS
+
+* [Using Google Tag Manager][using-google-tag-manager-link]
+
 #### REFERENCE
 
 * <https://yozm.wishket.com/magazine/detail/1888/>
 * <https://evan-moon.github.io/2020/04/19/what-is-gtm-google-tag-manager/>
+
+[using-google-tag-manager-link]: ttps://junhyunny.github.io/information/data-science/using-google-tag-manager/

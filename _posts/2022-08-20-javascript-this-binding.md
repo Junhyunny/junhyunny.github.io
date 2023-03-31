@@ -1,5 +1,5 @@
 ---
-title: "JavaScript this binding"
+title: "this Binding in JavaScript"
 search: false
 category:
   - javascript
@@ -10,9 +10,9 @@ last_modified_at: 2022-08-20T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [JavaScript 객체 생성][create-object-in-javascript-link]
-* [JavaScript Scope][javascript-scope-link]
-* [JavaScript Scope Chain][javascript-scope-chain-link]
+* [Create Object in JavaScript][create-object-in-javascript-link]
+* [Scope in JavaScript][javascript-scope-link]
+* [Scope Chain in JavaScript][javascript-scope-chain-link]
 
 ## 0. 들어가면서
 

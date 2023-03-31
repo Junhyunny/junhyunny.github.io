@@ -1,5 +1,5 @@
 ---
-title: "JavaScript Scope Chain"
+title: "Scope Chain in JavaScript"
 search: false
 category:
   - javascript
@@ -10,7 +10,7 @@ last_modified_at: 2022-08-17T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [JavaScript Scope][javascript-scope-link]
+* [Scope in JavaScript][javascript-scope-link]
 
 ## 1. 스코프 체인(Scope Chain)
 

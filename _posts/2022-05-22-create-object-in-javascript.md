@@ -1,5 +1,5 @@
 ---
-title: "JavaScript 객체 생성"
+title: "Create Object in JavaScript"
 search: false
 category:
   - javascript

@@ -1,5 +1,5 @@
 ---
-title: "JavaScript Scope"
+title: "Scope in JavaScript"
 search: false
 category:
   - javascript
@@ -241,7 +241,7 @@ bar # bar call
 
 #### RECOMMEND NEXT POSTS
 
-* [JavaScript Scope Chain][javascript-scope-chain-link]
+* [Scope Chain in JavaScript][javascript-scope-chain-link]
 
 #### REFERENCE
 

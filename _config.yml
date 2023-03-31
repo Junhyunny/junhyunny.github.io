@@ -99,31 +99,28 @@ author:
   location: "서울/대한민국(Seoul/South Korea)"
   email: "kang3966@naver.com"
   links:
-    - label: "StackOverflow"
-      icon: "fab fa-fw fa-stack-overflow"
-      url: "https://stackoverflow.com/users/14859847/junhyunny"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/Junhyunny"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/%EC%A4%80%ED%98%84-%EA%B0%95-32b972201/"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/Junhyunny"
+    - label: "StackOverflow"
+      icon: "fab fa-fw fa-stack-overflow"
+      url: "https://stackoverflow.com/users/14859847/junhyunny"
 
 # Site Footer
 footer:
   links:
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://junhyunny.github.io/"
-    - label: "StackOverflow"
-      icon: "fab fa-fw fa-stack-overflow"
-      url: "https://stackoverflow.com/users/14859847/junhyunny"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/Junhyunny"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/%EC%A4%80%ED%98%84-%EA%B0%95-32b972201/"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/Junhyunny"
+    - label: "StackOverflow"
+      icon: "fab fa-fw fa-stack-overflow"
+      url: "https://stackoverflow.com/users/14859847/junhyunny"
 
 # Reading Files
 include:

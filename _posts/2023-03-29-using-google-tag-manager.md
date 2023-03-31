@@ -230,9 +230,14 @@ export default App;
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-29-using-google-tag-manager>
 
+#### RECOMMEND NEXT POSTS
+
+* [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
+
 #### REFERENCE
 
 * <https://finedata.tistory.com/44>
 * <https://www.joptimisemonsite.fr/google-tag-manager/>
 
 [google-analytics-with-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/google-analytics-with-google-tag-manager/
+[custom-event-in-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/custom-event-in-google-tag-manager/

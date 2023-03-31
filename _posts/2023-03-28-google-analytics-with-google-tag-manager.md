@@ -263,9 +263,11 @@ last_modified_at: 2023-03-28T23:55:00
     <img src="/images/google-analytics-with-google-tag-manager-21.JPG" width="100%" class="image__border">
 </p>
 
-## 3. Test
+## 3. In Google Analytics
 
-* 신규 애널리틱스 속성에서 클릭 이벤트가 감지됨을 확인할 수 있습니다. 
+해당 리액트 어플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠습니다.
+
+* 애널리틱스에서 `click` 이벤트가 감지됨을 확인할 수 있습니다. 
 
 <p align="center">
     <img src="/images/google-analytics-with-google-tag-manager-22.gif" width="100%" class="image__border">

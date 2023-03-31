@@ -1,5 +1,5 @@
 ---
-title: "JavaScript Hoisting"
+title: "Hoisting in JavaScript"
 search: false
 category:
   - javascript

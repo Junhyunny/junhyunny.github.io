@@ -280,6 +280,7 @@ last_modified_at: 2023-03-28T23:55:00
 #### RECOMMEND NEXT POSTS
 
 * [Using Google Tag Manager][using-google-tag-manager-link]
+* [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
 
 #### REFERENCE
 
@@ -287,3 +288,4 @@ last_modified_at: 2023-03-28T23:55:00
 * <https://evan-moon.github.io/2020/04/19/what-is-gtm-google-tag-manager/>
 
 [using-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/using-google-tag-manager/
+[custom-event-in-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/custom-event-in-google-tag-manager/

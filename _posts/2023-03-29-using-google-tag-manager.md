@@ -149,7 +149,7 @@ export default App;
 
 * 이벤트 매개변수를 추가합니다.
 * 키(key)는 `element_id`으로 정의합니다.
-    * 애널리틱스에서 `element_id` 이름으로 보여집니다.
+    * 지정한 이름으로 구글 애널리틱스에서 확인 가능합니다.
 * 깂(value)는 변수에서 선택하기 위해 오른쪽 버튼을 클릭합니다.
 
 <p align="center">
@@ -216,11 +216,11 @@ export default App;
 
 ### 3. In Google Analytics
 
-구글 애널리틱스에서 화면에서 발생한 이벤트를 살펴보겠습니다.
+해당 리액트 어플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠습니다.
 
-* 어플리케이션 화면에서 클릭 이벤트를 3번 발생시킵니다.
-* 약 1분 뒤에 클릭 이벤트 3개를 확인할 수 있습니다.
-* 클릭 이벤트를 살펴보면 `element_id`가 수집되었음을 확인할 수 있습니다. 
+* 어플리케이션 화면에서 `click` 이벤트를 3번 발생시킵니다.
+    * 약 1분 뒤에 `click` 이벤트 3개를 확인할 수 있습니다.
+* `click` 이벤트에서 `element_id`가 수집됨을 확인할 수 있습니다. 
 
 <p align="center">
     <img src="/images/using-google-tag-manager-18.gif" width="100%" class="image__border">

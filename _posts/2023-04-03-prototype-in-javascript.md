@@ -268,12 +268,23 @@ console.dir(foo.__proto__.constructor === Object);
     <img src="/images/prototype-in-javascript-9.JPG" width="60%" class="image__border">
 </p>
 
+## CLOSING
+
+`__proto__`는 지원이 중단되었습니다. 
+
+> This feature is no longer recommended. Though some browsers might still support it, it may have already been removed from the relevant web standards, may be in the process of being dropped, or may only be kept for compatibility purposes. Avoid using it, and update existing code if possible; see the compatibility table at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time.
+
+객체의 `[[Prototype]]`을 변경하는 것은 모든 브라우저 및 `JavaScript` 엔진에서 매우 느린 작업이라고 합니다. 
+오늘날 대부분의 브라우저에서 호환성을 보장하기 위해 지원되지만 더 나은 기능으로 `Object.getPrototypeof()` 메소드를 사용이 권장됩니다. 
+
 #### REFERENCE
 
 * [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]
 * [인사이드 자바스크립트 Inside JavaScript 핵심 개념과 원리를 정확하게.][inside-javascript-book-link]
 * <https://developer.mozilla.org/ko/docs/Learn/JavaScript/Objects/Object_prototypes>
 * <http://insanehong.kr/post/javascript-prototype/>
+* <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/proto>
+* <https://www.inflearn.com/questions/361135/proto-%EA%B0%80-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0>
 
 [modern-javascript-book-link]: http://www.yes24.com/product/goods/92742567
 [inside-javascript-book-link]: http://www.yes24.com/product/goods/37157296

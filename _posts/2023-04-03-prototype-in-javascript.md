@@ -72,7 +72,7 @@ console.log(firstCircle.getArea()); // 3.141592653589793
 console.log(secondCircle.getArea()); // 12.566370614359172
 ```
 
-### 1.2. Protype and Object in JavaScript
+### 1.2. Protype and Function in JavaScript
 
 `Circle` 함수는 생성자로써 사용하였습니다. 
 `JavaScript`에서 모든 함수는 생성자로써 사용할 수 있습니다. 

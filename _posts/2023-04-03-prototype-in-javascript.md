@@ -72,7 +72,7 @@ console.log(firstCircle.getArea()); // 3.141592653589793
 console.log(secondCircle.getArea()); // 12.566370614359172
 ```
 
-### 1.2. Protype and Function in JavaScript
+### 1.2. Function and Protype
 
 `Circle` 함수는 생성자로써 사용하였습니다. 
 `JavaScript`에서 모든 함수는 생성자로써 사용할 수 있습니다. 
@@ -139,7 +139,7 @@ console.log(Circle.prototype.constructor === Circle)
     <img src="/images/prototype-in-javascript-4.JPG" width="80%" class="image__border">
 </p>
 
-## 2. __proto__ Accessor Property
+## 2. `__proto__` Accessor Property
 
 `console.dir` 함수로 객체 정보를 출력하면 `[[Prototype]]`이란 이름의 내부 슬롯을 볼 수 있습니다. 
 `[[Prototype]]`은 해당 객체가 참조하는 상위 프로토타입 객체를 의미하지만, 직접 접근할 수 없습니다. 

@@ -8,12 +8,6 @@ last_modified_at: 2023-04-05T23:55:00
 
 <br/>
 
-#### RECOMMEND POSTS BEFORE THIS
-
-* [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link]
-* [Using Google Tag Manager][using-google-tag-manager-link]
-* [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
-
 ## 1. Requirements and Problem
 
 어플리케이션 사용자를 관찰하기 위한 도구로 구글 애널리틱스(GA, google analytics)와 구글 태그 매니저(GTM, google tag manager)를 연계하였습니다. 
@@ -85,7 +79,3 @@ console.log(dataLayer);
 #### REFERENCE
 
 * <https://ko.javascript.info/property-accessors>
-
-[google-analytics-with-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/google-analytics-with-google-tag-manager/
-[using-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/using-google-tag-manager/
-[custom-event-in-google-tag-manager-link]: https://junhyunny.github.io/information/data-science/custom-event-in-google-tag-manager/

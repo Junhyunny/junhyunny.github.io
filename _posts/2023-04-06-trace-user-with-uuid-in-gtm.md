@@ -20,20 +20,17 @@ last_modified_at: 2023-04-06T23:55:00
 
 ## 0. 들어가면서
 
-[Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메소드를 재정의하는 방법에 대해 정리하였습니다. 
-다음과 같은 구현 요건이 필요해서 `dataLayer` 객체의 push 메소드를 재정의하였습니다. 
+아래와 같은 구현 요건을 만족시키기 위해 [Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메소드를 재정의하는 방법에 대해 정리하였습니다. 
 
-* 사용자 추적을 위한 UUID 발급해야 한다. 
+* 사용자 추적을 위한 UUID 발급한다. 
 * 모든 사용자 이벤트에 UUID 추가가 필요하다.
 * 커스텀 이벤트는 UUID 삽입이 쉽게 가능하다.
 * 엘리먼트(element) 클릭 이벤트는 구글 태그 매니저(GTA, google tag manager)에 의해 자동으로 동작되기 때문에 UUID 삽입이 어렵다.
 
-위와 같은 패인 포인트(pain point)를 해결하기 위해 어플리케이션이 시작할 때 push 메소드를 재정의하였습니다. 
-리액트 어플리케이션부터 살펴보겠습니다. 
-
 ## 1. In React Application
 
-리액트 어플리케이션에서 중요한 코드들만 정리하였습니다. 
+위에서 살펴본 패인 포인트(pain point)를 해결하기 위해 어플리케이션이 시작할 때 `dataLayer` 객체의 push 메소드를 재정의하였습니다. 
+리액트 어플리케이션의 중요한 코드들만 살펴보겠습니다.
 
 ### 1.1. uuid.ts
 
@@ -67,7 +64,7 @@ export const getUserTransactionId = () => {
 * 타입스크립트(typescript)는 `dataLayer` 객체 타입을 찾지 못해 컴파일 에러가 발생합니다.
 * 컴파일 에러를 해결하기 위해 전역 타입으로 지정합니다.
 
-```TS
+```ts
 declare global {
   interface Window {
     dataLayer: {
@@ -120,6 +117,7 @@ export const overrideDataLayer = (txId: string) => {
 
 ### 1.4. App.tsx
 
+* App 컴포넌트가 호출되면 `overrideDataLayer` 메소드를 통해 push 메소드를 재정의합니다.
 * clickEventHandler 이벤트
     * `CLICK` 이라는 알람이 발생합니다.
 * customEventHandler 이벤트
@@ -205,7 +203,7 @@ export default App;
     * 구글 애널리틱스에서 보여지는 이벤트 이름입니다.
 * 이벤트 매개변수에 사용자 ID를 추출할 수 있는 내용을 삽입합니다.
     * 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름입니다.
-    * 매개변수 값인 `{{Transaction ID}}`는 변수에서 정의한 것을 사용합니다.
+    * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
 * 위 단계에서 정의한 `App Start` 트리거를 사용합니다.
 
 <p align="center">
@@ -214,14 +212,17 @@ export default App;
 
 ### 2.4. Modify Tags
 
-* 이전에 만들었던 태그들의 이벤트 매개변수 정보를 변경합니다. 
 * 일반 클릭 이벤트 매개변수 정보를 변경합니다.
+    * 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름입니다.
+    * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
 
 <p align="center">
     <img src="/images/trace-user-with-uuid-in-gtm-4.JPG" width="100%" class="image__border">
 </p>
 
 * 커스텀 클릭 이벤트 매개변수 정보를 변경합니다.
+    * 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름입니다.
+    * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
 
 <p align="center">
     <img src="/images/trace-user-with-uuid-in-gtm-5.JPG" width="100%" class="image__border">

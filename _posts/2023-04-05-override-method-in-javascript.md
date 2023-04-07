@@ -30,6 +30,7 @@ last_modified_at: 2023-04-05T23:55:00
 예제 코드는 브라우저 개발자 도구(F12) 콘솔에서 실행할 수 있습니다. 
 
 ```javascript
+// UUID를 생성합니다.
 function getUUID() { 
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 3 | 8);
@@ -37,11 +38,15 @@ function getUUID() {
     });
 }
 
+// dataLayer 객체가 없는 경우 에러를 방지하기 위해 디폴트 배열을 지정합니다.
 const dataLayer = [];
+// dataLayer 객체의 원본 push 메소드를 별도 변수로 참조합니다.
 const originPush = dataLayer.push.bind(dataLayer);
 
+// Object.defineProperty 메소드를 사용해 push 메소드를 재정의합니다.
 Object.defineProperty(dataLayer, 'push', {
     get() {
+        // push 메소드 재정의가 정상적이지 않은 경우 원본 push 메소드를 반환합니다.
         return this.value ? this.value : originPush;
     },
     set(value) {
@@ -49,13 +54,16 @@ Object.defineProperty(dataLayer, 'push', {
     }
 });
 
+// 파라미터로 전달받은 push 메소드를 실행할 때 txId를 추가로 삽입하도록 변경합니다.
 const overridePush = (push) => (value) => {
   push({ ...value, txId: getUUID() });
 }
 
+// 변경한 push 메소드를 dataLayer 객체에 추가합니다.
 const customPush = overridePush(originPush);
 dataLayer.push = customPush;
 
+// 어플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
 dataLayer.push({ event: 'Hello' });
 dataLayer.push({ event: 'World' });
 

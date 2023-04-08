@@ -1,0 +1,30 @@
+---
+title: "Prototype Chain in JavaScript"
+search: false
+category:
+  - javascript
+last_modified_at: 2023-04-08T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Prototype in JavaScript][prototype-in-javascript-link]
+
+## 0. 들어가면서
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]
+* [인사이드 자바스크립트 Inside JavaScript 핵심 개념과 원리를 정확하게.][inside-javascript-book-link]
+
+[modern-javascript-book-link]: http://www.yes24.com/product/goods/92742567
+[inside-javascript-book-link]: http://www.yes24.com/product/goods/37157296
+[prototype-in-javascript-link]: https://junhyunny.github.io/javascript/prototype-in-javascript/

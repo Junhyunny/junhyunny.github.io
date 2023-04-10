@@ -70,6 +70,10 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
     <img src="/images/prototype-chain-in-javascript-1.JPG" width="60%" class="image__border">
 </p>
 
+##### Prototype Chain of Example
+
+* firstCircle 인스턴스의 프로토타입 체인은 Circle 프로토타입과 Object 프로토타입 객체로 연결됩니다.
+
 <p align="center">
     <img src="/images/prototype-chain-in-javascript-2.JPG" width="80%" class="image__border">
 </p>

@@ -1,5 +1,5 @@
 ---
-title: "@DataJpaTest 데이터베이스 변경 방지 (feat. @AutoConfigureTestDatabase 애너테이션)"
+title: "Not Change Database with @DataJpaTest)"
 search: false
 category:
   - spring-boot

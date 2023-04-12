@@ -16,10 +16,10 @@ last_modified_at: 2024-04-12T23:55:00
 
 데이터베이스가 연동된 결합 테스트(integration test)에서 활용할 수 있는 `TestContainer`에 대해 정리하였습니다. 
 
-## 1. Pain Point of Database for Test
+## 1. Pain Point of Integration Test with Database
 
-데이터베이스가 필요한 비즈니스 로직을 테스트하기 위해 인-메모리(in-memory) 데이터베이스를 주로 사용합니다. 
-인-메모리 데이터베이스를 사용하면 다음과 같은 장점을 얻을 수 있습니다. 
+데이터베이스가 필요한 비즈니스 로직을 테스트하기 위해 주로 인-메모리(in-memory) 데이터베이스를 사용합니다. 
+인-메모리 데이터베이스는 다음과 같은 장점이 있습니다.
 
 * 메모리 데이터베이스를 사용하기 때문에 실행 속도가 빠릅니다.
 * 테스트마다 메모리에 데이터베이스를 구성하고, 테스트가 종료될 때 삭제하므로 멱등성(idempotent)이 보장됩니다. 
@@ -35,14 +35,16 @@ last_modified_at: 2024-04-12T23:55:00
     * JPQL(Java Persistence Query Lanager)처럼 추상화 된 문법을 사용하더라도 해결하기 어려울 수 있습니다.
 * 데이터베이스 전용 내장 함수를 사용한다면 대체 가능한 함수를 찾아야합니다. 
 
-빠른 개발을 위해 메모리 데이터베이스를 사용하고 있었다면, 운영에 진입하기 전엔 운영 환경과 동일하게 테스트해야 합니다. 
-개발/운영 데이터베이스를 사용한 테스트는 데이터를 오염시킬 수 있다는 문제점 때문에 이를 제외하면 다음과 같은 옵션들이 있습니다.
+빠른 개발을 위해 메모리 데이터베이스를 사용하고 있었다면, 운영에 진입하기 전엔 운영 환경과 동일한 테스트 환경을 구축해야 합니다. 
+개발/운영 데이터베이스를 사용한 테스트는 데이터를 오염시킬 위험이 있기 때문에 이를 제외하고 다음과 같은 옵션들이 있습니다.
 
 * 개발자 로컬 데이터베이스
-    * 테스트가 끝난 후에 데이터가 남게되면 다음 실행 시 동일한 결과가 얻지 못할 수 있으므로 멱등성 관리가 어렵습니다. 
+    * 개발자 PC에 로컬 데이터베이스를 설치하고 이를 통해 테스트를 수행합니다.
+    * 테스트가 끝난 후에 데이터가 남게되면 다음 실행 시 동일한 결과가 얻지 못할 수 있으므로 멱등성 관리가 어렵습니다.
+    * 개발자마다 로컬 데이터베이스에 관련된 설정이 다를 수 있기 때문에 통일된 설정 파일을 통해 관리하기 어렵습니다.
     * CI/CD 파이프라인에서 사용할 수 없습니다.
 * 도커 컴포즈(docker compose)
-    * yml 파일에 필요한 이미지를 명세하여 하나의 네트워크로 묶인 컨테이너(container) 그룹을 실행시킵니다.
+    * yml 파일에 필요한 이미지들을 명세하여 하나의 네트워크로 묶인 컨테이너(container) 그룹을 실행시킵니다.
     * 실제 데이터베이스와 동일한 이미지를 기반으로 데이터베이스 컨테이너를 실행시킬 수 있습니다.
     * 데이터베이스 컨테이너에 연결하여 테스트를 수행하고, 테스트가 종료되면 컨테이너를 정리합니다.
     * 매 테스트마다 초기화 된 데이터베이스에서 테스트를 진행하므로 멱등성 관리가 쉽습니다.
@@ -51,7 +53,7 @@ last_modified_at: 2024-04-12T23:55:00
 ## 2. TestContainer
 
 도커 컴포즈는 최적의 선택지처럼 보이지만, 더 간편하게 개선된 테스트 방법도 존재합니다. 
-`TestContainer`는 도커 컴포즈처럼 컨테이너를 실행시키는 원리는 동일하지만, 프로젝트 설정과 코드만으로 테스트를 위한 컨테이너를 실행시킬 수 있습니다. 
+`TestContainer`는 도커 컴포즈처럼 테스트를 위해 컨테이너를 실행시킨는 원리는 동일하지만, 프로젝트 설정과 코드만으로 테스트를 위한 컨테이너를 실행시킬 수 있습니다. 
 
 > Testcontainers for Java is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
 
@@ -158,7 +160,7 @@ tasks.named('test') {
 
 ### 3.2. application-test.yml
 
-* 프로파일(profile) 활성화가 `test`인 경우에 사용하는 설정 파일입니다.
+* 프로파일(profile)이 `test`로 설정된 경우 사용하는 설정 파일입니다.
 * 컨테이너 URL정보를 입력합니다.
     * jdbc:tc:mysql:8.0.32:///{database_name}
 * 테스트 컨테이너에 접근할 때 사용하는 드라이버를 지정합니다.
@@ -181,7 +183,7 @@ spring:
 
 ### 3.3. PostRepository Interface
 
-* 네이티브(native) 쿼리를 실행시키는 메소드를 선언합니다.
+* 네이티브(native) 쿼리를 실행하는 메소드를 선언합니다.
 
 ```java
 package action.in.blog.post;
@@ -206,7 +208,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 * @AutoConfigureTestDatabase 애너테이션
     * @DataJpaTest 애너테이션을 사용한 테스트 시 데이터베이스가 바뀌지 않는 현상이 있습니다.
     * 설정한 데이터베이스를 사용할 수 있도록 설정합니다.
-    * [Not Change Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link] 참고 바랍니다.
+    * [Not Change Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link] 포스트를 참고 바랍니다.
 * @DataJpaTest 애너테이션
     * JPA 테스트를 위한 최소한의 컨텍스트를 준비합니다.
 * @Testcontainers 애너테이션

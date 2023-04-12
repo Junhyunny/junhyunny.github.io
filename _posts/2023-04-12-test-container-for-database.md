@@ -210,9 +210,14 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 * @DataJpaTest 애너테이션
     * JPA 테스트를 위한 최소한의 컨텍스트를 준비합니다.
 * @Testcontainers 애너테이션
-    * 
+    * @Container 애너테이션이 붙은 인스턴스들과 연결된 컨테이너들의 라이프사이클을 관리합니다.  
 * @Container 애너테이션
-    * 
+    * 테스트 컨테이너를 생성하기 위해 사용합니다.
+    * 해당 애너테이션이 붙은 필드가 있는 경우 생성될 인스턴스를 통해 컨테이너 생성에 필요한 정보를 파악합니다.
+    * @TestContainers 애너테이션에 의해 생성, 소멸 라이프사이클이 관리됩니다.
+* @Container 애너테이션이 붙은 필드에 따라 라이프사이클이 다르게 관리됩니다.
+    * `static` 필드는 테스트들 사이에서 공유할 수 있는 컨테이너가 생성되며 한 번만 컨테이너를 실행하고, 마지막 테스트가 종료되면 컨테이너를 소멸시킵니다.
+    * `static` 키워드가 붙지 않은 `instance` 필드는 모든 테스트마다 컨테이너를 실행하고 소멸시킵니다.
 
 ```java
 package action.in.blog;
@@ -302,10 +307,6 @@ Hibernate: select * from post p where p.title like trim(?)
 </configuration>
 ```
 
-## CLOSING
-
-실제 
-
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-12-test-container-for-database>
@@ -316,15 +317,8 @@ Hibernate: select * from post p where p.title like trim(?)
 * <https://www.testcontainers.org/modules/databases/jdbc/>
 * <https://www.testcontainers.org/supported_docker_environment/logging_config/>
 * <https://javadoc.io/doc/org.testcontainers/junit-jupiter/latest/org/testcontainers/junit/jupiter/Testcontainers.html>
+* <https://javadoc.io/static/org.testcontainers/junit-jupiter/1.18.0/org/testcontainers/junit/jupiter/Container.html>
 * [TestContainer 로 멱등성있는 integration test 환경 구축하기](https://medium.com/riiid-teamblog-kr/testcontainer-%EB%A1%9C-%EB%A9%B1%EB%93%B1%EC%84%B1%EC%9E%88%EB%8A%94-integration-test-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-4a6287551a31)
 * <https://elsboo.tistory.com/24>
-
-
-
-
-* <https://umbum.dev/1127>
-* <https://phauer.com/2017/dont-use-in-memory-databases-tests-h2/>
-* <https://taes-k.github.io/2021/05/02/spring-test-container/>
-* <https://mangchhe.github.io/test/2022/07/22/TestContainers/>
 
 [do-not-replace-database-when-using-data-jpa-test-annotation-link]: https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/

@@ -1,0 +1,138 @@
+---
+title: "TestContainer for Database"
+search: false
+category:
+  - post-format
+last_modified_at: 2024-04-12T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Not Change Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link]
+
+## 0. 들어가면서
+
+데이터베이스가 연동된 결합 테스트(integration test)에서 활용할 수 있는 `TestContainer`에 대해 정리하였습니다. 
+
+## 1. Pain Point of Database for Test
+
+데이터베이스가 필요한 비즈니스 로직을 테스트하기 위해 인-메모리(in-memory) 데이터베이스를 주로 사용합니다. 
+인-메모리 데이터베이스를 사용하면 다음과 같은 장점을 얻을 수 있습니다. 
+
+* 메모리 데이터베이스를 사용하기 때문에 실행 속도가 빠릅니다.
+* 테스트마다 메모리에 데이터베이스를 구성하고, 테스트가 종료될 때 삭제하므로 멱등성(idempotent)이 보장됩니다. 
+    * 멱등성이란 여러번 실행하더라도 결과가 바뀌지 않는 성질을 의미합니다. 
+* 개발자의 로컬 PC 환경에서 테스트를 실행할 때 별도의 데이터베이스 연결이 필요하지 않습니다. 
+
+아쉽게도 메모리 데이터베이스는 만능이 아닙니다. 
+장점도 많지만, 실제 사용하는 데이터베이스와 다르기 때문에 문제가 발생합니다. 
+
+* 데이터베이스 엔진이 다르게 동작하기 때문에 실제 운영 데이터베이스와 다른 결과를 반환할 수 있습니다.
+* 데이터베이스마다 다른 문법을 사용하기 때문에 대체 가능한 SQL 문법을 찾아야합니다.
+    * ANSI SQL처럼 표준 문법만으로 비즈니스 기능을 모두 커버하기 어려울 수 있습니다.
+    * JPQL(Java Persistence Query Lanager)처럼 추상화 된 문법을 사용하더라도 해결하기 어려울 수 있습니다.
+* 데이터베이스 전용 내장 함수를 사용한다면 대체 가능한 함수를 찾아야합니다. 
+
+빠른 개발을 위해 메모리 데이터베이스를 사용하고 있었다면, 운영에 진입하기 전엔 운영 환경과 동일하게 테스트해야 합니다. 
+개발/운영 데이터베이스를 사용한 테스트는 데이터를 오염시킬 수 있다는 문제점 때문에 이를 제외하면 다음과 같은 옵션들이 있습니다.
+
+* 개발자 로컬 데이터베이스
+    * 테스트가 끝난 후에 데이터가 남게되면 다음 실행 시 동일한 결과가 얻지 못할 수 있으므로 멱등성 관리가 어렵습니다. 
+    * CI/CD 파이프라인에서 사용할 수 없습니다.
+* 도커 컴포즈(docker compose)
+    * yml 파일에 필요한 이미지를 명세하여 하나의 네트워크로 묶인 컨테이너(container) 그룹을 실행시킵니다.
+    * 실제 데이터베이스와 동일한 이미지를 기반으로 데이터베이스 컨테이너를 실행시킬 수 있습니다.
+    * 데이터베이스 컨테이너에 연결하여 테스트를 수행하고, 테스트가 종료되면 컨테이너를 정리합니다.
+    * 매 테스트마다 초기화 된 데이터베이스에서 테스트를 진행하므로 멱등성 관리가 쉽습니다.
+    * CI/CD 파이프라인에서 사용 가능합니다.
+
+도커 컴포즈는 최적의 선택지처럼 보이지만, 
+
+
+
+
+
+
+결국 똑같지 않은 데이터베이스이므로 쿼리 실행 시 문제 발생
+
+ANSI / JPQL 모두 문제
+
+테스트는 독립적으로 수행되어야 한다.
+
+
+
+
+
+데이터베이스 벤더(vendor)에 맞는 도커 컨테이너를 띄워서 테스트
+    * 쿼리 문제 해결
+테스트할 때만 도커 컨테이너를 실행하기 때문에 메모리를 차지하지 않는다. 
+테스트 환경 데이터베이스를 따로 만들지 않는다.
+추가 리소스가 필요하지 않다
+매번 테스트할 데이터들이 동일하기 때문에 멱등성 있는 테스트가 보장된다. 
+
+테스트를 실행할 때마다 도커 컨테이너를 생성하고 설정하는 시간이 추가된다.
+아무리 가벼운 테스트라도 도커 컨테이너를 생성하고 세팅하는 시간이 있어서 시간이 더 소요된다.
+
+
+
+
+
+
+
+
+
+### 1.1.
+
+### 1.1. @DataJpaTest Annotation
+
+
+## 2. TestContainer
+
+> Testcontainers for Java is a Java library that supports JUnit tests, providing lightweight, throwaway instances of common databases, Selenium web browsers, or anything else that can run in a Docker container.
+
+`TestContainer`는 이번 포스트처럼 단순히 데이터베이스만 지원하지 않습니다. 
+많은 기능들을 컨테이너화하고 테스트를 위해 이를 제공합니다.
+
+* 웹 브라우저
+    * 셀레니움
+* 웹 서버나 프록시
+    * nginx, 아파치
+* NoSQL 데이터베이스
+    * 레디스, 엘라스틱서치, 몽고
+* 로그 서비스
+    * 카프카, 키바나
+
+## 3. Practice
+
+
+
+
+
+## CLOSING
+
+실제 
+
+
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://www.testcontainers.org/>
+* [TestContainer 로 멱등성있는 integration test 환경 구축하기](https://medium.com/riiid-teamblog-kr/testcontainer-%EB%A1%9C-%EB%A9%B1%EB%93%B1%EC%84%B1%EC%9E%88%EB%8A%94-integration-test-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-4a6287551a31)
+* 
+
+
+
+
+
+* <https://umbum.dev/1127>
+* <https://phauer.com/2017/dont-use-in-memory-databases-tests-h2/>
+* <https://taes-k.github.io/2021/05/02/spring-test-container/>
+* <https://mangchhe.github.io/test/2022/07/22/TestContainers/>
+
+[do-not-replace-database-when-using-data-jpa-test-annotation-link]: https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/

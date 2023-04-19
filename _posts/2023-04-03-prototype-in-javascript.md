@@ -16,7 +16,7 @@ last_modified_at: 2023-04-03T23:55:00
 
 이번 포스트는 `JavaScript`의 프로토타입(prototype)에 관련된 내용을 다룹니다. 
 주제 특성상 객체라는 말을 많이 사용합니다. 
-`JavaScript`에선 함수도 객체이기 떄문에 글의 내용이 다소 헷갈릴 수 있습니다. 
+`JavaScript`에선 함수도 객체이기 때문에 글의 내용이 다소 헷갈릴 수 있습니다. 
 이를 구분짓기 위해 생성자 함수를 통해 만들어진 객체는 인스턴스(instance)라고 명명하겠습니다.
 
 ## 1. Prototype in JavaScript

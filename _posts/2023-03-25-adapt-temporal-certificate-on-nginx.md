@@ -65,7 +65,7 @@ $ openssl req -x509\
   -days 30\
   -nodes\
   -newkey rsa:2048\
-  -keyout ssl/nginx-ssl.key\ 
+  -keyout ssl/nginx-ssl.key\
   -out ssl/nginx-ssl.crt
 Generating a 2048 bit RSA private key
 ...............................+++++

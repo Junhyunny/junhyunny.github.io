@@ -1,5 +1,5 @@
 ---
-title: "ThreadLocal 클래스"
+title: "ThreadLocal Class"
 search: false
 category:
   - java
@@ -11,6 +11,8 @@ last_modified_at: 2023-04-20T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Proccess and Thread][process-vs-thread-link]
+* [Principal Class for Authenticated User][setup-temporal-principal-link]
+* [Layered Architecture][layered-architecture-link]
 
 ## 1. ThreadLocal 클래스
 
@@ -33,7 +35,8 @@ ThreadLocal 클래스에 대해 알아보기 전에 `Java` 메모리 중 스택(
 * 힙에 생성된 객체는 스택의 로컬 변수를 통해서만 접근 가능하기 때문에 다른 스레드에서 접근할 수 없습니다. 
 
 <p align="center">
-    <img src="/images/thread-local-class-in-java-1.JPG" width="80%" class="image__border">
+    <img src="/images/thread-local-class-in-java-1.JPG
+    " width="80%" class="image__border">
 </p>
 
 ### 1.2. Inside ThreadLocal Class
@@ -204,15 +207,280 @@ ThreadLocal 클래스는 무슨 문제점을 해결하기 위해 등장했는지
 
 서블릿 필터부터 영속성 레이어까진 상당히 많은 코드를 지나야합니다. 
 스레드-안전(thread-safe)하게 어플리케이션을 구성하려면 인증된 사용자 객체를 메소드의 파라미터로 계속 들고 다녀야합니다. 
-간단한 예제 코드를 통해 살펴보면 다음과 같습니다. 
 
+<p align="center">
+    <img src="/images/thread-local-class-in-java-3.JPG" width="80%" class="image__border">
+</p>
 
+### 2.1. FooFilter Class
+
+서블릿 필터에서 영속성 레이어까지 인증된 사용자 객체를 전달하는 과정을 코드로 살펴보겠습니다. 
+서블릿 필터 코드부터 살펴보겠습니다. 
+
+* 인증된 사용자 정보는 세션이나 외부 서비스 혹은 데이터베이스에서 획득했다고 가정하겠습니다.
+* 인증된 사용자 정보를 HttpServletRequestWrapper 클래스를 상속한 객체를 통해 다음 필터로 전달합니다.
+
+```java
+package action.in.blog.filter;
+
+import action.in.blog.domain.AuthenticatedUser;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Arrays;
+
+@Component
+public class FooFilter extends OncePerRequestFilter {
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        AuthenticatedUser authenticatedUser = AuthenticatedUser.builder()
+                .id("0001")
+                .name("Junhyunny")
+                .roles(Arrays.asList("ADMIN", "USER", "MANAGER"))
+                .build();
+
+        filterChain.doFilter(new UserPrincipalHttpServletRequest(request, authenticatedUser), response);
+    }
+}
+
+class UserPrincipalHttpServletRequest extends HttpServletRequestWrapper {
+
+    private Principal principal;
+
+    public UserPrincipalHttpServletRequest(HttpServletRequest request) {
+        super(request);
+    }
+
+    public UserPrincipalHttpServletRequest(HttpServletRequest request, Principal principal) {
+        this(request);
+        this.principal = principal;
+    }
+
+    @Override
+    public Principal getUserPrincipal() {
+        return principal;
+    }
+}
+```
+
+### 2.2. FooController Class
+
+* API 엔드-포인트(end-point) 역할을 수행하는 컨트롤러에서 메소드 파라미터로 인증된 사용자 정보를 전달받습니다.
+* 인증된 사용자를 서비스 객체에게 전달합니다.
+
+```java
+package action.in.blog.controller;
+
+import action.in.blog.domain.AuthenticatedUser;
+import action.in.blog.service.FooService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class FooController {
+
+    private final FooService fooService;
+
+    public FooController(FooService fooService) {
+        this.fooService = fooService;
+    }
+
+    @PostMapping("/foo")
+    public void createFoo(AuthenticatedUser user) {
+        fooService.createFoo(user);
+    }
+}
+```
+
+### 2.3. FooService Class
+
+* 비즈니스 로직의 흐름을 제어하는 서비스에서 메소드 파라미터로 인증된 사용자 정보를 전달받습니다.
+* 인증된 사용자를 스토어 객체에게 전달합니다.
+
+```java
+package action.in.blog.service;
+
+import action.in.blog.domain.AuthenticatedUser;
+import action.in.blog.store.FooStore;
+import org.springframework.stereotype.Service;
+
+@Service
+public class FooService {
+
+    private final FooStore fooStore;
+
+    public FooService(FooStore fooStore) {
+        this.fooStore = fooStore;
+    }
+
+    public void createFoo(AuthenticatedUser user) {
+        fooStore.createFoo(user);
+    }
+}
+```
+
+### 2.4. FooStore Class
+
+* 영속성 레이어에 해당하는 FooStore 객체에서 파라미터로 인증된 사용자 정보를 전달받습니다.
+* 인증된 사용자 정보를 사용합니다.
+
+```java
+package action.in.blog.store;
+
+import action.in.blog.domain.AuthenticatedUser;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
+
+@Slf4j
+@Repository
+public class FooStore {
+
+    public void createFoo(AuthenticatedUser user) {
+        log.info("using {} for create foo", user);
+    }
+}
+```
 
 ## 3. Practice
 
+ThreadLocal 클래스를 사용하면 코드의 복잡성을 단순화시킬 수 있습니다. 
+
+### 3.1. AuthenticatedUserHolder Class
+
+* 인증된 사용자 정보를 저장하기 위한 홀더(holder) 클래스를 생성합니다.
+* ThreadLocal 객체를 전역(static)으로 선언합니다.
+    * 전역으로 선언하더라도 각 스레드마다 고유한 값이 저장되고 사용할 수 있습니다. 
+* ThreadLocal 객체를 전역으로 선언하고 사용하기 때문에 동일한 스레드라면 어플리케이션 코드 내 어디에서든 사용할 수 있습니다.
+
+```java
+package action.in.blog.util;
+
+import action.in.blog.domain.AuthenticatedUser;
+
+public class AuthenticatedUserHolder {
+
+    private static final ThreadLocal<AuthenticatedUser> holder = new ThreadLocal<>();
+
+    public static AuthenticatedUser get() {
+        return holder.get();
+    }
+
+    public static void setUser(AuthenticatedUser authenticatedUser) {
+        holder.set(authenticatedUser);
+    }
+
+    public static void remove() {
+        holder.remove();
+    }
+}
+```
+
+### 3.2. BarFilter Class
+
+* 인증된 사용자 정보를 홀더 클래스에 담습니다.
+* 다음 필터 체인을 진행합니다.
+* 요청을 처리하면 finally 블럭을 통해 홀더 클래스에 담긴 정보를 삭제합니다.
+
+```java
+package action.in.blog.filter;
+
+import action.in.blog.domain.AuthenticatedUser;
+import action.in.blog.util.AuthenticatedUserHolder;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import java.io.IOException;
+import java.util.Arrays;
+
+@Slf4j
+public class BarFilter extends OncePerRequestFilter {
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        try {
+            AuthenticatedUser authenticatedUser = AuthenticatedUser.builder()
+                    .id("0001")
+                    .name(Thread.currentThread().getName())
+                    .roles(Arrays.asList("ADMIN", "USER", "MANAGER"))
+                    .build();
+            AuthenticatedUserHolder.setUser(authenticatedUser);
+            log.info("{} in bar filter", authenticatedUser);
+            filterChain.doFilter(request, response);
+        } finally {
+            AuthenticatedUserHolder.remove();
+        }
+    }
+}
+```
+
+### 3.3. BarStore Class
+
+* 영속성 레이어에 해당하는 BarStore 객체에서 인증된 사용자 정보를 홀더에서 꺼내 사용합니다.
+
+```java
+package action.in.blog.store;
+
+import action.in.blog.util.AuthenticatedUserHolder;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
+
+@Slf4j
+@Repository
+public class BarStore {
+
+    public void createBar() {
+        log.info("using {} for creating bar", AuthenticatedUserHolder.get());
+    }
+}
+```
+
 ## CLOSING
 
+```java
+package action.in.blog.config;
+
+import action.in.blog.filter.BarFilter;
+import action.in.blog.filter.FooFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+@Configuration
+public class WebMvcConfiguration implements WebMvcConfigurer {
+
+    @Bean
+    public FilterRegistrationBean<FooFilter> fooFilterRegistrationBean() {
+        FilterRegistrationBean<FooFilter> registrationBean = new FilterRegistrationBean<>(new FooFilter());
+        registrationBean.addUrlPatterns("/foo");
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean<BarFilter> barFilterRegistrationBean() {
+        FilterRegistrationBean<BarFilter> registrationBean = new FilterRegistrationBean<>(new BarFilter());
+        registrationBean.addUrlPatterns("/bar");
+        return registrationBean;
+    }
+}
+```
+
 #### TEST CODE REPOSITORY
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-20-thread-local-class-in-java>
 
 #### RECOMMEND NEXT POSTS
 
@@ -225,4 +493,6 @@ ThreadLocal 클래스는 무슨 문제점을 해결하기 위해 등장했는지
 * <https://pamyferret.tistory.com/53>
 
 [process-vs-thread-link]: https://junhyunny.github.io/information/operating-system/process-vs-thread/
+[setup-temporal-principal-link]: https://junhyunny.github.io/tomcat/spring-boot/setup-temporal-principal/
+[layered-architecture-link]: https://junhyunny.github.io/architecture/pattern/layered-architecture/
 [java-effectively-final-link]: https://junhyunny.github.io/java/java-effectively-final/

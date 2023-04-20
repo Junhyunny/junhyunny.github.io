@@ -14,7 +14,7 @@ last_modified_at: 2023-04-20T23:55:00
 * [Principal Class for Authenticated User][setup-temporal-principal-link]
 * [Layered Architecture][layered-architecture-link]
 
-## 1. ThreadLocal 클래스
+## 1. ThreadLocal Class
 
 JDK 1.2부터 지원된 기능입니다. 
 스레드(thread) 단위로 값을 저장할 수 있는 메모리 공간입니다. 
@@ -35,17 +35,16 @@ ThreadLocal 클래스에 대해 알아보기 전에 `Java` 메모리 중 스택(
 * 힙에 생성된 객체는 스택의 로컬 변수를 통해서만 접근 가능하기 때문에 다른 스레드에서 접근할 수 없습니다. 
 
 <p align="center">
-    <img src="/images/thread-local-class-in-java-1.JPG
-    " width="80%" class="image__border">
+    <img src="/images/thread-local-class-in-java-1.JPG" width="80%" class="image__border">
 </p>
 
 ### 1.2. Inside ThreadLocal Class
 
 ThreadLocal 클래스는 어떤 구조를 통해 스레드 단위에 데이터 저장이 가능한지 구조를 살펴보겠습니다. 
-자주 사용되는 메소드를 기준으로 살펴보겠습니다. 
+중요한 메소드를 기준으로 살펴보겠습니다. 
 
 * withInitial 메소드
-    * 람다식을 통해 ThreadLocal 객체의 초기 값을 지정합니다.
+    * 람다식(lambda expression)을 통해 ThreadLocal 객체의 초기 값을 지정합니다.
 * get 메소드
     * ThreadLocal 객체에 저장된 값을 찾아 반환합니다.
     * 현재 스레드를 기준으로 ThreadLocalMap 객체를 찾습니다.
@@ -171,10 +170,10 @@ public class ThreadLocal<T> {
 }
 ```
 
-### 1.4. Summary
+### 1.4. Summary for ThreadLocal Class Mechanism
 
 Java에서 스레드는 객체라는 점을 고려하여 ThreadLocal 클래스의 기능을 다음과 같이 요약할 수 있습니다. 
-추상화된 이미지를 통해 `ThreadLocal` 클래스의 기능을 살펴보겠습니다. 
+추상화된 이미지를 통해 ThreadLocal 클래스의 기능을 살펴보겠습니다. 
 
 * 각 스레드 객체는 자신이 관리하는 ThreadLocalMap 객체가 존재합니다.
 * ThreadLocalMap 객체는 ThreadLocalMap.Entry 객체를 배열로 관리합니다.
@@ -205,12 +204,14 @@ ThreadLocal 클래스는 무슨 문제점을 해결하기 위해 등장했는지
 * 서블릿(servlet) 필터에서 인증된 사용자 정보를 획득
 * 영속성 레이어(persistence layer)에서 인증된 사용자 정보를 활용
 
-서블릿 필터부터 영속성 레이어까진 상당히 많은 코드를 지나야합니다. 
-스레드-안전(thread-safe)하게 어플리케이션을 구성하려면 인증된 사용자 객체를 메소드의 파라미터로 계속 들고 다녀야합니다. 
+톰캣(tomcat) 미들웨어 기반의 스프링 어플리케이션은 아래 그림의 보라색 선을 따라 흐름이 진행됩니다. 
+위에서 가정한 것처럼 인증된 사용자 정보를 서블릿 필터에서부터 영속성 레이어인 레포지토리(repository)까지 전달하려면 많은 코드를 지나야합니다. 
+스레드-안전(thread-safe)하게 인증된 사용자 객체를 사용하려면 메소드의 파라미터를 통해 계속 들고 다녀야합니다. 
 
 <p align="center">
     <img src="/images/thread-local-class-in-java-3.JPG" width="80%" class="image__border">
 </p>
+<center>https://gowoonsori.com/spring/architecture/</center>
 
 ### 2.1. FooFilter Class
 
@@ -229,25 +230,24 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 
-@Component
+@Slf4j
 public class FooFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         AuthenticatedUser authenticatedUser = AuthenticatedUser.builder()
                 .id("0001")
-                .name("Junhyunny")
+                .name(Thread.currentThread().getName())
                 .roles(Arrays.asList("ADMIN", "USER", "MANAGER"))
                 .build();
-
+        log.info("{} in foo filter", authenticatedUser);
         filterChain.doFilter(new UserPrincipalHttpServletRequest(request, authenticatedUser), response);
     }
 }
@@ -345,20 +345,20 @@ import org.springframework.stereotype.Repository;
 public class FooStore {
 
     public void createFoo(AuthenticatedUser user) {
-        log.info("using {} for create foo", user);
+        log.info("using {} for creating foo", user);
     }
 }
 ```
 
 ## 3. Practice
 
-ThreadLocal 클래스를 사용하면 코드의 복잡성을 단순화시킬 수 있습니다. 
+ThreadLocal 클래스를 사용하면 복잡한 코드를 단순하게 만들 수 있습니다. 
 
 ### 3.1. AuthenticatedUserHolder Class
 
 * 인증된 사용자 정보를 저장하기 위한 홀더(holder) 클래스를 생성합니다.
 * ThreadLocal 객체를 전역(static)으로 선언합니다.
-    * 전역으로 선언하더라도 각 스레드마다 고유한 값이 저장되고 사용할 수 있습니다. 
+    * 전역으로 선언하더라도 각 스레드마다 고유한 값을 저장, 사용할 수 있습니다. 
 * ThreadLocal 객체를 전역으로 선언하고 사용하기 때문에 동일한 스레드라면 어플리케이션 코드 내 어디에서든 사용할 수 있습니다.
 
 ```java
@@ -388,7 +388,8 @@ public class AuthenticatedUserHolder {
 
 * 인증된 사용자 정보를 홀더 클래스에 담습니다.
 * 다음 필터 체인을 진행합니다.
-* 요청을 처리하면 finally 블럭을 통해 홀더 클래스에 담긴 정보를 삭제합니다.
+* 요청을 처리와 마무리 작업을 `try-finally` 블럭을 통해 수행합니다.
+    * finally 블럭에서 홀더 클래스에 담긴 정보를 삭제합니다.
 
 ```java
 package action.in.blog.filter;
@@ -428,6 +429,8 @@ public class BarFilter extends OncePerRequestFilter {
 
 ### 3.3. BarStore Class
 
+컨트롤러, 서비스 객체는 크게 살펴볼 필요가 없기 때문에 스토어 객체를 살펴보겠습니다.
+
 * 영속성 레이어에 해당하는 BarStore 객체에서 인증된 사용자 정보를 홀더에서 꺼내 사용합니다.
 
 ```java
@@ -448,6 +451,15 @@ public class BarStore {
 ```
 
 ## CLOSING
+
+ThreadLocal 클래스는 스레드 객체에 저장된 데이터를 참조하는 특성으로 인해 스레드 풀(thread pool) 구조에 취약합니다. 
+스레드 풀 환경에서 의도치 않은 버그를 방지하려면 ThreadLocal 객체를 remove 메소드를 사용해 정리해야 합니다. 
+관련된 내용은 다음 포스트로 다뤄볼 예정입니다. 
+
+테스트를 위해 각 필터 별로 요청 처리를 나누기 위해 별도 설정 빈(configuration bean)을 사용하였습니다. 
+필터가 동작하기 위해선 다음과 같은 설정이 필요합니다.
+
+##### WebMvcConfiguration Class
 
 ```java
 package action.in.blog.config;
@@ -491,6 +503,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 * <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ThreadLocal.html>
 * <https://jaehoney.tistory.com/302>
 * <https://pamyferret.tistory.com/53>
+* <https://gowoonsori.com/spring/architecture/>
 
 [process-vs-thread-link]: https://junhyunny.github.io/information/operating-system/process-vs-thread/
 [setup-temporal-principal-link]: https://junhyunny.github.io/tomcat/spring-boot/setup-temporal-principal/

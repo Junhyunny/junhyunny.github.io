@@ -19,7 +19,7 @@ last_modified_at: 2022-02-16T23:55:00
 
 ## 0. 들어가면서
 
-[Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트를 작성할 시점엔 사실 내부 동작을 정확하게 이해하지 못 했습니다. 
+[Spring Security JWT OAuth Example][spring-security-example-link] 포스트를 작성할 시점엔 사실 내부 동작을 정확하게 이해하지 못 했습니다. 
 인증 과정은 `@EnableAuthorizationServer` 애너테이션과 `AuthorizationServerConfigurerAdapter` 클래스 상속만으로 쉽게 인증과 토큰 발급이 가능하다보니 내부 프로세스에 대해 크게 관심이 없었던 것 같습니다. 
 최근에 이전 글들을 다시 정리하는 과정에서 `Spring Security` 진영이 더는 OAuth2.0 인증 서버와 관련된 기능을 제공하지 않는다는 사실을 알았습니다. 
 

@@ -554,7 +554,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 
 #### RECOMMEND NEXT POSTS
 
-* [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]
+* [Spring Security JWT OAuth Example][spring-security-example-link]
 * [AuthenticationFilter 만들기][make-authentication-filter-link]
 * [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
 * [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]

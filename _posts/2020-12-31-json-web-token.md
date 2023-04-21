@@ -140,7 +140,7 @@ HMACSHA256(
 
 #### RECOMMEND NEXT POSTS
 
-* [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]
+* [Spring Security JWT OAuth Example][spring-security-example-link]
 
 #### REFERENCE
 

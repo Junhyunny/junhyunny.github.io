@@ -1,5 +1,5 @@
 ---
-title: "TokenEnhancer 인터페이스"
+title: "TokenEnhancer Interface"
 search: false
 category:
   - spring-boot
@@ -13,12 +13,12 @@ last_modified_at: 2021-08-21T17:00:00
 
 * [JWT(Json Web Token)][json-web-token-link]
 * [Spring Security][spring-security-link]
-* [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]
+* [Spring Security JWT OAuth Example][spring-security-example-link]
 
-## 1. TokenEnhancer 인터페이스
+## 1. TokenEnhancer Interface
 
 Spring Security 프레임워크의 `TokenEnhancer` 인터페이스를 구현한 클래스를 사용하면 토큰의 모습을 변경할 수 있습니다. 
-[Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트에서 사용한 `JwtAccessTokenConverter` 클래스 또한 `TokenEnhancer` 인터페이스를 구현하고 있습니다. 
+[Spring Security JWT OAuth Example][spring-security-example-link] 포스트에서 사용한 `JwtAccessTokenConverter` 클래스 또한 `TokenEnhancer` 인터페이스를 구현하고 있습니다. 
 
 ```java
 public class JwtAccessTokenConverter implements TokenEnhancer, AccessTokenConverter, InitializingBean {
@@ -60,7 +60,7 @@ public class JwtAccessTokenConverter implements TokenEnhancer, AccessTokenConver
 
 ## 3. 인증 서버
 
-이번 포스트의 인증 서버는 [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]에서 사용한 서비스를 일부 변경하였습니다. 
+이번 포스트의 인증 서버는 [Spring Security JWT OAuth Example][spring-security-example-link]에서 사용한 서비스를 일부 변경하였습니다. 
 서비스의 구체적인 구조나 코드에 관련된 설명은 해당 포스트를 통해 확인하시길 바랍니다.
 
 ### 3.1. CustomTokenEnhancer 클래스
@@ -169,7 +169,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 
 ## 4. 테스트 
 
-[Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트와 마찬가지로 cURL 커맨드를 사용하여 테스트를 수행하였습니다. 
+[Spring Security JWT OAuth Example][spring-security-example-link] 포스트와 마찬가지로 cURL 커맨드를 사용하여 테스트를 수행하였습니다. 
 
 ##### 토큰 정보 요청과 처리 결과
 

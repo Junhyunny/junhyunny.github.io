@@ -138,11 +138,6 @@ public class ThreadLocal<T> {
 
         private void set(ThreadLocal<?> key, Object value) {
 
-            // We don't use a fast path as with get() because it is at
-            // least as common to use set() to create new entries as
-            // it is to replace existing ones, in which case, a fast
-            // path would fail more often than not.
-
             Entry[] tab = table;
             int len = tab.length;
             int i = key.threadLocalHashCode & (len-1);
@@ -494,10 +489,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-20-thread-local-class-in-java>
 
-#### RECOMMEND NEXT POSTS
-
-* [Java effectively final][java-effectively-final-link]
-
 #### REFERENCE
 
 * <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ThreadLocal.html>
@@ -508,4 +499,3 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 [process-vs-thread-link]: https://junhyunny.github.io/information/operating-system/process-vs-thread/
 [setup-temporal-principal-link]: https://junhyunny.github.io/tomcat/spring-boot/setup-temporal-principal/
 [layered-architecture-link]: https://junhyunny.github.io/architecture/pattern/layered-architecture/
-[java-effectively-final-link]: https://junhyunny.github.io/java/java-effectively-final/

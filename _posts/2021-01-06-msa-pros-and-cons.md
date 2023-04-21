@@ -1,5 +1,5 @@
 ---
-title: "MicroService Architecture 장점과 단점"
+title: "Pros and Cons of MicroService Architecture"
 search: false
 category:
   - msa

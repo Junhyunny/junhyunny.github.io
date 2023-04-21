@@ -1,5 +1,5 @@
 ---
-title: "Spring Security JWT(Json Web Token) OAuth 인증 예제"
+title: "Spring Security JWT OAuth Example"
 search: false
 category:
   - spring-boot
@@ -784,7 +784,7 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 
 #### RECOMMEND NEXT POSTS
 
-* [TokenEnhancer 인터페이스][token-enhancer-link]
+* [TokenEnhancer Interface][token-enhancer-link]
 * [HandlerMethodArgumentResolver 인터페이스][handler-method-argument-resolver-link]
 * [AuthenticationFilter 만들기][make-authentication-filter-link]
 * [JWT AuthenticationProvider 만들기][make-authentication-provider-link]

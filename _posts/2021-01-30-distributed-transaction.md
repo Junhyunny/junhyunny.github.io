@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T00:30:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [MicroService Architecture][microservice-architecture-link]
-* [MicroService Architecture 장점과 단점][msa-pros-and-cons-link]
+* [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
 * [Transaction ACID][transcation-acid-link]
 * [트랜잭션 격리성(Transaction Isolation)][transcation-isolation-link]
 

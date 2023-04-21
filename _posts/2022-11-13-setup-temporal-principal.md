@@ -1,5 +1,5 @@
 ---
-title: "Setup Temporal Principal"
+title: "Principal Class for Authenticated User"
 search: false
 category:
   - tomcat

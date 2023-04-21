@@ -71,7 +71,7 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 
 #### RECOMMEND NEXT POSTS
 
-* [MicroService Architecture 장점과 단점][msa-pros-and-cons-link]
+* [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
 * [MSA API Gateway][msa-api-gateway-link]
 
 #### REFERENCE

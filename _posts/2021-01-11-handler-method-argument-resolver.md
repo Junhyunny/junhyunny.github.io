@@ -10,7 +10,7 @@ last_modified_at: 2021-08-21T17:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]
+* [Spring Security JWT OAuth Example][spring-security-example-link]
 
 ## 1. HandlerMethodArgumentResolver 인터페이스
 
@@ -113,8 +113,8 @@ public class InvocableHandlerMethod extends HandlerMethod {
 
 ## 4. Make Custom Resolvers
 
-[Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]에서 사용한 리소스 서버를 일부 변경하였습니다. 
-이번 포스트에선 리졸버 구현에 집중할 예정이며, 기타 코드 설명이 필요하다면 [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트를 참고하시길 바랍니다. 
+[Spring Security JWT OAuth Example][spring-security-example-link]에서 사용한 리소스 서버를 일부 변경하였습니다. 
+이번 포스트에선 리졸버 구현에 집중할 예정이며, 기타 코드 설명이 필요하다면 [Spring Security JWT OAuth Example][spring-security-example-link] 포스트를 참고하시길 바랍니다. 
 
 두 개의 리졸버를 구현할 예정입니다. 
 
@@ -306,7 +306,7 @@ public class MemberController {
 ## 5. 테스트
 
 해당 테스트는 인증 토큰이 필요합니다. 
-인증 토큰을 얻는 자세한 방법을 확인하시려면 [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 포스트의 테스트를 참조하시길 바랍니다. 
+인증 토큰을 얻는 자세한 방법을 확인하시려면 [Spring Security JWT OAuth Example][spring-security-example-link] 포스트의 테스트를 참조하시길 바랍니다. 
 
 ### 5.1. 인증 토큰 발급
 

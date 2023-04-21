@@ -15,7 +15,7 @@ last_modified_at: 2021-12-19T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT(Json Web Token)][json-link]
 - [Spring Security][security-link]
-- [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link]
+- [Spring Security JWT OAuth Example][spring-security-example-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Login Page / Authorization based Oauth2 JWT / Resource Service 분할 - Front-End Service][front-end-service-link]
@@ -24,7 +24,7 @@ last_modified_at: 2021-12-19T23:55:00
 ## 0. 들어가면서
 
 `TDD(Test Driven Development)`를 연습하면서 로그인 기능을 `Spring Security`와 함께 구현해보는 것도 좋을 것 같다는 생각이 들었습니다. 
-이전에 작성했던 [Spring Security JWT(Json Web Token) OAuth 인증 예제][spring-security-example-link] 글을 참조했는데, 마음에 들지 않는 부분들이 있어서 다시 정리하였습니다.
+이전에 작성했던 [Spring Security JWT OAuth Example][spring-security-example-link] 글을 참조했는데, 마음에 들지 않는 부분들이 있어서 다시 정리하였습니다.
 
 다시 정리해보려고 하는 내용들은 다음과 같습니다. 
 - `Insomnia 툴(tool)`을 이용한 테스트를 실제 로그인 화면으로 변경
@@ -33,7 +33,7 @@ last_modified_at: 2021-12-19T23:55:00
 - 선 테스트 코드 작성 후 코드 구현 (RED-GREEN-REFACTORING 사이클 연습)
     - 프레임워크 기능에 의존적인 부분은 선 테스트 코드 작성에 실패하였습니다. 
 
-##### Spring Security JWT(Json Web Token) OAuth 인증 예제 서비스 구조
+##### Spring Security JWT OAuth Example 서비스 구조
 
 <p align="center"><img src="/images/split-login-authorization-resource-service-1.JPG" width="70%"></p>
 

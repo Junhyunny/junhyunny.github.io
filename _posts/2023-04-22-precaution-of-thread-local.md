@@ -202,13 +202,16 @@ Value is null. Set current thread name into holder.
 
 ## CLOSING
 
-ThreadLocal 클래스는 
+ThreadLocal 클래스는 스레드를 재사용하는 스레드 풀 환경일 때 문제가 발생합니다. 
+톰캣은 요청 한 개에 스레드가 한 개 매칭되기 때문에 ThreadLocal 객체를 정리만 해주면 문제가 없습니다. 
+
+이와 다른 구조를 가진 네티(netty) 환경에서 ThreadLocal 클래스를 사용할 수 있는지 궁금해졌습니다. 
+네티는 이벤트 루프를 처리하는 스레드가 계속 이벤트를 처리합니다. 
+중간에 블록킹(blocking) 된 작업은 추후에 콜백을 통해 재처리되는데 이런 환경에서 ThreadLocal 객체를 사용할 수 있는지 공부해 볼 예정입니다. 
 
 #### TEST CODE REPOSITORY
 
-* <>
-
-#### RECOMMEND NEXT POSTS
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-22-precaution-of-thread-local>
 
 #### REFERENCE
 

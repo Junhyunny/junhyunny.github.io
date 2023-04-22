@@ -34,8 +34,7 @@ classes: wide
 ##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 2023년 4월
 
 * TypeScript, React, HTML, Sass, Jest, Testing Library, Cypress
-* 도요타 사내 컨퍼런스 참여자들에게 정보 제공 및 네비게이션을 제공하는 웹 어플리케이션
-* 컨퍼런스 내 프로그램 정보를 담은 카드들을 QR 스캔을 통해 수집하는 서비스
+* 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
 * 테스트 코드와 리팩토링을 통한 컴포넌트 구조 재구성과 점진적인 신규 기능 확장 개발
 * Google Analytics, Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 * Chrome Lighthouse를 통한 성능 분석 및 향상을 통해 어플리케이션 사용성 개선

@@ -489,6 +489,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-20-thread-local-class-in-java>
 
+#### RECOMMEND NEXT POSTS
+
+* [Precaution of ThreadLocal Class Usage][precaution-of-thread-local-link]
+
 #### REFERENCE
 
 * <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ThreadLocal.html>
@@ -499,3 +503,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 [process-vs-thread-link]: https://junhyunny.github.io/information/operating-system/process-vs-thread/
 [setup-temporal-principal-link]: https://junhyunny.github.io/tomcat/spring-boot/setup-temporal-principal/
 [layered-architecture-link]: https://junhyunny.github.io/architecture/pattern/layered-architecture/
+
+[precaution-of-thread-local-link]: https://junhyunny.github.io/java/precaution-of-thread-local/

@@ -434,7 +434,7 @@ class NutritionFacts {
 `GoF 디자인 패턴`에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋을 것 같습니다. 
 OKKY 커뮤니티에서 본 빌더 패턴에 관련된 글들이 읽고 참고할만한 내용이라 포스트 마지막에 추가하였습니다. 
 
-<p align="center">
+<p align="center" class="vertical__top">
     <img src="/images/builder-pattern-2.JPG" width="47.5%" class="image__border">
     <img src="/images/builder-pattern-3.JPG" width="47.5%" class="image__border">
 </p>

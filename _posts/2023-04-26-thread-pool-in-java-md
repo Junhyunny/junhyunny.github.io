@@ -14,7 +14,7 @@ last_modified_at: 2023-04-25T23:55:00
 
 스레드 풀(thread pool)은 프로그램의 동시성 실행을 지원하는 디자인 패턴입니다. 
 복제된 작업자(replicated workers) 또는 작업자-크루(worker-crew) 모델이라고 불리기도 합니다. 
-스레드 풀은 여러 개의 스레드들을 유지한 채로 작업(task)들이 할당되기를 기다립니다. 
+스레드 풀은 여러 개의 스레드들을 유지 관리하고, 풀 내의 스레드들은 작업(task)이 할당되기를 기다립니다. 
 
 <p align="center">
     <img src="/images/thread-pool-in-java-1.JPG" width="80%" class="image__border">
@@ -23,31 +23,115 @@ last_modified_at: 2023-04-25T23:55:00
 
 ### 1.1. Considerations of Thread Pool Usage
 
-스레드 풀은 다음과 같은 문제를 해결하기 위해 고안된 디자인 패턴입니다. 
+스레드 풀은 다음과 같은 문제를 해결하기 위해 사용하는 디자인 패턴입니다. 
 
 * 짧은 작업을 위해 스레드를 생성, 수거하는데 드는 비용을 줄일 수 있습니다.
-    * 스레드 생성과 수거는 운영체제의 자원을 사용하기 때문에 비용이 큽니다.
+    * 스레드 생성과 수거는 운영체제 자원을 사용하기 때문에 비용이 큽니다.
 * 미리 생성해 둔 스레드에 작업을 할당하기 때문에 실행 지연을 줄일 수 있습니다.
 
 스레드 풀을 사용하면 다음과 같은 것들을 고려해야 합니다.
 
-* 처리할 작업 대비 너무 많은 스레드가 스레드 풀에 생성되었다면 이는 메모리 낭비입니다. 
-* 작업마다 소요 시간이 다르기 때문에 빨리 일이 끝나는 스레드는 
+* 처리할 작업에 비해 너무 많은 스레드가 생성되어 있다면 메모리가 낭비됩니다. 
 
 ## 2. Types of Thread Pool in Java
 
-Java에서 스레드 풀 기능을 지원하는 클래스들을 살펴보겠습니다. 
-정적 팩토리 메소드 패턴으로 구현된 Executors 클래스를 사용하면 쉽게 스레드 풀을 지원하는 객체를 생성할 수 있습니다. 
-아래에서 설명할 스레드 풀 관련 클래스들은 모두 ExecutorService 인터페이스를 구현하고 있습니다. 
-ExecutorService 인터페이스 API 기능들을 위주로 각 클래스들을 살펴보겠습니다. 
+JDK 1.5버전부터 java.util.concurrent 패키지를 통해 동시성에 관련 기능들을 제공하였습니다.  
+Java에서 스레드 풀 기능을 제공하는 주요 클래스와 인터페이스를 살펴본 후 각 스레드 풀의 특징을 살펴보겠습니다.
+
+* Executors 클래스
+    * 정적 팩토리 메소드 패턴을 통해 스레드 풀 구현체 인스턴스를 생성합니다.
+    * 이번 포스트에서 살펴볼 정적 팩토리 메소드들은 다음과 같습니다.
+        * newCachedThreadPool
+        * newFixedThreadPool
+        * newScheduledThreadPool
+* ExecutorService 인터페이스
+    * 스레드 풀 기능을 제공하는 클래스들은 ExecutorService 인터페이스를 구현합니다.
+    * 스레드 풀로써 제공해야 하는 API 기능들을 정의하고 있습니다.
+    * ExecutorService 인터페이스로 추상화 된 메소드들을 통해 스레드 풀 기능들을 활용할 수 있습니다. 
+* ThreadPoolExecutor 클래스
+    * ExecutorService 인터페이스 구현체 클래스입니다.
+    * 포스트의 이해도를 높이고자 생성자 함수의 파라미터들을 살펴보겠습니다.
+    * `corePoolSize` - 스레드 풀에 반드시 유지되어야 하는 스레드 수입니다.
+    * `maximumPoolSize` - 스레드 풀에 저장할 수 있는 최대 스레드 개수입니다.
+    * `keepAliveTime` - 스레드 수가 코어 수보다 많은 경우, 쉬는 스레드가 종료되기 전에 새 작업을 기다리는 최대 시간입니다. 
+    * `unit` - `keepAliveTime` 파라미터에 적용되는 시간 단위입니다.
+    * `workQueue` - 처리되어야하는 작업들이 저장되는 큐입니다.
+    * `threadFactory` - 새로운 스레드를 만들 때 사용하는 팩토리 객체입니다.
+    * `handler` - 큐 용량이 초과되어 작업 실행이 블락되는 경우 사용되는 핸들러 객체입니다. 
+
+```java
+public class ThreadPoolExecutor extends AbstractExecutorService {
+
+    // ...
+
+    public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler) {
+        if (corePoolSize < 0 ||
+            maximumPoolSize <= 0 ||
+            maximumPoolSize < corePoolSize ||
+            keepAliveTime < 0)
+            throw new IllegalArgumentException();
+        if (workQueue == null || threadFactory == null || handler == null)
+            throw new NullPointerException();
+        this.corePoolSize = corePoolSize;
+        this.maximumPoolSize = maximumPoolSize;
+        this.workQueue = workQueue;
+        this.keepAliveTime = unit.toNanos(keepAliveTime);
+        this.threadFactory = threadFactory;
+        this.handler = handler;
+    }
+}
+```
 
 ### 2.1. Cached Thread Pool
+
+`newCachedThreadPool` 팩토리 메소드를 통해 생성합니다. 
+내부 메소드를 살펴보면 다음과 같습니다.
+
+* ThreadPoolExecutor 인스턴스를 반합니다.
+* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 0 입니다.
+* 스레드 풀에 담을 수 있는 최대 스레드 수는 Integer.MAX_VALUE 입니다.
+* 60초 동안 작업을 할당 받지 못하는 경우 스레드가 종료됩니다.
+* SynchronousQueue 객체를 사용하여 작업을 담습니다.
+
+```java
+public class Executors {
+
+    // ...
+
+    public static ExecutorService newCachedThreadPool() {
+        return new ThreadPoolExecutor(0, Integer.MAX_VALUE,
+                                      60L, TimeUnit.SECONDS,
+                                      new SynchronousQueue<Runnable>());
+    }
+}
+```
+
+#### 2.1.1. Example
+
+```java
+
+```
+
+##### Result of Example
+
+```
+```
 
 ### 2.2. Fixed Thread Pool
 
 ### 2.3. Scheduled Thread Pool
 
 ## CLOSING
+
+Executors 클래스를 통해 ForkJoinPool 인스턴스를 생성할 수 있습니다. 
+ForkJoinPool 클래스도 스레드 풀의 종류 중 하나이지만, 
+
 
 #### TEST CODE REPOSITORY
 
@@ -61,5 +145,6 @@ ExecutorService 인터페이스 API 기능들을 위주로 각 클래스들을 �
 * <https://www.baeldung.com/thread-pool-java-and-guava>
 * <https://hamait.tistory.com/612>
 * <https://tecoble.techcourse.co.kr/post/2021-09-18-java-thread-pool/>
+* <https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html>
 
 []: 

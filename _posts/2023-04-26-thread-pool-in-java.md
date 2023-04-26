@@ -3,7 +3,7 @@ title: "Thread Pool in Java"
 search: false
 category:
   - java
-last_modified_at: 2023-04-25T23:55:00
+last_modified_at: 2023-04-26T23:55:00
 ---
 
 <br/>
@@ -263,7 +263,7 @@ class FixedThreadPoolTests {
         int poolSize = ((ThreadPoolExecutor) executorService).getPoolSize();
         assertThat(poolSize, equalTo(5));
 
-        waitFor(5010);
+        waitFor(5000);
 
         int poolSizeAfterWait = ((ThreadPoolExecutor) executorService).getPoolSize();
         assertThat(poolSizeAfterWait, equalTo(5));
@@ -420,6 +420,7 @@ class ScheduledThreadPoolTests {
 * run_scheduled_task 메소드 수행 결과
 * 테스트 로그
     * 10개의 작업을 5개의 스레드가 나눠서 수행하는 것을 확인할 수 있습니다.
+    * 첫 작업 1초 뒤에 `Run at last` 로그가 출력된 것을 확인할 수 있습니다.
 * 테스트 코드 통과
     * 작업을 전달한 직후 스레드 풀 사이즈가 5 입니다.
     * 5초 뒤에 스레드 풀 사이즈가 5 입니다.
@@ -461,13 +462,12 @@ class ScheduledThreadPoolTests {
 ## CLOSING
 
 Executors 클래스를 통해 ForkJoinPool 인스턴스를 생성할 수 있습니다. 
-ForkJoinPool 클래스도 스레드 풀의 종류 중 하나이지만, 
+ForkJoinPool 클래스도 스레드 풀의 종류 중 하나이지만, 나중에 추가되어 개선된 사항들이 많아 보입니다. 
+한 포스트에 정리하기엔 내용이 많아 별도 포스트로 정리할 예정입니다.
 
 #### TEST CODE REPOSITORY
 
-#### RECOMMEND NEXT POSTS
-
-* [][]
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-26-thread-pool-in-java>
 
 #### REFERENCE
 
@@ -476,5 +476,3 @@ ForkJoinPool 클래스도 스레드 풀의 종류 중 하나이지만,
 * <https://hamait.tistory.com/612>
 * <https://tecoble.techcourse.co.kr/post/2021-09-18-java-thread-pool/>
 * <https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executors.html>
-
-[]: 

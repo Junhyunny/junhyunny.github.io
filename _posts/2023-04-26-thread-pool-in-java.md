@@ -33,6 +33,19 @@ last_modified_at: 2023-04-26T23:55:00
 
 * 처리할 작업에 비해 너무 많은 스레드가 생성되어 있다면 메모리가 낭비됩니다. 
 
+### 1.2. Structure of Thread Pool in Java
+
+추상화시킨 이미지를 통해 Java에서 제공하는 스레드 풀의 구조를 살펴보겠습니다.
+
+* Executors 클래스를 통해 생성되는 스레드 풀은 ExecutorService 인터페이스를 구현한 인스턴스들입니다.
+* 스레드 풀 내부에는 작업을 담는 블록킹 큐, 작업자 스레드들이 담긴 해시 세트(hash set)이 존재합니다.
+* 블록킹 큐에서 작업을 꺼내어 작업자 스레드에게 전달합니다.
+    * 블록킹 큐에서 작업을 꺼낼 땐 타임아웃 여부에 따라 poll 혹은 take 메소드를 사용합니다.
+
+<p align="center">
+    <img src="/images/thread-pool-in-java-2.JPG" width="80%" class="image__border">
+</p>
+
 ## 2. Types of Thread Pool in Java
 
 JDK 1.5버전부터 java.util.concurrent 패키지를 통해 동시성에 관련 기능들을 제공하였습니다.  
@@ -87,17 +100,6 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     }
 }
 ```
-
-##### Thread Pool in Java
-
-* Executors 클래스를 통해 생성되는 스레드 풀은 ExecutorService 인터페이스를 구현한 인스턴스들입니다.
-* 스레드 풀 내부에는 작업을 담는 블록킹 큐, 작업자 스레드들이 담긴 해시 세트(hash set)이 존재합니다.
-* 블록킹 큐에서 작업을 꺼내어 작업자 스레드에게 전달합니다.
-    * 블록킹 큐에서 작업을 꺼낼 땐 타임아웃 여부에 따라 poll 혹은 take 메소드를 사용합니다.
-
-<p align="center">
-    <img src="/images/thread-pool-in-java-2.JPG" width="80%" class="image__border">
-</p>
 
 ### 2.1. Cached Thread Pool
 

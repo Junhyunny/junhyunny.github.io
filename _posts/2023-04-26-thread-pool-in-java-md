@@ -91,13 +91,15 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 ### 2.1. Cached Thread Pool
 
 `newCachedThreadPool` 팩토리 메소드를 통해 생성합니다. 
-내부 메소드를 살펴보면 다음과 같습니다.
+해당 스레드 풀은 다음과 같은 특징을 가집니다. 
 
-* ThreadPoolExecutor 인스턴스를 반합니다.
+* ThreadPoolExecutor 인스턴스를 사용합니다.
 * 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 0 입니다.
 * 스레드 풀에 담을 수 있는 최대 스레드 수는 Integer.MAX_VALUE 입니다.
 * 60초 동안 작업을 할당 받지 못하는 경우 스레드가 종료됩니다.
-* SynchronousQueue 객체를 사용하여 작업을 담습니다.
+    * 작업자 스레드(worker thread)가 지정한 시간 동안 작업을 큐에서 꺼내지 못하면 작업이 큐에서 제거됩니다.
+* SynchronousQueue 인스턴스에 작업을 담습니다.
+    * 타임아웃(timeout)이 존재하므로 내부에서 poll 메소드가 수행됩니다.
 
 ```java
 public class Executors {
@@ -112,26 +114,354 @@ public class Executors {
 }
 ```
 
-#### 2.1.1. Example
+#### 2.1.1. Practice
+
+* 10개의 작업을 전달한 후 스레드 풀 사이즈를 확인합니다.
+* 60초 대기 후 스레드 풀 사이즈를 확인합니다.
 
 ```java
+package action.in.blog;
 
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+@Slf4j
+class CachedThreadPoolTests {
+
+    void waitFor(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void submitTasks(int taskCount, ExecutorService executorService, Runnable runnable) {
+        for (int index = 0; index < taskCount; index++) {
+            executorService.submit(runnable);
+        }
+    }
+
+    @Test
+    void thread_is_removed() {
+        int taskCount = 10;
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        submitTasks(taskCount, executorService, () -> {
+            log.info("Hello World");
+        });
+
+
+        int poolSize = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSize, equalTo(10));
+
+        waitFor(60010);
+
+        int poolSizeAfterWait = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSizeAfterWait, equalTo(0));
+    }
+}
 ```
 
-##### Result of Example
+##### Result of Practice
+
+* 테스트 로그
+    * 각 작업이 들어올 때마다 풀에서 사용되는 스레드가 모두 다른 것을 확인할 수 있습니다.
+* 테스트 코드 통과
+    * 작업을 전달한 직후 스레드 풀 사이즈가 10 입니다.
+    * 60초 뒤에 스레드 풀 사이즈가 0 입니다.
 
 ```
+22:35:57.445 [pool-1-thread-7] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-6] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-10] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-2] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-1] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-9] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-4] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-8] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-5] INFO action.in.blog.CachedThreadPoolTests -- Hello World
+22:35:57.445 [pool-1-thread-3] INFO action.in.blog.CachedThreadPoolTests -- Hello World
 ```
 
 ### 2.2. Fixed Thread Pool
 
+`newFixedThreadPool` 팩토리 메소드를 통해 생성합니다. 
+해당 스레드 풀은 다음과 같은 특징을 가집니다.
+
+* ThreadPoolExecutor 인스턴스를 사용합니다.
+* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 파라미터로 전달 받은 nThreads 값입니다.
+* 스레드 풀에 담을 수 있는 최대 스레드 수는 파라미터로 전달 받은 nThreads 값입니다.
+* 0초 동안 작업을 할당 받지 못하는 경우 스레드가 종료됩니다.
+    * 작업이 없다면 얻을 때까지 대기하므로 실제 스레드의 개수는 줄어들지 않습니다. 
+* LinkedBlockingQueue 인스턴스에 작업을 담습니다.
+    * 타임아웃(timeout)이 없으므로 내부에서 take 메소드를 통해 작업을 얻습니다. 
+
+```java
+public class Executors {
+
+    // ... 
+
+    public static ExecutorService newFixedThreadPool(int nThreads) {
+        return new ThreadPoolExecutor(nThreads, nThreads,
+                                      0L, TimeUnit.MILLISECONDS,
+                                      new LinkedBlockingQueue<Runnable>());
+    }
+}
+```
+
+#### 2.2.1. Practice
+
+* 10개의 작업을 전달한 후 스레드 풀 사이즈를 확인합니다.
+* 5초 대기 후 스레드 풀 사이즈를 확인합니다.
+
+```java
+package action.in.blog;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+@Slf4j
+class FixedThreadPoolTests {
+
+    void waitFor(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void submitTasks(int taskCount, ExecutorService executorService, Runnable runnable) {
+        for (int index = 0; index < taskCount; index++) {
+            executorService.submit(runnable);
+        }
+    }
+
+    @Test
+    void thread_pool_size_is_not_changed() {
+        int taskCount = 10;
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        submitTasks(taskCount, executorService, () -> {
+            log.info("Hello World");
+        });
+
+
+        int poolSize = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSize, equalTo(5));
+
+        waitFor(5010);
+
+        int poolSizeAfterWait = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSizeAfterWait, equalTo(5));
+    }
+}
+```
+
+##### Result of Practice
+
+* 테스트 로그
+    * 10개의 작업을 5개의 스레드가 나눠서 수행하는 것을 확인할 수 있습니다.
+* 테스트 코드 통과
+    * 작업을 전달한 직후 스레드 풀 사이즈가 5 입니다.
+    * 5초 뒤에 스레드 풀 사이즈가 5 입니다.
+
+```
+07:29:30.819 [pool-1-thread-4] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.819 [pool-1-thread-2] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.819 [pool-1-thread-1] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.819 [pool-1-thread-3] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.819 [pool-1-thread-5] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.823 [pool-1-thread-4] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.823 [pool-1-thread-2] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.824 [pool-1-thread-1] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.824 [pool-1-thread-3] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+07:29:30.824 [pool-1-thread-5] INFO action.in.blog.FixedThreadPoolTests -- Hello World
+```
+
 ### 2.3. Scheduled Thread Pool
+
+`newScheduledThreadPool` 팩토리 메소드를 통해 생성합니다. 
+해당 스레드 풀은 다음과 같은 특징을 가집니다.
+
+* ScheduledThreadPoolExecutor 인스턴스를 사용합니다.
+    * ScheduledThreadPoolExecutor는 ThreadPoolExecutor 클래스를 확장한 클래스입니다.
+* ScheduledExecutorService 인터페이스를 반환합니다.
+    * ScheduledExecutorService는 ExecutorService 인터페이스를 확장한 인터페이스입니다.
+* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 파라미터로 전달 받은 `corePoolSize` 값입니다.
+* 스레드 풀에 담을 수 있는 최대 스레드 수는 파라미터로 전달 받은 `Integer.MAX_VALUE` 값입니다.
+* 10ms 동안 작업을 할당 받지 못하는 경우 스레드가 종료됩니다.
+    * 코어 풀 사이즈가 0인 경우 작업을 10ms 동안 획득하지 못하면 스레드가 풀에서 제거됩니다.
+    * 코어 풀 사이즈가 1 이상인 경우 작업을 획득하지 못하더라도 스레드 풀에서 제거되지 않습니다.
+* DelayedWorkQueue 인스턴스에 작업을 담습니다.
+    * 코어 풀 사이즈가 0인 경우 내부에서 poll 메소드를 통해 작업을 얻습니다.
+    * 코어 풀 사이즈가 1 이상인 경우 내부에서 take 메소드를 통해 작업을 얻습니다.
+
+```java
+public class Executors {
+
+    // ...
+
+    public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize) {
+        return new ScheduledThreadPoolExecutor(corePoolSize);
+    }
+}
+
+public class ScheduledThreadPoolExecutor extends ThreadPoolExecutor implements ScheduledExecutorService {
+
+    // ...
+
+    public ScheduledThreadPoolExecutor(int corePoolSize) {
+        super(corePoolSize, Integer.MAX_VALUE,
+              DEFAULT_KEEPALIVE_MILLIS, MILLISECONDS,
+              new DelayedWorkQueue());
+    }
+}
+```
+
+#### 2.3.1. Practice
+
+* 두 개의 테스트를 통해 동작을 살펴보겠습니다.
+* run_scheduled_task 메소드
+    * 코어 사이즈를 5로 지정합니다.
+    * 10개의 작업을 전달합니다.
+    * 1개의 작업은 1초 뒤에 실행되도록 스케줄링합니다. 
+    * 스레드 풀 사이즈를 확인합니다.
+    * 5초 대기 후 스레드 풀 사이즈를 확인합니다.
+* remove_thread_when_core_size_zero 메소드
+    * 코어 사이즈를 0으로 지정합니다.
+    * 10개의 작업을 전달합니다.
+    * 스레드 풀 사이즈를 확인합니다.
+    * 50ms 대기 후 스레드 풀 사이즈를 확인합니다.
+
+```java
+package action.in.blog;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.*;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
+
+@Slf4j
+class ScheduledThreadPoolTests {
+
+    void waitFor(long milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    void submitTasks(int taskCount, ExecutorService executorService, Runnable runnable) {
+        for (int index = 0; index < taskCount; index++) {
+            executorService.submit(runnable);
+        }
+    }
+
+    @Test
+    void run_scheduled_task() throws InterruptedException {
+        int taskCount = 10;
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        executorService.schedule(() -> {
+            log.info("Run at last");
+        }, 1000, TimeUnit.MILLISECONDS);
+        submitTasks(taskCount, executorService, () -> {
+            log.info("Hello World");
+        });
+
+
+        int poolSize = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSize, equalTo(5));
+
+        waitFor(5000);
+
+        int poolSizeAfterWait = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSizeAfterWait, equalTo(5));
+    }
+
+    @Test
+    void remove_thread_when_core_size_zero() throws InterruptedException {
+        int taskCount = 10;
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(0);
+        submitTasks(taskCount, executorService, () -> {
+            log.info("Hello World");
+        });
+
+        int poolSize = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSize, equalTo(1));
+
+        waitFor(50);
+
+        int poolSizeAfterWait = ((ThreadPoolExecutor) executorService).getPoolSize();
+        assertThat(poolSizeAfterWait, equalTo(0));
+    }
+}
+```
+
+##### Result of Practice
+
+* run_scheduled_task 메소드 수행 결과
+* 테스트 로그
+    * 10개의 작업을 5개의 스레드가 나눠서 수행하는 것을 확인할 수 있습니다.
+* 테스트 코드 통과
+    * 작업을 전달한 직후 스레드 풀 사이즈가 5 입니다.
+    * 5초 뒤에 스레드 풀 사이즈가 5 입니다.
+
+```
+07:04:37.632 [pool-1-thread-3] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.632 [pool-1-thread-5] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.635 [pool-1-thread-3] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.632 [pool-1-thread-4] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.632 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.632 [pool-1-thread-2] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.635 [pool-1-thread-5] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.636 [pool-1-thread-3] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.636 [pool-1-thread-4] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:37.636 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:04:38.632 [pool-1-thread-2] INFO action.in.blog.ScheduledThreadPoolTests -- Run at last
+```
+
+* remove_thread_when_core_size_zero 메소드 수행 결과
+* 테스트 로그
+    * 10개의 작업을 1개의 스레드가 수행하는 것을 확인할 수 있습니다.
+* 테스트 코드 통과
+    * 작업을 수행하는 동안 스레드 풀 사이즈가 1 입니다.
+    * 50ms 뒤에 스레드 풀 사이즈가 0 입니다.
+
+```
+07:51:01.347 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.351 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.351 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.351 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.351 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.351 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.351 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.352 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.352 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+07:51:01.352 [pool-1-thread-1] INFO action.in.blog.ScheduledThreadPoolTests -- Hello World
+```
 
 ## CLOSING
 
 Executors 클래스를 통해 ForkJoinPool 인스턴스를 생성할 수 있습니다. 
 ForkJoinPool 클래스도 스레드 풀의 종류 중 하나이지만, 
-
 
 #### TEST CODE REPOSITORY
 

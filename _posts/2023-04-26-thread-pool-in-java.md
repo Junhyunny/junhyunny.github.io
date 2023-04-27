@@ -21,24 +21,26 @@ last_modified_at: 2023-04-26T23:55:00
 
 ### 1.1. Considerations of Thread Pool Usage
 
-스레드 풀은 다음과 같은 문제를 해결하기 위해 사용하는 디자인 패턴입니다. 
+스레드 풀은 다음과 같은 문제를 해결하기 위해 사용합니다.
 
 * 짧은 작업을 위해 스레드를 생성, 수거하는데 드는 비용을 줄일 수 있습니다.
     * 스레드 생성과 수거는 운영체제 자원을 사용하기 때문에 비용이 큽니다.
 * 미리 생성해 둔 스레드에 작업을 할당하기 때문에 실행 지연을 줄일 수 있습니다.
 
-스레드 풀을 사용하면 다음과 같은 것들을 고려해야 합니다.
+스레드 풀을 사용하려면 처리할 작업량을 고려해야 합니다.
 
-* 처리할 작업에 비해 너무 많은 스레드가 생성되어 있다면 메모리가 낭비됩니다. 
+* 스레드 풀을 통해 처리할 작업의 양을 고려하여 자원을 할당해야 합니다.
+* 처리할 작업에 비해 너무 많은 스레드가 생성되어 있다면 메모리 낭비가 발생합니다. 
 
 ### 1.2. Structure of Thread Pool in Java
 
-추상화시킨 이미지를 통해 Java에서 제공하는 스레드 풀의 구조를 살펴보겠습니다.
+Java에서 제공하는 스레드 풀의 구조를 아래 이미지를 통해 살펴보겠습니다.
 
-* Executors 클래스를 통해 생성되는 스레드 풀은 ExecutorService 인터페이스를 구현한 인스턴스들입니다.
-* 스레드 풀 내부에는 작업을 담는 블록킹 큐, 작업자 스레드들이 담긴 해시 세트(hash set)이 존재합니다.
+* Executors 클래스를 통해 생성되는 스레드 풀은 ExecutorService 인터페이스를 구현한 인스턴스(instance)들입니다.
+* 스레드 풀 인스턴스에는 작업을 담는 블록킹 큐(blocking queue)와 작업자 스레드(worker thread)들이 담긴 해시셋(HashSet)이 존재합니다.
 * 블록킹 큐에서 작업을 꺼내어 작업자 스레드에게 전달합니다.
-    * 블록킹 큐에서 작업을 꺼낼 땐 타임아웃 여부에 따라 poll 혹은 take 메소드를 사용합니다.
+    * 블록킹 큐에서 작업을 꺼낼 떄 타임아웃(timeout) 여부에 따라 poll 혹은 take 메소드가 호출됩니다.
+    * 스레드의 타임아웃 여부는 코어 스레드 개수에 의해 판단됩니다.
 
 <p align="center">
     <img src="/images/thread-pool-in-java-2.JPG" width="80%" class="image__border">
@@ -46,8 +48,9 @@ last_modified_at: 2023-04-26T23:55:00
 
 ## 2. Types of Thread Pool in Java
 
-JDK 1.5버전부터 java.util.concurrent 패키지를 통해 동시성에 관련 기능들을 제공하였습니다.  
-Java에서 스레드 풀 기능을 제공하는 주요 클래스와 인터페이스를 살펴본 후 각 스레드 풀의 특징을 살펴보겠습니다.
+JDK 1.5부터 java.util.concurrent 패키지를 통해 동시성에 관련된 기능을 제공하였습니다. 
+Java에서 스레드 풀 기능을 제공하는 주요 인터페이스와 클래스들을 살펴보겠습니다. 
+이후에 각 스레드 풀의 특징을 살펴보겠습니다.
 
 * Executors 클래스
     * 정적 팩토리 메소드 패턴을 통해 스레드 풀 구현체 인스턴스를 생성합니다.
@@ -57,12 +60,12 @@ Java에서 스레드 풀 기능을 제공하는 주요 클래스와 인터페이
         * newScheduledThreadPool
 * ExecutorService 인터페이스
     * 스레드 풀 기능을 제공하는 클래스들은 ExecutorService 인터페이스를 구현합니다.
-    * 스레드 풀로써 제공해야 하는 API 기능들을 정의하고 있습니다.
+    * 스레드 풀로써 제공해야하는 API 기능들을 정의되어 있습니다.
     * ExecutorService 인터페이스로 추상화 된 메소드들을 통해 스레드 풀 기능들을 활용할 수 있습니다. 
 * ThreadPoolExecutor 클래스
-    * ExecutorService 인터페이스 구현체 클래스입니다.
-    * 포스트의 이해도를 높이고자 생성자 함수의 파라미터들을 살펴보겠습니다.
-    * `corePoolSize` - 스레드 풀에 반드시 유지되어야 하는 스레드 수입니다.
+    * ExecutorService 인터페이스의 구현체 클래스입니다.
+    * 생성자 함수를 살펴보면 다음과 같은 파라미터들을 전달받습니다.
+    * `corePoolSize` - 스레드 풀에 반드시 유지되어야 하는 스레드 개수입니다.
     * `maximumPoolSize` - 스레드 풀에 저장할 수 있는 최대 스레드 개수입니다.
     * `keepAliveTime` - 스레드 수가 코어 수보다 많은 경우, 쉬는 스레드가 종료되기 전에 새 작업을 기다리는 최대 시간입니다. 
     * `unit` - `keepAliveTime` 파라미터에 적용되는 시간 단위입니다.
@@ -104,13 +107,14 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 `newCachedThreadPool` 팩토리 메소드를 통해 생성합니다. 
 해당 스레드 풀은 다음과 같은 특징을 가집니다. 
 
-* ThreadPoolExecutor 인스턴스를 사용합니다.
-* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 0 입니다.
-* 스레드 풀에 담을 수 있는 최대 스레드 수는 Integer.MAX_VALUE 입니다.
+* ThreadPoolExecutor 인스턴스입니다.
+* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 개수는 0 입니다.
+* 스레드 풀에 담을 수 있는 최대 스레드 개수는 `Integer.MAX_VALUE` 입니다.
 * 60초 동안 작업을 할당 받지 못하는 경우 스레드가 종료됩니다.
-    * 작업자 스레드(worker thread)가 지정한 시간 동안 작업을 큐에서 꺼내지 못하면 작업이 큐에서 제거됩니다.
+    * 지정된 코어 스레드 개수는 0이므로 `keepAliveTime` 시간이 적용됩니다.
+    * 작업자 스레드가 지정한 시간 동안 작업을 큐에서 꺼내지 못하면 스레드가 스레드 풀에서 제거됩니다.
 * SynchronousQueue 인스턴스에 작업을 담습니다.
-    * 타임아웃(timeout)이 존재하므로 내부에서 poll 메소드가 수행됩니다.
+    * 타임아웃이 존재하므로 내부에서 poll 메소드가 수행됩니다.
 
 ```java
 public class Executors {
@@ -206,13 +210,14 @@ class CachedThreadPoolTests {
 `newFixedThreadPool` 팩토리 메소드를 통해 생성합니다. 
 해당 스레드 풀은 다음과 같은 특징을 가집니다.
 
-* ThreadPoolExecutor 인스턴스를 사용합니다.
-* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 파라미터로 전달 받은 nThreads 값입니다.
-* 스레드 풀에 담을 수 있는 최대 스레드 수는 파라미터로 전달 받은 nThreads 값입니다.
+* ThreadPoolExecutor 인스턴스입니다.
+* 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 파라미터로 전달 받은 `nThreads` 값입니다.
+* 스레드 풀에 담을 수 있는 최대 스레드 수는 파라미터로 전달 받은 `nThreads` 값입니다.
 * 0초 동안 작업을 할당 받지 못하는 경우 스레드가 종료됩니다.
+    * 지정된 코어 스레드 개수는 0이 아니라면 `keepAliveTime` 시간이 적용되지 않습니다.
     * 작업이 없다면 얻을 때까지 대기하므로 실제 스레드의 개수는 줄어들지 않습니다. 
 * LinkedBlockingQueue 인스턴스에 작업을 담습니다.
-    * 타임아웃(timeout)이 없으므로 내부에서 take 메소드를 통해 작업을 얻습니다. 
+    * 타임아웃이 없으므로 내부에서 take 메소드를 통해 작업을 얻습니다. 
 
 ```java
 public class Executors {
@@ -308,7 +313,7 @@ class FixedThreadPoolTests {
 `newScheduledThreadPool` 팩토리 메소드를 통해 생성합니다. 
 해당 스레드 풀은 다음과 같은 특징을 가집니다.
 
-* ScheduledThreadPoolExecutor 인스턴스를 사용합니다.
+* ScheduledThreadPoolExecutor 인스턴스입니다.
     * ScheduledThreadPoolExecutor는 ThreadPoolExecutor 클래스를 확장한 클래스입니다.
 * ScheduledExecutorService 인터페이스를 반환합니다.
     * ScheduledExecutorService는 ExecutorService 인터페이스를 확장한 인터페이스입니다.
@@ -345,7 +350,7 @@ public class ScheduledThreadPoolExecutor extends ThreadPoolExecutor implements S
 
 #### 2.3.1. Practice
 
-* 두 개의 테스트를 통해 동작을 살펴보겠습니다.
+* 두 테스트를 통해 동작을 살펴보겠습니다.
 * run_scheduled_task 메소드
     * 코어 사이즈를 5로 지정합니다.
     * 10개의 작업을 전달합니다.
@@ -428,10 +433,10 @@ class ScheduledThreadPoolTests {
 
 ##### Result of Practice
 
-* run_scheduled_task 메소드 수행 결과
+* run_scheduled_task 메소드 수행 결과입니다.
 * 테스트 로그
     * 10개의 작업을 5개의 스레드가 나눠서 수행하는 것을 확인할 수 있습니다.
-    * 첫 작업 1초 뒤에 `Run at last` 로그가 출력된 것을 확인할 수 있습니다.
+    * 첫번쨰 작업 1초 뒤에 `Run at last` 로그가 출력된 것을 확인할 수 있습니다.
 * 테스트 코드 통과
     * 작업을 전달한 직후 스레드 풀 사이즈가 5 입니다.
     * 5초 뒤에 스레드 풀 사이즈가 5 입니다.
@@ -450,7 +455,7 @@ class ScheduledThreadPoolTests {
 07:04:38.632 [pool-1-thread-2] INFO action.in.blog.ScheduledThreadPoolTests -- Run at last
 ```
 
-* remove_thread_when_core_size_zero 메소드 수행 결과
+* remove_thread_when_core_size_zero 메소드 수행 결과입니다.
 * 테스트 로그
     * 10개의 작업을 1개의 스레드가 수행하는 것을 확인할 수 있습니다.
 * 테스트 코드 통과
@@ -472,9 +477,9 @@ class ScheduledThreadPoolTests {
 
 ## CLOSING
 
-Executors 클래스를 통해 ForkJoinPool 인스턴스를 생성할 수 있습니다. 
-ForkJoinPool 클래스도 스레드 풀의 종류 중 하나이지만, 나중에 추가되어 개선된 사항들이 많아 보입니다. 
-한 포스트에 정리하기엔 내용이 많아 별도 포스트로 정리할 예정입니다.
+ForkJoinPool 클래스도 스레드 풀의 종류 중 하나입니다. 
+Executors 클래스를 사용하면 ForkJoinPool 인스턴스를 생성할 수 있습니다. 
+스레드 풀 개선을 위해 JDK1.7에서 추가되었으며 이번 포스트에 함께 정리하기엔 내용이 많아 별도로 정리할 예정입니다.
 
 #### TEST CODE REPOSITORY
 

@@ -8,8 +8,6 @@ last_modified_at: 2023-04-26T23:55:00
 
 <br/>
 
-#### RECOMMEND POSTS BEFORE THIS
-
 ## 1. Thread Pool
 
 스레드 풀(thread pool)은 프로그램의 동시성 실행을 지원하는 디자인 패턴입니다. 

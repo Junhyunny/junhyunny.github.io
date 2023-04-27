@@ -1,9 +1,9 @@
 ---
-title: "Thread Pool in Java"
+title: "ExecutorService Interface"
 search: false
 category:
   - java
-last_modified_at: 2023-04-26T23:55:00
+last_modified_at: 2023-04-27T23:55:00
 ---
 
 <br/>

@@ -35,10 +35,10 @@ classes: wide
 
 * TypeScript, React, HTML, Sass, Jest, Testing Library, Cypress
 * 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
-* 테스트 코드와 리팩토링을 통한 컴포넌트 구조 재구성과 점진적인 신규 기능 확장 개발
-* Google Analytics, Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
-* Chrome Lighthouse를 통한 성능 분석 및 향상을 통해 어플리케이션 사용성 개선
-    * 성능 점수 39점을 79점으로 향상
+* 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
+* Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
+* Chrome Lighthouse를 사용한 성능 분석 및 성능 향상을 통한 어플리케이션 사용성 개선
+    * 성능 점수를 39점에서 79점으로 개선
 
 ##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
 
@@ -49,7 +49,7 @@ classes: wide
 * 트레이더 정보 및 권한 관리, 코드 관리, 선물(future) 상품 및 거래 도메인 모델 설계 및 개발
 * SSO 인증 프로세스 개발 및 사용자 권한 서비스 연계
 * 외국 거래 입력 시 시차로 인해 발생하는 이슈 해결을 위한 타임존 도메인 설계 및 개발
-* 레거시 연계로 인한 도메인 오염을 방지하고자 ACL(anti corruption layer) 구축
+* 레거시 연계로 인해 발생하는 도메인 오염 방지를 위한 ACL(anti corruption layer) 구축
 
 ##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022년 1월 - 6월
 

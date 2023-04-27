@@ -215,6 +215,10 @@ ThreadLocal 클래스는 스레드를 재사용하는 스레드 풀 환경일 �
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-22-precaution-of-thread-local>
 
+#### RECOMMEND NEXT POSTS
+
+* [Thread Pool in Java][thread-pool-in-java-link]
+
 #### REFERENCE
 
 * <https://www.baeldung.com/thread-pool-java-and-guava>
@@ -223,3 +227,4 @@ ThreadLocal 클래스는 스레드를 재사용하는 스레드 풀 환경일 �
 * <https://blog.naver.com/writer0713/222949116507>
 
 [thread-local-class-in-java-link]: https://junhyunny.github.io/java/thread-local-class-in-java/
+[thread-pool-in-java-link]: https://junhyunny.github.io/java/thread-pool-in-java/

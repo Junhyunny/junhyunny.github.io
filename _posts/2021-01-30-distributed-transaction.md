@@ -14,7 +14,7 @@ last_modified_at: 2021-08-22T00:30:00
 * [MicroService Architecture][microservice-architecture-link]
 * [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
 * [Transaction ACID][transcation-acid-link]
-* [트랜잭션 격리성(Transaction Isolation)][transcation-isolation-link]
+* [Transaction Isolation][transcation-isolation-link]
 
 ## 0. 들어가면서
 

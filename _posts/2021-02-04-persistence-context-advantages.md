@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T01:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
+* [Transaction Isolation][transaction-isolation-link]
 * [JPA(Java Persistence API)][java-persistence-api-link]
 * [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
 

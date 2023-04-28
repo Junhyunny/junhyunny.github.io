@@ -52,7 +52,7 @@ last_modified_at: 2021-08-22T00:30:00
 
 #### RECOMMEND NEXT POSTS
 
-* [트랜잭션 격리성(Transaction Isolation)][transaction-isolation-link]
+* [Transaction Isolation][transaction-isolation-link]
 
 #### REFERENCE
 

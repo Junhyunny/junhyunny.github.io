@@ -1,5 +1,5 @@
 ---
-title: "트랜잭션 격리성(Transaction Isolation)"
+title: "Transaction Isolation"
 search: false
 category:
   - information

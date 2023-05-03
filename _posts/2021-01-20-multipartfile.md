@@ -314,7 +314,7 @@ spring:
 
 #### RECOMMEND NEXT POSTS
 
-* [DTO 클래스, MultipartFile 활용 파일 업로드 (feat. @ModelAttribute)][multipartfile-in-dto-link]
+* [File Upload with Data Transfer Object in Spring][multipartfile-in-dto-link]
 
 #### REFERENCE
 

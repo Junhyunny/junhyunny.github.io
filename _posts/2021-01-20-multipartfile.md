@@ -1,5 +1,5 @@
 ---
-title: "MultipartFile 인터페이스와 파일 업로드"
+title: "MultipartFile Interface and File Upload"
 search: false
 category:
   - spring-boot

@@ -159,7 +159,7 @@ DDD(Domain Driven Design)을 통해 큰 업무를 독립적인 단위로 나누�
 
 * [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
 * [MSA API Gateway][msa-api-gateway-link]
-* [MicroService Architecture 배포 전략][msa-release-link]
+* [MicroService Architecture Release Strategy][msa-release-link]
 * [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE

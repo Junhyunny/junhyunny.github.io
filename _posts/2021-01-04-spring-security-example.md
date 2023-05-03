@@ -785,7 +785,7 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 #### RECOMMEND NEXT POSTS
 
 * [TokenEnhancer Interface][token-enhancer-link]
-* [HandlerMethodArgumentResolver 인터페이스][handler-method-argument-resolver-link]
+* [HandlerMethodArgumentResolver Interface][handler-method-argument-resolver-link]
 * [AuthenticationFilter 만들기][make-authentication-filter-link]
 * [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
 * [JWT(Json Web Token) 발행과 재발행][issue-and-reissue-json-web-token-link]

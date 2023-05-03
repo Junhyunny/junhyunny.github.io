@@ -13,7 +13,7 @@ last_modified_at: 2021-08-22T03:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Lock Mechanism][lock-mechanism-link]
-* [Propagation Type for @Transactional][transactional-propagation-type-link]
+* [Propagation in @Transactional Annotation][transactional-propagation-type-link]
 * [@Import, @ImportAutoConfiguration 애너테이션][import-auto-configuration-annotation-link]
 
 ## 0. 들어가면서

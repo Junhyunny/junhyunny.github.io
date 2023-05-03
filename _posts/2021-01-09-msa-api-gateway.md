@@ -84,7 +84,7 @@ API 게이트웨이의 기능들에 대해 간략하게 정리해보았습니다
 #### RECOMMEND NEXT POSTS
 
 * [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
-* [MicroService Architecture 배포 전략][msa-release-link]
+* [MicroService Architecture Release Strategy][msa-release-link]
 * [Spring Cloud Gateway][spring-cloud-gateway-link]
 
 #### REFERENCE

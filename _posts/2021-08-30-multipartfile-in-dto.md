@@ -12,11 +12,11 @@ last_modified_at: 2021-08-30T23:55:00
 * `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [MultipartFile 인터페이스와 파일 업로드][multipart-link]
+- [File Upload and MultipartFile Interface][multipart-link]
 
 ## 1. 추가 기능 요건 사항
 어제 같이 일하는 동료가 특정 기능 구현에 대한 도움을 요청하였는데, 구현하다보니 블로그 포스트 주제로 좋을 것 같아서 정리하였습니다. 
-지난 [MultipartFile 인터페이스와 파일 업로드][multipart-link] 포스트의 예제 코드는 단순하게 이미지들을 선택해서 업로드하는 기능이었습니다. 
+지난 [File Upload and MultipartFile Interface][multipart-link] 포스트의 예제 코드는 단순하게 이미지들을 선택해서 업로드하는 기능이었습니다. 
 너무 단순한 기능이어서 필요로하는 기능엔 적용할 수 없었습니다. 
 
 새롭게 추가되야하는 기능의 요건 사항에 대해 간략히 요약하면 다음과 같습니다. 

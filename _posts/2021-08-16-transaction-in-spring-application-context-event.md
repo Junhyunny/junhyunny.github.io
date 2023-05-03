@@ -9,7 +9,7 @@ last_modified_at: 2021-08-16T03:00:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Propagation Type for @Transactional][transactional-propagation-type-link]
+- [Propagation in @Transactional Annotation][transactional-propagation-type-link]
 - [Spring Application Context Event][spring-application-context-event-link]
 
 ## 0. 들어가면서

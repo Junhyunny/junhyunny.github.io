@@ -20,8 +20,6 @@ last_modified_at: 2021-08-21T17:00:00
 서버에 주어진 요청을 처리하는 메소드의 매개변수에 원하는 값을 매핑할 수 있는 전략적 인터페이스입니다. 
 자주 사용하는 `@RequestBody`, `@RequestParam`, `@PathVariable` 같은 애너테이션들도 각자의  `HandlerMethodArgumentResolver` 구현체들을 통해 값들이 매칭됩니다. 
 
-##### HandlerMethodArgumentResolver 인터페이스 코드
-
 * supportsParameter 메소드를 통해 자신이 지원하는 메소드 파라미터인지 확인합니다.
 * resolveArgument 메소드를 통해 메소드 인수에 삽입할 값을 추출합니다. 
 

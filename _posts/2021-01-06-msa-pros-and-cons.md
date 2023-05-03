@@ -136,7 +136,7 @@ Y 축 방향의 확장이 이루어지면 아래와 같은 장점과 단점이 �
 #### RECOMMEND NEXT POSTS
 
 * [MSA API Gateway][msa-api-gateway-link]
-* [MicroService Architecture 배포 전략][msa-release-link]
+* [MicroService Architecture Release Strategy][msa-release-link]
 * [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE

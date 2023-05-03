@@ -1,5 +1,5 @@
 ---
-title: "DTO 클래스, MultipartFile 활용 파일 업로드 (feat. @ModelAttribute)"
+title: "File Upload with Data Transfer Object in Spring"
 search: false
 category:
   - spring-boot

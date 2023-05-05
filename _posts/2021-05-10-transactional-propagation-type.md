@@ -22,20 +22,21 @@ last_modified_at: 2021-08-29T01:00:00
 > `All or Noting` 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
 
 스프링(spring) 프레임워크는 `@Transactional` 애너테이션을 통해 트랜잭션 원자성을 보장합니다. 
-이번 포스트에선 `@Transactional` 애너테이션이 붙은 메소드를 호출했을 때 기존에 진행 중인 트랜잭션이 있다면 이를 어떻게 처리할 것인지에 결정하는 트랜잭션 전파(propagation)에 관련된 설정을 다뤄보겠습니다.
+`@Transactional` 애너테이션은 전파 타입(propagation type) 속성을 통해 메소드 단위 트랜잭션들의 연결과 끊음을 결정할 수 있습니다. 
+이번 포스트를 통해 자세한 내용을 살펴보겠습니다. 
 
 ## 1. @Transactional Annotation
 
 스프링 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming)을 지원합니다. 
-개발이 진행되면서 로깅(logging), 보안(security), 트랜잭션(transaction) 같은 부가적이지만 공통으로 사용되는 기능들이 시스템 곳곳에 퍼지기 마련입니다. 
-AOP 기능은 이런 공통으로 사용되는 부가적인 기능을 모듈화하는 방식입니다. 
+개발이 진행되면서 로깅, 보안, 트랜잭션 같은 부가적이지만 공통적으로 사용되는 기능들이 시스템 곳곳에 퍼지기 마련입니다. 
+관점 지향 프로그래밍은 공통적인 기능을 모듈화하는 메커니즘입니다. 
 
-스프링 프레임워크는 데이터 소스(source)와의 트랜잭션 관리를 AOP 기능이 적용된 `@Transactional` 애너테이션으로 제공합니다. 
-메소드, 클래스 위에 `@Transactional` 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 뒤에서 수행됩니다. 
-어플리케이션 개발자는 어려운 코드 작업 없이도 손쉽게 커밋(commit)이나 롤백(rollback) 처리가 가능한 로직을 구현할 수 있습니다. 
+스프링 프레임워크는 트랜잭션 관리를 `@Transactional` 애너테이션을 통해 제공합니다. 
+메소드나 클래스 위에 `@Transactional` 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 AOP 기능에 의해 수행됩니다. 
+개발자는 손쉽게 커밋(commit)이나 롤백(rollback) 처리를 구현할 수 있습니다. 
 
-`@Transactional` 애너테이션의 AOP 기능은 프레임워크에서 관리할 수 있도록 빈(bean)으로 등록되어야지 정상적으로 동작한다는 점을 주의해야 합니다. 
-빈으로 등록되어 있지 않은 클래스에 적용하더라도 정상적인 트랜잭션 처리가 이뤄지지 않습니다. 
+`@Transactional` 애너테이션의 기능은 스프링 컨텍스트에 빈(bean)으로 등록되어야지 정상적으로 동작합니다. 
+생성자를 통해 만들어진 객체는 `@Transactional` 애너테이션이 붙었더라도 정상적인 트랜잭션 처리가 이뤄지지 않습니다. 
 
 ##### Call method with @Transactional when instance is bean
 
@@ -52,13 +53,13 @@ AOP 기능은 이런 공통으로 사용되는 부가적인 기능을 모듈화�
 * `createOrder` 메소드가 호출되면 실제 비즈니스 로직이 바로 호출됩니다. 
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-2.jpg" width="80%">
+    <img src="/images/transactional-propagation-type-2.jpg" width="80%" class="image__border">
 </p>
 
 ## 2. Propagation Type in @Transactional
 
 트랜잭션 전파 타입은 트랜잭션을 어떻게 진행할지에 관련된 설정입니다. 
-기존에 시작된 트랜잭션이 있는지, 없는지 여부에 따라 동작 방식이 다릅니다. 
+기존에 시작된 트랜잭션이 있는지 없는지 여부에 따라 동작 방식이 다릅니다. 
 
 * REQUIRED
     * Support a current transaction, create a new one if none exists.
@@ -87,15 +88,16 @@ AOP 기능은 이런 공통으로 사용되는 부가적인 기능을 모듈화�
 간단한 테스트 코드를 통해 각 전파 타입 별 결과와 로그를 살펴보고 동작 방식을 이해해보겠습니다. 테스트에는 JpaRepository 인터페이스를 사용했습니다. 결과를 이해하려면 다음과 같은 배경 지식이 필요합니다. 
 
 * JpaRepository 인터페이스 사용
-    * 인터페이스에서 제공하는 save, saveAndFlush 메소드는 @Trnasactional 애너테이션이 `REQUIRED` 전파 타입으로 적용되어 있습니다.
-    * 부모 메소드부터 트랜잭션이 시작되지 않았다면 메소드 종료와 함께 커밋이 수행됩니다.
-    * 쓰기 지연 특징으로 인해 insert 쿼리가 나중에 실행되므로 테스트에선 saveAndFlush 메소드를 사용하였습니다. 
+    * 상위 인터페이스들에 @Transactional 애너테이션이 이미 적용되어 있습니다.
+    * save, saveAndFlush 메소드는 `REQUIRED` 전파 타입이 적용됩니다. 
+    * 진행 중인 트랜잭션이 없다면 save, saveAndFlush 메소드가 완료됨과 동시에 커밋됩니다.
+    * 쓰기 지연 특징으로 인해 삽입(insert) 쿼리가 나중에 실행되므로 테스트에선 saveAndFlush 메소드를 사용합니다. 
 * @DataJpaTest 애너테이션 사용
     * JPA 관련 컨텍스트만 사용하기 위해 @DataJpaTest 애너테이션을 사용하였습니다.
     * @DataJpaTest 애너테이션은 테스트 후 롤백을 위해 자동으로 @Transactional 애너테이션이 적용됩니다.
-    * 트랜잭션 커밋, 롤백에 대한 테스트가 명확히 이뤄지도록 테스트 트랜잭션 전파 타입을 `NOT_SUPPORTED`으로 지정합니다. 
+    * 커밋과 롤백에 대한 정확한 테스트를 위해 트랜잭션 전파 타입을 `NOT_SUPPORTED`으로 재정의합니다. 
 
-로그 내용을 자세히 살펴보기 위해 하이버네이트(hibernate) 관련 로그 레벨을 디버그(debug)로 지정합니다.
+상세한 로그 내용을 살펴보기 위해 `org.springframewor.orm.jpa` 패키지 관련 로그 레벨을 디버그(debug)로 지정합니다.
 
 ```yml
 logging:
@@ -673,14 +675,6 @@ public class ParentService {
     private final ParentRepository repository;
     private final ChildService childService;
 
-    void skipExceptionPropagation(Runnable runnable) {
-        try {
-            runnable.run();
-        } catch (ChildException childException) {
-            log.error("skip propagation exception");
-        }
-    }
-
     public void createWithoutTransactionAndChildMandatory(String id) {
         repository.saveAndFlush(new Parent(id));
         childService.createMandatory(id);
@@ -1219,14 +1213,6 @@ public class ParentService {
 
     private final ParentRepository repository;
     private final ChildService childService;
-
-    void skipExceptionPropagation(Runnable runnable) {
-        try {
-            runnable.run();
-        } catch (ChildException childException) {
-            log.error("skip propagation exception");
-        }
-    }
 
     @Transactional
     public void createRequiredAndChildNever(String id) {

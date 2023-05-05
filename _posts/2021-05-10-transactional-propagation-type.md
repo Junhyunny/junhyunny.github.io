@@ -1,5 +1,5 @@
 ---
-title: "Propagation Type for @Transactional"
+title: "Propagation in @Transactional Annotation"
 search: false
 category:
   - spring-boot
@@ -10,124 +10,94 @@ last_modified_at: 2021-08-29T01:00:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [ACID 특징][transaction-acid-link]
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Transaction ACID][transaction-acid-link]
 
 ## 0. 들어가면서
 
-기본적으로 트랜잭션은 [ACID 특징][transaction-acid-link]의 원자성을 만족해야합니다. 
+데이터베이스 트랜잭션은 기본적으로 원자성(atomic)을 만족해야합니다. 
 
-> 트랜잭션 ACID 특징 중 원자성(Atomic)<br/>
 > 트랜잭션의 작업이 부분적으로 실행되거나 중단되지 않는 것을 보장합니다.<br/>
-> All or Noting의 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
+> `All or Noting` 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
 
-Spring Boot 프레임워크은 어플리케이션이 트랜잭션 원자성을 만족시킬 수 있도록 **`@Transactional`** 애너테이션을 제공합니다. 
-**`@Transactional`** 애너테이션이 제공하는 기능과 트랜잭션 전파 타입(propagation type)에 대해 정리해보았습니다.  
+스프링(spring) 프레임워크는 `@Transactional` 애너테이션을 통해 트랜잭션 원자성을 보장합니다. 
+이번 포스트에선 `@Transactional` 애너테이션이 붙은 메소드를 호출했을 때 기존에 진행 중인 트랜잭션이 있다면 이를 어떻게 처리할 것인지에 결정하는 트랜잭션 전파(propagation)에 관련된 설정을 다뤄보겠습니다.
 
-## 1. @Transactional 애너테이션
-Spring 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming) 기능을 지원합니다. 
-관점 지향 프로그래밍이란 특정 시점의 동작을 가로채어 해당하는 동작의 앞, 뒤로 부가적인 일을 추가적으로 수행하는 프로그래밍 방식입니다. 
-Spring 프레임워크는 AOP 기능과 애너테이션을 이용하여 개발자가 트랜잭션에 대한 제어를 쉽게 할 수 있도록 돕습니다. 
+## 1. @Transactional Annotation
 
-##### AOP 기능을 이용한 트랜잭션 처리 개념도
-<p align="center"><img src="/images/transactional-propagation-type-1.jpg" width="70%"></p>
+스프링 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming)을 지원합니다. 
+개발이 진행되면서 로깅(logging), 보안(security), 트랜잭션(transaction) 같은 부가적이지만 공통으로 사용되는 기능들이 시스템 곳곳에 퍼지기 마련입니다. 
+AOP 기능은 이런 공통으로 사용되는 부가적인 기능을 모듈화하는 방식입니다. 
 
-##### @Transactional 애너테이션 적용 메소드 호출 시 Call Stack
-- 디버그를 통해 확인
-<p align="center"><img src="/images/transactional-propagation-type-2.jpg" width="100%"></p>
+스프링 프레임워크는 데이터 소스(source)와의 트랜잭션 관리를 AOP 기능이 적용된 `@Transactional` 애너테이션으로 제공합니다. 
+메소드, 클래스 위에 `@Transactional` 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 뒤에서 수행됩니다. 
+어플리케이션 개발자는 어려운 코드 작업 없이도 손쉽게 커밋(commit)이나 롤백(rollback) 처리가 가능한 로직을 구현할 수 있습니다. 
 
-### 1.1. @Transactional 애너테이션 사용 시 주의사항
-주의사항으로 AOP 기능은 Spring 프레임워크에서 관리하는 빈(bean)에게만 적용할 수 있습니다. 
-new 키워드를 이용해 만든 객체의 메소드에 @Transactional 애너테이션이 붙어 있더라도 정상적으로 동작하지 않습니다. 
-가능한 방법이 있는 듯 하지만 이번 포스트에서는 다루지 않겠습니다. 
+`@Transactional` 애너테이션의 AOP 기능은 프레임워크에서 관리할 수 있도록 빈(bean)으로 등록되어야지 정상적으로 동작한다는 점을 주의해야 합니다. 
+빈으로 등록되어 있지 않은 클래스에 적용하더라도 정상적인 트랜잭션 처리가 이뤄지지 않습니다. 
 
-##### 빈(bean)이 아닌 객체 @Transactional 애너테이션 적용 시 
-<p align="center"><img src="/images/transactional-propagation-type-3.jpg" width="70%"></p>
+##### Call method with @Transactional when instance is bean
 
-##### 빈(bean)이 아닌 객체 @Transactional 애너테이션 적용 메소드 호출 시 Call Stack
-- 디버그를 통해 확인
-<p align="center"><img src="/images/transactional-propagation-type-4.jpg" width="100%"></p>
+* `orderSerivce` 객체가 빈으로 등록되었고 `createOrder` 메소드 위에 @Transactional 애너테이션이 붙은 경우입니다.
+* `createOrder` 메소드가 호출되면 실제 비즈니스 로직 전후에 트랜잭션 처리를 위한 AOP 기능이 호출됩니다.
 
-### 1.2. @Transactional 애너테이션 적용 가능 위치
-@Transactional 애너테이션을 살펴보면 @Target이 TYPE, METHOD 임을 확인할 수 있습니다. 
-각 타입 별 적용 가능 범위입니다.
-- ElementType.TYPE - Class, interface (including annotation type), or enum declaration
-- ElementType.METHOD - Method declaration
+<p align="center">
+    <img src="/images/transactional-propagation-type-1.jpg" width="80%" class="image__border">
+</p>
 
-메소드에 @Transactional 애너테이션을 적용하는 경우는 명확합니다. 
-클래스에 적용하는 경우에는 어떻게 트랜잭션 처리 기능이 제공되는지 모호합니다. 
-관련된 내용을 찾아본 결과 클래스에 @Transactional 애너테이션을 추가하는 경우 모든 public 메소드에는 적용되지만, private, protected 메소드에는 적용되지 않는다는 것을 확인하였습니다. 
+##### Call method with @Transactional when instance is not bean
 
-> StackOverflow<br/>
-> Spring applies the class-level annotation to all public methods of this class that we did not annotate with @Transactional. 
-> However, if we put the annotation on a private or protected method, Spring will ignore it without an error.
+* `orderSerivce` 객체를 생성자를 통해 만들었고 `createOrder` 메소드 위에 @Transactional 애너테이션이 붙은 경우입니다.
+* `createOrder` 메소드가 호출되면 실제 비즈니스 로직이 바로 호출됩니다. 
 
-##### @Transactional 애너테이션 코드
+<p align="center">
+    <img src="/images/transactional-propagation-type-2.jpg" width="80%">
+</p>
 
-```java
-@Target({ElementType.TYPE, ElementType.METHOD})
-@Retention(RetentionPolicy.RUNTIME)
-@Inherited
-@Documented
-public @interface Transactional {
-  ...
-}
-```
+## 2. Propagation Type in @Transactional
 
-## 2. 트랜잭션 전파 타입(Propagation Type)
-트랜잭션의 전파 타입은 어떤 메소드에서 다른 메소드 호출 시 트랜잭션을 이어나갈 것인지에 대한 설정입니다. 
-총 7개 존재하며 각 타입 별로 기능에 대해 정리하였습니다. 
-- REQUIRED
-  - Support a current transaction, create a new one if none exists.
-  - 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만듭니다.
-- SUPPORTS
-  - Support a current transaction, execute non-transactionally if none exists.
-  - 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
-- MANDATORY
-  - Support a current transaction, throw an exception if none exists.
-  - 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다.
-- REQUIRES_NEW
-  - Create a new transaction, and suspend the current transaction if one exists.
-  - 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다.
-- NOT_SUPPORTED
-  - Execute non-transactionally, suspend the current transaction if one exists.
-  - 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다.
-- NEVER
-  - Execute non-transactionally, throw an exception if a transaction exists.
-  - 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 exception을 던집니다.
-- NESTED
-  - Execute within a nested transaction if a current transaction exists, behave like {@code REQUIRED} otherwise.
-  - 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작합니다.
+트랜잭션 전파 타입은 트랜잭션을 어떻게 진행할지에 관련된 설정입니다. 
+기존에 시작된 트랜잭션이 있는지, 없는지 여부에 따라 동작 방식이 다릅니다. 
 
-역시 글로만 정리하면 이해가 어렵습니다. 
-각 전파 타입 별로 간단한 테스트 코드와 이미지를 이용해 이해도를 높혀보겠습니다. 
-설명의 편이성을 위해 메소드 A 에서 메소드 B를 호출하는 경우 A 메소드를 부모, B 메소드를 자식으로 표현하였습니다. 
-JpaRepository 인터페이스를 이용하여 테스트를 진행하였으며 다음과 같은 배경 지식이 필요합니다. 
-- JpaRepository 인터페이스에서 제공하는 메소드는 @Transactional 애너테이션이 붙은채로 동작합니다.
-- 부모 메소드에서 트랜잭션을 시작하지 않는 경우 바로 commit 됩니다. 
-- JPA 특징인 **`쓰기 지연`**으로 인해 insert 쿼리가 나중에 수행되므로 rollback 여부 확인을 위해 즉각 flush를 수행합니다. 
+* REQUIRED
+    * Support a current transaction, create a new one if none exists.
+    * 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만듭니다.
+* SUPPORTS
+    * Support a current transaction, execute non-transactionally if none exists.
+    * 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
+* MANDATORY
+    * Support a current transaction, throw an exception if none exists.
+    * 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다.
+* REQUIRES_NEW
+    * Create a new transaction, and suspend the current transaction if one exists.
+    * 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다.
+* NOT_SUPPORTED
+    * Execute non-transactionally, suspend the current transaction if one exists.
+    * 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다.
+* NEVER
+    * Execute non-transactionally, throw an exception if a transaction exists.
+    * 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 exception을 던집니다.
+* NESTED
+    * Execute within a nested transaction if a current transaction exists, behave like {@code REQUIRED} otherwise.
+    * 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작합니다.
 
-##### application.yml
-- 테스트 로그를 확인하기 위해 JPA 패키지 로그 레벨을 DEBUG로 조정하였습니다.
+### 2.1. Test Enviroment
+
+간단한 테스트 코드를 통해 각 전파 타입 별 결과와 로그를 살펴보고 동작 방식을 이해해보겠습니다. 테스트에는 JpaRepository 인터페이스를 사용했습니다. 결과를 이해하려면 다음과 같은 배경 지식이 필요합니다. 
+
+* JpaRepository 인터페이스 사용
+    * 인터페이스에서 제공하는 save, saveAndFlush 메소드는 @Trnasactional 애너테이션이 `REQUIRED` 전파 타입으로 적용되어 있습니다.
+    * 부모 메소드부터 트랜잭션이 시작되지 않았다면 메소드 종료와 함께 커밋이 수행됩니다.
+    * 쓰기 지연 특징으로 인해 insert 쿼리가 나중에 실행되므로 테스트에선 saveAndFlush 메소드를 사용하였습니다. 
+* @DataJpaTest 애너테이션 사용
+    * JPA 관련 컨텍스트만 사용하기 위해 @DataJpaTest 애너테이션을 사용하였습니다.
+    * @DataJpaTest 애너테이션은 테스트 후 롤백을 위해 자동으로 @Transactional 애너테이션이 적용됩니다.
+    * 트랜잭션 커밋, 롤백에 대한 테스트가 명확히 이뤄지도록 테스트 트랜잭션 전파 타입을 `NOT_SUPPORTED`으로 지정합니다. 
+
+로그 내용을 자세히 살펴보기 위해 하이버네이트(hibernate) 관련 로그 레벨을 디버그(debug)로 지정합니다.
 
 ```yml
-server:
-  port: 8081
-spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: create
 logging:
   level:
     org:
@@ -136,1092 +106,1352 @@ logging:
           jpa: DEBUG
 ```
 
-## 3. REQUIRED
-현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만듭니다. 
-@Transactional 애너테이션 전파 타입의 디폴트 값입니다. 
-부모 메소드에서 트랜잭션을 시작하였더라도 자식 메소드에서 exception이 발생한다면 전체 트랜잭션이 롤백됩니다. 
-이는 동일한 트랜잭션으로 묶이기 때문입니다. 
+### 2.2. REQUIRED 
 
-<p align="center"><img src="/images/transactional-propagation-type-5.jpg" width="70%"></p>
+> 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만듭니다. 
+
+현재 트랜잭션은 유지되고 자식 트랜잭션까지 하나로 묶이기 때문에 자식 트랜잭션에서 예외(exception)가 발생하면 부모 트랜잭션까지 함께 롤백됩니다. 
+현재 진행 중인 트랜잭션이 없다면 새로운 트랜잭션을 실행합니다.
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-3.jpg" width="80%" class="image__border">
+</p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
-### 3.1. 부모 메소드 REQUIRED - 자식 메소드 REQUIRED
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
-- 자식 메소드 exception throw
-- 부모 메소드에서 catch 수행
-- 롤백 여부 확인
+#### 2.2.1. ChildService Class
 
-#### 3.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 ChildException 예외를 던집니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Child;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ChildRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Test
-    @DisplayName("PARENT REQUIRED - CHILD REQUIRED")
-    public void test_parentRequired_childRequired() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithRequiredChildRequired(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        } finally {
-            log.info("PARENT REQUIRED - CHILD REQUIRED END");
-        }
-    }
-}
-
-@Component
+@Service
 @RequiredArgsConstructor
-class DeliveryService {
+public class ChildService {
 
-    private final DeliveryRepository deliveryRepository;
+    private final ChildRepository repository;
 
-    private boolean isOk() {
-        return false;
+    @Transactional
+    public void createRequired(String id) {
+        repository.saveAndFlush(new Child(id));
+        throw new ChildException();
     }
 
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Delivery createDeliveryWithRequired(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
-    }
-}
-
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Orders createOrderWithRequiredChildRequired(Orders order) {
-        orderRepository.saveAndFlush(order);
-        try {
-            deliveryService.createDeliveryWithRequired(new Delivery(order.getId()));
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        }
-        return order;
-    }
+    // ...
 }
 ```
 
-#### 3.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildRequired 메소드를 통해 트랜잭션을 생성합니다.
-- **`Participating in existing transaction`**, 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
-- **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
+#### 2.2.2. ParentService Class
 
-```
-2021-05-10 01:51:45.682 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:51:45.682 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1806382908<open>)]
-2021-05-10 01:51:45.684 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1806382908<open>)] after transaction
-2021-05-10 01:51:45.684 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.OrderService.createOrderWithRequiredChildRequired]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:51:45.684 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1210315984<open>)] for JPA transaction
-2021-05-10 01:51:45.684 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@75f316df]
-2021-05-10 01:51:45.684 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1210315984<open>)] for JPA transaction
-2021-05-10 01:51:45.684 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 01:51:45.717 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1210315984<open>)] for JPA transaction
-2021-05-10 01:51:45.717 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-2021-05-10 01:51:45.721 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1210315984<open>)] for JPA transaction
-2021-05-10 01:51:45.721 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select delivery0_.id as id1_0_0_ from delivery delivery0_ where delivery0_.id=?
-Hibernate: insert into delivery (id) values (?)
-2021-05-10 01:51:45.724 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating transaction failed - marking existing transaction as rollback-only
-2021-05-10 01:51:45.724 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Setting JPA transaction on EntityManager [SessionImpl(1210315984<open>)] rollback-only
-2021-05-10 01:51:45.727  WARN 17924 --- [           main] blog.in.action.transcation.OrderService  : null
-
-java.lang.RuntimeException: null
-    at blog.in.action.transcation.DeliveryService.createDeliveryWithRequired(TransactionalTest.java:161) ~[test-classes/:na]
-    at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
-    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-
-2021-05-10 01:51:45.728 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:51:45.728 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1210315984<open>)]
-2021-05-10 01:51:45.731 DEBUG 17924 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1210315984<open>)] after transaction
-2021-05-10 01:51:45.731  WARN 17924 --- [           main] b.i.a.transcation.TransactionalTest      : Transaction silently rolled back because it has been marked as rollback-only
-2021-05-10 01:51:45.731  INFO 17924 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD REQUIRED END
-```
-
-#### 3.1.3. 데이터베이스 테이블 확인
-- 부모와 자식 메소드 모두 롤백되어 데이터가 존재하지 않습니다.
-- 자식 메소드에서 exception을 throw 하였고 부모 메소드에서 catch 하였음에도 모두 롤백되었습니다.
-- 이는 동일 트랜잭션으로 취급되었기 때문에 트랜잭션 자식 메소드에서 찍힌 rollback flag에 의해 부모 메소드도 함께 롤백 처리됩니다.
-- <https://woowabros.github.io/experience/2019/01/29/exception-in-transaction.html>
-
-<p align="left"><img src="/images/transactional-propagation-type-6.jpg" width="30%"></p>
-
-### 3.2. 부모 메소드 X - 자식 메소드 REQUIRED
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
-- 자식 메소드 exception throw
-- 롤백 여부 확인
-
-#### 3.2.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 자식 서비스를 호출합니다.
+* 자식 서비스에서 예외를 던지더라도 부모 서비스에서 예외 전파를 차단합니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Parent;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ParentRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ParentService {
+
+    private final ParentRepository repository;
+    private final ChildService childService;
+
+    void skipExceptionPropagation(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (ChildException childException) {
+            log.error("skip propagation exception");
+        }
+    }
+
+    @Transactional
+    public void createRequiredAndChildRequired(String id) {
+        repository.saveAndFlush(new Parent(id));
+        skipExceptionPropagation(() -> childService.createRequired(id));
+    }
+
+    public void createWithoutTransactionAndChildRequired(String id) {
+        repository.saveAndFlush(new Parent(id));
+        skipExceptionPropagation(() -> childService.createRequired(id));
+    }
+
+    // ...
+}
+```
+
+#### 2.2.3. RequiredTests Class
+
+* 부모와 자식이 모두 `REQUIRED` 전파 타입으로 지정한 경우
+    * 부모에서부터 트랜잭션을 시작하였으므로 자식에서 예외가 발생하면 모든 트랜잭션이 롤백될 것을 예상합니다.
+    * 부모와 자식은 하나의 트랜잭션으로 연결되어 있기 때문에 자식에서 예외가 발생했다면, 부모는 커밋 수행 중에 `UnexpectedRollbackException` 예외를 던지고 트랜잭션을 롤백합니다.
+* 부모는 트랜잭션을 시작하지 않고, 자식은 `REQUIRED` 전파 타입으로 지정한 경우
+    * 부모는 트랜잭션을 시작하지 않았으므로 saveAndFlush 메소드를 호출하면 JpaRepositry 인터페이스 트랜잭션에 의해 커밋됩니다. 
+    * 자식에서 예외가 발생하면 자식 서비스의 트랜잭셔만 롤백될 것을 예상합니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class RequiredTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
 
     @Test
-    @DisplayName("PARENT X - CHILD REQUIRED")
-    public void test_childRequired() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderChildRequired(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        } finally {
-            log.info("PARENT X - CHILD REQUIRED END");
-        }
-    }
-}
+    void all_transaction_rollback_when_parent_and_child_are_required() {
 
-@Component
-@RequiredArgsConstructor
-class DeliveryService {
+        final String id = "required-id";
 
-    private final DeliveryRepository deliveryRepository;
 
-    private boolean isOk() {
-        return false;
+        assertThrows(UnexpectedRollbackException.class, () -> parentService.createRequiredAndChildRequired(id));
+
+
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(false));
+        assertThat(childResult.isPresent(), equalTo(false));
     }
 
-    // 기타 다른 코드
+    @Test
+    void rollback_child_transaction_when_parent_without_transactional_and_child_is_required() {
 
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Delivery createDeliveryWithRequired(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
-    }
-}
+        final String id = "required-id-without-parent-transaction";
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
 
-    private final OrderRepository orderRepository;
+        parentService.createWithoutTransactionAndChildRequired(id);
 
-    private final DeliveryService deliveryService;
 
-    // 기타 다른 코드
-
-    public Orders createOrderChildRequired(Orders order) {
-        orderRepository.saveAndFlush(order);
-        deliveryService.createDeliveryWithRequired(new Delivery(order.getId()));
-        return order;
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(true));
+        assertThat(childResult.isPresent(), equalTo(false));
     }
 }
 ```
 
-#### 3.2.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
-- **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
+##### Result of Test
+
+* 부모와 자식이 모두 `REQUIRED` 전파 타입으로 지정한 경우
+    * 테스트는 정상적으로 통과합니다.
+    * 부모 서비스 트랜잭션에서 생성된 `1127171622` 세션 객체를 통해 기존 트랜잭션을 이어가는 것을 확인할 수 있습니다.
 
 ```
-2021-05-10 01:02:47.632 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:02:47.632 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1844498480<open>)]
-2021-05-10 01:02:47.632 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1844498480<open>)] after transaction
-2021-05-10 01:02:47.642 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:02:47.642 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(730815140<open>)] for JPA transaction
-2021-05-10 01:02:47.642 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7d0e46dd]
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 01:02:47.671 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:02:47.671 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(730815140<open>)]
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(730815140<open>)] after transaction
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.DeliveryService.createDeliveryWithRequired]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(397262543<open>)] for JPA transaction
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@59eb987a]
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(397262543<open>)] for JPA transaction
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select delivery0_.id as id1_0_0_ from delivery delivery0_ where delivery0_.id=?
-Hibernate: insert into delivery (id) values (?)
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(397262543<open>)]
-2021-05-10 01:02:47.673 DEBUG 12040 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(397262543<open>)] after transaction
-2021-05-10 01:02:47.673  WARN 12040 --- [           main] b.i.a.transcation.TransactionalTest      : null
-2021-05-10 01:02:47.673  INFO 12040 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD REQUIRED END
+2023-05-06 00:54:47.043 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ParentService.createRequiredAndChildRequired]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 00:54:47.043 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 00:54:47.048 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@72ec16f8]
+2023-05-06 00:54:47.065 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 00:54:47.065 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 00:54:47.111 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 00:54:47.111 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+2023-05-06 00:54:47.119 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 00:54:47.120 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+Hibernate: insert into child (id) values (?)
+2023-05-06 00:54:47.123 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating transaction failed - marking existing transaction as rollback-only
+2023-05-06 00:54:47.123 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Setting JPA transaction on EntityManager [SessionImpl(1127171622<open>)] rollback-only
+2023-05-06 00:54:47.123 ERROR 57819 --- [           main] blog.in.action.service.ParentService     : skip propagation exception
+2023-05-06 00:54:47.123 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 00:54:47.123 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1127171622<open>)]
+2023-05-06 00:54:47.125 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1127171622<open>)] after transaction
+2023-05-06 00:54:47.126 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 00:54:47.127 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(956958624<open>)] for JPA transaction
+2023-05-06 00:54:47.128 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@43ee1cf7]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 00:54:47.133 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 00:54:47.133 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(956958624<open>)]
+2023-05-06 00:54:47.133 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(956958624<open>)] after transaction
+2023-05-06 00:54:47.134 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 00:54:47.134 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2114487283<open>)] for JPA transaction
+2023-05-06 00:54:47.134 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4ba1c1a2]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 00:54:47.136 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 00:54:47.136 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2114487283<open>)]
+2023-05-06 00:54:47.136 DEBUG 57819 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2114487283<open>)] after transaction
 ```
 
-#### 3.2.3. 데이터베이스 테이블 확인
-- 자식 메소드만 롤백되어 데이터가 존재하지 않습니다.
-- 부모 메소드는 트랜잭션 처리에 대한 애너테이션이 없었기에 JpaRepository 레벨에서 수행 후 commit 처리됩니다.
+* 부모는 트랜잭션을 시작하지 않고, 자식은 `REQUIRED` 전파 타입으로 지정한 경우
+    * 테스트는 정상적으로 통과합니다.
+    * 부모 서비스 트랜잭션에서 `480975330` 세션 객체, 자식 서비스 트랜잭션에서 `273401463` 세션 객체를 각각 따로 사용합니다.
 
-<p align="left"><img src="/images/transactional-propagation-type-7.jpg" width="30%"></p>
+```
+2023-05-06 00:55:02.683 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 00:55:02.684 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(480975330<open>)] for JPA transaction
+2023-05-06 00:55:02.688 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@424a152f]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 00:55:02.732 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 00:55:02.733 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(480975330<open>)]
+2023-05-06 00:55:02.734 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(480975330<open>)] after transaction
+2023-05-06 00:55:02.735 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ChildService.createRequired]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 00:55:02.735 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(273401463<open>)] for JPA transaction
+2023-05-06 00:55:02.736 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3dd591b9]
+2023-05-06 00:55:02.743 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(273401463<open>)] for JPA transaction
+2023-05-06 00:55:02.743 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+Hibernate: insert into child (id) values (?)
+2023-05-06 00:55:02.747 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
+2023-05-06 00:55:02.747 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(273401463<open>)]
+2023-05-06 00:55:02.749 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(273401463<open>)] after transaction
+2023-05-06 00:55:02.749 ERROR 57834 --- [           main] blog.in.action.service.ParentService     : skip propagation exception
+2023-05-06 00:55:02.751 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 00:55:02.752 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1460265227<open>)] for JPA transaction
+2023-05-06 00:55:02.753 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@756200d1]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 00:55:02.760 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 00:55:02.760 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1460265227<open>)]
+2023-05-06 00:55:02.760 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1460265227<open>)] after transaction
+2023-05-06 00:55:02.761 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 00:55:02.761 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(159089828<open>)] for JPA transaction
+2023-05-06 00:55:02.761 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@70bc3a9c]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 00:55:02.763 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 00:55:02.763 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(159089828<open>)]
+2023-05-06 00:55:02.763 DEBUG 57834 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(159089828<open>)] after transaction
+```
 
-## 4. SUPPORTS
-현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
-부모 메소드에서 트랜잭션을 시작하였다면 트랜잭션이 이어지지만 없다면 트랜잭션 없이 진행됩니다. 
-자식 메소드에서 exception이 발생한다면 부모 메소드에서 실행한 트랜잭션이 있는지 여부에 따라 롤백 여부가 결정됩니다. 
+### 2.3. SUPPORTS
 
-<p align="center"><img src="/images/transactional-propagation-type-8.jpg" width="70%"></p>
+> 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
+
+현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작합니다. 
+현재 진행 중인 트랜잭션이 없다면 새롭게 만들지 않습니다.
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-4.jpg" width="80%" class="image__border">
+</p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
-### 4.1. 부모 REQUIRED - 자식 SUPPORTS
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
-- 자식 메소드 exception throw
-- 롤백 여부 확인
+#### 2.3.1. ChildService Class
 
-#### 4.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 ChildException 예외를 던집니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Child;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ChildRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Test
-    @DisplayName("PARENT REQUIRED - CHILD SUPPORTS")
-    public void test_parentRequired_childSupports() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithRequiredChildSupports(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        } finally {
-            log.info("PARENT REQUIRED - CHILD SUPPORTS END");
-        }
-    }
-}
-
-@Component
+@Service
 @RequiredArgsConstructor
-class DeliveryService {
+public class ChildService {
 
-    private final DeliveryRepository deliveryRepository;
-
-    private boolean isOk() {
-        return false;
-    }
-
-    // 기타 다른 코드
+    private final ChildRepository repository;
 
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Delivery createDeliveryWithSupports(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
+    public void createSupports(String id) {
+        repository.saveAndFlush(new Child(id));
+        throw new ChildException();
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Orders createOrderWithRequiredChildSupports(Orders order) {
-        orderRepository.saveAndFlush(order);
-        deliveryService.createDeliveryWithSupports(new Delivery(order.getId()));
-        return order;
-    }
+    // ...
 }
 ```
 
-#### 4.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildSupports 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Participating in existing transaction`**, 기존 트랜잭션에 합류하는 것을 확인할 수 있습니다.
-- **`Rolling back JPA transaction on EntityManager`**, 트랜잭션 롤백이 수행되었음을 확인할 수 있습니다. 
+#### 2.3.2. ParentService Class
 
-```
-2021-05-10 01:25:59.507 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:25:59.507 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1952021559<open>)]
-2021-05-10 01:25:59.509 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1952021559<open>)] after transaction
-2021-05-10 01:25:59.509 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.OrderService.createOrderWithRequiredChildSupports]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:25:59.509 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1700257002<open>)] for JPA transaction
-2021-05-10 01:25:59.509 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@76e4df53]
-2021-05-10 01:25:59.509 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1700257002<open>)] for JPA transaction
-2021-05-10 01:25:59.509 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 01:25:59.539 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1700257002<open>)] for JPA transaction
-2021-05-10 01:25:59.539 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-2021-05-10 01:25:59.539 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1700257002<open>)] for JPA transaction
-2021-05-10 01:25:59.539 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select delivery0_.id as id1_0_0_ from delivery delivery0_ where delivery0_.id=?
-Hibernate: insert into delivery (id) values (?)
-2021-05-10 01:25:59.547 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating transaction failed - marking existing transaction as rollback-only
-2021-05-10 01:25:59.547 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Setting JPA transaction on EntityManager [SessionImpl(1700257002<open>)] rollback-only
-2021-05-10 01:25:59.547 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
-2021-05-10 01:25:59.547 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(1700257002<open>)]
-2021-05-10 01:25:59.549 DEBUG 3076 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1700257002<open>)] after transaction
-2021-05-10 01:25:59.549  WARN 3076 --- [           main] b.i.a.transcation.TransactionalTest      : null
-2021-05-10 01:25:59.549  INFO 3076 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD SUPPORTS END
-```
-
-#### 4.1.3. 데이터베이스 테이블 확인
-- 부모와 자식 메소드 모두 롤백되어 데이터가 존재하지 않습니다.
-- 이미지는 생략하였습니다.
-
-### 4.2. 부모 X - 자식 SUPPORTS
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
-- 자식 메소드 exception throw
-- 롤백 여부 확인
-
-#### 4.2.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 자식 서비스를 호출합니다.
+* 자식 서비스에서 예외를 던지더라도 부모 서비스에서 예외 전파를 차단합니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Parent;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ParentRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ParentService {
+
+    private final ParentRepository repository;
+    private final ChildService childService;
+
+    void skipExceptionPropagation(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (ChildException childException) {
+            log.error("skip propagation exception");
+        }
+    }
+
+    @Transactional
+    public void createRequiredAndChildSupports(String id) {
+        repository.saveAndFlush(new Parent(id));
+        skipExceptionPropagation(() -> childService.createSupports(id));
+    }
+
+    public void createWithoutTransactionAndChildSupports(String id) {
+        repository.saveAndFlush(new Parent(id));
+        skipExceptionPropagation(() -> childService.createSupports(id));
+    }
+
+    // ...
+}
+```
+
+#### 2.3.3. SupportsTests Class
+
+* 부모는 `REQUIRED`, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
+    * 부모에서부터 트랜잭션을 시작하였으므로 자식에서 예외가 발생하면 모든 트랜잭션이 롤백될 것을 예상합니다.
+    * 부모와 자식은 하나의 트랜잭션으로 연결되어 있기 때문에 자식에서 예외가 발생했다면, 부모는 커밋 수행 중에 `UnexpectedRollbackException` 예외를 던지고 트랜잭션을 롤백합니다.
+* 부모는 트랜잭션을 시작하지 않고, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
+    * 부모는 트랜잭션을 시작하지 않았으므로 saveAndFlush 메소드를 호출하면 JpaRepositry 인터페이스 트랜잭션에 의해 커밋됩니다. 
+    * 자식 서비스는 트랜잭션을 새로 만들지 않습니다.
+    * 자식 서비스에서 saveAndFlush 메소드 호출 후 예외를 던졌기 때문에 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class SupportsTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
 
     @Test
-    @DisplayName("PARENT X - CHILD SUPPORTS")
-    public void test_childSupports() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderChildSupports(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        } finally {
-            log.info("PARENT X - CHILD SUPPORTS END");
-        }
-    }
-}
+    void all_transaction_rollback_when_parent_is_required_child_is_supports() {
 
-@Component
-@RequiredArgsConstructor
-class DeliveryService {
+        final String id = "supports-id";
 
-    private final DeliveryRepository deliveryRepository;
 
-    private boolean isOk() {
-        return false;
+        assertThrows(UnexpectedRollbackException.class, () -> parentService.createRequiredAndChildSupports(id));
+
+
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(false));
+        assertThat(childResult.isPresent(), equalTo(false));
     }
 
-    // 기타 다른 코드
+    @Test
+    void all_transaction_commit_when_parent_without_transactional_and_child_is_supports() {
 
-    @Transactional(propagation = Propagation.SUPPORTS)
-    public Delivery createDeliveryWithSupports(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
-    }
-}
+        final String id = "supports-id-without-parent-transaction";
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
 
-    private final OrderRepository orderRepository;
+        parentService.createWithoutTransactionAndChildSupports(id);
 
-    private final DeliveryService deliveryService;
 
-    // 기타 다른 코드
-
-    public Orders createOrderChildSupports(Orders order) {
-        orderRepository.saveAndFlush(order);
-        deliveryService.createDeliveryWithSupports(new Delivery(order.getId()));
-        return order;
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(true));
+        assertThat(childResult.isPresent(), equalTo(true));
     }
 }
 ```
 
-#### 4.2.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다. 
-- 롤백과 관련된 로그가 확인되지 않습니다.
+##### Result of Test
+
+* 부모는 `REQUIRED`, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
+    * 테스트는 정상적으로 통과합니다.
+    * 부모 서비스 트랜잭션에서 생성된 `1127171622` 세션 객체를 통해 기존 트랜잭션을 이어가는 것을 확인할 수 있습니다.
 
 ```
-2021-05-10 01:30:22.654 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:30:22.654 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(215600758<open>)]
-2021-05-10 01:30:22.654 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(215600758<open>)] after transaction
-2021-05-10 01:30:22.664 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:30:22.664 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2127390817<open>)] for JPA transaction
-2021-05-10 01:30:22.664 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@6557dcea]
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 01:30:22.692 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:30:22.692 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2127390817<open>)]
-2021-05-10 01:30:22.694 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2127390817<open>)] after transaction
-2021-05-10 01:30:22.694 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:30:22.694 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(994419686<open>)] for JPA transaction
-2021-05-10 01:30:22.694 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7927209f]
-Hibernate: select delivery0_.id as id1_0_0_ from delivery delivery0_ where delivery0_.id=?
-Hibernate: insert into delivery (id) values (?)
-2021-05-10 01:30:22.694 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:30:22.694 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(994419686<open>)]
-2021-05-10 01:30:22.702 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(994419686<open>)] after transaction
-2021-05-10 01:30:22.702 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
-2021-05-10 01:30:22.702 DEBUG 7860 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Should roll back transaction but cannot - no transaction available
-2021-05-10 01:30:22.702  WARN 7860 --- [           main] b.i.a.transcation.TransactionalTest      : null
-2021-05-10 01:30:22.702  INFO 7860 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD SUPPORTS END
+2023-05-06 01:16:06.556 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ParentService.createRequiredAndChildSupports]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:16:06.557 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 01:16:06.561 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@72ec16f8]
+2023-05-06 01:16:06.584 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 01:16:06.584 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 01:16:06.639 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 01:16:06.640 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+2023-05-06 01:16:06.648 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1127171622<open>)] for JPA transaction
+2023-05-06 01:16:06.648 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+Hibernate: insert into child (id) values (?)
+2023-05-06 01:16:06.652 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating transaction failed - marking existing transaction as rollback-only
+2023-05-06 01:16:06.652 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Setting JPA transaction on EntityManager [SessionImpl(1127171622<open>)] rollback-only
+2023-05-06 01:16:06.653 ERROR 62816 --- [           main] blog.in.action.service.ParentService     : skip propagation exception
+2023-05-06 01:16:06.653 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:06.653 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1127171622<open>)]
+2023-05-06 01:16:06.655 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1127171622<open>)] after transaction
+2023-05-06 01:16:06.657 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:16:06.658 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(956958624<open>)] for JPA transaction
+2023-05-06 01:16:06.660 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@43ee1cf7]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 01:16:06.666 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:06.666 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(956958624<open>)]
+2023-05-06 01:16:06.667 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(956958624<open>)] after transaction
+2023-05-06 01:16:06.667 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:16:06.667 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2114487283<open>)] for JPA transaction
+2023-05-06 01:16:06.668 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4ba1c1a2]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 01:16:06.669 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:06.670 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2114487283<open>)]
+2023-05-06 01:16:06.670 DEBUG 62816 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2114487283<open>)] after transaction
 ```
 
-#### 4.2.3. 데이터베이스 테이블 확인
-- 부모, 자식 메소드 모두 롤백되지 않아 데이터가 존재합니다.
-- 자식 메소드에서 exception을 throw 하였지만 롤백이 수행되지 않았음을 확인할 수 있습니다.
-- 두 메소드 모두 트랜잭션 처리에 대한 코드가 없으므로 JpaRepository 레벨에서 commit이 수행됩니다.
+* 부모는 트랜잭션을 시작하지 않고, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
+    * 테스트는 정상적으로 통과합니다.
+    * 부모 서비스 트랜잭션에서 `222122132` 세션 객체, 자식 서비스 트랜잭션에서 `684660636` 세션 객체를 각각 따로 사용합니다.
 
-<p align="left"><img src="/images/transactional-propagation-type-9.jpg" width="30%"></p>
+```
+2023-05-06 01:16:37.345 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:16:37.345 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(222122132<open>)] for JPA transaction
+2023-05-06 01:16:37.350 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2792c28]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 01:16:37.394 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:37.394 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(222122132<open>)]
+2023-05-06 01:16:37.395 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(222122132<open>)] after transaction
+2023-05-06 01:16:37.406 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:16:37.406 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(684660636<open>)] for JPA transaction
+2023-05-06 01:16:37.406 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4ce18cec]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+Hibernate: insert into child (id) values (?)
+2023-05-06 01:16:37.410 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:37.410 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(684660636<open>)]
+2023-05-06 01:16:37.411 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(684660636<open>)] after transaction
+2023-05-06 01:16:37.411 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
+2023-05-06 01:16:37.411 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Should roll back transaction but cannot - no transaction available
+2023-05-06 01:16:37.411 ERROR 62925 --- [           main] blog.in.action.service.ParentService     : skip propagation exception
+2023-05-06 01:16:37.414 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:16:37.414 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1460265227<open>)] for JPA transaction
+2023-05-06 01:16:37.415 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@756200d1]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 01:16:37.424 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:37.424 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1460265227<open>)]
+2023-05-06 01:16:37.425 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1460265227<open>)] after transaction
+2023-05-06 01:16:37.425 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:16:37.425 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(159089828<open>)] for JPA transaction
+2023-05-06 01:16:37.426 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@70bc3a9c]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 01:16:37.428 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:16:37.428 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(159089828<open>)]
+2023-05-06 01:16:37.428 DEBUG 62925 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(159089828<open>)] after transaction
+```
 
-## 5. MANDATORY
-현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다. 
-부모 메소드에서 트랜잭션을 시작하였다면 트랜잭션이 이어지지만 없다면 exception을 전달합니다. 
-부모에서 트랜재션을 시작하지 않은 케이스에 대해서만 테스트를 진행하였습니다. 
 
-<p align="center"><img src="/images/transactional-propagation-type-10.jpg" width="70%"></p>
+### 2.4. MANDATORY
+
+> 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다.
+
+현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작합니다. 
+현재 진행 중인 트랜잭션이 없다면 예외를 던집니다. 
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-5.jpg" width="80%" class="image__border">
+</p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
-### 5.1. 부모 X - 자식 MANDATORY
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 시 exception 발생 여부 확인
+#### 2.4.1. ChildService Class
 
-#### 5.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 별도의 예외는 던지지 않습니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Child;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ChildRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Test
-    @DisplayName("PARENT X - CHILD MANDATORY")
-    public void test_childMandatory() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderChildMandatory(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        } finally {
-            log.info("PARENT X - CHILD MANDATORY END");
-        }
-    }
-}
-
-@Component
+@Service
 @RequiredArgsConstructor
-class DeliveryService {
+public class ChildService {
 
-    private final DeliveryRepository deliveryRepository;
-
-    private boolean isOk() {
-        return false;
-    }
-
-    // 기타 다른 코드
+    private final ChildRepository repository;
 
     @Transactional(propagation = Propagation.MANDATORY)
-    public Delivery createDeliveryWithMandatory(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
+    public void createMandatory(String id) {
+        repository.saveAndFlush(new Child(id));
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    public Orders createOrderChildMandatory(Orders order) {
-        orderRepository.saveAndFlush(order);
-        deliveryService.createDeliveryWithMandatory(new Delivery(order.getId()));
-        return order;
-    }
+    // ...
 }
 ```
 
-#### 5.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, SimpleJpaRepository.saveAndFlush 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Initiating transaction commit`**, 기존 트랜잭션에 참가하지 않고 새로운 트랜잭션을 수행함을 알 수 있습니다.
-- **`No existing transaction found for transaction marked with propagation 'mandatory'`**, IllegalTransactionStateException이 발생합니다.
+#### 2.4.2. ParentService Class
 
-```
-2021-05-10 01:38:54.981 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:38:54.981 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1109132666<open>)]
-2021-05-10 01:38:54.981 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1109132666<open>)] after transaction
-2021-05-10 01:38:54.991 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:38:54.991 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1700257002<open>)] for JPA transaction
-2021-05-10 01:38:54.991 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@76e4df53]
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 01:38:55.022 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:38:55.022 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1700257002<open>)]
-2021-05-10 01:38:55.025 DEBUG 17696 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1700257002<open>)] after transaction
-2021-05-10 01:38:55.030  WARN 17696 --- [           main] b.i.a.transcation.TransactionalTest      : No existing transaction found for transaction marked with propagation 'mandatory'
-
-org.springframework.transaction.IllegalTransactionStateException: No existing transaction found for transaction marked with propagation 'mandatory'
-    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:362) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:99) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-
-2021-05-10 01:38:55.030  INFO 17696 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT X - CHILD MANDATORY END
-```
-
-#### 5.1.3. 데이터베이스 테이블 확인
-- 부모 메소드는 트랜잭션 처리가 없으므로 commit 처리되어 데이터가 존재합니다.
-- 자식 메소드는 수행되지 않았습니다.
-- 이미지는 별도로 추가하지 않았습니다. 
-
-## 6. REQUIRES_NEW
-새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
-부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드는 별도의 트랜잭션으로 분리합니다. 
-자식 메소드에서 발생하는 트랜잭션 롤백은 부모 메소드에서 시작한 트랜잭션과 상관이 없습니다. 
-
-<p align="center"><img src="/images/transactional-propagation-type-11.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center>
-
-### 6.1. 부모 REQUIRED - 자식 REQUIRES_NEW
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 
-- 자식 메소드 exception throw
-- 부모 메소드에서 catch 수행
-- 롤백 여부 확인
-
-#### 6.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 자식 서비스를 호출합니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Parent;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ParentRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Test
-    @DisplayName("PARENT REQUIRED - CHILD REQUIRES_NEW")
-    public void test_parentRequired_childRequiresNew() {
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ParentService {
+
+    private final ParentRepository repository;
+    private final ChildService childService;
+
+    void skipExceptionPropagation(Runnable runnable) {
         try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithRequiredChildRequiresNew(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        } finally {
-            log.info("PARENT REQUIRED - CHILD REQUIRES_NEW END");
+            runnable.run();
+        } catch (ChildException childException) {
+            log.error("skip propagation exception");
         }
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class DeliveryService {
-
-    private final DeliveryRepository deliveryRepository;
-
-    private boolean isOk() {
-        return false;
+    public void createWithoutTransactionAndChildMandatory(String id) {
+        repository.saveAndFlush(new Parent(id));
+        childService.createMandatory(id);
     }
 
-    // 기타 다른 코드
+    // ...
+}
+
+```
+
+#### 2.4.3. MandatoryTests Class
+
+* 부모는 트랜잭션을 시작하지 않고, 자식은 `MANDATORY` 전파 타입으로 지정한 경우
+    * `IllegalTransactionStateException` 예외를 던질 것으로 예상합니다.
+    * 부모 서비스는 트랜잭션을 시작하지 않았으므로 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
+    * 자식 서비스는 예외 발생으로 비즈니스 로직이 실행되지 못하면서 데이터가 저장되지 않습니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.IllegalTransactionStateException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class MandatoryTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
+
+    @Test
+    void throws_exception_when_parent_without_transaction_child_is_mandatory() {
+
+        final String id = "mandatory-id";
+
+
+        assertThrows(IllegalTransactionStateException.class, () -> parentService.createWithoutTransactionAndChildMandatory(id));
+
+
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(true));
+        assertThat(childResult.isPresent(), equalTo(false));
+    }
+}
+```
+
+##### Result of Test
+
+* 자식 서비스에서 조회하거나 데이터를 추가(insert)하는 쿼리가 실행되지 않습니다.
+
+```
+2023-05-06 01:29:03.555 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:29:03.556 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(222122132<open>)] for JPA transaction
+2023-05-06 01:29:03.561 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2792c28]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 01:29:03.613 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:29:03.613 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(222122132<open>)]
+2023-05-06 01:29:03.614 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(222122132<open>)] after transaction
+2023-05-06 01:29:03.618 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:29:03.618 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1289850092<open>)] for JPA transaction
+2023-05-06 01:29:03.620 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@51c008fd]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 01:29:03.630 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:29:03.630 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1289850092<open>)]
+2023-05-06 01:29:03.630 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1289850092<open>)] after transaction
+2023-05-06 01:29:03.631 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:29:03.631 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(207766759<open>)] for JPA transaction
+2023-05-06 01:29:03.632 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3292eff7]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 01:29:03.634 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:29:03.634 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(207766759<open>)]
+2023-05-06 01:29:03.635 DEBUG 65818 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(207766759<open>)] after transaction
+```
+
+### 2.5. REQURIES_NEW
+
+> 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
+
+기존에 진행 중인 트랜잭션이 있더라도 새로운 트랜잭션을 시작합니다. 
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-6.jpg" width="80%" class="image__border">
+</p>
+<center>https://www.nextree.co.kr/p3180/</center>
+
+#### 2.5.1. ChildService Class
+
+* 데이터를 저장하고 ChildException 예외를 던집니다.
+
+```java
+package blog.in.action.service;
+
+import blog.in.action.domain.Child;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ChildRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class ChildService {
+
+    private final ChildRepository repository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public Delivery createDeliveryWithRequiresNew(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
+    public void createRequiresNew(String id) {
+        repository.saveAndFlush(new Child(id));
+        throw new ChildException();
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Orders createOrderWithRequiredChildRequiresNew(Orders order) {
-        orderRepository.saveAndFlush(order);
-        try {
-            deliveryService.createDeliveryWithRequiresNew(new Delivery(order.getId()));
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        }
-        return order;
-    }
+    // ...
 }
 ```
 
-#### 6.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildRequiresNew 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Suspending current transaction, creating new transaction with name`**, 기존 트랜잭션에 참가하지 않고 DeliveryService.createDeliveryWithRequiresNew 메소드를 통해 새로운 트랜잭션을 생성합니다. 
-- **`Rolling back JPA transaction on EntityManager`**, 롤백이 수행되었음이 확인됩니다.
+#### 2.5.2. ParentService Class
 
-```
-2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2146222703<open>)]
-2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2146222703<open>)] after transaction
-2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.OrderService.createOrderWithRequiredChildRequiresNew]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(552085610<open>)] for JPA transaction
-2021-05-10 01:58:16.451 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4d408746]
-2021-05-10 01:58:16.461 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(552085610<open>)] for JPA transaction
-2021-05-10 01:58:16.461 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 01:58:16.492 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(552085610<open>)] for JPA transaction
-2021-05-10 01:58:16.492 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Suspending current transaction, creating new transaction with name [blog.in.action.transcation.DeliveryService.createDeliveryWithRequiresNew]
-2021-05-10 01:58:16.492 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1909501184<open>)] for JPA transaction
-2021-05-10 01:58:16.492 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@56c7e2d1]
-2021-05-10 01:58:16.492 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1909501184<open>)] for JPA transaction
-2021-05-10 01:58:16.500 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select delivery0_.id as id1_0_0_ from delivery delivery0_ where delivery0_.id=?
-Hibernate: insert into delivery (id) values (?)
-2021-05-10 01:58:16.502 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
-2021-05-10 01:58:16.502 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(1909501184<open>)]
-2021-05-10 01:58:16.504 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1909501184<open>)] after transaction
-2021-05-10 01:58:16.504 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
-2021-05-10 01:58:16.504  WARN 7364 --- [           main] blog.in.action.transcation.OrderService  : null
-
-java.lang.RuntimeException: null
-    at blog.in.action.transcation.DeliveryService.createDeliveryWithRequiresNew(TransactionalTest.java:188) ~[test-classes/:na]
-    at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
-    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:747) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:366) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-
-2021-05-10 01:58:16.510 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 01:58:16.510 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(552085610<open>)]
-2021-05-10 01:58:16.512 DEBUG 7364 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(552085610<open>)] after transaction
-2021-05-10 01:58:16.512  INFO 7364 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD REQUIRES_NEW END
-```
-
-#### 6.1.3. 데이터베이스 테이블 확인
-- 자식 메소드에서 던진 exception은 자식 메소드에서 수행한 트랜잭션만 롤백합니다. 
-- 던져진 exception은 부모 메소드에서 catch 되었으므로 부모 메소드의 트랜잭션을 정상 수행됩니다.
-- 동일한 트랜잭션으로 처리되는 **`PARENT REQUIRED - CHILD REQUIRED`** 테스트와는 대조적입니다. 
-
-<p align="left"><img src="/images/transactional-propagation-type-12.jpg" width="30%"></p>
-
-## 7. NOT_SUPPORTED
-트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
-부모 메소드에서 트랜잭션을 시작했더라도 자식 메소드에서는 트랜잭션 처리를 수행하지 않습니다. 
-
-<p align="center"><img src="/images/transactional-propagation-type-13.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center>
-
-### 7.1. 부모 REQUIRED - 자식 NOT_SUPPORTED
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
-- 자식 메소드 exception throw
-- 롤백 여부 확인
-
-#### 7.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 자식 서비스를 호출합니다.
+* 자식 서비스에서 예외를 던지더라도 부모 서비스에서 예외 전파를 차단합니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Parent;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ParentRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Test
-    @DisplayName("PARENT REQUIRED - CHILD NOT_SUPPORTED")
-    public void test_parentRequired_childNotSupported() {
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ParentService {
+
+    private final ParentRepository repository;
+    private final ChildService childService;
+
+    void skipExceptionPropagation(Runnable runnable) {
         try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithRequiredChildNotSupported(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        } finally {
-            log.info("PARENT REQUIRED - CHILD NOT_SUPPORTED END");
+            runnable.run();
+        } catch (ChildException childException) {
+            log.error("skip propagation exception");
         }
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class DeliveryService {
-
-    private final DeliveryRepository deliveryRepository;
-
-    private boolean isOk() {
-        return false;
+    @Transactional
+    public void createRequiredAndChildRequiresNew(String id) {
+        repository.saveAndFlush(new Parent(id));
+        skipExceptionPropagation(() -> childService.createRequiresNew(id));
     }
 
-    // 기타 다른 코드
+    // ...
+}
+```
+
+#### 2.5.3. RequiresNewTests Class
+
+* 부모는 `REQUIRED`, 자식은 `REQURIES_NEW` 전파 타입으로 지정한 경우
+    * 부모 서비스는 데이터가 저장될 것을 예상합니다.
+    * 자식 서비스는 데이터가 롤백되는 것을 예상합니다.
+* 부모 서비스의 비즈니스 로직은 동일하지만, 부모, 자식 모두 `REQUIRED` 전파 타입으로 지정한 경우와 결과가 사뭇 다릅니다.
+    * `UnexpectedRollbackException` 예외가 발생하지 않습니다.
+    * 부모 트랜잭션은 정상적으로 데이터가 저장됩니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class RequiresNewTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
+
+    @Test
+    void rollback_only_child_transaction_when_parent_is_required_and_child_is_requires_new() {
+
+        final String id = "requires-new-id";
+
+
+        parentService.createRequiredAndChildRequiresNew(id);
+
+
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(true));
+        assertThat(childResult.isPresent(), equalTo(false));
+    }
+}
+```
+
+##### Result of Test
+
+* 테스트는 정상적으로 통과합니다.
+* 부모 서비스 트랜잭션에서 `1254589807` 세션 객체, 자식 서비스 트랜잭션에서 `456897159` 세션 객체를 각각 따로 사용합니다.
+
+```
+2023-05-06 01:41:58.701 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ParentService.createRequiredAndChildRequiresNew]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:41:58.701 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1254589807<open>)] for JPA transaction
+2023-05-06 01:41:58.705 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7d5a0b14]
+2023-05-06 01:41:58.724 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1254589807<open>)] for JPA transaction
+2023-05-06 01:41:58.725 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 01:41:58.772 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1254589807<open>)] for JPA transaction
+2023-05-06 01:41:58.772 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Suspending current transaction, creating new transaction with name [blog.in.action.service.ChildService.createRequiresNew]
+2023-05-06 01:41:58.773 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(456897159<open>)] for JPA transaction
+2023-05-06 01:41:58.773 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@188bf4d8]
+2023-05-06 01:41:58.781 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(456897159<open>)] for JPA transaction
+2023-05-06 01:41:58.781 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+Hibernate: insert into child (id) values (?)
+2023-05-06 01:41:58.785 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
+2023-05-06 01:41:58.785 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(456897159<open>)]
+2023-05-06 01:41:58.788 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(456897159<open>)] after transaction
+2023-05-06 01:41:58.788 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
+2023-05-06 01:41:58.788 ERROR 71028 --- [           main] blog.in.action.service.ParentService     : skip propagation exception
+2023-05-06 01:41:58.788 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:41:58.788 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1254589807<open>)]
+2023-05-06 01:41:58.789 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1254589807<open>)] after transaction
+2023-05-06 01:41:58.791 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:41:58.792 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1313602972<open>)] for JPA transaction
+2023-05-06 01:41:58.793 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4a29fe2e]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 01:41:58.804 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:41:58.804 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1313602972<open>)]
+2023-05-06 01:41:58.804 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1313602972<open>)] after transaction
+2023-05-06 01:41:58.805 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:41:58.806 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2046959433<open>)] for JPA transaction
+2023-05-06 01:41:58.806 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@626df173]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 01:41:58.808 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:41:58.808 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2046959433<open>)]
+2023-05-06 01:41:58.808 DEBUG 71028 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2046959433<open>)] after transaction
+```
+
+### 2.6. NOT_SUPPORTED
+
+> 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-7.jpg" width="80%" class="image__border">
+</p>
+<center>https://www.nextree.co.kr/p3180/</center>
+
+#### 2.6.1. ChildService Class
+
+* 데이터를 저장하고, ChildException 예외를 던집니다.
+
+```java
+package blog.in.action.service;
+
+import blog.in.action.domain.Child;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ChildRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class ChildService {
+
+    private final ChildRepository repository;
 
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
-    public Delivery createDeliveryWithNotSupported(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
+    public void createNotSupported(String id) {
+        repository.saveAndFlush(new Child(id));
+        throw new ChildException();
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Orders createOrderWithRequiredChildNotSupported(Orders order) {
-        orderRepository.saveAndFlush(order);
-        deliveryService.createDeliveryWithNotSupported(new Delivery(order.getId()));
-        return order;
-    }
+    // ...
 }
 ```
 
-#### 7.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNotSupported 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Suspending current transaction`**, 기존 트랜잭션에 참가하지 않음을 알 수 있습니다.
-- **`Rolling back JPA transaction on EntityManager`**, 롤백이 수행되었음을 알 수 있습니다.
+#### 2.6.2. ParentService Class
 
-```
-2021-05-10 02:14:46.896 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 02:14:46.896 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1570860758<open>)]
-2021-05-10 02:14:46.896 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1570860758<open>)] after transaction
-2021-05-10 02:14:46.912 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.OrderService.createOrderWithRequiredChildNotSupported]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 02:14:46.912 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1271355282<open>)] for JPA transaction
-2021-05-10 02:14:46.912 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2a0d8df8]
-2021-05-10 02:14:46.912 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1271355282<open>)] for JPA transaction
-2021-05-10 02:14:46.912 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1271355282<open>)] for JPA transaction
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Suspending current transaction
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1517228866<open>)] for JPA transaction
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@650d5a3d]
-Hibernate: select delivery0_.id as id1_0_0_ from delivery delivery0_ where delivery0_.id=?
-Hibernate: insert into delivery (id) values (?)
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 02:14:46.943 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1517228866<open>)]
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1517228866<open>)] after transaction
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Should roll back transaction but cannot - no transaction available
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(1271355282<open>)]
-2021-05-10 02:14:46.954 DEBUG 7240 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1271355282<open>)] after transaction
-2021-05-10 02:14:46.954  WARN 7240 --- [           main] b.i.a.transcation.TransactionalTest      : null
-
-java.lang.RuntimeException: null
-    at blog.in.action.transcation.DeliveryService.createDeliveryWithNotSupported(TransactionalTest.java:210) ~[test-classes/:na]
-    at blog.in.action.transcation.DeliveryService$$FastClassBySpringCGLIB$$fad91b92.invoke(<generated>) ~[test-classes/:na]
-    at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218) ~[spring-core-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:769) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-
-2021-05-10 02:14:46.954  INFO 7240 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NOT_SUPPORTED END
-```
-
-#### 7.1.3. 데이터베이스 테이블 확인
-- 자식 메소드에서 던진 exception이 부모 메소드까지 전파되어 부모 메소드에서 시작한 트랜잭션만 롤백됩니다. 
-- 자식 메소드는 부모 메소드에서 시작한 트랜잭션에 참여하지 않았기에 JpaRepository 트랜잭션이 새로 생성되어 commit 처리됩니다.
-
-<p align="left"><img src="/images/transactional-propagation-type-14.jpg" width="30%"></p>
-
-## 8. NEVER
-부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다. 
-
-<p align="center"><img src="/images/transactional-propagation-type-15.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center>
-
-### 8.1. 부모 REQUIRED - 자식 NEVER
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 시 exception 발생 여부 확인
-- 롤백 여부 확인
-
-#### 8.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 자식 서비스를 호출합니다.
+* 자식 서비스에서 예외를 던지더라도 부모 서비스에서 예외 전파를 차단합니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Parent;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ParentRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-    @Test
-    @DisplayName("PARENT REQUIRED - CHILD NEVER")
-    public void test_parentRequired_childNever() {
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ParentService {
+
+    private final ParentRepository repository;
+    private final ChildService childService;
+
+    void skipExceptionPropagation(Runnable runnable) {
         try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithRequiredChildNever(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        } finally {
-            log.info("PARENT REQUIRED - CHILD NEVER END");
+            runnable.run();
+        } catch (ChildException childException) {
+            log.error("skip propagation exception");
         }
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class DeliveryService {
-
-    private final DeliveryRepository deliveryRepository;
-
-    private boolean isOk() {
-        return false;
+    @Transactional
+    public void createRequiredAndChildNotSupported(String id) {
+        repository.saveAndFlush(new Parent(id));
+        skipExceptionPropagation(() -> childService.createNotSupported(id));
     }
 
-    // 기타 다른 코드
+    // ...
+}
+```
+
+#### 2.6.3. NotSupportedTests Class
+
+* 부모는 `REQUIRED`, 자식은 `NOT_SUPPORTED` 전파 타입으로 지정한 경우
+    * 자식 서비스는 트랜잭션을 이어나가지 않습니다.
+    * 자식 서비스에서 saveAndFlush 메소드 호출 후 예외를 던졌기 때문에 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
+    * 자식 서비스에서 트랜잭션을 이어나가지 않은 상태에서 예외를 던졌기 때문에 부모 서비스가 예외를 상위로 던지지 않는다면 트랜잭션은 정상적으로 커밋됩니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class NotSupportedTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
+
+    @Test
+    void all_transaction_commit_when_parent_is_required_and_child_is_not_supported() {
+
+        final String id = "not-supported-id";
+
+
+        parentService.createRequiredAndChildNotSupported(id);
+
+
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(true));
+        assertThat(childResult.isPresent(), equalTo(true));
+    }
+}
+```
+
+##### Result of Test
+
+* `Suspending current transaction` 로그를 통해 `308998656` 세션 객체로 진행되던 트랜잭션은 멈췄음을 알 수 있습니다. 
+* `Resuming suspended transaction after completion of inner transaction` 로그를 통해 트랜잭션이 다시 시작됨을 알 수 있습니다.
+
+```
+2023-05-06 01:57:22.950 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ParentService.createRequiredAndChildNotSupported]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:57:22.950 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(308998656<open>)] for JPA transaction
+2023-05-06 01:57:22.954 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@1ba7db2a]
+2023-05-06 01:57:22.976 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(308998656<open>)] for JPA transaction
+2023-05-06 01:57:22.977 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 01:57:23.024 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(308998656<open>)] for JPA transaction
+2023-05-06 01:57:23.024 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Suspending current transaction
+2023-05-06 01:57:23.032 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 01:57:23.032 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1650415378<open>)] for JPA transaction
+2023-05-06 01:57:23.033 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@6528d339]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+Hibernate: insert into child (id) values (?)
+2023-05-06 01:57:23.037 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:57:23.037 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1650415378<open>)]
+2023-05-06 01:57:23.038 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1650415378<open>)] after transaction
+2023-05-06 01:57:23.038 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
+2023-05-06 01:57:23.038 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Should roll back transaction but cannot - no transaction available
+2023-05-06 01:57:23.038 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Resuming suspended transaction after completion of inner transaction
+2023-05-06 01:57:23.038 ERROR 73753 --- [           main] blog.in.action.service.ParentService     : skip propagation exception
+2023-05-06 01:57:23.038 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:57:23.038 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(308998656<open>)]
+2023-05-06 01:57:23.039 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(308998656<open>)] after transaction
+2023-05-06 01:57:23.041 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:57:23.041 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(332750956<open>)] for JPA transaction
+2023-05-06 01:57:23.042 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4af84a76]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 01:57:23.050 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:57:23.050 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(332750956<open>)]
+2023-05-06 01:57:23.051 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(332750956<open>)] after transaction
+2023-05-06 01:57:23.051 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 01:57:23.051 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1836406440<open>)] for JPA transaction
+2023-05-06 01:57:23.052 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7e0883f3]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 01:57:23.054 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 01:57:23.054 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1836406440<open>)]
+2023-05-06 01:57:23.054 DEBUG 73753 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1836406440<open>)] after transaction
+```
+
+### 2.7. NEVER
+
+> 부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다.
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-8.jpg" width="80%" class="image__border">
+</p>
+<center>https://www.nextree.co.kr/p3180/</center>
+
+#### 2.7.1. ChildService Class
+
+* 데이터를 저장하고 별도의 예외는 던지지 않습니다.
+
+```java
+package blog.in.action.service;
+
+import blog.in.action.domain.Child;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ChildRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class ChildService {
+
+    private final ChildRepository repository;
 
     @Transactional(propagation = Propagation.NEVER)
-    public Delivery createDeliveryWithNever(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
+    public void createNever(String id) {
+        repository.saveAndFlush(new Child(id));
     }
-}
 
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Orders createOrderWithRequiredChildNever(Orders order) {
-        orderRepository.saveAndFlush(order);
-        deliveryService.createDeliveryWithNever(new Delivery(order.getId()));
-        return order;
-    }
+    // ...
 }
 ```
 
-#### 8.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNever 메소드를 통해 트랜잭션을 생성합니다. 
-- **`Existing transaction found for transaction marked with propagation 'never'`**, IllegalTransactionStateException이 발생합니다.
+#### 2.7.2. ParentService Class
 
-```
-2021-05-10 02:23:51.914 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 02:23:51.915 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1210315984<open>)]
-2021-05-10 02:23:51.915 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1210315984<open>)] after transaction
-2021-05-10 02:23:51.918 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.OrderService.createOrderWithRequiredChildNever]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 02:23:51.918 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(502047593<open>)] for JPA transaction
-2021-05-10 02:23:51.918 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2d0ce8a1]
-2021-05-10 02:23:51.922 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(502047593<open>)] for JPA transaction
-2021-05-10 02:23:51.922 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 02:23:51.940 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(502047593<open>)] for JPA transaction
-2021-05-10 02:23:51.940 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
-2021-05-10 02:23:51.940 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(502047593<open>)]
-2021-05-10 02:23:51.954 DEBUG 16928 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(502047593<open>)] after transaction
-2021-05-10 02:23:51.954  WARN 16928 --- [           main] b.i.a.transcation.TransactionalTest      : Existing transaction found for transaction marked with propagation 'never'
-
-org.springframework.transaction.IllegalTransactionStateException: Existing transaction found for transaction marked with propagation 'never'
-    at org.springframework.transaction.support.AbstractPlatformTransactionManager.handleExistingTransaction(AbstractPlatformTransactionManager.java:413) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:352) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-
-2021-05-10 02:23:51.954  INFO 16928 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NEVER END
-```
-
-#### 8.1.3. 데이터베이스 테이블 확인
-- 자식 메소드는 수행되지 않았습니다.
-- 부모 메소드는 자식 메소드가 던진 exception에 의해 롤백 처리됩니다.
-- 별도의 이미지는 참조하지 않았습니다. 
-
-## 9. NESTED
-현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작합니다. 
-중첩된 트랜잭션을 지원하는 WAS에서만 사용이 가능합니다. 
-부모 메소드에서 시작한 트랜잭션이 있으면, 자식 메소드에서 중첩된 트랜잭션을 실행합니다. 
-자식 메소드에서 commit 되기 전까지 부모 메소드에서는 자식 메소드에서 처리하는 내용이 보이지 않습니다. 
-자식 메소드의 트랜잭션은 자체적으로 commit, rollback이 가능합니다. 
-
-<p align="center"><img src="/images/transactional-propagation-type-16.jpg" width="70%"></p>
-<center>https://www.nextree.co.kr/p3180/</center>
-
-### 9.1. 부모 REQUIRED - 자식 NESTED
-- 부모 메소드에서 데이터 INSERT 후 FLUSH
-- 자식 메소드 호출 및 데이터 INSERT 후 FLUSH
-- 부모 메소드에서 수행한 내용이 보이는지 확인
-- 자식 메소드 exception throw
-- 부모 메소드에 catch 수행
-- 롤백 여부 확인
-
-#### 9.1.1. 테스트 코드
-- 중복되는 코드가 많으므로 메소드만 정리하였습니다.
+* 데이터를 저장하고 자식 서비스를 호출합니다.
 
 ```java
-@Log4j2
-@SpringBootTest
-public class TransactionalTest {
+package blog.in.action.service;
 
-    // 기타 다른 코드
+import blog.in.action.domain.Parent;
+import blog.in.action.exception.ChildException;
+import blog.in.action.repository.ParentRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class ParentService {
+
+    private final ParentRepository repository;
+    private final ChildService childService;
+
+    void skipExceptionPropagation(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (ChildException childException) {
+            log.error("skip propagation exception");
+        }
+    }
+
+    @Transactional
+    public void createRequiredAndChildNever(String id) {
+        repository.saveAndFlush(new Parent(id));
+        childService.createNever(id);
+    }
+
+    // ...
+}
+```
+
+#### 2.7.3. NeverTests Class
+
+* 부모는 `REQUIRED`, 자식은 `NEVER` 전파 타입으로 지정한 경우
+    * `IllegalTransactionStateException` 예외를 던질 것으로 예상합니다.
+    * 부모 서비스는 정상적으로 데이터가 저장됩니다.
+    * 자식 서비스는 예외 발생으로 비즈니스 로직이 실행되지 못하면서 데이터가 저장되지 않습니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.IllegalTransactionStateException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class NeverTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
 
     @Test
-    @DisplayName("PARENT REQUIRED - CHILD NESTED")
-    public void test_parentRequired_childNested() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithRequiredChildNested(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        } finally {
-            log.info("PARENT REQUIRED - CHILD NESTED END");
-        }
-    }
-}
+    void throws_exception_when_parent_is_required_child_is_never() {
 
-@Component
-@RequiredArgsConstructor
-class DeliveryService {
+        final String id = "never-id";
 
-    private final DeliveryRepository deliveryRepository;
 
-    private boolean isOk() {
-        return false;
-    }
+        assertThrows(IllegalTransactionStateException.class, () -> parentService.createRequiredAndChildNever(id));
 
-    // 기타 다른 코드
 
-    @Transactional(propagation = Propagation.NESTED)
-    public Delivery createDeliveryWithNested(Delivery delivery) {
-        deliveryRepository.saveAndFlush(delivery);
-        if (!isOk()) {
-            throw new RuntimeException();
-        }
-        return delivery;
-    }
-}
-
-@Component
-@RequiredArgsConstructor
-class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    private final DeliveryService deliveryService;
-
-    // 기타 다른 코드
-
-    @Transactional(propagation = Propagation.REQUIRED)
-    public Orders createOrderWithRequiredChildNested(Orders order) {
-        orderRepository.saveAndFlush(order);
-        try {
-            deliveryService.createDeliveryWithNested(new Delivery(order.getId()));
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        }
-        return order;
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(false));
+        assertThat(childResult.isPresent(), equalTo(false));
     }
 }
 ```
 
-#### 9.1.2. 테스트 실행 결과 로그
-- **`Creating new transaction with name`**, OrderService.createOrderWithRequiredChildNested 메소드로 트랜잭션을 생성합니다.
-- **`Creating nested transaction with name`**, DeliveryService.createDeliveryWithNested 메소드로 중첩된 트랜잭션을 생성합니다.
-- **`JpaDialect does not support savepoints`**, NestedTransactionNotSupportedException이 발생합니다. 
-- **`check your JPA provider's capabilities`**, JPA provider's capabilities를 확인하라고 경고합니다.
+##### Result of Test
+
+* 자식 서비스에서 조회하거나 데이터를 추가(insert)하는 쿼리가 실행되지 않습니다.
 
 ```
-2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(552085610<open>)]
-2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(552085610<open>)] after transaction
-2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.OrderService.createOrderWithRequiredChildNested]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(747909318<open>)] for JPA transaction
-2021-05-10 02:30:12.044 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@66978c15]
-2021-05-10 02:30:12.052 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(747909318<open>)] for JPA transaction
-2021-05-10 02:30:12.052 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_0_ from orders orders0_ where orders0_.id=?
-Hibernate: insert into orders (id) values (?)
-2021-05-10 02:30:12.074 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(747909318<open>)] for JPA transaction
-2021-05-10 02:30:12.074 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating nested transaction with name [blog.in.action.transcation.DeliveryService.createDeliveryWithNested]
-2021-05-10 02:30:12.082  WARN 18720 --- [           main] blog.in.action.transcation.OrderService  : JpaDialect does not support savepoints - check your JPA provider's capabilities
-
-org.springframework.transaction.NestedTransactionNotSupportedException: JpaDialect does not support savepoints - check your JPA provider's capabilities
-    at org.springframework.orm.jpa.JpaTransactionManager$JpaTransactionObject.getSavepointManager(JpaTransactionManager.java:734) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.orm.jpa.JpaTransactionManager$JpaTransactionObject.createSavepoint(JpaTransactionManager.java:713) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.support.AbstractTransactionStatus.createAndHoldSavepoint(AbstractTransactionStatus.java:140) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.support.AbstractPlatformTransactionManager.handleExistingTransaction(AbstractPlatformTransactionManager.java:457) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:352) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:572) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:360) ~[spring-tx-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-
-2021-05-10 02:30:12.084 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-10 02:30:12.084 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(747909318<open>)]
-2021-05-10 02:30:12.087 DEBUG 18720 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(747909318<open>)] after transaction
-2021-05-10 02:30:12.087  INFO 18720 --- [           main] b.i.a.transcation.TransactionalTest      : PARENT REQUIRED - CHILD NESTED END
+2023-05-06 02:05:19.841 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ParentService.createRequiredAndChildNever]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 02:05:19.841 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1843272693<open>)] for JPA transaction
+2023-05-06 02:05:19.846 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3245efdb]
+2023-05-06 02:05:19.865 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1843272693<open>)] for JPA transaction
+2023-05-06 02:05:19.865 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 02:05:19.912 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1843272693<open>)] for JPA transaction
+2023-05-06 02:05:19.913 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
+2023-05-06 02:05:19.913 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(1843272693<open>)]
+2023-05-06 02:05:19.915 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1843272693<open>)] after transaction
+2023-05-06 02:05:19.918 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 02:05:19.919 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1914077784<open>)] for JPA transaction
+2023-05-06 02:05:19.920 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@6d7bb5cc]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 02:05:19.926 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 02:05:19.926 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1914077784<open>)]
+2023-05-06 02:05:19.926 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1914077784<open>)] after transaction
+2023-05-06 02:05:19.927 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 02:05:19.927 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(474324008<open>)] for JPA transaction
+2023-05-06 02:05:19.928 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4a3509b0]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 02:05:19.930 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 02:05:19.930 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(474324008<open>)]
+2023-05-06 02:05:19.931 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(474324008<open>)] after transaction
 ```
 
-#### 9.1.3. 데이터베이스 테이블 확인
-- 자식 메소드는 기능이 지원되지 않는 WAS에 의해 수행되지 않았습니다.
-- 부모 메소드에서 catch를 수행하였기에 부모 메소드는 롤백되지 않았습니다. 
-- NESTED 속성 테스트는 지원되는 WAS에서 재검증이 필요합니다.
-- 별도의 이미지는 참조하지 않았습니다. 
+### 2.8. NESTED
+
+> 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작합니다. 
+
+중첩된 트랜잭션을 지원하는 미들웨어(middleware)에서만 사용 가능하다고 합니다. 
+이미 진행 중인 트랜잭션이 있으면 이 트랜잭션은 유지하면서 새로운 트랜잭션을 시작합니다. 
+자식 트랜잭션에서 커밋하기 전까지 처리 중인 내용이 부모 트랜잭션에서 보이지 않습니다. 
+자식 트랜잭션은 자체적으로 커밋과 롤백이 가능합니다.
+
+<p align="center">
+    <img src="/images/transactional-propagation-type-9.jpg" width="80%" class="image__border">
+</p>
+<center>https://www.nextree.co.kr/p3180/</center>
+
+#### 2.8.1. NestedTests Class
+
+* 중첩 트랜잭션이 지원 안되는 관계로 부모, 자식 사이에 중첩된 트랜잭션으로 인해 발생하는 현상들은 이번 포스트에서 확인하지 못 했습니다. 
+* 부모는 `REQUIRED`, 자식은 `NESTED` 전파 타입으로 지정한 경우
+    * `NestedTransactionNotSupportedException` 예외가 발생합니다.
+
+```java
+package blog.in.action.transcation;
+
+import blog.in.action.domain.Child;
+import blog.in.action.domain.Parent;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import blog.in.action.service.ChildService;
+import blog.in.action.service.ParentService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.NestedTransactionNotSupportedException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@DataJpaTest
+@Import(value = {ParentService.class, ChildService.class})
+@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class NestedTests {
+
+    @Autowired
+    ParentService parentService;
+    @Autowired
+    ParentRepository parentRepository;
+    @Autowired
+    ChildService childService;
+    @Autowired
+    ChildRepository childRepository;
+
+    @Test
+    void throws_exception_when_parent_is_required_child_is_nested() {
+
+        final String id = "nested-id";
+
+
+        assertThrows(NestedTransactionNotSupportedException.class, () -> parentService.createRequiredAndChildNested(id));
+
+
+        Optional<Parent> parentResult = parentRepository.findById(id);
+        Optional<Child> childResult = childRepository.findById(id);
+        assertThat(parentResult.isPresent(), equalTo(false));
+        assertThat(childResult.isPresent(), equalTo(false));
+    }
+}
+```
+
+##### Result of Test
+
+* 자식 서비스에서 조회하거나 데이터를 추가(insert)하는 쿼리가 실행되지 않습니다.
+
+```
+2023-05-06 02:13:52.334 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.service.ParentService.createRequiredAndChildNested]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+2023-05-06 02:13:52.334 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1263973655<open>)] for JPA transaction
+2023-05-06 02:13:52.338 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2f0e7fa8]
+2023-05-06 02:13:52.356 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1263973655<open>)] for JPA transaction
+2023-05-06 02:13:52.356 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+Hibernate: insert into parent (id) values (?)
+2023-05-06 02:13:52.402 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1263973655<open>)] for JPA transaction
+2023-05-06 02:13:52.402 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating nested transaction with name [blog.in.action.service.ChildService.createNested]
+2023-05-06 02:13:52.402 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
+2023-05-06 02:13:52.403 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(1263973655<open>)]
+2023-05-06 02:13:52.406 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1263973655<open>)] after transaction
+2023-05-06 02:13:52.409 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 02:13:52.410 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1257785974<open>)] for JPA transaction
+2023-05-06 02:13:52.411 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@756200d1]
+Hibernate: select parent0_.id as id1_1_0_ from parent parent0_ where parent0_.id=?
+2023-05-06 02:13:52.417 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 02:13:52.417 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1257785974<open>)]
+2023-05-06 02:13:52.417 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1257785974<open>)] after transaction
+2023-05-06 02:13:52.418 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+2023-05-06 02:13:52.418 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1878900463<open>)] for JPA transaction
+2023-05-06 02:13:52.419 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3d7314b3]
+Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
+2023-05-06 02:13:52.421 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
+2023-05-06 02:13:52.421 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(1878900463<open>)]
+2023-05-06 02:13:52.421 DEBUG 78351 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1878900463<open>)] after transaction
+```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-10-transactional-propagation-type>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-10-transactional-propagation-type>
+
+#### RECOMMEND NEXT POSTS
+
+* [@Transactional 애너테이션과 UnexpectedRollbackException 발생][unexpected-rollback-exception-link]
 
 #### REFERENCE
-- <https://www.nextree.co.kr/p3180/>
-- <https://woowabros.github.io/experience/2019/01/29/exception-in-transaction.html>
-- <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html>
-- <https://stackoverflow.com/questions/23132822/what-is-the-difference-between-defining-transactional-on-class-vs-method>
+
+* <https://www.nextree.co.kr/p3180/>
+* <https://woowabros.github.io/experience/2019/01/29/exception-in-transaction.html>
+* <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html>
+* <https://stackoverflow.com/questions/23132822/what-is-the-difference-between-defining-transactional-on-class-vs-method>
 
 [transaction-acid-link]: https://junhyunny.github.io/information/transcation-acid/
+[unexpected-rollback-exception-link]: https://junhyunny.github.io/spring-boot/jpa/exception/unexpected-rollback-exception/

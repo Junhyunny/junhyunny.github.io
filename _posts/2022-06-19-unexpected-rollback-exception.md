@@ -10,6 +10,10 @@ last_modified_at: 2022-06-19T23:55:00
 
 <br/>
 
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Propagation in @Transactional Annotation][transactional-propagation-type-link]
+
 ## 0. 들어가면서
 
 이번 프로젝트에서 사용자 접근 이력 정보를 저장하는 로직이 있었습니다. 
@@ -327,3 +331,5 @@ public class AccessHistoryIT {
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-19-unexpected-rollback-exception>
+
+[transactional-propagation-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/

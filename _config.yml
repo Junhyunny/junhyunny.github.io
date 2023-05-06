@@ -245,6 +245,8 @@ compress_html:
 collections:
   books:
     output: true
+  logs:
+    output: true
 
 # Defaults
 defaults:
@@ -270,6 +272,18 @@ defaults:
       type: books
     values:
       permalink: /:categories/:title/
+      layout: single
+      classes: wide
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+  - scope:
+      path: ""
+      type: logs
+    values:
+      permalink: /:categories/:path/
       layout: single
       classes: wide
       author_profile: true

@@ -1,5 +1,5 @@
 ---
-title: "JVM - 실행 엔진(Execution Engine)"
+title: "JVM 실행 엔진(Execution Engine)"
 search: false
 category:
   - information

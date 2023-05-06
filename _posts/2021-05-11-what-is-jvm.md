@@ -26,13 +26,6 @@ Java 가상 머신이라고 불리는 소프트웨어로 Java 어플리케이션
 JVM은 어플리케이션과 운영체제(OS, Operating System) 사이에서 중재자 역할을 수행합니다. 
 JVM 덕분에 Java는 어느 운영체제 환경에서도 실행될 수 있고, **`‘write once and run anywhere’`**이라는 별명을 얻게 되었습니다. 
 
-##### Structure of JVM
-
-<p align="center">
-    <img src="/images/what-is-jvm-1.jpg" width="80%" class="image__border">
-</p>
-<center>https://jeong-pro.tistory.com/148</center>
-
 ## 2. JVM 구성 요소
 
 JVM 구상 요소는 크게 네 가지로 분류할 수 있습니다. 
@@ -42,6 +35,13 @@ JVM 구상 요소는 크게 네 가지로 분류할 수 있습니다.
 * Execution Engine
 * Runtime Data Area
 * Garbage Collector
+
+##### Structure of JVM
+
+<p align="center">
+    <img src="/images/what-is-jvm-1.jpg" width="80%" class="image__border">
+</p>
+<center>https://jeong-pro.tistory.com/148</center>
 
 ### 2.1. 클래스 로더(Class Loader)
 

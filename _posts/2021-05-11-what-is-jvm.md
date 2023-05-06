@@ -142,7 +142,7 @@ JVM은 이 영역에 어플리케이션에서 사용하는 데이터들을 적�
 
 #### RECOMMEND NEXT POSTS
 
-* [JVM - 실행 엔진(Execution Engine)][jvm-execution-engine-link]
+* [JVM 실행 엔진(Execution Engine)][jvm-execution-engine-link]
 
 #### REFERENCE
 

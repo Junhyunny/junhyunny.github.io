@@ -47,7 +47,15 @@ last_modified_at: 2023-05-07T23:55:00
 * 클라이언트들의 요청이 인터넷을 통해 전달되면 리버스 프록시가 대신 전달받고, 서버에게 요청을 전달합니다.
 * 클라이언트들은 리버스 프록시의 주소는 알지만, 실제 서버의 주소는 알 수 없습니다.
 * 하나의 서버와 여러 개의 서브 도메인을 사용해 여러 개의 서비스를 운영할 수 있습니다.
+    * 신규 기능 배포 시에도 리버스 프록시 뒤에 숨은 서비스를 하나씩 변경함으로써 사용자들에게 무중단 서비스가 가능합니다.
 * 로드 밸런싱을 통한 요청 분배가 가능합니다.
+* DDoS 같은 공격으로부터 실제 리소스 서버들을 보호합니다.
+* 캐싱을 통해 성능을 향상시킬 수 있습니다.
+    * 포워드 프록시처럼 서버의 응답을 캐싱합니다.
+* 작은 SSL 암호화 구간을 적용하여 성능을 향상시킬 수 있습니다.
+    * 인터넷은 보안상 위험하기 때문에 암호화 된 패킷을 사용해야 합니다.
+    * 내부망은 비교적 안전하기 때문에 일반 패킷을 사용할 수 있습니다.     
+    * 리버스 프록시에서만 SSL 암복호화가 이뤄지면 프록시에 붙은 내부 서버들은 암복호화에 대한 비싼 연산이 없이도 통신이 가능합니다. 
 
 <p align="center">
     <img src="/images/forward-reverse-proxy-3.JPG" width="80%" class="image__border">
@@ -64,6 +72,7 @@ last_modified_at: 2023-05-07T23:55:00
 * <https://surfshark.com/ko/blog/proxy-server>
 * <https://nordvpn.com/ko/blog/proxy-versus-vpn/>
 * <https://jungin.tistory.com/4>
+* <https://hudi.blog/forward-proxy-reverse-proxy/>
 
 [firewall-link]: https://junhyunny.github.io/information/firewall/
 [dmz-in-network-link]: https://junhyunny.github.io/information/dmz-in-network/

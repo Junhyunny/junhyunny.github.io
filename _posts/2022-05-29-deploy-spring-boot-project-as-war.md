@@ -1,5 +1,5 @@
 ---
-title: "Spring Boot 프로젝트 WAR 패키징 및 배포"
+title: "Deploy War Package for Spring Boot Project"
 search: false
 category:
   - spring-boot

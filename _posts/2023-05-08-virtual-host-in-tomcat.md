@@ -67,11 +67,11 @@ last_modified_at: 2023-05-08T23:55:00
 
 다음과 같은 시나리오로 실습을 진행하였습니다.
 
-* 두 개의 스프링 부트(spring-boot) 프로젝트를 준비합니다.
+* 스프링 부트(spring-boot) 프로젝트를 두 개 준비합니다.
 * 각 프로젝트를 `war` 패키지 파일로 빌드합니다.
 * 톰캣에 배포하고 가상 호스트를 통해 다른 도메인 주소로 서비스합니다.
-    * /pc 폴더
-    * /mobile 폴더
+    * /pc 폴더 - `pc-service.com` 서비스 호스팅
+    * /mobile 폴더 - `mobile-service.com` 서비스 호스팅
 
 ### 2.1. Build Projects
 
@@ -145,10 +145,10 @@ $ mvn package -Dmaven.test.skip=true
 
 * `pc-service.com` 도메인 주소
     * 루트 폴더를 `pc`로 설정합니다.
-    * 웹 어플리케이션 루트 폴더를 `pc/application`으로 지정합니다.
+    * 웹 어플리케이션 루트 폴더를 `pc/ROOT`으로 지정합니다.
 * `mobile-service.com` 도메인 주소
     * 루트 폴더를 `mobile`로 설정합니다.
-    * 웹 어플리케이션 루트 폴더를 `mobile/application`으로 지정합니다.
+    * 웹 어플리케이션 루트 폴더를 `mobile/ROOT`으로 지정합니다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -193,19 +193,19 @@ $ mvn package -Dmaven.test.skip=true
 * 기본 루트인 `webapps` 폴더와 동일한 디렉토리 레벨에 두 개의 폴더를 만듭니다.
     * `pc` 폴더
     * `mobile` 폴더
-* 빌드된 각각의 패키지 파일들을 `application.war`라는 이름으로 변경하여 이동시킵니다.
+* 빌드된 각각의 패키지 파일들을 `ROOT.war` 이름으로 변경하여 이동시킵니다.
 
 ```
 $ mkdir apache-tomcat-9.0.74/pc                                                
 $ mkdir apache-tomcat-9.0.74/mobile
 
-$ mv action-in-blog-pc/target/action-in-blog-pc-0.0.1-SNAPSHOT.war apache-tomcat-9.0.74/pc/application.war
-$ mv action-in-blog-mobile/target/action-in-blog-mobile-0.0.1-SNAPSHOT.war apache-tomcat-9.0.74/mobile/application.war
+$ mv action-in-blog-pc/target/action-in-blog-pc-0.0.1-SNAPSHOT.war apache-tomcat-9.0.74/pc/ROOT.war
+$ mv action-in-blog-mobile/target/action-in-blog-mobile-0.0.1-SNAPSHOT.war apache-tomcat-9.0.74/mobile/ROOT.war
 ```
 
-톰캣 서버를 시작하고, 실행 로그를 확인합니다.
+톰캣 서버를 시작하고 실행 로그를 확인합니다.
 
-* 루트 경로로 잡힌 폴더 내부에 `war` 패키지 파일이 있는 경우 톰캣에 의해 자동으로 압축이 풀리면서 배포가 진행됩니다.
+* 루트 경로 폴더 내부에 `war` 패키지 파일이 있는 경우 톰캣에 의해 자동으로 압축이 풀리면서 서비스가 배포됩니다.
 * `tail` 명령어를 통해 톰캣 실행 로그를 확인합니다.
 
 ```
@@ -223,9 +223,6 @@ $ tail -f -n 100 apache-tomcat-9.0.74/logs/catalina.out
 가상 호스트가 정상적으로 기능하는지 확인하기 위해선 도메인 주소가 필요합니다. 
 로컬 호스트에 필요한 호스트를 등록한 후 브라우저를 통해 접근합니다.
 
-* `pc-service.com`
-* `mobile-service.com`
-
 ```
 $ sudo vi /etc/hosts
 
@@ -235,6 +232,9 @@ $ sudo vi /etc/hosts
 ```
 
 ##### Result of Practice
+
+* 브라우저를 통해 각 도메인 주소에 접근합니다.
+* 서로 다른 화면이 보이는 것을 확인할 수 있습니다.
 
 <p align="center">
     <img src="/images/virtual-host-in-tomcat-3.gif" width="100%" class="image__border">
@@ -250,9 +250,14 @@ nginx 같은 리버스 프록시(reverse proxy)를 사용하면 동일한 구조
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-05-08-virtual-host-in-tomcat>
 
+#### RECOMMEND NEXT POSTS
+
+[Forward/Reverse Proxy][forward-reverse-proxy-link]
+
 #### REFERENCE
 
 * <https://tomcat.apache.org/tomcat-9.0-doc/virtual-hosting-howto.html>
 * [Embedded Tomcat과 Tomcat의 차이](https://thxwelchs.github.io/EmbeddedTomcat%EA%B3%BCTomcat%EC%9D%98%EC%B0%A8%EC%9D%B4/)
 
 [deploy-spring-boot-project-as-war-link]: https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/
+[forward-reverse-proxy-link]: https://junhyunny.github.io/information/forward-reverse-proxy/

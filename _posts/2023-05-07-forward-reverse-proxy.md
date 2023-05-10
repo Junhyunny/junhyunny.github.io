@@ -66,6 +66,7 @@ last_modified_at: 2023-05-07T23:55:00
 
 * [Firewall][firewall-link]
 * [DMZ in Network][dmz-in-network-link]
+* [Using Nginx as Reverse Proxy][using-nginx-as-reverse-proxy-link]
 
 #### REFERENCE
 
@@ -76,3 +77,4 @@ last_modified_at: 2023-05-07T23:55:00
 
 [firewall-link]: https://junhyunny.github.io/information/firewall/
 [dmz-in-network-link]: https://junhyunny.github.io/information/dmz-in-network/
+[using-nginx-as-reverse-proxy-link]: https://junhyunny.github.io/nginx/spring-boot/docker/docker-compose/using-nginx-as-reverse-proxy/

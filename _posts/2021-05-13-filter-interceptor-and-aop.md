@@ -1,5 +1,5 @@
 ---
-title: "Spring Filter, Interceptor 그리고 AOP"
+title: "Filter, Interceptor and AOP in Spring"
 search: false
 category:
   - spring-boot
@@ -24,6 +24,7 @@ last_modified_at: 2021-08-29T03:00:00
 필터와 인터셉터의 차이점을 포스트로 정리해보겠습니다. 
 
 ## 1. 필터, 인터셉터 그리고 AOP 기능별 위치
+
 필터, 인터셉터 그리고 AOP 기능은 모두 다른 기능입니다. 
 그리고 처리하는 일과 기능이 구현된 위치가 다릅니다. 
 필터, 인터셉터, AOP 기능이 위치를 알아보고, 각자 해야할 역할에 대한 설명을 이어가보겠습니다. 

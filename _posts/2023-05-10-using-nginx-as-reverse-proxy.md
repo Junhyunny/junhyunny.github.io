@@ -232,9 +232,7 @@ $ docker-compose up -d
 
 #### TEST CODE REPOSITORY
 
-* <>
-
-#### RECOMMEND NEXT POSTS
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-05-10-using-nginx-as-reverse-proxy>
 
 #### REFERENCE
 

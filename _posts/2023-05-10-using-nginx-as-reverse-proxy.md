@@ -36,17 +36,16 @@ last_modified_at: 2023-05-10T23:55:00
 아래와 같은 시나리오로 리버스 프록시 서버를 구축해보겠습니다. 
 
 * URL 경로(path)를 이용한 방법을 사용할 수 있지만, 톰캣의 가상 호스트를 대체하기 위해 도메인을 사용한 리버스 프록시를 구현하였습니다.
-* `pc-service.com` 도메인 주소로 오는 요청은 pc-backend 서비스로 요청을 전달합니다.
-* `mobile-servcice.com` 도메인 주소로 오는 요청은 mobile-backend 서비스로 요청을 전달합니다.
+* `pc-service.com` 도메인 주소로 오는 요청은 `pc-backend` 서비스로 요청을 전달합니다.
+* `mobile-servcice.com` 도메인 주소로 오는 요청은 `mobile-backend` 서비스로 요청을 전달합니다.
 
 <p align="center">
-    <img src="/images/using-nginx-as-reverse-proxy-2.JPG" width="80%" class="image__border">
+    <img src="/images/using-nginx-as-reverse-proxy-2.JPG" width="100%" class="image__border">
 </p> 
 
 ### 2.1. Backend Service
 
-두 개의 백엔드가 필요합니다. 
-프로젝트 구조가 같으므로 하나만 살펴보겠습니다. 
+두 개의 백엔드 서비스를 구축하지만, 프로젝트 구조가 같으므로 하나만 살펴보겠습니다. 
 
 #### 2.1.1. HelloController Class
 
@@ -227,7 +226,7 @@ $ docker-compose up -d
 * `mobile-servcice.com` 도메인 주소로 접근시 "hello mobile"을 응답받습니다. 
 
 <p align="center">
-    <img src="/images/using-nginx-as-reverse-proxy-3.gif" width="80%" class="image__border">
+    <img src="/images/using-nginx-as-reverse-proxy-3.gif" width="100%" class="image__border">
 </p> 
 
 #### TEST CODE REPOSITORY

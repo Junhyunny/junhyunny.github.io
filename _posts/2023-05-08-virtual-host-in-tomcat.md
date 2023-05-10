@@ -252,7 +252,7 @@ nginx 같은 리버스 프록시(reverse proxy)를 사용하면 동일한 구조
 
 #### RECOMMEND NEXT POSTS
 
-[Forward/Reverse Proxy][forward-reverse-proxy-link]
+* [Forward/Reverse Proxy][forward-reverse-proxy-link]
 
 #### REFERENCE
 

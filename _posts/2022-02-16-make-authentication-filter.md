@@ -1,5 +1,5 @@
 ---
-title: "AuthenticationFilter 만들기"
+title: "JWT AuthenticationFilter 만들기"
 search: false
 category:
   - spring-boot

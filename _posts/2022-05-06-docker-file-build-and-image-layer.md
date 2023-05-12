@@ -1,5 +1,5 @@
 ---
-title: "Dockerfile 빌드와 Docker Image Layer"
+title: "Build with Dockerfile and Image Layer"
 search: false
 category:
   - information
@@ -165,7 +165,7 @@ IMAGE          CREATED             CREATED BY                                   
 <missing>      2 weeks ago         /bin/sh -c #(nop) ADD file:6ed691b65385dede4…   101MB
 ```
 
-### 1.2. Layer caching
+### 1.2. Layer Caching
 
 `Dockerfile`을 통해 이미지를 만들 때 생성되는 레이어들은 변경이 없다면 재사용이 가능합니다. 
 이미지 빌드를 더 빠르게 하기 위해 이미지 레이어를 효율적으로 재사용하려면 `Dockerfile` 구조를 고민해볼 필요가 있습니다. 

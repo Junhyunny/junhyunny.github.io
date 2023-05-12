@@ -11,7 +11,7 @@ last_modified_at: 2022-06-27T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
-* [Dockerfile 빌드와 Docker Image Layer][docker-file-build-and-image-layer-link]
+* [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
 
 ## 0. 들어가면서
 

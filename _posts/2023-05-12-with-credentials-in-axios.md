@@ -21,7 +21,7 @@ last_modified_at: 2023-05-12T23:55:00
 
 쿠키(cookie)와 세션(session)을 통한 인증 프로세스를 사용하는 서비스의 구조를 다음과 같이 바꾸면서 문제가 발생했습니다. 
 
-* nginx를 웹 서버이자 포워드 프록시(forward proxy)로 사용
+* 서비스 구조 변경 전 nginx를 웹 서버이자 포워드 프록시(forward proxy)로 사용
     * 브라우저는 웹 서버와만 소통합니다.
     * 웹 화면은 웹 서버로부터 전달받습니다.
     * 데이터는 웹 서버를 통해 백엔드 서비스로부터 전달받습니다.
@@ -31,7 +31,7 @@ last_modified_at: 2023-05-12T23:55:00
     <img src="/images/with-credentials-in-axios-1.JPG" width="80%" class="image__border">
 </p>
 
-* nginx를 웹 서버로 사용
+* 서비스 구조 변경 후 nginx를 웹 서버로만 사용
     * 브라우저는 웹 서버와 백엔드 서비스와 모두 소통합니다.
     * 웹 화면은 웹 서버로부터 전달받습니다.
     * 데이터는 백엔드 서비스로부터 직접 전달받습니다.
@@ -51,30 +51,33 @@ last_modified_at: 2023-05-12T23:55:00
 다음과 같은 원인들이 겹치면서 문제가 발생했습니다.
 
 1. nginx가 포워드 프록시로 사용되는 동안 클라이언트는 하나의 호스트를 통해서만 서비스 받습니다.
-1. 하나의 호스트를 통해 서비스 받으므로 동일 사이트(same site) 조건을 만족합니다.
+1. 하나의 호스트를 통해 서비스 받으므로 동일 사이트(same site) 조건을 항상 만족합니다.
     * 쿠키는 동일 사이트의 경우 브라우저에 의해 자동적으로 전달됩니다.
 1. nginx를 웹 서버로 사용하면서 브라우저가 백엔드 서비스와 직접 통신하게 됩니다.
     * 크로스 사이트(cross site) 문제가 발생합니다.
     * 브라우저에 의해 쿠키가 자동으로 전달되지 않습니다.
-1. axios, XMLHttpRequest는 크로스 사이트로 요청 시 기본적으로 쿠키, 인증 헤더 혹은 TLS(Transport Layer Secure) 클라이언트 인증서와 같은 자격 증명을 사용하지 않습니다.
+1. axios는 크로스 사이트 요청 시 기본적으로 쿠키, 인증 헤더 혹은 TLS(Transport Layer Secure) 인증서 같은 자격 증명(credential)을 사용하지 않습니다.
     * 백엔드 서비스에 별도 설정이 없는 경우 크로스 오리진(cross origin) 문제가 발생합니다.
 
 ## 3. withCredentials Property
 
 > The XMLHttpRequest.withCredentials property is a boolean value that indicates whether or not cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates. Setting withCredentials has no effect on same-origin requests.
 
-`withCredentials`는 XMLHttpRequest의 속성입니다. 
-크로스 사이트로의 요청 시 쿠키, 인증 헤더 혹은 TLS 클라이언트 인증서 같은 자격 증명을 사용할지 여부를 결정합니다. 
-기본 값은 false이므로 크로스 사이트로 요청 시 쿠키를 함께 전달하지 않습니다. 
-개발자가 쉽게 사용할 수 있는 API를 제공하는 axios도 결국 내부적으론 XMLHttpRequest을 사용하기 때문에 `withCredentials` 관련 옵션을 지정할 수 있습니다. 
+`withCredentials`는 XMLHttpRequest 객체의 속성입니다. 
+해당 속성을 통해 크로스 사이트로 요청 시 쿠키, 인증 헤더 혹은 TLS 클라이언트 인증서 같은 자격 증명을 사용할지 여부를 결정합니다. 
+기본 값은 `false`이므로 크로스 사이트로 요청 시 쿠키를 함께 전달하지 않습니다. 
+사용하기 쉬운 API를 제공하는 axios도 내부적으론 XMLHttpRequest 객체를 사용하기 때문에 `withCredentials` 관련 설정을 옵션을 통해 지정할 수 있습니다. 
 
 ## 4. Practice
 
 간단한 시나리오를 통해 관련 설정에 대해 알아보겠습니다. 
-컨테이너 없이 로컬 호스트에서 개발 서버를 띄운 방식으로 실습을 진행합니다.
+컨테이너 없이 로컬 호스트에서 개발 서버를 띄우는 방식으로 실습을 진행합니다.
 
+* 다음과 같은 기술 스택을 사용하였습니다.
+    * 프론트엔드 서비스 - React
+    * 백엔드 서비스 - Spring Boot
 * 서버는 세션을 통해 사용자의 상태를 유지합니다.
-    * 세션에 foo라는 문자열을 저장하고 매 요청마다 foo를 저장된 값 뒤에 추가합니다.
+    * 세션에 `foo` 문자열을 저장하고 매 요청마다 `-foo` 문자열을 저장된 값 뒤에 추가합니다.
 * 클라이언트는 axios를 사용해 서버로 직접 요청을 수행합니다. 
     * `withCredentials`를 true로 지정하면 쿠키를 통해 사용자 세션을 찾아 이를 재활용합니다. 
     * `withCredentials`를 별도로 설정하지 않으면 쿠키를 함께 전달하지 않으므로 매번 새로운 새션을 생성합니다.
@@ -146,7 +149,7 @@ export default App;
     * 쿠키에 세션 ID가 있는 경우 이전에 생성한 세션을 획득합니다.
     * 쿠키에 세션 ID가 없다면 신규 세션을 생성합니다.
 * 세션에 저장된 값이 없다면 기본 값을 세션에 저장하고 반환합니다.
-* 세션에 저장된 값이 있다면 이에 기본 값을 더해 저장하고 반환합니다.
+* 세션에 저장된 값이 있다면 이에 `-foo` 문자열을 더하여 저장하고 이를 반환합니다.
 
 ```java
 package action.in.blog.controller;
@@ -181,14 +184,14 @@ public class FooController {
 
 #### 4.2.2. WebConfig Class
 
-백엔드 서비스도 자격 증명과 관련된 설정이 필요합니다.
-`WebMvcConfigurer` 인터페이스 구현을 통해 자격증명(credential) 관련 설정을 추가합니다. 
+백엔드 서비스도 자격 증명 관련 설정이 필요합니다. 
+`WebMvcConfigurer` 인터페이스 구현을 통해 관련된 설정을 추가합니다. 
 
 * 다음과 같은 경우에 CORS 정책을 허용합니다.
     * 모든 경로
     * 오리진(origin) 서버가 `localhost:3000`인 경우
     * GET 메소드
-* `allowCredentials` 메소드를 통해 자격증명을 허용합니다.
+* `allowCredentials` 메소드를 통해 자격 증명을 허용합니다.
     * 해당 설정이 true인 경우 응답 헤더에 `Access-Control-Allow-Credentials` 값이 실려 브라우저에게 전달됩니다. 
     * 해당 설정이 하지 않거나 false인 경우 
         * 자격 증명을 함께 전달한 요청은 브라우저에서 CORS 정책 위반 에러가 발생합니다.
@@ -217,9 +220,9 @@ public class WebConfig implements WebMvcConfigurer {
 
 ##### Result without allowing credential
 
-* 백엔드 서비스에서 자격증명 허용을 하지 않은 경우입니다.
-    * 브라우저에서 자격증명을 함께 전달하는 경우 CORS 정책 위반 에러가 발생합니다.
-    * 브라우저에서 자격증명을 전달하지 않은 경우 정상 동작하지만, 쿠키가 생성되지 않습니다.
+* 백엔드 서비스에서 자격 증명 허용을 하지 않은 경우입니다.
+    * 브라우저에서 자격 증명을 함께 전달하는 경우 CORS 정책 위반 에러가 발생합니다.
+    * 브라우저에서 자격 증명을 전달하지 않은 경우 정상 동작하지만, 쿠키가 생성되지 않습니다.
 
 <p align="center">
     <img src="/images/with-credentials-in-axios-3.gif" width="100%" class="image__border">
@@ -227,9 +230,9 @@ public class WebConfig implements WebMvcConfigurer {
 
 ##### Result with allowing credential
 
-* 백엔드 서비스에서 자격증명을 허용한 경우입니다.
-    * 브라우저에서 자격증명을 함께 전달하는 경우 정상 동작하고 세션 ID가 담긴 쿠키가 생성됩니다.
-    * 브라우저에서 자격증명을 전달하지 않은 경우 정상 동작하지만, 쿠키가 생성되지 않습니다.
+* 백엔드 서비스에서 자격 증명을 허용한 경우입니다.
+    * 브라우저에서 자격 증명을 함께 전달하는 경우 정상 동작하고 세션 ID가 담긴 쿠키가 생성됩니다.
+    * 브라우저에서 자격 증명을 전달하지 않은 경우 정상 동작하지만, 쿠키가 생성되지 않습니다.
 
 <p align="center">
     <img src="/images/with-credentials-in-axios-4.gif" width="100%" class="image__border">

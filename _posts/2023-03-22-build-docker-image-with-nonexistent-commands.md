@@ -1,5 +1,5 @@
 ---
-title: "Build Docker Images with Nonexistent Commands"
+title: "Install Nonexistent Commands into Container Image"
 search: false
 category:
   - docker
@@ -10,7 +10,7 @@ last_modified_at: 2023-03-22T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Dockerfile 빌드와 Docker Image Layer][docker-file-build-and-image-layer-link]
+* [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
 
 ## 1. Context of Problem
 

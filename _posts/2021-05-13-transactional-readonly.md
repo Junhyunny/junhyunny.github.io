@@ -1,5 +1,5 @@
 ---
-title: "@Transactional readOnly 속성"
+title: "readOnly Attribute in @Transactional"
 search: false
 category:
   - spring-boot

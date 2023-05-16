@@ -238,7 +238,6 @@ public class WebConfig implements WebMvcConfigurer {
     <img src="/images/with-credentials-in-axios-4.gif" width="100%" class="image__border">
 </p>
 
-
 ## CLOSING
 
 다음 코드를 통해 axios의`withCredentials` 설정을 전역으로 지정할 수 있습니다. 

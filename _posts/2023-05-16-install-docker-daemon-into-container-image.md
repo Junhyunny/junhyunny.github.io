@@ -139,7 +139,8 @@ ENTRYPOINT ["/sbin/init"]
 * 위에서 작성한 도커 파일을 기준으로 이미지를 생성합니다.
 
 ```
-docker build -t maven:3-eclipse-temurin-17-docker .
+$ docker build -t maven:3-eclipse-temurin-17-docker .
+
 [+] Building 2.9s (13/13) FINISHED
  => [internal] load .dockerignore                                                                                                    0.0s
  => => transferring context: 2B                                                                                                      0.0s

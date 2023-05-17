@@ -11,7 +11,7 @@ last_modified_at: 2021-09-20T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Cookie and Session][cookie-session-link]
-- [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-aop-link]
+- [Filter, Interceptor and AOP in Spring][filter-interceptor-aop-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Spring Session with JDBC][spring-session-link]

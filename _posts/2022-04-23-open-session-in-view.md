@@ -14,7 +14,7 @@ last_modified_at: 2022-04-23T23:55:00
 - [Features of EntityManager][persistence-context-advantages-link]
 - [JPA Flush][jpa-flush-link]
 - [Propagation in @Transactional Annotation][transactional-propagation-type-link]
-- [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-and-aop-link]
+- [Filter, Interceptor and AOP in Spring][filter-interceptor-and-aop-link]
 
 ## 1. OSIV 패턴을 위한 사전 개념
 

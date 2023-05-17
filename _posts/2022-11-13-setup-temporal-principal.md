@@ -11,7 +11,7 @@ last_modified_at: 2022-11-13T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Filter, Interceptor 그리고 AOP][filter-interceptor-and-aop-link]
+* [Filter, Interceptor and AOP in Spring][filter-interceptor-and-aop-link]
 * [OncePerRequestFilter][once-per-request-filter-link]
 
 ## 0. 들어가면서

@@ -14,14 +14,13 @@ last_modified_at: 2023-05-18T23:55:00
 
 ## 0. 들어가면서
 
-컨테이너 내부에서 도커 데몬(docker daemon) 실행을 위해 사용했던 모드입니다. 
-공부하다보니 도커를 호스팅(hosting)하는 호스트 머신의 보안과 관련된 내용들을 발견했습니다. 
-`privileged` 모드는 어떤 기능을 제공하고 사용했을 때 어떤 문제가 있을 수 있는지 정리하였습니다.
+[Install Docker Daemon into Container Image][install-docker-daemon-into-container-image-link] 포스트에서 컨테이너 내부의 도커 데몬(docker daemon)을 실행하기 위해 적용한 모드입니다. 
+해당 모드를 사용하면 보안에 관련된 문제가 발생할 수 있다는 내용들을 발견하여 이번 포스트에서 일부 정리하였습니다. 
 
 ## 1. Privileged Mode
 
-컨테이너 내부에서 시스템 주요 자원에 접근하려고 시도하면 권한이 부족하다는 에러 메세지를 확인하게 됩니다. 
-이는 도커 컨테이너는 기본적으로 권한이 모두 부여되지 않은 상태로 실행되기 때문입니다. 
+일반적인 컨테이너 내부에서 시스템 주요 자원에 접근하려고 시도하면 권한이 없다는 에러 메세지를 확인할 수 있습니다. 
+이는 기본적으로 도커 컨테이너가 모든 권한을 부여하지 않은 상태로 실행되기 때문입니다. 
 공식 문서를 보면 다음과 같은 설명을 볼 수 있습니다. 
 
 > By default, Docker containers are “unprivileged” and cannot, for example, run a Docker daemon inside a Docker container. This is because by default a container is not allowed to access any devices, but a “privileged” container is given access to all devices (see the documentation on cgroups devices).
@@ -29,8 +28,7 @@ last_modified_at: 2023-05-18T23:55:00
 예를 들면 다음과 같은 상황이 있습니다.
 
 * `none`이라는 파일 시스템을 /mnt 경로에 마운트(mount)합니다.
-* 권한이 없다는 에러 메세지를 만납니다.
-* 도커 컨테이너는 파일 시스템 자원에 대해 권한이 없습니다.
+    * /mnt 경로에 대한 권한이 없어서 실패합니다.
 
 ```
 $ docker run -t -i --rm ubuntu bash
@@ -42,10 +40,9 @@ mount: /mnt: permission denied.
 기본적으로 도커는 컨테이너를 실행할 때 커널(kernel) 기능 중에 위험한 부분들은 모두 제외합니다. 
 컨테이너 실행 시 특정 옵션을 통해 모든 커널 기능에 대한 권한을 부여할 수 있습니다. 
 
-* 컨테이너를 실행할 때 `--privileged` 옵션을 통해 지정할 수 있습니다. 
+* `--privileged` 옵션으로 컨테이너를 실행합니다.
 * `none`이라는 파일 시스템을 /mnt 경로에 마운트합니다.
     * 정상적으로 수행됩니다.
-* 마운트 된 파일 시스템의 크기와 용량을 확인할 수 있습니다.
 
 ```
 $ docker run -t -i --privileged ubuntu bash
@@ -65,7 +62,13 @@ none            3.9G     0  3.9G   0% /mnt
 
 `privileged` 모드는 호스트 머신의 모든 장치들과 커널의 모든 기능들에 대한 접근을 허용합니다. 
 `privileged` 모드로 실행된 컨테이너는 루트(root) 사용자와 동일한 수준으로 호스트 시스템에 대한 접근과 제어가 가능합니다. 
-이는 공격자가 컨테이너를 통해 호스트 머신을 위협할 수 있다는 의미입니다. 
+즉, 공격자는 `privileged` 컨테이너를 통해 호스트 머신을 위협할 수 있습니다. 
+
+<p align="center">
+    <img src="/images/privileged-mode-in-docker-1.JPG" width="80%" class="image__border">
+</p>
+
+### 2.1. Consideration and Risks
 
 `privileged` 모드를 사용하려면 다음과 같은 보안 취약점들을 고려하고 반드시 필요한 상황에만 사용하는 것이 좋습니다. 
 
@@ -82,15 +85,11 @@ none            3.9G     0  3.9G   0% /mnt
 `privileged` 컨테이너는 다음과 같은 보안 문제들이 발생할 수 있습니다. 
 
 * 컨테이너 브레이크아웃(container breakout)
-    * 격리된 컨테이너를 탈출하여 호스트 시스템에 접근하는 행위
-    * 격리된 환경을 깨뜨리는 상황을 컨테이너 브레이크아웃이라고 표현
+    * 격리된 컨테이너를 탈출하여 호스트 시스템에 접근하는 행위입니다.
+    * 격리된 환경을 깨뜨리는 상황을 컨테이너 브레이크아웃이라고 표현합니다.
 * 인가(authorized)되지 않은 호스트 디바이스 접근
 * 커널 수준의 공격
 * 호스트 시스템의 다른 컨테이너들에게 영향
-
-<p align="center">
-    <img src="/images/privileged-mode-in-docker-1.JPG" width="100%" class="image__border">
-</p>
 
 ## 3. Why do we need privileged mode?
 
@@ -114,10 +113,10 @@ none            3.9G     0  3.9G   0% /mnt
 ## 4. Better ways to mitigate security risks
 
 보안 취약점을 만들지만, 필요에 따라 꼭 사용해야한다면 `privileged` 모드의 위험성을 낮출 필요가 있습니다. 
-컨테이너를 실행할 때 `privileged` 모드가 필요한지 평가를 통해 `privileged` 모드 사용을 최소화합니다. 
-시스템 자원에 대한 권한이 필요하다면 전체 권한을 부여하지 않고, 필요한 최소 기능만 제공하는 등의 대체적인 접근 방식을 사용합니다. 
+컨테이너를 실행할 때 `privileged` 모드가 필요한지 평가를 하고, 이를 통해 `privileged` 컨테이너 사용을 최소화해야 합니다. 
+시스템 자원에 대한 권한이 필요하다면 전체 권한이 아니라 필요한 최소 기능만 제공하는 등의 대체적인 접근 방식을 사용합니다. 
 
-##### Runtime privilege and Linux capabilities
+### 4.1. Runtime privilege and Linux capabilities
 
 * 다음과 같은 옵션을 통해 시스템 권한을 제한적으로 제공할 수 있습니다. 
 
@@ -128,7 +127,7 @@ none            3.9G     0  3.9G   0% /mnt
 | `--privileged` | Give extended privileges to this container | 
 | `--device=[]` | Allows you to run devices inside the container without the --privileged flag | 
 
-#### Examples
+##### Example
 
 * `NET_ADMIN` 기능을 `--cap-add` 옵션을 통해 추가합니다.
     * 네트워크 관련 다양한 기능들을 수행할 수 있는 권한입니다.

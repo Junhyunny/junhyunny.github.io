@@ -1,5 +1,5 @@
 ---
-title: "HandlerMethodArgumentResolver 인터페이스"
+title: "HandlerMethodArgumentResolver Interface"
 search: false
 category:
   - spring-boot
@@ -12,7 +12,7 @@ last_modified_at: 2021-08-21T17:00:00
 
 * [Spring Security JWT OAuth Example][spring-security-example-link]
 
-## 1. HandlerMethodArgumentResolver 인터페이스
+## 1. HandlerMethodArgumentResolver Interface
 
 > Spring Document<br/>
 > Strategy interface for resolving method parameters into argument values in the context of a given request.
@@ -42,9 +42,9 @@ public interface HandlerMethodArgumentResolver {
 }
 ```
 
-## 2. HandlerMethodArgumentResolver 인터페이스 호출 시점
+## 2. Timing to Use HandlerMethodArgumentResolver Instance
 
-다음과 같은 과정을 통해 `HandlerMethodArgumentResolver` 인터페이스 구현체의 로직이 수행됩니다. 
+다음과 같은 과정을 통해 `HandlerMethodArgumentResolver` 인스턴스(instance)가 사용됩니다.
 
 * 사용자 요청이 서비스로 요청됩니다.
 * 필터 체인을 통과 후 `DispatcherServlet`으로 진입합니다.

@@ -1,5 +1,5 @@
 ---
-title: "ENTRYPOINT and CMD in Docker"
+title: "ENTRYPOINT and CMD in Dockerfile"
 search: false
 category:
   - docker

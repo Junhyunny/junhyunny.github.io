@@ -34,7 +34,7 @@ last_modified_at: 2023-05-28T23:55:00
     * 인덱스 크기가 물리적으로 데이터베이스가 사용 가능한 메모리 공간보다 크면 영향을 더 크게 받습니다.
 
 <p align="center">
-    <img src="/images/database-partitioning-and-sharding-1.JPG" width="80%" class="image__border">
+    <img src="/images/database-partitioning-1.JPG" width="80%" class="image__border">
 </p>
 <center>https://gngsn.tistory.com/203</center>
 
@@ -45,7 +45,7 @@ last_modified_at: 2023-05-28T23:55:00
     * 파티셔닝을 통해 파티션을 추가하거나 삭제하는 방식으로 간단하게 해결할 수 있습니다.
 
 <p align="center">
-    <img src="/images/database-partitioning-and-sharding-2.JPG" width="60%" class="image__border">
+    <img src="/images/database-partitioning-2.JPG" width="60%" class="image__border">
 </p>
 <center>https://aws.amazon.com/blogs/database/archive-and-purge-data-for-amazon-rds-for-postgresql-and-amazon-aurora-with-postgresql-compatibility-using-pg_partman-and-amazon-s3/</center>
 
@@ -83,7 +83,7 @@ last_modified_at: 2023-05-28T23:55:00
 * 각 파티션에는 특정 범위 또는 조건에 해당하는 행들이 포함됩니다.
 
 <p align="center">
-    <img src="/images/database-partitioning-and-sharding-3.JPG" class="image__border">
+    <img src="/images/database-partitioning-3.JPG" class="image__border">
 </p>
 
 ### 2.1. Vertical Partitioning
@@ -93,7 +93,7 @@ last_modified_at: 2023-05-28T23:55:00
 * 주로 데이터베이스에서 자주 사용하지 않는 열이나 크기가 큰 열을 분리하여 저장 공간을 절약하고 액세스 성능을 개선하는데 사용합니다.
 
 <p align="center">
-    <img src="/images/database-partitioning-and-sharding-4.JPG" class="image__border">
+    <img src="/images/database-partitioning-4.JPG" class="image__border">
 </p>
 
 ## 3. Partitioning Types

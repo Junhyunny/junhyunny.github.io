@@ -304,6 +304,10 @@ mysql> SELECT * FROM department_employees PARTITION (p1);
 +---------------+-------------+-----------------+-----------------+
 ```
 
+#### RECOMMEND NEXT POSTS
+
+* [Database Sharding][database-sharding-link]
+
 #### REFERENCE
 
 * [Real MySQL 8.0 (2권)][real-my-sql-2nd-link]
@@ -314,4 +318,5 @@ mysql> SELECT * FROM department_employees PARTITION (p1);
 * <https://stackoverflow.com/questions/42438157/when-creating-partition-it-shows-error>
 
 [db-index-data-structure-link]: https://junhyunny.github.io/information/data-structure/db-index-data-structure/
+[database-sharding-link]: https://junhyunny.github.io/information/database/database-sharding/
 [real-my-sql-2nd-link]: https://product.kyobobook.co.kr/detail/S000001766483

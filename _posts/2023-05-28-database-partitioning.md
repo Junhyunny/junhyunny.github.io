@@ -49,7 +49,7 @@ last_modified_at: 2023-05-28T23:55:00
 </p>
 <center>https://aws.amazon.com/blogs/database/archive-and-purge-data-for-amazon-rds-for-postgresql-and-amazon-aurora-with-postgresql-compatibility-using-pg_partman-and-amazon-s3/</center>
 
-### 1.1. Partitioning Pros and Cons
+### 1.1. Pros and Cons
 
 파티션 기법은 다음과 같은 장점들을 제공합니다.
 
@@ -60,7 +60,7 @@ last_modified_at: 2023-05-28T23:55:00
 * 데이터 보안과 격리를 향상시킵니다.
     * 민감한 데이터를 별도의 파티션으로 분리하여 액세스 제어 및 보안 정책을 적용할 수 있습니다.
 
-다음과 같은 단점들이 있습니다.
+다음과 같은 단점들이 존재합니다.
 
 * 파티셔닝 된 테이블 사이의 조인(join) 연산의 복잡성이 증가할 수 있습니다. 
     * 파티션 키를 사용하지 않는 조인은 전체 파티션을 스캔해야 할 수 있습니다.

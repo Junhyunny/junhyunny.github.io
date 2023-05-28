@@ -85,6 +85,7 @@ last_modified_at: 2023-05-28T23:55:00
 <p align="center">
     <img src="/images/database-sharding-2.JPG" width="80%" class="image__border">
 </p>
+<center>https://www.digitalocean.com/community/tutorials/understanding-database-sharding</center>
 
 ### 2.2. Range Sharding
 
@@ -99,12 +100,14 @@ last_modified_at: 2023-05-28T23:55:00
 <p align="center">
     <img src="/images/database-sharding-3.JPG" width="80%" class="image__border">
 </p>
+<center>https://www.digitalocean.com/community/tutorials/understanding-database-sharding</center>
 
 #### REFERENCE
 
 * <https://en.wikipedia.org/wiki/Shard_%28database_architecture%29>
 * <https://aws.amazon.com/ko/what-is/database-sharding/>
 * <https://d2.naver.com/helloworld/14822>
+* <https://www.digitalocean.com/community/tutorials/understanding-database-sharding>
 * <https://bcho.tistory.com/670>
 * <https://techblog.woowahan.com/2687/>
 * <https://hudi.blog/db-partitioning-and-sharding/>

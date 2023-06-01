@@ -28,21 +28,15 @@ JavaScript로 for 반복문을 작성하다보면 헷갈리는 문법이 있습�
 
 > The for...of statement executes a loop that operates on a sequence of values sourced from an iterable object.
 
-반복 가능한 객체(iterable object)로부터 순차적으로 값을 사용하는 방식입니다. 
-먼저 반복 가능한 객체에 대해 살펴보겠습니다.
+반복 가능 객체(iterable object)로부터 순차적으로 값을 사용하는 방식입니다. 
+먼저 반복 가능 객체에 대해 살펴보겠습니다.
 
-* 반복 가능한 객체는 `ES2015`에서 도입되었습니다.
-* 객체 속성 중 `Symbol.iterator`이라는 특별한 함수가 존재합니다.
-* `Symbol.iterator`이라는 특별한 함수를 가진 객체들은 `이터러블 프로토콜(iterable protocol)`을 만족한다고 말합니다.
+* 반복 가능 객체는 `ES2015`에서 도입되었으며 객체 속성 중 `Symbol.iterator`이라는 특별한 함수가 존재합니다.
+* `Symbol.iterator` 함수를 가진 객체는 `이터러블 프로토콜(iterable protocol)`을 만족한다고 표현합니다.
     * 프로토타입(prototype) 객체를 통해 상속받는 포함됩니다.
-* `이터러블 프로토콜`을 만족하는 객체를 이를 `반복 가능한 객체`라고 표현합니다.
+* 다시 말해 `이터러블 프로토콜`을 만족하는 객체를 `반복 가능 객체`라고 표현합니다.
 * 대표적으로 다음과 같은 객체들이 존재합니다.
-    * `Array`
-    * `String`
-    * `TypedArray`
-    * `Map`
-    * `Set`
-    * `NodeList`
+    * Array, String, TypedArray, Map, Set, NodeList
 
 <p align="left">
     <img src="/images/javascript-for-of-loop-1.JPG" width="60%" class="image__border">
@@ -89,8 +83,8 @@ for(const item of object) {
 
 ## 3. Make Iterable Object
 
-`이터러블 프로토콜`을 만족하는 객체는 반복 가능한 객체입니다. 
-마찬가지로 일반 객체라도 `이터러블 프로토콜`을 만족하게 만든다면 반복 가능한 객체로 만들 수 있습니다. 
+`이터러블 프로토콜`을 만족하는 객체는 반복 가능 객체입니다. 
+마찬가지로 일반 객체라도 `이터러블 프로토콜`을 만족하게 만든다면 반복 가능 객체로 만들 수 있습니다. 
 아래 코드처럼 반복 불가능한 객체라 에러가 발생한 상황을 변경해보겠습니다. 
 
 ```js

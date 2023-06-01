@@ -17,10 +17,6 @@ last_modified_at: 2023-06-01T23:55:00
 ## 0. 들어가면서
 
 [JavaScript for-of Loop][javascript-for-of-loop-link] 포스트 도입부에서 언급했듯이 헷갈리는 for 반복문 문법에 대한 이야기입니다. 
-
-* for-of
-* for-in
-
 이번 포스트에선 `for-in` 반복문에 대해 살펴보겠습니다.
 
 ## 1. What is Enumerable String Properties?
@@ -29,8 +25,8 @@ last_modified_at: 2023-06-01T23:55:00
 
 `for-in` 루프(loop)는 객체의 모든 열거 가능한 문자열 속성들(enumerable string properties)를 사용해 반복을 수행합니다. 
 프로토타입(prototype)을 통해 상속 받은 속성들도 함께 포함됩니다. 
-이제 열거 가능한 문자열 속성이 무엇인지 알아야합니다. 
-JavaScript 속성의 특징에 대해 알아야하는데 특징에 대해 알아보겠습니다. 
+정확히 이해하기 위해선 먼저 JavaScript 객체 속성의 특징에 대해 알아야합니다. 
+지금부터 정리하는 속성의 특징은 속성 키(key)의 특징이라고 생각하면 더 이해하기 쉽습니다. 
 
 * JavaScript 객체의 모든 속성(property)은 3가지 기준을 통해 구분할 수 있습니다.
     * 속성은 열거 가능(enumerable)하거나 열거 불가능(non-enumerable)합니다.
@@ -38,19 +34,21 @@ JavaScript 속성의 특징에 대해 알아야하는데 특징에 대해 알아
     * 속성은 직접 소유(own)하거나 프로토타입 체인에 의해 상속(inherited)받습니다.
 * 객체 속성들은 각 기준 별로 반드시 한가지 성격을 가지고 있습니다. 
 
-이해를 돕기 위해 간단한 객체를 만들고 해당 객체의 속성들에 대한 정보를 살펴보겠습니다.
+### 1.1. Example of Defining Property 
 
-* `1`은 숫자로 선언하였지만, `문자열 타입, 열거 가능, 직접 소유한 속성`입니다.
+이해를 돕기 위해 간단한 객체를 만들고 해당 객체에 속성 키와 값을 부여하겠습니다. 
+
+* `1`은 숫자로 선언하였지만, `문자열 타입, 열거 가능, 직접 소유한 속성 키`입니다.
     * 해당 속성의 값은 문자열 '1 value' 입니다.
-* `foo`은 `문자열 타입, 열거 가능, 직접 소유한 속성`입니다.
+* `foo`은 `문자열 타입, 열거 가능, 직접 소유한 속성 키`입니다.
     * 해당 속성의 값은 문자열 'foo value' 입니다.
-* `say`은 `문자열 타입, 열거 가능, 직접 소유한 속성`입니다.
+* `say`은 `문자열 타입, 열거 가능, 직접 소유한 속성 키`입니다.
     * 해당 속성의 값은 함수입니다.
-* `bar`은 `심볼 타입, 열거 불가능, 직접 소유한 속성`입니다.
+* `bar`은 `심볼 타입, 열거 불가능, 직접 소유한 속성 키`입니다.
     * 해당 속성의 값은 문자열 'bar symbol value' 입니다.
-* `baz`은 `심볼 타입, 열거 불가능, 직접 소유한 속성`입니다.
+* `baz`은 `심볼 타입, 열거 불가능, 직접 소유한 속성 키`입니다.
     * 해당 속성의 값은 문자열 'baz symbol value' 입니다.
-* `hasOwnProperty` / `isPrototypeOf`은 `문자열 타입, 열거 불가능, 상속받은 속성`입니다.
+* `hasOwnProperty` / `isPrototypeOf`은 `문자열 타입, 열거 불가능, 상속받은 속성 키`입니다.
 
 ```js
 const bar = Symbol('bar');
@@ -94,7 +92,7 @@ console.dir(object);
 
 ## 2. for-in Loop Example
 
-위 예시 코드를 통해 심볼로 궂이 선언하지 않는다면 속성은 문자열 타입의 열거 가능하게 만들어진다는 사실을 알았습니다. 
+위 예시 코드처럼 속성 키를 심볼로 의도적으로 선언하지 않는다면 속성 키는 `문자열 타입의 열거 가능`하게 만들어집니다. 
 이번엔 열거 불가능한 속성이 추가된 프로토타입 객체와 이를 상속받은 객체를 만들어 `for-in` 반복문을 수행해보겠습니다. 
 
 * Circle 함수를 선언합니다.
@@ -159,6 +157,7 @@ console.dir(circle);
 * <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in>
 * <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties>
 * <https://ko.javascript.info/symbol>
+* <https://helloworldjavascript.net/pages/240-object-in-depth.html>
 * <https://stackoverflow.com/questions/68647965/what-is-the-difference-between-iterable-and-enumerable-in-js-i-am-going-through>
 * <https://stackoverflow.com/questions/13296340/how-to-define-method-in-javascript-on-array-prototype-and-object-prototype-so-th>
 * <https://stackoverflow.com/questions/37529168/in-javascript-why-doesnt-for-in-return-the-contents-of-object-prototype>

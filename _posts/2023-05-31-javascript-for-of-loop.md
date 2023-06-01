@@ -42,7 +42,7 @@ JavaScript로 for 반복문을 작성하다보면 헷갈리는 문법이 있습�
     <img src="/images/javascript-for-of-loop-1.JPG" width="60%" class="image__border">
 </p>
 
-## 2. for-of Loop Examples
+## 2. for-of Loop Example
 
 간단한 코드를 통해 동작을 살펴보겠습니다.
 

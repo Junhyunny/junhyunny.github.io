@@ -17,18 +17,18 @@ last_modified_at: 2023-05-31T23:55:00
 
 JavaScript로 for 반복문을 작성하다보면 헷갈리는 문법이 있습니다. 
 
-* `for-of`
-* `for-in`
+* for-of
+* for-in
 
 매번 찾아보거나 테스트 코드를 통해 미리 실행해보는 식으로 작업했습니다. 
 간략하게라도 정리하면 한동안 사용 기준을 잊지 않을 것 같아서 간단하게 포스트로 작성하였습니다. 
 먼저 `for-of` 반복문에 대해 살펴보겠습니다.
 
-## 1. for-of Loop
+## 1. Iterable Object
 
 > The for...of statement executes a loop that operates on a sequence of values sourced from an iterable object.
 
-반복 가능 객체(iterable object)로부터 순차적으로 값을 사용하는 방식입니다. 
+`for-of` 루프(loop)는 반복 가능 객체(iterable object)로부터 순차적으로 값을 사용하는 방식입니다. 
 먼저 반복 가능 객체에 대해 살펴보겠습니다.
 
 * `반복 가능 객체`는 ES2015에 도입되었으며 객체 속성 중 `Symbol.iterator`라는 특별한 함수가 존재합니다.
@@ -42,7 +42,7 @@ JavaScript로 for 반복문을 작성하다보면 헷갈리는 문법이 있습�
     <img src="/images/javascript-for-of-loop-1.JPG" width="60%" class="image__border">
 </p>
 
-## 2. Examples
+## 2. for-of Loop Examples
 
 간단한 코드를 통해 동작을 살펴보겠습니다.
 

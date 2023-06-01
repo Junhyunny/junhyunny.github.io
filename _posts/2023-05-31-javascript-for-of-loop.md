@@ -160,6 +160,10 @@ for(const item of object) {
 }
 ```
 
+#### RECOMMEND NEXT POSTS
+
+* [JavaScript for-in Loop][javascript-for-in-loop-link]
+
 #### REFERENCE
 
 * <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of>
@@ -170,3 +174,4 @@ for(const item of object) {
 
 [prototype-in-javascript-link]: https://junhyunny.github.io/javascript/prototype-in-javascript/
 [prototype-chain-in-javascript-link]: https://junhyunny.github.io/javascript/prototype-chain-in-javascript/
+[javascript-for-in-loop-link]: https://junhyunny.github.io/javascript/javascript-for-in-loop/

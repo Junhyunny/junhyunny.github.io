@@ -39,8 +39,8 @@ last_modified_at: 2023-06-03T23:55:00
 
 ## 2. Pain Points of Infrastructure Team 
 
-시스템도 현대화가 진행되면서 많은 인프라가 클라우드(cloud) 환경으로 이전되고 있습니다. 
-신속한 서비스 배포, 비즈니스적인 확장성과 유연성 확보, 비용 등의 문제로 클라우드 전환은 멈추지 않을 것으로 보입니다. 
+시스템도 현대화가 진행되면서 많은 레거시 인프라들이 클라우드(cloud) 환경으로 이전되고 있습니다. 
+신속한 서비스 배포, 비즈니스적인 확장성과 유연성 확보, 비용 등의 문제로 클라우드 전환은 계속될 것으로 보입니다. 
 대표적인 클라우드 제공자(cloud provider)인 AWS(Amazon Web Service)는 웹 화면에서 간단한 클릭만으로 인프라를 구축할 수 있습니다. 
 
 클라우드 인프라 구축은 보기와 다르게 마냥 쉬운 작업이 아닙니다. 
@@ -132,17 +132,17 @@ last_modified_at: 2023-06-03T23:55:00
 
 다음과 같이 인프라 상태를 정의합니다.
 
-* `provider "aws"` 블럭
+* `provider` 블럭
     * 클라우드 제공자는 AWS 입니다.
     * AWS에 접근하기 위한 키 정보를 함께 작성합니다.
 * `variable` 블럭
     * 코드에서 사용할 변수들을 정의합니다.
-* `resource "aws_instance" "example"` 블럭
+* `resource` 블럭
     * `example`이라는 이름의 AWS 인스턴스 리소스를 생성합니다.
-    * EC2 컨테이너 우분투(ubuntu) 머신 이미지를 지정합니다.
-    * 인스턴스 타입을 `t2.micro`으로 지정합니다.
-    * 태그 이름을 `example-ec2`라고 작성합니다.
-* `output "new-instance-public-ip"` 블럭
+    * EC2 컨테이너 중 우분투(ubuntu) 머신 이미지를 사용합니다.
+    * 인스턴스 타입을 `t2.micro`로 정합니다.
+    * 태그 이름을 `example-ec2`로 정합니다.
+* `output` 블럭
     * 인스턴스 생성 후 결과 정보를 출력합니다.
 
 ```tf
@@ -159,7 +159,7 @@ variable "AWS_SESSION_TOKEN" {
 provider "aws" {
   access_key = var.AWS_ACCESS_KEY
   secret_key = var.AWS_SECRET_KEY
-  token       = var.AWS_SESSION_TOKEN
+  token      = var.AWS_SESSION_TOKEN
   region     = "us-east-1"
 }
 
@@ -216,7 +216,6 @@ commands will detect it and remind you to do so if necessary.
 * 인스턴스 생성에 대한 정보가 출력됩니다.
     * `+` 항목은 새로 추가되는 자원입니다.
 * 많은 정보들을 리소스 배포 후 확인할 수 있습니다.
-    * `(known after apply)`
 
 ```
 $ terraform plan   

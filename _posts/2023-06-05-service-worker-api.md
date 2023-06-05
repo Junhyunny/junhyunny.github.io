@@ -79,7 +79,7 @@ last_modified_at: 2023-06-05T23:55:00
     * redundant 상태의 서비스 워커는 앱에 아무런 영향을 미치지 못 합니다.
 
 <p align="center">
-    <img src="/images/service-worker-api-2.JPG" width="80%" class="image__border">
+    <img src="/images/service-worker-api-2.JPG" width="80%" class="image__border image__padding">
 </p>
 
 ## 3. Practice

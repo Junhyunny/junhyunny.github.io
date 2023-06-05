@@ -1,5 +1,5 @@
 ---
-title: "Service Worker API"
+title: "Service Worker"
 search: false
 category:
   - information

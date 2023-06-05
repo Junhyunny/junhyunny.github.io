@@ -81,6 +81,7 @@ last_modified_at: 2023-06-05T23:55:00
 <p align="center">
     <img src="/images/service-worker-api-2.JPG" width="80%" class="image__border image__padding">
 </p>
+<center>https://www.oreilly.com/library/view/building-progressive-web/9781491961643/ch04.html</center>
 
 ## 3. Practice
 

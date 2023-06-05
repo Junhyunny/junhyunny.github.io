@@ -108,8 +108,8 @@ last_modified_at: 2023-06-05T23:55:00
 * HTML 문서 마지막 부분에서 regsiterServiceWorker 함수를 호출해 서비스 워커를 등록합니다.
     * 서비스 워커는 프로젝트 폴더에 `service-worker.js` 스크립트 파일로 존재합니다.
 * 두 개의 버튼이 존재하며 각 버튼은 다음과 같은 동작을 수행합니다.
-    * `Clear Cache` 버튼 - 브라우저 캐시를 삭제합니다.
-    * `Cat Image` 버튼 - 고양이 이미지를 서버로부터 받아서 보여줍니다.
+    * Clear Cache 버튼 - 브라우저 캐시를 삭제합니다.
+    * Cat Image 버튼 - 고양이 이미지를 서버로부터 받아서 보여줍니다.
 
 ```html
 <html lang="en">
@@ -241,19 +241,25 @@ GET /favicon.ico 404 1.793 ms - 150
 
 ##### Result of Practice
 
-* 
+* Cat Image 버튼 클릭
+    * fetch 함수를 통해 API 요청 시 고양이 이미지 리소스 주소가 담긴 JSON 응답을 받습니다.
+    * 요청 정보를 키로 JSON 응답 캐시에 저장합니다.
+    * img 엘리먼트의 src 속성을 변경하면 새로운 이미지를 다운로드 받습니다.
+        * 네트워크를 통해 이미지를 다운로드 받을 때도 서비스 워커의 fetch 이벤트 콜백 함수가 실행됩니다. 
+    * 요청 정보를 키로 다운로드 받은 이미지를 캐시에 저장합니다.
+    * 캐시된 데이터가 있으므로 다시 버튼을 누르면 이미지 변경이 발생하지 않습니다.
+* Clear Cache 버튼 클릭
+    * 캐시에 저장된 데이터를 모두 삭제합니다.
+    * 저장된 데이터가 삭제된 후 Cat Image 버튼을 누르면 이미지가 변경됩니다.
+    * 이후에 Cat Image 버튼을 누르면 캐시된 데이터에 의해 이미지 변경이 발생하지 않습니다.
 
 <p align="center">
     <img src="/images/service-worker-api-3.gif" width="100%" class="image__border">
 </p>
 
-## CLOSING
-
-CRA(Create React App)을 사용해 만든 리액트 어플리케이션은 `WorkBox`를 통해 서비스 워커를 지원합니다. 
-
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-05-service-worker-api>
 
 #### REFERENCE
 

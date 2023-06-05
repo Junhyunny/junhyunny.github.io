@@ -11,7 +11,7 @@ last_modified_at: 2021-09-16T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Filter, Interceptor and AOP in Spring][filter-interceptor-link]
-- [간편 웹 서버 구축하기 (feat. live-server)][live-server-link]
+- [Make Simple Web Server by live-server][live-server-link]
 
 ## 0. 들어가면서
 

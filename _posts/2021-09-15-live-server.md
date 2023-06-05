@@ -1,5 +1,5 @@
 ---
-title: "간편 웹 서버 구축하기 (feat. live-server)"
+title: "Make Simple Web Server by live-server"
 search: false
 category:
   - information

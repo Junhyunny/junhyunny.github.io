@@ -230,7 +230,7 @@ function fetchAndCaching(request) {
 
 ### 3.3. Run Web Server
 
-[live-server][live-server-link] 명령어를 통해 로컬 머신에서 간단하게 웹 서버를 실행합니다.
+* [live-server][live-server-link] 명령어를 통해 로컬 머신에서 간단하게 웹 서버를 실행합니다.
 
 ```
 $ live-server             
@@ -242,6 +242,8 @@ GET /favicon.ico 404 1.793 ms - 150
 
 ##### Result of Practice
 
+* 등록된 서비스 워커 정보는 `개발자 도구(F12) > 애플리케이션 > Service Workers`에서 확인할 수 있습니다.
+* 사용 중인 캐시 정보는 `개발자 도구 > 애플리케이션 > 캐시 저장공간`에서 확인할 수 있습니다.
 * Cat Image 버튼 클릭
     * fetch 함수를 통해 API 요청 시 고양이 이미지 리소스 주소가 담긴 JSON 응답을 받습니다.
     * 요청 정보를 키로 JSON 응답 캐시에 저장합니다.

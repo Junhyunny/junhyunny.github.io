@@ -1,0 +1,77 @@
+---
+title: "Logging Framework in Java"
+search: false
+category:
+  - java
+last_modified_at: 2023-06-09T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [Adapter Pattern][adapter-pattern-link]
+* [Facade Pattern][facade-pattern-link]
+
+## 0. 들어가면서
+
+시스템을 구축하면 운영 단계로 넘어가기 전에 로깅(logging) 시스템에 대한 구축이 반드시 필요합니다. 
+동작 중인 어플리케이션은 디버거(debugger)가 없습니다. 
+시스템의 장애나 문제가 발생하면 운영자는 로그를 통해 문제에 대한 원인을 파악해야합니다. 
+
+예전 회사는 공통 컴포넌트 팀에서 로깅 부분을 맡아 처리해줬지만, 지금 탄주 랩스(tanzu labs)에선 직접 준비해야하기 때문에 관련된 지식을 탐구했습니다. 
+몇 차례 나눠 로깅 시스템에 대해 공부한 내용을 정리하려 합니다. 
+이번엔 Java 진영에서 많이 사용되는 로깅 프레임워크에 대한 이야기입니다. 
+
+## 1. SLF4J(Simple Logging Facade for Java)
+
+> The Simple Logging Facade for Java (SLF4J) serves as a simple facade or abstraction for various logging frameworks (e.g. java.util.logging, logback, log4j) allowing the end user to plug in the desired logging framework at deployment time. 
+
+`SLF4J`는 퍼사드(facade) 패턴을 통해 다양한 로깅 프레임워크를 지원하는 추상화 계층 라이브러리입니다. 
+이런 별도의 추상화 계층은 개발자가 코드 수정 없이도 원하는 로깅 시스템을 실행하는 시점에 선택할 수 있도록 돕습니다. 
+
+* 어떤 프레임워크는 `SLF4J`의 로거(logger) 인터페이스를 직접 구현하였습니다.
+* 어떤 프레임워크는 `SLF4J`의 로거 인터페이스를 구현한 어댑터(adapter) 클래스를 사용합니다.
+* `SLF4J`을 직접 구현하거나 어댑터를 사용하는 등 구현체로 연결되는 방법이 다르기 때문에 대문(Façade)이라는 용어가 사용된 것 같습니다.
+
+<p align="center">
+    <img src="/images/logging-framework-in-java-1.JPG" width="80%" class="image__border">
+</p>
+
+## 2. Modules
+
+`SLF4J`은 세 가지 모듈을 제공합니다. 
+
+* Bridge
+    * 브릿지(bridge)는 다른 로깅 프레임워크를 `SLF4J`로 연결하기 위해 사용합니다.
+    * 레거시 코드나 라이브러리에서 다른 로깅 프레임워크을 호출하는 경우 이를 `SLF4J`로 연결해줍니다. 
+
+<p align="center">
+    <img src="/images/logging-framework-in-java-2.JPG" width="80%" class="image__border">
+</p>
+
+* API
+    * 로깅에 대한 추상 레이어(인터페이스)를 제공합니다.
+    * 로거를 사용하는 클라이언트는 실제 로깅을 제공하는 구현체를 모릅니다.
+
+* Binding
+
+## 2. Various Logging Framewors
+
+
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://www.youtube.com/watch?v=1MD5xbwznlI>
+* <https://www.youtube.com/watch?v=JqZzy7RyudI>
+* <https://stackoverflow.com/questions/9117030/jul-to-slf4j-bridge>
+* <https://stackoverflow.com/questions/69938358/logging-library-implementation-to-use-with-slf4j-wrapper>
+
+[adapter-pattern-link]: https://junhyunny.github.io/information/design-pattern/adapter-pattern/
+[facade-pattern-link]: https://junhyunny.github.io/information/design-pattern/facade-pattern/

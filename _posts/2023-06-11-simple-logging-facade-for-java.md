@@ -15,24 +15,21 @@ last_modified_at: 2023-06-11T23:55:00
 
 ## 0. 들어가면서
 
-시스템을 구축하면 운영 단계로 넘어가기 전에 로깅(logging) 시스템에 대한 구축이 반드시 필요합니다. 
-동작 중인 어플리케이션은 디버거(debugger)가 없습니다. 
-시스템의 장애나 문제가 발생하면 운영자는 로그를 통해 문제에 대한 원인을 파악해야합니다. 
-
-예전 회사는 공통 컴포넌트 팀에서 로깅 컴포넌트를 맡아줬지만, 현재 팀에선 이를 직접 적용해야하기 때문에 관련된 지식을 탐구했습니다. 
-몇 차례 나눠 로깅 시스템에 대해 공부한 내용을 정리하려 합니다. 
+시스템을 구축이 끝나면 운영으로 넘어가기 전에 로깅(logging) 시스템 구축이 반드시 필요합니다. 
+동작 중인 어플리케이션은 디버거(debugger)가 없기 때문에 시스템 운영자는 장애나 문제 상황을 로그를 통해 확인해야합니다. 
+예전 회사는 공통 컴포넌트 팀에서 로깅을 맡아줬지만, 현재 팀은 직접 구축해야하기 때문에 관련된 지식을 탐구했습니다. 
 이번엔 Java 진영에서 많이 사용되는 로깅 프레임워크에 대한 이야기입니다. 
 
 ## 1. SLF4J(Simple Logging Facade for Java)
 
 > The Simple Logging Facade for Java (SLF4J) serves as a simple facade or abstraction for various logging frameworks (e.g. java.util.logging, logback, log4j) allowing the end user to plug in the desired logging framework at deployment time. 
 
-`SLF4J`는 퍼사드(facade) 패턴을 통해 다양한 로깅 프레임워크를 지원하는 추상화 계층 라이브러리입니다. 
-이런 별도의 추상화 계층은 개발자가 코드 수정 없이도 원하는 로깅 시스템을 실행하는 시점에 선택할 수 있도록 돕습니다. 
+`SLF4J`는 퍼사드(facade) 패턴을 통해 다양한 로깅 프레임워크를 지원하는 추상화 라이브러리입니다. 
+별도의 추상화 계층은 개발자가 코드 수정 없이도 원하는 로깅 시스템을 실행하는 시점에 선택할 수 있도록 돕습니다. 
 
-* 어떤 프레임워크는 `SLF4J`의 로거(logger) 인터페이스를 직접 구현하였습니다.
-* 어떤 프레임워크는 `SLF4J`의 로거 인터페이스를 구현한 어댑터(adapter) 클래스를 사용합니다.
 * `SLF4J`을 직접 구현하거나 어댑터를 사용하는 등 구현체로 연결되는 방법이 다르기 때문에 대문(Façade)이라는 용어가 사용된 것 같습니다.
+    * 어떤 프레임워크는 `SLF4J`의 로거(logger) 인터페이스를 직접 구현하였습니다.
+    * 어떤 프레임워크는 `SLF4J`의 로거 인터페이스를 구현한 어댑터(adapter) 클래스를 사용합니다.
 * `SLF4J` 추상 레이어를 통해 사용할 수 있는 로깅 프레임워크들은 다음과 같습니다.
     * logback, reload4j, log4j, log4j2, JUL(Java Util Logging), JCL(Jakarta Commons Logging) 등
 
@@ -43,8 +40,9 @@ last_modified_at: 2023-06-11T23:55:00
 ## 2. Modules
 
 `SLF4J`은 세 가지 모듈을 제공합니다. 
+이를 통해 여러 개의 로깅 프레임워크를 하나로 통합하여 사용할 수 있습니다. 
 
-* Bridge
+* Bridge Module
     * 브릿지(bridge)는 다른 로깅 프레임워크를 `SLF4J`로 연결하기 위해 사용합니다.
     * 레거시 코드나 외부 라이브러리에서 다른 로깅 프레임워크을 호출하는 경우 이를 `SLF4J`로 연결해줍니다. 
     * jcl-over-slf4j.jar, log4j-over-slf4j.jar, jul-to-slf4j.jar 라이브러리 등이 있습니다.
@@ -53,16 +51,16 @@ last_modified_at: 2023-06-11T23:55:00
     <img src="/images/logging-framework-in-java-2.JPG" width="80%" class="image__border">
 </p>
 
-* API
+* API Module
     * 로깅에 대한 추상 레이어(인터페이스)를 제공합니다.
-    * 로거를 사용하는 클라이언트(client)는 실제 로깅을 제공하는 구현체를 모릅니다.
+    * API를 사용하는 클라이언트(client)는 실제 로깅을 제공하는 구현체를 모릅니다.
 
 <p align="center">
     <img src="/images/logging-framework-in-java-3.JPG" width="80%" class="image__border image__padding">
 </p>
 
-* Binding
-    * `SLF4J` API와 로깅 프레임워크의 실제 구현체를 연결하는 어댑터 역할을 수행합니다.
+* Binding Module
+    * 바인딩(binding)은 `SLF4J` API와 로깅 프레임워크의 실제 구현체를 연결하는 어댑터 역할을 수행합니다.
     * logback-classic.jar, logback-core.jar, slf4j-reload4j.jar, slf4j-jdk14.jar, slf4j-simple.jar 라이브러리 등이 있습니다.
 
 <p align="center">
@@ -75,8 +73,8 @@ last_modified_at: 2023-06-11T23:55:00
 예제 코드를 통해 다음과 같은 환경을 구성합니다. 
 
 * 세 가지 종류의 로거를 사용해 로그를 출력합니다.
-    * Java Util Logging 
-    * Jakarta Commons Logging 
+    * JUL(Java Util Logging) 
+    * JCL(Jakarta Commons Logging) 
     * SLF4J
 * JUL, JCL은 브릿지를 통해 SLF4J API로 연결합니다.
 * 바인딩을 통해 실제 구현체인 Logback 로깅 프레임워크로 연결합니다.

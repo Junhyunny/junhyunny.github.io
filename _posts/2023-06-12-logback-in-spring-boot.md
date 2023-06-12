@@ -23,12 +23,12 @@ last_modified_at: 2023-06-12T23:55:00
 `logback`은 세 개의 모듈로 나뉩니다. 
 
 * logback-core
-    * classic, access 두 모듈의 기초가 되는 범용 모듈입니다.
+    * 클래식(classic), 액세스(access) 두 모듈의 기초가 되는 범용 모듈입니다.
 * logback-classic
-    * core 모듈을 확장(extends), SLF4J API를 구현하였습니다.
-    * SLF4J API는 classic 모듈을 통해 `logback` 로깅 프레임워크 기능에 접근합니다.
+    * 코어(core)를 확장(extends), SLF4J API를 구현(implements)한 모듈입니다.
+    * SLF4J API는 클래식 모듈을 통해 `logback` 로깅 프레임워크 기능을 호출합니다.
 * logback-access
-    * 제티(Jetty) 혹은 톰캣(Tomcat) 같은 서블릿 컨테이너와 통합되어 HTTP 액세스(access) 로그 기능을 제공합니다.
+    * 제티(Jetty) 혹은 톰캣(Tomcat) 같은 서블릿 컨테이너와 통합되어 HTTP 액세스 로그 기능을 제공합니다.
 
 <p align="center">
     <img src="/images/logback-in-spring-boot-1.JPG" width="60%" class="image__border">
@@ -178,15 +178,15 @@ public final class Level implements java.io.Serializable {
 간단한 요구 사항을 만족하는 로깅 환경을 구성해보겠습니다. 
 
 * 로컬 환경
-    * 기본 DUBUG 로그 레벨을 지정합니다.
+    * DUBUG 로그 레벨을 기본으로 지정합니다.
     * 모든 로그는 콘솔로 출력합니다.
 * 개발 환경
-    * 기본 DEBUG 로그 레벨을 지정합니다.
-    * ERROR 로그 레벨 출력은 별도로 파일로 저장합니다.
+    * DUBUG 로그 레벨을 기본으로 지정합니다.
+    * ERROR 레벨 출력은 별도 파일로 저장합니다.
     * 모든 로그는 콘솔로 출력합니다.
 * 운영 환경
-    * 기본 INFO 로그 레벨을 지정합니다.
-    * ERROR 로그 레벨 출력은 별도로 파일로 저장합니다.
+    * INFO 로그 레벨을 기본으로 지정합니다.
+    * ERROR 레벨 출력은 별도 파일로 저장합니다.
     * 모든 로그는 콘솔과 파일로 출력합니다.
 
 실습 프로젝트 구성은 다음과 같습니다.

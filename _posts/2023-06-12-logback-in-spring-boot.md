@@ -28,27 +28,25 @@ last_modified_at: 2023-06-12T23:55:00
     * core 모듈을 확장한 모듈입니다.
     * SLF4J API를 구현하였으며 이를 통해 log4j, JUL(java.util.logging) 같은 로깅 프레임워크를 대체합니다.
 * logback-access
-    * 제티(Jetty) 혹은 톰캣(Tomcat) 같은 서블릿 컨테이너와 통합되어 강력한 HTTP 접근 로그 기능을 제공합니다.
+    * 제티(Jetty) 혹은 톰캣(Tomcat) 같은 서블릿 컨테이너와 통합되어 HTTP 액세스(access) 로그 기능을 제공합니다.
 
 <p align="center">
-    <img src="/images/logback-in-spring-boot-1.JPG" width="80%" class="image__border">
+    <img src="/images/logback-in-spring-boot-1.JPG" width="60%" class="image__border">
 </p>
 
-`logback`을 구성하는 주요 클래스는 세 가지입니다. 
-아래 세 가지 컴포넌트들이 함께 동작하면서 개발자들이 로그 타입과 레벨, 메세지 포맷 등을 결정합니다.
+아래 주요 세 개 클래스들은 함께 동작하면서 개발자들이 결정한 로그 타입, 레벨, 메세지 포맷 등에 맞게 로그를 출력합니다.
 
 * Logger
-    * logback-classic 모듈의 한 부분입니다.
+    * logback-classic 모듈에 속합니다.
     * 로깅 이벤트를 캡처하여 어펜더(Appender)에게 전달합니다.
 * Appender
-    * logback-core 모듈의 한 부분입니다.
-    * 로그를 어디에 기록할지 결정합니다.
-    * 어떤 포맷으로 기록할지 정하기 위해 레이아웃(Layout)과 협력합니다.
+    * logback-core 모듈에 속합니다
+    * 로그를 어디에 기록할지 결정하며 포멧에 맞는 메세지 생성은 레이아웃(Layout)에게 의존합니다.
     * ConsoleAppender, OutputStreamAppender, FileAppender, RollingFileAppender, SocketAppender, SSLSocketAppender, SMTPAppender, DBAppender, SyslogAppender, SiftingAppender, AsyncAppender 등 다양한 어펜더들을 제공합니다.
     * <https://logback.qos.ch/manual/appenders.html>
 * Layout
-    * logback-core 모듈의 한 부분입니다.
-    * 어펜더는 레이아웃에 의존하여 로깅 이벤트를 포맷에 맞는 문자열로 변환하고 기록하였습니다.
+    * logback-core 모듈에 속합니다.
+    * 어펜더는 레이아웃에 의존하여 로깅 이벤트를 포맷에 맞는 문자열로 변환하고 기록합니다.
     * logback 0.9.19 버전 이후부터 FileAppender 및 하위 클래스는 인코더(Encoder)를 사용하며 더 이상 레이아웃을 사용하지 않는다고 합니다.
     * <https://logback.qos.ch/manual/encoders.html>
 
@@ -259,7 +257,7 @@ log:
 
 ### 3.2. console-appender.xml
 
-* 아래와 같은 패턴의 로그를 콘솔에 출력합니다.
+* 특정 패턴의 로그를 콘솔에 출력합니다.
 
 ```xml
 <included>
@@ -273,8 +271,8 @@ log:
 
 ### 3.3. error-rolling-file-appender.xml
 
-* 아래와 같은 패턴의 로그를 콘솔에 출력합니다.
-* LevelFilter 클래스를 사용해 에러 레벨 로그만 파일로 기록합니다.
+* 특정 패턴의 로그를 파일에 출력합니다.
+* LevelFilter 클래스를 사용해 ERROR 레벨 로그만 기록합니다.
 * 파일 사이즈가 10KB가 넘어가면 새로운 파일로 저장합니다.
     * 실습을 위해 용량을 작게 설정하였습니다.
     * 10KB가 넘어가면 `history-%d-%i.log` 파일로 아카이브(archive)됩니다. 
@@ -303,7 +301,7 @@ log:
 
 ### 3.4. rolling-file-appender.xml
 
-* 아래와 같은 패턴의 로그를 콘솔에 출력합니다.
+* 특정 패턴의 로그를 파일에 출력합니다.
 * 파일 사이즈가 10KB가 넘어가면 새로운 파일로 저장합니다.
     * 실습을 위해 용량을 작게 설정하였습니다.
     * 10KB가 넘어가면 `history-%d-%i.log` 파일로 아카이브됩니다.

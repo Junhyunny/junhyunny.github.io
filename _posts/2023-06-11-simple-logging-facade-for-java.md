@@ -191,6 +191,10 @@ public class ActionInBlogApplication {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-11-simple-logging-facade-for-java>
 
+#### RECOMMEND NEXT POSTS
+
+* [Logback in Spring Boot][logback-in-spring-boot-link]
+
 #### REFERENCE
 
 * <https://www.youtube.com/watch?v=1MD5xbwznlI>
@@ -202,3 +206,4 @@ public class ActionInBlogApplication {
 
 [adapter-pattern-link]: https://junhyunny.github.io/information/design-pattern/adapter-pattern/
 [facade-pattern-link]: https://junhyunny.github.io/information/design-pattern/facade-pattern/
+[logback-in-spring-boot-link]: https://junhyunny.github.io/java/spring-boot/logback-in-spring-boot/

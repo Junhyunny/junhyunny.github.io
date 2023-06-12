@@ -25,8 +25,8 @@ last_modified_at: 2023-06-12T23:55:00
 * logback-core
     * classic, access 두 모듈의 기초가 되는 범용 모듈입니다.
 * logback-classic
-    * core 모듈을 확장한 모듈입니다.
-    * SLF4J API를 구현하였으며 이를 통해 log4j, JUL(java.util.logging) 같은 로깅 프레임워크를 대체합니다.
+    * core 모듈을 확장(extends), SLF4J API를 구현하였습니다.
+    * SLF4J API는 classic 모듈을 통해 `logback` 로깅 프레임워크 기능에 접근합니다.
 * logback-access
     * 제티(Jetty) 혹은 톰캣(Tomcat) 같은 서블릿 컨테이너와 통합되어 HTTP 액세스(access) 로그 기능을 제공합니다.
 
@@ -40,7 +40,7 @@ last_modified_at: 2023-06-12T23:55:00
     * logback-classic 모듈에 속합니다.
     * 로깅 이벤트를 캡처하여 어펜더(Appender)에게 전달합니다.
 * Appender
-    * logback-core 모듈에 속합니다
+    * logback-core 모듈에 속합니다.
     * 로그를 어디에 기록할지 결정하며 포멧에 맞는 메세지 생성은 레이아웃(Layout)에게 의존합니다.
     * ConsoleAppender, OutputStreamAppender, FileAppender, RollingFileAppender, SocketAppender, SSLSocketAppender, SMTPAppender, DBAppender, SyslogAppender, SiftingAppender, AsyncAppender 등 다양한 어펜더들을 제공합니다.
     * <https://logback.qos.ch/manual/appenders.html>

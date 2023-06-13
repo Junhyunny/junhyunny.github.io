@@ -1,0 +1,32 @@
+---
+title: "SOAP(Simple Object Access Protocol)"
+search: false
+category:
+  - information
+  - java
+last_modified_at: 2023-06-13T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+말로만 듣던 `SOAP(Simple Object Access Protocol)`을 사용하는 어플리케이션을 조만간 만날 것 같습니다. 
+
+## 1. SOAP
+
+> SOAP(Simple Object Access Protocol)은 일반적으로 널리 알려진 HTTP, HTTPS, SMTP 등을 통해 XML 기반의 메시지를 컴퓨터 네트워크 상에서 교환하는 프로토콜이다.
+
+
+
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+

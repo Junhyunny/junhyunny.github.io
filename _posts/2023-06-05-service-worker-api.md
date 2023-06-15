@@ -264,6 +264,10 @@ GET /favicon.ico 404 1.793 ms - 150
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-05-service-worker-api>
 
+#### RECOMMEND NEXT POSTS
+
+* [Mock Service Worker][mock-service-worker-link]
+
 #### REFERENCE
 
 * <https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API>
@@ -284,3 +288,4 @@ GET /favicon.ico 404 1.793 ms - 150
 * <https://www.youtube.com/watch?v=jVfXiv03y5c>
 
 [live-server-link]: https://junhyunny.github.io/information/live-server/
+[mock-service-worker-link]: https://junhyunny.github.io/information/react/test-driven-development/mock-service-worker/

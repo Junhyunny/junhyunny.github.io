@@ -23,8 +23,8 @@ last_modified_at: 2023-06-15T23:55:00
 
 1. 웹 서비스 제공자(provider)는 자신이 제공하는 API를 WSDL 문서로 만들어 UDDI 서버에 배포합니다.
 1. 웹 서비스 소비자(consumer)는 자신이 필요한 WSDL 문서를 UDDI 서버에서 탐색합니다.
-1. 소비자는 WSDL 문서를 파싱하여 요청에 필요한 정보를 추출합니다.
-1. 소비자는 추출한 정보를 기준으로 `SOAP` 메세지 형식에 맞는 요청 정보를 만듭니다.
+1. 소비자는 WSDL 문서를 파싱하여 요청에 필요한 정보를 생성합니다.
+1. 소비자는 생성한 정보를 기준으로 `SOAP` 메세지 형식에 맞는 요청 정보를 만듭니다.
 1. 소비자는 HTTP를 통해 `SOAP` 메세지를 제공자에게 전달합니다.
 1. 제공자는 `SOAP` 메세지 요청을 받고 필요한 처리를 수행합니다.
 1. 제공자는 처리가 완료되면 HTTP를 통해 소비자에게 `SOAP` 메세지 응답을 전달합니다. 
@@ -37,11 +37,11 @@ last_modified_at: 2023-06-15T23:55:00
 ## 1. Background
 
 웹 서비스의 메세지 프로토콜인 `SOAP`을 사용해 두 개의 서비스가 통신하는 예제를 살펴보겠습니다. 
-다음과 같은 백그라운(background)로 인해 실습 시나리오는 일반적인 웹 서비스와 다른 흐름을 가집니다.
+다음과 같은 백그라운(background)로 인해 실습은 위에서 설명한 웹 서비스와 다른 흐름을 가집니다.
 
 * IBM, Microsoft, SAP에서 제공하는 공용 UDDI 서비스가 2007년에 종료되었습니다.
-    * 아파치(apache)에서 UDDI 오픈 소스 [JUDDI][juddi-link]를 제공합니다.
-* 스프링(spring) 프레임워크는 UDDI 없이 웹 서비스를 제공합니다.
+    * 아파치(apache)에서 UDDI 서버를 구축을 위한 오픈 소스 [JUDDI][juddi-link]를 제공합니다.
+* 스프링(spring) 프레임워크는 UDDI 서버 없이 웹 서비스를 제공합니다.
     * 서비스 제공자가 직접 WSDL 파일을 호스팅합니다.
 * 웹 서비스 개발 시 `Contract Last` 방식과 `Contract First` 방식이 있습니다.
     * `Contract Last` 방식은 Java 코드를 먼저 작성하고 WSDL 파일을 만드는 방식입니다.
@@ -52,12 +52,13 @@ last_modified_at: 2023-06-15T23:55:00
 
 스프링 프레임워크를 사용한 웹 서비스의 제공자(provider)와 소비자(consumer)는 다음과 같은 개발 흐름을 가집니다. 
 
-1. 제공자 서비스가 먼저 개발이 완료된 후 자신이 제공하는 API를 정의한 WSDL 파일을 직접 호스팅합니다.
+1. 서비스 제공자의 개발이 먼저 완료됩니다.
+1. 제공자는 자신의 API를 정의한 WSDL 파일을 직접 호스팅합니다.
+1. 소비자는 제공자의 WSDL 파일을 가져옵니다. 
 1. 소비자는 제공자의 WSDL 파일을 기준으로 클래스(class) 파일을 생성합니다.
     * 서비스 제공자가 WSDL 파일을 변경하는 것에 대해 소비자가 크게 영향을 받습니다.
     * 소비자는 서비스 제공자와 강하게 결합되어 있습니다.
-1. 소비자는 필요한 API 호출 기능을 생성된 클래스를 사용해 개발합니다.
-1. 개발 완료된 소비자 서비스를 실행합니다.
+1. 소비자는 생성한 클래스를 사용해 필요한 API 호출 기능을 개발합니다.
 
 <p align="center">
     <img src="/images/soap-communication-example-using-spring-2.JPG" width="80%" class="image__border">
@@ -67,12 +68,12 @@ last_modified_at: 2023-06-15T23:55:00
 
 스프링 부트 프레임워크는 `spring-boot-starter-web-services` 의존성을 통해 쉽게 웹 서비스 어플리케이션을 구축할 수 있습니다. 
 
-* 최하위는 내장 톰캣 같은 서블릿 컨테이너가 사용됩니다.
-* 서블릿 컨테이너 위에 스프링의 웹 서비스 코어 모듈이 위치합니다.
+* 내장 톰캣(embedded tomcat)이 서블릿 컨테이너를 사용합니다.
+* 스프링의 웹 서비스 코어 모듈이 사용합니다.
     * 기본적인 스프링의 기능에 웹 서비스를 위한 기능들이 추가됩니다.
-* WSDL 문서를 생성하기 위한 모듈이 사용됩니다.
+* WSDL 문서를 생성하기 위한 모듈을 추가합니다.
     * 해당 의존성은 서비스 제공자만 필요합니다.
-* XML 문서를 Java 클래스나 객체(instance)로 변환하는 JAXB 모듈이 사용됩니다.
+* XML 문서를 Java 클래스나 객체(instance)로 변환하는 JAXB 모듈이 추가합니다.
     * XML 문서를 JAVA 클래스나 객체로 변환하는 작업을 OXM(Object XML Mapping)이라고 합니다.
     * 객체와 `SOAP` 메세지 사이의 변환을 처리합니다.
     * 서비스 소비자에서는 WSDL 문서를 기반으로 Java 클래스 파일을 생성합니다.
@@ -95,13 +96,13 @@ last_modified_at: 2023-06-15T23:55:00
     * REST 통신 구간
 
 <p align="center">
-    <img src="/images/soap-communication-example-using-spring-4.JPG" width="80%" class="image__border">
+    <img src="/images/soap-communication-example-using-spring-4.JPG" width="100%" class="image__border">
 </p>
 
 ## 3. Serivce Provider Application
 
 서비스 제공자부터 개발합니다. 
-최종적으로 다음과 같은 프로젝트 구조를 가집니다.
+다음과 같은 프로젝트 구조를 가집니다.
 
 ```
 ./
@@ -308,7 +309,7 @@ BUILD SUCCESSFUL in 1s
 다음 위치에 클래스들이 생성됩니다.
 
 <p align="left">
-    <img src="/images/soap-communication-example-using-spring-5.JPG" width="60%" class="image__border">
+    <img src="/images/soap-communication-example-using-spring-5.JPG" width="30%" class="image__border">
 </p>
 
 ### 3.4. AuthorEndPoint Class
@@ -593,7 +594,7 @@ BUILD SUCCESSFUL in 1s
 다음과 같은 경로에 클래스들이 생성된 것을 확인할 수 있습니다.
 
 <p align="left">
-    <img src="/images/soap-communication-example-using-spring-7.JPG" width="60%" class="image__border">
+    <img src="/images/soap-communication-example-using-spring-7.JPG" width="30%" class="image__border">
 </p>
 
 ### 4.3. SoapConfig Class

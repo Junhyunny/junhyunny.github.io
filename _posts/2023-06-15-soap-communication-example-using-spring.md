@@ -18,7 +18,7 @@ last_modified_at: 2023-06-15T23:55:00
 
 스프링 부트(spring boot)는 웹 서비스(WS, Web Service) 기술을 지원합니다. 
 [SOAP(Simple Object Access Protocol)][soap-link] 포스트에서도 설명했지만, 여기서 말하는 웹 서비스는 통신 기술을 지칭합니다. 
-월드 와이드 웹(WWW, Wolrd Wird Web)을 통해 사용자에게 서비스를 제공한다는 의미가 아닙니다. 
+월드 와이드 웹(WWW, World Wide Web)을 통해 사용자에게 서비스를 제공한다는 의미가 아닙니다. 
 일반적으로 웹 서비스는 다음과 같은 구조를 가집니다. 
 
 1. 웹 서비스 제공자(provider)는 자신이 제공하는 API를 WSDL 문서로 만들어 UDDI 서버에 배포합니다.

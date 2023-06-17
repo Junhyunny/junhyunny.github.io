@@ -13,6 +13,7 @@ last_modified_at: 2021-09-01T02:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Features of EntityManager][persistence-context-advantages-link]
+* [TestContainer for Database][test-container-for-database-link]
 
 ## 1. @Transactional readOnly Attribute
 
@@ -50,317 +51,297 @@ last_modified_at: 2021-09-01T02:00:00
 * 의도지 않게 데이터를 변경하는 것을 막아준다. 
 * 하이버네이트(hibernate)를 사용하는 경우에는 플러시 모드를 매뉴얼(manual)로 변경한다.
     * 오염 감지(dirty checking) 과정을 생략하면서 속도 향상 효과를 얻는다.
-* 데이터베이스에 따라 데이터 소스 연결 수준에서 약간의 최적화가 가능하다.
+* 데이터베이스에 따라 데이터소스(datasource) 연결 수준에서 약간의 최적화가 가능하다.
 
 ## 2. Practice
 
-데이터 소스 연결 설정에 관련된 내용을 제외하고 요약한 내용들을 확인할 수 있는 테스트 코드를 작성해봤습니다. 
+데이터소스 연결 설정에 관련된 내용을 제외하고 요약한 내용들을 간단한 테스트 코드를 통해 살펴보겠습니다. 
+다음과 같은 환경에서 테스트를 수행합니다.
+
+* JDK17
+* Spring Boot 3.1.0
+* TestConatiner for MySql
 
 ### 2.1. application.yml
 
-* 로그 확인을 위해 로그 하이버네이트 로그 레벨을 트레이스(trace)로 변경합니다.
+* 로그 확인을 위해 필요한 패키지들의 로그 레벨을 트레이스(trace)로 변경합니다.
 
 ```yml
-server:
-  port: 8081
-spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/jsp/
-      suffix: .jsp
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: create
 logging:
   level:
-    org:
-      springframework:
-        orm:
-          jpa: DEBUG
-      hibernate:
-        persister:
-          entity: TRACE
+    org.springframework.orm.jpa: DEBUG
+    org.hibernate.persister.entity: TRACE
 ```
 
-### 2.1. 의도지 않은 데이터 변경 방지 테스트
+### 2.2. PostService Class
 
-다음과 같은 시나리오를 생각해보았습니다.
-
-- @Transactional 애너테이션에 **`readOnly=true`** 설정
-- 해당 메소드 내부에서 saveAndFlush 메소드 호출
-- 에러 메세지 기대
-
-#### 2.1.1. OrderService 클래스
+* 클래스에 `readonly` 속성을 true 값으로 설정합니다.
+    * 클래스 하위 모든 메소드들에게 적용됩니다.
+* arhive 메소드
+    * 데이터를 조회 후 엔티티의 상태를 변경합니다.
+    * 오염 감지 기능이 동작하기를 예상합니다.
 
 ```java
-package blog.in.action.transcation.service;
-
-
-import blog.in.action.transcation.entity.Orders;
-import blog.in.action.transcation.repository.OrderRepository;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-@Log4j2
-@Component
+@Slf4j
+@Service
 @RequiredArgsConstructor
-public class OrderService {
+@Transactional(readOnly = true)
+class PostService {
 
-    private final OrderRepository orderRepository;
+    private final PostRepository repository;
 
-    @Transactional(readOnly = true)
-    public Orders createOrderWithReadOnlyTrue(Orders order) {
-        return orderRepository.saveAndFlush(order);
+    public void create(Post post) {
+        repository.save(post);
     }
 
-    // ...
+    public void update(Post post) {
+        repository.save(post);
+    }
+
+    public void archive(long id) {
+        var post = repository.findById(id).orElseThrow();
+        post.archive();
+    }
 }
 ```
 
-#### 2.1.2. 테스트 코드
+### 2.3. Post Entity Class
+
+엔티티(entity)를 작성합니다.
 
 ```java
-@Log4j2
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+class Post {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String content;
+    @Enumerated(value = EnumType.STRING)
+    private PostState state;
+
+    public void archive() {
+        state = ARCHIVE;
+    }
+}
+```
+
+### 2.4. ReadOnlyAttributeTests Class
+
+* throw_exception_when_create_in_readonly
+    * `readonly`인 경우 새로운 데이터 삽입(insert)시 에러가 발생합니다.
+    * "Connection is read-only. Queries leading to data modification are not allowed" 에러 메세지를 확인합니다.
+* nothing_change_when_update_in_readonly
+    * `readonly`인 경우 업데이트가 이뤄지지 않습니다.
+* nothing_change_when_dirty_check_in_readonly
+    * `readonly`인 경우 업데이트가 이뤄지지 않습니다.
+
+```java
 @SpringBootTest
-public class TransactionalReadOnlyTest {
+@TestPropertySource(
+        properties = {
+                "spring.jpa.show-sql=true",
+                "spring.jpa.hibernate.ddl-auto=create",
+                "spring.datasource.url=jdbc:tc:mysql:8.0.32:///test",
+                "spring.datasource.driver-class-name=org.testcontainers.jdbc.ContainerDatabaseDriver",
+        }
+)
+@Testcontainers
+public class ReadOnlyAttributeTests {
 
-    // ... 기타 다른 코드
+    @Container
+    static MySQLContainer<?> mysqlContainer = new MySQLContainer<>("mysql:8.0.32").withDatabaseName("test");
+
+    @Autowired
+    PostService sut;
+
+    @Autowired
+    PostRepository repository;
+
+    @BeforeEach
+    void beforeEach() {
+        repository.deleteAll();
+    }
 
     @Test
-    @DisplayName("READ ONLY TRUE")
-    public void test_withReadOnlyTrue() {
-        try {
-            Orders order = new Orders("123");
-            orderService.createOrderWithReadOnlyTrue(order);
-        } catch (Exception e) {
-            log.warn(e.getMessage(), e);
-        } finally {
-            log.info("READ ONLY TRUE");
-        }
+    void throw_exception_when_create_in_readonly() {
+
+        JpaSystemException throwable = assertThrows(JpaSystemException.class, () -> {
+            sut.create(
+                    Post.builder()
+                            .content("Hello World")
+                            .build()
+            );
+        });
+
+
+        var result = repository.findByContent("Hello World");
+        assertThat(result, equalTo(null));
+        assertThat(throwable.getRootCause().getMessage(), equalTo("Connection is read-only. Queries leading to data modification are not allowed"));
+    }
+
+    @Test
+    void nothing_change_when_update_in_readonly() {
+
+        var post = Post.builder()
+                .content("Hello World")
+                .build();
+        repository.saveAndFlush(post);
+
+
+        sut.update(
+                Post.builder()
+                        .id(post.getId())
+                        .content("This is new world")
+                        .build()
+        );
+
+
+        var result = repository.findById(post.getId()).orElseThrow();
+        assertThat(result.getContent(), equalTo("Hello World"));
+    }
+
+    @Test
+    void nothing_change_when_dirty_check_in_readonly() {
+
+        var post = Post.builder()
+                .state(STAGE)
+                .build();
+        repository.saveAndFlush(post);
+
+
+        sut.archive(post.getId());
+
+
+        var result = repository.findById(post.getId()).orElseThrow();
+        assertThat(result.getState(), equalTo(STAGE));
     }
 }
 ```
 
-#### 2.1.3. 테스트 결과 로그
-- Connection is read-only. Queries leading to data modification are not allowed, 메세지 출력
-- Participating transaction failed - marking existing transaction as rollback-only, 롤백 수행
-- could not execute statement, GenericJDBCException 발생
-- 실제 데이터베이스를 확인해보면 insert 된 데이터가 존재하지 않습니다.
+### 2.5. Result Logs
+
+각 테스트 별로 로그를 살펴보겠습니다. 
+
+#### 2.5.1. Insert
+
+* 삽입 관련 쿼리가 출력됩니다. 
+* SQL Error: 0, SQLState: S1009 에러가 발생합니다.
+* "Connection is read-only. Queries leading to data modification are not allowed" 메세지가 출력됩니다.
 
 ```
-2021-05-13 03:38:57.240 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.service.OrderService.createOrderWithReadOnlyTrue]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
-2021-05-13 03:38:57.240 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2011442367<open>)] for JPA transaction
-2021-05-13 03:38:57.242 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2972b493]
-2021-05-13 03:38:57.242 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(2011442367<open>)] for JPA transaction
-2021-05-13 03:38:57.242 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-2021-05-13 03:38:57.242 TRACE 10876 --- [           main] o.h.p.entity.AbstractEntityPersister     : Fetching entity: [blog.in.action.transcation.entity.Orders#123]
-Hibernate: select orders0_.id as id1_1_0_, orders0_.value as value2_1_0_ from orders orders0_ where orders0_.id=?
-2021-05-13 03:38:57.242 TRACE 10876 --- [           main] o.h.p.entity.AbstractEntityPersister     : Inserting entity: [blog.in.action.transcation.entity.Orders#123]
-Hibernate: insert into orders (value, id) values (?, ?)
-2021-05-13 03:38:57.242 TRACE 10876 --- [           main] o.h.p.entity.AbstractEntityPersister     : Dehydrating entity: [blog.in.action.transcation.entity.Orders#123]
-2021-05-13 03:38:57.252  WARN 10876 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: S1009
-2021-05-13 03:38:57.252 ERROR 10876 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Connection is read-only. Queries leading to data modification are not allowed
-2021-05-13 03:38:57.252 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating transaction failed - marking existing transaction as rollback-only
-2021-05-13 03:38:57.252 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Setting JPA transaction on EntityManager [SessionImpl(2011442367<open>)] rollback-only
-2021-05-13 03:38:57.252 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction rollback
-2021-05-13 03:38:57.252 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Rolling back JPA transaction on EntityManager [SessionImpl(2011442367<open>)]
-2021-05-13 03:38:57.252 DEBUG 10876 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2011442367<open>)] after transaction
-2021-05-13 03:38:57.260  WARN 10876 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement
-
-org.springframework.orm.jpa.JpaSystemException: could not execute statement; nested exception is org.hibernate.exception.GenericJDBCException: could not execute statement
-    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:353) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:255) ~[spring-orm-5.2.4.RELEASE.jar:5.2.4.RELEASE]
+23:53:07.518 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+23:53:07.518 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(2082364692<open>)] for JPA transaction
+23:53:07.523 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@3b6098fd]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0
+23:53:07.609 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.609 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(2082364692<open>)]
+23:53:07.612 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(2082364692<open>)] after transaction
+23:53:07.616 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [blog.in.action.transcation.readonly.PostService.create]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+23:53:07.617 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1036454560<open>)] for JPA transaction
+23:53:07.620 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@76ac3ad0]
+23:53:07.620 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1036454560<open>)] for JPA transaction
+23:53:07.620 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Participating in existing transaction
+Hibernate: insert into post (content,state) values (?,?)
+23:53:07.638 [main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: S1009
+23:53:07.638 [main] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper - Connection is read-only. Queries leading to data modification are not allowed
+23:53:07.640 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Participating transaction failed - marking existing transaction as rollback-only
+23:53:07.641 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Setting JPA transaction on EntityManager [SessionImpl(1036454560<open>)] rollback-only
+23:53:07.642 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction rollback
+23:53:07.642 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Rolling back JPA transaction on EntityManager [SessionImpl(1036454560<open>)]
+23:53:07.647 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1036454560<open>)] after transaction
+23:53:07.649 [main] DEBUG org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler - Creating new EntityManager for shared EntityManager invocation
+23:53:07.675 [main] TRACE org.hibernate.persister.entity.AbstractEntityPersister - #findSubPart(`content`)
+23:53:07.675 [main] TRACE org.hibernate.persister.entity.AbstractEntityPersister - #findSubPart(`content`)
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.content=?
 ```
 
-### 2.2. Hibernate 사용 시 DIRTY CHECKING 생략 가능 여부 테스트
-다음과 같은 시나리오를 생각해보았습니다.
-- 모든 데이터 조회 후 id 값을 value 값에 set 합니다.
-- 조회된 엔티티(entity) 들은 JPA Lifecycle 중 **`managed`** 상태입니다.
-- 관리되는(managed) 엔티티들은 변경이 발생하는 경우 DIRTY CHECKING에 의해서 감지되고 업데이트 됩니다.
-- 다음과 같이 가정해보았습니다.
-    - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
-    - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
-- DIRTY CHECKING 관련 포스트 ()
+#### 2.5.2. Update
 
-#### 2.2.1. OrderService 클래스(readOnly=true)
-
-```java
-package blog.in.action.transcation.service;
-
-
-import blog.in.action.transcation.entity.Orders;
-import blog.in.action.transcation.repository.OrderRepository;
-import java.util.List;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-@Log4j2
-@Component
-@RequiredArgsConstructor
-public class OrderService {
-
-    private final OrderRepository orderRepository;
-
-    // ...
-
-    @Transactional(readOnly = true)
-    public void updateAllWithReadOnlyTrue() {
-        List<Orders> orders = orderRepository.findAll();
-        for (Orders order : orders) {
-            order.setValue(order.getId());
-        }
-    }
-
-    @Transactional
-    public void updateAllWithReadOnlyFalse() {
-        List<Orders> orders = orderRepository.findAll();
-        for (Orders order : orders) {
-            order.setValue(order.getId());
-        }
-    }
-}
-```
-
-#### 2.2.2. 테스트 코드
-
-```java
-@Log4j2
-@SpringBootTest
-public class TransactionalReadOnlyTest {
-
-    // ... 
-
-    @Test
-    @DisplayName("FIND ALL READ ONLY TRUE")
-    public void test_findAllWithReadOnlyTrue() {
-        try {
-            long start = System.currentTimeMillis();
-            orderService.updateAllWithReadOnlyTrue();
-            long end = System.currentTimeMillis();
-            log.info((end - start) + " ms");
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        } finally {
-            log.info("FIND ALL READ ONLY TRUE");
-        }
-    }
-
-    @Test
-    @DisplayName("FIND ALL READ ONLY FALSE")
-    public void test_findAllWithReadOnlyFalse() {
-        try {
-            long start = System.currentTimeMillis();
-            orderService.updateAllWithReadOnlyFalse();
-            long end = System.currentTimeMillis();
-            log.info((end - start) + " ms");
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        } finally {
-            log.info("FIND ALL READ ONLY FALSE");
-        }
-    }
-}
-```
-
-#### 2.2.2. updateAllWithReadOnlyTrue 메소드 테스트 결과 로그, **`readOnly = true`**
-- 특이한 로그는 확인되지 않습니다.
-- 12 ms 소요되었습니다.
+* 업데이트 쿼리 관련 로그가 출력되지 않습니다.
 
 ```
-2021-05-13 03:50:43.136 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.service.OrderService.updateAllWithReadOnlyTrue]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
-2021-05-13 03:50:43.138 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(2058293002<open>)] for JPA transaction
-2021-05-13 03:50:43.138 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@7234db3]
-2021-05-13 03:50:43.138 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(2058293002<open>)] for JPA transaction
-2021-05-13 03:50:43.138 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_, orders0_.value as value2_1_ from orders orders0_
-2021-05-13 03:50:43.146 TRACE 1988 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#0]
-2021-05-13 03:50:43.146 TRACE 1988 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#1]
-...
-2021-05-13 03:50:43.148 TRACE 1988 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#97]
-2021-05-13 03:50:43.148 TRACE 1988 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#98]
-2021-05-13 03:50:43.148 TRACE 1988 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#99]
-2021-05-13 03:50:43.148 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Initiating transaction commit
-2021-05-13 03:50:43.148 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Committing JPA transaction on EntityManager [SessionImpl(2058293002<open>)]
-2021-05-13 03:50:43.148 DEBUG 1988 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(2058293002<open>)] after transaction
-2021-05-13 03:50:43.156  INFO 1988 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : 12 ms
-2021-05-13 03:50:43.156  INFO 1988 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : FIND ALL READ ONLY TRUE
+23:53:07.748 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+23:53:07.748 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(816736033<open>)] for JPA transaction
+23:53:07.750 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@717b4de2]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0
+23:53:07.755 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.755 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(816736033<open>)]
+Hibernate: delete from post where id=?
+23:53:07.765 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(816736033<open>)] after transaction
+23:53:07.765 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+23:53:07.766 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(429409829<open>)] for JPA transaction
+23:53:07.767 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4e293c35]
+Hibernate: insert into post (content,state) values (?,?)
+23:53:07.769 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.769 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(429409829<open>)]
+23:53:07.773 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(429409829<open>)] after transaction
+23:53:07.773 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [blog.in.action.transcation.readonly.PostService.update]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+23:53:07.774 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1998598990<open>)] for JPA transaction
+23:53:07.776 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2c78771b]
+23:53:07.776 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(1998598990<open>)] for JPA transaction
+23:53:07.776 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Participating in existing transaction
+23:53:07.777 [main] TRACE org.hibernate.persister.entity.AbstractEntityPersister - Fetching entity: [blog.in.action.transcation.readonly.Post#2]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.id=?
+23:53:07.780 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.780 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1998598990<open>)]
+23:53:07.784 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1998598990<open>)] after transaction
+23:53:07.784 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+23:53:07.784 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1299858199<open>)] for JPA transaction
+23:53:07.786 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@5f1d270a]
+23:53:07.786 [main] TRACE org.hibernate.persister.entity.AbstractEntityPersister - Fetching entity: [blog.in.action.transcation.readonly.Post#2]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.id=?
+23:53:07.788 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.789 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1299858199<open>)]
+23:53:07.792 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1299858199<open>)] after transaction
 ```
 
-#### 2.2.3. updateAllWithReadOnlyTrue 메소드 테스트 결과
-- DIRTY CHECKING이 수행되지 않았으므로 데이터 업데이트가 발생하지 않았습니다.
+#### 2.5.3. Dirty Checking
 
-<p align="left"><img src="/images/transactional-readonly-1.JPG" width="15%"></p>
-
-#### 2.2.4. updateAllWithReadOnlyFalse 메소드 테스트 결과 로그, **`readOnly = false`**
-- blog.in.action.transcation.entity.Orders.value is dirty, DIRTY CHECKING 관련 로그가 출력됩니다.
-- Updating entity: [blog.in.action.transcation.entity.Orders#0], 업데이트 수행이 확인됩니다.
-- 60 ms 소요되었습니다.
+* 업데이트 쿼리 관련 로그가 출력되지 않습니다.
 
 ```
-
-2021-05-13 03:53:14.503 DEBUG 17128 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Creating new transaction with name [blog.in.action.transcation.service.OrderService.updateAllWithReadOnlyFalse]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
-2021-05-13 03:53:14.503 DEBUG 17128 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Opened new EntityManager [SessionImpl(1670055419<open>)] for JPA transaction
-2021-05-13 03:53:14.503 DEBUG 17128 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@77e42cbf]
-2021-05-13 03:53:14.511 DEBUG 17128 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Found thread-bound EntityManager [SessionImpl(1670055419<open>)] for JPA transaction
-2021-05-13 03:53:14.511 DEBUG 17128 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Participating in existing transaction
-Hibernate: select orders0_.id as id1_1_, orders0_.value as value2_1_ from orders orders0_
-2021-05-13 03:53:14.511 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#0]
-2021-05-13 03:53:14.511 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Hydrating entity: [blog.in.action.transcation.entity.Orders#1]
-...
-2021-05-13 03:53:14.523 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : blog.in.action.transcation.entity.Orders.value is dirty
-2021-05-13 03:53:14.523 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : blog.in.action.transcation.entity.Orders.value is dirty
-2021-05-13 03:53:14.523 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : blog.in.action.transcation.entity.Orders.value is dirty
-...
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : blog.in.action.transcation.entity.Orders.value is dirty
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : blog.in.action.transcation.entity.Orders.value is dirty
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Updating entity: [blog.in.action.transcation.entity.Orders#0]
-Hibernate: update orders set value=? where id=?
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Dehydrating entity: [blog.in.action.transcation.entity.Orders#0]
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Updating entity: [blog.in.action.transcation.entity.Orders#1]
-Hibernate: update orders set value=? where id=?
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Dehydrating entity: [blog.in.action.transcation.entity.Orders#1]
-2021-05-13 03:53:14.533 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Updating entity: [blog.in.action.transcation.entity.Orders#10]
-Hibernate: update orders set value=? where id=?
-...
-2021-05-13 03:53:14.563 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Dehydrating entity: [blog.in.action.transcation.entity.Orders#97]
-2021-05-13 03:53:14.563 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Updating entity: [blog.in.action.transcation.entity.Orders#98]
-Hibernate: update orders set value=? where id=?
-2021-05-13 03:53:14.563 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Dehydrating entity: [blog.in.action.transcation.entity.Orders#98]
-2021-05-13 03:53:14.563 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Updating entity: [blog.in.action.transcation.entity.Orders#99]
-Hibernate: update orders set value=? where id=?
-2021-05-13 03:53:14.563 TRACE 17128 --- [           main] o.h.p.entity.AbstractEntityPersister     : Dehydrating entity: [blog.in.action.transcation.entity.Orders#99]
-2021-05-13 03:53:14.563 DEBUG 17128 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(1670055419<open>)] after transaction
-2021-05-13 03:53:14.563  INFO 17128 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : 60 ms
-2021-05-13 03:53:14.571  INFO 17128 --- [           main] b.i.a.t.r.TransactionalReadOnlyTest      : FIND ALL READ ONLY FALSE
+23:53:07.694 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+23:53:07.694 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(1333404258<open>)] for JPA transaction
+23:53:07.696 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@4a577b99]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0
+23:53:07.699 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.699 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(1333404258<open>)]
+23:53:07.702 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1333404258<open>)] after transaction
+23:53:07.702 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.saveAndFlush]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+23:53:07.703 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(833536074<open>)] for JPA transaction
+23:53:07.704 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@109fff4a]
+Hibernate: insert into post (content,state) values (?,?)
+23:53:07.716 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.716 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(833536074<open>)]
+23:53:07.721 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(833536074<open>)] after transaction
+23:53:07.721 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [blog.in.action.transcation.readonly.PostService.archive]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+23:53:07.722 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(372894842<open>)] for JPA transaction
+23:53:07.724 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@1928208d]
+23:53:07.724 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Found thread-bound EntityManager [SessionImpl(372894842<open>)] for JPA transaction
+23:53:07.724 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Participating in existing transaction
+23:53:07.728 [main] TRACE org.hibernate.persister.entity.AbstractEntityPersister - Fetching entity: [blog.in.action.transcation.readonly.Post#1]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.id=?
+23:53:07.734 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.734 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(372894842<open>)]
+23:53:07.738 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(372894842<open>)] after transaction
+23:53:07.738 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT,readOnly
+23:53:07.738 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Opened new EntityManager [SessionImpl(509557834<open>)] for JPA transaction
+23:53:07.740 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Exposing JPA transaction as JDBC [org.springframework.orm.jpa.vendor.HibernateJpaDialect$HibernateConnectionHandle@2aea7775]
+23:53:07.740 [main] TRACE org.hibernate.persister.entity.AbstractEntityPersister - Fetching entity: [blog.in.action.transcation.readonly.Post#1]
+Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.id=?
+23:53:07.742 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Initiating transaction commit
+23:53:07.742 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Committing JPA transaction on EntityManager [SessionImpl(509557834<open>)]
+23:53:07.745 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(509557834<open>)] after transaction
 ```
-
-#### 2.2.5. updateAllWithReadOnlyFalse 메소드 테스트 결과
-- DIRTY CHECKING이 수행되었으므로 value 컬럼에 id 컬럼과 동일한 값이 업데이트 되었습니다.
-
-<p align="left"><img src="/images/transactional-readonly-2.JPG" width="15%"></p>
 
 ## CLOSING
-이전 [Features of EntityManager][persistence-context-advantages-link] 포스트를 정리하면서 
-DIRTY CHECKING을 수행하는 위치가 궁금해 정리해둔 것이 이번 포스트에 큰 도움을 줬습니다. 
-DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 대한 검증을 쉽게 성공할 수 있었습니다. 
 
-또, 관련된 포스트들을 확인하니 데이터베이스 제품에 따라 readOnly 기능 제공 여부가 다르다고 합니다. 
-특정 버전 이후부터 가능하다는데 다행히도 제가 가진 MySQL에서는 정상적으로 동작하였습니다. 
-관련된 내용은 아래 참조 링크를 열어보시면 확인이 가능합니다. 
+관련된 포스트들을 확인하니 데이터베이스 제품에 따라 readOnly 기능 제공 여부가 다르다고 합니다. 
 
 #### TEST CODE REPOSITORY
 
@@ -373,3 +354,4 @@ DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 
 * <https://kwonnam.pe.kr/wiki/springframework/transaction>
 
 [persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
+[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/

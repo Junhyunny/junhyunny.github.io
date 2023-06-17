@@ -10,17 +10,19 @@ last_modified_at: 2021-09-01T02:00:00
 
 <br/>
 
-⚠️ 해당 포스트는 2021년 9월 1일에 재작성되었습니다.
+#### RECOMMEND POSTS BEFORE THIS
 
-## 1. @Transactional 'readOnly' 속성
-일단 관련된 내용을 찾아보기 전에 javadoc을 살펴봤습니다. 
-- 트랜잭션이 effectively read-only일 경우 true로 설정될 수 있는 플래그입니다.
-- 런타임 시 해당 트랜잭션에 대한 최적화를 해줍니다.
-- 트랜잭션 하위 시스템에 대한 힌트 역할을 수행한다.
-- write 연산이 반드시 실패를 유발하지는 않는다.
-- 읽기 전용 힌트를 해설할 수 없는 트랜잭션 매니저는 exception을 던지지는 않고 hint를 무시한다.
+* [Features of EntityManager][persistence-context-advantages-link]
 
-##### @Transcational readOnly javadoc
+## 1. @Transactional readOnly Attribute
+
+먼저 `javadoc`을 살펴봤습니다. 
+
+* 트랜잭션이 읽기 전용인 경우 true 값으로 설정하는 플래그이다.
+* 런타임 시 해당 트랜잭션을 최적화한다.
+* 트랜잭션 하위 시스템에 대한 힌트 역할을 수행한다.
+* 반드시 쓰기 액세스 시도 실패를 야기하지 않는다.
+* 읽기 전용 힌트를 해석할 수 없는 트랜잭션 매니저는 예외를 던지지 않고 힌트는 무시한다. 
 
 ```java
     /**
@@ -38,31 +40,25 @@ last_modified_at: 2021-09-01T02:00:00
     boolean readOnly() default false;
 ```
 
-어느 정도 의미는 알 것 같은데 정확한 기능에 대한 설명은 아닌 것 같습니다. 
-자세한 내용을 찾아보다가 인프런 강좌에 백기선님이 직접 남겨주신 댓글을 확인하였습니다. 
+어떤 뉘앙스인지 알 것 같지만, 기능에 대한 정확한 이해를 원했습니다. 
+검색 중 백기선님의 댓글을 발견했습니다. 
 
-> `@Transactional(readOnly = true)`에 대한 질문입니다.<br/>
-> ...<br/>
-> readOnly는 현재 해당 그 트랜잭션 내에서 데이터를 읽기만 할건지 설정하는 겁니다. 
-> 이걸 설정하면 DB 중에 read 락(lock)과 write 락을 따로 쓰는 경우 
-> 해당 트랜잭션에서 의도치 않게 데이터를 변경하는 일을 막아줄 뿐 아니라, 
-> 하이버네이트를 사용하는 경우에는 FlushMode를 Manual로 변경하여 dirty checking을 생략하게 해준다거나 
-> DB에 따라 DataSource의 Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.<br/>
-> ...<br/>
-> <https://www.inflearn.com/questions/7185>
+> readOnly는 현재 해당 그 트랜잭션 내에서 데이터를 읽기만 할건지 설정하는 겁니다. 이걸 설정하면 DB 중에 read 락(lock)과 write 락을 따로 쓰는 경우 해당 트랜잭션에서 의도치 않게 데이터를 변경하는 일을 막아줄 뿐 아니라, 하이버네이트를 사용하는 경우에는 FlushMode를 Manual로 변경하여 dirty checking을 생략하게 해준다거나 DB에 따라 DataSource의 Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.
 
-제 머리 속에서 쉽게 정리될 수 있도록 다시 요약해보았습니다. 
-- 의도지 않게 데이터를 변경하는 것을 막아줍니다. 
-- Hibernate를 사용하는 경우에는 FlushMode를 Manual로 변경하여 DIRTY CHECKING 생략이 가능합니다. 속도 향상 효과를 얻습니다.
-- 데이터베이스에 따라 DataSource Connection 레벨에도 설정되어 약간의 최적화가 가능합니다.
+관련된 내용들을 바탕으로 다시 정리해봤습니다. 
 
-## 2. 'readOnly' 속성 관련 테스트
-요약한 내용들에 대한 검증 테스트를 보았습니다. 
-직접 검증하지 못하면 모르는 것과 마찬가지입니다. 
-하지만 DataSource Connection 레벨 설정에 대한 테스트는 못하였습니다. 
-관련된 로그를 확인하기 위해서 application.yml 설정의 **`org.hibernate.persister.entity`** 패키지 로그 레벨을 **`TRACE`**로 변경하였습니다.
+* 의도지 않게 데이터를 변경하는 것을 막아준다. 
+* 하이버네이트(hibernate)를 사용하는 경우에는 플러시 모드를 매뉴얼(manual)로 변경한다.
+    * 오염 감지(dirty checking) 과정을 생략하면서 속도 향상 효과를 얻는다.
+* 데이터베이스에 따라 데이터 소스 연결 수준에서 약간의 최적화가 가능하다.
 
-##### application.yml
+## 2. Practice
+
+데이터 소스 연결 설정에 관련된 내용을 제외하고 요약한 내용들을 확인할 수 있는 테스트 코드를 작성해봤습니다. 
+
+### 2.1. application.yml
+
+* 로그 확인을 위해 로그 하이버네이트 로그 레벨을 트레이스(trace)로 변경합니다.
 
 ```yml
 server:
@@ -94,7 +90,9 @@ logging:
 ```
 
 ### 2.1. 의도지 않은 데이터 변경 방지 테스트
+
 다음과 같은 시나리오를 생각해보았습니다.
+
 - @Transactional 애너테이션에 **`readOnly=true`** 설정
 - 해당 메소드 내부에서 saveAndFlush 메소드 호출
 - 에러 메세지 기대
@@ -193,7 +191,7 @@ org.springframework.orm.jpa.JpaSystemException: could not execute statement; nes
 - 다음과 같이 가정해보았습니다.
     - DIRTY CHECKING이 동작한다면 트랜잭션 종료 시 업데이트가 수행됩니다.
     - DIRTY CHECKING이 동작하지 않는다면 트랜잭션 종료 시 업데이트가 수행되지 않습니다.
-- DIRTY CHECKING 관련 포스트 ([Features of EntityManager][persistence-context-advantages-link])
+- DIRTY CHECKING 관련 포스트 ()
 
 #### 2.2.1. OrderService 클래스(readOnly=true)
 
@@ -365,12 +363,13 @@ DIRTY CHECKING 관련 로그를 출력할 수 있어서 실제 동작 여부에 
 관련된 내용은 아래 참조 링크를 열어보시면 확인이 가능합니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-13-transactional-readonly>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-13-transactional-readonly>
 
 #### REFERENCE
-- <https://www.inflearn.com/questions/7185>
-- <http://wonwoo.ml/index.php/post/839>
-- <https://kwonnam.pe.kr/wiki/springframework/transaction>
-- <https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/>
+
+* <https://www.inflearn.com/questions/7185>
+* <http://wonwoo.ml/index.php/post/839>
+* <https://kwonnam.pe.kr/wiki/springframework/transaction>
 
 [persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/

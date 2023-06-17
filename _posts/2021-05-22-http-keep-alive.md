@@ -24,7 +24,7 @@ HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보
 * HTTP는 비연결성 특징 때문에 매 요청마다 연결 성립과 종료 작업을 수행해야 합니다. 
 
 <p align="center">
-    <img src="/images/http-keep-alive-1.JPG" width="80%" class="image__border">
+    <img src="/images/http-keep-alive-1.JPG" width="40%" class="image__border image__padding">
 </p>
 
 ## 2. Keep-Alive

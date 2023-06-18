@@ -50,7 +50,7 @@ HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보
 
 다음과 같은 장점이 있습니다.
 
-* 별도의 연결 과정이 없으므로 핸드쉐이킹으로 인한 지연 시간을 감소시킬 수 있습니다.
+* 별도의 연결 과정이 없으므로 핸드쉐이크로 인한 지연 시간을 감소시킬 수 있습니다.
 * 새로운 연결을 위한 CPU 사용률이 감소합니다.
 * HTTP 파이프라인(pipeline) 기능을 사용할 수 있습니다.
 * 네트워크 혼잡이 감소됩니다.
@@ -128,7 +128,7 @@ $ curl -v --http1.1 https://www.naver.com https://www.naver.com > response
     * Re-using existing connection #0 with host www.naver.com
 * 응답 헤더에서 `keep-alive`를 지원한다는 정보를 확인할 수 있습니다.
     * Connection: keep-alive
-* 핸드쉐이킹이 1회 수행됩니다.
+* 핸드쉐이크가 1회 수행됩니다.
 
 ```
 $ curl -v --http1.1 https://www.naver.com https://www.naver.com > response
@@ -242,7 +242,7 @@ $ curl -v -0 https://www.naver.com https://www.naver.com > response
 * 연결을 종료합니다.
     * Connection: close
     * Closing connection 0
-* 핸드쉐이킹이 2회 수행됩니다.
+* 핸드쉐이크가 2회 수행됩니다.
 
 ```
 $ curl -v -0 https://www.naver.com https://www.naver.com > response

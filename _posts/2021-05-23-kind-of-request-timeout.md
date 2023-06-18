@@ -236,6 +236,14 @@ class TimeoutTests {
 }
 ```
 
+## CLOSING
+
+타임아웃은 서버가 정상적이지 않은 경우 클라이언트 측에서 이를 기다리지 못하고 발생시키는 예외 상황입니다. 
+클라이언트는 발생할 수 있는 타임아웃에 다음과 같은 것들을 고려해야합니다.
+
+* 타임아웃 시간
+* 적절한 폴백(fallback) 응답
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-23-kind-of-request-timeout>

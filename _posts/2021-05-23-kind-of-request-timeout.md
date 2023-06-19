@@ -53,11 +53,11 @@ TCP 소켓 통신에서 클라이언트와 서버가 연결되는 과정을 3-Wa
     <img src="/images/kind-of-request-timeout-3.jpg" width="80%" class="image__border">
 </p>
 
-## 4. Practice
+## 2. Practice
 
 간단한 실습을 통해 클라이언트에서 발생하는 타임아웃을 살펴보겠습니다. 
 
-### 4.1. application.yml
+### 2.1. application.yml
 
 * 스프링(spring) 프레임워크에서 사용하는 내장 톰캣(embedded tomcat)의 자원을 극소로 한정합니다.
 * `server.tomcat.connection-timeout`
@@ -84,7 +84,7 @@ server:
       min-spare: 1
 ```
 
-### 4.2. Application Class
+### 2.2. Application Class
 
 * 쉬운 테스트를 위해 어플리케이션 실행 코드에 컨트롤러 기능을 추가합니다.
 * /foo 요청 시 5초 대기 후 응답합니다.
@@ -121,7 +121,7 @@ public class Application {
 }
 ```
 
-### 4.3. TimeoutTests Class
+### 2.3. TimeoutTests Class
 
 간단한 테스트 코드를 통해 발생하는 타임아웃을 살펴보겠습니다.
 

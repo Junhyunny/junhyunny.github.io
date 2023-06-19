@@ -1,5 +1,5 @@
 ---
-title: "JPA CascadeType"
+title: "CascadeType in JPA"
 search: false
 category:
   - spring-boot
@@ -10,7 +10,7 @@ last_modified_at: 2021-09-02T03:00:00
 
 <br/>
 
-## 1. 엔티티 라이프사이클(Entity Lifecycle)과 영속성(Persistenc)
+## 1. Entity Lifecycle
 
 JPA CascadeType과 관계가 깊은 JPA 엔티티(entity) 라이프사이클(lifecycle)과 영속성(Persistenc)에 대해 다시 정리해보겠습니다. 
 
@@ -845,8 +845,10 @@ Hibernate: select post0_.id as id1_3_1_, post0_.contents as contents2_3_1_, post
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-26-jpa-cascade-type>
 
 #### REFERENCE
+
 - <https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/>
 - <https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/>
+* <https://joel-dev.site/90>
 - <https://parkhyeokjin.github.io/jpa/2019/11/06/JPA-chap8.html>
 - [JPA 프로그래밍 입문 - Chapter11 영속성 전이][cascade-blog-link-1]
 

@@ -9,7 +9,7 @@ last_modified_at: 2022-04-10T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Content-Type and Spring Boot annotation][content-type-and-spring-annotation-link]
+- [Content-Type and Spring Boot Annotation][content-type-and-spring-annotation-link]
 
 ## 0. 들어가면서
 

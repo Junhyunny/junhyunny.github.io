@@ -18,9 +18,11 @@ last_modified_at: 2023-06-21T23:55:00
 
 ## 1. Problem 
 
-현재 개발 중인 서비스가 다른 시스템과 통신이 필요하며 이를 위해 스프링 클라우드 페인 클라이언트(feign client)를 사용하고 있습니다. 
+현재 개발 중인 서비스는 다른 시스템과 통신이 필요합니다. 
+이를 위해 스프링 클라우드(spring cloud)의 페인 클라이언트(feign client)를 사용하고 있습니다. 
 페인 클라이언트는 인터페이스와 POJO(Plain Old Java Object) 객체를 사용해 쉬운 API 통신이 가능하도록 돕는 라이브러리입니다. 
-문제를 일으키는 요인은 다음과 같았습니다.
+
+현재 문제를 일으키는 요인은 다음과 같습니다.
 
 * 현재 개발 중인 시스템의 이름 규칙(naming convention)과 맞지 않는 필드명을 사용합니다.
 * `Content-Type`이 `application/x-www-form-urlencoded`을 사용합니다.
@@ -210,7 +212,7 @@ public class FormDataFeignTest {
 ## CLOSING
 
 타 시스템의 비즈니스를 위해 우리 도메인 객체들을 오염시키고 싶지 않아 @JsonProperty 애너테이션을 자주 사용했습니다. 
-OpenFeign 측에서 `application/x-www-form-urlencoded` 컨텐트 타입을 지원하는 @FormProperty 애너테이션을 지원해서 다행이라 생각했습니다.
+OpenFeign 측에서 `application/x-www-form-urlencoded` 컨텐트 타입을 지원하는 @FormProperty 애너테이션을 지원해서 다행입니다.
 
 #### TEST CODE REPOSITORY
 

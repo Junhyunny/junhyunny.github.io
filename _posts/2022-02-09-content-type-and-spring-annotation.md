@@ -1,5 +1,5 @@
 ---
-title: "Content-Type and Spring Boot annotation" 
+title: "Content-Type and Spring Boot Annotation" 
 search: false
 category:
   - information

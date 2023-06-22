@@ -46,7 +46,7 @@ last_modified_at: 2023-06-21T23:55:00
 다음과 같은 페인 클라이언트를 사용합니다.
 
 * POST 요청을 수행합니다. 
-* `application/x-www-form-urlencoded` 컨텐트 타입을 소비하는 엔드 포인트로 요청을 전송합니다.
+* `application/x-www-form-urlencoded` 컨텐트 타입을 소비하는 엔드-포인트(end-point)로 요청을 보냅니다.
 * Todo 객체를 요청 메세지로 사용합니다.
 
 ```java

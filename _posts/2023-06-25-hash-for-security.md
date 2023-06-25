@@ -51,7 +51,7 @@ last_modified_at: 2023-06-25T23:55:00
     * 2017년 2월에 해시 충돌 약점을 이용한 브루트 포스 공격으로 돌파되어 현재는 사용하지 않습니다. 
 * SHA-2(Secure Hash Algorithm-2)
     * SHA-1을 개량하여 2001년 NIST(미국 표준 기술 연구소)에 의해 표준화 된 규격입니다.
-    * 해시 값의 길이에 따라 안정성이 높아집니다. 
+    * 뒤에 붙는 숫자에 따라 해시 값의 길이와 블록 크기 등이 결정되며 길수록 안정성이 높아집니다. 
     * 현재는 SHA-256이나 SHA-512가 주로 사용되고 있습니다.
 
 ## 2. Problems
@@ -78,7 +78,7 @@ last_modified_at: 2023-06-25T23:55:00
     * 해시 값을 알더라도 레인보우 테이블에서 일치하는 비밀번호를 찾기 어렵습니다.
 
 <p align="center">
-    <img src="/images/hash-and-encryption-2.JPG" width="80%" class="image__border">
+    <img src="/images/hash-for-security-2.JPG" width="80%" class="image__border">
 </p>
 <center>https://st-lab.tistory.com/100</center>
 
@@ -87,7 +87,7 @@ last_modified_at: 2023-06-25T23:55:00
     * 여러 차례 해싱을 수행하기 때문에 더 많은 시간이 소요됩니다.
 
 <p align="center">
-    <img src="/images/hash-and-encryption-3.JPG" width="80%" class="image__border">
+    <img src="/images/hash-for-security-3.JPG" width="80%" class="image__border">
 </p>
 <center>https://st-lab.tistory.com/100</center>
 

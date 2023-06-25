@@ -105,7 +105,7 @@ last_modified_at: 2023-06-25T23:55:00
     * 다이제스트를 생성할 때 메모리 오버헤드를 갖도록 설계되었습니다.
     * 브루트 포스 공격을 방지할 때 사용되며 PBKDF2, BCrypt보다 강력한 보안을 제공합니다.
 
-이번 포스트는 스프링의 `BCrypt`와 JDK의 `MessageDigest`를 사용한 예제 코드를 살펴보겠습니다. 
+이번 포스트 스프링의 `BCrypt`와 JDK의 `MessageDigest`를 사용한 예제 코드를 살펴보겠습니다. 
 
 ### 3.1. Using Bcrypt Algorithm
 

@@ -107,7 +107,7 @@ last_modified_at: 2023-02-06T23:55:00
 ```xml
     <dependencies>
         <dependency>
-            <groupId>it.ozimov</groupIsd>
+            <groupId>it.ozimov</groupId>
             <artifactId>embedded-redis</artifactId>
             <version>0.7.3</version>
             <exclusions>

@@ -6,7 +6,7 @@ category:
   - security
   - java
   - spring
-last_modified_at: 2023-06-26T23:55:00
+last_modified_at: 2023-06-28T23:55:00
 ---
 
 <br/>
@@ -28,6 +28,7 @@ last_modified_at: 2023-06-26T23:55:00
 1. 송신자는 메세지와 비밀 키를 함께 암호화 알고리즘에 통과시켜 MAC을 획득합니다.
 1. 송신자는 메세지와 MA을 함께 송신합니다.
 1. 수신자는 전달 받은 메세지와 미리 공유하고 있던 비밀 키를 함께 암호화 알고리즘에 통과시켜 MAC을 획득합니다.
+    * 이때 사용한 비밀 키는 대칭 키(symmetric key)입니다.
 1. 수신자는 전달 받은 MAC과 새롭게 생성한 MAC을 비교합니다.
     * 같은 MAC 값을 갖는 경우 정상적으로 처리합니다.
     * 다른 MAC 값을 갖는 경우 메세지가 위변조 되었다고 판단합니다.
@@ -35,7 +36,7 @@ last_modified_at: 2023-06-26T23:55:00
 <p align="center">
     <img src="/images/hmac-1.JPG" width="80%" class="image__border image__padding">
 </p>
-<center>https://st-lab.tistory.com/100</center>
+<center>https://en.wikipedia.org/wiki/Message_authentication_code</center>
 
 ## 2. HMAC(Hash-based Message Authentication Code)
 
@@ -47,17 +48,17 @@ last_modified_at: 2023-06-26T23:55:00
 * 원본 데이터의 작은 변화에도 전혀 다른 해시 코드가 생성됩니다. 
     * 작은 위변조에 전혀 다른 값이 출력되므로 데이터 무결성을 검증할 수 있습니다.
 
-다음과 같은 공식을 통해 `HMAC`이 생성됩니다.
+다음과 같은 방식을 통해 `HMAC`이 생성됩니다.
 
 * H - 암호화를 위한 해시 함수
     * MD5, SHA-1, SHA-224, SHA-256, SHA-512 등이 사용됩니다.
 * m - 인증이 필요한 메세지
 * K - 비밀 키
-    * 사전에 발급 받습니다.
-    * 대칭 키를 사용합니다.
+    * 사전에 발급 받으며 대칭 키를 사용합니다.
+    * 유출 우려가 있을 경우 재발급해서 사용해야합니다.
 * K′ - 비밀 키로부터 파생된 블럭 사이즈의 비밀 키
     * 비밀 키를 그대로 사용하기도 합니다.
-* ∥ - 문자열을 붙히는 연산
+* ∥ - 문자열 연결 연산
 * ⊕ - 비트 XOR 연산
 * opad - 블럭 사이즈를 가진 외부 패딩
     * 0x5c 값으로 채웁니다.
@@ -67,9 +68,15 @@ last_modified_at: 2023-06-26T23:55:00
 <p align="center">
     <img src="/images/hmac-2.JPG" width="50%" class="image__border image__padding">
 </p>
+<https://en.wikipedia.org/wiki/HMAC>
 
+## 3. Practice
 
+`HMAC`은 데이터 무결성을 확인하기 위한 도구로 사용됩니다. 
+일반적으로 HTTPS 같은 보안 채널을 통해 메세지를 전송하고 혹시 모를 메세지의 위변조를 `HMAC`을 통해 검증합니다. 
+이번 포스트에선 `HMAC` 검증 필터를 통해 위변조 된 메세지를 검증하는 예시를 살펴보겠습니다. 
 
+* 
 
 ## CLOSING
 
@@ -80,7 +87,7 @@ last_modified_at: 2023-06-26T23:55:00
 #### REFERENCE
 
 * <https://en.wikipedia.org/wiki/HMAC>
-* [메시지 인증 코드](https://ko.wikipedia.org/wiki/%EB%A9%94%EC%8B%9C%EC%A7%80_%EC%9D%B8%EC%A6%9D_%EC%BD%94%EB%93%9C)
+* <https://en.wikipedia.org/wiki/Message_authentication_code>
 * [네트워크 메시지 암호화 및 방식 (중간자 공격, HMAC, 대칭, 비대칭 키)](https://dongwooklee96.github.io/post/2021/03/28/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC-%EB%A9%94%EC%8B%9C%EC%A7%80-%EC%95%94%ED%98%B8%ED%99%94-%EB%B0%8F-%EB%B0%A9%EC%8B%9D-%EC%A4%91%EA%B0%84%EC%9E%90-%EA%B3%B5%EA%B2%A9-hmac-%EB%8C%80%EC%B9%AD-%EB%B9%84%EB%8C%80%EC%B9%AD-%ED%82%A4/)
 
 [hash-for-security-link]: https://junhyunny.github.io/information/security/java/hash-for-security/

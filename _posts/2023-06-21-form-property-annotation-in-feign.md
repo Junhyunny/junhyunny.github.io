@@ -12,8 +12,8 @@ last_modified_at: 2023-06-21T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Spring Cloud Openfeign][spring-cloud-openfeign-link]
-* [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
 * [Logging for FeignClient][logging-for-feign-client-link]
+* [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
 * [Content-Type and Spring Boot Annotation][content-type-and-spring-annotation-link]
 
 ## 1. Problem 
@@ -223,6 +223,6 @@ OpenFeign 측에서 `application/x-www-form-urlencoded` 컨텐트 타입을 지�
 * <https://www.baeldung.com/spring-cloud-post-form-url-encoded-data>
 
 [spring-cloud-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
-[wire-mock-for-feign-client-test-link]: https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/
 [logging-for-feign-client-link]: https://junhyunny.github.io/spring-boot/spring-cloud/logging-for-feign-client/
+[wire-mock-for-feign-client-test-link]: https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/
 [content-type-and-spring-annotation-link]: https://junhyunny.github.io/information/spring-boot/javascript/content-type-and-spring-annotation/

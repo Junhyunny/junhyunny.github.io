@@ -1,0 +1,184 @@
+---
+title: "Repeatable Message Read from Servlet Request"
+search: false
+category:
+  - java
+  - spring-boot
+last_modified_at: 2023-06-30T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [HMAC(Hash-based Message Authentication Code)][hmac-link]
+
+## 1. Problem Context
+
+[HMAC 인증 필터][hmac-link]를 구현하면서 다음 에러를 만났습니다. 
+
+* 실행 후 런타임에서 발생하는 에러 메세지
+
+```
+java.lang.IllegalStateException: getReader() has already been called for this request
+	at org.apache.catalina.connector.Request.getInputStream(Request.java:1024) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
+	at org.apache.catalina.connector.RequestFacade.getInputStream(RequestFacade.java:298) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
+	at org.springframework.http.server.ServletServerHttpRequest.getBody(ServletServerHttpRequest.java:206) ~[spring-web-6.0.10.jar:6.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver$EmptyBodyCheckingHttpInputMessage.<init>(AbstractMessageConverterMethodArgumentResolver.java:323) ~[spring-webmvc-6.0.10.jar:6.0.10]
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:172) ~[spring-webmvc-6.0.10.jar:6.0.10]
+    ... 
+```
+
+* 테스트 실행 시 발생하는 에러 메세지
+
+```
+Request processing failed: java.lang.IllegalStateException: Cannot call getInputStream() after getReader() has already been called for the current request
+jakarta.servlet.ServletException: Request processing failed: java.lang.IllegalStateException: Cannot call getInputStream() after getReader() has already been called for the current request
+	at app//org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1019)
+	at app//org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+    ...
+```
+
+로그에서 볼 수 있듯이 요청(request) 객체에서 getReader() 메소드를 여러번 호출하여 에러가 발생합니다. 
+HMAC 필터에서 application/json 형식의 데이터를 추출하는 작업을 수행했기 때문입니다. 
+
+```java
+@Component
+public class HmacFilter extends OncePerRequestFilter {
+
+    // ...
+
+    private String getMessage(HttpServletRequest request) {
+        try (BufferedReader reader = request.getReader()) {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line);
+            }
+            return stringBuilder.toString();
+        } catch (IOException ioException) {
+            throw new RuntimeException(ioException);
+        }
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        var message = getMessage(request);
+
+        // ...
+
+        filterChain.doFilter(request, response);
+    }
+}
+```
+
+getReader() 메소드를 호출하지 않게 우회하더라도 문제가 발생합니다. 
+
+* InputStream 객체는 메세지를 읽을 때 인덱스를 사용해 바이트 배열의 읽은 위치를 지나가기 때문에 다시 읽지 못 합니다.
+* 요청 객체에 담긴 메세지가 필터에서 소비되어 컨트롤러 영역까지 전달되지 못합니다.
+
+```java
+@Component
+public class HmacFilter extends OncePerRequestFilter {
+
+    // ...
+
+    private String getMessage(HttpServletRequest request) {
+        try (
+                OutputStream outputStream = new ByteArrayOutputStream();
+                InputStream inputStream = request.getInputStream()
+        ) {
+            inputStream.transferTo(outputStream);
+            return outputStream.toString();
+        } catch (IOException ioException) {
+            throw new RuntimeException(ioException);
+        }
+    }
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
+        var message = getMessage(request);
+
+        // ...
+
+        filterChain.doFilter(request, response);
+    }
+}
+```
+
+* 요청 메세지를 필터에서 소비하기 때문에 서블릿 컨테이너에서 메세지를 보내지 않았다는 `bad request(400)`가 발생합니다.
+
+```
+$ curl -X POST http://localhost:8080/todos\
+   -H 'Content-Type: application/json'\
+   -d '{"content":"Hello World"}'
+{"timestamp":"2023-07-01T13:03:13.721+00:00","status":400,"error":"Bad Request","path":"/todos"}%     
+```
+
+* 테스트 실행 시 동일하게 `bad request(400)`가 발생합니다.
+
+```
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /todos
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"32"]
+             Body = {"id":0,"content":"Hello World"}
+    Session Attrs = {}
+
+Handler:
+             Type = action.in.blog.TodoController
+           Method = action.in.blog.TodoController#createTodo(Todo)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = org.springframework.http.converter.HttpMessageNotReadableException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = []
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+
+Status expected:<200> but was:<400>
+Expected :200
+Actual   :400
+```
+
+## 2. Solve the Problem
+
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://meetup.nhncloud.com/posts/44>
+* <https://aljjabaegi.tistory.com/683>
+* <https://dylee.tistory.com/6>
+
+[hmac-link]: https://junhyunny.github.io/information/security/java/spring/hmac/

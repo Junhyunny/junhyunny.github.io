@@ -1,5 +1,5 @@
 ---
-title: "Repeatable Message Read from Servlet Request"
+title: "Repeatablely Read Message from Servlet Request"
 search: false
 category:
   - java

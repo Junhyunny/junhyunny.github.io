@@ -44,7 +44,7 @@ classes: wide
 
 * Java, Apache Nifi, Spring Boot, Spring Cloud, JPA, QueryDSL, MySQL, JUnit, HTML, Sass, TypeScript, React, React Query, Momoent Timezone, Jest, Testing Library, Cypress, Docker Compose, Kubernetes, Jenkins
 * 프론트 오피스 업무 거래용 윈도우 GUI 어플리케이션을 웹 기반 서비스로 재구축
-* 애자일 방법론인 XP(extreme programming) 실천 방법 코칭 및 기술 세션 진행
+* XP(extreme programming) 실천 방법 코칭 및 기술 세션 진행
 * CI/CD 파이프라인 구축을 통한 코드 병합, 빌드, 테스트, 배포 프로세스 자동화
 * 트레이더 정보 및 권한 관리, 코드 관리, 선물(future) 상품 및 거래 도메인 모델 설계 및 개발
 * SSO 인증 프로세스 개발 및 사용자 권한 서비스 연계
@@ -55,7 +55,7 @@ classes: wide
 
 * Java, Apache Camel, Spring Boot, Spring Cloud, JPA, MySQL, JUnit, HTML, Sass, JavaScript, React, Redux Tool-Kit, Jest, Testing Library, Docker Compose, Jenkins
 * 마이데이터를 활용한 사용자 맞춤 알뜰폰 요금제 추천 MVP 서비스 개발
-* 애자일 방법론인 XP(extreme programming) 실천 방법 코칭
+* XP(extreme programming) 실천 방법 코칭
 * CI/CD 파이프라인 구축을 통한 코드 병합, 빌드, 테스트, 배포 프로세스 자동화
 * 마이데이터 기반 알뜰폰 추천을 위한 신규 상품 추천 도메인 모델 설계 및 개발
 * KB 사내 마이데이터 플랫폼 서비스 최초 연계 및 사용

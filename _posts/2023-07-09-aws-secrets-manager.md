@@ -27,7 +27,9 @@ last_modified_at: 2023-07-09T23:55:00
 스프링 클라우드(spring cloud)는 AWS Scretes Manager을 쉽게 사용할 수 있도록 의존성(dependency)를 제공합니다. 
 
 * 아래 의존성들을 추가합니다. 
-* 아래 의존성들이 추가되면 어플리케이션 실행 시점에 `Secrets Manager`에서 필요한 설정 값들을 읽습니다.
+    * spring-cloud-starter-bootstrap
+    * spring-cloud-starter-aws-secrets-manager-config
+* 해당 의존성들이 추가되면 어플리케이션이 실행되는 시점에 `Secrets Manager`에서 필요한 설정들을 읽습니다.
     * bootstrap.yml 파일에 별도 설정이 추가되어야 합니다.
 
 ```xml
@@ -63,8 +65,8 @@ last_modified_at: 2023-07-09T23:55:00
 </p>
 
 * 설정 이름을 작성합니다.
-    * bootstrap.yml 파일에서 접두어(prefix)를 설정하지 않으면 기본적으로 `/secret` 경로가 추가됩니다. 
-    * 설정 이름을 `/secret/action-in-blog`으로 지정하였습니다.
+    * bootstrap.yml 파일에서 별도로 접두어(prefix)를 설정하지 않으면 `/secret/`가 자동으로 추가됩니다. 
+    * 이름을 `/secret/action-in-blog`으로 지정하였습니다.
 
 <p align="center">
     <img src="/images/aws-secrets-manager-3.JPG" width="100%" class="image__border">
@@ -156,7 +158,8 @@ pom.xml 파일에 다음과 같이 의존성들을 추가합니다.
 #### 3.2.2. bootstrap.yml
 
 * `Secrets Manager`를 통해 필요한 설정을 주입 받기 위해 다음과 같은 설정을 추가합니다.
-    * Secrets 이름
+    * Secrets 이름 
+        * 설정을 읽을 때 `/secret/` 접두어가 자동으로 추가됩니다.
     * Secrets 적용 지역(region)
 
 ```yml
@@ -174,7 +177,7 @@ cloud:
 * `Secrets Manager`에 설정한 값들을 주입받습니다.
     * DB_USER - 데이터베이스 사용자
     * DB_PASSWORD - 데이터베이스 비밀번호
-* `Secrets Manager`는 프로파일 기능을 지원하며 이번 테스트를 위해 프로파일을 `dev`로 활성화시켰습니다.
+* `Secrets Manager`는 프로파일 기능을 지원하며 이를 테스트하기 위해 프로파일을 `dev`로 활성화시킵니다.
 
 ```yml
 spring:
@@ -291,7 +294,7 @@ $ aws configure set aws_session_token ${YOUR_AWS_SESSION_TOKEN}
 * The following 1 profile is active: "dev"
     * 활성화 된 프로파일은 `dev`입니다.
 * {databasePassword=password-dev, databaseUser=junhyunny-dev}
-    * `/secret/{name}_{profile}`에 추가된 설정 값이 최우선적으로 적용됩니다.
+    * `/secret/{name}_{profile}`에 추가된 설정이 적용되었습니다.
 
 ```
   .   ____          _            __ _ _

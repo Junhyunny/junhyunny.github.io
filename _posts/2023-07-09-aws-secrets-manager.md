@@ -321,7 +321,7 @@ $ aws configure set aws_session_token ${YOUR_AWS_SESSION_TOKEN}
 
 #### TEST CODE REPOSITORY
 
-* <>
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-07-09-aws-secrets-manager>
 
 #### REFERENCE
 

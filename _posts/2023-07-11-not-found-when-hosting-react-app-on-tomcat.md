@@ -37,11 +37,11 @@ SPA 실행 흐름을 따라가면 문제가 발생하는 지점을 찾을 수 �
 1. 브라우저가 페이지를 그리기 위한 파일들을 최초 한 차례 다운로드 받습니다.
     * 예를 들어 http://localhost:8080에 접속하는 경우 index.html, main-{hash}.js 등 리소스 파일들을 다운로드 받습니다.
 1. URL이 변경되면 index.html은 변경되지 않고 해당하는 페이지 모습을 JavaScript 코드가 그려줍니다. 
-    * 예를 들어 http://localhost:8080/articles로 이동하는 경우 /articles 경로에 해당하는 페이지를 JavaScript가 그려줍니다.
+    * 예를 들어 http://localhost:8080/first-page로 이동하는 경우 /first-page 경로에 해당하는 페이지를 JavaScript가 그려줍니다.
     * 이 과정에서 서버로 새로운 페이지 요청은 없습니다.
 1. 브라우저가 새로고침을 수행하면 URL 경로에 해당하는 페이지를 서버로부터 새롭게 요청합니다.
-    * 예를 들어 http://localhost:8080/articles 경로에서 새로고침을 서버로부터 /articles 경로에 해당하는 페이지를 요청합니다.
-    * 프론트엔드 어플리케이션은 SPA이므로 서버엔 /articles 경로에 해당하는 페이지가 존재하지 않습니다.
+    * 예를 들어 http://localhost:8080/first-page 경로에서 새로고침을 서버로부터 /first-page 경로에 해당하는 페이지를 요청합니다.
+    * 프론트엔드 어플리케이션은 SPA이므로 서버엔 /first-page 경로에 해당하는 페이지가 존재하지 않습니다.
 
 <p align="center">
     <img src="/images/page-not-found-when-hosting-react-app-on-tomcat-2.JPG" width="80%" class="image__border">
@@ -130,6 +130,10 @@ SPA 실행 흐름을 따라가면 문제가 발생하는 지점을 찾을 수 �
 
 ### 3.1. NotFoundErrorController Class
 
+스프링 부트에서 400, 401, 403, 404, 500 등의 오류를 쉽게 처리할 수 있도록 ErrorController 인터페이스를 제공합니다. 
+ErrorController 인터페이스를 구현한 컨트롤러(controller)를 사용하면 쉽게 에러를 처리할 수 있습니다. 
+브라우저가 요청한 경로에 해당되는 자원이 없는 경우 index.html 파일을 보내주는 방식으로 이 문제를 해결합니다. 
+
 * ErrorController 인터페이스를 구현합니다.
     * 스프링 부트 2.3.0 이전에는 getErrorPath() 메소드를 오버라이드하였습니다.
     * 스프링 부트 2.3.0 이후부터는 getErrorPath() 메소드를 지원하지 않습니다.
@@ -156,17 +160,17 @@ public class NotFoundErrorController implements ErrorController {
 ### 3.2. Build and Deploy Application
 
 간단한 스크립트를 통해 어플리케이션을 빌드 및 배포합니다. 
-내장 톰캣을 사용하지 않고 war 파일로 패키징 후 톰캣 서버에 배포합니다. 
-war 패키지를 톰캣 서버에 배포하는 방법은 [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link] 포스트를 참고하시길 바랍니다. 
+내장 톰캣을 사용하지 않고 WAR 파일로 패키징 후 톰캣 서버에 배포합니다. 
+WAR 패키지를 톰캣 서버에 배포하는 방법은 [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link] 포스트를 참고하시길 바랍니다. 
 그래이들(gradle) 기반 스프링 부트 어플리케이션에 리액트 어플리케이션을 얹어서 배포합니다.
 
 1. backend 프로젝트를 빌드합니다.
 1. frontend 프로젝트를 빌드합니다.
     * 빌드 결과를 backend 프로젝트의 정적 자원(static resource) 위치로 복사합니다.
-    * frontend 빌드 결과물을 war 패키지에 함께 묶기 위한 작업입니다.  
+    * frontend 빌드 결과물을 WAR 패키지에 함께 묶기 위한 작업입니다.  
 1. backend 프로젝트를 war 파일로 패키징합니다.
-    * war 패키지의 이름을 `ROOT.war`로 변경합니다.
-1. war 패키지를 톰캣 서버의 webapps 경로로 이동합니다. 
+    * WAR 패키지의 이름을 `ROOT.war`로 변경합니다.
+1. WAR 패키지를 톰캣 서버의 webapps 경로로 이동합니다. 
     * 톰캣 서버는 ROOT.war 패키지 파일을 ROOT 경로에 해제합니다.
     * 톰캣 서버는 ROOT 경로에 해제된 자원을 호스팅합니다.
 
@@ -256,5 +260,6 @@ public class PageController {
 
 * <http://ngmsoftware.com/bbs/board.php?bo_table=study&wr_id=854>
 * <https://juyoungkim223.github.io/springboot/error/ErrorController/>
+* <https://lts0606.tistory.com/533>
 
 [deploy-spring-boot-project-as-war-link]: https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/

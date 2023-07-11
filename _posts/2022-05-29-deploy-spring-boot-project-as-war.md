@@ -271,7 +271,12 @@ NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED -
 </p>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-05-30-deploy-spring-boot-project-as-war>
+
+#### RECOMMEND NEXT POSTS
+
+* [][]
 
 #### REFERENCE
 

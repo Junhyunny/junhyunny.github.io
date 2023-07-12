@@ -10,7 +10,7 @@ last_modified_at: 2022-09-17T23:55:00
 
 ## 1. ngrok
 
-[젠킨스(Jenkins) 설치][jenkins-install-link] 포스트에서 소개했던 도구입니다. 
+[Install Jenkins][jenkins-install-link] 포스트에서 소개했던 도구입니다. 
 `ngrok`을 사용하면 터널링을 통해 로컬 컴퓨터에 구성한 어플리케이션을 인터넷에 노출할 수 있습니다. 
 무료 플랜(Free Plan)을 사용하는 경우 외부에 노출시킬 수 있는 포트(port) 수가 1개로 제한되지만, `ngrok.yml` 파일을 사용하면 포트 여러 개를 동시에 노출할 수 있습니다. 
 

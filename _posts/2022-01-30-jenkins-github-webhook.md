@@ -12,7 +12,7 @@ last_modified_at: 2022-01-30T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
-- [젠킨스(Jenkins) 설치][jenkins-install-link]
+- [Install Jenkins][jenkins-install-link]
 
 👉 이어서 읽기를 추천합니다.
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
@@ -22,7 +22,7 @@ last_modified_at: 2022-01-30T23:55:00
 
 ## 0. 들어가면서
 
-[젠킨스(Jenkins) 설치][jenkins-install-link] 포스트에선 젠킨스 설치 과정을 정리하였습니다. 
+[Install Jenkins][jenkins-install-link] 포스트에선 젠킨스 설치 과정을 정리하였습니다. 
 이번 포스트에선 CI/CD 파이프라인의 시작점인 GitHub 이벤트와 젠킨스를 연결하는 `GitHub Webhooks`에 대해 정리하였습니다. 
 
 ##### GitHub Webhook 작업 영역 

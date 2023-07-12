@@ -1,5 +1,5 @@
 ---
-title: "젠킨스(Jenkins) 설치" 
+title: "Install Jenkins" 
 search: false
 category:
   - information

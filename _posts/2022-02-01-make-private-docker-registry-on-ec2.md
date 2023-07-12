@@ -12,7 +12,7 @@ last_modified_at: 2022-02-01T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 - [HTTPS(HyperText Transfer Protocol over Secure Socket Layer)][https-link]
-- [젠킨스(Jenkins) 설치][jenkins-install-link]
+- [Install Jenkins][jenkins-install-link]
 - [젠킨스(Jenkins) GitHub Webhooks 연동][jenkins-github-webhook-link]
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
 

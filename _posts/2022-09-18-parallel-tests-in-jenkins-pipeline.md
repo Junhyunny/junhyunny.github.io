@@ -11,7 +11,7 @@ last_modified_at: 2022-09-18T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [젠킨스(Jenkins) 설치][jenkins-install-link]
+* [Install Jenkins][jenkins-install-link]
 * [젠킨스(Jenkins) GitHub Webhooks 연동][jenkins-github-webhook-link]
 * [Using Jenkinsfile in Pipeline][using-jenkinsfile-in-pipeline-link]
 

@@ -11,7 +11,7 @@ last_modified_at: 2022-02-01T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
-- [젠킨스(Jenkins) 설치][jenkins-install-link]
+- [Install Jenkins][jenkins-install-link]
 - [젠킨스(Jenkins) GitHub Webhooks 연동][jenkins-github-webhook-link]
 
 👉 이어서 읽기를 추천합니다.

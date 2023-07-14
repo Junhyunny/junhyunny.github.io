@@ -138,7 +138,7 @@ GitLab 프로젝트 저장소의 설정 화면을 통해 필요한 변수를 등
 * 화면 왼쪽에 `Settings` 카테고리에서 CI/CD 탭을 선택합니다.
 
 <p align="left">
-    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-2.JPG" width="40%" class="image__border">
+    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-2.JPG" width="25%" class="image__border">
 </p>
 
 * 변수 섹터(sector)를 찾아 변수를 지정합니다.

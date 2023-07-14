@@ -149,7 +149,7 @@ GitLab 프로젝트 저장소의 설정 화면을 통해 필요한 변수를 등
     * IP, PORT, HOST_USER 정보는 문자열 변수로 등록합니다.
 
 <p align="center">
-    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-3.JPG" width="80%" class="image__border">
+    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-3.JPG" width="100%" class="image__border">
 </p>
 
 ### 3.3. Write Script
@@ -285,14 +285,14 @@ scp -i ~/.ssh/id_rsa -P $HOST_PORT target/$APPLICATION $HOST_USER@$HOST_IP:/home
 
 * 파이프라인 화면
 
-<p align="left">
-    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-4.JPG" width="80%" class="image__border">
+<p align="center">
+    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-4.JPG" width="100%" class="image__border">
 </p>
 
 * 파이프라인의 상세한 작업 화면
 
 <p align="center">
-    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-5.JPG" width="80%" class="image__border">
+    <img src="/images/gitlab-ci-cd-pipeline-for-on-premise-5.JPG" width="100%" class="image__border">
 </p>
 
 ## CLOSING

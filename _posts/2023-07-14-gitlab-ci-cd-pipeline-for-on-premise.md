@@ -113,10 +113,10 @@ drwxr-xr-x+ 68 junhyunk  staff  2176 Jul 13 05:09 ..
 * 정상적으로 수행되었는지 서버 ~/.ssh 경로에 authorized_keys 파일을 통해 확인할 수 있습니다. 
 
 ```
-$ ssh-copy-id -i ~/.ssh/demo-project.pub -p 1322 user@{server-ip}
+$ ssh-copy-id -i ~/.ssh/demo-project.pub user@{server-ip}
 
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/Users/junhyunk/.ssh/demo-project.pub"
-The authenticity of host '[39.115.145.222]:1322 ([39.115.145.222]:1322)' can't be established.
+The authenticity of host '[{server-ip}]:22 ([{server-ip}]:22)' can't be established.
 ED25519 key fingerprint is SHA256:sbVDELk959APnn5SQ43p5qArUcE1rNbzp6Qbd8R2rxo.
 This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
@@ -127,7 +127,7 @@ user@{server-ip}'s password:
 
 Number of key(s) added:        1
 
-Now try logging into the machine, with:   "ssh -p '1322' 'user@{server-ip}'"
+Now try logging into the machine, with:   "ssh 'user@{server-ip}'"
 and check to make sure that only the key(s) you wanted were added.
 ```
 

@@ -199,7 +199,12 @@ Java는 동시성을 제어하기 위해 synchronized 키워드를 제공합니�
 
 #### 2.2.1. Using synchronized keyword
 
-다음과 같은 코드를 작성합니다.
+다음과 같은 코드를 작성합니다. 
+
+* NormalInteger 클래스를 생성합니다.
+* CompletableFuture 클래스를 사용해 두 개의 스레드를 경합시킵니다.
+    * 한 스레드는 값을 증가, 한 스레드는 값을 감소시킵니다.
+* 총 소요되는 시간과 최종 값을 확인합니다.
 
 ```java
 package blog.in.action;
@@ -261,6 +266,9 @@ public class SynchronizeTest {
 
 ##### Result
 
+* 총 소요되는 시간은 16393 입니다.
+* 최종 값은 0으로 정상적인 동기화가 이뤄졌음을 확인할 수 있습니다.
+
 ```
 21:26:57.557 [main] INFO blog.in.action.SynchronizeTest - operation time: 16393
 21:26:57.559 [main] INFO blog.in.action.SynchronizeTest - value: 0
@@ -269,6 +277,11 @@ public class SynchronizeTest {
 #### 2.2.2. Using AtomicInteger class
 
 다음과 같이 코드를 작성합니다.
+
+* AtomicInteger 클래스를 사용합니다.
+* CompletableFuture 클래스를 사용해 두 개의 스레드를 경합시킵니다.
+    * 한 스레드는 값을 증가, 한 스레드는 값을 감소시킵니다.
+* 총 소요되는 시간과 최종 값을 확인합니다.
 
 ```java
 package blog.in.action;
@@ -312,6 +325,10 @@ public class AtomicIntegerTest {
 ```
 
 ##### Result
+
+* 총 소요되는 시간은 8862 입니다.
+    * synchronized 키워드를 사용했을 떄보다 2배 정도 빠름을 확인할 수 있습니다.
+* 최종 값은 0으로 정상적인 동기화가 이뤄졌음을 확인할 수 있습니다.
 
 ```
 21:29:46.742 [main] INFO blog.in.action.AtomicIntegerTest - operation time: 8862

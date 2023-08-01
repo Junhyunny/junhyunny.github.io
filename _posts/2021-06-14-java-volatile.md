@@ -43,7 +43,7 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 </p>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 
-## 2. Misconcepts of volatile keyword 
+### 1.2. Synchronize in Multi Thread Environment
 
 위와 같은 문제를 해결하기 위해 volatile 키워드를 사용합니다. 
 volatile 키워드를 사용하면 CPU 캐시가 아닌 메인 메모리에 저장된 데이터를 사용합니다. 
@@ -55,9 +55,10 @@ Java는 멀티 스레드 환경에서 스레드 안전한 프로그래밍을 위
 * Atomic classes
 * volatile
 
-데이터 동기화는 volatile 키워드만으로 불가능하므로 synchronized 키워드나 Atomic 클래스를 함께 사용해야 합니다. 
+synchronized 키워드나 Atomic 클래스는 동기화를 지원하지만, volatile 키워드는 가시성을 보장할 뿐 동기화를 지원하지 않습니다. 
+데이터 동기화를 위해선 synchronized 키워드나 Atomic 클래스를 함께 사용해야 합니다. 
 
-## 3. Practice
+## 2. Practice
 
 간단한 테스트 코드를 통해 volatile 키워드만 적용되었을 때 데이터 동기화가 잘 이뤄지는지 살펴보겠습니다. 
 

@@ -339,10 +339,15 @@ public class AtomicIntegerTest {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-08-java-atomic>
 
+#### RECOMMEND NEXT POSTS
+
+* [volatile in Java][java-volatile-link]
+
 #### REFERENCE
 
 * [[JAVA] concurrent programming - Atomic(원자성)][java-blog-link]
 * <https://mygumi.tistory.com/111>
 * <https://happyourlife.tistory.com/142>
 
+[java-volatile-link]: https://junhyunny.github.io/information/java/java-volatile/
 [java-blog-link]: https://rightnowdo.tistory.com/entry/JAVA-concurrent-programming-Atomic%EC%9B%90%EC%9E%90%EC%84%B1 

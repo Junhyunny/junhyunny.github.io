@@ -1,5 +1,5 @@
 ---
-title: "volatile keyword in Java"
+title: "volatile in Java"
 search: false
 category:
   - information
@@ -25,7 +25,7 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 * 어플리케이션의 같은 변수를 사용하지만, CPU 캐시에 데이터를 로딩해서 사용합니다.
 
 <p align="center">
-    <img src="/images/java-volatile-1.JPG" width="50%" class="image__border">
+    <img src="/images/java-volatile-1.JPG" width="50%" class="image__border image__padding">
 </p>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 
@@ -39,104 +39,107 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 * 같은 변수를 다른 값으로 사용하게 되면서 로직 상의 문제가 발생합니다.
 
 <p align="center">
-    <img src="/images/java-volatile-2.JPG" width="50%" class="image__border">
+    <img src="/images/java-volatile-2.JPG" width="50%" class="image__border image__padding">
 </p>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 
 ## 2. Misconcepts of volatile keyword 
 
-이런 문제를 해결하기 위해 volatile 키워드를 사용합니다. 
-volatile 키워드를 사용하면 CPU 캐시가 아닌 메인 메모리에 저장된 데이터를 사용합니다.
-volatile 키워드는 데이터 불일치 문제는 해결할 수 있지만, 성능을 위해 캐시를 사용하는만큼 성능의 차이가 발생할 수 있습니다. 
+위와 같은 문제를 해결하기 위해 volatile 키워드를 사용합니다. 
+volatile 키워드를 사용하면 CPU 캐시가 아닌 메인 메모리에 저장된 데이터를 사용합니다. 
+데이터 불일치 문제는 해결할 수 있지만, 캐시를 사용하지 않는 만큼 성능이 떨어질 수 있습니다. 
 
-Java 멀티 스레드 환경 프로그래밍에 대한 대표적인 키워드를 꼽으면 `synchronized, Atomic class, volatile` 입니다. 
-volatile 키워드는 스레드 간 데이터 동기화가 아닌 저장 공간이 다름으로 인해 발생하는 데이터 불일치를 해결합니다. 
-멀티 스레드 환경에서 데이터 동기화는 volatile 키워드만으로 해결되지는 않습니다. 
-`synchronized`, `Atomic 키워드 클래스`를 사용하여 데이터 동기화를 보장해야합니다.  
+Java는 멀티 스레드 환경에서 스레드 안전한 프로그래밍을 위해 다음과 같은 기능들을 제공합니다. 
 
-### 2.1. 데이터 불일치 테스트
-- addTh, subTh Thread 객체가 NomalInteger 객체를 공유합니다.
-- addTh, subTh 스레드는 각자 동일한 횟수만큼 데이터를 증감시킵니다.
-- NormalInteger 객체의 멤버 변수인 value는 volatile 키워드를 붙혀 메인 메모리에서 데이터를 읽고 저장합니다.
-- 결과를 확인합니다.
+* synchronized
+* Atomic classes
+* volatile
+
+데이터 동기화는 volatile 키워드만으로 불가능하므로 synchronized 키워드나 Atomic 클래스를 함께 사용해야 합니다. 
+
+## 3. Practice
+
+간단한 테스트 코드를 통해 volatile 키워드만 적용되었을 때 데이터 동기화가 잘 이뤄지는지 살펴보겠습니다. 
+
+* 두 개의 스레드가 NormalInteger 객체를 공유합니다.
+    * NormalInteger 객체에서 관리하는 value 데이터는 volatile 키워드가 적용되어 있습니다.
+* 각 스레드는 값을 증가, 감소시키는 연산을 수행합니다.
 
 ```java
 package blog.in.action.volatilekeyword;
 
+import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.CompletableFuture;
+
+@Getter
+class NormalInteger {
+    private volatile int value;
+
+    public NormalInteger(int value) {
+        this.value = value;
+    }
+
+    public void increase() {
+        this.value++;
+    }
+
+    public void decrease() {
+        this.value--;
+    }
+}
 
 @Log4j2
 public class VolatileTest {
 
-    class NormalInteger {
-
-        volatile int value;
-
-        NormalInteger(int value) {
-            this.value = value;
-        }
-    }
-
-    class SynchronizedThread extends Thread {
-
-        boolean operation;
-
-        VolatileTest.NormalInteger normalInteger;
-
-        public SynchronizedThread(boolean operation, VolatileTest.NormalInteger normalInteger) {
-            this.operation = operation;
-            this.normalInteger = normalInteger;
-        }
-
-        void add() {
-            normalInteger.value++;
-        }
-
-        void subtract() {
-            normalInteger.value--;
-        }
-
-        @Override
-        public void run() {
-            int limit = Integer.MAX_VALUE / 10;
-            for (int index = 0; index < limit; index++) {
-                if (operation) {
-                    add();
-                } else {
-                    subtract();
-                }
-            }
-        }
-    }
+    int limit = Integer.MAX_VALUE / 10;
 
     @Test
-    public void synchronized_test() throws InterruptedException {
-        long start = System.currentTimeMillis();
-        VolatileTest.NormalInteger integer = new VolatileTest.NormalInteger(0);
-        Thread addTh = new VolatileTest.SynchronizedThread(true, integer);
-        Thread subTh = new VolatileTest.SynchronizedThread(false, integer);
-        addTh.start();
-        subTh.start();
-        addTh.join();
-        subTh.join();
-        long end = System.currentTimeMillis();
-        log.info("operation time: " + (end - start) + ", value: " + integer.value);
+    public void test() {
+
+        var start = System.currentTimeMillis();
+        var normalInteger = new NormalInteger(0);
+
+        var firstThread = CompletableFuture.runAsync(() -> {
+            for (int index = 0; index < limit; index++) {
+                normalInteger.increase();
+            }
+        });
+        var secondThread = CompletableFuture.runAsync(() -> {
+            for (int index = 0; index < limit; index++) {
+                normalInteger.decrease();
+            }
+        });
+
+        firstThread.join();
+        secondThread.join();
+
+        var end = System.currentTimeMillis();
+        log.info("operation time: {}, value: {}", (end - start), normalInteger.getValue());
     }
 }
 ```
 
-##### 결과 로그
-- 조회된 데이터의 값이 7979137이므로 정상적인 데이터 동기화가 이루어지지 않았음을 확인합니다.
+##### Result
+
+* 데이터 동기화가 정상적으로 이뤄지지 않습니다.
 
 ```
-00:17:16.098 [main] INFO blog.in.action.volatilekeyword.VolatileTest - operation time: 7784, value: 7979137
+07:44:46.102 [main] INFO blog.in.action.volatilekeyword.VolatileTest - operation time: 9566, value: 216466
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-14-java-volatile>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-14-java-volatile>
+
+#### RECOMMEND NEXT POSTS
+
+* [Atomic Classes in Java][java-atomic]
 
 #### REFERENCE
-- <http://tutorials.jenkov.com/java-concurrency/volatile.html>
+
+* <http://tutorials.jenkov.com/java-concurrency/volatile.html>
 
 [java-atomic-link]: https://junhyunny.github.io/information/java/java-atomic/

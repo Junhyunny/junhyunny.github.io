@@ -137,7 +137,7 @@ public class VolatileTest {
 
 #### RECOMMEND NEXT POSTS
 
-* [Atomic Classes in Java][java-atomic]
+* [Atomic Classes in Java][java-atomic-link]
 
 #### REFERENCE
 

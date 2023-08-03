@@ -13,21 +13,25 @@ last_modified_at: 2021-06-16T00:00:00
 > Wiki<br/>
 > White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) is a method of software testing that tests internal structures or workings of an application
 
-내부 구조나 어플리케이션 동작 방식에 대해 테스트를 수행하는 방식입니다. 
-모듈의 정상적인 작동을 코드 레벨에서 확인하는 테스트 방법입니다. 
-컴파일 된 원시 코드의 모든 문장을 한 번 이상 수행시키면서 진행하는 검사입니다. 
-코드의 논리적인 수행 경로를 테스트합니다. 
-흔히 말하는 코드 테스트 커버러지 퍼센트(%)를 측정하는 일이 여기에 속하는 것으로 보입니다. 
-테스트를 수행하기 위해 내부적으로 소프트웨어와 코드가 어떻게 동작하는지 이해하고 있어야 합니다. 
+내부 구조나 어플리케이션 동작 방식에 대해 테스트를 수행합니다. 
+다음과 같이 정리할 수 있습니다. 
 
-<p align="center"><img src="/images/white-box-black-box-test-1.JPG" width="40%"></p>
+* 모듈의 정상적인 작동을 코드 레벨에서 확인합니다. 
+    * 컴파일 된 원시 코드의 문장을 여러번 수행합니다.
+    * 코드의 논리적인 수행 경로를 확인하기 때문에 테스트 커버리지(coverage) 측정이 가능합니다. 
+* 테스트를 수행하기 위해 내부적으로 소프트웨어와 코드가 어떻게 동작하는지 이해하고 있어야 합니다. 
+
+<p align="center">
+    <img src="/images/white-box-black-box-test-1.JPG" width="40%" class="image__border">
+</p>
 <center>http://www.splex.co.kr/black-white-box-test</center>
 
 ### 1.1. White Box Test 종류
-- 기초 경로 검사(구조 검사, Basic Path Testing): 수행 가능한 모든 경로 검사
-- 루프 검사(반복문 검사, Loop Testing): 프로그램의 반복 구조에 초점을 맞추어 검사
-- 데이터 흐름 검사(Data Flolw Testing): 프로그램에서 변수의 정의와 변수 사용 위치에 초점을 맞추어 검사
-- 조건 검사(Condition Testing): 프로그램의 조건문에 초점을 맞추어 검사
+
+* 기초 경로 검사(구조 검사, Basic Path Testing): 수행 가능한 모든 경로 검사
+* 루프 검사(반복문 검사, Loop Testing): 프로그램의 반복 구조에 초점을 맞추어 검사
+* 데이터 흐름 검사(Data Flolw Testing): 프로그램에서 변수의 정의와 변수 사용 위치에 초점을 맞추어 검사
+* 조건 검사(Condition Testing): 프로그램의 조건문에 초점을 맞추어 검사
 
 ## 2. Black Box Test
 

@@ -8,17 +8,10 @@ last_modified_at: 2021-06-16T00:00:00
 
 <br/>
 
-## 0. 들어가면서 
-
-테스트에도 종류가 있다는걸 아셨나요? 
-테스트 종류에 관련된 이야기를 들었으나 명확하게 정리가 되지 않았습니다. 
-이번 기회에 포스트로 정리해보았습니다.
-
 ## 1. White Box Test
 
 > Wiki<br/>
-> White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) 
-> is a method of software testing that tests internal structures or workings of an application
+> White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) is a method of software testing that tests internal structures or workings of an application
 
 내부 구조나 어플리케이션 동작 방식에 대해 테스트를 수행하는 방식입니다. 
 모듈의 정상적인 작동을 코드 레벨에서 확인하는 테스트 방법입니다. 

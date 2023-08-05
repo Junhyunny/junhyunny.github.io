@@ -12,6 +12,7 @@ last_modified_at: 2021-09-02T03:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
+* [Cascade in Database][cascade-in-database-link]
 * [JPA(Java Persistence API)][java-persistence-api-link]
 * [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
 
@@ -637,6 +638,6 @@ Hibernate: select p1_0.id,c1_0.post_id,c1_1.id,c1_1.content,p1_0.content from po
 
 [cascade-blog-link]: https://gunju-ko.github.io/jpa/2019/05/21/JPA-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D-%EC%9E%85%EB%AC%B8-chapter11-%EC%98%81%EC%86%8D%EC%84%B1-%EC%A0%84%EC%9D%B4.html
 
-
+[cascade-in-database-link]: https://junhyunny.github.io/information/database/cascade-in-database/
 [java-persistence-api-link]: https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/
 [jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/

@@ -16,8 +16,7 @@ last_modified_at: 2023-08-05T23:55:00
 > Referential integrity is a property of data stating that all its references are valid. In the context of relational databases, it requires that if a value of one attribute (column) of a relation (table) references a value of another attribute (either in the same or a different relation), then the referenced value must exist.
 
 참조 무결성이란 기본 키(primary key)와 외래 키(foreign key)로 연결된 테이블들의 데이터 관계(혹은 상태)를 일관성 있게 유지하려는 데이터베이스의 규칙입니다. 
-참조 무결성은 데이터베이스의 일관성과 정확성을 보장하는데 중요한 역할을 수행합니다. 
-이를 통해 다음과 같은 중요한 기능들이 보장됩니다.
+참조 무결성 제약 조건(constraint)은 불법적인 연결이나 무효한 값이 삽입되는 것을 방지함으로써 데이터 무결성, 일관성을 보장합니다.
 
 * 데이터 무결성
     * 외래 키가 참조하는 기본 키의 값은 항상 유효해야 합니다.
@@ -25,8 +24,6 @@ last_modified_at: 2023-08-05T23:55:00
 * 데이터 일관성
     * 데이터베이스 내의 관련된 테이블들이 항상 일관성 있게 유지됩니다.
     * 포스트(post) 테이블과 댓글(reply) 테이블 사이의 관계에서, 특정 댓글은 반드시 데이터베이스에 존재하는 포스트와 연결되어야 합니다. 
-* 데이터 무결성 제약 조건
-    * 불법적인 연결이나 무효한 값이 삽입되는 것을 방지합니다.
 
 ### 1.1. Practice
 
@@ -92,12 +89,12 @@ Query OK, 1 row affected (0.00 sec)
 
 ## 2. Cascade in Database
 
-관계형 데이터베이스는 참조 관계를 맺은 테이블들의 상태를 신뢰성 있게 유지하기 위해 `Cascade`를 사용합니다. 
+`Cascade`는 참조 무결성에 관련된 옵션들 중 하나로 외래 키 제약 조건에 추가합니다. 
+관계형 데이터베이스는 참조 관계를 맺은 테이블들의 상태를 신뢰성 있게 유지하기 위해 Cascade 옵션을 사용합니다. 
 외래 키와 기본 키 사이의 관계를 유지하면서 특정 작업(업데이트 혹은 삭제)을 수행합니다. 
 예를 들어 부모 테이블의 레코드를 삭제하는 경우 해당 변경을 적용할 때 영향을 받는 자식 테이블에 레코드도 자동으로 삭제하는 기능을 의미합니다. 
 
-MySQL의 경우 다음과 같이 외래 키 제약 조건에 조건을 추가할 수 있습니다. 
-Cascade는 참조 무결성에 관련된 옵션 중 하나입니다.
+MySQL의 경우 외래 키 제약 조건에 다음과 같은 조건들을 추가할 수 있습니다. 
 
 * RESTRICT
     * 부모 테이블의 레코드가 삭제되거나 업데이트되는 것을 금지합니다.
@@ -128,8 +125,8 @@ reference_option:
 
 다음과 같은 테이블과 데이터를 준비합니다.
 
-* 답글 테이블에 만드는 외래 키에 Cascade 제약 조건을 추가합니다.
-    * 업데이트와 삭제에 대한 제약 조건으로 Cascade를 추가합니다. 
+* 답글 테이블에 만드는 외래 키에 Cascade 옵션을 추가합니다.
+    * 업데이트와 삭제에 대해 Cascade 작업을 수행합니다. 
 
 ```sql
 CREATE TABLE TB_POST (
@@ -216,7 +213,7 @@ select * from TB_POST_REPLY;
 
 ## 2.2. Cascade Pros and Cons
 
-Cascade 제약 조건은 편리하지만, 주의해서 사용해야합니다. 
+Cascade 옵션 설정은 편리하지만, 주의해서 사용해야합니다. 
 다음과 같은 장점이 있습니다. 
 
 * 외래 키와 기본 키 사이의 관계가 유지됨으로써 데이터 무결성이 보장됩니다.
@@ -230,8 +227,8 @@ Cascade 제약 조건은 편리하지만, 주의해서 사용해야합니다.
 * 데이터 손실의 위험성이 있습니다.
     * 부모 테이블의 레코드를 삭제하면 연결된 자식 테이블이 레코드들도 자동으로 삭제됩니다.
     * 실수로 데이터를 삭제하거나 잘못된 레코드를 삭제하는 경우 영향을 받는 다른 테이블들의 데이터도 함께 삭제됩니다.
-* Cascade 제약 조건을 사용하면 데이터베이스의 관계가 복잡해집니다. 
-* Cascade 제약 조건에 의해 수행되는 작업은 여러 테이블에 영향을 미치지 때문에 대량의 데이터가 있는 경우 성능에 영향을 줄 수 있습니다. 
+* Cascade 설정을 사용하면 데이터베이스의 관계가 복잡해집니다. 
+* Cascade 설정에 의해 수행되는 작업은 여러 테이블에 영향을 미치지 때문에 대량의 데이터가 있는 경우 성능에 영향을 줄 수 있습니다. 
 
 #### RECOMMEND NEXT 
 
@@ -242,5 +239,6 @@ Cascade 제약 조건은 편리하지만, 주의해서 사용해야합니다.
 * <https://en.wikipedia.org/wiki/Referential_integrity>
 * <https://joel-dev.site/90>
 * <https://dev.mysql.com/doc/refman/8.0/en/create-table-foreign-keys.html>
+* <https://chat.openai.com>
 
 [jpa-cascade-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-cascade-type/

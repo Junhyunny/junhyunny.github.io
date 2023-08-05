@@ -170,6 +170,12 @@ it("사용자 컨텍스트는 사용자 정보를 제공한다.", async () => {
 });
 ```
 
+## CLOSING
+
+[advanced-hooks](https://react-hooks-testing-library.com/usage/advanced-hooks) 글을 보면 useContext 훅을 사용하는 커스텀 훅을 테스트합니다. 
+컨텍스트 프로바이더(context provider)를 통해 전달되는 값을 확인할 수 있습니다. 
+초기 상태를 지정할 수 있으며 필요한 경우 프로퍼티를 변환하면서 리-렌더링할 수 있습니다. 
+
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-08-05-react-context-test-with-render-hook>

@@ -25,6 +25,7 @@ org.springframework.core.convert.ConverterNotFoundException: No converter found 
 관련된 내용들을 정리해보겠습니다.
 
 ## 1. Error 발생 재현
+
 `GROUP BY` 키워드가 들어간 쿼리를 사용할 때 반환 타입으로 클래스를 사용하면 에러가 발생합니다. 상황을 재현해보았습니다. 
 
 ### 1.1. ItemNameGroupVo 클래스

@@ -12,9 +12,8 @@ last_modified_at: 2021-09-04T06:00:00
 
 ## 0. 들어가면서
 
-통계성 데이터를 보여줄 때 주로 `GROUP BY`가 포함된 SQL을 사용합니다. 
-대부분의 데이터 처리를 SQL이 아닌 비즈니스 로직에서 해결하지만 통계성 데이터는 역시 SQL을 이용하는 것이 여러모로 편리한 것 같습니다. 
-JPA를 사용하고 처음으로 `GROUP BY` 키워드가 들어간 SQL을 사용했을 때 이런 Exception을 마주쳤습니다. 
+통계성 데이터를 만들 때 보통 `GROUP BY`가 포함된 SQL을 사용합니다. 
+`spring-boot-starter-data-jpa` 의존성을 사용하고 있었기 때문에 JpaRepository 인터페이스와 @Query 애너테이션으로 쿼리를 작성하였는데 다음과 같은 에러를 만났습니다. 
 
 ```
 org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [org.springframework.data.jpa.repository.query.AbstractJpaQuery$TupleConverter$TupleBackedMap] to type [com.geneuin.ksystem.common.domain.vo.ContainerGroupByItemGroup]

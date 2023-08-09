@@ -19,11 +19,10 @@ last_modified_at: 2021-09-04T06:00:00
 org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [org.springframework.data.jpa.repository.query.AbstractJpaQuery$TupleConverter$TupleBackedMap] to type [com.geneuin.ksystem.common.domain.vo.ContainerGroupByItemGroup]
 ```
 
-로그를 읽어보면 spring-data-jpa 에서 반환하는 타입이 제가 지정한 타입으로 자동 변환되지 않아서 발생하는 것으로 유추됩니다. 
-해결할 수 있는 방법을 찾아보니 방법이 세 가지 존재합니다. 
-관련된 내용들을 정리해보겠습니다.
+로그를 살펴보면 지정한 타입으로 쿼리 수행 결과를 변환하지 못하는 문제가 있는 것으로 유추됩니다. 
+이번 포스트는 이 문제를 해결할 수 있는 방법들에 대해 정리하였습니다. 
 
-## 1. Error 발생 재현
+## 1. The Context of Problem
 
 `GROUP BY` 키워드가 들어간 쿼리를 사용할 때 반환 타입으로 클래스를 사용하면 에러가 발생합니다. 상황을 재현해보았습니다. 
 

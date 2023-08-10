@@ -19,14 +19,15 @@ last_modified_at: 2021-09-04T06:00:00
 org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [org.springframework.data.jpa.repository.query.AbstractJpaQuery$TupleConverter$TupleBackedMap] to type [com.geneuin.ksystem.common.domain.vo.ContainerGroupByItemGroup]
 ```
 
+JpaRepository 인터페이스에 `GROUP BY` 키워드가 들어간 쿼리를 작성 후 실행하면 위와 같은 에러가 발생합니다. 
 로그를 살펴보면 지정한 타입으로 쿼리 수행 결과를 변환하지 못하는 문제가 있는 것으로 유추됩니다. 
 이번 포스트는 이 문제를 해결할 수 있는 방법들에 대해 정리하였습니다. 
 
 ## 1. The Context of Problem
 
-`GROUP BY` 키워드가 들어간 쿼리를 사용할 때 반환 타입으로 클래스를 사용하면 에러가 발생합니다. 상황을 재현해보았습니다. 
+간단한 예제 코드를 통해 문제 상황을 재현해보겠습니다. 
 
-### 1.1. ItemNameGroupVo 클래스
+### 1.1. ItemNameGroupVo Class
 
 ```java
 @Getter

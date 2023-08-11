@@ -30,7 +30,7 @@ last_modified_at: 2023-03-22T23:55:00
     <img src="/images/build-docker-image-with-nonexistent-commands-1.gif" width="100%" class="image__border">
 </p>
 
-## 2. Solving the Problem 
+## 2. Solve the problem 
 
 다음과 같은 방법으로 문제를 해결할 수 있습니다. 
 

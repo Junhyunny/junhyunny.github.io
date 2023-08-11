@@ -30,7 +30,7 @@ Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
     <img src="/images/maven-using-multiple-repositories-1.JPG" width="80%" class="image__border">
 </p>
 
-## 2. Solving the problem
+## 2. Solve the problem
 
 [메이븐 저장소][simplecaptcha-link]를 가면 해당 라이브러리를 제공하는 것처럼 보이지만, 실제론 다른 저장소에 의존성이 존재합니다. 
 실제 저장소의 URL을 확인하고, 이를 `pom.xml` 파일에 명시해주면 문제를 해결할 수 있습니다. 

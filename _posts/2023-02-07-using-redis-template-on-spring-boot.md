@@ -493,7 +493,7 @@ $ curl -X POST\
   http://localhost:8080/invitation/cancel
 ```
 
-##### Result of Test
+##### Test Result
 
 메세지 조회 명령어를 수행합니다. 
 2회 수행하면 빈 리스트가 오는 것을 확인할 수 있습니다. 

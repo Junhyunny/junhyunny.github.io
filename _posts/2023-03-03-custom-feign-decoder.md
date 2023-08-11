@@ -241,7 +241,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 BUILD SUCCESSFUL in 12s

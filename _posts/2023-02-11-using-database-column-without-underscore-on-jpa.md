@@ -123,7 +123,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 테스트 코드를 실행하면 다음과 같은 에러를 만납니다.
 
@@ -208,7 +208,7 @@ public class PhysicalNamingStrategyStandardImpl implements PhysicalNamingStrateg
 }
 ```
 
-###### Result of Test
+###### Test Result
 
 * 명시적으로 지정한 이름을 따라 `insert` 쿼리가 실행됩니다.
 

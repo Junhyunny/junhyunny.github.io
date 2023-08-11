@@ -206,7 +206,7 @@ public class RepositoryTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 제목으로 조회하는 쿼리
     * `where post0_.title=?`
@@ -358,7 +358,7 @@ public class EntityManagerTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 버전 값을 0으로 업데이트하는 쿼리
     * `update post set version_no=0 where id=1`
@@ -428,7 +428,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
     }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 버전 값을 0으로 업데이트하는 쿼리
     * `update post set version_no=0 where id=1`

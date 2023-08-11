@@ -372,7 +372,7 @@ class AServiceApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * `서비스A`로부터 100회 응답을 받습니다.
 * 두 개의 `서비스B`로부터 각 50회씩 응답을 받습니다.

@@ -202,7 +202,7 @@ public class RepositoryTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 제목으로 조회하는 쿼리
     * `where post0_.title=? for update`
@@ -353,7 +353,7 @@ public class EntityManagerTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 제목으로 조회하는 쿼리
     * `where post0_.title='Hello World' for update`

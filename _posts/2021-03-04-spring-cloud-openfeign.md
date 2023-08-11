@@ -267,7 +267,7 @@ $  docker-compose up -d
  - Container 2021-03-04-spring-cloud-openfeign-b-service-1  Started
 ```
 
-##### Result of Test
+##### Test Result
 
 사용자 터미널에서 `cURL` 명령어를 통해 테스트를 수행합니다.
 

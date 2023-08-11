@@ -262,7 +262,7 @@ public class CircuitBreakerTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 테스트 결과를 `id` 범위에 맞춰 나눠 살펴보겠습니다.
 

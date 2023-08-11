@@ -155,7 +155,7 @@ $ docker-compose up -d
  - Container 2021-03-07-dynamic-uri-using-openfeign-b-service-1  Started                                                                                                                      0.7s
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 $  curl http://localhost:8080/health

@@ -164,7 +164,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 2023-03-02T20:52:40.484+09:00 DEBUG 14705 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#health] ---> GET http://localhost:10405/health HTTP/1.1
@@ -231,7 +231,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 2023-03-02T20:54:15.074+09:00 DEBUG 14847 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#search] ---> GET http://localhost:11900/search?keyword=hello HTTP/1.1
@@ -321,7 +321,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 2023-03-02T20:54:36.774+09:00 DEBUG 14877 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#createPost] ---> POST http://localhost:11659/post HTTP/1.1

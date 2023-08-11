@@ -217,7 +217,7 @@ class BComponent {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 java.lang.StackOverflowError
@@ -290,7 +290,7 @@ class DComponent {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.

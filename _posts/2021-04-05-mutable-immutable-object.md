@@ -99,7 +99,7 @@ public class MutableTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 `change_state_single_thread` 메소드는 정상적으로 테스트가 통과하므로 살펴보지 않겠습니다. 
 아래 로그는 `change_state_with_multi_thread` 메소드 수행 결과입니다. 

@@ -174,7 +174,7 @@ public class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * GET 메소드 요청이 수행됩니다.
 * 요청 URL이 `http://localhost:11962/search?name=jun&age=20&address=Seoul` 입니다.
@@ -385,7 +385,7 @@ public class ActionInBlogApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * GET 메소드 요청이 수행됩니다.
 * 요청 URL이 `http://localhost:11962/search?name=jun&age=20&address=Seoul` 입니다.

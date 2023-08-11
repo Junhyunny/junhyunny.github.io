@@ -252,7 +252,7 @@ public class GroupByObjectArrayTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 다음과 같은 실행 결과를 얻습니다.
 
@@ -397,7 +397,7 @@ public class GroupByCustomClassTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 다음과 같은 실행 결과를 얻습니다.
 
@@ -571,7 +571,7 @@ public class GroupByProjectionInterfaceTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 ```
 OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended

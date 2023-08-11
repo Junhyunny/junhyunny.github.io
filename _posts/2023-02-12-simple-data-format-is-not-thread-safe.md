@@ -111,7 +111,7 @@ public class ThreadNotSafeSimpleDateFormatTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 먼저 실행된 스레드에서 변경한 포맷으로 결과가 출력됩니다.
 
@@ -180,7 +180,7 @@ public class ThreadSafeSimpleDateFormatTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 먼저 실행된 스레드에서 포맷을 변경하였지만, 처음 설정한 포맷에 맞는 결과가 출력됩니다.
 
@@ -224,7 +224,7 @@ public class SimpleDateFormatParseTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 파싱(parsing) 작업이 정상적으로 수행되지 않습니다.
     * 같은 값을 파싱하지만 결과가 동일하지 않습니다.
@@ -279,7 +279,7 @@ public class SimpleDateFormatParseTest {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 정상적으로 파싱 작업이 수행됩니다.
 

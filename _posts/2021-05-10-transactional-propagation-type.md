@@ -276,7 +276,7 @@ public class RequiredTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 부모와 자식이 모두 `REQUIRED` 전파 타입으로 지정한 경우
     * 테스트는 정상적으로 통과합니다.
@@ -527,7 +527,7 @@ public class SupportsTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 부모는 `REQUIRED`, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
     * 테스트는 정상적으로 통과합니다.
@@ -746,7 +746,7 @@ public class MandatoryTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 자식 서비스에서 조회하거나 데이터를 추가(insert)하는 쿼리가 실행되지 않습니다.
 
@@ -920,7 +920,7 @@ public class RequiresNewTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 테스트는 정상적으로 통과합니다.
 * 부모 서비스 트랜잭션에서 `1254589807` 세션 객체, 자식 서비스 트랜잭션에서 `456897159` 세션 객체를 각각 따로 사용합니다.
@@ -1106,7 +1106,7 @@ public class NotSupportedTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * `Suspending current transaction` 로그를 통해 `308998656` 세션 객체로 진행되던 트랜잭션은 멈췄음을 알 수 있습니다. 
 * `Resuming suspended transaction after completion of inner transaction` 로그를 통해 트랜잭션이 다시 시작됨을 알 수 있습니다.
@@ -1285,7 +1285,7 @@ public class NeverTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 자식 서비스에서 조회하거나 데이터를 추가(insert)하는 쿼리가 실행되지 않습니다.
 
@@ -1391,7 +1391,7 @@ public class NestedTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * 자식 서비스에서 조회하거나 데이터를 추가(insert)하는 쿼리가 실행되지 않습니다.
 

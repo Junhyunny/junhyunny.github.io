@@ -27,7 +27,7 @@ last_modified_at: 2021-04-18T09:00:00
 개인(private) 저장소들은 정상적으로 탐색되었기 때문에 조직(organization) 저장소라는 점이 수상했습니다. 
 문제 원인은 소스트리 어플리케이션이 조직에 대한 접근 승인이 되지 않았던 것이었습니다. 
 
-## 2. Solving the Problem
+## 2. Solve the problem
 
 다음과 같은 과정을 통해 문제를 해결할 수 있습니다. 
 

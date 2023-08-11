@@ -288,7 +288,7 @@ $ docker-compose up -d
  - Container 2021-03-08-spring-cloud-netflix-eureka-b-service-1       Started                                                                                                                      0.8s 
 ```
 
-##### Result of Test
+##### Test Result
 
 * `http://localhost:8761`으로 접속합니다.
 * 등록된 서비스 정보를 확인합니다.

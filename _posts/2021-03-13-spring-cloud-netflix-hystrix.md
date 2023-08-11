@@ -316,7 +316,7 @@ class AServiceApplicationTests {
 }
 ```
 
-##### Result of Test
+##### Test Result
 
 * `서비스A`로 요청한 두 경로 모두 `BlogClientFallbackPlan` 객체에 의해 대체된 응답을 전달 받습니다.
 

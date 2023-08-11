@@ -227,7 +227,7 @@ public class DirtyCheckPostStoreIT {
 }
 ```
 
-##### Result of Test 
+##### Test Result 
 
 * 업데이트 이전에 엔티티 조회 쿼리가 실행됩니다.
 * 업데이트 쿼리의 조건으로 ID, 버전 정보를 사용합니다.
@@ -427,7 +427,7 @@ public class UpdateQueryPostStoreIT {
 }
 ```
 
-##### Result of Test 
+##### Test Result 
 
 * 업데이트 쿼리의 조건으로 ID, 버전 정보를 사용합니다.
     * 업데이트 수행 시 엔티티의 버전을 함께 증가시킵니다.

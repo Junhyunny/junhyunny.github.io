@@ -16,7 +16,7 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 다음과 같은 사이즈(1900×240)를 가진 이미지로 애니메이션을 구현하겠습니다. 
 
 <p align="center">
-    <img src="/images/sprite-animation-in-css-1.JPG" width="100%" class="image__border image__pading">
+    <img src="/images/sprite-animation-in-css-1.JPG" width="100%" class="image__border image__padding">
 </p>
 <center>CSS 스프라이트 애니메이션</center>
 
@@ -25,7 +25,8 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 원리는 일반적인 애니메이션 영상을 만드는 것과 동일합니다. 
 
 * 이미지 전체 중에서 한 프레임 크기만큼만 보여줍니다.
-* 시간이 지남에 따라 한 프레임 단위로 이미지 위치를 이동시킵니다.
+    * 해당 영역은 고정되어 있습니다.
+* 시간이 지남에 따라 한 프레임 단위로 백그라운드 이미지 위치를 이동시킵니다.
 
 <p align="center">
     <img src="/images/sprite-animation-in-css-2.JPG" width="100%" class="image__border">

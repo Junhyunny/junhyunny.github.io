@@ -99,7 +99,7 @@ public class EmbeddedRedisServer {
 }
 ```
 
-## 2. Solving Problems
+## 2. Solve the problems
 
 내장 레디스 서버를 사용하면 다음과 같은 에러 로그를 만날 수 있습니다.
 

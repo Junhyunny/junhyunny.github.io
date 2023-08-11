@@ -22,7 +22,7 @@ last_modified_at: 2021-09-04T06:00:00
 org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [org.springframework.data.jpa.repository.query.AbstractJpaQuery$TupleConverter$TupleBackedMap] to type [com.geneuin.ksystem.common.domain.vo.ContainerGroupByItemGroup]
 ```
 
-## 1. The Context of Problem
+## 1. Problem Context
 
 로그를 살펴보면 지정한 타입으로 쿼리 수행 결과를 변환하지 못하는 문제가 있는 것으로 유추됩니다. 
 이번 포스트는 이 문제를 해결할 수 있는 방법들에 대해 정리하였습니다. 
@@ -132,7 +132,7 @@ public class GroupByFailTest {
 }
 ```
 
-## 2. Solving the problem
+## 2. Solve the problem
 
 해당 쿼리를 정상적으로 실행시킬 수 있는 방법은 3가지 있습니다. 
 하나씩 살펴보겠습니다. 

@@ -89,6 +89,12 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 
 {% include codepen.html hash="JjeQRKj" tab="css,result" title="Sprite Image Animation" %}
 
+#### RECOMMEND NEXT POSTS
+
+* [Restart CSS Animation by JavaScript][restart-css-animation-by-javascript-link]
+
 #### REFERENCE
 
 * [CSS 스프라이트 애니메이션](https://simsimjae.medium.com/css-%EC%8A%A4%ED%94%84%EB%9D%BC%EC%9D%B4%ED%8A%B8-%EC%95%A0%EB%8B%88%EB%A9%94%EC%9D%B4%EC%85%98-a9958cdcd617)
+
+[restart-css-animation-by-javascript-link]: https://junhyunny.github.io/html/css/javascript/restart-css-animation-by-javascript/

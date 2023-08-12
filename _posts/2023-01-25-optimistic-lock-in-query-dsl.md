@@ -38,7 +38,7 @@ JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적 락(opti
 
 엔티티 오염 확인을 통한 업데이트에서 낙관적 락을 발생시키는 방법에 대해 먼저 정리하였습니다. 
 
-### 1.1. Context for Test
+### 1.1. Test Context
 
 다음과 같은 테스트를 수행합니다. 
 
@@ -260,7 +260,7 @@ Hibernate: update post_entity set contents=?, title=?, version_no=? where id=? a
 
 `QueryDSL` 업데이트 쿼리를 사용하면서 자체적으로 낙관적인 락 메커니즘을 구현합니다. 
 
-### 2.1. Context for Test
+### 2.1. Test Context
 
 * `트랜잭션-1`은 다음과 같이 동작합니다.
     * 해당 ID, 버전 정보를 가지는 엔티티를 업데이트합니다.

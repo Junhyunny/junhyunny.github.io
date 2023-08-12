@@ -34,7 +34,7 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 
 ## 2. Practice
 
-코드펜(codepen)을 사용해 스프라이트 이미지를 구현하였습니다. 
+코드펜(codepen)을 사용해 스프라이트 애니메이션을 구현하였습니다. 
 
 ### 2.1. HTML Code
 

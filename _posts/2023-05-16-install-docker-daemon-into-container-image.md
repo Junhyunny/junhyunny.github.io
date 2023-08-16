@@ -64,7 +64,7 @@ java.lang.IllegalStateException: Could not find a valid Docker environment. Plea
 [INFO] ------------------------------------------------------------------------
 ```
 
-## 2. Solve the Problem
+## 2. Solve the problem
 
 [Install Nonexistent Commands into Container Image][build-docker-image-with-nonexistent-commands-link] 포스트처럼 도커가 설치된 커스텀 이미지를 만들면 이를 해결할 수 있습니다. 
 단순히 이미지 레이어를 추가하는 정도로 해결되지 않았기 때문에 일부는 중복된 내용이지만, 별도 포스트로 정리하였습니다. 

@@ -173,7 +173,7 @@ Expected :200
 Actual   :400
 ```
 
-## 2. Solve the Problem
+## 2. Solve the problem
 
 문제 해결을 위해 HttpServletRequestWrapper 클래스를 상속 받은 요청 클래스를 생성합니다. 
 

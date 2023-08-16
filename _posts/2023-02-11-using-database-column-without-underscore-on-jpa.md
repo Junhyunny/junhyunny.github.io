@@ -140,7 +140,7 @@ Hibernate: insert into post (post_content, post_title, post_tp, post_id) values 
 insert into post (post_content, post_title, post_tp, post_id) values (?, ?, ?, ?) [42122-214]
 ```
 
-## 2. Solution of Problem 
+## 2. Solve the problem 
 
 스프링 부트 `JPA`의 기본적인 컬럼 이름 규칙은 `lower_snake_case`입니다. 
 암시적이거나 물리적인 방법으로 지정한 이름들은 모두 스네이크 방식으로 변경됩니다.

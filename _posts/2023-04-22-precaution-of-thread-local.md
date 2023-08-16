@@ -36,9 +36,7 @@ Java 스레드(thread)는 운영체제 리소스를 사용합니다.
 </p>
 <center>https://www.baeldung.com/thread-pool-java-and-guava</center>
 
-## 2. Cause and Solution of Problem
-
-### 2.1. Cause of Problem
+## 2. Cause
 
 ThreadLocal 클래스는 스레드 풀 환경에서 사용할 때 문제가 발생합니다. 
 [ThreadLocal Class][thread-local-class-in-java-link] 포스트 내용을 바탕으로 원인을 다음과 같이 정리할 수 있습니다. 
@@ -53,7 +51,7 @@ ThreadLocal 클래스는 스레드 풀 환경에서 사용할 때 문제가 발�
     <img src="/images/precaution-of-thread-local-2.JPG" width="80%" class="image__border">
 </p>
 
-### 2.2. Solution of Problem
+## 3. Solve the problem
 
 스프링 프레임워크를 사용하는 경우 기본적으로 내장 톰캣(embedded tomcat)을 사용합니다. 
 톰캣은 기본적으로 요청을 처리하기 위한 스레드들을 스레드 풀에 담아 관리합니다. 
@@ -85,7 +83,7 @@ public class BarFilter extends OncePerRequestFilter {
 }
 ```
 
-## 3. Practice
+## 4. Practice
 
 스레드 풀을 사용하면 데이터가 지워지지 않는 현상이 발생하는지 테스트 코드를 통해 살펴보겠습니다. 
 
@@ -170,7 +168,7 @@ class ContextHolder {
 }
 ```
 
-##### Result of Tests
+##### Test Result
 
 * ThreadLocal 객체에 데이터를 저장 후 지우지 않는 케이스 테스트 결과
 

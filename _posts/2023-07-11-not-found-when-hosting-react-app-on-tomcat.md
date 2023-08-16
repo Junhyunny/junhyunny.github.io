@@ -29,7 +29,7 @@ last_modified_at: 2023-07-10T23:55:00
     <img src="/images/page-not-found-when-hosting-react-app-on-tomcat-1.gif" width="100%" class="image__border">
 </p>
 
-## 2. Cause of Problem 
+## 2. Cause 
 
 문제 원인은 SPA(single page application)의 동작 방식과 연관되어 있습니다. 
 SPA 실행 흐름을 따라가면 문제가 발생하는 지점을 찾을 수 있습니다.

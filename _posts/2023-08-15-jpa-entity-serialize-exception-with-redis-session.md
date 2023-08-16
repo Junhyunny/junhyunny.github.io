@@ -123,8 +123,8 @@ class DefaultUserService(
 ### 1.3. UserEntity Class
 
 * @ElementCollection, @CollectionTable 애너테이션을 사용합니다.
-	* 좋아하는 포스트(post) 아이디들을 컬렉션으로 저장합니다.
-* 해당 컬렉션을 저장하기 위한 별도 테이블이 생성됩니다.
+	* 좋아하는 포스트(post)들의 아이디를 컬렉션으로 저장합니다.
+* 컬렉션을 저장하기 위한 별도 테이블이 생성됩니다.
 	* 테이블 이름은 `tb_favorite_posts` 입니다. 
 
 ```kotlin
@@ -147,8 +147,8 @@ class UserEntity(
 
 ### 1.4. User Class
 
-* 정적 팩토리 메소드 패턴을 사용한 of 메소드를 사용해 User DTO 객체를 생성합니다.
-* 엔티티의 프로퍼티 값들을 참조 복사합니다.
+* 정적 팩토리 메소드 패턴이 적용된 of 메소드를 통해 User 객체를 생성합니다.
+* 엔티티 프로퍼티들을 참조 값으로 복사합니다.
 
 ```kotlin
 package action.`in`.blog.domain.dto
@@ -179,12 +179,13 @@ data class User(
 
 ### 1.5. Test
 
-문제를 유발하는 코드들은 모두 살펴봤으므로 테스트 코드를 통해 동일한 문제가 발생하는지 살펴보겠습니다.  
+연관된 코드들은 모두 살펴봤으므로 동일한 예외가 발생하도록 테스트 코드를 실행시켜보겠습니다.  
 
-* 실제 동작 환경과 최대한 유사하도록 레디스 테스트 컨테이너를 사용합니다.
-	* 레디스 컨테이너를 실행한 후 스프링 세션에서 찾을 수 있도록 어플리케이션 프로퍼티를 변경합니다.
-* setup 메소드에서 필요한 사용자 데이터를 저장합니다.
-* 세션에 데이터를 저장하는 경로로 API 요청을 수행하고 정상 응답을 기대합니다. 
+* 실제 동작 환경과 유사하도록 테스트 컨테이너를 사용합니다.
+	* 레디스 컨테이너를 실행 후 스프링 어플리케이션에서 찾을 수 있도록 프로퍼티를 변경합니다.
+* setup 메소드에서 테스트에 필요한 사용자 데이터를 준비합니다.
+* 문제가 발생하는 경로로 API 요청을 수행합니다.
+    * 정상 응답을 기대합니다. 
 
 ```kotlin
 package action.`in`.blog.controller
@@ -249,9 +250,9 @@ class RestControllerIT {
 
 ##### Test Result
 
-테스트 코드를 살행하면 다음과 같은 에러 로그를 확인할 수 있습니다.
+테스트 코드를 실행하면 다음 에러 로그를 확인할 수 있습니다.
 
-* 이전에 확인한 로그와 마찬가지로 엔티티 객체를 직렬화하는 과정에서 에러가 발생합니다.
+* 엔티티 객체를 직렬화하는 과정에서 에러가 발생합니다.
 
 ```
 01:24:55.120 [Test worker] INFO  action.in.blog.controller.RestControllerIT - Started RestControllerIT in 3.073 seconds (process running for 5.694)
@@ -276,8 +277,11 @@ Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEn
 ## 2. Cause
 
 문제의 원인은 살펴보겠습니다. 
-UserEntity 객체를 User 객체로 변환하는 과정에서 객체에 대한 참조 값 복사만 이뤄집니다. 
-여기서 favoritePosts 변수가 참조하는 객체가 일반적인 리스트가 아닌 `PersistentBag`이라는 객체이기 때문에 직렬화 문제가 발생합니다. 
+
+* UserEntity 객체를 User 객체로 변환하는 과정에서 객체에 대한 참조 값 복사만 이뤄집니다. 
+* favoritePosts 변수가 참조하는 객체가 일반적인 리스트가 아닌 `PersistentBag`이라는 객체입니다.
+    * 일반적인 컬렉션이 아니라 하이버네이트(hibernate)에서 엔티티들을 관리하기 위한 컬렉션입니다.
+    * 객체 내부에서 다른 엔티티들을 참조하고 있어서 직렬화 문제가 발생합니다. 
 
 ```kotlin
     fun of(userEntity: UserEntity): User {
@@ -289,13 +293,14 @@ UserEntity 객체를 User 객체로 변환하는 과정에서 객체에 대한 �
     }
 ```
 
-<p align="center">
-    <img src="/images/jpa-entity-serialize-exception-with-redis-session-2.JPG" width="80%" class="image__border image__padding">
+<p align="left">
+    <img src="/images/jpa-entity-serialize-exception-with-redis-session-2.JPG" width="80%" class="image__border">
 </p>
 
-### 2.1. Serialize Target
+### 2.1. Inside PersistentBag Instance
 
-PersistentBag 객체가 직렬화되면 다음과 같은 현상이 발생합니다. 
+PersistentBag 객체 내부에서 다음과 같은 참조 연결이 존재합니다. 
+이 참조 객체를 통해 엔티티들이 직렬화 대상에 포함됩니다. 
 
 * PersistentBag 객체은 owner 객체를 가지고 있습니다. 
 	* owner 객체는 UserEntity 객체입니다.
@@ -303,7 +308,7 @@ PersistentBag 객체가 직렬화되면 다음과 같은 현상이 발생합니�
 	* UserEntity 객체가 참조하는 다른 객체들도 모두 직렬화 대상입니다. 
 
 <p align="center">
-    <img src="/images/jpa-entity-serialize-exception-with-redis-session-3.JPG" width="80%" class="image__border image__padding">
+    <img src="/images/jpa-entity-serialize-exception-with-redis-session-3.JPG" width="80%" class="image__border">
 </p>
 
 ## 3. Solve the problem

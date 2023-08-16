@@ -24,6 +24,11 @@ last_modified_at: 2023-08-12T23:55:00
 
 * 클릭 이벤트로 버튼 내부 하트 이미지의 색상 온/오프(on/off)
 * 하트의 색상 변경은 스프라이트 애니메이션(sprite animation)으로 적용
+    * 아래와 같은 이미지를 사용하였습니다.
+
+<p align="center">
+    <img src="/images/restart-css-animation-by-javascript-1.JPG" width="100%" class="image__border">
+</p>
 
 ### 1.1. HTML Code
 

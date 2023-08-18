@@ -90,7 +90,7 @@ public class AuthFilter extends OncePerRequestFilter {
 }
 ```
 
-## 1. Unit Test
+## 2. Unit Test
 
 단위 테스트를 통해 필터의 기능을 검증합니다.
 
@@ -180,7 +180,7 @@ public class AuthFilterTest {
 }
 ```
 
-## 2. Unit Test with MockMvc
+## 3. Unit Test with MockMvc
 
 필터의 동작만 확인하려면 위에 단위 테스트만으로 충분합니다. 
 하지만 필터는 단순하게 동작하지 않습니다. 
@@ -281,7 +281,7 @@ public class AuthFilterMockMvcTest {
 }
 ```
 
-## 3. Integration Test
+## 4. Integration Test
 
 API 요청에 대한 필터 기능에 대한 검증은 MockMvc를 사용한 테스트로 커버 가능합니다. 
 어플리케이션 실행 시 설정(config) 혹은 빈(bean) 주입까지 정상적으로 수행되는지 확인하려면 결합 테스트를 수행해야 합니다. 

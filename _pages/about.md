@@ -31,16 +31,16 @@ classes: wide
     </h3>
 </div>
 
-##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 2023년 7월
+##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 7월
 
 * Java, Spring Boot, Spring Cloud, Wire Mock, Reids
 * 차세대 시스템과 클라이언트 사이의 API 하위 호환성 문제를 해결하기 위한 어댑터 서비스
 * 레디스(redis)와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
 * 와이어 목(wire mock)을 활용한 테스트로 페인 클라이언트(feign client) API 기능 검증
 
-##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 2023년 4월
+##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월, 2023년 7월 - 8월
 
-* TypeScript, React, HTML, Sass, Jest, Testing Library, Cypress
+* TypeScript, React, HTML, Sass, Jest, Testing Library, Cypress, Kotlin, Spring Boot, Spring Session, Spring Security, Spring Data Jpa, Spring Cloud
 * 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
 * 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
 * Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발

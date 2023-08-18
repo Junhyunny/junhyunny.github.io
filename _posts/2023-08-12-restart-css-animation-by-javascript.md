@@ -27,7 +27,7 @@ last_modified_at: 2023-08-12T23:55:00
     * 아래와 같은 이미지를 사용하였습니다.
 
 <p align="center">
-    <img src="/images/restart-css-animation-by-javascript-1.JPG" width="100%" class="image__border">
+    <img src="/images/restart-css-animation-by-javascript-1.JPG" width="100%" class="image__border image__padding">
 </p>
 
 ### 1.1. HTML Code

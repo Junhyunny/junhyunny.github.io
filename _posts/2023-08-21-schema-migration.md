@@ -49,6 +49,7 @@ last_modified_at: 2023-08-21T23:55:00
 <p align="center">
     <img src="/images/schema-migration-1.JPG" width="100%" class="image__border image__padding">
 </p>
+<center>https://documentation.red-gate.com/fd/why-database-migrations-184127574.html</center>
 
 ### 2.2. Schema Migration Tools
 

@@ -15,10 +15,10 @@ last_modified_at: 2023-08-23T23:55:00
 
 ## 1. Flyway
 
-[Schema Migration][schema-migration-link]에서 이야기했듯이 스키마 마이그레이션 작업은 특정 도구를 통해 수행할 수 있습니다. 
+[Schema Migration][schema-migration-link]에서 이야기했듯이 스키마 마이그레이션 작업은 도구를 사용하는 것이 좋습니다. 
 `Flyway`는 `Liquibase`와 같은 대표적인 오픈 소스 데이터베이스 마이그레이션 도구입니다. 
 데이터베이스의 변경 사항을 추적하고 스키마 변경이나 롤백을 쉽게 도와줍니다. 
-깃(git)이 코드 형상 관리 도구이듯이 Flyway는 데이터베이스 변경에 대한 형상 관리를 도와줍니다. 
+깃(git)이 코드 형상 관리 도구라면 Flyway는 데이터베이스 변경에 대한 형상 관리를 지원합니다. 
 
 다음과 같은 환경에서 사용할 수 있는 API를 제공합니다. 
 
@@ -53,8 +53,8 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
 <center>https://documentation.red-gate.com/fd/info-184127459.html</center>
 
 * migrate
-    * 마지막 버전 마이그레이션 스크립트까지 스키마 마이그레이션 작업을 수행합니다.
-    * 변경한 작업에 대한 정보를 마이그레이션 이력 테이블에 저장합니다.
+    * 가장 큰 버전을 가진 스크립트까지 스키마 마이그레이션 작업을 수행합니다.
+    * 변경 작업에 대한 내용을 마이그레이션 이력 테이블에 저장합니다.
 
 <p align="center">
     <img src="/images/flyway-cli-for-database-migration-3.JPG" width="100%" class="image__border image__padding">
@@ -88,9 +88,18 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
 </p>
 <center>https://documentation.red-gate.com/fd/undo-184127463.html</center>
 
+* clean
+    * 마이그레이션 이력 테이블과 함께 데이터베이스의 모든 테이블을 드랍(drop)합니다.
+    * 운영 환경에서 사용되지 않도록 주의가 필요합니다.
+
+<p align="center">
+    <img src="/images/flyway-cli-for-database-migration-7.JPG" width="100%" class="image__border image__padding">
+</p>
+<center>https://documentation.red-gate.com/fd/clean-184127458.html</center>
+
 ### 1.2. Migration Script Naming Rule
 
-마이그레이션 스크립트는 다음과 같은 규칙을 따릅니다. 
+마이그레이션 스크립트 이름은 다음과 같은 규칙을 따라 작성합니다. 
 
 * 스크립트 종류를 접두어(prefix)로 구분합니다.
     * V - 버전 마이그레이션 파일
@@ -106,7 +115,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
 * 접미어는 .sql 확장자를 사용합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-7.JPG" width="100%" class="image__border">
+    <img src="/images/flyway-cli-for-database-migration-8.JPG" width="100%" class="image__border">
 </p>
 
 ## 2. Practice
@@ -172,14 +181,17 @@ $ docker-compose up -d
 
 ### 2.3. Flyway Configuration
 
-다음과 같은 경로에 작성된 설정 파일을 사용합니다. 
+Flyway는 다음과 같은 경로에 작성된 설정 파일을 사용합니다. 
 
 * installDir/conf/flyway.conf
+    * Flyway 설치 경로
 * userhome/flyway.conf
+    * 사용자 홈 경로
 * workingDir/flyway.conf
+    * 프로젝트 경로
 
 이번 실습은 프로젝트 경로의 `flyway.conf` 파일을 사용하였습니다. 
-다음과 같은 정보를 작성합니다.
+설정 파일에 다음과 같은 정보를 작성합니다.
 
 * 데이터베이스 접속 정보
 * 마이그레이션 파일 경로
@@ -193,7 +205,7 @@ flyway.locations=filesystem:migration,filesystem:seed
 
 ### 2.4. Init 
 
-다음과 같은 두 파일을 먼저 적용합니다. 
+다음과 같은 마이그레이션 스크립트들을 먼저 적용합니다. 
 
 * V1.0.0__create_user
 
@@ -217,8 +229,7 @@ insert into `junhyunny-db`.`tb_user` (name) values ('jua');
 빈 데이터베이스 상태에서 info 명령어를 수행합니다.
 
 * 설정 파일에서 지정한 migration, seed 경로에 저장된 스크립트만 적용 대상입니다. 
-* 현재 대기 상태입니다.
-* 각 파일의 종류, 버전, 설명이 표시됩니다.
+* 각 파일의 종류, 버전, 설명이 표시되며 두 파일 모두 현재 대기 상태입니다.
 
 ```
 $ flyway info
@@ -257,15 +268,16 @@ A Flyway report has been generated here: /Users/junhyunk/Desktop/workspace/blog/
 
 데이터베이스 정보를 확인합니다. 
 
-* 두 개의 테이블이 생깁니다.
+* 두 개의 테이블이 생성됩니다.
     * flyway_schema_history 테이블 
         * 마이그레이션 이력 테이블입니다.
     * tb_user 테이블
         * 마이그레이션 작업을 통해 생성된 테이블입니다.
 * 마이그레이션 이력 테이블에 마이그레이션 작업 이력이 저장됩니다.
-    * 마이그레이션이 적용된 파일에 대한 정보가 체크섬으로 저장됩니다.
+    * 마이그레이션에 사용된 스크립트에 대한 정보가 체크섬으로 저장됩니다.
 * 사용자 테이블에 사용자 정보가 저장됩니다.
     * R__insert_users_repeatable 파일에 작성한 스크립트에 의해 데이터가 저장됩니다.
+    * 반복 수행 스크립트는 한번만 적용되지만, 파일에 변경이 발생하여 체크섬이 바뀌면 다시 실행됩니다.
 
 ```
 mysql> show tables;
@@ -303,11 +315,11 @@ mysql> select * from tb_user;
 * V1.0.1__alerter_user_add_colum_email
 
 ```sql
-ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50) not null; 
+ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50) NOT NULL; 
 ```
 
 * V1.0.3__alerter_user_add_colum_address
-    * 일부러 오타를 만들어 마이그레이션을 실패시킵니다.
+    * 일부러 오타로 작성하여 마이그레이션을 실패를 유도합니다.
 
 ```sql
 AALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN address VARCHAR(50) NOT NULL; 
@@ -460,7 +472,7 @@ A Flyway report has been generated here: /Users/junhyunk/Desktop/workspace/blog/
 ### 2.7. Change Migrated Script
 
 1.0.2 버전 스크립트 파일을 1.0.4 버전으로 변경 후 작업을 수행합니다. 
-마이그레이션을 진행하기 전에 이미 마이그레이션에 사용된 스크립트 파일을 변경합니다. 
+마이그레이션을 진행하기 전에 이전에 사용한 마이그레이션 스크립트를 변경합니다. 
 
 * V1.0.1__alerter_user_add_colum_email
     * NOT NULL 키워드를 제거합니다.
@@ -471,7 +483,7 @@ ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50);
 
 migrate 명령어 수행이 실패합니다. 
 
-* Flyway는 이미 적용된 스크립트더 파일도 관리합니다. 
+* Flyway는 이미 적용된 스크립트 파일을 관리합니다. 
 * 마이그레이션 이력 테이블의 체크섬과 비교하여 스크립트 파일의 변경을 감지합니다. 
 
 ```
@@ -486,8 +498,9 @@ Either revert the changes to the migration, or run repair to update the schema h
 Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 ```
 
-상황에 맞게 스크립트 파일을 이전 상태로 복구하거나 repair 명령어를 수행합니다. 
+프로젝트 상황에 맞게 해당 에러를 수정합니다.
 
+* 스크립트 파일을 이전 상태로 복구합니다.
 * repair 명령어를 통해 마이그레이션 이력 테이블의 체크섬을 최신화합니다.
 
 ```
@@ -544,6 +557,10 @@ mysql> select * from tb_user;;
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-08-23-flyway-cli-for-database-migration>
+
+<!-- #### RECOMMEND NEXT POSTS
+
+* [Flyway on Spring Boot][] -->
 
 #### REFERENCE
 

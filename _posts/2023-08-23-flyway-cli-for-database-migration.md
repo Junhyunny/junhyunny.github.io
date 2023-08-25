@@ -157,8 +157,8 @@ SqlFluffRulesEngine   | not installed   | Licensed
 
 ### 2.2. Setup Database
 
-테스트를 위한 컨테이너 데이터베이스를 준비합니다. 
-도커 컴포즈를 사용하였습니다. 
+실습을 위한 컨테이너 데이터베이스를 준비합니다. 
+도커 컴포즈(docker compose)를 사용합니다. 
 
 ```yml
 version: "3.8"
@@ -203,7 +203,7 @@ flyway.password=password!1234
 flyway.locations=filesystem:migration,filesystem:seed
 ```
 
-### 2.4. Init 
+### 2.4. Initialize
 
 다음과 같은 마이그레이션 스크립트들을 먼저 적용합니다. 
 

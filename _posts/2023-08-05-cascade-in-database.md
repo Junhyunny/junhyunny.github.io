@@ -46,13 +46,13 @@ CREATE TABLE TB_POST_REPLY (
     FOREIGN KEY (post_id) REFERENCES TB_POST(id)
 );
 
-insert into TB_POST (title, content)
-values 
+INSERT INTO TB_POST (title, content)
+VALUES
     ('hello world', 'this is content for hello world'),
     ('referential integrity', 'this is content for referential integrity');
 
-insert into TB_POST_REPLY (post_id, content)
-values
+INSERT INTO TB_POST_REPLY (post_id, content)
+VALUES
     (1, 'this is 1st reply for hello world'),
     (1, 'this is 2nd reply for hello world'),
     (2, 'this is 1st reply for referential integrity');
@@ -67,9 +67,10 @@ TB_POST 테이블에서 아이디가 1인 레코드(record)를 삭제하려면 �
 * 삭제하려는 레코드를 참조하는 자식 테이블의 레코드가 존재하기 때문에 발생하는 에러입니다. 
     * 자식 테이블의 레코드가 참조하는 부모 테이블의 레코드가 없는 것은 부자연스러운 모습입니다.
 
-```sql
-delete from TB_POST where id = 1;
-ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`test`.`TB_POST_REPLY`, CONSTRAINT `TB_POST_REPLY_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `TB_POST` (`id`))
+```
+mysql> DELETE FROM TB_POST WHERE id = 1;
+
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`junhyunny-db`.`TB_POST_REPLY`, CONSTRAINT `TB_POST_REPLY_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `TB_POST` (`id`))
 ```
 
 #### 1.1.2. Delete Record from Child Table
@@ -79,11 +80,11 @@ ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constrai
 * 참조 당하지 않는 자식 테이블의 레코드를 모두 삭제합니다.
 * 부모 테이블의 레코드를 삭제합니다. 
 
-```sql
-delete from TB_POST_REPLY where post_id = 1;
+```
+mysql> DELETE FROM TB_POST_REPLY WHERE POST_ID = 1;
 Query OK, 2 rows affected (0.01 sec)
 
-delete from TB_POST where id = 1;
+mysql> DELETE FROM TB_POST WHERE ID = 1;
 Query OK, 1 row affected (0.00 sec)
 ```
 
@@ -147,13 +148,13 @@ CREATE TABLE TB_POST_REPLY (
         ON DELETE CASCADE
 );
 
-insert into TB_POST (title, content)
-values 
+INSERT INTO TB_POST (title, content)
+VALUES 
     ('hello world', 'this is content for hello world'),
     ('referential integrity', 'this is content for referential integrity');
 
-insert into TB_POST_REPLY (post_id, content)
-values
+INSERT INTO TB_POST_REPLY (post_id, content)
+VALUES
     (1, 'this is 1st reply for hello world'),
     (1, 'this is 2nd reply for hello world'),
     (2, 'this is 1st reply for referential integrity');
@@ -163,11 +164,11 @@ values
 
 * 부모 테이블 레코드를 삭제하는 경우 자식 테이블의 연관된 레코드들도 함께 삭제됩니다.
 
-```sql
-delete from TB_POST where id = 1;
-Query OK, 1 row affected (0.00 sec)
+```
+mysql> DELETE FROM TB_POST WHERE ID = 1;
+Query OK, 1 row affected (0.01 sec)
 
-select * from TB_POST;
+mysql> SELECT * FROM TB_POST;
 +----+-----------------------+-------------------------------------------+
 | id | title                 | content                                   |
 +----+-----------------------+-------------------------------------------+
@@ -175,7 +176,7 @@ select * from TB_POST;
 +----+-----------------------+-------------------------------------------+
 1 row in set (0.00 sec)
 
-select * from TB_POST_REPLY;
+mysql> SELECT * FROM TB_POST_REPLY;
 +----+---------+---------------------------------------------+
 | id | post_id | content                                     |
 +----+---------+---------------------------------------------+
@@ -189,12 +190,12 @@ select * from TB_POST_REPLY;
 * 부모 테이블의 레코드의 id를 변경합니다.
 * 자식 테이블의 관련된 레코드들의 외래 키 값이 함께 변경됩니다.
 
-```sql
-update TB_POST set id = 1 where id = 2;
+```
+mysql> UPDATE TB_POST SET ID = 1 WHERE ID = 2;
 Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
-select * from TB_POST;
+mysql> SELECT * FROM TB_POST;
 +----+-----------------------+-------------------------------------------+
 | id | title                 | content                                   |
 +----+-----------------------+-------------------------------------------+
@@ -202,7 +203,7 @@ select * from TB_POST;
 +----+-----------------------+-------------------------------------------+
 1 row in set (0.00 sec)
 
-select * from TB_POST_REPLY;
+mysql> SELECT * FROM TB_POST_REPLY;
 +----+---------+---------------------------------------------+
 | id | post_id | content                                     |
 +----+---------+---------------------------------------------+

@@ -1,0 +1,93 @@
+---
+title: "@ElementCollection and @CollectionTable Annotations"
+search: false
+category:
+  - spring-boot
+  - jpa
+last_modified_at: 2023-08-26T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 1. @ElementCollection Annotation
+
+@ElementCollection 애너테이션은 JPA에서 일대다 관계 매핑 기능을 제공합니다. 
+일대다 관계를 지원하는 @OneToMany 애너테이션과 차이점은 엔티티가 아닌 객체를 대상으로 일대다 관계 매핑을 지원한다는 점입니다. 
+
+* @Embeddable 애너테이션이 붙은 Value Object
+* String, Integer, Long 같은 단순 값 객체
+
+## 2. @CollectionTable Annotation
+
+@CollectionTable 애너테이션은 @ElementCollection 애너테이션을 사용해 맺은 일대다 관계에 대한 테이블 정보를 추가할 수 있습니다.
+
+* 테이블 이름
+* 컬럼 이름
+* 조인(join)에 사용한 FK 이름
+
+## 3. Practice
+
+다음과 같은 테이블 관계를 가진 엔티티를 만들고 몇 가지 기능을 테스트합니다. 
+
+<p align="left">
+    <img src="/images/element-collection-and-collection-table-annotations-1.JPG" width="50%" class="image__border">
+</p>
+
+### 3.1. UserEntity Class
+
+* 사용자 테이블 이름은 TB_USER 입니다.
+* 좋아하는 포스트를 모아놓은 테이블 이름은 TB_FAVORITE_POSTS 입니다.
+    * 외래 키(forign key) 이름은 user_id 입니다.
+    * 해당 컬럼의 이름은 post_id 입니다.
+    * user_id, post_id 컬럼을 조합하여 유니크 키(unique key) 제약조건을 추가합니다.
+
+```java
+package action.in.blog.domain;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+
+import java.util.List;
+
+@Getter
+@Entity
+@Table(name = "TB_USER")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String name;
+    @ElementCollection
+    @CollectionTable(
+            name = "TB_FAVORITE_POSTS",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            uniqueConstraints = {
+                    @UniqueConstraint(columnNames = {"user_id", "post_id"})
+            }
+    )
+    @Column(name = "post_id")
+    private List<Long> favoritePosts;
+}
+```
+
+### 3.2. Add Favorite Post
+
+```java
+
+```
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://docs.spring.io/spring-framework/reference/integration/rest-clients.html>
+* <https://www.baeldung.com/spring-6-http-interface>
+* <https://en.wikibooks.org/wiki/Java_Persistence/ElementCollection>
+* <https://howtodoinjava.com/java/whats-new-spring-6-spring-boot-3/>
+* <https://howtodoinjava.com/spring-webflux/http-declarative-http-client-httpexchange/>

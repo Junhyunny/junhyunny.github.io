@@ -76,13 +76,31 @@ HTTP 클라이언트에 선언된 메소드는 다음과 같은 파라미터들�
 HTTP 클라이언트에 선언된 메소드는 다음과 같은 응답들을 반환할 수 있습니다. 
 블록킹 혹은 리액티브(reactive) 응답을 모두 지원합니다.
 
-* void, `Mono<Void>`
-* HttpHeaders, `Mono<HttpHeaders>`
+* `void`, `Mono<Void>`
+* `HttpHeaders`, `Mono<HttpHeaders>`
 * `<T>`, `Mono<T>`
 * `<T>`, `Flux<T>`
 * `ResponseEntity<Void>`, `Mono<ResponseEntity<Void>>`
 * `ResponseEntity<T>`, `Mono<ResponseEntity<T>>`
 * `Mono<ResponseEntity<Flux<T>>`
+
+### 1.3 HTTP Method Support
+
+HTTP 메소드를 다음과 같은 애너테이션들을 통해 지원합니다.
+
+* @HttpExchange 
+    * 루트 애너테이션으로 인터페이스 위에 선언합니다.
+    * 기본(base) URL, 메소드, 컨텐츠 타입 등을 정의할 수 있습니다.
+* @GetExchange 
+    * HTTP GET 메소드를 지원하며 메소드 위에 선언합니다.
+* @PostExchange 
+    * HTTP POST 메소드를 지원하며 메소드 위에 선언합니다.
+* @PutExchange 
+    * HTTP PUT 메소드를 지원하며 메소드 위에 선언합니다.
+* @PatchExchange 
+    * HTTP PATCH 메소드를 지원하며 메소드 위에 선언합니다.
+* @DelectExchange 
+    * HTTP DELETE 메소드를 지원하며 메소드 위에 선언합니다.
 
 ## 2. Project Setup
 
@@ -216,7 +234,7 @@ public record ExternalUrlConfig(
 
 ### 2.4. HttpClientConfig Class
 
-* `ExternalUrlConfig` 빈을 사용하여 각 클라이언트에 필요한 기본(base) URL을 설정합니다.
+* `ExternalUrlConfig` 빈을 사용하여 각 클라이언트에 필요한 기본 URL을 설정합니다.
     * PokemonClient - 포케몬 데이터 API 서버 클라이언트
     * JsonPlaceholderClient - Json 데이터 API 서버 클라이언트
 
@@ -539,5 +557,6 @@ $ curl "http://localhost:8080/async/pokemon?offset=0&limit=5" | jq .
 * <https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-http-interface>
 * <https://howtodoinjava.com/java/whats-new-spring-6-spring-boot-3/>
 * <https://howtodoinjava.com/spring-webflux/http-declarative-http-client-httpexchange/>
+* <https://www.baeldung.com/spring-6-http-interface>
 
 [spring-cloud-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/

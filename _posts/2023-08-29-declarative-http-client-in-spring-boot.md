@@ -14,17 +14,17 @@ last_modified_at: 2023-08-29T23:55:00
 
 ## 0. 들어가면서
 
-스프링(spring) 팀과 같은 회사에 소속되어 있다보니 스프링 프레임워크(spring framework)에 관련된 소식을 빠르게 접합니다. 
-올해 8월 조쉬 롱(Josh Long)이 일본 도요타 오피스에서 진행했던 스프링 6과 스프링 부트 3 세션에 참여했을 때 HTTP 클라이언트(client)에 대한 설명이 가장 눈에 띄었습니다. 
-HTTP 클라이언트는 언뜻 스프링 클라우드 `Openfeign`과 상당히 유사한 기능을 제공하는 것처럼 보였기 때문에 이를 즐겨 사용하던 저는 앞으로 스프링 팀에서 클라우드 컴포넌트들을 하나씩 내재화하려는 계획인지 궁금증했습니다. 
+스프링(spring) 팀과 같은 회사라 스프링 프레임워크(spring framework)에 관련된 소식을 다소 빠르게 접합니다. 
+올해 8월 조쉬 롱(Josh Long)이 일본 도요타(toyota) 오피스에서 진행한 스프링 6과 스프링 부트 3 세션에서 참여했을 때 HTTP 클라이언트에 대한 내용이 가장 눈에 띄었습니다. 
+언뜻 스프링 클라우드 `Openfeign`과 상당히 유사한 기능을 제공하는 것처럼 보였기 때문에 이를 즐겨 사용하던 저는 앞으로 스프링 팀에서 클라우드 컴포넌트들을 하나씩 내재화하려는 계획인지 궁금했습니다. 
 
 이에 대해 질문을 했더니 다음과 같은 답변을 들었습니다. 
 
 * 스프링 클라우드 기능들을 모두 커버할 생각은 없다.
-* `Openfeign`은 통신이 블록킹(blocking)되기 때문에 스프링 팀에서 비동기 통신까지 지원하는 HTTP 클라이언트를 만들었다.
-* 현재는 조금 불편하지만, 더 편한 사용을 위해 기능을 발전시키고 있다. 
+* `Openfeign`은 통신이 블록(block)되기 때문에 스프링 팀에서 비동기 통신을 지원하기 위해 HTTP 클라이언트를 만들었다.
+* 현재 사용하기에 조금 불편하지만, 편하게 사용할 수 있도록 기능을 발전시키고 있다. 
 
-HTTP 클라이언트 관련된 내용에 대해 정리하면서 해당 기능을 탐구해보겠습니다. 
+이번 포스트는 HTTP 클라이언트 관련된 내용에 대해 정리하면서 해당 기능을 탐구해보겠습니다. 
 
 ## 1. Declarative HTTP Client
 
@@ -107,13 +107,14 @@ HTTP 메소드를 다음과 같은 애너테이션들을 통해 지원합니다.
 간단한 예제 코드를 통해 사용 방법을 살펴보겠습니다. 
 오픈 API 서버를 사용합니다.
 
-* 로컬 서버를 실행 후 터미널에서 cURL 커맨드로 API 요청을 수행합니다.
+* 개발한 로컬 서비스를 먼저 실행합니다.
+* 터미널에서 cURL 커맨드로 로컬 서버에 API 요청을 수행합니다.
     * http://localhost:8080/sync/todos?page=0&limit=5
     * http://localhost:8080/async/todos?page=0&limit=5
     * http://localhost:8080/sync/pokemon?offset=0&limit=5
     * http://localhost:8080/async/pokemon?offset=0&limit=5
 * 각 요청에 맞는 클라이언트를 사용해 각 API 서버로 요청을 재전달합니다. 
-    * `JsonPlaceholderClient`는 JsonPlaceholder API 서버로 요청을 전달합니다.
+    * `JsonPlaceholderClient`는 Json Placeholder API 서버로 요청을 전달합니다.
     * `PokemonClient`는 Pokemon API 서버로 요청을 전달합니다.
 
 <p align="center">
@@ -203,7 +204,7 @@ tasks.named('test') {
 
 ### 2.2. application.yml
 
-* 외부 API 주소를 설정으로 관리합니다.
+* 외부 API 서버 주소를 설정으로 관리합니다.
 
 ```yml
 external-service:
@@ -213,7 +214,7 @@ external-service:
 
 ### 2.3. ExternalUrlConfig Class
 
-* 설정으로 관리하는 외부 API 서버 URL 정보를 객체로 바인딩합니다.
+* 설정으로 관리하는 외부 API 서버 주소 정보를 객체로 바인딩(binding)합니다.
 
 ```java
 package action.in.blog.config;
@@ -234,9 +235,9 @@ public record ExternalUrlConfig(
 
 ### 2.4. HttpClientConfig Class
 
-* `ExternalUrlConfig` 빈을 사용하여 각 클라이언트에 필요한 기본 URL을 설정합니다.
-    * PokemonClient - 포케몬 데이터 API 서버 클라이언트
-    * JsonPlaceholderClient - Json 데이터 API 서버 클라이언트
+* `ExternalUrlConfig` 빈을 사용해 각 클라이언트에서 필요한 URL을 설정합니다.
+    * PokemonClient - https://pokeapi.co
+    * JsonPlaceholderClient - https://jsonplaceholder.typicode.com
 
 ```java
 package action.in.blog.config;
@@ -286,8 +287,8 @@ public class HttpClientConfig {
 
 ### 3.1. JsonPlaceholderClient Interface
 
-* List 반환 타입은 동기식 처리를 수행합니다.
-* Flux 반환 타입은 비동기식 처리를 수행합니다. 
+* List 반환 타입은 동기 처리를 수행합니다.
+* Flux 반환 타입은 비동기 처리를 수행합니다. 
 
 ```java
 package action.in.blog.client;
@@ -311,8 +312,8 @@ public interface JsonPlaceholderClient {
 
 ### 3.2. PokemonClient Interface
 
-* PokemonPage 반환 타입은 동기식 처리를 수행합니다.
-* Mono 반환 타입은 비동기식 처리를 수행합니다. 
+* PokemonPage 반환 타입은 동기 처리를 수행합니다.
+* Mono 반환 타입은 비동기 처리를 수행합니다. 
 
 ```java
 package action.in.blog.client;
@@ -336,7 +337,7 @@ public interface PokemonClient {
 
 ### 3.3. DeclarativeController Class
 
-* 각 요청 별로 적합한 클라이언트, 메소드에 처리를 위임합니다.
+* 각 요청 별로 적합한 클라이언트의 메소드에게 API 처리를 위임합니다.
 
 ```java
 package action.in.blog.controller;

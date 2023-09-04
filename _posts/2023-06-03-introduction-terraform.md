@@ -405,4 +405,5 @@ new-instance-public-ip = "54.172.203.53"
 * <https://www.hashicorp.com/blog/testing-hashicorp-terraform>
 * <https://www.slideshare.net/minkyukim77/packer-terraform-vault-101859832>
 * <https://sendbird.com/ko/blog/infrastructure-management-using-terraform>
-* <https://helloworld.kurly.com/blog/terraform-adventure/>
+* <https://helloworld.kurly.com/blog/terraform-adventure>
+* <https://spacelift.io/blog/terraform-tutorial/>

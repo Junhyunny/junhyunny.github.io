@@ -232,6 +232,7 @@ $ openssl x509 -text -noout -in server.crt | grep -A 1 "Subject Alternative Name
 #### REFERENCE
 
 * <https://en.wikipedia.org/wiki/X.509>
+* <https://goharbor.io/docs/2.0.0/install-config/configure-https/>
 * <https://gist.github.com/KeithYeh/bb07cadd23645a6a62509b1ec8986bbc>
 * <https://velog.io/@hyeseong-dev/Harbor-%EC%86%8C%EA%B0%9C-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EB%B0%B0%ED%8F%AC>
 * <https://www.golinuxcloud.com/openssl-subject-alternative-name/>

@@ -26,30 +26,30 @@ last_modified_at: 2023-09-06T23:55:00
 * 이미지 스캔을 통한 취약점 분석
 * 서명을 통한 이미지 유효성 검증
 
-<p align="left">
-    <img src="/images/install-harbor-using-docker-compose-1.JPG" width="50%" class="image__border">
+<p align="center">
+    <img src="/images/install-harbor-using-docker-compose-1.JPG" width="80%" class="image__border">
 </p>
-<center>https://landscape.cncf.io/</center>
+<center>https://engineering.linecorp.com/ko/blog/harbor-for-private-docker-registry</center>
 
 ##### Harbor Architecture
 
 다음과 같은 아키텍처 구조를 가지고 주변 컴포넌트들과 상호 작용합니다.
 
 <p align="center">
-    <img src="/images/install-harbor-using-docker-compose-2.JPG" width="100%" class="image__border">
+    <img src="/images/install-harbor-using-docker-compose-2.JPG" width="100%" class="image__border image__padding">
 </p>
 <center>https://github.com/goharbor/harbor/wiki/Architecture-Overview-of-Harbor</center>
 
 ## 2. Installation
 
-도커 컴포즈(docker compose)를 통해 하버를 설치할 수 있습니다. 
+도커 컴포즈(docker compose)를 이용해 하버를 설치할 수 있습니다. 
 설치 과정을 살펴보겠습니다. 
 
 ### 2.1. Create Self-Signed Certificate
 
-하버 설치와 접근을 위해선 인증서가 필요합니다. 
-테스트 용도이기 때문에 OpenSSL을 사용해서 자체 증명서를 발급합니다. 
-발급 과정에 대한 자세한 설명은 [Create Self-Signed SAN SSL Ceriticate][create-san-ssl-certificate-link] 포스트를 참고하시길 바랍니다. 
+하버 설치와 접근을 위한 인증서가 필요합니다. 
+테스트 용도이기 때문에 `OpenSSL`을 사용해 자체 증명서를 발급합니다. 
+발급 과정과 각 명령어에 대한 자세한 설명은 [Create Self-Signed SAN SSL Ceriticate][create-san-ssl-certificate-link] 포스트를 참고하시길 바랍니다. 
 
 * 서버 인증서 발급을 위한 자체 CA 인증서를 생성합니다. 
     * 인증서 폴더 생성
@@ -82,7 +82,7 @@ Common Name (e.g. server FQDN or YOUR name) []:root.ca
 Email Address []:
 ```
 
-* 자체 발급한 CA 인증서를 사용해 SAN(Subject Alternative Name) 서버 인증서를 생성합니다.
+* SAN(Subject Alternative Name) 서버 인증서를 생성합니다.
     * SAN 인증서 발급을 위한 설정 파일 생성
     * 서버 인증서 생성을 위한 비공개 키 생성
     * 인증서 발급을 위한 CSR(Certificate Signing Request) 생성
@@ -128,7 +128,7 @@ subject=C = KR, ST = Seoul, L = Seoul, O = VMWare, OU = Tanzu Labs, CN = myharbo
 
 ### 2.2. Harbor Package Download
 
-23년 9월 기준으로 최신 버전인 2.9.0 오프라인 방식으로 설치합니다. 
+23년 9월 기준 최신 버전인 2.9.0를 오프라인 방식으로 설치합니다. 
 
 * 이전 경로로 이동하여 패키지를 다운로드 받습니다.
 * 다운 받은 패키지의 압축을 해제합니다.
@@ -149,7 +149,7 @@ $ cp -rf ../certs ./
 
 ### 2.3. harbor.yml 
 
-하버 패키지를 살펴보면 yml 템플릿 파일이 존재합니다. 
+하버 패키지 경로를 살펴보면 `harbor.yml` 템플릿(template)이 존재합니다. 
 해당 파일을 복사한 후 적절하게 변경합니다.
 
 ```
@@ -158,8 +158,9 @@ $ cp harbor.yml.tmpl harbor.yml
 
 불필요한 주석들을 제거하고 변경한 내용만 살펴보겠습니다.
 
-* 호스트 이름을 인증서 만들 때 사용한 `myharbor.io`으로 설정합니다.
-* 인증서 위치를 상대 경로로 지정합니다.
+* 호스트 이름을 `myharbor.io`으로 설정합니다.
+    * 인증서를 만들 때 CN(common name)으로 지정한 도메인과 동일해야 합니다.
+* 인증서 위치를 지정합니다.
 * 데이터 볼륨을 하버 설치 경로에 `data` 디렉토리로 지정합니다.
 * 로그 위치를 하버 설치 경로에 `log` 디렉토리로 지정합니다.
 
@@ -232,15 +233,15 @@ cache:
 
 ### 2.4. Install
 
-#### 2.4.1. Not Found Certificate Error
+#### 2.4.1. Not Found Certificate
 
-설정 파일 인스톨 스크립트를 실행합니다.
+하버 패키지 경로에 위치한 인스톨 스크립트를 실행합니다.
 
 ```
 $ sh install.sh
 ```
 
-설치 과정 4번째 스텝에서 다음과 같은 에러가 발생합니다. 
+설치 과정 중 다음과 같은 에러가 발생합니다. 
 
 ```
 [Step 4]: preparing harbor configs ...
@@ -282,8 +283,10 @@ Generated configuration file: /config/log/rsyslog_docker.conf
 FileNotFoundError: [Errno 2] No such file or directory: '/hostfs/certs/server.key'
 ```
 
-하버 레포지토리를 살펴보면 해당 에러에 대한 이슈에서 해결책을 확인할 수 있습니다. 
-원인은 `prepare` 파일에서 도커 컨테이너를 실행할 때 볼륨 경로를 호스트 머신의 루트(root)로 지정해놨기 때문입니다. 
+깃허브(github) 하버 레포지토리 이슈에서 해당 에러에 대한 해결책을 확인할 수 있습니다. 
+
+* 원인은 `prepare` 파일에서 도커 컨테이너를 실행할 때 볼륨 경로를 호스트 머신의 루트(root)로 지정해놨기 때문입니다. 
+* 볼륨 경로를 다시 설정하면 해당 문제가 해결됩니다.
 
 <p align="center">
     <img src="/images/install-harbor-using-docker-compose-3.JPG" width="80%" class="image__border">
@@ -292,7 +295,7 @@ FileNotFoundError: [Errno 2] No such file or directory: '/hostfs/certs/server.ke
 
 ##### Fix prepare script
 
-문제 해결을 위해 하버 경로에 위치한 prepare 파일을 수정합니다.
+문제 해결을 위해 하버 패키지 경로에 위치한 `prepare` 파일을 수정합니다.
 
 * 루트 경로를 현재 하버 설치 경로로 변경합니다.
 
@@ -309,7 +312,7 @@ docker run --rm -v $input_dir:/input \
 
 #### 2.4.2. Installation
 
-에러를 해결하고 설치 스크립트를 다시 실행합니다.
+설치 스크립트를 다시 실행하면 정상적으로 서비스 실행까지 진행됩니다.
 
 ```
 sh install.sh
@@ -385,7 +388,7 @@ Note: stopping existing Harbor instance ...
 ### 3.1. Add Host Name
 
 도메인 이름으로 설정한 `myharbor.io`를 호스트 파일에 등록합니다. 
-필자는 맥북(macbook)에서 실습을 진행했으므로 다음과 같은 과정을 통해 호스트 이름을 등록합니다. 
+필자는 맥북(macbook)에서 실습하여 다음과 같은 과정을 통해 호스트 이름을 등록하였습니다. 
 각 운영체제에 따라 호스트 등록 방법이 다르므로 확인하시길 바랍니다.
 
 ```
@@ -411,8 +414,8 @@ $ sudo vi /etc/hosts
 
 ### 3.2. Connect Harbor Webpage
 
-브라우저를 통해 하버 웹 페이지로 접속합니다.
-별도로 변경하지 않았다면 사용자 이름과 비밀번호는 다음과 같습니다. 
+브라우저를 통해 하버 웹 페이지로 접속합니다. 
+변경하지 않았다면 초기 사용자 이름과 비밀번호는 다음과 같습니다. 
 
 * Username - admin
 * Password - Harbor12345

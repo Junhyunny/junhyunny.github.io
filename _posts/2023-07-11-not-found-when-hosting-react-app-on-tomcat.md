@@ -47,7 +47,7 @@ SPA 실행 흐름을 따라가면 문제가 발생하는 지점을 찾을 수 �
     <img src="/images/page-not-found-when-hosting-react-app-on-tomcat-2.JPG" width="80%" class="image__border">
 </p>
 
-## 3. Solving the Proglem 
+## 3. Solve the Proglem 
 
 검색해보면 문제를 해결하는 방법이 다양합니다. 
 

@@ -32,7 +32,7 @@ Caused by: java.lang.IllegalStateException: Incompatible fallbackFactory instanc
 로그 내용을 살펴보면 `BlogClientFallbackFactory` 객체를 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스에 할당할 수 없다는 메세지를 볼 수 있습니다.
 이번 포스트에선 해당 예외가 발생한 원인을 분석해보고, 이를 해결하는 방법에 대해 정리하였습니다. 
 
-## 2. Analysis of Problem
+## 2. Problem Analysis
 
 ### 2.1. Wrong Usage
 

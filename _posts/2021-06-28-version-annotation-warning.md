@@ -1,5 +1,5 @@
 ---
-title: "@Version 사용 시 주의사항"
+title: "TransientPropertyValueException by @Version Annotation"
 search: false
 category:
   - spring-boot
@@ -10,231 +10,356 @@ last_modified_at: 2021-09-04T03:30:00
 
 <br/>
 
+#### RECOMMEND POSTS BEFORE THIS
+
+* [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
+* [Optimistic Lock in JPA][jpa-optimistic-lock-link]
+
 ## 0. 들어가면서
-여러 사용자에 의한 특정 데이터 동시 수정 문제를 해결하기 위해 @Version 애너테이션을 사용하였습니다. 
-간단한 테스트를 수행하는데 여기 저기서 에러가 터져나오기 시작했습니다. 
-딱 코드 한 줄만 추가하였는데 여파가 무시무시했습니다. 
-영향도에 대한 충분한 확인 없이 코드를 올리는 일은 주의해야겠습니다. 
 
-## 1. 기존 코드
-프로젝트에서 개발 중인 코드는 노출이 불가능하므로 문제가 발생한 코드 부분과 비슷한 테스트 코드를 작성하였습니다.
+동시성 문제를 해결하기 위해 낙관적인 락(optimistic lock) 방식으로 구현한 코드에서 문제가 발생했습니다. 
+JPA 구현체가 엔티티(entity)를 영속성 컨텍스트에 저장하고 인스턴스를 반환하는 과정에서 몇 가지 조건들에 의해 의도와 다르게 동작하면서 예외가 발생했습니다. 
 
-### 1.1. 기존 코드 실행 흐름
-1. 신규 A 엔티티 객체 생성, A 엔티티 new
-1. JpaRepository save 메소드 수행, A 엔티티 persist
-1. save 메소드의 파라미터로 전달한 객체를 지속해서 사용
-1. A 엔티티의 자식 엔티티 save 메소드 수행, A 자식 엔티티 persist 
+## 1. Problem Context
 
-### 1.2. 테스트 코드 
+문제가 발생한 코드와 상황을 최대한 유사하게 재현하였습니다. 
 
-```java
-    @Test
-    public void test_nonTransientEntity_throwException() {
-        // 신규 엔티티 생성, new
-        DefaultVersionEntity versionEntity = new DefaultVersionEntity();
-        versionEntity.setValue("DefaultVersionEntity");
-        versionEntity.setChildEntity(new ChildEntity(versionEntity));
-        // 엔티티 save, persist
-        defaultVersionEntityRepository.save(versionEntity);
-        // 자식 엔티티, persist
-        assertThrows(Exception.class, () -> childEntityRepository.save(versionEntity.getChildEntity()));
-    }
-```
+### 1.1. ParentEntity Class
 
-### 1.3. 에러 로그
-- 기존에 발생하지 않던 InvalidDataAccessApiUsageException 감지 
-
-```
-org.springframework.dao.InvalidDataAccessApiUsageException: org.hibernate.TransientPropertyValueException: object references an unsaved transient instance - save the transient instance before flushing
-```
-
-## 2. 에러 발생 원인 탐색
-Jpa Entity Manager는 기본적으로 save 메소드에 파라미터로 전달한 객체를 영속성 컨텍스트(persistence context)에서 관리합니다. 
-save 메소드를 통해 저장한 객체와 save 메소드를 통해 반환되는 객체가 동일한 객체입니다.(주소가 동일) 
-그렇기 때문에 기존에 코드의 실행 흐름은 크게 문제가 없었습니다. 
-
-하지만 @Version 애너테이션을 추가하면서 save 메소드에 파라미터로 전달한 객체가 영속성 컨텍스트에 담기지 않는 현상이 발견되었습니다. 
-이런 현상은 영속성 컨텍스트에서 관리되지 않는 부모 엔티티를 참조하는 자식 엔티티를 save 하도록 만들기 때문에 에러가 발생합니다. 
-정확히 어느 위치에서 이런 현상을 유발시키는지 확인해보았습니다. 
-
-### 2.1. SimpleJpaRepository 클래스
-- SimpleJpaRepository 클래스의 save 메소드를 보면 전달받은 엔티티가 new 상태인지 아닌지 확인합니다.
-- new 상태의 엔티티인 경우에는 엔티티를 영속성 컨텍스트 영역에 추가하고 엔티티 객체를 반환합니다.
+* 낙관적 락을 위해 versionNo 필드를 추가합니다.
+    * 타입은 Long 래퍼(wrapper) 클래스를 사용합니다.
+    * 낙관적 락이 동작하도록 @Version 애너테이션을 추가합니다.
+    * 기본 값을 0으로 설정합니다.
 
 ```java
-@Repository
-@Transactional(readOnly = true)
-public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T, ID> {
+package blog.in.action.domain;
 
-    // ... 
+import jakarta.persistence.*;
+import lombok.Getter;
 
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.CrudRepository#save(java.lang.Object)
-     */
-    @Transactional
-    @Override
-    public <S extends T> S save(S entity) {
+@Getter
+@Entity
+public class ParentEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String state;
+    @Version
+    private Long versionNo = 0L;
 
-        if (entityInformation.isNew(entity)) {
-            em.persist(entity);
-            return entity;
-        } else {
-            return em.merge(entity);
-        }
+    public ParentEntity() {
+        state = "CREATED";
     }
-
-    // ...
 }
 ```
 
-### 2.2. JpaMetamodelEntityInformation 클래스
-- version 관리를 위한 항목이 존재하는지 확인합니다.
-- version 관리 항목이 존재하지 않거나 해당 field가 primitive 타입인 경우에는 부모 클래스의 isNew 메소드를 수행합니다.
-- version 관리 항목이 null 인 경우에는 new 상태이고, null 이 아닌 경우에는 new 상태가 아닙니다.
+### 1.2. ChildEntity Class
+
+* 부모 객체를 일대일 관계로써 참조하고 있습니다.
+
+```java
+package blog.in.action.domain;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor(staticName = "create")
+@Entity
+public class ChildEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String state;
+    @OneToOne
+    private ParentEntity parentEntity;
+
+    public void update() {
+        state = "UPDATED";
+    }
+}
+```
+
+### 1.3. Run Test
+
+* @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    * @DataJpaTest 애너테이션에 적용된 트랜잭션으로부터 테스트 로직의 트랜잭션을 분리하기 위해 추가합니다.
+* 부모 엔티티를 저장합니다.
+* 자식 엔티티에 전달하여 둘 사이의 관계를 연결합니다.
+* 자식 엔티티의 상태를 변경합니다.
+* 자식 엔티티를 저장합니다.
+    * InvalidDataAccessApiUsageException 예외가 발생합니다.
+    * 원인은 TransientPropertyValueException 예외입니다.
+* 부모 엔티티의 아이디 값이 널(null) 입니다.
+
+```java
+package blog.in.action;
+
+import blog.in.action.domain.ChildEntity;
+import blog.in.action.domain.ParentEntity;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import org.hibernate.TransientPropertyValueException;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest(
+        properties = {"spring.jpa.hibernate.ddl-auto=create-drop"}
+)
+public class ActionInBlogTest {
+
+    @Autowired
+    private ParentRepository parentRepository;
+
+    @Autowired
+    private ChildRepository childRepository;
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    @Test
+    void zeroDefaultValueForVersionNo_throwTransientPropertyValueException() {
+
+        var parentEntity = new ParentEntity();
+        parentRepository.save(parentEntity);
+
+
+        var childEntity = ChildEntity.create(null, "CREATED", parentEntity);
+        childEntity.update();
+
+
+        var throwable = assertThrows(InvalidDataAccessApiUsageException.class, () -> childRepository.save(childEntity));
+        assertInstanceOf(TransientPropertyValueException.class, throwable.getRootCause());
+        assertNull(parentEntity.getId());
+    }
+}
+```
+
+##### Test Result
+
+* 자식 엔티티에 대한 insert 쿼리가 수행되지 않습니다.
+
+```
+Hibernate: select next value for parent_entity_seq
+Hibernate: insert into parent_entity (state,version_no,id) values (?,?,?)
+Hibernate: select next value for child_entity_seq
+```
+
+## 2. Problem Analysis
+
+엔티티에 필드를 하나 추가하면서 정상적으로 동작하던 비즈니스 로직들에서 예외가 발생하기 시작했습니다. 
+원인을 살펴보기 전에 엔티티의 라이프사이클(lifecycle)에 대해 간단히 정리할 필요가 있습니다. 
+
+* New
+    * 엔티티를 새로 생성한 상태
+    * 어플리케이션 메모리에만 존재하며 엔티티 매니저에 의해 관리되지 않습니다.
+* Managed
+    * 엔티티 매니저에 의해 영속성 컨텍스트에서 관리되는 상태입니다. 
+* Detached
+    * 엔티티 매니저에 의해 관리되다가 영속성 컨텍스트에서 제외된 상태입니다.
+* Removed
+    * 엔티티를 데이터베이스에서 삭제하겠다고 표시한 상태입니다. 
+
+<p align="center">
+    <img src="/images/version-annotation-warning-1.JPG" width="60%" class="image__border">
+</p>
+<center>https://gunlog.dev/JPA-Persistence-Context/</center>
+
+### 2.1. SimpleJpaRepository Class
+
+이제 어떤 요소가 에러를 유발했는지 연관된 코드를 살펴보겠습니다. 
+먼저 SimpleJpaRepository 클래스를 살펴보겠습니다. 
+
+* 전달 받은 엔티티 객체가 new 상태라면 영속화(persist)합니다.
+    * 영속화 후 전달받은 객체를 그대로 반환합니다.
+* 전달 받은 엔티티 객체가 관리 중인 상태라면 영속성 컨텍스트에 병합(merge)합니다.
+    * 병합 후 결과를 반환합니다.
+
+```java
+@Repository
+@Transactional(
+    readOnly = true
+)
+public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T, ID> {
+
+    @Transactional
+    public <S extends T> S save(S entity) {
+        Assert.notNull(entity, "Entity must not be null");
+        if (this.entityInformation.isNew(entity)) {
+            this.em.persist(entity);
+            return entity;
+        } else {
+            return this.em.merge(entity);
+        }
+    }
+}
+```
+
+### 2.2. JpaMetamodelEntityInformation Class
+
+JpaMetamodelEntityInformation 클래스의 isNew 메소드를 살펴보겠습니다. 
+
+* 버전 관련된 필드가 있는지 확인합니다.
+* 버전 관련된 필드가 있다면 해당 타입이 원시(primitive) 타입인지 확인합니다.
+    * 원시 타입이 아니라면 해당 값이 `null`이어야 `true`를 반환합니다.
+    * 원시 타입이라면 부모 클래스의 isNew 메소드를 호출합니다. 
+* 부모 클래스의 isNew 메소드는 `@Id` 애너테이션이 붙은 필드의 값을 확인합니다.
 
 ```java
 public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSupport<T, ID> {
 
-    // ...
-
-    /*
-     * (non-Javadoc)
-     * @see org.springframework.data.repository.core.support.AbstractEntityInformation#isNew(java.lang.Object)
-     */
-    @Override
     public boolean isNew(T entity) {
-
-        if (!versionAttribute.isPresent()
-                || versionAttribute.map(Attribute::getJavaType).map(Class::isPrimitive).orElse(false)) {
+        if (!this.versionAttribute.isEmpty() && !(Boolean)this.versionAttribute.map(Attribute::getJavaType).map(Class::isPrimitive).orElse(false)) {
+            BeanWrapper wrapper = new DirectFieldAccessFallbackBeanWrapper(entity);
+            return (Boolean)this.versionAttribute.map((it) -> {
+                return wrapper.getPropertyValue(it.getName()) == null;
+            }).orElse(true);
+        } else {
             return super.isNew(entity);
         }
-
-        BeanWrapper wrapper = new DirectFieldAccessFallbackBeanWrapper(entity);
-
-        return versionAttribute.map(it -> wrapper.getPropertyValue(it.getName()) == null).orElse(true);
     }
-
-    // ...
-
 }
 ```
 
-## 3. 에러 유발 원인
-JPA 내부 코드를 살펴보니 에러 유발하는 범인이 밝혀졌습니다. 
-엔티티 버전 관리의 불편함을 덜기 위해 default 값을 지정한 것이 문제가 되었습니다. 
+### 2.3. Summary
 
-### 3.1. 에러 유발 코드
+위에서 살펴본 코드를 정리하면 다음과 같습니다. 
+
+1. 영속성 컨텍스트에 새로 저장할 엔티티 객체인지 판단하는 로직이 다음과 같은 우선 순위를 가진다. 
+    1. 버전 관련된 필드가 존재하고 원시 타입이 아닌 경우 해당 필드 값의 null 여부
+    1. 버전 관련된 필드가 존재하더라도 원시 타입이라면 엔티티 아이디 필드 값의 null 여부
+    1. 버전 관련된 필드가 없다면 엔티티 아이디 필드 값의 null 여부
+1. new 상태의 객체라면 영속화하고 전달받은 파라미터를 반환한다.
+1. new 상태의 객체가 아니라면 병합하고 결과 객체를 새로 만들어 반환한다.
+
+문제를 유발을 하는 코드들을 쭉 살펴보고 원인을 요약하면 다음과 같습니다. 
+
+1. 엔티티에 버전 관련된 필드가 래퍼 클래스 타입으로 추가되었다.
+1. 버전 관련된 필드의 값이 `null`이 아니기 때문에 새로 생성한 객체임에도 병합 작업이 진행됩니다.
+    * 영속화 작업에선 전달받은 엔티티를 변경하고, 해당 엔티티 객체를 결과로 반환합니다.
+    * 병합 작업에선 전달받은 엔티티를 변경하지 않고 쿼리 수행 결과를 새로운 엔티티 객체로 만들어 반환합니다.
+
+##### AS-IS
+
+버전 필드를 추가하기 전 문제가 되지 않는 코드의 흐름입니다. 
+
+<p align="center">
+    <img src="/images/version-annotation-warning-2.JPG" width="80%" class="image__border">
+</p>
+
+##### TO-BE
+
+버전 필드가 추가된 후 문제가 발생한 코드의 흐름입니다. 
+
+<p align="center">
+    <img src="/images/version-annotation-warning-3.JPG" width="80%" class="image__border">
+</p>
+
+## 3. Solve the problem
+
+엔티티 클래스에 추가된 버전 필드의 디폴트 값을 제거하거나 원시 타입을 사용합니다. 
 
 ```java
-    // ...
-    @Version
-    private Long versionNo = 0L;
-```
+package blog.in.action.domain;
 
-## 4. 테스트를 통한 점검
-간단한 테스트 코드를 통해 @Version 애너테이션의 에러 유발 케이스를 다시 정리해보았습니다. 
+import jakarta.persistence.*;
+import lombok.Getter;
 
-### 4.1. 엔티티 구현
-- DefaultVersionEntity - versionNo default 값 사용 
-- NonDefaultVersionEntity - versionNo default 값 미사용
-
-```java
 @Getter
-@Setter
-@NoArgsConstructor
 @Entity
-@Table(name = "TB_DEFAULT_VERSION")
-class DefaultVersionEntity {
-
+public class ParentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(name = "VALUE")
-    private String value;
-
-    @OneToOne(mappedBy = "defaultVersionEntity", cascade = CascadeType.ALL)
-    private ChildEntity childEntity;
-
+    private String state;
     @Version
-    private Long versionNo = 0L;
-}
+    private Long versionNo; // ok
 
-@Getter
-@Setter
-@NoArgsConstructor
-@Entity
-@Table(name = "TB_NON_DEFAULT_VERSION")
-class NonDefaultVersionEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(name = "VALUE")
-    private String value;
-
-    @OneToOne(mappedBy = "nonDefaultVersionEntity", cascade = CascadeType.ALL)
-    private ChildEntity childEntity;
-
-    @Version
-    private Long versionNo;
+    public ParentEntity() {
+        state = "CREATED";
+    }
 }
 ```
 
-### 4.2. 테스트 코드
-- save 메소드에게 파라미터로 전달한 엔티티와 반환된 엔티티가 동일한지 확인
-- test_registerEntity_isEqualWithReturned - NonDefaultVersionEntity 사용
-    - 파라미터 엔티티와 반환된 엔티티가 동일함을 예상
-- test_registerEntity_isNotEqualWithReturned - DefaultVersionEntity 사용
-    - 파라미터 엔티티와 반환된 엔티티가 동일하지 않음을 예상
+### 3.1. Run Test
+
+* @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    * @DataJpaTest 애너테이션에 적용된 트랜잭션으로부터 테스트 로직의 트랜잭션을 분리하기 위해 추가합니다.
+* 부모 엔티티를 저장합니다.
+* 자식 엔티티에 전달하여 둘 사이의 관계를 연결합니다.
+* 자식 엔티티의 상태를 변경합니다.
+* 자식 엔티티를 저장합니다.
+    * 정상적으로 동작합니다.
+* 부모 엔티티의 아이디가 널 값이 아닙니다.
 
 ```java
-@SpringBootTest
-public class VersionNoTest {
+package blog.in.action;
+
+import blog.in.action.domain.ChildEntity;
+import blog.in.action.domain.ParentEntity;
+import blog.in.action.repository.ChildRepository;
+import blog.in.action.repository.ParentRepository;
+import org.hibernate.TransientPropertyValueException;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest(
+        properties = {"spring.jpa.hibernate.ddl-auto=create-drop"}
+)
+public class ActionInBlogTest {
 
     @Autowired
-    private DefaultVersionEntityRepository defaultVersionEntityRepository;
+    private ParentRepository parentRepository;
 
     @Autowired
-    private NonDefaultVersionEntityRepository nonDefaultVersionEntityRepository;
+    private ChildRepository childRepository;
 
-    @Autowired
-    private ChildEntityRepository childEntityRepository;
-
-    @BeforeEach
-    public void beforeEach() {
-        defaultVersionEntityRepository.deleteAll();
-        nonDefaultVersionEntityRepository.deleteAll();
-        childEntityRepository.deleteAll();
-    }
-
-    // ...
-
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
     @Test
-    public void test_registerEntity_isEqualWithReturned() {
-        NonDefaultVersionEntity nonVersionEntity = new NonDefaultVersionEntity();
-        nonVersionEntity.setValue("NonDefaultVersionEntity");
-        nonVersionEntity.setChildEntity(new ChildEntity(nonVersionEntity));
-        NonDefaultVersionEntity returnedEntity = nonDefaultVersionEntityRepository.save(nonVersionEntity);
-        assertThat(nonVersionEntity).isEqualTo(returnedEntity);
-    }
+    void defaultValueIsNullForVersionNo_updateStatus() {
 
-    @Test
-    public void test_registerEntity_isNotEqualWithReturned() {
-        DefaultVersionEntity versionEntity = new DefaultVersionEntity();
-        versionEntity.setValue("DefaultVersionEntity");
-        versionEntity.setChildEntity(new ChildEntity(versionEntity));
-        DefaultVersionEntity returnedEntity = defaultVersionEntityRepository.save(versionEntity);
-        assertThat(versionEntity).isNotEqualTo(returnedEntity);
+        var parentEntity = new ParentEntity();
+        parentRepository.save(parentEntity);
+
+
+        var childEntity = ChildEntity.create(null, "CREATED", parentEntity);
+        childEntity.update();
+
+
+        var result = childRepository.save(childEntity);
+        assertEquals("UPDATED", result.getState());
+        assertNotNull(parentEntity.getId());
     }
 }
 ```
 
-##### 테스트 결과
+##### Test Result
 
-<p align="left"><img src="/images/version-annotation-warning-1.JPG" width="50%"></p>
+* 자식 엔티티에 대한 insert 쿼리가 정상적으로 수행됩니다.
+
+```
+Hibernate: select next value for parent_entity_seq
+Hibernate: insert into parent_entity (state,version_no,id) values (?,?,?)
+Hibernate: select next value for child_entity_seq
+Hibernate: insert into child_entity (parent_entity_id,state,id) values (?,?,?)
+```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-28-version-annotation-warning>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-06-28-version-annotation-warning>
+
+[jpa-persistence-context-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/
+[jpa-optimistic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/

@@ -1,0 +1,121 @@
+---
+title: "GraalVM for Native Image"
+search: false
+category:
+  - information
+  - java
+last_modified_at: 2023-09-09T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [JVM 실행 엔진(Execution Engine)][jvm-execution-engine-link]
+
+## 0. 들어가면서
+
+최근 온라인으로나마 참석했던 `SpringOne` 같은 큰 세션들에서 스프링 부트(spring boot) 3.X 버전, JDK 21과 함께 `GraalVM`에 대한 이야기가 많이 들립니다. 
+발표자들은 "부팅 속도가 빠르다.", "메모리가 적게 소요된다." 같은 장점들에 대해 대단하다는 듯 소개를 했지만, 들으면서 의구심이 들었습니다. 
+
+> 그렇게 좋은 기술이라면 아직까지 프로젝트나 현업에서 접해보지 못 했을까?
+
+어떤 기술인지, 정말 지금 바로 사용해볼만큼 성숙했는지 공부해봤습니다. 
+
+## 1. Native Image
+
+> GraalVM compiles your Java applications ahead of time into standalone binaries. These binaries are smaller, start up to 100x faster, provide peak performance with no warmup, and use less memory and CPU than applications running on a Java Virtual Machine (JVM).
+
+
+
+### 1.1. Byte Code 
+
+
+### 1.2. Native Code
+
+
+## 2. JIT and AoT Compiler
+
+### 2.1. Just in Time Compiler
+
+### 2.2. Ahead of Time Compiler
+
+
+## 3. Not 
+
+
+
+
+
+
+
+## 1. Native Image
+
+* Start Fast
+    * Native Image Build Process
+    * JIT VS VOT
+    * JIT
+        * Load JAR files from disk
+        * Uncompress class file
+        * Verify class definitions
+        * Execute in interpreter(x20 slower)
+        * Gather profiling feedback
+        * Execute at peak performance
+    * AOT
+        * Load executable from disk
+        * Execute at peak performance 
+* Low Resource Usage
+    * JIT
+        * Garbage Collector
+        * Virtual Machine Runtime And Compiler
+        * Dynamic Code Cache
+        * Metaspace Class Files
+        * Profiling Feedback
+        * Compiliation Data Structures
+        * Application Payload
+    * AOT
+        * Garbage Collector
+        * Application Machine Code
+        * Application Payload
+* Minimize Vulnerability
+    * no new unknown code can be loaded at run time
+    * only pahts proven reachable by the application are included in the image
+    * reflection is disabled by default and needs an explicit include list
+    * deserialization only enabled for specified list of classes
+    * JIT crashes, wrong compilations, or JIT spraying to create machine code gadgets are impossible
+* Compact Packaging
+    * 
+* GraalVM & Reflection
+    * GraalVM은 리플렉션을 지원하지 않는다는 것은 아니다.
+    * Native Image tries to resolve the target elements through a static analysis that detects calls to the reflection API
+        * if the analysis can not automatically detect your use of reflection, you might need additional configuration
+    * Trace reflection, JNI, resource usage on the JVM with the tracing agent
+        * Manual adjustment / addition might still be necessary
+    * 
+
+## 2. Ahead of Time Compiler
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://www.youtube.com/watch?v=8umoZWj6UcU>
+* <https://www.youtube.com/watch?v=C7toO3WV1NQ>
+
+
+
+* <https://mangkyu.tistory.com/302>
+* <https://velog.io/@profoundsea25/SpringBoot-3-GraalVM-Native-Image-%EC%A0%81%EC%9A%A9-%EC%8B%A4%ED%8C%A8%EB%8B%B4>
+* <https://velog.io/@akfls221/Spring-GraalVM-Native-Image>
+* <https://happy-jjang-a.tistory.com/191>
+* <https://github.com/spring-attic/spring-native/issues/381>
+* <https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html>
+* <https://lab.logpresso.com/2020/05/10/graalvm>
+* <https://lab.logpresso.com/2021/05/27/graalvm-native-image>
+* <https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html>
+
+[jvm-execution-engine-link]: https://junhyunny.github.io/information/java/jvm-execution-engine/

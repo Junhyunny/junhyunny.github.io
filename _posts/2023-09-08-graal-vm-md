@@ -1,0 +1,41 @@
+---
+title: "GraalVM for Native Image"
+search: false
+category:
+  - java
+  - spring-boot
+last_modified_at: 2023-09-07T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [JVM 실행 엔진(Execution Engine)][jvm-execution-engine-link]
+
+## 0. 들어가면서
+
+## 1. Native Image
+
+## 2. Ahead of Time Compiler
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://www.youtube.com/watch?v=C7toO3WV1NQ>
+* <https://mangkyu.tistory.com/302>
+* <https://velog.io/@profoundsea25/SpringBoot-3-GraalVM-Native-Image-%EC%A0%81%EC%9A%A9-%EC%8B%A4%ED%8C%A8%EB%8B%B4>
+* <https://velog.io/@akfls221/Spring-GraalVM-Native-Image>
+* <https://happy-jjang-a.tistory.com/191>
+* <https://github.com/spring-attic/spring-native/issues/381>
+* <https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html>
+* <https://lab.logpresso.com/2020/05/10/graalvm>
+* <https://lab.logpresso.com/2021/05/27/graalvm-native-image>
+* <https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html>
+
+[jvm-execution-engine-link]: https://junhyunny.github.io/information/java/jvm-execution-engine/

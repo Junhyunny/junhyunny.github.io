@@ -46,6 +46,7 @@ Java 어플리케이션은 다음과 같은 과정을 거쳐 실행됩니다.
 
 사실 GraalVM이 만든다는 독립적인 바이너리 파일은 운영체제에서 직접 실행할 수 있는 기계어를 의미합니다. 
 소스 코드를 운영체제가 이해할 수 있는 기계어를 직접 컴파일합니다. 
+GraalVM가 컴파일을 통해 생성하는 파일은 JVM 없이 운영체제가 직접 실행할 수 있으며 이를 네이티브 이미지(native image)라고 합니다. 
 
 * 개발자가 소스 코드를 작성한다.
 * 컴파일러가 소스 코드를 기계어로 컴파일한다.
@@ -55,19 +56,24 @@ Java 어플리케이션은 다음과 같은 과정을 거쳐 실행됩니다.
     <img src="/images/graal-vm-2.JPG" width="50%" class="image__border">
 </p>
 
-### 1.3. GraalVM with Native Cloud Environment
+### 1.3. GraalVM with Native Cloud
 
 GraalVM이 추구하는 것은 Java라는 언어가 처음 등장한 배경인 `Write Once Run Anywhere`과 정반대입니다. 
 Java는 어플리케이션 코드를 작성하고 한번 빌드하면 플랫폼에 종속되지 않고 어디서든 실행시킬 수 있었습니다. 
 GraalVM은 플랫폼에 최적화 된 컴파일을 수행하다보니 운영체제가 변경되면 어플리케이션을 다시 빌드해야합니다. 
+예전 C, C++ 처럼 플랫폼에 종속된 컴파일 기술이 다시 등장한 배경에는 클라우드(cloud) 기술 발전이 있습니다. 
 
+* 컨테이너의 베이스 이미지에 맞는 빌드를 수행하면 되므로 호스트 플랫폼에 종속적이지 않다. 
+* 클라우드 환경에서 컨테이너가 자주 생성되고 삭제되므로 가벼운 어플리케이션, 빠른 실행이 필요하다.
+* 서버리스(serverless) 기능을 사용한다.
 
+GraalVM이 생성하는 네이티브 이미지는 이런 문제점을 해결합니다. 
 
-
-
-
-
-
+* JVM이 필요한 리소스의 일부만 사용하기 때문에 실행 속도가 빠릅니다.
+    * 수 밀리초(milliseconds)만에 실행됩니다.
+* 네이티브 바이너리로 작성되었기 때문에 웜업(warmup) 없이 최고의 성능을 즉시 제공합니다.
+* 빠르고 효율적인 배포를 위해 경량 컨테이너 이미지로 패키징이 가능합니다.
+* 불필요하거나 사용하지 않는 코드들은 제거하기 때문에 공격에 대한 노출을 최소화합니다.
 
 ## 2. Compilers
 
@@ -75,7 +81,7 @@ GraalVM에서 사용하는 AOT(Ahead Of Time) 컴파일러가 무엇인지 알�
 
 ### 2.1. Just In Time Compiler
 
-바이트 코드는 
+바이트 코드는 JVM 인터프리터를 통해 매번 번역됩니다. 
 
 ### 2.2. Ahead Of Time Compiler
 
@@ -85,7 +91,13 @@ GraalVM에서 사용하는 AOT(Ahead Of Time) 컴파일러가 무엇인지 알�
 
 
 
-## 1. Native Image
+
+
+
+
+
+
+
 
 * Start Fast
     * Native Image Build Process
@@ -129,8 +141,6 @@ GraalVM에서 사용하는 AOT(Ahead Of Time) 컴파일러가 무엇인지 알�
         * Manual adjustment / addition might still be necessary
     * 
 
-## 2. Ahead of Time Compiler
-
 ## CLOSING
 
 #### TEST CODE REPOSITORY
@@ -141,12 +151,12 @@ GraalVM에서 사용하는 AOT(Ahead Of Time) 컴파일러가 무엇인지 알�
 
 * <https://www.youtube.com/watch?v=8umoZWj6UcU>
 * <https://www.youtube.com/watch?v=C7toO3WV1NQ>
+* <https://www.graalvm.org/latest/docs/introduction/>
+* <https://www.graalvm.org/latest/reference-manual/native-image/>
 * <https://mangkyu.tistory.com/301>
 * <https://mangkyu.tistory.com/302>
 
 
-
-* <https://mangkyu.tistory.com/302>
 * <https://velog.io/@profoundsea25/SpringBoot-3-GraalVM-Native-Image-%EC%A0%81%EC%9A%A9-%EC%8B%A4%ED%8C%A8%EB%8B%B4>
 * <https://velog.io/@akfls221/Spring-GraalVM-Native-Image>
 * <https://happy-jjang-a.tistory.com/191>

@@ -67,7 +67,7 @@ GraalVM은 플랫폼에 최적화 된 컴파일을 수행하다보니 운영체�
 * 클라우드 환경에서 컨테이너가 자주 생성되고 삭제되므로 가벼운 어플리케이션, 빠른 실행이 필요하다.
 * 서버리스(serverless) 기능을 사용한다.
 
-GraalVM이 생성하는 네이티브 이미지는 이런 문제점을 해결합니다. 
+GraalVM의 네이티브 이미지는 이런 문제점을 해결합니다. 
 
 * JVM이 필요한 리소스의 일부만 사용하기 때문에 실행 속도가 빠릅니다.
     * 수 밀리초(milliseconds)만에 실행됩니다.
@@ -77,69 +77,59 @@ GraalVM이 생성하는 네이티브 이미지는 이런 문제점을 해결합�
 
 ## 2. Compilers
 
-GraalVM에서 사용하는 AOT(Ahead Of Time) 컴파일러가 무엇인지 알아보기 전에 JIT(Just In Time) 컴파일러를 살펴보겠습니다. 
+GraalVM은 두 가지 컴파일러를 사용합니다.
 
-### 2.1. Just In Time Compiler
+* Graal Compiler
+    * C2 컴파일러를 대체하기 위해 Java로 개발된 Just In Time(JIT) 컴파일러
+* AOT(Ahead Of Time) Compiler
+    * 네이티브 이미지를 생성하는 컴파일러
 
-바이트 코드는 JVM 인터프리터를 통해 매번 번역됩니다. 
+### 2.1. Graal Compiler
+
+#### 2.1.1. Just In Time Compiler
+
+Graal 컴파일러에 대해 알아보기 전에 먼저 JIT 컴파일러를 살펴보겠습니다. 
+Java 어플리케이션이 실행되면 바이트 코드는 JVM 인터프리터를 통해 매번 기계어로 번역 후 실행됩니다. 
+Java가 C, C++ 같은 컴파일 언어보다 느리다는 이유는 바이트 코드를 기계어로 번역하는 과정 때문입니다. 
+실행 속도의 격차를 줄이기 위해 등장한 것이 JIT 컴파일러입니다.
+
+> In computing, just-in-time (JIT) compilation (also dynamic translation or run-time compilations) is a way of executing computer code that involves compilation during execution of a program (at run time) rather than before execution.
+
+JIT 컴파일러는 어플리케이션 런타임 중 자주 실행되는 바이트 코드 영역을 기계어로 컴파일합니다. 
+JIT 컴파일러는 디바이스 정보나 CPU 클럭 같은 프로파일링 정보를 활용한 컴파일 최적화를 수행하고, 이를 통해 Java 어플리케이션의 최고 성능(throughput)은 C, C++ 같은 컴파일 언어를 능가할 때도 있다고 합니다. 
+Java 어플리케이션이 실행 초반에 속도가 느리고 웜업이 된 후 빨라지는 이유입니다. 
+
+#### 2.1.2. Substitute JIT Compiler
+
+GraalVM 프로젝트는 HotSpot 가상머신의 문제를 몇 가지 문제를 해결하기 위해 Java로 전용 컴파일러를 만듭니다. 
+HotSpot 가상머신에서 사용하는 C1, C2 두 개의 컴파일러 중 C2를 대체할 Graal 컴파일러를 개발합니다.
+
+* Java 기반으로 개발
+    * C++ 언어를 사용하는 개발자가 줄어들어 개발, 유지보수가 어렵다.
+    * 현재 Java도 충분히 빠르다.
+* 어려운 C2 최적화
+    * 오랜 기간 유지 보수되어 컴파일러의 복잡도가 너무 높다.
+    * 거의 모든 최적화 작업을 수행하여 더이상 최적화할 수 있는 여지가 없다.
+
+<p align="center">
+    <img src="/images/graal-vm-3.JPG" width="80%" class="image__border">
+</p>
+<center>https://qiita.com/f6wbl6/items/e3dd175fa2fbd06bb39e</center>
 
 ### 2.2. Ahead Of Time Compiler
 
+네이티브 이미지를 만드는 일은 
 
 
+### 2.3. Compilers in OpenJDK
 
+* [JEP 243](https://openjdk.org/jeps/243) - Java-Level JVM Compiler Interface
+* [JEP 295](https://openjdk.org/jeps/295) - Ahead-of-Time Compilation
+* [JEP 317](https://openjdk.org/jeps/317) - Experimental Java-Based JIT Compiler
+* [JEP 410](https://openjdk.org/jeps/410) - Remove the Experimental AOT and JIT Compiler
 
+## 3. GraalVM as a Language Platform
 
-
-
-
-
-
-
-
-
-
-* Start Fast
-    * Native Image Build Process
-    * JIT VS VOT
-    * JIT
-        * Load JAR files from disk
-        * Uncompress class file
-        * Verify class definitions
-        * Execute in interpreter(x20 slower)
-        * Gather profiling feedback
-        * Execute at peak performance
-    * AOT
-        * Load executable from disk
-        * Execute at peak performance 
-* Low Resource Usage
-    * JIT
-        * Garbage Collector
-        * Virtual Machine Runtime And Compiler
-        * Dynamic Code Cache
-        * Metaspace Class Files
-        * Profiling Feedback
-        * Compiliation Data Structures
-        * Application Payload
-    * AOT
-        * Garbage Collector
-        * Application Machine Code
-        * Application Payload
-* Minimize Vulnerability
-    * no new unknown code can be loaded at run time
-    * only pahts proven reachable by the application are included in the image
-    * reflection is disabled by default and needs an explicit include list
-    * deserialization only enabled for specified list of classes
-    * JIT crashes, wrong compilations, or JIT spraying to create machine code gadgets are impossible
-* Compact Packaging
-    * 
-* GraalVM & Reflection
-    * GraalVM은 리플렉션을 지원하지 않는다는 것은 아니다.
-    * Native Image tries to resolve the target elements through a static analysis that detects calls to the reflection API
-        * if the analysis can not automatically detect your use of reflection, you might need additional configuration
-    * Trace reflection, JNI, resource usage on the JVM with the tracing agent
-        * Manual adjustment / addition might still be necessary
-    * 
 
 ## CLOSING
 
@@ -151,10 +141,19 @@ GraalVM에서 사용하는 AOT(Ahead Of Time) 컴파일러가 무엇인지 알�
 
 * <https://www.youtube.com/watch?v=8umoZWj6UcU>
 * <https://www.youtube.com/watch?v=C7toO3WV1NQ>
+* <https://www.youtube.com/watch?v=54rxc2dEv10>
+* <https://2023.springio.net/docs/slides/going-native-fast-and-lightweight-spring-boot-applications-with-graalvm-alina-yurenko-springio23.pdf>
+* <https://openjdk.org/jeps/410>
 * <https://www.graalvm.org/latest/docs/introduction/>
+* <https://www.graalvm.org/latest/reference-manual/java/compiler/>
 * <https://www.graalvm.org/latest/reference-manual/native-image/>
+* <https://www.graalvm.org/latest/reference-manual/native-image/metadata/Compatibility/>
+* <https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/Reflection/>
+* <https://www.graalvm.org/latest/reference-manual/native-image/dynamic-features/DynamicProxy/>
 * <https://mangkyu.tistory.com/301>
 * <https://mangkyu.tistory.com/302>
+* <https://shirohoo.github.io/backend/java/2022-07-16-aot-vs-jit-in-java/>
+* <https://www.baeldung.com/graal-java-jit-compiler>
 
 
 * <https://velog.io/@profoundsea25/SpringBoot-3-GraalVM-Native-Image-%EC%A0%81%EC%9A%A9-%EC%8B%A4%ED%8C%A8%EB%8B%B4>

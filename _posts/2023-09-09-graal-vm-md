@@ -1,5 +1,5 @@
 ---
-title: "GraalVM for Native Image"
+title: "GraalVM"
 search: false
 category:
   - information
@@ -20,15 +20,17 @@ last_modified_at: 2023-09-09T23:55:00
 
 > 그렇게 좋은 기술이라면 아직까지 프로젝트나 현업에서 접해보지 못 했을까?
 
-어떤 기술인지, 정말 지금 바로 사용해볼만큼 성숙했는지 공부해봤습니다. 
+어떤 기술인지, 지금 바로 사용할 수 있는지 관련된 내용을 찾아 정리해봤습니다. 
 
 ## 1. GraalVM
 
+GraalVM은 오라클 랩스(oracle labs)에서 진행 중인 프로젝트로 다양한 프로그래밍 언어를 통합하여 실행하고 성능을 최적화하는 목적으로 등장했습니다. 
+
 > GraalVM compiles your Java applications ahead of time into standalone binaries. These binaries are smaller, start up to 100x faster, provide peak performance with no warmup, and use less memory and CPU than applications running on a Java Virtual Machine (JVM).
 
-GraalVM은 Java 어플리케이션을 AoT(Ahead of Time) 컴파일러를 사용해 독립형 바이너리(binary) 파일을 만듭니다. 
-이 한 줄을 이해한다면 GraalVM이 무슨 기술인지 대략적으로 파악할 수 있습니다. 
-GraalVM이 독립형 바이너리 파일을 만든다는 의미를 먼저 살펴보겠습니다. 
+공식 홈페이지에서 GraalVM 소개를 보면 Java 어플리케이션을 AoT(Ahead of Time) 컴파일러를 사용해 최적의 독립형 바이너리(binary) 파일을 만드는 것을 핵심 목표로 가지는 것 같습니다. 
+이 문장의 의미를 이해한다면 GraalVM이 무슨 기술인지 대략적으로 파악할 수 있습니다. 
+독립형 바이너리 파일은 네이티브 이미지(native image)라고도 부르는데 이를 
 
 ### 1.1. Byte Code
 
@@ -49,14 +51,14 @@ Java 어플리케이션은 다음과 같은 과정을 거쳐 실행됩니다.
 GraalVM가 컴파일을 통해 생성하는 파일은 JVM 없이 운영체제가 직접 실행할 수 있으며 이를 네이티브 이미지(native image)라고 합니다. 
 
 * 개발자가 소스 코드를 작성한다.
-* 컴파일러가 소스 코드를 기계어로 컴파일한다.
-* 운영체제가 기계어를 실행한다.
+* 컴파일러가 소스 코드를 실행 파일로 컴파일한다.
+* 운영체제가 실행 파일을 실행한다.
 
 <p align="center">
     <img src="/images/graal-vm-2.JPG" width="50%" class="image__border">
 </p>
 
-### 1.3. GraalVM with Native Cloud
+#### 1.2.1. Native Image in Native Cloud
 
 GraalVM이 추구하는 것은 Java라는 언어가 처음 등장한 배경인 `Write Once Run Anywhere`과 정반대입니다. 
 Java는 어플리케이션 코드를 작성하고 한번 빌드하면 플랫폼에 종속되지 않고 어디서든 실행시킬 수 있었습니다. 
@@ -65,7 +67,7 @@ GraalVM은 플랫폼에 최적화 된 컴파일을 수행하다보니 운영체�
 
 * 컨테이너의 베이스 이미지에 맞는 빌드를 수행하면 되므로 호스트 플랫폼에 종속적이지 않다. 
 * 클라우드 환경에서 컨테이너가 자주 생성되고 삭제되므로 가벼운 어플리케이션, 빠른 실행이 필요하다.
-* 서버리스(serverless) 기능을 사용한다.
+* 작은 단위의 함수를 서비스처럼 사용하는 서버리스(serverless) 기술은 가볍고, 빠른 실행이 필요하다.
 
 GraalVM의 네이티브 이미지는 이런 문제점을 해결합니다. 
 
@@ -77,18 +79,21 @@ GraalVM의 네이티브 이미지는 이런 문제점을 해결합니다.
 
 ## 2. Compilers
 
-GraalVM은 두 가지 컴파일러를 사용합니다.
+GraalVM은 어플리케이션을 실행하는 두 가지 방법을 제공합니다. 
+사용하는 컴파일러에 따라 실행 방법이 바뀝니다. 
+GraalVM이 사용하는 두 컴파일러에 대해 살펴보겠습니다. 
 
 * Graal Compiler
-    * C2 컴파일러를 대체하기 위해 Java로 개발된 Just In Time(JIT) 컴파일러
+    * C2 컴파일러를 대체하기 위해 Java로 개발된 JIT(Just In Time) 컴파일러
 * AOT(Ahead Of Time) Compiler
     * 네이티브 이미지를 생성하는 컴파일러
 
 ### 2.1. Graal Compiler
 
+Graal 컴파일러에 대해 알아보기 전에 먼저 JIT 컴파일러를 살펴보겠습니다. 
+
 #### 2.1.1. Just In Time Compiler
 
-Graal 컴파일러에 대해 알아보기 전에 먼저 JIT 컴파일러를 살펴보겠습니다. 
 Java 어플리케이션이 실행되면 바이트 코드는 JVM 인터프리터를 통해 매번 기계어로 번역 후 실행됩니다. 
 Java가 C, C++ 같은 컴파일 언어보다 느리다는 이유는 바이트 코드를 기계어로 번역하는 과정 때문입니다. 
 실행 속도의 격차를 줄이기 위해 등장한 것이 JIT 컴파일러입니다.
@@ -102,26 +107,81 @@ Java 어플리케이션이 실행 초반에 속도가 느리고 웜업이 된 �
 #### 2.1.2. Substitute JIT Compiler
 
 GraalVM 프로젝트는 HotSpot 가상머신의 문제를 몇 가지 문제를 해결하기 위해 Java로 전용 컴파일러를 만듭니다. 
-HotSpot 가상머신에서 사용하는 C1, C2 두 개의 컴파일러 중 C2를 대체할 Graal 컴파일러를 개발합니다.
+HotSpot 가상머신에서 사용하는 C1, C2 두 개의 컴파일러 중 C2를 대체할 `Graal 컴파일러`를 개발합니다.
+JDK8을 기반으로 만들었으며 
 
 * Java 기반으로 개발
     * C++ 언어를 사용하는 개발자가 줄어들어 개발, 유지보수가 어렵다.
     * 현재 Java도 충분히 빠르다.
-* 어려운 C2 최적화
+* 더 이상 어려운 최적화
     * 오랜 기간 유지 보수되어 컴파일러의 복잡도가 너무 높다.
     * 거의 모든 최적화 작업을 수행하여 더이상 최적화할 수 있는 여지가 없다.
 
 <p align="center">
     <img src="/images/graal-vm-3.JPG" width="80%" class="image__border">
 </p>
-<center>https://qiita.com/f6wbl6/items/e3dd175fa2fbd06bb39e</center>
+<center>https://dzone.com/articles/episode-2-quotthe-holy-grailquot-graalvm-building</center>
 
 ### 2.2. Ahead Of Time Compiler
 
-네이티브 이미지를 만드는 일은 
+네이티브 이미지는 네이티브 이미지 생성기(native image generator)에 의해 생성됩니다. 
+네이티브 이미지 생성기를 사용하기 위해선 `native-image`라는 도구를 설치합니다. 
+이미지 생성기는 내부에서 AOT 컴파일러를 사용합니다. 
+네이티브 이미지를 생성하는 과정은 두 단계에 거쳐 컴파일이 수행됩니다. 
 
+* `javac` 컴파일러를 통해 바이트 코드 혹은 jar 파일 생성
+* 네이티브 이미지 생성기를 통해 네이티브 이미지 생성
+    * 컴파일 된 파일을 클래스 로더를 통해 로딩합니다.
+    * 정적 코드 분석을 수행합니다.
+    * 분석 결과를 힙 이미지라는 형태의 파일로 만들고 실행할 때 그대로 사용합니다.
 
-### 2.3. Compilers in OpenJDK
+이미지 생성기에 의해 만들어진 네이티브 이미지는 다음과 같은 구조를 가집니다.
+
+* 힙 메모리 이미지
+* 기계어
+* 어플리케이션 실행을 위한 경량화 Substrate VM 
+
+<p align="center">
+    <img src="/images/graal-vm-4.JPG" width="100%" class="image__border image__padding">
+</p>
+<center>http://taewan.kim/graalvm/not_found_native-image_graalvm/</center>
+
+### 2.2.1. Performance Limitation of Native Image
+
+AOT 컴파일러는 정정 코드 분석을 통해 실행 가능한 파일을 미리 만들기 때문에 빠른 실행 속도, 적은 메모리 사용, 작은 패키징 사이즈 등의 장점이 있지만, 런타임 중 최적화를 수행하는 JIT 컴파일러에 비해 최대 처리율은 떨어집니다. 
+
+##### Balacne AOT/JIT Compiler
+
+<p align="center">
+    <img src="/images/graal-vm-5.JPG" width="80%" class="image__border">
+</p>
+<center>https://mangkyu.tistory.com/302</center>
+
+##### Max Throughput AOT/JIT Compiler
+
+<p align="center">
+    <img src="/images/graal-vm-6.JPG" width="80%" class="image__border">
+</p>
+<center>https://mangkyu.tistory.com/302</center>
+
+### 2.2.2. Dynamic Features Limitation of Native Image
+
+정적 코드 분석을 통해 미리 기계어로 컴파일을 진행하다보니 Java의 강력한 동적 기능들을 사용하는데 제약이 있는 것 같습니다. 
+
+* Accessing Resources
+* Certificate Management
+* Dynamic Proxy
+* Java Native Interface (JNI)
+* JCA Security Services
+* Reflection
+* URL Protocols
+
+Java 동적 기능들을 지원하지만, 힌트(hint)를 별도로 작성해야하 하는 불편함이 있는 것 같습니다. 
+스프링 프레임워크는 내부적으로 리플렉션(reflection)이나 동적 프록시(dynamic proxy) 기능을 많이 사용할 텐데 이를 어떻게 지원하는지에 대해선 다음 포스트로 정리할 예정입니다. 
+
+### 2.4. Compilers in OpenJDK
+
+OpenJDK는 실험적으로 Graal JIT 컴파일러와 AOT 컴파일러를 추가헀다가 현재는 제외하였습니다. 
 
 * [JEP 243](https://openjdk.org/jeps/243) - Java-Level JVM Compiler Interface
 * [JEP 295](https://openjdk.org/jeps/295) - Ahead-of-Time Compilation
@@ -130,12 +190,22 @@ HotSpot 가상머신에서 사용하는 C1, C2 두 개의 컴파일러 중 C2를
 
 ## 3. GraalVM as a Language Platform
 
+GraalVM은 다양한 프로그래밍 언어를 실행하는 플랫폼으로서 다음과 같은 구조를 가집니다. 
 
-## CLOSING
+* Java HotSpot VM
+    * JVM 환경 제공
+    * JVMCI(JVM Compiler Interface)를 통해 필요한 컴파일러 모듈을 선택적으로 사용
+* Graal Compiler
+    * Java 기반으로 만들어진 JIT 컴파일러
+* Truffle Framework
+    * JVM 기반이 아니었던 언어들을 번역하기 위한 프레임워크
+* Sulong
+    * C, C++, Rust 같은 저수준 언어를 GraalVM에서 실행시키기 위한 LLVM 기반 컴파일러
 
-#### TEST CODE REPOSITORY
-
-#### RECOMMEND NEXT POSTS
+<p align="center">
+    <img src="/images/graal-vm-7.JPG" width="100%" class="image__border">
+</p>
+<center>https://www.graalvm.org/community/assets/</center>
 
 #### REFERENCE
 
@@ -143,7 +213,7 @@ HotSpot 가상머신에서 사용하는 C1, C2 두 개의 컴파일러 중 C2를
 * <https://www.youtube.com/watch?v=C7toO3WV1NQ>
 * <https://www.youtube.com/watch?v=54rxc2dEv10>
 * <https://2023.springio.net/docs/slides/going-native-fast-and-lightweight-spring-boot-applications-with-graalvm-alina-yurenko-springio23.pdf>
-* <https://openjdk.org/jeps/410>
+* <https://www.graalvm.org/community/assets/>
 * <https://www.graalvm.org/latest/docs/introduction/>
 * <https://www.graalvm.org/latest/reference-manual/java/compiler/>
 * <https://www.graalvm.org/latest/reference-manual/native-image/>
@@ -154,15 +224,6 @@ HotSpot 가상머신에서 사용하는 C1, C2 두 개의 컴파일러 중 C2를
 * <https://mangkyu.tistory.com/302>
 * <https://shirohoo.github.io/backend/java/2022-07-16-aot-vs-jit-in-java/>
 * <https://www.baeldung.com/graal-java-jit-compiler>
-
-
-* <https://velog.io/@profoundsea25/SpringBoot-3-GraalVM-Native-Image-%EC%A0%81%EC%9A%A9-%EC%8B%A4%ED%8C%A8%EB%8B%B4>
-* <https://velog.io/@akfls221/Spring-GraalVM-Native-Image>
-* <https://happy-jjang-a.tistory.com/191>
-* <https://github.com/spring-attic/spring-native/issues/381>
-* <https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html>
-* <https://lab.logpresso.com/2020/05/10/graalvm>
-* <https://lab.logpresso.com/2021/05/27/graalvm-native-image>
-* <https://docs.spring.io/spring-boot/docs/current/reference/html/native-image.html>
+* <http://taewan.kim/graalvm/not_found_native-image_graalvm/>
 
 [jvm-execution-engine-link]: https://junhyunny.github.io/information/java/jvm-execution-engine/

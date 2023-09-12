@@ -1,5 +1,5 @@
 ---
-title: "StackOverflowError 해결 (feat. @JsonIgnoreProperties 애너테이션)"
+title: "StackOverFlowError and @JsonIgnoreProperties Annotation"
 search: false
 category:
   - spring-boot
@@ -9,12 +9,19 @@ last_modified_at: 2021-09-04T13:00:00
 
 <br/>
 
-## 1. 객체 순환 참조
+<!-- ## 1. Problem Context
+
+## 2. Problem Analysis
+
+## 3. Solve the problem -->
+
+## 1. Circular Reference
 
 Jackson 라이브러리를 통해 직렬화(Serialize) 된 Json 응답을 받는 경우 종종 StackOverFlowError가 발생합니다. 
 이런 경우 대부분 객체 사이의 순환 참조가 문제 발생의 원인입니다. 
 
 ### 1.1. 순환 참조 예시
+
 - A 인스턴스가 B 인스턴스를 참조합니다.
 - B 인스턴스가 A 인스턴스를 참조합니다.
 - A 인스턴스를 직렬화하는 경우 참조하는 B 인스턴스가 함께 직렬화됩니다.
@@ -58,9 +65,11 @@ public @interface JsonIgnoreProperties {
 <p align="center"><img src="/images/json-ignore-properties-2.jpg" width="75%"></p>
 
 ## 2. 테스트 코드
+
 간단한 테스트 코드를 통해 만날 수 있는 에러 상황과 해결 방법에 대해 알아보도록 하겠습니다. 
 
 ### 2.1. Dto 클래스
+
 - ADto, BDto, CDto 클래스를 작성합니다.
 - ADto 클래스와 BDto 클래스는 서로 순환 참조합니다.
 - ADto 클래스와 CDto 클래스는 서로 순환 참조합니다.
@@ -233,4 +242,5 @@ MockHttpServletResponse:
 양방향 참조가 되도록 JPA 엔티티(Entity) 설계를 해놓은 모습이 컨트롤러 영역까지 그대로 반영되는 경우 주로 발생하였습니다. 
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>

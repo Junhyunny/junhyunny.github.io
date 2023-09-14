@@ -78,8 +78,6 @@ html {
 
 .wrapper {
   position: relative;
-  width: 640px;
-  height: 480px;
   border: 1px solid lightgrey;
   border-radius: 5px;
 }
@@ -139,7 +137,6 @@ button {
   margin: 10px auto;
   padding: 10px;
 
-  width: 150px;
   outline: none;
   border-width: 0;
   border-radius: 2px;
@@ -248,6 +245,7 @@ function changeFrame(frameType) {
 
 function removeFrame() {
   frameTypeState = 0;
+  photoCtx.clearRect(0, 0, frameCtx.canvas.width, frameCtx.canvas.height);
   frameCtx.clearRect(0, 0, frameCtx.canvas.width, frameCtx.canvas.height);
 }
 
@@ -261,7 +259,11 @@ video.addEventListener("canplay", paintToCanvas);
 
 ## 4. Result
 
-{% include codepen.html hash="MWZoRmw" tab="js,result" title="Webcam Frame Filters" %}
+* 블로그 화면에선 웹캠이 동작하지 않습니다. 
+* 웹캠 동작을 위해 코드펜으로 접속합니다.
+    * <https://codepen.io/junhyunny/pen/MWZoRmw>
+
+{% include codepen.html hash="MWZoRmw" tab="html,js" title="Webcam Frame Filters" %}
 
 #### REFERENCE
 

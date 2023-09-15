@@ -102,10 +102,12 @@ html {
   border-radius: 5px;
 }
 
+/* 실제 비디오 엘리먼트는 화면에서 숨김 */
 .player {
   display: none;
 }
 
+/* 촬영한 카드가 수집되는 블럭 */
 .strip {
   margin-top: 0.5rem;
   padding: 2rem;
@@ -183,7 +185,9 @@ button:active:before {
 ## 3. JavaScript Code
 
 ```javascript
+// 프레임 필터 타입을 설정
 let frameTypeState = 0;
+
 const video = document.querySelector(".player");
 const frameCanvas = document.querySelector(".frame");
 const photoCanvas = document.querySelector(".photo");
@@ -191,10 +195,12 @@ const frameCtx = frameCanvas.getContext("2d");
 const photoCtx = photoCanvas.getContext("2d");
 const strip = document.querySelector(".strip");
 
+// 웹캠 사용에 대한 권한 신청
 function getVedio() {
   navigator.mediaDevices
     .getUserMedia({ video: true, audio: false })
     .then((localMediaStream) => {
+      // 권한에 대한 승인 후 비디오 실행
       video.srcObject = localMediaStream;
       video.play();
     })
@@ -208,6 +214,8 @@ function paintToCanvas() {
   frameCanvas.height = height;
   photoCanvas.width = width;
   photoCanvas.height = height;
+  // 비디오 화면 모습을 캔버스에 그림
+  // 60 프레임으로 동작하도록 16ms 마다 캔버스 다시 그림
   setInterval(() => {
     photoCtx.drawImage(
       video,
@@ -220,18 +228,24 @@ function paintToCanvas() {
 }
 
 function onloadToTakePhoto() {
+  // 사진 캔버스에 필터 프레임 이미지를 오버라이드(override)
   photoCtx.drawImage(this, 0, 0, photoCtx.canvas.width, photoCtx.canvas.height);
   const data = photoCanvas.toDataURL("image/jpeg");
   const link = document.createElement("a");
   link.setAttribute("download", "hello");
   link.innerHTML = `<img src="${data}" alt="Hi" />`;
+  // 아래 사진첩에 사진을 추가
   strip.insertBefore(link, strip.firstChild);
 }
 
+// 프레임 이미지 로딩
 function loadFrame(onloadCallback) {
   const image = new Image();
+  // CORS 문제 해결
   image.crossOrigin = "anonymous";
-  image.onload = onloadCallback;
+  // 프레임 이미지 로딩 콜백 등록
+  image.onload = onloadCallback; 
+  // 이미지 객체의 src 변경 시 onload 콜백 함수 실행
   if (frameTypeState === 1) {
     image.src = "https://junhyunny.github.io/images/webcam-filter-1.JPG";
   } else if (frameTypeState === 2) {
@@ -239,34 +253,40 @@ function loadFrame(onloadCallback) {
   }
 }
 
+// 사진 촬영
 function takePhoto() {
   loadFrame(onloadToTakePhoto);
 }
 
+// 프레임 변경
 function changeFrame(frameType) {
   removeFrame();
   frameTypeState = frameType;
   loadFrame(onload);
 }
 
+// 프레임 제거
 function removeFrame() {
   frameTypeState = 0;
   photoCtx.clearRect(0, 0, frameCtx.canvas.width, frameCtx.canvas.height);
   frameCtx.clearRect(0, 0, frameCtx.canvas.width, frameCtx.canvas.height);
 }
 
+// 프레임 로드
 function onload() {
   frameCtx.drawImage(this, 0, 0, frameCtx.canvas.width, frameCtx.canvas.height);
 }
 
+// 비디오 권한 신청
 getVedio();
+
+// 비디오 촬영 가능한 경우 사진 캔버스에 비디오 이미지를 갱신하는 콜백 함수 등록
 video.addEventListener("canplay", paintToCanvas);
 ```
 
 ## 4. Result
 
-* 블로그 화면에선 웹캠이 동작하지 않습니다. 
-* 웹캠 동작을 위해 코드펜으로 접속합니다.
+* 블로그 화면에선 웹캠이 동작하지 않으므로 웹캠 동작을 위해 코드펜으로 접속합니다.
     * <https://codepen.io/junhyunny/pen/MWZoRmw>
 
 {% include codepen.html hash="MWZoRmw" tab="html,js" title="Webcam Frame Filters" %}

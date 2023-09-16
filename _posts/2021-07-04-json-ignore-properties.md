@@ -51,8 +51,9 @@ java.lang.StackOverflowError: null
 * 메소드 호출시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/json-ignore-properties-1.JPG" width="80%">
+    <img src="/images/json-ignore-properties-1.jpg" width="40%" class="image__border">
 </p>
+<center>https://en.wikipedia.org/wiki/Circular_reference</center>
 
 ### 2.2. Domain Classes
 
@@ -62,7 +63,7 @@ java.lang.StackOverflowError: null
 * 댓글 객체는 자신과 연관된 포스트 객체를 참조하고 있습니다.
 
 <p align="center">
-    <img src="/images/json-ignore-properties-2.JPG" width="80%">
+    <img src="/images/json-ignore-properties-2.jpg" width="80%" class="image__border">
 </p>
 
 #### 2.2.1. Post Record
@@ -407,3 +408,5 @@ MockHttpServletResponse:
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>
 
 #### REFERENCE
+
+* <https://en.wikipedia.org/wiki/Circular_reference>

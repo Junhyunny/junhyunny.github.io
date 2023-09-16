@@ -9,551 +9,472 @@ last_modified_at: 2021-10-31T23:55:00
 
 <br/>
 
-## 1. 프록시 패턴(Proxy Pattern)
+## 1. Proxy Pattern
 
 > 프록시(Proxy) - 대리자, 대리인
 
-패턴 이름처럼 대리인이 존재하여 일을 대신 수행해주는 패턴입니다. 
-프록시 객체는 실제 서비스를 수행하는 객체를 멤버로 지니고 있으며, 외부의 요청을 대신 받습니다. 
-실제 기능을 제공하는 객체에 대한 접근을 제어할 수 있습니다. 
-일단 구조는 어떻게 되어 있는지 확인하고, 어떤 장단점이 존재하는지 알아보겠습니다. 
+패턴 이름에서 알 수 있듯이 실제 객체를 대신하는 대리인 객체가 존재하는 패턴입니다. 
 
-### 1.1. 구조
-- 클라이언트 클래스(Client) - Subject 인터페이스가 제공하는 기능을 사용하는 클래스
-- 주체 인터페이스(Subject) - Proxy, RealSubject 클래스가 제공해야하는 기능이나 서비스를 명시한 인터페이스
-- 프록시 클래스(Proxy) - Client 클래스의 요청을 대신 받아서 RealSubject 클래스에게 전달하는 클래스
-- 주체 클래스(RealSubject) - 실제 제공하는 기능이나 서비스를 구현한 클래스
+* 프록시 객체는 대리인으로써 외부 요청을 대신 받아줍니다.
+* 프록시 객체는 실제 서비스를 수행하는 객체를 내부 멤버로 가지고 있습니다.
+* 실제 기능이 수행되기 전이나 후에 필요한 별도 로직을 처리할 수 있습니다.
+    * 실제 객체의 기능을 건들지 않고 기능을 확장할 수 있습니다.
+    * 프록시 객체의 확장된 기능으로 실제 객체 로직 수행 결과가 바뀌면 안 됩니다.
 
-<p align="center"><img src="/images/proxy-pattern-1.JPG" width="75%"></p>
-<center>hthttps://en.wikipedia.org/wiki/Proxy_pattern</center>
+### 1.1. Structure
 
-### 1.2. 장점
-- 주체 클래스가 로딩(loading)되기 전에 프록시 클래스를 통해 참조 가능합니다. 
-- 주체 클래스를 수정하지 않고 프록시 클래스를 통해 요청과 기능 수행 사이의 필요한 로직(logic)을 추가할 수 있습니다.
-- 주체 클래스에 대한 접근 제어 및 보호가 가능합니다.
+프록시 패턴은 다음과 같은 구조를 가집니다. 
 
-### 1.3. 단점
-- 불필요하게 생성된 프록시 클래스는 코드의 가독성을 떨어뜨릴 수 있습니다.
-- 객체 생성이 한 단계 더 늘어났기 때문에 잦은 객체 생성은 성능을 나쁘게 만듭니다. 
+* 클라이언트(Client) 
+    * Subject 인터페이스의 구현체가 제공하는 기능을 사용하는 객체입니다.
+* 주체(Subject) 
+    * 제공해야하는 어떤 기능들을 명시해놓은 인터페이스입니다.
+    * Proxy 객체나 RealSubject 객체는 주체 인터페이스를 확장합니다.
+* 프록시(Proxy) 
+    * Client 객체의 요청을 대신 받아주는 객체입니다.
+    * 전달받은 요청을 RealSubject 객체에게 전달합니다.
+    * RealSubject 객체가 일을 수행하기 전이나 후에 필요한 로직을 처리합니다.
+* 실제 주체(RealSubject) 
+    * 인터페이스에서 명시한 기능을 실제로 처리하는 객체입니다.
 
-## 2. 프록시 패턴 종류
+<p align="center">
+    <img src="/images/proxy-pattern-1.JPG" width="80%" class="image__border">
+</p>
+<center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 
-많은 종류의 프록시 패턴이 있지만, 대표적인 세 가지만 정리해보았습니다. 
+### 1.2. Strength and Weakness
 
-- 가상 프록시(Virtual Proxy)
-    - 요청이 있을 때에만 필요한 고비용 객체를 생성합니다.
-    - 필요 시점까지 객체의 생성을 연기하면서 해당 객체가 생성된 것처럼 동작하도록 만드는 패턴입니다. 
-    - 만드는데 많은 비용이 들어가는 객체에 대한 생성, 접근 시점을 제어합니다. 
-- 원격 프로시(Remote Proxy)
-    - 다른 시스템에 위치하는 원격 객체의 역할을 대신 수행합니다. 
-    - 원격 프록시 객체가 대변하는 원격 시스템에 위치한 객체를 마치 로컬(local)에 있는 것처럼 사용할 수 있습니다. 
-- 보호 프록시(Protection Proxy)
-    - 주체 클래스에 대한 접근을 제어하기 위해 사용합니다. 
-    - 클라이언트 객체가 주체 클래스에 대한 접근시 이를 허용할 것인지 아닌지에 대한 제어를 수행합니다. 
-    - 클라이언트 별로 접근 제어 권한이 다를 때 유용하게 사용됩니다. 
+다음과 같은 장점들을 가집니다.
 
-## 3. 프록시 패턴 예시
+* 주체 클래스 객체가 로딩(loading)되기 전에 프록시 객체를 통해 참조 가능합니다. 
+* 주체 클래스 기능을 수정하지 않고도 프록시 객체를 사용하 기능을 확장할 수 있습니다. 
+* 주체 클래스 객체에 대한 접근 제어 및 보호가 가능합니다.
 
-### 3.1. 가상 프록시(Virtual Proxy)
-요청이 있을 때까지 고비용 객체 생성을 미루는 프록시 패턴입니다. 
-하지만, 이번 테스트 코드에서 색다르게 변형하였습니다. 
-생성은 쉽지만 사용하기 위해 준비되기까지 많은 비용이 소모되는 시나리오로 구성하였습니다.
+다음과 같은 단점들을 가집니다. 
 
-#### 3.1.1. VirtualSubject 인터페이스
+* 불필요한 프록시 클래스는 코드의 가독성을 떨어뜨립니다.
+* 객체 생성이 한 단계 더 늘어났기 때문에 잦은 객체 생성은 성능을 나쁘게 만듭니다. 
+
+## 2. Types of Proxy Instance
+
+대표적으로 세 가지 프록시 객체가 있습니다. 
+프록시 객체가 수행하는 일에 따라 종류가 정해집니다. 
+
+* 가상 프록시(Virtual Proxy)
+    * 요청이 있을 때만 고비용 객체를 생성합니다.
+    * 필요 시점까지 객체의 생성을 연기하여 해당 객체가 생성된 것처럼 동작하도록 만드는 패턴입니다. 
+    * 만드는데 많은 비용이 들어가는 객체에 대한 생성, 접근 시점을 제어합니다. 
+* 원격 프로시(Remote Proxy)
+    * 다른 시스템에 위치하는 원격 객체의 역할을 대신 수행합니다. 
+    * 원격 프록시 객체가 대변하는 원격 시스템에 위치한 객체를 마치 로컬(local)에 있는 것처럼 사용할 수 있습니다. 
+* 보호 프록시(Protection Proxy)
+    * 주체 클래스에 대한 접근을 제어하기 위해 사용합니다. 
+    * 클라이언트 객체가 주체 클래스에 대한 접근시 이를 허용할 것인지 아닌지에 대한 제어를 수행합니다. 
+    * 클라이언트 별로 접근 제어 권한이 다를 때 유용하게 사용됩니다. 
+
+## 3. Practice
+
+간단한 예제 코드를 작성해보겠습니다.
+
+### 3.1. Virtual Proxy
+
+요청이 있기 전까지 고비용 객체 생성을 미룹니다. 
+
+#### 3.1.1. VirtualSubject Interface
+
+* 특정 데이터를 출력합니다.
 
 ```java
-package blog.in.action.proxy.virtual;
+package blog.in.action.virtual;
 
 public interface VirtualSubject {
 
-    void print() throws InterruptedException;
+    void print();
 }
 ```
 
-#### 3.1.2. VirtualRealSubject 클래스
-- 주체 클래스이며, 출력(print)하기 위해선 2개의 아이템이 필요합니다.
-- 각 아이템이 준비되는데 걸리는 시간은 첫번째 아이템이 1초, 두번째 아이템이 3초입니다. 
-- 주체 클래스에 대한 객체가 생성될 때 스레드를 이용해 각 아이템들을 준비합니다.
-- 준비되지 않은 상태에서 주체 클래스의 `print()` 메소드 호출시 예외(exception)가 발생합니다.
+#### 3.1.2. VirtualRealSubject Class
+
+실제 비즈니스 로직을 수행합니다. 
+생성되기까지 1초가 필요한 고비용 객체입니다.
 
 ```java
-package blog.in.action.proxy.virtual;
+package blog.in.action.virtual;
 
-import java.util.concurrent.CompletableFuture;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
-@Log4j2
+@Slf4j
 public class VirtualRealSubject implements VirtualSubject {
 
-    private boolean firstItemLoadedFlag;
-
-    private boolean secondItemLoadedFlag;
-
-    private void loadFirstItem() {
-        try {
-            Thread.sleep(1000);
-            firstItemLoadedFlag = true;
-            log.info("first item is loaded.");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadSecondItem() {
-        try {
-            Thread.sleep(3000);
-            secondItemLoadedFlag = true;
-            log.info("second item is loaded.");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     public VirtualRealSubject() {
-        CompletableFuture.runAsync(this::loadFirstItem);
-        CompletableFuture.runAsync(this::loadSecondItem);
-    }
-
-    public boolean isReady() {
-        return firstItemLoadedFlag && secondItemLoadedFlag;
+        try {
+            log.info("wait for loading...");
+            Thread.sleep(1000);
+            log.info("finish");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void print() {
-        if (!isReady()) {
-            throw new RuntimeException("not ready to print");
-        }
         log.info("print something");
     }
 }
 ```
 
-#### 3.1.3. VirtualProxy 클래스
-- 클라이언트 객체가 사용하는 가상 프록시 클래스입니다. 
-- `print()` 메소드 호출시 주체 클래스 객체가 준비되지 않았다면 계속 대기합니다.
+#### 3.1.3. VirtualProxy Class
+
+가상 프록시 객체입니다. 
+실제 주체 클래스의 생성을 최대한 미룬 후 클라이언트가 print 메소드를 호출하는 시점에 생성합니다. 
 
 ```java
-package blog.in.action.proxy.virtual;
+package blog.in.action.virtual;
 
-import lombok.extern.log4j.Log4j2;
-
-@Log4j2
 public class VirtualProxy implements VirtualSubject {
 
     private VirtualRealSubject realSubject;
 
-    public VirtualProxy() {
-        realSubject = new VirtualRealSubject();
-    }
-
     @Override
-    public void print() throws InterruptedException {
-        while (!realSubject.isReady()) {
-            Thread.sleep(500);
-            log.info("waiting");
+    public void print() {
+        if (realSubject == null) {
+            this.realSubject = new VirtualRealSubject();
         }
         realSubject.print();
     }
 }
 ```
 
-#### 3.1.4. Client 클래스
-- printByVirtualProxy 메소드
-    - 가상 프록시 객체를 생성 후 즉각 출력을 수행합니다.
-- printByVirtualProxyAfterCountFive 메소드 
-    - 가상 프록시 객체를 생성합니다.
-    - 5초동안 숫자를 세는 일을 수행합니다.
-    - 숫자 세는 일을 마치고 출력을 수행합니다.
-    - 숫자를 세는 일은 예시이므로 클라이언트 객체가 필요한 로직을 수행하였다고 가정합니다.
+#### 3.1.4. VirtualClient Class
+
+VirtualSubject 구현 객체에 의존하는 클라이언트 클래스입니다. 
+
+* 클라이언트 객체를 만들기 위해선 VirtualSubject 구현체가 필요합니다. 
+* print 메소드에서 특정 결과에 따라 VirtualSubject 구현체의 print 메소드를 사용할 수도 있고 아닐 수도 있습니다. 
+
+다음과 같은 경우의 수를 나눠 생각해보면 가상 프록시 객체를 만드는 것이 이득입니다.
+
+* VirtualSubject 구현체의 print 메소드가 호출되지 않는 경우
+    * VirtualRealSubject 객체를 생성해서 주입한다면 불필요하게 1초를 사용한 것입니다.
+    * VirtualProxy 객체를 생성해서 주입한다면 추가적인 기다림이 없습니다.
+* VirtualSubject 구현체의 print 메소드가 호출되는 경우
+    * VirtualRealSubject 객체를 1초에 걸쳐 생성한 후 주입하였기 때문에 즉시 사용할 수 있습니다. 
+    * VirtualProxy 객체를 생성해서 주입한 후 실제 print 메소드가 호출될 때 1초에 걸쳐 VirtualRealSubject 객체를 생성 후 사용합니다.
 
 ```java
-package blog.in.action.proxy;
-
-// ...
-
-@Log4j2
-@Getter
-@Setter
-public class Client {
-
-    // ...
-
-    public void printByVirtualProxy() throws InterruptedException {
-        VirtualSubject subject = new VirtualProxy();
-        subject.print();
-    }
-
-    public void printByVirtualProxyAfterCountFive() throws InterruptedException {
-        VirtualSubject subject = new VirtualProxy();
-        for (int index = 1; index <= 5; index++) {
-            Thread.sleep(1000);
-            log.info(index);
-        }
-        subject.print();
-    }
-}
-```
-
-#### 3.1.5. 가상 프록시 테스트
-
-```java
-package blog.in.action.proxy;
-
-// ...
-
-@Log4j2
-public class ProxyPatternTest {
-
-    private Client client;
-
-    @BeforeEach
-    public void beforeEach() {
-        client = new Client();
-    }
-
-    // ...
-
-    @Test
-    public void when_printByVirtualProxy_then_printFewSecondsLater() throws InterruptedException {
-        client.printByVirtualProxy();
-    }
-
-    @Test
-    public void when_printByVirtualProxyAfterCountFive_then_printRightAfterCount() throws InterruptedException {
-        client.printByVirtualProxyAfterCountFive();
-    }
-}
-```
-
-##### when_printByVirtualProxy_then_printFewSecondsLater 테스트 결과
-- 가상 프록시 객체를 생성 후 즉각 출력을 수행하면 준비되기까지 대기합니다.
-- 클라이언트 객체 입장에선 사용하고 싶은 객체가 즉각 반환되어 사용할 수 있는 것처럼 보입니다.
-- 클라이언트 객체는 주체 클래스 객체가 준비되는 과정을 확인할 수 있습니다.
-
-```
-02:43:34.974 [main] INFO blog.in.action.proxy.virtual.VirtualProxy - waiting
-02:43:35.475 [main] INFO blog.in.action.proxy.virtual.VirtualProxy - waiting
-02:43:35.475 [ForkJoinPool.commonPool-worker-19] INFO blog.in.action.proxy.virtual.VirtualRealSubject - first item is loaded.
-02:43:35.977 [main] INFO blog.in.action.proxy.virtual.VirtualProxy - waiting
-02:43:36.479 [main] INFO blog.in.action.proxy.virtual.VirtualProxy - waiting
-02:43:36.982 [main] INFO blog.in.action.proxy.virtual.VirtualProxy - waiting
-02:43:37.485 [main] INFO blog.in.action.proxy.virtual.VirtualProxy - waiting
-02:43:37.485 [main] INFO blog.in.action.proxy.virtual.VirtualRealSubject - print something
-02:43:37.485 [ForkJoinPool.commonPool-worker-5] INFO blog.in.action.proxy.virtual.VirtualRealSubject - second item is loaded.
-```
-
-##### when_printByVirtualProxyAfterCountFive_then_printRightAfterCount 테스트 결과
-- 클라이언트 객체는 필요한 가상 프록시 객체를 생성합니다.
-- 다음 자신이 선처리해야하는 로직(logic)을 수행합니다.
-- 선처리 로직을 마치고 가상 프록시 객체를 이용해 출력을 수행하면 즉각 수행됩니다.
-- 클라이언트 객체는 비용이 큰 객체를 미리 준비시킨 후 필요한 곳에서 사용할 수 있습니다.
-
-```
-02:47:06.728 [ForkJoinPool.commonPool-worker-19] INFO blog.in.action.proxy.virtual.VirtualRealSubject - first item is loaded.
-02:47:06.728 [main] INFO blog.in.action.proxy.Client - 1
-02:47:07.750 [main] INFO blog.in.action.proxy.Client - 2
-02:47:08.723 [ForkJoinPool.commonPool-worker-5] INFO blog.in.action.proxy.virtual.VirtualRealSubject - second item is loaded.
-02:47:08.755 [main] INFO blog.in.action.proxy.Client - 3
-02:47:09.760 [main] INFO blog.in.action.proxy.Client - 4
-02:47:10.765 [main] INFO blog.in.action.proxy.Client - 5
-02:47:10.765 [main] INFO blog.in.action.proxy.virtual.VirtualRealSubject - print something
-```
-
-### 3.2. 원격 프록시(Remote Proxy)
-타 시스템에 있는 객체를 로컬에 위치한 객체처럼 사용하기 위한 프록시 패턴입니다. 
-구글 서버에서 메인 화면을 제공하는 컨트롤러(controller) 객체을 호출하는 원격 프록시 클래스를 만들어보겠습니다.
-
-#### 3.2.1. RemoteSubject 인터페이스
-
-```java
-package blog.in.action.proxy.remote;
-
-public interface RemoteSubject {
-
-    void printGoogleMainPage();
-}
-```
-
-#### 3.2.2. RemoteProxy 클래스
-- 구글 메인 화면을 출력하는 기능을 클라이언트 객체에게 제공하는 원격 프록시 클래스입니다.
-- 내부에서는 API 요청을 이용해 전달받은 데이터를 출력하는 기능이 구현되어 있습니다.
-- 외부에서는 원격 프록시 객체가 구글 메인 화면을 출력하는 것으로 보입니다.
-
-```java
-package blog.in.action.proxy.remote;
+package blog.in.action.virtual;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.client.RestTemplate;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 @Log4j2
-public class RemoteProxy implements RemoteSubject {
+public class VirtualClient {
 
-    private RestTemplate restTemplate;
+    private final VirtualSubject virtualSubject;
 
-    public RemoteProxy() {
-        restTemplate = new RestTemplate();
+    public VirtualClient(VirtualSubject virtualSubject) {
+        this.virtualSubject = virtualSubject;
     }
 
-    @Override
-    public void printGoogleMainPage() {
-        log.info(restTemplate.getForEntity("https://www.google.com", String.class));
+    public void print() {
+        log.info("business logic inside");
+        var result = ThreadLocalRandom.current().nextBoolean();
+        if (result) {
+            virtualSubject.print();
+        }
     }
 }
 ```
 
-#### 3.2.3. Client 클래스
-- 원격 프록시 객체를 만들어 구글 메인 화면을 출력합니다.
+#### 3.1.5. Test
 
 ```java
-package blog.in.action.proxy;
+package blog.in.action.virtual;
 
-// ...
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 
-@Log4j2
-@Getter
-@Setter
-public class Client {
-
-    // ...
-
-    public void printGoogleByRemoteProxy() {
-        RemoteSubject subject = new RemoteProxy();
-        subject.printGoogleMainPage();
-    }
-}
-```
-
-#### 3.2.4. 원격 프록시 테스트
-
-```java
-package blog.in.action.proxy;
-
-// ...
-
-@Log4j2
-public class ProxyPatternTest {
-
-    private Client client;
-
-    @BeforeEach
-    public void beforeEach() {
-        client = new Client();
-    }
-
-    // ...
+@Slf4j
+class VirtualClientTest {
 
     @Test
-    public void when_printGoogleByRemoteProxy_then_printHTML() {
-        client.printGoogleByRemoteProxy();
+    void printByVirtualProxy() {
+
+        var start = System.currentTimeMillis();
+        VirtualClient client = new VirtualClient(new VirtualProxy());
+        client.print();
+        var end = System.currentTimeMillis();
+
+
+        log.info("{} milli seconds", end - start);
+    }
+
+    @Test
+    void printByVirtualRealSubject() {
+
+        var start = System.currentTimeMillis();
+        VirtualClient client = new VirtualClient(new VirtualRealSubject());
+        client.print();
+        var end = System.currentTimeMillis();
+
+        log.info("{} milli seconds", end - start);
     }
 }
 ```
 
-##### when_printGoogleByRemoteProxy_then_printHTML 테스트 결과
-- 원격 프록시 객체 내부에서 구글 서버로 페이지 요청 성공 후 내용을 출력합니다.
+##### printByVirtualProxy method 
+
+가상 프록시를 사용한 코드입니다. 
+
+* print 메소드 내부에서 VirtualSubject 구현체가 사용되지 않은 경우 1ms 소요됩니다.
 
 ```
-02:58:54.436 [main] DEBUG org.springframework.web.client.RestTemplate - HTTP GET https://www.google.com
-02:58:54.443 [main] DEBUG org.springframework.web.client.RestTemplate - Accept=[text/plain, application/json, application/*+json, */*]
-02:58:54.790 [main] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-02:58:54.806 [main] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.String] as "text/html;charset=ISO-8859-1"
-02:58:54.837 [main] INFO blog.in.action.proxy.remote.RemoteProxy - <200,<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="ko"><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"><meta content="/images/branding/googleg/1x/googleg_standard_color_128dp.png" itemprop="image">
-...
+22:47:22.874 [main] INFO blog.in.action.virtual.VirtualRealSubject -- wait for loading...
+22:47:23.880 [main] INFO blog.in.action.virtual.VirtualRealSubject -- finish
+22:47:23.881 [main] INFO blog.in.action.virtual.VirtualClient -- business logic inside
+22:47:23.881 [main] INFO blog.in.action.virtual.VirtualClientTest -- 1057 milli seconds
 ```
 
-### 3.3. 보호 프록시(Protection Proxy)
+##### printByVirtualRealSubject method
+
+실제 객체를 사용한 코드입니다. 
+print 메소드 내부에서 VirtualSubject 구현체가 사용되든 되지 않든 항상 1초 이상이 소요됩니다.
+
+* print 메소드 내부에서 VirtualSubject 구현체가 사용되지 않았지만 1057ms 소요됩니다.
+
+```
+22:47:22.874 [main] INFO blog.in.action.virtual.VirtualRealSubject -- wait for loading...
+22:47:23.880 [main] INFO blog.in.action.virtual.VirtualRealSubject -- finish
+22:47:23.881 [main] INFO blog.in.action.virtual.VirtualClient -- business logic inside
+22:47:23.881 [main] INFO blog.in.action.virtual.VirtualClientTest -- 1057 milli seconds
+```
+
+### 3.2. Remote Proxy
+
+타 시스템에 있는 객체를 로컬에 위치한 객체처럼 사용하기 위한 프록시 패턴입니다. 
+자바(Java)에서는 RMI(Remote Method Invocation)이라는 API 기능을 제공합니다. 
+RMI 서버와 클라이언트 개발이 필요하기 때문에 이번 포스트에선 간단하게 개념만 살펴보겠습니다. 
+
+* 원격 프록시
+    * 원격 객체에 대한 로컬 대변자 역할을 수행합니다.
+    * 프록시 메소드를 호출하면 네트워크를 통해 명령이 전달됩니다.
+    * 원격 객체의 메소드가 호출됩니다.
+    * 결과는 다시 네트워크를 타고 반환되어 클라이언트에게 전달됩니다.
+    * 스텁(stub)이라고 부르기도 합니다.
+* 원격 객체
+    * 다른 JVM 힙(heap) 메모리에서 존재하는 객체입니다.
+    * 일반적으로 다른 주소 공간에 존재하는 원격 객체입니다.
+    * 프록시로부터 전달된 명령을 이해하고 적합한 메소드를 호출하는 스켈레톤(skeleton)에 의해 실행됩니다.
+
+<p align="center">
+    <img src="/images/proxy-pattern-2.JPG" width="100%" class="image__border">
+</p>
+<center>https://gre-eny.tistory.com/253</center>
+
+
+### 3.3. Protection Proxy
 
 주체 클래스에 대한 접근, 사용을 제어하기 위한 프록시 패턴입니다. 
-권한이 있는 경우에만 출력이 가능한 보호 프록시 클래스를 만들어보겠습니다. 
+권한이 있는 경우에만 출력이 가능한 보호 프록시 객체를 만들어보겠습니다. 
 
 #### 3.3.1. AUTHORITY enum
-- 두 개의 권한이 존재합니다. 
-    - ADMIN - 관리자
-    - NORMAL - 일반
-- `accessLevel` 값이 낮을수록 권한이 높습니다.
+
+* 두 개의 권한이 존재합니다. 
+    * ADMIN(관리자)
+    * NORMAL(일반)
+* `accessLevel` 값이 낮을수록 권한이 높습니다.
 
 ```java
-package blog.in.action.proxy.protection;
+package blog.in.action.protection;
 
-public enum AUTHORITY {
+public enum Authority {
 
     ADMIN(0),
     NORMAL(1);
 
-    private int accessLevel;
+    private final int accessLevel;
 
-    AUTHORITY(int accessLevel) {
+    Authority(int accessLevel) {
         this.accessLevel = accessLevel;
     }
 
-    public boolean accessible(AUTHORITY authority) {
+    public boolean accessible(Authority authority) {
         return (this.accessLevel - authority.accessLevel) >= 0;
     }
 }
 ```
 
-#### 3.3.2. ProtectionSubject 인터페이스
-- printNormalThing 메소드 - 일반 권한의 문서를 출력합니다.
-- printAdminThing 메소드 - 관리자 권한의 문서를 출력합니다.
+#### 3.3.2. ProtectionSubject Interface
+
+* printForNormal 메소드 
+    * 일반 권한이 필요한 문서를 출력합니다.
+* printForAdmin 메소드 
+    * 관리자 권한 필요한 문서를 출력합니다.
 
 ```java
-package blog.in.action.proxy.protection;
-
-import blog.in.action.proxy.Client;
+package blog.in.action.protection;
 
 public interface ProtectionSubject {
 
-    void printNormalThing(Client client);
+    void printForNormal(User authority);
 
-    void printAdminThing(Client client);
+    void printForAdmin(User authority);
 }
 ```
 
-#### 3.3.3. ProtectionRealSubject 클래스
-- 주체 클래스이며, 이름과 권한을 함께 출력하도록 구현되어 있습니다.
+#### 3.3.3. ProtectionRealSubject Class
+
+실제 구현 클래스입니다. 
+전달받은 권한 객체를 사용해 비즈니스 로직을 수행합니다. 
+
+* 전달받은 권한 객체의 정보를 로그로 출력합니다.
 
 ```java
-package blog.in.action.proxy.protection;
+package blog.in.action.protection;
 
-import blog.in.action.proxy.Client;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class ProtectionRealSubject implements ProtectionSubject {
 
     @Override
-    public void printNormalThing(Client client) {
-        log.info(client.getName() + "님이 출력하였습니다. 접근권한: " + client.getAuthority());
+    public void printForNormal(User user) {
+        log.info("something to print for {}", user);
     }
 
     @Override
-    public void printAdminThing(Client client) {
-        log.info(client.getName() + "님이 출력하였습니다. 접근권한: " + client.getAuthority());
+    public void printForAdmin(User user) {
+        log.info("something to print for {}", user);
     }
 }
 ```
 
-#### 3.3.4. ProtectionProxy 클래스
-- 각 프린트 메소드 별로 접근할 수 있는 권한을 확인하는 보호 프록시 클래스입니다.
-- 권한이 없는 경우 예외를 던집니다.
+#### 3.3.4. ProtectionProxy Class
+
+* 프린트 메소드 별로 사용자 객체의 권한을 확인합니다. 
+* 권한이 없는 경우 예외를 던집니다.
 
 ```java
-package blog.in.action.proxy.protection;
+package blog.in.action.protection;
 
-import static blog.in.action.proxy.protection.AUTHORITY.ADMIN;
-import static blog.in.action.proxy.protection.AUTHORITY.NORMAL;
-import blog.in.action.proxy.Client;
+import static blog.in.action.protection.Authority.ADMIN;
+import static blog.in.action.protection.Authority.NORMAL;
 
 public class ProtectionProxy implements ProtectionSubject {
 
-    private ProtectionRealSubject realSubject;
+    private final ProtectionSubject subject;
 
     public ProtectionProxy() {
-        realSubject = new ProtectionRealSubject();
+        this.subject = new ProtectionRealSubject();
     }
 
     @Override
-    public void printNormalThing(Client client) {
-        if (!NORMAL.accessible(client.getAuthority())) {
+    public void printForNormal(User user) {
+        if (!NORMAL.accessible(user.authority())) {
             throw new RuntimeException("일반 등급 이상만 접근할 수 있습니다.");
         }
-        realSubject.printNormalThing(client);
+        subject.printForNormal(user);
     }
 
     @Override
-    public void printAdminThing(Client client) {
-        if (!ADMIN.accessible(client.getAuthority())) {
+    public void printForAdmin(User user) {
+        if (!ADMIN.accessible(user.authority())) {
             throw new RuntimeException("관리자 등급 이상만 접근할 수 있습니다.");
         }
-        realSubject.printAdminThing(client);
+        subject.printForAdmin(user);
     }
 }
 ```
 
-#### 3.3.5. Client 클래스
-- 보호 프록시 객체를 호출하는 클라이언트 클래스입니다.
-- 해당 클라이언트 객체의 이름은 이름이 `Junhyunny`입니다.
-- 권한은 `NORMAL`입니다.
+#### 3.3.5. ProtectionClient Class
+
+ProtectionSubject 객체를 사용해 프린트를 수행합니다. 
 
 ```java
-package blog.in.action.proxy;
+package blog.in.action.protection;
 
-// ...
+public class ProtectionClient {
 
-@Log4j2
-@Getter
-@Setter
-public class Client {
+    private final ProtectionSubject subject;
 
-    private final String name = "Junhyunny";
-
-    private final AUTHORITY authority = NORMAL;
-
-    public void printNormalThingByProtectionProxy() {
-        ProtectionSubject subject = new ProtectionProxy();
-        subject.printNormalThing(this);
+    public ProtectionClient(ProtectionSubject subject) {
+        this.subject = subject;
     }
 
-    public void printAdminThingByProtectionProxy() {
-        ProtectionSubject subject = new ProtectionProxy();
-        subject.printAdminThing(this);
+    public void printForAdmin(User user) {
+        subject.printForAdmin(user);
     }
-    
-    // ...
+
+    public void printForNormal(User user) {
+        subject.printForNormal(user);
+    }
 }
 ```
 
-#### 3.3.6. 보호 프록시 테스트
+#### 3.3.6. Test
 
 ```java
-package blog.in.action.proxy;
+package blog.in.action.protection;
 
-// ...
+import org.junit.jupiter.api.Test;
 
-@Log4j2
-public class ProxyPatternTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    private Client client;
+class ProtectionClientTest {
 
-    @BeforeEach
-    public void beforeEach() {
-        client = new Client();
+    @Test
+    void user_is_admin_when_print() {
+
+        var user = new User("Junhyunny", Authority.ADMIN);
+        var sut = new ProtectionClient(new ProtectionProxy());
+
+
+        sut.printForNormal(user);
+        sut.printForAdmin(user);
     }
 
     @Test
-    public void when_hasAccessibleAuthorization_then_print() {
-        client.printNormalThingByProtectionProxy();
-    }
+    void user_is_normal_when_print() {
 
-    @Test
-    public void when_hasNotAccessibleAuthorization_then_occurException() {
-        Throwable throwable = Assertions.assertThrows(RuntimeException.class, () -> {
-            client.printAdminThingByProtectionProxy();
-        });
-        log.info(throwable.getMessage());
-    }
+        var user = new User("Junhyunny", Authority.NORMAL);
+        var sut = new ProtectionClient(new ProtectionProxy());
 
-    // ...
+
+        sut.printForNormal(user);
+        var throwable = assertThrows(RuntimeException.class, () -> sut.printForAdmin(user));
+        assertEquals("관리자 등급 이상만 접근할 수 있습니다.", throwable.getMessage());
+    }
 }
 ```
 
-##### when_hasAccessibleAuthorization_then_print 테스트 결과
+##### client_is_admin_when_print 테스트 결과
+
+* 사용자가 ADMIN 권한을 가졌으므로 모든 출력에 성공합니다.
 
 ```
-03:19:23.415 [main] INFO blog.in.action.proxy.protection.ProtectionRealSubject - Junhyunny님이 출력하였습니다. 접근권한: NORMAL
+11:57:24.509 [main] INFO blog.in.action.protection.ProtectionRealSubject -- something to print for User[name=Junhyunny, authority=ADMIN]
+11:57:24.512 [main] INFO blog.in.action.protection.ProtectionRealSubject -- something to print for User[name=Junhyunny, authority=ADMIN]
 ```
 
-##### when_hasNotAccessibleAuthorization_then_occurException 테스트 결과
+##### client_is_normal_when_print 테스트 결과
+
+* 사용자가 NORMAL 권한을 가졌으므로 일반 사용자를 위한 출력만 성공합니다.
 
 ```
-03:22:06.217 [main] INFO blog.in.action.proxy.ProxyPatternTest - 관리자 등급 이상만 접근할 수 있습니다.
+11:57:24.522 [main] INFO blog.in.action.protection.ProtectionRealSubject -- something to print for User[name=Junhyunny, authority=NORMAL]
 ```
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-10-31-proxy-pattern>
+
+* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-10-31-proxy-pattern>
 
 #### REFERENCE
-- Design Patterns: Elements of Reusable Object-Oriented Software 
-- <https://coding-factory.tistory.com/711>
-- <https://developside.tistory.com/80>
-- <https://dailyheumsi.tistory.com/201>
+
+* Design Patterns: Elements of Reusable Object-Oriented Software 
+* <https://coding-factory.tistory.com/711>
+* <https://developside.tistory.com/80>
+* <https://dailyheumsi.tistory.com/201>
+* <https://gre-eny.tistory.com/253>
+* [프록시(Proxy) 패턴 - 완벽 마스터하기](https://inpa.tistory.com/entry/GOF-%F0%9F%92%A0-%ED%94%84%EB%A1%9D%EC%8B%9CProxy-%ED%8C%A8%ED%84%B4-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EB%B0%B0%EC%9B%8C%EB%B3%B4%EC%9E%90#%EC%9B%90%EA%B2%A9_%ED%94%84%EB%A1%9D%EC%8B%9C_remote_proxy)

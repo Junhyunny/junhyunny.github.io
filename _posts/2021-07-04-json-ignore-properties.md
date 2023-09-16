@@ -9,35 +9,125 @@ last_modified_at: 2021-09-04T13:00:00
 
 <br/>
 
-<!-- ## 1. Problem Context
+## 1. Problem Context
+
+API 엔드 포인트(end-point) 개발 중 다음과 같은 에러를 만났습니다. 
+
+* 잭슨(jackson) 라이브러리에서 직렬화(serialize)를 수행할 때 무한 재귀(infinite recursion)을 수행합니다.
+* `StackOverflowError`가 발생합니다.
+
+```
+2023-09-14T00:42:29.816+09:00 ERROR 15028 --- [nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)] with root cause
+
+java.lang.StackOverflowError: null
+	at java.base/java.lang.Exception.<init>(Exception.java:85) ~[na:na]
+	at java.base/java.io.IOException.<init>(IOException.java:80) ~[na:na]
+	at com.fasterxml.jackson.core.JacksonException.<init>(JacksonException.java:26) ~[jackson-core-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.core.JsonProcessingException.<init>(JsonProcessingException.java:25) ~[jackson-core-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:22) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:34) ~[jackson-databind-2.15.2.jar:2.15.2]
+... 
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:18) ~[jackson-databind-2.15.2.jar:2.15.2]
+	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:732) ~[jackson-databind-2.15.2.jar:2.15.2]
+...
+```
 
 ## 2. Problem Analysis
 
-## 3. Solve the problem -->
+문제를 살펴보니 단순 조회성 API 엔드 포인트였지만, 문제가 발생시키는 객체 구조를 가진 상태였습니다. 
+당시 상황을 재현한 코드를 통해 원인을 알아보겠습니다. 
 
-## 1. Circular Reference
+### 2.1. Circular Reference
 
-Jackson 라이브러리를 통해 직렬화(Serialize) 된 Json 응답을 받는 경우 종종 StackOverFlowError가 발생합니다. 
-이런 경우 대부분 객체 사이의 순환 참조가 문제 발생의 원인입니다. 
+> A circular reference is a series of references where the last object references the first, resulting in a closed loop
 
-### 1.1. 순환 참조 예시
+객체 사이에 닫힌 루프(loop)가 생기는 것을 의미합니다. 
+아래 그림을 보면 빨간색 참조 그래프가 서로 맞물려 닫힌 루프를 생성합니다. 
 
-- A 인스턴스가 B 인스턴스를 참조합니다.
-- B 인스턴스가 A 인스턴스를 참조합니다.
-- A 인스턴스를 직렬화하는 경우 참조하는 B 인스턴스가 함께 직렬화됩니다.
-- B 인스턴스를 직렬화하는 경우 참조하는 A 인스턴스가 함게 직렬화됩니다.
-- 이를 계속 반복 수행하다 StackOverFlow 에러가 발생합니다.
+* 참조하는 객체가 정리되지 않기 때문에 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있습니다.
+* 메소드 호출시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있습니다. 
 
-<p align="center"><img src="/images/json-ignore-properties-1.jpg" width="65%"></p>
+<p align="center">
+    <img src="/images/json-ignore-properties-1.JPG" width="80%">
+</p>
 
-직렬화 시점에 둘 사이의 순환 참조를 끊어주기 위한 방법으로 `@JsonIgnoreProperties` 애너테이션을 사용합니다. 
-`@JsonIgnoreProperties` 애너테이션을 살펴보면 다양한 위치에서 사용할 수 있음을 확인할 수 있습니다.
+### 2.2. Domain Classes
 
-- ElementType.ANNOTATION_TYPE - 애너테이션
-- ElementType.TYPE - 클래스, 인터페이스, enum
-- ElementType.METHOD - 메소드
-- ElementType.CONSTRUCTOR - 생성자
-- ElementType.FIELD - 필드(멤버변수, enum 상수)
+도메인 객체들을 살펴보니 다음과 같은 구조를 가지고 있었습니다. 
+
+* 포스트(post) 객체는 자신의 댓글(reply) 객체들을 리스트로 참조하고 있습니다.
+* 댓글 객체는 자신과 연관된 포스트 객체를 참조하고 있습니다.
+
+<p align="center">
+    <img src="/images/json-ignore-properties-2.JPG" width="80%">
+</p>
+
+#### 2.2.1. Post Record
+
+```java
+package blog.in.action.domain;
+
+import lombok.Builder;
+
+import java.util.List;
+
+public record Post(
+        long id,
+        String content,
+        List<Reply> replies
+) {
+    @Builder
+    public Post {
+    }
+
+    public void addReply(Reply reply) {
+        this.replies.add(reply);
+    }
+}
+```
+
+#### 2.2.2. Reply Record
+
+```java
+package blog.in.action.domain;
+
+import lombok.Builder;
+
+public record Reply(
+        long id,
+        String content,
+        Post post
+) {
+    @Builder
+    public Reply {
+    }
+}
+```
+
+### 2.3. Jackson
+
+스프링 프레임워크(spring framework)에서 Json 변환에 기본적으로 사용되는 라이브러리는 잭슨입니다. 
+잭슨은 게터(getter), 세터(setter) 메소드를 기준으로 직렬화(serialilze), 역직렬화(deserialize)를 수행합니다. 
+위 도메인 객체를 Json 형태로 직렬화하는 경우 다음과 같은 흐름이 발생합니다. 
+
+1. Post 객체가 직렬화된다.
+1. Post 객체 내부의 replies 필드를 직렬화한다.
+1. Reply 객체가 직렬화된다.
+1. Reply 객체 내부의 post 필드를 직렬화한다.
+1. Post 객체가 직렬화된다.
+1. 이를 반복 수행하다 StackOverFlowError가 발생한다.
+
+## 3. Solve the problem
+
+문제를 해결하는 방법은 여러가지 있지만, 이번 포스트에선 @JsonIgnoreProperties 애너테이션을 사용한 해결 방법을 정리하였습니다. 
+
+### 3.1. @JsonIgnoreProperties Annotation
+
+JSON 직렬화 작업에서 순환 참조를 끊기 위해 @JsonIgnoreProperties 애너테이션을 사용합니다. 
+특정 객체의 내부 프로퍼티들 중 Json 형태로 직렬화할 대상을 제외할 수 있습니다. 
 
 ```java
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD})
@@ -50,166 +140,241 @@ public @interface JsonIgnoreProperties {
      */
     public String[] value() default { };
 
-    // ...
+    ...
 }
 ```
 
-저의 경우 주로 필드에 사용하며 다음과 같은 동작이 수행되도록 클래스를 구성합니다. 
+### 3.2. Test
 
-### 1.2. 순환 참조 방지 예시
-- A 인스턴스가 B 인스턴스를 참조합니다.
-- B 인스턴스가 A 인스턴스를 참조합니다.
-- A 인스턴스를 직렬화하는 경우 참조하는 B 인스턴스가 함께 직렬화됩니다.
-- B 인스턴스를 직렬화하는 경우 @JsonIgnoreProperties 애너테이션을 통해 지정한 항목을 제외하고 직렬화를 수행합니다.
+#### 3.2.1. PostController Class
 
-<p align="center"><img src="/images/json-ignore-properties-2.jpg" width="75%"></p>
-
-## 2. 테스트 코드
-
-간단한 테스트 코드를 통해 만날 수 있는 에러 상황과 해결 방법에 대해 알아보도록 하겠습니다. 
-
-### 2.1. Dto 클래스
-
-- ADto, BDto, CDto 클래스를 작성합니다.
-- ADto 클래스와 BDto 클래스는 서로 순환 참조합니다.
-- ADto 클래스와 CDto 클래스는 서로 순환 참조합니다.
-- ADto 인스턴스를 직렬화할 때 CDto 인스턴스의 "adto" 필드는 제외하고 직렬화를 수행합니다.
+Post 객체와 Reply 객체의 순환 참조를 만들고 이를 반환합니다.
 
 ```java
-@Getter
-@Setter
-@NoArgsConstructor
-class ADto {
+package blog.in.action.controller;
 
-    public ADto(BDto bdto) {
-        this.bdto = bdto;
-    }
+import blog.in.action.domain.Post;
+import blog.in.action.domain.Reply;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-    public ADto(CDto cdto) {
-        this.cdto = cdto;
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    private BDto bdto;
-
-    @JsonIgnoreProperties(value = {"adto"})
-    private CDto cdto;
-}
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-class BDto {
-
-    private ADto adto;
-}
-
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-class CDto {
-
-    private String name = "CDto";
-
-    private ADto adto;
-}
-```
-
-### 2.2. ErrorController 클래스
-- error 메소드는 ADto 인스턴스와 BDto 인스턴스의 순환 참조를 만들어 반환합니다.
-- ok 메소드는 ADto 인스턴스와 CDto 인스턴스의 순환 참조를 만들어 반환합니다.
-
-```java
 @RestController
-class ErrorController {
+public class PostController {
 
-    @GetMapping("/error")
-    public ADto error() {
-        ADto aDto = new ADto(new BDto());
-        aDto.getBdto().setAdto(aDto);
-        return aDto;
-    }
+    @GetMapping("/posts")
+    public List<Post> getPosts() {
 
-    @GetMapping("/ok")
-    public ADto ok() {
-        ADto aDto = new ADto(new CDto());
-        aDto.getCdto().setAdto(aDto);
-        return aDto;
+        var post = Post.builder()
+                .id(1L)
+                .content("Hello World")
+                .replies(new ArrayList<>())
+                .build();
+
+        var reply = Reply.builder()
+                .id(1L)
+                .content("This is reply")
+                .post(post)
+                .build();
+
+        post.addReply(reply);
+
+        return List.of(post);
     }
 }
 ```
 
-### 2.3. test_withoutJsonIgnoreProperties_throwStackOverFlowException 메소드
-- `@JsonIgnoreProperties` 애너테이션이 적용되지 않은 `/error` 경로로 API 요청을 수행합니다.
-- 서블릿(Servlet) 영역에서 직렬화 수행 중에 에러가 발생하기 때문에 NestedServletException을 예상할 수 있습니다.
+#### 3.2.2. Throw Excecption
+
+해당 API 경로를 호출하면 에러가 발생하는지 확인합니다.
 
 ```java
-    @Test
-    public void test_withoutJsonIgnoreProperties_throwNestedServletException() {
-        assertThrows(NestedServletException.class, () -> {
-            try {
-                mockMvc.perform(get("/error"));
-            } catch (Exception e) {
-                log.error(e);
-                throw e;
-            }
-        });
+package blog.in.action;
+
+import blog.in.action.controller.PostController;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+public class ActionInBlogTest {
+
+    MockMvc mockMvc;
+
+    @BeforeEach
+    void beforeEach() {
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(PostController.class)
+                .build();
     }
+
+    @Test
+    void withoutJsonIgnoreProperties_throwException() {
+
+        var throwable = assertThrows(Exception.class, () -> mockMvc.perform(get("/posts")));
+
+
+        var cause = throwable.getCause();
+        assertInstanceOf(HttpMessageNotWritableException.class, throwable.getCause());
+        assertInstanceOf(JsonMappingException.class, cause.getCause());
+        cause.printStackTrace();
+    }
+}
 ```
 
-##### test_withoutJsonIgnoreProperties_throwStackOverFlowException 메소드 수행 결과
-- NestedServletException이 발생하여 테스트를 통과합니다.
-- 아래와 같은 로그를 확인할 수 있습니다.
+##### Result 
+
+* 로그를 살펴보면 StackOverflowError 에러가 원인임을 확인할 수 있습니다. 
 
 ```
-org.springframework.web.util.NestedServletException: Request processing failed; nested exception is org.springframework.http.converter.HttpMessageConversionException: JSON mapping problem: blog.in.action.jackson.ADto["bdto"]->blog.in.action.jackson.BDto["adto"]-> ...
-    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) ~[tomcat-embed-core-9.0.31.jar:9.0.31]
-...
-
-Caused by: org.springframework.http.converter.HttpMessageConversionException: JSON mapping problem: blog.in.action.jackson.ADto["bdto"]->blog.in.action.jackson.BDto["adto"]->blog.in.action.jackson.ADto["bdto"]->blog.in.action.jackson.BDto["adto"]->...
-    at org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.writeInternal(AbstractJackson2HttpMessageConverter.java:306) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.http.converter.AbstractGenericHttpMessageConverter.write(AbstractGenericHttpMessageConverter.java:104) ~[spring-web-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-    at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:287) ~[spring-webmvc-5.2.4.RELEASE.jar:5.2.4.RELEASE]
-...
-
-Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: blog.in.action.jackson.ADto["bdto"]->blog.in.action.jackson.BDto["adto"]->blog.in.action.jackson.ADto["bdto"]->...
-    at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:737) ~[jackson-databind-2.10.2.jar:2.10.2]
-    at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:166) ~[jackson-databind-2.10.2.jar:2.10.2]
-    at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:727) ~[jackson-databind-2.10.2.jar:2.10.2]
-    at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:722) ~[jackson-databind-2.10.2.jar:2.10.2]
+13:46:48.440 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+13:46:48.441 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+13:46:48.445 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 2 ms
+13:46:48.566 [main] WARN org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver -- Failure while trying to resolve exception [org.springframework.http.converter.HttpMessageNotWritableException]
+java.lang.IllegalStateException: Cannot set error status - response is already committed
+	at org.springframework.util.Assert.state(Assert.java:76)
+	at org.springframework.mock.web.MockHttpServletResponse.sendError(MockHttpServletResponse.java:586)
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.sendServerError(DefaultHandlerExceptionResolver.java:581)
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMessageNotWritable(DefaultHandlerExceptionResolver.java:548)
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:221)
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:141)
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80)
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1341)
+	at org.springframework.test.web.servlet.TestDispatcherServlet.processHandlerException(TestDispatcherServlet.java:144)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1152)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1098)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+    ...
+org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+    ...
+Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: blog.in.action.domain.Reply["post"]->blog.in.action.domain.Post["replies"]->java.util.ArrayList[0]...
+	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:787)
+	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178)
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142)
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88)
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79)
+	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:18)
+    ...
 ```
 
-### 2.4. test_withJsonIgnoreProperties_isOk 메소드
-- `@JsonIgnoreProperties` 애너테이션이 적용된 `/ok` 경로로 API 요청을 수행합니다.
+#### 3.2.3. Fix Exception with @JsonIgnoreProperties
+
+Reply 클래스를 다음과 같이 변경합니다.
+
+* Post 객체의 프로퍼티 중 `replies`를 Json 직렬화 대상에서 제외합니다.
 
 ```java
-    @Test
-    public void test_withJsonIgnoreProperties_isOk() throws Exception {
-        mockMvc.perform(get("/ok"))
-            .andExpect(status().isOk())
-            .andDo(print());
+package blog.in.action.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
+
+public record Reply(
+        long id,
+        String content,
+        @JsonIgnoreProperties(value = "replies")
+        Post post
+) {
+    @Builder
+    public Reply {
     }
+}
 ```
 
-##### test_withJsonIgnoreProperties_isOk 메소드 수행 결과
-- 에러 없이 테스트가 통과합니다.
-- `{"bdto":null,"cdto":{"name":"CDto"}}` 응답을 받았음을 로그를 통해 확인이 가능합니다. 
+#### 3.2.4. Response is ok
+
+정상적으로 응답을 받습니다. 
+
+```java
+package blog.in.action;
+
+import blog.in.action.controller.PostController;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+public class ActionInBlogTest {
+
+    MockMvc mockMvc;
+
+    @BeforeEach
+    void beforeEach() {
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(PostController.class)
+                .build();
+    }
+
+    // ...
+
+    @Test
+    void withJsonIgnoreProperties_isOk() throws Exception {
+
+        mockMvc.perform(get("/posts"))
+                .andExpect(jsonPath("$[0].id").value(1L))
+                .andExpect(jsonPath("$[0].content").value("Hello World"))
+                .andExpect(jsonPath("$[0].replies[0].id").value(1L))
+                .andExpect(jsonPath("$[0].replies[0].content").value("This is reply"))
+                .andExpect(jsonPath("$[0].replies[0].post.id").value(1L))
+                .andExpect(jsonPath("$[0].replies[0].post.content").value("Hello World"))
+                .andExpect(jsonPath("$[0].replies[0].post.replies").doesNotExist())
+                .andDo(print())
+        ;
+    }
+}
+```
+
+##### Result
+
+* Reply 객체의 프로퍼티인 Post 객체의 `replies` 프로퍼티는 직렬화되지 않습니다. 
 
 ```
+13:53:06.203 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
+13:53:06.204 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
+13:53:06.208 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 2 ms
+
 MockHttpServletRequest:
       HTTP Method = GET
-      Request URI = /ok
+      Request URI = /posts
        Parameters = {}
           Headers = []
              Body = <no character encoding set>
     Session Attrs = {}
 
 Handler:
-             Type = blog.in.action.jackson.ErrorController
-           Method = blog.in.action.jackson.ErrorController#ok()
+             Type = blog.in.action.controller.PostController
+           Method = blog.in.action.controller.PostController#getPosts()
 
 Async:
     Async started = false
@@ -231,16 +396,14 @@ MockHttpServletResponse:
     Error message = null
           Headers = [Content-Type:"application/json"]
      Content type = application/json
-             Body = {"bdto":null,"cdto":{"name":"CDto"}}
+             Body = [{"id":1,"content":"Hello World","replies":[{"id":1,"content":"This is reply","post":{"id":1,"content":"Hello World"}}]}]
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
 ```
 
-## CLOSING
-개발 초기에 이런 에러를 많이 만났었습니다. 
-양방향 참조가 되도록 JPA 엔티티(Entity) 설계를 해놓은 모습이 컨트롤러 영역까지 그대로 반영되는 경우 주로 발생하였습니다. 
-
 #### TEST CODE REPOSITORY
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>
+
+#### REFERENCE

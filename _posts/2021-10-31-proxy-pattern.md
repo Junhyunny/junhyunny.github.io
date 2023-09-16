@@ -38,7 +38,7 @@ last_modified_at: 2021-10-31T23:55:00
     * 인터페이스에서 명시한 기능을 실제로 처리하는 객체입니다.
 
 <p align="center">
-    <img src="/images/proxy-pattern-1.JPG" width="80%" class="image__border">
+    <img src="/images/proxy-pattern-1.JPG" width="80%" class="image__border image__padding">
 </p>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 

@@ -38,7 +38,7 @@ classes: wide
 * 레디스(redis)와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
 * 와이어 목(wire mock)을 활용한 테스트로 페인 클라이언트(feign client) API 기능 검증
 
-##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월, 2023년 7월 - 8월
+##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월, 2023년 7월 - 
 
 * TypeScript, React, HTML, Sass, Jest, Testing Library, Cypress, Kotlin, Spring Boot, Spring Session, Spring Security, Spring Data Jpa, Spring Cloud
 * 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
@@ -46,6 +46,8 @@ classes: wide
 * Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 * Chrome Lighthouse를 사용한 성능 분석 및 성능 향상을 통한 어플리케이션 사용성 개선
     * 성능 점수를 39점에서 79점으로 개선
+* 세션 객체 직렬화 시 영속성 컨텍스트로 인해 발생하는 에러 개선   
+* AAD(Azure Active Directory) 로그인과 서비스 자체 로그인 기능 통합
 
 ##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
 

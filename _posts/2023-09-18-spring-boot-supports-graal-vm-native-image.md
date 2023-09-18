@@ -16,10 +16,9 @@ last_modified_at: 2023-09-18T23:55:00
 
 ## 0. 들어가면서
 
-스프링 부트(spring boot) 3.X.X 버전 릴리즈(release)에 관련된 내용을 살펴보면 GraalVM에 대한 지원에 대한 이야기가 많습니다. 
-GraalVM은 네이티브 이미지(native image) 빌드를 지원하고 이를 통해 어플리케이션 실행 속도를 매우 빠르게 만들 수 있습니다. 
-이번 포스트에선 GraalVM 플러그인으로 간단한 어플리케이션을 네이티브 이미지로 만들고 실행시켜보겠습니다. 
-GraalVM의 특징이나 AOT(Ahead of Time) 컴파일러에 대한 내용은 [GraalVM][graal-vm-link] 포스트를 참고하시길 바랍니다.
+스프링 부트(spring boot) 3.X 버전에 관련된 내용들을 보면 GraalVM 지원에 대한 이야기가 있습니다 .
+이전 포스트에서 [GraalVM][graal-vm-link]에 대한 내용을 정리하였고, 이번엔 간단한 네이티브 이미지를 만들어보겠습니다. 
+이번 글에서 사용하는 AOT(Ahead of Time) 컴파일러에 대한 내용은 이전 포스트를 참조하시길 바랍니다.
 
 ## 1. Dynamic Features Limitation of Native Image 
 
@@ -38,30 +37,35 @@ GraalVM은 AOT 컴파일러를 사용해 네이티브 이미지를 빌드합니�
 ## 2. Understanding Spring Ahead-of-Time Processing
 
 스프링 프레임워크는 런타임에 내부적으로 동적 프록시(dynamic proxy), 리플렉션(reflection) 기능을 사용합니다. 
-그렇기 때문에 스프링 프레임워크는 GraalVM을 정식적으로 지원하지만, 일부 동적 기능들이 제한됩니다. 
-GraalVM에 의해 실행되는 네이티브 이미지를 닫힌 세계(closed-world)라고 표현하는데 다음과 같은 동적 기능들이 제한됩니다.
+그렇기 때문에 스프링의 일부 동적 기능들에 대한 사용이 제한됩니다. 
+GraalVM에 의해 만들어지는 네이티브 이미지를 닫힌 세계(closed-world)라고 표현하는데 다음과 같은 동적 기능들이 제한됩니다.
 
 * 클래스 경로(classpath)는 빌드 시에 고정되고, 완전히 정의되어집니다.
 * 어플리케이션에 정의된 빈(bean)들은 런타임에 변경될 수 없습니다.
     * @Profile 애너테이션과 프로파일 정의에 따른 선택적 설정에 제한이 있습니다.
-    * 빈 생성 시 변경되는 속성(property)가 지원되지 않습니다.
-        * e.g. @ConditionalOnProperty 애너테이션, .enable 속성들
+    * @ConditionalOnProperty 애너테이션이나 `.enable` 속성들처럼 빈 생성 시 변경되는 기능은 지원되지 않습니다.
 
-제한 사항들 때문에 스프링 프레임워크는 빌드 타임에 AOT 프로세스를 수행하고 GraalVM이 사용할 수 있는 추가적인 애셋(asset)들을 생성합니다. 
+위 제한 사항들 때문에 스프링 프레임워크는 빌드 타임에 GraalVM이 사용할 수 있는 추가적인 애셋(asset)들을 생성합니다. 
 
 * Java 소스 코드
 * 동적 프록시를 위한 바이트 코드(bytecode)
 * GraalVM JSON 힌트 파일들
-    * 리소스 힌트(resource-config.json)
-    * 리플렉션 힌트(reflect-config.json)
-    * 직렬화 힌트(serialization-config.json)
-    * 프록시 힌트(proxy-config.json)
-    * JNI(Java Native Interface) 힌트(jni-config.json)
+    * resource-config.json - 리소스 힌트
+    * reflect-config.json - 리플렉션 힌트
+    * serialization-config.json - 직렬화 힌트
+    * proxy-config.json - 프록시 힌트
+    * jni-config.json - JNI(Java Native Interface) 힌트
 
-## 3. Prerequisites Setup
+프로젝트를 빌드하면 다음과 같은 결과물들이 만들어집니다. 
 
-네이티브 이미지를 생성하려면 GraalVM JDK 셋업이 필요합니다. 
-GraalVM 공식 홈페이지에서 제공하는 JDK를 사용하면 에러가 발생하기 때문에 스프링 공식 홈페이지에 명시된 JDK를 사용합니다. 
+<p align="left">
+    <img src="/images/spring-boot-supports-graal-vm-native-image-1.JPG" width="40%" class="image__border">
+</p>
+
+## 3. Prerequisites
+
+네이티브 이미지를 생성하려면 GraalVM JDK(Java Devleopment Kit)가 필요합니다. 
+GraalVM 공식 홈페이지에서 제공하는 JDK를 사용하면 에러가 발생하기 때문에 스프링 공식 문서에 명시된 JDK를 사용합니다. 
 필자의 개발 환경은 다음과 같습니다.
 
 * MacBook Pro
@@ -73,6 +77,7 @@ GraalVM 공식 홈페이지에서 제공하는 JDK를 사용하면 에러가 발
 공식 문서를 보면 `SDKMAN`을 사용할 것을 느낌표를 붙혀가면서 강력하게 추천합니다. 
 
 > To build a native image using the Native Build Tools, you’ll need a GraalVM distribution on your machine. You can either download it manually on the Liberica Native Image Kit page, or you can use a download manager like SDKMAN!. 
+
 > To install the native image compiler on macOS or Linux, we recommend using SDKMAN!. Get SDKMAN! from sdkman.io and install the Liberica GraalVM distribution by using the following commands:
 
 [sdkman.io](https://sdkman.io/) 사이트의 설치 방법을 따라 SDKMAN 설치합니다.
@@ -92,7 +97,7 @@ Downloading: java 23.r17-nik
 
 In progress...
 
-############################################################################################ 100.0%
+################################################################################################################ 100.0%
 
 Repackaging Java 23.r17-nik...
 
@@ -126,17 +131,17 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
 
 ## 4. Project Setup
 
-이번 예제에선 코드까지 자세히 살펴보지 않습니다. 
-다음과 같은 간단한 어플리케이션 서비스를 실행시킵니다. 
+이번 예제에선 코드를 자세히 살펴보지 않습니다. 
+다음과 같은 간단한 어플리케이션 서비스를 네이티브 이미지로 만들고 실행시킵니다. 
 
 * 포켓몬 정보를 반환하는 API 서비스입니다.
 * 프로파일 설정에 따라 다른 방식으로 동작합니다.
-    * local 프로파일인 경우 메모리에 있는 포켓몬 정보를 반환한다.
-    * dev 프로파일인 경우 외부 서비스에 있는 포켓몬 정보를 반환한다.
-    * 프로파일을 적절히 바꿔가면서 빌드합니다.
+    * local 프로파일인 경우 메모리에 있는 포켓몬 정보를 반환합니다.
+    * dev 프로파일인 경우 외부 서비스에 있는 포켓몬 정보를 반환합니다.
+    * 프로파일을 바꿔가면서 빌드하고 테스트합니다.
 
 <p align="center">
-    <img src="/images/spring-boot-supports-graal-vm-native-image-1.JPG" width="100%" class="image__border image__padding">
+    <img src="/images/spring-boot-supports-graal-vm-native-image-2.JPG" width="100%" class="image__border">
 </p>
 
 ### 4.1. Setup JDK for Module
@@ -147,13 +152,14 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
 * 이전 단계에서 다운로드 받은 liberica-17 JDK를 설정합니다.
 
 <p align="center">
-    <img src="/images/spring-boot-supports-graal-vm-native-image-2.JPG" width="80%" class="image__border image__padding">
+    <img src="/images/spring-boot-supports-graal-vm-native-image-3.JPG" width="80%" class="image__border">
 </p>
 
 ### 4.2. build.gradle
 
-* 그레이들(gradle) 프로젝트입니다.
-* 네이티브 이미지를 생성할 수 있는 작업(task)들이 있는 `org.graalvm.buildtools.native` 플러그인을 사용합니다.
+그레이들(gradle) 프로젝트입니다.
+
+* 네이티브 이미지를 생성할 수 있는 작업(task)들을 사용하기 위해 `org.graalvm.buildtools.native` 플러그인을 추가합니다.
 
 ```gradle
 plugins {
@@ -200,7 +206,7 @@ spring:
 
 ### 4.4. Proxies
 
-다음과 같은 구현체들이 존재합니다. 
+다음과 같은 구현체 클래스들이 존재합니다. 
 설정 파일을 통해 활성화 된 프로파일에 해당하는 빈을 주입하여 사용합니다.
 
 #### 4.4.1. LocalPokemonProxy Class
@@ -274,18 +280,16 @@ public class DefaultPokemonProxy implements PokemonProxy {
 네이티브 이미지를 실행하는 방법은 두가지입니다. 
 
 * 로컬 머신에 적합한 네이티브 이미지를 생성하고 실행합니다.
-    * `.jar` 패키지 파일이 아닌 실행 파일이 생성됩니다.
+    * `jar` 패키지 파일이 아니라 실행 파일이 생성됩니다.
 * 빌드팩(buildpack) 기반으로 컨테이너 이미지를 생성하고 이를 실행합니다.
     * 도커(docker) 같은 컨테이너 런타임이 필요합니다.
 
 ### 5.1. Run Application
 
-어플리케이션 실행 속도 차이를 확인하기 위해 일반적인 방법으로 어플리케이션을 실행합니다. 
-인텔리제이(IntelliJ) 혹은 `.jar` 패키지 파일을 실행합니다.
+어플리케이션 실행 속도 차이를 확인하기 위해 IDE를 사용해 어플리케이션을 실행합니다. 
+빌드한 `jar` 패키지 파일을 실행해도 좋습니다. 
 
 * 어플리케이션 실행까지 1.221초 소요됩니다.
-    * 일반적인 어플리케이션 실행 속도는 거의 차이가 없습니다. 
-    * 실행 속도 차이는 네이티브 이미지일 때 발생합니다. 
 
 ```
   .   ____          _            __ _ _
@@ -307,7 +311,7 @@ public class DefaultPokemonProxy implements PokemonProxy {
 2023-09-18T10:57:01.919+09:00  INFO 20936 --- [           main] action.in.blog.ActionInBlogApplication   : Started ActionInBlogApplication in 1.221 seconds (process running for 1.684)
 ```
 
-### 4.3. Native Run
+### 5.2. Native Run
 
 그레이들 명령어로 네이티브 이미지를 생성합니다.
 
@@ -358,61 +362,9 @@ Field org.apache.commons.logging.LogAdapter#log4jSlf4jProviderPresent set to tru
 Field org.apache.commons.logging.LogAdapter#slf4jSpiPresent set to true at build time
 Field org.apache.commons.logging.LogAdapter#slf4jApiPresent set to true at build time
 Field org.springframework.core.KotlinDetector#kotlinPresent set to false at build time
-Field org.springframework.core.KotlinDetector#kotlinReflectPresent set to false at build time
-Field org.springframework.web.servlet.view.InternalResourceViewResolver#jstlPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#romePresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jaxb2Present set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2Present set to true at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2XmlPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2SmilePresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2CborPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#gsonPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jsonbPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#kotlinSerializationCborPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#kotlinSerializationJsonPresent set to false at build time
-Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#kotlinSerializationProtobufPresent set to false at build time
-Field org.springframework.core.NativeDetector#inNativeImage set to true at build time
-Field org.springframework.http.converter.json.Jackson2ObjectMapperBuilder#jackson2XmlPresent set to false at build time
-Field org.springframework.boot.logging.log4j2.Log4J2LoggingSystem$Factory#PRESENT set to false at build time
-Field org.springframework.boot.logging.logback.LogbackLoggingSystem$Factory#PRESENT set to true at build time
-Field org.springframework.aot.AotDetector#inNativeImage set to true at build time
-Field org.springframework.web.client.RestTemplate#romePresent set to false at build time
-Field org.springframework.web.client.RestTemplate#jaxb2Present set to false at build time
-Field org.springframework.web.client.RestTemplate#jackson2Present set to true at build time
-Field org.springframework.web.client.RestTemplate#jackson2XmlPresent set to false at build time
-Field org.springframework.web.client.RestTemplate#jackson2SmilePresent set to false at build time
-Field org.springframework.web.client.RestTemplate#jackson2CborPresent set to false at build time
-Field org.springframework.web.client.RestTemplate#gsonPresent set to false at build time
-Field org.springframework.web.client.RestTemplate#jsonbPresent set to false at build time
-Field org.springframework.web.client.RestTemplate#kotlinSerializationCborPresent set to false at build time
-Field org.springframework.web.client.RestTemplate#kotlinSerializationJsonPresent set to false at build time
-Field org.springframework.web.client.RestTemplate#kotlinSerializationProtobufPresent set to false at build time
-Field org.springframework.boot.logging.java.JavaLoggingSystem$Factory#PRESENT set to true at build time
-Field org.springframework.cglib.core.AbstractClassGenerator#inNativeImage set to true at build time
-Field org.springframework.web.context.support.StandardServletEnvironment#jndiPresent set to true at build time
-Field org.springframework.format.support.DefaultFormattingConversionService#jsr354Present set to false at build time
-Field org.springframework.web.context.support.WebApplicationContextUtils#jsfPresent set to false at build time
-Field org.springframework.web.context.request.RequestContextHolder#jsfPresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jaxb2Present set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jackson2Present set to true at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jackson2XmlPresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jackson2SmilePresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#gsonPresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jsonbPresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#kotlinSerializationCborPresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#kotlinSerializationJsonPresent set to false at build time
-Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#kotlinSerializationProtobufPresent set to false at build time
-Field org.springframework.boot.logging.logback.LogbackLoggingSystemProperties#JBOSS_LOGGING_PRESENT set to false at build time
-Field org.springframework.context.event.ApplicationListenerMethodAdapter#reactiveStreamsPresent set to false at build time
-Field org.springframework.core.ReactiveAdapterRegistry#reactorPresent set to false at build time
-Field org.springframework.core.ReactiveAdapterRegistry#rxjava3Present set to false at build time
-Field org.springframework.core.ReactiveAdapterRegistry#kotlinCoroutinesPresent set to false at build time
-Field org.springframework.core.ReactiveAdapterRegistry#mutinyPresent set to false at build time
-SLF4J: No SLF4J providers were found.
-SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-Field org.springframework.web.servlet.mvc.method.annotation.ReactiveTypeHandler#isContextPropagationPresent set to false at build time
-Field org.springframework.boot.autoconfigure.web.format.WebConversionService#JSR_354_PRESENT set to false at build time
+
+...
+
 Field org.springframework.web.servlet.support.RequestContext#jstlPresent set to false at build time
 [2/8] Performing analysis...  [*******]                                                                 (37.1s @ 1.43GB)
   15,225 (90.49%) of 16,825 types reachable
@@ -503,7 +455,7 @@ $  ./gradlew nativeRun
 * 실행 결과는 그레이들 태스크와 동일합니다.
 
 ```
-./build/native/nativeCompile/action-in-blog 
+$ ./build/native/nativeCompile/action-in-blog 
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -524,14 +476,15 @@ $  ./gradlew nativeRun
 2023-09-18T11:11:44.327+09:00  INFO 22152 --- [           main] action.in.blog.ActionInBlogApplication   : Started ActionInBlogApplication in 0.06 seconds (process running for 0.072)
 ```
 
-### 4.4. Native Image with Container
+### 5.3. Native Image with Container
 
 컨테이너 환경에서 동작할 수 있는 네이티브 이미지를 빌드합니다. 
 해당 작업을 수행할 땐 도커 같은 컨테이너 런타임이 필요합니다.
 
 * `./gradlew bootBuildImage` 명령어를 사용합니다.
-* 빌드팩 기반으로 컨테이너 이미지를 생성합니다.
 * 컨테이너 이미지 빌드에 시간이 약 4분 소요됩니다.
+    * 빌드팩 기반으로 컨테이너 이미지를 생성합니다.
+    * 정적 코드 분석, 메모리 최적화, 힌트 생성 등으로 일반적인 빌드 시간보다 더 오래걸립니다. 
 * 생성된 이미지 이름은 `docker.io/library/action-in-blog:0.0.1-SNAPSHOT` 입니다.
 
 ```
@@ -654,62 +607,9 @@ Building image 'docker.io/library/action-in-blog:0.0.1-SNAPSHOT'
     [creator]     Field org.apache.commons.logging.LogAdapter#log4jSpiPresent set to true at build time
     [creator]     Field org.apache.commons.logging.LogAdapter#log4jSlf4jProviderPresent set to true at build time
     [creator]     Field org.apache.commons.logging.LogAdapter#slf4jSpiPresent set to true at build time
-    [creator]     Field org.apache.commons.logging.LogAdapter#slf4jApiPresent set to true at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#romePresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jaxb2Present set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2Present set to true at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2XmlPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2SmilePresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jackson2CborPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#gsonPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#jsonbPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#kotlinSerializationCborPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#kotlinSerializationJsonPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport#kotlinSerializationProtobufPresent set to false at build time
-    [creator]     Field org.springframework.web.servlet.view.InternalResourceViewResolver#jstlPresent set to false at build time
-    [creator]     Field org.springframework.core.NativeDetector#inNativeImage set to true at build time
-    [creator]     Field org.springframework.boot.logging.log4j2.Log4J2LoggingSystem$Factory#PRESENT set to false at build time
-    [creator]     Field org.springframework.boot.logging.logback.LogbackLoggingSystem$Factory#PRESENT set to true at build time
-    [creator]     Field org.springframework.http.converter.json.Jackson2ObjectMapperBuilder#jackson2XmlPresent set to false at build time
-    [creator]     Field org.springframework.aot.AotDetector#inNativeImage set to true at build time
-    [creator]     Field org.springframework.boot.logging.java.JavaLoggingSystem$Factory#PRESENT set to true at build time
-    [creator]     Field org.springframework.format.support.DefaultFormattingConversionService#jsr354Present set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#romePresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#jaxb2Present set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#jackson2Present set to true at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#jackson2XmlPresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#jackson2SmilePresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#jackson2CborPresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#gsonPresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#jsonbPresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#kotlinSerializationCborPresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#kotlinSerializationJsonPresent set to false at build time
-    [creator]     Field org.springframework.web.client.RestTemplate#kotlinSerializationProtobufPresent set to false at build time
-    [creator]     Field org.springframework.core.KotlinDetector#kotlinPresent set to false at build time
-    [creator]     Field org.springframework.core.KotlinDetector#kotlinReflectPresent set to false at build time
-    [creator]     Field org.springframework.cglib.core.AbstractClassGenerator#inNativeImage set to true at build time
-    [creator]     Field org.springframework.web.context.support.StandardServletEnvironment#jndiPresent set to true at build time
-    [creator]     Field org.springframework.boot.logging.logback.LogbackLoggingSystemProperties#JBOSS_LOGGING_PRESENT set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jaxb2Present set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jackson2Present set to true at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jackson2XmlPresent set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jackson2SmilePresent set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#gsonPresent set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#jsonbPresent set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#kotlinSerializationCborPresent set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#kotlinSerializationJsonPresent set to false at build time
-    [creator]     Field org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter#kotlinSerializationProtobufPresent set to false at build time
-    [creator]     Field org.springframework.web.context.support.WebApplicationContextUtils#jsfPresent set to false at build time
-    [creator]     Field org.springframework.web.context.request.RequestContextHolder#jsfPresent set to false at build time
-    [creator]     Field org.springframework.context.event.ApplicationListenerMethodAdapter#reactiveStreamsPresent set to false at build time
-    [creator]     Field org.springframework.core.ReactiveAdapterRegistry#reactorPresent set to false at build time
-    [creator]     Field org.springframework.core.ReactiveAdapterRegistry#rxjava3Present set to false at build time
-    [creator]     Field org.springframework.core.ReactiveAdapterRegistry#kotlinCoroutinesPresent set to false at build time
-    [creator]     Field org.springframework.core.ReactiveAdapterRegistry#mutinyPresent set to false at build time
-    [creator]     SLF4J: No SLF4J providers were found.
-    [creator]     SLF4J: Defaulting to no-operation (NOP) logger implementation
-    [creator]     SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
-    [creator]     Field org.springframework.web.servlet.mvc.method.annotation.ReactiveTypeHandler#isContextPropagationPresent set to false at build time
+    
+    ... 
+    
     [creator]     Field org.springframework.boot.autoconfigure.web.format.WebConversionService#JSR_354_PRESENT set to false at build time
     [creator]     Field org.springframework.web.servlet.support.RequestContext#jstlPresent set to false at build time
     [creator]     [2/8] Performing analysis...  [*******]                         (43.4s @ 1.68GB)
@@ -796,7 +696,7 @@ BUILD SUCCESSFUL in 2m 23s
 
 도커 명령어로 컨테이너를 실행합니다. 
 
-* 컨테이너 어플리케이션을 실행하는데 0.142초 소요됩니다. 
+* 어플리케이션 컨테이너를 실행하는데 0.142초 소요됩니다. 
     * 일반 실행보다 약 8배 이상 빠릅니다.
 
 ```
@@ -823,20 +723,15 @@ $ docker run -p 8080:8080 docker.io/library/action-in-blog:0.0.1-SNAPSHOT
 
 ## 5. Conclusion
 
-예제를 만들어보면서 GraalVM에 대해 얻은 결론은 다음과 같습니다. 
+예제를 만들어보면서 GraalVM에 대해 얻은 느낌과 인사이트(insight)는 다음과 같습니다. 
 
-* 네이티브 이미지로 빌드된 파일의 실행 속도는 확실히 빠르다.
-* 빌드하는데 시간이 오래 소요되기 때문에 로컬 개발 환경이나 프로젝트 초반 어플리케이션이 자주 변경되는 경우 불편할 것 같다.
-* @Profile 애너테이션을 사용한 선택적인 빈 주입은 정상적으로 수행된다. 
-    * 공식 문서에서 제약 사항이 있다는 것을 보면 완벽하게 지원하진 않지만, 예제 수준의 간단한 프로파일 사용은 가능할 것으로 보인다.
-* GraalVM JDK를 사용한다면 필요에 따라 컴파일 방법을 선택할 수 있다. 
-    * OpenJDK 컴파일러와 Graal JIT 컴파일러를 사용한 개발 및 jar 패키징 빌드
+* 네이티브 이미지로 빌드된 파일의 실행 속도는 확실히 빠릅니다.
+* 빌드하는데 시간이 오래 소요되기 때문에 로컬 개발 환경이나 프로젝트 어플리케이션이 자주 변경되는 프로젝트 초반일 경우 불편할 것 같습니다.
+* @Profile 애너테이션을 사용한 선택적인 빈 주입은 정상적으로 수행됩니다.
+    * 공식 문서에서 제약 사항이 있다는 것을 보면 완벽하게 지원하진 않지만, 예제 수준의 간단한 프로파일 사용은 가능할 것으로 보입니다.
+* GraalVM JDK를 사용하면 필요에 따라 컴파일 방법을 선택할 수 있습니다.
+    * OpenJDK 컴파일러와 Graal JIT 컴파일러를 jar 패키징 빌드
     * AOT 컴파일러를 사용한 네이티브 이미지 빌드
-
-## CLOSING
-
-이번 포스트는 GraalVM에서 지원하는 두 개의 컴파일러 중 AOT 컴파일러를 사용한 네이티브 이미지 빌드에 대해서만 다뤘습니다. 
-다음 포스트에선 Graal JIT 컴파일러를 통해 런타임 중 코드 최적화가 얼마나 효율적으로 이뤄지는지 다른 JDK와 비교해보겠습니다.   
 
 #### TEST CODE REPOSITORY
 

@@ -118,7 +118,7 @@ export const intervalPolling = (func, interval, maxAttempts = -1) => {
 };
 ```
 
-#### 1.1.3. 함수 실행 간격
+#### 1.2.3. 함수 실행 간격
 - 콜백 함수 실행 시간이 길어지면 콜백 함수 실행 간격이 짧아집니다. 
 - 예를 들어, `interval`이 100ms 인 경우
     - 콜백 함수 실행 시간이 30ms라면 다음 콜백 함수 실행은 70ms 뒤 입니다.

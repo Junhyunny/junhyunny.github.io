@@ -1,5 +1,5 @@
 ---
-title: "MySQL Procedure"
+title: "Cursor in MySQL Procedure"
 search: false
 category:
   - database
@@ -13,6 +13,8 @@ last_modified_at: 2023-09-20T23:55:00
 
 ## 0. 들어가면서
 
+
+
 ## CLOSING
 
 #### TEST CODE REPOSITORY
@@ -20,3 +22,5 @@ last_modified_at: 2023-09-20T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+* 

@@ -49,19 +49,11 @@ last_modified_at: 2023-09-21T23:55:00
 +----------------+--------------+------+-----+---------+----------------+
 ```
 
-## 2. Solve the problem
+## 2. Procedure and Cursor
 
 실제 데이터는 약 40000건 이상 존재했지만, 이번 포스트에선 간단하게 10000건 임의 데이터를 만들어 정리하였습니다. 
 원하는 작업을 수행하기 위해 일회성 어플리케이션을 만드는 일보다 SQL 스크립트 작성이 더 쉬운 길이라 판단했습니다. 
-먼저 테이블에 ID 컬럼을 생성합니다. 
-
-```
-mysql> alter table JOURNAL_PUBLISHER_MAPPING add column ID bigint not null;
-Query OK, 10000 rows affected (0.11 sec)
-Records: 10000  Duplicates: 0  Warnings: 0
-```
-
-ID 컬럼을 기본 키로 변경하기 위해 데이터 업데이트 작업이 필요했습니다. 
+새로운 ID 컬럼을 생성하는 것은 어렵지 않았지만, ID 컬럼을 기본 키로 변경하기 위해 모든 데이터가 서로 다른 값을 가지도록 업데이트해야하는 문제가 있었습니다. 
 이 문제는 간단한 프로시저(procedure)를 작성하여 처리하였습니다. 
 
 ### 2.1. Procedure
@@ -116,11 +108,22 @@ FETCH cursor_name INTO variables;
 CLOSE cursor_name;
 ```
 
-### 2.3. Update PK Procedure SQL
+## 3. Solve the problem
 
-프로시저와 커서의 개념을 간단히 봤습니다. 
-데이터 조작을 위한 UPDATE_JOURNAL_PUBLISHER_MAPPING 프로시저를 다음과 같습니다. 
-프로시저 스크립트에 대한 설명은 가독성을 위해 주석으로 작성하였습니다.
+### 3.1. Add ID Column
+
+테이블에 ID 컬럼을 생성합니다. 
+
+```
+mysql> alter table JOURNAL_PUBLISHER_MAPPING add column ID bigint not null;
+Query OK, 10000 rows affected (0.11 sec)
+Records: 10000  Duplicates: 0  Warnings: 0
+```
+
+### 3.2. Update PK with Procedure
+
+데이터 조작을 위한 UPDATE_JOURNAL_PUBLISHER_MAPPING 프로시저를 정의합니다. 
+스크립트 설명은 가독성을 위해 주석으로 작성하였습니다.
 
 ```sql
 delimiter $$
@@ -180,7 +183,7 @@ delimiter ;
 mysql> call UPDATE_JOURNAL_PUBLISHER_MAPPING();
 ```
 
-### 2.4. Modify Table Schema
+### 3.3. Modify Other Schemas
 
 남은 작업들을 수행합니다. 
 이전 기본 키는 삭제하고 ID 컬럼을 새로운 기본 키로 선언합니다. 

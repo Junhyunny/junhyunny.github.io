@@ -46,7 +46,7 @@ Java는 어플리케이션 런타임에 필요한 프록시 객체를 동적으�
 개발자는 프록시 객체가 필요한 경우 클래스를 직접 작성할 필요가 없습니다. 
 동적 프록시 기능의 중요 메소드를 살펴보겠습니다.
 
-### 2.1. newProxyInstance method
+### 2.1. newProxyInstance method in Proxy Class
 
 * 다음과 같은 파라미터들이 필요합니다.
     * 프록시 객체를 정의하기 위한 클래스 로더(class loader)
@@ -57,6 +57,8 @@ Java는 어플리케이션 런타임에 필요한 프록시 객체를 동적으�
     * 외부에서 프록시 메소드를 호출했을 때 이를 내부에서 처리하거나 확장할 수 있는 핸들러 존재
 
 ```java
+public class Proxy implements java.io.Serializable {
+
     @CallerSensitive
     public static Object newProxyInstance(ClassLoader loader,
                                           Class<?>[] interfaces,
@@ -74,8 +76,23 @@ Java는 어플리케이션 런타임에 필요한 프록시 객체를 동적으�
         Constructor<?> cons = getProxyConstructor(caller, loader, interfaces);
 
         return newProxyInstance(caller, cons, h);
-    } 
+    }
+}
 ```
+
+### 2.2. How does it works?
+
+JDK 다이나믹 프록시 기능을 통해 생성된 객체를 호출하면 다음과 같은 실행 흐름을 가집니다. 
+다이나믹 프록시를 통해 getPosts 메소드를 가진 인터페이스 기능을 확장했다고 가정합니다.
+
+1. 클라이언트가 프록시 객체의 getPosts 메소드를 호출합니다. 
+1. InvocationHandler 객체의 invoke 메소드가 실행됩니다.
+1. invoke 메소드 내부에서 필요한 기능들을 실행한 후 타겟(target) 객체에게 요청을 전달합니다. 
+1. 타겟 객체는 전달받은 요청을 수행합니다.
+
+<p align="center">
+    <img src="/images/dynamic-proxy-in-java-2.JPG" width="80%" class="image__border">
+</p>
 
 ## 3. Practice
 

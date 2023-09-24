@@ -96,6 +96,15 @@ public class Proxy implements java.io.Serializable {
     <img src="/images/dynamic-proxy-in-java-2.JPG" width="80%" class="image__border">
 </p>
 
+### 2.3. Limitation
+
+JDK 동적 프록시 기능은 다음과 같은 한계점을 가집니다. 
+
+* JDK 리플렉션 기능을 사용하기 때문에 속도가 느립니다.
+* 인터페이스를 대상으로만 동적 프록시 객체를 생성할 수 있으며 클래스를 사용하는 경우 에러가 발생합니다.
+    * 스프링 프레임워크에선 동적 프록시를 통해 AOP 등을 지원합니다.
+    * 클래스를 직접 빈(bean) 객체로 만드는 경우를 지원하기 위해 `CGLib` 라이브러리를 기본적으로 사용합니다. 
+
 ## 3. Practice
 
 Java 동적 프록시 기능을 사용한 간단한 예제를 살펴보겠습니다. 
@@ -301,13 +310,6 @@ class ActionInBlogTests {
 ```
 22:48:49.054 [Test worker] ERROR action.in.blog.ActionInBlogTests -- action.in.blog.service.DefaultPostService is not an interface
 ```
-
-## CLOSING
-
-Java 동적 프록시는 유용한 기술이지만, 인터페이스가 반드시 필요하다는 한계점이 있습니다. 
-스프링 프레임워크(spring framework)는 빈(bean)을 만들 때 AOP(Aspect Oriented Programming) 기능으로 기능을 확장하기 위해 동적 프록시를 사용합니다. 
-스프링 프레임워크는 클래스를 직접 빈으로 만드는 케이스를 지원하기 위해 `cglib` 라이브러리를 사용합니다. 
-관련된 내용은 다른 포스트에서 정리하겠습니다. 
 
 #### TEST CODE REPOSITORY
 

@@ -1,5 +1,5 @@
 ---
-title: "CGLIB in Spring"
+title: "CGLib in Spring"
 search: false
 category:
   - java
@@ -16,6 +16,18 @@ last_modified_at: 2023-09-24T23:55:00
 
 ## 0. 들어가면서
 
+스프링 프레임워크(spring framework)는 동적 프록시(dynamic proxy)를 통해 개발자가 작성한 코드를 직접 수정하지 않고 기능을 확장합니다. 
+[Dynamic Proxy in Java][dynamic-proxy-in-java-link] 포스트에서 다뤘듯 JDK 프록시는 인터페이스에 대한 기능 확장만 지원합니다. 
+스프링 프레임워크는 클래스로만 정의된 빈(bean) 객체들을 위한 동적 프록시를 지원하는데 이때 사용되는 라이브러리가 `CGLib`입니다. 
+이번 포스트에선 `CGLib` 라이브러리에 대해 살펴보겠습니다. 
+
+## 1. CGLib 
+
+
+
+
+
+
 ## CLOSING
 
 #### TEST CODE REPOSITORY
@@ -24,11 +36,6 @@ last_modified_at: 2023-09-24T23:55:00
 
 #### REFERENCE
 
-* <https://velog.io/@suhongkim98/JDK-Dynamic-Proxy%EC%99%80-CGLib>
-* <https://jwdeveloper.tistory.com/211>
-* <https://velog.io/@%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EB%8F%99%EC%A0%81-%ED%94%84%EB%A1%9D%EC%8B%9C-%EA%B8%B0%EC%88%A0CGLIB-ProxyFactory>
-* <https://inpa.tistory.com/entry/JAVA-%E2%98%95-%EB%88%84%EA%B5%AC%EB%82%98-%EC%89%BD%EA%B2%8C-%EB%B0%B0%EC%9A%B0%EB%8A%94-Dynamic-Proxy-%EB%8B%A4%EB%A3%A8%EA%B8%B0>
-* <https://huisam.tistory.com/entry/springAOP#CGlib%20Proxy-1>
-* <https://velog.io/@gmtmoney2357/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-%EB%8F%99%EC%A0%81-%ED%94%84%EB%A1%9D%EC%8B%9C-%EA%B8%B0%EC%88%A0CGLIB-ProxyFactory>
+* <>
 
 [dynamic-proxy-in-java-link]: https://junhyunny.github.io/java/dynamic-proxy-in-java/

@@ -84,7 +84,7 @@ public class Proxy implements java.io.Serializable {
 
 ### 2.2. How does it flow?
 
-동적 프록시 기능을 통해 객체를 생성하고 해당 객체의 메소드를 호출하면 다음과 같은 흐름으로 코드가 실행됩니다. 
+프록시 객체를 생성한 후 해당 객체의 메소드를 호출하면 다음과 같은 실행 흐름을 가집니다. 
 동적 프록시를 통해 getPosts 메소드를 가진 인터페이스 기능을 확장했다고 가정하였습니다.
 
 1. 클라이언트(client)가 프록시 객체의 getPosts 메소드를 호출합니다. 
@@ -109,9 +109,9 @@ JDK 동적 프록시 기능은 다음과 같은 한계점을 가집니다.
 
 Java 동적 프록시 기능을 사용한 간단한 예제를 살펴보겠습니다. 
 
-### 3.1. PostService Class
+### 3.1. PostService Interface
 
-간단한 기능이 포함된 인터페이스를 정의합니다.
+간단한 기능을 제공하는 포함된 인터페이스를 정의합니다.
 
 ```java
 package action.in.blog.service;
@@ -164,7 +164,7 @@ public class DefaultPostService implements PostService {
 ### 3.3. PostInvocationHandler Class
 
 * getPosts 메소드 수행시 소요되는 시간을 측정합니다.
-* 기타 메소드들은 지원하지 않는다는 예외 메세지를 반환합니다.
+* 다른 메소드들은 지원하지 않는다는 메세지와 함께 예외를 던집니다. 
 
 ```java
 package action.in.blog.handler;
@@ -287,7 +287,7 @@ class ActionInBlogTests {
 }
 ```
 
-##### invoke_getPosts method
+#### Result - invoke_getPosts method
 
 * 핸들러에 정의한 로그 시간 측정 로그가 출력됩니다.
 
@@ -295,7 +295,7 @@ class ActionInBlogTests {
 22:43:34.732 [Test worker] INFO action.in.blog.handler.PostInvocationHandler -- getPosts method takes 30486 ns
 ```
 
-##### invoke_createPost method
+#### Result - invoke_createPost method
 
 * 핸들러에서 전달한 에외 메세지를 확인할 수 있습니다.
 
@@ -303,7 +303,7 @@ class ActionInBlogTests {
 22:48:07.321 [Test worker] ERROR action.in.blog.ActionInBlogTests -- createPost is not supported method
 ```
 
-##### usingClass_throwException method
+#### Result - usingClass_throwException method
 
 * 인터페이스가 아닌 경우 예외가 발생하며 다음과 같은 메세지를 확인할 수 있습니다.
 

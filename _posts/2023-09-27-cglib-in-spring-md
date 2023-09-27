@@ -5,7 +5,7 @@ category:
   - java
   - spring
   - spring-boot
-last_modified_at: 2023-09-26T23:55:00
+last_modified_at: 2023-09-27T23:55:00
 ---
 
 <br/>
@@ -33,24 +33,22 @@ JDK 동적 프록시처럼 인터페이스만 지원하지 않고 클래스 기�
 
 * 하이버네이트
 * 스프링 프레임워크
-    * Spring Boot 2 버전부터 CGLib 프록싱을 기본적으로 사용하고 있습니다.
-    * 인터페이스 기반 프록시는 ClassCastException 예외를 추적하는 것을 어렵게 만든다고 합니다.
+    * 스프링 프레임워크는 AOP(Aspect Oriented Programming) 기능을 지원하기 위해 CGLib 프록시 객체를 사용합니다. 
+    * Spring Boot 2 버전부터 CGLib 프록싱을 기본적으로 사용하고 있으며 그 이유는 인터페이스 기반 프록시는 ClassCastException 예외를 추적하는 것을 어렵게 만들기 때문이라고 합니다.
     * <https://stackoverflow.com/questions/54980004/why-choose-cglib-proxying-as-the-default-after-springboot-2-0>
 
-스프링 프레임워크에서 핵심 기능인 AOP(Aspect Oriented Programming) 기능을 지원합니다. 
-빈(bean) 객체를 생성하고 
 
-### 1.1. 
+
+
+### 1.1. Enhance Class
+
 
 
 ### 1.2. How does it flow?
 
-
 ### 1.3. Limitation
 
-
 ## 2. Practice
-
 
 ## CLOSING
 

@@ -470,6 +470,11 @@ class ProtectionClientTest {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2021-10-31-proxy-pattern>
 
+#### RECOMMEND NEXT POSTS
+
+* [Dynamic Proxy in Java][dynamic-proxy-in-java-link]
+* [CGLib(Code Generation Library)][cglib-link]
+
 #### REFERENCE
 
 * Design Patterns: Elements of Reusable Object-Oriented Software 
@@ -478,3 +483,6 @@ class ProtectionClientTest {
 * <https://dailyheumsi.tistory.com/201>
 * <https://gre-eny.tistory.com/253>
 * [프록시(Proxy) 패턴 - 완벽 마스터하기](https://inpa.tistory.com/entry/GOF-%F0%9F%92%A0-%ED%94%84%EB%A1%9D%EC%8B%9CProxy-%ED%8C%A8%ED%84%B4-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EB%B0%B0%EC%9B%8C%EB%B3%B4%EC%9E%90#%EC%9B%90%EA%B2%A9_%ED%94%84%EB%A1%9D%EC%8B%9C_remote_proxy)
+
+[dynamic-proxy-in-java-link]: https://junhyunny.github.io/java/dynamic-proxy-in-java/
+[cglib-link]: https://junhyunny.github.io/java/spring/spring-boot/cglib/

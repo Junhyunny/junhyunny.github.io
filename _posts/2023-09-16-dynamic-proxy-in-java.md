@@ -315,6 +315,10 @@ class ActionInBlogTests {
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-09-16-dynamic-proxy-in-java>
 
+#### RECOMMEND NEXT POSTS
+
+* [CGLib(Code Generation Library)][cglib-link]
+
 #### REFERENCE
 
 * <https://www.baeldung.com/java-dynamic-proxies>
@@ -324,3 +328,4 @@ class ActionInBlogTests {
 * <https://github.com/cglib/cglib>
 
 [proxy-pattern-link]: https://junhyunny.github.io/information/design-pattern/proxy-pattern/
+[cglib-link]: https://junhyunny.github.io/java/spring/spring-boot/cglib/

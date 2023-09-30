@@ -183,7 +183,7 @@ final class ThreadLocalSecurityContextHolderStrategy implements SecurityContextH
 
 #### 2.1.1. Test
 
-테스트 코드를 통해 동작 결과를 확인해보겠습니다. 
+테스트 코드를 통해 동작 모습을 살펴봅니다. 
 
 * 테스트를 위한 인증 토큰 정보를 생성합니다.
 * 토큰을 시큐리티 컨텍스트에 저장합니다.
@@ -318,7 +318,7 @@ final class InheritableThreadLocalSecurityContextHolderStrategy implements Secur
 
 #### 2.2.1. Test
 
-테스트 코드를 통해 동작 결과를 확인해보겠습니다. 
+테스트 코드를 통해 동작 모습을 살펴봅니다. 
 
 * SecurityContextHolder 클래스의 시큐리티 컨텍스트 보관 전략을 `MODE_INHERITABLETHREADLOCAL`로 변경합니다.
 * 테스트를 위한 인증 토큰 정보를 생성합니다.
@@ -441,6 +441,8 @@ final class GlobalSecurityContextHolderStrategy implements SecurityContextHolder
 </p>
 
 #### 2.3.1. Test
+
+테스트 코드를 통해 동작 모습을 살펴봅니다. 
 
 * SecurityContextHolder 클래스의 시큐리티 컨텍스트 보관 전략을 `MODE_GLOBAL`로 변경합니다.
 * 테스트를 위한 인증 토큰 정보를 생성합니다.

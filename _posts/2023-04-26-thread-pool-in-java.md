@@ -39,7 +39,7 @@ Java에서 제공하는 스레드 풀의 구조를 아래 이미지를 통해 �
 * Executors 클래스를 통해 생성되는 스레드 풀은 ExecutorService 인터페이스를 구현한 인스턴스(instance)들입니다.
 * 스레드 풀 인스턴스에는 작업을 담는 블록킹 큐(blocking queue)와 작업자 스레드(worker thread)들이 담긴 해시셋(HashSet)이 존재합니다.
 * 블록킹 큐에서 작업을 꺼내어 작업자 스레드에게 전달합니다.
-    * 블록킹 큐에서 작업을 꺼낼 떄 타임아웃(timeout) 여부에 따라 poll 혹은 take 메소드가 호출됩니다.
+    * 블록킹 큐에서 작업을 꺼낼 때 타임아웃(timeout) 여부에 따라 poll 혹은 take 메소드가 호출됩니다.
     * 스레드의 타임아웃 여부는 코어 스레드 개수에 의해 판단됩니다.
 
 <p align="center">

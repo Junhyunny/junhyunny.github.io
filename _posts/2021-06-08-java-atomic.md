@@ -327,7 +327,7 @@ public class AtomicIntegerTest {
 ##### Result
 
 * 총 소요되는 시간은 8862 입니다.
-    * synchronized 키워드를 사용했을 떄보다 2배 정도 빠름을 확인할 수 있습니다.
+    * synchronized 키워드를 사용했을 때보다 2배 정도 빠름을 확인할 수 있습니다.
 * 최종 값은 0으로 정상적인 동기화가 이뤄졌음을 확인할 수 있습니다.
 
 ```

@@ -1,5 +1,5 @@
 ---
-title: "Line OAuth2 Login with Spring Security"
+title: "OAuth2 Line Login with Spring Security"
 search: false
 category:
   - java
@@ -21,3 +21,7 @@ last_modified_at: 2023-10-30T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+* <https://developers.line.biz/en/docs/line-login/>
+* <https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes>
+* <https://developers.line.biz/en/reference/line-login/>

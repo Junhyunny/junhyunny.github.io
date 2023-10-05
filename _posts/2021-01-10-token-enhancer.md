@@ -12,7 +12,7 @@ last_modified_at: 2021-08-21T17:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [JWT(Json Web Token)][json-web-token-link]
-* [Spring Security][spring-security-link]
+* [Spring Security Basic][spring-security-link]
 * [Spring Security JWT OAuth Example][spring-security-example-link]
 
 ## 1. TokenEnhancer Interface

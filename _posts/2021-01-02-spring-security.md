@@ -1,5 +1,5 @@
 ---
-title: "Spring Security"
+title: "Spring Security Basic"
 search: false
 category:
   - spring-security

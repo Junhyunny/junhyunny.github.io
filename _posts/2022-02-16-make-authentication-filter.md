@@ -10,7 +10,7 @@ last_modified_at: 2022-02-16T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security][spring-security-link]
+- [Spring Security Basic][spring-security-link]
 - [OncePerRequestFilter][once-per-request-filter-link]
 
 👉 이어서 읽기를 추천합니다.
@@ -42,7 +42,7 @@ last_modified_at: 2022-02-16T23:55:00
 저는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 변경하고 정리하였습니다. 
 
 ##### Spring Security Authentication Process
-- [Spring Security][spring-security-link]에서 인증 과정에 대한 자세한 설명을 다루고 있습니다.
+- [Spring Security Basic][spring-security-link]에서 인증 과정에 대한 자세한 설명을 다루고 있습니다.
 - 아래 그림에 AuthenticationFilter 부분을 JWT(Json Web Token)을 사용한다는 가정하에 구현하였습니다. 
 
 <p align="center">

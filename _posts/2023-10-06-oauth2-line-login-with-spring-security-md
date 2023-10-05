@@ -12,30 +12,140 @@ last_modified_at: 2023-10-06T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [OAuth(Open Authorization)][oauth-link]
+* [Spring Security Basic][spring-security-link]
 * [Redirect and Forwarding][redirect-and-forwarding-link]
+* [OAuth(Open Authorization)][oauth-link]
 
 ## 0. 들어가면서
 
 많은 어플리케이션들은 SNS 인증을 통해 로그인 프로세스를 구현합니다. 
-보통 SNS 인증 방식에는 [OAuth(Open Authorization)][oauth-link] 프로토콜이 사용되는데 현재 개발 중인 어플리케이션에도 Line 로그인 기능을 추가하였습니다. 
+보통 SNS 인증 방식에는 [OAuth(Open Authorization)][oauth-link] 프로토콜이 사용되는데 현재 개발 중인 어플리케이션에도 라인(Line) 로그인 기능을 추가하였습니다. 
 
 스프링 프레임워크(spring framework) 기반으로 백엔드 서비스가 구성되었기 때문에 자연스레 스프링 시큐리티(spring security)를 사용하여 Line 로그인 기능을 추가하였습니다. 
-기존 AAD(Azure Acrtive Directory) 인증 프로세스와 충돌이 있어서 정리하는 과정이 있었지만, 이번 포스트에선 명료하게 Line 로그인 기능에 대한 내용만 다뤄보겠습니다. 
+기존 AAD(Azure Acrtive Directory) 인증 프로세스와 충돌이 있어서 정리하는 과정이 있었지만, 이번 포스트에선 라인 로그인 기능에 대한 내용만 다루었습니다. 
 
 ## 1. OAuth2 Authentication Process in Spring Security
 
-스프링 시큐리티를 사용할 때 
+스프링 시큐리티를 사용하면 어떤 인증 프로세스가 진행되는지 정리하였습니다. 
+이 내용을 이해하기 위해선 스프링 시큐리티 아키텍처에 대한 배경 지식이 필요합니다. 
+간략히 설명하자면 스프링 시큐리티는 서블릿 필터 체인(servlet filter chain)의 기능을 확장합니다. 
+서블릿 필터 체인 중간에 시큐리티 필터 체인을 추가하여 인증, 인가를 처리합니다. 
+자세한 내용은 공식 홈페이지나 [Spring Security Basic][spring-security-link] 글을 참고하시기 바랍니다. 
 
 ### 1.1. Redirect to Login Page
 
-### 1.2. Line Login
+처음 브라우저 웹 페이지에서 로그인 버튼을 누르면 상황이 시작됩니다. 
 
-### 1.3. Callback and Get User Profile
+1. 사용자는 클라이언트 서비스의 `/oauth2/authorization/line` 경로로 요청을 보냅니다.
+    - 스프링 시큐리티는 내부 규칙에 의해 인증 처리를 수행하는 URL이 자동으로 지정됩니다.
+    - 개발자는 이를 변경할 수 있습니다.
+1. `OAuth2AuthorizationRequestRedirectFilter` 인스턴스에서 설정 파일에 지정한 경로로 브라우저를 리다이렉트(redirect)시킵니다.
+    - 각 서비스 제공자(SP, service provider)마다 인증 처리를 수행하는 경로가 다릅니다.
+    - 라인의 경우 `https://access.line.me/oauth2/v2.1/authorize` 입니다.
+    - 리다이렉트 시키는 경우 다음과 같은 정보들을 함께 전달합니다.
+        - CLIENT_ID - 사전 발급이 필요합니다.
+        - CLIENT_SECRET - 사전 발급이 필요합니다.
+        - 콜백 URL - 사전 등록이 필요합니다.
+        - 스코프(scope)
+        - 응답 타입
+1. 브라우저는 리다이렉트 요청으로 인해 라인 로그인 페이지에 접근합니다.
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-1.JPG" width="100%" class="image__border">
+</p>
+
+### 1.2. Login
+
+서비스 제공자가 제공하는 로그인 화면을 브라우저에서 볼 수 있습니다. 
+사용자는 자신의 정보를 입력하여 로그인을 수행합니다. 
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-2.gif" width="100%" class="image__border">
+</p>
+
+### 1.3. Authenticate and Get User Profile
+
+정확하게 사용자 정보를 입력했다면 서비스 제공자의 인가 서버는 임시 토큰을 하나 발급합니다. 
+발급한 토큰을 사전에 등록된 클라이언트 콜백 URL로 전달하면서 상황이 시작됩니다. 
+
+1. 서비스 제공자의 인가 서버는 클라이언트 서비스의 `/oauth2/authorized/line` 경로로 인가 코드를 응답합니다.
+    - 라인 개발자 페이지에 사전에 등록된 콜백 URL입니다.
+1. `OAuth2LoginAuthenticationFilter` 필터에서 인증 처리가 수행됩니다.
+1. 인증 필터는 인증 과정을 매니저 인스턴스에게 위임하지만, 최종적으로 `OAuth2AuthorizationCodeAuthenticationProvider` 인스턴스에서 액세스 토큰을 발급 받습니다.
+    - 설정 파일에 등록한 URL로 액세스 토큰 발급을 요청합니다. 
+    - 라인의 경우 `https://api.line.me/oauth2/v2.1/token` 입니다.
+    - 서비스 제공자가 콜백 URL로 함께 전달한 인가 코드, 사전에 등록된 콜백 URL, 인가 타입 등이 전달됩니다.
+1. `OAuth2LoginAuthenticationProvider` 인스턴스는 `DefaultOAuth2UserService` 인스턴스를 통해 사용자 정보를 리소스 서버로부터 전달받습니다. 
+    - 설정 파일에 등록한 URL로 사용자 정보를 요청합니다. 
+    - 라인의 경우 `https://api.line.me/v2/profile` 입니다.
+    - 서비스 제공자의 인가 서버로부터 발급 받은 액세스 토큰을 함께 전달합니다.
+1. 클라이언트 어플리케이션은 사용자 정보를 획득했다면 비즈니스 흐름에 맞게 사용자 브라우저를 리다이렉트시킵니다.
+    - 이번 포스트에선 `http://localhost:8080/home` 경로로 이동합니다.
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-3.JPG" width="100%" class="image__border">
+</p>
 
 ## 2. Register Client
 
-OAuth2 클라이언트 어플리케이션의 로그인 기능 구현을 위한 사전 단계입니다. 
+OAuth2 클라이언트 어플리케이션의 로그인 기능 구현을 위한 사전 준비가 필요합니다. 
+[라인 개발자 사이트](https://developers.line.biz/en/)에 개발할 어플리케이션을 등록합니다. 
+이 과정을 통해 클라이언트 ID, 클라이언트 SECRET 등을 발급 받고, 콜백 URL을 등록합니다. 
+
+### 2.1. Line Developers Console
+
+라인 개발자 사이트에 로그인 후 진행합니다.
+
+* 우측 상단 콘솔 버튼을 누릅니다.
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-4.JPG" width="100%" class="image__border">
+</p>
+
+### 2.2. Create Provider and Channel
+
+프로바이더를 신규로 등록합니다. 
+
+* 생성 버튼을 누릅니다.
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-4.JPG" width="100%" class="image__border">
+</p>
+
+* `Create a Line Login channel` 버튼을 선택합니다. 
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-5.JPG" width="100%" class="image__border">
+</p>
+
+* 채널 생성을 위해 필수 정보들을 입력합니다. 
+    * 채널 타입은 `LINE Login`을 선택합니다.
+    * 앱 타입에 `Web app`을 선택합니다.
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-6.JPG" width="100%" class="image__border">
+</p>
+
+### 2.3. Get Client Info and Register Callback URL
+
+채널에서 클라이언트 ID, 시크릿 정보를 확인하고, 콜백 URL을 등록합니다.
+
+* 개발 편의를 위해 `developing` 버튼을 눌러 `published` 상태로 변경합니다.
+* Basic settings Tab
+    * `Channel ID` 항목이 클라이언트 ID입니다.
+    * `Channel secrete` 항목이 클라이언트 시크릿입니다.
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-7.JPG" width="100%" class="image__border">
+</p>
+
+* LINE Login Tab
+    * 콜백 URL을 등록합니다.
+    * 라인을 구분하면 여러 개의 콜백 URL을 등록할 수 있습니다. 
+
+<p align="center">
+    <img src="/images/oauth2-line-login-with-spring-security-8.JPG" width="100%" class="image__border">
+</p>
 
 ## 3. Practice
 
@@ -55,7 +165,8 @@ OAuth2 프로토콜에서 클라이언트 어플리케이션을 구현하기 어
 * <https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes>
 * <https://developers.line.biz/en/reference/line-login/>
 
-[oauth-link]: https://junhyunny.github.io/information/security/oauth/
+[spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [redirect-and-forwarding-link]: https://junhyunny.github.io/information/redirect-and-forwarding/
+[oauth-link]: https://junhyunny.github.io/information/security/oauth/
 
 [rfc6749-link]: https://www.rfc-editor.org/rfc/rfc6749

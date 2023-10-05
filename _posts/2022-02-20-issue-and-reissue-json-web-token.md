@@ -11,7 +11,7 @@ last_modified_at: 2022-02-20T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT(Json Web Token)][json-web-token-link]
-- [Spring Security][spring-security-link]
+- [Spring Security Basic][spring-security-link]
 - [JWT AuthenticationFilter 만들기][make-authentication-filter-link]
 - [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
 

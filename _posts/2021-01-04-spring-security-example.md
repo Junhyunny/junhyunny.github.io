@@ -12,7 +12,7 @@ last_modified_at: 2021-02-17T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [JWT(Json Web Token)][json-web-token-link]
-* [Spring Security][spring-security-link]
+* [Spring Security Basic][spring-security-link]
 
 ## 1. 용어 정리
 
@@ -134,7 +134,7 @@ spring:
 * `@EnableAuthorizationServer` 애너테이션을 사용해 인증 서버 설정을 위한 빈(bean)으로 등록합니다. 
 * `AuthorizationServerConfigurerAdapter` 클래스를 상속받아 인증 서버 구현에 필요한 기능을 확장합니다.
 * 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
-    * `AuthenticationManager` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참고 바랍니다.
+    * `AuthenticationManager` 개념에 대한 이해가 부족한 분은 [Spring Security Basic][spring-security-link] 포스트를 참고 바랍니다.
 
 ```java
 package blog.in.action.security;
@@ -209,7 +209,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 * `@EnableWebSecurity` 애너테이션을 통해 웹 암호화 설정 빈으로 등록합니다.
 * `WebSecurityConfigurerAdapter` 클래스를 상속하여 필요한 암호화에 필요한 기능을 확장합니다.
 * 기타 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
-    * `UserDetailsService` 개념에 대한 이해가 부족한 분은 [Spring Security][spring-security-link] 포스트를 참고 바랍니다.
+    * `UserDetailsService` 개념에 대한 이해가 부족한 분은 [Spring Security Basic][spring-security-link] 포스트를 참고 바랍니다.
 
 ```java
 package blog.in.action.security;

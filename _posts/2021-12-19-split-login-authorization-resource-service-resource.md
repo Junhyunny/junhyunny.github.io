@@ -14,7 +14,7 @@ last_modified_at: 2021-12-19T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT(Json Web Token)][json-link]
-- [Spring Security][security-link]
+- [Spring Security Basic][security-link]
 - [Spring Security JWT OAuth Example][spring-security-example-link]
 
 👉 이어서 읽기를 추천합니다.

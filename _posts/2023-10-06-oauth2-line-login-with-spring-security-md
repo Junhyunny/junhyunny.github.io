@@ -1,0 +1,61 @@
+---
+title: "OAuth2 Line Login with Spring Security"
+search: false
+category:
+  - java
+  - spring-boot
+  - spring-security
+last_modified_at: 2023-10-06T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [OAuth(Open Authorization)][oauth-link]
+* [Redirect and Forwarding][redirect-and-forwarding-link]
+
+## 0. 들어가면서
+
+많은 어플리케이션들은 SNS 인증을 통해 로그인 프로세스를 구현합니다. 
+보통 SNS 인증 방식에는 [OAuth(Open Authorization)][oauth-link] 프로토콜이 사용되는데 현재 개발 중인 어플리케이션에도 Line 로그인 기능을 추가하였습니다. 
+
+스프링 프레임워크(spring framework) 기반으로 백엔드 서비스가 구성되었기 때문에 자연스레 스프링 시큐리티(spring security)를 사용하여 Line 로그인 기능을 추가하였습니다. 
+기존 AAD(Azure Acrtive Directory) 인증 프로세스와 충돌이 있어서 정리하는 과정이 있었지만, 이번 포스트에선 명료하게 Line 로그인 기능에 대한 내용만 다뤄보겠습니다. 
+
+## 1. OAuth2 Authentication Process in Spring Security
+
+스프링 시큐리티를 사용할 때 
+
+### 1.1. Redirect to Login Page
+
+### 1.2. Line Login
+
+### 1.3. Callback and Get User Profile
+
+## 2. Register Client
+
+OAuth2 클라이언트 어플리케이션의 로그인 기능 구현을 위한 사전 단계입니다. 
+
+## 3. Practice
+
+## CLOSING
+
+웹 기반 [OAuth2 표준][rfc6749-link]에 흐름에 대해 이해하고 있다면 SNS 로그인 인증 프로세스를 구현하는 것은 크게 어렵지 않습니다. 
+OAuth2 프로토콜에서 클라이언트 어플리케이션을 구현하기 어렵게 느껴진다면 인증 표준에 참여하는 각 컴포넌트들의 역할과 웹 기반 인증 과정에서 개발자를 헷갈리게 만드는 브라우저 리다이렉트에 대한 개념을 잘 정리할 필요가 있습니다. 
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://www.rfc-editor.org/rfc/rfc6749>
+* <https://developers.line.biz/en/docs/line-login/>
+* <https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes>
+* <https://developers.line.biz/en/reference/line-login/>
+
+[oauth-link]: https://junhyunny.github.io/information/security/oauth/
+[redirect-and-forwarding-link]: https://junhyunny.github.io/information/redirect-and-forwarding/
+
+[rfc6749-link]: https://www.rfc-editor.org/rfc/rfc6749

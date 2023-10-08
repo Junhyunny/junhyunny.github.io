@@ -17,11 +17,11 @@ last_modified_at: 2023-06-30T23:55:00
 
 ```
 java.lang.IllegalStateException: getReader() has already been called for this request
-	at org.apache.catalina.connector.Request.getInputStream(Request.java:1024) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
-	at org.apache.catalina.connector.RequestFacade.getInputStream(RequestFacade.java:298) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
-	at org.springframework.http.server.ServletServerHttpRequest.getBody(ServletServerHttpRequest.java:206) ~[spring-web-6.0.10.jar:6.0.10]
-	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver$EmptyBodyCheckingHttpInputMessage.<init>(AbstractMessageConverterMethodArgumentResolver.java:323) ~[spring-webmvc-6.0.10.jar:6.0.10]
-	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:172) ~[spring-webmvc-6.0.10.jar:6.0.10]
+    at org.apache.catalina.connector.Request.getInputStream(Request.java:1024) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
+    at org.apache.catalina.connector.RequestFacade.getInputStream(RequestFacade.java:298) ~[tomcat-embed-core-10.1.10.jar:10.1.10]
+    at org.springframework.http.server.ServletServerHttpRequest.getBody(ServletServerHttpRequest.java:206) ~[spring-web-6.0.10.jar:6.0.10]
+    at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver$EmptyBodyCheckingHttpInputMessage.<init>(AbstractMessageConverterMethodArgumentResolver.java:323) ~[spring-webmvc-6.0.10.jar:6.0.10]
+    at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:172) ~[spring-webmvc-6.0.10.jar:6.0.10]
     ... 
 ```
 
@@ -30,8 +30,8 @@ java.lang.IllegalStateException: getReader() has already been called for this re
 ```
 Request processing failed: java.lang.IllegalStateException: Cannot call getInputStream() after getReader() has already been called for the current request
 jakarta.servlet.ServletException: Request processing failed: java.lang.IllegalStateException: Cannot call getInputStream() after getReader() has already been called for the current request
-	at app//org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1019)
-	at app//org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+    at app//org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1019)
+    at app//org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
     ...
 ```
 

@@ -21,21 +21,21 @@ last_modified_at: 2023-08-15T23:55:00
 
 ```
 org.springframework.data.redis.serializer.SerializationException: Cannot serialize
-	at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:96) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
-	at org.springframework.data.redis.core.AbstractOperations.rawHashValue(AbstractOperations.java:186) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
-	at org.springframework.data.redis.core.DefaultHashOperations.putAll(DefaultHashOperations.java:161) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
-	at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.saveDelta(RedisSessionRepository.java:298) ~[spring-session-data-redis-3.0.1.jar!/:3.0.1]
-	at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.save(RedisSessionRepository.java:276) ~[spring-session-data-redis-3.0.1.jar!/:3.0.1]
-  	...
+    at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:96) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
+    at org.springframework.data.redis.core.AbstractOperations.rawHashValue(AbstractOperations.java:186) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
+    at org.springframework.data.redis.core.DefaultHashOperations.putAll(DefaultHashOperations.java:161) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
+    at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.saveDelta(RedisSessionRepository.java:298) ~[spring-session-data-redis-3.0.1.jar!/:3.0.1]
+    at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.save(RedisSessionRepository.java:276) ~[spring-session-data-redis-3.0.1.jar!/:3.0.1]
+      ...
 Caused by: org.springframework.core.serializer.support.SerializationFailedException: Failed to serialize object using DefaultSerializer
-	at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:64) ~[spring-core-6.0.9.jar!/:6.0.9]
-	at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:33) ~[spring-core-6.0.9.jar!/:6.0.9]
-	at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:94) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
-	... 37 common frames omitted
+    at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:64) ~[spring-core-6.0.9.jar!/:6.0.9]
+    at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:33) ~[spring-core-6.0.9.jar!/:6.0.9]
+    at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:94) ~[spring-data-redis-3.0.6.jar!/:3.0.6]
+    ... 37 common frames omitted
 Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEntity
-	at java.base/java.io.ObjectOutputStream.writeObject0(Unknown Source) ~[na:na]
-	at java.base/java.io.ObjectOutputStream.writeObject(Unknown Source) ~[na:na]
-  	...
+    at java.base/java.io.ObjectOutputStream.writeObject0(Unknown Source) ~[na:na]
+    at java.base/java.io.ObjectOutputStream.writeObject(Unknown Source) ~[na:na]
+      ...
 ```
 
 위 예외가 왜 발생했는지 알아보고 이를 해결한 방법에 대해 정리해보았습니다. 
@@ -123,9 +123,9 @@ class DefaultUserService(
 ### 1.3. UserEntity Class
 
 * @ElementCollection, @CollectionTable 애너테이션을 사용합니다.
-	* 좋아하는 포스트(post)들의 아이디를 컬렉션으로 저장합니다.
+    * 좋아하는 포스트(post)들의 아이디를 컬렉션으로 저장합니다.
 * 컬렉션을 저장하기 위한 별도 테이블이 생성됩니다.
-	* 테이블 이름은 `tb_favorite_posts` 입니다. 
+    * 테이블 이름은 `tb_favorite_posts` 입니다. 
 
 ```kotlin
 package action.`in`.blog.domain.entity
@@ -182,7 +182,7 @@ data class User(
 연관된 코드들은 모두 살펴봤으므로 동일한 예외가 발생하도록 테스트 코드를 실행시켜보겠습니다.  
 
 * 실제 동작 환경과 유사하도록 테스트 컨테이너를 사용합니다.
-	* 레디스 컨테이너를 실행 후 스프링 어플리케이션에서 찾을 수 있도록 프로퍼티를 변경합니다.
+    * 레디스 컨테이너를 실행 후 스프링 어플리케이션에서 찾을 수 있도록 프로퍼티를 변경합니다.
 * setup 메소드에서 테스트에 필요한 사용자 데이터를 준비합니다.
 * 문제가 발생하는 경로로 API 요청을 수행합니다.
     * 정상 응답을 기대합니다. 
@@ -258,20 +258,20 @@ class RestControllerIT {
 01:24:55.120 [Test worker] INFO  action.in.blog.controller.RestControllerIT - Started RestControllerIT in 3.073 seconds (process running for 5.694)
 
 org.springframework.data.redis.serializer.SerializationException: Cannot serialize
-	at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:96)
-	at org.springframework.data.redis.core.AbstractOperations.rawHashValue(AbstractOperations.java:186)
-	at org.springframework.data.redis.core.DefaultHashOperations.putAll(DefaultHashOperations.java:161)
-	at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.saveDelta(RedisSessionRepository.java:298)
-	at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.save(RedisSessionRepository.java:276)
-	...
+    at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:96)
+    at org.springframework.data.redis.core.AbstractOperations.rawHashValue(AbstractOperations.java:186)
+    at org.springframework.data.redis.core.DefaultHashOperations.putAll(DefaultHashOperations.java:161)
+    at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.saveDelta(RedisSessionRepository.java:298)
+    at org.springframework.session.data.redis.RedisSessionRepository$RedisSession.save(RedisSessionRepository.java:276)
+    ...
 Caused by: org.springframework.core.serializer.support.SerializationFailedException: Failed to serialize object using DefaultSerializer
-	at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:64)
-	at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:33)
-	at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:94)
-	... 101 more
+    at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:64)
+    at org.springframework.core.serializer.support.SerializingConverter.convert(SerializingConverter.java:33)
+    at org.springframework.data.redis.serializer.JdkSerializationRedisSerializer.serialize(JdkSerializationRedisSerializer.java:94)
+    ... 101 more
 Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEntity
-	at java.base/java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1187)
-	at java.base/java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1572)
+    at java.base/java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1187)
+    at java.base/java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1572)
 ```
 
 ## 2. Cause
@@ -303,9 +303,9 @@ PersistentBag 객체 내부에서 다음과 같은 참조 연결이 존재합니
 이 참조 객체를 통해 엔티티들이 직렬화 대상에 포함됩니다. 
 
 * PersistentBag 객체은 owner 객체를 가지고 있습니다. 
-	* owner 객체는 UserEntity 객체입니다.
+    * owner 객체는 UserEntity 객체입니다.
 * owner 객체까지 직렬화 대상이 됩니다.
-	* UserEntity 객체가 참조하는 다른 객체들도 모두 직렬화 대상입니다. 
+    * UserEntity 객체가 참조하는 다른 객체들도 모두 직렬화 대상입니다. 
 
 <p align="center">
     <img src="/images/jpa-entity-serialize-exception-with-redis-session-3.JPG" width="80%" class="image__border">

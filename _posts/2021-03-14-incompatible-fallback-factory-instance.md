@@ -20,12 +20,12 @@ last_modified_at: 2021-08-24T01:00:00
 
 ```
 Caused by: java.lang.IllegalStateException: Incompatible fallbackFactory instance. Fallback/fallbackFactory of type class cloud.in.action.proxy.BlogClientFallbackFactory is not assignable to interface org.springframework.cloud.openfeign.FallbackFactory for feign client blog-client
-	at org.springframework.cloud.openfeign.FeignCircuitBreakerTargeter.getFromContext(FeignCircuitBreakerTargeter.java:83) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
-	at org.springframework.cloud.openfeign.FeignCircuitBreakerTargeter.targetWithFallbackFactory(FeignCircuitBreakerTargeter.java:58) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
-	at org.springframework.cloud.openfeign.FeignCircuitBreakerTargeter.target(FeignCircuitBreakerTargeter.java:49) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
-	at org.springframework.cloud.openfeign.FeignClientFactoryBean.getTarget(FeignClientFactoryBean.java:391) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
-	at org.springframework.cloud.openfeign.FeignClientFactoryBean.getObject(FeignClientFactoryBean.java:347) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
-	at org.springframework.cloud.openfeign.FeignClientsRegistrar.lambda$registerFeignClient$0(FeignClientsRegistrar.java:240) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
+    at org.springframework.cloud.openfeign.FeignCircuitBreakerTargeter.getFromContext(FeignCircuitBreakerTargeter.java:83) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
+    at org.springframework.cloud.openfeign.FeignCircuitBreakerTargeter.targetWithFallbackFactory(FeignCircuitBreakerTargeter.java:58) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
+    at org.springframework.cloud.openfeign.FeignCircuitBreakerTargeter.target(FeignCircuitBreakerTargeter.java:49) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
+    at org.springframework.cloud.openfeign.FeignClientFactoryBean.getTarget(FeignClientFactoryBean.java:391) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
+    at org.springframework.cloud.openfeign.FeignClientFactoryBean.getObject(FeignClientFactoryBean.java:347) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
+    at org.springframework.cloud.openfeign.FeignClientsRegistrar.lambda$registerFeignClient$0(FeignClientsRegistrar.java:240) ~[spring-cloud-openfeign-core-2.2.7.RELEASE.jar:2.2.7.RELEASE]
   ...
 ```
 

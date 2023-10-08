@@ -86,13 +86,13 @@ public class BlogResponse {
 ```
 Caused by: com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10
  at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 14] (through reference chain: action.in.blog.BlogResponse["createdAt"])
-	at app//com.fasterxml.jackson.databind.exc.InvalidFormatException.from(InvalidFormatException.java:67)
+    at app//com.fasterxml.jackson.databind.exc.InvalidFormatException.from(InvalidFormatException.java:67)
   ...
 
 Caused by: java.time.format.DateTimeParseException: Text '2023-02-24 11:30:25' could not be parsed at index 10
-	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052)
-	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954)
-	at java.base/java.time.LocalDateTime.parse(LocalDateTime.java:494)
+    at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052)
+    at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954)
+    at java.base/java.time.LocalDateTime.parse(LocalDateTime.java:494)
   ...
 ```
 
@@ -269,21 +269,21 @@ public class BlogClientIT {
 ```
 Error while extracting response for type [class action.in.blog.domain.BlogResponse] and content type [application/json]
 feign.codec.DecodeException: Error while extracting response for type [class action.in.blog.domain.BlogResponse] and content type [application/json]
-	at app//feign.InvocationContext.proceed(InvocationContext.java:40)
-	at app//feign.ResponseHandler.decode(ResponseHandler.java:122)
-	at app//feign.ResponseHandler.handleResponse(ResponseHandler.java:73)
+    at app//feign.InvocationContext.proceed(InvocationContext.java:40)
+    at app//feign.ResponseHandler.decode(ResponseHandler.java:122)
+    at app//feign.ResponseHandler.handleResponse(ResponseHandler.java:73)
 ...
 Caused by: org.springframework.web.client.RestClientException: Error while extracting response for type [class action.in.blog.domain.BlogResponse] and content type [application/json]
-	at app//org.springframework.web.client.HttpMessageConverterExtractor.extractData(HttpMessageConverterExtractor.java:118)
-	at app//org.springframework.cloud.openfeign.support.SpringDecoder.decode(SpringDecoder.java:75)
+    at app//org.springframework.web.client.HttpMessageConverterExtractor.extractData(HttpMessageConverterExtractor.java:118)
+    at app//org.springframework.cloud.openfeign.support.SpringDecoder.decode(SpringDecoder.java:75)
 ...
 Caused by: org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10
-	at app//org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:406)
-	at app//org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.read(AbstractJackson2HttpMessageConverter.java:354)
+    at app//org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.readJavaType(AbstractJackson2HttpMessageConverter.java:406)
+    at app//org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter.read(AbstractJackson2HttpMessageConverter.java:354)
 ...
 Caused by: java.time.format.DateTimeParseException: Text '2023-02-24 11:30:25' could not be parsed at index 10
-	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052)
-	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954)
+    at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052)
+    at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954)
 ...
 Disconnected from the target VM, address: 'localhost:57046', transport: 'socket'
 BlogClientIT > get_blog_response_from_wiremock_server_using_feign() FAILED

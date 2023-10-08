@@ -62,7 +62,7 @@ Usage: alien [options] file [...]
      Enables these options:
        --patch=<patch>      Specify patch file to use instead of automatically
                             looking for patch in /var/lib/alien.
-       --nopatch	        Do not use patches.
+       --nopatch            Do not use patches.
        --anypatch           Use even old version os patches.
        -s, --single         Like --generate, but do not create .orig
                             directory.
@@ -85,7 +85,7 @@ Usage: alien [options] file [...]
   -k, --keep-version        Do not change version of generated package.
       --bump=number         Increment package version by this number.
   -h, --help                Display this help message.
-  -V, --version		        Display alien's version number.
+  -V, --version             Display alien's version number.
 ```
 
 ### 3.3. 명령어 사용

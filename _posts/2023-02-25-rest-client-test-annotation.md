@@ -73,13 +73,13 @@ public class BlogResponse {
 ```
 Caused by: com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10
  at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 1, column: 14] (through reference chain: action.in.blog.BlogResponse["createdAt"])
-	at app//com.fasterxml.jackson.databind.exc.InvalidFormatException.from(InvalidFormatException.java:67)
+    at app//com.fasterxml.jackson.databind.exc.InvalidFormatException.from(InvalidFormatException.java:67)
   ...
 
 Caused by: java.time.format.DateTimeParseException: Text '2023-02-24 11:30:25' could not be parsed at index 10
-	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052)
-	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954)
-	at java.base/java.time.LocalDateTime.parse(LocalDateTime.java:494)
+    at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2052)
+    at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:1954)
+    at java.base/java.time.LocalDateTime.parse(LocalDateTime.java:494)
   ...
 ```
 

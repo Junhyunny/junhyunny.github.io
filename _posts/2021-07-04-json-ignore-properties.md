@@ -20,18 +20,18 @@ API 엔드 포인트(end-point) 개발 중 다음과 같은 에러를 만났습�
 2023-09-14T00:42:29.816+09:00 ERROR 15028 --- [nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)] with root cause
 
 java.lang.StackOverflowError: null
-	at java.base/java.lang.Exception.<init>(Exception.java:85) ~[na:na]
-	at java.base/java.io.IOException.<init>(IOException.java:80) ~[na:na]
-	at com.fasterxml.jackson.core.JacksonException.<init>(JacksonException.java:26) ~[jackson-core-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.core.JsonProcessingException.<init>(JsonProcessingException.java:25) ~[jackson-core-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:22) ~[jackson-databind-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:34) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at java.base/java.lang.Exception.<init>(Exception.java:85) ~[na:na]
+    at java.base/java.io.IOException.<init>(IOException.java:80) ~[na:na]
+    at com.fasterxml.jackson.core.JacksonException.<init>(JacksonException.java:26) ~[jackson-core-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.core.JsonProcessingException.<init>(JsonProcessingException.java:25) ~[jackson-core-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:22) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:34) ~[jackson-databind-2.15.2.jar:2.15.2]
 ... 
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142) ~[jackson-databind-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88) ~[jackson-databind-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79) ~[jackson-databind-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:18) ~[jackson-databind-2.15.2.jar:2.15.2]
-	at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:732) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:18) ~[jackson-databind-2.15.2.jar:2.15.2]
+    at com.fasterxml.jackson.databind.ser.BeanPropertyWriter.serializeAsField(BeanPropertyWriter.java:732) ~[jackson-databind-2.15.2.jar:2.15.2]
 ...
 ```
 
@@ -244,39 +244,39 @@ public class ActionInBlogTest {
 13:46:48.445 [main] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 2 ms
 13:46:48.566 [main] WARN org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver -- Failure while trying to resolve exception [org.springframework.http.converter.HttpMessageNotWritableException]
 java.lang.IllegalStateException: Cannot set error status - response is already committed
-	at org.springframework.util.Assert.state(Assert.java:76)
-	at org.springframework.mock.web.MockHttpServletResponse.sendError(MockHttpServletResponse.java:586)
-	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.sendServerError(DefaultHandlerExceptionResolver.java:581)
-	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMessageNotWritable(DefaultHandlerExceptionResolver.java:548)
-	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:221)
-	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:141)
-	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80)
-	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1341)
-	at org.springframework.test.web.servlet.TestDispatcherServlet.processHandlerException(TestDispatcherServlet.java:144)
-	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1152)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1098)
-	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
-	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
-	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+    at org.springframework.util.Assert.state(Assert.java:76)
+    at org.springframework.mock.web.MockHttpServletResponse.sendError(MockHttpServletResponse.java:586)
+    at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.sendServerError(DefaultHandlerExceptionResolver.java:581)
+    at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMessageNotWritable(DefaultHandlerExceptionResolver.java:548)
+    at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:221)
+    at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:141)
+    at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80)
+    at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1341)
+    at org.springframework.test.web.servlet.TestDispatcherServlet.processHandlerException(TestDispatcherServlet.java:144)
+    at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1152)
+    at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1098)
+    at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:974)
+    at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1011)
+    at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+    at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
     ...
 org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
-	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
-	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
-	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+    at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+    at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+    at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+    at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+    at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+    at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+    at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
     ...
 Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursion (StackOverflowError) (through reference chain: blog.in.action.domain.Reply["post"]->blog.in.action.domain.Post["replies"]->java.util.ArrayList[0]...
-	at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:787)
-	at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178)
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142)
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88)
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79)
-	at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:18)
+    at com.fasterxml.jackson.databind.ser.std.BeanSerializerBase.serializeFields(BeanSerializerBase.java:787)
+    at com.fasterxml.jackson.databind.ser.BeanSerializer.serialize(BeanSerializer.java:178)
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142)
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88)
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79)
+    at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:18)
     ...
 ```
 

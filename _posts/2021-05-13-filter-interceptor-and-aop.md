@@ -303,24 +303,24 @@ foo
 2023-05-11 13:43:41.006  INFO 9275 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.31]
 2023-05-11 13:43:41.066  INFO 9275 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
 2023-05-11 13:43:41.066  INFO 9275 --- [           main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 828 ms
-2023-05-11 13:43:41.106  INFO 9275 --- [           main] blog.in.action.filters.BlogFilter        : ==========	BlogFilter init filter
+2023-05-11 13:43:41.106  INFO 9275 --- [           main] blog.in.action.filters.BlogFilter        : ==========    BlogFilter init filter
 2023-05-11 13:43:41.219  INFO 9275 --- [           main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
 2023-05-11 13:43:41.355  INFO 9275 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
 2023-05-11 13:43:41.358  INFO 9275 --- [           main] blog.in.action.ActionInBlogApplication   : Started ActionInBlogApplication in 1.505 seconds (JVM running for 2.249)
 2023-05-11 13:44:03.881  INFO 9275 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2023-05-11 13:44:03.881  INFO 9275 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2023-05-11 13:44:03.884  INFO 9275 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
-2023-05-11 13:44:03.890  INFO 9275 --- [nio-8080-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter before doFilter
-2023-05-11 13:44:03.895  INFO 9275 --- [nio-8080-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor preHandle
-2023-05-11 13:44:03.904  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller before foo
-2023-05-11 13:44:03.908  INFO 9275 --- [nio-8080-exec-1] b.in.action.controller.BlogController    : ==========	controller foo
-2023-05-11 13:44:03.908  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========	around service before foo
-2023-05-11 13:44:03.911  INFO 9275 --- [nio-8080-exec-1] blog.in.action.service.BlogService       : ==========	service foo
-2023-05-11 13:44:03.911  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========	around service after foo
-2023-05-11 13:44:03.911  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========	around controller after foo
-2023-05-11 13:44:03.925  INFO 9275 --- [nio-8080-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor postHandle
-2023-05-11 13:44:03.925  INFO 9275 --- [nio-8080-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========	interceptor afterCompletion
-2023-05-11 13:44:03.926  INFO 9275 --- [nio-8080-exec-1] blog.in.action.filters.BlogFilter        : ==========	BlogFilter after doFilter
+2023-05-11 13:44:03.890  INFO 9275 --- [nio-8080-exec-1] blog.in.action.filters.BlogFilter        : ==========    BlogFilter before doFilter
+2023-05-11 13:44:03.895  INFO 9275 --- [nio-8080-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========    interceptor preHandle
+2023-05-11 13:44:03.904  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========    around controller before foo
+2023-05-11 13:44:03.908  INFO 9275 --- [nio-8080-exec-1] b.in.action.controller.BlogController    : ==========    controller foo
+2023-05-11 13:44:03.908  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========    around service before foo
+2023-05-11 13:44:03.911  INFO 9275 --- [nio-8080-exec-1] blog.in.action.service.BlogService       : ==========    service foo
+2023-05-11 13:44:03.911  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========    around service after foo
+2023-05-11 13:44:03.911  INFO 9275 --- [nio-8080-exec-1] blog.in.action.aop.BlogAop               : ==========    around controller after foo
+2023-05-11 13:44:03.925  INFO 9275 --- [nio-8080-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========    interceptor postHandle
+2023-05-11 13:44:03.925  INFO 9275 --- [nio-8080-exec-1] b.i.a.i.BlogHandlerInterceptor           : ==========    interceptor afterCompletion
+2023-05-11 13:44:03.926  INFO 9275 --- [nio-8080-exec-1] blog.in.action.filters.BlogFilter        : ==========    BlogFilter after doFilter
 ```
 
 ## CLOSING

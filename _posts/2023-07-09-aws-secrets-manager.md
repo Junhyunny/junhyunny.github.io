@@ -265,10 +265,10 @@ public class ActionInBlogApplication {
 2023-07-09T23:32:41.716+09:00 ERROR 20762 --- [           main] o.s.boot.SpringApplication               : Application run failed
 
 io.awspring.cloud.secretsmanager.AwsSecretsManagerPropertySources$AwsSecretsManagerPropertySourceNotFoundException: com.amazonaws.services.secretsmanager.model.AWSSecretsManagerException: The security token included in the request is expired (Service: AWSSecretsManager; Status Code: 400; Error Code: ExpiredTokenException; Request ID: fc9389d1-fc38-45bf-97e0-e368ba679a31; Proxy: null)
-	at io.awspring.cloud.secretsmanager.AwsSecretsManagerPropertySources.createPropertySource(AwsSecretsManagerPropertySources.java:93) ~[spring-cloud-aws-secrets-manager-config-2.4.4.jar:2.4.4]
-	at io.awspring.cloud.secretsmanager.AwsSecretsManagerPropertySourceLocator.locate(AwsSecretsManagerPropertySourceLocator.java:94) ~[spring-cloud-aws-secrets-manager-config-2.4.4.jar:2.4.4]
-	at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:50) ~[spring-cloud-context-4.0.3.jar:4.0.3]
-	at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:46) ~[spring-cloud-context-4.0.3.jar:4.0.3]
+    at io.awspring.cloud.secretsmanager.AwsSecretsManagerPropertySources.createPropertySource(AwsSecretsManagerPropertySources.java:93) ~[spring-cloud-aws-secrets-manager-config-2.4.4.jar:2.4.4]
+    at io.awspring.cloud.secretsmanager.AwsSecretsManagerPropertySourceLocator.locate(AwsSecretsManagerPropertySourceLocator.java:94) ~[spring-cloud-aws-secrets-manager-config-2.4.4.jar:2.4.4]
+    at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:50) ~[spring-cloud-context-4.0.3.jar:4.0.3]
+    at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:46) ~[spring-cloud-context-4.0.3.jar:4.0.3]
 ```
 
 AWS 콘솔에서 IAM(Identity and Access Management)를 통해 발급받은 ID, Secret을 로컬 컴퓨터에 설정합니다. 

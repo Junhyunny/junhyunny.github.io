@@ -44,7 +44,7 @@ last_modified_at: 2023-06-11T23:55:00
 
 * Bridge Module
     * 브릿지(bridge)는 다른 로깅 프레임워크를 `SLF4J`로 연결하기 위해 사용합니다.
-    * 레거시 코드나 외부 라이브러리에서 다른 로깅 프레임워크을 호출하는 경우 이를 `SLF4J`로 연결해줍니다. 
+    * 레거시 코드나 외부 라이브러리에서 다른 로깅 프레임워크를 호출하는 경우 이를 `SLF4J`로 연결해줍니다. 
     * jcl-over-slf4j.jar, log4j-over-slf4j.jar, jul-to-slf4j.jar 라이브러리 등이 있습니다.
 
 <p align="center">

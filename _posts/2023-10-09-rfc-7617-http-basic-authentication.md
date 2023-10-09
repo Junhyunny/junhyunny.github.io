@@ -23,7 +23,7 @@ TLS 같은 암호화 도구를 사용하지 않는 경우 사용자 아이디와
 
 ## 2. Bsic HTTP Authentication in Client Side
 
-HTTP 기본 인증 프레임워크을 사용하는 클라이언트는 [RFC 7235](https://datatracker.ietf.org/doc/html/rfc7235) 정의에 맞게 다음과 같은 헤더 정보를 만들어 서버로 전달합니다. 
+HTTP 기본 인증 프레임워크를 사용하는 클라이언트는 [RFC 7235](https://datatracker.ietf.org/doc/html/rfc7235) 정의에 맞게 다음과 같은 헤더 정보를 만들어 서버로 전달합니다. 
 
 * `type`은 인증 스키마입니다. 
     * HTTP 기본 인증 프레임워크를 사용하는 경우 `Basic` 값을 사용합니다.

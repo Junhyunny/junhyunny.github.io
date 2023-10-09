@@ -45,7 +45,6 @@ DelegatingFilterProxy 클래스는 스프링 빈으로 등록된 필터를 사�
 3. DelegatingFilterProxy 인스턴스가 요청을 받습니다.
     * 지정된 스프링 필터 빈을 이름으로 어플리케이션 컨텍스트에서 탐색합니다.
     * 탐색된 필터가 있다면 해당 요청을 전달합니다.
-    * 탐색된 필터가 없는면 NPE(NullPointException)이 발생합니다.
 
 <p align="center">
     <img src="/images/delegating-filter-proxy-2.JPG" width="80%" class="image__border">

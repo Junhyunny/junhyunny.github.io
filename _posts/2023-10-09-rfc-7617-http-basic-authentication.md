@@ -18,7 +18,7 @@ last_modified_at: 2023-10-09T23:55:00
 > This document defines the "Basic" Hypertext Transfer Protocol (HTTP) authentication scheme, which transmits credentials as user-id/password pairs, encoded using Base64.
 
 TLS(Transport Layer Security) 같은 외부 보안 시스템과 함께 사용하지 않은 경우 안전하지 않은 사용자 인증 방식으로 간주합니다. 
-TLS 같은 암호화 도구를 사용하지 않는 경우 사용자 아이디와 비밀번호가 네트워크를 통해 명확한 텍스트로 전달됩니다. 
+TLS 같은 암호화 도구를 사용하지 않는 경우 사용자 아이디와 비밀번호가 네트워크를 통해 명확한 텍스트로 전달되기 때문에 악의적인 사용자에게 쉽게 노출될 수 있습니다. 
 
 ## 2. Bsic HTTP Authentication in Client Side
 
@@ -54,7 +54,7 @@ Authorization: Basic anVuaHl1bm55OjEyMw==
 
 ## 3. Basic HTTP Authentication in Server Side
 
-서버가 요청과 함께 전송된 자격 증명을 수락하지 않은 경우 401(Unauthorized) 응답을 반환해야 합니다. 
+서버는 요청과 함께 전달받은 유효하지 않은 자격 증명에 대해 401(Unauthorized) 응답을 반환해야 합니다. 
 401 응답을 생성하는 서버는 요청된 리소스에 접근을 얻기 위해 사용되어야 할 인증 방법을 HTTP 응답 헤더 `WWW-Authenticate` 필드 값을 통해 제공해야 합니다. 
 
 * `type`은 인증 스키마입니다. 
@@ -71,6 +71,7 @@ HTTP 기본 인증에 참여하는 서버는 401 응답을 전달할 때 다음�
 * 헤더 키는 `WWW-Authenticate`을 사용합니다.
 * 헤더 값에 타입은 `Basic`을 사용합니다.
 * 헤더 값에 렐름 정보를 전달합니다. 
+    * 서버는 클라이언트가 해당 렐름에 유효한 자격 증명을 보내기를 유도합니다.
 
 ```
 WWW-Authenticate: Basic realm="Realm"

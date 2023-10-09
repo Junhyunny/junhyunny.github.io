@@ -28,7 +28,7 @@ last_modified_at: 2023-10-08T23:55:00
     * 어플리케이션 컨텍스트를 준비하는 과정에서 스프링 빈들이 생성됩니다.
 
 <p align="center">
-    <img src="/images/delegating-filter-proxy-1.JPG" width="80%" class="image__border">
+    <img src="/images/delegating-filter-proxy-1.JPG" width="100%" class="image__border">
 </p>
 
 ### 1.1. DelegatingFilterProxy Class

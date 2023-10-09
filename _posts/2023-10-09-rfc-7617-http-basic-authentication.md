@@ -1,5 +1,5 @@
 ---
-title: "RFC 7617 - Basic HTTP Authentication Scheme"
+title: "RFC 7617 - The Basic HTTP Authentication Scheme"
 search: false
 category:
   - information
@@ -12,11 +12,12 @@ last_modified_at: 2023-10-09T23:55:00
 
 ## 1. The Basic HTTP Authentication Scheme
 
-기본 HTTP 인증 방식입니다. 
+HTTP 인증 방식 중 하나입니다. 
 [RFC 7617](https://datatracker.ietf.org/doc/html/rfc7617) 문서 개요에는 다음과 같이 소개되어있습니다. 
 
 > This document defines the "Basic" Hypertext Transfer Protocol (HTTP) authentication scheme, which transmits credentials as user-id/password pairs, encoded using Base64.
 
+HTTP Basic 인증은 사용자 아이디와 비밀번호 한 쌍을 Base64 방식으로 인코딩하여 전송하는 방식입니다. 
 TLS(Transport Layer Security) 같은 외부 보안 시스템과 함께 사용하지 않은 경우 안전하지 않은 사용자 인증 방식으로 간주합니다. 
 TLS 같은 암호화 도구를 사용하지 않는 경우 사용자 아이디와 비밀번호가 네트워크를 통해 명확한 텍스트로 전달되기 때문에 악의적인 사용자에게 쉽게 노출될 수 있습니다. 
 
@@ -41,7 +42,7 @@ HTTP 기본 인증을 사용하는 클라이언트는 아이디와 비밀번호�
 Authorization: Basic base64({USERNAME}:{PASSWORD})
 ```
 
-만약 사용자 아이디가 `junhyunny`, 비밀번호가 `123`인 경우 다음과 같은 정보가 HTTP 헤더에 포함됩니다. 
+예를 들어 사용자 아이디가 `junhyunny`, 비밀번호가 `123`인 경우 다음과 같은 정보가 HTTP 헤더에 포함됩니다. 
 
 * 헤더 키는 `Authorization`을 사용합니다.
 * 헤더 값에 타입은 `Basic`을 사용합니다.

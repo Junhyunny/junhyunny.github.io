@@ -29,7 +29,7 @@ TLS 같은 암호화 도구를 사용하지 않는 경우 사용자 아이디와
 1. 서버는 정상적인 응답을 전달하거나 권한이 없는 경우 403 Forbidden 응답을 반환합니다.
 
 <p align="center">
-    <img src="/images/rfc-7617-http-basic-authentication-1.JPG" width="100%" class="image__border">
+    <img src="/images/rfc-7617-http-basic-authentication-1.JPG" width="100%">
 </p>
 <center>https://blog.tossbusiness.com/articles/dev-2?utm_source=docs-tosspayments&utm_medium=docs</center>
 

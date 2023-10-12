@@ -40,7 +40,7 @@ last_modified_at: 2023-10-06T23:55:00
     * 스프링 시큐리티는 내부 규칙에 의해 인증 처리를 수행하는 URL이 자동으로 지정됩니다.
     * 개발자는 이를 변경할 수 있습니다.
 1. `OAuth2AuthorizationRequestRedirectFilter` 인스턴스에서 설정 파일에 지정한 경로로 브라우저를 리다이렉트(redirect)시킵니다.
-    * 각 서비스 제공자(SP, service provider)마다 인증 처리를 수행하는 경로가 다릅니다.
+    * 각 인증 서비스 제공자(IDP, IDentity Provider)마다 인증 처리를 수행하는 경로가 다릅니다.
     * LINE의 경우 `https://access.line.me/oauth2/v2.1/authorize` 입니다.
     * 리다이렉트 시키는 경우 다음과 같은 정보들을 함께 전달합니다.
         * CLIENT_ID - 사전 발급이 필요합니다.
@@ -56,7 +56,7 @@ last_modified_at: 2023-10-06T23:55:00
 
 ### 1.2. Login
 
-서비스 제공자인 LINE이 제공하는 로그인 화면을 브라우저에서 볼 수 있습니다. 
+인증 서비스 제공자인 LINE이 제공하는 로그인 화면을 브라우저에서 볼 수 있습니다. 
 사용자는 자신의 정보를 입력하여 로그인을 수행합니다. 
 
 <p align="center">
@@ -65,10 +65,10 @@ last_modified_at: 2023-10-06T23:55:00
 
 ### 1.3. Authenticate and Get User Profile
 
-정확하게 사용자 정보를 입력했다면 서비스 제공자인 LINE의 인증 서비스는 임시 토큰을 하나 발급합니다. 
+정확하게 사용자 정보를 입력했다면 인증 서비스 제공자인 LINE의 인증 서비스는 임시 토큰을 하나 발급합니다. 
 발급한 토큰을 사전에 등록된 클라이언트 콜백 URL로 전달하면서 상황이 시작됩니다. 
 
-1. 서비스 제공자 인증 서버는 발급한 임시 토큰과 함께 `/oauth2/authorized/line` 경로로 브라우저를 리다이렉트시킵니다. 
+1. 인증 서비스 제공자 인증 서버는 발급한 임시 토큰과 함께 `/oauth2/authorized/line` 경로로 브라우저를 리다이렉트시킵니다. 
     * LINE 개발자 페이지에 사전에 등록된 콜백 URL입니다.
 1. `OAuth2LoginAuthenticationFilter` 필터에서 인증 처리가 수행되며 구체적인 인증 과정은 `AuthenticationManager` 인스턴스에게 위임합니다.
     * `ProviderManager` 인스턴스를 기본으로 사용합니다.
@@ -76,11 +76,11 @@ last_modified_at: 2023-10-06T23:55:00
 1. `OAuth2LoginAuthenticationProvider` 인스턴스는 `OAuth2AuthorizationCodeAuthenticationProvider` 인스턴스에서 액세스 토큰을 발급 받습니다.
     * 설정 파일에 등록한 URL로 액세스 토큰 발급을 요청합니다. 
     * LINE의 경우 `https://api.line.me/oauth2/v2.1/token` 입니다.
-    * 서비스 제공자가 콜백 URL로 함께 전달한 인가 코드, 사전에 등록된 콜백 URL, 인가 타입 등이 전달됩니다.
+    * 인증 서비스 제공자가 콜백 URL로 함께 전달한 인가 코드, 사전에 등록된 콜백 URL, 인가 타입 등이 전달됩니다.
 1. `OAuth2LoginAuthenticationProvider` 인스턴스는 `DefaultOAuth2UserService` 인스턴스를 통해 사용자 정보를 리소스 서버로부터 전달받습니다. 
     * 설정 파일에 등록한 URL로 사용자 정보를 요청합니다. 
     * LINE의 경우 `https://api.line.me/v2/profile` 입니다.
-    * 서비스 제공자의 인가 서버로부터 발급 받은 액세스 토큰을 함께 전달합니다.
+    * 인증 서비스 제공자의 인가 서버로부터 발급 받은 액세스 토큰을 함께 전달합니다.
 1. 클라이언트 어플리케이션은 사용자 정보를 획득했다면 비즈니스 흐름에 맞게 사용자 브라우저를 리다이렉트시킵니다.
     * 이번 포스트에선 `http://localhost:8080/home` 경로로 이동합니다.
 

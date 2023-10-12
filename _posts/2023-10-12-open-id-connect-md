@@ -1,0 +1,45 @@
+---
+title: "OpenID Connect"
+search: false
+category:
+  - information
+  - security
+last_modified_at: 2023-10-12T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [JWT(Json Web Token)][json-web-token-link]
+* [OAuth(Open Authorization)][oauth-link]
+
+## 0. 들어가면서
+
+현재 진행 중인 프로젝트에서 여러 서비스 제공자의 OAuth2 인증 방식을 통합하는 작업을 수행했습니다. 
+몇 가지 문제들이 있었습니다. 
+그 중 한가지는 `openid`라는 스코프(scope)를 사용해서 해결했는데, 어떤 개념인지 정확히 공부하기 위해 글로 정리하였습니다. 
+
+## 1. OpenID Connect
+
+OIDC(OpenID Connect)는 OAuth2.0 프레임워크를 기반으로 동작하는 프로토콜입니다. 
+
+
+## 2. OIDC Benefits
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://www.okta.com/openid-connect/>
+* <https://openid.net/developers/how-connect-works/>
+* <https://auth0.com/docs/authenticate/protocols/openid-connect-protocol>
+* <https://www.authlete.com/developers/definitive_guide/authorization_endpoint_spec/>
+* <https://hudi.blog/open-id/>
+
+[json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
+[oauth-link]: https://junhyunny.github.io/information/security/oauth/

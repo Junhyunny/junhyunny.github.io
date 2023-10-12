@@ -27,7 +27,9 @@ last_modified_at: 2023-10-11T23:55:00
 
 ## 1. OpenID Connect
 
-## 2. OIDC Benefit
+OIDC(OpenID Connect)는 
+
+## 2. OIDC Benefits
 
 ## CLOSING
 

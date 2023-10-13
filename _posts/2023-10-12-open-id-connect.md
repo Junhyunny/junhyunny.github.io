@@ -190,6 +190,7 @@ OAuth2.0 프레임워크 실행 흐름을 살펴보겠습니다.
 <p align="center">
     <img src="/images/open-id-connect-2.JPG" width="100%" class="image__border">
 </p>
+<center>https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc</center>
 
 ### 2.2. OIDC Flow
 
@@ -212,6 +213,7 @@ OAuth2.0 프레임워크를 기반으로 동작하기 때문에 대부분의 실
 <p align="center">
     <img src="/images/open-id-connect-3.JPG" width="100%" class="image__border">
 </p>
+<center>https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc</center>
 
 #### REFERENCE
 

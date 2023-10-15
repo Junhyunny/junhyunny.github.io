@@ -89,7 +89,7 @@ public record Profile(
 
 ## 2. Tests
 
-컨트롤러(controller)의 각 메소드들을 검증하기 위한 테스트 코드를 작성합니다.  
+컨트롤러(controller)의 각 메소드들을 검증하기 위한 테스트 코드를 작성합니다. 
 메소드들의 반환 타입이 `void`이므로 ProfileService 인스턴스를 테스트 더블(test double)로 사용하여 파일 업로드 여부를 검증합니다. 
 
 ### 2.1. MockMultipartFile Class
@@ -197,7 +197,7 @@ uploadProfileImages 메소드를 테스트합니다.
 * 더미(dummy) MultipartFile 인스턴스를 생성합니다.
     * 파라미터 키는 `files`입니다.
 * profileService 스파이(spy) 객체에 전달된 파라미터 값을 확인합니다.
-    * MultipartFile 리스트 정보를 확인합니다. 
+    * MultipartFile 리스트 정보를 확인합니다.
     * 리스트 사이즈, 각 파일 이름, 각 컨텐츠 타입, 각 이진 값을 확인합니다.
 
 ```java

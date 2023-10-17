@@ -1,0 +1,34 @@
+---
+title: "How to save image as blob into PostgreSQL with Spring"
+search: false
+category:
+  - kotlin
+  - spring-boot
+  - postgresql
+last_modified_at: 2023-10-18T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+* [How to test file upload in Spring][multipart-file-upload-in-spring-link]
+
+## 0. 들어가면서
+
+## 1. 
+
+## 2. 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+* <https://stackoverflow.com/questions/35505424/how-to-read-bytea-image-data-from-postgresql-with-jpa>
+* <https://stackoverflow.com/questions/75354646/using-type-for-binary-data-in-hibernate-6>
+
+[multipart-file-upload-in-spring-link]: https://junhyunny.github.io/java/spring-boot/how-to-test-multipart-file-upload-in-spring/

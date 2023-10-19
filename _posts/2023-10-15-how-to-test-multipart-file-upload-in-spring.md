@@ -110,9 +110,7 @@ public record Profile(
     * 파일을 이진화(binary)하였을 때 바이트 배열(byte array) 값을 의미합니다.
 
 ```java
-    public MockMultipartFile(
-            String name, @Nullable String originalFilename, @Nullable String contentType, @Nullable byte[] content) {
-
+    public MockMultipartFile(String name, @Nullable String originalFilename, @Nullable String contentType, @Nullable byte[] content) {
         Assert.hasLength(name, "Name must not be empty");
         this.name = name;
         this.originalFilename = (originalFilename != null ? originalFilename : "");

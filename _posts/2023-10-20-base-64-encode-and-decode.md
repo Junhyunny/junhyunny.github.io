@@ -141,4 +141,3 @@ Base64 인코딩은 6비트로 한 글자를 표현하기 때문에 예시의 `f
 
 * <https://datatracker.ietf.org/doc/html/rfc4648>
 * <https://ko.wikipedia.org/wiki/%EC%9D%B8%EC%BD%94%EB%94%A9>
-* <https://ko.wikipedia.org/wiki/%EC%9D%B8%EC%BD%94%EB%94%A9>

@@ -1,9 +1,9 @@
 ---
-title: "Post Format"
+title: "RFC 4648 - Base64 Encoding"
 search: false
 category:
-  - post-format
-last_modified_at: 2100-01-01T23:55:00
+  - information
+last_modified_at: 2023-10-20T23:55:00
 ---
 
 <br/>
@@ -19,3 +19,5 @@ last_modified_at: 2100-01-01T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+* <https://datatracker.ietf.org/doc/html/rfc4648>

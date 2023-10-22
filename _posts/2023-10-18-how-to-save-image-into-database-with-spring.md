@@ -27,7 +27,7 @@ last_modified_at: 2023-10-18T23:55:00
 
 * 코틀린(kotiln)
 * 스프링 부트(spring boot) 3.0.7
-* 스프링 데이터 JPA
+* JPA
 * PostgresSQL
 
 테스트 환경은 다음과 같습니다.

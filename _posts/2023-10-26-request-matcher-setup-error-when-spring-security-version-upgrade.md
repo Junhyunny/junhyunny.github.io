@@ -16,7 +16,7 @@ last_modified_at: 2023-10-26T23:55:00
 
 * 서블릿 컨텍스트에 이미 존재하는 API 경로를 처리하기 위한 RequestMatcher 객체를 만들 때 문제가 발생합니다.
     * `/h2-console/*`, `/` 경로에 대한 RequestMatcher 객체를 생성합니다.
-    * Spring MVC 패턴 방식인지 Ant Path 방식인지 패턴이 불분명하다는 의미입니다. 
+    * 파라미터로 전달한 경로가 Spring MVC 패턴 방식인지 Ant Path 방식인지 패턴이 불분명하니 정해달라는 의미입니다. 
 
 ```
 Caused by: java.lang.IllegalArgumentException: This method cannot decide whether these patterns are Spring MVC patterns or not. If this endpoint is a Spring MVC endpoint, please use requestMatchers(MvcRequestMatcher); otherwise, please use requestMatchers(AntPathRequestMatcher).
@@ -24,10 +24,10 @@ Caused by: java.lang.IllegalArgumentException: This method cannot decide whether
 This is because there is more than one mappable servlet in your servlet context: {org.h2.server.web.JakartaWebServlet=[/h2-console/*], org.springframework.web.servlet.DispatcherServlet=[/]}.
 
 For each MvcRequestMatcher, call MvcRequestMatcher#setServletPath to indicate the servlet path.
-	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:208) ~[spring-security-config-6.1.5.jar:6.1.5]
-	at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:276) ~[spring-security-config-6.1.5.jar:6.1.5]
-	at action.in.blog.config.SecurityConfig.lambda$filterChain$0(SecurityConfig.java:20) ~[main/:na]
-	at org.springframework.security.config.annotation.web.builders.HttpSecurity.authorizeHttpRequests(HttpSecurity.java:1466) ~[spring-security-config-6.1.5.jar:6.1.5]
+    at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:208) ~[spring-security-config-6.1.5.jar:6.1.5]
+    at org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry.requestMatchers(AbstractRequestMatcherRegistry.java:276) ~[spring-security-config-6.1.5.jar:6.1.5]
+    at action.in.blog.config.SecurityConfig.lambda$filterChain$0(SecurityConfig.java:20) ~[main/:na]
+    at org.springframework.security.config.annotation.web.builders.HttpSecurity.authorizeHttpRequests(HttpSecurity.java:1466) ~[spring-security-config-6.1.5.jar:6.1.5]
 ... 
 ```
 
@@ -67,7 +67,7 @@ public class SecurityConfig {
 
 ```
 
-requestMatchers 메소드가 다음과 같이 변경되었습니다. 
+requestMatchers 메소드가 실행되면서 에러가 발생합니다. 이 메소드는 다음과 같이 변경되었습니다. 
 
 * Spring Security Version 6.0.3 
     * mvcPresent 플래그에 따라 MvcRequestMatcher 객체나 AntRequestMatcher 객체가 등록됩니다. 
@@ -77,16 +77,16 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
     // ...
 
-	public C requestMatchers(HttpMethod method, String... patterns) {
-		List<RequestMatcher> matchers = new ArrayList<>();
-		if (mvcPresent) {
-			matchers.addAll(createMvcMatchers(method, patterns));
-		}
-		else {
-			matchers.addAll(RequestMatchers.antMatchers(method, patterns));
-		}
-		return requestMatchers(matchers.toArray(new RequestMatcher[0]));
-	}
+    public C requestMatchers(HttpMethod method, String... patterns) {
+        List<RequestMatcher> matchers = new ArrayList<>();
+        if (mvcPresent) {
+            matchers.addAll(createMvcMatchers(method, patterns));
+        }
+        else {
+            matchers.addAll(RequestMatchers.antMatchers(method, patterns));
+        }
+        return requestMatchers(matchers.toArray(new RequestMatcher[0]));
+    }
 }
 ```
 
@@ -101,37 +101,37 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
     // ...
 
-	public C requestMatchers(HttpMethod method, String... patterns) {
-		if (!mvcPresent) {
-			return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
-		}
-		if (!(this.context instanceof WebApplicationContext)) {
-			return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
-		}
-		WebApplicationContext context = (WebApplicationContext) this.context;
-		ServletContext servletContext = context.getServletContext();
-		if (servletContext == null) {
-			return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
-		}
-		Map<String, ? extends ServletRegistration> registrations = mappableServletRegistrations(servletContext);
-		if (registrations.isEmpty()) {
-			return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
-		}
-		if (!hasDispatcherServlet(registrations)) {
-			return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
-		}
-		if (registrations.size() > 1) {
-			String errorMessage = computeErrorMessage(registrations.values());
-			throw new IllegalArgumentException(errorMessage);
-		}
-		return requestMatchers(createMvcMatchers(method, patterns).toArray(new RequestMatcher[0]));
-	}
+    public C requestMatchers(HttpMethod method, String... patterns) {
+        if (!mvcPresent) {
+            return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
+        }
+        if (!(this.context instanceof WebApplicationContext)) {
+            return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
+        }
+        WebApplicationContext context = (WebApplicationContext) this.context;
+        ServletContext servletContext = context.getServletContext();
+        if (servletContext == null) {
+            return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
+        }
+        Map<String, ? extends ServletRegistration> registrations = mappableServletRegistrations(servletContext);
+        if (registrations.isEmpty()) {
+            return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
+        }
+        if (!hasDispatcherServlet(registrations)) {
+            return requestMatchers(RequestMatchers.antMatchersAsArray(method, patterns));
+        }
+        if (registrations.size() > 1) {
+            String errorMessage = computeErrorMessage(registrations.values());
+            throw new IllegalArgumentException(errorMessage);
+        }
+        return requestMatchers(createMvcMatchers(method, patterns).toArray(new RequestMatcher[0]));
+    }
 }
 ```
 
 ## 2. Why does Spring Security check the Servlet?
 
-많은 부분이 변경되었고, 코드의 흐름도 일부 파악되었습니다. 여기서 스프링 시큐리티가 왜 서블릿으로 등록된 경로까지 함께 확인을 하는지 궁금하였습니다. 스프링 공식 사이트의 [CVE-2023-34035](https://spring.io/security/cve-2023-34035) 글에서 관련된 내용을 찾을 수 있었습니다. 
+많은 부분이 변경되었고, 코드의 흐름도 일부 파악되었습니다. 스프링 시큐리티가 왜 서블릿으로 등록된 경로까지 함께 확인을 하는지 궁금했습니다. 스프링 공식 사이트의 [CVE-2023-34035](https://spring.io/security/cve-2023-34035) 글에서 관련된 내용을 찾을 수 있었습니다. 
 
 > Second, if you are using multiple servlets and one of them is Spring MVC’s DispatcherServlet, you may see the following error message at startup time:
 > ```

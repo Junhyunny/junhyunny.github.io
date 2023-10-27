@@ -143,7 +143,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
 스프링 팀은 다음과 같은 조건이 만족되면 보안 문제가 발생할 수 있다고 경고합니다. 
 
-* `Spring MVC`가 클래스 패스에 존재한다.
+* `Spring MVC`가 클래스 패스(classpath)에 존재한다.
 * 하나의 어플리케이션에서 스프링 프레임워크에서 제공하는 DispatcherServlet과 함께 다른 서블릿을 함께 사용한다. 
 * requestMatchers(String) 혹은 requestMatchers(HttpMethod, String) 메소드를 사용한다. 
 
@@ -151,7 +151,12 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
 ## 3. What is the reason?
 
-[Improve CVE-2023-34035 detection](https://github.com/spring-projects/spring-security/issues/13568) 이슈에 내용들을 살펴보면 여러 종류의 서블릿이 등록되는 케이스가 더러 있는 편인 것 같습니다. 본인의 경우에는 로컬, 테스트 환경에서 H2 데이터베이스를 사용하고, H2 콘솔 기능이 활성화되어 있어서 문제가 발생했습니다. H2 콘솔 기능이 활성화되면 `/h2-console` 경로를 서비스하기 위해 `org.h2.server.web.JakartaWebServlet`이 추가됩니다. 이 서블릿과 `DispatcherServlet`이 함께 공존하면서 위 에러가 발생했습니다. 
+스프링 팀에서 말하는 3가지 조건을 모두 만족했습니다. 두 가지 조건은 확실했습니다. 
+
+* 스프링 MVC가 클래스 패스에 존재
+* 문자열로 인가 처리 API 경로를 등록하는 requestMatchers(String) 메소드 사용
+
+[Improve CVE-2023-34035 detection](https://github.com/spring-projects/spring-security/issues/13568) 이슈에 내용들을 살펴보면 여러 종류의 서블릿이 등록되는 케이스가 더러 있는 편인 것 같습니다. 에러 로그를 보면 H2 콘솔을 위한 서블릿이 별도로 추가되는 것을 확인할 수 있습니다. 필자는 로컬 환경과 테스트 코드에서 H2 데이터베이스를 사용하고, H2 콘솔 기능이 활성화되어 있어서 문제가 발생했습니다. H2 콘솔 기능이 활성화되면 `/h2-console` 경로를 서비스하기 위해 `org.h2.server.web.JakartaWebServlet`이 추가됩니다. 이 서블릿과 `DispatcherServlet`이 함께 공존하면서 위 에러가 발생했습니다. 
 
 <p align="center">
     <img src="/images/request-matcher-setup-error-when-spring-security-version-upgrade-1.JPG" width="100%" class="image__border">

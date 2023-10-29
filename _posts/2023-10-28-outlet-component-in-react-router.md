@@ -96,7 +96,7 @@ export default UserInformation;
 
 ## 3. App
 
-App 컴포넌트에서 다음과 같이 라우트를 정의합니다.
+App 컴포넌트에서 다음과 같이 루트를 정의합니다.
 
 * 인덱스로 접근하는 경우 `/home` 경로로 리다이렉트합니다.
 

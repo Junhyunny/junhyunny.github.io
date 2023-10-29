@@ -26,7 +26,7 @@ last_modified_at: 2023-10-28T23:55:00
 Oultet 컴포넌트는 중첩된 라우터를 구성하였을 때 부모 라우터에 지정된 컴포넌트(component)에서 자식 라우터에 지정된 컴포넌트를 렌더링할 때 사용됩니다. 보통 헤더(header)나 푸터(footer) 같은 공통 부분을 재사용하기 위해 사용합니다. 부모 라우터에 지정된 컴포넌트 내부에 Outlet 컴포넌트 영역은 자식 라우터들에게 지정된 엘리먼트가 렌더링되는 영역입니다. 간단한 예시 코드를 통해 개념을 확인하고 싶다면 [Outlet Component in React Router][outlet-component-in-react-router-link] 포스트를 참고하길 바랍니다.
 
 <p align="center">
-    <img src="../images/authentication-router-in-react-1.png" width="100%" class="image__border">
+    <img src="/images/authentication-router-in-react-1.png" width="100%" class="image__border">
 </p>
 
 ## 2. JWT(Json Web Token)
@@ -50,7 +50,7 @@ Oultet 컴포넌트는 중첩된 라우터를 구성하였을 때 부모 라우�
 * roles - 사용자 권한 리스트
 
 <p align="center">
-    <img src="../images/authentication-router-in-react-2.png" width="100%" class="image__border">
+    <img src="/images/authentication-router-in-react-2.png" width="100%" class="image__border">
 </p>
 
 ## 3. Practice
@@ -371,7 +371,7 @@ const withContext = (component: ReactNode) => {
     * 관리자만 접근할 수 있는 화면까지 접근 가능합니다.
 
 <p align="center">
-    <img src="../images/authentication-router-in-react-3.gif" width="100%" class="image__border">
+    <img src="/images/authentication-router-in-react-3.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

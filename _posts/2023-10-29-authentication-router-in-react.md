@@ -140,10 +140,10 @@ const UserProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(getUserInfo());
   return (
     <UserContext.Provider
-      value={{
+      value={ {
         isLoggedIn,
         user,
-      }}
+      } }
     >
       {children}
     </UserContext.Provider>

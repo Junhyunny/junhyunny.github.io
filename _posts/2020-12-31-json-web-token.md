@@ -146,5 +146,6 @@ HMACSHA256(
 
 * <https://bcho.tistory.com/999>
 * <https://velopert.com/2389>
+* <https://www.daleseo.com/jwt/>
 
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/

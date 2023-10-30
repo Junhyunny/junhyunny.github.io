@@ -21,7 +21,10 @@ last_modified_at: 2023-10-30T23:55:00
 
 #### REFERENCE
 
+* [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
 * <https://refactoring.guru/ko/design-patterns/template-method>
-* <https://coding-factory.tistory.com/712>
 * <https://engineering.linecorp.com/ko/blog/templete-method-pattern>
 * <https://gmlwjd9405.github.io/2018/07/13/template-method-pattern.html>
+* <https://coding-factory.tistory.com/712>
+
+[design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953

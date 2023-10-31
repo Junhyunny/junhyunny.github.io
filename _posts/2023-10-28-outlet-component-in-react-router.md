@@ -142,6 +142,12 @@ export default App;
 
 * <https://github.com/Junhyunny/blog-in-action/tree/master/2023-10-28-outlet-component-in-react-router>
 
+#### RECOMMEND NEXT POSTS
+
+* [Authentication Router in React][authentication-router-in-react-link]
+
 #### REFERENCE
 
 * <https://reactrouter.com/en/main/components/outlet>
+
+[authentication-router-in-react-link]: https://junhyunny.github.io/react/authentication-router-in-react/

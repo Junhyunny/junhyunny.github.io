@@ -30,7 +30,7 @@ last_modified_at: 2023-11-04T23:55:00
 - openFile, extractData, parseData, closeFile 메소드들은 추상 메소드로써 각 구현 클래스가 반드시 재정의(override)해야하는 책임을 가집니다.
 
 <p align="center">
-    <img src="/images/template-method-pattern-01.png" width="100%" class="image__border image__padding">
+    <img src="/images/template-method-pattern-01.png" width="80%" class="image__border image__padding">
 </p>
 
 ### 1.1. Pros and Cons
@@ -68,12 +68,7 @@ last_modified_at: 2023-11-04T23:55:00
 1. 인증 성공 후처리
 1. 인증 실패인 경우 후처리
 
-시스템에서 인증하는 일련의 과정은 동일하지만, 인증 구현 방법은 어떤 메커니즘을 사용하느냐에 따라 다릅니다. 
-
-- 아이디와 비밀번호를 사용
-- OAuth2
-
-구체적인 인증 작업은 자식 클래스들이 정의합니다.  
+프레임워크에서 인증하는 일련의 과정은 동일하지만, 인증 구현 방법은 어떤 메커니즘을 사용하느냐에 따라 다릅니다. 예를 들면 아이디와 비밀번호를 사용하는 인증 방법과 OAuth2 프로토콜을 따르는 인증 방법은 서로 다릅니다. 그렇기 때문에 구체적인 인증 작업은 자식 클래스들이 직접 정의합니다.  
 
 <p align="center">
     <img src="/images/template-method-pattern-02.png" width="100%" class="image__border">
@@ -144,7 +139,6 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
     }
 
     // ...
-
 }
 ```
 

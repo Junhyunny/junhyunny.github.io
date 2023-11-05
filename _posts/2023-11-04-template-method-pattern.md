@@ -1,5 +1,5 @@
 ---
-title: "Template Method pattern"
+title: "Template Method Pattern"
 search: false
 category:
   - java

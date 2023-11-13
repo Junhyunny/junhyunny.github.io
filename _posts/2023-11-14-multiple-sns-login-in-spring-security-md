@@ -2,8 +2,11 @@
 title: "Multiple SNS Login with Spring Security Client"
 search: false
 category:
-  - post-format
-last_modified_at: 2100-01-01T23:55:00
+  - java
+  - design-pattern
+  - spring-boot
+  - test-driven-development
+last_modified_at: 2023-11-14T23:55:00
 ---
 
 <br/>

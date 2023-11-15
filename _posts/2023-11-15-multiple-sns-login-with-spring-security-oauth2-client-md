@@ -1,0 +1,34 @@
+---
+title: "Multiple SNS Login with Spring Security OAuth2 Client"
+search: false
+category:
+  - java
+  - design-pattern
+  - spring-boot
+last_modified_at: 2023-11-15T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [OAuth2 LINE Login with Spring Security][oauth2-line-login-link]
+- [How to make stub for super class][stub-for-super-class-link]
+
+## 0. 들어가면서
+
+다중 SNS 로그인 기능을 구현할 때 디자인 패턴을 적용한 내용에 대해 정리하였습니다. 
+
+## 1. DefaultOAuth2UserService Class
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+
+[oauth2-line-login-link]: https://junhyunny.github.io/java/spring-boot/spring-security/oauth2-line-login-with-spring-security/
+[stub-for-super-class-link]: https://junhyunny.github.io/java/spring-boot/test/how-to-make-stub-for-super-class/

@@ -32,7 +32,7 @@ last_modified_at: 2023-11-15T23:55:00
 - 브라우저는 해당 플랫폼의 로그인 화면을 볼 수 있습니다.
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-01.png" width="100%" class="image__border">
+    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.2. Get Access Token And User Resource
@@ -59,7 +59,7 @@ last_modified_at: 2023-11-15T23:55:00
     - 기존 사용자는 조회 후 반환합니다. 
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-03.png" width="100%" class="image__border">
+    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-03.png" width="80%" class="image__border">
 </p>
 
 ## 2. Project Setup
@@ -821,7 +821,7 @@ public class HomeController {
 H2 콘솔을 통해 데이터베이스를 확인하면 사용자 정보가 다음과 같이 저장됩니다.
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-05.png" width="80%" class="image__border">
+    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-05.png" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

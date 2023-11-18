@@ -1,0 +1,35 @@
+---
+title: "How to handle concurrent issue in Spring"
+search: false
+category:
+  - post-format
+last_modified_at: 2023-11-18T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Pessimistic Lock in JPA][jpa-pessimitic-lock-link]
+- [Optimistic Lock in JPA][jpa-optimistic-lock-link]
+
+## 0. 들어가면서
+
+동시성 문제는 서버 개발자 커리어를 시작했던 MES(Manufacturing Execution System) 개발 및 운영할 때 처음 경험했었습니다. 트랜잭션 경합이 너무 심하게 발생해 낙관적인 락(optimistic lock)이나 비관적인 락(pessimistic lock) 방식으로 
+
+## 1. Problem Context
+
+## 2. Solve the problem
+
+## 3. Handle exception with Application Context Event
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+
+[jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/[jpa-optimistic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/

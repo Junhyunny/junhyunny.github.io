@@ -93,8 +93,7 @@ last_modified_at: 2023-06-25T23:55:00
 
 ## 3. Practice
 
-스프링 시큐리티(spring security)에서 제공하는 해시 암호화 기능을 사용했스니다. 
-스프링은 다음과 같은 해시 암호화 기능들을 제공합니다.
+스프링 시큐리티(spring security)에서 제공하는 해시 암호화 기능을 사용한 예제 코드를 작성했습니다. 스프링은 다음과 같은 해시 암호화 기능들을 제공합니다.
 
 * PBKDF2(Password-Based Key Derivation Fucntion)
     * 솔트를 적용한 후 해시 함수를 임의의 반복 횟수만큼 적용합니다. 

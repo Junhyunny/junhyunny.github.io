@@ -55,7 +55,6 @@ public class CollectEntity {
     private String userId;
     private String cardId;
 
-
     public CollectEntity() {
     }
 
@@ -91,7 +90,6 @@ public class CollectEntity {
     private long id;
     private String userId;
     private String cardId;
-
 
     public CollectEntity() {
     }

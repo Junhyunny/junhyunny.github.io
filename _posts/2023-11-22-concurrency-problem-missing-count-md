@@ -1,0 +1,282 @@
+---
+title: "Concurrency Problem - Missing count"
+search: false
+category:
+  - java
+  - spring-boot
+  - jpa
+last_modified_at: 2023-11-21T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Transaction Isolation][transcation-isolation-link]
+- [Pessimistic Lock in JPA][jpa-pessimitic-lock-link]
+- [Thread Pool in Java][thread-pool-in-java-link]
+
+## 0. 들어가면서
+
+최근 프로젝트에서 겪었던 동시성 문제들 중 한 사례를 [Concurrency Problem - Insert same rows][concurrency-problem-insert-same-rows-link] 글로 정리했습니다. 이번 글은 같은 애플리케이션을 개발하면서 발생했던 다른 문제를 해결하는 방법에 대해 일부 각색하여 정리했습니다.
+
+## 1. Problem Context
+
+사용자들이 QR 스캔으로 수집한 카드에 "좋아요(like)"를 올리거나 눌렀던 "좋아요"를 취소하는 기능이었습니다. 동시에 많은 사람들이 하나의 카드에 대해 좋아요, 좋아요 취소를 누르면서 두 가지 동시성 문제가 있었습니다. 문제가 발생한 원인을 잘 이해할 수 있도록 도메인 엔티티(domain entity)와 서비스 코드를 먼저 살펴보겠습니다.
+
+##### CardLikeEntity Class
+
+- 카드 아이디가 기본 키(primary key)입니다.
+- 사용자들이 누르는 "좋아요", "좋아요 취소" 버튼에 따라 카운트 값이 증감합니다.
+
+```java
+package action.in.blog.domain;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class CardLikeEntity {
+
+    @Id
+    private String cardId;
+    private int count;
+
+    public CardLikeEntity() {
+    }
+
+    public CardLikeEntity(String cardId) {
+        this.cardId = cardId;
+        this.count = 1;
+    }
+
+    public void increase() {
+        count++;
+    }
+}
+```
+
+##### DefaultCardLikeService Class
+
+- 카드 아이디에 해당하는 데이터가 있는지 확인합니다.
+- 데이터가 존재하지 않는 경우 새로운 데이터를 추가합니다. 
+- 데이터가 존재하는 경우 카운트 수를 증가시킵니다.
+
+```java
+package action.in.blog.service;
+
+import action.in.blog.domain.CardLikeEntity;
+import action.in.blog.repository.CardLikeRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+public class DefaultCardLikeService implements CardLikeService {
+
+    private final CardLikeRepository cardLikeRepository;
+
+    public DefaultCardLikeService(CardLikeRepository cardLikeRepository) {
+        this.cardLikeRepository = cardLikeRepository;
+    }
+
+    @Transactional
+    @Override
+    public void increaseLikeCount(String cardId) {
+        var cardLikeOptional = cardLikeRepository.findById(cardId);
+        if (cardLikeOptional.isEmpty()) {
+            cardLikeRepository.save(new CardLikeEntity(cardId));
+            return;
+        }
+        var cardLike = cardLikeOptional.get();
+        cardLike.increase();
+    }
+}
+```
+
+### 1.1. Insert Problem
+
+처음 데이터가 추가되는 시점에 동시에 시작된 트랜잭션이 있다면 하나만 성공합니다. 데이터가 존재하는지 확인하는 비즈니스 로직이 있더라도 거의 동시에 시작한 트랜잭션들은 데이터가 존재하지 않는 것으로 판단하기 때문에 삽입(insert) 쿼리를 수행합니다. 카드 아이디가 기본 키이기 때문에 동일한 키로 데이터를 추가한 다른 트랜잭션들은 모두 실패합니다.
+
+1. 1번 트랜잭션 데이터를 조회하지만, 존재하지 않으므로 insert 쿼리를 수행합니다. 하지만 아직 커밋(commit)을 수행하진 못 헀습니다.
+1. 거의 동시에 시작한 2번 트랜잭션이 데이터를 조회하지만, 존재하지 않으므로 insert 쿼리를 수행합니다. 
+1. 1번 트랜잭션이 커밋 후 2번 트랜잭션이 커밋을 수행하려고 하면 기본 키 제약 조건에 의해 예외가 발생합니다.
+
+<p align="center">
+    <img src="/images/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
+</p>
+
+##### cURL Result
+
+- 초기 데이터가 없는 상태에서 cURL 명령어로 동시에 3회 좋아요 요청을 수행합니다.
+- 커밋이 성공한 첫 트랜잭션을 제외한 두 요청은 예외가 발생하고 500 상태 코드를 반환합니다.
+
+```
+$ curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
+  curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
+  curl -X POST -v http://localhost:8080/api/cards/card-01/likes
+
+[1] 53122
+[2] 53123
+*   Trying 127.0.0.1:8080...
+*   Trying 127.0.0.1:8080...
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> > POST /api/cards/card-01/likes HTTP/1.1
+POST /api/cards/card-01/likes HTTP/1.1
+> > Host: localhost:8080
+Host: localhost:8080
+> > User-Agent: curl/8.1.2
+User-Agent: curl/8.1.2
+> > Accept: */*
+Accept: */*
+> > 
+
+> POST /api/cards/card-01/likes HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.1.2
+> Accept: */*
+> 
+< HTTP/1.1 200 
+< Content-Length: 0
+< Date: Tue, 21 Nov 2023 17:49:06 GMT
+< 
+* Connection #0 to host localhost left intact
+< < HTTP/1.1 500                                                                                                                                                                                    
+HTTP/1.1 500 
+< < Content-Type: application/json
+Content-Type: application/json
+< < Transfer-Encoding: chunked
+Transfer-Encoding: chunked
+< < Date: Tue, 21 Nov 2023 17:49:06 GMT
+Date: Tue, 21 Nov 2023 17:49:06 GMT
+< < Connection: close
+Connection: close
+< < 
+
+* Closing connection 0
+{"timestamp":"2023-11-21T17:49:06.534+00:00","status":500,"error":"Internal Server Error","path":"/api/cards/card-01/likes"}* Closing connection 0
+{"timestamp":"2023-11-21T17:49:06.534+00:00","status":500,"error":"Internal Server Error","path":"/api/cards/card-01/likes"}[1]  - 53122 done       curl -X POST -v http://localhost:8080/api/cards/card-01/likes
+[2]  + 53123 done       curl -X POST -v http://localhost:8080/api/cards/card-01/likes
+```
+
+##### Database Result
+
+데이터를 조회합니다.
+
+- 좋아요 카운트 값이 1인 상태입니다.
+- 첫 트랜잭션만 성공하고 나머지 트랜잭션은 실패합니다.
+
+<p align="center">
+    <img src="/images/concurrency-problem-missing-count-02.png" width="80%" class="image__border">
+</p>
+
+### 1.2. Update Problem
+
+이미 데이터베이스에 추가한 데이터가 존재하는 경우에도 동시성 문제가 발생합니다. 동시에 시작한 트랜잭션이 바라보는 데이터의 모습은 같습니다. 
+
+1. 1번 트랜잭션은 좋아요 카운트 값이 1인 데이터를 조회합니다.
+1. 거의 동시에 시작한 2번 트랜잭션도 좋아요 카운트 값이 1인 데이터를 조회합니다.
+1. 두 트랜잭션은 조회한 엔티티의 카운트 값을 증가시킨 후 업데이트합니다.
+    - 좋아요 카운트 값이 2인 데이터로 업데이트됩니다.
+
+<p align="center">
+    <img src="/images/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
+</p>
+
+##### cURL Result
+
+- 초기 데이터가 있는 상태에서 cURL 명령어로 동시에 3회 좋아요 요청을 수행합니다.
+- 모든 요청이 성공하고 200 상태 코드를 반환합니다.
+
+```
+$ curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
+  curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
+  curl -X POST -v http://localhost:8080/api/cards/card-01/likes
+
+[1] 55571
+[2] 55572
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> POST /api/cards/card-01/likes HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.1.2
+> Accept: */*
+> 
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> POST /api/cards/card-01/likes HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.1.2
+> Accept: */*
+> 
+*   Trying 127.0.0.1:8080...
+* Connected to localhost (127.0.0.1) port 8080 (#0)
+> POST /api/cards/card-01/likes HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.1.2
+> Accept: */*
+> 
+< HTTP/1.1 200 
+< Content-Length: 0
+< Date: Tue, 21 Nov 2023 17:57:09 GMT
+< 
+* Connection #0 to host localhost left intact
+< HTTP/1.1 200 
+< Content-Length: 0
+< Date: Tue, 21 Nov 2023 17:57:09 GMT
+< < HTTP/1.1 200 
+
+< Content-Length: 0
+* < Connection #0 to host localhost left intact
+Date: Tue, 21 Nov 2023 17:57:09 GMT
+< 
+* Connection #0 to host localhost left intact
+[2]  + 55572 done       curl -X POST -v http://localhost:8080/api/cards/card-01/likes
+[1]  + 55571 done       curl -X POST -v http://localhost:8080/api/cards/card-01/likes
+```
+
+##### Database Result
+
+데이터를 조회합니다.
+
+- 좋아요 카운트 값은 4를 예상했지만, 2인 상태입니다. 
+- 모든 트랜잭션이 성공했지만, 동시성 문제로 인해 정상적인 값으로 업데이트되지 않았습니다.
+
+<p align="center">
+    <img src="/images/concurrency-problem-missing-count-04.png" width="80%" class="image__border">
+</p>
+
+## 2. Solve the problem
+
+두 개의 동시성 문제를 해결하기 위해 다음과 같이 설계합니다. 
+
+- 초기 데이터가 존재하지 않을 때 여러 트랜잭션들이 데이터를 추가하면서 예외가 발생하면 재시도(retry)한다. 
+- 이미 데이터가 존재할 때 여러 트랜잭션들이 동시에 업데이트하면서 발생하는 동시성 문제는 [비관적인 락(pessimistic lock)][jpa-pessimitic-lock-link] 방식을 통해 트랜잭션이 순차적으로 진행되도록 수행한다.
+
+비관적인 락 방식을 사용할 때 다음과 같은 사항을 고려해봐야 합니다. 
+
+<!-- 
+//-- begin;
+//        -- update card_like_entity set count = 9 where card_id = 'card-02';
+//        commit; -->
+
+## 3. Result 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+- [Concurrency Problem - Insert same rows][concurrency-problem-insert-same-rows-link]
+
+#### REFERENCE
+
+
+[transcation-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/
+[jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/
+[thread-pool-in-java-link]: https://junhyunny.github.io/java/thread-pool-in-java/
+
+[concurrency-problem-insert-same-rows-link]: https://junhyunny.github.io/java/spring-boot/jpa/concurrency-problem-insert-same-rows/

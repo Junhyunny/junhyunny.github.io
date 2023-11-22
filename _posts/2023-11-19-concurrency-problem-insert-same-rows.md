@@ -399,6 +399,12 @@ Connection #0 to host localhost left intact
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2023-11-19-concurrency-problem-insert-same-rows>
 
+#### RECOMMEND NEXT POSTS
+
+- [Concurrency Problem - Update wrong data][concurrency-problem-update-wrong-data-link]
+
 [transcation-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/
 [jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/
 [jpa-optimistic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/
+
+[concurrency-problem-update-wrong-data-link]: https://junhyunny.github.io/java/spring-boot/jpa/concurrency-problem-update-wrong-data/

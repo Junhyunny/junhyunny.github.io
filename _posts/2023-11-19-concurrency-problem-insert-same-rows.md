@@ -140,7 +140,7 @@ public class DefaultCollectService implements CollectService {
 }
 ```
 
-#### Test Code
+##### Test Code
 
 트랜잭션 경합으로 인한 DuplicatedCollectException 예외를 재현하기 위해 CompletableFuture 클래스를 사용해 비동기 처리를 수행합니다. 
 
@@ -222,7 +222,7 @@ public class GlobalExceptionHandler {
 }
 ```
 
-#### Test Code
+##### Test Code
 
 @WebMvcTest 애너테이션을 사용합니다. 컨트롤러를 지정하여 테스트 컨텍스트 스코프를 최소화합니다.
 

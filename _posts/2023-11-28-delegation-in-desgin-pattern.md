@@ -14,10 +14,11 @@ last_modified_at: 2023-11-28T23:55:00
 
 - [Proxy Pattern][proxy-pattern-link]
 - [Strategy Pattern][strategy-pattern-link]
+- [Template Method Pattern][template-method-pattern-link]
 
 ## 1. Delegation
 
-스프링 시큐리티(spring security)를 주제로 책을 집필하기 위해 프레임워크 내부를 탐구하면서 지내고 있습니다. 공부하다보니 스프링 프레임워크 내부에는 `Delegating-`이라는 키워드가 붙은 클래스들이 많다는 사실을 깨달았습니다. 이름에서 알 수 있듯 이런 클래스들의 인스턴스는 자신이 처리해야하는 요청을 다른 인스턴스에게 위임(delegation)합니다. 스프링 프레임워크가 위임을 자주 사용하는 이유가 궁금해 관련된 내용을 정리해봤습니다. 
+요즘 스프링 시큐리티(spring security)를 주제로 책을 집필하면서 프레임워크 내부를 탐구하고 있습니다. 스프링 프레임워크 내부에는 `Delegating-`이라는 키워드가 붙은 클래스들이 많다는 사실을 알았습니다. 이름에서 알 수 있듯 이런 클래스들의 인스턴스는 자신이 처리해야하는 요청을 다른 인스턴스에게 위임(delegation)합니다. 스프링 프레임워크가 위임을 많이 사용하는 이유가 궁금하여 관련된 내용을 정리해봤습니다. 
 
 ### 1.1. Delegation Pattern
 
@@ -45,9 +46,7 @@ last_modified_at: 2023-11-28T23:55:00
 - 부모 클래스의 구현이 서브 클래스에 모두 공개되기 때문에 캡슐화를 파괴합니다.
 - 부모 클래스 구현에 변경이 생기면 서브 클래스도 변경이 필요합니다.
 
-부모 클래스는 서브 클래스를 재사용할 때 방해가 될 수 있습니다. 상속한 구현이 새로운 문제에 맞지 않을 때 부모 클래스를 재작성해야하거나 다른 것으로 대체하는 일이 생길 수 있습니다. 상속으로 인해 발생하는 강한 결합도는 코드의 유연성과 재사용성을 떨어뜨립니다. 추상 클래스를 사용하면 종속성 문제를 어느 정도 완화할 수 있습니다. 
-
-간단한 예제 코드로 상속 구조의 유연성이 떨어지는 상황을 살펴보겠습니다.
+부모 클래스는 서브 클래스를 재사용할 때 방해가 될 수 있습니다. 상속한 구현이 새로운 문제에 맞지 않을 때 부모 클래스를 재작성해야하거나 다른 것으로 대체하는 일이 생길 수 있습니다. 상속으로 인해 발생하는 강한 결합도는 코드의 유연성과 재사용성을 떨어뜨립니다. 추상 클래스를 사용하면 종속성 문제를 어느 정도 완화할 수 있습니다. 간단한 예제 코드로 상속 구조의 유연성이 떨어지는 상황을 살펴보겠습니다.
 
 #### 2.1.1. Window Class
 
@@ -208,20 +207,27 @@ Circle window area is 314.159265358979300
 
 #### 2.2.1. Boundary Interface
 
-자신의 영역 넓이를 출력하는 책임을 printArea 메소드로 정의합니다.
+다음과 같은 책임을 가집니다.
+
+- 이름 제공
+- 영역 넓이 제공
 
 ```java
 package composition;
 
+import java.math.BigDecimal;
+
 public interface Boundary {
 
-    void printArea();
+    String getName();
+
+    BigDecimal getArea();
 }
 ```
 
 #### 2.2.2. RectangleBoundary Class
 
-자신의 넓이를 출력합니다. 넓이 계산식은 캡슐화되어 있습니다.
+자신의 넓이와 이름을 제공합니다.
 
 ```java
 package composition;
@@ -239,11 +245,12 @@ public class RectangleBoundary implements Boundary {
     }
 
     @Override
-    public void printArea() {
-        System.out.printf("Rectangle window area is %s\n", getArea());
+    public String getName() {
+        return "Rectangle";
     }
 
-    private BigDecimal getArea() {
+    @Override
+    public BigDecimal getArea() {
         return BigDecimal.valueOf((long) width * height);
     }
 }
@@ -251,7 +258,7 @@ public class RectangleBoundary implements Boundary {
 
 #### 2.2.3. SquareBoundary Class
 
-자신의 넓이를 출력합니다. 넓이 계산식은 캡슐화되어 있습니다.
+자신의 넓이와 이름을 제공합니다.
 
 ```java
 package composition;
@@ -259,7 +266,7 @@ package composition;
 import java.math.BigDecimal;
 
 public class SquareBoundary implements Boundary {
-
+    
     private final int side;
 
     public SquareBoundary(int side) {
@@ -267,11 +274,12 @@ public class SquareBoundary implements Boundary {
     }
 
     @Override
-    public void printArea() {
-        System.out.printf("Square window area is %s\n", getArea());
+    public String getName() {
+        return "Square";
     }
 
-    private BigDecimal getArea() {
+    @Override
+    public BigDecimal getArea() {
         return BigDecimal.valueOf((long) side * side);
     }
 }
@@ -287,6 +295,7 @@ package composition;
 import java.math.BigDecimal;
 
 public class CircleBoundary implements Boundary {
+
     private final int radius;
 
     public CircleBoundary(int radius) {
@@ -294,11 +303,12 @@ public class CircleBoundary implements Boundary {
     }
 
     @Override
-    public void printArea() {
-        System.out.printf("Circle window area is %s\n", getArea());
+    public String getName() {
+        return "Circle";
     }
 
-    private BigDecimal getArea() {
+    @Override
+    public BigDecimal getArea() {
         var pi = new BigDecimal(String.valueOf(Math.PI));
         return pi.multiply(
                 BigDecimal.valueOf((long) radius * radius)
@@ -314,8 +324,9 @@ public class CircleBoundary implements Boundary {
 - 팩토리 메소드를 통해 필요한 인스턴스를 명시적으로 생성합니다. 
     - private 생성자로 정의하여 Window 인스턴스 생성을 캡슐화합니다.
     - 어떤 모양 창문인지 명시적으로 선언할 수 있습니다.
-- printArea 메소드 호출은 boundary 인스턴스에게 위임합니다. 
-    - Boundary 인터페이스로 추상화되어 있기 때문에 적합한 인스턴스만 주입 받으면 비즈니스 코드 변경이 필요하지 않습니다.
+- printArea 메소드
+    - 윈도우 이름과 영역 넓이 값은 boundary 인스턴스에게 위임합니다. 
+    - 창문 형태가 Boundary 인터페이스로 추상화되어 있기 때문에 적합한 인스턴스를 주입 받으면 코드 변경이 발생하지 않습니다.
 
 ```java
 package composition;
@@ -341,7 +352,7 @@ public class Window {
     }
 
     public void printArea() {
-        windowBoundary.printArea();
+        System.out.printf("%s window area is %s\n", windowBoundary.getName(), windowBoundary.getArea());
     }
 }
 ```
@@ -376,6 +387,18 @@ Square window area is 25
 Circle window area is 314.159265358979300
 ```
 
+## 3. Summary
+
+객체 합성 방법에서는 getArea 메소드를 재사용하지 못 하지만, printArea 메소드를 재사용할 수 있습니다. 인터페이스를 통해 인스턴스들을 참조하기 때문에 실제 구현체가 무엇인지 판단한 필요 없이 비즈니스 로직을 구성할 수 있습니다. 앞으로 새로운 기능이 추가되더라도 Boundary 인터페이스를 상속 받은 클래스가 추가될 뿐 Window 클래스의 비즈니스 로직은 변경되지 않습니다. 수정에는 닫혀 있고, 확장에는 열린 구조를 가집니다. 
+
+간단한 요약으로 이번 글을 마무리하겠습니다. 
+
+- 위임은 객체 합성에 사용되는 프로그래밍 테크닉입니다.
+- 객체 합성은 상속에 비해 기능 확장에 용이합니다.
+    - 상속은 컴파일 시점에 코드가 이미 굳어지기 때문에 확장이 필요한 비즈니스에 유연하게 대응하기 어렵습니다.
+
+스프링 프레임워크가 위임을 많이 사용하는 이유는 프레임워크로써 확장성을 고려한 설계를 해야되기 때문이라고 생각됩니다. 물론 스프링 프레임워크는 상속도 많이 사용합니다. 주로 발견되는 템플릿 메소드 패턴(template method pattern)은 상속을 사용하는 대표적인 예입니다.  
+
 ## CLOSING
 
 iOS 진영은 컴포넌트 사이의 통신을 위해 콜백 함수를 사용합니다. 이때 위임을 사용하는데 이런 방식이 하나의 패턴으로 굳어져 위임 패턴으로 불리는 것 같습니다.
@@ -397,3 +420,4 @@ iOS 진영은 컴포넌트 사이의 통신을 위해 콜백 함수를 사용합
 
 [proxy-pattern-link]: https://junhyunny.github.io/information/design-pattern/proxy-pattern/
 [strategy-pattern-link]: https://junhyunny.github.io/information/design-pattern/strategy-pattern/
+[template-method-pattern-link]: https://junhyunny.github.io/java/design-pattern/template-method-pattern/

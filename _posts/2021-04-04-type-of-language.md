@@ -1,5 +1,5 @@
 ---
-title: "Static/Dynamic Typed Language"
+title: "Static / Dynamic Typed Language"
 search: false
 category:
   - information

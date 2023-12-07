@@ -12,6 +12,7 @@ last_modified_at: 2023-11-15T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
+- [Strategy Pattern][strategy-pattern-link]
 - [OAuth2 LINE Login with Spring Security][oauth2-line-login-link]
 - [How to make stub for super class][stub-for-super-class-link]
 
@@ -50,7 +51,7 @@ last_modified_at: 2023-11-15T23:55:00
 
 ### 1.3. How can we implement SNS login for multiple platforms?
 
-스프링 시큐리티는 OAuth2 프로토콜 표준을 따르기 때문에 인증, 인가, 리소스 획득 작업은 어떤 플랫폼을 사용하든 동일한 과정을 거칩니다. 플랫폼마다 다른 점은 사용자 정보 스키마입니다. 각 플랫폼마다 다른 모습, 다른 프로퍼티 이름으로 사용자 정보를 반환하기 때문에 이 부분을 맞춰 개발할 필요가 있습니다. 필자는 DefaultOAuth2UserService 클래스를 확장하여 각 플랫폼 별로 획득한 인증된 사용자 정보를 신규 생성 혹은 조회하도록 설계하였습니다. 
+스프링 시큐리티는 OAuth2 프로토콜 표준을 따르기 때문에 인증, 인가, 리소스 획득 작업은 어떤 플랫폼을 사용하든 동일한 과정을 거칩니다. 플랫폼마다 다른 점은 사용자 정보 스키마입니다. 각 플랫폼마다 다른 모습, 다른 프로퍼티 이름으로 사용자 정보를 반환하기 때문에 이 부분을 맞춰 개발할 필요가 있습니다. 필자는 DefaultOAuth2UserService 클래스를 확장하여 각 플랫폼 별로 획득한 인증된 사용자 정보를 신규 생성 혹은 조회하도록 설계하였습니다. CustomOAuth2UserService 인터페이스로 추상화하여 전략 패턴(strategy pattern)을 적용한 이유는 추후 연결할 플랫폼이 늘어날 것을 고려했기 때문입니다. DefaultOAuth2UserService 구현 코드를 설명할 때 이에 대한 추가적인 이야기를 하겠습니다. 
 
 - DefaultOAuth2UserService 객체는 통해 부모 클래스 기능을 통해 SNS 플랫폼 리소스 서버로부터 인증된 사용자 정보를 획득합니다.
 - DefaultOAuth2UserService 객체는 CustomOAuth2UserService 인스턴스들에게 인증된 사용자 처리를 위임합니다.
@@ -272,7 +273,13 @@ public class SecurityConfig {
 
 ### 3.1. DelegatingOAuth2UserService Class
 
-DefaultOAuth2UserService 클래스를 상속한 클래스를 정의합니다. @Service 애너테이션을 추가해 스프링 빈(bean)으로 만들면 해당 컴포넌트가 OAuth2LoginAuthenticationProvider 인스턴스에서 사용하는 DefaultOAuth2UserService 인스턴스를 대체합니다. 다음과 같은 동작을 수행합니다. 
+DefaultOAuth2UserService 클래스를 상속한 클래스를 정의합니다. @Service 애너테이션을 추가해 스프링 빈(bean)으로 만들면 해당 컴포넌트가 OAuth2LoginAuthenticationProvider 인스턴스에서 사용하는 DefaultOAuth2UserService 인스턴스를 대체합니다. CustomOAuth2UserService 인스턴스를 리스트 형태로 주입 받습니다. CustomOAuth2UserService 인터페이스를 구현한 모든 스프링 빈들이 주입됩니다. 다음과 같은 장점을 가집니다.
+
+- 나중에 추가될 플랫폼을 지원하는 스프링 빈을 새롭게 정의하면 자동으로 주입 받습니다.
+- 인증을 위한 핵심 비즈니스 로직인 loadUser 메소드는 변경이 없습니다.
+- 변경에 닫혀 있고 확장에 열린 개방-폐쇄 원칙(open–closed principle)을 지킬 수 있습니다.
+
+다음과 같은 동작을 수행합니다. 
 
 - 처리를 위임할 CustomOAuth2UserService 인스턴스들에게 플랫폼 지원 여부를 확인합니다.
 - 해당 플랫폼을 지원하는 서비스 인스턴스를 찾았다면 부모 클래스의 기능을 사용해 외부 리소스 서버로부터 사용자 정보를 조회합니다.
@@ -832,5 +839,6 @@ H2 콘솔을 통해 데이터베이스를 확인하면 사용자 정보가 다�
 
 - <https://www.rfc-editor.org/rfc/rfc6749>
 
+[strategy-pattern-link]: https://junhyunny.github.io/information/design-pattern/strategy-pattern/
 [oauth2-line-login-link]: https://junhyunny.github.io/java/spring-boot/spring-security/oauth2-line-login-with-spring-security/
 [stub-for-super-class-link]: https://junhyunny.github.io/java/spring-boot/test/how-to-make-stub-for-super-class/

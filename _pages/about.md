@@ -61,7 +61,7 @@ classes: wide
 
 ##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월
 
-- TypeScript, React, Sass, Jest, Testing Library, Cypress
+- TypeScript, React, Jest, Testing Library, Cypress, Sass
 - AWS
 - 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
 - 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
@@ -71,7 +71,7 @@ classes: wide
 
 ##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
 
-- HTML, Sass, TypeScript, React, React Query, Momoent Timezone, Jest, Testing Library, Cypress
+- TypeScript, React, React Query, Momoent Timezone, Jest, Testing Library, Cypress, Sass
 - Java, Apache Nifi, Spring Boot, Spring Cloud, Spring Data Jpa, QueryDSL, MySQL, JUnit 
 - Docker, Kubernetes, Jenkins
 - 프론트 오피스 업무 거래용 윈도우 GUI 어플리케이션을 웹 기반 서비스로 재구축

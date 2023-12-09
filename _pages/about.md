@@ -31,27 +31,33 @@ classes: wide
     </h3>
 </div>
 
-##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 7월 - 11월
+##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 9월 - 11월
 
 - TypeScript, React, Sass, Jest, Testing Library
-- Kotlin, Spring Boot, Spring Session, Spring Security, Spring Data Jpa, Spring Cloud
-- Reids, PostgresSQL
+- Kotlin, Spring Boot, Spring Session, Spring Security, Spring Cloud, Spring Data Jpa, Reids, PostgresSQL
 - AWS
-- 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
-- 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
+- 어린이 대상 행사 참여자들에게 프로그램 정보 및 퍼즐 수집 게임을 제공하는 웹 어플리케이션
+- 행사 스케줄 및 고객 예약 정보 관리 도메인 설계 및 구현
+- 퍼즐 수집 게임 도메인 설계 및 구현 
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
-- Chrome Lighthouse를 사용한 성능 분석 및 성능 향상을 통한 어플리케이션 사용성 개선
-    - 성능 점수를 39점에서 79점으로 개선
-- 세션 객체 직렬화 시 영속성 컨텍스트로 인해 발생하는 에러 개선   
-- AAD(Azure Active Directory) 로그인과 서비스 자체 로그인 기능 통합
+- 서버 동시성 문제 해결 및 예외 처리
+
+##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 7월 - 8월
+
+- TypeScript, React, Sass, Jest, Testing Library
+- Kotlin, Spring Boot, Spring Session, Spring Security, Spring Data Jpa, Spring Cloud, Reids, PostgresSQL
+- AWS
+- 도요타 사내 컨퍼런스 참여자들에게 참여 부스 정보를 제공하는 웹 어플리케이션
+- Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
+- AAD(Azure Active Directory) OAuth2 인증과 서비스 로그인 기능 통합
+- 세션 저장을 위한 객체 직렬화 시 영속성 컨텍스트 연결로 인해 발생하는 버그 수정
 
 ##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 7월
 
-- Java, Spring Boot, Spring Cloud, Spring Contract Test, WireMock
-- Reids
+- Java, Spring Boot, Spring Cloud, Reids
 - 차세대 시스템과 클라이언트 사이의 API 하위 호환성 문제를 해결하기 위한 어댑터 서비스
-- 레디스(redis)와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
-- 와이어 목(wire mock)을 활용한 테스트로 페인 클라이언트(feign client) API 기능 검증
+- 레디스와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
+- 외부 서비스 API 호출 기능 구현 및 와이어 목을 활용한 결합 테스트 검증
 
 ##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월
 
@@ -59,28 +65,29 @@ classes: wide
 - AWS
 - 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
 - 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
+- QR 스캐닝 시 발생하는 애니메이션 버그 수정
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 - Chrome Lighthouse를 사용한 성능 분석 및 성능 향상을 통한 어플리케이션 사용성 개선
     - 성능 점수를 39점에서 79점으로 개선
-- 세션 객체 직렬화 시 영속성 컨텍스트로 인해 발생하는 에러 개선   
-- AAD(Azure Active Directory) 로그인과 서비스 자체 로그인 기능 통합
 
 ##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
 
-- Java, Apache Nifi, Spring Boot, Spring Cloud, JPA, QueryDSL, MySQL, JUnit, HTML, Sass, TypeScript, React, React Query, Momoent Timezone, Jest, Testing Library, Cypress, Docker Compose, Kubernetes, Jenkins
+- HTML, Sass, TypeScript, React, React Query, Momoent Timezone, Jest, Testing Library, Cypress
+- Java, Apache Nifi, Spring Boot, Spring Cloud, Spring Data Jpa, QueryDSL, MySQL, JUnit 
+- Docker, Kubernetes, Jenkins
 - 프론트 오피스 업무 거래용 윈도우 GUI 어플리케이션을 웹 기반 서비스로 재구축
-- XP(extreme programming) 실천 방법 코칭 및 기술 세션 진행
 - CI/CD 파이프라인 구축을 통한 코드 병합, 빌드, 테스트, 배포 프로세스 자동화
 - 트레이더 정보 및 권한 관리, 코드 관리, 선물(future) 상품 및 거래 도메인 모델 설계 및 개발
-- SSO 인증 프로세스 개발 및 사용자 권한 서비스 연계
 - 외국 거래 입력 시 시차로 인해 발생하는 이슈 해결을 위한 타임존 도메인 설계 및 개발
+- SSO 인증 프로세스 개발 및 사용자 권한 서비스 연계
 - 레거시 연계로 인해 발생하는 도메인 오염 방지를 위한 ACL(anti corruption layer) 구축
 
 ##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022년 1월 - 6월
 
-- Java, Apache Camel, Spring Boot, Spring Cloud, JPA, MySQL, JUnit, HTML, Sass, JavaScript, React, Redux Tool-Kit, Jest, Testing Library, Docker Compose, Jenkins
+- JavaScript, React, Redux Tool-Kit, Jest, Testing Library, Sass
+- Java, Apache Camel, Spring Boot, Spring Cloud, Spring Data Jpa, MySQL, JUnit
+- Docker, Jenkins
 - 마이데이터를 활용한 사용자 맞춤 알뜰폰 요금제 추천 MVP 서비스 개발
-- XP(extreme programming) 실천 방법 코칭
 - CI/CD 파이프라인 구축을 통한 코드 병합, 빌드, 테스트, 배포 프로세스 자동화
 - 마이데이터 기반 알뜰폰 추천을 위한 신규 상품 추천 도메인 모델 설계 및 개발
 - KB 사내 마이데이터 플랫폼 서비스 최초 연계 및 사용
@@ -97,20 +104,20 @@ classes: wide
 
 ##### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
 
-- Java, Spring MVC, JSP, MyBatis, Tibero, JavaScript, JQuery
+- JSP, JavaScript, JQuery
+- Java, Spring MVC, MyBatis, Tibero, 
 - 노인 거주지 및 장애인 시설 내 IoT 센서를 사용한 돌봄 서비스 고도화 프로젝트
-- 영속성 프레임워크를 iBatis에서 MyBatis 변경 작업 수행
-- 데이터베이스를 Sybase에서 Tibero 변경 작업 수행
 - 업무 게시판, 돌봄 대상자 관리, 시설 도면 업로드 및 IoT 센서 맵핑 기능 개발
 - 신규 모바일 서비스 개발 및 사용자 PIN 번호 발급을 통한 2차 인증 프로세스 구현
-- 사용자 로그아웃 시 브라우저 쿠키 초기화 실패로 인한 재접속 불가능 버그 개선
+- 사용자 로그아웃 시 브라우저 쿠키 초기화 실패로 인한 재접속 불가능 버그 수정
 - 레거시의 불필요 컴포넌트들 제거 및 코드 리팩토링을 통한 50% 코드 축소
 
 ##### [KC Industrial] 반도체 가스 공정 MES 개발 프로젝트, 2021년 5월 - 8월
 
-- Java, Spring Boot, MyBatis, MySQL, JavaScript, Vue
-- 조업자 및 관리자를 위한 가스 공정 자동화ㆍ모니터링 웹 서비스 구현
-- 가스 공정, 물류 도메인 분석을 통해 가스 용기 별 특성에 맞는 도메인 모델 설계 및 개발
+- JavaScript, Vue
+- Java, Spring Boot, MyBatis, MySQL
+- 가스 공정 자동화ㆍ모니터링 웹 서비스 구현
+- 가스 용기 특성과 물류 흐름에 맞는 도메인 모델 설계 및 개발
 - 가스 용기 입고, 전처리, 충전, 품질 검사, 출고, 반품 및 회수 처리 자동화 및 리포팅 기능 구현
 - 실린더 번들 부적합 발생 시 이벤트 발행ㆍ구독 패턴을 통한 결합도 낮은 비즈니스 로직 구현
 - 수백개씩 입고되는 가스 용기들의 납품 PDF 문서를 CSV 파일로 변경하는 수작업을 자동화

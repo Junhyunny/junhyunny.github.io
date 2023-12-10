@@ -191,7 +191,7 @@ Job succeeded
     - dpeloy-app 잡 4.373초 수행
 
 <p align="center">
-    <img src="/images/optimize-gitlab-ci-pipeline-for-maven-project-02.png" width="100%" class="image__border">
+    <img src="/images/optimize-gitlab-ci-pipeline-for-maven-project-02.png" width="80%" class="image__border">
 </p>
 
 #### REFERENCE

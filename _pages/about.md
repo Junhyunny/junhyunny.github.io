@@ -31,18 +31,18 @@ classes: wide
     </h3>
 </div>
 
-##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 9월 - 11월
+##### [Toyota] EXPO 어린이 컨퍼런스 네비게이션 웹 어플리케이션, 2023년 9월 - 11월
 
 - TypeScript, React, Sass, Jest, Testing Library
 - Kotlin, Spring Boot, Spring Session, Spring Security, Spring Cloud, Spring Data Jpa, Reids, PostgresSQL
 - AWS
-- 어린이 대상 행사 참여자들에게 프로그램 정보 및 퍼즐 수집 게임을 제공하는 웹 어플리케이션
+- 어린이 대상 컨퍼런스 참여자들에게 프로그램, 예약 정보 및 퍼즐 게임을 제공하는 웹 어플리케이션
 - 행사 스케줄 및 고객 예약 정보 관리 도메인 설계 및 구현
-- 퍼즐 수집 게임 도메인 설계 및 구현 
+- 퍼즐 수집 게임 도메인 설계 및 구현
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 - 동일한 여러 퍼즐 조각이 수집되는 동시성 문제 해결 및 예외 처리
 
-##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 7월 - 8월
+##### [Toyota] EXPO 사내 컨퍼런스 네비게이션 어플리케이션, 2023년 7월 - 8월
 
 - TypeScript, React, Sass, Jest, Testing Library
 - Kotlin, Spring Boot, Spring Session, Spring Security, Spring Data Jpa, Spring Cloud, Reids, PostgresSQL
@@ -59,7 +59,7 @@ classes: wide
 - 레디스와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
 - 외부 서비스 API 호출 기능 구현 및 와이어 목을 활용한 결합 테스트 검증
 
-##### [Toyota] EXPO 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월
+##### [Toyota] EXPO 사내 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월
 
 - TypeScript, React, Jest, Testing Library, Cypress, Sass
 - AWS

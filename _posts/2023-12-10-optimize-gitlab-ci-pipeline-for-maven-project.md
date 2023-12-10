@@ -196,6 +196,7 @@ Job succeeded
 
 #### REFERENCE
 
+- <https://maven.apache.org/ref/3.6.3/maven-embedder/cli.html>
 - <https://insight.infograb.net/blog/2023/02/27/gitlab-ci-cd-cache/>
 - <https://workshop.infograb.io/gitlab-ci/23_add_test_stage_ci_pipeline/4_gitlab_ci_-optimization/>
 - <https://stackoverflow.com/questions/25621601/what-does-the-maven-opts-environment-variable-do>

@@ -12,7 +12,11 @@ last_modified_at: 2023-12-11T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
+- [Web MVC Filter Test on Spring Boot][web-mvc-filter-test-on-spring-boot-link]
+
 ## 0. 들어가면서
+
+스프링 시큐리티를 적용하면 
 
 ## CLOSING
 
@@ -20,4 +24,11 @@ last_modified_at: 2023-12-11T23:55:00
 
 #### RECOMMEND NEXT POSTS
 
+- [How to make multiple security filter chains in Spring Security][multiple-security-filter-chains-link]
+
 #### REFERENCE
+
+- <>
+
+[web-mvc-filter-test-on-spring-boot-link]: https://junhyunny.github.io/java/spring-boot/web-mvc-filter-test-on-spring-boot/
+[multiple-security-filter-chains-link]: https://junhyunny.github.io/java/spring-boot/spring-security/how-to-make-multiple-security-filter-chains/

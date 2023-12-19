@@ -229,9 +229,7 @@ Tomcat started.
 
 ### 3.2. Deploy Application
 
-애플리케이션을 war 파일로 패키징(packaging)하여 톰캣 서버에 배포한다. 애플리케이션을 배포하는 방법은 [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link] 포스트를 참고하길 바란다. 
-
-컨트롤러 코드를 다음과 같이 변경한다. HttpServletRequest 객체에 어떤 정보가 들어있는지 브라우저를 통해 확인하기 위해 다음과 같은 응답을 만든다.
+애플리케이션을 war 파일로 패키징(packaging)하여 톰캣 서버에 배포한다. 애플리케이션을 배포하는 방법은 [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link] 포스트를 참고하길 바란다. 테스트를 위해 컨트롤러 코드를 변경한다. HttpServletRequest 객체에 어떤 정보가 들어있는지 브라우저를 통해 확인하기 위해 다음과 같은 응답을 만든다.
 
 ```java
 package blog.in.action.controller;
@@ -309,7 +307,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /home 이다.
 
 <p align="center">
-  <img src="/images/information-in-http-servlet-request-01.png" width="100%" class="image__border">
+  <img src="/images/information-in-http-servlet-request-01.png" width="80%" class="image__border">
 </p>
 
 #### 3.3.2. /app path
@@ -321,7 +319,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /app/home 이다.
 
 <p align="center">
-  <img src="/images/information-in-http-servlet-request-02.png" width="100%" class="image__border">
+  <img src="/images/information-in-http-servlet-request-02.png" width="80%" class="image__border">
 </p>
 
 #### 3.3.3. /admin path
@@ -333,7 +331,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /admin/home 이다.
 
 <p align="center">
-  <img src="/images/information-in-http-servlet-request-03.png" width="100%" class="image__border">
+  <img src="/images/information-in-http-servlet-request-03.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

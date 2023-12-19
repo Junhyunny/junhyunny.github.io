@@ -17,7 +17,7 @@ last_modified_at: 2023-12-19T23:55:00
 
 ## 1. Information in HttpServletRequest
 
-서버 애플리케이션을 개발하다보면 주소, 경로 정보 등을 사용하는 경우가 많다. 공통적인 처리를 수행하는 필터(filter)를 만들 때 필자는 보통 HttpServletRequest 객체의 getServletPath 혹은 getRequestURI 메소드를 사용했다. 여러 시스템을 개발해보니 어떤 상황에선 같은 값인데, 다른 환경에선 다른 값이어서 혼란을 겪었던 기억이 난다. 매우 기본적인 정보들이지만, 매번 헷갈리기도 하고 최근 글을 쓰다가 궁금증이 생겨서 포스트로 정리했다. 
+서버 애플리케이션을 개발하다보면 주소, 경로 정보 등을 사용하는 경우가 많다. 공통적인 처리를 수행하는 필터(filter)를 만들 때 필자는 보통 HttpServletRequest 객체의 getServletPath 혹은 getRequestURI 메소드를 사용했다. 여러 시스템을 개발해보니 어떤 상황에선 같은 값인데, 어떤 환경에선 서로 다른 값이어서 혼란을 겪었던 기억이 난다. 매우 기본적인 정보들이지만, 매번 헷갈리기도 하고 최근 글을 쓰다가 궁금증이 생겨서 포스트로 정리했다. 
 
 ## 2. URI, URL in HttpServletRequest
 
@@ -145,7 +145,7 @@ $ curl -v "http://localhost:8080/home?hello=world"
 2023-12-19T11:13:02.110+09:00  INFO 13529 --- [nio-8080-exec-1] b.in.action.controller.HomeController    : getServletPath - /home
 ```
 
-로그로 본 두 값은 같지만, 엄밀히 말하면 따지면 컨텍스트 패스(context path) 정보가 비어있기 때문에 같은 값을 가지는 것이다. 두 정보 사이의 차이점은 다음과 같다.
+로그로 확인한 두 값은 같지만, 엄밀히 말하면 따지면 컨텍스트 패스(context path) 정보가 비어있기 때문에 같은 값을 가지는 것이다. 두 정보 사이의 차이점은 다음과 같다.
 
 - 요청 URI는 클라이언트가 서버로 요청을 보낼 때 사용한 경로이다. 
 - 서블릿 패스는 컨텍스트 패스 정보를 제외한 서블릿 컨테이너가 받은 경로이다.

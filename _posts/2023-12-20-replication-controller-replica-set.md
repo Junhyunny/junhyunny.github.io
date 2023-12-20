@@ -61,8 +61,8 @@ ReplicationController, ReplicaSet 오브젝트에 대해 정리한다.
 
 - apiVersion 값이 `v1`을 가진다.
 - kind 값이 `ReplicationController`이다.
-- 선택자를 선언할 때 라벨 정보를 단순히 입력한다.
 - 선택자를 선언하지 않아도 오브젝트가 생성된다.
+- 선택자를 선언할 때 라벨 정보를 단순히 입력한다.
 
 ```yml
 apiVersion: v1
@@ -92,9 +92,9 @@ spec:
 
 - apiVersion 값이 `apps/v1`을 가진다.
 - kind 값이 `ReplicaSet`이다.
+- 선택자를 선언하지 않으면 오브젝트 생성시 에러가 발생한다.
 - 선택자의 종류를 지정한다.
   - `matchLabels`를 사용한다.
-- 선택자를 선언하지 않으면 오브젝트 생성시 에러가 발생한다.
 
 ```yml
 apiVersion: apps/v1
@@ -125,7 +125,7 @@ spec:
 
 matchLabels 선택자 외에도 다른 선택자를 사용할 수 있다. 선택자를 강제하고, 다양한 선택자를 통해 기능이 강력해진 것을 제외하면 같은 오브젝트이다. 레플리카 세트에서 선택자를 강요함으로써 얻는 이점은 레플리카 세트를 생성할 때 이미 실행되는 중인 파드 리소스를 재활용할 수 있다는 점인 것 같다.
 
-`type=front-end`이라는 라벨을 가진 파드가 이미 존재한다. 
+예시를 살펴보자. `type=front-end` 라벨을 가진 파드가 이미 배포되었다고 가정한다. 파드 정보는 다음과 같다. 
 
 ```yml
 apiVersion: v1
@@ -141,7 +141,7 @@ spec:
       image: nginx
 ```
 
-다음과 같은 상태이다. 
+배포된 파드를 보면 다음과 같은 상태이다. 
 
 ```
 $ kubectl get pods
@@ -176,7 +176,7 @@ spec:
       type: front-end
 ```
 
-레플리카 세트를 생성하고 파드 상태를 보면 기존 리소스를 재활용하는 것을 볼 수 있다.
+레플리카 세트가 생성된다. 배포된 파드들을 살펴보면 이미 배포되었던 파드 리소스를 재활용하는 것을 볼 수 있다.
 
 ```
 $ kubectl create -f replicaset-definition.yml 
@@ -193,7 +193,7 @@ myapp-replicaset-js96p   1/1     Running   0          2m18s
 myapp-replicaset-l67pd   1/1     Running   0          2m18s
 ```
 
-myapp-pod 파드를 죽이면 레플리카 세트는 원하는 개수인 3개를 유지하기 위해 새로운 파드를 다시 생성한다. 
+myapp-pod 파드를 삭제하면 레플리카 세트는 원하는 상태를 유지하기 위해 새로운 파드를 다시 생성한다. 
 
 ```
 $ kubectl delete pod myapp-pod
@@ -210,7 +210,7 @@ myapp-replicaset-l67pd   1/1     Running             0          3m32s
 myapp-replicaset-z87dv   0/1     ContainerCreating   0          1s
 ```
 
-스케일 아웃을 하는 방법은 여러가지 있지만, 이번엔 scale 옵션을 사용한다. 
+스케일-아웃 하는 방법은 여러가지 있지만, scale 명령어를 사용한다. 
 
 ```
 $ kubectl scale --replicas=6 replicaset myapp-replicaset
@@ -226,7 +226,7 @@ myapp-replicaset-l67pd   1/1     Running   0          7m1s
 myapp-replicaset-z87dv   1/1     Running   0          3m30s
 ```
 
-이전엔 kubectl 명령어를 통해 롤링 업데이트를 수행할 수 있었던 것 같지만, 현재는 사라졌다. 관련된 이슈, 논의, 커밋 이력은 링크로 첨부한다.
+예전엔 kubectl 명령어를 통해 롤링 업데이트를 수행할 수 있었던 것 같지만, 현재는 사라졌다. 관련된 이슈, 논의, 커밋 이력은 링크로 첨부한다.
 
 - <https://github.com/kubernetes/kubernetes/pull/61285>
 - <https://github.com/kubernetes/kubernetes/issues/23276>

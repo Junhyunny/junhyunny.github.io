@@ -1,0 +1,135 @@
+---
+title: "CIDR(Classless Inter-Domain Routing) Converter"
+search: false
+category:
+  - information
+  - react
+  - jest
+  - test-driven-development
+last_modified_at: 2023-12-24T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+최근까지 CIDR(Classless Inter-Domain Routing)은 네트워크 방화벽 기준을 정의할 때 많이 사용하는 IP 표기 방법 정도로만 알고 있었다. 정확한 개념은 몰랐지만, 여태 경험한 프로젝트들은 개발, 스테이징(staging) 환경에서나 IP 대역을 제한했기 때문에 정확한 메커니즘을 몰라도 사실 상관 없었다. 
+
+이번에 CIDR 방식으로 표현한 IP 주소를 일반 IP 주소 범위로 변환하는 기능을 개발하면서 공부했다. 공부한 내용을 공유하고자 이해를 돕기 위한 설명과 코드도 함께 첨부한다. 
+
+### 1. CIDR(Classless Inter-Domain Routing)
+
+CIDR(Classless Inter-Domain Routing)을 직역하면 "클래스 없는 도메인 간 라우팅"이다. 클래스라는 개념을 없앤 라우팅 방법이라는 것을 이름을 통해 유추할 수 있다. CIDR을 알아보기 전에 클래스 기반 어드레싱(addressing) 방식의 어떤 문제를 해결하고 싶어서 등장했는지 이를 먼저 살펴보자. 
+
+### 1.1. Classful Addressing
+
+클래스 기반 주소 지정 방식은 인터넷이 시작할 당시에 IPv4 주소를 나눠 가지는 방법이다. IPv4 주소는 32개 비트로 표현된다. 주소를 할당할 수 있는 최대 수는 4,294,967,296개이다. 약 43억개의 한정된 자원을 기관이나 개인이 나눠 사용하기 위한 방법이다. 모두 5개의 클래스로 나뉜다. 
+
+- A 클래스
+- B 클래스
+- C 클래스
+- D 클래스
+- E 클래스
+
+이 방식의 규칙은 단순한다. 접미사 비트를 만들어 네트워크를 구분하고, 접두사 비트를 통해 네트워크를 표현하고, 접미사 비트를 통해 각 네트워크가 가질 수 있는 호스트 주소를 표현한다. 어떤 의미인지 정확히 감이 안 올 수 있지만, 각 클래스의 특징을 하나씩 살펴보면 어떤 컨셉인지 이해할 수 있다. 
+
+각 클래스 별로 특징을 살펴보자. A 클래스는 32개 비트 중 앞에 8개 비트를 네트워크 주소로 사용하는 방식이다. 맨 첫 번째 비트는 0으로 고정되기 때문에 `0.0.0.0`에서 `127.255.255.255`까지 주소는 A 클래스 주소이다. 128개 기관이 16,581,375개씩 IPv4 주소를 나눠 가진다. IP 주소 자원의 50%에 해당한다.
+
+B 클래스는 앞에 16개 비트를 네트워크 주소로 사용하는 방식이다. 앞 두 비트는 10로 고정이다. `128.0.0.0`에서 `191.255.255.255`까지 주소가 해당된다. 16,384개 기관이 65,025개씩 IP 주소를 나눠 가진다. IP 주소 자원의 25%에 해당한다.
+
+C 클래스는 앞에 24개 비트를 네트워크 주소로 사용하는 방식이다. 앞 세 비트는 110으로 고정이다. `192.0.0.0`에서 `223.255.255.255`까지 주소가 해당된다. 2,097,152개 기관이 255개씩 IP 주소를 나눠가진다. 전체 자원 중 12.5%에 해당한다.
+
+D 클래스는 네트워크 주소나 호스트 주소가 없이 멀티 캐스트 주소로 사용한다. 앞 네 비트는 1110으로 고정이다. `224.0.0.0`에서 `239.255.255.255`까지 주소가 해당된다. 전체 자원 중 6.25%에 해당한다.
+
+E 클래스도 마찬가지로 접두사와 접미사는 별도로 없다. 앞 네 비트가 1111으로 고정이며 예약된 주소이다. `240.0.0.0`에서 `255.255.255.255`까지 주소가 해당된다. 전체 자원 중 6.25%에 해당한다.
+
+<p align="center">
+  <img src="/images/information-in-http-servlet-request-03.png" width="80%" class="image__border">
+</p>
+<center>Data Communication and Networking 5th</center>  
+
+### 1.2. Classless Inter-Domain Routing
+
+클래스 기반 방식은 자원 할당이 고르게 되지 않아 주소가 낭비된다. A 클래스 주소는 128개 기관이 16,581,375개씩 IP 주소를 나눠가진다. 1,600만 개씩이나 IP가 필요한 기관이 128개씩이나 있을까? 규모가 작은 기관이 규모가 큰 클래스 주소를 할당받는다면 대부분의 자원은 낭비되는 모양일 것이다. 주소가 낭비되는 것을 막기 위해 서브네팅(subnetting), 수퍼네팅(supernetting) 방식이 고안되었지만, 문제를 해결할 수 없었다.
+
+주소 자원이 유연하게 나뉘지 못하는 원인인 
+
+
+### 2. Implementation 
+
+
+
+
+```js
+function getMaskBlocks(mask) {
+    let numberMask = +mask;
+    let result = ''
+    for(let index = 0; index < 32; index++) {
+        if(numberMask > 0) {
+            result = result + '1';
+        } else {
+            result = result + '0';
+        }
+        numberMask--;
+    }
+    return [
+        Number("0b" + result.substring(0, 8)),
+        Number("0b" + result.substring(8, 16)),
+        Number("0b" + result.substring(16, 24)),
+        Number("0b" + result.substring(24, 32))
+    ]
+}
+
+function fromIp(ipBlocks, maskBlocks) {
+    const result = []
+    for(let index = 0; index < 4; index++) {
+        result.push(
+            String(ipBlocks[index] & maskBlocks[index])
+        )
+    }
+    return result;
+} 
+
+function toIP(ipBlocks, maskBlocks) {
+    const result = []
+    for(let index = 0; index < 4; index++) {
+        let block;
+        if(maskBlocks[index] === 0) {
+            block = String(ipBlocks[index] | 255)
+        } else {
+            block = String((ipBlocks[index] & maskBlocks[index]) + (255  - maskBlocks[index]))
+        }
+        result.push(
+            String(block)
+        )
+    }
+    return result;
+} 
+
+function parseCIDR(ipAndMask) {
+    const ip = ipAndMask.split("/")[0]
+    const mask = ipAndMask.split("/")[1]
+    const ipBlocks = ip.split(".").map(block => +block)
+    const maskBlocks = getMaskBlocks(mask)
+    return {
+        fromIp: fromIp(ipBlocks, maskBlocks).join('.'),
+        toIp: toIP(ipBlocks, maskBlocks).join('.')
+    }
+}
+
+console.log(parseCIDR("102.123.3.10/18"))
+```
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://datatracker.ietf.org/doc/html/rfc1519>
+- <https://datatracker.ietf.org/doc/html/rfc4632>
+- [Data Communication and Networking 5th](https://product.kyobobook.co.kr/detail/S000003937861)

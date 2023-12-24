@@ -426,6 +426,8 @@ describe("IP converter Test", () => {
 
 #### REFERENCE
 
+- <https://ko.wikipedia.org/wiki/CIDR>
+- <https://en.wikipedia.org/wiki/Classful_network>
 - <https://datatracker.ietf.org/doc/html/rfc1519>
 - <https://datatracker.ietf.org/doc/html/rfc4632>
 - <https://aws.amazon.com/ko/what-is/cidr/>

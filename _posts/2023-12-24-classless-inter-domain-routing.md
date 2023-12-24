@@ -219,7 +219,7 @@ function fromIp(ipBlocks: number[], maskBlocks: number[]) {
 (ipBlocks[index] & maskBlocks[index]) + (255 - maskBlocks[index])
 ```
 
-이해를 돕기 위해 위에서 살펴본 예시를 다시 가져온다. `ipBlocks[index] & maskBlocks[index]` 연산은 시작 IP를 구하는 작업이다. 
+이해를 돕기 위해 위에서 살펴본 예시를 다시 가져왔다. `ipBlocks[index] & maskBlocks[index]` 연산은 시작 IP 주소를 구하는 작업이다. 
 
 ```
 10100111.11000111.10101010.01010010(167.199.170.82)
@@ -229,7 +229,7 @@ function fromIp(ipBlocks: number[], maskBlocks: number[]) {
 10100111.11000111.10101010.01000000(167.199.170.64)
 ```
 
-`255 - maskBlocks[index]` 작업은 와일드 카드 비트들을 구하는 과정이다.
+`255 - maskBlocks[index]` 작업은 마스크에서 와일드 카드 영역을 구하는 과정이다.
 
 ```
 11111111.11111111.11111111.11111111
@@ -239,7 +239,7 @@ function fromIp(ipBlocks: number[], maskBlocks: number[]) {
 00000000.00000000.00000000.00011111
 ```
 
-두 값을 더하는 작업은 OR(|) 연산을 수행하는 것과 동일한 효과를 얻는다. 시작 IP 주소는 이미 마스킹 된 상태이기 때문이다. 더하기(+) 연산이 아니라 OR 연산을 사용하더라도 결과는 같다.
+두 값을 더하는 작업은 OR 연산을 수행하는 것과 동일하다. 시작 IP 주소는 이미 마스킹 된 상태이기 때문에 더하기(+) 연산이나 OR 연산 모두 동일한 결과를 얻는다.
 
 ```
 10100111.11000111.10101010.01000000(167.199.170.64)

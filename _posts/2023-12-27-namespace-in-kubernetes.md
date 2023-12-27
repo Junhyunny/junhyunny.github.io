@@ -622,8 +622,13 @@ $ curl localhost:30496/external/foo-service.bar-ns.svc.cluster.local
 foo-pod-in-bar-ns
 ```
 
+같은 네임스페이스에 배포된 서비스는 이름만으로 통신할 수 있다. 쿠버네티스는 클러스터 내부에서 사용할 수 있는 DNS(domain name system)이 존재하기 때문에 이름만으로 통신이 가능하다. 서비스를 생성하면 해당 DNS 엔트리(entry)가 생성된다. 엔트리는 다음과 같은 형식을 가진다.
 
+```
+<서비스-이름>.<네임스페이스-이름>.svc.cluster.local
+```
 
+`<서비스-이름>`만으로 통신하는 경우 같은 네임스페이스 내에 국한된 서비스로 연결시킨다. 네임스페이스를 넘어 통신하기 위해선 전체 주소 도메인 이름(Full Qualified Domain Name, FQDN)을 사용해야 한다. foo-ns 네임스페이스의 foo-pod 파드가 bar-ns 네임스페이스의 foo-pod 파드와 통신하기 위해 foo-service 서비스의 이름을 `foo-service.bar-ns.svc.cluster.local`으로 사용한 이유다. 
 
 #### TEST CODE REPOSITORY
 
@@ -637,6 +642,7 @@ foo-pod-in-bar-ns
 - <https://kubernetes.io/ko/docs/concepts/policy/resource-quotas/>
 - <https://kubeops.net/blog/the-importance-of-kubernetes-namespace-separation>
 - <https://hw-kang.tistory.com/43>
+- <https://datatracker.ietf.org/doc/html/rfc1123>
 
 [kubernetes-architecture-link]: https://junhyunny.github.io/kubernetes/kubernetes-architecture/
 [dynamic-uri-using-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/

@@ -1,9 +1,10 @@
 ---
-title: "Post Format"
+title: "withValidation by High Order Component Pattern"
 search: false
 category:
-  - post-format
-last_modified_at: 2100-01-01T23:55:00
+  - react
+  - design-pattern
+last_modified_at: 2023-12-30T23:55:00
 ---
 
 <br/>

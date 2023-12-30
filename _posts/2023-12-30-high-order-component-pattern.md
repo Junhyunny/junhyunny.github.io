@@ -230,7 +230,7 @@ export const ValidationTextArea = withValidation(TextArea);
 withValidation 함수를 통과한 컴포넌트들은 유효성 검사와 에러 메세지 출력이 자동으로 이뤄진다. 
 
 <p align="center">
-  <img src="/images/with-validation-by-hoc-03.png" width="100%" class="image__border">
+  <img src="/images/with-validation-by-hoc-03.png" width="80%" class="image__border">
 </p>
 
 ## CLOSING

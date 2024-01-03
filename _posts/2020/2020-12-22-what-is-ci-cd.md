@@ -19,7 +19,7 @@ last_modified_at: 2021-08-21T16:00:00
 - 지속적인 배포(Continuous Deployment)
 
 <p align="center">
-  <img src="/images/2020/what-is-ci-cd-01.png" width="80%" class="image__border"/>
+  <img src="/images/posts/2020/what-is-ci-cd-01.png" width="80%" class="image__border"/>
 </p>
 <center>https://www.redhat.com/ko/topics/devops/what-is-ci-cd</center>
 

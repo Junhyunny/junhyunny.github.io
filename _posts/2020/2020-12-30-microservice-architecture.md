@@ -56,7 +56,7 @@ last_modified_at: 2021-08-21T16:00:00
 마이크로 서비스는 단일 비즈니스를 수행하기 때문에 서비스의 기능들은 자연스럽게 높은 응집도를 가지게 된다. 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리한다. 새로운 기능을 구축해야하는 경우 모든 변경사항이 하나의 단일 서비스에서만 수정되도록 해야한다. 
 
 <p align="center">
-  <img src="/images/posts/2020/microservice-architecture-02.JPG" width="80%" class="image__border">
+  <img src="/images/posts/2020/microservice-architecture-02.png" width="80%" class="image__border">
 </p>
 <center>https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center>
 

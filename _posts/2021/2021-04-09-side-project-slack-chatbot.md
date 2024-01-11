@@ -186,7 +186,7 @@ AWS(amazone web service)는 많이 사용해보지 않아서 어려웠습니다.
 
 * 미리 AWS 람다에 등록한 토큰이나 사용자 정보를 추출합니다. 
 * 추출한 정보에 해당하는 깃허브 레포지토리 정보를 가져옵니다.
-* 커밋 이력이 없다면 슬랙으로 메세지를 전송합니다.
+* 커밋 이력이 없다면 슬랙으로 메시지를 전송합니다.
 
 ```java
 package io.junhyunny.chatbot;
@@ -290,7 +290,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 ## 5. Check Application
 
-이번에 개발한 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없다면 1시간 간격으로 메세지를 전달합니다. 
+이번에 개발한 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없다면 1시간 간격으로 메시지를 전달합니다. 
 
 <div align="left">
     <img src="/images/side-project-slack-chatbot-9.JPG" width="30%" class="image__border">

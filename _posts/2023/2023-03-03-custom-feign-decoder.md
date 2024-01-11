@@ -16,12 +16,12 @@ last_modified_at: 2023-03-03T23:55:00
 
 ## 0. 들어가면서
 
-최근 프로젝트에서 레거시 서버와 연결하면서 응답 메세지에 다음과 같은 문제가 있었습니다. 
+최근 프로젝트에서 레거시 서버와 연결하면서 응답 메시지에 다음과 같은 문제가 있었습니다. 
 
 * 홑따옴표(')로 묶인 키(key), 값(value)로 구성된 JSON 형식
 * 홑따옴표는 이스케이핑(escaping) 처리
 
-예를 들면 다음과 같은 메세지를 응답 받았습니다.
+예를 들면 다음과 같은 메시지를 응답 받았습니다.
 
 ```
 [{&#39;id&#39;: &#39;0001&#39;, &#39;title&#39;: &#39;hello world&#39;, &#39;content&#39;: &#39;this is post test for feign client&#39;}]
@@ -43,7 +43,7 @@ last_modified_at: 2023-03-03T23:55:00
 어플리케이션의 객체와 바이트 배열 사이의 변환이 필요한 데 이런 과정을 인코딩, 디코딩이라 합니다.
 
 * 인코딩(encoding)
-    * 메세지를 담은 객체를 바이트 배열로 변경합니다.
+    * 메시지를 담은 객체를 바이트 배열로 변경합니다.
 * 디코딩(decoding)
     * 바이트 배열을 메시지를 담은 객체로 변경합니다.
 
@@ -56,9 +56,9 @@ last_modified_at: 2023-03-03T23:55:00
 간단한 예제 코드를 구현하고, 테스트해보겠습니다. 
 디코딩 과정은 다음 과정을 거칩니다.
 
-* 메세지 언이스케이프
+* 메시지 언이스케이프
     * `[{&#39;id&#39;: &#39;0001&#39;}]` > `[{'id': '0001'}]`
-* 홑따옴표로 구성된 JSON 메세지 객체화
+* 홑따옴표로 구성된 JSON 메시지 객체화
     * `[{'id': '0001'}]` > `List<Post>`
 
 ### 2.1. build.gradle
@@ -83,8 +83,8 @@ dependencies {
 * 언이스케이핑 처리를 위한 디코더 클래스입니다.
 * `SpringDecoder` 클래스를 확장합니다.
 * `decode` 메소드 기능을 확장합니다.
-    * `IOUtils` 클래스를 통해 응답(response body)에서 메세지를 추출합니다.
-    * `StringEscapeUtils` 클래스를 통해 메세지를 언이스케이프 처리합니다. 
+    * `IOUtils` 클래스를 통해 응답(response body)에서 메시지를 추출합니다.
+    * `StringEscapeUtils` 클래스를 통해 메시지를 언이스케이프 처리합니다. 
 
 ```java
 package action.in.blog.config;
@@ -125,11 +125,11 @@ public class UnescapingHtml4Decoder extends SpringDecoder {
 
 ### 2.3. BlogClientConfig Class
 
-* 홑따옴표로 구성된 JSON 메세지를 객체로 변경할 수 있는 컨버터를 만듭니다. 
+* 홑따옴표로 구성된 JSON 메시지를 객체로 변경할 수 있는 컨버터를 만듭니다. 
 * `ObjectMapper` 객체에 `ALLOW_SINGLE_QUOTES` 설정을 추가합니다.
-* `MappingJackson2HttpMessageConverter` 메세지 컨버터(converter) 객체를 생성합니다.
-    * 메세지 컨버터 내부에서 사용하는 모듈은 `ObjectMapper` 객체입니다.
-    * 메세지 컨버터가 지원하는 메세지 포맷을 지정합니다.
+* `MappingJackson2HttpMessageConverter` 메시지 컨버터(converter) 객체를 생성합니다.
+    * 메시지 컨버터 내부에서 사용하는 모듈은 `ObjectMapper` 객체입니다.
+    * 메시지 컨버터가 지원하는 메시지 포맷을 지정합니다.
 * `ObjectFactory` 객체를 만들어 `UnescapingHtml4Decoder`에 주입합니다.
 
 ```java
@@ -188,7 +188,7 @@ public interface BlogClient {
 ### 3. Test
 
 * `WireMock`을 사용해 테스트를 수행합니다. 
-    * 이스케이핑 된 메세지를 준비하고, 특정 경로에 대한 응답으로 이를 반환합니다. 
+    * 이스케이핑 된 메시지를 준비하고, 특정 경로에 대한 응답으로 이를 반환합니다. 
 * 정상적으로 값이 매칭된 객체를 응답받는지 확인합니다.
 
 ```java

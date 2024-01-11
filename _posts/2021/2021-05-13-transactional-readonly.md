@@ -134,7 +134,7 @@ class Post {
 
 * throw_exception_when_create_in_readonly
     * `readonly`인 경우 새로운 데이터 삽입(insert)시 에러가 발생합니다.
-    * "Connection is read-only. Queries leading to data modification are not allowed" 에러 메세지를 확인합니다.
+    * "Connection is read-only. Queries leading to data modification are not allowed" 에러 메시지를 확인합니다.
 * nothing_change_when_update_in_readonly
     * `readonly`인 경우 업데이트가 이뤄지지 않습니다.
 * nothing_change_when_dirty_check_in_readonly
@@ -231,7 +231,7 @@ public class ReadOnlyAttributeTests {
 
 * 삽입 관련 쿼리가 출력됩니다. 
 * SQL Error: 0, SQLState: S1009 에러가 발생합니다.
-* "Connection is read-only. Queries leading to data modification are not allowed" 메세지가 출력됩니다.
+* "Connection is read-only. Queries leading to data modification are not allowed" 메시지가 출력됩니다.
 
 ```
 23:53:07.518 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT

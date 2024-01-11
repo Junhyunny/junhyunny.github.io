@@ -185,10 +185,10 @@ public @interface CrossOrigin {
 #### 2.1.2. CorsController 클래스
 
 * `/health` 경로는 별다른 처리 없이 노출하였습니다.
-    * "It occurs CORS policy error." 응답 메세지를 반환합니다.
+    * "It occurs CORS policy error." 응답 메시지를 반환합니다.
 * `/cors-health` 경로는 `@CrossOrigin` 애너테이션을 적용하였습니다.
     * 출처(origin)가 `http://localhost`인 경우 응답 헤더를 전달합니다.
-    * "It's okay because of @CrossOrigin annotation." 응답 메세지를 반환합니다.
+    * "It's okay because of @CrossOrigin annotation." 응답 메시지를 반환합니다.
 
 ```java
 package blog.in.action.controller;
@@ -254,7 +254,7 @@ public class WebConfig implements WebMvcConfigurer {
 #### 2.3.2. CorsController 클래스
 
 * `/health` 경로에 별다른 처리가 없습니다.
-    * "It's okay because of global CORS configuration." 응답 메세지를 반환합니다.
+    * "It's okay because of global CORS configuration." 응답 메시지를 반환합니다.
 
 ```java
 package blog.in.action.controller;
@@ -321,7 +321,7 @@ public class WebConfig {
 #### 2.3.2. CorsController 클래스
 
 * `/health` 경로에 별다른 처리가 없습니다.
-    * "It's okay because of CORS filter." 응답 메세지를 반환합니다.
+    * "It's okay because of CORS filter." 응답 메시지를 반환합니다.
 
 ```java
 package blog.in.action.controller;

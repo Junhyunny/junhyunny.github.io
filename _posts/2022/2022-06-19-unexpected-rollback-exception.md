@@ -225,7 +225,7 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 
 1. 하이버네이트 내부에서 NULL 여부를 체크하는 과정에서 `PropertyValueException` 발생
 1. `save` 메소드의 트랜잭션 AOP 로직에서 rollbackonly 마크 처리
-1. `createAccessHistories` 메소드에서 발생한 예외에 대한 에러 메세지 로깅 후 종료
+1. `createAccessHistories` 메소드에서 발생한 예외에 대한 에러 메시지 로깅 후 종료
 1. `createAccessHistories` 메소드 트랜잭션 AOP 로직의 커밋 과정에서 이미 롤백된 것을 보고 `UnexpectedRollbackException` 발생
 1. `createAccessHistories` 메소드를 호출 시 별도의 예외 처리 부재로 인한 `exception` 전파
 1. 컨트롤러의 예외 핸들러까지 `exception` 전파

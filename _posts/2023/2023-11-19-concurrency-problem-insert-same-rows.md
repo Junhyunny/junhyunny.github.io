@@ -18,7 +18,7 @@ last_modified_at: 2023-11-19T23:55:00
 
 ## 0. 들어가면서
 
-동시성 문제는 서버 개발자 커리어를 시작했던 MES(Manufacturing Execution System) 개발 및 운영할 때 처음 경험했었습니다. 크레인, 트레일러, 컨베이어 벨트에 설치된 센서들에서 밀리초(ms) 단위로 메세지를 수신하면서 트랜잭션 경합이 너무 심하게 발생했습니다. 데이터베이스 락(lock) 메커니즘을 이용한 비관적인 락(pessimistic lock) 방식이나 애플리케이션에서 제어하는 낙관적인 락(optimistic lock) 방식을 통해 데이터 정합성을 지키기 위한 코드를 많이 작성했었습니다. 
+동시성 문제는 서버 개발자 커리어를 시작했던 MES(Manufacturing Execution System) 개발 및 운영할 때 처음 경험했었습니다. 크레인, 트레일러, 컨베이어 벨트에 설치된 센서들에서 밀리초(ms) 단위로 메시지를 수신하면서 트랜잭션 경합이 너무 심하게 발생했습니다. 데이터베이스 락(lock) 메커니즘을 이용한 비관적인 락(pessimistic lock) 방식이나 애플리케이션에서 제어하는 낙관적인 락(optimistic lock) 방식을 통해 데이터 정합성을 지키기 위한 코드를 많이 작성했었습니다. 
 
 동시성 문제는 대규모 트랜잭션이 존재하는 시스템에서만 발생하는 줄 알았지만, 여러 경험을 쌓다보니 반드시 큰 시스템에서만 동시성 이슈가 발생했던 것은 아닌 것 같습니다. 최근 개발 중인 애플리케이션에서도 두 종류의 문제가 발생했었습니다. 이번 글은 첫번째 사례와 해결 방법을 조금 각색하여 정리한 내용입니다. 
 
@@ -201,7 +201,7 @@ class DefaultCollectServiceTest {
 
 ### 2.3. GlobalExceptionHandler Class
 
-DuplicatedCollectException 예외를 처리할 핸들러를 정의합니다. 프론트엔드와 프로토콜을 정의합니다. 이번 글에선 600 상태 코드와 예외 메세지를 전달합니다. 
+DuplicatedCollectException 예외를 처리할 핸들러를 정의합니다. 프론트엔드와 프로토콜을 정의합니다. 이번 글에선 600 상태 코드와 예외 메시지를 전달합니다. 
 
 ```java
 package action.in.blog.handler;
@@ -228,7 +228,7 @@ public class GlobalExceptionHandler {
 
 - CollectService 스프링 빈(bean)을 @MockBean 애너테이션을 통해 주입받습니다.
     - collect 메소드 호출 시 DuplicatedCollectException 예외를 던지는 스텁(stub)으로 만듭니다.
-- `/api/cards/A-01` 경로 호출 시 전역 예외 핸들러에서 정의한 상태 코드와 에러 메세지를 응답 받는지 확인합니다.
+- `/api/cards/A-01` 경로 호출 시 전역 예외 핸들러에서 정의한 상태 코드와 에러 메시지를 응답 받는지 확인합니다.
 
 ```java
 package action.in.blog.handler;
@@ -276,10 +276,10 @@ class GlobalExceptionHandlerTest {
 
 ## 3. Result 
 
-cURL 명령어를 통해 카드 수집 API 경로를 동시에 3회 호출합니다. 원하는 에러 코드와 메세지가 반환되는지 확인합니다. 
+cURL 명령어를 통해 카드 수집 API 경로를 동시에 3회 호출합니다. 원하는 에러 코드와 메시지가 반환되는지 확인합니다. 
 
 - 세 번의 호출 중 하나는 200, 나머지는 600 상태 코드를 응답 받습니다.
-- `Already collected card` 예외 메세지를 응답 받습니다. 
+- `Already collected card` 예외 메시지를 응답 받습니다. 
 
 ```
 $ curl -X POST -v http://localhost:8080/api/cards/card-01 &\

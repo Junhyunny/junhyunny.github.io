@@ -67,7 +67,7 @@ id_rsa  id_rsa.pub  known_hosts  known_hosts.old
     * `harbor@192.168.78.132`
     * SSH 서버 접속 ID - harbor
     * SSH 서버 호스트 IP - 192.168.78.132
-* 비밀번호를 입력하여 인증 받으면 SSH 접속을 하라는 안내 메세지를 볼 수 있습니다.
+* 비밀번호를 입력하여 인증 받으면 SSH 접속을 하라는 안내 메시지를 볼 수 있습니다.
 
 ```
 $ ssh-copy-id -i ~/.ssh/id_rsa.pub harbor@192.168.78.132

@@ -67,7 +67,7 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
 }
 ```
 
-위 메소드의 단위 테스트 코드를 실행하면 다음과 같은 에러 메세지를 볼 수 있습니다. 
+위 메소드의 단위 테스트 코드를 실행하면 다음과 같은 에러 메시지를 볼 수 있습니다. 
 
 - 스프링 시큐리티 OAuth2 클라이언트가 리소스 서버로부터 사용자 정보를 조회할 때 필요한 정보들을 읽는 과정에서 에러가 발생합니다.
 

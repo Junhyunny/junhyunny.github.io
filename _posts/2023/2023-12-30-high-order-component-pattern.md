@@ -32,7 +32,7 @@ last_modified_at: 2023-12-30T23:55:00
 위 4개의 컴포넌트 모습은 일부분만 제외하고 완전히 똑같다. IpInput 컴포넌트와 DateInput 컴포넌트를 비교해보자. 코드가 다른 부분은 다음과 같다.
 
 - 사용자가 텍스트 박스에서 포커스 아웃(focus out)하면 각자 포맷이 맞는지 검사를 수행한다.
-- 각자 다른 에러 메세지를 사용자에게 피드백한다.
+- 각자 다른 에러 메시지를 사용자에게 피드백한다.
 
 <p align="center">
   <img src="/images/with-validation-by-hoc-01.png" width="100%" class="image__border">
@@ -40,7 +40,7 @@ last_modified_at: 2023-12-30T23:55:00
 
 ## 2. High Order Component Pattern
 
-애플리케이션이 커짐에 따라 다른 정보를 추가로 입력 받게 되면 비슷한 컴포넌트들이 늘어나게 된다. 위 상황처럼 input 태그만 사용한다면 유효성 확인을 위한 콜백 함수와 에러 메세지를 프롭스(props)로 받는 컴포넌트를 만드는 것만으로 문제를 해결할 수 있다. 하지만, textarea 태그, date, time, checkbox 타입을 가진 input 태그, 외부 라이브러리 컴포넌트를 사용한다면 이에 대한 포맷 유효성 검사 코드 중복을 어떻게 줄일 수 있을까? 
+애플리케이션이 커짐에 따라 다른 정보를 추가로 입력 받게 되면 비슷한 컴포넌트들이 늘어나게 된다. 위 상황처럼 input 태그만 사용한다면 유효성 확인을 위한 콜백 함수와 에러 메시지를 프롭스(props)로 받는 컴포넌트를 만드는 것만으로 문제를 해결할 수 있다. 하지만, textarea 태그, date, time, checkbox 타입을 가진 input 태그, 외부 라이브러리 컴포넌트를 사용한다면 이에 대한 포맷 유효성 검사 코드 중복을 어떻게 줄일 수 있을까? 
 
 고차 컴포넌트 패턴을 사용하면 이 문제를 어느 정도 해결할 수 있다. 리액트 공식 홈페이지에선 다음과 같이 설명하고 있다. 
 
@@ -57,12 +57,12 @@ last_modified_at: 2023-12-30T23:55:00
 
 ### 2.1. Implement High Order Component
 
-위 문제 상황에서 횡단 관심사는 `데이터 포멧에 대한 유효성 확인`과 `에러 메세지 출력`이다. 고차 컴포넌트 패턴 정의에 따라 컴포넌트를 파라미터로 받아 새로운 컴포넌트를 반환하는 함수를 정의한다. 예전에는 클래스 타입 컴포넌트를 사용했지만, 현재는 함수형 컴포넌트를 사용하기 때문에 이를 기준으로 설명한다. 
+위 문제 상황에서 횡단 관심사는 `데이터 포멧에 대한 유효성 확인`과 `에러 메시지 출력`이다. 고차 컴포넌트 패턴 정의에 따라 컴포넌트를 파라미터로 받아 새로운 컴포넌트를 반환하는 함수를 정의한다. 예전에는 클래스 타입 컴포넌트를 사용했지만, 현재는 함수형 컴포넌트를 사용하기 때문에 이를 기준으로 설명한다. 
 
 - WrappedComponent 파라미터는 JSX.Element 타입을 반환하는 함수형 컴포넌트다.
 - 새로운 함수형 컴포넌트를 반환한다.
   - 포커스 아웃했을 때 유효성 검사하는 함수와 에러 여부 값을 기존 프롭스에 추가해 WrappedComponent 컴포넌트에게 전달한다.
-  - 프롭스로 전달 받은 에러 메세지를 WrappedComponent 컴포넌트 하단에 표시한다.
+  - 프롭스로 전달 받은 에러 메시지를 WrappedComponent 컴포넌트 하단에 표시한다.
 
 ```tsx
 import { JSX, useCallback, useState } from "react";
@@ -150,9 +150,9 @@ export const ValidationTextInput = withValidation(TextInput);
 
 ### 3.1. Refactoring Components
 
-기존 컴포넌트들에서 반복되는 코드를 없앤다. 큰 코드 변경이 있었지만, 기존 컴포넌트에 대한 테스트 코드가 있다면 문제될 것이 없다. 테스트 코드를 이 글에 포함시키지 않았지만, 예제 코드에 모두 포함되어 있으니 궁금하다면 글 아래 코드 저장소를 참고하길 바란다. 유효성 확인 함수와 에러 메세지만 다르기 때문에 IpInput 컴포넌트만 대표로 살펴본다.
+기존 컴포넌트들에서 반복되는 코드를 없앤다. 큰 코드 변경이 있었지만, 기존 컴포넌트에 대한 테스트 코드가 있다면 문제될 것이 없다. 테스트 코드를 이 글에 포함시키지 않았지만, 예제 코드에 모두 포함되어 있으니 궁금하다면 글 아래 코드 저장소를 참고하길 바란다. 유효성 확인 함수와 에러 메시지만 다르기 때문에 IpInput 컴포넌트만 대표로 살펴본다.
 
-- 유효성 확인을 위한 함수와 에러 메세지를 프롭스로 전달받는 ValidationTextInput 컴포넌트를 반환한다.
+- 유효성 확인을 위한 함수와 에러 메시지를 프롭스로 전달받는 ValidationTextInput 컴포넌트를 반환한다.
 
 ```tsx
 import { isIpAddress } from "../util/validate";
@@ -227,7 +227,7 @@ export const ValidationTextInput = withValidation(TextInput);
 export const ValidationTextArea = withValidation(TextArea);
 ```
 
-withValidation 함수를 통과한 컴포넌트들은 유효성 검사와 에러 메세지 출력이 자동으로 이뤄진다. 
+withValidation 함수를 통과한 컴포넌트들은 유효성 검사와 에러 메시지 출력이 자동으로 이뤄진다. 
 
 <p align="center">
   <img src="/images/with-validation-by-hoc-03.png" width="80%" class="image__border">

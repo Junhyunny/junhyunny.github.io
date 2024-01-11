@@ -53,7 +53,7 @@ JavaScript로 for 반복문을 작성하다보면 헷갈리는 문법이 있습�
     * 출력된 엔트리는 배열 객체입니다.
 * `object` 객체 순환
     * `Uncaught TypeError` 에러가 발생합니다.
-    * `object is not iterable` 에러 메세지가 출력됩니다.
+    * `object is not iterable` 에러 메시지가 출력됩니다.
     * 일반 객체는 `이터러블 프로토콜`을 만족하지 못하기 때문에 에러가 발생합니다.
 
 ```js

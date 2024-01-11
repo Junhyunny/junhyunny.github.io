@@ -95,7 +95,7 @@ public class DatabaseReplaceTests {
 
 ##### 테스트 결과 - 실패
 
-- `HELLO` 스키마를 찾을 수 없다는 에러 메세지가 확인됩니다.
+- `HELLO` 스키마를 찾을 수 없다는 에러 메시지가 확인됩니다.
     - Schema "HELLO" not found
 
 <p align="center">

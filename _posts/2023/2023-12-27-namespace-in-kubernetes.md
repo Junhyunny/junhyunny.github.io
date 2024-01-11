@@ -405,7 +405,7 @@ spec:
 
 foo-pod 파드는 클러스터 외부에서 호출할 수 있어야 하므로 NodePort 타입으로 지정한다. 
 
-파드 스펙에 리소스 제약이 정의된 것을 볼 수 있다. foo-ns 네임스페이스는 리소스 제한이 설정되어 있기 때문에 내부에 배포될 파드들도 리소스 요청 정보가 필요하다. 리소스 요청 정보가 없는 경우 다음과 같은 에러 메세지를 볼 수 있다. 
+파드 스펙에 리소스 제약이 정의된 것을 볼 수 있다. foo-ns 네임스페이스는 리소스 제한이 설정되어 있기 때문에 내부에 배포될 파드들도 리소스 요청 정보가 필요하다. 리소스 요청 정보가 없는 경우 다음과 같은 에러 메시지를 볼 수 있다. 
 
 ```
 Error from server (Forbidden): error when creating "pod-foo-definition.yml": pods "foo-pod" is forbidden: failed quota: compute-quota-foo: must specify limits.cpu for: foo-pod; limits.memory for: foo-pod; requests.cpu for: foo-pod; requests.memory for: foo-pod

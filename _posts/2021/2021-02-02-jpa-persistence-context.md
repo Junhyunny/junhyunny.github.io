@@ -297,7 +297,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 * 조회한 엔티티를 `detach` 메소드를 통해 준영속 상태로 만듭니다.
 * 준영속 상태 객체를 `remove` 메소드를 통해 제거 대상으로 만듭니다.
 * `IllegalArgumentException` 예외가 발생하는지 확인합니다.
-* 발생한 예외의 메세지를 로그로 확인합니다.
+* 발생한 예외의 메시지를 로그로 확인합니다.
 
 ```java
 package blog.in.action.lifecycle;
@@ -374,7 +374,7 @@ public class DetachTest {
 * 영속성 컨텍스트에서 관리되지 않는 엔티티가 `remove` 메소드에 전달됩니다.
     * 영속성 컨텍스트에 관리되지 않는 엔티티이므로 데이터베이스에 해당 엔티티가 존재하는지 확인하고자 `select` 쿼리가 수행됩니다.
     * 비영속 엔티티를 사용해도 `select` 쿼리가 동일하게 발생합니다.
-* `IllegalArgumentException` 예외가 발생하면서 다음과 같은 에러 메세지를 출력합니다. 
+* `IllegalArgumentException` 예외가 발생하면서 다음과 같은 에러 메시지를 출력합니다. 
     * Removing a detached instance blog.in.action.entity.Member#010-1234-1234
 
 ```

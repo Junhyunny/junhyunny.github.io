@@ -18,10 +18,10 @@ last_modified_at: 2023-02-06T23:55:00
 현재 진행 중인 프로젝트의 특정 비즈니스에서 데이터를 저장할 수 있는 큐(queue)가 필요했습니다. 
 다음과 같은 옵션이 있었습니다. 
 
-* `Transactional Outbox Pattern`처럼 데이터베이스를 메세지 큐로 사용
-* 사용자 세션(session)을 관리하는 레디스(redis)를 메세지 큐로 사용
+* `Transactional Outbox Pattern`처럼 데이터베이스를 메시지 큐로 사용
+* 사용자 세션(session)을 관리하는 레디스(redis)를 메시지 큐로 사용
 
-데이터 크기가 작고, 엄격한 트랜잭션 관리가 필요 없기 때문에 레디스를 메세지 큐로 사용해보려고 합니다. 
+데이터 크기가 작고, 엄격한 트랜잭션 관리가 필요 없기 때문에 레디스를 메시지 큐로 사용해보려고 합니다. 
 이번 포스트는 간단한 시나리오를 토대로 레디스의 자료 구조 중 하나인 리스트(list)를 큐로 사용하는 예제를 다뤘습니다. 
  
 ## 1. Practice
@@ -32,13 +32,13 @@ last_modified_at: 2023-02-06T23:55:00
 
 * 사용자는 서비스를 통해 다른 사용자를 초대(inviation)할 수 있습니다.
     * `/invitation` 경로
-    * 초대 이벤트가 발생하면 초대받은 사람에게 메세지가 전송됩니다.
+    * 초대 이벤트가 발생하면 초대받은 사람에게 메시지가 전송됩니다.
 * 사용자는 자신이 다른 사용자를 초대했던 내용을 취소할 수 있습니다.
     * `/invitation/cancel` 경로
-    * 초대 이벤트가 발생하면 초대받은 사람에게 메세지가 전송됩니다.
-* 사용자는 자신 앞으로 전송된 메세지를 볼 수 있습니다.
+    * 초대 이벤트가 발생하면 초대받은 사람에게 메시지가 전송됩니다.
+* 사용자는 자신 앞으로 전송된 메시지를 볼 수 있습니다.
     * `/user/messages/{userId}` 경로
-    * 읽은 메세지들은 삭제됩니다.
+    * 읽은 메시지들은 삭제됩니다.
 * 사용자 역할은 터미널의 `cURL` 명령어로 대체하였습니다.
 
 <p align="center">
@@ -201,9 +201,9 @@ public class RedisTemplateConfig {
 ### 2.2. InvitationController Class
 
 * `/invitation` 경로
-    * 초대 요청을 받으면 해당 이벤트 메세지를 `InvitationEventClient`를 통해 전달합니다. 
+    * 초대 요청을 받으면 해당 이벤트 메시지를 `InvitationEventClient`를 통해 전달합니다. 
 * `/invitation/cancel` 경로
-    * 초대 취소 요청을 받으면 해당 이벤트 메세지를 `InvitationEventClient`를 통해 전달합니다. 
+    * 초대 취소 요청을 받으면 해당 이벤트 메시지를 `InvitationEventClient`를 통해 전달합니다. 
 
 ```java
 package action.in.blog.controller;
@@ -262,12 +262,12 @@ public class Invitation {
 초대 이벤트를 전달하는 클라이언트 클래스를 살펴보겠습니다.
 
 * `pushInvitationMessage` 메소드
-    * 초대자, 초대 상태 정보를 메세지에 담습니다.
-    * `RedisTemplate`을 통해 초대 메세지를 전달합니다.
+    * 초대자, 초대 상태 정보를 메시지에 담습니다.
+    * `RedisTemplate`을 통해 초대 메시지를 전달합니다.
     * 키 값은 채널명과 초대받는 사람 정보를 조합합니다.
 * `pushInvitationCancelMessage` 메소드
-    * 초대자, 초대 취소 상태 정보를 메세지에 담습니다.
-    * `RedisTemplate`을 통해 초대 메세지를 전달합니다.
+    * 초대자, 초대 취소 상태 정보를 메시지에 담습니다.
+    * `RedisTemplate`을 통해 초대 메시지를 전달합니다.
     * 키 값은 채널명과 초대받는 사람 정보를 조합합니다.
 
 ```java
@@ -311,7 +311,7 @@ public class RedisInvitationEventClient implements InvitationEventClient {
 
 #### 2.3.1. InvitationMessage Class
 
-초대 메세지(invitation message)에는 초대자, 초대 상태 정보가 존재합니다.
+초대 메시지(invitation message)에는 초대자, 초대 상태 정보가 존재합니다.
 
 ```java
 package action.in.blog.domain;
@@ -351,7 +351,7 @@ public enum QueueChannel {
 
 ### 2.4. UserController Class
 
-사용자는 ID를 사용해 자신에게 전달된 메세지를 볼 수 있습니다. 
+사용자는 ID를 사용해 자신에게 전달된 메시지를 볼 수 있습니다. 
 
 ```java
 package action.in.blog.controller;
@@ -380,8 +380,8 @@ public class UserController {
 
 ### 2.4. RedisUserMessageProxy Class
 
-* `ID`에 해당하는 메세지를 수신합니다.
-* 메세지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메소드를 사용합니다.
+* `ID`에 해당하는 메시지를 수신합니다.
+* 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메소드를 사용합니다.
 
 ```java
 package action.in.blog.proxy;
@@ -495,7 +495,7 @@ $ curl -X POST\
 
 ##### Test Result
 
-메세지 조회 명령어를 수행합니다. 
+메시지 조회 명령어를 수행합니다. 
 2회 수행하면 빈 리스트가 오는 것을 확인할 수 있습니다. 
 
 ```

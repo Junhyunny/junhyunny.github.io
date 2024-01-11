@@ -44,7 +44,7 @@ API 라우팅(routing) 기능을 이용해 다음과 같은 서비스가 가능�
 
 * 로드 밸런싱(load balancing)
 * 서비스 및 클라이언트 별 엔드포인트 라우팅
-* 메세지 혹은 헤더 기반 라우팅
+* 메시지 혹은 헤더 기반 라우팅
 
 ### 1.3. 공통 로직 수행
 
@@ -61,9 +61,9 @@ API 게이트웨이 특성상 모든 API 서버 앞 쪽에 위치하며, 모든 
 API 게이트웨이는 다음과 같은 중재 기능을 수행합니다. 
 서비스가 제공하는 API 형태가 클라이언트가 원하는 형태와 다를 때 이 기능을 수행합니다. 
 
-* 메세지 포맷 변환(message format transformation)
+* 메시지 포맷 변환(message format transformation)
 * 프로토콜 변환
-* 메세지 호출 패턴 변환(message exchange pattern), 동기식 / 비동기식 호출 패턴을 변환
+* 메시지 호출 패턴 변환(message exchange pattern), 동기식 / 비동기식 호출 패턴을 변환
 * 어그리게이션(aggregation), 여러 개의 API를 묶어서 하나의 API로 병합
 
 ### 1.5. 로깅(Logging)

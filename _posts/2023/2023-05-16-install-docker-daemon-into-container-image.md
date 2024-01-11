@@ -25,7 +25,7 @@ last_modified_at: 2023-05-16T23:55:00
 쿠버네티스 파드에서 사용한 메이븐(maven) 이미지 내부엔 도커(docker)가 없기 때문에 테스트 컨테이너가 실행될 수 없었습니다. 
 테스트 컨테이너가 적용된 어플리케이션을 메이븐 이미지 위에서 테스트하면 다음과 같은 에러를 만납니다.
 
-* 이미지 내부에 도커가 없어서 실행할 수 없다는 에러 메세지
+* 이미지 내부에 도커가 없어서 실행할 수 없다는 에러 메시지
     * UnixSocketClientProviderStrategy: failed with exception InvalidConfigurationException (Could not find unix domain socket)
     * Root cause NoSuchFileException (/var/run/docker.sock)As no valid configuration was found, execution cannot continue.
 
@@ -85,7 +85,7 @@ java.lang.IllegalStateException: Could not find a valid Docker environment. Plea
 
 ### 2.2. Install init
 
-`systemd`를 설치한 이미지에서 도커 데몬을 실행하면 다음과 같은 에러 메세지를 마주칩니다.
+`systemd`를 설치한 이미지에서 도커 데몬을 실행하면 다음과 같은 에러 메시지를 마주칩니다.
 
 ```
 2023-05-16 10:23:56 System has not been booted with systemd as init system (PID 1). Can't operate.

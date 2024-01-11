@@ -96,7 +96,7 @@ XML 파일에 정의된 규칙대로 코드 스타일을 강제할 수 있습니
 
 `maven-checkstyle-plugin` 플러그인을 추가합니다. 
 플러그인에 적합한 버전의 `checkstyle` 의존성을 함께 정의합니다. 
-`LITERAL_SWITCH` 토큰을 지원하지 않는다는 에러 메세지를 만나면 버전 `10.9.0` 이상을 사용합니다.
+`LITERAL_SWITCH` 토큰을 지원하지 않는다는 에러 메시지를 만나면 버전 `10.9.0` 이상을 사용합니다.
 
 ```
 Token "LITERAL_SWITCH" was not found in Acceptable tokens list in check com.puppycrawl.tools.checkstyle.checks.blocks.RightCurlyCheck
@@ -266,7 +266,7 @@ public class ActionInBlogApplication {
 
 ##### Run Package Phase with Checkstyle Goal
 
-* 코드 블럭에 관련된 경고 메세지와 함께 골 실행이 실패하는 것을 볼 수 있습니다.
+* 코드 블럭에 관련된 경고 메시지와 함께 골 실행이 실패하는 것을 볼 수 있습니다.
 
 ```
 $ mvn checkstyle:check package

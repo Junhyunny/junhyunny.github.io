@@ -78,9 +78,9 @@ public class StaticMethodServiceTests {
     Mockito.when(LocalDate.now()).thenReturn(onApril);
 ```
 
-##### 에러 메세지
+##### 에러 메시지
 
-- 위 코드를 실행시키면 `mock` 객체의 메소드를 `when` 메소드에 전달하라는 에러 메세지를 받습니다.
+- 위 코드를 실행시키면 `mock` 객체의 메소드를 `when` 메소드에 전달하라는 에러 메시지를 받습니다.
 - `LocalDate` 클래스 자체는 `mock` 객체가 될 수 없습니다.
 
 ```
@@ -101,7 +101,7 @@ Also, this error might show up because:
 `Mockito` 클래스를 보면 static 메소드 테스트와 연관있어 보이는 `mockStatic` 메소드가 존재합니다. 
 해당 메소드를 실행시키면 다음과 같은 에러가 발생합니다.
 
-##### mockStatic 메소드 호출 시 에러 메세지
+##### mockStatic 메소드 호출 시 에러 메시지
 
 - `mockito-inline` 아티팩트(artifact)로 변경하면 테스트가 가능할 것 같습니다.
 
@@ -222,7 +222,7 @@ public class StaticMethodServiceTests {
   <img src="/images/how-to-stub-java-static-method-2.JPG" width="45%" class="image__border">
 </p>
 
-##### 에러 메세지
+##### 에러 메시지
 
 ```
 org.mockito.exceptions.base.MockitoException: 

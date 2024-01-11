@@ -13,7 +13,7 @@ last_modified_at: 2023-06-30T23:55:00
 
 [HMAC 인증 필터][hmac-link]를 구현하면서 다음 에러를 만났습니다. 
 
-* 실행 후 런타임에서 발생하는 에러 메세지
+* 실행 후 런타임에서 발생하는 에러 메시지
 
 ```
 java.lang.IllegalStateException: getReader() has already been called for this request
@@ -25,7 +25,7 @@ java.lang.IllegalStateException: getReader() has already been called for this re
     ... 
 ```
 
-* 테스트 실행 시 발생하는 에러 메세지
+* 테스트 실행 시 발생하는 에러 메시지
 
 ```
 Request processing failed: java.lang.IllegalStateException: Cannot call getInputStream() after getReader() has already been called for the current request
@@ -73,9 +73,9 @@ public class HmacFilter extends OncePerRequestFilter {
 
 getReader() 메소드를 호출하지 않게 우회하더라도 문제가 발생합니다. 
 
-* InputStream 객체는 메세지를 읽을 때 인덱스를 사용해 바이트 배열의 읽은 위치를 지나가기 때문에 다시 읽지 못 합니다.
-* 요청 객체에 담긴 메세지가 필터에서 소비되어 컨트롤러 영역까지 전달되지 못합니다.
-    * 요청 핸들러(request handler)에서 메세지가 누락되었다는 예외를 발생시킵니다.
+* InputStream 객체는 메시지를 읽을 때 인덱스를 사용해 바이트 배열의 읽은 위치를 지나가기 때문에 다시 읽지 못 합니다.
+* 요청 객체에 담긴 메시지가 필터에서 소비되어 컨트롤러 영역까지 전달되지 못합니다.
+    * 요청 핸들러(request handler)에서 메시지가 누락되었다는 예외를 발생시킵니다.
 
 ```java
 @Component
@@ -109,7 +109,7 @@ public class HmacFilter extends OncePerRequestFilter {
 }
 ```
 
-* 요청 메세지를 필터에서 소비하기 때문에 서블릿 컨테이너에서 메세지를 보내지 않았다는 `bad request(400)`가 발생합니다.
+* 요청 메시지를 필터에서 소비하기 때문에 서블릿 컨테이너에서 메시지를 보내지 않았다는 `bad request(400)`가 발생합니다.
 
 ```
 $ ccurl -X POST http://localhost:8080/todos\
@@ -177,7 +177,7 @@ Actual   :400
 
 문제 해결을 위해 HttpServletRequestWrapper 클래스를 상속 받은 요청 클래스를 생성합니다. 
 
-* 객체 생성시 메세지 인코딩 방법과 InputStream 객체에 저장된 원장(origin) 데이터를 필드에 저장합니다.
+* 객체 생성시 메시지 인코딩 방법과 InputStream 객체에 저장된 원장(origin) 데이터를 필드에 저장합니다.
 * 클라이언트(client)가 InputStream 객체나 Reader 객체를 요청하면 원장 데이터를 담은 객체를 전달합니다.
 
 ```java
@@ -250,7 +250,7 @@ public class RepeatableReadRequest extends HttpServletRequestWrapper {
 위 요청 객체를 래핑할 수 있는 클래스를 필터에서 사용합니다. 
 
 * 요청 객체를 위에서 생성한 RepeatableReadRequest 클래스로 감쌉니다.
-* 래핑된 객체를 사용해 메세지를 추출합니다.
+* 래핑된 객체를 사용해 메시지를 추출합니다.
 * 래핑된 객체를 필터 체인(filter chain)에 전달합니다. 
 
 ```java
@@ -287,7 +287,7 @@ public class HmacFilter extends OncePerRequestFilter {
 
 ##### Result
 
-위 방법으로 해당 문제를 해결하면 정상적으로 요청 메세지가 전달됩니다.
+위 방법으로 해당 문제를 해결하면 정상적으로 요청 메시지가 전달됩니다.
 
 ```
 $ curl -X POST http://localhost:8080/todos\

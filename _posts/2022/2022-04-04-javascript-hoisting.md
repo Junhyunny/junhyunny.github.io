@@ -57,7 +57,7 @@ last_modified_at: 2022-04-04T23:55:00
 
 ##### 작성한 코드
 - `"hello"` 문자열이 출력됩니다.
-- `ReferenceError: bar is not defined` 에러 메세지가 출력됩니다.
+- `ReferenceError: bar is not defined` 에러 메시지가 출력됩니다.
 - 전역 코드 동작
     - 함수 `foo`를 선언하기 전에 `foo()`로 함수를 호출합니다.
     - 함수 선언이 나중에 되었음에도 함수 호출에 에러가 발생하지 않습니다.
@@ -66,7 +66,7 @@ last_modified_at: 2022-04-04T23:55:00
     - 변수 `bar`를 `if` 블럭 내부에서 선언하고, `print` 함수에서 사용합니다.
     - 변수 `bar`는 함수 내부에선 사용이 가능하지만, 변수를 선언한 함수 외부에선 사용이 불가능합니다.
     - `print` 함수를 호출하는 시점에 `JavaScript` 엔진은 `if` 블럭 내부에 선언한 `bar` 변수를 인지하고 있습니다.
-- 전역에 위치한 `print(bar)` 코드가 실행되면 `ReferenceError: bar is not defined` 에러 메세지를 출력합니다.
+- 전역에 위치한 `print(bar)` 코드가 실행되면 `ReferenceError: bar is not defined` 에러 메시지를 출력합니다.
 - 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있습니다.
 
 {% include codepen.html hash="NWXXgQK" tab="js,result" title="var keyword before hoisting - 2" %}

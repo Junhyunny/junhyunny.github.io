@@ -89,7 +89,7 @@ var
 
 * 컨테이너를 실행할 때 `Hello World` 문자열을 출력하는 명령어를 파라미터로 추가합니다.
 * `ls` 명령문의 파라미터로 전달됩니다.
-* `ls` 명령문이 `echo`, `Hello World` 파일이나 디렉토리에 접근할 수 없다는 에러 메세지가 출력됩니다.
+* `ls` 명령문이 `echo`, `Hello World` 파일이나 디렉토리에 접근할 수 없다는 에러 메시지가 출력됩니다.
 
 ```
 $ docker run --name entry-point ubuntu:entry-point echo "Hello World"

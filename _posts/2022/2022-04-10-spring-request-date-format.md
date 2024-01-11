@@ -19,11 +19,11 @@ last_modified_at: 2022-04-10T23:55:00
 
 ## 1. @JsonFormat 애너테이션 사용
 
-스프링 프레임워크는 `application/json` 타입의 요청, 응답 메세지를 만들기 위해 기본적으로 `jackson` 라이브러리를 사용합니다. 
+스프링 프레임워크는 `application/json` 타입의 요청, 응답 메시지를 만들기 위해 기본적으로 `jackson` 라이브러리를 사용합니다. 
 `@JsonFormat` 애너테이션은 `jackson` 라이브러리 기능이며, 해당 애너테이션을 사용하면 날짜 데이터를 특정 포맷으로 변경할 수 있습니다. 
 
 다음과 같은 상황에 적용할 수 있습니다. 
-- `Content-type`이 `application/json`이며 요청 메세지 클래스 앞에 `@RequestBody` 애너테이션이 붙은 경우
+- `Content-type`이 `application/json`이며 요청 메시지 클래스 앞에 `@RequestBody` 애너테이션이 붙은 경우
 - `@RestController` 애너테이션이 붙은 컨트롤러의 응답을 처리하는 경우
 
 ##### Spring Framework Json Formatting
@@ -39,7 +39,7 @@ last_modified_at: 2022-04-10T23:55:00
 ### 1.1. 구현 코드
 
 - `JacksonRequest` 클래스
-    - `@RequestBody` 애너테이션이 붙어서 요청 메세지를 해당 클래스를 통해 전달받습니다. 
+    - `@RequestBody` 애너테이션이 붙어서 요청 메시지를 해당 클래스를 통해 전달받습니다. 
     - `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷을 `java.util.Date` 클래스로 전달받습니다.
     - `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷을 `java.sql.Timestamp` 클래스로 전달받습니다.
     - `"yyyy-MM-dd HH:mm:ss.SSS"` 문자열 날짜 포맷을 `java.time.LocalDateTime` 클래스로 전달받습니다.
@@ -109,9 +109,9 @@ public class JacksonController {
 ### 1.2. 테스트 코드
 
 - `Content-Type`을 `application/json`.
-- 요청 메세지 데이터를 `ObjectMapper` 객체를 이용해 `json` 문자열 값으로 변경합니다.
+- 요청 메시지 데이터를 `ObjectMapper` 객체를 이용해 `json` 문자열 값으로 변경합니다.
     - 날짜, 시간을 `"yyyy-MM-dd HH:mm:ss.SSS"` 형태의 문자열로 전달합니다.
-- 응답 메세지에 `"yyyy-MM-dd HH:mm:ss.SSS"` 형태의 문자열로 전달했던 데이터가 그대로 반환되었는지 확인합니다.
+- 응답 메시지에 `"yyyy-MM-dd HH:mm:ss.SSS"` 형태의 문자열로 전달했던 데이터가 그대로 반환되었는지 확인합니다.
 
 ```java
 package action.in.blog.controller;
@@ -176,13 +176,13 @@ public class JacksonControllerTests {
 
 다음과 같은 상황에 적용할 수 있습니다. 
 - URL 뒤에 붙는 질의(query)에 날짜 형태의 문자열을 전달받는 경우
-- 요청 메세지 클래스에 `@ModelAttribute` 애너테이션이 붙은 경우
-    - 컨트롤러에서 별도 애너테이션 없이 클래스로 요청 메세지를 받는 경우 `@ModelAttribute` 애너테이션이 붙은 것과 동일합니다.
-    - `Content-Type: application/x-www-form-urlencoded`인 경우 요청 메세지에 `@ModelAttribute` 애너테이션을 붙여 처리합니다.
+- 요청 메시지 클래스에 `@ModelAttribute` 애너테이션이 붙은 경우
+    - 컨트롤러에서 별도 애너테이션 없이 클래스로 요청 메시지를 받는 경우 `@ModelAttribute` 애너테이션이 붙은 것과 동일합니다.
+    - `Content-Type: application/x-www-form-urlencoded`인 경우 요청 메시지에 `@ModelAttribute` 애너테이션을 붙여 처리합니다.
 
 ##### Spring Framework DateTimeFormat 
 - `URL`에 붙는 key-value 형태의 질의는 `AbstractNamedValueMethodArgumentResolver` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
-- `@ModelAttribute` 애너테이션이 붙은 요청 메세지인 경우 `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
+- `@ModelAttribute` 애너테이션이 붙은 요청 메시지인 경우 `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
 
 <p align="center">
   <img src="/images/spring-request-date-format-2.JPG" width="85%" class="image__border">
@@ -195,7 +195,7 @@ public class JacksonControllerTests {
     - URL 뒤에 붙은 key-value 형태의 질의를 통해 전달받는 데이터를 처리합니다.
 - `modelAttribute` 메소드
     - URL 뒤에 붙은 key-value 형태의 질의를 통해 전달받는 데이터를 처리합니다.
-    - `form` 태그를 통해 전달받는 요청 메세지를 처리합니다. 
+    - `form` 태그를 통해 전달받는 요청 메시지를 처리합니다. 
 
 ```java
 package action.in.blog.controller;
@@ -344,7 +344,7 @@ curl -X POST "http://localhost:8080/model-attribute?date=2020-04-10%2010:25:00.0
 
 - `/model-attribute` 경로로 요청을 보냅니다. 
 - `Content-type: x-www-form-urlencoded`으로 지정합니다.
-- 요청 메세지를 key-value 형태로 전달합니다.
+- 요청 메시지를 key-value 형태로 전달합니다.
 
 ```
 curl -X POST -H "Content-type: application/x-www-form-urlencoded" -d "date=2022-04-10+10:25:00.000&localDateTime=2022-04-10+10:25:00.000"  "http://localhost:8080/model-attribute" | jq .

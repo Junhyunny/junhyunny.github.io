@@ -201,7 +201,7 @@ Hibernate: drop table if exists file_entity cascade
 ### 2.2. Running with PostgreSQL Database
 
 개발 환경에 어플리케이션을 배포 후 해당 기능을 동작시키면 에러가 발생합니다. 
-테스트 컨테이너(test container)를 적용해 개발 환경과 동일한 데이터베이스를 사용한 테스트 코드를 실행하면 동일한 에러 메세지를 확인할 수 있습니다. 
+테스트 컨테이너(test container)를 적용해 개발 환경과 동일한 데이터베이스를 사용한 테스트 코드를 실행하면 동일한 에러 메시지를 확인할 수 있습니다. 
 
 ```kotlin
 package action.`in`.blog.repository

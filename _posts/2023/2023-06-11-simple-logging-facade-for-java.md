@@ -97,7 +97,7 @@ last_modified_at: 2023-06-11T23:55:00
     * ch.qos.logback:logback-core:1.4.7
     * ch.qos.logback:logback-classic:1.4.7
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'

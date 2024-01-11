@@ -118,7 +118,7 @@ last_modified_at: 2024-04-12T23:55:00
 * 테스트에 사용할 데이터베이스는 MySQL이므로 관련된 의존성을 추가합니다.
     * mysql:mysql-connector-java:8.0.32
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.5'

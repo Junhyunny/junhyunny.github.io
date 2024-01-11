@@ -161,7 +161,7 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
 
 * 네이티브 이미지를 생성할 수 있는 작업(task)들을 사용하기 위해 `org.graalvm.buildtools.native` 플러그인을 추가합니다.
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.3'

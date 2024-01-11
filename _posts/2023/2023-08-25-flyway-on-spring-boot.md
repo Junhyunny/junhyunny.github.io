@@ -71,7 +71,7 @@ last_modified_at: 2023-08-25T23:55:00
 
 가독성을 위해 주석으로 관련 의존성들을 설명합니다.
 
-```gradle
+```groovy
 buildscript {
     dependencies {
         // 그래이들 태스크에서 데이터베이스 접속하기 위한 의존성

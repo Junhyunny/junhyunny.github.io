@@ -163,7 +163,7 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
     * spring-boot-starter-security
     * spring-boot-starter-oauth2-client
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.4'

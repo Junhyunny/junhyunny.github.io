@@ -172,7 +172,7 @@ HTTP 메소드를 다음과 같은 애너테이션들을 통해 지원합니다.
 * spring-boot-starter-webflux 의존성이 필요합니다.
     * `WebClient`를 사용하기 때문에 리액티브 관련 의존성을 추가합니다.
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.3'

@@ -76,7 +76,7 @@ last_modified_at: 2023-11-15T23:55:00
 - spring-boot-starter-oauth2-client
     - OAuth2 프로토콜 클라이언트 서비스 지원
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.5'

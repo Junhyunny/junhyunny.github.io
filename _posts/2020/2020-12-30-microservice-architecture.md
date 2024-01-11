@@ -43,7 +43,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 ### 3.1. Single Purpose
 
-> **Do one thing, and do it well.**
+> Do one thing, and do it well.
 
 마이크로 서비스는 단일 역량을 담당한다. 서비스 하나에 책임도 하나다. 이는 비즈니스와 관련될 수도 있고 제 3자(third party)와의 연계 같은 공유 기술 역량일 수도 있다. 이런 특징은 마이크로 서비스의 높은 응집도(high cohesion)로 이어진다.
 

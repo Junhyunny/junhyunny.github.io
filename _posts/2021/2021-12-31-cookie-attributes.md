@@ -290,7 +290,7 @@ public class CookieController {
 </html>
 ```
 
-##### 브라우저 페이지 로딩시 alert 메세지
+##### 브라우저 페이지 로딩시 alert 메시지
 
 <p align="left"><img src="/images/cookie-attributes-5.JPG" width="45%" class="image__border"></p>
 

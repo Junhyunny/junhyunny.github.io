@@ -34,14 +34,14 @@ last_modified_at: 2023-06-12T23:55:00
     <img src="/images/logback-in-spring-boot-1.JPG" width="60%" class="image__border">
 </p>
 
-아래 주요 세 개 클래스들은 함께 동작하면서 개발자들이 결정한 로그 타입, 레벨, 메세지 포맷 등에 맞게 로그를 출력합니다.
+아래 주요 세 개 클래스들은 함께 동작하면서 개발자들이 결정한 로그 타입, 레벨, 메시지 포맷 등에 맞게 로그를 출력합니다.
 
 * Logger
     * logback-classic 모듈에 속합니다.
     * 로깅 이벤트를 캡처하여 어펜더(Appender)에게 전달합니다.
 * Appender
     * logback-core 모듈에 속합니다.
-    * 로그를 어디에 기록할지 결정하며 포멧에 맞는 메세지 생성은 레이아웃(Layout)에게 의존합니다.
+    * 로그를 어디에 기록할지 결정하며 포멧에 맞는 메시지 생성은 레이아웃(Layout)에게 의존합니다.
     * ConsoleAppender, OutputStreamAppender, FileAppender, RollingFileAppender, SocketAppender, SSLSocketAppender, SMTPAppender, DBAppender, SyslogAppender, SiftingAppender, AsyncAppender 등 다양한 어펜더들을 제공합니다.
     * <https://logback.qos.ch/manual/appenders.html>
 * Layout
@@ -62,7 +62,7 @@ last_modified_at: 2023-06-12T23:55:00
     * 예상하지 못한 문제나 예외 등을 출력합니다.
     * 중요도 1위입니다.
 * WARN 
-    * 잠재적으로 위험할 수 있는 상황을 나타내는 메세지입니다.
+    * 잠재적으로 위험할 수 있는 상황을 나타내는 메시지입니다.
     * 예상 가능한 예외 처리 등을 출력합니다.
     * 중요도 2위입니다.
 * INFO 

@@ -24,10 +24,10 @@ last_modified_at: 2023-06-15T23:55:00
 1. 웹 서비스 제공자(provider)는 자신이 제공하는 API를 WSDL 문서로 만들어 UDDI 서버에 배포합니다.
 1. 웹 서비스 소비자(consumer)는 자신이 필요한 WSDL 문서를 UDDI 서버에서 탐색합니다.
 1. 소비자는 WSDL 문서를 파싱하여 요청에 필요한 정보를 생성합니다.
-1. 소비자는 생성한 정보를 기준으로 `SOAP` 메세지 형식에 맞는 요청 정보를 만듭니다.
-1. 소비자는 HTTP를 통해 `SOAP` 메세지를 제공자에게 전달합니다.
-1. 제공자는 `SOAP` 메세지 요청을 받고 필요한 처리를 수행합니다.
-1. 제공자는 처리가 완료되면 HTTP를 통해 소비자에게 `SOAP` 메세지 응답을 전달합니다. 
+1. 소비자는 생성한 정보를 기준으로 `SOAP` 메시지 형식에 맞는 요청 정보를 만듭니다.
+1. 소비자는 HTTP를 통해 `SOAP` 메시지를 제공자에게 전달합니다.
+1. 제공자는 `SOAP` 메시지 요청을 받고 필요한 처리를 수행합니다.
+1. 제공자는 처리가 완료되면 HTTP를 통해 소비자에게 `SOAP` 메시지 응답을 전달합니다. 
 
 <p align="center">
     <img src="/images/soap-communication-example-using-spring-1.JPG" width="80%" class="image__border image__padding">
@@ -36,7 +36,7 @@ last_modified_at: 2023-06-15T23:55:00
 
 ## 1. Background
 
-웹 서비스의 메세지 프로토콜인 `SOAP`을 사용해 두 개의 서비스가 통신하는 예제를 살펴보겠습니다. 
+웹 서비스의 메시지 프로토콜인 `SOAP`을 사용해 두 개의 서비스가 통신하는 예제를 살펴보겠습니다. 
 다음과 같은 백그라운(background)로 인해 실습은 위에서 설명한 웹 서비스와 다른 흐름을 가집니다.
 
 * IBM, Microsoft, SAP에서 제공하는 공용 UDDI 서비스가 2007년에 종료되었습니다.
@@ -75,7 +75,7 @@ last_modified_at: 2023-06-15T23:55:00
     * 해당 의존성은 서비스 제공자만 필요합니다.
 * XML 문서를 Java 클래스나 객체(instance)로 변환하는 JAXB 모듈이 추가합니다.
     * XML 문서를 JAVA 클래스나 객체로 변환하는 작업을 OXM(Object XML Mapping)이라고 합니다.
-    * 객체와 `SOAP` 메세지 사이의 변환을 처리합니다.
+    * 객체와 `SOAP` 메시지 사이의 변환을 처리합니다.
     * 서비스 소비자에서는 WSDL 문서를 기반으로 Java 클래스 파일을 생성합니다.
 
 <p align="center">
@@ -599,9 +599,9 @@ BUILD SUCCESSFUL in 1s
 
 ### 4.3. SoapConfig Class
 
-`SOAP` 메세지와 Java 객체 사이의 변환을 도와주는 마샬러(marshaller)를 정의합니다. 
+`SOAP` 메시지와 Java 객체 사이의 변환을 도와주는 마샬러(marshaller)를 정의합니다. 
 
-* `SOAP` 메세지에 대한 마샬(marshall)과 언마샬(unmarshall) 작업을 수행합니다.
+* `SOAP` 메시지에 대한 마샬(marshall)과 언마샬(unmarshall) 작업을 수행합니다.
 
 ```java
 package action.in.blog.config;
@@ -630,7 +630,7 @@ WebServiceGatewaySupport 클래스를 확장(extends)하여 `SOAP` 통신을 구
 * 요청, 응답 객체는 WSDL 문서를 기반으로 생성한 클래스를 사용합니다. 
 * 서비스 제공자에게 요청을 보냅니다.
     * http://provider-service:8080/ws
-* 소비자는 정보의 위치를 제공자가 정의한 WSDL 문서의 네임스페이스와 메세지를 기준으로 정의합니다. 
+* 소비자는 정보의 위치를 제공자가 정의한 WSDL 문서의 네임스페이스와 메시지를 기준으로 정의합니다. 
     * http://blog.in.action/book/getBooksRequest
     * http://blog.in.action/author/getAuthorsRequest
 

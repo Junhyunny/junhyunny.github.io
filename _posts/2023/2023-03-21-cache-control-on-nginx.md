@@ -90,7 +90,7 @@ Cache-Control: public
 
 ## 2. Cache-Control on Nginx 
 
-`Nginx` 서버 설정을 통해 캐시 컨트롤 헤더를 특정 요청에 대한 응답 메세지에 추가할 수 있습니다. 
+`Nginx` 서버 설정을 통해 캐시 컨트롤 헤더를 특정 요청에 대한 응답 메시지에 추가할 수 있습니다. 
 
 ##### default.conf
 

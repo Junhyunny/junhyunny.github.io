@@ -47,7 +47,7 @@ last_modified_at: 2023-06-21T23:55:00
 
 * POST 요청을 수행합니다. 
 * `application/x-www-form-urlencoded` 컨텐트 타입을 소비하는 엔드-포인트(end-point)로 요청을 보냅니다.
-* Todo 객체를 요청 메세지로 사용합니다.
+* Todo 객체를 요청 메시지로 사용합니다.
 
 ```java
 package action.in.blog.client;
@@ -101,9 +101,9 @@ class Todo {
 ### 2.3. FormDataFeignTest Class
 
 [WireMock][wire-mock-for-feign-client-test-link]의 도움을 받아 요청과 응답에 대한 테스트를 수행합니다. 
-이번 테스트는 페인 클라이언트가 Todo 객체를 다른 서비스가 원하는 적절한 형식의 요청 메세지로 변환 후 전달하는지를 검증합니다. 
+이번 테스트는 페인 클라이언트가 Todo 객체를 다른 서비스가 원하는 적절한 형식의 요청 메시지로 변환 후 전달하는지를 검증합니다. 
 
-* 요청과 응답 과정에 전달되는 메세지를 확인하기 위해 페인 클라이언트의 로깅 레벨을 FULL 값으로 지정합니다.
+* 요청과 응답 과정에 전달되는 메시지를 확인하기 위해 페인 클라이언트의 로깅 레벨을 FULL 값으로 지정합니다.
 * 사용하는 로거(logger)의 로그 레벨을 DEBUG 값으로 지정합니다.
 
 ```java

@@ -23,9 +23,9 @@ last_modified_at: 2021-09-04T03:00:00
 ## 1. 시나리오 구성도
 - 브라우저가 서버에 소켓 연결을 수행합니다.
 - 두 번째 브라우저가 서버에 소켓 연결을 수행합니다.
-- 처음 연결한 브라우저에서 메세지를 전달합니다.
-- 서버는 메세지를 전달받아 자신이 관리하는 세션(session)으로 메세지를 전송합니다.
-- 두 브라우저 모두 서버로부터 전달받은 메세지를 출력합니다.
+- 처음 연결한 브라우저에서 메시지를 전달합니다.
+- 서버는 메시지를 전달받아 자신이 관리하는 세션(session)으로 메시지를 전송합니다.
+- 두 브라우저 모두 서버로부터 전달받은 메시지를 출력합니다.
 
 <p align="center"><img src="/images/web-socket-example-1.gif" width="70%"></p>
 
@@ -63,7 +63,7 @@ last_modified_at: 2021-09-04T03:00:00
 ### 2.2. WebSocketComponent 클래스
 - TextWebSocketHandler 클래스를 상속받습니다. 몇 개의 메소드를 오버라이드합니다.
 - afterConnectionEstablished 메소드 - 연결 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장합니다.
-- handleMessage 메소드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메세지를 전송합니다.
+- handleMessage 메소드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메시지를 전송합니다.
 - afterConnectionClosed 메소드 - 연결이 해제된 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제합니다.
 
 ```java
@@ -168,10 +168,10 @@ public class ChatController {
 
 ### 2.5. chat.html
 - connectSocket 함수 - SockJS 객체를 생성 후 연결에 필요한 경로를 입력합니다. `/chat`
-- onmessage 함수 - 메세지 수신 시 필요한 함수를 지정합니다.
+- onmessage 함수 - 메시지 수신 시 필요한 함수를 지정합니다.
 - onerror 함수 - 에러 발생 시 필요한 함수를 지정합니다.
 - onclose 함수 - 연결이 닫힐 시 필요한 함수를 지정합니다.
-- send 함수 - sock 객체를 이용해 메세지를 전송합니다.
+- send 함수 - sock 객체를 이용해 메시지를 전송합니다.
 
 ```html
 <!DOCTYPE html>

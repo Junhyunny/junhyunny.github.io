@@ -23,8 +23,8 @@ last_modified_at: 2023-03-22T23:55:00
 
 1. `docker run` 명령어를 통해 컨테이너를 실행합니다.
 1. `docker exec` 명령어를 통해 컨테이너 내부에 접근합니다.
-1. 컨테이너 내부에서 `vi`, `telnet` 명령어를 실행하면 찾을 수 없다는 에러 메세지를 만납니다.
-    * `command not found`라는 에러 메세지가 나옵니다.
+1. 컨테이너 내부에서 `vi`, `telnet` 명령어를 실행하면 찾을 수 없다는 에러 메시지를 만납니다.
+    * `command not found`라는 에러 메시지가 나옵니다.
 
 <p align="center">
     <img src="/images/build-docker-image-with-nonexistent-commands-1.gif" width="100%" class="image__border">
@@ -44,7 +44,7 @@ last_modified_at: 2023-03-22T23:55:00
 * 네트워크가 연결된 외부망에서 작업합니다.
 * 원본 이미지 위에 필요한 명령어를 설치하는 지시문을 추가합니다.
 * 도커 이미지를 빌드하면서 지시문을 실행할 때 권한 문제가 발생합니다.
-    * `Acquire (13: Permission denied)`라는 메세지가 나옵니다.
+    * `Acquire (13: Permission denied)`라는 메시지가 나옵니다.
     * `USER root` 지시문을 통해 사용자를 `root`로 변경하여 권한 문제를 해결합니다.
 * 이미지 원본에서 사용한 운영체제에 따라 명령어가 일부 달라집니다.
     * Ubuntu 계열은 `apt-get`을 사용합니다.

@@ -20,7 +20,7 @@ last_modified_at: 2021-11-24T23:55:00
 ```vue
 <template>
     <div>
-        <p>계산된 메세지: "{ { computedMessage } }"</p>
+        <p>계산된 메시지: "{ { computedMessage } }"</p>
     </div>
 </template>
 
@@ -50,8 +50,8 @@ export default {
 ```vue
 <template>
     <div>
-        <p>계산된 메세지 with true: "{ { computedMessage(true) } }"</p>
-        <p>계산된 메세지 with false: "{ { computedMessage(false) } }"</p>
+        <p>계산된 메시지 with true: "{ { computedMessage(true) } }"</p>
+        <p>계산된 메시지 with false: "{ { computedMessage(false) } }"</p>
     </div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
 ```
 
 ##### 브라우저 에러 발생
-- `computedMessage`는 함수가 아니라는 에러 메세지를 확인할 수 있습니다.
+- `computedMessage`는 함수가 아니라는 에러 메시지를 확인할 수 있습니다.
 
 <p align="left">
     <img src="/images/vue-js-computed-with-parameter-1.JPG" width="50%" class="image__border">
@@ -103,8 +103,8 @@ computed: {
 ```vue
 <template>
     <div>
-        <p>계산된 메세지 with true: "{ { computedMessage(true) } }"</p>
-        <p>계산된 메세지 with false: "{ { computedMessage(false) } }"</p>
+        <p>계산된 메시지 with true: "{ { computedMessage(true) } }"</p>
+        <p>계산된 메시지 with false: "{ { computedMessage(false) } }"</p>
     </div>
 </template>
 

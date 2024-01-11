@@ -18,7 +18,7 @@ last_modified_at: 2022-02-01T23:55:00
 
 👉 이어서 읽기를 추천합니다.
 - [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
-- [젠킨스(Jenkins) 슬랙(Slack) 알림 메세지 전송][jenkins-slack-notification-link]
+- [젠킨스(Jenkins) 슬랙(Slack) 알림 메시지 전송][jenkins-slack-notification-link]
 
 ## 0. 들어가면서
 

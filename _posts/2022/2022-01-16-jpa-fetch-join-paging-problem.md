@@ -210,9 +210,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-#### 1.2.4. 경고 메세지 및 수행 쿼리
+#### 1.2.4. 경고 메시지 및 수행 쿼리
 
-##### 경고 메세지
+##### 경고 메시지
 - 쿼리 수행 결과를 모두 어플리케이션 메모리에 올려서 페이징 처리를 수행했다는 의미입니다.
 - OOM(Out Of Memory) 문제를 유발할 수 있으므로 치명적입니다.
 
@@ -455,7 +455,7 @@ where replies0_.post_id in (?, ?, ?, ?, ?)
 ```
 
 ### 3.2. @OneToMany 애너테이션과 @EntityGraph 애너테이션 사용
-- OOM 경고 메세지가 출력됩니다.
+- OOM 경고 메시지가 출력됩니다.
     - HHH000104: firstResult/maxResults specified with collection fetch; applying in memory!
 - 쿼리에서 limit, offset 처리를 미수행합니다.
 

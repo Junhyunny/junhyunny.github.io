@@ -19,7 +19,7 @@ last_modified_at: 2023-10-25T23:55:00
 
 ## 1. Fetch API
 
-브라우저 웹 API 중 하나인 fetch 함수를 사용하면 다운받은 이미지를 블랍(Binary Large OBject, BLOB) 인스턴스로 변형할 수 있습니다. 블랍 인스턴스만 있다면 이를 기반으로 File 인스턴스를 쉽게 생성할 수 있기 때문에 이를 사용했습니다. fetch 함수 응답 바디(response body) 인스턴스는 다음과 같은 모습으로 구성되어 있습니다. blob 함수를 통해 응답 메세지에 담긴 데이터를 블랍 인스턴스로 변경할 수 있습니다. 
+브라우저 웹 API 중 하나인 fetch 함수를 사용하면 다운받은 이미지를 블랍(Binary Large OBject, BLOB) 인스턴스로 변형할 수 있습니다. 블랍 인스턴스만 있다면 이를 기반으로 File 인스턴스를 쉽게 생성할 수 있기 때문에 이를 사용했습니다. fetch 함수 응답 바디(response body) 인스턴스는 다음과 같은 모습으로 구성되어 있습니다. blob 함수를 통해 응답 메시지에 담긴 데이터를 블랍 인스턴스로 변경할 수 있습니다. 
 
 ```ts
 interface Body {
@@ -46,7 +46,7 @@ fetch(url)
 
 ## 2. How to make test code?
 
-fetch 함수를 사용하면 테스트가 어렵습니다. 비트(Vite)로 생성한 프로젝트의 테스트 환경에서 fetch 함수를 직접 호출하면 다음과 같은 에러 메세지를 만납니다. 
+fetch 함수를 사용하면 테스트가 어렵습니다. 비트(Vite)로 생성한 프로젝트의 테스트 환경에서 fetch 함수를 직접 호출하면 다음과 같은 에러 메시지를 만납니다. 
 
 * 웹 API fetch 함수를 찾을 수 없습니다.
 
@@ -59,7 +59,7 @@ ReferenceError: fetch is not defined
     ...
 ```
 
-CRA(Create React App)로 생성한 프로젝트의 테스트 환경에서 fetch 함수를 직접 호출하면 다음과 같은 에러 메세지를 만납니다. 
+CRA(Create React App)로 생성한 프로젝트의 테스트 환경에서 fetch 함수를 직접 호출하면 다음과 같은 에러 메시지를 만납니다. 
 
 * CRA로 만든 프로젝트는 fetch 함수를 실제로 호출합니다.
 * 개발 환경에서 일반적으로 프록시(proxy)를 구성하기 실제 API 호출을 수행하면 에러가 발생합니다. 

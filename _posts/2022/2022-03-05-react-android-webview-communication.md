@@ -50,7 +50,7 @@ last_modified_at: 2022-03-05T23:55:00
 - 렌더링 중인 HTML 문서에서 호출할 수 있는 메소드를 정의합니다.
 - 호출할 수 있는 메소드에 `@JavascriptInterface` 애너테이션을 추가합니다.
 - `showToastMessage` 메소드
-    - HTML 문서에서 전달한 메세지를 토스트 기능을 통해 화면에 띄웁니다.
+    - HTML 문서에서 전달한 메시지를 토스트 기능을 통해 화면에 띄웁니다.
 - `callJavaScriptFunction` 메소드
     - 5초 뒤 `JavaScript` 코드를 이용해 커스텀 이벤트(CustomEvent)를 발행합니다.
     - 커스텀 이벤트의 이름은 `"javascriptFunction"` 입니다.
@@ -168,11 +168,11 @@ public class FirstFragment extends Fragment {
 ### 3.1. App.jsx 파일
 
 - `window` 객체에 `android` 객체가 있는 경우 함수를 호출합니다.
-    - `showToastMessage` 함수 - `"Hello Native Callback"` 메세지를 전달하여 토스트 메세지를 띄웁니다.
+    - `showToastMessage` 함수 - `"Hello Native Callback"` 메시지를 전달하여 토스트 메시지를 띄웁니다.
     - `callJavaScriptFunction` 함수 - 네이티브 앱에서 5초 뒤에 `"javascriptFunction"` 이벤트를 발행합니다. 
 - 웹 뷰에서 발행시킬 이벤트를 등록합니다. 
     - 이벤트 이름은 `"javascriptFunction"`입니다.
-    - 네이티브 앱으로부터 전달받은 내용으로 화면에 보이는 메세지를 변경합니다.
+    - 네이티브 앱으로부터 전달받은 내용으로 화면에 보이는 메시지를 변경합니다.
 
 ```jsx
 import logo from './logo.svg'

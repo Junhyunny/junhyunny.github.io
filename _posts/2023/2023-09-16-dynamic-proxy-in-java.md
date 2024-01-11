@@ -164,7 +164,7 @@ public class DefaultPostService implements PostService {
 ### 3.3. PostInvocationHandler Class
 
 * getPosts 메소드 수행시 소요되는 시간을 측정합니다.
-* 다른 메소드들은 지원하지 않는다는 메세지와 함께 예외를 던집니다. 
+* 다른 메소드들은 지원하지 않는다는 메시지와 함께 예외를 던집니다. 
 
 ```java
 package action.in.blog.handler;
@@ -297,7 +297,7 @@ class ActionInBlogTests {
 
 #### Result - invoke_createPost method
 
-* 핸들러에서 전달한 에외 메세지를 확인할 수 있습니다.
+* 핸들러에서 전달한 에외 메시지를 확인할 수 있습니다.
 
 ```
 22:48:07.321 [Test worker] ERROR action.in.blog.ActionInBlogTests -- createPost is not supported method
@@ -305,7 +305,7 @@ class ActionInBlogTests {
 
 #### Result - usingClass_throwException method
 
-* 인터페이스가 아닌 경우 예외가 발생하며 다음과 같은 메세지를 확인할 수 있습니다.
+* 인터페이스가 아닌 경우 예외가 발생하며 다음과 같은 메시지를 확인할 수 있습니다.
 
 ```
 22:48:49.054 [Test worker] ERROR action.in.blog.ActionInBlogTests -- action.in.blog.service.DefaultPostService is not an interface

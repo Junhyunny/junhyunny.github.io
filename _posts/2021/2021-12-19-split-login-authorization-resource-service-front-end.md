@@ -266,7 +266,7 @@ export default Login;
 - `render elements when rendering` 테스트
     - 화면에 필요한 요소(element)들이 화면에 잘 렌더링 되는지 확인합니다.
 - `exists error message when click submit button with empty inputs` 테스트
-    - 입력 값 없이 `Submit` 버튼을 누르는 경우 에러 메세지가 뜨는지 확인합니다. 
+    - 입력 값 없이 `Submit` 버튼을 누르는 경우 에러 메시지가 뜨는지 확인합니다. 
 - `call authenticate method with params and clear inputs when click submit button` 테스트
     - 입력 값을 넣고 `Submit` 버튼을 누르면 원하는 파라미터로 인증 요청이 되는지 확인합니다.
     - 화면에 입력한 값들이 사라지는지 확인합니다.

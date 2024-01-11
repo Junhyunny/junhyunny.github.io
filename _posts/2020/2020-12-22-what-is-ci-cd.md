@@ -56,7 +56,7 @@ CI는 이런 문제를 해결하기 위한 방법이다. 빌드, 테스트 그�
 - [도커 레지스트리(Docker registry) 설치 on EC2 인스턴스][install-docker-registry-on-ec2-link]
 - [비공개 도커 레지스트리(Private docker registry) 만들기][make-private-docker-registry-on-ec2-link]
 - [젠킨스(Jenkins) 파이프라인 서비스 배포 on EC2 인스턴스][jenkins-deploy-ec2-using-docker-link]
-- [젠킨스(Jenkins) 슬랙(Slack) 알림 메세지 전송][jenkins-slack-notification-link]
+- [젠킨스(Jenkins) 슬랙(Slack) 알림 메시지 전송][jenkins-slack-notification-link]
 
 #### REFERENCE
 

@@ -65,7 +65,7 @@ last_modified_at: 2023-03-03T23:55:00
 
 실습을 위해서 다음과 같은 의존성들이 필요합니다.
 
-```gradle
+```groovy
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'

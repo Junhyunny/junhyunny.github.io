@@ -107,7 +107,7 @@ Caused by: java.time.format.DateTimeParseException: Text '2023-02-24 11:30:25' c
 * `WireMock`를 위한 의존성을 추가합니다.
     * spring-cloud-starter-contract-stub-runner
 
-```gradle
+```groovy
 ext {
     set('springCloudVersion', "2022.0.1")
 }

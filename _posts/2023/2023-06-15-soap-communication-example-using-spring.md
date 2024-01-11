@@ -164,7 +164,7 @@ last_modified_at: 2023-06-15T23:55:00
 다음과 같은 의존성을 가집니다. 
 주석으로 필요한 설명을 대체하였습니다.
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'
@@ -497,7 +497,7 @@ WSDL 구조에 대한 설명은 [SOAP][soap-link] 포스트를 참조바랍니�
 다음과 같은 의존성을 가집니다. 
 주석으로 필요한 설명을 대체하였습니다.
 
-```gradle
+```groovy
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'

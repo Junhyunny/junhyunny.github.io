@@ -239,7 +239,7 @@ record Person(String name, String contact) {
 }
 ```
 
-컴팩트 생성자(compact constructor)를 사용하면 비공개 필드를 초기하는 것 이상의 작업을 수행할 수 있다. 컴팩트 생성자는 매개 변수를 받는 부분이 없는 형태다. 주로 유효성 확인(validation) 작업을 수행하며 불필요한 코드가 포함되는 것은 지양한다. 
+컴팩트 생성자(compact constructor)를 사용하면 비공개 필드를 초기하는 것 이상의 작업을 수행할 수 있다. 컴팩트 생성자는 매개 변수를 받는 부분이 없는 형태다. 주로 유효성 확인(validation)이나 간단한 초기화 작업을 수행한다.  
 
 ```java
 record Person(String name, String contact) {

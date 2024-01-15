@@ -1,9 +1,9 @@
 ---
-title: "MQTT"
+title: "MQTT(Message Queuing Telemetry Transport) Protocol"
 search: false
 category:
-  - post-format
-last_modified_at: 2100-01-01T23:55:00
+  - information
+last_modified_at: 2023-01-15T23:55:00
 ---
 
 <br/>
@@ -12,6 +12,44 @@ last_modified_at: 2100-01-01T23:55:00
 
 ## 0. 들어가면서
 
+공장 센서로부터 주기적으로 수집되는 데이터를 시각화하는 프로젝트에 참여하게 됐다. IoT 센서로부터 데이터를 수신하기 때문인지 IoT 프로젝트에서 많이 사용하는 MQTT(Message Queuing Telemetry Transport) 프로토콜을 사용 중이라고 했다. 개발에 들어가기 전에 기술을 더 잘 활용하기 위해 이 프로토콜에 대해 알아봤다.
+
+## 1. MQTT(Message Queuing Telemetry Transport)
+
+ISO/IEC PRF 20922 표준을 따르는 발행-구독 기반의 메세징 프로토콜이다. 관련 사이트에 요약된 내용은 이렇다.
+
+- 구독-발행 메세징 전송 프로토콜이며 TCP/IP 프로토콜을 기반으로 동작한다.
+- 가볍고 개방적이며 간단하고 쉽게 구현할 수 있다. 
+- M2M(Machine to Machine)이나 IoT(Internet of Things) 통신 같은 제약된 네트워크 환경에서 사용할 수 있다. 
+
+구독-발행 메시지 프로토콜이기 때문에 일-대-다로 메시지를 전송할 수 있으며 애플리케이션들 사이의 결합도(coupling)를 낮추는 효과를 얻을 수 있다. 브로커(broker), 발행자(publisher) 그리고 구독자(subscriber) 컴포넌트가 이 프로토콜에 참여한다.
+
+## 2. Characteristics
+
+MQTT 프로토콜은 다음과 같은 특징 때문에 IoT 데이터 전송 표준이 되었다. 
+
+- 가벼움과 효율성
+  - IoT 디바이스는 리소스가 제한된다.
+  - MQTT 제어 메시지는 2바이트 정도로 작다.
+  - MQTT 메시지 헤더도 작기 떄문에 네트워크 대역폭을 최소화 할 수 있다.
+- 확장성
+  - 전력 소비가 적은 프로토콜이므로 수많은 디바이스에 연결할 수 있다.
+- 신뢰성
+  - IoT 디바이스는 대역폭이 낮고 지연 시간이 긴 신뢰할 수 없는 셀룰러 네트워크를 통해 연결한다.
+  - QoS(Quality of Service) 정의를 통해 메시지 전송에 대한 
+- 보안
+  - 메시지를 암호화하고 OAuth, TLS1.3, 고객 관리형 인증서 및 기타 인증 프로토콜을 사용할 수 있다.
+
+## 3. QoS(Quality of Service)
+
+MQTT 프로토콜 특징 중 서비스 품질 수준(Quality of Service, QoS)은 
+
+
+
+
+
+
+
 ## CLOSING
 
 #### TEST CODE REPOSITORY
@@ -19,3 +57,7 @@ last_modified_at: 2100-01-01T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+- <https://ko.wikipedia.org/wiki/MQTT>
+- <https://www.iso.org/standard/69466.html>
+- <https://aws.amazon.com/ko/what-is/mqtt/>

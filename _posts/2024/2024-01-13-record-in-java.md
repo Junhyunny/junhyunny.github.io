@@ -18,7 +18,7 @@ last_modified_at: 2024-01-13T23:55:00
 
 > Enhance the Java programming language with records. Records provide a compact syntax for declaring classes which are transparent holders for shallowly immutable data. This is a preview language feature in JDK 14.
 
-JDK14에 처음 등장해 JDK16에 정식으로 추가됬다. 핵심은 `compact syntax`와 `immutable data`이다. 어떤 식으로 간결한 문법과 불변 데이터를 지원하는지 살펴보자. 
+JDK14에 처음 등장해 JDK16에 정식으로 추가됐다. 핵심은 `compact syntax`와 `immutable data`이다. 어떤 식으로 간결한 문법과 불변 데이터를 지원하는지 살펴보자. 
 
 ## 2. Goals and Non-Goals
 

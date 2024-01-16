@@ -1,0 +1,93 @@
+---
+title: "Implement MQTT Subscriber using Spring Boot"
+search: false
+category:
+  - spring-boot
+  - integration
+last_modified_at: 2024-01-16T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link]
+
+## 0. 들어가면서
+
+[MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link] 글에서 MQTT 프로토콜에 대해 간략하게 정리했다. 이번엔 구독자 애플리케이션을 구현하는 방법에 대해 정리했다.
+
+## 1. Scenario
+
+구독자 애플리케이션을 개발하기 전에 시스템이 어떤 식으로 구성되는지 먼저 살펴보자. 
+
+- 터미널이 발행자 역할을 수행한다.
+  - mqtt-cli 명령어를 사용해 MQTT 브로커에 메시지를 전달한다.
+- MQTT 브로커 역할을 수행할 모스키토(Mosquitto) 서버는 컨테이너로 실행한다.
+  - 전달 받은 메시지를 스프링 부트 애플리케이션에 전달한다.
+- 스프링 부트 애플리케이션이 구독자 역할을 수행한다.
+  - 브로커로부터 메시지를 수신 후 메시지를 로그로 출력한다.
+
+<p align="center">
+  <img src="/images/posts/2024/mqtt-subscriber-spring-boot-01.png" width="80%" class="image__border">
+</p>
+
+## 2. Install mqtt-cli 
+
+발행자 역할을 수행하는 CLI를 설치한다. 여러가지 설치 방법이 있지만, 필자는 홈브루(homebrew)를 사용했다. 다른 설치 방법은 아래 링크를 참고하길 바란다.
+
+- <https://hivemq.github.io/mqtt-cli/docs/installation/>
+
+```
+$ brew install hivemq/mqtt-cli/mqtt-cli
+```
+
+## 3. Setup Mosquitto Broker Container
+
+도커 컨테이너로 브로커 서버를 준비한다. MQTT 브로커 중에서 많이 사용되는 모스키토(Mosquitto)를 사용한다. 필요한 파일이 몇 개 존재한다.
+
+### 3.1. Make a password file
+
+브로커에 접속하기 위해 필요한 사용자와 비밀번호를 준비한다. mosquitto_passwd 명령어가 필요하므로 모스키토 컨테이너에 미리 설치된 명령어를 사용한다.
+
+- 호스트 현재 위치와 컨테이너 내부 temp 디렉토리를 볼륨으로 연결한다.
+- 컨테이너 내부 mosquitto_passwd 명령어를 사용해 `user` 사용자를 위한 암호 파일을 생성한다.
+- 콘솔을 통해 사용할 비밀번호를 입력한다.
+
+```
+$ docker run -it -v .:/temp eclipse-mosquitto mosquitto_passwd -c /temp/passwordfile user 
+Password: 
+Reenter password: 
+```
+
+`passwordfile` 파일이 현재 경로에 생성된 것을 확인할 수 있다.
+
+```
+$ ls -al passwordfile
+-rw-------  1 junhyunk  staff  118 Jan 16 14:03 passwordfile
+
+$ cat passwordfile
+user:$7$101$ZYIqRCDWfN2l+QRf$pjDZKazrlp9x2L3idiy/4qaWxSLV68eY1kf9h1qFmPZd0fwGlt/GieKh8qXccRjpLyzKocfaBeamvvfFVIhiRw==
+```
+
+### 3.2. Make mosquitto.config
+
+
+
+
+
+## CLOSING
+
+
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://underflow101.tistory.com/22>
+- <https://aliencoder.tistory.com/52>
+- <https://www.joinc.co.kr/w/man/12/MQTT/Tutorial>
+
+[mqtt-protocol-link]: https://junhyunny.github.io/information/mqtt-protocol/

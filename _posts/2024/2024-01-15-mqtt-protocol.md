@@ -85,9 +85,15 @@ MQTT 프로토콜은 다음과 같은 특징 때문에 IoT 데이터 전송 표�
 
 이번 글에선 MQTT 프로토콜에 관련된 내용을 살펴봤다면 다음 글은 스프링 프레임워크를 사용해 구독자 클라이언트를 구현하는 방법을 정리해볼 예정이다.
 
+#### RECOMMEND NEXT POSTS
+
+- [Implement MQTT Subscriber with Spring Boot][mqtt-subscriber-spring-boot]
+
 #### REFERENCE
 
 - <https://ko.wikipedia.org/wiki/MQTT>
 - <https://www.iso.org/standard/69466.html>
 - <https://aws.amazon.com/ko/what-is/mqtt/>
 - <https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/>
+
+[mqtt-subscriber-spring-boot]: https://junhyunny.github.io/spring-boot/integration/mqtt-subscriber-spring-boot/

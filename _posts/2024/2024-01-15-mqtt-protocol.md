@@ -52,7 +52,7 @@ MQTT 프로토콜은 다음과 같은 특징 때문에 IoT 데이터 전송 표�
   - `fire and forget` 전략이므로 발행자는 메시지를 재전송하지 않는다.
 
 <p align="center">
-    <img src="/images/posts/2024/mqtt-protocol-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/mqtt-protocol-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
 
@@ -62,7 +62,7 @@ MQTT 프로토콜은 다음과 같은 특징 때문에 IoT 데이터 전송 표�
   - `at least once` 전략이므로 발행자는 `PUBACK` 응답을 받지 못하는 경우 일정 시간 후 메시지를 재전송한다.
 
 <p align="center">
-    <img src="/images/posts/2024/mqtt-protocol-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/mqtt-protocol-02.png" width="80%" class="image__border">
 </p>
 <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
 
@@ -77,7 +77,7 @@ MQTT 프로토콜은 다음과 같은 특징 때문에 IoT 데이터 전송 표�
   - `exactly once` 전략이므로 발행자는 `PUBCOMP` 응답을 받지 못하는 경우 일정 시간 후 메시지를 재전송한다.
 
 <p align="center">
-    <img src="/images/posts/2024/mqtt-protocol-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/mqtt-protocol-03.png" width="80%" class="image__border">
 </p>
 <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
 

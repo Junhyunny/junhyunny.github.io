@@ -8,8 +8,6 @@ last_modified_at: 2023-01-15T23:55:00
 
 <br/>
 
-#### RECOMMEND POSTS BEFORE THIS
-
 ## 0. 들어가면서
 
 공장 센서로부터 주기적으로 수집되는 데이터를 시각화하는 프로젝트에 참여하게 됐다. IoT 센서로부터 데이터를 수신하기 때문인지 IoT 프로젝트에서 많이 사용하는 MQTT(Message Queuing Telemetry Transport) 프로토콜을 사용 중이라고 했다. 개발에 들어가기 전에 기술을 더 잘 활용하기 위해 이 프로토콜에 대해 알아봤다.

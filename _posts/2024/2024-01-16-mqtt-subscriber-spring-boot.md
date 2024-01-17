@@ -15,7 +15,7 @@ last_modified_at: 2024-01-16T23:55:00
 
 ## 0. 들어가면서
 
-[MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link] 글에서 MQTT 프로토콜에 대해 간략하게 정리했다. 이번엔 구독자 애플리케이션을 구현하는 방법에 대해 정리했다.
+MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link] 글을 참고하길 바란다. 이번엔 구독자 애플리케이션을 구현하는 방법에 대해 정리했다.
 
 ## 1. Scenario
 

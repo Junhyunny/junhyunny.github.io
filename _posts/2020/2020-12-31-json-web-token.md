@@ -89,14 +89,13 @@ Json 객체에 사용자 정보가 담겨 있기 때문에 자기 수용적인 �
 
 먼저 등록된 클레임을 살펴보자.
 
-- 등록된 클레임
-  - iss - 토큰 발급자 (issuer)
-  - sub - 토큰 제목 (subject)
-  - aud - 토큰 대상자 (audience)
-  - exp - 토큰 만료 시간 (expiration)
-  - nbf - 토큰 활성화 날짜 (not before)
-  - iat - 토큰 발급 시간 (issued at)
-  - jti - JWT 고유 식별자, 중복 처리 방지
+- iss - 토큰 발급자 (issuer)
+- sub - 토큰 제목 (subject)
+- aud - 토큰 대상자 (audience)
+- exp - 토큰 만료 시간 (expiration)
+- nbf - 토큰 활성화 날짜 (not before)
+- iat - 토큰 발급 시간 (issued at)
+- jti - JWT 고유 식별자, 중복 처리 방지
 
 ```json
 {
@@ -107,8 +106,7 @@ Json 객체에 사용자 정보가 담겨 있기 때문에 자기 수용적인 �
 
 공개된 클레임은 다음과 같은 정보를 갖는다.
 
-- 공개된 클레임
-  - 충돌 방지를 위해 클레임 이름을 주로 URI 형식으로 지정한다.
+- 충돌 방지를 위해 클레임 이름을 주로 URI 형식으로 지정한다.
 
 ```json
 {
@@ -118,9 +116,8 @@ Json 객체에 사용자 정보가 담겨 있기 때문에 자기 수용적인 �
 
 마지막 비공개 클레임 정보는 다음과 같다.
 
-- 비공개 클레임 (private claim)
-  - 서버와 클라이언트 협의하에 사용되는 클레임 이름이다.
-  - 공개 클레임과 달리 이름이 중복되어 충돌될 수 있으니 사용할 때 유의해야 한다.
+- 서버와 클라이언트 협의하에 사용되는 클레임 이름이다.
+- 공개 클레임과 달리 이름이 중복되어 충돌될 수 있으니 사용할 때 유의해야 한다.
 
 ```json
 {
@@ -136,7 +133,8 @@ Json 객체에 사용자 정보가 담겨 있기 때문에 자기 수용적인 �
 HMACSHA256(
   base64UrlEncode(header) + "." +
   base64UrlEncode(payload),
-  secret)
+  secret
+)
 ```
 
 ## 3. Json Web Token Site

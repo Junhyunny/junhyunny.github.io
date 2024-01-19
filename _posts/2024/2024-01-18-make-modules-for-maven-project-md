@@ -12,7 +12,69 @@ last_modified_at: 2024-01-18T23:55:00
 
 ## 1. Problem
 
+개발하던 프로젝트에 다음과 같은 문제가 있었다.
+
+- 하나의 프로젝트에서 두 개의 애플리케이션을 개발한다.
+  - 사용자 애플리케이션
+  - 관리자 애플리케이션
+- 애플리케이션을 배포하면 서로 상관 없는 사용자, 관리자 기능들이 함께 WAR 파일로 패키징된다.
+  - 아파치 톰캠 서버에 9090 포트 번호로 사용자 애플리케이션을 배포한다.
+  - 9080 포트 번호로 관리자 애플리케이션을 배포한다.
+  - 관리자 애플리케이션엔 사용자, 사용자 애플리케이션엔 관리자 패키지가 포함되어 있다.
+
+<p align="center">
+  <img src="/images/posts/2024/make-modules-for-maven-project-01.png" width="80%" class="image__border">
+</p>
+
 ## 2. Make Maven Modules
+
+문제 해결을 위해 프로젝트를 여러 모듈로 나누고 각 애플리케이션마다 필요한 의존성을 직접 추가한다. 모듈을 만들기 전에 미리 의존성을 따라 패키지를 나눠놨다. 
+
+- admin 패키지
+  - 관리자 사이트 관련된 비즈니스 로직과 엔티티 클래스들이 존재한다.
+- app 패키지
+  - 사용자 사이트 관련된 비즈시스 로직과 엔티티 클래스들이 존재한다.
+- auth 패키지
+  - 관리자, 사용자 리소스에 접근하기 위한 보안 정책과 관련된 클래스들이 존재한다.
+- common 패키지
+  - admin, app, auth 패키지에서 공통적으로 사용되는 클래스들이 존재한다.
+
+```
+./
+├── admin
+├── app
+├── auth
+└── common
+```
+
+모듈이나 패키지를 나눌 떄 그들 사이에 의존성 사이클이 생기지 않도록 주의한다. 모듈을 만들고 배포하면 아래와 같은 모습을 가질 예정이다.
+
+- 관리자 애플리케이션에 배포할 WAR 패키징은 admin, auth, common 모듈을 사용한다.
+  - admin 모듈은 auth 모듈에 의존한다.
+  - auth 모듈은 common 모듈에 의존한다.
+  - admin 모듈은 auth 모듈을 통해 common 모듈까지 사용할 수 있다.
+- 사용자 애플리케이션에 배포할 WAR 패키징은 app, auth, common 모듈을 사용한다.
+  - app 모듈은 auth 모듈에 의존한다.
+  - auth 모듈은 common 모듈에 의존한다.
+  - app 모듈은 auth 모듈을 통해 common 모듈까지 사용할 수 있다.
+
+<p align="center">
+  <img src="/images/posts/2024/make-modules-for-maven-project-02.png" width="80%" class="image__border">
+</p>
+
+### 2.1. Parent pom.xml
+
+### 2.2. Admin pom.xml
+
+### 2.3. App pom.xml
+
+### 2.4. Auth pom.xml
+
+### 2.5. Common pom.xml
+
+## 3. Solve the Problem
+
+모듈을 나누면서 다음과 같은 문제를 해결했다.
 
 ## CLOSING
 

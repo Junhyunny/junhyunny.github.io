@@ -183,7 +183,7 @@ object ObjectTimeProvider {
 }
 ```
 
-### 2.3. Difference with Companion Object and Object
+### 2.3. Difference between Companion Object and Object
 
 겉으로 보기엔 같은 정적 메소드인데 왜 이런 차이점이 발생한지 궁금했다. 각 클래스를 인텔리제이(intellij)의 도움을 받아 디컴파일(decompile)하면 서로 약간 다른 모습을 하고 있다. 먼저 동반 객체에서 @JvmStatic 애너테이션이 있는 경우 디컴파일하면 다음과 같은 모습을 하고 있다. 
 
@@ -261,7 +261,7 @@ public final class CompanionObjectTimeProvider {
 
 다시 모키토의 에러 메세지를 살펴보자 에러가 발생할 수 있는 두 번째 예시를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
 
-> 2. inside when() you don't call method on mock but on some other object.
+> inside when() you don't call method on mock but on some other object.
 
 "모의 객체가 아닌 다른 객체의 메소드를 호출하는 경우 에러가 발생한다."라고 설명이다. 결론을 이야기하면 필자는 테스트 코드에서 CompanionObjectTimeProvider 클래스 객체를 모의 객체로 만들었지만, when 메소드 안에선 CompanionObjectTimeProvider 클래스의 정적 멤버인 Companion 인스턴스의 currentDateTime 메소드를 호출했기 때문에 에러가 발생한 것이다.
 

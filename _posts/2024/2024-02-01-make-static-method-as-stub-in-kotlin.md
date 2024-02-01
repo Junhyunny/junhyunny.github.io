@@ -17,7 +17,7 @@ last_modified_at: 2024-02-01T23:55:00
 
 ## 0. 들어가면서
 
-현재 프로젝트는 코틀린(kotlin)을 사용한다. 자바(java)만큼 익숙하지 않은 탓에 종종 단순한 것만으로 시간을 버리곤 했다. 이번 포스트는 테스트 코드를 작성할 때 정적 메소드를 스텁(stub)으로 만들 때 겪었던 문제에 대해 정리했다. 테스트 코드 환경은 다음과 같다.
+현재 프로젝트는 코틀린(kotlin)을 사용한다. 자바(java)만큼 익숙하지 않은 탓에 종종 단순한 문제임에도 시간을 버리곤 한다. 이번 포스트는 테스트 코드를 작성할 때 정적 메소드를 스텁(stub)으로 만들면서 겪은 문제에 대해 정리했다. 테스트 코드를 작성한 프로젝트 환경은 다음과 같다.
 
 ```groovy
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -60,7 +60,7 @@ tasks.named('test') {
 
 ## 1. Make stub for Java class static method
 
-자바 클래스인 경우 모키토(mockito) mockStatic 메소드를 사용하면 쉽게 정적 메소드를 스텁으로 만들 수 있다. 현재 버전은 [Make static method as stub in Java][how-to-stub-java-static-method-link] 글처럼 별도로 `mockito-inline` 의존성을 추가하지 않아도 사용할 수 있다. 테스트가 끝나면 스텁을 풀어주는 것도 중요하다. 제대로 해제하지 않으면 다른 테스트에 영향을 준다. 각 테스트 메소드는 서로 격리시키는 것이 중요하다. 
+자바 클래스인 경우 모키토(mockito) mockStatic 메소드를 사용하면 쉽게 정적 메소드를 스텁으로 만들 수 있다. 현재 스프링 버전은 [Make static method as stub in Java][how-to-stub-java-static-method-link] 글의 설명처럼 별도로 `mockito-inline` 의존성을 추가하지 않더라도 mockStatic 메소드를 사용할 수 있다. 테스트가 끝나면 테스트 더블을 해제해주는 것도 중요하다. 제대로 해제하지 않으면 다른 테스트에 영향을 준다. 각 테스트 메소드는 서로 격리시키는 것이 중요하다. 
 
 ```kotlin
 package blog.`in`.action
@@ -91,11 +91,11 @@ class LocalDateTimeTest {
 
 ## 2. Make stub for Kotlin class static method
 
-LocalDateTime 클래스의 특정 정적 메소드를 직접 스텁으로 만들면 테스트 코드가 동작할 때 다른 LocalDateTime 메소드들도 함께 먹통이 된다. 정확한 원인은 모르지만, 클래스 객체 자체를 테스트 더블로 만들어버리기 때문에 다른 메소드가 동작하지 않는다고 예상된다. 이런 문제를 해결하기 위해 시간 관련된 로직을 다루는 유틸 성격의 클래스를 만들 수 있다. 이 클래스를 테스트 더블로 만들 때 적지 않은 시간을 허비했다.
+LocalDateTime 클래스의 특정 정적 메소드를 직접 스텁으로 만들면 테스트 코드가 동작할 때 다른 LocalDateTime 메소드들도 함께 먹통이 된다. 정확한 원인은 모르지만, 클래스 객체 자체를 테스트 더블로 만들어버리기 때문에 다른 메소드가 동작하지 않는 것이라고 예상하고 있다. 이런 문제를 해결하기 위해 시간 관련된 로직을 정적 메소드로 제공하는 유틸 클래스를 만들 수 있다. 이 클래스를 테스트 더블로 만들 때 적지 않은 시간을 허비했다.
 
 ### 2.1. Use Companion Object
 
-코틀린에서 정적 메소드를 선언하는 방법으로 동반 객체(companion object)을 사용한다. 동반 객체에 선언한 정적 메소드는 스텁으로 만드는 작업이 잘 이뤄지지 않는다. 다음과 같은 테스트를 작성해 실행하면 @JvmStatic 애너테이션 존재 유무와 상관 없이 에러가 발생한다.
+코틀린에서 정적 메소드를 선언하는 방법으로 보통 동반 객체(companion object)을 사용한다. 동반 객체에 선언한 정적 메소드는 스텁으로 만드는 작업이 잘 이뤄지지 않는다. 다음과 같은 테스트를 작성해 실행하면 @JvmStatic 애너테이션 존재 유무와 상관 없이 에러가 발생한다.
 
 ```kotlin
 package blog.`in`.action
@@ -185,7 +185,7 @@ object ObjectTimeProvider {
 
 ### 2.3. Difference with Companion Object and Object
 
-겉으로 보기엔 같은 정적 메소드인데 왜 이런 차이점이 발생한지 궁금했다. 각 클래스를 인텔리제이(intellij)의 도움을 받아 디컴파일(decompile)하면 약간 다른 모습을 하고 있다. 먼저 동반 객체에서 @JvmStatic 애너테이션이 있는 경우 디컴파일하면 다음과 같은 모습을 하고 있다. 
+겉으로 보기엔 같은 정적 메소드인데 왜 이런 차이점이 발생한지 궁금했다. 각 클래스를 인텔리제이(intellij)의 도움을 받아 디컴파일(decompile)하면 서로 약간 다른 모습을 하고 있다. 먼저 동반 객체에서 @JvmStatic 애너테이션이 있는 경우 디컴파일하면 다음과 같은 모습을 하고 있다. 
 
 - Companion 정적 멤버 변수로 Companion 인스턴스를 참조한다.
 - CompanionObjectTimeProvider 클래스에 currentDateTime 정적 메소드가 선언되어 있다.
@@ -193,32 +193,33 @@ object ObjectTimeProvider {
 
 ```java
 public final class CompanionObjectTimeProvider {
-   
-	 @NotNull
-   public static final Companion Companion = new Companion((DefaultConstructorMarker)null);
 
-   @JvmStatic
-   @NotNull
-   public static final LocalDateTime currentDateTime() {
-      return Companion.currentDateTime();
-   }
+    @NotNull
+    public static final Companion Companion = new Companion((DefaultConstructorMarker)null);
 
-   public static final class Companion {
-      @JvmStatic
-      @NotNull
-      public final LocalDateTime currentDateTime() {
-         LocalDateTime var10000 = LocalDateTime.now();
-         Intrinsics.checkNotNullExpressionValue(var10000, "LocalDateTime.now()");
-         return var10000;
-      }
+    @JvmStatic
+    @NotNull
+    public static final LocalDateTime currentDateTime() {
+        return Companion.currentDateTime();
+    }
 
-      private Companion() {
-      }
+    public static final class Companion {
 
-      public Companion(DefaultConstructorMarker $constructor_marker) {
-         this();
-      }
-   }
+        @JvmStatic
+        @NotNull
+        public final LocalDateTime currentDateTime() {
+           LocalDateTime var10000 = LocalDateTime.now();
+           Intrinsics.checkNotNullExpressionValue(var10000, "LocalDateTime.now()");
+           return var10000;
+        }
+
+        private Companion() {
+        }
+
+        public Companion(DefaultConstructorMarker $constructor_marker) {
+           this();
+        }
+    }
 }
 ```
 
@@ -230,39 +231,39 @@ public final class CompanionObjectTimeProvider {
 ```java
 public final class CompanionObjectTimeProvider {
 
-   @NotNull
-   public static final Companion Companion = new Companion((DefaultConstructorMarker)null);
+    @NotNull
+    public static final Companion Companion = new Companion((DefaultConstructorMarker)null);
 
-   public static final class Companion {
-      @NotNull
-      public final LocalDateTime currentDateTime() {
-         LocalDateTime var10000 = LocalDateTime.now();
-         Intrinsics.checkNotNullExpressionValue(var10000, "LocalDateTime.now()");
-         return var10000;
-      }
+    public static final class Companion {
+        @NotNull
+        public final LocalDateTime currentDateTime() {
+            LocalDateTime var10000 = LocalDateTime.now();
+            Intrinsics.checkNotNullExpressionValue(var10000, "LocalDateTime.now()");
+            return var10000;
+        }
 
-      private Companion() {
-      }
+        private Companion() {
+        }
 
-      public Companion(DefaultConstructorMarker $constructor_marker) {
-         this();
-      }
-   }
+        public Companion(DefaultConstructorMarker $constructor_marker) {
+            this();
+        }
+    }
 }
 ```
 
 @JvmStatic 애너테이션이 존재하든 존재하지 않든 동반 객체 내부에 선언한 메소드를 호출하는 행위는 CompanionObjectTimeProvider 클래스 내부에 정적 필드 변수로 참조되는 Companion 인스턴스의 메소드를 호출하는 것과 동일하다. 정적 필드로 참조되는 인스턴스의 메소드를 호출하는 것은 겉으로 보기엔 정적 메소드를 호출하는 것처럼 보일 뿐이다. 즉, 아래 두 코드는 동일하다.
 
 ```kotlin
-		CompanionObjectTimeProvider.Companion.currentDateTime()
-		CompanionObjectTimeProvider.currentDateTime()
+    CompanionObjectTimeProvider.Companion.currentDateTime()
+    CompanionObjectTimeProvider.currentDateTime()
 ```
 
-다시 모키토 에러로 돌아가보자. 두 번째 에러를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
+다시 모키토의 에러 메세지를 살펴보자 에러가 발생할 수 있는 두 번째 예시를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
 
 > 2. inside when() you don't call method on mock but on some other object.
 
-"모의 객체가 아닌 다른 객체의 메소드를 호출하는 경우 에러가 발생한다."라고 설명하고 있다. 필자는 테스트 코드에서 CompanionObjectTimeProvider 클래스 객체를 모의 객체로 만들었지만, when 메소드 안에선 CompanionObjectTimeProvider 클래스의 정적 멤버인 Companion 인스턴스의 currentDateTime 메소드를 호출했기 때문에 에러가 발생한 것이다.
+"모의 객체가 아닌 다른 객체의 메소드를 호출하는 경우 에러가 발생한다."라고 설명이다. 결론을 이야기하면 필자는 테스트 코드에서 CompanionObjectTimeProvider 클래스 객체를 모의 객체로 만들었지만, when 메소드 안에선 CompanionObjectTimeProvider 클래스의 정적 멤버인 Companion 인스턴스의 currentDateTime 메소드를 호출했기 때문에 에러가 발생한 것이다.
 
 마지막으로 object 객체를 살펴보자. 다음과 같은 모습으로 디컴파일된다. 
 
@@ -272,24 +273,24 @@ public final class CompanionObjectTimeProvider {
 ```java
 public final class ObjectTimeProvider {
 
-   @NotNull
-   public static final ObjectTimeProvider INSTANCE;
+    @NotNull
+    public static final ObjectTimeProvider INSTANCE;
 
-   @JvmStatic
-   @NotNull
-   public static final LocalDateTime currentDateTime() {
-      LocalDateTime var10000 = LocalDateTime.now();
-      Intrinsics.checkNotNullExpressionValue(var10000, "LocalDateTime.now()");
-      return var10000;
-   }
+    @JvmStatic
+    @NotNull
+    public static final LocalDateTime currentDateTime() {
+        LocalDateTime var10000 = LocalDateTime.now();
+        Intrinsics.checkNotNullExpressionValue(var10000, "LocalDateTime.now()");
+        return var10000;
+    }
 
-   private ObjectTimeProvider() {
-   }
+    private ObjectTimeProvider() {
+    }
 
-   static {
-      ObjectTimeProvider var0 = new ObjectTimeProvider();
-      INSTANCE = var0;
-   }
+    static {
+        ObjectTimeProvider var0 = new ObjectTimeProvider();
+        INSTANCE = var0;
+    }
 }
 ```
 
@@ -349,7 +350,7 @@ class SystemUnderTest(private val timeProvider: InstanceTimeProvider) {
 
 #### TEST CODE REPOSITORY
 
-- <>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2024-02-01-make-static-method-as-stub-in-kotlin>
 
 #### REFERENCE
 

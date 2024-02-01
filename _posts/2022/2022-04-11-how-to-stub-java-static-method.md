@@ -1,5 +1,5 @@
 ---
-title: "Java static method stubbing"
+title: "Make static method as stub in Java"
 search: false
 category:
   - java

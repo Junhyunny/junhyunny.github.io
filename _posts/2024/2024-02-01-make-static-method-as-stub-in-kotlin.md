@@ -95,7 +95,7 @@ LocalDateTime 클래스의 특정 정적 메소드를 직접 스텁으로 만들
 
 ### 2.1. Use Companion Object
 
-코틀린에서 정적 메소드를 선언하는 방법으로 보통 동반 객체(companion object)을 사용한다. 동반 객체에 선언한 정적 메소드는 스텁으로 만드는 작업이 잘 이뤄지지 않는다. 다음과 같은 테스트를 작성해 실행하면 @JvmStatic 애너테이션 존재 유무와 상관 없이 에러가 발생한다.
+코틀린에서 정적 메소드를 선언하는 방법으로 보통 동반 객체(companion object)을 사용한다. 동반 객체에 선언한 정적 메소드는 스텁으로 잘 만들어지지 않는다. 다음과 같은 테스트를 작성해 실행하면 @JvmStatic 애너테이션 존재 유무와 상관 없이 에러가 발생한다.
 
 ```kotlin
 package blog.`in`.action
@@ -356,6 +356,7 @@ class SystemUnderTest(private val timeProvider: InstanceTimeProvider) {
 
 - <https://medium.com/depayse/kotlin-%ED%81%B4%EB%9E%98%EC%8A%A4-10-object-%ED%82%A4%EC%9B%8C%EB%93%9C%EC%9D%98-%EC%82%AC%EC%9A%A9-d7fe736a3dcb>
 - <https://ijeee.tistory.com/22>
+- <https://github.com/occidere/TIL/issues/156>
 
 [test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
 [how-to-stub-java-static-method-link]: https://junhyunny.github.io/java/spring-boot/test-driven-development/how-to-stub-java-static-method/

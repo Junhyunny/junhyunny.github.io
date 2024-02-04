@@ -1,0 +1,55 @@
+---
+title: "Problems when make spy in Kotlin"
+search: false
+category:
+  - kotlin
+  - mockito
+last_modified_at: 2024-02-02T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Test Double][test-double-link]
+
+## 0. 들어가면서
+
+코틀린(kotlin)은 자바(java)를 기반으로 만든 언어이기 때문에 서로 호환된다. 하지만 엄밀히 같은 언어는 아니기 때문에 완벽하게 호환되진 않는다. 그로 인해 종종 알 수 없는 에러에 빠지기도 한다. 이번 글은 테스트 코드를 작성할 때 자바와 다르게 에러가 발생한 부분에 대해 정리했다. 필자도 원인은 찾지 못 했고, 관련된 내용은 스택 오버플로우와 관련 깃허브 레포지토리에 이슈로 올릴 예정이다. 
+
+## 1. Problem Context
+
+필자는 코틀린으로 스프링(spring) 애플리케이션을 개발할 때 MockK 보다 모키토를 선호한다. 다음과 같은 이유가 있다.
+
+- 스프링 프레임워크(spring framework)는 기본 테스트 도구로 모키토(mockito)를 사용한다. 
+- MockK는 @MockBean 같은 결합 테스트에 필요한 기능을 지원하지 않는다.
+  - 테스트 더블을 스프링 빈으로 등록하고 이를 주입해주는 방식으로 커버할 수 있지만, 불필요한 코드가 늘어난다.
+
+보통 mock 메소드로 테스트 더블(test double)을 만들어 사용하지만, 필요하다면 spy 메소드를 사용할 때가 있다. 코틀린으로 코드를 작성했을 때 
+
+## 2. Make Maven Modules
+
+### 2.1. Parent pom.xml
+
+### 2.2. Admin pom.xml
+
+### 2.3. App pom.xml
+
+### 2.4. Auth pom.xml
+
+### 2.5. Common pom.xml
+
+## 3. Solve the Problem
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+
+
+
+[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/

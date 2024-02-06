@@ -56,7 +56,7 @@ last_modified_at: 2024-01-18T23:55:00
 
 ### 2.5. Common pom.xml
 
-## 3. Solve the Problem
+## 3. Solve the problem
 
 모듈을 나누면서 다음과 같은 문제를 해결했다. 모듈이나 패키지를 나눌 때 그들 사이에 의존성 사이클이 생기지 않도록 주의한다. 모듈을 만들고 배포하면 아래와 같은 모습을 가진다.
 

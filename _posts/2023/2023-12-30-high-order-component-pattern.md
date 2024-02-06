@@ -146,7 +146,7 @@ import TextInput from "./TextInput";
 export const ValidationTextInput = withValidation(TextInput);
 ```
 
-## 3. Solve the Problem
+## 3. Solve the problem
 
 ### 3.1. Refactoring Components
 

@@ -1,0 +1,35 @@
+---
+title: "Redis as a Message Broker"
+search: false
+category:
+  - redis
+last_modified_at: 2024-02-08T23:55:00
+---
+
+<br/>
+
+## 0. 들어가면서
+
+## 1. Redis as a Message Broker
+
+### 1.1. Features
+
+### 1.2. Limitations
+
+## 2. CLI Test
+
+### 2.1. Run Redis Container
+
+### 2.2. 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://redis.com/solutions/use-cases/messaging/>
+- <https://redis.io/docs/interact/pubsub/>
+- <https://redis.com/solutions/use-cases/message-broker-pattern-for-microservices-interservice-communication/>

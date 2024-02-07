@@ -178,7 +178,7 @@ $ docker run --name backend-timezone -p 8080:8080 -e TZ=Asia/Seoul backend
 
 ## CLOSING
 
-코드나 환경 변수를 바꿨을 때 정상적으로 동작하는 테스트 결과는 위에서 본 것과 크게 다르지 않으므로 별도로 첨부하지 않는다. 
+코드나 환경 변수를 바꿨을 때 정상적인 동작 결과는 위의 내용과 크게 다르지 않으므로 별도로 첨부하지 않는다. 
 
 #### TEST CODE REPOSITORY
 

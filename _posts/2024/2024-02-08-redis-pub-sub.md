@@ -92,7 +92,7 @@ $ docker exec -it redis redis-cli
 ```
 
 <p align="center">
-  <img src="/images/posts/2024/redis-pub-sub-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/redis-pub-sub-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.3. Subscribe Channels and Publish Message

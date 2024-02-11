@@ -1,5 +1,5 @@
 ---
-title: Redis Publisher and Subscriber with Spring Boot"
+title: Redis Publisher and Subscriber with Spring Boot
 search: false
 category:
   - java

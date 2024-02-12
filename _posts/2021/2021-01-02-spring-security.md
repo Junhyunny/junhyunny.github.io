@@ -8,6 +8,10 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br/>
 
+## 0. 들어가면서
+
+이번 글은 스프링 시큐리티(spring security) 프레임워크에서 인증 프로세스를 지원하는 핵심 컴포넌트(component)인 시큐리티 필터 체인(security filter chain)에 대해 탐구한 내용이다. 
+
 ## 1. 보안 관련 용어
 
 `Spring Security` 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 알아보겠습니다. 
@@ -35,7 +39,7 @@ last_modified_at: 2021-08-21T16:00:00
 - 사용자 요청은 순서가 지정된 필터들을 차례대로 거치게 됩니다. 
 
 <p align="center">
-  <img src="/images/spring-security-1.JPG" width="20%" class="image__border">
+  <img src="/images/posts/2021/spring-security-01.png" width="20%" class="image__border">
 </p>
 <center>https://spring.io/guides/topicals/spring-security-architecture/</center>
 
@@ -71,7 +75,7 @@ public class FilterChainProxy extends GenericFilterBean {
 ##### FilterChainProxy 추상화 이미지
 
 <p align="center">
-  <img src="/images/spring-security-2.JPG" width="40%" class="image__border">
+  <img src="/images/posts/2021/spring-security-02.png" width="40%" class="image__border">
 </p>
 <center>https://spring.io/guides/topicals/spring-security-architecture/</center>
 
@@ -80,7 +84,7 @@ public class FilterChainProxy extends GenericFilterBean {
 - `FilterChainProxy` 클래스 내부엔 다양한 필터들이 존재하며, 각 필터는 고유한 역할을 수행합니다.
 
 <p align="center">
-  <img src="/images/spring-security-3.JPG" width="70%" class="image__border">
+  <img src="/images/posts/2021/spring-security-03.png" width="70%" class="image__border">
 </p>
 <center>https://bamdule.tistory.com/52</center>
 
@@ -96,7 +100,7 @@ public class FilterChainProxy extends GenericFilterBean {
 - 경로 별로 실행될 필터들의 묶음은 `SecurityFilterChain` 인터페이스를 상속한 클래스에 담겨서 관리됩니다.
 
 <p align="center">
-  <img src="/images/spring-security-4.JPG" width="40%" class="image__border">
+  <img src="/images/posts/2021/spring-security-04.png" width="40%" class="image__border">
 </p>
 <center>https://spring.io/guides/topicals/spring-security-architecture/</center>
 
@@ -224,7 +228,7 @@ public final class DefaultSecurityFilterChain implements SecurityFilterChain {
 ##### Spring Security 사용자 인증 프로세스 과정 
 
 <p align="center">
-  <img src="/images/spring-security-5.JPG" width="80%" class="image__border">
+  <img src="/images/posts/2021/spring-security-05.png" width="80%" class="image__border">
 </p>
 <center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center>
 

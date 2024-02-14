@@ -48,7 +48,7 @@ last_modified_at: 2021-02-17T23:55:00
 1. `사용자`는 `StackOverflow 서비스`를 이용할 수 있습니다.
 
 <p align="center">
-    <img src="/images/spring-security-example-1.JPG" width="80%">
+    <img src="/images/posts/2021/spring-security-example-01.png" width="80%">
 </p>
 <center>https://docs.pivotal.io/p-identity/1-14/grant-types.html</center>
 
@@ -66,7 +66,7 @@ last_modified_at: 2021-02-17T23:55:00
 * 유효한 토큰인 경우 사용자 리소스를 클라이언트에게 전달합니다.
 
 <p align="center">
-    <img src="/images/spring-security-example-2.JPG" width="100%" class="image__border">
+    <img src="/images/posts/2021/spring-security-example-02.png" width="100%" class="image__border">
 </p>
 
 ## 3. Authroization Server 구현
@@ -777,7 +777,7 @@ $ curl http://localhost:8081/member/user-info\?id\=Junhyunny\
 * `2.3.3.RELEASE` 버전은 보안 취약점이 발견된 버전입니다.
 
 <p align="center">
-    <img src="/images/spring-security-example-3.JPG" width="80%" class="image__border">
+    <img src="/images/posts/2021/spring-security-example-03.png" width="80%" class="image__border">
 </p>
 <center>https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth2</center>
 

@@ -8,10 +8,6 @@ last_modified_at: 2021-08-21T16:00:00
 
 <br/>
 
-## 0. 들어가면서
-
-이번 글은 스프링 시큐리티(spring security) 프레임워크에서 인증 프로세스를 지원하는 핵심 컴포넌트(component)인 시큐리티 필터 체인(security filter chain)에 대해 탐구한 내용이다. 
-
 ## 1. 보안 관련 용어
 
 `Spring Security` 프레임워크에 대해 알아보기 전에 보안과 관련된 용어에 대해 알아보겠습니다. 

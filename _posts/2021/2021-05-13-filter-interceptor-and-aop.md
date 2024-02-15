@@ -23,7 +23,7 @@ last_modified_at: 2021-08-29T03:00:00
 <p align="center">
     <img src="/images/filter-interceptor-and-aop-1.JPG" width="80%" class="image__border">
 </p>
-<center>https://gowoonsori.com/spring/architecture/</center>
+<center>https://gowoonsori.com/blog/spring/architecture/</center>
 
 * AOP
     * 스프링 프레임워크 내부에서 동작합니다.

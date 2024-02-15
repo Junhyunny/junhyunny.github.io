@@ -295,7 +295,7 @@ API 요청에 대한 필터 기능에 대한 검증은 MockMvc를 사용한 테�
 <p align="center">
     <img src="/images/web-mvc-filter-test-on-spring-boot-1.JPG" width="100%" class="image__border">
 </p>
-<center>https://gowoonsori.com/spring/architecture/</center>
+<center>https://gowoonsori.com/blog/spring/architecture/</center>
 
 ##### Code for Integration Test
 

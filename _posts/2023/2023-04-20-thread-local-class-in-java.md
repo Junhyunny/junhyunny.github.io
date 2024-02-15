@@ -206,7 +206,7 @@ ThreadLocal 클래스는 무슨 문제점을 해결하기 위해 등장했는지
 <p align="center">
     <img src="/images/thread-local-class-in-java-3.JPG" width="80%" class="image__border">
 </p>
-<center>https://gowoonsori.com/spring/architecture/</center>
+<center>https://gowoonsori.com/blog/spring/architecture/</center>
 
 ### 2.1. FooFilter Class
 
@@ -498,7 +498,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 * <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ThreadLocal.html>
 * <https://jaehoney.tistory.com/302>
 * <https://pamyferret.tistory.com/53>
-* <https://gowoonsori.com/spring/architecture/>
+* <https://gowoonsori.com/blog/spring/architecture/>
 
 [process-vs-thread-link]: https://junhyunny.github.io/information/operating-system/process-vs-thread/
 [setup-temporal-principal-link]: https://junhyunny.github.io/tomcat/spring-boot/setup-temporal-principal/

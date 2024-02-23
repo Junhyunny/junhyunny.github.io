@@ -52,7 +52,7 @@ last_modified_at: 2024-02-18T23:55:00
 - 스텝(step)
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/github-actions-01.png" width="80%" class="image__border">
 </p>
 <center>https://docs.github.com/ko/actions/learn-github-actions/understanding-github-actions</center>
 

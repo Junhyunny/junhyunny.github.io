@@ -33,7 +33,7 @@ last_modified_at: 2023-02-23T23:55:00
 1. 파이프라인이 모두 성공하면 컨테이너 이미지를 만들어 배포한다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-example-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/github-actions-example-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Build Pipeline

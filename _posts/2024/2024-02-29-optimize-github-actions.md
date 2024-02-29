@@ -92,7 +92,7 @@ jobs:
 </p>
 <center>https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows</center>
 
-## 2. setup-* Caching
+## 2. Caching setup-* Actions
 
 백엔드 애플리케이션은 의존성 관리를 위해 그래이들(gradle)를 사용한다. 파이프라인 설정을 다음과 같이 변경한다. 모노 레포 환경이기 때문에 캐시 의존성 경로를 기본 값으로 사용하지 못 한다. 그래이들 프로젝트의 캐시 의존성 경로를 지정한다.
 
@@ -121,7 +121,7 @@ jobs:
 
 ## 3. Docker Caching
 
-[Github Actions Example][github-actions-example-link] 글에서 소개했지만, 파이프라인 마지막엔 이미지를 만들어 배포하는 작업을 수행한다. 도커 이미지 레이어(layer)를 재사용할 수 있도록 캐싱해야 한다. 짧은 생각으론 이미지 레이어가 저장되는 위치에 대해 캐시 액션을 적용할 것 같았지만, 탐구해보니 도커 진영에서 만든 액션을 활용하는 것이 가장 흔한 방법으로 보여졌다.
+[Github Actions Example][github-actions-example-link] 글에서 소개했지만, 파이프라인 마지막엔 이미지를 만들어 배포하는 작업을 수행한다. 도커 이미지 레이어(layer)를 재사용할 수 있도록 캐싱해야 한다. 짧은 생각으론 이미지 레이어가 저장되는 위치에 대해 캐시 액션을 적용할 것 같았지만, 찾아보니 도커 진영에서 만든 액션을 활용하는 것이 가장 흔한 방법으로 보여 이를 사용했다.
 
 공식 홈페이지나 다른 블로그 글들을 보면 `build-push-action` 액션에 다음과 같은 설정을 추가하면 캐시가 동작하는 것처럼 보인다.  `build-push-action` 액션에서 캐시를 사용하려면 `setup-buildx-action` 액션이 사전에 호출되어 도커 드라이브가 미리 준비된 상태여야 한다.
 
@@ -155,7 +155,7 @@ jobs:
           cache-to: type=gha,mode=max
 ```
 
-공식 홈페이지나 많은 블로그 글들이 gha 타입이 정상적으로 동작하는 것처럼 작성되어 있지만, 필자의 경우 어떤 이유에선지 정상적으로 캐시가 동작하지 않았다. gha 타입이 베타 버전임을 고려하더라도 빌드 이미지를 저장하고 찾는 위치만 바뀌는 것이기 때문에 크게 문제가 없을 것 같았지만, 생각보다 시간을 많이 허비했다. 같은 작업에서 같은 타입으로 이미지를 두 번 빌드하기 때문인지 모르겠다는 생각이 들었지만, 관련된 내용에 대한 이슈들은 찾을 수 없었다. 이 현상에 대해 다시 정리해서 깃허브 이슈나 스택 오버플로우에 문의할 생각이다.
+공식 홈페이지나 많은 블로그 글들이 gha 타입이 정상적으로 동작하는 것처럼 작성되어 있지만, 필자의 경우 어떤 이유에선지 정상적으로 캐시가 동작하지 않았다. gha 타입이 베타 버전임을 고려하더라도 빌드 이미지를 저장하고 찾는 위치만 바뀌는 것이기 때문에 크게 문제가 없을 것 같았지만, 생각보다 시간을 많이 허비했다. 같은 작업(job)에서 같은 타입으로 이미지를 두 번 빌드하기 때문인지 모르겠다는 생각이 들었지만, 관련된 내용에 대한 이슈들은 찾을 수 없었다. 이 현상에 대해 다시 정리해서 깃허브 이슈나 스택 오버플로우에 문의할 생각이다.
 
 [Cache management with GitHub Actions](https://docs.docker.com/build/ci/github-actions/cache/) 글을 읽어보면 깃허브 액션스에서 사용할 수 있는 다양한 캐싱 방법들이 정리되어 있다. 필자는 `Inline cache` 방법을 사용했을 때 정상적으로 동작했다. 다음과 같이 파이프라인을 구성했다.
 
@@ -196,7 +196,7 @@ jobs:
 - 도커 이미지 빌드와 푸시 - 2분 21초
 
 <p align="center">
-  <img src="/images/posts/2024/optimize-github-actions-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/optimize-github-actions-02.png" width="100%" class="image__border">
 </p>
 
 ### 4.2. Next time to run pipeline
@@ -208,12 +208,12 @@ README.md 파일만 변경하고 실행한 파이프라인이다. 새로 빌드�
 - 도커 이미지 빌드와 푸시 - 16초
 
 <p align="center">
-  <img src="/images/posts/2024/optimize-github-actions-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/optimize-github-actions-03.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING
 
-README.md 파일만 변경했기 때문에 효과가 극적으로 보이지만, 확실히 파이프라인 속도는 크게 개선되었다.
+README.md 파일만 변경했기 때문에 효과가 극적으로 보이지만, 확실히 파이프라인 속도는 크게 개선되었다. 각 작업 로그를 보면 캐시가 정상적으로 동작했음을 확인할 수 있다.
 
 #### TEST CODE REPOSITORY
 

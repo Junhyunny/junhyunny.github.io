@@ -181,14 +181,11 @@ ipv4 수신 대기:             ipv4에 연결:
 
 이 문제는 파드맨을 윈도우 운영체제에서 사용할 때 발생하는 것으로 보인다. 실제로 맥북(macbook)에서 테스트해보니 별다른 문제가 발생하지 않았다. 마지막 주의사항으로 위 작업은 윈도우 서버 호스트로 들어온 트래픽을 WSL 시스템으로 연결하는 일이기 때문에 방화벽 작업은 별도로 진행해야 실제 외부에서 접근할 수 있다.
 
-#### RECOMMEND NEXT POSTS
+#### REFERENCE
 
 - <https://github.com/containers/podman/issues/12292>
 - <https://github.com/containers/podman/issues/17030>
 - <https://learn.microsoft.com/en-us/windows/wsl/networking>
 - <https://blog.naver.com/sipzirala/220446175236>
 - <https://www.tuwlab.com/ece/29011>
-
-#### REFERENCE
-
 - <https://learn.microsoft.com/en-us/windows/wsl/networking>

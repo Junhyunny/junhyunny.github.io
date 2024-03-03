@@ -72,7 +72,7 @@ Windows IP 구성
 
 ## 2. Problem Cause
 
-윈도우 운영체제에서 컨테이너 런타임은 WSL(Windows Subsystem for Linux) 환경에서 동작한다. WSL 명령어를 사용해 WSL 시스템의 IP 주소를 확인해보자. 
+윈도우 운영체제에서 컨테이너 런타임은 WSL(Windows Subsystem for Linux) 환경에서 동작한다. `wsl` 명령어를 사용해 WSL 시스템의 IP 주소를 확인해보자. 
 
 - WSL 시스템은 `172.28.241.140` IP 주소를 갖는다.
 - `172.28.241.140` 주소를 사용하면 애플리케이션에 접근할 수 있다.

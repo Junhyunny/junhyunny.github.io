@@ -58,7 +58,7 @@ Windows IP 구성
 
 외부 네트워크와 연결된 IP 주소는 `192.168.0.12`이다. 이 IP 주소를 사용해 애플리케이션에 접근해보자. 
 
-- `192.168.0.12`를 통해 애플리케이션으로 접근할 수 없다. 
+- `192.168.0.12`를 통해 애플리케이션에 접근할 수 없다. 
 
 <p align="center">
   <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-01.png" width="80%" class="image__border">
@@ -115,12 +115,12 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 ```
 
-윈도우 서버 네트워크 어댑터들 중 `이더넷 어댑터 vEthernet (WSL (Hyper-V firewall))`가 WSL 시스템이 속한 네트워크로 접근하는 게이트웨이(gateway) 주소로 보여진다. 파드맨은 호스트 서버의 서브 네트워크를 통해 들어온 트래픽을 WSL 시스템 내부로 직접 연결하지 못한다. 이해하기 쉽게 그림으로 설명하면 다음과 같다.
+윈도우 서버 네트워크 어댑터들 중 `이더넷 어댑터 vEthernet (WSL (Hyper-V firewall))`가 WSL 시스템이 속한 네트워크로 접근하는 게이트웨이(gateway) 주소로 보인다. 파드맨은 호스트 서버의 서브 네트워크를 통해 들어온 트래픽을 WSL 시스템 내부로 직접 연결하지 못한다. 이해하기 쉽게 그림으로 설명하면 다음과 같다.
 
 1. 파드맨으로 실행한 컨테이너는 WSL 시스템에서 동작 중이다. 
   - WSL 시스템은 `172.28.241.140` IP 주소를 갖는다. 
 2. 외부 네트워크와 연결된 `192.168.0.12` IP 주소, 80 포트로 요청 트래픽이 들어온다.
-3. 요청 트래픽은 `172.28.241.140` 시스템으로 자동으로 전달되지 못하고 누락된다.
+3. 요청 트래픽은 WLS 시스템(`172.28.241.140`)으로 자동으로 전달되지 못하고 누락된다.
 
 <p align="center">
   <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-03.png" width="80%" class="image__border">
@@ -132,12 +132,13 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 ### 3.1. Podman Github Issue
 
-해결 방법은 파드맨 이슈들을 읽어보니 찾을 수 있었다. 힌트가 된 글들은 다음과 같다.
+해결 방법은 파드맨 이슈에서 찾을 수 있었다. 힌트가 된 글들은 다음과 같다.
 
-- WSL 트래픽은 윈도우 애플리케이션과 별도의 네트워크 인터페이스에 분리되어 있다.
-- 트래픽이 전달되는 로컬 호스트(localhost)를 통해 접근할 수 있다.
-- 트래픽을 해당 WSL 리눅스 배포판 머신에 할당된 IP 주소로 포워딩(forwarding)해야 한다.
-  - 이 주소는 임시적이고 변경될 수 있다.
+- WSL 트래픽은 윈도우 애플리케이션과 별도의 네트워크 인터페이스에 의해 분리되어 있다.
+- WSL 시스템에 접근할 수 있는 방법은 다음과 같다.
+  - 로컬 호스트(localhost)를 통해 접근할 수 있다.
+  - WSL 리눅스 배포판 머신에 할당된 IP 주소로 해당 트래픽을 포워딩(forwarding)해야 한다.
+    - WSL 리눅스 배포판 머신의 주소는 임시적이고 변경될 수 있다.
 
 <p align="center">
   <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-04.png" width="80%" class="image__border">
@@ -145,7 +146,7 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 
 ### 3.2. Windows Port Forwarding
 
-글에 첨부된 마이크로소프트 공식 문서 링크에서 WSL2 시스템의 애플리케이션과 포트 포워딩하는 방법에 대해 확인할 수 있다.
+이슈에 첨부된 마이크로소프트 공식 문서에서 WSL2 시스템에서 실행 중인 애플리케이션으로 포트 포워딩하는 방법을 확인할 수 있다.
 
 ```
 > netsh interface portproxy add v4tov4 listenport=<yourPortToForward> listenaddress=0.0.0.0 connectport=<yourPortToConnectToInWSL> connectaddress=(wsl hostname -I)

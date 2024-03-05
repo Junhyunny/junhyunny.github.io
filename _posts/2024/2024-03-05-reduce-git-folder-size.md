@@ -17,7 +17,7 @@ last_modified_at: 2024-03-05T23:55:00
 - 하지만 이력 관리를 위해 필요한 `.git` 폴더 사이즈가 너무 커졌다. 폴더 사이즈가 12GB를 초과했다.
 
 <p align="center">
-  <img src="/images/posts/2024/reduce-git-folder-size-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/reduce-git-folder-size-01.png" width="100%" class="image__border">
 </p>
 
 ## 2. Solve the problem
@@ -38,7 +38,7 @@ $ git push origin main --force
 정리한 폴더 사이즈는 151MB 정도로 많이 줄었다.
 
 <p align="center">
-  <img src="/images/posts/2024/reduce-git-folder-size-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/reduce-git-folder-size-02.png" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

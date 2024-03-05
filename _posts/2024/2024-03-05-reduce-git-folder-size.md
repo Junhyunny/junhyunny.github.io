@@ -1,5 +1,5 @@
 ---
-title: "Reduce Git Folder Size"
+title: "Reduce .git folder size"
 search: false
 category:
   - git

@@ -36,12 +36,7 @@ class ItemStore(private val itemRepository: ItemRepository) {
 
 ## 2. Tests
 
-@Cacheable 애너테이션에 대한 단위 테스트는 불가능하다. 
-
-- AOP(Aspect Oriented Programming)에 의해 동작한다.
-- 캐시 매니저는 스프링 빈으로 관리된다.
-
-단위 테스트는 불가능하기 때문에 다음과 같은 결합 테스트를 준비한다.
+@Cacheable 애너테이션를 단위 테스트하는 것은 불가능하다. AOP(Aspect Oriented Programming) 내부에서 동작하고 캐시 매니저는 스프링 빈으로 관리되기 때문에 스프링 프레임워크의 지원을 받아야 정상적인 테스트가 가능하다. 그렇기 때문에 다음과 같은 결합 테스트를 준비한다.
 
 - @SpringBootTest 애너테이션을 사용한다.
   - itemStore, cacheManager 인스턴스는 실제 빈을 사용한다.

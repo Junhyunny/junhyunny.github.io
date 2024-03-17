@@ -1,5 +1,5 @@
 ---
-title: "Not Change Database with @DataJpaTest"
+title: "Do Not Replace Database with @DataJpaTest"
 search: false
 category:
   - spring-boot

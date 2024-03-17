@@ -10,7 +10,7 @@ last_modified_at: 2024-04-12T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Not Change Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link]
+* [Do Not Replace Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link]
 
 ## 0. 들어가면서
 
@@ -208,7 +208,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 * @AutoConfigureTestDatabase 애너테이션
     * @DataJpaTest 애너테이션을 사용한 테스트 시 데이터베이스가 바뀌지 않는 현상이 있습니다.
     * 설정한 데이터베이스를 사용할 수 있도록 설정합니다.
-    * [Not Change Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link] 포스트를 참고 바랍니다.
+    * [Do Not Replace Database with @DataJpaTest][do-not-replace-database-when-using-data-jpa-test-annotation-link] 포스트를 참고 바랍니다.
 * @DataJpaTest 애너테이션
     * JPA 테스트를 위한 최소한의 컨텍스트를 준비합니다.
 * @Testcontainers 애너테이션

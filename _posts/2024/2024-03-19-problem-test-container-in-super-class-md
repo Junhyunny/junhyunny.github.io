@@ -1,0 +1,25 @@
+---
+title: "Problem TestContainer in Super Class"
+search: false
+category:
+  - kotlin
+  - spring-boot
+  - test-container
+last_modified_at: 2024-03-19T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://github.com/testcontainers/testcontainers-java/issues/1918>

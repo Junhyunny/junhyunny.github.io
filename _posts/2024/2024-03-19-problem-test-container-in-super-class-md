@@ -56,5 +56,10 @@ last_modified_at: 2024-03-19T23:55:00
 - <https://cl8d.tistory.com/82>
 - <https://www.wrike.com/blog/caching-spring-context-testing/>
 
+- @DirtiesContext 애너테이션
+  - 결합 테스트에서 스프링 컨텍스트 재생성으로 인한 속도 차이
+  - 컨텍스트를 매번 새로 만드는 애너테이션
+  - 속도가 느리다.
+  - <https://www.youtube.com/watch?v=N06UeRrWFdY>
 
 [testcontainer-in-kotlin-spring-boot-link]: https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/

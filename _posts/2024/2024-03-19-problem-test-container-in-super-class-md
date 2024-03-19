@@ -12,7 +12,11 @@ last_modified_at: 2024-03-19T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
+- [How to setup TestContainer in Kotlin Spring Boot][testcontainer-in-kotlin-spring-boot-link]
+
 ## 0. 들어가면서
+
+
 
 ## CLOSING
 
@@ -23,3 +27,34 @@ last_modified_at: 2024-03-19T23:55:00
 #### REFERENCE
 
 - <https://github.com/testcontainers/testcontainers-java/issues/1918>
+
+
+
+
+- <https://shortstories.gitbooks.io/studybook/content/dirtiescontext.html>
+- <https://velog.io/@byeongju/%EC%9D%B8%EC%88%98%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B2%A9%EB%A6%AC-%EB%B0%A9%EC%8B%9D>
+- <https://velog.io/@tjddus0302/Spring-DirtiesContext>
+- <https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/ctx-management/caching.html>
+- <https://tecoble.techcourse.co.kr/post/2022-10-15-test-code-optimization/>
+- <https://bperhaps.tistory.com/entry/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EC%97%AC%ED%96%89%EA%B8%B0-3>
+- <https://songkg7.github.io/posts/spring-context-mocking/>
+- <https://mangkyu.tistory.com/202>
+- <https://huisam.tistory.com/entry/springBootTest>
+- <https://cl8d.tistory.com/82>
+- <https://incheol-jung.gitbook.io/docs/study/tobys-spring/undefined-1/2020-03-10-spring2-chap6>
+- <https://6161990src.tistory.com/126>
+- <https://www.baeldung.com/spring-dirtiescontext>
+- <https://gwanhyeon.github.io/Spring-20210514-spring-dirties-context/>
+- <https://docs.spring.io/spring-framework/reference/testing/annotations/integration-spring/annotation-dirtiescontext.html>
+- <https://tecoble.techcourse.co.kr/post/2020-09-15-test-isolation/>
+- <https://blog.naver.com/writer0713/221119385700>
+- <https://incheol-jung.gitbook.io/docs/study/tobys-spring/undefined-1/2020-03-10-spring2-chap6>
+- <https://matouslescotousles.tistory.com/68>
+- <https://jaeseo.tistory.com/entry/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%BD%94%EB%93%9C-%EC%B5%9C%EC%A0%81%ED%99%94-featContext-Caching>
+- <https://velog.io/@hong-sile/%EC%8A%A4%ED%94%84%EB%A7%81-%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%B5%9C%EC%A0%81%ED%99%94>
+- <https://velog.io/@byeongju/%ED%85%8C%EC%8A%A4%ED%8A%B8-%EC%84%B1%EB%8A%A5-%EA%B0%9C%EC%84%A0%ED%95%98%EA%B8%B0>
+- <https://cl8d.tistory.com/82>
+- <https://www.wrike.com/blog/caching-spring-context-testing/>
+
+
+[testcontainer-in-kotlin-spring-boot-link]: https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/

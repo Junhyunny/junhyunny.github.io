@@ -1,5 +1,5 @@
 ---
-title: "Do Not Replace Database with @DataJpaTest"
+title: "Problem of using embedded database in @DataJpaTest"
 search: false
 category:
   - spring-boot

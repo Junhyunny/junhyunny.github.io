@@ -161,7 +161,7 @@ class TodoRepositoryTest : TestStoreConfig() {
 모든 리팩토링은 끝났다. 이제 테스트를 실행해보자. 각 클래스 별로 테스트를 실행하면 문제가 없지만, 모든 테스트를 한번에 실행하면 문제가 발생한다. 
 
 <p align="center">
-  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-02.png" width="100%" class="image__border">
 </p>
 
 ## 2. Solve the problem

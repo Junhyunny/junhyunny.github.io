@@ -13,7 +13,7 @@ last_modified_at: 2023-03-25T23:55:00
 
 * [HTTPS(HyperText Transfer Protocol over Secure Socket Layer)][https-link]
 
-## 1. Context of Problem
+## 1. Problem Context
 
 현재 진행하는 프로젝트에서 [react-qr-scanner][react-qr-scanner-link]라는 라이브러리를 사용했습니다. 
 이 라이브러리는 카메라를 사용해 QR 이미지를 스캔하는 기능을 제공합니다. 

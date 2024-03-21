@@ -12,7 +12,7 @@ last_modified_at: 2023-03-22T23:55:00
 
 * [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
 
-## 1. Context of Problem
+## 1. Problem Context
 
 최근 도커 이미지를 사용할 때 다음과 같은 상황을 마주쳤습니다. 
 

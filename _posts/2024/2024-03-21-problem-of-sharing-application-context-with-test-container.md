@@ -17,7 +17,7 @@ last_modified_at: 2024-03-19T23:55:00
 
 ## 0. 들어가면서
 
-[How to setup TestContainer in Kotlin Spring Boot][testcontainer-in-kotlin-spring-boot-link]에서 테스트 컨테이너를 사용하는 방법에 대해 정리했다. 이번 글은 테스트 컨테이너(TestConatiner)를 설정하는 코드를 상위 클래스에 옮기는 리팩토링을 수행했을 때 발생하는 문제에 대해 정리했다. 예제 코드는 문제가 발생하는 
+[How to setup TestContainer in Kotlin Spring Boot][testcontainer-in-kotlin-spring-boot-link]에서 테스트 컨테이너를 사용하는 방법에 대해 정리했다. 이번 글은 테스트 컨테이너(TestConatiner)를 설정하는 코드를 상위 클래스에 옮기는 리팩토링을 수행했을 때 발생하는 문제에 대해 정리했다. 예제 코드는 문제가 발생했던 상황을 일부 각색했다.
 
 ## 1. Problem Context
 

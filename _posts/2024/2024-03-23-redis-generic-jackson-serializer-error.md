@@ -157,19 +157,7 @@ HashSet 객체는 다음과 같이 직렬화된다.
 "[1,2,3,4,5]"
 ```
 
-타입 정보 없이 직렬화 된 객체는 역직렬화할 때 문제가 발생한다. 스트림(stream)의 컬렉터(collector) 기능이나 List, Set 인터페이스의 정적 팩토리 메소드 `of`를 사용하면 AbstractImmutableCollection 구현체 클래스가 사용된다. 이 클래스들은 내부에서 배열을 사용하기 때문에 직렬화되는 경우 배열과 동일한 모습을 갖는다.
-
-```java
-static final class ListN<E> extends AbstractImmutableList<E> implements Serializable {
-
-    @Stable
-    private final E[] elements;
-
-    // ...
-}
-```
-
-즉, 다음과 같은 케이스들은 모두 역직렬화되는 시점에 에러가 발생한다.
+타입 정보 없이 직렬화 된 객체는 역직렬화할 때 문제가 발생한다. 스트림(stream)의 컬렉터(collector) 기능이나 List, Set 인터페이스의 `of` 정적 팩토리 메소드를 사용하면 AbstractImmutableCollection 구현체 클래스들이 사용된다. 이 객체들이 직접 직렬화되면 배열과 동일한 모습을 갖는다. 다음과 같은 케이스들은 모두 역직렬화되는 시점에 에러가 발생한다.
 
 ```java
     @Test

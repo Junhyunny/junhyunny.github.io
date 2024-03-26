@@ -26,7 +26,7 @@ last_modified_at: 2024-03-26T23:55:00
 - `Download all` 버튼을 누른다.
 
 <p align="center">
-  <img src="/images/posts/2024/how-to-set-weights-an d-styles-with-font-face-02.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/how-to-set-weights-and-styles-with-font-face-02.png" width="100%" class="image__border">
 </p>
 
 ## 2. @font-face directive

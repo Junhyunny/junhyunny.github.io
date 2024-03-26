@@ -15,7 +15,7 @@ last_modified_at: 2024-03-26T23:55:00
 
 ## 1. Download font files
 
-[구글 폰트 사이트](https://fonts.google.com/)에 접속해 필요한 폰트를 다운로드 받는다. @font-face 지시어가 적용되었는지 확인하기 위해 특이한 폰트를 다운로드 받았다. 
+[구글 폰트 사이트](https://fonts.google.com/)에 접속해 필요한 폰트를 다운로드 받는다. 이번 예제에선 @font-face 지시어가 제대로 적용되었는지 확인하기 위해 모양이 특이한 폰트를 사용한다. 
 
 - `Get font` 버튼을 누른다.
 
@@ -31,7 +31,7 @@ last_modified_at: 2024-03-26T23:55:00
 
 ## 2. @font-face directive
 
-`@font-face` 지시어는 웹 페이지의 텍스트에 온라인 폰트를 적용하는 방법이다. 다음과 같은 문법을 갖는다. 
+@font-face 지시어는 웹 페이지의 텍스트에 온라인 폰트를 적용하는 방법이다. 다음과 같은 문법을 갖는다. 
 
 - `<a-remote-font-name>`
   - font 속성에서 폰트명(font face)으로 지정될 이름을 설정한다.
@@ -55,7 +55,7 @@ last_modified_at: 2024-03-26T23:55:00
 
 ## 3. Using @font-face directive
 
-@font-face 지시어를 사용해 폰트를 적용하는 방법은 두 가지 있다. 두 가지 방법을 모두 알아본다. 프로젝트 구조는 다음과 같다.
+이번 예시에선 @font-face 지시어로 폰트를 적용하는 두 가지 방법을 알아본다. CRA(create react app)으로 생성한 프로젝트 구조는 다음과 같다.
 
 - src/assets/fonts 경로에 폰트 파일들이 위치한다.
 
@@ -109,7 +109,7 @@ export default App;
 
 ### 3.1. Unique font-family name
 
-고유한 font-family 이름을 지정하는 방법이다. 고유한 이름이므로 필요한 클래스에서 해당 폰트 이름을 사용하면 된다.
+고유한 font-family 이름을 지정하는 것이 첫번째 방법이다. 고유한 이름이므로 필요한 클래스에서 해당 폰트 이름을 사용하면 된다.
 
 - @font-face 지시자 블록
   - font-family 이름 뒤에 폰트 굵기 정보를 추가한다.
@@ -168,7 +168,7 @@ export default App;
 
 #### 3.1.1. Mismatch font-weight and font-style
 
-주의할 점은 font-weight, font-style 속성의 값을 정확하게 `normal`로 맞춰 사용해야 한다는 것이다. font-weight 속성을 다른 값으로 지정해버리면 사파리(safari) 브라우저에서 폰트 굵기가 이상하게 출력된다. 
+주의할 점은 font-weight, font-style 속성의 값을 정확하게 `normal`로 맞춰 사용해야 한다는 것이다. font-weight 속성을 다른 값으로 지정하면 사파리(safari) 브라우저에서 폰트 굵기가 이상하게 출력된다. 
 
 - @font-face 지시어 블록들은 그대로 사용한다.
 - SemiBold, Bold 폰트의 경우 font-weight 속성에 normal 값이 아닌 실제 굵기 값을 준다.
@@ -201,7 +201,7 @@ export default App;
 
 ### 3.2. Style Linking
 
-동일한 font-family 이름을 지정하지만, 폰트 굵기와 스타일을 맞추는 방법이다. 이름이 같으므로 font-family 속성은 body 블록에 지정하고 클래스에선 font-weight, font-style 속성을 동일하게 맞춰 사용한다. 
+두번째 방법은 동일한 font-family 이름으로 지정하고 폰트 굵기와 스타일을 맞추는 것이다. 같은 이름을 사용하기 때문에 body 블록에 font-family 속성을 지정하고 클래스에선 font-weight, font-style 속성을 동일하게 맞춘다. 
 
 - @font-face 지시자 블록
   - font-family 이름은 동일한 값을 사용한다.
@@ -271,5 +271,6 @@ body {
 #### REFERENCE
 
 - <https://fonts.google.com/>
+- <https://developer.mozilla.org/ko/docs/Web/CSS/@font-face>
 - <https://www.smashingmagazine.com/2013/02/setting-weights-and-styles-at-font-face-declaration/>
 - <https://webclub.tistory.com/261>

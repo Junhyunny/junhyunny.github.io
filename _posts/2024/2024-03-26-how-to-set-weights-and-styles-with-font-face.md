@@ -266,7 +266,7 @@ body {
 
 #### TEST CODE REPOSITORY
 
-- <>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2024-03-26-how-to-set-weights-and-styles-with-font-face>
 
 #### REFERENCE
 

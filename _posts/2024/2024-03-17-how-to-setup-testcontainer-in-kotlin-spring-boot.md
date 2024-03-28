@@ -21,9 +21,9 @@ last_modified_at: 2023-03-17T23:55:00
 테스트 컨테이너(TestContainer)를 처음 사용했을 때가 23년 3월쯤인 것 같다. 당시엔 지금처럼 스프링에서 정식으로 지원하지 않았기 때문에 사용할 부가적인 작업들이 필요했다. 최근 프로젝트에서 테스트 컨테이너를 다시 적용하면서 다음 같은 사항들 때문에 생각보다 어려움을 겪었다.
 
 - 이전엔 자바(java)를 사용했었지만, 이번엔 코틀린(kotlin)을 사용했다.
-- 스프링이 공식적으로 지원하면서 사용 방법이 일부 변경됬다.
+- 스프링이 공식적으로 지원하면서 사용 방법이 일부 변경됐다.
 
-처음엔 예전 방식처럼 테스트 컨테이너를 적용했고, 프로젝트 후반에 스프링 부트 3.1 버전 이후 방식으로 다시 변경했다. [Use TestContainer on Runtime in Spring Boot][use-test-container-on-runtime-in-spring-boot-link] 글에서 테스트 컨테이너 관련 변경 사항들을 정리해둔 것들이 많은 도움이 됬다.
+처음엔 예전 방식처럼 테스트 컨테이너를 적용했고, 프로젝트 후반에 스프링 부트 3.1 버전 이후 방식으로 다시 변경했다. [Use TestContainer on Runtime in Spring Boot][use-test-container-on-runtime-in-spring-boot-link] 글에서 테스트 컨테이너 관련 변경 사항들을 정리해둔 것들이 많은 도움이 됐다.
 
 ## 1. Setup TestContainer in the first time 
 

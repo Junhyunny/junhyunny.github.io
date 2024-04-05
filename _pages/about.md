@@ -31,6 +31,10 @@ classes: wide
     </h3>
 </div>
 
+<!-- ##### [Honda] Stellar One 공장 프로세스 모니터링, 2024년 1월 - 3월
+
+- 신규 작성 -->
+
 ##### [Toyota] EXPO 어린이 컨퍼런스 네비게이션 웹 어플리케이션, 2023년 9월 - 11월
 
 - TypeScript, React, Sass, Jest, Testing Library

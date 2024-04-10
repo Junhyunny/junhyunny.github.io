@@ -31,15 +31,18 @@ classes: wide
     </h3>
 </div>
 
-<!-- ##### [Honda] Stellar One 공장 프로세스 모니터링, 2024년 1월 - 3월
+##### [Honda] Stellar One 공장 프로세스 모니터링, 2024년 1월 - 3월
 
-- 신규 작성 -->
+- 혼다 실시간 웰딩(welding) 공정 작업 현황 모니터링 웹 애플리케이션
+- 웰딩 공정 내 유닛(unit) 별 작업 현황 모니터링을 위한 도메인 설계 및 구현
+- Github Actions CI/CD 파이프라인 구축
+- 모스키토(mosquitto) MQTT 브로커를 통해 공장 PLC 센서의 데이터를 실시간으로 수집
+- 조업자들의 작업 스케줄을 조정할 때 도움을 주는 실시간 작업 현황을 시각화
+- 실시간 작업 완료 차량 대수와 공정 진행 속도를 기반으로 목표 대수 달성 예상 완료 시간을 계산
+- 후속 웰딩 유닛 이전에 위치한 버퍼의 잔여 수와 공정 진행 속도를 기반으로 공장 가동에 문제가 발생할 수 있는 시각을 계산
 
 ##### [Toyota] EXPO 어린이 컨퍼런스 네비게이션 웹 어플리케이션, 2023년 9월 - 11월
 
-- TypeScript, React, Sass, Jest, Testing Library
-- Kotlin, Spring Boot, Spring Session, Spring Security, Spring Cloud, Spring Data Jpa, Reids, PostgresSQL
-- AWS
 - 어린이 대상 컨퍼런스 참여자들에게 프로그램, 예약 정보 및 퍼즐 게임을 제공하는 웹 어플리케이션
 - 행사 스케줄 및 고객 예약 정보 관리 도메인 설계 및 구현
 - 퍼즐 수집 게임 도메인 설계 및 구현
@@ -48,9 +51,6 @@ classes: wide
 
 ##### [Toyota] EXPO 사내 컨퍼런스 네비게이션 어플리케이션, 2023년 7월 - 8월
 
-- TypeScript, React, Sass, Jest, Testing Library
-- Kotlin, Spring Boot, Spring Session, Spring Security, Spring Data Jpa, Spring Cloud, Reids, PostgresSQL
-- AWS
 - 도요타 사내 컨퍼런스 참여자들에게 참여 부스 정보를 제공하는 웹 어플리케이션
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 - AAD(Azure Active Directory) OAuth2 인증과 서비스 로그인 기능 통합
@@ -58,15 +58,12 @@ classes: wide
 
 ##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 7월
 
-- Java, Spring Boot, Spring Cloud, Reids
 - 차세대 시스템과 클라이언트 사이의 API 하위 호환성 문제를 해결하기 위한 어댑터 서비스
 - 레디스와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
 - 외부 서비스 API 호출 기능 구현 및 와이어 목을 활용한 결합 테스트 검증
 
 ##### [Toyota] EXPO 사내 컨퍼런스 네비게이션 어플리케이션, 2023년 3월 - 4월
 
-- TypeScript, React, Jest, Testing Library, Cypress, Sass
-- AWS
 - 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
 - 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
 - QR 스캐닝 시 발생하는 애니메이션 버그 수정
@@ -75,11 +72,8 @@ classes: wide
 
 ##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
 
-- TypeScript, React, React Query, Momoent Timezone, Jest, Testing Library, Cypress, Sass
-- Java, Apache Nifi, Spring Boot, Spring Cloud, Spring Data Jpa, QueryDSL, MySQL, JUnit 
-- Docker, Kubernetes, Jenkins
 - 프론트 오피스 업무 거래용 윈도우 GUI 어플리케이션을 웹 기반 서비스로 재구축
-- CI/CD 파이프라인 구축을 통한 코드 병합, 빌드, 테스트, 배포 프로세스 자동화
+- Jenkins CI/CD 파이프라인 구축
 - 트레이더 정보 및 권한 관리, 코드 관리, 선물(future) 상품 및 거래 도메인 모델 설계 및 개발
 - 외국 거래 입력 시 시차로 인해 발생하는 이슈 해결을 위한 타임존 도메인 설계 및 개발
 - SSO 인증 프로세스 개발 및 사용자 권한 서비스 연계
@@ -87,11 +81,8 @@ classes: wide
 
 ##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022년 1월 - 6월
 
-- JavaScript, React, Redux Tool-Kit, Jest, Testing Library, Sass
-- Java, Apache Camel, Spring Boot, Spring Cloud, Spring Data Jpa, MySQL, JUnit
-- Docker, Jenkins
 - 마이데이터를 활용한 사용자 맞춤 알뜰폰 요금제 추천 MVP 서비스 개발
-- CI/CD 파이프라인 구축을 통한 코드 병합, 빌드, 테스트, 배포 프로세스 자동화
+- Jenkins CI/CD 파이프라인 구축
 - 마이데이터 기반 알뜰폰 추천을 위한 신규 상품 추천 도메인 모델 설계 및 개발
 - KB 사내 마이데이터 플랫폼 서비스 최초 연계 및 사용
 - KB 레거시 EAI 메세징 서비스 분석 및 리팩토링을 통한 코드 70% 축소
@@ -107,8 +98,6 @@ classes: wide
 
 ##### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
 
-- JSP, JavaScript, JQuery
-- Java, Spring MVC, MyBatis, Tibero, 
 - 노인 거주지 및 장애인 시설 내 IoT 센서를 사용한 돌봄 서비스 고도화 프로젝트
 - 업무 게시판, 돌봄 대상자 관리, 시설 도면 업로드 및 IoT 센서 맵핑 기능 개발
 - 신규 모바일 서비스 개발 및 사용자 PIN 번호 발급을 통한 2차 인증 프로세스 구현
@@ -117,13 +106,11 @@ classes: wide
 
 ##### [KC Industrial] 반도체 가스 공정 MES 개발 프로젝트, 2021년 5월 - 8월
 
-- JavaScript, Vue
-- Java, Spring Boot, MyBatis, MySQL
 - 가스 공정 자동화ㆍ모니터링 웹 서비스 구현
 - 가스 용기 특성과 물류 흐름에 맞는 도메인 모델 설계 및 개발
 - 가스 용기 입고, 전처리, 충전, 품질 검사, 출고, 반품 및 회수 처리 자동화 및 리포팅 기능 구현
 - 실린더 번들 부적합 발생 시 이벤트 발행ㆍ구독 패턴을 통한 결합도 낮은 비즈니스 로직 구현
-- 수백개씩 입고되는 가스 용기들의 납품 PDF 문서를 CSV 파일로 변경하는 수작업을 자동화
+- 수백 개 입고되는 가스 용기들의 납품 PDF 문서를 CSV 파일로 변경하는 수작업을 자동화
 - 용기 번호와 LOT 번호에 맞는 바코드 생성 및 출력 작업 자동화
 
 <div class="resume-header"> 
@@ -137,7 +124,6 @@ classes: wide
 
 ##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영, 2020년 6월 - 2021년 4월
 
-- Java, Spring Boot, Spring Cloud, Kafka, MyBatis, Oracle
 - 포항, 광양 제철소의 야드 관리 시스템 운영 (슬라브, 코일, 후판 및 선재 품종 별 서비스)
 - 각 품종 별로 하루 평균 3000만 건을 초과하는 API 트래픽 처리 
 - 소재, 제품 이적 시 충돌, 추락 등으로 발생하는 품질 저하를 유발하는 장애 추적 및 개선
@@ -149,7 +135,6 @@ classes: wide
 
 ##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 개발, 2018년 7월 – 2020년 5월
 
-- Java, Spring Boot, Spring Cloud, Kafka, MyBatis, Oracle
 - 모노리스 POSCO MES 야드 관리 시스템을 마이크로서비스 아키텍처로 재구축
 - 타 공정, 조업, 운송, 출하 시스템 API 연결 및 폴백(fallback) 처리 구현
 - 야드 관리 시스템 공통 비즈니스 룰 엔진 컴포넌트 리팩토링
@@ -170,9 +155,16 @@ classes: wide
 
 ##### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
 
-- C++, OpenCV
-- 영상 인식을 통한 다트(dart) 공정 이상(abnormal) 감지 어플리케이션 개발 
+- 영상 인식을 통한 다트(dart) 공정 이상(abnormal) 감지 어플리케이션 개발
 - SVM(Support Vector Machine) 머신 러닝 알고리즘 활용
+
+## Skills
+
+- Java, Kotlin, Spring Boot, Spring Security, Spring Data JPA
+- JavaScript, TypeScript, React, Vue, HTML, CSS
+- MySQL, PostgreSQL, Redis, Nifi
+- Jenkins, Gitlab CI, Github Actions
+- AWS
 
 ## Education
 

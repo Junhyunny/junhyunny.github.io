@@ -33,7 +33,7 @@ classes: wide
 
 ##### [Honda] Stellar One 공장 프로세스 모니터링, 2024년 1월 - 3월
 
-- 혼다 실시간 웰딩(welding) 공정 작업 현황 모니터링 웹 애플리케이션
+- 실시간 웰딩(welding) 공정 작업 현황 모니터링 웹 애플리케이션
 - 웰딩 공정 내 유닛(unit) 별 작업 현황 모니터링을 위한 도메인 설계 및 구현
 - Github Actions CI/CD 파이프라인 구축
 - 모스키토(mosquitto) MQTT 브로커를 통해 공장 PLC 센서의 데이터를 실시간으로 수집
@@ -43,18 +43,18 @@ classes: wide
 
 ##### [Toyota] EXPO 어린이 컨퍼런스 네비게이션 웹 어플리케이션, 2023년 9월 - 11월
 
-- 어린이 대상 컨퍼런스 참여자들에게 프로그램, 예약 정보 및 퍼즐 게임을 제공하는 웹 어플리케이션
-- 행사 스케줄 및 고객 예약 정보 관리 도메인 설계 및 구현
-- 퍼즐 수집 게임 도메인 설계 및 구현
-- Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
+- 어린이 대상 컨퍼런스 참여자들에게 프로그램, 예약 정보 및 직소 퍼즐 게임을 제공하는 웹 어플리케이션
+- 행사 스케줄, 고객 예약 정보 관리 및 퍼즐 수집 게임 도메인 설계 및 구현
 - 동일한 여러 퍼즐 조각이 수집되는 동시성 문제 해결 및 예외 처리
+- 퍼즐 수집 시 등장 애니메이션 기능 개발
+- Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 
 ##### [Toyota] EXPO 사내 컨퍼런스 네비게이션 어플리케이션, 2023년 7월 - 8월
 
 - 도요타 사내 컨퍼런스 참여자들에게 참여 부스 정보를 제공하는 웹 어플리케이션
+- AAD(Azure Active Directory) OAuth2 인증과 서비스 자체 로그인 기능 통합
+- 세션에 사용자 정보 저장 시 영속성 컨텍스트가 연결된 상태로 객체 직렬화하는 과정에서 발생하는 버그 수정
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
-- AAD(Azure Active Directory) OAuth2 인증과 서비스 로그인 기능 통합
-- 세션 저장을 위한 객체 직렬화 시 영속성 컨텍스트 연결로 인해 발생하는 버그 수정
 
 ##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 7월
 
@@ -66,9 +66,8 @@ classes: wide
 
 - 도요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 어플리케이션
 - 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
-- QR 스캐닝 시 발생하는 애니메이션 버그 수정
+- 카드 수집 시 등장 애니메이션 버그 수정
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
-- Chrome Lighthouse를 사용한 성능 분석 및 성능 향상을 통한 어플리케이션 사용성 개선
 
 ##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
 
@@ -142,7 +141,7 @@ classes: wide
 - 메모리 캐시와 Kafka를 사용한 데이터 동기화로 룰 엔진 컴포넌트 80% 속도 개선
     - 5초 이상 소요 시간을 1초 미만으로 개선
 - 이송 물류 개선을 위한 차량 이송 물류 스케줄링 구현
-    - 이송될 물류들을 미리 그룹화하고 순번을 지정하는 스케줄링 이후 타 운송 시스템으로 목록과 순번을 전송
+    - 이송될 물류를 미리 그룹화하고 순번을 지정하는 스케줄링 이후 타 운송 시스템으로 목록과 순번을 전송
 
 <div class="resume-header"> 
     <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
@@ -163,6 +162,7 @@ classes: wide
 - Java, Kotlin, Spring Boot, Spring Security, Spring Data JPA
 - JavaScript, TypeScript, React, Vue, HTML, CSS
 - MySQL, PostgreSQL, Redis, Nifi
+- Docker, Podman, K8S
 - Jenkins, Gitlab CI, Github Actions
 - AWS
 

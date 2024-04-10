@@ -20,45 +20,12 @@ last_modified_at: 2021-08-21T16:00:00
 - 사용자 정보나 데이터 속성은 Json 객체에 저장된다.
 - 토큰을 만들기 위해 Base64 방식으로 인코딩한다.
 
-Json 객체에 사용자 정보가 담겨 있기 때문에 자기 수용적인 방식으로 정보를 안전하게 주고 받는다. 
-
-## 2. Authentication with Tokens
-
-오파크 토큰(opaque token)과 Json 웹 토큰을 사용한 인증 방식은 일부 차이가 있다. 각 인증 방식을 살펴보자.
-
-### 2.1. Opaque Token
-
-1. 클라이언트가 인증 서버(authorization server)에 토큰을 요청한다.
-1. 토큰 요청을 받은 인증 서버는 사용자 계정을 확인하고, 토큰 지급이 가능한지 여부를 판정 후 토큰을 발급한다.
-1. 인증 서버는 토큰 발급 후 토큰과 사용자 정보를 스토리지(storage)에 저장한다.
-1. 인증 서버는 클라이언트에게 토큰을 전달한다.
-1. 클라이언트는 토큰과 함께 리소스 서버(resource server)에 API 요청을 수행한다.
-1. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
-
-<p align="center">
-  <img src="/images/posts/2020/json-web-token-01.png" width="80%" class="image__border">
-</p>
-
-### 2.2. Json Web Token
-
-1. 클라이언트가 인증 서버에 토큰을 요청한다.
-1. 토큰 요청을 받은 인증 서버는 사용자 계정을 확인하고 토큰 지급이 가능한지 여부를 판정 후 토큰을 발급한다.
-1. 인증 서버는 사용자 정보를 Json 데이터로 만들고, 이를 암호화하여 토큰을 생성한다.
-  - 이 과정에서 만들어진 토큰은 일반 방식과 다르게 스토리지에 저장하지 않는다.
-1. 인증 서버는 클라이언트에게 토큰을 전달한다.
-1. 클라이언트는 토큰과 함께 리소스 서버에 API 요청을 수행한다.
-1. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
-
-<p align="center">
-  <img src="/images/posts/2020/json-web-token-02.png" width="80%" class="image__border">
-</p>
-
-## 2. JWT Structure
+## 2. JWT Format
 
 `헤더(Header)`, `페이로드(Payload)`, `시그너처(Signature)` 3개의 정보를 담고 있다. 각 정보에 대해 자세히 알아보자.
 
 <p align="center">
-  <img src="/images/posts/2020/json-web-token-03.png" width="50%" class="image__border">
+  <img src="/images/posts/2020/json-web-token-01.png" width="50%" class="image__border">
 </p>
 <center>https://velopert.com/2389</center>
 
@@ -137,17 +104,50 @@ HMACSHA256(
 )
 ```
 
-## 3. Json Web Token Site
+## 3. Encoding and Decoding JWT
 
-<https://jwt.io/> 사이트에서 헤더, 페이로드, 시그너처 정보를 추가하면 JWT 토큰을 생성해볼 수 있다.
+<https://jwt.io/> 사이트에서 헤더, 페이로드, 시그너처 정보를 추가하면 JWT 객체를 생성할 수 있다. 반대로 JWT 객체가 있다면 이를 파싱해 볼 수 있다. 내부에 어떤 값이 들었있는지 확인할 때 용이하다.
 
 <p align="center">
-  <img src="/images/posts/2020/json-web-token-04.png" class="image__border">
+  <img src="/images/posts/2020/json-web-token-02.png" class="image__border">
+</p>
+
+
+## 4. Authorization with JWT?
+
+JWT는 Json 객체에 사용자 정보가 담겨 있다. 이는 JWT로부터 인증된 사용자 정보와 권한을 획득할 수 있다는 의미이다. 때문에 오파크 토큰(opaque token)과 JWT을 사용한 인증, 인가 방식에는 차이가 발생한다. 각 인증 방식을 살펴보자.
+
+### 4.1. Opaque Token
+
+1. 클라이언트가 인증 서버(authorization server)에 토큰을 요청한다.
+2. 토큰 요청을 받은 인증 서버는 사용자 계정을 확인하고, 토큰 지급이 가능한지 여부를 판정 후 토큰을 발급한다.
+3. 인증 서버는 토큰 발급 후 토큰과 사용자 정보를 스토리지(storage)에 저장한다.
+4. 인증 서버는 클라이언트에게 토큰을 전달한다.
+5. 클라이언트는 토큰과 함께 리소스 서버(resource server)에 API 요청을 수행한다.
+6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
+
+<p align="center">
+  <img src="/images/posts/2020/json-web-token-03.png" width="80%" class="image__border">
+</p>
+
+### 4.2. Json Web Token
+
+1. 클라이언트가 인증 서버에 토큰을 요청한다.
+2. 토큰 요청을 받은 인증 서버는 사용자 계정을 확인하고 토큰 지급이 가능한지 여부를 판정 후 토큰을 발급한다.
+3. 인증 서버는 사용자 정보를 Json 데이터로 만들고, 이를 암호화하여 토큰을 생성한다.
+  - 이 과정에서 만들어진 토큰은 일반 방식과 다르게 스토리지에 저장하지 않는다.
+4. 인증 서버는 클라이언트에게 토큰을 전달한다.
+5. 클라이언트는 토큰과 함께 리소스 서버에 API 요청을 수행한다.
+6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
+
+<p align="center">
+  <img src="/images/posts/2020/json-web-token-04.png" width="80%" class="image__border">
 </p>
 
 #### RECOMMEND NEXT POSTS
 
 - [Spring Security JWT OAuth Example][spring-security-example-link]
+- [JWK(Json Web Key)][json-web-key-link]
 
 #### REFERENCE
 
@@ -157,3 +157,4 @@ HMACSHA256(
 
 [base-64-encode-and-decode-link]: https://junhyunny.github.io/information/base-64-encode-and-decode/
 [spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
+[json-web-key-link]: https://junhyunny.github.io/information/json-web-key/

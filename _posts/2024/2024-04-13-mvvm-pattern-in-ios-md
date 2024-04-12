@@ -14,6 +14,18 @@ last_modified_at: 2024-04-13T23:55:00
 
 ## 0. 들어가면서
 
+최근 참여한 프로젝트는 다양한 기술 스택을 사용한다.
+
+- 웹 애플리케이션 - 리액트(react)
+- 서버 애플리케이션 - 스프링 부트(spring boot)
+- iOS 모바일 애플리케이션 - SwiftUI
+
+리액트나 스프링 부트는 오랫동안 사용해서 
+
+
+
+
+
 ## CLOSING
 
 #### TEST CODE REPOSITORY
@@ -22,4 +34,15 @@ last_modified_at: 2024-04-13T23:55:00
 
 #### REFERENCE
 
-- <https://github.com/yonaskolb/XcodeGen>
+- <https://medium.com/hcleedev/ios-%EA%B0%9C%EB%B0%9C-mvc-%ED%8C%A8%ED%84%B4%EA%B3%BC-uikit%EC%9D%98-viewcontroller-3fdb52f6b4b8>
+- <https://medium.com/hcleedev/ios-swiftui%EC%9D%98-mvvm-%ED%8C%A8%ED%84%B4%EA%B3%BC-mvc%EC%99%80%EC%9D%98-%EB%B9%84%EA%B5%90-8662c96353cc>
+- <https://www.vadimbulavin.com/modern-mvvm-ios-app-architecture-with-combine-and-swiftui/>
+- <https://velog.io/@ictechgy/MVC-%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%A8%ED%84%B4>
+- <https://eeyatho.tistory.com/77>
+- <https://velog.io/@leeyoungwoozz/iOS-MVVM-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98>
+- <https://blog.devgenius.io/mvvm-architectural-design-pattern-in-swift-87dde74758b0>
+- <https://www.clariontech.com/blog/mvvm-in-ios-a-quick-walkthrough>
+- <https://lena-chamna.netlify.app/post/ios_design_pattern_mvvm/>
+- <https://medium.com/@zebayasmeen76/mvvm-in-ios-swift-6afb150458fd>
+- <https://www.toptal.com/ios/swift-tutorial-introduction-to-mvvm>
+- <https://ios-daniel-yang.tistory.com/59>

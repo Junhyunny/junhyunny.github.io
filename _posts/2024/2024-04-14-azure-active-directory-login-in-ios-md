@@ -19,3 +19,8 @@ last_modified_at: 2100-01-01T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+- <https://github.com/AzureAD/microsoft-authentication-library-for-objc>
+- <https://learn.microsoft.com/ko-kr/azure/active-directory-b2c/enable-authentication-ios-app>
+- <https://learn.microsoft.com/ko-kr/azure/active-directory-b2c/enable-authentication-ios-app-options>
+- <https://learn.microsoft.com/ko-kr/azure/active-directory-b2c/enable-authentication-web-api?tabs=csharpclient>

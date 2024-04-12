@@ -1,5 +1,5 @@
 ---
-title: "Json Web Token"
+title: "JWT(Json Web Token)"
 search: false
 category:
   - information
@@ -12,7 +12,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 - [RFC 4648 - Base64 Encoding][base-64-encode-and-decode-link]
 
-## 1. Json Web Token
+## 1. JWT(Json Web Token)
 
 `Json 웹 토큰(Json Web Token, JWT)`은 다음과 같이 요약할 수 있다. 
 

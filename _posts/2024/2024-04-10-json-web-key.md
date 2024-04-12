@@ -10,7 +10,7 @@ last_modified_at: 2024-04-10T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Json Web Token][json-web-token-link]
+- [JWT(Json Web Token)][json-web-token-link]
 - [OAuth(Open Authorization)][oauth-link]
 
 ## 0. 들어가면서

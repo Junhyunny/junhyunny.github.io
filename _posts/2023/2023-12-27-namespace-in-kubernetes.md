@@ -436,7 +436,7 @@ NAME          TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 foo-service   NodePort   10.106.98.76   <none>        8080:30496/TCP   61s
 ```
 
-배포가 정상적으로 완료됬는지 cURL 명령어를 통해 확인한다.
+배포가 정상적으로 완료됐는지 cURL 명령어를 통해 확인한다.
 
 - [GET] /service-name 요청
   - 파드 정의 파일에 설정한 환경 변수 값을 응답으로 받는다.

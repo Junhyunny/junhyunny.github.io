@@ -268,7 +268,7 @@ public class InterfaceHistoryInterceptor {
     - 필요한 값을 스터빙(stubbing)합니다.
     - 팩토리 객체로부터 대상 메소드를 호출할 수 있는 프록시 객체를 획득합니다.
     - 프록시 객체의 대상 메소드를 호출합니다.
-    - AOP 기능 내부에서 호출하는 레포지토리 객체의 `save(entity)` 메소드에 적절한 파라미터가 전달됬는지 확인합니다.
+    - AOP 기능 내부에서 호출하는 레포지토리 객체의 `save(entity)` 메소드에 적절한 파라미터가 전달됐는지 확인합니다.
 
 ```java
 package blog.in.action.openfeign.simple;

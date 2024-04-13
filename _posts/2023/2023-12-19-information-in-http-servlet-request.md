@@ -104,7 +104,7 @@ $ curl -v "http://localhost:8080/home?hello=world"
 
 ## 3. Context Path, Servlet Path, Request URI in HttpServletRequest
 
-문제가 됬던 서블릿 패스와 요청 URI 차이를 살펴보자. 컨트롤러 코드를 다음과 같이 변경한다. 
+문제가 됐던 서블릿 패스와 요청 URI 차이를 살펴보자. 컨트롤러 코드를 다음과 같이 변경한다. 
 
 ```java
 package blog.in.action.controller;

@@ -230,7 +230,7 @@ export default App;
 - 리액트 컴포넌트를 렌더링한 결과 값에서 `unmount` 함수를 디스트럭쳐링(destructuring)합니다.
 - 화면의 버튼을 한번 클릭하여 `CustomButton` 컴포넌트를 렌더링합니다.
 - `unmount` 함수를 호출하여 `App` 컴포넌트를 `DOM`에서 제거합니다.
-- 스파이 객체가 호출됬는지 확인합니다.
+- 스파이 객체가 호출됐는지 확인합니다.
 
 ```jsx
 import {render, screen} from "@testing-library/react";

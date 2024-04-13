@@ -60,7 +60,7 @@ last_modified_at: 2024-02-18T23:55:00
 
 이벤트는 워크플로우 실행을 트리거(trigger)하는 행위이다. 때문에 이벤트는 워크플로우를 정의할 때 필수로 지정해야 한다.  `push`, `pull_request` 이벤트가 파이프라인을 위해 많이 사용된다. 크론 잡(cron job)을 사용한 스케줄링도 가능하다. [워크플로우 이벤트](https://docs.github.com/ko/actions/using-workflows/events-that-trigger-workflows)들은 굉장히 다양하기 때문에 공식 홈페이지를 참고하길 바란다.
 
-예를 들어 아래처럼 워크플로우 파일을 정의하면 메인 브랜치에 `push` 이벤트가 발생했을 떄 워크플로우가 실행된다. 
+예를 들어 아래처럼 워크플로우 파일을 정의하면 메인 브랜치에 `push` 이벤트가 발생했을 때 워크플로우가 실행된다. 
 
 ```yml
 on:

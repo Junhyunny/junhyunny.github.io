@@ -19,11 +19,11 @@ last_modified_at: 2023-12-19T23:55:00
 
 서버 애플리케이션을 개발하다보면 주소, 경로 정보 등을 사용하는 경우가 많다. 공통적인 처리를 수행하는 필터(filter)를 만들 때 필자는 보통 HttpServletRequest 객체의 getServletPath 혹은 getRequestURI 메소드를 사용했다. 여러 시스템을 개발해보니 어떤 상황에선 같은 값인데, 어떤 환경에선 서로 다른 값이어서 혼란을 겪었던 기억이 난다. 매우 기본적인 정보들이지만, 매번 헷갈리기도 하고 최근 글을 쓰다가 궁금증이 생겨서 포스트로 정리했다. 
 
-## 2. URI, URL in HttpServletRequest
+## 2. URI and URL in HttpServletRequest
 
-서블릿 패스(servlet path)와 요청 URI의 차이점을 알아보기 전에 HttpServletRequest 객체은 URL 정보를 반환하는 getRequestURL 메소드가 있다. 서블릿 컨테이너에서 URI, URL 정보를 어떻게 구분하는지 궁금했다. 둘 사이의 차이점을 살펴보자.
+서블릿 패스(servlet path)와 요청 URI의 차이점을 알아보기 전에 HttpServletRequest 객체은 URL 정보를 반환하는 getRequestURL 메소드가 있다. 서블릿 컨테이너에서 URI과 URL 정보를 어떻게 구분하는지 궁금했다. 둘 사이의 차이점을 살펴보자.
 
-먼저 URI, URL 의미를 정확하게 알고 싶었다. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) 인터넷 표준에서 정의한 URI, URL의 정의를 참조했다. 통합 자원 식별자(uniform resource identifier, URI)는 숫자, 문자, 기호의 짧은 문자열을 사용해 문서를 식별하는 표준이다. URI는 다음과 같이 표현한다.
+먼저 URI과 URL 의미를 정확하게 짚고 넘어가자. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) 인터넷 표준에서 정의한 URI와 URL의 정의를 참조했다. 통합 자원 식별자(uniform resource identifier, URI)는 숫자, 문자, 기호의 짧은 문자열을 사용해 문서를 식별하는 표준이다. URI는 다음과 같이 표현한다.
 
 ```
 URI         = scheme ":" hier-part [ "?" query ] [ "#" fragment ]

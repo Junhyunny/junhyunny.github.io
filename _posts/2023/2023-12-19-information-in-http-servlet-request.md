@@ -55,7 +55,7 @@ scheme     authority       path        query   fragment
 
 URI, URL을 "주소만 표시되었다.", "식별자까지 포함되었다." 등의 기준으로 구분 지으려는 일은 무의미해 보인다. 어떤 식으로 표현하면 URI, 어떤 식으로 표현하면 URL이 아니기 때문이다. URI는 리소스의 고유한 식별자, URL은 리소스 위치를 표현한다고 정리하고 넘어간다.
 
-이번 글의 주제로 다시 돌아와 스프링 애플리케이션에서 HttpServletRequest 객체의 getRequestURI, getRequestURL 메소드에 저장된 값을 출력하면 어떤 값이 출력될까? 다음과 같은 컨트롤러를 만들고 로그를 통해 확인해봤다.
+이번 글의 주제로 다시 돌아와 스프링 애플리케이션에서 HttpServletRequest 객체의 getRequestURI, getRequestURL 메소드에 저장된 값을 출력하면 어떤 값이 출력될까? 다음과 같은 컨트롤러를 만들고 로그를 통해 확인해 봤다.
 
 ```java
 package blog.in.action.controller;

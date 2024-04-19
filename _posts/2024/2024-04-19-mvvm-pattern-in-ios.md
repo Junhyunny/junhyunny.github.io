@@ -34,7 +34,7 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
   - 뷰에서 발생한 사용자 이벤트에 필요한 비즈니스 로직을 처리한다.
   - 모델에서 발생하는 데이터 변경을 뷰에게 전달(notify) 한다.
 
-애플리케이션 구조에 MVVM 패턴을 적용하면 그림과 같은 이벤트와 데이터 흐름을 갖는다. 
+각 컴포넌트 별 책임에 대해서 간략하게 살펴봤다. 실제로 SwiftUI 프레임워크에서 MVVM 패턴을 적용하면 어떤 실행 흐름이 생길까? 사용자가 발생시키는 이벤트에서부터 내부 비즈니스 로직 처리까지 어떤 컴포넌트에서 어떤 일이 발생하는지 아래 그림을 통해 처리 흐름을 살펴보자. 
 
 1. 뷰에서 사용자 이벤트가 발생한다. 사용자가 화면을 탭(tap)하는 등의 이벤트가 발생한다. 뷰 컴포넌트는 사용자 이벤트 처리를 위해 뷰-모델 컴포넌트에게 작업을 요청한다. 
 2. 뷰-모델 컴포넌트는 데이터 변경이나 상태 확인이 필요할 경우 모델 컴포넌트에게 작업을 요청한다.
@@ -46,11 +46,11 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
   <img src="/images/posts/2024/mvvm-pattern-in-ios-01.png" width="80%" class="image__border">
 </p>
 
-## 2. How can we implement?
+## 2. How do we implement?
 
 필자는 애플리케이션의 전반적인 아키텍처가 세 개의 그룹으로 나뉘는 것이나 각 그룹 별로 갖는 책임은 스프링 부트로 구성하는 백엔드 애플리케이션의 구조와 비슷하다고 느꼈다. 상태가 변경됨에 따라 화면이 다시 랜더링 되는 것은 리액트나 뷰(Vue) 같은 모던 프론트엔드와 비슷하다는 생각이 들었다. 리액트나 스프링 부트가 많이 익숙한 덕분에 MVVM 패턴의 컨셉을 쉽게 이해할 수 있었다. 
 
-큰 그림은 살펴봤으니 이번엔 실제 SwiftUI 프레임워크를 사용해 구현한 애플리케이션 코드는 어떤 모습인지 살펴보자. [PokeApi](https://pokeapi.co/) 오픈 API 서버를 사용한다. 간단한 리스트 화면과 페이징 처리까지 구현했다.
+큰 그림은 살펴봤으니 이번엔 실제 SwiftUI 프레임워크를 사용해 구현한 애플리케이션 코드는 어떤 모습인지 살펴보자. [PokeApi](https://pokeapi.co/)라는 오픈 API 서버를 사용한다. 간단한 리스트 화면과 페이징 처리까지 구현했다.
 
 ### 2.1. Project Groups
 
@@ -198,8 +198,10 @@ class ContentViewModel: ObservableObject { // 1
 
 ### 2.4. PokemonRepository Struct
 
-1. [PokeApi](https://pokeapi.co/) 오픈 API 서버에 요청을 보낸다.
-2. 응답 값의 데이터를 도메인 객체로 디코딩(decoding)한다.
+모델 그룹에 위치한 레포지토리 객체 코드를 살펴보자.
+
+1. [PokeApi](https://pokeapi.co/) 서버에 요청을 보낸다.
+2. 응답 값을 도메인 객체로 디코딩(decoding)한다.
 
 ```swift
 import Foundation
@@ -228,7 +230,7 @@ struct PokemonRepository {
 iOS 시뮬레이터를 실행하면 다음과 같이 동작한다.
 
 <p align="center">
-  <img src="/images/posts/2024/mvvm-pattern-in-ios-02.gif" width="50%" class="image__border">
+  <img src="/images/posts/2024/mvvm-pattern-in-ios-02.gif" width="30%" class="image__border">
 </p>
 
 ## CLOSING

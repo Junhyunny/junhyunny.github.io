@@ -89,7 +89,7 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
     └── ContentView.swift
 ```
 
-### 2.2. ContentView Struct
+### 2.2. ContentView View
 
 뷰 컴포넌트의 기능을 살펴보자. 
 

@@ -19,9 +19,7 @@ last_modified_at: 2024-04-20T23:55:00
 
 ## 1. Annotations for subscribing object changes
 
-SwiftUI 프레임워크는 [MVVM(Model-View-ViewModel)][mvvm-pattern-in-ios-link] 패턴을 기술적으로 지원한다. 뷰 컴포넌트는 뷰-모델 컴포넌트에게 상태 관리를 의존한다. 뷰-모델 컴포넌트는 상태 변경을 뷰에게 알릴 수 있도록 @Published 애너테이션을 사용한다. 
-
-뷰 컴포넌트는 뷰-모델 객체를 선언할 때 @ObservedObject 혹은 @StateObject 애너테이션을 사용할 수 있다. 동작하는 모습은 동일한데 둘 사이엔 어떤 차이점이 있길래 구분하여 사용할까? 우선 공식 홈페이지 설명을 먼저 살펴보자.
+SwiftUI 프레임워크는 [MVVM(Model-View-ViewModel)][mvvm-pattern-in-ios-link] 패턴을 기술적으로 지원한다. 뷰 컴포넌트는 뷰-모델 컴포넌트에게 상태 관리를 의존한다. 뷰-모델 컴포넌트는 상태 변경을 뷰에게 알릴 수 있도록 @Published 애너테이션을 사용한다. 뷰 컴포넌트는 뷰-모델 객체를 선언할 때 @ObservedObject 혹은 @StateObject 애너테이션을 사용할 수 있다. 동작하는 모습은 동일한데 둘 사이엔 어떤 차이점이 있길래 구분하여 사용할까? 우선 공식 홈페이지 설명을 먼저 살펴보자.
 
 ### 1.1. @ObservedObject Annotation
 
@@ -106,7 +104,13 @@ struct MySubView: View {
 
 ## 2. Difference of behavior in implementation
 
-필자는 예제 코드만으로 큰 차이점을 알 수 없었다. 두 설명에 차이가 있다면 @StateObject 애너테이션을 사용하면 `단일 진실 공급원(the single source of truth)`으로써 상태 객체를 선언한 컨테이너가 살아있는 동안 단 한번만 선언된다는 점이다. 이를 쉬운 말로 다시 표현하면 화면(뷰)의 상태가 변경되어 다시 그려질 때 상태가 초기화되지 않는다는 의미이다. 간단한 예제 코드로 둘 사이의 차이점을 살펴보자.
+공식 홈페이지 설명을 보면 두 애너테이션의 사용 용도를 명확하게 구분한다. 
+
+- @StateObject 애너테이션은 `단일 진실 공급원(the single source of truth)`으로써 상태 객체를 화면 컨테이너에서 유일하게 관리한다.
+  - 이를 쉽게 다시 표현하면 화면(뷰)의 상태가 변경되어 다시 그려질 때 상태가 초기화되지 않는다는 의미이다.
+- @ObservedObject 애너테이션은 상태 객체의 변화를 감지할 수 있지만, 부모 컨테이너로부터 상태 객체를 주입 받을 때 사용한다.
+
+두 애너테이션은 상태 객체의 변경을 감지하여 뷰 컴포넌트가 화면을 다시 그리는 것을 가능하게 만들지만, 사용 용도를 명확하게 구분하고 있다. 아쉽게도 필자가 겪은 버그와 관련된 내용은 공식 문서의 개념이나 예제 코드에는 명확하게 표현이 되어 있지 않았다. 간단한 예제 코드로 둘 사이의 차이점을 살펴보자.
 
 ### 2.1. Hierarchy of View
 

@@ -82,7 +82,7 @@ record Item(int id, String value) {
 }
 ```
 
-예외 객체의 메세지를 로그로 출력하면 다음과 같은 메세지를 볼 수 있다. 
+예외 객체의 메시지를 로그로 출력하면 다음과 같은 메시지를 볼 수 있다. 
 
 ```
 Could not read JSON:Could not resolve type id '1' as a subtype of `java.lang.Object`: no such class found

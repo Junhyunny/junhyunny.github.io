@@ -259,7 +259,7 @@ public final class CompanionObjectTimeProvider {
     CompanionObjectTimeProvider.currentDateTime()
 ```
 
-다시 모키토의 에러 메세지를 살펴보자 에러가 발생할 수 있는 두 번째 예시를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
+다시 모키토의 에러 메시지를 살펴보자 에러가 발생할 수 있는 두 번째 예시를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
 
 > inside when() you don't call method on mock but on some other object.
 

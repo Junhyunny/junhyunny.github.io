@@ -10,7 +10,7 @@ last_modified_at: 2024-04-22T23:55:00
 
 ## 0. 들어가면서
 
-스프링 프레임워크가 익숙한 개발자라면 다음과 같은 서블릿 필터, 필터 체인 같은 개념이 익술할 것이다. 여기엔 책임 연쇄(chain of responsibility)라는 패턴이 적용되어 있다. 이 패턴에 대해 자세히 설명할 일이 생긴 김에 블로그에 정리해 봤다.
+스프링 프레임워크가 익숙한 개발자라면 서블릿 필터(servlet filter), 필터 체인(filter chain) 같은 개념이 익숙할 것이다. 필터 체인에는 책임 연쇄(chain of responsibility)라는 패턴이 적용되어 있다. 이 패턴에 대해 자세히 설명할 일이 생긴 김에 블로그에 글로 정리했다.
 
 ## 1. Chain of Responsibility Pattern
 
@@ -23,9 +23,9 @@ last_modified_at: 2024-04-22T23:55:00
 - UI 애플리케이션 사용자가 도움말 정보를 얻어야 한다.
   - 사용자는 인터페이스의 어느 위치를 클릭하더라도 도움말 정보를 얻어야 한다.
   - 선택한 인터페이스 부분과 컨텍스트에 따라 도움말 정보가 달라진다.
-- 도움말 정보는 구체적인 것부터 일반적인 것까지 제공할 수 있어야 한다.
-  - 사용자가 선택한 인터페이스에 밀접할수록 구체적인 정보를 갖고 있다.
-  - 사용자가 선택한 인터페이스와 멀수록 일반적인 정보를 갖고 있다. 
+- UI 애플리케이션은 도움말 정보를 구체적인 것부터 일반적인 것까지 제공할 수 있어야 한다.
+  - 사용자가 선택한 인터페이스에 밀접할수록 구체적인 정보를 갖고 있을 수도 있고 없을 수도 있다.
+  - 사용자가 선택한 인터페이스와 멀수록 일반적인 정보를 갖고 있다.
 
 문제는 도움말 정보를 제공하는 컴포넌트는 사용자가 도움말을 요청하기 위해 클릭한 인터페이스 컴포넌트의 존재를 모른다는 점이다. 이 문제를 해결하기 위해 여러 개체들이 특정 요청을 처리하기 위한 연결 고리를 만들고 요청을 재전달한다.
 
@@ -33,7 +33,7 @@ last_modified_at: 2024-04-22T23:55:00
 - 자신이 해결할 수 없는 요청은 다음 후보 객체에게 전달한다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/chain-of-responsibility-pattern-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.cs.unc.edu/~stotts/GOF/hires/pat5afso.htm</center>
 
@@ -92,7 +92,7 @@ last_modified_at: 2024-04-22T23:55:00
   - 핸들러 체인은 동적으로 구성할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-04.png" width="50%" class="image__border">
+  <img src="/images/posts/2024/chain-of-responsibility-pattern-04.png" width="40%" class="image__border image__padding">
 </p>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
@@ -127,7 +127,7 @@ last_modified_at: 2024-04-22T23:55:00
 
 ## 4. An example in Spring Security
 
-스프링 프레임워크의 서블릿 필터 체인(servlet filter chain)도 책임 연쇄 패턴의 좋은 예이지만, 서블릿 필터 체인을 확장한 스프링 시큐리티의 시큐리티 필터 체인도 좋은 에시 중 하나이다. 인증이나 인가, 공격 방어에 대한 책임들을 여러 필터에 걸쳐 분리하고, 이를 필터 체인으로 연결해두었다. 
+스프링 프레임워크의 서블릿 필터 체인(servlet filter chain)도 책임 연쇄 패턴의 좋은 예이지만, 서블릿 필터 체인을 확장한 스프링 시큐리티 프레임워크의 시큐리티 필터 체인도 좋은 에시 중 하나이다. 인증이나 인가, 공격 방어에 대한 책임들을 여러 필터들로 분리하고 이들을 하나의 필터 체인으로 연결했다. 
 
 Filter 클래스를 살펴보면 doFilter 메소드가 선언되어 있다. 구현 클래스들은 이 메소드 내부에서 자신의 책임을 수행한다. 
 
@@ -160,7 +160,11 @@ public class SecurityContextHolderFilter extends GenericFilterBean {
         this.doFilter((HttpServletRequest)request, (HttpServletResponse)response, chain);
     }
 
-    private void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    private void doFilter(
+        HttpServletRequest request, 
+        HttpServletResponse response, 
+        FilterChain chain
+    ) throws ServletException, IOException {
         if (request.getAttribute(FILTER_APPLIED) != null) {
             chain.doFilter(request, response);
         } else {
@@ -196,7 +200,7 @@ public class SecurityContextHolderFilter extends GenericFilterBean {
 - 핸들러 역할을 수행하는 필터들은 서로의 존재를 모르고 FilterChain 인스턴스를 통해 다음 필터에게 요청을 건낸다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/chain-of-responsibility-pattern-05.png" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

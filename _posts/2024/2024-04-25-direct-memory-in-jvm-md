@@ -1,0 +1,64 @@
+---
+title: "Direct Memory in JVM"
+search: false
+category:
+  - java
+  - jvm
+last_modified_at: 2024-04-24T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [JVM(Java Virtual Machine)][what-is-jvm-link]
+
+## 0. 들어가면서
+
+현재 프로젝트에서 OOME(Out of Memory Error)를 만났다. 대용량 트래픽을 처리했던 필자의 첫 프로젝트 이후에 처음 마주쳤다. 메모리 사이즈를 늘려서 문제를 해결했지만, 문제가 발생한 메모리 영역에 대한 근본적인 이해가 부족하다고 느꼈다. 무슨 용도로 사용하는 메모리인지 사용자의 어떤 행동(behaviour)이 이 문제를 일으킬 가능성이 있는지 합리적인 유추를 할 수 있도록 관련된 내용을 정리했다. 
+
+## 1. Native Memory
+
+필자는 처음 네이티브 메모리(native memory)라는 개념 때문에 계속 혼란을 겪었다. JVM 프로세스 내부에 네이티브 메모리라는 영역이 별도로 존재하는 줄 알았다. 여러 글에서 읽은 내용을 바탕으로 정리하자면 네이티브 메모리는 JVM 프로세스가 운영체제(operating system)로부터 할당 받은 메모리 중 힙 메모리(heap memory) 영역을 제외한 영역들을 통칭하여 부르는 것으로 보여진다. 이를 오프-힙(off-heap) 메모리라고도 부른다. 
+
+네이티브 메모리는 힙 메모리 외부이기 때문에 가비지 컬렉터(garbage colletor)의 관리 대상에서 제외된다. Java 8 버전부터 힙에서 제외된 메타스페이스(metaspace)난 이번 글의 주제인 다이렉트 메모리(direct memory)도 네이티브 메모리 영역에 할당된다. 참고로 메타스페이스 영역은 Java 8 버전 이전앤 `Perm Gen(Permanent Generation)`이라고 불렸으며 힙 메모리에 포함되어 있었다.
+
+어떤 운영체제에서 JVM 프로세스가 실행되었을 때 메모리 모습을 넓은 시야를 갖고 바라보자. 
+
+- 운영체제는 메인 메모리와 하드 디스크 일부 영역을 사용하는 스왑 영역까지 포함해 메모리로 관리한다.
+- 운영체제는 자신이 관리하는 메모리 중 일부를 JVM 프로세스를 위해 할당한다.
+- JVM 프로세스에게 할당된 메모리 중 JVM 가비지 컬렉터에 의해 관리되는 힙 메모리를 제외한 영역이 네이티브 혹은 오프-힙 메모리이다. 
+
+<p align="center">
+  <img src="/images/posts/2024/direct-memory-in-jvm-01.png" width="100%" class="image__border image__padding">
+</p>
+<center>https://veribilimleri.wordpress.com/2017/03/15/java-jvm-memory-model-memory-management-in-java/</center>
+
+## 2. Direct Memory
+
+OOME 장애를 일으킨 다이렉트 메모리는 무슨 영역일까? 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://www.baeldung.com/java-jvm-memory-types>
+- <https://www.betsol.com/blog/java-memory-management-for-java-virtual-machine-jvm/>
+- <https://stackoverflow.com/questions/39675406/difference-between-metaspace-and-native-memory-in-java>
+- <https://stackoverflow.com/questions/40241660/is-metaspace-allocated-out-of-native-memory>
+- <https://stackoverflow.com/questions/53451103/java-using-much-more-memory-than-heap-size-or-size-correctly-docker-memory-limi/53624438>
+- <https://veribilimleri.wordpress.com/2017/03/15/java-jvm-memory-model-memory-management-in-java/>
+- <https://jaemunbro.medium.com/java-metaspace%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90-ac363816d35e>
+
+
+
+
+- <https://learn.microsoft.com/ko-kr/azure/spring-apps/enterprise/concepts-for-java-memory-management>
+
+- <https://stackoverflow.com/questions/52769633/what-is-the-purpose-to-use-direct-memory-in-java>
+
+[what-is-jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/

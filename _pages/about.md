@@ -24,7 +24,7 @@ classes: wide
 
 <div class="resume-header"> 
     <img src="/images/about/about-4.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 class="reusme__company">
+    <h3 id="vmware" class="reusme__company">
         <span class="reusme__company--name">VMWare</span>
         <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
         <span class="reusme__company--period">2021년 11월 - PRESENT</span>
@@ -88,7 +88,7 @@ classes: wide
 
 <div class="resume-header"> 
     <img src="/images/about/about-3.jpg" width="4%" class=" image__margin-right image__border"/>
-    <h3 class="reusme__company">
+    <h3 id="geneuin" class="reusme__company">
         <span class="reusme__company--name">Geneuin</span>
         <span class="reusme__company--team-role">Application Developer</span>
         <span class="reusme__company--period">2021년 4월 - 11월</span>
@@ -114,7 +114,7 @@ classes: wide
 
 <div class="resume-header"> 
     <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 class="reusme__company">
+    <h3 id="posco-ict" class="reusme__company">
         <span class="reusme__company--name">POSCO ICT</span>
         <span class="reusme__company--team-role">MES Application Developer</span>
         <span class="reusme__company--period">2018년 7월 – 2021년 4월</span>
@@ -145,7 +145,7 @@ classes: wide
 
 <div class="resume-header"> 
     <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 class="reusme__company">
+    <h3 id="posco-ict" class="reusme__company">
         <span class="reusme__company--name">POSCO ICT</span>
         <span class="reusme__company--team-role">Internship</span>
         <span class="reusme__company--period">2017년 8월 - 2017년 11월</span>

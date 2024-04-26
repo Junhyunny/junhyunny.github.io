@@ -145,7 +145,7 @@ classes: wide
 
 <div class="resume-header"> 
     <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 id="posco-ict" class="reusme__company">
+    <h3 id="posco-ict-intern" class="reusme__company">
         <span class="reusme__company--name">POSCO ICT</span>
         <span class="reusme__company--team-role">Internship</span>
         <span class="reusme__company--period">2017년 8월 - 2017년 11월</span>

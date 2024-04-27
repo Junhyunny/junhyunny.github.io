@@ -219,7 +219,7 @@ $ vagrant destroy [VM] # 가상 머신을 삭제한다.
 
 #### TEST CODE REPOSITORY
 
-- <>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2024-04-27-introduction-vagrant>
 
 #### RECOMMEND NEXT POSTS
 

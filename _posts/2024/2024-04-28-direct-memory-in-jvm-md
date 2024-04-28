@@ -36,7 +36,7 @@ last_modified_at: 2024-04-24T23:55:00
 
 ## 2. Direct Memory
 
-OOME 장애를 일으킨 다이렉트 메모리는 무슨 영역일까? 
+OOME 장애를 일으킨 다이렉트 메모리의 용도는 무엇일까? 
 
 ## CLOSING
 
@@ -54,5 +54,7 @@ OOME 장애를 일으킨 다이렉트 메모리는 무슨 영역일까?
 - <https://veribilimleri.wordpress.com/2017/03/15/java-jvm-memory-model-memory-management-in-java/>
 - <https://jaemunbro.medium.com/java-metaspace%EC%97%90-%EB%8C%80%ED%95%B4-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90-ac363816d35e>
 - <https://www.evanjones.ca/java-bytebuffer-leak.html>
+- <https://stackoverflow.com/questions/52769633/what-is-the-purpose-to-use-direct-memory-in-java>
+- <https://stackoverflow.com/questions/6091615/difference-between-on-heap-and-off-heap>
 
 [what-is-jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/

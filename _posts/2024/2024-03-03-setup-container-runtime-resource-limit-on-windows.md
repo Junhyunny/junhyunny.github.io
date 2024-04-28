@@ -26,7 +26,7 @@ last_modified_at: 2024-03-03T23:55:00
 
 마이크로소프트 공식 문서를 보면 다음과 같은 글을 확인할 수 있다. 
 
-> Main WSL settings - memory size(default)<br />
+> Main WSL settings - memory size(default)<br/>
 > 50% of total memory on Windows or 8GB, whichever is less; on builds before 20175: 80% of your total memory on Windows
 
 WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8GB 중 작은 것을 사용한다. 20175 이전 빌드를 사용하는 경우 80% 메모리를 사용한다고 한다. 간단한 서비스 컨테이너 두 개를 실행하기엔 너무 과도하게 리소스를 사용했다. 리소스 제한이 필요했다. 

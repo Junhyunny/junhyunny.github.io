@@ -30,7 +30,7 @@ last_modified_at: 2024-04-28T23:55:00
 - JVM 프로세스에게 할당된 메모리 중 JVM 가비지 컬렉터에 의해 관리되는 힙 메모리를 제외한 영역이 네이티브 메모리이다. 
 
 <p align="center">
-  <img src="/images/posts/2024/direct-memory-in-java-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/direct-memory-in-java-01.png" width="80%" class="image__border">
 </p>
 <center>https://veribilimleri.wordpress.com/2017/03/15/java-jvm-memory-model-memory-management-in-java/</center>
 
@@ -51,7 +51,7 @@ JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따�
 - `-XX:MaxDirectMemorySize={N}` JVM 옵션으로 다이렉트 메모리를 더 크게 할당하면 문제를 해결할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/direct-memory-in-java-03.png" width="100%" class="image__border image__padding">
+  <img src="/images/posts/2024/direct-memory-in-java-03.png" width="100%" class="image__border">
 </p>
 
 ### 2.1. ByteBuffer Class
@@ -128,7 +128,7 @@ public abstract sealed class ByteBuffer
 공식 문서와 코드로부터 어떤 ByteBuffer 인스턴스를 사용하느지에 따라서 JVM 힙 메모리를 사용할지 네이티브 메모리를 사용할지 결정된다는 사실을 유추할 수 있다. DirectByteBuffer, HeapByteBuffer 클래스의 추상 레이어 구조는 다음과 같다.
 
 <p align="center">
-  <img src="/images/posts/2024/direct-memory-in-java-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/direct-memory-in-java-05.png" width="60%" class="image__border">
 </p>
 
 ## CLOSING

@@ -172,8 +172,8 @@ class TodoRepositoryTest : TestStoreConfig() {
 
 스프링 결합 테스트들은 컨텍스트를 캐싱하고 공유한다. 스프링 공식 홈페이지를 살펴보면 다음과 같은 설명을 볼 수 있다.
 
-> The Spring TestContext Framework provides consistent loading of Spring ApplicationContext instances and WebApplicationContext instances as well as caching of those contexts. Support for the caching of loaded contexts is important, because startup time can become an issue — not because of the overhead of Spring itself, but because the objects instantiated by the Spring container take time to instantiate. <br />
-> ... <br />
+> The Spring TestContext Framework provides consistent loading of Spring ApplicationContext instances and WebApplicationContext instances as well as caching of those contexts. Support for the caching of loaded contexts is important, because startup time can become an issue — not because of the overhead of Spring itself, but because the objects instantiated by the Spring container take time to instantiate. <br/>
+> ... <br/>
 > By default, once loaded, the configured ApplicationContext is reused for each test. Thus, the setup cost is incurred only once per test suite, and subsequent test execution is much faster. 
 
 결합 테스트는 스프링 애플리케이션 컨텍스트(application context)를 준비하는데 비용이 크기 때문에 테스트 속도 향상을 위해 한번 로드한 애플리케이션 컨텍스트를 캐싱(caching)하고 재사용한다. 애플리케이션 컨텍스트 캐싱과 테스트 컨테이너의 기능이 충돌하면서 문제가 발생한다. 자세한 설명을 이어가기 전에 테스트 코드의 로그를 먼저 살펴보자. 성공한 테스트의 로그 일부분이다. 

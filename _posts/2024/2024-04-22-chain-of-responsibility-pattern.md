@@ -54,7 +54,7 @@ last_modified_at: 2024-04-22T23:55:00
 </p>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
-<br /><br />
+<br/><br/>
 
 인증, 인가, 유효성 검사, 무차별 공격 방어, 캐싱 등 너무 많은 기능들이 모여있다. 새로운 기능을 추가할 때마다 코드의 복잡성은 증가하고 이는 코드를 수정, 검증하는 데 더 많은 비용을 들게 만드는 악순환의 고리를 만든다. 비슷한 검증이 필요한 다른 시스템에선 코드 일부분을 복제해가기 때문에 비슷한 코드가 점점 늘어난다.
 

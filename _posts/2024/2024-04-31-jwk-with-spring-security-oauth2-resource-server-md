@@ -28,7 +28,7 @@ last_modified_at: 2024-04-10T23:55:00
 
 JWT(Json Web Token)은 대부분의 개발자라면 모두 알고 있을 것이다. 그렇다면 JWK(Json Web Key)는 무엇일까? RFC 표준을 살펴보자. 
 
-> A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key.<br />
+> A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key.<br/>
 > ...
 > A JSON object that represents a cryptographic key. The members of the object represent properties of the key, including its value.
 

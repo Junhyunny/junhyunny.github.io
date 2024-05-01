@@ -135,6 +135,10 @@ public abstract sealed class ByteBuffer
 
 이번 글은 필자가 혼란을 겪은 메모리 영역에 대한 개념과 실제 OOM 에러가 발생한 클래스는 어떤 클래스인지 정리했다. 다음 글 주제는 OOM 에러가 발생한 원인과 이를 해결한 방법에 대해 정리할 예정이다.
 
+#### RECOMMEND NEXT POSTS
+
+- [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
+
 #### REFERENCE
 
 - <https://www.baeldung.com/java-jvm-memory-types>
@@ -152,3 +156,4 @@ public abstract sealed class ByteBuffer
 - <https://homoefficio.github.io/2020/08/10/Java-NIO-FileChannel-%EA%B3%BC-DirectByteBuffer/>
 
 [what-is-jvm-link]: https://junhyunny.github.io/information/java/what-is-jvm/
+[out-of-memory-error-case-study-in-jvm-link]: https://junhyunny.github.io/java/jvm/spring-boot/out-of-memory-error-case-study-in-jvm/

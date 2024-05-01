@@ -269,9 +269,25 @@ public class FileController {
   <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-05.gif" width="100%" class="image__border">
 </p>
 
+<br/>
+
+데이터를 읽을 때 버퍼 사이즈를 고정하는 방법 외에 transferTo 메소드를 사용해도 OOME 문제가 발생하지 않는다.
+
+```java
+    private File convertToFile(MultipartFile multipartFile) {
+        File copiedFile = new File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        try {
+            multipartFile.transferTo(copiedFile.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return copiedFile;
+    }
+```
+
 ## CLOSING
 
-Java 21 부터 발생하는 OOME 문제는 새로운 글로 정리할 예정이다.
+Java 21 버전부터 발생하는 OOME 문제에 대한 디테일은 새로운 글로 정리할 예정이다. 
 
 #### TEST CODE REPOSITORY
 

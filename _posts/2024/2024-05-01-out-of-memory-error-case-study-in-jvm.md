@@ -77,7 +77,7 @@ IBM, 이클립스(eclipse) 문서를 살펴보면 다이렉트 메모리에 대�
 
 > The Java Memory Calculator is a tool used by the Paketo Java Buildpack to provide an optimized memory configuration for Java applications running in containers with enforced memory limits.
 
-계산식을 하나씩 짚고 넘어가보자. 힙 메모리는 다음과 같이 계사한다.
+계산식을 하나씩 짚고 넘어가보자. 힙 메모리는 다음과 같이 계산한다.
 
 ```
 Heap = (Total Container Memory) - (Non-Heap) - (Headroom)

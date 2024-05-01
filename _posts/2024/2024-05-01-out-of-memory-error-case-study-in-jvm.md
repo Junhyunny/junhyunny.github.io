@@ -89,7 +89,7 @@ Heap = (Total Container Memory) - (Non-Heap) - (Headroom)
 Non-Heap = (Direct Memory) + (Metaspace) + (Reserved Code Cache) + (Thread Stack * Thread Count)
 ```
 
-헤드룸(Headroom) 메모리는 JVM이 아닌 작업을 위해 남겨두는 메모리로 백분율 단위를 사용하며 기본적으로 0 값을 사용하므로 자세한 내용은 살펴보지 않는다. 공식 문서를 보면 논-힙 메모리에 포함된 다이렉트 메모리의 기본 값은 10MB이다. 발생한 문제의 로그와 동일한 값인 것으로 미뤄볼 때 기본 값이 너무 작아 OOM 에러가 발생한 것으로 보인다.
+헤드룸(Headroom) 메모리는 JVM이 아닌 작업을 위해 남겨두는 메모리로 백분율 단위를 사용하며 기본 값이 0% 이므로 자세한 내용은 살펴보지 않았다. 공식 문서를 보면 논-힙 메모리에 포함된 다이렉트 메모리의 기본 값은 10MB이다. 발생한 문제의 로그와 동일한 값인 것으로 미뤄볼 때 기본 값이 너무 작아 OOM 에러가 발생한 것으로 보인다.
 
 <p align="center">
   <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-03.png" width="60%" class="image__border">

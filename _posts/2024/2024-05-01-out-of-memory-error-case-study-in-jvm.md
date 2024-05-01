@@ -29,7 +29,7 @@ last_modified_at: 2024-04-30T23:55:00
   <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-01.png" width="100%" class="image__border">
 </p>
 
-<br/><br/>
+<br/>
 
 스택 트레이스(stack trace)를 거슬러 올라가면 업로드 데이터가 담긴 MultipartFile 인스턴스의 `getBytes` 메소드로 바이트 배열을 꺼낼 때 에러가 발생한 것을 볼 수 있다.
 
@@ -66,7 +66,7 @@ JDK 제공사에서 설명할 때 다이렉트 메모리에 제한이 없는데 
   <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-02.png" width="100%" class="image__border">
 </p>
 
-<br/><br/>
+<br/>
 
 IBM, 이클립스(eclipse) 문서를 살펴보면 다이렉트 메모리에 대한 사이즈 제한은 별도로 없다. 자바 버전이나 벤더(vendor)에 따라 다르겠지만, 최대 힙 메모리 사이즈까지 허용하는 한 사용할 수 있는 것으로 보인다.
 
@@ -205,7 +205,7 @@ public class FileController {
   <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-04.gif" width="100%" class="image__border">
 </p>
 
-<br/><br/>
+<br/>
 
 다시 자세한 글로 정리할 예정이지만, 원인을 몇 줄로 요약하면 다음과 같다. 
 

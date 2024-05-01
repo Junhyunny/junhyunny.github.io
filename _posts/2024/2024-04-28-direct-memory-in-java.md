@@ -43,7 +43,7 @@ JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따�
 </p>
 <center>https://learn.microsoft.com/en-us/azure/spring-apps/enterprise/concepts-for-java-memory-management</center>
 
-<br/><br/>
+<br/>
 
 필자가 겪은 OOM 에러는 다이렉트 메모리 공간이 부족해서 발생했다. 문제가 발생한 에러 로그를 살펴보면 `java.nio` 패키지에 위치한 DirectByteBuffer 클래스를 초기화할 때 에러가 발생한다. DirectByteBuffer 객체를 초기화 할 때 필요한 메모리 공간이 다이렉트 메모리이다. 
 

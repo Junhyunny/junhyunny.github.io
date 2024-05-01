@@ -1,9 +1,11 @@
 ---
-title: "Post Format"
+title: "MultipartFile is not safe in Java 21"
 search: false
 category:
-  - post-format
-last_modified_at: 2100-01-01T23:55:00
+  - java
+  - jvm
+  - spring-boot
+last_modified_at: 2024-05-01T23:55:00
 ---
 
 <br/>

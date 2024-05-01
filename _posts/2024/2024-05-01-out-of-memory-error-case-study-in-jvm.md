@@ -73,7 +73,7 @@ IBM, 이클립스(eclipse) 문서를 살펴보면 다이렉트 메모리에 대�
 > Eclipse Open J9 - Start of content that applies to Java 11 plus.<br/> 
 > By default, the amount of native memory used for Direct Byte Buffers is limited to the maximum heap size.
 
-그렇다면 어디서 다이렉트 메모리 사이즈를 제한하는 것일까? 지금 프로젝트는 필자의 회사에서 메인테이닝(maintaining)하는 파케토 빌드팩(paketo buildpack)을 사용하고 있다. 위 로그를 보면 빌드팩에서 어떤 공식으로 메모리를 할당하는지 확인할 수 있는 [링크]((https://paketo.io/docs/reference/java-reference/#memory-calculator))를 제공하고 있다. 해당 링크를 들어가보면 파케토 빌드팩은 컨테이너 환경에서 실행되는 자바 애플리케이션의 최적화를 위해 메모리 제한하는 메모리 계산기(Java Memory Calculator)를 사용한다는 설명을 볼 수 있다.
+그렇다면 어디서 다이렉트 메모리 사이즈를 제한하는 것일까? 지금 프로젝트는 필자의 회사에서 메인테이닝(maintaining)하는 파케토 빌드팩(paketo buildpack)을 사용하고 있다. 위 로그를 보면 빌드팩에서 어떤 공식으로 메모리를 할당하는지 확인할 수 있는 [링크](https://paketo.io/docs/reference/java-reference/#memory-calculator)를 제공하고 있다. 해당 링크를 들어가보면 파케토 빌드팩은 컨테이너 환경에서 실행되는 자바 애플리케이션의 최적화를 위해 메모리 제한하는 메모리 계산기(Java Memory Calculator)를 사용한다는 설명을 볼 수 있다.
 
 > The Java Memory Calculator is a tool used by the Paketo Java Buildpack to provide an optimized memory configuration for Java applications running in containers with enforced memory limits.
 
@@ -94,6 +94,7 @@ Non-Heap = (Direct Memory) + (Metaspace) + (Reserved Code Cache) + (Thread Stack
 <p align="center">
   <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-03.png" width="60%" class="image__border">
 </p>
+<center>https://paketo.io/docs/reference/java-reference/#memory-calculator</center>
 
 ## 3. Solve the problem
 

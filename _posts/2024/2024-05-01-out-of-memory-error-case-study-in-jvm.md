@@ -92,7 +92,7 @@ Non-Heap = (Direct Memory) + (Metaspace) + (Reserved Code Cache) + (Thread Stack
 헤드룸(Headroom) 메모리는 JVM이 아닌 작업을 위해 남겨두는 메모리로 백분율 단위를 사용하며 기본 값이 0% 이므로 자세한 내용은 살펴보지 않았다. 공식 문서를 보면 논-힙 메모리에 포함된 다이렉트 메모리의 기본 값은 10MB이다. 발생한 문제의 로그와 동일한 값인 것으로 미뤄볼 때 기본 값이 너무 작아 OOM 에러가 발생한 것으로 보인다.
 
 <p align="center">
-  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-03.png" width="60%" class="image__border">
+  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-03.png" width="50%" class="image__border">
 </p>
 <center>https://paketo.io/docs/reference/java-reference/#memory-calculator</center>
 
@@ -218,7 +218,7 @@ public class FileController {
 
 Java 21에선 캐시 키로 사용되는 바이트 버퍼 사이즈가 다른 방식으로 결정되면서 문제가 발생한다. 이 문제를 해결하려면 캐시 키를 고정할 수 있도록 데이터를 읽을 때 일정 사이즈의 버퍼를 사용하면 된다. 버퍼 사이즈를 얼마나 사용하면 좋을까? 다이렉트 메모리 사이즈를 100MB 정도로 제한했기 때문에 상당히 여유가 있지만, 해제되지 않는 메모리를 너무 과다하게 사용하지 않도록 다음과 같이 변경했다. 
 
-> 10,240 Byte(read buffer size) X 200(tomcat thread count) = 2,048,000 Byte = 2MB
+- 10,240 Byte(read buffer size) X 200(tomcat thread count) = 2,048,000 Byte = 2MB
 
 ```java
 package action.in.blog.controller;
@@ -260,7 +260,7 @@ public class FileController {
 }
 ```
 
-일정 사이즈의 버퍼로 데이터를 읽으면 OOM 에러가 발생하지 않는다. 스레드 풀의 모든 스레드가 버퍼를 사용하더라도 2MB 정도 밖에 하지 않으므로 다시 최대 다이렉트 메모리 사이즈를 10MB로 줄이더라도 문제가 발생하지 않는다. 
+일정 사이즈의 버퍼로 데이터를 읽으면 OOM 에러가 발생하지 않는다. 스레드 풀의 모든 스레드가 버퍼를 사용하더라도 2MB 정도 밖에 하지 않으므로 다시 최대 다이렉트 메모리 사이즈를 다시 10MB로 줄이더라도 문제가 발생하지 않는다. 
 
 - 최대 다이렉트 메모리 사이즈가 10MB이다.
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.

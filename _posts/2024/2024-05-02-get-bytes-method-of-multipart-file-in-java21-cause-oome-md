@@ -1,0 +1,41 @@
+---
+title: "getBytes method of MultipartFile in Java 21 cause out of memory"
+search: false
+category:
+  - java
+  - jvm
+  - spring-boot
+last_modified_at: 2024-05-02T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
+
+## 0. 들어가면서
+
+[Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link] 글에서 잠깐 언급했지만, 글의 주제가 흐려질까봐 자세한 부분까지 함께 정리하지 못 했다. 이번 글에서 다루지 못했던 디테일에 대해 이야기해보려 한다.
+
+## 1. Problem Context
+
+
+
+## 2. 
+
+캐시 히트율이 떨어진다.
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://homoefficio.github.io/2020/08/10/Java-NIO-FileChannel-%EA%B3%BC-DirectByteBuffer/>
+- <https://github.com/openjdk/jdk/commits/master/src/java.base/share/classes/sun/nio/ch/ChannelInputStream.java>
+- <https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca>
+
+[out-of-memory-error-case-study-in-jvm-link]: https://junhyunny.github.io/java/jvm/spring-boot/out-of-memory-error-case-study-in-jvm/

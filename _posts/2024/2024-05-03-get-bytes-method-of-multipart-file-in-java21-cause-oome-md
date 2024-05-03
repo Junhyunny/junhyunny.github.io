@@ -1,0 +1,68 @@
+---
+title: "getBytes method of MultipartFile in Java 21 cause out of memory"
+search: false
+category:
+  - java
+  - jvm
+  - spring-boot
+last_modified_at: 2024-05-02T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
+
+## 0. 들어가면서
+
+[Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link] 글에서 잠깐 언급했지만, 글의 주제를 벗어나거나 이야기가 길어질 것 같아 자세한 부분까지 함께 정리하지 못 했다. 이번 글에서 다루지 못했던 디테일에 대해 이야기해보려 한다. 실제 
+
+## 1. Problem Context
+
+문제가 발생했을 때 JVM 애플리케이션 환경은 다음과 같다.
+
+- Java 21
+- 최대 다이렉트 메모리 사이즈 10MB
+- 최대 힙 메모리 사이즈 2.8GB 
+
+비디오를 업로드하는 기능이고, 문제가 발생한 코드는 다음과 같다.
+
+- 업로드 파일 데이터가 담긴 MultipartFile 인스턴스로부터 데이터를 복사한다.
+
+```java
+    private File convertToFile(MultipartFile multipartFile) {
+        File copiedFile = new File(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+        try (OutputStream os = new FileOutputStream(copiedFile)) {
+            os.write(multipartFile.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return copiedFile;
+    }
+```
+
+비디오 사이즈는 10MB 미만 정도로 그렇게 크지 않다. 파일을 
+
+### 1.1. 
+
+
+## 2. 
+
+캐시 히트율이 떨어진다.
+
+## CLOSING
+
+다음과 같이 요약할 수 있다. 
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://homoefficio.github.io/2020/08/10/Java-NIO-FileChannel-%EA%B3%BC-DirectByteBuffer/>
+- <https://github.com/openjdk/jdk/commits/master/src/java.base/share/classes/sun/nio/ch/ChannelInputStream.java>
+- <https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca>
+
+[out-of-memory-error-case-study-in-jvm-link]: https://junhyunny.github.io/java/jvm/spring-boot/out-of-memory-error-case-study-in-jvm/

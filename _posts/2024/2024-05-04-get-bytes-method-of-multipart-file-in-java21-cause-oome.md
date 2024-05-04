@@ -186,7 +186,7 @@ Native Memory Tracking:
 > Eclipse Open J9 - Start of content that applies to Java 11 plus.<br/>
 > By default, the amount of native memory used for Direct Byte Buffers is limited to the maximum heap size.
 
-최대 다이렉트 메모리 사이즈 제한이 없는 정확한 공식 문서를 찾진 못 했지만, 위 정보를 미뤄보면 힙 메모리까지 끌어다 사용하는 것처럼 보여진다. 테스트를 실행해보자.
+최대 다이렉트 메모리 사이즈 제한이 없는 정확한 공식 문서를 찾진 못 했지만, 위 정보를 바탕으로 유추해보면 힙 메모리까지 다이렉트 메모리로 사용하는 것처럼 보여진다. 제이미터를 사용해 요청을 보내면 다음과 같은 결과를 얻는다.
 
 - 요청의 일부는 성공하지만, 어느 수준에 도달하면 요청들이 실패한다.
 
@@ -338,7 +338,7 @@ public class Util {
   - 자신의 readAllBytes 메소드를 사용한다. 
 
 <div align="center">
-  <img src="/images/posts/2024/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="40%" class="image__border">
 </div>
 
 <br/>

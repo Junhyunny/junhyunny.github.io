@@ -1,5 +1,5 @@
 ---
-title: "getBytes method of MultipartFile in Java 21 cause out of memory"
+title: "getBytes method of MultipartFile cause out of memory in Java 21"
 search: false
 category:
   - java
@@ -628,7 +628,6 @@ Native Memory Tracking:
 
 - <https://homoefficio.github.io/2020/08/10/Java-NIO-FileChannel-%EA%B3%BC-DirectByteBuffer/>
 - <https://homoefficio.github.io/2020/04/09/Java-Native-Memory-Tracking/>
-- <https://github.com/openjdk/jdk/commits/master/src/java.base/share/classes/sun/nio/ch/ChannelInputStream.java>
 - <https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca>
 
 [thread-local-class-in-java-link]: https://junhyunny.github.io/java/thread-local-class-in-java/

@@ -455,7 +455,7 @@ class ChannelInputStream extends InputStream {
 
 ## 4. To avoid out of memory error in Java 21
 
-결론을 바탕으로 JVM 애플리케이션 프로파일링 결과를 다시 살펴보자. 완전 정확하진 않지만, 필자의 계산과 얼추 맞아 떨어진다. 
+위 분석 내용을 바탕으로 JVM 애플리케이션 프로파일링 결과를 다시 살펴보자. 완전 정확하진 않지만, 필자의 계산과 얼추 맞아 떨어진다. 
 
 - Java 17, 다이렉트 메모리 사이즈 20MB 제한
   - 모든 스레드가 8KB 정도 다이렉트 메모리를 할당 받으므로 1.6MB 정도를 사용한다.

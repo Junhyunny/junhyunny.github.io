@@ -440,8 +440,8 @@ class ChannelInputStream extends InputStream {
 
 확인한 정보를 바탕으로 문제를 분석한 내용을 그림으로 표현하면 다음과 같은 모습이 된다. 이번 글 예제에서 사용한 17.6MB 사이즈 비디오를 기준으로 설명한다.
 
-- 해제되지 않는 버퍼 객체가 BufferCache 객체에 담긴다. 
-- BufferCache 객체는 요청이 들어올 때마다 ThreadLocal 객체에 의해 스레드에 저장된다.
+- 요청을 받으면 버퍼 객체가 BufferCache 객체에 담긴다. 
+- BufferCache 객체는 ThreadLocal 객체에 의해 스레드 객체 내부에 저장된다.
 - 요청을 처리하는 스레드는 서블릿 컨테이너 스레드 풀에 저장되므로 캐시에 담긴 버퍼 객체의 메모리는 해제되지 않는다.
 - Java 17 버전일 때 캐시에 담긴 버퍼 사이즈가 8192Byte 이다.
 - Java 21 버전일 때 캐시에 담긴 버퍼 사이즈가 17.6MB 이다.

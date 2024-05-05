@@ -338,7 +338,7 @@ public class Util {
   - 자신의 readAllBytes 메소드를 사용한다. 
 
 <div align="center">
-  <img src="/images/posts/2024/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="40%" class="image__border">
+  <img src="/images/posts/2024/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="80%" class="image__border">
 </div>
 
 <br/>

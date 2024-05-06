@@ -15,7 +15,7 @@ last_modified_at: 2024-05-06T23:55:00
 
 ## 0. 들어가면서
 
-JVM 힙 메모리는 사용량을 추적할 수 있는 GUI 도구는 존재한다. 반면 힙 메모리가 아닌 네이티브 메모리 영역에 대한 사용량을 추적할 때는 jcmd(Java diagnostic command) 도구를 사용하는 것 같다. 이번 글은 네이티브 메모리 중에서도 다이렉트 메모리(direct memory) 사용량을 측정하는 방법에 대해 정리했다.
+JVM 힙 메모리는 사용량을 추적할 수 있는 GUI 도구는 여러 가지가 있지만, 힙 메모리가 아닌 네이티브 메모리 영역에 대한 사용량을 추적할 때는 jcmd(Java diagnostic command) 도구를 사용해야 하는 것 같다. 이번 글은 jcmd 도구를 사용해 네이티브 메모리 중에서도 다이렉트 메모리(direct memory) 사용량을 측정하는 방법에 대해 정리했다.
 
 ## 1. jcmd
 
@@ -23,9 +23,7 @@ JVM 힙 메모리는 사용량을 추적할 수 있는 GUI 도구는 존재한�
 
 > The jcmd utility is used to send diagnostic command requests to the JVM, where these requests are useful for controlling Java Flight Recordings, troubleshoot, and diagnose JVM and Java Applications. It must be used on the same machine where the JVM is running, and have the same effective user and group identifiers that were used to launch the JVM.
 
-jcmd 도구는 JVM 애플리케이션의 문제 해결하거나 상태를 진단하기 위해 요청을 보내는 도구다. JVM 애플리케이션이 실행되는 머신에서만 실행할 수 있다. 필자가 오늘 소개하는 다이렉트 메모리 측정에만 사용하지 않고 다양한 정보를 수집할 때 사용한다.
-
-JDK(java development kit)을 설치하면 실행 파일이 모여있는 `bin` 폴더에서 찾을 수 있다. 
+jcmd 도구는 JVM 애플리케이션의 문제 해결하거나 상태를 진단하기 위해 요청을 보내는 도구다. JVM 애플리케이션이 실행되는 머신에서만 실행할 수 있다. 필자가 오늘 소개하는 다이렉트 메모리 측정에만 사용하지 않고 다양한 정보를 수집할 때 사용할 수 있다. JDK(java development kit)을 설치하면 실행 파일이 모여있는 `bin` 폴더에서 찾을 수 있다. 
 
 ```
 $ ls -al
@@ -87,7 +85,7 @@ public class ActionInBlogApplication {
 -XX:NativeMemoryTracking=summary 
 ```
 
-다음 명령어를 사용해 애플리케이션을 실행한다.
+예를 들면 다음과 같이 애플리케이션을 실행해야 한다.
 
 ```
 $ java -XX:NativeMemoryTracking=summary -jar .\action-in-blog-0.0.1-SNAPSHOT-plain.jar
@@ -113,7 +111,7 @@ $ jcmd {PID} VM.native_memory baseline
 
 다음 명령어로 메모리 변경을 확인한다. 
 
-- 대상 JVM 애플리케이션의 PID(process id)를 사용한다.
+- 대상 JVM 애플리케이션의 PID를 사용한다.
 
 ```
 $ jcmd {PID} VM.native_memory summary.diff
@@ -153,7 +151,7 @@ Baseline succeeded
 
 특정 시간마다 메모리 차이를 확인한다. 필자는 7초와 메모리 할당 반복문이 모두 끝난 시점에 메모리를 확인했다.
 
-- `7 seconds later release will start.` 로그를 봤을 때 jcmd 명령어를 실행한 결과이다.
+- `7 seconds. expected size = 7KB` 로그를 봤을 때 jcmd 명령어를 실행한 결과이다.
 
 ```
 $ jcmd 24300 VM.native_memory summary.diff
@@ -343,7 +341,7 @@ Total: reserved=10059352KB +56KB, committed=621984KB +192KB
                             (malloc=1KB #8)
 ```
 
-### 2.4. Summary Result
+### 2.4. Result Summary
 
 필자가 참고한 글을 보면 다이렉트 메모리가 증가함에 따라 `Internal` 영역이 변한다고 했지만, 직접 확인해본 결과 `Other` 영역의 변화가 다이렉트 메모리 증가량과 일치했다. 확실하지 않지만, 이는 Java 버전에 따라 다이렉트 메모리의 분류가 다른 것일 수 있다. 필자는 Java 21 환경에서 테스트했다. 
 

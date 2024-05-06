@@ -13,6 +13,7 @@ last_modified_at: 2024-05-04T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [ThreadLocal Class][thread-local-class-in-java-link]
+- [Tracking DirectMemory Usage in JVM][tracking-direct-memory-usage-in-jvm-link]
 - [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
 
 ## 0. 들어가면서
@@ -138,7 +139,7 @@ Java 17 환경에서 실행한 애플리케이션의 동작을 확인해보자. 
 
 <br/>
 
-jcmd 도구로 네이티브 메모리 사용량을 추적해보자. 다이렉트 메모리가 약 2MB(1984KB) 증가했다. 많은 글에서 jcmd 도구로 다이렉트 메모리 사용량을 측정할 때 `Internal` 항목을 확인하지만, 필자가 직접 테스트해 본 결과 `Other` 영역의 메모리가 증가한다. Java 버전마다 다른 것일 수 있다. jcmd 도구로 다이렉트 메모리 측정하는 방법은 다른 글로 정리할 예정이다. 
+jcmd 도구로 네이티브 메모리 사용량을 추적해보자. 다이렉트 메모리가 약 2MB(1984KB) 증가했다. 많은 글에서 jcmd 도구로 다이렉트 메모리 사용량을 측정할 때 `Internal` 항목을 확인하지만, 필자가 직접 테스트해 본 결과 `Other` 영역의 메모리가 증가한다. Java 버전마다 다른 것일 수 있다. jcmd 도구로 다이렉트 메모리 측정하는 방법은 [이 글][tracking-direct-memory-usage-in-jvm-link]에 정리되어 있으니 참고하길 바란다.
 
 ```
 $ jcmd 50887 VM.native_memory summary.diff
@@ -631,4 +632,5 @@ Native Memory Tracking:
 - <https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca>
 
 [thread-local-class-in-java-link]: https://junhyunny.github.io/java/thread-local-class-in-java/
+[tracking-direct-memory-usage-in-jvm-link]: https://junhyunny.github.io/java/jvm/tracking-direct-memory-usage-in-jvm/
 [out-of-memory-error-case-study-in-jvm-link]: https://junhyunny.github.io/java/jvm/spring-boot/out-of-memory-error-case-study-in-jvm/

@@ -153,7 +153,7 @@ Baseline succeeded
 
 특정 시간마다 메모리 차이를 확인한다. 필자는 7초와 메모리 할당 반복문이 모두 끝난 시점에 메모리를 확인했다.
 
-- `7 seconds later release will start.` 로그를 봤을 때 아래 명령어를 실행한다.
+- `7 seconds later release will start.` 로그를 봤을 때 jcmd 명령어를 실행한 결과이다.
 
 ```
 $ jcmd 24300 VM.native_memory summary.diff
@@ -248,7 +248,7 @@ Total: reserved=10059343KB +47KB, committed=621907KB +115KB
                             (malloc=1KB #8)
 ```
 
-- `10 seconds later this application will stop.` 로그를 봤을 때 아래 명령어를 실행한다.
+- `10 seconds later this application will stop.` 로그를 봤을 때 jcmd 명령어를 실행한 결과이다.
 
 ```
 $ jcmd 24300 VM.native_memory summary.diff

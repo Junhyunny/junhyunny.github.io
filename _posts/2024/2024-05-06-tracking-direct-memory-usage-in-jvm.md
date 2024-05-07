@@ -1,5 +1,5 @@
 ---
-title: "Tracking DirectMemory Usage in JVM"
+title: "Tracking Direct Memory Usage in JVM"
 search: false
 category:
   - java

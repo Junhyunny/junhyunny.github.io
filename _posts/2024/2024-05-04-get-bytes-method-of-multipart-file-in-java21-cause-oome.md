@@ -13,7 +13,7 @@ last_modified_at: 2024-05-04T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [ThreadLocal Class][thread-local-class-in-java-link]
-- [Tracking DirectMemory Usage in JVM][tracking-direct-memory-usage-in-jvm-link]
+- [Tracking Direct Memory Usage in JVM][tracking-direct-memory-usage-in-jvm-link]
 - [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
 
 ## 0. 들어가면서

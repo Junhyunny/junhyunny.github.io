@@ -1,0 +1,31 @@
+---
+title: "Post Format"
+search: false
+category:
+  - post-format
+last_modified_at: 2100-01-01T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://github.com/patrickbussmann/oauth2-apple>
+- <https://stackoverflow.com/questions/64761364/cant-find-io-jsonwebtoken-impl-defaultjwtbuilder-when-starting-project-in-a-doc>
+- <https://gist.github.com/patrickbussmann/877008231ef082cc5dc4ee5ca661a641>
+- <https://developer.apple.com/documentation/sign_in_with_apple/fetch_apple_s_public_key_for_verifying_token_signature>
+- <https://developer.apple.com/documentation/sign_in_with_apple/revoke_tokens>
+- <https://developer.apple.com/documentation/accountorganizationaldatasharing/creating-a-client-secret>
+- <https://developer.apple.com/documentation/sign_in_with_apple/generate_and_validate_tokens>
+- <https://github.com/SWM-YouQuiz/Authentication-Service/blob/dev/build.gradle.kts>
+- <https://github.com/SWM-YouQuiz/Authentication-Service/blob/847932c2047e8111a289f43e018550f5c6aef22d/src/main/kotlin/com/quizit/authentication/global/oauth/AppleOAuth2Provider.kt>

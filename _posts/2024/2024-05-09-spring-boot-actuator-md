@@ -1,0 +1,24 @@
+---
+title: "Spring Boot Actuator"
+search: false
+category:
+  - spring-boot
+last_modified_at: 2024-05-09T23:55:00
+---
+
+<br/>
+
+## 0. 들어가면서
+
+스프링(spring) 애플리케이션의 상태를 확인할 수 있는 .
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://incheol-jung.gitbook.io/docs/study/srping-in-action-5th/chap-16.>
+- <https://www.baeldung.com/java-management-extensions>

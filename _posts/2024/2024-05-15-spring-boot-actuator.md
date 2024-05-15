@@ -3,7 +3,7 @@ title: "Spring Boot Actuator"
 search: false
 category:
   - spring-boot
-last_modified_at: 2024-05-14T23:55:00
+last_modified_at: 2024-05-15T23:55:00
 ---
 
 <br/>
@@ -45,10 +45,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    runtimeOnly 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
@@ -102,7 +100,7 @@ management:
 /actuator 경로에서 액추에이터가 제공하는 정보를 확인해보자.
 
 - 총 20개 엔드-포인트를 통해 애플리케이션 상태를 제공한다.
-- 각 엔드-포인트들이 제공하는 정보는 해당 [링크]에 잘 정리되어 있다.
+- 각 엔드-포인트들이 제공하는 정보는 이 [문서](https://docs.spring.io/spring-boot/docs/current/actuator-api/pdf/spring-boot-actuator-web-api.pdf)에 잘 정리되어 있다.
 
 ```
 $ curl http://localhost:8080/actuator | jq .
@@ -447,19 +445,11 @@ $ curl http://localhost:9090/custom-actuator | jq .
 
 #### TEST CODE REPOSITORY
 
-#### RECOMMEND NEXT POSTS
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2024-05-15-spring-boot-actuator>
 
 #### REFERENCE
 
 - <https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/>
+- <https://docs.spring.io/spring-boot/docs/current/actuator-api/pdf/spring-boot-actuator-web-api.pdf>
 - <https://stackoverflow.com/questions/76794560/what-does-templated-false-mean-for-spring-boot-actuator>
-
-
-
-
-
-
-- <https://spring.io/guides/gs/actuator-service>
-- <https://docs.spring.io/spring-boot/docs/3.0.x/actuator-api/htmlsingle/>
-- <https://www.baeldung.com/java-management-extensions>
 - <https://incheol-jung.gitbook.io/docs/study/srping-in-action-5th/chap-16.>

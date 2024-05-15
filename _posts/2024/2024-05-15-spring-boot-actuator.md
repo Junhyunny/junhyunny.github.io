@@ -448,9 +448,15 @@ $ curl http://localhost:9090/custom-actuator | jq .
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-05-15-spring-boot-actuator>
 
+#### RECOMMEND NEXT POSTS
+
+- [Health Check for External Components in Actuator][spring-boot-actuator-link]
+
 #### REFERENCE
 
 - <https://docs.spring.io/spring-boot/docs/current/actuator-api/htmlsingle/>
 - <https://docs.spring.io/spring-boot/docs/current/actuator-api/pdf/spring-boot-actuator-web-api.pdf>
 - <https://stackoverflow.com/questions/76794560/what-does-templated-false-mean-for-spring-boot-actuator>
 - <https://incheol-jung.gitbook.io/docs/study/srping-in-action-5th/chap-16.>
+
+[health-check-for-external-components-in-actuator-link]: https://junhyunny.github.io/spring-boot/health-check-for-external-components-in-actuator/

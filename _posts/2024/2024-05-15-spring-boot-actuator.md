@@ -450,7 +450,7 @@ $ curl http://localhost:9090/custom-actuator | jq .
 
 #### RECOMMEND NEXT POSTS
 
-- [Health Check for External Components in Actuator][spring-boot-actuator-link]
+- [Health Check for External Components in Actuator][health-check-for-external-components-in-actuator-link]
 
 #### REFERENCE
 

@@ -20,7 +20,7 @@ last_modified_at: 2021-09-22T23:55:00
 - `시작하기` 버튼을 클릭한다.
 
 <div align="center">
-  <img src="/images/posts/2021/minimal-mistakes-adsense-1.png" width="100%" class="image__border image__padding">
+  <img src="/images/posts/2021/minimal-mistakes-adsense-1.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Google Adsense 가입 정보 입력
@@ -33,7 +33,7 @@ last_modified_at: 2021-09-22T23:55:00
   - 필자는 이미 가입되어 있기 때문에 다른 화면으로 리다이렉트(redirect)됬다.
 
 <div align="center">
-  <img src="/images/posts/2021/minimal-mistakes-adsense-2.png" width="100%" class="image__border image__padding">
+  <img src="/images/posts/2021/minimal-mistakes-adsense-2.png" width="100%" class="image__border">
 </div>
 
 ## 2. Add Adsense code in HTML head
@@ -44,7 +44,7 @@ last_modified_at: 2021-09-22T23:55:00
 - `애드센스 코드` 영역의 태그를 복사한다.
 
 <div align="center">
-  <img src="/images/posts/2021/minimal-mistakes-adsense-3.png" width="100%" class="image__border image__padding">
+  <img src="/images/posts/2021/minimal-mistakes-adsense-3.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. Paste Adsense code in /_includes/head/custom.html 
@@ -69,7 +69,7 @@ last_modified_at: 2021-09-22T23:55:00
 - `광고 > 개요 > 코드 가져오기` 링크를 누르면 다음 창이 뜨면서 다시 애드센스 코드를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/minimal-mistakes-adsense-4.png" width="100%" class="image__border image__padding">
+  <img src="/images/posts/2021/minimal-mistakes-adsense-4.png" width="100%" class="image__border">
 </div>
 
 ### 2.4. Change AdSense code form in case of continuous approval failure
@@ -105,7 +105,7 @@ last_modified_at: 2021-09-22T23:55:00
 - 승인된 사이트는 `준비됨` 이라고 표시된다.
 
 <div align="center">
-  <img src="/images/posts/2021/minimal-mistakes-adsense-5.png" width="100%" class="image__border image__padding">
+  <img src="/images/posts/2021/minimal-mistakes-adsense-5.png" width="100%" class="image__border">
 </div>
 
 #### RECOMMEND NEXT POSTS

@@ -1,5 +1,5 @@
 ---
-title: "GitHub 블로그 애드센스 광고 위치 설정 (feat. minimal-mistakes theme)"
+title: "Customize Google Ads location for Github Blog"
 search: false
 category:
   - information
@@ -8,71 +8,71 @@ last_modified_at: 2021-09-22T23:55:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [GitHub 블로그 애드센스 연결 (feat. minimal-mistakes theme)][adsense-minimal-mistakes-link]
+#### RECOMMEND POSTS BEFORE THIS
+
+- [How to connect to Google Adsense for GitHub Blog][adsense-minimal-mistakes-link]
 
 ## 0. 들어가면서
-`구글 애드센스(Google Adsense)` 승인도 어려웠지만, GitHub 커스텀 블로그에 광고를 등록하는 일도 쉽지 않았습니다. 
-애드센스의 `자동 광고` 설정에 대한 설명을 보면 구글에서 포스트를 분석하여 적절한 위치에 광고를 삽입한다고 합니다. 
-하지만, 실제 적용하면 글의 가독성이나 몰입도를 떨어뜨리는 광고가 많았습니다. 
-애드센스가 승인된 이전에 운영하던 블로그를 들어가 보면 `자동 광고` 설정 때문에 다음과 같은 불편사항이 있었습니다. 
 
-- 글 중간에 광고가 나와서 글의 몰입도와 가독성을 떨어뜨린다.
+`구글 애드센스(Google Adsense)`는 승인도 어렵지만, GitHub 블로그에 광고를 등록하는 일도 쉽지 않았다. 애드센스의 `자동 광고` 설정에 대한 설명을 보면 구글에서 포스트를 분석하여 적절한 위치에 광고를 넣는다고 이야기 한다. 실제 적용하면 글의 가독성이나 몰입도를 떨어뜨리는 광고가 많았다. 필자는 글의 가독성을 깨뜨리는 위치에 광고가 삽입되는 것은 원치 않았다. 광고는 부가적인 요소라 생각하기 때문에 부수적인 요소들이 포스트의 내용을 망치는 것은 좋지 않다고 판단했다. 때문에 `자동 광고` 설정 없이 광고를 만들고 포스트에 추가하는 작업을 진행했다.
 
-글의 가독성을 깨뜨리는 위치에 광고가 삽입되는 것은 원치 않았습니다. 
-광고는 부가적인 요소라 생각하기 때문에 부수적인 요소들이 포스트의 내용을 망치는 것은 좋지 않다고 판단하였습니다. 
-그렇기 때문에 `자동 광고` 설정 없이 광고를 만들고 포스트에 추가하는 작업을 진행하였습니다. 
+## 1. Create Ads
 
-## 1. 광고 만들기
-포스트에 추가할 광고를 만들어야합니다. 
-다음과 같은 순서로 광고를 생성합니다.
+먼저 포스트에 추가할 광고를 만들어야 한다. 다음과 같은 순서로 광고를 생성한다.
 
-### 1.1. 광고 종류 선택
+### 1.1. Select Ads Type
 
-1. `광고 > 개요 > 광고 단위 기준`을 선택합니다.
-1. `신규 광고 단위 만들기` 항목 중 원하는 광고 종류를 선택합니다.
-     - 디스플레이 광고
-     - 인피드 광고
-     - 콘텐츠 내 자동 삽입 광고
-     - 검색 엔진
+1. `광고 > 개요 > 광고 단위 기준`을 선택한다.
+2. `신규 광고 단위 만들기` 항목 중 원하는 광고 종류를 선택한다.
+  - 디스플레이 광고
+  - 인피드 광고
+  - 콘텐츠 내 자동 삽입 광고
+  - 검색 엔진
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-1.JPG" width="95%"></p>
+<div align="center">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-1.png" width="100%" class="image__border">
+</div>
 
-### 1.2. 광고 이름 지정
+### 1.2. Set Ads Name
 
-1. 예시로 `디스플레이 광고`를 선택하였습니다.
-1. 사각형, 수평형, 수직형인지 종류를 선택합니다.
-1. 이름을 작성 후 `만들기` 버튼을 누릅니다. 
+1. 예시로 `디스플레이 광고`를 선택한다.
+1. 사각형, 수평형, 수직형인지 종류를 선택한다.
+1. 이름을 작성 후 `만들기` 버튼을 누른다. 
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-2.JPG" width="95%"></p>
+<div align="center">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-2.png" width="100%" class="image__border">
+</div>
 
-### 1.3. 광고 코드 확인
+### 1.3. Check Ads Code
 
-1. 애드센스 연결시와 동일하게 광고 코드를 부여받습니다.
-1. 부여받은 광고 코드를 포스트 적절한 위치에 삽입합니다.
+1. 애드센스 연결시와 동일하게 광고 코드를 받는다.
+1. 받은 광고 코드를 포스트 적절한 위치에 삽입한다.
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-3.JPG" width="95%"></p>
+<div align="center">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-3.png" width="100%" class="image__border">
+</div>
 
-### 1.4. 광고 코드 재확인
-- 부여받은 코드를 복사하지 않고 `완료` 버튼을 누르는 경우 광고 코드를 재확인할 수 있습니다.
-- `광고 > 개요 > 광고 단위 기준` 화면에 `기존 광고 단위` 테이블에서 생성한 광고를 확인할 수 있습니다.
-- 생성한 광고 오른쪽에 `<>` 모양의 `코드 가져오기` 버튼을 클릭합니다. 
+### 1.4. How to find Ads code
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-4.JPG" width="95%"></p>
+받은 코드를 복사하지 않고 `완료` 버튼을 누르는 경우 다음과 같은 방법으로 광고 코드를 재확인할 수 있다.
 
-## 2. 광고 위치 잡기
-`minimal-mistakes` 테마를 기준으로 포스트를 작성하였으며, 같은 테마를 사용하시는 분들만 참조하시면 됩니다. 
+- `광고 > 개요 > 광고 단위 기준` 화면에 `기존 광고 단위` 테이블에서 생성한 광고를 확인할 수 있다.
+- 생성한 광고 오른쪽에 `<>` 모양의 `코드 가져오기` 버튼을 클릭한다. 
 
-이제 생성한 광고를 포스트 내 적절한 위치에 삽입하면 됩니다. 
-저는 다음과 같은 기준으로 광고를 포스트 최상단과 최하단에 삽입하였습니다.
+<div align="center">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-4.png" width="100%" class="image__border">
+</div>
+
+## 2. Locate Ads 
+
+`minimal-mistakes` 테마를 기준으로 포스트를 작성했다. 필자는 다음과 같은 기준으로 광고를 포스트 최상단과 최하단에 삽입했다.
 
 - 독자의 몰입을 깨지 않도록 글 중간에 광고를 넣지 않는다.
 - Home, About, Posts, Category 화면에는 광고가 나오지 않도록 한다.
 
-저의 경우 작성하는 포스트들은 모두 `/_layouts/single.html` 파일 형태를 따릅니다. 
-그렇기 때문에 해당 HTML 파일의 메인(main) 영역 위, 아래에 광고를 넣으면 위의 두 조건을 모두 만족할 수 있었습니다.
+필자가 사용하는 테마의 포스트들은 모두 `/_layouts/single.html` 파일에 지정된 레이아웃을 따른다. 때문에 해당 HTML 파일의 메인(main) 영역 위, 아래에 광고를 넣으면 위의 두 조건을 모두 만족할 수 있었다.
 
-##### /_layouts/single.html 파일
+##### /_layouts/single.html
 
 ```html
 ---
@@ -117,8 +117,10 @@ layout: default
 </div>
 ```
 
-##### 실제 애드센스 광고 삽입 결과
+##### After re-locate Ads
 
-<p align="center"><img src="/images/adsense-position-setting-minimal-mistakes-5.gif" width="95%"></p>
+<div align="center">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-5.gif" width="100%" class="image__border">
+</div>
 
 [adsense-minimal-mistakes-link]: https://junhyunny.github.io/information/minimal-mistakes-adsense/

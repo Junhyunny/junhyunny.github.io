@@ -24,9 +24,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 `헤더(Header)`, `페이로드(Payload)`, `시그너처(Signature)` 3개의 정보를 담고 있다. 각 정보에 대해 자세히 알아보자.
 
-<p align="center">
+<div align="center">
   <img src="/images/posts/2020/json-web-token-01.png" width="50%" class="image__border">
-</p>
+</div>
 <center>https://velopert.com/2389</center>
 
 ### 2.1. Header
@@ -108,10 +108,9 @@ HMACSHA256(
 
 <https://jwt.io/> 사이트에서 헤더, 페이로드, 시그너처 정보를 추가하면 JWT 객체를 생성할 수 있다. 반대로 JWT 객체가 있다면 이를 파싱해 볼 수 있다. 내부에 어떤 값이 들었있는지 확인할 때 용이하다.
 
-<p align="center">
+<div align="center">
   <img src="/images/posts/2020/json-web-token-02.png" class="image__border">
-</p>
-
+</div>
 
 ## 4. Authorization with JWT?
 
@@ -126,9 +125,9 @@ JWT는 Json 객체에 사용자 정보가 담겨 있다. 이는 JWT로부터 인
 5. 클라이언트는 토큰과 함께 리소스 서버(resource server)에 API 요청을 수행한다.
 6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
 
-<p align="center">
+<div align="center">
   <img src="/images/posts/2020/json-web-token-03.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 4.2. Json Web Token
 
@@ -140,9 +139,9 @@ JWT는 Json 객체에 사용자 정보가 담겨 있다. 이는 JWT로부터 인
 5. 클라이언트는 토큰과 함께 리소스 서버에 API 요청을 수행한다.
 6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
 
-<p align="center">
+<div align="center">
   <img src="/images/posts/2020/json-web-token-04.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### RECOMMEND NEXT POSTS
 

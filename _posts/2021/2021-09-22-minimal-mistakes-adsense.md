@@ -51,7 +51,9 @@ last_modified_at: 2021-09-22T23:55:00
 
 - `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태크를 추가한다.
 
-##### /_includes/head/custom.html 파일
+##### custom.html
+
+- 구글 애드센스에서 발급 받은 스크립트를 추가한다.
 
 ```html
 <!-- start custom head snippets -->
@@ -78,9 +80,11 @@ last_modified_at: 2021-09-22T23:55:00
 
 - 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라했다.
   - 하지만 해당 영역은 HTML 파일의 바디(body)이므로 구글 애드센스에서 요구하는 헤드(head) 영역은 아니다.
-- 애드센스 코드 양식을 아래와 같이 변경하여 `/_includes/head/custom.html` 파일에 추가했다.
+- 애드센스 스크립트 코드를 아래와 같이 변경하여 `/_includes/head/custom.html` 파일에 추가했다.
 
-##### /_includes/head/custom.html 파일
+##### custom.html 
+
+- 구글 애드센스 객체에 필자의 클라이언트 아이디를 추가하는 스크립트로 변경 후 추가한다.
 
 ```html
 <!-- start custom head snippets -->

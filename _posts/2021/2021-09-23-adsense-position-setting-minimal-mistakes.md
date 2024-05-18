@@ -72,7 +72,9 @@ last_modified_at: 2021-09-22T23:55:00
 
 필자가 사용하는 테마의 포스트들은 모두 `/_layouts/single.html` 파일에 지정된 레이아웃을 따른다. 때문에 해당 HTML 파일의 메인(main) 영역 위, 아래에 광고를 넣으면 위의 두 조건을 모두 만족할 수 있었다.
 
-##### /_layouts/single.html
+##### single.html
+
+- 글 메인 영역 위, 아래 새로 받은 광고 스크립트를 추가한다.
 
 ```html
 ---
@@ -118,6 +120,9 @@ layout: default
 ```
 
 ##### After re-locate Ads
+
+- 글 위 아래 광고가 추가된다.
+- 글 중간에 광고가 삽입되지 않는다..
 
 <div align="center">
   <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-5.gif" width="100%" class="image__border">

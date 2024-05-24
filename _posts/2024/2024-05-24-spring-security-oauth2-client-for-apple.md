@@ -24,7 +24,7 @@ last_modified_at: 2024-05-24T23:55:00
 문제 현상을 살펴보자. 웹 환경에서 OAuth2 인증은 리다이렉트(redirect)의 연속이다. 애플 로그인 화면에서 인증 성공 후 애플 인가 서버에서 개발 서버로 브라우저를 다시 리다이렉트 시키는 시점에 문제가 발생한다. 문제가 발생하는 두번째 리다이렉트 시점에 다음과 같은 정보들이 서버 콜백 URL로 전달되고 403 에러 응답을 받는다.
 
 - POST 메소드 요청을 보낸다.
-- 컨텐츠 타입(content type)은 `application/x-www-form-urlencoded`이다.
+- 컨텐츠 타입(content type)은 application/x-www-form-urlencoded 이다.
 - 요청 메세지에는 다음과 같은 정보가 담겨 있다.
   - state 
     - 상태 코드로 별도로 사용되지 않는다.
@@ -49,12 +49,12 @@ last_modified_at: 2024-05-24T23:55:00
 ```
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. What is the problem?
 
-무엇이 문제일까? 공식 문서와 깃허브 이슈들을 살펴 보고 힌트를 얻을 수 있었다. 리다이렉트 요청을 받은 후 애플 인가 서버로 액세스 토큰(혹은 아이디 토큰)를 발급 받을 때 새로운 클라이언트 시크릿(client secret)을 만들어야 한다. 애플 개발자 센터에 등록할 때 발급 받은 클라이언트 시크릿을 사용하면 에러가 발생한다.
+무엇이 문제일까? 공식 문서와 깃허브 이슈들을 살펴 보고 힌트를 얻을 수 있었다. 리다이렉트 요청을 받아 처리할 때 애플 인가 서버로 액세스 토큰(혹은 아이디 토큰)를 발급 받는다. 이 때 애플 개발자 센터에서 사전에 발급 받은 클라이언트 시크릿을 사용하면 에러가 발생한다. 새로운 클라이언트 시크릿(client secret)을 만들어야 한다. 
 
 - 실패 케이스
   - 사전에 발급 받은 클라이언트 시크릿을 사용해서 액세스 토큰을 요청한다.
@@ -65,6 +65,8 @@ last_modified_at: 2024-05-24T23:55:00
 <div align="center">
   <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-03.png" width="100%" class="image__border">
 </div>
+
+<br/>
 
 [공식 문서](https://developer.apple.com/documentation/accountorganizationaldatasharing/creating-a-client-secret)를 살펴보면 클라이언트 시크릿을 만드는 방법을 찾을 수 있었다. 헤더는 다음과 같은 정보를 포함하여 만든다.
 
@@ -131,6 +133,8 @@ last_modified_at: 2024-05-24T23:55:00
   <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-05.png" width="100%" class="image__border">
 </div>
 
+<br/>
+
 여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터 생성하는 createParameters 메소드를 확장했다.
 
 - 애플 인가 서버로 보내는 요청인 경우
@@ -140,7 +144,7 @@ last_modified_at: 2024-05-24T23:55:00
   - 부모 클래스의 createParameters 메소드로 만든 요청 파라미터를 반환한다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-06.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-06.png" width="100%" class="image__border">
 </div>
 
 ### 2.1. application.yml
@@ -405,8 +409,12 @@ public class SecurityConfig {
 - 정상적으로 액세스 토큰, 리프레시 토큰, 아이디 토큰을 발급 받는다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-07.png" width="100%" class="image__border">
 </div>
+
+## CLOSING
+
+이 외에도 몇 가지 문제들이 있었다. 관련된 내용들은 추가적으로 정리할 예정이다.
 
 #### TEST CODE REPOSITORY
 

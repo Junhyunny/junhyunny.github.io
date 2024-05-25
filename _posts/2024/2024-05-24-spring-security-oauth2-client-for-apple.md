@@ -106,7 +106,7 @@ last_modified_at: 2024-05-24T23:55:00
 }
 ```
 
-마지막으로 JWT 토큰 서명(signature)을 만들 때 애플 개발자 센터에서 발급 받은 `AuthKey_XXXXXXXXXX.p8` 파일 포맷의 비공개 키를 사용한다. 헤더, 페이로드, 서명까지 모두 Base64 인코딩하면 새로운 클라이언트 시크릿이 만들어진다.
+마지막으로 JWT 토큰 서명(signature)을 만들 때 `AuthKey_XXXXXXXXXX.p8` 포맷의 비공개 키 파일을 사용한다. 애플 개발자 센터에서 해당 파일을 발급 받는다. 헤더, 페이로드, 서명까지 모두 Base64 인코딩하면 새로운 클라이언트 시크릿이 만들어진다.
 
 <div align="center">
   <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-04.png" width="80%" class="image__border">

@@ -14,6 +14,7 @@ last_modified_at: 2024-05-26T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [MVVM Pattern in SwiftUI][mvvm-pattern-in-ios-link]
+- [How to test state change in iOS with ViewInspector][how-to-test-state-change-in-ios-with-view-inspector-link]
 
 ## 0. 들어가면서
 
@@ -228,10 +229,6 @@ struct ContentView: View {
         .onReceive(inspection.notice) { self.inspection.visit(self, $0) }
     }
 }
-
-#Preview {
-    ContentView()
-}
 ```
 
 #### TEST CODE REPOSITORY
@@ -243,3 +240,4 @@ struct ContentView: View {
 - <https://github.com/nalexn/ViewInspector>
 
 [mvvm-pattern-in-ios-link]: https://junhyunny.github.io/ios/swift-ui/design-pattern/mvvm-pattern-in-ios/
+[how-to-test-state-change-in-ios-with-view-inspector-link]: https://junhyunny.github.io/ios/swift/swift-ui/test-driven-development/how-to-test-state-change-in-ios-with-view-inspector/

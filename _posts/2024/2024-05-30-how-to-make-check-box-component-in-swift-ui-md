@@ -1,0 +1,28 @@
+---
+title: "How to make CheckBox Component in SwiftUI"
+search: false
+category:
+  - iOS
+  - swift
+  - swift-ui
+  - test-driven-development
+last_modified_at: 2024-05-30T27:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+SwiftUI 프레임워크는 생각보다 그냥 제공하는 컴포넌트가 없다. iOS 플랫폼 애플리케이션에서 체크 박스가 기본으로 제공되지 않는다는 사실에 놀랐다. 
+
+## 1. 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE

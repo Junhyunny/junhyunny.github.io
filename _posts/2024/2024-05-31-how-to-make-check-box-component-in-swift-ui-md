@@ -1,0 +1,34 @@
+---
+title: "How to make CheckBox Component in SwiftUI"
+search: false
+category:
+  - iOS
+  - swift
+  - swift-ui
+  - test-driven-development
+last_modified_at: 2024-05-30T27:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+- [How to test state change in iOS with ViewInspector][how-to-test-state-change-in-ios-with-view-inspector-link]
+
+## 0. 들어가면서
+
+SwiftUI 프레임워크로 iOS 애플리케이션을 개발할 때 체크 박스가 기본적으로 제공되지 않는다는 사실에 놀랐다. 이번 글은 iOS 애플리케이션에서 체크 박스 컴포넌트를 만드는 방법과 ViewInspector 라이브러리를 사용해 단위 테스트하는 방법에 대해 정리했다.
+
+## 1. 
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://github.com/nalexn/ViewInspector/issues/230>
+
+[how-to-test-state-change-in-ios-with-view-inspector-link]: https://junhyunny.github.io/ios/swift/swift-ui/test-driven-development/how-to-test-state-change-in-ios-with-view-inspector/

@@ -137,7 +137,7 @@ print("copied car: ", copiedClassCar)
 각 변수들은 서로 같은 인스턴스를 가르킨다. 즉, 여러 개의 변수들을 통해 하나의 인스턴스 상태를 변경할 수 있다. 기존 객체의 불변성이 보장되지 않는다. 
 
 <div align="center">
-  <img src="/images/posts/2024/struct-and-class-in-swift-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/struct-and-class-in-swift-02.png" width="80%" class="image__border">
 </div>
 
 ## 3. Choosing Between Structures and Classes

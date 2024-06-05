@@ -256,7 +256,7 @@ public class CookieController {
 }
 ```
 
-웹 페이지에서 쿠키 정보에 접근하면 어떤 결과를 얻을까? `Document.cookie` API를 사용해 쿠키 값을 알림(alert)으로 확인해보자.
+웹 페이지에서 쿠키 정보에 접근하면 어떤 결과를 얻을까? JavaScript 코드에서 `document.cookie` 변수에 담긴 쿠키 값을 알림(alert)으로 확인해보자. 
 
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -281,16 +281,18 @@ public class CookieController {
 </html>
 ```
 
+다음과 같은 결과를 얻는다.
+
 - HttpOnly 속성이 지정된 `customCookie` 쿠키는 표시되지 않는다.
 - HttpOnly 속성이 지정되지 않은 `otherCookie` 쿠키는 표시된다.
 
-<div align="left">
-  <img src="/images/posts/2021/cookie-attributes-05.png" width="45%" class="image__border">
+<div align="center">
+  <img src="/images/posts/2021/cookie-attributes-05.png" width="50%" class="image__border">
 </div>
 
 ### 2.6. SameSite Attribute
 
-CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속성이다. [CSRF 공격][csrf-attack-and-defense-link]에 대한 자세한 내용은 해당 링크를 참고하길 바란다. SameSite 속성은 다음과 같은 세 가지 옵션을 가질 수 있다.
+CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속성이다. CSRF 공격에 대한 자세한 내용은 [해당 링크][csrf-attack-and-defense-link]를 참고하길 바란다. SameSite 속성은 다음과 같은 세 가지 옵션을 가질 수 있다.
 
 - None
 - Strict
@@ -303,32 +305,32 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 - 도메인 검증을 하지 않는다.
 - `Secure` 속성 설정이 필요하다.
 - 예를 들면 다음과 같다.
-    1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
-    1. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다. 
-    1. 이전에 A.com 사이트에서 발급 받았던 쿠키들이 함께 요청에 전달된다.
+  1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
+  2. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다. 
+  3. 이전에 A.com 사이트에서 발급 받았던 쿠키들이 함께 요청에 전달된다.
 
 #### 2.6.2. Strict
 
 - 쿠키를 발급한 사이트와 동일한 사이트에서만 사용이 가능하다.
 - 예를 들면 다음과 같다.
-    1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
-    1. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다. 
-    1. 동일한 사이트에서 접근한 것이 아니므로 A.com 사이트에서 발급 받았던 쿠키들은 함께 전달되지 않는다.
+  1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
+  2. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다. 
+  3. 동일한 사이트에서 접근한 것이 아니므로 A.com 사이트에서 발급 받았던 쿠키들은 함께 전달되지 않는다.
 
 #### 2.6.3. Lax
 
 - 쿠키를 발급한 사이트와 동일한 사이트가 아니더라도 일부 케이스에서 사용 가능하다.
 - 안전한 HTTP 메소드인 경우에만 쿠키를 전달한다.
 - 작업이 최상위 레벨 탐색에서 이루어질 때(브라우저 주소창에서 URL을 변경하는 경우)만 쿠키가 전달된다.
-    - `<iframe>` 태크를 사용하거나 AJAX 요청 시에는 쿠키가 전송되지 않는다.
+  - `<iframe>` 태크를 사용하거나 AJAX 요청 시에는 쿠키가 전송되지 않는다.
 - 예를 들면 다음과 같다.
-    1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
-    1. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다.
-    1. 단순한 페이지 이동이므로 이전에 A.com 사이트에서 발급 받았던 쿠키들이 함께 요청에 전달된다.
-    1. 이번엔 B.com 사이트 화면에서 A.com 사이트에서 사용하는 비밀번호 변경을 시도한다.
-    1. A.com 사이트의 정보를 바꾸는 행위이므로 이전에 A.com 사이트에서 발급 받았던 쿠키들은 함께 전달되지 않는다.
+  1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
+  2. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다.
+  3. 단순한 페이지 이동이므로 이전에 A.com 사이트에서 발급 받았던 쿠키들이 함께 요청에 전달된다.
+  4. 이번엔 B.com 사이트 화면에서 A.com 사이트에서 사용하는 비밀번호 변경을 시도한다.
+  5. A.com 사이트의 정보를 바꾸는 행위이므로 이전에 A.com 사이트에서 발급 받았던 쿠키들은 함께 전달되지 않는다.
 
-#### 2.6.4. What is SameSite and CrossSite?
+#### 2.6.4. What is it diffrent between SameSite and CrossSite?
 
 `SameSite`, `CrossSite`에 대한 기준을 제대로 알고 있어야 이해가 쉽다. Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에 `SameSite`로 구분하고 있다. 이해를 돕기 위해 더 자세한 예시를 살펴보자. [Root Zone Database][root-zone-database-link]에 명시된 도메인을 사용한 경우를 첫번째 예시로 살펴보자.
 
@@ -336,7 +338,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 - `eTLD` 한 칸 앞에 있는 단어까지 포함하여 `eTLD+1`이다. 
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-06.png" width="40%" class="image__border">
+  <img src="/images/posts/2021/cookie-attributes-06.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 
@@ -349,7 +351,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
   - 해당 리스트들은 [이 사이트](https://publicsuffix.org/list/)에서 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-07.png" width="40%" class="image__border">
+  <img src="/images/posts/2021/cookie-attributes-07.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 
@@ -358,7 +360,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 SameSite와 CrossSite 사이의 차이점은 아래 표에서 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-08.png" width="75%" class="image__border">
+  <img src="/images/posts/2021/cookie-attributes-08.png" width="75%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 
@@ -367,7 +369,7 @@ SameSite와 CrossSite 사이의 차이점은 아래 표에서 확인할 수 있�
 요청 시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-09.png" width="40%" class="image__border">
+  <img src="/images/posts/2021/cookie-attributes-09.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 
@@ -376,7 +378,7 @@ SameSite와 CrossSite 사이의 차이점은 아래 표에서 확인할 수 있�
 Schemeful SameSite와 CrossSite 차이점은 아래 표에서 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-10.png" width="75%" class="image__border">
+  <img src="/images/posts/2021/cookie-attributes-10.png" width="75%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 

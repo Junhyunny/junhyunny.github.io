@@ -140,7 +140,7 @@ $ jcmd
 필자는 기준선을 만들기 위해 10초동안 스레드를 멈췄다. 이 시점에 기준선을 만든다.
 
 - `10 seconds later this application will start. make baseline.` 로그가 보이면 아래 명령어를 실행한다.
-- 24300 프로세스의 기준선을 만들었다는 메세지 확인한다.
+- 24300 프로세스의 기준선을 만들었다는 메시지 확인한다.
 
 ```
 $ jcmd 24300 VM.native_memory baseline

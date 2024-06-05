@@ -16,13 +16,13 @@ last_modified_at: 2021-12-31T23:55:00
 
 ## 0. 들어가면서
 
-[CSRF(Cross-Site Request Forgery) Attack and Defence][csrf-attack-and-defense-link] 글을 작성하면서 내가 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리해봤다. 
+[CSRF(Cross-Site Request Forgery) Attack and Defence][csrf-attack-and-defense-link] 글을 작성하면서 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리해봤다. 
 
 ## 1. Cookie
 
-쿠키는 서버에서 브라우저로 전달한 작은 데이터 조각을 의미한다. 인코딩(encoding)한 값으로 최대 4KB 까지 저장할 수 있다. 브라우저는 서버로부터 받은 쿠키를 저장하고 있다가 서버로 요청할 때 함께 전달한다. 쿠키는 `무상태(stateless)`인 HTTP 프로토콜을 `상태를 유지(stateful)`하는 것처럼 사용하기 위해 등장했다.
+쿠키는 서버에서 브라우저로 전달한 작은 데이터 조각을 의미한다. 인코딩(encoding)한 값으로 최대 4KB 까지 저장할 수 있다. 브라우저는 서버로부터 받은 쿠키를 보관하고 있다가 서버로 요청할 때 함께 전달한다. 쿠키는 `무상태(stateless)`인 HTTP 프로토콜을 `상태를 유지(stateful)`하는 것처럼 사용하기 위해 등장했다.
 
-쿠키는 다음과 같은 용도로 사용됩니다. 
+쿠키는 다음과 같은 용도로 사용된다. 
 
 - Session management
   - Logins, shopping carts, game scores, or anything else the server should remember
@@ -33,11 +33,11 @@ last_modified_at: 2021-12-31T23:55:00
 
 ### 1.1. Create Cookie
 
-쿠키는 브라우저가 서버로부터 다음과 같은 헤더 정보를 받으면 자동으로 생성된다. 
+쿠키는 브라우저가 서버로부터 다음과 같은 응답 헤더를 받으면 자동으로 생성된다. 
 
 > Set-Cookie: `<cookie-name>=<cookie-value>`
 
-스프링 애플리케이션에서 다음과 같은 코드를 작성하면 응답 헤더에 쿠키를 담을 수 있다. 브라우저는 서버로부터 응답을 받으면 자동으로 쿠키를 생성 후 보관한다.
+스프링 애플리케이션에서 다음과 같은 코드를 통해 응답 헤더에 쿠키를 설정할 있다. 브라우저는 서버로부터 이 응답을 받으면 자동으로 쿠키를 생성 후 보관한다.
 
 ```java
 @Controller
@@ -75,7 +75,7 @@ Connection: keep-alive
 
 ### 1.2. Use Cookie
 
-브라우저는 서버로 요청을 보낼 때 쿠키 속성과 브라우저 정책에 따라 선택적으로 쿠키를 함께 전달한다. 크롬 브라우저 개발자 도구 네트워크 탭에서 요청 헤더 정보를 보면 `Cookie`라는 키 값에 쿠키 정보가 담긴 것을 확인할 수 있다.
+브라우저는 서버로 요청을 보낼 때 쿠키 속성과 브라우저 정책에 따라 선택적으로 쿠키를 전달한다. 쿠키를 전달할 때 아래와 같이 요청 헤더에 `Cookie`라는 키 값으로 쿠키 정보가 담아 보낸다. 브라우저 개발자 도구 네트워크 탭에서 요청 헤더 정보를 확인할 수 있다.
 
 ```
 GET / HTTP/1.1
@@ -89,11 +89,11 @@ Cookie: firstCookie=chocolateCookie; secondCookie=vanillaCookie; JSESSIONID=9BDA
 
 ## 2. Attributes in Cookie
 
-쿠키는 브라우저에 의해 자동으로 요청 헤더에 담긴다. 개발자는 쿠키의 속성 값을 사용해 요청 헤더에 담기는 것을 제어할 수 있다. 어떤 속성들이 있는지 살펴보자.
+브라우저는 쿠키 속성 값에 따라 쿠키를 요청 헤더에 선택적으로 담는다. 개발자는 쿠키 속성을 변경하여 쿠키 사용을 제어할 수 있다. 어떤 속성들이 있는지 살펴보자.
 
 ### 2.1. Domain Attribute
 
-도메인(Domain) 속성은 해당 쿠키를 전달 받을 도메인을 지정하는 속성이다. 해당 속성을 이용해 도메인을 지정하면 해당되는 도메인으로 요청할 때만 함께 포함된다. 서브 도메인에도 함께 적용된다. 만약 A 쿠키에 `Domain=mozilla.org`이라고 속성을 설정하면 `developer.mozilla.org` 도메인으로 요청 시 A 쿠키가 함께 전달된다. 서버 애플리케이션 코드에서 쿠키 도메인을 바꿔 보고 싶었지만, 타 도메인으로 설정은 안되는 것으로 보인다.
+도메인(Domain) 속성은 해당 쿠키가 종속된 도메인을 지정하는 속성이다. 도메인 값을 지정하면 해당 도메인으로 요청할 때만 헤더에 쿠기가 포함된다. 서브 도메인도 함께 적용된다. 예를 들면 A 쿠키에 `Domain=mozilla.org`이라고 속성을 설정하고 `developer.mozilla.org` 도메인으로 요청하면 A 쿠키가 함께 전달된다. 서버 애플리케이션 코드에서 쿠키 도메인을 바꿔서 간단한 테스트 케이스를 만들어 보고 싶었지만, 타 도메인으로 설정은 안되는 것으로 보인다.
 
 > Invalid cookie domain<br/>
 > If the current domain were to be example.com, it would not be possible to add a cookie for the domain example.org:

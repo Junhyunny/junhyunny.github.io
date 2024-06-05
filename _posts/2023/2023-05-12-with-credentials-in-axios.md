@@ -15,7 +15,7 @@ last_modified_at: 2023-05-12T23:55:00
 * [CORS(Cross Origin Resource Sharing)][cors-link]
 * [React 개발 서버 CORS 해결하기 with Proxy][react-proxy-link]
 * [Cookie and Session][cookie-and-session-link]
-* [Deep Dive into Cookie][cookie-attributes-link]
+* [Deep dive into cookie][cookie-attributes-link]
 
 ## 1. Background
 

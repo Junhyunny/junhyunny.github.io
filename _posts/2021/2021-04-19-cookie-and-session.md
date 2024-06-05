@@ -158,7 +158,7 @@ Connection: keep-alive
 * 하나의 도메인 당 20개 쿠키를 가질 수 있습니다
 * 하나의 쿠키는 4KB(=4096byte)까지 저장 가능합니다.
 
-자세한 내용은 [Deep Dive into Cookie][cookie-attributes-link] 포스트를 참조하시길 바랍니다. 
+자세한 내용은 [Deep dive into cookie][cookie-attributes-link] 포스트를 참조하시길 바랍니다. 
 
 ## CLOSING
 
@@ -172,8 +172,8 @@ Connection: keep-alive
 #### RECOMMEND NEXT POSTS
 
 * [HTTP(HyperText Transfer Protocol)][http-link]
-* [Deep Dive into Cookie][cookie-attributes-link]
-* [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
+* [Deep dive into cookie][cookie-attributes-link]
+* [CSRF(Cross-Site Request Forgery) Attack and Defence][cross-site-reqeust-forgery-link]
 * [Session Management in Tomcat][tomcat-session-management-link]
 * [Spring Session with JDBC][spring-session-link]
 * [Spring Session with Redis][spring-session-with-redis-link]

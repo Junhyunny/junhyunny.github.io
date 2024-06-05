@@ -1,5 +1,5 @@
 ---
-title: "CSRF(Cross-Site Request Forgery) 공격과 방어"
+title: "CSRF(Cross-Site Request Forgery) Attack and Defence"
 search: false
 category:
   - information
@@ -13,7 +13,7 @@ last_modified_at: 2021-12-29T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Cookie and Session][cookie-and-session-link]
-- [Deep Dive into Cookie][cookie-attributes-link]
+- [Deep dive into cookie][cookie-attributes-link]
 
 ## 0. 들어가면서
 

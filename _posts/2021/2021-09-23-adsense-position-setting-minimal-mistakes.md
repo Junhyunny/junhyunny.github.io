@@ -30,7 +30,7 @@ last_modified_at: 2021-09-22T23:55:00
   - 검색 엔진
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-1.png" width="100%" class="image__border">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Set Ads Name
@@ -40,7 +40,7 @@ last_modified_at: 2021-09-22T23:55:00
 1. 이름을 작성 후 `만들기` 버튼을 누른다. 
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-2.png" width="100%" class="image__border">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.3. Check Ads Code
@@ -49,7 +49,7 @@ last_modified_at: 2021-09-22T23:55:00
 1. 받은 광고 코드를 포스트 적절한 위치에 삽입한다.
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-3.png" width="100%" class="image__border">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-03.png" width="100%" class="image__border">
 </div>
 
 ### 1.4. How to find Ads code
@@ -60,7 +60,7 @@ last_modified_at: 2021-09-22T23:55:00
 - 생성한 광고 오른쪽에 `<>` 모양의 `코드 가져오기` 버튼을 클릭한다. 
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-4.png" width="100%" class="image__border">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-04.png" width="100%" class="image__border">
 </div>
 
 ## 2. Locate Ads 
@@ -125,7 +125,7 @@ layout: default
 - 글 중간에 광고가 삽입되지 않는다..
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-5.gif" width="100%" class="image__border">
+  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-05.gif" width="100%" class="image__border">
 </div>
 
 [adsense-minimal-mistakes-link]: https://junhyunny.github.io/information/minimal-mistakes-adsense/

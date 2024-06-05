@@ -25,7 +25,7 @@ last_modified_at: 2024-05-24T23:55:00
 
 - POST 메소드 요청을 보낸다.
 - 컨텐츠 타입(content type)은 application/x-www-form-urlencoded 이다.
-- 요청 메세지에는 다음과 같은 정보가 담겨 있다.
+- 요청 메시지에는 다음과 같은 정보가 담겨 있다.
   - state 
     - 상태 코드로 별도로 사용되지 않는다.
   - code 

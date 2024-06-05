@@ -13,7 +13,7 @@ last_modified_at: 2022-11-21T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Cookie and Session][cookie-and-session-link]
-* [Deep Dive into Cookie][cookie-attributes-link]
+* [Deep dive into cookie][cookie-attributes-link]
 * [Spring Session with JDBC][spring-session-link]
 * [Embedded Redis Server][embedded-redis-server-link]
 
@@ -32,7 +32,7 @@ last_modified_at: 2022-11-21T23:55:00
     * 세션 정보를 식별할 때 사용하는 아이디(id)는 쿠키에 함께 전달됩니다.
     * `SameSite`인 경우 쿠키를 공유하므로 두 요청은 동일한 세션을 사용하게 됩니다. 
     * `SameSite` 기준에 따라 포트 번호는 상관하지 않습니다.
-    * [Deep Dive into Cookie][cookie-attributes-link]
+    * [Deep dive into cookie][cookie-attributes-link]
 * 세션 접근 카운트가 증가하는지 확인합니다.
     * 동일한 세션 정보를 사용한다면 세션 접근 카운트는 이어지면서 증가할 것 입니다.
 

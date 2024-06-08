@@ -525,7 +525,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
   <img src="/images/posts/2021/cross-site-reqeust-forgery-05.gif" width="100%" class="image__border">
 </div>
 
-## 4. Is it safe turn off CSRF defence?
+## 4. Is it safe to turn off CSRF defence?
 
 스프링 시큐리티 프레임워크는 기본적으로 CSRF 공격에 대한 방어를 수행한다. CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 과연 좋은 방법일까? 예전 MVC 구조는 세션과 쿠키를 통해 사용자 인증을 수행했기 때문에 CSRF 공격에 취약했다. 상태를 유지하는(stateful) 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생했다.
 
@@ -542,9 +542,15 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery>
 
+#### RECOMMEND NEXT POSTS
+
+- [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
+- [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting]
+- [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
+
 #### REFERENCE
 
-- [Wikipedia - 사이트 간 요청 위조][csrf-wiki-link]
+- [사이트 간 요청 위조][csrf-wiki-link]
 - [CSRF-공격이란-그리고-CSRF-방어-방법][csrf-attack-and-protection-link]
 - <https://portswigger.net/web-security/csrf>
 - <https://swk3169.tistory.com/24?category=712648>
@@ -553,5 +559,8 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/
+[reflected-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/
+[stored-cross-site-scripting]: https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/
+[dom-based-cross-site-scripting-link]: https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/
 [csrf-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%9A%94%EC%B2%AD_%EC%9C%84%EC%A1%B0
 [csrf-attack-and-protection-link]: https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95

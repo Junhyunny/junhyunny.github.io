@@ -170,7 +170,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 ### 2.2. POST Method Attack
 
-`<form></form>` 태그와 hidden 타입의 `<input />` 태그를 사용한다. `JavaScript`를 이용해 페이지 렌더링이 수행되자마자 폼 전송을 시도한다.
+`<form></form>` 태그와 hidden 타입의 `<input />` 태그를 사용한다. 페이지가 로딩되면 폼 요청을 시도한다.
 
 - form 태그와 hidden 타입의 input 태그로 POST 요청을 수행한다.
 
@@ -207,7 +207,7 @@ GET 공격과 마찬가지로 로그인 완료된 사용자가 공격자가 만�
 
 ## 3. How to defence CSRF attack?
 
-공격 방법에 대해 알아보았으니 방어 방법에 대해 정리해보자. [예제 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery)에서 예제 프로젝트 코드를 확인할 수 있다.
+공격 방법에 대해 알아봤으니 방어법에 대해 정리해보자. [예제 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2021-12-29-cross-site-request-forgery)에서 예제 프로젝트 코드를 확인할 수 있다.
 
 - enhanced-backend - 보안이 강화된 서버
   - 도메인 주소는 `localhost`를 사용한다.
@@ -218,7 +218,7 @@ GET 공격과 마찬가지로 로그인 완료된 사용자가 공격자가 만�
 
 ### 3.1. Check Referrer
 
-서버에서 사용자의 요청에 `Referrer` 정보를 확인하는 방법이 있다. 요청 헤더(request header) 정보에서 `Referrer` 정보를 확인할 수 있다. 보통 호스트(host)와 `Referrer` 값이 일치하므로 둘을 비교합니다. CSRF 공격의 대부분 `Referrer` 값에 대한 검증만으로 방어가 가능하다고 한다.
+서버에서 사용자의 요청에 `Referrer` 정보를 확인하는 방법이 있다. 요청 헤더(request header) 정보에서 `Referrer` 정보를 확인할 수 있다. 보통 호스트(host)와 `Referrer` 값이 일치하므로 둘을 비교한다. CSRF 공격의 대부분 `Referrer` 값에 대한 검증만으로 방어가 가능하다고 한다.
 
 ```java
 package blog.in.action.handler;
@@ -249,7 +249,7 @@ public class ReferrerCheckInterceptor implements HandlerInterceptor {
 
 ### 3.2. Check CSRF token
 
-임의의 CSRF 토큰을 만들어 세션에 저장한다. 요청하는 페이지에 `hidden` 타입 input 태그를 이용해 토큰 값을 함께 전달한다. 이후 서버에서 세션에 저장된 CSRF 토큰 값과 요청 파라미터에 담긴 토큰 값을 비교합니다. 
+임의의 CSRF 토큰을 만들어 세션에 저장한다. 요청하는 페이지에 `hidden` 타입 input 태그를 이용해 토큰 값을 함께 전달한다. 이후 서버에서 세션에 저장된 CSRF 토큰 값과 요청 파라미터에 담긴 토큰 값을 비교한다. 
 
 - 세션과 모델에 CSRF 토큰을 설정한다.
 
@@ -386,7 +386,7 @@ public class CsrfTokenInterceptor implements HandlerInterceptor {
 
 ### 3.3. Check Double-Submit cookie
 
-브라우저의 `Same Origin 정책`을 이용한다. `Same Origin`이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수정하지 못한다는 점을 이용한 검증 방법이다. 동일한 도메인 주소에서 동작하도록 해당 사이트에 게시글 등을 통해 악성 스크립트를 심는 경우 이 방어는 무효하다. 이 글의 예제처럼 도메인이 다른 사이트를 이용해 공격하는 경우에만 방어 코드가 유효하다.
+브라우저의 `SameOrigin 정책`을 이용한다. `SameOrigin`이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수정하지 못한다는 점을 이용한 검증 방법이다. 동일한 도메인 주소에서 동작하도록 해당 사이트에 게시글 등을 통해 악성 스크립트를 심는 경우 이 방어는 무효하다. 이 글의 예제처럼 도메인이 다른 사이트를 이용해 공격하는 경우에만 방어 코드가 유효하다.
 
 클라이언트(브라우저)에서 `JavaScript`로 임의의 생성한 토큰을 쿠키와 요청 헤더에 각각 담아서 서버에게 전달한다. 서버는 전달받은 쿠키와 요청 헤더에서 각자 토큰 값을 꺼내어 이를 비교하고 쿠키에 저장된 토큰 정보를 이후에 재사용하지 못하도록 만료 처리한다. 
 
@@ -532,7 +532,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 > StackExchange - Should I use CSRF protection on Rest API endpoints?<br/>
 > No cookies = No CSRF
 
-쿠키가 없으면 CSRF 공격이 불가능하다. 브라우저에 저장되는 쿠키가 CSRF 공격의 매개체이기 때문이다. 최근 많이 사용하는 REST API 방식은 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방어 설정을 비활성화시키는 경우가 많은 것이다. 쿠키 대신에 로컬 스토리지(localStorage), 세션 대신에 JWT(Json Web Token)을 사용한다.
+쿠키가 없으면 CSRF 공격이 불가능하다. 브라우저에 저장되는 쿠키가 CSRF 공격의 매개체이기 때문이다. 최근 많이 사용하는 REST API 방식은 쿠키나 세션에 의존하지 않는 경향이 크기 때문에 CSRF 공격에 대한 방어 설정을 비활성화시키는 경우가 많은 것이다. 예를 들어 쿠키 대신에 로컬 스토리지(localStorage), 세션 대신 JWT(Json Web Token)를 사용하면 CSRF 공격에 대한 방어가 필요 없다.
 
 ## CLOSING
 

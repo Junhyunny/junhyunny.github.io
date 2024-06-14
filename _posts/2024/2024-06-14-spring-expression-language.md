@@ -10,13 +10,13 @@ last_modified_at: 2024-06-14T23:55:00
 
 ## 1. Spring Expression Language
 
-스프링 프레임워크를 사용하다보면 스프링 표현식 언어(SpEL, Spring Expression Language)를 자주 만난다. 스프링 프레임워크으로 서버 애플리케이션을 개발한다면 다음 애너테이션들을 한번쯤을 본 적이 있을 것이다.
+스프링 프레임워크를 사용하다 보면 스프링 표현식 언어(SpEL, Spring Expression Language)를 자주 만나게 된다. 다음 애너테이션들을 한 번쯤은 본 적이 있을 것이다.
 
-- @Value annotation
-- @RequestMapping annotation in SpringMVC
-- @PreAuthorize, @PostAuthorize annotations in Spring Security
+- @Value
+- @RequestMapping
+- @PreAuthorize, @PostAuthorize
 
-SpEL는 런타임에 객체 그래프를 쿼리(query)하거나 조작(manipulating)하는 강력한 표현 언어이다. JSP(Java Server Page)에서 사용하는 Unified EL과 비슷하지만, 더 강력하고 유연한 기능을 제공한다. 공식 문서를 보면 다음과 같은 기능들을 제공한다.
+SpEL는 런타임에 객체 그래프를 쿼리(query)하거나 조작(manipulating)할 수 있는 강력한 표현 언어다. JSP(Java Server Page)에서 사용하는 `Unified EL`과 비슷하지만, 더 강력하고 유연한 기능을 제공한다. 공식 문서를 보면 다음과 같은 기능들을 제공한다고 되어 있다.
 
 - 리터럴 표현식
 - 불리언과 관계형 오퍼레이터
@@ -37,7 +37,7 @@ SpEL는 런타임에 객체 그래프를 쿼리(query)하거나 조작(manipulat
 - 컬렉션 선택
 - 템플릿 표현식
 
-이 글에서 모든 기능을 살펴 볼 수는 없기 때문에 SpEL에 대한 이해를 돕기 위한 몇 가지 예제들만 살펴볼 예정이다. 
+이 글에서 모든 기능을 살펴 볼 순 없다. SpEL 사용 방법에 대한 이해를 돕기 위해 몇 가지 예제들을 살펴보자.
 
 ## 2. Literal Expression
 

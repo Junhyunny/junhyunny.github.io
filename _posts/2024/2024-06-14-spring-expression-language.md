@@ -201,15 +201,17 @@ public class MethodInvocationTests {
 
 SpEL 표현식에 연산자를 사용할 수 있다. 
 
-| type | operators | 
-|:-:|:-:| 
-| 산술 연산자 | +, -, *, /, %, ^, div, mod, ... | 
-| 관계 연산자 | <, >, ==, !=, <=, >=, lt, gt, eq, ne, le, ge, instanceof, matches ... | 
-| 논리 연산자 | and, or, not, &&, ||, ... | 
+| type | operators |
+|:-:|:-:|
+| 산술 연산자 | +, -, *, /, %, ^, div, mod, ... |
+| 관계 연산자 | <, >, ==, !=, <=, >=, lt, gt, eq, ne, le, ge, instanceof, matches ... |
+| 논리 연산자 | and, or, not, &&, ... |
 
-1. 산술 연산자 예시
-2. 관계 연산자 예시
-3. 논리 연산자 예시
+위에서 정의한 연산자를 표현식에서 사용해보자.
+
+1. 산술 연산자를 사용한 표현식 예시들이다.
+2. 관계 연산자를 사용한 표현식 예시들이다.
+3. 논리 연산자를 사용한 표현식 예시들이다.
 
 ```java
 public class OperatorsTests {
@@ -237,7 +239,7 @@ public class OperatorsTests {
 }
 ```
 
-객체의 정보를 확인하기 위해 연산자를 사용할 수 있다.
+ 연산자는 객체의 프로퍼티와 함께 사용할 수 있다.
 
 1. 객체 프로퍼티 값을 연산자로 비교하는 표현식을 지정한다.
   - 이름을 확인한다.

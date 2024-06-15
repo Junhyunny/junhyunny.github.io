@@ -305,7 +305,11 @@ public class CollectionTests {
 
     @Test
     void filter() {
-        List<Person> people = Arrays.asList(new Person("John", 25), new Person("Jane", 30), new Person("Junhyunny", 35));
+        List<Person> people = Arrays.asList(
+            new Person("John", 25), 
+            new Person("Jane", 30), 
+            new Person("Junhyunny", 35)
+        );
         ExpressionParser parser = new SpelExpressionParser();
         Expression sut = parser.parseExpression("#root.?[age > 25]"); // 1
 

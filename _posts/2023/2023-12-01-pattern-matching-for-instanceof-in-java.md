@@ -10,7 +10,7 @@ last_modified_at: 2023-12-01T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Static / Dynamic Typed Language][type-of-language-link]
+- [Static/Dynamic Typed Language][type-of-language-link]
 
 ## 1. Traditional instanceof Operator
 

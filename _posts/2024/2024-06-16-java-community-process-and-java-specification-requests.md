@@ -10,18 +10,16 @@ last_modified_at: 2024-06-16T23:55:00
 
 ## 0. 들어가면서
 
-스프링 공식 문서를 보면 `JSR-XXX`을 지원한다는 내용을 종종 눈에 띈다.
+스프링 공식 문서를 보면 `JSR-XXX`에 관련된 내용을 종종 눈에 띈다. 이번 글은 스프링 프레임워크 공식 문서에 등장하는 `JSR`에 대해 정리했다. 
 
 - [Using JSR 330 Standard Annotations](https://docs.spring.io/spring-framework/reference/core/beans/standard-annotations.html)
 - [Using JSR-160 Connectors](https://docs.spring.io/spring-framework/reference/integration/jmx/jsr160.html#jmx-jsr160-protocols)
 - [JSR-305 meta-annotations](https://docs.spring.io/spring-framework/reference/core/null-safety.html#jsr-305-meta-annotations)
 - [Authorizing Method Invocation with JSR-250 Annotations](https://docs.spring.io/spring-security/reference/servlet/authorization/method-security.html#use-jsr250)
 
-스프링 프레임워크 공식 문서에 등장하는 `JSR`이 무엇인지 정리했다.
-
 ## 1. Java Community Process
 
-JSRs 개념을 정확히 이해하려면 먼저 자바 커뮤니티 프로세스(JCP, Java Community Process) 프로그램을 알아야 한다. JCP 프로그램은 이해 당사자들이 자바에 대한 표준 기술 사양을 개발할 수 있도록 1998년 설립된 공식적인 프로세스다. 오라클(oracle)회사와 자바 커뮤니티가 자바 플랫폼, SE(standard edition), Jakarta EE(enterprise edtition) 및 관련 기술을 개발하고 발전시키기 위해 공동으로 협력한다. JCP 집행 위원회는 자바 플랫폼의 새로운 기능을 제안한 내용인 JSRs(Java Specification Requests)을 승인하거나 새로운 JSRs을 만들기도 한다. 
+`JSRs` 개념을 정확히 이해하려면 먼저 자바 커뮤니티 프로세스(JCP, Java Community Process) 프로그램을 알아야 한다. JCP 프로그램은 이해 당사자들이 자바에 대한 표준 기술 사양을 개발할 수 있도록 1998년 설립된 공식적인 프로세스다. 오라클(oracle)회사와 자바 커뮤니티가 자바 플랫폼, SE(standard edition), Jakarta EE(enterprise edtition) 및 관련 기술을 개발하고 발전시키기 위해 공동으로 협력한다. JCP 집행 위원회는 자바 플랫폼의 새로운 기능을 제안한 내용인 JSRs(Java Specification Requests)을 승인하거나 새로운 JSRs을 만들기도 한다. 
 
 자바는 강력한 오픈소스 프로젝트이므로 많은 곳에서 사용하고 있다. 그렇기 떄문에 새로운 기능을 도입하려면 관련 전문가들 사이의 많은 논의와 승인이 필요하다. 전 세계에 500개 이상의 자바 사용자 그룹이 있으며 이 [링크](https://dev.java/community/jugs/)에서 확인할 수 있다. JCP 프로그램은 다음 같은 책임을 갖는다.
 

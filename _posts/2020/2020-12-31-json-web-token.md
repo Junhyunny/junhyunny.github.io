@@ -112,11 +112,11 @@ HMACSHA256(
   <img src="/images/posts/2020/json-web-token-02.png" class="image__border">
 </div>
 
-## 4. Authorization with JWT?
+## 4. Authentication and Authorization with JWT
 
-JWT는 Json 객체에 사용자 정보가 담겨 있다. 이는 JWT로부터 인증된 사용자 정보와 권한을 획득할 수 있다는 의미이다. 때문에 오파크 토큰(opaque token)과 JWT을 사용한 인증, 인가 방식에는 차이가 발생한다. 각 인증 방식을 살펴보자.
+JWT는 Json 객체를 Base64 방식으로 인코딩 한 것이다. Base64 인코딩은 암호화 된 데이터가 아니기 때문에 디코딩하면 사용자 정보를 얻을 수 있다. 다시 말해 JWT로부터 인증된 사용자 정보와 권한을 획득할 수 있다는 의미이다. 때문에 오파크 토큰(opaque token)과 JWT을 사용한 인증/인가 방식에는 차이가 발생한다. 각 인증/인가 방식을 살펴보자.
 
-### 4.1. Opaque Token
+### 4.1. Opaque Token Process
 
 1. 클라이언트가 인증 서버(authorization server)에 토큰을 요청한다.
 2. 토큰 요청을 받은 인증 서버는 사용자 계정을 확인하고, 토큰 지급이 가능한지 여부를 판정 후 토큰을 발급한다.
@@ -129,7 +129,7 @@ JWT는 Json 객체에 사용자 정보가 담겨 있다. 이는 JWT로부터 인
   <img src="/images/posts/2020/json-web-token-03.png" width="80%" class="image__border">
 </div>
 
-### 4.2. Json Web Token
+### 4.2. Json Web Token Process
 
 1. 클라이언트가 인증 서버에 토큰을 요청한다.
 2. 토큰 요청을 받은 인증 서버는 사용자 계정을 확인하고 토큰 지급이 가능한지 여부를 판정 후 토큰을 발급한다.

@@ -1,5 +1,5 @@
 ---
-title: "JCP(Java Community Process)/JSRs(Java Specification Requests)"
+title: "JCP/JSRs"
 search: false
 category:
   - java

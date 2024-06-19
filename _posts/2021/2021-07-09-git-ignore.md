@@ -53,7 +53,7 @@ rm 'src/main/resources/application.yml'
 추적 대상에서 제외하는 경우 원격 레포지토리에 있는 application.yml 파일이 삭제되기 때문에 문제가 될 수 있다. 필자의 경우 원격 레포지토리에 위치한 application.yml 파일을 삭제하면 안 되기 때문에 이 방법은 사용할 수 없었다.
 
 <div align="center">
-  <img src="/images/git-ignore-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/git-ignore-01.png" width="80%" class="image__border">
 </div>
 
 ## 3. Git Command for update-index

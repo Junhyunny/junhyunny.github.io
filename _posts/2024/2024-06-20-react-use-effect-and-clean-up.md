@@ -32,7 +32,7 @@ useEffect 훅에 대해 먼저 살펴보자.
 - 클래스 기반 리액트 컴포넌트 라이프사이클
 
 <div align="center">
-  <img src="/images/posts/2024/how-to-test-clean-up-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/react-use-effect-and-clean-up-01.png" width="80%" class="image__border">
 </div>
 <center>https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</center>
 
@@ -147,7 +147,7 @@ export default App;
 - 이전에 등록된 이벤트는 해제되지 않고 함께 호출된다.
 
 <div align="center">
-  <img src="/images/posts/2024/how-to-test-clean-up-02.gif" width="100%" class="image__border">
+  <img src="/images/posts/2024/react-use-effect-and-clean-up-02.gif" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -201,7 +201,7 @@ export default App;
 - 이전에 등록된 이벤트는 해제되었기 때문에 새로 등록된 이벤트의 로그만 출력된다.
 
 <div align="center">
-  <img src="/images/posts/2024/how-to-test-clean-up-03.gif" width="100%" class="image__border">
+  <img src="/images/posts/2024/react-use-effect-and-clean-up-03.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

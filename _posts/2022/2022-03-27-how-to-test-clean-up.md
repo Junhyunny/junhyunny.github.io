@@ -12,7 +12,7 @@ last_modified_at: 2022-03-27T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [React useEffect hook and clean-up function][]
+- [React useEffect hook and clean-up function][react-use-effect-and-clean-up-link]
 - [Test Double][test-double-link]
 
 ## 0. 들어가면서
@@ -21,7 +21,7 @@ last_modified_at: 2022-03-27T23:55:00
 
 ## 1. Problem Context
 
-[React useEffect hook and clean-up function][] 글에서 다룬 예제를 다시 사용한다. 예시 코드에 대한 설명이 필요하다면 이전 글을 참고하길 바란다. 필자는 useEffect 훅에서 등록한 새로운 이벤트를 잘 해제했는지 확인할 수 있는 단위 테스트를 만들고 싶었다. 클린-업 함수에서 등록한 이벤트를 해제하지 않는 경우 메모리 누수가 발생할 수 있기 때문이다.
+[React useEffect hook and clean-up function][react-use-effect-and-clean-up-link] 글에서 다룬 예제를 다시 사용한다. 예시 코드에 대한 설명이 필요하다면 이전 글을 참고하길 바란다. 필자는 useEffect 훅에서 등록한 새로운 이벤트를 잘 해제했는지 확인할 수 있는 단위 테스트를 만들고 싶었다. 클린-업 함수에서 등록한 이벤트를 해제하지 않는 경우 메모리 누수가 발생할 수 있기 때문이다.
 
 1. 클릭 이벤트를 등록한다.
 2. 클릭 이벤트를 해제한다.
@@ -149,5 +149,5 @@ export default CustomButton;
 - <https://stackoverflow.com/questions/41939511/how-can-i-get-the-arguments-called-in-jest-mock-function>
 - <https://stackoverflow.com/questions/52337116/loose-match-one-value-in-jest-tohavebeencalledwith>
 
-[react-lifecycle-link]: https://kyun2da.dev/react/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4%EC%9D%98-%EC%9D%B4%ED%95%B4/
+[react-use-effect-and-clean-up-link]: https://junhyunny.github.io/javascript/react/jest/react-use-effect-and-clean-up/
 [test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/

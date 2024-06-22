@@ -12,8 +12,7 @@ last_modified_at: 2024-06-22T23:55:00
 
 ## 0. 들어가면서
 
-지난 프로젝트에서 파이썬(python)과 OpenCV 라이브러리를 사용한 비디오 프로세싱 기능을 개발했다. 당시 OpenCV를 통해 생성된 비디오가 브라우저에서 재생되지 않는 문제가 있었다. 문제의 원인과 해결 방법을 글로 정리했다. 
-예제에선 [샘플 비디오](https://www.pexels.com/video/blood-samples-placed-in-specimen-tubes-4074364/)를 사용했다.
+지난 프로젝트에서 파이썬(python)과 OpenCV 라이브러리를 사용한 비디오 프로세싱 기능을 개발했다. 당시 OpenCV를 통해 생성된 비디오가 브라우저에서 재생되지 않는 문제가 있었다. 문제의 원인과 해결 방법을 글로 정리했다. 예제에선 이 [샘플 비디오](https://www.pexels.com/video/blood-samples-placed-in-specimen-tubes-4074364/)를 사용했다.
 
 ## 1. Problem Context
 
@@ -29,8 +28,9 @@ last_modified_at: 2024-06-22T23:55:00
 
 <br/>
 
-- 다음과 같은 에러를 볼 수 있다.
-  - 지원되는 형식 및 MIME 유형의 동영상를 찾을 수 없습니다.
+다음과 같은 에러를 만난다.
+
+- 지원되는 형식 및 MIME 유형의 동영상를 찾을 수 없습니다.
 
 <div align="center">
   <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-02.png" width="80%" class="image__border">
@@ -42,16 +42,18 @@ last_modified_at: 2024-06-22T23:55:00
 
 - 원본 비디오
   - H.264 코덱
-- 변경 비디오
+- 새로 생성된 비디오
   - MPEG-4 Video 코덱
 
 <div align="center">
   <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-03.png" width="80%" class="image__border">
 </div>
 
+<br/>
+
 코덱이라는 용어를 많이 들어봤지만, 정확한 개념은 모르기 때문에 찾아 정리해봤다. 코덱이란 `coder-decoder(혹은 compressor-decompressor)`의 약자로 디지털 비디오를 인코딩, 디코딩 할 때 사용하는 소프트웨어(혹은 하드웨어) 도구이다. 주요 기능은 비디오 파일을 압축하여 저장이나 전송하기 위해 크기를 줄인 다음 재생을 위해 압축을 푸는 것이다. 이 과정은 압축되지 않은 비디오 데이터 품질을 크게 손상시키지 않으면서 공간을 덜 차지하는 효율적인 타입으로 변환하는 작업을 포함한다. 
 
-이제 웹 브라우저에서 사용할 수 있는 코덱들을 찾아보자. [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs) 문서를 보면 웹 비디오 코덱 가이드에 대한 설명이 있다. 영상 길이와 비디오 사이즈, 네트워크 통신에 대한 예시를 들어 코덱이 왜 필요한지 이야기하고 있으니 읽어봐도 좋다. 이 링크에는 웹에서 보통 사용하는 코덱과 확장자에 대한 설명도 함께 되어 있다. 문제가 발생하는 `MPEG-4 Video` 코덱은 웹 환경에서 사용되지 않으며 브라우저에서도 역시 재생되지 않는다. 
+이제 웹 브라우저에서 사용할 수 있는 코덱들을 찾아보자. [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs) 문서를 보면 웹 환경에서 사용하는 비디오 코덱에 대한 가이드가 있다. 영상 길이, 비디오 사이즈, 네트워크 통신에 대한 구체적인 예시를 들어 코덱이 왜 필요한지 이야기하고 있으니 읽어 보는 것을 추천한다. 이 링크엔 웹 환경에서 사용하는 코덱과 확장자에 대한 설명도 함께 제공한다. 문제가 발생하는 `MPEG-4 Video` 코덱은 웹 환경에서 사용되지 않으며 브라우저에서도 역시 재생되지 않는다. 
 
 <div align="center">
   <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-04.png" width="80%" class="image__border">
@@ -118,7 +120,9 @@ last_modified_at: 2024-06-22T23:55:00
 </div>
 <center>https://github.com/opencv/opencv-python/issues/912</center>
 
-호스트 머신에는 코덱이 설치되어 있어서 문제가 없지만, 컨테이너 이미지에는 필요한 코덱이 설치되어 있지 않기 때문에 문제가 발생한다. 필요한 코덱을 베이스 이미지애 위에 설치하면 해결될 것으로 생각했다. 스택 오버플로우(stack overflow), 깃허브(github)나 ChatGPT에서 언급되는 패키지들은 모두 설치해 봤지만, 모두 실패했다. 위 코덱 문제는 해결할 수 없었다. 필자는 `python:3.12-slim` 베이스(base) 컨테이너 이미지를 사용했다. 설치해 본 패키지들은 다음과 같다.
+<br/>
+
+호스트 머신엔 필요한 코덱이 설치되어 있기 때문에 문제가 없지만, 컨테이너 이미지에는 필요한 코덱이 설치되어 있지 않기 때문에 문제가 발생한다. 필요한 코덱을 베이스 이미지 위에 설치하면 해결될 것으로 생각했다. 스택 오버플로우(stack overflow), 깃허브(github)나 ChatGPT에서 언급되는 패키지들은 모두 설치해 봤지만, 모두 실패했다. 위 코덱 문제는 해결할 수 없었다. 필자는 `python:3.12-slim` 베이스(base) 컨테이너 이미지를 사용했다. 설치해 본 패키지들은 다음과 같다.
 
 ```dockerfile
 FROM python:3.12-slim
@@ -139,7 +143,7 @@ RUN apt-get install -y \
 
 ## 4. Solve the problem
 
-별도 설치 없이 사용할 수 있는 VP8 코덱을 사용했다. VP8, VP9 코덱은 매우 느리지만, 코덱 이슈는 해결하지 못했기 때문에 어쩔 수 없이 사용했다. 예제 애플리케이션에서 실제로 잘 동작하는지 확인해보자. 
+별도 설치 없이 사용할 수 있는 VP8 코덱을 사용했다. VP8, VP9 코덱은 매우 느리지만, 위 코덱 이슈를 해결하지 못했기 때문에 어쩔 수 없이 VP8 코덱을 사용했다. 예제 애플리케이션에서 실제로 잘 동작하는지 확인해보자. 
 
 ### 4.1. Create requirements.txt file
 
@@ -155,15 +159,18 @@ FROM scratch
 COPY --from=extract_requirements /app/requirements.txt .
 ```
 
-다음 명령어를 사용하면 requirements.txt 파일이 호스트 머신에 생성된다.
+다음 명령어를 사용하면 requirements.txt 파일이 호스트 머신 프로젝트 경로에 생성된다.
 
 ```
 $ docker build -f ./Dockerfile-requirements -o . .
+
+$ ls -al requirements.txt            
+-rw-r--r--  1 junhyunk  staff  684 Jun 22 17:05 requirements.txt
 ```
 
-### 4.2. Build Image
+### 4.2. Build container image
 
-컨테이너 이미지를 생성한다. 다음 도커 파일을 사용하다.
+컨테이너 이미지를 생성한다. 다음 도커 파일을 사용한다.
 
 ```dockerfile
 FROM python:3.12-slim
@@ -256,13 +263,13 @@ async def video(name):
 
 ### 4.4. Upload video
 
-비디오를 업로드하면 파일 시스템에 저장 후 비디오 프로세싱을 진행한다. 예제 코드에선 별도 비디오 프로세싱은 없이 OpenCV를 통해 새로운 비디오 파일을 다시 만든다.
+비디오를 업로드하면 비디오를 우선 파일 시스템에 저장한다. 이후 비디오 프로세싱을 진행한다. 예제 코드에선 별도 비디오 프로세싱 없이 OpenCV를 통해 새로운 비디오 파일을 다시 만든다.
 
 - /videos 경로로 POST 요청시 파일 시스템에 해당 비디오를 저장 후 비디오 프로세싱을 진행한다.
 - 비디오 프로세싱에서 다음과 같은 작업을 수행한다.
   1. 비디오 파일을 읽은 후 폭, 높이, 프레임 정보를 추출한다.
   2. VP8 코덱을 사용하기 위해 VP80 fourcc(four character code)를 사용한다.
-  3. 기존 비디오으로부터 프레임을 읽어 새로운 비디오를 생성한다.
+  3. 기존 비디오로부터 프레임을 읽어 새로운 비디오를 생성한다.
 
 ```python
 def processing(file_name: str):
@@ -306,7 +313,7 @@ VP8 코덱은 mp4 확장자를 지원하지 않기 때문에 webm 확장자로 �
 $ docker run --name processor -p 8000:8000 processor
 ```
 
-브라우저를 통해 해당 애플리케이션에 접근 후 비디오를 업로드한다. 필자의 맥북에선 다소 시간이 소요된다.
+브라우저를 통해 해당 애플리케이션에 접근 후 비디오를 업로드한다. 필자의 맥북에선 다소 시간이 소요된다. 새로운 비디오가 만들어지면 브라우저에서 이를 확인할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-06.gif" width="100%" class="image__border">

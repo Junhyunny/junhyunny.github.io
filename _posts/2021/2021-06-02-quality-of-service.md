@@ -1,5 +1,5 @@
 ---
-title: "QoS(Quality of Service)"
+title: "Quality of Service"
 search: false
 category:
   - information
@@ -8,100 +8,62 @@ last_modified_at: 2021-09-03T01:00:00
 
 <br/>
 
-## 1. QoS(Quality of Service)
+## 0. 들어가면서
 
-여러 곳에서 `QoS`에 대한 정의를 다양하게 표현하고 있습니다. 
+MQTT 프로토콜을 사용하는 프로젝트에 참여했다. QoS 레벨에 관련된 이야기가 나와서 관련된 내용을 찾아봤다. 서비스 품질(QoS, Quality of Service)이라는 검색어로 찾아봤을 때 MQTT 프로토콜에 관련된 내용은 거의 없었다. 이왕 공부한 김에 블로그에 정리했다. MQTT 프로토콜의 SoQ 레벨 관련된 내용은 [MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link]을 참고하길 바란다.
 
-> QoS(Quality of Service)는 다른 응용 프로그램, 사용자, 데이터 흐름 등에 우선 순위를 정하여, 데이터 전송에 특정 수준의 성능을 보장하기 위한 능력을 말한다. 
+## 1. Quality of Service
 
-> 프레임 릴레이, ATM(Asynchronous Transfer Mode), 이더넷 및 802.1 네트워크, SONET, IP 라우팅 네트워크 등 다양한 기본 기술을 통해 선택된 네트워크 트래픽에 더 나은 서비스를 제공하는 네트워크의 기능을 의미합니다. QoS는 어플리케이션이 데이터 처리량 용량(대역폭), 레이턴시 변형(지터), 지연 등의 측면에서 예측 가능한 서비스 레벨을 요청 및 수신할 수 있도록 하는 기술 모음입니다. 
+> Wiki<br/>
+> 서비스 품질은 응용 프로그램, 사용자, 데이터 흐름 등에 우선 순위를 정하여 데이터 전송에 특정 수준의 성능을 보장하기 위한 능력을 말한다. 
 
-> 한정된 네트워크 자원 내에서 특정 트래픽이 일정 수준의 성능, 속도를 보장받는 네트워크 기술
+서비스 품질이란 네트워크 관련 용어로 네트워크 트래픽의 성능, 신뢰성 및 우선순위를 관리하고 보장하는 것을 의미한다. 대역폭이 제한되고 다양한 유형의 데이터가 효과적으로 작동하기 위해선 서비스 품질을 보장하기 위한 기술이 필요하다. 
 
-> Network 의 대역폭, 처리율, 지연율, 손실율 등을 관리하는 기술
+높은 서비스 품질은 부드럽고 신뢰할 수 있는 사용자 경험을 만든다. VoIP(Voice over IP), 화상 회의 및 스트리밍 서비스와 실시간 통신이 필요한 서비스의 경우 중단 없이 효율적으로 작동하도록 보장한다. 높은 서비스 품질을 위한 작업은 네트워크 리소스 사용을 최적화하여 혼잡 및 병목 현상을 줄일 수 있다.
 
-> 서비스 이용자의 만족도를 결정하는 서비스 성능의 총체적 효과(ITU-T E.800)
+## 2. How to measure OoS?
 
-이를 필자가 이해하기 쉬운 표현으로 다시 정리하면 다음과 같습니다. 
+일정 수준의 서비스 품질을 유지한다는 것은 서비스 품질이 측정 가능해야 한다는 의미이다. 어떤 요소들을 통해 서비스 품질을 측정할 수 있을까?
 
-* 데이터 통신에서 발생되는 데이터 손실을 줄이고 통신 속도를 개선시키기 위한 기술
-* 특정 유형의 IP 트래픽을 우대하는 방법을 이용하여 차별화되는 서비스를 제공할 수 있는 기술
+- 대역폭(bandwidth) 관리
+  - 애플리케이션이 필요한 네트워크 대역폭을 할당 받아야 한다.
+  - 대역폭은 일정 시간에 처리한 데이터의 총량을 의미한다.
+- 지연(delay)
+  - 데이터가 발송지에서 목적지까지 가는 이동하는 데 걸리는 시간이다.
+- 패킷 손실(packet loss)
+  - 전송 중 손실되는 패킷의 백분율을 의미한다.
+  - 네트워크 혼잡으로 인한 버퍼 오버플로우 때문에 주로 패킷 손실이 발생한다.
+- 지터(jitter)
+  - 각 데이터 패킷 사이의 지연 시간 변동성을 의미한다.
+  - 패킷 도착 시간의 불일치를 측정한다. 
+  - 높은 지터는 데이터 패킷의 일관된 타이밍이 중요한 VoIP, 화상 회의 및 온라인 게임과 같은 실시간 통신에서 문제를 일으킨다.
 
-## 2. 품질 측정 요소
+## 3. How to improve QoS?
 
-품질에 대해 이야기이므로 기준이 정리될 필요가 있어보입니다. 
-어떤 요소들이 기준이 되어 품질의 좋고 나쁨을 구별할 수 있을지 간략하게 정리해보겠습니다. 
+어떻게 서비스 품질을 높일 수 있을까? 서비스 품질을 높이기 위해선 여러 전략과 기술이 함께 동작한다. 몇 가지만 살펴보자. 트래픽의 우선순위를 결정하는 방법이 있다.
 
-### 2.1. 대역폭(Bandwidth)
+- 트래픽의 우선순위를 구분하고 마킹(marking)하기 위해 DSCP(Differentiated Services Code Point)이나 CoS(Class of Service)를 사용한다.
+- 우선순위 별로 큐를 구분하여 사용한다.
 
-* 특정 어플리케이션에 할당된 네트워크 자원의 양을 의미
-* 일정 시간에 처리한 데이터의 총량
-* 제어 기술 - Queuing Shaping, Policing
+다음으로 네트워크 대역폭을 관리하는 방법이 있다. 
 
-### 2.2. 지연(Delay)
+- 중요한 애플리케이션에게 적절한 네트워크 대역폭을 지정한다.
+- 패킷 버퍼나 토큰을 사용해 네트워크 망에 유익, 유출되는 트래픽량과 속도를 조절하는 트래픽 쉐이핑(traffic shaping)을 사용한다. 
+- 트래픽 혼잡을 방지하기 위해 최대 데이터 전송률을 지정한다.
 
-* 서비스 또는 특정 처리를 위해 기다림으로 발생하는 지연
-* 발송지에서 목적지까지 가는 경로에서 발생 되는 지연
-* 제어 기술 - Queuing
+네트워크 혼잡을 관리하는 방법도 있다.
 
-### 2.3. 패킷 손실(Packet Loss)
+- WFQ(Weighted Fair Queuing)이나 LLQ(Low-Latency Queuing) 같은 큐 전략을 사용한다.
+- RED(Random Early Detection) 전략을 통해 네트워크 혼잡이 미리 감지되면 패킷을 드랍(drop)한다.
 
-* 네트워크에서 데이터를 전송하는 과정에서 패킷의 손실정도
-* 주된 원인은 네트워크 혼잡으로 인한 버퍼 오버플로우
-* 제어 기술 - Queuing, RED, WRED
-
-### 2.4. 지터(Jitter)
-
-* 신호가 네트워크를 통해서 전달되는 과정에서 원래 신호로부터 왜곡되는 정도
-* 연속 지연(Serialization Delay), 전달 지연(Propagation Delay), 큐잉 지연(Queuing Delay)
-* 제어 기술 - Queuing 
-
-## 3. QoS in VerneMQ
-
-`QoS`에 관련된 내용을 정리한 이유는 `VerneMQ`라는 기술을 공부하다가 궁금했기 때문입니다. 
-`VerneMQ`에서 설명하는 `QoS`는 위에서 정리한 내용과 달리 MQTT 프로토콜이 제공하는 서비스의 신뢰도와 속도에 대한 내용이라는 느낌을 받았습니다. 
-
-### 3.1. Fire and forget (QoS 0)
-
-* 메시지를 한 번만 전달됩니다.
-* 한 번만 전달하지만 전달 여부는 확인하지 않습니다.
-
-### 3.2. At least once (QoS 1)
-
-* 메시지는 최소 한번은 전달됩니다. 
-* 브로커가 발행자(publisher)에게 `PUBACK`를 보내어 전달 성공을 알립니다.
-* 정상적인 통신이 이루어지지 않은 경우 `PUBACK`을 받지 못한 발행자는 적정시간이 지난 후 다시 메시지를 전달합니다.
-* 구독자(Subscriber)에게 중복 메시지를 보내는 경우가 발생합니다.
-
-### 3.3. Exactly once (QoS 2)
-
-* 메시지는 반드시 한번 전달됩니다.
-* `PUBACK` 과정을 `PUBREC`, `PUBREL`으로 핸드 쉐이킹을 수행합니다.
-* 브로커는 전달받은 메시지를 저장합니다.
-* `PUBREC`가 분실되어 발행자가 다시 메시지를 보내도 브로커는 메시지를 알고 있기 때문에 다시 구독자에게 전달하지 않습니다.
-* 발행자가 `PUBREC`을 받으면 `PUBREL` 메시지를 전달합니다.
-* 브로커가 `PUBREL`을 받으면 저장해둔 메시지를 지운 후 `PUBCOMP`을 전달합니다. 
-
-##### MQTT QoS(Qaulity of Service)
-
-* `VernMQ`에서 말하는 `QoS` 수준은 MQTT 프로토콜의 `QoS` 수준을 의미합니다. 
-
-<p align="center">
-    <img src="/images/quality-of-service-1.jpg" width="80%" class="image__border">
-</p>
-<center>https://devopedia.org/mqtt</center>
+이 외에도 지터, 지연, 패킷 손실 등을 줄이는 방법이나 네트워크 망을 디자인하고 최적화하는 방법들이 있다. 높은 서비스 품질 유지를 위해선 서비스 품질을 측정할 수 있는 기술과 도구들을 활용해 모니터링과 분석을 수행할 필요가 있다. 
 
 #### REFERENCE
 
-* <https://ko.wikipedia.org/wiki/QoS>
-* <https://www.cisco.com/c/ko_kr/support/docs/quality-of-service-qos/qos-policing/22833-qos-faq.html>
-* <https://namu.wiki/w/QoS>
-* <https://itwiki.kr/w/QoS#QoS_.EB.A0.88.EB.B2.A8>
-* <https://m.blog.naver.com/bi1189/221472713258>
-* <https://devopedia.org/mqtt>
-* <https://dalkomit.tistory.com/111>
-* <https://wnsgml972.github.io/mqtt/2018/03/05/mqtt/>
-* <https://vernemq.com/>
-* <https://m.blog.naver.com/bi1189/221472713258>
+- <https://chatgpt.com>
+- <https://ko.wikipedia.org/wiki/QoS>
+- <https://itwiki.kr/w/QoS#QoS_.EB.A0.88.EB.B2.A8>
+- <https://www.cisco.com/c/ko_kr/support/docs/quality-of-service-qos/qos-policing/22833-qos-faq.html>
+- <https://m.blog.naver.com/bi1189/221472713258>
 
-[vernemq-link]: https://vernemq.com/
+[mqtt-protocol-link]: https://junhyunny.github.io/information/mqtt-protocol/

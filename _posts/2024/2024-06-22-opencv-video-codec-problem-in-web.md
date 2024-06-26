@@ -10,6 +10,10 @@ last_modified_at: 2024-06-22T23:55:00
 
 <br/>
 
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Virtual Environment for Python][virtual-environment-for-python-link]
+
 ## 0. 들어가면서
 
 지난 프로젝트에서 파이썬(python)과 OpenCV 라이브러리를 사용한 비디오 프로세싱 기능을 개발했다. 당시 OpenCV를 통해 생성된 비디오가 브라우저에서 재생되지 않는 문제가 있었다. 문제의 원인과 해결 방법을 글로 정리했다. 예제에선 이 [샘플 비디오](https://www.pexels.com/video/blood-samples-placed-in-specimen-tubes-4074364/)를 사용했다.
@@ -340,3 +344,5 @@ AVC(H.264) 코덱은 GPL 라이센스 문제로 OpenCV에서 지원되지 않는
 - <https://stackoverflow.com/questions/70247344/save-video-in-opencv-with-h264-codec>
 - <https://stackoverflow.com/questions/41670584/opencv-linux-how-to-install-ffmpeg>
 - <https://wiki.debian.org/MultimediaCodecs#Codec_Installations>
+
+[virtual-environment-for-python-link]: https://junhyunny.github.io/python/virtual-environment-for-python/

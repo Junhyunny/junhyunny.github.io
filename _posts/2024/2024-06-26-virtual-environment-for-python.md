@@ -127,7 +127,7 @@ watchfiles==0.22.0
 websockets==12.0
 ```
 
-requirements.txt 파일만 Git, SVN 같은 도구를 통해 코드 형상 관리를 하고 `myenv` 디렉토리는 .gitignore 등을 통해 형상 관리에서 제외한다. `myenv` 폴더는 패키지, 프로젝트 환경 등이 설치되어 있기 때문에 용량이 굉장히 크기 때문에 원격 레포지토리에 올라가지 않도록 주의가 필요하다. 다음 명령어를 통해 requirements.txt 파일을 사용해 필요한 의존성을 설치한다. 여러 개발자들이 협력할 때도 동일한 프로젝트 환경을 구축하기 쉽다. 
+requirements.txt 파일은 Git, SVN 같은 도구를 통해 코드 형상 관리를 하고 `myenv` 디렉토리는 .gitignore 파일을 통해 형상 관리에서 제외한다. `myenv` 폴더는 프로젝트 가상 환경과 패키지 등이 포함되어 용량이 굉장히 크기 때문에 원격 레포지토리에 업로드 되지 않도록 주의가 필요하다. 다음 명령어를 통해 requirements.txt 파일에 정리된 의존성들을 설치한다. 개발자들이 협력할 때 동일한 프로젝트 환경을 구축하기 쉽다. 
 
 ```
 $ pip install -r requirements.txt

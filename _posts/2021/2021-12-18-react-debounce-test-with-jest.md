@@ -63,7 +63,7 @@ export const debounce = (func, timeout) => {
 };
 ```
 
-디바운스 모듈을 애플리케이션 코드에서 다음과 같이 사용한다.
+디바운스 함수를 애플리케이션에서 다음과 같이 사용한다.
 
 1. 키워드로 검색하는 searchKeyword 함수를 만든다.
 2. searchKeyword 함수를 debounce 함수로 감싸 디바운스 처리가 되도록 만든다.
@@ -111,7 +111,7 @@ export default App;
   - API 요청 모듈을 테스트 더블로 만든다.
   - 컴포넌트를 렌더링한다.
 2. When
-  - 페이크 타이머를 설정한다.
+  - 페이크 타이머를 활성화한다.
   - 검색어를 타이핑(typing)한다.
   - 타이머 시간을 501ms 뒤로 보낸다.
 3. Then

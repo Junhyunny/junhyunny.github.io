@@ -36,7 +36,7 @@ last_modified_at: 2021-12-18T23:55:00
 - 이후 여러번의 동일한 이벤트가 발생하지만, 설정한 시간 간격 이내에 발생한 이벤트는 무시한다.
 
 <p align="center">
-  <img src="/images/posts/2021/throttle-test-with-jest-01.png" width="80%">
+  <img src="/images/posts/2021/throttle-test-with-jest-01.png" width="80%" class="image__border">
 </p>
 <center>https://codepen.io/jaehee/pen/XoKeRW</center>
 

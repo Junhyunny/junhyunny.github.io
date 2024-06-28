@@ -196,24 +196,6 @@ test("when occur 100 times event with throttle in 500ms then invoke 100 times", 
   <img src="/images/posts/2021/throttle-test-with-jest-02.gif" width="100%">
 </p>
 
-#### 2.2. throttle 모듈
-
-```jsx
-export default (func, timeout) => {
-    let wait = false;
-    return (...args) => {
-        if (wait) {
-            return;
-        }
-        setTimeout(() => {
-            wait = false;
-        }, timeout);
-        wait = true;
-        func(args);
-    };
-};
-```
-
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-02-throttle-test-with-jest>

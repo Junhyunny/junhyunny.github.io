@@ -202,7 +202,7 @@ test("when occur 100 times event with throttle in 500ms then invoke 100 times", 
 
 #### RECOMMEND NEXT POSTS
 
-- [React debounce test with Jest][react-debounce-test-link]
+- [Debounce test with Jest][react-debounce-test-link]
 
 #### REFERENCE
 

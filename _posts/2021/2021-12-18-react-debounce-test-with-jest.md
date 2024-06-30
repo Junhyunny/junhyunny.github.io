@@ -1,5 +1,5 @@
 ---
-title: "React debounce test with Jest"
+title: "Debounce test with Jest"
 search: false
 category:
   - information

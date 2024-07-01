@@ -57,10 +57,9 @@ last_modified_at: 2022-01-08T23:55:00
 - setImmediate(callback)
   - 즉시 callback 함수가 매크로태스크 큐로 이동한다.
   - 매크로태스크는 다음 틱(tick)에서 바로 실행된다.
-  - Internet Explorer 10 버전에서만 지원한다.
-  - [Window.setImmediate()][immediate-link]
+  - [Internet Explorer 10][[immediate-link]]에서만 지원한다.
 
-setTimeout 함수 사용 예시를 살펴보자.
+간단하게 setTimeout 함수 사용 예시를 살펴보자.
 
 1. 3개의 함수를 정의한다.
 2. 3개의 함수를 bar, foo, baz 순서로 호출한다.
@@ -90,7 +89,7 @@ baz();
 
 ### 2.2. Microtask
 
-마이크로태스크는 대표적으로 Promise, async/await 블록에 의해 생성된다. 각 기능 별로 어떤 부분이 마이크로태스크로 구분되는지 살펴보자.
+마이크로태스크는 Promise, async/await 블록에 의해 생성된다. 각 기능 별로 어떤 부분이 마이크로태스크로 구분되는지 살펴보자.
 
 ### 2.2.1. Promise
 
@@ -142,7 +141,7 @@ myFunc();
 console.log('After function!');
 ```
 
-왜 이런 순서로 코드가 실행될까? 
+왜 이런 순서로 코드가 실행될까? 코드의 실행 흐름을 살펴보자.
 
 1. "Before function!" 로그가 출력된다.
 2. myFunc 함수가 호출된다.
@@ -155,7 +154,7 @@ console.log('After function!');
 위 코드에서 마이크로태스크 큐에 이동된 코드 부분은 다음과 같다.
 
 - "One!" 문자열은 one 함수의 결과 값이다.
-- await 키워드에 의해 Promise 객체에 담긴 결과 값을 얻을 수 있다.
+- await 키워드를 통해 Promise 객체에 담긴 값을 얻을 수 있다.
 
 ```javascript
   const result = 'One!';

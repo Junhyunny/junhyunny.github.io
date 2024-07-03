@@ -27,7 +27,7 @@ last_modified_at: 2021-09-04T16:30:00
 새로운 이미지 파일은 클래스패스에 위치한 /static/images 폴더에 생성하도록 구현했다. 다음과 같이 현상을 요약할 수 있다.
 
 - IDE(Integrated Development Environment) 환경에서 실행하면 정상적으로 동작하지만, 애플리케이션을 서버 머신에 배포하면 정상적으로 동작하지 않는다.
-- 새로 업로드 한 이미지가 아닌 /static/images 경로에 이미 저장된 이미지들은 서버에서도 정상적으로 찾을 수 있다. 
+- 새로 업로드 한 이미지가 아닌 /static/images 디렉토리에 이미 저장된 이미지들은 서버 환경에서도 정상적으로 찾을 수 있다. 
 
 ## 2. Cause of the problem
 
@@ -49,11 +49,11 @@ java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/bl
 위 에러가 발생한 문제 원인은 다음과 같다. 
 
 - 스프링 부트 프레임워크는 애플리케이션을 실행 가능한 jar 파일로 빌드한다.
-- 클래스패스의 /static/images 경로는 패키징 된 jar 파일 내부에 위치하므로 새로운 이미지 파일을 패키지 내부에 생성할 수 없다.
+- 클래스패스 /static/images 디렉토리는 패키징 된 jar 파일 내부에 위치하므로 새로운 이미지 파일을 패키지 내부에 생성할 수 없다.
 
 jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로운 파일을 직접 만들 수 없다. IDE 환경에서 실행한 애플리케이션이 정상적으로 동작하는 이유는 빌드한 결과물이 jar 파일로 패키징 되어 있지 않고 target 폴더에 풀어져 있기 때문이다. 
 
-- IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 경로에 이미지가 정상적으로 업로드 된다.
+- IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드 된다.
 
 <div align="left">
   <img src="/images/posts/2021/cannot-find-static-resource-01.png" width="50%" class="image__border">
@@ -67,9 +67,9 @@ jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로
 
 jar 패키지 파일로 서버 애플리케이션을 실행한다면 새로 업로드하는 이미지 파일들의 생성 경로를 파일 시스템으로 설정해야 한다. HTTP 요청 경로를 파일 시스템 경로로 매칭시키려면 WebMvcConfigurer 인터페이스를 확장해 리소스 핸들러를 추가해야 한다.
 
-1. 애플리케이션 현재 경로를 찾는다.
-2. 애플리케이션 현재 경로에 images 디렉토리를 생성한다.
-3. HTTP 요청 시 /images 경로 하위 리소스들은 이미지 폴더에서 탐색할 수 있도록 이를 매핑한다.
+1. 애플리케이션 프로세스 현재 경로를 찾는다.
+2. 애플리케이션 프로세스 현재 경로에 images 디렉토리를 생성한다.
+3. HTTP 요청 시 /images 경로 하위 리소스들은 images 디렉토리에서 탐색할 수 있도록 매핑한다.
 
 ```java
 package blog.in.action.config;
@@ -129,7 +129,7 @@ spring:
 2. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
   - 클래스패스 /static/images 디렉토리에 이미지를 저장한다.
 3. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
-  - 프로젝트 루트 /images 디렉토리에 이미지를 저장한다.
+  - 애플리케이션 프로세스 현재 경로 /images 디렉토리에 이미지를 저장한다.
 4. 서버로부터 전달 받은 이미지 경로를 img 태그에 설정한다.
 
 ```html
@@ -181,7 +181,7 @@ spring:
   - 새로운 이미지 파일을 클래스패스 /static/images 디렉토리에 생성한다.
   - 새로 생성한 이미지 파일의 경로를 응답한다.
 3. /extra/barcode 경로
-  - 새로운 이미지 파일을 프로젝트 루트 /images 디렉토리에 생성한다.
+  - 새로운 이미지 파일을 애플리케이션 프로세스 현재 경로 /images 디렉토리에 생성한다.
   - 새로 생성한 이미지 파일의 경로를 응답한다.
 
 ```java
@@ -267,9 +267,9 @@ public class BlogController {
 
 애플리케이션을 실행해보자. 먼저 IDE 환경에서 실행해보자.
 
-- 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회할 수 있다.
-- 클래스패스 /static/images 경로에 업로드 된 이미지를 조회할 수 있다.
-- 프로젝트 루트 /images 경로에 업로드 된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 디렉토리에 미리 저장된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
+- 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2021/cannot-find-static-resource-02.gif" width="100%" class="image__border">
@@ -277,9 +277,9 @@ public class BlogController {
 
 다음 jar 파일로 애플리케이션을 실행해보자.
 
-- 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회할 수 있다.
-- 클래스패스 /static/images 경로에 이미지 업로드가 실패한다.
-- 프로젝트 루트 /images 경로에 업로드 된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 디렉토리에 미리 저장된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 디렉토리에 이미지 업로드가 실패한다.
+- 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2021/cannot-find-static-resource-03.gif" width="100%" class="image__border">

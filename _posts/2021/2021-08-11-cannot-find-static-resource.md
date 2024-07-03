@@ -275,6 +275,8 @@ public class BlogController {
   <img src="/images/posts/2021/cannot-find-static-resource-02.gif" width="100%" class="image__border">
 </div>
 
+<br/>
+
 다음 jar 파일로 애플리케이션을 실행해보자.
 
 - 클래스패스 /static/images 디렉토리에 미리 저장된 이미지를 조회할 수 있다.

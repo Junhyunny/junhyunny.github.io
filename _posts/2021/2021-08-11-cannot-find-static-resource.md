@@ -99,7 +99,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 }
 ```
 
-## 4. Example Code
+## 4. Example code
 
 이해를 돕기 위해 간단한 예시 코드를 만들어봤다.
 

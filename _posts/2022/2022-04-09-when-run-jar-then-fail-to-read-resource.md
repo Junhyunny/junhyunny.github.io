@@ -9,14 +9,11 @@ last_modified_at: 2022-04-09T23:55:00
 
 <br/>
 
-## 1. 문제 현상
+## 1. Problem context
 
-IDE(Integrated Development Environment)에서 실행 시 리소스(resource) 파일이 정상적으로 읽히는데, 
-`jar` 패키지 파일을 실행하면 리소스 파일에 접근이 안되는 현상이 있었습니다. 
+IDE(Integrated Development Environment) 환경에서 애플리케이션을 실행하면 리소스(resource) 파일을 정상적으로 읽을 수 있다. 빌드 결과물인 `jar` 패키징 파일을 실행하면 리소스 파일에 접근할 수 없는 현상이 있었다. jar 파일 내부를 열어보면 필요한 리소스 파일을 정상적으로 찾을 수 있다.
 
-##### action-in-blog-0.0.1-SNAPSHOT.jar 패키지 내부 BOOT-INF 경로
-- 문제가 되는 `jar` 패키지 파일의 압축을 풀어보면 사용하고 싶은 해당 리소스 파일은 존재합니다. 
-- 사용하고 싶은 `pokemons.json` 파일은 함께 패키징되어 있습니다. 
+- 클래스패스(classpath)에서 pokemons.json 파일을 찾을 수 있다.
 
 ```
 ~/Desktop/action-in-blog-0.0.1-SNAPSHOT % tree BOOT-INF
@@ -73,117 +70,134 @@ BOOT-INF
 8 directories, 40 files
 ```
 
-## 2. 문제 원인
+리소스 파일을 읽을 때 코드는 다음과 같다.
 
-우선 문제가 되는 코드와 에러 로그를 살펴보겠습니다. 
-
-##### 문제 코드
-- 클래스 로더(class loader)로부터 리소스 경로를 획득합니다.
-- 획득한 파일 경로를 이용하여 파일을 읽어들일 수 있는 `FileReader` 객체를 만듭니다.
-- `FileReader` 객체를 `BufferedReader` 객체에 전달합니다.
-- 읽은 리소스 파일을 문자열로 변경한 후 반환하려는 `PokemonResponse` 객체로 변경합니다.
+1. 클래스로더(classloader)로 해당 리소스 파일의 경로를 조회한다.
+2. 해당 경로의 파일을 FileReader 객체를 사용해 오픈(open)한다.
+3. BufferedReader 객체로부터 리소스 파일의 문자열을 읽어 PokemonResponse 객체로 변환 후 반환한다.
 
 ```java
-    private final ObjectMapper objectMapper = new ObjectMapper();
+@RestController
+public class PokeomonController {
+
+    private final static ClassLoader classLoader = PokeomonController.class.getClassLoader();
+    private final static ObjectMapper objectMapper = new ObjectMapper();
 
     private PokemonResponse getPokemonResponse(BufferedReader reader) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             buffer.append(line);
         }
-        return objectMapper.readValue(buffer.toString(), PokemonResponse.class);
+        return objectMapper.readValue(
+                buffer.toString(),
+                PokemonResponse.class
+        );
     }
 
     @GetMapping("/pokemons-fail")
     public PokemonResponse getPokemonsFail() {
-        String filePath = this.getClass().getClassLoader().getResource("pokemons.json").getFile();
+        String filePath = Objects.requireNonNull(classLoader.getResource("pokemons.json")).getFile(); // 1
         try (
-                FileReader fileReader = new FileReader(filePath);
+                FileReader fileReader = new FileReader(filePath); // 2
                 BufferedReader reader = new BufferedReader(fileReader)
         ) {
-            return getPokemonResponse(reader);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            return getPokemonResponse(reader); // 3
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+}
 ```
 
-##### 에러 로그
-- 원하는 리소스 파일의 경로는 `jar` 패키지 내부에서 정상적으로 찾습니다.
-    - `file:/Users/junhyunk/Desktop/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json`
-- 리소스 파일을 `FileReader` 객체로 읽으려는 코드에서 에러가 발생합니다.
-    - `FileInputStream.open(FileInputStream.java:219)`
+## 2. Cause of the problem
+
+jar 패키지 파일을 실행 후 pokemons.json 파일을 읽을 때 다음과 같은 에러가 발생한다.
+
+- pokemons.json 파일 경로를 `jar` 패키지 내부에서 정상적으로 찾는다.
+  - /action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json
+- pokemons.json 파일을 `FileReader` 객체로 읽을 때 에러가 발생한다.
+  - PokeomonController.getPokemonsFail(PokeomonController.java:33)
 
 ```
-2022-04-09 11:44:03.761 ERROR 71726 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.RuntimeException: java.io.FileNotFoundException: file:/Users/junhyunk/Desktop/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json (No such file or directory)] with root cause
+java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/blog-in-action/2022-04-09-when-run-jar-then-fail-to-read-resource/action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json (No such file or directory)] with root cause
 
-java.io.FileNotFoundException: file:/Users/junhyunk/Desktop/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json (No such file or directory)
-    at java.base/java.io.FileInputStream.open0(Native Method) ~[na:na]
-    at java.base/java.io.FileInputStream.open(FileInputStream.java:219) ~[na:na]
-    at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157) ~[na:na]
-    at java.base/java.io.FileInputStream.<init>(FileInputStream.java:112) ~[na:na]
-    at java.base/java.io.FileReader.<init>(FileReader.java:60) ~[na:na]
-    at action.in.blog.controller.PokeomonController.getPokemonsFail(PokeomonController.java:29) ~[classes!/:0.0.1-SNAPSHOT]
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
-    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
-    at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
-        ...
+java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/blog-in-action/2022-04-09-when-run-jar-then-fail-to-read-resource/action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/pokemons.json (No such file or directory)
+        at java.base/java.io.FileInputStream.open0(Native Method) ~[na:na]
+        at java.base/java.io.FileInputStream.open(FileInputStream.java:216) ~[na:na]
+        at java.base/java.io.FileInputStream.<init>(FileInputStream.java:157) ~[na:na]
+        at java.base/java.io.FileInputStream.<init>(FileInputStream.java:111) ~[na:na]
+        at java.base/java.io.FileReader.<init>(FileReader.java:60) ~[na:na]
+        at action.in.blog.controller.PokeomonController.getPokemonsFail(PokeomonController.java:33) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+...
 ```
 
-## 3. 문제 해결하기
+잘 생각해보면 문제 원인이 명백하다. FileNotFoundException 예외가 발생한 이유는 파일이 없기 때문이다. pokemon.json 파일은 jar 패키지 파일 내부에 이진 데이터로 존재한다. 애플리케이션이 리소스를 읽을 때 경로가 jar 패키지 파일 내부의 클래스패스로 결정되기 때문에 이진 데이터를 파일로써 읽을 수 없는 것이 문제다.
 
-> `FileNotFoundException` - 파일이 없습니다.
+## 3. Solve the problem
 
-잘 생각해보면 문제 원인은 명확합니다. 
-IDE로 어플리케이션을 실행하면 `pokemon.json` 리소스 파일이 프로젝트 패키지 경로에 존재하기 때문에 정상적으로 읽을 수 있습니다. 
+문제를 해결하려면 getResource 메소드가 아닌 `getResourceAsStream` 메소드를 사용해야 한다. getResourceAsStream 메소드는 리소스 파일을 읽을 수 있는 InputStream 객체를 반환한다. InputStream 객체를 사용해 패키지 내부 데이터를 읽는다.
 
-`jar` 패키지 파일로 어플리케이션을 실행하면 해당 어플리케이션이 사용할 `pokemon.json` 리소스 파일은 실제로 존재하지 않습니다. 
-어플리케이션이 리소스를 읽는 경로가 `jar` 패키지 내부로 잡히고, 
-`pokemon.json` 리소스 파일은 `jar` 패키지 내부에 압축된 이진 데이터로 존재하기 때문입니다. 
-
-이를 해결하기 위해 `getResource` 메소드가 아닌 `getResourceAsStream` 메소드를 사용합니다. 
-
-##### 해결 코드
-- `getResourceAsStream` 메소드를 이용해 패키지 내부 리소스 파일을 읽기 위한 `InputStream` 객체를 획득합니다. 
-    - 파일 경로를 획득하여 파일을 여는 방식이 아닙니다.
-    - 패키지 내부에 저장된 리소스를 읽을 수 있는 `InputStream` 객체를 획득하여 리소스 데이터를 읽습니다.
+1. 클래스로더(classloader)로 해당 리소스 파일을 읽을 수 있는 InputStream 객체를 생성한다.
+2. InputStream 객체를 BufferedReader 객체에 주입한다.
+3. BufferedReader 객체로부터 리소스 파일의 문자열을 읽어 PokemonResponse 객체로 변환 후 반환한다.
 
 ```java
-    private final ObjectMapper objectMapper = new ObjectMapper();
+@RestController
+public class PokeomonController {
+
+    private final static ClassLoader classLoader = PokeomonController.class.getClassLoader();
+    private final static ObjectMapper objectMapper = new ObjectMapper();
 
     private PokemonResponse getPokemonResponse(BufferedReader reader) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
             buffer.append(line);
         }
-        return objectMapper.readValue(buffer.toString(), PokemonResponse.class);
+        return objectMapper.readValue(
+                buffer.toString(),
+                PokemonResponse.class
+        );
     }
+
+    ...
 
     @GetMapping("/pokemons-success")
     public PokemonResponse getPokemonsSuccess() {
         try (
-                InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("pokemons.json");
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))
+                InputStream inputStream = classLoader.getResourceAsStream("pokemons.json"); // 1
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)) // 2
         ) {
-            return getPokemonResponse(reader);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            return getPokemonResponse(reader); // 3
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+}
 ```
 
-##### 실행 로그 확인
+jar 패키지 파일로 애플리케이션을 실행 후 테스트 해보면 getResourceAsStream 메소드를 사용했을 때 정상적으로 응답하는 것을 확인할 수 있다.
 
-<p align="center">
-    <img src="/images/when-run-jar-then-fail-to-read-resource-1.gif" width="100%" class="image__border">
-</p>
+- /pokemons-fail 경로
+  - getResource 메소드를 사용해 얻은 경로를 파일로 오픈한다.
+  - 에러가 발생한다.
+- /pokemons-success 경로
+  - getResourceAsStream 메소드를 사용해 얻은 InputStream 객체를 사용한다.
+  - 정상적으로 응답한다.
 
+<div align="center">
+  <img src="/images/posts/2022/when-run-jar-then-fail-to-read-resource-01.gif" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-09-when-run-jar-then-fail-to-read-resource>
+
+#### RECOMMEND NEXT POSTS
+
+- [Problem to find images in spring boot application][cannot-find-static-resource-link]
+
+[cannot-find-static-resource-link]: https://junhyunny.github.io/spring-boot/cannot-find-static-resource/

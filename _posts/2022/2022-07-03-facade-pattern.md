@@ -116,11 +116,11 @@ public class RequestFacade implements HttpServletRequest {
 
 Spring 프레임워크에서는 마음에 드는 예시 클래스를 찾지 못 했습니다. 
 적절한 사례를 찾던 중에 위의 `VideoConverter` 클래스에 대한 사례를 보고 이전에 사용했던 `barcode4j` 라이브러리가 생각났습니다. 
-[Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트에서 소개했었는데 문자열을 이용해 바코드 이미지를 생성합니다. 
+[Problem to find images in spring boot application][cannot-find-static-resource-link] 포스트에서 소개했었는데 문자열을 이용해 바코드 이미지를 생성합니다. 
 
 #### 2.2.1. 사용 코드 예시
 
-* [Thymeleaf - cannot find images][cannot-find-static-resource-link] 포스트의 예제입니다.
+* [Problem to find images in spring boot application][cannot-find-static-resource-link] 포스트의 예제입니다.
 * `Code128Bean` 클래스를 사용하며 바코드를 생성합니다.
 * `Code128Bean` 클래스는 `BitmapCanvasProvider` 클래스에 의존하여 바코드를 이미지로 생성합니다.
 * `BitmapCanvasProvider` 클래스는 전달받은 `OutputStream`을 통해 생성한 이미지를 출력합니다.
@@ -196,7 +196,7 @@ public interface BarcodeGenerator {
 
 `BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메소드를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
 사용자가 바코드를 생성하려면 `CanvasProvider` 인터페이스도 함께 알아야한다는 점을 보완하고 싶었습니다. 
-[Thymeleaf - cannot find images][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스와 간단한 화면을 만들어 보았습니다. 
+[Problem to find images in spring boot application][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스와 간단한 화면을 만들어 보았습니다. 
 
 ### 3.1. BarcodeImageFacade 인터페이스
 

@@ -12,7 +12,7 @@ last_modified_at: 2024-07-03T23:55:00
 
 ## 0. 들어가면서
 
-최근 프로젝트에서 달리는 사람의 스켈레톤(skeleton) 형상을 추출하는 애플리케이션을 개발했다. [회고 글][project-retrospective-link]에서도 이야기했지만, 구현 코드를 ChatGPT가 순식간에 만들어줬기 때문에 개발하는 시간이 매우 짧았다. 코드를 이해하고 코드 중간의 데이터가 어떤 의미인지 파악하는 데 시간이 오래 걸렸다. ChatGPT가 만든 코드를 이해하기 위해 공부한 내용을 글로 정리했다. 예제에선 이 [샘플 비디오](https://www.pexels.com/video/a-woman-jogs-along-the-riverbank-3048931/)를 사용했다. 
+최근 프로젝트에서 달리는 사람의 스켈레톤(skeleton) 형상을 추출하는 애플리케이션을 개발했다. [회고 글][project-retrospective-link]에서도 이야기했지만, 구현 코드를 ChatGPT가 순식간에 만들어줬기 때문에 개발하는 시간이 매우 짧았다. 코드를 이해하고 데이터의 의미를 파악하는 데 시간을 더 소비했다. ChatGPT가 만들어준 코드를 이해하기 위해 공부한 내용을 글로 정리했다. 예제에선 이 [샘플 비디오](https://www.pexels.com/video/a-woman-jogs-along-the-riverbank-3048931/)를 사용했다. 
 
 ## 1. mediapipe package
 
@@ -22,7 +22,7 @@ last_modified_at: 2024-07-03T23:55:00
 - [Tensorflow Pose Estimation](https://www.tensorflow.org/lite/examples/pose_estimation/overview?hl=ko)
 - [mediapipe](https://github.com/google-ai-edge/mediapipe)
 
-필자는 ChatGPT가 추천한 mediapipe 패키지를 사용했다. 머신 러닝이나 AI 전문가가 아니기 때문에 mediapipe 패키지가 어떤 모델 혹은 어떤 알고리즘을 사용하는지 자세히 파고 들진 않았다. 먼저 사용 가능한지 라이센스를 살펴봤다.
+필자는 ChatGPT가 추천한 mediapipe 패키지를 사용했다. 필자는 머신 러닝이나 AI 전문가가 아니기 때문에 mediapipe 패키지가 어떤 모델 혹은 어떤 알고리즘을 사용하는지 자세히 파고 들진 않았다. 먼저 사용 가능한지 라이센스를 살펴봤다.
 
 - 상업 용도 가능
 - 사적 용도 가능

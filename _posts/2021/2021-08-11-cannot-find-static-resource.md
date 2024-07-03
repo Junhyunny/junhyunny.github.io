@@ -1,5 +1,5 @@
 ---
-title: "Thymeleaf - cannot find images"
+title: "Problem to find images in spring boot application"
 search: false
 category:
   - spring-boot
@@ -8,82 +8,129 @@ last_modified_at: 2021-09-04T16:30:00
 
 <br/>
 
-## 1. 문제 해결 실마리
+#### RECOMMEND POSTS BEFORE THIS
 
-클라이언트가 요청한 특정 문자열에 해당하는 바코드 이미지를 생성한 후 페이지에 담아 반환하는 기능을 구현하는 중에 이미지를 찾지 못하는 문제가 발생하였습니다. 
-문제 현상에 대해 요약하여 설명하면 다음과 같습니다. 
-- `static/images/` 폴더에 기존에 저장되어 있던 이미지는 잘 찾는다.
-- 클라이언트 요청으로 `static/images/` 폴더에 새롭게 생성한 이미지는 찾지 못한다.
+- [Reading resources error when running jar file applicaiton][when-run-jar-then-fail-to-read-resource-link]
 
-<p align="center"><img src="/images/cannot-find-static-resource-1.JPG" width="45%"></p>
-<center>https://post.naver.com/viewer/postView.nhn?volumeNo=17690733&memberNo=32787874</center>
+## 0. 들어가면서
 
-동일 폴더에서 기존에 있던 이미지는 잘 찾아오는데, 신규 이미지는 찾지 못하는 이상한 현상이 발생했습니다. 
-처음엔 서버의 정적 자원(static resource)이 캐싱(caching)되어 발생하는 문제로 예상하여 관련된 설정을 확인해보았지만 해결책을 찾지 못했습니다. 
-동적으로 생성되는 이미지 자원을 서비스하지 못한다는 내용의 에러를 찾아보는 중 `StackOverFlow`에서 해결의 실마리를 찾았습니다. 
+이 글의 내용은 24년 6월에 다시 정리했다. 이전에 작성된 내용은 명확한 원인 분석과 해결 방법에 대해 제대로 정리되어 있지 않았다.
 
-<p align="center"><img src="/images/cannot-find-static-resource-2.JPG" width="60%"></p>
-<center>https://stackoverflow.com/questions/45651119/spring-boot-images-uploading-and-serving</center>
+## 1. Problem Context
 
-요약하자면 다음과 같습니다.
-- 보통 `static/images/` 폴더를 이미지 저장에 사용한다.
-- `Thymeleaf`는 `static/images` 폴더에 렌더링(rendering)에 필요한 정적인 이미지들이 있다고 예상한다. 
-- `static/images/` 폴더에 업로드한(동적인) 컨텐츠를 올리는 것은 좋지 않은 방식이다.
+다음과 같은 문제가 발생했다.
 
-해당 힌트를 바탕으로 문제를 해결하였고, 관련된 코드를 정리하여 공유하겠습니다.
+1. 클라이언트(브라우저)가 특정 문자열에 해당하는 바코드를 생성을 요청한다.
+2. 서버는 특정 문자열을 받아 이미지를 파일 시스템에 생성 후 이미지 파일 경로를 클라이언트에게 응답한다.
+3. 클라이언트가 해당 이미지 경로로 요청을 보내면 해당 이미지 파일을 찾을 수 없다.
 
-## 2. 예제 코드
+새로운 이미지 파일은 리소스 경로에 위치한 static/images 폴더에 생성하도록 구현했다. 다음과 같이 현상을 요약할 수 있다.
 
-### 2.1. 패키지 구조
+- 새로 업로드 한 이미지가 아닌 static/images 경로에 이미 저장된 이미지들은 정상적으로 찾을 수 있다. 
+- IDE(Integrated Development Environment) 환경에서 실행하면 정상적으로 동작하지만, 애플리케이션을 서버 머신에 배포하면 정상적으로 동작하지 않는다.
+
+## 2. Cause of the problem
+
+서버 로그를 보면 다음과 같은 에러를 볼 수 있다.
+
 ```
-./
-|-- README.md
-|-- action-in-blog.iml
-|-- images
-|-- mvnw
-|-- mvnw.cmd
-|-- pom.xml
-`-- src
-    `-- main
-        |-- java
-        |   `-- blog
-        |       `-- in
-        |           `-- action
-        |               |-- ActionInBlogApplication.java
-        |               |-- config
-        |               |   `-- WebMvcConfiguration.java
-        |               |-- controller
-        |               |   `-- BlogController.java
-        |               `-- dto
-        |                   `-- Barcode.java
-        `-- resources
-            |-- application.yml
-            |-- static
-            |   `-- images
-            |       `-- TEST.png
-            `-- templates
-                `-- image.html
+java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/blog-in-action/2021-08-06-cannot-find-static-resource/action-in-blog/target/action-in-blog-0.0.1-SNAPSHOT.jar!/BOOT-INF/classes!/static/images/cc83bd14-995c-4944-9d69-44b30ec65b7d.png (No such file or directory)
+        at java.base/java.io.FileOutputStream.open0(Native Method) ~[na:na]
+        at java.base/java.io.FileOutputStream.open(FileOutputStream.java:293) ~[na:na]
+        at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:235) ~[na:na]
+        at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:184) ~[na:na]
+        at blog.in.action.util.BarcodeUtil.createBarcodeImage(BarcodeUtil.java:22) ~[classes!/:0.0.1-SNAPSHOT]
+        at blog.in.action.controller.BlogController.barcodeInStaticFolder(BlogController.java:59) ~[classes!/:0.0.1-SNAPSHOT]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+        at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77) ~[na:na]
+...
 ```
 
-### 2.2. application.yml
-- Thymeleaf 관련 설정입니다.
+위 에러가 발생한 문제 원인은 다음과 같다. 
+
+- 스프링 부트 프레임워크는 애플리케이션을 실행 가능한 jar 파일로 빌드한다.
+- static/images 경로는 패키징 된 jar 파일 내부에 위치하므로 새로운 이미지 파일을 패키지 내부에 생성할 수 없다.
+
+jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로운 파일을 직접 만들 수 없다. IDE에서 실행한 애플리케이션이 정상적으로 동작하는 이유는 빌드한 결과물이 jar 파일로 패키징 되어 있지 않고 target 폴더에 풀어져 있기 때문이다. 
+
+- IDE에서 애플리케이션 실행시 target 폴더 하위 static/images 경로에 업로드한 이미지가 정상적으로 업로드된다.
+
+<div align="left">
+  <img src="/images/posts/2021/cannot-find-static-resource-01.png" width="50%" class="image__border">
+</div>
+
+<br/>
+
+같은 원리로 war 파일로 패키징한 애플리케이션을 톰캣(tomcat) 서블릿 컨테이너의 wepapp 폴더에 배포하는 방식이라면 에러가 발생하지 않는다. 톰캣 서버는 war 패키징 파일을 폴더 형태로 파일 시스템에 풀어서 서빙(serving)하기 때문이다. 
+
+## 3. Solve the problem
+
+jar 패키지 파일로 서버 애플리케이션을 실행한다면 새로 업로드하는 이미지 파일들의 생성 경로를 파일 시스템으로 설정해야 한다. HTTP 요청 경로를 파일 시스템 경로로 매칭시키려면 WebMvcConfigurer 인터페이스를 확장해 리소스 핸들러를 추가해야 한다.
+
+1. 애플리케이션 현재 경로를 찾는다.
+2. 애플리케이션 현재 경로에 images 디렉토리를 생성한다.
+3. HTTP 요청 시 /images 경로 하위 리소스들은 이미지 폴더에서 탐색할 수 있도록 이를 매핑한다.
+
+```java
+package blog.in.action.config;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.io.File;
+import java.nio.file.Path;
+
+@Slf4j
+@Configuration
+public class WebMvcConfiguration implements WebMvcConfigurer {
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        String currentAppPath = Path.of("./").toString(); // 1
+        String imagePath = currentAppPath + "/images/";
+        File imagesDirectory = new File(imagePath);
+        if (!imagesDirectory.exists()) { // 2
+            log.info("create {} - {}", imagePath, imagesDirectory.mkdirs());
+        }
+        registry.addResourceHandler("/images/**").addResourceLocations("file:" + imagePath); // 3
+    }
+}
+```
+
+## 4. Example Code
+
+이해를 돕기 위해 간단한 예시 코드를 만들어봤다.
+
+### 4.1. application YAML
+
+application.yml 파일 설정은 다음과 같다.
+
+1. 정적 이미지 경로의 접미사를 `/static`으로 지정한다.
+  - 해당 설정을 통해 HTTP 요청 경로가 `/static`으로 시작하는 경우 클래스 패스의 /static 디렉토리를 탐색한다.
+2. 타임리프(thymeleaf) 템플릿 파일 경로를 지정한다.
 
 ```yml
 spring:
   mvc:
-    static-path-pattern: /static/**
+    static-path-pattern: /static/** # 1
   thymeleaf:
-    prefix: classpath:templates/
+    prefix: classpath:templates/ # 2
     check-template-location: true
     suffix: .html
     mode: HTML5
     cache: false
 ```
 
-### 2.3. image.html
-- 기존 이미지(/static/images 경로) - resources 폴더 내 /static/images 경로에 존재하는 기존 이미지가 담긴 페이지를 반환합니다.
-- 바코드 문자열(/static/images 경로) - resources 폴더 내 /static/images 경로에 신규 이미지 생성 후 페이지를 반환합니다.
-- 바코드 문자열(별도 images 경로) - 서버 ROOT 폴더 내 /images 경로에 신규 이미지 생성 후 페이지를 반환합니다.
+### 4.2. image HTML
+
+1. 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회를 요청한다. 
+2. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
+  - 클래스패스 /static/images 디렉토리에 이미지를 저장한다.
+3. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
+  - 프로젝트 루트 /images 디렉토리에 이미지를 저장한다.
+4. 서버로부터 전달 받은 이미지 경로를 img 태그에 설정한다.
 
 ```html
 <!DOCTYPE html>
@@ -92,252 +139,159 @@ spring:
     <meta charset="UTF-8">
     <title>Barcode Image 생성</title>
     <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        #container {
-            height: 100%;
-            width: 100%;
-            font-size: 0;
-        }
-
-        #left, #middle, #right {
-            display: inline-block;
-            *display: inline;
-            zoom: 1;
-            vertical-align: top;
-            font-size: 12px;
-        }
-
-        #left {
-            width: 33%;
-        }
-
-        #middle {
-            width: 33%;
-        }
-
-        #right {
-            width: 33%;
-        }
+      /* ... */
     </style>
 </head>
 <body>
-<div id="container">
-    <div id="left">
-        <form th:action="@{/static}" method="post">
-            <table border=1>
-                <tr>
-                    <td>기존 이미지<br/>(/static/images 경로)</td>
-                </tr>
-            </table>
-            <br/>
-            <button type="submit">enter</button>
-        </form>
-    </div>
-    <div id="middle">
-        <form th:action="@{/static/barcode}" th:object="${staticBarcode}" method="post">
-            <table border=1>
-                <tr>
-                    <td>바코드 문자열<br/>(/static/images 경로)</td>
-                    <td>
-                        <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열">
-                    </td>
-                </tr>
-            </table>
-            <br/>
-            <button type="submit">enter</button>
-        </form>
-    </div>
-    <div id="right">
-        <form th:action="@{/extra/barcode}" th:object="${dynamicBarcode}" method="post">
-            <table border=1>
-                <tr>
-                    <td>바코드 문자열<br/>(별도 images 경로)</td>
-                    <td>
-                        <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열">
-                    </td>
-                </tr>
-            </table>
-            <br/>
-            <button type="submit">입력</button>
-        </form>
+<div class="container">
+    <form th:action="@{/static}" method="post"> <!-- 1 -->
+        <p>기존 이미지<br>(/static/images 경로)</p>
+        <button type="submit">enter</button>
+    </form>
+    <form th:action="@{/static/barcode}" th:object="${staticBarcode}" method="post"> <!-- 2 -->
+        <p>바코드 문자열<br>(/static/images 경로)</p>
+        <label>
+            <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열"/>
+        </label>
+        <button type="submit">enter</button>
+    </form>
+    <form th:action="@{/extra/barcode}" th:object="${dynamicBarcode}" method="post"> <!-- 3 -->
+        <p>바코드 문자열<br>(별도 images 경로)</p>
+        <label>
+            <input type="text" th:field="*{value}" placeholder="바코드 생성 문자열"/>
+        </label>
+        <button type="submit">입력</button>
+    </form>
+</div>
+<div class="image-wrap">
+    <div class="image">
+        <p th:if="${imagePath != null}">바코드 이미지</p>
+        <img th:src="${imagePath}" alt="barcode-image"/> <!-- 4 -->
     </div>
 </div>
-<p th:if="${imagePath != null}">바코드 이미지</p>
-<img th:src="${imagePath}"/>
 </body>
 </html>
 ```
 
-### 2.4. Barcode 클래스
-- 페이지로부터 데이터를 전달받기 위한 Dto 클래스입니다.
+### 4.3. BlogController Class
 
-```java
-package blog.in.action.dto;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Getter
-@Setter
-@NoArgsConstructor
-public class Barcode {
-
-    private String value;
-}
-```
-
-### 2.5. WebMvcConfiguration 클래스
-- resource 자원 조회를 위한 URL 경로와 파일 위치를 지정합니다. 
-- `/images/**` 경로 요청 시 자원(resource) 위치는 파일 시스템 `images/` 위치를 사용합니다.
-
-```java
-package blog.in.action.config;
-
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-@Configuration
-public class WebMvcConfiguration implements WebMvcConfigurer {
-
-    @Override
-    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/images/**").addResourceLocations("file:images/");
-    }
-}
-```
-
-### 2.6. BarcodeUtil 클래스
-- 바코드 이미지를 생성하는 클래스입니다.
-- createBarcodeImage 메소드 - 이미지 생성 후 파일의 이름을 반환합니다.
-
-```java
-@Log4j2
-class BarcodeUtil {
-
-    private final static int dpi = 100;
-
-    public static String createBarcodeImage(String filePath, String value) {
-        String filName = UUID.randomUUID() + ".png";
-        Code128Bean bean = new Code128Bean();
-        bean.setModuleWidth(UnitConv.in2mm(3.0f / dpi));
-        bean.doQuietZone(false);
-        File folder = new File(filePath);
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-        String filePathAndName = filePath + "/" + filName;
-        File outputFile = new File(filePathAndName);
-        try (OutputStream out = new FileOutputStream(outputFile)) {
-            BitmapCanvasProvider canvas = new BitmapCanvasProvider(out, "image/x-png", dpi, BufferedImage.TYPE_BYTE_BINARY, false, 0);
-            bean.generateBarcode(canvas, value);
-            canvas.finish();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        return filName;
-    }
-}
-```
-
-### 2.7. BlogController 클래스
-- `/static` 경로 - resources 폴더 내 `/static/images` 경로에 있는 `TEST.png` 이미지를 페이지에 담아서 반환합니다.
-- `/static/barcode` 경로 - resources 폴더 내 `/static/images` 경로에 신규 이미지를 생성 후 해당 이미지 경로를 페이지에 담아서 반환합니다.
-- `/extra/barcode` 경로 - 서버 ROOT 폴더 내 `/images` 경로에 신규 이미지를 생성 후 해당 이미지 경로를 페이지에 담아서 반환합니다.
+1. /static 경로
+  - 클래스패스 /static/images 디렉토리에 미리 저장된 sample.png 이미지의 경로를 응답한다.
+2. /static/barcode 경로
+  - 새로운 이미지 파일을 클래스패스 /static/images 디렉토리에 생성한다.
+  - 새로 생성한 이미지 파일의 경로를 응답한다.
+3. /extra/barcode 경로
+  - 새로운 이미지 파일을 프로젝트 루트 /images 디렉토리에 생성한다.
+  - 새로 생성한 이미지 파일의 경로를 응답한다.
 
 ```java
 package blog.in.action.controller;
 
-import static blog.in.action.controller.BarcodeUtil.createBarcodeImage;
-import blog.in.action.dto.Barcode;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
+import blog.in.action.model.Barcode;
 import lombok.extern.log4j.Log4j2;
-import org.krysalis.barcode4j.impl.code128.Code128Bean;
-import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
-import org.krysalis.barcode4j.tools.UnitConv;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.nio.file.Path;
+import java.util.Objects;
+
+import static blog.in.action.util.BarcodeUtil.createBarcodeImage;
+
 @Log4j2
 @Controller
 public class BlogController {
 
+    private final static ClassLoader classLoader = BlogController.class.getClassLoader();
+    private final static String STATIC_IMAGE_PATH = "/static/images";
+    private final static String STATIC_IMAGE_DIR = Objects.requireNonNull(classLoader.getResource("")).getPath() + STATIC_IMAGE_PATH;
+    private final static String IMAGE_PATH = "/images";
+    private final static String IMAGE_DIR = Path.of("./") + IMAGE_PATH;
+
     private String getServerUrl(HttpServletRequest request) {
-        return new StringBuffer("http://").append(request.getServerName()).append(":").append(request.getServerPort()).toString();
+        return "http://" +
+                request.getServerName() +
+                ":" +
+                request.getServerPort();
+    }
+
+    private void createEmptyBarcode(Model model) {
+        model.addAttribute("staticBarcode", new Barcode());
+        model.addAttribute("dynamicBarcode", new Barcode());
     }
 
     @GetMapping(value = {"", "/"})
     public String index(Model model) {
         model.addAttribute("imagePath", null);
-        model.addAttribute("staticBarcode", new Barcode());
-        model.addAttribute("dynamicBarcode", new Barcode());
+        createEmptyBarcode(model);
         return "image";
     }
 
-    @PostMapping(value = {"/static"})
+    @PostMapping("/static") // 1
     public String staticFolder(HttpServletRequest request, Model model) {
-        String serverUrl = getServerUrl(request);
-        String filePath = "/static/images";
-        model.addAttribute("imagePath", serverUrl + filePath + "/TEST.png");
-        model.addAttribute("staticBarcode", new Barcode());
-        model.addAttribute("dynamicBarcode", new Barcode());
+        model.addAttribute("imagePath", getServerUrl(request) + STATIC_IMAGE_PATH + "/sample.png");
+        createEmptyBarcode(model);
         return "image";
     }
 
-    @PostMapping(value = {"/static/barcode"})
-    public String barcodeInStaticFolder(HttpServletRequest request, Model model, @ModelAttribute Barcode barcode) {
-        String serverUrl = getServerUrl(request);
-        String filePath = "/static/images";
-        String fileName = createBarcodeImage("./src/main/resources" + filePath, barcode.getValue());
-        model.addAttribute("staticBarcode", new Barcode());
-        model.addAttribute("dynamicBarcode", new Barcode());
-        model.addAttribute("imagePath", serverUrl + filePath + "/" + fileName);
+    @PostMapping("/static/barcode") // 2
+    public String barcodeInStaticFolder(
+            HttpServletRequest request,
+            Model model,
+            @ModelAttribute Barcode barcode
+    ) {
+        String fileName = createBarcodeImage(STATIC_IMAGE_DIR, barcode.getValue());
+        model.addAttribute("imagePath", getServerUrl(request) + STATIC_IMAGE_PATH + "/" + fileName);
+        createEmptyBarcode(model);
         return "image";
     }
 
-    @PostMapping(value = "/extra/barcode")
-    public String barcodeInExtraFolder(HttpServletRequest request, Model model, @ModelAttribute Barcode barcode) {
-        String serverUrl = getServerUrl(request);
-        String filePath = "/images";
-        String fileName = createBarcodeImage("." + filePath, barcode.getValue());
-        model.addAttribute("staticBarcode", new Barcode());
-        model.addAttribute("dynamicBarcode", new Barcode());
-        model.addAttribute("imagePath", serverUrl + filePath + "/" + fileName);
+    @PostMapping("/extra/barcode") // 3
+    public String barcodeInExtraFolder(
+            HttpServletRequest request,
+            Model model,
+            @ModelAttribute Barcode barcode
+    ) {
+        String fileName = createBarcodeImage(IMAGE_DIR, barcode.getValue());
+        model.addAttribute("imagePath", getServerUrl(request) + IMAGE_PATH + "/" + fileName);
+        createEmptyBarcode(model);
         return "image";
     }
 }
 ```
 
-##### 테스트 결과
-- 맨 왼쪽 버튼을 누르면 `/resources/static/images` 폴더에 저장되어 있던 이미지를 페이지에 담아 반환한다.
-    - 이미지가 정상적으로 보인다.
-- 가운데 버튼을 누르면 `/resources/static/images` 폴더에 이미지를 생성하고 페이지에 담아 반환한다.
-    - 이미지가 정상적으로 보이지 않는다.
-- 맨 오른쪽 버튼을 누르면 `/images` 폴더에 이미지를 생성하고 페이지에 담아 반환한다.
-    - 이미지가 정상적으로 보인다.
+### 4.4. Run application
 
-<p align="center"><img src="/images/cannot-find-static-resource-3.gif" width="100%"></p>
+애플리케이션을 실행해보자. 먼저 IDE 환경에서 실행해보자.
 
-## CLOSING
-정적 자원을 관리하는 경로 내 자원 변화에 대한 감지가 불가능하다는 레퍼런스(reference)는 확인하지 못하였습니다. 
-추후에라도 정확한 원인이 확인된다면 해당 포스트에 추가하도록 하겠습니다.
+- 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 경로에 업로드 된 이미지를 조회할 수 있다.
+- 프로젝트 루트 /images 경로에 업로드 된 이미지를 조회할 수 있다.
+
+<div align="center">
+  <img src="/images/posts/2021/cannot-find-static-resource-02.gif" width="100%" class="image__border">
+</div>
+
+다음 jar 파일로 애플리케이션을 실행해보자.
+
+- 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 경로에 이미지 업로드가 실패한다.
+- 프로젝트 루트 /images 경로에 업로드 된 이미지를 조회할 수 있다.
+
+<div align="center">
+  <img src="/images/posts/2021/cannot-find-static-resource-03.gif" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-06-cannot-find-static-resource>
 
 #### REFERENCE
+
 - <https://stackoverflow.com/questions/45651119/spring-boot-images-uploading-and-serving>
 - <https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-web-applications.spring-mvc.static-content>
+
+[when-run-jar-then-fail-to-read-resource-link]: https://junhyunny.github.io/java/spring-boot/when-run-jar-then-fail-to-read-resource/

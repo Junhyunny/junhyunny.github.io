@@ -28,7 +28,7 @@ last_modified_at: 2024-07-03T23:55:00
 - 사적 용도 가능
 
 <div align="center">
-  <img src="/images/posts/2024/skeleton-detection-in-python-with-mediapipe-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/skeleton-detection-in-python-with-mediapipe-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -47,8 +47,11 @@ mediapipe 패키지는 여러 플랫폼에서 다양한 솔루션을 지원한�
 
 필자가 필요한 기능은 자세 랜드마크 인식 솔루션이다. 주요 신체 위치를 식별하고 자세를 분석하며 움직임을 분류할 수 있다. 단일 이미지 또는 동영상에 적용할 수 있다. 신체 부위 33개가 포즈 랜드마크 모델에 의해 감지된다. 각 신체 부위는 다음과 같다.
 
+- 각 신체 부위 별로 인덱스가 지정되어 있다.
+- 각 신체 부위 이름을 확인하고 싶다면 이 [링크](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko#pose_landmarker_model)를 참고하길 바란다.
+
 <div align="center">
-  <img src="/images/posts/2024/skeleton-detection-in-python-with-mediapipe-03.png" width="80%" class="image__border image__padding">
+  <img src="/images/posts/2024/skeleton-detection-in-python-with-mediapipe-03.png" width="50%" class="image__border image__padding">
 </div>
 <center>https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko</center>
 
@@ -138,7 +141,7 @@ POSE_LANDMARKS = [
 process() # 5
 ```
 
-process 함수 내부를 살펴보자.
+스켈레톤 감지의 메인 실행 흐름인 process 함수를 먼저 살펴보자.
 
 1. 샘플 비디오를 읽는다.
 2. 샘플 비디오 메타 정보를 바탕으로 결과 비디오 파일을 생성한다.
@@ -271,10 +274,10 @@ W0000 00:00:1720024465.559157 4643189 inference_feedback_manager.cc:114] Feedbac
 /Users/junhyunkang/Desktop/action-in-blog/venv/lib/python3.12/site-packages/google/protobuf/symbol_database.py:55: UserWarning: SymbolDatabase.GetPrototype() is deprecated. Please use message_factory.GetMessageClass() instead. SymbolDatabase.GetPrototype() will be removed soon.
 ```
 
-애플리케이션을 실행하면 다음 결과 영상을 output 디렉토리에서 볼 수 있다.
+실행한 애플리케이션이 종료되면 다음 결과 영상을 output 디렉토리에서 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/skeleton-detection-in-python-with-mediapipe-04.gif" width="80%" class="image__border">
+  <img src="/images/posts/2024/skeleton-detection-in-python-with-mediapipe-04.gif" width="100%" class="image__border">
 </div>
 
 <br/>

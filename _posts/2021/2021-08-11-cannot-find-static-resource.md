@@ -51,9 +51,9 @@ java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/bl
 - 스프링 부트 프레임워크는 애플리케이션을 실행 가능한 jar 파일로 빌드한다.
 - static/images 경로는 패키징 된 jar 파일 내부에 위치하므로 새로운 이미지 파일을 패키지 내부에 생성할 수 없다.
 
-jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로운 파일을 직접 만들 수 없다. IDE에서 실행한 애플리케이션이 정상적으로 동작하는 이유는 빌드한 결과물이 jar 파일로 패키징 되어 있지 않고 target 폴더에 풀어져 있기 때문이다. 
+jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로운 파일을 직접 만들 수 없다. IDE 환경에서 실행한 애플리케이션이 정상적으로 동작하는 이유는 빌드한 결과물이 jar 파일로 패키징 되어 있지 않고 target 폴더에 풀어져 있기 때문이다. 
 
-- IDE에서 애플리케이션 실행시 target 폴더 하위 static/images 경로에 업로드한 이미지가 정상적으로 업로드된다.
+- IDE 환경에서 애플리케이션 실행시 target 폴더 하위 static/images 경로에 업로드한 이미지가 정상적으로 업로드된다.
 
 <div align="left">
   <img src="/images/posts/2021/cannot-find-static-resource-01.png" width="50%" class="image__border">

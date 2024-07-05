@@ -73,7 +73,7 @@ CSRF 공격을 위한 조건과 과정에 대해 알아보자. CSRF 공격을 �
 5. 서버는 쿠키에 담긴 세션 키를 통해 해당 요청이 인증된 사용자로부터 온 것으로 판단하고 처리한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cross-site-reqeust-forgery-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/cross-site-reqeust-forgery-02.png" width="60%" class="image__border">
 </div>
 
 ## 2. How to make CSRF attack?

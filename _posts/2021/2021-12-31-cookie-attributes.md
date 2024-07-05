@@ -12,11 +12,10 @@ last_modified_at: 2021-12-31T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [Cookie and Session][cookie-and-session-link]
-- [Session Management in Tomcat][tomcat-session-management-link]
 
 ## 0. 들어가면서
 
-[CSRF(Cross-Site Request Forgery) Attack and Defence][csrf-attack-and-defense-link] 글을 작성하면서 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리해봤다. 
+[CSRF(Cross-Site Request Forgery) Attack and Defence][csrf-attack-and-defense-link] 글을 작성하면서 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리했다. 
 
 ## 1. Cookie
 
@@ -399,6 +398,5 @@ Schemeful SameSite와 CrossSite 차이점은 아래 표에서 확인할 수 있�
 
 [cookie-samesite-link]: https://seob.dev/posts/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EC%BF%A0%ED%82%A4%EC%99%80-SameSite-%EC%86%8D%EC%84%B1/
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
-[tomcat-session-management-link]: https://junhyunny.github.io/information/server/tomcat-session-management/
 [csrf-attack-and-defense-link]: https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/
 [root-zone-database-link]: https://www.iana.org/domains/root/db

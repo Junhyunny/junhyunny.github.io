@@ -361,3 +361,10 @@ input[type="submit"],
     padding-left: calc(30 * 100vw / 720);
   }
 }
+
+@media all and (max-width: 1024px) {
+  ol,
+  ul {
+    padding-left: calc(30 * 100vw / 1024);
+  }
+}

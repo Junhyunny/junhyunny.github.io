@@ -331,7 +331,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 
 #### 2.6.4. What is it diffrent between SameSite and CrossSite?
 
-`SameSite`, `CrossSite`에 대한 기준을 제대로 알고 있어야 이해가 쉽다. Top-level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에 `SameSite`로 구분하고 있다. 이해를 돕기 위해 더 자세한 예시를 살펴보자. [Root Zone Database][root-zone-database-link]에 명시된 도메인을 사용한 경우를 첫번째 예시로 살펴보자.
+`SameSite`, `CrossSite`에 대한 기준을 제대로 알고 있어야 이해가 쉽다. Top-Level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에 `SameSite`로 구분하고 있다. 이해를 돕기 위해 더 자세한 예시를 살펴보자. [Root Zone Database][root-zone-database-link]에 명시된 도메인을 사용한 경우를 첫번째 예시로 살펴보자.
 
 - `Root Zone Database`에 명시된 `.com`, `.org` 같은 도메인이 `eTLD(effective TLD)`이다.
 - `eTLD` 한 칸 앞에 있는 단어까지 포함하여 `eTLD+1`이다. 

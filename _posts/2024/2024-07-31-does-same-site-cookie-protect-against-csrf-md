@@ -19,3 +19,7 @@ last_modified_at: 2100-01-01T23:55:00
 #### RECOMMEND NEXT POSTS
 
 #### REFERENCE
+
+- <https://airman604.medium.com/do-samesite-cookies-solve-csrf-6dcd02dc9383>
+- <https://portswigger.net/web-security/csrf/bypassing-samesite-restrictions>
+- <https://code.mrlatte.net/2021/11/11/samesite-cookie-csrf>

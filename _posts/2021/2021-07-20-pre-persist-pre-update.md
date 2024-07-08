@@ -1,5 +1,5 @@
 ---
-title: "@PrePersist, @PreUpdate 애너테이션 활용하기"
+title: "Usage of @PrePersist and @PreUpdate Annotations"
 search: false
 category:
   - spring-boot
@@ -10,182 +10,316 @@ last_modified_at: 2021-09-04T13:00:00
 
 <br/>
 
-## 1. 애너테이션 소개
-### 1.1. @PrePersist 애너테이션
-JPA 엔티티(Entity)가 비영속(new/transient) 상태에서 영속(managed) 상태가 되는 시점 이전에 실행됩니다. 
+## 1. @PrePersist and @PreUpdate Annotations
 
-<p align="center"><img src="/images/pre-persist-pre-update-1.JPG" width="70%"></p>
+@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메소드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다.
 
-### 1.2. @PreUpdate 애너테이션
-영속 상태의 엔티티를 이용하여 데이터 업데이트를 수행하기 이전에 실행됩니다. 
+@PrePersist 애너테이션의 실행 시점을 먼저 살펴보자.
 
-<p align="center"><img src="/images/pre-persist-pre-update-2.JPG" width="70%"></p>
+- JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다. 
 
-### 1.3. @MappedSuperclass 애너테이션 - createdAt, lastUpdatedAt 필드 적용하기
-데이터베이스 엔티티 설계 시 기본적으로 반드시 필요한 데이터가 존재합니다. 
-대표적으로 데이터 생성 시점(createdAt), 데이터 마지막 업데이트 시점(lastUpdatedAt)을 예로 들어보겠습니다. 
+<div align="center">
+  <img src="/images/posts/2021/pre-persist-pre-update-01.png" width="80%" class="image__border">
+</div>
 
-두 필드를 모든 엔티티에 포함시키고 싶어서 상속(Inheritance)을 이용하였습니다. 
-아래와 같은 모습을 갖도록 엔티티 설계를 수행하였습니다. 
+<br/>
 
-#### 1.3.1. Base 엔티티 설계 모습
-- 자식 클래스에서 부모 클래스의 필드를 컬럼으로 사용할 수 있도록 `@MappedSuperclass` 애너테이션을 사용합니다. 
-- 두 항목이 NULL 값을 가질 수 없도록 NOT_NULL 제약사항을 주었습니다. 
-- createdAt 필드는 INSERT 시점에만 필요한 항목이므로 updatable 옵션을 false 값으로 지정합니다.
-- `@PrePersist` 애너테이션 없이 prePersist 메소드를 정의하고 createAt, lastUpdatedAt 필드를 현재 시각으로 지정합니다. 
-- `@PreUpdate` 애너테이션 없이 preUpdate 메소드를 정의하고 lastUpdatedAt 필드를 현재 시각으로 지정합니다. 
+@PreUpdate 애너테이션은 언제 실행될까?
+
+- 영속 상태인 엔티티의 변경 사항이 데이터베이스에 반영되는 시점 이전에 실행된다. 
+
+<div align="center">
+  <img src="/images/posts/2021/pre-persist-pre-update-02.png" width="80%" class="image__border">
+  </div>
+
+## 2. Usage
+
+두 애너테이션을 추가한 메소드는 엔티티가 데이터베이서에 영속화 되기 전에 실행된다. 다음과 같은 작업을 수행할 수 있다.
+
+- 데이터 무결성을 보장하기 위해 특정 엔티티 필드의 값이 조건을 만족하지 못 하는 경우 예외를 발생시킬 수 있다.
+- 엔티티의 필드 값을 암호화하거나 사용자의 권한을 확인하는 작업을 수행할 수 있다.
+- 엔티티 필드 값이 변경될 때마다 이를 일관성 있게 처리하거나 데이터를 검증할 수 있다.
+
+## 3. Example
+
+필자는 데이터베이스 설계 시 기본적으로 추가하는 필드가 있다. 
+
+- 데이터 생성 시점(createdAt)
+- 데이터 업데이트 시점(updatedAt)
+
+두 필드의 값을 설정할 때 주로 두 애너테이션을 활용한다.
+
+### 3.1. BaseEntity Class
+
+두 필드를 모든 JPA 엔티티에 포함시키고 싶은 경우 @MappedSuperclass 애너테이션과 함께 활용한다. 먼저 부모 클래스를 만들고 모든 엔티티들이 이를 상속 받도록 만든다. @MappedSuperclass 애너테이션을 사용하면 부모 클래스의 위치한 필드를 테이블의 컬럼으로 매핑할 수 있다.
+
+1. createAt 필드  
+  - 업데이트 시 변경되지 않도록 updatable 속성을 false 값으로 설정한다.
+  - null 데이터가 설정되지 않도록 nullable 속성을 false 값으로 설정한다.
+2. updatedAt 필드
+  - null 데이터가 설정되지 않도록 nullable 속성을 false 값으로 설정한다.
+3. prePersist 메소드
+  - createAt, updatedAt 필드 값을 변경한다.
+4. preUpdate 메소드
+  - updatedAt 필드 값을 변경한다.
 
 ```java
+package blog.in.action.domain;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
+
 @Log4j2
 @Getter
-@Setter
 @NoArgsConstructor
 @MappedSuperclass
-class Base {
+class BaseEntity {
 
-    @Column(name = "CREATED_AT", updatable = false, nullable = false)
-    private LocalDateTime createAt;
+    @Column(updatable = false, nullable = false) // 1
+    protected LocalDateTime createAt;
+    @Column(nullable = false) // 2
+    protected LocalDateTime updatedAt;
 
-    @Column(name = "LAST_UPDATED_AT", nullable = false)
-    private LocalDateTime lastUpdatedAt;
-
-    public void prePersist() {
-        log.info("prePersist");
+    public void prePersist() { // 3
         LocalDateTime now = LocalDateTime.now();
         createAt = now;
-        lastUpdatedAt = now;
+        updatedAt = now;
     }
 
-    public void preUpdate() {
-        log.info("preUpdate");
-        lastUpdatedAt = LocalDateTime.now();
+    public void preUpdate() { // 4
+        updatedAt = LocalDateTime.now();
     }
 }
 ```
 
-#### 1.3.2. 일반 엔티티 설계 모습
-- `@PrePersist` 애너테이션을 추가한 prePersist 메소드를 재정의합니다. 
-- 부모 클래스의 prePersist 메소드 호출 후 해당 엔티티에서 default 값이 필요한 필드를 채웁니다.
-- `@PreUpdate` 애너테이션을 추가한 preUpdate 메소드를 재정의합니다. 
-- 부모 클래스의 preUpdate 메소드를 호출합니다.
+### 3.2. BookEntity Class
+
+예제를 위한 북 엔티티를 만들어보자. 
+
+1. prePersist 메소드
+  - 데이터를 영속화하기 전에 isbn 값이 있는지 확인한다.
+  - 부모 클래스의 prePersist 메소드를 호출한다.
+2. preUpdate 메소드
+  - 부모 클래스의 preUpdate 메소드를 호출한다.
 
 ```java
+package blog.in.action.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
 @Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-class Book extends Base {
+public class BookEntity extends BaseEntity {
 
     @Id
     @GeneratedValue
     private Long id;
-
-    @Column(name = "TITLE")
+    @Column
+    private String isbn;
+    @Column
     private String title;
 
-    @Column(name = "DEFAULT_VALUE")
-    private String defaultValue;
-
     @Override
-    @PrePersist
+    @PrePersist // 1
     public void prePersist() {
+        if (isbn == null) {
+            throw new RuntimeException("isbn must be not null");
+        }
         super.prePersist();
-        defaultValue = defaultValue == null ? "DEFAULT" : defaultValue;
     }
 
     @Override
-    @PreUpdate
+    @PreUpdate // 2
     public void preUpdate() {
         super.preUpdate();
     }
 }
 ```
 
-## 2. 테스트 코드
+### 3.3. Test
 
-### 2.1. test_prePersist_createdAtIsNotNull 메소드
-- 새로운 book 객체를 만듭니다.
-- JpaRepository save 메소드를 통해 해당 객체를 영속 상태로 만들어줍니다.
-- createdAt 항목이 NULL 값이 아닌지 확인합니다.
-- 로그를 통해 prePersist 메소드가 어느 시점에 호출되었는지 확인합니다.
+JPA 의존성에 의해 자동으로 실행되기 때문에 단위 테스트로 검증하기 어렵다. 스프링 애플리케이션의 실행 환경과 동일한 환경을 만들어주는 @SpringBootTest 애너테이션을 사용해 결합 테스트를 수행해야 한다. @PrePersist 애너테이션의 동작을 살펴보자. 먼저 정상적인 케이스를 확인한다.
 
-```java
-    @Test
-    public void test_prePersist_createdAtIsNotNull() {
-        Book book = new Book();
-        log.info("before save");
-        bookRepository.save(book);
-        log.info("after save");
-        assertThat(book.getCreateAt()).isNotNull();
-    }
-```
-
-##### test_prePersist_createdAtIsNotNull 메소드 수행 로그
-- book 객체의 createdAt 항목을 별도로 지정해주지 않았음에도 NULL 값이 아님을 확인할 수 있습니다.
-- 로그를 통해 `before save` > `prePersist` > `INSERT QUERY` > `after save` 순으로 동작했음을 확인할 수 있습니다.
-
-```
-2021-07-20 02:16:47.185  INFO 18388 --- [           main] blog.in.action.PrePersistUpdateTest      : before save
-2021-07-20 02:16:47.195  INFO 18388 --- [           main] blog.in.action.Base                      : prePersist
-Hibernate: select next_val as id_val from hibernate_sequence for update
-Hibernate: update hibernate_sequence set next_val= ? where next_val=?
-Hibernate: insert into book (created_at, last_updated_at, default_value, title, id) values (?, ?, ?, ?, ?)
-2021-07-20 02:16:47.246  INFO 18388 --- [           main] blog.in.action.PrePersistUpdateTest      : after save
-```
-
-### 2.2. test_preUpdate 메소드
-- 새로운 book 객체를 만듭니다.
-- 해당 객체를 영속 상태로 만듭니다.
-- book 객체의 title 필드를 변경합니다.
-- JpaRepository save 메소드를 통해 변경된 값을 반영합니다.
-- 반환된 retutrnedBook 객체와 book 객체가 동일한지 확인합니다. 
-- book 객체의 createAt 필드와 lastUpdatedAt 필드 값이 동일한지 확인합니다.
-- retutrnedBook 객체의 createAt 필드와 lastUpdatedAt 필드 값이 동일한지 확인합니다.
-- 로그를 통해 preUpdate 메소드가 어느 시점에 호출되었는지 확인합니다.
+1. Given
+  - 북 엔티티를 준비한다.
+2. When
+  - 데이터를 영속화한다.
+3. Then
+  - 북 엔티티를 저장했을 때 createAt, updatedAt 필드가 null 값이 아닌지 확인한다.
+  - createAt, updatedAt 필드가 동일한 값을 갖는지 확인한다.
 
 ```java
+package blog.in.action;
+
+import blog.in.action.domain.BookEntity;
+import blog.in.action.repository.BookRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import java.util.List;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@AutoConfigureTestDatabase
+@SpringBootTest
+public class PrePersistTest {
+
+    @Autowired
+    EntityManager entityManager;
+    @Autowired
+    BookRepository sut;
+
     @Test
-    public void test_preUpdate() throws InterruptedException {
-        Book book = new Book();
-        log.info("before first save");
-        Book returnedBook = bookRepository.save(book);
-        log.info("after first save");
-        assertThat(book).isEqualTo(returnedBook);
-        book.setTitle("CHANGED");
-        Thread.sleep(1000L);
-        log.info("before second save");
-        returnedBook = bookRepository.save(book);
-        log.info("after second save");
-        assertThat(book).isNotEqualTo(returnedBook);
-        assertThat(book.getCreateAt()).isEqualTo(book.getLastUpdatedAt());
-        assertThat(returnedBook.getCreateAt()).isNotEqualTo(returnedBook.getLastUpdatedAt());
+    void save_createdAtAndUpdatedAtIsNotNull() {
+        BookEntity book = BookEntity.builder() // 1
+                .title("JPA 101")
+                .isbn(UUID.randomUUID().toString())
+                .build();
+
+
+        sut.save(book); // 2
+
+
+        assertNotNull(book.getCreateAt()); // 3
+        assertNotNull(book.getUpdatedAt());
+        assertEquals(book.getCreateAt(), book.getUpdatedAt());
     }
+}
 ```
 
-##### test_preUpdate 메소드 수행 로그
-- 비영속 객체를 영속 상태로 만드는 save 메소드 수행 시 반환된 returnedBook 객체는 book 객체와 동일함을 확인할 수 있습니다.
-- 영속 상태의 객체 필드 값 변경 후 save 메소드 수행 시 반환된 returnedBook 객체는 book 객체와 동일하지 않음을 확인할 수 있습니다. 
-- book 객체의 createdAt 필드와 lastUpdatedAt 필드의 값이 동일함을 알 수 있습니다.
-- returnedBook 객체의 createdAt 필드와 lastUpdatedAt 필드의 값이 동일하지 않음을 알 수 있습니다. 
-- 로그를 통해 `before first save` > `prePersist` > `INSERT QUERY` > `after first save` > `before second save` > `preUpdate` > `after second save` 순으로 동작하였습니다.
+다음은 필요한 값이 없을 때 예외가 발생하는지 확인한다.
 
+1. Given
+  - 북 엔티티를 준비한다.
+  - 필수 값인 `isbn`이 존재하지 않는다.
+2. When
+  - 데이터를 영속화한다.
+3. Then
+  - 예상된 메시지와 함께 예외가 발생하는지 확인한다.
+  - 데이터가 저장되지 않았는지 확인한다.
+
+```java
+@AutoConfigureTestDatabase
+@SpringBootTest
+public class PrePersistTest {
+
+    @Autowired
+    EntityManager entityManager;
+    @Autowired
+    BookRepository sut;
+
+    @Test
+    void isbnIsNull_save_throwException() {
+        BookEntity book = BookEntity.builder() // 1
+                .title("JPA 201")
+                .build();
+
+
+        RuntimeException throwable = assertThrows(RuntimeException.class, () -> sut.save(book)); // 2
+        assertEquals(throwable.getMessage(), "isbn must be not null"); // 3
+        TypedQuery<BookEntity> query = entityManager.createQuery(
+                "select b from BookEntity b where b.title=:title",
+                BookEntity.class
+        );
+        query.setParameter("title", "JPA 201");
+        List<BookEntity> result = query.getResultList();
+        assertEquals(0, result.size());
+    }
+}
 ```
-2021-07-20 13:57:20.779  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : before first save
-2021-07-20 13:57:20.795  INFO 7156 --- [           main] blog.in.action.Base                      : prePersist
-Hibernate: select next_val as id_val from hibernate_sequence for update
-Hibernate: update hibernate_sequence set next_val= ? where next_val=?
-Hibernate: insert into book (created_at, last_updated_at, default_value, title, id) values (?, ?, ?, ?, ?)
-2021-07-20 13:57:20.885  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : after first save
-2021-07-20 13:57:21.934  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : before second save
-Hibernate: select book0_.id as id1_0_0_, book0_.created_at as created_2_0_0_, book0_.last_updated_at as last_upd3_0_0_, book0_.default_value as default_4_0_0_, book0_.title as title5_0_0_ from book book0_ where book0_.id=?
-2021-07-20 13:57:21.977  INFO 7156 --- [           main] blog.in.action.Base                      : preUpdate
-Hibernate: update book set last_updated_at=?, default_value=?, title=? where id=?
-2021-07-20 13:57:21.981  INFO 7156 --- [           main] blog.in.action.PrePersistUpdateTest      : after second save
+
+다음은 @PreUpdate 애너테이션의 동작을 확인해보자. @PreUpdate 시점엔 updatedAt 필드만 최신화하므로 updateAt 필드가 createAt 필드보다 값이 크다. 이를 테스트 코드에서 확인한다.
+
+1. Given
+  - 시간 차이를 확실히 만들기 위해 100ms 뒤에 테스트를 실행한다.
+  - 이전에 영속화 되어있던 북 엔티티를 조회한다.
+2. When
+  - 북 엔티티의 타이틀을 변경한다.
+3. Then
+  - 변경된 타이틀로 엔티티 객체가 조회되는지 확인한다.
+  - updatedAt 값이 createdAt 값보다 이후 값인지 확인한다.
+
+```java
+package blog.in.action;
+
+import blog.in.action.domain.BookEntity;
+import blog.in.action.repository.BookRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@SpringBootTest
+public class PreUpdateTest {
+
+    @Autowired
+    EntityManager entityManager;
+    @Autowired
+    BookRepository sut;
+
+    BookEntity book;
+
+    @BeforeEach
+    void setUp() {
+        book = BookEntity.builder()
+                .title("JPA 301")
+                .isbn(UUID.randomUUID().toString())
+                .build();
+        sut.save(book);
+    }
+
+    @Test
+    void update_updatedAtIsAfterCreatedAt() throws InterruptedException {
+        Thread.sleep(100); // 1
+        BookEntity givenBook = entityManager.find(BookEntity.class, book.getId());
+
+
+        sut.save( // 2
+                BookEntity.builder()
+                        .id(givenBook.getId())
+                        .isbn(givenBook.getIsbn())
+                        .title("JPA 401")
+                        .build()
+        );
+
+
+        BookEntity result = entityManager.find(BookEntity.class, book.getId()); // 3
+        LocalDateTime createdAt = result.getCreateAt();
+        LocalDateTime updatedAt = result.getUpdatedAt();
+        assertEquals("JPA 401", result.getTitle());
+        assertTrue(updatedAt.isAfter(createdAt));
+    }
+}
 ```
-
-##### 데이터베이스 확인
-
-<p align="left"><img src="/images/pre-persist-pre-update-3.JPG" width="50%"></p>
 
 #### TEST CODE REPOSITORY
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-20-pre-persist-pre-update>
+
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-11-pre-persist-pre-update>
+
+#### REFERENCE
+
+- <https://blog.naver.com/seek316/223353802740>

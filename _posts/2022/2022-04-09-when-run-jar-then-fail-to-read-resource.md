@@ -1,5 +1,5 @@
 ---
-title: "Reading resources error when running jar file applicaiton"
+title: "Reading resources error when running jar file"
 search: false
 category:
   - java

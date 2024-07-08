@@ -10,7 +10,7 @@ last_modified_at: 2021-09-04T16:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Reading resources error when running jar file applicaiton][when-run-jar-then-fail-to-read-resource-link]
+- [Reading resources error when running jar file][when-run-jar-then-fail-to-read-resource-link]
 
 ## 0. 들어가면서
 

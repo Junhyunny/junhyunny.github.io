@@ -12,9 +12,7 @@ last_modified_at: 2021-09-04T13:00:00
 
 ## 1. @PrePersist and @PreUpdate Annotations
 
-@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메소드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다.
-
-@PrePersist 애너테이션의 실행 시점을 먼저 살펴보자.
+@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메소드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다. @PrePersist 애너테이션의 실행 시점을 먼저 살펴보자.
 
 - JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다. 
 

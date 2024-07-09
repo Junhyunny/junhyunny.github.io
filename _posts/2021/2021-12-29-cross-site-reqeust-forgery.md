@@ -547,6 +547,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 #### RECOMMEND NEXT POSTS
 
+- [Is Chrome's default SameSite policy safe against CSRF?][is-chrome-samesite-policy-safe-against-csrf-link]
 - [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
 - [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting]
 - [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
@@ -562,8 +563,11 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/
+
+[is-chrome-samesite-policy-safe-against-csrf-link]: https://junhyunny.github.io/spring-boot/spring-security/security/is-chrome-samesite-policy-safe-against-csrf/
 [reflected-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/
 [stored-cross-site-scripting]: https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/
 [dom-based-cross-site-scripting-link]: https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/
+
 [csrf-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%9A%94%EC%B2%AD_%EC%9C%84%EC%A1%B0
 [csrf-attack-and-protection-link]: https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95

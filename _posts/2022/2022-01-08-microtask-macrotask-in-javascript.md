@@ -57,7 +57,7 @@ last_modified_at: 2022-01-08T23:55:00
 - setImmediate(callback)
   - 즉시 callback 함수가 매크로태스크 큐로 이동한다.
   - 매크로태스크는 다음 틱(tick)에서 바로 실행된다.
-  - [Internet Explorer 10][[immediate-link]]에서만 지원한다.
+  - [Internet Explorer 10][immediate-link]에서만 지원한다.
 
 간단하게 setTimeout 함수 사용 예시를 살펴보자.
 

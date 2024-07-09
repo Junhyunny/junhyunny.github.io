@@ -301,8 +301,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 
 #### 2.6.1. None
 
-- 도메인 검증을 하지 않는다.
-- `Secure` 속성 설정이 필요하다.
+- 도메인 검증을 하지 않고, `Secure` 속성을 활성화하여 사용해야 한다.
 - 예를 들면 다음과 같다.
   1. 사용자는 A.com 사이트에 접속하여 로그인 및 기타 용무를 처리한다. 이때 쿠키를 저장한다.
   2. 이후 B.com 사이트에 접속하여 A.com 사이트에 접근하는 링크를 누른다. 
@@ -331,10 +330,9 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 
 #### 2.6.4. What is it diffrent between SameSite and CrossSite?
 
-`SameSite`, `CrossSite`에 대한 기준을 제대로 알고 있어야 이해가 쉽다. Top-Level Domains(TLDs)를 기준으로 `eTLD+1`이 같은 경우에 `SameSite`로 구분하고 있다. 이해를 돕기 위해 더 자세한 예시를 살펴보자. [Root Zone Database][root-zone-database-link]에 명시된 도메인을 사용한 경우를 첫번째 예시로 살펴보자.
+동일 사이트(same site)와 크로스 사이트(cross site)에 대한 기준을 정확히 짚고 넘어가자. 동일 사이트란 Top-Level Domains(TLDs)를 기준으로 `eTLD+1` 도메인 주소까지 동일한 것을 의미한다. eTLD(effective TLD)은 [Root Zone Database](https://www.iana.org/domains/root/db) 사이트에서 관리되는 .com, .org 같은 루트 도메인들을 의미한다.
 
-- `Root Zone Database`에 명시된 `.com`, `.org` 같은 도메인이 `eTLD(effective TLD)`이다.
-- `eTLD` 한 칸 앞에 있는 단어까지 포함하여 `eTLD+1`이다. 
+- eTLD 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
 <div align="center">
   <img src="/images/posts/2021/cookie-attributes-06.png" width="40%" class="image__border image__padding">
@@ -343,11 +341,9 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 
 <br/>
 
-두번째 예시로 `Root Zone Database`에 등록되지 않고, 사이트 구분이 어려운 도메인을 사용한 경우를 살펴보자.
+eTLD만으로 사이트를 구분하기 어려운 도메인들이 있다. .co.kr, .github.io 같은 도메인들은 .kr, .io 같은 루트 도메인만으로 동일 사이트 여부를 판단하기 어렵다. 이를 해결하기 위해 공공 접미사(public suffix)를 사용한다. [publicsuffix 링크](https://publicsuffix.org/list/)에서 해당 리스트를 확인할 수 있다.
 
-- `.co.kr` 이나 `.github.io` 같은 도메인을 가지는 경우 `.kr`, `.io` 도메인만으로 사이트 구분이 어렵다.
-- 이를 해결하기 위해 식별 가능한 `eTLDs`가 만들어졌다.
-  - 해당 리스트들은 [이 사이트](https://publicsuffix.org/list/)에서 확인할 수 있다.
+- 공공 접미사 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
 <div align="center">
   <img src="/images/posts/2021/cookie-attributes-07.png" width="40%" class="image__border image__padding">
@@ -356,7 +352,7 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 
 <br/>
 
-SameSite와 CrossSite 사이의 차이점은 아래 표에서 확인할 수 있다.
+아래 표는 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
 <div align="center">
   <img src="/images/posts/2021/cookie-attributes-08.png" width="75%" class="image__border image__padding">
@@ -365,7 +361,7 @@ SameSite와 CrossSite 사이의 차이점은 아래 표에서 확인할 수 있�
 
 #### 2.6.5. What is Schemeful SameSite?
 
-요청 시 사용하는 프로토콜까지 비교하는 경우 `Schemeful SameSite`라고 한다.
+도메인 주소 앞의 스키마(schema)까지 비교하여 동일 사이트인지 여부를 판단하면 이를 `스킴풀(schemeful) 동일 사이트`라고 한다.
 
 <div align="center">
   <img src="/images/posts/2021/cookie-attributes-09.png" width="40%" class="image__border image__padding">
@@ -374,7 +370,7 @@ SameSite와 CrossSite 사이의 차이점은 아래 표에서 확인할 수 있�
 
 <br/>
 
-Schemeful SameSite와 CrossSite 차이점은 아래 표에서 확인할 수 있다.
+아래 표는 스킴풀(schemeful) 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
 <div align="center">
   <img src="/images/posts/2021/cookie-attributes-10.png" width="75%" class="image__border image__padding">
@@ -399,4 +395,3 @@ Schemeful SameSite와 CrossSite 차이점은 아래 표에서 확인할 수 있�
 [cookie-samesite-link]: https://seob.dev/posts/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EC%BF%A0%ED%82%A4%EC%99%80-SameSite-%EC%86%8D%EC%84%B1/
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [csrf-attack-and-defense-link]: https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/
-[root-zone-database-link]: https://www.iana.org/domains/root/db

@@ -355,7 +355,7 @@ eTLD만으로 사이트를 구분하기 어려운 도메인들이 있다. .co.kr
 아래 표는 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-08.png" width="75%" class="image__border image__padding">
+  <img src="/images/posts/2021/cookie-attributes-08.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 
@@ -373,7 +373,7 @@ eTLD만으로 사이트를 구분하기 어려운 도메인들이 있다. .co.kr
 아래 표는 스킴풀(schemeful) 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
 <div align="center">
-  <img src="/images/posts/2021/cookie-attributes-10.png" width="75%" class="image__border image__padding">
+  <img src="/images/posts/2021/cookie-attributes-10.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
 

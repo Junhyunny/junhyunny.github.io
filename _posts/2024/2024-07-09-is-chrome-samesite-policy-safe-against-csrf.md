@@ -21,9 +21,7 @@ last_modified_at: 2024-07-09T23:55:00
 
 ## 1. What is the meaning of same site?
 
-쿠키(cookie)의 동일 사이트(same site)가 어떤 의미인지 정리하자. [크로스 오리진(cross origin)](https://junhyunny.github.io/information/cors/)과 다른 개념이므로 주의하길 바란다.
-
-동일 사이트(same site)란 공용 접미사(public suffix)와 한 단계 하위 도메인까지 동일하다면 이를 동일 사이트로 판단한다. 더 자세히 살펴보자. [Root Zone Database](https://www.iana.org/domains/root/db) 사이트엔 eTLD(effective TLD) 리스트가 정리되어 있다. 예를 들어 .com, .org, .kr, .io 같은 루트 도메인 리스트가 관리된다. 이런 루트 도메인을 eTLD(effective TLD)이라고 한다. 
+쿠키(cookie)의 동일 사이트(same site)가 어떤 의미인지 먼저 살펴보자. [크로스 오리진(cross origin)](https://junhyunny.github.io/information/cors/)과 다른 개념이므로 주의하길 바란다. 동일 사이트(same site)란 공용 접미사(public suffix)와 한 단계 하위 도메인까지 동일하다면 이를 동일 사이트로 판단한다. 더 자세히 살펴보자. [Root Zone Database](https://www.iana.org/domains/root/db) 사이트엔 eTLD(effective TLD) 리스트가 정리되어 있다. 예를 들어 .com, .org, .kr, .io 같은 루트 도메인 리스트가 관리된다. 이런 루트 도메인을 eTLD(effective TLD)이라고 한다. 
 
 - eTLD 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
@@ -74,7 +72,7 @@ last_modified_at: 2024-07-09T23:55:00
   - host 값엔 해당 HTTP 요청을 처리해 줄 서버 주소 정보가 표시된다.
 
 <div align="center">
-  <img src="/images/posts/2024/is-chrome-samesite-policy-safe-against-csrf-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/is-chrome-samesite-policy-safe-against-csrf-05.png" width="100%" class="image__border">
 </div>
 
 ## 2. Options for SameSite
@@ -91,13 +89,13 @@ SameSite 속성은 "Strict"를 포함한 3가지 옵션이 있다. 간단하게 
   - 크로스 사이트 여부를 판단하지 않고 모든 HTTP 요청에 해당 쿠키가 함께 전달된다.
   - 쿠키의 Secure 옵션을 활성화해서 HTTPS 환경에서만 사용할 수 있다.
   - CSRF 공격에 매우 취약하다.
-- Strict
-  - 동일 사이트인 경우에만 HTTP 요청에 해당 쿠키가 함께 전달된다.
 - Lax
   - 동일 사이트인 경우에 HTTP 요청에 해당 쿠키가 함께 전달된다.
   - 크로스 사이트인 경우라면 안전한 요청에만 해당 쿠키가 함께 전달된다.
+- Strict
+  - 동일 사이트인 경우에만 HTTP 요청에 해당 쿠키가 함께 전달된다.
 
-Lax 옵션일 때 크로스 사이트임에도 쿠키 전송을 허용하는 안전한 요청이란 무엇일까?
+Lax 옵션일 때 크로스 사이트임에도 쿠키 전송을 허용한다. 위에서 말하는 안전한 요청이란 무엇을 의미할까? Lax 옵션일 때 크로스 사이트의 쿠키가 함께 전달되는 케이스는 다음과 같다.
 
 - GET 메소드 요청
   - AJAX(Asynchronous JavaScript and XML) 요청
@@ -106,7 +104,7 @@ Lax 옵션일 때 크로스 사이트임에도 쿠키 전송을 허용하는 안
   - anchor 태그의 href 변경
   - document.location 객체의 href 변경 
 
-Lax 옵션은 GET 요청이 서버의 상태를 변경하지 않는 안전한 읽기-전용(read-only) 요청이라는 가정을 기저에 깔고 쿠키를 함께 전달한다. 탑-레벨 문서에서 발생하는 네비게이션 시 쿠키를 허용하는 이유는 서드-파티(3rd-party) 사이트로 이동하는 것을 지원하기 위함이다. Strict 옵션은 외부 사이트로의 연결을 원활히 지원할 수 없다. iframe 태그는 탑-레벨 문서가 아니기 때문에 iframe 태그 내부에서 일어나는 네비게이션엔 쿠키를 전달하지 않는다.
+Lax 옵션은 GET 요청이 서버의 상태를 변경하지 않는 안전한 읽기-전용(read-only) 요청이라는 가정을 전제한다. 탑-레벨 문서에서 발생하는 네비게이션 시 쿠키를 허용하는 이유는 서드-파티(3rd-party) 사이트로 이동하는 것을 지원하기 위함이다. 여기서 말하는 탑-레벨 문서란 브라우저가 직접 받은 HTML 문서를 의미한다. HTML 문서 중간에 외부 사이트를 보여주는 중첩 브라우저 iframe 태그는 탑-레벨 문서가 아니다. 다시 말해 iframe 태그 내부에서 발생하는 네비게이션엔 쿠키가 함께 전달되지 않는다.
 
 ## 3. Is Chrome's default SameSite safe against CSRF? 
 
@@ -126,11 +124,11 @@ Lax 옵션은 GET 요청이 서버의 상태를 변경하지 않는 안전한 �
 
 <br/>
 
-위에서 봤듯이 최초 쿠키가 설정되고 2분 정도는 POST 메소드 요청이 허용된다. 이 말은 크롬의 SameSite 디폴트 정책은 실제 Lax 옵션에 비해 완화된 기준이 적용되어 있다는 의미다. 이 완화된 정책으로 CSRF 공격에 대한 위험도는 여전히 존재한다. 
+위 대화에서 볼 수 있듯이 크롬의 디폴트 SameSite 쿠키는 저장된 후 최초 2분 동안 POST 메소드 폼 요청에 함께 전달되는 것이 허용된다. 이 말은 크롬의 SameSite 디폴트 정책은 실제 Lax 옵션에 비해 완화된 기준이 적용되어 있다는 의미다. 이 완화된 정책으로 크롬의 디폴트 SameSite 쿠키는 여전히 CSRF 공격에 대한 위험이 존재한다. 
 
 ## 4. Example
 
-위 내용이 사실인지 간단한 예제를 통해 확인해보자. SameSite 옵션을 지정하지 않은 쿠키와 Lax 쿠키 사이의 동작을 비교한다. 컨셉 확인을 위해 타임리프(thymeleaf) 템플릿 엔진을 사용했다. 
+위 내용이 사실인지 간단한 예제를 통해 확인해보자. SameSite 옵션을 지정하지 않은 쿠키와 Lax 쿠키 사이의 동작을 비교한다. 확인을 위해 스프링 프레임워크와 타임리프(thymeleaf) 템플릿 엔진을 사용했다. 
 
 ### 4.1. IndexController Class
 
@@ -249,14 +247,14 @@ $ sudo vi /etc/hosts
 - 신규 팝업 윈도우가 빈 화면으로 열린다.
 
 <div align="center">
-  <img src="/images/posts/2024/is-chrome-samesite-policy-safe-against-csrf-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/is-chrome-samesite-policy-safe-against-csrf-07.png" width="100%" class="image__border">
 </div>
 
 <br/>
 
-이번엔 http://cross-site.com:8080 주소로 접속한다. 동일한 화면이지만, 주소가 다르다. 이제 링크와 버튼을 하나씩 누르면서 HTTP 요청의 헤더 값을 확인해보자. 버튼을 누르면 브라우저의 주소가 변경되기 때문에 버튼을 누르기 전에 브라우저 주소가 http://cross-site.com:8080 값인지를 확인하길 바란다. 
+다음 http://cross-site.com:8080 주소로 접속한다. 동일한 화면이지만, 주소가 다르다. 이제 링크와 버튼을 하나씩 누르면서 HTTP 요청의 헤더 값을 확인해보자. 버튼을 누르면 브라우저의 주소가 변경되기 때문에 버튼을 누르기 전에 브라우저 주소가 http://cross-site.com:8080 값인지를 확인하길 바란다. 
 
-`link` 링크와 `document location`, `AJAX request`, `get submit` 버튼을 클릭하면 다음과 같은 요청을 보낸다.
+`link` 링크, `document location`, `AJAX request`, `get submit` 버튼을 클릭하면 다음과 같은 요청을 보낸다.
 
 - DefaultCookie, LaxCookie 쿠키 모두 전달한다.
 - Host 값은 origin-site.com:8080 이다.
@@ -271,7 +269,7 @@ Referer: http://cross-site.com:8080/
 ...
 ```
 
-`post submit`, `popup post submit` 버튼을 다음과 같은 요청을 보낸다. 크롬은 크로스 사이트로 보내는 POST 메소드 요청이기 때문에 LaxCookie 쿠키는 전달하지 않는다. 반면 예외 처리에 의해 DefaultCookie 쿠키는 전달한다. 하지만 최초 쿠키가 등록된 후 2분이 지났다면 전달 대상에서 제외된다.
+`post submit`, `popup post submit` 버튼을 클릭하면 다음과 같은 요청을 보낸다. 크롬은 크로스 사이트로 보내는 POST 메소드 요청이기 때문에 LaxCookie 쿠키는 전달하지 않는다. 반면 예외 처리 덕분에 DefaultCookie 쿠키는 함께 전달한다. 위 대화에서 봤듯이 최초 쿠키가 등록된 후 2분이 지나면 전달 대상에서 제외된다.
 
 - DefaultCookie 쿠키만 전달한다. 
 - Host 값은 origin-site.com:8080 이다.
@@ -288,7 +286,7 @@ Referer: http://cross-site.com:8080/
 ...
 ```
 
-`iframe get submit` 버튼을 다음과 같은 요청을 보낸다. GET 요청이지만, iframe 태그에 요청 결과를 출력하기 때문에 LaxCookie 쿠키를 함께 전달하지 않는다. DefaultCookie 쿠키도 기본적으로 Lax 옵션과 동일한 정책이므로 전달 대상에서 제외된다. 
+`iframe get submit` 버튼을 클릭하면 다음과 같은 요청을 보낸다. GET 요청이지만, iframe 태그에 요청 결과를 출력하기 때문에 LaxCookie 쿠키를 함께 전달하지 않는다. DefaultCookie 쿠키도 기본적으로 Lax 옵션과 동일한 정책이므로 전달 대상에서 제외된다. 
 
 - 쿠키를 전달하지 않는다.
 - Host 값은 origin-site.com:8080 이다.
@@ -309,11 +307,11 @@ Referer: http://cross-site.com:8080/
 - GET 요청으로 서버의 상태를 변경하는 잘못된 API 개발이 아니라면 명시적인 Lax 옵션은 CSRF 공격을 상당히 어렵게 만든다. 
 - 크롬의 디폴트 SameSite 옵션은 `Lax + Post`로 더 완화된 정책이기 때문에 명시적인 Lax 옵션보단 CSRF 공격에 더 취약하다.   
 
-필자는 파이어폭스(firefox)를 보통 사용하는 데 크롬과 동일하게 동작한다. 파이어폭스는 크로미움(chromium)이 아닌 퀀텀(Quantum) 엔진을 사용하지만, 크롬과 유사한 정책을 적용한 듯하다. SameSite 속성의 Lax 정책은 크로스 사이트 간 쿠키 공유를 차단하기 때문에 확실히 CSRF 공격에 대한 방어에 도움이 된다. 다만 XSS 공격과 함께 SameSite 옵션을 우회하는 방법들이 있기 때문에 여전히 CSRF 공격으로부터 자유롭진 않은 것 같다. 여전히 전통적인 CSRF 공격 방어 수단인 CSRF 토큰 등이 필요한 것으로 보인다.
+필자는 파이어폭스(firefox)를 보통 사용하는 데 크롬과 동일하게 동작한다. 파이어폭스는 크로미움(chromium)이 아닌 퀀텀(Quantum) 엔진을 사용하지만, 크롬과 유사한 정책을 적용한 듯하다. SameSite 속성의 Lax 정책은 크로스 사이트 간 쿠키 공유를 차단하기 때문에 확실히 CSRF 공격에 대한 방어에 도움이 된다. 다만 XSS 공격과 함께 SameSite 옵션을 우회하는 방법들이 있기 때문에 여전히 CSRF 공격으로부터 자유롭진 않은 것 같다. 여전히 전통적인 CSRF 공격 방어 수단인 CSRF 토큰이 필요하다는 생각이 든다.
 
 #### TEST CODE REPOSITORY
 
-- <>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2024-07-09-is-chrome-samesite-policy-safe-against-csrf>
 
 #### REFERENCE
 

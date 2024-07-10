@@ -14,8 +14,6 @@ last_modified_at: 2024-07-10T23:55:00
 
 ## 0. 들어가면서
 
-
-
 ## CLOSING
 
 #### TEST CODE REPOSITORY
@@ -24,5 +22,6 @@ last_modified_at: 2024-07-10T23:55:00
 
 #### REFERENCE
 
-- <https://swiftwithmajid.com/2019/08/21/the-power-of-environment-in-swiftui/>
+- <https://developer.apple.com/documentation/swiftui/applying-custom-fonts-to-text/>
 - <https://swiftwithmajid.com/2019/08/28/composable-styling-in-swiftui/>
+- <https://m.blog.naver.com/jdusans/222301281595>

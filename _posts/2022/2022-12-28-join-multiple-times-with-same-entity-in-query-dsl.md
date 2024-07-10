@@ -1,5 +1,5 @@
 ---
-title: "Join Multiple Times with Same Entity in QueryDSL"
+title: "Join multiple times with same entity in QueryDSL"
 search: false
 category:
   - java

@@ -29,11 +29,11 @@ CI/CD 파이프라인에서 애플리케이션을 빌드하기 위해 필요한 
 
 <br/>
 
-메이븐이나 노드는 플러그인을 사용해 해결했지만, 도커 관련된 문제는 해결하기 쉽지 않았다. 호스트 머신에 설치된 도커를 직접 사용하면 쉽게 해결할 것이라 생각했다. 젠킨스가 호스트 머신의 `PATH` 환경 변수를 사용할 수 있는 방법을 찾아봤다.
+메이븐이나 노드는 플러그인을 사용해 해결했지만, 도커 문제는 쉽게 해결되지 않았다. 호스트 머신에 설치된 도커를 직접 사용하는 것이 더 쉬운 해결 방법이라 생각했다. 젠킨스가 호스트 머신의 `PATH` 환경 변수를 사용할 수 있는 방법을 찾아봤다.
 
 ## 2. Solve the problem
 
-문제의 원인은 Jenkins 2.374 버전에서만 발생하는 것 같다. 정확한 원인을 찾지 못 했다. 해결 방법에 대해서만 정리한다. 
+Jenkins 2.374 버전에서 문제가 발생하는 것 같다. 정확한 원인을 찾지 못 했다. 해결 방법에 대해서만 정리한다. 
 
 ### 2.1. Jenkins System Environment Variable
 
@@ -70,8 +70,7 @@ CI/CD 파이프라인에서 애플리케이션을 빌드하기 위해 필요한 
 - `/usr/local/Cellar/jenkins/2.374` 경로로 이동한다.
   - `2.374`는 젠킨스 버전이므로 바뀔 수 있다.
 - `homebrew.mxcl.jenkins.plist` 설정 파일이 존재하는지 확인한다.
-  - 해당 파일에서 젠킨스 서버의 포트(port)를 변경할 수 있다.
-  - 해당 파일에서 젠킨스 서버의 PATH 값을 지정할 수 있다.
+  - 해당 파일에서 젠킨스 애플리케이션의 포트(port)나 PATH 정보를 변경할 수 있다.
 
 ```
 $ cd /usr/local/Cellar/jenkins/2.374
@@ -116,7 +115,7 @@ Stopping `jenkins`... (might take a while)
 ==> Successfully started `jenkins` (label: homebrew.mxcl.jenkins)
 ```
 
-재실행이 완료되면 환경 변수가 변경되었는지 확인한다.
+애플리케이션 재실행이 끝나면 위 `Environment Variables` 화면에서 환경 변수가 바뀌었는지 확인한다.
 
 <div align="center">
   <img src="/images/posts/2022/jenkins-path-envrionment-varaible-05.png" width="80%" class="image__border">

@@ -12,7 +12,7 @@ last_modified_at: 2023-12-19T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link]
+- [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
 - [Virtual Host in Tomcat][virtual-host-in-tomcat-link]
 
 ## 1. Information in HttpServletRequest
@@ -229,7 +229,7 @@ Tomcat started.
 
 ### 3.2. Deploy Application
 
-애플리케이션을 war 파일로 패키징(packaging)하여 톰캣 서버에 배포한다. 애플리케이션을 배포하는 방법은 [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link] 포스트를 참고하길 바란다. 테스트를 위해 컨트롤러 코드를 변경한다. HttpServletRequest 객체에 어떤 정보가 들어있는지 브라우저를 통해 확인하기 위해 다음과 같은 응답을 만든다.
+애플리케이션을 war 파일로 패키징(packaging)하여 톰캣 서버에 배포한다. 애플리케이션을 배포하는 방법은 [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link] 포스트를 참고하길 바란다. 테스트를 위해 컨트롤러 코드를 변경한다. HttpServletRequest 객체에 어떤 정보가 들어있는지 브라우저를 통해 확인하기 위해 다음과 같은 응답을 만든다.
 
 ```java
 package blog.in.action.controller;

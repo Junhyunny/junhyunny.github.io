@@ -1,5 +1,5 @@
 ---
-title: "Not Found(404) When Hosting React App on Tomcat"
+title: "Not Found(404) when react application is hosted on Tomcat"
 search: false
 category:
   - spring-boot
@@ -12,7 +12,7 @@ last_modified_at: 2023-07-10T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link]
+* [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
 
 ## 1. Problem Context
 
@@ -161,7 +161,7 @@ public class NotFoundErrorController implements ErrorController {
 
 간단한 스크립트를 통해 어플리케이션을 빌드 및 배포합니다. 
 내장 톰캣을 사용하지 않고 WAR 파일로 패키징 후 톰캣 서버에 배포합니다. 
-WAR 패키지를 톰캣 서버에 배포하는 방법은 [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link] 포스트를 참고하시길 바랍니다. 
+WAR 패키지를 톰캣 서버에 배포하는 방법은 [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link] 포스트를 참고하시길 바랍니다. 
 그래이들(gradle) 기반 스프링 부트 어플리케이션에 리액트 어플리케이션을 얹어서 배포합니다.
 
 1. backend 프로젝트를 빌드합니다.

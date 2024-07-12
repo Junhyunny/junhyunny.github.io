@@ -11,7 +11,7 @@ last_modified_at: 2023-05-08T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link]
+* [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
 
 ## 0. 들어가면서
 
@@ -90,7 +90,7 @@ HTML 페이지의 내용만 다르고 같은 구조의 프로젝트를 배포하
 
 * 일반 톰캣 서버에 배포하기 위해 `war` 형식의 패키징이 필요합니다.
 * 패키지 환경을 구성하는 자세한 방법은 아래 포스트를 참고바랍니다.
-* [Deploy War Package for Spring Boot Project][deploy-spring-boot-project-as-war-link]
+* [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
 
 다음 명령어를 통해 빌드하고, 패키징 된 파일을 톰캣에 이동합니다.
 

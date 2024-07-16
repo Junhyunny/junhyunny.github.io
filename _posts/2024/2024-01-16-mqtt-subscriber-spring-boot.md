@@ -1,5 +1,5 @@
 ---
-title: "Implement MQTT Subscriber with Spring Boot"
+title: "Implement MQTT subscriber with Spring Boot"
 search: false
 category:
   - spring-boot

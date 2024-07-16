@@ -87,7 +87,7 @@ MQTT 프로토콜은 다음과 같은 특징 때문에 IoT 데이터 전송 표�
 
 #### RECOMMEND NEXT POSTS
 
-- [Implement MQTT Subscriber with Spring Boot][mqtt-subscriber-spring-boot]
+- [Implement MQTT subscriber with Spring Boot][mqtt-subscriber-spring-boot]
 
 #### REFERENCE
 

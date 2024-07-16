@@ -13,6 +13,7 @@ last_modified_at: 2023-07-10T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
+- [How to deploy react application on jar package][how-to-deploy-react-application-on-jar-package-link]
 
 ## 1. Problem Context
 
@@ -264,3 +265,4 @@ public class PageController {
 - <https://lts0606.tistory.com/533>
 
 [deploy-spring-boot-project-as-war-link]: https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/
+[how-to-deploy-react-application-on-jar-package-link]: https://junhyunny.github.io/react/spring-boot/how-to-deploy-react-application-on-jar-package/

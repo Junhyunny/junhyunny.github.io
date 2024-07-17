@@ -34,7 +34,7 @@ Hadoop 설치, 설정 및 배포, 모니터링, 알림 등의 운영 편의성�
   - Ambari leverages Ambari Alert Framework for system alerting and will notify you when your attention is needed (e.g., a node goes down, remaining disk space is low, etc).
 
 <div align="center">
-  <img src="/images/posts/2021/hadoop-ambari-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/hadoop-ambari-01.png" width="100%" class="image__border">
 </div>
 <center>https://docs.microsoft.com/ko-kr/azure/hdinsight/hdinsight-cluster-availability</center>
 

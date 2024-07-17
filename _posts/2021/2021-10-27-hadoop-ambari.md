@@ -34,7 +34,7 @@ Hadoop 설치, 설정 및 배포, 모니터링, 알림 등의 운영 편의성�
   - Ambari leverages Ambari Alert Framework for system alerting and will notify you when your attention is needed (e.g., a node goes down, remaining disk space is low, etc).
 
 <div align="center">
-  <img src="/images/posts/2021/hadoop-ambari-01.png" width="80%">
+  <img src="/images/posts/2021/hadoop-ambari-01.png" width="80%" class="image__border">
 </div>
 <center>https://docs.microsoft.com/ko-kr/azure/hdinsight/hdinsight-cluster-availability</center>
 
@@ -318,7 +318,7 @@ $ sudo apt-get install python-dev libffi-dev
 암바리 서버가 정상적으로 동작하는지 웹 브라우저를 통해 확인해보자. 아이디, 비밀번호를 변경하지 않았다면 초기 값은 모두 `admin`이다.
 
 <div align="center">
-  <img src="/images/posts/2021/hadoop-ambari-02.png" width="80%">
+  <img src="/images/posts/2021/hadoop-ambari-02.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

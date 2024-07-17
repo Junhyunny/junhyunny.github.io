@@ -1,5 +1,5 @@
 ---
-title: "Dockerfile EXPOSE 명령어"
+title: "EXPOSE command in Dockerfile"
 search: false
 category:
   - information
@@ -9,11 +9,9 @@ last_modified_at: 2022-05-04T23:55:00
 
 <br/>
 
-## 1. EXPOSE 명령어
+## 1. EXPOSE command
 
-도커 이미지를 빌드(build)할 때 사용하는 `Dockerfile`에 작성하는 EXPOSE 명령어는 필수가 아닙니다. 
-굳이 작성하지 않아도 도커 이미지를 만들고, 컨테이너를 실행시킬 수 있습니다. 
-공식 문서를 보면 다음과 같은 설명을 찾을 수 있습니다.
+도커 이미지를 빌드(build)할 때 사용하는 `도커 파일(Dockerfile)`을 작성한다. 도커 파일에 작성하는 `EXPOSE` 명령어는 필수가 아니다. EXPOSE 명령어가 없더라도 도커 이미지를 생성과 컨테이너 실행이 가능하다. 공식 문서를 보면 다음과 같은 설명을 찾을 수 있다.
 
 > [EXPOSE](https://docs.docker.com/engine/reference/builder/#expose)<br/>
 > The EXPOSE instruction does not actually publish the port. 
@@ -22,13 +20,9 @@ last_modified_at: 2022-05-04T23:55:00
 > To actually publish the port when running the container, use the -p flag on docker run to publish and map one or more ports, 
 > or the -P flag to publish all exposed ports and map them to high-order ports.
 
-EXPOSE 명령과 함께 작성하는 포트 번호는 실제로 노출하는 포트를 의미하지는 않지만, 
-이미지를 만드는 사람과 컨테이너를 실행시키는 사람 사이의 컨텍스트 공유를 위한 문서 역할정도로 보입니다. 
-아래 리액트 프로젝트를 빌드하기 위한 `Dockerfile`을 기준으로 `-P`, `-p` 플래그 옵션이 어떻게 동작하는지 확인해보겠습니다. 
+EXPOSE 명령어에 명시된 포트는 실제로 노출하는 포트를 의미하지는 않지만, 이미지를 만드는 사람과 컨테이너를 실행시키는 사람 사이에 컨텍스트 공유를 위한 지침 정도로 보인다. 아래 리액트 애플리케이션 도커 파일을 기준으로 `-P`, `-p` 플래그 옵션이 어떻게 동작하는지 살펴보자. 
 
-##### Dockerfile
-
-- `EXPOSE` 명령으로 노출할 포트를 80으로 명시하였습니다. 
+- `EXPOSE` 명령으로 노출할 포트를 80으로 명시한다. 
 
 ```dockerfile
 FROM node as builder
@@ -56,10 +50,10 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-##### nginx.conf
+예제에서 nginx 이미지를 사용하기 때문에 다음 설정 파일이 추가적으로 필요하다.
 
-- `nginx`의 `listen` 값을 80으로 작성하여 포트 값을 결정합니다.
-- 컨테이너에서 공개하는 포트를 80 이 외에 다른 포트로 지정하는 경우 정상적으로 컨테이너의 어플리케이션이 연결되지 않습니다.
+- nginx 설정의 `listen` 값을 80으로 지정한다.
+- 컨테이너 내부에서 nginx 웹 서버는 80번 포트를 사용한다.
 
 ```conf
 server {
@@ -73,12 +67,15 @@ server {
 }
 ```
 
-## 2. 플래그 사용
+## 2. Usage flags
 
-### 2.1. -P 플래그 사용
+위에서 언급했듯이 도커 커맨드의 -p, -P 옵션을 사용해서 컨테이너를 실행해보자.  
 
-- 별도로 지정하진 않았지만, 호스트(host)의 55001 포트가 컨테이너의 80 포트로 연결됩니다.
-- `-P` 플래그를 사용하면 호스트의 랜덤한 포트가 `Dockerfile`에 `EXPOSE` 명령어로 명시한 포트와 연결됩니다.
+### 2.1. -P option
+
+-P(--publish-all) 옵션을 사용하면 호스트(host) 컴퓨터의 임의의 포트를 컨테이너에 바인딩(binding)한다. 바인딩 된 포트로 요청을 보내면 해당 요청은 EXPOSE 명령어에 정의된 포트 애플리케이션으로 포트 포워딩(port forwarding)된다. 즉 `-P` 플래그를 사용하면 호스트의 랜덤한 포트가 도커 파일에 `EXPOSE` 명령어로 명시한 포트와 연결된다. -P 옵션을 사용해 컨테이너를 실행해보자.
+
+- 별도로 포트를 지정하진 않았음에도 호스트(host)의 55001 포트가 컨테이너의 80 포트로 연결됩니다.
 
 ```
 $ docker images 
@@ -93,11 +90,11 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS   
 0f199f5febb1   e273fa25a9e3   "/docker-entrypoint.…"   5 seconds ago   Up 3 seconds   0.0.0.0:55001->80/tcp   happy_rubin
 ```
 
-### 2.2. -p 플래그 사용
+### 2.2. -p option
 
-- `-p` 플래그를 사용하면 컨테이너를 실행시킬 때 호스트의 포트와 컨테이너의 포트를 명시적으로 연결할 수 있습니다.
-- `-p` 플래그 뒤에 `{host.port}:{container.port}`를 추가하여 연결 정보를 전달합니다.
-    - 아래 예시에선 호스트의 3030 포트와 컨테이너의 80 포트를 연결하였습니다.
+-p(--expose) 옵션은 바인딩 할 호스트의 포트와 컨테이너의 포트를 명시적으로 작성하는 방법이다. 아래 예시에선 호스트의 3030 포트와 컨테이너의 80 포트를 연결했다. 호스트 컴퓨터의 3030 포트로 요청을 보내면 컨테이너의 80 포트로 요청이 포트 포워딩된다.
+
+- `-p` 플래그 뒤에 `{host.port}:{container.port}`를 추가해 바인딩 정보를 전달한다.
 
 ```
 $ docker images                             
@@ -114,7 +111,9 @@ d49c0dcdb26a   e273fa25a9e3   "/docker-entrypoint.…"   7 seconds ago   Up 6 se
 ```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-05-04-docker-file-expose-instruction>
 
 #### REFERENCE
+
 - <https://soft.plusblog.co.kr/139>

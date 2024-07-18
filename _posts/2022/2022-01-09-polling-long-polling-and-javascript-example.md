@@ -10,14 +10,14 @@ last_modified_at: 2022-01-09T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [폴링(Polling), 롱 폴링(Long polling) 그리고 스프링 예제][polling-long-polling-and-spring-example-link]
+- [Long polling in Spring][polling-long-polling-and-spring-example-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Recursive setTimeout test with Jest (feat. advanceTimersByTime 열어보기)][recursive-set-timeout-test-link]
 
 ## 0. 들어가면서
 
-[폴링(Polling), 롱 폴링(Long polling) 그리고 스프링 예제][polling-long-polling-and-spring-example-link] 포스트에서 개념은 한번 정리하였으므로 
+[Long polling in Spring][polling-long-polling-and-spring-example-link] 포스트에서 개념은 한번 정리하였으므로 
 이번 포스트에서는 간단한 개념 복습과 `JavaScript`를 사용한 예시 코드를 정리하였습니다. 
 자세한 개념을 확인하시고 싶은 분들은 이전 글을 읽어보시길 바랍니다. 
 

@@ -1,5 +1,5 @@
 ---
-title: "폴링(Polling), 롱 폴링(Long polling) 그리고 스프링 예제"
+title: "Long polling in Spring"
 search: false
 category:
   - information
@@ -9,11 +9,9 @@ last_modified_at: 2022-01-04T23:55:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Asynchronous Non-Blocking Handling][async-nonblocking-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 이어서 읽기를 추천합니다.
-- [폴링(Polling), 롱 폴링(Long polling) 그리고 JavaScript 예제][polling-long-polling-and-javascript-example-link]
+- [Asynchronous Non-Blocking Handling][async-nonblocking-link]
 
 ## 0. 들어가면서
 
@@ -40,7 +38,7 @@ last_modified_at: 2022-01-04T23:55:00
 ##### 폴링 방식
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-spring-example-1.JPG" width="50%" class="image__border">
+    <img src="/images/posts/2022/polling-long-polling-and-spring-example-01.png" width="50%" class="image__border">
 </p>
 <center>https://rubberduck-debug.tistory.com/123</center>
 
@@ -57,7 +55,7 @@ last_modified_at: 2022-01-04T23:55:00
 ##### 롱 폴링 방식
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-spring-example-2.JPG" width="50%" class="image__border">
+    <img src="/images/posts/2022/polling-long-polling-and-spring-example-02.png" width="50%" class="image__border">
 </p>
 <center>https://rubberduck-debug.tistory.com/123</center>
 
@@ -122,7 +120,7 @@ DeferredResult 클래스는 비동기 처리를 위해 등장하였습니다.
 - `nio-http-worker` 스레드가 다시 스레드 풀에서 나와 타임아웃되거나 완료된 대상을 처리합니다.
 
 <p align="center">
-    <img src="/images/polling-long-polling-and-spring-example-3.JPG" width="60%" class="image__border">
+    <img src="/images/posts/2022/polling-long-polling-and-spring-example-03.png" width="60%" class="image__border">
 </p>
 <center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center>
 
@@ -371,9 +369,15 @@ public class DeferredResultController {
 ```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-04-polling-long-polling-and-spring-async-task>
 
+#### RECOMMEND NEXT POSTS
+
+- [폴링(Polling), 롱 폴링(Long polling) 그리고 JavaScript 예제][polling-long-polling-and-javascript-example-link]
+
 #### REFERENCE
+
 - <https://rubberduck-debug.tistory.com/123>
 - <https://kuimoani.tistory.com/74>
 - <https://www.baeldung.com/spring-deferred-result>
@@ -381,5 +385,4 @@ public class DeferredResultController {
 - <https://jongmin92.github.io/2019/03/31/Java/java-async-1/>
 
 [async-nonblocking-link]: https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/
-
 [polling-long-polling-and-javascript-example-link]: https://junhyunny.github.io/information/javascript/polling-long-polling-and-javascript-example/

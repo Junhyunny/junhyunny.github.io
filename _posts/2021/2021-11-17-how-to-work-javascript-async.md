@@ -10,7 +10,7 @@ last_modified_at: 2021-10-17T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][asynchronous-non-blocking-link]
+- [Asynchronous Non-Blocking Handling][asynchronous-non-blocking-link]
 
 👉 이어서 읽기를 추천합니다.
 - [Microtask & Macrotask in Javascript][microtask-macrotask-in-javascript-link]

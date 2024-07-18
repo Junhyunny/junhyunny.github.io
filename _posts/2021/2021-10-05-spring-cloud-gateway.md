@@ -12,7 +12,7 @@ last_modified_at: 2021-10-05T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [MSA API Gateway][msa-gateway-link]
-- [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
+- [Asynchronous Non-Blocking Handling][async-nonblocking-link]
 - [Spring Session with JDBC][spring-session-link]
 
 ## 0. 들어가면서

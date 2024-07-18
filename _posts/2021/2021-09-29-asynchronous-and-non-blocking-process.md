@@ -23,7 +23,7 @@ last_modified_at: 2021-09-29T23:55:00
 
 <br/>
 
-논-블로킹 방식은 요청을 보낸 후 응답을 기다리지 않는다. 응답을 기다리기 위해 자신이 수행하는 일을 멈추지 않는다. 멀티 스레드(multi-thread)나 이벤트 루프(event loop) 같은 기술을 사용해 구현할 수 있다.
+논-블로킹 방식은 요청을 보낸 후 응답을 기다리지 않는다. 응답을 기다리기 위해 자신이 수행하는 일을 멈추지 않는다. 멀티 스레드(multi-thread) 같은 기술을 통해 구현할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2021/asynchronous-and-non-blocking-process-02.gif" width="50%">

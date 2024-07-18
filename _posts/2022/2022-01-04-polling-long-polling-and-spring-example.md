@@ -10,7 +10,7 @@ last_modified_at: 2022-01-04T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [비동기(Asynchronous) 논블로킹(Non-Blocking) 처리 방식][async-nonblocking-link]
+- [Asynchronous Non-Blocking Handling][async-nonblocking-link]
 
 👉 이어서 읽기를 추천합니다.
 - [폴링(Polling), 롱 폴링(Long polling) 그리고 JavaScript 예제][polling-long-polling-and-javascript-example-link]

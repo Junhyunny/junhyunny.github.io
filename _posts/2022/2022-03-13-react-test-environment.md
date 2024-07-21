@@ -1,5 +1,5 @@
 ---
-title: "Test Environment in React by using Vite"
+title: "Setup React test environment in Vite"
 search: false
 category:
   - react
@@ -10,21 +10,15 @@ last_modified_at: 2022-03-13T23:55:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Babel][babel-link]
-
 ## 0. 들어가면서
 
-`CRA(Create React App)`을 사용하면 테스트 코드를 작성할 수 있는 환경을 함께 만들어줍니다. 
-[Native ESM(ECMAScript Module)][esm-link]을 사용하여 빌드가 빠르다는 `Vite`로 리액트 프로젝트를 만들면 기본적인 테스트 코드를 위한 환경이 잡혀있지 않습니다. 
-토이 프로젝트를 `Vite`로 시작해보려고 했는데, 테스트 코드를 위한 환경부터 만들어야 했습니다. 
-나중에 참고할 겸 간단하게 블로그에 정리하였습니다. 
+CRA(Create React App)를 사용하면 테스트 환경까지 구성해준다. Vite 번들러를 사용하면 리액트 프로젝트를 만들면 테스트 코드를 위한 환경이 구성되어 있지 않다. 이번 글은 Vite 번들러에서 테스트 환경을 구축하는 방법에 대해 정리했다. 이 글을 참조할 때는 다음 내용을 주의하길 바란다.
 
-##### 주의사항
+- 이 글은 리액트 17버전을 사용한다. 
+- 현 시점 Vite 최신 버전을 사용하면 리액트 18 버전이 설치된다. 
+- 리액트 18 버전을 사용하면 이 글에서 소개하는 환경 구축이 잘 되지 않을 수 있다.
 
-- 해당 포스트를 작성하는 시점에는 리액트 17버전을 사용했습니다. 
-- 최근 Vite 버전으로 실행하는 경우 리액트 18 버전으로 설치되면서 아래 방법대로 환경 구축이 되지 않을 수 있습니다.
-- 리액트 17 버전에서 사용한 패키지들은 아래와 같습니다.
+이 글에서 사용한 패키지 정보는 다음과 같다.
 
 ```json
 {
@@ -59,10 +53,9 @@ last_modified_at: 2022-03-13T23:55:00
 }
 ```
 
-## 1. 리액트 프로젝트 만들기
+## 1. Create React App with Vite
 
-##### 프로젝트 생성
-- 터미널에서 간단한 명령어를 통해 프로젝트를 생성할 수 있습니다.
+터미널에서 명령어로 프로젝트를 쉽게 생성할 수 있다.
 
 ```
 $ npm create vite@latest web-crawler
@@ -78,8 +71,7 @@ Done. Now run:
   npm run dev
 ```
 
-##### 패키지 구조
-- 프로젝트가 생성되면 기본적으로 생기는 패키지 구조입니다.
+프로젝트 구조는 다음과 같다. 
 
 ```
 ./
@@ -96,29 +88,36 @@ Done. Now run:
 └── vite.config.js
 ```
 
-## 2. 테스트 환경 만들기
+## 2. Setup test environment
 
-### 2.1. 필요한 라이브러리 설치
-- 다음과 같은 라이브러리를 설치합니다.
-    - @babel/preset-env 
-        - 타겟 환경에 필요한 구문 변환, 브라우저 폴리필(polyfill)을 제공합니다.
-    - @babel/preset-react 
-        - `JSX`로 작성된 코드들을 `createElement` 함수를 이용한 코드로 변환합니다.
-    - @babel/plugin-transform-runtime 
-        - 바벨이 트랜스파일링하는 과정에서 폴리필이 필요한 부분을 내부 헬퍼 함수로 치환해줍니다.
-    - @testing-library/jest-dom 
-        - `Jest`를 위한 DOM 요소 매쳐(matcher)들을 제공합니다.
-    - @testing-library/react 
-        - 리액트를 위한 테스트 라이브러리입니다.
-    - @testing-library/user-event 
-        - 사용자의 이벤트를 발생시킬 수 있는 라이브러리입니다.
-    - identity-obj-proxy 
-        - 임포트(import)한 CSS 모듈 등을 목(mock) 데이터로 사용할 수 있게 도와주는 라이브러리입니다.
-    - jest 
-        - 테스트 프레임워크입니다.
+필요한 라이브러리를 설치한다. 
+
+- @babel/preset-env 
+  - 타겟 환경에 필요한 구문 변환, 브라우저 폴리필(polyfill)을 제공한다.
+- @babel/preset-react 
+  - `JSX`로 작성된 코드들을 `createElement` 함수를 이용한 코드로 변환한다.
+- @babel/plugin-transform-runtime 
+  - 바벨이 트랜스파일링하는 과정에서 폴리필이 필요한 부분을 내부 헬퍼 함수로 치환한다.
+- @testing-library/jest-dom 
+  - `Jest`를 위한 DOM 요소 매쳐(matcher)들을 제공한다.
+- @testing-library/react 
+  - 리액트를 위한 테스트 라이브러리다.
+- @testing-library/user-event 
+  - 사용자의 이벤트를 발생시킬 수 있는 라이브러리다.
+- identity-obj-proxy 
+  - 임포트(import)한 CSS 모듈 등을 목(mock) 데이터로 사용할 수 있게 도와주는 라이브러리다.
+- jest 
+  - 테스트 라이브러리다.
 
 ``` 
-$ npm install -D @babel/preset-env @babel/preset-react @babel/plugin-transform-runtime @testing-library/jest-dom @testing-library/react @testing-library/user-event identity-obj-proxy jest 
+$ npm install -D @babel/preset-env\
+  @babel/preset-react\
+  @babel/plugin-transform-runtime\
+  @testing-library/jest-dom\
+  @testing-library/react\
+  @testing-library/user-event\
+  identity-obj-proxy\
+  jest
 npm WARN deprecated source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
 
 added 610 packages, and audited 611 packages in 13s
@@ -129,10 +128,14 @@ added 610 packages, and audited 611 packages in 13s
 found 0 vulnerabilities
 ```
 
-### 2.2. .babelrc 파일
-- 다음과 같은 설정을 추가합니다.
-- presets - 목적에 맞게 여러 개의 플러그인들을 모아놓은 프리셋들을 추가합니다.
-- plugins - 실제 변환 작업을 처리하는 플러그인들을 추가합니다.
+### 2.1. .babelrc
+
+바벨(babel) 설정이 필요하다.
+
+- presets
+  - 목적에 맞게 여러 개의 플러그인들을 모아 놓은 프리셋들을 추가한다.
+- plugins
+  - 실제 변환 작업을 처리하는 플러그인들을 추가한다.
 
 ```json
 {
@@ -155,18 +158,21 @@ found 0 vulnerabilities
 }
 ```
 
-### 2.3. jest.config.js 파일
-- 다른 속성들은 <https://jestjs.io/docs/configuration> 링크를 참조바랍니다. 
+### 2.2. jest.config.js
+
+테스트 라이브러리 Jest를 위한 설정이 필요하다. 아래에서 언급하지 않는 속성은 이 [링크](https://jestjs.io/docs/configuration)를 참고하길 바란다.
+
 - `testEnvironment`
-    - 테스트 환경을 지정합니다. 기본 값은 `"node"` 입니다.
+  - 테스트 환경을 지정한다. 
+  - 기본 값은 `"node"`이다.
 - `moduleNameMapper`
-    - 이미지, 스타일 같은 리소스들에 대한 스터빙(stubbing)을 처리할 모듈을 지정합니다.
+  - 이미지, 스타일 같은 리소스들에 대한 스터빙(stubbing)을 처리할 모듈을 지정한다.
 - `setupFilesAfterEnv`
-    - 테스트 코드가 실행되기 전에 테스팅 프레임워크 설정을 위한 코드를 수행시킬 모듈의 경로를 지정합니다.
+  - 테스트 코드가 실행되기 전에 테스팅 프레임워크 설정을 위한 코드를 수행시킬 모듈의 경로를 지정한다.
 - `testMatch`
-    - 테스트 대상 파일들의 경로들을 지정합니다.
+  - 테스트 대상 파일들의 경로들을 지정한다.
 - `transformIgnorePatterns`
-    - 변환 대상이 아닌 경로들을 지정합니다.
+  - 변환 대상이 아닌 경로들을 지정한다.
 
 ```js
 module.exports = {
@@ -181,56 +187,61 @@ module.exports = {
 }
 ```
 
-### 2.4. jest.setup.js 파일
-
-```js
-import '@testing-library/jest-dom'
-```
-
-### 2.5. fileMock.js 파일
+이미지 리소스 스터빙을 위해 사용하는 `fileMock.js` 파일은 직접 선언해야 한다. `/__mocks__` 경로에 fileMock.js 파일을 만들고 다음 코드를 추가한다.
 
 ```js
 module.exports = 'test-file-stub'
 ```
 
-### 3. 테스트 코드 실행
+### 2.4. jest.setup.js
 
-##### 테스트 코드
-- `/src/App.test.jsx` 경로에 테스트 파일을 추가합니다.
+테스트 코드가 실행되기 전에 동작하는 `jest.setup.js` 파일에 아래 임포트(import) 구문을 추가한다.
 
-```jsx
-import { render, screen, waitFor } from '@testing-library/react'
-import App from './App'
-import userEvent from '@testing-library/user-event'
-
-describe('App', () => {
-    it('renders App', () => {
-        render(<App />)
-
-        expect(screen.getByText('Hello Vite + React!')).toBeInTheDocument()
-    })
-
-    it('click count button', async () => {
-        render(<App />)
-
-        userEvent.click(screen.getByText(/count is: /i))
-
-        await waitFor(() => {
-            expect(screen.getByText('count is: 1')).toBeInTheDocument()
-        })
-    })
-})
+```js
+import '@testing-library/jest-dom'
 ```
 
-##### 테스트 결과
+### 3. Run Test Code
+
+테스트 코드 App.test.jsx 파일을 만들고 다음과 같은 테스트 코드를 작성한다. 기본으로 작성된 코드를 대상으로 테스트 코드를 작성한다.
+
+```jsx
+import { render, screen, waitFor } from "@testing-library/react";
+import App from "./App";
+import userEvent from "@testing-library/user-event";
+
+describe("App", () => {
+  it("renders App", () => {
+    render(<App />);
+
+    expect(screen.getByText("Hello Vite + React!")).toBeInTheDocument();
+  });
+
+  it("click count button", async () => {
+    render(<App />);
+
+    userEvent.click(screen.getByText(/count is: /i));
+
+    await waitFor(() => {
+      expect(screen.getByText("count is: 1")).toBeInTheDocument();
+    });
+  });
+});
+```
+
+테스트 코드를 실행하면 정상적으로 통과한다.
 
 <p align="left">
-    <img src="/images/react-test-environment-1.JPG" width="50%" class="image__border">
+  <img src="/images/posts/2022/react-test-environment-01.png" width="50%" class="image__border">
 </p>
 
-## 4. 테스트 환경 구축 시 마주치는 에러
+## 4. Errors when setup test environment
 
-### 4.1. SyntaxError: Cannot use import statement outside a module
+테스트 코드를 실행할 때 만난 에러들에 대해 정리했다.
+
+### 4.1. SyntaxError - Cannot use import statement outside a module
+
+다음과 같은 에러를 만난다. 
 
 ```
   ● Test suite failed to run
@@ -267,8 +278,7 @@ describe('App', () => {
       at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
 ```
 
-##### 해결 방법
-- `.babelrc` 파일에 `presets` 설정에 `"@babel/preset-env"`을 추가합니다.
+jest.setup.js 파일에서 `import` 구문을 정상적으로 인식하지 못하는 케이스다. .babelrc 파일 presets 설정에 `@babel/preset-env`을 추가하면 해당 에러가 해결된다.
 
 ```json
 {
@@ -291,7 +301,9 @@ describe('App', () => {
 }
 ```
 
-### 4.2. SyntaxError: Unexpected token '<'
+### 4.2. SyntaxError - Unexpected token '<'
+
+logo.svg 파일의 `<` 문자를 정상적으로 인식하지 못하는 에러가 발생한다.
 
 ```
   ● Test suite failed to run
@@ -335,9 +347,7 @@ describe('App', () => {
       at Object.<anonymous> (src/App.jsx:2:1)
 ```
 
-##### 해결 방법
-- `jest.config.js` 파일 변경합니다.
-- `moduleNameMapper` 속성에 `'\\.(css|styl|less|sass|scss|svg)$': 'identity-obj-proxy'` 설정 추가합니다.
+jest.config.js 파일의 moduleNameMapper 속성에 스타일, svg 리소스 관련 설정을 추가한다. 
 
 ```js
 module.exports = {
@@ -352,7 +362,9 @@ module.exports = {
 }
 ```
 
-### 4.3. TypeError: symbol is not a function
+### 4.3. TypeError - symbol is not a function
+
+`<img>` 태그를 함수로 인식하지 못하는 문제가 발생한다. 
 
 ```
   console.error
@@ -382,15 +394,7 @@ TypeError: symbol is not a function
     at setInitialProperties (/Users/junhyunk/Desktop/workspace/toy-projects/web-crawler/node_modules/react-dom/cjs/react-dom.development.js:9135:3)
 ```
 
-##### 해결 방법
-- `/__mocks__/fileMock.js` 경로에 파일을 생성합니다.
-
-```js
-module.exports = 'test-file-stub'
-```
-
-- `jest.config.js` 파일 설정 변경합니다.
-- `moduleNameMapper` 속성에 `'\\.(png|pdf|svg|jpg|jpeg)$': '<rootDir>/__mocks__/fileMock.js'` 설정 추가합니다.
+jest.config.js 파일의 moduleNameMapper 속성에 이미지 리소스 관련 속성에 위에서 만든 목(mock) 파일 경로를 지정해준다.
 
 ```js
 module.exports = {
@@ -405,7 +409,15 @@ module.exports = {
 }
 ```
 
+fileMock.js 파일 내용은 다음과 같다.
+
+```js
+module.exports = 'test-file-stub'
+```
+
 ### 4.3. toBeInTheDocument is not a function 
+
+Jest에서 제공하는 toBeInTheDocument 함수를 인식하지 못한다. 
 
 ```
 expect(...).toBeInTheDocument is not a function
@@ -417,9 +429,7 @@ TypeError: expect(...).toBeInTheDocument is not a function
     ...
 ```
 
-##### 해결 방법
-- `jest.config.js` 파일에 프레임워크 구성과 설정을 위해 필요한 모듈 경로를 지정합니다.
-- `setupFilesAfterEnv: ['<rootDir>/jest.setup.js']` 추가
+`jest.config.js` 파일에 테스트 실행을 위한 설정 코드가 작성된 jest.setup.js 파일의 경로를 지정한다. 
 
 ```js
 module.exports = {
@@ -434,7 +444,9 @@ module.exports = {
 }
 ```
 
-### 4.4. ReferenceError: document is not defined
+### 4.4. ReferenceError - document is not defined
+
+테스트 환경의 HTML 문서에서 돔(dom) 정보를 파싱하지 못하는 에러가 발생한다.
 
 ```
 document is not defined
@@ -447,9 +459,7 @@ ReferenceError: document is not defined
     ...
 ```
 
-##### 해결 방법
-- `jest.config.js` 파일에 테스트 환경을 `jsdom`으로 설정합니다.
-- `testEnvironment: 'jsdom'` 추가합니다.
+jest.config.js 파일에 `testEnvironment` 속성을 `jsdom`으로 지정한다.
 
 ```js
 module.exports = {
@@ -464,7 +474,9 @@ module.exports = {
 }
 ```
 
-### 4.5. ReferenceError: React is not defined
+### 4.5. ReferenceError - React is not defined
+
+`React` 모듈을 찾지 못한다.
 
 ```
 React is not defined
@@ -477,8 +489,7 @@ ReferenceError: React is not defined
     ...
 ```
 
-##### 해결 방법
-- `.babelrc` 파일에 `"@babel/preset-react"`의 런타임 설정을 `automatic`으로 변경합니다.
+.babelrc 파일에 추가한 `@babel/preset-react` 런타임 설정을 `automatic`으로 변경한다.
 
 ```json
 {
@@ -501,7 +512,9 @@ ReferenceError: React is not defined
 }
 ```
 
-### 4.6. ReferenceError: regeneratorRuntime is not defined
+### 4.6. ReferenceError - regeneratorRuntime is not defined
+
+이 문제는 `async/await` 문법을 해석하기 위한 `regenerator`가 제공되지 않아 발생한다.
 
 ```
   ● Test suite failed to run
@@ -524,9 +537,7 @@ ReferenceError: React is not defined
       at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
 ```
 
-##### 해결 방법
-- `async/await` 문법을 해석하기 위한 `regenerator`를 제공하지 않아서 발생합니다.
-- `.babelrc` 파일에 `@babel/plugin-transform-runtime`을 플러그인에 추가합니다. 
+.babelrc 파일에 `@babel/plugin-transform-runtime`을 플러그인에 추가한다. 
 
 ```json
 {
@@ -550,9 +561,11 @@ ReferenceError: React is not defined
 ```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-13-react-test-environment>
 
 #### REFERENCE
+
 - [Native ESM(ECMAScript Module)][esm-link]
 - [React 테스트 환경 구축하기][react-test-environment-link]
 - [React regeneratorRuntime is not defined 에러 해결][regenerator-runtime-error-link]
@@ -560,8 +573,6 @@ ReferenceError: React is not defined
 - <https://jestjs.io/docs/webpack>
 - <https://jestjs.io/docs/configuration>
 - <https://github.com/facebook/jest/issues/9395>
-
-[babel-link]: https://junhyunny.github.io/information/babel/
 
 [esm-link]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [react-test-environment-link]: https://marshallku.com/web/tips/react-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0

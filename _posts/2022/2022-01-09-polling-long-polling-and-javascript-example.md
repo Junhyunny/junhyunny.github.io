@@ -1,5 +1,5 @@
 ---
-title: "폴링(Polling), 롱 폴링(Long polling) 그리고 JavaScript 예제"
+title: "Polling & Long Polling in JavaScript"
 search: false
 category:
   - information
@@ -9,280 +9,320 @@ last_modified_at: 2022-01-09T23:55:00
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Long polling in Spring][polling-long-polling-and-spring-example-link]
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 이어서 읽기를 추천합니다.
-- [Recursive setTimeout test with Jest (feat. advanceTimersByTime 열어보기)][recursive-set-timeout-test-link]
+- [Long polling in Spring][polling-long-polling-and-spring-example-link]
 
 ## 0. 들어가면서
 
-[Long polling in Spring][polling-long-polling-and-spring-example-link] 포스트에서 개념은 한번 정리하였으므로 
-이번 포스트에서는 간단한 개념 복습과 `JavaScript`를 사용한 예시 코드를 정리하였습니다. 
-자세한 개념을 확인하시고 싶은 분들은 이전 글을 읽어보시길 바랍니다. 
+폴링, 폴링에 대한 개념은 전에 [작성한 글][polling-long-polling-and-spring-example-link]을 참고하길 바란다. 이번엔 자바스크립트(javascript)로 폴링을 구현하는 방법을 알아보자. 테스트 코드도 함께 살펴본다. 
 
-## 1. JavaScript 폴링 구현하기
+## 1. Polling in JavaScript
 
-클라이언트가 일정 주기로 서버에게 데이터를 요청합니다. 
-`setTimeout` 함수와 `setInterval` 함수를 사용할 때 미묘하게 기능이 다르기 때문에 관련된 내용도 함께 정리하였습니다. 
+setTimeout 함수와 setInterval 함수를 사용하면 쉽게 폴링을 구현할 수 있다. 두 함수는 지정한 시간마다 다시 동작하지만, 미묘한 차이가 있으므로 이를 먼저 살펴보자. setTimeout 함수는 콜백 함수 실행 시간과 상관없이 콜백 함수 실행 간격이 일정하게 보장된다. 콜백 함수가 끝난 시점을 기준으로 시간을 잰다.
 
-<p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-1.JPG" width="50%" class="image__border">
-</p>
-<center>https://rubberduck-debug.tistory.com/123</center>
+<div align="center">
+    <img src="/images/posts/2022/polling-long-polling-and-javascript-example-02.png" width="50%" class="image__border">
+</div>
+<center>https://ko.javascript.info/settimeout-setinterval</center>
 
-### 1.1. setTimeout(callback, timeout) 사용
+<br/>
 
-#### 1.1.1. 테스트 코드
+setInterval 함수는 콜백 함수의 실행 시간이 길면 콜백 함수 실행 간격이 짧아진다. 콜백 함수가 시작한 시점을 기준으로 시간을 잰다. 예를 들어 지정한 시간 간격이 100ms라고 가정해보자.
 
-```javascript
-    it('given 6 seconds, timeout 1 second when call polling method then 6 times call', async () => {
+- 콜백 함수 실행 시간이 30ms라면 다음 콜백 함수 실행은 70ms 뒤에 실행된다.
+- 콜백 함수 실행 시간이 60ms라면 다음 콜백 함수 실행은 40ms 뒤에 실행된다.
 
-        // setup
-        jest.useFakeTimers();
-        const spyFunc = jest.fn();
+<div align="center">
+    <img src="/images/posts/2022/polling-long-polling-and-javascript-example-03.png" width="50%" class="image__border">
+</div>
+<center>https://ko.javascript.info/settimeout-setinterval</center>
 
-        // act
-        timeoutPolling(spyFunc, 1000);
-        for (let i = 0; i < 6; i++) {
-            jest.advanceTimersByTime(1000);
-            await Promise.resolve();
-        }
+### 1.1. Polling with setTimeout  
 
-        // assert
-        expect(spyFunc).toHaveBeenCalledTimes(6)
-    });
+먼저 setTimeout 함수를 사용해 폴링을 구현해보자. 
+
+1. setTimeout 함수의 타임 아웃을 지정한다.
+2. 전달 받은 함수를 실행한다.
+3. timeoutPolling 함수를 재귀적으로 호출한다.
+
+```js
+export const timeoutPolling = (func, timeout) => {
+  setTimeout(() => {
+    func(); // 2
+    timeoutPolling(func, timeout); // 3
+  }, timeout); // 1
+};
+
 ```
 
-#### 1.1.2. 구현 코드
+다음 테스트 코드로 이 기능을 검증할 수 있다. setTimeout 함수를 사용하기 때문에 Jest의 페이크 타이머(fake timer)를 사용한다.
 
-```javascript
-export const timeoutPolling = (func, timeout, maxAttempts = -1) => {
-    if (maxAttempts === 0) {
-        return;
+1. Given
+  - 페이크 타이머를 설정한다.
+  - 검증에 필요한 스파이(spy) 테스트 더블(double)을 만든다.
+2. When
+  - 타임아웃 폴링을 지정한다.
+  - 페이크 타이머를 사용해 6초를 진행시킨다.
+3. Then
+  - 스파이가 의도한 대로 6번 호출되었는지 확인한다.
+
+```js
+describe("PollingClient test", () => {
+  beforeEach(() => {
+    jest.clearAllTimers();
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+  });
+
+  test("when timeout 1 second for polling then call 6 times in 6 seconds", async () => {
+    jest.useFakeTimers(); // 1
+    const spyFunc = jest.fn();
+
+    timeoutPolling(spyFunc, 1000); // 2
+    for (let i = 0; i < 6; i++) { 
+      jest.advanceTimersByTime(1000);
     }
-    setTimeout(async () => {
-        try {
-            await func();
-        } catch (error) {
-            console.error(error);
-        }
-        timeoutPolling(func, timeout, maxAttempts - 1);
-    }, timeout);
-};
+
+    expect(spyFunc).toHaveBeenCalledTimes(6); // 3
+  });
+
+  ...
+
+});
 ```
 
-#### 1.1.3. 함수 실행 간격
-- 콜백 함수 실행 시간과 상관없이 콜백 함수 실행 간격이 일정하게 보장됩니다.
+### 1.2. Polling with setInterval
 
-<p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-2.JPG" width="50%" class="image__border">
-</p>
-<center>https://ko.javascript.info/settimeout-setinterval</center>
+이번엔 setInterval 함수를 사용해 폴링을 구현해본다. 이번엔 추가적으로 최대 시도 회수를 지정할 수 있다.
 
-### 1.2. setInterval(callback, timeout) 사용
+1. 인터벌 시간을 지정한다.
+2. 함수를 호출한다.
+3. 시도한 횟수와 최대 시도 횟수가 동일한 경우 폴링을 종료한다.
 
-#### 1.2.1. 테스트 코드
-
-```javascript
-    it('given 6 seconds, interval 1 second, maximum attempts 5 times when call polling method then 5 times call', async () => {
-
-        // setup
-        jest.useFakeTimers();
-        const spyFunc = jest.fn();
-
-        // act
-        intervalPolling(spyFunc, 1000, 5);
-        for (let i = 0; i < 6; i++) {
-            jest.advanceTimersByTime(1000);
-        }
-
-        // assert
-        expect(spyFunc).toHaveBeenCalledTimes(5)
-    });
-```
-
-#### 1.2.2. 구현 코드
-
-```javascript
+```js
 export const intervalPolling = (func, interval, maxAttempts = -1) => {
-    let attempts = 0;
-    let intervalId = setInterval(() => {
-        if (maxAttempts === attempts) {
-            clearInterval(intervalId);
-            return;
-        }
-        attempts++;
-        func();
-    }, interval);
+  let attempts = 0;
+  let intervalId = setInterval(() => {
+    if (maxAttempts === attempts) { // 3
+      clearInterval(intervalId);
+      return;
+    }
+    attempts++;
+    func(); // 2
+  }, interval); // 1
 };
 ```
 
-#### 1.2.3. 함수 실행 간격
-- 콜백 함수 실행 시간이 길어지면 콜백 함수 실행 간격이 짧아집니다. 
-- 예를 들어, `interval`이 100ms 인 경우
-    - 콜백 함수 실행 시간이 30ms라면 다음 콜백 함수 실행은 70ms 뒤 입니다.
-    - 콜백 함수 실행 시간이 60ms라면 다음 콜백 함수 실행은 40ms 뒤 입니다.
+다음 테스트 코드를 통해 이 기능을 검증할 수 있다.
 
-<p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-3.JPG" width="50%" class="image__border">
-</p>
-<center>https://ko.javascript.info/settimeout-setinterval</center>
+1. Given
+  - 페이크 타이머를 설정한다.
+  - 검증에 필요한 스파이 테스트 더블을 만든다.
+2. When
+  - 폴링 인터벌을 지정한다.
+  - 페이크 타이머를 사용해 6초를 진행시킨다.
+3. Then
+  - 스파이가 의도한 대로 5번 호출되었는지 확인한다.
 
-### 1.3. sleep(timeout) 함수 사용 (feat. [@jskim1991][jskim1991-github-link])
+```js
+describe("PollingClient test", () => {
+  beforeEach(() => {
+    jest.clearAllTimers();
+    jest.useRealTimers();
+    jest.restoreAllMocks();
+  });
 
-시간 간격을 만들 수 있는 `sleep(timeout)` 함수를 정의하여 폴링을 제어합니다. 
-`Jest`의 `mockResolvedValue(혹은 mockResolvedValueOnce)`함수와 `useFakeTimers` 함수를 사용하는 경우 테스트 코드가 지저분해집니다. 
-리얼 타이머를 사용하여 테스트 하되 `timeout`이 크면 테스트 시간이 길어지므로 짧게 지정하여 테스트합니다.
+  ...
 
-#### 1.3.1. 테스트 코드
+  test("when 1 second interval and max attempt count is 5 for polling then call 5 times in 6 seconds", () => {
+    jest.useFakeTimers(); // 1
+    const spyFunc = jest.fn();
 
-```javascript
-    it('sleep 100 ms, getting data what you want at 2nd trial when call polling method then 2 times call', async () => {
+    intervalPolling(spyFunc, 1000, 5); // 2
+    for (let i = 0; i < 6; i++) {
+      jest.advanceTimersByTime(1000);
+    }
 
-        const mockCallback = jest
-            .fn()
-            .mockResolvedValueOnce({
-                data: 'Welcome',
-            })
-            .mockResolvedValueOnce({
-                data: 'Junhyunny',
-            })
-            .mockResolvedValueOnce({
-                data: 'Dev',
-            })
-            .mockResolvedValueOnce({
-                data: 'Log',
-            });
+    expect(spyFunc).toHaveBeenCalledTimes(5); // 3
+  });
 
-        const validateFn = (result) => 'Junhyunny' === result.data;
+  ...
 
-        const data = await sleepPolling(mockCallback, validateFn, 100);
-
-        expect(mockCallback).toHaveBeenCalledTimes(2);
-        expect(data).toEqual({
-            data: 'Junhyunny',
-        });
-    });
+});
 ```
 
-#### 1.3.2. 구현 코드
+### 1.3. Polling with while loop
 
-```javascript
+setTimeout, setInterval 함수 말고 while 루프를 사용하는 방법이 있다. 타이머를 사용하지 않기 때문에 Jest의 페이크 타이머를 사용하지 않아도 폴링을 테스트 할 수 있다. 자바스크립트는 sleep 함수가 별도로 없기 때문에 프로미스를 사용해 직접 구현했다. 때문에 이 sleep 함수는 비동기 블록 안에서만 사용할 수 있다. 
+
+1. 지정된 func 콜백 함수를 호출한다.
+2. 원하는 응답인지 확인한다.
+  - 다른 응답인 경우 폴링을 수행한다.
+  - 원하는 응답인 경우 결과를 반환한다.
+3. 지정된 시간만큼 대기한다.
+
+```js
 const sleep = (timeout = 100) => {
-    return new Promise(resolve => {
-        setTimeout(resolve, timeout);
-    });
-}
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
 
 export const sleepPolling = async (func, validateFunc, timeout) => {
-    let result = await func();
-    while (!validateFunc(result)) {
-        await sleep(timeout);
-        try {
-            result = await func();
-        } catch (e) {
-            console.log(e.message);
-        }
+  let result = await func(); // 1
+  while (!validateFunc(result)) { // 2
+    await sleep(timeout); // 3
+    try {
+      result = await func(); // 1
+    } catch (e) {
+      console.log(e.message);
     }
-    return result;
-}
+  }
+  return result;
+};
 ```
 
-## 2. JavaScript 롱 폴링 구현하기
+다음 테스트 코드로 검증한다.
 
-서버는 클라이언트 요청에 대해 즉시 응답을 주지 않습니다. 
-다음과 같은 순서로 진행됩니다. 
-- 클라이언트가 서버에게 요청을 보냅니다.
-- 서버는 즉시 응답을 주지 않습니다.
-- 특정 이벤트가 발생하거나 타임아웃(timeout)이 발생하면 응답을 전달합니다.
-- 클라이언트는 응답을 받은 후 다시 서버에게 데이터를 요청합니다. 
+1. Given
+  - 스텁(stub)에 필요한 응답을 순차적으로 지정한다.
+  - 응답이 유효한지 확인하는 검증 콜백 함수를 정의한다.
+2. When
+  - 폴링을 수행한다.
+3. Then
+  - 의도한 대로 2번 호출되었는지 확인한다.
+  - 원하는 응답이 반환되었는지 확인한다.
 
-##### 롱 폴링 방식
+```js
+describe("PollingClient test", () => {
 
-<p align="center">
-    <img src="/images/polling-long-polling-and-javascript-example-4.JPG" width="50%" class="image__border">
-</p>
+  ...
+
+  test("second response is valid when polling then call back function is called 2 times", async () => {
+    const mockCallback = jest // 1
+      .fn()
+      .mockResolvedValueOnce({
+        data: "Welcome",
+      })
+      .mockResolvedValueOnce({
+        data: "Junhyunny",
+      })
+      .mockResolvedValueOnce({
+        data: "Dev",
+      })
+      .mockResolvedValueOnce({
+        data: "Log",
+      });
+    const validateFn = (result) => "Junhyunny" === result.data;
+
+    const data = await sleepPolling(mockCallback, validateFn, 100); // 2
+
+    expect(mockCallback).toHaveBeenCalledTimes(2); // 3
+    expect(data).toEqual({
+      data: "Junhyunny",
+    });
+  });
+
+  ...
+
+});
+```
+
+## 2. Long Polling in JavaScript
+
+[롱 폴링][polling-long-polling-and-spring-example-link]의 경우 서버는 클라이언트에게 즉시 응답을 주지 않는다. 다음과 같이 진행된다.
+
+1. 클라이언트가 서버에게 요청을 보냅니다.
+  - 서버는 즉시 응답을 주지 않습니다.
+2. 서버는 특정 이벤트가 발생하면 응답을 보낸다.
+  - 시간이 오래 걸리는 경우 클라이언트 쪽에서 타임 아웃이 발생한다.
+3. 클라이언트는 서버로부터 응답을 받은 후 다시 서버에게 요청을 보낸다. 
+
+<div align="center">
+  <img src="/images/posts/2022/polling-long-polling-and-javascript-example-04.png" width="50%" class="image__border">
+</div>
 <center>https://rubberduck-debug.tistory.com/123</center>
 
-### 2.1. 롱 폴링 구현하기
+<br/>
 
-[Long polling][long-polling-link] 포스트의 코드를 일부 변경하였습니다. 
+롱 폴링 구현은 [이 글](https://javascript.info/long-polling)의 코드를 일부 변경했다. 다음과 같이 구현한다.
 
-### 2.1.1. 테스트 코드
+1. 콜백 함수를 수행한다.
+2. 원하는 응답을 받은 경우 폴링을 종료하고 응답 값을 반환한다.
+3. 에러가 발생한 경우 로그를 출력한다.
+  - 타임 아웃, Bad Gateway(502), 서버 에러(500) 등의 에러가 발생하면 이에 맞는 예외 처리를 수행할 수 있다.
+  - 예를 들어 타임 아웃은 즉시 롱-폴링을 재수행, 서버 에러는 1초 뒤 롱-폴링 수행 등 각 에러에 맞게 롱 폴링을 재시도한다.
+4. 다시 롱 폴링을 수행한다.
 
-```javascript
-    it('sleep 100 ms, getting data what you want at 3rd trial when call polling method then 3 times call', async () => {
-
-        const mockCallback = jest
-            .fn()
-            .mockResolvedValueOnce({
-                status: 500
-            })
-            .mockResolvedValueOnce({
-                status: 502
-            })
-            .mockResolvedValueOnce({
-                status: 200,
-                data: 'Junhyunny'
-            })
-            .mockResolvedValueOnce({
-                status: 200,
-                data: 'Log',
-            });
-
-        const validateFn = (response) => 'Junhyunny' === response.data;
-
-        const data = await longPolling(mockCallback, validateFn, 100);
-
-        expect(mockCallback).toHaveBeenCalledTimes(3);
-        expect(data).toEqual({
-            status: 200,
-            data: 'Junhyunny'
-        });
-    });
-```
-
-### 2.1.2. 구현 코드
-
-```javascript
-export const longPolling = async (func, validateFunc, timeout) => {
-    try {
-        let response = await func();
-        if (response.status === 200 && validateFunc(response)) {
-            return response;
-        }
-        // status 502 is a connection timeout
-        if (response.status !== 502) {
-            // when not connection timeout, sleep and try
-            await sleep(timeout);
-        }
-    } catch (error) {
-        await sleep(timeout);
+```js
+export const longPolling = async (func, validateFunc) => {
+  try {
+    let response = await func(); // 1
+    if (validateFunc(response)) { // 2
+      return response;
     }
-    return await longPolling(func, validateFunc, timeout);
-}
+  } catch (error) { // 3
+    console.log(error.message);
+  }
+  return await longPolling(func, validateFunc); // 4
+};
 ```
 
-## CLOSING
+다음 테스트 코드로 위 로직을 검증할 수 있다.
 
-클라이언트 측 폴링과 롱 폴링 기능을 구현하면서 아래와 같은 것들을 배웠습니다. 
-- `jest.useFakeTimers()` 기능을 사용하면 테스트가 어려워집니다.
-- `advanceTimersByTime(ms)` 호출시 내부에서 `setTimeout`, `setInterval`의 콜백 함수를 동기적으로 처리합니다. 
-- 클라이언트 측 폴링과 롱 폴링 코드의 다른 점은 서버의 타임아웃 처리 여부로 보입니다.
+1. Given
+  - 스텁(stub)에 필요한 응답을 순차적으로 지정한다.
+  - 응답이 유효한지 확인하는 검증 콜백 함수를 정의한다.
+2. When
+  - 폴링을 수행한다.
+3. Then
+  - 의도한 대로 3번 호출되었는지 확인한다.
+  - 원하는 응답이 반환되었는지 확인한다.
+
+```js
+describe("PollingClient test", () => {
+
+  ...
+
+  test("third response is valid when polling then callback function is called 3 times", async () => {
+    const mockCallback = jest // 1
+      .fn()
+      .mockRejectedValueOnce({
+        code: "ECONNABORTED",
+      })
+      .mockRejectedValueOnce({
+        status: 500,
+      })
+      .mockResolvedValueOnce({
+        data: "Junhyunny",
+      })
+      .mockResolvedValueOnce({
+        data: "Tangerine",
+      });
+    const validateFn = (response) => "Junhyunny" === response.data;
+
+    const data = await longPolling(mockCallback, validateFn, 100); // 2
+
+    expect(mockCallback).toHaveBeenCalledTimes(3); // 3
+    expect(data).toEqual({
+      data: "Junhyunny",
+    });
+  });
+
+  ...
+
+});
+```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-01-09-polling-long-polling-and-javascript-example>
 
 #### REFERENCE
+
 - <https://rubberduck-debug.tistory.com/123>
 - <https://ko.javascript.info/settimeout-setinterval>
 - <https://ko.javascript.info/long-polling>
 
-[jskim1991-github-link]: https://github.com/jskim1991
-
-[long-polling-link]: https://javascript.info/long-polling
-
 [polling-long-polling-and-spring-example-link]: https://junhyunny.github.io/information/spring-boot/polling-long-polling-and-spring-example/
-
-[recursive-set-timeout-test-link]: https://junhyunny.github.io/react/jest/exception/recursive-set-timeout-test/

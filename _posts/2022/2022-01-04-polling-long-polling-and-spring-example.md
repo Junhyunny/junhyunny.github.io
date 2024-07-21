@@ -153,6 +153,8 @@ public class DeferredResultController {
     private final Map<String, Collection<String>> messagesMap = new ConcurrentHashMap<>();
     private final Map<String, DeferredResult<Collection<String>>> deferredResponsesMap = new ConcurrentHashMap<>();
 
+    ...
+
     @PostMapping("/{id}")
     public void receiveMessage(
             @PathVariable String id,
@@ -230,7 +232,7 @@ curl -X POST\
 
 #### RECOMMEND NEXT POSTS
 
-- [폴링(Polling), 롱 폴링(Long polling) 그리고 JavaScript 예제][polling-long-polling-and-javascript-example-link]
+- [Polling & Long Polling in JavaScript][polling-long-polling-and-javascript-example-link]
 
 #### REFERENCE
 

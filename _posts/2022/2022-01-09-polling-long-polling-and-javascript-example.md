@@ -309,9 +309,6 @@ describe("PollingClient test", () => {
       data: "Junhyunny",
     });
   });
-
-  ...
-
 });
 ```
 

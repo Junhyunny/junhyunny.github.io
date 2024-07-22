@@ -141,7 +141,7 @@ $ npm install -D @testing-library/react\
 설치가 완료되면 추가적으로 테스트 셋업(setup) 파일이 필요하다. 프로젝트 루트 경로에 `vitest-setup.ts` 파일을 만들고 다음 설정을 추가한다.
 
 1. jest-dom 라이브러리를 사용해 Jest에서 사용하는 매처를 확장한다.
-  - 해당 라이브러리를 임포트함으로써 toHaveValue, toBeInTheDoument 매처를 사용할 수 있다.
+  - 해당 라이브러리를 임포트(import)함으로써 toHaveValue, toBeInTheDoument 매처를 사용할 수 있다.
 2. Vitest는 테스트가 끝나면 메모리에 그려진 화면이 지워지지 않기 때문에 매 테스트가 끝날 때마다 초기화(cleanup)가 필요하다.
   - 초기화 코드가 없는 경우 테스트 코드마다 렌더링 한 컴포넌트가 화면에 계속 중복되어 추가된다.
 

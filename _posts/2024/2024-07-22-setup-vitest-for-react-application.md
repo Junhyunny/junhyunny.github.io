@@ -120,12 +120,10 @@ Object literal may only specify known properties, and test does not exist in typ
 
 리액트 애플리케이션을 테스트를 위해 RTL(React Testing Library) 라이브러리를 설치한다. 리액트 컴포넌트를 렌더(render)하거나 screen 객체를 통해 테스트 코드로 그린 컴포넌트 화면에서 DOM 객체를 찾을 수 있다. 다음과 같은 라이브러리들을 설치한다.
 
-- @testing-library/react
-  - RTL 코어 라이브러리이다.
-- @testing-library/react
-  - RTL 코어 라이브러리이다.
+- @testing-library/react, @testing-library/dom
+  - RTL 코어 라이브러리들이다.
 - @testing-library/jest-dom
-  - Jest에서 제공하지만, Vitest에서 제공하지 않는 매처(matcher)를 확장하기 위해 사용한다. 
+  - Jest는 제공하지만, Vitest는 제공하지 않는 매처(matcher)를 확장하기 위해 사용한다. 
 - @testing-library/user-event
   - 사용자 인터렉션(interaction)을 재현한다.
 - @types/react, @types/react-dom
@@ -176,7 +174,7 @@ export default defineConfig({
 });
 ```
 
-타입스크립트(typescript) 코드가 컴파일할 때 Jest 매처를 찾을 수 있도록 `vitest-setup.ts` 파일을 `tsconfig.app.json` 설정에 추가한다.
+타입스크립트(typescript) 코드가 컴파일할 때 Jest 매처를 찾을 수 있도록 `vitest-setup.ts` 파일 경로를 `tsconfig.app.json` 설정에 추가한다.
 
 ```json
 {

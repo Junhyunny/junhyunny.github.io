@@ -564,6 +564,10 @@ ReferenceError: React is not defined
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-13-react-test-environment>
 
+#### RECOMMEND NEXT POSTS
+
+- [Setup Vitest for React App][setup-vitest-for-react-application-link]
+
 #### REFERENCE
 
 - [Native ESM(ECMAScript Module)][esm-link]
@@ -577,3 +581,4 @@ ReferenceError: React is not defined
 [esm-link]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 [react-test-environment-link]: https://marshallku.com/web/tips/react-%ED%85%8C%EC%8A%A4%ED%8A%B8-%ED%99%98%EA%B2%BD-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0
 [regenerator-runtime-error-link]: https://velog.io/@haebin/React-regeneratorRuntime-is-not-defined-%EC%97%90%EB%9F%AC-%ED%95%B4%EA%B2%B0
+[setup-vitest-for-react-application-link]: https://junhyunny.github.io/vite/react/setup-vitest-for-react-application/

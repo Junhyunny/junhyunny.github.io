@@ -142,6 +142,10 @@ JWK 객체는 어디에 사용할까? JWT 객체의 유효성을 검증할 때 �
 
 이 글 도입부에 설명한 것처럼 현 프로젝트의 통일되지 않은 인증, 인가 작업을 정리하기 위해 스프링 시큐리티를 디버깅하면서 확인한 내용들을 글로 정리했다. 스프링 애플리케이션 구조를 다시 재조정하여 문제를 해결한 내용들은 앞으로 작게 나눠 정리할 예정이다.  
 
+#### RECOMMEND NEXT POSTS
+
+- [Spring Security OAuth2 Resource Server][spring-security-oauth2-resource-server-link]
+
 #### REFERENCE
 
 - <https://datatracker.ietf.org/doc/html/rfc7517>
@@ -149,3 +153,4 @@ JWK 객체는 어디에 사용할까? JWT 객체의 유효성을 검증할 때 �
 
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
 [oauth-link]: https://junhyunny.github.io/information/security/oauth/
+[spring-security-oauth2-resource-server-link]: https://junhyunny.github.io/information/java/spring-boot/spring-security/spring-security-oauth2-resource-server/

@@ -135,7 +135,7 @@ JWK 객체는 어디에 사용할까? JWT 객체의 유효성을 검증할 때 �
     - 서명이 동일하면 접근을 허용하고, 서명이 다르다면 접근을 거부한다.
 
 <p align="center">
-  <img src="/images/posts/2024/json-web-key-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/json-web-key-01.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

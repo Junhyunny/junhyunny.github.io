@@ -220,7 +220,7 @@ ECS 클러스터에서 사용할 로드 밸런서 준비가 끝났다. 다음과
 
 - 퍼블릭 서브넷에 애플리케이션 로드 밸런서가 위치한다.
 - 애플리케이션 로드 밸런서의 시큐리티 그룹은 80 포트에 대한 접근이 허용되어 있어야 한다.
-- 타겟 그룹은 해당 VPC 전역에 위치한 모든 리소스가 대상이 된다.  
+- 해당 VPC 전역에 위치한 모든 리소스는 모두 타겟 그룹은 대상이 된다.  
 
 <div align="center">
   <img src="/images/posts/2024/aws-alb-and-target-group-setup-19.png" width="100%" class="image__border">

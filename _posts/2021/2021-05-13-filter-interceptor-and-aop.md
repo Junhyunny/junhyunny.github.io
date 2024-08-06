@@ -339,7 +339,7 @@ foo
 * [JWT AuthenticationFilter 만들기][make-authentication-filter-link]
 * [Throw Custom Exception to Axios from Spring][throw-custom-exception-to-axios-from-spring-link]
 * [Annotation based AOP(Aspect Oriented Programming)][annotation-based-aop-link]
-* [FeignClient AOP 단위 테스트 개선하기][improve-feign-client-aop-test-link]
+* [Improve FeignClient AOP Unit Test][improve-feign-client-aop-test-link]
 
 #### REFERENCE
 

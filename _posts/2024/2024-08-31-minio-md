@@ -1,11 +1,11 @@
 ---
-title: "Substitute MinIO for AWS S3"
+title: "MinIO"
 search: false
 category:
   - docker-compose
   - spring-boot
   - e2e-test
-last_modified_at: 2024-07-25T23:55:00
+last_modified_at: 2024-08-03T23:55:00
 ---
 
 <br/>

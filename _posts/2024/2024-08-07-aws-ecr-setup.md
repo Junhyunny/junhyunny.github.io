@@ -98,15 +98,17 @@ Login Succeeded
 
 ```
 $ docker build -t demo-service .
- [+] Building 24.5s (29/29) FINISHED                                                        docker:desktop-linux
-  => [internal] load build definition from Dockerfile                                                       0.0s
-  => => transferring dockerfile: 795B                                                                       0.0s
+ [+] Building 24.5s (29/29) FINISHED                                                                       docker:desktop-linux
+  => [internal] load build definition from Dockerfile                                                                      0.0s
+  => => transferring dockerfile: 795B                                                                                      0.0s
   => [internal] load metadata for docker.io/library/openjdk:17-jdk-slim  
+
 ...
+
   => exporting to image 0.1s
   => => exporting layers0.1s
-  => => writing image sha256:a72f69ef8f4edd26a3ee9aad9ca870eedac4e6107d74b504a35534ca8d25c5a7               0.0s
-  => => naming to docker.io/library/demo-service                                                            0.0s
+  => => writing image sha256:a72f69ef8f4edd26a3ee9aad9ca870eedac4e6107d74b504a35534ca8d25c5a7                              0.0s
+  => => naming to docker.io/library/demo-service                                                                           0.0s
  
  View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/g5p5wdsantsghhh8gsvd622u9
  

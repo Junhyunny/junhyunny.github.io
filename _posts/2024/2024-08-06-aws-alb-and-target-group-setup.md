@@ -226,7 +226,13 @@ ECS 클러스터에서 사용할 로드 밸런서 준비가 끝났다. 다음과
   <img src="/images/posts/2024/aws-alb-and-target-group-setup-19.png" width="100%" class="image__border">
 </div>
 
+#### RECOMMEND NEXT POSTS
+
+- [AWS ECR(Elastic Container Registry) Setup][aws-ecr-setup-link]
+
 #### REFERENCE
 
 - <https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/load-balancer-target-groups.html>
 - <https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/introduction.html>
+
+[aws-ecr-setup-link]: https://junhyunny.github.io/aws/aws-ecr-setup/

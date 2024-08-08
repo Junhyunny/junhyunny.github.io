@@ -59,7 +59,7 @@ Caused by: java.lang.IllegalStateException: Could not find a valid Docker enviro
 $ export TESTCONTAINERS_HOST_OVERRIDE=$(rdctl shell ip a show rd0 | awk '/inet / {sub("/.*",""); print $2}')
 ```
 
-필자의 경우 심볼릭 링크(symbolic link)가 제대로 잡혀있지 않았기 때문에 문제가 발생했다. 랜처 데스크탑의 경우 다음 명령어를 통해 심볼릭 링크를 제대로 잡아줄 수 있다.
+필자의 경우 심볼릭 링크(symbolic link)가 제대로 설정되어 있지 않았기 때문에 문제가 발생했다. 랜처 데스크탑을 사용하는 경우 다음 명령어를 통해 심볼릭 링크를 재설정하면 `TestContainer`가 정상적으로 도커 환경을 찾을 수 있다.
 
 ```
 $ sudo ln -s $HOME/.rd/docker.sock /var/run/docker.sock

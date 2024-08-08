@@ -313,7 +313,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
   - 허용된 인바운드 시큐리티 그룹 VPC 네트워크 대역인 10.0.0.0/16과 443 포트이다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-25.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-25.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

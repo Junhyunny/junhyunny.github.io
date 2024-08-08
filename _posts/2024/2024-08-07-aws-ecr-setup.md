@@ -145,8 +145,11 @@ latest: digest: sha256:4c4690abd7fee0279c58aa7227cfd66143cf74283d33f555844eff927
 
 #### RECOMMEND NEXT POSTS
 
-- <https://docs.aws.amazon.com/ko_kr/AmazonECR/latest/userguide/what-is-ecr.html>
+- [AWS ECS(Elastic Container Service) Setup][aws-ecs-service-setup-link]
 
 #### REFERENCE
 
+- <https://docs.aws.amazon.com/ko_kr/AmazonECR/latest/userguide/what-is-ecr.html>
+
 [aws-alb-and-target-group-setup-link]: https://junhyunny.github.io/aws/aws-alb-and-target-group-setup/
+[aws-ecs-service-setup-link]: https://junhyunny.github.io/aws/aws-ecs-service-setup/

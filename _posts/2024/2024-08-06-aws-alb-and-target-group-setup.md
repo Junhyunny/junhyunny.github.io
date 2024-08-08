@@ -229,6 +229,7 @@ ECS 클러스터에서 사용할 로드 밸런서 준비가 끝났다. 다음과
 #### RECOMMEND NEXT POSTS
 
 - [AWS ECR(Elastic Container Registry) Setup][aws-ecr-setup-link]
+- [AWS ECS(Elastic Container Service) Setup][aws-ecs-service-setup-link]
 
 #### REFERENCE
 
@@ -236,3 +237,4 @@ ECS 클러스터에서 사용할 로드 밸런서 준비가 끝났다. 다음과
 - <https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/introduction.html>
 
 [aws-ecr-setup-link]: https://junhyunny.github.io/aws/aws-ecr-setup/
+[aws-ecs-service-setup-link]: https://junhyunny.github.io/aws/aws-ecs-service-setup/

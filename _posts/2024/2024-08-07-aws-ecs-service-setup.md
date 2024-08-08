@@ -98,8 +98,8 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
   - 1CPU
   - 3GB Memory
 - 태스크 실행 역할을 `ecsTaskExecutionRole`으로 선택한다.
-  - 이 역할엔 `AmazonECSTaskExecutionRolePolicy` 정책이 지정되어 있다.
-  - CloudWatch 로그 쓰기와 ECR 접근 읽기가 허용된다.
+  - `ecsTaskExecutionRole` 역할엔 `AmazonECSTaskExecutionRolePolicy` 정책이 지정되어 있다.
+  - `AmazonECSTaskExecutionRolePolicy` 정책은 CloudWatch 로그 쓰기와 ECR 접근 읽기를 허용한다.
 
 <div align="center">
   <img src="/images/posts/2024/aws-ecs-service-setup-06.png" width="80%" class="image__border">

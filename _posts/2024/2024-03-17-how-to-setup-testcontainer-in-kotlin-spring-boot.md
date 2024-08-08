@@ -23,7 +23,21 @@ last_modified_at: 2023-03-17T23:55:00
 - 이전엔 자바(java)를 사용했었지만, 이번엔 코틀린(kotlin)을 사용했다.
 - 스프링이 공식적으로 지원하면서 사용 방법이 일부 변경됐다.
 
-처음엔 예전 방식처럼 테스트 컨테이너를 적용했고, 프로젝트 후반에 스프링 부트 3.1 버전 이후 방식으로 다시 변경했다. [Use TestContainer on Runtime in Spring Boot][use-test-container-on-runtime-in-spring-boot-link] 글에서 테스트 컨테이너 관련 변경 사항들을 정리해둔 것들이 많은 도움이 됐다.
+처음엔 예전 방식처럼 테스트 컨테이너를 적용했고, 프로젝트 후반에 스프링 부트 3.1 버전 이후 방식으로 다시 변경했다. [Use TestContainer on Runtime in Spring Boot][use-test-container-on-runtime-in-spring-boot-link] 글에서 테스트 컨테이너 관련 변경 사항들을 정리해둔 것들이 많은 도움이 됐다. 이 예제를 위해 필요한 의존성들은 다음과 같다.
+
+```groovy
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+}
+```
 
 ## 1. Setup TestContainer in the first time 
 

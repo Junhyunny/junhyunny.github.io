@@ -24,6 +24,7 @@ last_modified_at: 2024-08-09T23:55:00
 
 `RDS 대시보드`에서 데이터베이스를 생성할 수 있다.
 
+- 테스트 용도이기 때문에 모니터링 기능은 비활성화한다.
 - `Create database` 버튼을 누른다.
 
 <div align="center">

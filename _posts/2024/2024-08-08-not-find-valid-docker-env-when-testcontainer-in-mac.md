@@ -60,6 +60,8 @@ Caused by: java.lang.IllegalStateException: Could not find a valid Docker enviro
   <img src="/images/posts/2024/not-find-valid-docker-env-when-testcontainer-in-mac-02.png" width="35%" class="image__border image__padding">
 </div>
 
+<br/>
+
 위 설정이 완료되면 `/var/run/docker.sock` 파일의 심볼릭 링크가 제대로 설정되어 있지 않은 문제도 함께 해결해준다. 랜처 데스트탑 환경에서 심볼릭 링크는 `$HOME/.rd/docker.sock` 경로로 설정되어 한다.
 
 ```
@@ -88,7 +90,7 @@ Error: exit status 1
 
 ## CLOSING
 
-위 해결 방법은 랜처 데스크탑을 사용할 때 인텔리제이 IDE 환경이나 그레이들(gradle) CLI로 테스트를 실행할 때 발생하는 문제는 해결한다. 하지만 컨테이너 이미지를 빌드하는 시점에 테스트 스테이지(stage)가 있다면 `TestContainer`를 실행할 때 다시 같은 문제가 발생한다. 
+위 해결 방법은 랜처 데스크탑을 사용할 때 인텔리제이 IDE 환경이나 그레이들(gradle) CLI로 테스트를 실행할 때 발생하는 문제는 해결한다. 하지만 컨테이너 이미지를 빌드하는 시점에 테스트 스테이지(stage)가 있다면 `TestContainer`를 실행할 때 다시 같은 문제가 발생한다. 도커 데스크탑과는 다르게 이미지를 빌드하는 시점에 호스트 머신의 `docker.sock` 파일을 사용하지 못하는 문제가 있는 것으로 보인다.
 
 - `/var/run/docker.sock` 파일을 찾을 수 없어서 `NoSuchFileException` 예외가 발생한다.
 

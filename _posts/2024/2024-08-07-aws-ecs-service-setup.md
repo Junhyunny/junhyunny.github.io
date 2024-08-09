@@ -316,6 +316,10 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
   <img src="/images/posts/2024/aws-ecs-service-setup-25.png" width="100%" class="image__border">
 </div>
 
+#### RECOMMEND NEXT POSTS
+
+- [Connect AWS ECS and RDS][connect-aws-ecs-and-rds-link]
+
 #### REFERENCE
 
 - <https://docs.aws.amazon.com/ko_kr/AmazonECS/latest/developerguide/vpc-endpoints.html>
@@ -323,3 +327,4 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 
 [aws-alb-and-target-group-setup-link]: https://junhyunny.github.io/aws/aws-alb-and-target-group-setup/
 [aws-ecr-setup-link]: https://junhyunny.github.io/aws/aws-ecr-setup/
+[connect-aws-ecs-and-rds-link]: https://junhyunny.github.io/aws/connect-aws-ecs-and-rds/

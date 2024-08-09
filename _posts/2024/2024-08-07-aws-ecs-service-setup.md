@@ -51,7 +51,7 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
 - `Create cluster` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -65,7 +65,7 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
 - `Create` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -73,7 +73,7 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
 클러스터 구축에는 다소 시간이 소요된다. 클러스터 구축이 완료되면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-04.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-04.png" width="100%" class="image__border">
 </div>
 
 ## 3. Create ECS Task Definition
@@ -83,7 +83,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - `Create task definition` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -102,7 +102,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
   - `AmazonECSTaskExecutionRolePolicy` 정책은 CloudWatch 로그 쓰기와 ECR 접근 읽기를 허용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-06.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-06.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -114,7 +114,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - 포트는 8080으로 지정한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-07.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -123,10 +123,10 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 
 <div align="center">
   <div>
-    <img src="/images/posts/2024/aws-ecs-service-setup-08.png" width="80%" class="image__border">
+    <img src="/images/posts/2024/aws-ecs-service-setup-08.png" width="100%" class="image__border">
   </div>
   <div>
-    <img src="/images/posts/2024/aws-ecs-service-setup-09.png" width="80%" class="image__border">
+    <img src="/images/posts/2024/aws-ecs-service-setup-09.png" width="100%" class="image__border">
   </div>
 </div>
 
@@ -135,7 +135,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 생성된 태스크 정보는 다음과 같다. 
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-10.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-10.png" width="100%" class="image__border">
 </div>
 
 ## 4. Create ECS Service
@@ -150,7 +150,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - `Create service` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-11.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-11.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -161,7 +161,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - 플랫폼은 최신 버전을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-12.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-12.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -172,7 +172,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - 원하는 태스크 개수는 1개로 정한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-13.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-13.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -186,7 +186,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
   - 인바운드(inbound) 규칙에 VPC 네트워크 대역인 10.0.0.0/16 IP 주소에서 8080 포트를 통해 접근하는 요청들은 허용하도록 설정한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-14.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-14.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -201,7 +201,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
   - 생성된 서비스는 해당 타겟 그룹에 자동으로 매칭된다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-15.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-15.png" width="100%" class="image__border">
 </div>
 
 ## 5. Trouble shooting
@@ -209,7 +209,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 위에서 생성한 서비스는 배포는 실패한다. ECS 서비스 화면의 `Deployment` 탭의 이벤트 섹션의 태스크 아이디를 누르면 확인할 수 있다. 에러가 발생한 이유를 확인하고 하나씩 해결해보자.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-16.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-16.png" width="100%" class="image__border">
 </div>
 
 ### 5.1. ECR Connection
@@ -227,7 +227,7 @@ ECR 레포지토리에서 이미지를 가져올 때 에러가 발생한다. 권
 - 서비스 카테고리는 `AWS services`로 설정한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-17.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-17.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -241,10 +241,10 @@ ECS 서비스와 동일한 VPC의 프라이빗 서브넷을 선택한다.
 
 <div align="center">
   <div>
-    <img src="/images/posts/2024/aws-ecs-service-setup-18.png" width="80%" class="image__border">
+    <img src="/images/posts/2024/aws-ecs-service-setup-18.png" width="100%" class="image__border">
   </div>
   <div>
-    <img src="/images/posts/2024/aws-ecs-service-setup-19.png" width="80%" class="image__border">
+    <img src="/images/posts/2024/aws-ecs-service-setup-19.png" width="100%" class="image__border">
   </div>
 </div>
 
@@ -253,7 +253,7 @@ ECS 서비스와 동일한 VPC의 프라이빗 서브넷을 선택한다.
 시큐리티 그룹을 선택한다. ECS 서비스를 생성할 때 만든 시큐리티 그룹과 동일한 것을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-20.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-20.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -263,7 +263,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 - 인바운드 규칙에 VPC 네트워크 대역인 10.0.0.0/16 IP 주소에서 443 포트를 통해 접근하는 요청들은 허용하도록 설정한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-21.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-21.png" width="100%" class="image__border">
 </div>
 
 ### 5.2. CloudWatch Connection
@@ -278,7 +278,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 - com.amazonaws.ap-northeast-2.logs 서비스를 생성한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-22.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-22.png" width="100%" class="image__border">
 </div>
 
 ## 6. Check the result
@@ -286,7 +286,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 서비스가 정상적으로 배포되면 다음과 같이 서비스에서 실행 중인 태스크 정보를 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-23.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-23.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -294,7 +294,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 실행 중인 태스크까지 트래픽이 잘 연결되었다면 브라우저에서 서비스 화면을 볼 수 있다. 접근 주소는 [AWS ALB(Application Load Balancer) and Target Group Setup][aws-alb-and-target-group-setup-link] 글에서 만든 로드 밸런서의 DNS 주소를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecs-service-setup-24.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecs-service-setup-24.png" width="100%" class="image__border">
 </div>
 
 <br/>

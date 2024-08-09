@@ -28,7 +28,7 @@ last_modified_at: 2024-08-09T23:55:00
 - `Create database` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -36,7 +36,7 @@ last_modified_at: 2024-08-09T23:55:00
 데이터베이스는 `Aurora PostgreSQL`을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -48,7 +48,7 @@ last_modified_at: 2024-08-09T23:55:00
   - 데이터베이스 접속 정보는 AWS 시크릿 매니저(secrets manager)에서 관리한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-04.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -58,7 +58,7 @@ last_modified_at: 2024-08-09T23:55:00
 - `db.rg5.large` 타입을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -71,7 +71,7 @@ last_modified_at: 2024-08-09T23:55:00
 - 이름이 `demo-rds-sg` 새로운 VPC 시큐리티 그룹을 만든다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-06.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-06.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -81,7 +81,7 @@ last_modified_at: 2024-08-09T23:55:00
 - `Create database` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-07.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -89,7 +89,7 @@ last_modified_at: 2024-08-09T23:55:00
 데이터베이스를 생성하면 다소 긴 시간이 걸린다. 데이터베이스 생성이 완료되면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-08.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-08.png" width="100%" class="image__border">
 </div>
 
 ## 2. Add inbound rule in Security Group for Database
@@ -97,7 +97,7 @@ last_modified_at: 2024-08-09T23:55:00
 데이터베이스를 생성할 때 함께 만들어진 시큐리티 그룹의 `인바운드 규칙(inbound rule)`을 변경해야 한다. 데이터베이스로 접속하는 ECS 태스크들은 전부 VPC 네트워크 내부에 위치하기 때문에 인바운드 규칙을 결정할 때 VPC IP 대역을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-09.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-09.png" width="100%" class="image__border">
 </div>
 
 ## 3. ECS Task Definition Update
@@ -135,7 +135,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - 필자는 `Writer` 타입의 데이터베이스 엔드포인트를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-10.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-10.png" width="100%" class="image__border">
 </div>
 
 ### 3.2. Secrets Manager RDS Connection
@@ -145,7 +145,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `rds!cluster-{UUID}`
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-11.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-11.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -156,7 +156,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - 비밀번호는 "password"이다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-12.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-12.png" width="100%" class="image__border">
 </div>
 
 ### 3.3. Add Environment Variable in ECS Task Definition 
@@ -167,7 +167,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `태스크 정의 대시보드` 화면 우측 상단에 `Create new revision` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-13.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-13.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -181,7 +181,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
   - 입력 필드에 `{AWS_SECRETS_MANAGER_ARN}:{SECRET_VALUE_KEY}::` 같은 포맷으로 값을 작성한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-14.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-14.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -191,7 +191,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Create` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-15.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-15.png" width="100%" class="image__border">
 </div>
 
 ### 3.4. Update ECS Service
@@ -201,7 +201,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Deploy > Update service` 버튼을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-16.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-16.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -212,7 +212,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `demo-ecs-service` 서비스를 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-17.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-17.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -222,7 +222,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Force new deployment` 체크 박스를 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-18.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-18.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -232,7 +232,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Update` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-19.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-19.png" width="100%" class="image__border">
 </div>
 
 ## 4. Trouble shooting
@@ -249,7 +249,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Create endpoint` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-20.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-20.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -260,7 +260,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - 시크릿 매니저에 접근하기 위해 필요한 서비스 이름은 `com.amazonaws.ap-northeast-2.secretsmanager`이다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-21.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-21.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -274,7 +274,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
   - 해딩 인바운드 규칙은 [이전 글][aws-ecs-service-setup-link]에서 추가하였다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-22.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-22.png" width="100%" class="image__border">
 </div>
 
 ### 4.2. Insufficient policies
@@ -289,7 +289,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Add permissions > Attach policies` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-23.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-23.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -300,7 +300,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - `Add permissions` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-24.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-24.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -308,7 +308,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 ecsTaskExecutionRole 역할은 최종적으로 다음과 같은 정책들을 갖는다.
 
 <div align="center">
-  <img src="/images/posts/2024/connect-aws-ecs-and-rds-25.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/connect-aws-ecs-and-rds-25.png" width="100%" class="image__border">
 </div>
 
 ## 5. Check the result
@@ -344,7 +344,5 @@ ecsTaskExecutionRole 역할은 최종적으로 다음과 같은 정책들을 갖
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-08-08-connect-aws-ecs-service-and-rds/action-in-blog>
-
-#### REFERENCE
 
 [aws-ecs-service-setup-link]: https://junhyunny.github.io/aws/aws-ecs-service-setup/

@@ -35,7 +35,7 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 - `Create repository` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecr-setup-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecr-setup-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -48,10 +48,10 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 
 <div align="center">
   <div>
-    <img src="/images/posts/2024/aws-ecr-setup-03.png" width="80%" class="image__border">
+    <img src="/images/posts/2024/aws-ecr-setup-03.png" width="100%" class="image__border">
   </div>
   <div>
-    <img src="/images/posts/2024/aws-ecr-setup-04.png" width="80%" class="image__border">
+    <img src="/images/posts/2024/aws-ecr-setup-04.png" width="100%" class="image__border">
   </div>
 </div>
 
@@ -60,7 +60,7 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 레포지토리가 생성되면 이미지를 업로드 할 수 있다. 이미지를 업로드하는 명령어는 레포지토리 화면 상단 `View push commands` 버튼을 누르면 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecr-setup-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecr-setup-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -73,7 +73,7 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 4. 이미지 푸시
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecr-setup-06.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecr-setup-06.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -136,7 +136,7 @@ latest: digest: sha256:4c4690abd7fee0279c58aa7227cfd66143cf74283d33f555844eff927
 이미지가 업로드 되면 AWS 웹 콘솔에서 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/aws-ecr-setup-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/aws-ecr-setup-07.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

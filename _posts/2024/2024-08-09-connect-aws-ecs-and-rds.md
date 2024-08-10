@@ -14,7 +14,7 @@ last_modified_at: 2024-08-09T23:55:00
 
 ## 0. 들어가면서
 
-[이전 글][aws-ecs-service-setup-link]에서 구축한 ECS 클러스터에서 실행되는 태스크(task)는 H2 데이터베이스를 사용했기 때문에 데이터베이스와 관련된 내용을 다루지 않았다. 이번엔 ECS 태스크 인스턴스와 AWS RDS(Relational Database Service) 데이터베이스를 연결하는 방법에 대해 정리했다. 데이터베이스를 연결하기 전 구축된 ECS 클러스터의 모습은 다음과 같다.
+[이전 글][aws-ecs-service-setup-link]에서 ECS 클러스터를 구축할 때 사용했던 애플리케이션은 H2 인-메모리(in-memory) 데이터베이스를 이용했기 때문에 데이터베이스 연결과 관련된 내용을 다루지 않았다. 이번엔 ECS 태스크(task) 인스턴스와 AWS RDS(Relational Database Service)의 데이터베이스를 연결하는 방법에 대해 정리했다. 데이터베이스를 연결하기 전 구축된 ECS 클러스터의 모습은 다음과 같다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-01.png" width="100%" class="image__border">
@@ -24,7 +24,6 @@ last_modified_at: 2024-08-09T23:55:00
 
 `RDS 대시보드`에서 데이터베이스를 생성할 수 있다.
 
-- 테스트 용도이기 때문에 모니터링 기능은 비활성화한다.
 - `Create database` 버튼을 누른다.
 
 <div align="center">
@@ -33,7 +32,9 @@ last_modified_at: 2024-08-09T23:55:00
 
 <br/>
 
-데이터베이스는 `Aurora PostgreSQL`을 사용한다.
+데이터베이스 엔진을 선택한다.
+
+- `Aurora PostgreSQL`을 사용한다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-03.png" width="100%" class="image__border">
@@ -41,11 +42,11 @@ last_modified_at: 2024-08-09T23:55:00
 
 <br/>
 
-데이터베이스 이름과 데이터베이스 접속 정보를 관리하는 방법을 결정한다.
+데이터베이스 이름과 접속 정보를 관리하는 방법을 선택한다.
 
-- `demo-rds-aurora-postgres`를 이름으로 사용한다.
+- 이름은 `demo-rds-aurora-postgres`이다.
 - `Managed in AWS Secrets Manager` 옵션을 사용한다.
-  - 데이터베이스 접속 정보는 AWS 시크릿 매니저(secrets manager)에서 관리한다.
+  - 데이터베이스 접속 정보는 AWS 시크릿 매니저(Secrets Manager)에서 관리한다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-04.png" width="100%" class="image__border">
@@ -78,6 +79,7 @@ last_modified_at: 2024-08-09T23:55:00
 
 한달 예상 가격을 확인하고 데이터베이스를 생성한다.
 
+- 테스트 용도이기 때문에 모니터링 기능은 비활성화한다.
 - `Create database` 버튼을 누른다.
 
 <div align="center">
@@ -86,7 +88,7 @@ last_modified_at: 2024-08-09T23:55:00
 
 <br/>
 
-데이터베이스를 생성하면 다소 긴 시간이 걸린다. 데이터베이스 생성이 완료되면 다음과 같은 화면을 볼 수 있다.
+데이터베이스를 생성하는 데 다소 긴 시간이 걸린다. 데이터베이스 생성이 완료되면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-08.png" width="100%" class="image__border">
@@ -94,7 +96,7 @@ last_modified_at: 2024-08-09T23:55:00
 
 ## 2. Add inbound rule in Security Group for Database
 
-데이터베이스를 생성할 때 함께 만들어진 시큐리티 그룹의 `인바운드 규칙(inbound rule)`을 변경해야 한다. 데이터베이스로 접속하는 ECS 태스크들은 전부 VPC 네트워크 내부에 위치하기 때문에 인바운드 규칙을 결정할 때 VPC IP 대역을 사용한다.
+데이터베이스를 생성할 때 함께 만들어진 시큐리티 그룹의 `인바운드 규칙(inbound rule)`을 변경해야 한다. 데이터베이스로 접속하는 ECS 태스크들은 전부 VPC 네트워크 내부에 위치하기 때문에 VPC 네트워크에 속한 IP 주소에서 5432 포트로 접근하는 트래픽을 허용해야 한다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-09.png" width="100%" class="image__border">
@@ -102,7 +104,7 @@ last_modified_at: 2024-08-09T23:55:00
 
 ## 3. ECS Task Definition Update
 
-데이터베이스 생성이 완료되면 ECS 클러스터에 배포할 태스크 정의를 변경해야 한다. 변경을 시작하기 전에 컨테이너의 스프링 애플리케이션에서 사용하는 YAML 파일을 살펴보자. 환경 변수(environment variable)를 통해 필요한 값을 주입 받는다.
+데이터베이스 생성이 완료되면 ECS 클러스터에 배포할 태스크 정의(Task Definition)를 변경해야 한다. 변경하기 전 컨테이너의 스프링 애플리케이션에서 사용하는 YAML 파일을 먼저 살펴보자. 환경 변수(environment variable)를 통해 필요한 값들을 주입 받는다.
 
 - DATABASE_URL 
   - 데이터베이스 URL 정보를 주입 받고, 없는 경우 H2 데이터베이스를 사용한다.
@@ -126,7 +128,7 @@ spring:
       ddl-auto: create
 ```
 
-위 설정 파일을 통해 애플리케이션이 필요한 값을 주입 받아 사용할 수 있는 준비가 완료 되었다. 위 설정은 데이터베이스의 테이블들을 초기화 하는 `spring.jpa.hibernate.ddl-auto` 속성이 `create`인 것에 주의하길 바란다. 필자는 AWS ECS, RDS 연결을 위한 예제를 작성하는 중이기 때문에 첫 배포시 에러가 발생하지 않도록 `create` 값을 사용했다.
+위 설정에서 데이터베이스 테이블들을 초기화 하는 `spring.jpa.hibernate.ddl-auto` 속성이 `create`인 것에 주의하길 바란다. 필자는 AWS ECS, RDS 연결을 위한 예제를 작성하는 중이기 때문에 첫 배포시 에러가 발생하지 않도록 `create` 값을 사용했다.
 
 ### 3.1. RDS Database URL endpoint
 
@@ -161,7 +163,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 ### 3.3. Add Environment Variable in ECS Task Definition 
 
-애플리케이션이 실행될 때 필요한 새로운 환경 변수 값을 추가한다. 이 과정에서 ECS 태스크 정의의 버전이 업데이드 된다. 
+애플리케이션이 실행될 때 필요한 새로운 환경 변수 값을 추가한다. 이 과정에서 ECS 태스크 정의 버전이 증가한다. 
 
 - 최신 버전의 태스크를 선택한다.
 - `태스크 정의 대시보드` 화면 우측 상단에 `Create new revision` 버튼을 누른다.
@@ -172,12 +174,12 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 <br/>
 
-직접 입력한 값을 사용하는지 시크릿 매니저로부터 값을 구하는지에 따라서 밸류 타입이 달라진다.
+직접 입력한 값을 사용하는지 시크릿 매니저로부터 값을 얻는지에 따라 값 타입이 달라진다.
 
 - Value
-  - 개발자가 직접 입력한 값들을 사용한다.
+  - 직접 입력한 값들을 사용한다.
 - ValueFrom
-  - 태스크 컨테이너가 실행될 때 시크릿 매니저로부터 필요한 값들을 조회하여 사용한다.
+  - 시크릿 매니저로부터 필요한 값들을 조회하여 사용한다.
   - 입력 필드에 `{AWS_SECRETS_MANAGER_ARN}:{SECRET_VALUE_KEY}::` 같은 포맷으로 값을 작성한다.
 
 <div align="center">
@@ -237,6 +239,8 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 ## 4. Trouble shooting
 
+위 작업을 수행할 때 발생할 수 있는 문제를 살펴보자.
+
 ### 4.1. Secrets Manager Connection
 
 다음과 같은 에러를 확인할 수 있다.
@@ -244,7 +248,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 > Task stopped at: 2024-08-09T17:24:32.638Z<br/>
 > ResourceInitializationError: unable to pull secrets or registry auth: unable to retrieve secret from asm: There is a connection issue between the task and AWS Secrets Manager. Check your task network configuration. failed to fetch secret arn:aws:secretsmanager:ap-northeast-2:1234567890:secret:rds!cluster-12345667890-abcd-erfg-hijk-lmnopqrstu-VWXYZ from secrets manager: RequestCanceled: request context canceled caused by: context deadline exceeded
 
-[이전 글][aws-ecs-service-setup-link]에서 마주친 문제와 동일하다. VPC 프라이빗 서브넷에 배포할 때 서브넷 외부에 위치한 시크릿 매니저에 접근하지 못하기 때문에 문제가 발생한다. 동일하게 엔드포인트(endpoint)를 만들어준다. `VPC 대시보드`의 엔드포인트 화면에서 생성할 수 있다.
+[이전 글][aws-ecs-service-setup-link]에서 마주친 문제와 동일하다. VPC 프라이빗 서브넷에 서비스를 배포하면 서브넷 외부에 위치한 시크릿 매니저에 접근하지 못하기 때문에 문제가 발생한다. 동일하게 엔드포인트(endpoint)를 만들어준다. `VPC 대시보드`의 엔드포인트 화면에서 생성할 수 있다.
 
 - `Create endpoint` 버튼을 누른다.
 
@@ -257,7 +261,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 엔드포인트 이름과 AWS 서비스를 지정한다.
 
 - 이름은 `demo-ecs-secrets-manager-eni`으로 지정한다.
-- 시크릿 매니저에 접근하기 위해 필요한 서비스 이름은 `com.amazonaws.ap-northeast-2.secretsmanager`이다.
+- 시크릿 매니저에 접근하기 위해 필요한 서비스는 `com.amazonaws.ap-northeast-2.secretsmanager`이다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-21.png" width="100%" class="image__border">
@@ -271,7 +275,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - 각 AZ(Availability Zone)의 프라이빗 서브넷을 선택한다.
 - `demo-ecs-service-sq` 시큐리티 그룹을 사용한다.
   - 시크릿 매니저는 HTTPS 통신을 사용하기 때문에 443 포트에 대한 인바운드 규칙이 필요하다.
-  - 해딩 인바운드 규칙은 [이전 글][aws-ecs-service-setup-link]에서 추가하였다.
+  - 해딩 인바운드 규칙은 [이전 글](https://junhyunny.github.io/aws/aws-ecs-service-setup/#51-ecr-connection)에서 추가하였다.
 
 <div align="center">
   <img src="/images/posts/2024/connect-aws-ecs-and-rds-22.png" width="100%" class="image__border">

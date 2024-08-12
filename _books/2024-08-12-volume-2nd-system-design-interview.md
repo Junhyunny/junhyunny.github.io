@@ -3,7 +3,7 @@ title: "가상 면접 사례로 배우는 대규모 시스템 설계 기초 2"
 search: false
 category:
   - books
-last_modified_at: 2024-08-13T23:55:00
+last_modified_at: 2024-08-12T23:55:00
 ---
 
 ## 책 소개

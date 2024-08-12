@@ -6,7 +6,7 @@ classes: wide
 {{ content }}
 
 <p>
-    읽은 책들에 대한 생각을 정리합니다.
+   책을 읽으면서 나의 생각과 인상 깊은 내용들을 정리한다. 
 </p>
 
 {% assign posts = site.books %}
@@ -14,7 +14,7 @@ classes: wide
 <h3 class="archive__subtitle">Books</h3>
 
 <div class="books">
-    {% for post in posts %}
-    {% include card-single.html type=entries_layout %}
-    {% endfor %}
+   {% for post in posts %}
+   {% include card-single.html type=entries_layout %}
+   {% endfor %}
 </div>

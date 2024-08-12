@@ -2,7 +2,7 @@
 title: "가상 면접 사례로 배우는 대규모 시스템 설계 기초"
 search: false
 category:
-  - book
+  - books
 last_modified_at: 2024-08-12T23:55:00
 ---
 
@@ -32,4 +32,4 @@ last_modified_at: 2024-08-12T23:55:00
 
 #### SUMMARY REPOSITORY
 
-- <https://github.com/Junhyunny/system-design-interview>
+- <https://github.com/Junhyunny/book-system-design-interview>

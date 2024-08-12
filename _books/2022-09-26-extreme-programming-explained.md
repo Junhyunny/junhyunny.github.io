@@ -2,7 +2,7 @@
 title: "Extreme Programming Explained"
 search: false
 category:
-  - book
+  - books
 last_modified_at: 2022-09-26T23:55:00
 ---
 

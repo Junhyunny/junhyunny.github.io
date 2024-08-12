@@ -29,3 +29,7 @@ last_modified_at: 2024-08-12T23:55:00
 - 14장 유튜브 설계
 - 15장 구글 드라이브 설계
 - 16장 배움은 계속된다
+
+#### SUMMARY REPOSITORY
+
+- <https://github.com/Junhyunny/system-design-interview>

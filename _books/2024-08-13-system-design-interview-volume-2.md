@@ -26,3 +26,7 @@ last_modified_at: 2024-08-13T23:55:00
 - 11장 결제 시스템
 - 12장 전자 지갑
 - 13장 증권 거래소
+
+#### SUMMARY REPOSITORY
+
+- <https://github.com/Junhyunny/system-design-interview-volume-2>

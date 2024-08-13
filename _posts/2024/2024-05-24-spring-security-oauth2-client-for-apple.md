@@ -415,7 +415,11 @@ public class SecurityConfig {
 
 ## CLOSING
 
-이 외에도 몇 가지 문제들이 있었다. 관련된 내용들은 추가적으로 정리할 예정이다.
+이 글을 작성하고 3달 정도 지난 후 스프링 시큐리티 공식 문서를 들여다보는 중 다음과 같은 [내용](https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_customizing_the_access_token_request)을 확인했다. 
+
+> If you need to customize the pre-processing of the Token Request, you can provide DefaultAuthorizationCodeTokenResponseClient.setRequestEntityConverter() with a custom Converter<OAuth2AuthorizationCodeGrantRequest, RequestEntity<?>>. 
+
+액세스 토큰을 발급 받기 전에 사전 처리가 필요한 경우 DefaultAuthorizationCodeTokenResponseClient 객체의 setRequestEntityConverter 메소드를 사용하라는 내용이다. 스프링 시큐리티 팀에서도 공식적으로 이 방법을 권장한다. 필자는 디버깅을 통해 이 과정을 분석하고 구현하느라 오래 걸렸지만, 공식 문서를 먼저 살펴볼 걸 그랬다는 생각이 든다.  
 
 #### TEST CODE REPOSITORY
 
@@ -428,6 +432,7 @@ public class SecurityConfig {
 - <https://gist.github.com/patrickbussmann/877008231ef082cc5dc4ee5ca661a641>
 - <https://github.com/SWM-YouQuiz/Authentication-Service/blob/dev/build.gradle.kts>
 - <https://github.com/SWM-YouQuiz/Authentication-Service/blob/847932c2047e8111a289f43e018550f5c6aef22d/src/main/kotlin/com/quizit/authentication/global/oauth/AppleOAuth2Provider.kt>
+- <https://docs.spring.io/spring-security/reference/servlet/oauth2/client/authorization-grants.html#_customizing_the_access_token_request>
 
 [oauth-link]: https://junhyunny.github.io/information/security/oauth/
 [open-id-connect-link]: https://junhyunny.github.io/information/security/open-id-connect/

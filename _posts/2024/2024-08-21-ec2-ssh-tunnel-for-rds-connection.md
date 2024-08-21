@@ -65,13 +65,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 
 <br/>
 
-인스턴스를 실행한다.
-
-- `Launch Instances` 버튼을 누른다.
-
-<div align="left">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-06.png" width="45%" class="image__border">
-</div>
+위 설정까지 모두 완료되었으면 새로운 EC2 인스턴스를 실행한다.
 
 ## 2. Create Network Connection
 
@@ -80,7 +74,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - `Actions > Networking > Connect RDS database`를 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-06.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -91,7 +85,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - `Connect` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-08.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-07.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -106,7 +100,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - `...` 버튼을 눌러 SSH 연결 정보를 생성한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-09.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-08.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -118,7 +112,7 @@ EC2 인스턴스 연결 정보를 정의한다.
 - 위에서 EC2 인스턴스를 생성할 때 함께 만든 키 페어를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-10.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-09.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -126,7 +120,7 @@ EC2 인스턴스 연결 정보를 정의한다.
 위에서 생성한 EC2 인스턴스 연결 정보를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-11.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-10.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -139,7 +133,7 @@ EC2 인스턴스 연결 정보를 정의한다.
 - `Test Connection` 버튼을 눌러 접속이 정상적으로 가능한지 확인한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-12.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-11.png" width="80%" class="image__border">
 </div>
 
 ## CLOSING
@@ -147,5 +141,5 @@ EC2 인스턴스 연결 정보를 정의한다.
 최종적으로 다음과 같은 모습을 갖는다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-13.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-12.png" width="80%" class="image__border">
 </div>

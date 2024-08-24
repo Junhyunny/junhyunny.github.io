@@ -17,7 +17,7 @@ CodeCommit은 AWS에서 호스팅하는 코드 버전 관리 서비스다. 깃�
 - `HTTPS(GRC)`를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/grc-for-aws-code-commit-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/grc-for-aws-code-commit-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Install git-remote-codecommit

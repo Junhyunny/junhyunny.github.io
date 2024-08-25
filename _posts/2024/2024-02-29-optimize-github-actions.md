@@ -48,7 +48,7 @@ CI/CD 파이프라인을 여러번 구축해보니 가장 시간을 많이 차�
 - cache-hit
   - 불리언 값으로 키에 매칭되는 캐시를 찾았는지 여부를 의미한다.
 
-공식 문서를 보면 캐시 액션을 사용한 예제를 볼 수 있다. 설정이 직관적이기 때문에 예시를 이해하는데 크게 어려움은 없다.
+공식 문서를 보면 캐시 액션을 사용한 예제를 볼 수 있다. 설정이 직관적이기 때문에 예시를 이해하는데 크게 어려움은 없다. 필자의 블로그에서 사용하는 지킬(jekyll)은 `{{`, `}}` 블럭을 변수 처리 때문에 정상적으로 보이지 않는다. `{ { } }` 형식으로 일부러 띄어서 작성했기 때문에 복사 후 사용한다면 붙여서 사용하길 바란다.
 
 ```yml
 name: Caching with npm
@@ -66,12 +66,12 @@ jobs:
         with:
           # npm cache files are stored in `~/.npm` on Linux/macOS
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${ { runner.os } }-build-${ { env.cache-name } }-${ { hashFiles('**/package-lock.json') } }
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+            ${ { runner.os } }-build-${ { env.cache-name } }-
+            ${ { runner.os } }-build-
+            ${ { runner.os } }-
+      - if: ${ { steps.cache-npm.outputs.cache-hit != 'true' } }
         name: List the state of node modules
         continue-on-error: true
         run: npm list

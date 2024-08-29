@@ -138,6 +138,7 @@ public class SecurityConfig {
   - 액세스 토큰을 디코딩 하는 과정에서 토큰의 서명 정보(signature)를 검증한다.
 4. DefaultJWTProcessor 객체에서 액세스 토큰 검증에 필요한 [JWks(JWK Set)][json-web-key-link]를 인가 서버에게 요청한다.
   - 인가 서버 요청 시 사용하는 URL 주소는 `application.yml` 파일에 정의되어 있다.
+  - DefaultJWTProcessor 객체는 JKWs를 조회할 때 `RemoteJWKSet` 객체와 협업한다.
   - 인가 서버로부터 획득한 JWKs는 캐시에 저장하여 재사용한다. 액세스 토큰을 검증할 때마다 JWKs를 요청하는 과정을 생략할 수 있다.
 5. DefaultJWTProcessor 객체는 JWK를 사용해 JWT 액세스 토큰의 서명 정보 검증한다.
   - JWKs(JWK Set)에 담긴 JWK 중에서 JWT 헤더의 `kid` 값과 매칭되는 JWK 객체를 사용한다.

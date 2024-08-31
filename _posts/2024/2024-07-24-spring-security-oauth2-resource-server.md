@@ -49,7 +49,7 @@ last_modified_at: 2024-06-24T23:55:00
 
 ## 2. Validate Access Token Process in Spring Boot OAuth2 Resource Server
 
-필자가 개발한 백엔드 서버 애플리케이션은 마이크로소프트 서버가 아니다. 백엔드 애플리케이션은 어떤 과정을 통해 해당 토큰의 유효성을 검증하고 있을까? 필자가 개발한 백엔드 서버는 `spring-boot-starter-oauth2-resource-server` 의존성을 사용하고 있다. 해당 의존성을 사용하면 `applicaiton.yml` 파일에 공개 키를 조회할 수 있는 URL 주소를 설정하는 것만으로 쉽게 해당 액세스 토큰의 유효성을 검증할 수 있다. 설정과 구현 코드를 함께 살펴보자. 
+내가 개발한 백엔드 서버 애플리케이션은 마이크로소프트 서버가 아니다. 백엔드 애플리케이션은 어떤 과정을 통해 해당 토큰의 유효성을 검증하고 있을까? 내가 개발한 백엔드 서버는 `spring-boot-starter-oauth2-resource-server` 의존성을 사용하고 있다. 해당 의존성을 사용하면 `applicaiton.yml` 파일에 공개 키를 조회할 수 있는 URL 주소를 설정하는 것만으로 쉽게 해당 액세스 토큰의 유효성을 검증할 수 있다. 설정과 구현 코드를 함께 살펴보자. 
 
 ### 2.1. build.gradle
 

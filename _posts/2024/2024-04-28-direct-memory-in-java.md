@@ -45,7 +45,7 @@ JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따�
 
 <br/>
 
-필자가 겪은 OOM 에러는 다이렉트 메모리 공간이 부족해서 발생했다. 문제가 발생한 에러 로그를 살펴보면 `java.nio` 패키지에 위치한 DirectByteBuffer 클래스를 초기화할 때 에러가 발생한다. DirectByteBuffer 객체를 초기화 할 때 필요한 메모리 공간이 다이렉트 메모리이다. 
+내가 겪은 OOM 에러는 다이렉트 메모리 공간이 부족해서 발생했다. 문제가 발생한 에러 로그를 살펴보면 `java.nio` 패키지에 위치한 DirectByteBuffer 클래스를 초기화할 때 에러가 발생한다. DirectByteBuffer 객체를 초기화 할 때 필요한 메모리 공간이 다이렉트 메모리이다. 
 
 - Cannot reserve 4854065 bytes of direct buffer memory (allocated: 8787367, limit: 10475760)
 - `-XX:MaxDirectMemorySize={N}` JVM 옵션으로 다이렉트 메모리를 더 크게 할당하면 문제를 해결할 수 있다.
@@ -133,7 +133,7 @@ public abstract sealed class ByteBuffer
 
 ## CLOSING
 
-이번 글은 필자가 혼란을 겪은 메모리 영역에 대한 개념과 실제 OOM 에러가 발생한 클래스는 어떤 클래스인지 정리했다. 다음 글 주제는 OOM 에러가 발생한 원인과 이를 해결한 방법에 대해 정리할 예정이다.
+이번 글은 내가 혼란을 겪은 메모리 영역에 대한 개념과 실제 OOM 에러가 발생한 클래스는 어떤 클래스인지 정리했다. 다음 글 주제는 OOM 에러가 발생한 원인과 이를 해결한 방법에 대해 정리할 예정이다.
 
 #### RECOMMEND NEXT POSTS
 

@@ -190,7 +190,7 @@ runs:
 외부 레포지토리에 만든 커스텀 액션을 실행하면 다음과 같은 로그를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/custom-action-in-github-actions-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/custom-action-in-github-actions-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -198,7 +198,7 @@ runs:
 동일 레포지토리에 만든 커스텀 액션을 실행하면 다음과 같은 로그를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/custom-action-in-github-actions-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/custom-action-in-github-actions-03.png" width="100%" class="image__border">
 </div>
 
 

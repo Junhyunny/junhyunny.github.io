@@ -69,7 +69,7 @@ java.lang.OutOfMemoryError: Cannot reserve 6234342 bytes of direct buffer memory
 
 필자는 여러 프로젝트 경험이 있지만, 파일을 업로드하는 기능을 개발할 때 이런 에러는 처음 만났다. [이전 글][out-of-memory-error-case-study-in-jvm-link]에서 이야기 했듯이 처음엔 빌드팩(buildpack)에서 제한하는 다이렉트 메모리가 너무 작은 것이 문제라고 생각했다. 일시적으로 해결된 것처럼 보였지만, 혹시나 하는 생각에 Java 버전을 17로 낮춰 테스트해 봤다. 동일한 메모리 제약 사항에도 Java 21 버전과 다르게 OOM(out of memory) 에러가 발생하지 않았다. 
 
-이게 어찌된 일인가? 먼저 필자가 프로파일링 한 내용들을 살펴보자. 테스트를 위해 사용한 JDK(Java Development Kit)는 다음과 같다.
+이게 어찌된 일인가? 먼저 내가 프로파일링 한 내용들을 살펴보자. 테스트를 위해 사용한 JDK(Java Development Kit)는 다음과 같다.
 
 - temurin-17
 - temurin-21
@@ -139,7 +139,7 @@ Java 17 환경에서 실행한 애플리케이션의 동작을 확인해보자. 
 
 <br/>
 
-jcmd 도구로 네이티브 메모리 사용량을 추적해보자. 다이렉트 메모리가 약 2MB(1984KB) 증가했다. 많은 글에서 jcmd 도구로 다이렉트 메모리 사용량을 측정할 때 `Internal` 항목을 확인하지만, 필자가 직접 테스트해 본 결과 `Other` 영역의 메모리가 증가한다. Java 버전마다 다른 것일 수 있다. jcmd 도구로 다이렉트 메모리 측정하는 방법은 [이 글][tracking-direct-memory-usage-in-jvm-link]에 정리되어 있으니 참고하길 바란다.
+jcmd 도구로 네이티브 메모리 사용량을 추적해보자. 다이렉트 메모리가 약 2MB(1984KB) 증가했다. 많은 글에서 jcmd 도구로 다이렉트 메모리 사용량을 측정할 때 `Internal` 항목을 확인하지만, 내가 직접 테스트해 본 결과 `Other` 영역의 메모리가 증가한다. Java 버전마다 다른 것일 수 있다. jcmd 도구로 다이렉트 메모리 측정하는 방법은 [이 글][tracking-direct-memory-usage-in-jvm-link]에 정리되어 있으니 참고하길 바란다.
 
 ```
 $ jcmd 50887 VM.native_memory summary.diff

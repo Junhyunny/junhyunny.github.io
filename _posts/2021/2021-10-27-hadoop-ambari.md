@@ -94,7 +94,7 @@ $ sudo mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e
 
 ### 3.3. Intsall server package
 
-필자가 참고한 글에는 `ambari-server/target/rpm/ambari-server/RPMS/noarch/` 경로라고 설명되어 있지만, 실제로 `ambari-server/target` 폴더에 존재한다. 해당 디렉토리에서 `ambari-server_2.7.5.0-0-dist.deb` 패키지를 설치한다.
+내가 참고한 글에는 `ambari-server/target/rpm/ambari-server/RPMS/noarch/` 경로라고 설명되어 있지만, 실제로 `ambari-server/target` 폴더에 존재한다. 해당 디렉토리에서 `ambari-server_2.7.5.0-0-dist.deb` 패키지를 설치한다.
 
 ```
 $ cd ./ambari-server/target
@@ -112,7 +112,7 @@ $ sudo ambari-server start
 
 ### 3.5. Install agent package and start
 
-필자가 참고한 글에는 `ambari-agent/target/rpm/ambari-agent/RPMS/x86_64/` 경로라고 설명되어 있지만, 실제로 `ambari-agent/target` 폴더에 존재합니다. 해당 디렉토리에서 `ambari-agent_2.7.5.0-0.deb` 패키지를 설치한다.
+내가 참고한 글에는 `ambari-agent/target/rpm/ambari-agent/RPMS/x86_64/` 경로라고 설명되어 있지만, 실제로 `ambari-agent/target` 폴더에 존재한다. 해당 디렉토리에서 `ambari-agent_2.7.5.0-0.deb` 패키지를 설치한다.
 
 ```
 $ cd ./ambari-agent/target

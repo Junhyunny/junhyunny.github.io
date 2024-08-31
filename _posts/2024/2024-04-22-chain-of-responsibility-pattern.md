@@ -39,7 +39,7 @@ last_modified_at: 2024-04-22T23:55:00
 
 ### 1.2. In Refactoring Guru
 
-디자인 패턴에 대해 잘 정리된 [Refacotring Guru](https://refactoring.guru/ko)라는 사이트에서도 좋은 예시를 들고 있다. 필자가 익숙한 스프링 시큐리티(spring security)와 유사한 사례이기 때문에 더 이해하기 쉬웠다. 
+디자인 패턴에 대해 잘 정리된 [Refacotring Guru](https://refactoring.guru/ko)라는 사이트에서도 좋은 예시를 들고 있다. 내가 익숙한 스프링 시큐리티(spring security)와 유사한 사례이기 때문에 더 이해하기 쉬웠다. 
 
 1. 온라인 주문 시스템을 개발하고 있다.
   - 인증된 사용자만 주문할 수 있다.

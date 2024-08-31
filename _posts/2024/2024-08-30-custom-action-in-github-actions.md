@@ -28,22 +28,22 @@ last_modified_at: 2024-08-30T23:55:00
 커스텀 액션을 사용하는 워크플로우의 작업(job)들을 먼저 살펴보자. 
 
 1. sum
-  - junhyunny/sum 레포지토리에 위치한 액션을 실행한다. 
-    - `@main`은 브랜치 정보이다. 
-  - 파라미터는 `with`라는 키워드를 통해 전달할 수 있으며 다음과 같은 값을 전달한다.
-    - x 변수의 값은 10 이다.
-    - y 변수의 값은 5 이다.
-  - junhyunny/sum 액션의 실행 결과는 출력한다.
-    - 작업에 포함된 스텝(step)들 중 `id-sum` 식별자를 갖는 액션의 결과를 로그로 출력한다.
-    - `sum-result`는 해당 커스텀 액션의 `outputs` 객체에 지정되어 있다.
+    - junhyunny/sum 레포지토리에 위치한 액션을 실행한다. 
+        - `@main`은 브랜치 정보이다. 
+    - 파라미터는 `with`라는 키워드를 통해 전달할 수 있으며 다음과 같은 값을 전달한다.
+        - x 변수의 값은 10 이다.
+        - y 변수의 값은 5 이다.
+    - junhyunny/sum 액션의 실행 결과는 출력한다.
+        - 작업에 포함된 스텝(step)들 중 `id-sum` 식별자를 갖는 액션의 결과를 로그로 출력한다.
+        - `sum-result`는 해당 커스텀 액션의 `outputs` 객체에 지정되어 있다.
 2. minus
-  - 워크플로우가 동작하는 레포지토리에 위치한 액션을 실행한다.
-  - 위와 동일하게 파라미터는 `with`라는 키워드를 통해 전달할 수 있으며 다음과 같은 값을 전달한다.
-    - x 변수의 값은 10 이다.
-    - y 변수의 값은 5 이다.
-  - minus 액션의 실행 결과는 출력한다.
-    - 작업에 포함된 스텝들 중 `id-minus` 식별자를 갖는 액션의 결과를 로그로 출력한다. 
-    - `minus-result`는 해당 커스텀 액션의 `outputs` 객체에 지정되어 있다.
+    - 워크플로우가 동작하는 레포지토리에 위치한 액션을 실행한다.
+    - 위와 동일하게 파라미터는 `with`라는 키워드를 통해 전달할 수 있으며 다음과 같은 값을 전달한다.
+        - x 변수의 값은 10 이다.
+        - y 변수의 값은 5 이다.
+    - minus 액션의 실행 결과는 출력한다.
+        - 작업에 포함된 스텝들 중 `id-minus` 식별자를 갖는 액션의 결과를 로그로 출력한다. 
+        - `minus-result`는 해당 커스텀 액션의 `outputs` 객체에 지정되어 있다.
 
 ```yml
 name: Demo workflow
@@ -91,16 +91,16 @@ jobs:
 action YAML 파일에는 다음과 같은 내용이 포함된다. 
 
 1. 커스텀 액션의 이름을 정의한다.
-  - 액션의 이름은 `Sum`이다.
+    - 액션의 이름은 `Sum`이다.
 2. inputs
-  - 이 커스텀 액션을 사용하는 워크플로우에서 `with` 키워드로 전달한 파라미터가 여기로 매핑된다. 
+    - 이 커스텀 액션을 사용하는 워크플로우에서 `with` 키워드로 전달한 파라미터가 여기로 매핑된다. 
 3. outputs
-  - 이 커스텀 액션 실행 결과를 `sum-result` 변수에 저장한다.
-  - 이 커스텀 액션을 사용하는 워크플로우에선 `steps.{custom-action-step-id}.outputs.sum-result`을 통해 이 값에 접근할 수 있다.
+    - 이 커스텀 액션 실행 결과를 `sum-result` 변수에 저장한다.
+    - 이 커스텀 액션을 사용하는 워크플로우에선 `steps.{custom-action-step-id}.outputs.sum-result`을 통해 이 값에 접근할 수 있다.
   - sum-result 변수에 저장되는 값은 `steps.{step-id}.outputs.{key}`이다.
 4. 커스텀 액션은 반드시 `"composite"`을 사용한다.
 5. 연산 결과는 깃허브 액션스에서 제공하는 저장 공간인 `$GITHUB_OUTPUT`에 저장한다.
-  - `echo "{key}={value}" >> $GITHUB_OUTPUT` 스크립트를 실행하면 $GITHUB_OUTPUT 저장 공간에 해당 키, 값이 저장된다.
+    - `echo "{key}={value}" >> $GITHUB_OUTPUT` 스크립트를 실행하면 $GITHUB_OUTPUT 저장 공간에 해당 키, 값이 저장된다.
 
 ```yml
 name: Sum # 1
@@ -149,16 +149,16 @@ runs:
 위처럼 action YAML 파일을 만들었다면 커스텀 액션을 정의해보자. 위와 동일하지만, 결과 값을 매칭할 때 이름이 다르다. 
 
 1. 커스텀 액션의 이름을 정의한다.
-  - 액션의 이름은 `Minus`이다.
+    - 액션의 이름은 `Minus`이다.
 2. inputs
-  - 이 커스텀 액션을 사용하는 워크플로우에서 `with` 키워드로 전달한 파라미터가 여기로 매핑된다. 
+    - 이 커스텀 액션을 사용하는 워크플로우에서 `with` 키워드로 전달한 파라미터가 여기로 매핑된다. 
 3. outputs
-  - 이 커스텀 액션 실행 결과를 `minus-result` 변수에 저장한다.
-  - 이 커스텀 액션을 사용하는 워크플로우에선 `steps.{custom-action-step-id}.outputs.minus-result`을 통해 이 값에 접근할 수 있다.
+    - 이 커스텀 액션 실행 결과를 `minus-result` 변수에 저장한다.
+    - 이 커스텀 액션을 사용하는 워크플로우에선 `steps.{custom-action-step-id}.outputs.minus-result`을 통해 이 값에 접근할 수 있다.
   - minus-result 변수에 저장되는 값은 `steps.{step-id}.outputs.{key}`이다.
 4. 커스텀 액션은 반드시 `"composite"`을 사용한다.
 5. 연산 결과는 깃허브 액션스에서 제공하는 저장 공간인 `$GITHUB_OUTPUT`에 저장한다.
-  - `echo "{key}={value}" >> $GITHUB_OUTPUT` 스크립트를 실행하면 $GITHUB_OUTPUT 저장 공간에 해당 키, 값이 저장된다.
+    - `echo "{key}={value}" >> $GITHUB_OUTPUT` 스크립트를 실행하면 $GITHUB_OUTPUT 저장 공간에 해당 키, 값이 저장된다.
 
 ```yml
 name: Minus

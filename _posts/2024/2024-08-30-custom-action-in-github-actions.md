@@ -201,7 +201,6 @@ runs:
   <img src="/images/posts/2024/custom-action-in-github-actions-03.png" width="100%" class="image__border">
 </div>
 
-
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/custom-github-actions>

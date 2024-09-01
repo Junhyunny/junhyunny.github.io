@@ -231,7 +231,6 @@ login --
 
 브라우저가 열리고 E2E 테스트가 동작하는 모습을 확인할 수 있다.
 
-
 <div align="center">
   <img src="/images/posts/2024/codecept-js-with-playwright-02.gif" width="100%" class="image__border">
 </div>
@@ -265,15 +264,43 @@ export = function () {
 };
 ```
 
-위 코드는 다음과 같이 재사용이 가능하다.
+로그를 살펴보면 사용자 이름, 비밀번호가 마스킹 된 것을 확인할 수 있다.
 
-- 사용자 이름, 비밀번호는 환경 변수를 사용해 형상 관리되지 않도록 구성할 수 있다.
+```
+$ npm run test
+
+> test
+> codeceptjs run --steps
+
+CodeceptJS v3.6.5 #StandWithUkraine
+Using test root "/Users/junhyunkang/Desktop/workspace/blog/blog-in-action/2024-08-31-codecept-js-with-playwright/e2e"
+
+login --
+  When login Then I can see Hello World 
+    I am on page "/"
+    I set cookie [{"name":"JSESSIONID","value":"9BF6066C279589F0E70A4C84B9679D41","domain":"localhost","path":"/","expires":-1,"httpOnly":true,"secure":false,"sameSite":"Lax"}]
+    I am on page "/"
+    I see "Hello World"
+    I clear cookie 
+    I login *****, *****
+      I am on page "/login"
+      I wait for text "Please sign in", 1.5
+      I fill field "input[name=username]", *****
+      I fill field "input[name=password]", *****
+      I click "Sign in"
+    I grab cookie 
+    I wait 1.5
+    I see "Hello World"
+  ✔ OK in 4241ms
+```
+
+위 코드는 다음과 같이 재사용이 가능하다. 테스트 계정을 사용하는 경우 사용자 이름, 비밀번호는 환경 변수를 사용해 형상 관리되지 않도록 구성할 수 있다. 이 글은 단순한 예제이므로 사용자 이름과 비밀번호를 하드 코딩했다.
 
 ```ts
 I.login(secret("junhyunny"), secret("12345"));
 ```
 
-로그인 기능 재사용과 아이디, 비밀번호가 플레인 텍스트로 표시되는 문제가 해결된다. 다음 로그인 후 세션을 재사용하기 위해선 플러그인을 사용한다. `codecept.conf.ts` 파일에 autoLogin 플러그인을 활성화한다.
+위처럼 actor 객체에 함수 추가함으로써 로그인 기능 재사용, 아이디와 비밀번호가 로그에 표시되는 문제는 해결되었다. 다음 문제인 로그인 세션 재사용을 위해선 플러그인을 사용한다. `codecept.conf.ts` 파일에 autoLogin 플러그인을 활성화한다.
 
 - autoLogin 플러그인을 활성화한다.
 - 로그인 함수 이름을 지정한다.

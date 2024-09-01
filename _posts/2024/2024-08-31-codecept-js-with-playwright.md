@@ -49,7 +49,7 @@ test('get started link', async ({ page }) => {
 
 ## 2. CodeceptJS Framework
 
-내가 느낄 때 Playwright 프레임워크는 Cypress 프레임워크과 크게 다르지 않았다. 반면 `CodeceptJS` 프레임워크는 코드 스타일에 큰 변화를 준다. Playwright, Cypress는 애플리케이션(혹은 브라우저) 관점에서 테스트 코드를 작성한 것 같은 느낌을 주지만, CodeceptJS는 사용자 관점에서 테스트를 작성하는 것처럼 느껴진다. 테스트에 주체가 `page`가 아닌 `I`이기 때문일지도 모르지만, 자연어로 테스트 코드를 작성하기 때문에 코드의 가독성이 좋고 유저 플로우(user flow)를 이해하기 쉽다.
+Playwright 프레임워크는 Cypress 프레임워크과 크게 다르지 않다는 인상을 받았다. 반면 `CodeceptJS` 프레임워크는 코드 스타일에 큰 변화를 준다. Playwright, Cypress는 애플리케이션(혹은 브라우저) 관점에서 테스트 코드를 작성한 것 같은 느낌을 주지만, CodeceptJS는 사용자 관점에서 테스트를 작성하는 것처럼 느껴진다. 테스트에 주체가 `page`가 아닌 `I`이기 때문일지도 모르지만, 자연어로 테스트 코드를 작성하기 때문에 코드의 가독성이 좋고 유저 플로우(user flow)를 이해하기 쉽다.
 
 ```js
 Feature('ToDo');
@@ -66,11 +66,12 @@ Scenario('create todo item', ({ I }) => {
 
 CodeceptJS 프레임워크는 브라우저를 지원하는 도우미(helper) 프레임워크의 도움이 필요하다. CodeceptJS 공식 홈페이지를 보면 다음과 같은 아키텍처를 확인할 수 있다.
 
-- 다음과 같은 도우미 프레임워크가 필요하다.
+- 다음과 같은 도우미 프레임워크를 사용할 수 있다.
   - Playwright
   - Puppeteer
   - WebDriver
   - TestCafe
+  - 기타
 - CodeceptJS 프레임워크로 작성한 도우미 프레임워크가 지원하는 브라우저 환경에서 테스트가 가능하다.
 
 <div align="center">
@@ -162,7 +163,7 @@ Find more information at https://codecept.io
 
 ## 3.2. Write Login Test
 
-간단하게 로그인 테스트를 작성해보자. 로그인 화면을 서비스하는 애플리케이션 코드는 이 글 하단 예제 코드 레포지토리에 함께 포함되어 있다. E2E 테스트 코드를 살펴보자. 
+간단하게 로그인 테스트를 작성해보자. 로그인 화면을 서비스하는 애플리케이션 코드는 이 글 하단 예제 코드 레포지토리에 함께 포함되어 있다. 이제 E2E 테스트 코드를 살펴보자. 
 
 1. 로그인 화면으로 진입한다.
 2. 로그인 화면에서 사용자 정보를 입력한다.
@@ -229,6 +230,11 @@ login --
 ```
 
 브라우저가 열리고 E2E 테스트가 동작하는 모습을 확인할 수 있다.
+
+
+<div align="center">
+  <img src="/images/posts/2024/codecept-js-with-playwright-02.gif" width="100%" class="image__border">
+</div>
 
 ## 3.3. Refactoring with autoLogin plugin
 

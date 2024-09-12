@@ -121,17 +121,17 @@ last_modified_at: 2023-06-03T23:55:00
 
 다음과 같이 인프라 상태를 정의한다.
 
-- `provider` 블럭
+- `provider` 블록
   - 클라우드 제공자는 AWS 이다.
   - AWS에 접근하기 위한 키 정보를 함께 작성한다.
-- `variable` 블럭
+- `variable` 블록
   - 코드에서 사용할 변수들을 정의한다.
-- `resource` 블럭
+- `resource` 블록
   - `example`이라는 이름의 AWS 인스턴스 리소스를 생성한다.
   - EC2 컨테이너 중 우분투(ubuntu) 머신 이미지를 사용한다.
   - 인스턴스 타입을 `t2.micro`로 정한다.
   - 태그 이름을 `example-ec2`로 정한다.
-- `output` 블럭
+- `output` 블록
   - 인스턴스 생성 후 결과 정보를 출력한다.
 
 ```tf

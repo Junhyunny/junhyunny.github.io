@@ -805,8 +805,8 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 ##### `spring.jpa.open-in-view` 설정 값에 따른 분기 지점
 
 - `spring.jpa.open-in-view` 설정 값에 따라 커넥션을 정리 여부는 AOP `doCleanupAfterCompletion` 메소드에서 분기합니다.
-- `spring.jpa.open-in-view` 설정 값이 `false`인 경우에는 위의 파란색 블럭을 수행하여 커넥션을 정리합니다.
-- `spring.jpa.open-in-view` 설정 값이 `true`인 경우에는 아래 초록색 블럭을 수행하여 커넥션 정리를 이후로 미룹니다.
+- `spring.jpa.open-in-view` 설정 값이 `false`인 경우에는 위의 파란색 블록을 수행하여 커넥션을 정리합니다.
+- `spring.jpa.open-in-view` 설정 값이 `true`인 경우에는 아래 초록색 블록을 수행하여 커넥션 정리를 이후로 미룹니다.
 
 <p align="left">
     <img src="/images/open-session-in-view-9.JPG" width="75%" class="image__border">

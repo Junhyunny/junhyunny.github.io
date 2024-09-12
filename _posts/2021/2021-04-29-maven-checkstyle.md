@@ -245,7 +245,7 @@ Audit done.
 
 ##### ActionInBlogApplication Class
 
-* 코드 블럭에 줄내림을 만들어 컨벤션을 위반합니다.
+* 코드 블록에 줄내림을 만들어 컨벤션을 위반합니다.
 
 ```java
 package action.in.blog;
@@ -266,7 +266,7 @@ public class ActionInBlogApplication {
 
 ##### Run Package Phase with Checkstyle Goal
 
-* 코드 블럭에 관련된 경고 메시지와 함께 골 실행이 실패하는 것을 볼 수 있습니다.
+* 코드 블록에 관련된 경고 메시지와 함께 골 실행이 실패하는 것을 볼 수 있습니다.
 
 ```
 $ mvn checkstyle:check package

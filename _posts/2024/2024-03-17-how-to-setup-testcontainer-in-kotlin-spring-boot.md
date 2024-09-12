@@ -49,7 +49,7 @@ dependencies {
 - 테스트 클래스에 @Testcontainers 애너테이션을 추가한다.
 - 컨테이너 인스턴스에 @Container 애너테이션을 추가한다.
 - @DynamicPropertySource 애너테이션과 DynamicPropertyRegistry 객체를 사용해 테스트 컨테이너를 테스트에 연결한다.
-  - 코틀린의 경우 init 블럭을 사용할 수 있다.
+  - 코틀린의 경우 init 블록을 사용할 수 있다.
   - [Use TestContainer on Runtime in Spring Boot][use-test-container-on-runtime-in-spring-boot-link] 글을 참고하길 바란다.
 
 ```kotlin

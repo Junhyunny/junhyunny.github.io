@@ -125,7 +125,7 @@ public class Singleton {
 ### 2.4. Double Checking Locking Lazy Initialization
 
 * 동기화 된 지연 초기화 방식을 사용할 때 발생하는 성능 문제를 해결합니다.
-* 생성된 인스턴스가 없는 경우에만 동기화 블럭이 실행됩니다.
+* 생성된 인스턴스가 없는 경우에만 동기화 블록이 실행됩니다.
 
 ```java
 public class Singleton {

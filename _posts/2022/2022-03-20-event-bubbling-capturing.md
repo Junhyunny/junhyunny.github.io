@@ -41,9 +41,9 @@ last_modified_at: 2022-03-20T23:55:00
 
 간단한 예시를 통해 이를 확인해보자. 
 
-- `a` 블럭을 클릭한다.
+- `a` 블록을 클릭한다.
   - `a` > `paragraph` > `div` 순으로 클릭 이벤트 핸들러가 동작한다.
-- `paragraph` 블럭을 클릭한다. 
+- `paragraph` 블록을 클릭한다. 
   - `paragraph` > `div` 순으로 클릭 이벤트 핸들러가 동작한다.
 
 {% include codepen.html hash="BaJKgKM" tab="html,result" title="Event Bubbling" %}

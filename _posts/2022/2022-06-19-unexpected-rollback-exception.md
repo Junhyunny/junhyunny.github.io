@@ -17,7 +17,7 @@ last_modified_at: 2022-06-19T23:55:00
 ## 0. 들어가면서
 
 이번 프로젝트에서 사용자 접근 이력 정보를 저장하는 로직이 있었습니다. 
-예외(exception)가 발생하더라도 주요 비즈니스 흐름에는 영향을 주지 않도록 `try-catch` 블럭으로 예외 처리를 해주었습니다. 
+예외(exception)가 발생하더라도 주요 비즈니스 흐름에는 영향을 주지 않도록 `try-catch` 블록으로 예외 처리를 해주었습니다. 
 실제 개발계에 배포했을 때 개발계 데이터베이스에 테이블이 준비되지 않아서 해당 로직에서 에러가 발생했는데, 
 예상했던 것과 다르게 예외가 핸들링 되지 않고 프론트엔드 서비스까지 전파되었습니다. 
 에러 로그의 스택 트레이스(stack trace)를 보고 아차 싶었는데, 관련된 내용의 일부 코드를 각색하여 현상과 원인에 대해 정리하였습니다. 
@@ -63,7 +63,7 @@ public class AccessHistoryEntity {
 #### 1.1.2. AccessHistoryService 클래스
 
 - 접근 경로와 사용자 아이디를 전달 받아서 이를 저장합니다.
-- `save` 메소드 호출을 `try-catch` 블럭으로 감싸서 발생한 예외를 핸들링합니다.
+- `save` 메소드 호출을 `try-catch` 블록으로 감싸서 발생한 예외를 핸들링합니다.
     - 에러 로그를 출력하고 해당 로직을 종료합니다.
 - `@Transactional` 애너테이션을 통해 n 개의 접근 이력 `insert` 로직을 하나의 트랜잭션으로 처리합니다. 
     - n 번의 `save` 메소드 호출 중 하나라도 실패하면 이전 `insert` 쿼리를 모두 롤백합니다. 
@@ -238,7 +238,7 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 
 해결 방법은 단순합니다. 
 `@Transactional` 애너테이션이 붙은 메소드 외부에서 예외 핸들링을 수행합니다. 
-이번 케이스의 경우 `createAccessHistories` 메소드 호출 지점들을 `try-catch` 블럭으로 감싸지 않고, 
+이번 케이스의 경우 `createAccessHistories` 메소드 호출 지점들을 `try-catch` 블록으로 감싸지 않고, 
 `JpaRepository` 인터페이스의 `saveAll` 메소드에 이미 `@Transactional` 애너테이션이 붙어있음을 이용하여 내부 로직을 변경하였습니다. 
 
 ### 3.1. AccessHistoryService 클래스 createAccessHistories 메소드 수정

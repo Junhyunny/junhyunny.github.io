@@ -17,8 +17,8 @@ last_modified_at: 2022-06-11T23:55:00
 
 ### 1.1. HTML 코드
 
-- `.menus` 클래스를 지닌 블럭은 메뉴 영역입니다.
-- `.sub-menus` 클래스를 지닌 블럭은 하위 메뉴 영역입니다.
+- `.menus` 클래스를 지닌 블록은 메뉴 영역입니다.
+- `.sub-menus` 클래스를 지닌 블록은 하위 메뉴 영역입니다.
 
 ```html
 <div class="wrap">
@@ -143,7 +143,7 @@ li {
     margin-top: 0.5rem;
 }
 
-/* sub-menus 클래스에 on 클래스가 추가되거나, hover 상태인 경우에 flex 블럭을 유지합니다. */
+/* sub-menus 클래스에 on 클래스가 추가되거나, hover 상태인 경우에 flex 블록을 유지합니다. */
 .sub-menus.on,
 .sub-menus:hover {
     display: flex;
@@ -180,9 +180,9 @@ li {
 
 - `.menus__item` 클래스를 지닌 DOM 객체들을 찾아서 `mouseover`, `mouseout` 이벤트를 지정합니다.
 - `mouseover` 이벤트
-    - `.sub-menus` 클래스를 지닌 블럭에 `.on` 클래스를 추가합니다. 
+    - `.sub-menus` 클래스를 지닌 블록에 `.on` 클래스를 추가합니다. 
 - `mouseout` 이벤트
-    - `.sub-menus` 클래스를 지닌 블럭에 `.on` 클래스를 제거합니다.
+    - `.sub-menus` 클래스를 지닌 블록에 `.on` 클래스를 제거합니다.
 
 ```javascript
 const menusItems = document.querySelectorAll(".menus__item");

@@ -29,7 +29,7 @@ last_modified_at: 2022-08-11T23:55:00
 
 * `App` 함수를 정의합니다.
     * `htmlCode` 함수를 통해 HTML 코드를 `__html` 키에 매칭한 객체를 반환합니다. 
-    * `dangerouslySetInnerHTML` 속성에 `htmlCode` 함수의 반환 값을 전달하는 `div` 블럭을 반환합니다.
+    * `dangerouslySetInnerHTML` 속성에 `htmlCode` 함수의 반환 값을 전달하는 `div` 블록을 반환합니다.
 * `ReactDOM.render` 함수를 통해 `App` 함수의 결과를 렌더링(rendering)합니다.
 
 ```html

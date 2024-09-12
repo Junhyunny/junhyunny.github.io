@@ -133,7 +133,7 @@ IP 주소와 마스크를 &(AND 연산자)로 비트 마스킹(bit masking)하�
 - 숫자가 아닌 이상한 값이 중간에 섞인 경우
 - 접두사 비트 길이가 0보다 작거나 32를 넘어가는 경우
 - IPv4 주소 각 옥텟(octet)의 크기가 0보다 작거나 255를 넘어가는 경우
-    - 옥텟은 점(.)으로 구분된 각 숫자 블럭을 의미한다.
+    - 옥텟은 점(.)으로 구분된 각 숫자 블록을 의미한다.
 
 ```typescript
 function isValidIpAddress(ipBlocks: string[]) {
@@ -197,7 +197,7 @@ function getMaskBlocks(mask: number) {
 
 ### 3.3. Start IP Address
 
-시작 IP 주소를 구하는 과정은 단순하다. ipBlocks, maskBlocks 매개변수 모두 십진수 배열이다. 각 블럭 별로 숫자로 변환된 값들이 담긴 배열이다. 각 옥텟 위치 별로 AND 비트 마스크 연산을 수행한다. AND 연산 수행한 값을 문자열로 변경한다.
+시작 IP 주소를 구하는 과정은 단순하다. ipBlocks, maskBlocks 매개변수 모두 십진수 배열이다. 각 블록 별로 숫자로 변환된 값들이 담긴 배열이다. 각 옥텟 위치 별로 AND 비트 마스크 연산을 수행한다. AND 연산 수행한 값을 문자열로 변경한다.
 
 ```typescript
 function fromIp(ipBlocks: number[], maskBlocks: number[]) {
@@ -211,9 +211,9 @@ function fromIp(ipBlocks: number[], maskBlocks: number[]) {
 
 ### 3.4. End IP Address
 
-종료 IP 주소를 구하는 과정은 조금 이해가 필요하다. 마스크 주소의 블럭이 0인 케이스와 아닌 케이스로 구분한다. 먼저 마스크 주소 블럭이 0인 케이스다. 이 블럭으로 표현할 수 있는 주소는 모두 허용이기 때문에 255 값과 OR 연산을 수행한 결과가 담긴다. 255 값을 그대로 넣어도 무방하다. 
+종료 IP 주소를 구하는 과정은 조금 이해가 필요하다. 마스크 주소의 블록이 0인 케이스와 아닌 케이스로 구분한다. 먼저 마스크 주소 블록이 0인 케이스다. 이 블록으로 표현할 수 있는 주소는 모두 허용이기 때문에 255 값과 OR 연산을 수행한 결과가 담긴다. 255 값을 그대로 넣어도 무방하다. 
 
-마스크 주소의 블럭이 0이 아닌 경우 다음과 같은 연산 과정을 따른다.
+마스크 주소의 블록이 0이 아닌 경우 다음과 같은 연산 과정을 따른다.
 
 ```
 (ipBlocks[index] & maskBlocks[index]) + (255 - maskBlocks[index])

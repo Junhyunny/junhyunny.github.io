@@ -189,8 +189,8 @@ test("when occur 100 times event with throttle in 500ms then invoke 100 times", 
 애플리케이션을 실행하면 다음과 같이 처리되는 것을 확인할 수 있다.
 
 - 스크롤 이벤트 발생 횟수에 따라 화면 두 블록의 폭이 변경된다.
-  - 상단 블럭은 스로틀 처리하지 않은 상태이기 때문에 더 많은 변화가 발생한다.
-  - 하단 블럭은 스로틀 처리된 상태이기 때문에 비교적 변화가 적다.
+  - 상단 블록은 스로틀 처리하지 않은 상태이기 때문에 더 많은 변화가 발생한다.
+  - 하단 블록은 스로틀 처리된 상태이기 때문에 비교적 변화가 적다.
 
 <p align="center">
   <img src="/images/posts/2021/throttle-test-with-jest-02.gif" width="100%">

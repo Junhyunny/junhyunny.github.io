@@ -124,8 +124,8 @@ console.log("global", y); // Uncaught ReferenceError: y is not defined
 
 예시 코드를 통해 함수 레벨 스코프를 살펴보겠습니다. 
 
-* `var` 키워드로 선언한 변수는 함수 코드 블럭 내에서만 지역 스코프에 포함됩니다.
-* `if` 블럭에서 선언한 foo 변수는 지역 스코프로써 유효하지 않으므로 전역 변수로 취급되며 전역에서 정상적으로 출력됩니다.
+* `var` 키워드로 선언한 변수는 함수 코드 블록 내에서만 지역 스코프에 포함됩니다.
+* `if` 블록에서 선언한 foo 변수는 지역 스코프로써 유효하지 않으므로 전역 변수로 취급되며 전역에서 정상적으로 출력됩니다.
 * `bar` 함수 내에서 선언한 baz 변수는 지역 스코프에 선언되었으므로 지역 변수로 취급되며 전역에서 호출시 에러가 발생합니다.
 
 ```javascript
@@ -146,8 +146,8 @@ console.log(baz); // Uncaught ReferenceError: baz is not defined
 
 다음 예시 코드를 통해 `let`, `const` 키워드로 선언한 변수가 블록 레벨(block level) 스코프에서 유효한지 확인 가능합니다.
 
-* `let`, `const` 키워드로 선언한 변수는 코드 블럭 내에 있다면 지역 스코프로 포함됩니다.
-* `if` 블럭, `for` 반복문, `while` 구문, `try-catch` 구문 모두 동일하게 적용됩니다.
+* `let`, `const` 키워드로 선언한 변수는 코드 블록 내에 있다면 지역 스코프로 포함됩니다.
+* `if` 블록, `for` 반복문, `while` 구문, `try-catch` 구문 모두 동일하게 적용됩니다.
 
 ```javascript
 var empty = "";

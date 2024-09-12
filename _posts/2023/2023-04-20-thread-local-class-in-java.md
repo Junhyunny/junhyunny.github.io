@@ -383,8 +383,8 @@ public class AuthenticatedUserHolder {
 
 * 인증된 사용자 정보를 홀더 클래스에 담습니다.
 * 다음 필터 체인을 진행합니다.
-* 요청을 처리와 마무리 작업을 `try-finally` 블럭을 통해 수행합니다.
-    * finally 블럭에서 홀더 클래스에 담긴 정보를 삭제합니다.
+* 요청을 처리와 마무리 작업을 `try-finally` 블록을 통해 수행합니다.
+    * finally 블록에서 홀더 클래스에 담긴 정보를 삭제합니다.
 
 ```java
 package action.in.blog.filter;

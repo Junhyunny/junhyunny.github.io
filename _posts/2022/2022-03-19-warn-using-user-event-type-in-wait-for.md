@@ -255,7 +255,7 @@ export default App
 결과만 보면 `waitFor` 함수의 콜백 함수 내에서 타이핑 이벤트를 수행하였기 때문에 문제가 발생했습니다. 
 
 디버깅 모드로 콜 스택을 살펴보면 `waitFor` 함수와 `userEvent.type` 함수 내부에서 모두 `batchedUpdates` 함수를 호출합니다. 
-`batchedUpdates` 함수 내부 `try-finally` 구문의 `finally` 블럭에서 리-렌더링을 수행하기 위한 함수를 호출하는데, 현재 실행 중인 컨텍스트가 `NoContext` 이어야 리-렌더링을 수행합니다. 
+`batchedUpdates` 함수 내부 `try-finally` 구문의 `finally` 블록에서 리-렌더링을 수행하기 위한 함수를 호출하는데, 현재 실행 중인 컨텍스트가 `NoContext` 이어야 리-렌더링을 수행합니다. 
 함수 내부와 콜 스택을 살펴보겠습니다.
 
 ##### react-dom.development.js 파일 batchedUpdates 함수
@@ -288,9 +288,9 @@ function batchedUpdates$1(fn, a) {
     - 이 시점에 `react-dom.development` 모듈의 `executionContext` 값이 `BatchedContext` 상태로 변경됩니다.
 - `userEvent.type` 콜 스택에서 `batchedUpdates` 함수를 호출합니다.
     - 이 시점에 `react-dom.development` 모듈의 `executionContext` 값은 이미 `BatchedContext` 상태입니다.
-    - 자신이 수행할 콜 백 함수를 실행한 후 `finally` 블럭에서 `executionContext === NoContext` 조건을 만족하지 못 합니다.
+    - 자신이 수행할 콜 백 함수를 실행한 후 `finally` 블록에서 `executionContext === NoContext` 조건을 만족하지 못 합니다.
     - 타이핑 이벤트에 대한 리-렌더링 작업들이 수행되지 않습니다.
-- `waitFor` 콜 스택 `batchedUpdates` 함수의 `finally` 블럭에서 `executionContext === NoContext` 조건이 만족됩니다.
+- `waitFor` 콜 스택 `batchedUpdates` 함수의 `finally` 블록에서 `executionContext === NoContext` 조건이 만족됩니다.
 - 리-렌더링을 1회 수행합니다.
 
 <p align="left">

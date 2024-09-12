@@ -272,7 +272,7 @@ abstract class TestContainerDatabase {
 
 - @Testcontainers, @Container, @ServiceConnection 애너테이션을 제거해 테스트 컨테이너의 라이프 사이클을 프레임워크가 제어하지 않도록 만든다.
 - @DynamicPropertySource 애너테이션, DynamicPropertyRegistry 클래스를 사용해 테스트 실행 환경과 테스트 컨테이너를 연결한다.
-- 초기화 init 블럭에서 테스트 컨테이너를 실행시킨다.
+- 초기화 init 블록에서 테스트 컨테이너를 실행시킨다.
 
 ```kotlin
 package blog.`in`.action

@@ -189,7 +189,7 @@ $ xcode-select --install
 Scripted 방식과 Declarative 방식이 존재하며 둘을 혼동하지 않도록 조심하시기 바랍니다. 
 
 ##### Scripted 방식과 Declarative 방식 차이
-- Scripted 방식은 `node` 블럭으로 감싸져 있습니다.
+- Scripted 방식은 `node` 블록으로 감싸져 있습니다.
 
 ```
 node {
@@ -205,7 +205,7 @@ node {
 }
 ```
 
-- Declarative 방식은 `pipeline` 블럭으로 감싸져 있습니다.
+- Declarative 방식은 `pipeline` 블록으로 감싸져 있습니다.
 
 ```
 pipeline {

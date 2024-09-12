@@ -17,12 +17,12 @@ last_modified_at: 2023-03-20T23:55:00
 
 ## 1. Compression on Nginx 
 
-압축 관련된 설정은 공통적으로 적용하면 좋기 때문에 `http` 블럭 내부에 작성합니다. 
-`server`, `location` 블럭 내부에 설정하여도 무관합니다. 
+압축 관련된 설정은 공통적으로 적용하면 좋기 때문에 `http` 블록 내부에 작성합니다. 
+`server`, `location` 블록 내부에 설정하여도 무관합니다. 
 
 ##### nginx.conf
 
-* `http` 블럭은 메인 설정 파일인 `/etc/nginx/nginx.conf`에 정의합니다.
+* `http` 블록은 메인 설정 파일인 `/etc/nginx/nginx.conf`에 정의합니다.
 * 다음과 같은 압축 관련 설정들을 작성합니다.
 * gzip on;
     * 컨텐츠 압축 사용을 지시합니다.

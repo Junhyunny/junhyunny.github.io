@@ -16,8 +16,8 @@ last_modified_at: 2022-06-06T23:55:00
 
 ### 1.1. HTML 코드
 
-- `.contract__header` 클래스를 지닌 블럭은 헤더 부분이며 이를 눌러 내용이 담긴 블럭을 열었다 닫을 수 있습니다.
-- `.contract__content` 클래스를 지닌 블럭은 컨텐츠 부분이며 해당 블럭이 열리고, 닫힙니다.
+- `.contract__header` 클래스를 지닌 블록은 헤더 부분이며 이를 눌러 내용이 담긴 블록을 열었다 닫을 수 있습니다.
+- `.contract__content` 클래스를 지닌 블록은 컨텐츠 부분이며 해당 블록이 열리고, 닫힙니다.
 
 ```html
 <div class="contract__header">

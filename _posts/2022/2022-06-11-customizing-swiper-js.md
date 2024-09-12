@@ -36,7 +36,7 @@ last_modified_at: 2022-06-11T23:55:00
 
 - 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였습니다.
     - 실제 코드에선 `header` 영역에 이를 위치시킵니다.
-- `.swiper-slide` 클래스를 지닌 DOM 블럭에 필요한 컨텐츠들을 담습니다.
+- `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담습니다.
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -175,9 +175,9 @@ new Swiper("#my-swiper", {
 
 - 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였습니다.
     - 실제 코드에선 `header` 영역에 이를 위치시킵니다.
-- `.swiper-slide` 클래스를 지닌 DOM 블럭에 필요한 컨텐츠들을 담습니다.
+- `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담습니다.
 - 스와이퍼의 화살표 모양을 담당하는 `.swiper-button-prev`, `.swiper-button-next` 클래스를 스와이퍼 외부로 옮깁니다.
-- 스와이퍼 슬라이드들과 네비게이션 화살표 DOM 요소들을 감쌀 수 있는 블럭을 만들고, `.swiper-wrap` 클래스로 지정합니다.
+- 스와이퍼 슬라이드들과 네비게이션 화살표 DOM 요소들을 감쌀 수 있는 블록을 만들고, `.swiper-wrap` 클래스로 지정합니다.
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />

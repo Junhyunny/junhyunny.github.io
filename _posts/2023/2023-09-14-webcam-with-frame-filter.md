@@ -107,7 +107,7 @@ html {
   display: none;
 }
 
-/* 촬영한 카드가 수집되는 블럭 */
+/* 촬영한 카드가 수집되는 블록 */
 .strip {
   margin-top: 0.5rem;
   padding: 2rem;

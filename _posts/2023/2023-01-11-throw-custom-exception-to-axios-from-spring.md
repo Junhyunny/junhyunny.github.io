@@ -299,7 +299,7 @@ axios.interceptors.response.use(
 
 ## 4. Why do we handle exceptions in one point?
 
-코드 곳곳에서 `try-catch` 블럭을 만드는 것은 가독성을 나쁘게 만듭니다. 
+코드 곳곳에서 `try-catch` 블록을 만드는 것은 가독성을 나쁘게 만듭니다. 
 예외를 상위 메소드에게 예외 처리를 위임하는 것도 코드를 복잡하게 만듭니다. 
 `@ControllerAdvice`, `@ExceptionHandler` 애너테이션을 사용해 예외를 한 곳에서 처리하는 컴포넌트를 만들면 다음과 같은 점이 개선됩니다. 
 

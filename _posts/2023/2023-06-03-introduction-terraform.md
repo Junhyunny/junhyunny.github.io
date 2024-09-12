@@ -386,6 +386,10 @@ new-instance-public-ip = "54.172.203.53"
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-03-introduction-terraform>
 
+#### RECOMMEND NEXT POSTS
+
+- [Create VPC in AWS with Terraform][create-vpc-in-aws-with-terraform-link]
+
 #### REFERENCE
 
 - <https://www.redhat.com/en/topics/automation/what-is-provisioning>

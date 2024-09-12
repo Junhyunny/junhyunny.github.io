@@ -3,7 +3,7 @@ title: "Create VPC in AWS with Terraform"
 search: false
 category:
   - terraform
-last_modified_at: 2024-09-10T23:55:00
+last_modified_at: 2024-09-12T23:55:00
 ---
 
 <br/>
@@ -95,7 +95,7 @@ variable "project_name" {
 
 `terraform.tfvars` 파일에 실제로 사용할 변수 값을 지정한다.
 
-```tfvars
+```tf
 region   = "us-east-1"
 vpc_name = "junhyunny-vpc"
 project_name = "junhyunny-demo"

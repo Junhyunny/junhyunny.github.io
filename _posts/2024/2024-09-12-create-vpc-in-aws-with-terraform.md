@@ -36,6 +36,17 @@ last_modified_at: 2024-09-12T23:55:00
 
 프로젝트 구조는 다음과 같다.
 
+```
+.
+├── gateway.tf
+├── provider.tf
+├── route-table.tf
+├── subnet.tf
+├── terraform.tfvars
+├── variable.tf
+└── vpc.tf
+```
+
 ## 3. Initialize for cloud provider
 
 클라우드 제공자(cloud provider) 정보를 `provider.tf` 파일에 정의한다.

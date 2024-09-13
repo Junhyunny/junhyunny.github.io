@@ -335,6 +335,10 @@ Do you want to perform these actions?
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-09-12-create-vpc-in-aws-with-terraform>
 
+#### RECOMMEND NEXT POSTS
+
+- [Create ALB and TargetGroup in AWS with Terraform][create-alb-and-target-group-in-aws-with-terraform-link]
+
 #### REFERENCE
 
 - <https://stackoverflow.com/a/56099677/14859847>
@@ -342,3 +346,4 @@ Do you want to perform these actions?
 - <https://inpa.tistory.com/entry/AWS-%F0%9F%93%9A-%ED%83%84%EB%A0%A5%EC%A0%81-IP-Elastic-IP-EIP-%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80>
 
 [introduction-terraform-link]: https://junhyunny.github.io/information/infrastructure/dev-ops/introduction-terraform/
+[create-alb-and-target-group-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/create-alb-and-target-group-in-aws-with-terraform/

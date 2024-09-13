@@ -278,7 +278,7 @@ $ export AWS_SECRET_ACCESS_KEY=ABCDEFGHIJKLEMNOPQRSTUVWXYZ/1234567890/BCDE
 $ export AWS_SESSION_TOKEN=ABCDEFG ... 1234567890
 ```
 
-`terraform apply` 명령어를 사용해 인프라를 적용한다.
+`terraform apply` 명령어를 사용해 AWS 클라우드에 인프라 변경 사항을 적용한다.
 
 ```
 $ terraform apply
@@ -321,7 +321,7 @@ Do you want to perform these actions?
   Enter a value: yes
 ```
 
-테라폼이 적용되면 웹 콘솔 VPC 리소스 맵에서 다음과 같은 VPC, 서브넷, 게이트웨이 그리고 라우트 테이블을 확인할 수 있다.
+테라폼 작업이 완료되면 웹 콘솔 VPC 리소스 맵에서 다음과 같은 VPC, 서브넷, 게이트웨이 그리고 라우트 테이블을 확인할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2024/create-vpc-in-aws-with-terraform-02.png" width="100%" class="image__border">

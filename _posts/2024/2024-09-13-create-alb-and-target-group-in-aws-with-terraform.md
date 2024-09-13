@@ -278,4 +278,4 @@ alb-dns = "tf-lb-20240913202006675800000003-83453087.us-east-1.elb.amazonaws.com
 - <https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener>
 - <https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group>
 
-- [create-vpc-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/create-vpc-in-aws-with-terraform/
+[create-vpc-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/create-vpc-in-aws-with-terraform/

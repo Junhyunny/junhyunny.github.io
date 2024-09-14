@@ -135,7 +135,7 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
 * 개발 편의를 위해 `developing` 버튼을 눌러 `published` 상태로 변경합니다.
 * Basic settings Tab
     * `Channel ID` 항목이 클라이언트 ID입니다.
-    * `Channel secrete` 항목이 클라이언트 시크릿입니다.
+    * `Channel secret` 항목이 클라이언트 시크릿입니다.
 
 <p align="center">
     <img src="/images/oauth2-line-login-with-spring-security-8.JPG" width="100%" class="image__border">

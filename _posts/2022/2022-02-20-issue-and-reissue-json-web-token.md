@@ -163,7 +163,7 @@ spring:
 - `spring.sql.init` 속성을 통해 서비스가 시작하는 시점에 미리 테이블 스키마와 데이터를 추가합니다.
     - `schema-locations` - 데이터베이스 스키마 SQL 설정
     - `data-locations` - 데이터베이스 초기 데이터 INSERT SQL 설정
-- `jwt.refresh-secrete` 속성을 통해 리프레시 토큰(refresh token)을 만들 때 사용할 키를 추가하였습니다.
+- `jwt.refresh-secret` 속성을 통해 리프레시 토큰(refresh token)을 만들 때 사용할 키를 추가하였습니다.
 - 기타 JPA, H2 설정을 추가합니다.
 
 ```yml

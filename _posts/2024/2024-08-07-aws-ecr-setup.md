@@ -81,9 +81,9 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 필자는 회사에서 제공하는 AWS 샌드박스(sandbox) 환경을 사용하고 있다. 루트 사용자가 아니기 때문에 터미널에서 aws CLI 명령어를 사용하기 위해선 AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN 같은 정보가 필요하다. 다음 명령어로 발급 받은 시크릿 정보를 환경 변수에 추가한다.
 
 ```
-export AWS_ACCESS_KEY_ID=value_access_key_id
-export AWS_SECRET_ACCESS_KEY=value_secret_access_key
-export AWS_SESSION_TOKEN=value_session_token
+$ export AWS_ACCESS_KEY_ID=ABCDEFGHIJKLEMNOPQRSTUVWXYZ
+$ export AWS_SECRET_ACCESS_KEY=ABCDEFGHIJKLEMNOPQRSTUVWXYZ/1234567890/BCDE
+$ export AWS_SESSION_TOKEN=ABCDEFG ... 1234567890
 ```
 
 환경 변수를 추가하고 로그인을 수행하면 다음과 같이 성공했다는 로그를 볼 수 있다.

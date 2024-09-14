@@ -139,7 +139,7 @@ last_modified_at: 2024-05-24T23:55:00
 여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터 생성하는 createParameters 메소드를 확장했다.
 
 - 애플 인가 서버로 보내는 요청인 경우
-  - AppleSecreteGenerator 객체로 새로운 클라이언트 시크릿을 생성한다.
+  - AppleSecretGenerator 객체로 새로운 클라이언트 시크릿을 생성한다.
   - 부모 클래스의 createParameters 메소드로 만든 요청 파라미터 중 클라이언트 시크릿을 새로운 만든 시크릿으로 변경한다.
 - 애플 외 다른 인가 서버로 보내는 요청인 경우 
   - 부모 클래스의 createParameters 메소드로 만든 요청 파라미터를 반환한다.
@@ -232,12 +232,12 @@ public class AppleOAuth2AuthorizationCodeGrantRequestEntityConverter extends OAu
     private static final String APPLE_REGISTRATION_ID = "apple";
     private static final String CLIENT_SECRET_KEY = "client_secret";
 
-    private final AppleSecreteGenerator appleSecreteGenerator;
+    private final AppleSecretGenerator appleSecretGenerator;
 
     public AppleOAuth2AuthorizationCodeGrantRequestEntityConverter(
-            AppleSecreteGenerator appleSecreteGenerator
+            AppleSecretGenerator appleSecretGenerator
     ) {
-        this.appleSecreteGenerator = appleSecreteGenerator;
+        this.appleSecretGenerator = appleSecretGenerator;
     }
 
     @Override
@@ -246,7 +246,7 @@ public class AppleOAuth2AuthorizationCodeGrantRequestEntityConverter extends OAu
     ) {
         var clientRegistrationId = authorizationCodeGrantRequest.getClientRegistration().getRegistrationId();
         if (APPLE_REGISTRATION_ID.equalsIgnoreCase(clientRegistrationId)) { // 1
-            var encryptedPrivateKey = appleSecreteGenerator.createClientSecret();
+            var encryptedPrivateKey = appleSecretGenerator.createClientSecret();
             var parameter = super.createParameters(authorizationCodeGrantRequest);
             parameter.put(CLIENT_SECRET_KEY, List.of(encryptedPrivateKey));
             return parameter;
@@ -288,7 +288,7 @@ import java.util.Date;
 import java.util.Map;
 
 @Component
-public class AppleSecreteGenerator {
+public class AppleSecretGenerator {
 
     private static final int SECOND = 1000;
     private static final int MINUTE = 60 * SECOND;
@@ -300,7 +300,7 @@ public class AppleSecreteGenerator {
     private final String teamId;
     private final String clientId;
 
-    public AppleSecreteGenerator(
+    public AppleSecretGenerator(
             @Value("${apple.key-id}") String keyId,
             @Value("${apple.team-id}") String teamId,
             @Value("${spring.security.oauth2.client.registration.apple.client-id}") String clientId

@@ -32,7 +32,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - JASYPT_SECRETE_KEY=HelloWorld
+      - JASYPT_SECRET_KEY=HelloWorld
     depends_on:
       - mysql
 ```
@@ -206,7 +206,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - JASYPT_SECRETE_KEY=HelloWorld
+      - JASYPT_SECRET_KEY=HelloWorld
     depends_on:
       mysql:
         condition: service_healthy

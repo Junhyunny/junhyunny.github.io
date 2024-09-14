@@ -179,7 +179,7 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
                 .inMemory()
                 // 클라이언트 어플리케이션에 미리 발급된 ID
                 .withClient(clientId)
-                // 클라이언트 어플리케이션에 미리 발급된 SECRETE, 암호화하여 추가
+                // 클라이언트 어플리케이션에 미리 발급된 SECRET, 암호화하여 추가
                 .secret(passwordEncoder.encode(clientSecret))
                 // 인증 방법은 비밀번호와 리프레시 토큰
                 .authorizedGrantTypes("password", "refresh_token")
@@ -689,8 +689,8 @@ authorization-server_1  | 2022-08-19 18:49:22.976  INFO 1 --- [           main] 
 * 인증 서버로 토큰 정보를 요청합니다.
     * POST 요청입니다.
     * `/oauth/token`는 Spring Security 프레임워크가 자동으로 생성한 API 경로입니다.
-* 인증 서버에 미리 등록된 클라이언트 `ID`와 `SECRETE` 정보를 함께 전달합니다.
-    * 클라이언트 `ID`와 `SECRETE` 정보는 클라이언트 어플리케이션이 인증 서버로부터 미리 발급 받은 정보입니다.
+* 인증 서버에 미리 등록된 클라이언트 `ID`와 `SECRET` 정보를 함께 전달합니다.
+    * 클라이언트 `ID`와 `SECRET` 정보는 클라이언트 어플리케이션이 인증 서버로부터 미리 발급 받은 정보입니다.
 * 사용자임을 인증할 수 있도록 사용자 ID, 비밀번호, 인증 방식을 전달합니다.
 
 ```

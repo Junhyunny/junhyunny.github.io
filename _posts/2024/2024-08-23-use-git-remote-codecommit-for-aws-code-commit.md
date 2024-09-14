@@ -33,9 +33,9 @@ $ brew install git-remote-codecommit
 - 액세스 아이디, 시크릿, 토큰을 환경 변수에 등록한다.
 
 ```
-export AWS_ACCESS_KEY_ID=value_access_key_id
-export AWS_SECRET_ACCESS_KEY=value_secret_access_key
-export AWS_SESSION_TOKEN=value_session_token
+$ export AWS_ACCESS_KEY_ID=ABCDEFGHIJKLEMNOPQRSTUVWXYZ
+$ export AWS_SECRET_ACCESS_KEY=ABCDEFGHIJKLEMNOPQRSTUVWXYZ/1234567890/BCDE
+$ export AWS_SESSION_TOKEN=ABCDEFG ... 1234567890
 ```
 
 나머지는 깃(git)을 사용하는 것과 동일하지만, 리모트(remote) 주소가 다음과 `codecommit::region://repository-name` 같은 형태를 갖는다. 

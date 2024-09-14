@@ -100,7 +100,7 @@ last_modified_at: 2023-02-23T23:55:00
 
 ### 2.2. Pipeline Workflow File
 
-다음과 같은 워크플로우 파일을 생성한다. 가독성 좋은 설명을 위해 주석으로 설명한다. 
+다음과 같은 워크플로우 파일을 생성한다. 가독성 좋은 설명을 위해 주석으로 설명한다. 이 예제의 주의할 점은 필자의 블로그에서 사용하는 지킬(jekyll)은 더블 컬리 브레이스({}) 블록을 변수 처리 때문에 정상적으로 보이지 않는다. 아래처럼 `{ { } }` 처럼 일부러 띄어 작성했다. 복사 후 사용한다면 괄호는 붙여서 사용하길 바란다.
 
 ```yml
 name: CI/CD Pipeline
@@ -157,8 +157,8 @@ jobs:
       - name: Login to Docker Hub # 도커 허브 로그인
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${ { secrets.DOCKERHUB_USERNAME } }
+          password: ${ { secrets.DOCKERHUB_TOKEN } }
       - name: Backend Build and push # 백엔드 컨테이너 이미지 빌드 및 푸시
         uses: docker/build-push-action@v5
         with:

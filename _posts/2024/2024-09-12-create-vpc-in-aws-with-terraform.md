@@ -270,7 +270,7 @@ resource "aws_route_table_association" "demo-routing-private-1" {
 
 ## 9. Apply Terraform
 
-위에서 코드로 정의한 인프라를 테라폼으로 적용한다. 필자는 파워 유저이기 때문에 웹 콘솔에서 획득한 클라이언트 정보를 터미널 세션에 준비해야 한다.
+위에서 코드로 정의한 인프라를 테라폼으로 적용한다. 필자는 파워 유저(power user)이기 때문에 클라이언트 액세스(access)를 위해 임시로 획득한 환경 변수를 터미널 세션에 준비한다.
 
 ```
 $ export AWS_ACCESS_KEY_ID=ABCDEFGHIJKLEMNOPQRSTUVWXYZ

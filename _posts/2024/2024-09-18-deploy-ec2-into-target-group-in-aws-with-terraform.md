@@ -234,4 +234,9 @@ ALB DNS 주소로 접근하면 애플리케이션 화면을 확인할 수 있다
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-09-18-deploy-ec2-into-target-group-in-aws-with-terraform>
 
+#### RECOMMEND NEXT POSTS
+
+- [Terraform Backend for tfstate management][terraform-backend-for-tfstate-management-link]
+
 [create-alb-and-target-group-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/create-alb-and-target-group-in-aws-with-terraform/
+[terraform-backend-for-tfstate-management-link]: https://junhyunny.github.io/terraform/terraform-backend-for-tfstate-management/

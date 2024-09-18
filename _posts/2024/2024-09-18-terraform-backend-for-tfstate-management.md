@@ -221,7 +221,7 @@ Acquiring state lock. This may take a few moments...
 Releasing state lock. This may take a few moments...
 ```
 
-터미널 세션을 두 개 열고 각 터미널에서 terraform apply 명령어를 수행하면 늦게 적용한 터미널에서 아래와 같은 에러 메시지를 볼 수 있다.
+터미널 세션을 두 개 열고 각 터미널에서 terraform apply 명령어를 수행하면 늦게 실행한 터미널에서 아래와 같은 에러 메시지를 볼 수 있다.
 
 ```
 $ terraform apply

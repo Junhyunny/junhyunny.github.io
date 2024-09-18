@@ -14,7 +14,7 @@ last_modified_at: 2024-09-18T23:55:00
 
 ## 0. 들어가면서
 
-[이전 글][create-alb-and-target-group-in-aws-with-terraform-link]에서 테라폼을 사용해 EC2 컨테이너를 구성하고 ALB 타겟 그룹(target group)에 연결하는 방법에 대해 정리했다. 이번 글에선 테라폼 상태 파일(tfstate file)을 관리하기 위한 백엔드(backend)라는 메커니즘에 대해 알아본다.
+[이전 글][deploy-ec2-into-target-group-in-aws-with-terraform-link]에서 테라폼을 사용해 EC2 컨테이너를 구성하고 ALB 타겟 그룹(target group)에 연결하는 방법에 대해 정리했다. 이번 글에선 테라폼 상태 파일(tfstate file)을 관리하기 위한 백엔드(backend)라는 메커니즘에 대해 알아본다.
 
 ## 1. Problems of state file management
 
@@ -124,16 +124,16 @@ Outputs:
 alb-dns = "tf-lb-20240918153002055100000004-925426991.us-east-1.elb.amazonaws.com"
 ```
 
-S3, DynamoDB 리소스를 모두 생성했다면 동일한 `backend.tf` 파일에 백엔드를 구성한다.
+S3 버킷과 DynamoDB 테이블을 모두 생성했다면 동일한 `backend.tf` 파일에 테라폼 백엔드를 구성한다.
 
 - 버킷
   - 위에서 생성한 버킷을 지정한다.
+- DynamoDB 테이블
+  - 위에서 생성한 DynamoDB 테이블을 지정한다.
 - 키
   - 테라폼 상태 파일 이름을 지정한다.
 - 지역
-  - 작업 중인 지역을 선택한다.
-- DynamoDB 테이블
-  - 위에서 생성한 DynamoDB 테이블을 지정한다.
+  - us-east-1 지역을 선택한다.
 
 ```tf
 terraform {
@@ -210,7 +210,7 @@ commands will detect it and remind you to do so if necessary.
 
 <br/>
 
-백엔드 구성이 완료되었다면 프로젝트 경로에 테라폼 상태 파일이 필요 없으니 삭제한다. terraform apply 명령어를 수행하면 상태 파일 락킹 수행과 해제한다는 로그를 확인할 수 있다. 
+백엔드 구성이 완료되었다면 프로젝트 경로에 테라폼 상태 파일이 필요 없으니 삭제한다. terraform apply 명령어를 수행하면 상태 파일에 대한 락, 언락(unlock)을 수행한다는 로그를 확인할 수 있다. 
 
 ```
 $ terraform apply

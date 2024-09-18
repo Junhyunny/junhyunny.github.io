@@ -116,6 +116,7 @@ resource "aws_security_group" "junhyunny_web_database_sg" {
   - EC2 컨테이너 인스턴스 구성이 완료되면 웹 애플리케이션 도커 컨테이너를 실행시키는 스크립트를 작성한다.
 - 의존성
   - 데이터베이스 EC2 컨테이너의 구성이 완료된 후에 배포를 시작한다. 
+  - 데이터베이스 EC2 컨테이너가 배포된 이후 유저 데이터 스크립트 블럭에서 데이터베이스 컨테이너의 프라이빗 IP를 사용해 데이터베이스 URL을 지정한다.
 
 ```tf
 resource "aws_instance" "web" {
@@ -232,9 +233,5 @@ ALB DNS 주소로 접근하면 애플리케이션 화면을 확인할 수 있다
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-09-18-deploy-ec2-into-target-group-in-aws-with-terraform>
-
-#### RECOMMEND NEXT POSTS
-
-- [Create VPC in AWS with Terraform][create-vpc-in-aws-with-terraform-link]
 
 [create-alb-and-target-group-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/create-alb-and-target-group-in-aws-with-terraform/

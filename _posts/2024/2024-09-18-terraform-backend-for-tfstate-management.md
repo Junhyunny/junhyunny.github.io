@@ -258,5 +258,7 @@ Acquiring state lock. This may take a few moments...
 - <https://developer.hashicorp.com/terraform/language/state>
 - <https://blog.outsider.ne.kr/1290>
 - <https://terraform101.inflearn.devopsart.dev/advanced/backend/>
+- <https://creboring.net/blog/terraform-how-dynamodb-lock-state-file/>
+- <https://dev.classmethod.jp/articles/s3-remotely-manage-terraform-tfstate-files-using-dynamodb/>
 
 [deploy-ec2-into-target-group-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/deploy-ec2-into-target-group-in-aws-with-terraform/

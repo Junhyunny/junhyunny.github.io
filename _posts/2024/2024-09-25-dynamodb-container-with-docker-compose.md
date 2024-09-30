@@ -58,7 +58,7 @@ aws dynamodb create-table\
   --attribute-definitions '[{"AttributeName":"PK","AttributeType":"S"}, {"AttributeName":"SK","AttributeType":"S"}]'\
   --key-schema AttributeName=PK,KeyType=HASH AttributeName=SK,KeyType=RANGE\
   --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1\
-  --endpoint-url http://dynamodb-local:8000;
+  --endpoint-url http://dynamodb-local:8000
 ```
 
 데이터 마이그레이션 스크립트는 다음과 같다.
@@ -81,7 +81,7 @@ todo.json 파일엔 DynamoDB 데이터 형식에 맞춘 데이터가 준비되�
     "S": "TODO"
   },
   "SK": {
-    "S": "DATE#20240925#1234567-abcd-efgh-1234-abcde12345"
+    "S": "ID#20240925120000-1234567-abcd-efgh-1234-abcde12345"
   },
   "title": {
     "S": "Hello World"
@@ -201,7 +201,7 @@ export AWS_DEFAULT_REGION=ap-northeast-1
 scan 명령어를 통해 생성한 테이블에 데이터가 존재하는지 확인한다.
 
 ```
-$ aws dynamodb scan\   
+$ aws dynamodb scan\
   --table-name TodoTable_20240925\
   --endpoint-url http://localhost:8000
 
@@ -209,10 +209,10 @@ $ aws dynamodb scan\
     "Items": [
         {
             "SK": {
-                "S": "DATE#20240925"
+                "S": "ID#20240925120000-1234567-abcd-efgh-1234-abcde12345"
             },
             "PK": {
-                "S": "TODO#1234567-abcd-efgh-1234-abcde12345"
+                "S": "TODO"
             },
             "title": {
                 "S": "Hello World"

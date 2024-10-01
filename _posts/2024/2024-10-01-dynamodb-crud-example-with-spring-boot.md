@@ -83,6 +83,7 @@ AWS SDK를 사용할 때 버전에 주의해야 한다. 많은 예제들이 SDK 
 <div align="center">
   <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-01.png" width="100%" class="image__border">
 </div>
+<center>https://docs.aws.amazon.com/ko_kr/sdk-for-java/v1/developer-guide/examples-dynamodb-items.html</center>
 
 <br/>
 
@@ -135,6 +136,7 @@ data class TodoEntity(
 <div align="center">
   <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-02.png" width="100%" class="image__border">
 </div>
+<center>https://github.com/derjust/spring-data-dynamodb</center>
 
 <br/>
 
@@ -309,9 +311,9 @@ data class TodoRequest(
 
 ## 7. TodoRepository class
 
-레포지토리 클래스를 살펴본다. 각 메소드를 살펴보기 전에 먼저 테이블 객체를 생성하는 코드를 살펴본다. DynamoDB 테이블 설계의 베스트 플랙티스(best practice)는 하나의 물리 테이블을 파티션 키, 정렬 키를 사용해 논리적으로 나누는 것이다. 아래 코드가 언뜻 보기엔 테이블을 구분짓는 것처럼 보이지만, 실제로는 application YAML 파일에 설정된 단일 테이블에 연결한다. 
+레포지토리 객체에서 CRUD 메소드를 알아보기 전에 테이블 객체를 생성하는 코드를 살펴보자. DynamoDB 테이블 설계의 베스트 플랙티스(best practice)는 하나의 물리 테이블을 파티션 키, 정렬 키를 사용해 논리적으로 나누는 것이다. 아래 코드가 언뜻 보기엔 테이블을 구분짓는 것처럼 보이지만, 실제로는 application YAML 파일에 설정된 단일 테이블을 사용한다. 
 
-dynamodb-enhanced 의존성을 통해 생성된 todoEntityTable 객체를 통해 논리적으로 구분된 아이템들을 동일한 형태의 객체로 다루는 것이 가능하다. 또한 기본 SDK만 사용하는 경우 요청을 만들거나 응답을 변경하는 코드가 다소 복잡해지는 데 dynamodb-enhanced 의존성을 사용하면 이 부분도 함께 해결된다.
+dynamodb-enhanced 의존성을 사용하면 아래 테이블 객체처럼 비즈니스 로직에서 데이터를 논리적으로 구분하고 동일한 객체로 쉽게 다루는 것이 가능하다. 또한 기본 SDK만 사용하는 경우 요청을 만들거나 응답을 변경하는 코드가 다소 복잡해지는 데 dynamodb-enhanced 의존성을 사용하면 이 부분도 쉽게 가능하다.
 
 ```kotlin
 package action.`in`.blog.repository
@@ -344,7 +346,7 @@ class TodoRepository(
 }
 ```
 
-DynamoDB의 조회 방법인 스캔(scan), 쿼리(query)나 PK, SK 특성을 사용한 조회 등에 대한 내용은 이번 글에서 다루지 않는다. JVM 애플리케이션에서 SDK를 사용해 어떻게 데이터를 다루는지에 대한 이야기만 한다. 데이터를 조회하는 코드는 다음과 같다.
+DynamoDB의 조회 방법인 스캔(scan), 쿼리(query)나 PK, SK 특성을 사용한 조회 등에 대한 내용은 이번 글에서 다루지 않는다. JVM 애플리케이션에서 SDK를 사용해 어떻게 데이터를 다루는지만 이야기 한다. 데이터를 조회하는 코드는 다음과 같다.
 
 1. PK, SK를 사용해 쿼리를 만들고 이를 사용해 아이템 리스트를 조회한다.
 2. PK, SK를 사용해 단일 객체를 조회한다.

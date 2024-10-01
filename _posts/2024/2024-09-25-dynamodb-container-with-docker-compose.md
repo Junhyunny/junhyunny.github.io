@@ -232,6 +232,10 @@ $ aws dynamodb scan\
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-09-25-dynamodb-container-with-docker-compose>
 
+#### RECOMMEND NEXT POSTS
+
+- [DynamoDB CRUD example with spring boot][dynamodb-crud-example-with-spring-boot-link]
+
 #### REFERENCE
 
 - <https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/Introduction.html>
@@ -240,3 +244,5 @@ $ aws dynamodb scan\
 - <https://medium.com/@danielarrais.dev/how-to-create-and-initialize-tables-in-a-local-dynamodb-with-docker-compose-notion-af22c3b603cb>
 - <https://medium.com/rate-labs/%EC%95%84-%ED%95%B4%EB%B4%90-dynamodb-%EB%93%A4%EC%96%B4%EA%B0%84%EB%8B%A4-f8da282bc625>
 - <https://stackoverflow.com/a/65584498/14859847>
+
+[dynamodb-crud-example-with-spring-boot-link]: https://junhyunny.github.io/spring-boot/aws/dynamo-db/dynamodb-crud-example-with-spring-boot/

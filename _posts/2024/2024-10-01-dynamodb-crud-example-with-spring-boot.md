@@ -140,7 +140,7 @@ data class TodoEntity(
 
 이 글에서 사용한 의존성은 다음과 같다.
 
-```kts
+```groovy
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

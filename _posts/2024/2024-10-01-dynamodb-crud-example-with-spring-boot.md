@@ -123,9 +123,9 @@ V2 SDK를 사용하는 경우 소문자 b를 사용한다. 예를 들면 `@Dynam
 data class TodoEntity(
     @get:DynamoDbPartitionKey @get:DynamoDbAttribute(value = "PK") var pk: String,
     @get:DynamoDbSortKey @get:DynamoDbAttribute(value = "SK") var sk: String,
-    @get:DynamoDbAttribute(value = "id") var id: String,
-    @get:DynamoDbAttribute(value = "title") var title: String,
-    @get:DynamoDbAttribute(value = "content") var content: String,
+    @get:DynamoDbAttribute(value = "id") var id: String?,
+    @get:DynamoDbAttribute(value = "title") var title: String?,
+    @get:DynamoDbAttribute(value = "content") var content: String?,
 ) {
     constructor() : this("", "", "", "", "")
 }
@@ -222,7 +222,7 @@ class DynamoDbConfig(
 
 ## 5. TodoEntity class
 
-엔티티(entity) 클래스를 살펴보자. 이름이 엔티티인 이유는 딱히 없다. 이 글을 참고하는 개발자들 임의대로 지정하길 바란다. 코틀린과 JPA에 익숙한 개발자라면 코드를 금새 이해할 수 있다. 애너테이션들은 모두 dynamodb-enhanced 의존성의 API이다. 애너테이션을 사용해 DynamoDB에 저장된 아이템 속성(attribute)을 클래스 객체에 매핑한다. 애너테이션들은 필드 위에 명시하는 것 같지만, Java 코드에선 게터(getter) 위에 명시하는 것과 동일하다. 다음 같은 사항을 명심하길 바란다.
+엔티티(entity) 클래스를 살펴보자. 애너테이션들은 모두 dynamodb-enhanced 의존성의 API이다. 애너테이션을 사용해 DynamoDB에 저장된 아이템 속성(attribute)을 클래스 객체에 매핑한다. 애너테이션들은 필드 위에 명시하는 것 같지만, Java 코드에선 게터(getter) 위에 명시하는 것과 동일하다. 다음 같은 사항을 명심하길 바란다.
 
 - 게터 위에 애너테이션을 사용해야 한다.
 - 불변 객체(immutable) 객체인 경우 데이터를 클래스에 매핑하지 못한다. 코틀린의 경우 var 키워드를 사용한다.
@@ -240,9 +240,9 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortK
 data class TodoEntity(
     @get:DynamoDbPartitionKey @get:DynamoDbAttribute(value = "PK") var pk: String,
     @get:DynamoDbSortKey @get:DynamoDbAttribute(value = "SK") var sk: String,
-    @get:DynamoDbAttribute(value = "id") var id: String,
-    @get:DynamoDbAttribute(value = "title") var title: String,
-    @get:DynamoDbAttribute(value = "content") var content: String,
+    @get:DynamoDbAttribute(value = "id") var id: String?,
+    @get:DynamoDbAttribute(value = "title") var title: String?,
+    @get:DynamoDbAttribute(value = "content") var content: String?,
 ) {
     constructor() : this("", "", "", "", "")
 }
@@ -279,8 +279,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 data class TodoRequest(
-    val title: String,
-    val content: String,
+    val title: String?,
+    val content: String?,
 ) {
     fun toEntity(): TodoEntity {
         val uuid = UUID.randomUUID()
@@ -405,7 +405,7 @@ class TodoRepository(
 }
 ```
 
-아이템 변경은 다음과 같다. 엔티티 객체를 테이블 객체에 삽입할 때 변경(update) 요청을 만든다. 데이터 중 널(null) 값이 있는 경우 해당 속성에 대한 업데이트는 무시한다.
+아이템 변경은 다음과 같다. 엔티티 객체를 테이블 객체에 삽입할 때 변경(update) 요청을 만든다. `SCALAR_ONLY` 모드인 경우 널(null) 데이터 값이 매칭된 속성은 업데이트 하지 않는다.
 
 ```kotlin
 @Repository
@@ -420,7 +420,7 @@ class TodoRepository(
                 .builder(TodoEntity::class.java)
                 .item(todoEntity)
                 .ignoreNullsMode(
-                    IgnoreNullsMode.DEFAULT,
+                    IgnoreNullsMode.SCALAR_ONLY,
                 ).build()
         todoEntityTable.updateItem(updateRequest)
     }

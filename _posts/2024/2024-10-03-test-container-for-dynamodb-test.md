@@ -19,11 +19,13 @@ last_modified_at: 2024-10-03T23:55:00
 
 ## 0. 들어가면서
 
-[이전 글][dynamodb-crud-example-with-spring-boot]에선 스프링 부트 애플리케이션에서 DynamoDB에 데이터를 읽고 쓰는 예제를 다뤘다. 이번 글을 테스트 컨테이너(TestContainer)를 사용해 애플리케이션이 DynamoDB와 결합 테스트를 수행하는 방법에 대해 정리했다. 일부 변경이 있지만, 대부분의 코드는 이전 글과 동일하다.
+[이전 글][dynamodb-crud-example-with-spring-boot-link]에선 스프링 부트 애플리케이션에서 DynamoDB에 데이터를 읽고 쓰는 예제를 다뤘다. 이번 글을 테스트 컨테이너(TestContainer)를 사용해 애플리케이션이 DynamoDB와 결합 테스트를 수행하는 방법에 대해 정리했다. 일부 변경이 있지만, 대부분의 코드는 이전 글과 동일하다.
 
 ## 1. Dependencies
 
-RDB(relational database)는 테스트 용도를 위해 H2 같은 페이크(fake) 데이터베이스가 존재한다. DynamoDB는 AWS에서 제공하는 `DynamoDBLocal`, `SQLite4Java` 의존성을 사용해 테스트하는 방법이 있는 것 같다. 현재 프로젝트는 로컬 환경에서 DynamoDB 컨테이너를 사용하고 있기 때문에 테스트를 위해 DynamoDBLocal 의존성을 추가하기 보단 테스트 컨테이너를 사용한 결합 테스트가 나은 선택이라 생각했다. 이번 예제를 위해선 다음과 같은 의존성이 필요하다. 
+RDB(relational database)는 테스트 용도를 위해 H2 같은 페이크(fake) 데이터베이스가 존재한다. DynamoDB는 AWS에서 제공하는 `DynamoDBLocal`, `SQLite4Java` 의존성을 사용해 테스트하는 방법이 있는 것 같다. 
+
+현재 프로젝트는 로컬 환경에서 DynamoDB 컨테이너를 사용하고 있기 때문에 테스트를 위해 DynamoDBLocal 의존성을 추가하기 보단 테스트 컨테이너를 사용한 결합 테스트가 나은 선택이라 생각했다. 이번 예제를 위해선 다음과 같은 의존성이 필요하다. 
 
 ```groovy
 dependencies {
@@ -43,7 +45,7 @@ dependencies {
 
 ## 2. application YAML
 
-[이전 글][dynamodb-crud-example-with-spring-boot]의 예제 중 application YAML 설정을 일부 변경한다. 테스트 컨테이너에 의해 실행된 DynamoDB 컨테이너에 연결하기 위해선 테스트마다 변경되는 포트(port)에 맞게 엔드포인트를 주입받아야 하기 때문이다.
+[이전 글][dynamodb-crud-example-with-spring-boot-link]의 예제 중 application YAML 설정을 일부 변경한다. 테스트 컨테이너에 의해 실행된 DynamoDB 컨테이너에 연결하기 위해선 테스트마다 변경되는 포트(port)에 맞게 엔드포인트를 주입받아야 하기 때문이다.
 
 - endpoint
   - DynamoDB 컨테이너의 엔드포인트다.
@@ -66,7 +68,7 @@ amazon:
   - 테스트 환경에서 테스트 컨테이너가 실행된 후 환경 설정 값이 변경되었다면 테스트 컨테이너의 엔드포인트 주소가 주입된다.
   - 로컬 환경에서 IDE로 실행할 땐 AMAZON_DYNAMODB_ENDPOINT 환경 변수 값에 로컬 DynamoDB 엔드포인트 주소를 설정한다.
 2. 엔드포인트 값이 "default"가 아닌 경우에만 클라이언트의 엔드포인트 정보를 설정된다.
-  - 위 조건에 따라 AWS 클라우드 환경을 제외하곤, DynamoDB 컨테이너의 엔드포인트 주소가 주입된 설정 값으로 변경된다.
+  - 위 조건에 따라 AWS 클라우드 환경을 제외한 로컬, 테스트 환경은 DynamoDB 컨테이너의 엔드포인트 주소가 주입된 설정 값으로 변경된다.
 
 ```kotlin
 @Configuration
@@ -161,11 +163,8 @@ abstract class MockRepositoryConfig {
             deleteTableIfExists()
             createTable()
         }
-
         ... 
-        
     }
-
     ...
 }
 ```
@@ -175,9 +174,7 @@ DynamoDB 테스트 컨테이너에 TEST_TABLE_NAME 테이블이 존재하면 삭
 ```kotlin
 abstract class MockRepositoryConfig {
     protected companion object {
-
         ... 
-
         private fun deleteTableIfExists() {
             val tables = dynamoDbClient.listTables()
             if (tables.tableNames().contains(TEST_TABLE_NAME)) {
@@ -189,7 +186,6 @@ abstract class MockRepositoryConfig {
                 )
             }
         }
-
         ... 
     }
 }
@@ -200,9 +196,7 @@ abstract class MockRepositoryConfig {
 ```kotlin
 abstract class MockRepositoryConfig {
     protected companion object {
-
         ... 
-
         private fun createTable() {
             val createTableRequest =
                 CreateTableRequest
@@ -247,7 +241,6 @@ abstract class MockRepositoryConfig {
                     .build()
             dynamoDbClient.waiter().waitUntilTableExists(describeTableRequest)
         }
-
         ... 
     }
 }
@@ -263,16 +256,13 @@ abstract class MockRepositoryConfig {
 ```kotlin
 abstract class MockRepositoryConfig {
     protected companion object {
-
         ... 
-
         @DynamicPropertySource
         @JvmStatic
         fun registerDynamoDbProperties(registry: DynamicPropertyRegistry) {
             registry.add("amazon.dynamodb.endpoint") { "http://localhost:${dynamoDbContainer.getMappedPort(8000)}" }
             registry.add("amazon.dynamodb.table-name") { TEST_TABLE_NAME }
         }
-
         ... 
     }
 }
@@ -312,7 +302,7 @@ abstract class MockRepositoryConfig {
 
 ## 3. TodoRepositoryTest class
 
-이제 테스트 코드를 살펴보자. 테스트 코드만 살펴본다. 구현체 코드는 [이전 글][dynamodb-crud-example-with-spring-boot]을 참고하길 바란다.
+이제 테스트 코드를 살펴보자. 테스트 코드만 살펴본다. 구현체 코드는 [이전 글][dynamodb-crud-example-with-spring-boot-link]을 참고하길 바란다.
 
 1. 위에서 생성한 MockRepositoryConfig 추상 클래스를 상속받는다. 
 2. 테스트 대상은 @Autowired 애너테이션을 통해 주입 받는다.
@@ -392,7 +382,6 @@ class TodoRepositoryTest : MockRepositoryConfig() {
         assertEquals("Hello World", result[0].title)
         assertEquals("This is the first todo.", result[0].content)
     }
-
     ... 
 }
 ```
@@ -439,7 +428,6 @@ class TodoRepositoryTest : MockRepositoryConfig() {
         assertEquals("Hello World", result.title)
         assertEquals("This is the first todo.", result.content)
     }
-
     ...
 }
 ```
@@ -488,7 +476,6 @@ class TodoRepositoryTest : MockRepositoryConfig() {
         assertEquals(fromS("Hello World"), result.item()["title"])
         assertEquals(fromS("This is the first todo."), result.item()["content"])
     }
-
     ...
 }
 ```
@@ -554,7 +541,6 @@ class TodoRepositoryTest : MockRepositoryConfig() {
         assertEquals(fromS("Hello World"), result.item()["title"])
         assertEquals(fromS("This is the second todo."), result.item()["content"])
     }
-
     ...
 }
 ```

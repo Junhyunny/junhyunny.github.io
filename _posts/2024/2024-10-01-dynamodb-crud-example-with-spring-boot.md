@@ -485,6 +485,10 @@ $ docker compose up -d
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-10-01-dynamodb-crud-example-with-spring-boot>
 
+#### RECOMMEND NEXT POSTS
+
+- [TestContainer for DynamoDB test][test-container-for-dynamodb-test-link]
+
 #### REFERENCE
 
 - <https://docs.aws.amazon.com/ko_kr/sdk-for-java/latest/developer-guide/get-started.html>
@@ -494,3 +498,4 @@ $ docker compose up -d
 - <https://docs.aws.amazon.com/ko_kr/general/latest/gr/rande.html#ddb_region>
 
 [dynamodb-container-with-docker-compose-link]: https://junhyunny.github.io/docker/aws/dynamo-db/dynamodb-container-with-docker-compose/
+[test-container-for-dynamodb-test-link]: https://junhyunny.github.io/spring-boot/aws/dynamodb/test-container/test-container-for-dynamodb-test/

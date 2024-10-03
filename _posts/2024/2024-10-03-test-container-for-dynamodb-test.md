@@ -300,7 +300,7 @@ abstract class MockRepositoryConfig {
 }
 ```
 
-## 3. TodoRepositoryTest class
+## 5. TodoRepositoryTest class
 
 이제 테스트 코드를 살펴보자. 테스트 코드만 살펴본다. 구현체 코드는 [이전 글][dynamodb-crud-example-with-spring-boot-link]을 참고하길 바란다.
 

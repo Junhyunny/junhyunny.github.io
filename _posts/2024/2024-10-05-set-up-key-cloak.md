@@ -134,7 +134,7 @@ Total change sets:          144
   - 관리자는 이 렐름에서 조직, 애플리케이션들에서 필요한 사용자들을 관리한다.
 
 <div align="center">
-  <img src="/images/posts/2024/set-up-key-cloak-06.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/set-up-key-cloak-06.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://www.keycloak.org/docs/latest/server_admin/</center>
 

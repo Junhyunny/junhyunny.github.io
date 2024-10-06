@@ -143,7 +143,7 @@ Total change sets:          144
 각 렐름은 격리돼 관리된다. 위 시큐리티 모델은 우발적인 변경을 방지하는 데 도움이 되며, 사용자 계정이 현재 작업을 성공적으로 수행하는 데 필요한 최소한의 권한에만 접근하도록 허용하는 전통적인 디자인을 따른다. OAuth2 인증을 위한 렐름을 만들어보자. 로그인 화면 왼쪽 상단에 렐름을 셀렉트 박스(select box)를 선택 후 `Create Raelm` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/set-up-key-cloak-07.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/set-up-key-cloak-07.png" width="80%" class="image__border">
 </div>
 
 <br/>

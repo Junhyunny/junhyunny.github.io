@@ -1,5 +1,5 @@
 ---
-title: "Register Client in Keycloak for OAuth2"
+title: "Register client in Keycloak for OAuth2"
 search: false
 category:
   - security
@@ -88,5 +88,6 @@ OAuth2 클라이언트 애플리케이션을 위한 리다이렉트 URI 주소�
 
 - <https://developer.temenos.com/temenos-explorer/docs/developer/keycloak/keycloak-step-3/#configure-your-client>
 - <https://www.keycloak.org/docs/latest/server_admin/#access-settings>
+- <https://www.keycloak.org/docs/23.0.1/upgrading/#userinfo-endpoint-changes>
 
 [set-up-key-cloak-link]: https://junhyunny.github.io/security/tool/set-up-key-cloak/

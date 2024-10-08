@@ -148,7 +148,7 @@ Total change sets:          144
 
 <br/>
 
-렐름 이름을 작성 후 생성한다.
+이름을 `spring-security-oauth2-example`으로 지정 후 렐름을 생성한다.
 
 <div align="center">
   <img src="/images/posts/2024/set-up-key-cloak-08.png" width="100%" class="image__border">
@@ -228,11 +228,15 @@ URL 주소가 경로 중 `/raelms/{raelmName}`인 것을 확인할 수 있다. �
 
 <br/>
 
-모든 설정이 완료되면 위에서 생성한 `Spring Security OAuth2 Example` 렐름 화면과 로그인 한 사용자 정보를 볼 수 있다.
+모든 설정이 완료되면 위에서 생성한 `spring-security-oauth2-example` 렐름 화면과 로그인 한 사용자 정보를 볼 수 있다.
 
 <div align="center">
   <img src="/images/posts/2024/set-up-key-cloak-18.png" width="100%" class="image__border">
 </div>
+
+#### RECOMMEND NEXT POSTS
+
+- [Register Client in Keycloak for OAuth2][register-client-in-keycloak-for-oauth2-link]
 
 #### REFERENCE
 
@@ -245,3 +249,4 @@ URL 주소가 경로 중 `/raelms/{raelmName}`인 것을 확인할 수 있다. �
 [single-sign-on-link]: https://junhyunny.github.io/information/security/single-sign-on/
 [oauth-link]: https://junhyunny.github.io/information/security/oauth/
 [open-id-connect-link]: https://junhyunny.github.io/information/security/open-id-connect/
+[register-client-in-keycloak-for-oauth2-link]: https://junhyunny.github.io/security/tool/register-client-in-keycloak-for-oauth2/

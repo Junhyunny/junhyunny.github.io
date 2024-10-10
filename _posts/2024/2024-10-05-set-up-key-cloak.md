@@ -196,7 +196,7 @@ Total change sets:          144
 
 <br/>
 
-이제 새로 생성한 사용자로 로그인을 해보자. 화면 왼쪽 사이드 `Clients` 탭을 누르면 해당 렐름의 로그인 화면으로 이동할 수 있는 링크가 있다. 해당 링크를 누르면 생성한 렐름으로 로그인 화면으로 이동한다. 
+이제 새로 생성한 사용자로 로그인을 해보자. 화면 왼쪽 사이드 `Clients` 탭을 누르면 해당 렐름의 로그인 화면으로 이동할 수 있는 링크가 있다. 해당 링크를 누르면 생성한 렐름의 로그인 화면으로 이동한다. 
 
 <div align="center">
   <img src="/images/posts/2024/set-up-key-cloak-14.png" width="100%" class="image__border">
@@ -204,7 +204,7 @@ Total change sets:          144
 
 <br/>
 
-URL 주소가 경로 중 `/raelms/{raelmName}`인 것을 확인할 수 있다. 마스터 렐름에 로그인 할 땐 `/raelms/master`이다.
+URL 주소가 경로가 `/raelms/{raelmName}`인 것을 확인할 수 있다. 마스터 렐름에 로그인 할 땐 `/raelms/master`이다.
 
 <div align="center">
   <img src="/images/posts/2024/set-up-key-cloak-15.png" width="100%" class="image__border">

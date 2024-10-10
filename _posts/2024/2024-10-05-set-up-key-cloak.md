@@ -97,7 +97,7 @@ Total change sets:          144
 
 > Running the server in development mode. DO NOT use this configuration in production.
 
-운영 환경에서 사용하지 않도록 주의한다. 필자는 OAuth2 클라이언트 애플리케이션의 기능 구현 및 검증을 위해 사용할 예정이기 때문에 개발 모드도 충분하다. 실행이 완료되면 브라우저에서 http://localhost:9090 에 접속한다. 처음 접속하면 관리자 사용자 등록 화면을 볼 수 있다.
+운영 환경에서 사용하지 않도록 주의한다. 필자는 OAuth2 클라이언트 애플리케이션의 기능 구현 및 검증을 위해 사용할 예정이기 때문에 개발 모드도 충분하다. 실행이 완료되면 브라우저에서 http://localhost:9090 주소에 접속해보자. 처음 접속하면 관리자 등록 화면을 보게 된다.
 
 - 사용자 이름은 "admin"으로 지정한다.
 - 비밀번호도 "admin"으로 지정한다.

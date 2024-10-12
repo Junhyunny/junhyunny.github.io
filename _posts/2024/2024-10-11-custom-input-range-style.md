@@ -95,13 +95,13 @@ MDN 사이트에서 파이어폭스 관련된 수도 엘리먼트는 표준이 �
 
 ```html
 <div class="wrap">
-	<div id="dots" class="dots">
-		<div class="dot"></div>
-		<div class="dot"></div>
-		<div class="dot"></div>
-		<div class="dot"></div>
-	</div>
-	<input id="range" type="range" value="1" step="1" min="1" max="6" onchange="changeValue(event)" />
+    <div id="dots" class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <input id="range" type="range" value="1" step="1" min="1" max="6" onchange="changeValue(event)" />
 </div>
 ```
 
@@ -111,16 +111,16 @@ wrap 클래스가 자식 클래스 포지션의 기준이 되도록 `position: r
 
 ```css
 body {
-	background: #2e2e30;
+    background: #2e2e30;
 }
 
 .wrap {
-	margin: 50px;
-	width: 50%;
-	height: 30px;
-	display: flex;
-	align-items: center;
-	position: relative;
+    margin: 50px;
+    width: 50%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
 }
 ```
 
@@ -128,52 +128,52 @@ dots 클래스는 absolute 포지션을 갖는다. `z-index: 1` 스타일로 슬
 
 ```css
 .dots {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	z-index: 1;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-	pointer-events: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    pointer-events: none;
 }
 
 .dot {
-	width: 5px;
-	height: 5px;
-	border-radius: 50%;
-	background: #fff;
-	opacity: 0.15;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0.15;
 }
 ```
 
-브라우저가 제공하는 기본 스타일을 사용하고 싶지 않다면 `appearance: none` 속성이 필요하다.
+브라우저가 제공하는 기본 스타일을 사용하고 싶지 않다면 `appearance: none` 속성이 필요하다. `height: 20px`으로 높이를 설정한다.
 
 ```css
 #range {
-	width: 100%;
-	height: 20px;
-	border-radius: 10px;
-	appearance: none;
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    appearance: none;
 }
 ```
 
-슬라이더에 대한 스타일을 정의해보자. 크롬, 사파리, 엣지 브라우저는 아래 스타일을 사용한다.
+슬라이더에 대한 스타일을 정의해보자. 크롬, 사파리, 엣지 브라우저는 아래 스타일을 사용한다. 파이어폭스 브라우저와 달리 thumb가 자동으로 트랙 가운데 정렬이 되지 않는다. 트랙과 thumb의 높이를 `height: 30px` 동일하게 잡아준다. 실제 input 엘리먼트 높이는 20px로 낮게 설정되어 있기 때문에 시각적으로 트랙은 좁게 보인다.
 
 ```css
 #range::-webkit-slider-runnable-track {
-	height: 30px;
-	border-radius: 10px;
+    height: 30px;
+    border-radius: 10px;
 }
 
 #range::-webkit-slider-thumb {
-	appearance: none;
-	background: #ffffff;
-	cursor: pointer;
-	border: 1px solid #000000;
-	height: 30px;
-	width: 30px;
-	border-radius: 50%;
+    appearance: none;
+    background: #ffffff;
+    cursor: pointer;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }
 ```
 
@@ -181,22 +181,22 @@ dots 클래스는 absolute 포지션을 갖는다. `z-index: 1` 스타일로 슬
 
 ```css
 #range::-moz-range-track {
-	height: 20px;
-	border-radius: 10px;
+    height: 20px;
+    border-radius: 10px;
 }
 
 #range::-moz-range-progress {
-	height: 20px;
-	border-radius: 10px;
+    height: 20px;
+    border-radius: 10px;
 }
 
 #range::-moz-range-thumb {
-	background: #ffffff;
-	cursor: pointer;
-	border: 1px solid #000000;
-	height: 30px;
-	width: 30px;
-	border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: 1px solid #000000;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
 }
 ```
 
@@ -204,56 +204,56 @@ dots 클래스는 absolute 포지션을 갖는다. `z-index: 1` 스타일로 슬
 
 ```css
 .step1 {
-	background: #585859;
+    background: #585859;
 }
 
 .step2 {
-	background: linear-gradient(
-		to right,
-		rgba(58, 181, 115, 0.1) 0% 20%,
-		#585859 20% 100%
-	);
+    background: linear-gradient(
+        to right,
+        rgba(58, 181, 115, 0.1) 0% 20%,
+        #585859 20% 100%
+    );
 }
 
 .step3 {
-	background: linear-gradient(
-		to right,
-		rgba(58, 181, 115, 0.1) 0% 20%,
-		rgba(58, 181, 115, 0.3) 20% 40%,
-		#585859 40% 100%
-	);
+    background: linear-gradient(
+        to right,
+        rgba(58, 181, 115, 0.1) 0% 20%,
+        rgba(58, 181, 115, 0.3) 20% 40%,
+        #585859 40% 100%
+    );
 }
 
 .step4 {
-	background: linear-gradient(
-		to right,
-		rgba(58, 181, 115, 0.1) 0% 20%,
-		rgba(58, 181, 115, 0.3) 20% 40%,
-		rgba(58, 181, 115, 0.5) 40% 60%,
-		#585859 60% 100%
-	);
+    background: linear-gradient(
+        to right,
+        rgba(58, 181, 115, 0.1) 0% 20%,
+        rgba(58, 181, 115, 0.3) 20% 40%,
+        rgba(58, 181, 115, 0.5) 40% 60%,
+        #585859 60% 100%
+    );
 }
 
 .step5 {
-	background: linear-gradient(
-		to right,
-		rgba(58, 181, 115, 0.1) 0% 20%,
-		rgba(58, 181, 115, 0.3) 20% 40%,
-		rgba(58, 181, 115, 0.5) 40% 60%,
-		rgba(58, 181, 115, 0.8) 60% 80%,
-		#585859 80% 100%
-	);
+    background: linear-gradient(
+        to right,
+        rgba(58, 181, 115, 0.1) 0% 20%,
+        rgba(58, 181, 115, 0.3) 20% 40%,
+        rgba(58, 181, 115, 0.5) 40% 60%,
+        rgba(58, 181, 115, 0.8) 60% 80%,
+        #585859 80% 100%
+    );
 }
 
 .step6 {
-	background: linear-gradient(
-		to right,
-		rgba(58, 181, 115, 0.1) 0% 20%,
-		rgba(58, 181, 115, 0.3) 20% 40%,
-		rgba(58, 181, 115, 0.5) 40% 60%,
-		rgba(58, 181, 115, 0.8) 60% 80%,
-		rgba(58, 181, 115, 1) 80% 100%
-	);
+    background: linear-gradient(
+        to right,
+        rgba(58, 181, 115, 0.1) 0% 20%,
+        rgba(58, 181, 115, 0.3) 20% 40%,
+        rgba(58, 181, 115, 0.5) 40% 60%,
+        rgba(58, 181, 115, 0.8) 60% 80%,
+        rgba(58, 181, 115, 1) 80% 100%
+    );
 }
 ```
 
@@ -261,23 +261,23 @@ dots 클래스는 absolute 포지션을 갖는다. `z-index: 1` 스타일로 슬
 
 ```css
 .dots.step2_dot .dot:nth-child(1) {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .dots.step3_dot .dot:nth-child(1),
 .dots.step3_dot .dot:nth-child(2) {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .dots.step4_dot .dot:nth-child(1),
 .dots.step4_dot .dot:nth-child(2),
 .dots.step4_dot .dot:nth-child(3) {
-	visibility: hidden;
+    visibility: hidden;
 }
 
 .dots.step5_dot .dot,
 .dots.step6_dot .dot {
-	visibility: hidden;
+    visibility: hidden;
 }
 ```
 
@@ -287,42 +287,42 @@ JavaScript 코드로 스타일 제어가 필요하다. 값이 변경될 때마�
 
 ```js
 function changeValue(event) {
-	colorChange(event.target);
+    colorChange(event.target);
 }
 
 function colorChange(targetElement) {
-	const dots = document.getElementById("dots");
-	const targetValue = +targetElement.value;
-	let className = "step1";
-	let dotClassName = "step1_dot";
-	switch (targetValue) {
-		case 2:
-			className = "step2";
-			dotClassName = "step2_dot";
-			break;
-		case 3:
-			className = "step3";
-			dotClassName = "step3_dot";
-			break;
-		case 4:
-			className = "step4";
-			dotClassName = "step4_dot";
-			break;
-		case 5:
-			className = "step5";
-			dotClassName = "step5_dot";
-			break;
-		case 6:
-			className = "step6";
-			dotClassName = "step6_dot";
-			break;
-		default:
-			break;
-	}
-	dots.classList.remove(...dots.classList);
-	dots.classList.add("dots", dotClassName);
-	targetElement.classList.remove(...targetElement.classList);
-	targetElement.classList.add(className);
+    const dots = document.getElementById("dots");
+    const targetValue = +targetElement.value;
+    let className = "step1";
+    let dotClassName = "step1_dot";
+    switch (targetValue) {
+        case 2:
+            className = "step2";
+            dotClassName = "step2_dot";
+            break;
+        case 3:
+            className = "step3";
+            dotClassName = "step3_dot";
+            break;
+        case 4:
+            className = "step4";
+            dotClassName = "step4_dot";
+            break;
+        case 5:
+            className = "step5";
+            dotClassName = "step5_dot";
+            break;
+        case 6:
+            className = "step6";
+            dotClassName = "step6_dot";
+            break;
+        default:
+            break;
+    }
+    dots.classList.remove(...dots.classList);
+    dots.classList.add("dots", dotClassName);
+    targetElement.classList.remove(...targetElement.classList);
+    targetElement.classList.add(className);
 }
 
 const scoreBar = document.getElementById("range");

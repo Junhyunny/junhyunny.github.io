@@ -58,9 +58,7 @@ last_modified_at: 2021-11-26T23:55:00
 - 느린 테스트를 보다 빠르게 만들어 테스트로부터 빠른 피드백을 얻기 위한 용도
 - 통합 테스트 환경을 구축하기 어려운 경우
 
-## 2. Dependency Inversion Principle
-
-의존성 역전 원칙(Dependency Inversion Principle, DIP)은 객체 지향 프로그래밍에서 SOLID 원칙 중 하나로 구현이 아닌 추상화 에 의존하도록 설계하라는 원칙이다. 고수준 모듈(High-Level Module)과 저수준 모듈(Log-Level Module) 간의 의존성을 뒤집어, 고수준 모듈이 저수준 모듈에 의존하지 직접 의존하지 않도록 하는 것이다. 이를 통해 시스템의 유연성과 확장성을 향상시킬 수 있다.
+테스트 더블을 쉽게 활용하려면 의존성 역전 원칙(Dependency Inversion Principle, DIP)을 따르는 설계가 필요하다. 의존성 역전 원칙은 객체 지향 프로그래밍에서 SOLID 원칙 중 하나로 구현이 아닌 추상화 에 의존하도록 설계하라는 원칙이다. 고수준 모듈(High-Level Module)과 저수준 모듈(Log-Level Module) 간의 의존성을 뒤집어, 고수준 모듈이 저수준 모듈에 의존하지 직접 의존하지 않도록 하는 것이다. 이를 통해 시스템의 유연성과 확장성을 향상시킬 수 있다.
 
 - 고수준 모듈인 UserService 객체가 저수준 모듈인 JpaUserRepository 객체를 직접 의존하지 않고, 추상화 된 UserRepository 인터페이스에 의존한다.
 - 저수준 모듈인 JpaUserRepository, StubUserRepository 객체는 추상화 된 UserRepository 인터페이스를 의존한다. 

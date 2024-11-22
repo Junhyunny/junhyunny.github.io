@@ -1,5 +1,5 @@
 ---
-title: "먈그릇"
+title: "말그릇"
 search: false
 category:
   - books

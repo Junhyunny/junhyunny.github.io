@@ -43,7 +43,7 @@ last_modified_at: 2024-11-26T23:55:00
   - 2번, 3번, 4번 애플리케이션의 소켓 기술자가 3으로 동일하지만, 한 애플리케이션 내에서만 중복되지 않으면 된다.
 
 <div align="center">
-  <img src="/images/posts/2024/socket-identification-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/socket-identification-01.png" width="80%" class="image__border">
 </div>
 <center>https://slidesplayer.org/slide/14140274/</center>
 
@@ -52,7 +52,7 @@ last_modified_at: 2024-11-26T23:55:00
 소켓 기술자는 포인터(pointer)를 관리하는 테이블의 인덱스(index)이다. 애플리케이션은 특정 소켓을 사용할 때 소켓 정보가 담긴 구조체를 참조할 수 있는 포인터가 저장된 테이블을 소켓 기술자를 통해 접근할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/socket-identification-02.png" width="100%" class="image__border">
+  <img src="/images/posts/2024/socket-identification-02.png" width="80%" class="image__border">
 </div>
 <center>https://slidesplayer.org/slide/14140274/</center>
 

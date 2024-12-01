@@ -1,5 +1,5 @@
 ---
-title: "Reference counting garbage collecting"
+title: "Reference counting GC(garbage collect) in JavaScript"
 search: false
 category:
   - information
@@ -103,7 +103,7 @@ MDN 문서를 보면 다음과 같은 주의 사항을 볼 수 있다.
 - 순환 참조를 처리할 수 없다.
 - 동시성(concurrent) 상황이라면 모든 참조 카운팅 업데이트는 원자적 연산(atomic operation)이어야 한다. 이는 추가적인 비용이 필요하다.
 
-시스템에서 명시적으로 순환 참조를 막거나 추적(tracing) 가비지 컬렉터를 함께 사용하는 방법 등으로 참조 카운트의 순환 참조 문제를 보완한다. 주된 원인으로 뽑히는 순환 참조 상황을 MDN 예제 코드를 통해 살펴보자.
+시스템에서 명시적으로 순환 참조를 막거나 추적(tracing) 가비지 컬렉터를 함께 사용하는 방법 등으로 참조 카운팅의 순환 참조 문제를 보완한다. 주된 원인으로 뽑히는 순환 참조 상황을 MDN 예제 코드를 통해 살펴보자.
 
 ```js
 function f() {
@@ -125,7 +125,7 @@ f();
 
 ## CLOSING
 
-참조 카운트 가비지 컬렉터는 치명적인 단점이 있기 때문에 모던 브라우저 등 자바스크립트 엔진에서 사용되지 않는다. 주로 사용하는 마크-앤-스윕(mark and sweep) 알고리즘은 다른 글을 통해 소개한다.
+참조 카운팅 가비지 컬렉터는 치명적인 단점이 있기 때문에 모던 브라우저 등 자바스크립트 엔진에서 사용되지 않는다. 주로 사용하는 마크-앤-스윕(mark and sweep) 알고리즘은 다른 글을 통해 소개한다.
 
 #### REFERENCE
 

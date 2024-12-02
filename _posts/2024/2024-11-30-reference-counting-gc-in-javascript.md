@@ -1,5 +1,5 @@
 ---
-title: "Reference counting GC(garbage collect) in JavaScript"
+title: "Reference counting algorithm for garbage collect"
 search: false
 category:
   - information
@@ -125,7 +125,7 @@ f();
 
 ## CLOSING
 
-참조 카운팅 가비지 컬렉터는 치명적인 단점이 있기 때문에 모던 브라우저 등 자바스크립트 엔진에서 사용되지 않는다. 주로 사용하는 마크-앤-스윕(mark and sweep) 알고리즘은 다른 글을 통해 소개한다.
+참조 카운팅 가비지 컬렉터는 치명적인 단점이 있기 때문에 모던 브라우저 등 자바스크립트 엔진에서 사용되지 않는다. 주로 사용하는 마크-앤-스윕(mark-and-sweep) 알고리즘은 다른 글을 통해 소개한다.
 
 #### REFERENCE
 

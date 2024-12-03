@@ -127,9 +127,15 @@ f();
 
 참조 카운팅 가비지 컬렉터는 치명적인 단점이 있기 때문에 모던 브라우저 등 자바스크립트 엔진에서 사용되지 않는다. 주로 사용하는 마크-앤-스윕(mark-and-sweep) 알고리즘은 다른 글을 통해 소개한다.
 
+#### RECOMMEND NEXT POSTS
+
+- [Mark-and-sweep algorithm for garbage collect][mark-and-sweep-gc-in-javascript-link]
+
 #### REFERENCE
 
 - <https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)>
 - <https://en.wikipedia.org/wiki/Reference_counting>
 - <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management#reference-counting_garbage_collection>
 - <https://reactnext-central.xyz/blog/javascript/garbage-collection-in-javascript>
+
+[mark-and-sweep-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/mark-and-sweep-gc-in-javascript/

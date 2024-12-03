@@ -22,7 +22,7 @@ last_modified_at: 2024-12-03T23:55:00
 `도달할 수 없는 객체`를 제거하는 알고리즘이다. 이 알고리즘에션 루트(root)라는 컨셉의 객체를 사용한다. 자바스크립트에서 루트는 전역 객체(global object)다. 주기적으로 실행되는 가비지 컬렉팅은 루트 객체로부터 시작해서 참조되는 모든 객체들을 찾는다. 이 과정에서 접근할 수 있는 모든 객체들(reachable objects)과 접근할 수 없는 모든 객체들(non-reachable objects) 모두 찾아낸다. 이 과정을 마킹(marking)이라고 한다.
 
 <div align="center">
-  <img src="/images/posts/2024/mark-and-sweep-gc-in-javascript-01.gif" width="80%" class="image__border">
+  <img src="/images/posts/2024/mark-and-sweep-gc-in-javascript-01.gif" width="50%" class="image__border">
 </div>
 <center>https://v8.dev/blog/concurrent-marking</center>
 
@@ -59,7 +59,7 @@ V8 엔진의 가비지 컬렉션은 JVM과 유사하게 동작한다. 힙 메모
 - 젊은 세대에 대한 가비지 컬렉션을 마이너 GC(혹은 scavenger)라고 한다.
 - 모든 힙 영역에 대한 가비지 컬렉션을 메이저 GC라고 한다.
 
-젊은 세대 영역에서 이뤄지는 마이너 GC 사이클이 지속되면 오래된 세대 영역의 공간은 계속 채워진다. 지속해서 생존한 객체들은 오래된 세대 영역으로 이동하기 때문이다. V8 엔진은 오래된 세대 영역의 공간이 충분하지 않다고 판단하면 메이저 GC를 수행한다. 이때 회수된 객체들이 차지하고 있던 파편화 된 메모리 조각들을 하나로 모으기 위해 생존한 객체들을 한 곳으로 모은다. 이를 마크-스윕-컴팩트 알고리즘이라 한다.
+젊은 세대 영역에서 이뤄지는 마이너 GC 사이클이 지속되면 오래된 세대 영역의 공간은 계속 채워진다. 지속해서 생존한 객체들은 오래된 세대 영역으로 이동하기 때문이다. V8 엔진은 오래된 세대 영역의 공간이 충분하지 않다고 판단하면 메이저 GC를 수행한다. 이때 회수된 객체들이 차지하고 있던 파편화 된 메모리 조각들을 하나로 모으기 위해 생존한 객체들을 한 곳으로 이동시킨다. 이를 마크-스윕-컴팩트 알고리즘이라 한다.
 
 <div align="center">
   <img src="/images/posts/2024/mark-and-sweep-gc-in-javascript-04.gif" width="80%" class="image__border">
@@ -74,5 +74,6 @@ V8 엔진의 가비지 컬렉션은 JVM과 유사하게 동작한다. 힙 메모
 - <https://ui.toast.com/weekly-pick/ko_20200228>
 - <https://v8.dev/blog/trash-talk>
 - <https://v8.dev/blog/orinoco-parallel-scavenger>
+- <https://jayconrod.com/posts/55/a-tour-of-v8-garbage-collection>
 
 [reference-counting-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/

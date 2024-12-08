@@ -125,7 +125,7 @@ Object literal may only specify known properties, and test does not exist in typ
 - @testing-library/jest-dom
   - Jest는 제공하지만, Vitest는 제공하지 않는 매처(matcher)를 확장하기 위해 사용한다. 
 - @testing-library/user-event
-  - 사용자 인터렉션(interaction)을 재현한다.
+  - 사용자 인터랙션(interaction)을 재현한다.
 - @types/react, @types/react-dom
   - 타입스크립트 사용시 추가적으로 필요한 라이브러리들이다.
 

@@ -260,6 +260,7 @@ export default Sheets;
 
 - <https://yceffort.kr/2020/09/javascript-memory-leaks-by-window-detached>
 - <https://yceffort.kr/2020/07/memory-leaks-in-javascript>
+- <https://blog.eunsukim.me/posts/debugging-javascript-memory-leak-with-chrome-devtools>
 - <https://github.com/facebook/react/issues/23214>
 - <https://stackoverflow.com/questions/60197254/detached-dom-node-memory-leak-in-react>
 

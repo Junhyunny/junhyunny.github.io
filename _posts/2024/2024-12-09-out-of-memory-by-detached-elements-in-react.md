@@ -261,6 +261,7 @@ export default Sheets;
 - <https://yceffort.kr/2020/09/javascript-memory-leaks-by-window-detached>
 - <https://yceffort.kr/2020/07/memory-leaks-in-javascript>
 - <https://github.com/facebook/react/issues/23214>
+- <https://stackoverflow.com/questions/60197254/detached-dom-node-memory-leak-in-react>
 
 [reference-counting-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/
 [mark-and-sweep-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/mark-and-sweep-gc-in-javascript/

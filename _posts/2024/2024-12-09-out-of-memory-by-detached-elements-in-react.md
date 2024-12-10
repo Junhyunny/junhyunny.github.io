@@ -50,7 +50,7 @@ last_modified_at: 2024-12-09T23:55:00
 
 <br/>
 
-이전 스냅샷과 비교했을 때 `Detached <div>` 객체가 6355개 새로 생셩되었다. 할당된 사이즈는 약 1.5MB 수준으로 엄청 크진 않았지만, 가장 의심스러웠다. 몇 차례 인터랙션을 더하면 10MB가 훌쩍 넘어가도록 가비지 컬렉터 대상이 되지 않았다. 
+이전 스냅샷과 비교했을 때 `Detached <div>` 객체가 6355개 새로 생성되었다. 할당된 사이즈는 약 1.5MB 수준으로 엄청 크진 않았지만, 가장 의심스러웠다. 몇 차례 인터랙션을 더하면 10MB가 훌쩍 넘어가도록 가비지 컬렉터 대상이 되지 않았다. 
 
 <div align="center">
   <img src="/images/posts/2024/out-of-memory-by-detached-elements-in-react-03.png" width="100%" class="image__border">
@@ -181,7 +181,7 @@ export default Sheets;
 
 ## 3. Solve the problem
 
-아쉽게도 문제의 원인에 대헤 확실히 파악하지 못 했다. 정확한 원인은 모르지만, 힙 메모리 분석을 통해 문제 발생하는 코드의 위치와 여러 실험을 통해 Detached DOM 메모리 누수가 발생하지 않는 해결 방법은 찾아냈다. 다음과 같이 코드를 변경하면 메모리 누수가 발생하지 않는다. 
+아쉽게도 문제의 원인에 대해 확실히 파악하지 못 했다. 정확한 원인은 모르지만, 힙 메모리 분석을 통해 문제 발생하는 코드의 위치와 여러 실험을 통해 Detached DOM 메모리 누수가 발생하지 않는 해결 방법은 찾아냈다. 다음과 같이 코드를 변경하면 메모리 누수가 발생하지 않는다. 
 
 1. 함수형 컴포넌트로 Category 컴포넌트를 한번 더 감싸지 않고 직접 사용한다.
 
@@ -234,7 +234,7 @@ const Sheets = () => {
 export default Sheets;
 ```
 
-함수형 컴포넌트로 Category 컴포넌트를 감싼 형태에서 Category 컴포넌트만 리-렌더링 되면 리액트 라이브러리 내부적으로 메모리 해제가 되지 않는 구조가 있는 것인지 모르겠지만, 문제는 더 이상 발생하지 않는다. 힙 스냅샷을 비교해보면 용량을 크게 차지하는 `Detached <div>`, `Detached Text`가 보이지 않는다.
+함수형 컴포넌트로 Category 컴포넌트를 한번 더 감싼 형태에서 Category 컴포넌트만 리-렌더링 하면 리액트 내부적으로 메모리 해제가 되지 않는 구조가 있는 것인지 모르겠다. 컴포넌트를 직접 사용하면 더 이상 문제는 발생하지 않는다. 힙 스냅샷을 비교해보면 용량을 크게 차지하는 `Detached <div>`, `Detached Text`가 보이지 않는다.
 
 <div align="center">
   <img src="/images/posts/2024/out-of-memory-by-detached-elements-in-react-08.png" width="100%" class="image__border">

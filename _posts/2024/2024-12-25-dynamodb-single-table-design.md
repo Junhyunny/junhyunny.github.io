@@ -50,6 +50,7 @@ DynamoDB는 조인 연산을 지원하지 않기 때문에 애플리케이션은
 <div align="center">
   <img src="/images/posts/2024/dynamodb-single-table-design-02.png" class="image__border">
 </div>
+<center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
 
 <br/>
 
@@ -60,6 +61,7 @@ DynamoDB는 조인 연산을 지원하지 않기 때문에 애플리케이션은
 <div align="center">
   <img src="/images/posts/2024/dynamodb-single-table-design-03.png" class="image__border">
 </div>
+<center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
 
 <br/>
 
@@ -68,6 +70,7 @@ DynamoDB는 조인 연산을 지원하지 않기 때문에 애플리케이션은
 <div align="center">
   <img src="/images/posts/2024/dynamodb-single-table-design-04.png" class="image__border">
 </div>
+<center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
 
 <br/>
 

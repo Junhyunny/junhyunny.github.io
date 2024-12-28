@@ -68,7 +68,7 @@ DynamoDB는 조인 연산을 지원하지 않기 때문에 애플리케이션은
 단일 테이블 설계의 핵심은 하나의 테이블에 모든 데이터를 저장하고, 데이터 구조를 튜닝하여 최대한 적은 수의 요청을 통해 DynamoDB로부터 필요한 데이터를 조회하는 것이다. 한번의 조회 요청만으로 필요한 데이터를 가져오는 것을 이상적으로 생각한다. DynamoDB가 제공하는 쿼리(query) 연산을 수행하면 필요한 여러 건의 데이터를 한번에 조회할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/dynamodb-single-table-design-04.png" class="image__border">
+  <img src="/images/posts/2024/dynamodb-single-table-design-04.png" class="image__border image__padding">
 </div>
 <center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
 

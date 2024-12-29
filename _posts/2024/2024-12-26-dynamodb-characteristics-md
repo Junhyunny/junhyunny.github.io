@@ -1,0 +1,169 @@
+---
+title: "DynamoDB Characteristics"
+search: false
+category:
+  - aws
+  - dynamodb
+last_modified_at: 2024-12-26T23:55:00
+---
+
+<br/>
+
+#### RECOMMEND POSTS BEFORE THIS
+
+## 0. 들어가면서
+
+이번엔 DynamoDB의 몇 가지 특성들에 대해 정리한다.
+
+## 1. Characteristics
+
+AWS DynamoDB 공식 홈페이지의 소개 사이트에서 설명하는 특성들은 다음과 같다.
+
+- DynamoDB는 모든 규모에서 10밀리초 미만의 성능을 제공하는 빠르고 유연한 NoSQL 데이터베이스 서비스 
+- Fully managed Service
+  - 유지보수 불필요
+  - 서버리스
+  - auto Scaling
+  - 백업 및 복원
+  - 글로벌 테이블
+- high performance
+  - 빠르고 일관된 성능
+  - 무제한 처리량
+  - 무제한 저장
+- Secure
+  - 전송 및 저장 시 암호화
+  - 세부적인 액세스 제어
+  - PCI, HIPAA, FIPS 140-2
+- 테이블 크기에 관계 없이 몇 초안에 백업을 완료, 모든 백업은 자동으로 암호화, PITR(특정시점복구)
+- Auto-Scaling 기능 탑재
+  - DynamoDB로 들어오는 워크로드에 따라서 처리량(RCU / WCU)을 Auto-Scaling 지원합니다.
+- 데이터 자동 복제
+  - 1 개의 Region에 3개의 복제본을 만들어 놓는다.
+  - 장애가 나더라도 가용성을 유지할 수 있다.
+- 빠르고 일관된 응답시간(single-digit millisecond latency) 제공
+- DAX (DynamoDB Accelerator)
+  - 완전 관리형인 메모리 캐시, 캐싱 서비스
+  - 초당 수 백만 개의 요청에서도 DynamoDB 테이블의 읽기 속도를 최대 10개까지 가속 가능
+- 비동기 처리 지원
+- Schemless 테이블, 파티션 키, 정렬 키 그 외에 속성(attribute)로 구성된다.
+
+- 파티션 키 선택 기준
+  - 고유 값이 많은 속성
+  - 균일한 비율로 무작위 요청되는 속성
+
+## 2. Key types
+
+DynamoDB엔 두 개의 특별한 키가 존재한다. 기본 키(primary key)
+
+단일 PK를 사용하는 경우 아이템마다 다른 PK를 보장해야 한다. SK와 함께 사용하면 PK가 중복되도 된다. PK, SK를 함께 사용하는 경우 Composite primary key라고 한다. 
+기본 키는 PK, SK를 
+
+- 파티션 키(partition key) - requried
+  - 아이템을 식별하기 위해 사용하는 유니크한 값
+  - 해시 인덱스를 통해 키 공간(key space)에 분리되어 저장된다.
+  - 여러 개의 물리적인 스토리지에 분리하여 저장한다.
+- 정렬 키(sort key) - optional
+  - 파티션에 저장된 데이터를 정렬한다.
+  
+파티션은 3개의 레플리케이션으로 복사된다.
+
+파티션 키를 사용해서 관련 데이터를 한 장소에 유지하는 Locality of reference 
+- 관련 데이터를 가까이 유지하는 것이 비용과 성능에 큰 영향을 미치기 때문이다. 
+
+simple primary key
+- 파티션 키 하나만 사용한다.
+
+composite primary key
+- 파티션 키와 정렬 키의 조합으로 기본 키를 사용한다.
+
+이 두 개의 키는 
+파티션 키와 핫 파티션
+
+Item-based actions
+  - Write, Delete, Update
+Query
+Scan - 절대 피해라
+
+Filtering
+
+- Filter expression 동작 방식
+1. 테이블에서 데이터(아이템)을 읽는다.
+2. 해당 아이템들을 메모리에 로드하고 나면, DynamoDB는 사용자가 정의한 Filter expression 이 있는지 호가인
+3. Filter expression이 있다면, 그 내용에 따라 아이템들을 필터링한다.
+4. 반환한다,
+
+DynamoDB는 데이터를 한번에 가져올 수 있는 최대 크기는 1MB. 1GB 크기의 테이블을 가지고 있다면 약 1000회 요청을 수행해야 한다.
+
+- 
+
+IGV
+
+## 3. Secondary Index
+
+스캔과 쿼리의 차이점
+
+- 스캔 - 테이블의 모든 데이터를 조회한다.
+- 쿼리 - 
+
+
+DynamoDB는 Real World에서 데이터를 접근하기에 Primary Key(PK + SK)만으로는 부족하기 때문에 보조 인덱스(Secondary Index)를 추가적으로 제공합니다. 보조 인덱스는 LSI (Local Secondary Index)와 GSI(Global Secondary Index) 두 가지로 나뉘어집니다.
+
+    LSI (Local Secondary Index)
+        테이블과 동일한 Partition Key를 사용하며, Sort Key 지정
+        테이블 생성 시에만 생성 가능하며, 삭제 불가능
+        용량은 10GB로 제한
+        파티션 내 테이블 데이터와 함께 저장
+        테이블의 RCU / WCU 같이 사용
+        Eventual Consistent Read와 Strong Consistent Read 선택 가능
+        LSI 사용은 최대한 지양
+        - 할당량 5개
+        - 테이블과 같은 PK를 사용하지만, 다른 SK를 사용하게 할 수 있다.
+
+    기본 테이블과 파티션 키는 동일하지만정렬 키는 다른 인덱스
+    모든 로컬 보조 인덱스에는 기테이블의 파티션 및 정렬키가 자동적으포함 된다.
+    파티션 키 값으로 지정한 대로 단파티션을 쿼리할 수 있음.
+    Sort Key 이외의 Attribute로 정렬할 필요가 있는 경우 사용함.
+
+    ⇒ 이유?
+
+    LSI는 파티션 키를 테이블의 파티션 키와 동일하게 설정해야하기 때문에 두 파티션 키가 같은 데이터를 바라보고 연산한다는 점에서 메리트가 떨어지고, 특히나 용량 제한이 있어서 테이블 볼륨이 늘어날수록 해야하며 추가적인 생성과 삭제가 불가능하기 때문입니다.
+
+GSI(Global Secondary Index)
+
+    Partition Key를 필수 설정하고, Sort Key는 선택 사항
+    테이블 생성 후에도 생성/삭제 가능
+    용량 제한 없음
+    테이블 외 인덱스 데이터 따로 저장
+    테이블 외 인덱스에서 RCU / WCU 따로 사용
+    Eventual consistent read만 가능
+    GSI 사용 권장
+    - PK, SK로 구성되고, 기존 테이블과 달라도 된다.
+    - 할당량 30개, 테이블 사용 장에 추가나 삭제 가능
+
+    파티션 키 및 정렬키가 기본테이블파티션/정렬키와 다를 수 있는 인덱스
+    모든 글로벌 보조 인덱스는 파티션 키있어야 하며, 선택사항으로 정렬키를 가수 있음.
+    인덱스 크기 제약 없음
+
+
+## 4. Provisioned and On-demand
+
+## NoSQL 테이블 설계 접근
+
+- 3가지 기본 요소 파악
+  - 데이터 크기 - 저장해야 할 데이터의 양과 한 번에 요청할 데이터의 양을 알면 가장 효과적인 데이터를 파티션하는 방법을 결정할 수 있다.
+  - 데이터 모양 - 쿼리를 처리할 때 데이터를 변화시키는 대신 데이터베이스의 모양이 쿼리 대상과 일치하도록 데이터를 구성한다.
+  - 데이터 속도 - DynamoDB는 프로세스 쿼리에 사용할 수 있는 물리적 파티션의 수를 늘리고, 해당 파티션에 효율적으로 데이터를 배포해 조정한다. 사전에 피크 쿼리 로드를 알면 I/O 용량을 가장 효과적으로 사용할 수 있는 데이터 파티션(분할) 방법을 결정하는 데 도움이 된다.
+
+## CLOSING
+
+#### TEST CODE REPOSITORY
+
+#### RECOMMEND NEXT POSTS
+
+#### REFERENCE
+
+- <https://www.youtube.com/watch?v=HaEPXoXVf2k>
+- <https://www.youtube.com/watch?v=I7zcRxHbo98>
+- <https://www.dynamodbguide.com/what-is-dynamo-db/>
+- <https://zuminternet.github.io/DynamoDB/>
+- <https://alphahackerhan.tistory.com/39>

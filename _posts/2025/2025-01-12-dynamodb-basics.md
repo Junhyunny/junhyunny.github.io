@@ -13,7 +13,7 @@ last_modified_at: 2025-01-12T23:55:00
 
 모든 규모에서 10밀리초 미만의 성능을 제공하는 빠르고 유연한 NoSQL 데이터베이스이다. 완전 관리형 서비스(fully managed service)이다. AWS에서 DynamoDB 리소스에 대한 모든 관리를 해주는 서버리스 제품이기 때문에 서버 패치, 백업, 복원 같은 부가적인 유지보수가 불필요하다. DynamoDB는 1개의 지역(region)에 3개의 복제본(replica)을 만들어두기 때문에 장애가 나더라도 가용성을 유지할 수 있다.
 
-- AZ A, B, C 영역에 각 파티션에 대한 복제본이 만들어진다.
+- A, B, C AZ 영역에 각 파티션에 대한 복제본이 만들어진다.
 
 <div align="center">
   <img src="/images/posts/2025/dynamodb-basics-01.png" width="80%" class="image__border">
@@ -32,7 +32,12 @@ last_modified_at: 2025-01-12T23:55:00
 
 ## 2. Mode
 
-프로비저닝 모드(provisioned mode)와 온디맨드 모드(ondemand mode)를 지원한다. 프로비저닝 모드는 사전에 정의된 읽기 및 쓰기 용량(throughput)을 미리 지정하고, 이를 기준으로 리소스를 관리하도록 설정하는 방식이다. 작업량(workload)에 따라 프로비저닝 된 처리량이 부족한 경우 오토 스케일링(auto scaling)을 통해 읽기 용량(RCU, read capacity units)와 쓰기 용량(WCU, write capacity units)를 조정할 수 있다. 처리량을 미리 지정하기 때문에 트래픽 변동이 적은 경우 비용을 효율적으로 관리할 수 있다. 일정하고 예측 가능한 트래픽 패턴을 가진 경우 적합하다. 예상 트패픽 패턴을 정확히 파악하지 못하는 경우 용량 부족(throttling)이나 용량 낭비가 발생할 수 있다. 오토 스케일링을 사용하면 비용 측면에서 높은 값의 고정된 프로비저닝 용량을 사용하는 것보다 이득을 볼 수 있다.
+다음과 같은 두 가지 모드를 지원한다. 
+
+- 프로비저닝 모드(provisioned mode)
+- 온디맨드 모드(ondemand mode)
+
+프로비저닝 모드는 사전에 정의된 읽기 및 쓰기 용량(throughput)을 미리 지정하고, 이를 기준으로 리소스를 관리하도록 설정하는 방식이다. 작업량(workload)에 따라 프로비저닝 된 처리량이 부족한 경우 오토 스케일링(auto scaling)을 통해 읽기 용량(RCU, read capacity units)와 쓰기 용량(WCU, write capacity units)를 조정할 수 있다. 처리량을 미리 지정하기 때문에 트래픽 변동이 적은 경우 비용을 효율적으로 관리할 수 있다. 일정하고 예측 가능한 트래픽 패턴을 가진 경우 적합하다. 예상 트패픽 패턴을 정확히 파악하지 못하는 경우 용량 부족(throttling)이나 용량 낭비가 발생할 수 있다. 오토 스케일링을 사용하면 비용 측면에서 높은 값의 고정된 프로비저닝 용량을 사용하는 것보다 이득을 볼 수 있다.
 
 <div align="center">
   <img src="/images/posts/2025/dynamodb-basics-02.png" width="80%" class="image__border">

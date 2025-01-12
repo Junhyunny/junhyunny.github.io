@@ -101,7 +101,6 @@ DynamoDB에는 특별한 속성이 두 개 존재한다. 이를 키(key)라고 �
 
 ## 5. Read methods
 
-작성 중..
 <!-- - Item-based actions
 - Write, Delete, Update
 - Query

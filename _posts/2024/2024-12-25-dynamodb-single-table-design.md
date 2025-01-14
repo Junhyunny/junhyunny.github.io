@@ -9,6 +9,10 @@ last_modified_at: 2024-12-25T23:55:00
 
 <br/>
 
+#### RECOMMEND POSTS BEFORE THIS
+
+- [DynamoDB basics][dynamodb-basics-link]
+
 ## 0. 들어가면서
 
 이번 프로젝트에서 DynamoDB를 처음 사용해봤다. 그리 나쁘진 않았지만, 테이블을 디자인 할 떄 평소 사용하는 관계형 데이터베이스(RDBMS, relational database)와 전혀 다른 방식으로 접근해야 한다는 점이 상당히 어려웠다. 
@@ -104,3 +108,5 @@ Alex DeBrie도 싱글 테이블 디자인을 사용하지 않아야 하는 케�
 - <https://www.alexdebrie.com/posts/dynamodb-single-table/>
 - <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-general-nosql-design.html#bp-general-nosql-design-concepts>
 - <https://www.bounteous.com/insights/single-table-design-with-aws-dynamodb-and-the-inverted-index/>
+
+[dynamodb-basics-link]: https://junhyunny.github.io/aws/dynamodb/dynamodb-basics/

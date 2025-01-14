@@ -13,7 +13,7 @@ last_modified_at: 2025-01-12T23:55:00
 
 모든 규모에서 10밀리초 미만의 성능을 제공하는 빠르고 유연한 NoSQL 데이터베이스이다. 완전 관리형 서비스(fully managed service)이다. AWS에서 DynamoDB 리소스에 대한 모든 관리를 해주는 서버리스 제품이기 때문에 서버 패치, 백업, 복원 같은 부가적인 유지보수가 불필요하다. DynamoDB는 1개의 지역(region)에 3개의 복제본(replica)을 만들어두기 때문에 장애가 나더라도 가용성을 유지할 수 있다.
 
-- A, B, C AZ 영역에 각 파티션에 대한 복제본이 만들어진다.
+- A, B, C 가용 영역(AZ, availability zone)에 각 파티션에 대한 복제본이 만들어진다.
 
 <div align="center">
   <img src="/images/posts/2025/dynamodb-basics-01.png" width="80%" class="image__border">
@@ -90,7 +90,7 @@ DynamoDB에는 특별한 속성이 두 개 존재한다. 이를 키(key)라고 �
 
 <br/>
 
-정렬 키는 옵션(optional) 값으로 파티션 내부에 동일한 파티션 키를 갖는 데이터들에 대한 정렬을 수행한다. 정렬 키를 사용하면 1:N 관계를 모델링 할 수 있다. 파티션 키만 사용하는 경우 여러 아이템이 동일한 파티션 키를 가질 수 없지만, 파티션 키와 정렬 키를 함께 사용하는 복합 키를 사용하는 경우 여러 아이템이 정렬 키를 통해 구분되기 때문에 동일한 파티션 키를 갖는 것이 가능하다. 이를 통해 1:N 관계가 성립할 수 있다. 정렬 키는 동등 연산뿐만 아니라 `>`, `>=`, `<`, `<=`, `begins with`, `bewteen` 같은 연산들을 통해 동일한 파티션 키를 갖는 아이템들 중에서도 조건에 맞는 아이템들만 조회할 수 있다. 
+정렬 키는 옵션(optional) 값으로 파티션 내부에 동일한 파티션 키를 갖는 데이터들에 대한 정렬을 수행한다. 정렬 키를 사용하면 1:N 관계를 모델링 할 수 있다. 파티션 키만 사용하는 경우 여러 아이템이 동일한 파티션 키를 가질 수 없지만, 파티션 키와 정렬 키를 함께 사용하는 복합 키를 사용하는 경우 여러 아이템이 정렬 키를 통해 구분되기 때문에 동일한 파티션 키를 갖는 것이 가능하다. 이를 통해 1:N 관계가 성립할 수 있다. 정렬 키는 동등 연산뿐만 아니라 `>`, `>=`, `<`, `<=`, `begins with`, `bewteen` 같은 연산 조건들을 통해 동일한 파티션 키를 갖는 아이템들 중에서도 조건에 맞는 아이템들만 조회할 수 있다. 
 
 - 동일한 파티션 키 값을 갖는 아이템들 중 정렬 키 순서에 맞게 가운데 데이터가 위치한다.
 
@@ -99,21 +99,71 @@ DynamoDB에는 특별한 속성이 두 개 존재한다. 이를 키(key)라고 �
 </div>
 <center>https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/HowItWorks.Partitions.html</center>
 
-## 5. Read methods
+## 5. Read Methods
 
-<!-- - Item-based actions
-- Write, Delete, Update
+DynamoDB에서 데이터를 다루는 다양한 방법을 제공한다. 그 중 데이터를 읽는 기본적인 방법 3가지에 대해 알아본다. 아래 3가지 외에도 BatchGetItem 같은 연산도 있지만, GetItem 연산의 연장선이기 때문에 이 글에선 다루지 않는다. 
+
+- GetItem
 - Query
-- Scan & Filtering
+- Scan
 
-- Filter expression 동작 방식
+GetItem 연산은 기본 키(파티션 키 혹은 복합 키)를 알고 있을 때 하나의 데이터를 조회할 수 있는 방법이다. RDBMS에서 PK를 사용해 한 개의 데이터를 질의하는 연산(findById)과 동일하다. "Lift", "Metadata"이라는 속성을 파티션 키, 정렬 키로 사용하는 테이블의 경우 다음과 같은 기본 키 정보를 통해 아이템을 조회할 수 있다.
 
-1. 테이블에서 데이터(아이템)을 읽는다.
-2. 해당 아이템들을 메모리에 로드하고 나면, DynamoDB는 사용자가 정의한 Filter expression 이 있는지 확인한다.
-3. Filter expression이 있다면, 그 내용에 따라 아이템들을 필터링한다.
-4. 반환한다.
+```
+$ aws dynamodb get-item \
+    --table-name SkiLifts \
+    --key '{"Lift": {"S": "Lift 3"}, "Metadata": {"S": "Static Data"}}'
+```
 
-DynamoDB는 데이터를 한번에 가져올 수 있는 최대 크기는 1MB. 1GB 크기의 테이블을 가지고 있다면 약 1000회 요청을 수행해야 한다. -->
+아래 아이템이 조회된다.
+
+<div align="center">
+  <img src="/images/posts/2025/dynamodb-basics-06.png" width="80%" class="image__border">
+</div>
+
+<br/>
+
+Query 연산은 한번의 연산으로 여러 개의 아이템들을 조회하는 기능이다. 이 연산에서 파티션 키가 필수로 사용된다. 파티션 키는 `=` 연산 조건만 가능하다. 만약, 파티션 키만 기본 키로 사용하는 아이템의 경우 GetItem 연산과 동일하지만, 복합 키를 기본 키로 사용하는 경우 하나의 파티션 키에 여러 개의 아이템이 매칭된다. 정렬 키는 선택적으로 조회 조건에 활용할 수 있다. 위에서 언급했듯이 정렬 키는 `=`, `>`, `>=`, `<`, `<=`, `begins with`, `bewteen` 같은 연산 조건들과 함께 사용할 수 있기 때문에 특정 범위에 해당하는 아이템 리스트를 조회하는 것이 가능하다. 다음과 같은 키 조건을 만들어 아이템을 조회할 수 있다.
+
+```
+$ aws dynamodb query \
+  --table-name SkiLifts \
+  --key-condition-expression 'Lift = :v1 AND Metadata BETWEEN :v2 AND :v3' \
+  --expression-attribute-values '{":v1": {"S": "Lift 3"}, ":v2": {"S": "01/01/20"}, ":v3": {"S": "03/01/20"}}'
+
+```
+
+아래 아이템이 조회된다.
+
+<div align="center">
+  <img src="/images/posts/2025/dynamodb-basics-07.png" width="80%" class="image__border">
+</div>
+
+<br/>
+
+Scan 연산은 데이터를 조회할 때 기본 키에 대한 정보가 없는 경우 사용할 수 있다. 기본적으로 GetItem, Query 연산은 모두 기본 키 정보가 필요하다. Query 연산은 적어도 파티션 키 정보라도 필요하다. 이런 경우 보조 인덱스(secondary index)를 사용하면 쿼리를 사용할 수 있지만, 이번 글에서 다루진 않는다.
+
+<div align="center">
+  <img src="/images/posts/2025/dynamodb-basics-08.png" width="80%" class="image__border">
+</div>
+<center>https://www.youtube.com/watch?v=I7zcRxHbo98</center>
+
+<br/>
+
+Scan 연산은 어떤 연산 조건이든 사용할 수 있기 때문에 유연한 데이터 조회가 가능하지만, 권장하지 않는다. 테이블 전체를 스캔 후 필터링 조건에 따라 적합한 데이터만 남기기 때문에 성능이 떨어지고 비용이 비싸기 때문이다. 테이블에 아이템이 많을수록 Scan 연산의 효율성은 떨어진다. Scan 연산은 다음과 같이 필터 조건을 만들어 아이템들을 조회할 수 있다. 
+
+```
+$ aws dynamodb scan \
+  --table-name SkiLifts \
+  --filter-expression "VerticalFeet < :v1" \
+  --expression-attribute-values '{":v1":{"N":"1000"}}'
+```
+
+아래 아이템이 조회된다.
+
+<div align="center">
+  <img src="/images/posts/2025/dynamodb-basics-07.png" width="80%" class="image__border">
+</div>
 
 #### RECOMMEND NEXT POSTS
 
@@ -128,9 +178,11 @@ DynamoDB는 데이터를 한번에 가져올 수 있는 최대 크기는 1MB. 1G
 - <https://aws.amazon.com/ko/blogs/database/choosing-the-right-dynamodb-partition-key/>
 - <https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/HowItWorks.Partitions.html>
 - <https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html>
+- <https://docs.aws.amazon.com/ko_kr/amazondynamodb/latest/developerguide/Query.KeyConditionExpressions.html>
 - <https://www.dynamodbguide.com/what-is-dynamo-db/>
 - <https://zuminternet.github.io/DynamoDB/>
 - <https://alphahackerhan.tistory.com/39>
 - <https://stackoverflow.com/a/76237844/14859847>
+- <https://medium.com/rate-labs/%EC%95%84-%ED%95%B4%EB%B4%90-dynamodb-%EB%93%A4%EC%96%B4%EA%B0%84%EB%8B%A4-f8da282bc625>
 
 [dynamodb-single-table-design-link]: https://junhyunny.github.io/aws/dynamodb/dynamodb-single-table-design/

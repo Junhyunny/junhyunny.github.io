@@ -162,7 +162,7 @@ $ aws dynamodb scan \
 아래 아이템이 조회된다.
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-basics-07.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/dynamodb-basics-09.png" width="80%" class="image__border">
 </div>
 
 #### RECOMMEND NEXT POSTS

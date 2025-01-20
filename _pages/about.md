@@ -9,12 +9,12 @@ classes: wide
 <br/>
 
 <div class="personal"> 
-    <h2 class="personal-name">강준현</h2>
-    <p class="personal__information">
-       <span>kang3966@naver.com</span>
-       <span>https://junhyunny.github.io/</span>
-       <span>https://github.com/Junhyunny</span>
-    </p>
+  <h2 class="personal-name">강준현</h2>
+  <p class="personal__information">
+    <span>kang3966@naver.com</span>
+    <span>https://junhyunny.github.io/</span>
+    <span>https://github.com/Junhyunny</span>
+  </p>
 </div>
 
 안녕하세요. Tanzu Labs 소프트웨어 엔지니어 강준현입니다.<br/>
@@ -23,13 +23,30 @@ classes: wide
 ## 경력
 
 <div class="resume-header"> 
-    <img src="/images/about/about-4.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 id="vmware" class="reusme__company">
-        <span class="reusme__company--name">VMWare</span>
-        <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
-        <span class="reusme__company--period">2021년 11월 - PRESENT</span>
-    </h3>
+  <img src="/images/about/about-5.png" width="5%" class=" image__margin-right image__border"/>
+  <h3 id="bekindlabs" class="reusme__company">
+    <span class="reusme__company--name">Bekind Labs</span>
+    <span class="reusme__company--team-role">Software Devloper</span>
+    <span class="reusme__company--period">2025년 01월 - PRESENT</span>
+  </h3>
 </div>
+
+##### To be continued
+
+<div class="resume-header"> 
+  <img src="/images/about/about-4.png" width="5%" class=" image__margin-right image__border"/>
+  <h3 id="vmware" class="reusme__company">
+    <span class="reusme__company--name">VMWare</span>
+    <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
+    <span class="reusme__company--period">2021년 11월 - 2025년 1월</span>
+  </h3>
+</div>
+
+##### [Toyota] 토요타 특성화 고등학교 학생 평가 시스템, 2024년 7월 - 12월
+
+- 토요타 특성화 고등학교 학생 평가 시스템
+- 선생, 학생들의 평가 및 피드백 프로세스를 위한 도메인 설계 및 구현
+- AWS DynamoDB 데이터 마이그레이션 프로세스 자동화
 
 ##### [Toyota] Rungram 아마추어 러너 달리기 자세 멘토링 서비스, 2024년 4월 - 5월
 
@@ -95,12 +112,12 @@ classes: wide
 - KB 레거시 EAI 메세징 서비스 분석 및 리팩토링을 통한 코드 70% 축소
 
 <div class="resume-header"> 
-    <img src="/images/about/about-3.jpg" width="4%" class=" image__margin-right image__border"/>
-    <h3 id="geneuin" class="reusme__company">
-        <span class="reusme__company--name">Geneuin</span>
-        <span class="reusme__company--team-role">Application Developer</span>
-        <span class="reusme__company--period">2021년 4월 - 11월</span>
-    </h3>
+  <img src="/images/about/about-3.png" width="4%" class=" image__margin-right image__border"/>
+  <h3 id="geneuin" class="reusme__company">
+    <span class="reusme__company--name">Geneuin</span>
+    <span class="reusme__company--team-role">Application Developer</span>
+    <span class="reusme__company--period">2021년 4월 - 11월</span>
+  </h3>
 </div>
 
 ##### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
@@ -121,12 +138,12 @@ classes: wide
 - 용기 번호와 LOT 번호에 맞는 바코드 생성 및 출력 작업 자동화
 
 <div class="resume-header"> 
-    <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 id="posco-ict" class="reusme__company">
-        <span class="reusme__company--name">POSCO ICT</span>
-        <span class="reusme__company--team-role">MES Application Developer</span>
-        <span class="reusme__company--period">2018년 7월 – 2021년 4월</span>
-    </h3>
+  <img src="/images/about/about-1.png" width="5%" class=" image__margin-right image__border"/>
+  <h3 id="posco-ict" class="reusme__company">
+    <span class="reusme__company--name">POSCO ICT</span>
+    <span class="reusme__company--team-role">MES Application Developer</span>
+    <span class="reusme__company--period">2018년 7월 – 2021년 4월</span>
+  </h3>
 </div>
 
 ##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영, 2020년 6월 - 2021년 4월
@@ -147,17 +164,17 @@ classes: wide
 - 야드 관리 시스템 공통 비즈니스 룰 엔진 컴포넌트 리팩토링
 - 야드 관리 시스템 소재, 제품 적치를 위한 스케줄링 도메인 객체 리팩토링 및 개발
 - 메모리 캐시와 Kafka를 사용한 데이터 동기화로 룰 엔진 컴포넌트 80% 속도 개선
-    - 5초 이상 소요 시간을 1초 미만으로 개선
+  - 5초 이상 소요 시간을 1초 미만으로 개선
 - 이송 물류 개선을 위한 차량 이송 물류 스케줄링 구현
-    - 이송될 물류를 미리 그룹화하고 순번을 지정하는 스케줄링 이후 타 운송 시스템으로 목록과 순번을 전송
+  - 이송될 물류를 미리 그룹화하고 순번을 지정하는 스케줄링 이후 타 운송 시스템으로 목록과 순번을 전송
 
 <div class="resume-header"> 
-    <img src="/images/about/about-1.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 id="posco-ict-intern" class="reusme__company">
-        <span class="reusme__company--name">POSCO ICT</span>
-        <span class="reusme__company--team-role">Internship</span>
-        <span class="reusme__company--period">2017년 8월 - 2017년 11월</span>
-    </h3>
+  <img src="/images/about/about-1.png" width="5%" class=" image__margin-right image__border"/>
+  <h3 id="posco-ict-intern" class="reusme__company">
+    <span class="reusme__company--name">POSCO ICT</span>
+    <span class="reusme__company--team-role">Internship</span>
+    <span class="reusme__company--period">2017년 8월 - 2017년 11월</span>
+  </h3>
 </div>
 
 ##### [POSCO ICT] Smart CCTV 시스템 어플리케이션 개발, 2017년 8월 - 11월
@@ -177,22 +194,22 @@ classes: wide
 ## Education
 
 <div class="resume-header"> 
-    <img src="/images/about/about-2.jpg" width="5%" class=" image__margin-right image__border"/>
-    <h3 class="reusme__company">
-        <span class="reusme__company--name">Hansung University</span>
-        <span class="reusme__company--team-role">학사</span>
-        <span class="reusme__company--period">2014년 2월 - 2018년 2월</span>
-    </h3>
+  <img src="/images/about/about-2.png" width="5%" class=" image__margin-right image__border"/>
+  <h3 class="reusme__company">
+    <span class="reusme__company--name">Hansung University</span>
+    <span class="reusme__company--team-role">학사</span>
+    <span class="reusme__company--period">2014년 2월 - 2018년 2월</span>
+  </h3>
 </div>
 
 ##### 정보통신공학과 전공
 
 - 학점 4.45 / 4.5
 - 우촌상 수상
-    - 후기졸업자로서 전기졸업포상자를 포함해 전교에서 학업성적이 최우수한 자
+  - 후기졸업자로서 전기졸업포상자를 포함해 전교에서 학업성적이 최우수한 자
 - 아산 성적 우수 장학생 3년 선정
-    - 2015년 - 2017년
+  - 2015년 - 2017년
 - 제34회 전국 대학생 수학 경시대회(비수학전공분야) 은상 수상
-    - 대한수학회, 고등과학원 주최
+  - 대한수학회, 고등과학원 주최
 - 2016 미래전파 창의 아이디어 설계 제작 공모전 우수상 수상
-    - 국립전파연구원 주최
+  - 국립전파연구원 주최

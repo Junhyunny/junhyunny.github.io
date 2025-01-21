@@ -168,6 +168,7 @@ $ aws dynamodb scan \
 #### RECOMMEND NEXT POSTS
 
 - [DynamoDB single table design][dynamodb-single-table-design-link]
+- [DynamoDB Secondary Indexes][dynamodb-seconary-indexes-link]
 
 #### REFERENCE
 
@@ -186,3 +187,4 @@ $ aws dynamodb scan \
 - <https://medium.com/rate-labs/%EC%95%84-%ED%95%B4%EB%B4%90-dynamodb-%EB%93%A4%EC%96%B4%EA%B0%84%EB%8B%A4-f8da282bc625>
 
 [dynamodb-single-table-design-link]: https://junhyunny.github.io/aws/dynamodb/dynamodb-single-table-design/
+[dynamodb-seconary-indexes-link]: https://junhyunny.github.io/aws/dynamodb/dynamodb-seconary-indexes/

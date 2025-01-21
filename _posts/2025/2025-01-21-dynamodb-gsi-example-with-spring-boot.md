@@ -217,7 +217,7 @@ amazon:
 1. 엔드포인트 URL 주소를 주입받는다.
 2. 오버라이딩 할 엔드포인트 URL 주소가 존재하는 경우 DynamoDB 클라이언트 객체의 엔드포인트를 변경한다. 
 
-```kt
+```kotlin
 package action.`in`.blog.config
 
 import org.springframework.beans.factory.annotation.Value
@@ -293,7 +293,7 @@ MovieRepository 인스턴스 코드를 살펴본다. DynamoDBClient 객체와 �
 4. 쿼리 조건 표현식에 사용되는 키 이름을 지정한다.
 5. 쿼리 조건 표현식에 사용되는 값을 지정한다.
 
-```kt
+```kotlin
 package action.`in`.blog.repository
 
 import action.`in`.blog.domain.MovieInfo

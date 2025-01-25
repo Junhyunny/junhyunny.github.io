@@ -16,21 +16,23 @@ last_modified_at: 2025-01-24T23:55:00
 
 ## 0. 들어가면서
 
-로컬 환경에 개발이나 테스트를 위해 DynamoDB 로컬 컨테이너를 사용했다. 팀원이 `LocalStack`을 사용해보자는 의견을 냈다. 사용해보기 전에 LocalStack 컨셉과 이를 사용해 어떻게 DynamoDB를 셋업하는지 공부해봤다.
+로컬 환경에서 개발, 테스트를 위해 DynamoDB 로컬 컨테이너를 사용하고 있다. 팀원이 `LocalStack`을 사용해보자는 의견을 내서 사용하기 전에 LocalStack 컨셉과 이를 사용해 어떻게 DynamoDB를 셋업하는지 정리했다.
 
 ## 1. What is LocalStack?
 
-LocalStack은 AWS 리소스들을 로컬 환경에서 간단하게 실행할 수 있는 에뮬레이터(emulator)다. LocalStack 환경을 구축하면 LocalStack 환경 내부에 애플리케이션 개발에 필요한 AWS 리소스(e.g. DynamoDB, Lambda, S3, Kinesis, SQS 등)를 손쉽게 모두 준비할 수 있다. 나는 AWS 클라우드 리소스를 대체할 수 있는 다른 서비스들을 사용했다. 
+LocalStack은 AWS 리소스들을 로컬 환경에서 간단하게 실행할 수 있는 에뮬레이터(emulator)다. LocalStack을 사용하면 내부 환경에 애플리케이션 개발에 필요한 AWS 리소스(e.g. DynamoDB, Lambda, S3, Kinesis, SQS 등)를 손쉽게 모두 준비할 수 있다. AWS 클라우드 리소스를 대체하기 위해 사용하는 다른 서비스들을 LocalStack 하나로 모두 커버할 수 있다. 
 
-- S3 - MinIO 컨테이너
-- DynamoDB - DynamoDB Local 컨테이너
-- ElastiCache - Redis 컨테이너
+예를 들어 다음과 같은 스택을 사용했다.
 
-LocalStack은 이 모든 AWS 리소스들을 하나의 컨테이너를 통해 제공한다. LocalStack은 무료로 사용할 수 있지만, LocalStack이 제공하는 AWS 리소스들의 특정 기능들은 유료이다. `One for All`이기 때문에 엄청 편리할 것 같지만, 내가 개발하는 애플리케이션들이 필요한 AWS 리소스들을 로컬 환경을 구축할 때 사용하는 도커 컴포즈(docker compose) YAML 파일의 복잡도가 낮아지는 장점 이 외에 특별한 장점을 느끼긴 어려웠다.
+- S3 대체 서비스 - MinIO 컨테이너
+- DynamoDB 대체 서비스 - DynamoDB Local 컨테이너
+- ElastiCache 대체 서비스 - Redis 컨테이너
+
+LocalStack은 위 AWS 리소스들을 하나의 컨테이너를 통해 제공할 수 있다. 무료로 사용할 수 있지만, 특정 기능들은 유료이기 때문에 결제가 필요할 수도 있다. `One for All`이기 때문에 엄청 편리할 것 같지만, 내가 개발하는 애플리케이션들이 필요한 AWS 리소스들을 로컬 환경에 구축할 때 사용하는 도커 컴포즈(docker compose) YAML 파일의 복잡도가 낮아지는 장점 외에 특별한 점을 느끼긴 어려웠다.
 
 ## 2. Setup DynamoDB table on LocalStack container
 
-LocalStack 컨테이너를 실행 한 후 내부 DynamoDB에 개발에 필요한 테이블을 준비해보자. 도커 커맨드로 LocalStack 컨테이너를 쉽게 실행할 수 있지만, 이 글에선 도커 컴포즈를 사용한다. 다음과 같은 도커 컴포즈 YAML 파일을 작성한다.
+이제 LocalStack 컨테이너를 실행한 후 내부 DynamoDB에 개발에 필요한 테이블을 준비해보자. 커맨드로 LocalStack 컨테이너를 쉽게 실행할 수 있지만, 이 글에선 도커 컴포즈를 사용한다. 다음과 같은 도커 컴포즈 YAML 파일을 작성한다.
 
 ```yml
 version: "3.8"
@@ -48,9 +50,28 @@ services:
       - "${DOCKER_SOCK:-/var/run/docker.sock}:/var/run/docker.sock" # 로컬 호스트 도커 연결
 ```
 
-`DYNAMODB_SHARE_DB` 환경 변수를 1로 설정하여 DynamoDB가 지역마다 별도의 데이터베이스를 사용하지 않도록 한다. DynamoDB에 생성한 테이블을 NoSQL워크벤치(workbench) 같은 도구를 통해 확인하기 위해선 이 설정이 필요하다. 단일 데이터베이스로 사용하지 않는 경우 각 지역마다 다른 데이터베이스를 사용하기 때문에 지역(region) 설정이 불가능한 NoSQL워크벤치에선 DynamoDB에 생성된 테이블을 확인할 수 없다.
+`DYNAMODB_SHARE_DB` 환경 변수를 1로 설정하여 DynamoDB가 지역마다 별도 데이터베이스를 사용하지 않도록 한다. 단일 데이터베이스로 사용하지 않는 경우 각 지역마다 다른 데이터베이스를 사용하기 때문에 지역(region) 설정이 불가능한 NoSQL워크벤치에선 DynamoDB에 생성된 테이블을 확인할 수 없다. DynamoDB에 생성한 테이블을 NoSQL워크벤치(workbench) 같은 도구를 통해 확인하기 위해선 이 설정이 필요하다. 
 
-나는 도커 컴포즈를 통해 LocalStack을 실행함과 동시에 DyanmoDB에 테이블을 준비하고 싶었다. 컨테이너의 `/etc/localstack/init/ready.d` 경로에 들어 있는 쉘 스크립트들은 LocalStack이 준비가 완료된 이후에 실행된다. 해당 디렉토리에 DynamoDB 테이블을 생성하는 쉘 스크립트를 찾을 수 있도록 볼륨을 잡아준다. 프로젝트의 `./init` 경로에 아래 쉘 스크립트를 준비한다.
+나는 LocalStack 컨테이너를 실행함과 동시에 DyanmoDB에 테이블을 준비하고 싶었다. LocalStack 컨테이너의 초기화 훅을 사용하면 테이블 초기화가 가능하다. LocalStack 컨테이너는 다음과 같은 라이프사이클을 갖는다.
+
+- BOOT - the container is running but the LocalStack runtime has not been started
+- START - the Python process is running and the LocalStack runtime is starting
+- READY - LocalStack is ready to serve requests
+- SHUTDOWN - LocalStack is shutting down
+
+각 라이프사이클에 동작하는 훅 스크립트는 아래 디렉토리들에 존재한다.
+
+```
+/etc
+└── localstack
+    └── init
+        ├── boot.d           <-- executed in the container before localstack starts
+        ├── ready.d          <-- executed when localstack becomes ready
+        ├── shutdown.d       <-- executed when localstack shuts down
+        └── start.d          <-- executed when localstack starts up
+```
+
+`/etc/localstack/init/ready.d` 경로에 가져다 놓은 쉘 스크립트는 LocalStack 컨테이너 준비가 완료된 후 실행된다. 이 곳에 DynamoDB 테이블을 생성할 수 있는 쉘 스크립트를 볼륨으로 공유한다. 볼륨으로 공유한 프로젝트의 `./init` 경로에 아래 쉘 스크립트를 준비한다.
 
 ```
 #!/bin/bash
@@ -109,7 +130,7 @@ localstack-1  | }
 localstack-1  | Ready.
 ```
 
-NoSQL워크벤치에서 LocalStack 컨테이너로 연결하면 해당 테이블 정보를 확인할 수 있다. NoSQL워크벤치에서 다음과 4566 포트번호를 사용해 연결을 만든다.
+이제 NoSQL워크벤치에서 LocalStack 컨테이너로 연결하면 해당 테이블 정보를 확인할 수 있다. NoSQL워크벤치에서 4566 포트번호를 사용해 연결을 만든다.
 
 <div align="center">
   <img src="/images/posts/2025/setup-dynamodb-in-localstack-01.png" width="100%" class="image__border">
@@ -148,7 +169,8 @@ localstack-1  | 2025-01-24T17:18:57.098  INFO --- [-functhread5] localstack.util
 M4 칩에선 `localstack/localstack:latest-amd64` 이미지를 사용하면 호스트 플랫폼과 맞지 않는다는 경고 메시지와 함께 DynamoDB에 정상적으로 테이블이 생성되는 것을 확인할 수 있다.
 
 ```
-$ docker compose up  
+$ docker compose up
+
 WARN[0000] /Users/junhyunny/Desktop/todoApp/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion 
 [+] Running 3/0
  ✔ Network todoapp_default                                                                                                                                   Created                                                                                                  0.0s 
@@ -209,6 +231,9 @@ localstack-1  | Ready.
 초기화 훅 폴더에 담긴 쉘 스크립트의 실행 권한이 없는 경우 다음과 같은 에러를 만난다.
 
 ```
+$ ls -la init/dynamodb.sh
+-rw-r--r--@ 1 junhyunny  staff  251 Jan 23 14:28 init/dynamodb.sh
+
 $ docker compose up
 
 ...
@@ -219,9 +244,6 @@ localstack-1  | 2025-01-24T17:34:43.063 ERROR --- [ady_monitor)] localstack.runt
 초기화 스크립트에 실행 가능 여부를 설정하면 해결된다.
 
 ```
-$ ls -la init/dynamodb.sh
--rw-r--r--@ 1 junhyunny  staff  251 Jan 23 14:28 init/dynamodb.sh
-
 $ chmod +x init/dynamodb.sh
 
 $ ls -la init/dynamodb.sh  
@@ -230,17 +252,7 @@ $ ls -la init/dynamodb.sh
 
 ### 3.3 Exec format error
 
-초기화 스크립트를 실행할 때 초기화 스크립트에 배쉬(bash)에 대한 힌트가 없는 경우 다음과 같은 에러가 발생한다.
-
-```
-$ docker compose up
-
-...
-
-localstack-1  | 2025-01-24T17:37:23.369 ERROR --- [ady_monitor)] localstack.runtime.init    : Error while running script Script(path='/etc/localstack/init/ready.d/dynamodb.sh', stage=READY, state=ERROR): [Errno 8] Exec format error: '/etc/localstack/init/ready.d/dynamodb.sh'
-```
-
-초기화 쉘 스크립트 파일 최상단에 어떤 배쉬를 사용할 것인지 힌트를 작성한다. 아래 스크립트를 사용하면 문제가 발생한다.
+초기화 스크립트를 실행할 때 스크립트 위에 쉘(shell)에 대한 힌트가 없는 경우 에러가 발생한다. 예를 들어 아래 스크립트를 사용하면 초기화가 실패한다.
 
 ```
 awslocal dynamodb create-table \
@@ -251,7 +263,17 @@ awslocal dynamodb create-table \
     --region ap-northeast-1;
 ```
 
-반면, 아래 스크립트는 문제 없이 실행된다.
+다음과 같은 에러를 확인할 수 있다.
+
+```
+$ docker compose up
+
+...
+
+localstack-1  | 2025-01-24T17:37:23.369 ERROR --- [ady_monitor)] localstack.runtime.init    : Error while running script Script(path='/etc/localstack/init/ready.d/dynamodb.sh', stage=READY, state=ERROR): [Errno 8] Exec format error: '/etc/localstack/init/ready.d/dynamodb.sh'
+```
+
+반면, 초기화 쉘 스크립트 파일 최상단에 어떤 쉘을 사용할 것인지 힌트를 작성해주면 문제 없이 실행된다.
 
 ```
 #!/bin/bash

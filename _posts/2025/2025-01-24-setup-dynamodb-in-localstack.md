@@ -71,7 +71,7 @@ services:
         └── start.d          <-- executed when localstack starts up
 ```
 
-`/etc/localstack/init/ready.d` 경로에 가져다 놓은 쉘 스크립트는 LocalStack 컨테이너 준비가 완료된 후 실행된다. 이 곳에 DynamoDB 테이블을 생성할 수 있는 쉘 스크립트를 볼륨으로 공유한다. 볼륨으로 공유한 프로젝트의 `./init` 경로에 아래 쉘 스크립트를 준비한다.
+`/etc/localstack/init/ready.d` 경로에 가져다 놓은 쉘 스크립트는 LocalStack 컨테이너 준비가 완료된 후 실행된다. 이 곳에 DynamoDB 테이블을 생성하는 쉘 스크립트를 볼륨을 통해 공유한다. 볼륨으로 공유된 프로젝트 `./init` 경로에 아래와 같은 쉘 스크립트를 준비한다.
 
 ```
 #!/bin/bash

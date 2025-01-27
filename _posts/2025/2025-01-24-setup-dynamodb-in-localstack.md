@@ -40,7 +40,7 @@ services:
   localstack:
     image: localstack/localstack
     ports:
-      - "127.0.0.1:4566:4566" # LocalStack 내부 서비스를 외부에서 접근할 떄 사용하는 포트, LocalStack Gateway
+      - "127.0.0.1:4566:4566" # LocalStack 내부 서비스를 외부에서 접근할 때 사용하는 포트, LocalStack Gateway
       - "127.0.0.1:4510-4559:4510-4559" # 외부 서비스들의 포트 범위
     environment:
       - DYNAMODB_SHARE_DB=1 # DynamoDB를 단일 데이터베이스로 사용

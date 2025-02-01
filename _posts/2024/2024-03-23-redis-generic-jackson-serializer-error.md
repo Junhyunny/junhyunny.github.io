@@ -1,5 +1,5 @@
 ---
-title: "Problem of deserialization in GenericJackson2JsonRedisSerializer class"
+title: "Deserialization problem of GenericJackson2JsonRedisSerializer"
 search: false
 category:
   - java

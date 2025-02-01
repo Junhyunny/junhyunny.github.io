@@ -1,5 +1,5 @@
 ---
-title: "Serialize instance with class info problem in Kotlin ObjectMapper"
+title: "Problem to serialize instance with class info in Kotlin ObjectMapper"
 search: false
 category:
   - spring-boot
@@ -12,9 +12,9 @@ last_modified_at: 2025-01-31T23:55:00
 
 ## 0. 들어가면서
 
-자바(java) 애플리케이션은 Json 객체로 직렬화를 수행할 때 `ObjectMapper` 객체를 사용한다. ObjectMapper 객체는 기본적으로 직렬화(serialize)를 수행할 때 클래스 정보를 함께 직렬화하지 않는다. 역직렬화(deserialize) 할 때 클래스 정보가 필요하다면 직렬화 할 때 클래스 정보를 함께 직렬화해야 한다. 세션을 통해 서로 다른 서비스 간 정보를 공유하는 경우를 대표적인 예로 들 수 있다. 
+자바(java) 애플리케이션은 Json 객체로 직렬화를 수행할 때 `ObjectMapper`를 사용한다. ObjectMapper는 기본적으로 직렬화(serialize)를 수행할 때 클래스 정보를 함께 직렬화하지 않는다. 하지만 역직렬화(deserialize) 할 때 클래스 정보가 필요하다면 직렬화 할 때 클래스 정보를 함께 직렬화해야 하는 경우도 생긴다. 세션을 통해 서로 다른 서비스 간 정보를 공유하는 경우를 대표적인 예로 들 수 있다. 
 
-ObjectMapper 객체를 사용해 인스턴스 직렬화를 수행할 때 명시적인 타입 정보를 포함시키는 방법으로 `activateDefaultTyping()` 메소드를 제공한다. 자바에선 정상적으로 클래스 정보가 포함되었는데, 코틀린(kotlin)은 동일한 코드에서 클래스 정보가 포함되지 않았다. 이번 글은 해당 내용에 대해 정리했다.
+ObjectMapper는 인스턴스 직렬화를 수행할 때 명시적인 타입 정보를 포함시키는 방법으로 `activateDefaultTyping()` 메소드를 제공한다. 자바에선 정상적으로 클래스 정보가 포함되었는데, 코틀린(kotlin)은 동일한 코드에서 클래스 정보가 포함되지 않았다. 이번 글은 해당 내용에 대해 정리했다.
 
 ## 1. Problem context
 
@@ -140,7 +140,7 @@ class KotlinObjectMapperSerializeTest {
 }
 ```
 
-다음과 같은 테스트 실패에 대한 에러 메시지를 볼 수 있다.
+테스트 실패의 원인은 아래와 같다.
 
 ```
 Expected :["action.in.blog.User",{"name":"junhyunny"}]
@@ -149,7 +149,7 @@ Actual   :{"name":"junhyunny"}
 
 ## 2. Solve the problem
 
-코틀린이 익숙한 사용자라면 어디서 문제가 발생하는지 금새 짐작할 수 있다. 나는 코틀린이라는 언어를 깊이 공부하지 않았기 때문에 이 문제의 원인을 짐작하는데 많은 시간이 소요된 것 같다. 라이브러리 문제라고 판단하고, 관련된 이슈를 뒤지는 등 헛짓거리를 많이 한 것 같다. 그 대단한 ChatGPT도 계속 잘못된 답변을 내줬다. 
+코틀린이 익숙한 사용자라면 어디서 문제가 발생하는지 금새 짐작할 수 있다. 나는 코틀린이라는 언어를 깊이 공부하지 않았기 때문에 이 문제의 원인을 짐작하는데 많은 시간이 소요된 것 같다. 라이브러리 문제라고 판단하고 관련된 이슈를 뒤지는 등 헛짓거리를 많이 한 것 같다. 그 대단한 ChatGPT도 계속 잘못된 답변을 내줬다. 
 
 문제의 원인은 코틀린의 클래스 특징에 있었다. 코틀린의 클래스는 기본적으로 `final`이다. 불필요한 상속을 막기 위해 모든 클래스를 final 클래스로 만든다. 
 
@@ -231,7 +231,7 @@ class KotlinObjectMapperSerializeTest {
 
 ## 3. How to handle final classes?
 
-자바는 JDK16부터 불변 클래스인 [레코드(record)][record-in-java-link]를 지원하고, 코틀린도 `데이터 클래스(data class)`를 많이 사용한다. 자바의 레코드나 코틀린의 데이터 클래스는 final 클래스이기 때문에 직렬화 할 때 타입 정보가 제외된다. 이 객체들의 직렬화 된 데이터에 타입 정보를 명시하고 싶다면 어떻게 해야 할까? `DefaultTyping.EVERYTHING`을 사용하면 된다.
+자바는 JDK16부터 불변 클래스인 [레코드(record)][record-in-java-link]를 정식 지원하고, 코틀린도 `데이터 클래스(data class)`를 많이 사용한다. 자바의 레코드나 코틀린의 데이터 클래스는 final 클래스이기 때문에 직렬화 할 때 타입 정보가 제외된다. 이 객체들의 직렬화 된 데이터에 타입 정보를 명시하고 싶다면 어떻게 해야 할까? `DefaultTyping.EVERYTHING`을 사용하면 된다.
 
 자바 코드는 다음과 같다.
 
@@ -301,7 +301,7 @@ class KotlinObjectMapperSerializeTest {
 }
 ```
 
-주의할 사항으로 `DefaultTyping.EVERYTHING`은 3.0 버전에 삭제될 예정이다. JavaDoc 주석에 해당 옵션에 설명을 볼 있다. 
+주의 사항으로 `DefaultTyping.EVERYTHING`은 3.0 버전에 삭제될 예정이다. JavaDoc 주석에 해당 옵션에 설명을 볼 있다. 
 
 ```java
     /**

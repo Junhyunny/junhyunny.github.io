@@ -77,7 +77,7 @@ example.com.    3600    IN    MX   20   mail2.example.com.
 `NS(Name Server) 레코드`는 도메인 이름 시스템에서 특정 도메인의 DNS 정보를 관리하는 네임 서버를 지정하는 레코드다. NS 레코드를 통해 접근하는 네임 서버는 해당 도메인의 모든 DNS 레코드(A, MX, TXT 등)를 제공한다. NS 레코드를 사용하면 상위 DNS 서버가 하위 도메인의 정보를 찾는 요청을 다른 네임 서버에 위임한다. 예를 들어 GoDaddy 같은 도메인 구매 서비스를 통해 구매한 example.com 도메인을 다루는 네임 서버를 AWS Route53으로 지정할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/dns-record-types-03.png" width="100%" class="image__border">
+  <img src="/images/posts/2025/dns-record-types-03.png" width="80%" class="image__border">
 </div>
 <center>https://m.blog.naver.com/mogulist/221761776783</center>
 

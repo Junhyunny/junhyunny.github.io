@@ -18,7 +18,7 @@ last_modified_at: 2025-02-15T23:55:00
 
 스프링 애플리케이션에서 타임리프와 스프링 시큐리티를 사용하는 경우 쉽게 CSRF 토큰 발급이 가능하다. 이를 리액트 같은 싱글 페이지 애플리케이션(SPA, Single Page Application)에 발급 받으려면 서버 사이드 렌더링과 다른 방식으로 접근해야 한다. 이번 예제 코드를 이해하기 위해선 CSRF 공격과 방어에 대한 개념을 잘 이해하고 있어야 한다. CSRF 공격에 대해 잘 모른다면 [이 글][cross-site-reqeust-forgery-link]을 먼저 읽어보길 바란다.
 
-[스프링 시큐리티 공식 문서](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa)를 보면 싱글 페이지 애플리케이션에 CSRF 토큰을 발급하는 방법이 나와 있지만, 나는 [모바일 애플리케이션에 인티그레이션 하는 방식](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-mobile)을 사용했다. 모바일 애플리케이션 방식이 코드 의미와 실행 흐름을 이해하기 쉬웠다. 
+스프링 시큐리티 공식 문서를 보면 [싱글 페이지 애플리케이션에 CSRF 토큰을 발급하는 방법](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-javascript-spa)이 정리되어 있지만, 나는 [모바일 애플리케이션에 인티그레이션 하는 방식](https://docs.spring.io/spring-security/reference/servlet/exploits/csrf.html#csrf-integration-mobile)을 사용했다. 모바일 애플리케이션 방식이 코드 의미와 실행 흐름을 이해하기 쉬웠다. 
 
 ## 1. Spring Application
 

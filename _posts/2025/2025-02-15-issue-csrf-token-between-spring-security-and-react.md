@@ -84,9 +84,7 @@ public class SecurityConfig {
 
 ### 1.3. CsrfController class
 
-CSRF 토큰을 발급받을 수 있는 엔드포인트를 구성한다. 엔드포인트 파라미터를 통해 획득한 CsrfToken 인스턴스를 그대로 반환한다. 엔드포인트에 주입되는 CsrfToken 인스턴스는 `CsrfTokenArgumentResolver` 객체에 의해 주입된다. 컨트롤러 엔드포인트 메소드에 주입되는 파라미터들은 `HandlerMethodArgumentResolver` 인스턴스들에 의해 주입되기 때문에 간단히 찾을 수 있다. HandlerMethodArgumentResolver 인스턴스에 관련된 내용은 [이 글](https://junhyunny.github.io/spring-boot/handler-method-argument-resolver/)을 참조하길 바란다. 
-
-CsrfToken 인스턴스는 세션에 저장된 값이 있으면 이를 사용하고 없는 경우 새로운 토큰을 생성한다.
+CSRF 토큰을 발급받을 수 있는 엔드포인트를 구성한다. 엔드포인트 파라미터를 통해 획득한 CsrfToken 인스턴스를 그대로 반환한다. 엔드포인트에 주입되는 CsrfToken 인스턴스는 `CsrfTokenArgumentResolver` 객체에 의해 주입된다. CsrfToken 인스턴스는 세션에 저장된 값이 있으면 이를 사용하고 없는 경우 새로운 토큰을 생성한다.
 
 ```java
 package action.in.blog.controller;

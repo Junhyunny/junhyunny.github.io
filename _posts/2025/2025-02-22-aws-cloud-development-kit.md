@@ -9,8 +9,6 @@ last_modified_at: 2025-02-22T23:55:00
 
 <br/>
 
-#### RECOMMEND POSTS BEFORE THIS
-
 ## 0. 들어가면서
 
 테라폼(terraform)이 겨우 익숙해지는 와중에 새로운 IaC(Infrastructure as Code)를 접하게 됐다. 잠시 다른 프로젝트를 돕기 위해 참여했는데, 여기는 테라폼 대신 AWS CDK(cloud development kit)을 사용하고 있었다. 기본적인 컨셉과 동작을 이해하기 위해 개념과 예시 코드를 글로 정리했다.

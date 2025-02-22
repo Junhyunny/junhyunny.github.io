@@ -122,8 +122,10 @@ CDK는 다음 요소들을 조합하여 인프라를 구축한다.
 - 스택(stack) - CDK 애플리케이션의 배포 단위이다. 하나 이상의 스택을 생성하고, 각 스택에는 여러 개의 AWS 리소스가 포함된다.
 - 앱(app) - CDK 애플리케이션 전체를 의미한다. 여러 개의 스택이 포함된다.
 
+위 요소들은 계층 구조를 갖는다. 최상위는 앱으로 내부에 여러 개의 스택을 갖을 수 있다. 스택은 AWS CloudFormation의 스택과 1:1로 매핑된다. 하나의 스택에 여러 개의 컨스트럭트가 포함된다. 컨스트럭트는 AWS 리소스와 매핑된다. 앱, 스택, 컨스트럭트의 계층 구조는 `cdk synth` 명령어를 통해 CloudFormation 템플릿으로 변환된다. CDK 코드를 CloudFormation에서 사용하는 yaml(혹은 json) 형식의 파일로 변환한다. CloudFormation 템플릿은 cdk.out 디렉토리에 저장된다. 마지막으로 생성된 템플릿을 CloudFormation에 배포하여 필요한 AWS 리소스들을 생성한다.
+
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2025/aws-cloud-development-kit-01.png" width="80%" class="image__border">
 </div>
 <center>https://docs.aws.amazon.com/cdk/v2/guide/home.html</center>
 
@@ -181,7 +183,7 @@ new ActionInBlogStack(app, "ActionInBlogStack", { // 2
 
 ### 4.2. ActionInBlogStack
 
-이제 본격적으로 필요한 인프라 구축을 정의한 스택 코드를 살펴본다. 여기서 사용된 대부분의 생성자가 L2 수준의 추상화 API이다. CfnOutput 생성자만 L1 수준의 추상화 API이다. 우선 스택의 생성자만 살펴본다.
+이제 본격적으로 필요한 인프라 구축을 정의한 스택 코드를 살펴본다. 여기서 사용된 대부분의 AWS 리소스 클래스의 생성자가 L2 수준의 추상화 된 API이다. 아래 예제 코드에서 CfnOutput 생성자만 L1 수준의 추상화 API이다. 우선 스택의 생성자 햠수를 살펴본다.
 
 1. 각 리소스의 접두사(prefix)로 사용하기 위해 스택 이름을 변수에 담는다.
 2. VPC를 구성한다.  

@@ -192,7 +192,7 @@ new ActionInBlogStack(app, "ActionInBlogStack", { // 2
 4. EC2 컨테이너를 생성한다.
 5. ALB와 리스너를 생성한다.
 6. 리스너 타겟 그룹에 EC2 컨테이너를 추가한다.
-7. 모든 작업이 완료되면 ALB 리소스의 DNS 주소를 출력한다.
+7. 작업 마지막에 ALB 리소스의 DNS 주소를 출력한다.
 
 ```ts
 import * as cdk from "aws-cdk-lib";

@@ -16,7 +16,7 @@ last_modified_at: 2024-09-18T23:55:00
 
 [이전 글][create-alb-and-target-group-in-aws-with-terraform-link]에서 테라폼을 사용해 ALB, 타겟 그룹(target group)을 구성하는 방법에 대해 정리했다. 이번 글은 해당 타겟 그룹에 EC2 컨테이너를 배포하는 방법에 대해 정리했다. 
 
-## 1. Expected Infra in AwS
+## 1. Expected Infra in AWS
 
 테라폼을 사용해 배포할 EC2 컨테이너의 모습은 다음과 같다. 데이터베이스는 RDS가 아니라 EC2 컨테이너를 사용해 직접 배포했다.
 

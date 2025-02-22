@@ -122,7 +122,11 @@ CDK는 다음 요소들을 조합하여 인프라를 구축한다.
 - 스택(stack) - CDK 애플리케이션의 배포 단위이다. 하나 이상의 스택을 생성하고, 각 스택에는 여러 개의 AWS 리소스가 포함된다.
 - 앱(app) - CDK 애플리케이션 전체를 의미한다. 여러 개의 스택이 포함된다.
 
-위 요소들은 계층 구조를 갖는다. 최상위는 앱으로 내부에 여러 개의 스택을 갖을 수 있다. 스택은 AWS CloudFormation의 스택과 1:1로 매핑된다. 하나의 스택에 여러 개의 컨스트럭트가 포함된다. 컨스트럭트는 AWS 리소스와 매핑된다. 앱, 스택, 컨스트럭트의 계층 구조는 `cdk synth` 명령어를 통해 CloudFormation 템플릿으로 변환된다. CDK 코드를 CloudFormation에서 사용하는 yaml(혹은 json) 형식의 파일로 변환한다. CloudFormation 템플릿은 cdk.out 디렉토리에 저장된다. 마지막으로 생성된 템플릿을 CloudFormation에 배포하여 필요한 AWS 리소스들을 생성한다.
+위 요소들은 계층 구조를 갖는다. 최상위는 앱으로 내부에 여러 개의 스택을 갖을 수 있다. 스택은 AWS CloudFormation의 스택과 1:1로 매핑된다. 하나의 스택에 여러 개의 컨스트럭트가 포함된다. 컨스트럭트는 AWS 리소스와 매핑된다. CDK 라이브러리로 작성한 코드는 아래 과정을 통해 AWS 클라우드에 실제 리소스로 배포된다.
+
+1. CDK 라이브러리를 사용해 코드를 작성한다.
+2. 앱, 스택, 컨스트럭트의 계층 구조는 `cdk synth` 명령어를 통해 CloudFormation 템플릿으로 변환된다. CDK 코드가 CloudFormation에서 사용하는 yaml(혹은 json) 형식의 파일로 변환되는 것을 의미한다. CloudFormation 템플릿은 cdk.out 디렉토리에 저장된다. 
+3. 생성된 템플릿을 CloudFormation에 배포하면 필요한 AWS 리소스들이 생성된다.
 
 <div align="center">
   <img src="/images/posts/2025/aws-cloud-development-kit-01.png" width="80%" class="image__border">

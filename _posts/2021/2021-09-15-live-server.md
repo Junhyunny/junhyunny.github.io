@@ -1,5 +1,5 @@
 ---
-title: "Make Simple Web Server by live-server"
+title: "live-server 명령어 간단 웹 서버 실행"
 search: false
 category:
   - information

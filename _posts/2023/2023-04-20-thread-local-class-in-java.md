@@ -491,7 +491,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 #### RECOMMEND NEXT POSTS
 
-* [Precaution of ThreadLocal Class Usage][precaution-of-thread-local-link]
+* [ThreadLocal 클래스 사용 시 주의점][precaution-of-thread-local-link]
 
 #### REFERENCE
 

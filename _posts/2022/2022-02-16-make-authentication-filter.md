@@ -10,7 +10,6 @@ last_modified_at: 2022-02-16T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Security Basic][spring-security-link]
 - [OncePerRequestFilter][once-per-request-filter-link]
 
 👉 이어서 읽기를 추천합니다.
@@ -19,7 +18,6 @@ last_modified_at: 2022-02-16T23:55:00
 
 ## 0. 들어가면서
 
-[Spring Security JWT OAuth Example][spring-security-example-link] 포스트를 작성할 시점엔 사실 내부 동작을 정확하게 이해하지 못 했습니다. 
 인증 과정은 `@EnableAuthorizationServer` 애너테이션과 `AuthorizationServerConfigurerAdapter` 클래스 상속만으로 쉽게 인증과 토큰 발급이 가능하다보니 내부 프로세스에 대해 크게 관심이 없었던 것 같습니다. 
 최근에 이전 글들을 다시 정리하는 과정에서 `Spring Security` 진영이 더는 OAuth2.0 인증 서버와 관련된 기능을 제공하지 않는다는 사실을 알았습니다. 
 
@@ -42,7 +40,6 @@ last_modified_at: 2022-02-16T23:55:00
 저는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 변경하고 정리하였습니다. 
 
 ##### Spring Security Authentication Process
-- [Spring Security Basic][spring-security-link]에서 인증 과정에 대한 자세한 설명을 다루고 있습니다.
 - 아래 그림에 AuthenticationFilter 부분을 JWT(Json Web Token)을 사용한다는 가정하에 구현하였습니다. 
 
 <p align="center">
@@ -568,10 +565,8 @@ public class AuthControllerTest {
 - <https://silvernine.me/wp/?p=1135>
 - <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>
 
-[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
-[spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [once-per-request-filter-link]: https://junhyunny.github.io/spring-boot/once-per-request-filter/
 
 [make-authentication-provider-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/

@@ -51,9 +51,11 @@ public interface HandlerMethodArgumentResolver {
   - `HandlerMethod` 인스턴스는 자신에게 등록된 `리졸버(resolver)`들을 통해 필요한 메소드 인수 값을 셋팅한다. 
 6. `HandlerMethod` 인스턴스는 자신과 연결된 컨트롤러의 메소드를 호출(invoke)한다. 
 
-<p align="center">
-    <img src="/images/posts/2021/handler-method-argument-resolver-01.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2021/handler-method-argument-resolver-01.png" width="100%" class="image__border">
+</div>
+
+<br/>
 
 위에서 설명한 5번 과정을 자세히 들여다보자. InvocableHandlerMethod 클래스의 getMethodArgumentValues 메소드를 살펴보면 HandlerMethodArgumentResolver 인스턴스들이 호출되는 코드를 찾을 수 있다. 각 HandlerMethodArgumentResolver 인스턴스가 지원하는 파라미터가 사용되는 엔드 포인트 메소드로 연결되는 경우 HTTP 요청 정보로부터 쿼리 파라미터(혹은 요청 메시지)로부터 필요한 값을 추출한다.
 

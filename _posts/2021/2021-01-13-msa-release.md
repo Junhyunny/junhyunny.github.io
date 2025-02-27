@@ -20,18 +20,18 @@ last_modified_at: 2021-08-21T17:00:00
 
 롤링 배포(rolling deployment)는 동일 서버의 인스턴스가 여러 개 존재할 때 이를 새로운 버전으로 하나씩 교체하면서 배포하는 방식이다. 이전 버전에서 새로운 버전으로 트래픽을 점진적으로 전환하는 배포 방식이다. 배포 중에 인스턴스 수가 감소되므로 서버 처리 용량을 미리 고려해야 한다.
 
-<p align="center">
+<div align="center">
     <img src="/images/posts/2021/msa-release-01.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://reference-m1.tistory.com/211</center>
 
 ## 2. Canary Deployment
 
 카나리 배포(canary deployment)는 과거 석탄 광산에서 유독가스를 미리 감지하고자 카나리아 새를 날려 보냈던 것에서 유래한 배포 방식이다. 위험을 최소화하면서 실제 프로덕션 배포를 테스트하는 방법이다. 사용자 요청의 일부를 신규 서비스로 라우팅하여 이를 테스트 해본다. 문제가 발견된다면 배포를 중단하고 문제의 원인을 파악하고 수정할 수 있다. 트래픽 라우팅을 통해 신규 서비스를 검증할 수 있고, 트래픽 분산은 랜덤하게 하거나 사용자 별로 분류하는 것도 가능하다.
 
-<p align="center">
+<div align="center">
     <img src="/images/posts/2021/msa-release-02.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://reference-m1.tistory.com/211</center>
 
 ## 3. A/B Testing
@@ -42,9 +42,9 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 
 블루-그린 배포(blue-green deployment)에선 이전 버전을 블루(blue), 새로운 버전을 그린(green)으로 표현한다. 일단 블루-그린 배포는 두 가지 프로덕션 환경을 나란히 실행하다. 배포 시점에 트래픽을 일제히 전환하는 방식이다. 빠른 롤백이 가능하고, 운영 환경에 영향을 주지 않고 실제 서비스 환경으로 신 버전 테스트가 가능한다. 이 구성은 시스템 자원이 두 배로 필요하여 비용이 더 많이 발생한다. 
 
-<p align="center">
+<div align="center">
     <img src="/images/posts/2021/msa-release-03.png" width="100%" class="image__border">
-</p>
+</div>
 <center>https://reference-m1.tistory.com/211</center>
 
 ## 4. Traffic Shadowing

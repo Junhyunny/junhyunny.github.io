@@ -11,7 +11,6 @@ last_modified_at: 2022-02-17T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JWT(Json Web Token)][json-web-token-link]
-- [Spring Security Basic][spring-security-link]
 - [JWT AuthenticationFilter 만들기][make-authentication-filter-link]
 
 👉 이어서 읽기를 추천합니다.
@@ -22,7 +21,6 @@ last_modified_at: 2022-02-17T23:55:00
 [JWT AuthenticationFilter 만들기][make-authentication-filter-link] 포스트에 이어서 이번엔 `JWT(Json Web Token)`을 통한 사용자 인증과 관련된 내용을 구현하였습니다. 
 
 ##### Spring Security Authentication Process
-- [Spring Security Basic][spring-security-link]에서 인증 과정에 대한 자세한 설명을 다루고 있습니다.
 - 파란색 박스 부분은 `Spring Security` 프레임워크에서 제공하는 `ProvideManager` 클래스를 사용하였습니다.
 - 빨간색 박스 부분이 이번에 구현할 `JwtAuthenticationProvider` 클래스가 속하는 부분입니다.
 
@@ -599,7 +597,6 @@ public class JwtInvalidException extends AuthenticationException {
 - <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>
 
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/
-[spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [make-authentication-filter-link]: https://junhyunny.github.io/spring-boot/spring-security/make-authentication-filter/
 
 [issue-and-reissue-json-web-token-link]: https://junhyunny.github.io/spring-boot/spring-security/issue-and-reissue-json-web-token/

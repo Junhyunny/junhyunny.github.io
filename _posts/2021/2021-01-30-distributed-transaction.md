@@ -12,7 +12,6 @@ last_modified_at: 2021-08-22T00:30:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [MicroService Architecture][microservice-architecture-link]
-* [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
 * [Transaction ACID][transcation-acid-link]
 * [Transaction Isolation][transcation-isolation-link]
 
@@ -256,7 +255,6 @@ Saga 패턴을 구현해야 한다면 최대한 참여자가 적도록 비즈니
 * <https://supawer0728.github.io/2018/03/22/spring-multi-transaction/>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
-[msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
 [transcation-acid-link]: https://junhyunny.github.io/information/transcation-acid/
 [transcation-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/
 

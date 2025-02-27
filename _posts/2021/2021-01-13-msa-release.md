@@ -1,5 +1,5 @@
 ---
-title: "MicroService Architecture Release Strategy"
+title: "마이크로서비스 아키텍처(MicroService Architecture) 배포 전략"
 search: false
 category:
   - msa
@@ -71,8 +71,7 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 
 #### RECOMMEND NEXT POSTS
 
-* [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
-* [MSA API Gateway][msa-api-gateway-link]
+* [MSA API 게이트웨이(gateway)][msa-api-gateway-link]
 
 #### REFERENCE
 
@@ -80,5 +79,4 @@ A/B 테스팅은 카나리 배포와 유사하지만 한가지 차이점이 있�
 * <https://www.ciokorea.com/news/157642>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
-[msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
 [msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/

@@ -12,7 +12,7 @@ last_modified_at: 2022-01-23T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [CORS(Cross Origin Resource Sharing)][cors-link] 
-- [Spring Boot 서버 CORS(Cross Origin Resource Sharing) 처리][cors-server-example-link]
+- [Spring Boot 서버 CORS(Cross Origin Resource Sharing) 헤더 처리][cors-server-example-link]
 - [Forward/Reverse Proxy][forward-reverse-proxy-link]
 
 ## 1. CORS(Cross Origin Resource Sharing)

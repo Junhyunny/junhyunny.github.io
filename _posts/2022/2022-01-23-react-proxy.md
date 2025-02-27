@@ -17,11 +17,9 @@ last_modified_at: 2022-01-23T23:55:00
 
 ## 1. CORS(Cross Origin Resource Sharing)
 
-먼저 CORS(Cross Origin Resource Sharing) 개념을 정리해보자. 자세한 내용이 알고 싶다면 [이전 글][cors-link]을 읽어보길 바란다. 
+먼저 CORS(Cross Origin Resource Sharing) 개념을 정리해보자. 자세한 내용이 알고 싶다면 [이전 글][cors-link]을 읽어보길 바란다. 일반적으로 브라우저는 보안 때문에 동일 출처 정책(SOP, Same Origin Policy)을 따른다. 두 URL의 **프로토콜, 호스트, 포트**가 모두 같아야 동일한 출처(origin)로 본다. 예를 들어 `a-service.com` 서버에서 받은 HTML 페이지에서 `b-service.com` 호스트로 요청을 보내면 해당 에러가 발생한다. 
 
-일반적으로 브라우저는 보안 문제로 인해 동일 출처 정책(SOP, Same Origin Policy)을 따른다. 두 URL의 **프로토콜, 호스트, 포트**가 모두 같아야 동일한 출처(origin)로 본다. 예를 들어 `a-service.com` 서버에서 받은 HTML 페이지에서 `b-service.com` 호스트로 요청을 보내면 해당 에러가 발생한다. 
-
-프리플라이트(preflight)가 필요하지 않은 요청인 경우엔 서버에선 요청이 정상적으로 처리되어 응답하지만, 응답을 받은 브라우저에서 에러가 발생한다. 보통 리액트 같은 싱글 페이지 애플리케이션(SPA, Single Page Application)은 데이터를 별도 API 서비스에서 받아오기 때문에 크로스 오리진(cross origin) 요청이 되는 것이다.
+CORS 프리플라이트(preflight)가 필요하지 않은 요청인 경우에 서버는 요청을 정상적으로 처리하고 응답한다. 다만, 응답을 받은 브라우저에서 에러가 발생한다. 보통 리액트 같은 싱글 페이지 애플리케이션(SPA, Single Page Application)은 데이터를 별도 API 서비스에서 받아오기 때문에 크로스 오리진(cross origin) 요청이 되는 것이다.
 
 아래 표를 통해 동일 출처 여부를 확인해보자.
 
@@ -71,7 +69,7 @@ CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로
 
 이제 간단한 예제 코드를 작성해보자. 프록시 설정을 살펴보기 전에 먼저 구현 코드를 살펴본다.
 
-## 3.1. React application
+### 3.1. React application
 
 리액트 코드를 먼저 살펴본다. `axios`는 `URI`가 상대 경로인지 절대 경로인지에 따라 동작 방법이 다르다. 상대 경로는 페이지 출처(origin)로 요청을 보내고, 절대 경로는 지정한 도메인에 해당하는 서버로 요청을 보낸다.
 
@@ -199,7 +197,7 @@ public class CorsController {
 
 ### 3.3. Setting proxy in package.json 
 
-CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을 통해 쉽게 프록시를 설정할 수 있다. package.json 파일에 `proxy` 프로퍼티를 추가한다. `0.2.3` 버전 이상일 경우에 가능한 것으로 보인다.
+CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을 통해 쉽게 프록시를 설정할 수 있다. package.json 파일에 `proxy` 프로퍼티를 추가한다. `react-scripts`가 `0.2.3` 버전 이상일 경우에 가능한 것으로 보인다.
 
 > Proxying API Requests in Development<br/>
 > Note: this feature is available with react-scripts@0.2.3 and higher.
@@ -255,7 +253,7 @@ CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을
   - 서버로부터 전달받은 데이터를 정상적으로 화면에 출력한다.
 
 <p align="center">
-  <img src="/images/posts/2022/react-proxy-03.gif" width="100%">
+  <img src="/images/posts/2022/react-proxy-03.gif" width="100%" class="image__border">
 </p>
 
 ## 3.4. http-proxy-middleware library
@@ -308,12 +306,12 @@ module.exports = app => {
   - `http://localhost:8080` 호스트 서버로부터 전달받은 데이터를 정상적으로 화면에 출력한다.
 
 <p align="center">
-  <img src="/images/posts/2022/react-proxy-04.gif" width="100%">
+  <img src="/images/posts/2022/react-proxy-04.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING
 
-크로스 오리진 요청은 서버에서 정상적인 요청과 응답은 일어나지만, 브라우저에서 에러가 발생한다는 사실에 주의해야 한다. 포스트맨(PostMan), 인썸니아(Insomnia), cURL 같은 도구를 사용하면 CORS 정책 위반 관련 에러가 발생하지 않지만, 브라우저에서 발생한다. 
+크로스 오리진 요청은 서버에서 정상적인 요청과 응답은 일어나지만, 브라우저에서 에러가 발생한다는 사실을 명심하길 바란다. 포스트맨(PostMan), 인썸니아(Insomnia), cURL 같은 도구를 사용하면 CORS 정책 위반 관련 에러가 발생하지 않지만, 브라우저에서 발생한다. 
 
 package.json 파일을 통한 프록시 설정은 로컬 개발 환경에서만 적용 가능하다. nginx 같은 웹 서버를 따로 사용할 것이라면 `nginx.conf` 설정으로 트래픽을 애플리케이션 서버로 라우팅하면 된다.
 

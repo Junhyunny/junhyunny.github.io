@@ -74,6 +74,5 @@ API 게이트웨이의 기능들에 대해 간략하게 정리해보았습니다
 [cho-blog-link]: https://bcho.tistory.com/1005
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
-
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/
 [spring-cloud-gateway-link]: https://junhyunny.github.io/information/spring-boot/spring-cloud/spring-cloud-gateway/

@@ -1,5 +1,5 @@
 ---
-title: "Spring Boot 서버 CORS(Cross Origin Resource Sharing) 처리"
+title: "Spring Boot 서버 CORS(Cross Origin Resource Sharing) 헤더 처리"
 search: false
 category:
   - spring-boot

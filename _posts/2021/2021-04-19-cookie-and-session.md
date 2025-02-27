@@ -148,7 +148,7 @@ Connection: keep-alive
 #### RECOMMEND NEXT POSTS
 
 - [Deep dive into cookie][cookie-attributes-link]
-- [CSRF(Cross-Site Request Forgery) Attack and Defence][cross-site-reqeust-forgery-link]
+- [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
 - [LocalStorage in Browser][local-storage-link]
 - [SessionStorage in Browser][session-storage-link]
 

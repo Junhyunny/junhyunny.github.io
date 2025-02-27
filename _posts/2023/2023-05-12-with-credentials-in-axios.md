@@ -13,7 +13,7 @@ last_modified_at: 2023-05-12T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [CORS(Cross Origin Resource Sharing)][cors-link]
-* [React 개발 서버 CORS 해결하기 with Proxy][react-proxy-link]
+* [React 개발 서버 CORS 문제 해결][react-proxy-link]
 * [Cookie and Session][cookie-and-session-link]
 * [Deep dive into cookie][cookie-attributes-link]
 

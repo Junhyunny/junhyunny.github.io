@@ -11,7 +11,7 @@ last_modified_at: 2021-10-05T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [MSA API Gateway][msa-gateway-link]
+- [MSA API 게이트웨이(gateway)][msa-gateway-link]
 - [Asynchronous Non-Blocking Handling][async-nonblocking-link]
 - [Spring Session with JDBC][spring-session-link]
 
@@ -20,7 +20,7 @@ last_modified_at: 2021-10-05T23:55:00
 그래서 `Spring Cloud Gateway`를 사용하여 간단한 기능을 제공하는 게이트웨이(gateway)를 적용해볼 생각이었는데, 생각보다 구현이 어려웠습니다. 
 
 이번 포스트는 엄청 간단한 게이트웨이를 구현하고 이를 테스트한 내용을 공유할 생각입니다. 
-이 포스트를 읽기 전에 미리 [MSA API Gateway][msa-gateway-link] 글에서 게이트웨이가 무엇인지 읽어보실 것을 추천드립니다. 
+이 포스트를 읽기 전에 미리 [MSA API 게이트웨이(gateway)][msa-gateway-link] 글에서 게이트웨이가 무엇인지 읽어보실 것을 추천드립니다. 
 
 ## 1. Spring Cloud Gateway
 `Spring Cloud` 측에서는 쉬운 마이크로서비스 아키텍처 구현을 위한 여러 가지 컴포넌트(component)들을 제공해주고 있습니다. 

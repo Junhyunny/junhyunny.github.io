@@ -113,9 +113,8 @@ DDD(Domain Driven Design) 방법론을 통해 큰 업무를 독립적인 단위�
 
 #### RECOMMEND NEXT POSTS
 
-- [Pros and Cons of MicroService Architecture][msa-pros-and-cons-link]
-- [MSA API Gateway][msa-api-gateway-link]
-- [MicroService Architecture Release Strategy][msa-release-link]
+- [MSA API 게이트웨이(gateway)][msa-api-gateway-link]
+- [마이크로서비스 아키텍처(MicroService Architecture) 배포 전략][msa-release-link]
 - [Saga Pattern And Distributed Transaction][distributed-transaction-link]
 
 #### REFERENCE
@@ -129,7 +128,6 @@ DDD(Domain Driven Design) 방법론을 통해 큰 업무를 독립적인 단위�
 
 [msa-blog-link]: https://lion-king.tistory.com/entry/%EB%A7%88%EC%9D%B4%ED%81%AC%EB%A1%9C-%EC%84%9C%EB%B9%84%EC%8A%A4-vs-%EB%AA%A8%EB%86%80%EB%A6%AC%EC%8B%9D-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-MicroService-vs-Monolithic-Architecture-%EA%B0%84%EB%8B%A8-%EC%86%8C%EA%B0%9C-%EB%B0%8F-%EC%A3%BC%EA%B4%80%EC%A0%81-%EC%9D%98%EA%B2%AC
 
-[msa-pros-and-cons-link]: https://junhyunny.github.io/msa/msa-pros-and-cons/
 [msa-api-gateway-link]: https://junhyunny.github.io/msa/msa-api-gateway/
 [msa-release-link]: https://junhyunny.github.io/msa/msa-release/
 [distributed-transaction-link]: https://junhyunny.github.io/msa/design-pattern/distributed-transaction/

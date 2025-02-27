@@ -145,7 +145,6 @@ JWT는 Json 객체를 Base64 방식으로 인코딩 한 것이다. Base64 인코
 
 #### RECOMMEND NEXT POSTS
 
-- [Spring Security JWT OAuth Example][spring-security-example-link]
 - [JWK(Json Web Key)][json-web-key-link]
 
 #### REFERENCE
@@ -155,5 +154,4 @@ JWT는 Json 객체를 Base64 방식으로 인코딩 한 것이다. Base64 인코
 - <https://www.daleseo.com/jwt/>
 
 [base-64-encode-and-decode-link]: https://junhyunny.github.io/information/base-64-encode-and-decode/
-[spring-security-example-link]: https://junhyunny.github.io/spring-boot/spring-security/spring-security-example/
 [json-web-key-link]: https://junhyunny.github.io/information/json-web-key/

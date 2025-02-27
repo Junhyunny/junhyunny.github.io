@@ -1,5 +1,5 @@
 ---
-title: "CSRF(Cross-Site Request Forgery) Attack and Defence"
+title: "CSRF(Cross-Site Request Forgery) 공격과 방어"
 search: false
 category:
   - information

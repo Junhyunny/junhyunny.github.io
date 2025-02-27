@@ -18,9 +18,9 @@ last_modified_at: 2021-08-21T16:00:00
 
 이를 해결하기 위한 컴포넌트가 `API 게이트웨이(gateway)`이다. 클라이언트 애플리케이션 입장에선 API 서버들을 하나로 묶어 단일화 한 것처럼 보이기 때문에 게이트웨이 하나의 호스트를 통해 여러 API 서비스에 접근할 수 있다. 
 
-<p align="center">
+<div align="center">
   <img src="/images/posts/2021/msa-api-gateway-01.png" width="100%" class="image__border">
-</p>
+</div>
 <center>마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center>
 
 <br/>
@@ -40,9 +40,9 @@ API 게이트웨이는 엔드포인트 단일화를 위해서만 사용되는 �
 
 API 게이트웨이는 특성상 모든 API 서버 앞 쪽에 위치한다. 즉, 모든 트래픽이 API 게이트웨이를 거쳐간다. 모든 트래픽에 대해 공통적으로 처리해야 하는 공통 기능들을 API 게이트웨이에 구현하면 다른 API 서비스들 비즈니스에 집중할 수 있다. 게이트웨이는 로그를 수집하기에도 매우 좋은 곳에 위치한다. API 호출 로그는 사용자 사용 패턴을 분석하거나 문제 발생시 이를 추적하기 위한 자료로 사용된다.
 
-<p align="center">
+<div align="center">
   <img src="/images/posts/2021/msa-api-gateway-02.png" width="75%" class="image__border">
-</p>
+</div>
 <center>MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center>
 
 <br/>

@@ -12,7 +12,6 @@ last_modified_at: 2023-10-06T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Security Basic][spring-security-link]
 * [Redirect and Forwarding][redirect-and-forwarding-link]
 * [OAuth(Open Authorization)][oauth-link]
 
@@ -30,7 +29,6 @@ last_modified_at: 2023-10-06T23:55:00
 이 내용을 이해하기 위해선 스프링 시큐리티 아키텍처에 대한 배경 지식이 필요합니다. 
 간략히 설명하자면 스프링 시큐리티는 서블릿 필터 체인(servlet filter chain)의 기능을 확장합니다. 
 서블릿 필터 체인 중간에 시큐리티 필터 체인을 추가하여 인증, 인가를 처리합니다. 
-자세한 내용은 공식 홈페이지나 [Spring Security Basic][spring-security-link] 글을 참고하시기 바랍니다. 
 
 ### 1.1. Redirect to Login Page
 
@@ -314,7 +312,6 @@ OAuth2 프로토콜에서 클라이언트 어플리케이션을 구현하기 어
 * <https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes>
 * <https://developers.line.biz/en/reference/line-login/>
 
-[spring-security-link]: https://junhyunny.github.io/spring-security/spring-security/
 [redirect-and-forwarding-link]: https://junhyunny.github.io/information/redirect-and-forwarding/
 [oauth-link]: https://junhyunny.github.io/information/security/oauth/
 

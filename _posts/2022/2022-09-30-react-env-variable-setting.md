@@ -10,7 +10,7 @@ last_modified_at: 2022-09-30T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [React 개발 서버 CORS 해결하기 with Proxy][react-proxy-link]
+* [React 개발 서버 CORS 문제 해결][react-proxy-link]
 
 ## 0. 들어가면서
 

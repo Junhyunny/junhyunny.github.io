@@ -12,7 +12,7 @@ last_modified_at: 2025-02-15T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [CSRF(Cross-Site Request Forgery) Attack and Defence][cross-site-reqeust-forgery-link]
+- [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
 
 ## 0. 들어가면서
 

@@ -13,7 +13,7 @@ last_modified_at: 2024-07-09T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [Deep dive into cookie][cookie-attributes-link]
-- [CSRF(Cross-Site Request Forgery) Attack and Defence][cross-site-reqeust-forgery-link]
+- [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
 
 ## 0. 들어가면서
 

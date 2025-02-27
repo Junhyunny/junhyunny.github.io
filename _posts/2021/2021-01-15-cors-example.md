@@ -1,5 +1,5 @@
 ---
-title: "CORS(Cross Origin Resource Sharing) with Spring Boot"
+title: "Spring Boot 서버 CORS(Cross Origin Resource Sharing) 처리"
 search: false
 category:
   - spring-boot
@@ -386,7 +386,7 @@ Creating 2021-01-15-cors-example_backend-configure_1 ... done
 
 #### RECOMMEND NEXT POSTS
 
-* [React 개발 서버 CORS 해결하기 with Proxy][react-proxy-link]
+* [React 개발 서버 CORS 문제 해결][react-proxy-link]
 
 #### TEST CODE REPOSITORY
 

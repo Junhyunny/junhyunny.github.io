@@ -15,7 +15,7 @@ last_modified_at: 2021-12-31T23:55:00
 
 ## 0. 들어가면서
 
-[CSRF(Cross-Site Request Forgery) Attack and Defence][csrf-attack-and-defense-link] 글을 작성하면서 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리했다. 
+[CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link] 글을 작성하면서 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리했다. 
 
 ## 1. Cookie
 
@@ -379,7 +379,7 @@ eTLD만으로 사이트를 구분하기 어려운 도메인들이 있다. .co.kr
 
 #### RECOMMEND NEXT POSTS
 
-- [CSRF(Cross-Site Request Forgery) Attack and Defence][csrf-attack-and-defense-link]
+- [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link]
 
 #### REFERENCE
 

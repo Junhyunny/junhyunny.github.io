@@ -335,5 +335,4 @@ package.json 파일을 통한 프록시 설정은 로컬 개발 환경에서만 
 [forward-reverse-proxy-link]: https://junhyunny.github.io/information/forward-reverse-proxy/
 [react-env-variable-setting-link]: https://junhyunny.github.io/react/react-env-variable-setting/
 
-[react-dev-cors-link]: https://velog.io/@tw4204/
-React-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-CORS%EB%A5%BC-%EC%9C%84%ED%95%9C-proxy-%EC%84%A4%EC%A0%95
+[react-dev-cors-link]: https://velog.io/@tw4204/React-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C%EC%9D%98-CORS%EB%A5%BC-%EC%9C%84%ED%95%9C-proxy-%EC%84%A4%EC%A0%95

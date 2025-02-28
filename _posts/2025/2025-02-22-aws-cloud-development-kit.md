@@ -1,5 +1,5 @@
 ---
-title: "AWS CDK(Cloud Development Kit) basic and example"
+title: "AWS CDK(Cloud Development Kit) 개념과 예제"
 search: false
 category:
   - aws

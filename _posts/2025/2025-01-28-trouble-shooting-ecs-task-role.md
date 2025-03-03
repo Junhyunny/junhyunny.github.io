@@ -60,7 +60,7 @@ class DynamoDbConfig {
 
 ## 2. Solve the problem
 
-ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때문에 코드에 문제가 없을 것이라고 확신했다. 그렇다면 어디에 문제가 있었을까? ECS 클러스터에 서비스를 배포할 때 필요한 태스크 정의(task definition)을 만들 때 권한과 관련이 있다. 태스크 정의를 만들 떄 두 개의 권한을 설정할 수 있다.
+ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때문에 코드에 문제가 없을 것이라고 확신했다. 그렇다면 어디에 문제가 있었을까? ECS 클러스터에 서비스를 배포할 때 필요한 태스크 정의(task definition)을 만들 때 권한과 관련이 있다. 태스크 정의를 만들 때 두 개의 권한을 설정할 수 있다.
 
 - Task role
 - Task execution role 

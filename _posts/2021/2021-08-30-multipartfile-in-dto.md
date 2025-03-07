@@ -1,5 +1,5 @@
 ---
-title: "File Upload with Data Transfer Object in Spring"
+title: "스프링 DTO(Data Transfer Object) 객체와 파일 업로드"
 search: false
 category:
   - spring-boot

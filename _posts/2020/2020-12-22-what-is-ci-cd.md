@@ -1,5 +1,5 @@
 ---
-title: "What is CI/CD?"
+title: "CI/CD 파이프라인"
 search: false
 category:
   - information

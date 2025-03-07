@@ -12,7 +12,7 @@ last_modified_at: 2021-08-23T09:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [MicroService Architecture][microservice-architecture-link]
+* [마이크로서비스 아키텍처][microservice-architecture-link]
 * [Spring Cloud Openfeign][openfeign-link]
 * [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link]
 

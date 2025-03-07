@@ -11,7 +11,7 @@ last_modified_at: 2023-07-14T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [What is CI/CD?][what-is-ci-cd-link]
+* [CI/CD 파이프라인][what-is-ci-cd-link]
 * [SSH Copy ID for Easy Connection][ssh-copy-id-for-easy-connection-link]
 
 ## 0. 들어가면서

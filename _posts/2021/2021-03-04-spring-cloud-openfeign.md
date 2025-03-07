@@ -11,7 +11,7 @@ last_modified_at: 2021-08-22T20:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [MicroService Architecture][microservice-architecture-link]
+* [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 1. Spring Cloud Openfeign
 

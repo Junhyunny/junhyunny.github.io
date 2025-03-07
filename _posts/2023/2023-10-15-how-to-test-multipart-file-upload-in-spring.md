@@ -11,16 +11,16 @@ last_modified_at: 2023-10-15T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [MultipartFile Interface and File Upload][multipartfile-link]
-* [File Upload with Data Transfer Object in Spring][multipartfile-in-dto-link]
+* [스프링 MultipartFile 인터페이스와 파일 업로드][multipartfile-link]
+* [스프링 DTO(Data Transfer Object) 객체와 파일 업로드][multipartfile-in-dto-link]
 * [Content-Type and Spring Boot Annotation][content-type-and-spring-annotation-link]
 
 ## 0. 들어가면서
 
 파일 업로드 기능에 대한 단위 테스트를 작성해 본 경험이 없어서 관련된 내용을 정리하였습니다. 
 스프링 프레임워크를 사용해 개발하는 경우 MultipartFile 인터페이스를 통해 쉽게 파일 업로드 기능을 구현할 수 있습니다. 
-MultipartFile 인터페이스에 대한 내용은 [MultipartFile Interface and File Upload][multipartfile-link] 포스트를 참고하길 바랍니다. 
-DTO(Data Transfer Object) 클래스를 통해 파일 업로드하는 예제는 [File Upload with Data Transfer Object in Spring][multipartfile-in-dto-link] 포스트를 참고하길 바랍니다. 
+MultipartFile 인터페이스에 대한 내용은 [스프링 MultipartFile 인터페이스와 파일 업로드][multipartfile-link] 포스트를 참고하길 바랍니다. 
+DTO(Data Transfer Object) 클래스를 통해 파일 업로드하는 예제는 [스프링 DTO(Data Transfer Object) 객체와 파일 업로드][multipartfile-in-dto-link] 포스트를 참고하길 바랍니다. 
 
 ## 1. Test Target Method
 

@@ -13,7 +13,7 @@ last_modified_at: 2021-08-24T01:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [MicroService Architecture][microservice-architecture-link]
+* [마이크로서비스 아키텍처][microservice-architecture-link]
 * [Spring Cloud Openfeign][spring-cloud-openfeign-link]
 * [MSA Circuit Breaker Pattern][circuitbreaker-link]
 

@@ -11,14 +11,14 @@ last_modified_at: 2022-06-27T23:55:00
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
-* [MicroService Architecture][microservice-architecture-link]
+* [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 1. Spring Cloud Sleuth
 
 > Spring Cloud Sleuth API Reference<br/>
 > Spring Cloud Sleuth provides Spring Boot auto-configuration for distributed tracing.
 
-`MicroService Architecture`를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 
+`마이크로서비스 아키텍처`를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 
 서비스들 사이에 발생하는 요청과 응답들 사이의 연결 고리를 쉽게 추적할 수 있도록 돕는 라이브러리입니다. 
 다음과 같은 역할을 수행합니다.
 

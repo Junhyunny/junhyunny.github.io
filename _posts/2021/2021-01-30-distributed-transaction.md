@@ -11,7 +11,7 @@ last_modified_at: 2021-08-22T00:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [MicroService Architecture][microservice-architecture-link]
+* [마이크로서비스 아키텍처][microservice-architecture-link]
 * [Transaction ACID][transcation-acid-link]
 * [Transaction Isolation][transcation-isolation-link]
 

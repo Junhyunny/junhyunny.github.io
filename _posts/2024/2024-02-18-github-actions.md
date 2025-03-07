@@ -12,7 +12,7 @@ last_modified_at: 2024-02-18T23:55:00
 
 ## RECOMMEND POSTS BEFORE THIS
 
-- [What is CI/CD?][what-is-ci-cd-link]
+- [CI/CD 파이프라인][what-is-ci-cd-link]
 
 ## 0. 들어가면서
 

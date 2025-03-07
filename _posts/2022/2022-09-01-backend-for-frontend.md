@@ -11,7 +11,7 @@ last_modified_at: 2022-09-01T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [MicroService Architecture][microservice-architecture-link]
+* [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 1. Pain Points for Frontend
 

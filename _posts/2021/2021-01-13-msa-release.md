@@ -10,7 +10,7 @@ last_modified_at: 2021-08-21T17:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [MicroService Architecture][microservice-architecture-link]
+- [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 0. 들어가면서
 

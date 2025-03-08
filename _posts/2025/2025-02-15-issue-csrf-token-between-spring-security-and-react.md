@@ -1,5 +1,5 @@
 ---
-title: "스프링 시큐리티 CSRF 토큰 리액트 애플리케션에서 발급 받기"
+title: "스프링 시큐리티 CSRF 토큰 리액트 애플리케션에서 발급"
 search: false
 category:
   - react

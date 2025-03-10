@@ -1,5 +1,5 @@
 ---
-title: "개틀링(gatling) 부하테스트 예제"
+title: "개틀링(gatling) 부하 테스트 예제"
 search: false
 category:
   - gatling

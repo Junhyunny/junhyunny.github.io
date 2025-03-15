@@ -1,5 +1,5 @@
 ---
-title: "브라우저 서비스 워커(Browser Service Worker)"
+title: "브라우저 서비스 워커(Service Worker)"
 search: false
 category:
   - information

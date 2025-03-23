@@ -82,7 +82,7 @@ dependencies {
   - 세션에 저장된 Todo 객체가 있으면 이를 반환한다.
   - 세션에 저장된 Todo 객체가 없으면 새로운 Todo 객체를 생성 후 세션에 저장하고, 반환한다.
 
-```kt
+```kotlin
 package action.`in`.blog.controller
 
 import jakarta.servlet.http.HttpServletRequest

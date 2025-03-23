@@ -1,5 +1,5 @@
 ---
-title: "DynamoDB GSI(global secondary index) query example with Spring boot"
+title: "스프링 애플리케이션 DynamoDB GSI(global secondary index) 쿼리 예제"
 search: false
 category:
   - aws

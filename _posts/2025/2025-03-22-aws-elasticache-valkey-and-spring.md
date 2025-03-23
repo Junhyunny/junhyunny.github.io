@@ -158,12 +158,12 @@ Caused by: io.lettuce.core.RedisCommandExecutionException: CROSSSLOT Keys in req
 다음은 TLS 연결 설정이 필요하다. 서버리스 밸키와 연결하기 위해선 TLS 옵션이 필요하다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-02.png" class="image__border">
+  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-02.png" width="65%" class="image__border">
 </div>
 
 <br/>
 
-AWS 시큐리티 그룹(security group)에 6379 포트에 대한 인바운드 규칙이 설정되어 있음에도 타임아웃이 발생한다면 TLS 연결 옵션 활성화 여부를 확인해보길 바란다.
+AWS 시큐리티 그룹(security group)에 6379 포트에 대한 인바운드 규칙이 설정되어 있음에도 타임아웃이 발생한다면 TLS 연결 옵션 활성화 여부를 확인해보길 바란다. 내가 만난 에러 로그는 다음과 같다.
 
 ```
 2025-03-20T01:55:44.898Z ERROR 1 --- [tracker] [io-8080-exec-10] [67db7564c8857ba6adbee213795cdef8|2649be0908cf8ef8]:OAuth2AuthorizationRequestRedirectFilter : Authorization Request failed: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis
@@ -192,14 +192,14 @@ Caused by: io.lettuce.core.RedisCommandTimeoutException: Connection initializati
 - 환경 변수를 통해 클러스터 노드 연결 정보를 설정한다.
 
 ```yml
-  spring:
-    data:
-      redis:
-        ssl:
-          enabled: true
-        cluster:
-          nodes: ${SESSION_HOST}
-          max-redirects: 3
+spring:
+  data:
+    redis:
+      ssl:
+        enabled: true
+      cluster:
+        nodes: ${SESSION_HOST}
+        max-redirects: 3
 ```
 
 `SESSION_HOST` 환경 변수로 등록할 클러스터 노드 연결 정보는 밸키 서버리스 대시보드 화면에서 확인할 수 있다. 엔드포인트 정보를 포트까지 포함하여 그대로 사용한다. 

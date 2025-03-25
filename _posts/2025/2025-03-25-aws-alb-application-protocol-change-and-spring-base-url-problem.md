@@ -69,7 +69,7 @@ spring:
 
 ## 2. Cause of the problem
 
-문제의 원인은 쉽게 유추할 수 있다. 각 통신 구간의 프로토콜을 살펴보자.
+문제의 원인은 쉽게 유추할 수 있다. 먼저 각 통신 구간의 프로토콜을 살펴보자.
 
 - 사용자와 ALB 구간
   - HTTPS 통신을 수행한다. 인증서 검증은 ALB에서 처리된다.
@@ -82,15 +82,15 @@ spring:
 
 <br/>
 
-위에서도 확인할 수 있듯이 문제는 각 구간이 다른 통신 프로토콜로 통신하기 때문에 발생한다. ALB-서버 통신 구간은 HTTP 통신을 하고 있기 때문에 `baseUrl`값에 `http://domain.com` 값이 주입된다.
+위에서 확인할 수 있듯이 각 구간이 다른 통신 프로토콜로 통신하기 때문에 문제가 발생한다. ALB-서버 통신 구간은 HTTP 통신을 하기 때문에 baseUrl에 http://domain.com 값이 주입된다.
 
 ## 3. Resolve the problem
 
-문제를 해결할 수 있는 방법은 3가지있다. 
+문제를 해결할 수 있는 방법은 3가지 있다. 
 
 - application.yml 파일에 `server.forward-headers-strategy=framework` 설정을 추가한다.
 - application.yml 파일의 OAuth2 리다이렉트 URL을 환경 변수 처리하여 로컬 환경에서는 `http://localhost:8080`, 클라우드 환경에서는 `https://domain.com`을 주입한다.
-- 구글 OAuth2 개발자 사이트에 등록한 클라이언트 애플리케이션 관리 페이지에서 리다이렉트 URL에 `http://domain.com`을 추가로 등록한다.
+- 구글 OAuth2 개발자 사이트에 등록한 클라이언트 애플리케이션의 관리 페이지에서 `http://domain.com`을 리다이렉트 URL로 추가 등록한다.
 
 구체적으로 2번 해결 방법은 다음과 같다.
 
@@ -117,9 +117,11 @@ spring:
             user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
 ```
 
-3번 방법은 인증 제공자에 따라 http 스킴(scheme)을 허용하지 않는 서비스들이 있기 때문에 모든 상황에 적합하지 않다. 예를 들어 애플(apple)은 오직 `https` 스킴만 등록할 수 있고, AWS cognito 서비스는 로컬 호스트에 대해서면 http 스킴흘 허용한다. 
+3번 방법은 http 스킴(scheme)을 허용하지 않는 인증 제공자가 있기 때문에 모든 상황에 적합하지 않다. 예를 들어 애플(apple)은 오직 https 스킴만 등록할 수 있고, AWS Cognito 서비스는 로컬 호스트만 http 스킴을 허용한다. 
 
-나는 항상 2번 방식으로 문제를 해결했었다. 최근 새로운 해결 방법을 발견했다. 이번 글을 작성하게 된 계기다. 1번 방식인 `server.forward-headers-strategy=framework` 설정을 사용하면 이 문제를 해결할 수 있다. 문제가 해결 방식을 명확히 파악하려면 먼저 알아야 할 개념들이 있다. 프록시 서버를 경유하는 경우 HTTP 요청에 대해 원본 클라이언트 정보를 전달하는 방법이 있다. `X-Forwarded-` 같은 형태의 비표준 헤더를 사용하거나 [RFC7239(Forwarded HTTP Extension)](https://datatracker.ietf.org/doc/html/rfc7239) 명세에 정의된 `Forwarded` 표준 헤더를 사용하기도 한다. 주로 사용되는 `X-Forwarded-` 비표준 헤더에는 다음과 같은 것들이 있다.
+나는 항상 2번 방식으로 문제를 해결했었는데, 최근 새로운 해결 방법을 발견했다. 이번 글을 작성하게 된 계기다. 1번 방법인 `server.forward-headers-strategy=framework` 설정을 사용하면 이 문제를 해결할 수 있다. 문제의 해결 방법을 명확히 이해하려면 먼저 알아야 할 개념들이 있다. 
+
+프록시 서버를 경유하는 경우 HTTP 요청에 대해 원본 클라이언트 정보를 전달하는 방법이 있다. `X-Forwarded-` 같은 형태의 비표준 헤더를 사용하거나 [RFC7239(Forwarded HTTP Extension)](https://datatracker.ietf.org/doc/html/rfc7239) 명세에 정의된 `Forwarded` 표준 헤더를 사용한다. 주로 사용되는 `X-Forwarded-` 비표준 헤더에는 다음과 같은 것들이 있다.
 
 - X-Forwarded-For - 원본 클라이언트 IP 주소, 여러 개의 프록시를 거치면 각 프록시가 자신을 추가하여 `,`로 구분
 - X-Forwarded-Host - 원본 요청의 호스트 이름
@@ -140,7 +142,7 @@ AWS ALB는 서버 애플리케이션 기준으로 프록시 서버 역할을 수
 
 <br/>
 
-AWS ALB를 통과할 때 추가되는 `X-Forwarded-` 헤더를 보면 원본 요청의 프로토콜과 포트를 확인할 수 있다는 사실을 알았다. 이제 `server.forward-headers-strategy` 설정이 무엇인지 살펴보자. 해당 설정은 다음과 같은 옵션들이 있다.
+AWS ALB를 통과할 때 `X-Forwarded-` 헤더가 추가되어 이를 통해 원본 요청의 프로토콜과 포트를 확인할 수 있다는 사실을 알았다. 이제 `server.forward-headers-strategy` 설정이 무엇인지 살펴보자. 해당 설정은 다음과 같은 옵션들이 있다.
 
 - FRAMEWORK - Use Spring's support for handling forwarded headers.
 - NATIVE - Use the underlying container's native support for forwarded headers.

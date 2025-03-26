@@ -119,7 +119,7 @@ spring:
 
 3번 방법은 http 스킴(scheme)을 허용하지 않는 인증 제공자가 있기 때문에 모든 상황에 적합하지 않다. 예를 들어 애플(apple)은 오직 https 스킴만 등록할 수 있고, AWS Cognito 서비스는 로컬 호스트만 http 스킴을 허용한다. 
 
-나는 항상 2번 방식으로 문제를 해결했었는데, 최근 새로운 해결 방법을 발견했다. 이번 글을 작성하게 된 계기다. 1번 방법인 `server.forward-headers-strategy=framework` 설정을 사용하면 이 문제를 해결할 수 있다. 문제의 해결 방법을 명확히 이해하려면 먼저 알아야 할 개념들이 있다. 
+나는 항상 2번 방식으로 문제를 해결했었는데, 최근 새로운 해결 방법을 발견했다. 이번 글을 작성하게 된 계기다. 1번 방법인 `server.forward-headers-strategy=framework` 설정을 사용하면 이 문제를 해결할 수 있다. 이 해결 방법을 정확히 이해하려면 먼저 알아야 할 개념들이 있다. 
 
 프록시 서버를 경유하는 경우 HTTP 요청에 대해 원본 클라이언트 정보를 전달하는 방법이 있다. `X-Forwarded-` 같은 형태의 비표준 헤더를 사용하거나 [RFC7239(Forwarded HTTP Extension)](https://datatracker.ietf.org/doc/html/rfc7239) 명세에 정의된 `Forwarded` 표준 헤더를 사용한다. 주로 사용되는 `X-Forwarded-` 비표준 헤더에는 다음과 같은 것들이 있다.
 

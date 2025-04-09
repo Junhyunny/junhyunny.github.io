@@ -19,13 +19,13 @@ last_modified_at: 2025-04-09T23:55:00
 예제를 살펴보기 전에 우선 테스트 컨테이너를 통해 결합 테스트를 구축한 백그라운드에 대해 잠시 이야기한다. 현재 프로젝트는 다음과 같은 문제가 있었다.
 
 - 2025년에 만료될(deprecated) 1.X.X 버전 AWS SDK 사용
-- [io.findify.s3mock_2.13 라이브러리](https://github.com/findify/s3mock)를 통한 S3 결합 테스트
+- io.findify.s3mock_2.13 라이브러리를 통한 S3 결합 테스트
 
-만료될 1.X.X 버전의 AWS SDK도 문제였지만, S3 결합 테스트에서 사용 중인 [io.findify.s3mock_2.13 라이브러리](https://github.com/findify/s3mock)는 마지막 업데이트가 2020년 3월이고 아카이브(archive) 된 상태였다. 현재는 문제 없이 동작하는 중이었지만, 이 둘을 계속 사용하는 것은 기술 부채를 키우는 행위라고 판단했다. SDK 버전을 2.X.X로 올리고 AWS S3 역할을 수행할 수 있는 MinIO 컨테이너를 사용했다. 추가적으로 설명하자면 [MinIO](https://min.io/)는 오브젝트 스토리지 솔루션으로 AWS S3와 호환되는 API를 제공하는 오픈 소스 소프트웨어다.
+곧 만료되는 1.X.X 버전의 AWS SDK도 문제였지만, S3 결합 테스트에서 사용 중인 [io.findify.s3mock_2.13 라이브러리](https://github.com/findify/s3mock)는 마지막 업데이트가 2020년 3월이고 아카이브(archive) 된 상태였다. 현재는 문제 없이 동작하는 중이었지만, 이 둘을 계속 사용하는 것은 기술 부채를 키우는 행위라고 판단했다. SDK 버전을 2.X.X로 올리고 AWS S3 역할을 수행할 수 있는 MinIO 컨테이너를 사용했다. [MinIO](https://min.io/)는 오브젝트 스토리지 솔루션으로 AWS S3와 호환되는 API를 제공하는 오픈 소스 소프트웨어다.
 
 ## 2. Dependencies
 
-테스트 컨테이너를 통한 S3 위에서 언급한 두 의존성 대신 다음과 같은 의존성이 필요하다.
+스프링 애플리케이션에서 결합 테스트를 수행하려면 다음과 같은 의존성들이 필요하다.
 
 - software.amazon.awssdk:s3
   - AWS S3 클라이언트
@@ -167,9 +167,9 @@ public class FileUploader {
 }
 ```
 
-## 3. Write Test
+## 3. Test code
 
-이제 테스트 코드를 살펴보자. 코드를 각 부분으로 나눠서 살펴본다. 설명은 주석으로 대체한다. 아래 코드에서 엔드포인트(endpoint)를 오버라이드하는 이유는 테스트 컨테이너의 포트 번호가 매번 랜덤하게 변경되기 때문이다.
+이제 테스트 코드를 살펴보자. 코드를 각 부분으로 나눠서 살펴본다. 설명은 주석으로 대체한다.
 
 ```java
 package action.in.blog;
@@ -208,6 +208,7 @@ class ActionInBlogApplicationTests {
     // 테스트 컨테이너에 접근하기 위한 application.yml 설정 오버라이드(override)
     @DynamicPropertySource
     static void s3Properties(DynamicPropertyRegistry registry) {
+        // 테스트 컨테이너의 포트 번호가 매번 랜덤하게 변경되기 때문에 엔드포인트(endpoint)를 오버라이드한다.
         registry.add(
                 "storage.endpoint", () -> "http://localhost:" + container.getMappedPort(9000)
         );
@@ -220,7 +221,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-다음으로 컨테이너를 실행하고, 테스트에서 도움을 줄 수 있는 S3Client 객체를 준비하는 코드를 살펴보자. 아래 코드에서 테스트를 위해 별도로 S3Client 객체를 만든 이유는 테스트 대상 객체와 협력하는 실제 S3Client 객체가 의도한 설정대로 MinIO 테스트 컨테이너와 연결을 맺고 있는지 테스트 코드에서 확인하기 위함이다.
+다음으로 컨테이너를 실행하고, 테스트 코드에서 사용할 S3Client 객체를 만드는 코드를 작성한다.
 
 ```java
 package action.in.blog;
@@ -246,7 +247,7 @@ class ActionInBlogApplicationTests {
                                 .build()
                 );
         
-        // S3Client 객체를 준비한다. 
+        // 테스트 대상 객체와 협력하는 S3Client 객체가 의도한 설정대로 MinIO 테스트 컨테이너와 연결하여 파일을 저장하는지 테스트 코드에서 확인하기 위해 별도로 별도로 S3Client 객체를 준비한다. 
         s3Client = S3Client.builder()
                 .region(Region.of("ap-northeast-1"))
                 .endpointOverride(URI.create("http://localhost:" + container.getMappedPort(9000)))
@@ -265,7 +266,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-마지막으로 테스트 대상의 메소드를 검증하는 코드를 살펴본다. 테스트 대상이 제공하는 기능에 대한 테스트 코드를 작성한다. 각 테스트가 서로 영향을 주지 않도록 MinIO 버킷을 매번 새로 만들고 정리한다.
+마지막으로 테스트 코드를 통해 테스트 대상의 기능을 검증한다. 각 테스트가 서로 영향을 주지 않도록 MinIO 버킷을 매번 새로 만들고 정리한다.
 
 ```java
 package action.in.blog;
@@ -366,8 +367,8 @@ class ActionInBlogApplicationTests {
 
 #### RECOMMEND NEXT POSTS
 
-- [TestContainer for Database][test-container-for-database-link]
-- [TestContainer for DynamoDB test][test-container-for-dynamodb-test-link]
+- [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
+- [테스트 컨테이너와 스프링 애플리케이션 DynamoDB 결합 테스트][test-container-for-dynamodb-test-link]
 
 #### REFERENCE
 

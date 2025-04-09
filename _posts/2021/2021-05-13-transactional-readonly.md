@@ -13,7 +13,7 @@ last_modified_at: 2021-09-01T02:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [Features of EntityManager][persistence-context-advantages-link]
-* [TestContainer for Database][test-container-for-database-link]
+* [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 
 ## 1. @Transactional readOnly Attribute
 

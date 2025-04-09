@@ -12,8 +12,8 @@ last_modified_at: 2023-03-17T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Problem of using embedded database in @DataJpaTest][do-not-replace-database-link]
-- [TestContainer for Database][test-container-for-database-link]
+- [@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제][do-not-replace-database-link]
+- [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 - [Use TestContainer on Runtime in Spring Boot][use-test-container-on-runtime-in-spring-boot-link]
 
 ## 0. 들어가면서
@@ -45,7 +45,7 @@ dependencies {
 
 - @AutoConfigureTestDatabase 애너테이션을 사용해 테스트에서 사용할 데이터베이스를 변경하지 않도록 설정한다.
   - @DataJpaTest 애너테이션은 기본적으로 H2 임베디드 데이터베이스를 사용한다.
-  - [Problem of using embedded database in @DataJpaTest][do-not-replace-database-link] 글을 참고하길 바란다.
+  - [@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제][do-not-replace-database-link] 글을 참고하길 바란다.
 - 테스트 클래스에 @Testcontainers 애너테이션을 추가한다.
 - 컨테이너 인스턴스에 @Container 애너테이션을 추가한다.
 - @DynamicPropertySource 애너테이션과 DynamicPropertyRegistry 객체를 사용해 테스트 컨테이너를 테스트에 연결한다.

@@ -12,7 +12,7 @@ last_modified_at: 2024-03-19T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Problem of using embedded database in @DataJpaTest][do-not-replace-database-link]
+- [@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제][do-not-replace-database-link]
 - [How to setup TestContainer in Kotlin Spring Boot][testcontainer-in-kotlin-spring-boot-link]
 
 ## 0. 들어가면서

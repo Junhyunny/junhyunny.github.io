@@ -10,7 +10,7 @@ last_modified_at: 2023-08-30T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [TestContainer for Database][test-container-for-database-link]
+* [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 * [JPA Entity Serialize Exception with Redis Session][jpa-entity-serialize-exception-with-redis-session-link] 
 
 ## 1. Improved Testcontainers Support in Spring Boot 3.1

@@ -12,7 +12,7 @@ last_modified_at: 2023-05-16T23:55:00
 
 * [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
 * [Install Nonexistent Commands into Container Image][build-docker-image-with-nonexistent-commands-link]
-* [TestContainer for Database][test-container-for-database-link]
+* [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 
 ## 1. Problem
 

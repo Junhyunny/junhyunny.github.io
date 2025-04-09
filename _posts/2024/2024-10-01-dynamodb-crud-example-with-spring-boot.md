@@ -487,7 +487,7 @@ $ docker compose up -d
 
 #### RECOMMEND NEXT POSTS
 
-- [TestContainer for DynamoDB test][test-container-for-dynamodb-test-link]
+- [테스트 컨테이너와 스프링 애플리케이션 DynamoDB 결합 테스트][test-container-for-dynamodb-test-link]
 
 #### REFERENCE
 

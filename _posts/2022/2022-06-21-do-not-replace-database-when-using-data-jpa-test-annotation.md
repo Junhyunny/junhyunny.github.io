@@ -12,7 +12,7 @@ last_modified_at: 2022-06-21T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [H2 데이터베이스 not found schemas 문제][not-found-schemas-at-h2-database-link]
+- [다중 스키마 H2 데이터베이스의 not found schemas 문제][not-found-schemas-at-h2-database-link]
 
 ## 0. 들어가면서
 

@@ -13,7 +13,7 @@ last_modified_at: 2024-03-23T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [TestContainer for Database][test-container-for-database-link]
+- [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 
 ## 0. 들어가면서
 

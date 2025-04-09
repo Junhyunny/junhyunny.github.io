@@ -1,5 +1,5 @@
 ---
-title: "TestContainer for DynamoDB test"
+title: "테스트 컨테이너와 스프링 애플리케이션 DynamoDB 결합 테스트"
 search: false
 category:
   - spring-boot

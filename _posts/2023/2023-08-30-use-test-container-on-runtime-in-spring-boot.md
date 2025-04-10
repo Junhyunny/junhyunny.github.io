@@ -487,5 +487,5 @@ $ curl http://localhost:8080/users | jq .
 * <https://spring.io/blog/2023/06/23/improved-testcontainers-support-in-spring-boot-3-1/>
 * <https://spring.io/blog/2023/06/19/spring-boot-31-connectiondetails-abstraction>
 
-[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/
+[test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/
 [jpa-entity-serialize-exception-with-redis-session-link]: https://junhyunny.github.io/kotlin/spring-boot/jpa/jpa-entity-serialize-exception-with-redis-session/

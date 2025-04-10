@@ -192,4 +192,4 @@ root@736aacd50a72:/build# mvn test
 
 [docker-file-build-and-image-layer-link]: https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/
 [build-docker-image-with-nonexistent-commands-link]: https://junhyunny.github.io/docker/build-docker-image-with-nonexistent-commands/
-[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/
+[test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/

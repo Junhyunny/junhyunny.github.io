@@ -360,4 +360,4 @@ data class User(
 * <https://www.baeldung.com/spring-boot-redis-testcontainers>
 
 [spring-session-with-redis-link]: https://junhyunny.github.io/information/spring-boot/redis/spring-session-with-redis/
-[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/
+[test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/

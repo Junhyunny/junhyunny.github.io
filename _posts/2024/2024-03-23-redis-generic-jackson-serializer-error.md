@@ -293,4 +293,4 @@ GenericJackson2JsonRedisSerializer 클래스를 직렬화 모듈로 사용하는
 - <https://github.com/spring-projects/spring-data-redis/issues/2697>
 - <https://bcp0109.tistory.com/384>
 
-[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/
+[test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/

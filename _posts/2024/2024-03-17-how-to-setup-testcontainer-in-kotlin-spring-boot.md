@@ -185,5 +185,5 @@ class SecondSetupTests {
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-03-17-how-to-setup-testcontainer-in-kotlin-spring-boot>
 
 [do-not-replace-database-link]: https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/
-[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/
+[test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/
 [use-test-container-on-runtime-in-spring-boot-link]: https://junhyunny.github.io/spring-boot/use-test-container-on-runtime-in-spring-boot/

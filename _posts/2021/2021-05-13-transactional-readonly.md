@@ -354,4 +354,4 @@ Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.id=?
 * <https://kwonnam.pe.kr/wiki/springframework/transaction>
 
 [persistence-context-advantages-link]: https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/
-[test-container-for-database-link]: https://junhyunny.github.io/post-format/test-container-for-database/
+[test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/

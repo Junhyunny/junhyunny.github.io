@@ -10,7 +10,6 @@
 # Review documentation to determine if you should use `theme` or `remote_theme`
 # https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/#installing-the-theme
 
-# theme                  : "minimal-mistakes-jekyll"
 remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: "default" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
@@ -223,28 +222,13 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
-# https://github.com/jekyll/jekyll-archives
-# jekyll-archives:
-#   enabled:
-#     - categories
-#     - tags
-#   layouts:
-#     category: archive-taxonomy
-#     tag: archive-taxonomy
-#   permalinks:
-#     category: /categories/:name/
-#     tag: /tags/:name/
 
-# HTML Compression
-# - https://jch.penibelst.de/
 compress_html:
   clippings: all
   ignore:
     envs: development
 
 collections:
-  books:
-    output: true
   logs:
     output: true
 
@@ -267,18 +251,6 @@ defaults:
     values:
       layout: single
       author_profile: true
-  - scope:
-      path: ""
-      type: books
-    values:
-      permalink: /:categories/:title/
-      layout: single
-      classes: wide
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
   - scope:
       path: ""
       type: logs

@@ -20,7 +20,7 @@ last_modified_at: 2025-05-21T23:55:00
 
 > AWS Serverless Application Model (AWS SAM)는 코드형 인프라(IaC)를 사용하여 서버리스 애플리케이션을 구축하기 위한 오픈 소스 프레임워크입니다.
 
-[테라폼(Terraform)][introduction-terraform-link], [CDK(Cloud Development Kit)][aws-cloud-development-kit-link]과 같은 코드형 인프라 프레임워크다. AWS SAM을 사용하면 YAML이나 JSON 형식으로 선언된 리소스들을 AWS 클라우드포메이션(CloudFormation) 리소스를 통해 AWS 클라우드 배포할 수 있다. 템플릿 형식은 기호에 따라서 선택하면 된다.
+[테라폼(Terraform)][introduction-terraform-link], [CDK(Cloud Development Kit)][aws-cloud-development-kit-link]과 같은 코드형 인프라 프레임워크다. AWS SAM을 사용하면 YAML이나 JSON 형식으로 선언된 리소스들을 AWS CloudFormation 리소스를 통해 AWS 클라우드 배포할 수 있다. 템플릿 형식은 기호에 따라서 선택하면 된다.
 
 SAM을 사용하면 AWS에서 제공하는 람다(lambda), DynamoDB 같은 서버리스(serverless) 리소스들을 연계 및 관리하기 쉽다. 로컬 환경에서도 람다 같은 서버리스 애플리케이션을 실행하고 테스트 할 수 있다.
 
@@ -162,7 +162,7 @@ $ tree .
 - samconfig.toml
   - `sam deploy --guided` 등을 실행할 때 사용자가 입력한 값을 자동 저장하는 설정 파일이다. 이후 `sam deploy`만으로도 동일 설정을 반복 실행할 수 있도록 한다.
 - template.yaml
-  - AWS 리소스(Lambda, API Gateway, DynamoDB 등)를 정의하는 인프라 코드다. AWS 클라우드포메이션을 기반으로 작성되며, SAM이 이 템플릿을 해석해 인프라를 생성한다.
+  - AWS 리소스(Lambda, API Gateway, DynamoDB 등)를 정의하는 인프라 코드다. AWS CloudFormation을 기반으로 작성되며, SAM이 이 템플릿을 해석해 인프라를 생성한다.
 
 리소스를 정의하는 `template.yaml` 템플릿 코드를 보면 다음과 같은 섹션들로 나뉜 구조를 갖는다. 
 

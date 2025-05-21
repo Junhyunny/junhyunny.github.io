@@ -1,5 +1,5 @@
 ---
-title: "Introduction Terraform"
+title: "테라폼(Terraform) 소개"
 search: false
 category:
   - information

@@ -164,7 +164,7 @@ $ tree .
 - template.yaml
   - AWS 리소스(Lambda, API Gateway, DynamoDB 등)를 정의하는 인프라 코드다. AWS 클라우드포메이션을 기반으로 작성되며, SAM이 이 템플릿을 해석해 인프라를 생성한다.
 
-리소스를 정의하는 template YAML 템플릿 코드를 보면 다음과 같은 섹션들로 나뉜 구조를 갖는다. 
+리소스를 정의하는 `template.yaml` 템플릿 코드를 보면 다음과 같은 섹션들로 나뉜 구조를 갖는다. 
 
 - Transform
   - SAM 템플릿임을 CloudFormation에 알리는 선언이다. 이 줄이 있어야 CloudFormation이 SAM 템플릿 문법을 해석할 수 있다.
@@ -479,7 +479,14 @@ Value               arn:aws:lambda:ap-northeast-1:1234123412312:function:action-
 Successfully created/updated stack - action-in-blog in ap-northeast-1
 ```
 
-변경 사항이 있는 경우 재빌드 후 배포한다. 이후 배포에는 `--guided` 옵션 없이 명령어를 수행한다. 최초 명령어를 수행할 때 지정한 값들은 `samconfig.toml` 파일에 저장되어 재사용된다. 이번 명령어로 어떤 부분들이 변경되는지 확인 후 배포할 수 있다. 아래 배포는 `/hello` 경로를 `/hello-world` 경로로 변경하는 작업이다. AWS::ApiGateway::Deployment 리소스는 기존 리소스가 삭제되고 신규 리소스가 생성된다. 이 외에 AWS::Lambda::Function 리소스 등은 변경이 일어난다.
+배포 결과를 보면 API 게이트웨이 경로와 AWS 람다 ARN 값을 확인할 수 있다. API 게이트웨이 경로로 호출하면 로컬 환경에서 테스트한 것과 동일한 응답을 받는다.
+
+변경 사항이 있다면 재빌드 후 배포한다. 이후 배포에는 `--guided` 옵션 없이 명령어를 수행한다. 최초 명령어를 수행할 때 지정한 값들은 `samconfig.toml` 파일에 저장되어 재사용된다. 
+
+배포 시 아래처럼 어떤 부분들이 변경되는지 확인 후 배포할 수 있다. 아래 예시는 /hello 경로를 /hello-world 경로로 변경하는 작업이었다. 
+
+- AWS::ApiGateway::Deployment 리소스는 기존 리소스가 삭제되고 신규 리소스가 생성된다. 
+- 이 외 AWS::Lambda::Function, AWS::Lambda::Permission, AWS::ApiGateway::Stage 리소스 등은 변경이 일어난다.
 
 ```
 $ sam build
@@ -595,7 +602,7 @@ Successfully created/updated stack - action-in-blog in ap-northeast-1
 
 ## CLOSING
 
-다음 명령어를 통해 리소스를 정리할 수 있다.
+아래 명령어를 통해 AWS SAM CLI로 생성된 리소스들을 정리할 수 있다.
 
 ```
 $ sam delete

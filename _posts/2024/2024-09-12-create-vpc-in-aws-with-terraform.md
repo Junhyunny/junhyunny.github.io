@@ -10,7 +10,7 @@ last_modified_at: 2024-09-12T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Introduction Terraform][introduction-terraform-link]
+- [테라폼(Terraform) 소개][introduction-terraform-link]
 
 ## 0. 들어가면서
 

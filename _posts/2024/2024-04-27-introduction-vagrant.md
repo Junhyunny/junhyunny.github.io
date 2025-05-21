@@ -221,7 +221,7 @@ $ vagrant destroy [VM] # 가상 머신을 삭제한다.
 
 #### RECOMMEND NEXT POSTS
 
-- [Introduction Terraform][introduction-terraform-link]
+- [테라폼(Terraform) 소개][introduction-terraform-link]
 
 #### REFERENCE
 

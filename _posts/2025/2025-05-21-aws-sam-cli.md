@@ -164,7 +164,7 @@ $ tree .
 - template.yaml
   - AWS 리소스(Lambda, API Gateway, DynamoDB 등)를 정의하는 인프라 코드다. AWS 클라우드포메이션을 기반으로 작성되며, SAM이 이 템플릿을 해석해 인프라를 생성한다.
 
-리소스를 정의하는 템플릿 코드는 다음과 같은 섹션들로 나뉜 구조를 갖는다. 
+리소스를 정의하는 template YAML 템플릿 코드를 보면 다음과 같은 섹션들로 나뉜 구조를 갖는다. 
 
 - Transform
   - SAM 템플릿임을 CloudFormation에 알리는 선언이다. 이 줄이 있어야 CloudFormation이 SAM 템플릿 문법을 해석할 수 있다.

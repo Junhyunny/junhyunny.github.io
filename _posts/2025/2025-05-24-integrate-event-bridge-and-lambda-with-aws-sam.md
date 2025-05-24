@@ -6,7 +6,7 @@ category:
   - aws-sam-cli
   - event-bridge
   - lambda
-last_modified_at: 2025-05-22T23:55:00
+last_modified_at: 2025-05-24T23:55:00
 ---
 
 <br/>

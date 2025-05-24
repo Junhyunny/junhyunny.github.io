@@ -622,6 +622,10 @@ Deleted successfully
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2025-05-21-aws-sam-cli>
 
+#### RECOMMEND NEXT POSTS
+
+- [AWS SAM CLI를 통한 EventBridge-Lambda 결합과 배포][integrate-event-bridge-and-lambda-with-aws-sam-link]
+
 #### REFERENCE
 
 - <https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/what-is-sam.html>
@@ -634,3 +638,4 @@ Deleted successfully
 
 [introduction-terraform-link]: https://junhyunny.github.io/information/infrastructure/dev-ops/introduction-terraform/
 [aws-cloud-development-kit-link]: https://junhyunny.github.io/aws/cloud-development-kit/aws-cloud-development-kit/
+[integrate-event-bridge-and-lambda-with-aws-sam-link]: https://junhyunny.github.io/aws/aws-sam-cli/event-bridge/lambda/integrate-event-bridge-and-lambda-with-aws-sam/

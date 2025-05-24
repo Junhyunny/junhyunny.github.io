@@ -356,5 +356,7 @@ S3에 확장자가 `.pdf`인 파일을 업로드하면 각 람다 함수가 트�
 #### REFERENCE
 
 - <https://aws.amazon.com/ko/eventbridge/>
+- <https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/sam-resource-function.html>
+- <https://docs.aws.amazon.com/ko_kr/serverless-application-model/latest/developerguide/sam-property-function-eventbridgerule.html>
 
 [aws-sam-cli-link]: https://junhyunny.github.io/aws/aws-sam-cli/api-gateway/lambda/aws-sam-cli/

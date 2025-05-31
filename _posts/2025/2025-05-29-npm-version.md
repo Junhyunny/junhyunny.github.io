@@ -26,7 +26,7 @@ last_modified_at: 2025-05-29T23:55:00
   - 기존 버전과 호환되면서 버그 수정이나 내부적인 개선이 있을 때 수 버전이 변경된다.
   - e.g. 1.2.3 → 1.2.4
 
-구체적인 규칙은 [이 링크](https://semver.org/#semantic-versioning-specification-semver)를 참고하길 바란다.
+구체적인 규칙이나 부가적인 버전 정보를 추가하는 방법에 대해선 [이 링크](https://semver.org/#semantic-versioning-specification-semver)를 참고하길 바란다.
 
 ## 2. package.json and package-lock.json
 

@@ -321,13 +321,13 @@ ecsTaskExecutionRole 역할은 최종적으로 다음과 같은 정책들을 갖
 
 - 히카리 풀(hikari pool)에서 `PgConnection` 객체를 사용한다.
 
-```	
+```    
 ...
 
-2024-08-09T17:54:00.296Z INFO 1 --- [ main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer	
-2024-08-09T17:54:00.360Z INFO 1 --- [ main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...	
-2024-08-09T17:54:01.269Z INFO 1 --- [ main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@55b45ea1	
-2024-08-09T17:54:01.271Z INFO 1 --- [ main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.	
+2024-08-09T17:54:00.296Z INFO 1 --- [ main] o.s.o.j.p.SpringPersistenceUnitInfo : No LoadTimeWeaver setup: ignoring JPA class transformer    
+2024-08-09T17:54:00.360Z INFO 1 --- [ main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...    
+2024-08-09T17:54:01.269Z INFO 1 --- [ main] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@55b45ea1    
+2024-08-09T17:54:01.271Z INFO 1 --- [ main] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Start completed.    
 2024-08-09T17:54:03.657Z INFO 1 --- [ main] o.h.e.t.j.p.i.JtaPlatformInitiator : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
 
 ...

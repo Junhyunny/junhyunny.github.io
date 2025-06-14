@@ -20,16 +20,16 @@ last_modified_at: 2024-08-08T23:55:00
 ```
 Can't get Docker image: RemoteDockerImage(imageName=postgres:16, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@48ea2003)
 org.testcontainers.containers.ContainerFetchException: Can't get Docker image: RemoteDockerImage(imageName=postgres:16, imagePullPolicy=DefaultPullPolicy(), imageNameSubstitutor=org.testcontainers.utility.ImageNameSubstitutor$LogWrappedImageNameSubstitutor@48ea2003)
-	at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1364)
-	at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:88)
+    at org.testcontainers.containers.GenericContainer.getDockerImageName(GenericContainer.java:1364)
+    at org.springframework.boot.testcontainers.service.connection.ServiceConnectionContextCustomizerFactory.createSource(ServiceConnectionContextCustomizerFactory.java:88)
 
 ...
 
 Caused by: java.lang.IllegalStateException: Could not find a valid Docker environment. Please see logs and check configuration
-	at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$getFirstValidStrategy$7(DockerClientProviderStrategy.java:277)
-	at java.base/java.util.Optional.orElseThrow(Optional.java:403)
-	at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:268)
-	at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:152)
+    at org.testcontainers.dockerclient.DockerClientProviderStrategy.lambda$getFirstValidStrategy$7(DockerClientProviderStrategy.java:277)
+    at java.base/java.util.Optional.orElseThrow(Optional.java:403)
+    at org.testcontainers.dockerclient.DockerClientProviderStrategy.getFirstValidStrategy(DockerClientProviderStrategy.java:268)
+    at org.testcontainers.DockerClientFactory.getOrInitializeStrategy(DockerClientFactory.java:152)
 ```
 
 도커 데몬이 실행 중이 아니겠거니 생각했지만, 데몬은 정상적으로 실행되고 있었다. 도커 데몬이 실행되는 환경은 다음과 같다.

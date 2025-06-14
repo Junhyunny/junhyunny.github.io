@@ -120,7 +120,7 @@ export default App;
 예시 코드를 사용해 애플리케이션을 실행하면 다음과 같은 로그인 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/react-oauth2-pkce-example-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -128,7 +128,7 @@ export default App;
 `Sign in` 버튼을 누르면 AWS Cognito가 지원하는 로그인 페이지를 볼 수 있다. 테스트를 위한 사용자를 생성한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/react-oauth2-pkce-example-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -136,7 +136,7 @@ export default App;
 사용자 생성 후 로그인하면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-04.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/react-oauth2-pkce-example-04.png" width="100%" class="image__border">
 </div>
 
 <br/>

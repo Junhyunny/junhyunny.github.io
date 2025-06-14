@@ -73,10 +73,10 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
 
 ```
 java.lang.NullPointerException: Cannot invoke "org.springframework.security.oauth2.client.registration.ClientRegistration.getProviderDetails()" because the return value of "org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest.getClientRegistration()" is null
-	at org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.loadUser(DefaultOAuth2UserService.java:91)
-	at action.in.blog.service.DefaultOAuth2UserServiceDelegator.loadUser(DefaultOAuth2UserServiceDelegator.java:31)
-	at action.in.blog.service.DefaultOAuth2UserServiceDelegator.loadUser(DefaultOAuth2UserServiceDelegator.java:27)
-	at action.in.blog.service.DefaultOAuth2UserServiceDelegatorTest.loadUser(DefaultOAuth2UserServiceDelegatorTest.java:42)
+    at org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService.loadUser(DefaultOAuth2UserService.java:91)
+    at action.in.blog.service.DefaultOAuth2UserServiceDelegator.loadUser(DefaultOAuth2UserServiceDelegator.java:31)
+    at action.in.blog.service.DefaultOAuth2UserServiceDelegator.loadUser(DefaultOAuth2UserServiceDelegator.java:27)
+    at action.in.blog.service.DefaultOAuth2UserServiceDelegatorTest.loadUser(DefaultOAuth2UserServiceDelegatorTest.java:42)
     ...
 ```
 

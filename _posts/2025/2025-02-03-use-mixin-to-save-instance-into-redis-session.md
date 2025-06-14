@@ -25,15 +25,15 @@ last_modified_at: 2025-02-03T23:55:00
 
 ```
 org.springframework.data.redis.serializer.SerializationException: Could not read JSON:The class with java.util.UUID and name of java.util.UUID is not in the allowlist. If you believe this class is safe to deserialize, please provide an explicit mapping using Jackson annotations or by providing a Mixin. If the serialization is only done by a trusted source, you can also enable default typing. See https://github.com/spring-projects/spring-security/issues/4370 for details (through reference chain: action.in.blog.controller.CustomAuthenticatedUser["userInfo"]->org.springframework.security.oauth2.core.oidc.OidcUserInfo["claims"]) 
-	at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:312) ~[spring-data-redis-3.4.2.jar:3.4.2]
-	at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:282) ~[spring-data-redis-3.4.2.jar:3.4.2]
-	at org.springframework.data.redis.core.AbstractOperations.deserializeHashValue(AbstractOperations.java:400) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:312) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:282) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.core.AbstractOperations.deserializeHashValue(AbstractOperations.java:400) ~[spring-data-redis-3.4.2.jar:3.4.2]
   ...
 
 Caused by: java.lang.IllegalArgumentException: The class with java.util.UUID and name of java.util.UUID is not in the allowlist. If you believe this class is safe to deserialize, please provide an explicit mapping using Jackson annotations or by providing a Mixin. If the serialization is only done by a trusted source, you can also enable default typing. See https://github.com/spring-projects/spring-security/issues/4370 for details
-	at org.springframework.security.jackson2.SecurityJackson2Modules$AllowlistTypeIdResolver.typeFromId(SecurityJackson2Modules.java:292) ~[spring-security-core-6.4.2.jar:6.4.2]
-	at com.fasterxml.jackson.databind.jsontype.impl.TypeDeserializerBase._findDeserializer(TypeDeserializerBase.java:159) ~[jackson-databind-2.18.2.jar:2.18.2]
-	at com.fasterxml.jackson.databind.jsontype.impl.AsArrayTypeDeserializer._deserialize(AsArrayTypeDeserializer.java:100) ~[jackson-databind-2.18.2.jar:2.18.2]
+    at org.springframework.security.jackson2.SecurityJackson2Modules$AllowlistTypeIdResolver.typeFromId(SecurityJackson2Modules.java:292) ~[spring-security-core-6.4.2.jar:6.4.2]
+    at com.fasterxml.jackson.databind.jsontype.impl.TypeDeserializerBase._findDeserializer(TypeDeserializerBase.java:159) ~[jackson-databind-2.18.2.jar:2.18.2]
+    at com.fasterxml.jackson.databind.jsontype.impl.AsArrayTypeDeserializer._deserialize(AsArrayTypeDeserializer.java:100) ~[jackson-databind-2.18.2.jar:2.18.2]
     ...
 ```
 
@@ -84,17 +84,17 @@ CustomAuthenticatedUser 클래스는 DefaultOidcUser 클래스를 상속한다. 
 
 ```
 org.springframework.data.redis.serializer.SerializationException: Could not read JSON:The class with action.in.blog.controller.Address and name of action.in.blog.controller.Address is not in the allowlist. If you believe this class is safe to deserialize, please provide an explicit mapping using Jackson annotations or by providing a Mixin. If the serialization is only done by a trusted source, you can also enable default typing. See https://github.com/spring-projects/spring-security/issues/4370 for details (through reference chain: action.in.blog.controller.CustomAuthenticatedUser["userInfo"]->org.springframework.security.oauth2.core.oidc.OidcUserInfo["claims"]) 
-	at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:312) ~[spring-data-redis-3.4.2.jar:3.4.2]
-	at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:282) ~[spring-data-redis-3.4.2.jar:3.4.2]
-	at org.springframework.data.redis.core.AbstractOperations.deserializeHashValue(AbstractOperations.java:400) ~[spring-data-redis-3.4.2.jar:3.4.2]
-	at org.springframework.data.redis.core.AbstractOperations.deserializeHashMap(AbstractOperations.java:344) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:312) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer.deserialize(GenericJackson2JsonRedisSerializer.java:282) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.core.AbstractOperations.deserializeHashValue(AbstractOperations.java:400) ~[spring-data-redis-3.4.2.jar:3.4.2]
+    at org.springframework.data.redis.core.AbstractOperations.deserializeHashMap(AbstractOperations.java:344) ~[spring-data-redis-3.4.2.jar:3.4.2]
     ...
 
 Caused by: java.lang.IllegalArgumentException: The class with action.in.blog.controller.Address and name of action.in.blog.controller.Address is not in the allowlist. If you believe this class is safe to deserialize, please provide an explicit mapping using Jackson annotations or by providing a Mixin. If the serialization is only done by a trusted source, you can also enable default typing. See https://github.com/spring-projects/spring-security/issues/4370 for details
-	at org.springframework.security.jackson2.SecurityJackson2Modules$AllowlistTypeIdResolver.typeFromId(SecurityJackson2Modules.java:292) ~[spring-security-core-6.4.2.jar:6.4.2]
-	at com.fasterxml.jackson.databind.jsontype.impl.TypeDeserializerBase._findDeserializer(TypeDeserializerBase.java:159) ~[jackson-databind-2.18.2.jar:2.18.2]
-	at com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer._deserializeTypedForId(AsPropertyTypeDeserializer.java:151) ~[jackson-databind-2.18.2.jar:2.18.2]
-	at com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer.deserializeTypedFromObject(AsPropertyTypeDeserializer.java:136) ~[jackson-databind-2.18.2.jar:2.18.2]
+    at org.springframework.security.jackson2.SecurityJackson2Modules$AllowlistTypeIdResolver.typeFromId(SecurityJackson2Modules.java:292) ~[spring-security-core-6.4.2.jar:6.4.2]
+    at com.fasterxml.jackson.databind.jsontype.impl.TypeDeserializerBase._findDeserializer(TypeDeserializerBase.java:159) ~[jackson-databind-2.18.2.jar:2.18.2]
+    at com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer._deserializeTypedForId(AsPropertyTypeDeserializer.java:151) ~[jackson-databind-2.18.2.jar:2.18.2]
+    at com.fasterxml.jackson.databind.jsontype.impl.AsPropertyTypeDeserializer.deserializeTypedFromObject(AsPropertyTypeDeserializer.java:136) ~[jackson-databind-2.18.2.jar:2.18.2]
     ...
 ```
 

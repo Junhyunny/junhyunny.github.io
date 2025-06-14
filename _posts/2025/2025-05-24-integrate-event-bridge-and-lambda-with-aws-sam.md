@@ -64,11 +64,11 @@ import json
 
 
 def lambda_handler(event, context):
-	print(f"Hello, I am a first target. - {json.dumps(event)}")
-	return {
-		"statusCode": 200,
-		"body"      : f"Hello, I am a first target. - {json.dumps(event)}"
-	}
+    print(f"Hello, I am a first target. - {json.dumps(event)}")
+    return {
+        "statusCode": 200,
+        "body"      : f"Hello, I am a first target. - {json.dumps(event)}"
+    }
 ```
 
 처음 구성한 템플릿은 다음과 같다. 설명은 주석에 포함한다.

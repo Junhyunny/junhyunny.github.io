@@ -57,43 +57,43 @@ You can preselect a particular runtime or package type when using the `sam init`
 Call `sam init --help` to learn more.
 
 Which template source would you like to use?
-	1 - AWS Quick Start Templates
-	2 - Custom Template Location
+    1 - AWS Quick Start Templates
+    2 - Custom Template Location
 Choice: 1
 
 Choose an AWS Quick Start application template
-	1 - Hello World Example
-	2 - Data processing
-	3 - Hello World Example with Powertools for AWS Lambda
-	4 - Multi-step workflow
-	5 - Scheduled task
-	6 - Standalone function
-	7 - Serverless API
-	8 - Infrastructure event management
-	9 - Lambda Response Streaming
-	10 - GraphQLApi Hello World Example
-	11 - Full Stack
-	12 - Lambda EFS example
-	13 - Serverless Connector Hello World Example
-	14 - Multi-step workflow with Connectors
-	15 - DynamoDB Example
-	16 - Machine Learning
+    1 - Hello World Example
+    2 - Data processing
+    3 - Hello World Example with Powertools for AWS Lambda
+    4 - Multi-step workflow
+    5 - Scheduled task
+    6 - Standalone function
+    7 - Serverless API
+    8 - Infrastructure event management
+    9 - Lambda Response Streaming
+    10 - GraphQLApi Hello World Example
+    11 - Full Stack
+    12 - Lambda EFS example
+    13 - Serverless Connector Hello World Example
+    14 - Multi-step workflow with Connectors
+    15 - DynamoDB Example
+    16 - Machine Learning
 Template: 3
 
 Which runtime would you like to use?
-	1 - dotnet8
-	2 - dotnet6
-	3 - java17
-	4 - java11
-	5 - java8.al2
-	6 - nodejs22.x
-	7 - nodejs20.x
-	8 - nodejs18.x
-	9 - python3.9
-	10 - python3.13
-	11 - python3.12
-	12 - python3.11
-	13 - python3.10
+    1 - dotnet8
+    2 - dotnet6
+    3 - java17
+    4 - java11
+    5 - java8.al2
+    6 - nodejs22.x
+    7 - nodejs20.x
+    8 - nodejs18.x
+    9 - python3.9
+    10 - python3.13
+    11 - python3.12
+    12 - python3.11
+    13 - python3.10
 Runtime: 10
 
 Based on your selections, the only Package type available is Zip.
@@ -347,59 +347,59 @@ $ sam deploy --guided
 Configuring SAM deploy
 ======================
 
-	Looking for config file [samconfig.toml] :  Found
-	Reading default arguments  :  Success
+    Looking for config file [samconfig.toml] :  Found
+    Reading default arguments  :  Success
 
-	Setting default arguments for 'sam deploy'
-	=========================================
-	Stack Name [action-in-blog]:
-	AWS Region [us-east-1]: ap-northeast-1
-	#Shows you resources changes to be deployed and require a 'Y' to initiate deploy
-	Confirm changes before deploy [Y/n]:
-	#SAM needs permission to be able to create roles to connect to the resources in your template
-	Allow SAM CLI IAM role creation [Y/n]:
-	#Preserves the state of previously provisioned resources when an operation fails
-	Disable rollback [y/N]:
-	HelloWorldFunction has no authentication. Is this okay? [y/N]: y
-	Save arguments to configuration file [Y/n]:
-	SAM configuration file [samconfig.toml]:
-	SAM configuration environment [default]:
+    Setting default arguments for 'sam deploy'
+    =========================================
+    Stack Name [action-in-blog]:
+    AWS Region [us-east-1]: ap-northeast-1
+    #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
+    Confirm changes before deploy [Y/n]:
+    #SAM needs permission to be able to create roles to connect to the resources in your template
+    Allow SAM CLI IAM role creation [Y/n]:
+    #Preserves the state of previously provisioned resources when an operation fails
+    Disable rollback [y/N]:
+    HelloWorldFunction has no authentication. Is this okay? [y/N]: y
+    Save arguments to configuration file [Y/n]:
+    SAM configuration file [samconfig.toml]:
+    SAM configuration environment [default]:
 
-	Looking for resources needed for deployment:
-	Creating the required resources...
-	Successfully created!
+    Looking for resources needed for deployment:
+    Creating the required resources...
+    Successfully created!
 
-	Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-12341234123
-	A different default S3 bucket can be set in samconfig.toml and auto resolution of buckets turned off by setting resolve_s3=False
+    Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-12341234123
+    A different default S3 bucket can be set in samconfig.toml and auto resolution of buckets turned off by setting resolve_s3=False
 
         Parameter "stack_name=action-in-blog" in [default.deploy.parameters] is defined as a global parameter
 [default.global.parameters].
         This parameter will be only saved under [default.global.parameters] in
 /Users/junhyunny/Desktop/workspace/action-in-blog/samconfig.toml.
 
-	Saved arguments to config file
-	Running 'sam deploy' for future deployments will use the parameters saved above.
-	The above parameters can be changed by modifying samconfig.toml
-	Learn more about samconfig.toml syntax at
-	https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
+    Saved arguments to config file
+    Running 'sam deploy' for future deployments will use the parameters saved above.
+    The above parameters can be changed by modifying samconfig.toml
+    Learn more about samconfig.toml syntax at
+    https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-config.html
 
-	Uploading to action-in-blog/12341234123123412341234  15431260 / 15431260  (100.00%)
+    Uploading to action-in-blog/12341234123123412341234  15431260 / 15431260  (100.00%)
 
-	Deploying with following values
-	===============================
-	Stack name                   : action-in-blog
-	Region                       : ap-northeast-1
-	Confirm changeset            : True
-	Disable rollback             : False
-	Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-12341234123
-	Capabilities                 : ["CAPABILITY_IAM"]
-	Parameter overrides          : {}
-	Signing Profiles             : {}
+    Deploying with following values
+    ===============================
+    Stack name                   : action-in-blog
+    Region                       : ap-northeast-1
+    Confirm changeset            : True
+    Disable rollback             : False
+    Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-12341234123
+    Capabilities                 : ["CAPABILITY_IAM"]
+    Parameter overrides          : {}
+    Signing Profiles             : {}
 
 Initiating deployment
 =====================
 
-	Uploading to action-in-blog/12341234123123412341234.template  1309 / 1309  (100.00%)
+    Uploading to action-in-blog/12341234123123412341234.template  1309 / 1309  (100.00%)
 
 
 Waiting for changeset to be created..
@@ -511,26 +511,26 @@ Commands you can use next
 
 $ sam deploy
 
-		Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-12341234123
-		A different default S3 bucket can be set in samconfig.toml
-		Or by specifying --s3-bucket explicitly.
-	Uploading to action-in-blog/123412341212341234123412341234123  15431263 / 15431263  (100.00%)
+        Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-12341234123
+        A different default S3 bucket can be set in samconfig.toml
+        Or by specifying --s3-bucket explicitly.
+    Uploading to action-in-blog/123412341212341234123412341234123  15431263 / 15431263  (100.00%)
 
-	Deploying with following values
-	===============================
-	Stack name                   : action-in-blog
-	Region                       : ap-northeast-1
-	Confirm changeset            : True
-	Disable rollback             : False
-	Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-12341234123
-	Capabilities                 : ["CAPABILITY_IAM"]
-	Parameter overrides          : {}
-	Signing Profiles             : {}
+    Deploying with following values
+    ===============================
+    Stack name                   : action-in-blog
+    Region                       : ap-northeast-1
+    Confirm changeset            : True
+    Disable rollback             : False
+    Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-12341234123
+    Capabilities                 : ["CAPABILITY_IAM"]
+    Parameter overrides          : {}
+    Signing Profiles             : {}
 
 Initiating deployment
 =====================
 
-	Uploading to action-in-blog/fadd3b0147cdc33e311438f3a862f6e4.template  1321 / 1321  (100.00%)
+    Uploading to action-in-blog/fadd3b0147cdc33e311438f3a862f6e4.template  1321 / 1321  (100.00%)
 
 
 Waiting for changeset to be created..
@@ -607,13 +607,13 @@ Successfully created/updated stack - action-in-blog in ap-northeast-1
 ```
 $ sam delete
 
-	Are you sure you want to delete the stack action-in-blog in the region ap-northeast-1 ? [y/N]: y
-	Are you sure you want to delete the folder action-in-blog in S3 which contains the artifacts? [y/N]: y
+    Are you sure you want to delete the stack action-in-blog in the region ap-northeast-1 ? [y/N]: y
+    Are you sure you want to delete the folder action-in-blog in S3 which contains the artifacts? [y/N]: y
         - Deleting S3 object with key action-in-blog/123412341212341234123412341234123
         - Deleting S3 object with key action-in-blog/12341234123123412341234
         - Deleting S3 object with key action-in-blog/12341234123123412341234.template
         - Deleting S3 object with key action-in-blog/fadd3b0147cdc33e311438f3a862f6e4.template
-	- Deleting Cloudformation stack action-in-blog
+    - Deleting Cloudformation stack action-in-blog
 
 Deleted successfully
 ```

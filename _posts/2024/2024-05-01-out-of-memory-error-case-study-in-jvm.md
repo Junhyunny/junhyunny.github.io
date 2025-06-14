@@ -39,18 +39,18 @@ last_modified_at: 2024-05-03T23:55:00
 
 ```
 java.lang.OutOfMemoryError: Cannot reserve 10498677 bytes of direct buffer memory (allocated: 40960, limit: 10485760)
-	at java.base/java.nio.Bits.reserveMemory(Bits.java:178) ~[na:na]
-	at java.base/java.nio.DirectByteBuffer.<init>(DirectByteBuffer.java:111) ~[na:na]
-	at java.base/java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:360) ~[na:na]
-	at java.base/sun.nio.ch.Util.getTemporaryDirectBuffer(Util.java:242) ~[na:na]
-	at java.base/sun.nio.ch.IOUtil.read(IOUtil.java:303) ~[na:na]
-	at java.base/sun.nio.ch.IOUtil.read(IOUtil.java:283) ~[na:na]
-	at java.base/sun.nio.ch.FileChannelImpl.read(FileChannelImpl.java:234) ~[na:na]
-	at java.base/sun.nio.ch.ChannelInputStream.read(ChannelInputStream.java:74) ~[na:na]
-	at java.base/sun.nio.ch.ChannelInputStream.read(ChannelInputStream.java:103) ~[na:na]
-	at java.base/sun.nio.ch.ChannelInputStream.readAllBytes(ChannelInputStream.java:133) ~[na:na]
-	at org.springframework.util.FileCopyUtils.copyToByteArray(FileCopyUtils.java:149) ~[spring-core-6.1.6.jar:6.1.6]
-	at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile.getBytes(StandardMultipartHttpServletRequest.java:255) ~[spring-web-6.1.6.jar:6.1.6]
+    at java.base/java.nio.Bits.reserveMemory(Bits.java:178) ~[na:na]
+    at java.base/java.nio.DirectByteBuffer.<init>(DirectByteBuffer.java:111) ~[na:na]
+    at java.base/java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:360) ~[na:na]
+    at java.base/sun.nio.ch.Util.getTemporaryDirectBuffer(Util.java:242) ~[na:na]
+    at java.base/sun.nio.ch.IOUtil.read(IOUtil.java:303) ~[na:na]
+    at java.base/sun.nio.ch.IOUtil.read(IOUtil.java:283) ~[na:na]
+    at java.base/sun.nio.ch.FileChannelImpl.read(FileChannelImpl.java:234) ~[na:na]
+    at java.base/sun.nio.ch.ChannelInputStream.read(ChannelInputStream.java:74) ~[na:na]
+    at java.base/sun.nio.ch.ChannelInputStream.read(ChannelInputStream.java:103) ~[na:na]
+    at java.base/sun.nio.ch.ChannelInputStream.readAllBytes(ChannelInputStream.java:133) ~[na:na]
+    at org.springframework.util.FileCopyUtils.copyToByteArray(FileCopyUtils.java:149) ~[spring-core-6.1.6.jar:6.1.6]
+    at org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile.getBytes(StandardMultipartHttpServletRequest.java:255) ~[spring-web-6.1.6.jar:6.1.6]
 ...
 ```
 

@@ -254,9 +254,9 @@ data class TodoEntity(
 2024-10-01T22:40:25.753+09:00 ERROR 50554 --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalArgumentException: Class 'class action.in.blog.repository.entity.TodoEntity' appears to have no default constructor thus cannot be used with the BeanTableSchema] with root cause
 
 java.lang.NoSuchMethodException: action.in.blog.repository.entity.TodoEntity.<init>()
-	at java.base/java.lang.Class.getConstructor0(Class.java:3585) ~[na:na]
-	at java.base/java.lang.Class.getConstructor(Class.java:2271) ~[na:na]
-	at software.amazon.awssdk.enhanced.dynamodb.mapper.BeanTableSchema.newObjectSupplierForClass(BeanTableSchema.java:380) ~[dynamodb-enhanced-2.28.11.jar:na]
+    at java.base/java.lang.Class.getConstructor0(Class.java:3585) ~[na:na]
+    at java.base/java.lang.Class.getConstructor(Class.java:2271) ~[na:na]
+    at software.amazon.awssdk.enhanced.dynamodb.mapper.BeanTableSchema.newObjectSupplierForClass(BeanTableSchema.java:380) ~[dynamodb-enhanced-2.28.11.jar:na]
   ... 
 ```
 

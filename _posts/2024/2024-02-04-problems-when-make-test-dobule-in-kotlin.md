@@ -87,9 +87,9 @@ NullPointerException 예외가 발생한다.
 
 ```
 java.lang.NullPointerException: eq(...) must not be null
-	at blog.in.action.TodoServiceTest.doReturnWithInstanceParameter_wrappedEq(TodoServiceTest.kt:98)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+    at blog.in.action.TodoServiceTest.doReturnWithInstanceParameter_wrappedEq(TodoServiceTest.kt:98)
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 ...
 ```
 
@@ -193,9 +193,9 @@ For example:
 
 For more info see javadoc for Matchers class.
 
-	at blog.in.action.service.TodoService.getFilteredTodosInToday(TodoService.kt:22)
-	at blog.in.action.TodoServiceTest.doReturnWithInstanceTwoParameters(TodoServiceTest.kt:128)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at blog.in.action.service.TodoService.getFilteredTodosInToday(TodoService.kt:22)
+    at blog.in.action.TodoServiceTest.doReturnWithInstanceTwoParameters(TodoServiceTest.kt:128)
+    at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 ...
 ```
 

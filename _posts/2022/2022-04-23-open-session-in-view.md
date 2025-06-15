@@ -12,7 +12,7 @@ last_modified_at: 2022-04-23T23:55:00
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
 - [Features of EntityManager][persistence-context-advantages-link]
-- [JPA Flush][jpa-flush-link]
+- [JPA 플러쉬(flush)][jpa-flush-link]
 - [Propagation in @Transactional Annotation][transactional-propagation-type-link]
 - [Filter, Interceptor and AOP in Spring][filter-interceptor-and-aop-link]
 

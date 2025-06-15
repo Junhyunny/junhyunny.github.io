@@ -12,7 +12,7 @@ last_modified_at: 2021-08-29T01:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Transaction ACID][transaction-acid-link]
+* [트랜잭션(transaction) ACID][transaction-acid-link]
 
 ## 0. 들어가면서
 
@@ -1439,5 +1439,5 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 * <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html>
 * <https://stackoverflow.com/questions/23132822/what-is-the-difference-between-defining-transactional-on-class-vs-method>
 
-[transaction-acid-link]: https://junhyunny.github.io/information/transcation-acid/
+[transaction-acid-link]: https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/
 [unexpected-rollback-exception-link]: https://junhyunny.github.io/spring-boot/jpa/exception/unexpected-rollback-exception/

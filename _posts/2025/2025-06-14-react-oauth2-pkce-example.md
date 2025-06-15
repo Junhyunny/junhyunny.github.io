@@ -214,7 +214,7 @@ export default CustomAuthProvider;
 
 ### 2.1. Sign in redirect process
 
-지금부터 내부 기능들을 하나씩 채워보자. 우선 `Sign in` 버튼을 눌렀을 떄 사용자를 인증 서버로 리다이렉트 시키는 작업이 필요하다. 리다이렉트 요청을 보낼 때 다음 정보들을 URL 쿼리(query) 파라미터로 전송한다.
+지금부터 내부 기능들을 하나씩 채워보자. 우선 `Sign in` 버튼을 눌렀을 때 사용자를 인증 서버로 리다이렉트 시키는 작업이 필요하다. 리다이렉트 요청을 보낼 때 다음 정보들을 URL 쿼리(query) 파라미터로 전송한다.
 
 - response_type - 인증 서버로 인가 방식을 전달한다. 인가 코드 승인 방식은 `code`를 사용한다.
 - client_id - 인증 서버에서 발급받은 클라이언트 ID를 전달한다.
@@ -282,7 +282,7 @@ export function saveAuthConfig({
 }
 ```
 
-code_verifier는 액세스 토큰을 발급 받을 떄 올바른 클라이언트인지 입증하기 위한 코드이고, state는 CSRF 공격을 방어하기 위해 사용한다. 리다이렉트 되면 변수에 저장된 값들이 모두 초기화되기 때문에 로컬 스토리지, 세션 스토리지, 쿠키 혹은 indexed DB처럼 데이터가 보존되는 장소에 code_verifier, state 값을 저장해야 한다. 
+code_verifier는 액세스 토큰을 발급 받을 때 올바른 클라이언트인지 입증하기 위한 코드이고, state는 CSRF 공격을 방어하기 위해 사용한다. 리다이렉트 되면 변수에 저장된 값들이 모두 초기화되기 때문에 로컬 스토리지, 세션 스토리지, 쿠키 혹은 indexed DB처럼 데이터가 보존되는 장소에 code_verifier, state 값을 저장해야 한다. 
 
 AWS에서 제공하는 패키지는 로컬 스토리지를 사용한 것 같지만, 나는 세션 스토리지를 사용했다. state, code_verifier 값은 인증 프로세스 중간에만 일회성으로 사용하는 데이터다. 탭이 닫히면 데이터가 삭제되는 세션 스토리지가 이를 보관하기에 안전하다고 생각했다. 이런 민감 정보는 짧은 생명 주기를 갖는 편이 더 안전한 것 같다.
 
@@ -392,7 +392,7 @@ export function generateQueryParams(object: object) {
 
 - getAuthorizationCode 함수
   - URL 쿼리 파라미터로부터 state, code 값을 추출한다. 
-  - state는 세션 스토리지에 저장된 AuthConfig 객체를 꺼낼 때 사용하고, code는 인증 서버로부터 액세스 토큰을 발급 받을 떄 사용한다.
+  - state는 세션 스토리지에 저장된 AuthConfig 객체를 꺼낼 때 사용하고, code는 인증 서버로부터 액세스 토큰을 발급 받을 때 사용한다.
 - clearAuthConfig 함수
   - URL 쿼리 파라미터에 state, code 값이 없는 경우 세션 스토리지를 정리한다.
 - popAuthConfig 함수
@@ -474,7 +474,7 @@ export function popAuthConfig(state: string): AuthConfig | undefined {
 }
 ```
 
-saveUser 함수는 발급 받은 액세스 토큰과 인증된 사용자 정보를 로컬 스토리지에 저장하는 작업을 수행한다. AWS에서 제공하는 패키지에서 만들어주는 인증 사용자 객체의 profile 정보는 `id_token` JWT 토큰을 디코딩하면 얻을 수 있다. 로컬 스토리지에 사용자 정보를 저장하는 이유는 편의상 사용자가 새로운 탭을 열었을 떄 인증 사용자 정보를 사용할 수 있도록 하기 위함이다.
+saveUser 함수는 발급 받은 액세스 토큰과 인증된 사용자 정보를 로컬 스토리지에 저장하는 작업을 수행한다. AWS에서 제공하는 패키지에서 만들어주는 인증 사용자 객체의 profile 정보는 `id_token` JWT 토큰을 디코딩하면 얻을 수 있다. 로컬 스토리지에 사용자 정보를 저장하는 이유는 편의상 사용자가 새로운 탭을 열었을 때 인증 사용자 정보를 사용할 수 있도록 하기 위함이다.
 
 ```tsx
 export function saveUser(

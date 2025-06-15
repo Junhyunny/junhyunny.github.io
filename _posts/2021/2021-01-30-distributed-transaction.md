@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T00:30:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [마이크로서비스 아키텍처][microservice-architecture-link]
-* [Transaction ACID][transcation-acid-link]
+* [트랜잭션(transaction) ACID][transcation-acid-link]
 * [Transaction Isolation][transcation-isolation-link]
 
 ## 0. 들어가면서
@@ -255,7 +255,7 @@ Saga 패턴을 구현해야 한다면 최대한 참여자가 적도록 비즈니
 * <https://supawer0728.github.io/2018/03/22/spring-multi-transaction/>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
-[transcation-acid-link]: https://junhyunny.github.io/information/transcation-acid/
+[transcation-acid-link]: https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/
 [transcation-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/
 
 [chris-saga-pattern-link]: https://www.youtube.com/watch?v=YPbGW3Fnmbc

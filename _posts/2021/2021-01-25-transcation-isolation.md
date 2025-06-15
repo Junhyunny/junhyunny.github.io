@@ -10,11 +10,11 @@ last_modified_at: 2021-08-22T00:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Transaction ACID][acid-link]
+* [트랜잭션(transaction) ACID][acid-link]
 
 ## 0. 들어가면서
 
-[Transaction ACID][acid-link] 특징 중 격리성(isolation)이라는 개념이 있습니다. 
+[트랜잭션(transaction) ACID][acid-link] 특징 중 격리성(isolation)이라는 개념이 있습니다. 
 격리성은 다른 트랜잭션끼리는 서로를 간섭할 수 없다는 의미인데, 사실 격리성 수준에 따라 트랜잭션끼리 간섭 여부가 결정됩니다. 
 어떤 격리성 수준들이 있는지, 격리 수준에 따라 어떤 문제들이 발생할 수 있는지 이번 포스트를 통해 알아보겠습니다. 
 
@@ -120,4 +120,4 @@ last_modified_at: 2021-08-22T00:30:00
 
 * <https://nesoy.github.io/articles/2019-05/Database-Transaction-isolation>
 
-[acid-link]: https://junhyunny.github.io/information/transcation-acid/
+[acid-link]: https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/

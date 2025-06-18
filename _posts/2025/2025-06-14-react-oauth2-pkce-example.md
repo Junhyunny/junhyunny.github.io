@@ -195,14 +195,16 @@ const CustomAuthProvider = ({
 
   return (
     <Context.Provider
-      value={{
-        isLoading,
-        isAuthenticated,
-        user,
-        error,
-        signinRedirect,
-        removeUser,
-      }}
+      value={
+        {
+          isLoading,
+          isAuthenticated,
+          user,
+          error,
+          signinRedirect,
+          removeUser,
+        }
+      }
     >
       {children}
     </Context.Provider>
@@ -521,14 +523,16 @@ const CustomAuthProvider = ({
 
   return (
     <Context.Provider
-      value={{
-        isLoading,
-        isAuthenticated,
-        user,
-        error,
-        signinRedirect,
-        removeUser,
-      }}
+      value={
+        {
+          isLoading,
+          isAuthenticated,
+          user,
+          error,
+          signinRedirect,
+          removeUser,
+        }
+      }
     >
       {children}
     </Context.Provider>

@@ -13,7 +13,7 @@ last_modified_at: 2022-03-27T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [React useEffect hook and clean-up function][react-use-effect-and-clean-up-link]
-- [Test Double][test-double-link]
+- [테스트 더블(Test Double)][test-double-link]
 
 ## 0. 들어가면서
 
@@ -150,4 +150,4 @@ export default CustomButton;
 - <https://stackoverflow.com/questions/52337116/loose-match-one-value-in-jest-tohavebeencalledwith>
 
 [react-use-effect-and-clean-up-link]: https://junhyunny.github.io/javascript/react/jest/react-use-effect-and-clean-up/
-[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
+[test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/

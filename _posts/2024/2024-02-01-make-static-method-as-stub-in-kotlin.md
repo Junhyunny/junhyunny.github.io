@@ -11,7 +11,7 @@ last_modified_at: 2024-02-01T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Test Double][test-double-link]
+- [테스트 더블(Test Double)][test-double-link]
 - [Make static method as stub in Java][how-to-stub-java-static-method-link]
 - [Call Real Method of MockedStatic Test Double][test-double-link]
 
@@ -358,6 +358,6 @@ class SystemUnderTest(private val timeProvider: InstanceTimeProvider) {
 - <https://ijeee.tistory.com/22>
 - <https://github.com/occidere/TIL/issues/156>
 
-[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
+[test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/
 [how-to-stub-java-static-method-link]: https://junhyunny.github.io/java/spring-boot/test-driven-development/how-to-stub-java-static-method/
 [real-static-method-call-when-using-mock-link]: https://junhyunny.github.io/java/spring-boot/test-driven-development/real-static-method-call-when-using-mock/

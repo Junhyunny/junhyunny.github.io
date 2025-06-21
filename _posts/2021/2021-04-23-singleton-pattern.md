@@ -266,7 +266,7 @@ Singleton* Singleton::Instance () {
 #### RECOMMEND NEXT POSTS
 
 * [Inversion of Control and Dependency Injection in Spring][spring-ioc-di-link]
-* [Test Double][test-double-link]
+* [테스트 더블(Test Double)][test-double-link]
 
 #### REFERENCE
 
@@ -281,4 +281,4 @@ Singleton* Singleton::Instance () {
 [volatile-reference-link]: https://parkcheolu.tistory.com/16
 [anti-pattern-link]: https://ko.wikipedia.org/wiki/%EC%95%88%ED%8B%B0%ED%8C%A8%ED%84%B4
 [spring-ioc-di-link]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
-[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
+[test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/

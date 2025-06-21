@@ -12,7 +12,7 @@ last_modified_at: 2023-06-06T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Test Double][test-double-link]
+* [테스트 더블(Test Double)][test-double-link]
 * [React 환경 변수 설정과 실행 환경 분리][react-env-variable-setting-link]
 * [Service Worker][service-worker-api-link]
 
@@ -402,6 +402,6 @@ API 응답을 위한 스텁 같은 경우에는 화면의 기능에 따라 커�
 * <https://www.daleseo.com/mock-service-worker/>
 * <https://blog.rhostem.com/posts/2021-03-20-mock-service-worker>
 
-[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
+[test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/
 [react-env-variable-setting-link]: https://junhyunny.github.io/react/react-env-variable-setting/
 [service-worker-api-link]: https://junhyunny.github.io/information/service-worker-api/

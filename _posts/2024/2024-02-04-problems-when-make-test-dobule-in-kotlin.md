@@ -11,7 +11,7 @@ last_modified_at: 2024-02-04T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Test Double][test-double-link]
+- [테스트 더블(Test Double)][test-double-link]
 
 ## 0. 들어가면서
 
@@ -257,4 +257,4 @@ class TodoService {
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2024-02-05-problems-when-make-test-dobule-in-kotlin>
 
-[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
+[test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/

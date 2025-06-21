@@ -16,7 +16,7 @@ last_modified_at: 2025-06-14T23:55:00
 
 ## 0. 들어가면서
 
-[이전 글][oauth2-pkce-link]에서 `PKCE(Proof Key for Code Exchange)`는 공개 클라이언트가 액세스 토큰을 발급 과정에서 발생하는 보안 리스크를 줄이기 위한 장치라는 내용에 대해 정리했다. 이번 글은 리액트 애플리케이션에서 인가 코드 승인(authorization code grant) 방식에 PKCE를 추가하여 액세스 토큰을 발급 받는 예제에 대해 정리했다.
+[이전 글][oauth2-pkce-link]에서 `PKCE(Proof Key for Code Exchange)`는 공개 클라이언트가 액세스 토큰을 발급 과정에서 발생하는 보안 리스크를 줄이기 위한 장치라는 내용에 대해 정리했다. 이번엔 리액트 애플리케이션에서 인가 코드 승인(authorization code grant) 방식에 PKCE를 추가하여 액세스 토큰을 발급 받는 예제를 다뤘다.
 
 ## 1. Setup environment
 

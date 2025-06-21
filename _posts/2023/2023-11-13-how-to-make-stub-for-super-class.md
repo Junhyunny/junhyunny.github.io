@@ -12,7 +12,7 @@ last_modified_at: 2023-11-13T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Test Double][test-double-link]
+- [테스트 더블(Test Double)][test-double-link]
 
 ## 1. Problem
 
@@ -198,4 +198,4 @@ class DefaultOAuth2UserServiceDelegatorTest {
 - <https://stackoverflow.com/questions/3467801/mockito-how-to-mock-only-the-call-of-a-method-of-the-superclass>
 - <https://stackoverflow.com/questions/23865555/how-to-mock-super-reference-on-super-class/23884011#23884011>
 
-[test-double-link]: https://junhyunny.github.io/information/test-driven-development/test-double/
+[test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/

@@ -18,7 +18,7 @@ last_modified_at: 2025-06-22T23:55:00
 
 ## 1.Test scope
 
-JPA 결합 테스트의 스코프(scope)를 생각해보자. `@DataJpaTest` 애너테이션이나 `@SpringBootTest` 애너테이션과 테스트 컨테이너(test container)를 같이 사용한 테스트의 경우를 예로 들어본다. MemberServiceTest의 테스트 대상은 MemberService 객체이지만, 실제 MemberRepository 인스턴스를 사용한다. 이 경우 [테스트 더블(test double)][test-double-link]은 데이터베이스(H2 혹은 테스트 컨테이너)가 된다. 즉, 테스트에서 검증하고 싶은 대상은 서비스 계층과 레포지토리 계층 모두이다. 두 계층 사이의 상호 작용을 통해 원하는 결과를 얻을 수 있는지 확인하는 것이 테스트의 주된 관심사다.
+JPA 결합 테스트의 스코프(scope)를 생각해보자. 이번 글에선 `@DataJpaTest` 애너테이션을 사용한 테스트의 경우를 예로 들어본다. MemberServiceTest의 테스트 대상은 MemberService 객체이지만, 실제 MemberRepository 인스턴스를 사용한다. 이 경우 [테스트 더블(test double)][test-double-link]은 데이터베이스(H2 혹은 테스트 컨테이너)가 된다. 즉, 테스트에서 검증하고 싶은 대상은 서비스 계층과 레포지토리 계층 모두이다. 두 계층 사이의 상호 작용을 통해 원하는 결과를 얻을 수 있는지 확인하는 것이 테스트의 주된 관심사다.
 
 <div align="center">
   <img src="/images/posts/2025/jpa-integration-test-and-test-target-01.png" width="100%" class="image__border">
@@ -26,7 +26,7 @@ JPA 결합 테스트의 스코프(scope)를 생각해보자. `@DataJpaTest` 애�
 
 <br/>
 
-본론으로 다시 돌아와서 JPA 결합 테스트에서 MemberRepository 인스턴스를 사용해 테스트 준비(arrange)와 검증(assert)하는 것은 좋은 패턴일까? 나는 아니라고 생각한다. MemberRepository 인스턴스는 결합 테스트로 확인하고 싶은 스코프에 포함되기 때문에 이를 사용해 준비와 검증을 하는 것은 신뢰도가 낮은 객체로 테스트를 위한 준비와 검증을 한다는 이야기다. 이는 거짓 음성(false negative)를 만들어내어 테스트가 신뢰도를 잃을 수 있다. (거짓 음성은 구현 코드에 문제 혹은 버그가 있는데 테스트가 통과하는 경우를 의미한다.)
+본론으로 다시 돌아와서 JPA 결합 테스트에서 MemberRepository 인스턴스를 사용해 테스트 준비(arrange)와 검증(assert)하는 것은 좋은 패턴일까? 나는 아니라고 생각한다. MemberRepository 인스턴스는 결합 테스트로 확인하고 싶은 스코프에 포함되기 때문에 이를 사용해 준비와 검증을 하는 것은 신뢰도가 낮은 객체로 테스트를 위한 준비와 검증을 한다는 이야기다. 이는 거짓 음성(false negative)을 만들어내어 테스트가 신뢰도를 잃을 수 있다. (거짓 음성은 구현 코드에 문제 혹은 버그가 있는데 테스트가 통과하는 경우를 의미한다.)
 
 ## 2. Simple example
 

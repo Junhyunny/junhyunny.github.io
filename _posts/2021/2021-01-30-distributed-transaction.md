@@ -68,7 +68,7 @@ last_modified_at: 2025-06-25T20:00:00
 - 각 데이터베이스 노드들은 준비 성공, 실패 여부를 응답한다.
 
 <div align="center">
-  <img src="/images/posts/2021/distributed-transaction-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/distributed-transaction-01.png" width="100%" class="image__border">
 </div>
 
 두번째 단계(second phase 혹은 commit phase)는 다음과 같이 동작한다.
@@ -77,7 +77,7 @@ last_modified_at: 2025-06-25T20:00:00
 - 코디네이터는 단 하나의 데이터베이스 노드라도 준비 실패 응답을 보내면 모든 데이터베이스 노드들에게 롤백을 요청한다.
 
 <div align="center">
-  <img src="/images/posts/2021/distributed-transaction-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/distributed-transaction-02.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. 2-phase commit is not an option

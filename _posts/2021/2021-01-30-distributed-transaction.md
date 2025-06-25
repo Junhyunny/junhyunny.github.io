@@ -200,11 +200,7 @@ last_modified_at: 2025-06-25T20:00:00
 - [Axon Saga](https://docs.axoniq.io/reference-guide/v/3.1/part-ii-domain-logic/sagas)
 - [Eclipse MicroProfile LRA](https://github.com/eclipse/microprofile-lra)
 
-직관적인 코리오그래피 사가에 비해 오케스트레이션 사가의 중앙 컴포넌트 동작 방식은 잘 이해되지 않았지만, 크리스 리차든의 오케스트레이션 사가 패턴 예시 코드를 살펴보면서 어느 정도 소화하였다. 나중에 기회가 된다면 예시 코드를 분석한 내용을 포스트로 작성할 생각이다.
-
-#### 크리스 리차든의 오케스트레이션 사가 예시 코드
-
-- <https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders/>
+직관적인 코리오그래피 사가에 비해 오케스트레이션 사가의 중앙 컴포넌트 동작 방식은 잘 이해되지 않았지만, 크리스 리차든의 오케스트레이션 사가 패턴 [예시 코드](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders/)를 살펴보면서 어느 정도 소화하였다. 나중에 기회가 된다면 예시 코드를 분석한 내용을 포스트로 작성할 생각이다.
 
 #### REFERENCE
 

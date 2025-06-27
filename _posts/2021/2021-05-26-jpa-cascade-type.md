@@ -14,7 +14,7 @@ last_modified_at: 2021-09-02T03:00:00
 
 * [Cascade in Database][cascade-in-database-link]
 * [JPA(Java Persistence API)][java-persistence-api-link]
-* [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
+* [영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기][jpa-persistence-context-link]
 
 ## 1. Entity Lifecycle
 

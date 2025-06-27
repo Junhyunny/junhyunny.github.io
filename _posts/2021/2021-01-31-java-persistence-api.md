@@ -74,7 +74,7 @@ Spring 프레임워크에서 JPA를 쉽게 사용하기 위해 만든 라이브�
 
 #### RECOMMEND NEXT POSTS
 
-- [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
+- [영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기][jpa-persistence-context-link]
 - [Features of EntityManager][persistence-context-advantages-link]
 - [JPA 플러쉬(flush)][jpa-flush-link]
 - [JPA Clear][jpa-clear-link]

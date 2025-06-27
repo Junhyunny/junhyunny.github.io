@@ -14,7 +14,7 @@ last_modified_at: 2025-06-27T21:30:00
 
 - [트랜잭션 격리성(transaction isolation) 특징][transaction-isolation-link]
 - [JPA(Java Persistence API)][java-persistence-api-link]
-- [PersistenceContext and Entity Lifecycle][jpa-persistence-context-link]
+- [영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기][jpa-persistence-context-link]
 
 ## 0. 들어가면서
 

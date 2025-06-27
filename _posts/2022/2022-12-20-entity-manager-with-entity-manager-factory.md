@@ -12,7 +12,7 @@ last_modified_at: 2022-12-20T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기][jpa-persistence-context-link]
-* [Features of EntityManager][persistence-context-advantages-link]
+* [EntityManager 특징과 영속성 컨텍스트 장점][persistence-context-advantages-link]
 
 ## 0. 들어가면서
 

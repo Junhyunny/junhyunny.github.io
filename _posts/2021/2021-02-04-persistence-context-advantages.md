@@ -325,7 +325,7 @@ Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_m
 #### RECOMMEND NEXT POSTS
 
 - [JPA 플러쉬(flush)][jpa-flush-link]
-- [JPA Clear][jpa-clear-link]
+- [JPA 클리어(clear)][jpa-clear-link]
 
 #### REFERENCE
 

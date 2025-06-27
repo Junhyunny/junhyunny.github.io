@@ -13,7 +13,7 @@ last_modified_at: 2025-06-25T20:00:00
 
 - [마이크로서비스 아키텍처][microservice-architecture-link]
 - [트랜잭션(transaction) ACID][transcation-acid-link]
-- [Transaction Isolation][transcation-isolation-link]
+- [트랜잭션 격리성(transaction isolation) 특징][transcation-isolation-link]
 
 ## 0. 들어가면서
 

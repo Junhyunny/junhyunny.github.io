@@ -61,7 +61,7 @@ last_modified_at: 2025-06-15T00:00:00
 
 #### RECOMMEND NEXT POSTS
 
-- [Transaction Isolation][transaction-isolation-link]
+- [트랜잭션 격리성(transaction isolation) 특징][transaction-isolation-link]
 
 #### REFERENCE
 

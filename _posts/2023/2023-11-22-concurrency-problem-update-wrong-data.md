@@ -12,7 +12,7 @@ last_modified_at: 2023-11-21T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Transaction Isolation][transcation-isolation-link]
+- [트랜잭션 격리성(transaction isolation) 특징][transcation-isolation-link]
 - [Pessimistic Lock in JPA][jpa-pessimitic-lock-link]
 - [Thread Pool in Java][thread-pool-in-java-link]
 

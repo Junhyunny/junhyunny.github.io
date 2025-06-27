@@ -472,7 +472,7 @@ persist 메소드와 remove 메소드 호출 시점에 쿼리가 수행되지 �
 
 - [EntityManager 특징과 영속성 컨텍스트 장점][persistence-context-advantages-link]
 - [JPA 플러쉬(flush)][jpa-flush-link]
-- [JPA Clear][jpa-clear-link]
+- [JPA 클리어(clear)][jpa-clear-link]
 
 #### REFERENCE
 

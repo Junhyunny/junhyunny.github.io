@@ -41,7 +41,7 @@ create table world.tb_friend
 ) engine = InnoDB;
 ```
 
-## 1. Problem context
+## 1. Problem Context
 
 문제 현상에 대한 이해를 돕기 위한 코드이므로 일부를 각색했다. 먼저 application YAML 설정을 살펴보자.
 

@@ -19,7 +19,7 @@ last_modified_at: 2025-02-03T23:55:00
 
 스프링 시큐리티(spring security)과 스프링 레디스 세션(spring redis session)을 사용할 때 발생한 문제에 대해 정리한다.
 
-## 1. Problem context
+## 1. Problem Context
 
 로그인 한 사용자 정보가 담긴 SecurityContext 객체를 세션에 저장 후 역직렬화(deserialize) 할 때 아래와 같은 에러가 발생했다.
 

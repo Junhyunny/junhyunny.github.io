@@ -14,7 +14,7 @@ last_modified_at: 2025-01-25T23:55:00
 
 AWS ECS(elastic container service) 클러스터에 서비스를 배포할 때 발생한 에러와 해결 방법에 대해 정리했다.
 
-## 1. Problem context
+## 1. Problem Context
 
 DynamoDB를 사용하는 애플리케이션을 ECS 클러스터에 서비스를 배포할 때 다음과 같은 에러를 만났다. 
 

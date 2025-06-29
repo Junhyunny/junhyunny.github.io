@@ -16,7 +16,7 @@ last_modified_at: 2025-01-31T23:55:00
 
 ObjectMapper는 인스턴스 직렬화를 수행할 때 명시적인 타입 정보를 포함시키는 방법으로 `activateDefaultTyping()` 메소드를 제공한다. 자바에선 정상적으로 클래스 정보가 포함되었는데, 코틀린(kotlin)은 동일한 코드에서 클래스 정보가 포함되지 않았다. 이번 글은 해당 내용에 대해 정리했다.
 
-## 1. Problem context
+## 1. Problem Context
 
 간단한 테스트 코드로 ObjectMapper 객체가 동작하는 모습을 살펴보자. 우선 자바 코드를 확인해본다. 아래 코드를 보면 알 수 있듯이 ObjectMapper 객체는 클래스 정보 없이 객체를 Json 객체로 직렬화한다.
 

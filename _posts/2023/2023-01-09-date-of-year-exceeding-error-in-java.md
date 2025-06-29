@@ -23,7 +23,7 @@ java.time.DateTimeException: Field DayOfYear cannot be printed as the value 359 
   ...
 ```
 
-## 1. Problem context
+## 1. Problem Context
 
 테스트 코드를 통해 문제 상황을 재현한다.
 

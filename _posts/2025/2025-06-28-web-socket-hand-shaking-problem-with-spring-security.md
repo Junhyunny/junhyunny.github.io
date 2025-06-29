@@ -102,7 +102,7 @@ public class SecurityConfig {
 }
 ```
 
-위와 같은 상황에서 사용자가 로그인 후 서비스를 이용한다. 사용자가 서비스를 이용하는 중 긴 시간 서버와 인터렉션이 없어서 세션이 만료된 후 다시 로그인을 수행하면 서비스 경로가 아닌 웹 소켓 핸드쉐이킹(handshaking) 경로로 리다이렉트 된다. 브라우저가 로그인 성공 후 설정에 지정한 `http://localhost:5173` 경로가 아닌 `http://localhost:5173/ws/info?t=1751126372382&continue` 경로로 리다이렉트 되는 것이다.
+위와 같은 상황에서 사용자가 로그인 후 서비스를 이용한다. 사용자가 서비스를 이용하는 중 긴 시간동안 서버와 인터렉션이 없어서 세션이 만료된 후 다시 로그인을 수행하면 서비스 경로가 아닌 웹 소켓 핸드쉐이킹(handshaking) 경로로 리다이렉트 된다. 브라우저가 로그인 성공 후 설정에 지정한 `http://localhost:5173` 경로가 아닌 `http://localhost:5173/ws/info?t=1751126372382&continue` 경로로 리다이렉트 되는 것이다.
 
 <div align="center">
   <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-01.png" width="80%" class="image__border">
@@ -118,7 +118,7 @@ public class SecurityConfig {
 
 <br />
 
-웹 소켓 연결 요청은 만료된 사용자 요청이기 때문에 이 과정에서 사용자 인증 예외가 발생한다. 발생한 예외는 ExceptionTranslationFilter 객체에서 처리된다. 예외를 처리하는 과정에서 sendStartAuthentication 메소드가 실행된다. 이때 HttpSessionRequestCache 객체를 통해 서버 세션에 현재 요청에 대한 정보를 저장한다. 추후 다시 사용자가 로그인하면 마지막에 실패한 요청으로 사용자를 리다이렉트시키기 위함이다.
+웹 소켓 연결 요청은 만료된 사용자 요청이기 때문에 이 과정에서 사용자 인증 예외가 발생한다. 발생한 예외는 ExceptionTranslationFilter 객체에서 처리된다. 예외를 처리하는 과정에서 sendStartAuthentication 메소드가 실행된다. 여기서 HttpSessionRequestCache 객체를 통해 서버 세션에 현재 요청에 대한 정보를 저장한다. 이는 추후 다시 사용자가 로그인하면 마지막에 실패한 요청으로 사용자를 리다이렉트시키기 위함이다.
 
 ```java
 public class ExceptionTranslationFilter extends GenericFilterBean implements MessageSourceAware {
@@ -164,7 +164,7 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 
 <br />
 
-이후 로그인이 성공하면 세션에 저장된 요청 객체를 꺼내서 재사용한다. 사용자 인증이 완료된 후 실행되는 SavedRequestAwareAuthenticationSuccessHandler 객체의 onAuthenticationSuccess 메소드를 살펴보자. defaultSuccessUrl 메소드로 인증 성공 이후 사용하는 리다이렉트 URL을 지정했다면 기본적으로 SavedRequestAwareAuthenticationSuccessHandler 객체가 사용된다.
+이후 로그인이 성공하면 세션에 저장된 요청 객체를 꺼내서 재사용한다. 사용자 인증이 완료된 후 실행되는 SavedRequestAwareAuthenticationSuccessHandler 객체의 onAuthenticationSuccess 메소드를 살펴보자. 시큐리티 필터 체인을 생성할 때 defaultSuccessUrl 메소드로 리다이렉트 URL을 지정했다면 기본적으로 SavedRequestAwareAuthenticationSuccessHandler 객체가 사용된다.
 
 ```java
 public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {

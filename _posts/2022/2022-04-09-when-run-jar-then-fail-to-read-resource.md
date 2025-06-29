@@ -9,7 +9,7 @@ last_modified_at: 2022-04-09T23:55:00
 
 <br/>
 
-## 1. Problem context
+## 1. Problem Context
 
 IDE(Integrated Development Environment) 환경에서 애플리케이션을 실행하면 리소스(resource) 파일을 정상적으로 읽을 수 있다. 빌드 결과물인 `jar` 패키징 파일을 실행하면 리소스 파일에 접근할 수 없는 현상이 있었다. jar 패키지 파일을 압축 해제 후 내부를 열어보면 필요한 리소스 파일을 정상적으로 찾을 수 있다.
 

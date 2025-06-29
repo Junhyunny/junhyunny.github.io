@@ -215,7 +215,7 @@ public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuth
 원인을 파악했으니 문제를 해결해보자. onAuthenticationSuccess 메소드를 보면 isAlwaysUseDefaultTargetUrl() 메소드를 볼 수 있다. isAlwaysUseDefaultTargetUrl() 메소드의 결과가 참(true)인 경우 세션에 저장된 요청 객체가 있더라도 항상 지정한 리다이렉트 URL로 요청을 보낸다. 이 메소드는 부모 클래스인 AbstractAuthenticationTargetUrlRequestHandler에 정의되어 있다. 
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-05.png" width="60%" class="image__border">
 </div>
 
 <br />

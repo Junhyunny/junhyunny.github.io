@@ -17,7 +17,7 @@ last_modified_at: 2025-03-25T23:55:00
 
 AWS ALB(application load balancer) 뒤에 위치한 EC2 컨테이너에 스프링 서버 애플리케이션을 배포했을 때 OAuth2 인증시 리다이렉트 URL의 프로토콜이 변경되는 문제에 대해 정리했다.
 
-## 1. Problem context
+## 1. Problem Context
 
 우선 문제가 발생한 컨텍스트를 살펴보자. 
 

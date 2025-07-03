@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T03:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Lock Mechanism][lock-mechanism-link]
+* [데이터베이스 락(Database Lock)][lock-mechanism-link]
 * [Propagation in @Transactional Annotation][transactional-propagation-type-link]
 * [@Import, @ImportAutoConfiguration 애너테이션][import-auto-configuration-annotation-link]
 
@@ -486,7 +486,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 * <https://stackoverflow.com/questions/13568475/jpa-and-default-locking-mode>
 * <https://stackoverflow.com/questions/15293275/semantic-of-jpa-2-0-optimistic-force-increment>
 
-[lock-mechanism-link]: https://junhyunny.github.io/information/lock-mechanism/
+[lock-mechanism-link]: https://junhyunny.github.io/information/database/database-lock/lock-mechanism/
 [transactional-propagation-type-link]: https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/
 [import-auto-configuration-annotation-link]: https://junhyunny.github.io/spring-boot/import-auto-configuration-annotation/
 [jpa-pessimitic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/

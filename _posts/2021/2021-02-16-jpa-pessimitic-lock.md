@@ -12,7 +12,7 @@ last_modified_at: 2021-08-22T03:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Lock Mechanism][lock-mechanism-link]
+* [데이터베이스 락(Database Lock)][lock-mechanism-link]
 
 ## 0. 들어가면서
 
@@ -447,5 +447,5 @@ org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in
 * <https://jeong-pro.tistory.com/94>
 * <https://velog.io/@lsb156/JPA-Optimistic-Lock-Pessimistic-Lock>
 
-[lock-mechanism-link]: https://junhyunny.github.io/information/lock-mechanism/
+[lock-mechanism-link]: https://junhyunny.github.io/information/database/database-lock/lock-mechanism/
 [jpa-optimistic-lock-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/

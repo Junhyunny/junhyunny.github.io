@@ -35,6 +35,7 @@ last_modified_at: 2025-07-17T23:55:00
 <div align="center">
   <img src="/images/posts/2025/langchain-01.png" width="80%" class="image__border">
 </div>
+<center>https://python.langchain.com/docs/introduction/</center>
 
 <br/>
 
@@ -124,7 +125,7 @@ llm = ChatOllama(model = "llama3.2")
 parser = StrOutputParser()
 ```
 
-우선은 체이닝 없이 각 결과들을 직접 연결해보자. 아래처럼 각 객체들의 실행 결과들을 개발자가 직접 코드로 연결해줄 수 있다.
+우선은 체이닝 없이 각 결과들을 직접 연결해보자. 아래 코드처럼 각 객체들의 실행 결과를 개발자가 직접 코드로 연결해줄 수 있다.
 
 ```python
 messages = prompt.invoke({
@@ -183,13 +184,15 @@ Deep Learning is a subset of Machine Learning that uses artificial neural networ
 In conclusion, deep learning has revolutionized the field of artificial intelligence by enabling computers to learn from complex patterns in data and make accurate predictions or decisions. While there are challenges associated with deep learning, ongoing research is addressing these issues, leading to further improvements and advancements in this exciting field.
 ```
 
-이제 위 코드를 체이닝을 통해 더 쉽게 만들어보자. 위에서 만든 prompt, llm, parser 객체는 모두 Runnable 클랙스의 인스턴스(istance)다. RunnableSequence 클래스를 사용하면 Runnable 인스턴스들을 체이닝 할 수 있다.
+이제 위 코드를 체이닝을 통해 더 쉽게 만들어보자. 위에서 만든 prompt, llm, parser 객체는 모두 Runnable 클랙스의 인스턴스(istance)다.
 
 <div align="center">
   <img src="/images/posts/2025/langchain-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
+
+RunnableSequence 클래스를 사용하면 Runnable 인스턴스들을 체이닝 할 수 있다.
 
 - RunnableSequence 클래스
   - 여러 개의 Runnable을 순서대로 연결하는 객체다. 

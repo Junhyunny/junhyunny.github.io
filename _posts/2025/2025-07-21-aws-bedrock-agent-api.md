@@ -32,7 +32,7 @@ AWS Bedrock의 에이전트(agent)는 사용자의 자연어 요청을 이해하
 - Invocation layer
   - 사용자의 입력을 받고, 필요 시 도구를 호출하고, 다시 LLM에 통합 응답 생성
 
-일반 LLM(파운데이션 모델)은 학습된 지식을 기반으로만 동작하는 한계가 있다. 에이전트는 이런 LLM의 한계를 극복하고 성능을 향상시키기 위해 주변 도구(API, 데이터베이스, 세션 등)들을 사용하고 실질적인 작업을 수행하는 소프트웨어를 의미한다.
+일반 LLM(파운데이션 모델)은 학습된 지식을 기반으로만 동작하므로 한계가 있다. 에이전트는 이런 LLM의 한계를 극복하고 성능을 향상시키기 위해 주변 도구(API, 데이터베이스, 세션 등)들을 사용하고 실질적인 작업을 수행하는 소프트웨어를 의미한다.
 
 <div align="center">
   <img src="/images/posts/2025/aws-bedrock-agent-api-00.png" width="100%" class="image__border">
@@ -44,11 +44,11 @@ AWS Bedrock의 에이전트(agent)는 사용자의 자연어 요청을 이해하
 
 ```
 $ export AWS_ACCESS_KEY_ID=ABCDEFGHIJKLEMNOPQRSTUVWXYZ
-$ export AWS_SECRET_ACCESS_KEY=ABCDEFGHIJKLEMNOPQRSTUVWXYZ/1234567890/BCDE
+$ export AWS_SECRET_ACCESS_KEY=ABCDEFGHIJKLEMNOPQRSTUVWXYZ/1234567890
 $ export AWS_SESSION_TOKEN=ABCDEFG ... 1234567890
 ```
 
-AWS CLI를 사용한다. 아래 쉘 스크립트는 에이전트를 생성하는 AWS CLI 명령어다. 영어를 가르치는 AI 에이전트로 잘못된 문장을 수정한다. 에이전트 연결을 위한 예시이기 때문에 성능에 상관 없이 LLM 파운데이션 모델은 가장 저렴한 `nova-micro` 모델을 사용한다. 명령어를 실행하기 위해선 베드록 에이전트 리소스를 실행하기 위한 롤(role)의 ARN이 필요하다.
+AWS CLI를 사용해 에이전트를 생성한다. 아래 쉘 스크립트는 에이전트를 생성하는 명령어다. `영어를 가르치는 AI 에이전트`를 위한 지침(instruction)을 정의한다. 에이전트 연결을 위한 예시이기 때문에 성능에 상관 없이 LLM 파운데이션 모델은 가장 저렴한 `nova-micro` 모델을 사용한다. 명령어를 실행하기 위해선 베드록 에이전트 리소스를 실행하기 위한 롤(role)의 ARN이 필요하다.
 
 ```sh
 #!/bin/bash
@@ -86,7 +86,7 @@ $ sh create-agent-cli.sh arn:aws:iam::123412341234:role/service-role/AmazonBedro
 }
 ```
 
-베드록 에이전트 화면에서 위에서 생성한 에이전트를 확인할 수 있다.
+AWS BedRock 에이전트 화면에서 위에서 생성한 에이전트를 확인할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2025/aws-bedrock-agent-api-01.png" width="100%" class="image__border">
@@ -127,13 +127,13 @@ $ sh prepare-agent-cli.sh SR95VYU66L
 
 <br/>
 
-마지막으로 별칭(alias)을 만들어줘야 한다. 에이전트는 기본적으로 버전 관리가 된다. 다음과 같은 것들이 변경될 수 있다. 
+마지막으로 별칭(alias)을 만들어준다. 에이전트는 기본적으로 버전 관리가 된다. 아래와 같은 에이전트 설정들이 변경될 수 있다. 
 
 - 파운데이션 모델이 사용하는 지식 기반
 - 에이전트를 위한 지침(instruction)
 - 에이전트 컨텍스트 메모리
 
-위 에이전트 설정이 바뀐다면 새로운 버전을 만들고 이를 사용하기 위해 별칭을 부여한다. 아래 쉘 스크립트를 실행할 때 에이전트 ID와 별칭 이름을 파라미터로 전달한다.
+에이전트 설정이 바뀌면 새로운 버전을 만들고 이를 사용하기 위해 별칭을 부여해야 한다. 아래 쉘 스크립트를 실행할 때 에이전트 ID와 별칭 이름을 파라미터로 전달한다.
 
 ```sh
 #!/bin/bash
@@ -151,6 +151,7 @@ aws bedrock-agent create-agent-alias \
 
 ```
 $ sh create-agent-alias-cli.sh SR95VYU66L V20250721
+
 {
   "agentAlias": {
     "agentAliasArn": "arn:aws:bedrock:ap-northeast-1:123412341234:agent-alias/SR95VYU66L/GM8K2CLYPM",
@@ -240,7 +241,7 @@ The sentence 'Hello, I are Junhyun Kang' contains a grammatical error. The corre
 
 ## 4. Update agent
 
-에이전트는 업데이트 가능하다. 아래 쉘 스크립트를 통해 에이전트의 지침을 변경한다. 불친절한 설명 톤으로 변경한다.
+에이전트는 업데이트 가능하다. 간단한 쉘 스크립트를 통해 에이전트의 지침을 업데이트한다. 에이전트의 설명 톤을 불친절한 톤으로 변경한다.
 
 ```sh
 #!/bin/bash
@@ -310,7 +311,7 @@ $ sh create-agent-alias-cli.sh SR95VYU66L V2025072102
 
 <br/>
 
-새로 발급 받은 에이전트 별칭 ID로 `.env` 파일 내용을 변경한다. 파이썬 애플리케이션을 실행하면 불친절한 톤의 응답을 받게 된다.
+새로 발급 받은 에이전트 별칭 ID로 `.env` 파일를 업데이트한다. 파이썬 애플리케이션을 실행하면 불친절한 톤의 응답을 받게 된다.
 
 ```
 $ python main.py "I are Junhyun Kang"

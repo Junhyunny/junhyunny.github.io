@@ -88,7 +88,7 @@ $ sh create-agent-cli.sh arn:aws:iam::123412341234:role/service-role/AmazonBedro
 
 <br/>
 
-아래 CLI는 위에서 생성한 에이전트를 준비 상태로 만들기 위한 명령어다. 에이전트가 준비 상태가 아니라면 프롬프트가 실행되지 않는다. 위에서 획득한 에이전트 ID를 사용한다.
+아래 CLI는 위에서 생성한 에이전트를 준비(prepared) 상태로 만들기 위한 명령어다. 에이전트가 준비 상태가 아니라면 프롬프트가 실행되지 않는다. 위에서 획득한 에이전트 ID를 사용한다.
 
 ```sh
 #!/bin/bash
@@ -100,7 +100,7 @@ aws bedrock-agent prepare-agent \
   --agent-id "$AGENT_ID" | jq .
 ```
 
-아래 명령어를 실행한다. 
+아래 명령어로 위 스크립트를 실행한다. 
 
 ```
 $ sh prepare-agent-cli.sh SR95VYU66L
@@ -113,7 +113,7 @@ $ sh prepare-agent-cli.sh SR95VYU66L
 }
 ```
 
-준비 명령어가 실행되면 다음과 같이 생성한 에이전트가 준비 상태가 된다.
+명령어 실행이 완료되면 아래처럼 에이전트가 준비 상태가 된다.
 
 <div align="center">
   <img src="/images/posts/2025/aws-bedrock-agent-api-02.png" width="100%" class="image__border">
@@ -121,7 +121,13 @@ $ sh prepare-agent-cli.sh SR95VYU66L
 
 <br/>
 
-마지막으로 별칭(alias)을 만들어줘야 한다. 에이전트를 생성하면 기본적으로 버전으로 관리된다. 파운데이션 모델이 사용하는 지식 기반이 변경되거나 에이전트를 위한 지침(instruction)이 변경되는 등 에이전트 설정이 바뀌는 것을 버전으로 관리하고 이를 사용하기 위해 별칭을 부여한다. 에이전트 ID와 별칭 이름을 파라미터로 전달한다.
+마지막으로 별칭(alias)을 만들어줘야 한다. 에이전트는 기본적으로 버전 관리가 된다. 다음과 같은 것들이 변경될 수 있다. 
+
+- 파운데이션 모델이 사용하는 지식 기반
+- 에이전트를 위한 지침(instruction)
+- 에이전트 컨텍스트 메모리
+
+위 에이전트 설정이 바뀐다면 새로운 버전을 만들고 이를 사용하기 위해 별칭을 부여한다. 아래 쉘 스크립트를 실행할 때 에이전트 ID와 별칭 이름을 파라미터로 전달한다.
 
 ```sh
 #!/bin/bash
@@ -135,7 +141,7 @@ aws bedrock-agent create-agent-alias \
   --agent-alias-name "$NAME" | jq .
 ```
 
-아래 명령어를 실행하면 새로 배포된 에이전트 별칭 ID를 획득한다. 이는 파이썬 애플리케이션에서 에이전트의 특정 버전을 호출하기 위해 사용한다. 
+아래 명령어로 위 스크립트를 실행하면 새로 배포된 에이전트 별칭 ID를 획득한다. 이는 파이썬 애플리케이션에서 특정 에이전트의 특정 버전을 호출할 때 사용한다. 
 
 ```
 $ sh create-agent-alias-cli.sh SR95VYU66L V20250721
@@ -191,7 +197,7 @@ from dotenv import load_dotenv
 load_dotenv()
 ```
 
-커맨드라인으로부터 문장을 입력 받고, 이 문장을 첨삭받는다.
+커맨드라인으로부터 전달한 문장에 대한 첨삭을 베드락 에이전트에게 요청한다.
 
 ```python
 def main(sentence):
@@ -218,7 +224,7 @@ if __name__ == '__main__':
   main(sys.argv[1])
 ```
 
-아래처럼 잘못된 문장을 전달하면 잘못된 문장을 첨삭해준다.
+아래처럼 잘못된 문장을 전달하면 이를 첨삭해준다.
 
 ```
 $ python main.py "Hello, I are Junhyun Kang"
@@ -228,7 +234,7 @@ The sentence 'Hello, I are Junhyun Kang' contains a grammatical error. The corre
 
 ## 4. Update agent
 
-에이전트는 업데이트 가능하다. 아래 쉘 스크립트를 통해 에이전트의 지침을 변경한다. 설명 톤을 변경한다.
+에이전트는 업데이트 가능하다. 아래 쉘 스크립트를 통해 에이전트의 지침을 변경한다. 불친절한 설명 톤으로 변경한다.
 
 ```sh
 #!/bin/bash

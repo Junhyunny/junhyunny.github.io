@@ -223,11 +223,11 @@ for chunk in answer:
 ```python
 chain = prompt | llm | parser
 answer = chain.stream({
-	"topic": "deep learning"
+  "topic": "deep learning"
 })
 
 for chunk in answer:
-	print(chunk, end = "", flush = True)
+  print(chunk, end = "", flush = True)
 ```
 
 #### TEST CODE REPOSITORY

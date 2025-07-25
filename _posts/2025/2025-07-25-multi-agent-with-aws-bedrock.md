@@ -181,7 +181,7 @@ An input format what you need is in the below json block. This is an example.
 }
 ```
 
-이제부터 에이전트를 만들어보자. 위 스크립트는 다음과 같이 실행한다. 스크립트를 실행했을 때 출력되는 결과는 관리자 에이전트에 협력자를 등록할 때 필요하기 때문에 메모해두길 바란다. 먼저 리서치 에이전트를 생성한다. 에이전트 이름은 research-agent다.
+이제부터 에이전트를 만들어보자. 위 스크립트는 다음과 같이 실행한다. 스크립트를 실행했을 때 출력되는 결과는 관리자 에이전트에 협력자를 등록할 때 필요하기 때문에 메모해두길 바란다. 먼저 리서치 에이전트를 생성한다. 에이전트 이름은 `research-agent`다.
 
 ```
 $ sh scripts/create-agent.sh \
@@ -193,7 +193,7 @@ CREATED AGENT_ID = KNA7TQTVEY
 CREATED AGENT_ALIAS_ARN = arn:aws:bedrock:ap-northeast-1:123412341234:agent-alias/KNA7TQTVEY/1JW8LP6P7N
 ```
 
-동일한 스크립트로 차트 에이전트를 생성한다. 에이전트 이름은 chart-agent다.
+동일한 스크립트로 차트 에이전트를 생성한다. 에이전트 이름은 `chart-agent`다.
 
 ```
 $ sh scripts/create-agent.sh \
@@ -208,7 +208,7 @@ CREATED AGENT_ALIAS_ARN = arn:aws:bedrock:ap-northeast-1:123412341234:agent-alia
 위 스크립트를 싱행하면 에이전트가 준비된 상태로 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2025/multi-agent-with-aws-bedrock-04.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/multi-agent-with-aws-bedrock-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -223,7 +223,8 @@ CREATED AGENT_ALIAS_ARN = arn:aws:bedrock:ap-northeast-1:123412341234:agent-alia
 
 다음 관리자 에이전트를 생성한다. 다음과 같은 스크립트를 사용한다. 
 
-- 에이전트 리소스를 실행할 수 있는 역할(role)의 ARN이 필요하다.
+- 에이전트 리소스를 실행할 수 있는 역할의 ARN이 필요하다.
+  - 위에서 사용한 역할 ARN과 동일하다.
 - 다른 에이전트들과 어떤 식으로 협력해야 하는지 정리한 지시문을 제공한다.
   - 리서치 에이전트를 먼저 호출하고, 그 다음 차트 에이전트를 호출하는 등의 협력 순서를 정의한다.
   - 주의 사항을 함께 정리한다. 필자의 경우 관리자 에이전트가 코드를 변경하는 등의 작업을 해서 이를 금지시켰다.
@@ -379,7 +380,7 @@ $ sh scripts/update-collaborators.sh ZLU5WVCBXN chart-agent arn:aws:bedrock:ap-n
 }
 ```
 
-협력자 에이전트를 추가하면 관리자 에이전트의 `Multi-agent collaboration` 섹션에서 추가한 협력자 에이전트들과 각자의 협력 지시문을 확인할 수 있다. 
+협력 에이전트들을 모두 추가한 후. AWS 웹 콘솔에서 관리자 에이전트의 `Multi-agent collaboration` 섹션을 확인해보자. 추가한 협력 에이전트들과 각자의 협력 지시문을 확인할 수 있다. 
 
 <div align="center">
   <img src="/images/posts/2025/multi-agent-with-aws-bedrock-06.png" width="100%" class="image__border">

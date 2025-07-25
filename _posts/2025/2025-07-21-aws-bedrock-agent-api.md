@@ -48,7 +48,7 @@ $ export AWS_SECRET_ACCESS_KEY=ABCDEFGHIJKLEMNOPQRSTUVWXYZ/1234567890
 $ export AWS_SESSION_TOKEN=ABCDEFG ... 1234567890
 ```
 
-AWS CLI를 사용해 에이전트를 생성한다. 아래 쉘 스크립트는 에이전트를 생성하는 명령어다. `영어를 가르치는 AI 에이전트`를 위한 지침(instruction)을 정의한다. 에이전트 연결을 위한 예시이기 때문에 성능에 상관 없이 LLM 파운데이션 모델은 가장 저렴한 `nova-micro` 모델을 사용한다. 명령어를 실행하기 위해선 베드록 에이전트 리소스를 실행하기 위한 롤(role)의 ARN이 필요하다.
+AWS CLI를 사용해 에이전트를 생성한다. 아래 쉘 스크립트는 에이전트를 생성하는 명령어다. `영어를 가르치는 AI 에이전트`를 위한 지침(instruction)을 정의한다. 에이전트 연결을 위한 예시이기 때문에 성능에 상관 없이 LLM 파운데이션 모델은 가장 저렴한 `nova-micro` 모델을 사용한다. 명령어를 실행하기 위해선 베드록 에이전트 리소스를 실행하기 위한 역할(role)의 ARN이 필요하다. 해당 역할은 편의를 위해 `AmazonBedrockFullAccess` 권한 정책을 사용했다.
 
 ```sh
 #!/bin/bash
@@ -341,6 +341,10 @@ botocore.exceptions.EventStreamError: An error occurred (validationException) wh
   <img src="/images/posts/2025/aws-bedrock-agent-api-05.png" width="100%" class="image__border">
 </div>
 
+#### RECOMMEND NEXT POSTS
+
+- [AWS Bedrock 멀티 에이전트(multi-agent) 예제][multi-agent-with-aws-bedrock-link]
+
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2025-07-21-aws-bedrock-agent-api>
@@ -348,3 +352,5 @@ botocore.exceptions.EventStreamError: An error occurred (validationException) wh
 #### REFERENCE
 
 - <https://zenn.dev/waaani/articles/aws-bedrock-memo>
+
+[multi-agent-with-aws-bedrock-link]: https://junhyunny.github.io/ai/llms/large-language-model/aws/bedrock/ai-agent/multi-agent/architecture/multi-agent-with-aws-bedrock/

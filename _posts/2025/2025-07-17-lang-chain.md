@@ -18,7 +18,7 @@ last_modified_at: 2025-07-17T23:55:00
 
 > LangChain is a framework for developing applications powered by large language models (LLMs).
 
-랭체인(langchain)은 LLM(Large Language Model)을 사용하는 애플리케이션을 개발할 때 사용하는 프레임워크다. LLM과 연관된 기술들(e.g. 임베딩 모델, 벡터 저장소)을 위한 표준 인터페이스를 제공한다. 랭체인이 제공하는 표준화 된 인터페이스를 제공하기 때문에 개발자는 동일한 코드로 OpenAI, Cohere, HuggingFace, Ollama 같은 여러 LLM 모델들을 사용할 수 있다.
+랭체인(langchain)은 LLM(Large Language Model)을 사용하는 애플리케이션을 개발할 때 사용하는 프레임워크다. LLM과 연관된 기술들(e.g. 임베딩 모델, 벡터 저장소)을 위한 표준 인터페이스를 제공한다. 랭체인이 제공하는 표준화 된 인터페이스를 제공하기 때문에 개발자는 동일한 코드로 OpenAI, Cohere, HuggingFace, Ollama 같은 여러 LLM들을 사용할 수 있다.
 
 랭체인이라는 이름처럼 LLM 애플리케이션을 구성할 때 필요한 기능들(혹은 컴포넌트, 객체)을 연결하는 체이닝(chaining)하는 것이 가능하다. 체이닝 예제는 아래에서 살펴보자. 랭체인 아키텍처를 보면 랭체인과 함께 협업하는 컴포넌트들이 하나의 에코 시스템(eco system)을 구성한다.
 
@@ -83,7 +83,7 @@ Successfully installed PyYAML-6.0.2 annotated-types-0.7.0 anyio-4.9.0 certifi-20
 $ docker run -d -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama
 ```
 
-필요한 LLM 모델을 실행한다. 이 예제에선 llama3.2 버전을 사용한다.
+필요한 LLM을 실행한다. 이 예제에선 llama3.2 버전을 사용한다.
 
 ```
 $ docker exec -it ollama ollama run llama3.2
@@ -92,8 +92,8 @@ $ docker exec -it ollama ollama run llama3.2
 이제 필요한 준비는 모두 끝났다. 코드를 살펴보기 전에 어떤 체인을 구성할 것인지 그림을 살펴보자.
 
 1. 템플릿화 된 프롬프트를 만든다.
-2. LLM 모델에게 해당 프롬프트를 전달한다.
-3. LLM 모델 호출 결과를 문자열 파서(parser)에게 전달한다.
+2. LLM에게 해당 프롬프트를 전달한다.
+3. LLM 호출 결과를 문자열 파서(parser)에게 전달한다.
 
 <div align="center">
   <img src="/images/posts/2025/langchain-02.png" width="80%" class="image__border">

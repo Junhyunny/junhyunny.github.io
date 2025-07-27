@@ -1,5 +1,5 @@
 ---
-title: "LLM 랭체인(LangChain)과 예제"
+title: "LLM 랭체인(LangChain) 예제"
 search: false
 category:
   - ai

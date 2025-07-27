@@ -17,7 +17,7 @@ last_modified_at: 2025-07-25T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [AWS Bedrock 에이전트(agent) 호출 예제][aws-bedrock-agent-api-link]
+- [AWS Bedrock 에이전트(agent) 예제][aws-bedrock-agent-api-link]
 
 ## 1. What is multi agent?
 

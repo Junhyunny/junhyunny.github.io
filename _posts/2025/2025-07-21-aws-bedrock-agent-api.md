@@ -1,5 +1,5 @@
 ---
-title: "AWS Bedrock 에이전트(agent) 호출 예제"
+title: "AWS Bedrock 에이전트(agent) 예제"
 search: false
 category:
   - ai

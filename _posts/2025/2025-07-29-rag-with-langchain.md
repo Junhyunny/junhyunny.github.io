@@ -56,9 +56,9 @@ MySQL이나 PostgreSQL 같은 SQL 기반 데이터베이스는 키워드 기반�
 WHERE title LIKE '%고양이%'
 ```
 
-쿼리에 사용한 키워드의 동의어나 유사 의미를 인식하는 것은 매우 어렵다. 사용자 프롬프트에 `냥이`라는 키워드가 있다면 일반 SQL은 이를 위한 동의어 처리가 별도로 필요할 것이다. 모든 케이스에 대해 커버하는 것은 불가능에 가까울 것이다. 이런 문제를 해결하기 위해 `벡터 데이터베이스(vetor database)`를 사용한다. 벡터 데이터베이스를 사용하면 단어가 같지 않더라도 의미가 비슷한 데이터를 찾을 수 있다.
+쿼리에 사용한 키워드의 동의어나 유사 의미를 인식하는 것은 매우 어렵다. 사용자 프롬프트에 `냥이`라는 키워드가 있다면 일반 SQL은 이를 위한 동의어 처리가 별도로 필요하다. 아쉽게도 모든 케이스에 대해 커버하는 것은 불가능에 가까울 것이다. 이런 문제를 해결하기 위해 `벡터 데이터베이스(vetor database)`를 사용한다. 벡터 데이터베이스를 사용하면 단어가 같지 않더라도 의미가 비슷한 데이터를 찾을 수 있다.
 
-먼저 문서나 질문을 벡터(숫자 배열)로 바꾼 후 벡터 데이터베이스를 저장하한다. 벡터 데이터베이스에 저장된 데이터는 수학적으로 유사한 벡터를 탐색을 통해 찾을 수 있다. 수학적 기법은 코사인 유사도, 유클리디안 거리, 내적 등을 사용한다.자연어를 벡터로 어떻게 만드는지에 달려있겠지만, 수학적으로 유사한 벡터는 의미가 유사하다고 본다. 문서나 질문을 벡터로 변경하는 작업을 `임베딩(embedding)`, 벡터를 벡터 데이터베이스에 저장하는 작업을 `인덱싱(indexing)`이라고 한다. 
+먼저 문서나 질문을 벡터(숫자 배열)로 바꾼 후 벡터 데이터베이스를 저장한다. 벡터 데이터베이스에 저장된 데이터는 코사인 유사도, 유클리디안 거리, 내적 등의 수학적 기법을 통해 유사한 벡터를 탐색할 수 있다. 의미가 유사한 문장들을 가까운 곳에 위치한 벡터로 만든다. 이렇게 문서나 질문을 벡터로 변경하는 작업을 `임베딩(embedding)`, 벡터를 벡터 데이터베이스에 저장하는 작업을 `인덱싱(indexing)`이라고 한다. 
 
 이해를 돕기 위해 간단한 예시를 들어보자. 다음과 같은 4개의 문장이 있다. 
 
@@ -91,7 +91,7 @@ $ docker exec -it ollama ollama run llama3.2
 I'm not aware of my knowledge cutoff date, but as of my last update in December 2023, Joe Biden was the President of the United States. However, please note that this information may have changed since then. For the most up-to-date information, I recommend checking a reliable news source or the official website of the White House.
 ```
 
-llama3.2 모델은 23년 12월 기준으로 학습이 완료됐고, 그 당시 대통령은 조 바이든이라는 답변을 얻는다. 이제부터 벡터 데이터베이스를 구성하고 llama3.2 모델의 답변을 별다른 학습 없이 최신화해보자. 먼저 파이썬 가상 환경을 구축한다.
+llama3.2 모델로부터 23년 12월 기준으로 학습이 완료됐고, 그 당시 대통령은 조 바이든이라는 답변을 얻는다. 이제부터 벡터 데이터베이스를 구성하고 llama3.2 모델의 답변을 별다른 모델 학습(파라미터 튜닝) 없이 최신화해보자. 먼저 파이썬 가상 환경을 구축한다.
 
 ```
 $ python3 -m venv .venv
@@ -106,16 +106,16 @@ $ source .venv/bin/activate
 필요한 의존성을 설치한다. 다음과 같은 의존성들이 필요하다.
 
 - langchain 
-  - LangChain의 코어 라이브러리
+  - 랭체인 코어 라이브러리
 - langchain_community 
   - 커뮤니티 지원 기능 및 통합 모듈. 
   - WebBaseLoader 사용
 - langchain_ollama
-  - Ollama 기반의 LLM 실행을 지원하는 LangChain 통합 모듈
+  - Ollama 기반의 LLM 실행을 지원하는 랭체인 통합 모듈
 - langchain_chroma 
-  - Chroma 벡터 데이터베이스를 LangChain 애플리케이션과 연결
+  - Chroma 벡터 데이터베이스를 랭체인 애플리케이션과 연결
 - langchain-huggingface
-  - HuggingFace 모델들을 LangChain에서 사용할 수 있게 해주는 패키지
+  - HuggingFace 모델들을 랭체인에서 사용할 수 있게 해주는 패키지
   - HuggingFaceEmbeddings 사용
 - sentence-transformers
   - 텍스트를 의미 기반의 벡터로 변환해주는 임베딩 모델 라이브러리
@@ -154,8 +154,8 @@ from langchain_huggingface import HuggingFaceEmbeddings
 wiki_url = "https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States"
 
 loader = WebBaseLoader(
-	web_paths = [wiki_url],
-	bs_kwargs = dict(parse_only = bs4.SoupStrainer(class_ = ("mw-body-content", "mw-parser-output")))
+  web_paths = [wiki_url],
+  bs_kwargs = dict(parse_only = bs4.SoupStrainer(class_ = ("mw-body-content", "mw-parser-output")))
 )
 documents = loader.load()
 ```
@@ -171,10 +171,10 @@ split_documents = text_splitter.split_documents(documents)
 
 ```python
 embedding_model = HuggingFaceEmbeddings(
-	model_name = "intfloat/multilingual-e5-base",
-	model_kwargs = {
-		"device": "cpu"
-	}
+  model_name = "intfloat/multilingual-e5-base",
+  model_kwargs = {
+    "device": "cpu"
+  }
 )
 ```
 
@@ -182,9 +182,9 @@ embedding_model = HuggingFaceEmbeddings(
 
 ```python
 Chroma.from_documents(
-	documents = split_documents,
-	embedding = embedding_model,
-	persist_directory = "./chroma_llama"
+  documents = split_documents,
+  embedding = embedding_model,
+  persist_directory = "./chroma_llama"
 )
 ```
 
@@ -207,7 +207,7 @@ Created a chunk of size 1043, which is longer than the specified 100
 
 <br/>
 
-지금부터 살펴볼 코드는 `main.py`다. 벡터 데이터베이스로부터 질문에 관련된 데이터를 조회 후 이를 질문의 컨텍스트로 전달하는 RAG 프로세스다. RAG 프로세스에 대한 설명은 위애서 다뤘기 때문에 여기선 별도로 하지 않는다. 다음과 같은 패키지들을 임포트한다.
+지금부터 살펴볼 코드는 `main.py`다. 벡터 데이터베이스로부터 질문에 관련된 데이터를 조회 후 이를 질문의 컨텍스트로 전달하는 RAG 프로세스에 대한 코드를 살펴본다. RAG 프로세스에 대한 설명은 위애서 다뤘기 때문에 여기선 별도로 하지 않는다. 다음과 같은 패키지들을 임포트한다.
 
 ```python
 from langchain.chains import LLMChain, RetrievalQA, create_retrieval_chain
@@ -224,17 +224,17 @@ LLM 모델과 프롬프트를 준비한다. llama3.2 모델을 사용한다. `co
 llm = ChatOllama(model = "llama3.2")
 
 prompt = PromptTemplate(
-	input_variables = ["context", "input"],
-	template = """
-			Answer refer contexts:
-			context: {context}
-			question: {input}
-			
-			Answer with specific information and details.
-			Answer with reference links if you know the source.
-			Answer in a way that other users don't feel like you're referencing external sources such as RAG.
-			Do not answer with unnecessary words such as reference numbers or inline citation.
-	"""
+  input_variables = ["context", "input"],
+  template = """
+      Answer refer contexts:
+      context: {context}
+      question: {input}
+      
+      Answer with specific information and details.
+      Answer with reference links if you know the source.
+      Answer in a way that other users don't feel like you're referencing external sources such as RAG.
+      Do not answer with unnecessary words such as reference numbers or inline citation.
+  """
 )
 ```
 
@@ -242,10 +242,10 @@ prompt = PromptTemplate(
 
 ```python
 embedding_model = HuggingFaceEmbeddings(
-	model_name = "intfloat/multilingual-e5-base",
-	model_kwargs = {
-		"device": "cpu"
-	}
+  model_name = "intfloat/multilingual-e5-base",
+  model_kwargs = {
+    "device": "cpu"
+  }
 )
 ```
 
@@ -253,8 +253,8 @@ embedding_model = HuggingFaceEmbeddings(
 
 ```python
 vectorstore = Chroma(
-	persist_directory = "./chroma_llama",
-	embedding_function = embedding_model
+  persist_directory = "./chroma_llama",
+  embedding_function = embedding_model
 )
 ```
 
@@ -262,7 +262,7 @@ vectorstore = Chroma(
 
 ```python
 retriever = vectorstore.as_retriever(search_kwargs = {
-	"k": 3
+  "k": 3
 })
 ```
 
@@ -283,13 +283,13 @@ chain = rag_chain.pick("answer")
 
 ```python
 stream = chain.stream({
-	"input": "Who is the president of USA now?"
+  "input": "Who is the president of USA now?"
 })
 for chunk in stream:
-	print(f"{chunk}", end = "")
+  print(f"{chunk}", end = "")
 ```
 
-다음 명령어를 통해 위 스크립트를 실행한다. 동일한 모델을 사용했지만, RAG 프로세스를 통해 개선된 응답을 받는다.
+다음 명령어를 통해 위 스크립트를 실행한다. 동일한 모델을 사용했지만, RAG 프로세스를 통해 개선된 응답을 받게 된다.
 
 ```
 $ python main.py

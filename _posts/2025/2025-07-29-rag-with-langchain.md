@@ -201,8 +201,8 @@ Created a chunk of size 1043, which is longer than the specified 100
 
 다음과 같이 로컬에 벡터 데이터가 저장된 것을 확인할 수 있다.
 
-<div align="center">
-  <img src="/images/posts/2025/rag-with-langchain-01.png" width="75%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/rag-with-langchain-01.png" width="50%" class="image__border">
 </div>
 
 <br/>

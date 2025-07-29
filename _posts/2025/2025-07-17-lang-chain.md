@@ -5,12 +5,10 @@ category:
   - ai
   - large-language-model
   - langchain
-last_modified_at: 2025-07-17T23:55:00
+last_modified_at: 2025-07-29T23:55:00
 ---
 
 <br/>
-
-#### RECOMMEND POSTS BEFORE THIS
 
 ## 1. LangChain
 
@@ -230,6 +228,10 @@ for chunk in answer:
   print(chunk, end = "", flush = True)
 ```
 
+#### RECOMMEND NEXT POSTS
+
+- [검색 증강 생성(RAG, Retrieval-Augmented Generation) LangChain 예제][rag-with-langchain-link]
+
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2025-07-17-lang-chain>
@@ -239,3 +241,5 @@ for chunk in answer:
 - <https://python.langchain.com/docs/introduction/>
 - <https://python.langchain.com/docs/concepts/architecture/>
 - <https://junhyunny.github.io/python/virtual-environment-for-python/>
+
+[rag-with-langchain-link]: https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/

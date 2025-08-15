@@ -53,7 +53,7 @@ VirtualBox의 게스트 확장 기능(guest addition)은 가상 머신 속 게�
 해당 버튼을 누르면 바탕화면에 가상 CDROM 폴더가 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-guest-addition-of-virtualbox-on-macbook-m4-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/install-guest-addition-of-virtualbox-on-macbook-m4-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -61,12 +61,12 @@ VirtualBox의 게스트 확장 기능(guest addition)은 가상 머신 속 게�
 가상 CDROM 폴더로 진입 후 해당 디렉토리에서 터미널을 오픈한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-guest-addition-of-virtualbox-on-macbook-m4-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/install-guest-addition-of-virtualbox-on-macbook-m4-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
 
-폴더에 들어있는 파일들이 있는지 ls 명령어로 살펴보자. 게스트 확장 기능을 여러 타입의 OS에서 실행할 수 있는 스크립트 혹은 실행 파일을 확인할 수 있다.
+폴더에 어떤 파일들이 있는지 `ls` 명령어로 살펴보자. 게스트 확장 기능을 여러 타입의 OS에서 실행할 수 있도록 스크립트 혹은 실행 파일들이 있는 것을 확인할 수 있다.
 
 ```
 $ ls
@@ -81,7 +81,7 @@ TRANS.TBL                          VBoxWindowsAdditions-x86.exe
 VBoxDarwinAdditions.pkg            windows11-bypass.reg
 ```
 
-맥북 프로 M4 칩은 ARM64 아키텍처이므로 `VBoxLinuxAdditions-arm64.run` 스크립트를 실행한다. 해당 스크립트를 실행하면 에러 메시지를 확인할 수 있다.
+맥북 프로 M4 칩은 ARM64 아키텍처이므로 `VBoxLinuxAdditions-arm64.run` 스크립트를 실행한다. 
 
 ```
 $ sudo sh VBoxLinuxAdditions-arm64.run
@@ -106,7 +106,7 @@ VirtualBox Guest Additions: kernel modules and services were not reloaded
 The log file /var/log/vboxadd-setup.log may contain further information.
 ```
 
-설치 과정 중 현재 시스템의 커널(6.12.25-arm64)에 맞는 커널 헤더(Kernel headers)를 찾을 수 없어 빌드에 실패했다는 에러를 볼 수 있다.
+해당 스크립트를 실행하면 로그에서 에러 메시지를 확인할 수 있다. 설치 과정 중 현재 시스템의 커널(6.12.25-arm64)에 맞는 커널 헤더(Kernel headers)를 찾을 수 없어 빌드에 실패했다는 에러가 보인다.
 
 ```
 Kernel headers not found for target kernel 6.12.25-arm64. Please install them and execute
@@ -173,7 +173,7 @@ Processing triggers for man-db (2.13.1-1) ...
 $ sudo reboot
 ```
 
-재부팅이 완료되면 위와 동일한 방법으로 가상 CDROM 폴더에서 터미널을 오픈한다. 이후 위에서 실패했던 게스트 확장 기능 설치를 재시도한다. 
+재부팅이 완료되면 위와 동일한 방법으로 가상 CDROM 폴더에서 터미널을 오픈한다. 이후 위에서 실패했던 게스트 확장 기능을 재설치한다. 
 
 ```
 $ sudo sh VBoxLinuxAdditions-arm64.run

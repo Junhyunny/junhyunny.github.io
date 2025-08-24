@@ -1,5 +1,5 @@
 ---
-title: "MacBook M4(ARM64)에 VirtualBox 가상머신 게스트 확장 기능 설치하기"
+title: "M4(ARM64) MacBook에 VirtualBox 가상머신 게스트 확장 기능 설치하기"
 search: false
 category:
   - virtual-box

@@ -152,7 +152,7 @@ public class BlogController {
 05-Nov-2021 02:36:55.408 INFO [RMI TCP Connection(3)-127.0.0.1] org.springframework.web.servlet.FrameworkServlet.initServletBean Completed initialization in 99 ms
 ```
 
-별도 컴포넌트 스캔을 통해 문제를 해결한 후 생성자 주입 로그를 보면 1회만 발생한다.
+컴포넌트 스캔 설정을 변경해 문제를 해결한 후 로그를 보면 생성자 주입이 1회만 발생한다.
 
 - BlogController 생성자 주입: blog.in.action.service.impl.BlogServiceImpl@34114842
 
@@ -203,7 +203,7 @@ public class BlogServiceImpl implements BlogService {
 테스트를 수행하기 전에 데이터 상태는 다음과 같다.
 
 <div align="left">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-04.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-04.png" width="65%" class="image__border">
 </div>
 
 <br/>
@@ -217,7 +217,7 @@ $ curl http://localhost:8080/update
 정상적으로 authorities 컬럼(column)이 널(null) 값으로 업데이트 된다.
 
 <div align="left">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-05.png" width="80%" class="image__border">
+  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-05.png" width="65%" class="image__border">
 </div>
 
 <br/>

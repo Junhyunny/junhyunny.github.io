@@ -34,7 +34,7 @@ classes: wide
   </h3>
 </div>
 
-#### Professional Service 팀
+#### [Toyota DIG] Professional service 팀
 
 - 서비스 팀들의 기술적 부채 분석 및 해소
 

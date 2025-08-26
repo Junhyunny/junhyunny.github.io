@@ -12,7 +12,7 @@ last_modified_at: 2023-11-28T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Proxy Pattern][proxy-pattern-link]
+- [프록시 패턴(proxy pattern)][proxy-pattern-link]
 - [Strategy Pattern][strategy-pattern-link]
 - [Template Method Pattern][template-method-pattern-link]
 

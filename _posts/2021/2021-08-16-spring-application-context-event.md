@@ -433,7 +433,7 @@ Hibernate: select order0_.id as id1_1_, order0_.delivery_id as delivery2_1_, ord
 
 #### RECOMMEND NEXT POSTS
 
-* [Proxy Pattern][proxy-pattern-link]
+* [프록시 패턴(proxy pattern)][proxy-pattern-link]
 * [Spring Application Context Event with Transaction][transaction-in-spring-application-context-event-link]
 * [Spring Application Context Async Event][async-in-spring-application-context-event-link]
 

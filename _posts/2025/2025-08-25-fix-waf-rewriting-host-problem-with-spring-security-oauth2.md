@@ -88,13 +88,15 @@ class CustomOAuth2AuthorizationRequestResolverProxy(
 ) : OAuth2AuthorizationRequestResolver {
   override fun resolve(request: HttpServletRequest): OAuth2AuthorizationRequest? = changeRedirectUri(
     request,
-    delegate.resolve(request) // 1. delegate 인스턴스에게 인가 서버 URL 생성을 위임
+    // 1. delegate 인스턴스에게 인가 서버 리다이렉트 URL 생성을 위임
+    delegate.resolve(request) 
   )
 
   override fun resolve(request: HttpServletRequest, clientRegistrationId: String): OAuth2AuthorizationRequest? =
     changeRedirectUri(
       request,
-      delegate.resolve(request, clientRegistrationId) // 1. delegate 인스턴스에게 인가 서버 URL 생성을 위임
+      // 1. delegate 인스턴스에게 인가 서버 리다이렉트 URL 생성을 위임
+      delegate.resolve(request, clientRegistrationId) 
     )
 
   private fun changeRedirectUri(
@@ -103,12 +105,15 @@ class CustomOAuth2AuthorizationRequestResolverProxy(
   ): OAuth2AuthorizationRequest? {
     if (result == null) return null
     val referer = request.getHeader("referer") ?: request.getHeader("Referer")
-    val newUri =
-      if (referer == "https://example.com/" && result.redirectUri.contains("https://internal.example.com")) {
+    // 2. HTTP 헤더 레퍼러 값을 기반으로 `redirect_url` 값 변경
+    val newUri = if (
+        referer == "https://example.com/" 
+          && result.redirectUri.contains("https://internal.example.com")
+      ) {
         result.redirectUri.replace("https://internal.example.com", "https://example.com")
       } else {
         result.redirectUri
-      } // 2. HTTP 헤더 레퍼러 값을 기반으로 `redirect_url` 값 변경
+      } 
     return OAuth2AuthorizationRequest.from(result)
       .redirectUri(newUri)
       .build() // 3. 인가 코드 승인 요청 객체를 새로 생성 후 반환
@@ -116,7 +121,7 @@ class CustomOAuth2AuthorizationRequestResolverProxy(
 }
 ```
 
-OAuth2AuthorizationRequestResolver 인스턴스의 기능을 확장한 CustomOAuth2AuthorizationRequestResolverProxy 객체를 시큐리티 필터 체인에 포함시킨다. 필터 체인을 구성할 때 CustomOAuth2AuthorizationRequestResolverProxy 객체를 주입한다.
+이제 OAuth2AuthorizationRequestResolver 인스턴스의 기능을 확장한 CustomOAuth2AuthorizationRequestResolverProxy 객체를 시큐리티 필터 체인에 포함시킬 차례다. 필터 체인을 구성할 때 CustomOAuth2AuthorizationRequestResolverProxy 객체를 주입한다.
 
 ```kotlin
 @Configuration

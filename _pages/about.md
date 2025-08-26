@@ -29,7 +29,7 @@ classes: wide
   <img src="/images/about/about-5.png" width="5%" class=" image__margin-right image__border"/>
   <h3 id="bekindlabs" class="reusme__company">
     <span class="reusme__company--name">Bekind Labs</span>
-    <span class="reusme__company--team-role">Software Devloper</span>
+    <span class="reusme__company--team-role">Senior Software Engineer</span>
     <span class="reusme__company--period">2025년 01월 - PRESENT</span>
   </h3>
 </div>

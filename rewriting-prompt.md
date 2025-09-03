@@ -54,3 +54,4 @@ mv /Users/junhyunny/Desktop/workspace/blog/junhyunny.github.io/images/transcatio
 - **인용문(>)은 절대 변경하지 않는다.**
 
 위 명령어를 순차적으로 실행하고, `[year]` 변수는 프롬프트를 통해 전달받는다.
+실행 결과는 txt 파일로 생성한다. 가능하다면 다운로드 받을 수 있도록 링크를 생성 후 제공한다.

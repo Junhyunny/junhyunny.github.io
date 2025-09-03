@@ -213,7 +213,7 @@ Corrupted shared resource count - 0
 
 #### RECOMMEND NEXT POSTS
 
-* [Deadlock][deadlock-blog-link]
+* [교착 상태(deadlock)][deadlock-blog-link]
 
 #### REFERENCE
 

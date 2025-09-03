@@ -14,7 +14,7 @@ last_modified_at: 2023-01-25T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [데이터베이스 락(Database Lock)][lock-mechanism-link]
-* [Optimistic Lock in JPA][jpa-optimistic-lock-link]
+* [JPA 낙관적 락][jpa-optimistic-lock-link]
 
 ## 0. 들어가면서
 

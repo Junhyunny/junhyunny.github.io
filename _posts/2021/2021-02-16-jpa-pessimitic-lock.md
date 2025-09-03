@@ -438,7 +438,7 @@ org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in
 
 #### RECOMMEND NEXT POSTS
 
-* [Optimistic Lock in JPA][jpa-optimistic-lock-link]
+* [JPA 낙관적 락][jpa-optimistic-lock-link]
 
 #### REFERENCE
 

@@ -1,5 +1,5 @@
 ---
-title: "JPA 비관적 락"
+title: "JPA 비관적 락(pessimistic lock)"
 search: false
 category:
   - spring-boot
@@ -420,7 +420,7 @@ org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in
 
 #### RECOMMEND NEXT POSTS
 
-- [JPA 낙관적 락][jpa-optimistic-lock-link]
+- [JPA 낙관적 락(optimistic lock)][jpa-optimistic-lock-link]
 
 #### REFERENCE
 

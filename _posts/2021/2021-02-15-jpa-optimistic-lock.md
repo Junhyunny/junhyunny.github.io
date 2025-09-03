@@ -1,5 +1,5 @@
 ---
-title: "JPA 낙관적 락"
+title: "JPA 낙관적 락(optimistic lock)"
 search: false
 category:
   - spring-boot
@@ -458,7 +458,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 #### RECOMMEND NEXT POSTS
 
-- [Pessimistic Lock in JPA][jpa-pessimitic-lock-link]
+- [JPA 비관적 락(pessimistic lock)][jpa-pessimitic-lock-link]
 - [Optimistic Lock in QueryDSL][optimistic-lock-in-query-dsl-link]
 
 #### REFERENCE

@@ -21,8 +21,7 @@ last_modified_at: 2024-12-19T12:00:00
 낙관적인 락(optimistic lock) 개념을 다시 정리 후 글을 이어가겠다.
 
 > 낙관적인 락(optimistic lock)<br/>
-> 트랜잭션 충돌이 발생하지 않는다고 가정한 낙관적인 락 방식이다.
-> 트랜잭션 충돌에 대한 감지는 조회한 데이터의 버전(version)을 통해 이루어진다.
+> 트랜잭션 충돌이 발생하지 않는다고 가정한 낙관적인 락 방식이다. 트랜잭션 충돌에 대한 감지는 조회한 데이터의 버전(version)을 통해 이루어진다.
 
 ## 1. How to use optimistic lock in JPA?
 
@@ -451,9 +450,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 사실 락 모드를 설정하지 않아도 낙관적인 락 메커니즘이 잘 동작한다. 3.2 버전부터는 `@Version` 애너테이션만으로 낙관적인 락이 가능하다고 한다.
 
 > 3.2 Version Attributes<br/>
-> The Version field or property is used by the persistence provider to perform optimistic locking.
-> It is accessed and/or set by the persistence provider in the course of performing lifecycle operations on the entity instance.
-> **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**
+> The Version field or property is used by the persistence provider to perform optimistic locking. It is accessed and/or set by the persistence provider in the course of performing lifecycle operations on the entity instance. **An entity is automatically enabled for optimistic locking if it has a property or field mapped with a Version mapping.**
 
 #### TEST CODE REPOSITORY
 

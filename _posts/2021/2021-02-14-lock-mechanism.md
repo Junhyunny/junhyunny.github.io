@@ -58,7 +58,7 @@ last_modified_at: 2025-07-02T22:45:00
 #### RECOMMEND NEXT POSTS
 
 - [Optimistic Lock in QueryDSL][optimistic-lock-in-query-dsl-link]
-- [Optimistic Lock in JPA][jpa-optimistic-lock-link]
+- [JPA 낙관적 락][jpa-optimistic-lock-link]
 - [Pessimistic Lock in JPA][jpa-pessimitic-lock-link]
 
 #### REFERENCE

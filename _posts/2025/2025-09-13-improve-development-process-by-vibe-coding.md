@@ -103,7 +103,7 @@ last_modified_at: 2025-09-13T23:55:00
 프롬프트에 함수처럼 파라미터를 설정한다. 필수 값은 항상 입력 받아야 하므로 없는 경우 프롬프트를 도중에 중단한다. 프롬프트를 실행할 때 `USER_STORY` 항목을 입력하지 않는 경우 다음과 같은 에러가 발생한다. 
 
 <div align="left">
-  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-05.png" width="70%" class="image__border">
+  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-05.png" width="50%" class="image__border">
 </div>
 
 <br/>

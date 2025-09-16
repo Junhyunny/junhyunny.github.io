@@ -97,7 +97,7 @@ MCP는 두 개의 레이어로 구성된다.
 - 종료(Shutdown) - 연결의 정상적인 종료
 
 <div align="center">
-  <img src="/images/posts/2025/mcp-and-mcp-server-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/mcp-and-mcp-server-02.png" width="65%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</center>
 
@@ -144,7 +144,7 @@ MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어�
 - LLM이 도구를 선택하면 클라이언트는 `tools/call`을 통해 해당 도구를 실행한다.
 
 <div align="center">
-  <img src="/images/posts/2025/mcp-and-mcp-server-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/mcp-and-mcp-server-03.png" width="65%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
 

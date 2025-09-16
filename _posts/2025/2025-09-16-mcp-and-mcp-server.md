@@ -102,7 +102,11 @@ MCP는 두 개의 레이어로 구성된다.
 
 ## 4. Primitives
 
-서버와 클라이언트의 핵심 기본 기능을 살펴보자. 먼저 MCP 서버가 노출할 수 있는 세 가지 핵심 기본 요소(primitive)는 다음과 같다.
+서버와 클라이언트의 핵심 기본 기능을 살펴보자. 
+
+### 4.1. MCP server primitives
+
+`MCP 서버`가 노출하는 있는 세 가지 핵심 기본 요소(primitive)는 다음과 같다.
 
 - 도구(Tools)
   - AI 애플리케이션이 동작을 수행하기 위해 호출할 수 있는 실행 가능한 함수들 (예: 파일 작업, API 호출, 데이터베이스 쿼리)
@@ -113,7 +117,19 @@ MCP는 두 개의 레이어로 구성된다.
 
 구체적인 예시를 들어보자. 데이터베이스에 관련된 컨텍스트를 제공하는 MCP 서버가 있다고 생각해보자. 이 MCP 서버는 데이터베이스를 질의(querying)할 수 있는 도구, 데이터베이스의 스키마 정보를 포함한 리소스, 퓨-샷(few-shot) 프롬프트를 포함한 예제 프롬프트들을 노출할 수 있다. MCP 호스트(VSCode)는 MCP 클라이언트를 통해 데이터베이스에 데이터를 질의하거나, 필요한 스키마 정보를 조회하거나, 이미 잘 정의된 프롬프트를 변경해 사용할 수 있다.
 
-MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어떤 연산을 수행할지 함께 전달한다. 각 기본 기능 유형에는 `발견(*/list)`, `조회(*/get)`, `실행(tools/call)` 등이 존재한다. 예를 들어, MCP 서버가 제공하는 도구 리스트를 확인하고 싶을 때 MCP 클라이언트는 다음과 같은 요청을 전달한다. 
+MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어떤 연산을 수행할지 함께 전달한다. 각 기본 기능 유형에는 `발견(*/list)`, `조회(*/get)`, `실행(tools/call)` 등이 존재한다. 예를 들어, MCP 클라이언트가 MCP 서버가 제공하는 도구 리스트를 사용할 때 아래 흐름을 통해 진행된다.
+
+- 클라이언트는 `tools/list`를 통해 사용 가능한 도구를 탐색한다.
+- LLM이 도구를 선택하면 클라이언트는 `tools/call`을 통해 해당 도구를 실행한다.
+
+<div align="center">
+  <img src="/images/posts/2025/mcp-and-mcp-server-02.png" width="80%" class="image__border">
+</div>
+<center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
+
+<br/>
+
+구체적으로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 제공하는 도구를 확인할 때 MCP 클라이언트는 아래 요청을 전달한다. 
 
 - `tools/list` 사용할 수 있는 도구 리스트를 볼 때 사용한다.
 
@@ -194,7 +210,9 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
 }
 ```
 
-이번엔 MCP 클라이언트가 노출할 수 있는 세 가지 핵심 기본 요소(primitives)를 알아보자. MCP 클라이언트가 제공하는 것으로 MCP 서버가 이를 호출할 수 있다. 다음과 같은 기본 요소들이 있다.
+### 4.2. MCP client primitives
+
+`MCP 클라이언트`가 노출할 수 있는 세 가지 핵심 기본 요소를 알아보자. MCP 클라이언트가 제공하고, MCP 서버가 이를 호출할 수 있다. 다음과 같은 기본 요소들이 있다.
 
 - 샘플링(Sampling)
   - 서버가 클라이언트의 AI 애플리케이션에서 언어 모델 완성(completion)을 요청할 수 있게 한다. 
@@ -218,13 +236,13 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
 - 사용자는 초기 요청과 생성된 응답을 서버로 반환하기 전에 검토(response-review)하고 수정할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/mcp-and-mcp-server-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/mcp-and-mcp-server-03.png" width="100%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/docs/learn/client-concepts</center>
 
 <br/>
 
-MCP 서버가 MCP 클라이언트에게 보내는 요청은 다음과 같다.
+마찬가지로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 LLM 기능을 사용하고 싶을 떄 MCP 클라이언트에게 아래 요청을 전달한다. 
 
 - `sampling/createMessage`은 언어 모델에게 메시지를 기반으로 답변을 생성해달라는 요청이다.
 

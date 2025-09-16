@@ -1,11 +1,12 @@
 ---
-title: "MCP(Model Context Protocol)과 MCP 서버"
+title: "MCP(Model Context Protocol)와 MCP 서버-클라이언트"
 search: false
 category:
   - ai
   - ai-agent
   - model-context-protocol
   - mcp-server
+  - mcp-client
 last_modified_at: 2025-09-16T23:55:00
 ---
 
@@ -17,7 +18,7 @@ last_modified_at: 2025-09-16T23:55:00
 
 ## 1. What is the MCP(Model Context Protocol)?
 
-MCP(Model Context Protocol)은 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 소스 표준이다. 클로드(claud)나 ChatGPT 같은 AI 애플리케이션이 데이터소소(datasource), 도구(tools) 혹은 워크플로우(workflow)에 연결할 수 있다. 예를 들면 다음과 같다.
+MCP(Model Context Protocol)은 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 소스 표준이다. 이 표준을 통해 클로드(claud)나 ChatGPT 같은 AI 애플리케이션이 데이터소소(datasource), 도구(tools) 혹은 워크플로우(workflow)에 연결할 수 있다. 데이터소스, 도구, 워크플로우는 구체적으로 무엇일까?
 
 - 데이터소스는 로컬 파일이나 PostgreSQL, SQLite 같은 데이터베이스를 의미한다.
 - 도구는 검색 엔진, 계산기, Git 같은 형상 관리 도구, 슬랙 등이 있다.
@@ -31,7 +32,7 @@ MCP(Model Context Protocol)은 AI 애플리케이션이 외부 시스템과 연�
 - 엔터프라이즈 챗봇은 조직 내 여러 데이터베이스에 연결되어, 사용자가 채팅을 통해 데이터를 분석할 수 있도록 한다.
 - AI 모델은 Blender에서 3D 디자인을 만들고 이를 3D 프린터로 출력할 수 있다.
 
-사실 위의 설명만 봐서는 MCP 도대체 무엇인지 알 수 없다. MCP는 HTTP와 같은 통신 규격(protocol)이다. 그렇다면 구체적인 명세(specificaiton)이 있어야 한다. 어떤 것들이 있는지 살펴보자.
+사실 위의 설명만 봐서는 MCP 도대체 무엇인지 알 수 없다. MCP는 HTTP와 같은 통신 규격(protocol)이다. 그렇다면 구체적인 명세이 있어야 한다. 어떤 것들이 있는지 살펴보자.
 
 ## 2. MCP participants
 

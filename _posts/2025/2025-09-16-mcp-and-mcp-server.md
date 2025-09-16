@@ -74,6 +74,10 @@ MCP는 두 개의 레이어로 구성된다.
   - 클라이언트와 서버 사이의 데이터 교환을 가능하게 하는 통신 메카니즘과 채널을 정의한다.
   - 전송(transport) 방식에 따른 연결 수립, 메시지 프레이밍, 그리고 인증(authorization)을 위해 사용된다.
 
+각 계층이 어떤 일을 수행하는지 알아보자.
+
+### 3.1. Data Layer
+
 `데이터 계층`은 메시지 포맷, 도구 호출, 리소스, 프롬프트 등 어떤 데이터/명령을 주고 받을지 규정하는 층이다. 내용물(payload)에 해당한다. 메시지 구조와 의미를 정의하는 [JSON-RPC 2.0](https://www.jsonrpc.org/) 기반 교환 프로토콜을 구현한다. 데이터 계층에선 다음과 같은 작업들을 수행한다.
 
 - 라이프사이클 관리
@@ -85,6 +89,23 @@ MCP는 두 개의 레이어로 구성된다.
   - 서버가 클라이언트에게 호스트 LLM에서 샘플링을 요청하거나, 사용자 입력을 유도하거나, 클라이언트에 메시지를 로그로 남길 수 있도록 한다.
 - 유틸리티 기능
   - 실시간 업데이트를 위한 알림(notification), 장시간 실행되는 작업의 진행 상황 추적(progress tracking) 등 추가적인 기능을 지원한다.
+
+서버 기능과 클라이언트 기능은 아래에서 구체적인 예시를 통해 살펴본다. `라이프사이클`은 MCP 통신을 위해 서버-클라이언트 사이에 핸드쉐이킹(handshaking)을 하는 작업과 동일하다.
+
+- 초기화(Initialization) - 기능 협상과 프로토콜 버전 합의
+- 운영(Operation) - 정상적인 프로토콜 통신으로 서버, 클라이언트, 유틸리티 기능들을 사용
+- 종료(Shutdown) - 연결의 정상적인 종료
+
+<div align="center">
+  <img src="/images/posts/2025/mcp-and-mcp-server-02.png" width="80%" class="image__border">
+</div>
+<center>https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</center>
+
+<br/>
+
+[기능 협상](https://modelcontextprotocol.io/specification/2025-06-18/architecture#capability-negotiation)은 클라이언트와 서버가 초기화 과정에서 자신이 지원하는 기능을 명시적으로 선언하는 것이다. 세션 내내 선언된 기능만 사용할 수 있다. 기능 협상을 통해 클라이언트와 서버가 지원되는 기능을 명확히 이해하고, 추가 확장성도 확보할 수 있다.
+
+### 3.2. Transport Layer
 
 `전송 계층`은 데이터 계층의 메시지를 담아 어떻게 주고 받을지 담당한다. 연결 수립, 메시지 프레이밍, 스트리밍, 인증 같은 내용물을 감싸는 봉투(envelope) 같은 역할을 수행한다. 클라이언트와 서버 사이의 통신 채널과 인증을 관리한다. MCP 참여자들 사이의 안전한 통신, 메시지 프레이밍, 연결 수립 등을 처리한다. 다음과 같은 두 가지 전송 매커니즘을 지원한다.
 
@@ -102,11 +123,11 @@ MCP는 두 개의 레이어로 구성된다.
 
 ## 4. Primitives
 
-서버와 클라이언트의 핵심 기본 기능을 살펴보자. 
+서버와 클라이언트의 핵심 기본 기능(primitive)을 살펴보자. 
 
 ### 4.1. MCP server primitives
 
-`MCP 서버`가 노출하는 있는 세 가지 핵심 기본 요소(primitive)는 다음과 같다.
+`MCP 서버`가 노출하는 있는 세 가지 기본 기능은 다음과 같다.
 
 - 도구(Tools)
   - AI 애플리케이션이 동작을 수행하기 위해 호출할 수 있는 실행 가능한 함수들 (예: 파일 작업, API 호출, 데이터베이스 쿼리)
@@ -123,7 +144,7 @@ MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어�
 - LLM이 도구를 선택하면 클라이언트는 `tools/call`을 통해 해당 도구를 실행한다.
 
 <div align="center">
-  <img src="/images/posts/2025/mcp-and-mcp-server-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/mcp-and-mcp-server-03.png" width="80%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
 
@@ -236,7 +257,7 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
 - 사용자는 초기 요청과 생성된 응답을 서버로 반환하기 전에 검토(response-review)하고 수정할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/mcp-and-mcp-server-03.png" width="100%" class="image__border">
+  <img src="/images/posts/2025/mcp-and-mcp-server-04.png" width="100%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/docs/learn/client-concepts</center>
 

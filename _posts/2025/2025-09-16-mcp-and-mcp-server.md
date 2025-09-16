@@ -17,7 +17,7 @@ last_modified_at: 2025-09-16T23:55:00
 
 ## 1. What is the MCP(Model Context Protocol)?
 
-MCP(Model Context Protocol)은 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 소스 표준이다. 클로드(claud)나 ChatGPT 같은 AI 애플리케이션이 데이터소소(datasource), 도구(tools) 혹은 워크플로우(workflow)에 연결할 수 있다. 구체적으로 다음과 같다.
+MCP(Model Context Protocol)은 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 소스 표준이다. 클로드(claud)나 ChatGPT 같은 AI 애플리케이션이 데이터소소(datasource), 도구(tools) 혹은 워크플로우(workflow)에 연결할 수 있다. 예를 들면 다음과 같다.
 
 - 데이터소스는 로컬 파일이나 PostgreSQL, SQLite 같은 데이터베이스를 의미한다.
 - 도구는 검색 엔진, 계산기, Git 같은 형상 관리 도구, 슬랙 등이 있다.

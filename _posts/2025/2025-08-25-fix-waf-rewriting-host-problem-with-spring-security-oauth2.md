@@ -43,7 +43,7 @@ last_modified_at: 2025-08-25T23:55:00
 인가 서버에서 사용자 인증과 인가 작업이 모두 완료된 후 브라우저를 서버로 리다이렉트 시키는 과정에서 다음과 같은 문제가 발생했다.
 
 - 사용자가 `외부 네트워크`에서 example.com 주소로 접근한 경우 인증 완료 후 `internal.example.com` 주소로 리다이렉트 되므로 접근이 막힌다.
-- 사용자가 `내부 네트워크`에서 example.com 주소로 접근한 경우 인증 완료 후 `internal.example.com` 주소로 리다이렉트 되면서 `example.com` 주소에 연결된 쿠키를 잃게 된다. 인가 코드 승인 과정에서 CSRF 공격을 방어하기 위한 state 코드 비교 로직에서 문제가 발생한다. 스프링 시큐리티는 state 코드를 세션에 저장하기 떄문이다. 세션 키는 example.com 도메인 쿠기에 담겨 있다.
+- 사용자가 `내부 네트워크`에서 example.com 주소로 접근한 경우 인증 완료 후 `internal.example.com` 주소로 리다이렉트 되면서 `example.com` 주소에 연결된 쿠키를 잃게 된다. 인가 코드 승인 과정에서 CSRF 공격을 방어하기 위한 state 코드 비교 로직에서 문제가 발생한다. 스프링 시큐리티는 state 코드를 세션에 저장하기 때문이다. 세션 키는 example.com 도메인 쿠기에 담겨 있다.
 
 ## 2. Solve the problem
 

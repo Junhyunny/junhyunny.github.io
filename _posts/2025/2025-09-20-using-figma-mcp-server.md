@@ -45,7 +45,6 @@ MCP 서버는 다음과 같은 방법으로 활성화 할 수 있다.
 <div align="left">
   <img src="/images/posts/2025/using-figma-mcp-server-01.png" width="50%" class="image__border">
 </div>
-<center>https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Dev-Mode-MCP-Server</center>
 
 <br/>
 
@@ -53,8 +52,8 @@ MCP 서버를 활성화 하면 피그마 애플리케이션 하단에서 접속 
 
 - `http://127.0.0.1:3845/mcp` 서버를 통해 연결이 가능하다.
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-02.png" width="80%" class="image__border">
+<div align="lefr">
+  <img src="/images/posts/2025/using-figma-mcp-server-02.png" width="65%" class="image__border">
 </div>
 
 ## 2. Setting IDE
@@ -65,40 +64,40 @@ MCP 호스트에 MCP 서버 정보를 등록해야 한다. VSCode와 인텔리�
 
 `CMD + SHIFT + P`를 누른 후 MCP를 검색한다. `MCP 서버 등록(MCP: Add Server)` 항목을 선택한다.
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-03.png" width="80%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/using-figma-mcp-server-03.png" width="65%" class="image__border">
 </div>
 
 <br/>
 
 다음 HTTP 전송 계층을 선택한다.
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-04.png" width="80%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/using-figma-mcp-server-04.png" width="65%" class="image__border">
 </div>
 
 <br/>
 
 MCP 서버 주소를 등록한다.
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-05.png" width="80%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/using-figma-mcp-server-05.png" width="65%" class="image__border">
 </div>
 
 <br/>
 
 MCP 서버 이름을 등록한다.
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-06.png" width="80%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/using-figma-mcp-server-06.png" width="65%" class="image__border">
 </div>
 
 <br/>
 
 글로벌에 적용할지, 로컬에 적용할지 선택한다. 
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-07.png" width="80%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/using-figma-mcp-server-07.png" width="65%" class="image__border">
 </div>
 
 <br/>
@@ -121,7 +120,7 @@ MCP 서버 이름을 등록한다.
 
 인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접 실행한다. `CMD + ,(comma)`을 눌러 MCP 관련 설정을 찾는다.
 
-- Github Copliot 도구의 MCP 설정(configure) 을 선택한다.
+- Github Copliot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
 
 <div align="center">
   <img src="/images/posts/2025/using-figma-mcp-server-08.png" width="80%" class="image__border">
@@ -129,7 +128,7 @@ MCP 서버 이름을 등록한다.
 
 <br/>
 
-mcp.json 파일로 연결되는데, 이 파일을 다음과 같이 변경한다.
+configure 버튼을 클릭하면 mcp.json 파일로 연결되는데, 이 파일을 다음과 같이 변경한다. `mcp-remote` 패키지를 실행한다.
 
 ```json
 {
@@ -156,8 +155,8 @@ https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345
 
 위 프롬프트 실행 결과는 다음과 같다.
 
-<div align="center">
-  <img src="/images/posts/2025/using-figma-mcp-server-09.png" width="80%" class="image__border">
+<div align="left">
+  <img src="/images/posts/2025/using-figma-mcp-server-09.png" width="65%" class="image__border">
 </div>
 
 ## 3. Figma MCP server tools
@@ -236,18 +235,18 @@ https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345
 ```
 /figma
 
-FIGMA_URL=https://www.figma.com/design/DkLwKTuD0wNeBKKqiOZiHg/Figma-MCP?node-id=1-31&m=dev
+FIGMA_URL=https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345-1234567&m=dev
 ```
 
 디자인 작업 완료되면 필요한 에셋(asset)들이 다운로드 되고, 선택한 피그마 프레임에 해당하는 코드가 생성된다. 
 
 <div align="left">
-  <img src="/images/posts/2025/using-figma-mcp-server-12.png" width="50%" class="image__border">
+  <img src="/images/posts/2025/using-figma-mcp-server-12.png" width="45%" class="image__border">
 </div>
 
 <br/>
 
-선택한 피그마 프레임은 Temp.tsx 파일로 생성된다. 이 컴포넌트를 기반으로 특정 컴포넌트를 디자인한다. 이때 사용하는 프롬프트는 다음과 같다. 프롬프트 파일 이름은 `design.prompt.md`다.
+선택한 피그마 프레임은 Temp.tsx 파일로 생성된다. 이 컴포넌트를 기반으로 특정 컴포넌트를 디자인한다. 아래와 같은 프롬프트를 사용한다. 프롬프트 파일 이름은 `design.prompt.md`다.
 
 ```markdown
 # 역할 설정
@@ -311,7 +310,7 @@ BASE=src/temp/Temp.tsx
 - 피그마 디자인 원본을 Temp.tsx 파일을 통해 확인할 수 있기 때문에 디자인을 입히는 과정에 문제가 발생된 것인지 피그마 디자인 자체가 잘못된 것인지 확인하기도 쉽다.  
 - data-node-id 값과 같이 유니크한 정보가 있다면, id 맵핑을 통해 부분적으로 디자인을 반영하면서 점진적으로 코드를 변경할 수 있다.
 
-마지막으로 [피그마 MCP 안내서](https://help.figma.com/hc/ko/articles/32132100833559-Dev-Mode-MCP-%EC%84%9C%EB%B2%84-%EC%95%88%EB%82%B4%EC%84%9C)에서 제공하는 일반 규칙에 정의된 것처럼 프로젝트 내부에 디자인 시스템을 구축하고, UI 컴포넌트를 재사용하는 등의 프롬프트가 추가되면 좋을 것 같다.
+[피그마 MCP 안내서](https://help.figma.com/hc/ko/articles/32132100833559-Dev-Mode-MCP-%EC%84%9C%EB%B2%84-%EC%95%88%EB%82%B4%EC%84%9C) 마지막 부분에 사용자 지정 규칙에 대한 예시가 제공된다. 
 
 ```markdown
 - 중요: 가능하면 항상 `/path_to_your_design_system`의 컴포넌트를 사용하세요.
@@ -322,13 +321,11 @@ BASE=src/temp/Temp.tsx
 - 꼭 필요한 경우가 아니면 인라인 스타일을 피하고 `/path_to_your_design_system`에 UI 컴포넌트를 배치하세요.
 ```
 
-피그마에 정의된 디자인 시스템, 디자인 토큰 등을 테일윈드 기반 프로젝트에 셋팅하는 방법을 탐구해봐야 할 것 같다.
+사용자 지정 규칙을 살펴보니 프로젝트 내부에 디자인 시스템을 구축하고, UI 컴포넌트를 재구성하면 피그마 MCP 서버를 더 효율적으로 사용할 수 있을 것 같다. 다음은 피그마에 정의된 디자인 시스템, 디자인 토큰 등을 테일윈드 기반 프로젝트에 구성하는 방법을 탐구해봐야 할 것 같다.
 
 #### TEST CODE REPOSITORY
 
-- <>
-
-#### RECOMMEND NEXT POSTS
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2025-09-20-using-figma-mcp-server>
 
 #### REFERENCE
 

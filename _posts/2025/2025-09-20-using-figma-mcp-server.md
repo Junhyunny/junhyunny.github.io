@@ -118,7 +118,7 @@ MCP 서버 이름을 등록한다.
 
 ### 2.2. IntelliJ Copilot
 
-인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접 실행한다. `CMD + ,(comma)`을 눌러 MCP 관련 설정을 찾는다.
+인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접적으로 연결한다. `CMD + ,(comma)`을 눌러 MCP 관련 설정을 찾는다.
 
 - Github Copliot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
 
@@ -128,7 +128,9 @@ MCP 서버 이름을 등록한다.
 
 <br/>
 
-configure 버튼을 클릭하면 mcp.json 파일로 연결되는데, 이 파일을 다음과 같이 변경한다. `mcp-remote` 패키지를 실행한다.
+configure 버튼을 클릭하면 mcp.json 파일로 연결도니다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다.
+
+- `mcp-remote` 패키지와 피그마 MCP 서버 주소를 인자(arguments)로 전달한다.
 
 ```json
 {
@@ -145,7 +147,7 @@ configure 버튼을 클릭하면 mcp.json 파일로 연결되는데, 이 파일�
 }
 ```
 
-코파일럿 프롬프트를 통해 피그마 MCP 서버에 잘 연결됐는지 확인할 수 있다. 다음과 같은 프롬프트를 실행한다. 프롬프트에 포함된 링크는 피그마 파일의 
+코파일럿 프롬프트를 통해 피그마 MCP 서버에 잘 연결됐는지 확인할 수 있다. 피그마 디자인 파일에서 선택한 프레임 링크에 접속이 가능한지 프롬프트를 통해 확인한다.
 
 ```
 https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345-1234567&m=dev
@@ -178,7 +180,7 @@ https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345
 - `get_image` 도구
   - 선택 항목의 레이아웃을 정확히 보존하기 위한 스크린샷을 찍는다.
 
-현재까진 get_code 도구만 사용한 것 같다. AI 에이전트의 실행 과정을 보면 get_code를 사용해서 선택 영역의 코드를 받은 후 이를 실제 내 컴포넌트에 적용한다. get_variable_defs는 피그마에 정리된 디자인 시스템을 코드로 정리하기에 유용할 것 같다. 이에 관련된 내용은 앞으로 경험이 쌓이면 정리해보겠다.
+get_code 도구가 가장 중요하다. AI 에이전트의 실행 과정을 보면 get_code를 통해 선택 영역의 코드를 가져온다. 이 코드를 기반으로 실제 컴포넌트의 디자인을 변경한다. get_variable_defs는 피그마에 정리된 디자인 시스템을 코드로 정리하기에 유용할 것 같다. 이에 관련된 내용은 앞으로 경험이 쌓이면 정리해보겠다.
 
 ## 4. Run design prompts
 
@@ -283,7 +285,7 @@ FIGMA_URL=https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?nod
 - BASE 컴포넌트의 데이터 속성 `(data-*)`은 TARGET 컴포넌트에 반영하지 않습니다.
 ```
 
-위 프롬프트를 템플릿으로 기반으로 코파일럿 채팅에 아래 프롬프트를 실행한다.
+위 프롬프트를 템플릿으로 코파일럿 채팅에 아래 프롬프트를 실행한다.
 
 ```
 /design 
@@ -307,8 +309,8 @@ BASE=src/temp/Temp.tsx
 
 이유는 한 단계로 한번에 실행하는 경우 AI 에이전트가 내놓는 결과가 그렇게 좋지 않았다. 에이전트가 피그마 MCP 서버로부터 정보를 받고, 이를 바탕으로 디자인까지 반영하는 작업을 수행하면서 일부 컨텍스트가 누락되는 것 같다. 두 단계로 나눈 것이 번거롭긴 하지만, 장점도 있다. 
 
-- 피그마 디자인 원본을 Temp.tsx 파일을 통해 확인할 수 있기 때문에 디자인을 입히는 과정에 문제가 발생된 것인지 피그마 디자인 자체가 잘못된 것인지 확인하기도 쉽다.  
-- data-node-id 값과 같이 유니크한 정보가 있다면, id 맵핑을 통해 부분적으로 디자인을 반영하면서 점진적으로 코드를 변경할 수 있다.
+- 피그마 디자인 원본을 Temp.tsx 파일을 통해 확인할 수 있다. 디자인을 입히는 과정에 문제가 발생된 것인지 피그마 디자인 자체가 잘못된 것인지 확인하기 쉽다.  
+- data-node-id 값과 같이 유니크한 정보가 있다면, id 맵핑을 통해 점진적으로 디자인을 반영하는 것이 가능하다.
 
 [피그마 MCP 안내서](https://help.figma.com/hc/ko/articles/32132100833559-Dev-Mode-MCP-%EC%84%9C%EB%B2%84-%EC%95%88%EB%82%B4%EC%84%9C) 마지막 부분에 사용자 지정 규칙에 대한 예시가 제공된다. 
 

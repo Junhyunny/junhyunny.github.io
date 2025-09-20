@@ -15,12 +15,12 @@ last_modified_at: 2025-09-20T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [바이브 코딩(vibe coding)을 통한 개발 프로세스 개선](improve-development-process-by-vibe-coding-link)
-- [MCP(Model Context Protocol)와 MCP 서버-클라이언트](mcp-and-mcp-server-link)
+- [바이브 코딩(vibe coding)을 통한 개발 프로세스 개선][improve-development-process-by-vibe-coding-link]
+- [MCP(Model Context Protocol)와 MCP 서버-클라이언트][mcp-and-mcp-server-link]
 
 ## 0. 들어가면서
 
-[이전 글](improve-development-process-by-vibe-coding-link)에서 테스트 코드와 구현 코드를 작성하는 프롬프트를 살펴봤다. 이번엔 피그마 MCP 서버를 사용해 디자인을 입히는 작업을 살펴보자. MCP(model context protocol)을 잘 모르거나 MCP 서버에 대한 개념이 부족하면 [이 글](mcp-and-mcp-server-link)을 참고하길 바란다.
+[이전 글][improve-development-process-by-vibe-coding-link]에서 테스트 코드와 구현 코드를 작성하는 프롬프트를 살펴봤다. 이번엔 피그마 MCP 서버를 사용해 디자인을 입히는 작업을 살펴보자. MCP(model context protocol)을 잘 모르거나 MCP 서버에 대한 개념이 부족하면 [이 글][mcp-and-mcp-server-link]을 참고하길 바란다.
 
 ## 1. Figma MCP server
 
@@ -199,7 +199,7 @@ https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345
 
 <br/>
 
-[이전 글](improve-development-process-by-vibe-coding-link)에서 이야기했듯이 프롬프트 템플릿은 `.github/prompts/*.prompt.md` 파일에 작성하고 유연하게 변경되는 부분은 함수 파라미터처럼 사용한다. 사용한 프롬프트는 다음과 같다. 프롬프트 파일 이름은 `figma.prompt.md`다.
+[이전 글][improve-development-process-by-vibe-coding-link]에서 이야기했듯이 프롬프트 템플릿은 `.github/prompts/*.prompt.md` 파일에 작성하고 유연하게 변경되는 부분은 함수 파라미터처럼 사용한다. 사용한 프롬프트는 다음과 같다. 프롬프트 파일 이름은 `figma.prompt.md`다.
 
 ```markdown
 # 역할 설정

@@ -113,7 +113,7 @@ last_modified_at: 2025-09-13T23:55:00
 ```
 /frontend-test 
 
-USER_STORT="""
+USER_STORY="""
 # Given
 사용자가 TODO 애플리케이션에 접속했다.
 # When

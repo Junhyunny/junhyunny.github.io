@@ -1,51 +1,42 @@
 ---
-title: "Inversion of Control and Dependency Injection in Spring"
+title: "스프링 프레임워크의 제어의 역전(IoC)과 의존성 주입(DI)"
 search: false
 category:
   - spring-boot
   - design-pattern
-last_modified_at: 2021-08-22T17:00:00
+last_modified_at: 2025-10-01T00:00:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-스프링(spring)을 사용하거나 공부하면 반드시 만나는 개념이 있습니다. 
+스프링(spring)을 사용하거나 공부하면 반드시 만나는 개념이 있다.
 
-* 제어의 역전(Inversion of Control)
-* 의존성 주입(Dependency Injection)
+- 제어의 역전(Inversion of Control)
+- 의존성 주입(Dependency Injection)
 
-이번 포스트에선 두 개념에 대해 정리하고, 어떤 연관성이 있는지 정리하였습니다. 
+이번 포스트에선 두 개념에 대해 정리하고, 어떤 연관성이 있는지 정리하였다. 
 
 ## 1. Inversion of Control 
 
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
 
-객체(object) 생성, 사용, 제거 등의 제어를 개발자가 직접하는 것이 아니라 컨테이너(container) 혹은 프레임워크(framework)에서 수행하자는 소프트웨어 공학의 원칙(principle)입니다. 
-스프링 프레임워크는 `IoC` 원칙을 따르도록 설계되어 있습니다. 
-라이브러리처럼 개발자가 작성한 코드에서 호출하여 사용하는 방식이 아닙니다. 
-프레임워크에서 개발자가 작성한 코드를 실행시킴으로써 시스템 흐름 제어의 주도권을 프레임워크가 가져갑니다. 
+객체(object) 생성, 사용, 제거 등의 제어를 개발자가 직접하는 것이 아니라 컨테이너(container) 혹은 프레임워크(framework)에서 수행하자는 소프트웨어 공학의 원칙(principle)이다. 스프링 프레임워크는 IoC 원칙을 따르도록 설계되어 있다. 라이브러리처럼 개발자가 작성한 코드에서 호출하여 사용하는 방식이 아니다. 프레임워크에서 개발자가 작성한 코드를 실행시킴으로써 시스템 흐름 제어의 주도권을 프레임워크가 가져간다. 
 
 ## 2. Dependency Injection
 
-`IoC` 원칙과 의존성 주입(dependency injection)이 함께 언급되는 이유를 살펴보기 전에 의존성(dependency)이란 무엇인지 알아보겠습니다.
+IoC 원칙과 의존성 주입(dependency injection)이 함께 언급되는 이유를 살펴보기 전에 의존성(dependency)이란 무엇인지 알아보자. 의존성이란 기능이 정상적으로 동작하기 위해 필요한 요소를 의미한다.
 
-### 2.1. What is Dependency?
+- 어떤 `클래스A`가 다른 `클래스B` 또는 `인터페이스B`를 이용할 때 `클래스A`가 `클래스B`에 의존한다고 한다.
+- `클래스A`는 `클래스B`에 의존적(dependent)이고, `클래스B`는 `클래스A`의 의존성(dependency)이다.
+- `클래스A`는 `클래스B` 없이 작동할 수 없다.
+- `클래스B`에 변화에 `클래스A`는 영향을 받지만, `클래스A`의 변화에 `클래스B`는 영향을 받지 않는다.
 
-의존성이란 기능이 정상적으로 동작하기 위해 필요한 요소를 의미합니다.  
+이해를 돕기 위해 예제 코드를 살펴보자.
 
-* 어떤 `클래스A`가 다른 `클래스B` 또는 `인터페이스B`를 이용할 때 `클래스A`가 `클래스B`에 의존한다고 합니다.
-* `클래스A`는 `클래스B`에 의존적(dependent)이고, `클래스B`는 `클래스A`의 의존성(dependency)입니다.
-* `클래스A`는 `클래스B` 없이 작동할 수 없습니다.
-* `클래스B`에 변화에 `클래스A`는 영향을 받지만, `클래스A`의 변화에 `클래스B`는 영향을 받지 않는다.
-
-##### Example Code
-
-다음과 같은 코드로 표현할 수 있습니다.
-
-* `클래스A`는 `클래스B`에 의존적입니다. 
-* `클래스B`는 `클래스A`의 의존성입니다.
+- `클래스A`는 `클래스B`에 의존적이다.
+- `클래스B`는 `클래스A`의 의존성이다.
 
 ```java
 class A {
@@ -58,21 +49,24 @@ class A {
 }
 ```
 
-##### Class Diagram
+클래스 다이어그램으로 표현하면 다음과 같다.
 
-<p align="left">
-    <img src="/images/spring-ioc-di-1.JPG" width="40%" class="image__border">
-</p>
+<div align="left">
+  <img src="/images/posts/2021/spring-ioc-di-01.png" width="40%" class="image__border">
+</div>
 
 ### 2.2. Type of Dependency Injection
 
-스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공합니다. 
-특정 객체가 빈으로써 관리되는 경우에만 의존성 주입이 적용되는 제약 사항이 있습니다. 
+스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공한다. 
 
-### 2.2.1. Cosntructor Injection
+- 생성자 주입(Cosntructor Injection)
+- 세터 주입(Setter Injection)
+- 애너테이션 주입(Annotation Injection)
 
-* 생성자를 통해 의존성을 주입 받을 수 있습니다.
-* 다른 의존성 주입 방법보다 안정적인 방법입니다.
+특정 객체가 빈으로써 관리되는 경우에만 의존성 주입이 적용되는 제약 사항이 있다. 먼저 생성자 주입을 살펴보자.
+
+- 생성자를 통해 의존성을 주입 받을 수 있다.
+- 다른 의존성 주입 방법보다 안정적인 방법이다.
 
 ```java
 package action.in.blog.service;
@@ -98,10 +92,10 @@ public class DefaultDeliveryService {
 }
 ```
 
-### 2.2.2. Setter Injection
+세터(setter) 주입은 다음과 같이 세터 함수를 사용한다.
 
-* 세터(setter) 메소드를 통해 의존성을 주입 받을 수 있습니다.
-* 세터 메소드 위에 `@Autowired` 애너테이션으로 추가합니다.
+- 세터(setter) 메소드를 통해 의존성을 주입 받을 수 있다.
+- 세터 메소드 위에 @Autowired 애너테이션으로 추가한다.
 
 ```java
 package action.in.blog.service;
@@ -129,9 +123,9 @@ public class DefaultDeliveryService {
 }
 ```
 
-### 2.2.3. Annotation Injection
+프레임워크에서 제공하는 애너테이션을 통해 주입이 가능하다.
 
-* `@Autowired` 애너테이션을 필드 위에 추가합니다.
+- @Autowired 애너테이션을 필드 위에 추가한다.
 
 ```java
 package action.in.blog.service;
@@ -157,41 +151,35 @@ public class DefaultDeliveryService {
 
 ### 2.3. Inversion of Control and Dependency Injection
 
-의존성 주입이란 어떤 `객체A`가 정상적인 기능을 하기 위해 필요한 의존성을 외부에서 제공해주는 것을 의미합니다. 
-개발자가 직접 객체를 생성하고 이를 전달해주는 것이 아니라 프레임워크가 객체를 생성하고 이를 전달합니다. 
-결론을 이야기하면 의존성 주입(DI)은 `IoC` 원칙을 따르는 프레임워크가 제공하는 기능의 개발 패턴(pattern)을 의미합니다. 
-프레임워크에 의해 객체 생성, 사용, 전달 등이 제어됩니다. 
-시스템의 흐름뿐만 아니라 객체의 사용도 프레임워크가 제어 주도권을 가지게 됩니다. 
+의존성 주입이란 어떤 객체A가 정상적인 기능을 하기 위해 필요한 의존성을 외부에서 제공해주는 것을 의미한다. 개발자가 직접 객체를 생성하고 이를 전달해주는 것이 아니라 프레임워크가 객체를 생성하고 이를 전달한다. 결론을 이야기하면 의존성 주입(DI)은 IoC 원칙을 따르는 프레임워크가 제공하는 기능의 개발 패턴(pattern)을 의미한다. 프레임워크에 의해 객체 생성, 사용, 전달 등이 제어된다. 시스템의 흐름뿐만 아니라 객체의 사용도 프레임워크가 제어 주도권을 가지게 된다. 
 
-`IoC` 원칙을 따르면 여러 장점들을 얻을 수 있다고 이야기하지만, 저는 다음 내용들이 가장 공감되었습니다.
+IoC 원칙을 따르면 이런 장점이 있다.
 
-* 객체 사이의 결합도(coupling)을 낮춘다.
-* 코드 유지 보수하기 쉬워진다.
-
-간단한 예제 코드를 통해 `IoC` 원칙을 따르는 스프링 프레임워크가 의존성 주입을 통해 어떤 문제점을 해결해주는지 알아보겠습니다.
+- 객체 사이의 결합도(coupling)을 낮춘다.
+- 코드 유지 보수하기 쉬워진다.
 
 ## 3. Practice
 
-스프링 프레임워크는 의존성 주입을 위해 다음과 같은 구조를 가지고 있습니다.
+간단한 예제 코드를 통해 IoC 원칙을 따르는 스프링 프레임워크가 의존성 주입을 통해 어떤 문제점을 해결해주는지 알아보자. 스프링 프레임워크는 의존성 주입을 위해 다음과 같은 구조를 가지고 있다.
 
-* 스프링 프레임워크에서 관리하는 객체들을 빈(bean)이라고 합니다.
-* 스프링 프레임워크엔 다음과 같은 역할을 수행하는 `IoC` 컨테이너가 존재합니다.
-    * 스프링에서 관리하는 빈 객체들을 생성, 등록, 조회, 반환하는 등의 관리를 수행합니다. 
-    * 의존성 주입(dependency injection)과 관련된 기능을 수행합니다.
-* `BeanFactory`는 스프링 프레임워크의 핵심 `IoC` 컨테이너입니다.
-* `ApplicationContext`는 `BeanFactory`를 확장한 `IoC` 컨테이너입니다.
-* `IoC` 컨테이너는 의존성 주입을 수행하기 때문에 `DI` 컨테이너라고 합니다. 
+- 스프링 프레임워크에서 관리하는 객체들을 빈(bean)이라고 한다.
+- 스프링 프레임워크엔 다음과 같은 역할을 수행하는 IoC 컨테이너가 존재한다.
+  - 스프링에서 관리하는 빈 객체들을 생성, 등록, 조회, 반환하는 등의 관리를 수행한다.
+  - 의존성 주입(dependency injection)과 관련된 기능을 수행한다.
+- `BeanFactory`는 스프링 프레임워크의 핵심 IoC 컨테이너이다.
+- `ApplicationContext`는 `BeanFactory`를 확장한 IoC 컨테이너이다.
+- IoC 컨테이너는 의존성 주입을 수행하기 때문에 `DI 컨테이너`라고 한다. 
 
 ### 3.1. DefaultDeliveryService 클래스
 
-아래 코드는 다음과 같은 문제점을 가집니다. 
+아래 코드는 다음과 같은 문제점을 가진다.
 
-* 현재 `MyBatisDeliveryStore` 객체는 내부에서 `MyBatis` 프레임워크를 사용해 데이터를 조회하고 있습니다. 
-* 만약 시간이 지나 `JPA`, `QueryDSL` 같은 기술 스택을 사용하게 된다면 `MyBatis`는 사용하지 못 합니다.
-    * `MyBatisDeliveryStore` 객체 대신 `JpaDeliveryStore` 객체로 대체되어야 합니다. 
-* 이는 필연적으로 `DefaultDeliveryService` 클래스의 변경을 발생시킵니다.
-* `DefaultDeliveryService` 객체는 `MyBatisDeliveryStore` 객체와 강하게 결합되어 있습니다.
-* `MyBatisDeliveryStore` 객체를 다른 곳에서도 사용한다면 모두 변경이 발생합니다. 
+- 현재 MyBatisDeliveryStore 객체는 내부에서 `MyBatis` 프레임워크를 사용해 데이터를 조회하고 있다.
+- 만약 시간이 지나 `JPA`, `QueryDSL` 같은 기술 스택을 사용하게 된다면 `MyBatis`는 사용하지 못 한다.
+  - MyBatisDeliveryStore 객체 대신 JpaDeliveryStore 객체로 대체되어야 한다.
+- 이는 필연적으로 DefaultDeliveryService 클래스의 변경을 발생시킨다.
+- DefaultDeliveryService 객체는 MyBatisDeliveryStore 객체와 강하게 결합되어 있다.
+- MyBatisDeliveryStore 객체를 다른 곳에서도 사용한다면 모두 변경이 발생한다. 
 
 ```java
 package action.in.blog.service;
@@ -217,7 +205,7 @@ public class DefaultDeliveryService {
 
 ### 3.2. Make Loose Coupling
 
-`DeliveryStore` 인터페이스를 만들어 `MyBatisDeliveryStore`, `DefaultDeliveryService` 둘 사이의 결합도를 낮춰줍니다. 
+DeliveryStore 인터페이스를 만들면 MyBatisDeliveryStore 클래스와 DefaultDeliveryService 클래스 둘 사이의 결합도를 낮출 수 있다.
 
 ```java
 package action.in.blog.store;
@@ -231,7 +219,7 @@ public interface DeliveryStore {
 }
 ```
 
-* `MyBatisDeliveryStore` 클래스가 `DeliveryStore` 인터페이스 기능을 구현하는 모습으로 변경합니다.
+MyBatisDeliveryStore 클래스가 DeliveryStore 인터페이스 기능을 구현한다.
 
 ```java
 package action.in.blog.store;
@@ -251,9 +239,7 @@ public class MyBatisDeliveryStore implements DeliveryStore {
 }
 ```
 
-* 멤버 변수 타입을 `DeliveryStore` 인터페이스 타입으로 대체합니다.
-* `MyBatisDeliveryStore` 객체를 직접 생성하는 코드를 생성자를 통해 외부에서 전달받는 방식으로 변경합니다.
-* 이로써 데이터를 조회하는 프레임워크나 방법이 어떻게 바뀌더라도 `DefaultDeliveryService` 클래스의 변경은 발생하지 않습니다.
+멤버 변수 타입을 DeliveryStore 인터페이스 타입으로 대체한다. MyBatisDeliveryStore 객체를 직접 생성하는 코드를 생성자를 통해 외부에서 전달받는 방식으로 변경한다. 이를 통해 데이터베이스와 관련된 프레임워크가 바뀌더라도 DefaultDeliveryService 클래스의 변경은 발생하지 않는다.
 
 ```java
 package action.in.blog.service;
@@ -279,10 +265,10 @@ public class DefaultDeliveryService {
 
 ### 3.3. We need IoC Container
 
-시스템에서 `DefaultDeliveryService` 객체를 사용하는 곳의 코드를 다음과 같이 변경해줘야 합니다.
+시스템에서 DefaultDeliveryService 객체를 사용하는 곳의 코드를 다음과 같이 변경해줘야 한다.
 
-* `DefaultDeliveryService` 객체를 시스템 곳곳에서 사용하고 있다면 코드 변경이 여러 군데서 발생합니다.
-* `MyBatisDeliveryStore` 객체를 대체하는 작업이 시스템 여러 곳의 코드 변경을 일으키고, 영향을 줍니다. 
+- DefaultDeliveryService 객체를 시스템 곳곳에서 사용하고 있다면 코드 변경이 여러 군데서 발생한다.
+- MyBatisDeliveryStore 객체를 대체하는 작업이 시스템 여러 곳의 코드 변경을 일으키고, 영향을 준다. 
 
 ```java
     public static void main(String[] args) {
@@ -295,15 +281,10 @@ public class DefaultDeliveryService {
     }
 ```
 
-이 문제점을 `IoC` 컨테이너를 통해 해결할 수 있습니다. 
-`DefaultDeliveryService`, `JpaDeliveryStore` 클래스를 다음과 같이 변경합니다. 
+이 문제점을 `IoC 컨테이너`를 통해 해결할 수 있다. 스프링에서 제공하는 애너테이션을 사용하면 특정 객체를 생성 후 스프링 빈 객체로써 IoC 컨테이너 등록한다. 스프링 빈으로 등록된 객체는 필요한 곳에 주입된다. DefaultDeliveryService 클래스를 다음과 같이 변경한다. 
 
-* `DefaultDeliveryService` 클래스에 `@Service` 애너테이션을 추가합니다.
-* `JpaDeliveryStore` 클래스에 `@Repository` 애너테이션을 추가합니다.
-* `@Service`, `@Repository` 애너테이션을 붙히면 각 클래스의 객체들이 빈으로써 `IoC` 컨테이너에서 관리됩니다.
-* 각 빈 객체들은 `IoC` 컨테이너에 의해 필요한 곳으로 주입됩니다. 
-    * `DefaultDeliveryService` 객체를 사용하는 곳도 빈으로 주입 받을 수 있도록 변경합니다.
-* 기술이나 로직(logic)이 바뀜에 따라 `DeliveryService` 구현체 클래스가 변경되더라도 시스템 다른 곳의 코드는 크게 바뀌지 않습니다.
+- DefaultDeliveryService 클래스에 @Service 애너테이션을 추가한다.
+- @Service 애너테이션을 붙히면 각 클래스의 객체들이 빈으로써 IoC 컨테이너에서 관리된다.
 
 ```java
 package action.in.blog.service;
@@ -328,6 +309,11 @@ public class DefaultDeliveryService {
     }
 }
 ```
+ 
+JpaDeliveryStore 클래스를 다음과 같이 변경한다. 
+
+- JpaDeliveryStore 클래스에 @Repository 애너테이션을 추가한다.
+- @Repository 애너테이션을 붙히면 각 클래스의 객체들이 빈으로써 IoC 컨테이너에서 관리된다.
 
 ```java
 package action.in.blog.store;
@@ -349,31 +335,30 @@ public class JpaDeliveryStore implements DeliveryStore {
 }
 ```
 
-##### Dependency Injection by IoC Container
+IoC 컨테이너는 자신이 관리하고 있는 빈들의 의존 관계를 따라 필요한 곳에 빈 객체들을 주입한다. 이해를 돕기 위해 이미지로 시각화해보자.
 
-* `IoC` 컨테이너는 자신이 관리하고 있는 빈들의 의존 관계를 따라 필요한 곳에 빈 객체들을 주입합니다.
-* 만들어진 빈 객체가 없다면 새로 만들어 주입합니다.
-* 빈 객체를 만들기 위한 후보 클래스가 없다면 에러가 발생합니다.
+- 만들어진 빈 객체가 없다면 새로 만들어 주입한다.
+- 빈 객체를 만들기 위한 후보 클래스가 없다면 에러가 발생한다.
 
-<p align="center">
-    <img src="/images/spring-ioc-di-2.JPG" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2021/spring-ioc-di-02.png" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-28-spring-ioc-di>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-02-28-spring-ioc-di>
 
 #### RECOMMEND NEXT POSTS 
 
-* [Reason for Recommend of Constructor Injection][reson-of-recommendation-to-use-constructor-injection-link]
+- [Reason for Recommend of Constructor Injection][reson-of-recommendation-to-use-constructor-injection-link]
 
 #### REFERENCE
 
-* <https://jongmin92.github.io/2018/02/11/Spring/spring-ioc-di/>
-* <https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/>
-* <https://justhackem.wordpress.com/2016/05/13/dependency-inversion-terms/>
-* [의존성이란?][dependency-link]
-* [제어의 역전(Inversion of Control, IoC) 이란?][ioc-link]
+- <https://jongmin92.github.io/2018/02/11/Spring/spring-ioc-di/>
+- <https://dotnettutorials.net/lesson/introduction-to-inversion-of-control/>
+- <https://justhackem.wordpress.com/2016/05/13/dependency-inversion-terms/>
+- [의존성이란?][dependency-link]
+- [제어의 역전(Inversion of Control, IoC) 이란?][ioc-link]
 
 [ioc-link]: https://develogs.tistory.com/19
 [dependency-link]: https://velog.io/@huttels/%EC%9D%98%EC%A1%B4%EC%84%B1%EC%9D%B4%EB%9E%80

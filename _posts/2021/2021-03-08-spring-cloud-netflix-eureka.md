@@ -13,7 +13,7 @@ last_modified_at: 2021-08-23T09:30:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [마이크로서비스 아키텍처][microservice-architecture-link]
-* [Spring Cloud Openfeign][openfeign-link]
+* [스프링 클라우드(spring cloud) OpenFeign][openfeign-link]
 * [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link]
 
 ## 1. Spring Cloud Netflix Eureka

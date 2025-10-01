@@ -14,7 +14,7 @@ last_modified_at: 2021-08-23T11:30:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [마이크로서비스 아키텍처][microservice-architecture-link]
-* [Spring Cloud Openfeign][spring-cloud-openfeign]
+* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign]
 * [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka]
 
 ## 1. Practice

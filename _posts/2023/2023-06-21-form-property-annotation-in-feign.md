@@ -11,7 +11,7 @@ last_modified_at: 2023-06-21T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Cloud Openfeign][spring-cloud-openfeign-link]
+* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
 * [Logging for FeignClient][logging-for-feign-client-link]
 * [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
 * [Content-Type and Spring Boot Annotation][content-type-and-spring-annotation-link]

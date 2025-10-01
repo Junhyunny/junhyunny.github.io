@@ -12,7 +12,7 @@ last_modified_at: 2021-08-25T01:00:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Cloud Openfeign][spring-cloud-openfeign-link]
+* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
 * [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
 * [FeignClient with Eureka][feign-with-eureka-link]
 

@@ -14,7 +14,7 @@ last_modified_at: 2021-08-24T01:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 * [마이크로서비스 아키텍처][microservice-architecture-link]
-* [Spring Cloud Openfeign][spring-cloud-openfeign-link]
+* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
 * [MSA Circuit Breaker Pattern][circuitbreaker-link]
 
 ## 1. Netflix Hystrix

@@ -10,7 +10,7 @@ last_modified_at: 2022-05-29T23:55:00
 <br/>
 
 👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Spring Cloud Openfeign][openfeign-blog-link] 
+- [스프링 클라우드(spring cloud) OpenFeign][openfeign-blog-link] 
 
 ## 0. 들어가면서
 

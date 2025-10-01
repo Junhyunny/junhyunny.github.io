@@ -12,7 +12,7 @@ last_modified_at: 2023-02-25T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Cloud Openfeign][spring-cloud-openfeign-link]
+* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
 
 ## 0. 들어가면서
 

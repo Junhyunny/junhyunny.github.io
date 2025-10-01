@@ -1,46 +1,40 @@
 ---
-title: "Spring Cloud Openfeign"
+title: "스프링 클라우드(spring cloud) OpenFeign"
 search: false
 category:
   - spring-boot
   - spring-cloud
-last_modified_at: 2021-08-22T20:30:00
+last_modified_at: 2025-10-01T00:00:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [마이크로서비스 아키텍처][microservice-architecture-link]
+- [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 1. Spring Cloud Openfeign
 
 > Spring Cloud Openfeign API Reference<br/>
 > Feign is a declarative web service client. It makes writing web service clients easier.
 
-MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring cloud) 프로젝트들 중 하나입니다. 
-서비스들 사이의 API 요청, 응답을 쉽게 할 수 있도록 돕는 라이브러리입니다. 
-간단한 예제 코드를 통해 사용 방법을 살펴보겠습니다. 
+MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring cloud) 프로젝트들 중 하나다. 서비스들 사이의 API 요청, 응답을 쉽게 할 수 있도록 돕는 라이브러리다. 간단한 예제 코드를 통해 사용 방법을 살펴보자.
 
 ## 2. Practice
 
-### 2.1. Context of Practice
+간단한 예제를 통해 동작을 살펴보자. 다음과 같은 API 호출이 필요하다.
 
-다음과 같은 상황을 만들어 사용해보았습니다. 
+1. 사용자는 `서비스A`의 `/health` 경로로 API 요청을 수행한다.
+2. `서비스A`는 `/health` 요청을 받으면 `서비스B`로 API 요청을 수행한다.
+3. `서비스B`는 자신의 상태를 응답한다.
+4. `서비스A`는 `서비스B` 응답과 자신의 상태를 함께 응답한다.
+5. 사용자는 `서비스A`로부터 결과를 응답 받는다.
 
-1. 사용자는 `서비스A`의 `/health` 경로로 API 요청을 수행합니다. 
-1. `서비스A`는 `/health` 요청을 받으면 `서비스B`로 API 요청을 수행합니다.
-1. `서비스B`는 자신의 상태를 응답합니다.
-1. `서비스A`는 `서비스B` 응답과 자신의 상태를 함께 응답합니다.
-1. 사용자는 `서비스A`로부터 결과를 응답 받습니다.
+<div align="center">
+  <img src="/images/posts/2021/spring-cloud-openfeign-01.png" width="80%" class="image__border">
+</div>
 
-<p align="center">
-    <img src="/images/spring-cloud-openfeign-1.JPG" width="80%" class="image__border">
-</p>
-
-### 2.2. pom.xml
-
-* `spring-cloud-starter-openfeign` 의존성을 추가합니다.
+pom.xml 파일에 `spring-cloud-starter-openfeign` 의존성을 추가한다.
 
 ```xml
     <properties>
@@ -65,16 +59,11 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
     </dependencyManagement>
 ```
 
-### 2.3. HealthClient for ServiceA
+이 작업은 `ServiceA` 프로젝트에서 작업을 수행한다.
 
-`ServiceA` 프로젝트에서 작업을 수행합니다.
-
-* `서비스B`에게 API 요청하기 위한 클라이언트를 만듭니다.
-* 이름과 URL을 지정합니다.
-    * 이름은 필수 값입니다.
-    * 테스트를 위해 도커 컴포즈(docker compose) 파일에 명시된 서비스 이름을 작성합니다.
-* GET 요청이므로 `@GetMapping` 애너테이션을 사용합니다.
-    * `서비스B`에는 요청을 받기 위한 `/health` 경로가 존재합니다.
+- `서비스B`에게 API 요청하기 위한 클라이언트를 만든다.
+- 이름과 URL을 지정한다. 이름은 필수 값이다. 테스트를 위해 도커 컴포즈(docker compose) 파일에 명시된 서비스 이름을 작성한다.
+- GET 요청이므로 `@GetMapping` 애너테이션을 사용한다. `서비스B`에는 요청을 받기 위한 `/health` 경로가 존재한다.
 
 ```java
 package action.in.blog.client;
@@ -90,11 +79,7 @@ public interface HealthClient {
 }
 ```
 
-### 2.4. HealthController Class for ServiceA
-
-`ServiceA` 프로젝트에서 작업을 수행합니다.
-
-* 요청을 받을 수 있도록 `/health` 경로 생성합니다.
+`ServiceA` 프로젝트에 요청을 받을 수 있도록 `/health` 경로 생성한다.
 
 ```java
 package action.in.blog.controller;
@@ -119,11 +104,7 @@ public class HealthController {
 }
 ```
 
-### 2.5. AServiceApplication Class for ServiceA
-
-`ServiceA` 프로젝트에서 작업을 수행합니다.
-
-* `@FeignClient` 사용을 위해 `@EnableFeignClients` 애너테이션을 추가합니다.
+`ServiceA` 프로젝트에 `@FeignClient` 사용을 위해 `@EnableFeignClients` 애너테이션을 추가한다.
 
 ```java
 package action.in.blog;
@@ -143,11 +124,7 @@ public class AServiceApplication {
 }
 ```
 
-### 2.6. HealthController Class for ServiceB
-
-`ServiceB` 프로젝트에서 작업을 수행합니다.
-
-* 요청을 받을 수 있도록 `/health` 경로 생성합니다.
+`ServiceB` 프로젝트에 요청을 받기 위한 `/health` 경로 생성한다.
 
 ```java
 package action.in.blog.controller;
@@ -167,7 +144,7 @@ public class HealthController {
 
 ## 3. Test
 
-도커 컴포즈로 테스트 환경을 구축합니다.
+도커 컴포즈로 테스트 환경을 구축한다.
 
 ### 3.1. Dockerfile
 
@@ -267,9 +244,7 @@ $  docker-compose up -d
  - Container 2021-03-04-spring-cloud-openfeign-b-service-1  Started
 ```
 
-##### Test Result
-
-사용자 터미널에서 `cURL` 명령어를 통해 테스트를 수행합니다.
+테스트 결과를 확인하기 위해 사용자 터미널에서 `cURL` 명령어를 통해 테스트를 수행한다.
 
 ```
 $ curl http://localhost:8080/health
@@ -297,24 +272,22 @@ RawContentLength  : 47
 
 ## CLOSING
 
-유틸성 클래스를 만들어 HTTP 요청을 다루는 코드를 오래된 시스템에서 종종 보았습니다. 
-`HttpURLConnection`, `I/O Stream` 클래스를 사용해 불필요한 코드가 많았는데, `FeignClient`는 인터페이스와 애너테이션을 통해 비즈니스와 관련 없는 코드들을 최대한 단순화시킵니다. 
-`spring-cloud` 생태계를 조성하는 다른 컴포넌트들과 함께 사용하면 더욱 좋습니다. 
+유틸성 클래스를 만들어 HTTP 요청을 다루는 코드를 오래된 시스템에서 종종 보았다. `HttpURLConnection`, `I/O Stream` 클래스를 사용해 불필요한 코드가 많았는데, `FeignClient`는 인터페이스와 애너테이션을 통해 비즈니스와 관련 없는 코드들을 최대한 단순화시킨다. `spring-cloud` 생태계를 조성하는 다른 컴포넌트들과 함께 사용하면 더욱 좋다. 
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-04-spring-cloud-openfeign>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-04-spring-cloud-openfeign>
 
 #### RECOMMEND NEXT POSTS
 
-* [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link]
-* [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
-* [FeignClient with Eureka][feignclient-with-eureka-link]
+- [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link]
+- [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
+- [FeignClient with Eureka][feignclient-with-eureka-link]
 
 #### REFERENCE
 
-* <https://woowabros.github.io/experience/2019/05/29/feign.html>
-* <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
+- <https://woowabros.github.io/experience/2019/05/29/feign.html>
+- <https://supawer0728.github.io/2018/03/11/Spring-Cloud-Feign/>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [dynamic-uri-using-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/junit/dynamic-uri-using-openfeign/

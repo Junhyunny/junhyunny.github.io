@@ -12,7 +12,7 @@ last_modified_at: 2021-08-23T00:30:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Cloud Openfeign][openfeign-link]
+* [스프링 클라우드(spring cloud) OpenFeign][openfeign-link]
 
 ## 1. Dynamic URI FeignClient when Runtime
 
@@ -50,7 +50,7 @@ public interface MyClient {
 
 ## 3. Practice
 
-[Spring Cloud Openfeign][openfeign-link] 포스트 예제를 변경하였습니다. 
+[스프링 클라우드(spring cloud) OpenFeign][openfeign-link] 포스트 예제를 변경하였습니다. 
 변경한 일부 코드만 살펴보겠습니다.
 
 ### 3.1. HealthClient Interface

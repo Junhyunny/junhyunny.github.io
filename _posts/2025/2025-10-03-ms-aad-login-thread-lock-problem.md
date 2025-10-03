@@ -76,6 +76,7 @@ public class CachingJWKSetSource<C extends SecurityContext> extends AbstractCach
     JWKSet loadJWKSetBlocking(final JWKSetCacheRefreshEvaluator refreshEvaluator, final long currentTime, final C context)
         throws KeySourceException {
         ...
+        // try lock while wait 15 seconds
         if (lock.tryLock(getCacheRefreshTimeout(), TimeUnit.MILLISECONDS)) {
           try {
             CachedObject<JWKSet> cachedJWKSet = getCachedJWKSet();
@@ -84,6 +85,7 @@ public class CachingJWKSetSource<C extends SecurityContext> extends AbstractCach
                 eventListener.notify(new RefreshInitiatedEvent<>(this, lock.getQueueLength(), context));
               }
               
+              // get JWKs
               cache = loadJWKSetNotThreadSafe(refreshEvaluator, currentTime, context);
               
               if (eventListener != null) {
@@ -93,12 +95,14 @@ public class CachingJWKSetSource<C extends SecurityContext> extends AbstractCach
               cache = cachedJWKSet;
             }
           } finally {
+            // unlock
             lock.unlock();
           }
         } else {
           if (eventListener != null) {
             eventListener.notify(new RefreshTimedOutEvent<>(this, lock.getQueueLength(), context));
           }
+          // throw exception
           throw new JWKSetUnavailableException("Timeout while waiting for cache refresh (" + cacheRefreshTimeout + "ms exceeded)");
         }
     ...
@@ -137,7 +141,10 @@ public final class NimbusJwtDecoder implements JwtDecoder {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON, APPLICATION_JWK_SET_JSON));
         RequestEntity<Void> request = new RequestEntity<>(headers, HttpMethod.GET, URI.create(this.jwkSetUri));
+
+        // this line
         ResponseEntity<String> response = this.restOperations.exchange(request, String.class);
+
         String jwks = response.getBody();
         this.jwkSet = JWKSet.parse(jwks);
         return jwks;
@@ -205,8 +212,10 @@ class AadOAuth2ClientConfiguration {
                 profile.getEnvironment().getActiveDirectoryEndpoint(), 
                 profile.getTenantId()
         );
+        // create JWT decoder
         return new AadOidcIdTokenDecoderFactory(
-            endpoints.getJwkSetEndpoint(), 
+            endpoints.getJwkSetEndpoint(),
+            // inject RestTemplate 
             createRestTemplate(restTemplateBuilder)
         );
     }
@@ -240,8 +249,10 @@ class AadResourceServerConfiguration {
             aadAuthenticationProperties.getProfile().getEnvironment().getActiveDirectoryEndpoint(), 
             aadAuthenticationProperties.getProfile().getTenantId()
         );
+        // create JWT decoder
         NimbusJwtDecoder nimbusJwtDecoder = NimbusJwtDecoder
             .withJwkSetUri(identityEndpoints.getJwkSetEndpoint())
+                // inject RestTemplate
                 .restOperations(createRestTemplate(restTemplateBuilder))
                 .build();
         List<OAuth2TokenValidator<Jwt>> validators = createDefaultValidator(aadAuthenticationProperties);
@@ -296,7 +307,7 @@ class ProxyRestTemplateBuilder(
 
 의존성 주입을 위한 restTemplateBuilder 빈 객체를 생성한다. 타임아웃을 지정할 때 사용하는 connectTimeout, readTimeout 메소드도 매번 새로운 RestTemplateBuilder 객체를 생성 후 반환하므로 이를 주의해야 한다. 타임아웃 시간은 15초로 지정했다. 인증 서버로부터 JWKs을 받을 때 필요한 적절한 시간을 정확히 판단할 수 없기 때문에 스레드가 락을 선점하기 위해 기다리는 15초를 기준으로 삼았다.
 
-```kt
+```kotlin
 @Configuration
 class JwtConfig() {
 

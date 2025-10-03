@@ -1,5 +1,5 @@
 ---
-title: "Microsoft AAD OIDC 인증 시 스레드 락으로 인한 시스템 장애 해결"
+title: "Microsoft AAD 인증 시 스레드 락에 의한 시스템 장애와 해결"
 search: false
 category:
   - spring
@@ -33,7 +33,7 @@ last_modified_at: 2025-10-03T23:55:00
 - 이미 로그인 한 사용자들은 문제 없이 사용이 가능하다.
 
 <div align="center">
-  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -50,11 +50,11 @@ https://application.com/?error=[invalid_id_token]%20An%20error%20occurred%20whil
 error=[invalid_id_token] An error occurred while attempting to decode the Jwt: Timeout while waiting for cache refresh (15000ms exceeded)
 ```
 
-에러 메시지를 본 개발자들이 서비스를 재기동하니 정상적으로 동작하기 시작했다. 임시적인 문제 해결 방식이었지만, 다행히 빠른 시간 안에 시스템 장애는 해결이 되었다.
+에러 메시지를 본 담당 개발자가 서비스를 재기동하니 정상적으로 동작하기 시작했다. 임시적인 문제 해결 방식이었지만, 다행히 빠른 시간 안에 시스템 장애는 해결이 되었다.
 
 ## 2. Solve the problem
 
-서비스 담당 개발자들과 재발 방지를 위해 근본적인 원인을 해결하기 위한 트러블 슈팅에 들어갔다. 에러 관련된 힌트가 너무 없어서 트러블 슈팅이 오래 걸릴 줄 알았지만, 딱히 그렇진 않았다. 스프링 시큐리티 책을 집필할 때 OIDC 토큰 디코딩 로직을 디버깅해 본 경험 덕분인지 생각보다 빠르게 문제 지점을 찾을 수 있었다. 인텔리제이에서 해당 에러 메시지를 검색해보니 에러가 발생한 것으로 의심되는 특정 클래스들을 찾았다. `An error occurred while attempting to decode the Jwt` 메시지는 NimbusJwtDecoder 클래스 내부에서 사용 중이다. 
+서비스 담당 개발자들과 재발 방지를 위해 근본적인 원인을 해결하기 위한 트러블 슈팅에 들어갔다. 에러 관련된 힌트가 너무 없어서 트러블 슈팅이 오래 걸릴 줄 알았지만, 딱히 그렇진 않았다. 스프링 시큐리티 책을 집필할 때 JWT 토큰 디코딩 로직을 디버깅해 본 경험 덕분인지 생각보다 빠르게 문제 지점을 찾을 수 있었다. 인텔리제이에서 해당 에러 메시지를 검색해보니 에러가 발생한 것으로 의심되는 특정 클래스들을 찾았다. `An error occurred while attempting to decode the Jwt` 메시지는 NimbusJwtDecoder 클래스 내부에서 사용 중이다. 
 
 ```java
 public final class NimbusJwtDecoder implements JwtDecoder {
@@ -108,23 +108,23 @@ public class CachingJWKSetSource<C extends SecurityContext> extends AbstractCach
 
 CachingJWKSetSource 클래스의 `lock.tryLock(getCacheRefreshTimeout(), TimeUnit.MILLISECONDS)`, `lock.unlock()` 코드를 보고 시스템 장애가 발생한 원인을 다음과 같이 유추할 수 있었다.
 
-- CachingJWKSetSource 클래스 내부에서 ReentrantLock 객체를 통해 스레드 락을 잡는다.
-- 임계 영역(critical section)에 진입한 특정 스레드가 행(hang)에 걸려 ReentrantLock 객체를 락을 해제하지 못한다.
-- 다른 스레드들은 `tryLock` 메소드로 락을 잡기 위해 15초 간 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
+- 특정 스레드가 ReentrantLock 객체를 통해 락을 잡는다.
+- 임계 영역(critical section)에 진입한 스레드가 행(hang)에 걸려 락을 해제하지 못한다.
+- 다른 스레드들은 락을 잡기 위해 tryLock 메소드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
 
-finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 무한 루프나 무한 대기에 빠지지 않았다면 락은 반드시 해제되어야 한다. 예전 디버깅 경험을 돌이켜보면 스프링 시큐리티는 JWT을 디코딩할 때 내부적으로 인가 서버에게 [JWKs(Json Web Key Set)][json-web-key-link]을 요청한다. 이 원격 요청에 무엇인가 문제가 있다고 판단했다. 원격 요청을 하는 지점을 디버깅을 통해 찾아냈다.
+finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 무한 루프나 무한 대기에 빠지지 않았다면 락은 반드시 해제되어야 한다. 예전 디버깅 경험을 돌이켜보니 스프링 시큐리티는 JWT을 디코딩 할 때 내부적으로 인가 서버에게 [JWKs(Json Web Key Set)][json-web-key-link]을 요청했다. 이 원격 요청에 무엇인가 문제가 있다고 판단했다. 원격 요청을 하는 지점은 디버깅을 통해 찾아냈다.
 
 - NimbusJwtDecoder 객체는 JWT를 생성한다.
 - CachingJWKSetSource 객체는 JWT를 생성하기 위해 필요한 JWks을 획득한다.
 - NimbusJwtDecoder$JwkSetUriJwtDecoderBuilder$SpringJWTSource 객체는 외부 인가 서버로 JWKs을 요청한다.
 
 <div align="left">
-  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-02.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
 
-SpringJWTSource 객체의 fetchJwks 메소드를 살펴보면 내부적으로 `RestOperations` 인스턴스를 사용해 `외부 서버(https://login.microsoftonline.com/{tenant-id}/discovery/v2.0/keys)`로 JWKs을 요청한다.
+SpringJWTSource 객체의 fetchJwks 메소드를 살펴보면 내부적으로 `RestOperations` 인스턴스를 사용해 `외부 서버(https://login.microsoftonline.com/{tenant-id}/discovery/v2.0/keys)`에게 JWKs을 요청한다.
 
 ```java
 public final class NimbusJwtDecoder implements JwtDecoder {
@@ -150,9 +150,9 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 코드를 둘러봐도 의심되는 것은 이 곳 밖에 없었다. RestTemplate 객체는 타임아웃을 설정하지 않으면 무한히 응답을 기다리기 때문에 이번 장애의 원인일 가능성이 높았다. 그림을 통해 시각화 하면 다음과 같다.
 
-1. 스레드1이 API 호출하기 전 락을 선점한다.
-2. 스레드1은 마이크로소프트(microsoft) 인증 서버로 API 호출을 수행하지만, 행이 걸린다.
-3. 스레드1은 락를 해제하지 못한다.
+1. 스레드-1이 API 호출하기 전 락을 선점한다.
+2. 스레드-1은 마이크로소프트(microsoft) 인증 서버로 API 호출을 수행하지만, 인증 서버와의 연결에 문제가 있어서 행이 걸린다.
+3. 스레드-1은 락를 해제하지 못한다.
 4. 다른 스레드들은 15초 대기 후 락을 선점하지 못해서 예외를 던지고 인증에 실패한다. 시스템 장애로 이어진다.
 
 <div align="center">
@@ -178,9 +178,7 @@ dependencies {
 }
 ```
 
-SpringJWKSource 객체에 필요한 RestTemplate 객체는 `spring-cloud-azure-starter-active-directory` 의존성에서 제공하는 빈(bean)을 통해 주입된다. 이에 관련된 클래스와 메소드는 다음과 같다.
-
-- AadOAuth2ClientConfiguration 클래스의 azureAdJwtDecoderFactory 메소드
+SpringJWKSource 객체에 필요한 RestTemplate 객체는 `spring-cloud-azure-starter-active-directory` 의존성에서 제공하는 빈(bean)을 통해 주입된다. 이에 관련된 클래스와 메소드는 다음과 같다. 우선 AadOAuth2ClientConfiguration 클래스의 azureAdJwtDecoderFactory 메소드에서 JwtDecoder 객체를 생성한다.
 
 ```java
 package com.azure.spring.cloud.autoconfigure.implementation.aad.configuration;
@@ -216,7 +214,7 @@ class AadOAuth2ClientConfiguration {
 }
 ```
 
-- AadResourceServerConfiguration 클래스 jwtDecoder 메소드
+AadResourceServerConfiguration 클래스의 jwtDecoder 메소드에서도 JwtDecoder 객체를 생성한다.
 
 ```java
 package com.azure.spring.cloud.autoconfigure.implementation.aad.configuration;
@@ -260,7 +258,7 @@ class AadResourceServerConfiguration {
 - 호출하기 전 스레드, 응답을 받은 후 스레드 이름을 로깅한다. 응답을 받지 못한 스레드가 unlock 처리를 못하여 시스템 장애를 유발할 것이다. 
 - RestTemplate 객체에 타임아웃을 설정할 것이기 때문에 이를 확인하기 위해 예외를 로깅하고 락을 해제하기 위해 이를 던진다.
 
-```kt
+```kotlin
 class ProxyRestTemplate() : RestTemplate() {
     override fun <T : Any?> exchange(entity: RequestEntity<*>, responseType: Class<T?>): ResponseEntity<T?> {
         try {
@@ -276,9 +274,9 @@ class ProxyRestTemplate() : RestTemplate() {
 }
 ```
 
-프록시 RestTemplate 객체를 주입하기 위한 ProxyRestTemplateBuilder 클래스를 생성한다. AadOAuth2ClientConfiguration, AadResourceServerConfiguration 객체에서 사용하는 createRestTemplate 메소드에서 에러 핸들러, 메시지 컨버터 등을 추가할 때 RestTemplateBuilder 객체가 새로 생성되기 때문에 build 메소드 외에도 errorHandler, messageConverters 메소드를 오버라이딩 해줘야 한다.
+프록시 RestTemplate 객체를 주입하기 위한 ProxyRestTemplateBuilder 클래스를 생성한다. AadOAuth2ClientConfiguration, AadResourceServerConfiguration 객체가 사용하는 createRestTemplate 메소드에서 에러 핸들러, 메시지 컨버터 등을 추가할 때 RestTemplateBuilder 객체가 새로 생성되기 때문에 build 메소드 외에도 errorHandler, messageConverters 메소드를 오버라이딩 해줘야 한다.
 
-```kt
+```kotlin
 class ProxyRestTemplateBuilder(
     private val delegate: RestTemplateBuilder
 ) : RestTemplateBuilder() {
@@ -296,7 +294,7 @@ class ProxyRestTemplateBuilder(
 }
 ```
 
-의존성 주입을 위한 restTemplateBuilder 빈 객체를 생성한다. 타임아웃을 지정할 때 사용하는 connectTimeout, readTimeout 메소드도 매번 새로운 RestTemplateBuilder 객체를 생성 후 반환하므로 이를 주의하기 바란다. 타임아웃 시간은 15초로 지정했다. 인증 서버로부터 JWKs을 받을 때 필요한 적절한 시간을 정확히 판단할 수 없기 때문에 스레드가 락을 선점하기 위해 기다리는 15초를 기준으로 삼았다.
+의존성 주입을 위한 restTemplateBuilder 빈 객체를 생성한다. 타임아웃을 지정할 때 사용하는 connectTimeout, readTimeout 메소드도 매번 새로운 RestTemplateBuilder 객체를 생성 후 반환하므로 이를 주의해야 한다. 타임아웃 시간은 15초로 지정했다. 인증 서버로부터 JWKs을 받을 때 필요한 적절한 시간을 정확히 판단할 수 없기 때문에 스레드가 락을 선점하기 위해 기다리는 15초를 기준으로 삼았다.
 
 ```kt
 @Configuration
@@ -323,7 +321,7 @@ class JwtConfig() {
 
 ## CLOSING
 
-이 글을 요약하자면 사용자 인증 과정에서 JWT 유효성 검사를 위해 외부 마이크로소프트 인증 서버로부터 JWKs을 받아 오는 과정에 문제가 있었다. 우리는 문제가 발생하는 지점을 특정했고, 클라이언트 타임아웃을 설정해 시스템 장애가 발생하는 것을 방지했다. 인프라 문제인지 MS 인증 서버 문제인지 정확하게 알 수는 없지만, 우리가 다루지 못하는 외부 서비스와의 연결을 주의해야 한다는 교훈을 다시끔 얻었다. 인프라 쪽에 문제가 있었는지 함께 살펴보지 못해서 아쉽다.
+이 글의 내용을 요약해보자. 사용자 인증 과정에서 JWT 유효성 검사를 위해 외부 마이크로소프트 인증 서버로부터 JWKs을 받아 오는 과정에 문제가 있었다. 우리는 문제가 발생하는 지점을 특정했고, 클라이언트 타임아웃을 설정해 시스템 장애가 발생하는 것을 방지했다. 인프라 문제인지 MS 인증 서버 문제인지 정확하게 알 수는 없지만, 우리가 다루지 못하는 외부 서비스와의 연결을 주의해야 한다는 교훈을 다시끔 얻었다. 인프라 쪽에 문제가 있었는지 함께 살펴보지 못해서 아쉽다.
 
 이 팀은 나와 트러블 슈팅을 마친 후 장애 대응 프로세스 수립, 후속 조치, 그리고 포스트모템(postmortem)까지 수행했다. 최근 같이 일했던 팀 중에 가장 훌륭한 팀이다.
 

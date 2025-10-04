@@ -1,5 +1,5 @@
 ---
-title: "Microsoft AAD 인증 시 스레드 락에 의한 시스템 장애와 해결"
+title: "Microsoft AAD 인증 시 스레드 락에 의한 시스템 장애 해결"
 search: false
 category:
   - spring

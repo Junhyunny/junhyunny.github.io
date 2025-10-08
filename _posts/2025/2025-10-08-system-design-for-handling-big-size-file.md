@@ -98,7 +98,7 @@ last_modified_at: 2025-10-08T23:55:00
 
 ## CLOSING
 
-이 팀은 큰 파일을 처리하는 아키텍처에 대한 고민뿐만 아니라 원인을 알 수 없는 서버 에러가 발생하고 있었는데, 이 부분은 시스템 버그였다. 시스템 버그를 찾아준 것만으로 일단 급한 불은 껐는지 새로 제안한 아키텍처에 대한 구현은 추후로 미뤄진 것 같다. 대안책을 전달한 미팅 이후에 별다른 연락은 없었다. 가능하다면 이 시스템 디자인을 함께 개발하고 싶었는데 아쉽다. `S3-ECS 태스크 이벤트 트리거` 같은 AWS 리소스 사이의 연결 부분이 궁금해서 구축해 본 내용은 다음 글을 통해 정리할 생각이다.
+이 팀은 큰 파일을 처리하는 아키텍처에 대한 고민뿐만 아니라 원인을 알 수 없는 서버 에러가 발생하고 있었는데, 이 부분은 시스템 버그였다. 시스템 버그를 찾아준 것만으로 일단 급한 불은 껐는지 새로 제안한 아키텍처에 대한 구현은 추후로 미뤄진 것 같다. 대안책을 전달한 미팅 이후에 별다른 연락은 없었다. 가능하다면 이 시스템 디자인을 함께 개발하고 싶었는데 아쉽다. `S3의 ECS 태스크 이벤트 트리거` 같은 AWS 리소스 사이의 연결 부분이 궁금해서 구축해 본 내용은 다음 글을 통해 정리할 생각이다.
 
 [integrate-event-bridge-and-lambda-with-aws-sam-link]: https://junhyunny.github.io/aws/aws-sam-cli/event-bridge/lambda/integrate-event-bridge-and-lambda-with-aws-sam/
 [graal-vm-link]: https://junhyunny.github.io/information/java/graal-vm/

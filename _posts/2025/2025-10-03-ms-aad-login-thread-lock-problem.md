@@ -112,9 +112,9 @@ public class CachingJWKSetSource<C extends SecurityContext> extends AbstractCach
 
 CachingJWKSetSource 클래스의 `lock.tryLock(getCacheRefreshTimeout(), TimeUnit.MILLISECONDS)`, `lock.unlock()` 코드를 보고 시스템 장애가 발생한 원인을 다음과 같이 유추할 수 있었다.
 
-- 특정 스레드가 ReentrantLock 객체를 통해 락을 잡는다.
-- 임계 영역(critical section)에 진입한 스레드가 행(hang)에 걸려 락을 해제하지 못한다.
-- 다른 스레드들은 락을 잡기 위해 tryLock 메소드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
+1. 특정 스레드가 ReentrantLock 객체를 통해 락을 잡는다.
+2. 임계 영역(critical section)에 진입한 스레드가 행(hang)에 걸려 락을 해제하지 못한다.
+3. 다른 스레드들은 락을 잡기 위해 tryLock 메소드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
 
 finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 무한 루프나 무한 대기에 빠지지 않았다면 락은 반드시 해제되어야 한다. 예전 디버깅 경험을 돌이켜보니 스프링 시큐리티는 JWT을 디코딩 할 때 내부적으로 인가 서버에게 [JWKs(Json Web Key Set)][json-web-key-link]을 요청했다. 이 원격 요청에 무엇인가 문제가 있다고 판단했다. 원격 요청을 하는 지점은 디버깅을 통해 찾아냈다.
 

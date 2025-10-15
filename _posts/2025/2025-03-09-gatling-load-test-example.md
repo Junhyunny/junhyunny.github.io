@@ -214,7 +214,7 @@ public class SimpleCustomSimulator extends Simulation {
 
 `search.csv` 파일에는 다음과 같은 데이터가 저장되어 있다.
 
-```csv
+```
 username
 junhyunny
 tangerine

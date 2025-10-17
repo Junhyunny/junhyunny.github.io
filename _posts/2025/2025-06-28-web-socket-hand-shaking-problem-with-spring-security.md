@@ -113,7 +113,7 @@ public class SecurityConfig {
 최초 로그인은 문제 없이 잘 동작했다. 로그인 한 사용자의 세션이 만료된 후 재로그인을 수행하면 이런 문제가 발생했다. 원인은 무엇일까? 우선 사용자 세션이 만료되면 웹 소켓 클라이언트는 지속적으로 연결을 시도한다. 브라우저 개발자 도구의 네트워크 탭을 보면 연결을 계속 시도하는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-02.gif" width="80%" class="image__border">
+  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-02.gif" width="100%" class="image__border">
 </div>
 
 <br />

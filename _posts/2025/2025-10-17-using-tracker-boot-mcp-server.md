@@ -21,13 +21,13 @@ last_modified_at: 2025-10-16T23:55:00
 
 우리 팀은 고객들과 일할 때 `피보탈 트래커(pivotal tracker)`를 이슈 트래커로 사용했다. 나는 탄주 랩스일 때 합류했지만, [피보탈 랩스(pivotal labs)](https://en.wikipedia.org/wiki/Pivotal_Labs) 시절 직접 개발한 서비스를 여전히 사용 중이라는 사실이 멋지다고 생각했다. 필요한 도구는 우리가 스스로 개발한다는 정신에 감동한 것 같다.
 
-VMWare가 브로드컴에 인수된 후 [피보탈 트래커 서비스가 종료](https://news.hada.io/topic?id=16846)됐다. 그래서 우리 팀의 프랙티스에 필요한 이슈 트래커인 [트래커 부트(tracker boot)](https://trackerboot.com/)를 직접 개발 및 메인테이닝(maintaining)하고 있다. 최근 [트래커 부트 MCP 서버](https://github.com/Bekind-Labs/tracker-boot-mcp-server?tab=readme-ov-file)가 릴리즈 됐다. AI 개발 팀을 서포트 할 떄 고민했던 부분을 트래커 MCP 서버를 사용하면 도움이 될 것 같아서 탐구한 내용들을 글로 정리했다.
+VMWare가 브로드컴에 인수된 후 [피보탈 트래커 서비스가 종료](https://news.hada.io/topic?id=16846)됐다. 그래서 우리 팀의 프랙티스에 필요한 이슈 트래커인 [트래커 부트(tracker boot)](https://trackerboot.com/)를 직접 개발 및 메인테이닝(maintaining)하고 있다. 최근 [트래커 부트 MCP 서버](https://github.com/Bekind-Labs/tracker-boot-mcp-server?tab=readme-ov-file)가 릴리즈 됐다. AI 개발 팀을 서포트 할 때 고민했던 부분을 트래커 MCP 서버를 사용하면 도움이 될 것 같아서 탐구한 내용들을 글로 정리했다.
 
 MCP(model context protocol)나 MCP 서버에 대한 개념이 부족하다면, [이 글][mcp-and-mcp-server-link]을 먼저 읽어보길 바란다.
 
 ## 1. What is tracker boot?
 
-[트래커 부트](https://trackerboot.com/)에 대한 설명이 먼저 필요할 것 같다. 트래커 부트는 지라(jira) 같은 일반적인 이슈 트래킹 도구는 아니다. [XP(extreme programming)](https://en.wikipedia.org/wiki/Extreme_programming) 애자일 방법론을 따라 프로덕트를 개발할 떄 필요한 사용자 스토리(user story)를 관리하는 도구다. 사용자 스토리는 XP 개발 사이클에서 기본적인 작업 단위를 의미한다. 사용자의 요구사항 또는 기능(feature)에 대한 내용이 작성되어 있다. PM(product manager)나 디자이너가 작성한 스토리들은 아이스 박스(ice box)에서 관리된다. 
+[트래커 부트](https://trackerboot.com/)에 대한 설명이 먼저 필요할 것 같다. 트래커 부트는 지라(jira) 같은 일반적인 이슈 트래킹 도구는 아니다. [XP(extreme programming)](https://en.wikipedia.org/wiki/Extreme_programming) 애자일 방법론을 따라 프로덕트를 개발할 때 필요한 사용자 스토리(user story)를 관리하는 도구다. 사용자 스토리는 XP 개발 사이클에서 기본적인 작업 단위를 의미한다. 사용자의 요구사항 또는 기능(feature)에 대한 내용이 작성되어 있다. PM(product manager)나 디자이너가 작성한 스토리들은 아이스 박스(ice box)에서 관리된다. 
 
 <div align="center">
   <img src="/images/posts/2025/using-tracker-boot-mcp-server-01.png" width="100%" class="image__border">
@@ -43,7 +43,7 @@ PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 �
 
 <br/>
 
-스토리 점수는 매 주 이터레이션이 끝나면 팀의 속도(velocity)를 측정할 떄 사용된다. 속도 외에도 프로젝트가 얼마나 건강한지 여부를 확인할 수 있는 지표들을 분석해서 제공한다.
+스토리 점수는 매 주 이터레이션이 끝나면 팀의 속도(velocity)를 측정할 때 사용된다. 속도 외에도 프로젝트가 얼마나 건강한지 여부를 확인할 수 있는 지표들을 분석해서 제공한다.
 
 <div align="center">
   <img src="/images/posts/2025/using-tracker-boot-mcp-server-03.png" width="100%" class="image__border">
@@ -51,7 +51,7 @@ PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 �
 
 ## 2. Context management
 
-최근 AI를 사용할 떄 "프롬프트 엔지니어링(prompt engineering)"에서 한 단계 발전한 "컨텍스트 엔지니어링(context engineering)"으로 논의가 전환되고 있다. 컨텍스트(context)란 단순한 프롬프트 문장이 아니라, LLM이 답변을 생성하기 전 볼 수 있는 모든 정보(지침, 대화이력, 장기 메모리, 외부 정보, 가용 도구 등)를 의미한다. 기존 "프롬프트 엔지니어링"이 단일 질문 또는 명령문 설계에 집중했다면, 컨텍스트 엔지니어링은 그보다 더 폭넓고 강력한 접근이다. 
+최근 AI를 사용할 때 "프롬프트 엔지니어링(prompt engineering)"에서 한 단계 발전한 "컨텍스트 엔지니어링(context engineering)"으로 논의가 전환되고 있다. 컨텍스트(context)란 단순한 프롬프트 문장이 아니라, LLM이 답변을 생성하기 전 볼 수 있는 모든 정보(지침, 대화이력, 장기 메모리, 외부 정보, 가용 도구 등)를 의미한다. 기존 "프롬프트 엔지니어링"이 단일 질문 또는 명령문 설계에 집중했다면, 컨텍스트 엔지니어링은 그보다 더 폭넓고 강력한 접근이다. 
 
 에이전트 시스템에서 성공적으로 작동하는지 여부는 작업 메모리(working memory)에 어떤 정보가 포함될지에 의해 크게 좌우된다. 대부분의 에이전트 실패는 모델 문제가 아니라, 적절한 컨텍스트 부족에서 발생하기 때문이다. AI 에이전트가 효율적으로 일을 처리할 수 있는 컨텍스트를 구성하기 위해선 다음과 같은 정보들이 포함되어야 한다.
 

@@ -321,13 +321,21 @@ class JwtConfig() {
 }
 ```
 
+애플리케이션이 실행되면 실제 런타임에선 위에서 만든 프록시 객체들이 주입된다. 클라이언트 타임 아웃이 없어서 발생하는 스레드 락 문제를 해결함과 동시에 로그를 통해 실제로 문제가 발생하는지 확인할 수 있다.
+
+<div align="center">
+  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-04.png" width="100%" class="image__border">
+</div>
+
+<br/>
+
 서비스를 배포 후 얼마 안 지나서 다음과 같은 에러 메시지를 만났다. 
 
 - 스레드-252590이 JWKs을 획득하기 위해 MS 인증 서버의 API를 호출한다. 이 시점에 스레드-252590은 락을 선점한 상태다.
 - 15초 이후에 ReadTimeoutException이 발생한다. MS 인증 서버로의 연결이 실패한 것으로 보인다. 
 
 <div align="center">
-  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-04.png" width="100%" class="image__border">
+  <img src="/images/posts/2025/ms-aad-login-thread-lock-problem-05.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

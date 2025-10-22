@@ -44,7 +44,7 @@ last_modified_at: 2025-10-03T23:55:00
 https://application.com/?error=[invalid_id_token]%20An%20error%20occurred%20while%20attempting%20to%20decode%20the%20Jwt:%20Timeout%20while%20waiting%20for%20cache%20refresh%20(15000ms%20exceeded)
 ```
 
-에러 메시지를 디코드해보면 다음과 같다.
+에러 메시지를 디코딩 해보면 다음과 같은 메시지를 볼 수 있다.
 
 ```
 error=[invalid_id_token] An error occurred while attempting to decode the Jwt: Timeout while waiting for cache refresh (15000ms exceeded)

@@ -107,7 +107,7 @@ LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 �
 }
 ```
 
-[이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/propmtps` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다.
+트래커 부트 MCP 서버를 사용할 때 필요한 API 키는 [트래커 부트(tracker boot) MCP 서버로 프롬프트 컨텍스트 공유하기](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/)를 참조하길 바란다. [이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/propmtps` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다.
 
 ```
 ---
@@ -143,7 +143,7 @@ description: E2E 테스트를 수행하는 프롬프트
 테스트 코드는 `e2e/**` 경로 하위에 존재한다. 현재 프로젝트 경로에서 `e2e/**` 경로에 테스트 코드가 없다면, 원격 레포지토리의 `e2e/**` 경로를 참조한다.
 ```
 
-위에서 작성한 프롬프트를 실행한다.
+위에서 작성한 프롬프트를 실행한다. 
 
 ```
 /user-journey-test
@@ -151,13 +151,69 @@ description: E2E 테스트를 수행하는 프롬프트
 STORY_ID=#200010919
 ```
 
-AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕으로 테스트 시나리오를 생성한다.
+트래커 부트 MCP 서버를 통해 사용자 스토리를 조회한다. 스토리는 다음과 같다.
+
+```
+### Why
+
+**As personaName** Junhyun Kang
+**I want** to efficiently manage tasks that need to be done.
+**So that** I can use a TODO application.
+
+### Acceptance Criteria
+
+``gherkin
+Scenario: 
+Given the user has accessed the TODO application.
+When the user views the screen.
+Then the user can see the following items:
+- "TODO List" text title
+- An input form with:
+  - Input box (input type=text)
+  - "Add" button
+``
+
+``gherkin
+Scenario: 
+Given the user has accessed the TODO application.
+When the user enters a TODO item in the input field and clicks the add button.
+Then 
+- The newly entered TODO item is added to the list displayed below the input box.
+- The TODO item written in the input box is cleared.
+- Each new TODO item is added to the top of the TODO list.
+- The items persist even after refreshing the page.
+``
+
+**Notes:**
+- Use local storage without a separate server.
+```
+
+AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕으로 테스트 시나리오를 생성한다. 
 
 <div align="center">
   <img src="/images/posts/2025/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test-03.gif" width="100%" class="image__border">
 </div>
 
 <br/>
+
+위 예제에선 다음과 같은 테스트 시나리오가 만들어진다.
+
+```
+1. 사용자가 TODO 애플리케이션 페이지에 접근한다.
+2. 사용자는 화면에서 "TODO List" 타이틀을 확인한다.
+3. 사용자는 입력 박스(input type=text)를 확인한다.
+4. 사용자는 "Add" 버튼을 확인한다.
+5. 사용자는 입력 박스에 첫 번째 TODO 항목 "Buy groceries"를 입력한다.
+6. 사용자는 "Add" 버튼을 클릭한다.
+7. 사용자는 리스트에 "Buy groceries" 항목이 추가된 것을 확인한다.
+8. 사용자는 입력 박스가 비워진 것을 확인한다.
+9. 사용자는 입력 박스에 두 번째 TODO 항목 "Read a book"을 입력한다.
+10. 사용자는 "Add" 버튼을 클릭한다.
+11. 사용자는 리스트 최상단에 "Read a book" 항목이 추가된 것을 확인한다.
+12. 사용자는 "Read a book" 항목이 "Buy groceries" 항목보다 위에 있는 것을 확인한다.
+13. 사용자는 페이지를 새로고침한다.
+14. 사용자는 새로고침 후에도 두 TODO 항목이 그대로 유지되어 있는 것을 확인한다.
+```
 
 테스트 실행을 허가하면 AI 에이전트는 자신이 만든 시나리오를 바탕으로 테스트를 실행한다. Playwright MCP 서버로 브라우저를 조작한다.
 
@@ -181,6 +237,10 @@ AI 에이전트는 E2E 테스트가 통과하면 테스트 코드를 작성한�
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2025-11-15-using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test>
 
+#### RECOMMEND NEXT POSTS
+
+- [Github MCP 서버를 통한 풀 리퀘스트(pull request) 워크플로우][using-github-mcp-server-link]
+
 #### REFERENCE
 
 - <https://playwright.dev/>
@@ -191,3 +251,4 @@ AI 에이전트는 E2E 테스트가 통과하면 테스트 코드를 작성한�
 [mcp-and-mcp-server-link]: https://junhyunny.github.io/ai/ai-agent/model-context-protocol/mcp-server/mcp-client/mcp-and-mcp-server/
 [using-figma-mcp-server-link]: https://junhyunny.github.io/ai/ai-agent/figma-mcp/mcp-server/copilot/prompt/using-figma-mcp-server/
 [using-tracker-boot-mcp-server-link]: https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/
+[using-github-mcp-server-link]: https://junhyunny.github.io/github/github-mcp/playwright/playwright-mcp/ai-agent/large-language-model/model-context-protocol/context-engineering/using-github-mcp-server/

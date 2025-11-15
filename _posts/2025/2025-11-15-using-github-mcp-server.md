@@ -156,7 +156,7 @@ AI 에이전트를 통해 E2E 테스트를 일회성으로만 실행하고 버�
 트래커 부트 MCP 서버를 위해 필요한 API 키는 [트래커 부트(tracker boot) MCP 서버로 프롬프트 컨텍스트 공유하기 글](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/)을 참조하길 바란다. Github 토큰은 사용자 셋팅(setting) 페이지에서 생성할 수 있다. 프로파일 이미지를 클릭하면 셋팅 페이지로 이동하는 버튼을 볼 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2025/using-github-mcp-server-02.png" width="40%" class="image__border">
+  <img src="/images/posts/2025/using-github-mcp-server-02.png" width="30%" class="image__border">
 </div>
 
 <br/>
@@ -219,12 +219,13 @@ push 후 main 브랜치로 pull request를 요청한다.
 테스트 코드는 `e2e/**` 경로 하위에 존재한다. 현재 프로젝트 경로에서 `e2e/**` 경로에 테스트 코드가 없다면, 원격 레포지토리의 `e2e/**` 경로를 참조한다.
 ```
 
-위에서 작성한 프롬프트를 실행한다.
+위에서 작성한 프롬프트를 실행한다. E2E 테스트를 수행할 사용자 스토리와 테스트가 통과했을 때 풀 리퀘스트를 만들기 위한 저장소 이름을 파라미터로 추가한다.
 
 ```
 /user-journey-test
 
 STORY_ID=#200010919
+REPOSITORY=Junhyunny/playwright-mcp-e2e-workflow
 ```
 
 AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕으로 E2E 테스트를 수행한다. E2E 테스트가 성공하면 테스트 시나리오를 재현한 코드를 `e2e/{story_id}` 브랜치에 업로드한다. 해당 커밋을 메인 브랜치로 머지하기 위해 풀 리퀘스트를 생성한다.

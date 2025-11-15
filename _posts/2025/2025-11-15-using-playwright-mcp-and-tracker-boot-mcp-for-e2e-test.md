@@ -109,7 +109,7 @@ LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 �
 
 [이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/propmtps` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다.
 
-``markdown
+```
 ---
 mode: agent
 description: E2E 테스트를 수행하는 프롬프트
@@ -141,7 +141,7 @@ description: E2E 테스트를 수행하는 프롬프트
 
 테스트가 통과하면 E2E 테스트 코드를 작성한다. 테스트 파일 이름은 `{story-id}.spec.ts` 형식을 따른다.
 테스트 코드는 `e2e/**` 경로 하위에 존재한다. 현재 프로젝트 경로에서 `e2e/**` 경로에 테스트 코드가 없다면, 원격 레포지토리의 `e2e/**` 경로를 참조한다.
-``
+```
 
 위에서 작성한 프롬프트를 실행한다.
 

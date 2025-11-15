@@ -1,5 +1,5 @@
 ---
-title: "Github MCP 서버를 통한 PR(pull request) 워크플로우"
+title: "Github MCP 서버를 통한 풀 리퀘스트(pull request) 워크플로우"
 search: false
 category:
   - github
@@ -254,4 +254,4 @@ PM, 디자이너, 개발자의 경계가 점점 무너지는 것 같다. 아니,
 - <https://github.com/github/github-mcp-server>
 
 [mcp-and-mcp-server-link]: https://junhyunny.github.io/ai/ai-agent/model-context-protocol/mcp-server/mcp-client/mcp-and-mcp-server/
-[using-playwright-mcp-for]: https://junhyunny.github.io/e2e-test/playwright/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test/
+[using-playwright-mcp-link]: https://junhyunny.github.io/e2e-test/playwright/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test/

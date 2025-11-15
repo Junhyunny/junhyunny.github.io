@@ -38,7 +38,7 @@ LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 �
 
 <br/>
 
-[이 글][mcp-and-mcp-server-link]에서 설명한 것처럼 MCP 서버는 AI 에이전트가 사용할 수 있는 도구들을 제공한다. Playwright MCP 서버는 어떤 도구들을 제공할까? 
+[이 글][mcp-and-mcp-server-link]에서 설명한 것처럼 MCP 서버는 AI 에이전트가 사용할 수 있는 도구들을 제공한다. Playwright MCP 서버는 어떤 도구들을 제공할까? 아래 테이블에서 볼 수 있듯이 브라우저를 조작하는 도구들을 제공한다. 이 외에도 다른 도구들을 제공하며, 자세한 내용은 [이 링크](https://github.com/microsoft/playwright-mcp?tab=readme-ov-file#tools)를 참조하길 바란다.
 
 | Tool | Description | Parameters |
 |------|-------------|------------|

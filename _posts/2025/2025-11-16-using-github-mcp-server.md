@@ -239,7 +239,7 @@ AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕�
 프롬프트 실행이 완료된 후 AI 에이전트가 명시한 링크로 이동하면 풀 리퀘스트가 만들어진 것을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/using-github-mcp-server-06.pnd" width="100%" class="image__border">
+  <img src="/images/posts/2025/using-github-mcp-server-06.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

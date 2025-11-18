@@ -87,11 +87,11 @@ public abstract class OncePerRequestFilter extends GenericFilterBean {
 }
 ```
 
-## 3. OncePerReqeustFilter test
+## 3. Test with OncePerReqeustFilter class
 
 일반 필터와 `OncePerRequestFilter`를 상속받은 필터를 만들고, 특정 요청에 대해 포워딩 처리를 수행한다. 일반 필터와 `OncePerRequestFilter`를 상속받은 필터의 수행 횟수를 로그로 확인한다.
 
-### 3.1. Ipmlmentation code
+### 3.1. Ipmlmentation
 
 먼저 일반 필터를 상속 받은 CustomFilter 클래스 코드를 살펴보자.
 
@@ -225,7 +225,7 @@ public class TestController {
 }
 ```
 
-### 3.2. Check filtering times
+### 3.2. Check logs
 
 `/will-forward` 경로로 요청을 보낸 후 각 필터의 로그가 몇 회 수행되는지 살펴보자. 브라우저를 통해 `/will-forward` 경로에 접근한다.
 

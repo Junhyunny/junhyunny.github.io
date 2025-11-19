@@ -77,7 +77,7 @@ LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 �
 
 ## 3. Run E2E test workflow
 
-지금부터 AI 에이전트를 통해 E2E 테스트를 수행하자. AI 에이전트는 코파일럿을 사용한다. 인텔리제이에 MCP 서버를 설정하는 방법은 [이 글](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/#3-setting-tracker-boot-mcp-server)을 참조하길 바란다. `mcp.json` 파일에 다음과 같이 MCP 서버들을 등록하면 된다.
+지금부터 AI 에이전트를 통해 E2E 테스트를 수행하자. AI 에이전트는 코파일럿(copilot)을 사용한다. 인텔리제이에 MCP 서버를 설정하는 방법은 [이 글](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/#3-setting-tracker-boot-mcp-server)을 참조하길 바란다. `mcp.json` 파일에 다음과 같이 MCP 서버들을 등록하면 된다.
 
 ```json
 {
@@ -143,7 +143,7 @@ description: E2E 테스트를 수행하는 프롬프트
 테스트 코드는 `e2e/**` 경로 하위에 존재한다. 현재 프로젝트 경로에서 `e2e/**` 경로에 테스트 코드가 없다면, 원격 레포지토리의 `e2e/**` 경로를 참조한다.
 ```
 
-위에서 작성한 프롬프트를 실행한다. 
+위에서 작성한 프롬프트를 코파일럿 프롬프트 창에서 실행한다. 
 
 ```
 /user-journey-test

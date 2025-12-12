@@ -1,60 +1,58 @@
 ---
-title: "React 서비스 화면과 Android Webview 통신"
+title: "React 서비스 화면과 Android WebView 통신"
 search: false
 category:
   - react
   - android
-last_modified_at: 2022-03-05T23:55:00
+last_modified_at: 2025-12-13T23:55:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Android Webview 사용 예제][android-webview-link] 
+#### RECOMMEND POSTS BEFORE THIS
+
+- [Android WebView 사용 예제][android-webview-link] 
 
 ## 0. 들어가면서
 
-이번엔 [Android Webview 사용 예제][android-webview-link]에서 만든 어플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받겠습니다.
+이번엔 [Android WebView 사용 예제][android-webview-link]에서 만든 어플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
 
-## 1. 안드로이드 웹 뷰
+## 1. Android WebView
 
-리액트 서비스 화면과 안드로이드 웹 뷰의 통신을 이해하기 위해선 둘 사이의 관계를 파악할 필요가 있습니다. 
-웹 뷰는 안드로이드에겐 하나의 뷰(view)이지만, HTML 문서 입장에서 자신을 렌더링해주는 브라우저입니다. 
-웹 뷰가 리액트 서비스로 요청을 보내면 HTML 문서를 응답으로 받습니다. 
-- 웹 뷰는 전달받은 HTML 문서를 렌더링합니다.
-- 웹 뷰는 리액트 서비스로부터 전달받은 HTML 문서에서 호출할 수 있는 네이티브 함수를 제공할 수 있습니다.
-    - 브라우저가 `window` 객체를 통해 `Web API` 기능을 제공하듯이 웹 뷰도 `window` 객체를 통해 네이티브 기능을 제공합니다. 
-    - `JavaScript` 코드를 이용해 `window` 객체의 네이티브 함수를 호출합니다.
-- 웹 뷰는 `JavaScript` 코드를 실행할 수 있습니다.
-    - `JavaScript` 코드를 실행하여 자신이 렌더링 중인 HTML 문서를 조작할 수 있습니다. 
+리액트 서비스 화면과 안드로이드 웹 뷰의 통신을 이해하기 위해선 둘 사이의 관계를 파악할 필요가 있다. 웹 뷰는 안드로이드에겐 하나의 뷰(view)이지만, HTML 문서 입장에서 자신을 렌더링해주는 브라우저이다. 웹 뷰가 리액트 서비스로 요청을 보내면 HTML 문서를 응답으로 받는다.
 
-##### 안드로이드 웹 뷰의 리액트 서비스 호출 과정
+1. 웹 뷰는 전달받은 HTML 문서를 렌더링한다.
+2. 웹 뷰는 리액트 서비스로부터 전달받은 HTML 문서에서 호출할 수 있는 네이티브 함수를 제공할 수 있다.
+  - 브라우저가 `window` 객체를 통해 `Web API` 기능을 제공하듯이 웹 뷰도 `window` 객체를 통해 네이티브 기능을 제공한다.
+  - `JavaScript` 코드를 이용해 `window` 객체의 네이티브 함수를 호출한다.
+3. 웹 뷰는 `JavaScript` 코드를 실행할 수 있다.
+  - `JavaScript` 코드를 실행하여 자신이 렌더링 중인 HTML 문서를 조작할 수 있다. 
 
-<p align="center">
-    <img src="/images/react-android-webview-communication-1.JPG" width="85%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2022/react-android-webview-communication-01.png" width="85%" class="image__border">
+</div>
 
-##### 안드로이드 웹 뷰와 HTML 문서 통신
-- 웹 뷰 인스턴스에게 렌더링 중인 HTML 문서에게 네이티브 메소드를 호출할 수 있는 인터페이스를 제공합니다.
-- 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메소드를 통해 `JavaScript` 코드를 실행할 수 있습니다.
+<br/>
 
-<p align="center">
-    <img src="/images/react-android-webview-communication-2.JPG" width="55%" class="image__border">
-</p>
+안드로이드 웹 뷰와 HTML 문서 통신는 아래와 같은 방법을 통해 통신한다.
 
-## 2. 안드로이드 웹 뷰 자바스크립트 인터페이스 추가
+- 웹 뷰 인스턴스에게 렌더링 중인 HTML 문서에게 네이티브 메소드를 호출할 수 있는 인터페이스를 제공한다.
+- 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메소드를 통해 `JavaScript` 코드를 실행할 수 있다.
 
-### 2.1. JavaScript 인터페이스 만들기
+<div align="center">
+  <img src="/images/posts/2022/react-android-webview-communication-02.png" width="55%" class="image__border">
+</div>
 
-##### JavascriptCallbackClient 클래스
-- 렌더링 중인 HTML 문서에서 호출할 수 있는 메소드를 정의합니다.
-- 호출할 수 있는 메소드에 `@JavascriptInterface` 애너테이션을 추가합니다.
+## 2. Add JavaScript interface for Android WebView
+
+안드로이드 웹 뷰가 HTML 문서와 통신하기 위한 JavaScript 인터페이스를 만들어보자. HTML 문서에서 호출할 수 있는 메소드를 정의한다. 호출할 수 있는 메소드에 `@JavascriptInterface` 애너테이션을 추가한다.
+
 - `showToastMessage` 메소드
-    - HTML 문서에서 전달한 메시지를 토스트 기능을 통해 화면에 띄웁니다.
+  - HTML 문서에서 전달한 메시지를 토스트 기능을 통해 화면에 띄운다.
 - `callJavaScriptFunction` 메소드
-    - 5초 뒤 `JavaScript` 코드를 이용해 커스텀 이벤트(CustomEvent)를 발행합니다.
-    - 커스텀 이벤트의 이름은 `"javascriptFunction"` 입니다.
-    - 발행한 이벤트를 이용해 리액트 서비스의 상태를 변경합니다.
+  - 5초 뒤 `JavaScript` 코드를 이용해 커스텀 이벤트(CustomEvent)를 발행한다.
+  - 커스텀 이벤트의 이름은 `"javascriptFunction"` 이다.
+  - 발행한 이벤트를 이용해 리액트 서비스의 상태를 변경한다.
 
 ```java
 package com.example.myapplication.web;
@@ -105,16 +103,13 @@ public class JavascriptCallbackClient {
 }
 ```
 
-### 2.2. JavaScript 인터페이스 등록하기
+인터페이스를 만들었으면 이를 등록한다. 전체 코드를 확인하시려면 [Android WebView 사용 예제][android-webview-link]를 참고하길 바란다.
 
-전체 코드를 확인하시려면 [Android Webview 사용 예제][android-webview-link] 포스트를 참고하세요.
-
-##### FirstFragment 클래스
-- `WebView` 클래스의 `addJavascriptInterface` 메소드로 이전 단계에서 만든 `JavascriptCallbackClient` 클래스를 등록합니다.
-- `HTML` 문서에서 사용할 수 있도록 이름을 `android`로 지정합니다.
-    - `window` 객체로부터 `android` 객체를 꺼내 사용할 수 있습니다.
-- 리액트 서비스를 호출할 수 있도록 주소를 변경합니다.
-    - 안드로이드 앱은 리액트 서비스 주소를 모르기 때문에 `LAN IP`를 전달합니다.
+- `WebView` 클래스의 `addJavascriptInterface` 메소드로 이전 단계에서 만든 `JavascriptCallbackClient` 클래스를 등록한다.
+- `HTML` 문서에서 사용할 수 있도록 이름을 `android`로 지정한다.
+  - `window` 객체로부터 `android` 객체를 꺼내 사용할 수 있다.
+- 리액트 서비스를 호출할 수 있도록 주소를 변경한다.
+  - 안드로이드 앱은 리액트 서비스 주소를 모르기 때문에 `LAN IP`를 전달한다.
 
 ```java
 package com.example.myapplication;
@@ -163,16 +158,17 @@ public class FirstFragment extends Fragment {
 }
 ```
 
-## 3. 리액트 서비스
+## 3. React application
 
-### 3.1. App.jsx 파일
+지금부턴 안드로이드 웹뷰와 통신하기 위한 리액트 애플리케이션을 작성해보자. `window` 객체에서 관리 중인 `android` 객체를 사용한다.
 
-- `window` 객체에 `android` 객체가 있는 경우 함수를 호출합니다.
-    - `showToastMessage` 함수 - `"Hello Native Callback"` 메시지를 전달하여 토스트 메시지를 띄웁니다.
-    - `callJavaScriptFunction` 함수 - 네이티브 앱에서 5초 뒤에 `"javascriptFunction"` 이벤트를 발행합니다. 
-- 웹 뷰에서 발행시킬 이벤트를 등록합니다. 
-    - 이벤트 이름은 `"javascriptFunction"`입니다.
-    - 네이티브 앱으로부터 전달받은 내용으로 화면에 보이는 메시지를 변경합니다.
+- `showToastMessage` 함수 
+  - "Hello Native Callback" 메시지를 전달하여 토스트 메시지를 띄운다.
+- `callJavaScriptFunction` 함수 
+  - 네이티브 앱에서 5초 뒤에 `javascriptFunction` 이벤트를 발행한다.
+- `javascriptFunction` 이벤트
+  - 안드로이드 웹 뷰에서 발행시키는 이벤트를 리스너에 등록한다.
+  - 네이티브 앱으로부터 전달받은 내용으로 화면에 보이는 메시지를 변경한다.
 
 ```jsx
 import logo from './logo.svg'
@@ -234,23 +230,22 @@ function App() {
 export default App
 ```
 
-## 4. 안드로이드 에뮬레이터 테스트
+## 4. Test in Andorid emulator
 
-<p align="left">
-    <img src="/images/react-android-webview-communication-3.gif" width="25%" class="image__border">
-</p>
+안드로이드 에뮬레이터에서 테스트를 수행한다. 정상적으로 토스트 이벤트가 호출되는 것을 확인할 수 있다.
 
-##### CLOSING
-
-안드로이드 개발자가 아니기 때문에 잘못된 설명을 하고 있다면 댓글로 알려주시길 부탁드립니다. 감사하겠습니다. 
+<div align="left">
+  <img src="/images/posts/2022/react-android-webview-communication-03.gif" width="25%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-05-android-webview-communication>
 
 #### REFERENCE
+
 - <https://developer.mozilla.org/ko/docs/Web/API/CustomEvent/CustomEvent>
 - <https://programmer-eun.tistory.com/54>
 
 [android-webview-link]: https://junhyunny.github.io/android/android-webview/
-
 [mozilla-custom-event-link]: https://developer.mozilla.org/ko/docs/Web/API/CustomEvent/CustomEvent

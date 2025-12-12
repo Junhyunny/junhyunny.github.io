@@ -9,7 +9,7 @@ last_modified_at: 2022-03-05T23:55:00
 <br/>
 
 👉 이어서 읽기를 추천합니다.
-- [React 서비스 화면과 Android Webview 통신][react-android-webview-communication-link]
+- [React 서비스 화면과 Android WebView 통신][react-android-webview-communication-link]
 
 ## 0. 들어가면서
 

@@ -89,33 +89,43 @@ AI에게 자동차에 대해 설명해 달라고 했을 때, AI가 어떤 도메
 
 개념을 살펴봤지만, 여전히 이해하는 것이 어려울 수 있다. 현실 세계의 넷플릭스(netflix)라는 도메인을 예시로 온톨로지의 구성 요소들을 정리해보자. 가장 먼저 클래스를 정의한다. 예를 들어, 넷플릭스의 모든 영상물을 Content라는 클래스로 개념화한다. 
 
+```
 - Content 클래스
   - 모든 콘텐츠는 hasTitle 라는 속성을 갖고, 그 속성의 값은 반드시 String(문자열)이어야 한다.
   - 모든 콘텐츠는 releaseYear 라는 속성을 갖고, 그 속성의 값은 반드시 Number(숫자)여야 한다.
+```
 
 다음은 계층이나 분류 쳬계를 만든다. is-a-subclass-of 관계를 사용해 계층을 만든다. Movie, Series는 Content의 일부다. 다음과 같이 표현할 수 있다.
 
+```
 - Movie is-a-subclass-of Content
 - Series is-a-subclass-of Content
+```
 
 Content 클래스는 단순한 개념이기 때문에 실제 세계에선 실제로 존재하는 데이터가 아니다. 오징어 게임이라는 인스턴스를 만들어보자. 
 
+```
 - Squid_Game_Season1 인스턴스(Type: Content)
   - hasTitle - "오징어 게임"
   - releaseYear - 2021
+```
 
 이번엔 객체 간의 상호 작용을 정의해보자. 이를 관계라고 한다. 
 
+```
 - SquidGame directed-by HwangDongHyuk
 - Squid_Game_Season1 is-part-of SquidGame
 - User_Jun watches Squid_Game_Season1
 - User_Jun subscribed-to PremiumPlan
+```
 
 시스템이 오류를 범하지 않도록 논리적인 규칙들도 정한다. "어떤 개체도 Movie이면서 동시에 Series일 수 없다"는 공리나 "Movie는 감독이 최소 1명 이상인 것들의 집합에 포함되어야 한다." 같은 제약 조건은 다음과 같이 표현할 수 있다.
 
+```
 - Movie isDisjointWith Series
 - Movie onProperty: directedBy -> min: 1
 - Movie onProperty: releaseYear -> minInclusive: 1888
+```
 
 ## 3. Express ontology with programming languages
 

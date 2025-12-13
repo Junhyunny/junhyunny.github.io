@@ -7,12 +7,12 @@ description: "블로그 글의 문체를 변경하고, 이미지 경로 및 이�
 
 ## 입력
 
-- YEAR(Required)
-- POST_PATH(Required)
+- PATH(Required)
+- YEAR(Optional, 입력이 없는 경우 파일 이름에 포함된 연도를 사용한다.)
 
 ## 지시사항
 
-`POST_PATH`에 해당하는 블로그 글을 다음 지시사항에 따라 수정합니다.
+`PATH`에 해당하는 블로그 글을 다음 지시사항에 따라 수정합니다.
 
 1. 문장 어조 변경
 - `-이다` 체로 변경 (공식적 → 서술형)

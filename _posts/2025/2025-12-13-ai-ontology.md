@@ -219,7 +219,7 @@ RDF에는 `disjointWith` 같은 겹칠 수 없음을 의미하는 서로소 문�
                :hasTitle "아이언맨" .
 ```
 
-위 Tutle 파일을 neo4j 같은 그래프 데이터베이스에 임포트(import)하면 다음과 같은 그래프가 그려진다.
+위 Tutle 파일을 neo4j 그래프 데이터베이스에 임포트(import)하면 다음과 같은 그래프가 그려진다.
 
 <div align="center">
   <img src="/images/posts/2025/ai-ontology-01.png" width="100%" class="image__border">

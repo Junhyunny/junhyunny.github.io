@@ -10,7 +10,7 @@ last_modified_at: 2023-02-12T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Firewall][firewall-link]
+* [방화벽(frewall)][firewall-link]
 * [Open Firewall of Linux][open-firewall-of-linux-link]
 
 ## 0. 들어가면서

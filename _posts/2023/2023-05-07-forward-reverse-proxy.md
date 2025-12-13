@@ -61,7 +61,7 @@ last_modified_at: 2023-05-07T23:55:00
 
 #### RECOMMEND NEXT POSTS
 
-- [Firewall][firewall-link]
+- [방화벽(frewall)][firewall-link]
 - [DMZ in Network][dmz-in-network-link]
 - [Using Nginx as Reverse Proxy][using-nginx-as-reverse-proxy-link]
 

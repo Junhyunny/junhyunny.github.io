@@ -11,7 +11,7 @@ last_modified_at: 2023-01-22T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Firewall][firewall-link]
+* [방화벽(frewall)][firewall-link]
 * [Open Firewall of Linux][open-firewall-of-linux-link]
 * [SSH Copy ID for Easy Connection][ssh-copy-id-for-easy-connection-link]
 

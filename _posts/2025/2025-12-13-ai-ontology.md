@@ -87,20 +87,20 @@ AI에게 자동차에 대해 설명해 달라고 했을 때, AI가 어떤 도메
   - 도메인 이론 전체를 구성하는 논리적 주장(assertions)입니다. 
   - 여기에는 기본적인 참인 명제뿐만 아니라 그로부터 유도된 이론들도 포함된다.
 
-개념을 살펴봤지만, 여전히 이해하는 것이 어려울 수 있다. 현실 세계의 `넷플릭스`라는 도메인을 예시로 온톨로지의 구성 요소들을 정리해보자. 가장 먼저 클래스를 정의한다. 예를 들어, 넷플릭스의 모든 영상물을 Content라는 클래스로 개념화한다. 
+개념을 살펴봤지만, 여전히 이해하는 것이 어려울 수 있다. 현실 세계의 넷플릭스(netflix)라는 도메인을 예시로 온톨로지의 구성 요소들을 정리해보자. 가장 먼저 클래스를 정의한다. 예를 들어, 넷플릭스의 모든 영상물을 Content라는 클래스로 개념화한다. 
 
 - Content 클래스
-  - 모든 콘텐츠는 `hasTitle`이라는 속성을 갖고, 그 속성의 값은 반드시 String(문자열)이어야 한다.
-  - 모든 콘텐츠는 `releaseYear`라는 속성을 갖고, 그 속성의 값은 반드시 Number(숫자)여야 한다.
+  - 모든 콘텐츠는 hasTitle 라는 속성을 갖고, 그 속성의 값은 반드시 String(문자열)이어야 한다.
+  - 모든 콘텐츠는 releaseYear 라는 속성을 갖고, 그 속성의 값은 반드시 Number(숫자)여야 한다.
 
-다음은 계층이나 분류 쳬계를 만든다. `is-a-subclass-of` 관계를 사용하여 계층을 만든다. Movie, Series는 Content의 일부다. 다음과 같이 표현할 수 있다.
+다음은 계층이나 분류 쳬계를 만든다. is-a-subclass-of 관계를 사용해 계층을 만든다. Movie, Series는 Content의 일부다. 다음과 같이 표현할 수 있다.
 
 - Movie is-a-subclass-of Content
 - Series is-a-subclass-of Content
 
 Content 클래스는 단순한 개념이기 때문에 실제 세계에선 실제로 존재하는 데이터가 아니다. 오징어 게임이라는 인스턴스를 만들어보자. 
 
-- `Squid_Game_Season1` 인스턴스(Type: Content)
+- Squid_Game_Season1 인스턴스(Type: Content)
   - hasTitle - "오징어 게임"
   - releaseYear - 2021
 
@@ -119,7 +119,7 @@ Content 클래스는 단순한 개념이기 때문에 실제 세계에선 실제
 
 ## 3. Express ontology with programming languages
 
-위에서 온톨로지의 개념을 다룰 때 잠깐 언급했던 RDF(Resource Description Framework)와 OWL(Web Ontology Language)이 어떤 것인지 가볍게 살펴보자. `RDF`는 데이터를 "주어-술어-목적어(Triple) 형태로 표현하자"는 **추상적인 데이터 모델(개념)**이다. 초창기에는 RDF/XML이라는 XML 포맷을 표준으로 사용했기에 보통 `.rdf` 파일은 하면 XML 형식으로 작성되어 있다. 예를 들어, "남자는 사람의 일종이다."이라는 문장을 RDF/XML 형식으로 표현하면 다음과 같다.
+위에서 온톨로지의 개념을 다룰 때 언급했던 RDF(Resource Description Framework)와 OWL(Web Ontology Language)이 어떤 것인지 가볍게 살펴보자. `RDF`는 데이터를 "주어-술어-목적어(Triple) 형태로 표현하자"는 **추상적인 데이터 모델(개념)**이다. 초창기에는 RDF/XML이라는 XML 포맷을 표준으로 사용했기에 보통 `.rdf` 파일은 하면 XML 형식으로 작성되어 있다. 예를 들어, "남자는 사람의 일종이다."이라는 문장을 RDF/XML 형식으로 표현하면 다음과 같다.
 
 ```xml
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -152,7 +152,7 @@ JSON-LD 형식으로 표현하면 다음과 같다.
 
 [W3C 웹 온톨로지 언어(OWL)](https://www.w3.org/OWL/)에 따르면 OWL은 사물, 사물들의 집합(그룹), 그리고 사물 간의 관계에 대한 풍부하고 복잡한 지식을 표현하기 위해 설계된 시맨틱 웹(semantic web) 언어라고 한다. OWL은 계산 논리(computational logic) 기반의 언어로 OWL로 표현된 지식은 컴퓨터 프로그램이 활용할 수 있다. 예를 들어, 지식의 일관성을 검증하거나, 암묵적인 지식을 명시적으로 만드는 작업 등에 사용된다고 한다. 
 
-RDF만으로 논리적 제약을 만들 수 없기 때문에 OWL을 사용해야 한다. 예를 들어, "철수(Chulsoo)는 남자이자 여자다."라는 문장을 RDF/Tutle 형식으로 표현하면 다음과 같다.
+RDF만으로 논리적 제약을 만들 수 없기 때문에 OWL을 사용해야 한다. 예를 들어, "철수(Chulsoo)는 남자이자 여자다."라는 문장을 RDF/Turtle 형식으로 표현하면 다음과 같다.
 
 ```
 # 정의 (Schema)
@@ -164,7 +164,7 @@ RDF만으로 논리적 제약을 만들 수 없기 때문에 OWL을 사용해야
 :Chulsoo a :Woman .
 ```
 
-RDF에는 `disjointWith` 같은 겹칠 수 없음을 의미하는 서로소 문법이 없기 때문에 사람이 남자이자 여자가 될 수 없다는 것을 정의할 수 없다. 동일한 문장에 OWL로 제약 사항을 포함하면 어떻게 될까?
+RDF에는 `disjointWith` 같은 문법이 없기 때문에 남자, 여자가 함께 공존할 수 없는 상태임을 정의할 수 없다. OWL 언어를 사용하면 다음과 같은 제약 사항을 포함시킬 수 있다.
 
 ```
 # 정의 (Schema)
@@ -179,9 +179,7 @@ RDF에는 `disjointWith` 같은 겹칠 수 없음을 의미하는 서로소 문�
 :Chulsoo a :Woman .
 ```
 
-남자이자 여자임이 동시에 존재할 수 없는 상태임을 명시했기 때문에 AI는 스스로 데이터가 논리적으로 맞는지 검증하고 판단할 수 있다. 
-
-마지막으로 위에서 넷플릭스 도메인을 예시로 정의한 온톨로지를 PDF, OWL 언어로 작성된 Tutle 형식의 문서로 만들어보자.
+남자, 여자라는 상태가 동시에 존재할 수 없음을 명시했기 때문에 AI는 스스로 데이터가 논리적으로 맞는지 검증하고 판단할 수 있다. 위에서 넷플릭스 도메인을 예시로 정의한 온톨로지를 PDF, OWL 언어로 작성된 Turtle 형식 문서로 만들어보면 아래와 같이 표현된다.
 
 ```
 @prefix : <http://www.example.org/netflix#> .
@@ -219,7 +217,7 @@ RDF에는 `disjointWith` 같은 겹칠 수 없음을 의미하는 서로소 문�
                :hasTitle "아이언맨" .
 ```
 
-위 Tutle 파일을 neo4j 그래프 데이터베이스에 임포트(import)하면 다음과 같은 그래프가 그려진다.
+위 Turtle 파일을 neo4j 그래프 데이터베이스에 임포트(import)하면 다음과 같은 그래프가 그려진다.
 
 <div align="center">
   <img src="/images/posts/2025/ai-ontology-01.png" width="100%" class="image__border">

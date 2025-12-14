@@ -241,6 +241,6 @@ RDF에는 `disjointWith` 같은 문법이 없기 때문에 남자, 여자가 함
 
 - <https://medium.com/@nfigay/what-is-an-ontology-in-the-artificial-intelligence-context-b0f935d34aab>
 - <https://protege.stanford.edu/publications/ontology_development/ontology101.pdf>
-- <https://rcs.cic.ipn.mx/2019_148_3/Ontology_%20Components%20and%20Evaluation_%20a%20Review.pdf>
 - <https://www.w3.org/OWL/>
+- [Ontology: Components and Evaluation, a Review](https://rcs.cic.ipn.mx/2019_148_3/Ontology_%20Components%20and%20Evaluation_%20a%20Review.pdf)
 - [위키백과 - 온톨로지](https://ko.wikipedia.org/wiki/%EC%98%A8%ED%86%A8%EB%A1%9C%EC%A7%80)

@@ -1,5 +1,5 @@
 ---
-title: "인공지능(AI)와 온톨로지(ontology)"
+title: "인공지능(AI)과 온톨로지(ontology)"
 search: false
 category:
   - AI

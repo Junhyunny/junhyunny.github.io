@@ -1,5 +1,5 @@
 ---
-title: "스프링을 사용한 SOAP 통신 예제"
+title: "스프링 부트 SOAP 통신 예제"
 search: false
 category:
   - java

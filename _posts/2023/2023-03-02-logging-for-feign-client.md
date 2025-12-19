@@ -1,5 +1,5 @@
 ---
-title: "FeignClient 로깅하기"
+title: "FeignClient 로깅 적용하기"
 search: false
 category:
   - spring-boot

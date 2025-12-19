@@ -1,41 +1,36 @@
 ---
-title: "Logging for FeignClient"
+title: "FeignClient 로깅하기"
 search: false
 category:
   - spring-boot
   - spring-cloud
-last_modified_at: 2023-03-02T23:55:00
+last_modified_at: 2025-12-20T23:55:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
-* [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
+- [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
+- [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
 
 ## 1. Logging Level
 
-로그 레벨은 다음과 같이 정의할 수 있습니다. 
+로그 레벨은 다음과 같이 정의할 수 있다.
 
 > TRACE < DEBUG < INFO < WARN < ERROR < FATAL
 
-오른쪽으로 갈수록 로그 레벨이 높습니다. 
-어플리케이션은 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 출력합니다. 
-예를 들어 어플리케이션 로그 레벨이 `INFO`인 경우 `WARN`, `ERROR`, `FATAL` 로그를만 볼 수 있습니다. 
+오른쪽으로 갈수록 로그 레벨이 높다. 어플리케이션은 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 출력한다. 예를 들어 어플리케이션 로그 레벨이 `INFO`인 경우 `WARN`, `ERROR`, `FATAL` 로그를 볼 수 있다.
 
-스프링(spring) 어플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `TRACE`, `DEBUG` 레벨은 보이지 않습니다. 
-`FeignClient`의 `DEBUG` 로그들을 살펴보기 위해선 로깅 관련 설정이 필요합니다. 
-몇 가지 설정을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있습니다.
+스프링(spring) 어플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `TRACE`, `DEBUG` 레벨은 보이지 않는다. `FeignClient`의 `DEBUG` 로그들을 살펴보기 위해선 로깅 관련 설정이 필요하다. 몇 가지 설정을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있다.
 
-### 1.1. application.yml 
+### 1.1. application.yml
 
-`FeignClient` 기능을 사용하는 패키지의 로그 레벨을 지정합니다. 
-`application.yml` 파일에서 특정 패키지의 로깅 레벨을 변경할 수 있습니다.
+`FeignClient` 기능을 사용하는 패키지의 로그 레벨을 지정한다. `application.yml` 파일에서 특정 패키지의 로깅 레벨을 변경할 수 있다.
 
-* 특정 클래스 이름, 패키지 이름을 사용해 로그 레벨을 지정할 수 있습니다.
-* 패키지 이름을 지정한 경우 하위 패키지 객체들의 로그 레벨에 모두 적용됩니다.
-    * 프로젝트 최상위 패키지인 `action.in.blog`를 `DEBUG`로 지정합니다.
+- 특정 클래스 이름, 패키지 이름을 사용해 로그 레벨을 지정할 수 있다.
+- 패키지 이름을 지정한 경우 하위 패키지 객체들의 로그 레벨에 모두 적용된다.
+  - 프로젝트 최상위 패키지인 `action.in.blog`를 `DEBUG`로 지정한다.
 
 ```yml
 logging:
@@ -45,16 +40,16 @@ logging:
 
 ## 2. Spring Bean Configuration
 
-설정 빈(bean)을 통해 `FeignClient`의 로거 레벨을 지정할 수 있습니다. 
+설정 빈(bean)을 통해 `FeignClient`의 로거 레벨을 지정할 수 있다.
 
-* NONE
-    * 기본(default) 설정이며 로깅을 보여주지 않습니다.
-* BASIC
-    * 요청 메소드, URL, 응답 코드, 실행 시간 등을 볼 수 있습니다.
-* HEADERS
-    * `BASIC` 설정에 추가적으로 요청, 응답에 대한 헤더(header) 정보를 볼 수 있습니다.
-* FULL
-    * `HEADERS` 설정에 추가적으로 요청, 응답에 대한 바디(body), 메타데이터(metadata) 정보를 볼 수 있습니다.
+- NONE
+  - 기본(default) 설정이며 로깅을 보여주지 않는다.
+- BASIC
+  - 요청 메소드, URL, 응답 코드, 실행 시간 등을 볼 수 있다.
+- HEADERS
+  - `BASIC` 설정에 추가적으로 요청, 응답에 대한 헤더(header) 정보를 볼 수 있다.
+- FULL
+  - `HEADERS` 설정에 추가적으로 요청, 응답에 대한 바디(body), 메타데이터(metadata) 정보를 볼 수 있다.
 
 ```java
 package action.in.blog.config;
@@ -75,14 +70,11 @@ public class FeignLoggerConfig {
 
 ## 3. Test
 
-간단한 테스트 코드를 통해 출력되는 로그를 살펴보겠습니다.
+간단한 테스트 코드를 통해 출력되는 로그를 살펴보자. 다음과 같은 BlogClient 인터페이스를 만든다. 메소드들을 수행할 때 출력되는 로그를 살펴본다.
 
-### 3.1. BlogClient Interface
-
-* 다음과 같은 메소드들을 수행할 때 출력되는 로그를 살펴보겠습니다.
-    * `GET` 요청
-    * `GET` 요청 - 파라미터 추가
-    * `POST` 요청 - 바디 추가
+- `GET` 요청
+- `GET` 요청 - 파라미터 추가
+- `POST` 요청 - 바디 추가
 
 ```java
 package action.in.blog.client;
@@ -110,9 +102,7 @@ public interface BlogClient {
 
 ### 3.2. Run Test Code
 
-각 메소드 별로 호출 시 출력되는 로그를 살펴보겠습니다.
-
-#### 3.2.1. health method
+각 메소드 별로 호출 시 출력되는 로그를 살펴본다. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
 
 ```java
 package action.in.blog;
@@ -164,7 +154,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Test Result
+위 테스트 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 ```
 2023-03-02T20:52:40.484+09:00 DEBUG 14705 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#health] ---> GET http://localhost:10405/health HTTP/1.1
@@ -178,7 +168,7 @@ class ActionInBlogApplicationTests {
 2023-03-02T20:52:40.597+09:00 DEBUG 14705 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#health] <--- END HTTP (2-byte body)
 ```
 
-#### 3.2.2. search method
+다음 `/search` 경로로 요청을 보내보자.
 
 ```java
 package action.in.blog;
@@ -231,7 +221,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Test Result
+다음과 같은 로그를 볼 수 있다.
 
 ```
 2023-03-02T20:54:15.074+09:00 DEBUG 14847 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#search] ---> GET http://localhost:11900/search?keyword=hello HTTP/1.1
@@ -244,6 +234,8 @@ class ActionInBlogApplicationTests {
 2023-03-02T20:54:15.194+09:00 DEBUG 14847 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#search] OK
 2023-03-02T20:54:15.194+09:00 DEBUG 14847 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#search] <--- END HTTP (2-byte body)
 ```
+
+마지막으로 `/post` 경로에 요청을 보내보자.
 
 ```java
 package action.in.blog;
@@ -321,7 +313,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Test Result
+다음과 같은 로그를 확인할 수 있다.
 
 ```
 2023-03-02T20:54:36.774+09:00 DEBUG 14877 --- [    Test worker] action.in.blog.client.BlogClient         : [BlogClient#createPost] ---> POST http://localhost:11659/post HTTP/1.1
@@ -342,13 +334,13 @@ class ActionInBlogApplicationTests {
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-02-logging-for-feign-client>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-02-logging-for-feign-client>
 
 #### REFERENCE
 
-* <https://www.baeldung.com/java-feign-logging>
-* <https://howtodoinjava.com/spring-boot2/logging/configure-logging-application-yml/>
-* <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=2zino&logNo=221641662104>
+- <https://www.baeldung.com/java-feign-logging>
+- <https://howtodoinjava.com/spring-boot2/logging/configure-logging-application-yml/>
+- <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=2zino&logNo=221641662104>
 
 [spring-cloud-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 [wire-mock-for-feign-client-test-link]: https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/

@@ -29,10 +29,14 @@ last_modified_at: 2025-12-20T23:55:00
 
 neo4j는 그래프 데이터베이스이지만, 온톨로지를 위해 만들어진 것은 아니다. neo4j가 RDF 모델 데이터를 사용하기 위해선 [neosemantics](https://github.com/neo4j-labs/neosemantics)라는 플러그인이 필요하다. n10s 플러그인의 주요 기능은 다음과 같다.
 
-- 무손실 RDF 데이터 저장 - RDF 데이터를 neo4j에 저장하고, 이후 다시 내보낼 때 단일 트리플도 손실 없이 완전하게 복원할 수 있다.
-- 온디맨드 RDF 내보내기 - neo4j의 속성 그래프 데이터를 필요에 따라 RDF로 내보낼 수 있다.
-- W3C SHACL 언어 기반 모델 검증 - SHACL(Shapes Constraint Language)을 사용해 데이터 모델의 유효성을 검증할 수 있다.
-- 온톨로지 및 택소노미(taxonomies) 임포트 - OWL, RDFS, SKOS 등의 형식으로 작성된 온톨로지와 택소노미를 임포트할 수 있다.
+- 무손실 RDF 데이터 저장
+  - RDF 데이터를 neo4j에 저장하고, 이후 다시 내보낼 때 단일 트리플도 손실 없이 완전하게 복원할 수 있다.
+- 온디맨드 RDF 내보내기
+  - neo4j의 속성 그래프 데이터를 필요에 따라 RDF로 내보낼 수 있다.
+- W3C SHACL 언어 기반 모델 검증
+  - SHACL(Shapes Constraint Language)을 사용해 데이터 모델의 유효성을 검증할 수 있다.
+- 온톨로지 및 택소노미(taxonomies) 임포트
+  - OWL, RDFS, SKOS 등의 형식으로 작성된 온톨로지와 택소노미를 임포트할 수 있다.
 
 설치는 neo4j 데이터베이스를 실행 후 화면을 통해 설치하는 방법도 있는 것 같지만, 이 글에선 자바 패키지 파일(.jar)를 다운로드 받은 후 사용했다. [이 링크](https://github.com/neo4j-labs/neosemantics/releases)를 통해 다운로드 받을 수 있다. 다운로드 받은 파일은 프로젝트의 `plugins` 디렉토리에 위치시킨다.
 
@@ -62,7 +66,7 @@ docker run \
 - data - 영속성을 위해 데이터가 보관되는 볼륨
 - logs - 실행 로그가 보관되는 볼륨
 - import - 임포트하기 위한 파일(.csv, .ttl)이 보관된 볼륨
-- plugins - 플러그인 볼륨.
+- plugins - 플러그인 볼륨
 
 이번엔 환경 변수를 살펴보자.
 
@@ -152,10 +156,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 ## 3. Import RDF ontology
 
-지금부터 온톨로지 파일을 임포트해보자. 컨테이너가 정상적으로 실행되었다면 [http://localhost:7474/browser/](http://localhost:7474/browser/) 경로에 접속할 수 있다. 다음과 같은 화면을 볼 수 있다. 컨테이너를 실행할 때 지정한 아이디와 비밀번호를 사용한다.
-
-- ID - neo4j
-- PASSWORD - cool-culture-vodka-beach-eric-9620
+지금부터 온톨로지 파일을 임포트해보자. 컨테이너가 정상적으로 실행되었다면 [http://localhost:7474/browser/](http://localhost:7474/browser/) 경로에 접속할 수 있다. 다음과 같은 화면을 볼 수 있다. 컨테이너를 실행할 때 지정한 아이디와 비밀번호를 사용한다. 아이디는 `neo4j`, 비밀번호는 `cool-culture-vodka-beach-eric-9620`다.
 
 <div align="center">
   <img src="/images/posts/2025/import-tutle-file-into-neo4j-browser-01.png" width="100%" class="image__border">
@@ -163,7 +164,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 <br />
 
-로그인에 성공하면 다음과 같은 왼쪽 사이드 바에 데이터베이스 정보가 비어있는 것을 볼 수 있다. 화면 상단에는 사이퍼(cypher) 언어를 실행할 수 있는 입력란이 있다. 이후로 살펴보는 사이퍼 쿼리는 화면 상단 입력란에서 실행한다.
+로그인에 성공하면 다음과 같은 왼쪽 사이드 바는 데이터베이스 정보다. 현재는 비어있는 상태다. 화면 상단에는 사이퍼(cypher) 언어를 실행할 수 있는 입력란이 있다. 이후로 살펴보는 사이퍼 쿼리는 화면 상단 입력란에서 실행한다.
 
 <div align="center">
   <img src="/images/posts/2025/import-tutle-file-into-neo4j-browser-02.png" width="100%" class="image__border">
@@ -180,7 +181,7 @@ RDF 데이터를 임포트하기 전에 먼저 제약 조건을 생성한다. �
   - 예를 들어, http://example.org/apple이라는 URI는 전 세계에서 유일한 '사과'라는 개념을 나타내야 한다.
 - 임포트 성능 향상 (Performance)
   - 제약 조건은 내부적으로 **인덱스(Index)**를 생성한다.
-  - 수천, 수만 개의 RDF 트리플(Triple)을 임포트할 때, 인덱스가 없다면 Neo4j는 중복 여부를 확인하기 위해 매번 전체 데이터를 풀 스캔(full scan)한다.
+  - 수천, 수만 개의 RDF 트리플(Triple)을 임포트할 때, 인덱스가 없다면 neo4j는 중복 여부를 확인하기 위해 매번 전체 데이터를 풀 스캔(full scan)한다.
   - 인덱스가 있으면 검색 속도가 비약적으로 빨라져 임포트 속도가 크게 향상된다.
 
 ```
@@ -195,20 +196,20 @@ CREATE CONSTRAINT n10s_unique_uri FOR (r:Resource) REQUIRE r.uri IS UNIQUE
 
 <br />
 
-다음으로 `GraphConfig`를 생성한다. 이는 RDF 데이터가 neo4j에 저장되는 방식을 정의한다. 기본 설정 값을 통해 어떤 동작을 하는지 예시를 살펴보자. handleVocabUris 값은 'SHORTEN'으로 설정된다.
+다음으로 `GraphConfig`를 생성한다. 이는 RDF 데이터가 neo4j에 저장되는 방식을 정의한다. 설정에 따라 어떤 동작을 하는지 예시를 살펴보자. handleVocabUris 값은 `SHORTEN`으로 설정된다.
 
 - 긴 URI를 짧은 접두어(Prefix)로 줄여서 저장한다. neo4j의 속성(property) 이름이나 레이블(label)에 http://... 같은 긴 문자열이 들어가면 쿼리 작성이 불편하고 가독성이 떨어지기 때문이다.
-- 예를 들어 RDF의 `http://xmlns.com/foaf/0.1/Person` URI 데이터를 `foaf__Person`으로 표현한다.
+- 예를 들어, RDF의 **http://xmlns.com/foaf/0.1/Person** URI 데이터를 **foaf__Person**으로 표현한다.
 
-handleRDFTypes 값은 'LABELS'으로 설정된다.
+handleRDFTypes 값은 `LABELS`으로 설정된다.
 
 - RDF의 rdf:type 속성을 neo4j의 라벨로 변환한다. neo4j에서는 노드의 종류를 구분할 때 레이블을 사용하는 것이 정석이다. 그래프 모델링의 자연스러운 매핑 방식이다.
-- 예를 들어 `<http://example.org/me> <rdf:type> <http://example.org/Person>`라는 트리플을 `:Person { uri: "http://example.org/me" }`라는 노드로 변경한다.
+- 예를 들어, **<http://example.org/me> <rdf:type> <http://example.org/Person>**라는 트리플을 **:Person { uri: "http://example.org/me" }** 라는 노드로 변경한다.
 
-handleMultival 값은 'OVERWRITE'으로 설정된다.
+handleMultival 값은 `OVERWRITE`으로 설정된다.
 
 - 하나의 속성에 여러 값이 들어올 경우, 마지막 값으로 덮어쓴다. neo4j의 속성은 기본적으로 단일 값을 가진다. 모든 속성을 배열(Array)로 만들면 데이터 관리가 복잡해지기 때문에, 기본값은 덮어쓰기로 설정되어 있다. 만약 배열로 받고 싶다면 ARRAY 옵션을 써야 한다.
-- 예를 들어, RDF에 `A hasName "Kim", A hasName "K."` 두 개의 트리플이 존재하는 경우 A 노드의 name 속성은 마지막에 들어온 "K."가 된다. 배열로 저장되지 않는다.
+- 예를 들어, RDF에 **A hasName "Kim", A hasName "K."** 두 개의 트리플이 존재하는 경우 A 노드의 name 속성은 마지막에 들어온 **"K."**가 된다. 배열로 저장되지 않는다.
 
 다양한 설정 값들이 존재하므로 자세한 내용은 [이 링크](https://neo4j.com/labs/neosemantics/4.0/reference/#_graph_config_params_global_settings)를 참고하길 바란다. 아래 사이퍼를 통해 기본 설정으로 초기화한다.
 

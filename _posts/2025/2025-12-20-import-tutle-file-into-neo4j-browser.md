@@ -199,17 +199,17 @@ CREATE CONSTRAINT n10s_unique_uri FOR (r:Resource) REQUIRE r.uri IS UNIQUE
 다음으로 `GraphConfig`를 생성한다. 이는 RDF 데이터가 neo4j에 저장되는 방식을 정의한다. 설정에 따라 어떤 동작을 하는지 예시를 살펴보자. handleVocabUris 값은 `SHORTEN`으로 설정된다.
 
 - 긴 URI를 짧은 접두어(Prefix)로 줄여서 저장한다. neo4j의 속성(property) 이름이나 레이블(label)에 http://... 같은 긴 문자열이 들어가면 쿼리 작성이 불편하고 가독성이 떨어지기 때문이다.
-- 예를 들어, RDF의 **http://xmlns.com/foaf/0.1/Person** URI 데이터를 **foaf__Person**으로 표현한다.
+- 예를 들어, RDF의 `http://xmlns.com/foaf/0.1/Person` URI 데이터를 `foaf__Person`으로 표현한다.
 
 handleRDFTypes 값은 `LABELS`으로 설정된다.
 
 - RDF의 rdf:type 속성을 neo4j의 라벨로 변환한다. neo4j에서는 노드의 종류를 구분할 때 레이블을 사용하는 것이 정석이다. 그래프 모델링의 자연스러운 매핑 방식이다.
-- 예를 들어, **<http://example.org/me> <rdf:type> <http://example.org/Person>**라는 트리플을 **:Person { uri: "http://example.org/me" }** 라는 노드로 변경한다.
+- 예를 들어, `<http://example.org/me> <rdf:type> <http://example.org/Person>`라는 트리플을 `:Person { uri: "http://example.org/me" }` 라는 노드로 변경한다.
 
 handleMultival 값은 `OVERWRITE`으로 설정된다.
 
 - 하나의 속성에 여러 값이 들어올 경우, 마지막 값으로 덮어쓴다. neo4j의 속성은 기본적으로 단일 값을 가진다. 모든 속성을 배열(Array)로 만들면 데이터 관리가 복잡해지기 때문에, 기본값은 덮어쓰기로 설정되어 있다. 만약 배열로 받고 싶다면 ARRAY 옵션을 써야 한다.
-- 예를 들어, RDF에 **A hasName "Kim", A hasName "K."** 두 개의 트리플이 존재하는 경우 A 노드의 name 속성은 마지막에 들어온 **"K."**가 된다. 배열로 저장되지 않는다.
+- 예를 들어, RDF에 `A hasName "Kim", A hasName "K."` 두 개의 트리플이 존재하는 경우 A 노드의 name 속성은 마지막에 들어온 `"K."`가 된다. 배열로 저장되지 않는다.
 
 다양한 설정 값들이 존재하므로 자세한 내용은 [이 링크](https://neo4j.com/labs/neosemantics/4.0/reference/#_graph_config_params_global_settings)를 참고하길 바란다. 아래 사이퍼를 통해 기본 설정으로 초기화한다.
 

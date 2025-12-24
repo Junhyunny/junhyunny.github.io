@@ -5,36 +5,36 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-08-20T12:00:00
+last_modified_at: 2025-12-24T12:00:00
 ---
 
 <br/>
 
-👉 이어서 읽기를 추천합니다.
+#### RECOMMEND POSTS BEFORE THIS
+
 - [테이블 페이징(paging) 처리 구현 (feat. Spring Boot, Vue.js)][spring-boot-vue-js-paging-table-link]
 
 ## 0. 들어가면서
 
-JPA를 사용하면서 정말 편해졌다고 느낀 이유 중 한가지가 페이징(paging) 처리 방법입니다. 
-간단한 예제 코드를 통해 사용 방법에 대해 알아보겠습니다. 
-예제 코드를 만나보기 전에 페이징 처리에 사용되는 인터페이스와 클래스를 살펴보겠습니다. 
+JPA를 사용하면서 편해졌다고 느끼는 부분은 페이징(paging) 처리 방법이다. 간단한 예제 코드를 통해 사용 방법에 대해 알아보자. 
 
 ## 1. Pageable 인터페이스
-예제 코드에서 확인할 수 있겠지만, `Pageable` 인터페이스 구현체를 JpaRepository 메소드에 파라미터로 넘겨주면 자동으로 페이징 처리가 됩니다. 
-개발자가 `Pageable` 인터페이스를 직접 조작하는 일은 별로 없겠지만 어떤 기능을 제공하는지는 확인해보겠습니다. 
 
-`Pageable` 인터페이스에 대한 기능을 간단하게 요약하면 다음과 같습니다.
-- JPA 가 페이징 처리를 위해 필요한 기능들을 명세하고 있습니다.
-- getPageNumber 메소드 - 현재 페이지 번호를 반환
-- getPageSize 메소드 - 한 페이지에서 보여줄 항목들의 개수를 반환
-- getOffset 메소드 - 페이지 크기에 따라 취할 오프셋을 반환
-- next 메소드 - 다음 페이지를 조회할 때 사용하는 `Pageable` 인터페이스를 반환
-- first 메소드 - 첫번째 페이지를 조회할 때 사용하는 `Pageable` 인터페이스를 반환
-- previousOrFirst 메소드 
-    - 이전 페이지를 조회할 때 사용하는 `Pageable` 인터페이스를 반환
-    - 가장 첫 페이지인 경우에는 첫 페이지를 위한 `Pageable` 인터페이스를 반환
+`Pageable` 인터페이스 구현체를 JpaRepository 메소드에 파라미터로 넘겨주면 자동으로 페이징 처리가 된다. Pageable 인터페이스에는 JPA가 페이징 처리를 위해 필요한 기능들이 명세되어 있다. 주요 메소드들을 살펴보자.
 
-### 1.1. Pageable 인터페이스 구조
+- getPageNumber 메소드 
+  - 현재 페이지 번호를 반환
+- getPageSize 메소드
+  - 한 페이지에서 보여줄 항목들의 개수를 반환
+- getOffset 메소드
+  - 페이지 크기에 따라 취할 오프셋을 반환
+- next 메소드
+  - 다음 페이지를 조회할 때 사용하는 Pageable 인스턴스를 반환
+- first 메소드
+  - 첫번째 페이지를 조회할 때 사용하는 Pageable 인스턴스를 반환
+- previousOrFirst 메소드
+  - 이전 페이지를 조회할 때 사용하는 Pageable 인스턴스를 반환
+  - 가장 첫 페이지인 경우에는 첫 페이지를 위한 Pageable 인스턴스를 반환
 
 ```java
 public interface Pageable {
@@ -56,45 +56,46 @@ public interface Pageable {
 ```
 
 ## 2. PageRequest 클래스
-위에서도 언급했듯이 페이징 처리를 할 수 있도록 Pageable 인터페이스를 구현한 객체를 JpaRepository에게 전달해야 합니다. 
-Spring 프레임워크에서는 Pageable 인터페이스 구현체를 쉽게 생성할 수 있도록 `PageRequest` 클래스를 제공합니다. 
-간단한 예제 코드를 통해 직관적으로 이해해보겠습니다.  
 
-### 2.1. PageRequest 클래스 of 메소드
-- of 메소드에 들어간 파라미터를 기준으로 이해하기 쉽게 문장으로 풀어 설명하였습니다.
-    - Sort.by(Direction.DESC, "testValue") - "testValue 필드 값으로 정렬한 항목(row)들을"
-    - 100 - "100개씩 하나의 페이지로 만들었을 때"
-    - 0 - "0번째 페이지를"
-    - "조회할 수 있는 Pageable 구현체를 만들어줘"
+페이징 처리를 할 수 있도록 Pageable 인스턴스를 JpaRepository 인스턴스에게 전달해야 한다. 스프링 프레임워크에서는 Pageable 인스턴스를 쉽게 생성할 수 있도록 `PageRequest` 클래스를 제공한다. PageRequest 클래스의 of 메소드를 살펴보자. of 메소드에 들어간 파라미터를 기준으로 설명했다.
+
+- `Sort.by(Direction.DESC, "testValue")` - "testValue 필드 값으로 정렬한 항목(row)들을"
+- `100` - "100개씩 하나의 페이지로 만들었을 때"
+- `0` - "0번째 페이지를 조회하기 위한 Pageable 인스턴스를 만들어"
     
 ```java
-    Pageable pageable = PageRequest.of(0, 100, Sort.by(Direction.DESC, "testValue"));
+Pageable pageable = PageRequest.of(0, 100, Sort.by(Direction.DESC, "testValue"));
 ```
 
 ## 3. Page<T> 클래스
-페이징 처리가 되어 반환되는 결과는 `Page<T>` 클래스에 담겨 반환됩니다. 
-`Page<T>` 클래스는 다음과 같은 정보를 지니고 있습니다. 
-- getPageable 메소드 - 페이징 처리에서 사용한 Pageable 인터페이스 구현체 정보
-- getContent 메소드 - 해당 페이지에 해당되는 항목(row) 리스트
-- getTotalElements 메소드 - 조회 조건에 일치하는 총 항목 수
-- getTotalPages 메소드 - 총 페이지 개수
 
-PageRequest 클래스 of 메소드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있습니다. 
-JapRepository에서 기본적으로 제공하는 findAll 메소드를 이용하였습니다. 
+페이징 처리가 되어 반환되는 결과는 `Page<T>` 클래스에 담겨 반환된다. `Page<T>` 클래스는 다음과 같은 정보를 지니고 있다.
+
+- getPageable 메소드
+  - 페이징 처리에서 사용한 Pageable 인터페이스 구현체 정보
+- getContent 메소드
+  - 해당 페이지에 해당되는 항목(row) 리스트
+- getTotalElements 메소드
+  - 조회 조건에 일치하는 총 항목 수
+- getTotalPages 메소드
+  - 총 페이지 개수
+
+PageRequest 클래스 of 메소드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있다. JapRepository에서 기본적으로 제공하는 findAll 메소드를 이용하였다. 
 
 ```java
-    Pageable pageable = PageRequest.of(0, 10, Sort.by(Direction.DESC, "testValue"));
-    Page<TestEntity> testEntities = testRepository.findAll(pageable);
+Pageable pageable = PageRequest.of(0, 10, Sort.by(Direction.DESC, "testValue"));
+Page<TestEntity> testEntities = testRepository.findAll(pageable);
 ```
 
 ## 4. 테스트 코드
-간단한 테스트 코드를 통해 JPA 페이징 처리 방법을 알아보겠습니다. 
-세 가지 방법으로 구현하였습니다. 
+
+간단한 테스트 코드를 통해 JPA 페이징 처리 방법을 알아보자. 세 가지 방법으로 구현했다.
+
 - JpaRepository 메소드 이름 규칙을 활용한 findBy- 메소드 사용
 - @Query 애너테이션 with JPQL
 - @Query 애너테이션 with Native Query
 
-### 4.1. TestEntity 클래스
+TestEntity 클래스는 다음과 같이 정의한다.
 
 ```java
 @Getter
@@ -130,10 +131,10 @@ class TestEntity {
 }
 ```
 
-### 4.2. beforeEach 메소드
-- 각 테스트마다 데이터를 초기화합니다.
-- 모든 데이터를 삭제하고 250개의 데이터를 추가합니다.
-- TestEntity 객체의 testValue 필드 값으로 랜덤한 문자열을 지정합니다.
+beforeEach 메소드를 통해 테스마다 각 테스트마다 데이터를 초기화한다.
+
+- 모든 데이터를 삭제하고 250개의 데이터를 추가한다.
+- TestEntity 객체의 testValue 필드 값으로 랜덤한 문자열을 지정한다.
 
 ```java
     @BeforeEach
@@ -145,11 +146,12 @@ class TestEntity {
     }
 ```
 
-### 4.3. findBy- 메소드 테스트
-- testValue 필드 값을 내림차순(desc)으로 정렬합니다.
-- 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회합니다.
-- testValue 필드 값이 'A'로 시작되는 데이터를 조회합니다.
-- 문자열의 대소문자를 구분하지 않습니다. (case not sensitive)
+먼저 findBy- 메소드로 페이징 처리를 해보자.
+
+- testValue 필드 값을 내림차순(desc)으로 정렬한다.
+- 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회한다.
+- testValue 필드 값이 'A'로 시작되는 데이터를 조회한다.
+- 문자열의 대소문자를 구분하지 않는다. (case not sensitive)
 
 ```java
 @Log4j2
@@ -182,9 +184,10 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 }
 ```
 
-##### findBy- 메소드 테스트 결과
-- 조회 시 사용된 쿼리 로그를 보면 `order by testentity0_.test_value desc limit ?` 조건이 추가되었습니다.
-- 페이징 처리를 위한 count 쿼리가 추가 수행되었습니다.
+실행 결과를 로그로 확인해보자.
+
+- 조회 시 사용된 쿼리 로그를 보면 `order by testentity0_.test_value desc limit ?` 조건이 추가되었다.
+- 페이징 처리를 위한 count 쿼리가 추가 수행되었다.
 
 ```
 Hibernate: select testentity0_.id as id1_0_, testentity0_.created_at as created_2_0_, testentity0_.test_value as test_val3_0_ from tb_table testentity0_ where testentity0_.test_value like ? escape ? order by testentity0_.test_value desc limit ?
@@ -214,11 +217,12 @@ Hibernate: select testentity0_.id as id1_0_, testentity0_.created_at as created_
 2021-08-20 11:15:57.298  INFO 10968 --- [           main] blog.in.action.paging.JpaPagingTest      : id: 5474, testValue: a020c2e1-ca7b-4259-a7b6-a094d37e5315-123, createdAt: 2021-08-20T11:15:56
 ```
 
-### 4.4. @Query + JPQL 테스트
-- testValue 필드 값을 내림차순(desc)으로 정렬합니다.
-- 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회합니다.
-- testValue 필드 값이 'A'로 시작되는 데이터를 조회합니다.
-- 문자열의 대소문자를 구분하지 않습니다. (case not sensitive)
+다음은 @Query 애너테이션과 JPQL 쿼리를 통해 페이징 처리를 해보자.
+
+- testValue 필드 값을 내림차순(desc)으로 정렬한다.
+- 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회한다.
+- testValue 필드 값이 'A'로 시작되는 데이터를 조회한다.
+- 문자열의 대소문자를 구분하지 않는다. (case not sensitive)
 
 ```java
 @Log4j2
@@ -252,9 +256,10 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 }
 ```
 
-##### @Query + JPQL 테스트 결과
-- 조회 시 사용된 쿼리 로그를 보면 `order by testentity0_.test_value desc limit ?` 조건이 추가되었습니다.
-- 페이징 처리를 위한 count 쿼리가 추가 수행되었습니다.
+이전과 마찬가지로 로그를 통해 테스트 실행 결과를 확인해보자.
+
+- 조회 시 사용된 쿼리 로그를 보면 `order by testentity0_.test_value desc limit ?` 조건이 추가되었다.
+- 페이징 처리를 위한 count 쿼리가 추가 수행되었다.
 
 ```
 Hibernate: select testentity0_.id as id1_0_, testentity0_.created_at as created_2_0_, testentity0_.test_value as test_val3_0_ from tb_table testentity0_ where testentity0_.test_value like ? order by testentity0_.test_value desc limit ?
@@ -291,12 +296,13 @@ Hibernate: select count(testentity0_.id) as col_0_0_ from tb_table testentity0_ 
 2021-08-20 11:27:05.862  INFO 19416 --- [           main] blog.in.action.paging.JpaPagingTest      : id: 6129, testValue: a1c1e5cc-dbf0-4360-8b14-b172576352d5-28, createdAt: 2021-08-20T11:27:04
 ```
 
-### 4.5. @Query + Native Query 테스트
-- TEST_VALUE 컬럼 값을 내림차순(desc)으로 정렬합니다.
-- 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회합니다.
-- TEST_VALUE 컬럼 값이 'A'로 시작되는 데이터를 조회합니다.
-- 문자열의 대소문자를 구분하지 않습니다. (case not sensitive)
-- Native Query를 사용하기 때문에 Sort.by 메소드에 "testValue" 값을 전달하면 에러가 발생합니다.  
+마지막으로 @Query 애너테이션과 네이티브 쿼리를 통해 페이징 처리를 수행한다.
+
+- TEST_VALUE 컬럼 값을 내림차순(desc)으로 정렬한다.
+- 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회한다.
+- TEST_VALUE 컬럼 값이 'A'로 시작되는 데이터를 조회한다.
+- 문자열의 대소문자를 구분하지 않는다. (case not sensitive)
+- Native Query를 사용하기 때문에 Sort.by 메소드에 "testValue" 값을 전달하면 에러가 발생한다.  
 
 ```java
 @Log4j2
@@ -330,10 +336,11 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 }
 ```
 
-##### @Query + Native Query 테스트 결과
-- 조회 시 사용된 쿼리 로그를 보면 `order by t.TEST_VALUE desc limit ?` 조건이 추가되었습니다.
-- 페이징 처리를 위한 count 쿼리가 추가 수행되었습니다.
-- 조건에 일치하는 항목(row) 수가 7개이므로 두번째 페이지 요청에 대해서는 데이터가 조회되지 않습니다.
+마찬가지로 로그를 통해 실행 결과를 확인한다.
+
+- 조회 시 사용된 쿼리 로그를 보면 `order by t.TEST_VALUE desc limit ?` 조건이 추가되었다.
+- 페이징 처리를 위한 count 쿼리가 추가 수행되었다.
+- 조건에 일치하는 항목(row) 수가 7개이므로 두번째 페이지 요청에 대해서는 데이터가 조회되지 않는다.
 
 ```
 Hibernate: SELECT * FROM TB_TABLE t WHERE TEST_VALUE LIKE ? order by t.TEST_VALUE desc limit ?
@@ -356,21 +363,9 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 2021-08-20 11:30:15.503  INFO 7932 --- [           main] blog.in.action.paging.JpaPagingTest      : 조건 일치 총 항목 수: 7
 ```
 
-##### Sort.by 메소드에 "testValue" 값 사용 시 에러 발생 로그
-- testValue 컬럼을 찾을 수 없다는 에러가 발생합니다.
-
-```
-2021-08-20 11:28:52.948  WARN 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 1054, SQLState: 42S22
-2021-08-20 11:28:52.948 ERROR 9236 --- [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Unknown column 't.testValue' in 'order clause'
-```
-
 ## CLOSING
-오늘 주제와는 맞지 않아서 MyBatis 페이징 처리에 대해 언급하진 않았습니다. 
-다음 기회에 MyBatis에서 사용하는 페이징 처리 예제 코드를 정리하면서 JPA 페이징 처리 방법과 비교해보겠습니다. 
 
-조회 조건으로 대문자 "A"를 주었지만 소문자 "a"로 시작하는 값들이 조회되는 것이 이상합니다. 
-관련된 내용을 찾아보니 MySQL 데이터베이스는 VARCHAR 타입 사용시 대소문자를 구분하지 않는다고 합니다. 
-대소문자 구분을 위해선 `BINARY` 키워드를 추가해야한다고 하니 참조하시길 바랍니다. 
+조회 조건으로 대문자 "A"를 주었지만 소문자 "a"로 시작하는 값들이 조회되는 것이 이상하다. 관련된 내용을 찾아보니 MySQL 데이터베이스는 VARCHAR 타입의 대소문자를 구분하지 않는다고 한다. 대소문자 구분을 위해선 `BINARY` 키워드를 추가해야 한다고 하니 참조하길 바란다. 
 
 > [Controlling Case Sensitivity in String Comparisons][case-insensitive-ref-link]<br/>
 > String comparisons in MySQL are not case sensitive by default:<br/>
@@ -378,12 +373,13 @@ Hibernate: SELECT COUNT(*) FROM TB_TABLE t WHERE t.TEST_VALUE LIKE ?
 > To make a string comparison case sensitive that normally would not be, cast (convert) one of the strings to binary form by using the BINARY keyword. 
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-18-jpa-paging>
 
 #### REFERENCE
+
 - <https://www.baeldung.com/spring-jpa-like-queries>
 - <https://www.oreilly.com/library/view/mysql-cookbook/0596001452/ch04s10.html>
 
 [case-insensitive-ref-link]: https://www.oreilly.com/library/view/mysql-cookbook/0596001452/ch04s10.html
-
 [spring-boot-vue-js-paging-table-link]: https://junhyunny.github.io/spring-boot/vue.js/spring-boot-vue-js-paging-table/

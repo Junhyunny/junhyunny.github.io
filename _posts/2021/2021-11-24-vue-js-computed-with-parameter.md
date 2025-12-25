@@ -72,9 +72,7 @@ export default {
 </script>
 ```
 
-브라우저에서 위 코드를 실행하면 에러가 발생한다.
-
-- `computedMessage`는 함수가 아니라는 에러 메시지를 확인할 수 있다.
+위 코드를 브라우저에서 실행하면 `computedMessage`는 함수가 아니라는 에러 메시지를 확인할 수 있다.
 
 <div align="left">
   <img src="/images/posts/2021/vue-js-computed-with-parameter-01.png" width="50%" class="image__border">

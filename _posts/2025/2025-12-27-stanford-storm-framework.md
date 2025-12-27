@@ -18,13 +18,13 @@ last_modified_at: 2025-12-27T23:55:00
 
 ## 0. 들어가면서
 
-예전에 스탠포드 STORM(Synthesis of Topic Outlines through Retrieval and Multi-perspective Question Asking)을 사용해 논문을 작성하고 싶다는 요구사항이 있었다. 기존에 보유하고 있는 논문 데이터들을 바탕으로 논문을 작성하고 싶다는 내용이 있었다. 이번 글에선 벡터 데이터베이스를 구성하고 STORM에서 제공하는 RAG(Retrieval-Augmented Generation) API를 확장해서 데이터 조회 후 논문을 작성할 때 활용하는 내용에 대해 정리했다.
+예전에 스탠포드 STORM(Synthesis of Topic Outlines through Retrieval and Multi-perspective Question Asking)을 사용해 논문을 작성하고 싶다는 요구사항이 있었다. 기존에 보유하고 있는 논문 데이터들을 활용하고 싶다는 내용이었다. 이번 글에선 벡터 데이터베이스를 구성하고 STORM에서 제공하는 RAG(Retrieval-Augmented Generation) API를 확장해서 데이터 조회 후 논문을 작성할 때 활용하는 내용에 대해 정리했다.
 
 ## 1. What is Stanford STORM and Co-STORM?
 
 스탠포드 STORM은 인터넷 검색을 기반으로 위키피디아 같은 문서를 처음부터 작성해주는 LLM(대규모 언어 모델) 시스템이다. Co-STORM은 사용자가 LLM 시스템과 협업할 수 있는 기능을 추가하여, 사용자의 의도에 더 부합하고 선호하는 정보를 탐색하며 지식을 큐레이션할 수 있도록 발전된 기능을 제공한다. 이 시스템은 발행 가능한 수준의 완성된 문서를 바로 만들어내지는 못한다.
 
-아래 설명은 [STORM 깃허브 README](https://github.com/stanford-oval/storm)에 적힌 내용을 번역한 것이다. LLM에게 직접 프롬프트를 전달하는 것만으로는 잘 동작하지 않는다. 깊이와 넓이가 있는 질문을 만들기 위해 STORM은 다음과 같은 전략을 취한다.
+아래 설명은 [STORM 깃허브](https://github.com/stanford-oval/storm)에 적힌 내용을 번역한 것이다. LLM에게 직접 프롬프트를 전달하는 것만으로는 잘 동작하지 않는다. 깊이와 넓이가 있는 질문을 만들기 위해 STORM은 다음과 같은 전략을 취한다.
 
 - 관점 가이드 질문 제기(Perspective-Guided Question Asking): STORM은 입력된 주제에 대해 유사한 주제의 기존 문서들을 조사하여 다양한 관점을 발견하고, 이를 활용해 질문 제기 과정을 제어한다.
 - 시뮬레이션 대화(Simulated Conversation): STORM은 인터넷 소스에 근거하여 위키피디아 작성자와 주제 전문가 사이의 대화를 시뮬레이션한다. 이를 통해 언어 모델이 주제에 대한 이해를 업데이트하고 후속 질문을 던질 수 있도록 한다.
@@ -109,31 +109,31 @@ fake = Faker('en_US')
 
 
 class Article:
-	def __init__(self, id: int, title: str, content: str, url: str):
-		self.id = id
-		self.title = title
-		self.content = content
-		self.url = url
+  def __init__(self, id: int, title: str, content: str, url: str):
+    self.id = id
+    self.title = title
+    self.content = content
+    self.url = url
 
 
 def fake_articles(num_records=1000) -> List[Article]:
-	data: List[Article] = []
-	for i in range(1, num_records + 1):
-		doc_id = i
-		title = fake.sentence(nb_words=random.randint(5, 12)).replace('.', '')
+  data: List[Article] = []
+  for i in range(1, num_records + 1):
+    doc_id = i
+    title = fake.sentence(nb_words=random.randint(5, 12)).replace('.', '')
 
-		content = ""
-		while len(content) < 1000:
-			paragraphs = fake.paragraphs(nb=random.randint(5, 10))
-			new_text = "\n\n".join(paragraphs)
-			content += new_text + "\n\n"
+    content = ""
+    while len(content) < 1000:
+      paragraphs = fake.paragraphs(nb=random.randint(5, 10))
+      new_text = "\n\n".join(paragraphs)
+      content += new_text + "\n\n"
 
-		doi_prefix = "10." + str(random.randint(1000, 9999))
-		doi_suffix = fake.uuid4().split('-')[0]
-		url = f"https://doi.org/{doi_prefix}/{doi_suffix}"
+    doi_prefix = "10." + str(random.randint(1000, 9999))
+    doi_suffix = fake.uuid4().split('-')[0]
+    url = f"https://doi.org/{doi_prefix}/{doi_suffix}"
 
-		data.append(Article(doc_id, title.title(), content.strip(), url))
-	return data
+    data.append(Article(doc_id, title.title(), content.strip(), url))
+  return data
 ```
 
 다음 페이크 데이터를 기반으로 FAISS에 인덱싱 작업을 수행한다. 인덱싱 작업을 수행할 때 원본 데이터를 찾기 위한 피클(pickle)과 SQLite 데이터베이스를 함께 만든다. 임베딩 모델은 오픈 소스인 `sentence-transformers`를 사용한다.
@@ -158,56 +158,56 @@ from faker_articles import fake_articles, Article
 
 
 def indexing():
-	articles = fake_articles()
-	create_faiss_index(list([article.content for article in articles]))
-	create_pickle(list([article.id for article in articles]))
-	create_sqlite_database(articles)
+  articles = fake_articles()
+  create_faiss_index(list([article.content for article in articles]))
+  create_pickle(list([article.id for article in articles]))
+  create_sqlite_database(articles)
 
 
 def create_faiss_index(
-	texts: List[str],
-	model_name: str = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
-	index_path: str = "db/faiss_index.bin",
+  texts: List[str],
+  model_name: str = "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+  index_path: str = "db/faiss_index.bin",
 ):
-	os.makedirs(os.path.dirname("db/"), exist_ok=True)
-	model = SentenceTransformer(model_name)
-	embeddings = model.encode(texts, normalize_embeddings=True, show_progress_bar=True)
-	embeddings = embeddings.astype("float32")
-	dimension = embeddings.shape[1]
-	index = faiss.IndexFlatL2(dimension)
-	index.add(embeddings)
-	faiss.write_index(index, index_path)
+  os.makedirs(os.path.dirname("db/"), exist_ok=True)
+  model = SentenceTransformer(model_name)
+  embeddings = model.encode(texts, normalize_embeddings=True, show_progress_bar=True)
+  embeddings = embeddings.astype("float32")
+  dimension = embeddings.shape[1]
+  index = faiss.IndexFlatL2(dimension)
+  index.add(embeddings)
+  faiss.write_index(index, index_path)
 
 
 def create_sqlite_database(
-	articles: List[Article], sqlite_path: str = "db/articles.db"
+  articles: List[Article], sqlite_path: str = "db/articles.db"
 ):
-	os.makedirs(os.path.dirname("db/"), exist_ok=True)
-	conn = sqlite3.connect(sqlite_path)
-	cursor = conn.cursor()
-	cursor.execute(
-		"create table if not exists articles (id integer primary key autoincrement, article_id integer, title TEXT, content TEXT, url TEXT)"
-	)
-	rows = []
-	for article in articles:
-		rows.append((article.id, article.title, article.content, article.url))
-	cursor.executemany(
-		"insert into articles (article_id, title, content, url) values (?, ?, ?, ?)", rows
-	)
-	conn.commit()
-	conn.close()
+  os.makedirs(os.path.dirname("db/"), exist_ok=True)
+  conn = sqlite3.connect(sqlite_path)
+  cursor = conn.cursor()
+  cursor.execute(
+    "create table if not exists articles (id integer primary key autoincrement, article_id integer, title TEXT, content TEXT, url TEXT)"
+  )
+  rows = []
+  for article in articles:
+    rows.append((article.id, article.title, article.content, article.url))
+  cursor.executemany(
+    "insert into articles (article_id, title, content, url) values (?, ?, ?, ?)", rows
+  )
+  conn.commit()
+  conn.close()
 
 
 def create_pickle(
-	article_id_list: List[int], pickle_path: str = "db/article_id_list.pkl"
+  article_id_list: List[int], pickle_path: str = "db/article_id_list.pkl"
 ):
-	os.makedirs(os.path.dirname("db/"), exist_ok=True)
-	with open(pickle_path, "wb") as f:
-		pickle.dump(article_id_list, f)
+  os.makedirs(os.path.dirname("db/"), exist_ok=True)
+  with open(pickle_path, "wb") as f:
+    pickle.dump(article_id_list, f)
 
 
 if __name__ == "__main__":
-	indexing()
+  indexing()
 ```
 
 위 인덱싱 스크립트를 실행한다.
@@ -369,7 +369,13 @@ class CustomRetrieveModule(dspy.Retrieve):
 
 ## 4. Write an article
 
-커스텀 모듈까지 생성하였으면 이를 STORM의 논문 생성 프로세스에서 사용해보자. STORM 프레임워크를 실행하는 예제 코드는 [공식 사이트](https://github.com/stanford-oval/storm)를 참조했다. 공식 예제는 OpenAI의 chat-gpt 모델을 사용했지만, 여기선 AWS 베드록(bedrock)을 사용했다.
+커스텀 모듈까지 생성하였으면 이를 STORM의 논문 생성 프로세스에서 사용해보자. STORM 프레임워크를 실행하는 예제 코드는 [공식 사이트](https://github.com/stanford-oval/storm)를 참조했다. 공식 예제는 OpenAI의 chat-gpt 모델을 사용했지만, 여기선 AWS 베드록(bedrock)을 사용했다. boto3 패키지 설치가 필요하다.
+
+```
+$ pip install boto3
+```
+
+STORM을 실행하는 코드는 다음과 같다.
 
 - create_retriever 함수
   - 커스텀 검색 모듈을 생성 후 반환한다.

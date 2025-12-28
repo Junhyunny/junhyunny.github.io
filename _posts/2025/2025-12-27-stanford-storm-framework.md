@@ -37,6 +37,7 @@ STORM은 글을 쓰기 전에 철저한 사전 조사를 수행하도록 설계�
 <div align="center">
   <img src="/images/posts/2025/stanford-storm-framework-01.png" class="image__border image__padding">
 </div>
+<center>https://github.com/stanford-oval/storm</center>
 
 <br/>
 
@@ -51,6 +52,7 @@ STORM은 아티클 작성을 AI가 혼자 다 수행하지만, Co-STORM은 인�
 <div align="center">
   <img src="/images/posts/2025/stanford-storm-framework-02.png" width="100%" class="image__border image__padding">
 </div>
+<center>https://github.com/stanford-oval/storm</center>
 
 ## 2. STORM APIs
 

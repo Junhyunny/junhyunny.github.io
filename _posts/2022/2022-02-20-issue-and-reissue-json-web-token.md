@@ -4,79 +4,66 @@ search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2022-02-20T23:55:00
+last_modified_at: 2025-12-29T00:00:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+#### RECOMMEND POSTS BEFORE THIS
+
 - [JWT(Json Web Token)][json-web-token-link]
 - [JWT AuthenticationFilter 만들기][make-authentication-filter-link]
 - [JWT AuthenticationProvider 만들기][make-authentication-provider-link]
 
-## 0. 들어가면서
+## 1. Spring Security Authentication Process with JWT
 
-이번 포스트에선 토큰 발행과 재발행과 관련된 로직을 구현하였습니다. 
-구현 설명에 앞서 `Spring Security` 프레임워크의 기본적인 인증 프로스세스와 제가 의도하고 있는 인증 프로세스를 다시 정리해보겠습니다. 
+이번 글은 토큰 발행과 재발행과 관련된 로직을 다룬다. 구현 코드를 설명하기에 앞서 스프링 시큐리티(spring security) 프레임워크의 기본적인 인증 프로세스와 의도하고 있는 인증 프로세스를 다시 정리해보자
 
-##### Basic Spring Security Authentication Process
-- `AuthenticationFilter`는 `AuthenticationManager`에게 인증 절차를 위임합니다.
-- `AuthenticationManager`는 `AuthenticationProvider`에게 인증 절차를 위임합니다.
-- 기본적으로 사용되는 `Provider`는 `DaoAuthenticationProvider` 입니다.
-- `DaoAuthenticationProvider`는 데이터베이스에서 사용자 정보를 조회하기 위해 `UserDetailsService`를 사용합니다.
-- 이 단계에서 프레임워크를 이용하는 개발자가 구현한 클래스가 사용됩니다.
-    - `UserDetailsService` 인터페이스를 구현한 `CustomUserDetailsService`
-    - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회합니다.
-- 위 단계를 거쳐 인증이 이뤄지기 때문에 `Spring Security` 프레임워크 예제는 `UserDetailsService` 인터페이스를 구현한 내용들이 많습니다. 
+1. AuthenticationFilter 인스턴스는 AuthenticationManager 인스턴스에게 인증 절차를 위임한다.
+2. AuthenticationManager 인스턴스는 AuthenticationProvider 인스턴스에게 인증 절차를 위임한다.
+3. 기본적으로 사용되는 인증 제공자는 DaoAuthenticationProvider 객체다.
+4. DaoAuthenticationProvider 객체는 데이터베이스에서 사용자 정보를 조회하기 위해 UserDetailsService 인스턴스를 사용한다.
+5. 이 단계에서 프레임워크를 이용하는 개발자가 구현한 객체가 사용된다.
+  - UserDetailsService 인터페이스를 구현한 CustomUserDetailsService 클래스가 사용된다.
+  - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회한다.
+5. 위 단계를 거쳐 인증이 이뤄지기 때문에 스프링 시큐리티 프레임워크 예제는 UserDetailsService 인스턴스 인터페이스를 구현한 내용들이 많다.
 
-<p align="center">
-    <img src="/images/issue-and-reissue-json-web-token-1.JPG" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2022/issue-and-reissue-json-web-token-01.png" width="100%" class="image__border">
+</div>
 
-##### JWT(Json Web Token) Authentication Process in before posts
-- `AuthenticationFilter`에서 HTTP 요청 헤더로부터 `JWT`을 추출합니다.
-- `AuthenticationFilter`는 `AuthenticationManager`에게 인증 절차를 위임하며, `JWT`을 전달합니다.
-- `AuthenticationManager`는 `AuthenticationProvider`에게 인증 절차를 위임하며, `JWT`을 전달합니다.
-- [JWT AuthenticationProvider 만들기][make-authentication-provider-link] 포스트에서 구현한 `JwtAuthenticationProvider`가 사용됩니다.
-    - 토큰의 유효성만 확인하기 때문에 `UserDetailsService` 인터페이스를 사용할 필요가 없습니다.
+<br/>
 
-<p align="center">
-    <img src="/images/issue-and-reissue-json-web-token-2.JPG" width="100%" class="image__border">
-</p>
+위 인증 프로세스에 JWT(json web token)을 사용한 인증 프로세스를 얹었다. 관련된 내용은 [이전 글][make-authentication-provider-link]에서 다뤘으니 짧게 살펴보자.
 
-##### Issue and reissue JWT at this post
-- 토큰 발행과 재발행 시 API 경로는 `/auth/**`에 포함되므로 인증 실패 시에도 발급 프로세스는 계속 진행됩니다.
-    - `SecurityConfig` 설정에서 `/auth/**` 경로에 대해 모두 인증 없이도 접근할 수 있도록 허가했습니다. 
-- 토큰 발행 - `AuthService` 클래스
-    - ID와 비밀번호를 통해 정상적인 사용자임을 확인합니다.
-    - 정상적인 사용자인 경우 액세스 토큰(access token)과 리프레시 토큰(refresh token)을 발급합니다.
-    - `Spring Security` 프레임워크의 전형적인 사용자 인증 과정을 `AuthService` 클래스에서 구현하였습니다.
-- 토큰 재발행 - `AuthService` 클래스
-    - 전달받은 리프레시 토큰의 유효성을 검사합니다.
-    - 유효한 리프레시 토큰인 경우 추출한 클레임(claim) 정보에서 사용자 ID를 추출합니다.
-    - 추출한 사용자 ID를 이용해 사용자 정보를 조회하고 새로운 액세스 토큰과 리프레시 토큰을 발급합니다.
+1. AuthenticationFilter 인스턴스에서 HTTP 요청 헤더로부터 JWT을 추출한다.
+2. AuthenticationFilter 인스턴스는 AuthenticationManager 인스턴스에게 인증 절차를 위임하며, JWT을 전달한다.
+3. AuthenticationManager 인스턴스는 AuthenticationProvider 인스턴스에게 인증 절차를 위임하며, JWT을 전달한다.
+4. 인증 매니저 객체는 [이전 글][make-authentication-provider-link]에서 구현한 JwtAuthenticationProvider 객체를 사용한다. 토큰의 유효성만 확인하기 때문에 UserDetailsService 인스턴스를 사용할 필요가 없다.
 
-<p align="center">
-    <img src="/images/issue-and-reissue-json-web-token-3.JPG" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2022/issue-and-reissue-json-web-token-02.png" width="100%" class="image__border">
+</div>
 
-## 1. 패키지 구성 및 설정 변경 내용
+<br/>
 
-### 1.1. 패키지 구성
-- 다음 클래스에 변경이 있습니다.
-    - `AuthController` 클래스 - 로그인 API 변경 및 토큰 재발행 API 추가
-- 다음과 같은 클래스들이 추가되었습니다.
-    - `JsonWebTokenDto` 클래스 - 액세스 토큰, 리프레시 토큰, 인증 타입을 가진 클래스
-    - `UserDto` 클래스 - 사용자 이름, 비밀번호를 전달받는 클래스
-    - `User` 클래스 - JPA 엔티티 클래스
-    - `JsonWebTokenIssuer` 클래스 - 토큰 발행, 리프레시 토큰 파싱 기능 제공
-    - `AuthService` 클래스 - 로그인 처리, 토큰 재발행 기능 제공
-    - `AuthRepository` 클래스 - 사용자 조회 기능 제공
-- 다음과 같은 테스트 코드들이 추가되었습니다.
-    - `AuthControllerTest` 클래스 - 로그인과 토큰 재발행 시 발생할 수 있는 시나리오에 대한 테스트 코드 추가
-    - `JsonWebTokenIssuerTest` 클래스 - 토큰 발행과 리프레시 토큰 파싱(parsing) 테스트 코드 추가 
-    - `AuthServiceTest` 클래스 - 로그인, 토큰 재발행 프로세스 테스트 코드 추가
-    - `AuthRepositoryTest` 클래스 - `data.sql`을 통한 데이터 삽입 여부 확인 테스트 코드 추가
+이제 위 프로세스에서 JWT를 발급, 재발급 하는 기능을 추가한다. AuthController 객체를 통해 엔드포인트를 만들고 아래와 같이 구현을 확장해간다.SecurityConfig 객체를 통한 인가 설정에서 `/auth/**` 경로에 대해 모두 인증 없이도 접근할 수 있도록 허가했다. 토큰 발행과 재발행 시 API 경로는 `/auth/**`에 포함되므로 인증된 사용자가 아니더라도 발급 프로세스는 계속 진행된다. 주요 비즈니스 로직은 AuthService 객체가 책임진다.
+
+- 토큰 발행
+  - ID와 비밀번호를 통해 정상적인 사용자임을 확인한다.
+  - 정상적인 사용자인 경우 액세스 토큰(access token)과 리프레시 토큰(refresh token)을 발급한다.
+- 토큰 재발행
+  - 전달받은 리프레시 토큰의 유효성을 검사한다.
+  - 유효한 리프레시 토큰인 경우 추출한 클레임(claim) 정보에서 사용자 ID를 추출한다.
+  - 추출한 사용자 ID를 이용해 사용자 정보를 조회하고 새로운 액세스 토큰과 리프레시 토큰을 발급한다.
+
+<div align="center">
+  <img src="/images/posts/2022/issue-and-reissue-json-web-token-03.png" width="100%" class="image__border">
+</div>
+
+## 2. Package structure and change configuration
+
+[이전 글][make-authentication-provider-link]에 이어서 구현 코드를 작성한다. 패키지 구조는 다음과 같다.
 
 ```
 .
@@ -144,12 +131,9 @@ last_modified_at: 2022-02-20T23:55:00
                             │   └── AuthServiceTest.java
                             └── utils
                                 └── JsonWebTokenIssuerTest.java
-
-34 directories, 30 files
 ```
 
-### 1.2. application.yml
-- 테스트를 위한 설정이 포함되었으로 `spring.profiles` 속성을 통해 설정을 구분합니다.
+테스트를 위한 설정이 포함되었으므로 `spring.profiles` 속성을 통해 설정을 구분한다.
 
 ```yml
 spring:
@@ -157,13 +141,13 @@ spring:
     active: test
 ```
 
-### 1.3. application-test.yml
-- 테스트 관련 설정을 추가하였습니다. 
-- `spring.sql.init` 속성을 통해 서비스가 시작하는 시점에 미리 테이블 스키마와 데이터를 추가합니다.
-    - `schema-locations` - 데이터베이스 스키마 SQL 설정
-    - `data-locations` - 데이터베이스 초기 데이터 INSERT SQL 설정
-- `jwt.refresh-secret` 속성을 통해 리프레시 토큰(refresh token)을 만들 때 사용할 키를 추가하였습니다.
-- 기타 JPA, H2 설정을 추가합니다.
+application-test YAML 파일에 테스트를 위한 설정을 추가한다.
+
+- `spring.sql.init` 속성을 통해 서비스가 시작하는 시점에 미리 테이블 스키마와 데이터를 추가한다.
+  - `schema-locations` - 데이터베이스 스키마 SQL 설정
+  - `data-locations` - 데이터베이스 초기 데이터 INSERT SQL 설정
+- `jwt.refresh-secret` 속성을 통해 리프레시 토큰(refresh token)을 만들 때 사용할 키를 추가하였다.
+- JPA와 H2 설정을 추가한다.
 
 ```yml
 spring:
@@ -192,8 +176,7 @@ jwt:
   refresh-secret: refreshSecretKey
 ```
 
-### 1.4. schema.sql
-- 사용자 테이블을 만듭니다.
+마이그레이션(migration)을 위한 사용자 테이블을 만드는 SQL 스크립트를 작성한다.
 
 ```sql
 drop table if exists tb_user CASCADE;
@@ -207,28 +190,44 @@ create table tb_user
 );
 ```
 
-### 1.5. data.sql
-- 비밀번호는 문자열 "123"을 미리 인코딩한 값입니다.
+사용자 정보를 준비하기 위한 SQL 스크립트도 추가한다.
+
+- 비밀번호는 문자열 "123"을 미리 인코딩한 값이다.
 
 ```sql
 insert into tb_user (user_name, password, authority)
 values ('Junhyunny', '{bcrypt}$2a$10$LDwzHdFsoeeo0CjXoYdmwelLK4CjdiMtGvPHDYPQ039JEx19L7C8e', 'ROLE_ADMIN');
 ```
 
-## 2. 기능 구현하기
+## 3. Implementation codes
 
-단순하게 필드만 있는 DTO(Data Transfer Object)와 엔티티(Entity) 클래스에 대한 내용은 다루지 않았습니다. 
-`AuthRepository` 인터페이스도 `JpaRepository` 인터페이스를 상속하였을 뿐 추가한 기능이 없으므로 설명하지 않았습니다.
+다음과 같은 클래스들이 추가되었다.
 
-### 2.1. JsonWebTokenIssuer 클래스
-- 토큰 발행과 리프래시 토큰에서 클레임 정보를 추출하는 기능을 제공합니다.
-    - `createAccessToken` 메소드 - 액세스 토큰을 발급합니다.
-    - `createRefreshToken` 메소드 - 리프레시 토큰을 발급합니다.
-    - `parseClaimsFromRefreshToken` 메소드 - 리프레시 토큰에서 클레임 정보를 추출합니다.
-- 액세스 토큰과 리프레시 토큰을 만들 때 사용하는 비밀 키는 다른 값을 사용합니다.
-- 액세스 토큰과 리프레시 토큰 만료 시간은 설정을 통해 주입 받을 수 있지만 기본 값을 지정해주었습니다.
-    - 액세스 토큰 만료 시간 10분
-    - 리프레시 토큰 만료 시간 30분
+- JsonWebTokenDto 클래스
+  - 액세스 토큰, 리프레시 토큰, 인증 타입을 가진 클래스
+- UserDto 클래스
+  - 사용자 이름, 비밀번호를 전달받는 클래스
+- User 클래스
+  - JPA 엔티티 클래스
+- JsonWebTokenIssuer 클래스
+  - 토큰 발행, 리프레시 토큰 파싱 기능 제공
+- AuthService 클래스
+  - 로그인 처리, 토큰 재발행 기능 제공
+- AuthRepository 클래스
+  - 사용자 조회 기능 제공
+
+단순하게 필드만 있는 DTO(Data Transfer Object)와 엔티티(Entity) 클래스에 대한 내용은 다루지 않았다. AuthRepository 인터페이스도 JpaRepository 인터페이스를 상속하였을 뿐 추가한 기능이 없으므로 설명하지 않았다.
+
+### 3.1. JsonWebTokenIssuer class
+
+JsonWebTokenIssuer 클래스는 토큰 발행과 리프래시 토큰에서 클레임 정보를 추출하는 기능을 제공한다. 액세스 토큰과 리프레시 토큰을 만들 때 사용하는 비밀 키는 다른 값을 사용한다. 액세스 토큰과 리프레시 토큰 만료 시간은 설정을 통해 주입 받을 수 있지만 기본 값을 지정해주었다. 액세스 토큰 만료 시간은 10분, 리프레시 토큰 만료 시간 30분이다.
+
+- `createAccessToken` 메소드
+  - 액세스 토큰을 발급한다.
+- `createRefreshToken` 메소드
+  - 리프레시 토큰을 발급한다.
+- `parseClaimsFromRefreshToken` 메소드
+  - 리프레시 토큰에서 클레임 정보를 추출한다.
 
 ```java
 package action.in.blog.security.utils;
@@ -302,18 +301,19 @@ public class JsonWebTokenIssuer {
 }
 ```
 
-### 2.2. AuthService 클래스
-- `login` 메소드
-    - ID를 이용해 존재하는 사용자인지 조회하고, 없는 경우 `UsernameNotFoundException`을 던집니다.
-    - 인코딩 된 비밀번호와 전달받은 비밀번호를 비교하고, 다른 경우 `BadCredentialsException`을 던집니다.
-    - 사용자 인증에 성공하면 `JsonWebTokenDto` 객체를 만들어 전달합니다.
-- `reissue` 메소드
-    - 파라미터로 전달 받은 토큰이 `Bearer` 인증 타입이 아닌 경우 `JwtInvalidException`을 던집니다.
-    - `jwtIssuer` 객체를 통해 리프레시 토큰으로부터 클레임 정보를 추출하며, 없는 경우 `JwtInvalidException`을 던집니다.
-    - ID를 이용해 존재하는 사용자인지 조회하고, 없는 경우 `UsernameNotFoundException`을 던집니다.
-    - 위 단계를 모두 통과하면 `JsonWebTokenDto` 객체를 만들어 전달합니다.
-- `AuthService` 클래스가 다양한 예외(exception)들을 던지지만, 모두 `AuthenticationException`을 상속 받은 예외들입니다.
-- `AuthenticationException`를 던지면, 필터 체인에서 403(forbidden) 처리를 수행해줍니다. (테스트 코드에서 확인 가능)
+### 3.2. AuthService class
+
+AuthService 객체는 로그인, 토큰 발급, 재발급과 관련된 책임을 맡는다. AuthService 객체는 다양한 예외(exception)들을 던지지만, 모두 AuthenticationException 예외을 상속 받았다. AuthenticationException 예외를 던지면, 필터 체인에서 403(forbidden) 처리를 수행한다. 이는 테스트 코드에서 확인 가능하다.
+
+- login 메소드
+  - 아이디를 이용해 존재하는 사용자인지 조회하고, 없는 경우 UsernameNotFoundException 예외을 던진다.
+  - 인코딩 된 비밀번호와 전달받은 비밀번호를 비교하고, 다른 경우 BadCredentialsException 예외을 던진다.
+  - 사용자 인증에 성공하면 JsonWebTokenDto 객체를 만들어 전달한다.
+- reissue 메소드
+  - 파라미터로 전달 받은 토큰이 Bearer 인증 타입이 아닌 경우 JwtInvalidException 예외을 던진다.
+  - jwtIssuer 객체를 통해 리프레시 토큰으로부터 클레임 정보를 추출하며, 없는 경우 JwtInvalidException 예외을 던진다.
+  - 아이디를 이용해 존재하는 사용자인지 조회하고, 없는 경우 UsernameNotFoundException 예외을 던진다.
+  - 위 단계를 모두 통과하면 JsonWebTokenDto 객체를 만들어 전달한다.
 
 ```java
 package action.in.blog.security.service;
@@ -398,12 +398,15 @@ public class AuthService {
 }
 ```
 
-### 2.3. AuthController 클래스
-- `login` 메소드
-    - 사용자 로그인 정보를 `UserDto` 클래스를 통해 전달받습니다.
-- `reissue` 메소드
-    - 요청 헤더 정보에서 토큰 정보를 꺼냅니다.
-    - 헤더에 토큰이 없는 경우 요청은 400(bad request) 처리됩니다.
+### 3.3. AuthController class
+
+AuthController 클래스에는 인증에 관련된 기능을 외부로 노출하는 엔드포인트가 정의되어 있다.
+
+- login 메소드
+  - 사용자 로그인 정보를 UserDto 객체를 통해 전달받는다.
+- reissue 메소드
+  - 요청 헤더 정보에서 토큰 정보를 꺼낸다.
+  - 헤더에 토큰이 없는 경우 요청은 400(bad request) 처리된다.
 
 ```java
 package action.in.blog.security.controller;
@@ -442,11 +445,9 @@ public class AuthController {
 }
 ```
 
-## 3. 테스트하기
+## 4. Test codes
 
-주요 기능들에 대한 테스트 코드만 확인해보겠습니다.
-
-### 3.1. JsonWebTokenIssuerTest 클래스
+주요 기능들에 대한 테스트를 살펴보자. 먼저 JsonWebTokenIssuer 객체에 대한 테스트는 다음과 같다.
 
 ```java
 package action.in.blog.security.utils;
@@ -554,7 +555,7 @@ public class JsonWebTokenIssuerTest {
 }
 ```
 
-### 3.2. AuthServiceTest 클래스
+다음은 AuthService 객체에 대한 테스트다.
 
 ```java
 package action.in.blog.security.service;
@@ -703,8 +704,7 @@ public class AuthServiceTest {
 }
 ```
 
-### 3.3. AuthControllerTest 클래스
-- 추가된 테스트 메소드들만 확인해보겠습니다.
+다음은 AuthController 객체에 대한 테스트 코드다. 추가된 테스트 메소드들만 확인해본다.
 
 ```java
 package action.in.blog.security.controller;
@@ -898,18 +898,7 @@ public class AuthControllerTest {
 
 ## CLOSING
 
-사실 `Spring Security` 프레임워크 인증을 자세히 들여다 본 계기는 리액트를 이용한 대시보드 클론 코딩을 하는 과정에서 백엔드 서비스 기능도 함께 붙혀 보자는 생각이 들었기 때문입니다. 
-포스트로 정리려고 고민하다 보니 대시보드 클론 코딩은 이미 잊혀진 것 같습니다. 
-공부한 CSS 내용들을 잊어버리기 전에 빨리 다시 시작해야겠습니다. 
-
-테스트 코드만으로 기능을 검증했기 때문에 프론트 서비스와 연결하면 실제 예상하지 못한 케이스들을 발견할 수 있을 것 같습니다. 
-그 과정에서 좋은 인사이트를 얻는다면 정리해서 포스트로 올릴 예정입니다. 
-`Spring Security` 프레임워크를 파헤치다보니 몇 가지 디자인 패턴들이 눈에 띄었는데 관련된 내용도 정리해야겠습니다. 
-
-##### cURL 테스트
-- `cURL`을 이용한 테스트 결과를 함께 첨부하였습니다.
-- `jq` 커맨드 라인을 파이프라인에 추가하여 결과를 보기 좋게 변경하였습니다.
-- 로그인 시 토큰 발행
+cURL 명령어를 통해 JWT 발급과 재발급이 정상적으로 동작하는지 테스트해보자. 로그인 시 토큰 발행은 다음과 같다.
 
 ```
 % curl -X POST -H 'Content-Type: x-www-form-urlencoded' "http://localhost:8080/auth/login?userName=Junhyunny&password=123" | jq .
@@ -923,37 +912,7 @@ public class AuthControllerTest {
 }
 ```
 
-- 액세스 토큰을 이용 시 토큰 재발행 실패
-    - 403 응답 에러 코드
-
-```
-% curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM1MTAyfQ.J0bLVWblxErXUNElduA6_KZ4_iUZkJoP1_XQ32KL65M' -v "http://localhost:8080/auth/reissue" | jq .
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying ::1:8080...
-* Connected to localhost (::1) port 8080 (#0)
-> POST /auth/reissue HTTP/1.1
-> Host: localhost:8080
-> User-Agent: curl/7.77.0
-> Accept: */*
-> Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM1MTAyfQ.J0bLVWblxErXUNElduA6_KZ4_iUZkJoP1_XQ32KL65M
-> 
-* Mark bundle as not supporting multiuse
-< HTTP/1.1 403 
-< X-Content-Type-Options: nosniff
-< X-XSS-Protection: 1; mode=block
-< Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-< Pragma: no-cache
-< Expires: 0
-< X-Frame-Options: SAMEORIGIN
-< Content-Length: 0
-< Date: Sun, 20 Feb 2022 05:29:51 GMT
-< 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-* Connection #0 to host localhost left intact
-```
-
-- 리프레시 토큰을 이용 시 토큰 재발행 성공
+리프레시 토큰을 이용하면 JWT을 재발급 받을 수 있다.
 
 ```
  % curl -X POST -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKdW5oeXVubnkiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlhdCI6MTY0NTMzNDUwMiwiZXhwIjoxNjQ1MzM2MzAyfQ.DwMVC7qRdRjAEmdZcJqcc1gckxwB-DyfRBwDniYF9mE' "http://localhost:8080/auth/reissue" | jq .
@@ -968,9 +927,11 @@ public class AuthControllerTest {
 ```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-02-15-make-authentication-filter>
 
 #### REFERENCE
+
 - <https://bcp0109.tistory.com/301>
 - <https://silvernine.me/wp/?p=1135>
 - <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>

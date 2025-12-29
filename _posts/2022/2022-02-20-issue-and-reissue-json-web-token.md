@@ -26,7 +26,6 @@ last_modified_at: 2025-12-29T00:00:00
 5. 이 단계에서 프레임워크를 이용하는 개발자가 구현한 객체가 사용된다.
   - UserDetailsService 인터페이스를 구현한 CustomUserDetailsService 클래스가 사용된다.
   - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회한다.
-5. 위 단계를 거쳐 인증이 이뤄지기 때문에 스프링 시큐리티 프레임워크 예제는 UserDetailsService 인스턴스 인터페이스를 구현한 내용들이 많다.
 
 <div align="center">
   <img src="/images/posts/2022/issue-and-reissue-json-web-token-01.png" width="100%" class="image__border">

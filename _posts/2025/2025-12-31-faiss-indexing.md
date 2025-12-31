@@ -260,7 +260,7 @@ content: Camera news industry remain on second. Matter decision play top force d
 
 #### TEST CODE REPOSITORY
 
-#### RECOMMEND NEXT POSTS
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2025-12-31-faiss-indexing>
 
 #### REFERENCE
 

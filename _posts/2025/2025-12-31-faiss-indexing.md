@@ -108,7 +108,7 @@ RAG에서 필요한 데이터는 조회하는 쿼리와 의미론적으로 유�
 - "라이온 킹"이라는 검색어 벡터로 조회하면 가장 유사한 의미를 갖는 "사자" 벡터와의 거리와 "사자" 벡터의 `인덱스 3`이 반환된다.
 
 <div align="center">
-  <img src="/images/posts/2025/faiss-indexing-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/faiss-indexing-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -201,7 +201,7 @@ FAISS를 사용할 때 인덱싱 시점의 벡터의 위치를 얻어 매번 원
 - "라이온 킹"이라는 검색어 벡터로 조회하면 가장 유사한 의미를 갖는 "사자" 벡터와의 거리와 "사자" 벡터의 `아이디 9939`이 반환된다.
 
 <div align="center">
-  <img src="/images/posts/2025/faiss-indexing-01.png" width="80%" class="image__border">
+  <img src="/images/posts/2025/faiss-indexing-02.png" width="100%" class="image__border">
 </div>
 
 <br/>

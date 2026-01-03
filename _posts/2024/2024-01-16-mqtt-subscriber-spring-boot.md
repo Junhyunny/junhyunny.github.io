@@ -287,7 +287,7 @@ GenericMessage [payload=Hello World, headers={mqtt_receivedRetained=false, mqtt_
 - 동일한 서버 컨테이너 인스턴스가 여러 개일 때 리더를 선출할 수 있는지
 - 리더 선출이 안 된다면 로드 밸런싱이 가능한지
 - 메시지 유실이나 처리 중 예외에 대해 어떻게 대처할 것인지
-- 토픽 이름을 정하는 베스트 플랙티스는 무엇인지
+- 토픽 이름을 정하는 베스트 프랙티스는 무엇인지
 
 #### TEST CODE REPOSITORY
 

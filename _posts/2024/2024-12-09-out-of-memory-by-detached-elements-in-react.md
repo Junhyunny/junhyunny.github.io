@@ -42,7 +42,7 @@ last_modified_at: 2024-12-09T23:55:00
   - 해당 객체가 해제될 경우 가비지 컬렉션으로 회수될 총 메모리 크기를 나타낸다. 
   - 해당 객체와 그 객체가 직접 또는 간접적으로 참조하는 모든 객체의 크기를 합산한다.
 
-인터랙션을 수행한 후 두번쨰 스냅샷을 만든다. Comparison 옵션을 사용하면 이전 스냅샷과 어떤 차이가 있는지 쉽게 확인할 수 있다. 
+인터랙션을 수행한 후 두번째 스냅샷을 만든다. Comparison 옵션을 사용하면 이전 스냅샷과 어떤 차이가 있는지 쉽게 확인할 수 있다. 
 
 <div align="center">
   <img src="/images/posts/2024/out-of-memory-by-detached-elements-in-react-02.png" width="100%" class="image__border">

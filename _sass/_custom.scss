@@ -64,3 +64,17 @@
         border-radius: 5px;
     }
 }
+
+.grid {
+    width: 100%;
+    display: grid;
+    gap: 10px;
+}
+
+.column-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.column-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}

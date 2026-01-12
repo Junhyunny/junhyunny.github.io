@@ -1,5 +1,5 @@
 ---
-title: "Sourcetree-Github 조직 저장소를 찾을 수 없는 문제 해결하기"
+title: "Sourcetree-Github 조직 저장소 연결 문제 해결하기"
 search: false
 category:
   - information

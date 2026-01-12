@@ -1,57 +1,52 @@
 ---
-title: "How to Test Intersection Observer"
+title: "IntersectionObserver 단위 테스트하기"
 search: false
 category:
   - javascript
   - jest
   - testing-library
   - test-driven-development
-last_modified_at: 2022-04-14T23:55:00
+last_modified_at: 2026-01-12T00:00:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+#### RECOMMEND POSTS BEFORE THIS
+
 - [Asynchronous Task In JavaScript][how-to-work-javascript-async-link]
 
 ## 0. 들어가면서
 
-무한 스크롤(infinite scroll) 기능을 테스트하기 위한 코드를 작성하면서 만난 에러와 해결하는 과정을 정리하였습니다. 
+무한 스크롤(infinite scroll) 기능을 테스트하기 위한 코드를 작성하면서 만난 에러와 해결하는 과정을 정리했다. 
 
 ## 1. Intersection Observer API
 
-`Intersection Observer`는 타겟 엘리먼트(target element)가 관찰하고 있는 화면에 보여지는지 확인하는 Web API 기능입니다. 
-이번 포스트는 `Intersection Observer`를 테스트하는 방법을 정리하였기 때문에 간단한 설명과 용어만 정리하고 글을 이어나가겠습니다. 
+`인터셉터 옵저버(Intersection Observer)`는 타겟 엘리먼트(target element)가 관찰하고 있는 화면에 보여지는지 확인하는 Web API 기능이다. 이 글은 인터셉터 옵저버 API를 테스트하는 방법에 대해 정리했기 때문에 간단한 설명만 한다. 아래 용어들에 이해가 필요하다.
 
-아래 용어들과 기능에 이해가 필요합니다. 
-- 뷰 포트(View Port)는 관찰하고 있는 영역입니다. 
-- 타겟 엘리먼트(Target Element)는 관심 대상입니다.
-- `Intersection Observer`는 타겟 엘리먼트와 뷰 포트 사이의 교차(cross)를 관찰합니다.
-- `Web API` 기능이므로 메인 스레드에 영향을 주지 않고 비동기적인 콜백 함수 호출로 관찰이 가능합니다.
+- 뷰 포트(View Port)는 관찰하고 있는 영역이다.
+- 타겟 엘리먼트(Target Element)는 관심 대상이다.
 
-<p align="center">
-    <img src="/images/how-to-test-intersection-observer-1.JPG" width="75%" class="image__border">
-</p>
+인터셉터 옵저버는 다음과 같이 동작한다.
+
+- 인터셉터 옵저버는 타겟 엘리먼트와 뷰 포트 사이의 교차(cross)를 관찰한다.
+- Web API 기능이므로 메인 스레드에 영향을 주지 않고 비동기적인 콜백 함수 호출로 관찰이 가능하다.
+
+<div align="center">
+  <img src="/images/posts/2022/how-to-test-intersection-observer-01.png" width="80%" class="image__border">
+</div>
 <center>https://cross-code.github.io/posts/IntersectionObserver/</center>
 
-## 2. 코드 살펴보기
+## 2. Example codes
 
-이해를 돕기 위해 구현 코드, 테스트 코드 순서로 기능을 살펴보겠습니다. 
-발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리하였습니다.
+구현 코드, 테스트 코드 순서로 기능을 살펴보겠다. 발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리헀다.
 
-### 2.1. 구현 코드
-
-- `componentDidMount` 시점에 다음과 같은 동작을 수행합니다.
-    - 포켓몬 API를 사용한 데이터 조회합니다.
-    - `IntersectionObserver` 객체를 생성하고 뷰 포트를 등록합니다.
-    - `IntersectionObserver` 콜백 함수
-        - 현재 타겟을 관찰 대상에서 제거합니다.
-        - 데이터를 조회합니다.
-- `componentDidUpdate` 시점에 다음과 같은 동작을 수행합니다.
-    - `pokemos` 상태가 변경될 때마다 수행합니다.
-    - 관찰하고 싶은 신규 타겟을 등록합니다.
-- `componentWillUnmount` 시점에 다음과 같은 동작을 수행합니다.
-    - 사용한 `IntersectionObserver`을 정리합니다.
+- `componentDidMount` 시점에 다음과 같은 동작을 수행한다.
+  - 포켓몬 API를 사용한 데이터 조회한다.
+  - 인터셉터 옵저버 객체를 생성하고 뷰 포트를 등록한다. 인터셉터 옵저버 객체의 콜백 함수에서 현재 타겟을 관찰 대상에서 제거하고, 데이터를 조회한다.
+- `componentDidUpdate` 시점에 다음과 같은 동작을 수행한다.
+  - `pokemos` 상태가 변경될 때마다 관찰하고 싶은 신규 타겟을 등록한다.
+- `componentWillUnmount` 시점에 다음과 같은 동작을 수행한다.
+  - 사용한 인터셉터 옵저버 객체를 정리한다.
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react'
@@ -122,18 +117,18 @@ export default () => {
 }
 ```
 
-### 2.2. 테스트 코드
+구현 코드를 살펴봤으니 테스트 코드를 작성해보자.
 
-- `axis` 모듈의 `get` 함수를 스터빙(stubbing)합니다.
-    - 1회 호출 시 이름이 1에서 10까지 숫자를 가지는 객체 리스트 반환합니다.
-    - 2회 호출 시 이름이 11, 12인 객체 리스트를 반환합니다.
-- 화면을 렌더링합니다.
-- `fireEvent`를 이용해 뷰 포트 영역을 스크롤합니다.
-- 다음과 같은 내용들을 확인합니다.
-    - 화면에 11이 보이는지 확인합니다.
-    - `axios` 스파이가 2회 호출되었는지 확인합니다.
-    - `axios` 스파이가 1번째 호출되었을 때 파라미터를 확인합니다.
-    - `axios` 스파이가 2번째 호출되었을 때 파라미터를 확인합니다.
+- `axis` 모듈의 `get` 함수를 스터빙(stubbing)한다.
+  - 1회 호출 시 이름이 1에서 10까지 숫자를 가지는 객체 리스트 반환한다.
+  - 2회 호출 시 이름이 11, 12인 객체 리스트를 반환한다.
+- 화면을 렌더링한다.
+- `fireEvent`를 이용해 뷰 포트 영역을 스크롤한다.
+- 다음과 같은 내용들을 확인한다.
+  - 화면에 11이 보이는지 확인한다.
+  - `axios` 스파이가 2회 호출되었는지 확인한다.
+  - `axios` 스파이가 1번째 호출되었을 때 파라미터를 확인한다.
+  - `axios` 스파이가 2번째 호출되었을 때 파라미터를 확인한다.
 
 ```jsx
 import {fireEvent, render, screen, waitFor} from '@testing-library/react'
@@ -179,11 +174,7 @@ describe('Intersection Observer', () => {
 })
 ```
 
-##### 에러 발생과 원인
-
-- 위의 테스트 코드를 실행시키면 다음과 같은 에러가 발생합니다.
-    - `IntersectionObserver is not defined`
-- `IntersectionObserver`는 `Web API` 기능이므로 `@testing-library/react` 모듈에서 찾을 수 없습니다.
+위의 테스트 코드를 실행시키면 다음과 같은 에러가 발생한다. Web API 기능인 IntersectionObserver 생성자를 jsdom 환경에서 찾을 수 없기 때문에 문제가 발생한다.
 
 ```
 IntersectionObserver is not defined
@@ -195,13 +186,7 @@ ReferenceError: IntersectionObserver is not defined
     ...
 ```
 
-### 2.3. 테스트 코드 보완하기
-
-이 에러를 해결하려면 가짜 `IntersectionObserver` 클래스를 만들어 제공해야합니다. 
-
-##### 예시 코드
-- 스택 오버플로우를 탐색해보니 보통 다음과 같이 가짜 클래스를 만들어 사용하는 것으로 보입니다.
-    - <https://stackoverflow.com/questions/57008341/jest-testing-react-component-with-react-intersection-observer>
+이 에러를 해결하려면 가짜 `IntersectionObserver` 클래스를 만들어 제공한다. [스택 오버플로우](https://stackoverflow.com/questions/57008341/jest-testing-react-component-with-react-intersection-observer)를 탐색해보니 보통 다음과 같이 가짜 클래스를 만들어 사용하는 것으로 보인다.
 
 ```js
 global.IntersectionObserver = class IntersectionObserver {
@@ -221,25 +206,22 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 ```
 
-#### 2.3.1 Mock IntersectionObserver 구현
+목(mock) IntersectionObserver 클래스를 구현한다. 테스트 코드를 위한 구현이므로 최소한의 작업만 수행한다.
 
-- 가짜 `IntersectionObserver` 클래스를 구현합니다.
 - `constructor` 생성자
-    - 콜백 함수와 옵션을 전달받습니다.
-    - `viewPort`를 구현 코드에서 전달한 `root`로 지정합니다.
-    - `viewPort`에 스크롤 이벤트를 추가합니다.
-    - 관찰 중인 타겟이 `viewPort`에 존재하는지 판단합니다.
-    - 콜백 함수를 실행합니다.
+  - 콜백 함수와 옵션을 전달받는다.
+  - `viewPort`를 구현 코드에서 전달한 `root`로 지정한다.
+  - `viewPort`에 스크롤 이벤트를 추가한다.
+  - 관찰 중인 타겟이 `viewPort`에 존재하는지 판단한다.
+  - 콜백 함수를 실행한다.
 - `isInViewPort` 함수
-    - `jsdom`을 사용하는 경우 `getBoundingClientRect` 기능을 지원하지 않아 의미있는 테스트를 구현하진 못하였습니다.
-    - <https://github.com/jsdom/jsdom/issues/1590>
-    - <https://testing-library.com/docs/example-drag/>
+  - `jsdom`은 `getBoundingClientRect` 기능을 지원하지 않으므로 실제 브라우저 환경과 동일한 기능을 구현하지 못 한다. ([출처](https://github.com/jsdom/jsdom/issues/1590))
 - `observe` 함수
-    - 새로운 타겟을 등록합니다.
+  - 새로운 타겟을 등록한다.
 - `unobserve` 함수
-    - 해당 타겟을 제거합니다.
+  - 해당 타겟을 제거한다.
 - `disconnect` 함수
-    - 관심 타겟들을 초기화합니다.
+  - 관심 타겟들을 초기화한다.
 
 ```jsx
 const mockIntersectionObserver = class {
@@ -280,10 +262,7 @@ const mockIntersectionObserver = class {
 }
 ```
 
-#### 2.3.2. 전체 테스트 코드
-
-- 구현한 가짜 `IntersectionObserver` 클래스를 윈도우에 등록합니다.
-    - `window.IntersectionObserver = mockIntersectionObserver`
+위에서 구현한 목 `IntersectionObserver` 클래스를 윈도우에 등록 후 테스트를 실행한다.
 
 ```jsx
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
@@ -360,29 +339,31 @@ describe('Intersection Observer', () => {
 })
 ```
 
-##### 테스트 성공
+위에서 실패했던 단위 테스트는 정상적으로 통과한다.
 
-<p align="left">
-    <img src="/images/how-to-test-intersection-observer-2.JPG" width="45%" class="image__border">
-</p>
+<div align="left">
+  <img src="/images/posts/2022/how-to-test-intersection-observer-02.png" width="45%" class="image__border">
+</div>
 
-##### 구현 화면
+<br />
 
-<p align="center">
-    <img src="/images/how-to-test-intersection-observer-3.gif" width="100%" class="image__border">
-</p>
+구현된 코드가 브라우저에서 정상적으로 동작한다.
+
+<div align="center">
+  <img src="/images/posts/2022/how-to-test-intersection-observer-03.gif" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-사실 `IntersectionObserver`를 리액트에서 쉽게 사용하고 테스트할 수 있는 라이브러리가 있습니다. 
+IntersectionObserver API를 리액트에서 쉽게 사용하고 테스트할 수 있는 라이브러리가 있다. 사용하는 방법과 테스트 코드를 작성하는 포스트는 다음 글의 주제로 작성해 볼 생각이다.
 
 - [react-intersection-observer][react-intersection-observer-link]
 
-사용하는 방법과 테스트 코드를 작성하는 포스트는 다음 포스트 주제로 남기겠습니다.
+Web API 기능이 포함된 비즈니스 로직을 단위 테스트로 검증하는 것은 좋은 방법은 아닌 것 같다. 테스트에 구현이 일부 포함되기 때문에 정확한 검증이 아닐 가능성이 높아진다. 이런 경우 E2E(end-to-end) 테스트를 통해 실제 동작을 테스트하는 것이 신뢰할 수 있는 테스트라는 생각이 들었다.
 
 #### RECOMMEND NEXT POSTS
 
-* [Custom Hook for Intersection Observer][make-custom-hook-for-intersection-observer-link]
+- [Custom Hook for Intersection Observer][make-custom-hook-for-intersection-observer-link]
 
 #### TEST CODE REPOSITORY
 
@@ -398,7 +379,5 @@ describe('Intersection Observer', () => {
 - <https://www.npmjs.com/package/react-intersection-observer>
 
 [how-to-work-javascript-async-link]: https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/
-
 [react-intersection-observer-link]: https://www.npmjs.com/package/react-intersection-observer
-
 [make-custom-hook-for-intersection-observer-link]: https://junhyunny.github.io/typescript/jest/testing-library/test-driven-development/make-custom-hook-for-intersection-observer/

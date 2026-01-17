@@ -24,7 +24,7 @@ last_modified_at: 2026-01-13T23:55:00
 
 여태껏 스프링 애플리케이션에서만 테스트 컨테이너를 사용했었는데, 최근 참여한 프로젝트는 스프링을 사용하지 않았기에 다른 환경에서 테스트 컨테이너를 사용하게 되었다. 이번 글은 타입스크립트 애플리케이션에서 테스트 컨테이너와 [LocalStack](https://www.localstack.cloud/) 컨테이너를 통해 AWS 컴포넌트들과 결합 테스트를 수행하는 방법에 대해 정리했다.  
 
-현재 참여하게 된 팀은 서버리스 아키텍처를 체택하고 있었고, 백엔드 애플리케이션으로 AWS 람다(lambda)를 사용하고 있다. 람다 핸들러에서 DynamoDB와 S3 스토리지를 사용하는 경우 이에 대한 결합 테스트가 필요했다. 내가 팀에 참여하기 전까진 [테스트 더블(test double)][test-double-link]을 통한 단위 테스트가 작성되어 있었지만, 이 경우 단위 테스트는 신뢰도가 굉장히 떨어진다. 테스트 컨테이너를 사용한 결합 테스트로 리팩토링을 수행했다. 
+현재 참여하게 된 팀은 서버리스 아키텍처를 채택하고 있었고, 백엔드 애플리케이션으로 AWS 람다(lambda)를 사용하고 있다. 람다 핸들러에서 DynamoDB와 S3 스토리지를 사용하는 경우 이에 대한 결합 테스트가 필요했다. 내가 팀에 참여하기 전까진 [테스트 더블(test double)][test-double-link]을 통한 단위 테스트가 작성되어 있었지만, 이 경우 단위 테스트는 신뢰도가 굉장히 떨어진다. 테스트 컨테이너를 사용한 결합 테스트로 리팩토링을 수행했다. 
 
 테스트 컨테이너를 사용할 때 어떤 컨테이너 이미지를 사용할지 결정해야 한다. S3 스토리지는 `minio/minio`, DynamoDB는 `dynamodb-local` 컨테이너를 사용할 수 있지만, LocalStack 컨테이너를 사용하면 모두 커버할 수 있어서 이를 사용했다.
 
@@ -141,10 +141,10 @@ $ npm install -D vitest testcontainers @testcontainers/localstack
 위 작업은 모든 테스트 파일마다 정의할 필요가 없다. 모든 테스트 파일에 적용되도록 setup.ts 파일을 만든다. 지금부터 setup.ts 코드 내용을 하나씩 살펴보자. 먼저 테스트가 실행될 때 1회 수행되는 beforeAll, afterAll 사이클에 다음과 같은 코드를 작성한다.
 
 - beforeAll 사이클
-  - LocalStack 컨테이너를 실행한다. 테스트 컨테이너를 기준으로 엔드포인트, 리전 같은 접속 정보 객체를 생성한다.
+  - LocalStack 컨테이너를 실행한다. 테스트 컨테이너를 기준으로 엔드포인트, 리전 같은 접속 정보를 구성한다.
   - 테스트를 위한 DynamoDB, S3 클라이언트를 생성한다. 각 클라이언트 객체는 테스트 코드에서 사용할 수 있도록 모듈 외부로 노출한다.
-  - 각 클라이언트는 구현 코드에서 사용할 수 있도록 위에서 정의한 세터 함수를 통해 각 클라이언트 모듈에 주입한다.
-  - S3 버킷을 생성한다. 버킷을 삭제하기 위해선 버킷을 비워야하기 때문에 매번 생성/삭제가 번거롭다. 한번 생성하고 이를 재사용한다.
+  - 각 클라이언트를 구현 코드에서도 사용할 수 있도록 위에서 정의한 세터 함수를 통해 각 클라이언트 모듈에 주입한다.
+  - S3 버킷을 생성한다. 버킷을 삭제하기 위해선 버킷을 비워야 하기 때문에 매번 생성/삭제가 번거롭다. 한 번 생성하고 이를 재사용한다.
   - 컨테이너를 준비하는 시간이 많이 소요될 수 있으므로 타임아웃 시간을 2분으로 설정한다.
 - afterAll 사이클
   - LocalStack 컨테이너를 종료한다.
@@ -167,38 +167,38 @@ export let testDynamoDBClient: DynamoDBClient
 export let testS3Client: S3Client
 
 beforeAll(async () => {
-	container = await new LocalstackContainer('localstack/localstack:latest').start()
-	const awsConfig = {
-		endpoint   : `http://${container.getHost()}:${container.getMappedPort(4566)}`,
-		credentials: {
-			accessKeyId    : 'test',
-			secretAccessKey: 'test'
-		},
-		region
-	}
-	testDynamoDBClient = new DynamoDBClient(awsConfig)
-	testS3Client = new S3Client({ ...awsConfig, forcePathStyle: true })
-	setS3Client(testS3Client)
-	setDynamoDBClient(testDynamoDBClient)
-	await createBucketIfNotExists()
+  container = await new LocalstackContainer('localstack/localstack:latest').start()
+  const awsConfig = {
+    endpoint   : `http://${container.getHost()}:${container.getMappedPort(4566)}`,
+    credentials: {
+      accessKeyId    : 'test',
+      secretAccessKey: 'test'
+    },
+    region
+  }
+  testDynamoDBClient = new DynamoDBClient(awsConfig)
+  testS3Client = new S3Client({ ...awsConfig, forcePathStyle: true })
+  setS3Client(testS3Client)
+  setDynamoDBClient(testDynamoDBClient)
+  await createBucketIfNotExists()
 }, 120000)
 
 afterAll(async () => {
-	if (container) {
-		await container.stop()
-	}
+  if (container) {
+    await container.stop()
+  }
 })
 
 const createBucketIfNotExists = async () => {
-	try {
-		await testS3Client.send(
-			new CreateBucketCommand({
-				Bucket: bucket
-			}))
-	} catch (e: unknown) {
-		const error = e as Error
-		console.log(error.message)
-	}
+  try {
+    await testS3Client.send(
+      new CreateBucketCommand({
+        Bucket: bucket
+      }))
+  } catch (e: unknown) {
+    const error = e as Error
+    console.log(error.message)
+  }
 }
 
 ...
@@ -224,52 +224,52 @@ import { setClient as setDynamoDBClient } from "./src/common/dynamodb-client"
 ...
 
 beforeEach(async () => {
-	await emptyBucket()
-	await createTable()
+  await emptyBucket()
+  await createTable()
 })
 
 afterEach(async () => {
-	await deleteTable()
+  await deleteTable()
 })
 
 const emptyBucket = async () => {
-	const objects = await testS3Client.send(new ListObjectsV2Command({ Bucket: bucket }))
-	if (!objects.Contents?.length) {
-		return
-	}
-	for (const content of objects.Contents) {
-		await testS3Client.send(
-			new DeleteObjectCommand({
-				Bucket: bucket,
-				Key   : content.Key
-			})
-		)
-	}
+  const objects = await testS3Client.send(new ListObjectsV2Command({ Bucket: bucket }))
+  if (!objects.Contents?.length) {
+    return
+  }
+  for (const content of objects.Contents) {
+    await testS3Client.send(
+      new DeleteObjectCommand({
+        Bucket: bucket,
+        Key   : content.Key
+      })
+    )
+  }
 }
 
 const createTable = async () => {
-	await testDynamoDBClient.send(
-		new CreateTableCommand({
-			TableName           : table,
-			BillingMode         : BillingMode.PAY_PER_REQUEST,
-			AttributeDefinitions: [
-				{ AttributeName: 'pk', AttributeType: 'S' },
-				{ AttributeName: 'sk', AttributeType: 'S' }
-			],
-			KeySchema           : [
-				{ AttributeName: 'pk', KeyType: 'HASH' },
-				{ AttributeName: 'sk', KeyType: 'RANGE' }
-			]
-		})
-	)
+  await testDynamoDBClient.send(
+    new CreateTableCommand({
+      TableName           : table,
+      BillingMode         : BillingMode.PAY_PER_REQUEST,
+      AttributeDefinitions: [
+        { AttributeName: 'pk', AttributeType: 'S' },
+        { AttributeName: 'sk', AttributeType: 'S' }
+      ],
+      KeySchema           : [
+        { AttributeName: 'pk', KeyType: 'HASH' },
+        { AttributeName: 'sk', KeyType: 'RANGE' }
+      ]
+    })
+  )
 }
 
 const deleteTable = async () => {
-	await testDynamoDBClient.send(
-		new DeleteTableCommand({
-			TableName: table
-		})
-	)
+  await testDynamoDBClient.send(
+    new DeleteTableCommand({
+      TableName: table
+    })
+  )
 }
 ```
 
@@ -299,21 +299,21 @@ export default defineConfig({
 })
 ```
 
-## 3. Test and implmenetation codes
+## 3. Test and implementation codes
 
-람다 환경을 가정하고 테스트, 구현 코드를 작성하기 때문에 다음과 같은 의존성이 필요하다.
+람다 환경을 가정한 테스트 및 구현 코드를 작성하기 위해 다음과 같은 의존성이 필요하다.
 
 ```
 $ npm install -D @types/aws-lambda
 ```
 
-테스트 컨테이너를 사용한 테스트가 정상적으로 수행되는지 간단한 테스트 코드와 구현 코드를 통해 확인해본다. 먼저 DynamoDB에 사용자 데이터를 저장하는 핸들러에 대한 테스트 코드를 살펴보자. 다음 두가지 케이스에 대해 테스트한다.
+간단한 테스트 코드와 구현 코드를 통해 테스트 컨테이너를 사용한 테스트가 정상적으로 수행되는지 확인해본다. 먼저 DynamoDB에 사용자 데이터를 저장하는 핸들러에 대한 테스트 코드를 살펴보자. 다음 두 가지 케이스에 대해 테스트한다.
 
 - 200 상태
-  - 정상적으로 데이터가 저장되고 200(ok) 상태 코드를 응답한다.
+  - 정상적으로 데이터가 저장되고 200 상태 코드를 응답한다.
   - DynamoDB에 사용자 정보가 저장되었는지 확인한다.
 - 400 상태
-  - 요청 파라미터에 필요한 정보가 없는 경우 400(bad request) 상태 코드를 응답한다.
+  - 요청 파라미터에 필요한 정보가 없는 경우 400 상태 코드(bad request)를 응답한다.
   - DynamoDB에 저장된 데이터가 없는지 확인한다.
 
 ```ts

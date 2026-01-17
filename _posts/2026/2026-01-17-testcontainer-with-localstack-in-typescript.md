@@ -45,7 +45,7 @@ $ npm install -D typescript @types/node
 테스트 코드에서 테스트 컨테이너를 사용하려면 DynamoDB 클라이언트나 S3 클라이언트의 접속 정보를 테스트 컨테이너로 변경해야 한다. 런타임과 테스트 런타임에 서로 다른 접속 정보를 사용해야 하기 때문에 각 클라이언트를 위한 모듈을 만든다. 
 
 <div align="center">
-  <img src="/images/posts/2026/testcontainer-with-localstack-in-typescript-01.png" width="100%" class="image__border">
+  <img src="/images/posts/2026/testcontainer-with-localstack-in-typescript-01.png" width="80%" class="image__border">
 </div>
 
 <br />

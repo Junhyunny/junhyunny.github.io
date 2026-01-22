@@ -187,6 +187,8 @@ unsafe update result: 1
 atomic update result: 100
 ```
 
+## CLOSING
+
 unsafeUpdate 함수도 await 키워드를 통해 연산이 끝나는 것을 기다리는 경우 정상적으로 아이템이 추가된다. 하지만, 서버는 여러 요청을 동시에 처리하기 때문에 이전 연산이 끝나는 것을 기다리지 않는다는 사실을 기억하자.
 
 #### TEST CODE REPOSITORY

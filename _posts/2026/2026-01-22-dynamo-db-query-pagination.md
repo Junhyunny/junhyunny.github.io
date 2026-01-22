@@ -30,12 +30,12 @@ DynamoDB는 데이터 규모에 상관없이 10ms 미만의 일관된 레이턴�
 
 커서 기반 페이지네이션(cursor-based pagination)은 데이터 집합 내의 특정 항목을 가리키는 고유한 식별자(커서, cursor)를 기준으로 다음 페이지의 데이터를 가져오는 방식이다. 커서 기반 페이지 처리는 특정 페이지로 바로 이동하는 방식보단 첫 페이지부터 한 페이지씩 조회하는 방식에 적합하다. 예를 들어, 무한 스크롤(infinite scroll) 같은 기능에 적합하다.
 
-DynamoDB는 커서 기반 페이지 처리를 위해 아이템 조회 결과에 `LastEvaluatedKey` 항목을 포함시켰다. LastEvaluteKey 존재 여부에 따라 다음 페이지가 존재하는지 아닌지 알 수 있다. 
+DynamoDB는 커서 기반 페이지 처리를 위해 아이템 조회 결과에 `LastEvaluatedKey` 요소를 포함시켰다. LastEvaluteKey 존재 여부에 따라 다음 페이지가 존재하는지 아닌지 알 수 있다. 
 
 - 결과에 LastEvaluteKey 요소를 포함하고 null 이 아닌 경우 이를 기반으로 다음 페이지를 조회할 수 있다.
 - 결과에 LastEvaluteKey 요소가 없는 경우 더 이상 가져올 항목이 없다.
 
-LastEvaluteKey 요소가 존재하는 경우 LastEvaluteKey 요소를 다음 쿼리의 `ExclusiveStartKey` 항목으로 사용하면 해당 지점부터 데이터를 조회할 수 있다. 
+LastEvaluteKey 요소가 존재하는 경우 LastEvaluteKey 요소를 다음 쿼리의 `ExclusiveStartKey` 요소로 사용하면 해당 지점부터 데이터를 조회할 수 있다. 
 
 ## 3. Example codes
 

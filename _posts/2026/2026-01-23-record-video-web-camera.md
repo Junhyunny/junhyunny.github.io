@@ -200,7 +200,7 @@ const VideoRecorder = () => {
 다음과 같이 실행된다.
 
 <div align="center">
-  <img src="/images/posts/2026/record-video-web-camera-01.gif" width="80%" class="image__border">
+  <img src="/images/posts/2026/record-video-web-camera-01.gif" width="100%" class="image__border">
 </div>
 
 ## 3. Photo capture
@@ -267,7 +267,7 @@ const PhotoCapture = () => {
 다음과 같이 실행된다.
 
 <div align="center">
-  <img src="/images/posts/2026/record-video-web-camera-02.gif" width="80%" class="image__border">
+  <img src="/images/posts/2026/record-video-web-camera-02.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

@@ -1,26 +1,24 @@
 ---
-title: "Android Webview 사용 예제"
+title: "안드로이드 웹뷰(Android WebView) 예제"
 search: false
 category:
   - android
-last_modified_at: 2022-03-05T23:55:00
+last_modified_at: 2026-01-23T23:55:00
 ---
 
 <br/>
 
-👉 이어서 읽기를 추천합니다.
+#### RECOMMEND POSTS BEFORE THIS
+
 - [React 서비스 화면과 Android WebView 통신][react-android-webview-communication-link]
 
 ## 0. 들어가면서
 
-네이티브 애플리케이션의 웹 뷰(Webview)를 이용해 새로 개발하는 리액트 서비스를 호출할 예정이 있다고 합니다. 
-웹뷰로 단순히 화면을 보여주면 문제가 없겠지만, 네이티브의 중요 모듈을 리액트 서비스에서 호출할 가능성이 컸습니다. 
-네이티브 애플리케이션은 저희 팀의 일이 아니었지만, 리액트 서비스가 어떻게 네이티브 앱과 통신하는지 이해하고자 간단한 예시 코드를 작성해보았습니다. 
-일단 이번엔 리액트 서비스와 통신할 간단한 웹 뷰 애플리케이션을 만들어보겠습니다.
+네이티브 애플리케이션에서 웹뷰(Webview)를 이용해 새로 개발하는 리액트 서비스를 호출할 생각이다. 웹뷰로 단순히 화면을 보여주면 문제가 없겠지만, 네이티브에서 제공하는 모듈들을 리액트 서비스에서 호출할 가능성이 컸다. 네이티브 애플리케이션은 우리 팀의 일이 아니었지만, 리액트 서비스가 어떻게 네이티브 앱과 통신하는지 이해하고자 간단한 예시 코드를 작성했다. 이번에는 리액트 서비스와 통신할 간단한 웹뷰 애플리케이션을 만들어본다.
 
-## 1. 패키지 구조
-- build, libs, test, androidTest 패키지 제외
-- values, mipmap 으로 시작하는 패키지 제외
+## 1. Packages
+
+안드로이드 애플리케이션은 다음과 같은 패키지 구조를 갖는다.
 
 ```
  % tree -I 'build|libs|test|androidTest|values*|mipmap*' .
@@ -62,14 +60,14 @@ last_modified_at: 2022-03-05T23:55:00
 └── settings.gradle
 ```
 
-## 2. 안드로이드 권한 부여
+## 2. Android user permission
 
-##### AndroidManifest.xml
+안드로이드 애플리케이션이 사용자로부터 필요한 권한을 받을 수 있도록 AndroidManifest XML 파일을 일부 수정한다.
 
-- 애플리케이션에서 인터넷 사용하기 위한 권한을 요청합니다.
-    - `uses-permissio` 태그 `android:name="android.permission.INTERNET"`
-- HTTP 호출 시 안드로이드 OS 9 Pie 버전부터 추가적인 설정이 필요합니다.
-    - `application` 태그 `android:usesCleartextTraffic="true"` 설정
+- uses-permission 태그 - android:name="android.permission.INTERNET"
+  - 애플리케이션에서 인터넷을 사용하기 위한 권한을 요청한다.
+- application 태그 - android:usesCleartextTraffic="true"
+  - HTTP 호출 시 안드로이드 OS 9 파이(Pie) 버전부터 추가적인 설정이 필요하다.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -103,25 +101,24 @@ last_modified_at: 2022-03-05T23:55:00
 </manifest>
 ```
 
-###### Android for Developers - Network security configuration
-- `usesCleartextTraffic` 설정 관련된 내용입니다.
+안드로이드는 HTTP 접근을 허용하지 않는다. HTTPS 방식으로 접근하면 문제되지 않지만, 로컬 서비스는 HTTP 방식을 통해 접근하므로 이를 설정한다. usesCleartextTraffic 설정을 'true'로 지정한다.
 
 > [Opt out of cleartext traffic][cleartext-traffic-link]<br/>
-> Applications intending to connect to destinations using only secure connections 
-> can opt-out of supporting cleartext 
-> (using the unencrypted HTTP protocol instead of HTTPS) to those destinations. 
+> Applications intending to connect to destinations using only secure connections can opt-out of supporting cleartext (using the unencrypted HTTP protocol instead of HTTPS) to those destinations.
 
-## 3. 레아이웃 설정
+## 3. Setting layout
 
-`Android Studio Bumblebee` 버전에서 제공하는 베이직(basic) 프로젝트를 일부 변경하였습니다. 
-- `fragment_second.xml` 파일은 제거하였습니다.
-- `nav_graph.xml` 파일에서 `fragment_second.xml` 화면 전환과 관련된 코드는 삭제하였습니다.
-- `activity_main.xml`, `content_main.xml` 관련된 내용엔 변경이 없습니다. 
+Android Studio Bumblebee 버전에서 제공하는 베이직(basic) 프로젝트를 일부 변경했다.
 
-##### fragment_first.xml
-- `EditText` 태그 - URL을 변경할 수 있는 텍스트 박스 뷰(view)입니다.
-- `WebView` 태그 - 웹뷰입니다.
-- `ProgressBar` 태그 - 로딩 중임을 표여주기 위한 뷰입니다.
+- fragment_second.xml 파일은 제거했다.
+- nav_graph.xml 파일에서 fragment_second.xml 화면 전환과 관련된 코드는 삭제했다.
+- activity_main.xml, content_main.xml 관련 내용에는 변경이 없다.
+
+fragment_first XML 파일을 다음과 같이 수정한다.
+
+- `EditText` 태그는 URL을 변경할 수 있는 텍스트 박스 뷰(view)이다.
+- `WebView` 태그는 웹뷰이다.
+- `ProgressBar` 태그는 로딩 중임을 보여주기 위한 뷰이다.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -159,14 +156,13 @@ last_modified_at: 2022-03-05T23:55:00
 </LinearLayout>
 ```
 
-##### nav_graph.xml
-- 화면 이동 관계를 표현하는 파일입니다.
-- 네비게이션을 이용할 때 가장 먼저 시작하는 프래그먼트(fragment)는 `FirstFragment`입니다.
-    - `app:startDestination="@id/FirstFragment"`
-- `fragment_first` 레이아웃과 `FirstFragment` 클래스를 매칭합니다.
-    - `fragment` 태그 `android:name="com.example.myapplication.FirstFragment"`
-    - `fragment` 태그 `tools:layout="@layout/fragment_first"`
-- 베이직 프로젝트를 만들면 기본적으로 존재하는 `SecondFragment` 관련 내용을 삭제하였습니다. 
+화면 이동 관계를 표현하는 nav_graph XML 파일을 살펴보자. 베이직 프로젝트를 만들면 기본적으로 존재하는 SecondFragment 관련 내용은 삭제했다.
+
+- 네비게이션에서 가장 먼저 시작하되는 프래그먼트(fragment)는 FirstFragment이다. 
+  - navigation 태그 - app:startDestination="@id/FirstFragment"
+- fragment_first 레이아웃과 FirstFragment 클래스를 매칭한다.
+  - fragment 태그 - android:name="com.example.myapplication.FirstFragment"
+  - fragment 태그 - tools:layout="@layout/fragment_first"
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -188,27 +184,24 @@ last_modified_at: 2022-03-05T23:55:00
 </navigation>
 ```
 
-## 4. 웹 뷰 설정 및 콜백 이벤트 추가
+## 4. WebView setting with callback event
 
-`fragment_first.xml` 레이아웃과 매칭되는 `FirstFragment` 클래스에서 필요한 설정과 콜백(callback) 함수를 정의합니다. 
+fragment_first.xml 레이아웃과 매칭되는 FirstFragment 클래스에서 필요한 설정과 콜백(callback) 함수를 정의한다. 
 
-##### FirstFragment 클래스
-- `onAttach` 메서드
-    - 프래그먼트가 만들어질 때 가장 먼저 실행하는 메서드입니다.
-    - 뒤로가기(back press) 버튼을 눌렀을 때 액티비티가 하나이기 때문에 애플리케이션이 종료되는 현상을 막기 위한 콜백 메서드를 등록합니다. 
-    - 웹 페이지 히스토리에서 뒤로 갈 페이지가 있다면 이전 페이지로 돌아갑니다.
-    - 웹 뷰에서 뒤로 갈 페이지가 없다면 액티비티의 뒤로가기 이벤트를 실행합니다.
-- `onCreateView` 메서드
-    - 레이아웃에 등록된 뷰 객체들을 멤버 변수들과 연결합니다. 
-    - 웹뷰를 초기하는 함수를 호출합니다.
-        - `initWebView` 메서드 호출
-    - `EditText`에 값을 이용하여 웹뷰의 URL을 변경하는 콜백 함수를 등록합니다.
-- `initWebView` 메서드
-    - 웹 뷰에서 다른 화면 링크 클릭 시 웹 뷰의 URL을 변경하는 메서드를 추가합니다.
-        - `WebViewClient` 클래스 `shouldOverrideUrlLoading` 메서드 오버라이드
-    - 웹 뷰에서 자바스크립트를 사용할 수 있도록 허용합니다.
-        - `webSettings.setJavaScriptEnabled(true)` 메서드 호출
-    - 웹 뷰의 초기 URL은 `https://junhyunny.github.io/`로 지정합니다.
+- onAttach 메서드
+  - 프래그먼트가 만들어질 때 가장 먼저 실행하는 메서드다.
+  - 뒤로가기(back press) 버튼을 눌렀을 때 액티비티가 하나이기 때문에 애플리케이션이 종료되는 현상을 막기 위한 콜백 메서드를 등록한다. 웹 페이지 히스토리에서 뒤로 갈 페이지가 있다면 이전 페이지로 돌아간다. 웹뷰에서 뒤로 갈 페이지가 없다면 액티비티의 뒤로가기 이벤트를 실행한다.
+- onCreateView 메서드
+  - 레이아웃에 등록된 뷰 객체들을 멤버 변수들과 연결한다.
+  - 웹뷰를 초기화하는 함수를 호출한다.
+    - initWebView 메서드 호출
+  - EditText의 값을 이용하여 웹뷰의 URL을 변경하는 콜백 함수를 등록한다.
+- initWebView 메서드
+  - 웹뷰에서 다른 화면 링크 클릭 시 웹뷰의 URL을 변경하는 메서드를 추가한다.
+    - WebViewClient 클래스 shouldOverrideUrlLoading 메서드 오버라이드
+  - 웹뷰에서 자바스크립트를 사용할 수 있도록 허용한다.
+    - webSettings.setJavaScriptEnabled(true) 메서드 호출
+  - 웹뷰의 초기 URL은 https://junhyunny.github.io/로 지정한다.
 
 ```java
 package com.example.myapplication;
@@ -324,22 +317,19 @@ public class FirstFragment extends Fragment {
 }
 ```
 
-## 5. 안드로이드 에뮬레이터 테스트
+안드로이드 에뮬레이터에서 안드로이드 애플리케이션을 실행하면 다음과 같이 동작한다.
 
-<p align="left">
-    <img src="/images/android-webview-1.gif" width="25%" class="image__border">
-</p>
-
-##### CLOSING
-
-안드로이드 개발자가 아니기 때문에 잘못된 설명을 하고 있다면 댓글로 알려주시길 부탁드립니다. 감사하겠습니다. 
+<div align="left">
+  <img src="/images/posts/2022/android-webview-01.gif" width="25%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-03-05-android-webview-communication>
 
 #### REFERENCE
+
 - <https://jhshjs.tistory.com/57>
 
 [react-android-webview-communication-link]: https://junhyunny.github.io/react/android/react-android-webview-communication/
-
 [cleartext-traffic-link]: https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted

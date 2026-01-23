@@ -1,5 +1,5 @@
 ---
-title: "어댑터 패턴(Adapter Pattern)"
+title: "어댑터 패턴 (Adapter Pattern)"
 search: false
 category:
   - information

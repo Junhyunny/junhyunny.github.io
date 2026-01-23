@@ -258,7 +258,7 @@ public class InheritanceUsage {
 클래스 다이어그램으로 현재 상황을 표현하면 다음과 같다.
 
 <div align="center">
-  <img src="/images/posts/2022/adapter-pattern-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2022/adapter-pattern-03.png" width="100%" class="image__border">
 </div>
 
 #### 2.2.2. Adapter pattern through instance delegating
@@ -329,7 +329,7 @@ public class DelegateUsage {
 클래스 다이어그램으로 현재 상황을 표현하면 다음과 같다.
 
 <div align="center">
-  <img src="/images/posts/2022/adapter-pattern-04.png" width="80%" class="image__border">
+  <img src="/images/posts/2022/adapter-pattern-04.png" width="100%" class="image__border">
 </div>
 
 ## 3. Adapter pattern in Spring

@@ -20,9 +20,9 @@ last_modified_at: 2025-12-20T23:55:00
 
 > TRACE < DEBUG < INFO < WARN < ERROR < FATAL
 
-오른쪽으로 갈수록 로그 레벨이 높다. 어플리케이션은 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 출력한다. 예를 들어 어플리케이션 로그 레벨이 `INFO`인 경우 `WARN`, `ERROR`, `FATAL` 로그를 볼 수 있다.
+오른쪽으로 갈수록 로그 레벨이 높다. 애플리케이션은 로그 레벨이 지정되면 그보다 높은 레벨을 가진 로그들만 출력한다. 예를 들어 애플리케이션 로그 레벨이 `INFO`인 경우 `WARN`, `ERROR`, `FATAL` 로그를 볼 수 있다.
 
-스프링(spring) 어플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `TRACE`, `DEBUG` 레벨은 보이지 않는다. `FeignClient`의 `DEBUG` 로그들을 살펴보기 위해선 로깅 관련 설정이 필요하다. 몇 가지 설정을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있다.
+스프링(spring) 애플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `TRACE`, `DEBUG` 레벨은 보이지 않는다. `FeignClient`의 `DEBUG` 로그들을 살펴보기 위해선 로깅 관련 설정이 필요하다. 몇 가지 설정을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있다.
 
 ### 1.1. application.yml
 

@@ -22,7 +22,7 @@ last_modified_at: 2022-10-14T23:55:00
 
 > javascript: not just for browsers any more!
 
-`JavaScript`가 브라우저뿐만 아니라 서버, 데스트톱(desktop) 어플리케이션 같은 곳에서도 사용될 수 있도록 API 기능을 제공합니다. 
+`JavaScript`가 브라우저뿐만 아니라 서버, 데스트톱(desktop) 애플리케이션 같은 곳에서도 사용될 수 있도록 API 기능을 제공합니다. 
 `Common`이라는 단어는 브라우저에 얽매이지 않고, `모든 곳에서 사용하자`라는 의미를 담고 있는 것 같습니다. 
 `CommonJS`는 다음과 같은 곳에서 사용됩니다. 
 
@@ -31,7 +31,7 @@ last_modified_at: 2022-10-14T23:55:00
 * Desktop GUI-based applications
 * Hybrid applications (Titanium, Adobe AIR)
 
-`CommonJS`는 `Node.js` 같은 서버 어플리케이션을 개발할 수 있는 소프트웨어 플랫폼에서 주로 사용됩니다. 
+`CommonJS`는 `Node.js` 같은 서버 애플리케이션을 개발할 수 있는 소프트웨어 플랫폼에서 주로 사용됩니다. 
 표준 문법인 `ECMAScript`는 ES6(ECMAScript2015)가 배포되기 전에 모듈이라는 개념이 없었고, `AMD`나 `CommonJS`에서 모듈 개념을 먼저 만들어 사용하고 있었습니다. 
 ES6 모듈 시스템은 점점 널리 사용되는 추세이지만, 모든 곳에서 사용할 수 있지 않으므로 `CommonJS`의 모듈 사용 방법은 익힐 필요가 있습니다. 
 

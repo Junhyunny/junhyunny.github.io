@@ -144,7 +144,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 스프링 팀은 다음과 같은 조건이 만족되면 보안 문제가 발생할 수 있다고 경고합니다. 
 
 * `Spring MVC`가 클래스 패스(classpath)에 존재한다.
-* 하나의 어플리케이션에서 스프링 프레임워크에서 제공하는 DispatcherServlet과 함께 다른 서블릿을 함께 사용한다. 
+* 하나의 애플리케이션에서 스프링 프레임워크에서 제공하는 DispatcherServlet과 함께 다른 서블릿을 함께 사용한다. 
 * requestMatchers(String) 혹은 requestMatchers(HttpMethod, String) 메소드를 사용한다. 
 
 관련된 코드 변경은 [Improve RequestMatcher Validation](https://github.com/spring-projects/spring-security/commit/df239b6448ccf138b0c95b5575a88f33ac35cd9a)에서 확인할 수 있습니다. 아쉽게도 정확히 어떤 케이스가 보안 취약점을 만드는지 찾지는 못 했습니다. 

@@ -159,7 +159,7 @@ Hibernate: select next value for child_entity_seq
 
 * New
     * 엔티티를 새로 생성한 상태
-    * 어플리케이션 메모리에만 존재하며 엔티티 매니저에 의해 관리되지 않습니다.
+    * 애플리케이션 메모리에만 존재하며 엔티티 매니저에 의해 관리되지 않습니다.
 * Managed
     * 엔티티 매니저에 의해 영속성 컨텍스트에서 관리되는 상태입니다. 
 * Detached

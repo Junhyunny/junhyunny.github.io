@@ -38,7 +38,7 @@ JDK(Java Development kit)을 설치하면 `/bin` 폴더에 있는 `javac` 프로
 <center>https://math.hws.edu/javanotes/c1/s3.html</center>
 
 컴파일이 완료되면 JVM 이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자를 가지는 클래스 파일이 생성됩니다. 
-클래스 파일은 어플리케이션이 동작할 때 메모리에 적재되어 JVM 실행 엔진에 의해 수행됩니다. 
+클래스 파일은 애플리케이션이 동작할 때 메모리에 적재되어 JVM 실행 엔진에 의해 수행됩니다. 
 
 ##### 소스 코드
 
@@ -86,7 +86,7 @@ public class blog.in.action.ActionInBlogApplication {
 ```
 
 ### 1.2. 클래스 파일 적재하기
-자바 어플리케이션을 실행할 때, 컴파일 된 클래스 파일(.class)들이 클래스 로더(class loader)에 의해 JVM 메모리 중 메소드 영역에 적재됩니다. 
+자바 애플리케이션을 실행할 때, 컴파일 된 클래스 파일(.class)들이 클래스 로더(class loader)에 의해 JVM 메모리 중 메소드 영역에 적재됩니다. 
 클래스 로더에 의해 적재되는 과정은 다른 포스트에서 정리하겠습니다.
 
 ##### 클래스 적재 과정
@@ -140,7 +140,7 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 
 컴파일 임계치가 일정 횟수에 도달한 코드는 컴파일이 하기에 충분한 정보가 쌓였다고 판단되어집니다. 
 대상 코드는 특정 큐에 들어가 컴파일 스레드에 의해 컴파일 되기를 기다립니다. 
-어플리케이션 실행 시 JVM 옵션을 이용하여 컴파일 임계치와 관련된 값을 조절할 수 있습니다. 
+애플리케이션 실행 시 JVM 옵션을 이용하여 컴파일 임계치와 관련된 값을 조절할 수 있습니다. 
 `method entry counter` 값에 해당되는 임계치는 `CompileThreashold`이고, `back-edge loop counter` 값에 대한 임계치는 계산된 값이 매칭됩니다. 
 `back-edge loop counter` 값에 대한 임계치 계산식은 아래와 같습니다. 
 
@@ -155,7 +155,7 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 -XX:OnStackReplacePercentage=N
 ```
 
-##### 어플리케이션 수행 시 VM 옵션 지정 예시
+##### 애플리케이션 수행 시 VM 옵션 지정 예시
 - **아래 설명은 이해하기 쉽도록 예시를 들은 내용이며 실제로 동작하는 방법과 관련된 레퍼런스는 확인 중 입니다.**
 - CompileThreshold 값은 100로 지정합니다.
     - method entry counter 임계치가 100로 지정됩니다.

@@ -16,7 +16,7 @@ last_modified_at: 2023-03-30T23:55:00
 
 ## 0. 들어가면서
 
-구글 태그 매니저(GTM, google tag manager)는 어플리케이션에서 발생하는 사용자의 움직임을 태그로 정의하여 감지할 수 있습니다. 
+구글 태그 매니저(GTM, google tag manager)는 애플리케이션에서 발생하는 사용자의 움직임을 태그로 정의하여 감지할 수 있습니다. 
 기본으로 제공하는 기능을 사용할 수도 있지만, 서비스 요건에 맞춘 이벤트를 정의할 수 있습니다. 
 이번 포스트는 구글 태그 매니저에서 사용자 정의 변수(variable)와 맞춤 이벤트(custom event)를 만들고 적용하는 방법에 대해 정리하였습니다. 
 
@@ -31,7 +31,7 @@ last_modified_at: 2023-03-30T23:55:00
 
 * 변수 유형은 `데이터 영역 변수`를 사용합니다.
 * 데이터 영역 변수 이름은 `customData`입니다.
-    * 어플리케이션에서 `customData`라는 키(key)에 데이터를 매칭하여 전달합니다.
+    * 애플리케이션에서 `customData`라는 키(key)에 데이터를 매칭하여 전달합니다.
 * 데이터 영역 버전은 `버전 2`를 선택합니다. 
 * 저장 버튼을 클릭합니다.
 
@@ -61,7 +61,7 @@ last_modified_at: 2023-03-30T23:55:00
 </p>
 
 * 이벤트 이름을 `custom_event`으로 지정합니다.
-    * 어플리케이션에서 `custom_event`으로 이벤트를 발행하는 코드가 필요합니다.
+    * 애플리케이션에서 `custom_event`으로 이벤트를 발행하는 코드가 필요합니다.
 
 <p align="center">
     <img src="/images/custom-event-in-google-tag-manager-6.JPG" width="100%" class="image__border">
@@ -142,10 +142,10 @@ last_modified_at: 2023-03-30T23:55:00
 
 ## 5. React Application
 
-리액트 어플리케이션 코드를 살펴보겠습니다. 
+리액트 애플리케이션 코드를 살펴보겠습니다. 
 커스텀 이벤트는 일반 이벤트와 다르게 개발자와 협업이 더 많이 필요합니다. 
 특정 이벤트에 대한 비즈니스적인 정의가 이뤄지면 이를 적절한 위치에서 호출해야합니다. 
-커스텀 이벤트를 어플리케이션에서 호출하는 방법에 대해 알아보겠습니다. 
+커스텀 이벤트를 애플리케이션에서 호출하는 방법에 대해 알아보겠습니다. 
 구글 태그 매니저를 설치하는 과정은 [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 포스트를 참고하시길 바랍니다. 
 
 ### 5.1. global.d.ts
@@ -195,7 +195,7 @@ export default App;
 
 ## 5. In Google Analytics
 
-해당 리액트 어플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠습니다.
+해당 리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠습니다.
 
 * 버튼을 클릭함에 따라 `custom_event`가 감지되는 것을 확인할 수 있습니다.
 * `custom_event` 이벤트에서 `custom_data`가 수집됨을 확인할 수 있습니다. 

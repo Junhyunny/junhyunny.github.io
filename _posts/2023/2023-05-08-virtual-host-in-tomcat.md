@@ -35,7 +35,7 @@ last_modified_at: 2023-05-08T23:55:00
 이번 포스트에서 사용한 톰캣은 9 버전입니다.
 
 * 호스트 이름이 `localhost`인 경우 `webapps` 경로를 루트(root) 폴더로 설정합니다.
-    * `Context` 정보를 별도로 명시하지 않았으므로 `webapps/ROOT` 경로를 웹 어플리케이션의 컨텍스트 폴더를 설정합니다.
+    * `Context` 정보를 별도로 명시하지 않았으므로 `webapps/ROOT` 경로를 웹 애플리케이션의 컨텍스트 폴더를 설정합니다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -145,10 +145,10 @@ $ mvn package -Dmaven.test.skip=true
 
 * `pc-service.com` 도메인 주소
     * 루트 폴더를 `pc`로 설정합니다.
-    * 웹 어플리케이션 컨텍스트 폴더를 `pc/ROOT`으로 지정합니다.
+    * 웹 애플리케이션 컨텍스트 폴더를 `pc/ROOT`으로 지정합니다.
 * `mobile-service.com` 도메인 주소
     * 루트 폴더를 `mobile`로 설정합니다.
-    * 웹 어플리케이션 컨텍스트 폴더를 `mobile/ROOT`으로 지정합니다.
+    * 웹 애플리케이션 컨텍스트 폴더를 `mobile/ROOT`으로 지정합니다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

@@ -1,62 +1,60 @@
 ---
-title: "Adapt Temporal Certificate on Nginx"
+title: "Nginx 임시 인증서 적용하기"
 search: false
 category:
   - information
   - nginx
-last_modified_at: 2023-03-25T23:55:00
+last_modified_at: 2026-01-23T23:55:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [HTTPS(HyperText Transfer Protocol over Secure Socket Layer)][https-link]
+- [HTTPS(HyperText Transfer Protocol over Secure Socket Layer)][https-link]
 
 ## 1. Problem Context
 
-현재 진행하는 프로젝트에서 [react-qr-scanner][react-qr-scanner-link]라는 라이브러리를 사용했습니다. 
-이 라이브러리는 카메라를 사용해 QR 이미지를 스캔하는 기능을 제공합니다. 
-적용하는데 다음과 같은 문제점이 있었습니다. 
+현재 진행하는 프로젝트에서 [react-qr-scanner][react-qr-scanner-link]라는 라이브러리를 사용했다. 이 라이브러리는 카메라를 사용해 QR 이미지를 스캔하는 기능을 제공한다. 적용하는데 다음과 같은 문제점이 있었다.
 
-* 브라우저에서 QR 스캔을 위해 카메라를 실행하려면 `HTTPS` 혹은 `localhost`에서만 가능하다.
-* 기능 개발 후 PM(project manager)들이 테스트할 수 있는 환경을 구축해야 된다. 
+- 브라우저에서 QR 스캔을 위해 카메라를 실행하려면 `HTTPS` 혹은 `localhost`에서만 가능하다.
+- 기능 개발 후 PM(project manager)들이 테스트할 수 있는 환경을 구축해야 한다.
 
-위의 문제들을 해결하기 위해 임시 인증서를 만들고 `Nginx`에 적용하여 `HTTPS` 서비스를 하는 방법에 대해 정리하였습니다. 
+위의 문제들을 해결하기 위해 임시 인증서를 만들고 `Nginx`에 적용하여 `HTTPS` 서비스를 하는 방법에 대해 정리했다.
 
 ## 2. Make Temporal Certificate
 
-`OpenSSL`를 사용하면 임시 인증서를 생성할 수 있습니다. 
+`OpenSSL`를 사용하면 임시 인증서를 생성할 수 있다.
 
-* 프로젝트에 `ssl` 폴더를 생성합니다.
-* `openssl req` 명령어를 통해 인증서를 생성합니다.
-    * PKCS#10 형식의 인증서 서명 요청(CSR, certificate Signing Request)을 생성합니다.
-    * 테스트를 위해 루트(root) CA(certificate authority)로써 자체 서명 인증서를 생성할 수 있습니다.
-* 다음과 같은 추가 설정들을 통해 인증서를 생성합니다.
-    * `-x509` 
-        * `-x509` 옵션을 통해 인증서 서명 요청이 아닌 인증서를 즉시 발급합니다.
-        * 테스트를 위한 인증서 발급 방법입니다.
-    * `-days 30` 
-        * 30일 동안 유효한 인증서를 생성합니다.
-    * `-nodes`
-        * 만약 비공개 키를 생성한다면 암호화시키지 않는 옵션입니다.
-        * OpenSSL 3.0부터 제거되었으며 `-noenc` 옵션을 사용합니다.
-    * `-newkey rsa:2048`
-        * `-key` 옵션이 지정되지 않은 경우 새로운 비공개 키를 생성하는데 사용됩니다.
-        * 암호화 알고리즘을 함께 지정합니다.
-    * `-keyout ssl/nginx-ssl.key`
-        * 비공개 키를 파일로 만드는 옵션입니다.
-    * `-out ssl/nginx-ssl.crt`
-        * 인증서를 파일로 만드는 옵션입니다.
-* `CSR`을 위한 정보를 입력합니다. 
-    * 나라 - KR
-    * 지역 - Seoul
-    * 도시 - Seoul
-    * 기관 - VMWare
-    * 조직 - Tanzu Labs
-    * 인증 받을 도메인 주소 - nginx-ssl.host.com
-    * 이메일 주소 - test@test.com
-* `ssl` 경로에 인증서 `nginx-ssl.crt`와 비공개 키 `nginx-ssl.key`가 생성된 것을 확인합니다.
+- 프로젝트에 `ssl` 폴더를 생성한다.
+- `openssl req` 명령어를 통해 인증서를 생성한다.
+  - PKCS#10 형식의 인증서 서명 요청(CSR, certificate Signing Request)을 생성한다.
+  - 테스트를 위해 루트(root) CA(certificate authority)로써 자체 서명 인증서를 생성할 수 있다.
+- 다음과 같은 추가 설정들을 통해 인증서를 생성한다.
+  - `-x509`
+    - `-x509` 옵션을 통해 인증서 서명 요청이 아닌 인증서를 즉시 발급한다.
+    - 테스트를 위한 인증서 발급 방법이다.
+  - `-days 30`
+    - 30일 동안 유효한 인증서를 생성한다.
+  - `-nodes`
+    - 만약 비공개 키를 생성한다면 암호화시키지 않는 옵션이다.
+    - OpenSSL 3.0부터 제거되었으며 `-noenc` 옵션을 사용한다.
+  - `-newkey rsa:2048`
+    - `-key` 옵션이 지정되지 않은 경우 새로운 비공개 키를 생성하는데 사용된다.
+    - 암호화 알고리즘을 함께 지정한다.
+  - `-keyout ssl/nginx-ssl.key`
+    - 비공개 키를 파일로 만드는 옵션이다.
+  - `-out ssl/nginx-ssl.crt`
+    - 인증서를 파일로 만드는 옵션이다.
+- `CSR`을 위한 정보를 입력한다.
+  - 나라 - KR
+  - 지역 - Seoul
+  - 도시 - Seoul
+  - 기관 - VMWare
+  - 조직 - Tanzu Labs
+  - 인증 받을 도메인 주소 - nginx-ssl.host.com
+  - 이메일 주소 - test@test.com
+- `ssl` 경로에 인증서 `nginx-ssl.crt`와 비공개 키 `nginx-ssl.key`가 생성된 것을 확인한다.
 
 ```
 $ mkdir ssl
@@ -97,15 +95,17 @@ drwxr-xr-x  15 junhyunk  staff   480 Mar 25 19:58 ..
 
 ## 3. Practice
 
-도커 컨테이너(docker container)를 사용해 서비스를 실행합니다.
+도커 컨테이너(docker container)를 통해 서비스를 실행한다.
 
 ### 3.1. default.conf
 
-* 80 포트로 접근하는 경우 443 포트로 리다이렉트(redirect)합니다.
-* 443 포트로 들어오는 요청에 이전 단계에서 생성한 임시 인증서를 적용합니다.
-    * `ssl_certificate` 설정으로 인증서 경로를 지정합니다.
-    * `ssl_certificate_key` 설정으로 비공개 키 경로를 지정합니다.
-* 등록한 비공개 키는 인증서 내부에 포함된 공개 키에 대응되는 비대칭 키입니다.
+우선 nginx 설정 파일을 살펴보자. 임시 인증서에 대한 설정을 명시한다. 앞서 만든 임시 인증서를 사용하도록 인증서, 인증서 키 경로를 등록한다.
+
+- 80 포트로 접근하는 경우 443 포트로 리다이렉트(redirect)한다.
+- 443 포트로 들어오는 요청에 이전 단계에서 생성한 임시 인증서를 적용한다.
+  - `ssl_certificate` 설정으로 인증서 경로를 지정한다.
+  - `ssl_certificate_key` 설정으로 비공개 키 경로를 지정한다.
+- 등록한 비공개 키는 인증서 내부에 포함된 공개 키에 대응되는 비대칭 키이다.
 
 ```conf
 server {
@@ -132,8 +132,7 @@ server {
 
 ### 3.2. Dockerfile
 
-* 어플리케이션 이미지를 만들 때 사용하는 도커 파일(Dockerfile)입니다.
-* `nginx` 이미지로 컨테이너를 실행할 때 인증서가 담긴 `ssl` 디렉토리를 이미지 내부에 복사합니다.
+애플리케이션 이미지를 만들 때 사용하는 도커 파일(Dockerfile)이다. `nginx` 컨테이너를 실행할 때 인증서가 담긴 `ssl` 디렉토리를 이미지 내부에 복사한다.
 
 ```dockerfile
 FROM node:16-buster-slim as builder
@@ -163,16 +162,14 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ### 3.3. Add Host for Practice
 
-`nginx-ssl.host.com`는 인증서 테스트를 위해 임시로 사용하는 호스트이므로 테스트 PC host 파일에 등록합니다. 
-이미 발급 받은 도메인 주소를 사용해 이 포스트의 실습을 따라하는 경우에 이 작업은 불필요합니다. 
+`nginx-ssl.host.com`는 인증서 테스트를 위해 임시로 사용하는 호스트이므로 테스트 PC host 파일에 등록한다. 이미 발급 받은 도메인 주소를 사용해 이 포스트의 실습을 따라하는 경우에 이 작업은 불필요하다.
 
-* AWS EC2 컨테이너를 사용해 공개 도메인 주소가 있는 경우
-* 사전에 발급 받은 도메인 주소가 있는 경우
+- AWS EC2 컨테이너를 사용해 공개 도메인 주소가 있는 경우
+- 사전에 발급 받은 도메인 주소가 있는 경우
 
-운영체제에 따라 호스트 파일을 관리하는 방법이 다릅니다. 
-본인은 맥(mac)에서 작업을 하고 있기 때문에 이를 기준으로 작성하였습니다.
+운영체제에 따라 호스트 파일을 관리하는 방법이 다르다. 본인은 맥(mac)에서 작업을 하고 있기 때문에 이를 기준으로 작성하였다.
 
-* 로컬 호스트와 동일한 `127.0.0.1` IP에 `nginx-ssl.host.com` 도메인을 매칭합니다.
+- 로컬 호스트와 동일한 `127.0.0.1` IP에 `nginx-ssl.host.com` 도메인을 매칭한다.
 
 ```
 $ sudo vi /etc/hosts
@@ -197,8 +194,7 @@ $ sudo vi /etc/hosts
 
 ### 3.4. Run Application on Nginx
 
-* 이미지를 빌드하고, 컨테이너를 실행합니다.
-* 외부에서 접근할 수 있도록 80, 443 포트를 모두 노출합니다.
+이미지를 빌드하고, 컨테이너를 실행한다. 외부에서 접근할 수 있도록 80, 443 포트를 모두 노출한다.
 
 ```
 $ docker build -t nginx-ssl .
@@ -251,32 +247,29 @@ $ docker run -d\
 e856fc0cf3f3d3d6ca3a127646f4e6cdbe50544a822e1765b57195f0823de512
 ```
 
-##### Result of Practice
+컨테이너 실행 결과를 살패보자. 공인된 `CA`에서 발급한 인증서가 아니기 때문에 경고 메시지가 보여지지만, 인증서가 적용된 것을 확인할 수 있다.
 
-* 공인된 `CA`에서 발급한 인증서가 아니기 때문에 경고 메시지가 보여집니다.
-* 안전하지 않은 이동을 눌러 사이트에 접속합니다.
-* 유효하지 않은 인증서를 사용했기 때문에 브라우저 주소창에 경고 메시지가 보여집니다.
-* 인증서 정보를 살펴볼 수 있습니다.
-    * 인증서를 만들 때 작성한 정보들이 보여집니다.
+1. 안전하지 않은 이동을 눌러 사이트에 접속한다.
+2. 유효하지 않은 인증서를 사용했기 때문에 브라우저 주소창에 경고 메시지가 보여진다.
+3. 인증서 정보를 살펴볼 수 있다. 인증서를 만들 때 작성한 정보들을 볼 수 있다.
 
-<p align="center">
-    <img src="/images/adapt-temporal-certificate-on-nginx-1.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2023/adapt-temporal-certificate-on-nginx-01.png" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-이번 포스트에서 다룬 내용은 어디까지나 임시 테스트 환경을 구축하기 위한 인증서 적용 방법입니다. 
-운영 환경을 위해 도메인, 인증서, 비공개 키 등을 이미 발급 받았다면 임시 인증서 생성을 제외하곤 프로젝트 상황에 맞게 적절하게 적용할 수 있습니다.
+이번 포스트에서 다룬 내용은 어디까지나 임시 테스트 환경을 구축하기 위한 인증서 적용 방법이다. 운영 환경을 위해 도메인, 인증서, 비공개 키 등을 이미 발급 받았다면 임시 인증서 생성을 제외하곤 프로젝트 상황에 맞게 적절하게 적용할 수 있다.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-25-adapt-temporal-certificate-on-nginx>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-25-adapt-temporal-certificate-on-nginx>
 
 #### REFERENCE
 
-* <https://www.openssl.org/>
-* <https://www.openssl.org/docs/manmaster/man1/openssl-req.html>
-* <https://docs.3rdeyesys.com/compute/ncloud_compute_lemp_nginx_ssl_setting_ubuntu_guide.html>
+- <https://www.openssl.org/>
+- <https://www.openssl.org/docs/manmaster/man1/openssl-req.html>
+- <https://docs.3rdeyesys.com/compute/ncloud_compute_lemp_nginx_ssl_setting_ubuntu_guide.html>
 
 [https-link]: https://junhyunny.github.io/information/https/
 [react-qr-scanner-link]: https://www.npmjs.com/package/react-qr-scanner

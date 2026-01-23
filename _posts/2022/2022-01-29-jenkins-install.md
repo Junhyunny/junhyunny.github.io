@@ -39,7 +39,7 @@ CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작
 
 ##### 개발용 CI/CD 환경
 - 젠킨스 서버는 `ngrok`을 사용하여 로컬 서버를 외부 인터넷으로 노출하였습니다.
-- 테스트를 위한 어플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
+- 테스트를 위한 애플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
 
 <p align="center">
     <img src="/images/jenkins-install-1.JPG" width="85%" class="image__border">
@@ -142,7 +142,7 @@ $ cat /Users/junhyunk/.jenkins/secrets/initialAdminPassword
 ## 3. ngrok 터널링(tunneling)
 
 로컬 호스트에서만 젠킨스 대시보드를 확인하는 것이 아니라 외부에서도 확인이 필요하여 `ngrok`을 사용하였습니다.
-`ngrok`은 외부에서 인터넷을 통해 로컬 서비스로 접근할 수 있도록 터널링(tunneling)을 수행하는 어플리케이션입니다. 
+`ngrok`은 외부에서 인터넷을 통해 로컬 서비스로 접근할 수 있도록 터널링(tunneling)을 수행하는 애플리케이션입니다. 
 
 > ngrok allows you to expose a web server running on your local machine to the internet. 
 > Just tell ngrok what port your web server is listening on. 

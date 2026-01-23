@@ -19,7 +19,7 @@ last_modified_at: 2025-11-18T23:55:00
 
 ## 1. 필터(Filter)
 
-우선 필터 기능부터 간단히 알아보자. 필터는 웹 어플리케이션(Web Application) 영역에서 동작하는 컴포넌트다. 요청이 서블릿 컨테이너(servlet container)에 전달되기 전에 수행된다. 
+우선 필터 기능부터 간단히 알아보자. 필터는 웹 애플리케이션(Web Application) 영역에서 동작하는 컴포넌트다. 요청이 서블릿 컨테이너(servlet container)에 전달되기 전에 수행된다. 
 
 <div align="center">
   <img src="/images/posts/2022/once-per-request-filter-01.png" width="60%" class="image__border">

@@ -29,8 +29,8 @@ last_modified_at: 2023-04-06T23:55:00
 
 ## 1. In React Application
 
-위에서 살펴본 패인 포인트(pain point)를 해결하기 위해 어플리케이션이 시작할 때 `dataLayer` 객체의 push 메소드를 재정의하였습니다. 
-리액트 어플리케이션의 중요한 코드들만 살펴보겠습니다.
+위에서 살펴본 패인 포인트(pain point)를 해결하기 위해 애플리케이션이 시작할 때 `dataLayer` 객체의 push 메소드를 재정의하였습니다. 
+리액트 애플리케이션의 중요한 코드들만 살펴보겠습니다.
 
 ### 1.1. uuid.ts
 
@@ -85,7 +85,7 @@ export {};
 * overrideDataLayer 함수
     * 파라미터로 전달받은 push 메소드를 실행할 때 `txId`를 추가로 삽입하도록 변경합니다.
     * 변경한 push 메소드를 `dataLayer` 객체에 추가합니다.
-    * 어플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
+    * 애플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
 * 커스텀 이벤트 발행은 부가적으로 넣은 것이 아닙니다.
     * 함수 재정의 이후 리액트 라이프사이클을 타기 전 최초 1회 실행해야 오버라이드한 기능이 정상적으로 동작합니다.
 
@@ -176,7 +176,7 @@ export default App;
 * 이름은 `Transaction ID`입니다.
 * 변수 유형은 `데이터 영역 변수`입니다.
 * 변수 영역 내 변수 이름은 `txId`입니다.
-    * 리액트 어플리케이션에서 이벤트를 발행할 때 데이터에 실어보내는 키(key)입니다.
+    * 리액트 애플리케이션에서 이벤트를 발행할 때 데이터에 실어보내는 키(key)입니다.
 
 <p align="center">
     <img src="/images/trace-user-with-uuid-in-gtm-1.JPG" width="100%" class="image__border">
@@ -188,7 +188,7 @@ export default App;
 * 트리거 이름은 `App Start`입니다.
 * 트리거 유형은 `맞춤 이벤트`입니다.
 * 이벤트 이름은 `app_start`입니다.
-    * 리액트 어플리케이션에서 이벤트를 발행할 때 이벤트 객체에 정의하는 값(value)입니다.
+    * 리액트 애플리케이션에서 이벤트를 발행할 때 이벤트 객체에 정의하는 값(value)입니다.
 
 <p align="center">
     <img src="/images/trace-user-with-uuid-in-gtm-2.JPG" width="100%" class="image__border">

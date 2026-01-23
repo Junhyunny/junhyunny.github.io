@@ -11,8 +11,8 @@ last_modified_at: 2023-08-17T23:55:00
 ## 1. Use Active Profile
 
 스프링 프레임워크(spring framework)는 실행 환경에 맞는 설정을 주입할 수 있는 강력한 기능을 제공합니다. 
-`spring.profiles.active`라는 설정을 통해 어플리케이션이 어느 실행 환경에서 동작 중인지 결정할 수 있습니다. 
-application.yml 설정이나 스프링 어플리케이션을 실행하는 커맨드를 통해서 주입할 수 있습니다. 
+`spring.profiles.active`라는 설정을 통해 애플리케이션이 어느 실행 환경에서 동작 중인지 결정할 수 있습니다. 
+application.yml 설정이나 스프링 애플리케이션을 실행하는 커맨드를 통해서 주입할 수 있습니다. 
 
 ##### application.yml
 
@@ -45,7 +45,7 @@ $ java -jar -Dspring.profiles.active=dev action-in-blog-0.0.1-SNAPSHOT.jar
 
 ## 2. Use Multiple Profiles
 
-어플리케이션을 개발하면 상황에 맞게 여러 프로파일을 조합해서 사용하는 경우가 있습니다. 
+애플리케이션을 개발하면 상황에 맞게 여러 프로파일을 조합해서 사용하는 경우가 있습니다. 
 
 * 환경 별로 로깅 전략을 프로파일을 통해 제어하는 경우
 * 특정 테스트에서만 필요한 빈(bean)을 프로파일을 통해 제어하는 경우
@@ -78,7 +78,7 @@ spring:
 
 ### 2.2. Test
 
-각 환경 별로 어플리케이션을 실행했을 때 함께 적용되는 프로파일들을 살펴보겠습니다.
+각 환경 별로 애플리케이션을 실행했을 때 함께 적용되는 프로파일들을 살펴보겠습니다.
 
 * local 환경
     * The following 3 profiles are active: "dev", "etc-1", "etc-3"

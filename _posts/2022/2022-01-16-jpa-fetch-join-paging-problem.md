@@ -213,7 +213,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 #### 1.2.4. 경고 메시지 및 수행 쿼리
 
 ##### 경고 메시지
-- 쿼리 수행 결과를 모두 어플리케이션 메모리에 올려서 페이징 처리를 수행했다는 의미입니다.
+- 쿼리 수행 결과를 모두 애플리케이션 메모리에 올려서 페이징 처리를 수행했다는 의미입니다.
 - OOM(Out Of Memory) 문제를 유발할 수 있으므로 치명적입니다.
 
 ```
@@ -222,7 +222,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 ##### 수행 쿼리
 - 실제 수행 쿼리를 보면 `limit`, `rownum` 같은 키워드 없이 데이터를 조회합니다.
-- 조회 조건에 매칭되는 결과가 10만 건이면 모두 어플리케이션 메모리에 올리게 됩니다.
+- 조회 조건에 매칭되는 결과가 10만 건이면 모두 애플리케이션 메모리에 올리게 됩니다.
 
 ```sql
 select distinct post0_.id         as id1_0_0_,

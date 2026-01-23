@@ -57,7 +57,7 @@ const VideoRecorder = () => {
       <video
         ref={videoRef}
         muted
-        style={{ width: "1024px", backgroundColor: "#333", height: "576px" }}
+        style={ { width: "1024px", backgroundColor: "#333", height: "576px" } }
       />
       <div>
         {!isRecording ? (
@@ -220,7 +220,7 @@ const PhotoCapture = () => {
       <video
         ref={videoRef}
         muted
-        style={{ width: "1024px", backgroundColor: "#333", height: "576px" }}
+        style={ { width: "1024px", backgroundColor: "#333", height: "576px" } }
       />
       <div>
         <button type="button" onClick={capture}>

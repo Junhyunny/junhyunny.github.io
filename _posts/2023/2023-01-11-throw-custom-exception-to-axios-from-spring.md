@@ -14,7 +14,7 @@ last_modified_at: 2023-01-11T23:55:00
 사용자에게 시스템 상황을 쉽게 피드백하는 방법은 화면에서 팝업 창(popup window)을 띄우는 방법입니다. 
 프론트엔드(frontend)에서 판단할 수 없는 상황은 백엔드(backend)로부터 피드백을 받아야 합니다. 
 업무적으로 정상적인 경우가 아니라면 에러를 통해 피드백을 받는 것이 `if-else` 구문의 사용을 줄이므로 코드의 복잡성을 낮출 수 있습니다. 
-이번 포스트에선 스프링(spring) 어플리케이션에서 `axios` 모듈로 커스텀 예외 메시지를 전달하는 방법에 대해 정리하였습니다. 
+이번 포스트에선 스프링(spring) 애플리케이션에서 `axios` 모듈로 커스텀 예외 메시지를 전달하는 방법에 대해 정리하였습니다. 
 
 ## 1. Simple Page
 
@@ -88,7 +88,7 @@ export default App;
 
 ## 2. Backend Service
 
-이번엔 스프링 어플리케이션의 코드를 살펴보겠습니다.
+이번엔 스프링 애플리케이션의 코드를 살펴보겠습니다.
 
 ### 2.1. FooController 클래스
 
@@ -277,7 +277,7 @@ public class GlobalExceptionHandler {
 ### 3.2. Axios Interceptor Error Handling
 
 백엔드 서비스로부터 전달 받은 에러를 AxiosError 객체로부터 구조 분해 할당(destructuring)해야 합니다. 
-`axios` 모듈의 인터셉터(interceptor)를 사용하면 처리한 내용을 어플리케이션 전역에 쉽게 적용 가능합니다. 
+`axios` 모듈의 인터셉터(interceptor)를 사용하면 처리한 내용을 애플리케이션 전역에 쉽게 적용 가능합니다. 
 
 ```js
 axios.interceptors.response.use(

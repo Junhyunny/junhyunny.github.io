@@ -21,11 +21,11 @@ last_modified_at: 2026-01-12T09:00:00
 
 <br />
 
-분명히 존재하는 저장소인데 해당 URL을 찾지 못하는 것이 이상했다. 개인(private) 저장소들은 정상적으로 탐색되었기 때문에 조직(organization) 저장소라는 점이 수상했다. 문제 원인은 소스트리 어플리케이션이 조직에 대한 접근 승인이 되지 않았던 것이다. 
+분명히 존재하는 저장소인데 해당 URL을 찾지 못하는 것이 이상했다. 개인(private) 저장소들은 정상적으로 탐색되었기 때문에 조직(organization) 저장소라는 점이 수상했다. 문제 원인은 소스트리 애플리케이션이 조직에 대한 접근 승인이 되지 않았던 것이다. 
 
 ## 2. Solve the problem
 
-다음과 같은 과정을 통해 문제를 해결할 수 있다. 우선 `Settings > Applications > Authorized OAuth Apps` 경로로 접근하여 소스트리 어플리케이션을 선택한다.
+다음과 같은 과정을 통해 문제를 해결할 수 있다. 우선 `Settings > Applications > Authorized OAuth Apps` 경로로 접근하여 소스트리 애플리케이션을 선택한다.
 
 <div align="center">
   <img src="/images/posts/2021/grant-sourcetree-app-02.png" width="80%" class="image__border">
@@ -33,7 +33,7 @@ last_modified_at: 2026-01-12T09:00:00
 
 <br />
 
-SourcetreeForWindows 이미지 아래 빨간 네모 칸에 `grant` 버튼을 눌러 해당 어플리케이션 접근을 승인한다.
+SourcetreeForWindows 이미지 아래 빨간 네모 칸에 `grant` 버튼을 눌러 해당 애플리케이션 접근을 승인한다.
 
 <div align="center">
   <img src="/images/posts/2021/grant-sourcetree-app-03.png" width="80%" class="image__border">

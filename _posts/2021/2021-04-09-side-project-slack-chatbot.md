@@ -10,8 +10,8 @@ last_modified_at: 2021-08-25T00:00:00
 
 ## 0. 들어가면서
 
-토이 프로젝트로 간단한 어플리케이션을 만들고 싶었습니다. 
-백엔드(backend) 관련된 기술만 다룰 줄 아는 탓에 간단한 어플리케이션을 기능을 만들어 보는 것도 쉽지 않았습니다. 
+토이 프로젝트로 간단한 애플리케이션을 만들고 싶었습니다. 
+백엔드(backend) 관련된 기술만 다룰 줄 아는 탓에 간단한 애플리케이션을 기능을 만들어 보는 것도 쉽지 않았습니다. 
 그러던 중 [일일커밋 알림봇 개발기][mingrammer-blog-link]에 대한 글을 보게 되었습니다. 
 해당 글이나 대부분의 레퍼런스들이 파이썬(python)으로 개발되어 있기 때문에 저는 Java로 만들어보았습니다. 
 
@@ -119,7 +119,7 @@ Slack 워크스페이스(workspace)에서 사용하는
 
 ### 3.1. Github API Document
 
-Java를 사용한 어플리케이션은 주로 **`github-api`** 라이브러리를 사용하는 것으로 보입니다. 
+Java를 사용한 애플리케이션은 주로 **`github-api`** 라이브러리를 사용하는 것으로 보입니다. 
 찾아보니 해당 라이브러리에서 필요한 기능을 따로 제공하지 않는 것으로 보여 직접 구현하기로 결정했습니다. 
 다음과 같은 기능이 필요했습니다. 
 
@@ -178,7 +178,7 @@ AWS(amazone web service)는 많이 사용해보지 않아서 어려웠습니다.
 
 1. [RequestStreamHandler 인터페이스 구현][java-handler-link]
 1. [zip(혹은 jar) 파일 빌드 및 배포][java-deploy-link]
-    * 주기적으로 어플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결합니다.
+    * 주기적으로 애플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결합니다.
 
 ### 4.1. Implementation RequestStreamHandler Interface
 
@@ -258,7 +258,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 ##### Move to EventBridge Setup Page
 
-* 어플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동합니다. 
+* 애플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동합니다. 
 
 <p align="center">
     <img src="/images/side-project-slack-chatbot-6.JPG" width="100%" class="image__border">

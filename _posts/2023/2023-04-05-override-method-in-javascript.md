@@ -10,7 +10,7 @@ last_modified_at: 2023-04-05T23:55:00
 
 ## 1. Requirements and Problem
 
-어플리케이션 사용자를 관찰하기 위한 도구로 구글 애널리틱스(GA, google analytics)와 구글 태그 매니저(GTM, google tag manager)를 연계하였습니다. 
+애플리케이션 사용자를 관찰하기 위한 도구로 구글 애널리틱스(GA, google analytics)와 구글 태그 매니저(GTM, google tag manager)를 연계하였습니다. 
 다음과 같은 요구사항들이 있었습니다. 
 
 * 사용자 추적을 위한 UUID 발급
@@ -63,7 +63,7 @@ const overridePush = (push) => (value) => {
 const customPush = overridePush(originPush);
 dataLayer.push = customPush;
 
-// 어플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
+// 애플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
 dataLayer.push({ event: 'Hello' });
 dataLayer.push({ event: 'World' });
 
@@ -82,7 +82,7 @@ console.log(dataLayer);
 ## CLOSING
 
 이번 포스트는 메소드를 오버라이드하는 방법에 대해서만 정리하였습니다. 
-다음 포스트에서 사용자 추적을 위해 오버라이드한 메소드를 리액트 어플리케이션에 적용한 내용을 다뤄보겠습니다. 
+다음 포스트에서 사용자 추적을 위해 오버라이드한 메소드를 리액트 애플리케이션에 적용한 내용을 다뤄보겠습니다. 
 
 #### REFERENCE
 

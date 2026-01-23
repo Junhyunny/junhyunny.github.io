@@ -62,7 +62,7 @@ EntityManager는 호출되는 메소드에 따라 엔티티 객체의 생명주�
 지금부터 JPA에서 말하는 엔티티의 상태와 EntityManager의 메소드를 호출에 따라 엔티티 상태가 어떻게 변경되는지 살펴보자. 먼저 비영속(new/transient) 상태를 살펴보자.
 
 - 엔티티 객체를 새로 생성한 상태이다.
-- 어플리케이션 메모리에만 존재하는 상태이며 EntityManager에 의해 별도로 관리되지 않는다. 
+- 애플리케이션 메모리에만 존재하는 상태이며 EntityManager에 의해 별도로 관리되지 않는다. 
 
 ```java
     Member member = new Member();

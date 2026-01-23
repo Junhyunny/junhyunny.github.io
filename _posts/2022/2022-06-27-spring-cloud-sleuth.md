@@ -23,7 +23,7 @@ last_modified_at: 2022-06-27T23:55:00
 다음과 같은 역할을 수행합니다.
 
 * TRACE, SPAN ID를 Slf4j MDC에 추가하여, TRACE 혹은 SPAN_ID를 로그에 출력하여 연결된 요청 정보를 추출해낼 수 있습니다.
-* 다음과 같은 Spring 어플리케이션의 일반적인 수신 및 송신 지점을 계측합니다.
+* 다음과 같은 Spring 애플리케이션의 일반적인 수신 및 송신 지점을 계측합니다.
     * servlet filter
     * rest template
     * scheduled actions
@@ -79,7 +79,7 @@ Sleuth 라이브러리 적용을 다음과 같은 시나리오로 테스트하�
     <img src="/images/spring-cloud-sleuth-2.JPG" width="80%" class="image__border">
 </p>
 
-### 3.2. 어플리케이션 코드
+### 3.2. 애플리케이션 코드
 
 각 서비스의 컨트롤러 코드를 살펴보겠습니다.
 
@@ -497,9 +497,9 @@ a-service    |  ...
     </dependencyManagement>
 ```
 
-##### 어플리케이션 로그
+##### 애플리케이션 로그
 
-* 적용 후 어플리케이션 로그를 살펴보면 다음과 같은 정보가 추가됩니다.
+* 적용 후 애플리케이션 로그를 살펴보면 다음과 같은 정보가 추가됩니다.
     * [APPLICATION_NAME, TRACE_ID, SPAN_ID]
     * ex) [a-service,a8c3719def75eb27,a8c3719def75eb27]
 * `b-service`에서 확인된 에러 로그의 `TRACE_ID`인 `59447c50de81e252`로 요청 정보를 추적합니다. 

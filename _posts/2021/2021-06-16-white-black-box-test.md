@@ -13,7 +13,7 @@ last_modified_at: 2021-06-16T00:00:00
 > Wiki<br/>
 > White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) is a method of software testing that tests internal structures or workings of an application
 
-화이트 박스 테스트(white box test)는 내부 구조나 어플리케이션 동작 방식에 대해 테스트를 수행합니다. 
+화이트 박스 테스트(white box test)는 내부 구조나 애플리케이션 동작 방식에 대해 테스트를 수행합니다. 
 다음과 같이 정리할 수 있습니다. 
 
 * 모듈의 정상적인 작동을 코드 레벨에서 확인합니다. 
@@ -42,7 +42,7 @@ last_modified_at: 2021-06-16T00:00:00
 > Wiki<br/>
 > Black-box testing is a method of software testing that examines the functionality of an application without peering into its internal structures or workings. 
 
-블랙 박스 테스트(black box test)는 내부 구조나 동작 방식에 대해 확인하지 않고 어플리케이션의 기능을 테스트합니다. 
+블랙 박스 테스트(black box test)는 내부 구조나 동작 방식에 대해 확인하지 않고 애플리케이션의 기능을 테스트합니다. 
 다음과 같이 정리할 수 있습니다. 
 
 * 요구사항 명세서를 보면서 구현된 기능을 테스트합니다. 

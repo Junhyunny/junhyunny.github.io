@@ -451,7 +451,7 @@ public class StandardSession implements HttpSession, Session, Serializable {
 ```
 
 ### 3.3. 세션 만료 설정하기
-어플리케이션 배포 방법에 따라 세션을 만료할 수 있는 설정이 다릅니다. 
+애플리케이션 배포 방법에 따라 세션을 만료할 수 있는 설정이 다릅니다. 
 예전에 많이 사용되었던 `war` 패키징 방식과 최근에 많이 사용되는 내장 톰캣(embedded tomcat)의 세션 만료 설정 방법에 대해 정리해보았습니다.
 
 #### 3.3.1. Tomcat Server 사용시 세션 만료 설정

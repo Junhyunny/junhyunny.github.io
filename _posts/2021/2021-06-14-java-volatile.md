@@ -22,7 +22,7 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 
 * 여러 개의 CPU를 사용하는 멀티 스레드 환경에서 데이터 동기화 문제가 발생합니다.  
 * 각 CPU들이 각자의 스레드를 실행합니다.
-* 어플리케이션의 같은 변수를 사용하지만, CPU 캐시에 데이터를 로딩해서 사용합니다.
+* 애플리케이션의 같은 변수를 사용하지만, CPU 캐시에 데이터를 로딩해서 사용합니다.
 
 <p align="center">
     <img src="/images/java-volatile-1.JPG" width="50%" class="image__border image__padding">

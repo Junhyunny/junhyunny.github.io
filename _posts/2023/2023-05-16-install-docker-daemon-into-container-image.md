@@ -23,7 +23,7 @@ last_modified_at: 2023-05-16T23:55:00
 * 쿠버네티스(kubernetes)의 파드(pod)를 에이전트(agent)로 사용
 
 쿠버네티스 파드에서 사용한 메이븐(maven) 이미지 내부엔 도커(docker)가 없기 때문에 테스트 컨테이너가 실행될 수 없었습니다. 
-테스트 컨테이너가 적용된 어플리케이션을 메이븐 이미지 위에서 테스트하면 다음과 같은 에러를 만납니다.
+테스트 컨테이너가 적용된 애플리케이션을 메이븐 이미지 위에서 테스트하면 다음과 같은 에러를 만납니다.
 
 * 이미지 내부에 도커가 없어서 실행할 수 없다는 에러 메시지
     * UnixSocketClientProviderStrategy: failed with exception InvalidConfigurationException (Could not find unix domain socket)

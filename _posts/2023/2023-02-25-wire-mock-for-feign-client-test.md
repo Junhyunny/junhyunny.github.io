@@ -188,7 +188,7 @@ public class ActionInBlogApplication {
 
 * `@SpringBootTest` 애너테이션
     * 결합 테스트를 수행합니다.
-    * 스프링 어플리케이션의 모든 의존성들을 컨텍스트에 로딩합니다.
+    * 스프링 애플리케이션의 모든 의존성들을 컨텍스트에 로딩합니다.
 * `@AutoConfigureWireMock` 애너테이션
     * `WireMock` 서버를 준비합니다.
     * 포트 번호를 0으로 지정하여 랜덤한 값을 사용합니다.

@@ -26,14 +26,14 @@ JPA(Java Persistence API)의 `CascadeType`를 정리하기 전에 엔티티 라�
 * 영속(managed)
     * 엔티티 객체가 엔티티 매니저에 의해 관리되고 있는 상태입니다.
     * 엔티티 객체가 영속성 컨텍스트에 저장되어 상태입니다.
-    * persist(E) 메소드를 통해 영속성 컨텍스트에 저장됩니다.
+    * persist(E) 메서드를 통해 영속성 컨텍스트에 저장됩니다.
 * 준영속(detached)
     * 엔티티 객체가 영속성 컨텍스트에서 분리된 상태입니다.
     * 엔티티 객체가 영속성 컨텍스트에서 분리된 상태이므로 엔티티 매니저는 객체의 변화를 감지하지 못합니다.
-    * detach(E) 메소드를 통해 영속성 컨텍스트에서 분리됩니다.
+    * detach(E) 메서드를 통해 영속성 컨텍스트에서 분리됩니다.
 * 삭제(removed)
     * 엔티티 객체를 영속성 컨텍스트에서 삭제하는 행위입니다.
-    * remove(E) 메소드를 통해 영속성 컨텍스트에서 삭제됩니다.
+    * remove(E) 메서드를 통해 영속성 컨텍스트에서 삭제됩니다.
 
 <p align="center">
     <img src="/images/jpa-cascade-type-1.JPG" width="60%" class="image__border">
@@ -59,7 +59,7 @@ JPA에서 `Casecade`는 영속성이 전이를 위해 사용합니다.
 * MERGE 
     * 엔티티 객체가 `detached` 상태에서 `managed` 상태로 변경되는 시점
 * REFRESH 
-    * 엔티티 매니저의 refresh(E) 메소드 호출 시점
+    * 엔티티 매니저의 refresh(E) 메서드 호출 시점
 * ALL 
     * 모든 상태 변화에 대해 종속된 엔티티들의 영속 상태를 함께 반영
 
@@ -156,7 +156,7 @@ public class Comment {
 
 * Post 엔티티와 Comment 엔티티 객체를 생성합니다.
 * 두 엔티티 객체를 연결합니다.
-* persit(E) 메소드를 통해 영속성 컨텍스트에 저장합니다.
+* persit(E) 메서드를 통해 영속성 컨텍스트에 저장합니다.
 * 영속성 컨텍스트 내용을 데이터베이스에 반영하고 비웁니다.
 * 데이터베이스에 데이터가 저장되었는지 확인합니다.
 
@@ -234,9 +234,9 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
     private List<Comment> comments;
 ```
 
-* beforeEach 메소드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
+* beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
 * Post 엔티티 객체를 조회합니다.
-* remove(E) 메소드를 사용해 영속성 컨텍스트에서 제거합니다.
+* remove(E) 메서드를 사용해 영속성 컨텍스트에서 제거합니다.
 * 데이터베이스를 다시 조회했을 때 데이터가 없을 것으로 예상합니다.
 
 ```java
@@ -336,10 +336,10 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
     private List<Comment> comments;
 ```
 
-* beforeEach 메소드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
+* beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
 * Post 엔티티 객체를 조회합니다.
 * Comment 엔티티 객체의 상태를 변경합니다.
-* Post 엔티티 객체를 detach(E) 메소드를 사용해 영속성 컨텍스트가 관리하지 않는 상태로 변경합니다.
+* Post 엔티티 객체를 detach(E) 메서드를 사용해 영속성 컨텍스트가 관리하지 않는 상태로 변경합니다.
 * Comment 엔티티 객체의 상태 변경에 대한 오염 감지(dirty checking)이 동작하지 않을 것을 예상합니다.
 
 ```java
@@ -408,7 +408,7 @@ public class DetachTest {
 
 * Post 엔티티 객체를 준영속 상태로 변경하였기 때문에 Comment 엔티티 객체도 함께 준영속 상태가 됩니다.
 * Comment 엔티티 객체의 상태 변경이 데이터베이스에 반영되지 않습니다.
-    * detach(E) 메소드 실행 라인을 주석하면 오염 감지가 수행되어 값이 변경됩니다.
+    * detach(E) 메서드 실행 라인을 주석하면 오염 감지가 수행되어 값이 변경됩니다.
 
 ```
 Hibernate: select next value for post_seq
@@ -430,9 +430,9 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
     private List<Comment> comments;
 ```
 
-* beforeEach 메소드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
+* beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
 * Post 엔티티 객체를 조회합니다.
-* Post, Comment 엔티티 객체를 detach(E) 메소드를 사용해 영속성 컨텍스트가 관리하지 않는 상태로 변경합니다.
+* Post, Comment 엔티티 객체를 detach(E) 메서드를 사용해 영속성 컨텍스트가 관리하지 않는 상태로 변경합니다.
 * Comment 엔티티 객체의 상태를 변경하고 Post 엔티티 객체만 영속성 컨텍스트가 관리하는 상태로 다시 변경합니다.
 * Comment 엔티티 객체 상태 변경에 대한 오염 감지를 통해 데이터베이스 상태가 변경됨을 기대합니다.
 
@@ -527,11 +527,11 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
     private List<Comment> comments;
 ```
 
-* beforeEach 메소드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
+* beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입합니다
 * Post 엔티티 객체를 조회합니다.
     * Post, Comment 엔티티 객체를 미리 영속성 컨텍스트에서 관리합니다.
 * 업데이트 쿼리를 통해 Comment 테이블의 데이터를 직접 변경합니다.
-* refresh(E) 메소드를 통해 영속성 컨테이너 내부의 Post 엔티티 객체와 데이터베이스를 동기화합니다.
+* refresh(E) 메서드를 통해 영속성 컨테이너 내부의 Post 엔티티 객체와 데이터베이스를 동기화합니다.
 * 미리 조회한 Comment 엔티티 객체의 상태가 데이터베이스와 동일한 것을 기대합니다.
 
 ```java
@@ -600,7 +600,7 @@ public class RefreshTest {
 
 ##### Result Log
 
-* refresh(E) 메소드를 통해 영속성 컨테이너와 데이터베이스를 동기화합니다.
+* refresh(E) 메서드를 통해 영속성 컨테이너와 데이터베이스를 동기화합니다.
     * select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
     * select p1_0.id,c1_0.post_id,c1_1.id,c1_1.content,p1_0.content from post p1_0 left join (post_comments c1_0 join comment c1_1 on c1_1.id=c1_0.comments_id) on p1_0.id=c1_0.post_id where p1_0.id=?
 * 미리 조회한 Comment 엔티티 객체를 직접 동기화하지 않았음에도 데이터베이스와 동일한 데이터를 가지는 것을 알 수 있습니다.

@@ -96,9 +96,9 @@ console.dir(object);
 이번엔 열거 불가능한 속성이 추가된 프로토타입 객체와 이를 상속받은 객체를 만들어 `for-in` 반복문을 수행해보겠습니다. 
 
 * Circle 함수를 선언합니다.
-* Circle 함수의 프로토타입 객체에 getArea 메소드를 선언합니다.
+* Circle 함수의 프로토타입 객체에 getArea 메서드를 선언합니다.
 * Circle 함수의 프로토타입 객체에 color 속성을 추가합니다.
-    * Object.defineProperty 메소드를 사용합니다.
+    * Object.defineProperty 메서드를 사용합니다.
     * 함께 전달하는 옵션을 통해 `열거 가능 여부(enumerable)`를 `false`로 지정합니다.
 * circle 인스턴스를 Circle 생성자를 통해 생성합니다.
 * `for-in` 반복문을 통해 해당 객체의 정보를 출력합니다.
@@ -133,7 +133,7 @@ console.dir(circle);
 
 * radius, x, y은 열거 가능한 문자열 타입 속성이므로 정상적으로 출력됩니다.
 * getArea 함수는 프로토타입 체이닝에 의해 상속된 속성이며 열거 가능한 문자열 타입이므로 정상적으로 출력됩니다.
-* Object.defineProperty 메소드를 통해 color 속성을 선언합니다.
+* Object.defineProperty 메서드를 통해 color 속성을 선언합니다.
     * `열거 가능 여부`가 `false`로 지정되었기 때문에 `for-in` 반복문 대상에서 제외됩니다.
     * 상속을 받았으므로 직접 사용은 가능합니다.
 
@@ -147,7 +147,7 @@ console.dir(circle);
 
 * `for-in` 반복문은 객체의 속성을 탐색하기 위한 반복문입니다.
     * 일반적인 방법으로 선언하는 속성은 `열거 가능한 문자열 타입`입니다.
-    * Object.defineProperty 메소드를 통해 열거 불가능한 속성을 선언할 수 있습니다.
+    * Object.defineProperty 메서드를 통해 열거 불가능한 속성을 선언할 수 있습니다.
 * 프로토타입 체이닝을 통해 상속 받은 속성도 `열거 가능한 문자열 타입`이라면 `for-in` 반복문 대상입니다.
 * 심볼 타입으로 속성을 만들 수 있지만, 해당 속성은 `for-in` 반복문 대상이 아닙니다.
 

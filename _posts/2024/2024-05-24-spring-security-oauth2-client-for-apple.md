@@ -23,7 +23,7 @@ last_modified_at: 2024-05-24T23:55:00
 
 문제 현상을 살펴보자. 웹 환경에서 OAuth2 인증은 리다이렉트(redirect)의 연속이다. 애플 로그인 화면에서 인증 성공 후 애플 인가 서버에서 개발 서버로 브라우저를 다시 리다이렉트 시키는 시점에 문제가 발생한다. 문제가 발생하는 두번째 리다이렉트 시점에 다음과 같은 정보들이 서버 콜백 URL로 전달되고 403 에러 응답을 받는다.
 
-- POST 메소드 요청을 보낸다.
+- POST 메서드 요청을 보낸다.
 - 컨텐츠 타입(content type)은 application/x-www-form-urlencoded 이다.
 - 요청 메시지에는 다음과 같은 정보가 담겨 있다.
   - state 
@@ -136,13 +136,13 @@ last_modified_at: 2024-05-24T23:55:00
 
 <br/>
 
-여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터 생성하는 createParameters 메소드를 확장했다.
+여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터 생성하는 createParameters 메서드를 확장했다.
 
 - 애플 인가 서버로 보내는 요청인 경우
   - AppleSecretGenerator 객체로 새로운 클라이언트 시크릿을 생성한다.
-  - 부모 클래스의 createParameters 메소드로 만든 요청 파라미터 중 클라이언트 시크릿을 새로운 만든 시크릿으로 변경한다.
+  - 부모 클래스의 createParameters 메서드로 만든 요청 파라미터 중 클라이언트 시크릿을 새로운 만든 시크릿으로 변경한다.
 - 애플 외 다른 인가 서버로 보내는 요청인 경우 
-  - 부모 클래스의 createParameters 메소드로 만든 요청 파라미터를 반환한다.
+  - 부모 클래스의 createParameters 메서드로 만든 요청 파라미터를 반환한다.
 
 <div align="center">
   <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-06.png" width="100%" class="image__border">
@@ -211,10 +211,10 @@ dependencies {
 
 1. 클라이언트 아이디가 `apple`인 경우 다음과 같은 작업을 진행한다.
   - 새로운 클라이언트 시크릿을 만든다.
-  - 부모 클래스의 createParameters 메소드를 사용해 요청 파라미터를 생성한다.
+  - 부모 클래스의 createParameters 메서드를 사용해 요청 파라미터를 생성한다.
   - 클라이언트 시크릿을 새로운 시크릿으로 교체한다.
   - 요청 파라미터를 반환한다. 
-2. 클라이언트 아이디가 `apple`이 아닌 경우 부모 클래스의 createParameters 메소드 결과를 그대로 반환한다.
+2. 클라이언트 아이디가 `apple`이 아닌 경우 부모 클래스의 createParameters 메서드 결과를 그대로 반환한다.
 
 ```java
 package action.in.blog.component;
@@ -419,7 +419,7 @@ public class SecurityConfig {
 
 > If you need to customize the pre-processing of the Token Request, you can provide DefaultAuthorizationCodeTokenResponseClient.setRequestEntityConverter() with a custom Converter<OAuth2AuthorizationCodeGrantRequest, RequestEntity<?>>. 
 
-액세스 토큰을 발급 받기 전에 사전 처리가 필요한 경우 DefaultAuthorizationCodeTokenResponseClient 객체의 setRequestEntityConverter 메소드를 사용하라는 내용이다. 스프링 시큐리티 팀에서도 공식적으로 이 방법을 권장한다. 필자는 디버깅을 통해 이 과정을 분석하고 구현하느라 오래 걸렸지만, 공식 문서를 먼저 살펴볼 걸 그랬다는 생각이 든다.  
+액세스 토큰을 발급 받기 전에 사전 처리가 필요한 경우 DefaultAuthorizationCodeTokenResponseClient 객체의 setRequestEntityConverter 메서드를 사용하라는 내용이다. 스프링 시큐리티 팀에서도 공식적으로 이 방법을 권장한다. 필자는 디버깅을 통해 이 과정을 분석하고 구현하느라 오래 걸렸지만, 공식 문서를 먼저 살펴볼 걸 그랬다는 생각이 든다.  
 
 #### TEST CODE REPOSITORY
 

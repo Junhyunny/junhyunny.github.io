@@ -204,13 +204,13 @@ public class SimpleJpaRepository<T, ID> implements JpaRepositoryImplementation<T
 
 ### 2.2. JpaMetamodelEntityInformation Class
 
-JpaMetamodelEntityInformation 클래스의 isNew 메소드를 살펴보겠습니다. 
+JpaMetamodelEntityInformation 클래스의 isNew 메서드를 살펴보겠습니다. 
 
 * 버전 관련된 필드가 있는지 확인합니다.
 * 버전 관련된 필드가 있다면 해당 타입이 원시(primitive) 타입인지 확인합니다.
     * 원시 타입이 아니라면 해당 값이 `null`이어야 `true`를 반환합니다.
-    * 원시 타입이라면 부모 클래스의 isNew 메소드를 호출합니다. 
-* 부모 클래스의 isNew 메소드는 `@Id` 애너테이션이 붙은 필드의 값을 확인합니다.
+    * 원시 타입이라면 부모 클래스의 isNew 메서드를 호출합니다. 
+* 부모 클래스의 isNew 메서드는 `@Id` 애너테이션이 붙은 필드의 값을 확인합니다.
 
 ```java
 public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSupport<T, ID> {

@@ -18,7 +18,7 @@ last_modified_at: 2021-08-24T01:00:00
 
 ## 2. Pick the issue
 
-버그 내용을 보아하니 라이브러리 내부에서 배열(array)을 `toString` 메소드를 통해 그대로 문자열로 변경한 것 같습니다. 
+버그 내용을 보아하니 라이브러리 내부에서 배열(array)을 `toString` 메서드를 통해 그대로 문자열로 변경한 것 같습니다. 
 
 <p align="center">
     <img src="/images/my-first-github-issue-1.JPG" width="100%" class="image__border">

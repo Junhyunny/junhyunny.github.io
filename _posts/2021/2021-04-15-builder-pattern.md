@@ -127,7 +127,7 @@ class Labtop {
 #### 1.2.4. Builder Class
 
 * 랩톱 객체에 필요한 부품들을 추가하는 기능을 명시하고 있습니다.
-* 필요한 부품 종류에 따라 메소드가 추가, 제거될 수 있습니다.
+* 필요한 부품 종류에 따라 메서드가 추가, 제거될 수 있습니다.
 * 조립할 부품을 모두 모았으면 객체를 만들어 반환하는 기능을 명시하고 있습니다.
 
 ```java
@@ -258,7 +258,7 @@ public class EffectiveJavaBuilderPatttern {
 ### 2.2. JavaBean Pattern
 
 점층적 생성자(incremental constructor) 패턴의 문제점을 해결하기 위한 방법입니다. 
-세터(setter) 메소드를 이용해 필요한 값들을 설정합니다. 
+세터(setter) 메서드를 이용해 필요한 값들을 설정합니다. 
 가독성이 좋아지고 불필요한 생성자 오버로딩이 필요 없어집니다. 
 
 ```java
@@ -304,7 +304,7 @@ class Rectangular {
 
 * 객체 일관성(consistency)이 깨집니다. 
     * 1회의 호출로 객체 생성이 끝나지 않고, 생성한 객체에 값을 변경합니다.
-* 세터 메소드가 존재하기 때문에 변경 불가능(immutable)한 객체를 만들 수 없습니다.
+* 세터 메서드가 존재하기 때문에 변경 불가능(immutable)한 객체를 만들 수 없습니다.
 
 ```java
 public class EffectiveJavaBuilderPatttern {
@@ -320,7 +320,7 @@ public class EffectiveJavaBuilderPatttern {
 
 `Effective Java`의 빌더 패턴을 통해 객체를 생성하는 방법입니다. 
 생성자의 접근 제어자를 `private`으로 설정하여 외부에서 해당 객체를 만들 때 반드시 빌더 패턴을 사용하도록 만듭니다. 
-세터 메소드는 존재하지 않으므로 생성한 객체의 상태를 변경하지 못 합니다. 
+세터 메서드는 존재하지 않으므로 생성한 객체의 상태를 변경하지 못 합니다. 
 
 ```java
 public class EffectiveJavaBuilderPatttern {
@@ -425,8 +425,8 @@ class NutritionFacts {
 
 * 각 인자가 어떤 의미인지 알기 쉽습니다.
 * 한 번에 객체를 생성하므로 객체 일관성이 깨지지 않습니다.
-* 세터 메소드가 없으므로 변경 불가능한 객체를 만들 수 있습니다.
-* 빌더 메소드에서 잘못된 값이 입력되었는지 검증할 수 있습니다.
+* 세터 메서드가 없으므로 변경 불가능한 객체를 만들 수 있습니다.
+* 빌더 메서드에서 잘못된 값이 입력되었는지 검증할 수 있습니다.
 
 ## CLOSING
 

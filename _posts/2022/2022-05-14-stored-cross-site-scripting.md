@@ -203,7 +203,7 @@ public class PostController {
 
 ##### Post 클래스
 
-- `removeTag` 메소드에서 `<`, `>` 문자를 HTML에서 사용하는 특수 문자로 변경합니다.
+- `removeTag` 메서드에서 `<`, `>` 문자를 HTML에서 사용하는 특수 문자로 변경합니다.
 
 ```java
 @Entity
@@ -230,7 +230,7 @@ public class Post {
 
 ##### PostController 클래스
 
-- 게시글을 저장하기 전에 `removeTag` 메소드를 통해 내용을 정리합니다.
+- 게시글을 저장하기 전에 `removeTag` 메서드를 통해 내용을 정리합니다.
 
 ```java
 @Controller

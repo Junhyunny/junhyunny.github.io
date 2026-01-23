@@ -13,12 +13,12 @@ last_modified_at: 2021-08-21T17:00:00
 > Spring Document<br/>
 > Strategy interface for resolving method parameters into argument values in the context of a given request.
 
-스프링 서버 애플리케이션이 HTTP 요청을 처리하는 엔드포인트(endpoint) 메소드의 매개변수에 원하는 값을 매핑할 수 있는 컴포넌트의 인터페이스다. 자주 사용하는 `@RequestBody`, `@RequestParam`, `@PathVariable` 같은 애너테이션들도 각 `HandlerMethodArgumentResolver` 구현체들을 통해 값들이 매칭된다. 인터페이스의 책임을 살펴보자.
+스프링 서버 애플리케이션이 HTTP 요청을 처리하는 엔드포인트(endpoint) 메서드의 매개변수에 원하는 값을 매핑할 수 있는 컴포넌트의 인터페이스다. 자주 사용하는 `@RequestBody`, `@RequestParam`, `@PathVariable` 같은 애너테이션들도 각 `HandlerMethodArgumentResolver` 구현체들을 통해 값들이 매칭된다. 인터페이스의 책임을 살펴보자.
 
-- supportsParameter 메소드
-  - 자신이 지원하는 메소드 파라미터 타입인지 확인한다.
-- resolveArgument 메소드
-  - 메소드 파라미터 인수에 삽입할 값을 추출한다. 
+- supportsParameter 메서드
+  - 자신이 지원하는 메서드 파라미터 타입인지 확인한다.
+- resolveArgument 메서드
+  - 메서드 파라미터 인수에 삽입할 값을 추출한다. 
 
 ```java
 package org.springframework.web.method.support;
@@ -48,8 +48,8 @@ public interface HandlerMethodArgumentResolver {
 3. `DispatcherServlet`은 해당 요청을 수행할 `HandlerMethod` 인스턴스를 결정한다. 
 4. `DispatcherServlet`은 `RequestMappingHandlerAdapter`에게 `HandlerMethod` 인스턴스를 전달한다. 
 5. `RequestMappingHandlerAdapter`은 `HandlerMethod` 인스턴스에게 필요한 인수 값을 준비하도록 요청한다. 
-  - `HandlerMethod` 인스턴스는 자신에게 등록된 `리졸버(resolver)`들을 통해 필요한 메소드 인수 값을 셋팅한다. 
-6. `HandlerMethod` 인스턴스는 자신과 연결된 컨트롤러의 메소드를 호출(invoke)한다. 
+  - `HandlerMethod` 인스턴스는 자신에게 등록된 `리졸버(resolver)`들을 통해 필요한 메서드 인수 값을 셋팅한다. 
+6. `HandlerMethod` 인스턴스는 자신과 연결된 컨트롤러의 메서드를 호출(invoke)한다. 
 
 <div align="center">
   <img src="/images/posts/2021/handler-method-argument-resolver-01.png" width="100%" class="image__border">
@@ -57,11 +57,11 @@ public interface HandlerMethodArgumentResolver {
 
 <br/>
 
-위에서 설명한 5번 과정을 자세히 들여다보자. InvocableHandlerMethod 클래스의 getMethodArgumentValues 메소드를 살펴보면 HandlerMethodArgumentResolver 인스턴스들이 호출되는 코드를 찾을 수 있다. 각 HandlerMethodArgumentResolver 인스턴스가 지원하는 파라미터가 사용되는 엔드 포인트 메소드로 연결되는 경우 HTTP 요청 정보로부터 쿼리 파라미터(혹은 요청 메시지)로부터 필요한 값을 추출한다.
+위에서 설명한 5번 과정을 자세히 들여다보자. InvocableHandlerMethod 클래스의 getMethodArgumentValues 메서드를 살펴보면 HandlerMethodArgumentResolver 인스턴스들이 호출되는 코드를 찾을 수 있다. 각 HandlerMethodArgumentResolver 인스턴스가 지원하는 파라미터가 사용되는 엔드 포인트 메서드로 연결되는 경우 HTTP 요청 정보로부터 쿼리 파라미터(혹은 요청 메시지)로부터 필요한 값을 추출한다.
 
-- supportsParameter 메소드 
+- supportsParameter 메서드 
   - HandlerMethodArgumentResolver 객체에게 해당 파라미터를 지원하는지 확인한다. 
-- resolveArgument 메소드 
+- resolveArgument 메서드 
   - 해당 파라미터를 지원하는 경우 요청 정보로부터 필요한 값을 추출한다. 
 
 ```java
@@ -110,10 +110,10 @@ public class InvocableHandlerMethod extends HandlerMethod {
 
 예제 코드를 살펴보자. 쿼리 파라미터로부터 날짜 정보를 추출해서 LocalDate 객체로 변경하는 리졸버 객체를 구현한다.
 
-- supportsParameter 메소드
-  - 컨트롤러 엔드포인트 메소드의 파라미터가 LocalDate 타입인지 확인한다.
-- resolveArgument 메소드
-  - HTTP 요청에서 엔드포인트 메소드의 파라미터 이름을 가진 쿼리가 있ㄴ느지 확인한다.
+- supportsParameter 메서드
+  - 컨트롤러 엔드포인트 메서드의 파라미터가 LocalDate 타입인지 확인한다.
+- resolveArgument 메서드
+  - HTTP 요청에서 엔드포인트 메서드의 파라미터 이름을 가진 쿼리가 있ㄴ느지 확인한다.
   - 값이 존재하는 경우에만 `yyyy-MM-dd` 포맷으로 파싱(parsing)한다.
   - 값이 없는 경우 `null`을 반환한다.
 
@@ -158,7 +158,7 @@ public class LocalDateHandlerMethodArgumentResolver implements HandlerMethodArgu
 
 리졸버를 구현했으면 스프링 컨텍스트에 등록한다. 설정 객체를 만들고 위에서 만든 HandlerMethodArgumentResolver 인스턴스를 등록한다.
 
-- WebMvcConfigurer 인터페이스를 구현하여 addArgumentResolvers 메소드를 재구현한다.
+- WebMvcConfigurer 인터페이스를 구현하여 addArgumentResolvers 메서드를 재구현한다.
 
 ```java
 package blog.in.action.config;

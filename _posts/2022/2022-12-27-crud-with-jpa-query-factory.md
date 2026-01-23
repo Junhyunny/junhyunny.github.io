@@ -172,7 +172,7 @@ public class DslEntity {
     * `@PersistenceContext`를 사용하는 것을 권장하지만, 특정 버전 이상부터는 동일한 프록시 객체를 주입하므로 동일합니다.
     * 참고 - [@PersistenceContext 애너테이션][entity-manager-with-persistence-context-annotation-link]
 * 생성자를 통해 엔티티 매니저를 전달 받으면 `@DataJpaTest` 애너테이션을 사용한 테스트를 쉽게 풀어낼 수 있습니다. 
-* 각 메소드들은 가장 단순한 CRUD 기능을 수행합니다.
+* 각 메서드들은 가장 단순한 CRUD 기능을 수행합니다.
 
 ```java
 package action.in.blog.dsl;
@@ -238,7 +238,7 @@ public class DslStore {
     * 테스트가 종료되면 작업한 내용들에 대해 자동으로 롤백(rollback) 처리합니다.
 * 기저에 깔린 `@Transactional` 애너테이션은 다음과 같은 관점에서 테스트를 어렵게 만듭니다.
     * 스토어(store) 객체를 `@Autowired` 애너테이션을 통해 빈으로 주입 받아 테스트 하는 경우라면 테스트에서 이미 시작된 트랜잭션이 스토어 객체까지 전파되어 외부 트랜잭션에서 확인할 수 있는 방법이 없습니다. 그렇기 때문에 검증(assert)하려면 스토어 객체를 사용해야 합니다.
-    * 테스트 메소드에서 `@Transactional` 애너테이션의 전파 타입을 `NOT_SUPPORTED` 같은 것으로 오버라이딩(overriding)하면 테스트 전역에 쓰레기 데이터가 남기 때문에 다른 테스트의 정합성이 떨어집니다.
+    * 테스트 메서드에서 `@Transactional` 애너테이션의 전파 타입을 `NOT_SUPPORTED` 같은 것으로 오버라이딩(overriding)하면 테스트 전역에 쓰레기 데이터가 남기 때문에 다른 테스트의 정합성이 떨어집니다.
     * 엔티티 매니저의 1차 캐싱 기능 때문에 검증 또한 정확하지 않을 수 있습니다. 영속성 컨텍스트 캐시에 준비된 데이터가 나오는 경우엔 정확하게 쿼리가 수행되었는지 검증할 수 없습니다.
 
 ```java
@@ -429,7 +429,7 @@ public class DslStoreIT {
 `insert` 코드를 작성할 순 있지만, 테스트 코드를 실행하면 다음과 같은 에러를 만나게 됩니다. 
 `insert` 기능을 사용하기 위해 다음과 같은 옵션이 있습니다.
 
-* 간단한 방법으로 엔티티 매니저의 `persist` 메소드를 사용
+* 간단한 방법으로 엔티티 매니저의 `persist` 메서드를 사용
 * 동일한 문법 체계를 사용하고자 한다면 `SQLQueryFactory` 클래스를 사용
 
 ```

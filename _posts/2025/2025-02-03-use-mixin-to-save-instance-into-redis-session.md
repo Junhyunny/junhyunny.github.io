@@ -72,7 +72,7 @@ class CustomAuthenticatedUser(
 }
 ```
 
-CustomAuthenticatedUser 클래스는 DefaultOidcUser 클래스를 상속한다. 스프링 시큐리티는 OIDC 인증과 인가 프로세스가 끝나고 만들어지는 OIDC 사용자 정보를 세션에 저장한다. 이 때 애플리케이션 비즈니스 로직에서 필요한 데이터를 함께 저장하고 비즈니스 로직에서 사용할 메소드를 추가하기 위해 커스텀 구현체 클래스를 만들었다. 위 코드는 예제에 불필요한 코드를 제외한 간소화 된 클래스다. 
+CustomAuthenticatedUser 클래스는 DefaultOidcUser 클래스를 상속한다. 스프링 시큐리티는 OIDC 인증과 인가 프로세스가 끝나고 만들어지는 OIDC 사용자 정보를 세션에 저장한다. 이 때 애플리케이션 비즈니스 로직에서 필요한 데이터를 함께 저장하고 비즈니스 로직에서 사용할 메서드를 추가하기 위해 커스텀 구현체 클래스를 만들었다. 위 코드는 예제에 불필요한 코드를 제외한 간소화 된 클래스다. 
 
 <div align="center">
   <img src="/images/posts/2025/use-mixin-to-save-instance-into-redis-session-01.png" width="80%" class="image__border">

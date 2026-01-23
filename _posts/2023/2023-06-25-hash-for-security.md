@@ -104,7 +104,7 @@ last_modified_at: 2023-06-25T23:55:00
 Bcrypt 클래스를 먼저 사용해보자.
 
 - BCrypt 클래스는 랜덤한 솔트를 사용해 매번 새로운 해시 값을 생성한다.
-- checkpw 메소드는 전달받은 평문과 다이제스트가 동일한지 확인한다.
+- checkpw 메서드는 전달받은 평문과 다이제스트가 동일한지 확인한다.
 - BCrypt 알고리즘의 다이제스트는 솔트 정보를 함께 포함하고 있기 때문에 매번 새로운 해시 값을 만들어져도 동일한지 확인 가능하다.
 
 ```java
@@ -162,7 +162,7 @@ class SpringSecurityCryptoTests {
 이번엔 BCryptPasswordEncoder 클래스를 사용한다. PasswordEncoder 인스턴스는 스프링 시큐리티의 인증 프로세스에서 사용된다. 
 
 - 동일한 평문을 암호화하지만, 다이제스트 값은 동일하지 않다.
-- matches 메소드를 사용하면 해당 평문과 다이제스트가 동일한지 확인할 수 있다.
+- matches 메서드를 사용하면 해당 평문과 다이제스트가 동일한지 확인할 수 있다.
 
 ```java
 class SpringSecurityCryptoTests {

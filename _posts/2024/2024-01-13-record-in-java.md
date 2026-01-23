@@ -26,7 +26,7 @@ JDK14에 처음 등장해 JDK16에 정식으로 추가됐다. 핵심은 `compact
 
 - 단순한 값의 집합을 표현하는 객체 지향 구조를 고안한다. 
 - 개발자가 불변 데이터 객체를 모델링하는 데 집중할 수 있다.
-- equals 메소드나 게터(getter) 같은 데이터 기반 방식을 자동으로 구현해준다.
+- equals 메서드나 게터(getter) 같은 데이터 기반 방식을 자동으로 구현해준다.
 - 명목형 타이핑(nominal typing) 같은 오랜 자바(java) 원칙을 유지한다.
 
 다음 같은 것들을 지양한다.
@@ -41,8 +41,8 @@ JDK14에 처음 등장해 JDK16에 정식으로 추가됐다. 핵심은 `compact
 일반적으로 데이터 전달을 위해 사용하는 불변 클래스는 다음과 같이 선언한다. 
 
 - final 키워드로 필드를 선언한다.
-- 접근 메소드가 제공한다.
-- equals, hashCode, toString 메소드가 제공한다.
+- 접근 메서드가 제공한다.
+- equals, hashCode, toString 메서드가 제공한다.
 
 ```java
 class Point {
@@ -73,19 +73,19 @@ class Point {
 }
 ```
 
-데이터 운반 클래스를 만들 때 생성자, 접근자, equals, hashCode, toString 메소드 때문에 코드가 길어진다. IDE(Integrated Devleopment Environment) 도구의 도움을 받아 자동으로 생성할 수 있으며 만약 코드가 길어지는 것이 싫다면 애너테이션 기반으로 코드를 생성하는 롬복(lombok) 같은 라이브러리를 사용할 수도 있다. 개발자들에게 지루하고 실수가 생길 수도 있는 작업을 레코드 클래스로 해결할 수 있다.
+데이터 운반 클래스를 만들 때 생성자, 접근자, equals, hashCode, toString 메서드 때문에 코드가 길어진다. IDE(Integrated Devleopment Environment) 도구의 도움을 받아 자동으로 생성할 수 있으며 만약 코드가 길어지는 것이 싫다면 애너테이션 기반으로 코드를 생성하는 롬복(lombok) 같은 라이브러리를 사용할 수도 있다. 개발자들에게 지루하고 실수가 생길 수도 있는 작업을 레코드 클래스로 해결할 수 있다.
 
 레코드 클래스를 사용하면 불필요한 의존성을 추가하거나 IDE의 도움을 받아 클래스를 작성할 필요가 없다. 
 
 - 레코드 클래스 시그니처(signature)는 생성자와 동일하다.
-- 필드 이름과 동일한 데이터 접근자 메소드가 제공된다.
-- equals, hashCode, toString 메소드가 자동으로 생성된다.
+- 필드 이름과 동일한 데이터 접근자 메서드가 제공된다.
+- equals, hashCode, toString 메서드가 자동으로 생성된다.
 
 ```java
 record Point(int x, int y) { }
 ```
 
-위 레코드 클래스를 컴파일하면 다음과 같은 모습을 가진다. 컴파일 된 클래스에선 필드나 equals, hashCode, toString 메소드들을 찾아볼 수 없지만, 바이트 코드에선 확인할 수 있다.
+위 레코드 클래스를 컴파일하면 다음과 같은 모습을 가진다. 컴파일 된 클래스에선 필드나 equals, hashCode, toString 메서드들을 찾아볼 수 없지만, 바이트 코드에선 확인할 수 있다.
 
 ```java
 record Point(int x, int y) {
@@ -177,7 +177,7 @@ record Person(String name)  { // only here
 }
 ```
 
-반면 정적(static) 필드, 인스턴스 메소드, 정적 메소드는 정의할 수 있다.
+반면 정적(static) 필드, 인스턴스 메서드, 정적 메서드는 정의할 수 있다.
 
 ```java
 record Person(String name, String contact) {
@@ -270,8 +270,8 @@ record Person(String name, String contact) {
 
 추가적으로 다음과 같은 규칙들이 있다.
 
-- 레코드 클래스는 접근자, equals, hashCode 메소드가 자동으로 생성되기 때문에 명시적 구현은 주의해야 한다.
-- 레코드 클래스에 네이티브(native) 메소드를 선언할 수 없다.
+- 레코드 클래스는 접근자, equals, hashCode 메서드가 자동으로 생성되기 때문에 명시적 구현은 주의해야 한다.
+- 레코드 클래스에 네이티브(native) 메서드를 선언할 수 없다.
 
 #### REFERENCE
 

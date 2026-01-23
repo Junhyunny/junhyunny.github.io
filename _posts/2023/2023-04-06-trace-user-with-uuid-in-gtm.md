@@ -20,7 +20,7 @@ last_modified_at: 2023-04-06T23:55:00
 
 ## 0. 들어가면서
 
-아래와 같은 구현 요건을 만족시키기 위해 [Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메소드를 재정의하는 방법에 대해 정리하였습니다. 
+아래와 같은 구현 요건을 만족시키기 위해 [Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메서드를 재정의하는 방법에 대해 정리하였습니다. 
 
 * 사용자 추적을 위한 UUID 발급한다. 
 * 모든 사용자 이벤트에 UUID 추가가 필요하다.
@@ -29,14 +29,14 @@ last_modified_at: 2023-04-06T23:55:00
 
 ## 1. In React Application
 
-위에서 살펴본 패인 포인트(pain point)를 해결하기 위해 애플리케이션이 시작할 때 `dataLayer` 객체의 push 메소드를 재정의하였습니다. 
+위에서 살펴본 패인 포인트(pain point)를 해결하기 위해 애플리케이션이 시작할 때 `dataLayer` 객체의 push 메서드를 재정의하였습니다. 
 리액트 애플리케이션의 중요한 코드들만 살펴보겠습니다.
 
 ### 1.1. uuid.ts
 
-* getUUID 메소드
+* getUUID 메서드
     * 특정 사용자를 위한 UUID를 발급합니다.
-* getUserTransactionId 메소드
+* getUserTransactionId 메서드
     * 사용자 별로 UUID를 관리하기 위해 로컬 스토리지(local stoage)에 저장합니다.
     * 저장된 UUID가 존재한다면 재사용하고, 없다면 새로 생성 후 저장하고 이를 반환합니다.
 
@@ -79,12 +79,12 @@ export {};
 ### 1.3. gtm.ts
 
 * GTM 인스톨이 정상적이지 않은 경우 에러를 막기 위해 디폴트 객체를 지정합니다.
-* `dataLayer` 객체의 원본 push 메소드를 별도 변수로 참조합니다.
-* Object.defineProperty 메소드를 사용해 push 메소드를 재정의합니다.
-    * push 메소드 재정의가 정상적이지 않은 경우 원본 push 메소드를 반환합니다.
+* `dataLayer` 객체의 원본 push 메서드를 별도 변수로 참조합니다.
+* Object.defineProperty 메서드를 사용해 push 메서드를 재정의합니다.
+    * push 메서드 재정의가 정상적이지 않은 경우 원본 push 메서드를 반환합니다.
 * overrideDataLayer 함수
-    * 파라미터로 전달받은 push 메소드를 실행할 때 `txId`를 추가로 삽입하도록 변경합니다.
-    * 변경한 push 메소드를 `dataLayer` 객체에 추가합니다.
+    * 파라미터로 전달받은 push 메서드를 실행할 때 `txId`를 추가로 삽입하도록 변경합니다.
+    * 변경한 push 메서드를 `dataLayer` 객체에 추가합니다.
     * 애플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
 * 커스텀 이벤트 발행은 부가적으로 넣은 것이 아닙니다.
     * 함수 재정의 이후 리액트 라이프사이클을 타기 전 최초 1회 실행해야 오버라이드한 기능이 정상적으로 동작합니다.
@@ -117,7 +117,7 @@ export const overrideDataLayer = (txId: string) => {
 
 ### 1.4. App.tsx
 
-* App 컴포넌트가 호출되면 `overrideDataLayer` 메소드를 통해 push 메소드를 재정의합니다.
+* App 컴포넌트가 호출되면 `overrideDataLayer` 메서드를 통해 push 메서드를 재정의합니다.
 * clickEventHandler 이벤트
     * `CLICK` 이라는 알람이 발생합니다.
 * customEventHandler 이벤트

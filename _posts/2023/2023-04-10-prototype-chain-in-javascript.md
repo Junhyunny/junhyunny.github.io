@@ -90,16 +90,16 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
 
 간단한 코드를 통해 오버라이딩과 쉐도잉에 대해 알아보겠습니다.
 
-* person 인스턴스의 sayHello 메소드를 호출합니다.
+* person 인스턴스의 sayHello 메서드를 호출합니다.
     * `Hi! Instance person's name is Junhyunny` 로그가 출력됩니다.
-* sayHello 메소드를 인스턴스에서 제거합니다.
+* sayHello 메서드를 인스턴스에서 제거합니다.
     * delete 키워드를 사용합니다.
-* person 인스턴스의 sayHello 메소드를 호출합니다.
+* person 인스턴스의 sayHello 메서드를 호출합니다.
     * `Hi! Prototype person's name is Junhyunny` 로그가 출력됩니다.
-    * 프로토타입 체인을 통해 상위 객체의 메소드를 사용합니다.
-* sayHello 메소드를 프로토타입 객체에서 제거합니다.
+    * 프로토타입 체인을 통해 상위 객체의 메서드를 사용합니다.
+* sayHello 메서드를 프로토타입 객체에서 제거합니다.
     * delete 키워드를 사용합니다.
-* person 인스턴스의 sayHello 메소드를 호출합니다.
+* person 인스턴스의 sayHello 메서드를 호출합니다.
     * `Uncaught TypeError`가 발생합니다.
     * 인스턴스와 프로토타입 객체에서 삭제하였으므로 해당 프로퍼티를 프로토타입 체인 내에서 찾을 수 없습니다.
 

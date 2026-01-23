@@ -138,7 +138,7 @@ java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/bl
 
 ## 3. Solve the problem
 
-문제를 해결하려면 getResource 메소드가 아닌 `getResourceAsStream` 메소드를 사용해야 한다. getResourceAsStream 메소드는 리소스 파일을 읽을 수 있는 InputStream 객체를 반환한다. InputStream 객체를 사용해 패키지 내부 데이터를 읽는다.
+문제를 해결하려면 getResource 메서드가 아닌 `getResourceAsStream` 메서드를 사용해야 한다. getResourceAsStream 메서드는 리소스 파일을 읽을 수 있는 InputStream 객체를 반환한다. InputStream 객체를 사용해 패키지 내부 데이터를 읽는다.
 
 1. 클래스로더(classloader)로 해당 리소스 파일을 읽을 수 있는 InputStream 객체를 생성한다.
 2. InputStream 객체를 BufferedReader 객체에 주입한다.
@@ -179,13 +179,13 @@ public class PokeomonController {
 }
 ```
 
-jar 패키지 파일로 애플리케이션을 실행 후 테스트 해보면 getResourceAsStream 메소드를 사용했을 때 정상적으로 응답하는 것을 확인할 수 있다.
+jar 패키지 파일로 애플리케이션을 실행 후 테스트 해보면 getResourceAsStream 메서드를 사용했을 때 정상적으로 응답하는 것을 확인할 수 있다.
 
 - /pokemons-fail 경로
-  - getResource 메소드를 사용해 얻은 경로를 파일로 오픈한다.
+  - getResource 메서드를 사용해 얻은 경로를 파일로 오픈한다.
   - 에러가 발생한다.
 - /pokemons-success 경로
-  - getResourceAsStream 메소드를 사용해 얻은 InputStream 객체를 사용한다.
+  - getResourceAsStream 메서드를 사용해 얻은 InputStream 객체를 사용한다.
   - 정상적으로 응답한다.
 
 <div align="center">

@@ -18,7 +18,7 @@ last_modified_at: 2026-01-23T09:55:00
 
 ## 1. MediaStream API
 
-브라우저에서 카메라, 마이크 같은 채널로부터 입력을 받으려면 [MediaStream API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream)를 사용해야 한다. [getUserMedia() 메소드](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)를 통해 요청한 미디어(media) 트랙들이 포함된 MediaStream 인스턴스를 얻을 수 있다.
+브라우저에서 카메라, 마이크 같은 채널로부터 입력을 받으려면 [MediaStream API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream)를 사용해야 한다. [getUserMedia() 메서드](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)를 통해 요청한 미디어(media) 트랙들이 포함된 MediaStream 인스턴스를 얻을 수 있다.
 
 ```ts
 const stream = navigator.mediaDevices.getUserMedia(constraints)
@@ -30,11 +30,11 @@ const stream = navigator.mediaDevices.getUserMedia(constraints)
 - 마이크, A/D 컨버터에 의해 생성되는 오디오 트랙
 - 기타 가능한 다른 타입의 트랙
 
-MediaStream 인스턴스의 getTracks() 메소드를 사용하면 종류에 상관없이 모든 MediaStreamTrack 인스턴스들을 반환한다.
+MediaStream 인스턴스의 getTracks() 메서드를 사용하면 종류에 상관없이 모든 MediaStreamTrack 인스턴스들을 반환한다.
 
-해당 메소드를 호출하면 사용자 허가(permssion) 여부를 확인하고, 허가하지 않는 경우 `NotAllowedError` 에러를 던진다. 위에서 사용된 constraints 객체에는 `video`와 `audio` 요소가 모두 포함되며 요청하는 미디어 타입의 관련된 제약 조건을 명시한다.
+해당 메서드를 호출하면 사용자 허가(permssion) 여부를 확인하고, 허가하지 않는 경우 `NotAllowedError` 에러를 던진다. 위에서 사용된 constraints 객체에는 `video`와 `audio` 요소가 모두 포함되며 요청하는 미디어 타입의 관련된 제약 조건을 명시한다.
 
-getUserMedia() 메소드 API는 심각한 개인정보 보호 우려가 포함되어 있기 때문에 브라우저가 의무적으로 만족해야 하는 보안 요구사항들이 명시되어 있다. 안전하지 않은 컨텍스트에서 navigator.mediaDevices 객체는 undefined이므로 getUserMedia() 메소드는 호출할 수 없다. 안전한 컨텍스트인 HTTPS, 'file:///' URL 스키마, localhost인 경우에만 사용할 수 있다.
+getUserMedia() 메서드 API는 심각한 개인정보 보호 우려가 포함되어 있기 때문에 브라우저가 의무적으로 만족해야 하는 보안 요구사항들이 명시되어 있다. 안전하지 않은 컨텍스트에서 navigator.mediaDevices 객체는 undefined이므로 getUserMedia() 메서드는 호출할 수 없다. 안전한 컨텍스트인 HTTPS, 'file:///' URL 스키마, localhost인 경우에만 사용할 수 있다.
 
 ## 2. Video recording
 
@@ -75,9 +75,9 @@ const VideoRecorder = () => {
 };
 ```
 
-useEffect 훅(hook)에서 웹 캠을 연결한다. 컴포넌트가 마운트(mount) 될 때 getUserMedia 메소드를 통해 MediaStream 인스턴스를 획득한다. 획득한 MediaStream 인스턴스를 videoRef가 참조하는 video 요소의 소스(srcObject)로 설정 후 video 요소를 플레이(play)한다. 언마운트(unmount)될 때 MediaStream 인스턴스로 관리하는 트랙(MediaStreamTrack)들을 모두 종료한다.
+useEffect 훅(hook)에서 웹 캠을 연결한다. 컴포넌트가 마운트(mount) 될 때 getUserMedia 메서드를 통해 MediaStream 인스턴스를 획득한다. 획득한 MediaStream 인스턴스를 videoRef가 참조하는 video 요소의 소스(srcObject)로 설정 후 video 요소를 플레이(play)한다. 언마운트(unmount)될 때 MediaStream 인스턴스로 관리하는 트랙(MediaStreamTrack)들을 모두 종료한다.
 
-getUserMedia 메소드가 호출되면 브라우저에서 카메라 권한 허용 여부를 물어본다. 사용자가 허용하면 카메라가 연결되고, 허용하지 않으면 DOMException 에러가 발생한다.
+getUserMedia 메서드가 호출되면 브라우저에서 카메라 권한 허용 여부를 물어본다. 사용자가 허용하면 카메라가 연결되고, 허용하지 않으면 DOMException 에러가 발생한다.
 
 ```tsx
 const loadStream = async () => {

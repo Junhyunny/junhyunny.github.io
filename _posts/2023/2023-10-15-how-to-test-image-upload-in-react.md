@@ -71,7 +71,7 @@ RTL(React Testing Library) userEvent 모듈의 upload 함수를 사용하면 이
 * App 컴포넌트를 렌더링(rendering)합니다.
 * userEvent 모듈의 upload 함수를 사용해 파일 선택 이벤트를 발생시킵니다. 
 * 화면의 이미지 태그의 소스가 변경되었는지 확인합니다.
-    * FileReader 객체의 readAsDataURL 메소드를 사용하면 이미지 바이너리(binary) 정보가 Base64 방식으로 인코딩됩니다.
+    * FileReader 객체의 readAsDataURL 메서드를 사용하면 이미지 바이너리(binary) 정보가 Base64 방식으로 인코딩됩니다.
 
 ```tsx
 import userEvent from "@testing-library/user-event";

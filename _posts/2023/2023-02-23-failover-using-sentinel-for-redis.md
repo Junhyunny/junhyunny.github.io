@@ -334,14 +334,14 @@ public class RedisController {
 
 ### 3.7. RedisMessageClient Class 
 
-* 각 메소드 별 기능은 다음과 같습니다.
-* getUnreadMessagesSize 메소드
+* 각 메서드 별 기능은 다음과 같습니다.
+* getUnreadMessagesSize 메서드
     * `UNREAD` 리스트의 사이즈를 반환합니다.
-* pushMessage 메소드
+* pushMessage 메서드
     * `UNREAD` 리스트에 새로운 메시지를 추가합니다.
-* readMessageGroup 메소드
+* readMessageGroup 메서드
     * `UNREAD` 리스트와 `READ` 리스트에 담긴 메시지들을 반환합니다.
-* flushUnreadMessages 메소드
+* flushUnreadMessages 메서드
     * `UNREAD` 리스트에 담긴 메시지들을 `READ` 리스트로 옮깁니다.
 
 ```java

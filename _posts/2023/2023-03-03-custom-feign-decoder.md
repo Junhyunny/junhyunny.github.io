@@ -82,7 +82,7 @@ dependencies {
 
 * 언이스케이핑 처리를 위한 디코더 클래스입니다.
 * `SpringDecoder` 클래스를 확장합니다.
-* `decode` 메소드 기능을 확장합니다.
+* `decode` 메서드 기능을 확장합니다.
     * `IOUtils` 클래스를 통해 응답(response body)에서 메시지를 추출합니다.
     * `StringEscapeUtils` 클래스를 통해 메시지를 언이스케이프 처리합니다. 
 

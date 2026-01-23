@@ -9,36 +9,36 @@ last_modified_at: 2022-08-02T23:55:00
 
 <br/>
 
-## 1. 팩토리 메소드 패턴(Factory Method Pattern)
+## 1. 팩토리 메서드 패턴(Factory Method Pattern)
 
 > [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
 > 객체를 생성하기 위해 인터페이스를 정의하지만, 어떤 클래스의 인스턴스를 생성할지에 대한 결정은 서브 클래스가 내리도록 합니다.
 
-인터넷의 팩토리 메소드 패턴과 관련된 글들을 읽어보면 팩토리 클래스를 만들고 이를 사용하는 예시가 많습니다. 
-[Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]의 저자가 팩토리 메소드 패턴의 활용성에 대해 작성한 내용을 보면 팩토리 클래스보단 메소드를 사용하는 클래스 관점에서 해당 패턴을 정리했다는 느낌이 들었습니다. 
+인터넷의 팩토리 메서드 패턴과 관련된 글들을 읽어보면 팩토리 클래스를 만들고 이를 사용하는 예시가 많습니다. 
+[Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]의 저자가 팩토리 메서드 패턴의 활용성에 대해 작성한 내용을 보면 팩토리 클래스보단 메서드를 사용하는 클래스 관점에서 해당 패턴을 정리했다는 느낌이 들었습니다. 
 저도 같은 시각에서 이해해보고자 노력하면서 글을 작성하였습니다.
 
-> 팩토리 메소드 패턴 활용성 - [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
-> 팩토리 메소드는 다음과 같은 상황에 사용합니다.<br/>
+> 팩토리 메서드 패턴 활용성 - [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
+> 팩토리 메서드는 다음과 같은 상황에 사용합니다.<br/>
 > * 어떤 클래스가 자신이 생성해야 하는 객체의 클래스를 예측할 수 없을 때
 > * 생성할 객체를 기술하는 책임을 자신의 서브 클래스가 지정했으면 할 때
 > * 객체 생성의 책임을 몇 개의 보조 서브 클래스 가운데 하나에게 위임하고, 어떤 서브 클래스가 위임자인지에 대한 정보를 국소화하고 싶을 때
 
-### 1.1. 팩토리 메소드 패턴 구조
+### 1.1. 팩토리 메서드 패턴 구조
 
-팩토리 메소드 패턴에 참여하는 클래스들은 다음과 같습니다.
+팩토리 메서드 패턴에 참여하는 클래스들은 다음과 같습니다.
 
-* Product - 팩토리 메소드가 생성하는 객체의 인터페이스를 정의합니다.
+* Product - 팩토리 메서드가 생성하는 객체의 인터페이스를 정의합니다.
 * ConcreteProduct - Product 인터페이스를 실제로 구현한 클래스입니다.
-* Creator - Product 타입의 객체를 반환하는 팩토리 메소드를 선언한 클래스(혹은 인터페이스)입니다.
-* ConcreteCreator - Creator 클래스를 상속받아, 팩토리 메소드를 재구현하는 클래스입니다.
+* Creator - Product 타입의 객체를 반환하는 팩토리 메서드를 선언한 클래스(혹은 인터페이스)입니다.
+* ConcreteCreator - Creator 클래스를 상속받아, 팩토리 메서드를 재구현하는 클래스입니다.
 
 <p align="center">
     <img src="/images/factory-method-pattern-1.JPG" width="80%" class="image__border">
 </p>
 <center>https://dev-youngjun.tistory.com/195</center>
 
-### 1.2. 팩토리 메소드 패턴 장단점
+### 1.2. 팩토리 메서드 패턴 장단점
 
 다음과 같은 장단점이 존재합니다.
 
@@ -47,9 +47,9 @@ last_modified_at: 2022-08-02T23:55:00
 * 단점
     * 간단한 코드임에도 클래스가 많아질 수 있습니다.
 
-## 2. 팩토리 메소드 패턴 연습하기
+## 2. 팩토리 메서드 패턴 연습하기
 
-팩토리 메소드 패턴에 대한 이해도를 높이고자 간단한 예시 코드를 작성해보았습니다. 
+팩토리 메서드 패턴에 대한 이해도를 높이고자 간단한 예시 코드를 작성해보았습니다. 
 물류 운송 시스템을 운영 중인 개발자A가 있습니다.
 
 * 운송 수단을 예약하는 `TransportManager` 클래스를 관리하고 있습니다.
@@ -179,7 +179,7 @@ public class ContainerShip extends Transport {
 
 #### 2.2.2. TransportManager 클래스
 
-* 구현체 클래스들이 상속받을 수 있도록 `getTransport` 메소드의 접근 제어자를 `protected`로 변경합니다.
+* 구현체 클래스들이 상속받을 수 있도록 `getTransport` 메서드의 접근 제어자를 `protected`로 변경합니다.
 
 ```java
 package action.in.blog.domain;
@@ -441,9 +441,9 @@ public class TransportManagerTests {
 }
 ```
 
-## 3. SOLID 원칙과 팩토리 메소드 패턴
+## 3. SOLID 원칙과 팩토리 메서드 패턴
 
-팩토리 메소드 패턴이 적용되면서 SOLID 원칙 중 어떤 원칙들이 개선되는지 고민해보았습니다. 
+팩토리 메서드 패턴이 적용되면서 SOLID 원칙 중 어떤 원칙들이 개선되는지 고민해보았습니다. 
 
 * 단일 책임 원칙(SRP, Single Responsibility Principle) 
     * 한 클래스는 하나의 책임만 가져야 한다.
@@ -468,7 +468,7 @@ public class TransportManagerTests {
     * 운송 수단이 늘어남에 따라 `TransportManager` 클래스의 변경 없이 새로운 하위 타입 클래스를 만들어 기능을 확장할 수 있습니다.
 * 리스코프 치환 원칙
     * 기존 `TransportManager` 클래스를 사용 중이던 코드를 적절한 하위 타입 클래스로 변경할 수 있습니다.
-    * 기존 코드를 모두 적절한 하위 타입 클래스로 변경하면, `getTransport` 메소드를 추상 메소드, `TransportManager` 클래스를 추상 클래스로 변경할 수 있습니다.
+    * 기존 코드를 모두 적절한 하위 타입 클래스로 변경하면, `getTransport` 메서드를 추상 메서드, `TransportManager` 클래스를 추상 클래스로 변경할 수 있습니다.
 
 ```java
 public class TransportManager {

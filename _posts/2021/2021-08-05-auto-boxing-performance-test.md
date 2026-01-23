@@ -41,8 +41,8 @@ public final class SnoopInt {
 - 8개 데몬 스레드를 생성하여 수행시킵니다.
 - 스레드는 각자 지닌 MikeTyson 객체의 map 객체로부터 특정 키가 존재하는지 확인합니다.
 - 확인 후 yieldCounter 변수 값을 증가시킵니다.
-- yield 메소드를 수행하여 자신의 수행 시간을 다른 스레드에게 넘깁니다.
-- containsKey 메소드 부분에서 auto boxing 기능이 수행됩니다.
+- yield 메서드를 수행하여 자신의 수행 시간을 다른 스레드에게 넘깁니다.
+- containsKey 메서드 부분에서 auto boxing 기능이 수행됩니다.
 
 ```java
 package blog.in.action.autoboxing;
@@ -132,8 +132,8 @@ public final class OptimizationSnoopInt {
 ```
 
 ### 2.2. MikeTyson 클래스
-- snoopIntCopy 객체에서 getId 메소드를 통해 꺼내는 값이 wrapper 클래스의 객체입니다.
-- containsKey 메소드 수행 시 auto boxing 기능이 동작하지 않습니다.
+- snoopIntCopy 객체에서 getId 메서드를 통해 꺼내는 값이 wrapper 클래스의 객체입니다.
+- containsKey 메서드 수행 시 auto boxing 기능이 동작하지 않습니다.
 - 기타 나머지 동작은 동일합니다.
 
 ``` java
@@ -211,8 +211,8 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 > 어떤 GC 알고리즘을 사용하더라도 stop-the-world는 발생한다. 
 > 대개의 경우 GC 튜닝이란 이 stop-the-world 시간을 줄이는 것이다.<br/>
 > Java는 프로그램 코드에서 메모리를 명시적으로 지정하여 해제하지 않는다. 
-> 가끔 명시적으로 해제하려고 해당 객체를 null로 지정하거나 System.gc() 메소드를 호출하는 개발자가 있다. 
-> null로 지정하는 것은 큰 문제가 안 되지만, System.gc() 메소드를 호출하는 것은 시스템의 성능에 매우 큰 영향을 끼치므로 System.gc() 메소드는 절대로 사용하면 안 된다. 
+> 가끔 명시적으로 해제하려고 해당 객체를 null로 지정하거나 System.gc() 메서드를 호출하는 개발자가 있다. 
+> null로 지정하는 것은 큰 문제가 안 되지만, System.gc() 메서드를 호출하는 것은 시스템의 성능에 매우 큰 영향을 끼치므로 System.gc() 메서드는 절대로 사용하면 안 된다. 
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-05-auto-boxing-performance-test>

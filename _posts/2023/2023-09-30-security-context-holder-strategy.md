@@ -24,7 +24,7 @@ last_modified_at: 2023-09-30T23:55:00
 
 * 시스템 설정에서 `spring.security.strategy` 키로 저장된 값을 사용합니다. 
 * 별도로 지정된 값이 없다면 `MODE_THREADLOCAL`를 사용하며 필요한 경우 직접 구현한 전략을 사용할 수 있습니다. 
-* 필요한 경우 setStrategyName 메소드를 통해 런타임 중 시큐리티 컨텍스트 보관 전략을 변경할 수 있습니다.
+* 필요한 경우 setStrategyName 메서드를 통해 런타임 중 시큐리티 컨텍스트 보관 전략을 변경할 수 있습니다.
 * 각 모드에 따라 다음과 같은 기능을 수행합니다.
     * MODE_THREADLOCAL 모드
         * ThreadLocalSecurityContextHolderStrategy 클래스를 사용합니다.

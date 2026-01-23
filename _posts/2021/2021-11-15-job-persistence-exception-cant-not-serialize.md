@@ -41,7 +41,7 @@ last_modified_at: 2021-11-15T23:55:00
 
 문제 상황을 정리해보면 다음과 같았습니다.
 - `QuartzJobBean`을 상속한 클래스에서 `@Autowired` 키워드를 사용한 빈(bean) 주입이 안된다.
-- `Quartz Clustering` 구축시 `JobDataMap` 파라미터와 `Setter` 메소드를 사용하여 빈(bean) 주입 시 에러가 발생한다.
+- `Quartz Clustering` 구축시 `JobDataMap` 파라미터와 `Setter` 메서드를 사용하여 빈(bean) 주입 시 에러가 발생한다.
 - 비즈니스 로직에서 데이터베이스 기능을 사용하기 위해선 `ServiceImpl` 빈(bean) 주입이 필요하다.
 
 ## 2. 해결 방법
@@ -76,10 +76,10 @@ last_modified_at: 2021-11-15T23:55:00
 ```
 
 ### 2.2. BlogJob 클래스
-- `Setter` 메소드는 제거합니다.
-- `executeInternal` 메소드에 파라미터로 전달받은 `JobExecutionContext` 객체에서 스케줄러를 획득합니다.
+- `Setter` 메서드는 제거합니다.
+- `executeInternal` 메서드에 파라미터로 전달받은 `JobExecutionContext` 객체에서 스케줄러를 획득합니다.
 - 스케줄러에서 `applicationContext` 키워드로 Spring 컨텍스트(context) 정보를 획득합니다.
-- Spring 컨텍스트에서 `getBean` 메소드를 통해 원하는 빈(bean)을 꺼내어 사용합니다.
+- Spring 컨텍스트에서 `getBean` 메서드를 통해 원하는 빈(bean)을 꺼내어 사용합니다.
 
 ```java
 package blog.in.action.job;

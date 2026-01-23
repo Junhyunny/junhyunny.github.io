@@ -26,10 +26,10 @@ last_modified_at: 2024-02-07T23:55:00
 
 해당 요건 사항을 처리하기 위해 다음과 같은 비즈니스 로직이 추가되었다. 
 
-- elapsedMessage 메소드
+- elapsedMessage 메서드
   - 현재 시각 타임스탬프(timestamp) 값에서 데이터가 생성된 시각 타임스탬프 값을 뺀다. 
   - 타임스탬프 값 차이를 분(minute)으로 환산해 시간이 얼마나 경과했는지 보여주는 메시지를 만든다.
-- of 메소드
+- of 메서드
   - 엔티티(entity) 객체를 DTO(data transfer object) 객체로 변경한다.
 
 ```kotlin
@@ -137,7 +137,7 @@ JVM 애플리케이션은 기본적으로 호스트 PC의 타임존을 사용한
 
 1. TZ 환경 변수에 값이 설정되어 있다면 시스템 기본 타임존 정보를 오버라이드한다.
 2. -Duser.timezone JVM 옵션 설정이 되어있다면 TZ 환경 변수 값을 오버라이드한다.
-3. Timezone 클래스의 setDefault 메소드를 통해 -Duser.timezone 설정 값을 오버라이드한다.
+3. Timezone 클래스의 setDefault 메서드를 통해 -Duser.timezone 설정 값을 오버라이드한다.
 
 다시 정리하면 JVM 타임존 우선 순위는 다음과 같다.
 

@@ -178,7 +178,7 @@ public class CommunicationController {
 
 명시적인(declarative) HTTP 클라이언트를 통해 통신한다. 스프링 부트 3.X 버전부터 사용할 수 있다. 상세한 사용법은 [Declarative HTTP Client in Spring Boot][declarative-http-client-in-spring-boot-link] 글을 참조하길 바란다. 
 
-HTTP 클라이언트는 페인 클라이언트(feign client)처럼 동적 URL 할당이 가능하다. 동적 URL 할당에 대한 개념을 알고 싶다면 [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link] 글을 참고하길 바란다. 간단히 설명하면 메소드 첫 번째 파라미터가 URI 객체일 경우 해당 호스트에게 API 요청을 보낸다. 메소드 위에 @GetExchange 애너테이션에 명시된 /service-name 경로로 GET 요청을 수행한다. 
+HTTP 클라이언트는 페인 클라이언트(feign client)처럼 동적 URL 할당이 가능하다. 동적 URL 할당에 대한 개념을 알고 싶다면 [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link] 글을 참고하길 바란다. 간단히 설명하면 메서드 첫 번째 파라미터가 URI 객체일 경우 해당 호스트에게 API 요청을 보낸다. 메서드 위에 @GetExchange 애너테이션에 명시된 /service-name 경로로 GET 요청을 수행한다. 
 
 ```java
 package action.in.blog.proxy;

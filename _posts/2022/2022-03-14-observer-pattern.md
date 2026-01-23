@@ -78,11 +78,11 @@ public interface ApplicationEventMulticaster {
 - `AbstractApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당합니다.
 - 추상 클래스이므로 이를 상속받은 클래스가 존재합니다.
 - 리스너(listener)들을 추가하고, 제거하는 역할을 수행합니다.
-    - `addApplicationListener` 메소드
-    - `addApplicationListenerBean` 메소드
-    - `removeApplicationListener` 메소드
-    - `removeApplicationListenerBean` 메소드
-    - `removeAllListeners` 메소드
+    - `addApplicationListener` 메서드
+    - `addApplicationListenerBean` 메서드
+    - `removeApplicationListener` 메서드
+    - `removeApplicationListenerBean` 메서드
+    - `removeAllListeners` 메서드
 
 ```java
 package org.springframework.context.event;
@@ -165,7 +165,7 @@ public abstract class AbstractApplicationEventMulticaster implements Application
 - `SimpleApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당합니다.
 - 추상 클래스인 `AbstractApplicationEventMulticaster`의 기능을 확장합니다.
 - 자신이 관리하는 리스너들에게 이벤트를 전달하는 역할을 수행합니다.
-    - `multicastEvent` 메소드
+    - `multicastEvent` 메서드
 
 ```java
 package org.springframework.context.event;
@@ -282,8 +282,8 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 
 ### 2.4. ApplicationListener 인터페이스
 - `ApplicationListener` 인터페이스는 옵저버 패턴에서 옵저버 인터페이스에 해당합니다.
-- 옵저버들이 자신의 상태를 업데이트 할 수 있는 메소드를 제공합니다.
-    - `onApplicationEvent` 메소드
+- 옵저버들이 자신의 상태를 업데이트 할 수 있는 메서드를 제공합니다.
+    - `onApplicationEvent` 메서드
 
 ```java
 package org.springframework.context;
@@ -299,7 +299,7 @@ public interface ApplicationListener<E extends ApplicationEvent> extends EventLi
 ### 2.5. OrderEventListener 클래스
 - `OrderEventListener` 클래스는 옵저버 패턴에서 상세 옵저버 클래스에 해당합니다.
 - 서브젝크 클래스로부터 업데이트 알림을 받아 자신의 상태를 변경합니다.
-    - `listenOrderDeliveryCompleteEvent` 메소드
+    - `listenOrderDeliveryCompleteEvent` 메서드
 
 ```java
 package blog.in.action.order.listner;
@@ -362,7 +362,7 @@ class Subject {
 
 ##### 사용자가 직접 수행
 
-사용자가 적시에 서브젝트 클래스의 `notify` 메소드를 호출합니다. 
+사용자가 적시에 서브젝트 클래스의 `notify` 메서드를 호출합니다. 
 장점은 상태 변경이 된 최종 모습만 보고 싶은 사용자라면 자신이 보고 싶을 때까지 상태 갱신을 미룰 수 있습니다. 
 중간에 불필요한 수정이 일어나지 않습니다. 
 단점은 사용자가 추가적인 코드를 작성해야 한다는 것입니다. 

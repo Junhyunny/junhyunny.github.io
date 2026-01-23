@@ -312,7 +312,7 @@ public interface CardLikeRepository extends JpaRepository<CardLikeEntity, String
 
 ### 2.2. DefaultCardLikeService Class
 
-- findById 메소드를 findByIdWithLock 메소드로 변경합니다.
+- findById 메서드를 findByIdWithLock 메서드로 변경합니다.
 - 데이터가 존재하는 경우 데이터를 먼저 선점한 트랜잭션만 이후 로직을 진행할 수 있습니다.
 
 ```java
@@ -354,12 +354,12 @@ public class DefaultCardLikeService implements CardLikeService {
 insert into card_like_entity (count, card_id) values (1, 'card-01');
 ```
 
-동시성 문제로 인해 서비스 레이어에서 예외가 발생하는 테스트 케이스만 다뤘습니다. @DataJpaTest 애너테이션은 기본적으로 @Transactional 애너테이션을 사용하기 때문에 테스트 메소드를 실행하는 동안 동일한 트랜잭션이 적용됩니다. 각 스레드에 새로운 트랜잭션을 지정하기 위해 AsyncTransaction 컴포넌트를 사용합니다.
+동시성 문제로 인해 서비스 레이어에서 예외가 발생하는 테스트 케이스만 다뤘습니다. @DataJpaTest 애너테이션은 기본적으로 @Transactional 애너테이션을 사용하기 때문에 테스트 메서드를 실행하는 동안 동일한 트랜잭션이 적용됩니다. 각 스레드에 새로운 트랜잭션을 지정하기 위해 AsyncTransaction 컴포넌트를 사용합니다.
 
-- insert_same_data_in_the_same_time_then_throw_sql_exception 메소드
+- insert_same_data_in_the_same_time_then_throw_sql_exception 메서드
     - 두 스레드가 동시에 새로운 데이터를 추가합니다.
     - DataIntegrityViolationException 예외가 발생할 것을 예상합니다.
-- other_transaction_exists_then_throw_timeout_exception 메소드
+- other_transaction_exists_then_throw_timeout_exception 메서드
     - 먼저 시작한 트랜잭션이 이미 존재하는 데이터를 업데이트하기 위해 오랜 시간 락을 걸고 있는 경우를 확인합니다.
     - 늦게 시작한 트랜잭션이 타임아웃 예외가 발생하는지 확인합니다.
     - PessimisticLockingFailureException 예외가 발생할 것을 예상합니다.
@@ -451,7 +451,7 @@ class CardLikeServiceTest {
 }
 ```
 
-- insert_same_data_in_the_same_time_then_throw_sql_exception 메소드 실행 로그
+- insert_same_data_in_the_same_time_then_throw_sql_exception 메서드 실행 로그
     - 두 트랜잭션 모두 `for update` 키워드와 함께 데이터를 조회합니다.
     - 두 트랜잭션 모두 데이터를 찾지 못 했기 때문에 insert 쿼리를 수행합니다. 
     - 두 트랜잭션 중 하나는 실패합니다.
@@ -468,7 +468,7 @@ Hibernate: insert into card_like_entity (count,card_id) values (?,?)
 insert into card_like_entity (count,card_id) values (?,?) [23505-214]
 ```
 
-- other_transaction_exists_then_throw_timeout_exception 메소드 실행 로그
+- other_transaction_exists_then_throw_timeout_exception 메서드 실행 로그
     - 두 트랜잭션 모두 `for update` 키워드와 함께 데이터를 조회합니다.
     - 먼저 시작한 트랜잭션이 7초 동안 끝나지 않습니다.
     - 늦게 시작한 트랜잭션에서 락을 점유하지 못하고 타임아웃 예외가 발생합니다.
@@ -561,11 +561,11 @@ class CardLikeControllerTest {
 
 - 풀 사이즈가 1개로 고정된 스레드 풀을 사용합니다.
 - 동시성 문제가 발생하지 않도록 ConcurrentLinkedDeque 클래스를 사용합니다.
-- retry 메소드
+- retry 메서드
     - 재시도 요청이 필요한 카드 아이디를 큐에 추가합니다.
     - 스레드 풀에 재시도 태스크(task)를 전달합니다.
-- handle 메소드
-    - 재시도 태스크를 정의한 메소드입니다.
+- handle 메서드
+    - 재시도 태스크를 정의한 메서드입니다.
     - 재시도 큐에서 카드 아이디를 하나씩 꺼내서 실행합니다.
     - 재시도 큐가 비워질 때까지 수행합니다.
     - 예외가 발생한 카드 아이디는 다시 큐에 전달합니다.

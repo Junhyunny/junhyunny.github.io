@@ -402,7 +402,7 @@ public class PostController {
 ```
 
 #### 2.3.1. API End-Point에서 Pageable 인터페이스 파라미터(parameter) 사용하기
-Spring Boot 프레임워크는 API End-Point 메소드에 `Pageable` 인터페이스가 파라미터(parameter)로 들어있는 경우 특별한 기능을 제공합니다. 
+Spring Boot 프레임워크는 API End-Point 메서드에 `Pageable` 인터페이스가 파라미터(parameter)로 들어있는 경우 특별한 기능을 제공합니다. 
 API 질의(query)를 통해 전달받은 정보를 이용하여 `Pageable` 구현체를 만들어 제공합니다. 
 간단한 예시를 들어보겠습니다. 
 
@@ -488,7 +488,7 @@ public class PostDto {
 
 ### 2.5. PostService 클래스
 - 별도 조회 조건은 없이 `Pageable` 구현체를 사용한 페이징 처리 조회만 제공합니다.
-- JpaRepository 인터페이스에서 기본적으로 제공하는 findAll 메소드를 사용합니다.
+- JpaRepository 인터페이스에서 기본적으로 제공하는 findAll 메서드를 사용합니다.
 
 ```java
 package blog.in.action.service;

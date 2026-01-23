@@ -47,7 +47,7 @@ last_modified_at: 2025-12-30T23:55:00
 포워딩 설명에서 처음 요청을 받았을 때 생성한 요청과 응답 객체를 그대로 사용한다고 설명했지만, 스프링 프레임워크는 요청 객체를 새로운 객체로 감싸서 처리한다.
 
 - 실제 코드를 보면 포워딩 처리를 위해 요청 객체에서 특정 경로를 위한 디스패처(dispatcher)를 꺼낸 후 요청과 응답 객체를 전달한다.
-- forward 메소드 내부에선 RequestFacade 객체를 ApplicationHttpRequest 객체로 감싼 후 이를 이용해 포워딩을 처리한다.
+- forward 메서드 내부에선 RequestFacade 객체를 ApplicationHttpRequest 객체로 감싼 후 이를 이용해 포워딩을 처리한다.
 
 ```java
     @GetMapping("/will-forward")

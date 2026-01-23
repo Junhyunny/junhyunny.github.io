@@ -99,11 +99,11 @@ jwt:
 
 ### 2.1. JwtAuthenticationProvider 클래스
 - `Spring Security` 프레임워크에서 제공하는 `AuthenticationProvider` 인터페이스를 구현하였습니다.
-- `supports` 메소드를 통해 해당 `AuthenticationProvider`가 지원하는 인증 타입인지 확인합니다.
-- `authenticate` 메소드는 아래와 같은 기능을 제공합니다.
+- `supports` 메서드를 통해 해당 `AuthenticationProvider`가 지원하는 인증 타입인지 확인합니다.
+- `authenticate` 메서드는 아래와 같은 기능을 제공합니다.
     - 전달 받은 JWT(Json Web Token)을 파싱(parsing)하여 인증된 토큰 정보를 생성합니다.
     - 유효하지 않거나 시간이 만료된 토큰에 대해 예외(exception)을 던집니다.
-    - `JwtParser` 클래스의 `parse` 메소드는 아래와 같은 예외를 던질 수 있으며, 이에 대한 처리를 하였습니다.
+    - `JwtParser` 클래스의 `parse` 메서드는 아래와 같은 예외를 던질 수 있으며, 이에 대한 처리를 하였습니다.
         - MalformedJwtException
         - SignatureException
         - ExpiredJwtException
@@ -497,11 +497,11 @@ public class AuthControllerTest {
 ##### ProviderManager 클래스
 - `ProviderManager` 클래스 인증 로직에서 일부만 살펴보겠습니다.
 - 이번 포스트에서 구현한 `JwtAuthenticationProvider` 클래스는 `List<AuthenticationProvider>`에 담깁니다.
-- `JwtAuthenticationProvider` 클래스가 오버라이딩(overriding) 메소드는 `supports`, `authenticate` 입니다.
-    - `supports` 메소드를 통해 지원하는 타입의 인증인지 먼저 확인합니다.
-    - `authenticate` 메소드를 통해 인증을 수행합니다.
-    - `supports` 메소드를 먼저 수행함으로써 `ClassCastException`을 피할 수 있습니다. 
-        - `authenticate` 메소드의 `((JwtAuthenticationToken) authentication)` 라인은 `ClassCastException` 발생 위험이 있습니다.
+- `JwtAuthenticationProvider` 클래스가 오버라이딩(overriding) 메서드는 `supports`, `authenticate` 입니다.
+    - `supports` 메서드를 통해 지원하는 타입의 인증인지 먼저 확인합니다.
+    - `authenticate` 메서드를 통해 인증을 수행합니다.
+    - `supports` 메서드를 먼저 수행함으로써 `ClassCastException`을 피할 수 있습니다. 
+        - `authenticate` 메서드의 `((JwtAuthenticationToken) authentication)` 라인은 `ClassCastException` 발생 위험이 있습니다.
 
 ```java
 package org.springframework.security.authentication;
@@ -530,7 +530,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
                 try {
 
                     // JwtAuthenticationProvider 클래스에서 오버라이딩하였하였습니다.
-                    // JwtAuthenticationProvider가 지원하는 경우에만 authenticate 메소드를 수행합니다.
+                    // JwtAuthenticationProvider가 지원하는 경우에만 authenticate 메서드를 수행합니다.
                     result = provider.authenticate(authentication);
                     if (result != null) {
                         this.copyDetails(authentication, result);

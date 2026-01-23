@@ -193,21 +193,21 @@ last_modified_at: 2022-03-05T23:55:00
 `fragment_first.xml` 레이아웃과 매칭되는 `FirstFragment` 클래스에서 필요한 설정과 콜백(callback) 함수를 정의합니다. 
 
 ##### FirstFragment 클래스
-- `onAttach` 메소드
-    - 프래그먼트가 만들어질 때 가장 먼저 실행하는 메소드입니다.
-    - 뒤로가기(back press) 버튼을 눌렀을 때 액티비티가 하나이기 때문에 애플리케이션이 종료되는 현상을 막기 위한 콜백 메소드를 등록합니다. 
+- `onAttach` 메서드
+    - 프래그먼트가 만들어질 때 가장 먼저 실행하는 메서드입니다.
+    - 뒤로가기(back press) 버튼을 눌렀을 때 액티비티가 하나이기 때문에 애플리케이션이 종료되는 현상을 막기 위한 콜백 메서드를 등록합니다. 
     - 웹 페이지 히스토리에서 뒤로 갈 페이지가 있다면 이전 페이지로 돌아갑니다.
     - 웹 뷰에서 뒤로 갈 페이지가 없다면 액티비티의 뒤로가기 이벤트를 실행합니다.
-- `onCreateView` 메소드
+- `onCreateView` 메서드
     - 레이아웃에 등록된 뷰 객체들을 멤버 변수들과 연결합니다. 
     - 웹뷰를 초기하는 함수를 호출합니다.
-        - `initWebView` 메소드 호출
+        - `initWebView` 메서드 호출
     - `EditText`에 값을 이용하여 웹뷰의 URL을 변경하는 콜백 함수를 등록합니다.
-- `initWebView` 메소드
-    - 웹 뷰에서 다른 화면 링크 클릭 시 웹 뷰의 URL을 변경하는 메소드를 추가합니다.
-        - `WebViewClient` 클래스 `shouldOverrideUrlLoading` 메소드 오버라이드
+- `initWebView` 메서드
+    - 웹 뷰에서 다른 화면 링크 클릭 시 웹 뷰의 URL을 변경하는 메서드를 추가합니다.
+        - `WebViewClient` 클래스 `shouldOverrideUrlLoading` 메서드 오버라이드
     - 웹 뷰에서 자바스크립트를 사용할 수 있도록 허용합니다.
-        - `webSettings.setJavaScriptEnabled(true)` 메소드 호출
+        - `webSettings.setJavaScriptEnabled(true)` 메서드 호출
     - 웹 뷰의 초기 URL은 `https://junhyunny.github.io/`로 지정합니다.
 
 ```java

@@ -26,7 +26,7 @@ last_modified_at: 2023-12-10T23:55:00
 
 ### 2.1. Bean Method
 
-빈을 생성하는 메소드를 대상으로 적용할 수 있습니다. application.yml 파일에 지정된 설정 값을 기준으로 동작합니다.
+빈을 생성하는 메서드를 대상으로 적용할 수 있습니다. application.yml 파일에 지정된 설정 값을 기준으로 동작합니다.
 
 - property.foo 설정 값이 `enabled`인 경우 
     - 이름이 "foo.enabled"인 FooService 객체가 빈으로 등록됩니다.

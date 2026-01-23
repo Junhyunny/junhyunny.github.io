@@ -24,7 +24,7 @@ last_modified_at: 2022-08-18T23:55:00
 문제가 된 코드를 일부 각색하였습니다.
 
 * 클래스로부터 파일 경로를 탐색합니다.
-* `getLocation` 메소드로부터 클래스의 경로를 추출합니다. 
+* `getLocation` 메서드로부터 클래스의 경로를 추출합니다. 
 
 ```java
 package action.in.blog.config;
@@ -65,7 +65,7 @@ public class FileConfig {
 
 #### 1.2.1. ActionInBlogApplication 클래스
 
-* 프로그램 시작점인 main 메소드에서 `FileConfig` 클래스가 설정 파일 경로를 잘 획득하는지 출력합니다.
+* 프로그램 시작점인 main 메서드에서 `FileConfig` 클래스가 설정 파일 경로를 잘 획득하는지 출력합니다.
 
 ```java
 package action.in.blog;
@@ -168,7 +168,7 @@ security.properties
 `FileConfig` 클래스에서 출력하는 로그에 파일 경로를 살펴보면 이상한 부분이 있습니다. 
 
 * 파일 경로에 공백이 `%20` 값으로 인코딩되어 출력됩니다.
-* 인코딩 된 공백으로 인해 `File` 클래스의 `isFile` 메소드가 정상적인 파일 탐색에 실패합니다.
+* 인코딩 된 공백으로 인해 `File` 클래스의 `isFile` 메서드가 정상적인 파일 탐색에 실패합니다.
 
 ```
 20:24:42.173 [main] INFO action.in.blog.config.FileConfig - file:/Users/junhyunk/Desktop/workspace/blog/blog-in-action/2022-08-18-precaution-to-get-file-path/action-in-blog%20bad/src/main/webapp/WEB-INF/config/security.properties
@@ -178,9 +178,9 @@ security.properties
 
 공백이 `%20` 값으로 출력된 이유는 URL 클래스로부터 경로를 획득했기 때문입니다. 
 
-##### CodeSource 클래스 getLocation 메소드
+##### CodeSource 클래스 getLocation 메서드
 
-* `getLocation` 메소드를 살펴보면 URL 객체를 반환합니다.
+* `getLocation` 메서드를 살펴보면 URL 객체를 반환합니다.
 * URL 객체로부터 경로를 획득할 시 인코딩 된 경로가 반환됩니다. 
 
 ```java
@@ -199,17 +199,17 @@ security.properties
 ### 3.1. FindFilePathTests 클래스
 
 * `Paths` 클래스를 사용합니다.
-    * `get` 메소드에 빈 문자열("")을 전달하면 현재 경로를 획득합니다.
-    * `toAbsolutePath` 메소드를 통해 절대 경로를 획득합니다.
+    * `get` 메서드에 빈 문자열("")을 전달하면 현재 경로를 획득합니다.
+    * `toAbsolutePath` 메서드를 통해 절대 경로를 획득합니다.
 * `System` 클래스
-    * 시스템 속성을 얻을 수 있는 `getProperty` 메소드를 사용합니다.
+    * 시스템 속성을 얻을 수 있는 `getProperty` 메서드를 사용합니다.
     * `user.dir` 키 값으로 현대 작업 중인 경로를 얻을 수 있습니다.
-* `FileSystems` 클래스 `getDefault` 메소드
-    * `getPath` 메소드에 빈 문자열을 전달하면 현재 경로를 획득합니다.
-    * `toAbsolutePath` 메소드를 통해 절대 경로를 획득합니다.
+* `FileSystems` 클래스 `getDefault` 메서드
+    * `getPath` 메서드에 빈 문자열을 전달하면 현재 경로를 획득합니다.
+    * `toAbsolutePath` 메서드를 통해 절대 경로를 획득합니다.
 * `File` 클래스
     * 빈 문자열을 전달하여 `File` 객체를 생성합니다.
-    * `getAbsolutePath` 메소드를 통해 절대 경로를 획득합니다.
+    * `getAbsolutePath` 메서드를 통해 절대 경로를 획득합니다.
 
 ```java
 package action.in.blog.domain;

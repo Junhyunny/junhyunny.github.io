@@ -135,7 +135,7 @@ class ItemStoreTest {
 
 - itemRepository 빈을 목으로 사용한다.
 - itemStore 빈을 2회 호출한다.
-- itemRepository 객체의 findByCategoryIdAndSubCategoryId 메소드가 1회만 호출되었는지 확인한다.
+- itemRepository 객체의 findByCategoryIdAndSubCategoryId 메서드가 1회만 호출되었는지 확인한다.
 
 ```kotlin
 @SpringBootTest

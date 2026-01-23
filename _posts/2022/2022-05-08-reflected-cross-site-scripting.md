@@ -197,10 +197,10 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 ##### XssAttackFilter 클래스
 
 - 요청 정보를 담고 있는 `ServletRequest` 객체를 `RequestWrapper` 클래스로 래핑합니다.
-- 요청에서 다음과 같은 데이터를 추출할 때 오버라이딩 한 메소드를 통해 전달합니다.
-    - `getParameterValues` 메소드 - 요청 파라미터 값들을 전달할 때 특수 문자를 치환 후 반환합니다.
-    - `getParameter` 메소드 - 요청 파라미터 값을 전달할 때 특수 문자를 치환 후 반환합니다.
-    - `getHeader` 메소드 - 요청 헤더 값을 전달할 때 특수 문자를 치환 후 반환합니다.
+- 요청에서 다음과 같은 데이터를 추출할 때 오버라이딩 한 메서드를 통해 전달합니다.
+    - `getParameterValues` 메서드 - 요청 파라미터 값들을 전달할 때 특수 문자를 치환 후 반환합니다.
+    - `getParameter` 메서드 - 요청 파라미터 값을 전달할 때 특수 문자를 치환 후 반환합니다.
+    - `getHeader` 메서드 - 요청 헤더 값을 전달할 때 특수 문자를 치환 후 반환합니다.
 
 ```java
 package blog.in.action.filter;

@@ -38,11 +38,11 @@ Spring 프레임워크로 개발한 애플리케이션을 디버깅하다 보면
 퍼사드 패턴은 다음과 같은 구조를 가집니다. 
 
 * 복잡한 서브시스템을 대신하는 단순하고 일관된 인터페이스를 제공합니다. 
-* 사용자는 서브시스템의 클래스들을 직접 사용하지 않으며, 단순한 형태로 통합된 메소드를 호출합니다.
+* 사용자는 서브시스템의 클래스들을 직접 사용하지 않으며, 단순한 형태로 통합된 메서드를 호출합니다.
 * 아래 비디오의 포맷을 변경하는 라이브러리를 예시로 들 수 있습니다.
-    * `VideoConverter` 클래스는 외부에는 단순하게 `convertVideo` 메소드만 제공합니다.
+    * `VideoConverter` 클래스는 외부에는 단순하게 `convertVideo` 메서드만 제공합니다.
     * 비디오를 변경하기 위해선 `AudioMixer`, `VideoFile`, `BitrateReader`, `CodecFactory` 등 많은 클래스들이 필요합니다.
-    * 사용자(개발자)의 코드는 해당 라이브러리의 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메소드만 호출합니다.
+    * 사용자(개발자)의 코드는 해당 라이브러리의 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메서드만 호출합니다.
 
 <p align="center">
     <img src="/images/facade-pattern-2.JPG" width="50%" class="image__border">
@@ -194,7 +194,7 @@ public interface BarcodeGenerator {
 
 ## 3. BarcodeImageFacade 인터페이스 만들기
 
-`BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메소드를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
+`BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메서드를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
 사용자가 바코드를 생성하려면 `CanvasProvider` 인터페이스도 함께 알아야한다는 점을 보완하고 싶었습니다. 
 [Problem to find images in spring boot application][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스와 간단한 화면을 만들어 보았습니다. 
 

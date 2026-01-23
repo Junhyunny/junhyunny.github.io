@@ -35,7 +35,7 @@ jakarta.servlet.ServletException: Request processing failed: java.lang.IllegalSt
     ...
 ```
 
-로그에서 볼 수 있듯이 요청(request) 객체에서 getReader() 메소드를 여러번 호출하여 에러가 발생합니다. 
+로그에서 볼 수 있듯이 요청(request) 객체에서 getReader() 메서드를 여러번 호출하여 에러가 발생합니다. 
 HMAC 필터에서 application/json 형식의 데이터를 추출하는 작업을 수행했기 때문입니다. 
 
 ```java
@@ -71,7 +71,7 @@ public class HmacFilter extends OncePerRequestFilter {
 }
 ```
 
-getReader() 메소드를 호출하지 않게 우회하더라도 문제가 발생합니다. 
+getReader() 메서드를 호출하지 않게 우회하더라도 문제가 발생합니다. 
 
 * InputStream 객체는 메시지를 읽을 때 인덱스를 사용해 바이트 배열의 읽은 위치를 지나가기 때문에 다시 읽지 못 합니다.
 * 요청 객체에 담긴 메시지가 필터에서 소비되어 컨트롤러 영역까지 전달되지 못합니다.

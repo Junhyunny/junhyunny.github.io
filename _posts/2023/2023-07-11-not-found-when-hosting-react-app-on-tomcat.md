@@ -134,8 +134,8 @@ last_modified_at: 2023-07-10T23:55:00
 스프링 부트에서 400, 401, 403, 404, 500 등의 오류를 쉽게 처리할 수 있도록 ErrorController 인터페이스를 제공한다. ErrorController 인터페이스를 구현한 컨트롤러(controller)를 사용하면 쉽게 에러를 처리할 수 있다. 브라우저가 요청한 경로에 해당되는 자원이 없는 경우 index.html 파일을 보내주는 방식으로 이 문제를 해결할 수 있다. 
 
 - ErrorController 인터페이스를 구현한다.
-  - 스프링 부트 2.3.0 이전에는 getErrorPath() 메소드를 오버라이드했다.
-  - 스프링 부트 2.3.0 이후부터는 getErrorPath() 메소드를 지원하지 않는다.
+  - 스프링 부트 2.3.0 이전에는 getErrorPath() 메서드를 오버라이드했다.
+  - 스프링 부트 2.3.0 이후부터는 getErrorPath() 메서드를 지원하지 않는다.
 - /error 경로에서 에러를 핸들링한다.
   - index.html 파일을 반환한다.
 

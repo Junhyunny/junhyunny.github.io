@@ -33,7 +33,7 @@ For each MvcRequestMatcher, call MvcRequestMatcher#setServletPath to indicate th
 
 ## 1. Problem 
 
-스프링 시큐리티에는 인가 처리를 위해 API 경로를 기반으로 RequestMatcher 객체를 등록하는 requestMatchers 메소드가 존재합니다. 
+스프링 시큐리티에는 인가 처리를 위해 API 경로를 기반으로 RequestMatcher 객체를 등록하는 requestMatchers 메서드가 존재합니다. 
 
 ```java
 package action.in.blog.config;
@@ -55,7 +55,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.httpBasic(withDefaults());
         http.authorizeHttpRequests(configurer ->
-                // 해당 메소드
+                // 해당 메서드
                 configurer.requestMatchers("/api/**")
                         .authenticated()
         );
@@ -67,7 +67,7 @@ public class SecurityConfig {
 
 ```
 
-requestMatchers 메소드가 실행되면서 에러가 발생합니다. 이 메소드는 다음과 같이 변경되었습니다. 
+requestMatchers 메서드가 실행되면서 에러가 발생합니다. 이 메서드는 다음과 같이 변경되었습니다. 
 
 * Spring Security Version 6.0.3 
     * mvcPresent 플래그에 따라 MvcRequestMatcher 객체나 AntRequestMatcher 객체가 등록됩니다. 
@@ -145,7 +145,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 
 * `Spring MVC`가 클래스 패스(classpath)에 존재한다.
 * 하나의 애플리케이션에서 스프링 프레임워크에서 제공하는 DispatcherServlet과 함께 다른 서블릿을 함께 사용한다. 
-* requestMatchers(String) 혹은 requestMatchers(HttpMethod, String) 메소드를 사용한다. 
+* requestMatchers(String) 혹은 requestMatchers(HttpMethod, String) 메서드를 사용한다. 
 
 관련된 코드 변경은 [Improve RequestMatcher Validation](https://github.com/spring-projects/spring-security/commit/df239b6448ccf138b0c95b5575a88f33ac35cd9a)에서 확인할 수 있습니다. 아쉽게도 정확히 어떤 케이스가 보안 취약점을 만드는지 찾지는 못 했습니다. 
 
@@ -154,7 +154,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 스프링 팀에서 말하는 3가지 조건을 모두 만족했습니다. 두 가지 조건은 확실했습니다. 
 
 * 스프링 MVC가 클래스 패스에 존재
-* 문자열로 인가 처리 API 경로를 등록하는 requestMatchers(String) 메소드 사용
+* 문자열로 인가 처리 API 경로를 등록하는 requestMatchers(String) 메서드 사용
 
 [Improve CVE-2023-34035 detection](https://github.com/spring-projects/spring-security/issues/13568) 이슈에 내용들을 살펴보면 여러 종류의 서블릿이 등록되는 케이스가 더러 있는 편인 것 같습니다. 에러 로그를 보면 H2 콘솔을 위한 서블릿이 별도로 추가되는 것을 확인할 수 있습니다. 필자는 로컬 환경과 테스트 코드에서 H2 데이터베이스를 사용하고, H2 콘솔 기능이 활성화되어 있어서 문제가 발생했습니다. H2 콘솔 기능이 활성화되면 `/h2-console` 경로를 서비스하기 위해 `org.h2.server.web.JakartaWebServlet`이 추가됩니다. 이 서블릿과 `DispatcherServlet`이 함께 공존하면서 위 에러가 발생했습니다. 
 
@@ -167,9 +167,9 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 이 에러를 해결하려면 인가 처리를 위한 API 경로에 적용할 RequestMatcher 객체를 명시적으로 사용해야합니다. 다음과 같은 생성자 함수를 사용할 수 있습니다. 
 
 * MvcRequestMatcher(HandlerMappingIntrospector introspector, String pattern) 생성자 함수
-    * MvcRequestMatcher.Builder 클래스의 pattern 메소드도 사용 가능합니다.
+    * MvcRequestMatcher.Builder 클래스의 pattern 메서드도 사용 가능합니다.
 * AntPathRequestMatcher(String pattern) 생성자 함수
-    * AntPathRequestMatcher 클래스의 antMatcher 메소드도 사용 가능합니다.
+    * AntPathRequestMatcher 클래스의 antMatcher 메서드도 사용 가능합니다.
 
 본인은 MveRequestMatcher 객체를 생성할 수 있는 빌더(builder) 객체를 사용하였습니다.
 

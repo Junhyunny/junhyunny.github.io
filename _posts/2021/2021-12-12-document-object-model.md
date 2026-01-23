@@ -18,12 +18,12 @@ last_modified_at: 2021-12-12T15:55:00
 DOM(Document Object Model)은 HTML, XML 같은 웹 문서를 위한 프로그래밍 인터페이스입니다. 
 `JavaScript` 같은 프로그래밍 언어는 DOM을 이용하여 문서의 구조, 스타일, 내용을 변경할 수 있습니다. 
 프로그래밍 언어는 인터페이스인 DOM의 내부 구현은 알 필요가 없습니다. 
-단순한 DOM의 메소드를 호출하여 문서의 내용을 조작하면 됩니다. 
+단순한 DOM의 메서드를 호출하여 문서의 내용을 조작하면 됩니다. 
 
 `DOM`과 `DOM API` 개념에 대해 다시 정리하면 다음과 같습니다. 
 - 정적인 HTML 문서를 동적으로 제어하기 위해선 JavaScript 같은 프로그래밍 언어로 DOM을 조작해야합니다.
 - 브라우저는 HTML을 분석한 후 메모리에 트리 형태의 모델을 로드(load)하며, 이를 DOM(Document Object Model)이라고 합니다. 
-- DOM은 HTML 요소를 찾고 조작할 수 있도록 속성(property)과 메소드(method)들을 제공합니다. 
+- DOM은 HTML 요소를 찾고 조작할 수 있도록 속성(property)과 메서드(method)들을 제공합니다. 
 - DOM에 접근하고 변경하는 기능들의 집합을 `DOM API`라고 합니다.
 
 ##### JavaScript 언어로 HTML 문서 조작하기 By Using DOM API

@@ -25,17 +25,17 @@ last_modified_at: 2025-08-26T22:00:00
 
 처음엔 트랜잭션 처리를 위한 AOP(aspect oriented programming) 설정에 문제가 있는 줄 알았다. 오타를 찾거나 스프링 버전에 따라 트랜잭션 AOP 설정 방법이 달라졌는지 확인했다. `@Transactional` 애너테이션을 사용해보기도 했지만, 트랜잭션 처리가 안 되긴 마찬가지였다. 거의 1시간 정도를 허비하고 나서야 디버깅(debugging)을 통해 문제를 정확히 파악할 수 있었다.
 
-**사용된 빈 객체가 프록시(proxy) 객체가 아니라 일반 객체였다.** 스프링 프레임워크에서 제공하는 트랜잭션 처리는 프록시 객체를 통해 이루어진다. 그렇기 때문에 메소드 콜 스택(method call stack)이 달라진다. 일반 빈 객체의 메소드를 호출하면 다음과 같은 스택 모습을 갖는다.
+**사용된 빈 객체가 프록시(proxy) 객체가 아니라 일반 객체였다.** 스프링 프레임워크에서 제공하는 트랜잭션 처리는 프록시 객체를 통해 이루어진다. 그렇기 때문에 메서드 콜 스택(method call stack)이 달라진다. 일반 빈 객체의 메서드를 호출하면 다음과 같은 스택 모습을 갖는다.
 
-- Controller 객체에서 Service 객체의 메소드 호출 시 스택이 바로 이어진다.
+- Controller 객체에서 Service 객체의 메서드 호출 시 스택이 바로 이어진다.
 
 <div align="center">
   <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-01.png" width="100%" class="image__border">
 </div>
 
-트랜잭션 처리가 감싸진 프록시 빈 객체의 메소드를 호출하면 다음과 같은 스택 모습을 갖는다.
+트랜잭션 처리가 감싸진 프록시 빈 객체의 메서드를 호출하면 다음과 같은 스택 모습을 갖는다.
 
-- Controller 객체에서 Service 객체의 메소드 호출 시 프록시 객체의 중간 로직을 거친다. 
+- Controller 객체에서 Service 객체의 메서드 호출 시 프록시 객체의 중간 로직을 거친다. 
 - 스택을 보면 트랜잭션 처리를 위한 인터셉터가 존재한다.
 
 <div align="center">
@@ -164,10 +164,10 @@ public class BlogController {
 05-Nov-2021 02:38:29.855 INFO [RMI TCP Connection(3)-127.0.0.1] org.springframework.web.servlet.FrameworkServlet.initServletBean Completed initialization in 115 ms
 ```
 
-이제 롤백이 정상적으로 동작하는지 살펴보자. 다음같이 정상적인 메소드와 의도적으로 예외가 발생하는 메소드를 만든다. 예외가 발생하는 경우 롤백을 통해 데이터가 이전 상태로 돌아가는지 확인한다. 
+이제 롤백이 정상적으로 동작하는지 살펴보자. 다음같이 정상적인 메서드와 의도적으로 예외가 발생하는 메서드를 만든다. 예외가 발생하는 경우 롤백을 통해 데이터가 이전 상태로 돌아가는지 확인한다. 
 
-- updateBlog 메소드는 정상적으로 업데이트를 수행한다.
-- rollbackAfterException 메소드는 의도적으로 예외(exception)가 밸상한다.
+- updateBlog 메서드는 정상적으로 업데이트를 수행한다.
+- rollbackAfterException 메서드는 의도적으로 예외(exception)가 밸상한다.
 
 ```java
 package blog.in.action.service.impl;

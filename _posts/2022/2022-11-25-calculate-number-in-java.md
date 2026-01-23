@@ -211,7 +211,7 @@ public class NumberCalculateTests {
 ##### BigDecimal 클래스 주의사항
 
 BigDecimal 생성자를 사용하는 방법은 값이 부정확할 수 있습니다. 
-`valueOf` 메소드를 사용하는 것을 권장합니다.
+`valueOf` 메서드를 사용하는 것을 권장합니다.
 
 ```java
 package app.number;

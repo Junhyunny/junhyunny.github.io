@@ -153,15 +153,15 @@ public class PostController {
 회로 차단기가 적용된 서비스 객체를 준비합니다. 
 적절한 회로 차단을 위해 다음과 같이 설정합니다.
 
-* 회로 차단기를 설정할 메소드 위에 `@HystrixCommand` 애너테이션을 추가합니다.
+* 회로 차단기를 설정할 메서드 위에 `@HystrixCommand` 애너테이션을 추가합니다.
 * fallbackMethod 속성 
     * 정상적인 응답을 받지 못하는 경우 대체 계획을 지정합니다.
 * commandProperties 속성
     * 회로 차단기를 위한 설정들을 추가합니다.
 * `@HystrixProperty` 애너테이션을 통해 다음과 같은 설정들을 지정할 수 있습니다.
     * `execution.isolation.thread.timeoutInMilliseconds` 
-        * 메소드 호출 이후 모니터링하는 시간입니다.
-        * 해당 시간이 지나면 `fallbackMethod`로 지정한 메소드를 실행합니다.
+        * 메서드 호출 이후 모니터링하는 시간입니다.
+        * 해당 시간이 지나면 `fallbackMethod`로 지정한 메서드를 실행합니다.
         * 기본값 1000ms
     * `metrics.rollingStats.timeInMilliseconds`
         * 요청을 시작한 시점부터 요청에 대한 오류 감지를 수행하는 시간입니다. 
@@ -170,12 +170,12 @@ public class PostController {
     * `circuitBreaker.requestVolumeThreshold`
         * 오류 감지 시간동안 최소 요청 회수를 설정할 수 있습니다.
         * 최소 요청 회수를 달성하면 요청 실패에 대한 통계를 내어 설정 값보다 높으면 회로를 차단합니다.
-        * 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메소드를 실행합니다.
+        * 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메서드를 실행합니다.
         * 기본값 20회
     * `circuitBreaker.errorThresholdPercentage`
         * 오류 감지 시간, 최소 요청 회수를 모두 만족할 때 요청 실패에 대한 통계를 냅니다.
         * 이 설정 값보다 실패 확률이 높은 경우 회로를 차단합니다.
-        * 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메소드를 실행합니다.
+        * 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메서드를 실행합니다.
         * 기본값 50%
     * `circuitBreaker.sleepWindowInMilliseconds`
         * 회로 차단기가 다른 서비스의 회복 상태를 확인하기까지 대기하는 시간입니다.

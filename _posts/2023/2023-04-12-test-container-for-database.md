@@ -166,7 +166,7 @@ spring:
 
 다음과 같은 구현 코드를 작성한다. JpaRepository 인스턴스를 통해 간단한 조회 쿼리 기능을 제공한다.
 
-- 네이티브(native) 쿼리를 실행하는 메소드를 선언한다.
+- 네이티브(native) 쿼리를 실행하는 메서드를 선언한다.
 
 ```java
 package action.in.blog.post;

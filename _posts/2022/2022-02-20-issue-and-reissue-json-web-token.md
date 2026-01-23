@@ -221,11 +221,11 @@ values ('Junhyunny', '{bcrypt}$2a$10$LDwzHdFsoeeo0CjXoYdmwelLK4CjdiMtGvPHDYPQ039
 
 JsonWebTokenIssuer 클래스는 토큰 발행과 리프래시 토큰에서 클레임 정보를 추출하는 기능을 제공한다. 액세스 토큰과 리프레시 토큰을 만들 때 사용하는 비밀 키는 다른 값을 사용한다. 액세스 토큰과 리프레시 토큰 만료 시간은 설정을 통해 주입 받을 수 있지만 기본 값을 지정해주었다. 액세스 토큰 만료 시간은 10분, 리프레시 토큰 만료 시간 30분이다.
 
-- `createAccessToken` 메소드
+- `createAccessToken` 메서드
   - 액세스 토큰을 발급한다.
-- `createRefreshToken` 메소드
+- `createRefreshToken` 메서드
   - 리프레시 토큰을 발급한다.
-- `parseClaimsFromRefreshToken` 메소드
+- `parseClaimsFromRefreshToken` 메서드
   - 리프레시 토큰에서 클레임 정보를 추출한다.
 
 ```java
@@ -304,11 +304,11 @@ public class JsonWebTokenIssuer {
 
 AuthService 객체는 로그인, 토큰 발급, 재발급과 관련된 책임을 맡는다. AuthService 객체는 다양한 예외(exception)들을 던지지만, 모두 AuthenticationException 예외을 상속 받았다. AuthenticationException 예외를 던지면, 필터 체인에서 403(forbidden) 처리를 수행한다. 이는 테스트 코드에서 확인 가능하다.
 
-- login 메소드
+- login 메서드
   - 아이디를 이용해 존재하는 사용자인지 조회하고, 없는 경우 UsernameNotFoundException 예외을 던진다.
   - 인코딩 된 비밀번호와 전달받은 비밀번호를 비교하고, 다른 경우 BadCredentialsException 예외을 던진다.
   - 사용자 인증에 성공하면 JsonWebTokenDto 객체를 만들어 전달한다.
-- reissue 메소드
+- reissue 메서드
   - 파라미터로 전달 받은 토큰이 Bearer 인증 타입이 아닌 경우 JwtInvalidException 예외을 던진다.
   - jwtIssuer 객체를 통해 리프레시 토큰으로부터 클레임 정보를 추출하며, 없는 경우 JwtInvalidException 예외을 던진다.
   - 아이디를 이용해 존재하는 사용자인지 조회하고, 없는 경우 UsernameNotFoundException 예외을 던진다.
@@ -401,9 +401,9 @@ public class AuthService {
 
 AuthController 클래스에는 인증에 관련된 기능을 외부로 노출하는 엔드포인트가 정의되어 있다.
 
-- login 메소드
+- login 메서드
   - 사용자 로그인 정보를 UserDto 객체를 통해 전달받는다.
-- reissue 메소드
+- reissue 메서드
   - 요청 헤더 정보에서 토큰 정보를 꺼낸다.
   - 헤더에 토큰이 없는 경우 요청은 400(bad request) 처리된다.
 
@@ -703,7 +703,7 @@ public class AuthServiceTest {
 }
 ```
 
-다음은 AuthController 객체에 대한 테스트 코드다. 추가된 테스트 메소드들만 확인해본다.
+다음은 AuthController 객체에 대한 테스트 코드다. 추가된 테스트 메서드들만 확인해본다.
 
 ```java
 package action.in.blog.security.controller;

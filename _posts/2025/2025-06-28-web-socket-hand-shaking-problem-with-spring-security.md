@@ -118,7 +118,7 @@ public class SecurityConfig {
 
 <br />
 
-웹 소켓 연결 요청은 만료된 사용자 요청이기 때문에 이 과정에서 사용자 인증 예외가 발생한다. 발생한 예외는 ExceptionTranslationFilter 객체에서 처리된다. 예외를 처리하는 과정에서 sendStartAuthentication 메소드가 실행된다. 여기서 HttpSessionRequestCache 객체를 통해 서버 세션에 현재 요청에 대한 정보를 저장한다. 이는 추후 다시 사용자가 로그인하면 마지막에 실패한 요청으로 사용자를 리다이렉트시키기 위함이다.
+웹 소켓 연결 요청은 만료된 사용자 요청이기 때문에 이 과정에서 사용자 인증 예외가 발생한다. 발생한 예외는 ExceptionTranslationFilter 객체에서 처리된다. 예외를 처리하는 과정에서 sendStartAuthentication 메서드가 실행된다. 여기서 HttpSessionRequestCache 객체를 통해 서버 세션에 현재 요청에 대한 정보를 저장한다. 이는 추후 다시 사용자가 로그인하면 마지막에 실패한 요청으로 사용자를 리다이렉트시키기 위함이다.
 
 ```java
 public class ExceptionTranslationFilter extends GenericFilterBean implements MessageSourceAware {
@@ -164,7 +164,7 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 
 <br />
 
-이후 로그인이 성공하면 세션에 저장된 요청 객체를 꺼내서 재사용한다. 사용자 인증이 완료된 후 실행되는 SavedRequestAwareAuthenticationSuccessHandler 객체의 onAuthenticationSuccess 메소드를 살펴보자. 시큐리티 필터 체인을 생성할 때 defaultSuccessUrl 메소드로 리다이렉트 URL을 지정했다면 기본적으로 SavedRequestAwareAuthenticationSuccessHandler 객체가 사용된다.
+이후 로그인이 성공하면 세션에 저장된 요청 객체를 꺼내서 재사용한다. 사용자 인증이 완료된 후 실행되는 SavedRequestAwareAuthenticationSuccessHandler 객체의 onAuthenticationSuccess 메서드를 살펴보자. 시큐리티 필터 체인을 생성할 때 defaultSuccessUrl 메서드로 리다이렉트 URL을 지정했다면 기본적으로 SavedRequestAwareAuthenticationSuccessHandler 객체가 사용된다.
 
 ```java
 public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -212,7 +212,7 @@ public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuth
 
 ## 3. Solve the problem
 
-원인을 파악했으니 문제를 해결해보자. onAuthenticationSuccess 메소드를 보면 isAlwaysUseDefaultTargetUrl() 메소드를 볼 수 있다. isAlwaysUseDefaultTargetUrl() 메소드의 결과가 참(true)인 경우 세션에 저장된 요청 객체가 있더라도 항상 지정한 리다이렉트 URL로 요청을 보낸다. 이 메소드는 부모 클래스인 AbstractAuthenticationTargetUrlRequestHandler에 정의되어 있다. 
+원인을 파악했으니 문제를 해결해보자. onAuthenticationSuccess 메서드를 보면 isAlwaysUseDefaultTargetUrl() 메서드를 볼 수 있다. isAlwaysUseDefaultTargetUrl() 메서드의 결과가 참(true)인 경우 세션에 저장된 요청 객체가 있더라도 항상 지정한 리다이렉트 URL로 요청을 보낸다. 이 메서드는 부모 클래스인 AbstractAuthenticationTargetUrlRequestHandler에 정의되어 있다. 
 
 <div align="center">
   <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-05.png" width="60%" class="image__border">

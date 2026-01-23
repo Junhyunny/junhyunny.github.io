@@ -14,7 +14,7 @@ last_modified_at: 2025-01-31T23:55:00
 
 자바(java) 애플리케이션은 Json 객체로 직렬화를 수행할 때 `ObjectMapper`를 사용한다. ObjectMapper는 기본적으로 직렬화(serialize)를 수행할 때 클래스 정보를 함께 직렬화하지 않는다. 하지만 역직렬화(deserialize) 할 때 클래스 정보가 필요하다면 직렬화 할 때 클래스 정보를 함께 직렬화해야 하는 경우도 생긴다. 세션을 통해 서로 다른 서비스 간 정보를 공유하는 경우를 대표적인 예로 들 수 있다. 
 
-ObjectMapper는 인스턴스 직렬화를 수행할 때 명시적인 타입 정보를 포함시키는 방법으로 `activateDefaultTyping()` 메소드를 제공한다. 자바에선 정상적으로 클래스 정보가 포함되었는데, 코틀린(kotlin)은 동일한 코드에서 클래스 정보가 포함되지 않았다. 이번 글은 해당 내용에 대해 정리했다.
+ObjectMapper는 인스턴스 직렬화를 수행할 때 명시적인 타입 정보를 포함시키는 방법으로 `activateDefaultTyping()` 메서드를 제공한다. 자바에선 정상적으로 클래스 정보가 포함되었는데, 코틀린(kotlin)은 동일한 코드에서 클래스 정보가 포함되지 않았다. 이번 글은 해당 내용에 대해 정리했다.
 
 ## 1. Problem Context
 
@@ -66,7 +66,7 @@ public class JavaObjectMapperSerializeTest {
 }
 ```
 
-activateDefaultTyping() 메소드를 사용하면 클래스 정보를 함께 직렬화 할 수 있다.
+activateDefaultTyping() 메서드를 사용하면 클래스 정보를 함께 직렬화 할 수 있다.
 
 ```java
 public class JavaObjectMapperSerializeTest {
@@ -345,7 +345,7 @@ class KotlinObjectMapperSerializeTest {
 
 마지막으로 내용을 요약하면서 이 글을 마무리한다.
 
-- ObjectMapper 객체를 사용해 직렬화 할 때 타입 정보를 함께 직렬화하고 싶다면 `activateDefaultTyping()` 메소드를 사용한다.
+- ObjectMapper 객체를 사용해 직렬화 할 때 타입 정보를 함께 직렬화하고 싶다면 `activateDefaultTyping()` 메서드를 사용한다.
 - `NON_FINAL` 옵션을 사용하는 경우 final 타입들은 직렬화 시 타입 정보가 직렬화 대상에서 제외된다.
 - 코틀린의 클래스는 기본적으로 final 클래스이기 때문에 직렬화 시 타입 정보를 명시하고 싶다면 open 키워드를 대상 클래스에 추가한다.
 - 자바의 레코드 클래스와 코틀린의 데이터 클래스는 final 클래스이고 이는 변경될 수 없다. `EVERYTHING` 옵션을 사용하면 직렬화 할 때 타입 정보를 함께 직렬화하지만, 과도한 정보 제공 문제로 앞으로 삭제될 예정이다.

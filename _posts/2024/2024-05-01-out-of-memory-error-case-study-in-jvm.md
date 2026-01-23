@@ -31,9 +31,9 @@ last_modified_at: 2024-05-03T23:55:00
 
 <br/>
 
-스택 트레이스(stack trace)를 거슬러 올라가면 업로드 데이터가 담긴 MultipartFile 인스턴스의 `getBytes` 메소드로 바이트 배열을 꺼낼 때 에러가 발생한 것을 볼 수 있다.
+스택 트레이스(stack trace)를 거슬러 올라가면 업로드 데이터가 담긴 MultipartFile 인스턴스의 `getBytes` 메서드로 바이트 배열을 꺼낼 때 에러가 발생한 것을 볼 수 있다.
 
-- StandardMultipartFile 객체의 getBytes 메소드가 스택 트레이스에 포함되어 있다.
+- StandardMultipartFile 객체의 getBytes 메서드가 스택 트레이스에 포함되어 있다.
 - FileChannelImpl 객체를 통해 파일이나 소켓과 통신할 채널을 만든다.
 - DirectByteBuffer 객체에 메모리를 할당할 때 에러가 발상한다. 
 
@@ -159,7 +159,7 @@ Picked up JAVA_TOOL_OPTIONS: -XX:MaxDirectMemorySize=100M -Djava.security.proper
 
 실제 프로젝트에선 100MB보다 더 큰 값을 설정했다. 일시적으로 문제가 해결된 듯 보였으나 시간이 지나면서 다시 OOM 문제를 만났다. 이 문제는 Java 17 버전에선 발생하지 않고 Java 21 버전에선 발생한다. Java 21 버전에서 발생하는 이 문제를 분석한 내용은 글의 주제를 벗어나기 때문에 [다른 글][multipart-file-in-java21-cause-oome-link]에서 다뤘다.
 
-문제가 발생한 예제 코드를 살펴보자 파일 업로드를 위해 MultipartFile 인스턴스를 File 객체로 변환하는 작업을 수행한다. MultipartFile 인스턴스의 getBytes 메소드로 파일 데이터를 모두 읽으면 시간이 지나 다이렉트 메모리가 다시 고갈된다. 
+문제가 발생한 예제 코드를 살펴보자 파일 업로드를 위해 MultipartFile 인스턴스를 File 객체로 변환하는 작업을 수행한다. MultipartFile 인스턴스의 getBytes 메서드로 파일 데이터를 모두 읽으면 시간이 지나 다이렉트 메모리가 다시 고갈된다. 
 
 ```java
 package action.in.blog.controller;
@@ -271,7 +271,7 @@ public class FileController {
 
 <br/>
 
-데이터를 읽을 때 버퍼 사이즈를 고정하는 방법 외에 transferTo 메소드를 사용해도 OOME 문제가 발생하지 않는다.
+데이터를 읽을 때 버퍼 사이즈를 고정하는 방법 외에 transferTo 메서드를 사용해도 OOME 문제가 발생하지 않는다.
 
 ```java
     private File convertToFile(MultipartFile multipartFile) {

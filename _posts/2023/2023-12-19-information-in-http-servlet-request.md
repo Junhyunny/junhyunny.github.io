@@ -17,11 +17,11 @@ last_modified_at: 2023-12-19T23:55:00
 
 ## 1. Information in HttpServletRequest
 
-서버 애플리케이션을 개발하다보면 주소, 경로 정보 등을 사용하는 경우가 많다. 공통적인 처리를 수행하는 필터(filter)를 만들 때 필자는 보통 HttpServletRequest 객체의 getServletPath 혹은 getRequestURI 메소드를 사용했다. 여러 시스템을 개발해보니 어떤 상황에선 같은 값인데, 어떤 환경에선 서로 다른 값이어서 혼란을 겪었던 기억이 난다. 매우 기본적인 정보들이지만, 매번 헷갈리기도 하고 최근 글을 쓰다가 궁금증이 생겨서 포스트로 정리했다. 
+서버 애플리케이션을 개발하다보면 주소, 경로 정보 등을 사용하는 경우가 많다. 공통적인 처리를 수행하는 필터(filter)를 만들 때 필자는 보통 HttpServletRequest 객체의 getServletPath 혹은 getRequestURI 메서드를 사용했다. 여러 시스템을 개발해보니 어떤 상황에선 같은 값인데, 어떤 환경에선 서로 다른 값이어서 혼란을 겪었던 기억이 난다. 매우 기본적인 정보들이지만, 매번 헷갈리기도 하고 최근 글을 쓰다가 궁금증이 생겨서 포스트로 정리했다. 
 
 ## 2. URI and URL in HttpServletRequest
 
-서블릿 패스(servlet path)와 요청 URI의 차이점을 알아보기 전에 HttpServletRequest 객체은 URL 정보를 반환하는 getRequestURL 메소드가 있다. 서블릿 컨테이너에서 URI과 URL 정보를 어떻게 구분하는지 궁금했다. 둘 사이의 차이점을 살펴보자.
+서블릿 패스(servlet path)와 요청 URI의 차이점을 알아보기 전에 HttpServletRequest 객체은 URL 정보를 반환하는 getRequestURL 메서드가 있다. 서블릿 컨테이너에서 URI과 URL 정보를 어떻게 구분하는지 궁금했다. 둘 사이의 차이점을 살펴보자.
 
 먼저 URI과 URL 의미를 정확하게 짚고 넘어가자. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) 인터넷 표준에서 정의한 URI와 URL의 정의를 참조했다. 통합 자원 식별자(uniform resource identifier, URI)는 숫자, 문자, 기호의 짧은 문자열을 사용해 문서를 식별하는 표준이다. URI는 다음과 같이 표현한다.
 
@@ -55,7 +55,7 @@ scheme     authority       path        query   fragment
 
 URI, URL을 "주소만 표시되었다.", "식별자까지 포함되었다." 등의 기준으로 구분 지으려는 일은 무의미해 보인다. 어떤 식으로 표현하면 URI, 어떤 식으로 표현하면 URL이 아니기 때문이다. URI는 리소스의 고유한 식별자, URL은 리소스 위치를 표현한다고 정리하고 넘어간다.
 
-이번 글의 주제로 다시 돌아와 스프링 애플리케이션에서 HttpServletRequest 객체의 getRequestURI, getRequestURL 메소드에 저장된 값을 출력하면 어떤 값이 출력될까? 다음과 같은 컨트롤러를 만들고 로그를 통해 확인해 봤다.
+이번 글의 주제로 다시 돌아와 스프링 애플리케이션에서 HttpServletRequest 객체의 getRequestURI, getRequestURL 메서드에 저장된 값을 출력하면 어떤 값이 출력될까? 다음과 같은 컨트롤러를 만들고 로그를 통해 확인해 봤다.
 
 ```java
 package blog.in.action.controller;

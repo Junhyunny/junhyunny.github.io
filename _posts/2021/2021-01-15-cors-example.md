@@ -118,14 +118,14 @@ export default {
 
 8080 포트 서비스에서 처리한 방식은 스프링 프레임워크가 제공하는 `@CrossOrigin` 애너테이션을 사용했다. @CrossOrigin 애너테이션을 살펴보자.
 
-- @CrossOrigin 애너테이션의 적용 대상은 클래스와 메소드이다.
+- @CrossOrigin 애너테이션의 적용 대상은 클래스와 메서드이다.
   - ElementType.TYPE - 클래스, 인터페이스, 열거 타입에 사용 가능
-  - ElementType.METHOD - 메소드에 사용 가능
+  - ElementType.METHOD - 메서드에 사용 가능
 - CORS 헤더 설정에 필요한 값들을 지정할 수 있습니다.
   - origins - 허용하는 출처 리스트
   - originPatterns - 허용하는 출처 패턴 리스트
   - allowedHeaders - 허용하는 헤더 리스트
-  - methods - 허용하는 메소드 리스트
+  - methods - 허용하는 메서드 리스트
 
 ```java
 package org.springframework.web.bind.annotation;
@@ -174,7 +174,7 @@ public @interface CrossOrigin {
 }
 ```
 
-해당 애너테이션을 컨트롤러 객체의 메소드에 추가한다.
+해당 애너테이션을 컨트롤러 객체의 메서드에 추가한다.
 
 - /health 경로에서 "It occurs CORS policy error." 응답 메시지를 반환한다.
 - /cors-health 경로에는 @CrossOrigin 애너테이션을 적용한다.
@@ -207,13 +207,13 @@ public class CorsController {
 
 ### 2.2. Using glboal CORS configuration
 
-8081 포트 서비스에서 처리한 방식을 살펴본다. 전역 CORS 설정을 통해 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 결정한다. WebMvcConfigurer 인터페이스를 확장해서 addCorsMappings 메소드를 재정의한다. 메소드 내부에 CORS 정책을 작성한다.
+8081 포트 서비스에서 처리한 방식을 살펴본다. 전역 CORS 설정을 통해 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 결정한다. WebMvcConfigurer 인터페이스를 확장해서 addCorsMappings 메서드를 재정의한다. 메서드 내부에 CORS 정책을 작성한다.
 
 - @EnableWebMvc 애너테이션으로 WebMVC 기능을 위한 설정임을 표시한다.
-- WebMvcConfigurer 인터페이스를 구현하고 addCorsMappings 메소드를 재정의한다.
+- WebMvcConfigurer 인터페이스를 구현하고 addCorsMappings 메서드를 재정의한다.
 - 다음과 같은 CORS 정책을 작성한다.
   - `/health` 경로에 대해 적용한다.
-  - `GET` 메소드로 오는 요청은 CORS 헤더 생성을 허용한다.
+  - `GET` 메서드로 오는 요청은 CORS 헤더 생성을 허용한다.
   - `http://localhost` 출처에서 오는 요청은 CORS 헤더 생성을 허용한다.
   - 클라이언트에서 사전(preflight) 요청 결과를 저장하는 시간을 3초로 지정한다.
 
@@ -264,7 +264,7 @@ public class CorsController {
 마지막으로 8082 포트 서비스의 처리 방법을 살펴보자. CORS 처리를 위한 필터를 생성하고 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 제어한다. CORS 필터 bean 객체를 만들어 반환한다.
 
 - CORS 정책을 위한 CorsConfiguration 객체를 생성한다. 
-  - `GET` 메소드로 오는 요청은 CORS 헤더 생성을 허용한다.
+  - `GET` 메서드로 오는 요청은 CORS 헤더 생성을 허용한다.
   - `http://localhost` 출처에서 오는 요청은 CORS 헤더 생성을 허용한다.
 - UrlBasedCorsConfigurationSource 객체를 생성한다.
   - `/health` 경로에 위에서 `CORS` 설정을 적용한다.

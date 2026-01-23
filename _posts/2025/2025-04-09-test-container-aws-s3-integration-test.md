@@ -99,9 +99,9 @@ public class StorageConfig {
 
 FileUploader 객체는 S3Client 객체와 협력하여 디렉토리를 생성한다. 버킷 이름과 S3Client 객체는 생성자를 통해 의존성 주입을 받는다.
 
-- createDirectory 메소드
+- createDirectory 메서드
   - 파일 스토리지에 디렉토리 생성
-- createFile 메소드
+- createFile 메서드
   - 파일 스토리지에 파일 생성
 
 ```java

@@ -49,11 +49,11 @@ JPA @ElementCollection 애너테이션은 일대다 관계 매핑(mapping) 기�
 - 좋아하는 포스트(post) 테이블 이름은 `TB_FAVORITE_POSTS` 이다.
   - 외래 키(forign key) 이름은 user_id 이다.
   - user_id, post_id 컬럼을 조합한 유니크 키(unique key) 제약 조건을 추가한다.
-- addFavoritePosts 메소드
+- addFavoritePosts 메서드
   - 전달 받은 리스트를 추가한다.
-- removeFavoritePosts 메소드
+- removeFavoritePosts 메서드
   - 전달 받은 리스트를 제거한다.
-- updateFavoritePost 메소드
+- updateFavoritePost 메서드
   - 전달 받은 포스트와 동일한 데이터의 리마크(remark) 정보를 업데이트한다.
 
 ```java
@@ -143,11 +143,11 @@ public class FavoritePost {
 
 ### 3.3. UserRepository Interface
 
-UserRepository 인터페이스에는 다음과 같은 메소드를 작성한다.
+UserRepository 인터페이스에는 다음과 같은 메서드를 작성한다.
 
-- findByName 메소드
+- findByName 메서드
   - 이름으로 사용자 정보를 조회한다.
-- deleteFavoritePosts 메소드
+- deleteFavoritePosts 메서드
   - 해당되는 이름을 가진 유저의 좋아하는 포스트를 삭제한다. 
 
 ```java

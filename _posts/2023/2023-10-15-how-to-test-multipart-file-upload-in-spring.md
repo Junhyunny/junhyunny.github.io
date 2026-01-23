@@ -27,9 +27,9 @@ DTO(Data Transfer Object) 클래스를 통해 파일 업로드하는 예제는 [
 세 가지 기능에 대한 테스트를 수행합니다. 
 
 * 단일 이미지를 업로드
-    * 메소드 파라미터 변수 이름을 `file`로 지정합니다. 
+    * 메서드 파라미터 변수 이름을 `file`로 지정합니다. 
 * 다중 이미지를 업로드
-    * 메소드 파라미터 변수 이름을 `files`로 지정합니다.
+    * 메서드 파라미터 변수 이름을 `files`로 지정합니다.
 * DTO 클래스를 사용해 이미지와 다른 정보들을 함께 업로드
     * 이름, 나이, 사진 정보를 프로퍼티로 지닌 클래스입니다. 
 
@@ -89,8 +89,8 @@ public record Profile(
 
 ## 2. Tests
 
-컨트롤러(controller)의 각 메소드들을 검증하기 위한 테스트 코드를 작성합니다. 
-메소드들의 반환 타입이 `void`이므로 ProfileService 인스턴스를 테스트 더블(test double)로 사용하여 파일 업로드 여부를 검증합니다. 
+컨트롤러(controller)의 각 메서드들을 검증하기 위한 테스트 코드를 작성합니다. 
+메서드들의 반환 타입이 `void`이므로 ProfileService 인스턴스를 테스트 더블(test double)로 사용하여 파일 업로드 여부를 검증합니다. 
 
 ### 2.1. MockMultipartFile Class
 
@@ -98,7 +98,7 @@ public record Profile(
 테스트 객체 생성을 위해 생성자 함수를 살펴보겠습니다. 
 
 * name 
-    * 스프링 API 엔드 포인트(end point) 메소드에서 파일을 받을 때 사용하는 이름입니다.
+    * 스프링 API 엔드 포인트(end point) 메서드에서 파일을 받을 때 사용하는 이름입니다.
     * 파리미터 이름과 동일하게 설정합니다.
     * @RequestParam 애너테이션을 사용한다면 파라미터 이름과 동일하게 설정합니다.
     * @ModelAttribute 애너테이션을 사용한다면 DTO 클래스 프로퍼티 이름과 동일하게 설정합니다. 
@@ -121,8 +121,8 @@ public record Profile(
 
 ### 2.2. Test uploadProfileImage Method
 
-각 메소드를 테스트합니다. 
-uploadProfileImage 메소드를 먼저 테스트합니다. 
+각 메서드를 테스트합니다. 
+uploadProfileImage 메서드를 먼저 테스트합니다. 
 
 * 더미(dummy) MultipartFile 인스턴스를 생성합니다.
     * 파라미터 키는 `file`입니다.
@@ -190,7 +190,7 @@ class ProfileControllerTest {
 
 ### 2.3. Test uploadProfileImages Method
 
-uploadProfileImages 메소드를 테스트합니다. 
+uploadProfileImages 메서드를 테스트합니다. 
 
 * 더미(dummy) MultipartFile 인스턴스를 생성합니다.
     * 파라미터 키는 `files`입니다.
@@ -265,7 +265,7 @@ class ProfileControllerTest {
 
 ### 2.3. Test uploadProfile Method
 
-uploadProfile 메소드를 테스트합니다. 
+uploadProfile 메서드를 테스트합니다. 
 
 * 더미(dummy) MultipartFile 인스턴스를 생성합니다.
     * 파라미터 키는 `picture`입니다.

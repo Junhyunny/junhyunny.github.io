@@ -154,7 +154,7 @@ window.sayName();
     * 별도 반환 값이 없기 때문에 코드의 `junhyunny` 객체는 `undefined` 입니다. 
 * `Person` 함수는 전역 객체가 호출하였기 때문에 `this` 키워드에는 `window` 객체가 바인딩됩니다.
     * `Person` 함수 호출 시 내부 `this` 키워드에 바인딩되는 객체는 해당 함수를 호출한 객체입니다. 
-    * `window` 객체에 `name` 속성과 `sayName()` 메소드가 만들어집니다. 
+    * `window` 객체에 `name` 속성과 `sayName()` 메서드가 만들어집니다. 
 
 <p align="left">
     <img src="/images/create-object-in-javascript-3.JPG" width="50%" class="image__border">

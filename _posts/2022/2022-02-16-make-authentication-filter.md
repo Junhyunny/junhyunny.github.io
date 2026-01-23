@@ -98,17 +98,17 @@ last_modified_at: 2022-02-16T23:55:00
 
 ## 2. 기능 구현하기
 
-이번 포스트에선 `JwtAuthenticationFilter` 클래스에 초점을 맞추었으며, 일부 클래스들은 메소드 구현 부분이 비어있습니다. 
+이번 포스트에선 `JwtAuthenticationFilter` 클래스에 초점을 맞추었으며, 일부 클래스들은 메서드 구현 부분이 비어있습니다. 
 다음에 이어지는 포스트를 통해 구현할 예정입니다.
 
 ### 2.1. JwtAuthenticationFilter 클래스
 - `OncePerRequestFilter` 클래스를 상속받아서 한 요청에 대해 한 번만 수행합니다. 
 - 필터 내부에서 사용할 `AuthenticationManager` 객체를 외부로부터 전달받습니다.
-- `resolveToken` 메소드
+- `resolveToken` 메서드
     - 헤더에 `Authorization` 키가 존재하는지 확인합니다.
     - 인증 토큰의 인증 타입(grant type)이 `Bearer `인지 확인합니다.
     - `Bearer ` 부분을 잘라내어 토큰을 추출하여 반환합니다.
-- `doFilterInternal` 메소드
+- `doFilterInternal` 메서드
     - 헤더에서 추출한 토큰을 기반으로 `JwtAuthenticationToken` 객체를 만듭니다.
     - `AuthenticationManager` 객체에게 `JwtAuthenticationToken` 객체를 전달하여 인증을 요청합니다.
     - 인증이 성공하면 `SecurityContextHolder` 클래스에 담습니다.
@@ -217,7 +217,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 ```
 
 ### 2.3. JwtSecurityConfig 클래스
-- `SecurityConfigurerAdapter` 클래스를 상속받아서 추가로 필요한 설정들을 추가할 수 있는 `configure` 메소드를 구현합니다.
+- `SecurityConfigurerAdapter` 클래스를 상속받아서 추가로 필요한 설정들을 추가할 수 있는 `configure` 메서드를 구현합니다.
 - `AuthenticationManager` 객체는 `SecurityConfig` 클래스로부터 주입받습니다. 
 - 구현한 `JwtAuthenticationFilter`를 `LogoutFilter` 다음에 실행되도록 추가합니다.
 
@@ -281,7 +281,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     - `AuthenticationManagerBuilder` 빈을 주입 받습니다.
     - 구현한 `AuthenticationProvider` 빈을 주입 받습니다. 
     - `AuthenticationManager`에서 사용할 `AuthenticationProvider`를 `AuthenticationManagerBuilder`에 추가합니다. 
-- `configure` 메소드
+- `configure` 메서드
     - 코드 주석을 참고하시기 바랍니다.
 
 ```java
@@ -369,7 +369,7 @@ public class AuthController {
 
 ## 3. 테스트하기
 
-`given-when-then` 이름 규칙에 맞추어 메소드를 작명하였습니다.
+`given-when-then` 이름 규칙에 맞추어 메서드를 작명하였습니다.
 - given - 이전 상황, 문맥, 조건
 - when - 행동
 - then - 결과

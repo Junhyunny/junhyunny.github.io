@@ -90,17 +90,17 @@ ByteBuffer 클래스 오라클 공식 문서를 살펴보면 다음과 같은 �
 다음과 같이 요약할 수 있다.
 
 - 다이렉트 버퍼를 사용하면 네이티브 I/O 작업을 최대한 수행한다.
-- allocateDirect 팩토리 메소드에 의해 생성할 수 있다.
+- allocateDirect 팩토리 메서드에 의해 생성할 수 있다.
 - 비-다이렉트 버퍼에 비해 메모리 할당, 해제 비용이 크다.
 - 가비지 컬렉터가 관리하는 일반 힙 메모리 영역 밖에 위치하기 때문에 메모리 추적이 명확하지 않을 수 있다.
 - 측정 가능한 퍼포먼스 이득이 있을 때만 사용하는 것이 최선이다. 
 
-ByteBuffer 추상 클래스의 allocateDirect 팩토리 메소드를 사용하면 네이티브 영역의 메모리를 사용하는 ByteBuffer 인스턴스가 반환된다. ByteBuffer 인스턴스를 생성하는 allocateDirect 메소드와 allocate 메소드의 차이점을 살펴보자.
+ByteBuffer 추상 클래스의 allocateDirect 팩토리 메서드를 사용하면 네이티브 영역의 메모리를 사용하는 ByteBuffer 인스턴스가 반환된다. ByteBuffer 인스턴스를 생성하는 allocateDirect 메서드와 allocate 메서드의 차이점을 살펴보자.
 
-- allocateDirect 메소드
+- allocateDirect 메서드
   - DirectByteBuffer 객체를 반환한다.
   - DirectByteBuffer 객체는 네이티브 메모리 영역을 사용한다.
-- allocate 메소드
+- allocate 메서드
   - HeapByteBuffer 객체를 반환한다.
   - HeapByteBuffer 객체는 JVM 힙 메모리 영역을 사용한다.
 

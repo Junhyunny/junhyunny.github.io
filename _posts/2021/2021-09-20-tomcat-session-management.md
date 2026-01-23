@@ -45,11 +45,11 @@ last_modified_at: 2021-09-20T23:55:00
 <p align="center"><img src="/images/tomcat-session-management-2.JPG" width="55%"></p>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
-### 1.3. 세션(session) 생성 주요 클래스와 메소드
+### 1.3. 세션(session) 생성 주요 클래스와 메서드
 
-#### 1.3.1. Request 클래스 doGetSession 메소드
-- org.apache.catalina.connector 패키지에 존재하는 Request 클래스의 doGetSession 메소드에서 세션(session) 생성을 수행합니다.
-- createSession 메소드에서 중복되지 않는 세션ID를 만들고 세션 객체를 만들어 반환합니다.
+#### 1.3.1. Request 클래스 doGetSession 메서드
+- org.apache.catalina.connector 패키지에 존재하는 Request 클래스의 doGetSession 메서드에서 세션(session) 생성을 수행합니다.
+- createSession 메서드에서 중복되지 않는 세션ID를 만들고 세션 객체를 만들어 반환합니다.
 - 세션이 생성되고 트랙킹 모드(tracking mode)에 쿠키가 포함된다면 세션 정보를 쿠키에 담고 응답 정보에 저장합니다.
 
 ```java
@@ -76,8 +76,8 @@ public class Request implements HttpServletRequest {
 }
 ```
 
-#### 1.3.2. Response 클래스 addSessionCookieInternal 메소드
-- org.apache.catalina.connector 패키지에 존재하는 Response 클래스의 addSessionCookieInternal 메소드에서 쿠키 정보를 담습니다.
+#### 1.3.2. Response 클래스 addSessionCookieInternal 메서드
+- org.apache.catalina.connector 패키지에 존재하는 Response 클래스의 addSessionCookieInternal 메서드에서 쿠키 정보를 담습니다.
 
 ```java
 package org.apache.catalina.connector;
@@ -120,21 +120,21 @@ public class Response implements HttpServletResponse {
 그러므로 세션ID는 톰캣 영역에서 추출하는 시점만 디버깅을 통해 분석해보겠습니다. 
 
 1. 세션ID는 요청을 받은 시점에 요청 헤더에 들어간 쿠키 정보에서 추출합니다. 
-1. CoyoteAdapter 클래스의 postParseRequest 메소드에서 세션ID를 추출합니다. 
+1. CoyoteAdapter 클래스의 postParseRequest 메서드에서 세션ID를 추출합니다. 
 1. 세션 추적(tracking)을 URL을 통해 수행하는지 확인합니다.
 1. URL에서 추출할 수 있다면 URL 요청 정보에서 세션ID를 획득합니다.
-1. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메소드를 통해 쿠키에서 세션ID를 추출합니다. 
+1. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메서드를 통해 쿠키에서 세션ID를 추출합니다. 
 
 <p align="center"><img src="/images/tomcat-session-management-3.JPG" width="55%"></p>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
-### 2.2. 세션ID 획득 주요 클래스와 메소드
+### 2.2. 세션ID 획득 주요 클래스와 메서드
 
-#### 2.2.1. CoyoteAdapter 클래스 postParseRequest 메소드
-- org.apache.catalina.connector 패키지에 존재하는 CoyoteAdapter 클래스의 postParseRequest 메소드에서 다음 행위를 수행합니다.
-    - 세션 추적 방법에 `URL`이 포함되는 경우 URL에서 추출합니다. (request.getPathParameter 메소드)
-    - 쿠키에서 값을 추출합니다. (parseSessionCookiesId 메소드)
-    - SSL(Secure Sokets Layer)을 사용하는 경우 복호화한 데이터에서 추출합니다. (parseSessionSslId 메소드)
+#### 2.2.1. CoyoteAdapter 클래스 postParseRequest 메서드
+- org.apache.catalina.connector 패키지에 존재하는 CoyoteAdapter 클래스의 postParseRequest 메서드에서 다음 행위를 수행합니다.
+    - 세션 추적 방법에 `URL`이 포함되는 경우 URL에서 추출합니다. (request.getPathParameter 메서드)
+    - 쿠키에서 값을 추출합니다. (parseSessionCookiesId 메서드)
+    - SSL(Secure Sokets Layer)을 사용하는 경우 복호화한 데이터에서 추출합니다. (parseSessionSslId 메서드)
 
 ```java
 package org.apache.catalina.connector;
@@ -183,8 +183,8 @@ public class CoyoteAdapter implements Adapter {
 ```
 
 
-#### 2.2.2. CoyoteAdapter 클래스 parseSessionCookiesId 메소드
-- org.apache.catalina.connector 패키지에 존재하는 CoyoteAdapter 클래스의 parseSessionCookiesId 메소드에서 쿠키에 담긴 세션ID 값을 획득합니다.
+#### 2.2.2. CoyoteAdapter 클래스 parseSessionCookiesId 메서드
+- org.apache.catalina.connector 패키지에 존재하는 CoyoteAdapter 클래스의 parseSessionCookiesId 메서드에서 쿠키에 담긴 세션ID 값을 획득합니다.
 
 ```java
 package org.apache.catalina.connector;
@@ -241,7 +241,7 @@ Spring 프레임워크를 이용하면 개발자는 필터, 인터셉터, 컨트
 
 #### 2.3.1. 필터 영역에서 세션 획득
 - `ServletRequest` 객체로부터 세션을 획득할 수 있습니다.
-- 필터 클래스를 상속받는 경우 오버라이드 한 메소드의 파라미터는 `ServletRequest` 클래스이므로 `HttpServletRequest` 클래스로 형변환(casting)하여 사용합니다.
+- 필터 클래스를 상속받는 경우 오버라이드 한 메서드의 파라미터는 `ServletRequest` 클래스이므로 `HttpServletRequest` 클래스로 형변환(casting)하여 사용합니다.
 - 필터에서 세션에 접근 성공한 횟수를 파악하기 위해 카운트하는 코드를 추가합니다.
 
 ```java
@@ -321,7 +321,7 @@ public class BlogHandlerInterceptor implements HandlerInterceptor {
 
 #### 2.3.3. 컨트롤러 영역에서 세션 획득
 - `ServletRequest` 객체로부터 세션을 획득할 수 있습니다.
-- 컨트롤러 클래스의 메소드에서 전달받는 파라미터는 `ServletRequest` 클래스이므로 `HttpServletRequest` 클래스로 형변환(casting)하여 사용합니다.
+- 컨트롤러 클래스의 메서드에서 전달받는 파라미터는 `ServletRequest` 클래스이므로 `HttpServletRequest` 클래스로 형변환(casting)하여 사용합니다.
 - 컨트롤러에서 세션에 접근 성공한 횟수를 파악하기 위해 카운트하는 코드를 추가합니다.
 
 ```java
@@ -369,17 +369,17 @@ public class PageController {
 
 ### 3.1. 세션 만료 처리
 세션 만료 처리는 내부에서 주기적으로 실행되는 백그라운드(background) 스레드에 의해 수행됩니다. 
-- 백그라운드 스레드는 StandardContext 클래스의 backgroundProcess 메소드를 호출합니다.
-- StandardContext 클래스의 backgroundProcess 메소드에 의해 각 기능 별 백그라운드 기능이 수행됩니다.
+- 백그라운드 스레드는 StandardContext 클래스의 backgroundProcess 메서드를 호출합니다.
+- StandardContext 클래스의 backgroundProcess 메서드에 의해 각 기능 별 백그라운드 기능이 수행됩니다.
     - Loader, Manager, WebResourceRoot, InstanceManager 클래스의 백그라운드 기능 실행
-- Manager 클래스는 backgroundProcess 메소드를 수행할 때 자신이 관리하는 세션들 중 만료 처리가 필요한 세션이 있는지 확인합니다.
+- Manager 클래스는 backgroundProcess 메서드를 수행할 때 자신이 관리하는 세션들 중 만료 처리가 필요한 세션이 있는지 확인합니다.
 - 설정된 시간이 지난 세션들은 모두 만료 처리 후 세션 풀(pool)에서 제거합니다.
 
-### 3.2. 세션 만료 처리 주요 클래스와 메소드
+### 3.2. 세션 만료 처리 주요 클래스와 메서드
 
-#### 3.2.1. ManagerBase 클래스 processExpires 메소드
-- org.apache.catalina.session 패키지에 위치하는 ManagerBase 클래스의 processExpires 메소드에서 세션 만료 처리가 수행됩니다.
-- Session 객체의 isValid 메소드를 통해 유효성 여부를 확인하고, 유효하지 않는 경우 만료 처리합니다.
+#### 3.2.1. ManagerBase 클래스 processExpires 메서드
+- org.apache.catalina.session 패키지에 위치하는 ManagerBase 클래스의 processExpires 메서드에서 세션 만료 처리가 수행됩니다.
+- Session 객체의 isValid 메서드를 통해 유효성 여부를 확인하고, 유효하지 않는 경우 만료 처리합니다.
 
 ```java
 package org.apache.catalina.session;
@@ -410,9 +410,9 @@ public abstract class ManagerBase extends LifecycleMBeanBase implements Manager 
 }
 ```
 
-#### 3.2.2. StandardSession 클래스 isValid 메소드
-- org.apache.catalina.session 패키지에 위치하는 StandardSession 클래스의 isValid 메소드에서 세션의 유효성 여부를 판정합니다.
-- Session 객체의 isValid 메소드를 통해 유효성 여부를 확인하고, 유효하지 않는 경우 만료 처리를 수행합니다.
+#### 3.2.2. StandardSession 클래스 isValid 메서드
+- org.apache.catalina.session 패키지에 위치하는 StandardSession 클래스의 isValid 메서드에서 세션의 유효성 여부를 판정합니다.
+- Session 객체의 isValid 메서드를 통해 유효성 여부를 확인하고, 유효하지 않는 경우 만료 처리를 수행합니다.
 - 세션 접근 간격 시간이 `maxInactiveInterval` 값보다 큰 경우에는 해당 세션을 만료 처리합니다. 
 - `maxInactiveInterval` 값은 설정 파일을 통해 수정할 수 있습니다.
 

@@ -18,7 +18,7 @@ last_modified_at: 2025-08-26T22:00:00
 - 프록시 객체는 대리인으로써 외부 요청을 대신 받아준다.
 - 프록시 객체는 실제 서비스를 수행하는 객체를 내부 멤버로 가지고 있다.
 - 특정 객체의 실제 기능이 수행되기 전이나 후에 필요한 로직을 추가적으로 처리할 수 있다.
-  - 특정 클래스의 메소드를 직접 변경하지 않고 기능을 확장할 수 있다.
+  - 특정 클래스의 메서드를 직접 변경하지 않고 기능을 확장할 수 있다.
   - 프록시 객체의 확장된 기능으로 실제 객체 로직 수행 결과가 바뀌면 안 된다.
 
 프록시 패턴은 다음과 같은 구조를 가진다. 
@@ -115,7 +115,7 @@ public class VirtualRealSubject implements VirtualSubject {
 }
 ```
 
-가상 프록시 객체를 만들기 위한 VirtualProxy 클래스다. 실제 주체 클래스의 생성을 최대한 미룬 후 클라이언트가 print 메소드를 호출하는 시점에 생성한다. 
+가상 프록시 객체를 만들기 위한 VirtualProxy 클래스다. 실제 주체 클래스의 생성을 최대한 미룬 후 클라이언트가 print 메서드를 호출하는 시점에 생성한다. 
 
 ```java
 package blog.in.action.virtual;
@@ -140,14 +140,14 @@ public class VirtualProxy implements VirtualSubject {
 
 - 원격 프록시  
   - 원격 객체에 대한 로컬 대변자 역할을 수행한다.
-  - 프록시 메소드를 호출하면 네트워크를 통해 명령이 전달된다.
-  - 원격 객체의 메소드가 호출된다.
+  - 프록시 메서드를 호출하면 네트워크를 통해 명령이 전달된다.
+  - 원격 객체의 메서드가 호출된다.
   - 결과는 다시 네트워크를 타고 반환되어 클라이언트에게 전달된다.
   - 스텁(stub)이라고 부르기도 한다.
 - 원격 객체  
   - 다른 JVM 힙(heap) 메모리에서 존재하는 객체이다.
   - 일반적으로 다른 주소 공간에 존재하는 원격 객체이다.
-  - 프록시로부터 전달된 명령을 이해하고 적합한 메소드를 호출하는 스켈레톤(skeleton)에 의해 실행된다.
+  - 프록시로부터 전달된 명령을 이해하고 적합한 메서드를 호출하는 스켈레톤(skeleton)에 의해 실행된다.
 
 <div align="center">
   <img src="/images/posts/2021/proxy-pattern-02.png" width="100%" class="image__border">
@@ -185,9 +185,9 @@ public enum Authority {
 
 프록시 패턴을 위한 ProtectionSubject 인터페이스를 만든다. 다음과 같은 책임을 갖고 있다.
 
-- printForNormal 메소드  
+- printForNormal 메서드  
   - 일반 권한이 필요한 문서를 출력한다.
-- printForAdmin 메소드  
+- printForAdmin 메서드  
   - 관리자 권한이 필요한 문서를 출력한다.
 
 ```java
@@ -225,7 +225,7 @@ public class ProtectionRealSubject implements ProtectionSubject {
 
 프록시 객체 역할을 수행하는 ProtectionProxy 클래스를 살펴보자. 다음과 같은 역할을 수행한다.
 
-- 프린트 메소드 별로 사용자 객체의 권한을 확인한다.
+- 프린트 메서드 별로 사용자 객체의 권한을 확인한다.
 - 권한이 없는 경우 예외를 던진다.
 
 ```java

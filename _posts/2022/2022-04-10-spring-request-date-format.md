@@ -29,8 +29,8 @@ last_modified_at: 2022-04-10T23:55:00
 ##### Spring Framework Json Formatting
 - 스프링 프레임워크은 기본적으로 `json` 타입 처리를 위해 `AbstractJackson2HttpMessageConverter` 클래스를 사용합니다.
 - `AbstractJackson2HttpMessageConverter` 클래스 내부에서 다음과 같은 기능을 수행합니다.
-    - `readJavaType` 메소드 - `json` 문자열을 `ObjectMapper` 객체를 이용하여 특정 클래스로 변경
-    - `writeInternal` 메소드 - 특정 클래스를 `ObjectMapper` 객체를 이용하여 `json` 문자열로 변경
+    - `readJavaType` 메서드 - `json` 문자열을 `ObjectMapper` 객체를 이용하여 특정 클래스로 변경
+    - `writeInternal` 메서드 - 특정 클래스를 `ObjectMapper` 객체를 이용하여 `json` 문자열로 변경
 
 <p align="center">
   <img src="/images/spring-request-date-format-1.JPG" width="85%" class="image__border">
@@ -181,8 +181,8 @@ public class JacksonControllerTests {
     - `Content-Type: application/x-www-form-urlencoded`인 경우 요청 메시지에 `@ModelAttribute` 애너테이션을 붙여 처리합니다.
 
 ##### Spring Framework DateTimeFormat 
-- `URL`에 붙는 key-value 형태의 질의는 `AbstractNamedValueMethodArgumentResolver` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
-- `@ModelAttribute` 애너테이션이 붙은 요청 메시지인 경우 `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메소드에 의해 처리됩니다.
+- `URL`에 붙는 key-value 형태의 질의는 `AbstractNamedValueMethodArgumentResolver` 클래스 `resolveArgument` 메서드에 의해 처리됩니다.
+- `@ModelAttribute` 애너테이션이 붙은 요청 메시지인 경우 `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메서드에 의해 처리됩니다.
 
 <p align="center">
   <img src="/images/spring-request-date-format-2.JPG" width="85%" class="image__border">
@@ -191,9 +191,9 @@ public class JacksonControllerTests {
 ### 2.1. 구현 코드
 
 - `@DateTimeFormat` 애너테이션은 문자열을 `java.sql.Timestamp` 타입으로 변환 시 에러가 발생합니다.
-- `requestParam` 메소드
+- `requestParam` 메서드
     - URL 뒤에 붙은 key-value 형태의 질의를 통해 전달받는 데이터를 처리합니다.
-- `modelAttribute` 메소드
+- `modelAttribute` 메서드
     - URL 뒤에 붙은 key-value 형태의 질의를 통해 전달받는 데이터를 처리합니다.
     - `form` 태그를 통해 전달받는 요청 메시지를 처리합니다. 
 
@@ -258,10 +258,10 @@ public class DateTimeFormatController {
 
 ### 2.2. 테스트 코드
 
-- `requestParam` 메소드 테스트
+- `requestParam` 메서드 테스트
     - 날짜 형태 문자열을 요청 파라미터로 추가합니다.
     - 전달한 날짜를 그대로 응답으로 전달해주는지 확인합니다. 
-- `modelAttribute` 메소드 테스트
+- `modelAttribute` 메서드 테스트
     - `Content-type`을 `application/x-www-form-urlencoded`으로 지정합니다.
     - 날짜 형태 문자열을 요청 파라미터로 추가합니다.
     - 전달한 날짜를 그대로 응답으로 전달해주는지 확인합니다.

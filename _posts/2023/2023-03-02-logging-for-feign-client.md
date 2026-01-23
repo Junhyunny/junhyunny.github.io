@@ -45,7 +45,7 @@ logging:
 - NONE
   - 기본(default) 설정이며 로깅을 보여주지 않는다.
 - BASIC
-  - 요청 메소드, URL, 응답 코드, 실행 시간 등을 볼 수 있다.
+  - 요청 메서드, URL, 응답 코드, 실행 시간 등을 볼 수 있다.
 - HEADERS
   - `BASIC` 설정에 추가적으로 요청, 응답에 대한 헤더(header) 정보를 볼 수 있다.
 - FULL
@@ -70,7 +70,7 @@ public class FeignLoggerConfig {
 
 ## 3. Test
 
-간단한 테스트 코드를 통해 출력되는 로그를 살펴보자. 다음과 같은 BlogClient 인터페이스를 만든다. 메소드들을 수행할 때 출력되는 로그를 살펴본다.
+간단한 테스트 코드를 통해 출력되는 로그를 살펴보자. 다음과 같은 BlogClient 인터페이스를 만든다. 메서드들을 수행할 때 출력되는 로그를 살펴본다.
 
 - `GET` 요청
 - `GET` 요청 - 파라미터 추가
@@ -102,7 +102,7 @@ public interface BlogClient {
 
 ### 3.2. Run Test Code
 
-각 메소드 별로 호출 시 출력되는 로그를 살펴본다. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
+각 메서드 별로 호출 시 출력되는 로그를 살펴본다. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
 
 ```java
 package action.in.blog;

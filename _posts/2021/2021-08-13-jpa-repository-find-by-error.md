@@ -12,7 +12,7 @@ last_modified_at: 2021-09-04T16:00:00
 
 ## 0. 들어가면서
 
-`spring-data-jpa` 의존성을 사용하면 저는 메소드 이름 규칙에 따라 쿼리를 생성해주는 JpaRepository 인터페이스의 기능을 즐겨 사용합니다. 
+`spring-data-jpa` 의존성을 사용하면 저는 메서드 이름 규칙에 따라 쿼리를 생성해주는 JpaRepository 인터페이스의 기능을 즐겨 사용합니다. 
 Optimistic lock 기능을 사용하기 위해 `@Version` 애너테이션을 추가하면서 예기치 않게 만난 에러를 정리하였습니다. 
 이전에 작성한 [@Version 사용 시 주의사항][version-annotation-link] 포스트는 추가(insert) 기능과 관련된 내용이었다면 이번 포스트는 조회(find) 기능에 대한 내용입니다. 
 
@@ -75,7 +75,7 @@ class ParentEntity {
 
 ### 2.2. ChildEntityRepository 인터페이스 / ChildEntity 클래스
 - ParentEntity 클래스와 1:1 연관 관계를 가지는 ChildEntity 클래스를 생성합니다.
-- JpaRepository 인터페이스에 ParentEntity를 이용하여 조회하는 메소드를 추가합니다.
+- JpaRepository 인터페이스에 ParentEntity를 이용하여 조회하는 메서드를 추가합니다.
 
 ```java
 interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
@@ -159,9 +159,9 @@ class ChildEntity {
 ## 3. 원인 분석
 에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행하였기 때문입니다. 
 분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각됩니다. 
-에러가 발생한 CallStack을 추적해보면 AbstractEntityPersister 클래스의 isTransient 메소드에서 버전 관리 유무에 따른 임시 객체 판단이 이루어지는 것을 확인할 수 있습니다.
+에러가 발생한 CallStack을 추적해보면 AbstractEntityPersister 클래스의 isTransient 메서드에서 버전 관리 유무에 따른 임시 객체 판단이 이루어지는 것을 확인할 수 있습니다.
 
-- this.isVersioned() 메소드를 통해 버전 관리가 되는 엔티티인지 확인합니다.
+- this.isVersioned() 메서드를 통해 버전 관리가 되는 엔티티인지 확인합니다.
 - 버전 관리가 되는 엔티티는 버전 값 여부를 추가적으로 확인합니다.
 
 ```java

@@ -49,7 +49,7 @@ last_modified_at: 2022-05-29T23:55:00
 
 ## 2. Extends SpringBootServletInitializer Class
 
-오래된 코드들을 보면 configure 메소드를 오버라이드 하지만, 현재는 필요하지 않다. configure 메소드를 오버라이딩 하지 않는다.
+오래된 코드들을 보면 configure 메서드를 오버라이드 하지만, 현재는 필요하지 않다. configure 메서드를 오버라이딩 하지 않는다.
 
 ```java
 package action.in.blog;

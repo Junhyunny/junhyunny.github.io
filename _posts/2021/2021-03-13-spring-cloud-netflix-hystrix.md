@@ -113,7 +113,7 @@ public class BlogController {
 * `서비스B`에 문제가 발생하여 회로 차단기가 회로를 열면 대체 응답이 반환됩니다.
 * 대체 응답에 대한 책임은 `BlogClientFallbackFactory`를 통해 생성된 객체에게 위임합니다.
 * `BlogClientFallbackFactory`는 `BlogClient`에 문제가 생겼을 때를 대비한 `BlogClientFallbackPlan` 객체를 생성합니다.
-    * `BlogClientFallbackPlan` 클래스는 `BlogClient` 인터페이스를 구현하여 에러 발생 시 각 메소드 별 적절한 응답을 반환합니다.
+    * `BlogClientFallbackPlan` 클래스는 `BlogClient` 인터페이스를 구현하여 에러 발생 시 각 메서드 별 적절한 응답을 반환합니다.
 
 ```java
 package cloud.in.action.proxy;
@@ -335,7 +335,7 @@ class AServiceApplicationTests {
     * 로그 내용 - java.lang.RuntimeException: exception occur  
 * `서비스A`는 `서비스B`의 예외를 전달 받고 관련 로그를 출력합니다.
     * 로그 내용 - feign.FeignException$InternalServerError: [500] during [GET] to [http://b-service:8080/exception]
-    * 해당 예외 처리 스택을 보면 `Hystrix` 컴포넌트가 상위 메소드에 있음을 알 수 있습니다.
+    * 해당 예외 처리 스택을 보면 `Hystrix` 컴포넌트가 상위 메서드에 있음을 알 수 있습니다.
 
 ```
 2021-03-13-spring-cloud-netflix-hystrix-a-service-1  | 2023-02-15 15:39:10.891 ERROR 1 --- [ HystrixTimer-1] c.i.a.proxy.BlogClientFallbackFactory    : null

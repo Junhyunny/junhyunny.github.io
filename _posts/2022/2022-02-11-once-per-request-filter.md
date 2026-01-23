@@ -47,10 +47,10 @@ last_modified_at: 2025-11-18T23:55:00
 
 <br/>
 
-`OncePerRequestFilter` 클래스의 `doFilter` 메소드를 열어보면 어떤 식으로 동작하는지 직관적으로 알 수 있다.
+`OncePerRequestFilter` 클래스의 `doFilter` 메서드를 열어보면 어떤 식으로 동작하는지 직관적으로 알 수 있다.
 
 1. 최초 실행 시 `ServletRequest` 객체에 자신의 이름과 수행하였음을 표시하기 위한 `true` 값을 함께 저장한다.
-2. `doFilterInternal` 메소드를 통해 자신의 기능을 수행한다.
+2. `doFilterInternal` 메서드를 통해 자신의 기능을 수행한다.
 3. 포워딩 등으로 다시 실행되는 경우 이전 수행에서 요청 객체에 담아뒀던 수행 여부를 확인한다. 이미 수행되었다면 자신의 동작은 스킵하고, 다음 필터를 실행한다.
 
 ```java

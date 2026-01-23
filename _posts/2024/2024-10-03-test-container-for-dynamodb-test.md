@@ -107,8 +107,8 @@ class DynamoDbConfig(
 2. 테스트 컨테이너가 실행되면 테이블이나 필요한 데이터를 만들기 위한 클라이언트 객체다.
 3. 테스트 컨테이너를 실행시키기 위한 컨테이너 객체다.
 4. 테스트 컨테이너를 실행하고 테스트에 필요한 클라이언트 객체와 DynamoDB 테이블을 생성한다.
-  - deleteTableIfExists 메소드에선 테이블이 존재하는 경우 이를 삭제한다.
-  - createTable 메소드에선 테이블을 생성한다.
+  - deleteTableIfExists 메서드에선 테이블이 존재하는 경우 이를 삭제한다.
+  - createTable 메서드에선 테이블을 생성한다.
 
 ```kotlin
 package action.`in`.blog
@@ -270,7 +270,7 @@ abstract class MockRepositoryConfig {
 
 DynamoDB는 @Transactional 애너테이션이 동작하지 않는다. 각 테스트마다 실행하기 전 테이블에 저장된 아이템들을 정리하는 코드가 필요하다.
 
-- clearDatabase 메소드는 테이블에 존재하는 모든 아이템을 정리한다.
+- clearDatabase 메서드는 테이블에 존재하는 모든 아이템을 정리한다.
 
 ```kotlin
 abstract class MockRepositoryConfig {
@@ -432,7 +432,7 @@ class TodoRepositoryTest : MockRepositoryConfig() {
 }
 ```
 
-createTodo 메소드로 데이터가 생성되는지 테스트한다. dynamoDbClient 객체를 사용해 생성된 데이터가 테이블에 존재하는지 확인한다. 조회한 데이터는 Map 자료형이며 값은 AttributeValue 타입이다.
+createTodo 메서드로 데이터가 생성되는지 테스트한다. dynamoDbClient 객체를 사용해 생성된 데이터가 테이블에 존재하는지 확인한다. 조회한 데이터는 Map 자료형이며 값은 AttributeValue 타입이다.
 
 ```kotlin
 @SpringBootTest
@@ -545,7 +545,7 @@ class TodoRepositoryTest : MockRepositoryConfig() {
 }
 ```
 
-마지막으로 deleteTodo 메소드를 통해 데이터가 제대로 삭제되는지 확인한다.
+마지막으로 deleteTodo 메서드를 통해 데이터가 제대로 삭제되는지 확인한다.
 
 ```kotlin
 @SpringBootTest

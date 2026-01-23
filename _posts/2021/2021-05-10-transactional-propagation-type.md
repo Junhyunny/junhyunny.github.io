@@ -22,7 +22,7 @@ last_modified_at: 2021-08-29T01:00:00
 > `All or Noting` 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
 
 스프링(spring) 프레임워크는 `@Transactional` 애너테이션을 통해 트랜잭션 원자성을 보장합니다. 
-`@Transactional` 애너테이션은 전파 타입(propagation type) 속성을 통해 메소드 단위 트랜잭션들의 연결과 끊음을 결정할 수 있습니다. 
+`@Transactional` 애너테이션은 전파 타입(propagation type) 속성을 통해 메서드 단위 트랜잭션들의 연결과 끊음을 결정할 수 있습니다. 
 이번 포스트를 통해 자세한 내용을 살펴보겠습니다. 
 
 ## 1. @Transactional Annotation
@@ -32,7 +32,7 @@ last_modified_at: 2021-08-29T01:00:00
 관점 지향 프로그래밍은 공통적인 기능을 모듈화하는 메커니즘입니다. 
 
 스프링 프레임워크는 트랜잭션 관리를 `@Transactional` 애너테이션을 통해 제공합니다. 
-메소드나 클래스 위에 `@Transactional` 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 AOP 기능에 의해 수행됩니다. 
+메서드나 클래스 위에 `@Transactional` 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 AOP 기능에 의해 수행됩니다. 
 개발자는 손쉽게 커밋(commit)이나 롤백(rollback) 처리를 구현할 수 있습니다. 
 
 `@Transactional` 애너테이션의 기능은 스프링 컨텍스트에 빈(bean)으로 등록되어야지 정상적으로 동작합니다. 
@@ -40,8 +40,8 @@ last_modified_at: 2021-08-29T01:00:00
 
 ##### Call method with @Transactional when instance is bean
 
-* `orderSerivce` 객체가 빈으로 등록되었고 `createOrder` 메소드 위에 @Transactional 애너테이션이 붙은 경우입니다.
-* `createOrder` 메소드가 호출되면 실제 비즈니스 로직 전후에 트랜잭션 처리를 위한 AOP 기능이 호출됩니다.
+* `orderSerivce` 객체가 빈으로 등록되었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우입니다.
+* `createOrder` 메서드가 호출되면 실제 비즈니스 로직 전후에 트랜잭션 처리를 위한 AOP 기능이 호출됩니다.
 
 <p align="center">
     <img src="/images/transactional-propagation-type-1.jpg" width="80%" class="image__border">
@@ -49,8 +49,8 @@ last_modified_at: 2021-08-29T01:00:00
 
 ##### Call method with @Transactional when instance is not bean
 
-* `orderSerivce` 객체를 생성자를 통해 만들었고 `createOrder` 메소드 위에 @Transactional 애너테이션이 붙은 경우입니다.
-* `createOrder` 메소드가 호출되면 실제 비즈니스 로직이 바로 호출됩니다. 
+* `orderSerivce` 객체를 생성자를 통해 만들었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우입니다.
+* `createOrder` 메서드가 호출되면 실제 비즈니스 로직이 바로 호출됩니다. 
 
 <p align="center">
     <img src="/images/transactional-propagation-type-2.jpg" width="80%" class="image__border">
@@ -89,9 +89,9 @@ last_modified_at: 2021-08-29T01:00:00
 
 * JpaRepository 인터페이스 사용
     * 상위 인터페이스들에 @Transactional 애너테이션이 이미 적용되어 있습니다.
-    * save, saveAndFlush 메소드는 `REQUIRED` 전파 타입이 적용됩니다. 
-    * 진행 중인 트랜잭션이 없다면 save, saveAndFlush 메소드가 완료됨과 동시에 커밋됩니다.
-    * 쓰기 지연 특징으로 인해 삽입(insert) 쿼리가 나중에 실행되므로 테스트에선 saveAndFlush 메소드를 사용합니다. 
+    * save, saveAndFlush 메서드는 `REQUIRED` 전파 타입이 적용됩니다. 
+    * 진행 중인 트랜잭션이 없다면 save, saveAndFlush 메서드가 완료됨과 동시에 커밋됩니다.
+    * 쓰기 지연 특징으로 인해 삽입(insert) 쿼리가 나중에 실행되므로 테스트에선 saveAndFlush 메서드를 사용합니다. 
 * @DataJpaTest 애너테이션 사용
     * JPA 관련 컨텍스트만 사용하기 위해 @DataJpaTest 애너테이션을 사용하였습니다.
     * @DataJpaTest 애너테이션은 테스트 후 롤백을 위해 자동으로 @Transactional 애너테이션이 적용됩니다.
@@ -204,7 +204,7 @@ public class ParentService {
     * 부모에서부터 트랜잭션을 시작하였으므로 자식에서 예외가 발생하면 모든 트랜잭션이 롤백될 것을 예상합니다.
     * 부모와 자식은 하나의 트랜잭션으로 연결되어 있기 때문에 자식에서 예외가 발생했다면, 부모는 커밋 수행 중에 `UnexpectedRollbackException` 예외를 던지고 트랜잭션을 롤백합니다.
 * 부모는 트랜잭션을 시작하지 않고, 자식은 `REQUIRED` 전파 타입으로 지정한 경우
-    * 부모는 트랜잭션을 시작하지 않았으므로 saveAndFlush 메소드를 호출하면 JpaRepositry 인터페이스 트랜잭션에 의해 커밋됩니다. 
+    * 부모는 트랜잭션을 시작하지 않았으므로 saveAndFlush 메서드를 호출하면 JpaRepositry 인터페이스 트랜잭션에 의해 커밋됩니다. 
     * 자식에서 예외가 발생하면 자식 서비스의 트랜잭셔만 롤백될 것을 예상합니다.
 
 ```java
@@ -454,9 +454,9 @@ public class ParentService {
     * 부모에서부터 트랜잭션을 시작하였으므로 자식에서 예외가 발생하면 모든 트랜잭션이 롤백될 것을 예상합니다.
     * 부모와 자식은 하나의 트랜잭션으로 연결되어 있기 때문에 자식에서 예외가 발생했다면, 부모는 커밋 수행 중에 `UnexpectedRollbackException` 예외를 던지고 트랜잭션을 롤백합니다.
 * 부모는 트랜잭션을 시작하지 않고, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
-    * 부모는 트랜잭션을 시작하지 않았으므로 saveAndFlush 메소드를 호출하면 JpaRepositry 인터페이스 트랜잭션에 의해 커밋됩니다. 
+    * 부모는 트랜잭션을 시작하지 않았으므로 saveAndFlush 메서드를 호출하면 JpaRepositry 인터페이스 트랜잭션에 의해 커밋됩니다. 
     * 자식 서비스는 트랜잭션을 새로 만들지 않습니다.
-    * 자식 서비스에서 saveAndFlush 메소드 호출 후 예외를 던졌기 때문에 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
+    * 자식 서비스에서 saveAndFlush 메서드 호출 후 예외를 던졌기 때문에 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
 
 ```java
 package blog.in.action.transcation;
@@ -1051,7 +1051,7 @@ public class ParentService {
 
 * 부모는 `REQUIRED`, 자식은 `NOT_SUPPORTED` 전파 타입으로 지정한 경우
     * 자식 서비스는 트랜잭션을 이어나가지 않습니다.
-    * 자식 서비스에서 saveAndFlush 메소드 호출 후 예외를 던졌기 때문에 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
+    * 자식 서비스에서 saveAndFlush 메서드 호출 후 예외를 던졌기 때문에 JpaRepositry 인터페이스 트랜잭션에 의해 데이터가 저장됩니다.
     * 자식 서비스에서 트랜잭션을 이어나가지 않은 상태에서 예외를 던졌기 때문에 부모 서비스가 예외를 상위로 던지지 않는다면 트랜잭션은 정상적으로 커밋됩니다.
 
 ```java
@@ -1154,7 +1154,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 ### 2.7. NEVER
 
-> 부모 메소드에서 트랜잭션 시작했다면 자식 메소드에서 excepton이 발생합니다.
+> 부모 메서드에서 트랜잭션 시작했다면 자식 메서드에서 excepton이 발생합니다.
 
 <p align="center">
     <img src="/images/transactional-propagation-type-8.jpg" width="80%" class="image__border">

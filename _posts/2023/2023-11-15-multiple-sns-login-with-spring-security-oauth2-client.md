@@ -276,14 +276,14 @@ public class SecurityConfig {
 DefaultOAuth2UserService 클래스를 상속한 클래스를 정의합니다. @Service 애너테이션을 추가해 스프링 빈(bean)으로 만들면 해당 컴포넌트가 OAuth2LoginAuthenticationProvider 인스턴스에서 사용하는 DefaultOAuth2UserService 인스턴스를 대체합니다. CustomOAuth2UserService 인스턴스를 리스트 형태로 주입 받습니다. CustomOAuth2UserService 인터페이스를 구현한 모든 스프링 빈들이 주입됩니다. 다음과 같은 장점을 가집니다.
 
 - 나중에 추가될 플랫폼을 지원하는 스프링 빈을 새롭게 정의하면 자동으로 주입 받습니다.
-- 인증을 위한 핵심 비즈니스 로직인 loadUser 메소드는 변경이 없습니다.
+- 인증을 위한 핵심 비즈니스 로직인 loadUser 메서드는 변경이 없습니다.
 - 변경에 닫혀 있고 확장에 열린 개방-폐쇄 원칙(open–closed principle)을 지킬 수 있습니다.
 
 다음과 같은 동작을 수행합니다. 
 
 - 처리를 위임할 CustomOAuth2UserService 인스턴스들에게 플랫폼 지원 여부를 확인합니다.
 - 해당 플랫폼을 지원하는 서비스 인스턴스를 찾았다면 부모 클래스의 기능을 사용해 외부 리소스 서버로부터 사용자 정보를 조회합니다.
-    - 새로운 메소드로 감싼 이유는 테스트를 원활하게 만들기 위함입니다.
+    - 새로운 메서드로 감싼 이유는 테스트를 원활하게 만들기 위함입니다.
     - 자세한 내용은 [How to make stub for super class][stub-for-super-class-link] 포스트를 참조바랍니다.
 - 리소스 서버로부터 사용자 정보를 획득하면 이를 기반으로 사용자 정보를 생성하거나 조회 후 반환합니다.
 
@@ -412,9 +412,9 @@ public class GoogleUser {
 
 #### 3.2.2. GoogleOAuth2UserService Class
 
-- supports 메소드
+- supports 메서드
     - 서비스 제공자가 `google`인 경우만 지원합니다.
-- createOrLoadUser 메소드
+- createOrLoadUser 메서드
     - 사용자 정보를 조회 후 반환합니다.
     - 사용자 정보가 없는 경우 새로 생성합니다.
     - 인증된 사용자 정보를 담은 토큰을 만들어 반환합니다.
@@ -541,9 +541,9 @@ public class KakaoUser {
 
 #### 3.4.2. KakaoOAuth2UserService Class
 
-- supports 메소드
+- supports 메서드
     - 서비스 제공자가 `kakao`인 경우만 지원합니다.
-- createOrLoadUser 메소드
+- createOrLoadUser 메서드
     - 사용자 정보를 조회 후 반환합니다.
     - 사용자 정보가 없는 경우 새로 생성합니다.
     - 인증된 사용자 정보를 담은 토큰을 만들어 반환합니다.
@@ -663,9 +663,9 @@ public class NaverUser {
 
 #### 3.5.2. NaverOAuth2UserService Class
 
-- supports 메소드
+- supports 메서드
     - 서비스 제공자가 `naver`인 경우만 지원합니다.
-- createOrLoadUser 메소드
+- createOrLoadUser 메서드
     - 사용자 정보를 조회 후 반환합니다.
     - 사용자 정보가 없는 경우 새로 생성합니다.
     - 인증된 사용자 정보를 담은 토큰을 만들어 반환합니다.

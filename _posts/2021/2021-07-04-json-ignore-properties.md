@@ -48,7 +48,7 @@ java.lang.StackOverflowError: null
 아래 그림을 보면 빨간색 참조 그래프가 서로 맞물려 닫힌 루프를 생성합니다. 
 
 * 참조하는 객체가 정리되지 않기 때문에 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있습니다.
-* 메소드 호출시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있습니다. 
+* 메서드 호출시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있습니다. 
 
 <p align="center">
     <img src="/images/json-ignore-properties-1.jpg" width="40%" class="image__border">
@@ -111,7 +111,7 @@ public record Reply(
 ### 2.3. Jackson
 
 스프링 프레임워크(spring framework)에서 Json 변환에 기본적으로 사용되는 라이브러리는 잭슨입니다. 
-잭슨은 게터(getter), 세터(setter) 메소드를 기준으로 직렬화(serialilze), 역직렬화(deserialize)를 수행합니다. 
+잭슨은 게터(getter), 세터(setter) 메서드를 기준으로 직렬화(serialilze), 역직렬화(deserialize)를 수행합니다. 
 위 도메인 객체를 Json 형태로 직렬화하는 경우 다음과 같은 흐름이 발생합니다. 
 
 1. Post 객체가 직렬화된다.

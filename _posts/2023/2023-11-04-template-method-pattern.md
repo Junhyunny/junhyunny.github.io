@@ -13,7 +13,7 @@ last_modified_at: 2023-11-04T23:55:00
 
 > 객체의 연산에는 알고리즘의 뼈대만을 정의하고 각 단계에서 수행할 구체적 처리는 서브 클래스 쪽으로 미룹니다. 알고리즘의 구조 자체는 그대로 놔둔 채 알고리즘 각 단계 처리를 서브 클래스에서 재정의할 수 있게 합니다.
 
-코드 재사용을 위한 디자인 패턴입니다. 부모 클래스의 메소드에 실행 흐름을 제어하는 코드를 정의합니다. 실행 흐름을 제어하는 코드는 비즈니스 로직의 골격 역할을 수행합니다. 부모 클래스는 공통 알고리즘을 일련의 단계들로 나누고 이를 메소드로 정의합니다. 각 단계들은 비즈니스에 따라 실제 구현 방법이 다를 수 있으므로 자식 클래스들은 이를 재정의합니다. 
+코드 재사용을 위한 디자인 패턴입니다. 부모 클래스의 메서드에 실행 흐름을 제어하는 코드를 정의합니다. 실행 흐름을 제어하는 코드는 비즈니스 로직의 골격 역할을 수행합니다. 부모 클래스는 공통 알고리즘을 일련의 단계들로 나누고 이를 메서드로 정의합니다. 각 단계들은 비즈니스에 따라 실제 구현 방법이 다를 수 있으므로 자식 클래스들은 이를 재정의합니다. 
 
 간단하게 여러 문서로부터 데이터를 추출하는 애플리케이션을 예로 들어보겠습니다. `.doc`, `.csv`, `.pdf` 확장자를 가진 파일들로부터 데이터를 추출합니다. 데이터를 추출하는 일련의 작업은 동일합니다. 
 
@@ -26,8 +26,8 @@ last_modified_at: 2023-11-04T23:55:00
 
 큰 실행 흐름은 어떤 문서를 분석하더라도 변경이 없습니다. 파일을 열고 닫는 작업, 파일로부터 로우 데이터를 추출하는 방법, 로우 데이터로부터 데이터 분석을 위한 정보를 정리하는 작업은 각 문서 종류마다 다를 수 있습니다. 이런 이유로 서로 다른 확장자 파일들을 다룰 수 있는 별도 클래스가 필요합니다.  
 
-- 알고리즘은 DataMiner 추상 클래스의 mine 메소드에 정의되어 있습니다.
-- openFile, extractData, parseData, closeFile 메소드들은 추상 메소드로써 각 구현 클래스가 반드시 재정의(override)해야하는 책임을 가집니다.
+- 알고리즘은 DataMiner 추상 클래스의 mine 메서드에 정의되어 있습니다.
+- openFile, extractData, parseData, closeFile 메서드들은 추상 메서드로써 각 구현 클래스가 반드시 재정의(override)해야하는 책임을 가집니다.
 
 <p align="center">
     <img src="/images/template-method-pattern-01.png" width="80%" class="image__border image__padding">
@@ -47,18 +47,18 @@ last_modified_at: 2023-11-04T23:55:00
 
 ### 1.2. Considerations
 
-템플릿 메소드 패턴에서 자식 클래스들이 재정의할 수 있는 메소드 종류는 두 가지입니다. 
+템플릿 메서드 패턴에서 자식 클래스들이 재정의할 수 있는 메서드 종류는 두 가지입니다. 
 
-- 추상 메소드(abstract method)
-    - 모든 자식 클래스들이 반드시 재정의해야하는 메소드입니다.
+- 추상 메서드(abstract method)
+    - 모든 자식 클래스들이 반드시 재정의해야하는 메서드입니다.
 - 훅 연산(hook operation)
-    - 추상 메소드는 아니지만, 구현 코드가 존재하지 않는 메소드로 선택적으로 구현합니다. 
+    - 추상 메서드는 아니지만, 구현 코드가 존재하지 않는 메서드로 선택적으로 구현합니다. 
 
-개발자는 어떤 연산이 훅 연산인지 추상 연산인지 확인해야 합니다. Java에선 추상 메소드를 재구현하지 않으면 컴파일 에러가 발생하기 때문에 반드시 재구현해야하므로 이를 파악하는데 문제가 없습니다. 훅 연산들은 굳이 재구현하지 않아도 되므로 개발자가 직접 판단해야 합니다. 이때 어떤 훅 연산들을 추가적으로 재정의하면 비즈니스 기능을 확장할 수 있는지 파악하는 것이 좋습니다. 
+개발자는 어떤 연산이 훅 연산인지 추상 연산인지 확인해야 합니다. Java에선 추상 메서드를 재구현하지 않으면 컴파일 에러가 발생하기 때문에 반드시 재구현해야하므로 이를 파악하는데 문제가 없습니다. 훅 연산들은 굳이 재구현하지 않아도 되므로 개발자가 직접 판단해야 합니다. 이때 어떤 훅 연산들을 추가적으로 재정의하면 비즈니스 기능을 확장할 수 있는지 파악하는 것이 좋습니다. 
 
 ## 2. Usage Case
 
-프레임워크를 사용하면 프레임워크에서 제공하는 인터페이스나 추상 클래스를 상속 받아 작성하는 경우가 많습니다. 큰 실행 흐름은 프레임워크가 정의하고 필요한 기능만 개발자가 구현합니다. 자주 사용하는 스프링 프레임워크에서 템플릿 메소드 패턴을 사용하는 예제를 찾아봤습니다. 
+프레임워크를 사용하면 프레임워크에서 제공하는 인터페이스나 추상 클래스를 상속 받아 작성하는 경우가 많습니다. 큰 실행 흐름은 프레임워크가 정의하고 필요한 기능만 개발자가 구현합니다. 자주 사용하는 스프링 프레임워크에서 템플릿 메서드 패턴을 사용하는 예제를 찾아봤습니다. 
 
 스프링 시큐리티(spring security) 프레임워크의 인증 프로세스에는 AbstractAuthenticationProcessingFilter 클래스가 존재합니다. 일련의 인증 과정을 부모 클래스에서 정의하고 있습니다. 
 
@@ -76,7 +76,7 @@ last_modified_at: 2023-11-04T23:55:00
 
 ### 2.1. AbstractAuthenticationProcessingFilter Class
 
-doFilter 메소드에서 인증 작업에 대한 큰 알고리즘을 정의합니다. 
+doFilter 메서드에서 인증 작업에 대한 큰 알고리즘을 정의합니다. 
 
 ```java
 public abstract class AbstractAuthenticationProcessingFilter extends GenericFilterBean implements ApplicationEventPublisherAware, MessageSourceAware {
@@ -119,7 +119,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 
 ### 2.2. UsernamePasswordAuthenticationFilter Class
 
-오버라이드한 attemptAuthentication 메소드에서 아이디, 비밀번호로 사용자 인증을 수행합니다.
+오버라이드한 attemptAuthentication 메서드에서 아이디, 비밀번호로 사용자 인증을 수행합니다.
 
 ```java
 public class UsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
@@ -144,7 +144,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 
 ### 2.3. OAuth2LoginAuthenticationFilter Class
 
-오버라이드한 attemptAuthentication 메소드에서 OAuth2 인증 작업을 수행합니다. 
+오버라이드한 attemptAuthentication 메서드에서 OAuth2 인증 작업을 수행합니다. 
 
 ```java
 public class OAuth2LoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {

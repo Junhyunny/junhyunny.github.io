@@ -36,8 +36,8 @@ last_modified_at: 2025-12-13T23:55:00
 
 안드로이드 웹 뷰와 HTML 문서 통신는 아래와 같은 방법을 통해 통신한다.
 
-- 웹 뷰 인스턴스에게 렌더링 중인 HTML 문서에게 네이티브 메소드를 호출할 수 있는 인터페이스를 제공한다.
-- 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메소드를 통해 `JavaScript` 코드를 실행할 수 있다.
+- 웹 뷰 인스턴스에게 렌더링 중인 HTML 문서에게 네이티브 메서드를 호출할 수 있는 인터페이스를 제공한다.
+- 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메서드를 통해 `JavaScript` 코드를 실행할 수 있다.
 
 <div align="center">
   <img src="/images/posts/2022/react-android-webview-communication-02.png" width="55%" class="image__border">
@@ -45,11 +45,11 @@ last_modified_at: 2025-12-13T23:55:00
 
 ## 2. Add JavaScript interface for Android WebView
 
-안드로이드 웹 뷰가 HTML 문서와 통신하기 위한 JavaScript 인터페이스를 만들어보자. HTML 문서에서 호출할 수 있는 메소드를 정의한다. 호출할 수 있는 메소드에 `@JavascriptInterface` 애너테이션을 추가한다.
+안드로이드 웹 뷰가 HTML 문서와 통신하기 위한 JavaScript 인터페이스를 만들어보자. HTML 문서에서 호출할 수 있는 메서드를 정의한다. 호출할 수 있는 메서드에 `@JavascriptInterface` 애너테이션을 추가한다.
 
-- `showToastMessage` 메소드
+- `showToastMessage` 메서드
   - HTML 문서에서 전달한 메시지를 토스트 기능을 통해 화면에 띄운다.
-- `callJavaScriptFunction` 메소드
+- `callJavaScriptFunction` 메서드
   - 5초 뒤 `JavaScript` 코드를 이용해 커스텀 이벤트(CustomEvent)를 발행한다.
   - 커스텀 이벤트의 이름은 `"javascriptFunction"` 이다.
   - 발행한 이벤트를 이용해 리액트 서비스의 상태를 변경한다.
@@ -105,7 +105,7 @@ public class JavascriptCallbackClient {
 
 인터페이스를 만들었으면 이를 등록한다. 전체 코드를 확인하시려면 [Android WebView 사용 예제][android-webview-link]를 참고하길 바란다.
 
-- `WebView` 클래스의 `addJavascriptInterface` 메소드로 이전 단계에서 만든 `JavascriptCallbackClient` 클래스를 등록한다.
+- `WebView` 클래스의 `addJavascriptInterface` 메서드로 이전 단계에서 만든 `JavascriptCallbackClient` 클래스를 등록한다.
 - `HTML` 문서에서 사용할 수 있도록 이름을 `android`로 지정한다.
   - `window` 객체로부터 `android` 객체를 꺼내 사용할 수 있다.
 - 리액트 서비스를 호출할 수 있도록 주소를 변경한다.

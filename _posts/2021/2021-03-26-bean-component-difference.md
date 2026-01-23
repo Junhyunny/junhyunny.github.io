@@ -19,8 +19,8 @@ last_modified_at: 2021-03-27T09:00:00
 * `RestTemplate` 클래스는 `org.springframework.web.client` 패키지 내부에 존재합니다.
 * 클래스 형태로 제공되므로 개발자가 직접 코드를 수정할 수 없습니다.   
     * `RestTemplate` 클래스 위에 `@Component` 애너테이션을 붙혀서 빈으로 만들 수 없습니다.
-* `RestTemplate` 객체를 빈으로 사용하려면 `@Bean` 애너테이션이 붙은 메소드를 사용합니다.
-    * 스프링(spring) 프레임워크가 해당 빈을 만들 수 있도록 `@Configuration` 애너테이션이 붙은 클래스 내부에 메소드를 선언합니다.
+* `RestTemplate` 객체를 빈으로 사용하려면 `@Bean` 애너테이션이 붙은 메서드를 사용합니다.
+    * 스프링(spring) 프레임워크가 해당 빈을 만들 수 있도록 `@Configuration` 애너테이션이 붙은 클래스 내부에 메서드를 선언합니다.
 
 ```java
 import org.springframework.web.client.RestTemplate;
@@ -37,7 +37,7 @@ public class Config {
 ### 1.2. Target of @Bean
 
 * `@Bean` 애너테이션은 클래스 위에 사용하지 못 합니다.
-    * 적용 타겟은 메소드, 애너테이션 타입에만 적용 가능합니다.
+    * 적용 타겟은 메서드, 애너테이션 타입에만 적용 가능합니다.
     * 클래스 위에 선언하는 경우 컴파일 에러가 발생합니다.
 
 ```java

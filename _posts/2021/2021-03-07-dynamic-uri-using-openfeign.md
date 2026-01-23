@@ -57,7 +57,7 @@ public interface MyClient {
 
 * 기본 URL 정보는 지정합니다.
     * `http://placeholder-url`
-* 메소드의 매개 변수로 URI 객체를 전달합니다.
+* 메서드의 매개 변수로 URI 객체를 전달합니다.
 
 ```java
 package action.in.blog.client;

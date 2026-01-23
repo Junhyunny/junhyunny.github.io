@@ -50,13 +50,13 @@ public interface EntityManagerProxy extends EntityManager {
 ## 2. SharedEntityManagerInvocationHandler 클래스
 
 주입 받은 엔티티 매니저를 호출하면 프록시 내부에 `invocationHandler` 객체로 등록된 `SharedEntityManagerInvocationHandler` 인스턴스를 사용합니다. 
-`SharedEntityManagerInvocationHandler` 인스턴스의 `invoke` 메소드를 살펴보면 다음과 같은 내용을 확인할 수 있습니다. 
+`SharedEntityManagerInvocationHandler` 인스턴스의 `invoke` 메서드를 살펴보면 다음과 같은 내용을 확인할 수 있습니다. 
 
 * `EntityManagerFactoryUtils.doGetTransactionalEntityManager` 호출 라인
     * 해당 스레드에 트랜잭션이 시작된 엔티티 매니저가 있다면 이를 반환합니다.
     * 해당 스레드에 엔티티 매니저가 없다면 새로운 엔티티 매니저를 생성 후 반환합니다.
 * `Object result = method.invoke(target, args)` 호출 라인
-    * 획득한 엔티티 매니저(target)로 프록시 외부에서 호출한 메소드를 실행합니다. 
+    * 획득한 엔티티 매니저(target)로 프록시 외부에서 호출한 메서드를 실행합니다. 
 
 ```java
     @Override

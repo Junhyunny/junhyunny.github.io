@@ -21,7 +21,7 @@ last_modified_at: 2024-03-19T23:55:00
 
 ## 1. Problem Context
 
-다음과 같이 테스트 컨테이너를 사용하는 테스트 코드가 있다. 어떤 메소드를 테스트하는지 중요하지 않으므로 설명은 생략한다.
+다음과 같이 테스트 컨테이너를 사용하는 테스트 코드가 있다. 어떤 메서드를 테스트하는지 중요하지 않으므로 설명은 생략한다.
 
 ```kotlin
 @Testcontainers
@@ -98,7 +98,7 @@ abstract class TestContainerDatabase {
 
 ### 1.2. TestStoreConfig Class
 
-데이터베이스 결합 테스트를 위한 @DataJpaTest 애너테이션, @AutoConfigureTestDatabase 애너테이션을 클래스 위에 명시한다. 테스트 대상 시스템을 도와줄 엔티티 매니저(EntityManager) 인스턴스와 메소드를 함께 정의한다.
+데이터베이스 결합 테스트를 위한 @DataJpaTest 애너테이션, @AutoConfigureTestDatabase 애너테이션을 클래스 위에 명시한다. 테스트 대상 시스템을 도와줄 엔티티 매니저(EntityManager) 인스턴스와 메서드를 함께 정의한다.
 
 ```kotlin
 package blog.`in`.action

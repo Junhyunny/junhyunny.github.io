@@ -35,7 +35,7 @@ Slack 워크스페이스(workspace)에서 사용하는
 
 * Slack API 관련된 문서를 살펴보면 다음과 같은 내용이 있습니다. 
 * 헤더 인가(Authorization) 항목에 `Bearer`를 추가하고, 토큰을 함께 전달합니다.
-* `WRITE` 기능을 수행하는 메소드에 `application/json` 타입을 사용합니다.
+* `WRITE` 기능을 수행하는 메서드에 `application/json` 타입을 사용합니다.
 * 토큰을 쿼리 파라미터로 바디(body)에 담아 던지고 싶으면 `application/x-www-form-urlencoded`을 사용합니다.
 
 ```java

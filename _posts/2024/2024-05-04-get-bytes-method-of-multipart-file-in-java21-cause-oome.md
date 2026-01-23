@@ -216,12 +216,12 @@ Native Memory Tracking:
 
 ### 3.1. Cooperation of Instances
 
-MultipartFile 인스턴스의 getBytes 메소드를 호출했을 때 데이터를 읽는 과정에 참여하는 객체들의 협력 관계를 살펴보자. Java 17, 21 모두 데이터를 읽기 위해 협력하는 객체들은 동일하다. 클래스 이름 하단 괄호는 해당 클래스가 위치한 패키지를 의미한다.
+MultipartFile 인스턴스의 getBytes 메서드를 호출했을 때 데이터를 읽는 과정에 참여하는 객체들의 협력 관계를 살펴보자. Java 17, 21 모두 데이터를 읽기 위해 협력하는 객체들은 동일하다. 클래스 이름 하단 괄호는 해당 클래스가 위치한 패키지를 의미한다.
 
-- MultipartFile 인스턴스는 FileCopyUtils 클래스의 정적 메소드를 사용한다.
-- FileCopyUtils 클래스의 정적 메소드는 ChannelInputStream 객체를 사용한다.
+- MultipartFile 인스턴스는 FileCopyUtils 클래스의 정적 메서드를 사용한다.
+- FileCopyUtils 클래스의 정적 메서드는 ChannelInputStream 객체를 사용한다.
 - ChannelInputStream 객체는 FileChannelImpl 객체를 사용한다.
-- FileChannelImpl 객체는 IOUtil 클래스의 정적 메소드를 사용한다.
+- FileChannelImpl 객체는 IOUtil 클래스의 정적 메서드를 사용한다.
 - IOUtil 클래스는 캐시(cache)를 사용한다.
   - 캐시 히트(cache hit)가 발생하면 캐시에 저장된 버퍼 객체를 재사용한다.
   - 캐시 히트가 실패하면 요청 받은 사이즈의 새로운 DirectByteBuffer 객체를 생성한다.
@@ -282,7 +282,7 @@ public class Util {
 }
 ```
 
-BufferCache 객체의 캐시 히트 로직은 크게 문제 없어 보인다. 문제는 BufferCache 객체가 저장되는 장소이다. BufferCache 객체는 TerminatingThreadLocal 클래스를 통해 저장된다. TerminatingThreadLocal 클래스는 ThreadLocal 클래스의 한 종류로 스레드가 생성되거나 제거될 때 오버라이드 한 메소드가 호출되는 특징이 있다. 캐시에 저장된 버퍼 객체의 메모리를 해제하는 작업은 threadTerminated 메소드에서 수행된다.
+BufferCache 객체의 캐시 히트 로직은 크게 문제 없어 보인다. 문제는 BufferCache 객체가 저장되는 장소이다. BufferCache 객체는 TerminatingThreadLocal 클래스를 통해 저장된다. TerminatingThreadLocal 클래스는 ThreadLocal 클래스의 한 종류로 스레드가 생성되거나 제거될 때 오버라이드 한 메서드가 호출되는 특징이 있다. 캐시에 저장된 버퍼 객체의 메모리를 해제하는 작업은 threadTerminated 메서드에서 수행된다.
 
 ```java
 package sun.nio.ch;
@@ -319,9 +319,9 @@ public class Util {
 그렇다면 왜 Java 21 버전부터 문제가 발생했을까? Java 17과 Java 21 환경에서 콜 스택을 비교해보면 다음과 같은 차이점을 찾을 수 있다. 
 
 - Java 17
-  - FileCopyUtils 클래스는 InputStream 인스턴스의 readAllBytes 메소드를 호출한다. 
+  - FileCopyUtils 클래스는 InputStream 인스턴스의 readAllBytes 메서드를 호출한다. 
 - Java 21
-  - FileCopyUtils 클래스는 ChannelInputStream 객체의 readAllBytes 메소드를 호출한다.
+  - FileCopyUtils 클래스는 ChannelInputStream 객체의 readAllBytes 메서드를 호출한다.
 
 <div align="center">
   <img src="/images/posts/2024/get-bytes-method-of-multipart-file-in-java21-cause-oome-05.png" width="80%" class="image__border">
@@ -329,14 +329,14 @@ public class Util {
 
 <br/>
 
-[2021년 10월 2일 OpenJDK 커밋(commit)](https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca)을 보면 ChannelInputStream 클래스에 readAllBytes 메소드가 새롭게 추가된다. 이 커밋은 `JDK 18+17`과 `JDK 18+18` 태그 사이에 위치하기 때문에 JDK 18에서부터 이 문제가 발생할 것으로 예상된다. 이 변경은 다음과 같은 구조를 만든다. 
+[2021년 10월 2일 OpenJDK 커밋(commit)](https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca)을 보면 ChannelInputStream 클래스에 readAllBytes 메서드가 새롭게 추가된다. 이 커밋은 `JDK 18+17`과 `JDK 18+18` 태그 사이에 위치하기 때문에 JDK 18에서부터 이 문제가 발생할 것으로 예상된다. 이 변경은 다음과 같은 구조를 만든다. 
 
 - Java 17
   - ChannelInputStream 객체가 런타임에 데이터 읽기에 참여한다.
-  - InputStream 인스턴스의 readAllBytes 메소드를 사용한다. 
+  - InputStream 인스턴스의 readAllBytes 메서드를 사용한다. 
 - Java 21
   - ChannelInputStream 객체가 런타임에 데이터 읽기에 참여한다.
-  - 자신의 readAllBytes 메소드를 사용한다. 
+  - 자신의 readAllBytes 메서드를 사용한다. 
 
 <div align="center">
   <img src="/images/posts/2024/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="80%" class="image__border">
@@ -344,7 +344,7 @@ public class Util {
 
 <br/>
 
-이제 거의 다 왔다. 두 메소드엔 어떤 차이점이 있을까? InputStream 추상 클래스의 readAllBytes 메소드를 먼저 살펴보자. 
+이제 거의 다 왔다. 두 메서드엔 어떤 차이점이 있을까? InputStream 추상 클래스의 readAllBytes 메서드를 먼저 살펴보자. 
 
 - 데이터를 읽을 때 요청 받은 사이즈와 기본 버퍼 사이즈 중 작은 값을 사용한다.
 
@@ -383,7 +383,7 @@ public abstract class InputStream implements Closeable {
 }
 ```
 
-다음 ChannelInputStream 추상 클래스의 readAllBytes 메소드를 살펴보자. 
+다음 ChannelInputStream 추상 클래스의 readAllBytes 메서드를 살펴보자. 
 
 - 데이터를 읽을 때 요청 받은 사이즈를 사용한다.
 
@@ -473,7 +473,7 @@ class ChannelInputStream extends InputStream {
 정확한 원인을 분석하진 않았지만, Java 21 버전에서 최대 다이렉트 메모리 제한이 테스트했을 때 발생한 OOM 에러는 힙 메모리가 부족해서 발생한 것으로 보인다. 우리는 앞으로 Java 17 버전에 머무를 수 없다. 이 문제를 피할 수 있는 방법은 무엇이 있을까? 
 
 - 바이트를 읽을 때 사이즈를 고정한다.
-- 파일을 복사할 때 MultipartFile 인스턴스의 transferTo 메소드를 사용한다.
+- 파일을 복사할 때 MultipartFile 인스턴스의 transferTo 메서드를 사용한다.
 
 Java 21 환경에서 JVM 옵션을 다음과 같이 지정하여 동일한 테스트를 진행한다. 
 
@@ -560,7 +560,7 @@ Native Memory Tracking:
 
 애플리케이션 코드는 다음과 같다.
 
-- MultipartFile 인스턴스가 제공하는 transferTo 메소드를 사용한다.
+- MultipartFile 인스턴스가 제공하는 transferTo 메서드를 사용한다.
 
 ```java
 package action.in.blog.controller;
@@ -619,7 +619,7 @@ Native Memory Tracking:
 
 ## CLOSING
 
-이 글의 결론은 Java 18 버전부터 MultipartFile 인스턴스의 getBytes 메소드를 호출하는 것은 다이렉트 메모리 영역에서 OOM 에러가 발생할 수 있으니 조심해야 한다는 것이다. Java 17 버전도 getBytes 메소드를 사용했을 때 에러는 발생하지 않지만, 힙 메모리가 요동치는 것을 보니 얼마나 비효율적인지 확인할 수 있었다. 힙 메모리 사용량이 증가할수록 GC(garbage collection)을 계속 유발하고 이는 애플리케이션 전체 성능의 악영향을 주게 되니 주의하자.
+이 글의 결론은 Java 18 버전부터 MultipartFile 인스턴스의 getBytes 메서드를 호출하는 것은 다이렉트 메모리 영역에서 OOM 에러가 발생할 수 있으니 조심해야 한다는 것이다. Java 17 버전도 getBytes 메서드를 사용했을 때 에러는 발생하지 않지만, 힙 메모리가 요동치는 것을 보니 얼마나 비효율적인지 확인할 수 있었다. 힙 메모리 사용량이 증가할수록 GC(garbage collection)을 계속 유발하고 이는 애플리케이션 전체 성능의 악영향을 주게 되니 주의하자.
 
 #### TEST CODE REPOSITORY
 

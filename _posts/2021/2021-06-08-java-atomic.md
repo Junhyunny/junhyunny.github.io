@@ -92,16 +92,16 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 * 이전 값과 현재 메모리에 저장된 데이터가 같은 경우에 새로운 값으로 메모리의 데이터를 변경합니다.
 * 성공 여부에 따라 true, false 값을 반환합니다.
 
-`Atomic` 클래스들은 compareAndSet 이라는 메소드를 사용합니다. 
+`Atomic` 클래스들은 compareAndSet 이라는 메서드를 사용합니다. 
 이름에서 볼 수 있듯이 CAS 메커니즘을 구현했을 것이라 예상할 수 있습니다. 
-AtomicInteger 클래스를 기준으로 내부 메소드를 탐험해보겠습니다. 
+AtomicInteger 클래스를 기준으로 내부 메서드를 탐험해보겠습니다. 
 
 #### 2.1.1. AtomicInteger Class
 
-* getAndSet 메소드는 이전 값을 반환하고 새로운 값을 메모리에 업데이트합니다.
-* compareAndSet 메소드는 이전 값을 새로운 값으로 변경하고 성공 여부를 반환합니다.
+* getAndSet 메서드는 이전 값을 반환하고 새로운 값을 메모리에 업데이트합니다.
+* compareAndSet 메서드는 이전 값을 새로운 값으로 변경하고 성공 여부를 반환합니다.
     * 메모리에 저장된 값과 expectedValue 변수의 값이 같은 경우에만 수행 완료됩니다.
-* 두 메소드 모두 Unsafe 객체에게 동작을 위임합니다. 
+* 두 메서드 모두 Unsafe 객체에게 동작을 위임합니다. 
 
 ```java
 public class AtomicInteger extends Number implements java.io.Serializable {
@@ -139,11 +139,11 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 
 #### 2.1.2. Unsafe Class
 
-* compareAndSetInt 메소드
+* compareAndSetInt 메서드
     * 네이티브(native) 기능입니다.
     * 내부적으로 원자적인 업데이트를 수행합니다.
-* getAndSetInt 메소드
-    * compareAndSet 메소드를 반복 수행하여 변경에 성공하면 이전 값을 반환합니다.
+* getAndSetInt 메서드
+    * compareAndSet 메서드를 반복 수행하여 변경에 성공하면 이전 값을 반환합니다.
 
 ```java
 public final class Unsafe {

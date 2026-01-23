@@ -30,7 +30,7 @@ last_modified_at: 2022-08-21T23:55:00
 아래 테스트 코드를 통해 정말 같은 주소의 객체를 참조하는지 확인할 수 있습니다. 
 
 * `first` 객체와 `second` 객체는 같은 문자열 값을 가집니다. 
-* System 클래스 identityHashCode 메소드를 사용하여 `first`와 `second` 변수가 참조하는 객체의 주소가 같음을 확인합니다.
+* System 클래스 identityHashCode 메서드를 사용하여 `first`와 `second` 변수가 참조하는 객체의 주소가 같음을 확인합니다.
 * 동등 연산자를 사용해 `first`와 `second` 변수가 참조하는 객체가 같음을 확인합니다. 
 
 ```java
@@ -68,7 +68,7 @@ last_modified_at: 2022-08-21T23:55:00
 아래 테스트 코드를 통해 확인해보겠습니다. 
 
 * `literal` 객체와 `stringObject` 객체는 같은 문자열 값을 가집니다. 
-* System 클래스 identityHashCode 메소드를 사용하여 `literal`와 `stringObject` 변수가 참조하는 객체의 주소가 다름을 확인합니다.
+* System 클래스 identityHashCode 메서드를 사용하여 `literal`와 `stringObject` 변수가 참조하는 객체의 주소가 다름을 확인합니다.
 * 동등 연산자를 사용해 `literal`와 `stringObject` 변수가 참조하는 객체가 다름을 확인합니다. 
 
 ```java
@@ -120,11 +120,11 @@ last_modified_at: 2022-08-21T23:55:00
     }
 ```
 
-### 3.2. 명시적인 intern 메소드 호출
+### 3.2. 명시적인 intern 메서드 호출
 
-`String` 클래스를 보면 intern 메소드를 통해 명시적으로 문자열을 풀에 저장합니다. 
+`String` 클래스를 보면 intern 메서드를 통해 명시적으로 문자열을 풀에 저장합니다. 
 
-##### String 클래스 intern 메소드
+##### String 클래스 intern 메서드
 
 * 해당 문자열과 동일한 값을 가지는 문자열을 풀에서 반환합니다.
 * 동일한 값을 가지는 문자열이 이미 풀에 있는 경우 풀에 저장된 문자열이 반환합니다.
@@ -158,12 +158,12 @@ last_modified_at: 2022-08-21T23:55:00
     public native String intern();
 ```
 
-##### intern 메소드 테스트
+##### intern 메서드 테스트
 
 간단한 테스트 코드를 통해 동작을 확인할 수 있습니다.
 
 * `first` 변수가 참조하는 "Junhyunny" 문자열은 컴파일 시점에 풀에 새롭게 저장됩니다.
-* `new String("Junhyunny")` 객체의 `intern` 메소드를 호출합니다.
+* `new String("Junhyunny")` 객체의 `intern` 메서드를 호출합니다.
 * "Junhyunny" 문자열은 이미 풀에 저장되어 있으므로 `first` 변수가 참조하는 객체와 동일한 참조 값이 반환됩니다.
 
 ```java
@@ -188,7 +188,7 @@ last_modified_at: 2022-08-21T23:55:00
 
 * 리터럴 문자열들은 `String Interning` 처리로 컴파일 시점에 자동으로 문자열 풀에 등록, 재사용된다. 
 * `Java`의 문자열은 불변(immutable)하기 때문에 덧셈 연산으로 생성되는 문자열은 같은 값을 가지지만, 새로운 객체이다.
-* `intern` 메소드를 사용하면 문자열 풀에 새로운 문자열을 저장하거나, 존재하는 문자열을 참조하여 사용할 수 있다.
+* `intern` 메서드를 사용하면 문자열 풀에 새로운 문자열을 저장하거나, 존재하는 문자열을 참조하여 사용할 수 있다.
 
 ```java
     @Test

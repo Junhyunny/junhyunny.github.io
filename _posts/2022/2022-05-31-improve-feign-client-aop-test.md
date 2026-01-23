@@ -22,7 +22,7 @@ last_modified_at: 2022-05-31T23:55:00
 
 - AOP 기능을 테스트해야하기 때문에 `@SpringBootTest` 애너테이션을 사용하였습니다.
 - `SimpleClient` 빈(bean)을 주입 받아서 테스트에서 호출합니다.
-- `SimpleClient` 빈의 메소드를 호출할 때마다 AOP 로직에서 이력 성격의 데이터를 추가합니다.
+- `SimpleClient` 빈의 메서드를 호출할 때마다 AOP 로직에서 이력 성격의 데이터를 추가합니다.
 - `InterfaceHistoryRepository` 빈을 주입 받아서 AOP 로직에서 데이터베이스에 추가된 데이터가 있는지 확인합니다.
 - `@Transactional` 애너테이션를 통해 테스트 종료 후 데이터베이스를 롤백합니다.
 
@@ -97,7 +97,7 @@ public interface SimpleClient {
 ### 1.3. InterfaceHistoryInterceptor 클래스
 
 - AOP 기능을 이용하여 특정 기능 호출 시점을 가로채어 실행합니다.
-- `@InterfaceMeta` 애너테이션이 붙은 메소드 호출 시 `aroundCallFeignClient` 메소드가 실행됩니다.
+- `@InterfaceMeta` 애너테이션이 붙은 메서드 호출 시 `aroundCallFeignClient` 메서드가 실행됩니다.
 - 필요한 정보를 추출하여 이력성 테이블에 추가합니다. 
 
 ```java
@@ -315,7 +315,7 @@ class TestConfig {
 1. 테스트를 위한 `FeignClient`가 별도로 존재합니다.
 
 실제 네트워크 호출에 대한 의존성을 제거한 것에 타협하고 남은 테스트들을 작성하였지만, 참을 수 없는 문제점을 하나 발견했습니다. 
-메소드 위에 요청 방법을 결정하는 애너테이션들은 요청 경로 값을 넣는 방법에 따라 다른 속성에 값으로 저장합니다. 
+메서드 위에 요청 방법을 결정하는 애너테이션들은 요청 경로 값을 넣는 방법에 따라 다른 속성에 값으로 저장합니다. 
 
 예를 들면 다음과 같습니다.
 
@@ -350,7 +350,7 @@ class TestConfig {
 - 빈 주입을 받지 않고 `SimpleClient` 객체를 mock 객체로 생성하였습니다.
     - 실제 API 요청 없이 필요한 응답 값을 확인할 수 있도록 스터빙(stubbing)이 가능해졌습니다. 
 - 빈 주입을 받지 않고 `InterfaceHistoryRepository` 객체를 mock 객체로 생성하였습니다.
-    - 데이터베이스에 직접 조회하지 않고 `save(entity)` 메소드에 전달된 엔티티 객체의 속성 값들 확인이 가능해졌습니다.
+    - 데이터베이스에 직접 조회하지 않고 `save(entity)` 메서드에 전달된 엔티티 객체의 속성 값들 확인이 가능해졌습니다.
 - 빈 주입이 필요 없기 때문에 결합 테스트가 아닌 단위 테스트로 변경하였습니다.
 
 ```java

@@ -61,10 +61,10 @@ last_modified_at: 2021-09-04T03:00:00
 ```
 
 ### 2.2. WebSocketComponent 클래스
-- TextWebSocketHandler 클래스를 상속받습니다. 몇 개의 메소드를 오버라이드합니다.
-- afterConnectionEstablished 메소드 - 연결 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장합니다.
-- handleMessage 메소드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메시지를 전송합니다.
-- afterConnectionClosed 메소드 - 연결이 해제된 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제합니다.
+- TextWebSocketHandler 클래스를 상속받습니다. 몇 개의 메서드를 오버라이드합니다.
+- afterConnectionEstablished 메서드 - 연결 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장합니다.
+- handleMessage 메서드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메시지를 전송합니다.
+- afterConnectionClosed 메서드 - 연결이 해제된 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제합니다.
 
 ```java
 package blog.in.action.component;
@@ -112,9 +112,9 @@ public class WebSocketComponent extends TextWebSocketHandler {
 - @EnableWebSocket 애너테이션을 추가합니다.
 - WebSocketConfigurer 인터페이스를 구현합니다.
 - WebSocket Connection 관리를 위해 생성한 WebSocketComponent 빈(bean)을 주입받습니다.
-- registerWebSocketHandlers 메소드 - WebSocket 기능을 위해 필요한 정보들을 지정합니다.
+- registerWebSocketHandlers 메서드 - WebSocket 기능을 위해 필요한 정보들을 지정합니다.
     - `/chat` 경로의 WebSocket 연결 정보는 WebSocketComponent 객체로 지정합니다.
-    - CORS 문제 해결을 위해 setAllowedOrigins() 메소드를 사용합니다. 테스트이므로 모든 CORS 정보를 허용합니다.
+    - CORS 문제 해결을 위해 setAllowedOrigins() 메서드를 사용합니다. 테스트이므로 모든 CORS 정보를 허용합니다.
     - SockJS fallback option들을 허용합니다.
     - SockJS 사용 시 필요한 클라이언트 라이브러리 URL 정보를 입력합니다.
 

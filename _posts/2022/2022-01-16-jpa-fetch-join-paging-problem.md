@@ -189,7 +189,7 @@ public class PostRepositoryTest {
 ```
 
 #### 1.2.2. 구현 코드
-- `findByContentLikeFetchJoin` 메소드
+- `findByContentLikeFetchJoin` 메서드
     - fetch 조인 처리를 수행합니다.
     - Pageable 객체를 통해 페이징 처리를 수행합니다.
     - 페이징 처리된 결과를 반환합니다.

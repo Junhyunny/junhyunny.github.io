@@ -14,8 +14,8 @@ last_modified_at: 2022-07-21T23:55:00
 
 새로운 기능을 위해 테스트를 추가하면서 다음과 같은 문제 상황이 발생했습니다.
 
-* MockedStatic 클래스를 이용해 LocalDate 클래스의 정적(static) 메소드들을 테스트 더블(Test Double)로 만들었습니다. 
-* 의도하지 않은 곳에서 스터빙(stubbing)되지 않은 정적 메소드가 호출되어 에러가 발생하였습니다.
+* MockedStatic 클래스를 이용해 LocalDate 클래스의 정적(static) 메서드들을 테스트 더블(Test Double)로 만들었습니다. 
+* 의도하지 않은 곳에서 스터빙(stubbing)되지 않은 정적 메서드가 호출되어 에러가 발생하였습니다.
 
 ### 1.1. 기존 코드
 
@@ -24,8 +24,8 @@ last_modified_at: 2022-07-21T23:55:00
 
 #### 1.1.1. 테스트 코드
 
-* 4월, 8월에 할인된 가격을 `getEventPrice` 메소드를 통해 획득합니다.
-* `LocalDate` 클래스의 `now` 정적 메소드가 각 테스트 별로 적당한 값을 반환하도록 스터빙합니다.
+* 4월, 8월에 할인된 가격을 `getEventPrice` 메서드를 통해 획득합니다.
+* `LocalDate` 클래스의 `now` 정적 메서드가 각 테스트 별로 적당한 값을 반환하도록 스터빙합니다.
     * 각 테스트 별로 4월, 8월을 반환합니다.
 
 ```java
@@ -179,7 +179,7 @@ public class StaticMethodServiceTests {
 
 #### 1.2.2. 구현 코드
 
-* `Period` 클래스 `between` 메소드를 사용하여 두 날짜 사이의 년도 차이를 구합니다.
+* `Period` 클래스 `between` 메서드를 사용하여 두 날짜 사이의 년도 차이를 구합니다.
 * 10대에 속하는 경우 할인 가격을 반환합니다.
 
 ```java
@@ -215,8 +215,8 @@ public class StaticMethodService {
 
 #### 1.2.4. 예외 발생 코드
 
-* `LocalDate` 클래스 `until` 메소드에서 에러가 발생합니다.
-* `LocalDate` 클래스 `from` 정적 메소드가 스터빙되지 않아 `null`을 반환합니다.
+* `LocalDate` 클래스 `until` 메서드에서 에러가 발생합니다.
+* `LocalDate` 클래스 `from` 정적 메서드가 스터빙되지 않아 `null`을 반환합니다.
 * 다음 라인에서 `end` 객체를 참조하는 시점에 `NullPointException`이 발생합니다.
 
 ```java
@@ -241,18 +241,18 @@ public class StaticMethodService {
 
 ## 2. 문제 해결
 
-`MockedStatic` 클래스로 정적 메소드들이 모두 모킹(mocking)되어 정상적인 동작이 불가능했습니다. 
-특정 메소드들만 스터빙을 하고 싶고, 나머지 정적 메소드들은 모두 원래대로 사용하고 싶었습니다. 
+`MockedStatic` 클래스로 정적 메서드들이 모두 모킹(mocking)되어 정상적인 동작이 불가능했습니다. 
+특정 메서드들만 스터빙을 하고 싶고, 나머지 정적 메서드들은 모두 원래대로 사용하고 싶었습니다. 
 
 ### 2.1. Mockito.CALLS_REAL_METHODS 사용
 
 `LocalDate` 클래스의 모킹할 때 `Mockito.CALLS_REAL_METHODS`을 함께 전달합니다. 
-이럴 경우 스터빙하지 않은 다른 메소드들은 모두 원래대로 동작합니다.
+이럴 경우 스터빙하지 않은 다른 메서드들은 모두 원래대로 동작합니다.
 
 #### 2.1.1. 테스트 코드
 
 * `mockLocalDate` 객체를 만들 때 `CALLS_REAL_METHODS`을 두 번째 파라미터로 함께 전달합니다.
-    * 정적 메소드를 따로 스터빙하지 않는 경우 모두 원래 기능대로 동작합니다.
+    * 정적 메서드를 따로 스터빙하지 않는 경우 모두 원래 기능대로 동작합니다.
 
 ```java
 package action.in.blog.service;

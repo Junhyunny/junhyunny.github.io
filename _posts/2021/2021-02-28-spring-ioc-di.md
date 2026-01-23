@@ -94,8 +94,8 @@ public class DefaultDeliveryService {
 
 세터(setter) 주입은 다음과 같이 세터 함수를 사용한다.
 
-- 세터(setter) 메소드를 통해 의존성을 주입 받을 수 있다.
-- 세터 메소드 위에 @Autowired 애너테이션으로 추가한다.
+- 세터(setter) 메서드를 통해 의존성을 주입 받을 수 있다.
+- 세터 메서드 위에 @Autowired 애너테이션으로 추가한다.
 
 ```java
 package action.in.blog.service;

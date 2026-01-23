@@ -128,13 +128,13 @@ console.log(window.x) // global
 foo()
 ```
 
-### 2.2. 리터럴 객체 메소드 호출
+### 2.2. 리터럴 객체 메서드 호출
 
-* `bar` 메소드 내부 콘솔 로그에선 `foo variable`이 출력됩니다.
-    * `bar` 메소드를 호출한 주체는 `foo` 객체입니다.
+* `bar` 메서드 내부 콘솔 로그에선 `foo variable`이 출력됩니다.
+    * `bar` 메서드를 호출한 주체는 `foo` 객체입니다.
     * `this` 키워드에 `foo` 객체가 바인딩되고, `foo` 객체의 `x` 프로퍼티 값이 출력됩니다.
 * `baz` 중첩 함수 내부 콘솔 로그에선 `global`이 출력됩니다.
-    * `bar` 메소드 내부에서 호출되었지만, `baz` 함수를 호출한 주체가 별도로 없으므로 `this` 키워드에 `window` 객체가 바인딩됩니다.
+    * `bar` 메서드 내부에서 호출되었지만, `baz` 함수를 호출한 주체가 별도로 없으므로 `this` 키워드에 `window` 객체가 바인딩됩니다.
 
 ```javascript
 var x = 'global'
@@ -144,7 +144,7 @@ const foo = {
     bar() {
         console.log(this.x) // foo variable
 
-        // 메소드 내 중첩 함수
+        // 메서드 내 중첩 함수
         function baz() {
             console.log(this.x) // global
         }
@@ -191,17 +191,17 @@ const foo = {
 foo.bar()
 ```
 
-### 2.4. 객체 변경 후 메소드 호출
+### 2.4. 객체 변경 후 메서드 호출
 
 * console.log(foo.getVariable()) 호출 시 `foo variable` 값이 출력됩니다.
     * `foo variable` 값이 출력됩니다.
-    * `getVariable` 메소드를 호출한 주체가 `foo`이므로 `this` 키워드에 `foo` 객체가 바인딩됩니다.
+    * `getVariable` 메서드를 호출한 주체가 `foo`이므로 `this` 키워드에 `foo` 객체가 바인딩됩니다.
 * console.log(bar.getVariable()) 호출 시 `bar variable` 값이 출력됩니다.
     * `bar variable` 값이 출력됩니다.
-    * `getVariable` 메소드를 호출한 주체가 `bar`이므로 `this` 키워드에 `bar` 객체가 바인딩됩니다.
+    * `getVariable` 메서드를 호출한 주체가 `bar`이므로 `this` 키워드에 `bar` 객체가 바인딩됩니다.
 * console.log(getVariable()) 호출 시 `global` 값이 출력됩니다.
     * `global` 값이 출력됩니다.
-    * `getVariable` 메소드를 호출하는 주체가 별도로 없으므로 `window` 객체가 바인딩됩니다. 
+    * `getVariable` 메서드를 호출하는 주체가 별도로 없으므로 `window` 객체가 바인딩됩니다. 
 
 ```javascript
 var x = 'global'
@@ -278,19 +278,19 @@ const foo = () => {
 foo()
 ```
 
-### 3.2. 리터럴 객체 메소드 호출
+### 3.2. 리터럴 객체 메서드 호출
 
 * `foo` 객체
-    * `foo` 객체의 `bar` 메소드를 화살표 함수로 선언합니다.
+    * `foo` 객체의 `bar` 메서드를 화살표 함수로 선언합니다.
     * 상위 스코프의 `this`를 참조하므로 `window` 객체가 바인딩됩니다.
     * 중첩 함수인 `baz` 함수를 화살표 함수로 선언합니다.
     * 상위 스코프의 `this`를 참조하므로 `window` 객체가 바인딩됩니다.
 * `foobar` 객체
     * `foobar` 객체의 `bar` 함수를 일반 함수로 선언합니다.
-    * `bar` 메소드를 호출한 주체인 `foobar` 객체에 `this`가 바인딩됩니다.
+    * `bar` 메서드를 호출한 주체인 `foobar` 객체에 `this`가 바인딩됩니다.
     * 중첩 함수인 `baz` 함수를 화살표 함수로 선언합니다.
     * 상위 스코프의 `this`를 참조하므로 `foobar` 객체가 바인딩됩니다.
-* 객체의 메소드를 화살표 함수로 바인딩하는 경우 의도치 않게 동작할 수 있으니 주의합니다.
+* 객체의 메서드를 화살표 함수로 바인딩하는 경우 의도치 않게 동작할 수 있으니 주의합니다.
 
 ```javascript
 var x = 'global'
@@ -376,7 +376,7 @@ foo.bar()
 
 관련된 내용들을 정리해보니 다음과 같이 정리하면 명확할 것 같습니다. 
 
-* function 키워드로 정의한 함수나 객체의 메소드
+* function 키워드로 정의한 함수나 객체의 메서드
     * 호출하는 시점에 누구에 의해 호출되었는지에 따라 `this` 키워드가 바인딩됩니다.
     * 해당 함수를 호출한 주체(객체)가 없다면 전역 객체가 바인딩됩니다.
 * 화살표 함수

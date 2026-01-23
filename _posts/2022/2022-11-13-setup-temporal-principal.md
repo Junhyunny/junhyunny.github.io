@@ -123,8 +123,8 @@ public class AuthenticatedUser implements Principal {
 지금은 개발되어야 하는 기능들이 진행될 수 있도록 임시 사용자 정보를 반환합니다. 
 
 * 해당 필터에서만 사용하는 `UserPrincipalHttpServletRequest` 클래스를 정의합니다.
-* `Principal` 객체를 반환하는 `getter` 메소드에 필요한 사용자 객체를 반환합니다.
-* `getUserPrincipal` 메소드는 서블릿 컨테이너에 의해 필요한 시점에 호출되어 인증된 사용자 정보로 사용됩니다.
+* `Principal` 객체를 반환하는 `getter` 메서드에 필요한 사용자 객체를 반환합니다.
+* `getUserPrincipal` 메서드는 서블릿 컨테이너에 의해 필요한 시점에 호출되어 인증된 사용자 정보로 사용됩니다.
 
 ```java
 package app.filter;

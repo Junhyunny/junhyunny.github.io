@@ -40,7 +40,7 @@ create table identity_entity (
 
 `IDENTITY` 전략은 영속성 컨텍스트(persistence context)의 장점 중 하나인 `지연 쓰기`가 불가능합니다. 
 `IDENTITY` 전략은 사용하면 기본 키 값은 실제 데이터베이스에 데이터를 저장한 이후에 확인할 수 있습니다. 
-영속성 컨텍스트는 엔티티(entity)를 1차 캐싱에 저장하기 위해서 기본 키 필드(`@Id` 애너테이션이 붙은 필드)에 값이 필요하기 때문에 `save` 메소드 수행 시 `insert` 쿼리를 매번 `flush`합니다. 
+영속성 컨텍스트는 엔티티(entity)를 1차 캐싱에 저장하기 위해서 기본 키 필드(`@Id` 애너테이션이 붙은 필드)에 값이 필요하기 때문에 `save` 메서드 수행 시 `insert` 쿼리를 매번 `flush`합니다. 
 
 ### 1.3. 예시 코드
 
@@ -112,7 +112,7 @@ public class IdentityTests {
 ### 1.4. 테스트 결과 로그 확인
 
 테스트 수행 로그를 통해 동작 과정을 살펴보겠습니다.
-- `JpaRepository`의 `save` 메소드 수행 시 매번 `insert` 쿼리가 수행됩니다.
+- `JpaRepository`의 `save` 메서드 수행 시 매번 `insert` 쿼리가 수행됩니다.
 - `insert` 쿼리 수행 시 `id`에 `null` 값을 삽입하지만, 조회 시 값이 있음을 확인할 수 있습니다.
 
 ```
@@ -253,7 +253,7 @@ public class SequenceTests {
 ### 2.3. 테스트 결과 로그 확인
 
 테스트 수행 로그를 통해 동작 과정을 살펴보겠습니다.
-- `JpaRepository`의 `save` 메소드 수행 시 매번 시퀀스 값을 발급받습니다.
+- `JpaRepository`의 `save` 메서드 수행 시 매번 시퀀스 값을 발급받습니다.
     - `call next value for my_seq` - H2 데이터베이스에서 시퀀스 키를 발급받는 방법입니다.
 - 데이터를 조회하는 `select` 쿼리 수행 전에 JPA `지연 쓰기`를 수행하기 때문에 `insert` 쿼리가 3회 수행됩니다.
     - `insert` 쿼리 수행 시 `id`에 발급받은 시퀀스 값을 사용합니다.
@@ -409,7 +409,7 @@ public class TableTests {
 ### 3.3. 테스트 결과 로그 확인
 
 테스트 수행 로그를 통해 동작 과정을 살펴보겠습니다.
-- `JpaRepository`의 `save` 메소드 수행 시 매번 시퀀스 값을 발급받습니다.
+- `JpaRepository`의 `save` 메서드 수행 시 매번 시퀀스 값을 발급받습니다.
     - 시퀀스 값 발급을 위해 `select`, `update` 2회 쿼리가 수행됩니다.
     - `select` 쿼리 - `seq_table` 테이블로부터 엔티티에 해당되는 시퀀스 값을 조회합니다. `for update` 키워드로 해당 시퀀스 데이터를 조회하면서 데이터 락(lock)을 수행합니다.
     - `update` 쿼리 - `seq_table` 테이블에 해당 엔티티가 다음으로 사용할 시퀀스 값을 `update`합니다.

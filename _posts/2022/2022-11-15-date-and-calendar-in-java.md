@@ -31,7 +31,7 @@ last_modified_at: 2022-11-14T23:55:00
     * 윤초(leap second) 계산이 정확하게 이뤄지지 않습니다.
 * 시간을 문자열로 변경하거나 문자열을 시간으로 파싱(parsing)할 수 있습니다.
 * 내부적으로 로컬 타임존에 따라 시간이 계산됩니다.
-* 메소드 대부분이 `deprecated` 되었습니다.
+* 메서드 대부분이 `deprecated` 되었습니다.
     * <https://docs.oracle.com/javase/8/docs/api/java/util/Date.html>
 
 ## 2. Pain Points of Date Class
@@ -110,10 +110,10 @@ last_modified_at: 2022-11-14T23:55:00
 ## 3. java.util.Calendar
 
 `JDK 1.1`에 생긴 시간, 날짜 관련 추상 클래스입니다. 
-추상 클래스이므로 생성자가 아닌 팩토리 메소드 패턴이 적용된 `getInstance` 메소드를 사용해 객체를 생성합니다. 
+추상 클래스이므로 생성자가 아닌 팩토리 메서드 패턴이 적용된 `getInstance` 메서드를 사용해 객체를 생성합니다. 
 
 * 내부적으로 UNIX 시간을 관리합니다.
-* 지역에 따라 적절한 구현체를 `getInstance` 메소드를 통해 생성합니다.
+* 지역에 따라 적절한 구현체를 `getInstance` 메서드를 통해 생성합니다.
     * 사용하는 언어에 맞는 적절한 날짜 포맷 제공 (ex, Japanese-Gregorian, Japanese-Traditional)
     * BuddhistCalendar 클래스 - 불교력으로 캄보디아, 라오스 미얀마, 인도, 태국 등에서 사용하는 달력 체계를 지원
     * JapaneseImperialCalendar 클래스 - 일본 황실력

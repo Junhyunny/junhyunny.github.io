@@ -174,7 +174,7 @@ function applyOptions(instance) {
 
 ##### Debugging Expressions
 
-* 반복문에서 사용하는 `key` 값은 메소드 이름인 `hideAndVisible` 입니다.
+* 반복문에서 사용하는 `key` 값은 메서드 이름인 `hideAndVisible` 입니다.
 * `methodHandler`는 `hideAndVisible` 이름의 함수 객체입니다.
 * `publicThis`는 내부에 `HelloWorld` 컴포넌트 객체를 타겟으로 지닌 프록시 객체입니다.
 

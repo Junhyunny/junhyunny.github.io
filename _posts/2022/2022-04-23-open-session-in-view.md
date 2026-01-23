@@ -187,7 +187,7 @@ LazyInitializationException 예외는 다음과 같은 조건이 충족되면 �
 - 트랜잭션 영역 밖에서 엔티티 지연 로딩(lazy loading) 수행
 
 스프링 프레임워크에선 `@Transactional` 애너테이션으로 트랜잭션 범위를 지정할 수 있습니다. 
-실행 스레드가 `@Transactional` 애너테이션이 붙은 메소드를 호출하면 다음과 같은 일들이 일어납니다.
+실행 스레드가 `@Transactional` 애너테이션이 붙은 메서드를 호출하면 다음과 같은 일들이 일어납니다.
 - Session 객체이 없다면 생성하고, 있다면 이를 그대로 사용합니다. 
 - 트랜잭션 시작을 지정하면서 동시에 데이터베이스 접근을 위한 JDBC 커넥션(connection)을 획득합니다.
 
@@ -285,7 +285,7 @@ public class TeamController {
 
 ### 2.3. TeamService 클래스
 
-- `registerTeam` 메소드를 통해 사용자 정보를 등록합니다.
+- `registerTeam` 메서드를 통해 사용자 정보를 등록합니다.
 - `@Transactional` 애너테이션으로 트랜잭션 범위를 지정합니다.
 
 ```java
@@ -388,8 +388,8 @@ public class TeamService {
 ### 2.5. 발생 원인 찾아보기
 
 OSIV 패턴을 적용하지 않았기 때문에 `@Transactional` 애너테이션을 이용하여 세션이 열고, 트랜잭션을 시작합니다. 
-`registerTeam` 메소드를 호출하면 세션을 열고, 트랜잭션을 시작합니다. 
-`registerTeam` 메소드가 종료될 때 트랜잭션을 커밋하고, 세션을 닫습니다. 
+`registerTeam` 메서드를 호출하면 세션을 열고, 트랜잭션을 시작합니다. 
+`registerTeam` 메서드가 종료될 때 트랜잭션을 커밋하고, 세션을 닫습니다. 
 
 세션이 닫히면 영속성 컨텍스트가 함께 정리되면서 엔티티들은 준영속(Detached) 상태가 됩니다. 
 JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근할 때 지연 로딩을 시도하지만, 
@@ -399,7 +399,7 @@ JSP 파일을 렌더링하면서 `team` 엔티티의 `members` 필드에 접근�
 
 - `JpaRepository` 빈(bean)은 기본적으로 `@Transacational` 애너테이션이 붙어있습니다.
 - `@Transactional` 애너테이션의 기본 전파 타입인 `REQUIRED` 정책에 의해 이전에 시작한 트랜잭션이 이어집니다.
-- `registerTeam` 메소드 호출 시 흐름을 기준으로 이미지를 표현하였습니다.
+- `registerTeam` 메서드 호출 시 흐름을 기준으로 이미지를 표현하였습니다.
 
 <p align="center">
     <img src="/images/open-session-in-view-3.JPG" width="100%" class="image__border">
@@ -481,11 +481,11 @@ public class HibernateSessionRequestFilter implements Filter {
 
 전통적인 OSIV 패턴은 필터를 기준으로 설명하였으니, 이번엔 인터셉터를 기준으로 진행하겠습니다. 
 전통적인 OSIV 패턴과 다르게 처음엔 세션만 오픈합니다. 
-세션을 열 때 플러시 모드를 매뉴얼(manual)로 변경하여, 명시적인 `flush` 메소드 호출이 없으면 데이터베이스로 변경이 반영되지 않도록 합니다. 
+세션을 열 때 플러시 모드를 매뉴얼(manual)로 변경하여, 명시적인 `flush` 메서드 호출이 없으면 데이터베이스로 변경이 반영되지 않도록 합니다. 
 
-이후 트랜잭션을 시작하는 시점은 `@Transactional` 애너테이션이 붙은 메소드를 호출하는 시점입니다. 
+이후 트랜잭션을 시작하는 시점은 `@Transactional` 애너테이션이 붙은 메서드를 호출하는 시점입니다. 
 이 시점에 데이터베이스 커넥션을 획득하면서 플러시 모드를 자동(auto)로 변경합니다. 
-`@Transactional` 애너테이션이 붙은 메소드 호출이 종료되면, 트랜잭션을 커밋(혹은 롤백)하면서 엔티티들의 변경 사항들을 데이터베이스에 반영합니다. 
+`@Transactional` 애너테이션이 붙은 메서드 호출이 종료되면, 트랜잭션을 커밋(혹은 롤백)하면서 엔티티들의 변경 사항들을 데이터베이스에 반영합니다. 
 이 시점에 커넥션을 반환하면서 플러시 모드를 다시 매뉴얼로 변경합니다. 
 
 마지막으로 뷰를 렌더링하는 시점엔 세션이 열려있으니 영속성 컨텍스트가 존재하고, 영속성 컨텍스트 내의 엔티티들은 여전히 영속 상태로 남아 있습니다. 
@@ -498,11 +498,11 @@ public class HibernateSessionRequestFilter implements Filter {
 
 #### 2.2.1. OpenSessionInViewInterceptor 클래스
 
-- 비즈니스 로직 `@Controller` 클래스의 메소드를 호출하기 전에 실행하는 `preHandle` 메소드에서는 세션을 열기만 합니다.
+- 비즈니스 로직 `@Controller` 클래스의 메서드를 호출하기 전에 실행하는 `preHandle` 메서드에서는 세션을 열기만 합니다.
     - 세션을 열면서 플러시 모드를 매뉴얼(manual)로 변경합니다.
-    - 플러시 모드가 매뉴얼이므로 명시적으로 `flush` 메소드를 호출하지 않는다면 엔티티의 변경이 데이터베이스에 반영되지 않습니다.  
-- 비즈니스 로직 `@Controller` 클래스의 메소드 호출 후 실행하는 `postHandle` 메소드에서는 아무 일도 하지 않습니다. 
-- 뷰 렌더링 이후 호출되는 `afterCompletion` 메소드에서 세션을 닫습니다.
+    - 플러시 모드가 매뉴얼이므로 명시적으로 `flush` 메서드를 호출하지 않는다면 엔티티의 변경이 데이터베이스에 반영되지 않습니다.  
+- 비즈니스 로직 `@Controller` 클래스의 메서드 호출 후 실행하는 `postHandle` 메서드에서는 아무 일도 하지 않습니다. 
+- 뷰 렌더링 이후 호출되는 `afterCompletion` 메서드에서 세션을 닫습니다.
 
 ```java
 package org.springframework.orm.hibernate5.support;
@@ -779,7 +779,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 
 ##### JDBC 커넥션 획득 콜 스택(call stack)
 
-- JDBC 커넥션 획득은 참고 자료와 마찬가지로 `@Transactional` 애너테이션이 붙은 메소드를 호출하는 시점입니다. 
+- JDBC 커넥션 획득은 참고 자료와 마찬가지로 `@Transactional` 애너테이션이 붙은 메서드를 호출하는 시점입니다. 
 
 <p align="left">
     <img src="/images/open-session-in-view-6.JPG" width="75%" class="image__border">
@@ -787,7 +787,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 
 ##### JDBC 커넥션 반환 콜 스택(call stack)
 
-- JDBC 커넥션 반환은 `OpenEntityManagerInViewInterceptor` 클래스의 `afterCompletion` 메소드에서 실행합니다. 
+- JDBC 커넥션 반환은 `OpenEntityManagerInViewInterceptor` 클래스의 `afterCompletion` 메서드에서 실행합니다. 
 
 <p align="left">
     <img src="/images/open-session-in-view-7.JPG" width="75%" class="image__border">
@@ -795,8 +795,8 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 
 ##### `spring.jpa.open-in-view` 설정 값이 `false`인 경우 JDBC 커넥션 반환
 
-- `spring.jpa.open-in-view` 설정이 `false`이면, `@Transactional` 애너테이션이 붙은 메소드 종료 시점에 커넥션을 반환합니다.
-- `AOP` 마지막 `doCleanupAfterCompletion` 메소드에서 완료 후 트랜잭션을 정리하는 시점에 커넥션을 반납합니다.
+- `spring.jpa.open-in-view` 설정이 `false`이면, `@Transactional` 애너테이션이 붙은 메서드 종료 시점에 커넥션을 반환합니다.
+- `AOP` 마지막 `doCleanupAfterCompletion` 메서드에서 완료 후 트랜잭션을 정리하는 시점에 커넥션을 반납합니다.
 
 <p align="left">
     <img src="/images/open-session-in-view-8.JPG" width="75%" class="image__border">
@@ -804,7 +804,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 
 ##### `spring.jpa.open-in-view` 설정 값에 따른 분기 지점
 
-- `spring.jpa.open-in-view` 설정 값에 따라 커넥션을 정리 여부는 AOP `doCleanupAfterCompletion` 메소드에서 분기합니다.
+- `spring.jpa.open-in-view` 설정 값에 따라 커넥션을 정리 여부는 AOP `doCleanupAfterCompletion` 메서드에서 분기합니다.
 - `spring.jpa.open-in-view` 설정 값이 `false`인 경우에는 위의 파란색 블록을 수행하여 커넥션을 정리합니다.
 - `spring.jpa.open-in-view` 설정 값이 `true`인 경우에는 아래 초록색 블록을 수행하여 커넥션 정리를 이후로 미룹니다.
 
@@ -815,7 +815,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 #### 2.3.3. Session 플러시 모드
 
 - 세션은 생성되는 시점부터 플러시 모드가 `AUTO`입니다.
-- `OpenEntityManagerInViewInterceptor` 클래스의 `preHandler` 메소드에서 생성된 세션의 플러시 모드는 `AUTO`입니다.
+- `OpenEntityManagerInViewInterceptor` 클래스의 `preHandler` 메서드에서 생성된 세션의 플러시 모드는 `AUTO`입니다.
 
 <p align="center">
     <img src="/images/open-session-in-view-10.JPG" width="100%" class="image__border">

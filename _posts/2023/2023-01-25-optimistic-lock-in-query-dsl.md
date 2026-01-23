@@ -19,7 +19,7 @@ last_modified_at: 2023-01-25T23:55:00
 ## 0. 들어가면서
 
 JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적 락(optimistic lock) 기능을 제공합니다. 
-`spring-data-jpa`는 `save` 메소드로 추가(insert), 업데이트(update) 기능을 제공하면서 내부에 버전 확인 로직이 있기 때문에 쉽게 낙관적 락 기능을 사용할 수 있습니다. 
+`spring-data-jpa`는 `save` 메서드로 추가(insert), 업데이트(update) 기능을 제공하면서 내부에 버전 확인 로직이 있기 때문에 쉽게 낙관적 락 기능을 사용할 수 있습니다. 
 
 반면에 `QueryDSL`은 업데이트에 낙관적인 락 방식이 자동으로 적용되지 않습니다. 
 다음과 같은 방법으로 낙관적인 락 기능을 사용할 수 있습니다.
@@ -59,12 +59,12 @@ JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적 락(opti
 
 ### 1.2. Implementation Code
 
-* `updateEntityWithLongTransaction` 메소드
+* `updateEntityWithLongTransaction` 메서드
     * 엔티티를 조회합니다.
     * 조회 쿼리의 락 모드를 `OPTIMISTIC`으로 지정합니다.
     * 엔티티의 값을 변경합니다.
     * 1초 대기합니다.
-* `updateEntity` 메소드
+* `updateEntity` 메서드
     * 엔티티를 조회합니다.
     * 조회 쿼리의 락 모드를 `OPTIMISTIC`으로 지정합니다.
     * 엔티티의 값을 변경합니다.
@@ -252,7 +252,7 @@ Hibernate: update post_entity set contents=?, title=?, version_no=? where id=? a
     * H2 같은 임베디드(embedded) 데이터베이스를 사용하지 못하면 데이터베이스를 오염시킵니다.
 * 엔티티 객체의 캡슐화가 깨집니다.
     * 엔티티의 오염 확인은 영속성 컨텍스트에서 관리 중인 엔티티를 기준으로 일어납니다.
-    * 필드 변경을 위해 엔티티에 `setter` 메소드를 만들어야 합니다. 
+    * 필드 변경을 위해 엔티티에 `setter` 메서드를 만들어야 합니다. 
 * 트랜잭션 경합이 발생하지 않는다면 낙관적인 락 메커니즘이 동작하지 않습니다.
     * 트랜잭션 경합이 거의 발생하지 느슨한 상황이라면 매 트랜잭션마다 조회한 엔티티를 기준으로 업데이트합니다.
 

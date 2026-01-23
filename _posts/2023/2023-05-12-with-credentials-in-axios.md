@@ -190,8 +190,8 @@ public class FooController {
 * 다음과 같은 경우에 CORS 정책을 허용합니다.
     * 모든 경로
     * 오리진(origin) 서버가 `localhost:3000`인 경우
-    * GET 메소드
-* `allowCredentials` 메소드를 통해 자격 증명을 허용합니다.
+    * GET 메서드
+* `allowCredentials` 메서드를 통해 자격 증명을 허용합니다.
     * 해당 설정이 true인 경우 응답 헤더에 `Access-Control-Allow-Credentials` 값이 실려 브라우저에게 전달됩니다. 
     * 해당 설정이 하지 않거나 false인 경우 
         * 자격 증명을 함께 전달한 요청은 브라우저에서 CORS 정책 위반 에러가 발생합니다.

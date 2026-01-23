@@ -117,7 +117,7 @@ where post0_.title = ?
 
 #### 1.2.2. 디버깅 화면
 
-위 메소드를 수행하여 얻은 결과를 디버깅 모드로 살펴보면 다음과 같습니다. 
+위 메서드를 수행하여 얻은 결과를 디버깅 모드로 살펴보면 다음과 같습니다. 
 
 * Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장됩니다.
 
@@ -181,7 +181,7 @@ where post0_.title = ?
 
 #### 1.2.2. 디버깅 화면
 
-위 메소드를 수행하여 얻은 결과를 디버깅 모드로 살펴보면 다음과 같습니다. 
+위 메서드를 수행하여 얻은 결과를 디버깅 모드로 살펴보면 다음과 같습니다. 
 
 * `LEFT OUTER JOIN`을 수행하였고, 별도의 중복 처리를 하지 않았음에도 Post 엔티티 객체가 리스트에 1개 저장됩니다.
     * 중복 제거를 위한 `DISTINCT` 키워드 혹은 `Set` 자료구조 미사용
@@ -210,9 +210,9 @@ where post0_.title = ?
 
 실제 코드를 살펴봤습니다.
 
-* `QueryTranslatorImpl` 클래스의 `list` 메소드에서 엔티티 중복이 제거됩니다.
-* `getEntityGraphQueryHint` 메소드 수행 시 결과가 `null`이 아닌 경우 중복을 제거합니다.
-    * `hasLimit` 값이나 `query.getSelectClause().isDistinct()` 메소드 수행 결과와 상관 없이 중복이 제거됩니다. 
+* `QueryTranslatorImpl` 클래스의 `list` 메서드에서 엔티티 중복이 제거됩니다.
+* `getEntityGraphQueryHint` 메서드 수행 시 결과가 `null`이 아닌 경우 중복을 제거합니다.
+    * `hasLimit` 값이나 `query.getSelectClause().isDistinct()` 메서드 수행 결과와 상관 없이 중복이 제거됩니다. 
 * `IdentitySet` 클래스를 통해 중복을 제거합니다.
 
 ```java
@@ -275,7 +275,7 @@ public class QueryTranslatorImpl implements FilterTranslator {
 
 해당 코드 위치를 디버깅 모드로 살펴보았습니다. 
 
-* 아래 그림은 `getEntityGraphQueryHint` 메소드 수행 결과입니다.
+* 아래 그림은 `getEntityGraphQueryHint` 메서드 수행 결과입니다.
 * `@EntityGraph` 애너테이션을 사용하면 `"javax.persistence.fetchgraph"`라는 힌트가 적용되면서 `EntityGraphQueryHint` 객체를 생성합니다.
     * 디버깅 추적을 통해 확인한 힌트 생성과 연관된 클래스들은 다음과 같습니다. 
     * org.hibernate.query.internal.AbstractProducedQuery

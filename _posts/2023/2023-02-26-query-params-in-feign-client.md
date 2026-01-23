@@ -19,7 +19,7 @@ last_modified_at: 2023-02-26T23:55:00
 `FeignClient`를 사용하면서 느낀 장점들은 다음과 같습니다.
 
 * 애너테이션과 인터페이스 선언만으로 API 요청을 수행할 수 있는 객체를 만들 수 있습니다.
-* `@GetMapping`, `@PostMapping` 같은 애너테이션으로 요청 메소드를 지정할 수 있습니다.
+* `@GetMapping`, `@PostMapping` 같은 애너테이션으로 요청 메서드를 지정할 수 있습니다.
 * `@RequestHeader`, `@RequestBody`, `@RequestParam` 같은 애너테이션으로 요청 시 필요한 데이터를 지정할 수 있습니다.
 
 컨트롤러(controller)를 만드는 규칙과 동일하기 때문에 더 쉽게 사용할 수 있습니다. 
@@ -39,7 +39,7 @@ last_modified_at: 2023-02-26T23:55:00
 ### 1.1. Implementation
 
 * 클라이언트가 요청할 URL은 설정 파일에 `blog-server.url` 키의 값으로 지정합니다.
-* getBlogResponsesWithParams 메소드
+* getBlogResponsesWithParams 메서드
     * `@GetMapping` 애너테이션으로 `/search` 경로에 GET 요청을 수행할 것을 명시합니다.
     * `name`, `age`, `address` 파라미터를 사용해 URL 쿼리를 만듭니다.
     * `?name=jun&age=20&address=Seoul` 쿼리 요청이 생성될 것을 예상합니다.
@@ -176,7 +176,7 @@ public class ActionInBlogApplicationTests {
 
 ##### Test Result
 
-* GET 메소드 요청이 수행됩니다.
+* GET 메서드 요청이 수행됩니다.
 * 요청 URL이 `http://localhost:11962/search?name=jun&age=20&address=Seoul` 입니다.
 
 ```
@@ -248,8 +248,8 @@ public interface BlogClient {
 
 ### 2.1. Implementation
 
-* 쿼리 파라미터를 담은 DTO 객체를 메소드 파라미터로 받습니다.
-* `@SpringQueryMap` 애너테이션을 메소드 파리미터 앞에 추가합니다.
+* 쿼리 파라미터를 담은 DTO 객체를 메서드 파라미터로 받습니다.
+* `@SpringQueryMap` 애너테이션을 메서드 파리미터 앞에 추가합니다.
 
 ```java
 package action.in.blog.client;
@@ -278,7 +278,7 @@ public interface BlogClient {
 * `action.in.blog.client` 패키지에서 발생하는 디버그(debug) 로깅(logging) 레벨을 활성화합니다.
 * `FeignClient` 요청 시 발생하는 로그를 모두 보기 위해 로거 레벨을 `FULL` 레벨로 지정합니다.
 * `FeignClient` 요청 시 빌더 패턴(builder pattern)으로 `BlogQuery` 객체를 만들어 파라미터로 전달합니다.
-    * `FeignClient` 메소드의 파라미터가 1개 이상 늘어날 필요가 없습니다.
+    * `FeignClient` 메서드의 파라미터가 1개 이상 늘어날 필요가 없습니다.
     * URL 요청을 만들 때 어떤 키에 어떤 값이 매칭되는지 확인하기 좋습니다.
 * `WireMock` 객체를 사용해 가상 서버를 구축하여 테스트를 수행합니다.
 * `FeignClient` 응답을 통해 받은 데이터를 검증합니다.
@@ -387,7 +387,7 @@ public class ActionInBlogApplicationTests {
 
 ##### Test Result
 
-* GET 메소드 요청이 수행됩니다.
+* GET 메서드 요청이 수행됩니다.
 * 요청 URL이 `http://localhost:11962/search?name=jun&age=20&address=Seoul` 입니다.
 
 ```

@@ -38,7 +38,7 @@ last_modified_at: 2022-01-15T23:55:00
 
 <p align="left"><img src="/images/jpa-one-plus-n-problem-1.JPG" width="20%"></p>
 
-- JPA `findBy-` 메소드를 사용하여 1개의 Post 엔티티를 조회하면, 쿼리가 총 2회 수행됩니다.
+- JPA `findBy-` 메서드를 사용하여 1개의 Post 엔티티를 조회하면, 쿼리가 총 2회 수행됩니다.
     - 지연 로딩(lazy loading)인 경우 해당 객체를 사용했다고 가정합니다.
     - Post 엔티티를 조회하는 쿼리 1회
     - Reply 엔티티들을 조회하는 쿼리 1회
@@ -240,10 +240,10 @@ public class PostRepositoryTest {
 ```
 
 #### 2.2.2. 구현 코드
-- `findDistinctByTitleFetchJoin` 메소드
+- `findDistinctByTitleFetchJoin` 메서드
     - 반환 타입이 `List`
     - 쿼리 결과 DISTINCT 처리
-- `findByTitleFetchJoin` 메소드
+- `findByTitleFetchJoin` 메서드
     - 반환 타입이 `Set`
 
 ```java
@@ -402,11 +402,11 @@ public class PostRepositoryTest {
 ```
 
 #### 2.3.2. 구현 코드
-- `findDistinctByTitleEntityGraph` 메소드
+- `findDistinctByTitleEntityGraph` 메서드
     - 반환 타입이 `List`
     - 쿼리 결과 DISTINCT 처리
     - `@EntityGraph` 애너테이션에 함께 조회할 엔티티 정보 표시
-- `findByTitleEntityGraph` 메소드
+- `findByTitleEntityGraph` 메서드
     - 반환 타입이 `Set`
     - `@EntityGraph` 애너테이션에 함께 조회할 엔티티 정보 표시
 
@@ -518,7 +518,7 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 ### 3.2. JPA 엔티티 중복 처리 미수행 조회 결과
 
 위처럼 중복되는 데이터 행(row)의 모습은 JPA를 이용한 엔티티 조회에서도 반영됩니다. 
-이런 중복 현상을 없애기 위해선 메소드의 리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드를 붙혀야 합니다. 
+이런 중복 현상을 없애기 위해선 메서드의 리턴 타입을 `Set`으로 지정하거나 쿼리 내부에 `DISTINCT` 키워드를 붙혀야 합니다. 
 중복을 없애기 위한 처리를 하지 않으면 아래와 같은 결과를 확인할 수 있습니다. 
 
 ##### 중복 데이터 조회

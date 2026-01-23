@@ -12,12 +12,12 @@ last_modified_at: 2022-04-11T23:55:00
 
 ## 1. 문제 현상
 
-테스트 코드를 작성하다보면 static 메소드를 스터빙(stubbing)할 필요가 생깁니다. 
+테스트 코드를 작성하다보면 static 메서드를 스터빙(stubbing)할 필요가 생깁니다. 
 먼저 간단한 예시 코드를 통해 문제점을 살펴보겠습니다. 
 
 ### 1.1. 구현 코드
 
-- 4월, 8월, 12월인 경우에는 20% 할인된 가격을 반환하는 메소드를 테스트하고 싶습니다.
+- 4월, 8월, 12월인 경우에는 20% 할인된 가격을 반환하는 메서드를 테스트하고 싶습니다.
 - 오늘 날짜가 4월, 8월, 12월인 경우에는 20% 할인된 가격이 반환됩니다.
 - 기타 다른 월인 경우에는 기본 가격이 그대로 반환됩니다.
 
@@ -69,10 +69,10 @@ public class StaticMethodServiceTests {
 
 위의 테스트 코드는 특정 월에만 통과합니다. 
 이벤트 기간마다 테스트를 통과시키기 위해 테스트 코드를 수정할 수는 없습니다. 
-이 경우 `LocalDate` 클래스의 `now` 메소드를 특정 날짜로 스터빙할 필요가 있습니다. 
-`now` 메소드는 static 메소드이기 때문에 일반적인 방법으로 스터빙이 불가능합니다.
+이 경우 `LocalDate` 클래스의 `now` 메서드를 특정 날짜로 스터빙할 필요가 있습니다. 
+`now` 메서드는 static 메서드이기 때문에 일반적인 방법으로 스터빙이 불가능합니다.
 
-##### static 메소드 잘못된 스터빙
+##### static 메서드 잘못된 스터빙
 
 ```java
     Mockito.when(LocalDate.now()).thenReturn(onApril);
@@ -80,7 +80,7 @@ public class StaticMethodServiceTests {
 
 ##### 에러 메시지
 
-- 위 코드를 실행시키면 `mock` 객체의 메소드를 `when` 메소드에 전달하라는 에러 메시지를 받습니다.
+- 위 코드를 실행시키면 `mock` 객체의 메서드를 `when` 메서드에 전달하라는 에러 메시지를 받습니다.
 - `LocalDate` 클래스 자체는 `mock` 객체가 될 수 없습니다.
 
 ```
@@ -98,10 +98,10 @@ Also, this error might show up because:
 
 ### 2.1. mockito-inline 의존성 사용하기 
 
-`Mockito` 클래스를 보면 static 메소드 테스트와 연관있어 보이는 `mockStatic` 메소드가 존재합니다. 
-해당 메소드를 실행시키면 다음과 같은 에러가 발생합니다.
+`Mockito` 클래스를 보면 static 메서드 테스트와 연관있어 보이는 `mockStatic` 메서드가 존재합니다. 
+해당 메서드를 실행시키면 다음과 같은 에러가 발생합니다.
 
-##### mockStatic 메소드 호출 시 에러 메시지
+##### mockStatic 메서드 호출 시 에러 메시지
 
 - `mockito-inline` 아티팩트(artifact)로 변경하면 테스트가 가능할 것 같습니다.
 
@@ -131,8 +131,8 @@ Note that Mockito's inline mock maker is not supported on Android.
 
 - `mockito-inline` 의존성을 추가했다면 다음과 같이 테스트 코드를 변경합니다.
 - `LocalDate` 클래스를 `static mock`으로 대체하기 전에 4월 1일 날짜를 미리 만듭니다.
-    - `Mockito.mockStatic(LocalDate.class)` 실행 이후 `LocalDate` 클래스의 static 메소드 호출 시 에러 발생
-- `MockedStatic` 인스턴스를 이용해 `LocalDate` 클래스 `now` 메소드를 스터빙합니다.
+    - `Mockito.mockStatic(LocalDate.class)` 실행 이후 `LocalDate` 클래스의 static 메서드 호출 시 에러 발생
+- `MockedStatic` 인스턴스를 이용해 `LocalDate` 클래스 `now` 메서드를 스터빙합니다.
 
 ```java
 package action.in.blog.service;
@@ -170,7 +170,7 @@ public class StaticMethodServiceTests {
 
 ## 3. static method stubbing 주의 사항
 
-static 메소드를 스터빙하면 다른 테스트 코드에서 문제가 발생합니다. 
+static 메서드를 스터빙하면 다른 테스트 코드에서 문제가 발생합니다. 
 인스턴스를 `mock`으로 만든 것이 아니기 때문에 일회성으로 사용되는 것이 아니라 다음 테스트들까지 영향을 미칩니다. 
 8월에도 가격이 정상적으로 할인되는지 테스트 코드를 하나 추가해보았습니다. 
 

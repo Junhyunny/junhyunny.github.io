@@ -186,7 +186,7 @@ spring:
 
 #### 2.4.2. Spring 빈(bean) 사용
 위 `application.yml` 파일을 이용해 설정한 것과 동일한 결과를 가집니다. 
-메소드로 구현하였지만, 빌더 패턴(builder pattern)을 사용하여 설정처럼 가독성이 높습니다.
+메서드로 구현하였지만, 빌더 패턴(builder pattern)을 사용하여 설정처럼 가독성이 높습니다.
 
 ```java
 package blog.in.action.config;

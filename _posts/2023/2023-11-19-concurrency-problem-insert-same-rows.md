@@ -104,7 +104,7 @@ public class CollectEntity {
 ### 2.2. CardService Class
 
 - 중복하는 데이터가 존재하는 경우 DuplicatedCollectException 예외를 던진다.
-- save 메소드를 실행할 때 유니크 키 제약 조건으로 인해 실패하는 경우도 동일하게 DuplicatedCollectException 예외를 던진다.
+- save 메서드를 실행할 때 유니크 키 제약 조건으로 인해 실패하는 경우도 동일하게 DuplicatedCollectException 예외를 던진다.
 
 ```java
 package action.in.blog.service;
@@ -144,9 +144,9 @@ public class DefaultCollectService implements CollectService {
 
 트랜잭션 경합으로 인한 DuplicatedCollectException 예외를 재현하기 위해 CompletableFuture 클래스를 사용해 비동기 처리를 수행합니다. 
 
-- 테스트 스레드에서 collect 메소드를 수행합니다.
-- CompletableFuture 스레드에서 collect 메소드를 수행합니다.
-    - join 메소드를 통해 해당 스레드가 끝나길 기다립니다.
+- 테스트 스레드에서 collect 메서드를 수행합니다.
+- CompletableFuture 스레드에서 collect 메서드를 수행합니다.
+    - join 메서드를 통해 해당 스레드가 끝나길 기다립니다.
     - 비동기 처리 내부에서 예외가 발생하면 CompletionException 예외로 묶여 전달됩니다.
     - CompletionException 예외의 원인을 다시 던집니다.
 - 다음과 같은 케이스를 모두 커버합니다.
@@ -227,7 +227,7 @@ public class GlobalExceptionHandler {
 @WebMvcTest 애너테이션을 사용합니다. 컨트롤러를 지정하여 테스트 컨텍스트 스코프를 최소화합니다.
 
 - CollectService 스프링 빈(bean)을 @MockBean 애너테이션을 통해 주입받습니다.
-    - collect 메소드 호출 시 DuplicatedCollectException 예외를 던지는 스텁(stub)으로 만듭니다.
+    - collect 메서드 호출 시 DuplicatedCollectException 예외를 던지는 스텁(stub)으로 만듭니다.
 - `/api/cards/A-01` 경로 호출 시 전역 예외 핸들러에서 정의한 상태 코드와 에러 메시지를 응답 받는지 확인합니다.
 
 ```java

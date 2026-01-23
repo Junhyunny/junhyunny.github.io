@@ -35,7 +35,7 @@ last_modified_at: 2022-12-20T23:55:00
 
 ## 2. Create EntityManager
 
-`createEntityManager` 메소드를 통해 엔티티 매니저를 생성할 수 있습니다. 
+`createEntityManager` 메서드를 통해 엔티티 매니저를 생성할 수 있습니다. 
 엔티티 매니저는 매번 새로운 객체를 생성합니다. 
 새로 생성될 때마다 세션을 매번 새롭게 맺기 때문에 비즈니스 로직을 하나의 트랜잭션으로 관리하고 싶다면 하나의 엔티티 매니저를 같이 사용해야 합니다. 
 
@@ -110,7 +110,7 @@ public abstract class AbstractFactoryService {
 
 ### 3.2. FactoryService 클래스
 
-* 데이터 생성 후 조회하는 간단한 비즈니스 로직을 `transaction` 메소드에 전달합니다.
+* 데이터 생성 후 조회하는 간단한 비즈니스 로직을 `transaction` 메서드에 전달합니다.
 * 롤백을 유도하기 위해 플래그(flag) 값으로 의도적인 예외를 던집니다. 
 
 ```java

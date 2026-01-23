@@ -21,8 +21,8 @@ last_modified_at: 2022-07-19T23:55:00
 
 * `ValveBase` 추상 클래스를 상속받습니다.
     * `ValveBase` 추상 클래스는 `Valve` 인터페이스를 구현합니다.
-* `invoke` 메소드를 오버라이드(override)하여 필요한 기능들을 수행합니다.
-* `CurrentTraceContext` 클래스 `maybeScope` 메소드에서 트레이스, 스판 아이디를 생성합니다.
+* `invoke` 메서드를 오버라이드(override)하여 필요한 기능들을 수행합니다.
+* `CurrentTraceContext` 클래스 `maybeScope` 메서드에서 트레이스, 스판 아이디를 생성합니다.
 * 다음 `Valve` 객체가 존재하면 이를 실행합니다.
 
 ```java
@@ -152,9 +152,9 @@ public class TraceValve extends ValveBase {
 
 `Valve` 컴포넌트를 실행하는 `CoyoteAdapter` 클래스를 살펴보았습니다.
 
-* 오버라이드 한 `service` 메소드에서 `Valve` 컴포넌트를 실행합니다.
+* 오버라이드 한 `service` 메서드에서 `Valve` 컴포넌트를 실행합니다.
 * connector 객체의 체이닝(chaining)을 통해 파이프 라인의 첫 번째 `Valve` 컴포넌트를 `invoke` 합니다.
-* connector 객체의 체이닝 메소드 별 동작을 확인해보았습니다.
+* connector 객체의 체이닝 메서드 별 동작을 확인해보았습니다.
     * .getService() - 요청 처리를 위한 단일 컨테이너를 공유하는 커넥터(connector)들의 모임인 Service 객체 반환
     * .getContainer() - 전체 카탈리나 서블릿 엔진을 대표하는 Egine 객체 반환
     * .getPipeline() - `Valve` 컴포넌트의 집합인 PipeLine 객체 반환

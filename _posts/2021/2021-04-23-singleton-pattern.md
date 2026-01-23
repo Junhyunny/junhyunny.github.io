@@ -101,8 +101,8 @@ public class Singleton {
 
 ### 2.3. Synchronized Lazy Initialization 
 
-* getInstance 메소드 호출 시 `synchronized` 키워드를 사용하여 임계 영역을 만듭니다.
-* 해당 방법은 스레드 안전하지만, getInstance 메소드를 호출이 잦은 경우 동기화로 인한 성능 감소가 발생합니다.
+* getInstance 메서드 호출 시 `synchronized` 키워드를 사용하여 임계 영역을 만듭니다.
+* 해당 방법은 스레드 안전하지만, getInstance 메서드를 호출이 잦은 경우 동기화로 인한 성능 감소가 발생합니다.
 
 ```java
 public class Singleton {
@@ -163,7 +163,7 @@ public class Singleton {
 * 내부 `static` 클래스를 사용해 싱글톤 객체를 만들 수 있습니다.
 * 스레드 안정성과 성능에 모두 좋은 지연 객체 생성 방법입니다.
 * `InnerInstanceClazz` 클래스는 static 멤버 클래스입니다. 
-* `Singleton` 클래스 내부에 `InnerInstanceClazz` 객체를 참조하는 변수가 없으므로 getInstance 메소드를 호출할 때 클래스 로더(class loader)에 의해 초기화됩니다.
+* `Singleton` 클래스 내부에 `InnerInstanceClazz` 객체를 참조하는 변수가 없으므로 getInstance 메서드를 호출할 때 클래스 로더(class loader)에 의해 초기화됩니다.
 
 ```java
 public class Singleton {
@@ -175,7 +175,7 @@ public class Singleton {
     /**
      * static member class
      * 내부클래스에서 static변수를 선언해야하는 경우 static 내부 클래스를 선언해야만 한다.
-     * static 멤버, 특히 static 메소드에서 사용될 목적으로 선언
+     * static 멤버, 특히 static 메서드에서 사용될 목적으로 선언
      */
     private static class InnerInstanceClazz {
         // 클래스 로딩 시점에서 생성

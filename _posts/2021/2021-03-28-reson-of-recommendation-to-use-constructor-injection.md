@@ -19,7 +19,7 @@ last_modified_at: 2021-08-24T02:00:00
 
 * 세터 주입(Setter Injection)
 * 생성자 주입(Constructor Injection)
-* 메소드 주입(Method Injection)
+* 메서드 주입(Method Injection)
 
 스프링 공식 문서에는 아래왁 같은 이유로 생성자 주입을 권장한다고 합니다. 
 
@@ -170,9 +170,9 @@ public class PostController {
 * 필드 주입을 사용하였습니다.
 * AComponent 빈과 BComponent 빈은 서로를 참조하고 있습니다. 
 * 서비스 기동은 정상적으로 수행됩니다.
-* 테스트 코드에서 AComponent 객체가 doThing 메소드를 호출합니다.
-* 내부에서 BComponent 객체의 doThing 메소드를 호출합니다.
-* 순환 참조로 인해 두 객체가 서로의 메소드를 지속적으로 호출하게 되면서 `StackOverflow` 예외가 발생합니다.
+* 테스트 코드에서 AComponent 객체가 doThing 메서드를 호출합니다.
+* 내부에서 BComponent 객체의 doThing 메서드를 호출합니다.
+* 순환 참조로 인해 두 객체가 서로의 메서드를 지속적으로 호출하게 되면서 `StackOverflow` 예외가 발생합니다.
 
 ```java
 package blog.in.action.di.recycle;

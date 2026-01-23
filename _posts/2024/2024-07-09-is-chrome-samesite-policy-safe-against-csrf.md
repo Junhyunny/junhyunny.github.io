@@ -97,7 +97,7 @@ SameSite 속성은 "Strict"를 포함한 3가지 옵션이 있다. 간단하게 
 
 Lax 옵션일 때 크로스 사이트임에도 쿠키 전송을 허용한다. 위에서 말하는 안전한 요청이란 무엇을 의미할까? Lax 옵션일 때 크로스 사이트의 쿠키가 함께 전달되는 케이스는 다음과 같다.
 
-- GET 메소드 요청
+- GET 메서드 요청
   - AJAX(Asynchronous JavaScript and XML) 요청
   - 폼(form) 요청
 - 탑-레벨(top-level) 문서에서만 발생하는 네비게이션
@@ -113,9 +113,9 @@ Lax 옵션은 GET 요청이 서버의 상태를 변경하지 않는 안전한 �
 마이크로소프트의 AAD(Azure Active Directory)나 MSA(Microsoft Account Authentication) 같은 OAuth2 인증 메커니즘에도 문제가 있었던 것으로 보인다. 웹 서비스 환경에서 OAuth2 인증 시 브라우저에서 리다이렉트가 발생하는데 SameSite 옵션이 Lax인 경우 쿠키가 중간에 누락되는 문제가 있었다. 
 
 - 마이크로소프트 AAD 인증시 `form_post` 방식을 사용하기 때문에 Lax 옵션일 경우 중간에 쿠키가 누락되는 문제가 리포트된다.
-- 이 문제를 해결하기 위해 크롬(chrome) 팀은 다음과 같은 조건을 만족하는 쿠키에 한해 폼 요청시 POST 메소드에 쿠키 전달을 허용한다.
-  - 만료 시간이 지정되지 않은 쿠키의 경우 2분 동안 폼 요청시 POST 메소드에 쿠키 전달 허용
-  - 최대 사용 시간이 2분 이내인 쿠키는 폼 요청시 POST 메소드에 쿠키 전달 허용
+- 이 문제를 해결하기 위해 크롬(chrome) 팀은 다음과 같은 조건을 만족하는 쿠키에 한해 폼 요청시 POST 메서드에 쿠키 전달을 허용한다.
+  - 만료 시간이 지정되지 않은 쿠키의 경우 2분 동안 폼 요청시 POST 메서드에 쿠키 전달 허용
+  - 최대 사용 시간이 2분 이내인 쿠키는 폼 요청시 POST 메서드에 쿠키 전달 허용
 
 <div align="center">
   <img src="/images/posts/2024/is-chrome-samesite-policy-safe-against-csrf-06.png" width="100%" class="image__border">
@@ -124,7 +124,7 @@ Lax 옵션은 GET 요청이 서버의 상태를 변경하지 않는 안전한 �
 
 <br/>
 
-위 대화에서 볼 수 있듯이 크롬의 디폴트 SameSite 쿠키는 저장된 후 최초 2분 동안 POST 메소드 폼 요청에 함께 전달되는 것이 허용된다. 이 말은 크롬의 SameSite 디폴트 정책은 실제 Lax 옵션에 비해 완화된 기준이 적용되어 있다는 의미다. 이 완화된 정책으로 크롬의 디폴트 SameSite 쿠키는 여전히 CSRF 공격에 대한 위험이 존재한다. 
+위 대화에서 볼 수 있듯이 크롬의 디폴트 SameSite 쿠키는 저장된 후 최초 2분 동안 POST 메서드 폼 요청에 함께 전달되는 것이 허용된다. 이 말은 크롬의 SameSite 디폴트 정책은 실제 Lax 옵션에 비해 완화된 기준이 적용되어 있다는 의미다. 이 완화된 정책으로 크롬의 디폴트 SameSite 쿠키는 여전히 CSRF 공격에 대한 위험이 존재한다. 
 
 ## 4. Example
 
@@ -171,10 +171,10 @@ public class IndexController {
 - `link` 링크는 앵커 태그를 사용해 페이지를 이동한다.
 - `document location` 버튼은 document.location 객체의 href 값을 변경해 페이지를 이동한다.
 - `AJAX request` 버튼은 fetch API를 사용해 AJAX GET 요청을 수행한다.
-- `get submit` 버튼은 GET 메소드 폼 요청을 수행한다.
-- `post submit` 버튼은 POST 메소드 폼 요청을 수행한다.
-- `iframe get submit` 버튼은 GET 메소드 폼 요청의 결과를 iframe 태그에 출력한다.
-- `popup post submit` 버튼은 POST 메소드 폼 요청의 결과를 새로운 팝업 윈도우에 출력한다.
+- `get submit` 버튼은 GET 메서드 폼 요청을 수행한다.
+- `post submit` 버튼은 POST 메서드 폼 요청을 수행한다.
+- `iframe get submit` 버튼은 GET 메서드 폼 요청의 결과를 iframe 태그에 출력한다.
+- `popup post submit` 버튼은 POST 메서드 폼 요청의 결과를 새로운 팝업 윈도우에 출력한다.
 
 ```html
 <!DOCTYPE html>
@@ -269,7 +269,7 @@ Referer: http://cross-site.com:8080/
 ...
 ```
 
-`post submit`, `popup post submit` 버튼을 클릭하면 다음과 같은 요청을 보낸다. 크롬은 크로스 사이트로 보내는 POST 메소드 요청이기 때문에 LaxCookie 쿠키는 전달하지 않는다. 반면 예외 처리 덕분에 DefaultCookie 쿠키는 함께 전달한다. 위 대화에서 봤듯이 최초 쿠키가 등록된 후 2분이 지나면 전달 대상에서 제외된다.
+`post submit`, `popup post submit` 버튼을 클릭하면 다음과 같은 요청을 보낸다. 크롬은 크로스 사이트로 보내는 POST 메서드 요청이기 때문에 LaxCookie 쿠키는 전달하지 않는다. 반면 예외 처리 덕분에 DefaultCookie 쿠키는 함께 전달한다. 위 대화에서 봤듯이 최초 쿠키가 등록된 후 2분이 지나면 전달 대상에서 제외된다.
 
 - DefaultCookie 쿠키만 전달한다. 
 - Host 값은 origin-site.com:8080 이다.

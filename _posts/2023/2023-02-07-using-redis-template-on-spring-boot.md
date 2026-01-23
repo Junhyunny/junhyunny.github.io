@@ -252,11 +252,11 @@ public class Invitation {
 
 초대 이벤트를 전달하는 클라이언트 객체를 살펴보자.
 
-- `pushInvitationMessage` 메소드
+- `pushInvitationMessage` 메서드
   - 초대자, 초대 상태 정보를 메시지에 담는다.
   - `RedisTemplate`을 통해 초대 메시지를 전달한다.
   - 키 값은 채널명과 초대받는 사람 정보를 조합한다.
-- `pushInvitationCancelMessage` 메소드
+- `pushInvitationCancelMessage` 메서드
   - 초대자, 초대 취소 상태 정보를 메시지에 담는다.
   - `RedisTemplate`을 통해 초대 메시지를 전달한다.
   - 키 값은 채널명과 초대받는 사람 정보를 조합한다.
@@ -372,7 +372,7 @@ public class UserController {
 이벤트를 수신할 수 있는 프록시 객체를 생성한다. RedisTemlate 객체를 통해 메시지를 수신한다.
 
 - `ID`에 해당하는 메시지를 수신한다.
-- 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메소드를 사용한다.
+- 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메서드를 사용한다.
 
 ```java
 package action.in.blog.proxy;
@@ -507,9 +507,9 @@ $ curl http://localhost:8080/user/messages/Jua | jq .
 
 ## CLOSING
 
-개발자 로컬 컴퓨터에서 서비스를 실행할 때마다 매번 레디스 컨테이너를 띄우는 일은 매우 번거롭다. 내장 레디스를 사용하면 별도 컨테이너 없이도 레디스 서버를 이용할 수 있다. 내장 레디스 서버는 해당 애플리케이션이 실행될 때 함께 실행된다. 한 가지 문제점은 실제 레디스 서버가 아니기 때문에 `RedisTemplate` 객체의 특정 메소드를 실행할 때 에러가 발생한다. 
+개발자 로컬 컴퓨터에서 서비스를 실행할 때마다 매번 레디스 컨테이너를 띄우는 일은 매우 번거롭다. 내장 레디스를 사용하면 별도 컨테이너 없이도 레디스 서버를 이용할 수 있다. 내장 레디스 서버는 해당 애플리케이션이 실행될 때 함께 실행된다. 한 가지 문제점은 실제 레디스 서버가 아니기 때문에 `RedisTemplate` 객체의 특정 메서드를 실행할 때 에러가 발생한다. 
 
-이번 글에선 `leftPop` 메소드를 호출할 때 임베디드 레디스 서버에 에러가 발생했다. 다음과 같은 방식을 사용했다. 
+이번 글에선 `leftPop` 메서드를 호출할 때 임베디드 레디스 서버에 에러가 발생했다. 다음과 같은 방식을 사용했다. 
 
 ```java
 package action.in.blog.proxy;

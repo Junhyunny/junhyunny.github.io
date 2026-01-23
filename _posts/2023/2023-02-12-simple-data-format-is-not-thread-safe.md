@@ -29,10 +29,10 @@ last_modified_at: 2023-02-12T23:55:00
 
 ##### applyPattern Method in SimpleDateFormat Class
 
-`applyPattern` 메소드를 통해 `SimpleDateFormat` 클래스의 문제점을 살펴보겠습니다.
+`applyPattern` 메서드를 통해 `SimpleDateFormat` 클래스의 문제점을 살펴보겠습니다.
 
 * `SimpleDateFormat` 클래스는 `compiledPattern`, `pattern`라는 상태를 가집니다.
-* `applyPattern` 메소드는 내부에서 `compiledPattern`, `pattern` 상태를 변경합니다.
+* `applyPattern` 메서드는 내부에서 `compiledPattern`, `pattern` 상태를 변경합니다.
 
 ```java
 public class SimpleDateFormat extends DateFormat {
@@ -195,7 +195,7 @@ result of formatting - 02:08:58.058
 
 ### 4.1. Another Example of Not Thread-Safely Using
 
-`SimpleDateFormat` 클래스의 `parse` 메소드는 수행 중간에 상태가 변경되므로 스레드 사이에 공유되면 위험한 코드입니다.
+`SimpleDateFormat` 클래스의 `parse` 메서드는 수행 중간에 상태가 변경되므로 스레드 사이에 공유되면 위험한 코드입니다.
 
 ```java
 import java.text.SimpleDateFormat;

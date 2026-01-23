@@ -55,14 +55,14 @@ DelegatingFilterProxy 클래스는 스프링 빈으로 등록된 필터를 사�
 
 코드를 통해 동작 과정을 확인합니다. 
 
-* doFilter 메소드
+* doFilter 메서드
     * 요청을 위임할 필터가 존재하는지 확인합니다.
     * 요청을 위임할 필터가 없는 경우 WebApplicationContext 인스턴스를 사용해 스프링 필터 빈을 탐색합니다.
     * 이전에 사용한 필터가 있는 경우 요청을 위임합니다.
-* initDelegate 메소드
+* initDelegate 메서드
     * 등록된 빈 이름을 사용해 WebApplicationContext 인스턴스에 빈을 탐색합니다.
     * 필터 빈을 찾은 경우 초기화 후 반환합니다.
-* invokeDelegate 메소드
+* invokeDelegate 메서드
     * 탐색한 필터에게 요청을 위임합니다.
 
 ```java
@@ -118,7 +118,7 @@ DelegatingFilterProxy 클래스는 서블릿 필터 체인에서 직접 사용�
 스프링 부트 프레임워크는 내장 톰캣을 사용하고 내부적으로 ServletContainerInitializer 인스턴스를 통해 서블릿 컨텍스트에 직접 스프링 필터 빈을 주입할 수 있습니다. 
 내장 톰캣을 사용하는 경우 TomcatStarter 구현체 클래스가 사용됩니다.
 
-* onStartup 메소드
+* onStartup 메서드
     * 서블릿 컨테이너를 초기화하는 과정 호출됩니다.
     * 이 과정을 통해 스프링 애플리케이션 컨텍스트에서 만들어지는 인스턴스들이 서블릿 컨텍스트에 추가됩니다. 
 

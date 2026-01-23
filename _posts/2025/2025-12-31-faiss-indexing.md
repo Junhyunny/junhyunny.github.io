@@ -115,8 +115,8 @@ RAG에서 필요한 데이터는 조회하는 쿼리와 의미론적으로 유�
 
 벡터 데이터베이스로부터 찾은 인덱스를 갖고 원본 데이터를 찾아야 한다. [이전 글][stanford-storm-framework-link]에선 피클(pickle) 파일을 만들어 활용했다. 아래 예제 코드는 ID 매핑 없이 인덱싱한 예제 코드다. 오픈 소스인 SentenceTransformer 객체를 임베딩 모델로 사용했다.
 
-- IndexFlatL2 메소드를 통해 index 객체를 생성한다.
-- 래핑 객체의 add 메소드를 통해 벡터 배열을 인덱싱한다.
+- IndexFlatL2 메서드를 통해 index 객체를 생성한다.
+- 래핑 객체의 add 메서드를 통해 벡터 배열을 인덱싱한다.
 - 반환된 색인은 검색된 벡터의 위치 인덱스이므로 이를 통해 원본 데이터의 아이디와 컨텐츠를 조회한다.
 
 ```python
@@ -206,11 +206,11 @@ FAISS를 사용할 때 인덱싱 시점의 벡터의 위치를 얻어 매번 원
 
 <br/>
 
-단, FAISS 인덱스 객체를 생성하고 IndexIDMap 메소드를 통해 ID 매핑이 가능한 객체로 래핑(wrapping) 후 사용한다. 예제 코드는 다음과 같다.
+단, FAISS 인덱스 객체를 생성하고 IndexIDMap 메서드를 통해 ID 매핑이 가능한 객체로 래핑(wrapping) 후 사용한다. 예제 코드는 다음과 같다.
 
-- IndexFlatL2 메소드를 통해 index 객체를 생성한다.
-- IndexIDMap 메소드를 통해 index 객체를 래핑한 id_map_index 객체를 생성한다.
-- id_map_index 래핑 객체의 add_with_ids 메소드를 통해 벡터 배열을 인덱싱한다. 이때, 아이디 배열도 함께 전달한다.
+- IndexFlatL2 메서드를 통해 index 객체를 생성한다.
+- IndexIDMap 메서드를 통해 index 객체를 래핑한 id_map_index 객체를 생성한다.
+- id_map_index 래핑 객체의 add_with_ids 메서드를 통해 벡터 배열을 인덱싱한다. 이때, 아이디 배열도 함께 전달한다.
 - 반환된 색인이 아이디이므로 이를 그대로 사용할 수 있다.
 
 ```python

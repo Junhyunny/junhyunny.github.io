@@ -21,13 +21,13 @@ Jekyll 문법과 충돌이 있기 때문에 `{ { someValue } }`으로 표기된 
 
 MultipartFile 인터페이스의 주요 책임을 살펴보자.
 
-- getOriginalFilename 메소드
+- getOriginalFilename 메서드
   - 클라이언트 파일 시스템에서 사용했던 파일 이름을 반환한다.
-- getBytes 메소드
+- getBytes 메서드
   - 파일의 이진 바이트 값을 반환한다.
-- getInputStream 메소드
+- getInputStream 메서드
   - 파일을 읽기 위한 입력 스트립(stream)을 반환한다.
-- transferTo 메소드
+- transferTo 메서드
   - 파일 정보를 새로운 파일 인스턴스로 복사한다.
 
 ```java
@@ -135,11 +135,11 @@ export default {
 
 스프링 프레임워크로 개발한 백엔드 서버 애플리케이션을 살펴보자. 예시를 위해 생성자에서 파일 저장을 위한 디렉토리를 생성한다. 다음과 같은 엔드포인트를 만든다. 
 
-- image 메소드
+- image 메서드
   - 요청 파라미터로 전달받은 이름을 가진 파일을 반환한다. 
-- getFileNames 메소드
+- getFileNames 메서드
   - 이미지 파일 경로에 위치한 파일들의 이름을 리스트로 반환한다.
-- uploadFiles 메소드
+- uploadFiles 메서드
   - 프론트엔드 서비스에서 `FormData` 인스턴스에 파일 정보를 담을 때 사용한 `files`라는 이름으로 파일들을 전달받는다. 
   - 파일을 저장할 경로를 결정한다.
   - 출력 스트림을 통해 업로드 된 파일의 바이트 정보를 출력한다. 

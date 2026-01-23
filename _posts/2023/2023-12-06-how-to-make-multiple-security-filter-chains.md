@@ -53,13 +53,13 @@ SecurityFilterChain 빈(bean)을 여러 개 만들면 하나의 애플리케이�
 
 코드를 일부 각색한 설정(configuration) 클래스입니다. 
 
-- adminSecurityFilterChain 메소드
+- adminSecurityFilterChain 메서드
     - 담당 리소스 경로는 `/admin/api/**`, `/admin/login` 입니다.
     - 모든 리소스 경로는 `ADMIN` 권한을 가진 사용자만 접근할 수 있습니다.
     - 폼(form) 로그인 인증 방식을 사용합니다.
         - 로그인 성공시 리다이렉트 URL은 `/admin/home` 입니다.
         - 로그인 실패시 리다이렉트 URL은 `/admin/login?error` 입니다.
-- appSecurityFilterChain 메소드
+- appSecurityFilterChain 메서드
     - 담당 경로는 `/app/api/**`, `/app/login` 입니다.
     - 다음과 같은 리소스 인가 규칙을 가집니다.
         - `/app/api/private-articles` 경로는 인증된 사용자만 접근할 수 있습니다.
@@ -213,19 +213,19 @@ public class AdminController {
 
 각 테스트 별로 다음과 같은 내용을 검증합니다.
 
-- login 메소드
+- login 메서드
     - InMemoryUserDetailsManager 객체에 추가된 사용자로 로그인을 수행합니다.
     - 관리자 시큐리티 필터 체인에 정의한 로그인 성공 URL로 리다이렉트 되는지 확인합니다.
-- wrongCredential_login_redirectFailure 메소드
+- wrongCredential_login_redirectFailure 메서드
     - 잘못된 사용자 자격 증명을 사용해 로그인을 수행합니다.
     - 관리자 시큐리티 필터 체인에 정의한 로그인 실패 URL로 리다이렉트 되는지 확인합니다.
-- articles 메소드
+- articles 메서드
     - 관리자 애플리케이션 리소스에 접근합니다.
     - 관리자 권한을 가진 사용자로 접근하는 경우 정상적으로 응답을 받는지 확인합니다.
-- withoutAuthentication_articles_redirectToLogin 메소드
+- withoutAuthentication_articles_redirectToLogin 메서드
     - 관리자 애플리케이션 리소스에 접근합니다.
     - 사용자 인증 없이 접근하는 경우 로그인 페이지로 리다이렉트 되는지 확인합니다.
-- withoutAuthorization_articles_statusForbidden 메소드
+- withoutAuthorization_articles_statusForbidden 메서드
     - 관리자 애플리케이션 리소스에 접근합니다.
     - 인증은 되었지만, 관리자 권한이 아닌 사용자가 접근하는 경우 `forbidden(403)` 응답을 받는지 확ㅇ니합니다.
 
@@ -368,19 +368,19 @@ public class UserController {
 
 테스트 환경을 구성하는 방법은 위와 동일합니다. 각 테스트 별로 다음과 같은 내용을 검증합니다.
 
-- login 메소드
+- login 메서드
     - InMemoryUserDetailsManager 객체에 추가된 사용자로 로그인을 수행합니다.
     - 앱 시큐리티 필터 체인에 정의한 로그인 성공 URL로 리다이렉트 되는지 확인합니다.
-- wrongCredential_login_redirectFailure 메소드
+- wrongCredential_login_redirectFailure 메서드
     - 잘못된 사용자 자격 증명을 사용해 로그인을 수행합니다.
     - 앱 시큐리티 필터 체인에 정의한 로그인 실패 URL로 리다이렉트 되는지 확인합니다.
-- articles 메소드
+- articles 메서드
     - 애플리케이션 리소스에 접근합니다.
     - 인증하지 않은 사용자로 접근하는 경우 정상적으로 응답을 받는지 확인합니다.
-- privateArticles 메소드
+- privateArticles 메서드
     - 애플리케이션 리소스에 접근합니다.
     - 인증된 사용자인 경우 정상적으로 응답을 받는지 확인합니다.
-- withoutAuthentication_privateArticles_redirectToLogin 메소드
+- withoutAuthentication_privateArticles_redirectToLogin 메서드
     - 애플리케이션 리소스에 접근합니다.
     - 사용자 인증 없이 접근하는 경우 로그인 페이지로 리다이렉트 되는지 확인합니다.
 

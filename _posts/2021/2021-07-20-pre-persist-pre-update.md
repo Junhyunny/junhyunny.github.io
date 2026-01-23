@@ -12,7 +12,7 @@ last_modified_at: 2021-09-04T13:00:00
 
 ## 1. @PrePersist and @PreUpdate Annotations
 
-@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메소드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다. @PrePersist 애너테이션의 실행 시점을 먼저 살펴보자.
+@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메서드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다. @PrePersist 애너테이션의 실행 시점을 먼저 살펴보자.
 
 - JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다. 
 
@@ -32,7 +32,7 @@ last_modified_at: 2021-09-04T13:00:00
 
 ## 2. Usage
 
-두 애너테이션을 추가한 메소드는 엔티티가 데이터베이서에 영속화 되기 전에 실행된다. 다음과 같은 작업을 수행할 수 있다.
+두 애너테이션을 추가한 메서드는 엔티티가 데이터베이서에 영속화 되기 전에 실행된다. 다음과 같은 작업을 수행할 수 있다.
 
 - 데이터 무결성을 보장하기 위해 특정 엔티티 필드의 값이 조건을 만족하지 못 하는 경우 예외를 발생시킬 수 있다.
 - 엔티티의 필드 값을 암호화하거나 사용자의 권한을 확인하는 작업을 수행할 수 있다.
@@ -56,9 +56,9 @@ last_modified_at: 2021-09-04T13:00:00
   - null 데이터가 설정되지 않도록 nullable 속성을 false 값으로 설정한다.
 2. updatedAt 필드
   - null 데이터가 설정되지 않도록 nullable 속성을 false 값으로 설정한다.
-3. prePersist 메소드
+3. prePersist 메서드
   - createAt, updatedAt 필드 값을 변경한다.
-4. preUpdate 메소드
+4. preUpdate 메서드
   - updatedAt 필드 값을 변경한다.
 
 ```java
@@ -99,11 +99,11 @@ class BaseEntity {
 
 예제를 위한 북 엔티티를 만들어보자. 
 
-1. prePersist 메소드
+1. prePersist 메서드
   - 데이터를 영속화하기 전에 isbn 값이 있는지 확인한다.
-  - 부모 클래스의 prePersist 메소드를 호출한다.
-2. preUpdate 메소드
-  - 부모 클래스의 preUpdate 메소드를 호출한다.
+  - 부모 클래스의 prePersist 메서드를 호출한다.
+2. preUpdate 메서드
+  - 부모 클래스의 preUpdate 메서드를 호출한다.
 
 ```java
 package blog.in.action.domain;

@@ -25,11 +25,11 @@ last_modified_at: 2023-11-13T23:55:00
 - API 요청을 보내기 위해 많은 정보들이 필요합니다.
     - 테스트를 위해 준비해야하는 코드가 많아집니다.
 
-이 상황처럼 핸들링할 수 없는 외부 의존성과 연결된 기능을 쉽게 테스트하려면 테스트 더블(test double)을 사용합니다. 이 경우 SUT(system under test) 객체가 내부적으로 호출하는 부모 클래스의 메소드 응답을 스텁(stub)해야하기 때문에 어려웠습니다. 부모 클래스의 기능이지만, SUT 객체 자체 기능 중 일부를 테스트 더블로 만드는 일과 동일합니다. 
+이 상황처럼 핸들링할 수 없는 외부 의존성과 연결된 기능을 쉽게 테스트하려면 테스트 더블(test double)을 사용합니다. 이 경우 SUT(system under test) 객체가 내부적으로 호출하는 부모 클래스의 메서드 응답을 스텁(stub)해야하기 때문에 어려웠습니다. 부모 클래스의 기능이지만, SUT 객체 자체 기능 중 일부를 테스트 더블로 만드는 일과 동일합니다. 
 
-- 구현 코드를 보면 코드 중간에 부모 클래스의 loadUser 메소드를 호출합니다. 
-- 부모 클래스의 loadUser 메소드에서 외부 서버와 통신합니다. 
-- 테스트를 개발자가 제어하려면 부모 클래스의 loadUser 메소드 응답을 스텁으로 대체해야합니다.
+- 구현 코드를 보면 코드 중간에 부모 클래스의 loadUser 메서드를 호출합니다. 
+- 부모 클래스의 loadUser 메서드에서 외부 서버와 통신합니다. 
+- 테스트를 개발자가 제어하려면 부모 클래스의 loadUser 메서드 응답을 스텁으로 대체해야합니다.
 
 ```java
 package action.in.blog.service;
@@ -58,7 +58,7 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
             if (!oauth2Service.supports(userRequest)) {
                 continue;
             }
-            // 부모 클래스의 loadUser 메소드를 호출
+            // 부모 클래스의 loadUser 메서드를 호출
             var oauthUser = super.loadUser(userRequest);
             return oauth2Service.createOrLoadUser(oauthUser);
         }
@@ -67,7 +67,7 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
 }
 ```
 
-위 메소드의 단위 테스트 코드를 실행하면 다음과 같은 에러 메시지를 볼 수 있습니다. 
+위 메서드의 단위 테스트 코드를 실행하면 다음과 같은 에러 메시지를 볼 수 있습니다. 
 
 - 스프링 시큐리티 OAuth2 클라이언트가 리소스 서버로부터 사용자 정보를 조회할 때 필요한 정보들을 읽는 과정에서 에러가 발생합니다.
 
@@ -82,13 +82,13 @@ java.lang.NullPointerException: Cannot invoke "org.springframework.security.oaut
 
 ## 2. Solve the problem 
 
-부모 클래스 메소드를 테스트 더블로 만들 수 있는 PowerMock 같은 의존성이 있지만, Junit4만 지원하는 것 같았습니다. Junit5을 사용하는 스프링 부트 3.1.X 버전에서 잘 동작하지 않았습니다. 잘 동작하지 않는 의존성을 억지로 호환성을 맞추고 싶지 않았습니다. 
+부모 클래스 메서드를 테스트 더블로 만들 수 있는 PowerMock 같은 의존성이 있지만, Junit4만 지원하는 것 같았습니다. Junit5을 사용하는 스프링 부트 3.1.X 버전에서 잘 동작하지 않았습니다. 잘 동작하지 않는 의존성을 억지로 호환성을 맞추고 싶지 않았습니다. 
 
-스프링 부트 프레임워크가 기본으로 사용하는 모키토(mockito)의 스파이(spy) 기능과 부모 클래스 메소드를 우회하여 호출하는 메소드를 만들어 테스트를 작성하였습니다. 모키토의 스파이는 기본적으로 실제 구현체의 기능을 사용하지만, 필요하다면 테스트 더블로 사용할 수 있습니다. 
+스프링 부트 프레임워크가 기본으로 사용하는 모키토(mockito)의 스파이(spy) 기능과 부모 클래스 메서드를 우회하여 호출하는 메서드를 만들어 테스트를 작성하였습니다. 모키토의 스파이는 기본적으로 실제 구현체의 기능을 사용하지만, 필요하다면 테스트 더블로 사용할 수 있습니다. 
 
 ### 2.1. DefaultOAuth2UserServiceDelegator Class
 
-- 새로운 메소드를 만들고 부모 클래스의 loadUser 메소드를 호출하는 코드를 메소드 내부로 옮깁니다.
+- 새로운 메서드를 만들고 부모 클래스의 loadUser 메서드를 호출하는 코드를 메서드 내부로 옮깁니다.
 
 ```java
 package action.in.blog.service;
@@ -133,7 +133,7 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
 
 - SUT 객체를 스파이로 만듭니다.
 - `doReturn(expectedValue).when(testDouble).method(params)` 문법을 사용합니다. 
-    - 부모 클래스 기능을 내부에서 호출하는 loadUserFromParent 메소드의 결과를 스텁합니다.
+    - 부모 클래스 기능을 내부에서 호출하는 loadUserFromParent 메서드의 결과를 스텁합니다.
 
 ```java
 package action.in.blog.service;

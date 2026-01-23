@@ -223,8 +223,8 @@ org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 
 - `spring.test.database.replace` 기본 값은 `ANY` 이므로 `embeddedDataSourceBeanFactoryPostProcessor` 빈이 등록된다.
 - `embeddedDataSourceBeanFactoryPostProcessor` 빈에 의해 `EmbeddedDataSourceFactoryBean` 빈이 등록된다.
-- `EmbeddedDataSourceFactoryBean` 빈의 `afterPropertiesSet` 메소드 수행 시점에 테스트를 위한 내장 데이터베이스 객체가 생성된다.
-- `EmbeddedDataSourceFactory` 클래스의 `getEmbeddedDatabase` 메소드를 통해 커넥션(connection) 객체와 내장 데이터베이스 객체를 생성한다.
+- `EmbeddedDataSourceFactoryBean` 빈의 `afterPropertiesSet` 메서드 수행 시점에 테스트를 위한 내장 데이터베이스 객체가 생성된다.
+- `EmbeddedDataSourceFactory` 클래스의 `getEmbeddedDatabase` 메서드를 통해 커넥션(connection) 객체와 내장 데이터베이스 객체를 생성한다.
 
 ```java
 @Configuration(
@@ -271,9 +271,9 @@ public class TestDatabaseAutoConfiguration {
 }
 ```
 
-위에서 설명한 것처럼 `EmbeddedDataSourceFactory` 클래스의 `getEmbeddedDatabase` 메소드를 통해 내장 데이터베이스 객체가 만들어진다. 코드를 살펴보면 데이터베이스 연결 정보는 `EmbeddedDatabaseConnection` 이넘(enum)의 `get` 메소드를 통해 획득한다. 
+위에서 설명한 것처럼 `EmbeddedDataSourceFactory` 클래스의 `getEmbeddedDatabase` 메서드를 통해 내장 데이터베이스 객체가 만들어진다. 코드를 살펴보면 데이터베이스 연결 정보는 `EmbeddedDatabaseConnection` 이넘(enum)의 `get` 메서드를 통해 획득한다. 
 
-- get 메소드 코드를 보면 드라이버 클래스가 클래스 로더(class loader)에 존재하는지 확인 후 존재하면 이를 사용한다.
+- get 메서드 코드를 보면 드라이버 클래스가 클래스 로더(class loader)에 존재하는지 확인 후 존재하면 이를 사용한다.
 
 ```java
 public enum EmbeddedDatabaseConnection {

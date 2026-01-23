@@ -63,10 +63,10 @@ public class AccessHistoryEntity {
 #### 1.1.2. AccessHistoryService 클래스
 
 - 접근 경로와 사용자 아이디를 전달 받아서 이를 저장합니다.
-- `save` 메소드 호출을 `try-catch` 블록으로 감싸서 발생한 예외를 핸들링합니다.
+- `save` 메서드 호출을 `try-catch` 블록으로 감싸서 발생한 예외를 핸들링합니다.
     - 에러 로그를 출력하고 해당 로직을 종료합니다.
 - `@Transactional` 애너테이션을 통해 n 개의 접근 이력 `insert` 로직을 하나의 트랜잭션으로 처리합니다. 
-    - n 번의 `save` 메소드 호출 중 하나라도 실패하면 이전 `insert` 쿼리를 모두 롤백합니다. 
+    - n 번의 `save` 메서드 호출 중 하나라도 실패하면 이전 `insert` 쿼리를 모두 롤백합니다. 
 
 ```java
 package blog.in.action.history;
@@ -104,17 +104,17 @@ public class AccessHistoryService {
 
 ### 1.2. 테스트 코드 - 에러 핸들링 실패 확인
 
-해당 로직은 정상적으로 트랜잭션 처리가 되므로 n 번의 `save` 메소드 호출 중 하나라도 실패하면 이전 모두 롤백 처리합니다. 
-`createAccessHistories` 메소드 내부에서 예외를 처리했기 때문에 외부까지 `exception`이 전파되지 않을 줄 알았지만, 
+해당 로직은 정상적으로 트랜잭션 처리가 되므로 n 번의 `save` 메서드 호출 중 하나라도 실패하면 이전 모두 롤백 처리합니다. 
+`createAccessHistories` 메서드 내부에서 예외를 처리했기 때문에 외부까지 `exception`이 전파되지 않을 줄 알았지만, 
 실제론 컨트롤러(controller)의 예외 핸들러(exception handler)까지 전파되었습니다. 
 
 #### 1.2.1. 테스트 코드
 
 간단한 테스트 코드를 통해 예외 발생과 롤백 여부를 확인해보겠습니다.
-- 내부에서 `save` 메소드 호출 시 예외가 발생할 수 있도록 `paths` 리스트에 `null` 값을 중간에 추가합니다.
-- `createAccessHistories` 메소드 호출 시 `UnexpectedRollbackException`를 던질 것으로 예상합니다.
-- `createAccessHistories` 메소드 호출 시 발생한 `throwable` 객체의 스택 트레이스를 확인합니다. 
-- `count` 메소드를 호출하여 모두 롤백되어 테이블의 데이터가 0건인지 확인합니다. 
+- 내부에서 `save` 메서드 호출 시 예외가 발생할 수 있도록 `paths` 리스트에 `null` 값을 중간에 추가합니다.
+- `createAccessHistories` 메서드 호출 시 `UnexpectedRollbackException`를 던질 것으로 예상합니다.
+- `createAccessHistories` 메서드 호출 시 발생한 `throwable` 객체의 스택 트레이스를 확인합니다. 
+- `count` 메서드를 호출하여 모두 롤백되어 테이블의 데이터가 0건인지 확인합니다. 
 
 ```java
 package blog.in.action.history;
@@ -169,7 +169,7 @@ public class AccessHistoryIT {
 
 ##### 에러 로그
 
-- 첫 `save` 메소드는 정상적으로 동작합니다.
+- 첫 `save` 메서드는 정상적으로 동작합니다.
 - not-null property references a null or transient value : blog.in.action.history.AccessHistoryEntity.accessPath
     - `NOT NULL`을 예상한 `AccessHistoryEntity` 객체의 `accessPath` 필드에 `NULL` 값이 삽입되어 에러가 발생합니다. 
 
@@ -203,12 +203,12 @@ Hibernate:
 
 ## 2. 문제 원인
 
-`@Transactional` 애너테이션이 붙은 메소드는 트랜잭션 처리를 위한 AOP 로직이 메소드 앞, 뒤로 추가됩니다. 
-마찬가지로 `createAccessHistories` 메소드도 `@Transactional` 애너테이션으로 인해 AOP 로직이 추가되는데, 마지막 커밋(commit)을 진행하는 과정에서 예상치 않은 롤백이 있었다는 예외를 던지게 됩니다.  
+`@Transactional` 애너테이션이 붙은 메서드는 트랜잭션 처리를 위한 AOP 로직이 메서드 앞, 뒤로 추가됩니다. 
+마찬가지로 `createAccessHistories` 메서드도 `@Transactional` 애너테이션으로 인해 AOP 로직이 추가되는데, 마지막 커밋(commit)을 진행하는 과정에서 예상치 않은 롤백이 있었다는 예외를 던지게 됩니다.  
 
 ##### 에러 로그를 통한 힌트 확인
 - 위 테스트 수행 로그를 보고, 예외가 발생한 지점을 통해 힌트를 얻을 수 있습니다. 
-- `createAccessHistories` 메소드를 호출하고, `AbstractPlatformTransactionManager` 클래스의 `processCommit` 메소드를 실행하는 과정에서 `UnexpectedRollbackException` 예외가 발생합니다.
+- `createAccessHistories` 메서드를 호출하고, `AbstractPlatformTransactionManager` 클래스의 `processCommit` 메서드를 실행하는 과정에서 `UnexpectedRollbackException` 예외가 발생합니다.
 
 ```
 org.springframework.transaction.UnexpectedRollbackException: Transaction silently rolled back because it has been marked as rollback-only
@@ -224,10 +224,10 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 다음과 같은 과정을 통해 `exception`이 컨트롤러의 예외 핸들러까지 전파되었습니다.
 
 1. 하이버네이트 내부에서 NULL 여부를 체크하는 과정에서 `PropertyValueException` 발생
-1. `save` 메소드의 트랜잭션 AOP 로직에서 rollbackonly 마크 처리
-1. `createAccessHistories` 메소드에서 발생한 예외에 대한 에러 메시지 로깅 후 종료
-1. `createAccessHistories` 메소드 트랜잭션 AOP 로직의 커밋 과정에서 이미 롤백된 것을 보고 `UnexpectedRollbackException` 발생
-1. `createAccessHistories` 메소드를 호출 시 별도의 예외 처리 부재로 인한 `exception` 전파
+1. `save` 메서드의 트랜잭션 AOP 로직에서 rollbackonly 마크 처리
+1. `createAccessHistories` 메서드에서 발생한 예외에 대한 에러 메시지 로깅 후 종료
+1. `createAccessHistories` 메서드 트랜잭션 AOP 로직의 커밋 과정에서 이미 롤백된 것을 보고 `UnexpectedRollbackException` 발생
+1. `createAccessHistories` 메서드를 호출 시 별도의 예외 처리 부재로 인한 `exception` 전파
 1. 컨트롤러의 예외 핸들러까지 `exception` 전파
 
 <p align="center">
@@ -237,14 +237,14 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 ## 3. 해결 방법
 
 해결 방법은 단순합니다. 
-`@Transactional` 애너테이션이 붙은 메소드 외부에서 예외 핸들링을 수행합니다. 
-이번 케이스의 경우 `createAccessHistories` 메소드 호출 지점들을 `try-catch` 블록으로 감싸지 않고, 
-`JpaRepository` 인터페이스의 `saveAll` 메소드에 이미 `@Transactional` 애너테이션이 붙어있음을 이용하여 내부 로직을 변경하였습니다. 
+`@Transactional` 애너테이션이 붙은 메서드 외부에서 예외 핸들링을 수행합니다. 
+이번 케이스의 경우 `createAccessHistories` 메서드 호출 지점들을 `try-catch` 블록으로 감싸지 않고, 
+`JpaRepository` 인터페이스의 `saveAll` 메서드에 이미 `@Transactional` 애너테이션이 붙어있음을 이용하여 내부 로직을 변경하였습니다. 
 
-### 3.1. AccessHistoryService 클래스 createAccessHistories 메소드 수정
+### 3.1. AccessHistoryService 클래스 createAccessHistories 메서드 수정
 
 - `@Transactional` 애너테이션을 제거합니다.
-- `saveAll` 메소드로 `AccessHistoryEntity` 객체들을 저장하는 로직을 하나의 트랜잭션으로 묶습니다.
+- `saveAll` 메서드로 `AccessHistoryEntity` 객체들을 저장하는 로직을 하나의 트랜잭션으로 묶습니다.
 
 ```java
 package blog.in.action.history;
@@ -284,7 +284,7 @@ public class AccessHistoryService {
 
 - `paths` 리스트 중간에 `null`을 전달하여 에러를 유발합니다.
 - 별도의 예외가 발생하지 않으므로 `assertThrows`를 수행하지 않습니다.
-- `createAccessHistories` 메소드를 호출 후 정상적으로 롤백 되었는지 `count` 메소드를 통해 확인합니다.
+- `createAccessHistories` 메서드를 호출 후 정상적으로 롤백 되었는지 `count` 메서드를 통해 확인합니다.
 
 ```java
 package blog.in.action.history;

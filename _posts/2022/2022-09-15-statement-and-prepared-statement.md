@@ -28,11 +28,11 @@ last_modified_at: 2022-09-15T23:55:00
 데이터베이스 종류 별로 `Statement`, `PreparedStatement` 인터페이스의 구현 클래스를 제공하기 때문에 동작은 각기 다르지만, 전반적인 내용은 같습니다. 
 
 * `Statement` 인터페이스 구현 클래스
-    * 쿼리를 실행하는 `execute`, `executeQuery` 메소드 호출 시 3단계 과정을 모두 실행합니다.
+    * 쿼리를 실행하는 `execute`, `executeQuery` 메서드 호출 시 3단계 과정을 모두 실행합니다.
 * `PreparedStatement` 인터페이스 구현 클래스
     * `PreparedStatement` 객체를 생성하는 시점에 쿼리 문장 분석과 컴파일을 처리하고 쿼리 혹은 커맨드 객체를 만듭니다.
     * SQL 문자열을 키, 쿼리 객체를 값으로 내부 메모리 캐시(cache)에 저장합니다.
-    * 쿼리를 실행하는 `execute`, `executeQuery` 메소드 호출 시 캐시에 저장된 쿼리 객체를 꺼내 사용합니다.
+    * 쿼리를 실행하는 `execute`, `executeQuery` 메서드 호출 시 캐시에 저장된 쿼리 객체를 꺼내 사용합니다.
 
 ### 1.1. H2 데이터베이스 SQL 쿼리 컴파일과 캐싱 과정
 
@@ -43,7 +43,7 @@ H2 데이터베이스의 `JdbcPreparedStatement` 클래스 객체를 생성하�
 
 #### 1.1.1. org.h2.jdbc.JdbcConnection 클래스
 
-* `JdbcPreparedStatement` 객체를 만들기 전에 `translateSQL` 메소드를 통해 SQL 문장의 특수 문자들을 이스케이핑(escaping) 처리합니다.
+* `JdbcPreparedStatement` 객체를 만들기 전에 `translateSQL` 메서드를 통해 SQL 문장의 특수 문자들을 이스케이핑(escaping) 처리합니다.
 
 ```java
 package org.h2.jdbc;
@@ -122,7 +122,7 @@ public class JdbcConnection extends TraceObject implements Connection, JdbcConne
 
 #### 1.1.2. org.h2.engine.SessionLocal 클래스
 
-* prepareLocal 메소드에서 캐싱을 위한 객체를 만듭니다. 
+* prepareLocal 메서드에서 캐싱을 위한 객체를 만듭니다. 
     * 캐시로 사용되는 `SmallLRUCache` 클래스는 LinkedHashMap 클래스를 상속받았습니다.
 * 전달받은 SQL 문자열을 캐시의 키로 사용합니다.
     * 문자열을 키로 사용하기 때문에 SQL 문을 인라인 방식으로 만드는 경우 값이 바뀔 때마다 키 값이 매번 바뀌므로 캐싱의 이점을 살리지 못 합니다.

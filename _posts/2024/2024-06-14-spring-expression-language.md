@@ -23,7 +23,7 @@ SpEL는 런타임에 객체 그래프를 쿼리(query)하거나 조작(manipulat
 - 정규 표현식
 - 클래스 표현식
 - 프로퍼티, 배열, 리스트, 맵에 대한 접근
-- 메소드 호출
+- 메서드 호출
 - 관계형 오퍼레이터
 - 할당
 - 생성자 호출
@@ -62,9 +62,9 @@ class LiteralExpressionTests {
 }
 ```
 
-위 예제만 봤을 때 '문자열 값을 어렵게도 얻는다.'라는 인상을 받을 수 있지만, SpEL의 강력함은 표현식에 정의된 객체의 메소드를 호출할 수 있다는 점에 있다. 
+위 예제만 봤을 때 '문자열 값을 어렵게도 얻는다.'라는 인상을 받을 수 있지만, SpEL의 강력함은 표현식에 정의된 객체의 메서드를 호출할 수 있다는 점에 있다. 
 
-1. "Hello World" 문자열의 concat 메소드를 사용해 "!"를 추가하는 표현식을 지정한다.
+1. "Hello World" 문자열의 concat 메서드를 사용해 "!"를 추가하는 표현식을 지정한다.
 2. 결과 값을 얻는다.
 3. 결과는 "Hello World!" 문자열과 동일하다.
 
@@ -156,9 +156,9 @@ class LiteralExpressionTests {
 
 ## 3. Method invocation
 
-SpEL 표현식을 통해 객체의 메소드를 호출할 수 있다. 이미 위 예제를 통해 짐작할 수 있었겠지만, 커스텀 클래스에도 적용 가능하다. 다음과 같은 레코드 클래스가 있다.
+SpEL 표현식을 통해 객체의 메서드를 호출할 수 있다. 이미 위 예제를 통해 짐작할 수 있었겠지만, 커스텀 클래스에도 적용 가능하다. 다음과 같은 레코드 클래스가 있다.
 
-- info 메소드
+- info 메서드
   - 이름, 나이 정보를 특정 포맷 문자열로 반환한다.
 
 ```java
@@ -171,9 +171,9 @@ public record Person(String name, int age) {
 }
 ```
 
-SpEL 표현식으로 Person 객체의 info 메소드를 호출해보자.
+SpEL 표현식으로 Person 객체의 info 메서드를 호출해보자.
 
-1. info 메소드를 호출하는 표현식을 지정한다.
+1. info 메서드를 호출하는 표현식을 지정한다.
 2. person 객체 정보를 바탕으로 표현식 결과를 얻는다.
 3. 결과는 "[name: junhyunny, age: 35]" 문자열과 동일하다.
 
@@ -329,7 +329,7 @@ public class CollectionTests {
 
 객체 상태를 변경할 수 있다. 다음과 같은 Car 클래스가 있다.
 
-- 값을 변경할 수 있도록 세터(setter) 메소드가 있다.
+- 값을 변경할 수 있도록 세터(setter) 메서드가 있다.
 
 ```java
 package com.example.demo.model;
@@ -377,7 +377,7 @@ public class ManipulatingTests {
 
 컬렉션 객체도 변경할 수 있다. 
 
-1. 루트 리스트 객체의 add 메소드로 새로운 객체를 추가하는 표현식을 정의한다.
+1. 루트 리스트 객체의 add 메서드로 새로운 객체를 추가하는 표현식을 정의한다.
 2. 표현식을 실행한다.
 3. people 리스트 객체에 새로운 Person 객체가 포함되었는지 확인한다.
 
@@ -404,7 +404,7 @@ public class ManipulatingTests {
 
 ## 7. EvaluationContext Interface
 
-위 예제들을 살펴보면 알 수 있듯이 표현식을 사용해 값을 꺼낼 때 루트 객체를 지정하면 루트 객체의 프로퍼티와 메소드를 사용할 수 있다.
+위 예제들을 살펴보면 알 수 있듯이 표현식을 사용해 값을 꺼낼 때 루트 객체를 지정하면 루트 객체의 프로퍼티와 메서드를 사용할 수 있다.
 
 ```java
     Person person = new Person("junhyunny", 35);
@@ -415,7 +415,7 @@ public class ManipulatingTests {
 루트 객체를 직접 사용하지 않고 EvaluationContext 인스턴스를 사용하는 방법도 있다. EvaluationContext 인스턴스는 표현식을 평가하기 위해 사용한다. EvaluationContext 인스턴스는 다음과 같은 정보를 저장할 수 있다.
 
 - 루트 객체
-  - 표현식에서 사용하는 프로퍼티나 메소드를 소유한 객체
+  - 표현식에서 사용하는 프로퍼티나 메서드를 소유한 객체
 - 변수 
   - 표현식에서 접근할 수 있는 이름을 갖는 값
 - 함수
@@ -485,7 +485,7 @@ public class EvaluationContextTests {
 평가 컨텍스트에 직접 만든 함수를 등록할 수 있다. 
 
 1. 평가 컨텍스트에 함수를 등록한다.
-  - reverse라는 이름으로 EvaluationContextTests 클래스의 reverse 정적 메소드를 등록한다.
+  - reverse라는 이름으로 EvaluationContextTests 클래스의 reverse 정적 메서드를 등록한다.
 2. reverse 함수 호출을 표현식으로 지정한다. 
   - `#` 문자를 함수 이름 앞에 추가한다.
 3. 평가 컨텍스트를 바탕으로 값을 조회한다.
@@ -518,7 +518,7 @@ public class EvaluationContextTests {
 
 스프링 빈 객체를 참조해 사용할 수 있다. 다음과 같은 스프링 빈 객체를 준비한다.
 
-- get 메소드를 호출하면 "Hello Foo Service" 문자열을 반환한다.
+- get 메서드를 호출하면 "Hello Foo Service" 문자열을 반환한다.
 
 ```java
 package com.example.demo.service;
@@ -537,7 +537,7 @@ class FooService {
 
 1. 빈 리졸버를 평가 컨텍스트에 추가한다.
   - 빈 리졸버 객체에 애플리케이션 컨텍스트를 지정한다.
-1. fooService 스프링 빈 객체의 get 메소드 호출을 표현식으로 지정한다. 
+1. fooService 스프링 빈 객체의 get 메서드 호출을 표현식으로 지정한다. 
   - `@` 문자를 스프링 빈 이름 앞에 추가한다.
 2. 평가 컨텍스트를 바탕으로 값을 조회한다.
 3. 값을 확인한다.

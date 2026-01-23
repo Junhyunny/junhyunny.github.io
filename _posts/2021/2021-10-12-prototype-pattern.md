@@ -43,7 +43,7 @@ last_modified_at: 2021-10-12T23:55:00
 
 ### 1.2. Considerations
 
-핵심은 `clone` 메소드이며 구현에 주의해야합니다. 
+핵심은 `clone` 메서드이며 구현에 주의해야합니다. 
 
 * 순환 참조(circular reference)가 있는 경우 구현이 어렵습니다.
 * 얕은 복사(shallow copy)와 깊은 복사(deep copy) 문제에 주의해야합니다.
@@ -62,9 +62,9 @@ last_modified_at: 2021-10-12T23:55:00
 조회용(read-only) 데이터로 사용한다면 프로토타입 패턴을 사용하는 것도 좋습니다. 
 
 * 프로토타입 패턴을 사용하는 경우 최초 한번만 조회 후 이를 복사하여 사용합니다.
-    * fetch_data_only_first_time 메소드
+    * fetch_data_only_first_time 메서드
 * 프로토타입 패턴을 사용하지 않는 경우 매번 데이터베이스에서 조회합니다.
-    * fetch_data_every_times 메소드
+    * fetch_data_every_times 메서드
 
 ```java
 package blog.in.action;
@@ -160,7 +160,7 @@ class Item implements Cloneable {
 
 ##### Result of Example
 
-* fetch_data_only_first_time 메소드 수행 결과 79ms 소요됩니다.
+* fetch_data_only_first_time 메서드 수행 결과 79ms 소요됩니다.
 
 ```
 Hibernate: call next value for hibernate_sequence
@@ -169,7 +169,7 @@ Hibernate: select item0_.id as id1_0_, item0_.name as name2_0_ from item item0_ 
 2023-04-01 01:17:44.575  INFO 81794 --- [           main] blog.in.action.SearchDataTests           : total running time - 79
 ```
 
-* fetch_data_every_times 메소드 수행 결과 1071ms 소요됩니다. 
+* fetch_data_every_times 메서드 수행 결과 1071ms 소요됩니다. 
 
 ```
 Hibernate: call next value for hibernate_sequence
@@ -193,7 +193,7 @@ Hibernate: select item0_.id as id1_0_, item0_.name as name2_0_ from item item0_ 
 #### 2.2.1. Point Class
 
 * Point 클래스는 x, y 좌표로 구성됩니다.
-* clone() 메소드에서 새로운 Point 객체를 만들어 반환합니다.
+* clone() 메서드에서 새로운 Point 객체를 만들어 반환합니다.
 
 ```java
 @Getter
@@ -223,7 +223,7 @@ class Point implements Cloneable {
 #### 2.2.2. Line Class
 
 * Line 클래스는 2개의 Point 클래스로 구성됩니다.
-* clone 메소드에서 새로운 Line 객체를 만들어 반환합니다. 
+* clone 메서드에서 새로운 Line 객체를 만들어 반환합니다. 
 * Point 객체를 복사하여 새로운 객체로 할당합니다. 
     * 깊은 복사를 수행합니다.
 
@@ -261,7 +261,7 @@ class Line implements Cloneable {
 #### 2.2.3. Shape Class
 
 * Shape 클래스는 여러 개의 Line 클래스로 구성됩니다. 
-* clone 메소드에서 새로운 Shape 객체를 만들어 반환합니다. 
+* clone 메서드에서 새로운 Shape 객체를 만들어 반환합니다. 
 * 새로운 리스트 객체를 만들고 Line 객체를 복사하여 담습니다.
     * 깊은 복사를 수행합니다.
 
@@ -310,7 +310,7 @@ class Shape implements Cloneable {
 #### 2.2.4. Run Example
 
 * 사용자가 임의로 그린 도형 `originShape` 객체를 만듭니다.
-* clone 메소드를 이용해 `originShape` 객체를 복사합니다.
+* clone 메서드를 이용해 `originShape` 객체를 복사합니다.
 * 복사된 `clonedShape` 객체의 정보를 변경합니다.
     * 첫번째 선의 두번째 점의 좌표를 변경합니다.
 * 두 도형의 데이터가 서로 다른지 확인하고 로그를 살펴봅니다.

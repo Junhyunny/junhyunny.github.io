@@ -75,7 +75,7 @@ HTTP(Hyper Text Transfer Protocol) 통신에서 요청을 보내는 측을 클�
 
 ## 3. Cookie
 
-서버는 생성한 세션 정보를 찾을 수 있는 세션 ID를 발급해서 클라이언트(이하 브라우저)에게 전달한다. 세션 ID를 브라우저가 쿠키에 저장할 수 있도록 HTTP 응답 헤더에 쿠키 정보를 담아 전달한다. 스프링 프레임워크를 사용한 서버 애플리케이션은 HttpServletResponse 객체의 addCookie 메소드를 사용하면 HTTP 응답 헤더에 쿠키 정보를 담을 수 있다.
+서버는 생성한 세션 정보를 찾을 수 있는 세션 ID를 발급해서 클라이언트(이하 브라우저)에게 전달한다. 세션 ID를 브라우저가 쿠키에 저장할 수 있도록 HTTP 응답 헤더에 쿠키 정보를 담아 전달한다. 스프링 프레임워크를 사용한 서버 애플리케이션은 HttpServletResponse 객체의 addCookie 메서드를 사용하면 HTTP 응답 헤더에 쿠키 정보를 담을 수 있다.
 
 - Cookie 객체를 HttpServletResponse 객체에 저장한다.
 

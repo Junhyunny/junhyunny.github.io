@@ -378,7 +378,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 ##### Error when use JpaRepository Interface
 
-비관적 락 모드는 JPA 트랜잭션 중에만 사용 가능하다. `JpaRepository` 인터페이스를 사용하는 경우 직접 트랜잭션 제어가 안 되기 때문에 `@Transactional` 애너테이션을 사용한다. 적절한 서비스 빈(bean)을 만들고 필요한 기능들을 하나의 트랜잭션으로 묶는 작업이 필요하다. 만일 트랜잭션을 시작하지 않고, 해당 메소드를 사용하면 다음과 같은 에러를 만나게 된다. 
+비관적 락 모드는 JPA 트랜잭션 중에만 사용 가능하다. `JpaRepository` 인터페이스를 사용하는 경우 직접 트랜잭션 제어가 안 되기 때문에 `@Transactional` 애너테이션을 사용한다. 적절한 서비스 빈(bean)을 만들고 필요한 기능들을 하나의 트랜잭션으로 묶는 작업이 필요하다. 만일 트랜잭션을 시작하지 않고, 해당 메서드를 사용하면 다음과 같은 에러를 만나게 된다. 
 
 ```
 org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in progress; nested exception is javax.persistence.TransactionRequiredException: no transaction is in progress

@@ -119,8 +119,8 @@ todo:
     * `/` 경로 - TODO 항목들을 보여주는 화면을 보여줍니다.
     * `/todo` 경로 - 새로운 TODO 항목을 파일 시스템에 저장합니다.
 * `TodoUtil` 클래스
-    * `readTodoList` 메소드 - 파일 읽기를 수행합니다.
-    * `writeTodoList` 메소드 - 파일 쓰기를 수행합니다.
+    * `readTodoList` 메서드 - 파일 읽기를 수행합니다.
+    * `writeTodoList` 메서드 - 파일 쓰기를 수행합니다.
 
 ```java
 package action.in.blog.controller;

@@ -122,7 +122,7 @@ class FirstSetupTests {
 스프링 부트 3.1 버전 이상부터 제공하는 @ServiceConnection 애너테이션 덕분에 @DynamicPropertySource 애너테이션과 DynamicPropertyRegistry 클래스를 사용하지 않아도 된다.
 
 - 테스트 컨테이너 필드 위에 @ServiceConnection 애너테이션을 추가한다.
-- setPostgresProperties 메소드를 제거한다.
+- setPostgresProperties 메서드를 제거한다.
 
 ```kotlin
 package blog.`in`.action

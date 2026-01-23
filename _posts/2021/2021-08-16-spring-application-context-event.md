@@ -133,7 +133,7 @@ last_modified_at: 2021-08-16T12:45:00
 
 ### 2.2. Delivery 클래스
 
-* finishDelivery 메소드는 배달 상태를 완료로 변경합니다.
+* finishDelivery 메서드는 배달 상태를 완료로 변경합니다.
 
 ```java
 package blog.in.action.delivery.domain;
@@ -239,8 +239,8 @@ public class ApplicationContextDeliveryEventProxy implements DeliveryEventProxy 
 
 ### 2.5. Order 클래스
 
-* startDelivery 메소드는 주문의 배달 상태를 시작으로 변경합니다.
-* finishDelivery 메소드는 주문의 배달 상태를 완료로 변경합니다.
+* startDelivery 메서드는 주문의 배달 상태를 시작으로 변경합니다.
+* finishDelivery 메서드는 주문의 배달 상태를 완료로 변경합니다.
 
 ```java
 package blog.in.action.order.domain;

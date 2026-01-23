@@ -33,7 +33,7 @@ DTO 클래스에 MultipartFile 리스트를 담고 싶어 했는데, 관련된 �
 > Spring Framework Doc<br/>
 > Annotation that binds a method parameter or method return value to a named model attribute, exposed to a web view. Supported for controller classes with @RequestMapping methods. 
 
-컨트롤러(controller) 클래스의 @RequestMapping 애너테이션이 붙은 메소드를 지원하는 애너테이션이며 요청 파라미터나 반환 값을 명명된 모델 속성(model attribute)에 바인딩한다고 합니다. 
+컨트롤러(controller) 클래스의 @RequestMapping 애너테이션이 붙은 메서드를 지원하는 애너테이션이며 요청 파라미터나 반환 값을 명명된 모델 속성(model attribute)에 바인딩한다고 합니다. 
 설명만 봐서는 감이 오지 않으니 관련된 예제 코드를 확인해보겠습니다. 
 
 ### 2.1. Form Example 
@@ -163,7 +163,7 @@ public class MultipartDto {
 ```
 
 ### 3.3. FileController 클래스
-- `/dto` 경로에 대한 요청을 받아주는 메소드의 파라미터로 MultipartDto 객체를 받습니다.
+- `/dto` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartDto 객체를 받습니다.
 
 ```java
 package blog.in.action.controller;
@@ -306,7 +306,7 @@ public class MultipartListDto {
 ```
 
 ### 4.3. FileController 클래스
-- `/dto/multipart/list` 경로에 대한 요청을 받아주는 메소드의 파라미터로 MultipartListDto 객체를 받습니다.
+- `/dto/multipart/list` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartListDto 객체를 받습니다.
 
 ```java
 package blog.in.action.controller;
@@ -466,7 +466,7 @@ public class MultipartMapDto {
 ```
 
 ### 5.3. FileController 클래스
-- `/dto/multipart/map` 경로에 대한 요청을 받아주는 메소드의 파라미터로 MultipartMapDto 객체를 받습니다.
+- `/dto/multipart/map` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartMapDto 객체를 받습니다.
 
 ```java
 package blog.in.action.controller;
@@ -621,7 +621,7 @@ public class MultipartMapListDto {
 ```
 
 ### 6.3. FileController 클래스
-- `/dto/multipart/map/list` 경로에 대한 요청을 받아주는 메소드의 파라미터로 MultipartMapListDto 객체를 받습니다.
+- `/dto/multipart/map/list` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartMapListDto 객체를 받습니다.
 
 ```java
 package blog.in.action.controller;

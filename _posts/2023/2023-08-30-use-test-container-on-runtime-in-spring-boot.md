@@ -54,7 +54,7 @@ class MyIntegrationTests {
 }
 ```
 
-* 코틀린(kotlin)의 경우 init 메소드와 시스템 프로퍼티 설정 코드를 사용할 수도 있습니다. 
+* 코틀린(kotlin)의 경우 init 메서드와 시스템 프로퍼티 설정 코드를 사용할 수도 있습니다. 
 
 ```kotlin
 @Testcontainers
@@ -122,7 +122,7 @@ class RestControllerIT {
 
 @ServiceConnection 애너테이션을 사용하면 다음과 같이 코드를 변경할 수 있습니다. 
 
-* @DynamicPropertySource 애너테이션이 붙은 메소드가 필요하지 않습니다. 
+* @DynamicPropertySource 애너테이션이 붙은 메서드가 필요하지 않습니다. 
 
 ```java
 @SpringBootTest
@@ -143,7 +143,7 @@ class MyIntegrationTests {
 코틀린 코드도 다음과 같이 변경할 수 있습니다. 
 
 * 컨테이너 객체를 static 변수로 변경하고 @ServiceConnection 애너테이션을 추가합니다.
-* init 메소드를 제거합니다.
+* init 메서드를 제거합니다.
 
 ```kotlin
 @Testcontainers
@@ -204,9 +204,9 @@ class RestControllerIT {
     * 로컬 환경에 레디스 서버를 구축한다면 설치하는 작업이 불편하다. 
     * 스토리지를 컨테이너를 통해 구축하더라도 컴퓨터를 재부팅하면 매번 재실행해야 한다.
 
-프로젝트 테스트 컨텍스트에 다음과 같은 main 메소드를 작성하고 실행시키면 테스트 컨테이너들이 연결된 환경으로 애플리케이션을 실행할 수 있습니다. 
+프로젝트 테스트 컨텍스트에 다음과 같은 main 메서드를 작성하고 실행시키면 테스트 컨테이너들이 연결된 환경으로 애플리케이션을 실행할 수 있습니다. 
 
-* ActionInBlogApplication 클래스의 main 메소드를 실행합니다.
+* ActionInBlogApplication 클래스의 main 메서드를 실행합니다.
 * TestActionInBlogApplication 클래스의 빈(bean)들을 함께 사용합니다.
     * @TestConfiguration 애너테이션이 붙은 설정 빈입니다. 
     * 내부에 테스트 컨테이너를 빈으로 생성하는 코드가 필요합니다. 
@@ -286,7 +286,7 @@ public class TestActionInBlogApplication {
 ### 2.1. application.yml
 
 테스트 패키지에 위치한 설정 파일입니다. 
-애플리케이션 실행을 위한 main 메소드의 클래스가 테스트 패키지에 위치하기 때문에 해당 위치의 리소스를 사용합니다. 
+애플리케이션 실행을 위한 main 메서드의 클래스가 테스트 패키지에 위치하기 때문에 해당 위치의 리소스를 사용합니다. 
 
 * 프로파일 설정을 `test`로 지정합니다.
 * data.sql 파일을 사용해 스키마, 데이터를 초기화합니다. 
@@ -356,13 +356,13 @@ public class UserController {
 
 ### 2.4. TestActionInBlogApplication Class
 
-테스트 패키지에 위치한 TestActionInBlogApplication 클래스의 main 메소드를 실행합니다.
+테스트 패키지에 위치한 TestActionInBlogApplication 클래스의 main 메서드를 실행합니다.
 
-* main 메소드
-    * 애플리케이션 실행을 위해 ActionInBlogApplication 클래스의 main 메소드를 사용합니다.
+* main 메서드
+    * 애플리케이션 실행을 위해 ActionInBlogApplication 클래스의 main 메서드를 사용합니다.
     * TestActionInBlogApplication 클래스 자신을 설정 빈으로 사용합니다.
     * 내부에 정의된 빈들을 컨텍스트에 포함하여 실행합니다.
-* postgresContainer 메소드
+* postgresContainer 메서드
     * @Bean 애너테이션을 붙혀 반환하는 객체를 빈으로 관리됩니다.
     * @ServiceConnection 애너테이션을 붙혀 애플리케이션이 접속하기 위해 필요한 정보를 제공합니다.
 
@@ -396,7 +396,7 @@ public class TestActionInBlogApplication {
 
 ##### Run Application with TestContainers
 
-TestActionInBlogApplication 클래스의 main 메소드를 실행합니다. 
+TestActionInBlogApplication 클래스의 main 메서드를 실행합니다. 
 
 * 테스트 컨테이너와 함께 애플리케이션이 실행됩니다.
 

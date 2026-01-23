@@ -195,10 +195,10 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 #### 2.5.1. UnexpectedRollbackException 발생 이유
 이벤트 리스너(event listener)에서 주문 서비스의 예외를 try-catch 구문으로 묶었음에도 불구하고 테스트 코드에서 UnexpectedRollbackException 예외가 발생합니다. 
 해당 이유는 다음과 같습니다. 
-1. updateOrderDeliveryComplete 메소드까지 배달 서비스의 트랜잭션이 연결됩니다.
-1. updateOrderDeliveryComplete 메소드에서 exception이 발생하면서 해당 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
-1. listenIntentionalExceptionEvent 메소드에서 try-catch 구문으로 묶어 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지는 않습니다.
-1. updateDeliveryComplete 메소드는 정상적인 트랜잭션 처리에 실패합니다.
+1. updateOrderDeliveryComplete 메서드까지 배달 서비스의 트랜잭션이 연결됩니다.
+1. updateOrderDeliveryComplete 메서드에서 exception이 발생하면서 해당 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
+1. listenIntentionalExceptionEvent 메서드에서 try-catch 구문으로 묶어 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지는 않습니다.
+1. updateDeliveryComplete 메서드는 정상적인 트랜잭션 처리에 실패합니다.
     - 주문 서비스에서 발생한 예외에 의해 해당 트랜잭션의 롤백 처리가 예정되어 있기 때문입니다.
 1. UnexpectedRollbackException 예외가 발생합니다.
 
@@ -279,7 +279,7 @@ public class OrderEventListener {
 ```
 
 ### 3.4. OrderService 클래스
-- 메소드 위에 @Transactional 애너테이션을 추가하여 전파(propagtion) 타입을 변경합니다.
+- 메서드 위에 @Transactional 애너테이션을 추가하여 전파(propagtion) 타입을 변경합니다.
     - `Propagation.REQUIRES_NEW` - 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다.
 - RuntimeException을 의도적으로 던집니다.
 
@@ -338,10 +338,10 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 #### 3.5.1. UnexpectedRollbackException 발생하지 않은 이유
 동일 트랜잭션으로 묶어서 처리하는 것과 다르게 UnexpectedRollbackException 예외가 발생하지 않았습니다. 
 해당 이유는 다음과 같습니다. 
-1. updateOrderDeliveryCompleteInRequiresNewTransaction 메소드에서 신규 트랜잭션을 생성하여 배달 서비스의 트랜잭션을 잠시 중단합니다.
-1. updateOrderDeliveryCompleteInRequiresNewTransaction 메소드에서 예외가 발생하여 신규 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
-1. listenIntentionalExceptionInRequiresNewEvent 메소드에서 try-catch 에 의해 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않습니다.
-1. 주문 서비스에서 발생한 예외는 새로 생성된 트랜잭션에만 영향을 미치기 때문에 updateDeliveryComplete 메소드는 정상적으로 처리됩니다.
+1. updateOrderDeliveryCompleteInRequiresNewTransaction 메서드에서 신규 트랜잭션을 생성하여 배달 서비스의 트랜잭션을 잠시 중단합니다.
+1. updateOrderDeliveryCompleteInRequiresNewTransaction 메서드에서 예외가 발생하여 신규 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
+1. listenIntentionalExceptionInRequiresNewEvent 메서드에서 try-catch 에 의해 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않습니다.
+1. 주문 서비스에서 발생한 예외는 새로 생성된 트랜잭션에만 영향을 미치기 때문에 updateDeliveryComplete 메서드는 정상적으로 처리됩니다.
 
 ## CLOSING
 이벤트 발생과 더불어 트랜잭션 처리까지 함께 정리해보는 시간이었습니다. 

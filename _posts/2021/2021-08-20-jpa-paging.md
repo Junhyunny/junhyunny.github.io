@@ -20,19 +20,19 @@ JPA를 사용하면서 편해졌다고 느끼는 부분은 페이징(paging) 처
 
 ## 1. Pageable 인터페이스
 
-`Pageable` 인터페이스 구현체를 JpaRepository 메소드에 파라미터로 넘겨주면 자동으로 페이징 처리가 된다. Pageable 인터페이스에는 JPA가 페이징 처리를 위해 필요한 기능들이 명세되어 있다. 주요 메소드들을 살펴보자.
+`Pageable` 인터페이스 구현체를 JpaRepository 메서드에 파라미터로 넘겨주면 자동으로 페이징 처리가 된다. Pageable 인터페이스에는 JPA가 페이징 처리를 위해 필요한 기능들이 명세되어 있다. 주요 메서드들을 살펴보자.
 
-- getPageNumber 메소드 
+- getPageNumber 메서드 
   - 현재 페이지 번호를 반환
-- getPageSize 메소드
+- getPageSize 메서드
   - 한 페이지에서 보여줄 항목들의 개수를 반환
-- getOffset 메소드
+- getOffset 메서드
   - 페이지 크기에 따라 취할 오프셋을 반환
-- next 메소드
+- next 메서드
   - 다음 페이지를 조회할 때 사용하는 Pageable 인스턴스를 반환
-- first 메소드
+- first 메서드
   - 첫번째 페이지를 조회할 때 사용하는 Pageable 인스턴스를 반환
-- previousOrFirst 메소드
+- previousOrFirst 메서드
   - 이전 페이지를 조회할 때 사용하는 Pageable 인스턴스를 반환
   - 가장 첫 페이지인 경우에는 첫 페이지를 위한 Pageable 인스턴스를 반환
 
@@ -57,7 +57,7 @@ public interface Pageable {
 
 ## 2. PageRequest 클래스
 
-페이징 처리를 할 수 있도록 Pageable 인스턴스를 JpaRepository 인스턴스에게 전달해야 한다. 스프링 프레임워크에서는 Pageable 인스턴스를 쉽게 생성할 수 있도록 `PageRequest` 클래스를 제공한다. PageRequest 클래스의 of 메소드를 살펴보자. of 메소드에 들어간 파라미터를 기준으로 설명했다.
+페이징 처리를 할 수 있도록 Pageable 인스턴스를 JpaRepository 인스턴스에게 전달해야 한다. 스프링 프레임워크에서는 Pageable 인스턴스를 쉽게 생성할 수 있도록 `PageRequest` 클래스를 제공한다. PageRequest 클래스의 of 메서드를 살펴보자. of 메서드에 들어간 파라미터를 기준으로 설명했다.
 
 - `Sort.by(Direction.DESC, "testValue")` - "testValue 필드 값으로 정렬한 항목(row)들을"
 - `100` - "100개씩 하나의 페이지로 만들었을 때"
@@ -71,16 +71,16 @@ Pageable pageable = PageRequest.of(0, 100, Sort.by(Direction.DESC, "testValue"))
 
 페이징 처리가 되어 반환되는 결과는 `Page<T>` 클래스에 담겨 반환된다. `Page<T>` 클래스는 다음과 같은 정보를 지니고 있다.
 
-- getPageable 메소드
+- getPageable 메서드
   - 페이징 처리에서 사용한 Pageable 인터페이스 구현체 정보
-- getContent 메소드
+- getContent 메서드
   - 해당 페이지에 해당되는 항목(row) 리스트
-- getTotalElements 메소드
+- getTotalElements 메서드
   - 조회 조건에 일치하는 총 항목 수
-- getTotalPages 메소드
+- getTotalPages 메서드
   - 총 페이지 개수
 
-PageRequest 클래스 of 메소드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있다. JapRepository에서 기본적으로 제공하는 findAll 메소드를 이용하였다. 
+PageRequest 클래스 of 메서드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있다. JapRepository에서 기본적으로 제공하는 findAll 메서드를 이용하였다. 
 
 ```java
 Pageable pageable = PageRequest.of(0, 10, Sort.by(Direction.DESC, "testValue"));
@@ -91,7 +91,7 @@ Page<TestEntity> testEntities = testRepository.findAll(pageable);
 
 간단한 테스트 코드를 통해 JPA 페이징 처리 방법을 알아보자. 세 가지 방법으로 구현했다.
 
-- JpaRepository 메소드 이름 규칙을 활용한 findBy- 메소드 사용
+- JpaRepository 메서드 이름 규칙을 활용한 findBy- 메서드 사용
 - @Query 애너테이션 with JPQL
 - @Query 애너테이션 with Native Query
 
@@ -131,7 +131,7 @@ class TestEntity {
 }
 ```
 
-beforeEach 메소드를 통해 테스마다 각 테스트마다 데이터를 초기화한다.
+beforeEach 메서드를 통해 테스마다 각 테스트마다 데이터를 초기화한다.
 
 - 모든 데이터를 삭제하고 250개의 데이터를 추가한다.
 - TestEntity 객체의 testValue 필드 값으로 랜덤한 문자열을 지정한다.
@@ -146,7 +146,7 @@ beforeEach 메소드를 통해 테스마다 각 테스트마다 데이터를 초
     }
 ```
 
-먼저 findBy- 메소드로 페이징 처리를 해보자.
+먼저 findBy- 메서드로 페이징 처리를 해보자.
 
 - testValue 필드 값을 내림차순(desc)으로 정렬한다.
 - 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회한다.
@@ -302,7 +302,7 @@ Hibernate: select count(testentity0_.id) as col_0_0_ from tb_table testentity0_ 
 - 페이지 당 항목 수를 10개씩 0, 1번 페이지를 조회한다.
 - TEST_VALUE 컬럼 값이 'A'로 시작되는 데이터를 조회한다.
 - 문자열의 대소문자를 구분하지 않는다. (case not sensitive)
-- Native Query를 사용하기 때문에 Sort.by 메소드에 "testValue" 값을 전달하면 에러가 발생한다.  
+- Native Query를 사용하기 때문에 Sort.by 메서드에 "testValue" 값을 전달하면 에러가 발생한다.  
 
 ```java
 @Log4j2

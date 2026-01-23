@@ -227,8 +227,8 @@ $ tree -I 'idea|lib|out|test|target' ./
 - `sqlSession4MySql`- 질의(query)를 수행할 MyBatis의 SqlSession 객체를 만드는 팩토리(factory) 객체
 - `sqlSessionTemplate4MySql` - 질의 등을 쉽게 사용할 수 있는 템플릿(template) 객체
 - `txManager4MySql` - 트랜잭션 처리를 위한 트랜잭션 매니저 객체
-- `txAdvice4MySql` - 어떤 이름 규칙을 가진 메소드 수행시 트랜잭션 처리를 수행할지 지정합니다.
-- `requiredTx4MySql` - 어떤 클래스의 메소드의 시점을 빼앗아 트랜잭션을 처리할지 정의합니다.
+- `txAdvice4MySql` - 어떤 이름 규칙을 가진 메서드 수행시 트랜잭션 처리를 수행할지 지정합니다.
+- `requiredTx4MySql` - 어떤 클래스의 메서드의 시점을 빼앗아 트랜잭션을 처리할지 정의합니다.
 - `mapper:scan base-package="blog.in.action.mysql.dao"` - 비즈니스 로직에서 데이터베이스에게 질의를 수행할 DAO(Data Access Object) 객체들의 위치를 지정합니다.
     - `blog.in.action.mysql.dao` 하위 패키지의 DAO 객체에서 사용하는 SqlSession 객체는 `sqlSession4MySql` 팩토리 객체를 통해 생성됩니다.
 
@@ -280,8 +280,8 @@ $ tree -I 'idea|lib|out|test|target' ./
 - `sqlSession4PostgreSql`- 질의(query)를 수행할 MyBatis의 SqlSession 객체를 만드는 팩토리(factory) 객체
 - `sqlSessionTemplate4PostgreSql` - 질의 등을 쉽게 사용할 수 있는 템플릿(template) 객체
 - `txManager4PostgreSql` - 트랜잭션 처리를 위한 트랜잭션 매니저 객체
-- `txAdvice4PostgreSql` - 어떤 이름 규칙을 가진 메소드 수행시 트랜잭션 처리를 수행할지 지정합니다.
-- `requiredTx4PostgreSql` - 어떤 클래스의 메소드의 시점을 빼앗아 트랜잭션을 처리할지 정의합니다.
+- `txAdvice4PostgreSql` - 어떤 이름 규칙을 가진 메서드 수행시 트랜잭션 처리를 수행할지 지정합니다.
+- `requiredTx4PostgreSql` - 어떤 클래스의 메서드의 시점을 빼앗아 트랜잭션을 처리할지 정의합니다.
 - `mapper:scan base-package="blog.in.action.postgresql.dao"` - 비즈니스 로직에서 데이터베이스에게 질의를 수행할 DAO(Data Access Object) 객체들의 위치를 지정합니다.
     - `blog.in.action.postgresql.dao` 하위 패키지의 DAO 객체에서 사용하는 SqlSession 객체는 `sqlSession4PostgreSql` 팩토리 객체를 통해 생성됩니다.
 

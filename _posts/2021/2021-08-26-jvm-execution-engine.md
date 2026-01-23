@@ -86,7 +86,7 @@ public class blog.in.action.ActionInBlogApplication {
 ```
 
 ### 1.2. 클래스 파일 적재하기
-자바 애플리케이션을 실행할 때, 컴파일 된 클래스 파일(.class)들이 클래스 로더(class loader)에 의해 JVM 메모리 중 메소드 영역에 적재됩니다. 
+자바 애플리케이션을 실행할 때, 컴파일 된 클래스 파일(.class)들이 클래스 로더(class loader)에 의해 JVM 메모리 중 메서드 영역에 적재됩니다. 
 클래스 로더에 의해 적재되는 과정은 다른 포스트에서 정리하겠습니다.
 
 ##### 클래스 적재 과정
@@ -135,8 +135,8 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 컴파일 임계치를 만족하는 코드는 JIT 컴파일러에 의해 컴파일이 수행됩니다. 
 
 컴파일 임계치는 두 가지 횟수를 합친 것을 의미합니다. 
-- method entry counter - JVM 내에 있는 메소드가 호출된 횟수
-- back-edge loop counter - 메소드가 루프를 빠져나오기까지 회전한 횟수
+- method entry counter - JVM 내에 있는 메서드가 호출된 횟수
+- back-edge loop counter - 메서드가 루프를 빠져나오기까지 회전한 횟수
 
 컴파일 임계치가 일정 횟수에 도달한 코드는 컴파일이 하기에 충분한 정보가 쌓였다고 판단되어집니다. 
 대상 코드는 특정 큐에 들어가 컴파일 스레드에 의해 컴파일 되기를 기다립니다. 
@@ -159,10 +159,10 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 - **아래 설명은 이해하기 쉽도록 예시를 들은 내용이며 실제로 동작하는 방법과 관련된 레퍼런스는 확인 중 입니다.**
 - CompileThreshold 값은 100로 지정합니다.
     - method entry counter 임계치가 100로 지정됩니다.
-    - 특정 메소드가 100번 호출 시 해당 임계치를 만족하게 됩니다. 
+    - 특정 메서드가 100번 호출 시 해당 임계치를 만족하게 됩니다. 
 - OnStackReplacePercentage 값은 33 퍼센트로 지정합니다.
     - back-edge loop counter 임계치 값은 계산식에 의해 33으로 지정됩니다.
-    - 특정 메소드 내 반복문이 33회 회전하면 해당 임계치를 만족하게 됩니다. 
+    - 특정 메서드 내 반복문이 33회 회전하면 해당 임계치를 만족하게 됩니다. 
 
 ```
 $ java -XX:CompileThreshold=100 -XX:OnStackReplacePercentage=33 src/test/java/blog/in/action/JitCompilerTest.java

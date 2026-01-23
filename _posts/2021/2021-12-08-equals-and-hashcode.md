@@ -13,12 +13,12 @@ last_modified_at: 2021-12-08T09:00:00
 
 테스트 코드를 작성하는 중에 다음과 같은 문제를 만났습니다. 
 - Spy 테스트 더블(test double)을 이용한 테스트 코드 작성하였습니다.
-- 메소드 파라미터로 전달한 파라미터가 동일한지 확인하는 과정에서 에러가 발생하였습니다.
+- 메서드 파라미터로 전달한 파라미터가 동일한지 확인하는 과정에서 에러가 발생하였습니다.
 
 ##### 테스트 코드
 - `todoDto` 인스턴스를 요청 정보(request body)로 전달합니다.
-- `verify` 메소드로 `mockTodoService` 테스트 더블 인스턴스의 `createTodo` 메소드가 1회 호출되었는지 확인합니다.
-- `todoDto` 인스턴스가 전달되어 `createTodo` 메소드의 파라미터로 사용되었는지 확인합니다.
+- `verify` 메서드로 `mockTodoService` 테스트 더블 인스턴스의 `createTodo` 메서드가 1회 호출되었는지 확인합니다.
+- `todoDto` 인스턴스가 전달되어 `createTodo` 메서드의 파라미터로 사용되었는지 확인합니다.
 
 ```java
     @Test
@@ -53,10 +53,10 @@ todoService.createTodo(
 
 ## 2. 문제 해결
 
-에러 로그를 보고 `equals` 메소드와 `hashCode` 메소드 오버라이딩을 떠올렸지만 이를 구현하는 일이 상당히 귀찮았습니다. 
+에러 로그를 보고 `equals` 메서드와 `hashCode` 메서드 오버라이딩을 떠올렸지만 이를 구현하는 일이 상당히 귀찮았습니다. 
 클래스에 정의된 필드들을 모두 비교해야한다거나 해시 코드 계산이 필요하기 때문입니다. 
 이를 쉽게 해결할 수 있는 방법을 찾아보니 `Lombok`에 `@EqualsAndHashCode` 애너테이션이 있었습니다. 
-해당 애너테이션을 클래스 위에 정의하면 컴파일 시점에 자동으로 `equals` 메소드와 `hashCode` 메소드 오버라이딩이 됩니다. 
+해당 애너테이션을 클래스 위에 정의하면 컴파일 시점에 자동으로 `equals` 메서드와 `hashCode` 메서드 오버라이딩이 됩니다. 
 디컴파일(decompile) 한 코드를 살펴보면 클래스에 있는 모든 필드들에 대한 비교를 수행합니다.
 
 ##### @EqualsAndHashCode 애너테이션 사용
@@ -146,7 +146,7 @@ public class TodoDto {
 `@EqualsAndHashCode` 애너테이션 속성들 몇 가지를 추가적으로 정리하였습니다. 
 
 ### 3.1. of 속성
-특정 필드만 선택하여 `equals`, `hashCode` 메소드를 오버라이딩 합니다.
+특정 필드만 선택하여 `equals`, `hashCode` 메서드를 오버라이딩 합니다.
 
 ##### 사용 예시 코드
 
@@ -190,7 +190,7 @@ public class TodoDto {
 ```
 
 ### 3.2. exclude 속성
-특정 필드를 제외하고 `equals`, `hashCode` 메소드를 오버라이딩 합니다.
+특정 필드를 제외하고 `equals`, `hashCode` 메서드를 오버라이딩 합니다.
 
 ##### 사용 예시 코드
 

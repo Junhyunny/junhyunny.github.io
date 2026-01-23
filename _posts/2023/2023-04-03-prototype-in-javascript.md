@@ -28,9 +28,9 @@ last_modified_at: 2023-04-03T23:55:00
 ### 1.1. Inheritance in JavaScript
 
 상속(inheritance)은 객체지향 프로그래밍에서 핵심적인 개념입니다. 
-상속을 통해 특정 객체의 프로퍼티(property)나 메소드(method)를 재사용할 수 있습니다. 
+상속을 통해 특정 객체의 프로퍼티(property)나 메서드(method)를 재사용할 수 있습니다. 
 
-`JavaScript`에선 상위 프로토타입 객체로부터 메소드와 속성을 상속 받아 재사용합니다. 
+`JavaScript`에선 상위 프로토타입 객체로부터 메서드와 속성을 상속 받아 재사용합니다. 
 정확히 말하면 상위 프로토타입 객체를 참조하여 자신에게 없는 상태와 기능을 확장하여 사용합니다. 
 프로토타입 객체도 상위 프로토타입을 가지며 `프로토타입 체인(prototype chain)`을 통해 접근할 수 있습니다. 
 간단한 예제 코드를 통해 상속에 대해 알아보겠습니다. 
@@ -38,7 +38,7 @@ last_modified_at: 2023-04-03T23:55:00
 
 #### 1.1.1. Without Inheritance
 
-* 첫번째 생성한 인스턴스의 `getArea` 메소드는 두번째 생성한 인스턴스의 `getArea` 메소드와 다릅니다.
+* 첫번째 생성한 인스턴스의 `getArea` 메서드는 두번째 생성한 인스턴스의 `getArea` 메서드와 다릅니다.
 * 같은 기능을 수행하지만, 인스턴스를 생성할 때마다 매번 새로 생성합니다.
 
 ```javascript
@@ -59,8 +59,8 @@ console.log(secondCircle.getArea()); // 12.566370614359172
 
 #### 1.1.2. With Inheritance by Prototype
 
-* 첫번째 생성한 인스턴스의 `getArea` 메소드는 두번째 생성한 인스턴스의 `getArea` 메소드가 같습니다.
-* 같은 기능 수행하는 메소드를 프로토타입 객체에 정의하고 재사용합니다. 
+* 첫번째 생성한 인스턴스의 `getArea` 메서드는 두번째 생성한 인스턴스의 `getArea` 메서드가 같습니다.
+* 같은 기능 수행하는 메서드를 프로토타입 객체에 정의하고 재사용합니다. 
 
 ```javascript
 function Circle(radius) {
@@ -127,8 +127,8 @@ console.log(Circle.prototype.constructor === Circle)
 
 * Circle 생성자 함수를 통해 두 개의 인스턴스를 만듭니다.
     * `radius` 프로퍼티는 생성자 함수 내부에 정의되어 있습니다.
-    * `getArea` 메소드는 생성자 함수 내부에 정의되어 있습니다.
-* 생성자 함수 내부에 정의된 프로퍼티와 메소드는 인스턴스가 만들어질 때 내부에 함께 생성됩니다.
+    * `getArea` 메서드는 생성자 함수 내부에 정의되어 있습니다.
+* 생성자 함수 내부에 정의된 프로퍼티와 메서드는 인스턴스가 만들어질 때 내부에 함께 생성됩니다.
 
 <p align="center">
     <img src="/images/prototype-in-javascript-3.JPG" width="80%" class="image__border">
@@ -140,9 +140,9 @@ console.log(Circle.prototype.constructor === Circle)
 
 * Circle 생성자 함수를 통해 두 개의 인스턴스를 만듭니다.
     * `radius` 프로퍼티는 생성자 함수 내부에 정의되어 있습니다.
-* Circle 생성자 함수의 프로토타입 객체에 `getArea` 메소드를 정의합니다.
+* Circle 생성자 함수의 프로토타입 객체에 `getArea` 메서드를 정의합니다.
 * 생성자 함수 내부에 정의된 프로퍼티는 인스턴스를 만들 때 인스턴스 내부에 함께 생성됩니다.
-* 프로토타입 객체에 정의한 메소드는 생성된 인스턴스에는 존재하지 않습니다.
+* 프로토타입 객체에 정의한 메서드는 생성된 인스턴스에는 존재하지 않습니다.
     * 인스턴스 내부 링크를 통해 참조하는 프로토타입 객체의 기능을 재사용합니다. 
 
 <p align="center">
@@ -275,7 +275,7 @@ console.dir(foo.__proto__.constructor === Object);
 > This feature is no longer recommended. Though some browsers might still support it, it may have already been removed from the relevant web standards, may be in the process of being dropped, or may only be kept for compatibility purposes. Avoid using it, and update existing code if possible; see the compatibility table at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time.
 
 객체의 `[[Prototype]]`을 변경하는 것은 모든 브라우저 및 `JavaScript` 엔진에서 매우 느린 작업이라고 합니다. 
-오늘날 대부분의 브라우저에서 호환성을 보장하기 위해 지원되지만 더 나은 기능으로 `Object.getPrototypeof()` 메소드를 사용이 권장됩니다. 
+오늘날 대부분의 브라우저에서 호환성을 보장하기 위해 지원되지만 더 나은 기능으로 `Object.getPrototypeof()` 메서드를 사용이 권장됩니다. 
 
 #### REFERENCE
 

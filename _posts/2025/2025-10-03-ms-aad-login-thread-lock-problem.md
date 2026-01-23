@@ -114,7 +114,7 @@ CachingJWKSetSource 클래스의 `lock.tryLock(getCacheRefreshTimeout(), TimeUni
 
 1. 특정 스레드가 ReentrantLock 객체를 통해 락을 잡는다.
 2. 임계 영역(critical section)에 진입한 스레드가 행(hang)에 걸려 락을 해제하지 못한다.
-3. 다른 스레드들은 락을 잡기 위해 tryLock 메소드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
+3. 다른 스레드들은 락을 잡기 위해 tryLock 메서드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
 
 finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 무한 루프나 무한 대기에 빠지지 않았다면 락은 반드시 해제되어야 한다. 예전 디버깅 경험을 돌이켜보니 스프링 시큐리티는 JWT을 디코딩 할 때 내부적으로 인가 서버에게 [JWKs(Json Web Key Set)][json-web-key-link]을 요청했다. 이 원격 요청에 무엇인가 문제가 있다고 판단했다. 원격 요청을 하는 지점은 디버깅을 통해 찾아냈다.
 
@@ -128,7 +128,7 @@ finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 �
 
 <br/>
 
-SpringJWTSource 객체의 fetchJwks 메소드를 살펴보면 내부적으로 `RestOperations` 인스턴스를 사용해 `외부 서버(https://login.microsoftonline.com/{tenant-id}/discovery/v2.0/keys)`에게 JWKs을 요청한다.
+SpringJWTSource 객체의 fetchJwks 메서드를 살펴보면 내부적으로 `RestOperations` 인스턴스를 사용해 `외부 서버(https://login.microsoftonline.com/{tenant-id}/discovery/v2.0/keys)`에게 JWKs을 요청한다.
 
 ```java
 public final class NimbusJwtDecoder implements JwtDecoder {
@@ -185,7 +185,7 @@ dependencies {
 }
 ```
 
-SpringJWKSource 객체에 필요한 RestTemplate 객체는 `spring-cloud-azure-starter-active-directory` 의존성에서 제공하는 빈(bean)을 통해 주입된다. 이에 관련된 클래스와 메소드는 다음과 같다. 우선 AadOAuth2ClientConfiguration 클래스의 azureAdJwtDecoderFactory 메소드에서 JwtDecoder 객체를 생성한다.
+SpringJWKSource 객체에 필요한 RestTemplate 객체는 `spring-cloud-azure-starter-active-directory` 의존성에서 제공하는 빈(bean)을 통해 주입된다. 이에 관련된 클래스와 메서드는 다음과 같다. 우선 AadOAuth2ClientConfiguration 클래스의 azureAdJwtDecoderFactory 메서드에서 JwtDecoder 객체를 생성한다.
 
 ```java
 package com.azure.spring.cloud.autoconfigure.implementation.aad.configuration;
@@ -223,7 +223,7 @@ class AadOAuth2ClientConfiguration {
 }
 ```
 
-AadResourceServerConfiguration 클래스의 jwtDecoder 메소드에서도 JwtDecoder 객체를 생성한다.
+AadResourceServerConfiguration 클래스의 jwtDecoder 메서드에서도 JwtDecoder 객체를 생성한다.
 
 ```java
 package com.azure.spring.cloud.autoconfigure.implementation.aad.configuration;
@@ -285,7 +285,7 @@ class ProxyRestTemplate() : RestTemplate() {
 }
 ```
 
-프록시 RestTemplate 객체를 주입하기 위한 ProxyRestTemplateBuilder 클래스를 생성한다. AadOAuth2ClientConfiguration, AadResourceServerConfiguration 객체가 사용하는 createRestTemplate 메소드에서 에러 핸들러, 메시지 컨버터 등을 추가할 때 RestTemplateBuilder 객체가 새로 생성되기 때문에 build 메소드 외에도 errorHandler, messageConverters 메소드를 오버라이딩 해줘야 한다.
+프록시 RestTemplate 객체를 주입하기 위한 ProxyRestTemplateBuilder 클래스를 생성한다. AadOAuth2ClientConfiguration, AadResourceServerConfiguration 객체가 사용하는 createRestTemplate 메서드에서 에러 핸들러, 메시지 컨버터 등을 추가할 때 RestTemplateBuilder 객체가 새로 생성되기 때문에 build 메서드 외에도 errorHandler, messageConverters 메서드를 오버라이딩 해줘야 한다.
 
 ```kotlin
 class ProxyRestTemplateBuilder(
@@ -305,7 +305,7 @@ class ProxyRestTemplateBuilder(
 }
 ```
 
-의존성 주입을 위한 restTemplateBuilder 빈 객체를 생성한다. 타임아웃을 지정할 때 사용하는 connectTimeout, readTimeout 메소드도 매번 새로운 RestTemplateBuilder 객체를 생성 후 반환하므로 이를 주의해야 한다. 타임아웃 시간은 15초로 지정했다. 인증 서버로부터 JWKs을 받을 때 필요한 적절한 시간을 정확히 판단할 수 없기 때문에 스레드가 락을 선점하기 위해 기다리는 15초를 기준으로 삼았다.
+의존성 주입을 위한 restTemplateBuilder 빈 객체를 생성한다. 타임아웃을 지정할 때 사용하는 connectTimeout, readTimeout 메서드도 매번 새로운 RestTemplateBuilder 객체를 생성 후 반환하므로 이를 주의해야 한다. 타임아웃 시간은 15초로 지정했다. 인증 서버로부터 JWKs을 받을 때 필요한 적절한 시간을 정확히 판단할 수 없기 때문에 스레드가 락을 선점하기 위해 기다리는 15초를 기준으로 삼았다.
 
 ```kotlin
 @Configuration

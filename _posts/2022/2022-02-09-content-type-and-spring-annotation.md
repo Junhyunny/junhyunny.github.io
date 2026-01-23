@@ -237,11 +237,11 @@ Referer: http://localhost:3000/
 
 ## 4. Spring boot endpoint with Content-Type 
 
-스프링 프레임워크에서 엔드포인트를 담당하는 컨트롤러(controller) 객체의 메소드에 매핑되는 파라미터는 HandlerMethodArgumentResolver 인스턴스들에 의해 처리된다. 스프링 애플리케이션은 서비스가 실행될 때 필요한 HandlerMethodArgumentResolver 인스턴스들이 스프링 컨텍스트에 등록된다.
+스프링 프레임워크에서 엔드포인트를 담당하는 컨트롤러(controller) 객체의 메서드에 매핑되는 파라미터는 HandlerMethodArgumentResolver 인스턴스들에 의해 처리된다. 스프링 애플리케이션은 서비스가 실행될 때 필요한 HandlerMethodArgumentResolver 인스턴스들이 스프링 컨텍스트에 등록된다.
 
-1. 해당 요청을 처리할 엔드포인트 메소드를 찾는다.
-2. 해당 메소드의 파라미터 앞에 붙은 애너테이션을 지원하는 `Resolver` 클래스를 찾는다.
-3. 이후 `Resolver` 클래스의 `resolveArgument` 메소드를 통해 메시지에 담긴 데이터를 엔드포인트 메소드의 파라미터로 변경한다.
+1. 해당 요청을 처리할 엔드포인트 메서드를 찾는다.
+2. 해당 메서드의 파라미터 앞에 붙은 애너테이션을 지원하는 `Resolver` 클래스를 찾는다.
+3. 이후 `Resolver` 클래스의 `resolveArgument` 메서드를 통해 메시지에 담긴 데이터를 엔드포인트 메서드의 파라미터로 변경한다.
 
 이번 글에선 자주 사용하는 Content-Type 헤더와 이를 처리하는 애너테이션을 정리했다. 간단한 테스트 코드를 통해 확인하였으며, 데이터를 받을 때 사용하는 DTO(Data Transfer Object)는 다음과 같다.
 
@@ -285,7 +285,7 @@ Content-Type 헤더가 `application/x-www-form-urlencoded`이나 `multipart/form
     }
 ```
 
-`application/x-www-form-urlencoded`이나 `multipart/form-data` 타입은 메시지가 `key=value` 형식이므로 @RequestParam 애너테이션을 통해 데이터를 받을 수 있다. RequestParamMethodArgumentResolver 객체에 의해 처리되지만, RequestParamMethodArgumentResolver 객체는 resolveArgument 메소드를 재정의하지 않는다. 실제론 부모 클래스인 AbstractNamedValueMethodArgumentResolver 클래스의 resolveArgument 메소드에 의해 처리된다.
+`application/x-www-form-urlencoded`이나 `multipart/form-data` 타입은 메시지가 `key=value` 형식이므로 @RequestParam 애너테이션을 통해 데이터를 받을 수 있다. RequestParamMethodArgumentResolver 객체에 의해 처리되지만, RequestParamMethodArgumentResolver 객체는 resolveArgument 메서드를 재정의하지 않는다. 실제론 부모 클래스인 AbstractNamedValueMethodArgumentResolver 클래스의 resolveArgument 메서드에 의해 처리된다.
 
 ```java
     @PostMapping("/request-param")
@@ -296,7 +296,7 @@ Content-Type 헤더가 `application/x-www-form-urlencoded`이나 `multipart/form
     }
 ```
 
-Content-Type 헤더가 `application/json` 타입의 메시지는 @RequestBody 애너테이션을 사용한다. @RequestBody 애너테이션에 매칭된 메소드 파라미터는 RequestResponseBodyMethodProcessor 객체에 의해 처리된다. JSON 객체의 키와 동일한 이름인 Dto 객체의 필드에 데이터가 매칭된다.
+Content-Type 헤더가 `application/json` 타입의 메시지는 @RequestBody 애너테이션을 사용한다. @RequestBody 애너테이션에 매칭된 메서드 파라미터는 RequestResponseBodyMethodProcessor 객체에 의해 처리된다. JSON 객체의 키와 동일한 이름인 Dto 객체의 필드에 데이터가 매칭된다.
 
 ```java
     @PostMapping("/request-body")

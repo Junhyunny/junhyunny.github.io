@@ -11,11 +11,11 @@ last_modified_at: 2025-12-13T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Android WebView 사용 예제][android-webview-link] 
+- [안드로이드 웹뷰(Android WebView) 예제][android-webview-link] 
 
 ## 0. 들어가면서
 
-이번엔 [Android WebView 사용 예제][android-webview-link]에서 만든 애플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
+이번엔 [안드로이드 웹뷰(Android WebView) 예제][android-webview-link]에서 만든 애플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
 
 ## 1. Android WebView
 
@@ -103,7 +103,7 @@ public class JavascriptCallbackClient {
 }
 ```
 
-인터페이스를 만들었으면 이를 등록한다. 전체 코드를 확인하시려면 [Android WebView 사용 예제][android-webview-link]를 참고하길 바란다.
+인터페이스를 만들었으면 이를 등록한다. 전체 코드를 확인하시려면 [안드로이드 웹뷰(Android WebView) 예제][android-webview-link]를 참고하길 바란다.
 
 - `WebView` 클래스의 `addJavascriptInterface` 메서드로 이전 단계에서 만든 `JavascriptCallbackClient` 클래스를 등록한다.
 - `HTML` 문서에서 사용할 수 있도록 이름을 `android`로 지정한다.

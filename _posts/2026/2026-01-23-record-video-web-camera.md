@@ -18,13 +18,13 @@ last_modified_at: 2026-01-23T09:55:00
 
 ## 1. MediaStream API
 
-브라우저에서 카메라, 마이크 같은 채널로부터 입력을 받으려면 MediaStream API를 사용해야 한다. [getUserMedia() 메소드](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)를 통해 요청한 미디어(media) 트랙들이 포함된 MediaStream 인스턴스를 얻을 수 있다.
+브라우저에서 카메라, 마이크 같은 채널로부터 입력을 받으려면 [MediaStream API](https://developer.mozilla.org/en-US/docs/Web/API/MediaStream)를 사용해야 한다. [getUserMedia() 메소드](https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia)를 통해 요청한 미디어(media) 트랙들이 포함된 MediaStream 인스턴스를 얻을 수 있다.
 
 ```ts
 const stream = navigator.mediaDevices.getUserMedia(constraints)
 ```
 
-스트림(stream)엔 다음과 같은 트랙들이 포함될 수 있다. 각 트랙들은 MediaStreamTrack 인터페이스로 추상화되어 있다.
+스트림(stream)엔 다음과 같은 트랙들이 포함될 수 있다. 각 트랙들은 [MediaStreamTrack 인터페이스](https://developer.mozilla.org/en-US/docs/Web/API/MediaStreamTrack)로 추상화되어 있다.
 
 - 카메라, 비디오 녹화 디바이스, 화면 공유 기능 같은 하드웨어, 가상 비디오 소스에 의해 생성되는 비디오 트랙
 - 마이크, A/D 컨버터에 의해 생성되는 오디오 트랙

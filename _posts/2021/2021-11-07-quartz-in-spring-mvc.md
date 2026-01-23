@@ -28,7 +28,7 @@ Spring 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능
 > Quartz can be used to create simple or complex schedules for executing tens, hundreds, or even tens-of-thousands of jobs; 
 > jobs whose tasks are defined as standard Java components that may execute virtually anything you may program them to do. 
 
-`Quartz`는 Job 스케줄링을 구현할 수 있는 오픈 소스 라이브러리이며 Java 어플리케이션에서 사용, 통합이 가능합니다. 
+`Quartz`는 Job 스케줄링을 구현할 수 있는 오픈 소스 라이브러리이며 Java 애플리케이션에서 사용, 통합이 가능합니다. 
 간단하거나 복잡한 스케줄들을 수십 개에서 수만 개까지 구현 가능합니다. 
 스케줄의 종료 시점부터 다음 실행 시점까지 시간 간격을 두는 인터벌(interval) 형식의 스케줄링이 가능합니다. 
 혹은 크론 표현식(cron expression) 방식을 이용한 복잡한 스케줄링도 지원합니다. 

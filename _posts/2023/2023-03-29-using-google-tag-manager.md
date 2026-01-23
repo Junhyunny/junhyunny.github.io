@@ -60,13 +60,13 @@ last_modified_at: 2023-03-28T23:55:00
 다음과 같은 환경에서 실습하였습니다. 
 
 * AWS EC2 컨테이너
-* 리액트 어플리케이션
+* 리액트 애플리케이션
     * GTM 설치 과정은 이번 포스트에서 생략합니다.
     * GTM 설치 과정이나 애널리틱스, 태그 매니저 연결 방법은 [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 포스트를 참고하시길 바랍니다. 
 
 ### 2.1. Simple Code by React
 
-우선 리액트 어플리케이션 코드를 살펴보겠습니다. 
+우선 리액트 애플리케이션 코드를 살펴보겠습니다. 
 
 * 엘리먼트 3개를 화면에 만듭니다.
     * 각 엘리먼트들은 고유한 `id`를 가지고 있습니다.
@@ -191,7 +191,7 @@ export default App;
     <img src="/images/using-google-tag-manager-14.JPG" width="100%" class="image__border">
 </p>
 
-* 디버깅 중인 어플리케이션 화면에서 클릭 등의 이벤트를 발생시키면 미리보기 화면에서 아래와 같이 감지됩니다.
+* 디버깅 중인 애플리케이션 화면에서 클릭 등의 이벤트를 발생시키면 미리보기 화면에서 아래와 같이 감지됩니다.
 
 <p align="center">
     <img src="/images/using-google-tag-manager-15.JPG" width="100%" class="image__border">
@@ -216,9 +216,9 @@ export default App;
 
 ### 3. In Google Analytics
 
-해당 리액트 어플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠습니다.
+해당 리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠습니다.
 
-* 어플리케이션 화면에서 `click` 이벤트를 3번 발생시킵니다.
+* 애플리케이션 화면에서 `click` 이벤트를 3번 발생시킵니다.
     * 약 1분 뒤에 `click` 이벤트 3개를 확인할 수 있습니다.
 * `click` 이벤트에서 `element_id`가 수집됨을 확인할 수 있습니다. 
 

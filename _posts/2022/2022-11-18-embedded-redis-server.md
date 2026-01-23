@@ -11,7 +11,7 @@ last_modified_at: 2022-11-18T23:55:00
 
 ## 0. 들어가면서
 
-레디스(redis)과 연결이 필요한 어플리케이션을 개발할 때 다음과 같은 에러를 만날 수 있습니다.
+레디스(redis)과 연결이 필요한 애플리케이션을 개발할 때 다음과 같은 에러를 만날 수 있습니다.
 
 ```
 Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unable to connect to Redis; nested exception is io.lettuce.core.RedisConnectionException: Unable to connect to localhost:6379
@@ -22,7 +22,7 @@ Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unabl
 
 로그에서 확인할 수 있듯이 레디스 서비스와 연결하지 못해 발생하는 문제입니다. 
 서비스 가동 환경이라면 당연히 레디스 서비스와 연결해야 하지만, 개발자의 로컬 환경이라면 굉장히 불편한 상황입니다. 
-이번 포스트에선 개발자가 어플리케이션을 테스트하기 위해 매번 레디스 서비스를 띄워야하는 불편함을 해소할 수 있는 임베디드 레디스(embedded reids)에 대해 살펴보겠습니다.
+이번 포스트에선 개발자가 애플리케이션을 테스트하기 위해 매번 레디스 서비스를 띄워야하는 불편함을 해소할 수 있는 임베디드 레디스(embedded reids)에 대해 살펴보겠습니다.
 
 ## 1. Embedded Reids
 
@@ -43,7 +43,7 @@ Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unabl
 
 ### 1.2. 설정 파일
 
-어플리케이션이 운영되는 환경에 맞도록 설정 파일을 분할합니다.
+애플리케이션이 운영되는 환경에 맞도록 설정 파일을 분할합니다.
 
 ### 1.2.1. application.yml
 

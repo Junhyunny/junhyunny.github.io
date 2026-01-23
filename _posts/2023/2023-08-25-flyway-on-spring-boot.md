@@ -125,7 +125,7 @@ flywayMigrate.dependsOn classes
 ### 1.2. application.yml
 
 * JPA ddl-auto 설정을 `validate`로 지정합니다.
-    * 어플리케이션 실행시 엔티티와 데이터베이스 스키마가 일치하는지 여부를 확인합니다.
+    * 애플리케이션 실행시 엔티티와 데이터베이스 스키마가 일치하는지 여부를 확인합니다.
 * 데이터베이스 접속 정보를 지정합니다.
 * 마이그레이션 스크립트 파일 경로를 지정합니다.
     * db/migration - 스키마 마이그레이션 스크립트
@@ -216,7 +216,7 @@ insert into `junhyunny-db`.`tb_user` (name) values ('junhyunny');
 insert into `junhyunny-db`.`tb_user` (name) values ('jua');
 ```
 
-어플리케이션을 실행하면 다음과 같은 로그를 확인할 수 있습니다.
+애플리케이션을 실행하면 다음과 같은 로그를 확인할 수 있습니다.
 
 * Database: jdbc:mysql://localhost:3306/junhyunny-db (MySQL 8.1)
     * 마이그레이션 작업을 수행하는 데이터베이스 정보입니다.
@@ -318,7 +318,7 @@ ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50) NOT NULL;
 AALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN address VARCHAR(50) NOT NULL; 
 ```
 
-어플리케이션을 실행하면 다음과 같은 에러가 발생합니다.
+애플리케이션을 실행하면 다음과 같은 에러가 발생합니다.
 
 * Migration of schema `junhyunny-db` to version "1.0.3 - alerter user add colum address" failed
     * 마이그레이션이 실패합니다.
@@ -423,7 +423,7 @@ mysql> select * from flyway_schema_history;
 4 rows in set (0.00 sec)
 ```
 
-1.0.3 버전 마이그레이션 스크립트를 정상적으로 수정하고 어플리케이션을 실행하면 다음과 같은 에러가 발생합니다. 
+1.0.3 버전 마이그레이션 스크립트를 정상적으로 수정하고 애플리케이션을 실행하면 다음과 같은 에러가 발생합니다. 
 
 * Validate failed: Migrations have failed validation
     * 유효성 검사에서 실패합니다.
@@ -487,7 +487,7 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 For more on this, please refer to https://docs.gradle.org/8.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 ```
 
-어플리케이션을 실행하면 정상적으로 마이그레이션 작업이 수행됩니다.
+애플리케이션을 실행하면 정상적으로 마이그레이션 작업이 수행됩니다.
 
 * Successfully validated 4 migrations (execution time 00:00.024s)
     * 이전에 수행한 작업까지 포함하여 마이그레이션 스크립트에 대한 유효성 검증을 수행하고 모두 성공합니다.
@@ -521,7 +521,7 @@ For more on this, please refer to https://docs.gradle.org/8.3/userguide/command_
 ALTER TABLE `junhyunny-db`.`tb_user` DROP COLUMN email; 
 ```
 
-어플리케이션을 수행하면 다음과 같은 에러가 발생합니다.
+애플리케이션을 수행하면 다음과 같은 에러가 발생합니다.
 
 * Validate failed: Migrations have failed validation
     * 유효성 검사에서 실패합니다.
@@ -589,7 +589,7 @@ public class UserEntity {
 ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50); 
 ```
 
-어플리케이션을 실행하면 다음과 같은 에러가 발생합니다.
+애플리케이션을 실행하면 다음과 같은 에러가 발생합니다.
 
 * Migration checksum mismatch for migration version 1.0.1
     * Flyway는 이미 적용된 스크립트 파일까지 관리합니다. 
@@ -631,7 +631,7 @@ You can use '--warning-mode all' to show the individual deprecation warnings and
 For more on this, please refer to https://docs.gradle.org/8.3/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
 ```
 
-어플리케이션을 실행합니다.
+애플리케이션을 실행합니다.
 
 * Current version of schema `junhyunny-db`: 1.0.3
     * 현재 적용된 버전은 1.0.3 입니다.

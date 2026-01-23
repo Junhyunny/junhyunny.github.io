@@ -15,7 +15,7 @@ last_modified_at: 2025-12-13T23:55:00
 
 ## 0. 들어가면서
 
-이번엔 [Android WebView 사용 예제][android-webview-link]에서 만든 어플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
+이번엔 [Android WebView 사용 예제][android-webview-link]에서 만든 애플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
 
 ## 1. Android WebView
 

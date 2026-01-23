@@ -40,10 +40,10 @@ GitLab CI/CD 파이프라인에서 사용되는 용어들을 정리하였습니�
 
 * 온-프레미스(on-premise) 환경
 * 톰캣(tomcat)을 미들웨어 서버로 사용
-* 리액트(react) 라이브러리를 사용한 프론트엔드 어플리케이션 개발
+* 리액트(react) 라이브러리를 사용한 프론트엔드 애플리케이션 개발
     * react 18.2.0
     * webpack
-* 스프링 부트(spring boot) 프레임워크를 사용한 백엔드 어플리케이션 개발
+* 스프링 부트(spring boot) 프레임워크를 사용한 백엔드 애플리케이션 개발
     * JDK 17
     * spring-boot-starter-parent 3.1.1
 

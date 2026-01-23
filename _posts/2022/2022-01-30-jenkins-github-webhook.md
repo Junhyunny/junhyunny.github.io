@@ -71,7 +71,7 @@ GitHub 웹훅(webhook)을 이용하면 특정 이벤트를 감지하여 CI/CD �
 - Payload URL - 젠킨스 서버 주소에 `/github-webhook/` 경로를 추가하여 입력합니다.
     - `http://locahost:8080`를 입력하시면 정상적으로 동작하지 않습니다.
     - `http://public-ip:8080` 같이 공개 IP를 사용하는 경우에도 정상적으로 동작하지 않습니다.
-    - `ngrok` 어플리케이션을 통해 외부에서 접근할 수 있는 도메인을 사용합니다.
+    - `ngrok` 애플리케이션을 통해 외부에서 접근할 수 있는 도메인을 사용합니다.
 - Content type - `application/json` 타입을 사용합니다.
 - `Add webhook` 버튼을 누릅니다.
 

@@ -25,7 +25,7 @@ last_modified_at: 2022-12-20T23:55:00
 
 스레드에 안전하지 않은 엔티티 매니저는 매번 만들어 사용해야 합니다. 
 `EntityManagerFactory` 클래스를 사용하면 엔티티 매니저를 만들 수 있습니다. 
-`EntityManagerFactory` 클래스는 생성할 때 비용이 비싸기 때문에 어플리케이션 전역에 하나만 만들어 사용하는 것이 좋습니다. 
+`EntityManagerFactory` 클래스는 생성할 때 비용이 비싸기 때문에 애플리케이션 전역에 하나만 만들어 사용하는 것이 좋습니다. 
 `@PersistenceUnit` 애너테이션을 사용하면 `EntityManagerFactory` 빈(bean)을 주입 받을 수 있습니다.
 
 ```java

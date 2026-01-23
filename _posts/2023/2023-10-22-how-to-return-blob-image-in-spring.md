@@ -287,7 +287,7 @@ class FileControllerTest {
 
 ## 4. Result 
 
-어플리케이션을 실행 후 `http://localhost:8080`에 접속하면 다음처럼 동작하는 모습을 확인할 수 있습니다.
+애플리케이션을 실행 후 `http://localhost:8080`에 접속하면 다음처럼 동작하는 모습을 확인할 수 있습니다.
 
 <p align="center">
     <img src="/images/how-to-return-blob-image-in-spring-2.gif" width="100%" class="image__border">

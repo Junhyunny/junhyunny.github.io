@@ -205,7 +205,7 @@ Auto Boxing 테스트와 동일한 시간 모니터링하였습니다.
 
 > [Naver - Java Garbage Collection][garbage-collection-link]<br/>
 > GC에 대해서 알아보기 전에 알아야 할 용어가 있다. 
-> 바로 'stop-the-world'이다. stop-the-world란, GC을 실행하기 위해 JVM이 어플리케이션 실행을 멈추는 것이다. 
+> 바로 'stop-the-world'이다. stop-the-world란, GC을 실행하기 위해 JVM이 애플리케이션 실행을 멈추는 것이다. 
 > stop-the-world가 발생하면 GC를 실행하는 쓰레드를 제외한 나머지 쓰레드는 모두 작업을 멈춘다. 
 > GC 작업을 완료한 이후에야 중단했던 작업을 다시 시작한다. 
 > 어떤 GC 알고리즘을 사용하더라도 stop-the-world는 발생한다. 

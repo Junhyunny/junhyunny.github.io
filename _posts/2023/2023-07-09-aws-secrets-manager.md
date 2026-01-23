@@ -18,8 +18,8 @@ last_modified_at: 2023-07-09T23:55:00
 * 보안 암호의 수명 주기를 관리한다.
 * 다른 AWS 서비스와 통합하여 모니터링을 자동화한다.
 * 내부 보안 또는 규정 요건을 충족하지 않는 암호를 빠르게 찾아낼 수 있다.
-* 보안 암호 복제 기능으로 여러 지역의 어플리케이션과 재해 복구 상황을 지원한다.
-* 어플리케이션에서 필요한 설정 값들을 프로파일(profile) 단위로 관리할 수 있습니다. 
+* 보안 암호 복제 기능으로 여러 지역의 애플리케이션과 재해 복구 상황을 지원한다.
+* 애플리케이션에서 필요한 설정 값들을 프로파일(profile) 단위로 관리할 수 있습니다. 
     * 서비스가 배포되는 환경 별로 다른 설정 값을 사용할 수 있습니다.
 
 ## 2. AWS Secrets Manager Config in Spring Cloud
@@ -29,7 +29,7 @@ last_modified_at: 2023-07-09T23:55:00
 * 아래 의존성들을 추가합니다. 
     * spring-cloud-starter-bootstrap
     * spring-cloud-starter-aws-secrets-manager-config
-* 해당 의존성들이 추가되면 어플리케이션이 실행되는 시점에 `Secrets Manager`에서 필요한 설정들을 읽습니다.
+* 해당 의존성들이 추가되면 애플리케이션이 실행되는 시점에 `Secrets Manager`에서 필요한 설정들을 읽습니다.
     * bootstrap.yml 파일에 별도 설정이 추가되어야 합니다.
 
 ```xml
@@ -47,7 +47,7 @@ last_modified_at: 2023-07-09T23:55:00
 
 ## 3. Practice
 
-`Secrets Manager`에 간단한 프로퍼티를 설정하고 어플리케이션에서 주입 받는 예제를 살펴보겠습니다. 
+`Secrets Manager`에 간단한 프로퍼티를 설정하고 애플리케이션에서 주입 받는 예제를 살펴보겠습니다. 
 먼저 AWS 콘솔의 `Secrets Manager`에서 다음과 같은 과정을 통해 설정들을 추가합니다.
 
 ### 3.1. Setup Secrets Manager
@@ -190,7 +190,7 @@ database:
 
 #### 3.2.3. ActionInBlogApplication Class
 
-어플리케이션이 실행 후 출력되는 로그를 통해 주입된 값들을 확인합니다. 
+애플리케이션이 실행 후 출력되는 로그를 통해 주입된 값들을 확인합니다. 
 
 ```java
 package action.in.blog;
@@ -230,7 +230,7 @@ public class ActionInBlogApplication {
 
 ### 3.3. Run Application
 
-* 프로파일이 적용된 스프링 어플리케이션을 실행할 때 다음과 같은 설정들이 모두 필요합니다.
+* 프로파일이 적용된 스프링 애플리케이션을 실행할 때 다음과 같은 설정들이 모두 필요합니다.
     * /secret/{name}_{profile}
     * /secret/{name}
     * /secret/application_{profile}
@@ -257,7 +257,7 @@ public class ActionInBlogApplication {
 
 #### 3.3.1. Setup AWS configure and token
 
-로컬 컴퓨터에서 어플리케이션을 실행하면 다음과 같은 에러 로그를 만날 수 있습니다. 
+로컬 컴퓨터에서 애플리케이션을 실행하면 다음과 같은 에러 로그를 만날 수 있습니다. 
 해당 에러는 로컬 컴퓨터가 `Secrets Manager`에 접근할 수 있는 권한이 없기 때문에 발생합니다.
 
 ```
@@ -286,7 +286,7 @@ $ aws configure set aws_session_token ${YOUR_AWS_SESSION_TOKEN}
 
 #### 3.3.2. Application Logs
 
-어플리케이션을 실행합니다. 
+애플리케이션을 실행합니다. 
 주요하게 살펴볼 로그들은 다음과 같습니다.
 
 * Located property source: [BootstrapPropertySource {name='bootstrapProperties-/secret/action-in-blog_dev'}, BootstrapPropertySource {name='bootstrapProperties-/secret/action-in-blog'}, BootstrapPropertySource {name='bootstrapProperties-/secret/application_dev'}, BootstrapPropertySource {name='bootstrapProperties-/secret/application'}]

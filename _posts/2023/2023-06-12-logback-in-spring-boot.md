@@ -67,7 +67,7 @@ last_modified_at: 2023-06-12T23:55:00
     * 중요도 2위입니다.
 * INFO 
     * 애플리케이션의 전반적인 흐름을 나타내는 정보성 메시지입니다.
-    * 운영 중 어플리케이션의 중요한 비즈니스 프로세스를 로깅합니다.
+    * 운영 중 애플리케이션의 중요한 비즈니스 프로세스를 로깅합니다.
     * 중요도 3위입니다.
 * DEBUG 
     * 중요도가 낮은 정보성 메시지입니다.
@@ -370,7 +370,7 @@ log:
 
 ### 3.6. ActionInBlogApplication Class
 
-* 어플리케이션을 실행하면 각 로그 레벨 별로 문자열을 출력합니다.
+* 애플리케이션을 실행하면 각 로그 레벨 별로 문자열을 출력합니다.
 
 ```java
 package action.in.blog;
@@ -415,8 +415,8 @@ public class ActionInBlogApplication implements CommandLineRunner {
 
 ### 3.7. Run Application
 
-각 실행 환경 별로 어플리케이션을 실행하고, 생성되는 로그를 확인합니다. 
-어플리케이션을 실행하기 위해 jar 파일로 빌드합니다. 
+각 실행 환경 별로 애플리케이션을 실행하고, 생성되는 로그를 확인합니다. 
+애플리케이션을 실행하기 위해 jar 파일로 빌드합니다. 
 
 ```
 $ ./gradlew :bootJar                                      

@@ -24,7 +24,7 @@ last_modified_at: 2026-01-24T08:55:00
 - 웹캠 영상 처리는 고도로 비동기적인 작업이다. 카메라를 켜는 속도, 해상도 설정에 따른 로딩 시간 등 하드웨어 가용 상태에 따라 실행 환경이 매번 달라질 수 있다.
 - WebRTC 및 MediaStream API는 브라우저 엔진(chromium, webkit, firefox)마다 구현 방식이나 지원하는 코덱에 미세한 차이가 있다. 멀티 브라우저 테스트를 통해 이를 검증할 수 있다.
 
-이 글은 브라우저 웹캠을 통해 촬영하는 기능을 Playwright 프레임워크을 통해 테스트하는 방법에 대해 정리했다.
+이 글은 브라우저 웹캠 촬영 기능을 Playwright 프레임워크를 통해 테스트하는 방법에 대해 정리했다.
 
 ## 1. Fake media stream in Playwright
 
@@ -33,7 +33,7 @@ last_modified_at: 2026-01-24T08:55:00
 - CI/CD 파이프라인에는 실제 연결된 카메라가 없으므로 촬영이 불가능하다.
 - 테스트마다 촬영 모습이 매번 다르다면 결과를 검증하는 것이 어렵고, 테스트는 매번 실패할 것이다.
 
-위 두가지 문제점을 해결하기 위한 방법으로 Playwright의 페이크 미디어 스트림(fake media stream)을 사용할 수 있다. 미리 녹화한 영상을 video 태그에 스트림으로 연결하는 방법이다. 쉽게 이야기하면 실제 카메라로부터 전달받는 영상 스트림이 아닌 목킹(mocking) 영상 스트림을 사용하는 것이다. 실제 카메라가 없어도 영상을 촬영할 수 있고, 매번 같은 영상을 출력하는 것이 가능하다. 
+위 두 가지 문제점을 해결하기 위한 방법으로 Playwright의 페이크 미디어 스트림(fake media stream)을 사용할 수 있다. 미리 녹화한 영상을 video 태그에 스트림으로 연결하는 방법이다. 쉽게 이야기하면 실제 카메라로부터 전달받는 영상 스트림이 아닌 목킹(mocking) 영상 스트림을 사용하는 것이다. 실제 카메라가 없어도 영상을 촬영할 수 있고, 매번 같은 영상을 출력하는 것이 가능하다. 
 
 <div align="center">
   <img src="/images/posts/2026/playwright-testing-camera-stream-mocking-01.png" width="100%" class="image__border">
@@ -41,9 +41,7 @@ last_modified_at: 2026-01-24T08:55:00
 
 ## 2. Use fake media stream
 
-지금부터 Playwright 프레임워크를 통해 테스트 코드를 작성해본다. 이 글은 테스트 코드에 대한 내용만 다루고, 영상 녹화/사진 촬영 기능은 [이전 글][record-video-web-camera-link]을 참고하길 바란다. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-01-24-playwright-testing-camera-stream-mocking)를 통해 확인할 수 있다. E2E 테스트 프로젝트 생성 방법은 [공식 홈페이지](https://playwright.dev/docs/intro)를 참고하길 바란다.
-
-E2E 테스트 프로젝트를 생성하면 playwright.config.ts 파일이 생성된다. 해당 설정 파일에 아래와 같이 권한과 크롬 실행 옵션을 추가한다.
+지금부터 Playwright 프레임워크의 페이크 미디어 스트림을 통해 웹캠 촬영에 대한 테스트를 해보자. 테스트 이전에 몇 가지 설정과 준비가 필요하다. 먼저 E2E 테스트 프로젝트를 생성한다. 생성 방법은 [공식 홈페이지](https://playwright.dev/docs/intro)를 참고하길 바란다. E2E 테스트 프로젝트를 생성하면 playwright.config.ts 설정 파일이 생성된다. 이 설정 파일에 아래와 같이 권한과 크롬 실행 옵션을 추가한다.
 
 - 루트 use 객체에 permissions 배열에 카메라 권한을 추가한다.
 - 프로젝트 배열에 크롬 객체에 실행 옵션을 추가한다. 크롬 실행 옵션은 [실제 코드](https://chromium.googlesource.com/chromium/src/media/+/master/base/media_switches.cc)를 통해 확인할 수 있다.
@@ -108,7 +106,9 @@ $ ffmpeg -i sample.mov -vf scale=1280:-1 -r 3 -f yuv4mpegpipe output.y4m
 
 ## 3. Tests
 
-[리액트 브라우저 웹캠(web camera) 촬영/녹화 구현하기][record-video-web-camera-link]에서 다뤘던 웹캠 영상 녹화, 사진 촬영 기능을 대상으로 테스트를 수행한다. 먼저 비디오 녹화 기능에 대한 테스트 코드는 다음과 같다.
+이 글은 테스트 코드만 다룬다. [리액트 브라우저 웹캠(web camera) 촬영/녹화 구현하기][record-video-web-camera-link]에서 다뤘던 웹캠 영상 녹화, 사진 촬영 기능을 대상으로 테스트를 수행한다. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-01-24-playwright-testing-camera-stream-mocking)를 통해 확인할 수 있다. 
+
+먼저 비디오 녹화 기능에 대한 테스트 코드는 다음과 같다.
 
 1. 화면에 접속한다. 즉시 녹화를 시작하지 않고, 미디어 스트림이 연결되는 것을 500ms 기다린다. 
 2. "녹화 시작" 버튼을 클릭 후 1초 대기한다.

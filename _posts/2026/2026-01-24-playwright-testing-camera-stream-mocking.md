@@ -1,5 +1,5 @@
 ---
-title: "Playwright 페이크 미디어 스트림(fake media stream)으로 브라우저 웹캠(web camera) 기능 테스트하기"
+title: "Playwright 페이크 미디어 스트림(fake media stream)으로 웹캠(webcam) 촬영 테스트"
 search: false
 category:
   - playwright
@@ -24,7 +24,7 @@ last_modified_at: 2026-01-24T08:55:00
 - 웹캠 영상 처리는 고도로 비동기적인 작업이다. 카메라를 켜는 속도, 해상도 설정에 따른 로딩 시간 등 하드웨어 가용 상태에 따라 실행 환경이 매번 달라질 수 있다.
 - WebRTC 및 MediaStream API는 브라우저 엔진(chromium, webkit, firefox)마다 구현 방식이나 지원하는 코덱에 미세한 차이가 있다. 멀티 브라우저 테스트를 통해 이를 검증할 수 있다.
 
-이 글은 브라우저 웹캠을 통해 촬영하는 기능을 Playwright 프레임워크를 통해 E2E 테스트하는 방법에 대해 정리했다.
+이 글은 브라우저 웹캠을 통해 촬영하는 기능을 Playwright 프레임워크을 통해 테스트하는 방법에 대해 정리했다.
 
 ## 1. Fake media stream in Playwright
 

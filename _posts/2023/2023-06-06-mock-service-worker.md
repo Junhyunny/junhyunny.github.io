@@ -1,75 +1,67 @@
 ---
-title: "Mock Service Worker"
+title: "목 서비스 워커 (Mock Service Worker)"
 search: false
 category:
   - information
   - react
   - test-driven-development
-last_modified_at: 2023-06-06T23:55:00
+last_modified_at: 2026-01-27T23:55:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [테스트 더블(Test Double)][test-double-link]
-* [React 환경 변수 설정과 실행 환경 분리][react-env-variable-setting-link]
-* [Service Worker][service-worker-api-link]
+- [테스트 더블(Test Double)][test-double-link]
+- [React 환경 변수 설정과 실행 환경 분리][react-env-variable-setting-link]
+- [Service Worker][service-worker-api-link]
 
 ## 1. Mock Service Worker
 
-목 서비스 워커(MSW, Mock Service Worker)는 이름처럼 [서비스 워커(Service Worker)][service-worker-api-link]의 [테스트 더블(test double)][test-double-link]을 의미합니다. 
-API 모킹(mocking)을 지원하는 라이브러리이며 서버로 보내는 네트워크 요청을 가로채어 모의 응답을 내려줍니다. 
-서비스 워커가 무엇이고 어떤 동작을 하는지 안다면 목 서비스 워커를 이해하는데 도움이 됩니다. 
-먼저 서비스 워커에 대해 간단하게 알아보겠습니다.
+목 서비스 워커(MSW, Mock Service Worker)는 이름처럼 [서비스 워커(Service Worker)][service-worker-api-link]의 [테스트 더블(test double)][test-double-link]을 의미한다. API 모킹(mocking)을 지원하는 라이브러리이며 서버로 보내는 네트워크 요청을 가로채어 모의 응답을 내려준다. 서비스 워커가 무엇이고 어떤 동작을 하는지 안다면 목 서비스 워커를 이해하는데 도움이 된다. 먼저 서비스 워커에 대해 간단하게 알아본다.
 
 ### 1.1. Service Worker
 
-> 브라우저에서 실행되는 백그라운드 스크립트이며 브라우저와 서버 사이에서 요청과 응답을 처리할 수 있는 네트워크 프록시(proxy)입니다.
+> 브라우저에서 실행되는 백그라운드 스크립트이며 브라우저와 서버 사이에서 요청과 응답을 처리할 수 있는 네트워크 프록시(proxy)이다.
 
-서비스 워커는 웹 애플리케이션과 독립적으로 동작하는 스크립트입니다. 
-서비스 워커 역할을 수행할 수 있는 JavaScript 파일을 브라우저에 등록만 하면 사용할 수 있습니다. 
-웹 애플리케이션에서 간단한 코드를 통해 서비스 워커를 설치할 수 있습니다. 
+서비스 워커는 웹 애플리케이션과 독립적으로 동작하는 스크립트이다. 서비스 워커 역할을 수행할 수 있는 JavaScript 파일을 브라우저에 등록만 하면 사용할 수 있다. 웹 애플리케이션에서 간단한 코드를 통해 서비스 워커를 설치할 수 있다. 서비스 워커는 대표적으로 다음과 같은 기능을 제공한다.
 
-서비스 워커는 대표적으로 다음과 같은 기능을 제공합니다.
+- 오프라인 브라우징(offline browsing)
+- 백그라운드 동기화
+- 푸시 알림
 
-* 오프라인 브라우징(offline browsing)
-* 백그라운드 동기화
-* 푸시 알림
+서비스 워커가 이런 기능들을 제공할 수 있는 이유는 다음과 같다.
 
-서비스 워커가 이런 기능들을 제공할 수 있는 이유는 다음과 같습니다. 
+- 이벤트 기반으로 동작하며 웹 애플리케이션에서 수행하는 네트워크 요청 이벤트를 가로챌 수 있다.
+- 브라우저 캐시 저장소(cache storage)를 사용할 수 있으며 오프라인 상태에서 캐시에 저장된 리소스를 사용할 수 있다.
+- 설치를 통해 백그라운드에서 별도로 동작할 수 있다.
 
-* 이벤트 기반으로 동작하며 웹 애플리케이션에서 수행하는 네트워크 요청 이벤트를 가로챌 수 있습니다.
-* 브라우저 캐시 저장소(cache storage)를 사용할 수 있으며 오프라인 상태에서 캐시에 저장된 리소스를 사용할 수 있습니다.
-* 설치를 통해 백그라운드에서 별도로 동작할 수 있습니다.
+<div align="center">
+  <img src="/images/posts/2023/mock-service-worker-01.png" width="80%" class="image__border">
+</div>
 
-<p align="center">
-    <img src="/images/mock-service-worker-1.JPG" width="80%" class="image__border">
-</p>
+### 1.2. How does Mock Service Worker work? 
 
-### 1.2. How does Mock Servic Worker work? 
+목 서비스 워커는 브라우저 환경에서 다음과 같은 방법으로 동작한다. 플로우 다이어그램(flow diagram)에는 브라우저로 표현되어 있지만, 더 정확한 표현은 웹 애플리케이션이라고 생각되어 명칭을 바꿔 설명한다.
 
-목 서비스 워커는 브라우저 환경에서 다음과 같은 방법으로 동작합니다. 
-플로우 다이어그램(flow diagram)에는 브라우저로 표현되어 있지만, 더 정확한 표현은 웹 애플리케이션이라고 생각되어 명칭을 바꿔 설명했습니다. 
+1. 웹 애플리케이션에서 서버로 요청을 보낸다.
+  - 서비스 워커가 웹 애플리케이션의 요청을 가로챈다.
+  - 서비스 워커는 네트워크 요청을 fetch 이벤트 콜백 함수를 통해 가로챌 수 있다.
+2. 요청 정보를 목 서비스 워커에게 복사하여 전달한다.
+3. 목 서비스 워커는 해당 요청에 매칭되는 사전에 정의한 핸들러(handler)를 실행한다.
+4. 서비스 워커는 목 서비스 워커로부터 모의 응답을 전달받는다.
+5. 서비스 워커는 모의 응답을 웹 애플리케이션에 전달한다.
 
-1. 웹 애플리케이션에서 서버로 요청을 보냅니다. 
-    * 서비스 워커가 웹 애플리케이션의 요청을 가로챕니다. 
-    * 서비스 워커는 네트워크 요청을 fetch 이벤트 콜백 함수를 통해 가로챌 수 있습니다.
-1. 요청 정보를 목 서비스 워커에게 복사하여 전달합니다.
-1. 목 서비스 워커는 해당 요청에 매칭되는 사전에 정의한 핸들러(handler)를 실행합니다.
-1. 서비스 워커는 목 서비스 워커로부터 모의 응답을 전달받습니다.
-1. 서비스 워커는 모의 응답을 웹 애플리케이션에 전달합니다. 
-
-<p align="center">
-    <img src="/images/mock-service-worker-2.JPG" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2023/mock-service-worker-02.png" width="80%" class="image__border">
+</div>
 <center>https://mswjs.io/docs/#request-flow-diagram</center>
 
-## 2. Practice 
+## 2. Practice
 
-간단한 TODO 리스트 애플리케이션 예시를 통해 목 서비스 워커의 사용 방법을 알아보겠습니다. 
+간단한 TODO 리스트 애플리케이션 예시를 통해 목 서비스 워커의 사용 방법을 알아본다.
 
-* CRA(Create React App)을 통해 프로젝트를 생성하였으며 전체적인 구조는 다음과 같습니다. 
+CRA(Create React App)을 통해 프로젝트를 생성하였으며 전체적인 구조는 다음과 같다. 
 
 ```
 ./
@@ -104,7 +96,7 @@ API 모킹(mocking)을 지원하는 라이브러리이며 서버로 보내는 �
 └── yarn.lock
 ```
 
-* 프로젝트 경로에서 아래 명령어를 통해 목 서비스 워커 API 의존성을 설치합니다.
+프로젝트 경로에서 아래 명령어를 통해 목 서비스 워커 API 의존성을 설치한다.
 
 ```
 $ yarn add msw --dev
@@ -126,21 +118,17 @@ info All dependencies
 ✨  Done in 17.52s.
 ```
 
-### 2.1. Mock Service Worker for Test
+### 2.1. Mock Service Worker setting
 
-리액트 애플리케이션의 테스팅 프레임워크인 jest는 노드(nodejs) 환경에서 동작합니다. 
-런타임 시 브라우저에 목 서비스 워커를 설치하는 방법과 다르므로 이를 주의하시기 바랍니다. 
+리액트 애플리케이션의 테스팅 프레임워크인 `jest`는 노드(node) 환경에서 동작한다. 런타임 시 브라우저에 목 서비스 워커를 설치하는 방법과 다르므로 이를 주의하길 바란다.
 
-#### 2.1.1. handlers.ts
+먼저 모의 응답을 만드는 핸들러를 정의한다. 프로젝트 `src/mocks` 경로에 생성한다.
 
-모의 응답을 만드는 핸들러를 정의합니다.
-
-* 프로젝트 `src/mocks` 경로에 생성합니다. 
-* `/todos` GET 요청
-    * 기존에 저장된 TODO 리스트를 모의 응답합니다.
-* `/todos` POST 요청
-    * 요청을 통해 전달받은 내용으로 새로운 TODO를 생성합니다.
-    * 신규 TODO가 생성되었다고 가정하고 임의의 아이디와 함께 신규 TODO를 모의 응답합니다.
+- `/todos` GET 요청
+  - 기존에 저장된 TODO 리스트를 모의 응답한다.
+- `/todos` POST 요청
+  - 요청을 통해 전달받은 내용으로 새로운 TODO를 생성한다.
+  - 신규 TODO가 생성되었다고 가정하고 임의의 아이디와 함께 신규 TODO를 모의 응답한다.
 
 ```ts
 import { rest } from "msw";
@@ -169,11 +157,10 @@ export const handlers = [
 ];
 ```
 
-#### 2.1.2. server.ts
+다음으로 목 서비스 워커를 사용해 모의 서버 객체를 생성한다. 프로젝트 `src/mocks` 경로에 생성한다.
 
-* 프로젝트 `src/mocks` 경로에 생성합니다. 
-* 생성한 핸들러를 사용하여 서버 객체를 생성합니다.
-    * 개발 서버 환경에서 사용하는 함수인 setupWorker()와 다르므로 주의합니다.
+- 생성한 핸들러를 사용하여 모의 서버 객체를 생성한다.
+- 개발 서버 환경에서 사용하는 함수인 setupWorker()와 다르므로 주의한다.
 
 ```ts
 import { setupServer } from "msw/node";
@@ -182,13 +169,11 @@ import { handlers } from "./handlers";
 export const server = setupServer(...handlers);
 ```
 
-#### 2.1.3. setupTests.ts
+이전 단계에서 생성한 서버 객체를 테스트 코드 실행 시 사용할 수 있도록 테스트 환경 셋업(setup) 스크립트에 아래 코드를 추가한다.
 
-* 이전 단계에서 생성한 서버 객체를 테스트 코드 실행 시 사용할 수 있도록 테스트 환경 셋업(setup) 스크립트에 아래 코드를 추가합니다.
-* beforeAll() 함수를 통해 테스트 시작 전에 서버를 실행합니다.
-* afterEach() 함수를 통해 각 테스트 완료 후에 핸들러를 초기화합니다.
-    * 각 테스트 사이의 상태 커플링(state couping)을 방지합니다.
-* afterAll() 함수를 통해 모든 테스트 완료 후에 서버를 종료합니다.
+- beforeAll() 함수를 통해 테스트 시작 전에 서버를 실행한다.
+- afterEach() 함수를 통해 각 테스트 완료 후에 핸들러를 초기화하여 각 테스트 사이의 상태 커플링(state coupling)을 방지한다.
+- afterAll() 함수를 통해 모든 테스트 완료 후에 서버를 종료한다.
 
 ```ts
 import "@testing-library/jest-dom";
@@ -199,12 +184,12 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 ```
 
-#### 2.1.4. App.tsx
+### 2.2. Mock Service Worker for test
 
-간단한 TODO 리스트 애플리케이션입니다. 
+간단한 TODO 리스트 애플리케이션으로 목 서비스 워커를 사용한 테스트 코드를 작성해보자. 먼저 테스트 대상이 될 구현 코드를 살펴본다.
 
-* 이전에 작성한 TODO 항목들을 화면에 표시합니다.
-* 신규 TODO를 추가하면 서버로 저장 요청 후 정상적인 응답을 받는 경우 화면에 추가합니다.
+- 이전에 작성한 TODO 항목들을 화면에 표시한다.
+- 신규 TODO를 추가하면 서버로 저장 요청 후 정상적인 응답을 받는 경우 화면에 추가한다.
 
 ```tsx
 import React, { useEffect, useRef, useState } from "react";
@@ -251,15 +236,12 @@ function App() {
 export default App;
 ```
 
-#### 2.1.5. App.test.tsx
+아래 단위 테스트는 다음과 같은 기능들을 테스트한다. 목 서비스 워커가 모의 응답을 제공하기 때문에 별도로 axios 모듈을 스터빙(stubbing)하지 않아도 된다. 해당 테스트는 정상적으로 통과한다. 
 
-단위 테스트는 정상적으로 통과하며 다음과 같은 기능들을 테스트합니다.
-
-* 목 서비스 워커가 모의 응답을 주기 때문에 별도로 axios 모듈을 스터빙(stubbing)하지 않습니다.
-* renders todo list test
-    * 기존에 작성된 TODO 리스트가 랜더링 시 화면에 보이는지 확인합니다.
-* add new todo test
-    * 새로운 TODO를 추가하는 버튼을 클릭하면 리스트에 추가되고 입력창은 정리되는지 확인합니다.
+- renders todo list test
+  - 기존에 작성된 TODO 리스트가 랜더링 시 화면에 보이는지 확인한다.
+- add new todo test
+  - 새로운 TODO를 추가하는 버튼을 클릭하면 리스트에 추가되고 입력창은 정리되는지 확인한다.
 
 ```tsx
 import React from "react";
@@ -286,17 +268,12 @@ test("add new todo", async () => {
 });
 ```
 
-### 2.2. Mock Service Worker for Runtime
+### 2.3. Mock Service Worker for development runtime
 
-목 서비스 워커는 백엔드 서비스가 아직 구성되어 있지 않은 경우 활용할 수 있습니다. 
-로컬 개발 서버를 통해 리액트 애플리케이션을 실행할 때 목 서비스 워커는 백엔드 서비스를 임시로 대체할 수 있습니다. 
-위에서 단위 테스트를 위해 정의한 핸들러와 동일한 코드를 사용하므로 핸들러 코드 설명은 제외하겠습니다. 
+목 서비스 워커는 백엔드 서비스가 아직 구성되어 있지 않은 경우에도 활용할 수 있다. 리액트 애플리케이션을 로컬 개발 서버로 실행할 때 목 서비스 워커는 백엔드 서비스를 임시로 대체한다. 위에서 단위 테스트를 위해 정의한 핸들러와 동일한 코드를 사용하므로 핸들러 코드 설명은 제외한다. 프로젝트 `src/mocks` 경로에 생성한다.
 
-#### 2.2.1. browser.ts
-
-* 프로젝트 `src/mocks` 경로에 생성합니다. 
-* 생성한 핸들러를 사용하여 목 서비스 워커 객체를 생성합니다.
-    * 테스트 환경에서 사용하는 함수인 setupServer()와 다르므로 주의합니다.
+- 생성한 핸들러를 사용하여 목 서비스 워커 객체를 생성한다.
+- 테스트 환경에서 사용하는 함수인 setupServer()와 다르므로 주의한다.
 
 ```ts
 import { handlers } from "./handlers";
@@ -305,11 +282,9 @@ import { setupWorker } from "msw";
 export const worker = setupWorker(...handlers);
 ```
 
-#### 2.2.2. index.tsx
+리액트 애플리케이션이 실행될 때 개발 서버에서만 목 서비스 워커가 함께 실행되도록 아래 코드를 추가한다.
 
-* 리액트 애플리케이션이 실행될 때 목 서비스 워커도 함께 실행되도록 아래 코드를 추가합니다.
-* 개발 서버 환경에서만 실행되도록 `NODE_ENV` 환경 변수 값을 확인합니다.
-    * `npm run start` 명령어를 통해 개발 서버를 실행하면 `NODE_ENV` 환경 변수 값이 `development`입니다.
+- 개발 서버로 애플리케이션을 실행하면 `NODE_ENV` 환경 변수는 `development`이므로 이를 확인한다.
 
 ```tsx
 import React from "react";
@@ -335,13 +310,7 @@ root.render(
 reportWebVitals();
 ```
 
-#### 2.2.3. Install Mock Service Worker
-
-[Service Worker][service-worker-api-link] 포스트에서 설명했듯 서비스 워커는 별도의 스크립트 파일이 필요합니다. 
-MSW 라이브러리는 npx 명령어를 통해 서비스 워커 스크립트 파일 다운로드를 쉽게 제공합니다. 
-
-* `npx msw init public/ --save` 명령어
-    * public 경로에 `mockServiceWorker.js` 스크립트 파일을 다운로드 받습니다.
+[Service Worker][service-worker-api-link]에서 설명한 것처럼 서비스 워커는 별도의 스크립트 파일이 필요하다. MSW 라이브러리는 npx 명령어를 통해 서비스 워커 스크립트 파일 다운로드를 쉽게 제공한다. 아래 명령어를 실행하면 public 경로에 `mockServiceWorker.js` 스크립트 파일을 다운로드 받는다.
 
 ```
 $ npx msw init public/ --save
@@ -369,38 +338,34 @@ drwxr-xr-x  12 junhyunk  staff   384 Jun  6 22:31 ..
 -rw-r--r--   1 junhyunk  staff    67 Jun  6 21:22 robots.txt
 ```
 
-##### 2.2.4. Run Dev Server
+개발 서버를 실행한 후 접속하면 핸들러에 미리 추가한 모의 응답들을 브라우저 화면에서 확인할 수 있다. 신규 TODO 추가도 정상적으로 동작한다.
 
-* 개발 서버에 접속합니다.
-    * 핸들러에 미리 추가한 모의 응답들이 화면에 출력됩니다.
-    * 신규 TODO 추가 시에도 정상적으로 동작합니다.
-* 등록된 서비스 워커 정보는 `개발자 도구(F12) > 애플리케이션 > Service Workers`에서 확인할 수 있습니다.
-* 콘솔 로그에 목 서비스 워커 동작과 관련된 로그가 출력됩니다.
+- 등록된 서비스 워커 정보는 `개발자 도구(F12) > 애플리케이션 > Service Workers`에서 확인할 수 있다.
+- 콘솔 로그에 목 서비스 워커 동작과 관련된 로그가 출력된다.
 
-<p align="center">
-    <img src="/images/mock-service-worker-3.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="/images/posts/2023/mock-service-worker-03.png" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-목 서비스 워커를 사용하면 프론트엔드 개발 시 마주치는 문제들을 해결할 수 있을 것 같습니다. 
+목 서비스 워커를 사용하면 프론트엔드 개발 시 마주치는 문제들을 해결할 수 있을 것 같다.
 
-* 백엔드 서비스 개발이 되지 않은 상태에서 API 관련된 기능을 개발할 수 있다.
-* 프론트엔드 테스트 코드 작성시 중복되는 스텁들을 핸들러 파일에서 공동으로 관리할 수 있다.
+- 백엔드 서비스 개발이 되지 않은 상태에서 API 관련된 기능을 개발할 수 있다.
+- 프론트엔드 테스트 코드 작성 시 중복되는 스텁들을 핸들러 파일에서 공동으로 관리할 수 있다.
 
-API 응답을 위한 스텁 같은 경우에는 화면의 기능에 따라 커지거나 많아지기 때문에 테스트 코드를 보기 어려워집니다. 
-비즈니스 단위로 핸들러를 만들고 적절한 모의 응답들을 반환한다면 테스트 코드가 짧고 간결해질 것 같습니다. 
+API 응답을 위한 스텁의 경우 화면의 기능에 따라 커지거나 많아지기 때문에 테스트 코드를 보기 어려워진다. 비즈니스 단위로 핸들러를 만들고 적절한 모의 응답들을 반환한다면 테스트 코드를 짧고 간결하게 유지할 수 있다. 
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-06-mock-service-worker>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-06-mock-service-worker>
 
 #### REFERENCE
 
-* <https://mswjs.io/>
-* <https://mswjs.io/docs/#request-flow-diagram>
-* <https://www.daleseo.com/mock-service-worker/>
-* <https://blog.rhostem.com/posts/2021-03-20-mock-service-worker>
+- <https://mswjs.io/>
+- <https://mswjs.io/docs/#request-flow-diagram>
+- <https://www.daleseo.com/mock-service-worker/>
+- <https://blog.rhostem.com/posts/2021-03-20-mock-service-worker>
 
 [test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/
 [react-env-variable-setting-link]: https://junhyunny.github.io/react/react-env-variable-setting/

@@ -344,7 +344,7 @@ drwxr-xr-x  12 junhyunk  staff   384 Jun  6 22:31 ..
 - 콘솔 로그에 목 서비스 워커 동작과 관련된 로그가 출력된다.
 
 <div align="center">
-  <img src="/images/posts/2023/mock-service-worker-03.png" width="100%" class="image__border">
+  <img src="/images/posts/2023/mock-service-worker-03.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

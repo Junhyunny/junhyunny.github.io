@@ -144,7 +144,7 @@ export default App;
 
 #### RECOMMEND NEXT POSTS
 
-* [Authentication Router in React][authentication-router-in-react-link]
+* [React 인증 라우터 구현하기][authentication-router-in-react-link]
 
 #### REFERENCE
 

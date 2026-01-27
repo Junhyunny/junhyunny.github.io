@@ -14,7 +14,7 @@ last_modified_at: 2026-01-27T23:55:00
 
 - [테스트 더블(Test Double)][test-double-link]
 - [React 환경 변수 설정과 실행 환경 분리][react-env-variable-setting-link]
-- [Service Worker][service-worker-api-link]
+- [브라우저 서비스 워커(Service Worker)][service-worker-api-link]
 
 ## 1. Mock Service Worker
 
@@ -310,7 +310,7 @@ root.render(
 reportWebVitals();
 ```
 
-[Service Worker][service-worker-api-link]에서 설명한 것처럼 서비스 워커는 별도의 스크립트 파일이 필요하다. MSW 라이브러리는 npx 명령어를 통해 서비스 워커 스크립트 파일 다운로드를 쉽게 제공한다. 아래 명령어를 실행하면 public 경로에 `mockServiceWorker.js` 스크립트 파일을 다운로드 받는다.
+[이전 서비스 워커를 다룬 글][service-worker-api-link]에서 설명한 것처럼 서비스 워커는 별도의 스크립트 파일이 필요하다. MSW 라이브러리는 npx 명령어를 통해 서비스 워커 스크립트 파일 다운로드를 쉽게 제공한다. 아래 명령어를 실행하면 public 경로에 `mockServiceWorker.js` 스크립트 파일을 다운로드 받는다.
 
 ```
 $ npx msw init public/ --save

@@ -342,4 +342,4 @@ W0000 00:00:1720024465.559157 4643189 inference_feedback_manager.cc:114] Feedbac
 - <https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker/python?hl=ko>
 - <https://stackoverflow.com/questions/78329439/how-to-normalize-hand-landmark-positions-in-video-frames-using-mediapipe>
 
-[project-retrospective-link]: https://junhyunny.github.io/life-log/2024-06-04-life-log-20240604/
+[project-retrospective-link]: https://junhyunny.github.io/logs/2024/2024-06-04-life-log-20240604/

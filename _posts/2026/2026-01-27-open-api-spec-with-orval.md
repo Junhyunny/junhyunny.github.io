@@ -223,7 +223,7 @@ $ npm run generate
 설정 파일에 지정된 경로에 API, 목 API, 스키마 코드 파일이 분리되어 저장된다.
 
 <div align="left">
-  <img src="/images/posts/2026/open-api-spec-with-orval-01.png" width="50%" class="image__border">
+  <img src="/images/posts/2026/open-api-spec-with-orval-01.png" width="40%" class="image__border">
 </div>
 
 #### TEST CODE REPOSTORY

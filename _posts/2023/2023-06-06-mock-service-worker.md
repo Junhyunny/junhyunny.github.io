@@ -14,7 +14,7 @@ last_modified_at: 2026-01-27T23:55:00
 
 - [테스트 더블(Test Double)][test-double-link]
 - [React 환경 변수 설정과 실행 환경 분리][react-env-variable-setting-link]
-- [브라우저 서비스 워커(Service Worker)][service-worker-api-link]
+- [브라우저 서비스 워커 (Service Worker)][service-worker-api-link]
 
 ## 1. Mock Service Worker
 

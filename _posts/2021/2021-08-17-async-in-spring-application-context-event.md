@@ -254,8 +254,8 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<div align="left">
-  <img src="/images/posts/2021/async-spring-application-context-event-01.png" width="80%">
+<div align="center">
+  <img src="/images/posts/2021/async-spring-application-context-event-01.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

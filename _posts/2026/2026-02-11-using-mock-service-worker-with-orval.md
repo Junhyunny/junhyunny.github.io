@@ -23,9 +23,7 @@ last_modified_at: 2026-02-11T15:55:00
 
 ## 1. Generate MSW handlers and React Query hooks
 
-이번 예제에서 사용할 OpenAPI 명세서는 [이 링크](https://github.com/Junhyunny/blog-in-action/blob/master/2026-02-11-using-mock-service-worker-with-orval/action-in-blog/api/openapi-specification.yaml)를 참고하길 바란다. 명세서가 길기 때문에 필요한 내용만 부분적으로 살펴본다. 
-
-우선 코드를 자동으로 생성해보자. 다음과 같이 Orval 설정 파일(orval.config.js)을 작성한다.
+이번 예제에서 사용할 OpenAPI 명세서는 [이 링크](https://github.com/Junhyunny/blog-in-action/blob/master/2026-02-11-using-mock-service-worker-with-orval/action-in-blog/api/openapi-specification.yaml)를 참고하길 바란다. 명세서가 길기 때문에 필요한 내용만 부분적으로 살펴본다. 우선 Orval을 통해 코드를 생성해보자. 다음과 같이 Orval 설정 파일(orval.config.js)을 작성한다.
 
 - mock 속성을 'true'로 설정하면 MWS 목킹을 위한 핸들러 함수들을 생성한다.
 - client 속성을 'react-query'로 설정하면 리액트 쿼리(react query) 커스텀 훅을 생성한다.

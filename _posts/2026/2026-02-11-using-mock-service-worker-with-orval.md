@@ -1,5 +1,5 @@
 ---
-title: "Orval MSW(Mock Service Worker) 핸들러 생성과 React Query 테스트 작성하기"
+title: "Orval MSW(Mock Service Worker) 핸들러 생성과 React Query 테스트"
 search: false
 category:
   - react

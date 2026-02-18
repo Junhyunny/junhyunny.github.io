@@ -13,7 +13,7 @@ last_modified_at: 2026-02-13T00:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [OpenAPI 명세서를 사용한 Orval 클라이언트 코드 자동 생성하기][open-api-spec-with-orval-link]
-- [Orval MSW(Mock Service Worker) 핸들러 생성과 React Query 테스트 작성하기][using-mock-service-worker-with-orval-link]
+- [Orval MSW(Mock Service Worker) 핸들러 생성과 React Query 테스트][using-mock-service-worker-with-orval-link]
 
 ## 0. 들어가면서
 

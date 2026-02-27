@@ -15,9 +15,11 @@ $(document).ready(function() {
     if (show) {
       // fix
       $(".sidebar").addClass("sticky");
+      $(".my-books").addClass("pc");
     } else {
       // unfix
       $(".sidebar").removeClass("sticky");
+      $(".my-books").removeClass("pc");
     }
   };
 

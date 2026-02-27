@@ -78,3 +78,42 @@
 .column-3 {
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+.my-books {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 1rem;
+
+    & a {
+        display: block;
+        width: 13.25rem;
+    }
+
+    & img.mobile {
+        display: block;
+    }
+
+    & img.pc {
+        display: none;
+    }
+    
+    &.pc {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 0;
+        margin-top: 1rem;
+
+        & a {
+            width: 80%;
+        }
+
+        & img.mobile {
+            display: none;
+        }
+
+        & img.pc {
+            display: block;
+        }
+    }
+}

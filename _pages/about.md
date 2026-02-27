@@ -8,20 +8,13 @@ classes: wide
 
 <br/>
 
-<div class="personal"> 
-  <h2 class="personal-name">강준현</h2>
-  <p class="personal__information">
-    <span>kang3966@naver.com</span>
-    <span>https://junhyunny.github.io/</span>
-    <span>https://github.com/Junhyunny</span>
-  </p>
-</div>
+생각과 경험을 정리하여 누군가에게 도움이 되는 지식으로 만드는 일을 즐깁니다.
 
-제조·금융·철강 등 다양한 산업군에서 MVP(Minimal Viable Product)에서부터 대규모 시스템 설계, 개발 및 운영 경험을 보유했습니다. Java/Spring 기반 백엔드와 TypeScript/React 기반 프론트엔드가 주 기술 스택입니다.
-
-현재 비카인드랩스에서 컨설턴트이자 소프트웨어 엔지니어로 일하고 있습니다. 소프트웨어 개발의 모범 사례를 교육하고, 고객과 협업하여 고품질 애플리케이션 서비스를 제공합니다. 밸런스 팀(balanced team)으로 일하며, 새로운 프로젝트를 처음부터 시작하는 그린필드(Greenfield) 개발과 기존 레거시 시스템을 현대화하는 브라운필드(Brownfield) 개발 모두를 수행할 수 있는 역량을 갖추고 있습니다.
-
-생각과 경험을 정리하고, 학습한 지식을 다른 사람들에게 알기 쉽게 공유하는 일을 좋아합니다.
+- 강준현 (Junhyunny) 
+- 현재: 비카인드랩스 시니어 소프트웨어 엔지니어 / 컨설턴트
+- 주 기술 스택: Java/Spring(Kotlin), TypeScript/React 기반의 풀스택 개발 및 시스템 설계
+- 주요 업무: 그린필드/브라운필드 프로젝트 수행, 복잡한 도메인 모델링 및 성능 최적화
+- 활동: [안쪽까지 들여다보는 스프링 시큐리티](https://www.yes24.com/product/goods/180391041) 저자
 
 ## 경력
 
@@ -34,9 +27,11 @@ classes: wide
   </h3>
 </div>
 
-#### [Toyota DIG] Professional service 팀
+#### [Toyota DIG] ACoE (Agile Center of Excellence) 팀, 2025년 1월 - 12월
 
-- 서비스 팀들의 기술적 부채 분석 및 해소
+- 팀의 애자일 프랙티스 강화
+- 기술적 부채 분석 및 해소
+- 정량적 테스트 커버리지 향상으로 소프트웨어의 신뢰성 확보
 
 <div class="resume-header"> 
   <img src="/images/about/about-4.png" width="5%" class=" image__margin-right image__border"/>

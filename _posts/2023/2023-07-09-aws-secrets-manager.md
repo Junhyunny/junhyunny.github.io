@@ -230,19 +230,12 @@ public class ActionInBlogApplication {
 }
 ```
 
-프로파일이 적용된 스프링 애플리케이션을 실행할 때 다음과 같은 설정들이 모두 필요하다.
-
-- /secret/{name}_{profile}
-- /secret/{name}
-- /secret/application_{profile}
-- /secret/application
-
 다음과 같은 규칙을 따른다.
 
 - 프로파일 설정은 시크릿 뒤에 `_` 구분자로 추가된다.
 - 구분자는 bootstrap.yml 설정을 통해 변경할 수 있다.
 
-프로파일이 정상적으로 동작하는지 확인하기 위해 다음과 같이 프로파일 별로 설정을 만들었다.
+프로파일이 적용된 스프링 애플리케이션을 실행할 때 프로파일이 정상적으로 동작하는지 확인하기 위해 다음과 같이 프로파일 별로 설정을 만들었다.
 
 - /secret/action-in-blog_dev
   - DB_USER - junhyunny-dev
@@ -263,7 +256,7 @@ public class ActionInBlogApplication {
 
 <br/>
 
-로컬 컴퓨터에서 애플리케이션을 실행하면 다음과 같은 에러 로그를 만날 수 있다. 해당 에러는 로컬 컴퓨터가 `Secrets Manager`에 접근할 수 있는 권한이 없기 때문에 발생한다.
+로컬 컴퓨터에서 애플리케이션을 실행하면 다음과 같은 에러를 만나게 된다. 해당 에러는 로컬 컴퓨터가 시크릿 매니저에 접근할 수 있는 권한이 없기 때문에 발생한다.
 
 ```
 2023-07-09T23:32:41.702+09:00  INFO 20762 --- [           main] i.a.c.s.AwsSecretsManagerPropertySources : Loading secrets from AWS Secret Manager secret with name: /secret/action-in-blog, optional: false

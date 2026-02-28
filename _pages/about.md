@@ -12,7 +12,7 @@ classes: wide
 
 - 강준현 (Junhyunny) 
 - 현재: 비카인드랩스 시니어 소프트웨어 엔지니어 / 작가
-- 주 기술 스택: Java/Spring(Kotlin), TypeScript/React 기반의 풀스택 개발 및 시스템 설계
+- 주 기술 스택: Java(Kotlin)/Spring, TypeScript/React 기반의 풀스택 개발 및 시스템 설계
 - 주요 업무: 그린필드/브라운필드 프로젝트 수행, 복잡한 도메인 모델링 및 성능 최적화
 - 활동
   - [안쪽까지 들여다보는 스프링 시큐리티](https://www.yes24.com/product/goods/180391041) 저자

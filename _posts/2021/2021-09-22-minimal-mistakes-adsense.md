@@ -114,7 +114,7 @@ last_modified_at: 2021-09-22T23:55:00
 
 #### RECOMMEND NEXT POSTS
 
-- [Customize Google Ads location for Github Blog][adsense-position-setting-link]
+- [GitHub 블로그 구글 애드센스 광고 위치 설정][adsense-position-setting-link]
 
 #### REFERENCE
 

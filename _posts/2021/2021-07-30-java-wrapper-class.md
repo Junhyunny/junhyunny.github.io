@@ -9,7 +9,7 @@ last_modified_at: 2021-09-24T15:30:00
 <br/>
 
 👉 이어서 읽기를 추천합니다.
-- [Wrapper 클래스 Auto Boxing 그리고 성능 이슈][auto-boxing-performance-link]
+- [Java 래퍼(wrapper) 클래스 오토 박싱(auto boxing)과 성능 이슈][auto-boxing-performance-link]
 
 ## 0. 들어가면서
 

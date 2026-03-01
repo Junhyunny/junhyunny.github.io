@@ -18,7 +18,7 @@ locale: "ko-KR"
 title: "Junhyunny's Devlogs"
 title_separator: "-"
 subtitle: # site tagline that appears below site title in masthead
-name: "강준현"
+name: "강준현 (Junhyunny)"
 description: "소프트웨어 엔지니어 / 작가"
 url: "https://junhyunny.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl: # the subpath of your site, e.g. "/blog"
@@ -92,7 +92,7 @@ analytics:
 
 # Site Author
 author:
-  name: "강준현"
+  name: "강준현 (Junhyunny)"
   avatar: /images/profile/profile.jpg # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio: "소프트웨어 엔지니어 / 작가"
   location: "서울/대한민국(Seoul/South Korea)"

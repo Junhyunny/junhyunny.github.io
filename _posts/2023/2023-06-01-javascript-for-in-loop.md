@@ -10,7 +10,7 @@ last_modified_at: 2023-06-01T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Prototype in JavaScript][prototype-in-javascript-link]
+* [자바스크립트(JavaScript) 프로토타입][prototype-in-javascript-link]
 * [Prototype Chain in JavaScript][prototype-chain-in-javascript-link]
 * [JavaScript for-of Loop][javascript-for-of-loop-link]
 

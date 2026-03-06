@@ -1,5 +1,5 @@
 ---
-title: 자바스크립트(JavaScript) 프로토타입
+title: 자바스크립트 프로토타입 (JavaScript Prototype)
 search: false
 category:
   - javascript

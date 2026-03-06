@@ -10,7 +10,7 @@ last_modified_at: 2026-03-06T23:55:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [자바스크립트(JavaScript) 프로토타입][prototype-in-javascript-link]
+- [자바스크립트 프로토타입 (JavaScript Prototype)][prototype-in-javascript-link]
 
 ## 0. 들어가면서
 
@@ -18,7 +18,7 @@ last_modified_at: 2026-03-06T23:55:00
 
 ## 1. Prototype Chain
 
-[자바스크립트(JavaScript) 프로토타입에 관련된 글][prototype-in-javascript-link]에서 정리한 것처럼 자바스크립트는 프로토타입을 통해 상속을 지원한다. 프로토타입은 생성자 함수를 통해 만들어진 인스턴스의 부모 객체이다. 생성자 함수는 `prototype`이라는 프로퍼티(property)를 사용해 접근한다. 인스턴스는 `__proto__`이라는 접근자 프로퍼티를 사용해 접근한다.
+[자바스크립트 프로토타입 (JavaScript Prototype)에 관련된 글][prototype-in-javascript-link]에서 정리한 것처럼 자바스크립트는 프로토타입을 통해 상속을 지원한다. 프로토타입은 생성자 함수를 통해 만들어진 인스턴스의 부모 객체이다. 생성자 함수는 `prototype`이라는 프로퍼티(property)를 사용해 접근한다. 인스턴스는 `__proto__`이라는 접근자 프로퍼티를 사용해 접근한다.
 
 프로토타입 체인은 인스턴스가 `__proto__` 접근자 프로퍼티를 사용해 상위 부모 프로토타입 객체를 탐색하는 행위이다. 부모 프로토타입 객체도 해당 프로퍼티가 없다면 자신의 상위 프로토타입 객체를 탐색한다. 순차적으로 부모 역할을 하는 프로토타입들의 프로퍼티를 검색한다. 프로토타입 체인은 자바스크립트에서 객체지향 프로그래밍의 상속 구현과 프로퍼티 탐색을 위한 메커니즘이다.
 

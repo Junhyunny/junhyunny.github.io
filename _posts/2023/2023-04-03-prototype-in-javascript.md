@@ -195,6 +195,8 @@ console.dir(sum.__proto__.constructor === Function);
   <img src="/images/posts/2023/prototype-in-javascript-07.png" width="60%" class="image__border">
 </div>
 
+<br />
+
 생성자로 만든 인스턴스를 살펴보자. 인스턴스이므로 `prototype` 프로퍼티가 없다.
 
 ```javascript

@@ -181,15 +181,6 @@ classes: wide
 - 영상 인식을 통한 다트(dart) 공정 이상(abnormal) 감지 애플리케이션 개발
 - SVM(Support Vector Machine) 머신 러닝 알고리즘 활용
 
-## Skills
-
-- Java, Kotlin, Spring Boot, Spring Security, Spring Data JPA
-- JavaScript, TypeScript, React, Vue, HTML, CSS
-- MySQL, PostgreSQL, Redis, Nifi
-- Docker, Podman, K8S
-- Jenkins, Gitlab CI, Github Actions
-- AWS
-
 ## Education
 
 <div class="resume-header"> 

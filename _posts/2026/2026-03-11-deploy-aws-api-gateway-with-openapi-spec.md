@@ -41,9 +41,9 @@ API 개발 라이프사이클(lifecycle)에서 다음과 같이 활용한다.
 
 ## 2. Example
 
-이제 본격적으로 예제 코드를 살펴보자. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-03-11-deploy-aws-api-gateway-with-openapi-spec)에서 확인할 수 있다. 이 예제에선 테라폼(terraform)을 사용해 필요한 리소스들을 배포한다. [AWS API 게이트웨이는 OpenAPI 명세서를 사용해 REST API 개발하는 것을 지원](https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/http-api-open-api.html)한다. API 게이트웨이 OpenAPI 확장 프로그램에서 `x-amazon-apigateway-integration` 객체를 사용하면 HTTP 엔드포인트를 특정 람다 함수로 연결하는 것이 가능하다. 
+이제 본격적으로 예제 코드를 살펴보자. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-03-11-deploy-aws-api-gateway-with-openapi-spec)에서 확인할 수 있다. 이 예제에선 테라폼(terraform)을 사용해 필요한 리소스들을 배포한다. [AWS API 게이트웨이는 OpenAPI 명세서를 사용해 REST API 개발하는 것을 지원](https://docs.aws.amazon.com/ko_kr/apigateway/latest/developerguide/http-api-open-api.html)한다. `x-amazon-apigateway-integration` 객체를 사용하면 HTTP 엔드포인트를 특정 람다 함수로 연결하는 것이 가능하다. 
 
-다음과 같은 예제 명세서를 작성한다. 전체 코드가 아니라 일부분만 살펴본다. GET 요청의 `/todos` 엔드포인트를 위해 `x-amazon-apigateway-integration` 객체를 생성한다. 
+다음과 같은 예제 명세서를 작성한다. 전체 코드가 아니라 일부분만 살펴본다. 아래 코드는 GET 요청의 `/todos` 엔드포인트를 위해 `x-amazon-apigateway-integration` 객체를 생성한 예제다.
 
 - **type**
   - AWS 람다 함수와 통합 시 타입은 항상 `aws_proxy`다.
@@ -116,7 +116,7 @@ components:
 │ Error: creating API Gateway REST API (ix03opvzzj) specification: operation error API Gateway: PutRestApi, https response error StatusCode: 400, RequestID: 05072fdf-776f-4a29-afe0-c5189a42bebc, BadRequestException: Invalid OpenAPI input.
 ```
 
-각 엔드포인트마다 x-amazon-apigateway-integration 객체를 만들어줬다면, 이제 본격적으로 테라폼 코드를 살펴보자. 테라폼은 환경 별로 코드를 재사용하기 위해 모듈(module)을 사용한다. 다음과 같은 디렉토리 구조를 갖는다. 
+각 엔드포인트마다 x-amazon-apigateway-integration 객체를 만들었다면, 이제 본격적으로 테라폼 코드를 살펴보자. 테라폼은 환경 별로 코드를 재사용하기 위해 모듈(module)을 사용한다. 다음과 같은 디렉토리 구조를 갖는다. 
 
 ```
 .

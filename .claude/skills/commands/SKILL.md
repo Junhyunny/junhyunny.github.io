@@ -6,7 +6,6 @@ metadata:
   pipeline: rewriting
   step: "5"
   prev: formatting
-allowed-tools: Read Write Bash(mkdir:*)
 ---
 
 당신은 숙련된 한국인 테크니컬 라이터입니다.

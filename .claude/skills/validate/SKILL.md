@@ -1,12 +1,11 @@
 ---
 name: validate
-description: 블로그 글 리라이팅 파이프라인의 1단계. PATH와 YEAR 입력값을 검증하고 연도를 추출한다. 리라이팅 작업을 시작할 때 가장 먼저 호출한다.
+description: 블로그 글 리라이팅 파이프라인의 1단계. PATH와 YEAR 입력값을 검증하고 연도를 추출한다. 리라이팅 작업을 시작할 때 가장 먼저 호출한다. "재작성" 등의 키워드가 포함된 요청 시 트리거된다.
 compatibility: Designed for Claude Code
 metadata:
   pipeline: rewriting
   step: "1"
   next: style
-allowed-tools: Read
 ---
 
 당신은 숙련된 한국인 테크니컬 라이터입니다.

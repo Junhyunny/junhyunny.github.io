@@ -1,0 +1,105 @@
+- key: keybase
+  label: Keybase
+  icon: fas fa-fw fa-key
+  url_prefix: "https://keybase.io/"
+
+- key: twitter
+  label: Twitter
+  icon: fab fa-fw fa-twitter-square
+  url_prefix: "https://twitter.com/"
+
+- key: facebook
+  label: Facebook
+  icon: fab fa-fw fa-facebook-square
+  url_prefix: "https://www.facebook.com/"
+
+- key: linkedin
+  label: LinkedIn
+  icon: fab fa-fw fa-linkedin
+  url_prefix: "https://www.linkedin.com/in/"
+
+- key: xing
+  label: XING
+  icon: fab fa-fw fa-xing-square
+  url_prefix: "https://www.xing.com/profile/"
+
+- key: instagram
+  label: Instagram
+  icon: fab fa-fw fa-instagram
+  url_prefix: "https://instagram.com/"
+
+- key: tumblr
+  label: Tumblr
+  icon: fab fa-fw fa-tumblr-square
+  url_prefix: "https://"
+  url_suffix: ".tumblr.com"
+
+- key: bitbucket
+  label: Bitbucket
+  icon: fab fa-fw fa-bitbucket
+  url_prefix: "https://bitbucket.org/"
+
+- key: github
+  label: GitHub
+  icon: fab fa-fw fa-github
+  url_prefix: "https://github.com/"
+
+- key: gitlab
+  label: GitLab
+  icon: fab fa-fw fa-gitlab
+  url_prefix: "https://gitlab.com/"
+
+- key: stackoverflow
+  label: StackOverflow
+  icon: fab fa-fw fa-stack-overflow
+  url_prefix: "https://stackoverflow.com/users/"
+
+- key: lastfm
+  label: Last.fm
+  icon: fab fa-fw fa-lastfm-square
+  url_prefix: "https://last.fm/user/"
+
+- key: dribbble
+  label: Dribbble
+  icon: fab fa-fw fa-dribbble
+  url_prefix: "https://dribbble.com/"
+
+- key: pinterest
+  label: Pinterest
+  icon: fab fa-fw fa-pinterest
+  url_prefix: "https://www.pinterest.com/"
+
+- key: foursquare
+  label: Foursquare
+  icon: fab fa-fw fa-foursquare
+  url_prefix: "https://foursquare.com/"
+
+- key: steam
+  label: Steam
+  icon: fab fa-fw fa-steam
+  url_prefix: "https://steamcommunity.com/id/"
+
+- key: soundcloud
+  label: SoundCloud
+  icon: fab fa-fw fa-soundcloud
+  url_prefix: "https://soundcloud.com/"
+
+- key: weibo
+  label: Weibo
+  icon: fab fa-fw fa-weibo
+  url_prefix: "https://www.weibo.com/"
+
+- key: flickr
+  label: Flickr
+  icon: fab fa-fw fa-flickr
+  url_prefix: "https://www.flickr.com/"
+
+- key: codepen
+  label: CodePen
+  icon: fab fa-fw fa-codepen
+  url_prefix: "https://codepen.io/"
+
+- key: vine
+  label: Vine
+  icon: fab fa-fw fa-vine
+  url_prefix: "https://vine.co/u/"

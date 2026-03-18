@@ -7,7 +7,6 @@ metadata:
   step: "2"
   prev: validate
   next: images
-allowed-tools: Read Edit
 ---
 
 당신은 숙련된 한국인 테크니컬 라이터입니다.

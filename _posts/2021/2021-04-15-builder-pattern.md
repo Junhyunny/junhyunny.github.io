@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2026-03-18T23:38:08+09:00
+last_modified_at: 2026-03-19T09:26:18+09:00
 ---
 
 <br/>
@@ -130,7 +130,7 @@ interface LabtopBuilder {
 }
 ```
 
-ConcreteBuilder 클래스는 빌더 인터페이스를 구현한 클래스다. 전달받은 부품들을 조립해 랩톱 객체를 만들어 반환한다
+ConcreteBuilder 클래스는 빌더 인터페이스를 구현한 클래스다. 전달받은 부품들을 조립해 랩톱 객체를 만들어 반환한다.
 
 ```java
 class ConcreteLabtopBuilder implements LabtopBuilder {
@@ -224,7 +224,7 @@ class Rectangular {
 
 - 불필요한 값 설정이 발생한다.
   - 객체 생성 시 필수인 값 width, height 이 외에 padding 값이 필요한데 반드시 margin 값에 0 을 넣어줘야 한다.
-- 생성자가 많아질수록 생성자에 값을 설정하는 코드에 의도를 파악하기 어려워진다.
+- 생성자가 많아질수록 생성자에 값을 설정하는 코드의 의도를 파악하기 어려워진다.
   - 객체 생성 시 생성자에 숫자들이 들어가면서 어떤 항목에 어떤 값을 추가하는지 코드만 봐서 확인하기 힘들다.
 
 ```java
@@ -404,7 +404,7 @@ class NutritionFacts {
 
 ## CLOSING
 
-빌더 패턴과 관련한 대부분의 포스트들은 `Effective Java`의 빌더 패턴과 관련된 내용들이다. `GoF 디자인 패턴`에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋다. OKKY 커뮤니티에서 본 빌더 패턴에 관련된 글들이 읽고 참고할만한 내용이라 포스트 마지막에 추가했다.
+빌더 패턴과 관련한 대부분의 포스트들은 `Effective Java`의 빌더 패턴과 관련된 내용들이다. `GoF 디자인 패턴`에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋다. OKKY 커뮤니티에서 본 빌더 패턴 관련 글들이 참고할 만한 내용이라 포스트 마지막에 추가했다.
 
 <div align="center" class="vertical__top">
   <img src="/images/posts/2021/builder-pattern-02.png" width="47.5%" class="image__border">

@@ -6,14 +6,14 @@ category:
   - ai-agent
   - langchain
   - react-agent
-last_modified_at: 2026-03-19T23:35:22+09:00
+last_modified_at: 2026-03-19T23:47:08+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-최근 동료와 잡담할 시간이 있었다. 이때 리액트(ReAct) 에이전트라는 개념을 처음 접했다. 토이 프로젝트에서 랭그래프를 사용해서 에이전트를 개발하려고 했었는데, 이 방식보다 쉽게 에이전트를 만들어 볼 수 있을 것 같다는 생각이 들어서 관련된 개념을 공부해봤다. 
+최근 동료와 잡담할 시간이 있었다. 이때 리액트(ReAct) 에이전트라는 개념을 처음 접했다. 토이 프로젝트에서 랭그래프를 사용해서 에이전트를 개발하려고 했었는데, 이 방식보다 쉽게 에이전트를 만들어 볼 수 있을 것 같다는 생각이 들어서 관련된 개념을 공부해 봤다. 
 
 ## 1. ReAct(Reasoning and Acting) Agent
 
@@ -44,11 +44,11 @@ last_modified_at: 2026-03-19T23:35:22+09:00
 
 ## 2. Example
 
-개념에 대해 살펴봤으니 이번엔 예제 코드를 살펴보자. 랭체인(langchain)을 통해 구현한다. [랭체인 v1 릴리즈](https://docs.langchain.com/oss/python/releases/langchain-v1#create-agent)를 기점으로 리액트 에이전트 구축 방식에 큰 변화가 있었다. 
+개념에 대해 살펴봤으니 이번엔 예제 코드를 들여다보자. 랭체인(langchain)으로 리액트 에이전트를 구현한다. 이 글에서는 [랭체인 v1 릴리즈](https://docs.langchain.com/oss/python/releases/langchain-v1#create-agent)를 사용한다. 빠르게 발전하는 분야라 그런지 참고한 예제 코드마다 구현 방법이 달랐다. 관련 내용들을 조사해 보니 v1 릴리즈를 기점으로 리액트 에이전트 구축 방식에 큰 변화가 있었다. 
 
-핵심은 기존의 랭그래프(langgraph)의 create_react_agent 함수 대신 create_agent 함수를 새로운 표준으로 사용하게 된 점이다. langgraph.prebuilt.create_react_agent 대신 **langchain.agents.create_agent**가 에이전트 구축의 새로운 권장 표준이 되었다. 이번 예제는 랭체인 v1의 create_agent 함수를 사용했다. 예제 전체 코드는 [해당 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-03-18-react-agent)에서 확인할 수 있다.
+주요 내용은 기존의 랭그래프(langgraph)의 create_react_agent 함수 대신 create_agent 함수를 새로운 표준으로 사용하게 된 점이다. langgraph.prebuilt 패키지의 create_react_agent 함수 대신 **langchain.agents** 패키지의 **create_agent** 함수가 에이전트 구축의 새로운 권장 표준이 되었다. 이번 예제는 랭체인 v1의 create_agent 함수를 사용했다. 예제 전체 코드는 [해당 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-03-18-react-agent)에서 확인할 수 있다.
 
-프로젝트에 가상 환경을 준비한다.
+먼저 프로젝트에 가상 환경을 준비한다.
 
 ```
 $ python3 -m venv .venv

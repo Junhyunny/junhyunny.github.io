@@ -478,7 +478,7 @@ $ docker compose up -d
   - 데이터 업데이트
 
 <div align="center">
-  <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-03.png" width="80%" class="image__border">
+  <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-03.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

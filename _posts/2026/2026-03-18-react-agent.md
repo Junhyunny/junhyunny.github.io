@@ -85,7 +85,7 @@ from rich.markdown import Markdown
 from rich.panel import Panel
 ```
 
-중첩된 이벤트 루프 실행을 허용하고, 환경변수를 주입하며, 보기 좋은 로깅을 위한 콘솔 객체를 준비한다.
+아래 코드를 통해 중첩된 이벤트 루프 실행을 허용, 환경변수 주입, 보기 좋은 로깅을 위한 콘솔 객체를 준비한다.
 
 ```python
 nest_asyncio.apply()
@@ -97,8 +97,6 @@ console = Console(soft_wrap=True)
 이 글에선 AWS 베드록(bedrock)을 사용했다. ChatBedrockConverse 클래스를 사용해 LLM(large language model) 객체를 생성한다. 클로드(claude sonnet 4.6)을 사용했다.
 
 ```py
-from langchain_aws import ChatBedrockConverse
-
 llm = ChatBedrockConverse(
   model="jp.anthropic.claude-sonnet-4-6",
   region_name="ap-northeast-1",

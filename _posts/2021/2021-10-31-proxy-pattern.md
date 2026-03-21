@@ -266,8 +266,8 @@ public class ProtectionProxy implements ProtectionSubject {
 
 #### RECOMMEND NEXT POSTS
 
-- [Dynamic Proxy in Java][dynamic-proxy-in-java-link]
-- [CGLib(Code Generation Library)][cglib-link]
+- [자바(Java) 다이나믹 프록시(Dynamic Proxy)][dynamic-proxy-in-java-link]
+- [CGLib(Code Generation Library) 개념][cglib-link]
 
 #### REFERENCE
 

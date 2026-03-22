@@ -1,8 +1,11 @@
+@use 'sass:meta';
+@use 'sass:list';
+
 @function breakpoint-parse-double-default($first, $second) {
   $feature: '';
   $value: '';
 
-  @if type-of($first) == 'string' {
+  @if meta.type-of($first) == 'string' {
     $feature: $first;
     $value: $second;
   }

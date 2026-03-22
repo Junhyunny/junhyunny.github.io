@@ -4,6 +4,29 @@
     align-items: start;
 }
 
+/* list indent: half of browser default (40px → 24px) */
+.page__content {
+  ul, ol {
+    padding-left: 1.5em;
+  }
+}
+
+@media all and (max-width: 768px) {
+  .page__content {
+    ul, ol {
+      padding-left: calc(15 * 100vw / 720);
+    }
+  }
+}
+
+@media all and (max-width: 1024px) {
+  .page__content {
+    ul, ol {
+      padding-left: calc(15 * 100vw / 1024);
+    }
+  }
+}
+
 .image__border {
     border: 1px solid #ccc;
     border-radius: 10px;

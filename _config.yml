@@ -116,6 +116,8 @@ kramdown:
 sass:
   sass_dir: _sass
   style: compressed
+  silence_deprecations:
+    - import
 
 # Outputting
 permalink: /:categories/:title/

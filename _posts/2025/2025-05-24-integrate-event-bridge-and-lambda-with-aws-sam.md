@@ -33,7 +33,7 @@ last_modified_at: 2025-05-24T23:55:00
 - PDF 파일 업로드 되면 경우 지정된 타겟 람다 애플리케이션으로 이벤트를 전달한다.
 
 <div align="center">
-  <img src="/images/posts/2025/integrate-event-bridge-and-lambda-with-aws-sam-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/integrate-event-bridge-and-lambda-with-aws-sam-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Template for AWS SAM CLI
@@ -225,7 +225,7 @@ Successfully created/updated stack - sam-app in ap-northeast-1
 배포가 완료된 후 이벤트 브릿지를 보면 두 개의 규칙이 생성된 것을 확인할 수 있다. 
 
 <div align="center">
-  <img src="/images/posts/2025/integrate-event-bridge-and-lambda-with-aws-sam-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/integrate-event-bridge-and-lambda-with-aws-sam-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -233,7 +233,7 @@ Successfully created/updated stack - sam-app in ap-northeast-1
 람다 리소스 하위 이벤트에 직접 규칙을 설정하면 각 람다에 대한 허가(permission)과 규칙(rule)이 별도로 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2025/integrate-event-bridge-and-lambda-with-aws-sam-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/integrate-event-bridge-and-lambda-with-aws-sam-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -326,7 +326,7 @@ Resources:
 위 템플릿을 배포하면 다음과 같은 규칙 정보를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/integrate-event-bridge-and-lambda-with-aws-sam-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/integrate-event-bridge-and-lambda-with-aws-sam-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -334,7 +334,7 @@ Resources:
 해당 규칙의 대상(target)을 보면 두 개의 람다가 연결된 것을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/integrate-event-bridge-and-lambda-with-aws-sam-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/integrate-event-bridge-and-lambda-with-aws-sam-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -342,7 +342,7 @@ Resources:
 최종적으로 시스템은 다음과 같이 결합된다.
 
 <div align="center">
-  <img src="/images/posts/2025/integrate-event-bridge-and-lambda-with-aws-sam-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/integrate-event-bridge-and-lambda-with-aws-sam-06.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

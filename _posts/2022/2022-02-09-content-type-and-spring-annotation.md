@@ -67,7 +67,7 @@ username=junhyunny&password=123&grant_type=password
 아래 이미지는 메시지와 이미지를 함께 서버로 전송할 때 Content-Type 헤더의 쓰임새를 나타낸다.
 
 <div align="center">
-  <img src="/images/posts/2022/content-type-and-spring-annotation-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/content-type-and-spring-annotation-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. MIME(Multipurpose Internet Mail Extensions)
@@ -87,7 +87,7 @@ Content-Type 헤더와 MIME 타입은 전자 우편을 위해 정의되었지만
   - multipart/byreranges
 
 <div align="center">
-  <img src="/images/posts/2022/content-type-and-spring-annotation-02.png" width="85%">
+  <img src="{{ site.image_url_2022 }}/content-type-and-spring-annotation-02.png" width="85%">
 </div>
 <center>https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/MIME_types</center>
 

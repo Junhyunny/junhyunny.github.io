@@ -26,7 +26,7 @@ last_modified_at: 2024-09-13T23:55:00
   - 타겟 그룹은 이전에 생성한 VPC 내부 인스턴스들을 기준으로 동작한다. 
 
 <div align="center">
-  <img src="/images/posts/2024/create-alb-and-target-group-in-aws-with-terraform-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/create-alb-and-target-group-in-aws-with-terraform-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Project structure
@@ -261,7 +261,7 @@ alb-dns = "tf-lb-20240913202006675800000003-83453087.us-east-1.elb.amazonaws.com
 해당 DNS 주소로 접근하면 브라우저에서 다음 화면을 볼 수 있다. 아직 EC2 인스턴스가 없기 때문에 서버가 요청에 처리할 준비가 되지 않았다는 `503 Service Unavailable` 에러를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/create-alb-and-target-group-in-aws-with-terraform-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/create-alb-and-target-group-in-aws-with-terraform-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

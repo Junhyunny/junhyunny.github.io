@@ -38,7 +38,7 @@ last_modified_at: 2026-01-13T23:55:00
 - 아이템의 특정 컬럼에 '즐겨찾기'를 누른 사람들의 아이디를 저장한다.
 
 <div align="center">
-  <img src="/images/posts/2026/dynamo-db-atomic-operation-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/dynamo-db-atomic-operation-01.png" width="100%" class="image__border">
 </div>
 
 <br />
@@ -52,7 +52,7 @@ last_modified_at: 2026-01-13T23:55:00
 이 구현은 필연적으로 동시성 문제를 일으킨다. 비슷한 시간에 들어온 요청은 모두 빈 리스트를 조회한다. 자신의 아이디를 리스트에 추가 후 업데이트한다. 최종적으로 트랜잭션이 늦게 끝난 사용자2의 변경 사항이 데이터베이스에 남는다.
 
 <div align="center">
-  <img src="/images/posts/2026/dynamo-db-atomic-operation-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/dynamo-db-atomic-operation-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. DynamoDB atomic operation

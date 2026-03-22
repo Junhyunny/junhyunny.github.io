@@ -189,7 +189,7 @@ jar 패키지 파일로 애플리케이션을 실행 후 테스트 해보면 get
   - 정상적으로 응답한다.
 
 <div align="center">
-  <img src="/images/posts/2022/when-run-jar-then-fail-to-read-resource-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/when-run-jar-then-fail-to-read-resource-01.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

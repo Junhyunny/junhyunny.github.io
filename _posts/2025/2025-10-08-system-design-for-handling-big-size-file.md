@@ -28,7 +28,7 @@ last_modified_at: 2025-10-08T23:55:00
 4. 변환된 파일을 사용자에게 응답한다.
 
 <div align="center">
-  <img src="/images/posts/2025/system-design-for-handling-big-size-file-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/system-design-for-handling-big-size-file-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -61,7 +61,7 @@ last_modified_at: 2025-10-08T23:55:00
 5. 클라이언트는 S3 버킷으로부터 변환 완료된 파일을 다운로드 받기 위해 지속적으로 폴링(polling)한다. 다운로드 가능한 상태라면 다운로드용 사전 서명된 URL을 통해 변환 완료된 파일을 다운로드 받는다.
 
 <div align="center">
-  <img src="/images/posts/2025/system-design-for-handling-big-size-file-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/system-design-for-handling-big-size-file-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -87,7 +87,7 @@ last_modified_at: 2025-10-08T23:55:00
 5. ECS 태스크는 변환 작업 완료 시 `COMPLETED`, 실패 시 `FAILED` 등으로 업데이트한다.
 
 <div align="center">
-  <img src="/images/posts/2025/system-design-for-handling-big-size-file-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/system-design-for-handling-big-size-file-03.png" width="100%" class="image__border">
 </div>
 
 <br/>

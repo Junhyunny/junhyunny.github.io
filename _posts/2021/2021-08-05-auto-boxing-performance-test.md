@@ -95,7 +95,7 @@ public final class MikeTyson implements Runnable {
 - Heap 메모리 사용률을 보면 3300MB의 75% 수준인 2500MB까지 사용률이 높아졌다가 떨어지는 것이 반복된다. Heap 사용률이 떨어지는 것은 GC(Garbage Collection, 가비지 컬렉션)가 발생한 것이다.
 
 <div align="center">
-  <img src="/images/posts/2021/auto-boxing-performance-test-01.png" width="85%">
+  <img src="{{ site.image_url_2021 }}/auto-boxing-performance-test-01.png" width="85%">
 </div>
 
 <br />
@@ -103,7 +103,7 @@ public final class MikeTyson implements Runnable {
 Visual GC 플러그인의 화면을 보면 객체가 처음 생성되면 위치하는 에덴(eden) 영역의 메모리가 높아졌다 떨어지는 것이 자주 반복된다. 에덴 영역의 메모리가 떨어지는 시점에 `GC Time`이 올라가는 것을 보아 가비지 컬렉션이 동작하였음을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/auto-boxing-performance-test-02.png" width="85%">
+  <img src="{{ site.image_url_2021 }}/auto-boxing-performance-test-02.png" width="85%">
 </div>
 
 ## 2. Test Without auto boxing
@@ -183,7 +183,7 @@ public final class MikeTyson implements Runnable {
 - Heap 메모리 사용률을 보면 3700MB의 33% 수준인 1250MB까지 사용률이 높아졌다 감소한다.
 
 <div align="center">
-  <img src="/images/posts/2021/auto-boxing-performance-test-03.png" width="85%">
+  <img src="{{ site.image_url_2021 }}/auto-boxing-performance-test-03.png" width="85%">
 </div>
 
 <br />
@@ -194,7 +194,7 @@ public final class MikeTyson implements Runnable {
 - 오토 박싱 테스트에 비해 가비지 컬렉션 수행 빈도 수가 매우 적다.
 
 <div align="center">
-  <img src="/images/posts/2021/auto-boxing-performance-test-04.png" width="85%">
+  <img src="{{ site.image_url_2021 }}/auto-boxing-performance-test-04.png" width="85%">
 </div>
 
 ## CLOSING

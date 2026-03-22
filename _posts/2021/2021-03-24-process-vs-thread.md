@@ -35,7 +35,7 @@ last_modified_at: 2025-09-12T12:00:00
 - 힙(heap) 영역 - 런타임시 동적으로 메모리를 할당받는 영역
 
 <div align="center">
-  <img src="/images/posts/2021/process-vs-thread-01.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/process-vs-thread-01.png" width="30%" class="image__border">
 </div>
 <center>Operating System Concepts 9th</center>
 
@@ -53,7 +53,7 @@ last_modified_at: 2025-09-12T12:00:00
 - 코드, 데이터, 파일은 공유한다.
 
 <div align="center">
-  <img src="/images/posts/2021/process-vs-thread-02.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/process-vs-thread-02.png" width="60%" class="image__border">
 </div>
 <center>Operating System Concepts 9th</center>
 

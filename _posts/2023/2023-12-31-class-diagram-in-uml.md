@@ -35,7 +35,7 @@ last_modified_at: 2026-03-21T11:17:53+09:00
   - 유스 케이스(use case) 다이어그램과 시퀀스(sequence) 다이어그램이 행동 다이어그램에 속한다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-01.png" width="80%" class="image__border image__padding">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://www.nextree.co.kr/p6753/</center>
 
@@ -84,7 +84,7 @@ public class User {
 클래스 이름, 속성, 메서드로 세 영역으로 구분하여 작성한다. 속성엔 변수 이름과 해당 타입을 표시한다. 메서드에는 전달받은 파라미터, 반환 타입을 정의한다. 각 속성과 메서드 앞에 접근 제어자를 표현하는 기호를 추가한다. 비즈니스 규칙, 책임, 예외 등을 표현하고 싶다면 새 영역을 추가로 만들 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-02.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-02.png" width="50%" class="image__border">
 </div>
 
 #### 2.1.3. Abstract Class and Method
@@ -105,7 +105,7 @@ public abstract class Computer {
 추상 클래스나 메서드를 표시할 때 클래스, 메서드 이름에 이탤릭(italic)체를 적용한다. 
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-03.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-03.png" width="50%" class="image__border">
 </div>
 
 #### 2.1.4. Stereotype
@@ -121,7 +121,7 @@ public interface AuthenticationManager {
 위 인터페이스를 클래스 다이어그램 요소로 표기하면 다음과 같다. 
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-04.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-04.png" width="50%" class="image__border">
 </div>
 
 #### 2.1.5. static and final properties
@@ -138,7 +138,7 @@ public class Math {
 정적 필드는 밑줄을 표기, 상수 같은 경우엔 옆에 `readonly`를 표기한다. 클래스 다이어그램으로 표기하면 다음과 같다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-05.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-05.png" width="50%" class="image__border">
 </div>
 
 ### 2.2. Class Diagram Relation
@@ -157,7 +157,7 @@ public class Math {
 일반화 관계는 실선과 삼각형으로 표현한다. 자식이 부모를 참조하는 방향으로 화살표를 그린다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-06.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-06.png" width="80%" class="image__border">
 </div>
 
 #### 2.2.2. Realization
@@ -170,7 +170,7 @@ public class Math {
 실체화 관계는 점선과 삼각형으로 표현한다. 일반화와 마찬가지로 자식이 부모를 참조하는 방향으로 화살표를 그린다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-07.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-07.png" width="80%" class="image__border">
 </div>
 
 #### 2.2.3. Dependency
@@ -199,7 +199,7 @@ public class Employee {
 의존 관계는 점선과 화살표로 표현한다. Employee 객체가 Document 객체를 참조하기 때문에 화살표 방향은 Employee에서 Document로 향한다. 필요하다면 스테레오타입을 선 위에 표현해 의존 목적을 명확하게 명시할 수도 있다.  
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-08.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-08.png" width="50%" class="image__border">
 </div>
 
 #### 2.2.4. Association
@@ -243,7 +243,7 @@ public class Contact {
   - Employee 객체는 Contact 객체를 1개 이상 가질 수 있기 때문에 일-대-다로 표기한다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-09.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-09.png" width="80%" class="image__border">
 </div>
 
 #### 2.2.5. Aggregation and Composition
@@ -262,7 +262,7 @@ public class Contact {
 - 컴포지션은 채워진 다이아몬드를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-10.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-10.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING
@@ -270,7 +270,7 @@ public class Contact {
 한국어로 표기하면 애그리게이션은 집합, 컴포지션은 합성이다. 집합과 합성은 비슷한 느낌을 주기 때문에 필자도 글을 다시 읽어보면서 헷갈렸다. 가독성을 위해 영어 발음을 그대로 작성했다. 애그리게이션(shared aggregation)은 개발자, 분석가, 모델러들 사이에 해석이 달라 객체 관리 그룹(OMG)의 UML 문서에도 자세한 설명이 없다고 한다. 다이어그램 해석에 오해를 일으킬 수 있으니 애그리게이션이나 컴포지션은 사용하지 않는 것이 좋을 것 같다.
 
 <div align="center">
-  <img src="/images/posts/2023/class-diagram-in-uml-11.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/class-diagram-in-uml-11.png" width="80%" class="image__border">
 </div>
 <center>https://www.omg.org/spec/UML/2.4.1/Superstructure/PDF</center>
 

@@ -19,7 +19,7 @@ last_modified_at: 2024-03-03T23:55:00
 `vmmem` 프로세스가 사용 중인 CPU, 메모리는 윈도우 작업 관리자에서 확인할 수 있다. 
 
 <p align="center">
-  <img src="/images/posts/2024/setup-container-runtime-resource-limit-on-windows-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Solve the problem
@@ -39,7 +39,7 @@ WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8
 - 직접 설정할 수 없고 `.wslconfig` 파일을 사용하라는 설명을 볼 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/setup-container-runtime-resource-limit-on-windows-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-02.png" width="80%" class="image__border">
 </p>
 
 - 서비스를 릴리즈한 후 사용한 파드맨 데스크탑의 리소스 설정 화면이다.
@@ -47,7 +47,7 @@ WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8
 - 직접 리소스 제한을 설정할 수 있는 방법은 없다.
 
 <p align="center">
-  <img src="/images/posts/2024/setup-container-runtime-resource-limit-on-windows-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-03.png" width="80%" class="image__border">
 </p>
 
 ### 2.2. Setup .wslconfig file
@@ -109,7 +109,7 @@ Machine "podman-machine-default" started successfully
 파드맨 데스크탑 리소스 설정을 보면 메모리가 최대 2GB로 제한된 것을 확인할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/setup-container-runtime-resource-limit-on-windows-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-04.png" width="80%" class="image__border">
 </p>
 
 #### REFERENCE

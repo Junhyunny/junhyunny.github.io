@@ -97,7 +97,7 @@ public class DatabaseReplaceTests {
 - `HELLO` 스키마를 찾을 수 없다는 `Schema "HELLO" not found` 에러 메시지가 보인다.
 
 <div align="center">
-  <img src="/images/posts/2022/do-not-replace-database-when-using-data-jpa-test-annotation-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/do-not-replace-database-when-using-data-jpa-test-annotation-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Cause of the problem
@@ -357,7 +357,7 @@ public class DatabaseReplaceTests {
 위 테스트를 수행하면 정상적으로 테스트가 통과한다.
 
 <div align="center">
-  <img src="/images/posts/2022/do-not-replace-database-when-using-data-jpa-test-annotation-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/do-not-replace-database-when-using-data-jpa-test-annotation-02.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

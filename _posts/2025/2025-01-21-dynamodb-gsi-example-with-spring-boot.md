@@ -195,7 +195,7 @@ $ docker compose up -d
 NoSQL Workbench 도구를 사용하면 로컬 환경에 준비된 테이블과 아이템들을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-gsi-example-with-spring-boot-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/dynamodb-gsi-example-with-spring-boot-01.png" width="100%" class="image__border">
 </div>
 
 ## 3. Setup DynamoDB client

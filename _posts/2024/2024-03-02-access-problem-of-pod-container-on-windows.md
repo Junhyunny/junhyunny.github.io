@@ -61,13 +61,13 @@ Windows IP 구성
 - `192.168.0.12`를 통해 애플리케이션에 접근할 수 없다. 
 
 <p align="center">
-  <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-01.png" width="80%" class="image__border">
 </p>
 
 - `localhost`나 `127.0.0.1` 호스트를 사용하면 애플리케이션에 접근할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-02.png" width="80%" class="image__border">
 </p>
 
 ## 2. Problem Cause
@@ -123,7 +123,7 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 3. 요청 트래픽은 WLS 시스템(`172.28.241.140`)으로 자동으로 전달되지 못하고 누락된다.
 
 <p align="center">
-  <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-03.png" width="80%" class="image__border">
 </p>
 
 ## 3. Solve the Problem
@@ -141,7 +141,7 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
     - WSL 리눅스 배포판 머신의 주소는 임시적이고 변경될 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-04.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. Windows Port Forwarding
@@ -175,7 +175,7 @@ ipv4 수신 대기:             ipv4에 연결:
 외부 네트워크와 연결된 `192.168.0.12` IP 주소를 통해 애플리케이션에 접근할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/access-problem-of-pod-container-on-windows-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-05.png" width="80%" class="image__border">
 </p>
 
 ## CLOSING

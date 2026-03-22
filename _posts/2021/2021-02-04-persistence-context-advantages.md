@@ -35,7 +35,7 @@ last_modified_at: 2025-06-27T21:30:00
 2. 캐싱된 엔티티가 있으므로 이를 반환한다.
 
 <div align="center">
-  <img src="/images/posts/2021/persistence-context-advantages-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/persistence-context-advantages-01.png" width="80%" class="image__border">
 </div>
 <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 
@@ -49,7 +49,7 @@ last_modified_at: 2025-06-27T21:30:00
 4. 신규 엔티티를 반환한다.
 
 <div align="center">
-  <img src="/images/posts/2021/persistence-context-advantages-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/persistence-context-advantages-02.png" width="80%" class="image__border">
 </div>
 <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 
@@ -147,7 +147,7 @@ EntityManager는 커밋(commit) 직전까지 `insert`, `update`, `delete` 쿼리
 5. 커밋 수행 시 쓰기 지연 SQL 저장소에 담긴 쿼리들을 데이터베이스로 전달하여 데이터를 저장한다.
 
 <div align="center">
-  <img src="/images/posts/2021/persistence-context-advantages-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/persistence-context-advantages-04.png" width="100%" class="image__border">
 </div>
 <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 
@@ -228,7 +228,7 @@ EntityManager가 관리 중인 엔티티의 상태가 변경되면, 트랜잭션
 4. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장한다.
 
 <div align="center">
-  <img src="/images/posts/2021/persistence-context-advantages-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/persistence-context-advantages-05.png" width="80%" class="image__border">
 </div>
 <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 

@@ -29,7 +29,7 @@ last_modified_at: 2025-12-13T23:55:00
   - `JavaScript` 코드를 실행하여 자신이 렌더링 중인 HTML 문서를 조작할 수 있다. 
 
 <div align="center">
-  <img src="/images/posts/2022/react-android-webview-communication-01.png" width="85%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/react-android-webview-communication-01.png" width="85%" class="image__border">
 </div>
 
 <br/>
@@ -40,7 +40,7 @@ last_modified_at: 2025-12-13T23:55:00
 - 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메서드를 통해 `JavaScript` 코드를 실행할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2022/react-android-webview-communication-02.png" width="55%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/react-android-webview-communication-02.png" width="55%" class="image__border">
 </div>
 
 ## 2. Add JavaScript interface for Android WebView
@@ -235,7 +235,7 @@ export default App
 안드로이드 에뮬레이터에서 테스트를 수행한다. 정상적으로 토스트 이벤트가 호출되는 것을 확인할 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2022/react-android-webview-communication-03.gif" width="25%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/react-android-webview-communication-03.gif" width="25%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

@@ -186,7 +186,7 @@ $ npm run lint
   - 코드 저장 시 자동으로 포맷팅 된다.
 
 <div align="center">
-  <img src="/images/posts/2024/eslint-and-prettier-setup-in-vite-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/eslint-and-prettier-setup-in-vite-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -194,7 +194,7 @@ $ npm run lint
 코드를 저장하면 자동으로 포매팅이 완료면서 린팅 에러가 사라지는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/eslint-and-prettier-setup-in-vite-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/eslint-and-prettier-setup-in-vite-02.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

@@ -320,7 +320,7 @@ public class FirstFragment extends Fragment {
 안드로이드 에뮬레이터에서 안드로이드 애플리케이션을 실행하면 다음과 같이 동작한다.
 
 <div align="left">
-  <img src="/images/posts/2022/android-webview-01.gif" width="25%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/android-webview-01.gif" width="25%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

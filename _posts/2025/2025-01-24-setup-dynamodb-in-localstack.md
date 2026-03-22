@@ -133,7 +133,7 @@ localstack-1  | Ready.
 이제 NoSQL워크벤치에서 LocalStack 컨테이너로 연결하면 해당 테이블 정보를 확인할 수 있다. NoSQL워크벤치에서 4566 포트번호를 사용해 연결을 만든다.
 
 <div align="center">
-  <img src="/images/posts/2025/setup-dynamodb-in-localstack-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/setup-dynamodb-in-localstack-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -141,7 +141,7 @@ localstack-1  | Ready.
 "TodoTable" 이름을 갖는 테이블 정보를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/setup-dynamodb-in-localstack-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/setup-dynamodb-in-localstack-02.png" width="100%" class="image__border">
 </div>
 
 <br/>

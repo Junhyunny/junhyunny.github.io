@@ -164,7 +164,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 컨텐츠 타입은 `application/javascript`이다.
 
 <div align="left">
-  <img src="/images/posts/2023/compression-on-nginx-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-01.png" width="50%" class="image__border">
 </div>
 
 <br/>
@@ -176,7 +176,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 총 소요된 시간은 1.44s이다.
 
 <div align="center">
-  <img src="/images/posts/2023/compression-on-nginx-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -187,13 +187,13 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 컨텐츠 타입은 `application/javascript`이다.
 
 <div align="left">
-  <img src="/images/posts/2023/compression-on-nginx-03.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-03.png" width="50%" class="image__border">
 </div>
 
 <br />
 
 <div align="left">
-  <img src="/images/posts/2023/compression-on-nginx-04.png" width="70%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-04.png" width="70%" class="image__border">
 </div>
 
 서버의 응답 타이밍은 다음과 같았다.
@@ -205,7 +205,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 총 소요된 시간은 841.87ms이다.
 
 <div align="center">
-  <img src="/images/posts/2023/compression-on-nginx-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-05.png" width="100%" class="image__border">
 </div>
 
 ## 3. Summary
@@ -242,7 +242,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
   - 21.67초 소요
 
 <div align="center">
-  <img src="/images/posts/2023/compression-on-nginx-05.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-05.gif" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -260,7 +260,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
   - 21.57초 소요
 
 <div align="center">
-  <img src="/images/posts/2023/compression-on-nginx-06.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/compression-on-nginx-06.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

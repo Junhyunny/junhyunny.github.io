@@ -21,7 +21,7 @@ last_modified_at: 2026-03-06T23:55:00
   - 원형(prototype)에게 자기 복사를 요청하는 클래스
 
 <div align="center">
-  <img src="/images/posts/2021/prototype-pattern-01.png" width="80%" class="image__border image__padding">
+  <img src="{{ site.image_url_2021 }}/prototype-pattern-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://www.java2novice.com/java-design-patterns/prototype-pattern/</center>
 

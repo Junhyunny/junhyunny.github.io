@@ -14,7 +14,7 @@ last_modified_at: 2025-06-22T01:00:00
 테스트 더블은 영화 산업에서 위험한 장면을 촬용할 때 배우의 대역인 스턴트 더블(stunt double)에서 유래한 개념이다. 한국에선 흔히 이를 스턴트 맨이라고 부른다. 테스트 대상 시스템(system under test)의 단위 기능을 검증할 때 외부 컴포넌트(혹은 객체)의 기능을 대체하는 용도로 사용되는 객체이다.
 
 <div align="center">
-  <img src="/images/posts/2021/test-double-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/test-double-01.png" width="50%" class="image__border">
 </div>
 <center>https://www.crocus.co.kr/1555</center>
 
@@ -26,7 +26,7 @@ last_modified_at: 2025-06-22T01:00:00
 - JpaUserRepository 객체는 DB에서 데이터를 조회한다.
 
 <div align="center">
-  <img src="/images/posts/2021/test-double-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/test-double-02.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -38,7 +38,7 @@ last_modified_at: 2025-06-22T01:00:00
 단위 테스트는 어느 상황에서도 성공해야 하지만, findById 메서드가 데이터베이스에 의존하고 있기 때문에 항상 같은 결과를 반환한다는 보장이 없다. 이를 어떻게 해결할 수 있을까? 이런 상황에선 JpaUserRepository 객체를 항상 같은 결과를 반환하는 테스트 더블 객체로 대체한다. 테스트 더블은 항상 고정된 값을 응답하기 때문에 테스트 코드는 항상 성공한다.
 
 <div align="center">
-  <img src="/images/posts/2021/test-double-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/test-double-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -65,7 +65,7 @@ last_modified_at: 2025-06-22T01:00:00
 - 고수준 모듈이 저수준 모듈에 직접 의존하는 관계를 뒤집어 고수준, 저수준 모듈 모두 추상화 계층을 의존하도록 설계하는 것을 의존성의 방향을 역전했다고 표현한다.
 
 <div align="center">
-  <img src="/images/posts/2021/test-double-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/test-double-04.png" width="80%" class="image__border">
 </div>
 
 ## 2. Type of test double
@@ -79,7 +79,7 @@ last_modified_at: 2025-06-22T01:00:00
 - 목(mock)
 
 <div align="center">
-  <img src="/images/posts/2021/test-double-05.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/test-double-05.png" width="50%" class="image__border">
 </div>
 <center>http://xunitpatterns.com/Test%20Double.html</center>
 
@@ -349,7 +349,7 @@ public class FakeCaseTest {
 > 이러한 유형들은 이론적으로는 명확하게 구분되지만, 실제에서는 그 차이가 모호해지는 경우가 많다. 그래서 테스트 더블을 연속선 상에 존재하는 것으로 생각하는 것이 합리적이라고 본다. 이는 그림 2에서 설명하고 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/test-double-06.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/test-double-06.png" width="50%" class="image__border">
 </div>
 <center>https://learn.microsoft.com/en-us/archive/msdn-magazine/2007/september/unit-testing-exploring-the-continuum-of-test-doubles</center>
 

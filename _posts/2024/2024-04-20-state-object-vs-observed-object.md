@@ -124,7 +124,7 @@ struct MySubView: View {
 - 부모 컴포넌트의 `change state` 버튼을 누르면 부모 컴포넌트의 플래그가 변경된다.
 
 <p align="center">
-  <img src="/images/posts/2024/state-object-vs-observed-object-01.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/state-object-vs-observed-object-01.png" width="40%" class="image__border">
 </p>
 
 ### 2.2. ContentView View
@@ -254,7 +254,7 @@ extension StateClickCount {
 - StateClickCount 컴포넌트는 부모 컴포넌트의 상태가 변경되더라도 초기화되지 않는다.
 
 <p align="center">
-  <img src="/images/posts/2024/state-object-vs-observed-object-02.gif" width="30%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/state-object-vs-observed-object-02.gif" width="30%" class="image__border">
 </p>
 
 ## CLOSING

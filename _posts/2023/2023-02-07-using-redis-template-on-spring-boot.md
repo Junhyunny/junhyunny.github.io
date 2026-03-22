@@ -38,7 +38,7 @@ last_modified_at: 2025-10-09T00:00:00
 - 사용자 역할은 터미널의 `cURL` 명령어로 대체했다.
 
 <div align="center">
-  <img src="/images/posts/2023/using-redis-template-on-spring-boot-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/using-redis-template-on-spring-boot-01.png" width="100%" class="image__border">
 </div>
 
 <br/>

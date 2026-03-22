@@ -56,7 +56,7 @@ jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로
 - IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드 된다.
 
 <div align="left">
-  <img src="/images/posts/2021/cannot-find-static-resource-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cannot-find-static-resource-01.png" width="50%" class="image__border">
 </div>
 
 <br/>
@@ -272,7 +272,7 @@ public class BlogController {
 - 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/cannot-find-static-resource-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cannot-find-static-resource-02.gif" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -284,7 +284,7 @@ public class BlogController {
 - 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/cannot-find-static-resource-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cannot-find-static-resource-03.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

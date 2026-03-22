@@ -21,7 +21,7 @@ last_modified_at: 2025-03-22T23:55:00
 나는 많은 프로젝트에서 스프링 서버 애플리케이션을 구현할 때 세션을 위해 레디스(redis)를 사용했었다. 최근 새로운 서비스의 세션을 구축하기 위해 AWS 엘라스틱캐시(elasticache)에서 레디스 서버를 배포하려고 했더니 다음과 같은 AWS 추천 메시지를 만났다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -158,7 +158,7 @@ Caused by: io.lettuce.core.RedisCommandExecutionException: CROSSSLOT Keys in req
 다음은 TLS 연결 설정이 필요하다. 서버리스 밸키와 연결하기 위해선 TLS 옵션이 필요하다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-02.png" width="65%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-02.png" width="65%" class="image__border">
 </div>
 
 <br/>
@@ -205,7 +205,7 @@ spring:
 `SESSION_HOST` 환경 변수로 등록할 클러스터 노드 연결 정보는 밸키 서버리스 대시보드 화면에서 확인할 수 있다. 엔드포인트 정보를 포트까지 포함하여 그대로 사용한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-03.png" width="100%" class="image__border">
 </div>
 
 ## 5. Setting AWS security group
@@ -228,7 +228,7 @@ spring:
 다음과 같이 두 개의 포트를 인바운드 규칙으로 지정한다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-04.png" width="100%" class="image__border">
 </div>
 
 ## 6. Verification
@@ -238,7 +238,7 @@ spring:
 - EC2 컨테이너에서 AWS 엘라스틱캐시 서버리스 밸키 클러스터를 세션으로 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -283,7 +283,7 @@ valkey_endpoint = tolist([
 인프라 배포가 완료되더라도 EC2 컨테이너에서 애플리케이션을 준비하는 시간이 약간 소요된다. 잠시 후 서버 엔드포인트로 접근하면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-06.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -291,7 +291,7 @@ valkey_endpoint = tolist([
 엘라스틱캐시 밸키 클러스터 모니터링 화면에서 세션 정보가 저장되었는지 캐시가 히트했는지 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-elasticache-valkey-and-spring-07.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-elasticache-valkey-and-spring-07.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

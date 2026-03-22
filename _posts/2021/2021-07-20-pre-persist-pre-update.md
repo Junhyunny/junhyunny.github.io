@@ -17,7 +17,7 @@ last_modified_at: 2021-09-04T13:00:00
 - JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다. 
 
 <div align="center">
-  <img src="/images/posts/2021/pre-persist-pre-update-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/pre-persist-pre-update-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -27,7 +27,7 @@ last_modified_at: 2021-09-04T13:00:00
 - 영속 상태인 엔티티의 변경 사항이 데이터베이스에 반영되는 시점 이전에 실행된다. 
 
 <div align="center">
-  <img src="/images/posts/2021/pre-persist-pre-update-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/pre-persist-pre-update-02.png" width="80%" class="image__border">
   </div>
 
 ## 2. Usage

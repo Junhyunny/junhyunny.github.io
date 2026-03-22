@@ -32,7 +32,7 @@ AWS Cognito는 SPA 클라이언트를 위한 PKCE 인가 코드 승인 방식을
 - 리다이렉트 URL을 `http://localhost:5173` 주소로 지정한다.
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/react-oauth2-pkce-example-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -120,7 +120,7 @@ export default App;
 예시 코드를 사용해 애플리케이션을 실행하면 다음과 같은 로그인 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/react-oauth2-pkce-example-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -128,7 +128,7 @@ export default App;
 `Sign in` 버튼을 누르면 AWS Cognito가 지원하는 로그인 페이지를 볼 수 있다. 테스트를 위한 사용자를 생성한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/react-oauth2-pkce-example-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -136,7 +136,7 @@ export default App;
 사용자 생성 후 로그인하면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/react-oauth2-pkce-example-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -154,7 +154,7 @@ export default App;
 8. 액세스 토큰 발급이 성공한다.
 
 <div align="center">
-  <img src="/images/posts/2025/react-oauth2-pkce-example-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/react-oauth2-pkce-example-05.png" width="100%" class="image__border">
 </div>
 
 ## 2. Create CustomAuthProvider component

@@ -92,7 +92,7 @@ $ npm run start
 다음과 같은 화면이 열린다.
 
 <div align="center">
-  <img src="/images/posts/2026/elctron-react-project-setup-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/elctron-react-project-setup-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Trouble shooting

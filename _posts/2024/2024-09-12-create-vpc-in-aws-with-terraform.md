@@ -29,7 +29,7 @@ last_modified_at: 2024-09-12T23:55:00
   - 프라이빗 서브넷에서 외부 인터넷에 접근하기 위한 NAT 게이트웨이
 
 <div align="center">
-  <img src="/images/posts/2024/create-vpc-in-aws-with-terraform-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/create-vpc-in-aws-with-terraform-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Project structure
@@ -324,7 +324,7 @@ Do you want to perform these actions?
 테라폼 작업이 완료되면 웹 콘솔 VPC 리소스 맵에서 다음과 같은 VPC, 서브넷, 게이트웨이 그리고 라우트 테이블을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/create-vpc-in-aws-with-terraform-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/create-vpc-in-aws-with-terraform-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

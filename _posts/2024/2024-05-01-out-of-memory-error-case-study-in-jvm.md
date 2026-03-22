@@ -26,7 +26,7 @@ last_modified_at: 2024-05-03T23:55:00
 - 최대 10MB 메모리 중 8.8MB 정도가 할당되어 있는 상태이다.
 
 <p align="center">
-  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-01.png" width="100%" class="image__border">
 </p>
 
 <br/>
@@ -63,7 +63,7 @@ JDK 제공사에서 설명할 때 다이렉트 메모리에 제한이 없는데 
 - `-XX:MaxDirectMemorySize=N` 옵션을 통해 다이렉트 메모리 사이즈가 10MB로 제한되어 있었다.
 
 <p align="center">
-  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-02.png" width="100%" class="image__border">
 </p>
 
 <br/>
@@ -92,7 +92,7 @@ Non-Heap = (Direct Memory) + (Metaspace) + (Reserved Code Cache) + (Thread Stack
 헤드룸(Headroom) 메모리는 JVM이 아닌 작업을 위해 남겨두는 메모리로 백분율 단위를 사용하며 기본 값이 0% 이므로 자세한 내용은 살펴보지 않았다. 공식 문서를 보면 논-힙 메모리에 포함된 다이렉트 메모리의 기본 값은 10MB이다. 발생한 문제의 로그와 동일한 값인 것으로 미뤄볼 때 기본 값이 너무 작아 OOM 에러가 발생한 것으로 보인다.
 
 <p align="center">
-  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-03.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-03.png" width="50%" class="image__border">
 </p>
 <center>https://paketo.io/docs/reference/java-reference/#memory-calculator</center>
 
@@ -203,7 +203,7 @@ public class FileController {
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.
 
 <p align="center">
-  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-04.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-04.gif" width="100%" class="image__border">
 </p>
 
 <br/>
@@ -266,7 +266,7 @@ public class FileController {
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.
 
 <p align="center">
-  <img src="/images/posts/2024/out-of-memory-error-case-study-in-jvm-05.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-05.gif" width="100%" class="image__border">
 </p>
 
 <br/>

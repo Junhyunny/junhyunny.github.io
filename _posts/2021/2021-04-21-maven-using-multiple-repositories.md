@@ -20,7 +20,7 @@ Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
 ```
 
 <div align="left">
-  <img src="/images/posts/2021/maven-using-multiple-repositories-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/maven-using-multiple-repositories-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -30,7 +30,7 @@ Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
 - 실제 저장소는 오른쪽의 `Repository` 버튼을 통해 확인한다. 
 
 <div align="center">
-  <img src="/images/posts/2021/maven-using-multiple-repositories-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/maven-using-multiple-repositories-02.png" width="80%" class="image__border">
 </div>
 
 <br />

@@ -69,7 +69,7 @@ class TodoRepositoryTest {
 - 테스트 컨테이너를 연결하는 설정 클래스와 데이터베이스 결합 테스트 관련 클래스를 나눈 이유는 데이터베이스와 관련 없는 결합 테스트(@SpringBootTest)에서도 데이터베이스 연결이 필요하기 때문이다.
 
 <p align="center">
-  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/problem-of-sharing-application-context-with-test-container-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.1. TestContainerDatabase Class
@@ -161,7 +161,7 @@ class TodoRepositoryTest : TestStoreConfig() {
 모든 리팩토링은 끝났다. 이제 테스트를 실행해보자. 각 클래스 별로 테스트를 실행하면 문제가 없지만, 모든 테스트를 한번에 실행하면 문제가 발생한다. 
 
 <p align="center">
-  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/problem-of-sharing-application-context-with-test-container-02.png" width="100%" class="image__border">
 </p>
 
 ## 2. Solve the problem
@@ -229,7 +229,7 @@ Caught exception while invoking 'beforeTestMethod' callback on TestExecutionList
 6. ReplyRepositoryTest 테스트는 현재 생성된 B 데이터베이스가 아닌 이전 테스트가 종료되면서 함께 삭제된 A 데이터베이스에 연결을 시도한다. 
 
 <p align="center">
-  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/problem-of-sharing-application-context-with-test-container-03.png" width="80%" class="image__border">
 </p>
 
 ### 2.2. Using @DirtiesContext Annotation
@@ -263,7 +263,7 @@ abstract class TestContainerDatabase {
 매 테스트마다 테스트 컨테이너와 애플리케이션 컨텍스트를 매번 새로 만들어 테스트들을 완벽히 격리한다. 테스트를 격리할 수 있다는 장점이 있지만, 매 테스트마다 컨텍스트 로딩이 수행하는 비효율성을 감수해야 한다.
 
 <p align="center">
-  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/problem-of-sharing-application-context-with-test-container-04.png" width="80%" class="image__border">
 </p>
 
 ### 2.3. Using same database test container
@@ -305,7 +305,7 @@ abstract class TestContainerDatabase {
 정적(static) 영역 필드가 준비되는 시점에 테스트 컨테이너가 한번만 실행된다. 애플리케이션 컨텍스트를 재사용하고 컨테이너를 생성하는 비용을 줄일 수 있지만, 데이터베이스를 모든 테스트에서 공유하기 때문에 테스트가 격리되지 않는다. 이는 각 테스트들이 서로 다른 테스트에 영향을 주지 않도록 코드 수준에서 고려할 것들이 생기게 된다.
 
 <p align="center">
-  <img src="/images/posts/2024/problem-of-sharing-application-context-with-test-container-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/problem-of-sharing-application-context-with-test-container-05.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

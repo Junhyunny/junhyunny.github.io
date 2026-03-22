@@ -35,7 +35,7 @@ AWS Bedrock의 에이전트(agent)는 사용자의 자연어 요청을 이해하
 일반 LLM(파운데이션 모델)은 학습된 지식을 기반으로 동작하기 때문에 한계가 있다. 에이전트는 이런 LLM의 한계를 극복하고 성능을 향상시키기 위해 주변 도구(API, 데이터베이스, 세션 등)들을 사용하고 실질적인 작업을 수행하는 소프트웨어를 의미한다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-bedrock-agent-api-00.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-bedrock-agent-api-00.png" width="100%" class="image__border">
 </div>
 
 ## 2. Create AWS Bedrock Agent 
@@ -89,7 +89,7 @@ $ sh create-agent-cli.sh arn:aws:iam::123412341234:role/service-role/AmazonBedro
 AWS BedRock 에이전트 화면에서 위에서 생성한 에이전트를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-bedrock-agent-api-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-bedrock-agent-api-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -122,7 +122,7 @@ $ sh prepare-agent-cli.sh SR95VYU66L
 명령어 실행이 완료되면 아래처럼 에이전트가 준비 상태가 된다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-bedrock-agent-api-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-bedrock-agent-api-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -306,7 +306,7 @@ $ sh create-agent-alias-cli.sh SR95VYU66L V2025072102
 새로운 별칭은 새로운 에이전트 버전과 매칭된다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-bedrock-agent-api-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-bedrock-agent-api-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -330,7 +330,7 @@ botocore.exceptions.EventStreamError: An error occurred (validationException) wh
 `amazon.nova-micro-v1:0` 모델은 온-디맨드 모드를 서포트하지 않는다는 의미이다. 카탈로그에 표시된 모델 ID를 사용하면 위와 같은 에러가 발생한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-bedrock-agent-api-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-bedrock-agent-api-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -338,7 +338,7 @@ botocore.exceptions.EventStreamError: An error occurred (validationException) wh
 크로스 리전 추론(cross-region inference)의 추론 프로파일 ID를 사용하면 이 문제를 해결할 수 있다. AWS 베드록의 크로스 리전 추론은 추론 프로파일(inference profiles)을 사용하여 처리량(throughput)을 증가시키고, 피크 시간대(트래픽 폭주 시)에도 복원력(resiliency)을 향상시키기 위해 여러 AWS 리전에 요청을 분산 라우팅하는 기능이다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-bedrock-agent-api-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-bedrock-agent-api-05.png" width="100%" class="image__border">
 </div>
 
 #### RECOMMEND NEXT POSTS

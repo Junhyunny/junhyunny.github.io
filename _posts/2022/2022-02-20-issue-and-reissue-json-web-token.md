@@ -28,7 +28,7 @@ last_modified_at: 2025-12-29T00:00:00
   - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회한다.
 
 <div align="center">
-  <img src="/images/posts/2022/issue-and-reissue-json-web-token-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/issue-and-reissue-json-web-token-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -41,7 +41,7 @@ last_modified_at: 2025-12-29T00:00:00
 4. 인증 매니저 객체는 [이전 글][make-authentication-provider-link]에서 구현한 JwtAuthenticationProvider 객체를 사용한다. 토큰의 유효성만 확인하기 때문에 UserDetailsService 인스턴스를 사용할 필요가 없다.
 
 <div align="center">
-  <img src="/images/posts/2022/issue-and-reissue-json-web-token-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/issue-and-reissue-json-web-token-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -57,7 +57,7 @@ last_modified_at: 2025-12-29T00:00:00
   - 추출한 사용자 ID를 이용해 사용자 정보를 조회하고 새로운 액세스 토큰과 리프레시 토큰을 발급한다.
 
 <div align="center">
-  <img src="/images/posts/2022/issue-and-reissue-json-web-token-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/issue-and-reissue-json-web-token-03.png" width="100%" class="image__border">
 </div>
 
 ## 2. Package structure and change configuration

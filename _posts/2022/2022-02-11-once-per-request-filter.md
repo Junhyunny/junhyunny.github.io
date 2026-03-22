@@ -22,7 +22,7 @@ last_modified_at: 2025-11-18T23:55:00
 우선 필터 기능부터 간단히 알아보자. 필터는 웹 애플리케이션(Web Application) 영역에서 동작하는 컴포넌트다. 요청이 서블릿 컨테이너(servlet container)에 전달되기 전에 수행된다. 
 
 <div align="center">
-  <img src="/images/posts/2022/once-per-request-filter-01.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/once-per-request-filter-01.png" width="60%" class="image__border">
 </div>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
@@ -42,7 +42,7 @@ last_modified_at: 2025-11-18T23:55:00
 `OncePerRequestFilter` 클래스는 이름에서 유추할 수 있듯이 한 요청에 대해 한 번만 실행되는 필터이다. 예를 들어, 포워딩(forwarding)이 발생하면 필터 체인이 다시 동작하면서, 인증처럼 한 번만 필요한 처리를 불필요하게 여러 번 수행하게 된다.
 
 <div align="center">
-  <img src="/images/posts/2022/once-per-request-filter-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/once-per-request-filter-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -243,7 +243,7 @@ public class TestController {
 참고한 글 중에 어떤 사람은 리다이렉트(redirect)를 통해 `OncePerReqeustFilter` 클래스 테스트를 하였는데, 이해가 되지 않는다. 일반적인 리다이렉트는 브라우저가 서버로부터 리다이렉트하라는 302 응답을 받은 후 전달받은 `Location`으로 재요청을 하는 프로세스이다. 
 
 <div align="center">
-  <img src="/images/posts/2022/once-per-request-filter-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/once-per-request-filter-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -253,7 +253,7 @@ public class TestController {
 `MockMvc`를 이용한 포워딩 테스트를 진행하고 싶었지만, 관련된 기능은 제공되지 않은 것 같다. 찾아보니 스프링 진영에서도 관련된 내용에 대한 의견을 나누고는 있는 것 같다.
 
 <div align="center">
-  <img src="/images/posts/2022/once-per-request-filter-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/once-per-request-filter-04.png" width="80%" class="image__border">
 </div>
 <center>https://github.com/spring-attic/spring-mvc-showcase/issues/42</center>
 

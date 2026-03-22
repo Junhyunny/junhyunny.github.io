@@ -75,7 +75,7 @@ export default {
 위 코드를 브라우저에서 실행하면 `computedMessage`는 함수가 아니라는 에러 메시지를 확인할 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2021/vue-js-computed-with-parameter-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/vue-js-computed-with-parameter-01.png" width="50%" class="image__border">
 </div>
 
 <br />
@@ -128,7 +128,7 @@ export default {
 위 코드는 정상적으로 동작한다.
 
 <div align="left">
-  <img src="/images/posts/2021/vue-js-computed-with-parameter-02.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/vue-js-computed-with-parameter-02.png" width="50%" class="image__border">
 </div>
 
 ## CLOSING

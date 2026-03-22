@@ -30,7 +30,7 @@ last_modified_at: 2025-08-26T22:00:00
 - Controller 객체에서 Service 객체의 메서드 호출 시 스택이 바로 이어진다.
 
 <div align="center">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/do-not-bind-proxy-spring-mvc-transaction-01.png" width="100%" class="image__border">
 </div>
 
 트랜잭션 처리가 감싸진 프록시 빈 객체의 메서드를 호출하면 다음과 같은 스택 모습을 갖는다.
@@ -39,7 +39,7 @@ last_modified_at: 2025-08-26T22:00:00
 - 스택을 보면 트랜잭션 처리를 위한 인터셉터가 존재한다.
 
 <div align="center">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/do-not-bind-proxy-spring-mvc-transaction-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Reason of problem
@@ -50,7 +50,7 @@ last_modified_at: 2025-08-26T22:00:00
 - 처음은 프록시 빈 객체, 두 번째는 일반 빈 객체가 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/do-not-bind-proxy-spring-mvc-transaction-03.png" width="80%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 
@@ -203,7 +203,7 @@ public class BlogServiceImpl implements BlogService {
 테스트를 수행하기 전에 데이터 상태는 다음과 같다.
 
 <div align="left">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-04.png" width="65%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/do-not-bind-proxy-spring-mvc-transaction-04.png" width="65%" class="image__border">
 </div>
 
 <br/>
@@ -217,7 +217,7 @@ $ curl http://localhost:8080/update
 정상적으로 authorities 컬럼(column)이 널(null) 값으로 업데이트 된다.
 
 <div align="left">
-  <img src="/images/posts/2021/do-not-bind-proxy-spring-mvc-transaction-05.png" width="65%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/do-not-bind-proxy-spring-mvc-transaction-05.png" width="65%" class="image__border">
 </div>
 
 <br/>

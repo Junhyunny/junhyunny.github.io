@@ -98,7 +98,7 @@ where post0_.title = ?
 - Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장된다.
 
 <div align="left">
-  <img src="/images/posts/2022/auto-distinct-when-using-entity-graph-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/auto-distinct-when-using-entity-graph-01.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -155,7 +155,7 @@ where post0_.title = ?
 - `LEFT OUTER JOIN`을 수행하였고, 별도의 중복 처리를 하지 않았음에도 Post 엔티티 객체가 리스트에 1개 저장된다. 
 
 <div align="left">
-  <img src="/images/posts/2022/auto-distinct-when-using-entity-graph-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/auto-distinct-when-using-entity-graph-02.png" width="80%" class="image__border">
 </div>
 
 ## 2. StackOverflow 답변
@@ -167,7 +167,7 @@ where post0_.title = ?
 - HQL(Hibernate Query Language)나 JPQL 사용 시 `PASS_DISTINCT_THROUGH` 힌트를 사용하면 동일한 효과를 얻을 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2022/auto-distinct-when-using-entity-graph-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/auto-distinct-when-using-entity-graph-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -243,7 +243,7 @@ public class QueryTranslatorImpl implements FilterTranslator {
   - org.hibernate.hql.internal.ast.QueryTranslatorImpl
 
 <div align="left">
-  <img src="/images/posts/2022/auto-distinct-when-using-entity-graph-04.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/auto-distinct-when-using-entity-graph-04.png" width="50%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

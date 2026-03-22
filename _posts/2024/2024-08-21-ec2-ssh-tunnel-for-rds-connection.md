@@ -19,7 +19,7 @@ AWS 클라우드 환경에서 데이터베이스(RDS)는 보통 프라이빗 서
 - `Launch Intances` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -30,7 +30,7 @@ AWS 클라우드 환경에서 데이터베이스(RDS)는 보통 프라이빗 서
 - 데이터베이스 접속을 위한 프록시 서버이므로 무료 티어 인스턴스를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-02.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -38,7 +38,7 @@ AWS 클라우드 환경에서 데이터베이스(RDS)는 보통 프라이빗 서
 EC2 인스턴스에 접속하기 위한 키-페어(key-pair)를 만든다. 여기서 생성한 SSH 터널링에서 이 비공개 키를 사용한다. 기존의 것을 사용해도 되지만, 예제에선 새로운 키를 생성한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -50,7 +50,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - 외부에서 접근할 수 있도록 공개 IP 설정을 허용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-04.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -60,7 +60,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - 필자의 컴퓨터에서만 접근 가능하도록 IP 대역을 필자의 IP로 제한한다
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-05.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -74,7 +74,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - `Actions > Networking > Connect RDS database`를 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-06.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-06.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -85,7 +85,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - `Connect` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-07.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-07.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -100,7 +100,7 @@ EC2 인스턴스를 위한 네트워크 설정을 수행한다.
 - `...` 버튼을 눌러 SSH 연결 정보를 생성한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-08.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-08.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -112,7 +112,7 @@ EC2 인스턴스 연결 정보를 정의한다.
 - 위에서 EC2 인스턴스를 생성할 때 함께 만든 키 페어를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-09.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-09.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -120,7 +120,7 @@ EC2 인스턴스 연결 정보를 정의한다.
 위에서 생성한 EC2 인스턴스 연결 정보를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-10.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-10.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -133,7 +133,7 @@ EC2 인스턴스 연결 정보를 정의한다.
 - `Test Connection` 버튼을 눌러 접속이 정상적으로 가능한지 확인한다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-11.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-11.png" width="80%" class="image__border">
 </div>
 
 ## CLOSING
@@ -141,5 +141,5 @@ EC2 인스턴스 연결 정보를 정의한다.
 최종적으로 다음과 같은 모습을 갖는다.
 
 <div align="center">
-  <img src="/images/posts/2024/ec2-ssh-tunnel-for-rds-connection-12.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/ec2-ssh-tunnel-for-rds-connection-12.png" width="80%" class="image__border">
 </div>

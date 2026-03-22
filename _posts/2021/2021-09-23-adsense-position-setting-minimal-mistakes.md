@@ -28,7 +28,7 @@ last_modified_at: 2026-02-28T23:55:00
   - 검색 엔진
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/adsense-position-setting-minimal-mistakes-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -40,7 +40,7 @@ last_modified_at: 2026-02-28T23:55:00
 3. 이름을 작성 후 `만들기` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/adsense-position-setting-minimal-mistakes-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -51,7 +51,7 @@ last_modified_at: 2026-02-28T23:55:00
 2. 받은 광고 코드를 포스트 적절한 위치에 삽입한다.
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/adsense-position-setting-minimal-mistakes-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -62,7 +62,7 @@ last_modified_at: 2026-02-28T23:55:00
 - 생성한 광고 오른쪽에 `<>` 모양의 `코드 가져오기` 버튼을 클릭한다. 
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/adsense-position-setting-minimal-mistakes-04.png" width="100%" class="image__border">
 </div>
 
 ## 2. Locate ads
@@ -120,7 +120,7 @@ layout: default
 해당 광고 코드를 추가한 후 블로그를 배포하면 아래 이미지처럼 광고가 글 위와 아래에만 추가되는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/adsense-position-setting-minimal-mistakes-05.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/adsense-position-setting-minimal-mistakes-05.gif" width="100%" class="image__border">
 </div>
 
 [adsense-minimal-mistakes-link]: https://junhyunny.github.io/information/minimal-mistakes-adsense/

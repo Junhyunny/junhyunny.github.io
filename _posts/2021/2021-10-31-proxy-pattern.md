@@ -36,7 +36,7 @@ last_modified_at: 2025-08-26T22:00:00
   - 인터페이스에서 명시한 기능을 실제로 처리하는 객체이다.
 
 <div align="center">
-  <img src="/images/posts/2021/proxy-pattern-01.png" width="80%" class="image__border image__padding">
+  <img src="{{ site.image_url_2021 }}/proxy-pattern-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 
@@ -150,7 +150,7 @@ public class VirtualProxy implements VirtualSubject {
   - 프록시로부터 전달된 명령을 이해하고 적합한 메서드를 호출하는 스켈레톤(skeleton)에 의해 실행된다.
 
 <div align="center">
-  <img src="/images/posts/2021/proxy-pattern-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/proxy-pattern-02.png" width="100%" class="image__border">
 </div>
 <center>https://gre-eny.tistory.com/253</center>
 

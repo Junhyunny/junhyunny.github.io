@@ -24,7 +24,7 @@ last_modified_at: 2025-12-30T23:55:00
 위와 같은 과정을 통해 리다이렉트가 이뤄지다보니 **브라우저 입장에선 URL 경로가 바뀌게 된다.** 서버 입장에서는 새로운 요청이 들어온 것이며, 새로운 요청, 응답 객체를 만들어 이를 처리한다. 
 
 <div align="center">
-  <img src="/images/posts/2022/redirect-and-forwarding-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/redirect-and-forwarding-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. 포워딩(Forwarding)
@@ -39,7 +39,7 @@ last_modified_at: 2025-12-30T23:55:00
 위와 같은 과정을 통해 포워딩이 이뤄지다보니 **브라우저 입장에선 URL 경로가 변경되지 않는다.** 브라우저는 자신이 보낸 요청을 서버가 다른 경로로 전달하여 처리하였는지 알 수 없다. 그렇기 때문에 자신이 요청한 `/will-forward` 경로로부터 응답을 받았다고 인지한다. 서버는 처음 요청을 받았을 때 생성한 요청과 응답 객체를 그대로 사용하여 다른 경로에서 브라우저의 요청을 처리한다.
 
 <div align="center">
-  <img src="/images/posts/2022/redirect-and-forwarding-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/redirect-and-forwarding-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

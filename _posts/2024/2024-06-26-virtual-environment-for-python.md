@@ -24,7 +24,7 @@ last_modified_at: 2024-06-26T23:55:00
 파이썬 패키지는 리눅스 기준으로 `/usr/local/lib/python3.12/site-packages` 폴더에 설치된다. 설치된 Django 버전에 따라 두 프로젝트 중 하나는 문제가 발생한다. 가상 환경은 이런 문제를 해결한다. 각 프로젝트 내부에 `venv` 폴더를 만들고 여기에서 패키지를 관리한다. 
 
 <div align="center">
-  <img src="/images/posts/2024/virtual-environment-for-python-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/virtual-environment-for-python-01.png" width="80%" class="image__border">
 </div>
 
 <br/>

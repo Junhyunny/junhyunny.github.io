@@ -33,7 +33,7 @@ last_modified_at: 2025-09-13T23:55:00
 - API 요청을 처리하기 위한 컨트롤러, 서비스, 레포지토리 계층을 구현한다.
 
 <div align="center">
-  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/improve-development-process-by-vibe-coding-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -44,7 +44,7 @@ last_modified_at: 2025-09-13T23:55:00
 - 프론트엔드의 경우 피그마 작업물을 보고 화면, 컴포넌트에 디자인을 적용한다.
 
 <div align="center">
-  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/improve-development-process-by-vibe-coding-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -54,7 +54,7 @@ last_modified_at: 2025-09-13T23:55:00
 프론트엔드 디자인을 반영하는 작업은 속도를 높이기 위해 피그마 MCP 서버를 사용하기로 했다. 이 부분도 몇 차례 테스트를 통해 피그마 MCP 서버로부터 얻은 정보로 직접 대상 컴포넌트에 디자인을 적용하는 것보다 임시 컴포넌트를 만든 후 이를 기반으로 대상 컴포넌트의 디자인을 적용하는 편이 완성도가 높다는 인사이트를 얻었다. 최종적으로 프론트엔드 개발 작업은 다음과 같이 변경됐다.
 
 <div align="center">
-  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/improve-development-process-by-vibe-coding-03.png" width="80%" class="image__border">
 </div>
 
 ## 2. Make prompt file
@@ -76,7 +76,7 @@ last_modified_at: 2025-09-13T23:55:00
 작성된 프롬프트는 VSCode, 인텔리제이(intellij)에서 `/`를 통해 명령어처럼 사용할 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-04.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/improve-development-process-by-vibe-coding-04.png" width="50%" class="image__border">
 </div>
 
 <br/>
@@ -103,7 +103,7 @@ last_modified_at: 2025-09-13T23:55:00
 프롬프트에 함수처럼 파라미터를 설정한다. 필수 값은 항상 입력 받아야 하므로 없는 경우 프롬프트를 도중에 중단한다. 프롬프트를 실행할 때 `USER_STORY` 항목을 입력하지 않는 경우 다음과 같은 에러가 발생한다. 
 
 <div align="left">
-  <img src="/images/posts/2025/improve-development-process-by-vibe-coding-05.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/improve-development-process-by-vibe-coding-05.png" width="50%" class="image__border">
 </div>
 
 <br/>

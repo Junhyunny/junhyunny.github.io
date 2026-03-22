@@ -42,7 +42,7 @@ last_modified_at: 2024-09-18T23:55:00
     - 해당 아이템에 락이 걸려 있기 때문에 인프라 변경에 실패한다.
 
 <div align="center">
-  <img src="/images/posts/2024/terraform-backend-for-tfstate-management-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/terraform-backend-for-tfstate-management-01.png" width="80%" class="image__border">
 </div>
 
 ## 3. Project structure
@@ -205,7 +205,7 @@ commands will detect it and remind you to do so if necessary.
 백엔드가 구성되었다면 버킷에 업로드 된 파일을 확인할 수 있다. 
 
 <div align="center">
-  <img src="/images/posts/2024/terraform-backend-for-tfstate-management-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/terraform-backend-for-tfstate-management-02.png" width="100%" class="image__border">
 </div>
 
 <br/>

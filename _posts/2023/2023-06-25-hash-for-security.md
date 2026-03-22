@@ -18,7 +18,7 @@ last_modified_at: 2023-06-25T23:55:00
 - 복호화 할 필요가 없는 비밀번호, 전자투표, 전자상거래 등에 사용된다.
 
 <div align="center">
-  <img src="/images/posts/2023/hash-for-security-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/hash-for-security-01.png" width="80%" class="image__border">
 </div>
 <center>https://st-lab.tistory.com/100</center>
 
@@ -71,7 +71,7 @@ last_modified_at: 2023-06-25T23:55:00
   - 해시 값을 알더라도 레인보우 테이블에서 일치하는 비밀번호를 찾기 어렵습니다.
 
 <div align="center">
-    <img src="/images/posts/2023/hash-for-security-02.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/hash-for-security-02.png" width="80%" class="image__border">
 </div>
 <center>https://st-lab.tistory.com/100</center>
 
@@ -80,7 +80,7 @@ last_modified_at: 2023-06-25T23:55:00
   - 여러 차례 해싱을 수행하기 때문에 더 많은 시간이 소요된다.
 
 <div align="center">
-    <img src="/images/posts/2023/hash-for-security-03.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/hash-for-security-03.png" width="80%" class="image__border">
 </div>
 <center>https://st-lab.tistory.com/100</center>
 

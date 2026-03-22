@@ -232,7 +232,7 @@ describe("App", () => {
 테스트 코드를 실행하면 정상적으로 통과한다.
 
 <div align="left">
-  <img src="/images/posts/2022/react-test-environment-01.png" width="70%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/react-test-environment-01.png" width="70%" class="image__border">
 </div>
 
 ## 4. Errors when setup test environment

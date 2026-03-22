@@ -33,7 +33,7 @@ last_modified_at: 2025-12-13T00:00:00
   - `VM1`에서 SSH 접근을 수행한다.
 
 <div align="center">
-  <img src="/images/posts/2023/open-firewall-of-linux-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/open-firewall-of-linux-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Practice
@@ -241,7 +241,7 @@ Firewall reloaded
 두 개의 가상 머신을 실행 후 방화벽이 열려 있는 상태인지 SSH 연결을 통해 확인한다.
 
 <div align="center">
-  <img src="/images/posts/2023/open-firewall-of-linux-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/open-firewall-of-linux-02.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

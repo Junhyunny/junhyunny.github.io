@@ -20,7 +20,7 @@ last_modified_at: 2024-07-09T23:55:00
 2. copy 항목 중 원하는 재요청 방식을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2024/how-to-retry-http-request-in-chrome-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-retry-http-request-in-chrome-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Copy as cURL

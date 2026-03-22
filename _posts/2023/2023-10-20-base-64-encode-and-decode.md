@@ -17,7 +17,7 @@ last_modified_at: 2026-03-18T10:30:00+09:00
 인코딩은 정보의 형태나 형식을 변환하는 처리 방식을 의미한다. 텍스트, 이미지, 비디오 같은 정보나 데이터를 정해진 규칙에 의해 다른 형식으로 변환하는 작업이다. 디코딩은 인코딩과 반대 작업을 의미한다. 다른 형태의 데이터를 다시 텍스트, 이미지, 비디오 같은 정보 혹은 데이터로 변환하는 작업이다.
 
 <div align="center">
-  <img src="/images/posts/2023/base-64-encoding-and-decoding-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/base-64-encoding-and-decoding-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Base64 Encoding
@@ -35,7 +35,7 @@ last_modified_at: 2026-03-18T10:30:00+09:00
 RFC 표준에서 Base64 인코딩에 사용되는 문자들을 다음과 같이 정의한다.
 
 <div align="center">
-  <img src="/images/posts/2023/base-64-encoding-and-decoding-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/base-64-encoding-and-decoding-02.png" width="80%" class="image__border">
 </div>
 <center>https://datatracker.ietf.org/doc/html/rfc4648</center>
 
@@ -118,7 +118,7 @@ Output:  F      P      u      c        A      w      =      =
   - 패딩 비트가 추가된 횟수만큼 = 문자를 추가한다.
 
 <div align="center">
-  <img src="/images/posts/2023/base-64-encoding-and-decoding-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/base-64-encoding-and-decoding-03.png" width="80%" class="image__border">
 </div>
 
 ## 3. Why do we use Base64 encoding?

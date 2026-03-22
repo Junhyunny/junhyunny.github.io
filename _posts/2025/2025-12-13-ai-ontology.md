@@ -238,7 +238,7 @@ RDF에는 `disjointWith` 같은 문법이 없기 때문에 남자, 여자가 함
 위 Turtle 파일을 neo4j 그래프 데이터베이스에 임포트(import)하면 다음과 같은 그래프가 그려진다.
 
 <div align="center">
-  <img src="/images/posts/2025/ai-ontology-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/ai-ontology-01.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

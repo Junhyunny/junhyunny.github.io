@@ -18,7 +18,7 @@ last_modified_at: 2025-01-20T23:55:00
 [지난 글][dynamodb-basics-link]에서 DynamoDB의 기본 컨셉이나 특징에 대해 정리했다. 이전 글에서 언급했듯이 DynamoDB의 쿼리(query)는 제한적이다. 쿼리를 통해 데이터를 조회하려면 파티션 키(partition key)와 정렬 키(sort key)만 조회 조건으로 사용할 수 있다. 파티션 키는 필수 값이고 정렬 키는 선택적으로 사용 가능하다. 기본 키가 아닌 속성(attribute)로 데이터를 사용해서 데이터를 조회할 수 없다.
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-seconary-indexes-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/dynamodb-seconary-indexes-01.png" width="80%" class="image__border">
 </div>
 <center>https://www.youtube.com/watch?v=I7zcRxHbo98</center>
 
@@ -70,7 +70,7 @@ $ aws dynamodb create-table \
 필요한 테이블이 생성되었으면 다음과 같은 데이터를 준비한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-seconary-indexes-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/dynamodb-seconary-indexes-02.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. Query with local secondary index
@@ -99,7 +99,7 @@ $ aws dynamodb query \
 다음 두 개의 아이템이 조회된다.
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-seconary-indexes-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/dynamodb-seconary-indexes-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -177,7 +177,7 @@ $ aws dynamodb update-table \
 "ActorsTable" 테이블에 다음과 같은 파티션 키, 정렬 키를 사용하는 글로벌 보조 인덱스가 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-seconary-indexes-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/dynamodb-seconary-indexes-04.png" width="100%" class="image__border">
 </div>
 
 ### 3.2. Query with global secondary index
@@ -201,7 +201,7 @@ $ aws dynamodb query \
 다음 한 개의 데이터가 조회된다.
 
 <div align="center">
-  <img src="/images/posts/2025/dynamodb-seconary-indexes-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/dynamodb-seconary-indexes-05.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

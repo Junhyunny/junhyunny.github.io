@@ -249,7 +249,7 @@ Creating 2021-01-20-multipartfile_backend_1  ... done
 - 파일을 업로드에 성공하면 화면에 이미지 정보들이 갱신된다.
 
 <div align="center">
-  <img src="/images/posts/2021/multipartfile-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/multipartfile-01.gif" width="100%" class="image__border">
 </div>
 
 ## 5. FileSizeLimitExceededException handling

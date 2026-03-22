@@ -75,7 +75,7 @@ CodeceptJS 프레임워크는 브라우저를 지원하는 도우미(helper) 프
 - CodeceptJS 프레임워크로 작성한 도우미 프레임워크가 지원하는 브라우저 환경에서 테스트가 가능하다.
 
 <div align="center">
-  <img src="/images/posts/2024/codecept-js-with-playwright-01.png" width="100%" class="image__border image__padding">
+  <img src="{{ site.image_url_2024 }}/codecept-js-with-playwright-01.png" width="100%" class="image__border image__padding">
 </div>
 
 <br/>
@@ -232,7 +232,7 @@ login --
 브라우저가 열리고 E2E 테스트가 동작하는 모습을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/codecept-js-with-playwright-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/codecept-js-with-playwright-02.gif" width="100%" class="image__border">
 </div>
 
 ## 3.3. Refactoring with autoLogin plugin

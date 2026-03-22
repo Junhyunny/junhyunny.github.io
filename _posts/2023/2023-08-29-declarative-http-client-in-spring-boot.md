@@ -118,7 +118,7 @@ HTTP 메서드를 다음과 같은 애너테이션들을 통해 지원합니다.
     * `PokemonClient`는 Pokemon API 서버로 요청을 전달합니다.
 
 <p align="center">
-    <img src="/images/declarative-http-client-in-spring-boot-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/declarative-http-client-in-spring-boot-01.png" width="100%" class="image__border">
 </p>
 
 ### 2.1. Packages

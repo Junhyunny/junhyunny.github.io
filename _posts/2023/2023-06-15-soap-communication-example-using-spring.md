@@ -779,7 +779,7 @@ $ docker-compose up -d
 도커 컴포즈를 통해 두 애플리케이션을 실행한다. cURL 명령어를 통해 소비자에게 정보를 요청 후 응답을 받는다.
 
 <div align="center">
-  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-08.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-08.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

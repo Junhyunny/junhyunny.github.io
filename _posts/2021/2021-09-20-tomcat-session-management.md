@@ -32,7 +32,7 @@ last_modified_at: 2021-09-20T23:55:00
 - 첫 응답 헤더(header) `Set-Cookie` 항목에 `JSESSIONID` 값이 전달됩니다. 
 - 그 이후 요청 헤더를 보면 `Cookie` 항목으로 전달받은 `JSESSIONID` 값이 들어갑니다.
 
-<p align="center"><img src="/images/tomcat-session-management-1.JPG" width="100%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/tomcat-session-management-01.png" width="100%"></p>
 
 ### 1.2. 세션 생성과 쿠키 생성 시점
 처음 요청 시에는 없었던 쿠키 정보가 어느 시점에 생성되는지 디버깅(debugging)하여 코드를 살펴보았습니다. 
@@ -42,7 +42,7 @@ last_modified_at: 2021-09-20T23:55:00
 1. 렌더링 수행 중 `JspServlet` 객체에 의해 PageContext 정보가 초기화되는 시점에 세션이 생성됩니다.
 1. 세션을 생성하고 세션ID 정보를 응답 헤더에 쿠키로 담아서 전달합니다.
 
-<p align="center"><img src="/images/tomcat-session-management-2.JPG" width="55%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/tomcat-session-management-02.png" width="55%"></p>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
 ### 1.3. 세션(session) 생성 주요 클래스와 메서드
@@ -125,7 +125,7 @@ public class Response implements HttpServletResponse {
 1. URL에서 추출할 수 있다면 URL 요청 정보에서 세션ID를 획득합니다.
 1. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메서드를 통해 쿠키에서 세션ID를 추출합니다. 
 
-<p align="center"><img src="/images/tomcat-session-management-3.JPG" width="55%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/tomcat-session-management-03.png" width="55%"></p>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
 ### 2.2. 세션ID 획득 주요 클래스와 메서드
@@ -363,7 +363,7 @@ public class PageController {
 - 필터, 인터셉터 그리고 컨트롤러에서 몇 회 접근하였는지 화면으로 표기합니다. 
 - 쿠키에 세션ID를 삭제하는 경우 세션이 없다는 메시지가 출력됩니다.
 
-<p align="center"><img src="/images/tomcat-session-management-4.gif" width="100%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/tomcat-session-management-04.gif" width="100%"></p>
 
 ## 3. Session 만료
 
@@ -495,7 +495,7 @@ spring:
 - 60초가 지나기 전 새로고침을 수행하면 마지막 접근 시간이 갱신되므로 세션이 만료되지 않습니다.
 - 세션이 유지되므로 필터, 인터셉터, 컨트롤러에 접근 횟수가 증가합니다.
 
-<p align="center"><img src="/images/tomcat-session-management-5.gif"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/tomcat-session-management-05.gif"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-20-tomcat-session-management>

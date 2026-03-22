@@ -179,7 +179,7 @@ export default App;
     * 리액트 애플리케이션에서 이벤트를 발행할 때 데이터에 실어보내는 키(key)입니다.
 
 <p align="center">
-    <img src="/images/trace-user-with-uuid-in-gtm-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-01.png" width="100%" class="image__border">
 </p>
 
 ### 2.2. Create Trigger for Custom Event
@@ -191,7 +191,7 @@ export default App;
     * 리액트 애플리케이션에서 이벤트를 발행할 때 이벤트 객체에 정의하는 값(value)입니다.
 
 <p align="center">
-    <img src="/images/trace-user-with-uuid-in-gtm-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.3. Create New Tag for Custom Event 
@@ -207,7 +207,7 @@ export default App;
 * 위 단계에서 정의한 `App Start` 트리거를 사용합니다.
 
 <p align="center">
-    <img src="/images/trace-user-with-uuid-in-gtm-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-03.png" width="100%" class="image__border">
 </p>
 
 ### 2.4. Modify Tags
@@ -217,7 +217,7 @@ export default App;
     * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
 
 <p align="center">
-    <img src="/images/trace-user-with-uuid-in-gtm-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-04.png" width="100%" class="image__border">
 </p>
 
 * 커스텀 클릭 이벤트 매개변수 정보를 변경합니다.
@@ -225,7 +225,7 @@ export default App;
     * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
 
 <p align="center">
-    <img src="/images/trace-user-with-uuid-in-gtm-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-05.png" width="100%" class="image__border">
 </p>
 
 ## 3. In Google Analytics
@@ -233,7 +233,7 @@ export default App;
 * 사용자 이벤트와 추적 UUID가 함께 수집됩니다.
 
 <p align="center">
-    <img src="/images/trace-user-with-uuid-in-gtm-6.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-06.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

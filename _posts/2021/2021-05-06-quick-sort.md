@@ -43,7 +43,7 @@ last_modified_at: 2021-08-28T13:30:00
     * 정렬된 배열들을 하나의 배열로 합병합니다.
 
 <p align="center">
-    <img src="/images/quick-sort-1.gif" width="50%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/quick-sort-01.gif" width="50%" class="image__border">
 </p>
 <center>https://en.wikipedia.org/wiki/Quick_sort</center>
 
@@ -179,7 +179,7 @@ last_modified_at: 2021-08-28T13:30:00
     * = n X log2(n)
 
 <p align="center">
-    <img src="/images/quick-sort-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/quick-sort-01.png" width="80%" class="image__border">
 </p>
 <center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
 
@@ -194,7 +194,7 @@ last_modified_at: 2021-08-28T13:30:00
     * = n X n
 
 <p align="center">
-    <img src="/images/quick-sort-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/quick-sort-02.png" width="80%" class="image__border">
 </p>
 <center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
 

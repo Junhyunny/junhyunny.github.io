@@ -33,7 +33,7 @@ last_modified_at: 2022-04-10T23:55:00
     - `writeInternal` 메서드 - 특정 클래스를 `ObjectMapper` 객체를 이용하여 `json` 문자열로 변경
 
 <p align="center">
-  <img src="/images/spring-request-date-format-1.JPG" width="85%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/spring-request-date-format-01.png" width="85%" class="image__border">
 </p>
 
 ### 1.1. 구현 코드
@@ -185,7 +185,7 @@ public class JacksonControllerTests {
 - `@ModelAttribute` 애너테이션이 붙은 요청 메시지인 경우 `ModelAttributeMethodProcessor` 클래스 `resolveArgument` 메서드에 의해 처리됩니다.
 
 <p align="center">
-  <img src="/images/spring-request-date-format-2.JPG" width="85%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/spring-request-date-format-02.png" width="85%" class="image__border">
 </p>
 
 ### 2.1. 구현 코드

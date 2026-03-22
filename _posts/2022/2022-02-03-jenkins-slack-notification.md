@@ -26,7 +26,7 @@ last_modified_at: 2022-02-03T23:55:00
 ##### 슬랙(Slack) 알림 메시지 전송 작업 영역
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-1.JPG" width="85%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-01.png" width="85%" class="image__border">
 </p>
 
 ## 1. Slack - Jenkins CI 앱 추가
@@ -39,7 +39,7 @@ last_modified_at: 2022-02-03T23:55:00
 - Slack 애플리케이션 왼쪽 상단 워크스페이스 이미지를 누르면 워크스페이스 URL 정보를 확인할 수 있습니다.
 
 <p align="left">
-  <img src="/images/jenkins-slack-notification-2.JPG" width="45%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-02.png" width="45%" class="image__border">
 </p>
 
 ##### Slack app directory 화면
@@ -48,7 +48,7 @@ last_modified_at: 2022-02-03T23:55:00
 - 해당 화면에서 Jenkins CI 애플리케이션을 검색합니다.
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-3.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-03.png" width="80%" class="image__border">
 </p>
 
 ##### Jenkins CI 앱 설치
@@ -56,11 +56,11 @@ last_modified_at: 2022-02-03T23:55:00
 - 채널을 선택 후 앱을 설치합니다.
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-4.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-04.png" width="80%" class="image__border">
 </p>
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-5.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-05.png" width="80%" class="image__border">
 </p>
 
 ## 2. Jenkins - Slack Notification 플러그인 설치 및 설정
@@ -74,7 +74,7 @@ last_modified_at: 2022-02-03T23:55:00
 - `Available`에서 `Slack Notification` 플러그인을 검색하고 설치합니다.
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-6.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-06.png" width="80%" class="image__border">
 </p>
 
 ##### 젠킨스 플러그인 프로퍼티 설정
@@ -87,11 +87,11 @@ last_modified_at: 2022-02-03T23:55:00
 - `Test Connection` 버튼을 눌러 연결이 정상적인지 확인합니다.
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-7.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-07.png" width="80%" class="image__border">
 </p>
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-8.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-08.png" width="80%" class="image__border">
 </p>
 
 ##### Slack Credential 추가 팝업 화면
@@ -101,7 +101,7 @@ last_modified_at: 2022-02-03T23:55:00
 - 젠킨스에서 사용할 ID를 새로 입력합니다.
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-9.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-09.png" width="80%" class="image__border">
 </p>
 
 ## 3. Jenkins 파이프라인 스크립트 변경
@@ -199,7 +199,7 @@ GitHub 웹훅을 통해 프로젝트 코드의 변경 사항을 감지합니다.
 빌드가 정상적으로 완료된 후 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 URL이 담긴 메시지를 슬랙에서 확인할 수 있습니다. 
 
 <p align="center">
-  <img src="/images/jenkins-slack-notification-10.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/jenkins-slack-notification-10.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

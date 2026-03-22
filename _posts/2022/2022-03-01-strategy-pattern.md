@@ -36,7 +36,7 @@ last_modified_at: 2022-03-01T23:55:00
     - 각자 고유한 전략을 구현한 클래스들입니다. 
 
 <p align="center">
-    <img src="/images/strategy-pattern-01.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/strategy-pattern-01.png" width="50%" class="image__border">
 </p>
 <center>https://copynull.tistory.com/125</center>
 
@@ -207,7 +207,7 @@ public class GameCharacter {
 ##### 변경된 클래스 다이어그램
 
 <p align="center">
-    <img src="/images/strategy-pattern-02.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/strategy-pattern-02.png" width="80%" class="image__border">
 </p>
 
 ### 2.4. 캐릭터 클래스 사용하기

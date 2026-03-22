@@ -43,7 +43,7 @@ last_modified_at: 2022-02-16T23:55:00
 - 아래 그림에 AuthenticationFilter 부분을 JWT(Json Web Token)을 사용한다는 가정하에 구현하였습니다. 
 
 <p align="center">
-    <img src="/images/make-authentication-filter-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/make-authentication-filter-01.png" width="80%" class="image__border">
 </p>
 <center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center>
 

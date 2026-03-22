@@ -115,7 +115,7 @@ class RestControllerIT {
 1. ConnectionDetails 구현체는 내부적으로 참조하고 있는 컨테이너 객체에게 접근 정보를 요청합니다.
 
 <p align="center">
-    <img src="/images/use-test-container-on-runtime-in-spring-boot-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/use-test-container-on-runtime-in-spring-boot-01.png" width="100%" class="image__border">
 </p>
 
 #### 1.1.2. Usage @ServiceConnection Annotation

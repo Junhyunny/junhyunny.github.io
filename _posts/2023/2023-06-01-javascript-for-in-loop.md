@@ -87,7 +87,7 @@ console.dir(object);
 * 빨간색 박스는 프로토타입 체이닝을 통해 상속받은 속성들입니다.
 
 <p align="left">
-    <img src="/images/javascript-for-in-loop-1.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/javascript-for-in-loop-01.png" width="60%" class="image__border">
 </p>
 
 ## 2. for-in Loop Example
@@ -138,7 +138,7 @@ console.dir(circle);
     * 상속을 받았으므로 직접 사용은 가능합니다.
 
 <p align="left">
-    <img src="/images/javascript-for-in-loop-2.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/javascript-for-in-loop-02.png" width="60%" class="image__border">
 </p>
 
 ## 3. Summary of for-in Loop

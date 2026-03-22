@@ -65,7 +65,7 @@ none            3.9G     0  3.9G   0% /mnt
 즉, 공격자는 `privileged` 컨테이너를 통해 호스트 머신을 위협할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/privileged-mode-in-docker-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/privileged-mode-in-docker-01.png" width="80%" class="image__border">
 </p>
 
 ### 2.1. Consideration and Risks

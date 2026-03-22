@@ -310,7 +310,7 @@ $ cd backend && mvn spring-boot:run
 * 개발 서버는 프록시를 통해 `http://localhost:8080/todos`로 요청을 라우팅합니다.
 
 <p align="center">
-    <img src="/images/react-env-variable-setting-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/react-env-variable-setting-01.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. npm run build 명령어
@@ -448,7 +448,7 @@ $ docker-compose up -d
 * `nginx` 서버는 `http://backend:8080/todos`로 요청을 재전달합니다.
 
 <p align="center">
-    <img src="/images/react-env-variable-setting-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/react-env-variable-setting-02.png" width="80%" class="image__border">
 </p>
 
 ### 3.3. npm test

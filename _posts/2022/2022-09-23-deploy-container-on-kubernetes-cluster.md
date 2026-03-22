@@ -226,7 +226,7 @@ minikube   Ready    control-plane   2m32s   v1.25.0
     * 서비스 오브젝트는 자신이 노출하고 있는 리액트 애플리케이션 파드의 화면을 응답으로 전달합니다.
 
 <p align="center">
-    <img src="/images/deploy-container-on-kubernetes-cluster-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/deploy-container-on-kubernetes-cluster-01.png" width="100%" class="image__border">
 </p>
 
 ### 4.1. Image Build
@@ -425,7 +425,7 @@ $ minikube service external-connection-service
 ##### 서비스 터널링 수행 후 브라우저 접근
 
 <p align="center">
-    <img src="/images/deploy-container-on-kubernetes-cluster-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/deploy-container-on-kubernetes-cluster-02.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

@@ -49,7 +49,7 @@ last_modified_at: 2022-10-29T23:55:00
 이런 동작 방법은 빌드를 빠르고, 간결하고, 이식성 좋게 만들어줍니다. 
 
 <p align="center">
-    <img src="/images/optimize-docker-build-with-buildkit-1.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/optimize-docker-build-with-buildkit-01.png" width="75%" class="image__border">
 </p>
 <center>https://docs.docker.com/build/buildkit/</center>
 

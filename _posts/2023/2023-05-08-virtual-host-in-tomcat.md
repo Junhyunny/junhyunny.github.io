@@ -26,7 +26,7 @@ last_modified_at: 2023-05-08T23:55:00
 사용 트래픽이 적은 경우처럼 물리 서버를 굳이 하나 더 늘릴 필요가 없다면 가상 호스트 기능을 통해 여러 서비스를 호스팅할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/virtual-host-in-tomcat-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/virtual-host-in-tomcat-01.png" width="100%" class="image__border">
 </p>
 
 ### 1.1. server.xml in Tomcat
@@ -215,7 +215,7 @@ $ tail -f -n 100 apache-tomcat-9.0.74/logs/catalina.out
 ```
 
 <p align="center">
-    <img src="/images/virtual-host-in-tomcat-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/virtual-host-in-tomcat-02.gif" width="100%" class="image__border">
 </p>
 
 ### 2.4. Add Hosts at Local Machine
@@ -237,7 +237,7 @@ $ sudo vi /etc/hosts
 * 서로 다른 화면이 보이는 것을 확인할 수 있습니다.
 
 <p align="center">
-    <img src="/images/virtual-host-in-tomcat-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/virtual-host-in-tomcat-03.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

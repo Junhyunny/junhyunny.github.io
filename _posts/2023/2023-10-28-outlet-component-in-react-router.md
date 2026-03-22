@@ -135,7 +135,7 @@ export default App;
 * MainContainer 컴포넌트와 내부 Outlet 컴포넌트 영역에 UserInformation 컴포넌트가 렌더링됩니다.
 
 <p align="center">
-    <img src="/images/outlet-component-in-react-router-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/outlet-component-in-react-router-01.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

@@ -49,7 +49,7 @@ last_modified_at: 2023-10-06T23:55:00
 1. 브라우저는 리다이렉트 요청으로 인해 LINE 로그인 페이지에 접근합니다.
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-01.png" width="100%" class="image__border">
 </p>
 
 ### 1.2. Login
@@ -58,7 +58,7 @@ last_modified_at: 2023-10-06T23:55:00
 사용자는 자신의 정보를 입력하여 로그인을 수행합니다. 
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-02.png" width="100%" class="image__border">
 </p>
 
 ### 1.3. Authenticate and Get User Profile
@@ -83,7 +83,7 @@ last_modified_at: 2023-10-06T23:55:00
     * 이번 포스트에선 `http://localhost:8080/home` 경로로 이동합니다.
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-03.png" width="100%" class="image__border">
 </p>
 
 ## 2. Register Client
@@ -99,7 +99,7 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
 * 우측 상단 콘솔 버튼을 누릅니다.
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-04.png" width="100%" class="image__border">
 </p>
 
 ### 2.2. Create Provider and Channel
@@ -109,13 +109,13 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
 * 생성 버튼을 누릅니다.
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-05.png" width="100%" class="image__border">
 </p>
 
 * `Create a Line Login channel` 버튼을 선택합니다. 
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-6.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-06.png" width="100%" class="image__border">
 </p>
 
 * 채널 생성을 위해 필수 정보들을 입력합니다. 
@@ -123,7 +123,7 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
     * 앱 타입에 `Web app`을 선택합니다.
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-7.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-07.png" width="100%" class="image__border">
 </p>
 
 ### 2.3. Get Client Info and Register Callback URL
@@ -136,11 +136,11 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
     * `Channel secret` 항목이 클라이언트 시크릿입니다.
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-8.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-08.png" width="100%" class="image__border">
 </p>
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-9.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-09.png" width="100%" class="image__border">
 </p>
 
 * LINE Login Tab
@@ -148,7 +148,7 @@ LINE 개발자 사이트에 가입 후 로그인합니다.
     * 라인을 구분하면 여러 개의 콜백 URL을 등록할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-10.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-10.png" width="100%" class="image__border">
 </p>
 
 ## 3. Practice
@@ -293,7 +293,7 @@ public class HomeController {
 로그인 페이지와 로그아웃 페이지는 스프링 시큐리티에서 기본적으로 제공하는 기능을 사용합니다. 
 
 <p align="center">
-    <img src="/images/oauth2-line-login-with-spring-security-11.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/oauth2-line-login-with-spring-security-11.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

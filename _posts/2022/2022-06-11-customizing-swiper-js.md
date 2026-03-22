@@ -25,7 +25,7 @@ last_modified_at: 2022-06-11T23:55:00
 - CSS 코드로 이를 오버라이드합니다.
 
 <p align="center">
-    <img src="/images/customizing-swiper-js-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/customizing-swiper-js-01.gif" width="100%" class="image__border">
 </p>
 
 ## 2. Customizing Pagination

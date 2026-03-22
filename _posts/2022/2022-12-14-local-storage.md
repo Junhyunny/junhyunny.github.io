@@ -79,7 +79,7 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
     * `https://junhyunny.github.io/` 사이트에서는 데이터를 찾을 수 있습니다.
 
 <p align="center">
-    <img src="/images/local-storage-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/local-storage-01.gif" width="100%" class="image__border">
 </p>
 
 ##### 브라우저를 다시 열었을 때 데이터 존재 여부
@@ -88,7 +88,7 @@ JSON.parse(localStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
     * 이전에 저장한 데이터가 존재합니다.
 
 <p align="center">
-    <img src="/images/local-storage-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/local-storage-02.gif" width="100%" class="image__border">
 </p>
 
 #### RECOMMEND NEXT POSTS

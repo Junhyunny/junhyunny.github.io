@@ -27,7 +27,7 @@ last_modified_at: 2021-08-24T12:00:00
     * 장애가 다른 서비스로 전파되지 않도록 장애를 격리해야 합니다.
 
 <p align="center">
-    <img src="/images/msa-circuit-breaker-pattern-1.gif" width="55%">
+    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-01.gif" width="55%">
 </p>
 
 ## 2. Circuit Breaker Pattern
@@ -50,7 +50,7 @@ last_modified_at: 2021-08-24T12:00:00
 1. 회로가 열린 경우 대체 계획(fallback plan)으로 지정한 응답을 클라이언트 서비스에게 대신 전달합니다.
 
 <p align="center">
-    <img src="/images/msa-circuit-breaker-pattern-2.JPG" width="55%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-02.png" width="55%" class="image__border">
 </p>
 <center>https://martinfowler.com/bliki/CircuitBreaker.html</center>
 
@@ -70,7 +70,7 @@ last_modified_at: 2021-08-24T12:00:00
     * `75 ~ 99` 범위의 경우 다시 정상 응답을 전달합니다.
 
 <p align="center">
-    <img src="/images/msa-circuit-breaker-pattern-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-03.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. pom.xml 
@@ -379,7 +379,7 @@ public class ActionInBlogApplication {
 * 서비스의 `/hystrix` 경로로 접근합니다.
 
 <p align="center">
-    <img src="/images/msa-circuit-breaker-pattern-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-04.png" width="100%" class="image__border">
 </p>
 
 ##### @EnableHystrix and @EnableCircuitBreaker

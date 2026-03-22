@@ -28,7 +28,7 @@ last_modified_at: 2023-05-12T23:55:00
     * 브라우저는 백엔드 서비스의 존재를 모릅니다.
 
 <p align="center">
-    <img src="/images/with-credentials-in-axios-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/with-credentials-in-axios-01.png" width="80%" class="image__border">
 </p>
 
 * 서비스 구조 변경 후 nginx를 웹 서버로만 사용
@@ -38,7 +38,7 @@ last_modified_at: 2023-05-12T23:55:00
     * 원장 리소스(origin resource)가 웹 서버인 상태로 백엔드 서비스와 통신하면서 CORS(cross origin resource sharing) 정책 위반이 발생합니다.
 
 <p align="center">
-    <img src="/images/with-credentials-in-axios-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/with-credentials-in-axios-02.png" width="80%" class="image__border">
 </p>
 
 ## 2. Problem and Cause
@@ -225,7 +225,7 @@ public class WebConfig implements WebMvcConfigurer {
     * 브라우저에서 자격 증명을 전달하지 않은 경우 정상 동작하지만, 쿠키가 생성되지 않습니다.
 
 <p align="center">
-    <img src="/images/with-credentials-in-axios-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/with-credentials-in-axios-03.gif" width="100%" class="image__border">
 </p>
 
 ##### Result with allowing credential
@@ -235,7 +235,7 @@ public class WebConfig implements WebMvcConfigurer {
     * 브라우저에서 자격 증명을 전달하지 않은 경우 정상 동작하지만, 쿠키가 생성되지 않습니다.
 
 <p align="center">
-    <img src="/images/with-credentials-in-axios-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/with-credentials-in-axios-04.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

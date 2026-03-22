@@ -294,7 +294,7 @@ function batchedUpdates$1(fn, a) {
 - 리-렌더링을 1회 수행합니다.
 
 <p align="left">
-    <img src="/images/warn-using-user-event-type-in-wait-for-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/warn-using-user-event-type-in-wait-for-01.png" width="50%" class="image__border">
 </p>
 
 ## 3. 해결 방법
@@ -376,7 +376,7 @@ function batchedUpdates$1(fn, a) {
 - 최초 에러가 발생한 테스트와 새로 만든 두 개의 테스트의 실행 결과입니다.
 
 <p align="left">
-    <img src="/images/warn-using-user-event-type-in-wait-for-2.JPG" width="45%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/warn-using-user-event-type-in-wait-for-02.png" width="45%" class="image__border">
 </p>
 
 ## CLOSING

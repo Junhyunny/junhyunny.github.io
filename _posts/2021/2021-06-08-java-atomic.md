@@ -30,7 +30,7 @@ java.util.concurrent.atomic 패키지에 위치합니다.
 * 현상의 원인은 프로세스 내 스레드들이 변수를 사용해 데이터를 공유하기 때문입니다. 
 
 <p align="center">
-    <img src="/images/java-atomic-1.JPG" width="80%" class="image__border image__padding">
+    <img src="{{ site.image_url_2021 }}/java-atomic-01.png" width="80%" class="image__border image__padding">
 </p>
 <center>[JAVA] concurrent programming</center>
 

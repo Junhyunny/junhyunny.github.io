@@ -47,7 +47,7 @@ last_modified_at: 2023-08-21T23:55:00
     * DDL(Data Definition Language) 스크립트를 일일이 작성하고 실행하는 것은 실수의 위험이나 빠른 롤백의 어려움이 있습니다. 
 
 <p align="center">
-    <img src="/images/schema-migration-1.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/schema-migration-01.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/why-database-migrations-184127574.html</center>
 

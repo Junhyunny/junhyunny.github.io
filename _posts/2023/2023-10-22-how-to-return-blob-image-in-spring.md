@@ -31,7 +31,7 @@ last_modified_at: 2023-10-22T23:55:00
 1. 서버는 해당 URL 정보를 바탕으로 데이터베이스에서 바이너리 데이터를 조회 후 반환합니다.
 
 <p align="center">
-    <img src="/images/how-to-return-blob-image-in-spring-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/how-to-return-blob-image-in-spring-01.png" width="80%" class="image__border">
 </p>
 
 ## 1. Return Image Resource URL
@@ -290,7 +290,7 @@ class FileControllerTest {
 애플리케이션을 실행 후 `http://localhost:8080`에 접속하면 다음처럼 동작하는 모습을 확인할 수 있습니다.
 
 <p align="center">
-    <img src="/images/how-to-return-blob-image-in-spring-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/how-to-return-blob-image-in-spring-02.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

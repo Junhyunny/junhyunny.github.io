@@ -52,7 +52,7 @@ last_modified_at: 2022-05-14T23:55:00
 1. 악성 스크립트를 통해 사용자 정보가 악의적인 사용자에게 전달됩니다.
 
 <p align="center">
-    <img src="/images/stored-cross-site-scripting-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/stored-cross-site-scripting-01.png" width="100%" class="image__border">
 </p>
 
 ### 1.2. 저장형 XSS 공격 취약 서비스의 코드
@@ -189,7 +189,7 @@ public class PostController {
 1. 게시글 조회 시 작성된 악성 스크립트가 실행됩니다.
 
 <p align="center">
-    <img src="/images/stored-cross-site-scripting-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/stored-cross-site-scripting-02.gif" width="100%" class="image__border">
 </p>
 
 ## 2. 저장형 XSS 방어
@@ -252,7 +252,7 @@ public class PostController {
 ##### 적용 결과
 
 <p align="center">
-    <img src="/images/stored-cross-site-scripting-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/stored-cross-site-scripting-03.gif" width="100%" class="image__border">
 </p>
 
 ### 2.2. 직접 출력 금지
@@ -277,7 +277,7 @@ JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c
 ##### 적용 결과
 
 <p align="center">
-    <img src="/images/stored-cross-site-scripting-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/stored-cross-site-scripting-04.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

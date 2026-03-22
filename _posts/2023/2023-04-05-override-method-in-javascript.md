@@ -76,7 +76,7 @@ console.log(dataLayer);
 * `txId` 값은 새로 정의한 `push` 메서드에 의해 자동으로 삽입됩니다. 
 
 <p align="left">
-    <img src="/images/override-method-in-javascript-1.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/override-method-in-javascript-01.png" width="60%" class="image__border">
 </p>
 
 ## CLOSING

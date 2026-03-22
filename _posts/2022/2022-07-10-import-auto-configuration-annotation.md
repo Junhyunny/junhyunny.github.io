@@ -142,7 +142,7 @@ public class ImportTests {
 ##### 테스트 결과
 
 <p align="left">
-    <img src="/images/import-auto-configuration-annotation-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/import-auto-configuration-annotation-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. @ImportAutoConfiguration 애너테이션
@@ -187,7 +187,7 @@ public @interface AutoConfigureDataJpa {
 * `/META-INF/spring.factories` 파일에는 `AutoConfigureDataJpa` 애너테이션에 의해 임포트 되는 클래스들이 정의되어 있습니다.
 
 <p align="left">
-    <img src="/images/import-auto-configuration-annotation-2.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/import-auto-configuration-annotation-02.png" width="50%" class="image__border">
 </p>
 
 ```
@@ -325,7 +325,7 @@ public class ImportAutoConfigurationTests {
 ##### 테스트 결과
 
 <p align="left">
-    <img src="/images/import-auto-configuration-annotation-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/import-auto-configuration-annotation-03.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

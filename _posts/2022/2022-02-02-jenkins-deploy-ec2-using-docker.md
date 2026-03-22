@@ -37,7 +37,7 @@ GitHub 웹훅(webhook)으로 코드 변경 사항을 감지했다면, 이를 파
 ##### AWS EC2 서비스 배포 작업 영역 
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-1.JPG" width="85%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-01.png" width="85%" class="image__border">
 </p>
 
 ##### 세부적인 작업 내용
@@ -59,7 +59,7 @@ GitHub 웹훅(webhook)으로 코드 변경 사항을 감지했다면, 이를 파
     - ssh 명령어로 EC2 인스턴스에게 새로 받은 이미지 실행을 지시합니다.
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-2.JPG" width="85%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-02.png" width="85%" class="image__border">
 </p>
 
 ## 1. 프론트엔드 서비스 만들기
@@ -163,14 +163,14 @@ server {
 - 선택한 EC2 인스턴스 상세 정보 화면 하단에 `Security` 탭에서 `security groups`를 선택합니다.
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-03.png" width="80%" class="image__border">
 </p>
 
 ##### Inbound rule 설정 화면
 - `Edit inbound rules` 버튼을 눌러 인바운드(inbound) 규칙 설정 화면으로 이동합니다.
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-4.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-04.png" width="80%" class="image__border">
 </p>
 
 ##### Inbound rule 추가
@@ -178,7 +178,7 @@ server {
 - 소스(source)는 `0.0.0.0/0`으로 지정하여 모든 IP에서 접근을 허용합니다.
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-05.png" width="100%" class="image__border">
 </p>
 
 ## 3. 젠킨스 파이프라인 변경
@@ -200,7 +200,7 @@ server {
 - `Add` 버튼을 눌러 환경 변수를 추가합니다.
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-6.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-06.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. 젠킨스 Credential 추가
@@ -216,7 +216,7 @@ server {
     - 글쓴이는 아이디 `cicduser`, 비밀번호 `0000`을 사용하였습니다.
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-7.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-07.png" width="100%" class="image__border">
 </p>
 
 ### 3.2. 젠킨스 Declarative 파이프라인 스크립트
@@ -282,7 +282,7 @@ Github에서 커밋(commit)을 만들고, 젠킨스 파이프라인이 정상적
 테스트를 위해 화면에 `Learn React`라는 문구를 `Hello React World`라는 문구로 변경하였습니다. 
 
 <p align="center">
-    <img src="/images/jenkins-deploy-ec2-using-docker-8.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-deploy-ec2-using-docker-08.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

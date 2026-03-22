@@ -361,7 +361,7 @@ Hibernate: drop table if exists file_entity cascade
     * <https://github.com/spring-projects/spring-data-commons/wiki/Spring-Data-2022.0-%28Turing%29-Release-Notes#spring-data-jpa---30>
 
 <p align="center">
-    <img src="/images/how-to-save-image-into-database-with-spring-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/how-to-save-image-into-database-with-spring-01.png" width="80%" class="image__border">
 </p>
 <center>https://stackoverflow.com/questions/9114510/seam-file-upload-to-postgres-bytea-column-column-is-bytea-but-expression-is-of</center>
 

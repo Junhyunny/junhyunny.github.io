@@ -31,7 +31,7 @@ last_modified_at: 2023-06-12T23:55:00
     * 제티(Jetty) 혹은 톰캣(Tomcat) 같은 서블릿 컨테이너와 통합되어 HTTP 액세스 로그 기능을 제공합니다.
 
 <p align="center">
-    <img src="/images/logback-in-spring-boot-1.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logback-in-spring-boot-01.png" width="60%" class="image__border">
 </p>
 
 아래 주요 세 개 클래스들은 함께 동작하면서 개발자들이 결정한 로그 타입, 레벨, 메시지 포맷 등에 맞게 로그를 출력합니다.
@@ -437,7 +437,7 @@ $ java -jar action-in-blog-0.0.1-SNAPSHOT.jar
 * 별도 파일로 저장되지 않습니다.
 
 <p align="center">
-    <img src="/images/logback-in-spring-boot-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logback-in-spring-boot-02.gif" width="100%" class="image__border">
 </p>
 
 #### 3.7.2. Dev Profile
@@ -452,7 +452,7 @@ $ java -jar -Dspring.profiles.active=dev action-in-blog-0.0.1-SNAPSHOT.jar
 * ERROR 로그들은 `./dev-logs/errors` 경로에 파일로 저장됩니다.
 
 <p align="center">
-    <img src="/images/logback-in-spring-boot-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logback-in-spring-boot-03.gif" width="100%" class="image__border">
 </p>
 
 #### 3.7.3. Prod Profile
@@ -468,7 +468,7 @@ $ java -jar -Dspring.profiles.active=prod action-in-blog-0.0.1-SNAPSHOT.jar
 * 출력된 모든 로그들은 `./prod-logs/logs` 경로에 파일로 저장됩니다.
 
 <p align="center">
-    <img src="/images/logback-in-spring-boot-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logback-in-spring-boot-04.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

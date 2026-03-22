@@ -27,7 +27,7 @@ last_modified_at: 2021-12-12T23:55:00
 ##### Webkit 엔진 HTML 문서 렌더링 과정
 
 <p align="center">
-    <img src="/images/virtual-dom-1.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-01.png" width="75%" class="image__border">
 </p>
 <center>https://it-eldorado.tistory.com/87</center>
 
@@ -56,7 +56,7 @@ HTML 파서는 HTML 파일을 파싱하여 DOM(Document Object Model) 트리를 
 ##### 생성된 DOM 트리
 
 <p align="center">
-    <img src="/images/virtual-dom-2.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-02.png" width="75%" class="image__border">
 </p>
 <center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
@@ -78,10 +78,10 @@ img { float: right }
 ##### 생성된 CSSOM 트리
 
 <p align="center">
-    <img src="/images/virtual-dom-3.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-03.png" width="75%" class="image__border">
 </p>
 <p align="center">
-    <img src="/images/virtual-dom-4.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-04.png" width="75%" class="image__border">
 </p>
 <center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
@@ -93,7 +93,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 렌더 트리의 노드들은 화면에 최종적으로 출력하기 위한 정보들을 각자 지니고 있습니다. 
 
 <p align="center">
-    <img src="/images/virtual-dom-5.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-05.png" width="75%" class="image__border">
 </p>
 <center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 
@@ -104,7 +104,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 레이아웃 프로세스에서는 각 요소들의 상대적인 측정 값들은 절대적인 픽셀(pixel)로 변환됩니다. 
 
 <p align="center">
-    <img src="/images/virtual-dom-6.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-06.png" width="75%" class="image__border">
 </p>
 <center>TOSS - 성능 최적화</center>
 
@@ -118,7 +118,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 - 아래 이미지에서 `STYLE 과정`은 렌더 트리 생성과 동일한 과정입니다. 
 
 <p align="center">
-    <img src="/images/virtual-dom-7.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-07.png" width="75%" class="image__border">
 </p>
 <center>TOSS - 성능 최적화</center>
 
@@ -132,7 +132,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 - 이를 `레이아웃(layout) 혹은 리플로우(reflow)`라고 합니다. 
 
 <p align="center">
-    <img src="/images/virtual-dom-8.JPG" width="55%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-08.png" width="55%" class="image__border">
 </p>
 <center>TOSS - 성능 최적화</center>
 
@@ -140,7 +140,7 @@ DOM 및 CSSOM 트리를 결합하여 렌더 트리를 형성합니다.
 - 반대로 기하적인 변경이 없는 경우에는 레이아웃 과정을 건너뛰고, 페인트부터 수행하므로 이를 `리페인트(repaint)`라고 합니다.
 
 <p align="center">
-    <img src="/images/virtual-dom-9.JPG" width="55%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-09.png" width="55%" class="image__border">
 </p>
 <center>TOSS - 성능 최적화</center>
 
@@ -160,7 +160,7 @@ JavaScript 같은 프로그래밍 언어로 인해 뷰(view)에 변화가 생겼
 ##### 가상 DOM에 의한 렌더링
 
 <p align="center">
-    <img src="/images/virtual-dom-10.JPG" width="75%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/virtual-dom-10.png" width="75%" class="image__border">
 </p>
 <center>https://www.oreilly.com/library/view/learning-react-native/9781491929049/ch02.html</center>
 

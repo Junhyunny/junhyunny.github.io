@@ -294,7 +294,7 @@ axios.interceptors.response.use(
 ##### 에러 핸들링 결과
 
 <p align="center">
-    <img src="/images/throw-custom-exception-to-axios-from-spring-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/throw-custom-exception-to-axios-from-spring-01.gif" width="100%" class="image__border">
 </p>
 
 ## 4. Why do we handle exceptions in one point?

@@ -34,7 +34,7 @@ last_modified_at: 2022-03-28T23:55:00
 ##### 메이븐 라이프 사이클 순서
 
 <p align="center">
-    <img src="/images/maven-lifecycle-and-surfire-failsafe-plugins-1.JPG" width="90%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/maven-lifecycle-and-surfire-failsafe-plugins-01.png" width="90%" class="image__border">
 </p>
 <center>https://medium.com/@yetanothersoftwareengineer/maven-lifecycle-phases-plugins-and-goals-25d8e33fa22</center>
 
@@ -208,7 +208,7 @@ $ mvn clean:clean jar:jar install:install
 ##### .jar 패키징 시 연결되는 페이즈와 플러그인:플러그인-골
 
 <p align="center">
-    <img src="/images/maven-lifecycle-and-surfire-failsafe-plugins-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/maven-lifecycle-and-surfire-failsafe-plugins-02.png" width="80%" class="image__border">
 </p>
 <center>https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html</center>
 

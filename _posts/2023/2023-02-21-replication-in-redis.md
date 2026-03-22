@@ -38,7 +38,7 @@ last_modified_at: 2023-02-21T23:55:00
     * `redis.conf` 설정 파일의 `replica-read-only` 옵션으로 통해 변경 가능합니다.
 
 <p align="center">
-    <img src="/images/replication-in-redis-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/replication-in-redis-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.vinsguru.com/redis-master-slave-with-spring-boot/</center>
 
@@ -74,7 +74,7 @@ last_modified_at: 2023-02-21T23:55:00
     * 해당 화면을 새로고침하거나 메인 화면에서 다시 진입하면 읽은 메시지들은 모두 오른쪽으로 이동합니다.
 
 <p align="center">
-    <img src="/images/replication-in-redis-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/replication-in-redis-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.2. Focus this point
@@ -561,7 +561,7 @@ $ sh shell/redis-replication.sh
     * 읽지 않은 메시지 리스트 비우기 불가능
 
 <p align="center">
-    <img src="/images/replication-in-redis-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/replication-in-redis-03.gif" width="100%" class="image__border">
 </p>
 
 ##### When Stop Slave Node
@@ -570,7 +570,7 @@ $ sh shell/redis-replication.sh
 * 정상적으로 동작합니다.
 
 <p align="center">
-    <img src="/images/replication-in-redis-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/replication-in-redis-04.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

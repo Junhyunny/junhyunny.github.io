@@ -81,7 +81,7 @@ host 정보를 `'%'` 로 지정하여 모든 IP 에서 접근을 허용하였는
 
 > Can't connect to MySQL server on 'IP Address'(10061)
 
-<p align="center"><img src="/images/maria-db-add-host-1.JPG" width="50%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/maria-db-add-host-01.png" width="50%"></p>
 
 `netstat -lntp` 명령어를 통해 문제의 원인을 확인할 수 있습니다. 
 3306 포트(port) 번호를 가지는 프로세스 정보를 보면 Local Address가 `127.0.0.1` IP 주소를 가집니다. 
@@ -145,7 +145,7 @@ tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      
 
 ##### 접속 Connection 정보
 
-<p align="center"><img src="/images/maria-db-add-host-2.JPG" width="40%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/maria-db-add-host-02.png" width="40%"></p>
 
 #### REFERENCE
 - <https://en.wikipedia.org/wiki/Netstat>

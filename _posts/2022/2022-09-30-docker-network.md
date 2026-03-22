@@ -20,7 +20,7 @@ last_modified_at: 2022-09-30T23:55:00
 * 데이터 요청은 실패합니다.
 
 <p align="center">
-    <img src="/images/docker-network-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-network-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Docker Network
@@ -53,7 +53,7 @@ d8cd79053c56   bridge    bridge    local
 * 도커 브릿지 가상 인터페이스(docker0)는 호스트의 네트워크 인터페이스에 연결됩니다. 
 
 <p align="center">
-    <img src="/images/docker-network-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-network-02.png" width="80%" class="image__border">
 </p>
 <center>Docker in Action</center>
 
@@ -113,7 +113,7 @@ d8cd79053c56   bridge    bridge    local
     * 백엔드 서비스는 저장하고 있는 `TODO` 항목들을 응답으로 반환합니다.
 
 <p align="center">
-    <img src="/images/docker-network-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-network-03.png" width="80%" class="image__border">
 </p>
 
 ### 3.1. Create Custom Bridge
@@ -321,7 +321,7 @@ $ docker network inspect custom-bridge
 * 이전에 등록된 `TODO` 항목들이 조회되는지 확인합니다.
 
 <p align="center">
-    <img src="/images/docker-network-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-network-04.gif" width="100%" class="image__border">
 </p>
 
 ## 4. Restriction of Default Bridge

@@ -70,7 +70,7 @@ export default App;
 ##### 실행 결과
 
 <p align="center">
-    <img src="/images/korean-keyboard-event-error-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/korean-keyboard-event-error-01.gif" width="100%" class="image__border">
 </p>
 
 ## 2. IME(Input Method Editor)
@@ -168,7 +168,7 @@ export default App;
 ##### 실행 결과
 
 <p align="center">
-    <img src="/images/korean-keyboard-event-error-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/korean-keyboard-event-error-02.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

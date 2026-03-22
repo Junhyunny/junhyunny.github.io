@@ -41,7 +41,7 @@ last_modified_at: 2022-09-20T23:55:00
 * 이번 포스트에선 볼륨, 그 중에서도 명명 볼륨(named volume)에 대해서만 다룹니다. 
 
 <p align="center">
-    <img src="/images/docker-named-volume-1.JPG" width="60%">
+    <img src="{{ site.image_url_2022 }}/docker-named-volume-01.png" width="60%">
 </p>
 <center>https://docs.docker.com/storage/volumes/</center>
 
@@ -66,7 +66,7 @@ last_modified_at: 2022-09-20T23:55:00
 * 간단한 입력 창을 통해 새로운 TODO 항목을 등록할 수 있습니다.
 
 <p align="center">
-    <img src="/images/docker-named-volume-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-named-volume-02.png" width="80%" class="image__border">
 </p>
 
 ### 2.1. Dockerfile
@@ -320,7 +320,7 @@ $ docker volume inspect todos
 1. 화면에서 이전 컨테이너 화면에서 입력한 데이터를 확인할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/docker-named-volume-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-named-volume-03.gif" width="100%" class="image__border">
 </p>
 
 ##### 테스트에서 사용한 명령어 
@@ -367,7 +367,7 @@ $ docker run -d -p 8080:8080\
 1. 포트 8081 서비스에 접근하면 포트 8080 서비스에서 저장한 데이터가 보이는지 확인합니다. 
 
 <p align="center">
-    <img src="/images/docker-named-volume-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-named-volume-04.gif" width="100%" class="image__border">
 </p>
 
 ##### 테스트에서 사용한 명령어

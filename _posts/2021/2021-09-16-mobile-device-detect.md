@@ -82,11 +82,11 @@ GET /favicon.ico 404 2.051 ms - 150
 
 ##### PC 환경 브라우저
 
-<p align="left"><img src="/images/mobile-device-detect-1.JPG" width="50%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/mobile-device-detect-01.png" width="50%"></p>
 
 ##### 모바일 환경 브라우저
 
-<p align="left"><img src="/images/mobile-device-detect-2.JPG" width="50%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/mobile-device-detect-02.png" width="50%"></p>
 
 ## 2. 백 엔드에서 사용자 디바이스 식별 (Spring Boot)
 
@@ -406,13 +406,13 @@ public class MobileController {
 ##### PC 환경 접근
 
 <p align="left">
-    <img src="/images/mobile-device-detect-3.gif" class="image__border">
+    <img src="{{ site.image_url_2021 }}/mobile-device-detect-03.gif" class="image__border">
 </p>
 
 ##### 모바일 환경 접근
 
 <p align="left">
-    <img src="/images/mobile-device-detect-4.gif" class="image__border">
+    <img src="{{ site.image_url_2021 }}/mobile-device-detect-04.gif" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

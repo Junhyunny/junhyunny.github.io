@@ -154,7 +154,7 @@ class ChildEntity {
 ##### 테스트 결과
 - 두 테스트 모두 정상적으로 통과하였습니다.
 
-<p align="left"><img src="/images/jpa-repository-find-by-error-1.JPG" width="35%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/jpa-repository-find-by-error-01.png" width="35%"></p>
 
 ## 3. 원인 분석
 에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행하였기 때문입니다. 

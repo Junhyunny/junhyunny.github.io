@@ -31,7 +31,7 @@ XML 파일에 정의된 규칙대로 코드 스타일을 강제할 수 있습니
 파일 경로는 상관 없고, 프로젝트 코드들과 함께 관리되도록 위치시킵니다. 
 
 <p align="left">
-    <img src="/images/maven-checkstyle-1.JPG" width="30%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/maven-checkstyle-01.png" width="30%" class="image__border">
 </p>
 
 ## 2. Customize Code Style

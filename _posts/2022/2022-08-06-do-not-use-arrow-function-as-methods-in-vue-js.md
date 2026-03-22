@@ -169,7 +169,7 @@ function applyOptions(instance) {
 * `createApp` 함수를 통해 만들어진 `app` 객체의 `mount` 함수를 타고 올라가면 `applyOptions` 함수를 만날 수 있습니다.
 
 <p align="left">
-    <img src="/images/do-not-use-arrow-function-as-methods-in-vue-js-1.JPG" width="55%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/do-not-use-arrow-function-as-methods-in-vue-js-01.png" width="55%" class="image__border">
 </p>
 
 ##### Debugging Expressions
@@ -179,7 +179,7 @@ function applyOptions(instance) {
 * `publicThis`는 내부에 `HelloWorld` 컴포넌트 객체를 타겟으로 지닌 프록시 객체입니다.
 
 <p align="left">
-    <img src="/images/do-not-use-arrow-function-as-methods-in-vue-js-2.JPG" width="45%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/do-not-use-arrow-function-as-methods-in-vue-js-02.png" width="45%" class="image__border">
 </p>
 
 ### 2.2. 그래서 원인은?

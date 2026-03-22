@@ -99,7 +99,7 @@ test("when choose an image file then change image on screen", async () => {
 ##### Test Result
 
 <p align="center">
-    <img src="/images/how-to-test-image-upload-in-react-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/how-to-test-image-upload-in-react-01.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

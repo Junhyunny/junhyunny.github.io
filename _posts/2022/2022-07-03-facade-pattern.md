@@ -29,7 +29,7 @@ Spring 프레임워크로 개발한 애플리케이션을 디버깅하다 보면
 그로 인해 사용자(혹은 클라이언트)는 서브시스템의 기능을 고민없이 쉽게 사용할 수 있습니다.
 
 <p align="center">
-    <img src="/images/facade-pattern-1.JPG" width="70%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/facade-pattern-01.png" width="70%" class="image__border">
 </p>
 <center>https://refactoring.guru/design-patterns/facade</center>
 
@@ -45,7 +45,7 @@ Spring 프레임워크로 개발한 애플리케이션을 디버깅하다 보면
     * 사용자(개발자)의 코드는 해당 라이브러리의 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메서드만 호출합니다.
 
 <p align="center">
-    <img src="/images/facade-pattern-2.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/facade-pattern-02.png" width="50%" class="image__border">
 </p>
 <center>https://refactoring.guru/design-patterns/facade</center>
 
@@ -189,7 +189,7 @@ public interface BarcodeGenerator {
 * 이미지 오른쪽의 `Canvas` 클래스는 바 이미지를 그리는 역할을 수행합니다.
 
 <p align="center">
-    <img src="/images/facade-pattern-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/facade-pattern-03.png" width="100%" class="image__border">
 </p>
 
 ## 3. BarcodeImageFacade 인터페이스 만들기
@@ -383,7 +383,7 @@ public class BlogController {
 ##### 바코드 이미지 만들기
 
 <p align="left">
-    <img src="/images/facade-pattern-4.gif" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/facade-pattern-04.gif" width="50%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

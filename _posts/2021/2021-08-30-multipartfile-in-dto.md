@@ -208,12 +208,12 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Multipart in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-1.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-01.png" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 file 멤버 변수에 프론트에서 전달한 파일 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-2.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-02.png" width="80%"></p>
 
 ## 4. MultipartFile List in DTO 예제 코드
 DTO 클래스 안에 N개의 파일을 리스트(List)로 담아서 전달하는 예제 코드입니다. 
@@ -351,12 +351,12 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Images List in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-3.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-03.png" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 files 멤버 변수에 프론트에서 전달한 파일들의 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-4.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-04.png" width="80%"></p>
 
 ### 4.5. FormData append 함수 특징
 append 함수는 이름처럼 추가된 항목 뒤에 새로 추가할 항목들을 붙히는 기능을 제공합니다. 
@@ -372,7 +372,7 @@ formData.getAll('name'); // ["true", "74", "John"]
 
 ##### FormData append 함수 호출
 
-<p align="center"><img src="/images/multipartfile-in-dto-5.gif" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-05.gif" width="80%"></p>
 
 ## 5. MultipartFile Map in DTO 예제 코드
 DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니다. 
@@ -513,18 +513,18 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Images Map in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-6.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-06.png" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 file 멤버 변수에 프론트에서 전달한 파일 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-7.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-07.png" width="80%"></p>
 
 ### 5.5. FormData append 함수 특징
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식합니다. 
 `'files[index]'` 값은 files 라는 멤버 변수의 키 값으로 index를 사용한다는 의미입니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-8.gif" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-08.gif" width="80%"></p>
 
 ## 6. MultipartFile Map-List in DTO 예제 코드
 DTO 클래스 안에 파일을 N개 담아서 전달하는 예제 코드입니다. 
@@ -670,19 +670,19 @@ public class FileController {
 ##### 파일 선택 후 업로드
 - `Images Map-List in DTO Upload` 버튼을 누른 후 이미지를 선택합니다.
 
-<p align="center"><img src="/images/multipartfile-in-dto-9.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-09.png" width="80%"></p>
 
 ##### 컨트롤러 디버깅 화면
 - 전달받은 dto 객체의 file 멤버 변수에 프론트에서 전달한 파일 정보가 담겨 있습니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-10.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-10.png" width="80%"></p>
 
 ### 5.5. FormData append 함수 특징
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식합니다. 
 `'files[' + (index % 3) + ']'` 값은 files 라는 멤버 변수의 키 값으로 `(index % 3)` 값을 사용한다는 의미입니다. 
 중첩되는 키가 존재하는 경우 맵의 Value 위치에는 리스트로 데이터가 담깁니다. 
 
-<p align="center"><img src="/images/multipartfile-in-dto-11.gif" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/multipartfile-in-dto-11.gif" width="80%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-30-multipartfile-in-dto>

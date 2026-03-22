@@ -53,7 +53,7 @@ last_modified_at: 2021-10-05T23:55:00
 핸들러(handler)는 특정 필터 체인(filter chain)으로 요청을 전달합니다. 
 필터 체인은 요청을 받을 때와 응답을 보내기 전에 각각 수행되므로 총 2회 수행됩니다. 
 
-<p align="center"><img src="/images/spring-cloud-gateway-1.JPG" width="45%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/spring-cloud-gateway-01.png" width="45%"></p>
 <center>https://docs.spring.io/spring-cloud-gateway/docs/2.2.9.RELEASE/reference/html/</center>
 
 ## 2. Spring Cloud Gatewy 구현하기
@@ -65,7 +65,7 @@ last_modified_at: 2021-10-05T23:55:00
 - 게이트웨이는 요청을 전달받아 적절한 서비스로 라우팅(routing)합니다.
 - 요청을 실제로 전달받은 서비스는 적절한 응답을 반환합니다.
 
-<p align="center"><img src="/images/spring-cloud-gateway-2.JPG" width="85%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/spring-cloud-gateway-02.png" width="85%"></p>
 
 ### 2.2. 패키지 구조
 
@@ -224,7 +224,7 @@ public class GatewayConfiguration {
 
 ##### 테스트 결과
 
-<p align="center"><img src="/images/spring-cloud-gateway-3.gif"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/spring-cloud-gateway-03.gif"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-10-05-spring-cloud-gateway>

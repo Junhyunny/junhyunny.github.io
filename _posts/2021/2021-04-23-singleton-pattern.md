@@ -29,7 +29,7 @@ last_modified_at: 2021-08-28T01:00:00
 ##### Diagram of Singleton Pattern
 
 <p align="center">
-    <img src="/images/singleton-pattern-1.JPG" width="30%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/singleton-pattern-01.png" width="30%" class="image__border">
 </p>
 <center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
 

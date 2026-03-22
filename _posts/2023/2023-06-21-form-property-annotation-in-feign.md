@@ -32,7 +32,7 @@ last_modified_at: 2023-06-21T23:55:00
 `application/x-www-form-urlencoded` 컨텐트 타입(content type)이 필요한 요청에서는 @JsonProperty 애너테이션을 사용할 수 없었습니다. 
 
 <p align="center">
-    <img src="/images/form-property-annotation-in-feign-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/form-property-annotation-in-feign-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Solve the problem

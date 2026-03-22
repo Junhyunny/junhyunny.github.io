@@ -165,7 +165,7 @@ public class StaticMethodServiceTests {
 ##### 테스트 통과
 
 <p align="left">
-  <img src="/images/how-to-stub-java-static-method-1.JPG" width="45%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/how-to-stub-java-static-method-01.png" width="45%" class="image__border">
 </p>
 
 ## 3. static method stubbing 주의 사항
@@ -219,7 +219,7 @@ public class StaticMethodServiceTests {
 ##### 테스트 실패
 
 <p align="left">
-  <img src="/images/how-to-stub-java-static-method-2.JPG" width="45%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/how-to-stub-java-static-method-02.png" width="45%" class="image__border">
 </p>
 
 ##### 에러 메시지
@@ -287,7 +287,7 @@ public class StaticMethodServiceTests {
 ##### 테스트 성공
 
 <p align="left">
-  <img src="/images/how-to-stub-java-static-method-3.JPG" width="45%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/how-to-stub-java-static-method-03.png" width="45%" class="image__border">
 </p>
 
 

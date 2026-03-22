@@ -95,7 +95,7 @@ GET /favicon.ico 404 1.704 ms - 150
 
 ##### 실행 결과
 
-<p align="left"><img src="/images/live-server-1.JPG"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/live-server-01.png"></p>
 
 #### REFERENCE
 - <https://taehyos.blogspot.com/2018/11/live-server.html>

@@ -103,7 +103,7 @@ public class DefaultCardLikeService implements CardLikeService {
 1. 1번 트랜잭션이 먼저 커밋하면 2번 트랜잭션은 기본 키 제약 조건에 의해 예외가 발생하고 트랜잭션을 실패합니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
 </p>
 
 ##### cURL Result
@@ -170,7 +170,7 @@ Connection: close
 - 첫 트랜잭션만 성공하고 나머지 트랜잭션은 실패합니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-02.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-02.png" width="80%" class="image__border">
 </p>
 
 ### 1.2. Update Problem
@@ -183,7 +183,7 @@ Connection: close
     - "좋아요" 카운트 값이 2인 데이터로 업데이트됩니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
 </p>
 
 ##### cURL Result
@@ -246,7 +246,7 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
 - 모든 트랜잭션이 성공했지만, 동시성 문제로 인해 정상적인 값으로 업데이트되지 않았습니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-04.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-04.png" width="80%" class="image__border">
 </p>
 
 ## 2. Solve the problem
@@ -272,7 +272,7 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
     - 예외가 발생하면 재시도 핸들러에게 해당 카드 아이디를 전달합니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-05.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-05.png" width="80%" class="image__border">
 </p>
 
 - 재시도 핸들러 예외 처리
@@ -281,7 +281,7 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
     - 타임아웃 예외가 발생하면 해당 카드 아이디를 다시 재시도 큐에 담습니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-06.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-06.png" width="80%" class="image__border">
 </p>
 
 ### 2.1. CardLikeRepository Interface
@@ -678,7 +678,7 @@ class CardLikeRetryHandlerTest {
 - "좋아요" 카운트가 총 12회 되었음을 확인할 수 있습니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-missing-count-07.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-07.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

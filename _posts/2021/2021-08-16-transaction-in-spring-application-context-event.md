@@ -180,7 +180,7 @@ public class TransactionInEventTest {
 
 ##### 테스트 결과 - Junit
 
-<p align="left"><img src="/images/transaction-in-spring-application-context-event-1.JPG" width="45%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-01.png" width="45%"></p>
 
 ##### 테스트 결과 - SQL
 
@@ -190,7 +190,7 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<p align="left"><img src="/images/transaction-in-spring-application-context-event-2.JPG" width="65%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-02.png" width="65%"></p>
 
 #### 2.5.1. UnexpectedRollbackException 발생 이유
 이벤트 리스너(event listener)에서 주문 서비스의 예외를 try-catch 구문으로 묶었음에도 불구하고 테스트 코드에서 UnexpectedRollbackException 예외가 발생합니다. 
@@ -323,7 +323,7 @@ public class TransactionInEventTest {
 
 ##### 테스트 결과 - Junit
 
-<p align="left"><img src="/images/transaction-in-spring-application-context-event-3.JPG" width="45%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-03.png" width="45%"></p>
 
 ##### 테스트 결과 - SQL
 
@@ -333,7 +333,7 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<p align="left"><img src="/images/transaction-in-spring-application-context-event-4.JPG" width="65%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-04.png" width="65%"></p>
 
 #### 3.5.1. UnexpectedRollbackException 발생하지 않은 이유
 동일 트랜잭션으로 묶어서 처리하는 것과 다르게 UnexpectedRollbackException 예외가 발생하지 않았습니다. 

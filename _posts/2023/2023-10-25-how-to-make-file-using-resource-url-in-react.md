@@ -181,7 +181,7 @@ test("when click image then image loaded and next button enabled", async () => {
 실제 구현체 코드를 실행하면 다음과 같이 동작합니다. 
 
 <p align="center">
-    <img src="/images/how-to-make-file-using-resource-url-in-react-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/how-to-make-file-using-resource-url-in-react-02.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

@@ -37,7 +37,7 @@ last_modified_at: 2021-08-23T11:30:00
 * `서비스A`는 응답 받은 `서비스B`의 상태와 자신의 상태를 사용자에게 함께 전달합니다.
 
 <p align="center">
-    <img src="/images/feignclient-with-eureka-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/feignclient-with-eureka-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.2. Setup Service A

@@ -167,7 +167,7 @@ var bar = function bar () {
     - 사용자가 `undefined`로 초기화된 메모리에 다른 값을 할당합니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-1.JPG" width="45%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-hoisting-01.png" width="45%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center>
 
@@ -176,7 +176,7 @@ var bar = function bar () {
 - 이 사이에 위치한 변수는 메모리 초기화가 이뤄지지 않았기 때문에 사용 시 에러가 발생합니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-2.JPG" width="45%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-hoisting-02.png" width="45%" class="image__border">
 </p>
 <center>https://blog.naver.com/PostView.nhn?blogId=dlaxodud2388&logNo=222284235839</center>
 
@@ -214,7 +214,7 @@ true pen.js:52:9
 - `var` 키워드로 선언된 변수는 `TDZ`가 존재하지 않습니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-3.JPG" width="70%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-hoisting-03.png" width="70%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center>
 
@@ -253,7 +253,7 @@ poppxwV:44:1
 - 실행 컨텍스트에 변수를 저장할 때 변수의 선언 단계만 진행됩니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-4.JPG" width="70%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-hoisting-04.png" width="70%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center>
 
@@ -367,7 +367,7 @@ import { myFunction } from './myModule';
 - 3 단계의 변수 라이프 사이클을 모두 동시에 수행합니다.
 
 <p align="center">
-    <img src="/images/javascript-hoisting-5.JPG" width="70%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-hoisting-05.png" width="70%" class="image__border">
 </p>
 <center>https://noogoonaa.tistory.com/78</center>
 

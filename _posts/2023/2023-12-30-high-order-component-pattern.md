@@ -35,7 +35,7 @@ last_modified_at: 2023-12-30T23:55:00
 - 각자 다른 에러 메시지를 사용자에게 피드백한다.
 
 <p align="center">
-  <img src="/images/with-validation-by-hoc-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/with-validation-by-hoc-01.png" width="100%" class="image__border">
 </p>
 
 ## 2. High Order Component Pattern
@@ -52,7 +52,7 @@ last_modified_at: 2023-12-30T23:55:00
 - 공통적인 횡단 관심사 코드 비즈니스 로직마다 작성하지 않는다. 별도 모듈로 구성하고, 비즈니스 로직이 수행될 때 자동으로 호출되도록 구현한다.
 
 <p align="center">
-  <img src="/images/with-validation-by-hoc-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/with-validation-by-hoc-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.1. Implement High Order Component
@@ -230,7 +230,7 @@ export const ValidationTextArea = withValidation(TextArea);
 withValidation 함수를 통과한 컴포넌트들은 유효성 검사와 에러 메시지 출력이 자동으로 이뤄진다. 
 
 <p align="center">
-  <img src="/images/with-validation-by-hoc-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/with-validation-by-hoc-03.png" width="80%" class="image__border">
 </p>
 
 ## CLOSING
@@ -238,7 +238,7 @@ withValidation 함수를 통과한 컴포넌트들은 유효성 검사와 에러
 고차 컴포넌트는 유효성 확인에만 적용할 수 있는 패턴이 아니다. 위에서 설명했듯 비즈니스 로직 곳곳에서 호출되는 횡단 관심사에 모두 적용할 수 있다. 프론트엔드 애플리케이션에서 필요한 로딩(loading)과 서스펜스(suspense) 처리, 인증과 인가 처리 같은 것도 모두 횡단 관심사가 될 수 있다. 자주 사용되는 횡단 관심사 코드들을 렌더링 대상 컴포넌트가 다르다는 이유로 함수나 믹스인(mixin)으로 만들어 사용하고 있다면 고차 컴포넌트 패턴 적용을 연구해봐도 좋을 것이다.
 
 <p align="center">
-  <img src="/images/with-validation-by-hoc-04.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/with-validation-by-hoc-04.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

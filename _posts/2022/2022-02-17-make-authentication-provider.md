@@ -25,7 +25,7 @@ last_modified_at: 2022-02-17T23:55:00
 - 빨간색 박스 부분이 이번에 구현할 `JwtAuthenticationProvider` 클래스가 속하는 부분입니다.
 
 <p align="center">
-    <img src="/images/make-authentication-provider-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/make-authentication-provider-01.png" width="80%" class="image__border">
 </p>
 <center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center>
 

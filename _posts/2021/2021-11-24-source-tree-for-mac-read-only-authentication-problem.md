@@ -24,20 +24,20 @@ last_modified_at: 2021-11-24T23:55:00
 - `Public Data Only` 문구 확인
 
 <p align="center">
-    <img src="/images/source-tree-for-mac-read-only-authentication-problem-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/source-tree-for-mac-read-only-authentication-problem-01.png" width="50%" class="image__border">
 </p>
 
 ##### Permissions - Access public information (read-only)
 - `오른쪽 상단 사용자 이미지 > Settings > Applications > Authorized OAuth Apps > SourcetreeForMac` 선택
 
 <p align="left">
-    <img src="/images/source-tree-for-mac-read-only-authentication-problem-2.JPG" width="25%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/source-tree-for-mac-read-only-authentication-problem-02.png" width="25%" class="image__border">
 </p>
 
 - 해당 애플리케이션의 권한을 확인하면 `Access public information (read-only)` 문구 확인
 
 <p align="center">
-    <img src="/images/source-tree-for-mac-read-only-authentication-problem-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/source-tree-for-mac-read-only-authentication-problem-03.png" width="100%" class="image__border">
 </p>
 
 ## 2. 문제 해결
@@ -50,7 +50,7 @@ last_modified_at: 2021-11-24T23:55:00
 - `repo` 체크박스 선택
 
 <p align="center">
-    <img src="/images/source-tree-for-mac-read-only-authentication-problem-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/source-tree-for-mac-read-only-authentication-problem-04.png" width="100%" class="image__border">
 </p>
 
 ## 2.2. 토큰 사용
@@ -61,7 +61,7 @@ last_modified_at: 2021-11-24T23:55:00
 - 암호 - 복사한 토큰
 
 <p align="center">
-    <img src="/images/source-tree-for-mac-read-only-authentication-problem-5.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/source-tree-for-mac-read-only-authentication-problem-05.png" width="50%" class="image__border">
 </p>
 
 #### REFERENCE

@@ -43,7 +43,7 @@ last_modified_at: 2021-12-23T23:55:00
 ##### Redux Async Data Flow
 
 <p align="center">
-    <img src="/images/how-to-test-react-redux-thunk-1.gif" width="65%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/how-to-test-react-redux-thunk-01.gif" width="65%" class="image__border">
 </p>
 <center>https://redux.js.org/tutorials/fundamentals/part-6-async-logic</center>
 
@@ -205,7 +205,7 @@ export default Login;
 - 최대한 다른 패키지에 대한 종속성(dependency)이 없도록 테스트를 구성합니다. 
 
 <p align="center">
-    <img src="/images/how-to-test-react-redux-thunk-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/how-to-test-react-redux-thunk-02.png" width="100%" class="image__border">
 </p>
 
 ## 3. 미들웨어에서 비동기 처리 후 시나리오에 맞는 `액션 크리에이터`를 디스패치했는가?
@@ -307,7 +307,7 @@ export default (state = initialState, action) => {
 ##### 테스트 코드 구조 및 관계
 
 <p align="center">
-    <img src="/images/how-to-test-react-redux-thunk-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/how-to-test-react-redux-thunk-03.png" width="100%" class="image__border">
 </p>
 
 ## 4. Redux 테스트 작성 가이드 원칙들 - 공식 문서

@@ -93,7 +93,7 @@ IDE에서 컴파일된 `Q-Type` 클래스들을 사용하려면 컴파일 위치
 * 해당 프로젝트의 `production sources directory`를 pom.xml 파일의 플러그인에 정의한 `outputDirectory`와 일치시킵니다. 
 
 <p align="center">
-    <img src="/images/crud-with-jpa-query-factory-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/crud-with-jpa-query-factory-01.png" width="100%" class="image__border">
 </p>
 
 #### 1.2.2. 프로젝트 모듈 설정
@@ -102,7 +102,7 @@ IDE에서 컴파일된 `Q-Type` 클래스들을 사용하려면 컴파일 위치
 * 코드 에디터에서 컴파일 된 `Q-Type` 클래스를 임포트(import)할 수 있도록 모듈의 소스 경로로 설정합니다.
 
 <p align="center">
-    <img src="/images/crud-with-jpa-query-factory-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/crud-with-jpa-query-factory-02.png" width="100%" class="image__border">
 </p>
 
 ## 2. Types of Query Class in QueryDSL

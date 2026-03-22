@@ -34,7 +34,7 @@ ngrok 터널링은 기본적으로 2시간 세션이 유효합니다.
 ##### authtoken 설정
 
 <p align="center">
-    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/ngrok-multiple-ports-tunneling-on-free-plan-01.png" width="100%" class="image__border">
 </p>
 
 ### 2.3. ngrok.yml 파일 수정
@@ -70,7 +70,7 @@ $ ngrok start --all
 ##### 실행 결과
 
 <p align="center">
-    <img src="/images/ngrok-multiple-ports-tunneling-on-free-plan-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/ngrok-multiple-ports-tunneling-on-free-plan-02.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

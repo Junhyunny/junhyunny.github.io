@@ -27,7 +27,7 @@ last_modified_at: 2021-09-04T03:00:00
 - 서버는 메시지를 전달받아 자신이 관리하는 세션(session)으로 메시지를 전송합니다.
 - 두 브라우저 모두 서버로부터 전달받은 메시지를 출력합니다.
 
-<p align="center"><img src="/images/web-socket-example-1.gif" width="70%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/web-socket-example-01.gif" width="70%"></p>
 
 ## 2. 테스트 코드
 ### 2.1. 패키지 구조
@@ -241,7 +241,7 @@ public class ChatController {
 
 ##### 테스트 확인
 
-<p align="center"><img src="/images/web-socket-example-2.gif" width="70%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/web-socket-example-02.gif" width="70%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-21-web-socket>

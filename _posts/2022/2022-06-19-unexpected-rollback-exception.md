@@ -164,7 +164,7 @@ public class AccessHistoryIT {
 - `exception` 발생으로 이전 쿼리가 롤백되어 확인한 테이블에 저장된 데이터는 0건입니다.
 
 <p align="left">
-    <img src="/images/unexpected-rollback-exception-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/unexpected-rollback-exception-01.png" width="80%" class="image__border">
 </p>
 
 ##### 에러 로그
@@ -231,7 +231,7 @@ org.springframework.transaction.UnexpectedRollbackException: Transaction silentl
 1. 컨트롤러의 예외 핸들러까지 `exception` 전파
 
 <p align="center">
-    <img src="/images/unexpected-rollback-exception-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/unexpected-rollback-exception-02.png" width="100%" class="image__border">
 </p>
 
 ## 3. 해결 방법

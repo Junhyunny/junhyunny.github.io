@@ -25,7 +25,7 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 * 애플리케이션의 같은 변수를 사용하지만, CPU 캐시에 데이터를 로딩해서 사용합니다.
 
 <p align="center">
-    <img src="/images/java-volatile-1.JPG" width="50%" class="image__border image__padding">
+    <img src="{{ site.image_url_2021 }}/java-volatile-01.png" width="50%" class="image__border image__padding">
 </p>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 
@@ -39,7 +39,7 @@ CPU는 성능상의 이유로 메인 메모리에 저장된 데이터를 직접 
 * 같은 변수를 다른 값으로 사용하게 되면서 로직 상의 문제가 발생합니다.
 
 <p align="center">
-    <img src="/images/java-volatile-2.JPG" width="50%" class="image__border image__padding">
+    <img src="{{ site.image_url_2021 }}/java-volatile-02.png" width="50%" class="image__border image__padding">
 </p>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 

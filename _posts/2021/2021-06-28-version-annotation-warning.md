@@ -168,7 +168,7 @@ Hibernate: select next value for child_entity_seq
     * 엔티티를 데이터베이스에서 삭제하겠다고 표시한 상태입니다. 
 
 <p align="center">
-    <img src="/images/version-annotation-warning-1.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/version-annotation-warning-01.png" width="60%" class="image__border">
 </p>
 <center>https://gunlog.dev/JPA-Persistence-Context/</center>
 
@@ -251,7 +251,7 @@ public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSu
 버전 필드를 추가하기 전 문제가 되지 않는 코드의 흐름입니다. 
 
 <p align="center">
-    <img src="/images/version-annotation-warning-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/version-annotation-warning-02.png" width="80%" class="image__border">
 </p>
 
 ##### TO-BE
@@ -259,7 +259,7 @@ public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSu
 버전 필드가 추가된 후 문제가 발생한 코드의 흐름입니다. 
 
 <p align="center">
-    <img src="/images/version-annotation-warning-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/version-annotation-warning-03.png" width="80%" class="image__border">
 </p>
 
 ## 3. Solve the problem

@@ -155,7 +155,7 @@ export default App;
     * `screen`이 아닌 테이블 행 DOM 엘리먼트를 기준으로 텍스트를 탐색합니다.
 
 <p align="left">
-    <img src="/images/querying-within-specific-element-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/querying-within-specific-element-01.png" width="50%" class="image__border">
 </p>
 
 ### 2.2. 수정된 테스트 코드

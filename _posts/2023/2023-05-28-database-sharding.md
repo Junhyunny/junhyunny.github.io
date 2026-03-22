@@ -42,7 +42,7 @@ last_modified_at: 2023-05-28T23:55:00
     * 데이터베이스에서 제공 - `MongoDB`
 
 <p align="center">
-    <img src="/images/database-sharding-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/database-sharding-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.1. Pros and Cons
@@ -83,7 +83,7 @@ last_modified_at: 2023-05-28T23:55:00
 * 데이터베이스가 추가되거나 삭제되는 경우 해시 함수의 변경과 저장된 데이터 재정렬이 필요합니다.
 
 <p align="center">
-    <img src="/images/database-sharding-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/database-sharding-02.png" width="80%" class="image__border">
 </p>
 <center>https://www.digitalocean.com/community/tutorials/understanding-database-sharding</center>
 
@@ -99,7 +99,7 @@ last_modified_at: 2023-05-28T23:55:00
 * 데이터가 고르게 분산되어 저장되지 않을 수 있습니다.
 
 <p align="center">
-    <img src="/images/database-sharding-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/database-sharding-03.png" width="80%" class="image__border">
 </p>
 <center>https://www.digitalocean.com/community/tutorials/understanding-database-sharding</center>
 

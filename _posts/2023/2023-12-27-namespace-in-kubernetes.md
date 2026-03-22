@@ -37,7 +37,7 @@ last_modified_at: 2023-12-27T23:55:00
 만약 워커 노드 3개에 dev, prod 네임스페이스를 추가했다면 아래와 같은 모습을 가진다. `kube-` 접미사로 시작하는 네임스페이스들은 제외했다. 위에서 설명했듯 각 네임스페이스에서 관리되는 오브젝트들은 각자 이름은 고유해야 한다. 동일한 이름을 가진 리소스가 서로 다른 네임스페이스에 존재하는 것은 가능하다. 
 
 <p align="center">
-  <img src="/images/namespace-in-kubernetes-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/namespace-in-kubernetes-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.1. Objects in Namespace
@@ -109,7 +109,7 @@ apiservices                                    apiregistration.k8s.io/v1        
 - foo-ns 네임스페이스에 배포된 foo-pod 파드를 통해 클러스터 내부 다른 파드들과 통신을 수행한다.
 
 <p align="center">
-  <img src="/images/namespace-in-kubernetes-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/namespace-in-kubernetes-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.1. Spring Application

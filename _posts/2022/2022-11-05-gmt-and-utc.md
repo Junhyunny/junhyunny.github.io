@@ -121,7 +121,7 @@ last_modified_at: 2022-11-05T23:55:00
 * 2022년의 뉴욕 서머 타임 적용 시점을 다른 년도와 비교해보면 서로 다름을 알 수 있습니다.
 
 <p align="left">
-    <img src="/images/gmt-and-utc-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/gmt-and-utc-01.png" width="100%" class="image__border">
 </p>
 <center>https://www.timeanddate.com/time/zone/usa/new-york?year=2022</center>
 

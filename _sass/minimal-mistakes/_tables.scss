@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /* ==========================================================================
    TABLES
    ========================================================================== */
@@ -18,7 +20,7 @@ table {
 
 thead {
   background-color: $border-color;
-  border-bottom: 2px solid mix(#000, $border-color, 25%);
+  border-bottom: 2px solid color.mix(#000, $border-color, 25%);
 }
 
 th {
@@ -28,16 +30,16 @@ th {
 }
 
 th:not(:first-child) {
-  border-left: 1px solid mix(#000, $border-color, 25%);
+  border-left: 1px solid color.mix(#000, $border-color, 25%);
 }
 
 td {
   padding: 0.8em;
-  border-bottom: 1px solid mix(#000, $border-color, 25%);
+  border-bottom: 1px solid color.mix(#000, $border-color, 25%);
 }
 
 td:not(:first-child) {
-  border-left: 1px solid mix(#000, $border-color, 25%);
+  border-left: 1px solid color.mix(#000, $border-color, 25%);
 }
 
 tr,

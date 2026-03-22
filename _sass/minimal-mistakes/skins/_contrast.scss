@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 /* ==========================================================================
    Contrast skin
    ========================================================================== */
@@ -6,12 +8,12 @@
 $text-color: #000 !default;
 $muted-text-color: $text-color !default;
 $primary-color: #ff0000 !default;
-$border-color: mix(#fff, $text-color, 75%) !default;
+$border-color: color.mix(#fff, $text-color, 75%) !default;
 $footer-background-color: #000 !default;
 $link-color: #0000ff !default;
 $masthead-link-color: $text-color !default;
 $masthead-link-color-hover: $text-color !default;
-$navicon-link-color-hover: mix(#fff, $text-color, 80%) !default;
+$navicon-link-color-hover: color.mix(#fff, $text-color, 80%) !default;
 
 /* contrast syntax highlighting (base16) */
 $base00: #000000 !default;

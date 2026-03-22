@@ -307,7 +307,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /home 이다.
 
 <p align="center">
-  <img src="/images/information-in-http-servlet-request-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/information-in-http-servlet-request-01.png" width="80%" class="image__border">
 </p>
 
 #### 3.3.2. /app path
@@ -319,7 +319,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /app/home 이다.
 
 <p align="center">
-  <img src="/images/information-in-http-servlet-request-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/information-in-http-servlet-request-02.png" width="80%" class="image__border">
 </p>
 
 #### 3.3.3. /admin path
@@ -331,7 +331,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /admin/home 이다.
 
 <p align="center">
-  <img src="/images/information-in-http-servlet-request-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/information-in-http-servlet-request-03.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

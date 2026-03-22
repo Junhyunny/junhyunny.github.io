@@ -9,6 +9,14 @@ name: "강준현 (Junhyunny)"
 description: "소프트웨어 엔지니어 / 작가"
 url: "https://junhyunny.github.io"
 repository: "Junhyunny/junhyunny.github.io"
+
+image_url_2020: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main"
+image_url_2021: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main"
+image_url_2022: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main"
+image_url_2023: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main"
+image_url_2024: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main"
+image_url_2025: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main"
+image_url_2026: "https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main"
 words_per_minute: 200
 
 comments:

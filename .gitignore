@@ -32,4 +32,4 @@ _asset_bundler_cache
 _site
 
 # local image cache
-images/
+images/posts

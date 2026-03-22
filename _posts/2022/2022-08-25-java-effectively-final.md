@@ -118,7 +118,7 @@ last_modified_at: 2022-08-25T23:55:00
 * `Thread1`이 foo 메서드를 수행하면서 지역 변수의 값을 바꿈으로써, `Thread2` 실행 시 개발자가 의도치 않은 수행 결과가 나오는 것을 방지합니다.
 
 <p align="center">
-    <img src="/images/java-effectively-final-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/java-effectively-final-01.png" width="80%" class="image__border">
 </p>
 
 ## 3. Why must local variable be effectively final or final in Lambda Expressions?
@@ -182,7 +182,7 @@ public class EffectivelyFinalTests {
 * 스태틱 변수는 클래스 이름을 사용하여 접근 가능합니다.
 
 <p align="center">
-    <img src="/images/java-effectively-final-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/java-effectively-final-02.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

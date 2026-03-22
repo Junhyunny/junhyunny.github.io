@@ -229,7 +229,7 @@ public class FormController {
 * 오른쪽 폼에서 입력한 값들이 왼쪽 창에 그대로 반영됩니다.
 
 <p align="center">
-    <img src="/images/rerender-specific-elements-in-thymeleaf-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/rerender-specific-elements-in-thymeleaf-01.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

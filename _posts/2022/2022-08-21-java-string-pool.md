@@ -90,7 +90,7 @@ last_modified_at: 2022-08-21T23:55:00
     * `String` 생성자를 이용해 문자열 객체를 만드는 방식은 문자열 풀을 이용하지 못하는 방식이므로 지양합니다.
 
 <p align="center">
-    <img src="/images/java-string-pool-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/java-string-pool-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.javatpoint.com/string-pool-in-java</center>
 

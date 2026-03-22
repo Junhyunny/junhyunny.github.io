@@ -24,7 +24,7 @@ last_modified_at: 2021-08-27T09:00:00
 ##### My Recent Commit Messages
 
 <p align="center">
-    <img src="/images/github-commit-message-rule-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/github-commit-message-rule-01.png" width="80%" class="image__border">
 </p>
 
 ## 1. Importance of Commit Message Rules

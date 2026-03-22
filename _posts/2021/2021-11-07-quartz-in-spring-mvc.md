@@ -45,7 +45,7 @@ Quatz 구조도와 함께 관련된 인터페이스 클래스들을 정리하였
 - JobListener 인터페이스 - Job 수행 전, 완료 이벤트와 중단 이벤트를 확인할 수 있는 기능을 정의합니다.
 - JobStore 인터페이스 - Job, Trigger 정보를 저장하는 메커니즘을 정의합니다. 메모리 혹은 데이터베이스를 사용합니다.
 
-<p align="center"><img src="/images/quartz-in-spring-mvc-1.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-in-spring-mvc-01.png" width="80%"></p>
 <center>https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
 
 ### 1.1. Quartz와 Batch는 어떻게 다른가?
@@ -317,7 +317,7 @@ public interface BlogDao {
 - TB_TEST 테이블의 `CHANGED_AT` 항목이 5초마다 갱신되는지 확인합니다.
 - 예외(exception)가 발생한 경우에는 `CHANGED_AT` 항목이 갱신되지 않음을 확인합니다.
 
-<p align="center"><img src="/images/quartz-in-spring-mvc-2.gif" width="100%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-in-spring-mvc-02.gif" width="100%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-07-quartz-in-spring-mvc>

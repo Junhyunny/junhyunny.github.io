@@ -87,7 +87,7 @@ and check to make sure that only the key(s) you wanted were added.
 `ssh` 명령어로 접속하면 비밀번호 입력 없이 인증이 가능합니다.
 
 <p align="center">
-    <img src="/images/ssh-copy-id-for-easy-connection-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/ssh-copy-id-for-easy-connection-01.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

@@ -21,7 +21,7 @@ last_modified_at: 2021-08-29T03:00:00
     * 서블릿에 의해 요청을 처리할 적절한 핸들러가 결정되었다면, 핸들러 이전에 실행됩니다. 
 
 <p align="center">
-    <img src="/images/filter-interceptor-and-aop-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/filter-interceptor-and-aop-01.png" width="80%" class="image__border">
 </p>
 <center>https://gowoonsori.com/blog/spring/architecture/</center>
 
@@ -31,7 +31,7 @@ last_modified_at: 2021-08-29T03:00:00
     * 예를 들면 `@Transactional` 애너테이션을 통한 트랜잭션 관리도 AOP 기능의 일종입니다.
 
 <p align="center">
-    <img src="/images/filter-interceptor-and-aop-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/filter-interceptor-and-aop-02.png" width="80%" class="image__border">
 </p>
 
 ## 2. Features of Filter, Interceptor and AOP

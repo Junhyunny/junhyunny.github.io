@@ -31,7 +31,7 @@ last_modified_at: 2023-11-19T23:55:00
 1. 두 트랜잭션이 커밋을 수행하면 동일한 두 개의 데이터가 추가됩니다.
 
 <p align="center">
-    <img src="/images/concurrency-problem-insert-same-rows-01.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-insert-same-rows-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Solve the problem
@@ -333,7 +333,7 @@ Already collected card< HTTP/1.1 200
 데이터베이스를 확인하면 정상적으로 하나의 로우만 추가된 것을 확인할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/concurrency-problem-insert-same-rows-02.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-insert-same-rows-02.png" width="80%" class="image__border">
 </p>
 
 ## CLOSING
@@ -392,7 +392,7 @@ Connection #0 to host localhost left intact
 데이터베이스를 확인하면 세 개의 로우가 모두 추가된 것을 확인할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/concurrency-problem-insert-same-rows-03.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/concurrency-problem-insert-same-rows-03.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

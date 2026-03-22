@@ -73,7 +73,7 @@ outer()
     * 참조하는 식별자를 전역 스코프에서도 찾지 못하는 경우엔 `ReferenceError`가 발생합니다.
 
 <p align="center">
-    <img src="/images/javascript-scope-chain-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-scope-chain-01.png" width="50%" class="image__border">
 </p>
 
 #### 1.2.1. 식별자 탐색 과정 예시
@@ -163,7 +163,7 @@ foo()
 * `global` 키워드를 통해 맨 마지막 스코프가 전역 스코프임을 확인할 수 있습니다.  
 
 <p align="left">
-    <img src="/images/javascript-scope-chain-2.JPG" width="65%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-scope-chain-02.png" width="65%" class="image__border">
 </p>
 
 ## CLOSING
@@ -217,7 +217,7 @@ foo()
 * 글로벌 스코프는 필수입니다.
 
 <p align="left">
-    <img src="/images/javascript-scope-chain-3.JPG" width="65%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/javascript-scope-chain-03.png" width="65%" class="image__border">
 </p>
 
 #### REFERENCE

@@ -159,7 +159,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 [Improve CVE-2023-34035 detection](https://github.com/spring-projects/spring-security/issues/13568) 이슈에 내용들을 살펴보면 여러 종류의 서블릿이 등록되는 케이스가 더러 있는 편인 것 같습니다. 에러 로그를 보면 H2 콘솔을 위한 서블릿이 별도로 추가되는 것을 확인할 수 있습니다. 필자는 로컬 환경과 테스트 코드에서 H2 데이터베이스를 사용하고, H2 콘솔 기능이 활성화되어 있어서 문제가 발생했습니다. H2 콘솔 기능이 활성화되면 `/h2-console` 경로를 서비스하기 위해 `org.h2.server.web.JakartaWebServlet`이 추가됩니다. 이 서블릿과 `DispatcherServlet`이 함께 공존하면서 위 에러가 발생했습니다. 
 
 <p align="center">
-    <img src="/images/request-matcher-setup-error-when-spring-security-version-upgrade-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/request-matcher-setup-error-when-spring-security-version-upgrade-01.png" width="100%" class="image__border">
 </p>
 
 ## 4. What is the solution?

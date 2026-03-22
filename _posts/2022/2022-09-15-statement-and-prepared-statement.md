@@ -630,7 +630,7 @@ public class MemoryDatabaseTests {
 ##### 테스트 결과
 
 <p align="left">
-    <img src="/images/statement-and-prepared-statement-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/statement-and-prepared-statement-01.png" width="50%" class="image__border">
 </p>
 
 ## CLOSING

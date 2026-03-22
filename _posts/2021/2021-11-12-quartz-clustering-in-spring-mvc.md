@@ -19,7 +19,7 @@ last_modified_at: 2021-11-12T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-1.gif" width="55%"></p><br/>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-01.gif" width="55%"></p><br/>
 
 [Quartz in Spring MVC][quartz-in-spring-mvc-link] 포스트에서 `Quartz` 스케줄러에 대한 장점 중에 클러스터링(clustering)을 언급했었습니다. 
 
@@ -31,7 +31,7 @@ last_modified_at: 2021-11-12T23:55:00
 
 ##### 다중 서버 환경에서 Quartz 클러스터링 동작
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-2.gif" width="55%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-02.gif" width="55%"></p>
 
 ## 1. Spring Quartz Clustering
 `Quartz` 구조를 살펴보면 `JobStore` 기능이 존재합니다. 
@@ -39,7 +39,7 @@ last_modified_at: 2021-11-12T23:55:00
 정보를 저장하는 방법으로 `메모리` 방식과 `데이터베이스` 방식이 사용됩니다. 
 다중 서버 환경에서 `데이터베이스` 방식을 사용하면 서버들간의 `Job`, `Trigger` 정보를 공유할 수 있으므로 클러스터링이 가능합니다. 
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-3.JPG" width="35%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-03.png" width="35%"></p>
 
 ## 2. Spring Quartz Clustering 이점
 
@@ -47,19 +47,19 @@ last_modified_at: 2021-11-12T23:55:00
 - 서버 중 하나가 다운(down)되더라도 다른 서버에 의해 `Job`이 실행됩니다.
 - Quartz Job 실행에 대한 다운-타임(down-time)이 없습니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-4.gif" width="35%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-04.gif" width="35%"></p>
 
 ### 2.2. 확장성(Scalability)
 - Quartz 설정이 된 서버를 구동하면 자동으로 데이터베이스에 스케줄 서버로 등록됩니다.
 - 스케일-아웃(scale-out)으로 인해 서버가 늘어나더라도 함께 클러스터로 관리됩니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-5.gif" width="35%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-05.gif" width="35%"></p>
 
 ### 2.3. 부하 분산(Loading Balancing)
 - 클러스터 구성으로 `Job`이 여러 서버에 분산되어 실행됩니다.
 - Quartz에서는 랜덤 알고리즘(random algorithm)만 구현되어 있습니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-6.gif" width="35%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-06.gif" width="35%"></p>
 
 ## 2. Spring Quartz 클러스터 구현
 
@@ -117,7 +117,7 @@ ENGINE=InnoDB;
 
 ##### 생성된 테이블 리스트
 
-<p align="left"><img src="/images/quartz-clustering-in-spring-mvc-7.JPG"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-07.png"></p>
 
 ### 2.3. applicationContext.xml
 - `JobDetailFactoryBean` 생성
@@ -262,7 +262,7 @@ public class BlogServiceImpl implements BlogService {
 - 8081 포트 서버를 다시 시작시킵니다.
 - 8080 포트 서버를 다운시키면 8081 포트 서버의 Quartz Job이 실행됩니다.
 
-<p align="center"><img src="/images/quartz-clustering-in-spring-mvc-8.gif" width="100%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/quartz-clustering-in-spring-mvc-08.gif" width="100%"></p>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-12-quartz-clustering-in-spring-mvc>

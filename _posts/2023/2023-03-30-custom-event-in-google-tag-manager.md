@@ -26,7 +26,7 @@ last_modified_at: 2023-03-30T23:55:00
 * 새로 만들기 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-01.png" width="100%" class="image__border">
 </p>
 
 * 변수 유형은 `데이터 영역 변수`를 사용합니다.
@@ -36,13 +36,13 @@ last_modified_at: 2023-03-30T23:55:00
 * 저장 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-02.png" width="100%" class="image__border">
 </p>
 
 * 사용자 정의 변수에 `Custom Data`라는 변수가 생성됩니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-03.png" width="100%" class="image__border">
 </p>
 
 ## 2. Create Custom Event Trigger
@@ -51,26 +51,26 @@ last_modified_at: 2023-03-30T23:55:00
 * 새로 만들기 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-04.png" width="100%" class="image__border">
 </p>
 
 * 트리거 구성에서 `맞춤 이벤트`를 선택합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-05.png" width="100%" class="image__border">
 </p>
 
 * 이벤트 이름을 `custom_event`으로 지정합니다.
     * 애플리케이션에서 `custom_event`으로 이벤트를 발행하는 코드가 필요합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-6.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-06.png" width="100%" class="image__border">
 </p>
 
 * `Custom Event` 트리거가 생성됩니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-7.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-07.png" width="100%" class="image__border">
 </p>
 
 ## 3. Create Tag
@@ -79,14 +79,14 @@ last_modified_at: 2023-03-30T23:55:00
 * 새로 만들기 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-8.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-08.png" width="100%" class="image__border">
 </p>
 
 * 태그 구성을 클릭합니다.
 * GA4 이벤트를 선택합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-9.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-09.png" width="100%" class="image__border">
 </p>
 
 * 측정 ID는 구글 애널리틱스 생성 시 발급받은 `G-`로 시작하는 코드를 입력합니다.
@@ -98,32 +98,32 @@ last_modified_at: 2023-03-30T23:55:00
 * 깂(value)는 변수에서 선택하기 위해 오른쪽 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-10.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-10.png" width="100%" class="image__border">
 </p>
 
 * 이전 단계에서 생성한 `Custom Data` 변수를 선택합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-11.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-11.png" width="100%" class="image__border">
 </p>
 
 * 트리거를 선택합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-12.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-12.png" width="100%" class="image__border">
 </p>
 
 * 이전 단계에서 생성한 `Custom Event` 트리거를 선택합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-13.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-13.png" width="100%" class="image__border">
 </p>
 
 * 최종적인 태그 모습입니다.
 * 저장을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-14.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-14.png" width="100%" class="image__border">
 </p>
 
 ## 4. Publish Tag
@@ -131,13 +131,13 @@ last_modified_at: 2023-03-30T23:55:00
 * 제출 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-15.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-15.png" width="100%" class="image__border">
 </p>
 
 * 게시 버튼을 클릭하여 변경사항을 반영합니다.
 
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-16.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-16.png" width="100%" class="image__border">
 </p>
 
 ## 5. React Application
@@ -201,7 +201,7 @@ export default App;
 * `custom_event` 이벤트에서 `custom_data`가 수집됨을 확인할 수 있습니다. 
  
 <p align="center">
-    <img src="/images/custom-event-in-google-tag-manager-17.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-event-in-google-tag-manager-17.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

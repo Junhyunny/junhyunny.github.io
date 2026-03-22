@@ -36,7 +36,7 @@ last_modified_at: 2022-01-15T23:55:00
 ##### N+1 문제 현상
 - 아래 이미지를 보면 Post 엔티티와 Reply 엔티티는 1 대 N 관계입니다.
 
-<p align="left"><img src="/images/jpa-one-plus-n-problem-1.JPG" width="20%"></p>
+<p align="left"><img src="{{ site.image_url_2022 }}/jpa-one-plus-n-problem-01.png" width="20%"></p>
 
 - JPA `findBy-` 메서드를 사용하여 1개의 Post 엔티티를 조회하면, 쿼리가 총 2회 수행됩니다.
     - 지연 로딩(lazy loading)인 경우 해당 객체를 사용했다고 가정합니다.
@@ -525,7 +525,7 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 - 리턴 타입은 `List`이며, 쿼리 내부에 `DISTINCT` 키워드를 붙히지 않은 경우입니다.
 - 결과 리스트에 주소가 같은 엔티티 객체가 10개 담겨서 반환됩니다.
 
-<p align="left"><img src="/images/jpa-one-plus-n-problem-2.JPG"></p>
+<p align="left"><img src="{{ site.image_url_2022 }}/jpa-one-plus-n-problem-02.png"></p>
 
 ## CLOSING
 

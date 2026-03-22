@@ -27,7 +27,7 @@ last_modified_at: 2023-08-12T23:55:00
     * 아래와 같은 이미지를 사용하였습니다.
 
 <p align="center">
-    <img src="/images/restart-css-animation-by-javascript-1.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/restart-css-animation-by-javascript-01.png" width="100%" class="image__border image__padding">
 </p>
 
 ### 1.1. HTML Code
@@ -150,7 +150,7 @@ function restart() {
 * 다음 클릭 이벤트들에선 애니메이션이 동작하지 않습니다.  
 
 <p align="left">
-    <img src="/images/restart-css-animation-by-javascript-2.gif" width="50%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/restart-css-animation-by-javascript-02.gif" width="50%" class="image__border image__padding">
 </p>
 
 ## 2. Solve the problem
@@ -178,7 +178,7 @@ function restart() {
     * 배경, 테두리, 텍스트 및 기타 시각적인 요소들을 렌더링합니다.
 
 <p align="center">
-    <img src="/images/restart-css-animation-by-javascript-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/restart-css-animation-by-javascript-03.png" width="80%" class="image__border">
 </p>
 <center>https://it-eldorado.tistory.com/87</center>
 

@@ -64,7 +64,7 @@ last_modified_at: 2023-06-03T23:55:00
   - 인프라스트럭처를 코드로 정의할 수 있다.
 
 <p align="center">
-  <img src="/images/introduction-terraform-1.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/introduction-terraform-01.png" width="80%" class="image__border">
 </p>
 
 ### 3.1. What does Terraform make it better?
@@ -87,7 +87,7 @@ last_modified_at: 2023-06-03T23:55:00
   - 간단한 코드 변경과 적용으로 인프라를 유연하게 변경할 수 있다.
 
 <p align="center">
-  <img src="/images/introduction-terraform-2.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/introduction-terraform-02.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. How to use Terraform?
@@ -110,7 +110,7 @@ last_modified_at: 2023-06-03T23:55:00
   - `tfstate` 파일과 실제 클라우드의 리소스 상태를 비교하여 변경 내용만 반영한다.
 
 <p align="center">
-  <img src="/images/introduction-terraform-3.JPG" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/introduction-terraform-03.png" width="80%" class="image__border">
 </p>
 
 ## 4. Example
@@ -369,7 +369,7 @@ new-instance-public-ip = "54.172.203.53"
 - 코드로 정의한 리소스가 생성된 것을 확인할 수 있다.
 
 <p align="center">
-  <img src="/images/introduction-terraform-4.JPG" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/introduction-terraform-04.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

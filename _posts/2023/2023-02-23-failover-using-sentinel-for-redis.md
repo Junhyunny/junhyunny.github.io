@@ -39,7 +39,7 @@ last_modified_at: 2023-02-23T23:55:00
     * 장애 극복 기능이 완료되었으면 센티널은 클라이언트들에게 새로운 주소를 보고합니다.
 
 <p align="center">
-    <img src="/images/failover-using-sentinel-for-redis-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/failover-using-sentinel-for-redis-01.png" width="80%" class="image__border">
 </p>
 <center>Redis Sentinel — High Availability</center>
 
@@ -62,7 +62,7 @@ last_modified_at: 2023-02-23T23:55:00
     * 해당 화면을 새로고침하거나 메인 화면에서 다시 진입하면 읽은 메시지들은 모두 오른쪽으로 이동합니다.
 
 <p align="center">
-    <img src="/images/failover-using-sentinel-for-redis-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/failover-using-sentinel-for-redis-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.2. Focus this point
@@ -565,7 +565,7 @@ $  sh shell/redis-sentinel.sh
 * 슬레이브 중 하나가 마스터로 승격되면 정상적으로 시스템이 동작합니다.
 
 <p align="center">
-    <img src="/images/failover-using-sentinel-for-redis-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/failover-using-sentinel-for-redis-03.gif" width="100%" class="image__border">
 </p>
 
 ##### Automatically changed config file when failover

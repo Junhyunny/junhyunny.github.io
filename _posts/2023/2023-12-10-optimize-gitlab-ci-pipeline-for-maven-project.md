@@ -79,7 +79,7 @@ deploy-app:
     - 각 잡이 10초 이상씩 수행됩니다.
 
 <p align="center">
-    <img src="/images/optimize-gitlab-ci-pipeline-for-maven-project-01.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/optimize-gitlab-ci-pipeline-for-maven-project-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Solve the problem
@@ -191,7 +191,7 @@ Job succeeded
     - dpeloy-app 잡 4.373초 수행
 
 <p align="center">
-    <img src="/images/optimize-gitlab-ci-pipeline-for-maven-project-02.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/optimize-gitlab-ci-pipeline-for-maven-project-02.png" width="80%" class="image__border">
 </p>
 
 #### REFERENCE

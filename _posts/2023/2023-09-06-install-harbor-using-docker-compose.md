@@ -27,7 +27,7 @@ last_modified_at: 2023-09-06T23:55:00
 * 서명을 통한 이미지 유효성 검증
 
 <p align="center">
-    <img src="/images/install-harbor-using-docker-compose-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/install-harbor-using-docker-compose-01.png" width="80%" class="image__border">
 </p>
 <center>https://engineering.linecorp.com/ko/blog/harbor-for-private-docker-registry</center>
 
@@ -36,7 +36,7 @@ last_modified_at: 2023-09-06T23:55:00
 다음과 같은 아키텍처 구조를 가지고 주변 컴포넌트들과 상호 작용합니다.
 
 <p align="center">
-    <img src="/images/install-harbor-using-docker-compose-2.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/install-harbor-using-docker-compose-02.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://github.com/goharbor/harbor/wiki/Architecture-Overview-of-Harbor</center>
 
@@ -289,7 +289,7 @@ FileNotFoundError: [Errno 2] No such file or directory: '/hostfs/certs/server.ke
 * 볼륨 경로를 다시 설정하면 해당 문제가 해결됩니다.
 
 <p align="center">
-    <img src="/images/install-harbor-using-docker-compose-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/install-harbor-using-docker-compose-03.png" width="80%" class="image__border">
 </p>
 <center>https://github.com/goharbor/harbor/issues/13461</center>
 
@@ -421,7 +421,7 @@ $ sudo vi /etc/hosts
 * Password - Harbor12345
 
 <p align="center">
-    <img src="/images/install-harbor-using-docker-compose-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/install-harbor-using-docker-compose-04.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

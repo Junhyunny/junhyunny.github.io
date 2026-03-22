@@ -14,7 +14,7 @@ last_modified_at: 2022-09-19T23:55:00
 컨테이너 레이어는 컨테이너가 실행될 때 매번 초기화되고, 종료될 때 함께 삭제되므로 컨테이너 레이어에서 수행된 작업들은 컨테이너의 라이프 사이클을 따라 함께 생성, 삭제됩니다. 
 
 <p align="center">
-    <img src="/images/docker-anonymous-volume-1.JPG" width="70%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-01.png" width="70%" class="image__border">
 </p>
 <center>https://docs.docker.com/storage/storagedriver/</center>
 
@@ -31,7 +31,7 @@ last_modified_at: 2022-09-19T23:55:00
 * 이번 포스트에선 볼륨, 그 중에서도 익명 볼륨(anonymous volume)에 대해서만 다룹니다. 
 
 <p align="center">
-    <img src="/images/docker-anonymous-volume-2.JPG" width="60%">
+    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-02.png" width="60%">
 </p>
 <center>https://docs.docker.com/storage/volumes/</center>
 
@@ -56,7 +56,7 @@ last_modified_at: 2022-09-19T23:55:00
 * 간단한 입력 창을 통해 새로운 TODO 항목을 등록할 수 있습니다.
 
 <p align="center">
-    <img src="/images/docker-anonymous-volume-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-03.png" width="80%" class="image__border">
 </p>
 
 ### 3.1. Dockerfile
@@ -307,7 +307,7 @@ $ docker volume inspect 7d8491d610d9ec9cba6bfd65ca49472aa328409accd8f728966ed363
 1. 화면에서 이전 컨테이너 화면에서 입력한 데이터를 확인할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/docker-anonymous-volume-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-04.gif" width="100%" class="image__border">
 </p>
 
 ##### 테스트에서 사용한 명령어 
@@ -353,7 +353,7 @@ $ docker run -d -p 8080:8080\
 1. 데이터가 저장되지 않아서 빈 화면이 나타납니다.
 
 <p align="center">
-    <img src="/images/docker-anonymous-volume-5.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-05.gif" width="100%" class="image__border">
 </p>
 
 ##### 이미지 빌드에 사용한 Dockerfile

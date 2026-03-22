@@ -39,7 +39,7 @@ last_modified_at: 2023-01-24T23:55:00
     * 목적지 포트 번호가 21이면 사설 네트워크의 192.168.0.3 주소를 가진 컴퓨터의 21번 포트를 점유한 FTF 서버 애플리케이션으로 패킷을 전달합니다.
 
 <p align="center">
-    <img src="/images/port-forwarding-on-mac-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/port-forwarding-on-mac-01.png" width="100%" class="image__border">
 </p>
 <center>https://lamanus.kr/59</center>
 
@@ -59,7 +59,7 @@ last_modified_at: 2023-01-24T23:55:00
     * 해당 요청이 정상적으로 3000번 포트의 애플리케이션으로 연결되었다면 리액트 메인 화면을 볼 수 있습니다.
 
 <p align="center">
-    <img src="/images/port-forwarding-on-mac-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/port-forwarding-on-mac-02.png" width="80%" class="image__border">
 </p>
 
 ### 2.2. Check IP Address on Mac Host
@@ -184,7 +184,7 @@ webpack compiled successfully
 Windows 클라이언트의 브라우저에서 `192.168.1.100:8080`로 접근합니다.
 
 <p align="center">
-    <img src="/images/port-forwarding-on-mac-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/port-forwarding-on-mac-03.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

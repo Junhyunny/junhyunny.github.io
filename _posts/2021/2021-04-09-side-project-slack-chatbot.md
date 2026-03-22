@@ -64,7 +64,7 @@ Slack 워크스페이스(workspace)에서 사용하는
 ##### Slack API Document
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-01.png" width="80%" class="image__border">
 </p>
 
 ### 2.2. Write Message on Slack Channel
@@ -109,7 +109,7 @@ Slack 워크스페이스(workspace)에서 사용하는
 ##### Result of Write Message on Slack Channel
 
 <p align="left">
-    <img src="/images/side-project-slack-chatbot-2.JPG" width="35%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-02.png" width="35%" class="image__border">
 </p>
 
 ## 3. Test GitHub API
@@ -139,7 +139,7 @@ API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트(endp
     * per_page
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-03.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. Check Push History for Github Repository
@@ -244,7 +244,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 ##### AWS Lambda Structure for Slack Bot
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-04.png" width="100%" class="image__border">
 </p>
 
 ##### Register Slack Chat Bot at AWS Lambda
@@ -253,7 +253,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 * RequestStreamHandler 인터페이스를 구현한 클래스를 등록합니다. 
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-05.png" width="100%" class="image__border">
 </p>
 
 ##### Move to EventBridge Setup Page
@@ -261,7 +261,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 * 애플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동합니다. 
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-6.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-06.png" width="100%" class="image__border">
 </p>
 
 ##### Setup Cron Job 
@@ -269,7 +269,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 * 이벤트 트리거 주기를 설정합니다. 
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-7.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-07.png" width="80%" class="image__border">
 </p>
 
 ##### Setup Parameters for Slack Bot
@@ -285,7 +285,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 ```
 
 <p align="center">
-    <img src="/images/side-project-slack-chatbot-8.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-08.png" width="80%" class="image__border">
 </p>
 
 ## 5. Check Application
@@ -293,8 +293,8 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 이번에 개발한 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없다면 1시간 간격으로 메시지를 전달합니다. 
 
 <div align="left">
-    <img src="/images/side-project-slack-chatbot-9.JPG" width="30%" class="image__border">
-    <img src="/images/side-project-slack-chatbot-10.JPG" width="30%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-09.png" width="30%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-10.png" width="30%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

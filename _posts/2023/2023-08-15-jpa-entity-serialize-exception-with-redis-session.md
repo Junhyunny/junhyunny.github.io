@@ -54,7 +54,7 @@ Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEn
 1. 요청에 대한 응답을 커밋하는 시점에 세션에 데이터를 저장하게 되는데 객체를 직렬화하는 과정에서 예외가 발생한다.
 
 <p align="center">
-    <img src="/images/jpa-entity-serialize-exception-with-redis-session-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-01.png" width="100%" class="image__border">
 </p>
 
 ### 1.1. UserController Class
@@ -294,7 +294,7 @@ Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEn
 ```
 
 <p align="left">
-    <img src="/images/jpa-entity-serialize-exception-with-redis-session-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-02.png" width="80%" class="image__border">
 </p>
 
 ### 2.1. Inside PersistentBag Instance
@@ -308,7 +308,7 @@ PersistentBag 객체 내부에서 다음과 같은 참조 연결이 존재합니
     * UserEntity 객체가 참조하는 다른 객체들도 모두 직렬화 대상입니다. 
 
 <p align="center">
-    <img src="/images/jpa-entity-serialize-exception-with-redis-session-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-03.png" width="80%" class="image__border">
 </p>
 
 ## 3. Solve the problem

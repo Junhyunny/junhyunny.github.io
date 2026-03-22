@@ -259,7 +259,7 @@ public class TodoDto {
 
 ##### 애너테이션 속성 및 디폴드(default) 값
 
-<p align="left"><img src="/images/equals-and-hashcode-1.JPG" width="45%"></p>
+<p align="left"><img src="{{ site.image_url_2021 }}/equals-and-hashcode-01.png" width="45%"></p>
 
 #### REFERENCE
 - <https://lars-sh.github.io/lombok-annotations/apidocs/lombok/EqualsAndHashCode.html>

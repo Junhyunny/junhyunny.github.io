@@ -20,7 +20,7 @@ last_modified_at: 2023-02-20T23:55:00
 * 캐시와 데이터 저장소의 동기화는 캐시 서버를 통해 이뤄집니다.
 
 <p align="center">
-    <img src="/images/patterns-for-cache-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/patterns-for-cache-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.1. Read-Through
@@ -34,7 +34,7 @@ last_modified_at: 2023-02-20T23:55:00
 * 캐시 서버는 최신화 이후 클라이언트 애플리케이션에게 데이터를 전답합니다.
 
 <p align="center">
-    <img src="/images/patterns-for-cache-2.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/patterns-for-cache-02.png" width="50%" class="image__border">
 </p>
 <center>https://hazelcast.com/blog/a-hitchhikers-guide-to-caching-patterns/</center>
 
@@ -47,7 +47,7 @@ last_modified_at: 2023-02-20T23:55:00
     * 비동기적으로 수행하는 경우 `write-behind` 방식입니다.
 
 <p align="center">
-    <img src="/images/patterns-for-cache-3.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/patterns-for-cache-03.png" width="50%" class="image__border">
 </p>
 <center>https://hazelcast.com/blog/a-hitchhikers-guide-to-caching-patterns/</center>
 
@@ -61,7 +61,7 @@ last_modified_at: 2023-02-20T23:55:00
 * 한번 읽었던 데이터는 잇따라 다시 읽을 가능성이 높기 때문에 캐시 적중률(hit rate)가 높습니다.
 
 <p align="center">
-    <img src="/images/patterns-for-cache-4.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/patterns-for-cache-04.png" width="80%" class="image__border">
 </p>
 
 ### 2.1. Read in Cache Aside Pattern
@@ -73,7 +73,7 @@ last_modified_at: 2023-02-20T23:55:00
 * 캐시 최신화 이후 애플리케이션은 조회한 데이터를 사용합니다.
 
 <p align="center">
-    <img src="/images/patterns-for-cache-5.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/patterns-for-cache-05.png" width="50%" class="image__border">
 </p>
 <center>https://hazelcast.com/blog/a-hitchhikers-guide-to-caching-patterns/</center>
 
@@ -86,7 +86,7 @@ last_modified_at: 2023-02-20T23:55:00
     * 두 저장소의 데이터 일관성을 위해 어느 한 곳의 저장이 실패하는 경우 이를 위한 예외 처리를 수행해야 합니다.
 
 <p align="center">
-    <img src="/images/patterns-for-cache-6.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/patterns-for-cache-06.png" width="50%" class="image__border">
 </p>
 <center>https://hazelcast.com/blog/a-hitchhikers-guide-to-caching-patterns/</center>
 

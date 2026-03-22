@@ -33,7 +33,7 @@ last_modified_at: 2021-06-16T00:00:00
     * 프로그램의 조건문에 초점을 맞추어 검사합니다.
 
 <p align="center">
-    <img src="/images/white-box-black-box-test-1.JPG" width="45%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/white-box-black-box-test-01.png" width="45%" class="image__border">
 </p>
 <center>http://www.splex.co.kr/black-white-box-test</center>
 
@@ -64,7 +64,7 @@ last_modified_at: 2021-06-16T00:00:00
     * 테스트 대상과 비교 대상 프로그램에 같은 입력값을 넣어 데이터를 비교합니다.
 
 <p align="center">
-    <img src="/images/white-box-black-box-test-2.JPG" width="45%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/white-box-black-box-test-02.png" width="45%" class="image__border">
 </p>
 <center>http://www.splex.co.kr/black-white-box-test</center>
 
@@ -73,7 +73,7 @@ last_modified_at: 2021-06-16T00:00:00
 두 종류의 테스트에 대한 내용을 다음과 같이 요약할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/white-box-black-box-test-3.JPG" width="50%">
+    <img src="{{ site.image_url_2021 }}/white-box-black-box-test-03.png" width="50%">
 </p>
 <center>출처, 블랙박스 테스트와 화이트박스 테스트 비교</center>
 

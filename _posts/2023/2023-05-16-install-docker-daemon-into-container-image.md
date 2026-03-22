@@ -177,7 +177,7 @@ root@736aacd50a72:/build# mvn test
 ```
 
 <p align="center">
-    <img src="/images/install-docker-daemon-into-container-image-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/install-docker-daemon-into-container-image-01.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

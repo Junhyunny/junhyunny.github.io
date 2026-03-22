@@ -39,7 +39,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 마이그레이션 이력 테이블을 생성합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-1.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-01.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/baseline-184127456.html</center>
 
@@ -48,7 +48,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 로컬에 저장된 적용되지 않은 마이그레이션 스크립트 파일에 대한 정보를 보여줍니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-2.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-02.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/info-184127459.html</center>
 
@@ -57,7 +57,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 변경 작업에 대한 내용을 마이그레이션 이력 테이블에 저장합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-3.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-03.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/migrate-184127460.html</center>
 
@@ -67,7 +67,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 이전에 수행된 마이그레이션 스크립트가 변경된 경우 이력 테이블의 해당 체크섬(checksum)을 업데이트합니다. 
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-4.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-04.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/repair-184127461.html</center>
 
@@ -75,7 +75,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 마이그레이션 이력 테이블 상태와 로컬에 저장된 마이그레이션 스크립트 상태를 비교합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-5.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-05.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/validate-184127464.html</center>
 
@@ -84,7 +84,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 이전 상태로 롤백합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-6.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-06.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/undo-184127463.html</center>
 
@@ -93,7 +93,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
     * 운영 환경에서 사용되지 않도록 주의가 필요합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-7.JPG" width="100%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-07.png" width="100%" class="image__border image__padding">
 </p>
 <center>https://documentation.red-gate.com/fd/clean-184127458.html</center>
 
@@ -115,7 +115,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였습니다.
 * 접미어는 .sql 확장자를 사용합니다.
 
 <p align="center">
-    <img src="/images/flyway-cli-for-database-migration-8.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/flyway-cli-for-database-migration-08.png" width="100%" class="image__border">
 </p>
 
 ## 2. Practice

@@ -16,7 +16,7 @@ last_modified_at: 2022-09-21T23:55:00
 현재 상태를 지속적으로 확인하다가 원하는 상태와 불일치가 발생하면 이를 다시 원하는 상태로 되돌립니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/kubernetes-architecture-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.leverege.com/iot-ebook/kubernetes-object-management-model</center>
 
@@ -36,7 +36,7 @@ last_modified_at: 2022-09-21T23:55:00
 클러스터는 논리적으론 노드(node)들의 집합이고, 실제로는 물리 혹은 가상 머신들의 집합입니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/kubernetes-architecture-02.png" width="80%" class="image__border">
 </p>
 <center>[Kubernetes] 쿠버네티스 설치 및 클러스터 설정</center>
 
@@ -58,7 +58,7 @@ last_modified_at: 2022-09-21T23:55:00
 * 노드 종류에 따라 구성 요소(component)들이 다르며, 각 노드를 구성하는 요소들과 역할들을 알아보겠습니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/kubernetes-architecture-03.png" width="80%" class="image__border">
 </p>
 <center>Kubernetes in Action</center>
 
@@ -149,7 +149,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 일반적으로 접근용 포트는 `6443`을 사용합니다. 
 
 <p align="center">
-    <img src="/images/kubernetes-architecture-4.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/kubernetes-architecture-04.png" width="80%" class="image__border">
 </p>
 <center>https://sysdig.com/blog/monitor-kubernetes-api-server/</center>
 

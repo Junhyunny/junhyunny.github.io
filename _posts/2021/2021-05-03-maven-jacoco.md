@@ -352,13 +352,13 @@ $ mvn install
 프로젝트 `/target/site/jacoco` 경로에 `index.html` 파일로 리포트가 생성된 것을 확인할 수 있습니다. 
 
 <p align="left">
-    <img src="/images/maven-jacoco-1.JPG" width="30%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/maven-jacoco-01.png" width="30%" class="image__border">
 </p>
 
 ##### Result of Code Coverage
 
 <p align="left">
-    <img src="/images/maven-jacoco-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/maven-jacoco-02.png" width="80%" class="image__border">
 </p>
 
 ## CLOSING
@@ -442,7 +442,7 @@ $ mvn clean install
 ```
 
 <p align="left">
-    <img src="/images/maven-jacoco-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/maven-jacoco-03.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

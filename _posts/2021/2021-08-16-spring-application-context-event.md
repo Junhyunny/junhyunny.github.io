@@ -35,7 +35,7 @@ last_modified_at: 2021-08-16T12:45:00
 * 동일 서비스이므로 애플리케이션 컨텍스트를 통해 이벤트 처리를 수행합니다.
 
 <p align="center">
-    <img src="/images/spring-application-context-event-1.JPG" width="65%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-application-context-event-01.png" width="65%" class="image__border">
 </p>
 
 ##### 서비스 사이의 이벤트 처리
@@ -44,7 +44,7 @@ last_modified_at: 2021-08-16T12:45:00
 * 이벤트 처리를 위한 카프카(kafka) 같은 큐(queue) 시스템이 필요합니다.
 
 <p align="center">
-    <img src="/images/spring-application-context-event-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-application-context-event-02.png" width="80%" class="image__border">
 </p>
 
 ### 1.1. Standard Context Events

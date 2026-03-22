@@ -36,7 +36,7 @@ last_modified_at: 2022-03-14T23:55:00
     - 서브젝트 클래스에서 상태 변화가 발생했을 때 주는 알림을 통해 자신의 상태를 업데이트합니다.
 
 <p align="center">
-    <img src="/images/observer-pattern-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/observer-pattern-01.png" width="80%" class="image__border">
 </p>
 <center>https://croute.me/316</center>
 

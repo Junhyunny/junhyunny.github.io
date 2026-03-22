@@ -27,8 +27,8 @@ MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트
 ##### MVC 패턴 다이어그램 및 웹 애플리케이션에서 사용하는 일반적인 MVC 패턴
 
 <div align="center" class="image__border">
-    <img src="/images/mvc-pattern-1.JPG" width="30%">
-    <img src="/images/mvc-pattern-2.JPG" width="50%">
+    <img src="{{ site.image_url_2021 }}/mvc-pattern-01.png" width="30%">
+    <img src="{{ site.image_url_2021 }}/mvc-pattern-02.png" width="50%">
 </div>
 <center>모델-뷰-컨트롤러</center>
 
@@ -109,7 +109,7 @@ MVC 패턴에도 한계가 존재합니다.
 ##### Massive-View-Controller
 
 <p align="center">
-    <img src="/images/mvc-pattern-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/mvc-pattern-03.png" width="80%" class="image__border">
 </p>
 <center>https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center>
 
@@ -128,7 +128,7 @@ MVC 패턴에도 한계가 존재합니다.
 1. 화면에 변경이 발생하는지 확인합니다.
 
 <p align="center">
-    <img src="/images/mvc-pattern-4.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/mvc-pattern-04.png" width="80%" class="image__border">
 </p>
 
 ### 4.2. Packages
@@ -433,7 +433,7 @@ public class MemberService {
 ##### Result of Example
 
 <p align="left">
-    <img src="/images/mvc-pattern-5.gif" width="60%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/mvc-pattern-05.gif" width="60%" class="image__border">
 </p>
 
 ## CLOSING

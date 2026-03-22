@@ -54,7 +54,7 @@ JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적 락(opti
     * 정상적으로 커밋이 수행되고 엔티티 버전이 증가합니다.
 
 <p align="center">
-    <img src="/images/optimistic-lock-in-query-dsl-1.JPG" width="55%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/optimistic-lock-in-query-dsl-01.png" width="55%" class="image__border">
 </p>
 
 ### 1.2. Implementation Code
@@ -271,7 +271,7 @@ Hibernate: update post_entity set contents=?, title=?, version_no=? where id=? a
     * 업데이트가 정상적으로 수행되지 않은 경우 이를 확인하고 예외를 던집니다.
 
 <p align="center">
-    <img src="/images/optimistic-lock-in-query-dsl-2.JPG" width="55%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/optimistic-lock-in-query-dsl-02.png" width="55%" class="image__border">
 </p>
 
 ### 2.2. Implementation Code

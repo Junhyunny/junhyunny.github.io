@@ -606,7 +606,7 @@ public class PostDto {
 
 ## 3. 테스트
 
-<p align="center"><img src="/images/spring-boot-vue-js-paging-table-1.gif" width="95%"></p>
+<p align="center"><img src="{{ site.image_url_2021 }}/spring-boot-vue-js-paging-table-01.gif" width="95%"></p>
 
 ## CLOSING
 원래 이번 포스트는 간단하게 `@PageableDefault` 애너테이션에 대한 소개로 시작하였습니다. 

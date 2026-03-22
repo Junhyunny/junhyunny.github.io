@@ -38,7 +38,7 @@ last_modified_at: 2021-08-25T01:00:00
     * 수시로 컨테이너가 죽고, 살아나는 과정에서 IP가 변경되기 때문에 서버 사이드 로드 밸런싱은 어렵습니다.
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-ribbon-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-cloud-netflix-ribbon-01.png" width="80%" class="image__border">
 </p>
 <center>https://sabarada.tistory.com/54</center>
 
@@ -55,7 +55,7 @@ last_modified_at: 2021-08-25T01:00:00
     * 로드 밸런서에 집중되는 부하가 없으므로 병목 현상이 완화됩니다. 
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-ribbon-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-cloud-netflix-ribbon-02.png" width="80%" class="image__border">
 </p>
 <center>https://sabarada.tistory.com/54</center>
 

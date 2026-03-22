@@ -33,7 +33,7 @@ last_modified_at: 2023-11-15T23:55:00
 - 브라우저는 해당 플랫폼의 로그인 화면을 볼 수 있습니다.
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-01.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/multiple-sns-login-with-spring-security-oauth2-client-01.png" width="80%" class="image__border">
 </p>
 
 ### 1.2. Get Access Token And User Resource
@@ -46,7 +46,7 @@ last_modified_at: 2023-11-15T23:55:00
 1. 액세스 토큰 발급이 성공하면 인가 작업은 완료되었다는 의미입니다. `DefaultOAuth2UserService` 객체는 발급 받은 액세스 토큰을 사용해 사용자 정보를 리소스 서버로부터 조회합니다. 
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-02.png" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/multiple-sns-login-with-spring-security-oauth2-client-02.png" width="100%" class="image__border">
 </p>
 
 ### 1.3. How can we implement SNS login for multiple platforms?
@@ -60,7 +60,7 @@ last_modified_at: 2023-11-15T23:55:00
     - 기존 사용자는 조회 후 반환합니다. 
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-03.png" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/multiple-sns-login-with-spring-security-oauth2-client-03.png" width="80%" class="image__border">
 </p>
 
 ## 2. Project Setup
@@ -820,7 +820,7 @@ public class HomeController {
 스프링 시큐리티에서 기본으로 제공하는 로그인 페이지를 통해 테스트할 수 있습니다.
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-04.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/multiple-sns-login-with-spring-security-oauth2-client-04.gif" width="100%" class="image__border">
 </p>
 
 ### 4.2. In Database
@@ -828,7 +828,7 @@ public class HomeController {
 H2 콘솔을 통해 데이터베이스를 확인하면 사용자 정보가 다음과 같이 저장됩니다.
 
 <p align="center">
-    <img src="/images/multiple-sns-login-with-spring-security-oauth2-client-05.png" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/multiple-sns-login-with-spring-security-oauth2-client-05.png" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

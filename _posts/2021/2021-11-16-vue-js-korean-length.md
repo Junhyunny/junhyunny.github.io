@@ -57,7 +57,7 @@ export default {
 ##### 영어과 한글 입력 비교 결과
 
 <p align="center">
-    <img src="/images/vue-js-korean-length-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/vue-js-korean-length-01.gif" width="100%" class="image__border">
 </p>
 
 ### 1.2. Vue Docs for Languages that require IME
@@ -130,7 +130,7 @@ export default {
 * 입력과 동시에 문자열 길이가 정확하게 변경됩니다.
 
 <p align="center">
-    <img src="/images/vue-js-korean-length-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/vue-js-korean-length-02.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

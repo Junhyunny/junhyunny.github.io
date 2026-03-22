@@ -222,7 +222,7 @@ f62a53cf5186   react-app-prod:0.1   "/docker-entrypoint.…"   6 seconds ago    
 * `localhost:8081` 접속 시 `NOT FOUND` 화면이 보입니다.
 
 <p align="center">
-    <img src="/images/set-react-app-variable-when-docker-build-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/set-react-app-variable-when-docker-build-01.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

@@ -37,7 +37,7 @@ last_modified_at: 2022-11-21T23:55:00
     * 동일한 세션 정보를 사용한다면 세션 접근 카운트는 이어지면서 증가할 것 입니다.
 
 <p align="center">
-    <img src="/images/spring-session-with-redis-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/spring-session-with-redis-01.png" width="80%" class="image__border">
 </p>
 
 ## 1. Spring Session 의존성 추가
@@ -346,7 +346,7 @@ action-in-blog-backend-2-1  | 2022-11-21 15:49:33.852  INFO 1 --- [           ma
 ##### 브라우저 테스트
 
 <p align="center">
-    <img src="/images/spring-session-with-redis-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/spring-session-with-redis-02.gif" width="100%" class="image__border">
 </p>
 
 ##### redis-cli 데이터 확인

@@ -129,7 +129,7 @@ $ docker build .
 ##### Dockerfile instruction and image layer
 
 <p align="center">
-    <img src="/images/docker-file-build-and-image-layer-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/docker-file-build-and-image-layer-01.png" width="100%" class="image__border">
 </p>
 <center>https://kimjingo.tistory.com/62</center>
 

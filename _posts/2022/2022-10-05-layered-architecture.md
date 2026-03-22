@@ -62,7 +62,7 @@ last_modified_at: 2022-10-05T23:55:00
     * 영속성 프레임워크, 프레임워크 설정, 외부 API 요청 기능, 이벤트 리스너(listener) 등이 있습니다.
 
 <p align="center">
-    <img src="/images/layered-architecture-1.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/layered-architecture-01.png" width="60%" class="image__border">
 </p>
 <center>http://pds19.egloos.com/pds/201106/28/18/Open_Session_In_View_Pattern.pdf</center>
 
@@ -77,7 +77,7 @@ last_modified_at: 2022-10-05T23:55:00
 * 아래 예시를 보면 비즈니스 계층은 서비스 계층을 통과하고 영속성 계층을 직접 의존합니다.
 
 <p align="center">
-    <img src="/images/layered-architecture-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/layered-architecture-02.png" width="80%" class="image__border">
 </p>
 <center>https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html</center>
 

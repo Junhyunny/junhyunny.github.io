@@ -53,7 +53,7 @@ last_modified_at: 2023-02-12T23:55:00
     * 내부망에서 프로그램 설치, 보안 패치 등의 작업을 수행할 때 외부 네트워크 연결이 필요할 수 있습니다.
 
 <p align="center">
-    <img src="/images/dmz-in-network-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/dmz-in-network-01.png" width="80%" class="image__border">
 </p>
 <center>https://m.blog.naver.com/innoviss/222246852119</center>
 
@@ -88,7 +88,7 @@ last_modified_at: 2023-02-12T23:55:00
     * 내부망에서 프로그램 설치, 보안 패치 등의 작업을 수행하기 위해 접근 허용합니다.
 
 <p align="center">
-    <img src="/images/dmz-in-network-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/dmz-in-network-02.png" width="80%" class="image__border">
 </p>
 <center>https://brunch.co.kr/@ka3211/4</center>
 

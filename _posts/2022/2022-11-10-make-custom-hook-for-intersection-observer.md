@@ -359,7 +359,7 @@ test('스크롤 다운 이벤트를 수행하면 다음 리스트를 볼 수 있
 ##### Infinite Scroll Example
 
 <p align="center">
-    <img src="/images/make-custom-hook-for-intersection-observer-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/make-custom-hook-for-intersection-observer-01.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

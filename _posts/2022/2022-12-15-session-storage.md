@@ -82,7 +82,7 @@ JSON.parse(sessionStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
 * 동일 출처를 가진 사이트에서만 데이터를 찾을 수 있습니다.
 
 <p align="center">
-    <img src="/images/session-storage-1.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/session-storage-01.gif" width="100%" class="image__border">
 </p>
 
 ##### 신규 브라우저 탭 사이의 데이터 공유 여부
@@ -91,7 +91,7 @@ JSON.parse(sessionStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
     * 다른 탭에서 저장한 데이터가 없습니다.
 
 <p align="center">
-    <img src="/images/session-storage-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/session-storage-02.gif" width="100%" class="image__border">
 </p>
 
 ##### 브라우저를 다시 열었을 때 데이터 존재 여부
@@ -100,7 +100,7 @@ JSON.parse(sessionStorage.getItem("Hello")) // Object { a: "Hello", b: "World" }
     * 이전에 저장한 데이터가 없습니다.
 
 <p align="center">
-    <img src="/images/session-storage-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/session-storage-03.gif" width="100%" class="image__border">
 </p>
 
 #### RECOMMEND NEXT POSTS

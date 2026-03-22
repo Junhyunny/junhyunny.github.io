@@ -178,7 +178,7 @@ final class ThreadLocalSecurityContextHolderStrategy implements SecurityContextH
 * A 스레드의 자식 A' 스레드는 A 스레드의 시큐리티 컨텍스트 정보를 알 수 없습니다.
 
 <p align="center">
-    <img src="/images/security-context-holder-strategy-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/security-context-holder-strategy-01.png" width="80%" class="image__border">
 </p>
 
 #### 2.1.1. Test
@@ -313,7 +313,7 @@ final class InheritableThreadLocalSecurityContextHolderStrategy implements Secur
 * A 스레드의 자식 A' 스레드도 A 스레드의 시큐리티 컨텍스트 정보를 함께 사용합니다.
 
 <p align="center">
-    <img src="/images/security-context-holder-strategy-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/security-context-holder-strategy-02.png" width="80%" class="image__border">
 </p>
 
 #### 2.2.1. Test
@@ -437,7 +437,7 @@ final class GlobalSecurityContextHolderStrategy implements SecurityContextHolder
 * A 스레드의 자식 A' 스레드도 전역으로 사용되는 시큐리티 컨텍스트를 공유합니다.
 
 <p align="center">
-    <img src="/images/security-context-holder-strategy-3.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/security-context-holder-strategy-03.png" width="80%" class="image__border">
 </p>
 
 #### 2.3.1. Test

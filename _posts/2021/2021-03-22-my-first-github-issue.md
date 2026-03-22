@@ -21,7 +21,7 @@ last_modified_at: 2021-08-24T01:00:00
 버그 내용을 보아하니 라이브러리 내부에서 배열(array)을 `toString` 메서드를 통해 그대로 문자열로 변경한 것 같습니다. 
 
 <p align="center">
-    <img src="/images/my-first-github-issue-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/my-first-github-issue-01.png" width="100%" class="image__border">
 </p>
 <center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 
@@ -34,7 +34,7 @@ API 호출 로직 내부를 디버깅해서 문제가 발생하는 코드 위치
 * 배열을 별도로 처리하는 로직이 추가되면 큰 영향 없이 사용할 수 있을 것이라 생각했습니다.
 
 <p align="center">
-    <img src="/images/my-first-github-issue-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/my-first-github-issue-02.png" width="100%" class="image__border">
 </p>
 <center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 
@@ -43,7 +43,7 @@ API 호출 로직 내부를 디버깅해서 문제가 발생하는 코드 위치
 * `Openfeign`으로 이슈를 옮기라는 스펜서
 
 <p align="center">
-    <img src="/images/my-first-github-issue-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/my-first-github-issue-03.png" width="100%" class="image__border">
 </p>
 <center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 
@@ -52,7 +52,7 @@ API 호출 로직 내부를 디버깅해서 문제가 발생하는 코드 위치
 * `Openfeign` 프로젝트에 이슈를 등록하였습니다.
 
 <p align="center">
-    <img src="/images/my-first-github-issue-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/my-first-github-issue-04.png" width="100%" class="image__border">
 </p>
 <center>https://github.com/OpenFeign/feign/issues/1170</center>
 
@@ -61,7 +61,7 @@ API 호출 로직 내부를 디버깅해서 문제가 발생하는 코드 위치
 * 해당 이슈는 버그로 등록되고, 직접 해결하겠다는 답변을 받았습니다.
 
 <p align="center">
-    <img src="/images/my-first-github-issue-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/my-first-github-issue-05.png" width="100%" class="image__border">
 </p>
 <center>https://github.com/OpenFeign/feign/issues/1170</center>
 

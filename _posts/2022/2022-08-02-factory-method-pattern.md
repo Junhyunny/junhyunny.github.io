@@ -34,7 +34,7 @@ last_modified_at: 2022-08-02T23:55:00
 * ConcreteCreator - Creator 클래스를 상속받아, 팩토리 메서드를 재구현하는 클래스입니다.
 
 <p align="center">
-    <img src="/images/factory-method-pattern-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/factory-method-pattern-01.png" width="80%" class="image__border">
 </p>
 <center>https://dev-youngjun.tistory.com/195</center>
 

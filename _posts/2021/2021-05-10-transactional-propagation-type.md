@@ -44,7 +44,7 @@ last_modified_at: 2021-08-29T01:00:00
 * `createOrder` 메서드가 호출되면 실제 비즈니스 로직 전후에 트랜잭션 처리를 위한 AOP 기능이 호출됩니다.
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-1.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-01.png" width="80%" class="image__border">
 </p>
 
 ##### Call method with @Transactional when instance is not bean
@@ -53,7 +53,7 @@ last_modified_at: 2021-08-29T01:00:00
 * `createOrder` 메서드가 호출되면 실제 비즈니스 로직이 바로 호출됩니다. 
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-2.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-02.png" width="80%" class="image__border">
 </p>
 
 ## 2. Propagation Type in @Transactional
@@ -116,7 +116,7 @@ logging:
 현재 진행 중인 트랜잭션이 없다면 새로운 트랜잭션을 실행합니다.
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-3.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-03.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
@@ -366,7 +366,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 현재 진행 중인 트랜잭션이 없다면 새롭게 만들지 않습니다.
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-4.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-04.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
@@ -618,7 +618,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 현재 진행 중인 트랜잭션이 없다면 예외를 던집니다. 
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-5.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-05.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
@@ -782,7 +782,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 기존에 진행 중인 트랜잭션이 있더라도 새로운 트랜잭션을 시작합니다. 
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-6.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-06.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
@@ -970,7 +970,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 > 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-7.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-07.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
@@ -1157,7 +1157,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 > 부모 메서드에서 트랜잭션 시작했다면 자식 메서드에서 excepton이 발생합니다.
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-8.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-08.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 
@@ -1327,7 +1327,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 자식 트랜잭션은 자체적으로 커밋과 롤백이 가능합니다.
 
 <p align="center">
-    <img src="/images/transactional-propagation-type-9.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/transactional-propagation-type-09.png" width="80%" class="image__border">
 </p>
 <center>https://www.nextree.co.kr/p3180/</center>
 

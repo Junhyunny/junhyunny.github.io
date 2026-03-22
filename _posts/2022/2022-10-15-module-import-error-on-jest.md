@@ -130,7 +130,7 @@ export default axios;
 `transformIgnorePatterns` 설정 값을 통해 변경 제외 대상을 지정하는데, 디폴트(default) 제외 대상으로 `node_modules` 디렉토리가 포함되어 있습니다. 
 
 <p align="center">
-    <img src="/images/module-import-error-on-jest-1.JPG" width="60%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/module-import-error-on-jest-01.png" width="60%" class="image__border">
 </p>
 <center>https://jestjs.io/docs/27.x/configuration#transformignorepatterns-arraystring</center>
 
@@ -205,7 +205,7 @@ export default axios;
 `Vue.js` 프레임워크에서 비슷한 문제를 겪는 분들은 아래 답변을 참조하시길 바랍니다. 
 
 <p align="center">
-    <img src="/images/module-import-error-on-jest-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/module-import-error-on-jest-02.png" width="80%" class="image__border">
 </p>
 <center>https://stackoverflow.com/questions/73958968/cannot-use-import-statement-outside-a-module-with-axios/74079349</center>
 

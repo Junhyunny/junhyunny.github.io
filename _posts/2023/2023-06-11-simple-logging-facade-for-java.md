@@ -34,7 +34,7 @@ last_modified_at: 2023-06-11T23:55:00
     * logback, reload4j, log4j, log4j2, JUL(Java Util Logging), JCL(Jakarta Commons Logging) 등
 
 <p align="center">
-    <img src="/images/logging-framework-in-java-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logging-framework-in-java-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Modules
@@ -48,7 +48,7 @@ last_modified_at: 2023-06-11T23:55:00
     * jcl-over-slf4j.jar, log4j-over-slf4j.jar, jul-to-slf4j.jar 라이브러리 등이 있습니다.
 
 <p align="center">
-    <img src="/images/logging-framework-in-java-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logging-framework-in-java-02.png" width="80%" class="image__border">
 </p>
 
 * API Module
@@ -56,7 +56,7 @@ last_modified_at: 2023-06-11T23:55:00
     * API를 사용하는 클라이언트(client)는 실제 로깅을 제공하는 구현체를 모릅니다.
 
 <p align="center">
-    <img src="/images/logging-framework-in-java-3.JPG" width="80%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/logging-framework-in-java-03.png" width="80%" class="image__border image__padding">
 </p>
 
 * Binding Module
@@ -64,7 +64,7 @@ last_modified_at: 2023-06-11T23:55:00
     * logback-classic.jar, logback-core.jar, slf4j-reload4j.jar, slf4j-jdk14.jar, slf4j-simple.jar 라이브러리 등이 있습니다.
 
 <p align="center">
-    <img src="/images/logging-framework-in-java-4.JPG" width="80%" class="image__border image__padding">
+    <img src="{{ site.image_url_2023 }}/logging-framework-in-java-04.png" width="80%" class="image__border image__padding">
 </p>
 
 ## 3. Practice
@@ -80,7 +80,7 @@ last_modified_at: 2023-06-11T23:55:00
 * 바인딩을 통해 실제 구현체인 Logback 로깅 프레임워크로 연결합니다.
 
 <p align="center">
-    <img src="/images/logging-framework-in-java-5.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/logging-framework-in-java-05.png" width="80%" class="image__border">
 </p>
 
 

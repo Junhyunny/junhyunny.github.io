@@ -26,7 +26,7 @@ last_modified_at: 2023-05-10T23:55:00
 보안, 성능, 안정성 등의 이유로 리버스 프록시를 사용합니다. 
 
 <p align="center">
-    <img src="/images/using-nginx-as-reverse-proxy-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-nginx-as-reverse-proxy-01.png" width="80%" class="image__border">
 </p>
 <center>https://surfshark.com/ko/blog/proxy-server</center>
 
@@ -40,7 +40,7 @@ last_modified_at: 2023-05-10T23:55:00
 * `mobile-servcice.com` 도메인 주소로 오는 요청은 `mobile-backend` 서비스로 요청을 전달합니다.
 
 <p align="center">
-    <img src="/images/using-nginx-as-reverse-proxy-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-nginx-as-reverse-proxy-02.png" width="100%" class="image__border">
 </p> 
 
 ### 2.1. Backend Service
@@ -226,7 +226,7 @@ $ docker-compose up -d
 * `mobile-servcice.com` 도메인 주소로 접근시 "hello mobile"을 응답받습니다. 
 
 <p align="center">
-    <img src="/images/using-nginx-as-reverse-proxy-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-nginx-as-reverse-proxy-03.gif" width="100%" class="image__border">
 </p> 
 
 #### TEST CODE REPOSITORY

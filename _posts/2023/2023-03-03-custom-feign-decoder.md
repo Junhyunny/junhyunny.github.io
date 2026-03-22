@@ -48,7 +48,7 @@ last_modified_at: 2023-03-03T23:55:00
     * 바이트 배열을 메시지를 담은 객체로 변경합니다.
 
 <p align="center">
-    <img src="/images/custom-feign-decoder-1.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/custom-feign-decoder-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Implementation 

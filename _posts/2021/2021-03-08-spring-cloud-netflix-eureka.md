@@ -33,7 +33,7 @@ Netflix OSS 컴포넌트 중에서 `Eureka`는 클러스터 내 다른 서비스
 * 특정 서비스가 다른 서비스의 연결 정보가 필요한 경우 `Eureka` 서비스에게 요청합니다.
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-eureka-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-cloud-netflix-eureka-01.png" width="50%" class="image__border">
 </p>
 <center>https://medium.com/@aqibbutt3078/microservices-using-spring-cloud-a4cbe640e14d</center>
 
@@ -45,7 +45,7 @@ Netflix OSS 컴포넌트 중에서 `Eureka`는 클러스터 내 다른 서비스
 * 클라이언트는 다른 서비스 정보가 필요하면 서버로부터 전달 받습니다. 
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-eureka-2.JPG" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-cloud-netflix-eureka-02.png" width="80%" class="image__border">
 </p>
 <center>https://wonit.tistory.com/497</center>
 
@@ -294,7 +294,7 @@ $ docker-compose up -d
 * 등록된 서비스 정보를 확인합니다.
 
 <p align="center">
-    <img src="/images/spring-cloud-netflix-eureka-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/spring-cloud-netflix-eureka-03.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

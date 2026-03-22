@@ -120,7 +120,7 @@ public class MutableTest {
 이를 `스레드 안전하지 않다(not thread safe)`고 표현합니다.
 
 <p align="center">
-    <img src="/images/mutable-immutable-object-1.gif" width="80%">
+    <img src="{{ site.image_url_2021 }}/mutable-immutable-object-01.gif" width="80%">
 </p>
 
 ## 2. Immutable Object
@@ -215,7 +215,7 @@ public class ImmutableTest {
 * 객체의 상태가 변경될 때마다 새로 생성해야하기 때문에 성능 저하나 메모리 누수의 위험이 존재합니다.
 
 <p align="center">
-    <img src="/images/mutable-immutable-object-2.gif" width="80%">
+    <img src="{{ site.image_url_2021 }}/mutable-immutable-object-02.gif" width="80%">
 </p>
 
 #### TEST CODE REPOSITORY

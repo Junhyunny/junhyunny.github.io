@@ -317,7 +317,7 @@ export default TransitionSlide
 ## 3. 결과
 
 <p align="left">
-    <img src="/images/react-transition-group-1.gif" width="65%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/react-transition-group-01.gif" width="65%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

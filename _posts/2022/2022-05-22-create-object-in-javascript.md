@@ -38,7 +38,7 @@ console.dir(person);
 * `dir` 함수를 통해 객체 구조를 살펴볼 수 있습니다.
 
 <p align="left">
-    <img src="/images/create-object-in-javascript-1.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/create-object-in-javascript-01.png" width="50%" class="image__border">
 </p>
 
 ### 1.2. Pain Point of Literal Object
@@ -100,7 +100,7 @@ console.dir(junhyunny);
 * `dir` 함수를 통해 Person 객체의 구조를 살펴볼 수 있습니다.
 
 <p align="left">
-    <img src="/images/create-object-in-javascript-2.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/create-object-in-javascript-02.png" width="50%" class="image__border">
 </p>
 
 ### 2.1. How does constructor work?
@@ -157,7 +157,7 @@ window.sayName();
     * `window` 객체에 `name` 속성과 `sayName()` 메서드가 만들어집니다. 
 
 <p align="left">
-    <img src="/images/create-object-in-javascript-3.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/create-object-in-javascript-03.png" width="50%" class="image__border">
 </p>
 
 ### 2.3. Constructor Function with Return Value
@@ -194,7 +194,7 @@ console.dir(junhyunny);
 ##### Result
 
 <p align="left">
-    <img src="/images/create-object-in-javascript-4.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/create-object-in-javascript-04.png" width="50%" class="image__border">
 </p>
 
 #### 2.3.2. Return Primitive Type
@@ -229,7 +229,7 @@ console.dir(junhyunny);
 ##### Result
 
 <p align="left">
-    <img src="/images/create-object-in-javascript-5.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/create-object-in-javascript-05.png" width="50%" class="image__border">
 </p>
 
 ## 3. Difference between two methods of object creation
@@ -243,7 +243,7 @@ console.dir(junhyunny);
 * 생성자 함수를 통해 객체를 생성하는 경우 프로토타입(prototype) 객체가 지정됩니다.
 
 <p align="center">
-    <img src="/images/create-object-in-javascript-6.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/create-object-in-javascript-06.png" width="100%" class="image__border">
 </p>
 
 ## 4. Pattern of Forced Object Creation

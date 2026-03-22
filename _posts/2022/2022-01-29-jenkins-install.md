@@ -42,7 +42,7 @@ CI/CD 환경 구축을 위한 몇 가지 작업들을 주제로 포스트를 작
 - 테스트를 위한 애플리케이션은 `AWS 프리티어(freetier) EC2`에 배포하였습니다.
 
 <p align="center">
-    <img src="/images/jenkins-install-1.JPG" width="85%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/jenkins-install-01.png" width="85%" class="image__border">
 </p>
 
 ## 2. 젠킨스 설치 및 실행
@@ -110,7 +110,7 @@ $ brew services restart jenkins
 
 ##### 젠킨스 준비 화면
 
-<p align="center"><img src="/images/jenkins-install-2.JPG" width="80%" class="image__border"></p>
+<p align="center"><img src="{{ site.image_url_2022 }}/jenkins-install-02.png" width="80%" class="image__border"></p>
 
 ##### 젠킨스 초기 비밀번호 찾기
 - `/Users/junhyunk/.jenkins/secrets/initialAdminPassword` 파일에 초기 비밀번호가 있다고 안내해줍니다.
@@ -121,23 +121,23 @@ $ brew services restart jenkins
 $ cat /Users/junhyunk/.jenkins/secrets/initialAdminPassword
 ```
 
-<p align="center"><img src="/images/jenkins-install-3.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2022 }}/jenkins-install-03.png" width="80%"></p>
 
 ##### 젠킨스 플러그인(plugin) 설치
 - 추천 플러그인들을 설치하였습니다.
 
-<p align="center"><img src="/images/jenkins-install-4.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2022 }}/jenkins-install-04.png" width="80%"></p>
 
 ##### 젠킨스 관리자 설정 초기화
 - 관리자 정보를 초기화합니다.
 - 이 과정 이후 절차가 있었지만, 별도 수정 사항은 없이 확인을 눌러 진행하였습니다.
 
-<p align="center"><img src="/images/jenkins-install-5.JPG" width="80%"></p>
+<p align="center"><img src="{{ site.image_url_2022 }}/jenkins-install-05.png" width="80%"></p>
 
 ##### 젠킨스 대시보드
 - 모든 설정을 마치면 다음과 같은 화면을 볼 수 있습니다.
 
-<p align="center"><img src="/images/jenkins-install-6.JPG" width="100%" class="image__border"></p>
+<p align="center"><img src="{{ site.image_url_2022 }}/jenkins-install-06.png" width="100%" class="image__border"></p>
 
 ## 3. ngrok 터널링(tunneling)
 
@@ -166,12 +166,12 @@ $ ngrok http 8080
 - 로그인하여 토큰을 발급받아 인증시 세션 만료가 없습니다. 
 - `Free Plan`인 경우 ngrok 클라이언트를 동시에 1개만 사용할 수 있습니다.
 
-<p align="left"><img src="/images/jenkins-install-7.JPG" width="75%"></p>
+<p align="left"><img src="{{ site.image_url_2022 }}/jenkins-install-07.png" width="75%"></p>
 
 ##### ngrok 도메인 접속
 - `ngrok`이 만든 도메인으로 접근시 젠킨스 화면을 볼 수 있습니다. 
 
-<p align="center"><img src="/images/jenkins-install-8.JPG" width="100%" class="image__border"></p>
+<p align="center"><img src="{{ site.image_url_2022 }}/jenkins-install-08.png" width="100%" class="image__border"></p>
 
 #### REFERENCE
 - <https://wan-blog.tistory.com/74>

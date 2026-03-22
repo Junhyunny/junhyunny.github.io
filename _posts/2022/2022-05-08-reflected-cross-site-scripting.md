@@ -57,7 +57,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 1. 악성 스크립트를 통해 사용자 정보가 악의적인 사용자에게 전달됩니다.
 
 <p align="center">
-    <img src="/images/reflected-cross-site-scripting-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/reflected-cross-site-scripting-01.png" width="100%" class="image__border">
 </p>
 
 ### 2.2. 반사형 XSS 공격 취약 서비스의 코드
@@ -126,7 +126,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 1. 공격 URL 주소를 클릭한 사용자의 브라우저는 악성 스크립트를 실행하게 됩니다.
 
 <p align="center">
-    <img src="/images/reflected-cross-site-scripting-2.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/reflected-cross-site-scripting-02.gif" width="100%" class="image__border">
 </p>
 
 ## 3. 반사형 XSS 방어
@@ -177,7 +177,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 ##### 적용 결과
 
 <p align="center">
-    <img src="/images/reflected-cross-site-scripting-3.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/reflected-cross-site-scripting-03.gif" width="100%" class="image__border">
 </p>
 
 ### 3.2. 입력 값 치환
@@ -284,7 +284,7 @@ public class XssAttackFilter implements Filter {
 ##### 적용 결과
 
 <p align="center">
-    <img src="/images/reflected-cross-site-scripting-4.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/reflected-cross-site-scripting-04.gif" width="100%" class="image__border">
 </p>
 
 ### 3.3. 직접 출력 금지
@@ -304,7 +304,7 @@ JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c
 ##### 적용 결과
 
 <p align="center">
-    <img src="/images/reflected-cross-site-scripting-5.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/reflected-cross-site-scripting-05.gif" width="100%" class="image__border">
 </p>
 
 ## 4. XSS 공격의 위험성

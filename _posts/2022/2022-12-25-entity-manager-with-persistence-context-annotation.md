@@ -44,7 +44,7 @@ public interface EntityManagerProxy extends EntityManager {
 ##### @PersistenceContext 애너테이션을 통한 빈 주입
 
 <p align="center">
-    <img src="/images/entity-manager-with-persistence-context-annotation-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/entity-manager-with-persistence-context-annotation-01.png" width="100%" class="image__border">
 </p>
 
 ## 2. SharedEntityManagerInvocationHandler 클래스
@@ -266,7 +266,7 @@ public class PcAnnotationServiceIT {
 ##### @Autowired 애너테이션을 통한 빈 주입
 
 <p align="center">
-    <img src="/images/entity-manager-with-persistence-context-annotation-2.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/entity-manager-with-persistence-context-annotation-02.png" width="100%" class="image__border">
 </p>
 
 ### 5.1. @PersistenceContext is same with @Autowired
@@ -277,7 +277,7 @@ public class PcAnnotationServiceIT {
 * 두 방법은 동일하지만, `@PersistenceContext` 애너테이션을 사용하는 것이 명시적이고, 표준 JPA 사용 방법이다.
 
 <p align="center">
-    <img src="/images/entity-manager-with-persistence-context-annotation-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2022 }}/entity-manager-with-persistence-context-annotation-03.png" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

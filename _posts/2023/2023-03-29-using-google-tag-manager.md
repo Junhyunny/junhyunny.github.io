@@ -24,7 +24,7 @@ last_modified_at: 2023-03-28T23:55:00
 태그 매니저를 사용하면 간편하게 맞춤형 사용자 이벤트를 만들 수 있습니다. 
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-1.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-01.png" width="100%" class="image__border">
 </p>
 <center>https://www.joptimisemonsite.fr/google-tag-manager/</center>
 
@@ -50,7 +50,7 @@ last_modified_at: 2023-03-28T23:55:00
 * 태그는 트리거와 변수를 사용하고, 트리거는 변수를 사용합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-2.JPG" width="50%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-02.png" width="50%" class="image__border">
 </p>
 <center>https://finedata.tistory.com/44</center>
 
@@ -107,13 +107,13 @@ export default App;
 * 기본 제공 변수의 구성 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-3.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-03.png" width="100%" class="image__border">
 </p>
 
 * 클릭과 관련된 체크 박스들을 선택합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-4.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-04.png" width="100%" class="image__border">
 </p>
 
 * `Click ID` 변수를 누르면 다음과 같은 정보를 볼 수 있습니다.
@@ -122,7 +122,7 @@ export default App;
     * `dataLayer` 객체가 수집하는 데이터를 보면 `gtm.elementId` 변수를 찾을 수 있습니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-5.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-05.png" width="100%" class="image__border">
 </p>
 
 ### 2.3. Create Trigger
@@ -130,13 +130,13 @@ export default App;
 * [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 포스트에서 만든 트리거를 그대로 사용합니다. 
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-6.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-06.png" width="100%" class="image__border">
 </p>
 
 * 모든 클릭을 감지합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-7.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-07.png" width="100%" class="image__border">
 </p>
 
 ### 2.4. Create Tag
@@ -144,7 +144,7 @@ export default App;
 * [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 포스트에서 만든 태그를 일부 변경합니다. 
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-8.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-08.png" width="100%" class="image__border">
 </p>
 
 * 이벤트 매개변수를 추가합니다.
@@ -153,19 +153,19 @@ export default App;
 * 깂(value)는 변수에서 선택하기 위해 오른쪽 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-9.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-09.png" width="100%" class="image__border">
 </p>
 
 * `Click ID` 변수를 선택합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-10.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-10.png" width="100%" class="image__border">
 </p>
 
 * 다음과 같은 모습을 볼 수 있습니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-11.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-11.png" width="100%" class="image__border">
 </p>
 
 ### 2.5. Publish
@@ -173,7 +173,7 @@ export default App;
 * 제출 버튼을 눌러 변경사항을 반영합니다. 
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-12.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-12.png" width="100%" class="image__border">
 </p>
 
 ### 2.6. Preview
@@ -182,19 +182,19 @@ export default App;
 * 미리보기 버튼을 클릭합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-13.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-13.png" width="100%" class="image__border">
 </p>
 
 * 서비스 도메인을 입력합니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-14.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-14.png" width="100%" class="image__border">
 </p>
 
 * 디버깅 중인 애플리케이션 화면에서 클릭 등의 이벤트를 발생시키면 미리보기 화면에서 아래와 같이 감지됩니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-15.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-15.png" width="100%" class="image__border">
 </p>
 
 * `Variables` 탭을 클릭합니다. 
@@ -202,7 +202,7 @@ export default App;
 * `Click ID`라는 변수에 `element_div`라는 값이 매칭된 것을 볼 수 있습니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-16.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-16.png" width="100%" class="image__border">
 </p>
 
 * `DataLayer` 탭을 클릭합니다.
@@ -211,7 +211,7 @@ export default App;
 * `Click ID`라는 변수는 `gtm` 객체 안에 `elementId` 값을 추적하는 것을 확인할 수 있습니다.
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-17.JPG" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-17.png" width="100%" class="image__border">
 </p>
 
 ### 3. In Google Analytics
@@ -223,7 +223,7 @@ export default App;
 * `click` 이벤트에서 `element_id`가 수집됨을 확인할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/using-google-tag-manager-18.gif" width="100%" class="image__border">
+    <img src="{{ site.image_url_2023 }}/using-google-tag-manager-18.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

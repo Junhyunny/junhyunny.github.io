@@ -51,7 +51,7 @@ java.lang.StackOverflowError: null
 * 메서드 호출시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있습니다. 
 
 <p align="center">
-    <img src="/images/json-ignore-properties-1.jpg" width="40%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/json-ignore-properties-01.png" width="40%" class="image__border">
 </p>
 <center>https://en.wikipedia.org/wiki/Circular_reference</center>
 
@@ -63,7 +63,7 @@ java.lang.StackOverflowError: null
 * 댓글 객체는 자신과 연관된 포스트 객체를 참조하고 있습니다.
 
 <p align="center">
-    <img src="/images/json-ignore-properties-2.jpg" width="80%" class="image__border">
+    <img src="{{ site.image_url_2021 }}/json-ignore-properties-02.png" width="80%" class="image__border">
 </p>
 
 #### 2.2.1. Post Record

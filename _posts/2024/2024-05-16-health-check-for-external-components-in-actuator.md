@@ -41,7 +41,7 @@ $ curl http://localhost:8080/actuator/health | jq .
 - 외부 서비스와 통신한다.
 
 <div align="center">
-  <img src="/images/posts/2024/health-check-for-external-components-in-actuator-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/health-check-for-external-components-in-actuator-01.png" width="80%" class="image__border">
 </div>
 
 ### 2.1. build.gradle

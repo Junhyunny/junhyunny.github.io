@@ -52,7 +52,7 @@ class A {
 클래스 다이어그램으로 표현하면 다음과 같다.
 
 <div align="left">
-  <img src="/images/posts/2021/spring-ioc-di-01.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/spring-ioc-di-01.png" width="40%" class="image__border">
 </div>
 
 ### 2.2. Type of Dependency Injection
@@ -341,7 +341,7 @@ IoC 컨테이너는 자신이 관리하고 있는 빈들의 의존 관계를 따
 - 빈 객체를 만들기 위한 후보 클래스가 없다면 에러가 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2021/spring-ioc-di-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/spring-ioc-di-02.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

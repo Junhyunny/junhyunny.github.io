@@ -54,7 +54,7 @@ tasks.named('test') {
 3. 구독자 서비스는 레디스로부터 이벤트 로그를 전달받는다.
 
 <p align="center">
-  <img src="/images/posts/2024/redis-publisher-and-subscriber-spring-boot-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-01.png" width="80%" class="image__border">
 </p>
 
 ## 1. Implement Publisher Service
@@ -262,7 +262,7 @@ public interface MessageListener {
 - 각 채널 별로 비즈니스 로직을 처리하기 위한 구독자 구현 클래스들이 존재한다.
 
 <p align="center">
-  <img src="/images/posts/2024/redis-publisher-and-subscriber-spring-boot-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-02.png" width="80%" class="image__border">
 </p>
 
 ### 2.2.1. EventSubscriber Interface
@@ -467,7 +467,7 @@ $ docker-compose up -d
 - 또 다른 터미널에선 구독자 서비스 컨테이너의 로그를 확인한다.
 
 <p align="center">
-  <img src="/images/posts/2024/redis-publisher-and-subscriber-spring-boot-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-03.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

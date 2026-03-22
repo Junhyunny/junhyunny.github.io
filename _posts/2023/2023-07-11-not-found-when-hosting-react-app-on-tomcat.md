@@ -30,7 +30,7 @@ last_modified_at: 2023-07-10T23:55:00
 - 브라우저에서 새로고침(refresh)을 수행하면 Not Found(404) 에러가 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2023/page-not-found-when-hosting-react-app-on-tomcat-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/page-not-found-when-hosting-react-app-on-tomcat-01.gif" width="100%" class="image__border">
 </div>
 
 ## 2. Cause of the problem 
@@ -47,7 +47,7 @@ last_modified_at: 2023-07-10T23:55:00
   - SPA이기 때문에 프론트엔드 애플리케이션 서버엔 /first-page 경로에 해당하는 페이지가 존재하지 않습니다.
 
 <div align="center">
-  <img src="/images/posts/2023/page-not-found-when-hosting-react-app-on-tomcat-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/page-not-found-when-hosting-react-app-on-tomcat-02.png" width="80%" class="image__border">
 </div>
 
 ## 3. Solve the Proglem 
@@ -222,7 +222,7 @@ Tomcat started.
   - Not Found(404) 에러가 발생하지 않는 것을 확인한다.
 
 <div align="center">
-  <img src="/images/posts/2023/page-not-found-when-hosting-react-app-on-tomcat-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/page-not-found-when-hosting-react-app-on-tomcat-03.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

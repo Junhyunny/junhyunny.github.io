@@ -36,7 +36,7 @@ let y = x;
 y 변수를 사용해 x 변수가 참조하는 객체를 참조한다. 이런 상황에선 x 변수가 참조하는 객체의 레퍼런스 카운트는 "2"가 된다. 
 
 <div align="center">
-  <img src="/images/posts/2024/reference-counting-gc-in-javascript-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reference-counting-gc-in-javascript-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -48,7 +48,7 @@ x = 1;
 ```
 
 <div align="center">
-  <img src="/images/posts/2024/reference-counting-gc-in-javascript-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reference-counting-gc-in-javascript-02.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -62,7 +62,7 @@ let z = y.a;
 이렇게 되면 처음 만든 객체의 a 프로퍼티가 참조하고 있는 객체의 참조 카운트는 2가 된다.
 
 <div align="center">
-  <img src="/images/posts/2024/reference-counting-gc-in-javascript-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reference-counting-gc-in-javascript-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -76,7 +76,7 @@ y = "mozilla";
 가비지 컬렉팅 대상이 되어 객체가 삭제되지만, a 프로퍼티가 참조하던 객체는 z 변수에 의해 여전히 참조되므로 가비지 컬렉팅 대상이 되지 않는다.
 
 <div align="center">
-  <img src="/images/posts/2024/reference-counting-gc-in-javascript-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reference-counting-gc-in-javascript-04.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -88,7 +88,7 @@ z = null;
 ```
 
 <div align="center">
-  <img src="/images/posts/2024/reference-counting-gc-in-javascript-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reference-counting-gc-in-javascript-05.png" width="80%" class="image__border">
 </div>
 
 ## 2. Disadvantages
@@ -120,7 +120,7 @@ f();
 함수 스코프가 끝나면 스택 메모리의 x, y 변수는 사라지지만, 각 a 프로퍼티를 통해 참조 중이기 때문에 참조 카운팅이 0이 되지 않는다. 가비지 컬레팅 대상이 되지 않아 메모리가 회수되지 않는다.
 
 <div align="center">
-  <img src="/images/posts/2024/reference-counting-gc-in-javascript-06.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reference-counting-gc-in-javascript-06.png" width="80%" class="image__border">
 </div>
 
 ## CLOSING

@@ -88,7 +88,7 @@ console.log(Circle.prototype.constructor === Circle)
 - 동일한 색상의 박스는 동일한 객체 정보를 의미한다.
 
 <div align="left">
-  <img src="/images/posts/2023/prototype-in-javascript-01.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-01.png" width="60%" class="image__border">
 </div>
 
 생성자 함수와 프로토타입 객체의 관계는 다음과 같다.
@@ -97,7 +97,7 @@ console.log(Circle.prototype.constructor === Circle)
 - `생성자 함수 프로토타입` 객체는 `constructor` 프로퍼티로 `생성자 함수` 객체를 참조한다.
 
 <div align="center">
-  <img src="/images/posts/2023/prototype-in-javascript-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-02.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -110,7 +110,7 @@ console.log(Circle.prototype.constructor === Circle)
 - 생성자 함수 내부에 정의된 프로퍼티와 메서드는 인스턴스가 만들어질 때 내부에 함께 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2023/prototype-in-javascript-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-03.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -125,7 +125,7 @@ console.log(Circle.prototype.constructor === Circle)
   - 인스턴스 내부 링크를 통해 참조하는 프로토타입 객체의 기능을 재사용한다.
 
 <div align="center">
-  <img src="/images/posts/2023/prototype-in-javascript-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-04.png" width="80%" class="image__border">
 </div>
 
 ## 2. `__proto__` Accessor Property
@@ -152,7 +152,7 @@ console.dir(circle.__proto__ === Circle.prototype);
 위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2023/prototype-in-javascript-05.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-05.png" width="60%" class="image__border">
 </div>
 
 ## 3. Summary
@@ -169,7 +169,7 @@ console.dir(circle.__proto__ === Circle.prototype);
   - `인스턴스A`는 `함수A`를 통해 만들어졌으므로 `인스턴스A.__proto__`가 가르키는 객체는 `함수A.prototype`과 동일하다.
 
 <div align="center">
-  <img src="/images/posts/2023/prototype-in-javascript-06.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-06.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -192,7 +192,7 @@ console.dir(sum.__proto__.constructor === Function);
 위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2023/prototype-in-javascript-07.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-07.png" width="60%" class="image__border">
 </div>
 
 <br />
@@ -215,7 +215,7 @@ console.dir(circle.__proto__.constructor === Circle);
 위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2023/prototype-in-javascript-08.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-08.png" width="60%" class="image__border">
 </div>
 
 <br />
@@ -238,7 +238,7 @@ console.dir(foo.__proto__.constructor === Object);
 위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2023/prototype-in-javascript-09.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-in-javascript-09.png" width="60%" class="image__border">
 </div>
 
 ## CLOSING

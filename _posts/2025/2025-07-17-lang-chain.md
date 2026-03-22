@@ -31,7 +31,7 @@ last_modified_at: 2025-07-29T23:55:00
   - LangChain, LangGraph를 사용한 앱의 입출력, 중간 과정, LLM 호출 내용을 시각화해서 보여준다.
 
 <div align="center">
-  <img src="/images/posts/2025/langchain-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/langchain-01.png" width="80%" class="image__border">
 </div>
 <center>https://python.langchain.com/docs/introduction/</center>
 
@@ -94,7 +94,7 @@ $ docker exec -it ollama ollama run llama3.2
 3. LLM 호출 결과를 문자열 파서(parser)에게 전달한다.
 
 <div align="center">
-  <img src="/images/posts/2025/langchain-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/langchain-02.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -185,7 +185,7 @@ In conclusion, deep learning has revolutionized the field of artificial intellig
 이제 위 코드를 체이닝을 통해 더 쉽게 만들어보자. 위에서 만든 prompt, llm, parser 객체는 모두 Runnable 클랙스의 인스턴스(istance)다.
 
 <div align="center">
-  <img src="/images/posts/2025/langchain-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/langchain-03.png" width="100%" class="image__border">
 </div>
 
 <br/>

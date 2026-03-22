@@ -128,7 +128,7 @@ export class MyStack extends cdk.Stack {
 캐싱처럼 우선 컨텍스트에 저장된 값을 사용하지만, 없다면 AWS 클라우드에 필요한 정보를 조회 후 컨텍스트에 저장하여 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-multi-environment-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-multi-environment-01.png" width="80%" class="image__border">
 </div>
 <center>https://quicktechbytes.com/aws-cdk-context-cache-feature-flags-and-configuration-20378d1641ad</center>
 
@@ -291,7 +291,7 @@ $ cdk deploy --context env=prod
 배포가 완료되면 다음과 같이 각 환경 별로 CloudFormation에 스택이 생성된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-multi-environment-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-multi-environment-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -299,7 +299,7 @@ $ cdk deploy --context env=prod
 EC2 대시보드를 보면 각 환경의 인스턴스 타입이 다르게 배포된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-multi-environment-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-multi-environment-03.png" width="80%" class="image__border">
 </div>
 
 ## 3. Considerations

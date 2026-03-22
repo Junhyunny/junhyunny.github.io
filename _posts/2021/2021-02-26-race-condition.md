@@ -31,7 +31,7 @@ last_modified_at: 2025-10-01T00:00:00
   - `P2` 프로세스가 먼저 수행한 경우에는 +100이 저장된다.
 
 <div align="center">
-  <img src="/images/posts/2021/race-condition-01.png" width="80%">
+  <img src="{{ site.image_url_2021 }}/race-condition-01.png" width="80%">
 </div>
 
 ## 2. Critical Section
@@ -50,7 +50,7 @@ last_modified_at: 2025-10-01T00:00:00
 - 뮤텍스(Mutex), 세마포어(Semaphore) 같은 lock 메커니즘을 통해 구현할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/race-condition-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/race-condition-02.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -61,7 +61,7 @@ last_modified_at: 2025-10-01T00:00:00
 - 임계 영역 내에 일하는 프로세스가 없다면, 대기 중인 프로세스 중에서 다음으로 일을 수행할 프로세스를 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2021/race-condition-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/race-condition-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -72,7 +72,7 @@ last_modified_at: 2025-10-01T00:00:00
 - 제한되는 대기 시간을 가진다.
 
 <div align="center">
-  <img src="/images/posts/2021/race-condition-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/race-condition-04.png" width="80%" class="image__border">
 </div>
 
 ## 3. Practice

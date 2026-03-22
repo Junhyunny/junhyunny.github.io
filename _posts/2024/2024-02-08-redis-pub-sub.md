@@ -72,7 +72,7 @@ last_modified_at: 2024-02-08T23:55:00
 - redis-cli 명령어를 실행한 터미널이 구독자, 발행자 역할을 수행한다.
 
 <p align="center">
-  <img src="/images/posts/2024/redis-pub-sub-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-pub-sub-01.png" width="80%" class="image__border">
 </p>
 
 ### 2.1. Run Redis Container
@@ -92,7 +92,7 @@ $ docker exec -it redis redis-cli
 ```
 
 <p align="center">
-  <img src="/images/posts/2024/redis-pub-sub-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-pub-sub-02.png" width="100%" class="image__border">
 </p>
 
 ### 2.3. Subscribe Channels and Publish Message
@@ -132,7 +132,7 @@ publish [channel] [message]
   - 잘못된 채널 이름을 작성해 메시지 전송이 실패한다.
 
 <p align="center">
-  <img src="/images/posts/2024/redis-pub-sub-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-pub-sub-03.gif" width="100%" class="image__border">
 </p>
 
 ### 2.4. Pattern Subscribe and Publish Message
@@ -157,7 +157,7 @@ psubscribe [patterns ...]
 발행자 터미널에서 간단하게 메시지를 전송해보자. 채널 접두어가 `logs.`인 경우 모두 메시지가 전송된다.
 
 <p align="center">
-  <img src="/images/posts/2024/redis-pub-sub-04.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/redis-pub-sub-04.gif" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

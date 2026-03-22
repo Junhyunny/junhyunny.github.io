@@ -33,7 +33,7 @@ last_modified_at: 2024-04-22T23:55:00
 - 자신이 해결할 수 없는 요청은 다음 후보 객체에게 전달한다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.cs.unc.edu/~stotts/GOF/hires/pat5afso.htm</center>
 
@@ -50,7 +50,7 @@ last_modified_at: 2024-04-22T23:55:00
   - 같은 데이터가 포함된 반복 요청에 대해 캐시된 결과를 반환한다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-02.png" width="100%" class="image__border">
 </p>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
@@ -69,7 +69,7 @@ last_modified_at: 2024-04-22T23:55:00
   - 비슷한 검증이 필요한 다른 시스템들은 자신의 상황에 맞는 핸들러들로 체인을 조합하여 사용한다.   
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-03.png" width="80%" class="image__border">
 </p>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
@@ -92,7 +92,7 @@ last_modified_at: 2024-04-22T23:55:00
   - 핸들러 체인은 동적으로 구성할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-04.png" width="40%" class="image__border image__padding">
+  <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-04.png" width="40%" class="image__border image__padding">
 </p>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
@@ -200,7 +200,7 @@ public class SecurityContextHolderFilter extends GenericFilterBean {
 - 핸들러 역할을 수행하는 필터들은 서로의 존재를 모르고 FilterChain 인스턴스를 통해 다음 필터에게 요청을 건낸다.
 
 <p align="center">
-  <img src="/images/posts/2024/chain-of-responsibility-pattern-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-05.png" width="100%" class="image__border">
 </p>
 
 #### REFERENCE

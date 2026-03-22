@@ -36,7 +36,7 @@ last_modified_at: 2026-01-24T08:55:00
 위 두 가지 문제점을 해결하기 위한 방법으로 Playwright의 페이크 미디어 스트림(fake media stream)을 사용할 수 있다. 미리 녹화한 영상을 video 태그에 스트림으로 연결하는 방법이다. 쉽게 이야기하면 실제 카메라로부터 전달받는 영상 스트림이 아닌 목킹(mocking) 영상 스트림을 사용하는 것이다. 실제 카메라가 없어도 영상을 촬영할 수 있고, 매번 같은 영상을 출력하는 것이 가능하다. 
 
 <div align="center">
-  <img src="/images/posts/2026/playwright-testing-camera-stream-mocking-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/playwright-testing-camera-stream-mocking-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Use fake media stream
@@ -140,7 +140,7 @@ test("download video file", async ({ page }) => {
 위 테스트를 실행하면 다음과 같이 사전에 준비한 영상이 실제 카메라 영상 대신 보이는 것을 확인할 수 있다. 녹화한 비디오도 페이크 미디어 스트림 영상임을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2026/playwright-testing-camera-stream-mocking-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/playwright-testing-camera-stream-mocking-02.gif" width="100%" class="image__border">
 </div>
 
 <br />
@@ -175,7 +175,7 @@ test("download image file", async ({ page }) => {
 위 테스트를 실행하면 비디오 촬영 테스트와 마찬가지로 사전에 준비한 영상이 실제 카메라 영상 대신 보인다. 촬영된 사진도 페이크 미디어 스트림의 프레임인 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2026/playwright-testing-camera-stream-mocking-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/playwright-testing-camera-stream-mocking-03.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

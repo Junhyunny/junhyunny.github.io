@@ -25,7 +25,7 @@ last_modified_at: 2022-03-20T23:55:00
   - 이벤트가 상위 엘리먼트로 전파되는 단계
 
 <p align="center">
-  <img src="/images/posts/2022/event-bubbling-capturing-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/event-bubbling-capturing-01.png" width="80%" class="image__border">
 </p>
 <center>https://www.w3.org/TR/DOM-Level-3-Events/</center>
 

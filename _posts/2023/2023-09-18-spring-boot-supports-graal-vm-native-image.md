@@ -53,7 +53,7 @@ GraalVM은 AOT 컴파일러를 사용해 네이티브 이미지를 빌드한다.
 프로젝트를 빌드하면 다음과 같은 결과물들이 만들어진다. 
 
 <div align="left">
-  <img src="/images/posts/2023/spring-boot-supports-graal-vm-native-image-01.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/spring-boot-supports-graal-vm-native-image-01.png" width="40%" class="image__border">
 </div>
 
 ## 3. Prerequisites
@@ -104,7 +104,7 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
 - dev 프로파일인 경우 외부 서비스에 있는 포켓몬 정보를 반환한다.
 
 <div align="center">
-  <img src="/images/posts/2023/spring-boot-supports-graal-vm-native-image-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/spring-boot-supports-graal-vm-native-image-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -114,7 +114,7 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
 - 준비 단계에서 다운로드 받은 liberica-17 JDK를 설정한다.
 
 <div align="center">
-  <img src="/images/posts/2023/spring-boot-supports-graal-vm-native-image-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/spring-boot-supports-graal-vm-native-image-03.png" width="80%" class="image__border">
 </div>
 
 <br/>

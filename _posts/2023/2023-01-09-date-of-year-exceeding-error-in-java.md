@@ -85,7 +85,7 @@ DateTimeFormatter 클래스을 사용할 때 잘못된 패턴을 지정했다.
 - 자세한 설명은 [이 링크][date-time-symbol-table-link]에서 확인할 수 있다. 
 
 <p align="center">
-  <img src="/images/posts/2023/date-of-year-exceeding-error-in-java-01.png" width="65%">
+  <img src="{{ site.image_url_2023 }}/date-of-year-exceeding-error-in-java-01.png" width="65%">
 </p>
 <center>https://jenkov.com/tutorials/java-internationalization/simpledateformat.html</center>
 

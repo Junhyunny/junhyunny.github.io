@@ -27,7 +27,7 @@ last_modified_at: 2026-03-18T22:53:44+09:00
   - `command not found`라는 에러 메시지가 나온다.
 
 <div align="center">
-  <img src="/images/posts/2023/build-docker-image-with-nonexistent-commands-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/build-docker-image-with-nonexistent-commands-01.gif" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -145,7 +145,7 @@ b77cfcfa25b65559e8f287b9bdd64fa72ffc2e1af563832471ebf6cdfd85400e
 실행된 컨테이너 내부에 접근 후 기존에 없던 명령어가 잘 실행되는지 확인해본다.
 
 <div align="center">
-  <img src="/images/posts/2023/build-docker-image-with-nonexistent-commands-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/build-docker-image-with-nonexistent-commands-02.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

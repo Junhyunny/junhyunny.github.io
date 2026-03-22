@@ -26,7 +26,7 @@ last_modified_at: 2022-01-04T23:55:00
 먼저 폴링을 알아보자. 클라이언트가 일정 주기로 서버에 필요한 데이터를 요청한다. 가장 쉬운 방법이지만, 변경 사항이 있든지 없든지 계속 요청을 보내기 때문에 서버에 부담을 주게 된다. 데이터를 요청하는 주기가 짧아질수록 부하는 커진다. 네트워크나 HTTP 커넥션(connection)을 맺기 위한 비용이 계속 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2022/polling-long-polling-and-spring-example-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/polling-long-polling-and-spring-example-01.png" width="50%" class="image__border">
 </div>
 <center>https://rubberduck-debug.tistory.com/123</center>
 
@@ -42,7 +42,7 @@ last_modified_at: 2022-01-04T23:55:00
   - 클라이언트 측에서 타임 아웃이 발생한 경우에도 다시 서버에게 요청을 보낸다.  
 
 <div align="center">
-  <img src="/images/posts/2022/polling-long-polling-and-spring-example-02.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/polling-long-polling-and-spring-example-02.png" width="50%" class="image__border">
 </div>
 <center>https://rubberduck-debug.tistory.com/123</center>
 
@@ -87,7 +87,7 @@ last_modified_at: 2022-01-04T23:55:00
   - DeferredResult 객체의 변화가 참조를 따라 ServletResponse 객체까지 전달된다.
 
 <div align="center">
-  <img src="/images/posts/2022/polling-long-polling-and-spring-example-03.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/polling-long-polling-and-spring-example-03.png" width="60%" class="image__border">
 </div>
 <center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center>
 
@@ -223,7 +223,7 @@ curl -X POST\
   - x-www-form-urlencoded 컨텐츠 타입을 사용하기 때문에 띄어쓰기에서 "+" 문자열을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2022/polling-long-polling-and-spring-example-04.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/polling-long-polling-and-spring-example-04.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

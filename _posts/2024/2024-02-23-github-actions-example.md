@@ -33,7 +33,7 @@ last_modified_at: 2023-02-23T23:55:00
 1. 파이프라인이 모두 성공하면 컨테이너 이미지를 만들어 배포한다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-example-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-example-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Build Pipeline
@@ -185,7 +185,7 @@ jobs:
   - DOCKERHUB_TOKEN - 도커 허브 사용자 비밀번호 혹은 발급 토큰
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-example-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-example-02.png" width="100%" class="image__border">
 </p>
 
 ## 3. Run Pipeline
@@ -197,7 +197,7 @@ jobs:
 `Actions` 탭에서 CI/CD 파이프라인의 동작 모습을 확인할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-example-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-example-03.png" width="100%" class="image__border">
 </p>
 
 ### 3.2. Check Dockerhub
@@ -205,7 +205,7 @@ jobs:
 도커 허브에 업로드 된 이미지를 확인할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-example-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-example-04.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

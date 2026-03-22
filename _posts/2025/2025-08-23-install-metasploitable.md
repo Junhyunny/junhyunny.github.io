@@ -29,7 +29,7 @@ Metasploitable는 Ubuntu 기반의 VMware/VirtualBox 가상 머신 이미지다.
 M4 맥북에서 Metasploitable를 VirtualBox로 실행할 수 없다. VirtualBox에서 실행하면 다음과 같은 UEFI Shell 화면이 보인다. 
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -47,7 +47,7 @@ $ brew install qemu
 UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.app/)에서 다운로드 받을 수 있다. UTM 다운로드가 완료되면 실행한다. 해당 화면에서 `새로운 가상 머신 생성` 버튼을 누른다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-02.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -55,7 +55,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 `에뮬레이션`을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -63,7 +63,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 `기타`을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-04.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -71,7 +71,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 부팅 장치 `없음`을 선택한다. 레거시 하드웨어는 선택하지 않는다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-05.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -79,7 +79,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 아키텍처는 `x86_64`를 선택한다. 메모리는 `512MiB`로 설정한다. `계속`을 눌러 진행한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-06.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-06.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -87,7 +87,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 드라이브 크기는 `2GiB`로 설정한다. `계속`을 눌러 진행한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-07.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-07.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -95,7 +95,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 공유 디렉터리는 별도 설정 없이 `계속`을 눌러 진행한다. 부팅 디스크 설정이 필요하므로 `가상 머신 설정 열기` 체크 박스를 선택 후 `저장`을 누른다. 가상 머신 이름은 원하는 이름을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-08.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-08.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -103,7 +103,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 가상 머신 설정 화면에서 몇 가지 설정이 필요하다. 우선 QEMU 탭에서 `UEFI 부팅을 비활성화`한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-09.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-09.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -111,7 +111,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 펜테스트를 하기 위해선 호스트 머신의 브릿지를 통해 네트워크를 공유해야 한다. 가상 머신으로 실행한 칼리 리눅스로 펜테스트를 수행하기 때문에 칼리 리눅스, Metasploitable2 두 머신 모두 호스트의 네트워크 브릿지를 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-10.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-10.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -119,7 +119,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 부팅 디스크를 설정한다. 우선 기본으로 설정된 드라이브를 제거한다. 기존 드라이브를 오른쪽 클릭 후 `제거` 버튼을 클릭한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-11.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-11.png" width="80%" class="image__border">
 </div> 
 
 <br/>
@@ -127,7 +127,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 드라이브 `새로 만들기`를 선택 후 `가져오기`를 클릭한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-12.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-12.png" width="80%" class="image__border">
 </div> 
 
 <br/>
@@ -135,7 +135,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 사전에 다운로드 받아놓은 `Metasploitable.vmdk` 파일을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-13.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-13.png" width="80%" class="image__border">
 </div> 
 
 <br/>
@@ -143,7 +143,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 설치한 드라이브를 선택 후 `저장` 버튼을 클릭하면 `vmdk` 파일이 `qcow2` 파일로 자동으로 변경된다. 
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-14.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-14.png" width="80%" class="image__border">
 </div> 
 
 <br/>
@@ -151,7 +151,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 설치가 완료 후 가상 머신을 실행하면 다음과 같은 터미널 화면을 볼 수 있다. 아이디와 비밀번호는 모두 `msfadmin`이다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-15.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-15.png" width="80%" class="image__border">
 </div> 
 
 <br/>
@@ -159,7 +159,7 @@ UTM을 다운로드 받아서 설치한다. [이 사이트](https://mac.getutm.a
 네트워크가 잘 연결되었느지 `ifconig` 명령어를 실행해본다. 호스트 머신의 IP 주소와 동일한 주소로 시작한다면 정상적으로 연결된 것이다.
 
 <div align="center">
-  <img src="/images/posts/2025/install-metasploitable-16.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/install-metasploitable-16.png" width="80%" class="image__border">
 </div> 
 
 <br/>

@@ -25,7 +25,7 @@ last_modified_at: 2021-08-21T16:00:00
 `헤더(Header)`, `페이로드(Payload)`, `시그너처(Signature)` 3개의 정보를 담고 있다. 각 정보에 대해 자세히 알아보자.
 
 <div align="center">
-  <img src="/images/posts/2020/json-web-token-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2020 }}/json-web-token-01.png" width="50%" class="image__border">
 </div>
 <center>https://velopert.com/2389</center>
 
@@ -109,7 +109,7 @@ HMACSHA256(
 <https://jwt.io/> 사이트에서 헤더, 페이로드, 시그너처 정보를 추가하면 JWT 객체를 생성할 수 있다. 반대로 JWT 객체가 있다면 이를 파싱해 볼 수 있다. 내부에 어떤 값이 들었있는지 확인할 때 용이하다.
 
 <div align="center">
-  <img src="/images/posts/2020/json-web-token-02.png" class="image__border">
+  <img src="{{ site.image_url_2020 }}/json-web-token-02.png" class="image__border">
 </div>
 
 ## 4. Authentication and Authorization with JWT
@@ -126,7 +126,7 @@ JWT는 Json 객체를 Base64 방식으로 인코딩 한 것이다. Base64 인코
 6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
 
 <div align="center">
-  <img src="/images/posts/2020/json-web-token-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2020 }}/json-web-token-03.png" width="80%" class="image__border">
 </div>
 
 ### 4.2. Json Web Token Process
@@ -140,7 +140,7 @@ JWT는 Json 객체를 Base64 방식으로 인코딩 한 것이다. Base64 인코
 6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
 
 <div align="center">
-  <img src="/images/posts/2020/json-web-token-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2020 }}/json-web-token-04.png" width="80%" class="image__border">
 </div>
 
 #### RECOMMEND NEXT POSTS

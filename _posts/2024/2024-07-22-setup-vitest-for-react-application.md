@@ -113,7 +113,7 @@ Object literal may only specify known properties, and test does not exist in typ
 ```
 
 <div align="center">
-  <img src="/images/posts/2024/setup-vitest-for-react-application-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/setup-vitest-for-react-application-01.png" width="100%" class="image__border">
 </div>
 
 ### 2.3. React Testing Library

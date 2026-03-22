@@ -29,7 +29,7 @@ last_modified_at: 2026-01-23T00:00:00
 - 신규 시스템은 부패 방지 계층(ACL, Anti-Corruption Layer)을 통해 필요한 레거시 기능을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2022/anti-corruption-layer-pattern-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/anti-corruption-layer-pattern-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Why do we use anti-corruption layer?
@@ -66,7 +66,7 @@ last_modified_at: 2026-01-23T00:00:00
   - 필요한 것만 보기 위한 인터페이스 설계이며 하위 시스템에 대한 접근을 단순화한다.
 
 <div align="center">
-  <img src="/images/posts/2022/anti-corruption-layer-pattern-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/anti-corruption-layer-pattern-02.png" width="100%" class="image__border">
 </div>
 
 ## 4. Considerations

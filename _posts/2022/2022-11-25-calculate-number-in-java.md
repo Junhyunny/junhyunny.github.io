@@ -30,7 +30,7 @@ last_modified_at: 2026-03-20T10:58:47+09:00
 > 0.101 = (2^-1 * 1) + (2^-2 * 0) + (2^-3 * 1)
 
 <div align="center">
-  <img src="/images/posts/2022/calculate-number-in-java-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/calculate-number-in-java-01.png" width="50%" class="image__border">
 </div>
 <center>https://suyeon96.tistory.com/9</center> 
 
@@ -48,7 +48,7 @@ last_modified_at: 2026-03-20T10:58:47+09:00
   - 나머지는 0으로 패딩(padding)
 
 <div align="center">
-  <img src="/images/posts/2022/calculate-number-in-java-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/calculate-number-in-java-02.png" width="100%" class="image__border">
 </div>
 <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
 
@@ -70,7 +70,7 @@ last_modified_at: 2026-03-20T10:58:47+09:00
   - 밑수는 2 이다.
 
 <div align="center">
-  <img src="/images/posts/2022/calculate-number-in-java-03.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/calculate-number-in-java-03.png" width="30%" class="image__border">
 </div>
 <center>https:/taejunejoung.github.io/2019/12/24/java-primitive/</center>
 
@@ -89,7 +89,7 @@ last_modified_at: 2026-03-20T10:58:47+09:00
   - 가수 1.11101 값에서 소수점 아래 11101
 
 <div align="center">
-  <img src="/images/posts/2022/calculate-number-in-java-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/calculate-number-in-java-04.png" width="100%" class="image__border">
 </div>
 <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
 

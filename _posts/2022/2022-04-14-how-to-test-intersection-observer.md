@@ -32,7 +32,7 @@ last_modified_at: 2026-01-12T00:00:00
 - Web API 기능이므로 메인 스레드에 영향을 주지 않고 비동기적인 콜백 함수 호출로 관찰이 가능하다.
 
 <div align="center">
-  <img src="/images/posts/2022/how-to-test-intersection-observer-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/how-to-test-intersection-observer-01.png" width="80%" class="image__border">
 </div>
 <center>https://cross-code.github.io/posts/IntersectionObserver/</center>
 
@@ -342,7 +342,7 @@ describe('Intersection Observer', () => {
 위에서 실패했던 단위 테스트는 정상적으로 통과한다.
 
 <div align="left">
-  <img src="/images/posts/2022/how-to-test-intersection-observer-02.png" width="45%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/how-to-test-intersection-observer-02.png" width="45%" class="image__border">
 </div>
 
 <br />
@@ -350,7 +350,7 @@ describe('Intersection Observer', () => {
 구현된 코드가 브라우저에서 정상적으로 동작한다.
 
 <div align="center">
-  <img src="/images/posts/2022/how-to-test-intersection-observer-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/how-to-test-intersection-observer-03.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

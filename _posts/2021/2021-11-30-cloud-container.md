@@ -29,7 +29,7 @@ last_modified_at: 2026-03-21T17:22:53+09:00
 - 가상 머신들끼리는 독립적(independent)으로 구성되며 서로의 존재를 알 수 없다.
 
 <div align="center">
-  <img src="/images/posts/2021/cloud-container-01.gif" width="40%">
+  <img src="{{ site.image_url_2021 }}/cloud-container-01.gif" width="40%">
 </div>
 
 <br/>
@@ -59,7 +59,7 @@ last_modified_at: 2026-03-21T17:22:53+09:00
 - 컨테이너 런타임에서 실행되는 프로세스들은 호스트 머신(host machine)의 커널(kernel)을 공유한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cloud-container-02.gif" width="40%">
+  <img src="{{ site.image_url_2021 }}/cloud-container-02.gif" width="40%">
 </div>
 
 <br/>
@@ -91,7 +91,7 @@ last_modified_at: 2026-03-21T17:22:53+09:00
 컨테이너는 리눅스의 `PID namespace`가 적용된 것이다. PID namespace 분리 시 특정 네임스페이스 영역의 프로세스는 다른 네임스페이스 영역의 프로세스를 알 수 없다. `NS namespace` 분리까지 이뤄진 경우 정확하게 동작한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cloud-container-03.png" width="50%">
+  <img src="{{ site.image_url_2021 }}/cloud-container-03.png" width="50%">
 </div>
 <center>https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
 
@@ -105,7 +105,7 @@ last_modified_at: 2026-03-21T17:22:53+09:00
 컨트롤 그룹은 하드웨어 자원(CPU, memory, disk I/O, network, etc.)을 프로세스 집합에게 할당하고 제한하는 기능이다.
 
 <div align="center">
-  <img src="/images/posts/2021/cloud-container-04.png" width="50%">
+  <img src="{{ site.image_url_2021 }}/cloud-container-04.png" width="50%">
 </div>
 <center>https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
 

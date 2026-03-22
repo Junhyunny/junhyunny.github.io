@@ -16,7 +16,7 @@ last_modified_at: 2026-01-12T09:00:00
 - 유효한 소스 경로 URL이 아닙니다.
 
 <div align="center">
-  <img src="/images/posts/2021/grant-sourcetree-app-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/grant-sourcetree-app-01.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -28,7 +28,7 @@ last_modified_at: 2026-01-12T09:00:00
 다음과 같은 과정을 통해 문제를 해결할 수 있다. 우선 `Settings > Applications > Authorized OAuth Apps` 경로로 접근하여 소스트리 애플리케이션을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2021/grant-sourcetree-app-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/grant-sourcetree-app-02.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -36,7 +36,7 @@ last_modified_at: 2026-01-12T09:00:00
 SourcetreeForWindows 이미지 아래 빨간 네모 칸에 `grant` 버튼을 눌러 해당 애플리케이션 접근을 승인한다.
 
 <div align="center">
-  <img src="/images/posts/2021/grant-sourcetree-app-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/grant-sourcetree-app-03.png" width="80%" class="image__border">
 </div>
 
 <br />
@@ -44,7 +44,7 @@ SourcetreeForWindows 이미지 아래 빨간 네모 칸에 `grant` 버튼을 눌
 애플리케이션에 대한 접근을 허가하면 소스트리에서 정상적으로 해당 레포지토리가 조회된다.
 
 <div align="center">
-  <img src="/images/posts/2021/grant-sourcetree-app-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/grant-sourcetree-app-04.png" width="80%" class="image__border">
 </div>
 
 #### RECOMMEND NEXT POSTS

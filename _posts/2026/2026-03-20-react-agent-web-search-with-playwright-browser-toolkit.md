@@ -203,7 +203,7 @@ search_prompt = """
 위 프롬프트를 실행하면 AI 에이전트가 브라우저를 조작해서 웹 검색을 수행하고 내용을 요약한다.
 
 <div align="center">
-  <img src="/images/posts/2026/react-agent-web-search-with-playwright-browser-toolkit-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/react-agent-web-search-with-playwright-browser-toolkit-01.gif" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -335,7 +335,7 @@ email_prompt = """
 위 프롬프트를 실행하면 AI 에이전트가 사용자 로그인을 기다린다. AI 에이전트가 사용자 로그인이 완료되었다고 판단을 내리면, 브라우저를 조작해서 이메일을 읽고 내용을 요약한다.
 
 <div align="center">
-  <img src="/images/posts/2026/react-agent-web-search-with-playwright-browser-toolkit-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/react-agent-web-search-with-playwright-browser-toolkit-02.gif" width="100%" class="image__border">
 </div>
 
 <br/>

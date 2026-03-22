@@ -49,7 +49,7 @@ dist 경로에 빌드 결과물이 생성된다.
   - 이미지, 스타일, 자바스크립트(리액트 애플리케이션) 등이 위치한다.
 
 <div align="left">
-  <img src="/images/posts/2024/how-to-deploy-react-application-on-jar-package-01.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-deploy-react-application-on-jar-package-01.png" width="40%" class="image__border">
 </div>
 
 <br/>
@@ -88,7 +88,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 - 해당 예제는 메이븐 프로젝트의 빌드 타겟 경로이다.
 
 <div align="left">
-  <img src="/images/posts/2024/how-to-deploy-react-application-on-jar-package-02.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-deploy-react-application-on-jar-package-02.png" width="40%" class="image__border">
 </div>
 
 <br/>
@@ -96,7 +96,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 서버 애플리케이션을 실행하고 브라우저로 http://localhost:8080/todo.html 접속하면 해당 todo.html 페이지를 받을 수 있다. 만약 파일 이름이 `index.html` 이라면 `http://localhost:8080`처럼 URL 주소에서 파일 이름을 생략할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/how-to-deploy-react-application-on-jar-package-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-deploy-react-application-on-jar-package-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. Add SPA build result in jar package
@@ -113,7 +113,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 그레이들 프로젝트의 static 리소스 경로는 `build/resources/main/static`이다. 
 
 <div align="left">
-  <img src="/images/posts/2024/how-to-deploy-react-application-on-jar-package-04.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-deploy-react-application-on-jar-package-04.png" width="40%" class="image__border">
 </div>
 
 <br/>
@@ -121,7 +121,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 메이븐 프로젝트의 static 리소스 경로는 `target/classes/static`이다.
 
 <div align="left">
-  <img src="/images/posts/2024/how-to-deploy-react-application-on-jar-package-05.png" width="40%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-deploy-react-application-on-jar-package-05.png" width="40%" class="image__border">
 </div>
 
 <br/>
@@ -231,7 +231,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 브라우저로 http://localhost:8080 주소에 접속하면 리액트 애플리케이션이 정상적으로 서빙되는 것을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/how-to-deploy-react-application-on-jar-package-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-deploy-react-application-on-jar-package-06.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

@@ -34,7 +34,7 @@ last_modified_at: 2021-12-18T23:55:00
 - 여러번의 동일한 이벤트 중 마지막 이벤트만 처리한다.
 
 <p align="center">
-  <img src="/images/posts/2021/react-debounce-test-with-jest-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/react-debounce-test-with-jest-01.png" width="80%" class="image__border">
 </p>
 <center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
@@ -152,7 +152,7 @@ test('when search keyword then request one time after 500ms', () => {
 - 타이핑 완료되면 짧은 딜레이 이후 요청이 처리 된다.
 
 <p align="center">
-  <img src="/images/posts/2021/react-debounce-test-with-jest-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/react-debounce-test-with-jest-02.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING
@@ -160,7 +160,7 @@ test('when search keyword then request one time after 500ms', () => {
 useCallback 훅을 사용하지 않는 경우 리-렌더링할 때마다 매번 새로운 함수가 생성되기 때문에 제대로 된 디바운스 처리가 수행되지 않는다.
 
 <p align="center">
-  <img src="/images/posts/2021/react-debounce-test-with-jest-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/react-debounce-test-with-jest-03.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

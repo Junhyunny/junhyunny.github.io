@@ -29,7 +29,7 @@ MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queui
   - 브로커로부터 메시지를 수신 후 메시지를 로그로 출력한다.
 
 <p align="center">
-  <img src="/images/posts/2024/mqtt-subscriber-spring-boot-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/mqtt-subscriber-spring-boot-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Install mqtt-cli 

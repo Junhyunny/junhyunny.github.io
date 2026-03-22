@@ -254,7 +254,7 @@ e856fc0cf3f3d3d6ca3a127646f4e6cdbe50544a822e1765b57195f0823de512
 3. 인증서 정보를 살펴볼 수 있다. 인증서를 만들 때 작성한 정보들을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2023/adapt-temporal-certificate-on-nginx-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/adapt-temporal-certificate-on-nginx-01.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

@@ -209,7 +209,7 @@ aae4f57de1107e4f2d216e3fdfb6a334495a09caa95ae28b466130f6e6c170ea
 - 새로고침을 통해 화면을 갱신하면 첫 요청과 마찬가지로 약 20초 정도 다운로드 받는 시간이 동일하게 소요된다.
 
 <div align="center">
-  <img src="/images/posts/2023/cache-control-on-nginx-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/cache-control-on-nginx-01.gif" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -221,7 +221,7 @@ aae4f57de1107e4f2d216e3fdfb6a334495a09caa95ae28b466130f6e6c170ea
 - 네트워크 트래픽이 발생하지 않으므로 자원 요청 시간이 0초인 것을 볼 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2023/cache-control-on-nginx-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/cache-control-on-nginx-02.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

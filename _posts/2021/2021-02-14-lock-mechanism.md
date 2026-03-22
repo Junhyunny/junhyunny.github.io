@@ -33,7 +33,7 @@ last_modified_at: 2025-07-02T22:45:00
   - 업데이트 결과가 0건이라면 다른 트랜잭션에 의한 데이터 변경을 인지하여 `OptimisticLockException`을 발생시킨다.
 
 <div align="center">
-  <img src="/images/posts/2021/application-lock-mechanism-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/application-lock-mechanism-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Pessimistic Lock
@@ -52,7 +52,7 @@ last_modified_at: 2025-07-02T22:45:00
 2. 다른 트랜잭션들은 잠금된 데이터에 대해 업데이트 수행 시 데이터 락을 선점한 특정 트랜잭션 종료 시점까지 대기한다.
 
 <div align="center">
-  <img src="/images/posts/2021/application-lock-mechanism-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/application-lock-mechanism-02.png" width="80%" class="image__border">
 </div>
 
 #### RECOMMEND NEXT POSTS

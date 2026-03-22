@@ -214,7 +214,7 @@ NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED -
 서비스가 준비되면 브라우저에서 실행 모습을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2022/deploy-spring-boot-project-as-war-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/deploy-spring-boot-project-as-war-01.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

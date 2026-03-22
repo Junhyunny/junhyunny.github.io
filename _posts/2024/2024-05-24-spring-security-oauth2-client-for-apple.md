@@ -35,7 +35,7 @@ last_modified_at: 2024-05-24T23:55:00
 - 리다이렉트 된 요청은 403(forbidden) 응답을 받는다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.1. Phenomenon
@@ -49,7 +49,7 @@ last_modified_at: 2024-05-24T23:55:00
 ```
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. What is the problem?
@@ -64,7 +64,7 @@ last_modified_at: 2024-05-24T23:55:00
   2. 액세스 토큰을 받는다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -110,7 +110,7 @@ last_modified_at: 2024-05-24T23:55:00
 마지막으로 JWT 토큰 서명(signature)을 만들 때 `AuthKey_XXXXXXXXXX.p8` 포맷의 비공개 키 파일을 사용한다. 애플 개발자 센터에서 해당 파일을 발급 받는다. 헤더, 페이로드, 서명까지 모두 Base64 인코딩하면 새로운 클라이언트 시크릿이 만들어진다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-04.png" width="80%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -131,7 +131,7 @@ last_modified_at: 2024-05-24T23:55:00
   - 요청 정보가 정상적인 경우 액세스 토큰(access token)을 응답 받는다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -145,7 +145,7 @@ last_modified_at: 2024-05-24T23:55:00
   - 부모 클래스의 createParameters 메서드로 만든 요청 파라미터를 반환한다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-06.png" width="100%" class="image__border">
 </div>
 
 ### 2.1. application.yml
@@ -410,7 +410,7 @@ public class SecurityConfig {
 - 정상적으로 액세스 토큰, 리프레시 토큰, 아이디 토큰을 발급 받는다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-client-for-apple-07.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-client-for-apple-07.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

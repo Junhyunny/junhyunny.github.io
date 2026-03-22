@@ -18,7 +18,7 @@ last_modified_at: 2021-09-29T23:55:00
 먼저 블로킹(blocking)과 논-블로킹(non-blocking)은 기술적으로 명확하다. 어떤 일을 요청하고 결과(혹은 응답)을 기다리는지 아닌지에 따라 블로킹, 논-블로킹이 구분된다. 먼저 블로킹은 요청을 보낸 후 응답을 기다린다. 예를 들면 서버 요청/응답 방식이나 일반적인 함수 호출을 예로 들 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/asynchronous-and-non-blocking-process-01.gif" width="50%">
+  <img src="{{ site.image_url_2021 }}/asynchronous-and-non-blocking-process-01.gif" width="50%">
 </div>
 
 <br/>
@@ -26,7 +26,7 @@ last_modified_at: 2021-09-29T23:55:00
 논-블로킹 방식은 요청을 보낸 후 응답을 기다리지 않는다. 응답을 기다리기 위해 자신이 수행하는 일을 멈추지 않는다. 멀티 스레드(multi-thread) 같은 기술을 통해 구현할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/asynchronous-and-non-blocking-process-02.gif" width="50%">
+  <img src="{{ site.image_url_2021 }}/asynchronous-and-non-blocking-process-02.gif" width="50%">
 </div>
 
 ## 2. Synchronous and Asynchronous
@@ -56,7 +56,7 @@ last_modified_at: 2021-09-29T23:55:00
 블로킹, 논-블로킹, 동기, 비동기 개념은 서로 조합되어 이야기된다. 자연스러운 조합도 있지만, 직관적인 이해가 어려운 조합도 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/asynchronous-and-non-blocking-process-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/asynchronous-and-non-blocking-process-03.png" width="80%" class="image__border">
 </div>
 <center>https://hamait.tistory.com/930</center>
 

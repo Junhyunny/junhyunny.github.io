@@ -36,7 +36,7 @@ last_modified_at: 2021-12-18T23:55:00
 - 이후 여러번의 동일한 이벤트가 발생하지만, 설정한 시간 간격 이내에 발생한 이벤트는 무시한다.
 
 <p align="center">
-  <img src="/images/posts/2021/throttle-test-with-jest-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/throttle-test-with-jest-01.png" width="80%" class="image__border">
 </p>
 <center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
@@ -193,7 +193,7 @@ test("when occur 100 times event with throttle in 500ms then invoke 100 times", 
   - 하단 블록은 스로틀 처리된 상태이기 때문에 비교적 변화가 적다.
 
 <p align="center">
-  <img src="/images/posts/2021/throttle-test-with-jest-02.gif" width="100%">
+  <img src="{{ site.image_url_2021 }}/throttle-test-with-jest-02.gif" width="100%">
 </p>
 
 #### TEST CODE REPOSITORY

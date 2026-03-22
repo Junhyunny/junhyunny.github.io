@@ -52,7 +52,7 @@ last_modified_at: 2024-02-18T23:55:00
 - 스텝(step)
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-01.png" width="100%" class="image__border">
 </p>
 <center>https://docs.github.com/ko/actions/learn-github-actions/understanding-github-actions</center>
 
@@ -130,19 +130,19 @@ jobs:
   - 필자는 `Simple workflow`를 선택했다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-02.png" width="100%" class="image__border">
 </p>
 
 - 워크플로우 yml 파일을 생성한다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-03.png" width="100%" class="image__border">
 </p>
 
 - 액션스 섹션에서 방금 생성한 워크플로우가 실행되는 것을 확인할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/github-actions-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/github-actions-04.png" width="100%" class="image__border">
 </p>
 
 ## CLOSING

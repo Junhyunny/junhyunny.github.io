@@ -211,7 +211,7 @@ public class CoyoteAdapter implements Adapter {
 - 밸브 컴포넌트는 웹 애플리케이션이 아닌 카탈리나 컨테이너에 위치한다. 서블릿 필터가 동작하기 전에 실행된다.
 
 <div align="center">
-  <img src="/images/posts/2022/catalina-valve-component-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/catalina-valve-component-01.png" width="80%" class="image__border">
 </div>
 <center>https://m.blog.naver.com/gallechess/221047184041</center>
 

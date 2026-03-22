@@ -52,7 +52,7 @@ public interface HandlerMethodArgumentResolver {
 6. `HandlerMethod` 인스턴스는 자신과 연결된 컨트롤러의 메서드를 호출(invoke)한다. 
 
 <div align="center">
-  <img src="/images/posts/2021/handler-method-argument-resolver-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/handler-method-argument-resolver-01.png" width="100%" class="image__border">
 </div>
 
 <br/>

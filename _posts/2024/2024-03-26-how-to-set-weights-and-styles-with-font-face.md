@@ -20,13 +20,13 @@ last_modified_at: 2024-03-26T23:55:00
 - `Get font` 버튼을 누른다.
 
 <p align="center">
-  <img src="/images/posts/2024/how-to-set-weights-and-styles-with-font-face-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-01.png" width="100%" class="image__border">
 </p>
 
 - `Download all` 버튼을 누른다.
 
 <p align="center">
-  <img src="/images/posts/2024/how-to-set-weights-and-styles-with-font-face-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-02.png" width="100%" class="image__border">
 </p>
 
 ## 2. @font-face directive
@@ -163,7 +163,7 @@ export default App;
 ```
 
 <p align="center">
-  <img src="/images/posts/2024/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
 </p>
 
 #### 3.1.1. Mismatch font-weight and font-style
@@ -196,7 +196,7 @@ export default App;
 ```
 
 <p align="center">
-  <img src="/images/posts/2024/how-to-set-weights-and-styles-with-font-face-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-04.png" width="80%" class="image__border">
 </p>
 
 ### 3.2. Style Linking
@@ -261,7 +261,7 @@ body {
 ```
 
 <p align="center">
-  <img src="/images/posts/2024/how-to-set-weights-and-styles-with-font-face-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-05.png" width="80%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

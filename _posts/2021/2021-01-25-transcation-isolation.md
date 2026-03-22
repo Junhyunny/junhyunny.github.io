@@ -26,7 +26,7 @@ last_modified_at: 2025-06-15T00:00:00
 - `트랜잭션_2`가 조회한 사용자 정보는 `트랜잭션_1`에서 변경한 모습으로 반영되어 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/transcation-isolation-01.png" alt="더티 리드 예시" width="80%">
+  <img src="{{ site.image_url_2021 }}/transcation-isolation-01.png" alt="더티 리드 예시" width="80%">
 </div>
 
 <br />
@@ -42,7 +42,7 @@ last_modified_at: 2025-06-15T00:00:00
 - `트랜잭션_2`가 조회한 사용자 정보는 `트랜잭션_1`에서 변경한 모습으로 반영되어 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/transcation-isolation-02.png" alt="비반복 읽기 예시" width="80%">
+  <img src="{{ site.image_url_2021 }}/transcation-isolation-02.png" alt="비반복 읽기 예시" width="80%">
 </div>
 
 <br />
@@ -58,7 +58,7 @@ last_modified_at: 2025-06-15T00:00:00
 - `트랜잭션_2`가 테이블에 저장된 데이터 수를 확인하면 2개이다.
 
 <div align="center">
-  <img src="/images/posts/2021/transcation-isolation-03.png" alt="팬텀 리드 예시" width="80%">
+  <img src="{{ site.image_url_2021 }}/transcation-isolation-03.png" alt="팬텀 리드 예시" width="80%">
 </div>
 
 ## 2. Transaction Isolation Level
@@ -72,7 +72,7 @@ last_modified_at: 2025-06-15T00:00:00
 - 더티 리드, 비반복 읽기, 팬텀 리드 현상이 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2021/transcation-isolation-04.png" alt="Read Uncommitted 예시" width="80%">
+  <img src="{{ site.image_url_2021 }}/transcation-isolation-04.png" alt="Read Uncommitted 예시" width="80%">
 </div>
 
 <br />
@@ -84,7 +84,7 @@ last_modified_at: 2025-06-15T00:00:00
 - 비반복 읽기, 팬텀 리드 현상이 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2021/transcation-isolation-05.png" alt="Read Committed 예시" width="80%">
+  <img src="{{ site.image_url_2021 }}/transcation-isolation-05.png" alt="Read Committed 예시" width="80%">
 </div>
 
 <br />
@@ -96,7 +96,7 @@ last_modified_at: 2025-06-15T00:00:00
 - 팬텀 리드 현상이 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2021/transcation-isolation-06.png" alt="Repeatable Read 예시" width="80%">
+  <img src="{{ site.image_url_2021 }}/transcation-isolation-06.png" alt="Repeatable Read 예시" width="80%">
 </div>
 
 <br />

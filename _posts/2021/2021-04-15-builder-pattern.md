@@ -32,7 +32,7 @@ last_modified_at: 2026-03-19T09:26:18+09:00
   - Product를 만드는 방법을 구체적으로 구현
 
 <div align="center">
-  <img src="/images/posts/2021/builder-pattern-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/builder-pattern-01.png" width="80%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Builder_pattern</center>
 
@@ -407,8 +407,8 @@ class NutritionFacts {
 빌더 패턴과 관련한 대부분의 포스트들은 `Effective Java`의 빌더 패턴과 관련된 내용들이다. `GoF 디자인 패턴`에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋다. OKKY 커뮤니티에서 본 빌더 패턴 관련 글들이 참고할 만한 내용이라 포스트 마지막에 추가했다.
 
 <div align="center" class="vertical__top">
-  <img src="/images/posts/2021/builder-pattern-02.png" width="47.5%" class="image__border">
-  <img src="/images/posts/2021/builder-pattern-03.png" width="47.5%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/builder-pattern-02.png" width="47.5%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/builder-pattern-03.png" width="47.5%" class="image__border">
 </div>
 <center>https://okky.kr/article/396206</center>
 

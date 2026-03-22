@@ -202,7 +202,7 @@ struct ContentView: View {
 다음과 같이 스타일이 적용된다.
 
 <div align="center">
-  <img src="/images/posts/2024/reusable-style-in-swift-ui-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/reusable-style-in-swift-ui-01.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

@@ -89,7 +89,7 @@ test-backend-app:
 디폴트는 쉘(shell) 실행자이며, 위에서 문제가 된 방식은 도커 실행자 환경에서 동작한다. 도커 실행자는 CI/CD 잡을 도커 이미지 위에서 실행하는 방식이다. 문제는 여기서 발생한다. 위에서 문제가 된 CI 잡은 도커 이미지 환경에서 동작하다보니 컨테이너 내부에 도커가 준비되어 있지 않다면 테스트 컨테이너가 실행되지 않는다. 
 
 <div align="center">
-  <img src="/images/posts/2025/docker-in-docker-in-gitlab-ci-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/docker-in-docker-in-gitlab-ci-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -97,7 +97,7 @@ test-backend-app:
 이런 경우에는 도커-인-도커(DinD, docker in docker) 설정이나 도커-아웃-오브-도커(DooD, docker out of docker) 같은 환경이 필요하다. 도커-인-도커는 도커가 설치된 도커 컨테이너를 사용하는 방식이고, 도커-아웃-오브-도커는 볼륨을 통해 컨테이너의 파일 시스템을 호스트 머신의 파일 시스템으로 마운트(mount)하여 호스트의 `docker.sock`을 공유는 방식이다. 
 
 <div align="center">
-  <img src="/images/posts/2025/docker-in-docker-in-gitlab-ci-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/docker-in-docker-in-gitlab-ci-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -107,7 +107,7 @@ test-backend-app:
 - 도커-인-도커가 가능한 데몬 컨테이너를 띄우고 도커-아웃-오브-도커 방식처럼 잡을 실행하는 컨테이너가 외부 서비스 컨테이너의 도커 데몬을 사용한다. 
 
 <div align="center">
-  <img src="/images/posts/2025/docker-in-docker-in-gitlab-ci-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/docker-in-docker-in-gitlab-ci-03.png" width="80%" class="image__border">
 </div>
 
 <br/>

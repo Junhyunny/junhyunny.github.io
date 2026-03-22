@@ -65,7 +65,7 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
 - `Object.prototype` 객체의 `[[Prototype]]` 내부 슬롯 값은 `null`이다.
 
 <div align="left">
-  <img src="/images/posts/2023/prototype-chain-in-javascript-01.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-chain-in-javascript-01.png" width="60%" class="image__border">
 </div>
 
 위 프로토타입 체인은 이미지로 시각화 하면 아래와 같이 연결된다.
@@ -73,7 +73,7 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
 - firstCircle 인스턴스의 프로토타입 체인은 Circle 프로토타입과 Object 프로토타입 객체로 연결된다.
 
 <div align="center">
-  <img src="/images/posts/2023/prototype-chain-in-javascript-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-chain-in-javascript-02.png" width="80%" class="image__border">
 </div>
 
 ## 2. Property Overriding and Shadowing
@@ -128,7 +128,7 @@ person.sayHello(); // Uncaught TypeError: person.sayHello is not a function
 위 코드는 다음과 같은 프로토타입 체인을 갖고 있다.
 
 <div align="center">
-  <img src="/images/posts/2023/prototype-chain-in-javascript-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/prototype-chain-in-javascript-03.png" width="80%" class="image__border">
 </div>
 
 #### REFERENCE

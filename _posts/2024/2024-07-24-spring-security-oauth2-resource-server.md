@@ -44,7 +44,7 @@ last_modified_at: 2024-06-24T23:55:00
   - 액세스 토큰이 유효한 경우 리소스 오너의 보호된 정보를 반환한다. 
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-resource-server-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-resource-server-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Validate Access Token Process in Spring Boot OAuth2 Resource Server
@@ -146,7 +146,7 @@ public class SecurityConfig {
   - 공개 키를 사용해 동일한 서명이 만들어지는지 확인한다.
 
 <div align="center">
-  <img src="/images/posts/2024/spring-security-oauth2-resource-server-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/spring-security-oauth2-resource-server-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

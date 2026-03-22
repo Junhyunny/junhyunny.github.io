@@ -43,7 +43,7 @@ last_modified_at: 2023-06-05T23:55:00
   - 백그라운드 동기화나 푸시 알림을 받아 처리할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2023/service-worker-api-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/service-worker-api-01.png" width="80%" class="image__border">
 </p>
 
 ## 2. Service Worker Lifecycle and States
@@ -71,7 +71,7 @@ last_modified_at: 2023-06-05T23:55:00
   - redundant 상태의 서비스 워커는 앱에 아무런 영향을 미치지 못 한다.
 
 <p align="center">
-  <img src="/images/posts/2023/service-worker-api-02.png" width="80%" class="image__border image__padding">
+  <img src="{{ site.image_url_2023 }}/service-worker-api-02.png" width="80%" class="image__border image__padding">
 </p>
 <center>https://www.oreilly.com/library/view/building-progressive-web/9781491961643/ch04.html</center>
 
@@ -248,7 +248,7 @@ GET /favicon.ico 404 1.793 ms - 150
   - 이후에 Cat Image 버튼을 누르면 캐시된 데이터에 의해 이미지 변경이 발생하지 않는다.
 
 <p align="center">
-  <img src="/images/posts/2023/service-worker-api-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/service-worker-api-03.gif" width="100%" class="image__border">
 </p>
 
 #### TEST CODE REPOSITORY

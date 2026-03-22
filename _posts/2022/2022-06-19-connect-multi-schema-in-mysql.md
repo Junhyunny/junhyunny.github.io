@@ -133,7 +133,7 @@ public class MultiSchemaTests {
 테스트를 수행하면 실패한다.
 
 <div align="center">
-  <img src="/images/posts/2022/connect-multi-schema-in-mysql-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/connect-multi-schema-in-mysql-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -231,7 +231,7 @@ public class Friend {
 위 설정 후 테스트를 수행하면 정상적으로 처리된다.
 
 <div align="center">
-  <img src="/images/posts/2022/connect-multi-schema-in-mysql-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/connect-multi-schema-in-mysql-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -309,7 +309,7 @@ public class MultiSchemaTests {
 위 두 개의 테스트를 동시에 실행하더라도 정상적으로 통과한다.
 
 <div align="center">
-  <img src="/images/posts/2022/connect-multi-schema-in-mysql-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/connect-multi-schema-in-mysql-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. @Table annotaion's schema attribute
@@ -321,7 +321,7 @@ public class MultiSchemaTests {
 - 3계층 데이터베이스의 대표적인 예로 MySQL를 들 수 있으며, 이런 경우에는 데이터베이스와 스키마를 혼동하여 사용하는 경우가 발생한다.
 
 <div align="center">
-  <img src="/images/posts/2022/connect-multi-schema-in-mysql-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/connect-multi-schema-in-mysql-04.png" width="80%" class="image__border">
 </div>
 <center>https://hue9010.github.io/db/mysql_schema/</center>
 
@@ -344,7 +344,7 @@ MySQL ODBC(Open Database Connectivity) 드라이버는 카탈로그와 데이터
 - NO_CATALOG, NO_SCHEMA 설정에 따라 드라이버에서 카탈로그와 스키마를 사용할지 여부를 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2022/connect-multi-schema-in-mysql-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/connect-multi-schema-in-mysql-05.png" width="80%" class="image__border">
 </div>
 <center>https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html</center>
 

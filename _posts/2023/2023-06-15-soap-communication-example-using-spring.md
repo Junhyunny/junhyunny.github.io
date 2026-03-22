@@ -27,7 +27,7 @@ last_modified_at: 2025-12-15T23:55:00
 7. 제공자는 처리가 완료되면 HTTP를 통해 소비자에게 `SOAP` 메시지 응답을 전달한다.
 
 <div align="center">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-01.png" width="80%" class="image__border image__padding">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://gruuuuu.github.io/programming/soap/</center>
 
@@ -57,7 +57,7 @@ last_modified_at: 2025-12-15T23:55:00
 5. 소비자는 생성한 클래스를 사용해 필요한 API 호출 기능을 개발한다.
 
 <div align="center">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-02.png" width="80%" class="image__border">
 </div>
 
 ### 1.2. Web Service in Spring
@@ -75,7 +75,7 @@ last_modified_at: 2025-12-15T23:55:00
   - 서비스 소비자에서는 WSDL 문서를 기반으로 Java 클래스 파일을 생성한다.
 
 <div align="center">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-03.png" width="80%" class="image__border">
 </div>
 
 ## 2. Scenario
@@ -92,7 +92,7 @@ last_modified_at: 2025-12-15T23:55:00
   - REST 통신 구간
 
 <div align="center">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-04.png" width="100%" class="image__border">
 </div>
 
 ## 3. Serivce Provider Application
@@ -300,7 +300,7 @@ BUILD SUCCESSFUL in 1s
 다음 위치에 클래스들이 생성된다.
 
 <div align="left">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-05.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-05.png" width="30%" class="image__border">
 </div>
 
 ### 3.4. AuthorEndPoint Class
@@ -413,7 +413,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 서비스 제공자 애플리케이션을 실행 후 `http://localhost:8080/ws/schemas.wsdl` 경로로 접근하면 다음과 같은 화면을 볼 수 있다. WSDL 구조에 대한 설명은 [SOAP 글][soap-link]을 참조하길 바란다.
 
 <div align="center">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-06.png" width="100%" class="image__border">
 </div>
 
 ## 4. Serivce Consumer Application
@@ -577,7 +577,7 @@ BUILD SUCCESSFUL in 1s
 다음과 같은 경로에 클래스들이 생성된 것을 확인할 수 있다.
 
 <div align="left">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-07.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-07.png" width="30%" class="image__border">
 </div>
 
 ### 4.3. SoapConfig Class
@@ -779,7 +779,7 @@ $ docker-compose up -d
 도커 컴포즈를 통해 두 애플리케이션을 실행한다. cURL 명령어를 통해 소비자에게 정보를 요청 후 응답을 받는다.
 
 <div align="center">
-  <img src="/images/posts/2023/soap-communication-example-using-spring-08.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/soap-communication-example-using-spring-08.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

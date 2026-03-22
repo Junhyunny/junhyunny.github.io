@@ -51,7 +51,7 @@ last_modified_at: 2026-02-28T23:55:00
 - `Store a new secret` 버튼을 클릭한다.
 
 <div align="center">
-  <img src="/images/posts/2023/aws-secrets-manager-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/aws-secrets-manager-01.png" width="100%" class="image__border">
 </div>
 
 <br />
@@ -61,7 +61,7 @@ last_modified_at: 2026-02-28T23:55:00
 - `Other type of secret`을 선택 후 필요한 설정을 키/값 형태로 입력한다.
 
 <div align="center">
-  <img src="/images/posts/2023/aws-secrets-manager-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/aws-secrets-manager-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -72,7 +72,7 @@ last_modified_at: 2026-02-28T23:55:00
 - 이름을 `/secret/action-in-blog`으로 지정하였다.
 
 <div align="center">
-  <img src="/images/posts/2023/aws-secrets-manager-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/aws-secrets-manager-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -80,7 +80,7 @@ last_modified_at: 2026-02-28T23:55:00
 해당 화면에서 추가 설정 없이 다음(next) 버튼을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2023/aws-secrets-manager-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/aws-secrets-manager-04.png" width="100%" class="image__border">
 </div>
 
 <br/> 
@@ -88,7 +88,7 @@ last_modified_at: 2026-02-28T23:55:00
 해당 화면에서 추가 설정 없이 저장(store) 버튼을 선택한다.
 
 <div align="center">
-  <img src="/images/posts/2023/aws-secrets-manager-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/aws-secrets-manager-05.png" width="100%" class="image__border">
 </div>
 
 ## 4. Configuration in Spring Boot
@@ -251,7 +251,7 @@ public class ActionInBlogApplication {
   - DB_PASSWORD - mysql123
 
 <div align="center">
-  <img src="/images/posts/2023/aws-secrets-manager-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/aws-secrets-manager-06.png" width="100%" class="image__border">
 </div>
 
 <br/>

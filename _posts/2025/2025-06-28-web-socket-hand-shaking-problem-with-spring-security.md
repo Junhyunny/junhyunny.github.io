@@ -105,7 +105,7 @@ public class SecurityConfig {
 위와 같은 상황에서 사용자가 로그인 후 서비스를 이용한다. 사용자가 서비스를 이용하는 중 긴 시간동안 서버와 인터렉션이 없어서 세션이 만료된 후 다시 로그인을 수행하면 서비스 경로가 아닌 웹 소켓 핸드쉐이킹(handshaking) 경로로 리다이렉트 된다. 브라우저가 로그인 성공 후 설정에 지정한 `http://localhost:5173` 경로가 아닌 `http://localhost:5173/ws/info?t=1751126372382&continue` 경로로 리다이렉트 되는 것이다.
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/web-socket-hand-shaking-problem-with-spring-security-01.png" width="80%" class="image__border">
 </div>
 
 ## 2. Cause of the problem
@@ -113,7 +113,7 @@ public class SecurityConfig {
 최초 로그인은 문제 없이 잘 동작했다. 로그인 한 사용자의 세션이 만료된 후 재로그인을 수행하면 이런 문제가 발생했다. 원인은 무엇일까? 우선 사용자 세션이 만료되면 웹 소켓 클라이언트는 지속적으로 연결을 시도한다. 브라우저 개발자 도구의 네트워크 탭을 보면 연결을 계속 시도하는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/web-socket-hand-shaking-problem-with-spring-security-02.gif" width="100%" class="image__border">
 </div>
 
 <br />
@@ -159,7 +159,7 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 3. HttpSessionRequestCache 객체는 요청 정보를 세션에 저장한다.
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/web-socket-hand-shaking-problem-with-spring-security-03.png" width="100%" class="image__border">
 </div>
 
 <br />
@@ -207,7 +207,7 @@ public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuth
 3. HttpSessionRequestCache 객체는 요청 정보를 세션으로부터 꺼낸다. SavedRequestAwareAuthenticationSuccessHandler 객체는 캐싱된 요청 정보가 있다면 해당 경로로 사용자를 리다이렉트시킨다.
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/web-socket-hand-shaking-problem-with-spring-security-04.png" width="100%" class="image__border">
 </div>
 
 ## 3. Solve the problem
@@ -215,7 +215,7 @@ public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuth
 원인을 파악했으니 문제를 해결해보자. onAuthenticationSuccess 메서드를 보면 isAlwaysUseDefaultTargetUrl() 메서드를 볼 수 있다. isAlwaysUseDefaultTargetUrl() 메서드의 결과가 참(true)인 경우 세션에 저장된 요청 객체가 있더라도 항상 지정한 리다이렉트 URL로 요청을 보낸다. 이 메서드는 부모 클래스인 AbstractAuthenticationTargetUrlRequestHandler에 정의되어 있다. 
 
 <div align="center">
-  <img src="/images/posts/2025/web-socket-hand-shaking-problem-with-spring-security-05.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/web-socket-hand-shaking-problem-with-spring-security-05.png" width="60%" class="image__border">
 </div>
 
 <br />

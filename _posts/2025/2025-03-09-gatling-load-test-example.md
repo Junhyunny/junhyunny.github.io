@@ -98,7 +98,7 @@ setUp(scn.injectOpen(injectionProfile))
 마지막으로 리포트(reports)는 시뮬레이션이 끝나면 자동으로 생성되는 HTML 파일을 의미한다. 실행하면 브라우저에서 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/gatling-load-test-example-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/gatling-load-test-example-01.png" width="100%" class="image__border">
 </div>
 <center>https://docs.gatling.io/reference/stats/reports/oss/</center>
 
@@ -320,7 +320,7 @@ Global: percentage of successful events is greater than 95.0 : true (actual : 10
 - 응답 시간 조건이 충족되지 못 했다는 것과 얼마나 많은 사용자가 느린 응답을 받았는지 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/gatling-load-test-example-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/gatling-load-test-example-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

@@ -337,7 +337,7 @@ $ npm run dev
 브라우저 화면에서 Todo 아이템을 생성하면 정상적으로 처리되는 것을 확인할 수 있다. 
 
 <div align="center">
-  <img src="/images/posts/2025/issue-csrf-token-between-spring-security-and-react-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/issue-csrf-token-between-spring-security-and-react-01.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

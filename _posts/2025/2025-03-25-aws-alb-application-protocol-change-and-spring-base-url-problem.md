@@ -56,7 +56,7 @@ spring:
 - 400 오류: redirect_uri_mismatch
 
 <div align="center">
-  <img src="/images/posts/2025/aws-alb-application-protocol-change-and-spring-base-url-problem-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-alb-application-protocol-change-and-spring-base-url-problem-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -64,7 +64,7 @@ spring:
 브라우저의 개발자 모드를 통해 네트워크 탭으로 OAuth2 인가 코드 리다이렉트 요청을 살펴보면 리다이렉트 URL의 프로토콜이 `https`가 아닌 `http`인 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-alb-application-protocol-change-and-spring-base-url-problem-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-alb-application-protocol-change-and-spring-base-url-problem-02.png" width="80%" class="image__border">
 </div>
 
 ## 2. Cause of the problem
@@ -77,7 +77,7 @@ spring:
   - HTTP 통신을 수행한다. ALB 리스너(listener)를 통해 트래픽이 EC2 컨테이너 8080 포트로 포워딩된다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-alb-application-protocol-change-and-spring-base-url-problem-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-alb-application-protocol-change-and-spring-base-url-problem-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -137,7 +137,7 @@ AWS ALB는 서버 애플리케이션 기준으로 프록시 서버 역할을 수
 - X-Forwarded-Port
 
 <div align="center">
-  <img src="/images/posts/2025/aws-alb-application-protocol-change-and-spring-base-url-problem-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-alb-application-protocol-change-and-spring-base-url-problem-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -155,7 +155,7 @@ AWS ALB를 통과할 때 `X-Forwarded-` 헤더가 추가되어 이를 통해 원
 - ForwardedHeaderFilter의 다음 필터부터는 요청 객체의 헤더, 프로토콜을 원본 요청의 것을 사용한다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-alb-application-protocol-change-and-spring-base-url-problem-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-alb-application-protocol-change-and-spring-base-url-problem-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -189,7 +189,7 @@ server:
 FRAMEWORK 설정 후 서비스를 배포하면 정상적으로 리다이렉트 URL이 설정되는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-alb-application-protocol-change-and-spring-base-url-problem-06.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-alb-application-protocol-change-and-spring-base-url-problem-06.png" width="80%" class="image__border">
 </div>
 
 ## CLOSING

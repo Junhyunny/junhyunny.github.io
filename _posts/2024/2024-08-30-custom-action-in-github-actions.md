@@ -83,7 +83,7 @@ jobs:
 먼저 별도 레포지토리에 커스텀 액션을 만들어보자. 예제를 위해 `sum`이라는 새로운 레포지토리를 만든다. 해당 레포지토리 루트에 `action.yml` 파일을 만든다.
 
 <div align="center">
-  <img src="/images/posts/2024/custom-action-in-github-actions-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/custom-action-in-github-actions-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -190,7 +190,7 @@ runs:
 외부 레포지토리에 만든 커스텀 액션을 실행하면 다음과 같은 로그를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/custom-action-in-github-actions-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/custom-action-in-github-actions-02.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -198,7 +198,7 @@ runs:
 동일 레포지토리에 만든 커스텀 액션을 실행하면 다음과 같은 로그를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/custom-action-in-github-actions-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/custom-action-in-github-actions-03.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

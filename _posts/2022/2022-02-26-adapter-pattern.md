@@ -43,7 +43,7 @@ last_modified_at: 2026-01-23T14:48:00
   - 어댑터는 어댑티를 상속(Inheritance)받거나, 어댑티에게 기능을 위임(Delegating)한다.
 
 <div align="center">
-  <img src="/images/posts/2022/adapter-pattern-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/adapter-pattern-01.png" width="80%" class="image__border">
 </div>
 <center>https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/</center>
 
@@ -68,7 +68,7 @@ last_modified_at: 2026-01-23T14:48:00
   - SessionRegistry 인터페이스를 구현하며, 데이터베이스에 세션 정보를 저장, 획득, 삭제한다.
 
 <div align="center">
-  <img src="/images/posts/2022/adapter-pattern-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/adapter-pattern-02.png" width="80%" class="image__border">
 </div>
 
 ### 2.1. Legacy codes
@@ -258,7 +258,7 @@ public class InheritanceUsage {
 클래스 다이어그램으로 현재 상황을 표현하면 다음과 같다.
 
 <div align="center">
-  <img src="/images/posts/2022/adapter-pattern-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/adapter-pattern-03.png" width="100%" class="image__border">
 </div>
 
 #### 2.2.2. Adapter pattern through instance delegating
@@ -329,7 +329,7 @@ public class DelegateUsage {
 클래스 다이어그램으로 현재 상황을 표현하면 다음과 같다.
 
 <div align="center">
-  <img src="/images/posts/2022/adapter-pattern-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/adapter-pattern-04.png" width="100%" class="image__border">
 </div>
 
 ## 3. Adapter pattern in Spring

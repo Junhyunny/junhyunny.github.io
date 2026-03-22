@@ -127,7 +127,7 @@ CDK는 다음 요소들을 조합하여 인프라를 구축한다.
 3. 생성된 템플릿을 CloudFormation에 배포하면 필요한 AWS 리소스들이 생성된다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-01.png" width="80%" class="image__border">
 </div>
 <center>https://docs.aws.amazon.com/cdk/v2/guide/home.html</center>
 
@@ -150,7 +150,7 @@ CDK 컨스트럭트도 추상화 수준에 따라 세 가지 레벨로 구분된
 - EC2
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-02.png" width="100%" class="image__border">
 </div>
 
 ### 4.1. ActionInBlogStack
@@ -407,7 +407,7 @@ Using default execution policy of 'arn:aws:iam::aws:policy/AdministratorAccess'.
 최초 부트스트래핑을 수행하면 CloudFormation에 `CDKToolkit`이라는 스택이 생성된다. 부트스트래핑을 수행할 때 파워 유저(power user)는 권한이 충분하지 않지만, 이미 만들어진 CDKToolKit 스택이 있다면 파워 유저도 애플리케이션을 배포하기 위한 인프라 스택을 구축할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-03.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -542,7 +542,7 @@ arn:aws:cloudformation:ap-northeast-1:123412341234:stack/action-in-blog-dev/6121
 배포가 완료되면 CloudFormation에 현재 생성한 스택을 확인할 수 있다. 
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -550,7 +550,7 @@ arn:aws:cloudformation:ap-northeast-1:123412341234:stack/action-in-blog-dev/6121
 브라우저에서 위 배포 결과에 출력된 ALB DNS 주소록 접속하면 `Welcome to Apache`라는 헤더를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2025/aws-cloud-development-kit-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/aws-cloud-development-kit-05.png" width="100%" class="image__border">
 </div>
 
 <br/>

@@ -28,7 +28,7 @@ last_modified_at: 2026-03-19T23:47:08+09:00
 에이전트는 주어진 작업이 성공적으로 완료되거나 만족스러운 결론에 도달할 때까지 이 `추론-행동-관찰` 루프를 자율적으로 반복한다.
 
 <div align="center">
-  <img src="/images/posts/2026/react-agent-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/react-agent-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.leewayhertz.com/react-agents-vs-function-calling-agents/</center>
 
@@ -177,7 +177,7 @@ $ python3 src/main.py
 아래 이미지처럼 추론, 행동, 관찰 과정을 로그로 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2026/react-agent-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/react-agent-02.gif" width="100%" class="image__border">
 </div>
 
 <br/>

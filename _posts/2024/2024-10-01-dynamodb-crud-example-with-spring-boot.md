@@ -81,7 +81,7 @@ last_modified_at: 2024-09-30T23:55:00
 AWS SDK를 사용할 때 버전에 주의해야 한다. 많은 예제들이 SDK V1을 사용하고 있지만, 24년 7월 31일부터 유지 관리 모드로 변경되었다. AWS는 25년 12월에 서포트를 중지하기 때문에 V2로 마이그레이션하는 것을 권장한다.
 
 <div align="center">
-  <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/dynamodb-crud-example-with-spring-boot-01.png" width="100%" class="image__border">
 </div>
 <center>https://docs.aws.amazon.com/ko_kr/sdk-for-java/v1/developer-guide/examples-dynamodb-items.html</center>
 
@@ -134,7 +134,7 @@ data class TodoEntity(
 위에서 언급한 Baeldung 포스트에서 사용한 `com.github.derjust.spring-data-dynamodb` 의존성은 거의 5년째 유지 보수 되고 있지 않으니 주의하길 바란다. 
 
 <div align="center">
-  <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/dynamodb-crud-example-with-spring-boot-02.png" width="100%" class="image__border">
 </div>
 <center>https://github.com/derjust/spring-data-dynamodb</center>
 
@@ -478,7 +478,7 @@ $ docker compose up -d
   - 데이터 업데이트
 
 <div align="center">
-  <img src="/images/posts/2024/dynamodb-crud-example-with-spring-boot-03.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/dynamodb-crud-example-with-spring-boot-03.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

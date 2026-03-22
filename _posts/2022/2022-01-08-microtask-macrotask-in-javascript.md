@@ -29,7 +29,7 @@ last_modified_at: 2022-01-08T23:55:00
 우선 순위에 따라 실행되는 순서가 다르다. 물론 우선 순위가 높은 마이크로태스크 큐에 담긴 콜백 함수들이 먼저 실행된다. 마이크로태스크 큐가 모두 소진되면 다음 매크로태스크 큐에 담긴 콜백 함수들이 실행된다.
 
 <div align="center">
-  <img src="/images/posts/2022/microtask-macrotask-in-javascript-01.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/microtask-macrotask-in-javascript-01.gif" width="100%" class="image__border">
 </div>
 <center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center>
 
@@ -83,7 +83,7 @@ baz();
 5. 다음 틱에서 매크로태스크 큐에 담긴 콜백 함수가 실행된다.
 
 <div align="center">
-  <img src="/images/posts/2022/microtask-macrotask-in-javascript-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/microtask-macrotask-in-javascript-02.gif" width="100%" class="image__border">
 </div>
 <center>https://dev.to/lydiahallie/javascript-visualized-event-loop-3dif</center>
 
@@ -162,7 +162,7 @@ console.log('After function!');
 ```
 
 <div align="center">
-  <img src="/images/posts/2022/microtask-macrotask-in-javascript-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/microtask-macrotask-in-javascript-03.gif" width="100%" class="image__border">
 </div>
 <center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center>
 

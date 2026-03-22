@@ -27,7 +27,7 @@ last_modified_at: 2024-06-22T23:55:00
 3. 생성된 비디오 파일이 웹 브라우저에서 재생되지 않는다. 
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -37,7 +37,7 @@ last_modified_at: 2024-06-22T23:55:00
 - 지원되는 형식 및 MIME 유형의 동영상를 찾을 수 없습니다.
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-02.png" width="80%" class="image__border">
 </div>
 
 ## 2. Problem Cause
@@ -50,7 +50,7 @@ last_modified_at: 2024-06-22T23:55:00
   - MPEG-4 Video 코덱
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -60,7 +60,7 @@ last_modified_at: 2024-06-22T23:55:00
 이제 웹 브라우저에서 사용할 수 있는 코덱들을 찾아보자. [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs) 문서를 보면 웹 환경에서 사용하는 비디오 코덱에 대한 가이드가 있다. 영상 길이, 비디오 사이즈, 네트워크 통신에 대한 구체적인 예시를 들어 코덱이 왜 필요한지 이야기하고 있으니 읽어 보는 것을 추천한다. 이 링크엔 웹 환경에서 사용하는 코덱과 확장자에 대한 설명도 함께 제공한다. 문제가 발생하는 `MPEG-4 Video` 코덱은 웹 환경에서 사용되지 않으며 브라우저에서도 역시 재생되지 않는다. 
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-04.png" width="80%" class="image__border">
 </div>
 <center>https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs</center>
 
@@ -120,7 +120,7 @@ last_modified_at: 2024-06-22T23:55:00
 - OpenCV는 별도로 비디오 코덱을 구현하지 않고 FFmpeg, GStreamer 같은 서드 파티(third party) 코덱을 사용한다. 
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-05.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-05.png" width="80%" class="image__border">
 </div>
 <center>https://github.com/opencv/opencv-python/issues/912</center>
 
@@ -320,7 +320,7 @@ $ docker run --name processor -p 8000:8000 processor
 브라우저를 통해 해당 애플리케이션에 접근 후 비디오를 업로드한다. 필자의 맥북에선 다소 시간이 소요된다. 새로운 비디오가 만들어지면 브라우저에서 이를 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-06.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-06.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING
@@ -328,7 +328,7 @@ $ docker run --name processor -p 8000:8000 processor
 AVC(H.264) 코덱은 GPL 라이센스 문제로 OpenCV에서 지원되지 않는 것으로 보이니 주의하길 바란다. 
 
 <div align="center">
-  <img src="/images/posts/2024/opencv-video-codec-problem-in-opencv-07.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/opencv-video-codec-problem-in-opencv-07.png" width="80%" class="image__border">
 </div>
 <center>https://github.com/opencv/opencv-python/issues/207</center>
 

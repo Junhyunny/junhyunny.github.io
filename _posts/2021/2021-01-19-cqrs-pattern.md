@@ -47,7 +47,7 @@ last_modified_at: 2021-08-22T00:00:00
 - 단순하지만 확장성이 떨어지고, 최적화에 한계가 있다.
 
 <div align="center">
-  <img src="/images/posts/2021/cqrs-pattern-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cqrs-pattern-01.png" width="50%" class="image__border">
 </div>
 
 ### 3.2. 서비스 수준 분리
@@ -60,7 +60,7 @@ last_modified_at: 2021-08-22T00:00:00
 - 단순하게 모델을 분리하는 것에 비해 복잡성이 증가한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cqrs-pattern-02.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cqrs-pattern-02.png" width="50%" class="image__border">
 </div>
 
 ### 3.2. 데이터베이스 분리
@@ -75,7 +75,7 @@ last_modified_at: 2021-08-22T00:00:00
 - 시스템의 복잡성이 크게 증가한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cqrs-pattern-03.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cqrs-pattern-03.png" width="50%" class="image__border">
 </div>
 
 ## 4. When to use CQRS and not to use?

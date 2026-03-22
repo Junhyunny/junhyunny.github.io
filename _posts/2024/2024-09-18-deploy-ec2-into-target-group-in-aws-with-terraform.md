@@ -24,7 +24,7 @@ last_modified_at: 2024-09-18T23:55:00
 - 데이터베이스 EC2 컨테이너는 프라이빗 서브넷(private subnet)에 배포한다.
 
 <div align="center">
-  <img src="/images/posts/2024/deploy-ec2-into-target-group-in-aws-with-terraform-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/deploy-ec2-into-target-group-in-aws-with-terraform-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Project structure
@@ -227,7 +227,7 @@ alb-dns = "tf-lb-20240918073020750800000004-1501208815.us-east-1.elb.amazonaws.c
 ALB DNS 주소로 접근하면 애플리케이션 화면을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2024/deploy-ec2-into-target-group-in-aws-with-terraform-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/deploy-ec2-into-target-group-in-aws-with-terraform-02.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

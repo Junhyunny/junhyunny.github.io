@@ -36,7 +36,7 @@ last_modified_at: 2026-03-21T09:35:33+09:00
   - 인터페이스에서 명시한 기능을 실제로 처리하는 객체이다.
 
 <div align="center">
-  <img src="/images/posts/2023/dynamic-proxy-in-java-01.png" width="80%" class="image__border image__padding">
+  <img src="{{ site.image_url_2023 }}/dynamic-proxy-in-java-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 
@@ -84,7 +84,7 @@ public class Proxy implements java.io.Serializable {
 4. 타겟 객체는 전달받은 요청을 수행한다.
 
 <div align="center">
-  <img src="/images/posts/2023/dynamic-proxy-in-java-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/dynamic-proxy-in-java-02.png" width="80%" class="image__border">
 </div>
 
 <br/>

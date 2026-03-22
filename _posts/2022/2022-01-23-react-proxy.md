@@ -48,7 +48,7 @@ CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로
 - 리액트 애플리케이션은 이를 다시 브라우저에게 전달한다.
 
 <p align="center">
-  <img src="/images/posts/2022/react-proxy-02.png" width="60%">
+  <img src="{{ site.image_url_2022 }}/react-proxy-02.png" width="60%">
 </p>
 
 <br/>
@@ -62,7 +62,7 @@ CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로
   - 이는 백엔드 서비스가 `http://localhost:3000` 출처로부터 오는 요청은 허가한다는 의미이다.
 
 <p align="center">
-  <img src="/images/posts/2022/react-proxy-01.png" width="60%">
+  <img src="{{ site.image_url_2022 }}/react-proxy-01.png" width="60%">
 </p>
 
 ## 3. Example
@@ -253,7 +253,7 @@ CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을
   - 서버로부터 전달받은 데이터를 정상적으로 화면에 출력한다.
 
 <p align="center">
-  <img src="/images/posts/2022/react-proxy-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/react-proxy-03.gif" width="100%" class="image__border">
 </p>
 
 ## 3.4. http-proxy-middleware library
@@ -306,7 +306,7 @@ module.exports = app => {
   - `http://localhost:8080` 호스트 서버로부터 전달받은 데이터를 정상적으로 화면에 출력한다.
 
 <p align="center">
-  <img src="/images/posts/2022/react-proxy-04.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/react-proxy-04.gif" width="100%" class="image__border">
 </p>
 
 ## CLOSING

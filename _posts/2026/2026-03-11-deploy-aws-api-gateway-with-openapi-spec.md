@@ -438,7 +438,7 @@ Apply complete! Resources: 19 added, 0 changed, 0 destroyed.
 - OpenAPI 명세 YAML 파일에 정의된 규칙에 맞게 API 엔드포인트가 생성된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2026/deploy-aws-api-gateway-with-openapi-spec-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/deploy-aws-api-gateway-with-openapi-spec-01.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

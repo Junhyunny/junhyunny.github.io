@@ -31,7 +31,7 @@ last_modified_at: 2026-03-15T23:55:00
 크롬 브라우저 팀은 브라우저의 각 탭마다 독립적인 프로세스가 동작하여 화면을 렌더링하도록 만들었다. 이로 인해 버그가 있거나 악의적인 코드가 웹 페이지에 존재하더라도 애플리케이션 전체에 미치는 피해를 제한했다. 일렉트론의 다중 프로세스 모델도 이와 유사한 구조로 설계되었다. 
 
 <div align="center">
-  <img src="/images/posts/2026/electron-structure-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/electron-structure-01.png" width="100%" class="image__border">
 </div>
 
 <br />
@@ -162,7 +162,7 @@ app.on("activate", () => {
 권한이 없는 렌더러 프로세스를 대신해 프리로드 스크립트가 IPC 기능(ipcRenderer)을 가져와 웹 페이지에서 쓸 수 있는 형태로 넘겨준다. 프리로드 스크립트는 IPC 기능을 웹 페이지에 전달하는 가교 역할을 한다.
 
 <div align="center">
-  <img src="/images/posts/2026/electron-structure-02.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/electron-structure-02.png" width="100%" class="image__border">
 </div>
 
 <br />

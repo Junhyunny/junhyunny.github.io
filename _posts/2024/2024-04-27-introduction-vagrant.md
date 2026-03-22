@@ -36,7 +36,7 @@ last_modified_at: 2024-04-27T23:55:00
 5. 프로비저닝까지 완료되면 `vagrant ssh` 명령어를 사용해 가상 머신에 접속한다.
 
 <p align="center">
-  <img src="/images/posts/2024/introduction-vagrant-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/introduction-vagrant-01.png" width="80%" class="image__border">
 </p>
 <center>https://quintagroup.com/blog/what-is-vagrant-and-when-should-one-turn-to-it</center>
 
@@ -161,7 +161,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
 가상 머신 프로비저닝이 완료되면 VirtualBox 윈도우에서 가상 머신이 실행되고 있는 것을 확인할 수 있다.
 
 <p align="center">
-  <img src="/images/posts/2024/introduction-vagrant-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2024 }}/introduction-vagrant-02.png" width="80%" class="image__border">
 </p>
 
 ### 2.4. Connect via SSH

@@ -37,7 +37,7 @@ last_modified_at: 2026-01-27T23:55:00
 - 설치를 통해 백그라운드에서 별도로 동작할 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2023/mock-service-worker-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/mock-service-worker-01.png" width="80%" class="image__border">
 </div>
 
 ### 1.2. How does Mock Service Worker work? 
@@ -53,7 +53,7 @@ last_modified_at: 2026-01-27T23:55:00
 5. 서비스 워커는 모의 응답을 웹 애플리케이션에 전달한다.
 
 <div align="center">
-  <img src="/images/posts/2023/mock-service-worker-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/mock-service-worker-02.png" width="80%" class="image__border">
 </div>
 <center>https://mswjs.io/docs/#request-flow-diagram</center>
 
@@ -344,7 +344,7 @@ drwxr-xr-x  12 junhyunk  staff   384 Jun  6 22:31 ..
 - 콘솔 로그에 목 서비스 워커 동작과 관련된 로그가 출력된다.
 
 <div align="center">
-  <img src="/images/posts/2023/mock-service-worker-03.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/mock-service-worker-03.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

@@ -28,7 +28,7 @@ last_modified_at: 2026-03-18T23:18:34+09:00
 - 백엔드 서비스가 여러 플랫폼의 요구사항들을 만족하기 위해 모든 데이터를 내리게 되는 상황으로 이어질 수 있다.
 
 <div align="center">
-  <img src="/images/posts/2022/backend-for-frontend-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/backend-for-frontend-01.png" width="80%" class="image__border">
 </div>
 
 ### 1.2. 마이크로서비스 아키텍처(MSA)
@@ -41,7 +41,7 @@ last_modified_at: 2026-03-18T23:18:34+09:00
 - 프론트엔드 서비스에 불필요한 비즈니스 로직이 침투될 수 있고, 브라우저 리소스는 과도하게 사용하게 된다.
 
 <div align="center">
-  <img src="/images/posts/2022/backend-for-frontend-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/backend-for-frontend-02.png" width="80%" class="image__border">
 </div>
 
 ## 2. Backend For Frontend
@@ -57,7 +57,7 @@ last_modified_at: 2026-03-18T23:18:34+09:00
 - 프론트엔드 서비스가 마이크로 서비스들의 리소스를 얻을 수 있도록 간단한 인터페이스를 제공한다.
 
 <div align="center">
-  <img src="/images/posts/2022/backend-for-frontend-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/backend-for-frontend-03.png" width="80%" class="image__border">
 </div>
 
 ## 3. Benefits

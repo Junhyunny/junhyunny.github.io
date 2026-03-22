@@ -15,7 +15,7 @@ last_modified_at: 2023-05-07T23:55:00
 프록시 서버는 클라이언트(client)와 서버(server) 사이에 중개자 역할을 수행한다. 클라이언트가 서버 사이에 위치하여 둘 사이의 통신을 중개한다. 직접적인 통신이 아니라 프록시를 거쳐가는 이유는 보안, 성능, 안정성 등을 향상시키기 위해 사용한다. 
 
 <div align="center">
-  <img src="/images/posts/2023/forward-reverse-proxy-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/forward-reverse-proxy-01.png" width="80%" class="image__border">
 </div>
 <center>https://surfshark.com/ko/blog/proxy-server</center>
 
@@ -34,7 +34,7 @@ last_modified_at: 2023-05-07T23:55:00
   - 보안이 중요한 사내망(내부망)에선 포워드 프록시 서버를 통해 회사 내부 컴퓨터들이 접근할 수 있는 외부 서버 목록을 제어한다.
 
 <div align="center">
-  <img src="/images/posts/2023/forward-reverse-proxy-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/forward-reverse-proxy-02.png" width="80%" class="image__border">
 </div>
 <center>https://surfshark.com/ko/blog/proxy-server</center>
 
@@ -55,7 +55,7 @@ last_modified_at: 2023-05-07T23:55:00
   - 리버스 프록시에서만 SSL 암복호화가 이뤄지면 프록시에 붙은 내부 서버들은 암복호화에 대한 비싼 연산이 없이도 통신이 가능하다. 
 
 <div align="center">
-  <img src="/images/posts/2023/forward-reverse-proxy-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/forward-reverse-proxy-03.png" width="80%" class="image__border">
 </div>
 <center>https://surfshark.com/ko/blog/proxy-server</center>
 

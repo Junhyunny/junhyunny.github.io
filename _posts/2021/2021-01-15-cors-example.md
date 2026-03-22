@@ -40,7 +40,7 @@ last_modified_at: 2021-08-21T23:50:00
   - 해당 서비스는 CORS 처리를 위한 필터 적용으로 정상 작동한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cors-example-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cors-example-01.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -348,7 +348,7 @@ Creating 2021-01-15-cors-example_backend-configure_1 ... done
 브라우저에서 http://localhost 서버에 접속하여 각 버튼을 눌러보면서 응답 헤더 값을 확인한다.
 
 <div align="center">
-  <img src="/images/posts/2021/cors-example-02.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cors-example-02.gif" width="100%" class="image__border">
 </div>
 
 ## CLOSING

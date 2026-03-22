@@ -21,7 +21,7 @@ last_modified_at: 2025-06-22T23:55:00
 JPA 결합 테스트의 스코프(scope)를 생각해보자. 이번 글에선 `@DataJpaTest` 애너테이션을 사용한 테스트의 경우를 예로 들어본다. MemberServiceTest의 테스트 대상은 MemberService 객체이지만, 실제 MemberRepository 인스턴스를 사용한다. 이 경우 [테스트 더블(test double)][test-double-link]은 데이터베이스(H2 혹은 테스트 컨테이너)가 된다. 즉, 테스트에서 검증하고 싶은 대상은 서비스 계층과 레포지토리 계층 모두이다. 두 계층 사이의 상호 작용을 통해 원하는 결과를 얻을 수 있는지 확인하는 것이 테스트의 주된 관심사다.
 
 <div align="center">
-  <img src="/images/posts/2025/jpa-integration-test-and-test-target-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2025 }}/jpa-integration-test-and-test-target-01.png" width="100%" class="image__border">
 </div>
 
 <br/>

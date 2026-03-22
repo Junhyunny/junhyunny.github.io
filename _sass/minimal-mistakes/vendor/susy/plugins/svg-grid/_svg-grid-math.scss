@@ -18,8 +18,6 @@
 /// @return {Length} -
 ///   Horizontal position of svg column rectangle,
 ///   as distance from the grid edge
-@use 'sass:math';
-
 @function _susy-svg-column-position(
   $column,
   $grid
@@ -65,5 +63,5 @@
     @return 'calc(#{$container} * #{$gutter} / 2)';
   }
 
-  @return $container * math.div($gutter, 2);
+  @return $container * $gutter / 2;
 }

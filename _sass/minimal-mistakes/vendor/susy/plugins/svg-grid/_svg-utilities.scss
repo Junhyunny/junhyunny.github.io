@@ -17,8 +17,6 @@
 ///
 /// @return {Length} -
 ///   An svg-validated length, or comparable valid length
-@use 'sass:math';
-
 @function _susy-svg-validate-units(
   $length,
   $name: null
@@ -125,7 +123,7 @@
 
   @for $i from 1 through length($colors) {
     $color: _susy-svg-color(nth($colors, $i));
-    $offset: percentage(math.div(($i - 1), (length($colors) - 1)));
+    $offset: percentage(($i - 1) / (length($colors) - 1));
     $stop: '%3Cstop offset="#{$offset}" style="stop-color:#{$color};" /%3E';
 
     $gradient: $gradient + $stop;

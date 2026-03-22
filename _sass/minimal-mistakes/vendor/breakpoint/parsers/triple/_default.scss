@@ -1,3 +1,7 @@
+@use "../../context" as *;
+@use "../../settings" as *;
+@use "../../helpers" as *;
+
 @function breakpoint-parse-triple-default($feature, $first, $second) {
 
   // Sort into min and max

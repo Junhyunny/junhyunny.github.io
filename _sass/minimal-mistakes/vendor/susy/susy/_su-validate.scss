@@ -1,6 +1,7 @@
 @use 'sass:meta';
 @use 'sass:math';
 @use 'sass:list';
+@use "utilities" as *;
 
 /// Validation
 /// ==========
@@ -45,7 +46,7 @@
   }
 
   $actual: '[#{meta.type-of($span)}] `#{inspect($span)}`';
-  @return _susy-error(
+  @return susy-error(
     '#{$actual} is not a valid number, length, or column-list for $span.',
     'su-valid-span');
 }
@@ -95,7 +96,7 @@
   // Error Message
   $actual: '[#{meta.type-of($columns)}] `#{inspect($columns)}`';
 
-  @return _susy-error(
+  @return susy-error(
     '#{$actual} is not a valid list of numbers for $columns.',
     'su-valid-columns');
 }
@@ -126,7 +127,7 @@
   }
 
   $actual: '[#{$type}] `#{inspect($gutters)}`';
-  @return _susy-error(
+  @return susy-error(
     '#{$actual} is not a number or length for $gutters.',
     'su-valid-gutters');
 }
@@ -157,7 +158,7 @@
   }
 
   $actual: '[#{meta.type-of($spread)}] `#{inspect($spread)}`';
-  @return _susy-error(
+  @return susy-error(
     '#{$actual} is not a normalized [0 | 1 | -1] value for `$spread`.',
     'su-valid-spread');
 }
@@ -194,20 +195,20 @@
   @if $location {
     @if (meta.type-of($location) != 'number') or (not math.is-unitless($location)) {
       $actual: '[#{meta.type-of($location)}] `#{$location}`';
-      @return _susy-error(
+      @return susy-error(
         '#{$actual} is not a unitless number for $location.',
         'su-valid-location');
     } @else if (round($location) != $location) {
-      @return _susy-error(
+      @return susy-error(
         'Location (`#{$location}`) must be a 1-indexed intiger position.',
         'su-valid-location');
     } @else if ($location > $count) or ($location < 1) {
-      @return _susy-error(
+      @return susy-error(
         'Position `#{$location}` does not exist in grid `#{$columns}`.',
         'su-valid-location');
     } @else if ($location + $span - 1 > $count) {
       $details: 'grid `#{$columns}` for span `#{$span}` at `#{$location}`';
-      @return _susy-error(
+      @return susy-error(
         'There are not enough columns in #{$details}.',
         'su-valid-location');
     }

@@ -2,6 +2,8 @@
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:list';
+@use "settings" as *;
+@use "utilities" as *;
 
 /// Syntax Normalization
 /// ====================
@@ -168,7 +170,7 @@
   $context: $context or susy-settings();
 
   @if meta.type-of($columns) == 'list' {
-    @return _susy-flatten($columns);
+    @return susy-flatten($columns);
   }
 
   @if (meta.type-of($columns) == 'number') and (math.is-unitless($columns)) {
@@ -181,7 +183,7 @@
     } @else {
       $actual: 'of `#{$span}`';
       $columns: 'grid-columns `#{$context}`';
-      @return _susy-error(
+      @return susy-error(
         'context-slice #{$actual} can not be determined based on #{$columns}.',
         'susy-normalize-columns');
     }

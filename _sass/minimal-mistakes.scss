@@ -5,36 +5,37 @@
 */
 
 /* Variables */
-@import "minimal-mistakes/variables";
+@use "minimal-mistakes/variables" as *;
 
 /* Mixins and functions */
-@import "minimal-mistakes/vendor/breakpoint/breakpoint";
-@include breakpoint-set("to ems", true);
-@import "minimal-mistakes/vendor/magnific-popup/magnific-popup"; // Magnific Popup
-@import "minimal-mistakes/vendor/susy/susy";
-@import "minimal-mistakes/mixins";
+@use "minimal-mistakes/vendor/breakpoint/breakpoint" as *;
+@use "minimal-mistakes/vendor/magnific-popup/magnific-popup" as *; // Magnific Popup
+@use "minimal-mistakes/vendor/susy/susy" as *;
+@use "minimal-mistakes/mixins" as *;
+
+/* Components (loaded first so @extend targets are available) */
+@use "minimal-mistakes/buttons" as *;
 
 /* Core CSS */
-@import "minimal-mistakes/reset";
-@import "minimal-mistakes/base";
-@import "minimal-mistakes/forms";
-@import "minimal-mistakes/tables";
-@import "minimal-mistakes/animations";
+@use "minimal-mistakes/reset" as *;
+@use "minimal-mistakes/base" as *;
+@use "minimal-mistakes/forms" as *;
+@use "minimal-mistakes/tables" as *;
+@use "minimal-mistakes/animations" as *;
 
 /* Components */
-@import "minimal-mistakes/buttons";
-@import "minimal-mistakes/notices";
-@import "minimal-mistakes/masthead";
-@import "minimal-mistakes/navigation";
-@import "minimal-mistakes/footer";
-@import "minimal-mistakes/search";
-@import "minimal-mistakes/syntax";
+@use "minimal-mistakes/notices" as *;
+@use "minimal-mistakes/masthead" as *;
+@use "minimal-mistakes/navigation" as *;
+@use "minimal-mistakes/footer" as *;
+@use "minimal-mistakes/search" as *;
+@use "minimal-mistakes/syntax" as *;
 
 /* Utility classes */
-@import "minimal-mistakes/utilities";
+@use "minimal-mistakes/utilities" as *;
 
 /* Layout specific */
-@import "minimal-mistakes/page";
-@import "minimal-mistakes/archive";
-@import "minimal-mistakes/sidebar";
-@import "minimal-mistakes/print";
+@use "minimal-mistakes/page" as *;
+@use "minimal-mistakes/archive" as *;
+@use "minimal-mistakes/sidebar" as *;
+@use "minimal-mistakes/print" as *;

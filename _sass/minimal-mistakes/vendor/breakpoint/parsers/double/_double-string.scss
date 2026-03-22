@@ -1,3 +1,6 @@
+@use "../../context" as *;
+@use "../../helpers" as *;
+
 @function breakpoint-parse-double-string($first, $second) {
   $feature: '';
   $value: '';

@@ -528,7 +528,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 로그인 한 사용자가 악성 페이지를 로딩하더라도 사용자의 이름이 변경되지 않는다. Double-Submit 쿠키가 함께 전달된 요청인 경우에만 정상적으로 이름이 변경된다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/cross-site-reqeust-forgery-05.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/cross-site-reqeust-forgery-06.gif" width="100%" class="image__border">
 </div>
 
 ## 4. Is it safe to turn off CSRF defence?

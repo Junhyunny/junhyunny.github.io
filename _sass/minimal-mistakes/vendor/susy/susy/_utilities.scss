@@ -14,7 +14,7 @@
 /// Turn off error output for testing
 /// @group x-utility
 /// @access private
-$_susy-error-output-override: false !default;
+$susy-error-output-override: false !default;
 
 
 
@@ -30,15 +30,15 @@ $_susy-error-output-override: false !default;
 ///   A useful error message, explaining the problem
 /// @param {string} $source -
 ///   The original source of the error for debugging
-/// @param {bool} $override [$_susy-error-output-override] -
+/// @param {bool} $override [$susy-error-output-override] -
 ///   Optionally return the error rather than failing
 /// @return {string} -
 ///   Combined error with source and message
 /// @throws When `$override == true`
-@function _susy-error(
+@function susy-error(
   $message,
   $source,
-  $override: $_susy-error-output-override
+  $override: $susy-error-output-override
 ) {
   @if $override {
     @return 'ERROR [#{$source}] #{$message}';
@@ -62,7 +62,7 @@ $_susy-error-output-override: false !default;
 /// @return {'fluid' | 'static' | false} -
 ///   The type of span (fluid or static) when units match,
 ///   or `false` for mismatched units
-@function _su-is-comparable(
+@function su-is-comparable(
   $lengths...
 ) {
   $first: list.nth($lengths, 1);
@@ -106,13 +106,13 @@ $_susy-error-output-override: false !default;
 ///
 /// @example scss -
 ///   $map: (0px: 120px);
-///   $map: _su-map-add-units($map, 1in); // add a comparable unit
-///   $map: _su-map-add-units($map, 3vw); // add a new unit
+///   $map: su-map-add-units($map, 1in); // add a comparable unit
+///   $map: su-map-add-units($map, 3vw); // add a new unit
 ///
 ///   @each $units, $value in $map {
 ///     /* #{$units}: #{$value} */
 ///   }
-@function _su-map-add-units(
+@function su-map-add-units(
   $map,
   $value
 ) {
@@ -145,8 +145,8 @@ $_susy-error-output-override: false !default;
 ///
 /// @example scss -
 ///   $list: 120px (30em 30em) 120px;
-///   /* #{_susy-flatten($list)} */
-@function _susy-flatten(
+///   /* #{susy-flatten($list)} */
+@function susy-flatten(
   $list
 ) {
   $flat: ();
@@ -159,7 +159,7 @@ $_susy-error-output-override: false !default;
   // Iterate over lists (or single items)
   @each $item in $list {
     @if (meta.type-of($item) == 'list') {
-      $item: _susy-flatten($item);
+      $item: susy-flatten($item);
       $flat: join($flat, $item);
     } @else {
       $flat: list.append($flat, $item);

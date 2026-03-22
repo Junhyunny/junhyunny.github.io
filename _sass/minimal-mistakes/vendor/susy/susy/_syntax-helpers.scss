@@ -1,6 +1,11 @@
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:list';
+@use "settings" as *;
+@use "normalize" as *;
+@use "parse" as *;
+@use "su-math" as *;
+@use "utilities" as *;
 /// Syntax Utilities for Extending Susy
 /// ===================================
 /// There are many steps involved
@@ -177,7 +182,7 @@
 
   @if not $args {
     $options: 'Try one of these: #{map.keys($grid-function-args)}';
-    @return _susy-error(
+    @return susy-error(
       '#{$name} is not a public Su function. #{$options}',
       'su-call');
   }

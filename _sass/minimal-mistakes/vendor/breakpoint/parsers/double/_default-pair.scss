@@ -1,3 +1,7 @@
+@use "../../settings" as *;
+@use "../../context" as *;
+@use "../../helpers" as *;
+
 @function breakpoint-parse-default-pair($first, $second) {
   $default: breakpoint-get('default pair');
   $min: '';

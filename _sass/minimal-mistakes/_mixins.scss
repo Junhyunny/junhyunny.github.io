@@ -4,6 +4,7 @@
 
 @use 'sass:math';
 @use 'sass:color';
+@use "variables" as *;
 
 %tab-focus {
   /* Default*/

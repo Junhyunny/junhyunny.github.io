@@ -3,11 +3,11 @@
 
 $susy-version: 3;
 
-@import 'susy/utilities';
-@import 'susy/su-validate';
-@import 'susy/su-math';
-@import 'susy/settings';
-@import 'susy/normalize';
-@import 'susy/parse';
-@import 'susy/syntax-helpers';
-@import 'susy/api';
+@forward 'susy/utilities';
+@forward 'susy/su-validate';
+@forward 'susy/su-math';
+@forward 'susy/settings';
+@forward 'susy/normalize';
+@forward 'susy/parse';
+@forward 'susy/syntax-helpers';
+@forward 'susy/api';

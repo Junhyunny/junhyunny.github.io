@@ -1,40 +1,16 @@
 @use 'sass:map';
 @use 'sass:meta';
 
-//////////////////////////////
-// Default Variables
-//////////////////////////////
-$Breakpoint-Settings: (
-  'default media': all,
-  'default feature': min-width,
-  'default pair': width,
+@forward "settings";
+@use "settings" as *;
+@use "context" as *;
+@use "helpers" as *;
+@use "parsers" as *;
+@use "no-query" as *;
+@use "respond-to" as *;
+@use "legacy-settings" as *;
 
-  'force all media type': false,
-  'to ems': false,
-  'transform resolutions': true,
-
-  'no queries': false,
-  'no query fallbacks': false,
-
-  'base font size': 16px,
-
-  'legacy syntax': false
-);
-
-$breakpoint: () !default;
-
-//////////////////////////////
-// Imports
-//////////////////////////////
-@import "settings";
-@import "context";
-@import "helpers";
-@import "parsers";
-@import "no-query";
-
-@import "respond-to";
-
-@import "legacy-settings";
+$_: breakpoint-set("to ems", true);
 
 //////////////////////////////
 // Breakpoint Mixin

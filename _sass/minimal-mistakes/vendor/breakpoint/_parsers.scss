@@ -1,15 +1,19 @@
 @use 'sass:map';
 @use 'sass:list';
 @use 'sass:meta';
+@use "no-query" as *;
+@use "settings" as *;
+@use "context" as *;
+@use "helpers" as *;
 
 //////////////////////////////
 // Import Parser Pieces
 //////////////////////////////
-@import "parsers/query";
-@import "parsers/single";
-@import "parsers/double";
-@import "parsers/triple";
-@import "parsers/resolution";
+@use "parsers/query" as *;
+@use "parsers/single" as *;
+@use "parsers/double" as *;
+@use "parsers/triple" as *;
+@use "parsers/resolution" as *;
 
 $Memo-Exists: meta.function-exists(memo-get) and meta.function-exists(memo-set);
 

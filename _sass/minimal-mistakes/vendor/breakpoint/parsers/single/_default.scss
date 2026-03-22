@@ -1,4 +1,7 @@
 @use 'sass:meta';
+@use "../../settings" as *;
+@use "../../context" as *;
+@use "../../helpers" as *;
 
 @function breakpoint-parse-default($feature) {
   $default: breakpoint-get('default feature');

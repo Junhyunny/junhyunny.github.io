@@ -1,5 +1,8 @@
 @use 'sass:meta';
 @use 'sass:list';
+@use "../../context" as *;
+@use "../../settings" as *;
+@use "../../helpers" as *;
 
 @function breakpoint-parse-double-default($first, $second) {
   $feature: '';

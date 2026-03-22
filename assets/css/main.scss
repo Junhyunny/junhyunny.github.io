@@ -4,8 +4,8 @@
 
 @charset "utf-8";
 
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
-@import "minimal-mistakes"; // main partials
+@use "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}" as *; // skin
+@use "minimal-mistakes" as *; // main partials
 
 /* custom */
-@import "custom";
+@use "custom" as *;

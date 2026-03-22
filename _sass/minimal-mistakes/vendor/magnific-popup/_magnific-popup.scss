@@ -1,8 +1,8 @@
 /* Magnific Popup CSS */
 
 @use 'sass:string';
-
-@import "settings";
+@use "../../variables" as *;
+@use "settings" as *;
 
 ////////////////////////
 //

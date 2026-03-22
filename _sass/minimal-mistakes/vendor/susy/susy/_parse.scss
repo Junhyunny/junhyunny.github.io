@@ -1,6 +1,7 @@
 @use 'sass:meta';
 @use 'sass:map';
 @use 'sass:list';
+@use "su-validate" as *;
 
 /// Shorthand Syntax Parser
 /// =======================
@@ -148,7 +149,7 @@
     }
 
     @if $error {
-      @return _susy-error('#{$parse-error} #{$details}', 'susy-parse');
+      @return susy-error('#{$parse-error} #{$details}', 'susy-parse');
     }
   }
 

@@ -63,6 +63,7 @@
 @use 'sass:meta';
 @use 'sass:map';
 @use 'sass:list';
+@use "su-validate" as *;
 
 @function su-span(
   $span,
@@ -364,7 +365,7 @@
     @if math.is-unitless($col) {
       $fluid: $fluid + $col;
     } @else {
-      $fixed: _su-map-add-units($fixed, $col);
+      $fixed: su-map-add-units($fixed, $col);
     }
   }
 
@@ -432,7 +433,7 @@
 
   $has-gutter: if(sass((list.length($span) > 1) or ($spread >= 0)): true; else: false);
   $check: if(sass($has-gutter): list.append($span, $gutters); else: $span);
-  $safe-span: _su-is-comparable($check...);
+  $safe-span: su-is-comparable($check...);
 
   @if ($safe-span == 'static') {
     @return false;
@@ -440,7 +441,7 @@
     @return true;
   }
 
-  $safe-fluid: _su-is-comparable($gutters, $columns...);
+  $safe-fluid: su-is-comparable($gutters, $columns...);
 
   @return not $safe-fluid;
 }

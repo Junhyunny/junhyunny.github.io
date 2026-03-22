@@ -1,9 +1,11 @@
 @use 'sass:list';
 @use 'sass:meta';
+@use "../helpers" as *;
+@use "../context" as *;
 //////////////////////////////
 // Import Pieces
 //////////////////////////////
-@import "single/default";
+@use "single/default" as *;
 
 @function breakpoint-parse-single($feature, $empty-media, $first) {
   $parsed: '';

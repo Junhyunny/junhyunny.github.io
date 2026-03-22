@@ -1,4 +1,5 @@
-@import "resolution/resolution";
+@use "../settings" as *;
+@use "resolution/resolution" as *;
 
 @function breakpoint-build-resolution($query-print, $query-resolution, $empty-media, $first) {
   $leader: '';

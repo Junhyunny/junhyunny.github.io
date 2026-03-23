@@ -223,22 +223,11 @@ public class FileController {
 
 ## 4. Verify
 
-정상적으로 동작하는지 확인해보자. 두 개의 애플리케이션을 동시에 실행해야하기 때문에 도커 컴포즈(docker compose)를 사용한다. 
+정상적으로 동작하는지 확인해보자. 두 개의 애플리케이션을 동시에 실행해야 하기 때문에 도커 컴포즈(docker compose)를 사용한다. 
 
 ```
 $ docker-compose up -d
-
-Building frontend
-[+] Building 19.5s (15/15) FINISHED
- => [internal] load build definition from Dockerfile                                                                                         0.0s
- => => transferring dockerfile: 37B                                                                                                          0.0s
- 
- ...
-
- => => exporting layers                                                                                                                      0.0s
- => => writing image sha256:380f1df775b96982c1526a0d979b0198772cae31fc4fa219495cf76032f485e8                                                 0.0s
- => => naming to docker.io/library/2021-01-20-multipartfile_backend                                                                          0.0s
-WARNING: Image for service backend was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
+...
 Creating 2021-01-20-multipartfile_frontend_1 ... done
 Creating 2021-01-20-multipartfile_backend_1  ... done
 ```
@@ -254,7 +243,7 @@ Creating 2021-01-20-multipartfile_backend_1  ... done
 
 ## 5. FileSizeLimitExceededException handling
 
-별도 설정 없다면 높은 용량의 파일을 업로드할 때 다음과 같은 에러를 만난다.
+별도 설정이 없다면 높은 용량의 파일을 업로드할 때 다음과 같은 에러를 만난다.
 
 - 톰캣(tomcat) 패키지의 LimitedInputStream 클래스에서 파일 업로드 용량 제한을 확인한다.
 - 너무 큰 파일이 업로드 되는 경우 `FileSizeLimitExceededException` 예외를 던진다.

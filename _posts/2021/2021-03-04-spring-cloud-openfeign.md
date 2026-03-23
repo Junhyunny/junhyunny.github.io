@@ -192,55 +192,10 @@ services:
 ### 3.3. Run Docker Compose
 
 ```
-$ docker-compose build 
-[+] Building 0.0s (0/0)
-[+] Building 0.1s (1/2)
- => [internal] load build definition from Dockerfile                                                                                                      0.0s
-[+] Building 0.2s (2/4)
- => [internal] load build definition from Dockerfile                                                                                                      0.0s
- => => transferring dockerfile: 32B                                                                                                                       0.0s 
- => [internal] load .dockerignore                                                                                                                         0.0s
-[+] Building 4.6s (15/15) FINISHED
- => [internal] load build definition from Dockerfile                                                                                                      0.0s 
- => => transferring dockerfile: 32B                                                                                                                       0.0s 
- => [internal] load .dockerignore                                                                                                                         0.0s
- => => transferring context: 2B                                                                                                                           0.0s 
- => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                                             4.3s 
- => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                                     4.4s 
- => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa215                   0.0s
- => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9a5dcf55               0.0s 
- => [internal] load build context                                                                                                                         0.0s 
- => => transferring context: 953B                                                                                                                         0.0s 
- => CACHED [stage-1 2/3] WORKDIR /app                                                                                                                     0.0s 
- => CACHED [maven_build 2/6] WORKDIR /build                                                                                                               0.0s 
- => CACHED [maven_build 3/6] COPY pom.xml .                                                                                                               0.0s 
- => CACHED [maven_build 4/6] RUN mvn dependency:go-offline                                                                                                0.0s 
-[+] Building 4.7s (15/15) FINISHED                                                                                                                        
- => [internal] load build definition from Dockerfile                                                                                                      0.0s 
- => => transferring dockerfile: 32B                                                                                                                       0.0s 
- => [internal] load .dockerignore                                                                                                                         0.0s 
- => => transferring context: 2B                                                                                                                           0.0s 
- => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                                             4.3s 
- => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                                     4.4s 
- => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa215                   0.0s
- => [internal] load build context                                                                                                                         0.0s 
- => => transferring context: 825B                                                                                                                         0.0s 
- => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9a5dcf55               0.0s 
- => CACHED [stage-1 2/3] WORKDIR /app                                                                                                                     0.0s 
- => CACHED [maven_build 2/6] WORKDIR /build                                                                                                               0.0s 
- => CACHED [maven_build 3/6] COPY pom.xml .                                                                                                               0.0s 
- => CACHED [maven_build 4/6] RUN mvn dependency:go-offline                                                                                                0.0s 
- => CACHED [maven_build 5/6] COPY src ./src                                                                                                               0.0s 
- => CACHED [maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                                       0.0s 
- => CACHED [stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                                            0.0s 
- => exporting to image                                                                                                                                    0.0s 
- => => exporting layers                                                                                                                                   0.0s 
- => => writing image sha256:a5a64359c420aacc54dbfced07a7ea4f7c5e46faa43e3c58e49031361466831e                                                              0.0s 
- => => naming to docker.io/library/2021-03-04-spring-cloud-openfeign-backend                                                                              0.0s
-
-$  docker-compose up -d
+$ docker-compose up -d
+...
 [+] Running 2/2
- - Container 2021-03-04-spring-cloud-openfeign-a-service-1  Started                                                                                       0.8s 
+ - Container 2021-03-04-spring-cloud-openfeign-a-service-1  Started                            0.8s 
  - Container 2021-03-04-spring-cloud-openfeign-b-service-1  Started
 ```
 

@@ -17,13 +17,13 @@ last_modified_at: 2025-06-25T20:00:00
 
 ## 0. 들어가면서
 
-크리스 리차든의 [Saga Pattern][chris-saga-pattern-link] 영상을 보고 얻은 인사이트(insight)들을 저의 방식대로 정리하였다. 가볍게 생각하면 간단해 보이지만, 곰곰이 생각해보면 고민할 요소들이 굉장히 많다. 
+크리스 리차든의 [사가 패턴(Saga Pattern)][chris-saga-pattern-link] 영상을 보고 얻은 인사이트(insight)들을 저의 방식대로 정리하였다. 가볍게 생각하면 간단해 보이지만, 곰곰이 생각해보면 고민할 요소들이 굉장히 많다. 
 
 - 동기 혹은 비동기 방식으로 처리되는 서비스들 사이의 트랜잭션을 연결한다.
 - 다른 서비스에 에러가 발생했을 때 데이터의 일관성(consistency)을 위한 보상 트랜잭션을 실행한다.
 - 메시지 중복 전달이나 수신을 막기 위한 멱등성(idempotence)을 고려해야 한다.
 
-크리스 리차든의 영상 외에도 다른 글이나 영상을 보고 공부한 내용들을 바탕으로 이번 포스트에 정리하였다.
+크리스 리차든의 영상 외에도 다른 글이나 영상을 보고 공부한 내용들을 바탕으로 이번 글로 정리하였다.
 
 ## 1. 분산 트랜잭션(Distributed Transaction)
 
@@ -60,8 +60,6 @@ last_modified_at: 2025-06-25T20:00:00
 - [Atomikos](https://www.atomikos.com/Main/WebHome)
 - [Bitronix](https://github.com/bitronix/btm)
 
-### 2.1. 동작 과정
-
 2단계 커밋에는 트랜잭션을 관리하는 별도의 코디네이터(coordinator)가 존재한다. 코디네이터에 의해 2단계에 걸쳐 트랜잭션을 처리한다. 첫 단계(first phase 혹은 prepare phase)는 다음과 같이 동작한다.
 
 - 코디네이터는 각 데이터베이스 노드들에게 커밋을 위한 준비 요청을 보낸다.
@@ -70,6 +68,8 @@ last_modified_at: 2025-06-25T20:00:00
 <div align="center">
   <img src="{{ site.image_url_2021 }}/distributed-transaction-01.png" width="100%" class="image__border">
 </div>
+
+<br/>
 
 두번째 단계(second phase 혹은 commit phase)는 다음과 같이 동작한다.
 
@@ -80,7 +80,7 @@ last_modified_at: 2025-06-25T20:00:00
   <img src="{{ site.image_url_2021 }}/distributed-transaction-02.png" width="100%" class="image__border">
 </div>
 
-### 2.2. 2-phase commit is not an option
+<br/>
 
 `JTA` 구현체를 사용하여 `MSA` 환경에서 2단계 커밋을 구현한 예시나 방법을 찾지 못하였다. 하지만 이 외에도 2단계 커밋은 다음과 같은 이유로 `MSA` 환경에서 사용하기 어렵다.
 
@@ -106,9 +106,7 @@ last_modified_at: 2025-06-25T20:00:00
   - 트리거 방법은 이벤트나 메시징 방식이다.
 4. 비즈니스 프로세스를 따라 각 서비스들에서 로컬 트랜잭션이 실행된다.
 
-### 3.1. 보상 트랜잭션(Compensate Transaction) 정의
-
-사가 패턴을 적용하기 위해선 보상 트랜잭션을 고려해야 한다. 각 서비스는 로컬 트랜잭션을 커밋하기 때문에 다음 서비스가 실패할 경우 자신의 상태를 이전으로 되돌려야 한다. 로컬 트랜잭션이 끝났으므로 롤백(rollback)은 불가하지만, 비즈니스적인 의미에서 이전 상태로 되돌린다(undo). 개발자는 보상 트랜잭션을 위한 고려 사항들을 설계에 반영하고 별도 로직을 구현해야 한다.
+사가 패턴을 적용하기 위해선 `보상 트랜잭션(compensate transaction)`을 고려해야 한다. 각 서비스는 로컬 트랜잭션을 커밋하기 때문에 다음 서비스가 실패할 경우 자신의 상태를 이전으로 되돌려야 한다. 로컬 트랜잭션이 끝났으므로 롤백(rollback)은 불가하지만, 비즈니스적인 의미에서 이전 상태로 되돌린다(undo). 개발자는 보상 트랜잭션을 위한 고려 사항들을 설계에 반영하고 별도 로직을 구현해야 한다.
 
 다음과 같은 상황을 예시로 보상 트랜잭션에 대해 알아본다.
 
@@ -122,7 +120,7 @@ last_modified_at: 2025-06-25T20:00:00
 - 보상 트랜잭션에 의해 주문 서비스는 주문의 상태를 `CANCELED`로 변경한다.
 - 만약 정상적으로 수행되었다면 주문 상태를 `CONFIRMED`로 변경한다.
 
-### 3.2. 오케스트레이션 사가(Orchestration Saga)
+## 4. 오케스트레이션 사가(Orchestration Saga)
 
 음악 무대의 오케스트레이터(orchestrator)처럼 전체적인 트랜잭션을 조율하는 컴포넌트가 존재한다. 어떤 경우엔 중앙 오케스트레이터 역할의 서비스를 만들기도 하지만, 크리스 리차든의 구현 방법을 위주로 설명을 이어간다.
 
@@ -132,7 +130,7 @@ last_modified_at: 2025-06-25T20:00:00
 
 1. 주문 서비스가 주문 생성 요청을 받는다.
 2. 주문 사가 컴포넌트가 주문을 생성한다.
-3. 주문 사가 컴포넌트는 메시지 브로커를 통해 크레딧 생성을 메시지를 전달한다.
+3. 주문 사가 컴포넌트는 메시지 브로커를 통해 크레딧 생성 메시지를 전달한다.
   - 주문이 생성되었음을 클라이언트에게 응답한다.
 4. 크레딧 서비스의 커맨드 핸들러가 메시지를 받아 크레딧 예약을 요청한다.
 5. 크레딧 서비스는 주문한 금액만큼 크레딧을 예약한다.
@@ -143,7 +141,7 @@ last_modified_at: 2025-06-25T20:00:00
   <img src="{{ site.image_url_2021 }}/distributed-transaction-03.png" width="100%" class="image__border">
 </div>
 
-### 3.3. 코리오그래피 사가(Choreography Saga)
+## 5. 코리오그래피 사가(Choreography Saga)
 
 무대 위의 안무가(choreographer)들처럼 각자의 책임을 스스로 수행한다. 책임을 사가 패턴 참가자들에게 분산한다.
 
@@ -165,7 +163,7 @@ last_modified_at: 2025-06-25T20:00:00
   <img src="{{ site.image_url_2021 }}/distributed-transaction-04.png" width="100%" class="image__border">
 </div>
 
-### 3.4. Considerations
+## 6. Considerations
 
 사가 패턴을 적용하기 전에 몇 가지 고려할 사항이 있다.
 
@@ -215,6 +213,5 @@ last_modified_at: 2025-06-25T20:00:00
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [transcation-acid-link]: https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/
 [transcation-isolation-link]: https://junhyunny.github.io/information/transcation-isolation/
-
 [chris-saga-pattern-link]: https://www.youtube.com/watch?v=YPbGW3Fnmbc
 [wiki-distributed-transaction-link]: https://ko.wikipedia.org/wiki/%EB%B6%84%EC%82%B0_%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98

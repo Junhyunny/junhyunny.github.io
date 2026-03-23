@@ -10,7 +10,8 @@ last_modified_at: 2021-08-21T17:00:00
 
 ## 1. HandlerMethodArgumentResolver Interface
 
-> Spring Document<br/>
+공식 문서를 보면 다음과 같은 설명을 볼 수 있다.
+
 > Strategy interface for resolving method parameters into argument values in the context of a given request.
 
 스프링 서버 애플리케이션이 HTTP 요청을 처리하는 엔드포인트(endpoint) 메서드의 매개변수에 원하는 값을 매핑할 수 있는 컴포넌트의 인터페이스다. 자주 사용하는 `@RequestBody`, `@RequestParam`, `@PathVariable` 같은 애너테이션들도 각 `HandlerMethodArgumentResolver` 구현체들을 통해 값들이 매칭된다. 인터페이스의 책임을 살펴보자.
@@ -44,12 +45,12 @@ public interface HandlerMethodArgumentResolver {
 `HandlerMethodArgumentResolver` 인스턴스는 어느 시점에 호출될까? 사용자 요청이 들어오면 스프링 애플리케이션은 아래 이미지와 같은 실행 흐름을 갖는다.
 
 1. 사용자가 요청을 보낸다.
-2. 필터 체인을 통과 후 `DispatcherServlet`으로 진입한다.
-3. `DispatcherServlet`은 해당 요청을 수행할 `HandlerMethod` 인스턴스를 결정한다. 
-4. `DispatcherServlet`은 `RequestMappingHandlerAdapter`에게 `HandlerMethod` 인스턴스를 전달한다. 
-5. `RequestMappingHandlerAdapter`은 `HandlerMethod` 인스턴스에게 필요한 인수 값을 준비하도록 요청한다. 
-  - `HandlerMethod` 인스턴스는 자신에게 등록된 `리졸버(resolver)`들을 통해 필요한 메서드 인수 값을 셋팅한다. 
-6. `HandlerMethod` 인스턴스는 자신과 연결된 컨트롤러의 메서드를 호출(invoke)한다. 
+2. 필터 체인을 통과 후 DispatcherServlet 인스턴스로 진입한다.
+3. DispatcherServlet 인스턴스는 해당 요청을 수행할 HandlerMethod 인스턴스를 결정한다. 
+4. DispatcherServlet 인스턴스는 RequestMappingHandlerAdapter 인스턴스에게 HandlerMethod 인스턴스를 전달한다. 
+5. RequestMappingHandlerAdapter 인스턴스는 HandlerMethod 인스턴스에게 필요한 인수 값을 준비하도록 요청한다. 
+  - HandlerMethod 인스턴스는 자신에게 등록된 `리졸버(resolver)`들을 통해 필요한 메서드 인수 값을 셋팅한다. 
+6. HandlerMethod 인스턴스는 자신과 연결된 컨트롤러의 메서드를 호출(invoke)한다. 
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/handler-method-argument-resolver-01.png" width="100%" class="image__border">
@@ -113,7 +114,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 - supportsParameter 메서드
   - 컨트롤러 엔드포인트 메서드의 파라미터가 LocalDate 타입인지 확인한다.
 - resolveArgument 메서드
-  - HTTP 요청에서 엔드포인트 메서드의 파라미터 이름을 가진 쿼리가 있ㄴ느지 확인한다.
+  - HTTP 요청에서 엔드포인트 메서드의 파라미터 이름을 가진 쿼리가 있는지 확인한다.
   - 값이 존재하는 경우에만 `yyyy-MM-dd` 포맷으로 파싱(parsing)한다.
   - 값이 없는 경우 `null`을 반환한다.
 
@@ -210,8 +211,6 @@ public class UserController {
     }
 }
 ```
-
-## 4. Verify
 
 위에서 구현한 코드가 잘 동작하는지 검증해보자. 서비스를 실행하고 아래와 같은 cURL 요청을 보내면 쿼리 파라미터에서 파싱된 데이터가 사용된 응답을 받을 수 있다.
 

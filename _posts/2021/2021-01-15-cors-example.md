@@ -1,5 +1,5 @@
 ---
-title: "Spring 서버 CORS(Cross Origin Resource Sharing) 헤더 처리"
+title: "스프링(spring) 서버 CORS(Cross Origin Resource Sharing) 헤더 추가하기"
 search: false
 category:
   - spring-boot
@@ -15,12 +15,12 @@ last_modified_at: 2021-08-21T23:50:00
 
 ## 0. 들어가면서
 
-[CORS(Cross Origin Resource Sharing)][cors-link] 포스트 마지막에 CORS 정책 위반 에러를 방지할 수 있는 방법을 두 가지 소개했다. 
+[CORS(Cross Origin Resource Sharing)][cors-link] 글 마지막에 CORS 정책 위반 에러를 방지할 수 있는 방법을 두 가지 소개했다. 
 
 - 프론트엔드 서비스의 프록시 기능을 사용하여 교차 호출이 발생하지 않도록 우회
 - 백엔드 서비스에서 CORS 허용 헤더를 응답
 
-이번 글은 스프링 부트 서버에서 CORS 정책 처리를 위해 헤더를 설정하는 방법을 다룬다. 간단하게 프론트엔드 서비스를 함께 구성하여 CORS 에러가 발생 케이스와 정상 처리 케이스를 살펴본다. 여러 개의 서버 애플리케이션을 동시에 띄워서 여러가지 방법으로 CORS 헤더를 구성하는 방법에 대해 알아본다. 이 글의 프론트엔드 예제는 VueJs를 사용했다. Jekyll 문법과 충돌이 있기 때문에 `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.
+이번 글은 스프링 부트 서버에서 CORS 정책 처리를 위해 헤더를 설정하는 방법을 다룬다. 간단하게 프론트엔드 서비스를 함께 구성하여 CORS 에러가 발생 케이스와 정상 처리 케이스를 살펴본다. 여러 개의 서버 애플리케이션을 동시에 띄워서 여러 가지 방법으로 CORS 헤더를 구성하는 방법에 대해 알아본다. 이 글의 프론트엔드 예제는 VueJs를 사용했다. Jekyll 문법과 충돌이 있기 때문에 `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.
 
 ## 1. Frontend application
 
@@ -261,7 +261,7 @@ public class CorsController {
 
 ### 2.3. Using CorsFilter
 
-마지막으로 8082 포트 서비스의 처리 방법을 살펴보자. CORS 처리를 위한 필터를 생성하고 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 제어한다. CORS 필터 bean 객체를 만들어 반환한다.
+마지막으로 8082 포트 서비스의 처리 방법을 살펴보자. CORS 처리를 위한 필터를 생성하고 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 제어한다. CORS 필터 빈(bean) 객체를 만들어 반환한다.
 
 - CORS 정책을 위한 CorsConfiguration 객체를 생성한다. 
   - `GET` 메서드로 오는 요청은 CORS 헤더 생성을 허용한다.
@@ -323,29 +323,18 @@ public class CorsController {
 
 ## 3. Verify
 
-예제 코드 확인을 위한 서비스가 총 4개이기 때문에 도커 컴포즈(docker-compose)를 사용한다. 
+예제 확인을 위한 서비스가 총 4개이기 때문에 도커 컴포즈(docker-compose)를 사용한다. 
 
 ```
 $ docker-compose up -d
-
-Creating network "2021-01-15-cors-example_default" with the default driver
-Building frontend
-[+] Building 2.7s (15/15) FINISHED
- => [internal] load build definition from Dockerfile                                                                                          0.0s
- => => transferring dockerfile: 37B                                                                                                           0.0s
- => [internal] load .dockerignore                                                                                                             0.0s
- => => transferring context: 2B                                                                                                               0.0s
- => [internal] load metadata for docker.io/library/nginx:latest                                                                               1.2s
-
 ...
-
 Creating 2021-01-15-cors-example_backend_1           ... done
 Creating 2021-01-15-cors-example_backend-filter_1    ... done
 Creating 2021-01-15-cors-example_frontend_1          ... done
 Creating 2021-01-15-cors-example_backend-configure_1 ... done
 ```
 
-브라우저에서 http://localhost 서버에 접속하여 각 버튼을 눌러보면서 응답 헤더 값을 확인한다.
+브라우저에서 http://localhost:8080 서버에 접속하여 각 버튼을 눌러보면서 응답 헤더 값을 확인한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/cors-example-02.gif" width="100%" class="image__border">
@@ -353,7 +342,7 @@ Creating 2021-01-15-cors-example_backend-configure_1 ... done
 
 ## CLOSING
 
-예제 코드는 아래 깃허브 링크를 참조하길 바란다. 예시에서 사용한 서비스들은 각각 다음과 같다.
+예제 코드는 [이 레포지토리 링크](https://github.com/Junhyunny/blog-in-action/tree/master/2021-01-15-cors-example)를 참조하길 바란다. 예시에서 사용한 서비스들은 각각 다음과 같다.
 
 - `frontend` 폴더 - 프론트엔드 서비스
 - `backend` 폴더 - 포트번호 8080 서비스

@@ -5,7 +5,8 @@
       "Bash(sed -n '1,41p' /tmp/remaining2.txt)",
       "Bash(sed -n '42,82p' /tmp/remaining2.txt)",
       "Bash(sed -n '83,122p' /tmp/remaining2.txt)",
-      "Bash(sed -n '123,162p' /tmp/remaining2.txt)"
+      "Bash(sed -n '123,162p' /tmp/remaining2.txt)",
+      "Bash(sort wc:*)"
     ]
   }
 }

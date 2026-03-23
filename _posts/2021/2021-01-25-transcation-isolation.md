@@ -16,7 +16,7 @@ last_modified_at: 2025-06-15T00:00:00
 
 [트랜잭션(transaction)의 ACID 특징][transaction-acid-link] 중 격리성(isolation)이라는 개념이 있다. 격리성은 다른 트랜잭션끼리는 서로를 간섭할 수 없다는 의미인데, 사실 격리성 수준에 따라 트랜잭션끼리 간섭 여부가 결정된다. 어떤 격리성 수준들이 있는지, 격리 수준에 따라 어떤 문제들이 발생할 수 있는지 이번 글을 통해 정리해보자.
 
-## 1. Common issues depending on ttransaction isolation levels
+## 1. Common issues depending on transaction isolation levels
 
 트랜잭션 격리 수준에 따라 어떤 문제들이 있는지 살펴보자. 먼저 더티 리드(dirty read)는 아직 커밋되지 않은(완료되지 않은) 트랜잭션의 데이터를 다른 트랜잭션이 읽는 현상을 말한다.
 

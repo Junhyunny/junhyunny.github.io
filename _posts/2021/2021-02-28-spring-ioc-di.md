@@ -16,7 +16,7 @@ last_modified_at: 2025-10-01T00:00:00
 - 제어의 역전(Inversion of Control)
 - 의존성 주입(Dependency Injection)
 
-이번 포스트에선 두 개념에 대해 정리하고, 어떤 연관성이 있는지 정리하였다. 
+이번 글에서는 두 개념에 대해 정리하고, 어떤 연관성이 있는지 정리하였다. 
 
 ## 1. Inversion of Control 
 
@@ -55,7 +55,7 @@ class A {
   <img src="{{ site.image_url_2021 }}/spring-ioc-di-01.png" width="40%" class="image__border">
 </div>
 
-### 2.2. Type of Dependency Injection
+<br/>
 
 스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공한다. 
 
@@ -149,11 +149,11 @@ public class DefaultDeliveryService {
 }
 ```
 
-### 2.3. Inversion of Control and Dependency Injection
+`의존성 주입`이란 어떤 객체A가 정상적인 기능을 하기 위해 필요한 의존성을 외부에서 제공해주는 것을 의미한다. 개발자가 직접 객체를 생성하고 이를 전달해주는 것이 아니라 프레임워크가 객체를 생성하고 이를 전달한다. 
 
-의존성 주입이란 어떤 객체A가 정상적인 기능을 하기 위해 필요한 의존성을 외부에서 제공해주는 것을 의미한다. 개발자가 직접 객체를 생성하고 이를 전달해주는 것이 아니라 프레임워크가 객체를 생성하고 이를 전달한다. 결론을 이야기하면 의존성 주입(DI)은 IoC 원칙을 따르는 프레임워크가 제공하는 기능의 개발 패턴(pattern)을 의미한다. 프레임워크에 의해 객체 생성, 사용, 전달 등이 제어된다. 시스템의 흐름뿐만 아니라 객체의 사용도 프레임워크가 제어 주도권을 가지게 된다. 
+**결론은 의존성 주입(DI)은 IoC 원칙을 따르는 프레임워크가 제공하는 기능의 개발 패턴(pattern)을 의미한다.** 프레임워크에 의해 객체 생성, 사용, 전달 등이 제어된다. 시스템의 흐름뿐만 아니라 객체의 사용도 프레임워크가 제어 주도권을 가지게 된다. 
 
-IoC 원칙을 따르면 이런 장점이 있다.
+IoC 원칙을 따라 의존성 주입을 수행하면 다음과 같은 이점을 누릴 수 있다.
 
 - 객체 사이의 결합도(coupling)을 낮춘다.
 - 코드 유지 보수하기 쉬워진다.
@@ -170,9 +170,7 @@ IoC 원칙을 따르면 이런 장점이 있다.
 - `ApplicationContext`는 `BeanFactory`를 확장한 IoC 컨테이너이다.
 - IoC 컨테이너는 의존성 주입을 수행하기 때문에 `DI 컨테이너`라고 한다. 
 
-### 3.1. DefaultDeliveryService 클래스
-
-아래 코드는 다음과 같은 문제점을 가진다.
+아래 DefaultDeliveryService 클래스 코드는 다음과 같은 문제점을 가진다.
 
 - 현재 MyBatisDeliveryStore 객체는 내부에서 `MyBatis` 프레임워크를 사용해 데이터를 조회하고 있다.
 - 만약 시간이 지나 `JPA`, `QueryDSL` 같은 기술 스택을 사용하게 된다면 `MyBatis`는 사용하지 못 한다.
@@ -202,8 +200,6 @@ public class DefaultDeliveryService {
     }
 }
 ```
-
-### 3.2. Make Loose Coupling
 
 DeliveryStore 인터페이스를 만들면 MyBatisDeliveryStore 클래스와 DefaultDeliveryService 클래스 둘 사이의 결합도를 낮출 수 있다.
 
@@ -262,8 +258,6 @@ public class DefaultDeliveryService {
     }
 }
 ```
-
-### 3.3. We need IoC Container
 
 시스템에서 DefaultDeliveryService 객체를 사용하는 곳의 코드를 다음과 같이 변경해줘야 한다.
 
@@ -350,7 +344,7 @@ IoC 컨테이너는 자신이 관리하고 있는 빈들의 의존 관계를 따
 
 #### RECOMMEND NEXT POSTS 
 
-- [Reason for Recommend of Constructor Injection][reson-of-recommendation-to-use-constructor-injection-link]
+- [스프링(spring) 프레임워크에서 생성자 주입을 권장하는 이유][reson-of-recommendation-to-use-constructor-injection-link]
 
 #### REFERENCE
 
@@ -362,4 +356,4 @@ IoC 컨테이너는 자신이 관리하고 있는 빈들의 의존 관계를 따
 
 [ioc-link]: https://develogs.tistory.com/19
 [dependency-link]: https://velog.io/@huttels/%EC%9D%98%EC%A1%B4%EC%84%B1%EC%9D%B4%EB%9E%80
-[reson-of-recommendation-to-use-constructor-injection-link]: https://junhyunny.github.io/spring-boot/junit/reson-of-recommendation-to-use-constructor-injection/``
+[reson-of-recommendation-to-use-constructor-injection-link]: https://junhyunny.github.io/spring-boot/junit/reson-of-recommendation-to-use-constructor-injection/

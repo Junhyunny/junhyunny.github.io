@@ -1,23 +1,22 @@
 ---
-title: "Change URI with Openfeign when Runtime"
+title: "런타임 시 OpenFeign URI 동적 변경"
 search: false
 category:
   - spring-boot
   - spring-cloud
   - junit
-last_modified_at: 2021-08-23T00:30:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [스프링 클라우드(spring cloud) OpenFeign][openfeign-link]
+- [스프링 클라우드(spring cloud) OpenFeign][openfeign-link]
 
 ## 1. Dynamic URI FeignClient when Runtime
 
-`FeignClient`를 사용한 코드를 살펴보면 일반적으로 `URL`이 고정되어 있습니다. 
-유연한 사용이 불가능한 것처럼 보이지만, `FeignClient`는 `URL`을 런타임에 바꿀 수 있도록 설계되어 있습니다.  
+`FeignClient`를 사용한 코드를 살펴보면 일반적으로 `URL`이 고정되어 있다. 유연한 사용이 불가능한 것처럼 보이지만, FeignClient는 URL을 런타임에 바꿀 수 있도록 설계되어 있다.
 
 ```java
 package action.in.blog.client;
@@ -35,7 +34,7 @@ public interface HealthClient {
 
 ## 2. Change URL when Runtime
 
-스택 오버플로우에서 관련된 답변을 찾을 수 있었습니다.
+스택 오버플로우에서 관련된 답변을 찾을 수 있었다.
 
 > StackOverflow<br/>
 > You can add an unannotated URI parameter (that can potentially be determined at runtime) and that will be the base path that will be used for the request. E.g.:
@@ -50,14 +49,12 @@ public interface MyClient {
 
 ## 3. Practice
 
-[스프링 클라우드(spring cloud) OpenFeign][openfeign-link] 포스트 예제를 변경하였습니다. 
-변경한 일부 코드만 살펴보겠습니다.
+[스프링 클라우드(spring cloud) OpenFeign][openfeign-link] 글의 예제를 변경하였다. 변경한 일부 코드만 살펴보겠다.
 
-### 3.1. HealthClient Interface
+FeignClient 객체로 사용될 HealthClient 인터페이스를 살펴보자.
 
-* 기본 URL 정보는 지정합니다.
-    * `http://placeholder-url`
-* 메서드의 매개 변수로 URI 객체를 전달합니다.
+- 기본 플레이스홀더 URL 정보를 `http://placeholder-url`으로 지정한다.
+- 메서드의 매개변수로 URI 객체를 전달한다.
 
 ```java
 package action.in.blog.client;
@@ -75,11 +72,10 @@ public interface HealthClient {
 }
 ```
 
-### 3.2. HealthController Class
+테스트를 위한 HealthController 컨트롤러 클래스를 살펴보자.
 
-* URI 객체를 생성합니다.
-    * `http://b-service:8080`
-* 클라이언트 객체에게 URI를 전달합니다.
+- URI 객체를 생성한다. http://b-service:8080 주소를 사용한다.
+- 클라이언트 객체에게 URI를 전달한다.
 
 ```java
 package action.in.blog.controller;
@@ -109,53 +105,17 @@ public class HealthController {
 
 ## 4. Test
 
-### 4.1. Run Docker Compose
-
-도커 컴포즈(docker compose)로 테스트 환경을 구축합니다.
+도커 컴포즈(docker compose)로 테스트 환경을 구축했다.
 
 ```
 $ docker-compose up -d
-[+] Building 3.8s (23/23) FINISHED
- => [2021-03-07-dynamic-uri-using-openfeign-a-service internal] load build definition from Dockerfile                                                                                         0.0s
- => => transferring dockerfile: 32B                                                                                                                                                           0.0s
- => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load build definition from Dockerfile                                                                                         0.0s
- => => transferring dockerfile: 32B                                                                                                                                                           0.0s
- => [2021-03-07-dynamic-uri-using-openfeign-a-service internal] load .dockerignore                                                                                                            0.0s
- => => transferring context: 2B                                                                                                                                                               0.0s
- => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load .dockerignore                                                                                                            0.0s
- => => transferring context: 2B                                                                                                                                                               0.0s
- => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                                3.5s
- => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                        3.5s
- => [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa215      0.0s
- => [2021-03-07-dynamic-uri-using-openfeign-b-service stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9a5dcf55  0.0s
- => [2021-03-07-dynamic-uri-using-openfeign-a-service internal] load build context                                                                                                            0.0s 
- => => transferring context: 953B                                                                                                                                                             0.0s 
- => [2021-03-07-dynamic-uri-using-openfeign-b-service internal] load build context                                                                                                            0.0s 
- => => transferring context: 825B                                                                                                                                                             0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service stage-1 2/3] WORKDIR /app                                                                                                        0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 2/6] WORKDIR /build                                                                                                  0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 3/6] COPY pom.xml .                                                                                                  0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 4/6] RUN mvn dependency:go-offline                                                                                   0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 5/6] COPY src ./src                                                                                                  0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                          0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-b-service stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                               0.0s 
- => [2021-03-07-dynamic-uri-using-openfeign-a-service] exporting to image                                                                                                                     0.1s 
- => => exporting layers                                                                                                                                                                       0.0s 
- => => writing image sha256:fbe6b2b0aefec38c7f5e01684663449508358c3985c674026daa49d8c750e1c0                                                                                                  0.0s 
- => => naming to docker.io/library/2021-03-07-dynamic-uri-using-openfeign-b-service                                                                                                           0.0s 
- => => writing image sha256:4df954c8cbac0d7b7900fe98bdaae3757ca1470307213ed556ef455bcaebacc5                                                                                                  0.0s 
- => => naming to docker.io/library/2021-03-07-dynamic-uri-using-openfeign-a-service                                                                                                           0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 3/6] COPY pom.xml .                                                                                                  0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 4/6] RUN mvn dependency:go-offline                                                                                   0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 5/6] COPY src ./src                                                                                                  0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                          0.0s 
- => CACHED [2021-03-07-dynamic-uri-using-openfeign-a-service stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                               0.0s 
+...
 [+] Running 2/2
- - Container 2021-03-07-dynamic-uri-using-openfeign-a-service-1  Started                                                                                                                      0.8s 
- - Container 2021-03-07-dynamic-uri-using-openfeign-b-service-1  Started                                                                                                                      0.7s
+ - Container 2021-03-07-dynamic-uri-using-openfeign-a-service-1  Started                              0.8s 
+ - Container 2021-03-07-dynamic-uri-using-openfeign-b-service-1  Started                              0.7s
 ```
 
-##### Test Result
+위에서 정의한 컨트롤러 엔드포인트로 요청을 보내면 정상적인 응답을 받을 수 있다.
 
 ```
 $  curl http://localhost:8080/health
@@ -182,10 +142,10 @@ RawContentLength  : 47
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-07-dynamic-uri-using-openfeign>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-07-dynamic-uri-using-openfeign>
 
 #### REFERENCE
 
-* <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>
+- <https://stackoverflow.com/questions/43733569/how-can-i-change-the-feign-url-during-the-runtime>
 
 [openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/

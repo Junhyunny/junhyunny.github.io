@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - jpa
-last_modified_at: 2025-06-25T20:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -65,7 +65,7 @@ ORM 프레임워크는 다음과 같은 장점을 갖는다.
 
 ## 2. Spring Data JPA
 
-Spring 프레임워크에서 JPA를 쉽게 사용하기 위해 만든 라이브러리다. `Spring Data JPA`는 `JPA`를 한 단계 더 추상화시킨 `Repository` 인터페이스를 제공한다. 개발자는 이를 확장하여 사용할 수 있다. 간단한 이름 규칙에 맞는 메서드를 작성함으로써 쉽게 영속성 프레임워크 기능을 사용할 수 있다. 실제 추상화 된 구조를 살펴보면 다음과 같다.
+Spring 프레임워크에서 JPA를 쉽게 사용하기 위해 만든 라이브러리다. `Spring Data JPA`는 `JPA`를 한 단계 더 추상화시킨 `Repository` 인터페이스를 제공한다. 개발자는 이를 확장하여 사용할 수 있다. 간단한 이름 규칙에 맞는 메서드를 작성함으로써 쉽게 영속성 프레임워크 기능을 사용할 수 있다. 실제 추상화된 구조를 살펴보면 다음과 같다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/java-persistence-api-03.png" width="50%" class="image__border">

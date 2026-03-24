@@ -4,7 +4,7 @@ search: false
 category:
   - msa
   - design-pattern
-last_modified_at: 2025-06-25T20:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -12,7 +12,7 @@ last_modified_at: 2025-06-25T20:00:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [마이크로서비스 아키텍처][microservice-architecture-link]
-- [트랜잭션(transaction) ACID][transcation-acid-link]
+- [트랜잭션(transaction) ACID 특징][transcation-acid-link]
 - [트랜잭션 격리성(transaction isolation) 특징][transcation-isolation-link]
 
 ## 0. 들어가면서
@@ -71,7 +71,7 @@ last_modified_at: 2025-06-25T20:00:00
 
 <br/>
 
-두번째 단계(second phase 혹은 commit phase)는 다음과 같이 동작한다.
+두 번째 단계(second phase 혹은 commit phase)는 다음과 같이 동작한다.
 
 - 코디네이터는 모든 데이터베이스 노드들로부터 준비 완료 응답을 받으면 커밋을 요청한다.
 - 코디네이터는 단 하나의 데이터베이스 노드라도 준비 실패 응답을 보내면 모든 데이터베이스 노드들에게 롤백을 요청한다.
@@ -183,7 +183,7 @@ last_modified_at: 2025-06-25T20:00:00
 - 클라이언트 사용성에 대해 고민이 필요하다.
   - 프로세스를 모두 마친 후 응답을 보내는 것이 아니기 때문에 클라이언트에게 최종 결과를 전달할 방법을 정해야 한다.
   - 클라이언트 쪽 프로그램에서 주기적인 폴링을 통해 최종 결과를 확인하는 방법이 있다.
-  - 웹 소켓, `SSE(Server Send Event)` 방식을 통해 클라이언트를 업데이트 한다.
+  - 웹 소켓, `SSE(Server Send Event)` 방식을 통해 클라이언트를 업데이트한다.
 
 ## CLOSING
 

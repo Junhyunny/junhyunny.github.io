@@ -238,7 +238,7 @@ $ docker-compose up -d
 
 #### RECOMMEND NEXT POSTS
 
-- [FeignClient with Eureka][feignclient-with-eureka-link]
+- [유레카(Eureka) 서버/클라이언트와 FeignClient 연동하기][feignclient-with-eureka-link]
 
 #### REFERENCE
 

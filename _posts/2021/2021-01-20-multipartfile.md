@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - vue.js
-last_modified_at: 2021-08-22T00:30:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -26,7 +26,7 @@ MultipartFile 인터페이스의 주요 책임을 살펴보자.
 - getBytes 메서드
   - 파일의 이진 바이트 값을 반환한다.
 - getInputStream 메서드
-  - 파일을 읽기 위한 입력 스트립(stream)을 반환한다.
+  - 파일을 읽기 위한 입력 스트림(stream)을 반환한다.
 - transferTo 메서드
   - 파일 정보를 새로운 파일 인스턴스로 복사한다.
 
@@ -67,7 +67,7 @@ VueJS로 프론트엔드 애플리케이션을 구현했다. 파일을 업로드
 - fetchFiles 함수
   - 백엔드 서비스의 `/files` 경로로 파일 리스트를 요청한다.
 - selectFile 함수
-  - 사용자가 파일 선택 완료시 호출되는 콜백 함수입니다.
+  - 사용자가 파일 선택 완료 시 호출되는 콜백 함수다.
   - `FormData` 인스턴스에 `files` 이름으로 선택한 파일들을 추가한다.
   - 백엔드 서비스의 `/files` 경로로 파일 업로드를 요청한다.
   - 파일 업로드에 성공하면 이미지 리스트를 갱신한다.

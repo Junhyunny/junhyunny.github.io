@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - vue.js
-last_modified_at: 2021-08-21T23:50:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -20,7 +20,7 @@ last_modified_at: 2021-08-21T23:50:00
 - 프론트엔드 서비스의 프록시 기능을 사용하여 교차 호출이 발생하지 않도록 우회
 - 백엔드 서비스에서 CORS 허용 헤더를 응답
 
-이번 글은 스프링 부트 서버에서 CORS 정책 처리를 위해 헤더를 설정하는 방법을 다룬다. 간단하게 프론트엔드 서비스를 함께 구성하여 CORS 에러가 발생 케이스와 정상 처리 케이스를 살펴본다. 여러 개의 서버 애플리케이션을 동시에 띄워서 여러 가지 방법으로 CORS 헤더를 구성하는 방법에 대해 알아본다. 이 글의 프론트엔드 예제는 VueJs를 사용했다. Jekyll 문법과 충돌이 있기 때문에 `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.
+이번 글은 스프링 부트 서버에서 CORS 정책 처리를 위해 헤더를 설정하는 방법을 다룬다. 간단하게 프론트엔드 서비스를 함께 구성하여 CORS 에러가 발생하는 케이스와 정상 처리 케이스를 살펴본다. 여러 개의 서버 애플리케이션을 동시에 띄워서 여러 가지 방법으로 CORS 헤더를 구성하는 방법에 대해 알아본다. 이 글의 프론트엔드 예제는 VueJs를 사용했다. Jekyll 문법과 충돌이 있기 때문에 `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.
 
 ## 1. Frontend application
 
@@ -121,7 +121,7 @@ export default {
 - @CrossOrigin 애너테이션의 적용 대상은 클래스와 메서드이다.
   - ElementType.TYPE - 클래스, 인터페이스, 열거 타입에 사용 가능
   - ElementType.METHOD - 메서드에 사용 가능
-- CORS 헤더 설정에 필요한 값들을 지정할 수 있습니다.
+- CORS 헤더 설정에 필요한 값들을 지정할 수 있다.
   - origins - 허용하는 출처 리스트
   - originPatterns - 허용하는 출처 패턴 리스트
   - allowedHeaders - 허용하는 헤더 리스트
@@ -205,7 +205,7 @@ public class CorsController {
 }
 ```
 
-### 2.2. Using glboal CORS configuration
+### 2.2. Using global CORS configuration
 
 8081 포트 서비스에서 처리한 방식을 살펴본다. 전역 CORS 설정을 통해 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 결정한다. WebMvcConfigurer 인터페이스를 확장해서 addCorsMappings 메서드를 재정의한다. 메서드 내부에 CORS 정책을 작성한다.
 

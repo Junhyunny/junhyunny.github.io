@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - spring-cloud
-last_modified_at: 2025-10-01T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -235,8 +235,8 @@ RawContentLength  : 47
 
 #### RECOMMEND NEXT POSTS
 
-- [Change URI with Openfeign when Runtime][dynamic-uri-using-openfeign-link]
-- [Spring Cloud Netflix Eureka][spring-cloud-netflix-eureka-link]
+- [런타임 시 OpenFeign URI 동적 변경][dynamic-uri-using-openfeign-link]
+- [스프링 클라우드 넷플릭스 유레카(Spring Cloud Netflix Eureka)][spring-cloud-netflix-eureka-link]
 - [FeignClient with Eureka][feignclient-with-eureka-link]
 
 #### REFERENCE

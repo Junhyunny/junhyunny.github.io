@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - design-pattern
-last_modified_at: 2025-10-01T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -59,7 +59,7 @@ class A {
 
 스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공한다. 
 
-- 생성자 주입(Cosntructor Injection)
+- 생성자 주입(Constructor Injection)
 - 세터 주입(Setter Injection)
 - 애너테이션 주입(Annotation Injection)
 
@@ -278,7 +278,7 @@ public class DefaultDeliveryService {
 이 문제점을 `IoC 컨테이너`를 통해 해결할 수 있다. 스프링에서 제공하는 애너테이션을 사용하면 특정 객체를 생성 후 스프링 빈 객체로써 IoC 컨테이너 등록한다. 스프링 빈으로 등록된 객체는 필요한 곳에 주입된다. DefaultDeliveryService 클래스를 다음과 같이 변경한다. 
 
 - DefaultDeliveryService 클래스에 @Service 애너테이션을 추가한다.
-- @Service 애너테이션을 붙히면 각 클래스의 객체들이 빈으로써 IoC 컨테이너에서 관리된다.
+- @Service 애너테이션을 붙이면 각 클래스의 객체들이 빈으로써 IoC 컨테이너에서 관리된다.
 
 ```java
 package action.in.blog.service;
@@ -307,7 +307,7 @@ public class DefaultDeliveryService {
 JpaDeliveryStore 클래스를 다음과 같이 변경한다. 
 
 - JpaDeliveryStore 클래스에 @Repository 애너테이션을 추가한다.
-- @Repository 애너테이션을 붙히면 각 클래스의 객체들이 빈으로써 IoC 컨테이너에서 관리된다.
+- @Repository 애너테이션을 붙이면 각 클래스의 객체들이 빈으로써 IoC 컨테이너에서 관리된다.
 
 ```java
 package action.in.blog.store;

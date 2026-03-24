@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2021-08-22T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -62,7 +62,7 @@ last_modified_at: 2021-08-22T00:00:00
   <img src="{{ site.image_url_2021 }}/cqrs-pattern-02.png" width="50%" class="image__border">
 </div>
 
-### 3.2. 데이터베이스 분리
+### 3.3. 데이터베이스 분리
 
 - 각 서비스에 맞는 데이터베이스를 사용할 수 있도록 분리한다. 
 - 폴리글랏(polyglot) 저장소를 사용할 수 있다. 서비스의 강점을 살릴 수 있는 데이터베이스를 선택할 수 있다.
@@ -103,8 +103,8 @@ last_modified_at: 2021-08-22T00:00:00
 > So while CQRS is a pattern that's good to have in the toolbox, 
 > beware that it is difficult to use well and you can easily chop off important bits if you mishandle it.
 
-CQRS 패턴이 맞지 않는 도메인에 적용하는 경우 시스템 복잡성과 프로젝트의 리스크는 커지고, 생산성은 줄어드는 결과를 얻게 됩니다. 
-단순히 몇 가지 기준들로 CQRS 패턴의 적용 여부를 결정하는 것은 큰 리스크가 있어 보입니다. 
+CQRS 패턴이 맞지 않는 도메인에 적용하는 경우 시스템 복잡성과 프로젝트의 리스크는 커지고, 생산성은 줄어드는 결과를 얻게 된다. 
+단순히 몇 가지 기준들로 CQRS 패턴의 적용 여부를 결정하는 것은 큰 리스크가 있어 보인다. 
 프로젝트를 진행하는 팀원들과 충분한 대화를 통해 패턴의 적용 여부를 결정하면 좋을 것 같다. 
 
 #### REFERENCE

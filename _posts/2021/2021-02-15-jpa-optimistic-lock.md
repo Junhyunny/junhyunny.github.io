@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2024-12-19T12:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -95,18 +95,18 @@ insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'Th
 
 - `트랜잭션1`는 다음과 같은 작업을 수행한다.
   - 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾는다.
-  - 내용를 변경한다.
+  - 내용을 변경한다.
   - 0.5초 대기한다.
   - 오염 감지(dirty check)를 통해 변경 사항이 업데이트된다.
 - `트랜잭션2`는 다음과 같은 작업을 수행한다.
   - 제목이 `Hello World`인 포스트 엔티티를 찾는다.
-  - 내용를 변경한다.
+  - 내용을 변경한다.
   - 1초 대기한다.
   - 오염 감지를 통해 변경 사항이 업데이트된다.
 - `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상한다.
   - 해당 예외의 원인은 `ObjectOptimisticLockingFailureException` 이다.
 - 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상한다.
-- 포스트 엔티티의 버전 값이 1만큼 증가 하였음을 예상한다.
+- 포스트 엔티티의 버전 값이 1만큼 증가하였음을 예상한다.
 
 ```java
 package blog.in.action;
@@ -230,19 +230,19 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 - 테스트 실행 전 데이터 버전 값을 초기화한다.
 - `트랜잭션1`는 다음과 같은 작업을 수행한다.
   - 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾는다.
-  - 내용를 변경한다.
+  - 내용을 변경한다.
   - 0.5초 대기한다.
   - 오염 감지를 통해 변경 사항이 업데이트된다.
 - `트랜잭션2`는 다음과 같은 작업을 수행한다.
   - 제목이 `Hello World`인 포스트 엔티티를 찾는다.
-  - 내용를 변경한다.
+  - 내용을 변경한다.
   - 1초 대기한다.
   - 오염 감지를 통해 변경 사항이 업데이트된다.
 - `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상한다.
   - 해당 예외의 원인은 `RollbackException` 이다.
   - `RollbackException` 예외의 원인은 `OptimisticLockException` 이다.
 - 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상한다.
-- 포스트 엔티티의 버전 값이 1만큼 증가 하였음을 예상한다.
+- 포스트 엔티티의 버전 값이 1만큼 증가하였음을 예상한다.
 
 ```java
 package blog.in.action;
@@ -344,7 +344,7 @@ public class EntityManagerTest {
 }
 ```
 
-##### Test Result
+위 테스트 코드의 실행 로그를 분석해보자.
 
 - 버전 값을 0으로 업데이트하는 쿼리
   - `update post set version_no=0 where id=1`
@@ -378,7 +378,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 #### 2.2.2. LockModeType.OPTIMISTIC_FORCE_INCREMENT
 
 - `OPTIMISTIC` 모드 테스트와 결과가 동일하지만, 증가한 버전 값이 다르다.
-- 버전 값이 2만큼 증가 하였음을 예상한다.
+- 버전 값이 2만큼 증가하였음을 예상한다.
   - 오염 감지를 통해 업데이트가 수행되면서 버전 값이 증가한다.
   - `OPTIMISTIC_FORCE_INCREMENT` 모드이므로 별도로 버전 값을 증가시킨다.
 

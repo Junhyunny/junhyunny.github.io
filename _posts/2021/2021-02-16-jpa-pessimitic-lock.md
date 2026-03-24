@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2025-01-27T23:30:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -376,8 +376,6 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 ## CLOSING
 
-##### Error when use JpaRepository Interface
-
 비관적 락 모드는 JPA 트랜잭션 중에만 사용 가능하다. `JpaRepository` 인터페이스를 사용하는 경우 직접 트랜잭션 제어가 안 되기 때문에 `@Transactional` 애너테이션을 사용한다. 적절한 서비스 빈(bean)을 만들고 필요한 기능들을 하나의 트랜잭션으로 묶는 작업이 필요하다. 만일 트랜잭션을 시작하지 않고, 해당 메서드를 사용하면 다음과 같은 에러를 만나게 된다. 
 
 ```
@@ -390,15 +388,13 @@ org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in
     ...
 ```
 
-##### Performance Issue
-
 비관적인 락 기능을 사용한 동시성 제어의 문제점은 스레드 대기로 인한 성능 지연이라고 생각한다. 락을 선점한 트랜잭션이 길어지는 경우 해당 락이 풀리길 기다리는 트랜잭션들도 모두 함께 정지된다. 타임아웃이나 데드락(deadlock)으로 인해 시스템 장애가 발생할 수 있다. 
 
 이런 문제를 해결하기 위해 락 점유를 위해 일정 시간 대기하고, 점유하지 못하면 해당 트랜잭션을 실패 처리할 필요가 있다. `SELECT - FOR UPDATE WAIT #{waitTime}` 같은 쿼리를 수행하면 락 점유를 위해 일정 시간만 대기하고, 실패 시 예외를 던진다. 데이터베이스에 따라 해당 기능을 지원하지 않을 수 있다. 
 
-`JPA`는 타임아웃 설정을 지원하지만, 해당 기능에 대한 테스트는 이번 포스트에서 다루지 않았다. 간단하게 사용 방법만 정리하고 이번 포스트를 마무리한다. 
+`JPA`는 타임아웃 설정을 지원하지만, 해당 기능에 대한 테스트는 이번 글에서 다루지 않았다. 간단하게 사용 방법만 정리하고 이번 글을 마무리한다. 
 
-##### @QueryHints Annotations for JpaRepository
+- @QueryHints 애너테이션을 사용하는 방법
 
 ```java
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -406,7 +402,7 @@ org.springframework.dao.InvalidDataAccessApiUsageException: no transaction is in
     Optional<Post> findById(Long id)
 ```
 
-##### Properties Map for EntityManager
+- EntityManager 객체에게 타임아웃 속성을 전달하는 방법
 
 ```java
    Map<String,Object> properties = new HashMap();

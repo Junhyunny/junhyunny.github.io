@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2025-06-27T21:30:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -231,6 +231,8 @@ EntityManager가 관리 중인 엔티티의 상태가 변경되면, 트랜잭션
   <img src="{{ site.image_url_2021 }}/persistence-context-advantages-05.png" width="80%" class="image__border">
 </div>
 <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
+
+<br/>
 
 아래 테스트 코드를 통해 변경 감지가 잘 수행되는지 확인한다.
 

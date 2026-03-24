@@ -237,7 +237,7 @@ RawContentLength  : 47
 
 - [런타임 시 OpenFeign URI 동적 변경][dynamic-uri-using-openfeign-link]
 - [스프링 클라우드 넷플릭스 유레카(Spring Cloud Netflix Eureka)][spring-cloud-netflix-eureka-link]
-- [FeignClient with Eureka][feignclient-with-eureka-link]
+- [유레카(Eureka) 서버/클라이언트와 FeignClient 연동하기][feignclient-with-eureka-link]
 
 #### REFERENCE
 

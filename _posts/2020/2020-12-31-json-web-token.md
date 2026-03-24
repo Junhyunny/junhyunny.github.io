@@ -3,7 +3,7 @@ title: "JWT(Json Web Token)"
 search: false
 category:
   - information
-last_modified_at: 2021-08-21T16:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -48,7 +48,7 @@ last_modified_at: 2021-08-21T16:00:00
 
 ### 2.2. Payload
 
-헤더와 마찬가지로 `Base64URL` 방식으로 인코딩 되어 있다. 담는 정보의 한 조각을 클레임(claim)이라 부르며 이름-값(name-value) 쌍으로 이루어져 있다. 클레임의 종류는 크게 다음과 같이 분류된다. 
+헤더와 마찬가지로 `Base64URL` 방식으로 인코딩되어 있다. 담는 정보의 한 조각을 클레임(claim)이라 부르며 이름-값(name-value) 쌍으로 이루어져 있다. 클레임의 종류는 크게 다음과 같이 분류된다. 
 
 - 등록된 클레임(registered claim)
 - 공개된 클레임(public claim)
@@ -114,7 +114,7 @@ HMACSHA256(
 
 ## 4. Authentication and Authorization with JWT
 
-JWT는 Json 객체를 Base64 방식으로 인코딩 한 것이다. Base64 인코딩은 암호화 된 데이터가 아니기 때문에 디코딩하면 사용자 정보를 얻을 수 있다. 다시 말해 JWT로부터 인증된 사용자 정보와 권한을 획득할 수 있다는 의미이다. 때문에 오파크 토큰(opaque token)과 JWT을 사용한 인증/인가 방식에는 차이가 발생한다. 각 인증/인가 방식을 살펴보자.
+JWT는 Json 객체를 Base64 방식으로 인코딩한 것이다. Base64 인코딩은 암호화된 데이터가 아니기 때문에 디코딩하면 사용자 정보를 얻을 수 있다. 다시 말해 JWT로부터 인증된 사용자 정보와 권한을 획득할 수 있다는 의미이다. 때문에 오파크 토큰(opaque token)과 JWT을 사용한 인증/인가 방식에는 차이가 발생한다. 각 인증/인가 방식을 살펴보자.
 
 ### 4.1. Opaque Token Process
 

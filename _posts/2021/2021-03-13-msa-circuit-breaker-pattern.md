@@ -1,81 +1,71 @@
 ---
-title: "Circuit Breaker Pattern"
+title: "서킷 브레이커 패턴(Circuit Breaker Pattern)"
 search: false
 category:
   - spring-boot
   - spring-cloud
   - msa
   - design-pattern
-last_modified_at: 2021-08-24T12:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [마이크로서비스 아키텍처][microservice-architecture-link]
+- [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 1. MicroService Architecture
 
-마이크로서비스 아키텍처(MSA, MicroService Architecture)는 한가지 일만 잘하는 서비스들이 협업하는 아키텍처입니다. 
-서비스들은 서로 협업을 위해 이벤트 혹은 `REST` 통신을 수행합니다. 
-`REST` 통신은 동기식 처리이기 때문에 한 서비스에서 에러가 발생하거나 느려지면 다른 서비스들로 장애가 전파됩니다. 
+마이크로서비스 아키텍처(MSA, MicroService Architecture)는 한 가지 일만 잘하는 서비스들이 협업하는 아키텍처이다. 서비스들은 서로 협업을 위해 이벤트 혹은 `REST API` 통신을 수행한다. `REST API` 통신은 동기식 처리이기 때문에 한 서비스에서 에러가 발생하거나 느려지면 다른 서비스들로 장애가 전파된다.
 
-* `서비스F`에서 발생한 예외가 이를 의존하는 서비스들로 전파됩니다.
-* 장애 전파를 막기 위해 다음과 같은 것들을 고려해야 합니다.
-    * 마이크로서비스 아키텍처는 스스로 회복성(resilience)를 가지도록 설계되어야 합니다.
-    * 장애가 다른 서비스로 전파되지 않도록 장애를 격리해야 합니다.
+- `서비스F`에서 발생한 예외가 이를 의존하는 서비스들로 전파된다.
+- 장애 전파를 막기 위해 다음과 같은 것들을 고려해야 한다.
+  - 마이크로서비스 아키텍처는 스스로 회복성(resilience)을 가지도록 설계되어야 한다.
+  - 장애가 다른 서비스로 전파되지 않도록 장애를 격리해야 한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-01.gif" width="55%">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-01.gif" width="55%">
+</div>
 
 ## 2. Circuit Breaker Pattern
 
-한 서비스가 느려지면 응답을 받지 못한 서비스의 스레드가 대기하게 되면서 사용 가능한 스레드가 줄기 때문에 장애가 전파됩니다. 
-혹은 예외(exception) 처리가 미흡하면 예외가 다른 서비스로 전달되면서 장애가 전파됩니다. 
-마이크로서비스 아키텍처는 장애 전파를 막기 위해 회로 차단기(circuit breaker) 패턴을 사용합니다. 
-회로 차단기 패턴은 이름처럼 회로 차단기 역할을 수행하는 모듈(module)이 예외가 발생하는 경로를 차단합니다. 
+한 서비스가 느려지면 응답을 받지 못한 서비스의 스레드가 대기하게 되면서 사용 가능한 스레드가 줄기 때문에 장애가 전파된다. 혹은 예외(exception) 처리가 미흡하면 예외가 다른 서비스로 전달되면서 장애가 전파된다. 마이크로서비스 아키텍처는 장애 전파를 막기 위해 회로 차단기(circuit breaker) 패턴을 사용한다. 회로 차단기 패턴은 이름처럼 회로 차단기 역할을 수행하는 모듈(module)이 예외가 발생하는 경로를 차단한다.
 
 ### 2.1. How to work circuit breaker?
 
-클라이언트(client), 공급자(supplier) 모두 서비스입니다. 
-다른 서비스의 기능이 필요해 요청을 하는 서비스가 클라이언트, 클라이언트 서비스의 요청을 처리하는 서비스가 공급자입니다.
+클라이언트(client), 공급자(supplier) 모두 서비스이다. 다른 서비스의 기능이 필요해 요청을 하는 서비스가 클라이언트, 클라이언트 서비스의 요청을 처리하는 서비스가 공급자이다.
 
-1. 클라이언트가 공급자로 요청을 수행합니다.
-1. 장애가 없다면 회로 차단기는 요청을 그대로 전달합니다.
-    * 회로가 닫혀 있다고 표현합니다.(circuit closed)
-1. 공급자 서비스에 문제가 발생하면 회로 차단기는 공급자 서비스로 요청하는 경로를 차단합니다.
-    * 회로가 열렸다고 표현합니다.(circuit open)
-1. 회로가 열린 경우 대체 계획(fallback plan)으로 지정한 응답을 클라이언트 서비스에게 대신 전달합니다.
+1. 클라이언트가 공급자로 요청을 수행한다.
+2. 장애가 없다면 회로 차단기는 요청을 그대로 전달한다.
+  - 회로가 닫혀 있다고 표현한다.(circuit closed)
+3. 공급자 서비스에 문제가 발생하면 회로 차단기는 공급자 서비스로 요청하는 경로를 차단한다.
+  - 회로가 열렸다고 표현한다.(circuit open)
+4. 회로가 열린 경우 대체 계획(fallback plan)으로 지정한 응답을 클라이언트 서비스에게 대신 전달한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-02.png" width="55%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-02.png" width="55%" class="image__border">
+</div>
 <center>https://martinfowler.com/bliki/CircuitBreaker.html</center>
 
 ## 3. Practice
 
-`netflix-hystrix` 의존성을 사용해 회로 차단기 패턴을 적용시켜보았습니다. 
+`netflix-hystrix` 의존성을 사용해 회로 차단기 패턴을 적용시켜 보자. 다음과 같은 실습 환경을 구축했다.
 
-### 3.1. Context of Practice
+- JUnit 프레임워크로 작성한 테스트 코드를 통해 API 요청을 수행한다.
+- `/post/{id}` 경로로 API 요청을 수행하며 `id`의 범위에 따라 `서비스A`는 다음과 같은 응답을 전달한다.
+  - `0 ~ 24` 범위의 경우 정상 응답을 전달한다.
+  - `25 ~ 49` 범위의 경우 임의로 1초 대기 후 정상 응답을 전달한다.
+  - `50 ~ 74` 범위의 경우 임의로 런타임 예외(runtime exception)를 던진다.
+  - `75 ~ 99` 범위의 경우 다시 정상 응답을 전달한다.
 
-다음과 같은 실습 환경을 구축하였습니다. 
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-03.png" width="80%" class="image__border">
+</div>
 
-* JUnit 프레임워크로 작성한 테스트 코드를 통해 API 요청을 수행합니다.
-* `/post/{id}` 경로로 API 요청을 수행하며 `id`의 범위에 따라 `서비스A`는 다음과 같은 응답을 전달합니다.
-    * `0 ~ 24` 범위의 경우 정상 응답을 전달합니다.
-    * `25 ~ 49` 범위의 경우 임의로 1초 대기 후 정상 응답을 전달합니다.
-    * `50 ~ 74` 범위의 경우 임의로 런타임 예외(runtime exception)를 던집니다.
-    * `75 ~ 99` 범위의 경우 다시 정상 응답을 전달합니다.
+<br/>
 
-<p align="center">
-    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-03.png" width="80%" class="image__border">
-</p>
-
-### 3.2. pom.xml 
-
-* `netflix-hystrix` 관련 의존성을 추가합니다.
+pom.xml 파일에 `netflix-hystrix` 관련 의존성을 추가한다.
 
 ```xml
     <properties>
@@ -104,9 +94,7 @@ last_modified_at: 2021-08-24T12:00:00
     </dependencyManagement>
 ```
 
-### 3.3. PostController Class
-
-* 회로 차단기 테스트를 위해 `id` 범위에 따른 응답을 전달합니다.
+PostController 클래스에 회로 차단기 테스트를 위한 로직을 추가한다. `id` 범위에 따른 정상/에러 응답을 반환한다.
 
 ```java
 package cloud.in.action.controller;
@@ -146,43 +134,38 @@ public class PostController {
 
 ## 4. Test
 
-테스트 코드를 실행하기에 앞서 이전 단계에서 준비한 서비스를 실행합니다.
+테스트 코드를 실행하기 전에 이전 단계에 준비한 서비스를 실행한다. 다음 아래와 같은 회로 차단기가 적용된 서비스 객체를 준비한다. 적절한 회로 차단을 위해 다음과 같이 설정한다.
 
-### 4.1. Properties for Circuit Breaker
-
-회로 차단기가 적용된 서비스 객체를 준비합니다. 
-적절한 회로 차단을 위해 다음과 같이 설정합니다.
-
-* 회로 차단기를 설정할 메서드 위에 `@HystrixCommand` 애너테이션을 추가합니다.
-* fallbackMethod 속성 
-    * 정상적인 응답을 받지 못하는 경우 대체 계획을 지정합니다.
-* commandProperties 속성
-    * 회로 차단기를 위한 설정들을 추가합니다.
-* `@HystrixProperty` 애너테이션을 통해 다음과 같은 설정들을 지정할 수 있습니다.
-    * `execution.isolation.thread.timeoutInMilliseconds` 
-        * 메서드 호출 이후 모니터링하는 시간입니다.
-        * 해당 시간이 지나면 `fallbackMethod`로 지정한 메서드를 실행합니다.
-        * 기본값 1000ms
-    * `metrics.rollingStats.timeInMilliseconds`
-        * 요청을 시작한 시점부터 요청에 대한 오류 감지를 수행하는 시간입니다. 
-        * 측정되는 시간동안 오류가 발생한 비율에 따라 회로의 개폐 여부가 결정됩니다.
-        * 기본값 10000ms
-    * `circuitBreaker.requestVolumeThreshold`
-        * 오류 감지 시간동안 최소 요청 회수를 설정할 수 있습니다.
-        * 최소 요청 회수를 달성하면 요청 실패에 대한 통계를 내어 설정 값보다 높으면 회로를 차단합니다.
-        * 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메서드를 실행합니다.
-        * 기본값 20회
-    * `circuitBreaker.errorThresholdPercentage`
-        * 오류 감지 시간, 최소 요청 회수를 모두 만족할 때 요청 실패에 대한 통계를 냅니다.
-        * 이 설정 값보다 실패 확률이 높은 경우 회로를 차단합니다.
-        * 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메서드를 실행합니다.
-        * 기본값 50%
-    * `circuitBreaker.sleepWindowInMilliseconds`
-        * 회로 차단기가 다른 서비스의 회복 상태를 확인하기까지 대기하는 시간입니다.
-        * 해당 설정 시간만큼 기다린 후에 재요청을 해보고 서비스 정상 여부를 확인합니다.
-        * 기본값 5000ms
-* 기타 설정들 
-    * <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
+- 회로 차단기를 설정할 메서드 위에 `@HystrixCommand` 애너테이션을 추가한다.
+- fallbackMethod 속성
+  - 정상적인 응답을 받지 못하는 경우 대체 계획을 지정한다.
+- commandProperties 속성
+  - 회로 차단기를 위한 설정들을 추가한다.
+- `@HystrixProperty` 애너테이션을 통해 다음과 같은 설정들을 지정할 수 있다.
+  - `execution.isolation.thread.timeoutInMilliseconds`
+    - 메서드 호출 이후 모니터링하는 시간이다.
+    - 해당 시간이 지나면 `fallbackMethod`로 지정한 메서드를 실행한다.
+    - 기본값 1000ms
+  - `metrics.rollingStats.timeInMilliseconds`
+    - 요청을 시작한 시점부터 요청에 대한 오류 감지를 수행하는 시간이다.
+    - 측정되는 시간 동안 오류가 발생한 비율에 따라 회로의 개폐 여부가 결정된다.
+    - 기본값 10000ms
+  - `circuitBreaker.requestVolumeThreshold`
+    - 오류 감지 시간 동안 최소 요청 횟수를 설정할 수 있다.
+    - 최소 요청 횟수를 달성하면 요청 실패에 대한 통계를 내어 설정 값보다 높으면 회로를 차단한다.
+    - 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메서드를 실행한다.
+    - 기본값 20회
+  - `circuitBreaker.errorThresholdPercentage`
+    - 오류 감지 시간, 최소 요청 횟수를 모두 만족할 때 요청 실패에 대한 통계를 낸다.
+    - 이 설정 값보다 실패 확률이 높은 경우 회로를 차단한다.
+    - 이후 요청은 모두 실패로 간주하고 `fallbackMethod`로 지정한 메서드를 실행한다.
+    - 기본값 50%
+  - `circuitBreaker.sleepWindowInMilliseconds`
+    - 회로 차단기가 다른 서비스의 회복 상태를 확인하기까지 대기하는 시간이다.
+    - 해당 설정 시간만큼 기다린 후에 재요청을 해보고 서비스 정상 여부를 확인한다.
+    - 기본값 5000ms
+- 기타 설정들
+  - <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
 
 ```java
 @Service
@@ -211,14 +194,12 @@ class CircuitBreakerService {
 }
 ```
 
-### 4.2. Test Circuit Breaker
+이제 위에서 정의한 서킷 브레이커 패턴이 적용된 CircuitBreakerService 객체를 사용해 API 요청을 수행해보자. 아래 테스트를 실행한다.
 
-다음과 같은 테스트를 수행합니다. 
-
-* `/post/{id}` 경로로 API 요청을 수행합니다.
-    * 0.1초 간격으로 100회 반복 요청하며 각 인덱스가 호출 시 사용하는 `id` 값입니다.
-* `@SpringBootTest` 애너테이션 추가하여 통합 테스트를 수행합니다.
-* `@EnableCircuitBreaker` 애너테이션을 추가하여 회로 차단기를 활성화시킵니다. 
+- `/post/{id}` 경로로 API 요청을 수행한다. 
+  - 0.1초 간격으로 100회 반복 요청하며 각 인덱스가 호출 시 사용하는 `id` 값이다.
+- `@SpringBootTest` 애너테이션을 추가하여 통합 테스트를 수행한다.
+- `@EnableCircuitBreaker` 애너테이션을 추가하여 회로 차단기를 활성화한다.
 
 ```java
 package cloud.in.action.hystrix;
@@ -262,11 +243,7 @@ public class CircuitBreakerTest {
 }
 ```
 
-##### Test Result
-
-테스트 결과를 `id` 범위에 맞춰 나눠 살펴보겠습니다.
-
-* 요청을 받은 서비스는 `0 ~ 24` 범위동안 정상적인 응답을 합니다.
+테스트 결과를 로그를 통해 확인해보자. 로그를 `id` 범위에 맞춰 나눠 살펴보겠다. 요청을 받은 서비스는 `0 ~ 24` 범위 동안 정상적인 응답을 한다.
 
 ```
 2023-02-05 23:35:40.610  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : POST(id: 0)(response time: 252)
@@ -282,9 +259,10 @@ public class CircuitBreakerTest {
 2023-02-05 23:35:43.230  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : POST(id: 24)(response time: 2)
 ```
 
-* 요청을 받은 서비스는 `25 ~ 49` 범위동안 임의로 1초 대기 후 응답합니다. 
-    * 현재 타임아웃(timeout) 에러 기준은 500ms이므로 요청을 받은 서비스의 스레드가 1초 멈추는 경우 에러입니다.
-    * 응답 대기를 약 500ms정도 수행 후 에러로 판단하여 `fallback plan` 문자열을 반환합니다.
+요청을 받은 서비스는 `25 ~ 49` 범위 동안 임의로 1초 대기 후 응답한다.
+
+- 현재 타임아웃(timeout) 에러 기준은 500ms이므로 요청을 받은 서비스의 스레드가 1초 멈추는 경우 에러이다.
+- 응답 대기를 약 500ms 수행 후 에러로 판단하여 `fallback plan` 문자열을 반환한다.
 
 ```
 2023-02-05 23:35:43.339  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : POST(id: 25)(response time: 2)
@@ -300,10 +278,11 @@ public class CircuitBreakerTest {
 2023-02-05 23:35:50.549  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : fallback plan(response time: 510)
 ```
 
-* 요청을 받은 서비스는 `50 ~ 75` 범위동안 임의로 런타임 예외를 던집니다.
-    * 지정한 10초 동안 5회 이상 에러가 발생하면 발생 확률에 따라 회로를 차단합니다.
-    * 회로가 차단된 경우 응답 대기 시간 없이 `fallback plan` 문자열을 반환합니다.
-    * 상대 서비스가 정상화 됐는지 확인하기 위해 1초마다 회로를 잠시 연결하여 실제로 API 요청을 수행합니다.
+요청을 받은 서비스는 `50 ~ 75` 범위 동안 임의로 런타임 예외를 던진다.
+
+- 지정한 10초 동안 5회 이상 에러가 발생하면 발생 확률에 따라 회로를 차단한다.
+- 회로가 차단된 경우 응답 대기 시간 없이 `fallback plan` 문자열을 반환한다.
+- 상대 서비스가 정상화됐는지 확인하기 위해 1초마다 회로를 잠시 연결하여 실제로 API 요청을 수행한다.
 
 ```
 2023-02-05 23:35:50.661  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : POST(id: 50)(response time: 1)
@@ -324,9 +303,10 @@ public class CircuitBreakerTest {
 2023-02-05 23:35:53.261  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : fallback plan(response time: 0)
 ```
 
-* 요청을 받은 서비스는 `75 ~ 99` 범위동안 정상 응답합니다.
-    * 상대 서비스가 정상화 됐는지 확인하기 위해 1초마다 회로를 잠시 연결하여 실제로 API 요청을 수행합니다.
-    * 응답이 정상적으로 오는 것을 확인하면 회로를 다시 연결합니다.
+요청을 받은 서비스는 `75 ~ 99` 범위 동안 정상 응답한다.
+
+- 상대 서비스가 정상화됐는지 확인하기 위해 1초마다 회로를 잠시 연결하여 실제로 API 요청을 수행한다.
+- 응답이 정상적으로 오는 것을 확인하면 회로를 다시 연결한다.
 
 ```
 2023-02-05 23:35:53.370  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : fallback plan(response time: 0)
@@ -344,8 +324,16 @@ public class CircuitBreakerTest {
 
 ## CLOSING
 
-`netflix-hystrix` 의존성은 간단한 모니터링 기능도 함께 제공합니다. 
-다음과 같은 의존성을 `pom.xml` 파일에 추가합니다.
+회로 차단기를 활성화하는 애너테이션은 두 개 존재한다. 각 애너테이션의 차이점은 다음과 같다.
+
+- `@EnableHystrix`
+  - `hystrix`를 사용하겠다는 의미로 내부에 `@EnableCircuitBreaker` 애너테이션이 추가되어 있다.
+  - `hystrix`를 사용한 회로 차단기 패턴이 적용된다.
+- `@EnableCircuitBreaker`
+  - 회로 차단기 패턴을 구현한 라이브러리를 활성화한다.
+  - `hystrix` 이 외에 다른 의존성을 사용할 수 있다.
+
+`netflix-hystrix` 의존성은 간단한 모니터링 기능도 함께 제공한다. 다음과 같은 의존성을 `pom.xml` 파일에 추가한다.
 
 ```xml
     <dependency>
@@ -354,7 +342,7 @@ public class CircuitBreakerTest {
     </dependency>
 ```
 
-다음과 같은 애너테이션을 추가하여 대시 보드 기능을 활성화 할 수 있습니다.
+다음과 같은 애너테이션을 추가하여 대시보드 기능을 활성화할 수 있다.
 
 ```java
 package cloud.in.action;
@@ -374,40 +362,26 @@ public class ActionInBlogApplication {
 }
 ```
 
-##### Hystrix Monitroing Screen
+서비스의 `/hystrix` 경로로 접근한다.
 
-* 서비스의 `/hystrix` 경로로 접근합니다.
-
-<p align="center">
-    <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-04.png" width="100%" class="image__border">
-</p>
-
-##### @EnableHystrix and @EnableCircuitBreaker
-
-회로 차단기를 활성화시키는 애너테이션은 두 개 존재합니다. 
-각 애너테이션의 차이점은 다음과 같습니다.
-
-* `@EnableHystrix`
-    * `hystrix`를 사용하겠다는 의미로 내부에 `@EnableCircuitBreaker` 애너테이션이 추가되어 있습니다.
-    * `hystrix`를 사용한 회로 차단기 패턴이 적용됩니다.
-* `@EnableCircuitBreaker`
-    * 회로 차단기 패턴을 구현한 라이브러리를 활성화시킵니다.
-    * `hystrix` 이 외에 다른 의존성을 사용할 수 있습니다.
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/msa-circuit-breaker-pattern-04.png" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-msa-circuit-breaker-pattern>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-msa-circuit-breaker-pattern>
 
 #### RECOMMEND NEXT POSTS
 
-* [Spring Cloud Netflix Hystrix][spring-cloud-netflix-hystrix-link]
+- [Spring Cloud Netflix Hystrix][spring-cloud-netflix-hystrix-link]
 
 #### REFERENCE
 
-* <https://martinfowler.com/bliki/CircuitBreaker.html>
-* <https://bcho.tistory.com/1247>
-* <https://sup2is.github.io/2020/04/12/spring-cloud-hystrix-circuit-breaker-with-fallback.html>
-* <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
+- <https://martinfowler.com/bliki/CircuitBreaker.html>
+- <https://bcho.tistory.com/1247>
+- <https://sup2is.github.io/2020/04/12/spring-cloud-hystrix-circuit-breaker-with-fallback.html>
+- <https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/
 [spring-cloud-netflix-hystrix-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/

@@ -1,22 +1,22 @@
 ---
-title: "Incompatible FallbackFactory Instance Exception"
+title: "Incompatible FallbackFactory 인스턴스 예외"
 search: false
 category:
   - spring-boot
   - spring-cloud
   - exception
-last_modified_at: 2021-08-24T01:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Cloud Netflix Hystrix][hystrix-link]
+- [스프링 클라우드 넷플릭스 히스트릭스(Spring Cloud Netflix Hystrix)][hystrix-link]
 
-## 1. Occurred Exception
+## 1. Context of problem
 
-[Spring Cloud Netflix Hystrix][hystrix-link] 포스트를 작성하면서 다음과 같은 예외(exception)를 만났습니다. 
+[스프링 클라우드 히스트릭스에 관련된 글][hystrix-link]을 작성하면서 다음과 같은 예외(exception)를 만났다.
 
 ```
 Caused by: java.lang.IllegalStateException: Incompatible fallbackFactory instance. Fallback/fallbackFactory of type class cloud.in.action.proxy.BlogClientFallbackFactory is not assignable to interface org.springframework.cloud.openfeign.FallbackFactory for feign client blog-client
@@ -29,22 +29,16 @@ Caused by: java.lang.IllegalStateException: Incompatible fallbackFactory instanc
   ...
 ```
 
-로그 내용을 살펴보면 `BlogClientFallbackFactory` 객체를 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스에 할당할 수 없다는 메시지를 볼 수 있습니다.
-이번 포스트에선 해당 예외가 발생한 원인을 분석해보고, 이를 해결하는 방법에 대해 정리하였습니다. 
+로그 내용을 살펴보면 `BlogClientFallbackFactory` 객체를 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스에 할당할 수 없다는 메시지를 볼 수 있다. 이번 글에선 해당 예외가 발생한 원인을 분석해보고, 이를 해결하는 방법에 대해 정리했다.
 
-## 2. Problem Analysis
+먼저 문제 상황을 재현해보자. 설정에 맞지 않은 팩토리(factory) 클래스를 사용하면 문제가 발생한다. 다음과 같은 설정과 인터페이스를 함께 사용하면 에러가 발생한다.
 
-### 2.1. Wrong Usage
+- feign.circuitbreaker.enabled 설정
+- feign.hystrix.FallbackFactory 인터페이스
 
-설정에 맞지 않은 팩토리(factory) 클래스를 사용하면 문제가 발생합니다. 
-다음과 같은 설정과 인터페이스를 함께 사용하면 에러가 발생합니다.
+application YAML 파일에 다음과 같은 설정을 한다.
 
-* feign.circuitbreaker.enabled 설정
-* feign.hystrix.FallbackFactory 인터페이스
-
-#### 2.1.1. application.yml 
-
-* `feign.circuitbreaker.enabled=true` 설정을 사용합니다.
+- `feign.circuitbreaker.enabled=true` 설정
 
 ```yml
 feign:
@@ -57,9 +51,7 @@ feign:
         read-timeout: 5000
 ```
 
-#### 2.1.2. BlogClientFallbackFactory Class
-
-* `feign.hystrix.FallbackFactory` 인터페이스를 확장한 팩토리 클래스를 만들어 사용합니다.
+BlogClientFallbackFactory 클래스를 선언할 때 `feign.hystrix` 패키지의 `FallbackFactory` 인터페이스를 확장한 팩토리 클래스를 만들어 사용한다.
 
 ```java
 package cloud.in.action.proxy;
@@ -109,12 +101,11 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 }
 ```
 
-### 2.2. Solve the problem
+## 2. Solve the problem
 
-`circuitbreaker` 설정은 내부적으로 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스를 상속한 팩토리 클래스를 사용하도록 구현되어 있습니다. 
-적절한 인터페이스를 사용하도록 코드를 변경합니다.
+`circuitbreaker` 설정은 내부적으로 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스를 상속한 팩토리 클래스를 사용하도록 구현되어 있다. 적절한 인터페이스를 사용하도록 코드를 변경하면 정상적으로 동작한다.
 
-* `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스를 사용하도록 코드를 변경합니다.
+- `org.springframework.cloud.openfeign` 패키지의 `FallbackFactory` 인터페이스를 사용하도록 코드를 변경한다.
 
 ```java
 package cloud.in.action.proxy;
@@ -166,41 +157,40 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 
 ## 3. Issue Report
 
-Github에 관련된 질문을 올리니 다음과 같은 답변을 얻을 수 있었습니다. 
+깃허브(Github)에 관련된 질문을 올렸다.
+
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/incompatible-fallback-factory-instance-01.png" width="100%" class="image__border">
+</div>
+
+<br/>
+
+다음과 같은 답변을 얻었다.
 
 > feign.circuitbreaker.* is for enabling support for Spring Cloud CircuitBreaker. It does not use Hystrix. You should use Spring Cloud CircuitBreaker as Hystrix is removed in the 2020.0.x release.
 
-`2020.0.x` 릴리즈부터 Spring Cloud CircuitBreaker로 `Hystrix`를 대체한다고 합니다. 
-`feign.circuitbreaker.*` 설정을 통해 Spring Cloud CircuitBreaker 지원을 활성화하라고 합니다. 
+`2020.0.x` 릴리즈부터 Spring Cloud CircuitBreaker로 `Hystrix`를 대체한다고 한다. `feign.circuitbreaker.*` 설정을 통해 Spring Cloud CircuitBreaker 지원을 활성화하라고 한다.
 
-##### Question
-
-<p align="left">
-    <img src="{{ site.image_url_2021 }}/incompatible-fallback-factory-instance-01.png" width="100%" class="image__border">
-</p>
-
-##### Answer
-
-<p align="left">
-    <img src="{{ site.image_url_2021 }}/incompatible-fallback-factory-instance-02.png" width="100%" class="image__border">
-</p>
+<divp align="left">
+  <img src="{{ site.image_url_2021 }}/incompatible-fallback-factory-instance-02.png" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-spring-cloud-netflix-hystrix>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-spring-cloud-netflix-hystrix>
 
 #### RECOMMEND NEXT POSTS
 
-* <https://github.com/spring-cloud/spring-cloud-openfeign/issues/516>
+- <https://github.com/spring-cloud/spring-cloud-openfeign/issues/516>
 
 ## CLOSING
 
-[Spring Cloud Netflix Hystrix][hystrix-link] 포스트를 재작성하면서 불필요한 코드나 의존성을 제거하다보니 추가적으로 몇 가지 사실을 발견했습니다. 
+[스프링 클라우드 히스트릭스에 관련된 글][hystrix-link]을 다시 정리하면서 불필요한 코드나 의존성을 제거하다보니 추가적으로 몇 가지 사실을 발견했다.
 
-* `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하면 해당 문제가 발생합니다.
-    * Spring Cloud CircuitBreaker 의존성은 `spring-cloud-starter-netflix-eureka-client`을 통해 적용됩니다.
-* `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하지 않으면 `feign.hystrix.enabled` 설정을 사용합니다.
-    * OpenFeign 의존성만 사용하는 경우 `feign.hystrix.enabled` 설정으로 회로 차단기를 활성화시킵니다.
-    * `feign.hystrix.FallbackFactory`로 팩토리를 사용합니다.
+- `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하면 해당 문제가 발생한다.
+  - Spring Cloud CircuitBreaker 의존성은 `spring-cloud-starter-netflix-eureka-client`을 통해 적용된다.
+- `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하지 않으면 `feign.hystrix.enabled` 설정을 사용한다.
+  - OpenFeign 의존성만 사용하는 경우 `feign.hystrix.enabled` 설정으로 회로 차단기를 활성화시킨다.
+  - `feign.hystrix.FallbackFactory`로 팩토리를 사용한다.
 
 [hystrix-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/

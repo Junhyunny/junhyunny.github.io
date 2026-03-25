@@ -1,9 +1,9 @@
 ---
-title: "Static/Dynamic Typed Language"
+title: "정적 타입(static typed)/동적 타입(dynamic typed) 언어"
 search: false
 category:
   - information
-last_modified_at: 2021-08-25T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -25,7 +25,7 @@ last_modified_at: 2021-08-25T00:00:00
 ## 2. Dynamic Typed Languages
 
 > 동적 타입 언어<br/>
-> 런타임 시점에 변수의 타입이 결졍되는 언어
+> 런타임 시점에 변수의 타입이 결정되는 언어
 
 타입 확인이 필요 없기 때문에 빠르게 프로토타입(prototype)을 개발하고 피드백을 받아 수정할 수 있다. 대표적인 동적 타입 언어는 JavaScript, Objective-C, PHP, Python, Ruby 등이 있다. 동적 타입 언어는 다음과 같은 장점을 갖는다.
 

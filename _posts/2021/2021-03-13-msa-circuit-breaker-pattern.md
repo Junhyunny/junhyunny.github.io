@@ -374,7 +374,7 @@ public class ActionInBlogApplication {
 
 #### RECOMMEND NEXT POSTS
 
-- [Spring Cloud Netflix Hystrix][spring-cloud-netflix-hystrix-link]
+- [스프링 클라우드 넷플릭스 히스트릭스(Spring Cloud Netflix Hystrix)][spring-cloud-netflix-hystrix-link]
 
 #### REFERENCE
 

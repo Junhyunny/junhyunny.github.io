@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - operating-system
-last_modified_at: 2025-09-12T12:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -32,7 +32,7 @@ last_modified_at: 2025-09-12T12:00:00
 - 코드(code or text) 영역 - 실행할 프로그램의 코드
 - 데이터(data) 영역 - 전역 변수, 정적 변수가 담기는 영역
 - 스택(stack) 영역 - 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
-- 힙(heap) 영역 - 런타임시 동적으로 메모리를 할당받는 영역
+- 힙(heap) 영역 - 런타임 시 동적으로 메모리를 할당받는 영역
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/process-vs-thread-01.png" width="30%" class="image__border">
@@ -84,7 +84,7 @@ last_modified_at: 2025-09-12T12:00:00
 
 #### RECOMMEND NEXT POSTS
 
-- [PCB(Process Control Block) and Context Switching][process-control-block-and-context-switching-link]
+- [PCB(Process Control Block)와 컨텍스트 스위칭(Context Switching)][process-control-block-and-context-switching-link]
 
 #### REFERENCE
 

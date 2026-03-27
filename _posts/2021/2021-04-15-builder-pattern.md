@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2026-03-19T09:26:18+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -418,7 +418,7 @@ class NutritionFacts {
 
 #### RECOMMEND NEXT POSTS
 
-- [Mutable/Immutable Object][mutable-immutable-object-link]
+- [가변(Mutable) 객체와 불변(Immutable) 객체][mutable-immutable-object-link]
 
 #### REFERENCE
 

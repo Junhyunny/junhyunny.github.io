@@ -5,7 +5,7 @@ category:
   - npm
   - react
   - dependency-version
-last_modified_at: 2025-05-29T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

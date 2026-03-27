@@ -1,21 +1,21 @@
 ---
-title: "Implement MQTT subscriber with Spring Boot"
+title: "스프링 부트 MQTT 구독자(subscriber) 구현하기"
 search: false
 category:
   - spring-boot
   - integration
-last_modified_at: 2024-01-16T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link]
+- [MQTT(Message Queuing Telemetry Transport) 프로토콜][mqtt-protocol-link]
 
 ## 0. 들어가면서
 
-MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queuing Telemetry Transport) Protocol][mqtt-protocol-link] 글을 참고하길 바란다. 이번엔 구독자 애플리케이션을 구현하는 방법에 대해 정리했다.
+MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queuing Telemetry Transport) 프로토콜][mqtt-protocol-link] 글을 참고하길 바란다. 이번엔 구독자 애플리케이션을 구현하는 방법에 대해 정리했다.
 
 ## 1. Scenario
 
@@ -28,9 +28,9 @@ MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queui
 - 스프링 부트 애플리케이션이 구독자 역할을 수행한다.
   - 브로커로부터 메시지를 수신 후 메시지를 로그로 출력한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/mqtt-subscriber-spring-boot-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 2. Install mqtt-cli 
 

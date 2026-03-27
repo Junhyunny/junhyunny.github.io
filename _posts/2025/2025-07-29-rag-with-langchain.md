@@ -8,7 +8,7 @@ category:
   - langchain
   - rag
   - retrieval-argumented-generation
-last_modified_at: 2025-07-29T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -19,10 +19,10 @@ last_modified_at: 2025-07-29T23:55:00
 
 ## 1. RAG, Retrieval-Augmented Generation
 
-검색 증강 생성(RAG, Retrieval-Augmented Generation)을 알아보기 전에 등장 배경을 알아보자. 
+검색 증강 생성(RAG, Retrieval-Augmented Generation)을 알아보기 전에 등장 배경을 알아보자.
 
 - 지식의 한계
-  - 기존 LLM은 학습 시점의 데이터에 기반하여 대답한다. 
+  - 기존 LLM은 학습 시점의 데이터에 기반하여 대답한다.
   - 모델은 최신 정보나 학습 이후에 발생한 사건들에 대해 알지 못한다.
   - 예를 들어, 2023년까지의 데이터로 학습된 모델은 2024년 이후의 사건들에 대해 답변할 수 없다.
 - 환각 문제(hallucination)
@@ -30,7 +30,7 @@ last_modified_at: 2025-07-29T23:55:00
   - 모델이 학습 데이터에서 패턴을 추출하여 그럴듯한 답변을 하지만, 사실과 다를 수 있다.
   - 예를 들어, 챗GPT는 초기에 세종대왕의 맥북 프로를 던진 사건에 대해 대답했다.
 - 출처 추적의 어려움
-  - 기존 모델들은 생성한 정보의 출처를 명확히 제시하기 어렵다. 
+  - 기존 모델들은 생성한 정보의 출처를 명확히 제시하기 어렵다.
   - 이는 모델의 답변을 검증하거나 더 자세한 정보를 찾고자 할 때 문제가 된다.
 - 도메인 특화 지식의 한계
   - 범용 LLM은 광범위한 주제에 대해 일반적인 지식을 가지고 있지만, 특정 도메인의 심도 있는 전문 지식을 모두 포함하기 어렵다.
@@ -48,7 +48,7 @@ last_modified_at: 2025-07-29T23:55:00
 
 ## 2. Embedding and indexing
 
-RAG를 제대로 활용하라면 필요한 데이터를 미리 준비해놓는 것이 좋다. 매번 필요한 데이터를 조회하는 것은 비용이 크다. 특히, API 요청을 통해 외부 데이터를 호출한다면 비용이 크다. 미리 필요한 데이터들을 데이터베이스에 저장해놓으면 좋지만, 일반 데이터베이스를 사용하는 것은 다소 무리가 있다. 사용자 프롬프트와 같은 자연어의 의미를 판단 후 이 의미를 기반으로 검색하는 것이 일반 SQL 기반 데이터베이스에선 매우 어렵기 때문이다. 
+RAG를 제대로 활용하려면 필요한 데이터를 미리 준비해놓는 것이 좋다. 매번 필요한 데이터를 조회하는 것은 비용이 크다. 특히, API 요청을 통해 외부 데이터를 호출한다면 비용이 크다. 미리 필요한 데이터들을 데이터베이스에 저장해놓으면 좋지만, 일반 데이터베이스를 사용하는 것은 다소 무리가 있다. 사용자 프롬프트와 같은 자연어의 의미를 판단 후 이 의미를 기반으로 검색하는 것이 일반 SQL 기반 데이터베이스에선 매우 어렵기 때문이다.
 
 MySQL이나 PostgreSQL 같은 SQL 기반 데이터베이스는 키워드 기반으로 동작한다. 예를 들면 다음과 같은 쿼리가 있다.
 
@@ -58,25 +58,25 @@ WHERE title LIKE '%고양이%'
 
 쿼리에 사용한 키워드의 동의어나 유사 의미를 인식하는 것은 매우 어렵다. 사용자 프롬프트에 `냥이`라는 키워드가 있다면 일반 SQL은 이를 위한 동의어 처리가 별도로 필요하다. 아쉽게도 모든 케이스에 대해 커버하는 것은 불가능에 가까울 것이다. 이런 문제를 해결하기 위해 `벡터 데이터베이스(vetor database)`를 사용한다. 벡터 데이터베이스를 사용하면 단어가 같지 않더라도 의미가 비슷한 데이터를 찾을 수 있다.
 
-먼저 문서나 질문을 벡터(숫자 배열)로 바꾼 후 벡터 데이터베이스를 저장한다. 벡터 데이터베이스에 저장된 데이터는 코사인 유사도, 유클리디안 거리, 내적 등의 수학적 기법을 통해 유사한 벡터를 탐색할 수 있다. 의미가 유사한 문장들을 가까운 곳에 위치한 벡터로 만든다. 이렇게 문서나 질문을 벡터로 변경하는 작업을 `임베딩(embedding)`, 벡터를 벡터 데이터베이스에 저장하는 작업을 `인덱싱(indexing)`이라고 한다. 
+먼저 문서나 질문을 벡터(숫자 배열)로 바꾼 후 벡터 데이터베이스에 저장한다. 벡터 데이터베이스에 저장된 데이터는 코사인 유사도, 유클리디안 거리, 내적 등의 수학적 기법을 통해 유사한 벡터를 탐색할 수 있다. 의미가 유사한 문장들을 가까운 곳에 위치한 벡터로 만든다. 이렇게 문서나 질문을 벡터로 변경하는 작업을 `임베딩(embedding)`, 벡터를 벡터 데이터베이스에 저장하는 작업을 `인덱싱(indexing)`이라고 한다.
 
-이해를 돕기 위해 간단한 예시를 들어보자. 다음과 같은 4개의 문장이 있다. 
+이해를 돕기 위해 간단한 예시를 들어보자. 다음과 같은 4개의 문장이 있다.
 
-- "고양이는 야행성 동물로서 밤에 활동을 많이 합니다."
-- "강아지는 사람과 잘 어울리며 충성심이 강합니다."
-- "냥이는 혼자 있기를 좋아하는 성격이에요."
-- "자동차 정비는 주기적인 점검이 중요합니다."
+- "고양이는 야행성 동물로서 밤에 활동을 많이 한다."
+- "강아지는 사람과 잘 어울리며 충성심이 강하다."
+- "냥이는 혼자 있기를 좋아하는 성격이다."
+- "자동차 정비는 주기적인 점검이 중요하다."
 
-각 문장을 임베딩하면 다음과 같은 결과가 나온다고 생각해보자. OpenAI의 벡터는 사이즈는 일반적으로 1536 정도로 매우 크지만, 이해를 돕기 위해 3D 공간으로 벡터 데이터를 단순화했다.
+각 문장을 임베딩하면 다음과 같은 결과가 나온다고 생각해보자. OpenAI의 벡터 사이즈는 일반적으로 1536 정도로 매우 크지만, 이해를 돕기 위해 3D 공간으로 벡터 데이터를 단순화했다.
 
 - 고양이 - [0.90, 0.10, 0.15]
 - 냥이 - [0.88, 0.12, 0.17]
 - 강아지 - [0.15, 0.80, 0.10]
 - 자동차 - [0.01, 0.01, 0.99]
 
-고양이와 냥이는 매우 근접한 거리에 위치한다. 둘의 유사도는 높다고 볼 수 있다. 이제 벡터들을 벡터 데이터베이스에 저장한다. 모든 문서나 단어의 벡터들을 모아 하나의 공간에 배치한다. 빠르게 근처 이웃(유사 벡터)을 찾을 수 있게 인덱스를 생성한다. 
+고양이와 냥이는 매우 근접한 거리에 위치한다. 둘의 유사도는 높다고 볼 수 있다. 이제 벡터들을 벡터 데이터베이스에 저장한다. 모든 문서나 단어의 벡터들을 모아 하나의 공간에 배치한다. 빠르게 근처 이웃(유사 벡터)을 찾을 수 있게 인덱스를 생성한다.
 
-이후 사용자가 "냥이에 대해 알려줘"라는 프롬프트를 던진다고 가정해보자. 이 문장도 동일한 임베딩 모델로 벡터화한다. 벡터화 된 프롬프트로 벡터 데이터베이스에서 유사한 데이터들을 조회한다. 벡터화 된 프롬프트의 "냥이"와 유사한 데이터들이 조회된다.
+이후 사용자가 "냥이에 대해 알려줘"라는 프롬프트를 던진다고 가정해보자. 이 문장도 동일한 임베딩 모델로 벡터화한다. 벡터화된 프롬프트로 벡터 데이터베이스에서 유사한 데이터들을 조회한다. 벡터화된 프롬프트의 "냥이"와 유사한 데이터들이 조회된다.
 
 위에서 살펴본 임베딩과 인덱싱 작업은 비용(시간)이 많이 소요되기 때문에 사전에 오프라인 파이프라인에서 실행하는 것이 좋다. 런타임에 이 두 작업을 모두 수행한다면 일관된 검색 성능을 얻지 못한다. 다만, 질문에 대한 임베딩은 필수다. 프롬프트 임베딩에 대한 최적화는 경량 임베딩 모델을 사용하거나 로컬 임베딩 서버를 사용하는 등의 개선 방법이 필요한 것 같다. 자세한 내용은 다른 글에서 다루겠다.
 
@@ -105,14 +105,14 @@ $ source .venv/bin/activate
 
 필요한 의존성을 설치한다. 다음과 같은 의존성들이 필요하다.
 
-- langchain 
+- langchain
   - 랭체인 코어 라이브러리
-- langchain_community 
-  - 커뮤니티 지원 기능 및 통합 모듈. 
+- langchain_community
+  - 커뮤니티 지원 기능 및 통합 모듈.
   - WebBaseLoader 사용
 - langchain_ollama
   - Ollama 기반의 LLM 실행을 지원하는 랭체인 통합 모듈
-- langchain_chroma 
+- langchain_chroma
   - Chroma 벡터 데이터베이스를 랭체인 애플리케이션과 연결
 - langchain-huggingface
   - HuggingFace 모델들을 랭체인에서 사용할 수 있게 해주는 패키지
@@ -127,16 +127,16 @@ $ pip install langchain \
  langchain_community \
  langchain_ollama \
  langchain_chroma \
- langchain-huggingface \ 
+ langchain-huggingface \
  sentence-transformers \
- beautifulsoup4 
+ beautifulsoup4
 ```
 
-지금부터 살펴보는 코드는 `index.py`다. 다음과 같은 프로세스를 진행한다. 
+지금부터 살펴보는 코드는 `index.py`다. 다음과 같은 프로세스를 진행한다.
 
 1. 위키피디아 사이트의 특정 페이지를 읽어온다.
 2. 페이지 정보를 청크(chunk)로 분리한다.
-3. 청크로 분리한 데이터를 `intfloat/multilingual-e5-base` 임베딩 모델로 임베딩 후 벡터 데이터베이스 저장한다.
+3. 청크로 분리한 데이터를 `intfloat/multilingual-e5-base` 임베딩 모델로 임베딩 후 벡터 데이터베이스에 저장한다.
 
 다음과 같은 패키지들을 임포트(import)한다.
 
@@ -160,7 +160,7 @@ loader = WebBaseLoader(
 documents = loader.load()
 ```
 
-읽어 드린 문서를 임베딩 하기 전에 청크 단위로 분리한다.
+읽어 들인 문서를 임베딩하기 전에 청크 단위로 분리한다.
 
 ```python
 text_splitter = CharacterTextSplitter(chunk_size = 100, chunk_overlap = 0)
@@ -178,7 +178,7 @@ embedding_model = HuggingFaceEmbeddings(
 )
 ```
 
-벡터 데이터베이스를 준비한다. 벡터 데이터베이스를 생성할 때 임베딩 모델과 청크 단위로 분리한 문서를 함께 설정하면 자동으로 벡터 데이터베이스에 저장(persist)된다. 임베딩 된 벡터들은 프로젝트 경로의 `chroma_llama` 디렉토리에 저장된다. 
+벡터 데이터베이스를 준비한다. 벡터 데이터베이스를 생성할 때 임베딩 모델과 청크 단위로 분리한 문서를 함께 설정하면 자동으로 벡터 데이터베이스에 저장(persist)된다. 임베딩된 벡터들은 프로젝트 경로의 `chroma_llama` 디렉토리에 저장된다.
 
 ```python
 Chroma.from_documents(
@@ -191,7 +191,7 @@ Chroma.from_documents(
 다음 명령어를 통해 벡터 데이터베이스를 구성한다.
 
 ```
-$ python indexing.py 
+$ python indexing.py
 
 USER_AGENT environment variable not set, consider setting it to identify your requests.
 Created a chunk of size 118, which is longer than the specified 100
@@ -207,7 +207,7 @@ Created a chunk of size 1043, which is longer than the specified 100
 
 <br/>
 
-지금부터 살펴볼 코드는 `main.py`다. 벡터 데이터베이스로부터 질문에 관련된 데이터를 조회 후 이를 질문의 컨텍스트로 전달하는 RAG 프로세스에 대한 코드를 살펴본다. RAG 프로세스에 대한 설명은 위애서 다뤘기 때문에 여기선 별도로 하지 않는다. 다음과 같은 패키지들을 임포트한다.
+지금부터 살펴볼 코드는 `main.py`다. 벡터 데이터베이스로부터 질문에 관련된 데이터를 조회 후 이를 질문의 컨텍스트로 전달하는 RAG 프로세스에 대한 코드를 살펴본다. RAG 프로세스에 대한 설명은 위에서 다뤘기 때문에 여기선 별도로 하지 않는다. 다음과 같은 패키지들을 임포트한다.
 
 ```python
 from langchain.chains import LLMChain, RetrievalQA, create_retrieval_chain
@@ -229,7 +229,7 @@ prompt = PromptTemplate(
       Answer refer contexts:
       context: {context}
       question: {input}
-      
+
       Answer with specific information and details.
       Answer with reference links if you know the source.
       Answer in a way that other users don't feel like you're referencing external sources such as RAG.
@@ -238,7 +238,7 @@ prompt = PromptTemplate(
 )
 ```
 
-임베딩 모델을 생성한다. 
+임베딩 모델을 생성한다.
 
 ```python
 embedding_model = HuggingFaceEmbeddings(
@@ -258,7 +258,7 @@ vectorstore = Chroma(
 )
 ```
 
-벡터 스토어를 사용해 검색기(retiever) 생성한다. 유사도가 가장 높은 3개의 문장을 찾는다. 
+벡터 스토어를 사용해 검색기(retriever)를 생성한다. 유사도가 가장 높은 3개의 문장을 찾는다.
 
 ```python
 retriever = vectorstore.as_retriever(search_kwargs = {
@@ -266,7 +266,7 @@ retriever = vectorstore.as_retriever(search_kwargs = {
 })
 ```
 
-이제 랭체인의 체이닝을 통해 LLM 파이프라인을 구성한다. 
+이제 랭체인의 체이닝을 통해 LLM 파이프라인을 구성한다.
 
 ```python
 # 여러 문서(Context)를 하나의 큰 문자열로 합쳐서 LLM에 전달하는 체인을 생성(stuff 방식)

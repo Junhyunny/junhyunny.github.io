@@ -1,10 +1,10 @@
 ---
-title: "Make static method as stub in Kotlin"
+title: "코틀린 정적 메서드(static method) 모킹(mocking)하기"
 search: false
 category:
   - kotlin
   - mockito
-last_modified_at: 2024-02-01T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

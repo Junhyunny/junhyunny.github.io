@@ -142,7 +142,7 @@ pom.xml 파일에 다음과 같은 설정을 한다.
     </build>
 ```
 
-위 설정이 완료되면 checkstyle:check 골과 함께 package 페이즈를 실행할 수 있다.
+위 설정이 완료되면 `checkstyle:check` 골과 함께 `package` 페이즈를 실행할 수 있다.
 
 ```
 $ mvn checkstyle:check package

@@ -70,7 +70,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 위 코드를 실행하면 다음과 같이 채널에 메시지가 전달되는 것을 확인할 수 있다.
 
 <div align="left">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-02.png" width="35%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-02.png" width="35%" class="image__border">
 </div>
 
 ## 3. Test GitHub API
@@ -93,7 +93,7 @@ API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트(endp
   - per_page
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-03.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -192,7 +192,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-04.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -200,7 +200,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 빌드된 jar 파일을 업로드하고, RequestStreamHandler 인터페이스를 구현한 클래스를 등록한다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-05.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-05.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -208,7 +208,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 주기적으로 애플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결했다. 애플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동한다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-06.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-06.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -216,7 +216,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 크론 잡(cron job)을 통해 이벤트 트리거 주기를 설정한다. GTM 시간으로 9시부터 14시까지 59분마다 실행되도록 크론 잡을 지정한다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-07.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-07.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -232,7 +232,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 ```
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-08.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-08.png" width="80%" class="image__border">
 </div>
 
 ## 5. Check Application
@@ -240,7 +240,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 정상적으로 배포가 되었다면 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없는 경우 1시간 간격으로 메시지를 전달한다.
 
 <div align="left">
-    <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-09.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-09.png" width="30%" class="image__border">
     <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-10.png" width="30%" class="image__border">
 </div>
 

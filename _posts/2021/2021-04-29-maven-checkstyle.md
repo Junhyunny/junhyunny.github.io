@@ -24,7 +24,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 다운로드 받은 `google_checks.xml` 파일은 프로젝트 루트(root) 경로에 위치시킨다. 파일 경로는 상관 없고, 프로젝트 코드들과 함께 관리되도록 위치시킨다.
 
 <div align="left">
-    <img src="{{ site.image_url_2021 }}/maven-checkstyle-01.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/maven-checkstyle-01.png" width="30%" class="image__border">
 </div>
 
 ## 2. Customize Code Style

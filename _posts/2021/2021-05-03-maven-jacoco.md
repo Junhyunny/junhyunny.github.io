@@ -301,7 +301,7 @@ $ mvn install
 프로젝트 `/target/site/jacoco` 경로에 `index.html` 파일로 리포트가 생성된 것을 확인할 수 있다.
 
 <div align="left">
-    <img src="{{ site.image_url_2021 }}/maven-jacoco-01.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/maven-jacoco-01.png" width="30%" class="image__border">
 </div>
 
 <br/>
@@ -309,7 +309,7 @@ $ mvn install
 index.html 리포트 파일을 열어보면 다음과 같은 화면을 볼 수 있다.
 
 <div align="left">
-    <img src="{{ site.image_url_2021 }}/maven-jacoco-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/maven-jacoco-02.png" width="80%" class="image__border">
 </div>
 
 ## CLOSING
@@ -363,7 +363,7 @@ $ mvn clean install
 리포트를 열어보면 다음과 같이 부족한 커버리지 내용을 확인할 수 있다.
 
 <div align="left">
-    <img src="{{ site.image_url_2021 }}/maven-jacoco-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/maven-jacoco-03.png" width="80%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

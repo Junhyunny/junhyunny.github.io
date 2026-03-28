@@ -38,7 +38,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
   - 정렬된 부분 배열들을 하나의 배열에 합병한다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/merge-sort-01.gif" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/merge-sort-01.gif" width="50%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Merge_sort</center>
 

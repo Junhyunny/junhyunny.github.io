@@ -229,7 +229,7 @@ Audit done.
 
 #### RECOMMEND NEXT POSTS
 
-- [IntelliJ에 Google CodeStyle 적용하기][google-codestyle-link]
+- [IntelliJ Google CodeStyle 적용하기][google-codestyle-link]
 
 #### REFERENCE
 

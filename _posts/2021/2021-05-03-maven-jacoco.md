@@ -304,6 +304,8 @@ $ mvn install
     <img src="{{ site.image_url_2021 }}/maven-jacoco-01.png" width="30%" class="image__border">
 </div>
 
+<br/>
+
 index.html 리포트 파일을 열어보면 다음과 같은 화면을 볼 수 있다.
 
 <div align="left">

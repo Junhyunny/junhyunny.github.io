@@ -3,7 +3,7 @@ title: "클라이언트 요청 타임아웃(request timeout)"
 search: false
 category:
   - information
-last_modified_at: 2025-10-03T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -162,7 +162,7 @@ class TimeoutTests {
 }
 ```
 
-throw_socket_timeout 테스트에선 소켓 타임아웃 시간을 지정한다. 위 테스트와 마찬가지로 하나의 요청이 먼저 서버의 모든 스레드를 점유하므로 클라이언트는 응답을 받을 수 없다. 커넥션 타임아웃을 설정하지 않았으므로 소켓 타임아웃 에러가 발생한다. 하지만, 실제 원인은 위와 동일하게 연결 타임아웃으로 보여진다. 예외 원인은 "Read timed out"으로 표시된다.
+throw_socket_timeout 테스트에선 소켓 타임아웃 시간을 지정한다. 위 테스트와 마찬가지로 하나의 요청이 먼저 서버의 모든 스레드를 점유하므로 클라이언트는 응답을 받을 수 없다. 커넥션 타임아웃을 설정하지 않았으므로 소켓 타임아웃 에러가 발생한다. 하지만, 실제 원인은 위와 동일하게 연결 타임아웃으로 보인다. 예외 원인은 "Read timed out"으로 표시된다.
 
 ```java
 class TimeoutTests {
@@ -246,20 +246,20 @@ class TimeoutTests {
 
 ## CLOSING
 
-타임아웃은 서버가 정상적이지 않은 경우 클라이언트 측에서 이를 기다리지 못하고 발생시키는 예외 상황이다. 클라이언트는 발생할 수 있는 타임아웃에 다음과 같은 것들을 고려해야한다.
+타임아웃은 서버가 정상적이지 않은 경우 클라이언트 측에서 이를 기다리지 못하고 발생시키는 예외 상황이다. 클라이언트는 발생할 수 있는 타임아웃에 다음과 같은 것들을 고려해야 한다.
 
 - 타임아웃 시간
 - 적절한 예외 처리
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-23-kind-of-request-timeout>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-23-kind-of-request-timeout>
 
 #### REFERENCE
 
-* <https://cornswrold.tistory.com/401>
-* <https://tomining.tistory.com/164>
-* <https://tyrionlife.tistory.com/790>
-* <https://kim-oriental.tistory.com/47>
+- <https://cornswrold.tistory.com/401>
+- <https://tomining.tistory.com/164>
+- <https://tyrionlife.tistory.com/790>
+- <https://kim-oriental.tistory.com/47>
 
 [http-blog-link]: https://junhyunny.github.io/information/http/

@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [데이터베이스 락(Database Lock)][lock-mechanism-link]
-- [Propagation in @Transactional Annotation][transactional-propagation-type-link]
+- [@Transactional 애너테이션의 전파 타입(Propagation)][transactional-propagation-type-link]
 - [@Import, @ImportAutoConfiguration 애너테이션][import-auto-configuration-annotation-link]
 
 ## 0. 들어가면서
@@ -459,7 +459,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 #### RECOMMEND NEXT POSTS
 
 - [JPA 비관적 락(pessimistic lock)][jpa-pessimitic-lock-link]
-- [Optimistic Lock in QueryDSL][optimistic-lock-in-query-dsl-link]
+- [QueryDSL 낙관적 락(optimistic lock) 사용하기][optimistic-lock-in-query-dsl-link]
 
 #### REFERENCE
 

@@ -49,6 +49,6 @@ SourcetreeForWindows 이미지 아래 빨간 네모 칸에 `grant` 버튼을 눌
 
 #### RECOMMEND NEXT POSTS
 
-- [SourcetreeForMac public data only problem on GitHub][source-tree-for-mac-read-only-authentication-problem-link]
+- [MacBook Sourcetree GitHub 비공개(private) 레포지토리 접근 불가능 문제][source-tree-for-mac-read-only-authentication-problem-link]
 
 [source-tree-for-mac-read-only-authentication-problem-link]: https://junhyunny.github.io/information/source-tree-for-mac-read-only-authentication-problem/

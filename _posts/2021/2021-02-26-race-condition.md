@@ -12,7 +12,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Proccess and Thread][process-vs-thread-link]
+- [프로세스(process)와 스레드(thread)][process-vs-thread-link]
 
 ## 1. What is Race Condition?
 

@@ -139,7 +139,7 @@ Connection: keep-alive
 - 하나의 도메인 당 20개 쿠키를 가질 수 있다
 - 하나의 쿠키는 4KB(=4096byte)까지 저장 가능하다.
 
-쿠키의 더 자세한 스펙은 [Deep dive into cookie][cookie-attributes-link] 글에 정리했다. 이를 참고하길 바란다.
+쿠키의 더 자세한 스펙은 [쿠키(Cookie) 심층 분석][cookie-attributes-link] 글에 정리했다. 이를 참고하길 바란다.
 
 ## CLOSING
 
@@ -147,10 +147,10 @@ Connection: keep-alive
 
 #### RECOMMEND NEXT POSTS
 
-- [Deep dive into cookie][cookie-attributes-link]
+- [쿠키(Cookie) 심층 분석][cookie-attributes-link]
 - [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
-- [LocalStorage in Browser][local-storage-link]
-- [SessionStorage in Browser][session-storage-link]
+- [브라우저 로컬 스토리지(local storage)][local-storage-link]
+- [브라우저 세션 스토리지(session storage)][session-storage-link]
 
 #### REFERENCE
 

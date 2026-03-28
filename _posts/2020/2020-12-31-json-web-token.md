@@ -10,7 +10,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [RFC 4648 - Base64 Encoding][base-64-encode-and-decode-link]
+- [RFC 4648 - Base64 인코딩(encoding)][base-64-encode-and-decode-link]
 
 ## 1. JWT(Json Web Token)
 

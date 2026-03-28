@@ -24,7 +24,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 - 어디에서든 싱글톤 객체를 참조할 수 있도록 정적 퍼블릿(static public) 함수가 정의되어 있다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/singleton-pattern-01.png" width="30%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/singleton-pattern-01.png" width="30%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
 

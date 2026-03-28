@@ -22,7 +22,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 데이터베이스의 인덱스도 같은 형태이다. 다만, 여기서 키워드는 데이터베이스 특정 컬럼(column)의 데이터, 페이지는 데이터가 저장된 주소(address)가 된다. 쿼리 속도를 개선한다는 것은 불필요한 디스크 I/O 횟수를 줄이는 것이다. 인덱스를 사용하면 최소한의 횟수로 꼭 필요한 데이터만 읽도록 쿼리를 개선할 수 있다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/db-index-data-structure-01.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/db-index-data-structure-01.png" width="60%" class="image__border">
 </div>
 <center>https://brunch.co.kr/@skeks463/25</center>
 
@@ -95,7 +95,7 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 `B-Tree`의 B는 이진(binary)가 아닌 균형(balance)이다. 루트 노드에서 모든 리프 노드까지의 거리를 균일하게 조정한다. `B-Tree`는 차수에 따라 자식 노드 수가 결정된다. 예를 들어 2차 `B-Tree`는 자식 노드가 2개, 3차인 경우 3개이다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/db-index-data-structure-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/db-index-data-structure-02.png" width="80%" class="image__border">
 </div>
 <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
 
@@ -120,7 +120,7 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 대용량 데이터베이스라도 `B-Tree`의 깊이는 5단계 이상까지 깊어지지 않는다고 한다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/db-index-data-structure-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/db-index-data-structure-03.png" width="80%" class="image__border">
 </div>
 <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
 
@@ -187,7 +187,7 @@ SUBSTRING, LENGTH 같은 데이터베이스 함수를 인덱스 필드에 사용
 MySQL, Oracle, PostgreSQL 등 일부 데이터베이스들은 `B+Tree`를 인덱스 구조로 사용한다고 한다. 마지막으로 `B-Tree`를 생성, 삭제를 시뮬레이션해주는 사이트가 있다. 해당 사이트에서 `B-Tree`의 차수 별로 노드가 하나씩 추가될 때마다 어떤 변경이 일어나는지 살펴볼 수 있다.
 
 <div align="center">
-    <img src="{{ site.image_url_2021 }}/db-index-data-structure-04.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/db-index-data-structure-04.gif" width="100%" class="image__border">
 </div>
 <center>https://www.cs.usfca.edu/~galles/visualization/BTree.html</center>
 

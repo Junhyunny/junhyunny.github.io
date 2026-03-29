@@ -1,16 +1,16 @@
 ---
-title: "Deploy EC2 into Target Group in AWS with Terraform"
+title: "테라폼(Terraform) AWS 대상 그룹(Target Group)에 EC2 배포하기"
 search: false
 category:
   - terraform
-last_modified_at: 2024-09-18T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Create ALB and TargetGroup in AWS with Terraform][create-alb-and-target-group-in-aws-with-terraform-link]
+- [테라폼(Terraform) AWS ALB/대상 그룹(TargetGroup) 생성하기][create-alb-and-target-group-in-aws-with-terraform-link]
 
 ## 0. 들어가면서
 
@@ -236,7 +236,7 @@ ALB DNS 주소로 접근하면 애플리케이션 화면을 확인할 수 있다
 
 #### RECOMMEND NEXT POSTS
 
-- [Terraform Backend for tfstate management][terraform-backend-for-tfstate-management-link]
+- [테라폼 상태(tfstate) 관리를 위한 테라폼 백엔드(Terraform Backend)][terraform-backend-for-tfstate-management-link]
 
 [create-alb-and-target-group-in-aws-with-terraform-link]: https://junhyunny.github.io/terraform/create-alb-and-target-group-in-aws-with-terraform/
 [terraform-backend-for-tfstate-management-link]: https://junhyunny.github.io/terraform/terraform-backend-for-tfstate-management/

@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - test-driven-development
-last_modified_at: 2022-06-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -179,7 +179,7 @@ public @interface DataJpaTest {
 }
 ```
 
-이들 증 테스트를 위한 데이터베이스는 @AutoConfigureTestDatabase 애너테이션에 의해 결정된다. 해당 애너테이션과 관련된 코드들을 더 살펴보자.  
+이들 중 테스트를 위한 데이터베이스는 @AutoConfigureTestDatabase 애너테이션에 의해 결정된다. 해당 애너테이션과 관련된 코드들을 더 살펴보자.  
 
 - 해당 애너테이션의 속성 값들은 `spring.test.database` 속성 값을 접두어(prefix)로 가진다.
 - `replace` 속성의 기본 값은 `ANY`이다.

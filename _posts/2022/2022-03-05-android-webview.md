@@ -3,7 +3,7 @@ title: "안드로이드 웹뷰(Android WebView) 예제"
 search: false
 category:
   - android
-last_modified_at: 2026-01-23T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

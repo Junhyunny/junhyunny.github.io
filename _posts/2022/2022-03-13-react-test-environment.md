@@ -1,11 +1,11 @@
 ---
-title: "Setup React test environment in Vite"
+title: "Vite 리액트(React) 테스트 환경 설정하기"
 search: false
 category:
   - react
   - vite
   - jest
-last_modified_at: 2022-03-13T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -566,7 +566,7 @@ ReferenceError: React is not defined
 
 #### RECOMMEND NEXT POSTS
 
-- [Setup Vitest for React App][setup-vitest-for-react-application-link]
+- [리액트(React) 앱에서 Vitest 설정하기][setup-vitest-for-react-application-link]
 
 #### REFERENCE
 

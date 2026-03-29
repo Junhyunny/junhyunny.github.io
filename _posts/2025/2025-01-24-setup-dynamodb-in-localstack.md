@@ -1,5 +1,5 @@
 ---
-title: "Setup DynamoDB with LocalStack"
+title: "LocalStack 컨테이너 DynamoDB 설정하기"
 search: false
 category:
   - aws
@@ -12,7 +12,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Run DynamoDB local container with docker compose][dynamodb-container-with-docker-compose-link]
+- [도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기][dynamodb-container-with-docker-compose-link]
 
 ## 0. 들어가면서
 

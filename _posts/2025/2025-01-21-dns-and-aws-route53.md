@@ -1,5 +1,5 @@
 ---
-title: "DNS and AWS Route53"
+title: "DNS(Domain Name System)와 AWS Route53"
 search: false
 category:
   - information

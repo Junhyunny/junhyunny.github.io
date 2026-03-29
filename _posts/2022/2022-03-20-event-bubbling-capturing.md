@@ -1,17 +1,17 @@
 ---
-title: "Event Capture and Bubbling"
+title: "이벤트 캡처와 버블링(Event Capture and Bubbling)"
 search: false
 category:
   - information
   - javascript
-last_modified_at: 2022-03-20T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-프론트엔드로 커리어를 시작한 개발자들에겐 기본적인 개념이다. 최근 웹 프론트엔드 관련 공부를 하면서 배운 이벤트 캡처(capture)와 버블링(bubbling)에 대해 정리했다.
+프론트엔드로 커리어를 시작한 개발자들에겐 기본적인 개념이다. 최근 웹 프론트엔드 관련 공부를 하면서 배운 이벤트 캡처(capture)와 버블링(bubbling)에 대해 정리하였다.
 
 ## 1. Event Phase
 
@@ -24,9 +24,9 @@ last_modified_at: 2022-03-20T23:55:00
 1. 버블링 단계(bubbling phase)
   - 이벤트가 상위 엘리먼트로 전파되는 단계
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2022 }}/event-bubbling-capturing-01.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://www.w3.org/TR/DOM-Level-3-Events/</center>
 
 ## 2. Event Bubbling
@@ -80,7 +80,7 @@ last_modified_at: 2022-03-20T23:55:00
 
 ## 3. Event Capturing
 
-캡처 단계는 이벤트 버블링과 반대로 부모에서부터 이벤트가 발상한 타겟까지 탐색해가는 방식이다. 별도 인자와 함께 이벤트를 등록해야 한다. 
+캡처 단계는 이벤트 버블링과 반대로 부모에서부터 이벤트가 발생한 타겟까지 탐색해가는 방식이다. 별도 인자와 함께 이벤트를 등록해야 한다. 
 
 ```js
 // capture 옵션을 true로 설정

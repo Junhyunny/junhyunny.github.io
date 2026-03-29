@@ -1,11 +1,11 @@
 ---
-title: "Run DynamoDB local container with docker compose"
+title: "도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기"
 search: false
 category:
   - docker
   - aws
   - dynamo-db
-last_modified_at: 2024-09-25T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -234,7 +234,7 @@ $ aws dynamodb scan\
 
 #### RECOMMEND NEXT POSTS
 
-- [DynamoDB CRUD example with spring boot][dynamodb-crud-example-with-spring-boot-link]
+- [스프링 부트(Spring Boot) DynamoDB CRUD 예제][dynamodb-crud-example-with-spring-boot-link]
 
 #### REFERENCE
 

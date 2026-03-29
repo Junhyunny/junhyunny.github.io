@@ -1,11 +1,11 @@
 ---
-title: "Styling for range type input HTML Element"
+title: "range 타입 input HTML 엘리먼트 스타일링"
 search: false
 category:
   - html
   - css
   - javascript
-last_modified_at: 2024-10-11T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

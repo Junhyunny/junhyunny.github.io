@@ -367,7 +367,7 @@ class ActionInBlogApplicationTests {
 
 #### RECOMMEND NEXT POSTS
 
-- [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
+- [테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 - [테스트 컨테이너와 스프링 애플리케이션 DynamoDB 결합 테스트][test-container-for-dynamodb-test-link]
 
 #### REFERENCE

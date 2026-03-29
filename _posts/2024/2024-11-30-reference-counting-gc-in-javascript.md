@@ -1,17 +1,17 @@
 ---
-title: "Reference counting algorithm for garbage collect"
+title: "가비지 컬렉션(Garbage Collection) 참조 카운팅(Reference Counting) 알고리즘"
 search: false
 category:
   - information
   - javascript
-last_modified_at: 2024-11-30T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-현재 프로젝트에서 첫 MVP 릴리즈 이후 클라이언트(브라우저) 애플리케이션에서 OOM(out of memory)가 의심되는 현상이 발견됬다. 사용자가 약 1시간 30분 정도 장시간 동안 애플리케이션을 사용하는 데, 중간에 화면이 멈추는 현상이 있다는 리포트를 받았다. 메모리 릭(memory leak)에 의해 가비지 컬렉팅(gc, garbage collecting)이 자주 일어나면서 프로세스가 멈춘 것처럼 보였을 것 같다고 추측했다. 크롬 개발자 도구를 사용해 의심 가는 코드를 고쳐 메모리 릭 문제는 해결했다. 관련된 내용은 조만간 정리할 예정이다.
+현재 프로젝트에서 첫 MVP 릴리즈 이후 클라이언트(브라우저) 애플리케이션에서 OOM(out of memory)가 의심되는 현상이 발견됐다. 사용자가 약 1시간 30분 정도 장시간 동안 애플리케이션을 사용하는 데, 중간에 화면이 멈추는 현상이 있다는 리포트를 받았다. 메모리 릭(memory leak)에 의해 가비지 컬렉팅(gc, garbage collecting)이 자주 일어나면서 프로세스가 멈춘 것처럼 보였을 것 같다고 추측했다. 크롬 개발자 도구를 사용해 의심 가는 코드를 고쳐 메모리 릭 문제는 해결했다. 관련된 내용은 조만간 정리할 예정이다.
 
 이 글은 메모리 릭 문제를 해결할 때 동료와 짧게 이야기를 나눴던 크롬(chrome), 엣지(edge), 노드(node) 같은 자바스크립트 엔진에서 사용하는 가비지 컬렉터 알고리즘에 대해 정리하기 위한 글이다. 알고리즘 종류가 다양해서 별도 글로 작성했다. 
 
@@ -97,7 +97,7 @@ MDN 문서를 보면 다음과 같은 주의 사항을 볼 수 있다.
 
 > No modern JavaScript engine uses reference-counting for garbage collection anymore.
 
-모던 자바스크립트 엔진은 참조 카운팅 방식의 가비지 컬렉션을 사용하지 않는다. 구현하기 단순하고, 참조 카운팅이 0이 되는 순간 즉시 메모리를 회수할 수 있는 장점이 있지만, 순환 참조는 감지할 수 없다는 치명적인 단점이 있다. 순환 참조는 [위키피디아](https://en.wikipedia.org/wiki/Reference_counting)에 명시된 주된 3가지 단점들 중 한가지다. 
+모던 자바스크립트 엔진은 참조 카운팅 방식의 가비지 컬렉션을 사용하지 않는다. 구현하기 단순하고, 참조 카운팅이 0이 되는 순간 즉시 메모리를 회수할 수 있는 장점이 있지만, 순환 참조는 감지할 수 없다는 치명적인 단점이 있다. 순환 참조는 [위키피디아](https://en.wikipedia.org/wiki/Reference_counting)에 명시된 주된 3가지 단점들 중 한 가지다. 
 
 - 참조 카운팅의 잦은 업데이트는 비효율적이다.
 - 순환 참조를 처리할 수 없다.
@@ -129,7 +129,7 @@ f();
 
 #### RECOMMEND NEXT POSTS
 
-- [Mark-and-sweep algorithm for garbage collect][mark-and-sweep-gc-in-javascript-link]
+- [가비지 컬렉션(Garbage Collection) 표시 후 제거(Mark-and-Sweep) 알고리즘][mark-and-sweep-gc-in-javascript-link]
 
 #### REFERENCE
 

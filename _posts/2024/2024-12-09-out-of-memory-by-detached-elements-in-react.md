@@ -1,18 +1,18 @@
 ---
-title: "Memory leak by detached DOM elements in React"
+title: "리액트(React)에서 분리된 DOM 엘리먼트로 인한 메모리 누수"
 search: false
 category:
   - javascript
   - react
-last_modified_at: 2024-12-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Reference counting algorithm for garbage collect][reference-counting-gc-in-javascript-link]
-- [Mark-and-sweep algorithm for garbage collect][mark-and-sweep-gc-in-javascript-link]
+- [가비지 컬렉션(Garbage Collection) 참조 카운팅(Reference Counting) 알고리즘][reference-counting-gc-in-javascript-link]
+- [가비지 컬렉션(Garbage Collection) 표시 후 제거(Mark-and-Sweep) 알고리즘][mark-and-sweep-gc-in-javascript-link]
 
 ## 0. 들어가면서
 
@@ -42,7 +42,7 @@ last_modified_at: 2024-12-09T23:55:00
   - 해당 객체가 해제될 경우 가비지 컬렉션으로 회수될 총 메모리 크기를 나타낸다. 
   - 해당 객체와 그 객체가 직접 또는 간접적으로 참조하는 모든 객체의 크기를 합산한다.
 
-인터랙션을 수행한 후 두번째 스냅샷을 만든다. Comparison 옵션을 사용하면 이전 스냅샷과 어떤 차이가 있는지 쉽게 확인할 수 있다. 
+인터랙션을 수행한 후 두 번째 스냅샷을 만든다. Comparison 옵션을 사용하면 이전 스냅샷과 어떤 차이가 있는지 쉽게 확인할 수 있다. 
 
 <div align="center">
   <img src="{{ site.image_url_2024 }}/out-of-memory-by-detached-elements-in-react-02.png" width="100%" class="image__border">

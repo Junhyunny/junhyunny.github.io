@@ -1,9 +1,9 @@
 ---
-title: "Socket Identificaiton"
+title: "소켓(Socket) 식별"
 search: false
 category:
   - information
-last_modified_at: 2024-11-26T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

@@ -1,5 +1,5 @@
 ---
-title: "DynamoDB Secondary Indexes"
+title: "DynamoDB 보조 인덱스(Secondary Indexes)"
 search: false
 category:
   - aws
@@ -11,7 +11,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [DynamoDB basics][dynamodb-basics-link]
+- [DynamoDB 기초][dynamodb-basics-link]
 
 ## 1. Secondary Indexes
 

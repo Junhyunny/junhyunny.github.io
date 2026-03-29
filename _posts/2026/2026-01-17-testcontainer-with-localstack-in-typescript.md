@@ -16,7 +16,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [테스트 더블(Test Double)][test-double-link]
-- [Setup DynamoDB with LocalStack][setup-dynamodb-in-localstack-link]
+- [LocalStack 컨테이너 DynamoDB 설정하기][setup-dynamodb-in-localstack-link]
 
 ## 0. 들어가면서
 

@@ -1,16 +1,16 @@
 ---
-title: "Terraform Backend for tfstate management"
+title: "테라폼 상태(tfstate) 관리를 위한 테라폼 백엔드(Terraform Backend)"
 search: false
 category:
   - terraform
-last_modified_at: 2024-09-18T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Deploy EC2 into Target Group in AWS with Terraform][deploy-ec2-into-target-group-in-aws-with-terraform-link]
+- [테라폼(Terraform) AWS 대상 그룹(Target Group)에 EC2 배포하기][deploy-ec2-into-target-group-in-aws-with-terraform-link]
 
 ## 0. 들어가면서
 
@@ -33,13 +33,13 @@ last_modified_at: 2024-09-18T23:55:00
 여러 명이 동시에 상태 파일을 사용할 때 인프라 구성 충돌에 대한 문제는 락(lock)을 사용한다. AWS는 DynamoDB를 사용해 상태 파일에 대한 접근을 제한한다. 특정 아이템에 먼저 락을 점유한 사용자만 인프라 변경 사항을 반영할 수 있다.
 
 1. 개발자A가 `terraform apply` 명령어를 실행한다.
-    - DynamoDB 특정 아이템에 락킹을 수행한다.
-    - 인프라 변경 사항을 AWS 클라우드에 반영한다.
-    - 변경된 내용에 대한 tfstate 파일이 S3에 저장된다.
-    - DynamoDB 특정 아이템에 락킹을 해제한다.
+  - DynamoDB 특정 아이템에 락킹을 수행한다.
+  - 인프라 변경 사항을 AWS 클라우드에 반영한다.
+  - 변경된 내용에 대한 tfstate 파일이 S3에 저장된다.
+  - DynamoDB 특정 아이템에 락킹을 해제한다.
 2. 개발자B가 `terraform apply` 명령어를 동시에 실행한다.
-    - DynamoDB 특정 아이템에 락킹을 수행한다.
-    - 해당 아이템에 락이 걸려 있기 때문에 인프라 변경에 실패한다.
+  - DynamoDB 특정 아이템에 락킹을 수행한다.
+  - 해당 아이템에 락이 걸려 있기 때문에 인프라 변경에 실패한다.
 
 <div align="center">
   <img src="{{ site.image_url_2024 }}/terraform-backend-for-tfstate-management-01.png" width="80%" class="image__border">

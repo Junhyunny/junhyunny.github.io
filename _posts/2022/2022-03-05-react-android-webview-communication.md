@@ -4,7 +4,7 @@ search: false
 category:
   - react
   - android
-last_modified_at: 2025-12-13T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -34,7 +34,7 @@ last_modified_at: 2025-12-13T23:55:00
 
 <br/>
 
-안드로이드 웹 뷰와 HTML 문서 통신는 아래와 같은 방법을 통해 통신한다.
+안드로이드 웹 뷰와 HTML 문서의 통신은 아래와 같은 방법을 통해 이루어진다.
 
 - 웹 뷰 인스턴스에게 렌더링 중인 HTML 문서에게 네이티브 메서드를 호출할 수 있는 인터페이스를 제공한다.
 - 웹 뷰 인스턴스는 자신의 `evaluateJavascript` 메서드를 통해 `JavaScript` 코드를 실행할 수 있다.

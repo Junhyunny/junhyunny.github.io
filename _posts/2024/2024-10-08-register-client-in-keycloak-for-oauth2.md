@@ -1,17 +1,17 @@
 ---
-title: "Register client in Keycloak for OAuth2"
+title: "키클록(Keycloak) OAuth2 클라이언트 등록하기"
 search: false
 category:
   - security
   - tool
-last_modified_at: 2024-10-08T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Setup Keycloak][set-up-key-cloak-link]
+- [키클록(Keycloak) 설정하기][set-up-key-cloak-link]
 
 ## 0. 들어가면서
 

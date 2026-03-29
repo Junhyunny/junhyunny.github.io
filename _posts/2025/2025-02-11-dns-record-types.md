@@ -1,5 +1,5 @@
 ---
-title: "DNS record types"
+title: "DNS 레코드 타입(Record Types)"
 search: false
 category:
   - information
@@ -10,7 +10,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [DNS and AWS Route53][dns-and-aws-route53-link]
+- [DNS(Domain Name System)와 AWS Route53][dns-and-aws-route53-link]
 
 ## 0. 들어가면서
 

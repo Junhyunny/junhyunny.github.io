@@ -15,7 +15,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [데이터베이스 락(Database Lock)][lock-mechanism-link]
-- [DynamoDB single table design][dynamodb-single-table-design-link]
+- [DynamoDB 단일 테이블 설계(Single Table Design)][dynamodb-single-table-design-link]
 - [타입스크립트 애플리케이션에서 LocalStack 테스트 컨테이너 사용하기][testcontainer-with-localstack-in-typescript-link]
 
 ## 0. 들어가면서

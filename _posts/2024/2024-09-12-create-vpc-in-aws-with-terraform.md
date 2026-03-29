@@ -1,9 +1,9 @@
 ---
-title: "Create VPC in AWS with Terraform"
+title: "테라폼(Terraform) AWS VPC 생성하기"
 search: false
 category:
   - terraform
-last_modified_at: 2024-09-12T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -139,7 +139,7 @@ resource "aws_vpc" "jun_vpc" {
 - 프라이빗 서브넷 1(private_subnet_1)
   - CIDR 블록은 10.0.16.0/20 이다.
   - AZ 은 us-east-1a 이다.
-  - 해당 서브넷에 인스턴스 배포시 퍼블릭 IP 부여를 비활성화 한다.
+  - 해당 서브넷에 인스턴스 배포 시 퍼블릭 IP 부여를 비활성화 한다.
 - 퍼블릭 서브넷 2(public_subnet_2)
   - CIDR 블록은 10.0.32.0/20 이다.
   - AZ 은 us-east-1b 이다.
@@ -337,7 +337,7 @@ Do you want to perform these actions?
 
 #### RECOMMEND NEXT POSTS
 
-- [Create ALB and TargetGroup in AWS with Terraform][create-alb-and-target-group-in-aws-with-terraform-link]
+- [테라폼(Terraform) AWS ALB/대상 그룹(TargetGroup) 생성하기][create-alb-and-target-group-in-aws-with-terraform-link]
 
 #### REFERENCE
 

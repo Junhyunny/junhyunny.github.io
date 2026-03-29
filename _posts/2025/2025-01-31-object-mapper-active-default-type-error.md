@@ -1,5 +1,5 @@
 ---
-title: "Problem to serialize instance with class info in Kotlin ObjectMapper"
+title: "코틀린(Kotlin) ObjectMapper 클래스 정보와 함께 인스턴스 직렬화 수행 시 문제"
 search: false
 category:
   - spring-boot

@@ -12,9 +12,9 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Run DynamoDB local container with docker compose][dynamodb-container-with-docker-compose-link]
-- [DynamoDB CRUD example with spring boot][dynamodb-crud-example-with-spring-boot-link]
-- [DynamoDB Secondary Indexes][dynamodb-seconary-indexes-link]
+- [도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기][dynamodb-container-with-docker-compose-link]
+- [스프링 부트(Spring Boot) DynamoDB CRUD 예제][dynamodb-crud-example-with-spring-boot-link]
+- [DynamoDB 보조 인덱스(Secondary Indexes)][dynamodb-seconary-indexes-link]
 
 ## 0. 들어가면서
 

@@ -1,17 +1,17 @@
 ---
-title: "Mark-and-sweep algorithm for garbage collect"
+title: "가비지 컬렉션(Garbage Collection) 표시 후 제거(Mark-and-Sweep) 알고리즘"
 search: false
 category:
   - information
   - javascript
-last_modified_at: 2024-12-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Reference counting algorithm for garbage collect][reference-counting-gc-in-javascript-link]
+- [가비지 컬렉션(Garbage Collection) 참조 카운팅(Reference Counting) 알고리즘][reference-counting-gc-in-javascript-link]
 
 ## 0. 들어가면서
 
@@ -45,7 +45,7 @@ last_modified_at: 2024-12-03T23:55:00
 
 ## 2. Mark-sweep-compact algorithm
 
-V8 엔진(크롬)은 가비지 컬렉션으로 인해 발생하는 성능 저하를 개선하기 위해 메인 스레드에서 이뤄지는 가비지 컬렉션을 병렬, 동시적으로 수행하는 등의 많은 변화를 만들었다. 그 중 한가지로 메모리를 정리하는 컴팩트(compact) 과정을 마크-앤-스윕 알고리즘에 추가했다. 오래된 PC의 하드 디스크 조각 모음과 같은 압축 기능이다. 
+V8 엔진(크롬)은 가비지 컬렉션으로 인해 발생하는 성능 저하를 개선하기 위해 메인 스레드에서 이뤄지는 가비지 컬렉션을 병렬, 동시적으로 수행하는 등의 많은 변화를 만들었다. 그 중 한 가지로 메모리를 정리하는 컴팩트(compact) 과정을 마크-앤-스윕 알고리즘에 추가했다. 오래된 PC의 하드 디스크 조각 모음과 같은 압축 기능이다. 
 
 V8 엔진의 가비지 컬렉션은 JVM과 유사하게 동작한다. 힙 메모리 내부를 젊은 세대(young generation)과 오래된 세대(old generation)로 나누고, 마이너 GC(minor GC)와 메이저 GC(major GC)를 수행한다. 
 

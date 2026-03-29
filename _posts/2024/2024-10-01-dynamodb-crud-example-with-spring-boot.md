@@ -1,18 +1,18 @@
 ---
-title: "DynamoDB CRUD example with spring boot"
+title: "스프링 부트(Spring Boot) DynamoDB CRUD 예제"
 search: false
 category:
   - spring-boot
   - aws
   - dynamo-db
-last_modified_at: 2024-09-30T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Run DynamoDB local container with docker compose][dynamodb-container-with-docker-compose-link]
+- [도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기][dynamodb-container-with-docker-compose-link]
 
 ## 0. 들어가면서
 

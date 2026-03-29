@@ -1,5 +1,5 @@
 ---
-title: "DynamoDB basics"
+title: "DynamoDB 기초"
 search: false
 category:
   - aws
@@ -167,8 +167,8 @@ $ aws dynamodb scan \
 
 #### RECOMMEND NEXT POSTS
 
-- [DynamoDB single table design][dynamodb-single-table-design-link]
-- [DynamoDB Secondary Indexes][dynamodb-seconary-indexes-link]
+- [DynamoDB 단일 테이블 설계(Single Table Design)][dynamodb-single-table-design-link]
+- [DynamoDB 보조 인덱스(Secondary Indexes)][dynamodb-seconary-indexes-link]
 
 #### REFERENCE
 

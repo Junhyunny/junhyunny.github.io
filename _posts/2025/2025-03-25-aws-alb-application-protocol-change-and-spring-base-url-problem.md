@@ -11,7 +11,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Forward/Reverse Proxy][forward-reverse-proxy-link]
+- [포워드/리버스 프록시(Forward/Reverse Proxy)][forward-reverse-proxy-link]
 
 ## 0. 들어가면서
 

@@ -1,5 +1,5 @@
 ---
-title: "Use mixin to save instance into redis session in Spring Security"
+title: "스프링 시큐리티(Spring Security)에서 믹스인(Mixin)으로 Redis 세션에 인스턴스 저장하기"
 search: false
 category:
   - spring-boot
@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Problem to serialize instance with class info in Kotlin ObjectMapper][object-mapper-active-default-type-error-link]
+- [코틀린(Kotlin) ObjectMapper 클래스 정보와 함께 인스턴스 직렬화 수행 시 문제][object-mapper-active-default-type-error-link]
 
 ## 0. 들어가면서
 

@@ -1,16 +1,16 @@
 ---
-title: "Create ALB and TargetGroup in AWS with Terraform"
+title: "테라폼(Terraform) AWS ALB/대상 그룹(TargetGroup) 생성하기"
 search: false
 category:
   - terraform
-last_modified_at: 2024-09-13T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Create VPC in AWS with Terraform][create-vpc-in-aws-with-terraform-link]
+- [테라폼(Terraform) AWS VPC 생성하기][create-vpc-in-aws-with-terraform-link]
 
 ## 0. 들어가면서
 
@@ -274,7 +274,7 @@ alb-dns = "tf-lb-20240913202006675800000003-83453087.us-east-1.elb.amazonaws.com
 
 #### RECOMMEND NEXT POSTS
 
-- [Deploy EC2 into Target Group in AWS with Terraform][deploy-ec2-into-target-group-in-aws-with-terraform-link]
+- [테라폼(Terraform) AWS 대상 그룹(Target Group)에 EC2 배포하기][deploy-ec2-into-target-group-in-aws-with-terraform-link]
 
 #### REFERENCE
 

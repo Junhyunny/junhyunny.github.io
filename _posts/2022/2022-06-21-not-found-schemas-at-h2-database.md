@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - database
-last_modified_at: 2022-06-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -125,7 +125,7 @@ Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Schema "WORLD" not found; SQ
 H2 데이터베이스의 경우 스키마 정보를 초기화하는 방법이 따로 존재한다. 다음과 같이 application-local YAML 설정을 변경한다.
 
 - datasource URL 뒤에 다음과 같은 쿼리를 추가한다. 설정을 추가하면 서비스가 정상적으로 실행된다.
-  - `INIT=CREATE SCHEMA IF NOT EXISTS HELLO\;CREATE SCHEMA IF NOT EXISTS WORLD`
+- `INIT=CREATE SCHEMA IF NOT EXISTS HELLO\;CREATE SCHEMA IF NOT EXISTS WORLD`
 
 ```yml
 spring:

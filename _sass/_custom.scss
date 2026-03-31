@@ -14,7 +14,7 @@
 @media all and (max-width: 768px) {
   .page__content {
     ul, ol {
-      padding-left: calc(30 * 100vw / 720);
+      padding-left: 1.75em;
     }
   }
 }
@@ -22,7 +22,7 @@
 @media all and (max-width: 1024px) {
   .page__content {
     ul, ol {
-      padding-left: calc(50 * 100vw / 1024);
+      padding-left: 1.75em;
     }
   }
 }

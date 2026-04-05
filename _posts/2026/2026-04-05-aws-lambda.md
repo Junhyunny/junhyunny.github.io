@@ -82,7 +82,7 @@ AWS 람다의 아키텍처를 살펴보자. 우선 람다는 가상 머신(VM, V
   - 함수 코드는 필요한 라이브러리 및 종속성과 함께 .zip 파일이나 컨테이너 이미지와 같은 배포 패키지(소스 번들)로 묶여 람다 환경에 업로드됩니다
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/aws-lambda-02.webp" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/aws-lambda-02.webp" width="80%" class="image__border">
 </div>
 <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 
@@ -150,7 +150,7 @@ MicroVM에 격리되어 실행되는 **사용자 지정 함수**는 **람다 서
 - AWS 환경에 임베드된 기본 SDK 버전은 예고 없이 변경될 수 있으나, 필요한 특정 버전을 레이어에 포함하면 SDK 버전을 안전하게 고정할 수 있다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/aws-lambda-07.gif" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/aws-lambda-07.gif" width="80%" class="image__border">
 </div>
 <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 

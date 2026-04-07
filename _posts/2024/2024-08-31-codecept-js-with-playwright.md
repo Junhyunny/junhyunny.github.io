@@ -1,5 +1,5 @@
 ---
-title: "Playwright / CodeceptJS 프레임워크 E2E 테스트하기"
+title: "Playwright와 CodeceptJS 프레임워크 E2E 테스트하기"
 search: false
 category:
   - e2e-test

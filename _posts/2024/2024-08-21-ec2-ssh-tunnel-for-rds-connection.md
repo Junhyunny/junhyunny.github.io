@@ -1,9 +1,9 @@
 ---
-title: "EC2 SSH Tunnel for RDS connection"
+title: "EC2 SSH 터널(Tunnel)로 RDS 접속하기"
 search: false
 category:
   - aws
-last_modified_at: 2024-08-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

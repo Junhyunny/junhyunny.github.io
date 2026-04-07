@@ -1,18 +1,18 @@
 ---
-title: "Use git-remote-codecommit for AWS CodeCommit"
+title: "AWS 코드 커밋(CodeCommit)과 git-remote-codecommit 명령어 사용하기"
 search: false
 category:
   - aws
-last_modified_at: 2024-08-23T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. GRC(Git Remote CodeCommit) in AWS CodeCommit
 
-CodeCommit은 AWS에서 호스팅하는 코드 버전 관리 서비스다. 깃허브(github)나 깃랩(gitlab)처럼 소스 코드의 형상 관리나 병합 서비스를 제공한다. CodeCommit도 소스 코드를 클론(clone)하는 방법은 HTTPS, SSH 두 가지를 기본적으로 제공한다. 이 두 가지 방법은 IAM 사용자를 사용해 자격 증명이나 공개 키를 등록하는 작업이 필요하다. 
+코드 커밋(CodeCommit)은 AWS에서 호스팅하는 코드 버전 관리 서비스다. 깃허브(github)나 깃랩(gitlab)처럼 소스 코드의 형상 관리나 병합 서비스를 제공한다. 코드 커밋도 소스 코드를 클론(clone)하는 방법은 HTTPS, SSH 두 가지를 기본적으로 제공한다. 이 두 가지 방법은 IAM 사용자를 사용해 자격 증명이나 공개 키를 등록하는 작업이 필요하다. 
 
-필자는 SSO 사용자로 PowerUser 권한밖에 없기 때문에 IAM 사용자를 등록하고 필요한 권한을 주는 것이 불가능하다. 이런 권한 문제가 있다면 `GRC(Git Remote CodeCommit)`을 사용하는 것이 편리하다. GRC를 사용하면 임시 보안 인증 정보를 사용하여 CodeCommit 레포지토리에 접근할 수 있다. 
+필자는 SSO 사용자로 PowerUser 권한밖에 없기 때문에 IAM 사용자를 등록하고 필요한 권한을 주는 것이 불가능하다. 이런 권한 문제가 있다면 `GRC(Git Remote CodeCommit)`을 사용하는 것이 편리하다. GRC를 사용하면 임시 보안 인증 정보를 사용하여 코드 커밋 레포지토리에 접근할 수 있다. 
 
 - `HTTPS(GRC)`를 사용한다.
 

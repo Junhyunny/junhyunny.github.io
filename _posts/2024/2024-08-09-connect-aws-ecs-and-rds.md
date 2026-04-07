@@ -1,16 +1,16 @@
 ---
-title: "Connect AWS ECS and RDS"
+title: "AWS ECS(Elastic Container Service)와 RDS(Relational Database Service) 연결하기"
 search: false
 category:
   - aws
-last_modified_at: 2024-08-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [AWS ECS(Elastic Container Service) Setup][aws-ecs-service-setup-link]
+- [AWS ECS(Elastic Container Service) 설정][aws-ecs-service-setup-link]
 
 ## 0. 들어가면서
 
@@ -128,7 +128,7 @@ spring:
       ddl-auto: create
 ```
 
-위 설정에서 데이터베이스 테이블들을 초기화 하는 `spring.jpa.hibernate.ddl-auto` 속성이 `create`인 것에 주의하길 바란다. 필자는 AWS ECS, RDS 연결을 위한 예제를 작성하는 중이기 때문에 첫 배포시 에러가 발생하지 않도록 `create` 값을 사용했다.
+위 설정에서 데이터베이스 테이블들을 초기화 하는 `spring.jpa.hibernate.ddl-auto` 속성이 `create`인 것에 주의하길 바란다. 필자는 AWS ECS, RDS 연결을 위한 예제를 작성하는 중이기 때문에 첫 배포 시 에러가 발생하지 않도록 `create` 값을 사용했다.
 
 ### 3.1. RDS Database URL endpoint
 

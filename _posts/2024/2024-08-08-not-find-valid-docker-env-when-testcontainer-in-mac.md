@@ -1,17 +1,17 @@
 ---
-title: "Could not find a valid Docker environment when use TestContainer in MacOS"
+title: "MacOS TestContainer 사용 시 유효한 도커(Docker) 환경을 찾지 못하는 문제"
 search: false
 category:
   - spring-boot
   - testcontainer
-last_modified_at: 2024-08-08T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [How to setup TestContainer in Kotlin Spring Boot][how-to-setup-testcontainer-in-kotlin-spring-boot-link]
+- [코틀린(Kotlin) 스프링 부트(Spring Boot)에서 TestContainer 설정하기][how-to-setup-testcontainer-in-kotlin-spring-boot-link]
 
 ## 1. Problem Context
 

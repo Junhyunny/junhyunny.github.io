@@ -1,10 +1,10 @@
 ---
-title: "Setup ESLint and Prettier in Vite"
+title: "Vite 프로젝트 ESLint/Prettier 설정하기"
 search: false
 category:
   - vite
   - react
-last_modified_at: 2024-08-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

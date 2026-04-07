@@ -1,9 +1,9 @@
 ---
-title: "CodeceptJS with Playwright for E2E test"
+title: "Playwright / CodeceptJS 프레임워크 E2E 테스트하기"
 search: false
 category:
   - e2e-test
-last_modified_at: 2024-08-31T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -304,16 +304,16 @@ I.login(secret("junhyunny"), secret("12345"));
 
 - autoLogin 플러그인을 활성화한다.
 - 로그인 함수 이름을 지정한다.
-    - 기본 값은 `login`이지만, 이름을 `loginAs`로 변경하여 사용한다. 
+  - 기본 값은 `login`이지만, 이름을 `loginAs`로 변경하여 사용한다. 
 - JUNHYUNNY 사용자를 추가하고 해당 객체에 두 개의 함수를 추가한다.
-    - login 함수
-        - 사용자 로그인을 수행한다. 
-        - 로그인을 수행하기 전에 기존 쿠키는 정리한다.
-        - I 객체에 정의된 login 함수를 사용한다.
-    - check 함수
-        - 기존에 갖고 있는 쿠키를 사용해 서버 세션을 재사용할 수 있는지 확인한다.
-        - 인증된 사용자만 접근할 수 있는 경로로 이동 후 특정 리소스를 확인한다.
-        - 리소스 확인이 실패한 경우 로그인을 처음부터 다시 시도한다.
+  - login 함수
+    - 사용자 로그인을 수행한다. 
+    - 로그인을 수행하기 전에 기존 쿠키는 정리한다.
+    - I 객체에 정의된 login 함수를 사용한다.
+  - check 함수
+    - 기존에 갖고 있는 쿠키를 사용해 서버 세션을 재사용할 수 있는지 확인한다.
+    - 인증된 사용자만 접근할 수 있는 경로로 이동 후 특정 리소스를 확인한다.
+    - 리소스 확인이 실패한 경우 로그인을 처음부터 다시 시도한다.
 
 ```ts
 export const config: CodeceptJS.MainConfig = {

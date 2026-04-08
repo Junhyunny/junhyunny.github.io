@@ -1,9 +1,9 @@
 ---
-title: "AWS ALB(Application Load Balancer) and Target Group Setup"
+title: "AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정"
 search: false
 category:
   - aws
-last_modified_at: 2024-08-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -228,8 +228,8 @@ ECS 클러스터에서 사용할 로드 밸런서 준비가 끝났다. 다음과
 
 #### RECOMMEND NEXT POSTS
 
-- [AWS ECR(Elastic Container Registry) Setup][aws-ecr-setup-link]
-- [AWS ECS(Elastic Container Service) Setup][aws-ecs-service-setup-link]
+- [AWS ECR(Elastic Container Registry) 설정][aws-ecr-setup-link]
+- [AWS ECS(Elastic Container Service) 설정][aws-ecs-service-setup-link]
 
 #### REFERENCE
 

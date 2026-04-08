@@ -1,16 +1,16 @@
 ---
-title: "AWS ECR(Elastic Container Registry) Setup"
+title: "AWS ECR(Elastic Container Registry) 설정"
 search: false
 category:
   - aws
-last_modified_at: 2024-08-07T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [AWS ALB(Application Load Balancer) and Target Group Setup][aws-alb-and-target-group-setup-link]
+- [AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정][aws-alb-and-target-group-setup-link]
 
 ## 0. 들어가면서
 
@@ -98,39 +98,18 @@ Login Succeeded
 
 ```
 $ docker build -t demo-service .
- [+] Building 24.5s (29/29) FINISHED                                                                       docker:desktop-linux
-  => [internal] load build definition from Dockerfile                                                                      0.0s
-  => => transferring dockerfile: 795B                                                                                      0.0s
-
-...
-
-  => exporting to image                                                                                                    0.1s
-  => => exporting layers                                                                                                   0.1s
-  => => writing image sha256:a72f69ef8f4edd26a3ee9aad9ca870eedac4e6107d74b504a35534ca8d25c5a7                              0.0s
-  => => naming to docker.io/library/demo-service                                                                           0.0s
- 
- View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/g5p5wdsantsghhh8gsvd622u9
- 
- What's next:
-     View a summary of image vulnerabilities and recommendations → docker scout quickview 
 ```
 
-이미지 빌드가 완료되면 다음 명령어를 사용해 이미지를 업로드한다.
-
-- ECR 레포지토리를 위한 태그 이름을 갖는 이미지를 만든다.
-- 해당 이미지를 푸시한다.
+이미지 빌드가 완료되면 다음 명령어를 사용해 이미지를 업로드한다. ECR 레포지토리를 위한 태그 이름을 갖는 이미지를 만든다.
 
 ```
 $ docker tag demo-service:latest 1234567890.dkr.ecr.ap-northeast-2.amazonaws.com/demo-service:latest
+```
 
+ 해당 이미지를 푸시한다.
+
+```
 $ docker push 1234567890.dkr.ecr.ap-northeast-2.amazonaws.com/demo-service:latest
-The push refers to repository [1234567890.dkr.ecr.ap-northeast-2.amazonaws.com/demo-service]
-a0251f32f17d: Pushed 
-1344044c94da: Pushed 
-c82e5bf37b8a: Pushed 
-2f263e87cb11: Pushed 
-f941f90e71a8: Pushed 
-latest: digest: sha256:4c4690abd7fee0279c58aa7227cfd66143cf74283d33f555844eff9271be7a65 size: 1371
 ```
 
 이미지가 업로드 되면 AWS 웹 콘솔에서 확인할 수 있다.
@@ -145,7 +124,7 @@ latest: digest: sha256:4c4690abd7fee0279c58aa7227cfd66143cf74283d33f555844eff927
 
 #### RECOMMEND NEXT POSTS
 
-- [AWS ECS(Elastic Container Service) Setup][aws-ecs-service-setup-link]
+- [AWS ECS(Elastic Container Service) 설정][aws-ecs-service-setup-link]
 
 #### REFERENCE
 

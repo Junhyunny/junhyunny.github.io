@@ -1,12 +1,12 @@
 ---
-title: "Spring Security OAuth2 Resource Server"
+title: "스프링 시큐리티(Spring Security) OAuth2 리소스 서버"
 search: false
 category:
   - information
   - java
   - spring-boot
   - spring-security
-last_modified_at: 2024-06-24T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -18,9 +18,7 @@ last_modified_at: 2024-06-24T23:55:00
 
 ## 0. 들어가면서
 
-최근 프로젝트는 iOS 애플리케이션을 개발했고 사용자 인증을 위해 마이크로소프트 AAD(Azure Active Directory)를 사용했다. 
-
-평소 개발하는 웹 서비스에선 백엔드 애플리케이션이 클라이언트로써 참여하지만, iOS 애플리케이션 인증 과정에선 리소스 서버 역할을 수행한다. 오래 전에 스프링 시큐리티 인가 서버, 리소스 서버 의존성을 사용해 본 경험이 있지만, 당시엔 충분히 이해하지 못한 채 사용했기 때문에 구현에만 급급했다. 이번 글은 오랜만에 다시 사용해 본 스프링 시큐리티 OAuth2 리소스 서버의 아키텍처 일부분과 인증 흐름에 대해 정리했다. 
+최근 프로젝트는 iOS 애플리케이션을 개발했고 사용자 인증을 위해 마이크로소프트 AAD(Azure Active Directory)를 사용했다.  평소 개발하는 웹 서비스에선 백엔드 애플리케이션이 클라이언트로써 참여하지만, iOS 애플리케이션 인증 과정에선 리소스 서버 역할을 수행한다. 오래 전에 스프링 시큐리티 인가 서버, 리소스 서버 의존성을 사용해 본 경험이 있지만, 당시엔 충분히 이해하지 못한 채 사용했기 때문에 구현에만 급급했다. 이번 글은 오랜만에 다시 사용해 본 스프링 시큐리티 OAuth2 리소스 서버의 아키텍처 일부분과 인증 흐름에 대해 정리했다. 
 
 ## 1. Project Context
 
@@ -73,8 +71,7 @@ dependencies {
 
 아래와 같이 [JWKs(Json Web Key Set)][json-web-key-link] 정보를 조회할 수 있는 URL 주소를 추가한다. 필자의 프로젝트는 마이크로소프트 AAD 로그인를 사용하고 있기 때문에 마이크로소프트가 제공하는 공개 키 URL를 지정한다.
 
-- spring.security.oauth2.resourceserver.jwt.jwk-set-uri
-  - 해당 경로는 마이크로소프트에서 제공한 `MICROSOFT_TENANT_ID` 값만 있다면 해당 URL에서 공개 키 리스트를 획득할 수 있다.
+- 해당 경로는 마이크로소프트에서 제공한 `MICROSOFT_TENANT_ID` 값만 있다면 해당 URL에서 공개 키 리스트를 획득할 수 있다.
 
 ```yml
 spring:
@@ -126,7 +123,7 @@ public class SecurityConfig {
 }
 ```
 
-### 2.4. Verify Process
+## 3. Verify Process
 
 위 설정만으로 액세스 토큰의 유효성 검증이 수행된다. 아래와 같은 프로세스가 진행된다.
 

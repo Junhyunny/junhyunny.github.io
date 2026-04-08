@@ -51,10 +51,10 @@ image.src = "https://exmample.com/images/temp.png"
 
 ## 3. Retry with Image object
 
-지금부터 Image 객체를 사용해서 이미지 로딩이 실패하는 경우 3초마다 재시도하며 최대 5회 시도하는 코드를 작성해보자. 재귀적인 방법을 통해 재시도를 수행한다.
+지금부터 Image 객체를 사용해서 이미지 로딩이 실패하는 경우 1초마다 최대 5회 재시도하는 코드를 작성해보자. 재귀적인 방법을 통해 재시도를 수행한다.
 
 ```ts
-export const loadImageWithRety = async (url: string, timeout: number = 3000, retry: number = 4): Promise<HTMLImageElement> => {
+export const loadImageWithRety = async (url: string, timeout: number = 1000, retry: number = 4): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const image = new Image()
     image.onload = () => {

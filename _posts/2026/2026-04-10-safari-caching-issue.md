@@ -61,7 +61,7 @@ last_modified_at: 2026-04-10T13:00:00+09:00
 - max-age 디렉티브
 - s-maxage 디렉티브
 
-[RFC 9111의 2번 섹션](https://httpwg.org/specs/rfc9111.html#rfc.section.2)를 보면 캐싱은 선택적(optional)이기 때문에 브라우저가 이를 구현할 의무는 없다. 
+[RFC 9111의 2번 섹션](https://httpwg.org/specs/rfc9111.html#rfc.section.2)을 보면 캐싱은 선택적(optional)이기 때문에 브라우저가 이를 구현할 의무는 없다. 
 
 > Although caching is an entirely OPTIONAL feature of HTTP, it can be assumed that reusing a cached response is desirable and that such reuse is the default behavior when no requirement or local configuration prevents it. Therefore, HTTP cache requirements are focused on preventing a cache from either storing a non-reusable response or reusing a stored response inappropriately, rather than mandating that caches always store and reuse particular responses.
 
@@ -69,11 +69,9 @@ last_modified_at: 2026-04-10T13:00:00+09:00
 
 ## 3. Solve the problem
 
-처음에는 `CloudFront Function` 기능을 이용해서 캐싱 헤더를 조작하려고 했다. [하지만 CloudFront Function의 viewer-response 이벤트는 오리진(origin)이 400 이상의 HTTP 에러를 반환하면 실행되지 않는다.](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-status-body) 다시 말해 S3가 이미지가 없어서 403 응답을 반환하면 CloudFront Function은 동작하지 않는다.
+처음에는 `CloudFront Function` 기능을 이용해서 캐싱 헤더를 조작하려고 했다. [하지만 CloudFront Function의 viewer-response 이벤트는 오리진(origin)이 400 이상의 HTTP 에러를 반환하면 실행되지 않는다.](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/functions-event-structure.html#functions-event-structure-status-body) 다시 말해 S3가 이미지가 없어서 403 응답을 반환하면 CloudFront Function은 동작하지 않는다. 이 외에도 클라우드 프론트의 커스텀 정책이나 AWS 람다 함수 등을 이용해서 캐싱 응답을 바꿔치는 방법이 있는 것 같았지만, 변경 비용이 크다는 생각이 들었다. 
 
-이 외에도 클라우드 프론트의 커스텀 정책이나 AWS 람다 함수 등을 이용해서 캐싱 응답을 바꿔치는 방법이 있는 것 같았지만, 변경 비용이 크다는 생각이 들었다. 우리는 비용이 가장 저렴한 방법으로 이 문제를 해결했다. 
-
-브라우저에서 이미지 로딩이 실패해서 재시도를 할 때 `fetch()` API를 호출하는 코드를 추가했다. fetch() API `cache` 속성의 `reload` 옵션을 사용하면 캐싱된 데이터를 무시하고 이미지를 다시 로딩한다. 요청을 보낸 후 받은 응답은 캐시에 업데이트된다. 
+우리는 비용이 가장 저렴한 방법으로 이 문제를 해결했다. 브라우저에서 이미지 로딩이 실패해서 재시도를 할 때 `fetch()` API를 호출하는 코드를 추가했다. fetch() API `cache` 속성의 `reload` 옵션을 사용하면 캐싱된 데이터를 무시하고 이미지를 다시 로딩한다. 요청을 보낸 후 받은 응답은 캐시에 업데이트된다. 
 
 cache 속성에는 reload 옵션 외에도 다음과 같은 옵션들이 존재한다.
 

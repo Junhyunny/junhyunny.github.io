@@ -24,7 +24,7 @@ last_modified_at: 2026-04-10T13:00:00+09:00
 클라이언트 사이드에서 S3 presigned URL을 사용해서 이미지를 직접 호출하고 있었다. 이미지와 동영상이 많은 애플리케이션이기 때문에 미디어 리소스들에 브라우저 캐싱(caching)을 적용하고 싶었지만, presigned URL은 매번 변경되기 때문에 [Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control) 헤더를 적용할 수 없었다. 이를 개선하기 위해 AWS 클라우드 프론트(cloudfront)를 CDN(Content Delivery Network)으로 구축했다. 캐시 컨트롤 응답 헤더는 클라우드 프론트의 `Response Headers Policy`를 통해 지정했다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/safari-caching-issue-01.png" width="75%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/safari-caching-issue-01.png" width="80%" class="image__border">
 </div>
 
 <br/>
@@ -133,7 +133,7 @@ export const loadImageWithRety = async (
 - 이전 fetch() 함수가 로딩에 실패했다면 정상적인 이미지가 아니기 때문에 onerror 콜백 함수가 호출되고, 다시 fetch() 함수로 캐시를 갱신한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/safari-caching-issue-04.png" width="75%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/safari-caching-issue-04.png" width="80%" class="image__border">
 </div>
 
 <br/>

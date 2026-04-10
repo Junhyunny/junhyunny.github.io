@@ -329,7 +329,13 @@ export default App;
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2026-04-08-react-skeleton-image>
 
+#### RECOMMEND NEXT POSTS
+
+- [사파리(safari) 브라우저 캐시 정책과 이미지 재로딩 문제][safari-caching-issue-link]
+
 #### REFERENCE
 
 - <https://velog.io/@heelieben/React-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4-UI-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0>
 - <https://medium.com/prnd/%EC%8A%A4%EC%BC%88%EB%A0%88%ED%86%A4-%EB%A1%9C%EB%94%A9-%EC%96%B8%EC%A0%9C-%EC%82%AC%EC%9A%A9%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C-%ED%97%A4%EC%9D%B4%EB%94%9C%EB%9F%AC-ux-%EC%8A%A4%ED%84%B0%EB%94%94-00d2cc323b17>
+
+[safari-caching-issue-link]: https://junhyunny.github.io/browser/safari/javascript/typescript/safari-caching-issue/

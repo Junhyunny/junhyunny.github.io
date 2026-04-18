@@ -1,69 +1,64 @@
 ---
-title: "Custom FeignClient Decoder"
+title: "커스텀 FeignClient 디코더"
 search: false
 category:
   - spring-boot
   - spring-cloud
-last_modified_at: 2023-03-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
-* [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
+- [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
+- [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
 
 ## 0. 들어가면서
 
-최근 프로젝트에서 레거시 서버와 연결하면서 응답 메시지에 다음과 같은 문제가 있었습니다. 
+최근 프로젝트에서 레거시 서버와 연결하면서 응답 메시지에 다음과 같은 문제가 있었다.
 
-* 홑따옴표(')로 묶인 키(key), 값(value)로 구성된 JSON 형식
-* 홑따옴표는 이스케이핑(escaping) 처리
+- 홑따옴표(')로 묶인 키(key), 값(value)로 구성된 JSON 형식
+- 홑따옴표는 이스케이핑(escaping) 처리
 
-예를 들면 다음과 같은 메시지를 응답 받았습니다.
+예를 들면 다음과 같은 메시지를 응답 받았다.
 
 ```
 [{&#39;id&#39;: &#39;0001&#39;, &#39;title&#39;: &#39;hello world&#39;, &#39;content&#39;: &#39;this is post test for feign client&#39;}]
 ```
 
-`FeignClient`를 사용하고 있었고, 두 가지 옵션을 생각했습니다. 
+`FeignClient`를 사용하고 있었고, 두 가지 옵션을 생각했다.
 
-* 프록시(proxy) 객체를 만들고, 프록시 내부에서 관련된 언이스케이프(unescape) 처리 및 객체 생성
-* 커스텀 `SpringDecoder`를 만들고, 해당 `FeignClient` 객체에 주입
+- 프록시(proxy) 객체를 만들고, 프록시 내부에서 관련된 언이스케이프(unescape) 처리 및 객체 생성
+- 커스텀 `SpringDecoder`를 만들고, 해당 `FeignClient` 객체에 주입
 
-스프링(spring) 프레임워크의 기능이 필요하지만, 관심사를 분리하자는 차원에서 `SpringDecoder` 기능을 확장하였습니다. 
-이번 포스트에선 커스텀 `SpringDecoder` 객체를 적용하는 방법에 대해 정리하였습니다.
+스프링(spring) 프레임워크의 기능이 필요하지만, 관심사를 분리하자는 차원에서 `SpringDecoder` 기능을 확장하였다. 이번 포스트에선 커스텀 `SpringDecoder` 객체를 적용하는 방법에 대해 정리하였다.
 
 ## 1. Encoding and Decoding
 
-인코딩(encoding)과 디코딩(decoding)에 대한 개념을 먼저 살펴보겠습니다. 
-애플리케이션에서 사용하는 객체들은 서비스들 사이의 통신에서 그대로 사용하지 못 합니다. 
-서비스들 사이에 실제 통신은 바이트 배열(byte array)을 통해 이뤄집니다. 
-애플리케이션의 객체와 바이트 배열 사이의 변환이 필요한 데 이런 과정을 인코딩, 디코딩이라 합니다.
+인코딩(encoding)과 디코딩(decoding)에 대한 개념을 먼저 살펴보겠다. 애플리케이션에서 사용하는 객체들은 서비스들 사이의 통신에서 그대로 사용하지 못한다. 서비스들 사이에 실제 통신은 바이트 배열(byte array)을 통해 이뤄진다. 애플리케이션의 객체와 바이트 배열 사이의 변환이 필요한데 이런 과정을 인코딩, 디코딩이라 한다.
 
-* 인코딩(encoding)
-    * 메시지를 담은 객체를 바이트 배열로 변경합니다.
-* 디코딩(decoding)
-    * 바이트 배열을 메시지를 담은 객체로 변경합니다.
+- 인코딩(encoding)
+  - 메시지를 담은 객체를 바이트 배열로 변경한다.
+- 디코딩(decoding)
+  - 바이트 배열을 메시지를 담은 객체로 변경한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/custom-feign-decoder-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/custom-feign-decoder-01.png" width="80%" class="image__border">
+</div>
 
-## 2. Implementation 
+## 2. Implementation
 
-간단한 예제 코드를 구현하고, 테스트해보겠습니다. 
-디코딩 과정은 다음 과정을 거칩니다.
+간단한 예제 코드를 구현하고, 테스트해보겠다. 디코딩 과정은 다음 과정을 거친다.
 
-* 메시지 언이스케이프
-    * `[{&#39;id&#39;: &#39;0001&#39;}]` > `[{'id': '0001'}]`
-* 홑따옴표로 구성된 JSON 메시지 객체화
-    * `[{'id': '0001'}]` > `List<Post>`
+- 메시지 언이스케이프
+  - `[{&#39;id&#39;: &#39;0001&#39;}]` > `[{'id': '0001'}]`
+- 홑따옴표로 구성된 JSON 메시지 객체화
+  - `[{'id': '0001'}]` > `List<Post>`
 
 ### 2.1. build.gradle
 
-실습을 위해서 다음과 같은 의존성들이 필요합니다.
+실습을 위해서 다음과 같은 의존성들이 필요하다.
 
 ```groovy
 dependencies {
@@ -80,11 +75,11 @@ dependencies {
 
 ### 2.2. UnescapingHtml4Decoder Class
 
-* 언이스케이핑 처리를 위한 디코더 클래스입니다.
-* `SpringDecoder` 클래스를 확장합니다.
-* `decode` 메서드 기능을 확장합니다.
-    * `IOUtils` 클래스를 통해 응답(response body)에서 메시지를 추출합니다.
-    * `StringEscapeUtils` 클래스를 통해 메시지를 언이스케이프 처리합니다. 
+- 언이스케이핑 처리를 위한 디코더 클래스이다.
+- `SpringDecoder` 클래스를 확장한다.
+- `decode` 메서드 기능을 확장한다.
+  - `IOUtils` 클래스를 통해 응답(response body)에서 메시지를 추출한다.
+  - `StringEscapeUtils` 클래스를 통해 메시지를 언이스케이프 처리한다.
 
 ```java
 package action.in.blog.config;
@@ -125,12 +120,12 @@ public class UnescapingHtml4Decoder extends SpringDecoder {
 
 ### 2.3. BlogClientConfig Class
 
-* 홑따옴표로 구성된 JSON 메시지를 객체로 변경할 수 있는 컨버터를 만듭니다. 
-* `ObjectMapper` 객체에 `ALLOW_SINGLE_QUOTES` 설정을 추가합니다.
-* `MappingJackson2HttpMessageConverter` 메시지 컨버터(converter) 객체를 생성합니다.
-    * 메시지 컨버터 내부에서 사용하는 모듈은 `ObjectMapper` 객체입니다.
-    * 메시지 컨버터가 지원하는 메시지 포맷을 지정합니다.
-* `ObjectFactory` 객체를 만들어 `UnescapingHtml4Decoder`에 주입합니다.
+- 홑따옴표로 구성된 JSON 메시지를 객체로 변경할 수 있는 컨버터를 만든다.
+- `ObjectMapper` 객체에 `ALLOW_SINGLE_QUOTES` 설정을 추가한다.
+- `MappingJackson2HttpMessageConverter` 메시지 컨버터(converter) 객체를 생성한다.
+  - 메시지 컨버터 내부에서 사용하는 모듈은 `ObjectMapper` 객체이다.
+  - 메시지 컨버터가 지원하는 메시지 포맷을 지정한다.
+- `ObjectFactory` 객체를 만들어 `UnescapingHtml4Decoder`에 주입한다.
 
 ```java
 package action.in.blog.config;
@@ -165,7 +160,7 @@ public class BlogClientConfig {
 
 ### 2.4. BlogClient Interface
 
-* 통신에 사용하는 `FeignClient` 객체가 사용할 수 있도록 설정 빈 객체를 지정합니다.
+- 통신에 사용하는 `FeignClient` 객체가 사용할 수 있도록 설정 빈 객체를 지정한다.
 
 ```java
 package action.in.blog.client;
@@ -187,9 +182,9 @@ public interface BlogClient {
 
 ### 3. Test
 
-* `WireMock`을 사용해 테스트를 수행합니다. 
-    * 이스케이핑 된 메시지를 준비하고, 특정 경로에 대한 응답으로 이를 반환합니다. 
-* 정상적으로 값이 매칭된 객체를 응답받는지 확인합니다.
+- `WireMock`을 사용해 테스트를 수행한다.
+  - 이스케이핑된 메시지를 준비하고, 특정 경로에 대한 응답으로 이를 반환한다.
+- 정상적으로 값이 매칭된 객체를 응답받는지 확인한다.
 
 ```java
 package action.in.blog;
@@ -251,15 +246,15 @@ BUILD SUCCESSFUL in 12s
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-03-custom-feign-decoder>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-03-custom-feign-decoder>
 
 #### REFERENCE
 
-* <https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/>
-* <https://velog.io/@haron/Feign-client-%EC%A0%81%EC%9A%A9%EA%B8%B0>
-* <https://sabarada.tistory.com/116>
-* <https://gist.github.com/Darguelles/d9f76f29a74e7ed6e8c305098ea3469b>
-* <https://www.educative.io/answers/how-to-parse-single-quotes-json-using-jackson-in-java>
+- <https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/>
+- <https://velog.io/@haron/Feign-client-%EC%A0%81%EC%9A%A9%EA%B8%B0>
+- <https://sabarada.tistory.com/116>
+- <https://gist.github.com/Darguelles/d9f76f29a74e7ed6e8c305098ea3469b>
+- <https://www.educative.io/answers/how-to-parse-single-quotes-json-using-jackson-in-java>
 
 [spring-cloud-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/
 [wire-mock-for-feign-client-test-link]: https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/

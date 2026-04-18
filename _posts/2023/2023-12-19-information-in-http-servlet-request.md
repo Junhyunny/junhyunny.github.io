@@ -1,18 +1,18 @@
 ---
-title: "Information in HttpServletRequest"
+title: "HttpServletRequest에서 정보 조회하기"
 search: false
 category:
   - information
   - java
   - spring-boot
-last_modified_at: 2023-12-19T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
+- [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link]
 - [Virtual Host in Tomcat][virtual-host-in-tomcat-link]
 
 ## 1. Information in HttpServletRequest
@@ -229,7 +229,7 @@ Tomcat started.
 
 ### 3.2. Deploy Application
 
-애플리케이션을 war 파일로 패키징(packaging)하여 톰캣 서버에 배포한다. 애플리케이션을 배포하는 방법은 [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link] 포스트를 참고하길 바란다. 테스트를 위해 컨트롤러 코드를 변경한다. HttpServletRequest 객체에 어떤 정보가 들어있는지 브라우저를 통해 확인하기 위해 다음과 같은 응답을 만든다.
+애플리케이션을 war 파일로 패키징(packaging)하여 톰캣 서버에 배포한다. 애플리케이션을 배포하는 방법은 [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link] 포스트를 참고하길 바란다. 테스트를 위해 컨트롤러 코드를 변경한다. HttpServletRequest 객체에 어떤 정보가 들어있는지 브라우저를 통해 확인하기 위해 다음과 같은 응답을 만든다.
 
 ```java
 package blog.in.action.controller;
@@ -306,9 +306,9 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 서블릿 경로는 /home 이다.
 - 요청 URI는 /home 이다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/information-in-http-servlet-request-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### 3.3.2. /app path
 
@@ -318,9 +318,9 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 서블릿 경로는 /home 이다.
 - 요청 URI는 /app/home 이다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/information-in-http-servlet-request-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### 3.3.3. /admin path
 
@@ -330,9 +330,9 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 서블릿 경로는 /home 이다.
 - 요청 URI는 /admin/home 이다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/information-in-http-servlet-request-03.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

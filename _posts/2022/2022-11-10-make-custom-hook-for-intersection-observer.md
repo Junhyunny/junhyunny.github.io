@@ -1,47 +1,44 @@
 ---
-title: "Custom Hook for Intersection Observer"
+title: "IntersectionObserver 커스텀 훅 만들기"
 search: false
 category:
   - typescript
   - jest
   - testing-library
   - test-driven-development
-last_modified_at: 2022-11-10T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [How to Test Intersection Observer][how-to-test-intersection-observer-link]
+- [How to Test Intersection Observer][how-to-test-intersection-observer-link]
 
 ## 0. 들어가면서
 
-`IntersectionObserver` 기능을 재사용하기 위해 커스텀 훅(custom hook)을 만들어보았습니다. 
-프로젝트에서 필요한 최소한의 기능만 구현하였고, 예전에 사용해봤던 [react-intersection-observer][react-intersection-observer-link] 라이브러리의 인터페이스와 유사한 모습으로 기능을 구현했습니다. 
-해당 라이브러리를 사용해도 되지만, 최대한 외부 의존성을 줄이고 공부할 겸 직접 구현해봤습니다. 
+`IntersectionObserver` 기능을 재사용하기 위해 커스텀 훅(custom hook)을 만들어보았다. 프로젝트에서 필요한 최소한의 기능만 구현하였고, 예전에 사용해봤던 [react-intersection-observer][react-intersection-observer-link] 라이브러리의 인터페이스와 유사한 모습으로 기능을 구현했다. 해당 라이브러리를 사용해도 되지만, 최대한 외부 의존성을 줄이고 공부할 겸 직접 구현해봤다.
 
-커스텀 훅을 만들 때 어떤 함수 인자들을 받을지, 어떤 기능을 제공할지 많이 고민 했는데 다음과 같은 관점에서 [react-intersection-observer][react-intersection-observer-link] 라이브러리를 참고하였습니다. 
+커스텀 훅을 만들 때 어떤 함수 인자들을 받을지, 어떤 기능을 제공할지 많이 고민했는데 다음과 같은 관점에서 [react-intersection-observer][react-intersection-observer-link] 라이브러리를 참고하였다.
 
-* 적절한 관심사의 분리
-    * 라이브러리를 사용하는 클라이언트 컴포넌트의 기능과 관련된 함수 인자를 받지 않습니다.
-    * 뷰 포트(view port)가 누군지, 타겟(target)이 누군지만 확인합니다.
-* 필요한 기능, 유연한 사용성을 제공
-    * 타겟을 변경할 수 있도록 레퍼런스 객체를 반환합니다.
-    * 타겟이 뷰 포트 내부로 진입했는지 여부만 알려줍니다.
+- 적절한 관심사의 분리
+  - 라이브러리를 사용하는 클라이언트 컴포넌트의 기능과 관련된 함수 인자를 받지 않는다.
+  - 뷰 포트(view port)가 누군지, 타겟(target)이 누군지만 확인한다.
+- 필요한 기능, 유연한 사용성을 제공
+  - 타겟을 변경할 수 있도록 레퍼런스 객체를 반환한다.
+  - 타겟이 뷰 포트 내부로 진입했는지 여부만 알려준다.
 
-훅을 사용하는 클라이언트는 타겟이 뷰 포트 내부에 진입했는지 여부를 확인하고 적절한 콜백 함수를 호출합니다. 
+훅을 사용하는 클라이언트는 타겟이 뷰 포트 내부에 진입했는지 여부를 확인하고 적절한 콜백 함수를 호출한다.
 
 ## 1. Before Applying Custom Hook
 
-[How to Test Intersection Observer][how-to-test-intersection-observer-link] 포스트에서 사용한 코드를 먼저 살펴보겠습니다. 
-다음과 같은 부분들이 개선이 필요해보입니다. 
+[How to Test Intersection Observer][how-to-test-intersection-observer-link] 포스트에서 사용한 코드를 먼저 살펴보겠다. 다음과 같은 부분들이 개선이 필요해보인다.
 
-* 전역 변수로 선언된 `interscetionObjserver`, `offset` 변수
-* 쿼리 셀렉터(query selector)를 사용해 클래스 명으로 리스트 마지막 엘리먼트(element)를 탐색
-* 쿼리 셀렉터를 사용해 `ID`로 뷰 포트 엘리먼트를 탐색
-* 조회한 리스트 마지막 객체에 불필요한 플래그 설정
-* 코드의 많은 부분을 차지하는 `IntetsectionObserver` 관련 로직
+- 전역 변수로 선언된 `interscetionObjserver`, `offset` 변수
+- 쿼리 셀렉터(query selector)를 사용해 클래스 명으로 리스트 마지막 엘리먼트(element)를 탐색
+- 쿼리 셀렉터를 사용해 `ID`로 뷰 포트 엘리먼트를 탐색
+- 조회한 리스트 마지막 객체에 불필요한 플래그 설정
+- 코드의 많은 부분을 차지하는 `IntetsectionObserver` 관련 로직
 
 ```javascript
 import { useCallback, useEffect, useState } from 'react'
@@ -114,9 +111,9 @@ export default () => {
 
 ## 2. Make Custom Hook of Intersection Observer
 
-`IntersectionObserver` 클래스에 관련된 코드를 재사용할 수 있도록 다음과 같이 커스텀 훅으로 만들었습니다. 
+`IntersectionObserver` 클래스에 관련된 코드를 재사용할 수 있도록 다음과 같이 커스텀 훅으로 만들었다.
 
-* 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
+- 설명은 가독성을 위해 코드에 주석으로 표시하였다.
 
 ```typescript
 import {useEffect, useMemo, useState} from 'react'
@@ -189,9 +186,9 @@ export default () => {
 
 ## 3. Apply Custom Hook
 
-작성한 커스텀 훅을 이전 코드에 적용하면 코드가 어떻게 변경되는지 살펴보겠습니다. 
+작성한 커스텀 훅을 이전 코드에 적용하면 코드가 어떻게 변경되는지 살펴보겠다.
 
-* 설명은 가독성을 위해 코드에 주석으로 표시하였습니다.
+- 설명은 가독성을 위해 코드에 주석으로 표시하였다.
 
 ```typescript
 import React, {useCallback, useEffect, useState} from 'react'
@@ -259,9 +256,9 @@ export default App
 
 ### 4.1. setupTests.js
 
-* 테스트가 실행되기 전에 필요한 로직을 추가하는 스크립트 파일입니다.
-* `IntersectionObserver` 클래스는 브라우저가 제공하는 Web API 이기 때문에 테스트에 필요한 가짜 클래스를 만들어 등록합니다.
-* 자세한 내용은 [How to Test Intersection Observer][how-to-test-intersection-observer-link] 포스트를 참고 바랍니다.
+- 테스트가 실행되기 전에 필요한 로직을 추가하는 스크립트 파일이다.
+- `IntersectionObserver` 클래스는 브라우저가 제공하는 Web API이기 때문에 테스트에 필요한 가짜 클래스를 만들어 등록한다.
+- 자세한 내용은 [How to Test Intersection Observer][how-to-test-intersection-observer-link] 포스트를 참고 바란다.
 
 ```javascript
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
@@ -302,8 +299,8 @@ global.IntersectionObserver = class IntersectionObserver {
 
 ### 4.2. App.test.tsx
 
-* 커스텀 훅에서 관리하는 테스트 전용 `viewPort`를 사용합니다.
-* 쿼리 셀렉터를 사용하지 않아도 테스트가 가능합니다.
+- 커스텀 훅에서 관리하는 테스트 전용 `viewPort`를 사용한다.
+- 쿼리 셀렉터를 사용하지 않아도 테스트가 가능하다.
 
 ```typescript
 import React from 'react'
@@ -348,27 +345,26 @@ test('스크롤 다운 이벤트를 수행하면 다음 리스트를 볼 수 있
 
 ## CLOSING
 
-이번에 만든 커스텀 훅은 더 개선할 수 있는 여지가 있어 보입니다. 
+이번에 만든 커스텀 훅은 더 개선할 수 있는 여지가 있어 보인다.
 
-* `IntersectionObserver` 클래스의 세부적인 옵션을 사용
-* 타겟 엘리먼트 별로 뷰 포트에 진입한 여부를 별도로 관리
+- `IntersectionObserver` 클래스의 세부적인 옵션을 사용
+- 타겟 엘리먼트 별로 뷰 포트에 진입한 여부를 별도로 관리
 
-지금 필요한 기능은 이 정도 구현 수준으로 커버가 가능하기 때문에 기능을 더 추가하진 않았습니다. 
-`IntersectionObserver` 클래스의 기능을 커스텀 훅으로 만들 때 이런 방법도 있다는 것을 참고하셔서 더 좋은 코드로 발전시키길 바랍니다. 
+지금 필요한 기능은 이 정도 구현 수준으로 커버가 가능하기 때문에 기능을 더 추가하진 않았다. `IntersectionObserver` 클래스의 기능을 커스텀 훅으로 만들 때 이런 방법도 있다는 것을 참고하여 더 좋은 코드로 발전시키길 바란다.
 
 ##### Infinite Scroll Example
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/make-custom-hook-for-intersection-observer-01.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/make-custom-hook-for-intersection-observer-01.gif" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-10-make-custom-hook-for-intersection-observer>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-10-make-custom-hook-for-intersection-observer>
 
 #### REFERENCE
 
-* <https://junhyunny.github.io/javascript/jest/testing-library/test-driven-development/how-to-test-intersection-observer/>
+- <https://junhyunny.github.io/javascript/jest/testing-library/test-driven-development/how-to-test-intersection-observer/>
 
 [how-to-test-intersection-observer-link]: https://junhyunny.github.io/javascript/jest/testing-library/test-driven-development/how-to-test-intersection-observer/
 

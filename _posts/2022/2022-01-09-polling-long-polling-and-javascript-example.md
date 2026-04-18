@@ -1,10 +1,10 @@
 ---
-title: "Polling & Long Polling in JavaScript"
+title: "자바스크립트(JavaScript)로 폴링(Polling)과 롱 폴링(Long Polling) 구현하기"
 search: false
 category:
   - information
   - javascript
-last_modified_at: 2022-01-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -22,7 +22,7 @@ last_modified_at: 2022-01-09T23:55:00
 setTimeout 함수와 setInterval 함수를 사용하면 쉽게 폴링을 구현할 수 있다. 두 함수는 지정한 시간마다 다시 동작하지만, 미묘한 차이가 있으므로 이를 먼저 살펴보자. setTimeout 함수는 콜백 함수 실행 시간과 상관없이 콜백 함수 실행 간격이 일정하게 보장된다. 콜백 함수가 끝난 시점을 기준으로 시간을 잰다.
 
 <div align="center">
-    <img src="{{ site.image_url_2022 }}/polling-long-polling-and-javascript-example-02.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/polling-long-polling-and-javascript-example-02.png" width="50%" class="image__border">
 </div>
 <center>https://ko.javascript.info/settimeout-setinterval</center>
 
@@ -34,7 +34,7 @@ setInterval 함수는 콜백 함수의 실행 시간이 길면 콜백 함수 실
 - 콜백 함수 실행 시간이 60ms라면 다음 콜백 함수 실행은 40ms 뒤에 실행된다.
 
 <div align="center">
-    <img src="{{ site.image_url_2022 }}/polling-long-polling-and-javascript-example-03.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/polling-long-polling-and-javascript-example-03.png" width="50%" class="image__border">
 </div>
 <center>https://ko.javascript.info/settimeout-setinterval</center>
 

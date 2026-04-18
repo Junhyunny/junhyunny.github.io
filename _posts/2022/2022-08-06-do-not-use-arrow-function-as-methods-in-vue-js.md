@@ -1,27 +1,26 @@
 ---
-title: "Do not use arrow function as methods in Vue.js"
+title: "Vue.js에서 메서드에 화살표 함수를 사용하지 말아야 하는 이유"
 search: false
 category:
   - javascript
-last_modified_at: 2022-08-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### 다음 사항을 주의하세요.
 
-* `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
+- `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.
 
 ## 1. 문제 현상
 
-`Vue.js`에서 컴포넌트를 만들 때 화살표 함수(arrow function, =>)를 사용하는 경우 정상적으로 `this` 키워드를 찾지 못하는 현상이 있었습니다. 
-간단하게 코드를 통해 문제를 살펴보겠습니다.
+`Vue.js`에서 컴포넌트를 만들 때 화살표 함수(arrow function, =>)를 사용하는 경우 정상적으로 `this` 키워드를 찾지 못하는 현상이 있었다. 간단하게 코드를 통해 문제를 살펴보겠다.
 
 ### 1.1. HelloWorld.vue
 
-* `HelloWorld` 컴포넌트의 `methods` 속성의 `hideAndVisible` 함수를 화살표 함수 형태로 선언하였습니다.
-* `this` 객체를 `alert` 함수로 출력합니다.
-    * 출력되는 `this` 객체가 `undefined` 임을 확인합니다.
+- `HelloWorld` 컴포넌트의 `methods` 속성의 `hideAndVisible` 함수를 화살표 함수 형태로 선언하였다.
+- `this` 객체를 `alert` 함수로 출력한다.
+  - 출력되는 `this` 객체가 `undefined` 임을 확인한다.
 
 ```vue
 <template>
@@ -90,21 +89,19 @@ export default {
 
 ## 2. 문제 원인
 
-화살표 함수를 사용하면 `this` 객체가 바인딩되지 않는 이유가 궁금하여 원인을 찾아봤습니다.
+화살표 함수를 사용하면 `this` 객체가 바인딩되지 않는 이유가 궁금하여 원인을 찾아봤다.
 
 ### 2.1. createApp 함수 탐색하기
 
-`Vue` 애플리케이션을 만들기 위해 사용하는 `createApp` 함수를 탐색해봤습니다. 
-`methods` 속성과 해당 컴포넌트 객체를 연결해주는 코드가 있을 것이라 예상했고, 관련된 코드를 `createApp` 함수 내부에서 찾아보았습니다. 
-파이어폭스(firefox) 디버깅을 통해 해당 기능으로 의심되는 코드의 실행 여부를 확인하였습니다. 
+`Vue` 애플리케이션을 만들기 위해 사용하는 `createApp` 함수를 탐색해봤다. `methods` 속성과 해당 컴포넌트 객체를 연결해주는 코드가 있을 것이라 예상했고, 관련된 코드를 `createApp` 함수 내부에서 찾아보았다. 파이어폭스(firefox) 디버깅을 통해 해당 기능으로 의심되는 코드의 실행 여부를 확인하였다.
 
-#### 2.1.1. applyOptions 함수 
+#### 2.1.1. applyOptions 함수
 
-* `@vue/runtime-core/dist` 폴더에 위치한 `runtime-core.esm-bundler.js`에서 다음과 같은 코드를 확인하였습니다.
-* Vue 컴포넌트를 생성할 때 함께 정의하는 data, computed, methods, watch 등의 속성들을 `options` 객체에서 필요한 이름으로 디스트럭쳐링(destructuring) 합니다.
-* `methods` 속성에 정의된 함수들을 반복문으로 통해 댜음과 같은 수행을 처리합니다.
-    * 배포 환경이 아닌 경우 Object 객체의 `defineProperty` 함수를 통해 Vue 컴포넌트 객체와 대상 함수 객체를 연결합니다.
-    * 배포 환경인 경우 대상 함수 객체의 `bind` 함수를 사용하여 Vue 컴포넌트 객체를 연결합니다.
+- `@vue/runtime-core/dist` 폴더에 위치한 `runtime-core.esm-bundler.js`에서 다음과 같은 코드를 확인하였다.
+- Vue 컴포넌트를 생성할 때 함께 정의하는 data, computed, methods, watch 등의 속성들을 `options` 객체에서 필요한 이름으로 디스트럭쳐링(destructuring) 한다.
+- `methods` 속성에 정의된 함수들을 반복문을 통해 다음과 같은 수행을 처리한다.
+  - 배포 환경이 아닌 경우 Object 객체의 `defineProperty` 함수를 통해 Vue 컴포넌트 객체와 대상 함수 객체를 연결한다.
+  - 배포 환경인 경우 대상 함수 객체의 `bind` 함수를 사용하여 Vue 컴포넌트 객체를 연결한다.
 
 ```javascript
 function applyOptions(instance) {
@@ -112,19 +109,19 @@ function applyOptions(instance) {
     const options = resolveMergedOptions(instance);
     const publicThis = instance.proxy;
     const ctx = instance.ctx;
-    
+
     // ... other logics
-    
-    const { 
+
+    const {
     // state
-    data: dataOptions, computed: computedOptions, methods, watch: watchOptions, provide: provideOptions, inject: injectOptions, 
+    data: dataOptions, computed: computedOptions, methods, watch: watchOptions, provide: provideOptions, inject: injectOptions,
     // lifecycle
-    created, beforeMount, mounted, beforeUpdate, updated, activated, deactivated, beforeDestroy, beforeUnmount, destroyed, unmounted, render, renderTracked, renderTriggered, errorCaptured, serverPrefetch, 
+    created, beforeMount, mounted, beforeUpdate, updated, activated, deactivated, beforeDestroy, beforeUnmount, destroyed, unmounted, render, renderTracked, renderTriggered, errorCaptured, serverPrefetch,
     // public API
-    expose, inheritAttrs, 
+    expose, inheritAttrs,
     // assets
     components, directives, filters } = options;
-    
+
     // ... other logics
 
     if (methods) {
@@ -162,29 +159,29 @@ function applyOptions(instance) {
 
 #### 2.1.2. Call stack and debugging expressions
 
-위의 코드가 실행되는 시점의 콜 스택과 각 변수들이 어떤 값을 가지고 있는지 확인해보았습니다. 
+위의 코드가 실행되는 시점의 콜 스택과 각 변수들이 어떤 값을 가지고 있는지 확인해보았다.
 
 ##### Call Stack
 
-* `createApp` 함수를 통해 만들어진 `app` 객체의 `mount` 함수를 타고 올라가면 `applyOptions` 함수를 만날 수 있습니다.
+- `createApp` 함수를 통해 만들어진 `app` 객체의 `mount` 함수를 타고 올라가면 `applyOptions` 함수를 만날 수 있다.
 
-<p align="left">
-    <img src="{{ site.image_url_2022 }}/do-not-use-arrow-function-as-methods-in-vue-js-01.png" width="55%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2022 }}/do-not-use-arrow-function-as-methods-in-vue-js-01.png" width="55%" class="image__border">
+</div>
 
 ##### Debugging Expressions
 
-* 반복문에서 사용하는 `key` 값은 메서드 이름인 `hideAndVisible` 입니다.
-* `methodHandler`는 `hideAndVisible` 이름의 함수 객체입니다.
-* `publicThis`는 내부에 `HelloWorld` 컴포넌트 객체를 타겟으로 지닌 프록시 객체입니다.
+- 반복문에서 사용하는 `key` 값은 메서드 이름인 `hideAndVisible` 이다.
+- `methodHandler`는 `hideAndVisible` 이름의 함수 객체다.
+- `publicThis`는 내부에 `HelloWorld` 컴포넌트 객체를 타겟으로 지닌 프록시 객체다.
 
-<p align="left">
-    <img src="{{ site.image_url_2022 }}/do-not-use-arrow-function-as-methods-in-vue-js-02.png" width="45%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2022 }}/do-not-use-arrow-function-as-methods-in-vue-js-02.png" width="45%" class="image__border">
+</div>
 
 ### 2.2. 그래서 원인은?
 
-코드만 봐서는 크게 문제가 없어 보이지만, 사실 화살표 함수는 `bind` 함수를 통해 `this`를 재정의할 수 없습니다. 
+코드만 봐서는 크게 문제가 없어 보이지만, 사실 화살표 함수는 `bind` 함수를 통해 `this`를 재정의할 수 없다.
 
 > MDN<br/>
 > 화살표 함수 표현(arrow function expression)은 전통적인 함수 표현(function)의 간편한 대안입니다. 하지만, 화살표 함수는 몇 가지 제한점이 있고 모든 상황에 사용할 수는 없습니다.<br/>
@@ -194,12 +191,11 @@ function applyOptions(instance) {
 > * 생성자(Constructor)로 사용할 수 없습니다.
 > * yield를 화살표 함수 내부에서 사용할 수 없습니다.
 
-즉, Vue 프레임워크 내부에서 `methods` 속성에 정의한 함수의 스코프를 해당 Vue 컴포넌트로 지정할 때 `bind` 함수를 사용하는데, 화살표 함수로 정의된 경우 정상적으로 스코프가 재정의되지 않아서 문제가 발생한 것 입니다. 
-운영 환경이 아닌 경우엔 `Object` 객체의 `defineProperty` 함수를 사용하지만, 결국 `methodHandler` 객체의 bind 함수를 사용하기 때문에 화살표 함수로 정의된 경우 정상적인 스코프 연결이 되지 않습니다.
+즉, Vue 프레임워크 내부에서 `methods` 속성에 정의한 함수의 스코프를 해당 Vue 컴포넌트로 지정할 때 `bind` 함수를 사용하는데, 화살표 함수로 정의된 경우 정상적으로 스코프가 재정의되지 않아서 문제가 발생한 것이다. 운영 환경이 아닌 경우엔 `Object` 객체의 `defineProperty` 함수를 사용하지만, 결국 `methodHandler` 객체의 bind 함수를 사용하기 때문에 화살표 함수로 정의된 경우 정상적인 스코프 연결이 되지 않는다.
 
 ##### 예시 코드
 
-아래 예시 코드를 통해 확인할 수 있습니다. 
+아래 예시 코드를 통해 확인할 수 있다.
 
 ```javascript
 const module = {
@@ -237,8 +233,7 @@ console.log('call boundedArrowFunc - ', boundedArrowFunc()) // undefined
 
 ## 3. 문제 해결
 
-문제 해결 방법은 단순합니다. 
-`methods` 속성에 정의할 때 화살표 함수를 사용하지 않아야 합니다.
+문제 해결 방법은 단순하다. `methods` 속성에 정의할 때 화살표 함수를 사용하지 않아야 한다.
 
 ```vue
 <template>
@@ -284,10 +279,10 @@ export default {
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-06-do-not-use-arrow-function-as-methods-in-vue-js>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-06-do-not-use-arrow-function-as-methods-in-vue-js>
 
 #### REFERENCE
 
-* <https://stackoverflow.com/questions/33308121/can-you-bind-this-in-an-arrow-function>
-* <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/Arrow_functions>
-* <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty>
+- <https://stackoverflow.com/questions/33308121/can-you-bind-this-in-an-arrow-function>
+- <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/Arrow_functions>
+- <https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty>

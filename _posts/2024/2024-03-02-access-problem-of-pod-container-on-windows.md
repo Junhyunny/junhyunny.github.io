@@ -1,10 +1,10 @@
 ---
-title: "Access Problem of Podman Container on Windows"
+title: "윈도우(Windows)에서 Podman 컨테이너 접근 문제"
 search: false
 category:
   - podman
   - windows
-last_modified_at: 2024-03-02T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -60,15 +60,17 @@ Windows IP 구성
 
 - `192.168.0.12`를 통해 애플리케이션에 접근할 수 없다. 
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-01.png" width="80%" class="image__border">
-</p>
+</div>
+
+<br/>
 
 - `localhost`나 `127.0.0.1` 호스트를 사용하면 애플리케이션에 접근할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 2. Problem Cause
 
@@ -122,9 +124,9 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 2. 외부 네트워크와 연결된 `192.168.0.12` IP 주소, 80 포트로 요청 트래픽이 들어온다.
 3. 요청 트래픽은 WLS 시스템(`172.28.241.140`)으로 자동으로 전달되지 못하고 누락된다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-03.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 3. Solve the Problem
 
@@ -140,9 +142,9 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
   - WSL 리눅스 배포판 머신에 할당된 IP 주소로 해당 트래픽을 포워딩(forwarding)해야 한다.
     - WSL 리눅스 배포판 머신의 주소는 임시적이고 변경될 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-04.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 3.2. Windows Port Forwarding
 
@@ -174,9 +176,9 @@ ipv4 수신 대기:             ipv4에 연결:
 
 외부 네트워크와 연결된 `192.168.0.12` IP 주소를 통해 애플리케이션에 접근할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/access-problem-of-pod-container-on-windows-05.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## CLOSING
 

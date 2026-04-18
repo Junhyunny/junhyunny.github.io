@@ -6,15 +6,15 @@ category:
   - security
   - spring-boot
   - spring-security
-last_modified_at: 2021-12-29T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Cookie and Session][cookie-and-session-link]
-- [Deep dive into cookie][cookie-attributes-link]
+- [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
+- [쿠키(Cookie) 심층 분석][cookie-attributes-link]
 
 ## 0. 들어가면서
 
@@ -550,7 +550,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 #### RECOMMEND NEXT POSTS
 
-- [Is Chrome's default SameSite policy safe against CSRF?][is-chrome-samesite-policy-safe-against-csrf-link]
+- [크롬(Chrome)의 기본 SameSite 정책은 CSRF에 안전한가?][is-chrome-samesite-policy-safe-against-csrf-link]
 - [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
 - [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting]
 - [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]

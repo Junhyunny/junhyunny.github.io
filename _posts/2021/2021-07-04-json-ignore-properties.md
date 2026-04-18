@@ -1,20 +1,20 @@
 ---
-title: "StackOverFlowError and @JsonIgnoreProperties Annotation"
+title: "@JsonIgnoreProperties 애너테이션과 StackOverFlowError"
 search: false
 category:
   - spring-boot
   - junit
-last_modified_at: 2021-09-04T13:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. Problem Context
 
-API 엔드 포인트(end-point) 개발 중 다음과 같은 에러를 만났습니다. 
+API 엔드 포인트(end-point) 개발 중 다음과 같은 에러를 만났다.
 
-* 잭슨(jackson) 라이브러리에서 직렬화(serialize)를 수행할 때 무한 재귀(infinite recursion)을 수행합니다.
-* `StackOverflowError`가 발생합니다.
+- 잭슨(jackson) 라이브러리에서 직렬화(serialize)를 수행할 때 무한 재귀(infinite recursion)를 수행한다.
+- `StackOverflowError`가 발생한다.
 
 ```
 2023-09-14T00:42:29.816+09:00 ERROR 15028 --- [nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)] with root cause
@@ -26,7 +26,7 @@ java.lang.StackOverflowError: null
     at com.fasterxml.jackson.core.JsonProcessingException.<init>(JsonProcessingException.java:25) ~[jackson-core-2.15.2.jar:2.15.2]
     at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:22) ~[jackson-databind-2.15.2.jar:2.15.2]
     at com.fasterxml.jackson.databind.DatabindException.<init>(DatabindException.java:34) ~[jackson-databind-2.15.2.jar:2.15.2]
-... 
+...
     at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContentsUsing(IndexedListSerializer.java:142) ~[jackson-databind-2.15.2.jar:2.15.2]
     at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serializeContents(IndexedListSerializer.java:88) ~[jackson-databind-2.15.2.jar:2.15.2]
     at com.fasterxml.jackson.databind.ser.impl.IndexedListSerializer.serialize(IndexedListSerializer.java:79) ~[jackson-databind-2.15.2.jar:2.15.2]
@@ -37,34 +37,32 @@ java.lang.StackOverflowError: null
 
 ## 2. Problem Analysis
 
-문제를 살펴보니 단순 조회성 API 엔드 포인트였지만, 문제가 발생시키는 객체 구조를 가진 상태였습니다. 
-당시 상황을 재현한 코드를 통해 원인을 알아보겠습니다. 
+문제를 살펴보니 단순 조회성 API 엔드 포인트였지만, 문제가 발생시키는 객체 구조를 가진 상태였다. 당시 상황을 재현한 코드를 통해 원인을 알아보겠다.
 
 ### 2.1. Circular Reference
 
 > A circular reference is a series of references where the last object references the first, resulting in a closed loop
 
-객체 사이에 닫힌 루프(loop)가 생기는 것을 의미합니다. 
-아래 그림을 보면 빨간색 참조 그래프가 서로 맞물려 닫힌 루프를 생성합니다. 
+객체 사이에 닫힌 루프(loop)가 생기는 것을 의미한다. 아래 그림을 보면 빨간색 참조 그래프가 서로 맞물려 닫힌 루프를 생성한다.
 
-* 참조하는 객체가 정리되지 않기 때문에 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있습니다.
-* 메서드 호출시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있습니다. 
+- 참조하는 객체가 정리되지 않기 때문에 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있다.
+- 메서드 호출 시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있다.
 
-<p align="center">
-    <img src="{{ site.image_url_2021 }}/json-ignore-properties-01.png" width="40%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/json-ignore-properties-01.png" width="40%" class="image__border">
+</div>
 <center>https://en.wikipedia.org/wiki/Circular_reference</center>
 
 ### 2.2. Domain Classes
 
-도메인 객체들을 살펴보니 다음과 같은 구조를 가지고 있었습니다. 
+도메인 객체들을 살펴보니 다음과 같은 구조를 가지고 있었다.
 
-* 포스트(post) 객체는 자신의 댓글(reply) 객체들을 리스트로 참조하고 있습니다.
-* 댓글 객체는 자신과 연관된 포스트 객체를 참조하고 있습니다.
+- 포스트(post) 객체는 자신의 댓글(reply) 객체들을 리스트로 참조하고 있다.
+- 댓글 객체는 자신과 연관된 포스트 객체를 참조하고 있다.
 
-<p align="center">
-    <img src="{{ site.image_url_2021 }}/json-ignore-properties-02.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/json-ignore-properties-02.png" width="80%" class="image__border">
+</div>
 
 #### 2.2.1. Post Record
 
@@ -110,25 +108,22 @@ public record Reply(
 
 ### 2.3. Jackson
 
-스프링 프레임워크(spring framework)에서 Json 변환에 기본적으로 사용되는 라이브러리는 잭슨입니다. 
-잭슨은 게터(getter), 세터(setter) 메서드를 기준으로 직렬화(serialilze), 역직렬화(deserialize)를 수행합니다. 
-위 도메인 객체를 Json 형태로 직렬화하는 경우 다음과 같은 흐름이 발생합니다. 
+스프링 프레임워크(spring framework)에서 Json 변환에 기본적으로 사용되는 라이브러리는 잭슨이다. 잭슨은 게터(getter), 세터(setter) 메서드를 기준으로 직렬화(serialize), 역직렬화(deserialize)를 수행한다. 위 도메인 객체를 Json 형태로 직렬화하는 경우 다음과 같은 흐름이 발생한다.
 
 1. Post 객체가 직렬화된다.
-1. Post 객체 내부의 replies 필드를 직렬화한다.
-1. Reply 객체가 직렬화된다.
-1. Reply 객체 내부의 post 필드를 직렬화한다.
-1. Post 객체가 직렬화된다.
-1. 이를 반복 수행하다 StackOverFlowError가 발생한다.
+2. Post 객체 내부의 replies 필드를 직렬화한다.
+3. Reply 객체가 직렬화된다.
+4. Reply 객체 내부의 post 필드를 직렬화한다.
+5. Post 객체가 직렬화된다.
+6. 이를 반복 수행하다 StackOverFlowError가 발생한다.
 
 ## 3. Solve the problem
 
-문제를 해결하는 방법은 여러가지 있지만, 이번 포스트에선 @JsonIgnoreProperties 애너테이션을 사용한 해결 방법을 정리하였습니다. 
+문제를 해결하는 방법은 여러 가지 있지만, 이번 포스트에선 @JsonIgnoreProperties 애너테이션을 사용한 해결 방법을 정리하였다.
 
 ### 3.1. @JsonIgnoreProperties Annotation
 
-JSON 직렬화 작업에서 순환 참조를 끊기 위해 @JsonIgnoreProperties 애너테이션을 사용합니다. 
-특정 객체의 내부 프로퍼티들 중 Json 형태로 직렬화할 대상을 제외할 수 있습니다. 
+JSON 직렬화 작업에서 순환 참조를 끊기 위해 @JsonIgnoreProperties 애너테이션을 사용한다. 특정 객체의 내부 프로퍼티들 중 Json 형태로 직렬화할 대상을 제외할 수 있다.
 
 ```java
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD})
@@ -149,7 +144,7 @@ public @interface JsonIgnoreProperties {
 
 #### 3.2.1. PostController Class
 
-Post 객체와 Reply 객체의 순환 참조를 만들고 이를 반환합니다.
+Post 객체와 Reply 객체의 순환 참조를 만들고 이를 반환한다.
 
 ```java
 package blog.in.action.controller;
@@ -189,7 +184,7 @@ public class PostController {
 
 #### 3.2.2. Throw Excecption
 
-해당 API 경로를 호출하면 에러가 발생하는지 확인합니다.
+해당 API 경로를 호출하면 에러가 발생하는지 확인한다.
 
 ```java
 package blog.in.action;
@@ -234,9 +229,9 @@ public class ActionInBlogTest {
 }
 ```
 
-##### Result 
+##### Result
 
-* 로그를 살펴보면 StackOverflowError 에러가 원인임을 확인할 수 있습니다. 
+- 로그를 살펴보면 StackOverflowError 에러가 원인임을 확인할 수 있다.
 
 ```
 13:46:48.440 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
@@ -282,9 +277,9 @@ Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursi
 
 #### 3.2.3. Fix Exception with @JsonIgnoreProperties
 
-Reply 클래스를 다음과 같이 변경합니다.
+Reply 클래스를 다음과 같이 변경한다.
 
-* Post 객체의 프로퍼티 중 `replies`를 Json 직렬화 대상에서 제외합니다.
+- Post 객체의 프로퍼티 중 `replies`를 Json 직렬화 대상에서 제외한다.
 
 ```java
 package blog.in.action.domain;
@@ -306,7 +301,7 @@ public record Reply(
 
 #### 3.2.4. Response is ok
 
-정상적으로 응답을 받습니다. 
+정상적으로 응답을 받는다.
 
 ```java
 package blog.in.action;
@@ -358,7 +353,7 @@ public class ActionInBlogTest {
 
 ##### Result
 
-* Reply 객체의 프로퍼티인 Post 객체의 `replies` 프로퍼티는 직렬화되지 않습니다. 
+- Reply 객체의 프로퍼티인 Post 객체의 `replies` 프로퍼티는 직렬화되지 않는다.
 
 ```
 13:53:06.203 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
@@ -405,8 +400,8 @@ MockHttpServletResponse:
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-04-json-ignore-properties>
 
 #### REFERENCE
 
-* <https://en.wikipedia.org/wiki/Circular_reference>
+- <https://en.wikipedia.org/wiki/Circular_reference>

@@ -4,7 +4,7 @@ search: false
 category:
   - architecture
   - pattern
-last_modified_at: 2026-03-18T23:18:34+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

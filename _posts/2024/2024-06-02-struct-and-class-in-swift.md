@@ -1,9 +1,9 @@
 ---
-title: "Struct and Class in Swift"
+title: "스위프트(Swift)의 구조체(Struct)와 클래스(Class)"
 search: false
 category:
   - swift
-last_modified_at: 2024-06-02T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

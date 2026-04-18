@@ -1,10 +1,10 @@
 ---
-title: "Deploy war package when using spring boot framework"
+title: "스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기"
 search: false
 category:
   - spring-boot
   - server
-last_modified_at: 2022-05-29T23:55:00
+last_modified_at: 2026-03-28T11:14:57+09:00
 ---
 
 <br/>
@@ -18,13 +18,13 @@ last_modified_at: 2022-05-29T23:55:00
 
 애플리케이션의 프레임워크는 변경했지만, 배포 환경까지 바꾸진 못 했다. 여전히 톰캣 서버에 war 패키지로 배포한다. 스프링 부트는 기본적으로 실행 가능한 jar(executable jar)로 패키징 되므로 war 파일로 패키징 하려면 별도 작업이 필요하다. 이번 글은 스프링 부트 프레임워크를 war 파일로 패키징하는 방법에 대해 정리했다.
 
-## 1. pom XML
+## 1. POM XML
 
-메이븐 프로젝트이기 때문에 `pom.xml`을 사용한다. 스프링 부트 프레임워크는 임베디드 톰캣(embedded tomcat)을 사용하기 때문에 jar 패키지로 애플리케이션을 즉시 실행 가능하다. 톰캣 서버 위에서 스프링 부트 애플리케이션을 실행하려면 연결 고리를 만들어줘야 한다. 다음 의존성을 필요하다.
+메이븐 프로젝트이기 때문에 `pom.xml`을 사용한다. 스프링 부트 프레임워크는 임베디드 톰캣(embedded tomcat)을 사용하기 때문에 jar 패키지로 애플리케이션을 즉시 실행 가능하다. 톰캣 서버 위에서 스프링 부트 애플리케이션을 실행하려면 연결 고리를 만들어줘야 한다. 다음 의존성이 필요하다.
 
 - spring-boot-starter-tomcat 의존성
 - `provided` 스코프를 사용한다.
-  - 컴파일 시 제공하고, 런타임 시점엔 JDK 혹은 컨테이너가 제공합니다.
+  - 컴파일 시 제공하고, 런타임 시점엔 JDK 혹은 컨테이너가 제공한다.
 
 ```xml
 <dependencies>
@@ -36,7 +36,7 @@ last_modified_at: 2022-05-29T23:55:00
 </dependencies>
 ```
 
-패키징 방법을 변경한다. `jar`가 기본이기 때문에 `war`를 명시적으로 표시한다. 
+패키징 방법을 변경한다. `jar`가 기본이기 때문에 `war`를 명시적으로 표시한다.
 
 ```xml
     <groupId>action.in.blog</groupId>
@@ -49,7 +49,7 @@ last_modified_at: 2022-05-29T23:55:00
 
 ## 2. Extends SpringBootServletInitializer Class
 
-오래된 코드들을 보면 configure 메서드를 오버라이드 하지만, 현재는 필요하지 않다. configure 메서드를 오버라이딩 하지 않는다.
+오래된 코드들을 보면 configure 메서드를 오버라이드하지만, 현재는 필요하지 않다. configure 메서드를 오버라이딩하지 않는다.
 
 ```java
 package action.in.blog;
@@ -223,7 +223,7 @@ NOTE: Picked up JDK_JAVA_OPTIONS:  --add-opens=java.base/java.lang=ALL-UNNAMED -
 
 #### RECOMMEND NEXT POSTS
 
-- [Not Found(404) when react application is hosted on Tomcat][not-found-when-hosting-react-app-on-tomcat-link]
+- [리액트(React) 애플리케이션을 톰캣(Tomcat)에서 호스팅 시 404 오류][not-found-when-hosting-react-app-on-tomcat-link]
 
 #### REFERENCE
 

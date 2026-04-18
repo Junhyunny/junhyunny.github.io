@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - nginx
-last_modified_at: 2026-03-19T11:01:34+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -195,6 +195,8 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 <div align="left">
   <img src="{{ site.image_url_2023 }}/compression-on-nginx-04.png" width="70%" class="image__border">
 </div>
+
+<br/>
 
 서버의 응답 타이밍은 다음과 같았다.
 

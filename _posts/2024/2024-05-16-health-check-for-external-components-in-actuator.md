@@ -1,9 +1,9 @@
 ---
-title: "Health Check for External Components in Actuator"
+title: "Actuator에서 외부 컴포넌트 헬스 체크(Health Check)"
 search: false
 category:
   - spring-boot
-last_modified_at: 2024-05-16T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -305,7 +305,7 @@ $ docker-compose up -d
 
 ### 3.3. Health Check
 
-컨테이너까지 실행했으면 모든 준비가 완료됬다. 테스트 대상 애플리케이션에 헬스 체크를 요청해보자.
+컨테이너까지 실행했으면 모든 준비가 완료됐다. 테스트 대상 애플리케이션에 헬스 체크를 요청해보자.
 
 - db
   - 데이터베이스 상태를 확인한다.

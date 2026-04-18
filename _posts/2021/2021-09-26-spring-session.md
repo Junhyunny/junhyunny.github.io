@@ -1,67 +1,71 @@
 ---
-title: "Spring Session with JDBC"
+title: "JDBC를 이용한 스프링 세션(Spring Session with JDBC)"
 search: false
 category:
   - information
   - spring-boot
-last_modified_at: 2021-09-26T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Cookie and Session][cookie-and-session-link]
+#### RECOMMEND POSTS BEFORE THIS
+- [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
 - [Session Management in Tomcat][tomcat-session-management-link]
 
 ## 0. 들어가면서
-[Session Management in Tomcat][tomcat-session-management-link]를 주제로 글을 작성하면서 이전에 작성한 [Cookie and Session][cookie-and-session-link] 포스트를 다시 읽어보았습니다. 
-다중 인스턴스인 경우 세션을 처리하는 방법에 대한 내용을 언급했었는데, 이를 쉽게 구현할 수 있게 도와주는 Spring 프레임워크의 기능을 발견했습니다. 
-`Spring Session`이라는 이름의 이 기능은 `Redis(Cache Server)`, `JDBC(Database)` 등을 통해 세션 정보를 저장, 관리할 수 있는 서비스를 제공합니다. 
-주말에 공부할 겸 간단하게 `Spring Session JDBC`를 이용하여 구현해보았습니다. 
+
+[Session Management in Tomcat][tomcat-session-management-link]를 주제로 글을 작성하면서 이전에 작성한 [쿠키(Cookie)와 세션(Session)][cookie-and-session-link] 포스트를 다시 읽어보았다. 다중 인스턴스인 경우 세션을 처리하는 방법에 대한 내용을 언급했었는데, 이를 쉽게 구현할 수 있게 도와주는 Spring 프레임워크의 기능을 발견했다. `Spring Session`이라는 이름의 이 기능은 `Redis(Cache Server)`, `JDBC(Database)` 등을 통해 세션 정보를 저장, 관리할 수 있는 서비스를 제공한다. 주말에 공부할 겸 간단하게 `Spring Session JDBC`를 이용하여 구현해보았다.
 
 ## 1. 테스트 시나리오
-가정하는 상황과 테스트 시나리오는 다음과 같습니다.
-- 브라우저를 통해 각기 다른 호스트(host)로 페이지를 요청합니다.
-    - http://localhost:8081 (a-service)
-    - http://localhost:8082 (b-service)
-- 동일 브라우저를 사용하여 요청하기 때문에 쿠키에 담긴 `JSESSIONID` 정보는 변경되지 않습니다.
-- 동일 `JSESSIONID`를 이용하여 요청하므로 서버에서 관리하는 세션(Session) 정보는 변경되지 않습니다.
-- 세션에 저장한 데이터를 페이지 표시하여, 두 인스턴스의 세션 데이터가 공유되는지 확인합니다.
 
-<p align="center"><img src="{{ site.image_url_2021 }}/spring-session-01.png" width="80%"></p>
+가정하는 상황과 테스트 시나리오는 다음과 같다.
+
+- 브라우저를 통해 각기 다른 호스트(host)로 페이지를 요청한다.
+  - http://localhost:8081 (a-service)
+  - http://localhost:8082 (b-service)
+- 동일 브라우저를 사용하여 요청하기 때문에 쿠키에 담긴 `JSESSIONID` 정보는 변경되지 않는다.
+- 동일 `JSESSIONID`를 이용하여 요청하므로 서버에서 관리하는 세션(Session) 정보는 변경되지 않는다.
+- 세션에 저장한 데이터를 페이지 표시하여, 두 인스턴스의 세션 데이터가 공유되는지 확인한다.
+
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/spring-session-01.png" width="80%">
+</div>
 
 ## 2. 세션 관리 테이블 생성
-세션과 관련된 정보를 데이터베이스에서 관리하려면 테이블이 필요합니다. 
-`Spring Doc`에서 제공하는 예제를 보면 다음과 같은 코드가 보입니다. 
+
+세션과 관련된 정보를 데이터베이스에서 관리하려면 테이블이 필요하다. `Spring Doc`에서 제공하는 예제를 보면 다음과 같은 코드가 보인다.
 
 ##### Spring Doc 예제 코드
 
 ```java
-@EnableJdbcHttpSession 
+@EnableJdbcHttpSession
 public class Config {
 
     @Bean
     public EmbeddedDatabase dataSource() {
-        return new EmbeddedDatabaseBuilder() 
+        return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2).addScript("org/springframework/session/jdbc/schema-h2.sql").build();
     }
 
     @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource); 
+        return new DataSourceTransactionManager(dataSource);
     }
 }
 ```
 
-여기서 테이블을 만들 때 사용되는 스키마(schema)정보는 `schema-h2.sql` 파일에 존재하는 것 같습니다. 
-해당 파일은 `pom.xml` 파일에 `spring-session-jdbc` 의존성 주입 시 함께 다운받아지므로 `IntelliJ` 파일 검색에서 검색됩니다. 
+여기서 테이블을 만들 때 사용되는 스키마(schema)정보는 `schema-h2.sql` 파일에 존재하는 것 같다. 해당 파일은 `pom.xml` 파일에 `spring-session-jdbc` 의존성 주입 시 함께 다운받아지므로 `IntelliJ` 파일 검색에서 검색된다.
 
 ##### IntelliJ 'schema-h2.sql' 파일 검색
 
-<p align="left"><img src="{{ site.image_url_2021 }}/spring-session-02.png"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/spring-session-02.png">
+</div>
 
 ##### 테이블 스키마 정보 변경 - MySQL 데이터베이스
-H2 데이터베이스를 위한 스키마이므로, MySQL 데이터베이스에서 사용할 수 있도록 변경합니다.
+
+H2 데이터베이스를 위한 스키마이므로, MySQL 데이터베이스에서 사용할 수 있도록 변경한다.
 
 ```sql
 CREATE TABLE SPRING_SESSION (
@@ -94,7 +98,9 @@ CREATE TABLE SPRING_SESSION_ATTRIBUTES (
 SELECT * FROM SPRING_SESSION;
 ```
 
-<p align="left"><img src="{{ site.image_url_2021 }}/spring-session-03.png"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/spring-session-03.png">
+</div>
 
 ##### SPRING_SESSION_ATTRIBUTES 테이블 생성 확인 - SQL
 
@@ -102,12 +108,13 @@ SELECT * FROM SPRING_SESSION;
 SELECT * FROM SPRING_SESSION_ATTRIBUTES;
 ```
 
-<p align="left"><img src="{{ site.image_url_2021 }}/spring-session-04.png"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/spring-session-04.png">
+</div>
 
 ## 3. 서비스 구현
-이제부터 서비스를 구현합니다. 
-시나리오에 `a-service`, `b-service`가 존재하지만, 실제로 구현은 똑같습니다. 
-`a-service` 서비스에 대한 구현 코드를 작성하였으며, `b-service` 구현시 `application.yml` 파일의 포트(port) 정보와 `spring.application.name` 설정 값만 변경하면 됩니다.
+
+이제부터 서비스를 구현한다. 시나리오에 `a-service`, `b-service`가 존재하지만, 실제로 구현은 똑같다. `a-service` 서비스에 대한 구현 코드를 작성하였으며, `b-service` 구현시 `application.yml` 파일의 포트(port) 정보와 `spring.application.name` 설정 값만 변경하면 된다.
 
 ### 3.1. 패키지 정보
 
@@ -134,11 +141,12 @@ SELECT * FROM SPRING_SESSION_ATTRIBUTES;
 ```
 
 ### 3.2. pom.xml
-- JSP 페이지 반환을 위해 다음과 같은 의존성이 존재합니다.
-    - spring-boot-starter-tomcat
-    - tomcat-embed-jasper
-    - jstl
-- 세션 공유를 위한 spring-session-jdbc 의존성을 추가합니다.
+
+- JSP 페이지 반환을 위해 다음과 같은 의존성이 존재한다.
+  - spring-boot-starter-tomcat
+  - tomcat-embed-jasper
+  - jstl
+- 세션 공유를 위한 spring-session-jdbc 의존성을 추가한다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -233,9 +241,10 @@ SELECT * FROM SPRING_SESSION_ATTRIBUTES;
 ```
 
 ### 3.3. application.yml
-- `spring.session.store-type=jdbc` - jdbc 타입으로 세션 정보를 저장합니다.
-- `spring.session.jdbc.initialize-schema=never` - 스키마 정보 초기화는 하지 않습니다.
-- `spring.session.jdbc.table-name=SPRING_SESSION` - 세션 정보를 저장할 테이블 명을 지정합니다.
+
+- `spring.session.store-type=jdbc` - jdbc 타입으로 세션 정보를 저장한다.
+- `spring.session.jdbc.initialize-schema=never` - 스키마 정보 초기화는 하지 않는다.
+- `spring.session.jdbc.table-name=SPRING_SESSION` - 세션 정보를 저장할 테이블 명을 지정한다.
 
 ```yml
 server:
@@ -260,8 +269,9 @@ spring:
 ```
 
 ### 3.4. SessionConfiguration 클래스
-- 해당 애플리케이션이 사용하는 데이터소스(datasource)를 주입합니다.
-- H2 데이터베이스를 사용하지 않으므로 관련 설정은 제거하였습니다.
+
+- 해당 애플리케이션이 사용하는 데이터소스(datasource)를 주입한다.
+- H2 데이터베이스를 사용하지 않으므로 관련 설정은 제거하였다.
 
 ```java
 package blog.in.action.config;
@@ -283,9 +293,10 @@ public class SessionConfiguration {
 ```
 
 ### 3.5. PageController 클래스
-- 세션에 해당 컨트롤러(controller)에 접근한 횟수를 저장합니다.
-- 세션 정보를 `ModelAndView` 객체를 이용해 페이지에 담아서 반환합니다.
-- @Value 애너테이션을 통해 얻은 애플리케이션 이름도 함께 페이지에 담아서 반환합니다.
+
+- 세션에 해당 컨트롤러(controller)에 접근한 횟수를 저장한다.
+- 세션 정보를 `ModelAndView` 객체를 이용해 페이지에 담아서 반환한다.
+- @Value 애너테이션을 통해 얻은 애플리케이션 이름도 함께 페이지에 담아서 반환한다.
 
 ```java
 package blog.in.action.controller;
@@ -325,9 +336,10 @@ public class PageController {
 ```
 
 ### 3.6. index.jsp
-- 요청 버튼을 눌러 `http://localhost:8081`, `http://localhost:8082` 호스트 중 하나로 랜덤하게 요청을 보냅니다. 
-- 응답받은 애플리케이션의 이름을 화면에 출력합니다.
-- 세션에 저장된 컨트롤러 접근 횟수를 출력합니다.
+
+- 요청 버튼을 눌러 `http://localhost:8081`, `http://localhost:8082` 호스트 중 하나로 랜덤하게 요청을 보낸다.
+- 응답받은 애플리케이션의 이름을 화면에 출력한다.
+- 세션에 저장된 컨트롤러 접근 횟수를 출력한다.
 
 ```html
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -396,7 +408,9 @@ public class PageController {
 
 ### 4.1. 브라우저 화면
 
-<p align="center"><img src="{{ site.image_url_2021 }}/spring-session-05.gif"></p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/spring-session-05.gif">
+</div>
 
 ### 4.2. 데이터베이스
 
@@ -406,7 +420,9 @@ public class PageController {
 SELECT * FROM SPRING_SESSION;
 ```
 
-<p align="left"><img src="{{ site.image_url_2021 }}/spring-session-06.png"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/spring-session-06.png">
+</div>
 
 ##### SPRING_SESSION_ATTRIBUTES 테이블 확인 - SQL
 
@@ -414,12 +430,16 @@ SELECT * FROM SPRING_SESSION;
 SELECT * FROM SPRING_SESSION_ATTRIBUTES;
 ```
 
-<p align="left"><img src="{{ site.image_url_2021 }}/spring-session-07.png"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/spring-session-07.png">
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-26-spring-session>
 
 #### REFERENCE
+
 - <https://docs.spring.io/spring-session/docs/2.3.3.RELEASE/reference/html5/guides/boot-jdbc.html>
 - <https://docs.spring.io/spring-session/docs/current/reference/html5/guides/java-jdbc.html>
 

@@ -1,17 +1,17 @@
 ---
-title: "EXPOSE command in Dockerfile"
+title: "Dockerfile의 EXPOSE 명령어"
 search: false
 category:
   - information
   - docker
-last_modified_at: 2022-05-04T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. EXPOSE command
 
-도커 이미지를 빌드(build)할 때 사용하는 `도커 파일(Dockerfile)`을 작성한다. 도커 파일에 작성하는 `EXPOSE` 명령어는 필수가 아니다. EXPOSE 명령어가 없더라도 도커 이미지를 생성과 컨테이너 실행이 가능하다. 공식 문서를 보면 다음과 같은 설명을 찾을 수 있다.
+도커 이미지를 빌드(build)할 때 사용하는 `도커 파일(Dockerfile)`을 작성한다. 도커 파일에 작성하는 `EXPOSE` 명령어는 필수가 아니다. EXPOSE 명령어가 없더라도 도커 이미지 생성과 컨테이너 실행이 가능하다. 공식 문서를 보면 다음과 같은 설명을 찾을 수 있다.
 
 > [EXPOSE](https://docs.docker.com/engine/reference/builder/#expose)<br/>
 > The EXPOSE instruction does not actually publish the port. 

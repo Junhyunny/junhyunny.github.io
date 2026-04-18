@@ -1,36 +1,35 @@
 ---
-title: "Optimize Docker Build of Maven Project"
+title: "메이븐 프로젝트 도커 빌드 최적화"
 search: false
 category:
     - docker
     - maven
-last_modified_at: 2022-06-27T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+#### RECOMMEND POSTS BEFORE THIS
 
-* [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
+- [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
 
 ## 0. 들어가면서
 
-스프링 애플리케이션을 위한 `Dockerfile`을 만들었는데, 코드 변경 후 이미지를 만들 때마다 매번 너무 오랜 시간이 걸렸습니다. 
-도커 이미지 레이어를 고려하지 않고 명령어(instruction)를 작성했기 때문인데, 메이븐 프로젝트를 위한 `Dockerfile`은 어떻게 작성되어야 빌드 속도를 줄일 수 있는지 정리하였습니다.
+스프링 애플리케이션을 위한 `Dockerfile`을 만들었는데, 코드 변경 후 이미지를 만들 때마다 매번 너무 오랜 시간이 걸렸다. 도커 이미지 레이어를 고려하지 않고 명령어(instruction)를 작성했기 때문인데, 메이븐 프로젝트를 위한 `Dockerfile`은 어떻게 작성되어야 빌드 속도를 줄일 수 있는지 정리하였다.
 
 ## 1. 기존 Dockerfile
 
-최적화를 진행하기 전 사용한 `Dockerfile`은 다음과 같습니다.
+최적화를 진행하기 전 사용한 `Dockerfile`은 다음과 같다.
 
-* 멀티 스테이지 빌드(multi stage build)를 수행합니다.
-* maven 빌드를 수행합니다.
-    * 기본 이미지는 `maven:3.8.6-jdk-11` 입니다.
-    * pom.xml 파일과 소스 코드를 복사합니다.
-    * `mvn package` 명령어를 통해 `jar` 파일을 생성합니다.
-* 패키징 한 `jar` 파일을 실행합니다.
-    * 기본 이미지는 `openjdk:11-jdk-slim-buster` 입니다.
-    * 이전 단계에서 빌드한 `jar` 파일을 이미지 내부로 복사합니다.
-    * CMD 명령어를 통해 패키징 한 `jar` 파일을 실행합니다.
+- 멀티 스테이지 빌드(multi stage build)를 수행한다.
+- maven 빌드를 수행한다.
+  - 기본 이미지는 `maven:3.8.6-jdk-11` 이다.
+  - pom.xml 파일과 소스 코드를 복사한다.
+  - `mvn package` 명령어를 통해 `jar` 파일을 생성한다.
+- 패키징 한 `jar` 파일을 실행한다.
+  - 기본 이미지는 `openjdk:11-jdk-slim-buster` 이다.
+  - 이전 단계에서 빌드한 `jar` 파일을 이미지 내부로 복사한다.
+  - CMD 명령어를 통해 패키징 한 `jar` 파일을 실행한다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -58,9 +57,9 @@ CMD ["java", "-jar", "app.jar"]
 
 ### 1.1. 처음 이미지 빌드
 
-* 로컬 호스트에서 수행한 결과입니다.
-* `mvn package` 명령어를 수행하는 시점에 164초가 수행됩니다.
-    * 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요됩니다.
+- 로컬 호스트에서 수행한 결과이다.
+- `mvn package` 명령어를 수행하는 시점에 164초가 수행된다.
+  - 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요된다.
 
 ```
 $ docker build .
@@ -90,12 +89,12 @@ $ docker build .
 
 ### 1.2. 코드 변경 후 이미지 빌드
 
-* 프로젝트의 소스 코드를 간단하게 수정 후 재빌드하였습니다.
-* `CACHED [maven_build 3/5] COPY pom.xml .`
-    * 해당 명령어까진 이전에 빌드된 이미지 레이어를 사용하였습니다.
-* 소스 코드가 변경되었으므로 `src` 폴더를 복사하는 명령어부터 재빌드를 수행합니다.
-* `mvn package` 명령어를 수행하는 시점에 275초가 수행됩니다.
-    * 위와 마찬가지로 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요됩니다.
+- 프로젝트의 소스 코드를 간단하게 수정 후 재빌드하였다.
+- `CACHED [maven_build 3/5] COPY pom.xml .`
+  - 해당 명령어까진 이전에 빌드된 이미지 레이어를 사용하였다.
+- 소스 코드가 변경되었으므로 `src` 폴더를 복사하는 명령어부터 재빌드를 수행한다.
+- `mvn package` 명령어를 수행하는 시점에 275초가 수행된다.
+  - 위와 마찬가지로 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요된다.
 
 ```
 $ docker build .
@@ -123,17 +122,16 @@ $ docker build .
 
 ## 2. Dockerfile 개선
 
-간단한 코드 변경임에도 이미지 빌드가 매번 3~5분이 소요되는 것은 상당히 불합리합니다. 
-이를 간단하게 개선할 수 있는 방법을 찾았는데, 이를 소개하기 전에 우선 메이븐의 오프라인 모드를 살펴보겠습니다. 
+간단한 코드 변경임에도 이미지 빌드가 매번 3~5분이 소요되는 것은 상당히 불합리하다. 이를 간단하게 개선할 수 있는 방법을 찾았는데, 이를 소개하기 전에 우선 메이븐의 오프라인 모드를 살펴보겠다.
 
 ### 2.1. maven 오프라인 모드 준비
 
-메이븐은 인터넷이 연결되 있지 않은 폐쇄망에서 개발할 때 오프라인으로 빌드할 수 있도록 오프라인 모드를 지원합니다.
+메이븐은 인터넷이 연결되어 있지 않은 폐쇄망에서 개발할 때 오프라인으로 빌드할 수 있도록 오프라인 모드를 지원한다.
 
 ##### maven 오프라인 모드
 
-* `-o` 옵션 - 인터넷에 연결하지 않고 로컬 레포지토리에서만 필요한 의존성을 찾습니다.
-* `--offline` 옵션도 동일하게 동작합니다.
+- `-o` 옵션 - 인터넷에 연결하지 않고 로컬 레포지토리에서만 필요한 의존성을 찾는다.
+- `--offline` 옵션도 동일하게 동작한다.
 
 ```
 $ mvn -o package
@@ -141,8 +139,8 @@ $ mvn -o package
 
 ##### maven 오프라인 모드 준비
 
-* 메이븐 오프라인 모드를 사용하려면 로컬 레포지토리에 필요한 의존성들을 모두 미리 다운로드 받아야 합니다. 
-* 다음과 같은 명령어를 통해 필요한 의존성들을 미리 다운받을 수 있습니다.
+- 메이븐 오프라인 모드를 사용하려면 로컬 레포지토리에 필요한 의존성들을 모두 미리 다운로드 받아야 한다.
+- 다음과 같은 명령어를 통해 필요한 의존성들을 미리 다운받을 수 있다.
 
 ```
 $ mvn dependency:go-offline
@@ -150,14 +148,14 @@ $ mvn dependency:go-offline
 
 ### 2.2. Dockerfile 변경
 
-다음과 같이 도커 파일을 변경합니다.
+다음과 같이 도커 파일을 변경한다.
 
-* `RUN mvn dependency:go-offline` 명령어를 추가합니다.
-    * pom.xml 파일 변경 시에만 의존성들을 다시 다운로드받습니다. 
-    * 의존성 변경이 없다면 의존성들은 이전에 빌드된 이미지 레이어를 사용합니다.
-* 소스 코드 변경이 있더라도 의존성들은 다운로드되지 않습니다.
-* `mvn package` 명령어 수행 시 오프라인 모드 준비 시점에 다운받은 의존성들을 사용합니다.
-    * 추가적인 의존성 다운로드가 발생할 수 있지만, 많지 않으므로 속도에는 크게 문제가 없습니다.
+- `RUN mvn dependency:go-offline` 명령어를 추가한다.
+  - pom.xml 파일 변경 시에만 의존성들을 다시 다운로드받는다.
+  - 의존성 변경이 없다면 의존성들은 이전에 빌드된 이미지 레이어를 사용한다.
+- 소스 코드 변경이 있더라도 의존성들은 다운로드되지 않는다.
+- `mvn package` 명령어 수행 시 오프라인 모드 준비 시점에 다운받은 의존성들을 사용한다.
+  - 추가적인 의존성 다운로드가 발생할 수 있지만, 많지 않으므로 속도에는 크게 문제가 없다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -187,13 +185,13 @@ CMD ["java", "-jar", "app.jar"]
 
 ### 2.3. 이미지 빌드
 
-* 로컬 호스트에서 수행한 결과입니다.
-* `mvn package` 명령어를 수행하는 시점에 259초가 수행됩니다.
-    * 처음 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요됩니다.
+- 로컬 호스트에서 수행한 결과이다.
+- `mvn package` 명령어를 수행하는 시점에 259초가 수행된다.
+  - 처음 이미지를 만들 때 필요한 의존성들을 다운로드 받는데 많은 시간이 소요된다.
 
 ```
 $ docker build .
-[+] Building 270.9s (15/15) FINISHED 
+[+] Building 270.9s (15/15) FINISHED
  => [internal] load build definition from Dockerfile                                                                                            0.0s
  => => transferring dockerfile: 376B                                                                                                            0.0s
  => [internal] load .dockerignore                                                                                                               0.0s
@@ -218,12 +216,12 @@ $ docker build .
 
 ### 2.4. 코드 변경 후 이미지 빌드
 
-* 프로젝트의 소스 코드를 간단하게 수정 후 재빌드하였습니다.
-* `CACHED [maven_build 4/6] RUN mvn dependency:go-offline`
-    * 해당 명령어까진 이전에 빌드된 이미지 레이어를 사용하였습니다.
-* 소스 코드가 변경되었으므로 `src` 폴더를 복사하는 명령어부터 재빌드를 수행합니다.
-* `mvn package` 명령어를 수행하는 시점에 7.5초가 수행됩니다.
-* 단순한 소스 코드 변경만 발생하는 경우 이미지 빌드 시간이 크게 감소하였습니다.
+- 프로젝트의 소스 코드를 간단하게 수정 후 재빌드하였다.
+- `CACHED [maven_build 4/6] RUN mvn dependency:go-offline`
+  - 해당 명령어까진 이전에 빌드된 이미지 레이어를 사용하였다.
+- 소스 코드가 변경되었으므로 `src` 폴더를 복사하는 명령어부터 재빌드를 수행한다.
+- `mvn package` 명령어를 수행하는 시점에 7.5초가 수행된다.
+- 단순한 소스 코드 변경만 발생하는 경우 이미지 빌드 시간이 크게 감소하였다.
 
 ```
 $ docker build .
@@ -254,12 +252,12 @@ $ docker build .
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-27-optimize-maven-project-when-dockerizing>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-27-optimize-maven-project-when-dockerizing>
 
 #### REFERENCE
 
-* <https://maven.apache.org/plugins-archives/maven-dependency-plugin-3.1.1/go-offline-mojo.html>
-* <https://whitfin.io/speeding-up-maven-docker-builds/>
-* <https://hbase.tistory.com/225>
+- <https://maven.apache.org/plugins-archives/maven-dependency-plugin-3.1.1/go-offline-mojo.html>
+- <https://whitfin.io/speeding-up-maven-docker-builds/>
+- <https://hbase.tistory.com/225>
 
 [docker-file-build-and-image-layer-link]: https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/

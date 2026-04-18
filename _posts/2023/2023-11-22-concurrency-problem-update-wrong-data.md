@@ -1,11 +1,11 @@
 ---
-title: "Concurrency Problem - Update wrong data"
+title: "동시성 문제 - 잘못된 데이터 업데이트"
 search: false
 category:
   - java
   - spring-boot
   - jpa
-last_modified_at: 2023-11-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -18,17 +18,17 @@ last_modified_at: 2023-11-21T23:55:00
 
 ## 0. 들어가면서
 
-최근 프로젝트에서 겪었던 동시성 문제들 중 한 사례를 [Concurrency Problem - Insert same rows][concurrency-problem-insert-same-rows-link] 글로 정리했습니다. 이번 글은 같은 프로젝트에서 발생했던 또 다른 문제를 해결하는 방법에 대해 일부 각색하여 정리했습니다.
+최근 프로젝트에서 겪었던 동시성 문제들 중 한 사례를 [Concurrency Problem - Insert same rows][concurrency-problem-insert-same-rows-link] 글로 정리했다. 이번 글은 같은 프로젝트에서 발생했던 또 다른 문제를 해결하는 방법에 대해 일부 각색하여 정리했다.
 
 ## 1. Problem Context
 
-사용자들이 QR 스캔으로 수집한 카드에 "좋아요(like)"를 누르거나 취소하는 기능을 개발했습니다. 동시에 많은 사람들이 하나의 카드에 대해 "좋아요", "좋아요 취소"를 누르면서 두 가지 동시성 문제가 있었습니다. 문제가 발생한 원인을 잘 이해할 수 있도록 도메인 엔티티(domain entity)와 서비스 코드를 먼저 살펴보겠습니다. 
+사용자들이 QR 스캔으로 수집한 카드에 "좋아요(like)"를 누르거나 취소하는 기능을 개발했다. 동시에 많은 사람들이 하나의 카드에 대해 "좋아요", "좋아요 취소"를 누르면서 두 가지 동시성 문제가 있었다. 문제가 발생한 원인을 잘 이해할 수 있도록 도메인 엔티티(domain entity)와 서비스 코드를 먼저 살펴보겠다.
 
 ##### CardLikeEntity Class
 
-- 카드 아이디가 기본 키(primary key)입니다.
-- 사용자들이 누르는 "좋아요", "좋아요 취소" 버튼에 따라 카운트 값이 증감합니다.
-    - 이번 글에선 "좋아요" 버튼 기능만 다룹니다.
+- 카드 아이디가 기본 키(primary key)이다.
+- 사용자들이 누르는 "좋아요", "좋아요 취소" 버튼에 따라 카운트 값이 증감한다.
+  - 이번 글에선 "좋아요" 버튼 기능만 다룬다.
 
 ```java
 package action.in.blog.domain;
@@ -59,9 +59,9 @@ public class CardLikeEntity {
 
 ##### DefaultCardLikeService Class
 
-- 카드 아이디에 해당하는 데이터가 있는지 확인합니다.
-- 데이터가 존재하지 않는 경우 새로운 데이터를 추가합니다. 
-- 데이터가 존재하는 경우 카운트 수를 증가시킵니다.
+- 카드 아이디에 해당하는 데이터가 있는지 확인한다.
+- 데이터가 존재하지 않는 경우 새로운 데이터를 추가한다.
+- 데이터가 존재하는 경우 카운트 수를 증가시킨다.
 
 ```java
 package action.in.blog.service;
@@ -96,20 +96,20 @@ public class DefaultCardLikeService implements CardLikeService {
 
 ### 1.1. Insert Problem
 
-처음 데이터가 추가되는 시점에 동시에 시작된 트랜잭션이 있다면 하나만 성공합니다. 데이터가 존재하는지 확인하는 코드가 있더라도 거의 동시에 시작한 트랜잭션들은 데이터가 존재하지 않는 것으로 판단하기 때문에 삽입(insert) 쿼리를 수행합니다. 카드 아이디가 기본 키이기 때문에 동일한 키로 데이터를 추가한 다른 트랜잭션들은 모두 실패합니다.
+처음 데이터가 추가되는 시점에 동시에 시작된 트랜잭션이 있다면 하나만 성공한다. 데이터가 존재하는지 확인하는 코드가 있더라도 거의 동시에 시작한 트랜잭션들은 데이터가 존재하지 않는 것으로 판단하기 때문에 삽입(insert) 쿼리를 수행한다. 카드 아이디가 기본 키이기 때문에 동일한 키로 데이터를 추가한 다른 트랜잭션들은 모두 실패한다.
 
-1. 1번 트랜잭션 데이터를 조회하지만, 존재하지 않으므로 추가 쿼리를 수행합니다. 하지만 아직 커밋(commit)을 수행하진 못 했습니다.
-1. 거의 동시에 시작한 2번 트랜잭션이 데이터를 조회하지만, 존재하지 않으므로 추가 쿼리를 수행합니다. 
-1. 1번 트랜잭션이 먼저 커밋하면 2번 트랜잭션은 기본 키 제약 조건에 의해 예외가 발생하고 트랜잭션을 실패합니다.
+1. 1번 트랜잭션 데이터를 조회하지만, 존재하지 않으므로 추가 쿼리를 수행한다. 하지만 아직 커밋(commit)을 수행하진 못했다.
+2. 거의 동시에 시작한 2번 트랜잭션이 데이터를 조회하지만, 존재하지 않으므로 추가 쿼리를 수행한다.
+3. 1번 트랜잭션이 먼저 커밋하면 2번 트랜잭션은 기본 키 제약 조건에 의해 예외가 발생하고 트랜잭션을 실패한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
+</div>
 
 ##### cURL Result
 
-- 초기 데이터가 없는 상태에서 cURL 명령어로 동시에 3회 "좋아요" 요청을 수행합니다.
-- 커밋이 성공한 첫 트랜잭션을 제외한 두 요청은 예외가 발생하고 500 상태 코드를 반환합니다.
+- 초기 데이터가 없는 상태에서 cURL 명령어로 동시에 3회 "좋아요" 요청을 수행한다.
+- 커밋이 성공한 첫 트랜잭션을 제외한 두 요청은 예외가 발생하고 500 상태 코드를 반환한다.
 
 ```
 $ curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
@@ -132,20 +132,20 @@ Host: localhost:8080
 User-Agent: curl/8.1.2
 > > Accept: */*
 Accept: */*
-> > 
+> >
 
 > POST /api/cards/card-01/likes HTTP/1.1
 > Host: localhost:8080
 > User-Agent: curl/8.1.2
 > Accept: */*
-> 
-< HTTP/1.1 200 
+>
+< HTTP/1.1 200
 < Content-Length: 0
 < Date: Tue, 21 Nov 2023 17:49:06 GMT
-< 
+<
 * Connection #0 to host localhost left intact
-< < HTTP/1.1 500                                                                                                                                                                                    
-HTTP/1.1 500 
+< < HTTP/1.1 500
+HTTP/1.1 500
 < < Content-Type: application/json
 Content-Type: application/json
 < < Transfer-Encoding: chunked
@@ -154,7 +154,7 @@ Transfer-Encoding: chunked
 Date: Tue, 21 Nov 2023 17:49:06 GMT
 < < Connection: close
 Connection: close
-< < 
+< <
 
 * Closing connection 0
 {"timestamp":"2023-11-21T17:49:06.534+00:00","status":500,"error":"Internal Server Error","path":"/api/cards/card-01/likes"}* Closing connection 0
@@ -164,32 +164,32 @@ Connection: close
 
 ##### Database Result
 
-데이터를 조회합니다.
+데이터를 조회한다.
 
-- 좋아요 카운트 값이 1인 상태입니다.
-- 첫 트랜잭션만 성공하고 나머지 트랜잭션은 실패합니다.
+- 좋아요 카운트 값이 1인 상태이다.
+- 첫 트랜잭션만 성공하고 나머지 트랜잭션은 실패한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-02.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-02.png" width="80%" class="image__border">
+</div>
 
 ### 1.2. Update Problem
 
-이미 데이터베이스에 추가한 데이터가 존재하는 경우에도 동시성 문제가 발생합니다. 동시에 시작한 트랜잭션이 바라보는 데이터의 모습은 같습니다. 
+이미 데이터베이스에 추가한 데이터가 존재하는 경우에도 동시성 문제가 발생한다. 동시에 시작한 트랜잭션이 바라보는 데이터의 모습은 같다.
 
-1. 1번 트랜잭션은 "좋아요" 카운트 값이 1인 데이터를 조회합니다.
-1. 거의 동시에 시작한 2번 트랜잭션도 "좋아요" 카운트 값이 1인 데이터를 조회합니다.
-1. 두 트랜잭션은 조회한 엔티티의 카운트 값을 증가시킨 후 업데이트합니다.
-    - "좋아요" 카운트 값이 2인 데이터로 업데이트됩니다.
+1. 1번 트랜잭션은 "좋아요" 카운트 값이 1인 데이터를 조회한다.
+2. 거의 동시에 시작한 2번 트랜잭션도 "좋아요" 카운트 값이 1인 데이터를 조회한다.
+3. 두 트랜잭션은 조회한 엔티티의 카운트 값을 증가시킨 후 업데이트한다.
+  - "좋아요" 카운트 값이 2인 데이터로 업데이트된다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
+</div>
 
 ##### cURL Result
 
-- 초기 데이터가 있는 상태에서 cURL 명령어로 동시에 3회 "좋아요" 요청을 수행합니다.
-- 모든 요청이 성공하고 200 상태 코드를 반환합니다.
+- 초기 데이터가 있는 상태에서 cURL 명령어로 동시에 3회 "좋아요" 요청을 수행한다.
+- 모든 요청이 성공하고 200 상태 코드를 반환한다.
 
 ```
 $ curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
@@ -204,35 +204,35 @@ $ curl -X POST -v http://localhost:8080/api/cards/card-01/likes &\
 > Host: localhost:8080
 > User-Agent: curl/8.1.2
 > Accept: */*
-> 
+>
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 > POST /api/cards/card-01/likes HTTP/1.1
 > Host: localhost:8080
 > User-Agent: curl/8.1.2
 > Accept: */*
-> 
+>
 *   Trying 127.0.0.1:8080...
 * Connected to localhost (127.0.0.1) port 8080 (#0)
 > POST /api/cards/card-01/likes HTTP/1.1
 > Host: localhost:8080
 > User-Agent: curl/8.1.2
 > Accept: */*
-> 
-< HTTP/1.1 200 
+>
+< HTTP/1.1 200
 < Content-Length: 0
 < Date: Tue, 21 Nov 2023 17:57:09 GMT
-< 
+<
 * Connection #0 to host localhost left intact
-< HTTP/1.1 200 
+< HTTP/1.1 200
 < Content-Length: 0
 < Date: Tue, 21 Nov 2023 17:57:09 GMT
-< < HTTP/1.1 200 
+< < HTTP/1.1 200
 
 < Content-Length: 0
 * < Connection #0 to host localhost left intact
 Date: Tue, 21 Nov 2023 17:57:09 GMT
-< 
+<
 * Connection #0 to host localhost left intact
 [2]  + 55572 done       curl -X POST -v http://localhost:8080/api/cards/card-01/likes
 [1]  + 55571 done       curl -X POST -v http://localhost:8080/api/cards/card-01/likes
@@ -240,56 +240,58 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
 
 ##### Database Result
 
-데이터를 조회합니다.
+데이터를 조회한다.
 
-- "좋아요" 카운트 값은 4를 예상했지만, 2인 상태입니다. 
-- 모든 트랜잭션이 성공했지만, 동시성 문제로 인해 정상적인 값으로 업데이트되지 않았습니다.
+- "좋아요" 카운트 값은 4를 예상했지만, 2인 상태이다.
+- 모든 트랜잭션이 성공했지만, 동시성 문제로 인해 정상적인 값으로 업데이트되지 않았다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-04.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-04.png" width="80%" class="image__border">
+</div>
 
 ## 2. Solve the problem
 
-두 개의 동시성 문제를 해결하기 위해 다음과 같이 설계합니다. 
+두 개의 동시성 문제를 해결하기 위해 다음과 같이 설계한다.
 
 - 초기 데이터가 존재하지 않은 경우
-    - 여러 트랜잭션들이 동시에 데이터를 추가하면서 예외가 발생하면 재시도(retry)합니다. 
+  - 여러 트랜잭션들이 동시에 데이터를 추가하면서 예외가 발생하면 재시도(retry)한다.
 - 이미 데이터가 존재하는 경우
-    - 여러 트랜잭션들이 동시에 업데이트하면서 발생하는 동시성 문제는 [비관적인 락(pessimistic lock)][jpa-pessimitic-lock-link]을 통해 트랜잭션들이 순차적으로 실행되도록 만듭니다. 
-    - 비관적인 락 방식은 요청이 많은 경우 트랜잭션이 길어지면서 타임아웃(timeout) 예외가 발생할 수 있습니다.
-    - 타임아웃 예외가 발생하면 재시도합니다.
+  - 여러 트랜잭션들이 동시에 업데이트하면서 발생하는 동시성 문제는 [비관적인 락(pessimistic lock)][jpa-pessimitic-lock-link]을 통해 트랜잭션들이 순차적으로 실행되도록 만든다.
+  - 비관적인 락 방식은 요청이 많은 경우 트랜잭션이 길어지면서 타임아웃(timeout) 예외가 발생할 수 있다.
+  - 타임아웃 예외가 발생하면 재시도한다.
 
-비관적인 락 방식은 타임아웃 시간이 너무 길지 않도록 주의해야 합니다. 타임아웃 시간이 너무 길면 요청이 많을 때 스레드가 오랜 시간 대기하게 됩니다. 스프링 프레임워크(spring framework)의 디폴트 서블릿 컨테이너인 톰캣은 스레드-퍼-리퀘스트(thread-per-request) 모델을 사용하기 때문에 요청을 처리하는 스레드가 스레드 풀(thread pool)에 오랜 시간 동안 반환되지 않는 것은 심각한 문제를 일으킬 수 있습니다. 이번 글에서는 JPA에서 지원하는 비관적인 락의 기본 타임아웃 시간인 5초를 사용했습니다. 
+비관적인 락 방식은 타임아웃 시간이 너무 길지 않도록 주의해야 한다. 타임아웃 시간이 너무 길면 요청이 많을 때 스레드가 오랜 시간 대기하게 된다. 스프링 프레임워크(spring framework)의 디폴트 서블릿 컨테이너인 톰캣은 스레드-퍼-리퀘스트(thread-per-request) 모델을 사용하기 때문에 요청을 처리하는 스레드가 스레드 풀(thread pool)에 오랜 시간 동안 반환되지 않는 것은 심각한 문제를 일으킬 수 있다. 이번 글에서는 JPA에서 지원하는 비관적인 락의 기본 타임아웃 시간인 5초를 사용했다.
 
-"좋아요" 요청이 누락되지 않도록 큐(queue)를 사용합니다. 재시도가 필요한 요청은 큐에 담습니다. 서블릿 스레드가 오랜 시간 반환되지 않는 문제를 해결하기 위해서 풀 사이즈가 고정된 별도 스레드 풀을 통해 비동기 처리로 재시도합니다. 
+"좋아요" 요청이 누락되지 않도록 큐(queue)를 사용한다. 재시도가 필요한 요청은 큐에 담는다. 서블릿 스레드가 오랜 시간 반환되지 않는 문제를 해결하기 위해서 풀 사이즈가 고정된 별도 스레드 풀을 통해 비동기 처리로 재시도한다.
 
-다음과 같은 두 곳에서 예외 처리가 필요합니다. 
+다음과 같은 두 곳에서 예외 처리가 필요하다.
 
 - 컨트롤러 레이어 예외 처리
-    - 데이터 동시 추가로 인해 발생하는 예외는 @Transactional 애너테이션으로 트랜잭션을 처리하기 때문에 서비스 레이어에서 잡을 수 없습니다.
-    - 컨트롤러 레이어에서 예외 처리를 수행하면 데이터베이스 제약 조건으로 인해 발생하는 예외와 비관적 락의 타임아웃으로 발생하는 예외를 동일하게 처리할 수 있습니다. 
-    - 예외가 발생하면 재시도 핸들러에게 해당 카드 아이디를 전달합니다.
+  - 데이터 동시 추가로 인해 발생하는 예외는 @Transactional 애너테이션으로 트랜잭션을 처리하기 때문에 서비스 레이어에서 잡을 수 없다.
+  - 컨트롤러 레이어에서 예외 처리를 수행하면 데이터베이스 제약 조건으로 인해 발생하는 예외와 비관적 락의 타임아웃으로 발생하는 예외를 동일하게 처리할 수 있다.
+  - 예외가 발생하면 재시도 핸들러에게 해당 카드 아이디를 전달한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-05.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-05.png" width="80%" class="image__border">
+</div>
+
+<br/>
 
 - 재시도 핸들러 예외 처리
-    - 재시도 요청이 들어오면 카드 아이디를 큐에 담은 후 스레드 풀에게 재시도 작업을 요청합니다.
-    - 스레드 풀은 재시도 큐에 담긴 카드 아이디가 모두 비워질 때까지 반복 수행합니다.
-    - 타임아웃 예외가 발생하면 해당 카드 아이디를 다시 재시도 큐에 담습니다.
+  - 재시도 요청이 들어오면 카드 아이디를 큐에 담은 후 스레드 풀에게 재시도 작업을 요청한다.
+  - 스레드 풀은 재시도 큐에 담긴 카드 아이디가 모두 비워질 때까지 반복 수행한다.
+  - 타임아웃 예외가 발생하면 해당 카드 아이디를 다시 재시도 큐에 담는다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-06.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-06.png" width="80%" class="image__border">
+</div>
 
 ### 2.1. CardLikeRepository Interface
 
-- @Lock 애너테이션을 통해 비관적인 락 방식을 설정합니다.
-    - `PESSIMISTIC_WRITE` 설정으로 늦게 시작한 트랜잭션들은 락이 풀리기 전까지 해당 데이터에 접근할 수 없도록 합니다.
-    - 데이터를 먼저 조회한 트랜잭션이 해당 데이터를 선점합니다.
-- 카드 아이디로 조회합니다.
+- @Lock 애너테이션을 통해 비관적인 락 방식을 설정한다.
+  - `PESSIMISTIC_WRITE` 설정으로 늦게 시작한 트랜잭션들은 락이 풀리기 전까지 해당 데이터에 접근할 수 없도록 한다.
+  - 데이터를 먼저 조회한 트랜잭션이 해당 데이터를 선점한다.
+- 카드 아이디로 조회한다.
 
 ```java
 package action.in.blog.repository;
@@ -312,8 +314,8 @@ public interface CardLikeRepository extends JpaRepository<CardLikeEntity, String
 
 ### 2.2. DefaultCardLikeService Class
 
-- findById 메서드를 findByIdWithLock 메서드로 변경합니다.
-- 데이터가 존재하는 경우 데이터를 먼저 선점한 트랜잭션만 이후 로직을 진행할 수 있습니다.
+- findById 메서드를 findByIdWithLock 메서드로 변경한다.
+- 데이터가 존재하는 경우 데이터를 먼저 선점한 트랜잭션만 이후 로직을 진행할 수 있다.
 
 ```java
 package action.in.blog.service;
@@ -348,21 +350,21 @@ public class DefaultCardLikeService implements CardLikeService {
 
 ##### Test Code
 
-테스트 코드에서 필요한 데이터를 준비하기 위해 `data.sql` 파일에 아래와 같은 스크립트를 작성합니다.
+테스트 코드에서 필요한 데이터를 준비하기 위해 `data.sql` 파일에 아래와 같은 스크립트를 작성한다.
 
 ```sql
 insert into card_like_entity (count, card_id) values (1, 'card-01');
 ```
 
-동시성 문제로 인해 서비스 레이어에서 예외가 발생하는 테스트 케이스만 다뤘습니다. @DataJpaTest 애너테이션은 기본적으로 @Transactional 애너테이션을 사용하기 때문에 테스트 메서드를 실행하는 동안 동일한 트랜잭션이 적용됩니다. 각 스레드에 새로운 트랜잭션을 지정하기 위해 AsyncTransaction 컴포넌트를 사용합니다.
+동시성 문제로 인해 서비스 레이어에서 예외가 발생하는 테스트 케이스만 다뤘다. @DataJpaTest 애너테이션은 기본적으로 @Transactional 애너테이션을 사용하기 때문에 테스트 메서드를 실행하는 동안 동일한 트랜잭션이 적용된다. 각 스레드에 새로운 트랜잭션을 지정하기 위해 AsyncTransaction 컴포넌트를 사용한다.
 
 - insert_same_data_in_the_same_time_then_throw_sql_exception 메서드
-    - 두 스레드가 동시에 새로운 데이터를 추가합니다.
-    - DataIntegrityViolationException 예외가 발생할 것을 예상합니다.
+  - 두 스레드가 동시에 새로운 데이터를 추가한다.
+  - DataIntegrityViolationException 예외가 발생할 것을 예상한다.
 - other_transaction_exists_then_throw_timeout_exception 메서드
-    - 먼저 시작한 트랜잭션이 이미 존재하는 데이터를 업데이트하기 위해 오랜 시간 락을 걸고 있는 경우를 확인합니다.
-    - 늦게 시작한 트랜잭션이 타임아웃 예외가 발생하는지 확인합니다.
-    - PessimisticLockingFailureException 예외가 발생할 것을 예상합니다.
+  - 먼저 시작한 트랜잭션이 이미 존재하는 데이터를 업데이트하기 위해 오랜 시간 락을 걸고 있는 경우를 확인한다.
+  - 늦게 시작한 트랜잭션이 타임아웃 예외가 발생하는지 확인한다.
+  - PessimisticLockingFailureException 예외가 발생할 것을 예상한다.
 
 ```java
 package action.in.blog.service;
@@ -452,9 +454,9 @@ class CardLikeServiceTest {
 ```
 
 - insert_same_data_in_the_same_time_then_throw_sql_exception 메서드 실행 로그
-    - 두 트랜잭션 모두 `for update` 키워드와 함께 데이터를 조회합니다.
-    - 두 트랜잭션 모두 데이터를 찾지 못 했기 때문에 insert 쿼리를 수행합니다. 
-    - 두 트랜잭션 중 하나는 실패합니다.
+  - 두 트랜잭션 모두 `for update` 키워드와 함께 데이터를 조회한다.
+  - 두 트랜잭션 모두 데이터를 찾지 못했기 때문에 insert 쿼리를 수행한다.
+  - 두 트랜잭션 중 하나는 실패한다.
 
 ```
 Hibernate: select c1_0.card_id,c1_0.count from card_like_entity c1_0 where c1_0.card_id=? for update
@@ -469,9 +471,9 @@ insert into card_like_entity (count,card_id) values (?,?) [23505-214]
 ```
 
 - other_transaction_exists_then_throw_timeout_exception 메서드 실행 로그
-    - 두 트랜잭션 모두 `for update` 키워드와 함께 데이터를 조회합니다.
-    - 먼저 시작한 트랜잭션이 7초 동안 끝나지 않습니다.
-    - 늦게 시작한 트랜잭션에서 락을 점유하지 못하고 타임아웃 예외가 발생합니다.
+  - 두 트랜잭션 모두 `for update` 키워드와 함께 데이터를 조회한다.
+  - 먼저 시작한 트랜잭션이 7초 동안 끝나지 않는다.
+  - 늦게 시작한 트랜잭션에서 락을 점유하지 못하고 타임아웃 예외가 발생한다.
 
 ```
 Hibernate: select c1_0.card_id,c1_0.count from card_like_entity c1_0 where c1_0.card_id=? for update
@@ -484,7 +486,7 @@ Hibernate: update card_like_entity set count=? where card_id=?
 
 ### 2.3. CardLikeController Class
 
-- 서비스 레이어에서 예외가 발생하는 경우 핸들러를 통해 재시도를 수행합니다.
+- 서비스 레이어에서 예외가 발생하는 경우 핸들러를 통해 재시도를 수행한다.
 
 ```java
 package action.in.blog.controller;
@@ -521,7 +523,7 @@ public class CardLikeController {
 
 ##### Test Code
 
-- 서비스 레이어에서 예외가 발생했을 때 재시도 핸들러가 해당 카드 아이디로 재시도를 수행하는지 확인합니다.
+- 서비스 레이어에서 예외가 발생했을 때 재시도 핸들러가 해당 카드 아이디로 재시도를 수행하는지 확인한다.
 
 ```java
 package action.in.blog.controller;
@@ -559,16 +561,16 @@ class CardLikeControllerTest {
 
 ### 2.4. CardLikeRetryHandler Class
 
-- 풀 사이즈가 1개로 고정된 스레드 풀을 사용합니다.
-- 동시성 문제가 발생하지 않도록 ConcurrentLinkedDeque 클래스를 사용합니다.
+- 풀 사이즈가 1개로 고정된 스레드 풀을 사용한다.
+- 동시성 문제가 발생하지 않도록 ConcurrentLinkedDeque 클래스를 사용한다.
 - retry 메서드
-    - 재시도 요청이 필요한 카드 아이디를 큐에 추가합니다.
-    - 스레드 풀에 재시도 태스크(task)를 전달합니다.
+  - 재시도 요청이 필요한 카드 아이디를 큐에 추가한다.
+  - 스레드 풀에 재시도 태스크(task)를 전달한다.
 - handle 메서드
-    - 재시도 태스크를 정의한 메서드입니다.
-    - 재시도 큐에서 카드 아이디를 하나씩 꺼내서 실행합니다.
-    - 재시도 큐가 비워질 때까지 수행합니다.
-    - 예외가 발생한 카드 아이디는 다시 큐에 전달합니다.
+  - 재시도 태스크를 정의한 메서드이다.
+  - 재시도 큐에서 카드 아이디를 하나씩 꺼내서 실행한다.
+  - 재시도 큐가 비워질 때까지 수행한다.
+  - 예외가 발생한 카드 아이디는 다시 큐에 전달한다.
 
 ```java
 package action.in.blog.handler;
@@ -620,11 +622,11 @@ public class CardLikeRetryHandler {
 
 ##### Test Code
 
-- 테스트 더블(test double)이 "card-01" 카드 아이디로 호출되는 경우 최초 1회만 예외를 발생시킵니다.
-    - 이 후 호출에선 예외가 발생하지 않습니다.
-- 스레드 풀에 전달된 태스크가 종료될 때까지 대기 후 예상 결과를 확인합니다.
-    - 예외가 발생한 "card-01" 아이디로 3회 호출되는 것을 기대합니다.
-    - 예외가 발생하지 않는 "card-02" 아이디로 1회 호출되는 것을 기대합니다.
+- 테스트 더블(test double)이 "card-01" 카드 아이디로 호출되는 경우 최초 1회만 예외를 발생시킨다.
+  - 이후 호출에선 예외가 발생하지 않는다.
+- 스레드 풀에 전달된 태스크가 종료될 때까지 대기 후 예상 결과를 확인한다.
+  - 예외가 발생한 "card-01" 아이디로 3회 호출되는 것을 기대한다.
+  - 예외가 발생하지 않는 "card-02" 아이디로 1회 호출되는 것을 기대한다.
 
 ```java
 package action.in.blog.handler;
@@ -659,31 +661,31 @@ class CardLikeRetryHandlerTest {
 }
 ```
 
-## 3. Result 
+## 3. Result
 
-애플리케이션을 실행 후 cURL 명령어를 통해 동시에 3개의 요청들을 4회 전달합니다. 요청 횟수에 맞게 "좋아요" 카운트가 12회로 업데이트 되었는지 확인합니다.
+애플리케이션을 실행 후 cURL 명령어를 통해 동시에 3개의 요청들을 4회 전달한다. 요청 횟수에 맞게 "좋아요" 카운트가 12회로 업데이트되었는지 확인한다.
 
 - 1차 3회 요청
-    - 3회 요청 모두 200 응답을 받습니다.  
-    - 최초 요청만 성공하고 나머지 두 요청은 재시도 핸들러에 의해 처리되는 것을 로그의 큐 사이즈를 통해 확인할 수 있습니다.
+  - 3회 요청 모두 200 응답을 받는다.
+  - 최초 요청만 성공하고 나머지 두 요청은 재시도 핸들러에 의해 처리되는 것을 로그의 큐 사이즈를 통해 확인할 수 있다.
 - 2차 3회 요청
-    - 3회 요청 모두 200 응답을 받습니다.
-    - 최초 요청만 성공하고 나머지 두 요청은 재시도 핸들러에 의해 처리되는 것을 로그의 큐 사이즈를 통해 확인할 수 있습니다.
-- 3차, 4차 3회 요청 
-    - SQL 콘솔에서 미리 업데이트 쿼리를 수행하고 커밋을 수행하지 않습니다. 
-    - 6회 요청 모두 약간의 시간이 지난 후 200 응답을 받습니다.
-    - 6회 요청 모두 재시도 핸들러에 의해 처리되는 것을 로그의 큐 사이즈를 통해 확인할 수 있습니다.
-    - SQL 콘솔에서 커밋을 수행하지 않으면 재시도 핸들러에서 타임아웃 예외가 계속 발생하는 것을 확인할 수 있습니다.
-    - SQL 콘솔에서 커밋을 수행하면 재시도 핸들러의 큐가 빠르게 소진되는 것을 로그를 통해 확인할 수 있습니다.
-- "좋아요" 카운트가 총 12회 되었음을 확인할 수 있습니다.
+  - 3회 요청 모두 200 응답을 받는다.
+  - 최초 요청만 성공하고 나머지 두 요청은 재시도 핸들러에 의해 처리되는 것을 로그의 큐 사이즈를 통해 확인할 수 있다.
+- 3차, 4차 3회 요청
+  - SQL 콘솔에서 미리 업데이트 쿼리를 수행하고 커밋을 수행하지 않는다.
+  - 6회 요청 모두 약간의 시간이 지난 후 200 응답을 받는다.
+  - 6회 요청 모두 재시도 핸들러에 의해 처리되는 것을 로그의 큐 사이즈를 통해 확인할 수 있다.
+  - SQL 콘솔에서 커밋을 수행하지 않으면 재시도 핸들러에서 타임아웃 예외가 계속 발생하는 것을 확인할 수 있다.
+  - SQL 콘솔에서 커밋을 수행하면 재시도 핸들러의 큐가 빠르게 소진되는 것을 로그를 통해 확인할 수 있다.
+- "좋아요" 카운트가 총 12회 되었음을 확인할 수 있다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-07.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/concurrency-problem-missing-count-07.gif" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-실제 프로젝트에선 도메인 설계가 조금 달랐기 때문에 다른 방법으로 문제를 해결했습니다. 이 글에서 다룬 시나리오는 지인이 겪고 있던 동시성 문제와 제가 프로젝트에서 겪었던 동시성 문제를 조합한 내용입니다. 작은 애플리케이션이라도 동시성 문제를 겪을 수 있다는 사실을 새삼 느꼈습니다. 주변 백엔드 개발자 지인들이 이직할 때 받았던 과제들을 보면 동시성 문제에 대해 고민한 설계를 요청 받는데, 이 글이 동일한 고민을 하시는 분들께 도움이 되길 바랍니다.
+실제 프로젝트에선 도메인 설계가 조금 달랐기 때문에 다른 방법으로 문제를 해결했다. 이 글에서 다룬 시나리오는 지인이 겪고 있던 동시성 문제와 내가 프로젝트에서 겪었던 동시성 문제를 조합한 내용이다. 작은 애플리케이션이라도 동시성 문제를 겪을 수 있다는 사실을 새삼 느꼈다. 주변 백엔드 개발자 지인들이 이직할 때 받았던 과제들을 보면 동시성 문제에 대해 고민한 설계를 요청받는데, 이 글이 동일한 고민을 하시는 분들께 도움이 되길 바란다.
 
 #### TEST CODE REPOSITORY
 

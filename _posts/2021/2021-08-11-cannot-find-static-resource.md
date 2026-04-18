@@ -1,16 +1,16 @@
 ---
-title: "Problem to find images in spring boot application"
+title: "스프링 부트 애플리케이션에서 이미지를 찾지 못하는 문제"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-09-04T16:30:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Reading resources error when running jar file][when-run-jar-then-fail-to-read-resource-link]
+- [jar 파일 실행 시 리소스 읽기 오류][when-run-jar-then-fail-to-read-resource-link]
 
 ## 0. 들어가면서
 

@@ -3,7 +3,7 @@ title: "자바(Java) 다이나믹 프록시(Dynamic Proxy)"
 search: false
 category:
   - java
-last_modified_at: 2026-03-21T09:35:33+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

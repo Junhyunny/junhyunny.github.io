@@ -3,7 +3,7 @@ title: 자바스크립트 프로토타입 체이닝 (JavaScript Prototype Chain)
 search: false
 category:
   - javascript
-last_modified_at: 2026-03-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -68,7 +68,9 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
   <img src="{{ site.image_url_2023 }}/prototype-chain-in-javascript-01.png" width="60%" class="image__border">
 </div>
 
-위 프로토타입 체인은 이미지로 시각화 하면 아래와 같이 연결된다.
+<br/>
+
+위 프로토타입 체인은 이미지로 시각화하면 아래와 같이 연결된다.
 
 - firstCircle 인스턴스의 프로토타입 체인은 Circle 프로토타입과 Object 프로토타입 객체로 연결된다.
 

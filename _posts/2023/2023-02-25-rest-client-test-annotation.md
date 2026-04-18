@@ -1,42 +1,34 @@
 ---
-title: "@RestClientTest Annotation"
+title: "@RestClientTest 애너테이션"
 search: false
 category:
   - spring-boot
   - test-driven-development
-last_modified_at: 2023-02-25T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Request Date Format][spring-request-date-format-link]
+- [Spring Request Date Format][spring-request-date-format-link]
 
 ## 0. 들어가면서
 
-스프링 부트(spring boot) 프레임워크는 `RestTemplate` 객체를 사용해 별다른 의존성 없이도 쉽게 API 요청을 수행할 수 있습니다. 
-이번 포스트는 `RestTemplate`을 테스트하는 방법에 대해서 정리하였습니다.
+스프링 부트(spring boot) 프레임워크는 `RestTemplate` 객체를 사용해 별다른 의존성 없이도 쉽게 API 요청을 수행할 수 있다. 이번 포스트는 `RestTemplate`을 테스트하는 방법에 대해서 정리하였다.
 
 ## 1. @RestClientTest Annotation
 
-`@RestClientTest` 애너테이션은 `RestTemplate` 테스트를 쉽게 만듭니다. 
-`@RestClientTest` 애너테이션을 사용하면 서버가 아닌 클라이언트 입장에서 테스트를 수행할 수 있습니다. 
-테스트를 위한 가상 서버를 생성한 후 `RestTemplate` 객체를 사용해 가상 서버로 API 요청을 보내고 응답을 받습니다. 
-테스트 도구로 잘 활용하려면 다음 사항들을 알아야 합니다. 
+`@RestClientTest` 애너테이션은 `RestTemplate` 테스트를 쉽게 만든다. `@RestClientTest` 애너테이션을 사용하면 서버가 아닌 클라이언트 입장에서 테스트를 수행할 수 있다. 테스트를 위한 가상 서버를 생성한 후 `RestTemplate` 객체를 사용해 가상 서버로 API 요청을 보내고 응답을 받는다. 테스트 도구로 잘 활용하려면 다음 사항들을 알아야 한다.
 
-* `@RestClientTest` 애너테이션에 테스트 대상 클래스를 지정할 수 있습니다.
-* 테스트를 위한 최소한의 컨텍스트(context)가 준비됩니다. 
-* `MockRestServiceServer` 클래스를 사용해 가상 서버를 구성할 수 있습니다.
-    * `RestTemplate` 객체가 API 요청을 수행할 수 있는 경로와 응답 값을 스텁(stub)할 수 있습니다.
+- `@RestClientTest` 애너테이션에 테스트 대상 클래스를 지정할 수 있다.
+- 테스트를 위한 최소한의 컨텍스트(context)가 준비된다.
+- `MockRestServiceServer` 클래스를 사용해 가상 서버를 구성할 수 있다.
+  - `RestTemplate` 객체가 API 요청을 수행할 수 있는 경로와 응답 값을 스텁(stub)할 수 있다.
 
 ### 1.1. Why do we need API test?
 
-외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용합니다. 
-스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인합니다. 
-이런 테스트 방법은 검증의 한계가 있습니다. 
-간단한 예시를 들어보겠습니다. 
-JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷(format)으로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
+외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용한다. 스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인한다. 이런 테스트 방법은 검증의 한계가 있다. 간단한 예시를 들어보겠다. JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷(format)으로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 된다.
 
 ##### Response JSON
 
@@ -66,9 +58,9 @@ public class BlogResponse {
 
 ##### Error Logs and Pain Point
 
-* 스프링에서 JSON 요청, 응답을 위해 사용하는 `Jackson` 라이브러리는 자료형이 `LocalDateTime` 클래스인 경우 기본적으로 `yyyy-MM-dd'T'HH:mm:ss` 포맷 데이터를 지원합니다. 
-* `yyyy-MM-dd HH:mm:ss` 형태의 데이터를 요청, 응답을 하는 경우 발생하는 파싱(parsing) 에러는 런타임에서 발견될 확률이 높습니다.
-* 배포된 후 발생하는 런타임 에러로 인해 정상적인 응답을 못하는 경우 서비스의 신뢰도가 하락합니다.
+- 스프링에서 JSON 요청, 응답을 위해 사용하는 `Jackson` 라이브러리는 자료형이 `LocalDateTime` 클래스인 경우 기본적으로 `yyyy-MM-dd'T'HH:mm:ss` 포맷 데이터를 지원한다.
+- `yyyy-MM-dd HH:mm:ss` 형태의 데이터를 요청, 응답을 하는 경우 발생하는 파싱(parsing) 에러는 런타임에서 발견될 확률이 높다.
+- 배포된 후 발생하는 런타임 에러로 인해 정상적인 응답을 못하는 경우 서비스의 신뢰도가 하락한다.
 
 ```
 Caused by: com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10
@@ -85,22 +77,19 @@ Caused by: java.time.format.DateTimeParseException: Text '2023-02-24 11:30:25' c
 
 ## 2. Practice
 
-`@RestClientTest` 애너테이션을 사용해 요청과 응답이 정상적인지 확인하는 간단한 테스트 코드를 살펴보겠습니다. 
-다음과 같은 빈(bean)들을 기본적으로 주입 받을 수 있습니다. 
+`@RestClientTest` 애너테이션을 사용해 요청과 응답이 정상적인지 확인하는 간단한 테스트 코드를 살펴보겠다. 다음과 같은 빈(bean)들을 기본적으로 주입 받을 수 있다.
 
-* RestTemplateBuilder
-* MockRestServiceServer
-* ObjectMapper
+- RestTemplateBuilder
+- MockRestServiceServer
+- ObjectMapper
 
 ### 2.1. Autowired RestTemplateBuilder Class
 
-`RestTemplateBuilder`를 주입 받아 테스트하는 경우입니다. 
-이 경우 `MockRestServiceServer` 객체를 만들면서 테스트 할 `RestTemplate` 객체를 직접 바인딩시켜야 정상적으로 테스트가 동작합니다. 
-해당 테스트를 통해 다음과 같은 것들을 확인할 수 있습니다.
+`RestTemplateBuilder`를 주입 받아 테스트하는 경우이다. 이 경우 `MockRestServiceServer` 객체를 만들면서 테스트 할 `RestTemplate` 객체를 직접 바인딩시켜야 정상적으로 테스트가 동작한다. 해당 테스트를 통해 다음과 같은 것들을 확인할 수 있다.
 
-* 요청 `URL`이 정상적으로 매칭되었는지 확인합니다.
-* 요청 쿼리가 정상적으로 만들어졌는지 확인합니다.
-* `2023-02-24 11:30:25` 값으로 응답 받을 때 정상적으로 파싱되었는지 확인합니다.
+- 요청 `URL`이 정상적으로 매칭되었는지 확인한다.
+- 요청 쿼리가 정상적으로 만들어졌는지 확인한다.
+- `2023-02-24 11:30:25` 값으로 응답 받을 때 정상적으로 파싱되었는지 확인한다.
 
 ```java
 package action.in.blog;
@@ -163,13 +152,11 @@ class RestTemplateBuilderTest {
 
 ### 2.2. Autowired Custom Bean
 
-직접 만든 빈 객체에서 `RestTemplate`을 사용하는 경우 테스트를 위한 `MockRestServiceServer` 객체를 주입 받을 수 있습니다. 
-`@RestClientTest` 애너테이션에 어떤 빈을 테스트할 것인지 명시해줍니다. 
-해당 테스트를 통해 다음과 같은 것들을 확인할 수 있습니다.
+직접 만든 빈 객체에서 `RestTemplate`을 사용하는 경우 테스트를 위한 `MockRestServiceServer` 객체를 주입 받을 수 있다. `@RestClientTest` 애너테이션에 어떤 빈을 테스트할 것인지 명시해준다. 해당 테스트를 통해 다음과 같은 것들을 확인할 수 있다.
 
-* 요청 `URL`이 정상적으로 매칭되었는지 확인합니다.
-* 요청 쿼리가 정상적으로 만들어졌는지 확인합니다.
-* `2023-02-24 11:30:25` 값으로 응답 받을 때 정상적으로 파싱되었는지 확인합니다.
+- 요청 `URL`이 정상적으로 매칭되었는지 확인한다.
+- 요청 쿼리가 정상적으로 만들어졌는지 확인한다.
+- `2023-02-24 11:30:25` 값으로 응답 받을 때 정상적으로 파싱되었는지 확인한다.
 
 ```java
 package action.in.blog;
@@ -249,8 +236,7 @@ public class BlogProxyTest {
 
 ### 2.3. BlogResponse Class
 
-테스트가 실패하는 것을 확인하면 `@JsonFormat` 애너테이션으로 `LocalDateTime`에 대한 포맷을 지정합니다. 
-이후 테스트를 재실행하여 통과하는 것을 확인합니다.
+테스트가 실패하는 것을 확인하면 `@JsonFormat` 애너테이션으로 `LocalDateTime`에 대한 포맷을 지정한다. 이후 테스트를 재실행하여 통과하는 것을 확인한다.
 
 ```java
 package action.in.blog;
@@ -271,26 +257,24 @@ public class BlogResponse {
 
 ## CLOSING
 
-`FeignClient`의 단위 테스트 방법을 찾다가 `@RestClientTest` 애너테이션을 발견했습니다. 
-`@RestClientTest` 애너테이션은 아쉽게도 `RestTemplate`만 지원하는 것으로 보입니다. 
-공식 문서를 살펴보면 다음과 같은 내용이 있습니다.
+`FeignClient`의 단위 테스트 방법을 찾다가 `@RestClientTest` 애너테이션을 발견했다. `@RestClientTest` 애너테이션은 아쉽게도 `RestTemplate`만 지원하는 것으로 보인다. 공식 문서를 살펴보면 다음과 같은 내용이 있다.
 
-> Annotation for a Spring rest client test that focuses `only` on beans that use RestTemplateBuilder. 
+> Annotation for a Spring rest client test that focuses `only` on beans that use RestTemplateBuilder.
 > ...
-> If you are testing a bean that doesn't use RestTemplateBuilder but instead injects a RestTemplate directly, you can add @AutoConfigureWebClient(registerRestTemplate=true). 
+> If you are testing a bean that doesn't use RestTemplateBuilder but instead injects a RestTemplate directly, you can add @AutoConfigureWebClient(registerRestTemplate=true).
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-25-rest-client-test-annotation>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-25-rest-client-test-annotation>
 
 #### REFERENCE
 
-* <https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/web/client/RestClientTest.html>
-* <https://www.baeldung.com/restclienttest-in-spring-boot>
-* <https://www.jvt.me/posts/2022/02/01/resttemplate-integration-test/>
-* <https://meetup.nhncloud.com/posts/124>
-* <https://jojoldu.tistory.com/341>
-* <https://sup2is.tistory.com/105>
-* <https://wannaqueen.gitbook.io/spring5/spring-boot/undefined-1/46.-testing/46.3-testing-spring-boot-applications/46.3.20-rest>
+- <https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/test/autoconfigure/web/client/RestClientTest.html>
+- <https://www.baeldung.com/restclienttest-in-spring-boot>
+- <https://www.jvt.me/posts/2022/02/01/resttemplate-integration-test/>
+- <https://meetup.nhncloud.com/posts/124>
+- <https://jojoldu.tistory.com/341>
+- <https://sup2is.tistory.com/105>
+- <https://wannaqueen.gitbook.io/spring5/spring-boot/undefined-1/46.-testing/46.3-testing-spring-boot-applications/46.3.20-rest>
 
 [spring-request-date-format-link]: https://junhyunny.github.io/spring-boot/spring-request-date-format/

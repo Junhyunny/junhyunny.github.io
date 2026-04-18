@@ -1,19 +1,19 @@
 ---
-title: "Not Found(404) when react application is hosted on Tomcat"
+title: "리액트(React) 애플리케이션을 톰캣(Tomcat)에서 호스팅 시 404 오류"
 search: false
 category:
   - spring-boot
   - react
   - tomcat
-last_modified_at: 2023-07-10T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
-- [How to deploy react application on jar package][how-to-deploy-react-application-on-jar-package-link]
+- [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link]
+- [리액트(React) 애플리케이션을 JAR 파일에 포함하여 배포하기][how-to-deploy-react-application-on-jar-package-link]
 
 ## 1. Problem Context
 
@@ -158,7 +158,7 @@ public class NotFoundErrorController implements ErrorController {
 
 ### 3.2. Build and Deploy Application
 
-간단한 스크립트를 통해 애플리케이션을 빌드 및 배포한다. 내장 톰캣을 사용하지 않고 WAR 파일로 패키징 후 톰캣 서버에 배포한다. war 패키지 파일을 톰캣 서버에 배포하는 방법은 [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]를 참고하길 바란다. 그래이들(gradle) 스프링 부트 프로젝트는 빌드 결과가 `build` 디렉토리에 생성된다. build 디렉토리 내부 정적 리소스 위치에 리액트 애플리케이션 빌드 결과를 옮긴 후 함께 패키징한다. 메이븐(maven)을 사용한다면 빌드 결과가 다른 디렉토리에 생성되므로 주의하길 바란다.
+간단한 스크립트를 통해 애플리케이션을 빌드 및 배포한다. 내장 톰캣을 사용하지 않고 WAR 파일로 패키징 후 톰캣 서버에 배포한다. war 패키지 파일을 톰캣 서버에 배포하는 방법은 [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link]를 참고하길 바란다. 그래이들(gradle) 스프링 부트 프로젝트는 빌드 결과가 `build` 디렉토리에 생성된다. build 디렉토리 내부 정적 리소스 위치에 리액트 애플리케이션 빌드 결과를 옮긴 후 함께 패키징한다. 메이븐(maven)을 사용한다면 빌드 결과가 다른 디렉토리에 생성되므로 주의하길 바란다.
 
 1. backend 프로젝트를 빌드한다.
   - 처음 빌드 시점엔 build 디렉토리가 없다.

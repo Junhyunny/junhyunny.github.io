@@ -1,10 +1,10 @@
 ---
-title: "Spring Security Oauth2 Client for Apple"
+title: "애플(Apple) 로그인을 위한 스프링 시큐리티(Spring Security) OAuth2 클라이언트"
 search: false
 category:
   - spring-boot
   - spring-security
-last_modified_at: 2024-05-24T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -21,7 +21,7 @@ last_modified_at: 2024-05-24T23:55:00
 
 ## 1. Problem Context
 
-문제 현상을 살펴보자. 웹 환경에서 OAuth2 인증은 리다이렉트(redirect)의 연속이다. 애플 로그인 화면에서 인증 성공 후 애플 인가 서버에서 개발 서버로 브라우저를 다시 리다이렉트 시키는 시점에 문제가 발생한다. 문제가 발생하는 두번째 리다이렉트 시점에 다음과 같은 정보들이 서버 콜백 URL로 전달되고 403 에러 응답을 받는다.
+문제 현상을 살펴보자. 웹 환경에서 OAuth2 인증은 리다이렉트(redirect)의 연속이다. 애플 로그인 화면에서 인증 성공 후 애플 인가 서버에서 개발 서버로 브라우저를 다시 리다이렉트 시키는 시점에 문제가 발생한다. 문제가 발생하는 두 번째 리다이렉트 시점에 다음과 같은 정보들이 서버 콜백 URL로 전달되고 403 에러 응답을 받는다.
 
 - POST 메서드 요청을 보낸다.
 - 컨텐츠 타입(content type)은 application/x-www-form-urlencoded 이다.
@@ -59,7 +59,7 @@ last_modified_at: 2024-05-24T23:55:00
 - 왼쪽 실패 케이스
   1. 사전에 발급 받은 클라이언트 시크릿을 사용해 액세스 토큰을 요청한다.
   2. [invalid_client] 에러 응답을 받는다.
-- 오른쪽 성공 케이스
+  - 오른쪽 성공 케이스
   1. 새로 만든 클라이언트 시크릿을 사용해 액세스 토큰을 요청한다.
   2. 액세스 토큰을 받는다.
 

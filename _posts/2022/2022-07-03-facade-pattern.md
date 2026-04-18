@@ -1,83 +1,74 @@
 ---
-title: "Facade Pattern"
+title: "퍼사드 패턴(Facade Pattern)"
 search: false
 category:
     - information
     - design-pattern
-last_modified_at: 2022-07-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-최근 읽은 책들에서 퍼사드 패턴(Facade Pattern)을 사용한 예시나 사례가 상당히 많았습니다. 
-Spring 프레임워크로 개발한 애플리케이션을 디버깅하다 보면 콜 스택(call stack) 저 아래 종종 `Facade`라는 이름을 가진 클래스들을 봤던 것이 떠올랐습니다. 
-이번 포스트에선 퍼사드 패턴가 무엇인지, 왜 사용하는지 알아보고 실제 사례를 알아보겠습니다. 
+최근 읽은 책들에서 퍼사드 패턴(Facade Pattern)을 사용한 예시나 사례가 상당히 많았다. Spring 프레임워크로 개발한 애플리케이션을 디버깅하다 보면 콜 스택(call stack) 저 아래 종종 `Facade`라는 이름을 가진 클래스들을 봤던 것이 떠올랐다. 이번 포스트에선 퍼사드 패턴이 무엇인지, 왜 사용하는지 알아보고 실제 사례를 알아보겠다.
 
 ## 1. 퍼사드 패턴(Facade Pattern)
 
 > [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
-> 한 서브시스템(subsystem) 내의 인터페이스 집합에 대한 획일화 된 하나의 인터페이스를 제공하는 패턴으로, 
-> 서브시스템을 사용하기 쉽도록 상위 수준의 인터페이스를 정의합니다. 
+> 한 서브시스템(subsystem) 내의 인터페이스 집합에 대한 획일화 된 하나의 인터페이스를 제공하는 패턴으로,
+> 서브시스템을 사용하기 쉽도록 상위 수준의 인터페이스를 정의합니다.
 
-`GoF 디자인 패턴` 책은 언제 읽어도 어렵습니다. 
-제가 이해할 수 있도록 쉽게 정리해보겠습니다. 
-퍼사드(facade)의 어원은 프랑스어 `Façade`에서 유래된 단어로 건물의 외관이라는 뜻입니다. 
-건물을 외부에서 보면 외관만 보이고 내부의 숨은 구조나 복잡함은 보이지 않습니다. 
-퍼사드 패턴은 서브시스템의 복잡함이나 클래스들을 단순한 기능만 제공하는 인터페이스로 가립니다. 
-그로 인해 사용자(혹은 클라이언트)는 서브시스템의 기능을 고민없이 쉽게 사용할 수 있습니다.
+`GoF 디자인 패턴` 책은 언제 읽어도 어렵다. 이해할 수 있도록 쉽게 정리해보겠다. 퍼사드(facade)의 어원은 프랑스어 `Façade`에서 유래된 단어로 건물의 외관이라는 뜻이다. 건물을 외부에서 보면 외관만 보이고 내부의 숨은 구조나 복잡함은 보이지 않는다. 퍼사드 패턴은 서브시스템의 복잡함이나 클래스들을 단순한 기능만 제공하는 인터페이스로 가린다. 그로 인해 사용자(혹은 클라이언트)는 서브시스템의 기능을 고민 없이 쉽게 사용할 수 있다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/facade-pattern-01.png" width="70%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/facade-pattern-01.png" width="70%" class="image__border">
+</div>
 <center>https://refactoring.guru/design-patterns/facade</center>
 
 ### 1.1. 퍼사드 패턴 구조
 
-퍼사드 패턴은 다음과 같은 구조를 가집니다. 
+퍼사드 패턴은 다음과 같은 구조를 가진다.
 
-* 복잡한 서브시스템을 대신하는 단순하고 일관된 인터페이스를 제공합니다. 
-* 사용자는 서브시스템의 클래스들을 직접 사용하지 않으며, 단순한 형태로 통합된 메서드를 호출합니다.
-* 아래 비디오의 포맷을 변경하는 라이브러리를 예시로 들 수 있습니다.
-    * `VideoConverter` 클래스는 외부에는 단순하게 `convertVideo` 메서드만 제공합니다.
-    * 비디오를 변경하기 위해선 `AudioMixer`, `VideoFile`, `BitrateReader`, `CodecFactory` 등 많은 클래스들이 필요합니다.
-    * 사용자(개발자)의 코드는 해당 라이브러리의 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메서드만 호출합니다.
+- 복잡한 서브시스템을 대신하는 단순하고 일관된 인터페이스를 제공한다.
+- 사용자는 서브시스템의 클래스들을 직접 사용하지 않으며, 단순한 형태로 통합된 메서드를 호출한다.
+- 아래 비디오의 포맷을 변경하는 라이브러리를 예시로 들 수 있다.
+  - `VideoConverter` 클래스는 외부에는 단순하게 `convertVideo` 메서드만 제공한다.
+  - 비디오를 변경하기 위해선 `AudioMixer`, `VideoFile`, `BitrateReader`, `CodecFactory` 등 많은 클래스들이 필요하다.
+  - 사용자(개발자)의 코드는 해당 라이브러리의 복잡한 내부 구조를 신경쓰지 않고 `convertVideo` 메서드만 호출한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/facade-pattern-02.png" width="50%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/facade-pattern-02.png" width="50%" class="image__border">
+</div>
 <center>https://refactoring.guru/design-patterns/facade</center>
 
 ### 1.2. 퍼사드 패턴을 사용하는 이유
 
-퍼사드 패턴을 사용하는 이유는 다음과 같습니다.
+퍼사드 패턴을 사용하는 이유는 다음과 같다.
 
-* 사용자가 다뤄야 할 객체 수가 줄어들면서 서브시스템을 쉽게 사용할 수 있습니다.
-* 사용자의 코드와 서브시스템 사이의 결합도를 낮출 수 있습니다.
-    * 사용자의 코드와 서브시스템의 코드는 서로를 알 필요가 없습니다.
-    * 서브시스템 내부의 변경이 있더라도 사용자의 코드에는 변경이 없습니다.
+- 사용자가 다뤄야 할 객체 수가 줄어들면서 서브시스템을 쉽게 사용할 수 있다.
+- 사용자의 코드와 서브시스템 사이의 결합도를 낮출 수 있다.
+  - 사용자의 코드와 서브시스템의 코드는 서로를 알 필요가 없다.
+  - 서브시스템 내부의 변경이 있더라도 사용자의 코드에는 변경이 없다.
 
 ## 2. 퍼사드 패턴 사용 케이스 찾아보기
 
-퍼사드 패턴과 관련된 글들을 찾아보면 전자레인지, 컴퓨터 등등 여러 부품들의 동작을 하나의 기능으로 추상화한 예시 코드들을 볼 수 있습니다. 
-저는 책에서나 볼 수 있는 예시 코드보단 실제로 사용되는 케이스들은 어떤 것들이 있는지 궁금하였습니다. 
+퍼사드 패턴과 관련된 글들을 찾아보면 전자레인지, 컴퓨터 등등 여러 부품들의 동작을 하나의 기능으로 추상화한 예시 코드들을 볼 수 있다. 책에서나 볼 수 있는 예시 코드보단 실제로 사용되는 케이스들은 어떤 것들이 있는지 궁금하였다.
 
 ### 2.1. 이름만 "Facade"인 클래스
 
-Spring 프레임워크에서 이름에 `Facade`가 붙은 클래스들을 찾아봤지만, 단순한 래퍼(wrapper) 클래스들만 존재합니다. 
-디버깅할 때 자주 보이는 `RequestFacade`, `ResponseFacade` 모두 래퍼 클래스로 null 여부를 확인하는 로직만 추가되어 있습니다. 
+Spring 프레임워크에서 이름에 `Facade`가 붙은 클래스들을 찾아봤지만, 단순한 래퍼(wrapper) 클래스들만 존재한다. 디버깅할 때 자주 보이는 `RequestFacade`, `ResponseFacade` 모두 래퍼 클래스로 null 여부를 확인하는 로직만 추가되어 있다.
 
 #### 2.2.1. RequestFacade 클래스
 
-* org.apache.catalina.connector 패키지에 존재합니다.
-* Request 클래스를 감싼채 단순한 null 여부 확인만 추가 수행합니다.
+- org.apache.catalina.connector 패키지에 존재한다.
+- Request 클래스를 감싼채 단순한 null 여부 확인만 추가 수행한다.
 
 ```java
 public class RequestFacade implements HttpServletRequest {
 
     protected Request request = null;
-    
+
     protected static final StringManager sm = StringManager.getManager(RequestFacade.class);
 
     public RequestFacade(Request request) {
@@ -114,16 +105,14 @@ public class RequestFacade implements HttpServletRequest {
 
 ### 2.2. barcode4j 라이브러리
 
-Spring 프레임워크에서는 마음에 드는 예시 클래스를 찾지 못 했습니다. 
-적절한 사례를 찾던 중에 위의 `VideoConverter` 클래스에 대한 사례를 보고 이전에 사용했던 `barcode4j` 라이브러리가 생각났습니다. 
-[Problem to find images in spring boot application][cannot-find-static-resource-link] 포스트에서 소개했었는데 문자열을 이용해 바코드 이미지를 생성합니다. 
+Spring 프레임워크에서는 마음에 드는 예시 클래스를 찾지 못 했다. 적절한 사례를 찾던 중에 위의 `VideoConverter` 클래스에 대한 사례를 보고 이전에 사용했던 `barcode4j` 라이브러리가 생각났다. [스프링 부트 애플리케이션에서 이미지를 찾지 못하는 문제][cannot-find-static-resource-link] 포스트에서 소개했었는데 문자열을 이용해 바코드 이미지를 생성한다.
 
 #### 2.2.1. 사용 코드 예시
 
-* [Problem to find images in spring boot application][cannot-find-static-resource-link] 포스트의 예제입니다.
-* `Code128Bean` 클래스를 사용하며 바코드를 생성합니다.
-* `Code128Bean` 클래스는 `BitmapCanvasProvider` 클래스에 의존하여 바코드를 이미지로 생성합니다.
-* `BitmapCanvasProvider` 클래스는 전달받은 `OutputStream`을 통해 생성한 이미지를 출력합니다.
+- [스프링 부트 애플리케이션에서 이미지를 찾지 못하는 문제][cannot-find-static-resource-link] 포스트의 예제이다.
+- `Code128Bean` 클래스를 사용하며 바코드를 생성한다.
+- `Code128Bean` 클래스는 `BitmapCanvasProvider` 클래스에 의존하여 바코드를 이미지로 생성한다.
+- `BitmapCanvasProvider` 클래스는 전달받은 `OutputStream`을 통해 생성한 이미지를 출력한다.
 
 ```java
 @Log4j2
@@ -132,13 +121,13 @@ class BarcodeUtil {
     private final static int dpi = 100;
 
     public static String createBarcodeImage(String filePath, String value) {
-        
+
         String filName = UUID.randomUUID() + ".png";
-        
+
         Code128Bean bean = new Code128Bean();
         bean.setModuleWidth(UnitConv.in2mm(3.0f / dpi));
         bean.doQuietZone(false);
-        
+
         File folder = new File(filePath);
         if (!folder.exists()) {
             folder.mkdir();
@@ -160,10 +149,7 @@ class BarcodeUtil {
 
 #### 2.2.2. barcode4j 라이브러리 구조
 
-`Code128Bean` 클래스의 상속 구조를 보면 최상위 인터페이스는 `BarcodeGenerator`입니다. 
-사용자는 바코드 이미지를 그리기 위한 클래스들을 알 필요가 없습니다. 
-`BarcodeGenerator` 인터페이스의 구현체를 사용하면 쉽게 바코드 이미지를 생성할 수 있습니다. 
-`BarcodeGenerator` 인터페이스의 의존 관계들을 살펴보며 `barcode4j` 라이브러리는 어떤 구조인지 클래스 다이어그램을 통해 확인해보겠습니다.
+`Code128Bean` 클래스의 상속 구조를 보면 최상위 인터페이스는 `BarcodeGenerator`이다. 사용자는 바코드 이미지를 그리기 위한 클래스들을 알 필요가 없다. `BarcodeGenerator` 인터페이스의 구현체를 사용하면 쉽게 바코드 이미지를 생성할 수 있다. `BarcodeGenerator` 인터페이스의 의존 관계들을 살펴보며 `barcode4j` 라이브러리는 어떤 구조인지 클래스 다이어그램을 통해 확인해보겠다.
 
 ##### BarcodeGenerator 인터페이스
 
@@ -180,30 +166,28 @@ public interface BarcodeGenerator {
 }
 ```
 
-##### barcode4j 라이브러리 클래스 다이어그램 
+##### barcode4j 라이브러리 클래스 다이어그램
 
-* 라이브러리 전체가 아닌 예시 코드에서 사용한 클래스들과 연관된 부분들만 확인해보았습니다. 
-* `BarcodeGenerator` 인터페이스를 상속한 클래스와 이미지를 생성하기 위해 사용하는 클래스들입니다.
-* 이미지 왼쪽의 `Code128Encoder` 인터페이스는 바코드로 만들고 싶은 문자열을 숫자 배열로 인코딩(encoding)하는 역할을 수행합니다.
-* 이미지 가운데 `ClassicBarcodeLogicHandler` 인터페이스는 인코딩 된 숫자에 해당하는 바(bar)를 생성하는 역할을 수행합니다.
-* 이미지 오른쪽의 `Canvas` 클래스는 바 이미지를 그리는 역할을 수행합니다.
+- 라이브러리 전체가 아닌 예시 코드에서 사용한 클래스들과 연관된 부분들만 확인해보았다.
+- `BarcodeGenerator` 인터페이스를 상속한 클래스와 이미지를 생성하기 위해 사용하는 클래스들이다.
+- 이미지 왼쪽의 `Code128Encoder` 인터페이스는 바코드로 만들고 싶은 문자열을 숫자 배열로 인코딩(encoding)하는 역할을 수행한다.
+- 이미지 가운데 `ClassicBarcodeLogicHandler` 인터페이스는 인코딩 된 숫자에 해당하는 바(bar)를 생성하는 역할을 수행한다.
+- 이미지 오른쪽의 `Canvas` 클래스는 바 이미지를 그리는 역할을 수행한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/facade-pattern-03.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/facade-pattern-03.png" width="100%" class="image__border">
+</div>
 
 ## 3. BarcodeImageFacade 인터페이스 만들기
 
-`BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메서드를 제공하지만, 다소 아쉬운 부분이 있었습니다. 
-사용자가 바코드를 생성하려면 `CanvasProvider` 인터페이스도 함께 알아야한다는 점을 보완하고 싶었습니다. 
-[Problem to find images in spring boot application][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스와 간단한 화면을 만들어 보았습니다. 
+`BarcodeGenerator` 인터페이스도 훌륭하게 추상화 된 메서드를 제공하지만, 다소 아쉬운 부분이 있었다. 사용자가 바코드를 생성하려면 `CanvasProvider` 인터페이스도 함께 알아야 한다는 점을 보완하고 싶었다. [스프링 부트 애플리케이션에서 이미지를 찾지 못하는 문제][cannot-find-static-resource-link] 예제를 일부 변경하여 바코드 이미지를 만드는 인터페이스와 간단한 화면을 만들어 보았다.
 
 ### 3.1. BarcodeImageFacade 인터페이스
 
-* `OutputStream` 객체와 바코드로 만들고 싶은 문자열을 전달합니다. 
-* `BarcodeImageFacade` 객체는 전달받은 `OutputStream` 객체를 통해 바코드 이미지를 출력합니다.
-    * `FileOutputStream` 객체를 이용하면 파일 형태로 이미지를 출력합니다.
-    * `ServletOutputStream` 객체를 이용하면 HTTP 응답으로 이미지를 출력합니다.
+- `OutputStream` 객체와 바코드로 만들고 싶은 문자열을 전달한다.
+- `BarcodeImageFacade` 객체는 전달받은 `OutputStream` 객체를 통해 바코드 이미지를 출력한다.
+  - `FileOutputStream` 객체를 이용하면 파일 형태로 이미지를 출력한다.
+  - `ServletOutputStream` 객체를 이용하면 HTTP 응답으로 이미지를 출력한다.
 
 ```java
 package blog.in.action.barcode;
@@ -218,9 +202,9 @@ public interface BarcodeImageFacade {
 
 ### 3.2. DefaultBarcodeImageFacade 클래스
 
-* 기본적으로 만들어주는 바코드 이미지는 다음과 같습니다.
-    * `Code128` 형태의 바코드를 만듭니다.
-    * 비트맵 이미지를 생성합니다.
+- 기본적으로 만들어주는 바코드 이미지는 다음과 같다.
+  - `Code128` 형태의 바코드를 만든다.
+  - 비트맵 이미지를 생성한다.
 
 ```java
 package blog.in.action.barcode;
@@ -258,9 +242,9 @@ public class DefaultBarcodeImageFacade implements BarcodeImageFacade {
 
 ### 3.3. BlogController 클래스
 
-* 퍼사드 패턴이 제공하는 인터페이스가 필요한 사용자 클래스입니다.
-* 바코드와 관련된 의존성은 `BarcodeImageFacade` 인터페이스만 존재합니다.
-* `/barcode` 경로로 오는 요청에 대한 응답으로 바코드 이미지를 전달합니다.
+- 퍼사드 패턴이 제공하는 인터페이스가 필요한 사용자 클래스이다.
+- 바코드와 관련된 의존성은 `BarcodeImageFacade` 인터페이스만 존재한다.
+- `/barcode` 경로로 오는 요청에 대한 응답으로 바코드 이미지를 전달한다.
 
 ```java
 package blog.in.action.controller;
@@ -299,8 +283,8 @@ public class BlogController {
 
 ### 3.4. image.html
 
-* `DEFAULT` 문자열에 해당하는 바코드 이미지를 최초에 출력합니다.
-* 텍스트 박스를 통해 문장이 바뀔 때마다 `img` 태그의 `src` 값을 변경하여 이미지를 갱신합니다.
+- `DEFAULT` 문자열에 해당하는 바코드 이미지를 최초에 출력한다.
+- 텍스트 박스를 통해 문장이 바뀔 때마다 `img` 태그의 `src` 값을 변경하여 이미지를 갱신한다.
 
 ```html
 <!DOCTYPE html>
@@ -382,20 +366,20 @@ public class BlogController {
 
 ##### 바코드 이미지 만들기
 
-<p align="left">
-    <img src="{{ site.image_url_2022 }}/facade-pattern-04.gif" width="50%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2022 }}/facade-pattern-04.gif" width="50%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-07-03-facade-pattern>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-07-03-facade-pattern>
 
 #### REFERENCE
 
-* [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
-* <https://refactoring.guru/design-patterns/facade>
-* <https://imasoftwareengineer.tistory.com/29>
-* <https://www.yworks.com/yed-live/>
+- [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
+- <https://refactoring.guru/design-patterns/facade>
+- <https://imasoftwareengineer.tistory.com/29>
+- <https://www.yworks.com/yed-live/>
 
 [cannot-find-static-resource-link]: https://junhyunny.github.io/spring-boot/cannot-find-static-resource/
 [design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953

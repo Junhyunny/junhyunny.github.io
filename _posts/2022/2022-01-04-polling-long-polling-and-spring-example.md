@@ -1,10 +1,10 @@
 ---
-title: "Long polling in Spring"
+title: "스프링(Spring)에서 롱 폴링(Long Polling) 구현하기"
 search: false
 category:
   - information
   - spring-boot
-last_modified_at: 2022-01-04T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -61,7 +61,7 @@ last_modified_at: 2022-01-04T23:55:00
   - 메신저 같이 1 on 1, 혹은 적은 수의 사용자가 동시에 사용하는 경우
   - 예를 들어, Facebook 웹 채팅, Google 메신저, MSN 웹 메신저
 
-## 3. Implment long polling in Spring
+## 3. Implement long polling in Spring
 
 폴링은 스프링에서 별도로 추가적인 작업이 필요 없다. 롱 폴링은 어떻게 구현할까? 요청이 왔을 때 서버는 해당 요청을 즉시 처리하지 않는다. 타임 아웃이 발생하기 전까지 최대한 응답을 미룬다. 타임 아웃이 발생하기 전에 비동기적인 이벤트가 발생하면 해당 요청에 대한 응답을 보낸다. 
 
@@ -69,7 +69,7 @@ last_modified_at: 2022-01-04T23:55:00
 
 ### 2.1. DeferredResult Class
 
-비동기 처리를 위해 DeferredResult 클래스가 등장헀다. 스프링 3.2부터 사용할 수 있다. 처리가 길어지는 연산을 `http-worker` 스레드가 아닌 다른 별도 스레드에게 분산하기 위해 사용한다. 
+비동기 처리를 위해 DeferredResult 클래스가 등장했다. 스프링 3.2부터 사용할 수 있다. 처리가 길어지는 연산을 `http-worker` 스레드가 아닌 다른 별도 스레드에게 분산하기 위해 사용한다. 
 
 > Guide to DeferredResult in Spring<br/>
 > DeferredResult, available from Spring 3.2 onwards, 
@@ -93,7 +93,7 @@ last_modified_at: 2022-01-04T23:55:00
 
 ### 2.2. DeferredResultController Class
 
-특정 이벤트에 의해 컨트롤러에서 반환된 DeferredResult 객체의 상태를 변경해야 한다. 그렇므로 컨트롤러에서 반환하는 DeferredResult 객체를 임시로 보관할 필요가 있다. 이번 예제에선 ConcurrentHashMap 객체에 임시로 보관한다.
+특정 이벤트에 의해 컨트롤러에서 반환된 DeferredResult 객체의 상태를 변경해야 한다. 그러므로 컨트롤러에서 반환하는 DeferredResult 객체를 임시로 보관할 필요가 있다. 이번 예제에선 ConcurrentHashMap 객체에 임시로 보관한다.
 
 1. 메모리 누수가 발생할 수 있으니 다음과 같은 경우에 참조를 끊는다.
   - 이벤트 처리 완료

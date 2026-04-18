@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - redis
-last_modified_at: 2025-10-09T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -26,7 +26,7 @@ last_modified_at: 2025-10-09T00:00:00
 
 다음과 같은 실습 환경을 구축했다.
 
-- 사용자는 서비스를 통해 다른 사용자를 초대(inviation)할 수 있다.
+- 사용자는 서비스를 통해 다른 사용자를 초대(invitation)할 수 있다.
   - `/invitation` 경로
   - 초대 이벤트가 발생하면 초대받은 사람에게 메시지가 전송된다.
 - 사용자는 자신이 다른 사용자를 초대했던 내용을 취소할 수 있다.
@@ -136,7 +136,7 @@ spring:
 
 `RedisTemplate` 빈(bean) 객체를 생성한다.
 
-- 레디스 커낵션(connection)을 생성하는 팩토리 빈을 생성한다.
+- 레디스 커넥션(connection)을 생성하는 팩토리 빈을 생성한다.
   - `LettuceConnectionFactory` 클래스를 사용한다.
   - [Jedis 보다 Lettuce 를 쓰자][redis-connection-pool-performance-link]
 - 레디스에 객체를 `JSON` 형태로 저장할 수 있도록 `ValueSerializer` 빈을 생성한다.
@@ -369,7 +369,7 @@ public class UserController {
 
 ### 2.5. RedisUserMessageProxy Class
 
-이벤트를 수신할 수 있는 프록시 객체를 생성한다. RedisTemlate 객체를 통해 메시지를 수신한다.
+이벤트를 수신할 수 있는 프록시 객체를 생성한다. RedisTemplate 객체를 통해 메시지를 수신한다.
 
 - `ID`에 해당하는 메시지를 수신한다.
 - 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메서드를 사용한다.

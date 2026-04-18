@@ -5,14 +5,14 @@ category:
   - information
   - infrastructure
   - dev-ops
-last_modified_at: 2023-06-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-데브옵스(DevOps)나 인프라스트럭처(infrastructure) 엔지니어는 아니지만, 테라폼에 관련된 공부를 할 필요가 생겼다. 이번 글에선 자동화 프로비저닝(provisioning) 도구인 테라폼(terraform)을 가볍게 소개한다.
+데브옵스(DevOps, Development and Operations)나 인프라스트럭처(infrastructure) 엔지니어는 아니지만, 테라폼에 관련된 공부를 할 필요가 생겼다. 이번 글에선 자동화 프로비저닝(provisioning) 도구인 테라폼(terraform)을 가볍게 소개한다.
 
 ## 1. Provisioning
 
@@ -63,9 +63,9 @@ last_modified_at: 2023-06-03T23:55:00
 - Infrastructure as Code
   - 인프라스트럭처를 코드로 정의할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/introduction-terraform-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 3.1. What does Terraform make it better?
 
@@ -86,9 +86,9 @@ last_modified_at: 2023-06-03T23:55:00
   - 코드 자체가 인프라스트럭처를 표현하고 있으므로 별도의 문서 작업이 불필요하다.
   - 간단한 코드 변경과 적용으로 인프라를 유연하게 변경할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/introduction-terraform-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 3.2. How to use Terraform?
 
@@ -109,9 +109,9 @@ last_modified_at: 2023-06-03T23:55:00
   - 코드로 정의한 인프라스트럭처를 실제 클라우드에 반영한다.
   - `tfstate` 파일과 실제 클라우드의 리소스 상태를 비교하여 변경 내용만 반영한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/introduction-terraform-03.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 4. Example
 
@@ -368,9 +368,9 @@ new-instance-public-ip = "54.172.203.53"
 
 - 코드로 정의한 리소스가 생성된 것을 확인할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/introduction-terraform-04.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## CLOSING
 
@@ -388,7 +388,7 @@ new-instance-public-ip = "54.172.203.53"
 
 #### RECOMMEND NEXT POSTS
 
-- [Create VPC in AWS with Terraform][create-vpc-in-aws-with-terraform-link]
+- [테라폼(Terraform) AWS VPC 생성하기][create-vpc-in-aws-with-terraform-link]
 
 #### REFERENCE
 

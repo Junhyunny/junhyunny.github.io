@@ -1,18 +1,18 @@
 ---
-title: "Slide In/Out Effect"
+title: "슬라이드 인/아웃 효과(Slide In/Out Effect)"
 search: false
 category:
   - html
   - css
   - javascript
-last_modified_at: 2022-04-27T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. Slide In/Out 효과
- 
-컴포넌트가 아래에서 위 방향 슬라이드(slide)로 등장하고, 사라질 때 위에서 아래로 내려가는 효과입니다.
+
+컴포넌트가 아래에서 위 방향 슬라이드(slide)로 등장하고, 사라질 때 위에서 아래로 내려가는 효과이다.
 
 ### 1.1. HTML 코드
 
@@ -37,8 +37,8 @@ last_modified_at: 2022-04-27T23:55:00
 
 ### 1.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-- 설명에 대한  내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 
 ```css
@@ -154,10 +154,10 @@ last_modified_at: 2022-04-27T23:55:00
 ### 1.3. JavaScript 코드
 
 - `openButton` 클릭 이벤트
-    - `slide` 컴포넌트의 `on` 클래스를 추가합니다.
+  - `slide` 컴포넌트의 `on` 클래스를 추가한다.
 - `closeButton` 클릭 이벤트
-    - `slide` 컴포넌트의 `off` 클래스를 추가합니다.
-    - 타이머를 이용해 애니메이션이 끝나는 시점에 `slide` 컴포넌트의 `on`, `off` 클래스를 제거합니다.
+  - `slide` 컴포넌트의 `off` 클래스를 추가한다.
+  - 타이머를 이용해 애니메이션이 끝나는 시점에 `slide` 컴포넌트의 `on`, `off` 클래스를 제거한다.
 
 ```javascript
 const slide = document.querySelector(".slide");

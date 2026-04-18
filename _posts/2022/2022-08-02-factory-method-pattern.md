@@ -1,10 +1,10 @@
 ---
-title: "Factory Method Pattern"
+title: "팩토리 메서드 패턴(Factory Method Pattern)"
 search: false
 category:
-    - information
-    - design-pattern
-last_modified_at: 2022-08-02T23:55:00
+  - information
+  - design-pattern
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -14,9 +14,7 @@ last_modified_at: 2022-08-02T23:55:00
 > [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
 > 객체를 생성하기 위해 인터페이스를 정의하지만, 어떤 클래스의 인스턴스를 생성할지에 대한 결정은 서브 클래스가 내리도록 합니다.
 
-인터넷의 팩토리 메서드 패턴과 관련된 글들을 읽어보면 팩토리 클래스를 만들고 이를 사용하는 예시가 많습니다. 
-[Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]의 저자가 팩토리 메서드 패턴의 활용성에 대해 작성한 내용을 보면 팩토리 클래스보단 메서드를 사용하는 클래스 관점에서 해당 패턴을 정리했다는 느낌이 들었습니다. 
-저도 같은 시각에서 이해해보고자 노력하면서 글을 작성하였습니다.
+인터넷의 팩토리 메서드 패턴과 관련된 글들을 읽어보면 팩토리 클래스를 만들고 이를 사용하는 예시가 많다. [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]의 저자가 팩토리 메서드 패턴의 활용성에 대해 작성한 내용을 보면 팩토리 클래스보단 메서드를 사용하는 클래스 관점에서 해당 패턴을 정리했다는 느낌이 들었다. 같은 시각에서 이해해보고자 노력하면서 글을 작성하였다.
 
 > 팩토리 메서드 패턴 활용성 - [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>
 > 팩토리 메서드는 다음과 같은 상황에 사용합니다.<br/>
@@ -26,36 +24,35 @@ last_modified_at: 2022-08-02T23:55:00
 
 ### 1.1. 팩토리 메서드 패턴 구조
 
-팩토리 메서드 패턴에 참여하는 클래스들은 다음과 같습니다.
+팩토리 메서드 패턴에 참여하는 클래스들은 다음과 같다.
 
-* Product - 팩토리 메서드가 생성하는 객체의 인터페이스를 정의합니다.
-* ConcreteProduct - Product 인터페이스를 실제로 구현한 클래스입니다.
-* Creator - Product 타입의 객체를 반환하는 팩토리 메서드를 선언한 클래스(혹은 인터페이스)입니다.
-* ConcreteCreator - Creator 클래스를 상속받아, 팩토리 메서드를 재구현하는 클래스입니다.
+- Product - 팩토리 메서드가 생성하는 객체의 인터페이스를 정의한다.
+- ConcreteProduct - Product 인터페이스를 실제로 구현한 클래스다.
+- Creator - Product 타입의 객체를 반환하는 팩토리 메서드를 선언한 클래스(혹은 인터페이스)다.
+- ConcreteCreator - Creator 클래스를 상속받아, 팩토리 메서드를 재구현하는 클래스다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/factory-method-pattern-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/factory-method-pattern-01.png" width="80%" class="image__border">
+</div>
 <center>https://dev-youngjun.tistory.com/195</center>
 
 ### 1.2. 팩토리 메서드 패턴 장단점
 
-다음과 같은 장단점이 존재합니다.
+다음과 같은 장단점이 존재한다.
 
-* 장점
-    * Creator 클래스를 변경하지 않고, Creator 클래스의 구현체 클래스를 새롭게 정의함으로써 시스템을 확장할 수 있습니다.
-* 단점
-    * 간단한 코드임에도 클래스가 많아질 수 있습니다.
+- 장점
+  - Creator 클래스를 변경하지 않고, Creator 클래스의 구현체 클래스를 새롭게 정의함으로써 시스템을 확장할 수 있다.
+- 단점
+  - 간단한 코드임에도 클래스가 많아질 수 있다.
 
 ## 2. 팩토리 메서드 패턴 연습하기
 
-팩토리 메서드 패턴에 대한 이해도를 높이고자 간단한 예시 코드를 작성해보았습니다. 
-물류 운송 시스템을 운영 중인 개발자A가 있습니다.
+팩토리 메서드 패턴에 대한 이해도를 높이고자 간단한 예시 코드를 작성해보았다. 물류 운송 시스템을 운영 중인 개발자A가 있다.
 
-* 운송 수단을 예약하는 `TransportManager` 클래스를 관리하고 있습니다.
-* 최근 사업 확장으로 운송 수단의 종류가 다양해지면서 다른 팀으로부터 신규 운송 수단에 대한 예약 기능을 추가해달라는 요구가 빈번합니다.
-* 개발자A는 기존에 시스템에 최대한 영향을 주고 싶지 않습니다. 
-* 개발자A는 앞으로 예약 기능이 아닌 운송 수단 추가를 위해 `TransportManager` 클래스를 변경하고 싶지 않습니다.
+- 운송 수단을 예약하는 `TransportManager` 클래스를 관리하고 있다.
+- 최근 사업 확장으로 운송 수단의 종류가 다양해지면서 다른 팀으로부터 신규 운송 수단에 대한 예약 기능을 추가해달라는 요구가 빈번하다.
+- 개발자A는 기존 시스템에 최대한 영향을 주고 싶지 않다.
+- 개발자A는 앞으로 예약 기능이 아닌 운송 수단 추가를 위해 `TransportManager` 클래스를 변경하고 싶지 않다.
 
 ### 2.1. 기존 코드
 
@@ -78,7 +75,7 @@ public abstract class Transport {
 
 #### 2.1.2. Transport 구현 클래스
 
-* 일반 트럭과 비행기 클래스가 있습니다.
+- 일반 트럭과 비행기 클래스가 있다.
 
 ```java
 package action.in.blog.domain.transport;
@@ -104,8 +101,8 @@ public class AirPlane extends Transport {
 
 ### 2.1.3. TransportManager 클래스
 
-* 기존 시스템에선 일반 트럭과 비행기만 예약 기능을 제공했습니다.
-* 운송 수단을 예약하고, 이를 반환합니다.
+- 기존 시스템에선 일반 트럭과 비행기만 예약 기능을 제공했다.
+- 운송 수단을 예약하고, 이를 반환한다.
 
 ```java
 package action.in.blog.domain;
@@ -137,14 +134,14 @@ public class TransportManager {
 
 ### 2.2. 시스템 변경
 
-추가될 운송 수단은 다음과 같습니다.
+추가될 운송 수단은 다음과 같다.
 
-* 지상 운송 - 트레일러 차량
-* 해상 운송 - 벌크 선박, 컨테이너 선박
+- 지상 운송 - 트레일러 차량
+- 해상 운송 - 벌크 선박, 컨테이너 선박
 
 #### 2.2.1. 운송 수단 클래스 추가
 
-* 트레일러 차량, 벌크 선박, 컨테이너 선박 클래스를 생성합니다.
+- 트레일러 차량, 벌크 선박, 컨테이너 선박 클래스를 생성한다.
 
 ```java
 package action.in.blog.domain.transport;
@@ -179,7 +176,7 @@ public class ContainerShip extends Transport {
 
 #### 2.2.2. TransportManager 클래스
 
-* 구현체 클래스들이 상속받을 수 있도록 `getTransport` 메서드의 접근 제어자를 `protected`로 변경합니다.
+- 구현체 클래스들이 상속받을 수 있도록 `getTransport` 메서드의 접근 제어자를 `protected`로 변경한다.
 
 ```java
 package action.in.blog.domain;
@@ -209,9 +206,9 @@ public class TransportManager {
 }
 ```
 
-#### 2.2.3 RoadTransportManager 클래스 
+#### 2.2.3 RoadTransportManager 클래스
 
-* 지상 운송과 관련된 운송 수단 객체들을 만듭니다.
+- 지상 운송과 관련된 운송 수단 객체들을 만든다.
 
 ```java
 package action.in.blog.domain;
@@ -238,7 +235,7 @@ public class RoadTransportManager extends TransportManager {
 
 #### 2.2.4. ShipTransportManager 클래스
 
-* 해상 운송과 관련된 운송 수단 객체들을 만듭니다.
+- 해상 운송과 관련된 운송 수단 객체들을 만든다.
 
 ```java
 package action.in.blog.domain;
@@ -265,7 +262,7 @@ public class ShipTransportManager extends TransportManager {
 
 #### 2.2.5. AirTransportManager 클래스
 
-* 항공 운송과 관련된 운송 수단 객체를 만듭니다.
+- 항공 운송과 관련된 운송 수단 객체를 만든다.
 
 ```java
 package action.in.blog.domain;
@@ -289,8 +286,8 @@ public class AirTransportManager extends TransportManager {
 
 ### 2.4. 테스트 코드
 
-* 기존 `TransportManager` 클래스가 신규 운송 수단은 지원하지 않는지 확인합니다.
-* `TransportManager` 클래스를 구현한 신규 매니저들이 적절한 운송 수단만 지원하는지 확인합니다.
+- 기존 `TransportManager` 클래스가 신규 운송 수단은 지원하지 않는지 확인한다.
+- `TransportManager` 클래스를 구현한 신규 매니저들이 적절한 운송 수단만 지원하는지 확인한다.
 
 ```java
 package action.in.blog.domain;
@@ -443,32 +440,32 @@ public class TransportManagerTests {
 
 ## 3. SOLID 원칙과 팩토리 메서드 패턴
 
-팩토리 메서드 패턴이 적용되면서 SOLID 원칙 중 어떤 원칙들이 개선되는지 고민해보았습니다. 
+팩토리 메서드 패턴이 적용되면서 SOLID 원칙 중 어떤 원칙들이 개선되는지 고민해보았다.
 
-* 단일 책임 원칙(SRP, Single Responsibility Principle) 
-    * 한 클래스는 하나의 책임만 가져야 한다.
-    * 해당 클래스를 변경하기 위한 이유는 한 가지만 존재해야 한다.
-* 개방-폐쇄 원칙(OCP, Open-Close Priniciple) 
-    * 확장에는 열려 있으나 수정에는 닫혀 있어야 한다.
-* 리스코프 치환 원칙(LSP, Liskov Substitution Principle) 
-    * 프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 한다.
-* 인터페이스 분리 원칙 (ISP, Interface Segregation Principle) 
-    * 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 낫다.
-* 의존관계 역전 원칙 (DIP, Dependency Inversion Principle) 
-    * 추상화에 의존해야지, 구체화에 의존하면 안된다.
+- 단일 책임 원칙(SRP, Single Responsibility Principle)
+  - 한 클래스는 하나의 책임만 가져야 한다.
+  - 해당 클래스를 변경하기 위한 이유는 한 가지만 존재해야 한다.
+- 개방-폐쇄 원칙(OCP, Open-Close Priniciple)
+  - 확장에는 열려 있으나 수정에는 닫혀 있어야 한다.
+- 리스코프 치환 원칙(LSP, Liskov Substitution Principle)
+  - 프로그램의 객체는 프로그램의 정확성을 깨뜨리지 않으면서 하위 타입의 인스턴스로 바꿀 수 있어야 한다.
+- 인터페이스 분리 원칙 (ISP, Interface Segregation Principle)
+  - 특정 클라이언트를 위한 인터페이스 여러 개가 범용 인터페이스 하나보다 낫다.
+- 의존관계 역전 원칙 (DIP, Dependency Inversion Principle)
+  - 추상화에 의존해야지, 구체화에 의존하면 안 된다.
 
 ### 3.1. TransportManager 클래스와 RoadTransportManager 클래스
 
-`TransportManager` 클래스와 하위 타입 중 `RoadTransportManager` 클래스를 대표로 예를 들어 작성하였습니다.
+`TransportManager` 클래스와 하위 타입 중 `RoadTransportManager` 클래스를 대표로 예를 들어 작성하였다.
 
-* 단일 책임 원칙
-    * `TransportManager` 클래스는 운송 수단 예약과 관련된 로직 변경이 있을 때를 제외하곤 코드가 변경될 일이 없습니다.
-    * `RoadTransportManager` 클래스는 지상 운송 수단이 추가되는 것을 제외하곤 코드가 변경될 일이 없습니다.
-* 개방-폐쇄 원칙
-    * 운송 수단이 늘어남에 따라 `TransportManager` 클래스의 변경 없이 새로운 하위 타입 클래스를 만들어 기능을 확장할 수 있습니다.
-* 리스코프 치환 원칙
-    * 기존 `TransportManager` 클래스를 사용 중이던 코드를 적절한 하위 타입 클래스로 변경할 수 있습니다.
-    * 기존 코드를 모두 적절한 하위 타입 클래스로 변경하면, `getTransport` 메서드를 추상 메서드, `TransportManager` 클래스를 추상 클래스로 변경할 수 있습니다.
+- 단일 책임 원칙
+  - `TransportManager` 클래스는 운송 수단 예약과 관련된 로직 변경이 있을 때를 제외하곤 코드가 변경될 일이 없다.
+  - `RoadTransportManager` 클래스는 지상 운송 수단이 추가되는 것을 제외하곤 코드가 변경될 일이 없다.
+- 개방-폐쇄 원칙
+  - 운송 수단이 늘어남에 따라 `TransportManager` 클래스의 변경 없이 새로운 하위 타입 클래스를 만들어 기능을 확장할 수 있다.
+- 리스코프 치환 원칙
+  - 기존 `TransportManager` 클래스를 사용 중이던 코드를 적절한 하위 타입 클래스로 변경할 수 있다.
+  - 기존 코드를 모두 적절한 하위 타입 클래스로 변경하면, `getTransport` 메서드를 추상 메서드, `TransportManager` 클래스를 추상 클래스로 변경할 수 있다.
 
 ```java
 public class TransportManager {
@@ -509,14 +506,14 @@ public class RoadTransportManager extends TransportManager {
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-02-factory-method-pattern>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-08-02-factory-method-pattern>
 
 #### REFERENCE
 
-* [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
-* <https://en.wikipedia.org/wiki/Factory_method_pattern>
-* <https://refactoring.guru/design-patterns/factory-method>
-* <https://refactoring.guru/design-patterns/factory-method/java/example>
-* <https://dev-youngjun.tistory.com/195>
+- [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
+- <https://en.wikipedia.org/wiki/Factory_method_pattern>
+- <https://refactoring.guru/design-patterns/factory-method>
+- <https://refactoring.guru/design-patterns/factory-method/java/example>
+- <https://dev-youngjun.tistory.com/195>
 
 [design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953

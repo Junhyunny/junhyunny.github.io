@@ -1,11 +1,11 @@
 ---
-title: Redis Publisher and Subscriber with Spring Boot
+title: "스프링 부트(Spring Boot)로 Redis 발행자(Publisher)와 구독자(Subscriber) 구현하기"
 search: false
 category:
   - java
   - spring-boot
   - redis
-last_modified_at: 2024-02-10T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -53,9 +53,9 @@ tasks.named('test') {
 2. 발행자 서비스는 레디스로 이벤트 로그를 전달한다.
 3. 구독자 서비스는 레디스로부터 이벤트 로그를 전달받는다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 1. Implement Publisher Service
 
@@ -261,9 +261,9 @@ public interface MessageListener {
 - EventSubscriber 인터페이스에는 channelName 메서드가 존재하며 구독자 객체가 구독할 채널 이름을 제공한다.
 - 각 채널 별로 비즈니스 로직을 처리하기 위한 구독자 구현 클래스들이 존재한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 2.2.1. EventSubscriber Interface
 
@@ -466,9 +466,9 @@ $ docker-compose up -d
 - 하나의 터미널에선 발행자 서비스로 API 요청을 수행한다.
 - 또 다른 터미널에선 구독자 서비스 컨테이너의 로그를 확인한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-03.gif" width="100%" class="image__border">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

@@ -1,10 +1,10 @@
 ---
-title: "@ObservedObject and @StateObject in SwiftUI"
+title: "SwiftUI의 @ObservedObject와 @StateObject"
 search: false
 category:
   - iOS
   - swift-ui
-last_modified_at: 2024-04-20T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -123,9 +123,9 @@ struct MySubView: View {
 - 자식 컴포넌트의 `+` 버튼을 누르면 각 컴포넌트의 숫자가 증가한다.
 - 부모 컴포넌트의 `change state` 버튼을 누르면 부모 컴포넌트의 플래그가 변경된다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/state-object-vs-observed-object-01.png" width="40%" class="image__border">
-</p>
+</div>
 
 ### 2.2. ContentView View
 
@@ -253,9 +253,9 @@ extension StateClickCount {
 - ObservedClickCount 컴포넌트는 부모 컴포넌트의 상태가 변경될 때 초기화된다.
 - StateClickCount 컴포넌트는 부모 컴포넌트의 상태가 변경되더라도 초기화되지 않는다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/state-object-vs-observed-object-02.gif" width="30%" class="image__border">
-</p>
+</div>
 
 ## CLOSING
 

@@ -1,103 +1,96 @@
 ---
-title: "Replication in Redis"
+title: "Redis의 레플리케이션"
 search: false
 category:
   - spring-boot
   - redis
-last_modified_at: 2023-02-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Embedded Redis Server][embedded-redis-server-link]
-* [Using RedisTemplate on Spring Boot][using-redis-template-on-spring-boot-link]
-* [Patterns for Cache][patterns-for-cache-link]
+- [Embedded Redis Server][embedded-redis-server-link]
+- [Using RedisTemplate on Spring Boot][using-redis-template-on-spring-boot-link]
+- [Patterns for Cache][patterns-for-cache-link]
 
 ## 0. 들어가면서
 
-레디스(redis) 같은 캐시 서비스를 사용할 때 고가용성(high availability)에 대한 고민이 필요합니다. 
-단일 인스턴스로 구성된 캐시 서버에 잠깐이라도 장애가 발생하면 전체 시스템이 마비될 수 있습니다. 
+레디스(redis) 같은 캐시 서비스를 사용할 때 고가용성(high availability)에 대한 고민이 필요하다. 단일 인스턴스로 구성된 캐시 서버에 잠깐이라도 장애가 발생하면 전체 시스템이 마비될 수 있다.
 
-* 예기치 서비스 인프라 장애가 발생하더라도 사용자에게 중단 없이 서비스를 제공할 수 있습니다. 
-* 특정 서비스의 장애가 시스템 전체로 전파되는 위험을 최소화합니다.
+- 예기치 서비스 인프라 장애가 발생하더라도 사용자에게 중단 없이 서비스를 제공할 수 있다.
+- 특정 서비스의 장애가 시스템 전체로 전파되는 위험을 최소화한다.
 
 ## 1. Replication in Redis
 
-레플리케이션(replication)은 레디스의 고가용성 구축을 위한 전략 중 하나입니다. 
+레플리케이션(replication)은 레디스의 고가용성 구축을 위한 전략 중 하나다.
 
-* 마스터(master) 인스턴스와 슬레이브(slave) 인스턴스들로 구성됩니다.
-    * 마스터는 여러 개의 슬레이브 인스턴스를 가질 수 있습니다.
-    * 슬레이브도 자신을 복제하기 위한 또 다른 슬레이브 인스턴스를 가질 수 있습니다.
-* 클라이언트(client)는 마스터 인스턴스를 통해 읽기(read), 쓰기(write)가 가능합니다.
-* 마스터 인스턴스에 저장된 데이터는 슬레이브 인스턴스에 주기적으로 동기화(syncronize)됩니다.
-* 마스터 인스턴스에 문제가 발생하는 경우 이를 슬레이브 인스턴스가 대체합니다.
-    * 슬레이브 인스턴스는 읽기 연산에 대해서만 정상적인 동작을 보장합니다.
-    * 레디스 버전 2.6부터 슬레이브 인스턴스는 기본적으로 읽기 전용입니다.
-    * `redis.conf` 설정 파일의 `replica-read-only` 옵션으로 통해 변경 가능합니다.
+- 마스터(master) 인스턴스와 슬레이브(slave) 인스턴스들로 구성된다.
+  - 마스터는 여러 개의 슬레이브 인스턴스를 가질 수 있다.
+  - 슬레이브도 자신을 복제하기 위한 또 다른 슬레이브 인스턴스를 가질 수 있다.
+- 클라이언트(client)는 마스터 인스턴스를 통해 읽기(read), 쓰기(write)가 가능하다.
+- 마스터 인스턴스에 저장된 데이터는 슬레이브 인스턴스에 주기적으로 동기화(synchronize)된다.
+- 마스터 인스턴스에 문제가 발생하는 경우 이를 슬레이브 인스턴스가 대체한다.
+  - 슬레이브 인스턴스는 읽기 연산에 대해서만 정상적인 동작을 보장한다.
+  - 레디스 버전 2.6부터 슬레이브 인스턴스는 기본적으로 읽기 전용이다.
+  - `redis.conf` 설정 파일의 `replica-read-only` 옵션으로 통해 변경 가능하다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/replication-in-redis-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/replication-in-redis-01.png" width="80%" class="image__border">
+</div>
 <center>https://www.vinsguru.com/redis-master-slave-with-spring-boot/</center>
 
 ### 1.1. How to synchronize?
 
-레디스는 비동기(asynchronous) 복제를 수행합니다. 
-전체 동기화(full synchronization)은 다음과 같은 순서로 이뤄집니다. 
+레디스는 비동기(asynchronous) 복제를 수행한다. 전체 동기화(full synchronization)은 다음과 같은 순서로 이뤄진다.
 
-1. 마스터는 자식 프로세스를 시작해 백그라운드(background)로 RDB파일에 데이터를 저장합니다.
-1. 데이터를 저장하는 동안 마스터에 새로 들어온 명령들은 처리 후 복제 버퍼에 저장됩니다.
-1. RDB 파일 저장이 완료되면, 마스터는 파일을 복제 서버에게 전송합니다.
-1. 복제 서버는 파일을 받아 디스크에 저장하고, 메모리로 로드합니다.
-1. 마스터는 복제 버퍼에 저장된 명령을 복제 서버에게 전송합니다.
+1. 마스터는 자식 프로세스를 시작해 백그라운드(background)로 RDB파일에 데이터를 저장한다.
+2. 데이터를 저장하는 동안 마스터에 새로 들어온 명령들은 처리 후 복제 버퍼에 저장된다.
+3. RDB 파일 저장이 완료되면, 마스터는 파일을 복제 서버에게 전송한다.
+4. 복제 서버는 파일을 받아 디스크에 저장하고, 메모리로 로드한다.
+5. 마스터는 복제 버퍼에 저장된 명령을 복제 서버에게 전송한다.
 
-마스터와 슬레이브가 일정 시간 연결이 끊긴 경우 부분 동기화를 수행합니다. 
-만약, 장시간 동안 동기화 실패로 부분 동기화가 어려운 경우 전체 동기화를 수행합니다.
+마스터와 슬레이브가 일정 시간 연결이 끊긴 경우 부분 동기화를 수행한다. 만약, 장시간 동안 동기화 실패로 부분 동기화가 어려운 경우 전체 동기화를 수행한다.
 
 ## 2. Practice
 
 ### 2.1. Context of Practice
 
-간단한 시나리오를 바탕으로 애플리케이션 구현과 레디스 레플리케이션을 구축해보겠습니다.
+간단한 시나리오를 바탕으로 애플리케이션 구현과 레디스 레플리케이션을 구축해보겠다.
 
-* 애플리케이션 화면을 통해 간단한 메시지를 전송합니다.
-* 전송한 메시지는 레디스 마스터 인스턴스의 리스트(list)에 저장됩니다.
-* 리스트는 두 종류가 있습니다.
-    * 읽지 않은 메시지들을 저장하는 리스트
-    * 읽은 메시지들을 저장하는 리스트
-* 메인 화면에서 API 호출을 통해 읽지 않은 메시지가 몇 개인지 확인할 수 있습니다.
-* 리스트 별 메시지 현황을 볼 수 있는 화면에서 각 리스트에 담긴 메시지를 확인할 수 있습니다.
-    * 왼쪽은 읽지 않은 메시지 리스트입니다.
-    * 오른쪽은 읽은 메시지 리스트입니다.
-    * 해당 화면을 새로고침하거나 메인 화면에서 다시 진입하면 읽은 메시지들은 모두 오른쪽으로 이동합니다.
+- 애플리케이션 화면을 통해 간단한 메시지를 전송한다.
+- 전송한 메시지는 레디스 마스터 인스턴스의 리스트(list)에 저장된다.
+- 리스트는 두 종류가 있다.
+  - 읽지 않은 메시지들을 저장하는 리스트
+  - 읽은 메시지들을 저장하는 리스트
+- 메인 화면에서 API 호출을 통해 읽지 않은 메시지가 몇 개인지 확인할 수 있다.
+- 리스트 별 메시지 현황을 볼 수 있는 화면에서 각 리스트에 담긴 메시지를 확인할 수 있다.
+  - 왼쪽은 읽지 않은 메시지 리스트이다.
+  - 오른쪽은 읽은 메시지 리스트이다.
+  - 해당 화면을 새로고침하거나 메인 화면에서 다시 진입하면 읽은 메시지들은 모두 오른쪽으로 이동한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/replication-in-redis-02.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/replication-in-redis-02.png" width="100%" class="image__border">
+</div>
 
 ### 2.2. Focus this point
 
-테스트를 통해 다음 내용을 유의 깊게 살펴봅니다. 
-읽기 기능은 리스트의 상태를 바꾸지 않는 연산입니다. 
-반대로 쓰기 기능은 리스트의 상태를 바꾸는 연산입니다. 
+테스트를 통해 다음 내용을 유의 깊게 살펴본다. 읽기 기능은 리스트의 상태를 바꾸지 않는 연산이다. 반대로 쓰기 기능은 리스트의 상태를 바꾸는 연산이다.
 
-* 메인 화면에서 읽지 않은 메시지 개수를 조회하는 기능은 읽기입니다.
-* 새로운 메시지를 작성하는 기능은 쓰기 연산입니다.
-* 메시지 리스트 현황 화면으로 이동할 때 쓰기 연산이 발생합니다.
-    * 읽지 않은 메시지 리스트에서 메시지들을 모두 꺼내어(pop) 읽은 메시지 리스트로 이동합니다.
-* 마스터 인스턴스를 중지시켰을 때 다음 내용들을 예상합니다.
-    * 읽기 연산이 가능한 메인 화면 새로고침은 정상적으로 동작합니다.
-    * 새로운 메시지를 작성 후 전송 버튼을 누르면 쓰기 연산이므로 정상 동작하지 않습니다.
-    * 리스트 상황 페이지로 이동하면 쓰기 연산이 발생하므로 정상 동작하지 않습니다.
-* 슬레이브 인스턴스를 중지시켰을 때 모든 기능이 정상적으로 동작하는 것을 예상합니다.
+- 메인 화면에서 읽지 않은 메시지 개수를 조회하는 기능은 읽기이다.
+- 새로운 메시지를 작성하는 기능은 쓰기 연산이다.
+- 메시지 리스트 현황 화면으로 이동할 때 쓰기 연산이 발생한다.
+  - 읽지 않은 메시지 리스트에서 메시지들을 모두 꺼내어(pop) 읽은 메시지 리스트로 이동한다.
+- 마스터 인스턴스를 중지시켰을 때 다음 내용들을 예상한다.
+  - 읽기 연산이 가능한 메인 화면 새로고침은 정상적으로 동작한다.
+  - 새로운 메시지를 작성 후 전송 버튼을 누르면 쓰기 연산이므로 정상 동작하지 않는다.
+  - 리스트 상황 페이지로 이동하면 쓰기 연산이 발생하므로 정상 동작하지 않는다.
+- 슬레이브 인스턴스를 중지시켰을 때 모든 기능이 정상적으로 동작하는 것을 예상한다.
 
 ## 3. Implementation
 
-사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용하였습니다. 
-지금부터 구현 코드와 설정들을 살펴보겠습니다. 
-모든 클래스들을 살펴보진 않고, 중요한 기능들만 살펴보겠습니다.
+사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용하였다. 지금부터 구현 코드와 설정들을 살펴보겠다. 모든 클래스들을 살펴보진 않고, 중요한 기능들만 살펴보겠다.
 
 ### 3.1. Packages
 
@@ -105,40 +98,40 @@ last_modified_at: 2023-02-21T23:55:00
 ./
 ├── Dockerfile
 ├── conf
-│   ├── redis-master.conf
-│   ├── redis-slave-1.conf
-│   ├── redis-slave-2.conf
-│   └── redis.conf
+│   ├── redis-master.conf
+│   ├── redis-slave-1.conf
+│   ├── redis-slave-2.conf
+│   └── redis.conf
 ├── docker-compose-replication.yml
 ├── mvnw
 ├── mvnw.cmd
 ├── pom.xml
 ├── shell
-│   └── redis-replication.sh
+│   └── redis-replication.sh
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.java
-    │   │               ├── client
-    │   │               │   ├── MessageClient.java
-    │   │               │   └── RedisMessageClient.java
-    │   │               ├── config
-    │   │               │   ├── RedisConfiguration.java
-    │   │               │   └── RedisTemplateConfig.java
-    │   │               ├── controller
-    │   │               │   └── RedisController.java
-    │   │               └── domain
-    │   │                   ├── Message.java
-    │   │                   ├── MessageGroup.java
-    │   │                   └── Queue.java
-    │   └── resources
-    │       ├── application.yml
-    │       └── templates
-    │           ├── index.html
-    │           └── messages.html
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── client
+    │   │               │   ├── MessageClient.java
+    │   │               │   └── RedisMessageClient.java
+    │   │               ├── config
+    │   │               │   ├── RedisConfiguration.java
+    │   │               │   └── RedisTemplateConfig.java
+    │   │               ├── controller
+    │   │               │   └── RedisController.java
+    │   │               └── domain
+    │   │                   ├── Message.java
+    │   │                   ├── MessageGroup.java
+    │   │                   └── Queue.java
+    │   └── resources
+    │       ├── application.yml
+    │       └── templates
+    │           ├── index.html
+    │           └── messages.html
     └── test
         └── java
             └── action
@@ -149,7 +142,7 @@ last_modified_at: 2023-02-21T23:55:00
 
 ### 3.2. pom.xml
 
-* 레디스, 타임리프 관련 의존성을 추가합니다.
+- 레디스, 타임리프 관련 의존성을 추가한다.
 
 ```xml
     <dependency>
@@ -164,8 +157,8 @@ last_modified_at: 2023-02-21T23:55:00
 
 ### 3.3. application.yml
 
-* 마스터, 슬레이브 인스턴스 정보를 추가합니다.
-    * 호스트 정보는 도커 컴포즈(docker compose) 파일에 정의된 호스트 이름을 사용합니다.
+- 마스터, 슬레이브 인스턴스 정보를 추가한다.
+  - 호스트 정보는 도커 컴포즈(docker compose) 파일에 정의된 호스트 이름을 사용한다.
 
 ```yml
 spring:
@@ -190,7 +183,7 @@ redis:
 
 ### 3.4. RedisConfiguration Class
 
-* 마스터, 슬레이브 설정 값을 주입받는 빈(bean) 객체입니다.
+- 마스터, 슬레이브 설정 값을 주입받는 빈(bean) 객체이다.
 
 ```java
 package action.in.blog.config;
@@ -223,7 +216,7 @@ public class RedisConfiguration {
 
 ### 3.5. RedisTemplateConfig Class
 
-* `application.yml` 파일에 정의한 마스터, 슬레이브 설정 값을 사용해 `RedisConnectionFactory` 빈을 생성합니다.
+- `application.yml` 파일에 정의한 마스터, 슬레이브 설정 값을 사용해 `RedisConnectionFactory` 빈을 생성한다.
 
 ```java
 package action.in.blog.config;
@@ -283,19 +276,19 @@ public class RedisTemplateConfig {
 
 ### 3.6. RedisController Class
 
-* 각 경로 별 기능은 다음과 같습니다.
-* `/` 경로
-    * 기본 페이지를 반환합니다.
-    * 현재 읽지 않은 메시지 리스트 사이즈를 모델에 담아 반환합니다.
-* `/message` 경로
-    * 신규 메시지를 생성합니다.
-    * 현재 읽지 않은 메시지 리스트 사이즈를 모델에 담아 반환합니다.
-* `/unread-list/size`
-    * 현재 읽지 않은 메시지 리스트 사이즈를 모델에 담아 반환합니다.
-* `/messages` 경로
-    * 현재 두 리스트의 담긴 메시지들을 보여줍니다. 
-* `/messages/flush` 경로
-    * 읽지 않은 리스트에 담긴 메시지들을 읽은 리스트로 옮깁니다.
+- 각 경로 별 기능은 다음과 같다.
+- `/` 경로
+  - 기본 페이지를 반환한다.
+  - 현재 읽지 않은 메시지 리스트 사이즈를 모델에 담아 반환한다.
+- `/message` 경로
+  - 신규 메시지를 생성한다.
+  - 현재 읽지 않은 메시지 리스트 사이즈를 모델에 담아 반환한다.
+- `/unread-list/size`
+  - 현재 읽지 않은 메시지 리스트 사이즈를 모델에 담아 반환한다.
+- `/messages` 경로
+  - 현재 두 리스트의 담긴 메시지들을 보여준다.
+- `/messages/flush` 경로
+  - 읽지 않은 리스트에 담긴 메시지들을 읽은 리스트로 옮긴다.
 
 ```java
 package action.in.blog.controller;
@@ -353,15 +346,15 @@ public class RedisController {
 
 ### 3.7. RedisMessageClient Class
 
-* 각 메서드 별 기능은 다음과 같습니다.
-* getUnreadMessagesSize 메서드
-    * `UNREAD` 리스트의 사이즈를 반환합니다.
-* pushMessage 메서드
-    * `UNREAD` 리스트에 새로운 메시지를 추가합니다.
-* readMessageGroup 메서드
-    * `UNREAD` 리스트와 `READ` 리스트에 담긴 메시지들을 반환합니다.
-* flushUnreadMessages 메서드
-    * `UNREAD` 리스트에 담긴 메시지들을 `READ` 리스트로 옮깁니다.
+- 각 메서드 별 기능은 다음과 같다.
+- getUnreadMessagesSize 메서드
+  - `UNREAD` 리스트의 사이즈를 반환한다.
+- pushMessage 메서드
+  - `UNREAD` 리스트에 새로운 메시지를 추가한다.
+- readMessageGroup 메서드
+  - `UNREAD` 리스트와 `READ` 리스트에 담긴 메시지들을 반환한다.
+- flushUnreadMessages 메서드
+  - `UNREAD` 리스트에 담긴 메시지들을 `READ` 리스트로 옮긴다.
 
 ```java
 package action.in.blog.client;
@@ -425,20 +418,20 @@ public class RedisMessageClient implements MessageClient {
 
 ## 4. Test
 
-도커 컴포즈로 테스트 환경을 구축합니다. 
+도커 컴포즈로 테스트 환경을 구축한다.
 
 ### 4.1. docker-compose.yml
 
-* 주요 설정들을 살펴보겠습니다.
-* `redis-master` 컨테이너
-    * 볼륨을 사용해 프로젝트 폴더 내부에 레디스 설정 경로를 컨테이너 내부 설정 디렉토리로 연결합니다.
-    * 마스터 인스턴스 설정을 사용해 레디스를 실행합니다.
-    * 환경 변수를 사용해 복제 모드는 마스터, 비밀번호는 필요 없음으로 설정합니다.
-* `redis-slave-1` 컨테이너
-    * 볼륨을 사용해 프로젝트 폴더 내부에 레디스 설정 경로를 컨테이너 내부 설정 디렉토리로 연결합니다.
-    * 슬레이브 인스턴스 설정을 사용해 레디스를 실행합니다.
-    * 환경 변수를 사용해 복제 모드는 마스터, 비밀번호는 필요 없음으로 설정합니다.
-    * `redis-slave-2` 컨테이너도 동일한 방법으로 실행합니다.
+- 주요 설정들을 살펴보겠다.
+- `redis-master` 컨테이너
+  - 볼륨을 사용해 프로젝트 폴더 내부에 레디스 설정 경로를 컨테이너 내부 설정 디렉토리로 연결한다.
+  - 마스터 인스턴스 설정을 사용해 레디스를 실행한다.
+  - 환경 변수를 사용해 복제 모드는 마스터, 비밀번호는 필요 없음으로 설정한다.
+- `redis-slave-1` 컨테이너
+  - 볼륨을 사용해 프로젝트 폴더 내부에 레디스 설정 경로를 컨테이너 내부 설정 디렉토리로 연결한다.
+  - 슬레이브 인스턴스 설정을 사용해 레디스를 실행한다.
+  - 환경 변수를 사용해 복제 모드는 마스터, 비밀번호는 필요 없음으로 설정한다.
+  - `redis-slave-2` 컨테이너도 동일한 방법으로 실행한다.
 
 ```yml
 version: "3.9"
@@ -493,15 +486,15 @@ services:
 
 ### 4.2. redis config files
 
-* 마스터 인스턴스 설정 파일은 다음과 같습니다.
+- 마스터 인스턴스 설정 파일은 다음과 같다.
 
 ```conf
 port 6379
 ```
 
-* 슬레이브 인스턴스 설정 파일은 다음과 같습니다.
-* 복제할 마스터 인스턴스 정보를 추가합니다.
-    * 4.X 버전까진 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었습니다.
+- 슬레이브 인스턴스 설정 파일은 다음과 같다.
+- 복제할 마스터 인스턴스 정보를 추가한다.
+  - 4.X 버전까진 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
 
 ```conf
 port 6379
@@ -510,11 +503,10 @@ replicaof redis-master 6379
 
 ### 4.3. Run Docker Compose
 
-다음 명령어를 통해 컨테이너를 실행합니다. 
-프로젝트에 미리 작성한 쉘(shell) 스크립트를 실행합니다.
+다음 명령어를 통해 컨테이너를 실행한다. 프로젝트에 미리 작성한 쉘(shell) 스크립트를 실행한다.
 
 ```
-$ sh shell/redis-replication.sh            
+$ sh shell/redis-replication.sh
 [+] Running 5/5
  ⠿ Container action-in-blog-backend-1  Removed                                                                                                0.0s
  ⠿ Container redis-slave-2             Removed                                                                                                0.0s
@@ -553,46 +545,42 @@ $ sh shell/redis-replication.sh
 
 ##### When Stop Master Node
 
-* 도커 데스크탑(docker desktop)을 사용해 마스터 인스턴스를 실행 중지합니다.
-* 마스터 인스턴스를 중지시킨 후 읽기 연산은 정상적으로 동작합니다.
-    * 새로 고침에 따라 리스트 사이즈 조회는 가능합니다.
-* 마스터 인스턴스를 중지시킨 후 쓰기 연산이 정상적으로 동작하지 않습니다.
-    * 메시지 생성 불가능
-    * 읽지 않은 메시지 리스트 비우기 불가능
+- 도커 데스크탑(docker desktop)을 사용해 마스터 인스턴스를 실행 중지한다.
+- 마스터 인스턴스를 중지시킨 후 읽기 연산은 정상적으로 동작한다.
+  - 새로 고침에 따라 리스트 사이즈 조회는 가능하다.
+- 마스터 인스턴스를 중지시킨 후 쓰기 연산이 정상적으로 동작하지 않는다.
+  - 메시지 생성 불가능
+  - 읽지 않은 메시지 리스트 비우기 불가능
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/replication-in-redis-03.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/replication-in-redis-03.gif" width="100%" class="image__border">
+</div>
 
 ##### When Stop Slave Node
 
-* 도커 데스크탑을 사용해 모든 슬레이브 인스턴스들을 실행 중지합니다.
-* 정상적으로 동작합니다.
+- 도커 데스크탑을 사용해 모든 슬레이브 인스턴스들을 실행 중지한다.
+- 정상적으로 동작한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/replication-in-redis-04.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/replication-in-redis-04.gif" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-레디스의 레플리케이션만으로 완벽한 고가용성 시스템을 구축하지 못 합니다. 
-마스터 인스턴스가 정지됨과 시스템 대부분의 기능이 정상 동작하지 않았습니다. 
-보다 나은 고가용성 시스템을 구축하기 위해 센티널(sentinel) 컴포넌트를 함께 사용합니다. 
-센티널은 마스터, 슬레이브 인스턴스들의 상태를 모니터링하면서 마스터 인스턴스가 죽었을 때 다른 슬레이브 인스턴스를 다시 마스터 인스턴스로 승격시킵니다. 
-다음 포스트에서 센티널을 적용과 관련된 내용을 정리할 예정입니다.
+레디스의 레플리케이션만으로 완벽한 고가용성 시스템을 구축하지 못 한다. 마스터 인스턴스가 정지됨에 따라 시스템 대부분의 기능이 정상 동작하지 않았다. 보다 나은 고가용성 시스템을 구축하기 위해 센티널(sentinel) 컴포넌트를 함께 사용한다. 센티널은 마스터, 슬레이브 인스턴스들의 상태를 모니터링하면서 마스터 인스턴스가 죽었을 때 다른 슬레이브 인스턴스를 다시 마스터 인스턴스로 승격시킨다. 다음 포스트에서 센티널을 적용과 관련된 내용을 정리할 예정이다.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-21-replication-in-redis>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-21-replication-in-redis>
 
 #### RECOMMEND NEXT POSTS
 
-* [Failover Using Sentinel for Redis][failover-using-sentinel-for-redis-link]
+- [Failover Using Sentinel for Redis][failover-using-sentinel-for-redis-link]
 
 #### REFERENCE
 
-* <http://redisgate.jp/redis/configuration/replication.php>
-* <https://www.vinsguru.com/redis-master-slave-with-spring-boot/>
+- <http://redisgate.jp/redis/configuration/replication.php>
+- <https://www.vinsguru.com/redis-master-slave-with-spring-boot/>
 
 [embedded-redis-server-link]: https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/
 [using-redis-template-on-spring-boot-link]: https://junhyunny.github.io/spring-boot/redis/using-redis-template-on-spring-boot/

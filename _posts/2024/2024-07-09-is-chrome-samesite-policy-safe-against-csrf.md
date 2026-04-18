@@ -1,18 +1,18 @@
 ---
-title: "Is Chrome's default SameSite policy safe against CSRF?"
+title: "크롬(Chrome)의 기본 SameSite 정책은 CSRF에 안전한가?"
 search: false
 category:
   - spring-boot
   - spring-security
   - security
-last_modified_at: 2024-07-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Deep dive into cookie][cookie-attributes-link]
+- [쿠키(Cookie) 심층 분석][cookie-attributes-link]
 - [CSRF(Cross-Site Request Forgery) 공격과 방어][cross-site-reqeust-forgery-link]
 
 ## 0. 들어가면서

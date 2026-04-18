@@ -1,9 +1,9 @@
 ---
-title: "Stop file tracking in Git"
+title: "Git에서 파일 추적 중지하기"
 search: false
 category:
   - github
-last_modified_at: 2021-09-04T12:59:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

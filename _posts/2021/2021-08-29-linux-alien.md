@@ -1,10 +1,10 @@
 ---
-title: "Linux alien command to change package extension"
+title: "리눅스 alien 명령어로 패키지 확장자 변경하기"
 search: false
 category:
   - information
   - linux
-last_modified_at: 2021-08-29T11:50:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

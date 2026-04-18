@@ -1,32 +1,31 @@
 ---
-title: "Call Real Method of MockedStatic Test Double"
+title: "MockedStatic 테스트 더블에서 실제 메서드 호출하기"
 search: false
 category:
   - java
   - spring-boot
   - test-driven-development
-last_modified_at: 2022-07-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. 문제 상황
 
-새로운 기능을 위해 테스트를 추가하면서 다음과 같은 문제 상황이 발생했습니다.
+새로운 기능을 위해 테스트를 추가하면서 다음과 같은 문제 상황이 발생했다.
 
-* MockedStatic 클래스를 이용해 LocalDate 클래스의 정적(static) 메서드들을 테스트 더블(Test Double)로 만들었습니다. 
-* 의도하지 않은 곳에서 스터빙(stubbing)되지 않은 정적 메서드가 호출되어 에러가 발생하였습니다.
+- MockedStatic 클래스를 이용해 LocalDate 클래스의 정적(static) 메서드들을 테스트 더블(Test Double)로 만들었다.
+- 의도하지 않은 곳에서 스터빙(stubbing)되지 않은 정적 메서드가 호출되어 에러가 발생하였다.
 
 ### 1.1. 기존 코드
 
-간단하게 재구성한 예시 코드를 통해 문제 현상을 살펴보도록 하겠습니다.
-사용자들은 4월, 8월에 80% 저렴한 이벤트 가격으로 제품을 구매할 수 있습니다.
+간단하게 재구성한 예시 코드를 통해 문제 현상을 살펴보겠다. 사용자들은 4월, 8월에 80% 저렴한 이벤트 가격으로 제품을 구매할 수 있다.
 
 #### 1.1.1. 테스트 코드
 
-* 4월, 8월에 할인된 가격을 `getEventPrice` 메서드를 통해 획득합니다.
-* `LocalDate` 클래스의 `now` 정적 메서드가 각 테스트 별로 적당한 값을 반환하도록 스터빙합니다.
-    * 각 테스트 별로 4월, 8월을 반환합니다.
+- 4월, 8월에 할인된 가격을 `getEventPrice` 메서드를 통해 획득한다.
+- `LocalDate` 클래스의 `now` 정적 메서드가 각 테스트 별로 적당한 값을 반환하도록 스터빙한다.
+  - 각 테스트 별로 4월, 8월을 반환한다.
 
 ```java
 package action.in.blog.service;
@@ -82,7 +81,7 @@ public class StaticMethodServiceTests {
 
 #### 1.1.2. 실행 코드
 
-* 4월과 8월은 전달받은 가격을 이벤트 가격으로 변경하여 반환합니다.
+- 4월과 8월은 전달받은 가격을 이벤트 가격으로 변경하여 반환한다.
 
 ```java
 package action.in.blog.service;
@@ -106,21 +105,20 @@ public class StaticMethodService {
 
 #### 1.1.3. 테스트 결과
 
-* 정상적으로 테스트가 통과합니다.
+- 정상적으로 테스트가 통과한다.
 
-<p align="left">
-    <img src="{{ site.image_url_2022 }}/real-static-method-call-when-using-mock-01.png" width="95%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2022 }}/real-static-method-call-when-using-mock-01.png" width="95%" class="image__border">
+</div>
 
 ### 1.2. 사용자 스토리 추가
 
-사용자 스토리가 추가되었습니다. 
-4월, 8월뿐만 아니라 만 나이가 10대인 사람들은 모두 이벤트 가격을 얻을 수 있습니다.
+사용자 스토리가 추가되었다. 4월, 8월뿐만 아니라 만 나이가 10대인 사람들은 모두 이벤트 가격을 얻을 수 있다.
 
 #### 1.2.1. 테스트 코드
 
-* 만 나이가 10대인 사람들만 할인을 받는지 경계 조건을 테스트합니다.
-* 하루 차이로 9세, 10세와 19세, 20세 나이를 파라미터로 전달합니다.
+- 만 나이가 10대인 사람들만 할인을 받는지 경계 조건을 테스트한다.
+- 하루 차이로 9세, 10세와 19세, 20세 나이를 파라미터로 전달한다.
 
 ```java
 package action.in.blog.service;
@@ -179,8 +177,8 @@ public class StaticMethodServiceTests {
 
 #### 1.2.2. 구현 코드
 
-* `Period` 클래스 `between` 메서드를 사용하여 두 날짜 사이의 년도 차이를 구합니다.
-* 10대에 속하는 경우 할인 가격을 반환합니다.
+- `Period` 클래스 `between` 메서드를 사용하여 두 날짜 사이의 년도 차이를 구한다.
+- 10대에 속하는 경우 할인 가격을 반환한다.
 
 ```java
 package action.in.blog.service;
@@ -207,17 +205,17 @@ public class StaticMethodService {
 
 #### 1.2.3. 테스트 결과
 
-* `NullPointException`가 발생하여 테스트가 실패합니다.
+- `NullPointException`가 발생하여 테스트가 실패한다.
 
-<p align="left">
-    <img src="{{ site.image_url_2022 }}/real-static-method-call-when-using-mock-02.png" width="95%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2022 }}/real-static-method-call-when-using-mock-02.png" width="95%" class="image__border">
+</div>
 
 #### 1.2.4. 예외 발생 코드
 
-* `LocalDate` 클래스 `until` 메서드에서 에러가 발생합니다.
-* `LocalDate` 클래스 `from` 정적 메서드가 스터빙되지 않아 `null`을 반환합니다.
-* 다음 라인에서 `end` 객체를 참조하는 시점에 `NullPointException`이 발생합니다.
+- `LocalDate` 클래스 `until` 메서드에서 에러가 발생한다.
+- `LocalDate` 클래스 `from` 정적 메서드가 스터빙되지 않아 `null`을 반환한다.
+- 다음 라인에서 `end` 객체를 참조하는 시점에 `NullPointException`이 발생한다.
 
 ```java
     @Override
@@ -241,18 +239,16 @@ public class StaticMethodService {
 
 ## 2. 문제 해결
 
-`MockedStatic` 클래스로 정적 메서드들이 모두 모킹(mocking)되어 정상적인 동작이 불가능했습니다. 
-특정 메서드들만 스터빙을 하고 싶고, 나머지 정적 메서드들은 모두 원래대로 사용하고 싶었습니다. 
+`MockedStatic` 클래스로 정적 메서드들이 모두 모킹(mocking)되어 정상적인 동작이 불가능했다. 특정 메서드들만 스터빙을 하고 싶고, 나머지 정적 메서드들은 모두 원래대로 사용하고 싶었다.
 
 ### 2.1. Mockito.CALLS_REAL_METHODS 사용
 
-`LocalDate` 클래스의 모킹할 때 `Mockito.CALLS_REAL_METHODS`을 함께 전달합니다. 
-이럴 경우 스터빙하지 않은 다른 메서드들은 모두 원래대로 동작합니다.
+`LocalDate` 클래스의 모킹할 때 `Mockito.CALLS_REAL_METHODS`을 함께 전달한다. 이럴 경우 스터빙하지 않은 다른 메서드들은 모두 원래대로 동작한다.
 
 #### 2.1.1. 테스트 코드
 
-* `mockLocalDate` 객체를 만들 때 `CALLS_REAL_METHODS`을 두 번째 파라미터로 함께 전달합니다.
-    * 정적 메서드를 따로 스터빙하지 않는 경우 모두 원래 기능대로 동작합니다.
+- `mockLocalDate` 객체를 만들 때 `CALLS_REAL_METHODS`을 두 번째 파라미터로 함께 전달한다.
+  - 정적 메서드를 따로 스터빙하지 않는 경우 모두 원래 기능대로 동작한다.
 
 ```java
 package action.in.blog.service;
@@ -325,14 +321,14 @@ public class StaticMethodServiceTests {
 
 #### 2.1.2. 테스트 결과
 
-<p align="left">
-    <img src="{{ site.image_url_2022 }}/real-static-method-call-when-using-mock-03.png" width="95%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2022 }}/real-static-method-call-when-using-mock-03.png" width="95%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-07-21-real-static-method-call-when-using-mock>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-07-21-real-static-method-call-when-using-mock>
 
 #### REFERENCE
 
-* <https://stackoverflow.com/questions/63840898/how-to-mock-just-one-static-method-in-a-class-using-mockito>
+- <https://stackoverflow.com/questions/63840898/how-to-mock-just-one-static-method-in-a-class-using-mockito>

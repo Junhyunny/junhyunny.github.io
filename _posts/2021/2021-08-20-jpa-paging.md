@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2025-12-24T12:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -131,7 +131,7 @@ class TestEntity {
 }
 ```
 
-beforeEach 메서드를 통해 테스마다 각 테스트마다 데이터를 초기화한다.
+beforeEach 메서드를 통해 각 테스트마다 데이터를 초기화한다.
 
 - 모든 데이터를 삭제하고 250개의 데이터를 추가한다.
 - TestEntity 객체의 testValue 필드 값으로 랜덤한 문자열을 지정한다.
@@ -340,7 +340,7 @@ interface TestRepository extends JpaRepository<TestEntity, Long> {
 
 - 조회 시 사용된 쿼리 로그를 보면 `order by t.TEST_VALUE desc limit ?` 조건이 추가되었다.
 - 페이징 처리를 위한 count 쿼리가 추가 수행되었다.
-- 조건에 일치하는 항목(row) 수가 7개이므로 두번째 페이지 요청에 대해서는 데이터가 조회되지 않는다.
+- 조건에 일치하는 항목(row) 수가 7개이므로 두 번째 페이지 요청에 대해서는 데이터가 조회되지 않는다.
 
 ```
 Hibernate: SELECT * FROM TB_TABLE t WHERE TEST_VALUE LIKE ? order by t.TEST_VALUE desc limit ?

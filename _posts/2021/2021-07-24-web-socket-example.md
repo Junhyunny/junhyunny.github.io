@@ -3,33 +3,35 @@ title: "WebSocket 구현"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-09-04T03:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+#### RECOMMEND POSTS BEFORE THIS
 - [WebSocket 이해하기][web-socket-link]
 
 ## 0. 들어가면서
 
-이번 포스트는 WebSocket 예제 코드를 정리해서 올려보도록 하겠습니다. 
-다음과 같은 환경에서 테스트하였습니다.
+이번 포스트는 WebSocket 예제 코드를 정리해서 올려보도록 하겠다. 다음과 같은 환경에서 테스트하였다.
 - spring boot 2.2.5.RELEASE
 - spring-boot-starter-thymeleaf
 - spring-websocket
 - SockJS
 
 ## 1. 시나리오 구성도
-- 브라우저가 서버에 소켓 연결을 수행합니다.
-- 두 번째 브라우저가 서버에 소켓 연결을 수행합니다.
-- 처음 연결한 브라우저에서 메시지를 전달합니다.
-- 서버는 메시지를 전달받아 자신이 관리하는 세션(session)으로 메시지를 전송합니다.
-- 두 브라우저 모두 서버로부터 전달받은 메시지를 출력합니다.
+- 브라우저가 서버에 소켓 연결을 수행한다.
+- 두 번째 브라우저가 서버에 소켓 연결을 수행한다.
+- 처음 연결한 브라우저에서 메시지를 전달한다.
+- 서버는 메시지를 전달받아 자신이 관리하는 세션(session)으로 메시지를 전송한다.
+- 두 브라우저 모두 서버로부터 전달받은 메시지를 출력한다.
 
-<p align="center"><img src="{{ site.image_url_2021 }}/web-socket-example-01.gif" width="70%"></p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/web-socket-example-01.gif" width="70%">
+</div>
 
 ## 2. 테스트 코드
+
 ### 2.1. 패키지 구조
 
 ```
@@ -61,10 +63,10 @@ last_modified_at: 2021-09-04T03:00:00
 ```
 
 ### 2.2. WebSocketComponent 클래스
-- TextWebSocketHandler 클래스를 상속받습니다. 몇 개의 메서드를 오버라이드합니다.
-- afterConnectionEstablished 메서드 - 연결 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장합니다.
-- handleMessage 메서드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메시지를 전송합니다.
-- afterConnectionClosed 메서드 - 연결이 해제된 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제합니다.
+- TextWebSocketHandler 클래스를 상속받는다. 몇 개의 메서드를 오버라이드한다.
+- afterConnectionEstablished 메서드 - 연결 후에 수행된다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장한다.
+- handleMessage 메서드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메시지를 전송한다.
+- afterConnectionClosed 메서드 - 연결이 해제된 후에 수행된다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제한다.
 
 ```java
 package blog.in.action.component;
@@ -109,14 +111,14 @@ public class WebSocketComponent extends TextWebSocketHandler {
 ```
 
 ### 2.3. CustomWebsocketConfiguration 클래스
-- @EnableWebSocket 애너테이션을 추가합니다.
-- WebSocketConfigurer 인터페이스를 구현합니다.
-- WebSocket Connection 관리를 위해 생성한 WebSocketComponent 빈(bean)을 주입받습니다.
-- registerWebSocketHandlers 메서드 - WebSocket 기능을 위해 필요한 정보들을 지정합니다.
-    - `/chat` 경로의 WebSocket 연결 정보는 WebSocketComponent 객체로 지정합니다.
-    - CORS 문제 해결을 위해 setAllowedOrigins() 메서드를 사용합니다. 테스트이므로 모든 CORS 정보를 허용합니다.
-    - SockJS fallback option들을 허용합니다.
-    - SockJS 사용 시 필요한 클라이언트 라이브러리 URL 정보를 입력합니다.
+- @EnableWebSocket 애너테이션을 추가한다.
+- WebSocketConfigurer 인터페이스를 구현한다.
+- WebSocket Connection 관리를 위해 생성한 WebSocketComponent 빈(bean)을 주입받는다.
+- registerWebSocketHandlers 메서드 - WebSocket 기능을 위해 필요한 정보들을 지정한다.
+  - `/chat` 경로의 WebSocket 연결 정보는 WebSocketComponent 객체로 지정한다.
+  - CORS 문제 해결을 위해 setAllowedOrigins() 메서드를 사용한다. 테스트이므로 모든 CORS 정보를 허용한다.
+  - SockJS fallback option들을 허용한다.
+  - SockJS 사용 시 필요한 클라이언트 라이브러리 URL 정보를 입력한다.
 
 ```java
 package blog.in.action.configure;
@@ -148,7 +150,7 @@ public class CustomWebsocketConfiguration implements WebSocketConfigurer {
 ```
 
 ### 2.4. ChatController 클래스
-- `/chat` 경로를 통해 전달받는 요청으로 `chat.html` 페이지를 전달합니다.
+- `/chat` 경로를 통해 전달받는 요청으로 `chat.html` 페이지를 전달한다.
 
 ```java
 package blog.in.action.controller;
@@ -167,11 +169,11 @@ public class ChatController {
 ```
 
 ### 2.5. chat.html
-- connectSocket 함수 - SockJS 객체를 생성 후 연결에 필요한 경로를 입력합니다. `/chat`
-- onmessage 함수 - 메시지 수신 시 필요한 함수를 지정합니다.
-- onerror 함수 - 에러 발생 시 필요한 함수를 지정합니다.
-- onclose 함수 - 연결이 닫힐 시 필요한 함수를 지정합니다.
-- send 함수 - sock 객체를 이용해 메시지를 전송합니다.
+- connectSocket 함수 - SockJS 객체를 생성 후 연결에 필요한 경로를 입력한다. `/chat`
+- onmessage 함수 - 메시지 수신 시 필요한 함수를 지정한다.
+- onerror 함수 - 에러 발생 시 필요한 함수를 지정한다.
+- onclose 함수 - 연결이 닫힐 시 필요한 함수를 지정한다.
+- send 함수 - sock 객체를 이용해 메시지를 전송한다.
 
 ```html
 <!DOCTYPE html>
@@ -241,7 +243,9 @@ public class ChatController {
 
 ##### 테스트 확인
 
-<p align="center"><img src="{{ site.image_url_2021 }}/web-socket-example-02.gif" width="70%"></p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/web-socket-example-02.gif" width="70%">
+</div>
 
 #### TEST CODE REPOSITORY
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-21-web-socket>

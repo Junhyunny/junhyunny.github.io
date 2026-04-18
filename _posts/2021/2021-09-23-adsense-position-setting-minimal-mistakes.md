@@ -3,14 +3,14 @@ title: "GitHub 블로그 구글 애드센스 광고 위치 설정"
 search: false
 category:
   - information
-last_modified_at: 2026-02-28T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [How to connect to Google Adsense for GitHub Blog][adsense-minimal-mistakes-link]
+- [깃허브 블로그에 Google Adsense 연결하기][adsense-minimal-mistakes-link]
 
 ## 0. 들어가면서
 
@@ -122,5 +122,7 @@ layout: default
 <div align="center">
   <img src="{{ site.image_url_2021 }}/adsense-position-setting-minimal-mistakes-05.gif" width="100%" class="image__border">
 </div>
+
+<br/>
 
 [adsense-minimal-mistakes-link]: https://junhyunny.github.io/information/minimal-mistakes-adsense/

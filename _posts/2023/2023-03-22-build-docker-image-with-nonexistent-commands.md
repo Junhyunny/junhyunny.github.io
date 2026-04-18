@@ -3,7 +3,7 @@ title: "컨테이너 이미지에 없는 CLI 명령어 설치하기"
 search: false
 category:
   - docker
-last_modified_at: 2026-03-18T22:53:44+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

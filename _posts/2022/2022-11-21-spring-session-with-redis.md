@@ -1,48 +1,46 @@
 ---
-title: "Spring Session with Redis"
+title: "Redis를 활용한 Spring Session"
 search: false
 category:
   - information
   - spring-boot
   - redis
-last_modified_at: 2022-11-21T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Cookie and Session][cookie-and-session-link]
-* [Deep dive into cookie][cookie-attributes-link]
-* [Spring Session with JDBC][spring-session-link]
-* [Embedded Redis Server][embedded-redis-server-link]
+- [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
+- [쿠키(Cookie) 심층 분석][cookie-attributes-link]
+- [Spring Session with JDBC][spring-session-link]
+- [Embedded Redis Server][embedded-redis-server-link]
 
 ## 0. 들어가면서
 
-[Spring Session with JDBC][spring-session-link] 포스트에선 데이터베이스와 `Spring Session`를 통해 다중 인스턴스 환경에서 세션을 공유하는 방법에 대해 다뤘습니다. 
-이번 포스트에선 레디스(redis)와 `Spring Session`을 사용해 세션을 공유하는 방법에 대해 정리하였습니다. 
-[Embedded Redis Server][embedded-redis-server-link] 포스트에서 사용한 예제 프로젝트를 확장하였으며 다음과 같은 방식으로 세션의 공유 여부를 확인하였습니다. 
+[Spring Session with JDBC][spring-session-link] 포스트에선 데이터베이스와 `Spring Session`을 통해 다중 인스턴스 환경에서 세션을 공유하는 방법에 대해 다뤘다. 이번 포스트에선 레디스(redis)와 `Spring Session`을 사용해 세션을 공유하는 방법에 대해 정리하였다. [Embedded Redis Server][embedded-redis-server-link] 포스트에서 사용한 예제 프로젝트를 확장하였으며 다음과 같은 방식으로 세션의 공유 여부를 확인하였다.
 
-* 도커 컴포즈(compose)를 사용해 백엔드 서비스 2개와 레디스 서비스 1개를 실행합니다.
-    * backend-1 - exposed port number 8080
-    * backend-2 - exposed port number 8081
-    * redis-server - exposed port number 6379
-* 사용자 브라우저로 두 백엔드 서비스에 번갈아 접근합니다.
-    * `localhost:8080/session`, `localhost:8081/session` 주소에 접근합니다.
-    * 세션 정보를 식별할 때 사용하는 아이디(id)는 쿠키에 함께 전달됩니다.
-    * `SameSite`인 경우 쿠키를 공유하므로 두 요청은 동일한 세션을 사용하게 됩니다. 
-    * `SameSite` 기준에 따라 포트 번호는 상관하지 않습니다.
-    * [Deep dive into cookie][cookie-attributes-link]
-* 세션 접근 카운트가 증가하는지 확인합니다.
-    * 동일한 세션 정보를 사용한다면 세션 접근 카운트는 이어지면서 증가할 것 입니다.
+- 도커 컴포즈(compose)를 사용해 백엔드 서비스 2개와 레디스 서비스 1개를 실행한다.
+  - backend-1 - exposed port number 8080
+  - backend-2 - exposed port number 8081
+  - redis-server - exposed port number 6379
+- 사용자 브라우저로 두 백엔드 서비스에 번갈아 접근한다.
+  - `localhost:8080/session`, `localhost:8081/session` 주소에 접근한다.
+  - 세션 정보를 식별할 때 사용하는 아이디(id)는 쿠키에 함께 전달된다.
+  - `SameSite`인 경우 쿠키를 공유하므로 두 요청은 동일한 세션을 사용하게 된다.
+  - `SameSite` 기준에 따라 포트 번호는 상관하지 않는다.
+  - [쿠키(Cookie) 심층 분석][cookie-attributes-link]
+- 세션 접근 카운트가 증가하는지 확인한다.
+  - 동일한 세션 정보를 사용한다면 세션 접근 카운트는 이어지면서 증가할 것이다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/spring-session-with-redis-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/spring-session-with-redis-01.png" width="80%" class="image__border">
+</div>
 
 ## 1. Spring Session 의존성 추가
 
-다음과 같은 의존성들을 추가합니다.
+다음과 같은 의존성들을 추가한다.
 
 ```xml
     <dependency>
@@ -57,11 +55,11 @@ last_modified_at: 2022-11-21T23:55:00
 
 ## 2. application-dev.yml
 
-* 레디스 접속 정보를 다음과 같이 설정합니다.
-    * host - 도커 컴포즈 파일의 레디스 컨테이너의 이름
-    * password - 레디스 애플리케이션 접속 비밀번호 (임의 지정)
-    * port - 레디스 애플리케이션 포트 번호
-* 세션 저장소 타입을 `redis`로 설정합니다.
+- 레디스 접속 정보를 다음과 같이 설정한다.
+  - host - 도커 컴포즈 파일의 레디스 컨테이너의 이름
+  - password - 레디스 애플리케이션 접속 비밀번호 (임의 지정)
+  - port - 레디스 애플리케이션 포트 번호
+- 세션 저장소 타입을 `redis`로 설정한다.
 
 ```yml
 spring:
@@ -75,11 +73,11 @@ spring:
 
 ## 3. SessionFilter 클래스
 
-* 세션 정보를 조회할 때 파라미터를 `false`인 경우 세션을 새롭게 생성하지 않고, 존재하는 세션을 반환합니다.
-* 세션 생성 URL 호출 시 해당 요청을 계속 진행합니다.
-* 세션 생성 URL이 아닌 경우 다음과 같이 수행합니다.
-    * 세션이 없는 경우 세션을 생성하는 경로로 리다이렉트(redirect)합니다.
-    * 세션이 있는 경우 해당 요청을 계속 진행합니다.
+- 세션 정보를 조회할 때 파라미터를 `false`인 경우 세션을 새롭게 생성하지 않고, 존재하는 세션을 반환한다.
+- 세션 생성 URL 호출 시 해당 요청을 계속 진행한다.
+- 세션 생성 URL이 아닌 경우 다음과 같이 수행한다.
+  - 세션이 없는 경우 세션을 생성하는 경로로 리다이렉트(redirect)한다.
+  - 세션이 있는 경우 해당 요청을 계속 진행한다.
 
 ```java
 package action.in.blog.filter;
@@ -115,15 +113,15 @@ public class SessionFilter extends OncePerRequestFilter {
 
 ## 4. SessionController 클래스
 
-* 세션 정보를 조회할 때 파라미터가 없는 경우 세션 존재 여부에 따라 필요한 경우 새로운 세션을 생성 후 반환합니다.
-* `/session/creation` 경로 접근
-    * 기존 세션이 존재하는 경우 존재하는 세션을 획득합니다.
-    * 기존 세션이 존재하지 않다면 새로운 세션을 생성 후 획득합니다.
-    * `accessCount`를 키(key)로 세션에 초기 값 `0`을 저장합니다.
-* `/session` 경로 접근
-    * `accessCount`를 키로 세션 정보에 저장된 데이터를 찾습니다.
-    * 저장된 데이터에 1을 더하여 세션에 다시 저장합니다.
-    * 현재 조회한 데이터를 사용해 응답 문자열을 만들어 번환합니다.
+- 세션 정보를 조회할 때 파라미터가 없는 경우 세션 존재 여부에 따라 필요한 경우 새로운 세션을 생성 후 반환한다.
+- `/session/creation` 경로 접근
+  - 기존 세션이 존재하는 경우 존재하는 세션을 획득한다.
+  - 기존 세션이 존재하지 않다면 새로운 세션을 생성 후 획득한다.
+  - `accessCount`를 키(key)로 세션에 초기 값 `0`을 저장한다.
+- `/session` 경로 접근
+  - `accessCount`를 키로 세션 정보에 저장된 데이터를 찾는다.
+  - 저장된 데이터에 1을 더하여 세션에 다시 저장한다.
+  - 현재 조회한 데이터를 사용해 응답 문자열을 만들어 반환한다.
 
 ```java
 package action.in.blog.controller;
@@ -161,9 +159,9 @@ public class SessionController {
 
 ### 5.1. 직렬화 방법 부재 시 문제점
 
-별도로 `직렬화(serialize)` 방법을 정의해주지 않고, 데이터를 저장하면 다음과 같은 알아보기 힘든 데이터가 저장됩니다. 
+별도로 `직렬화(serialize)` 방법을 정의해주지 않고, 데이터를 저장하면 다음과 같은 알아보기 힘든 데이터가 저장된다.
 
-* 기본적으로 `JdkSerializationRedisSerializer`를 사용합니다.
+- 기본적으로 `JdkSerializationRedisSerializer`를 사용한다.
 
 ```
 $ docker exec -it redis-server /bin/sh
@@ -190,7 +188,7 @@ OK
 
 ### 5.2. 직렬화 방법 추가
 
-* 레디스에 저장되는 값들을 알아보기 쉬운 데이터로 직렬화하는 빈(bean)을 생성합니다.
+- 레디스에 저장되는 값들을 알아보기 쉬운 데이터로 직렬화하는 빈(bean)을 생성한다.
 
 ```java
 package action.in.blog.config;
@@ -210,16 +208,16 @@ public class BaseConfig {
 }
 ```
 
-## 6. 테스트 
+## 6. 테스트
 
-도커 컴포즈를 사용해 서비스를 실행 후 다음과 같은 내용들을 확인합니다.
+도커 컴포즈를 사용해 서비스를 실행 후 다음과 같은 내용들을 확인한다.
 
-* 브라우저를 통해 세션이 공유되는지 확인합니다. 
-* redis-server 컨테이너에 접근 후 `redis-cli` 커맨드를 통해 저장된 데이터를 확인합니다. 
+- 브라우저를 통해 세션이 공유되는지 확인한다.
+- redis-server 컨테이너에 접근 후 `redis-cli` 커맨드를 통해 저장된 데이터를 확인한다.
 
 ##### Dockerfile
 
-* 실행 환경을 `dev`로 주입 받습니다.
+- 실행 환경을 `dev`로 주입 받는다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -251,7 +249,7 @@ CMD ["java", "-Dspring.profiles.active=${RUN_ENV}", "-jar", "app.jar"]
 
 ##### docker-compose.yml
 
-* 테스트를 위해 다음과 같은 yml 파일을 실행합니다.
+- 테스트를 위해 다음과 같은 yml 파일을 실행한다.
 
 ```yml
 version: "3.9"
@@ -281,9 +279,9 @@ services:
 ##### 실행 로그
 
 ```
-$ docker-compose up     
+$ docker-compose up
 
-WARN[0000] Found orphan containers ([action-in-blog-backend-1]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up. 
+WARN[0000] Found orphan containers ([action-in-blog-backend-1]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up.
 [+] Running 4/4
  ⠿ Network action-in-blog_default        Created                                                                                                                                                                                                                                           0.0s
  ⠿ Container redis-server                Created                                                                                                                                                                                                                                           0.0s
@@ -297,7 +295,7 @@ redis-server                | 1:M 21 Nov 2022 15:49:29.330 * monotonic clock: PO
 redis-server                | 1:M 21 Nov 2022 15:49:29.330 * Running mode=standalone, port=6379.
 redis-server                | 1:M 21 Nov 2022 15:49:29.330 # Server initialized
 redis-server                | 1:M 21 Nov 2022 15:49:29.331 * Ready to accept connections
-action-in-blog-backend-1-1  | 
+action-in-blog-backend-1-1  |
 action-in-blog-backend-1-1  |   .   ____          _            __ _ _
 action-in-blog-backend-1-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 action-in-blog-backend-1-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -305,8 +303,8 @@ action-in-blog-backend-1-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 action-in-blog-backend-1-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
 action-in-blog-backend-1-1  |  =========|_|==============|___/=/_/_/_/
 action-in-blog-backend-1-1  |  :: Spring Boot ::                (v2.7.5)
-action-in-blog-backend-1-1  | 
-action-in-blog-backend-2-1  | 
+action-in-blog-backend-1-1  |
+action-in-blog-backend-2-1  |
 action-in-blog-backend-2-1  |   .   ____          _            __ _ _
 action-in-blog-backend-2-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 action-in-blog-backend-2-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -314,7 +312,7 @@ action-in-blog-backend-2-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 action-in-blog-backend-2-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
 action-in-blog-backend-2-1  |  =========|_|==============|___/=/_/_/_/
 action-in-blog-backend-2-1  |  :: Spring Boot ::                (v2.7.5)
-action-in-blog-backend-2-1  | 
+action-in-blog-backend-2-1  |
 action-in-blog-backend-1-1  | 2022-11-21 15:49:30.669  INFO 1 --- [           main] action.in.blog.ActionInBlogApplication   : Starting ActionInBlogApplication v0.0.1-SNAPSHOT using Java 11.0.16 on d98a6e0d04fe with PID 1 (/app/app.jar started by root in /app)
 action-in-blog-backend-1-1  | 2022-11-21 15:49:30.672  INFO 1 --- [           main] action.in.blog.ActionInBlogApplication   : The following 1 profile is active: "dev"
 action-in-blog-backend-2-1  | 2022-11-21 15:49:30.754  INFO 1 --- [           main] action.in.blog.ActionInBlogApplication   : Starting ActionInBlogApplication v0.0.1-SNAPSHOT using Java 11.0.16 on 71d5f16faf75 with PID 1 (/app/app.jar started by root in /app)
@@ -345,9 +343,9 @@ action-in-blog-backend-2-1  | 2022-11-21 15:49:33.852  INFO 1 --- [           ma
 
 ##### 브라우저 테스트
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/spring-session-with-redis-02.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/spring-session-with-redis-02.gif" width="100%" class="image__border">
+</div>
 
 ##### redis-cli 데이터 확인
 
@@ -377,14 +375,14 @@ OK
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-21-spring-session-with-redis>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-11-21-spring-session-with-redis>
 
 #### REFERENCE
 
-* <https://minholee93.tistory.com/entry/ERROR-NOAUTH-Authentication-required>
-* [Redis & Spring Session 연동 + Spring Session Redis \xac\xed\x00\x05sr\x00\x0ejava.lang.Long 해결법][redis-session-serializer-link]
-* [Redis 내부에 session 저장/삭제][redis-session-save-delete-link]
-* <https://deveric.tistory.com/76>
+- <https://minholee93.tistory.com/entry/ERROR-NOAUTH-Authentication-required>
+- [Redis & Spring Session 연동 + Spring Session Redis \xac\xed\x00\x05sr\x00\x0ejava.lang.Long 해결법][redis-session-serializer-link]
+- [Redis 내부에 session 저장/삭제][redis-session-save-delete-link]
+- <https://deveric.tistory.com/76>
 
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/

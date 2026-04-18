@@ -3,14 +3,14 @@ title: "리눅스 방화벽 열기(open firewall of linux)"
 search: false
 category:
   - information
-last_modified_at: 2025-12-13T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [방화벽(frewall)][firewall-link]
+- [방화벽(firewall)][firewall-link]
 
 ## 0. 들어가면서
 

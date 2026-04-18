@@ -6,7 +6,7 @@ category:
   - jest
   - testing-library
   - test-driven-development
-last_modified_at: 2026-01-12T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -38,7 +38,7 @@ last_modified_at: 2026-01-12T00:00:00
 
 ## 2. Example codes
 
-구현 코드, 테스트 코드 순서로 기능을 살펴보겠다. 발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리헀다.
+구현 코드, 테스트 코드 순서로 기능을 살펴보겠다. 발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리했다.
 
 - `componentDidMount` 시점에 다음과 같은 동작을 수행한다.
   - 포켓몬 API를 사용한 데이터 조회한다.

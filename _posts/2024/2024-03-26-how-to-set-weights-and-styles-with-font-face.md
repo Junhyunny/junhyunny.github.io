@@ -1,10 +1,10 @@
 ---
-title: "How to set weights and styles with @font-face"
+title: "@font-face로 글꼴 두께와 스타일 설정하기"
 search: false
 category:
   - html
   - css
-last_modified_at: 2024-03-26T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -19,15 +19,17 @@ last_modified_at: 2024-03-26T23:55:00
 
 - `Get font` 버튼을 누른다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-01.png" width="100%" class="image__border">
-</p>
+</div>
+
+<br/>
 
 - `Download all` 버튼을 누른다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-02.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## 2. @font-face directive
 
@@ -162,9 +164,9 @@ export default App;
 }
 ```
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### 3.1.1. Mismatch font-weight and font-style
 
@@ -195,13 +197,13 @@ export default App;
 }
 ```
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-04.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 3.2. Style Linking
 
-두번째 방법은 동일한 font-family 이름으로 지정하고 폰트 굵기와 스타일을 맞추는 것이다. 같은 이름을 사용하기 때문에 body 블록에 font-family 속성을 지정하고 클래스에선 font-weight, font-style 속성을 동일하게 맞춘다. 
+두 번째 방법은 동일한 font-family 이름으로 지정하고 폰트 굵기와 스타일을 맞추는 것이다. 같은 이름을 사용하기 때문에 body 블록에 font-family 속성을 지정하고 클래스에선 font-weight, font-style 속성을 동일하게 맞춘다. 
 
 - @font-face 지시자 블록
   - font-family 이름은 동일한 값을 사용한다.
@@ -260,9 +262,9 @@ body {
 }
 ```
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-05.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

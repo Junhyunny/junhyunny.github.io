@@ -1,11 +1,11 @@
 ---
-title: "Reusable Style in SwiftUI"
+title: "SwiftUI에서 재사용 가능한 스타일(Style)"
 search: false
 category:
   - iOS
   - swift-ui
   - design-pattern
-last_modified_at: 2024-07-10T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

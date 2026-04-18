@@ -3,7 +3,7 @@ title: "부동 소수점과 자바(Java) 숫자 계산 문제점"
 search: false
 category:
   - java
-last_modified_at: 2026-03-20T10:58:47+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

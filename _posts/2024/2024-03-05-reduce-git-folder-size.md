@@ -1,9 +1,9 @@
 ---
-title: "Reduce .git folder size"
+title: ".git 폴더 크기 줄이기"
 search: false
 category:
   - git
-last_modified_at: 2024-03-05T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -16,9 +16,9 @@ last_modified_at: 2024-03-05T23:55:00
 - 배포 작업이 끝난 후 레포지토리에 저장한 컨테이너 이미지들을 지웠다.
 - 하지만 이력 관리를 위해 필요한 `.git` 폴더 사이즈가 너무 커졌다. 폴더 사이즈가 12GB를 초과했다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/reduce-git-folder-size-01.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## 2. Solve the problem
 
@@ -37,9 +37,9 @@ $ git push origin main --force
 
 정리한 폴더 사이즈는 151MB 정도로 많이 줄었다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/reduce-git-folder-size-02.png" width="100%" class="image__border">
-</p>
+</div>
 
 #### REFERENCE
 

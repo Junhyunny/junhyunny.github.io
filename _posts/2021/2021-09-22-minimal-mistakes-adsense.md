@@ -1,9 +1,9 @@
 ---
-title: "How to connect to Google Adsense for GitHub Blog"
+title: "깃허브 블로그에 Google Adsense 연결하기"
 search: false
 category:
   - information
-last_modified_at: 2021-09-22T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -30,7 +30,7 @@ last_modified_at: 2021-09-22T23:55:00
 - `이메일 주소`에는 사용 중인 구글 이메일 주소를 입력한다.
 - `애드센스 정보 수신`은 직접 선택한다.
 - `저장하고 계속하기` 버튼을 누른 후 기타 부가적인 정보들을 입력한다.
-  - 필자는 이미 가입되어 있기 때문에 다른 화면으로 리다이렉트(redirect)됬다.
+  - 필자는 이미 가입되어 있기 때문에 다른 화면으로 리다이렉트(redirect)됐다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/minimal-mistakes-adsense-02.png" width="100%" class="image__border">
@@ -49,7 +49,7 @@ last_modified_at: 2021-09-22T23:55:00
 
 ### 2.2. Paste Adsense code in /_includes/head/custom.html 
 
-- `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태크를 추가한다.
+- `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태그를 추가한다.
 
 ##### custom.html
 
@@ -76,7 +76,7 @@ last_modified_at: 2021-09-22T23:55:00
 
 ### 2.4. Change AdSense code form in case of continuous approval failure
 
-필자는 블로그의 글들이 많았고 컨텐츠도 충분히 퀄러티가 있다고 생각했지만, 계속 승인이 거부됬다. 다음과 같은 두 작업을 추가적으로 수행하니 성공했다.
+필자는 블로그의 글들이 많았고 컨텐츠도 충분히 퀄러티가 있다고 생각했지만, 계속 승인이 거부됐다. 다음과 같은 두 작업을 추가적으로 수행하니 성공했다.
 
 - 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라했다.
   - 하지만 해당 영역은 HTML 파일의 바디(body)이므로 구글 애드센스에서 요구하는 헤드(head) 영역은 아니다.

@@ -1,9 +1,9 @@
 ---
-title: "Spring Expression Language"
+title: "스프링 표현 언어(Spring Expression Language)"
 search: false
 category:
   - spring
-last_modified_at: 2024-06-14T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

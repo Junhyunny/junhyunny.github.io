@@ -1,27 +1,25 @@
 ---
-title: "Webcam with Frame Filter"
+title: "프레임 필터가 있는 웹캠 구현"
 search: false
 category:
   - html
   - css
   - javascript
-last_modified_at: 2023-09-14T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-브라우저 웹캠을 사용해 간단한 프레임을 입힌 이미지를 촬영해보았습니다. 
-코드에 대한 설명 후 코드펜(codepen)을 통해 실제로 동작하는 모습을 살펴보겠습니다. 
-코드가 긴 경우 가독성을 위해 설명이 필요한 부분에 주석을 작성하였습니다.  
+브라우저 웹캠을 사용해 간단한 프레임을 입힌 이미지를 촬영해보았다. 코드에 대한 설명 후 코드펜(codepen)을 통해 실제로 동작하는 모습을 살펴보겠다. 코드가 긴 경우 가독성을 위해 설명이 필요한 부분에 주석을 작성하였다.
 
 ## 1. HTML Code
 
-* 프레임 필터를 변경할 수 있는 버튼들이 있습니다.
-* `Take Photo` 버튼을 누르면 이미지를 생성해 저장합니다.
-* 비디오 이미지 위에 위치할 프레임(frame) 캔버스가 존재합니다.
-* 비디오를 표시하기 위한 사진(photo) 캔버스가 존재합니다.
+- 프레임 필터를 변경할 수 있는 버튼들이 있다.
+- `Take Photo` 버튼을 누르면 이미지를 생성해 저장한다.
+- 비디오 이미지 위에 위치할 프레임(frame) 캔버스가 존재한다.
+- 비디오를 표시하기 위한 사진(photo) 캔버스가 존재한다.
 
 ```html
 <div class="photobooth">
@@ -244,7 +242,7 @@ function loadFrame(onloadCallback) {
   // CORS 문제 해결
   image.crossOrigin = "anonymous";
   // 프레임 이미지 로딩 콜백 등록
-  image.onload = onloadCallback; 
+  image.onload = onloadCallback;
   // 이미지 객체의 src 변경 시 onload 콜백 함수 실행
   if (frameTypeState === 1) {
     image.src = "https://junhyunny.github.io/images/webcam-filter-1.JPG";
@@ -286,13 +284,13 @@ video.addEventListener("canplay", paintToCanvas);
 
 ## 4. Result
 
-* 블로그 화면에선 웹캠이 동작하지 않으므로 웹캠 동작을 위해 코드펜으로 접속합니다.
-    * <https://codepen.io/junhyunny/pen/MWZoRmw>
+- 블로그 화면에선 웹캠이 동작하지 않으므로 웹캠 동작을 위해 코드펜으로 접속한다.
+  - <https://codepen.io/junhyunny/pen/MWZoRmw>
 
 {% include codepen.html hash="MWZoRmw" tab="html,js" title="Webcam Frame Filters" %}
 
 #### REFERENCE
 
-* <https://codepen.io/trobes/pen/bxropm>
-* <https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image>
-* <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage>
+- <https://codepen.io/trobes/pen/bxropm>
+- <https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image>
+- <https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage>

@@ -1,9 +1,9 @@
 ---
-title: "Forward/Reverse Proxy"
+title: "포워드/리버스 프록시(Forward/Reverse Proxy)"
 search: false
 category:
   - information
-last_modified_at: 2023-05-07T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -61,7 +61,7 @@ last_modified_at: 2023-05-07T23:55:00
 
 #### RECOMMEND NEXT POSTS
 
-- [방화벽(frewall)][firewall-link]
+- [방화벽(firewall)][firewall-link]
 - [DMZ in Network][dmz-in-network-link]
 - [Using Nginx as Reverse Proxy][using-nginx-as-reverse-proxy-link]
 

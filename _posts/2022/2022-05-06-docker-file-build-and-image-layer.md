@@ -1,18 +1,17 @@
 ---
-title: "Build with Dockerfile and Image Layer"
+title: "Dockerfile 빌드와 이미지 레이어(Build with Dockerfile and Image Layer)"
 search: false
 category:
   - information
   - docker
-last_modified_at: 2022-05-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. Docker build with Dockerfile
 
-`Dockerfile`을 이용하여 도커 이미지를 만들어보았습니다. 
-첫 빌드와 다음 빌드의 차이점을 살펴보겠습니다. 
+`Dockerfile`을 이용하여 도커 이미지를 만들어보았다. 첫 빌드와 다음 빌드의 차이점을 살펴보겠다.
 
 ##### Dockerfile
 
@@ -32,12 +31,12 @@ CMD ["node", "server.js"]
 
 ##### First docker build
 
-- `build` 커맨드를 사용하여 이미지를 만들면 다음과 같은 로그가 출력됩니다.
-- `Dockerfile`에 작성한 명령들을 기준으로 하나씩 살펴보겠습니다.
-    - `FROM node:12` - 도커 레지스트리에서 필요한 이미지를 다운받습니다.
-    - `WORKDIR /app` - 작업 디렉토리를 `app`으로 변경합니다.
-    - `COPY . /app` - 호스트의 현재 디렉토리의 파일들을 모두 `app` 폴더로 이동합니다.
-    - `RUN npm install` - `npm` 커맨드를 사용하여 필요한 패키지들을 설치합니다.
+- `build` 커맨드를 사용하여 이미지를 만들면 다음과 같은 로그가 출력된다.
+- `Dockerfile`에 작성한 명령들을 기준으로 하나씩 살펴보겠다.
+  - `FROM node:12` - 도커 레지스트리에서 필요한 이미지를 다운받는다.
+  - `WORKDIR /app` - 작업 디렉토리를 `app`으로 변경한다.
+  - `COPY . /app` - 호스트의 현재 디렉토리의 파일들을 모두 `app` 폴더로 이동한다.
+  - `RUN npm install` - `npm` 커맨드를 사용하여 필요한 패키지들을 설치한다.
 
 ```
 $ docker build .
@@ -71,13 +70,13 @@ $ docker build .
 
 ##### Second docker build
 
-- 도커 이미지를 삭제하고, 프로젝트에 다른 변경 없이 다시 이미지를 빌드하였습니다. 
-- `build` 커맨드를 사용하여 이미지를 만들면 다음과 같은 로그가 출력됩니다.
-- `Dockerfile`에 작성한 명령들을 기준으로 하나씩 살펴보겠습니다.
-    - `FROM node:12` - 도커 레지스트리에서 필요한 이미지를 다운받지 않습니다.
-    - `CACHED WORKDIR /app` - `CACHED`, 이전 빌드에서 작업한 내용을 그대로 사용합니다.
-    - `CACHED COPY . /app` - `CACHED`, 이전 빌드에서 작업한 내용을 그대로 사용합니다.
-    - `CACHED RUN npm install` - `CACHED`, 이전 빌드에서 작업한 내용을 그대로 사용합니다.
+- 도커 이미지를 삭제하고, 프로젝트에 다른 변경 없이 다시 이미지를 빌드하였다.
+- `build` 커맨드를 사용하여 이미지를 만들면 다음과 같은 로그가 출력된다.
+- `Dockerfile`에 작성한 명령들을 기준으로 하나씩 살펴보겠다.
+  - `FROM node:12` - 도커 레지스트리에서 필요한 이미지를 다운받지 않는다.
+  - `CACHED WORKDIR /app` - `CACHED`, 이전 빌드에서 작업한 내용을 그대로 사용한다.
+  - `CACHED COPY . /app` - `CACHED`, 이전 빌드에서 작업한 내용을 그대로 사용한다.
+  - `CACHED RUN npm install` - `CACHED`, 이전 빌드에서 작업한 내용을 그대로 사용한다.
 
 ```
 $ docker images -a
@@ -111,31 +110,29 @@ $ docker build .
 
 ### 1.1. Docker image layer
 
-도커 이미지는 `레이어(layer)`로 이뤄져 있습니다. 
-`Dockerfile`을 통해 도커 이미지를 만들면 도커 파일의 각 명령어(instruction)가 이미지를 구성하기 위한 레이어가 됩니다. 
-각 레이어들은 독립적으로 저장되며 `읽기 전용(read only)`이기 때문에 수정이 불가능합니다. 
+도커 이미지는 `레이어(layer)`로 이뤄져 있다. `Dockerfile`을 통해 도커 이미지를 만들면 도커 파일의 각 명령어(instruction)가 이미지를 구성하기 위한 레이어가 된다. 각 레이어들은 독립적으로 저장되며 `읽기 전용(read only)`이기 때문에 수정이 불가능하다.
 
-`Dockerfile`의 작성된 모든 
-- WORKDIR 명령어는 레이어로 저장됩니다.
-    - 도커 이미지 사이즈에 영향을 미치지 않습니다.
-    - 레이어가 저장되므로 이미지 빌드 시 캐싱이 가능합니다.
-- RUN, ADD 그리고 COPY 명령어는 레이어로 저장됩니다.
-    - 도커 이미지 사이즈에 영향을 미칩니다.
-    - 레이어가 저장되므로 이미지 빌드 시 캐싱이 가능합니다.
-- CMD, LABEL, ENV, EXPOSE 등 메타 정보를 다루는 명령어들은 임시로 레이어가 생성되지만, 저장되지 않습니다.
-    - 도커 이미지 사이즈에 영향을 미치지 않습니다.
-    - 레이어가 저장되지 않으므로 이미지 빌드 시 캐싱이 불가능합니다.
+`Dockerfile`의 작성된 모든
+- WORKDIR 명령어는 레이어로 저장된다.
+  - 도커 이미지 사이즈에 영향을 미치지 않는다.
+  - 레이어가 저장되므로 이미지 빌드 시 캐싱이 가능하다.
+- RUN, ADD 그리고 COPY 명령어는 레이어로 저장된다.
+  - 도커 이미지 사이즈에 영향을 미친다.
+  - 레이어가 저장되므로 이미지 빌드 시 캐싱이 가능하다.
+- CMD, LABEL, ENV, EXPOSE 등 메타 정보를 다루는 명령어들은 임시로 레이어가 생성되지만, 저장되지 않는다.
+  - 도커 이미지 사이즈에 영향을 미치지 않는다.
+  - 레이어가 저장되지 않으므로 이미지 빌드 시 캐싱이 불가능하다.
 
 ##### Dockerfile instruction and image layer
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/docker-file-build-and-image-layer-01.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/docker-file-build-and-image-layer-01.png" width="100%" class="image__border">
+</div>
 <center>https://kimjingo.tistory.com/62</center>
 
 ##### docker history command to see the layer
 
-- `history` 커맨드를 통해 이미지를 구성하는 레이어 정보를 확인할 수 있습니다. 
+- `history` 커맨드를 통해 이미지를 구성하는 레이어 정보를 확인할 수 있다.
 
 ```
 $ docker images
@@ -167,17 +164,14 @@ IMAGE          CREATED             CREATED BY                                   
 
 ### 1.2. Layer Caching
 
-`Dockerfile`을 통해 이미지를 만들 때 생성되는 레이어들은 변경이 없다면 재사용이 가능합니다. 
-이미지 빌드를 더 빠르게 하기 위해 이미지 레이어를 효율적으로 재사용하려면 `Dockerfile` 구조를 고민해볼 필요가 있습니다. 
-`Dockerfile`을 통한 빌드 시 변경이 일어난 명령어부터 모두 재실행된다는 점을 고려하고 작성해야합니다. 
-이전 단계에서 작성한 `Dockerfile`을 먼저 살펴보고, 이를 효율적인 모습으로 변경해보겠습니다. 
+`Dockerfile`을 통해 이미지를 만들 때 생성되는 레이어들은 변경이 없다면 재사용이 가능하다. 이미지 빌드를 더 빠르게 하기 위해 이미지 레이어를 효율적으로 재사용하려면 `Dockerfile` 구조를 고민해볼 필요가 있다. `Dockerfile`을 통한 빌드 시 변경이 일어난 명령어부터 모두 재실행된다는 점을 고려하고 작성해야 한다. 이전 단계에서 작성한 `Dockerfile`을 먼저 살펴보고, 이를 효율적인 모습으로 변경해보겠다.
 
 ##### 이전 Dockerfile 문제점
 
-- `COPY . /app` 명령어를 통해 현재 프로젝트 파일들을 모두 컨테이너로 복사합니다.
-- 프로젝트 내 변경이 있을 때마다 `COPY . /app` 명령어부터 모두 재실행합니다. 
-- 단순한 소스 코드의 변경만으로 시간적 비용이 높은 `RUN npm install`을 매번 실행하게 됩니다. 
-    - `npm install` 명령어 실행은 소스 코드만 변경되었을 때
+- `COPY . /app` 명령어를 통해 현재 프로젝트 파일들을 모두 컨테이너로 복사한다.
+- 프로젝트 내 변경이 있을 때마다 `COPY . /app` 명령어부터 모두 재실행한다.
+- 단순한 소스 코드의 변경만으로 시간적 비용이 높은 `RUN npm install`을 매번 실행하게 된다.
+  - `npm install` 명령어 실행은 소스 코드만 변경되었을 때
 
 ```dockerfile
 FROM node:12
@@ -195,10 +189,10 @@ CMD ["node", "server.js"]
 
 ##### 효율적인 Dockerfile 그리고 .dockerignore 파일
 
-- 다음과 같이 변경하면 효율적인 빌드가 가능합니다.
-- `COPY package.json /app` 명령어를 통해 의존성 관리를 위한 `package.json` 파일만 복사합니다.
-- `RUN npm install` 명령어는 `package.json` 파일의 변경이 있을 때만 재실행합니다.
-- 단순한 소스 코드의 변경이 발생하면 `COPY . /app` 명령어부터 재실행하고, 이전 단계에서는 기존에 만든 이미지 레이어를 사용합니다.
+- 다음과 같이 변경하면 효율적인 빌드가 가능하다.
+- `COPY package.json /app` 명령어를 통해 의존성 관리를 위한 `package.json` 파일만 복사한다.
+- `RUN npm install` 명령어는 `package.json` 파일의 변경이 있을 때만 재실행한다.
+- 단순한 소스 코드의 변경이 발생하면 `COPY . /app` 명령어부터 재실행하고, 이전 단계에서는 기존에 만든 이미지 레이어를 사용한다.
 
 ```dockerfile
 FROM node:12
@@ -216,8 +210,8 @@ EXPOSE 80
 CMD ["node", "server.js"]
 ```
 
-- 빌드를 더 효율적으로 개선하기 위해서 `.dockerignore` 파일을 만듭니다.
-- 도커 이미지 빌드 시 불필요한 파일들이 포함되지 않도록 불필요 항목들을 추가합니다.
+- 빌드를 더 효율적으로 개선하기 위해서 `.dockerignore` 파일을 만든다.
+- 도커 이미지 빌드 시 불필요한 파일들이 포함되지 않도록 불필요 항목들을 추가한다.
 
 ```
 .dockerignore

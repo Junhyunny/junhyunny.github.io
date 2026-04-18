@@ -1,9 +1,9 @@
 ---
-title: "Chain of Responsibility Pattern"
+title: "책임 연쇄 패턴(Chain of Responsibility Pattern)"
 search: false
 category:
   - design-pattern
-last_modified_at: 2024-04-22T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -32,9 +32,9 @@ last_modified_at: 2024-04-22T23:55:00
 - 자신이 해결할 수 있는 요청은 자신이 처리한다.
 - 자신이 해결할 수 없는 요청은 다음 후보 객체에게 전달한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-01.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://www.cs.unc.edu/~stotts/GOF/hires/pat5afso.htm</center>
 
 ### 1.2. In Refactoring Guru
@@ -44,14 +44,14 @@ last_modified_at: 2024-04-22T23:55:00
 1. 온라인 주문 시스템을 개발하고 있다.
   - 인증된 사용자만 주문할 수 있다.
   - 관리 권한이 있는 사용자들은 모든 주문에 접근 권한을 부여할 수 있다.
-2. 몇 가지 기능들이 더 추가됬다.
+2. 몇 가지 기능들이 더 추가됐다.
   - 검증되지 않은 데이터를 주문 시스템에 직접 전달하는 것이 안정하지 않아 데이터를 정제(sanitize)하는 추가 유효성 검사를 추가한다.
   - 무차별 대입 공격에 방어하기 위해 같은 IP 주소로부터 반복적으로 오는 실패한 요청을 걸러내는 검사를 추가한다.
   - 같은 데이터가 포함된 반복 요청에 대해 캐시된 결과를 반환한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-02.png" width="100%" class="image__border">
-</p>
+</div>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
 <br/>
@@ -68,9 +68,9 @@ last_modified_at: 2024-04-22T23:55:00
   - 책임 연쇄 패턴을 적용하면 코드의 복잡도가 줄어든다.
   - 비슷한 검증이 필요한 다른 시스템들은 자신의 상황에 맞는 핸들러들로 체인을 조합하여 사용한다.   
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-03.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
 ## 2. Structure
@@ -91,9 +91,9 @@ last_modified_at: 2024-04-22T23:55:00
   - 핸들러 체인에게 요청을 전달한다.
   - 핸들러 체인은 동적으로 구성할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-04.png" width="40%" class="image__border image__padding">
-</p>
+</div>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
 ## 3. Considerations
@@ -199,9 +199,9 @@ public class SecurityContextHolderFilter extends GenericFilterBean {
 - 요청 정보는 HttpServletRequest, 응답 정보는 HttpServletResponse 객체에 담겨 있다.
 - 핸들러 역할을 수행하는 필터들은 서로의 존재를 모르고 FilterChain 인스턴스를 통해 다음 필터에게 요청을 건낸다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/chain-of-responsibility-pattern-05.png" width="100%" class="image__border">
-</p>
+</div>
 
 #### REFERENCE
 

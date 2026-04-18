@@ -1,9 +1,9 @@
 ---
-title: "Virtual Environment for Python"
+title: "파이썬(Python) 가상 환경(Virtual Environment)"
 search: false
 category:
   - python
-last_modified_at: 2024-06-26T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -50,7 +50,7 @@ drwx------@ 7 junhyunk  staff  224 Jun 26 11:17 ..
 drwxr-xr-x  6 junhyunk  staff  192 Jun 26 11:21 myenv
 ```
 
-가상 환경이 준비됬다면 이를 활성화 한다. myenv 폴더 내부에 activate 파일을 적용한다.
+가상 환경이 준비됐다면 이를 활성화한다. myenv 폴더 내부에 activate 파일을 적용한다.
 
 ```
 $ source ./myenv/bin/activate

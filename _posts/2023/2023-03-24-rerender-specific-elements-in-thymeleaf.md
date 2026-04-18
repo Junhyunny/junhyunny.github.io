@@ -1,62 +1,62 @@
 ---
-title: "Re-render Specific Elements in Thymeleaf"
+title: "Thymeleaf에서 특정 엘리먼트 재렌더링하기"
 search: false
 category:
   - spring-boot
   - thymeleaf
-last_modified_at: 2023-03-24T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. Needs
 
-특정 기술의 컨셉을 확인하기 위해 스프링 부트(spring boot), 타임리프(thymeleaf) 프레임워크로 간단한 애플리케이션을 만들어보는 과정에서 다음과 같은 문제를 만났습니다. 
+특정 기술의 컨셉을 확인하기 위해 스프링 부트(spring boot), 타임리프(thymeleaf) 프레임워크로 간단한 애플리케이션을 만들어보는 과정에서 다음과 같은 문제를 만났다.
 
-* 타임리프는 SSR(server side rendering) 방식이라 요청에 대한 응답을 페이지로 받는다. 
-* 매번 신규 페이지를 받아 처리하다보니 브라우저의 새로고침이나 뒤로가기를 하면 데이터가 꼬인다.
+- 타임리프는 SSR(server side rendering) 방식이라 요청에 대한 응답을 페이지로 받는다.
+- 매번 신규 페이지를 받아 처리하다보니 브라우저의 새로고침이나 뒤로가기를 하면 데이터가 꼬인다.
 
-위 문제들을 해결하기 위해 다음과 같은 방식으로 기능을 구현했습니다. 
+위 문제들을 해결하기 위해 다음과 같은 방식으로 기능을 구현했다.
 
-* SPA(single page application) 방식처럼 페이지는 유지한 채 특정 영역만 다시 렌더링(rendering)
-* `jquery`, `axios` 같은 외부 의존성을 추가하지 않고 기능 구현
+- SPA(single page application) 방식처럼 페이지는 유지한 채 특정 영역만 다시 렌더링(rendering)
+- `jquery`, `axios` 같은 외부 의존성을 추가하지 않고 기능 구현
 
-이번 포스트에선 브라우저가 기본으로 제공하는 웹 API `fetch` 함수와 타임리프 프레임워크를 사용해 페이지의 특정 부분만 렌더링하는 방법에 대해 정리하였습니다. 
+이번 포스트에선 브라우저가 기본으로 제공하는 웹 API `fetch` 함수와 타임리프 프레임워크를 사용해 페이지의 특정 부분만 렌더링하는 방법에 대해 정리하였다.
 
 ## 2. Practice
 
 ## 2.1. packages
 
-* 다음과 같은 패키지 구조를 가집니다.
+- 다음과 같은 패키지 구조를 가진다.
 
 ```
 ./
 ├── HELP.md
 ├── build.gradle
 ├── gradle
-│   └── wrapper
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
 ├── gradlew
 ├── gradlew.bat
 ├── settings.gradle
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.java
-    │   │               ├── controller
-    │   │               │   └── FormController.java
-    │   │               └── domain
-    │   │                   └── User.java
-    │   └── resources
-    │       ├── application.yml
-    │       ├── static
-    │       │   └── index.css
-    │       └── templates
-    │           └── index.html
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── controller
+    │   │               │   └── FormController.java
+    │   │               └── domain
+    │   │                   └── User.java
+    │   └── resources
+    │       ├── application.yml
+    │       ├── static
+    │       │   └── index.css
+    │       └── templates
+    │           └── index.html
     └── test
         └── java
             └── action
@@ -67,7 +67,7 @@ last_modified_at: 2023-03-24T23:55:00
 
 ## 2.2. build.gradle
 
-* 다음과 같은 의존성이 필요합니다.
+- 다음과 같은 의존성이 필요하다.
 
 ```
 plugins {
@@ -105,7 +105,7 @@ tasks.named('test') {
 
 ### 2.3. application.yml
 
-* 타임리프를 위한 설정입니다.
+- 타임리프를 위한 설정이다.
 
 ```yml
 spring:
@@ -121,12 +121,12 @@ spring:
 
 ### 2.4. index.html
 
-* submit 함수
-    * `preventDefault` 함수를 통해 폼(form) `submit` 이벤트의 고유 기능인 페이지 이동을 막습니다.
-    * 폼 엘리먼트(element)를 데이터 객체로 변경합니다.
-    * API 요청을 수행합니다.
-    * 비동기 콜백을 통해 응답을 텍스트로 변경합니다.
-    * `#user` 영역의 HTML 텍스트를 응답 결과로 대체합니다.
+- submit 함수
+  - `preventDefault` 함수를 통해 폼(form) `submit` 이벤트의 고유 기능인 페이지 이동을 막는다.
+  - 폼 엘리먼트(element)를 데이터 객체로 변경한다.
+  - API 요청을 수행한다.
+  - 비동기 콜백을 통해 응답을 텍스트로 변경한다.
+  - `#user` 영역의 HTML 텍스트를 응답 결과로 대체한다.
 
 ```html
 <html>
@@ -149,7 +149,7 @@ spring:
             document.getElementById('user').outerHTML = result
         }
     </script>
-    
+
 </head>
 <body>
 <div id="user">
@@ -192,9 +192,9 @@ spring:
 
 ### 2.5. FormController Class
 
-* `/user` 경로
-    * 요청으로 들어온 정보를 그대로 모델(model) 객체에 담습니다.
-    * 응답 경로는 `index.html` 내부에 `#user` 영역만 페이지로 만들어 반환합니다. 
+- `/user` 경로
+  - 요청으로 들어온 정보를 그대로 모델(model) 객체에 담는다.
+  - 응답 경로는 `index.html` 내부에 `#user` 영역만 페이지로 만들어 반환한다.
 
 ```java
 package action.in.blog.controller;
@@ -226,35 +226,34 @@ public class FormController {
 
 ##### Result of Practice
 
-* 오른쪽 폼에서 입력한 값들이 왼쪽 창에 그대로 반영됩니다.
+- 오른쪽 폼에서 입력한 값들이 왼쪽 창에 그대로 반영된다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/rerender-specific-elements-in-thymeleaf-01.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/rerender-specific-elements-in-thymeleaf-01.gif" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-REST API 방식처럼 필요한 데이터만 주고 받진 않지만, 사용자에겐 같은 경험을 제공합니다. 
-다만 HTML 엘리먼트를 통째로 바꾸기 때문에 XSS(cross site script) 공격에 취약하므로 주의해야합니다. 
+REST API 방식처럼 필요한 데이터만 주고 받진 않지만, 사용자에겐 같은 경험을 제공한다. 다만 HTML 엘리먼트를 통째로 바꾸기 때문에 XSS(cross site script) 공격에 취약하므로 주의해야 한다.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-24-rerender-specific-elements-in-thymeleaf>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-03-24-rerender-specific-elements-in-thymeleaf>
 
 #### RECOMMEND NEXT POSTS
 
-* [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
-* [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting-link]
-* [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
-* [dangerouslySetInnerHTML Attribute And XSS Attack][react-xss-attack-link]
-* [v-html Directive And XSS Attack][vue-xss-attack-link]
+- [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
+- [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting-link]
+- [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
+- [dangerouslySetInnerHTML Attribute And XSS Attack][react-xss-attack-link]
+- [v-html Directive And XSS Attack][vue-xss-attack-link]
 
 #### REFERENCE
 
-* <https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch>
-* <https://developer.mozilla.org/en-US/docs/Web/API/Response/text>
-* <https://wangtak.tistory.com/29>
-* <https://chaelin1211.github.io/study/2021/04/14/thymeleaf-ajax.html>
+- <https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch>
+- <https://developer.mozilla.org/en-US/docs/Web/API/Response/text>
+- <https://wangtak.tistory.com/29>
+- <https://chaelin1211.github.io/study/2021/04/14/thymeleaf-ajax.html>
 
 [reflected-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/
 [stored-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/

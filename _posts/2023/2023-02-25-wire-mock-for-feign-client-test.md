@@ -1,55 +1,47 @@
 ---
-title: "WireMock for FeignClient Test"
+title: "FeignClient 테스트를 위한 WireMock"
 search: false
 category:
   - spring-boot
   - spring-cloud
   - test-driven-development
-last_modified_at: 2023-02-25T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
+- [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
 
 ## 0. 들어가면서
 
-외부 API 호출을 위해 사용하는 `FeginClient`를 테스트하는 방법을 정리하였습니다. 
+외부 API 호출을 위해 사용하는 `FeignClient`를 테스트하는 방법을 정리하였다.
 
 ## 1. Spring Cloud OpenFeign
 
-스프링 클라우드(spring cloud) 프로젝트 중 하나입니다. 
-API 요청을 쉽게 사용할 수 있는 기능을 제공합니다. 
-애너테이션(annotation)과 인터페이스를 사용해 쉽게 `FeginClient`를 구현할 수 있습니다.
+스프링 클라우드(spring cloud) 프로젝트 중 하나이다. API 요청을 쉽게 사용할 수 있는 기능을 제공한다. 애너테이션(annotation)과 인터페이스를 사용해 쉽게 `FeignClient`를 구현할 수 있다.
 
-> Feign is a declarative web service client. 
+> Feign is a declarative web service client.
 > It makes writing web service clients easier.
 
 ## 2. WireMock
 
-`FeginClient`가 클리언트로써 정상적으로 동작하는지 테스트하려면 서버가 필요합니다. 
-매 테스트마다 실제 서버를 준비할 수 없으므로 `WireMock`이라는 가상의 웹 서버를 사용합니다. 
-`WireMock`을 사용하면 스텁(stub)과 목(mock)을 통해 클라이언트가 원하는 요청과 응답을 준비할 수 있습니다. 
+`FeignClient`가 클라이언트로써 정상적으로 동작하는지 테스트하려면 서버가 필요하다. 매 테스트마다 실제 서버를 준비할 수 없으므로 `WireMock`이라는 가상의 웹 서버를 사용한다. `WireMock`을 사용하면 스텁(stub)과 목(mock)을 통해 클라이언트가 원하는 요청과 응답을 준비할 수 있다.
 
-> WireMock is a library for stubbing and mocking web services. 
+> WireMock is a library for stubbing and mocking web services.
 > It constructs an HTTP server that we can connect to as we would to an actual web service.
 
-`WireMock`을 사용한 테스트는 다음과 같은 장점이 있습니다.
+`WireMock`을 사용한 테스트는 다음과 같은 장점이 있다.
 
-* 서비스를 실행시키지 않은 상태로 실제 API 요청을 수행할 수 있습니다.
-    * API 요청시 발생할 수 있는 포맷 변경에 대한 테스트가 가능합니다. 
-* JUnit 프레임워크와 함께 사용하여 테스트를 자동화 할 수 있습니다. 
-* 다양한 예외 케이스들에 대한 테스트가 가능합니다. 
+- 서비스를 실행시키지 않은 상태로 실제 API 요청을 수행할 수 있다.
+  - API 요청시 발생할 수 있는 포맷 변경에 대한 테스트가 가능하다.
+- JUnit 프레임워크와 함께 사용하여 테스트를 자동화 할 수 있다.
+- 다양한 예외 케이스들에 대한 테스트가 가능하다.
 
 ### 2.1. Why do we need API test?
 
-외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용합니다. 
-스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인합니다. 
-이런 테스트 방법은 검증의 한계가 있습니다. 
-간단한 예시를 들어보겠습니다. 
-JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷(format)으로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 됩니다. 
+외부 API 호출을 수행하는 코드를 단위 테스트하는 방법은 보통 테스트 더블(test double)을 사용한다. 스파이(spy) 객체를 사용해 외부 API 호출을 적절하게 수행하였는지 확인한다. 이런 테스트 방법은 검증의 한계가 있다. 간단한 예시를 들어보겠다. JSON 응답의 날짜, 시간을 `yyyy-MM-dd HH:mm:ss` 포맷(format)으로 받을 때 자료형이 `LocalDateTime` 클래스인 경우 다음과 같은 에러를 만나게 된다.
 
 ##### Response JSON
 
@@ -79,9 +71,9 @@ public class BlogResponse {
 
 ##### Error Logs and Pain Point
 
-* 스프링에서 JSON 요청, 응답을 위해 사용하는 `Jackson` 라이브러리는 자료형이 `LocalDateTime` 클래스인 경우 기본적으로 `yyyy-MM-dd'T'HH:mm:ss` 포맷 데이터를 지원합니다. 
-* `yyyy-MM-dd HH:mm:ss` 형태의 데이터를 요청, 응답을 하는 경우 발생하는 파싱(parsing) 에러는 런타임에서 발견될 확률이 높습니다.
-* 배포된 후 발생하는 런타임 에러로 인해 정상적인 응답을 못하는 경우 서비스의 신뢰도가 하락합니다.
+- 스프링에서 JSON 요청, 응답을 위해 사용하는 `Jackson` 라이브러리는 자료형이 `LocalDateTime` 클래스인 경우 기본적으로 `yyyy-MM-dd'T'HH:mm:ss` 포맷 데이터를 지원한다.
+- `yyyy-MM-dd HH:mm:ss` 형태의 데이터를 요청, 응답을 하는 경우 발생하는 파싱(parsing) 에러는 런타임에서 발견될 확률이 높다.
+- 배포된 후 발생하는 런타임 에러로 인해 정상적인 응답을 못하는 경우 서비스의 신뢰도가 하락한다.
 
 ```
 Caused by: com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.time.LocalDateTime` from String "2023-02-24 11:30:25": Failed to deserialize java.time.LocalDateTime: (java.time.format.DateTimeParseException) Text '2023-02-24 11:30:25' could not be parsed at index 10
@@ -98,14 +90,14 @@ Caused by: java.time.format.DateTimeParseException: Text '2023-02-24 11:30:25' c
 
 ## 3. Practice
 
-간단한 테스트 코드를 통해 사용 방법을 알아보겠습니다. 
+간단한 테스트 코드를 통해 사용 방법을 알아보겠다.
 
 ### 3.1. build.gradle
 
-* `FeignClient`를 위한 의존성을 추가합니다.
-    * spring-cloud-starter-openfeign
-* `WireMock`를 위한 의존성을 추가합니다.
-    * spring-cloud-starter-contract-stub-runner
+- `FeignClient`를 위한 의존성을 추가한다.
+  - spring-cloud-starter-openfeign
+- `WireMock`를 위한 의존성을 추가한다.
+  - spring-cloud-starter-contract-stub-runner
 
 ```groovy
 ext {
@@ -131,12 +123,12 @@ dependencyManagement {
 
 ### 3.2. BlogClient Interface
 
-* `FeignClient`를 하나 선언합니다.
-    * 이름은 `blog-client` 입니다.
-    * URL은 설정을 통해 주입 받습니다. 
-* `/search` 경로
-    * GET 요청을 수행합니다.
-    * 요청 파라미터의 키로 `key`를 사용합니다.
+- `FeignClient`를 하나 선언한다.
+  - 이름은 `blog-client` 이다.
+  - URL은 설정을 통해 주입 받는다.
+- `/search` 경로
+  - GET 요청을 수행한다.
+  - 요청 파라미터의 키로 `key`를 사용한다.
 
 ```java
 package action.in.blog.client;
@@ -156,7 +148,7 @@ public interface BlogClient {
 
 ### 3.3. ActionInBlogApplication Class
 
-* `FeignClient`를 사용하기 위해 `@EnableFeignClients` 애너테이션을 추가합니다.
+- `FeignClient`를 사용하기 위해 `@EnableFeignClients` 애너테이션을 추가한다.
 
 ```java
 package action.in.blog;
@@ -178,24 +170,22 @@ public class ActionInBlogApplication {
 
 ## 4. Test
 
-다음과 같은 코드를 통해 테스트를 수행합니다.
+다음과 같은 코드를 통해 테스트를 수행한다.
 
 ### 4.1. BlogClientIT Class
 
-`@SpringBootTest` 애너테이션을 통한 결합 테스트(integration test)를 수행합니다. 
-결합 테스트는 비용이 큰 만큼 적을수록 좋습니다. 
-최대한 적은 컨텍스트를 로딩(loading)하는 방법은 찾지 못 했습니다.
+`@SpringBootTest` 애너테이션을 통한 결합 테스트(integration test)를 수행한다. 결합 테스트는 비용이 큰 만큼 적을수록 좋다. 최대한 적은 컨텍스트를 로딩(loading)하는 방법은 찾지 못 했다.
 
-* `@SpringBootTest` 애너테이션
-    * 결합 테스트를 수행합니다.
-    * 스프링 애플리케이션의 모든 의존성들을 컨텍스트에 로딩합니다.
-* `@AutoConfigureWireMock` 애너테이션
-    * `WireMock` 서버를 준비합니다.
-    * 포트 번호를 0으로 지정하여 랜덤한 값을 사용합니다.
-* `@TestPropertySource` 애너테이션
-    * `FeignClient`에서 필요한 URL 정보를 지정합니다.
-    * `wiremock.server.port` 설정 값을 통해 `WireMock` 서버의 포트 번호를 추가합니다.
-* `/search?key=hello` 경로로 요청했을 때 원하는 포맷으로 응답을 받는지 테스트 코드를 통해 확인합니다. 
+- `@SpringBootTest` 애너테이션
+  - 결합 테스트를 수행한다.
+  - 스프링 애플리케이션의 모든 의존성들을 컨텍스트에 로딩한다.
+- `@AutoConfigureWireMock` 애너테이션
+  - `WireMock` 서버를 준비한다.
+  - 포트 번호를 0으로 지정하여 랜덤한 값을 사용한다.
+- `@TestPropertySource` 애너테이션
+  - `FeignClient`에서 필요한 URL 정보를 지정한다.
+  - `wiremock.server.port` 설정 값을 통해 `WireMock` 서버의 포트 번호를 추가한다.
+- `/search?key=hello` 경로로 요청했을 때 원하는 포맷으로 응답을 받는지 테스트 코드를 통해 확인한다.
 
 ```java
 package action.in.blog;
@@ -263,8 +253,8 @@ public class BlogClientIT {
 
 ##### Result of Failure Test
 
-* JSON 응답을 디코딩(decoding)할 때 에러가 발생합니다.
-    * `2023-02-24 11:30:25` 값을 `yyyy-MM-dd HH:mm:ss` 포맷으로 변환할 때 에러가 발생합니다.
+- JSON 응답을 디코딩(decoding)할 때 에러가 발생한다.
+  - `2023-02-24 11:30:25` 값을 `yyyy-MM-dd HH:mm:ss` 포맷으로 변환할 때 에러가 발생한다.
 
 ```
 Error while extracting response for type [class action.in.blog.domain.BlogResponse] and content type [application/json]
@@ -297,7 +287,7 @@ BlogClientIT > get_blog_response_from_wiremock_server_using_feign() FAILED
 
 ##### Result of Success Test
 
-* `BlogResponse` 클래스에 `@JsonFormat` 애너테이션을 추가하여 `LocalDateTime` 필드의 포맷을 지정합니다.
+- `BlogResponse` 클래스에 `@JsonFormat` 애너테이션을 추가하여 `LocalDateTime` 필드의 포맷을 지정한다.
 
 ```java
 package action.in.blog.domain;
@@ -316,7 +306,7 @@ public class BlogResponse {
 }
 ```
 
-* 테스트를 수행하면 정상적으로 통과합니다. 
+- 테스트를 수행하면 정상적으로 통과한다.
 
 ```
   .   ____          _            __ _ _
@@ -338,15 +328,15 @@ BUILD SUCCESSFUL in 4s
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-25-wire-mock-for-feign-client-test>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-02-25-wire-mock-for-feign-client-test>
 
 #### REFERENCE
 
-* <https://www.baeldung.com/introduction-to-wiremock>
-* <https://www.baeldung.com/spring-cloud-feign-integration-tests>
-* <https://docs.spring.io/spring-cloud-contract/docs/current/reference/html/project-features.html#features-wiremock>
-* <https://cloud.spring.io/spring-cloud-contract/1.1.x/multi/multi__spring_cloud_contract_wiremock.html>
-* <https://ktko.tistory.com/entry/Spring-Boot-Test-%EB%B0%A9%EB%B2%95>
-* <https://syaku.tistory.com/387>
+- <https://www.baeldung.com/introduction-to-wiremock>
+- <https://www.baeldung.com/spring-cloud-feign-integration-tests>
+- <https://docs.spring.io/spring-cloud-contract/docs/current/reference/html/project-features.html#features-wiremock>
+- <https://cloud.spring.io/spring-cloud-contract/1.1.x/multi/multi__spring_cloud_contract_wiremock.html>
+- <https://ktko.tistory.com/entry/Spring-Boot-Test-%EB%B0%A9%EB%B2%95>
+- <https://syaku.tistory.com/387>
 
 [spring-cloud-openfeign-link]: https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/

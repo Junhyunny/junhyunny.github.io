@@ -1,5 +1,5 @@
 ---
-title: "Problems when make test double in Kotlin"
+title: "코틀린(Kotlin)에서 테스트 더블(Test Double) 생성 시 문제"
 search: false
 category:
   - kotlin

@@ -93,7 +93,7 @@ sync-architecture 스킬은 에이전트의 토큰 낭비를 방지하고 경계
 $ npx skills add junhyunny/skills/sync-architecture
 ```
 
-위 두 스킬로 생성한 CONVENTIONS.md, ARCHITECTURE.md 파일을 AGENTS.md나 CLAUDE.md 파일에서 다음과 같이 참조한다. 
+위 두 스킬로 생성한 CONVENTIONS.md, ARCHITECTURE.md 파일을 AGENTS.md나 CLAUDE.md 파일에서 다음과 같이 참조한다. AI 에이전트와 함께 일하면서 주기적으로 컨벤션과 아키텍처를 업데이트한다.
 
 ```md
 ## References
@@ -101,8 +101,6 @@ $ npx skills add junhyunny/skills/sync-architecture
 - 프로젝트 아키텍처 정보: @ARCHITECTURE.md
 - 코드 컨벤션 정보: @CONVENTIONS.md
 ```
-
-AI 에이전트와 함께 일하면서 주기적으로 컨벤션과 아키텍처를 업데이트한다. 
 
 ## CLOSING
 

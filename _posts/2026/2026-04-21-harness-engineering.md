@@ -1,5 +1,5 @@
 ---
-title: "하네스 엔지니어링(harness engineering)"
+title: "하네스 엔지니어링(Harness Engineering)"
 search: false
 category:
   - ai
@@ -13,7 +13,7 @@ last_modified_at: 2026-04-22T07:49:52+09:00
 
 ## 0. 들어가면서
 
-지금 개발 업계를 관통하는 키워드는 `하네스 엔지니어링(harness engineering)`이다. 처음 들어보는 사람들도 있겠지만, AI를 활용한 엔지니어링에 관심이 많은 사람들이라면 누구나 들어봤을 거라 생각한다. 나는 AI에 열광적이진 않지만, 소프트웨어 엔지니어 커리어를 지속하려면 AI 기술을 활용한 엔지니어링에 관련된 공부는 계속 이어나가야 한다고 느끼고 있다. 이번 글에선 하네스 엔지니어링이 무엇인지 정리해봤다.
+지금 개발 업계를 관통하는 키워드는 `하네스 엔지니어링(Harness Engineering)`이다. 처음 들어보는 사람들도 있겠지만, AI를 활용한 엔지니어링에 관심이 많은 사람들이라면 누구나 들어봤을 거라 생각한다. 나는 AI에 열광적이진 않지만, 소프트웨어 엔지니어 커리어를 지속하려면 AI 기술을 활용한 엔지니어링에 관련된 공부는 계속 이어나가야 한다고 느끼고 있다. 이번 글에선 하네스 엔지니어링이 무엇인지 정리해봤다.
 
 ## 1. What is Harness Engineering?
 
@@ -90,7 +90,7 @@ sync-architecture 스킬은 에이전트의 토큰 낭비를 방지하고 경계
 아래 명령어를 통해 설치해서 사용할 수 있다.
 
 ```
-npx skills add junhyunny/skills/sync-architecture
+$ npx skills add junhyunny/skills/sync-architecture
 ```
 
 위 두 스킬로 생성한 CONVENTIONS.md, ARCHITECTURE.md 파일을 AGENTS.md나 CLAUDE.md 파일에서 다음과 같이 참조한다. 

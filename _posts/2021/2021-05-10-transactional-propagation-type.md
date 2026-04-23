@@ -5,7 +5,7 @@ category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2026-03-28T11:50:41+09:00
+last_modified_at: 2026-04-23T15:53:43+09:00
 ---
 
 <br/>
@@ -21,17 +21,15 @@ last_modified_at: 2026-03-28T11:50:41+09:00
 > 트랜잭션의 작업이 부분적으로 실행되거나 중단되지 않는 것을 보장합니다.<br/>
 > `All or Noting` 개념으로서 작업 단위의 일부분만 실행하지 않는다는 것을 의미합니다.
 
-스프링(spring) 프레임워크는 `@Transactional` 애너테이션을 통해 트랜잭션 원자성을 보장한다. `@Transactional` 애너테이션은 전파 타입(propagation type) 속성을 통해 메서드 단위 트랜잭션들의 연결과 끊음을 결정할 수 있다. 이번 글을 통해 자세한 내용을 살펴보겠다.
+스프링(spring) 프레임워크는 `@Transactional` 애너테이션을 통해 트랜잭션 원자성을 보장한다. @Transactional 애너테이션은 전파 타입(propagation type) 속성을 통해 메서드 단위 트랜잭션들의 연결과 끊음을 결정할 수 있다. 이번 글을 통해 자세한 내용을 살펴보겠다.
 
 ## 1. @Transactional Annotation
 
 스프링 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming)을 지원한다. 개발이 진행되면서 로깅, 보안, 트랜잭션 같은 부가적이지만 공통적으로 사용되는 기능들이 시스템 곳곳에 퍼지기 마련이다. 관점 지향 프로그래밍은 공통적인 기능을 모듈화하는 메커니즘이다.
 
-스프링 프레임워크는 트랜잭션 관리를 `@Transactional` 애너테이션을 통해 제공한다. 메서드나 클래스 위에 `@Transactional` 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 AOP 기능에 의해 수행된다. 개발자는 손쉽게 커밋(commit)이나 롤백(rollback) 처리를 구현할 수 있다.
+스프링 프레임워크는 트랜잭션 관리를 @Transactional 애너테이션을 통해 제공한다. 메서드나 클래스 위에 @Transactional 애너테이션을 붙임으로써 복잡한 트랜잭션 처리가 AOP 기능에 의해 수행된다. 개발자는 손쉽게 커밋(commit)이나 롤백(rollback) 처리를 구현할 수 있다. @Transactional 애너테이션의 기능은 스프링 컨텍스트에 빈(bean) 객체로 등록되어야 정상적으로 동작한다.
 
-`@Transactional` 애너테이션의 기능은 스프링 컨텍스트에 빈(bean) 객체로 등록되어야 정상적으로 동작한다.
-
-- `orderSerivce` 객체가 빈으로 등록되었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우이다.
+- `orderService` 객체가 빈으로 등록되었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우이다.
 - `createOrder` 메서드가 호출되면 실제 비즈니스 로직 전후에 트랜잭션 처리를 위한 AOP 기능이 호출된다.
 
 <div align="center">
@@ -40,9 +38,9 @@ last_modified_at: 2026-03-28T11:50:41+09:00
 
 <br/>
 
-생성자를 통해 만들어진 객체는 빈 객체로 등록되지 않는다. 이런 경우 `@Transactional` 애너테이션이 붙었더라도 정상적인 트랜잭션 처리가 이뤄지지 않는다.
+생성자를 통해 만들어진 객체는 빈 객체로 등록되지 않는다. 이런 경우 @Transactional 애너테이션이 붙었더라도 정상적인 트랜잭션 처리가 이뤄지지 않는다.
 
-- `orderSerivce` 객체를 생성자를 통해 만들었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우이다.
+- `orderService` 객체를 생성자를 통해 만들었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우이다.
 - `createOrder` 메서드가 호출되면 실제 비즈니스 로직이 바로 호출된다. 
 
 <div align="center">
@@ -54,28 +52,21 @@ last_modified_at: 2026-03-28T11:50:41+09:00
 트랜잭션 전파 타입은 트랜잭션을 어떻게 진행할지에 관련된 설정이다. 기존에 시작된 트랜잭션이 있는지 없는지 여부에 따라 동작 방식이 다르다.
 
 - REQUIRED
-  - Support a current transaction, create a new one if none exists.
   - 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만든다.
 - SUPPORTS
-  - Support a current transaction, execute non-transactionally if none exists.
   - 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않는다. 
 - MANDATORY
-  - Support a current transaction, throw an exception if none exists.
   - 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던진다.
 - REQUIRES_NEW
-  - Create a new transaction, and suspend the current transaction if one exists.
   - 새로운 트랜잭션을 만든다. 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
 - NOT_SUPPORTED
-  - Execute non-transactionally, suspend the current transaction if one exists.
   - 트랜잭션 없이 수행한다. 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
 - NEVER
-  - Execute non-transactionally, throw an exception if a transaction exists.
   - 트랜잭션 없이 수행한다. 진행 중인 트랜잭션이 있다면 exception을 던진다.
 - NESTED
-  - Execute within a nested transaction if a current transaction exists, behave like {@code REQUIRED} otherwise.
   - 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED처럼 동작한다.
 
-간단한 테스트 코드를 통해 각 전파 타입 별 결과와 로그를 살펴보고 동작 방식을 이해해보자. 테스트에는 JpaRepository 인터페이스를 사용했다. 결과를 이해하려면 다음과 같은 배경 지식이 필요하다.
+간단한 테스트 코드를 통해 각 전파 타입 별 결과와 로그를 살펴보고 동작 방식을 이해해 보자. 테스트에는 JpaRepository 인터페이스를 사용했다. 결과를 이해하려면 다음과 같은 배경 지식이 필요하다.
 
 - JpaRepository 인터페이스 사용
   - 상위 인터페이스들에 @Transactional 애너테이션이 이미 적용되어 있다.
@@ -87,7 +78,7 @@ last_modified_at: 2026-03-28T11:50:41+09:00
   - @DataJpaTest 애너테이션은 테스트 후 롤백을 위해 자동으로 @Transactional 애너테이션이 적용된다.
   - 커밋과 롤백에 대한 정확한 테스트를 위해 트랜잭션 전파 타입을 `NOT_SUPPORTED`으로 재정의한다. 
 
-상세한 로그 내용을 살펴보기 위해 `org.springframewor.orm.jpa` 패키지 관련 로그 레벨을 디버그(debug)로 지정한다.
+상세한 로그 내용을 살펴보기 위해 `org.springframework.orm.jpa` 패키지 관련 로그 레벨을 디버그(debug)로 지정한다.
 
 ```yml
 logging:
@@ -100,9 +91,7 @@ logging:
 
 ### 2.1. REQUIRED 
 
-> 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만듭니다. 
-
-현재 트랜잭션은 유지되고 자식 트랜잭션까지 하나로 묶이기 때문에 자식 트랜잭션에서 예외(exception)가 발생하면 부모 트랜잭션까지 함께 롤백된다. 현재 진행 중인 트랜잭션이 없다면 새로운 트랜잭션을 실행한다.
+현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만든다. 현재 트랜잭션은 유지되고 자식 트랜잭션까지 하나로 묶이기 때문에 자식 트랜잭션에서 예외(exception)가 발생하면 부모 트랜잭션까지 함께 롤백된다. 현재 진행 중인 트랜잭션이 없다면 새로운 트랜잭션을 실행한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-03.png" width="80%" class="image__border">
@@ -184,7 +173,7 @@ public class ParentService {
 }
 ```
 
-테스트 코드를 실행해보자. 다음 두 가지 경우에 대해 테스트를 수행했다.
+테스트 코드를 실행해 보자. 다음 두 가지 경우에 대해 테스트를 수행했다.
 
 - 부모와 자식이 모두 `REQUIRED` 전파 타입으로 지정한 경우
   - 부모에서부터 트랜잭션을 시작하였으므로 자식에서 예외가 발생하면 모든 트랜잭션이 롤백될 것을 예상한다.
@@ -340,9 +329,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 ### 2.2. SUPPORTS
 
-> 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않습니다. 
-
-현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작한다. 현재 진행 중인 트랜잭션이 없다면 새롭게 만들지 않는다.
+현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않는다. 현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작한다. 현재 진행 중인 트랜잭션이 없다면 새롭게 만들지 않는다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-04.png" width="80%" class="image__border">
@@ -424,7 +411,7 @@ public class ParentService {
 }
 ```
 
-테스트 코드를 실행해보자. 다음 두 가지 경우에 대해 테스트를 수행했다.
+테스트 코드를 실행해 보자. 다음 두 가지 경우에 대해 테스트를 수행했다.
 
 - 부모는 `REQUIRED`, 자식은 `SUPPORTS` 전파 타입으로 지정한 경우
   - 부모에서부터 트랜잭션을 시작하였으므로 자식에서 예외가 발생하면 모든 트랜잭션이 롤백될 것을 예상한다.
@@ -581,9 +568,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 ### 2.3. MANDATORY
 
-> 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던집니다.
-
-현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작한다. 현재 진행 중인 트랜잭션이 없다면 예외를 던진다.
+현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던진다. 현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작한다. 현재 진행 중인 트랜잭션이 없다면 예외를 던진다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-05.png" width="80%" class="image__border">
@@ -650,7 +635,7 @@ public class ParentService {
 }
 ```
 
-부모는 트랜잭션을 시작하지 않고, 자식은 `MANDATORY` 전파 타입으로 지정한 경우에 대한 테스트를 수행해보자.
+부모는 트랜잭션을 시작하지 않고, 자식은 `MANDATORY` 전파 타입으로 지정한 경우에 대한 테스트를 수행해 보자.
 
 - `IllegalTransactionStateException` 예외를 던질 것으로 예상한다.
 - 부모 서비스는 트랜잭션을 시작하지 않았으므로 JpaRepository 인터페이스 트랜잭션에 의해 데이터가 저장된다.
@@ -739,9 +724,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 ### 2.4. REQUIRES_NEW
 
-> 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
-
-기존에 진행 중인 트랜잭션이 있더라도 새로운 트랜잭션을 시작한다.
+새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단한다. 기존에 진행 중인 트랜잭션이 있더라도 새로운 트랜잭션을 시작한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-06.png" width="80%" class="image__border">
@@ -818,7 +801,7 @@ public class ParentService {
 }
 ```
 
-테스트를 수행해보자. 다음과 같은 두 가지 경우에 대해 수행한다.
+테스트를 수행해 보자. 다음과 같은 두 가지 경우에 대해 수행한다.
 
 - 부모는 `REQUIRED`, 자식은 `REQUIRES_NEW` 전파 타입으로 지정한 경우
   - 부모 서비스는 데이터가 저장될 것을 예상한다.
@@ -923,7 +906,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 ### 2.5. NOT_SUPPORTED
 
-> 트랜잭션 없이 수행합니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다. 
+트랜잭션 없이 수행한다. 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-07.png" width="80%" class="image__border">
@@ -1000,7 +983,7 @@ public class ParentService {
 }
 ```
 
-부모는 `REQUIRED`, 자식은 `NOT_SUPPORTED` 전파 타입으로 지정한 경우에 대해 테스트를 수행해보자.
+부모는 `REQUIRED`, 자식은 `NOT_SUPPORTED` 전파 타입으로 지정한 경우에 대해 테스트를 수행해 보자.
 
 - 자식 서비스는 트랜잭션을 이어나가지 않는다.
 - 자식 서비스에서 saveAndFlush 메서드 호출 후 예외를 던졌기 때문에 JpaRepository 인터페이스 트랜잭션에 의해 데이터가 저장된다.
@@ -1103,7 +1086,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 ### 2.6. NEVER
 
-> 부모 메서드에서 트랜잭션 시작했다면 자식 메서드에서 excepton이 발생합니다.
+부모 메서드에서 트랜잭션 시작했다면 자식 메서드에서 exception이 발생한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-08.png" width="80%" class="image__border">
@@ -1171,7 +1154,7 @@ public class ParentService {
 }
 ```
 
-부모는 `REQUIRED`, 자식은 `NEVER` 전파 타입으로 지정한 경우에 대해 테스트를 수행해보자.
+부모는 `REQUIRED`, 자식은 `NEVER` 전파 타입으로 지정한 경우에 대해 테스트를 수행해 보자.
 
 - `IllegalTransactionStateException` 예외를 던질 것으로 예상한다.
 - 부모 서비스는 정상적으로 데이터가 저장된다.
@@ -1261,11 +1244,9 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 2023-05-06 02:05:19.931 DEBUG 75939 --- [           main] o.s.orm.jpa.JpaTransactionManager        : Closing JPA EntityManager [SessionImpl(474324008<open>)] after transaction
 ```
 
-### 2.8. NESTED
+### 2.7. NESTED
 
-> 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작합니다. 
-
-중첩된 트랜잭션을 지원하는 미들웨어(middleware)에서만 사용 가능하다고 한다. 이미 진행 중인 트랜잭션이 있으면 이 트랜잭션은 유지하면서 새로운 트랜잭션을 시작한다. 자식 트랜잭션에서 커밋하기 전까지 처리 중인 내용이 부모 트랜잭션에서 보이지 않는다. 자식 트랜잭션은 자체적으로 커밋과 롤백이 가능하다.
+현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작한다. 중첩된 트랜잭션을 지원하는 미들웨어(middleware)에서만 사용 가능하다고 한다. 이미 진행 중인 트랜잭션이 있으면 이 트랜잭션은 유지하면서 새로운 트랜잭션을 시작한다. 자식 트랜잭션에서 커밋하기 전까지 처리 중인 내용이 부모 트랜잭션에서 보이지 않는다. 자식 트랜잭션은 자체적으로 커밋과 롤백이 가능하다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/transactional-propagation-type-09.png" width="80%" class="image__border">

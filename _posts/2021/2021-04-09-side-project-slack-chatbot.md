@@ -190,7 +190,6 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 메이븐(maven) 프로젝트이므로 `mvn package` 등의 명령어를 통해 jar 파일을 만들 수 있다. 빌드한 jar 파일을 배포하는 과정을 위주로 정리했다. 주기적으로 애플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결한다.
 
-
 <div align="center">
   <img src="{{ site.image_url_2021 }}/side-project-slack-chatbot-04.png" width="100%" class="image__border">
 </div>

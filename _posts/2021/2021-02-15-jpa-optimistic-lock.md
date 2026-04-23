@@ -78,9 +78,9 @@ public class Post {
 
 다음은 낙관적인 락 기능 동작을 확인하기 위한 테스트 코드를 살펴보자. 서로 다른 트랜잭션이 짧은 시간 차이로 동일한 데이터를 업데이트한다. 업데이트가 나중에 처리되는 트랜잭션은 실패 예외를 던진다. 아래 테스트 코드를 잘 이해하기 위해선 다음과 같은 내용을 미리 알면 좋다.
 
-- `@Import` 애너테이션을 통한 빈(bean) 주입
-- `@TestPropertySource` 애너테이션을 통한 테스트 환경 설정
-- `@DataJpaTest` 애너테이션의 기본적인 트랜잭션 처리
+- @Import 애너테이션을 통한 빈(bean) 주입
+- @TestPropertySource 애너테이션을 통한 테스트 환경 설정
+- @DataJpaTest 애너테이션의 기본적인 트랜잭션 처리
 - 전파 타입(propagation type)에 따른 트랜잭션 동작
 
 테스트를 위한 데이터를 `data.sql` 파일에 준비한다.
@@ -197,18 +197,17 @@ public class RepositoryTest {
 
 테스트 결과는 로그를 통해 확인한다.
 
-- 제목으로 조회하는 쿼리
+- 제목으로 조회하는 쿼리 실행
   - `where post0_.title=?`
-  - `트랜잭션1`, `트랜잭션2`가 제목으로 포스트 엔티티를 조회한다.
-- 아이디로 조회하는 쿼리
+  - 트랜잭션1, 트랜잭션2가 제목으로 포스트 엔티티를 조회한다.
+- 아이디로 조회하는 쿼리 실행
   - `where post0_.id=?`
   - 현재 엔티티의 버전을 확인하기 위한 조회 쿼리로 예상된다.
-- 업데이트 쿼리
+- 업데이트 쿼리 실행
   - `update post set contents=?, title=?, version_no=? where id=? and version_no=?`
-  - 버전이 일치하는 경우 업데이트를 수행한다.
-  - `WHERE` 절에 버전 정보를 확인하는 조건이 존재한다.
-  - 업데이트 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 엔티티 버전이 달라 업데이트를 시도하지 않은 것으로 예상된다.
-- 제목으로 조회하는 쿼리
+  - 버전이 일치하는 경우 업데이트를 수행한다. WHERE 절에 버전 정보를 확인하는 조건이 존재한다.
+  - 업데이트 쿼리가 1회 실행된 것으로 보아 트랜잭션2는 엔티티 버전이 달라 업데이트를 시도하지 않은 것으로 예상된다.
+- 제목으로 조회하는 쿼리 실행
   - `where post0_.title=?`
   - 검증(assert)을 위한 조회 쿼리가 수행된다.
 
@@ -223,11 +222,12 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 ### 2.2. Use EntityManager
 
-다음 `EntityManager`를 사용한 테스트이다. 위 테스트와 마찬가지로 각기 다른 트랜잭션을 만들어 실행하고 이를 커밋한다. 이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행한다. 각 모드 별로 테스트 코드와 결과를 살펴본다.
+다음 `EntityManager`를 사용한 테스트를 살펴보자.
 
 #### 2.2.1. LockModeType.OPTIMISTIC
 
-- 테스트 실행 전 데이터 버전 값을 초기화한다.
+위 테스트와 마찬가지로 각기 다른 트랜잭션을 만들어 실행하고 이를 커밋한다. 이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행한다. 각 모드 별로 테스트 코드와 결과를 살펴본다. 테스트 실행 전 데이터 버전 값을 초기화한다.
+
 - `트랜잭션1`는 다음과 같은 작업을 수행한다.
   - 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾는다.
   - 내용을 변경한다.
@@ -346,21 +346,21 @@ public class EntityManagerTest {
 
 위 테스트 코드의 실행 로그를 분석해보자.
 
-- 버전 값을 0으로 업데이트하는 쿼리
+- 버전 값을 0으로 업데이트하는 쿼리 실행
   - `update post set version_no=0 where id=1`
   - 테스트를 위해 데이터의 버전 값을 0으로 초기화한다.
-- 제목으로 조회하는 쿼리
+- 제목으로 조회하는 쿼리 실행
   - `where post0_.title=?`
   - `트랜잭션1`, `트랜잭션2`가 제목으로 포스트 엔티티를 조회한다.
-- 업데이트 쿼리
+- 업데이트 쿼리 실행
   - `update post set contents=?, title=?, version_no=? where id=? and version_no=?`
   - 버전이 일치하는 경우 업데이트를 수행한다.
   - `WHERE` 절에 버전 정보를 확인하는 조건이 존재한다.
-- 버전 정보만 조회하는 쿼리
+- 버전 정보만 조회하는 쿼리 실행
   - `select version_no as version_ from post where id =?`
   - 업데이트 이후 엔티티의 버전을 확인하려는 것으로 예상된다.
   - 해당 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 업데이트에 실패하여 버전 조회를 시도하지 않은 것으로 예상된다.
-- 제목으로 조회하는 쿼리
+- 제목으로 조회하는 쿼리 실행
   - `where post0_.title=?`
   - 검증을 위한 조회 쿼리가 수행된다.
 
@@ -377,10 +377,10 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 #### 2.2.2. LockModeType.OPTIMISTIC_FORCE_INCREMENT
 
-- `OPTIMISTIC` 모드 테스트와 결과가 동일하지만, 증가한 버전 값이 다르다.
+`OPTIMISTIC` 모드 테스트와 결과가 동일하지만, 증가한 버전 값이 다르다. `OPTIMISTIC_FORCE_INCREMENT` 모드이므로 읽기만으로 버전 값이 증가한다.
+
 - 버전 값이 2만큼 증가하였음을 예상한다.
-  - 오염 감지를 통해 업데이트가 수행되면서 버전 값이 증가한다.
-  - `OPTIMISTIC_FORCE_INCREMENT` 모드이므로 별도로 버전 값을 증가시킨다.
+- 오염 감지를 통해 업데이트가 수행되면서 버전 값이 증가한다.
 
 ```java
     @Test
@@ -416,21 +416,21 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 마찬가지로 테스트 결과는 로그를 통해 확인한다.
 
-- 버전 값을 0으로 업데이트하는 쿼리
+- 버전 값을 0으로 업데이트하는 쿼리 실행
   - `update post set version_no=0 where id=1`
   - 테스트를 위해 데이터의 버전 값을 0으로 초기화한다.
-- 제목으로 조회하는 쿼리
+- 제목으로 조회하는 쿼리 실행
   - `where post0_.title=?`
   - `트랜잭션1`, `트랜잭션2`가 제목으로 포스트 엔티티를 조회한다.
-- 업데이트 쿼리
+- 업데이트 쿼리 실행
   - `update post set contents=?, title=?, version_no=? where id=? and version_no=?`
   - 버전이 일치하는 경우 업데이트를 수행한다.
   - `WHERE` 절에 버전 정보를 확인하는 조건이 존재한다.
-- 버전 정보만 조회하는 쿼리
+- 버전 정보만 조회하는 쿼리 실행
   - `select version_no as version_ from post where id =?`
   - 업데이트 이후 엔티티의 버전을 확인하려는 것으로 예상된다.
   - 해당 쿼리가 1회 실행된 것으로 보아 `트랜잭션2`는 업데이트에 실패하여 버전 조회를 시도하지 않은 것으로 예상된다.
-- 제목으로 조회하는 쿼리
+- 제목으로 조회하는 쿼리 실행
   - `where post0_.title=?`
   - 검증을 위한 조회 쿼리가 수행된다.
 

@@ -1,5 +1,5 @@
 ---
-title: "깃 커밋 메시지 규칙(Git commit message convention)"
+title: "Git commit 메시지 규칙(convention)"
 search: false
 category:
   - information
@@ -14,7 +14,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 얼마 전까지 깃허브(github)는 간단한 프로젝트 코드나 블로그 글을 작성하는 혼자만의 공간이었다. 그렇다 보니 커밋(commit) 메시지에 대한 내용을 신경 쓰지 않았다. 
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/github-commit-message-rule-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/github-commit-message-rule-01.png" width="100%" class="image__border">
 </div>
 
 <br/>

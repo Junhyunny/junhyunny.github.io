@@ -404,7 +404,7 @@ class NutritionFacts {
 
 ## CLOSING
 
-빌더 패턴과 관련한 대부분의 포스트들은 `Effective Java`의 빌더 패턴과 관련된 내용들이다. `GoF 디자인 패턴`에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋다. OKKY 커뮤니티에서 본 빌더 패턴 관련 글들이 참고할 만한 내용이라 포스트 마지막에 추가했다.
+빌더 패턴과 관련한 대부분의 포스트들은 `Effective Java`의 빌더 패턴과 관련된 내용들이다. `GoF 디자인 패턴`에서 제시한 방식과 다소 차이가 있으므로 이를 구분지어 사용하는 것이 좋다. OKKY 커뮤니티에서 본 빌더 패턴 관련 글들이 참고할 만한 내용이라 글 마지막에 추가했다.
 
 <div align="center" class="vertical__top">
   <img src="{{ site.image_url_2021 }}/builder-pattern-02.png" width="47.5%" class="image__border">

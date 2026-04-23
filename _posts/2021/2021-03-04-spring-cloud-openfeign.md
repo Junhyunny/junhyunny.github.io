@@ -146,9 +146,11 @@ public class HealthController {
 
 ## 3. Test
 
-도커 컴포즈로 테스트 환경을 구축한다.
+도커 컴포즈(docker compose)로 테스트 환경을 구축한다.
 
 ### 3.1. Dockerfile
+
+다음과 같은 도커 파일을 준비한다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -178,6 +180,8 @@ CMD ["java", "-jar", "app.jar"]
 
 ### 3.2. docker-compose.yml
 
+도커 컴포즈 실행을 위해 컨테이너 YAML 파일을 준비한다.
+
 ```yml
 version: "3.9"
 services:
@@ -193,12 +197,14 @@ services:
 
 ### 3.3. Run Docker Compose
 
+도커 컴포즈로 컨테이너들을 실행한다.
+
 ```
 $ docker-compose up -d
 ...
 [+] Running 2/2
  - Container 2021-03-04-spring-cloud-openfeign-a-service-1  Started                            0.8s 
- - Container 2021-03-04-spring-cloud-openfeign-b-service-1  Started
+ - Container 2021-03-04-spring-cloud-openfeign-b-service-1  Started                            0.8s
 ```
 
 테스트 결과를 확인하기 위해 사용자 터미널에서 `cURL` 명령어를 통해 테스트를 수행한다.

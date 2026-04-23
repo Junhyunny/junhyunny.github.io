@@ -337,10 +337,6 @@ $ mvn clean install
 [INFO]
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 ...
-[INFO] --- jacoco-maven-plugin:0.8.8:report (jacoco-report) @ action-in-blog ---
-[INFO] Loading execution data file /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec
-[INFO] Analyzed bundle 'action-in-blog' with 1 classes
-[INFO]
 [INFO] --- jacoco-maven-plugin:0.8.8:check (jacoco-check) @ action-in-blog ---
 [INFO] Loading execution data file /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2021-05-03-maven-jacoco/action-in-blog/target/jacoco.exec
 [INFO] Analyzed bundle 'action-in-blog' with 1 classes

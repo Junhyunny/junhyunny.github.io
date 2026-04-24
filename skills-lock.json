@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "proofread": {
+      "source": "junhyunny/skills",
+      "sourceType": "github",
+      "computedHash": "6e49e287495ab608750d2d318c69cd88313e7cb761854f4f220f58c1480dc72d"
+    }
+  }
+}

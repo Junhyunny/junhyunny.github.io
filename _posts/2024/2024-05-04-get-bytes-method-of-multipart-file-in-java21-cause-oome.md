@@ -12,13 +12,13 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [ThreadLocal Class][thread-local-class-in-java-link]
-- [Tracking Direct Memory Usage in JVM][tracking-direct-memory-usage-in-jvm-link]
-- [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
+- [자바(Java) ThreadLocal 클래스][thread-local-class-in-java-link]
+- [JVM 다이렉트 메모리(Direct Memory) 사용량 추적하기][tracking-direct-memory-usage-in-jvm-link]
+- [다이렉트 버퍼 메모리(Direct Buffer Memory) 할당 시 메모리 부족 오류][out-of-memory-error-case-study-in-jvm-link]
 
 ## 0. 들어가면서
 
-[Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link] 글에서 잠깐 언급했지만, 글의 주제를 벗어나거나 이야기가 길어질 것 같아 자세한 부분까지 함께 정리하지 못 했다. 이전 글에서 다루지 못 했던 디테일에 대해 이야기해 보려 한다. 간단한 예제 코드와 함께 확인해보자.
+[다이렉트 버퍼 메모리(Direct Buffer Memory) 할당 시 메모리 부족 오류를 다룬 글][out-of-memory-error-case-study-in-jvm-link]에서 잠깐 언급했지만, 글의 주제를 벗어나거나 이야기가 길어질 것 같아 자세한 부분까지 함께 정리하지 못 했다. 이전 글에서 다루지 못 했던 디테일에 대해 이야기해 보려 한다. 간단한 예제 코드와 함께 확인해보자.
 
 ## 1. Problem Context
 

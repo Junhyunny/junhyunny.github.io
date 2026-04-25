@@ -137,7 +137,7 @@ public abstract sealed class ByteBuffer
 
 #### RECOMMEND NEXT POSTS
 
-- [Out of memory error when Direct Buffer Memory allocation][out-of-memory-error-case-study-in-jvm-link]
+- [다이렉트 버퍼 메모리(Direct Buffer Memory) 할당 시 메모리 부족 오류][out-of-memory-error-case-study-in-jvm-link]
 
 #### REFERENCE
 

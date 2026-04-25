@@ -1,19 +1,19 @@
 ---
-title: "Not Found(404) when react application is hosted on Tomcat"
+title: "리액트(React) 애플리케이션을 톰캣(Tomcat)에서 호스팅 시 404 오류"
 search: false
 category:
   - spring-boot
   - react
   - tomcat
-last_modified_at: 2023-07-10T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]
-- [How to deploy react application on jar package][how-to-deploy-react-application-on-jar-package-link]
+- [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link]
+- [리액트(React) 애플리케이션을 JAR 파일에 포함하여 배포하기][how-to-deploy-react-application-on-jar-package-link]
 
 ## 1. Problem Context
 
@@ -39,10 +39,10 @@ last_modified_at: 2023-07-10T23:55:00
 
 1. 브라우저가 페이지를 그리기 위한 파일들을 최초 한 차례 다운로드 받는다.
   - 예를 들어 http://localhost:8080에 접속하는 경우 index.html, main-hash.js 등 리소스 파일들을 다운로드 받는다.
-1. URL이 변경되면 index.html은 변경되지 않고 해당하는 페이지 모습을 자바스크립트(JavaScript) 코드가 그린다. 
+2. URL이 변경되면 index.html은 변경되지 않고 해당하는 페이지 모습을 자바스크립트(JavaScript) 코드가 그린다. 
   - 예를 들어 http://localhost:8080/first-page로 이동하는 경우 /first-page 경로에 해당하는 페이지를 자바스크립트 코드가 그린다.
   - 이 과정에서 서버로 새로운 페이지 요청은 없다.
-1. 브라우저가 새로고침을 수행하면 URL 경로에 해당하는 페이지를 서버로부터 새롭게 요청한다.
+3. 브라우저가 새로고침을 수행하면 URL 경로에 해당하는 페이지를 서버로부터 새롭게 요청한다.
   - 예를 들어 http://localhost:8080/first-page 경로에서 새로고침을 서버로부터 /first-page 경로에 해당하는 페이지를 요청한다.
   - SPA이기 때문에 프론트엔드 애플리케이션 서버엔 /first-page 경로에 해당하는 페이지가 존재하지 않습니다.
 
@@ -158,7 +158,7 @@ public class NotFoundErrorController implements ErrorController {
 
 ### 3.2. Build and Deploy Application
 
-간단한 스크립트를 통해 애플리케이션을 빌드 및 배포한다. 내장 톰캣을 사용하지 않고 WAR 파일로 패키징 후 톰캣 서버에 배포한다. war 패키지 파일을 톰캣 서버에 배포하는 방법은 [Deploy war package when using spring boot framework][deploy-spring-boot-project-as-war-link]를 참고하길 바란다. 그래이들(gradle) 스프링 부트 프로젝트는 빌드 결과가 `build` 디렉토리에 생성된다. build 디렉토리 내부 정적 리소스 위치에 리액트 애플리케이션 빌드 결과를 옮긴 후 함께 패키징한다. 메이븐(maven)을 사용한다면 빌드 결과가 다른 디렉토리에 생성되므로 주의하길 바란다.
+간단한 스크립트를 통해 애플리케이션을 빌드 및 배포한다. 내장 톰캣을 사용하지 않고 WAR 파일로 패키징 후 톰캣 서버에 배포한다. war 패키지 파일을 톰캣 서버에 배포하는 방법은 [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link]를 참고하길 바란다. 그래이들(gradle) 스프링 부트 프로젝트는 빌드 결과가 `build` 디렉토리에 생성된다. build 디렉토리 내부 정적 리소스 위치에 리액트 애플리케이션 빌드 결과를 옮긴 후 함께 패키징한다. 메이븐(maven)을 사용한다면 빌드 결과가 다른 디렉토리에 생성되므로 주의하길 바란다.
 
 1. backend 프로젝트를 빌드한다.
   - 처음 빌드 시점엔 build 디렉토리가 없다.

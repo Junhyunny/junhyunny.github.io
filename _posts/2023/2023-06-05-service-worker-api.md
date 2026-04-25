@@ -3,7 +3,7 @@ title: "브라우저 서비스 워커 (Service Worker)"
 search: false
 category:
   - information
-last_modified_at: 2023-06-05T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -42,9 +42,9 @@ last_modified_at: 2023-06-05T23:55:00
   - 웹 페이지와 독립적으로 동작하기 때문에 DOM 엘리먼트나 window 객체에 접근할 수 없습니다. 
   - 백그라운드 동기화나 푸시 알림을 받아 처리할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/service-worker-api-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 2. Service Worker Lifecycle and States
 
@@ -55,24 +55,24 @@ last_modified_at: 2023-06-05T23:55:00
   - 서비스 워커는 installing 상태가 되며 install 이벤트 콜백 함수가 실행된다.
   - 해당 콜백 함수에서 필요한 리소스를 사전에 캐시에 저장하는 등의 작업을 처리한다.
   - 설치에 실패하는 경우 redundant 상태로 변경된다.
-1. installed / waiting
+2. installed / waiting
   - 서비스 워커 설치가 완료되면 installed 상태가 된다.
   - 현재 활성화 된 서비스 워커가 없다면 activating 상태가 된다.
   - 현재 활성화 된 서비스 워커가 있다면 waiting 상태가 된다.
   - 현재 서비스 워커가 동작 중에 정지되는 것을 방지하고자 제어 중인 모든 웹 애플리케이션이 종료되면 대기 중인 새로운 워커로 변경된다.
   - `skipWaiting()` 함수를 통해 대기 상태 없이 즉시 새로운 서비스 워커를 사용할 수도 있다.
-1. activating
+3. activating
   - 서비스 워커가 활성화되기 전 상태이며 activate 이벤트 콜백 함수가 실행된다.
   - HTML 문서가 서비스 워커에 의해 제어되려면 리로드(reload)되어야 하지만, `client.claim()` 함수 호출을 통해 리로드 없이 재정의할 수 있다.
-1. activated
+4. activated
   - 서비스 워커가 활성화 된 상태이며 이 시점부터 fetch, push, sync 등의 이벤트 콜백을 받아 처리할 수 있다.
-1. redundant
+5. redundant
   - 서비스 워커가 설치 중 실패하거나 새로운 버전으로 교체되면 redundant 상태가 된다.
   - redundant 상태의 서비스 워커는 앱에 아무런 영향을 미치지 못 한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/service-worker-api-02.png" width="80%" class="image__border image__padding">
-</p>
+</div>
 <center>https://www.oreilly.com/library/view/building-progressive-web/9781491961643/ch04.html</center>
 
 ## 3. Practice
@@ -247,9 +247,9 @@ GET /favicon.ico 404 1.793 ms - 150
   - 저장된 데이터가 삭제된 후 Cat Image 버튼을 누르면 이미지가 변경된다.
   - 이후에 Cat Image 버튼을 누르면 캐시된 데이터에 의해 이미지 변경이 발생하지 않는다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/service-worker-api-03.gif" width="100%" class="image__border">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

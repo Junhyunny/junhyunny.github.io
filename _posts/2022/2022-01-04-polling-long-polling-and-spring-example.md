@@ -11,7 +11,7 @@ last_modified_at: 2026-04-25T17:35:21+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Asynchronous Non-Blocking Handling][async-nonblocking-link]
+- [비동기 논블로킹(Asynchronous Non-Blocking) 처리][async-nonblocking-link]
 
 ## 0. 들어가면서
 
@@ -232,7 +232,7 @@ curl -X POST\
 
 #### RECOMMEND NEXT POSTS
 
-- [Polling & Long Polling in JavaScript][polling-long-polling-and-javascript-example-link]
+- [자바스크립트(JavaScript) 폴링(Polling)과 롱 폴링(Long Polling) 구현하기][polling-long-polling-and-javascript-example-link]
 
 #### REFERENCE
 

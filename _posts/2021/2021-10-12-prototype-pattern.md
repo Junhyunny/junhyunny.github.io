@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2026-03-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -164,7 +164,7 @@ Hibernate: select item0_.id as id1_0_, item0_.name as name2_0_ from item item0_ 
 2023-04-01 01:19:37.165  INFO 82119 --- [           main] blog.in.action.SearchDataTests           : total running time - 1071
 ```
 
-두번째 사례로 사용자가 특정 소프트웨어를 사용해 도형을 그렸을 때 이를 복사하는 경우를 살펴보자. 점, 선 등을 사용해 도형을 표현하였지만, 임의로 그려졌기 때문에 점, 선이라는 클래스에서 다시 객체를 생성하기 어렵다.
+두 번째 사례로 사용자가 특정 소프트웨어를 사용해 도형을 그렸을 때 이를 복사하는 경우를 살펴보자. 점, 선 등을 사용해 도형을 표현하였지만, 임의로 그려졌기 때문에 점, 선이라는 클래스에서 다시 객체를 생성하기 어렵다.
 
 - 사용자가 임의로 그렸기 때문에 임의의 값을 가지고 있는 도형 객체가 생성된다.
 - 원본 도형을 복사하는 경우 서로 다른 객체이므로 각 도형의 변경이 서로에게 영향이 없도록 복사되어야 한다.
@@ -286,7 +286,7 @@ class Shape implements Cloneable {
 
 - 사용자가 임의로 그린 도형 `originShape` 객체를 만든다.
 - clone 메서드를 이용해 `originShape` 객체를 복사한다.
-- 복사된 `clonedShape` 객체의 정보를 변경한다. 첫번째 선의 두번째 점의 좌표를 변경한다.
+- 복사된 `clonedShape` 객체의 정보를 변경한다. 첫 번째 선의 두 번째 점의 좌표를 변경한다.
 - 두 도형의 데이터가 서로 다른지 확인하고 로그를 살펴본다.
 
 ```java

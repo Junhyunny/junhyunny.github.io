@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [GitHub Actions 예제][github-actions-example-link]
-- [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
+- [Dockerfile 빌드와 이미지 레이어(Image Layer)][docker-file-build-and-image-layer-link]
 
 ## 0. 들어가면서
 

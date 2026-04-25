@@ -155,8 +155,8 @@ jobs:
 
 #### RECOMMEND NEXT POSTS
 
-- [GitLab CI/CD Pipeline for On-Premise][gitlab-ci-cd-pipeline-link]
-- [Optimize Gitlab CI Pipeline for Maven Project][optimize-gitlab-ci-pipeline-link]
+- [온-프레미스 환경을 위한 GitLab CI/CD 파이프라인][gitlab-ci-cd-pipeline-link]
+- [메이븐(Maven) 프로젝트 GitLab CI/CD 파이프라인 최적화][optimize-gitlab-ci-pipeline-link]
 
 #### REFERENCE
 

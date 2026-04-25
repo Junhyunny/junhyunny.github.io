@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 - [OAuth(Open Authorization)][oauth-link]
 - [OpenID Connect][open-id-connect-link]
-- [Multiple SNS Login with Spring Security OAuth2 Client][multiple-sns-login-with-spring-security-oauth2-client-link]
+- [스프링 시큐리티 OAuth2 클라이언트 다중 SNS 로그인 구현하기][multiple-sns-login-with-spring-security-oauth2-client-link]
 
 ## 0. 들어가면서
 

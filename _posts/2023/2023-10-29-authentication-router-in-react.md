@@ -3,14 +3,14 @@ title: "React 인증 라우터 구현하기"
 search: false
 category:
   - react
-last_modified_at: 2026-01-27T00:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Outlet Component in React Router][outlet-component-in-react-router-link]
+- [리액트 라우터(React Router) Outlet 컴포넌트][outlet-component-in-react-router-link]
 - [JWT(Json Web Token)][json-web-token-link]
 
 ## 0. 들어가면서
@@ -23,7 +23,7 @@ last_modified_at: 2026-01-27T00:00:00
 
 > An <Outlet> should be used in parent route elements to render their child route elements. This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route.
 
-Oultet 컴포넌트는 중첩된 라우터를 구성하였을 때 부모 라우터에 지정된 컴포넌트(component)에서 자식 라우터에 지정된 컴포넌트를 렌더링할 때 사용된다. 보통 헤더(header)나 푸터(footer) 같은 공통 부분을 재사용하기 위해 사용한다. 부모 라우터에 지정된 컴포넌트 내부에 Outlet 컴포넌트 영역은 자식 라우터들에게 지정된 엘리먼트가 렌더링되는 영역이다. 간단한 예시 코드를 통해 개념을 확인하고 싶다면 [Outlet Component in React Router][outlet-component-in-react-router-link] 포스트를 참고하길 바란다.
+Oultet 컴포넌트는 중첩된 라우터를 구성하였을 때 부모 라우터에 지정된 컴포넌트(component)에서 자식 라우터에 지정된 컴포넌트를 렌더링할 때 사용된다. 보통 헤더(header)나 푸터(footer) 같은 공통 부분을 재사용하기 위해 사용한다. 부모 라우터에 지정된 컴포넌트 내부에 Outlet 컴포넌트 영역은 자식 라우터들에게 지정된 엘리먼트가 렌더링되는 영역이다. 간단한 예시 코드를 통해 개념을 확인하고 싶다면 [리액트 라우터(React Router) Outlet 컴포넌트][outlet-component-in-react-router-link] 글을 참고하길 바란다.
 
 <div align="center">
   <img src="{{ site.image_url_2023 }}/authentication-router-in-react-01.png" width="100%" class="image__border">

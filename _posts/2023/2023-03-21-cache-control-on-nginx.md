@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - nginx
-last_modified_at: 2026-03-19T10:59:52+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -166,36 +166,16 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-이미지를 빌드하고, 컨테이너를 실행한다.
+이미지를 빌드한다.
 
 ```
 $ docker build . -t nginx-compression
-[+] Building 1.3s (16/16) FINISHED
- => [internal] load build definition from Dockerfile                                                                                   0.0s
- => => transferring dockerfile: 37B                                                                                                    0.0s
- => [internal] load .dockerignore                                                                                                      0.0s
- => => transferring context: 2B                                                                                                        0.0s
- => [internal] load metadata for docker.io/library/nginx:latest                                                                        0.9s
- => [internal] load metadata for docker.io/library/node:16-buster-slim                                                                 1.1s
- => [stage-1 1/4] FROM docker.io/library/nginx@sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2                 0.0s
- => [builder 1/6] FROM docker.io/library/node:16-buster-slim@sha256:3e531c9fb23b950711705c18e0c350cfc1f6a4c583883762d52b4096de3c9da8   0.0s
- => [internal] load build context                                                                                                      0.0s
- => => transferring context: 1.29kB                                                                                                    0.0s
- => CACHED [stage-1 2/4] COPY nginx.conf /etc/nginx/nginx.conf                                                                         0.0s
- => CACHED [stage-1 3/4] COPY default.conf /etc/nginx/conf.d/default.conf                                                              0.0s
- => CACHED [builder 2/6] WORKDIR /app                                                                                                  0.0s
- => CACHED [builder 3/6] COPY package.json .                                                                                           0.0s
- => CACHED [builder 4/6] RUN npm install --silent                                                                                      0.0s
- => CACHED [builder 5/6] COPY . .                                                                                                      0.0s
- => CACHED [builder 6/6] RUN npm run build                                                                                             0.0s
- => CACHED [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html                                                          0.0s
- => exporting to image                                                                                                                 0.0s
- => => exporting layers                                                                                                                0.0s
- => => writing image sha256:bb9326dd302313eb3029767c817f51b570cf6cba7ccc4d86b740332e2eb371c5                                           0.0s
- => => naming to docker.io/library/nginx-compression                                                                                   0.0s
+```
 
+컨테이너를 실행한다.
+
+```
 $ docker run -d -p 80:80 --name nginx-compression nginx-compression
-aae4f57de1107e4f2d216e3fdfb6a334495a09caa95ae28b466130f6e6c170ea
 ```
 
 이제 캐시 컨트롤 적용 전후를 비교해보자. 테스트 환경은 다음과 같다.

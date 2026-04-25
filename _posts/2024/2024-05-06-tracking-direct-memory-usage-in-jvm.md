@@ -1,10 +1,10 @@
 ---
-title: "Tracking Direct Memory Usage in JVM"
+title: "JVM 다이렉트 메모리(Direct Memory) 사용량 추적하기"
 search: false
 category:
   - java
   - jvm
-last_modified_at: 2024-05-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

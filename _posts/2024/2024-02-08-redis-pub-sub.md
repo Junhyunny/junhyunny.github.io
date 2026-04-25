@@ -1,9 +1,9 @@
 ---
-title: "Redis Pub/Sub"
+title: "레디스 발행/구독(Redis Pub/Sub)"
 search: false
 category:
   - redis
-last_modified_at: 2024-02-08T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -29,7 +29,7 @@ last_modified_at: 2024-02-08T23:55:00
 - Redis Lists and Redis Sorted Sets
   - 메시지 큐를 구현하기 위한 기본 자료 구조이다.
 
-내가 Redis Pub/Sub 기능을 선택한 이유는 다음과 같다.
+레디스의 발행과 구독 기능을 선택한 이유는 다음과 같다.
 
 - 관리자 애플리케이션에서 데이터 획득을 위해 복잡한 비즈니스 로직을 구현하고 싶지 않다.
 - 이벤트가 발생한 시점에 즉시 해당 정보를 전달 받고 싶다.
@@ -52,17 +52,17 @@ last_modified_at: 2024-02-08T23:55:00
   - 누락과 중복 없이 메시지를 전달할 수 있다. 
   - 상대방으로부터 메시지를 받았는지 처리를 완료했는지 확인 받는다.
 
-레디스 Pub/Sub은 at-most-once 메시징 시스템이다. 상대방이 메시지를 받았는지 확인하는 작업이 없기 때문에 속도가 빠르다. 하지만 일부 메시지가 누락될 수 있다. 
+레디스의 발행과 구독은 `at-most-once 메시징 시스템`이다. 상대방이 메시지를 받았는지 확인하는 작업이 없기 때문에 속도가 빠르다. 하지만 일부 메시지가 누락될 수 있다. 
 
 ### 1.2. Do not persistence message
 
-레디스 Pub/Sub은 메시지 지속성이 없다. 간략하게 특징들을 정리해보자.
+레디스의 발행과 구독은 메시지 지속성이 없다. 간략하게 특징들을 정리해보자.
 
 - 레디스는 메시지를 구독자에게 전달한 후 해당 메시지를 삭제한다.
 - 구독자가 없는 경우 해당 메시지를 버린다.
 - 위와 같은 특징 때문에 구독자는 구독하기 이전 메시지를 받을 수 없다. 
 
-레디스 Pub/Sub 기능을 메시지 브로커로 사용하려면 다음과 같은 특징을 이해하고 있어야 한다.
+발행과 구독 기능을 메시지 브로커로 사용하려면 다음과 같은 특징을 이해하고 있어야 한다.
 
 ## 2. Test with Command Line Interface
 
@@ -71,9 +71,9 @@ last_modified_at: 2024-02-08T23:55:00
 - 레디스 컨테이너가 메시지 브로커 역할을 수행한다.
 - redis-cli 명령어를 실행한 터미널이 구독자, 발행자 역할을 수행한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-pub-sub-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 2.1. Run Redis Container
 
@@ -91,9 +91,9 @@ $ docker run -d --name redis -p 6379:6379 redis
 $ docker exec -it redis redis-cli
 ```
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-pub-sub-02.png" width="100%" class="image__border">
-</p>
+</div>
 
 ### 2.3. Subscribe Channels and Publish Message
 
@@ -131,9 +131,9 @@ publish [channel] [message]
 - 메시지 전송이 실패한 경우 0을 응답 받는다.
   - 잘못된 채널 이름을 작성해 메시지 전송이 실패한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-pub-sub-03.gif" width="100%" class="image__border">
-</p>
+</div>
 
 ### 2.4. Pattern Subscribe and Publish Message
 
@@ -156,9 +156,9 @@ psubscribe [patterns ...]
 
 발행자 터미널에서 간단하게 메시지를 전송해보자. 채널 접두어가 `logs.`인 경우 모두 메시지가 전송된다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-pub-sub-04.gif" width="100%" class="image__border">
-</p>
+</div>
 
 #### REFERENCE
 

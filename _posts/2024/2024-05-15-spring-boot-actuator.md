@@ -1,9 +1,9 @@
 ---
-title: "Spring Boot Actuator"
+title: "스프링 부트 액추에이터(Spring Boot Actuator)"
 search: false
 category:
   - spring-boot
-last_modified_at: 2024-05-15T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

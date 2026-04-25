@@ -1,22 +1,22 @@
 ---
-title: Redis Publisher and Subscriber with Spring Boot
+title: "스프링 부트(Spring Boot) Redis 발행자(Publisher)/구독자(Subscriber) 구현하기""
 search: false
 category:
   - java
   - spring-boot
   - redis
-last_modified_at: 2024-02-10T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Redis Pub/Sub][redis-pub-sub-link]
+- [레디스 발행/구독(Redis Pub/Sub)][redis-pub-sub-link]
 
 ## 0. 들어가면서
 
-[레디스 Pub/Sub][redis-pub-sub-link] 글에서 구독/발행 패턴을 구현할 수 있는 레디스의 메시지 브로커 기능에 대해 정리했다. 이번 글은 스프링 부트 프레임워크에서 구독자, 발행자를 구현하는 방법에 대해 정리한다. 이번 실습은 구독자, 발행자에 상관 없이 다음과 같은 의존성이 필요하다.
+[레디스 발행/구독(Redis Pub/Sub)][redis-pub-sub-link] 글에서 구독/발행 패턴을 구현할 수 있는 레디스의 메시지 브로커 기능에 대해 정리했다. 이번 글은 스프링 부트 프레임워크에서 구독자, 발행자를 구현하는 방법에 대해 정리한다. 이번 실습은 구독자, 발행자에 상관 없이 다음과 같은 의존성이 필요하다.
 
 ```groovy
 plugins {
@@ -53,9 +53,9 @@ tasks.named('test') {
 2. 발행자 서비스는 레디스로 이벤트 로그를 전달한다.
 3. 구독자 서비스는 레디스로부터 이벤트 로그를 전달받는다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 1. Implement Publisher Service
 
@@ -261,9 +261,9 @@ public interface MessageListener {
 - EventSubscriber 인터페이스에는 channelName 메서드가 존재하며 구독자 객체가 구독할 채널 이름을 제공한다.
 - 각 채널 별로 비즈니스 로직을 처리하기 위한 구독자 구현 클래스들이 존재한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 2.2.1. EventSubscriber Interface
 
@@ -452,6 +452,8 @@ services:
 ```
 $ docker-compose up -d
 
+...
+
 [+] Running 3/4
  ⠇ Network action-in-blog_default  Created                               0.9s
  ✔ Container subscriber-container  Started                               0.8s
@@ -466,9 +468,9 @@ $ docker-compose up -d
 - 하나의 터미널에선 발행자 서비스로 API 요청을 수행한다.
 - 또 다른 터미널에선 구독자 서비스 컨테이너의 로그를 확인한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/redis-publisher-and-subscriber-spring-boot-03.gif" width="100%" class="image__border">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

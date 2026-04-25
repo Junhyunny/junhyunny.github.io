@@ -1,11 +1,11 @@
 ---
-title: "getBytes method of MultipartFile cause out of memory in Java 21"
+title: "JDK 21 MultipartFile 인스턴스 getBytes 메서드 메모리 부족 오류"
 search: false
 category:
   - java
   - jvm
   - spring-boot
-last_modified_at: 2024-05-04T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -187,7 +187,7 @@ Native Memory Tracking:
 > Eclipse Open J9 - Start of content that applies to Java 11 plus.<br/>
 > By default, the amount of native memory used for Direct Byte Buffers is limited to the maximum heap size.
 
-최대 다이렉트 메모리 사이즈 제한이 없는 정확한 공식 문서를 찾진 못 했지만, 위 정보를 바탕으로 유추해보면 힙 메모리까지 다이렉트 메모리로 사용하는 것처럼 보여진다. 제이미터를 사용해 요청을 보내면 다음과 같은 결과를 얻는다.
+최대 다이렉트 메모리 사이즈 제한이 없는 정확한 공식 문서를 찾진 못 했지만, 위 정보를 바탕으로 유추해보면 힙 메모리까지 다이렉트 메모리로 사용하는 것처럼 보인다. 제이미터를 사용해 요청을 보내면 다음과 같은 결과를 얻는다.
 
 - 요청의 일부는 성공하지만, 어느 수준에 도달하면 요청들이 실패한다.
 
@@ -197,7 +197,7 @@ Native Memory Tracking:
 
 <br/>
 
-jcmd 도구로 다이렉트 메모리 사용량을 확인해보자. 다이렉트 메모리가 약 2GB(2084419KB) 증가했다. 최대 다이렉트 메모리 제한이 없기 때문에 최대 힙 메모리 제한 영역까지 다이렉트 메모리를 늘려 사용한 것으로 보여진다.
+jcmd 도구로 다이렉트 메모리 사용량을 확인해보자. 다이렉트 메모리가 약 2GB(2084419KB) 증가했다. 최대 다이렉트 메모리 제한이 없기 때문에 최대 힙 메모리 제한 영역까지 다이렉트 메모리를 늘려 사용한 것으로 보인다.
 
 ```
 $ jcmd 53249 VM.native_memory summary.diff
@@ -535,7 +535,7 @@ public class FileController {
 }
 ```
 
-비주얼VM으로 메모리 사용량을 확인해봤다. 필자의 예상과는 다르게 힙 메모리도 잔잔했다. InputStream 인스턴스를 통해 고정된 사이즈의 버퍼를 사용하는 경우 내부에서 이전에 만든 버퍼를 재사용하기 때문에 힙 메모리 사용량도 크게 증가하지 않는 것으로 보여진다. 
+비주얼VM으로 메모리 사용량을 확인해봤다. 필자의 예상과는 다르게 힙 메모리도 잔잔했다. InputStream 인스턴스를 통해 고정된 사이즈의 버퍼를 사용하는 경우 내부에서 이전에 만든 버퍼를 재사용하기 때문에 힙 메모리 사용량도 크게 증가하지 않는 것으로 보인다. 
 
 <div align="center">
   <img src="{{ site.image_url_2024 }}/get-bytes-method-of-multipart-file-in-java21-cause-oome-08.gif" width="100%" class="image__border">
@@ -596,7 +596,7 @@ public class FileController {
 }
 ```
 
-비주얼VM으로 메모리 사용량을 확인해봤다. 위 테스트와 마찬가지로 힙 메모리가 잔잔했다. 코드 내부를 살펴보진 않았지만, 또 다른 방식으로 데이터를 읽어 복사하는 것으로 보여진다. 
+비주얼VM으로 메모리 사용량을 확인해봤다. 위 테스트와 마찬가지로 힙 메모리가 잔잔했다. 코드 내부를 살펴보진 않았지만, 또 다른 방식으로 데이터를 읽어 복사하는 것으로 보인다. 
 
 <div align="center">
   <img src="{{ site.image_url_2024 }}/get-bytes-method-of-multipart-file-in-java21-cause-oome-09.gif" width="100%" class="image__border">

@@ -1,16 +1,16 @@
 ---
-title: "Github Actions Basic"
+title: "GitHub Actions 기초"
 search: false
 category:
   - information
   - github
   - dev-ops
-last_modified_at: 2024-02-18T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
-## RECOMMEND POSTS BEFORE THIS
+#### RECOMMEND POSTS BEFORE THIS
 
 - [CI/CD 파이프라인][what-is-ci-cd-link]
 
@@ -30,7 +30,7 @@ last_modified_at: 2024-02-18T23:55:00
 
 > GitHub Actions is a continuous integration and continuous delivery (CI/CD) platform that allows you to automate your build, test, and deployment pipeline.
 
-애플리케이션 빌드, 테스트, 배포를 자동으로 수행할 수 있는 CI/CD 파이프라인 플랫폼이다. CI/CD 파이프라인 외에도 다른 작업들을 할 수 있다고 소개한다. 예를 들면 레포지토리에 새로운 이슈를 만들었을 때 적절한 라벨을 붙히는 작업도 깃허브 액션스를 통해 자동화할 수 있다고 한다. 
+애플리케이션 빌드, 테스트, 배포를 자동으로 수행할 수 있는 CI/CD 파이프라인 플랫폼이다. CI/CD 파이프라인 외에도 다른 작업들을 할 수 있다고 소개한다. 예를 들면 레포지토리에 새로운 이슈를 만들었을 때 적절한 라벨을 붙이는 작업도 깃허브 액션스를 통해 자동화할 수 있다고 한다. 
 
 ## 2. Components of Github Actions
 
@@ -51,9 +51,9 @@ last_modified_at: 2024-02-18T23:55:00
 - 작업(job)
 - 스텝(step)
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-01.png" width="100%" class="image__border">
-</p>
+</div>
 <center>https://docs.github.com/ko/actions/learn-github-actions/understanding-github-actions</center>
 
 ### 2.2. Events
@@ -129,21 +129,25 @@ jobs:
   - 추천 워크플로우가 없다면 필요한 템플릿을 검색해서 사용할 수 있다.
   - 필자는 `Simple workflow`를 선택했다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-02.png" width="100%" class="image__border">
-</p>
+</div>
 
-- 워크플로우 yml 파일을 생성한다.
+<br/>
 
-<p align="center">
+워크플로우 yml 파일을 생성한다.
+
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-03.png" width="100%" class="image__border">
-</p>
+</div>
 
-- 액션스 섹션에서 방금 생성한 워크플로우가 실행되는 것을 확인할 수 있다.
+<br/>
 
-<p align="center">
+액션스 섹션에서 방금 생성한 워크플로우가 실행되는 것을 확인할 수 있다.
+
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-04.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## CLOSING
 

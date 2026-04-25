@@ -27,10 +27,10 @@ AI 에이전트 애플리케이션을 구현하면서 익숙하지 않은 파이
 
 ```python
 def number_generator():
-    n = 0
-    while True:
-        yield n
-        n += 1
+  n = 0
+  while True:
+    yield n
+    n += 1
 ```
 
 해당 함수가 반환하는 값의 타입을 보면 `<class 'generator'>` 타입이다. 제너레이터 함수를 통해 생성되는 객체가 제너레이터다.

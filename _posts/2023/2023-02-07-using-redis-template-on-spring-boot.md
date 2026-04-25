@@ -4,14 +4,14 @@ search: false
 category:
   - spring-boot
   - redis
-last_modified_at: 2025-10-09T00:00:00
+last_modified_at: 2026-04-25T17:31:08+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Embedded Redis Server][embedded-redis-server-link]
+- [임베디드 레디스 서버(Embedded Redis Server)][embedded-redis-server-link]
 
 ## 0. 들어가면서
 
@@ -26,7 +26,7 @@ last_modified_at: 2025-10-09T00:00:00
 
 다음과 같은 실습 환경을 구축했다.
 
-- 사용자는 서비스를 통해 다른 사용자를 초대(inviation)할 수 있다.
+- 사용자는 서비스를 통해 다른 사용자를 초대(invitation)할 수 있다.
   - `/invitation` 경로
   - 초대 이벤트가 발생하면 초대받은 사람에게 메시지가 전송된다.
 - 사용자는 자신이 다른 사용자를 초대했던 내용을 취소할 수 있다.
@@ -134,11 +134,10 @@ spring:
 
 ### 2.1. RedisTemplateConfig Class
 
-`RedisTemplate` 빈(bean) 객체를 생성한다.
+RedisTemplate 빈(bean) 객체를 생성한다.
 
-- 레디스 커낵션(connection)을 생성하는 팩토리 빈을 생성한다.
+- 레디스 커넥션(connection)을 생성하는 팩토리 빈을 생성한다.
   - `LettuceConnectionFactory` 클래스를 사용한다.
-  - [Jedis 보다 Lettuce 를 쓰자][redis-connection-pool-performance-link]
 - 레디스에 객체를 `JSON` 형태로 저장할 수 있도록 `ValueSerializer` 빈을 생성한다.
   - `GenericJackson2JsonRedisSerializer` 클래스를 사용한다.
 
@@ -194,9 +193,9 @@ public class RedisTemplateConfig {
 컨트롤러 객체에 엔드포인트를 구현한다.
 
 - `/invitation` 경로
-  - 초대 요청을 받으면 해당 이벤트 메시지를 `InvitationEventClient`를 통해 전달한다.
+  - 초대 요청을 받으면 해당 이벤트 메시지를 InvitationEventClient 객체를 통해 전달한다.
 - `/invitation/cancel` 경로
-  - 초대 취소 요청을 받으면 해당 이벤트 메시지를 `InvitationEventClient`를 통해 전달한다. 
+  - 초대 취소 요청을 받으면 해당 이벤트 메시지를 InvitationEventClient 객체를 통해 전달한다. 
 
 ```java
 package action.in.blog.controller;
@@ -227,7 +226,7 @@ public class InvitationController {
 }
 ```
 
-초대(invitation) 도메인 객체를 만든다. 초대 객체에는 초대자, 초대 받는 사람 정보가 존재한다.
+초대(invitation) 도메인 객체를 만든다. 초대 객체에는 초대자, 초대받는 사람 정보가 존재한다.
 
 ```java
 package action.in.blog.domain;
@@ -252,14 +251,12 @@ public class Invitation {
 
 초대 이벤트를 전달하는 클라이언트 객체를 살펴보자.
 
-- `pushInvitationMessage` 메서드
-  - 초대자, 초대 상태 정보를 메시지에 담는다.
-  - `RedisTemplate`을 통해 초대 메시지를 전달한다.
-  - 키 값은 채널명과 초대받는 사람 정보를 조합한다.
-- `pushInvitationCancelMessage` 메서드
-  - 초대자, 초대 취소 상태 정보를 메시지에 담는다.
-  - `RedisTemplate`을 통해 초대 메시지를 전달한다.
-  - 키 값은 채널명과 초대받는 사람 정보를 조합한다.
+- pushInvitationMessage 메서드
+  - RedisTemplate 객체를 통해 초대 메시지를 전달한다.
+  - 초대자, 초대 상태 정보를 메시지에 담는다. 키 값은 채널명과 초대받는 사람 정보를 조합한다.
+- pushInvitationCancelMessage 메서드
+  - RedisTemplate 객체를 통해 초대 메시지를 전달한다.
+  - 초대자, 초대 취소 상태 정보를 메시지에 담는다. 키 값은 채널명과 초대받는 사람 정보를 조합한다.
 
 ```java
 package action.in.blog.client;
@@ -337,7 +334,7 @@ public enum QueueChannel {
 
 ### 2.4. UserController Class
 
-사용자는 ID를 사용해 자신에게 전달된 메시지를 볼 수 있다. 사용자가 전달 받은 메시지를 볼 수 있는 엔드포인트를 구현한다.
+사용자는 ID를 사용해 자신에게 전달된 메시지를 볼 수 있다. 사용자가 전달받은 메시지를 볼 수 있는 엔드포인트를 구현한다.
 
 - `/user/messages/{userId}` 경로
   - 사용자에게 전달된 메시지를 수신한다.
@@ -369,7 +366,7 @@ public class UserController {
 
 ### 2.5. RedisUserMessageProxy Class
 
-이벤트를 수신할 수 있는 프록시 객체를 생성한다. RedisTemlate 객체를 통해 메시지를 수신한다.
+이벤트를 수신할 수 있는 프록시 객체를 생성한다. RedisTemplate 객체를 통해 메시지를 수신한다.
 
 - `ID`에 해당하는 메시지를 수신한다.
 - 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메서드를 사용한다.
@@ -429,41 +426,11 @@ services:
 ```
 $ docker-compose up -d          
 
-[+] Running 0/1
- ⠼ redis Pulling                                                                                                                      2.5s 
-[+] Running 7/7                                                                                                                            
- ⠿ redis Pulled                                                                                                                      16.7s
-   ⠿ 01b5b2efb836 Pull complete                                                                                                      11.4s
-   ⠿ 038563e09193 Pull complete                                                                                                      11.5s
-   ⠿ 09e93db1172f Pull complete                                                                                                      11.5s
-   ⠿ 33dc85c1365d Pull complete                                                                                                      11.8s
-   ⠿ a94300c1bc96 Pull complete                                                                                                      11.8s
-   ⠿ 94c06f943e48 Pull complete                                                                                                      11.9s
-[+] Building 1.4s (15/15) FINISHED                                                                                                         
- => [internal] load build definition from Dockerfile                                                                                  0.0s
- => => transferring dockerfile: 32B                                                                                                   0.0s
- => [internal] load .dockerignore                                                                                                     0.0s
- => => transferring context: 2B                                                                                                       0.0s
- => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                         1.0s
- => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                 1.3s
- => [internal] load build context                                                                                                     0.0s
- => => transferring context: 2.18kB                                                                                                   0.0s
- => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa  0.0s
- => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9  0.0s
- => CACHED [stage-1 2/3] WORKDIR /app                                                                                                 0.0s
- => CACHED [maven_build 2/6] WORKDIR /build                                                                                           0.0s
- => CACHED [maven_build 3/6] COPY pom.xml .                                                                                           0.0s
- => CACHED [maven_build 4/6] RUN --mount=type=cache,target=/root/.m2 mvn dependency:go-offline                                        0.0s
- => CACHED [maven_build 5/6] COPY src ./src                                                                                           0.0s
- => CACHED [maven_build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn package -Dmaven.test.skip=true                               0.0s
- => CACHED [stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                        0.0s
- => exporting to image                                                                                                                0.0s
- => => exporting layers                                                                                                               0.0s
- => => writing image sha256:6773770f70cde26efb40cf2a2d0b9d1198cbe7003f7accf94c33f482e0d915c9                                          0.0s
- => => naming to docker.io/library/action-in-blog-backend                                                                             0.0s
+...
+
 [+] Running 2/2
- ⠿ Container redis-server              Started                                                                                        0.5s
- ⠿ Container action-in-blog-backend-1  Started                                                                                        0.6s
+ ⠿ Container redis-server              Started                                   0.5s
+ ⠿ Container action-in-blog-backend-1  Started                                   0.6s
 ```
 
 다음과 같은 쉘 명령어를 실행한다. 초대, 초대 취소를 각각 1회씩 요청한다.
@@ -507,9 +474,9 @@ $ curl http://localhost:8080/user/messages/Jua | jq .
 
 ## CLOSING
 
-개발자 로컬 컴퓨터에서 서비스를 실행할 때마다 매번 레디스 컨테이너를 띄우는 일은 매우 번거롭다. 내장 레디스를 사용하면 별도 컨테이너 없이도 레디스 서버를 이용할 수 있다. 내장 레디스 서버는 해당 애플리케이션이 실행될 때 함께 실행된다. 한 가지 문제점은 실제 레디스 서버가 아니기 때문에 `RedisTemplate` 객체의 특정 메서드를 실행할 때 에러가 발생한다. 
+개발자 로컬 컴퓨터에서 서비스를 실행할 때마다 매번 레디스 컨테이너를 띄우는 일은 매우 번거롭다. 내장 레디스를 사용하면 별도 컨테이너 없이도 레디스 서버를 이용할 수 있다. 내장 레디스 서버는 해당 애플리케이션이 실행될 때 함께 실행된다. 한 가지 문제점은 실제 레디스 서버가 아니기 때문에 RedisTemplate 객체의 특정 메서드를 실행할 때 에러가 발생한다.  
 
-이번 글에선 `leftPop` 메서드를 호출할 때 임베디드 레디스 서버에 에러가 발생했다. 다음과 같은 방식을 사용했다. 
+이번 글에선 `leftPop` 메서드를 호출할 때 임베디드 레디스 서버에 에러가 발생했다. 아래와 같은 방식을 사용해서 에러를 우회했다.
 
 ```java
 package action.in.blog.proxy;

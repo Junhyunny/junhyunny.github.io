@@ -1,11 +1,11 @@
 ---
-title: "Throttle test with Jest"
+title: "Jest 스로틀(Throttle) 테스트하기"
 search: false
 category:
   - information
   - react
   - jest
-last_modified_at: 2021-12-18T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -35,9 +35,9 @@ last_modified_at: 2021-12-18T23:55:00
 - 최초 이벤트가 실행된다.  
 - 이후 여러번의 동일한 이벤트가 발생하지만, 설정한 시간 간격 이내에 발생한 이벤트는 무시한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2021 }}/throttle-test-with-jest-01.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
 ## 2. Implement throttle
@@ -140,7 +140,7 @@ export default App;
 
 ## 3. Test code
 
-다음과 같이 테스트 코드를 작성한다. 타임아웃 처리 때문에 페이크 타이머(fake timer)를 사용해야 한다. 테스트 코드는 노드(node) 환경에서 가상 돔 엘리먼트를 사용하기 때문애 엘리먼트의 폭이나 높이를 직접 확인하는 것은 어렵다. throttle 함수를 별도로 만든 후 이를 사용하면 쓰로틀 처리가 잘 수행되는지 확인하는 것이 좋다.
+다음과 같이 테스트 코드를 작성한다. 타임아웃 처리 때문에 페이크 타이머(fake timer)를 사용해야 한다. 테스트 코드는 노드(node) 환경에서 가상 돔 엘리먼트를 사용하기 때문에 엘리먼트의 폭이나 높이를 직접 확인하는 것은 어렵다. throttle 함수를 별도로 만든 후 이를 사용하면 쓰로틀 처리가 잘 수행되는지 확인하는 것이 좋다.
 
 1. Given
   - 특정 함수를 스파이 테스트 더블로 만든다.
@@ -192,9 +192,9 @@ test("when occur 100 times event with throttle in 500ms then invoke 100 times", 
   - 상단 블록은 스로틀 처리하지 않은 상태이기 때문에 더 많은 변화가 발생한다.
   - 하단 블록은 스로틀 처리된 상태이기 때문에 비교적 변화가 적다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2021 }}/throttle-test-with-jest-02.gif" width="100%">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

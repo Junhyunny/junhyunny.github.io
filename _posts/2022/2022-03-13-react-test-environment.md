@@ -566,7 +566,7 @@ ReferenceError: React is not defined
 
 #### RECOMMEND NEXT POSTS
 
-- [리액트(React) 앱에서 Vitest 설정하기][setup-vitest-for-react-application-link]
+- [리액트(React) 앱 Vitest 설정하기][setup-vitest-for-react-application-link]
 
 #### REFERENCE
 

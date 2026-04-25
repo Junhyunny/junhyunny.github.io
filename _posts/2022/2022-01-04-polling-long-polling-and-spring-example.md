@@ -1,10 +1,10 @@
 ---
-title: "Long polling in Spring"
+title: "스프링(Spring) 롱 폴링(Long Polling) 구현하기"
 search: false
 category:
   - information
   - spring-boot
-last_modified_at: 2022-01-04T23:55:00
+last_modified_at: 2026-04-25T17:35:21+09:00
 ---
 
 <br/>
@@ -57,25 +57,25 @@ last_modified_at: 2022-01-04T23:55:00
   - 다수의 사용자가 동시에 사용하는 경우
   - 예를 들어, 전체 채팅이 필요한 웹 게임
 - 롱 폴링 방식
-  - 응답을 실시간으로 받아야하는 경우
+  - 응답을 실시간으로 받아야 하는 경우
   - 메신저 같이 1 on 1, 혹은 적은 수의 사용자가 동시에 사용하는 경우
   - 예를 들어, Facebook 웹 채팅, Google 메신저, MSN 웹 메신저
 
-## 3. Implment long polling in Spring
+## 3. Implement long polling in Spring
 
 폴링은 스프링에서 별도로 추가적인 작업이 필요 없다. 롱 폴링은 어떻게 구현할까? 요청이 왔을 때 서버는 해당 요청을 즉시 처리하지 않는다. 타임 아웃이 발생하기 전까지 최대한 응답을 미룬다. 타임 아웃이 발생하기 전에 비동기적인 이벤트가 발생하면 해당 요청에 대한 응답을 보낸다. 
 
 스프링 애플리케이션의 서블릿 엔진은 기본적으로 리퀘스트-퍼-스레드(request-per-thread) 모델이다. 리퀘스트-퍼-스레드 방식인 경우 요청을 받은 스레드가 타임 아웃이 발생하기 전까지 다른 작업을 수행하지 못 한다. 이는 불합리하고 성능 문제도 발생한다. 스프링은 이런 문제를 해결하기 위한 비동기 응답 기능이 존재한다. 
 
-### 2.1. DeferredResult Class
+### 3.1. DeferredResult Class
 
-비동기 처리를 위해 DeferredResult 클래스가 등장헀다. 스프링 3.2부터 사용할 수 있다. 처리가 길어지는 연산을 `http-worker` 스레드가 아닌 다른 별도 스레드에게 분산하기 위해 사용한다. 
+비동기 처리를 위해 DeferredResult 클래스가 등장했다. 스프링 3.2부터 사용할 수 있다. 처리가 길어지는 연산을 `http-worker` 스레드가 아닌 다른 별도 스레드에게 분산하기 위해 사용한다. 
 
 > Guide to DeferredResult in Spring<br/>
 > DeferredResult, available from Spring 3.2 onwards, 
 > assists in offloading a long-running computation from an http-worker thread to a separate thread.
 
-디컴파일(decomplie)과 디버깅(debuging)으로 살펴본 코드 흐름을 정리해보면 다음과 같다.
+디컴파일(decompile)과 디버깅(debugging)으로 살펴본 코드 흐름을 정리해보면 다음과 같다.
 
 1. `nio-http-worker` 스레드가 최초 사용자 요청을 받아 처리한다.
 2. 컨트롤러 레이어(layer)까지 요청이 전달되면 요청을 받은 컨트롤러 객체는 DeferredResult 객체를 반환한다.
@@ -91,9 +91,9 @@ last_modified_at: 2022-01-04T23:55:00
 </div>
 <center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center>
 
-### 2.2. DeferredResultController Class
+### 3.2. DeferredResultController Class
 
-특정 이벤트에 의해 컨트롤러에서 반환된 DeferredResult 객체의 상태를 변경해야 한다. 그렇므로 컨트롤러에서 반환하는 DeferredResult 객체를 임시로 보관할 필요가 있다. 이번 예제에선 ConcurrentHashMap 객체에 임시로 보관한다.
+특정 이벤트에 의해 컨트롤러에서 반환된 DeferredResult 객체의 상태를 변경해야 한다. 그러므로 컨트롤러에서 반환하는 DeferredResult 객체를 임시로 보관할 필요가 있다. 이번 예제에선 ConcurrentHashMap 객체에 임시로 보관한다.
 
 1. 메모리 누수가 발생할 수 있으니 다음과 같은 경우에 참조를 끊는다.
   - 이벤트 처리 완료
@@ -142,8 +142,8 @@ public class DeferredResultController {
 동일한 컨트롤러에 비동기 이벤트를 위한 다른 엔드-포인트를 만든다. 
 
 1. 해당 ID에 매칭된 메시지 리스트를 꺼낸다.
-  - 새로운 메세지를 추가한다.
-2. 해당 ID에 매칭된 비동기 응답을 위한 DeferredResult 객체가 있다면 해당 메세지를 응답으로 전달한다.
+  - 새로운 메시지를 추가한다.
+2. 해당 ID에 매칭된 비동기 응답을 위한 DeferredResult 객체가 있다면 해당 메시지를 응답으로 전달한다.
 
 ```java
 @RestController
@@ -174,16 +174,16 @@ public class DeferredResultController {
 }
 ```
 
-## 3. Demo
+## 4. Demo
 
-애플리케이션을 실행 후 비동기 이벤트로  정상적으로 동작하는지 살펴보자. 테스트를 위해 간단하게 롱 폴링을 수행하는 쉘 스크립트를 사용한다. 
+애플리케이션을 실행 후 비동기 이벤트로 정상적으로 동작하는지 살펴보자. 테스트를 위해 간단하게 롱 폴링을 수행하는 쉘 스크립트를 사용한다. 
 
 1. `/messages/1` 경로로 롱-폴링을 수행한다.
   - 타임 아웃 시간은 10초로 지정한다.
 2. cURL 명령어 호출 결과의 상태를 캡처한다.
 3. 다음과 같이 동작한다.
   - 타임 아웃인 경우 "Request timed out." 메시지를 출력한다.
-  - 응답 메세지를 출력한다.
+  - 응답 메시지를 출력한다.
 
 ```sh
 URL="http://localhost:8080/messages/1"

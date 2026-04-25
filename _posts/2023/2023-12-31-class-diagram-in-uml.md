@@ -3,7 +3,7 @@ title: "UML 클래스 다이어그램(Class Diagram)"
 search: false
 category:
   - information
-last_modified_at: 2026-03-21T11:17:53+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

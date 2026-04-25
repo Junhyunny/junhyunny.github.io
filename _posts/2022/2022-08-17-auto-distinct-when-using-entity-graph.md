@@ -3,19 +3,19 @@ title: "JPA @EntityGraph 애너테이션과 데이터 중복 제거 현상"
 search: false
 category:
   - javascript
-last_modified_at: 2026-02-28T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [SQL JOIN][sql-join-link]
-- [JPA N+1 Problem][jpa-one-plus-n-problem-link]
+- [SQL 조인(join)][sql-join-link]
+- [JPA N+1 문제][jpa-one-plus-n-problem-link]
 
 ## 0. 들어가면서
 
-[JPA N+1 Problem][jpa-one-plus-n-problem-link] 글을 작성할 때 `@EntityGraph` 애너테이션을 사용하면 추가적인 처리 없이도 자동적으로 중복된 엔티티(entity)들이 제거되는 현상을 발견했다. 당시에 이 현상에 대해 궁금하여 `깃허브(GitHub)`와 `스택 오버플로우(StackOverflow)`에 동일한 문의를 남겼는데, 최근 스택 오버플로우를 통해 얻은 답변을 이번 글에서 공유한다.
+[JPA N+1 문제][jpa-one-plus-n-problem-link] 글을 작성할 때 `@EntityGraph` 애너테이션을 사용하면 추가적인 처리 없이도 자동적으로 중복된 엔티티(entity)들이 제거되는 현상을 발견했다. 당시에 이 현상에 대해 궁금하여 `깃허브(GitHub)`와 `스택 오버플로우(StackOverflow)`에 동일한 문의를 남겼는데, 최근 스택 오버플로우를 통해 얻은 답변을 이번 글에서 공유한다.
 
 - [GitHub Issue][github-issue-link]
 - [StackOverflow Question][stack-overflow-question-link]
@@ -160,7 +160,7 @@ where post0_.title = ?
 
 ## 2. StackOverflow 답변
 
-`@EntityGraph` 사용 시 중복 객체들이 제거되는 현상의 원인이 궁금하여  스택 오버플로우에 질문을 올리고 약 7개월만에 답변을 얻었다. 영원히 묻힐뻔한 질문이었지만, 나와 동일한 의문을 가진 사용자가 대신 바운티(bounty)를 걸어줬다. 바운티가 걸리니 2일만에 답변이 달렸다.
+`@EntityGraph` 사용 시 중복 객체들이 제거되는 현상의 원인이 궁금하여 스택 오버플로우에 질문을 올리고 약 7개월 만에 답변을 얻었다. 영원히 묻힐 뻔한 질문이었지만, 나와 동일한 의문을 가진 사용자가 대신 바운티(bounty)를 걸어줬다. 바운티가 걸리니 2일 만에 답변이 달렸다.
 
 - 엔티티 그래프는 하이버네이트(hibernate) 프레임워크 내부에서 기본적으로 중복 처리를 수행한다.
 - 5.2.10 version [HHH-11569][hibernate-release-link]에서 추가되었다.

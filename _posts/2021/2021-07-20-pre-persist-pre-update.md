@@ -1,11 +1,11 @@
 ---
-title: "Usage of @PrePersist and @PreUpdate Annotations"
+title: "@PrePersist/@PreUpdate 애너테이션 사용법"
 search: false
 category:
   - spring-boot
   - jpa
   - junit
-last_modified_at: 2021-09-04T13:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -32,7 +32,7 @@ last_modified_at: 2021-09-04T13:00:00
 
 ## 2. Usage
 
-두 애너테이션을 추가한 메서드는 엔티티가 데이터베이서에 영속화 되기 전에 실행된다. 다음과 같은 작업을 수행할 수 있다.
+두 애너테이션을 추가한 메서드는 엔티티가 데이터베이스에 영속화 되기 전에 실행된다. 다음과 같은 작업을 수행할 수 있다.
 
 - 데이터 무결성을 보장하기 위해 특정 엔티티 필드의 값이 조건을 만족하지 못 하는 경우 예외를 발생시킬 수 있다.
 - 엔티티의 필드 값을 암호화하거나 사용자의 권한을 확인하는 작업을 수행할 수 있다.

@@ -1,9 +1,9 @@
 ---
-title: "How to connect to Google Adsense for GitHub Blog"
+title: "깃허브(GitHub) 블로그 Google Adsense 연결하기"
 search: false
 category:
   - information
-last_modified_at: 2021-09-22T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -14,23 +14,22 @@ last_modified_at: 2021-09-22T23:55:00
 
 ## 1. Join Google Adsense 
 
-### 1.1. Start Google Adsense
-
-- <https://www.google.com/intl/ko_kr/adsense/start/> 사이트로 이동한다.
-- `시작하기` 버튼을 클릭한다.
+구글 애드센스에 가입이 필요하다. [구글 애드센스](https://www.google.com/intl/ko_kr/adsense/start/) 사이트로 이동한다. `시작하기` 버튼을 클릭한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/minimal-mistakes-adsense-01.png" width="100%" class="image__border">
 </div>
 
-### 1.2. Google Adsense 가입 정보 입력
+<br/>
+
+구글 애드센스에 가입 정보를 입력한다.
 
 - `웹사이트` 항목에 본인이 운영 중인 블로그 주소를 추가한다.
   - 중복되는 URL은 입력할 수 없어서 예시 URL으로 GitHub 주소를 사용했다.
 - `이메일 주소`에는 사용 중인 구글 이메일 주소를 입력한다.
 - `애드센스 정보 수신`은 직접 선택한다.
 - `저장하고 계속하기` 버튼을 누른 후 기타 부가적인 정보들을 입력한다.
-  - 필자는 이미 가입되어 있기 때문에 다른 화면으로 리다이렉트(redirect)됬다.
+  - 필자는 이미 가입되어 있기 때문에 다른 화면으로 리다이렉트(redirect)됐다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/minimal-mistakes-adsense-02.png" width="100%" class="image__border">
@@ -38,20 +37,15 @@ last_modified_at: 2021-09-22T23:55:00
 
 ## 2. Add Adsense code in HTML head
 
-### 2.1. Copy Adsense code
-
-- 가입에 성공하면 다음과 같은 화면을 볼 수 있다.
-- `애드센스 코드` 영역의 태그를 복사한다.
+가입에 성공하면 다음과 같은 화면을 볼 수 있다. `애드센스 코드` 영역의 태그를 복사한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/minimal-mistakes-adsense-03.png" width="100%" class="image__border">
 </div>
 
-### 2.2. Paste Adsense code in /_includes/head/custom.html 
+<br/>
 
-- `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태크를 추가한다.
-
-##### custom.html
+`minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태그를 추가한다.
 
 - 구글 애드센스에서 발급 받은 스크립트를 추가한다.
 
@@ -64,9 +58,7 @@ last_modified_at: 2021-09-22T23:55:00
 <!-- end custom head snippets -->
 ```
 
-### 2.3. How to find Adsense code in the site
-
-실수로 `애드센스 코드`를 복사하지 않고 지나간 경우 이를 다시 찾아야 한다.
+실수로 `애드센스 코드`를 복사하지 않고 지나간 경우 이를 다시 찾아야 한다. 아래 카테고리를 따라가면 코드를 찾을 수 있다.
 
 - `광고 > 개요 > 코드 가져오기` 링크를 누르면 다음 창이 뜨면서 다시 애드센스 코드를 확인할 수 있다.
 
@@ -74,17 +66,14 @@ last_modified_at: 2021-09-22T23:55:00
   <img src="{{ site.image_url_2021 }}/minimal-mistakes-adsense-04.png" width="100%" class="image__border">
 </div>
 
-### 2.4. Change AdSense code form in case of continuous approval failure
+<br/>
 
-필자는 블로그의 글들이 많았고 컨텐츠도 충분히 퀄러티가 있다고 생각했지만, 계속 승인이 거부됬다. 다음과 같은 두 작업을 추가적으로 수행하니 성공했다.
+필자는 블로그의 글들이 많았고 컨텐츠도 충분히 퀄리티가 있다고 생각했지만, 계속 승인이 거부됐다. 다음과 같은 두 작업을 추가적으로 수행하니 성공했다.
 
-- 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라했다.
+- 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라했다. 
   - 하지만 해당 영역은 HTML 파일의 바디(body)이므로 구글 애드센스에서 요구하는 헤드(head) 영역은 아니다.
 - 애드센스 스크립트 코드를 아래와 같이 변경하여 `/_includes/head/custom.html` 파일에 추가했다.
-
-##### custom.html 
-
-- 구글 애드센스 객체에 필자의 클라이언트 아이디를 추가하는 스크립트로 변경 후 추가한다.
+  - 구글 애드센스 객체에 필자의 클라이언트 아이디를 추가하는 스크립트로 변경 후 추가한다.
 
 ```html
 <!-- start custom head snippets -->

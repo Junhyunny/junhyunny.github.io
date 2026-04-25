@@ -3,18 +3,18 @@ title: "ThreadLocal 클래스 사용 시 주의점"
 search: false
 category:
   - java
-last_modified_at: 2023-04-22T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [ThreadLocal Class][thread-local-class-in-java-link]
+- [자바(Java) ThreadLocal 클래스][thread-local-class-in-java-link]
 
 ## 0. 들어가면서
 
-[ThreadLocal Class][thread-local-class-in-java-link] 글에서 ThreadLocal 클래스에 대한 전반적인 개념을 다뤘다. 이번 글은 ThreadLocal 클래스를 사용할 때 주의할 사항에 대해 정리했다. 
+[자바(Java) ThreadLocal 클래스][thread-local-class-in-java-link] 글에서 ThreadLocal 클래스에 대한 전반적인 개념을 다뤘다. 이번 글은 ThreadLocal 클래스를 사용할 때 주의할 사항에 대해 정리했다. 
 
 ## 1. Thread Pool
 
@@ -26,24 +26,24 @@ ThreadLocal 클래스를 사용시 주의사항에 대해 이야기하려면 먼
 - 스레드 풀에 속한 스레드들이 큐에 담긴 작업들을 하나씩 꺼내 처리한다.
 - 작업을 마친 스레드들은 큐가 빈 상태가 될 때까지 작업을 꺼내 처리하는 것을 반복 수행한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/precaution-of-thread-local-01.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://www.baeldung.com/thread-pool-java-and-guava</center>
 
 ## 2. Problem
 
 ThreadLocal 클래스를 스레드 풀 환경에서 사용할 때 문제가 발생한다. [이전 글][thread-local-class-in-java-link]에 정리한 내용을 바탕으로 원인을 다음과 같이 정리할 수 있다. 
 
-- ThreadLocal 객체는 스레드 객체의 멤버 변수인 ThreadLocalMap 객체에 데이터를 저장된다.
+- ThreadLocal 객체는 스레드 객체의 멤버 변수인 ThreadLocalMap 객체에 데이터가 저장된다.
 - ThreadLocal 객체는 현재 실행 흐름을 수행하는 스레드에 저장한 데이터에 접근하기 위한 수단이다.
 - 스레드 풀은 미리 여러 개의 스레드들을 만들고 이를 재활용하는 구조이다.
 - 스레드 풀의 스레드는 제거되지 않으므로 이전 요청 처리시 ThreadLocal 객체를 통해 생성된 데이터는 그대로 남아있다. 
 - 다음 작업을 위해 스레드가 재사용되는 경우 남아 있는 데이터로 인해 비정상적인 동작이 발생할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/precaution-of-thread-local-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 3. Solve the problem
 
@@ -158,9 +158,7 @@ class ContextHolder {
 }
 ```
 
-##### Test Result
-
-- ThreadLocal 객체에 데이터를 저장 후 지우지 않는 케이스 테스트 결과
+테스트 실행 로그를 살펴보자. ThreadLocal 객체에 데이터를 저장 후 지우지 않는 케이스 테스트 결과는 다음과 같다. 중간부터 컨텍스트가 정리되지 않아서 스레드 이름이 출력된다.
 
 ```
 Value is null. Set current thread name into holder.
@@ -175,7 +173,7 @@ Value is not null. Existed value is pool-2-thread-2.
 Value is not null. Existed value is pool-2-thread-3.
 ```
 
-- ThreadLocal 객체에 데이터를 저장 후 작업이 끝나기 전에 지우는 케이스 테스트 결과
+ThreadLocal 객체에 데이터를 저장 후 작업이 끝나기 전에 지우는 케이스 테스트 결과는 다음과 같다. 매번 스레드의 컨텍스트가 정리된 상태로 동작한다.
 
 ```
 Value is null. Set current thread name into holder.

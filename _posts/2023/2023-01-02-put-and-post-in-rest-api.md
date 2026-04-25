@@ -1,9 +1,9 @@
 ---
-title: "POST/PUT methods in REST API"
+title: "REST API POST/PUT 메서드"
 search: false
 category:
   - information
-last_modified_at: 2023-01-02T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -17,7 +17,7 @@ last_modified_at: 2023-01-02T23:55:00
 - PUT - 업데이트
 - DELETE - 삭제
 
-이전 면접 경험을 돌이켜보면 GET, POST 메서드의 차이점에 대한 질문을 많이 받았던 것 같다. URL 쿼리(query)에 데이터 노출로 인해 보안 문제가 발생할 수 있다는 등의 이야기를 했던 것 같다. 최근 POST, PUT 메서드 차이점에 대한 글을 접했는데, 많은 공부가 됐다. 이번 글은 RFC(Reuqest for Comments) 표준 문서의 PUT 메서드의 정의를 살펴보고, 데이터 생성 관점에서 POST 메서드와의 차이점을 정리했다. 
+이전 면접 경험을 돌이켜보면 GET, POST 메서드의 차이점에 대한 질문을 많이 받았던 것 같다. URL 쿼리(query)에 데이터 노출로 인해 보안 문제가 발생할 수 있다는 등의 이야기를 했던 것 같다. 최근 POST, PUT 메서드 차이점에 대한 글을 접했는데, 많은 공부가 됐다. 이번 글은 RFC(Request for Comments) 표준 문서의 PUT 메서드의 정의를 살펴보고, 데이터 생성 관점에서 POST 메서드와의 차이점을 정리했다. 
 
 ## 1. PUT Method
 

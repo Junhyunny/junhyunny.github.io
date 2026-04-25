@@ -3,7 +3,7 @@ title: "Moment Timezone API 사용 시 주의점"
 search: false
 category:
   - typescript
-last_modified_at: 2022-01-01T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -87,7 +87,7 @@ it("formatted string date test - wrong usage", () => {
 - `moment`는 내부에서 시스템 타임존을 고려한 계산을 수행한다. 
 - 테스트를 수행한 컴퓨터 운영체제의 타임존은 현재 `Asia/Seoul`이다. 즉, Asia/Seoul을 기준으로 시간 오프셋이 계산된다. 
 - `2023-01-01 11:45:00`을 `Asia/Seoul` 기준으로 먼저 판단한다. `2023-01-01 11:45:00`은 오프셋 차이가 9시간 나는 `2023-01-01 11:45:00 GMT+09:00`이다.
-- `Europe/London` 기준으로 시간을 변경하면 `2023-01-01 02:45:00 GMT+00:00`이 된다. 타임스탬프를 문자열로 변경하면 `2023-01-01 02:45:00`이 됩니다.
+- `Europe/London` 기준으로 시간을 변경하면 `2023-01-01 02:45:00 GMT+00:00`이 된다. 타임스탬프를 문자열로 변경하면 `2023-01-01 02:45:00`이 된다.
 
 ```
 $ npm test --coverage

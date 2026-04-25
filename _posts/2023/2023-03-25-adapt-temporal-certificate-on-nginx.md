@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - nginx
-last_modified_at: 2026-01-23T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -194,51 +194,19 @@ $ sudo vi /etc/hosts
 
 ### 3.4. Run Application on Nginx
 
-이미지를 빌드하고, 컨테이너를 실행한다. 외부에서 접근할 수 있도록 80, 443 포트를 모두 노출한다.
+도커 이미지를 빌드한다.
 
 ```
 $ docker build -t nginx-ssl .
 
-[+] Building 20.8s (16/16) FINISHED
- => [internal] load build definition from Dockerfile                                                                                     0.0s
- => => transferring dockerfile: 37B                                                                                                      0.0s
- => [internal] load .dockerignore                                                                                                        0.0s
- => => transferring context: 2B                                                                                                          0.0s
- => [internal] load metadata for docker.io/library/nginx:latest                                                                          3.4s
- => [internal] load metadata for docker.io/library/node:16-buster-slim                                                                   2.6s
- => [builder 1/6] FROM docker.io/library/node:16-buster-slim@sha256:720848e85cae21df58f71400b4722ed0cb6ee14a23079c0cacd71a9c448b9670     0.0s
- => [stage-1 1/4] FROM docker.io/library/nginx@sha256:f4e3b6489888647ce1834b601c6c06b9f8c03dee6e097e13ed3e28c01ea3ac8c                   4.5s
- => => resolve docker.io/library/nginx@sha256:f4e3b6489888647ce1834b601c6c06b9f8c03dee6e097e13ed3e28c01ea3ac8c                           0.0s
- => => sha256:ac232364af842735579e922641ae2f67d5b8ea97df33a207c5ea05f60c63a92d 7.66kB / 7.66kB                                           0.0s
- => => sha256:f1f26f5702560b7e591bef5c4d840f76a232bf13fd5aefc4e22077a1ae4440c7 31.41MB / 31.41MB                                         2.0s
- => => sha256:84181e80d10e844350789d3324e848cf728df4f3d0f6c978789dd489f493934a 25.47MB / 25.47MB                                         2.2s
- => => sha256:1ff0f94a80076ab49af75159e23f062a30a75d333a8e9c021bf39669230afcfe 625B / 625B                                               0.8s
- => => sha256:f4e3b6489888647ce1834b601c6c06b9f8c03dee6e097e13ed3e28c01ea3ac8c 1.86kB / 1.86kB                                           0.0s
- => => sha256:557c9ede65655e5a70e4a32f1651638ea3bfb0802edd982810884602f700ba25 1.57kB / 1.57kB                                           0.0s
- => => sha256:d776269cad101c9f8e33e2baa0a05993ed0786604d86ea525f62d5d7ae7b9540 959B / 959B                                               1.1s
- => => sha256:e9427fcfa8642f8ddf5106f742a75eca0dbac676cf8145598623d04fa45dd74e 773B / 773B                                               1.4s
- => => sha256:d4ceccbfc2696101c94fbf2149036e4ff815e4723e518721ff85105ce5aa8afc 1.41kB / 1.41kB                                           1.7s
- => => extracting sha256:f1f26f5702560b7e591bef5c4d840f76a232bf13fd5aefc4e22077a1ae4440c7                                                1.3s
- => => extracting sha256:84181e80d10e844350789d3324e848cf728df4f3d0f6c978789dd489f493934a                                                0.6s
- => => extracting sha256:1ff0f94a80076ab49af75159e23f062a30a75d333a8e9c021bf39669230afcfe                                                0.0s
- => => extracting sha256:d776269cad101c9f8e33e2baa0a05993ed0786604d86ea525f62d5d7ae7b9540                                                0.0s
- => => extracting sha256:e9427fcfa8642f8ddf5106f742a75eca0dbac676cf8145598623d04fa45dd74e                                                0.0s
- => => extracting sha256:d4ceccbfc2696101c94fbf2149036e4ff815e4723e518721ff85105ce5aa8afc                                                0.0s
- => [internal] load build context                                                                                                        3.8s
- => => transferring context: 3.10MB                                                                                                      3.8s
- => CACHED [builder 2/6] WORKDIR /app                                                                                                    0.0s
- => CACHED [builder 3/6] COPY package.json .                                                                                             0.0s
- => CACHED [builder 4/6] RUN npm install --silent                                                                                        0.0s
- => [builder 5/6] COPY . .                                                                                                               4.7s
- => [stage-1 2/4] COPY default.conf /etc/nginx/conf.d/default.conf                                                                       0.3s
- => [stage-1 3/4] COPY ssl /ssl                                                                                                          0.0s
- => [builder 6/6] RUN npm run build                                                                                                      8.0s
- => [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html                                                                   0.0s
- => exporting to image                                                                                                                   0.0s
- => => exporting layers                                                                                                                  0.0s
+... 
  => => writing image sha256:6c9bcd2411fe0345cc861f21970ba2171297f8752a36e71e04e265957107fe35                                             0.0s
  => => naming to docker.io/library/nginx-ssl                                                                                             0.0s
+```
 
+컨테이너를 실행한다. 외부에서 접근할 수 있도록 80, 443 포트를 모두 노출한다.
+
+```
 $ docker run -d\
   -p 80:80\
   -p 443:443\
@@ -247,10 +215,10 @@ $ docker run -d\
 e856fc0cf3f3d3d6ca3a127646f4e6cdbe50544a822e1765b57195f0823de512
 ```
 
-컨테이너 실행 결과를 살패보자. 공인된 `CA`에서 발급한 인증서가 아니기 때문에 경고 메시지가 보여지지만, 인증서가 적용된 것을 확인할 수 있다.
+컨테이너 실행 결과를 살펴보자. 공인된 `CA`에서 발급한 인증서가 아니기 때문에 경고 메시지가 보여지지만, 인증서가 적용된 것을 확인할 수 있다.
 
 1. 안전하지 않은 이동을 눌러 사이트에 접속한다.
-2. 유효하지 않은 인증서를 사용했기 때문에 브라우저 주소창에 경고 메시지가 보여진다.
+2. 유효하지 않은 인증서를 사용했기 때문에 브라우저 주소창에 경고 메시지가 보인다.
 3. 인증서 정보를 살펴볼 수 있다. 인증서를 만들 때 작성한 정보들을 볼 수 있다.
 
 <div align="center">
@@ -259,7 +227,7 @@ e856fc0cf3f3d3d6ca3a127646f4e6cdbe50544a822e1765b57195f0823de512
 
 ## CLOSING
 
-이번 포스트에서 다룬 내용은 어디까지나 임시 테스트 환경을 구축하기 위한 인증서 적용 방법이다. 운영 환경을 위해 도메인, 인증서, 비공개 키 등을 이미 발급 받았다면 임시 인증서 생성을 제외하곤 프로젝트 상황에 맞게 적절하게 적용할 수 있다.
+이번 글에서 다룬 내용은 어디까지나 임시 테스트 환경을 구축하기 위한 인증서 적용 방법이다. 운영 환경을 위해 도메인, 인증서, 비공개 키 등을 이미 발급 받았다면 임시 인증서 생성을 제외하곤 프로젝트 상황에 맞게 적절하게 적용할 수 있다.
 
 #### TEST CODE REPOSITORY
 

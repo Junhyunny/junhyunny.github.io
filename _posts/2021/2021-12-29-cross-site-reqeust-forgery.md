@@ -6,15 +6,15 @@ category:
   - security
   - spring-boot
   - spring-security
-last_modified_at: 2021-12-29T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Cookie and Session][cookie-and-session-link]
-- [Deep dive into cookie][cookie-attributes-link]
+- [쿠키(Cookie)와 세션(Session)][cookie-and-session-link]
+- [쿠키(Cookie) 심층 분석][cookie-attributes-link]
 
 ## 0. 들어가면서
 
@@ -255,9 +255,7 @@ public class ReferrerCheckInterceptor implements HandlerInterceptor {
 
 ### 3.2. Check CSRF token
 
-임의의 CSRF 토큰을 만들어 세션에 저장한다. 요청하는 페이지에 `hidden` 타입 input 태그를 이용해 토큰 값을 함께 전달한다. 이후 서버에서 세션에 저장된 CSRF 토큰 값과 요청 파라미터에 담긴 토큰 값을 비교한다. 
-
-- 세션과 모델에 CSRF 토큰을 설정한다.
+임의의 CSRF 토큰을 만들어 세션에 저장한다. 요청하는 페이지에 `hidden` 타입 input 태그를 이용해 토큰 값을 함께 전달한다. 이후 서버에서 세션에 저장된 CSRF 토큰 값과 요청 파라미터에 담긴 토큰 값을 비교한다. 세션과 모델에 CSRF 토큰을 설정한다.
 
 ```java
     // 세션에 설정
@@ -266,7 +264,7 @@ public class ReferrerCheckInterceptor implements HandlerInterceptor {
     model.addAttribute("CSRF_TOKEN", session.getAttribute("CSRF_TOKEN"));
 ```
 
-- JSP 페이지 hidden 타입의 input 태그에 CSRF 토큰을 설정한다.
+JSP 페이지 hidden 타입의 input 태그에 CSRF 토큰을 설정한다.
 
 ```html
 <form action="http://server-host:port/path" method="POST">
@@ -550,7 +548,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 #### RECOMMEND NEXT POSTS
 
-- [Is Chrome's default SameSite policy safe against CSRF?][is-chrome-samesite-policy-safe-against-csrf-link]
+- [크롬(Chrome) 기본 SameSite 정책은 CSRF 공격에 안전한가?][is-chrome-samesite-policy-safe-against-csrf-link]
 - [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
 - [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting]
 - [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]
@@ -566,11 +564,9 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 [cookie-and-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [cookie-attributes-link]: https://junhyunny.github.io/information/security/cookie-attributes/
-
 [is-chrome-samesite-policy-safe-against-csrf-link]: https://junhyunny.github.io/spring-boot/spring-security/security/is-chrome-samesite-policy-safe-against-csrf/
 [reflected-cross-site-scripting-link]: https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/
 [stored-cross-site-scripting]: https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/
 [dom-based-cross-site-scripting-link]: https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/
-
 [csrf-wiki-link]: https://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%9A%94%EC%B2%AD_%EC%9C%84%EC%A1%B0
 [csrf-attack-and-protection-link]: https://itstory.tk/entry/CSRF-%EA%B3%B5%EA%B2%A9%EC%9D%B4%EB%9E%80-%EA%B7%B8%EB%A6%AC%EA%B3%A0-CSRF-%EB%B0%A9%EC%96%B4-%EB%B0%A9%EB%B2%95

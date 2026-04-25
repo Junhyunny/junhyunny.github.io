@@ -3,14 +3,14 @@ title: "컨테이너 이미지에 없는 CLI 명령어 설치하기"
 search: false
 category:
   - docker
-last_modified_at: 2026-03-18T22:53:44+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]
+- [Dockerfile 빌드와 이미지 레이어(Image Layer)][docker-file-build-and-image-layer-link]
 
 ## 1. Problem Context
 
@@ -62,44 +62,13 @@ RUN apt-get update && apt-get install -y vim telnet
 ```
 $ docker build . -t apache/nifi:custom
 
-[+] Building 78.1s (6/6) FINISHED
- => [internal] load build definition from Dockerfile                                                                 0.0s
- => => transferring dockerfile: 131B                                                                                 0.0s
- => [internal] load .dockerignore                                                                                    0.0s
- => => transferring context: 2B                                                                                      0.0s
- => [internal] load metadata for docker.io/apache/nifi:latest                                                        3.1s
- => [1/2] FROM docker.io/apache/nifi:latest@sha256:59445c1bb8b9c26d44ec7e048bd19253e135c6c06df9e527b6555462ac6ff79b  61.1s
- => => resolve docker.io/apache/nifi:latest@sha256:59445c1bb8b9c26d44ec7e048bd19253e135c6c06df9e527b6555462ac6ff79b  0.0s
- => => sha256:1b4c347ee66392134621f44bd61cdc4cd1e5689c11d0a01d8f911256d1fc5718 2.47kB / 2.47kB                       0.0s
- => => sha256:10ac4908093d4325f2c94b2c9a571fa1071a17a72dd9c21c1ffb2c86f68ca028 30.43MB / 30.43MB                     1.6s
- => => sha256:59445c1bb8b9c26d44ec7e048bd19253e135c6c06df9e527b6555462ac6ff79b 685B / 685B                           0.0s
- => => sha256:6a3ca944ee8e4bcccc15f06edd29979d86996e8827d3487dcc5f35c92e3f504f 14.45kB / 14.45kB                     0.0s
- => => sha256:c5b99dc26ba300e0f809f00511dcac6ceb6c9dde4a5c0a7288225868d3a7df21 12.43MB / 12.43MB                     1.5s
- => => sha256:475d0703f5bc1c862565817c8cca45229e0c4353ec8bbf2bf354818548bd740a 46.64MB / 46.64MB                     3.5s
- => => sha256:d2576264bf764d7f43ca167c0598daa092b2266d16587f8363005f491d311759 160B / 160B                           1.8s
- => => sha256:ac4c54d7c7f4f3cbfcb03373f90e63ed12c458a6e156e5d6f3c874083d4da13a 4.64kB / 4.64kB                       1.9s
- => => extracting sha256:10ac4908093d4325f2c94b2c9a571fa1071a17a72dd9c21c1ffb2c86f68ca028                            0.7s
- => => sha256:d9bb6e322fdb9589c1f9b4e1b12ee699fbc1d2be4946626cad42992592e277d0 983B / 983B                           2.0s
- => => sha256:1435e39b563e81c43b7cea37f66d93f42aa4d2885dc4f1c82a0a880b1aed66f6 16.45MB / 16.45MB                     3.5s
- => => sha256:fab9496c7dcec79dfc1e7aca06830788f64ce51ea5cc5e2f2511e8fc2a8622bc 135.05MB / 135.05MB                   8.2s
- => => extracting sha256:c5b99dc26ba300e0f809f00511dcac6ceb6c9dde4a5c0a7288225868d3a7df21                            0.5s
- => => sha256:b9ab4bda4ce227a90f4d4c76eb8ff853cd237be20691621f4926d909e59dee9c 1.49GB / 1.49GB                       52.2s
- => => extracting sha256:475d0703f5bc1c862565817c8cca45229e0c4353ec8bbf2bf354818548bd740a                            0.9s
- => => sha256:43534088789c59b1f28b2b9d094ae8fa201811eec1f759384d228bf1884b8527 227B / 227B                           3.8s
- => => sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1 32B / 32B                             4.1s
- => => extracting sha256:d2576264bf764d7f43ca167c0598daa092b2266d16587f8363005f491d311759                            0.0s
- => => extracting sha256:ac4c54d7c7f4f3cbfcb03373f90e63ed12c458a6e156e5d6f3c874083d4da13a                            0.0s
- => => extracting sha256:d9bb6e322fdb9589c1f9b4e1b12ee699fbc1d2be4946626cad42992592e277d0                            0.0s
- => => extracting sha256:1435e39b563e81c43b7cea37f66d93f42aa4d2885dc4f1c82a0a880b1aed66f6                            0.3s
- => => extracting sha256:fab9496c7dcec79dfc1e7aca06830788f64ce51ea5cc5e2f2511e8fc2a8622bc                            0.8s
- => => extracting sha256:b9ab4bda4ce227a90f4d4c76eb8ff853cd237be20691621f4926d909e59dee9c                            8.1s
- => => extracting sha256:43534088789c59b1f28b2b9d094ae8fa201811eec1f759384d228bf1884b8527                            0.0s
- => => extracting sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1                            0.0s
- => [2/2] RUN apt-get update && apt-get install -y vim telnet                                                        13.2s
- => exporting to image                                                                                               0.6s
- => => exporting layers                                                                                              0.6s
- => => writing image sha256:436be1f6ff2c82784f73faf147b4723fe50be732651facc2c9d95fc7655ee9e3                         0.0s
- => => naming to docker.io/apache/nifi:custom                                                                        0.0s
+...
+
+ => [2/2] RUN apt-get update && apt-get install -y vim telnet                                           13.2s
+ => exporting to image                                                                                  0.6s
+ => => exporting layers                                                                                 0.6s
+ => => writing image sha256:436be1f6ff2c82784f73faf147b4723fe50be732651facc2c9d95fc7655ee9e3            0.0s
+ => => naming to docker.io/apache/nifi:custom                                                           0.0s
 ```
 
 이미지가 잘 생성되었는지 확인한다.

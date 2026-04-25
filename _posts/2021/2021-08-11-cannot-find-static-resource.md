@@ -1,16 +1,16 @@
 ---
-title: "Problem to find images in spring boot application"
+title: "스프링 부트 애플리케이션 이미지 에셋(asset)을 못 찾는 문제 원인과 해결 방법"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-09-04T16:30:00
+last_modified_at: 2026-04-25T23:19:05+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Reading resources error when running jar file][when-run-jar-then-fail-to-read-resource-link]
+- [jar 파일 실행 시 리소스 읽기 오류][when-run-jar-then-fail-to-read-resource-link]
 
 ## 0. 들어가면서
 
@@ -20,14 +20,14 @@ last_modified_at: 2021-09-04T16:30:00
 
 다음과 같은 문제가 발생했다.
 
-1. 클라이언트(브라우저)가 특정 문자열에 해당하는 바코드를 생성을 요청한다.
+1. 클라이언트(브라우저)가 특정 문자열에 해당하는 바코드 생성을 요청한다.
 2. 서버는 특정 문자열을 받아 이미지를 파일 시스템에 생성 후 이미지 파일 경로를 클라이언트에게 응답한다.
 3. 클라이언트가 해당 이미지 경로로 요청을 보내면 해당 이미지 파일을 찾을 수 없다.
 
 새로운 이미지 파일은 클래스패스에 위치한 /static/images 폴더에 생성하도록 구현했다. 다음과 같이 현상을 요약할 수 있다.
 
 - IDE(Integrated Development Environment) 환경에서 실행하면 정상적으로 동작하지만, 애플리케이션을 서버 머신에 배포하면 정상적으로 동작하지 않는다.
-- 새로 업로드 한 이미지가 아닌 /static/images 디렉토리에 이미 저장된 이미지들은 서버 환경에서도 정상적으로 찾을 수 있다. 
+- 새로 업로드한 이미지가 아닌 /static/images 디렉토리에 이미 저장된 이미지들은 서버 환경에서도 정상적으로 찾을 수 있다. 
 
 ## 2. Cause of the problem
 
@@ -53,7 +53,7 @@ java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/bl
 
 jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로운 파일을 직접 만들 수 없다. IDE 환경에서 실행한 애플리케이션이 정상적으로 동작하는 이유는 빌드한 결과물이 jar 파일로 패키징 되어 있지 않고 target 폴더에 풀어져 있기 때문이다. 
 
-- IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드 된다.
+- IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드된다.
 
 <div align="left">
   <img src="{{ site.image_url_2021 }}/cannot-find-static-resource-01.png" width="50%" class="image__border">
@@ -101,14 +101,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 ## 4. Example code
 
-이해를 돕기 위해 간단한 예시 코드를 만들어봤다.
-
-### 4.1. application YAML
-
-application.yml 파일 설정은 다음과 같다.
+이해를 돕기 위해 간단한 예시 코드를 만들어봤다. 먼저 application.yml 파일 설정은 다음과 같다.
 
 1. 정적 이미지 경로의 접미사를 `/static`으로 지정한다.
-  - 해당 설정을 통해 HTTP 요청 경로가 `/static`으로 시작하는 경우 클래스 패스의 /static 디렉토리를 탐색한다.
+  - 해당 설정을 통해 HTTP 요청 경로가 `/static`으로 시작하는 경우 클래스패스의 /static 디렉토리를 탐색한다.
 2. 타임리프(thymeleaf) 템플릿 파일 경로를 지정한다.
 
 ```yml
@@ -123,14 +119,14 @@ spring:
     cache: false
 ```
 
-### 4.2. image HTML
+다음 브라우저에서 이미지를 렌더링하는 웹 페이지인 image HTML 파일을 살펴보자. 
 
 1. 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회를 요청한다. 
 2. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
   - 클래스패스 /static/images 디렉토리에 이미지를 저장한다.
 3. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
   - 애플리케이션 프로세스 현재 경로 /images 디렉토리에 이미지를 저장한다.
-4. 서버로부터 전달 받은 이미지 경로를 img 태그에 설정한다.
+4. 서버로부터 전달받은 이미지 경로를 img 태그에 설정한다.
 
 ```html
 <!DOCTYPE html>
@@ -173,7 +169,7 @@ spring:
 </html>
 ```
 
-### 4.3. BlogController Class
+다음 이미지 경로를 지정해주는 BlogController 클래스를 살펴보자.
 
 1. /static 경로
   - 클래스패스 /static/images 디렉토리에 미리 저장된 sample.png 이미지의 경로를 응답한다.
@@ -263,13 +259,11 @@ public class BlogController {
 }
 ```
 
-### 4.4. Run application
-
-애플리케이션을 실행해보자. 먼저 IDE 환경에서 실행해보자.
+이제 애플리케이션을 실행해보자. 먼저 IDE 환경에서 실행해보자.
 
 - 클래스패스 /static/images 디렉토리에 미리 저장된 이미지를 조회할 수 있다.
-- 클래스패스 /static/images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
-- 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
+- 클래스패스 /static/images 디렉토리에 업로드된 이미지를 조회할 수 있다.
+- 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드된 이미지를 조회할 수 있다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/cannot-find-static-resource-02.gif" width="100%" class="image__border">
@@ -281,7 +275,7 @@ public class BlogController {
 
 - 클래스패스 /static/images 디렉토리에 미리 저장된 이미지를 조회할 수 있다.
 - 클래스패스 /static/images 디렉토리에 이미지 업로드가 실패한다.
-- 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드 된 이미지를 조회할 수 있다.
+- 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드된 이미지를 조회할 수 있다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/cannot-find-static-resource-03.gif" width="100%" class="image__border">

@@ -3,7 +3,7 @@ title: "Java DayOfYear 필드 너비 초과 에러"
 search: false
 category:
   - java
-last_modified_at: 2023-01-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -84,9 +84,9 @@ DateTimeFormatter 클래스을 사용할 때 잘못된 패턴을 지정했다.
 - 아래 표는 Java에서 사용하는 날짜 포맷이다.
 - 자세한 설명은 [이 링크][date-time-symbol-table-link]에서 확인할 수 있다. 
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2023 }}/date-of-year-exceeding-error-in-java-01.png" width="65%">
-</p>
+</div>
 <center>https://jenkov.com/tutorials/java-internationalization/simpledateformat.html</center>
 
 ## 3. Solve the problem

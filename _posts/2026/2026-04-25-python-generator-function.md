@@ -9,10 +9,6 @@ last_modified_at: 2026-04-25T09:46:01+09:00
 
 <br/>
 
-#### RECOMMEND POSTS BEFORE THIS
-
-- [가비지 컬렉션(Garbage Collection) 참조 카운팅(Reference Counting) 알고리즘][reference-counting-gc-in-javascript-link]
-
 ## 0. 들어가면서
 
 AI 코딩 에이전트와 함께 [토이 프로젝트](https://github.com/Junhyunny/todo-agent)로 간단한 AI 에이전트 애플리케이션을 만들어보고 있다. 예전에는 토이 프로젝트를 시작할 엄두조차 나지 않았는데, 지금은 정말 마음만 먹는다면 누구나 원하는 것을 만들 수 있게 되었다. 시간이 부족하다는 변명은 통하지 않는 시대를 살고 있다.

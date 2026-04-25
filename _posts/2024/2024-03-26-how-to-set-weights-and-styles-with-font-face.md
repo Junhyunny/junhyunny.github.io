@@ -1,10 +1,10 @@
 ---
-title: "How to set weights and styles with @font-face"
+title: "@font-face 글꼴 두께와 스타일 설정하기"
 search: false
 category:
   - html
   - css
-last_modified_at: 2024-03-26T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -15,19 +15,19 @@ last_modified_at: 2024-03-26T23:55:00
 
 ## 1. Download font files
 
-[구글 폰트 사이트](https://fonts.google.com/)에 접속해 필요한 폰트를 다운로드 받는다. 이번 예제에선 @font-face 지시어가 제대로 적용되었는지 확인하기 위해 모양이 특이한 폰트를 사용한다. 
+[구글 폰트 사이트](https://fonts.google.com/)에 접속해 필요한 폰트를 다운로드 받는다. 이번 예제에선 @font-face 지시어가 제대로 적용되었는지 확인하기 위해 모양이 특이한 폰트를 사용한다. `Get font` 버튼을 누른다.
 
-- `Get font` 버튼을 누른다.
-
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-01.png" width="100%" class="image__border">
-</p>
+</div>
 
-- `Download all` 버튼을 누른다.
+<br/>
 
-<p align="center">
+다음 `Download all` 버튼을 누른다.
+
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-02.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## 2. @font-face directive
 
@@ -162,11 +162,13 @@ export default App;
 }
 ```
 
-<p align="center">
-  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
-</p>
+애플리케이션을 실행하면 정상적으로 글꼴 스타일이 반영된다.
 
-#### 3.1.1. Mismatch font-weight and font-style
+<div align="center">
+  <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
+</div>
+
+<br/>
 
 주의할 점은 font-weight, font-style 속성의 값을 정확하게 `normal`로 맞춰 사용해야 한다는 것이다. font-weight 속성을 다른 값으로 지정하면 사파리(safari) 브라우저에서 폰트 굵기가 이상하게 출력된다. 
 
@@ -195,13 +197,15 @@ export default App;
 }
 ```
 
-<p align="center">
+font-weight 속성에 normal 값이 아닌 실제 굵기를 주면 아래 사진과 같이 사파리 브라우저에서 이상하게 표시된다.
+
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-04.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 3.2. Style Linking
 
-두번째 방법은 동일한 font-family 이름으로 지정하고 폰트 굵기와 스타일을 맞추는 것이다. 같은 이름을 사용하기 때문에 body 블록에 font-family 속성을 지정하고 클래스에선 font-weight, font-style 속성을 동일하게 맞춘다. 
+두 번째 방법은 동일한 font-family 이름으로 지정하고 폰트 굵기와 스타일을 맞추는 것이다. 같은 이름을 사용하기 때문에 body 블록에 font-family 속성을 지정하고 클래스에선 font-weight, font-style 속성을 동일하게 맞춘다. 
 
 - @font-face 지시자 블록
   - font-family 이름은 동일한 값을 사용한다.
@@ -260,9 +264,11 @@ body {
 }
 ```
 
-<p align="center">
+애플리케이션을 실행하면 정상적으로 글꼴 스타일이 반영된다.
+
+<div align="center">
   <img src="{{ site.image_url_2024 }}/how-to-set-weights-and-styles-with-font-face-05.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### TEST CODE REPOSITORY
 

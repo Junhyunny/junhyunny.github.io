@@ -1,5 +1,5 @@
 ---
-title: "테스트 컨테이너와 스프링 애플리케이션 DynamoDB 결합 테스트"
+title: "테스트 컨테이너(TestContainer)와 스프링 애플리케이션 DynamoDB 결합 테스트"
 search: false
 category:
   - spring-boot
@@ -14,8 +14,8 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [스프링 부트(Spring Boot) DynamoDB CRUD 예제][dynamodb-crud-example-with-spring-boot-link]
-- [TestContainer와 ApplicationContext 공유 문제][problem-of-sharing-application-context-with-test-container-link]
-- [코틀린 스프링 부트(Kotlin Spring Boot)에서 TestContainer 설정하기][how-to-setup-testcontainer-in-kotlin-spring-boot-link]
+- [테스트 컨테이너(TestContainer) ApplicationContext 공유 문제][problem-of-sharing-application-context-with-test-container-link]
+- [코틀린 스프링 부트(Kotlin Spring Boot)에서 테스트 컨테이너(TestContainer) 설정하기][how-to-setup-testcontainer-in-kotlin-spring-boot-link]
 
 ## 0. 들어가면서
 

@@ -1,5 +1,5 @@
 ---
-title: "Timezone Problem of JVM Application"
+title: "JVM 애플리케이션의 타임존(Timezone) 문제"
 search: false
 category:
   - java

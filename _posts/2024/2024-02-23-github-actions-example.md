@@ -1,22 +1,22 @@
 ---
-title: "Github Actions Example"
+title: "GitHub Actions 예제"
 search: false
 category:
   - information
   - github
   - dev-ops
-last_modified_at: 2023-02-23T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Github Actions Basic][github-actions-link]
+- [GitHub Actions 기초][github-actions-link]
 
 ## 0. 들어가면서
 
-[Github Actions Basic][github-actions-link]에선 깃허브 액션스(github actions)의 기본 개념을 다뤘다. 이번 글은 워크플로우 파일을 작성해 파이프라인을 구성하는 방법에 대해 정리했다. 파이프라인 전체를 자동화할 수 없는 현재 프로젝트 상황에 맞게 컨테이너 이미지를 빌드해서 이미지 레지스트리(registry)에 올리는 단계까지 구축한 예제이다.
+[GitHub Actions 기초][github-actions-link]에선 깃허브 액션스(github actions)의 기본 개념을 다뤘다. 이번 글은 워크플로우 파일을 작성해 파이프라인을 구성하는 방법에 대해 정리했다. 파이프라인 전체를 자동화할 수 없는 현재 프로젝트 상황에 맞게 컨테이너 이미지를 빌드해서 이미지 레지스트리(registry)에 올리는 단계까지 구축한 예제이다.
 
 ## 1. Context
 
@@ -29,12 +29,12 @@ last_modified_at: 2023-02-23T23:55:00
 구상 중인 파이프라인을 시각화하면 다음과 같다.
 
 1. 개발자가 코드를 특정 브랜치에 푸시(push)하면 파이프라인이 트리거(trigger)된다.
-1. 깃허브 액션스에 등록한 워크 플로우가 실행된다.
-1. 파이프라인이 모두 성공하면 컨테이너 이미지를 만들어 배포한다.
+2. 깃허브 액션스에 등록한 워크 플로우가 실행된다.
+3. 파이프라인이 모두 성공하면 컨테이너 이미지를 만들어 배포한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-example-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 2. Build Pipeline
 
@@ -184,9 +184,9 @@ jobs:
   - DOCKERHUB_USERNAME - 도커 허브 사용자 아이디
   - DOCKERHUB_TOKEN - 도커 허브 사용자 비밀번호 혹은 발급 토큰
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-example-02.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## 3. Run Pipeline
 
@@ -196,17 +196,17 @@ jobs:
 
 `Actions` 탭에서 CI/CD 파이프라인의 동작 모습을 확인할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-example-03.png" width="100%" class="image__border">
-</p>
+</div>
 
 ### 3.2. Check Dockerhub
 
 도커 허브에 업로드 된 이미지를 확인할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/github-actions-example-04.png" width="100%" class="image__border">
-</p>
+</div>
 
 ## CLOSING
 
@@ -218,7 +218,7 @@ jobs:
 
 #### RECOMMEND NEXT POSTS
 
-- [Optimize Github Actions][optimize-github-actions-link]
+- [GitHub Actions 최적화][optimize-github-actions-link]
 
 #### REFERENCE
 

@@ -1,10 +1,10 @@
 ---
-title: "Introduction Vagrant"
+title: "Vagrant 소개"
 search: false
 category:
   - infrastructure
   - dev-ops
-last_modified_at: 2024-04-27T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -35,9 +35,9 @@ last_modified_at: 2024-04-27T23:55:00
   - 준비된 가상 머신에 필요한 애플리케이션을 설치한다.
 5. 프로비저닝까지 완료되면 `vagrant ssh` 명령어를 사용해 가상 머신에 접속한다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/introduction-vagrant-01.png" width="80%" class="image__border">
-</p>
+</div>
 <center>https://quintagroup.com/blog/what-is-vagrant-and-when-should-one-turn-to-it</center>
 
 ## 2. Single Virtual Machine
@@ -160,9 +160,9 @@ Bringing machine 'default' up with 'virtualbox' provider...
 
 가상 머신 프로비저닝이 완료되면 VirtualBox 윈도우에서 가상 머신이 실행되고 있는 것을 확인할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/introduction-vagrant-02.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 2.4. Connect via SSH
 

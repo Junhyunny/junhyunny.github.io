@@ -1,19 +1,19 @@
 ---
-title: "Deserialization problem of GenericJackson2JsonRedisSerializer"
+title: "GenericJackson2JsonRedisSerializer 역직렬화 문제"
 search: false
 category:
   - java
   - spring-boot
   - redis
   - test-container
-last_modified_at: 2024-03-23T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
+- [테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 
 ## 0. 들어가면서
 

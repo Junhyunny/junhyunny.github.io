@@ -1,11 +1,11 @@
 ---
-title: "Setup Container Runtime Resource Limit on Windows"
+title: "윈도우(Windows) 운영체제에서 도커 컨테이너 런타임 리소스 제한 설정하기"
 search: false
 category:
   - docker
   - podman
   - windows
-last_modified_at: 2024-03-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -18,9 +18,9 @@ last_modified_at: 2024-03-03T23:55:00
 
 `vmmem` 프로세스가 사용 중인 CPU, 메모리는 윈도우 작업 관리자에서 확인할 수 있다. 
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-01.png" width="80%" class="image__border">
-</p>
+</div>
 
 ## 2. Solve the problem
 
@@ -33,22 +33,25 @@ WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8
 
 ### 2.1. GUI Tools
 
-도커 데스크탑이나 파드맨 데스크탑 같은 GUI 도구를 통해 리소스를 제한을 시도했다. 라이센스 문제로 중간에 컨테이너 런타임을 변경했기 때문에 두가지 도구를 모두 확인할 수 있었다. 캡처한 이미지는 필자의 개인 PC이기 때문에 리소스 정보는 실제 서버와 전혀 무관하다.
+도커 데스크탑이나 파드맨 데스크탑 같은 GUI 도구를 통해 리소스를 제한을 시도했다. 라이센스 문제로 중간에 컨테이너 런타임을 변경했기 때문에 두 가지 도구를 모두 확인할 수 있었다. 캡처한 이미지는 필자의 개인 PC이기 때문에 리소스 정보는 실제 서버와 전혀 무관하다.
 
 - 서비스를 릴리즈하기 전 사용한 도커 데스크탑의 리소스 설정 화면이다.
 - 직접 설정할 수 없고 `.wslconfig` 파일을 사용하라는 설명을 볼 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-02.png" width="80%" class="image__border">
-</p>
+</div>
 
-- 서비스를 릴리즈한 후 사용한 파드맨 데스크탑의 리소스 설정 화면이다.
+<br/>
+
+서비스를 릴리즈한 후 사용한 파드맨 데스크탑의 리소스 설정 화면이다.
+
 - 할당된 리소스가 CPU 12개, 디스크 1TB, 메모리 16GB임을 확인할 수 있다.
 - 직접 리소스 제한을 설정할 수 있는 방법은 없다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-03.png" width="80%" class="image__border">
-</p>
+</div>
 
 ### 2.2. Setup .wslconfig file
 
@@ -108,9 +111,9 @@ Machine "podman-machine-default" started successfully
 
 파드맨 데스크탑 리소스 설정을 보면 메모리가 최대 2GB로 제한된 것을 확인할 수 있다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/setup-container-runtime-resource-limit-on-windows-04.png" width="80%" class="image__border">
-</p>
+</div>
 
 #### REFERENCE
 

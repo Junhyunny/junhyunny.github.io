@@ -1,10 +1,10 @@
 ---
-title: "How to test for @Cacheable annotation"
+title: "@Cacheable 애너테이션 테스트하기"
 search: false
 category:
   - kotlin
   - spring-boot
-last_modified_at: 2024-03-16T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

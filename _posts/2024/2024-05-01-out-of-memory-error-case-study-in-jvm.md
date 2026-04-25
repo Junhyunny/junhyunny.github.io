@@ -1,11 +1,11 @@
 ---
-title: "Out of memory error when Direct Buffer Memory allocation"
+title: "다이렉트 버퍼 메모리(Direct Buffer Memory) 할당 시 메모리 부족 오류"
 search: false
 category:
   - java
   - jvm
   - spring-boot
-last_modified_at: 2024-05-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -25,9 +25,9 @@ last_modified_at: 2024-05-03T23:55:00
 - 약 5MB 정도의 메모리를 다이렉트 버퍼 메모리에서 할당 받을 수 없다.
 - 최대 10MB 메모리 중 8.8MB 정도가 할당되어 있는 상태이다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-01.png" width="100%" class="image__border">
-</p>
+</div>
 
 <br/>
 
@@ -62,9 +62,9 @@ JDK 제공사에서 설명할 때 다이렉트 메모리에 제한이 없는데 
 
 - `-XX:MaxDirectMemorySize=N` 옵션을 통해 다이렉트 메모리 사이즈가 10MB로 제한되어 있었다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-02.png" width="100%" class="image__border">
-</p>
+</div>
 
 <br/>
 
@@ -91,9 +91,9 @@ Non-Heap = (Direct Memory) + (Metaspace) + (Reserved Code Cache) + (Thread Stack
 
 헤드룸(Headroom) 메모리는 JVM이 아닌 작업을 위해 남겨두는 메모리로 백분율 단위를 사용하며 기본 값이 0% 이므로 자세한 내용은 살펴보지 않았다. 공식 문서를 보면 논-힙 메모리에 포함된 다이렉트 메모리의 기본 값은 10MB이다. 발생한 문제의 로그와 동일한 값인 것으로 미뤄볼 때 기본 값이 너무 작아 OOM 에러가 발생한 것으로 보인다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-03.png" width="50%" class="image__border">
-</p>
+</div>
 <center>https://paketo.io/docs/reference/java-reference/#memory-calculator</center>
 
 ## 3. Solve the problem
@@ -121,7 +121,7 @@ $ docker run\
   application/spring-boot
 ```
 
-`-XX:MaxDirectMemorySize=100M` 설정이 잘 주입됬는지 로그로 확인한다.
+`-XX:MaxDirectMemorySize=100M` 설정이 잘 주입됐는지 로그로 확인한다.
 
 ```
 $ docker logs demo
@@ -202,9 +202,9 @@ public class FileController {
 - 최대 다이렉트 메모리 사이즈가 100MB이다.
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-04.gif" width="100%" class="image__border">
-</p>
+</div>
 
 <br/>
 
@@ -265,9 +265,9 @@ public class FileController {
 - 최대 다이렉트 메모리 사이즈가 10MB이다.
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.
 
-<p align="center">
+<div align="center">
   <img src="{{ site.image_url_2024 }}/out-of-memory-error-case-study-in-jvm-05.gif" width="100%" class="image__border">
-</p>
+</div>
 
 <br/>
 

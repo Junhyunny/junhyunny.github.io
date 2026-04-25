@@ -1,5 +1,5 @@
 ---
-title: "Problems when make test double in Kotlin"
+title: "코틀린(Kotlin)에서 테스트 더블(Test Double) 생성 시 문제"
 search: false
 category:
   - kotlin
@@ -126,8 +126,7 @@ java.lang.NullPointerException: eq(...) must not be null
 메서드 시그니처를 변경하지 않더라도 다음과 같은 테스트는 정상적으로 통과한다. 
 
 - 동일한 파라미터를 직접 전달한다.
-- 반드시 동일한 인스턴스일 필요는 없다. 
-  - equals 메서드로 비교했을 때 같다고 판정된다면 다른 인스턴스여도 상관 없다. 
+- 반드시 동일한 인스턴스일 필요는 없다. equals 메서드로 비교했을 때 같다고 판정된다면 다른 인스턴스여도 상관 없다. 
 
 ```kotlin
     @Test

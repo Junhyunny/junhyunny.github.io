@@ -4,8 +4,6 @@ search: false
 category:
   - python
   - generator-function
-  - async-await
-  - asynchronous-task
 last_modified_at: 2026-04-25T09:46:01+09:00
 ---
 

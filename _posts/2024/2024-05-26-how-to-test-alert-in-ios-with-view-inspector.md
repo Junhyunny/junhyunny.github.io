@@ -1,12 +1,12 @@
 ---
-title: "How to test alert in iOS with ViewInspector"
+title: "ViewInspector iOS 알럿(Alert) 테스트하기"
 search: false
 category:
   - iOS
   - swift
   - swift-ui
   - test-driven-development
-last_modified_at: 2024-05-26T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

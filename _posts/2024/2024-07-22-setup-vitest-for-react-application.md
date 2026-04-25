@@ -1,17 +1,17 @@
 ---
-title: "Setup Vitest for React App"
+title: "리액트(React) 앱 Vitest 설정하기"
 search: false
 category:
   - vite
   - react
-last_modified_at: 2024-07-22T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Setup React test environment in Vite][react-test-environment-link]
+- [Vite 리액트(React) 테스트 환경 설정하기][react-test-environment-link]
 
 ## 0. 들어가면서
 
@@ -187,7 +187,7 @@ export default defineConfig({
 
 ## 3. Make Test Code
 
-테스트 환경 구축이 완료됬다. 다음과 같은 구현체 코드를 테스트해보자.
+테스트 환경 구축이 완료됐다. 다음과 같은 구현체 코드를 테스트해보자.
 
 1. 화면에 "username" 플레이스홀더 값을 갖는 input 태그가 있다.
 2. reset 버튼을 누르면 input 태그의 값이 초기화된다.

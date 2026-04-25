@@ -1,12 +1,12 @@
 ---
-title: "How to make CheckBox Component in SwiftUI"
+title: "SwiftUI 체크박스(CheckBox) 컴포넌트 만들기"
 search: false
 category:
   - iOS
   - swift
   - swift-ui
   - test-driven-development
-last_modified_at: 2024-06-01T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

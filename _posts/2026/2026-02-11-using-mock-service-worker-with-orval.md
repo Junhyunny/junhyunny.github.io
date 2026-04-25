@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [리액트(React) 앱에서 Vitest 설정하기][setup-vitest-for-react-application-link]
+- [리액트(React) 앱 Vitest 설정하기][setup-vitest-for-react-application-link]
 - [목 서비스 워커 (Mock Service Worker)][mock-service-worker-link]
 - [OpenAPI 명세서를 사용한 Orval 클라이언트 코드 자동 생성하기][open-api-spec-with-orval-link]
 

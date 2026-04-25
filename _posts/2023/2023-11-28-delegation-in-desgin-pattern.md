@@ -13,8 +13,8 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [프록시 패턴(proxy pattern)][proxy-pattern-link]
-- [Strategy Pattern][strategy-pattern-link]
-- [Template Method Pattern][template-method-pattern-link]
+- [전략 패턴(Strategy Pattern)][strategy-pattern-link]
+- [템플릿 메서드 패턴(Template Method Pattern)][template-method-pattern-link]
 
 ## 1. Delegation
 

@@ -4,7 +4,7 @@ search: false
 category:
   - spring-boot
   - spring-cloud
-last_modified_at: 2025-12-20T23:55:00
+last_modified_at: 2026-04-25T16:42:46+09:00
 ---
 
 <br/>
@@ -12,7 +12,7 @@ last_modified_at: 2025-12-20T23:55:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [스프링 클라우드(spring cloud) OpenFeign][spring-cloud-openfeign-link]
-- [WireMock for FeignClient Test][wire-mock-for-feign-client-test-link]
+- [FeignClient 테스트를 위한 WireMock][wire-mock-for-feign-client-test-link]
 
 ## 1. Logging Level
 
@@ -100,9 +100,7 @@ public interface BlogClient {
 }
 ```
 
-### 3.2. Run Test Code
-
-각 메서드 별로 호출 시 출력되는 로그를 살펴본다. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
+테스트 코드를 통해 각 메서드별로 호출 시 출력되는 로그를 살펴본다. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
 
 ```java
 package action.in.blog;

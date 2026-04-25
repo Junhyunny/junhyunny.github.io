@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - nginx
-last_modified_at: 2026-03-19T11:01:34+09:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -119,35 +119,15 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-도커 이미지를 빌드하고, 컨테이너를 실행해보자.
+도커 이미지를 빌드한다.
 
 ```
 $ docker build . -t nginx-compression
+```
 
-[+] Building 90.7s (16/16) FINISHED
- => [internal] load build definition from Dockerfile                                                                                      0.0s
- => => transferring dockerfile: 37B                                                                                                       0.0s
- => [internal] load .dockerignore                                                                                                         0.0s
- => => transferring context: 2B                                                                                                           0.0s
- => [internal] load metadata for docker.io/library/nginx:latest                                                                           1.0s
- => [internal] load metadata for docker.io/library/node:16-buster-slim                                                                    1.2s
- => [builder 1/6] FROM docker.io/library/node:16-buster-slim@sha256:3e531c9fb23b950711705c18e0c350cfc1f6a4c583883762d52b4096de3c9da8      0.0s
- => [stage-1 1/4] FROM docker.io/library/nginx@sha256:aa0afebbb3cfa473099a62c4b32e9b3fb73ed23f2a75a65ce1d4b4f55a5c2ef2                    0.0s
- => [internal] load build context                                                                                                         2.6s
- => => transferring context: 3.10MB                                                                                                       2.6s
- => CACHED [builder 2/6] WORKDIR /app                                                                                                     0.0s
- => CACHED [builder 3/6] COPY package.json .                                                                                              0.0s
- => [builder 4/6] RUN npm install --silent                                                                                                71.0s
- => CACHED [stage-1 2/4] COPY nginx.conf /etc/nginx/nginx.conf                                                                            0.0s
- => CACHED [stage-1 3/4] COPY default.conf /etc/nginx/conf.d/default.conf                                                                 0.0s
- => [builder 5/6] COPY . .                                                                                                                5.4s 
- => [builder 6/6] RUN npm run build                                                                                                       9.6s 
- => [stage-1 4/4] COPY --from=builder /app/build /usr/share/nginx/html                                                                    0.0s 
- => exporting to image                                                                                                                    0.0s
- => => exporting layers                                                                                                                   0.0s
- => => writing image sha256:40a596f43636b2f5b051d2ed60e5cdfda86c74ee5111bb954c64323016bb4285                                              0.0s
- => => naming to docker.io/library/nginx-compression                                                                                      0.0s
+다음 컨테이너를 실행해보자.
 
+```
 $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 742d36d9e714becb10fec140d11b6a95f668f95dfb1a02cc77305dc1191567aa
 ```
@@ -195,6 +175,8 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 <div align="left">
   <img src="{{ site.image_url_2023 }}/compression-on-nginx-04.png" width="70%" class="image__border">
 </div>
+
+<br/>
 
 서버의 응답 타이밍은 다음과 같았다.
 

@@ -3,7 +3,7 @@ title: "스프링 MVC(spring mvc) 트랜잭션 처리와 프록시 빈(proxy bea
 search: false
 category:
   - spring-mvc
-last_modified_at: 2025-08-26T22:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -32,6 +32,8 @@ last_modified_at: 2025-08-26T22:00:00
 <div align="center">
   <img src="{{ site.image_url_2021 }}/do-not-bind-proxy-spring-mvc-transaction-01.png" width="100%" class="image__border">
 </div>
+
+<br/>
 
 트랜잭션 처리가 감싸진 프록시 빈 객체의 메서드를 호출하면 다음과 같은 스택 모습을 갖는다.
 
@@ -167,7 +169,7 @@ public class BlogController {
 이제 롤백이 정상적으로 동작하는지 살펴보자. 다음같이 정상적인 메서드와 의도적으로 예외가 발생하는 메서드를 만든다. 예외가 발생하는 경우 롤백을 통해 데이터가 이전 상태로 돌아가는지 확인한다. 
 
 - updateBlog 메서드는 정상적으로 업데이트를 수행한다.
-- rollbackAfterException 메서드는 의도적으로 예외(exception)가 밸상한다.
+- rollbackAfterException 메서드는 의도적으로 예외(exception)가 발생한다.
 
 ```java
 package blog.in.action.service.impl;

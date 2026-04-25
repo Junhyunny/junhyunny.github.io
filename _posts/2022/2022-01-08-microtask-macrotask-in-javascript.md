@@ -1,10 +1,10 @@
 ---
-title: "Microtask & Macrotask in Javascript"
+title: "자바스크립트(JavaScript) 마이크로태스크(Microtask)와 매크로태스크(Macrotask)"
 search: false
 category:
   - information
   - javascript
-last_modified_at: 2022-01-08T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -168,7 +168,7 @@ console.log('After function!');
 
 ## 3. Quizzes
 
-위 내용을 이해헀다면 다음 퀴즈들을 풀어보자. 매크로태스크와 마이크로태스크를 절묘하게 섞었다. 언뜻 보면 비슷하지만, 코드 일부분이 다르다. 코드를 읽고 출력되는 로그 순서를 예상해보자. `Show` 버튼을 누르면 정답을 볼 수 있다.
+위 내용을 이해했다면 다음 퀴즈들을 풀어보자. 매크로태스크와 마이크로태스크를 절묘하게 섞었다. 언뜻 보면 비슷하지만, 코드 일부분이 다르다. 코드를 읽고 출력되는 로그 순서를 예상해보자. `Show` 버튼을 누르면 정답을 볼 수 있다.
 
 ### 3.1. 1st Quiz
 

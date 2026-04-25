@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2025-08-26T22:00:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -75,7 +75,7 @@ last_modified_at: 2025-08-26T22:00:00
 
 ### 3.1. Virtual Proxy
 
-가상 프록시는 요청이 있기 전까지 고비용 객체 생성을 미룬다. 먼저 VirtualSubject 인터페이스를 정의힌다. 다음과 같은 책임을 갖는다.
+가상 프록시는 요청이 있기 전까지 고비용 객체 생성을 미룬다. 먼저 VirtualSubject 인터페이스를 정의한다. 다음과 같은 책임을 갖는다.
 
 - 특정 데이터를 출력한다.
 
@@ -156,7 +156,7 @@ public class VirtualProxy implements VirtualSubject {
 
 ### 3.3. Protection Proxy
 
-주체 클래스에 대한 접근, 사용을 제어하기 위한 프록시 패턴이다.권한이 있는 경우에만 출력이 가능한 보호 프록시 객체를 만들어보자. 권한이 정의된 AUTHORITY 이넘 클래스를 만든다.
+주체 클래스에 대한 접근, 사용을 제어하기 위한 프록시 패턴이다. 권한이 있는 경우에만 출력이 가능한 보호 프록시 객체를 만들어보자. 권한이 정의된 AUTHORITY 이넘 클래스를 만든다.
 
 - 두 개의 권한이 존재한다.  
   - ADMIN(관리자)  

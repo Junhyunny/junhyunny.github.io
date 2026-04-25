@@ -5,7 +5,7 @@ category:
   - java
   - spring-boot
   - docker
-last_modified_at: 2025-12-15T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -712,68 +712,13 @@ public class AuthorController {
 
 ```
 $ docker-compose up -d
-[+] Building 0.0s (0/2)
-[+] Building 1.2s (3/4)
- => [internal] load build definition from Dockerfile                                                                               0.0s
- => [internal] load .dockerignore                                                                                                  0.0s 
- => => transferring context: 2B                                                                                                    0.0s
- => => transferring dockerfile: 343B                                                                                               0.0s
- => [internal] load .dockerignore                                                                                                  0.0s
-[+] Building 1.3s (11/15)
- => [internal] load build definition from Dockerfile                                                                               0.0s
- => => transferring dockerfile: 343B                                                                                               0.0s
- => [internal] load .dockerignore                                                                                                  0.0s
- => => transferring context: 2B                                                                                                    0.0s
- => [internal] load metadata for docker.io/library/openjdk:17-alpine                                                               1.1s
- => [internal] load metadata for docker.io/library/gradle:jdk17                                                                    1.2s
- => [build 1/7] FROM docker.io/library/gradle:jdk17@sha256:f7befd3501bae42a8e36ef45ce60a542bc7bbf91cde6195f0b4af98d9dcda0f6        0.0s
-[+] Building 1.3s (12/15)
- => [internal] load .dockerignore                                                                                                  0.0s
-[+] Building 1.8s (12/15)
-[+] Building 5.1s (12/15)
-[+] Building 8.6s (12/15)
- => => transferring context: 2B                                                                                                    0.0s 
- => [internal] load build definition from Dockerfile                                                                               0.0s
- => [build 7/7] RUN ./gradlew clean build                                                                                         11.3s 
- => => #  - Added support for Java 19.
- => => #  - Introduced `--rerun` flag for individual task rerun.
- => => #  - Improved dependency block for test suites to be strongly typed.
- => => #  - Added a pluggable system for Java toolchains provisioning.
- => => # For more details see https://docs.gradle.org/7.6.1/release-notes.html
- => => # Starting a Gradle Daemon (subsequent builds will be faster)
-[+] Building 79.3s (12/15)
-[+] Building 79.5s (13/15)
- => [internal] load .dockerignore                                                                                                  0.0s
- => => transferring context: 2B                                                                                                    0.0s
- => [internal] load metadata for docker.io/library/openjdk:17-alpine                                                               1.1s
-[+] Building 79.5s (16/16) FINISHED
-[+] Building 80.4s (16/16) FINISHED
- => [internal] load build definition from Dockerfile                                                                               0.0s
- => => transferring dockerfile: 343B                                                                                               0.0s
- => [internal] load .dockerignore                                                                                                  0.0s
- => => transferring context: 2B                                                                                                    0.0s
- => [internal] load metadata for docker.io/library/openjdk:17-alpine                                                               1.1s
- => [internal] load metadata for docker.io/library/gradle:jdk17                                                                    1.2s
- => [build 1/7] FROM docker.io/library/gradle:jdk17@sha256:f7befd3501bae42a8e36ef45ce60a542bc7bbf91cde6195f0b4af98d9dcda0f6        0.0s
- => [stage-1 1/3] FROM docker.io/library/openjdk:17-alpine@sha256:4b6abae565492dbe9e7a894137c966a7485154238902f2f25e9dbd9784383d81 0.0s
- => [internal] load build context                                                                                                  0.0s
- => => transferring context: 5.71kB                                                                                                0.0s
- => CACHED [build 2/7] WORKDIR /app                                                                                                0.0s 
- => CACHED [build 3/7] COPY settings.gradle gradlew ./                                                                             0.0s 
- => CACHED [build 4/7] COPY gradle ./gradle                                                                                        0.0s 
- => [build 5/7] COPY build.gradle ./                                                                                               0.0s 
- => [build 6/7] COPY src ./src                                                                                                     0.0s 
- => [build 7/7] RUN ./gradlew clean build                                                                                         78.5s
- => CACHED [stage-1 2/3] WORKDIR /app                                                                                              0.0s
- => [stage-1 3/3] COPY --from=build /app/build/libs/*.jar ./app.jar                                                                0.1s 
- => exporting to image                                                                                                             0.1s 
- => => exporting layers                                                                                                            0.1s 
- => => writing image sha256:1d4e7a702cadc53ccccf1c1b5566e674b14501973b660701f19b7b33a33a8951                                       0.0s 
- => => naming to docker.io/library/2023-06-15-soap-communication-example-using-spring-provider                                     0.0s
+
+...
+
 [+] Running 3/3
- ✔ Network 2023-06-15-soap-communication-example-using-spring_default  Created                                                     0.0s 
- ✔ Container consumer-service                                          Started                                                     0.5s 
- ✔ Container provider-service                                          Started
+ ✔ Network 2023-06-15-soap-communication-example-using-spring_default  Created.                           0.0s
+ ✔ Container consumer-service                                          Started.                           0.5s
+ ✔ Container provider-service                                          Started                            0.5s
 ```
 
 도커 컴포즈를 통해 두 애플리케이션을 실행한다. cURL 명령어를 통해 소비자에게 정보를 요청 후 응답을 받는다.

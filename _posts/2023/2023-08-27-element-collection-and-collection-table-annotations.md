@@ -1,10 +1,10 @@
 ---
-title: "@ElementCollection과 @CollectionTable 애너테이션"
+title: "@ElementCollection/@CollectionTable 애너테이션"
 search: false
 category:
   - spring-boot
   - jpa
-last_modified_at: 2025-12-15T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -671,12 +671,12 @@ Hibernate: select f1_0.user_id,f1_0.post_id,f1_0.remark from tb_favorite_posts f
 
 ## CLOSING
 
-@ElementCollection과 @CollectionTable 애너테이션에 관련된 내용을 정리하면서 얻은 인사이트(insight)는 다음과 같다.
+@ElementCollection/@CollectionTable 애너테이션에 관련된 내용을 정리하면서 얻은 인사이트(insight)는 다음과 같다.
 
 - 데이터 수정, 삭제 시 불필요한 쿼리가 수행된다.
 - 특정 데이터만 다루는 쿼리를 작성하는 것이 까다롭다.
 
-JPA를 사용할 때 테이블로 관리해야한다면 엔티티를 만드는 것이 더 바람직할 것 같다. 데이터 변경이 별로 없는 비즈니스라면 @ElementCollection과 @CollectionTable 애너테이션을 사용해도 괜찮을 것 같다.
+JPA를 사용할 때 테이블로 관리해야한다면 엔티티를 만드는 것이 더 바람직할 것 같다. 데이터 변경이 별로 없는 비즈니스라면 @ElementCollection/@CollectionTable 애너테이션을 사용해도 괜찮을 것 같다.
 
 #### TEST CODE REPOSITORY
 

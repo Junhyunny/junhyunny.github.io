@@ -1,9 +1,9 @@
 ---
-title: "How to retry HTTP request in Chrome"
+title: "크롬(Chrome)에서 HTTP 요청 재시도하기"
 search: false
 category:
   - information
-last_modified_at: 2024-07-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

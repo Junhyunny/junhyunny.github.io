@@ -1,9 +1,9 @@
 ---
-title: "JCP/JSRs"
+title: "JCP(Java Community Process)와 JSR(Java Specification Requests)"
 search: false
 category:
   - java
-last_modified_at: 2024-06-16T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

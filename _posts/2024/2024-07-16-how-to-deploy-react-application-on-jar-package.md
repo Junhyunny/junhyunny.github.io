@@ -1,10 +1,10 @@
 ---
-title: "How to deploy react application on jar package"
+title: "리액트(React) 애플리케이션을 JAR 파일에 포함하여 배포하기"
 search: false
 category:
   - react
   - spring-boot
-last_modified_at: 2024-07-16T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -244,7 +244,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 
 #### RECOMMEND NEXT POSTS
 
-- [Not Found(404) when react application is hosted on Tomcat][not-found-when-hosting-react-app-on-tomcat-link]
+- [리액트(React) 애플리케이션을 톰캣(Tomcat)에서 호스팅 시 404 오류][not-found-when-hosting-react-app-on-tomcat-link]
 
 #### REFERENCE
 

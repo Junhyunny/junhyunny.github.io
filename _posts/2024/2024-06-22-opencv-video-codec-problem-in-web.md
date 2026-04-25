@@ -1,11 +1,11 @@
 ---
-title: "OpenCV Video Codec Problem in Web"
+title: "웹 브라우저 OpenCV 비디오 코덱(Video Codec) 문제"
 search: false
 category:
   - web
   - python
   - opencv
-last_modified_at: 2024-06-22T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

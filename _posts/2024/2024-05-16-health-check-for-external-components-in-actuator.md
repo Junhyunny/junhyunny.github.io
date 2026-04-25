@@ -1,9 +1,9 @@
 ---
-title: "Health Check for External Components in Actuator"
+title: "Spring Actuator 외부 컴포넌트 헬스 체크(Health Check)"
 search: false
 category:
   - spring-boot
-last_modified_at: 2024-05-16T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -215,9 +215,7 @@ public class ExternalServiceHealthIndicator implements HealthIndicator {
 
 ### 3. Run Example
 
-이 예제는 여러 시스템 컴포넌트들을 연결해야 하기 때문에 손쉬운 연결을 위해 도커 컴포즈를 사용한다. 
-
-### 3.1. docker-compose.yml
+이 예제는 여러 시스템 컴포넌트들을 연결해야 하기 때문에 손쉬운 연결을 위해 도커 컴포즈를 사용한다. 다음과 같은 docker-compose.yml 파일을 작성한다.
 
 - action-service
   - 테스트 대상 컨테이너
@@ -252,60 +250,24 @@ services:
       - POSTGRES_DB=test
 ```
 
-### 3.2. Run Docker Compose
-
-`docker-compose.yml` 파일이 위치한 디렉토리에서 도커 컴포즈를 실행한다.
+도커 컴포즈를 실행한다.
 
 ```
 $ docker-compose up -d
 
-[+] Building 19.4s (23/23) FINISHED                                                                                                                                    docker:desktop-linux
- => [action-service internal] load build definition from Dockerfile                                                                                                    0.0s
- => => transferring dockerfile: 395B                                                                                                                                   0.0s
- => [external-service internal] load metadata for docker.io/library/openjdk:17-jdk-slim                                                                                0.8s
- => [action-service internal] load metadata for docker.io/library/gradle:jdk17                                                                                         0.8s
- => [external-service internal] load build definition from Dockerfile                                                                                                  0.0s
- => => transferring dockerfile: 395B                                                                                                                                   0.0s
- => [external-service internal] load .dockerignore                                                                                                                     0.0s
- => => transferring context: 2B                                                                                                                                        0.0s
- => [action-service internal] load .dockerignore                                                                                                                       0.0s
- => => transferring context: 2B                                                                                                                                        0.0s
- => [external-service builder 1/6] FROM docker.io/library/gradle:jdk17@sha256:813e7292334f11ee55a7bde94689d70a47603f021b322a6bd9bb6e08b855c025                         0.0s
- => CACHED [action-service stage-1 1/2] FROM docker.io/library/openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863d0580c438ed55ecfa0bc126b41f68c3f62f9774             0.0s
- => [action-service internal] load build context                                                                                                                       0.1s
- => => transferring context: 374.22kB                                                                                                                                  0.0s
- => [external-service internal] load build context                                                                                                                     0.0s
- => => transferring context: 234.25kB                                                                                                                                  0.0s
- => CACHED [action-service builder 2/6] WORKDIR /build                                                                                                                 0.0s
- => CACHED [external-service builder 3/6] COPY build.gradle settings.gradle /build/                                                                                    0.0s
- => CACHED [external-service builder 4/6] RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true                                                      0.0s
- => CACHED [external-service builder 5/6] COPY . /build                                                                                                                0.0s
- => CACHED [external-service builder 6/6] RUN gradle build -x test --parallel                                                                                          0.0s
- => CACHED [external-service stage-1 2/2] COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar                                                               0.0s
- => [external-service] exporting to image                                                                                                                              0.0s
- => => exporting layers                                                                                                                                                0.0s
- => => writing image sha256:fe089e97170f6bee6d2c2a4b89f9caf52165cdb198fe7591c86e3d08a9691249                                                                           0.0s
- => => naming to docker.io/library/2024-05-16-health-check-for-external-components-in-actuator-external-service                                                        0.0s
- => CACHED [action-service builder 3/6] COPY build.gradle settings.gradle /build/                                                                                      0.0s
- => CACHED [action-service builder 4/6] RUN gradle build -x test --parallel --continue > /dev/null 2>&1 || true                                                        0.0s
- => [action-service builder 5/6] COPY . /build                                                                                                                         0.1s
- => [action-service builder 6/6] RUN gradle build -x test --parallel                                                                                                   17.7s
- => [action-service stage-1 2/2] COPY --from=builder /build/build/libs/*-SNAPSHOT.jar ./app.jar                                                                        0.1s
- => [action-service] exporting to image                                                                                                                                0.2s
- => => exporting layers                                                                                                                                                0.2s
- => => writing image sha256:ff0b23bd36bee737ceb838c866984a63a24b7d9f8c6f95a71b51af38cac9be2c                                                                           0.0s
- => => naming to docker.io/library/2024-05-16-health-check-for-external-components-in-actuator-action-service                                                          0.0s
+...
+
 [+] Running 5/5
- ✔ Network 2024-05-16-health-check-for-external-components-in-actuator_default               Created                                                                   0.0s 
- ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-redis-1             Started                                                                   0.4s 
- ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-external-service-1  Started                                                                   0.4s 
- ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-postgres-1          Started                                                                   0.4s 
- ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-action-service-1    Started                                                                   0.6s 
+ ✔ Network 2024-05-16-health-check-for-external-components-in-actuator_default               Created     0.0s 
+ ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-redis-1             Started     0.4s 
+ ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-external-service-1  Started     0.4s 
+ ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-postgres-1          Started     0.4s 
+ ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-action-service-1    Started     0.6s 
 ```
 
 ### 3.3. Health Check
 
-컨테이너까지 실행했으면 모든 준비가 완료됬다. 테스트 대상 애플리케이션에 헬스 체크를 요청해보자.
+컨테이너까지 실행했으면 모든 준비가 완료됐다. 테스트 대상 애플리케이션에 헬스 체크를 요청해보자.
 
 - db
   - 데이터베이스 상태를 확인한다.

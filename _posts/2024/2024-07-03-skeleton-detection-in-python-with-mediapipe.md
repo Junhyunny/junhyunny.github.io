@@ -1,11 +1,11 @@
 ---
-title: "Skeleton detection in Python with mediapipe"
+title: "파이썬(Python) MediaPipe 사람 스켈레톤 감지(Skeleton Detection)"
 search: false
 category:
   - python
   - opencv
   - mediapipe
-last_modified_at: 2024-07-03T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>

@@ -1,10 +1,10 @@
 ---
-title: "Linux alien command to change package extension"
+title: "리눅스 alien 명령어로 패키지 확장자 변경하기"
 search: false
 category:
   - information
   - linux
-last_modified_at: 2021-08-29T11:50:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -25,20 +25,32 @@ last_modified_at: 2021-08-29T11:50:00
 
 ## 2. alien command
 
-필자는 우분투를 사용하는 중이다. 필요한 패키지가 있었는 데 .rpm 형식만 찾을 수 있었다. 우분투에서 .rpm 파일을 직접 사용할 수 없기 때문에 alien 명령어를 통해 .rpm 파일을 .deb 파일로 변환했다. 다음 명령어로 설치한다.
+필자는 우분투를 사용하는 중이다. 필요한 패키지가 있었는 데 .rpm 형식만 찾을 수 있었다. 우분투에서 .rpm 파일을 직접 사용할 수 없기 때문에 alien 명령어를 통해 .rpm 파일을 .deb 파일로 변환했다. 설치 가능한 패키지 목록(버전 정보)을 최신화한다.
 
 ```
 $ sudo apt-get update
+```
 
+실제 설치된 소프트웨어를 최신 버전으로 교체하여 버그 수정 및 성능 향상을 적용합니다
+
+```
 $ sudo apt-get upgrade
+```
 
+다음 명령어를 통해 alien 패키지를 설치한다.
+
+```
 $ sudo apt install alien
 ```
 
-alien 명령어의 옵션을 살펴보자. 
+alien 명령어의 옵션을 살펴보자. 이번 글에서 중요히 다룰 옵션은 다음과 같다.
+
+- `-d` 옵션 - .rpm 형식을 .deb 형식으로 변경할 때 사용한다.
+- `--scripts` 옵션 - 패키지에 스크립트를 포함 시켜야할 때 사용한다.
 
 ```
 $ alien -h
+
 Usage: alien [options] file [...]
   file [...]                Package file or files to convert.
   -d, --to-deb              Generate a Debian deb package (default).
@@ -71,23 +83,28 @@ Usage: alien [options] file [...]
   -V, --version             Display alien's version number.
 ```
 
-.rpm 패키지 파일이 위치한 디렉토리에서 작업을 수행한다. 
-
-- .rpm 형식을 .deb 형식으로 변경할 땐 `-d` 옵션을 사용한다.
-- 패키지 내 스크립트를 함께 포함시키기 위해 `--scripts` 옵션을 사용한다.
+.rpm 패키지 파일이 위치한 디렉토리에서 작업을 수행한다. 다음과 같은 .rpm 파일이 존재한다.
 
 ```
 $ ls
+
 galera-4-26.4.9-1.el8.x86_64.rpm
+```
 
+alien 명령어를 통해 패키지 타입을 변경한다.
+
+```
 $ sudo alien --scripts -d galera-4-26.4.9-1.el8.x86_64.rpm 
-warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
-warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
 
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
 ...
-
 galera-4_26.4.9-2_amd64.deb generated
+```
 
+아래와 같이 .deb 파일 생성된 것을 확인할 수 있다.
+
+```
 $ ls
 galera-4-26.4.9-1.el8.x86_64.rpm  galera-4_26.4.9-2_amd64.deb
 ```

@@ -1,10 +1,10 @@
 ---
-title: "Reading resources error when running jar file"
+title: "jar 파일 실행 시 리소스 읽기 오류"
 search: false
 category:
   - java
   - spring-boot
-last_modified_at: 2022-04-09T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -198,6 +198,6 @@ jar 패키지 파일로 애플리케이션을 실행 후 테스트 해보면 get
 
 #### RECOMMEND NEXT POSTS
 
-- [Problem to find images in spring boot application][cannot-find-static-resource-link]
+- [스프링 부트 애플리케이션 이미지 에셋(asset)을 못 찾는 문제 원인과 해결 방법][cannot-find-static-resource-link]
 
 [cannot-find-static-resource-link]: https://junhyunny.github.io/spring-boot/cannot-find-static-resource/

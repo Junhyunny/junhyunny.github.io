@@ -1,9 +1,9 @@
 ---
-title: "Stop file tracking in Git"
+title: "Git 파일 추적 중지하기"
 search: false
 category:
   - github
-last_modified_at: 2021-09-04T12:59:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -60,15 +60,13 @@ rm 'src/main/resources/application.yml'
 
 필자는 원격 레포지토리에 application.yml 파일이 존재하지만, 개발자의 로컬 컴퓨터에서 임시로 변경한 설정이 실수로 원격 레포지토리에 업로드 되는 것을 방지하고 싶었다. 프로젝트 `.git/info` 경로에 위치한 `exclude` 파일을 사용하면 특정 파일에 대한 추적을 로컬 컴퓨터에서만 제외할 수 있다는 글들이 있지만, 필자의 경우 정상적으로 동작하지 않았다.
 
-`git update-index` 명령어를 사용하면 특정 파일에 대한 변경 감지를 선택적으로 수행할 수 있다. 명령어는 다음과 같다.
-
-- 변경 감지 대상에서 제외한다.
+`git update-index` 명령어를 사용하면 특정 파일에 대한 변경 감지를 선택적으로 수행할 수 있다. 아래 명령어를 수행하면 변경 감지 대상에서 제외한다.
 
 ```
 $ git update-index --assume-unchanged src/main/resources/application.yml
 ```
 
-- 변경 감지 대상에 제외한 것을 취소한다.
+아래 명령어를 사용하면 변경 감지 대상에 제외한 것을 취소한다.
 
 ```
 $ git update-index --no-assume-unchanged src/main/resources/application.yml

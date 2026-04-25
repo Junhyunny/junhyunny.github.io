@@ -3,7 +3,7 @@ title: 자바스크립트 프로토타입 (JavaScript Prototype)
 search: false
 category:
   - javascript
-last_modified_at: 2026-03-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
@@ -24,7 +24,7 @@ last_modified_at: 2026-03-06T23:55:00
 
 간단한 예제 코드를 통해 상속에 대해 알아보자. 예제 코드는 브라우저 개발자 도구(F12) 콘솔에서 실행시킬 수 있다. 아래는 상속이 없는 예제 코드다. 
 
-- 첫번째 생성한 인스턴스의 `getArea` 메서드는 두번째 생성한 인스턴스의 `getArea` 메서드와 다르다.
+- 첫 번째 생성한 인스턴스의 `getArea` 메서드는 두 번째 생성한 인스턴스의 `getArea` 메서드와 다르다.
 - 같은 기능을 수행하지만, 인스턴스를 생성할 때마다 매번 새로 생성한다.
 
 ```javascript
@@ -43,9 +43,9 @@ console.log(firstCircle.getArea()); // 3.141592653589793
 console.log(secondCircle.getArea()); // 12.566370614359172
 ```
 
-프로토타입을 사용하면 함수를 재사용 할 수 있다. 이를 통해 상속과 같은 효과를 얻을 수 있다.
+프로토타입을 사용하면 함수를 재사용할 수 있다. 이를 통해 상속과 같은 효과를 얻을 수 있다.
 
-- 첫번째 생성한 인스턴스의 `getArea` 메서드는 두번째 생성한 인스턴스의 `getArea` 메서드가 같다.
+- 첫 번째 생성한 인스턴스의 `getArea` 메서드는 두 번째 생성한 인스턴스의 `getArea` 메서드가 같다.
 - 같은 기능을 수행하는 메서드를 프로토타입 객체에 정의하고 재사용한다.
 
 ```javascript
@@ -90,6 +90,8 @@ console.log(Circle.prototype.constructor === Circle)
 <div align="left">
   <img src="{{ site.image_url_2023 }}/prototype-in-javascript-01.png" width="60%" class="image__border">
 </div>
+
+<br/>
 
 생성자 함수와 프로토타입 객체의 관계는 다음과 같다.
 
@@ -166,7 +168,7 @@ console.dir(circle.__proto__ === Circle.prototype);
 - `함수A`를 생성자로 사용해 만든 `인스턴스A`가 존재한다.
   - `인스턴스A`는 `[[Prototype]]`이라는 내부 슬롯을 통해 자신의 프로토타입 객체를 참조한다.
   - `[[Prototype]]`를 직접 사용할 수 없으므로 `__proto__` 접근자 프로퍼티를 사용한다.
-  - `인스턴스A`는 `함수A`를 통해 만들어졌으므로 `인스턴스A.__proto__`가 가르키는 객체는 `함수A.prototype`과 동일하다.
+  - `인스턴스A`는 `함수A`를 통해 만들어졌으므로 `인스턴스A.__proto__`가 가리키는 객체는 `함수A.prototype`과 동일하다.
 
 <div align="center">
   <img src="{{ site.image_url_2023 }}/prototype-in-javascript-06.png" width="80%" class="image__border">

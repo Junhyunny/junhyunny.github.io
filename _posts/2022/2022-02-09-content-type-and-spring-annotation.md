@@ -5,14 +5,14 @@ category:
   - information
   - spring-boot
   - javascript
-last_modified_at: 2025-12-30T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-스프링 프레임워크에서 API 엔드포인트를 추가하다 보면 종종 아래와 같은 에러를 만난다. 대부분 프론트엔드에서 지정한 Content-Type 헤더의 값과 백엔드에서 받고자 하는 데이터 타입이 어긋나서 발생했던 것 같다. 
+스프링 프레임워크에서 API 엔드포인트를 추가하다 보면 종종 아래와 같은 에러를 만난다. 대부분 프론트엔드에서 지정한 Content-Type 헤더의 값과 백엔드에서 받고자 하는 데이터 타입이 어긋나서 발생했던 것 같다. 대표적으로 다음과 같은 에러가 발생한다.
 
 - HttpMessageNotReadableException: Required request body is missing
 
@@ -21,12 +21,16 @@ last_modified_at: 2025-12-30T23:55:00
  - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public java.lang.String action.in.blog.controller.ContentTypeController.requestBody(action.in.blog.dto.ContentTypeDto)]
 ```
 
+혹은 다음과 같은 에러도 발생한다.
+
 - HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported
 
 ```
 2022-02-09 15:07:11.585  WARN 74211 --- [nio-8080-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver
  : Resolved [org.springframework.web.HttpMediaTypeNotSupportedException: Content type 'text/plain;charset=UTF-8' not supported]
 ```
+
+이번 글에서는 HTTP Content-Type 헤더가 무엇인지 이런 문제가 발생하는 이유와 해결할 수 있는 방법에 대해 다룬다.
 
 ## 1. HTTP Content-Type header
 

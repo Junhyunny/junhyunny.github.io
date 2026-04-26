@@ -201,7 +201,7 @@ print(f"최대 메모리 사용량: {peak / 10**6:.2f} MB")
 5. 함수 끝에 도달하여 더 이상 yield 키워드가 없다면 다음 next(gen) 함수를 호출했을 때 StopIteration 예외가 발생한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/python-generator-function-01.gif" width="100%" class="image__border image__padding">
+  <img src="{{ site.image_url_2026 }}/python-generator-function-01.gif" width="100%" class="image__border">
 </div>
 
 <br/>

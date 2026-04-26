@@ -226,14 +226,14 @@ def my_generator():
 gen = my_generator()
 
 print("=" * 50)
-print("▶ 제네레이터 객체 생성 직후 (아직 실행 안됨)")
+print("▶ 제너레이터 객체 생성 직후 (아직 실행 안됨)")
 print("=" * 50)
 
 frame = gen.gi_frame
 print(f"프레임 존재 여부 : {frame}")
 print(f"현재 실행 줄 번호 : {frame.f_lineno}")
 print(f"로컬 변수 : {frame.f_locals}")
-print(f"제네레이터 실행 중 : {gen.gi_running}")
+print(f"제너레이터 실행 중 : {gen.gi_running}")
 
 print()
 print("=" * 50)
@@ -255,7 +255,7 @@ print(f"로컬 변수 : {frame.f_locals}")
 
 print()
 print("=" * 50)
-print("▶ 세 번째 next() 호출, 제네레이터 종료")
+print("▶ 세 번째 next() 호출, 제너레이터 종료")
 print("=" * 50)
 try:
   next(gen)
@@ -268,12 +268,12 @@ except StopIteration:
 
 ```
 ==================================================
-▶ 제네레이터 객체 생성 직후 (아직 실행 안됨)
+▶ 제너레이터 객체 생성 직후 (아직 실행 안됨)
 ==================================================
 프레임 존재 여부 : <frame at 0x100a15e50, file '/Users/junhyunny/Desktop/action-in-blog/example-03.py', line 1, code my_generator>
 현재 실행 줄 번호 : 1
 로컬 변수 : {}
-제네레이터 실행 중 : False
+제너레이터 실행 중 : False
 
 ==================================================
 ▶ 첫 번째 next() 호출
@@ -290,7 +290,7 @@ yield 값 : 60
 로컬 변수 : {'x': 10, 'y': 20, 'z': 30}
 
 ==================================================
-▶ 세 번째 next() 호출, 제네레이터 종료
+▶ 세 번째 next() 호출, 제너레이터 종료
 ==================================================
 StopIteration 발생
 프레임 존재 여부 : None

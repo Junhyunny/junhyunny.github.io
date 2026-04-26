@@ -309,5 +309,3 @@ StopIteration 발생
 - <https://www.datacamp.com/tutorial/python-global-interpreter-lock>
 - <https://medium.com/hackernoon/the-magic-behind-python-generator-functions-bc8eeea54220>
 - <https://suman-cshil.medium.com/internals-of-python-generator-bc1ffb9e1198>
-
-[reference-counting-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/

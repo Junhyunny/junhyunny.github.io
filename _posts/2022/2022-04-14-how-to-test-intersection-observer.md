@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Asynchronous Task In JavaScript][how-to-work-javascript-async-link]
+- [자바스크립트(JavaScript) 비동기 처리(asynchronous task) 동작 원리][how-to-work-javascript-async-link]
 
 ## 0. 들어가면서
 

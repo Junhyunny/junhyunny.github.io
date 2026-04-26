@@ -263,7 +263,7 @@ task done:  True
 task.result():  fetched data
 ```
 
-생성한 태스크가 완료되기 전까지 main 코루틴이 정말 대기 상태(suspend)에 진입했을까? main 코루틴 중간에 asyncio.sleep(0) 함수를 추가하면 확실히 알 수 있다.
+생성한 task 객체가 작업을 완료하기 전에 main 코루틴이 정말 대기 상태(suspend)에 진입했을까? main 코루틴 중간에 `await asyncio.sleep(0)` 함수를 추가하면 알 수 있다.
 
 ```python
 import asyncio
@@ -294,7 +294,9 @@ if __name__ == "__main__":
   asyncio.run(main_coroutine)
 ```
 
-위 코드를 실행하면 "before await sleep 0 second" 로그와 "after await sleep 0 second" 로그 사이에 잠시 fetch_data 코루틴이 실행된 것을 확인할 수 있다.
+fetch_data 코루틴을 태스크 객체로 만들었기 때문에 이벤트 루프에서 스케줄링 중이다. 그렇기 때문에 main 코루틴이 `await asyncio.sleep(0)`에 의해 중단되면 즉시 fetch_data 코루틴이 실행된다. 위 코드를 실행하면 아래와 같은 로그를 볼 수 있다. 
+
+- "before await sleep 0 second" 로그와 "after await sleep 0 second" 로그 사이에 잠시 fetch_data 코루틴이 실행된 것을 확인할 수 있다.
 
 ```
 before await sleep 0 second
@@ -305,7 +307,7 @@ end fetch data
 after await task
 ```
 
-fetch_data 코루틴을 태스크 객체로 만들었기 때문에 이미 이벤트 루프에서 스케줄링 중이다. 그렇기 때문에 main 코루틴이 `await asyncio.sleep(0)`에 의해 중단되면 즉시 실행된다. 이번엔 태스크로 만들지 않고 코루틴 그대로 사용해보면 어떨까?
+이번엔 태스크로 만들지 않고 코루틴 그대로 사용해보면 어떨까?
 
 ```python
 import asyncio

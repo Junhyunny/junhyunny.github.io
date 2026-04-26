@@ -15,7 +15,7 @@ AI 코딩 에이전트와 함께 [토이 프로젝트](https://github.com/Junhyu
 
 AI 에이전트 애플리케이션을 구현하면서 익숙하지 않은 파이썬(python), FastAPI, 랭체인(langchain) 같은 기술들을 사용하고 있다. 테스트와 구현 자체는 AI 코딩 에이전트와 함께 하기 때문에 수월하다. 하지만 기술에 대한 깊은 이해도가 없어서 그런지 리뷰가 어렵다. AI 결과물의 품질을 판단하고 교정하는 능력을 키우기 위해 최근에는 초심자의 마음으로 기술의 깊이를 파들어가는 시간을 가지고 있다. 뇌나 신체에 부하(load)가 가해지지 않으면 장기 기억에 남지 않기 때문에 배운 내용을 블로그 글로 남겨본다.
 
-이번 글은 파이썬의 비동기 작업을 위한 제너레이터(generator)에 대해 정리했다.
+이번 글은 파이썬의 제너레이터(generator)에 대해 정리했다.
 
 ## 1. Python Generator
 
@@ -155,9 +155,9 @@ import tracemalloc
 
 
 def read_large_file(path):
-    with open(path) as f:
-        for line in f:
-            yield line.strip()
+  with open(path) as f:
+    for line in f:
+      yield line.strip()
 
 
 tracemalloc.start()

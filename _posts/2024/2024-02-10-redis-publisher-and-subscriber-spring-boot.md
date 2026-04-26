@@ -1,5 +1,5 @@
 ---
-title: "스프링 부트(Spring Boot) Redis 발행자(Publisher)/구독자(Subscriber) 구현하기""
+title: "스프링 부트(Spring Boot) Redis 발행자(Publisher)/구독자(Subscriber) 구현하기"
 search: false
 category:
   - java

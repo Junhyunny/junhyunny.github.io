@@ -11,7 +11,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Asynchronous Task In JavaScript][how-to-work-javascript-async-link]
+- [자바스크립트(JavaScript) 비동기 처리(asynchronous task) 동작 원리][how-to-work-javascript-async-link]
 
 ## 0. 들어가면서
 
@@ -19,7 +19,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 ## 1. Macrotask and Microtask
 
-[Asynchronous Task In JavaScript][how-to-work-javascript-async-link]에서 설명했듯 브라우저 웹 API 호출이 완료되면 콜백 함수가 큐에 순서대로 담긴다. 콜백 함수가 담기는 큐는 두 가지 종류가 있다.
+[자바스크립트(JavaScript) 비동기 처리(asynchronous task) 동작 원리][how-to-work-javascript-async-link]에서 설명했듯 브라우저 웹 API 호출이 완료되면 콜백 함수가 큐에 순서대로 담긴다. 콜백 함수가 담기는 큐는 두 가지 종류가 있다.
 
 - 매크로태스크 큐(macrotask queue)
   - 우선 순위가 낮다.

@@ -13,7 +13,7 @@ last_modified_at: 2026-04-27T09:00:00+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [자바스크립트(JavaScript) 비동기 처리(asynchronous task) 동작 원리][]
+- [자바스크립트(JavaScript) 비동기 처리(asynchronous task) 동작 원리][how-to-work-javascript-async-link]
 - [파이썬 제너레이터(Python Generator)][python-generator-function-link]
 
 ## 0. 들어가면서

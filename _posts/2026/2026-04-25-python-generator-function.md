@@ -300,6 +300,10 @@ StopIteration 발생
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2026-04-25-python-generator-function>
 
+#### RECOMMEND NEXT POSTS
+
+- [파이썬 GIL(Global Interpreter Lock)와 asyncio 라이브러리][python-global-intpreter-lock-and-asynchronous-link]
+
 #### REFERENCE
 
 - <https://peps.python.org/pep-0255/>
@@ -309,3 +313,5 @@ StopIteration 발생
 - <https://www.datacamp.com/tutorial/python-global-interpreter-lock>
 - <https://medium.com/hackernoon/the-magic-behind-python-generator-functions-bc8eeea54220>
 - <https://suman-cshil.medium.com/internals-of-python-generator-bc1ffb9e1198>
+
+[python-global-intpreter-lock-and-asynchronous-link]: https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/

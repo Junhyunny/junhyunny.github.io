@@ -1,5 +1,5 @@
 ---
-title: "JPA GROUP BY 사용 시 ConverterNotFoundException"
+title: "JPA GROUP BY 사용 시 ConverterNotFoundException 발생"
 search: false
 category:
   - spring-boot

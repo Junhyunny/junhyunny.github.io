@@ -302,7 +302,7 @@ public class AtomicIntegerTest {
 
 #### RECOMMEND NEXT POSTS
 
-- [자바[Java] volatile 키워드][java-volatile-link]
+- [자바(Java) volatile 키워드][java-volatile-link]
 
 #### REFERENCE
 

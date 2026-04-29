@@ -18,7 +18,7 @@ last_modified_at: 2026-04-29T16:01:06+09:00
 
 ## 0. 들어가면서
 
-[이전 글][sandbox-for-ai-agent-coding-link]에서 AI 에이전트를 위한 샌드박스 환경이 무엇인지 살펴봤다. 이번 글에서는 샌드박스 환경을 직접 구축해보려 한다. AI 에이전트에 내장된(embedded) 샌드박스 대신 도커 샌드박스(docker sandboxes)를 사용해 샌드박스 환경을 구축해보려 한다.
+[이전 글][sandbox-for-ai-agent-coding-link]에서 AI 에이전트를 위한 샌드박스 환경이 무엇인지 살펴봤다. 이번 글에서는 샌드박스 환경을 직접 구축해보면서 배운 내용들을 정리해보려 한다.
 
 ## 1. Why docker sandboxes?
 
@@ -195,19 +195,20 @@ $ sbx run claude-todo-agent
   - 호스트 측 프록시가 요청을 전달할 수 있도록, 먼저 `sbx policy allow` 명령어로 호스트의 특정 포트를 명시적으로 허용해야 한다.
 - 호스트 주소 변경
   - 프로젝트 디렉토리에 위치한 MCP 설정 파일에서 서버 URL을 지정할 때, `localhost` 대신 **host.docker.internal**을 사용해야 한다.
-  - 예를 들어, `http://host.docker.internal:<MCP포트번호>` 같은 URL을 설정해야 한다.
 
-간단히 설명하면 호스트 머신에서 아래 명령어를 통해 특정 포트를 명시적으로 허용한다.
+예를 들어, 먼저 호스트 머신에서 아래 명령어를 통해 특정 포트를 명시적으로 허용해준다.
 
 ```
 $ sbx policy allow network localhost:11434
 ```
 
-샌드박스 내부에서 **host.docker.internal** 호스트 이름을 사용하면 호스트 머신의 프로세스에 접근할 수 있다.
+다음 샌드박스 내부에서 **host.docker.internal** 호스트 이름을 사용하면 호스트 머신의 프로세스에 접근할 수 있다.
 
 ```
 $ curl http://host.docker.internal:11434
 ```
+
+MCP 서버 설정에 `http://host.docker.internal:<MCP포트번호>` 형시의 URL을 설정하면 호스트 머신의 로컬 호스트에서 실행 중인 MCP 서버에 접근이 가능하다.
 
 ### 2.2. Customize template
 

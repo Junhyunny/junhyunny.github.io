@@ -13,8 +13,6 @@ last_modified_at: 2026-04-30T16:51:47+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [스프링 프레임워크의 제어의 역전(IoC)과 의존성 주입(DI)][spring-ioc-di-link]
-- [ReAct(Reasoning and Acting) 에이전트][react-agent-link]
-- [ReAct 에이전트 Playwright를 사용한 브라우저 조작 및 웹 검색][react-agent-web-search-with-playwright-browser-toolkit-link]
 - [파이썬 제너레이터(Python Generator)][python-generator-function-link]
 - [파이썬 GIL(Global Interpreter Lock)와 asyncio 라이브러리][python-global-intpreter-lock-and-asynchronous-link]
 
@@ -343,7 +341,5 @@ INFO:     127.0.0.1:52311 - "GET / HTTP/1.1" 200 OK
 - <https://wikidocs.net/176223>
 
 [spring-ioc-di-link]: https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/
-[react-agent-link]: https://junhyunny.github.io/ai/ai-agent/langchain/react-agent/react-agent/
-[react-agent-web-search-with-playwright-browser-toolkit-link]: https://junhyunny.github.io/ai/ai-agent/react-agent/playwright/playwright-browser-toolkit/browser/web-search/react-agent-web-search-with-playwright-browser-toolkit/
 [python-generator-function-link]: https://junhyunny.github.io/python/generator-function/python-generator-function/
 [python-global-intpreter-lock-and-asynchronous-link]: https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/

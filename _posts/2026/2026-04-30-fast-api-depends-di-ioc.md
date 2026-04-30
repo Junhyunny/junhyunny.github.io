@@ -332,7 +332,7 @@ INFO:     127.0.0.1:52311 - "GET / HTTP/1.1" 200 OK
 
 #### TEST CODE REPOSITORY
 
-- <>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2026-04-30-fast-api-depends-di-ioc>
 
 #### REFERENCE
 

@@ -1,5 +1,5 @@
 ---
-title: "파이썬 컨텍스트 매니저(Python Context Manager)와 with 키워드"
+title: "파이썬 컨텍스트 매니저(Context Manager)와 with 키워드"
 search: false
 category:
   - python

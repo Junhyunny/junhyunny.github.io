@@ -16,9 +16,7 @@ last_modified_at: 2026-05-01T12:51:01+09:00
 
 ## 1. Context Manager
 
-파이썬 컨텍스트 매니저(Python Context Manager)는 리소스를 효율적이고 안전하게 관리하기 위해 고안된 기능이다. 주로 with 키워드와 함께 사용되며, 리소스를 사용하는 코드 블록에 진입하기 전과 벗어난 후에 필요한 할당 및 해제 작업을 자동으로 수행하기 위해 사용한다.
-
-이를 통해 번거로운 try/finally 예외 처리 구조를 단순화하고, 코드 실행 중 예외가 발생하더라도 자원이 반드시 해제되도록 보장하여 리소스 누수(resource leak)를 막는다.
+파이썬 컨텍스트 매니저(Python Context Manager)는 리소스를 효율적이고 안전하게 관리하기 위해 고안된 기능이다. 주로 with 키워드와 함께 사용되며, 리소스를 사용하는 코드 블록에 진입하기 전과 벗어난 후에 필요한 할당 및 해제 작업을 자동으로 수행하기 위해 사용한다. 이를 통해 번거로운 try/finally 예외 처리 구조를 단순화하고, 코드 실행 중 예외가 발생하더라도 자원이 반드시 해제되도록 보장하여 리소스 누수(resource leak)를 막는다.
 
 핵심 동작 원리를 살펴보자. 컨텍스트 매니저는 내부적으로 다음 두 가지 메서드를 통해 동작한다.
 
@@ -45,9 +43,7 @@ with open("hello.txt", "w") as f:
   f.write("안녕하세요!")
 ```
 
-컨텍스트 매니저의 이해도를 높이기 위해 간단한 예제 코드를 통해 컨텍스트 매니저의 동작 과정을 살펴보자. with 블록을 사용하지 않은 코드와 사용한 코드를 비교해 보며 복잡한 로직이 얼마나 단순해지는지 확인해 보자.
-
-먼저 컨텍스트 매니저 역할을 수행할 FileManager 클래스를 정의한다.
+컨텍스트 매니저의 이해도를 높이기 위해 간단한 예제 코드를 통해 컨텍스트 매니저의 동작 과정을 살펴보자. with 블록을 사용하지 않은 코드와 사용한 코드를 비교해 보며 복잡한 로직이 얼마나 단순해지는지 확인해 보자. 먼저 컨텍스트 매니저 역할을 수행할 FileManager 클래스를 정의한다.
 
 ```python
 class FileManager:
@@ -111,7 +107,7 @@ with FileManager() as m:
   print(f"do something with {m}")
 ```
 
-with 블록을 사용한 코드를 실행하면 이전과 동일한 로그를 확인할 수 있다.
+위 코드를 실행하면 이전과 동일한 로그를 확인할 수 있다.
 
 ```
 initialize file manager
@@ -152,7 +148,7 @@ Traceback (most recent call last):
 Exception: something went wrong
 ```
 
-with 블록을 사용하면 위와 같은 예외 처리 블록이 별도로 필요 없다.
+with 블록을 사용하면 위와 같은 예외 처리 블록이 별도로 필요 없어진다.
 
 ```python
 from file_manager import FileManager
@@ -162,7 +158,7 @@ with FileManager() as m:
   raise Exception("something went wrong")
 ```
 
-위 코드를 실행하면 이전과 동일한 로그를 볼 수 있다.
+위 코드를 실행하면 with 블록 없이 에러 핸들리을 구현한 코드와 동일한 로그를 볼 수 있다.
 
 ```
 initialize file manager
@@ -176,9 +172,9 @@ Traceback (most recent call last):
 Exception: something went wrong
 ```
 
-컨텍스트 매니저와 with 블록을 사용할 때 예외가 발생하면 `__exit__()` 메서드의 반환 값에 따라 예외를 전파할지 무시할지(suppress)가 결정된다. 구체적으로 알아보자. True 값을 반환하면 필요한 예외 처리가 `__exit__()` 메서드 내부에서 처리되었다고 판단하여 예외를 전파하지 않는다. False 값이나 반환 값이 없는 경우에는 그대로 예외를 전파한다.
+컨텍스트 매니저와 with 블록을 사용할 때 예외가 발생하면 `__exit__()` 메서드의 반환 값에 따라 예외를 전파할지 무시할지(suppress)가 결정된다. 예를 들어, True 값을 반환하면 필요한 예외 처리가 `__exit__()` 메서드 내부에서 처리되었다고 판단하여 예외를 전파하지 않는다. False 값이나 반환 값이 없는 경우에는 그대로 예외를 전파한다.
 
-FileManager 컨텍스트 매니저 객체의 `__exit__()` 메서드에서 True 값을 반환해 보자.
+FileManager 컨텍스트 매니저 객체의 `__exit__()` 메서드에서 True 값을 반환하는 예시 코드를 살펴보자.
 
 ```python
 class FileManager:
@@ -205,7 +201,7 @@ close file manager
 
 ## 3. Using contextlib @contextmanager decorator
 
-파이썬 표준 라이브러리인 `contextlib`의 `@contextmanager` 데코레이터를 사용하면 클래스를 정의하지 않아도 컨텍스트 매니저를 생성할 수 있다. `@contextmanager` 데코레이터를 사용하려면 [제너레이터(generator) 함수][python-generator-function-link]를 사용해야 한다. 다음과 같이 컨텍스트 매니저를 만들 수 있다.
+파이썬 표준 라이브러리인 `contextlib`의 `@contextmanager` 데코레이터를 사용하면 클래스를 정의하지 않아도 컨텍스트 매니저를 생성할 수 있다. `@contextmanager` 데코레이터를 사용하려면 [제너레이터(generator) 함수][python-generator-function-link]로 정의해야 한다. 아래와 같이 함수형 컨텍스트 매니저를 만들 수 있다.
 
 ```python
 from contextlib import contextmanager

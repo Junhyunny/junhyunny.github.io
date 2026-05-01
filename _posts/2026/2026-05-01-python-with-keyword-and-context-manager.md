@@ -30,9 +30,7 @@ last_modified_at: 2026-05-01T12:51:01+09:00
   - 정상 종료뿐만 아니라 예외가 발생했을 때도 포함된다. 파일을 닫거나 DB 연결을 해제하는 등 뒷정리를 담당한다.
   - 블록 내부에서 예외가 발생했을 경우 예외 정보를 받아 처리하거나 무시할지 결정할 수 있다.
 
-컨텍스트 매니저는 특별한 타입이 아니라, `__enter__`와 `__exit__` 두 메서드를 구현한 객체다. with 문은 단순히 이 두 메서드를 호출하는 문법적 설탕(syntactic sugar)이다.
-
-컨텍스트 매니저와 with 블록을 함께 사용했을 때 동작 과정을 다음과 같이 시각화할 수 있다.
+컨텍스트 매니저는 특별한 타입이 아니라, `__enter__()`와 `__exit__()` 두 메서드를 구현한 객체다. with 문은 단순히 이 두 메서드를 호출하는 문법적 설탕(syntactic sugar)이라고 볼 수 있다. 컨텍스트 매니저와 with 블록을 함께 사용했을 때 동작 과정을 다음과 같이 시각화할 수 있다.
 
 <div align="center">
   <img src="{{ site.image_url_2026 }}/python-with-keyword-and-context-manager-01.png" width="100%" class="image__border image__background_black">

@@ -85,11 +85,11 @@ class AsyncSessionManager:
 
 ```python
 import asyncio
-from async_session_manager import AsyncSessionManager
+from async_session_manager import AssyncSessionManager
 
 
 async def main():
-  manager = AsyncSessionManager()
+  manager = AssyncSessionManager()
   try:
     m = await manager.__aenter__()
     print(f"do something with {m}")
@@ -105,7 +105,7 @@ asyncio.run(main())
 ```
 initialize async session manager
 open async session manager
-do something with async session
+do something with <object object at 0x1022a0930>
 close async session manager
 ```
 
@@ -129,7 +129,7 @@ asyncio.run(main())
 ```
 initialize async session manager
 open async session manager
-do something with async session
+do something with <object object at 0x104a90940>
 close async session manager
 ```
 
@@ -160,11 +160,10 @@ asyncio.run(main())
 위 코드를 실행하면 다음과 같은 로그를 확인할 수 있다. 비동기 컨텍스트 매니저의 `__aexit__()` 메서드 내부에서 예외 객체가 있는지 확인하고 적절한 처리를 수행한다.
 
 ```
-python example-03.py
 initialize async session manager
 open async session manager
-do something with async session
-handle exception: <class 'Exception'>, something went wrong, <traceback object>
+do something with <object object at 0x102bf0940>
+handle exception: <class 'Exception'>, something went wrong, <traceback object at 0x10836d280>
 close async session manager
 Traceback (most recent call last):
   File "example-03.py", line 11, in main
@@ -193,8 +192,8 @@ asyncio.run(main())
 ```
 initialize async session manager
 open async session manager
-do something with async session
-handle exception: <class 'Exception'>, something went wrong, <traceback object>
+do something with <object object at 0x10072c930>
+handle exception: <class 'Exception'>, something went wrong, <traceback object at 0x105a3bf80>
 close async session manager
 Traceback (most recent call last):
   File "example-04.py", line 8, in main
@@ -224,8 +223,8 @@ class AsyncSessionManager:
 ```
 initialize async session manager
 open async session manager
-do something with async session
-handle exception: <class 'Exception'>, something went wrong, <traceback object>
+do something with <object object at 0x100424940>
+handle exception: <class 'Exception'>, something went wrong, <traceback object at 0x105ab1440>
 close async session manager
 ```
 
@@ -275,7 +274,7 @@ asyncio.run(main())
 ```
 initialize async session
 open async session
-do something with async session
+do something with <object object at 0x105190940>
 handle exception: <class 'Exception'>, something went wrong
 close async session
 Traceback (most recent call last):

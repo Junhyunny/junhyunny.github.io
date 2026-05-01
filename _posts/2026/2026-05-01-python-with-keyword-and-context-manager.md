@@ -35,7 +35,7 @@ last_modified_at: 2026-05-01T12:51:01+09:00
 컨텍스트 매니저와 with 블록을 함께 사용했을 때 동작 과정을 다음과 같이 시각화할 수 있다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/python-with-keyword-and-context-manager-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/python-with-keyword-and-context-manager-01.png" width="100%" class="image__border image__background_black">
 </div>
 
 ## 2. Practice

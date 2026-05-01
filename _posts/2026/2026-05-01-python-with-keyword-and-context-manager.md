@@ -251,6 +251,10 @@ Traceback (most recent call last):
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2026-05-01-python-with-keyword-and-context-manager>
 
+#### RECOMMEND NEXT POSTS
+
+- [파이썬 비동기 컨텍스트 매니저(Async Context Manager)와 async with 키워드][python-with-keyword-and-context-manager-link]
+
 #### REFERENCE
 
 - <https://www.scaler.com/topics/context-manager-python/>
@@ -260,3 +264,4 @@ Traceback (most recent call last):
 - <https://velog.io/@qlgks1/python-%EB%8F%99%EC%8B%9C%EC%84%B1-%EC%B2%98%EB%A6%AC-with-%EA%B5%AC%EB%AC%B8%EA%B3%BC-context-manager>
 
 [python-generator-function-link]: https://junhyunny.github.io/python/generator-function/python-generator-function/
+[python-with-keyword-and-context-manager-link]: https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/

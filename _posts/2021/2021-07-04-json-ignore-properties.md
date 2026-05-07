@@ -4,16 +4,16 @@ search: false
 category:
   - spring-boot
   - junit
-last_modified_at: 2026-03-24T08:03:14+09:00
+last_modified_at: 2026-05-07T15:58:14+09:00
 ---
 
 <br/>
 
 ## 1. Problem Context
 
-API 엔드 포인트(end-point) 개발 중 다음과 같은 에러를 만났다.
+API 엔드포인트(endpoint)를 개발하던 중 다음과 같은 에러가 발생했다.
 
-- 잭슨(jackson) 라이브러리에서 직렬화(serialize)를 수행할 때 무한 재귀(infinite recursion)를 수행할 때 `StackOverflowError`가 발생한다.
+- 잭슨(Jackson) 라이브러리가 직렬화(serialize)를 수행하는 과정에서 무한 재귀(infinite recursion)에 빠지면 `StackOverflowError`가 발생한다.
 
 ```
 2023-09-14T00:42:29.816+09:00 ERROR 15028 --- [nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)] with root cause
@@ -36,12 +36,12 @@ java.lang.StackOverflowError: null
 
 ## 2. Problem Analysis
 
-문제를 살펴보니 단순 조회성 API 엔드 포인트였지만, 문제가 발생시키는 객체 구조를 가진 상태였다. 당시 상황을 재현한 코드를 통해 원인을 알아보자.
+문제를 살펴보니 단순 조회용 API 엔드포인트였지만, 응답 객체가 문제를 일으킬 수 있는 구조였다. 당시 상황을 재현한 코드로 원인을 살펴보자.
 
-먼저 순환 참조(circular reference)란 객체 참조 사이에 닫힌 루프(loop)가 생기는 것을 의미한다. 아래 그림을 보면 빨간색 참조 그래프가 서로 맞물려 닫힌 루프를 생성한다.
+먼저 순환 참조(circular reference)란 객체 참조 사이에 닫힌 루프(loop)가 생기는 것을 의미한다. 아래 그림을 보면 빨간색 참조 그래프가 서로 맞물려 닫힌 루프를 만든다.
 
-- 참조하는 객체가 정리되지 않기 때문에 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있다.
-- 메서드 호출 시 재귀 호출을 통해 스택 오버플로우 에러가 발생할 수 있다.
+- 참조하는 객체가 정리되지 않아 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있다.
+- 메서드를 호출할 때 재귀 호출로 인해 스택 오버플로우 에러가 발생할 수 있다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/json-ignore-properties-01.png" width="40%" class="image__border">
@@ -50,10 +50,10 @@ java.lang.StackOverflowError: null
 
 <br/>
 
-도메인 객체들을 살펴보니 다음과 같은 구조를 가지고 있었다.
+도메인 객체를 살펴보니 다음과 같은 구조를 가지고 있었다.
 
-- 포스트(post) 객체는 자신의 댓글(reply) 객체들을 리스트로 참조하고 있다.
-- 댓글 객체는 자신과 연관된 포스트 객체를 참조하고 있다.
+- 포스트(post) 객체는 자신의 댓글(reply) 객체를 리스트로 참조한다.
+- 댓글 객체는 자신과 연관된 포스트 객체를 참조한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/json-ignore-properties-02.png" width="80%" class="image__border">
@@ -85,7 +85,7 @@ public record Post(
 }
 ```
 
-다음 Reply 레코드 클래스는 아래와 같다.
+Reply 레코드 클래스는 다음과 같다.
 
 ```java
 package blog.in.action.domain;
@@ -103,18 +103,18 @@ public record Reply(
 }
 ```
 
-스프링(spring) 프레임워크는 API 엔드포인트에서 객체를 반환할 때 JSON 형태로 직렬화(serialize)를 수행한다. 기본적으로 잭슨(jackson) 라이브러리를 사용한다. 잭슨은 게터(getter), 세터(setter) 메서드를 기준으로 직렬화, 역직렬화(deserialize)를 수행한다. 위에서 살펴본 Post, Reply 도메인 객체를 JSON 형태로 직렬화하는 경우 다음과 같은 흐름이 발생한다.
+스프링(Spring) 프레임워크는 API 엔드포인트에서 객체를 반환할 때 JSON 형태로 직렬화(serialize)한다. 기본적으로 잭슨 라이브러리를 사용한다. 잭슨은 게터(getter), 세터(setter) 메서드를 기준으로 직렬화와 역직렬화(deserialize)를 수행한다. 위에서 살펴본 Post, Reply 도메인 객체를 JSON 형태로 직렬화하면 다음과 같은 흐름이 발생한다.
 
 1. Post 객체가 직렬화된다.
 2. Post 객체 내부의 replies 필드를 직렬화한다.
 3. Reply 객체가 직렬화된다.
 4. Reply 객체 내부의 post 필드를 직렬화한다.
 5. Post 객체가 직렬화된다.
-6. 이를 반복 수행하다 StackOverFlowError가 발생한다.
+6. 이를 반복 수행하다 StackOverflowError가 발생한다.
 
 ## 3. Solve the problem
 
-문제를 해결하는 방법은 여러 가지 있지만, 이번 글에선 `@JsonIgnoreProperties 애너테이션`을 사용한 해결 방법을 정리했다. JSON 직렬화 작업에서 순환 참조를 끊기 위해 @JsonIgnoreProperties 애너테이션을 사용한다. 특정 객체의 내부 프로퍼티들 중 Json 형태로 직렬화할 대상을 제외할 수 있다.
+문제를 해결하는 방법은 여러 가지가 있지만, 이번 글에서는 `@JsonIgnoreProperties` 애너테이션을 사용한 해결 방법을 정리했다. JSON 직렬화 작업에서 순환 참조를 끊기 위해 `@JsonIgnoreProperties` 애너테이션을 사용한다. 특정 객체의 내부 프로퍼티 중 JSON 형태로 직렬화할 대상을 제외할 수 있다.
 
 ```java
 @Target({ElementType.ANNOTATION_TYPE, ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD})
@@ -131,7 +131,7 @@ public @interface JsonIgnoreProperties {
 }
 ```
 
-정말로 StackOverflowError가 발생하지 않는지 테스트 코드를 통해 살펴보자. PostController 클래스에서 Post 객체와 Reply 객체의 순환 참조를 만들고 이를 반환하는 엔드포인트를 준비한다.
+정말로 StackOverflowError가 발생하지 않는지 테스트 코드를 통해 살펴보자. PostController 클래스에서 Post 객체와 Reply 객체의 순환 참조를 만든 뒤 이를 반환하는 엔드포인트를 준비한다.
 
 ```java
 package blog.in.action.controller;
@@ -169,7 +169,7 @@ public class PostController {
 }
 ```
 
-@JsonIgnoreProperties 애너테이션을 추가하기 전에 해당 API 경로를 호출하면 에러가 발생하는지 확인한다.
+`@JsonIgnoreProperties` 애너테이션을 추가하기 전에 해당 API 경로를 호출하면 에러가 발생하는지 확인한다.
 
 ```java
 package blog.in.action;
@@ -214,7 +214,7 @@ public class ActionInBlogTest {
 }
 ```
 
-로그를 살펴보면 StackOverflowError 에러가 원인임을 확인할 수 있다.
+로그를 살펴보면 StackOverflowError가 원인임을 확인할 수 있다.
 
 ```
 13:46:48.440 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
@@ -258,9 +258,9 @@ Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursi
     ...
 ```
 
-이번엔 @JsonIgnoreProperties 애너테이션을 추가한 후 테스트를 실행해보자. Reply 클래스를 다음과 같이 변경한다.
+이번에는 `@JsonIgnoreProperties` 애너테이션을 추가한 후 테스트를 실행해 보자. Reply 클래스를 다음과 같이 변경한다.
 
-- Post 객체의 프로퍼티 중 `replies`를 Json 직렬화 대상에서 제외한다.
+- Post 객체의 프로퍼티 중 `replies`를 JSON 직렬화 대상에서 제외한다.
 
 ```java
 package blog.in.action.domain;
@@ -280,7 +280,7 @@ public record Reply(
 }
 ```
 
-아래 테스트 코드를 실행하면 정상적으로 응답을 받는다.
+아래 테스트 코드를 실행하면 정상적으로 응답을 받을 수 있다.
 
 ```java
 package blog.in.action;
@@ -330,7 +330,7 @@ public class ActionInBlogTest {
 }
 ```
 
-응답 메시지를 보면 Reply 객체의 프로퍼티인 Post 객체의 `replies` 프로퍼티가 직렬화되지 않는 것을 확인할 수 있다.
+응답 메시지를 보면 Reply 객체가 참조하는 Post 객체의 `replies` 프로퍼티가 직렬화되지 않는 것을 확인할 수 있다.
 
 ```
 13:53:06.203 [main] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''

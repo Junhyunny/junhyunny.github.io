@@ -1,5 +1,5 @@
 ---
-title: "@Transactional 애너테이션의 전파 타입(Propagation)"
+title: "@Transactional 애너테이션의 전파 타입(PropagationType)"
 search: false
 category:
   - spring-boot

@@ -1,23 +1,21 @@
 ---
-title: "Spring Application Context Event with Transaction"
+title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)와 트랜잭션(transaction)"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-08-16T03:00:00
+last_modified_at: 2026-05-08T02:40:06+09:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [Propagation in @Transactional Annotation][transactional-propagation-type-link]
-- [Spring Application Context Event][spring-application-context-event-link]
+#### RECOMMEND POSTS BEFORE THIS
+
+- [@Transactional 애너테이션의 전파 타입(PropagationType)][transactional-propagation-type-link]
+- [스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)][spring-application-context-event-link]
 
 ## 0. 들어가면서
 
-[Spring Application Context Event][spring-application-context-event-link] 포스트에서 간단한 시나리오와 함께 `Spring Application Context Event` 사용 방법에 대해 알아보았습니다. 
-이전 포스트를 작성하면서 생겼던 궁금증을 해소하기 위해 작성하였습니다. 
-
-## 1. 패키지 구조
+[스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)를 다룬 글][spring-application-context-event-link]에서 간단한 시나리오와 함께 스프링 프레임워크의 애플리케이션 컨텍스트 이벤트의 개념과 사용 방법을 알아보았다. 이번 글은 이전 글을 작성하면서 생긴 궁금증을 해소하기 위해 작성하였다. 이번 글에서 사용한 예제의 패키지 구조는 다음과 같다.
 
 ```
 `-- action-in-blog
@@ -63,14 +61,13 @@ last_modified_at: 2021-08-16T03:00:00
                             `-- TransactionInEventTest.java
 ```
 
-## 2. `'전달한 이벤트까지 트랜잭션이 이어지는가?'` 테스트 코드
-전달한 이벤트까지 동일한 트랜잭션으로 처리가 가능합니다. 
-간단한 테스트 코드를 통해 확인해보겠습니다. 
+## 1. 전달한 이벤트까지 트랜잭션이 이어지는가?
 
-### 2.1. DeliveryService 클래스
-- 전달받은 파라미터인 배달 코드에 해당하는 배달 정보를 조회합니다.
-- 배달 완료 여부를 변경한 후 업데이트합니다.
-- 배달 정보와 관련된 주문 코드 정보를 `IntentionalExceptionEvent` 이벤트로 묶어서 발행합니다.
+전달한 이벤트까지 동일한 트랜잭션으로 처리할 수 있다. 간단한 테스트 코드로 확인해 보겠다. 비즈니스 로직을 담당하는 DeliveryService 클래스를 살펴보자.
+
+1. 전달받은 파라미터인 배달 코드에 해당하는 배달 정보를 조회한다.
+2. 배달 완료 여부를 변경한 후 업데이트한다.
+3. 배달 정보와 관련된 주문 코드 정보를 `IntentionalExceptionEvent` 이벤트로 묶어서 발행한다.
 
 ```java
 @Service
@@ -92,8 +89,7 @@ public class DeliveryService {
 }
 ```
 
-### 2.2. IntentionalExceptionEvent 클래스
-- 배달과 관련된 주문 정보와 배달 코드 정보를 담고 있습니다.
+IntentionalExceptionEvent 클래스는 배달과 관련된 주문 정보와 배달 코드 정보를 담고 있다.
 
 ```java
 package blog.in.action.common.event;
@@ -118,8 +114,7 @@ public class IntentionalExceptionEvent {
 }
 ```
 
-### 2.3. OrderEventListener 클래스
-- 주문 서비스에서 발생한 의도적인 예외(exception)가 배달 서비스로 전달되지 않도록 try-catch 구문으로 감쌉니다.
+이벤트를 수신하는 OrderEventListener 클래스는 다음과 같다. 주문 서비스에서 발생한 의도적인 예외(exception)가 배달 서비스로 전달되지 않도록 try-catch 구문으로 감싼다.
 
 ```java
 @Log4j2
@@ -139,8 +134,7 @@ public class OrderEventListener {
 }
 ```
 
-### 2.4. OrderService 클래스
-- RuntimeException을 의도적으로 던집니다.
+주문 도메인의 비즈니스 로직을 담당하는 OrderService 클래스를 살펴보자. RuntimeException을 의도적으로 던진다.
 
 ```java
 @Component
@@ -158,9 +152,10 @@ public class OrderService {
 }
 ```
 
-### 2.5. 테스트 코드
-- 배달 서비스를 이용해 특정 배달 코드에 해당하는 배달 정보를 완료 처리합니다.
-- 내부에서 rollback 처리가 수행되므로 배달 완료 여부가 `NULL` 일 것으로 예상합니다.
+OrderService 객체에서 발생한 의도적인 런타임 예외로 인해 트랜잭션 처리가 어떻게 되는지 테스트 코드로 알아보자.
+
+- 배달 서비스를 이용해 특정 배달 코드에 해당하는 배달 정보를 완료 처리한다.
+- 내부에서 rollback 처리가 수행되므로 배달 완료 여부가 `NULL`일 것으로 예상한다.
 
 ```java
 @SpringBootTest
@@ -178,11 +173,15 @@ public class TransactionInEventTest {
 }
 ```
 
-##### 테스트 결과 - Junit
+위 테스트 코드는 정상적으로 통과한다.
 
-<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-01.png" width="45%"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-01.png" width="50%">
+</div>
 
-##### 테스트 결과 - SQL
+<br/>
+
+실제로 데이터베이스가 롤백(rollback)되었는지 SQL을 통해 확인할 수 있다.
 
 ```sql
 SELECT *
@@ -190,26 +189,26 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-02.png" width="65%"></p>
+트랜잭션 내에서 발생한 모든 작업이 롤백되어 배달 완료 여부가 아직 `NULL` 값임을 확인할 수 있다.
 
-#### 2.5.1. UnexpectedRollbackException 발생 이유
-이벤트 리스너(event listener)에서 주문 서비스의 예외를 try-catch 구문으로 묶었음에도 불구하고 테스트 코드에서 UnexpectedRollbackException 예외가 발생합니다. 
-해당 이유는 다음과 같습니다. 
-1. updateOrderDeliveryComplete 메서드까지 배달 서비스의 트랜잭션이 연결됩니다.
-1. updateOrderDeliveryComplete 메서드에서 exception이 발생하면서 해당 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
-1. listenIntentionalExceptionEvent 메서드에서 try-catch 구문으로 묶어 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지는 않습니다.
-1. updateDeliveryComplete 메서드는 정상적인 트랜잭션 처리에 실패합니다.
-    - 주문 서비스에서 발생한 예외에 의해 해당 트랜잭션의 롤백 처리가 예정되어 있기 때문입니다.
-1. UnexpectedRollbackException 예외가 발생합니다.
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-02.png" width="70%">
+</div>
 
-## 3. `'전달한 이벤트를 별도의 다른 트랜잭션으로 처리가 가능한가?'` 테스트 코드
-전달한 이벤트를 별도의 트랜잭션으로 처리가 가능합니다. 
-해당 주제도 간단한 테스트 코드를 통해 확인해보겠습니다. 
+이벤트 리스너(event listener)에서 주문 서비스의 예외를 try-catch 구문으로 묶었음에도 테스트 코드에서 UnexpectedRollbackException 예외가 발생한다. 이유는 다음과 같다.
 
-### 3.1. DeliveryService 클래스
-- 전달받은 파라미터인 배달 코드에 해당하는 배달 정보를 조회합니다.
-- 배달 완료 여부를 변경한 후 업데이트합니다.
-- 배달 정보와 관련된 주문 코드 정보를 `IntentionalExceptionInRequiresNewTransactionEvent` 이벤트로 묶어서 발행합니다.
+1. updateOrderDeliveryComplete 메서드까지 배달 서비스의 트랜잭션이 연결된다.
+2. updateOrderDeliveryComplete 메서드에서 예외(exception)가 발생하면서 해당 트랜잭션에 대한 롤백(rollback)이 결정된다.
+3. listenIntentionalExceptionEvent 메서드에서 try-catch 구문으로 묶어 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지는 않는다.
+4. updateDeliveryComplete 메서드에서 정상적인 트랜잭션 처리가 실패한다. 주문 서비스에서 발생한 예외에 의해 해당 트랜잭션의 롤백 처리가 예정되어 있기 때문이다. UnexpectedRollbackException 예외가 발생한다.
+
+## 2. 전달한 이벤트를 별도 트랜잭션으로 처리할 수 있는가?
+
+전달한 이벤트를 별도의 트랜잭션으로 처리할 수 있다. 해당 주제도 간단한 테스트 코드로 확인해 보자.
+
+1. 전달받은 파라미터인 배달 코드에 해당하는 배달 정보를 조회한다.
+2. 배달 완료 여부를 변경한 후 업데이트한다.
+3. 배달 정보와 관련된 주문 코드 정보를 `IntentionalExceptionInRequiresNewTransactionEvent` 이벤트로 묶어서 발행한다.
 
 ```java
 @Service
@@ -231,8 +230,7 @@ public class DeliveryService {
 }
 ```
 
-### 3.2. IntentionalExceptionInRequiresNewTransactionEvent 클래스
-- 배달과 관련된 주문 정보와 배달 코드 정보를 담고 있습니다.
+IntentionalExceptionInRequiresNewTransactionEvent 클래스를 살펴보자. 이전 예제의 이벤트 리스너가 아닌 다른 이벤트 리스너에서 이벤트를 수신하도록 새로운 객체 타입을 정의했다. 이전과 동일하게 배달과 관련된 주문 정보와 배달 코드 정보를 담고 있다.
 
 ```java
 package blog.in.action.common.event;
@@ -257,8 +255,7 @@ public class IntentionalExceptionInRequiresNewTransactionEvent {
 }
 ```
 
-### 3.3. OrderEventListener 클래스
-- 주문 서비스에서 발생한 의도적인 예외(exception)가 배달 서비스로 전달되지 않도록 try-catch 구문으로 감쌉니다.
+OrderEventListener 클래스를 살펴보자. 새로운 이벤트 리스너를 정의한다. 이전과 동일하게 주문 서비스에서 발생한 의도적인 예외가 배달 서비스로 전달되지 않도록 try-catch 구문으로 감싼다.
 
 ```java
 @Log4j2
@@ -278,10 +275,9 @@ public class OrderEventListener {
 }
 ```
 
-### 3.4. OrderService 클래스
-- 메서드 위에 @Transactional 애너테이션을 추가하여 전파(propagtion) 타입을 변경합니다.
-    - `Propagation.REQUIRES_NEW` - 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단합니다.
-- RuntimeException을 의도적으로 던집니다.
+마지막으로 비즈니스 로직을 수행하는 OrderService 클래스 코드를 살펴보자. 이전과 마찬가지로 RuntimeException을 의도적으로 던지지만, 해당 메서드에 @Transactional 애너테이션을 추가하여 트랜잭션 전파(propagation) 타입을 변경한다.
+
+- `Propagation.REQUIRES_NEW` 트랜잭션 전파 타입을 사용한다. 이 전파 타입은 새로운 트랜잭션을 만들고, 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
 
 ```java
 @Component
@@ -300,10 +296,10 @@ public class OrderService {
 }
 ```
 
-### 3.5. 테스트 코드
-- 배달 서비스를 이용해 특정 배달 코드에 해당하는 배달 정보를 완료 처리합니다.
-- 주문 서비스에서 별도 트랜잭션을 생성하여 예외(exception)를 던졌기 때문에 배달 정보는 롤백되지 않습니다.
-- 배달 정보의 완료 여부가 `*` 표시되어 있을 것으로 예상합니다.
+이전과 마찬가지로 OrderService 객체에서 발생한 의도적인 런타임 예외로 인해 트랜잭션 처리가 어떻게 되는지 테스트 코드로 알아보자.
+
+- 배달 서비스를 이용해 특정 배달 코드에 해당하는 배달 정보를 완료 처리한다.
+- 주문 서비스에서 별도 트랜잭션을 생성하여 예외(exception)를 던졌기 때문에 배달 정보는 롤백되지 않는다. 배달 정보의 완료 여부가 `*`로 표시될 것으로 예상한다.
 
 ```java
 @SpringBootTest
@@ -321,11 +317,15 @@ public class TransactionInEventTest {
 }
 ```
 
-##### 테스트 결과 - Junit
+위 테스트 코드는 정상적으로 통과한다.
 
-<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-03.png" width="45%"></p>
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-03.png" width="50%">
+</div>
 
-##### 테스트 결과 - SQL
+<br/>
+
+실제로 데이터베이스가 롤백되지 않고 저장되었는지 SQL을 통해 확인할 수 있다.
 
 ```sql
 SELECT *
@@ -333,25 +333,31 @@ FROM tb_order o
 INNER JOIN tb_delivery d ON o.id = d.order_id;
 ```
 
-<p align="left"><img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-04.png" width="65%"></p>
+새로 만들어진 트랜잭션 내에서 발생한 작업만 롤백되었기 때문에 배달 완료 여부가 `*` 값임을 확인할 수 있다.
 
-#### 3.5.1. UnexpectedRollbackException 발생하지 않은 이유
-동일 트랜잭션으로 묶어서 처리하는 것과 다르게 UnexpectedRollbackException 예외가 발생하지 않았습니다. 
-해당 이유는 다음과 같습니다. 
-1. updateOrderDeliveryCompleteInRequiresNewTransaction 메서드에서 신규 트랜잭션을 생성하여 배달 서비스의 트랜잭션을 잠시 중단합니다.
-1. updateOrderDeliveryCompleteInRequiresNewTransaction 메서드에서 예외가 발생하여 신규 트랜잭션에 대한 롤백(rollback)이 결정됩니다.
-1. listenIntentionalExceptionInRequiresNewEvent 메서드에서 try-catch 에 의해 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않습니다.
-1. 주문 서비스에서 발생한 예외는 새로 생성된 트랜잭션에만 영향을 미치기 때문에 updateDeliveryComplete 메서드는 정상적으로 처리됩니다.
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-04.png" width="70%">
+</div>
+
+<br/>
+
+동일 트랜잭션으로 묶어서 처리할 때와 다르게 UnexpectedRollbackException 예외가 발생하지 않았다. 이유는 다음과 같다.
+
+1. updateOrderDeliveryCompleteInRequiresNewTransaction 메서드에서 신규 트랜잭션을 생성하여 배달 서비스의 트랜잭션을 잠시 중단한다.
+2. updateOrderDeliveryCompleteInRequiresNewTransaction 메서드에서 예외가 발생하여 신규 트랜잭션에 대한 롤백이 결정된다.
+3. listenIntentionalExceptionInRequiresNewEvent 메서드에서 try-catch 구문에 의해 주문 서비스에서 발생한 예외가 배달 서비스로 전파되지 않는다.
+4. 주문 서비스에서 발생한 예외는 새로 생성된 트랜잭션에만 영향을 미치기 때문에 updateDeliveryComplete 메서드는 정상적으로 처리된다.
 
 ## CLOSING
-이벤트 발생과 더불어 트랜잭션 처리까지 함께 정리해보는 시간이었습니다. 
-관련된 포스트를 연달아 작성하다보니 벌써 새벽 4시가 되었습니다. 
-자고 일어나서 비동기 이벤트 처리 방법에 대해서 정리해봐야겠습니다.
+
+이벤트 발생과 더불어 트랜잭션 처리까지 함께 정리해 보는 시간이었다. 관련된 내용을 글로 정리하다 보니 벌써 새벽 4시가 되었다. 자고 일어나서 비동기 이벤트 처리 방법을 정리해야겠다.
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-08-16-transaction-in-spring-application-context-event>
 
 #### REFERENCE
+
 - <https://junhyunny.blogspot.com/2020/02/spring-applicationcontext-event.html>
 - <https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/>
 - <https://junhyunny.github.io/spring-boot/spring-application-context-event/>

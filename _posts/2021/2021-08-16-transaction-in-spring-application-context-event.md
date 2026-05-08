@@ -176,7 +176,7 @@ public class TransactionInEventTest {
 위 테스트 코드는 정상적으로 통과한다.
 
 <div align="left">
-  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-01.png" width="50%">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-01.png" width="50%" class="image__border">
 </div>
 
 <br/>
@@ -192,7 +192,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 트랜잭션 내에서 발생한 모든 작업이 롤백되어 배달 완료 여부가 아직 `NULL` 값임을 확인할 수 있다.
 
 <div align="left">
-  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-02.png" width="70%">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-02.png" width="70%" class="image__border">
 </div>
 
 이벤트 리스너(event listener)에서 주문 서비스의 예외를 try-catch 구문으로 묶었음에도 테스트 코드에서 UnexpectedRollbackException 예외가 발생한다. 이유는 다음과 같다.
@@ -320,7 +320,7 @@ public class TransactionInEventTest {
 위 테스트 코드는 정상적으로 통과한다.
 
 <div align="left">
-  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-03.png" width="50%">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-03.png" width="50%" class="image__border">
 </div>
 
 <br/>
@@ -336,7 +336,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 새로 만들어진 트랜잭션 내에서 발생한 작업만 롤백되었기 때문에 배달 완료 여부가 `*` 값임을 확인할 수 있다.
 
 <div align="left">
-  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-04.png" width="70%">
+  <img src="{{ site.image_url_2021 }}/transaction-in-spring-application-context-event-04.png" width="70%" class="image__border">
 </div>
 
 <br/>

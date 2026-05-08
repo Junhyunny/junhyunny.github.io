@@ -1,36 +1,43 @@
 ---
-title: "WebSocket 구현"
+title: "웹소켓(WebSocket)을 사용한 메시지 실시간 동기화 예제"
 search: false
 category:
   - spring-boot
-last_modified_at: 2021-09-04T03:00:00
+last_modified_at: 2026-05-07T21:16:56+09:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
-- [WebSocket 이해하기][web-socket-link]
+#### RECOMMEND POSTS BEFORE THIS
+
+- [웹소켓(WebSocket) 이해하기][web-socket-link]
 
 ## 0. 들어가면서
 
-이번 포스트는 WebSocket 예제 코드를 정리해서 올려보도록 하겠습니다. 
-다음과 같은 환경에서 테스트하였습니다.
-- spring boot 2.2.5.RELEASE
+이번 글에서는 웹소켓(WebSocket) 예제 코드를 정리해 보겠다. 다음과 같은 환경에서 테스트했다.
+
+- Spring Boot 2.2.5.RELEASE
 - spring-boot-starter-thymeleaf
 - spring-websocket
 - SockJS
 
-## 1. 시나리오 구성도
-- 브라우저가 서버에 소켓 연결을 수행합니다.
-- 두 번째 브라우저가 서버에 소켓 연결을 수행합니다.
-- 처음 연결한 브라우저에서 메시지를 전달합니다.
-- 서버는 메시지를 전달받아 자신이 관리하는 세션(session)으로 메시지를 전송합니다.
-- 두 브라우저 모두 서버로부터 전달받은 메시지를 출력합니다.
+## 1. Scenario
 
-<p align="center"><img src="{{ site.image_url_2021 }}/web-socket-example-01.gif" width="70%"></p>
+이번 예제는 다음과 같은 시나리오를 구현한다.
 
-## 2. 테스트 코드
-### 2.1. 패키지 구조
+1. 브라우저가 서버에 소켓 연결을 맺는다.
+2. 두 번째 브라우저가 서버에 소켓 연결을 맺는다.
+3. 처음 연결한 브라우저에서 메시지를 보낸다.
+4. 서버는 메시지를 전달받아 자신이 관리하는 세션(session)에 메시지를 전송한다.
+5. 두 브라우저 모두 서버로부터 전달받은 메시지를 출력한다.
+
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/web-socket-example-01.gif" width="100%">
+</div>
+
+## 2. Practice
+
+패키지 구조는 다음과 같다.
 
 ```
 ./
@@ -60,11 +67,14 @@ last_modified_at: 2021-09-04T03:00:00
         `-- java
 ```
 
-### 2.2. WebSocketComponent 클래스
-- TextWebSocketHandler 클래스를 상속받습니다. 몇 개의 메서드를 오버라이드합니다.
-- afterConnectionEstablished 메서드 - 연결 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장합니다.
-- handleMessage 메서드 - sessionMap 객체에서 관리되는 session 정보를 이용하여 전달받은 메시지를 전송합니다.
-- afterConnectionClosed 메서드 - 연결이 해제된 후에 수행됩니다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제합니다.
+소켓 세션(session)을 관리하는 WebSocketComponent 클래스를 살펴보자. TextWebSocketHandler 클래스를 상속받고, 몇 개의 메서드를 오버라이드한다.
+
+- afterConnectionEstablished 메서드
+  - 연결 후 호출된다. 자신이 관리하는 sessionMap 객체에 연결 정보를 저장한다.
+- handleMessage 메서드
+  - sessionMap 객체에서 관리하는 session 정보를 이용하여 전달받은 메시지를 전송한다.
+- afterConnectionClosed 메서드
+  - 연결이 해제된 후 호출된다. 자신이 관리하는 sessionMap 객체에서 연결 정보를 삭제한다.
 
 ```java
 package blog.in.action.component;
@@ -108,15 +118,16 @@ public class WebSocketComponent extends TextWebSocketHandler {
 }
 ```
 
-### 2.3. CustomWebsocketConfiguration 클래스
-- @EnableWebSocket 애너테이션을 추가합니다.
-- WebSocketConfigurer 인터페이스를 구현합니다.
-- WebSocket Connection 관리를 위해 생성한 WebSocketComponent 빈(bean)을 주입받습니다.
-- registerWebSocketHandlers 메서드 - WebSocket 기능을 위해 필요한 정보들을 지정합니다.
-    - `/chat` 경로의 WebSocket 연결 정보는 WebSocketComponent 객체로 지정합니다.
-    - CORS 문제 해결을 위해 setAllowedOrigins() 메서드를 사용합니다. 테스트이므로 모든 CORS 정보를 허용합니다.
-    - SockJS fallback option들을 허용합니다.
-    - SockJS 사용 시 필요한 클라이언트 라이브러리 URL 정보를 입력합니다.
+위에서 만든 WebSocketComponent 객체를 웹소켓 핸들러로 등록하기 위한 CustomWebsocketConfiguration 클래스 코드는 다음과 같다. WebSocketConfigurer 인터페이스를 구현한다.
+
+- @EnableWebSocket 애너테이션을 클래스 위에 추가한다.
+- CustomWebsocketConfiguration 생성자 메서드
+  - WebSocket 연결 관리를 위해 생성한 WebSocketComponent 빈(bean)을 주입받는다.
+- registerWebSocketHandlers 메서드
+  - addHandler 메서드 - `/chat` 경로의 WebSocket 연결 정보는 WebSocketComponent 객체로 지정한다.
+  - setAllowedOrigins 메서드 - CORS 문제 해결을 위해 "*" 텍스트를 추가한다. 테스트이므로 모든 CORS 요청을 허용한다.
+  - withSockJS 메서드 - SockJS fallback 옵션을 허용한다.
+  - setClientLibraryUrl 메서드 - SockJS 사용 시 필요한 클라이언트 라이브러리 URL 정보를 입력한다. 타임리프를 사용하기 때문에 반환하는 HTML 페이지에 필요한 의존성을 브라우저에서 다운로드하기 위한 코드다.
 
 ```java
 package blog.in.action.configure;
@@ -147,8 +158,9 @@ public class CustomWebsocketConfiguration implements WebSocketConfigurer {
 }
 ```
 
-### 2.4. ChatController 클래스
-- `/chat` 경로를 통해 전달받는 요청으로 `chat.html` 페이지를 전달합니다.
+채팅 화면 페이지를 반환하는 ChatController 클래스는 다음과 같다.
+
+- `/chat` 경로의 요청에 대해 `chat.html` 페이지를 반환한다.
 
 ```java
 package blog.in.action.controller;
@@ -166,12 +178,18 @@ public class ChatController {
 }
 ```
 
-### 2.5. chat.html
-- connectSocket 함수 - SockJS 객체를 생성 후 연결에 필요한 경로를 입력합니다. `/chat`
-- onmessage 함수 - 메시지 수신 시 필요한 함수를 지정합니다.
-- onerror 함수 - 에러 발생 시 필요한 함수를 지정합니다.
-- onclose 함수 - 연결이 닫힐 시 필요한 함수를 지정합니다.
-- send 함수 - sock 객체를 이용해 메시지를 전송합니다.
+위 엔드포인트에서 반환하는 chat HTML 코드를 살펴보자. 주요 함수는 다음과 같다.
+
+- connectSocket 함수
+  - SockJS 객체를 생성한 후 연결에 필요한 경로인 `/chat`을 입력한다.
+- onmessage 함수
+  - 메시지 수신 시 필요한 함수를 지정한다.
+- onerror 함수
+  - 에러 발생 시 필요한 함수를 지정한다.
+- onclose 함수
+  - 연결이 닫힐 때 필요한 함수를 지정한다.
+- send 함수
+  - sock 객체를 이용해 메시지를 전송한다.
 
 ```html
 <!DOCTYPE html>
@@ -239,14 +257,18 @@ public class ChatController {
 </html>
 ```
 
-##### 테스트 확인
+위 애플리케이션을 실행한 후 두 브라우저 탭에서 애플리케이션에 접속한다. 웹소켓 연결이 완료된 후 메시지를 전송하면 두 브라우저 탭이 서로 동기화되는 것을 확인할 수 있다.
 
-<p align="center"><img src="{{ site.image_url_2021 }}/web-socket-example-02.gif" width="70%"></p>
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/web-socket-example-02.gif" width="100%" class="image__border" />
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-07-21-web-socket>
 
 #### REFERENCE
+
 - <https://dev-gorany.tistory.com/224>
 - <https://supawer0728.github.io/2018/03/30/spring-websocket/>
 

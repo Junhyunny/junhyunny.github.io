@@ -151,8 +151,8 @@ interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
 
 위에서 살펴본 두 테스트 코드 모두 정상적으로 통과한다.
 
-<div align="center">
-  <img src="{{ site.image_url_2021 }}/jpa-repository-find-by-error-01.png" width="35%">
+<div align="left">
+  <img src="{{ site.image_url_2021 }}/jpa-repository-find-by-error-01.png" width="50%">
 </div>
 
 ## 3. 원인 분석

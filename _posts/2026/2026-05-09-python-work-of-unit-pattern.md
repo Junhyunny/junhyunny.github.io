@@ -342,7 +342,7 @@ class SQLAlchemyTodoRepository(AbstractTodoRepository):
     await self.session.delete(todo)
 ```
 
-core/database.py 코드를 살펴보자. 세션 팩토리 객체는 SQLAlchemy 패키지의 async_sessionmaker 함수를 통해 생성한다.
+`core/database.py` 코드를 살펴보자. 세션 팩토리 객체는 SQLAlchemy 패키지의 async_sessionmaker 함수를 통해 생성한다.
 
 ```python
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
@@ -356,7 +356,7 @@ DEFAULT_ASYNC_SESSION_FACTORY = async_sessionmaker(
 )
 ```
 
-dependencies.py 코드를 살펴보자. 의존성 주입은 팩토리 함수들(factory functions)을 통해 수행한다. HTTP 요청이 들어올 때마다 Depends 함수를 통해 객체 생성 및 의존성 주입이 이뤄지기 때문에 요청마다 새로운 세션 객체가 만들어지고, 비즈니스 로직이 완료되면 세션이 닫히는 구조가 된다.
+마지막으로 `dependencies.py` 코드를 살펴보자. 의존성 주입은 팩토리 함수들(factory functions)을 통해 수행한다. HTTP 요청이 들어올 때마다 Depends 함수를 통해 객체 생성 및 의존성 주입이 이뤄지기 때문에 요청마다 새로운 세션 객체가 만들어지고, 비즈니스 로직이 완료되면 세션이 닫히는 구조가 된다.
 
 ```python
 from fastapi import Depends

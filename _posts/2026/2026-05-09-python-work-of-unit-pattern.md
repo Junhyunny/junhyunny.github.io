@@ -95,7 +95,7 @@ class OrderService:
 └── test.sh
 ```
 
-먼저 FastAPI 애플리케이션을 실행하고 API 엔드포인트 코드가 작성된 main.py 파일을 살펴보자. FastAPI 애플리케이션을 실행할 때 lifespan 기능을 통해 데이터베이스 스키마를 초기화한다.
+먼저 FastAPI 애플리케이션을 실행하고 API 엔드포인트 코드가 작성된 `main.py` 파일을 살펴보자. FastAPI 애플리케이션을 실행할 때 lifespan 기능을 통해 데이터베이스 스키마를 초기화한다.
 
 ```python
 from contextlib import asynccontextmanager

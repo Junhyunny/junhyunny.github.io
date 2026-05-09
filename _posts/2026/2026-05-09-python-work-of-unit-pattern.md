@@ -498,6 +498,7 @@ HTTP status: 404
 - <https://www.cosmicpython.com/book/chapter_06_uow.html>
 - <https://monsterkos.tistory.com/27>
 - <https://hajinnote.tistory.com/115>
+- <https://libertbaek.tistory.com/entry/python-UoWUnit-of-Work-%ED%8C%A8%ED%84%B4%EC%9D%84-%EC%95%8C%EC%95%84%EB%B3%B4%EC%9E%90>
 
 [python-with-keyword-and-context-manager-link]: https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/
 [python-async-with-keyword-and-async-context-manager-link]: https://junhyunny.github.io/python/async-with/async-context-manager/python-async-with-keyword-and-async-context-manager/

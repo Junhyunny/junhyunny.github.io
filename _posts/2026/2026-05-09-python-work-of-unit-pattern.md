@@ -6,7 +6,7 @@ category:
   - design-pattern
   - unit-of-work-pattern
   - transaction
-last_modified_at: 2026-05-09T11:55:28+09:00
+last_modified_at: 2026-05-09T12:08:07+09:00
 ---
 
 <br/>
@@ -25,7 +25,7 @@ AI 에이전트를 사용해서 [토이 프로젝트](https://github.com/Junhyun
 
 ## 1. UnitOfWork Pattern
 
-작업 단위 패턴에 대해 알아보기 전에 왜 필요한지 살펴보자. 지금 프로젝트 코드를 보면 영속성 레이어에서 트랜잭션을 커밋(transaction commit)하고 있다.
+작업 단위 패턴에 대해 알아보기 전에 왜 필요한지 살펴보자. 지금 프로젝트 코드를 보면 영속성 계층에서 트랜잭션을 커밋(transaction commit)하고 있다.
 
 ```python
   async def create(self, model: AgentEntity, tool_ids: list[str]) -> AgentEntity:
@@ -35,11 +35,11 @@ AI 에이전트를 사용해서 [토이 프로젝트](https://github.com/Junhyun
     return new_model
 ```
 
-위 코드처럼 커밋을 영속성 레이어에서 하는 것은 좋지 않다. [레이어 아키텍처(layered architecture)][layered-architecture-link]에서 서비스 레이어 객체들은 영속성 레이어 객체들과 협력해서 비즈니스 로직을 수행하고 변경 사항을 데이터베이스에 영속화한다. 서비스 레이어에서 처리할 작업이 큰 경우 데이터 변경은 몇 차례 일어날 수 있다. 데이터 변경이 있을 때마다 영속성 레이어에서 커밋을 만들면 서비스 레이어의 큰 작업 흐름 중 에러가 발생했을 때 트랜잭션을 롤백(rollback)하는 것이 어려워진다.
+위 코드처럼 커밋을 영속성 계층에서 하는 것은 좋지 않다. [레이어 아키텍처(layered architecture)][layered-architecture-link]에서 서비스 계층 객체들은 영속성 계층 객체들과 협력해서 비즈니스 로직을 수행하고 변경 사항을 데이터베이스에 영속화한다. 서비스 계층에서 처리할 작업이 큰 경우 데이터 변경은 몇 차례 일어날 수 있다. 데이터 변경이 있을 때마다 영속성 계층에서 커밋을 만들면 서비스 계층의 큰 작업 흐름 중 에러가 발생했을 때 트랜잭션을 롤백(rollback)하는 것이 어려워진다.
 
 스프링(spring) 프레임워크에서는 @Transactional 애너테이션만으로 쉽게 트랜잭션 경계를 지정할 수 있지만, FastAPI, SQLAlchemy를 사용하는 프로젝트에선 트랜잭션 경계를 개발자가 코드를 작성해서 직접 지정해줘야 한다. 이때 가장 많이 사용되는 디자인 패턴이 `작업 단위 패턴`이다.
 
-`작업 단위 패턴`은 연관된 여러 번의 데이터베이스 연산을 하나의 트랜잭션으로 묶어 처리함으로써 [데이터의 무결성과 원자성][transcation-acid-link]을 보장하기 위한 추상화 패턴이다. 서비스 계층(비즈니스 로직)과 영속성 계층(데이터베이스)을 완전히 분리하는 데 핵심적인 역할을 한다.
+`작업 단위 패턴`은 연관된 여러 번의 데이터베이스 연산을 하나의 트랜잭션으로 묶어 처리함으로써 [데이터의 무결성과 원자성][transcation-acid-link]을 보장하기 위한 추상화 패턴이다. 서비스 계층(비즈니스 로직)과 영속성 계층(데이터베이스 접근)을 완전히 분리하는 데 핵심적인 역할을 한다.
 
 ```python
 from domain.uow import AbstractUnitOfWork
@@ -56,17 +56,17 @@ class OrderService:
         return order
 ```
 
-작업 단위 패턴을 활용하면 여러 데이터베이스 작업을 원자적으로 처리할 수 있고, 그 밖의 장점도 있다. 트랜잭션 경계를 서비스 레이어 외부(e.g. API, 컨트롤러 계층)에 두면, API 계층이 데이터베이스 세션과 저장소를 직접 다루게 되어 불필요한 결합이 발생한다. 트랜잭션을 관리하는 UoW(작업 단위) 객체를 서비스 계층 내부에 추상화(abstract)하여 배치하면, 외부의 API는 단순히 HTTP 요청과 관련된 처리에만 집중할 수 있다. 실제 비즈니스 로직과 트랜잭션 경계는 서비스 레이어에 위임한다.
+작업 단위 패턴을 활용하면 여러 데이터베이스 작업을 원자적으로 처리할 수 있고, 그 밖의 장점도 있다. 트랜잭션 경계를 서비스 계층 외부(e.g. API, 컨트롤러 계층)에 두면, API 계층이 데이터베이스 세션과 저장소를 직접 다루게 되어 불필요한 결합이 발생한다. 트랜잭션을 관리하는 UoW(작업 단위) 객체를 서비스 계층 내부에 추상화(abstract)하여 배치하면, 외부의 API는 단순히 HTTP 요청과 관련된 처리에만 집중할 수 있다. 실제 비즈니스 로직과 트랜잭션 경계는 서비스 계층에 위임한다.
 
-서비스 레이어도 데이터베이스 계층을 직접 사용하지 않는다. 추상화된 UoW 계층을 통해 ORM 혹은 다른 기술로 구현한 데이터베이스 계층에 간접적으로 의존한다. 추상화된 계층을 통해 모듈 사이의 결합도를 낮추는 작업을 수행한다. [참고한 글](https://www.cosmicpython.com/book/chapter_06_uow.html)을 보면 추상 UoW 모듈도 추상화된 레포지토리 계층을 사용한다. 기술 스택을 직접 사용하는 하위 모듈에 직접 의존하지 않아서 기술에 대한 결합도를 낮춘다.
+서비스 계층도 영속성 계층의 구현체를 직접 사용하지 않는다. 서비스 계층은 UoW 추상화에 의존하고, UoW 구현체가 ORM 같은 영속성 계층의 세부 기술을 다룬다. 이런 추상화를 통해 모듈 사이의 결합도를 낮춘다. [참고한 글](https://www.cosmicpython.com/book/chapter_06_uow.html)을 보면 추상 UoW도 레포지토리 추상화에 의존한다. 기술 스택을 직접 사용하는 하위 모듈에 직접 의존하지 않아서 기술에 대한 결합도를 낮춘다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/python-work-of-unit-pattern-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/python-work-of-unit-pattern-01.png" width="100%" class="image__border image__padding">
 </div>
 
 <br/>
 
-플라스크(flask) 프레임워크에 대해 잘 몰라서 확실하진 않지만, [위 예제](https://www.cosmicpython.com/book/chapter_06_uow.html)는 플라스크 프레임워크를 사용한 예제라서 그런지 엔드포인트 계층에서 서비스 계층으로 UoW 객체를 초기화한 후 주입했다. FastAPI 프레임워크는 [Depends 함수][fast-api-depends-di-ioc-link]를 통해 의존성 주입이 가능하기 때문에 엔드포인트에서 서비스 계층 모듈에만 의존해도 된다.
+플라스크(flask) 프레임워크에 대해 잘 몰라서 확실하진 않지만, [위 예제](https://www.cosmicpython.com/book/chapter_06_uow.html)는 플라스크 프레임워크를 사용한 예제라서 그런지 API 계층에서 서비스 계층으로 UoW 객체를 초기화한 후 주입했다. FastAPI 프레임워크는 [Depends 함수][fast-api-depends-di-ioc-link]를 통해 의존성 주입이 가능하기 때문에 API 계층에서 서비스 계층 모듈에만 의존해도 된다.
 
 ## 2. Example
 
@@ -95,7 +95,7 @@ class OrderService:
 └── test.sh
 ```
 
-먼저 FastAPI 애플리케이션을 실행하고 엔드포인트 코드가 작성된 main.py 파일을 살펴보자. FastAPI 애플리케이션을 실행할 때 lifespan 기능을 통해 데이터베이스 스키마를 초기화한다.
+먼저 FastAPI 애플리케이션을 실행하고 API 엔드포인트 코드가 작성된 main.py 파일을 살펴보자. FastAPI 애플리케이션을 실행할 때 lifespan 기능을 통해 데이터베이스 스키마를 초기화한다.
 
 ```python
 from contextlib import asynccontextmanager
@@ -121,7 +121,7 @@ app = FastAPI(title="Todo API", lifespan=lifespan)
 ...
 ```
 
-다음 엔드포인트 코드를 살펴보자. 엔드포인트에서 서비스 레이어는 Depends 함수를 통해 의존성 주입을 받는다.
+다음 API 엔드포인트 코드를 살펴보자. API 계층에서 서비스 계층 객체는 Depends 함수를 통해 의존성 주입을 받는다.
 
 ```python
 from contextlib import asynccontextmanager
@@ -220,7 +220,7 @@ class TodoService:
 
 - AbstractTodoRepository 추상 클래스 타입의 인스턴스 속성(attribute)
   - 추상 클래스 타입의 레포지토리 인스턴스 속성을 정의한다.
-  - 서비스 계층 객체들은 AbstractUnitOfWork 추상 클래스의 인스턴스 속성을 통해 레포지토리 계층의 기능을 사용할 수 있다.
+  - 서비스 계층 객체들은 AbstractUnitOfWork 추상 클래스의 인스턴스 속성을 통해 레포지토리 추상화의 기능을 사용할 수 있다.
 - `__aexit__` 함수
   - 비동기 컨텍스트 매니저 객체의 리소스를 정리할 때 자동으로 롤백을 수행한다.
   - 이를 통해 서비스 계층에서 명시적 커밋이 없는 경우 자동으로 트랜잭션이 롤백되도록 한다.
@@ -232,7 +232,7 @@ from core.repository import AbstractTodoRepository
 
 
 class AbstractUnitOfWork(ABC):
-  todos: AbstractTodoRepository # 서비스 레이어에서 레포지토리 계층의 기능을 사용할 수 있게 만드는 장치
+  todos: AbstractTodoRepository # 서비스 계층에서 레포지토리 추상화의 기능을 사용할 수 있게 만드는 장치
 
   async def __aenter__(self):
     return self
@@ -249,7 +249,7 @@ class AbstractUnitOfWork(ABC):
     raise NotImplementedError
 ```
 
-`todo/unit_of_work.py` 파일에 정의된 SQLAlchemyUnitOfWork 클래스를 살펴보자. SQLAlchemyUnitOfWork 클래스는 AbstractUnitOfWork 추상 클래스의 구현체다. 구현 클래스는 실제 영속성 계층 라이브러리인 `SQLAlchemy`에 의존한다. SQLAlchemyUnitOfWork 객체가 생성될 때 세션 팩토리(session factory) 객체를 의존성으로 주입받는다. 주요 코드는 다음과 같다.
+`todo/unit_of_work.py` 파일에 정의된 SQLAlchemyUnitOfWork 클래스를 살펴보자. SQLAlchemyUnitOfWork 클래스는 AbstractUnitOfWork 추상 클래스의 구현체다. 구현 클래스는 실제 영속성 계층에서 사용하는 라이브러리인 `SQLAlchemy`에 의존한다. SQLAlchemyUnitOfWork 객체가 생성될 때 세션 팩토리(session factory) 객체를 의존성으로 주입받는다. 주요 코드는 다음과 같다.
 
 - `__aenter__` 함수
   - `async with` 진입점에서 실행된다.
@@ -293,7 +293,7 @@ class SQLAlchemyUnitOfWork(AbstractUnitOfWork):
     await self.session.rollback()
 ```
 
-todo/repository.py 파일에 정의된 SQLAlchemyTodoRepository 클래스 코드를 살펴보자. SQLAlchemyTodoRepository 클래스는 AbstractTodoRepository 추상 클래스를 상속받았다. 트랜잭션의 경계는 서비스 레이어에서 UoW 객체를 통해 관리하기 때문에 레포지토리 계층에 속하는 객체들은 데이터베이스 커밋과 롤백에 관련된 작업을 신경 쓰지 않는다.
+`todo/repository.py` 파일에 정의된 SQLAlchemyTodoRepository 클래스 코드를 살펴보자. SQLAlchemyTodoRepository 클래스는 AbstractTodoRepository 추상 클래스를 상속받았다. 트랜잭션의 경계는 서비스 계층에서 UoW 객체를 통해 관리하기 때문에 레포지토리 객체는 데이터베이스 커밋과 롤백에 관련된 작업을 신경 쓰지 않는다.
 
 ```python
 from sqlalchemy import select

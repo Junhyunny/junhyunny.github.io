@@ -72,7 +72,7 @@ public class EmployeeController {
 
 ## 3. 단일 MultipartFile 멤버 DTO 예제 코드
 
-위 예제를 활용하여 `Vue.js`, `스프링 부트(spring boot)` 환경에서도 동일하게 동작하도록 구현해보았다. DTO 클래스 안에 MultipartFile 객체를 1개 담아서 전달하는 예제 코드를 살펴보자. `FileUpload.vue` 파일은 프론트엔드 프로젝트, 나머지 클래스 파일들은 백엔드 프로젝트의 예제 코드이다. 먼저 FileUpload.vue 파일을 살펴보자.
+위 예제를 활용하여 `Vue.js`, `스프링 부트(spring boot)` 환경에서도 동일하게 동작하도록 구현해보자. DTO 클래스 안에 MultipartFile 객체를 1개 담아서 전달하는 예제 코드를 살펴보자. `FileUpload.vue` 파일은 프론트엔드 프로젝트, 나머지 클래스 파일들은 백엔드 프로젝트의 예제 코드이다. 먼저 FileUpload.vue 파일을 살펴보자.
 
 - 파일을 선택할 수 있는 input element를 생성한다.
 - 한 개의 파일만 선택할 수 있도록 multiple 속성을 false 값으로 지정한다.
@@ -195,9 +195,7 @@ public class FileController {
 }
 ```
 
-실제로 파일 업로드가 잘 동작하는지 확인해보자. 파일을 선택한 후 업로드한다.
-
-- `Multipart in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
+실제로 파일 업로드가 잘 동작하는지 확인해보자. `Multipart in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-01.png" width="100%" class="image__border">
@@ -299,9 +297,7 @@ public class MultipartListDto {
 }
 ```
 
-FileController 클래스를 살펴보자.
-
-- `/dto/multipart/list` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartListDto 객체를 받는다.
+FileController 클래스를 살펴보자. `/dto/multipart/list` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartListDto 객체를 받는다.
 
 ```java
 package blog.in.action.controller;
@@ -341,9 +337,7 @@ public class FileController {
 }
 ```
 
-실제로 파일이 잘 업로드되는지 살펴보자.
-
-- `Images List in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
+실제로 파일이 잘 업로드되는지 살펴보자. `Images List in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-03.png" width="100%" class="image__border">
@@ -354,7 +348,7 @@ public class FileController {
 백엔드의 FileController 객체 메서드에 브레이킹 포인트를 만들어 메모리 상태를 살펴보자. 엔드포인트 파라미터인 MultipartListDto 객체의 files 멤버 변수에 프론트엔드에서 전달한 파일 정보 리스트가 담겨 있는 것을 볼 수 있다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-04.png" width="80%">
+  <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-04.png" width="100%" class="image__border">
 </div>
 
 <br/>
@@ -371,7 +365,7 @@ formData.getAll('name'); // ["true", "74", "John"]
 FormData 객체의 append 함수를 연달아 호출하면 해당 키에 값들이 추가된다. 동작을 이미지로 표현하면 아래와 같다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-05.gif" width="100%" classname="image__border image__padding">
+  <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-05.gif" width="100%" class="image__border image__padding">
 </div>
 
 ## 5. MultipartFile 맵(Map) DTO 예제 코드
@@ -506,9 +500,7 @@ public class FileController {
 }
 ```
 
-실제로 파일이 잘 업로드되는지 살펴보자.
-
-- `Images Map in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
+실제로 파일이 잘 업로드되는지 살펴보자. `Images Map in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-06.png" width="100%" class="image__border">
@@ -527,7 +519,7 @@ public class FileController {
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식한다. `'files[index]'` 값은 `files`라는 멤버 변수의 키값으로 `index`를 사용한다는 의미이다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-08.gif" width="100%" classname="image__border image__padding">
+  <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-08.gif" width="100%" class="image__border image__padding">
 </div>
 
 ## 6. MultipartFile 맵-리스트 DTO 예제 코드
@@ -619,9 +611,7 @@ public class MultipartMapListDto {
 }
 ```
 
-FileController 클래스를 살펴보자.
-
-- `/dto/multipart/map/list` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartMapListDto 객체를 받는다.
+FileController 클래스를 살펴보자. `/dto/multipart/map/list` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartMapListDto 객체를 받는다.
 
 ```java
 package blog.in.action.controller;
@@ -665,9 +655,7 @@ public class FileController {
 }
 ```
 
-실제로 파일이 잘 업로드되는지 살펴보자.
-
-- `Images Map-List in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
+실제로 파일이 잘 업로드되는지 살펴보자. `Images Map-List in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/multipartfile-in-dto-09.png" width="100%" class="image__border">

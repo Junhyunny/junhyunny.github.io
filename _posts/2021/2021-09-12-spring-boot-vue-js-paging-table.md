@@ -1,26 +1,27 @@
 ---
-title: "테이블 페이징(paging) 처리 구현 (feat. Spring Boot, Vue.js)"
+title: "스프링 부트(Spring Boot)와 VueJS 프레임워크로 테이블 페이징(paging) 처리"
 search: false
 category:
   - spring-boot
   - vue.js
-last_modified_at: 2021-09-12T23:55:00
+last_modified_at: 2026-05-30T01:48:52+09:00
 ---
 
 <br/>
 
-* `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작합니다.
+#### RECOMMEND POSTS BEFORE THIS
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JPA 페이징(paging) 처리][pageable-link]
 
-## 1. Front-end 서비스
-`Vue.js` 프레임워크를 사용한 프론트 엔드 서비스부터 살펴보겠습니다. 
+## 0. 들어가면서
 
-### 1.1. 패키지 구조
+Jekyll 문법과 충돌하므로 `{ { someValue } }`으로 표기된 코드는 공백을 제거해야 정상적으로 동작한다.
+
+## 1. 프론트엔드 서비스
+
+`Vue.js` 프레임워크를 사용한 프론트엔드 서비스부터 살펴보자. 패키지 구조는 다음과 같다.
 
 ```
-$ tree -I 'node_modules|public' ./
 ./
 |-- README.md
 |-- babel.config.js
@@ -38,19 +39,11 @@ $ tree -I 'node_modules|public' ./
         `-- request.js
 ```
 
-### 1.2. App.vue
-- 조회 버튼을 클릭 시 `search` 함수를 통해 데이터를 조회합니다.
-- `fetchList` 함수에 `page` 정보를 전달하여 API 요청을 수행합니다.
-- 정상적인 응답을 받으면 컴포넌트(component)의 스테이트(state) 정보를 변경합니다. 
-- 정렬 기준과 정렬 방향을 선택할 수 있는 두 개의 select 박스를 추가합니다. 
-- 정렬 기준과 정렬 방향이 바뀔 때마다 search() 함수를 호출하여 API 요청을 수행합니다.
-- Table 컴포넌트로 다음과 같은 props 정보를 전달합니다.
-    - headerList - 테이블의 헤더 정보
-    - itemList - 테이블의 행(row) 데이터
-    - itemKeyList - 테이블의 행의 열(column)마다 들어가야 할 데이터의 key 정보
-    - currentPage - 현재 페이지
-    - totalPages - 총 페이지 수
-    - pageChange - 페이지 변경 이벤트
+메인 화면인 `App.vue` 파일을 살펴보자.
+
+1. 조회 버튼을 클릭하면 `search` 함수 이벤트가 실행된다.
+2. `fetchList` 함수에 `page` 정보를 전달하여 API 요청을 수행한다.
+3. 정상 응답을 받으면 컴포넌트(component)의 스테이트(state) 정보를 변경한다.
 
 ```vue
 <template>
@@ -64,7 +57,7 @@ $ tree -I 'node_modules|public' ./
         <option value="asc">오름차순</option>
         <option value="desc">내림차순</option>
     </select>
-    <Table 
+    <Table
         :headerList="headerList"
         :itemList="itemList"
         :itemKeyList="itemKeyList"
@@ -125,14 +118,20 @@ export default {
 </script>
 ```
 
-### 1.3. Table.vue
-- 부모 컴포넌트(component)에게 전달받은 `headerList` props 정보를 이용해 테이블 헤더를 구성합니다.
-- `itemList` props 정보를 이용해 테이블 행 데이터를 출력합니다.
-- `itemKeyList` props 정보를 이용해 테이블 행마다 열에 들어갈 데이터를 item 객체에서 추출합니다. 
-- `Pagination` 컴포넌트로 다음과 같은 props 정보를 전달합니다.
-    - currentPage - 현재 페이지
-    - totalPages - 총 페이지 수
-    - pageChange - 페이지 변경 이벤트
+화면에는 정렬 기준과 정렬 방향을 선택할 수 있는 두 개의 select 박스가 있다. 정렬 기준과 정렬 방향이 바뀔 때마다 마찬가지로 `search()` 함수를 호출하여 API 요청을 수행한다. 위 코드를 보면 `Table` 컴포넌트에 다음과 같은 props 정보를 전달한다.
+
+- headerList - 테이블의 헤더 정보
+- itemList - 테이블의 행(row) 데이터
+- itemKeyList - 테이블 행의 열(column)마다 들어가야 할 데이터의 key 정보
+- currentPage - 현재 페이지
+- totalPages - 총 페이지 수
+- pageChange - 페이지 변경 이벤트
+
+`Table` 컴포넌트는 어떻게 구현되어 있을까? `Table.vue` 코드를 살펴보자.
+
+1. 부모 컴포넌트(component)에서 전달받은 `headerList` props 정보를 이용해 테이블 헤더를 구성한다.
+2. `itemList` props 정보를 이용해 테이블 행 데이터를 출력한다.
+3. `itemKeyList` props 정보를 이용해 테이블 행마다 열에 들어갈 데이터를 item 객체에서 추출한다.
 
 ```vue
 <template>
@@ -192,10 +191,17 @@ export default {
 </style>
 ```
 
-### 1.4. Pagination.vue
-- 페이징 처리를 위한 숫자와 화살표를 출력합니다. 
-- 간단한 계산식을 이용해 5개 단위로 숫자를 출력합니다. 
-- `pageChange` props 정보를 이용해 상위 컴포넌트로 선택한 페이지 번호를 전달합니다.  
+`Table` 컴포넌트는 `Pagination` 컴포넌트에 다음과 같은 props 정보를 전달한다.
+
+- currentPage - 현재 페이지
+- totalPages - 총 페이지 수
+- pageChange - 페이지 변경 이벤트
+
+`Pagination` 컴포넌트는 어떻게 구현되어 있을까? `Pagination.vue` 코드를 살펴보자.
+
+1. 페이징 처리를 위한 숫자와 화살표를 출력한다.
+2. 간단한 계산식을 이용해 5개 단위로 숫자를 출력한다.
+3. `pageChange` props 정보를 이용해 상위 컴포넌트에 선택한 페이지 번호를 전달한다.
 
 ```vue
 <template>
@@ -257,8 +263,7 @@ export default {
 </style>
 ```
 
-### 1.5. request.js
-- axios 라이브러리를 이용하여 생성한 API 호출 객체를 제공합니다.
+`request.js` 파일에 axios 라이브러리를 이용해서 API 호출을 위한 API 클라이언트 객체를 만든다.
 
 ```javascript
 import axios from 'axios';
@@ -271,10 +276,9 @@ const service = axios.create({
 export default service;
 ```
 
-### 1.6. post.js
-- 전달받은 질의를 request 객체를 이용하여 호출합니다.
-- `/posts` 경로로 `GET` 요청 방식으로 데이터를 요청합니다.
-- 전달받은 질의(query)는 params 값으로 전달합니다.
+`post.js` 파일에서 전달받은 질의를 request 객체를 이용해 API 엔드포인트를 호출한다.
+
+- `/posts` 경로로 `GET` 요청 방식으로 데이터를 요청한다. 전달받은 질의(query)는 params 값으로 전달한다.
 
 ```javascript
 import request from '@/utils/request';
@@ -288,10 +292,9 @@ export function fetchList(query) {
 }
 ```
 
-## 2. Back-end 서비스
-`Spring Boot` 프레임워크를 사용한 벡 엔드 서비스를 살펴보겠습니다. 
+## 2. 백엔드 서비스
 
-### 2.1. 패키지 구조
+스프링 부트(Spring Boot) 프레임워크로 애플리케이션을 구현한다. 패키지 구조는 다음과 같다.
 
 ```
 ./
@@ -322,8 +325,7 @@ export function fetchList(query) {
             `-- application.yml
 ```
 
-### 2.2. ActionInBlogApplication 클래스
-- CommandLineRunner 인터페이스를 구현하여 서비스 기동 시 데이터를 초기화합니다. 
+`main` 메서드가 위치한 ActionInBlogApplication 클래스를 살펴보자. CommandLineRunner 인터페이스를 구현하여 서비스 기동 시 데이터를 초기화한다.
 
 ```java
 package blog.in.action;
@@ -364,11 +366,11 @@ public class ActionInBlogApplication implements CommandLineRunner {
 }
 ```
 
-### 2.3. PostController 클래스
-- `/posts` 경로에서 데이터 조회 기능을 제공합니다. 
-- `@PageableDefault` 애너테이션을 이용해 페이징 관련 정보를 전달받지 못 했을 때 사용할 Pageable 정보를 지정합니다.
-    - `createdAt` 컬럼을 사용하여 정렬합니다.
-    - `Sort.Direction.DESC` 내림차순으로 정렬합니다.
+엔드포인트가 정의된 PostController 클래스를 살펴보자. `/posts` 경로로 데이터를 조회할 수 있다.
+
+- `@PageableDefault` 애너테이션을 이용해 페이징 관련 정보를 전달받지 못했을 때 사용할 Pageable 정보를 지정한다.
+  - `createdAt` 컬럼을 사용하여 정렬한다.
+  - `Sort.Direction.DESC` 내림차순으로 정렬한다.
 
 ```java
 package blog.in.action.controller;
@@ -401,25 +403,19 @@ public class PostController {
 }
 ```
 
-#### 2.3.1. API End-Point에서 Pageable 인터페이스 파라미터(parameter) 사용하기
-Spring Boot 프레임워크는 API End-Point 메서드에 `Pageable` 인터페이스가 파라미터(parameter)로 들어있는 경우 특별한 기능을 제공합니다. 
-API 질의(query)를 통해 전달받은 정보를 이용하여 `Pageable` 구현체를 만들어 제공합니다. 
-간단한 예시를 들어보겠습니다. 
-
-##### 예시 질의(query)
-- `page=1` - 1번 페이지를 조회
-- `size=10` - 10개 항목씩 페이징 처리
-- `sort=createdAt,desc` - createdAt 항목으로 내림차순 정렬하여 조회
-- 위와 같은 조건으로 조회할 수 있는 `Pageable` 구현체를 만들어 제공합니다. 
+스프링 부트 프레임워크는 API 엔드포인트에서 `Pageable` 인스턴스가 메서드 시그니처(signature)의 파라미터(parameter)로 들어 있는 경우 특별한 기능을 제공한다. API 질의(query)를 통해 전달받은 정보로 `Pageable` 구현체를 만들어 제공한다. 간단한 예시를 살펴보자. 다음과 같이 클라이언트가 쿼리 요청을 보냈다고 가정해 보자.
 
 ```
 ?page=1&size=10&sort=createdAt,desc
 ```
 
-#### 2.3.2. @PageableDefault 애너테이션
-API 요청 질의에 page, size, sort 같은 정보가 없는 경우 `@PageableDefault` 애너테이션에서 지정한 디폴트 값으로 `Pageable` 구현체가 생성됩니다. 
-해당 애너테이션을 살펴보면 모두 디폴트(default) 값이 지정되어 있습니다. 
-`sort` 값만 추가하면 정렬 기능을 사용 가능합니다. 
+위 쿼리가 포함된 요청을 받으면 아래 조건으로 데이터를 조회할 수 있는 `Pageable` 인스턴스가 메서드에 주입된다.
+
+- `page=1` - 1번 페이지를 조회
+- `size=10` - 10개 항목씩 페이징 처리
+- `sort=createdAt,desc` - createdAt 항목으로 내림차순 정렬하여 조회
+
+`@PageableDefault` 애너테이션은 요청 쿼리에 page, size, sort 같은 정보가 없는 경우 `@PageableDefault` 애너테이션에서 지정한 디폴트 값으로 `Pageable` 인스턴스를 주입받을 수 있는 기능이다. 해당 애너테이션을 살펴보면 모두 디폴트(default) 값이 지정되어 있다. `sort` 값만 추가하면 정렬 기능을 사용할 수 있다.
 
 ```java
 @Documented
@@ -445,8 +441,7 @@ public @interface PageableDefault {
 }
 ```
 
-### 2.4. Post 클래스
-- 제목, 내용, 생성 일시 정보를 담은 엔티티(entity)입니다.
+이제 데이터베이스 연결에 필요한 엔티티(entity) Post 클래스를 살펴보자. 제목, 내용, 생성 일시 정보를 담고 있다.
 
 ```java
 package blog.in.action.dto;
@@ -486,9 +481,7 @@ public class PostDto {
 }
 ```
 
-### 2.5. PostService 클래스
-- 별도 조회 조건은 없이 `Pageable` 구현체를 사용한 페이징 처리 조회만 제공합니다.
-- JpaRepository 인터페이스에서 기본적으로 제공하는 findAll 메서드를 사용합니다.
+비즈니스 로직을 수행하는 PostService 클래스를 살펴보자. JpaRepository 인터페이스에서 기본적으로 제공하는 `findAll` 메서드를 사용한다. `Pageable` 인스턴스를 전달하면 자동으로 페이징 처리가 적용된 조회가 수행된다.
 
 ```java
 package blog.in.action.service;
@@ -516,12 +509,12 @@ public class PostService {
 }
 ```
 
-### 2.6. PostPageDto 클래스
-- 전달받은 Page 객체를 Dto 객체로 변환합니다.
-    - elements - 조회한 페이지에 해당하는 데이터 리스트
-    - totalElements - 총 데이터 수
-    - currentPage - 현재 페이지 번호
-    - totalPages - 총 페이지 수
+API 응답을 위한 PostPageDto 클래스를 살펴보자. `of` 메서드에서 Post 엔티티 객체들이 담긴 Page 인스턴스를 PostPageDto 객체로 변경한다.
+
+- elements - 조회한 페이지에 해당하는 데이터 리스트
+- totalElements - 총 데이터 수
+- currentPage - 현재 페이지 번호
+- totalPages - 총 페이지 수
 
 ```java
 package blog.in.action.dto;
@@ -563,8 +556,7 @@ public class PostPageDto {
 }
 ```
 
-### 2.7 PostDto 클래스
-- Post 엔티티에 대응하는 Dto 클래스입니다.
+Post 엔티티에 대응하는 PostDto 클래스를 살펴보자.
 
 ```java
 package blog.in.action.dto;
@@ -606,16 +598,14 @@ public class PostDto {
 
 ## 3. 테스트
 
-<p align="center"><img src="{{ site.image_url_2021 }}/spring-boot-vue-js-paging-table-01.gif" width="95%"></p>
+필요한 모든 기능 구현 코드를 살펴봤다. 실제로 잘 동작하는지 실행해 보자.
 
-## CLOSING
-원래 이번 포스트는 간단하게 `@PageableDefault` 애너테이션에 대한 소개로 시작하였습니다. 
-작성하다 보니 내용이 단순하여 살을 붙이기 시작했는데 `Vue.js`와 `Spring Boot` 프레임워크를 활용한 페이징 테이블 구현으로 포스트가 마무리되었습니다. 
-페이징 처리는 단순할 것 같으면서도 상당히 번거로운 작업입니다. 
-사용하는 기술 스택에 따라 구현 방법이 달라지고, 공통으로 사용하는 컴포넌트로 뽑아내면 입맛에 맞게 사용하기 어려울 때도 있습니다. 
-이 포스트가 `Vue.js`와 `Spring Boot` 프레임워크를 사용하는 분들께 많은 도움이 되길 바랍니다.    
+<div align="center">
+  <img src="{{ site.image_url_2021 }}/spring-boot-vue-js-paging-table-01.gif" width="100%">
+</div>
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-09-12-spring-boot-vue-js-paging-table>
 
 [pageable-link]: https://junhyunny.github.io/spring-boot/jpa/junit/jpa-paging/

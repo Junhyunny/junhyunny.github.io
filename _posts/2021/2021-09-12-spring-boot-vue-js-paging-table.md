@@ -601,7 +601,7 @@ public class PostDto {
 필요한 모든 기능 구현 코드를 살펴봤다. 실제로 잘 동작하는지 실행해 보자.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/spring-boot-vue-js-paging-table-01.gif" width="100%">
+  <img src="{{ site.image_url_2021 }}/spring-boot-vue-js-paging-table-01.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

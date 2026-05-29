@@ -334,7 +334,7 @@ public class RedisController {
 }
 ```
 
-RedisMessageClient 클래스에 아래와 같은 메서드 코드를 작성한다.
+RedisMessageClient 클래스에 아래와 같은 메서드들을 구현한다.
 
 - `getUnreadMessagesSize` 메서드
   - `UNREAD` 리스트의 크기를 반환한다.
@@ -478,7 +478,7 @@ port 6379
 
 슬레이브 인스턴스를 위한 설정 파일인 `redis-slave-1.conf`, `redis-slave-2.conf`에는 아래와 같이 복제할 마스터 인스턴스 정보를 추가한다.
 
-- 4.X 버전까지는 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
+- 복제할 마스터 인스턴스 정보를 추가한다. 4.X 버전까진 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
 
 ```conf
 port 6379
@@ -532,7 +532,7 @@ $ sh shell/redis-replication.sh
 
 #### RECOMMEND NEXT POSTS
 
-- [Failover Using Sentinel for Redis][failover-using-sentinel-for-redis-link]
+- [장애 극복을 위한 Redis 센티널(Sentinel)][failover-using-sentinel-for-redis-link]
 
 #### REFERENCE
 

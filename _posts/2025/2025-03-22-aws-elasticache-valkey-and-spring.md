@@ -13,8 +13,8 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [Spring Session with Redis][spring-session-with-redis-link]
-- [Replication in Redis][replication-in-redis-link]
-- [Failover Using Sentinel for Redis][failover-using-sentinel-for-redis-link]
+- [Redis 레플리케이션(Replication)][replication-in-redis-link]
+- [장애 극복을 위한 Redis 센티널(Sentinel)][failover-using-sentinel-for-redis-link]
 
 ## 0. 들어가면서
 

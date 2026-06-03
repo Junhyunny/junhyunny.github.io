@@ -39,7 +39,7 @@ last_modified_at: 2026-06-03T10:09:36+09:00
 4. 세션을 생성하고 세션 ID 정보를 응답 헤더에 쿠키로 담아 전달한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/tomcat-session-management-02.png" width="55%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/tomcat-session-management-02.png" width="55%" class="image__border image__padding">
 </div>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
@@ -120,7 +120,7 @@ public class Response implements HttpServletResponse {
 5. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메서드를 통해 쿠키에서 세션 ID를 추출한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/tomcat-session-management-03.png" width="55%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/tomcat-session-management-03.png" width="55%" class="image__border image__padding">
 </div>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 
@@ -359,7 +359,7 @@ public class PageController {
 3. 각 화면별로 기존 세션이 유지되므로 세션 접근 횟수가 증가한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/tomcat-session-management-04.gif" width="100%">
+  <img src="{{ site.image_url_2021 }}/tomcat-session-management-04.gif" width="100%" class="image__border">
 </div>
 
 ## 3. 세션(Session) 만료
@@ -477,7 +477,7 @@ spring:
 - 60초가 지나기 전 새로고침을 수행하면 마지막 접근 시간이 갱신되므로 세션이 만료되지 않는다. 세션이 유지되므로 필터, 인터셉터, 컨트롤러에 접근 횟수가 증가한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/tomcat-session-management-05.gif">
+  <img src="{{ site.image_url_2021 }}/tomcat-session-management-05.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

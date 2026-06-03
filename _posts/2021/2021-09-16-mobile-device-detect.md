@@ -4,7 +4,7 @@ search: false
 category:
   - information
   - spring-boot
-last_modified_at: 2026-06-03T09:25:51+09:00
+last_modified_at: 2026-06-03T10:08:27+09:00
 ---
 
 <br/>
@@ -16,10 +16,10 @@ last_modified_at: 2026-06-03T09:25:51+09:00
 
 ## 0. 들어가면서
 
-현재 리뉴얼 중인 시스템의 모바일 기능을 추가하는데 사용자의 디바이스 식별을 어디에서 수행할지 고민되었다.
+현재 리뉴얼 중인 시스템에 모바일 기능을 추가하는 데 사용자의 디바이스 식별을 어디에서 수행할지 고민되었다.
 
 - 브라우저에서 판단하여 경로를 다르게 호출한다.
-- 브라우저는 일단 호출하고 서버의 필터(filter) 혹은 인터셉터(interceptor)에서 경로를 라우팅(routing)해준다.
+- 브라우저는 일단 호출하고 서버의 필터(filter) 혹은 인터셉터(interceptor)에서 경로를 라우팅(routing)한다.
 
 아무래도 서버에서 사용자 디바이스를 식별하고 적절한 서비스를 제공하는 것이 좋은 구조인 것 같지만, 표준으로 사용되는 방법이 있을 것 같다는 생각이 들었다. 같은 고민을 한 사람을 `StackOverflow`에서 찾을 수 있었다.
 
@@ -32,13 +32,13 @@ last_modified_at: 2026-06-03T09:25:51+09:00
 > - If you want to present the user a different experience (mobile, tablet, laptop, etc) based on browser, do it at the server.
 > - If you want to present the same general experience, but need to account for browser compatibility issues, do it at the client.
 
-모바일, 태블릿, PC 환경에 따라 다른 경험을 제공해주고 싶다면 서버 측에서 수행하고, 일반적으로 같은 경험을 제공해주고 싶지만, 브라우저 호환성 문제를 고려해야 하는 경우는 클라이언트 측에서 수행하는 것이 좋다고 한다. 이번 프로젝트에서 추가되는 모바일(혹은 태블릿) 서비스는 PC 환경에서 제공하는 서비스와 전혀 다르기 때문에 서버 측에서 수행하기로 하였다. 이제 구현 방법을 알아보자.
+모바일, 태블릿, PC 환경에 따라 다른 경험을 제공하고 싶다면 서버 측에서 수행하고, 일반적으로 같은 경험을 제공하고 싶지만, 브라우저 호환성 문제를 고려해야 하는 경우는 클라이언트 측에서 수행하는 것이 좋다고 한다. 이번 프로젝트에서 추가되는 모바일(혹은 태블릿) 서비스는 PC 환경에서 제공하는 서비스와 전혀 다르기 때문에 서버 측에서 수행하기로 하였다. 이제 구현 방법을 알아보자.
 
-## 1. 자바스크립트(JavaScript)에서 사용자 디바이스 식별 
+## 1. 자바스크립트(JavaScript)에서 사용자 디바이스 식별
 
-서버 측에서 디바이스 식별을 수행할 예정이지만, 글을 작성하는 김에 함께 정리했다. 정규식과 `navigator.userAgent` 정보를 이용하여 모바일 여부를 판단하는 코드다. 간단한 예제 코드를 살펴보자.
+서버 측에서 디바이스 식별을 수행할 예정이지만, 글을 작성하는 김에 함께 정리했다. 정규식과 `navigator.userAgent` 정보를 이용해 모바일 여부를 판단하는 코드다. 간단한 예제 코드를 살펴보자.
 
-- 브라우저로 접속한 사용자 디바이스에 따라 `root` ID를 가지는 div 태그에 true, false 값이 지정된다.
+- 브라우저로 접속한 사용자 디바이스에 따라 `root` ID를 가진 div 태그에 true, false 값이 지정된다.
 
 ```html
 <!DOCTYPE html>
@@ -59,13 +59,13 @@ last_modified_at: 2026-06-03T09:25:51+09:00
 </html>
 ```
 
-위 코드를 [live-server 명령어][live-server-link]를 통해 실행해보자. HTML 문서 위치까지 이동 후 아래 명령어를 실행한다.
+위 코드를 [live-server 명령어][live-server-link]를 통해 실행해보자. HTML 문서 위치까지 이동한 후 아래 명령어를 실행한다.
 
 ```
 $ live-server
 ```
 
-PC 환경 브라우저에서는 아래 이미지처럼 표시된다.
+PC 환경의 브라우저에서는 아래 이미지처럼 표시된다.
 
 <div align="left">
   <img src="{{ site.image_url_2021 }}/mobile-device-detect-01.png" width="50%" class="image__border">
@@ -73,7 +73,7 @@ PC 환경 브라우저에서는 아래 이미지처럼 표시된다.
 
 <br/>
 
-모바일 환경 브라우저에서는 아래 이미지처럼 표시된다.
+모바일 환경의 브라우저에서는 아래 이미지처럼 표시된다.
 
 <div align="left">
   <img src="{{ site.image_url_2021 }}/mobile-device-detect-02.png" width="50%" class="image__border">
@@ -81,7 +81,7 @@ PC 환경 브라우저에서는 아래 이미지처럼 표시된다.
 
 ## 2. 서버에서 사용자 디바이스 식별
 
-스프링 부트(Spring Boot) 프레임워크를 사용한 애플리케이션을 예제로 살펴보자. 대부분의 사람들이 작성한 예제 코드를 보면 `spring-mobile-device` 의존성을 사용하기는 했지만, 컨트롤러(controller) 영역에서 디바이스를 판단하는 단순한 코드만 제공했다. 예를 들면, 아래와 같이 엔드포인트에서 Device 객체를 주입받는다.
+스프링 부트(Spring Boot) 프레임워크를 사용한 애플리케이션을 예제로 살펴보자. 대부분의 사람이 작성한 예제 코드를 보면 `spring-mobile-device` 의존성을 사용하기는 했지만, 컨트롤러(controller) 영역에서 디바이스를 판단하는 단순한 코드만 제공했다. 예를 들면, 아래와 같이 엔드포인트에서 Device 객체를 주입받는다.
 
 ```java
 @Controller
@@ -102,7 +102,7 @@ public class HomeController {
 }
 ```
 
-위 방법은 이미 비즈니스 로직 시작 위치까지 진입했다고 보이기 때문에 이런 방식을 사용하고 싶지는 않았다. 필터 혹은 인터셉터를 사용한 경로 라우팅을 수행하고 싶었다. 관련된 내용을 찾다 보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 방법이 나와 있었다. 이번 리뉴얼 프로젝트가 JSP를 사용하는 중이었는데, 운 좋게 API 문서 설명에서 사용한 코드도 JSP로 제공해주고 있었다. 간단한 예제 코드를 통해 잘 동작하는지 확인해보겠다.
+위 방법은 이미 비즈니스 로직 시작 위치까지 진입했다고 보이기 때문에 이런 방식을 사용하고 싶지는 않았다. 필터 혹은 인터셉터를 사용해 경로 라우팅을 수행하고 싶었다. 관련된 내용을 찾다 보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 방법이 나와 있었다. 이번 리뉴얼 프로젝트가 JSP를 사용하는 중이었는데, 운 좋게 API 문서의 예제 코드도 JSP로 제공하고 있었다. 간단한 예제 코드를 통해 잘 동작하는지 확인해보겠다.
 
 패키지는 다음과 같이 구성되어 있다.
 
@@ -240,20 +240,20 @@ spring:
       suffix: .jsp
 ```
 
-Config 클래스에 디바이스 식별 후 라우팅을 수행하는 빈(bean) 객체들을 만들어준다.
+Config 클래스에 디바이스 식별 후 라우팅을 수행하는 빈(bean) 객체들을 만든다.
 
 - `DeviceResolverHandlerInterceptor` 객체
-  - 웹 요청으로부터 디바이스를 식별해내는 기능을 제공한다.
+  - 웹 요청으로부터 디바이스를 식별하는 기능을 제공한다.
 - `SiteSwitcherHandlerInterceptor` 객체
   - 모바일, 태블릿, 루트(root)에 따른 API 경로 prefix를 지정한다.
-  - 모바일과 태블릿으로 접근 시 `/m` 경로가 앞에 자동적으로 추가된다.
+  - 모바일과 태블릿으로 접근 시 `/m` 경로가 앞에 자동으로 추가된다.
   - PC로 접근 시 루트인 `/` 경로부터 시작한다.
   - urlPath() 메서드의 파라미터 개수에 따라 각 의미가 달라진다.
     - 1개인 경우 모바일 URL 경로 지정
     - 2개인 경우 순서대로 모바일, 루트 URL 경로 지정
     - 3개인 경우 순서대로 모바일, 태블릿, 루트 URL 경로 지정
 - `LiteDeviceDelegatingViewResolver` 객체
-  - 디바이스 별로 사용되는 페이지에 대한 자원 경로를 지정한다.
+  - 디바이스별로 사용되는 페이지에 대한 자원 경로를 지정한다.
   - 모바일은 `/mobile` 폴더 안에 위치한 JSP 자원을 사용한다.
   - 태블릿은 `/mobile` 폴더 안에 위치한 JSP 자원을 사용한다.
   - 일반은 `/pc` 폴더 안에 위치한 JSP 자원을 사용한다.
@@ -346,7 +346,7 @@ public class MobileController {
 }
 ```
 
-이제 JSP 파일들을 살펴보자. 아래 코드는 /pc 경로의 index.jsp 파일이다.
+이제 JSP 파일들을 살펴보자. 아래 코드는 `/pc` 경로의 index.jsp 파일이다.
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -364,7 +364,7 @@ public class MobileController {
 </html>
 ```
 
-아래 코드는 /mobile 경로의 index.jsp 파일이다.
+아래 코드는 `/mobile` 경로의 index.jsp 파일이다.
 
 ```jsp
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -384,7 +384,7 @@ public class MobileController {
 
 ## 3. 테스트
 
-애플리케이션을 실행 후 PC 환경에서 접근하면 아래와 같은 화면을 볼 수 있다.
+애플리케이션을 실행한 후 PC 환경에서 접근하면 아래와 같은 화면을 볼 수 있다.
 
 <div align="left">
   <img src="{{ site.image_url_2021 }}/mobile-device-detect-03.gif" class="image__border">

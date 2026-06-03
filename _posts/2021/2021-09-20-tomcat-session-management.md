@@ -486,7 +486,7 @@ spring:
 
 #### RECOMMEND NEXT POSTS
 
-- [Spring Session with JDBC][spring-session-link]
+- [JDBC 스프링 세션(Spring Session with JDBC)][spring-session-link]
 
 [cookie-session-link]: https://junhyunny.github.io/information/cookie-and-session/
 [filter-interceptor-aop-link]: https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/

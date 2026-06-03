@@ -21,7 +21,7 @@ last_modified_at: 2026-06-03T22:11:23+09:00
 - 신규로 연결할 데이터베이스가 PostgreSQL이라고 가정한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/multi-datasource-in-spring-mvc-01.png" width="50%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/multi-datasource-in-spring-mvc-01.png" width="50%" class="image__border image__padding">
 </div>
 
 ## 1. 테스트 환경
@@ -478,6 +478,8 @@ PostgreSQL 데이터베이스 TB_TEST 테이블에 다음과 같은 데이터가
 <div align="left">
   <img src="{{ site.image_url_2021 }}/multi-datasource-in-spring-mvc-03.png" class="image__border">
 </div>
+
+<br/>
 
 cURL 명령어로 `/postgresql` 경로에 API 요청을 수행하면 다음과 같은 데이터를 응답으로 받는다.
 

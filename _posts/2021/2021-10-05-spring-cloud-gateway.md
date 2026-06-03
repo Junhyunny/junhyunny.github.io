@@ -1,5 +1,5 @@
 ---
-title: 스프링 클라우드 게이트웨이(Spring Cloud Gateway)
+title: "스프링 클라우드 게이트웨이(Spring Cloud Gateway)"
 search: false
 category:
   - information
@@ -199,7 +199,7 @@ public class GatewayConfiguration {
 - 게이트웨이는 경로(path) 중간에 위치한 정보를 이용해 요청을 각 서비스로 라우팅한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/spring-cloud-gateway-03.gif">
+  <img src="{{ site.image_url_2021 }}/spring-cloud-gateway-03.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

@@ -3,7 +3,7 @@ title: "DOM(Document Object Model)"
 search: false
 category:
   - information
-last_modified_at: 2026-06-07T00:15:36+09:00
+last_modified_at: 2026-06-07T00:21:31+09:00
 ---
 
 <br/>
@@ -22,7 +22,12 @@ last_modified_at: 2026-06-07T00:15:36+09:00
 </script>
 ```
 
-`문서(Document)-DOM-자바스크립트` 사이의 관계는 아래 이미지를 통해 설명할 수 있다.
+`문서(Document)-DOM-자바스크립트` 사이의 관계는 아래 이미지를 통해 설명할 수 있다. 요약하자면 DOM은 HTML과 자바스크립트 사이를 연결해 주는 중간 구조라고 볼 수 있다.
+
+- HTML은 웹 페이지의 원본 구조를 담은 문서다.
+- 브라우저는 HTML 태그를 해석해 DOM이라는 트리 형태의 객체 구조로 변환한다.
+- 자바스크립트는 DOM API를 사용해 특정 요소를 찾고, 내용을 읽거나 수정한다.
+- 자바스크립트가 DOM을 바꾸면 사용자가 보는 웹 페이지 화면도 함께 바뀐다.
 
 <div align="center">
   <img src="{{ site.image_url_2021 }}/document-object-model-01.png" width="100%" class="image__border">

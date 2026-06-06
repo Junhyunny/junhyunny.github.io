@@ -39,7 +39,7 @@ last_modified_at: 2026-06-06T09:38:11+09:00
   - Job, Trigger 정보를 저장하는 메커니즘을 정의한다. 메모리 혹은 데이터베이스를 사용한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2021 }}/quartz-in-spring-mvc-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2021 }}/quartz-in-spring-mvc-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
 

@@ -12,7 +12,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Throttle test with Jest][throttle-test-link]
+- [Jest 스로틀(Throttle) 테스트하기][throttle-test-link]
 
 ## 1. Debounce
 

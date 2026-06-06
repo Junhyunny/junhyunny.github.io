@@ -4,21 +4,22 @@ search: false
 category:
   - information
   - java
-last_modified_at: 2021-12-08T09:00:00
+last_modified_at: 2026-06-06T23:21:11+09:00
 ---
 
 <br/>
 
 ## 1. 문제 상황
 
-테스트 코드를 작성하는 중에 다음과 같은 문제를 만났습니다. 
-- Spy 테스트 더블(test double)을 이용한 테스트 코드 작성하였습니다.
-- 메서드 파라미터로 전달한 파라미터가 동일한지 확인하는 과정에서 에러가 발생하였습니다.
+테스트 코드를 작성하던 중 다음과 같은 문제를 만났다.
 
-##### 테스트 코드
-- `todoDto` 인스턴스를 요청 정보(request body)로 전달합니다.
-- `verify` 메서드로 `mockTodoService` 테스트 더블 인스턴스의 `createTodo` 메서드가 1회 호출되었는지 확인합니다.
-- `todoDto` 인스턴스가 전달되어 `createTodo` 메서드의 파라미터로 사용되었는지 확인합니다.
+- Spy 테스트 더블(test double)을 이용한 테스트 코드를 작성했다.
+- 메서드에 전달한 파라미터가 동일한지 확인하는 과정에서 에러가 발생했다.
+
+실제 테스트 코드는 다음과 같다.
+
+- `todoDto` 객체를 API 요청의 리퀘스트 바디(request body)로 전달한다.
+- `verify` 메서드로 `mockTodoService` 객체의 `createTodo` 메서드가 1회 호출되었는지 확인한다. 이때 `todoDto` 객체가 `createTodo` 메서드의 파라미터로 사용되었는지 확인한다.
 
 ```java
     @Test
@@ -35,8 +36,9 @@ last_modified_at: 2021-12-08T09:00:00
     }
 ```
 
-##### 에러 로그
-- `Argument(s) are different!` 로그를 통해 사용된 인스턴스가 다르다는 것을 판단할 수 있습니다.
+위 테스트를 실행하면 다음과 같은 에러 로그를 확인할 수 있다.
+
+- `Argument(s) are different!` 로그를 통해 사용된 인스턴스가 다르다는 것을 판단할 수 있다.
 
 ```
 Argument(s) are different! Wanted:
@@ -53,13 +55,9 @@ todoService.createTodo(
 
 ## 2. 문제 해결
 
-에러 로그를 보고 `equals` 메서드와 `hashCode` 메서드 오버라이딩을 떠올렸지만 이를 구현하는 일이 상당히 귀찮았습니다. 
-클래스에 정의된 필드들을 모두 비교해야한다거나 해시 코드 계산이 필요하기 때문입니다. 
-이를 쉽게 해결할 수 있는 방법을 찾아보니 `Lombok`에 `@EqualsAndHashCode` 애너테이션이 있었습니다. 
-해당 애너테이션을 클래스 위에 정의하면 컴파일 시점에 자동으로 `equals` 메서드와 `hashCode` 메서드 오버라이딩이 됩니다. 
-디컴파일(decompile) 한 코드를 살펴보면 클래스에 있는 모든 필드들에 대한 비교를 수행합니다.
+에러 로그를 보고 `equals` 메서드와 `hashCode` 메서드 오버라이딩을 떠올렸지만 이를 구현하는 일이 상당히 귀찮았다. 클래스에 정의된 필드를 모두 비교해야 한다거나 해시 코드 계산이 필요하기 때문이다. 이를 쉽게 해결할 수 있는 방법을 찾아보니 `Lombok`에 `@EqualsAndHashCode` 애너테이션이 있었다. 해당 애너테이션을 클래스 위에 정의하면 컴파일 시점에 자동으로 `equals` 메서드와 `hashCode` 메서드가 오버라이딩된다. 디컴파일(decompile)한 코드를 살펴보면 클래스에 있는 모든 필드를 비교한다.
 
-##### @EqualsAndHashCode 애너테이션 사용
+- `@EqualsAndHashCode` 애너테이션은 클래스 위에 추가해서 사용한다.
 
 ```java
 @EqualsAndHashCode
@@ -72,7 +70,7 @@ public class TodoDto {
 }
 ```
 
-##### TodoDto 클래스 디컴파일(decompile) 코드
+위 `TodoDto` 클래스의 `.class` 파일을 디컴파일하면 다음과 같은 코드를 볼 수 있다.
 
 ```java
     public boolean equals(final Object o) {
@@ -143,12 +141,7 @@ public class TodoDto {
 
 ## 3. @EqualsAndHashCode 애너테이션 속성
 
-`@EqualsAndHashCode` 애너테이션 속성들 몇 가지를 추가적으로 정리하였습니다. 
-
-### 3.1. of 속성
-특정 필드만 선택하여 `equals`, `hashCode` 메서드를 오버라이딩 합니다.
-
-##### 사용 예시 코드
+`@EqualsAndHashCode` 애너테이션 속성 몇 가지를 추가로 정리했다. `of` 속성을 사용하면 특정 필드만 선택해서 `equals`, `hashCode` 메서드를 오버라이딩한다.
 
 ```java
 @EqualsAndHashCode(of = {"id"})
@@ -162,7 +155,7 @@ public class TodoDto {
 }
 ```
 
-##### 클래스 디컴파일 코드
+위 클래스 파일을 디컴파일하면 다음과 같은 코드를 볼 수 있다.
 
 ```java
     public boolean equals(final Object o) {
@@ -189,10 +182,7 @@ public class TodoDto {
     }
 ```
 
-### 3.2. exclude 속성
-특정 필드를 제외하고 `equals`, `hashCode` 메서드를 오버라이딩 합니다.
-
-##### 사용 예시 코드
+`exclude` 속성을 사용하면 특정 필드를 제외하고 `equals`, `hashCode` 메서드를 오버라이딩한다.
 
 ```java
 @EqualsAndHashCode(exclude = {"userId", "createdAt", "updatedAt"})
@@ -206,7 +196,7 @@ public class TodoDto {
 }
 ```
 
-##### 클래스 디컴파일 코드
+위 클래스를 디컴파일하면 다음과 같은 코드를 볼 수 있다.
 
 ```java
     public boolean equals(final Object o) {
@@ -248,18 +238,19 @@ public class TodoDto {
     }
 ```
 
-### 3.3. 기타 속성
+위에 언급한 `of`, `exclude` 속성 이외에 다른 속성에 대한 간단한 설명으로 글을 마무리한다.
 
-위에 언급한 `of`, `exclude` 속성 이 외에 다른 속성들에 대한 간단한 설명으로 포스트를 마무리하겠습니다.
-- `cacheStrategy` - Determines how the result of the hashCode method will be cached.
-- `callSuper` - Call on the superclass's implementations of equals and hashCode before calculating for the fields in this class.
-- `doNotUseGetters` - Normally, if getters are available, those are called.
-- `onlyExplicitlyIncluded` - Only include fields and methods explicitly marked with @EqualsAndHashCode.Include.
-- `onParam` - Any annotations listed here are put on the generated parameter of equals and canEqual.
-
-##### 애너테이션 속성 및 디폴드(default) 값
-
-<p align="left"><img src="{{ site.image_url_2021 }}/equals-and-hashcode-01.png" width="45%"></p>
+- cacheStrategy 속성
+  - `hashCode` 메서드의 결과를 캐시하는 방식을 결정한다.
+- callSuper 속성
+  - 현재 클래스의 필드를 계산하기 전에 상위 클래스의 `equals`, `hashCode` 구현을 호출한다.
+- doNotUseGetters 속성
+  - 일반적으로 게터(getter)가 있으면 해당 메서드를 호출한다.
+- onlyExplicitlyIncluded 속성
+  - `@EqualsAndHashCode.Include`로 명시한 필드와 메서드만 포함한다.
+- onParam 속성
+  - 여기에 지정한 애너테이션은 생성된 `equals`, `canEqual` 메서드의 파라미터에 추가된다.
 
 #### REFERENCE
+
 - <https://lars-sh.github.io/lombok-annotations/apidocs/lombok/EqualsAndHashCode.html>

@@ -77,7 +77,7 @@ BlogJob 클래스에 다음과 같은 코드 변경이 필요하다.
 1. `Setter` 메서드는 제거한다.
 2. `executeInternal` 메서드에 파라미터로 전달받은 `JobExecutionContext` 객체에서 스케줄러를 획득한다.
 3. 스케줄러에서 `applicationContext` 키워드로 스프링 애플리케이션 컨텍스트(spring application context) 정보를 획득한다.
-4. Spring 컨텍스트에서 `getBean` 메서드를 통해 원하는 빈(bean)을 꺼내어 사용한다.
+4. Spring 컨텍스트에서 `getBean` 메서드를 통해 원하는 빈 객체를 꺼내어 사용한다.
 
 ```java
 package blog.in.action.job;

@@ -1,5 +1,5 @@
 ---
-title: "맥(Mac) Sourcetree GitHub 공개 데이터만 접근되는 문제"
+title: "맥(Mac) Sourcetree GitHub 비공개(private) 레포지토리 접근 불가능 문제"
 search: false
 category:
   - information

@@ -1,5 +1,5 @@
 ---
-title: "코드 변화 빈도 - 코드 천(code churn)"
+title: "코드 천(Code Churn)"
 search: false
 category:
   - information

@@ -3,7 +3,7 @@ title: "코드 복잡도(code complexity)"
 search: false
 category:
   - information
-  - software-enginerring
+  - software-engineering
   - code-complexity
 last_modified_at: 2026-07-23T12:11:13+09:00
 ---

@@ -1,5 +1,5 @@
 ---
-title: "코드 복잡도(code complexity)"
+title: "코드 복잡도(Code Complexity)"
 search: false
 category:
   - information

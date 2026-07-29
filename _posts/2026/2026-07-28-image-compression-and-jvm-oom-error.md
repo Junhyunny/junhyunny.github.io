@@ -278,7 +278,7 @@ public class ThumbnailController {
 - 사용 중인 메모리에 대한 가비지 컬렉션이 제대로 이뤄지지 않아 메모리가 누적되는 현상은 없었다.
 
 <div align="center">
-  <img src="{{ site.image_url_2026 }}/image-compression-and-jvm-oom-error-01.png" width="100%" class="image__border">
+  <img src="{{ site.image_url_2026 }}/image-compression-and-jvm-oom-error-06.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

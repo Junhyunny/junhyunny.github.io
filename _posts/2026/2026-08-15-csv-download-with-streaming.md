@@ -1,5 +1,5 @@
 ---
-title: "대용량 CSV 다운로드 Streaming 처리를 통한 개선"
+title: "대용량 CSV 다운로드 스트리밍(streaming) 처리를 통해 개선하기"
 search: false
 category:
   - post-format

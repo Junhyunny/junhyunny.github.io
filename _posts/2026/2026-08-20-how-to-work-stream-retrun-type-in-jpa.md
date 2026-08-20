@@ -7,7 +7,7 @@ category:
   - postgres
   - database
   - stream
-last_modified_at: 2026-08-21T00:38:05+09:00
+last_modified_at: 2026-08-21T01:04:53+09:00
 ---
 
 <br/>
@@ -71,11 +71,11 @@ FETCH FORWARD 10 FROM todo_cursor;
 CLOSE todo_cursor;
 ```
 
-자바 8의 Stream 인터페이스에 맞춰 JPA 2.2부터 `Stream getResultStream()` 메서드가 표준 API로 추가됐다. 이에 맞춰 Spring Data JPA도 리포지토리에서 Stream 반환 타입을 지원하게 됐다. [공식 문서](https://docs.spring.io/spring-data/data-jpa/reference/4.0/repositories/query-methods-details.html#repositories.query-streaming)를 보면 Stream 객체는 내부적으로 특정 데이터 저장소의 리소스를 감싸고 있을 수 있기 때문에 사용 후 반드시 닫아야 한다는 주의 사항을 볼 수 있다. `close()` 메서드를 직접 호출해 Stream 객체를 닫을 수도 있지만, try-with-resources 구문을 통해 스트림을 자동으로 닫을 수 있다.
+자바 8의 Stream 인터페이스에 맞춰 JPA 2.2부터 `Stream getResultStream()` 메서드가 표준 API로 추가됐다. 이에 맞춰 Spring Data JPA도 리포지토리에서 Stream 반환 타입을 지원하게 됐다. [공식 문서](https://docs.spring.io/spring-data/data-jpa/reference/4.0/repositories/query-methods-details.html#repositories.query-streaming)에는 Stream 객체가 내부적으로 특정 데이터 저장소의 리소스를 감싸고 있을 수 있으므로 사용 후 반드시 닫아야 한다는 주의 사항이 명시되어 있다. `close()` 메서드를 직접 호출해 Stream 객체를 닫을 수도 있지만, try-with-resources 구문을 사용하면 스트림을 자동으로 닫을 수 있다.
 
 ## 2. Stream 리턴 타입 동작 과정
 
-나는 처음 Stream 반환 타입 메서드 API를 봤을 때 SELECT 쿼리를 10개씩 여러 번 실행할 것이라고 예상했다. SQL 구문으로 표현하면 다음과 같이 동작할 것이라고 생각했다.
+처음 Stream 반환 타입 메서드를 봤을 때 SELECT 쿼리를 10개씩 여러 번 실행할 것이라고 예상했다. SQL 구문으로 표현하면 다음과 같이 동작할 것이라고 생각했다.
 
 ```sql
 SELECT * FROM todo LIMIT 10 OFFSET 0;
@@ -129,7 +129,7 @@ void streamAllReturnsEveryTodo() {
 }
 ```
 
-Stream 객체를 만들고 소비하는 전 과정이 트랜잭션 경계 내부에 있어야 한다. 데이터를 조회할 수 있는 Stream 객체를 먼저 만들어 두고 나중에 소비(lazy consuming)하기 때문이다. `List` 같은 일반적인 컬렉션을 사용하는 경우에는 DB 조회가 끝나면 결과가 이미 메모리에 생성되어 있다.
+Stream 객체를 만들고 소비하는 전 과정이 트랜잭션 경계 내부에 있어야 한다. 데이터를 조회할 수 있는 Stream 객체를 먼저 만들어 두고 나중에 소비(lazy consuming)하기 때문이다. `List` 같은 일반적인 컬렉션을 사용하는 경우에는 DB 조회가 끝나면 결과가 이미 메모리에 로딩되어 있다.
 
 ```
 Transaction
@@ -142,7 +142,7 @@ Transaction 종료
 이후 List 사용
 ```
 
-반면 Stream 방식은 데이터를 조회할 수 있는 Stream 객체를 먼저 만들어 두고, 나중에 데이터를 소비하다가 필요하면 추가로 조회(fetch)한다.
+반면 Stream 방식은 데이터를 조회할 수 있는 Stream 객체를 먼저 만들어 두고, 나중에 데이터를 소비하다가 필요하면 추가로 조회(fetch)한다. 아래 코드의 `forEach` 메서드는 미리 불러온 `TodoEntity` 객체를 콜백 함수의 매개변수로 전달한다. 불러온 데이터를 모두 소비하면 내부적으로 다음 데이터를 조회해 같은 방식으로 전달한다.
 
 ```java
 try (Stream<TodoEntity> todos = todoRepository.streamAll()) {
@@ -166,7 +166,7 @@ void streamAllReturnsEveryTodo() {
 }
 ```
 
-Stream 객체가 트랜잭션 경계 내부에서 사용되지 않는다면 다음과 같은 에러 메시지를 만나게 된다.
+Stream 객체가 트랜잭션 경계 내부에서 사용되지 않는다면 다음과 같은 오류 메시지를 만나게 된다.
 
 ```
 org.springframework.dao.InvalidDataAccessApiUsageException: You're trying to execute a streaming query method without a surrounding transaction that keeps the connection open so that the Stream can actually be consumed; Make sure the code consuming the stream uses @Transactional or any other way of declaring a (read-only) transaction
@@ -192,13 +192,13 @@ FROM todo;
 CLOSE todo_cursor;
 ```
 
-커서를 만드는 것은 Stream 객체를 만드는 것과 같다.
+커서를 만드는 과정은 자바 애플리케이션에서 Stream 객체를 만드는 과정에 대응한다.
 
 ```java
 Stream<TodoEntity> todos = todoRepository.streamAll()
 ```
 
-앞서 설명한 것처럼 Stream 객체는 사용 후 반드시 닫아야 한다. 어딘가에서 `close()` 메서드를 직접 호출해야 한다. try-with-resources 구문을 사용하면 해당 코드 블록이 닫힐 때 스트림을 자동으로 정리하기 때문에 `close()` 메서드 호출이 누락되는 것을 막을 수 있다.
+이렇게 생성한 Stream 객체는 SQL 커서처럼 모두 사용한 후 정리해야 한다. 앞서 설명한 것처럼 Stream 객체는 특정 저장소의 리소스를 감싸고 있기 때문에 사용 후 반드시 닫아야 한다. `close()` 메서드를 직접 호출할 수도 있지만, try-with-resources 구문을 사용하면 해당 코드 블록이 닫힐 때 스트림을 자동으로 정리하므로 `close()` 메서드 호출이 누락되는 것을 막을 수 있다.
 
 ```java
 try (Stream<TodoEntity> todos = todoRepository.streamAll()) {
@@ -242,10 +242,10 @@ JPA 리포지토리가 반환하는 Stream 객체가 의존하는 Iterator 인�
 ScrollableResultsIterator 객체는 ScrollableResultsImpl 객체에 의존하고, ScrollableResultsImpl 객체는 RowProcessingStateStandardImpl 객체에 의존한다. 이 의존 관계 체인을 따라 계속 들어가다 보면 JDBC 레벨까지 도달한다. 스레드 호출 스택을 보면 java.util 패키지에서 org.postgresql.jdbc 패키지까지 도달하게 된다.
 
 - PgResultSet 객체 (PostgreSQL 패키지)
-- HikariProxyResultSet 객체 (hikari 패키지)
-- JdbcValuesResultSetImpl 객체 (hibernate 패키지)
-- RowProcessingStateStandardImpl 객체 (hibernate 패키지)
-- ScrollableResultsIterator 객체 (hibernate 패키지)
+- HikariProxyResultSet 객체 (Hikari 패키지)
+- JdbcValuesResultSetImpl 객체 (Hibernate 패키지)
+- RowProcessingStateStandardImpl 객체 (Hibernate 패키지)
+- ScrollableResultsIterator 객체 (Hibernate 패키지)
 
 <div align="left">
   <img src="{{ site.image_url_2026 }}/how-to-work-stream-retrun-type-in-jpa-02.png" width="75%" class="image__border">
@@ -283,7 +283,7 @@ public class PgResultSet implements ResultSet, PGRefCursorResultSet {
 
       ... 
 
-      // 4. fetch 메소드를 통해 재조회
+      // 4. fetch 메서드를 통해 재조회
       connection.getQueryExecutor()
           .fetch(cursor, new CursorResultHandler(), fetchRows, adaptiveFetch);
 
@@ -302,7 +302,7 @@ public class PgResultSet implements ResultSet, PGRefCursorResultSet {
 }
 ```
 
-Stream 객체를 소비할 때 Iterator 인터페이스를 구현한 ScrollableResultsImpl 객체를 통해 JDBC 레이어까지 접근할 수 있다. PgResultSet 객체와 QueryExecutorImpl 객체의 협업을 통해 필요한 시점에 지정한 크기만큼 데이터를 불러와 사용할 수 있다. 이 과정을 시퀀스 다이어그램으로 살펴보면 이해하기 쉽다.
+Stream 객체를 소비할 때 Iterator 인터페이스를 구현한 ScrollableResultsIterator 객체를 통해 JDBC 레이어까지 접근할 수 있다. PgResultSet 객체와 QueryExecutorImpl 객체의 협업을 통해 필요한 시점에 지정한 크기만큼 데이터를 불러와 사용할 수 있다. 이 과정을 시퀀스 다이어그램으로 살펴보면 이해하기 쉽다.
 
 <div align="center">
   <img src="{{ site.image_url_2026 }}/how-to-work-stream-retrun-type-in-jpa-03.png" width="100%" class="image__border">

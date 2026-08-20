@@ -312,8 +312,6 @@ Stream 객체를 소비할 때 Iterator 인터페이스를 구현한 ScrollableR
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2026-08-21-how-to-work-stream-retrun-type-in-jpa>
 
-#### RECOMMEND NEXT POSTS
-
 #### REFERENCE
 
 - <https://docs.spring.io/spring-data/jpa/reference/repositories/query-return-types-reference.html#repository-query-return-types-stream>

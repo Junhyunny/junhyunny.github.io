@@ -14,11 +14,11 @@ last_modified_at: 2026-08-21T01:04:53+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [대용량 CSV 다운로드 스트리밍(streaming) 처리를 통해 개선하기][csv-download-with-streaming]
+- [대용량 CSV 다운로드 스트리밍(streaming) 처리를 통해 개선하기][csv-download-with-streaming-link]
 
 ## 0. 들어가면서
 
-[이전 글][csv-download-with-streaming]을 정리할 때 JPA의 Stream 리턴 타입이 어떻게 동작하는지 잘 이해되지 않았다. JPA 인터페이스 내부에 어떤 로직이 숨어 있는지 정리해 봤다. PostgreSQL 데이터베이스를 사용했다. JDBC 구현체가 다르기 때문에 다른 데이터베이스는 이 글에서 설명하는 것과 다르게 동작할 수 있다.
+[이전 글][csv-download-with-streaming-link]을 정리할 때 JPA의 Stream 리턴 타입이 어떻게 동작하는지 잘 이해되지 않았다. JPA 인터페이스 내부에 어떤 로직이 숨어 있는지 정리해 봤다. PostgreSQL 데이터베이스를 사용했다. JDBC 구현체가 다르기 때문에 다른 데이터베이스는 이 글에서 설명하는 것과 다르게 동작할 수 있다.
 
 ## 1. Stream 리턴 타입
 
@@ -260,43 +260,29 @@ PgResultSet 객체의 `next()` 메서드에서 중요한 부분만 살펴보자.
 ```java
 package org.postgresql.jdbc;
 
-...
-
 public class PgResultSet implements ResultSet, PGRefCursorResultSet {
 
   @Override
   public boolean next() throws SQLException {
     
-    ...
-
     // 1. 다음 읽을 데이터의 위치가 현재 메모리에 적재된 데이터 리스트(rows)의 사이즈가 큰 경우
     if (currentRow + 1 >= rows.size()) {
       ResultCursor cursor = this.cursor;
-      
       ...
-
       // 2. offset 재조정
       rowOffset += rows.size();
-
       // 3. fetchSize 지정
       int fetchRows = fetchSize;
-
       ... 
-
       // 4. fetch 메서드를 통해 재조회
-      connection.getQueryExecutor()
-          .fetch(cursor, new CursorResultHandler(), fetchRows, adaptiveFetch);
-
+      connection.getQueryExecutor().fetch(cursor, new CursorResultHandler(), fetchRows, adaptiveFetch);
       // 5. 커서 종료
       closeRefCursor();
-
       ...
     } else {
       currentRow++;
     }
-
     ...
-
     return true;
   }
 }

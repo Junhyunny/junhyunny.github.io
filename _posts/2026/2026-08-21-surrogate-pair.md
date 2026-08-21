@@ -6,7 +6,7 @@ category:
   - javascript
   - typescript
   - surrogate-pair
-last_modified_at: 2026-08-22T01:59:44+09:00
+last_modified_at: 2026-08-22T02:20:15+09:00
 ---
 
 <br/>
@@ -63,7 +63,7 @@ High 서로게이트 + Low 서로게이트
 - High 서로게이트 (U+D800 ~ U+DBFF)
 - Low 서로게이트 (U+DC00 ~ U+DFFF)
 
-자바스크립트(JavaScript) 문자열도 UTF-16 기반으로 처리되기 때문에 간단한 API로 이를 확인할 수 있다.
+[자바스크립트(JavaScript) 문자열(String)은 명세상 UTF-16 코드 유닛을 기준으로 동작한다.](https://262.ecma-international.org/16.0/#sec-ecmascript-language-types-string-type) 즉, 문자열의 각 요소를 UTF-16 코드 유닛으로 취급하므로 길이, 인덱싱, `charAt()`, `charCodeAt()` 같은 API도 기본적으로 16비트 단위로 동작한다. 자바스크립트 API를 사용하면 서로게이트 페어와 관련된 동작을 간단히 확인할 수 있다.
 
 - `charCodeAt()` 메서드: UTF-16 코드 유닛 단위의 값
 - `codePointAt()` 메서드: 유니코드 코드 포인트 단위의 값
@@ -99,7 +99,7 @@ console.log(String.fromCharCode(highSurrogate, lowSurrogate)); // 😀
 console.log(String.fromCodePoint(codePoint)); // 😀
 ```
 
-**서로게이트 페어로 표현된 문자열은 자바스크립트에서 길이가 2라는 점이 특이하다.** 따라서 문자열을 잘못 잘라서 사용하면 서로게이트 페어의 절반만 남아 문제가 될 수 있다.
+**서로게이트 페어로 표현된 문자열은 자바스크립트에서 길이가 2라는 점에 주의해야 한다.** 문자열을 잘못 잘라서 사용하면 서로게이트 페어의 절반만 남아 문제가 될 수 있다. 문자열 자르기, 커서 이동, 삭제, 길이 제한 등을 구현할 때는 문자 경계를 고려해야 한다.
 
 ```js
 const s = "😀";
@@ -108,9 +108,9 @@ console.log(s.length); // 2
 s.slice(0, 1); // D83D DE00 중 D83D 만 잘라서 사용하는 케이스
 ```
 
-따라서 문자열 자르기, 커서 이동, 삭제, 길이 제한 등을 구현할 때는 문자 경계를 고려해야 한다. 흔히 사용하는 한자 대부분은 U+FFFF 이하이므로 서로게이트 페어가 아니다.
+흔히 사용하는 한자 대부분은 U+FFFF 이하이므로 서로게이트 페어가 아니다. 하지만 이번 프로젝트에서 [react-pdf](https://react-pdf.org/) 라이브러리를 사용할 때 서로게이트 페어가 제대로 처리되지 않아 일부 한자와 특수 문자가 깨지는 현상이 있었다.
 
-이번 프로젝트에서 [react-pdf](https://react-pdf.org/) 라이브러리를 사용할 때 서로게이트 페어가 제대로 처리되지 않아 일부 한자와 특수 문자가 깨지는 현상이 있었다. 위 예시처럼 서로게이트 페어로 표현된 문자열의 길이가 2라는 점을 고려하지 않은 코드가 원인이었다. 한국어와 영어를 주로 사용하는 나에게는 미처 고려하지 못했던 오류였다. 서로게이트 페어가 제대로 처리되지 않으면 아래 이미지처럼 문자가 비정상적으로 깨져 보인다.
+위 예시처럼 서로게이트 페어로 표현된 문자열의 길이가 2라는 점을 고려하지 않은 코드가 원인이었다. 한국어와 영어를 주로 사용하는 나에게는 미처 고려하지 못했던 오류였다. react-pdf 라이브러리에서 서로게이트 페어가 제대로 처리되지 않으면 아래 이미지의 왼쪽 영역처럼 문자가 비정상적으로 깨져 보인다.
 
 <div align="center">
   <img src="{{ site.image_url_2026 }}/surrogate-pair-01.png" width="100%" class="image__border">
@@ -119,7 +119,7 @@ s.slice(0, 1); // D83D DE00 중 D83D 만 잘라서 사용하는 케이스
 
 <br/>
 
-이 문제는 [PR #3423](https://github.com/diegomura/react-pdf/pull/3423)에서 해결됐다. 이전 코드와 개선된 코드를 비교해보자. 먼저 문제가 됐던 이전 코드는 `for` 루프의 인덱스를 통해 문자를 하나씩 탐색하면서 유니코드를 처리했다. 문제가 발생하는 지점은 주석으로 표시했다.
+이 문제는 [PR #3423](https://github.com/diegomura/react-pdf/pull/3423)에서 해결됐다. 이전 코드와 개선된 코드를 비교해 보자. 먼저 문제가 있었던 기존 코드는 `for` 루프의 인덱스를 통해 문자를 하나씩 탐색하면서 유니코드를 처리했다. 문제가 발생하는 지점은 주석으로 표시했다.
 
 ```js
 const fontSubstitution =
@@ -140,7 +140,7 @@ const fontSubstitution =
   };
 ```
 
-이제 수정된 코드를 살펴보자. `j` 인덱스를 무조건 1씩 증가시키지 않는다. 먼저 해당 문자의 유니코드 코드 포인트가 16비트를 초과하는지 확인한다. 16비트를 초과하면 서로게이트 페어로 표현된 문자로 판단하고 문자열 길이를 2로 처리한다. 필요한 설명은 주석으로 작성했다.
+수정된 코드는 `j` 인덱스를 무조건 1씩 증가시키지 않는다. 먼저 해당 문자의 유니코드 코드 포인트가 16비트를 초과하는지 확인한다. 16비트를 초과하면 서로게이트 페어로 표현된 문자로 판단하고 문자열 길이를 2로 처리한다. 주요 변경 사항은 주석으로 표시했다.
 
 ```js
 const fontSubstitution =
@@ -165,6 +165,9 @@ const fontSubstitution =
 
 #### REFERENCE
 
+- <https://262.ecma-international.org/16.0/#sec-ecmascript-language-types-string-type>
+- <https://developer.mozilla.org/en-US/docs/Glossary/UTF-16#utf-16_in_javascript>
+- <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#utf-16_characters_unicode_code_points_and_grapheme_clusters>
 - <https://cdn.standards.iteh.ai/samples/76835/46bd0c6c19d04aca81ea546ece3c6417/ISO-IEC-10646-2020.pdf>
 - <https://www.unicode.org/faq/utf_bom.html>
 - <https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-5/#G11318>

@@ -288,7 +288,7 @@ public class PgResultSet implements ResultSet, PGRefCursorResultSet {
 }
 ```
 
-Stream 객체를 소비할 때 Iterator 인터페이스를 구현한 ScrollableResultsIterator 객체를 통해 JDBC 레이어까지 접근할 수 있다. PgResultSet 객체와 QueryExecutorImpl 객체의 협업을 통해 필요한 시점에 지정한 크기만큼 데이터를 불러와 사용할 수 있다. 이 과정을 시퀀스 다이어그램으로 살펴보면 이해하기 쉽다.
+앞서 설명한 것처럼 Stream 객체를 소비하면 ScrollableResultsIterator에서 JDBC 레이어까지 호출이 이어진다. JDBC 레이어에서는 PgResultSet과 QueryExecutorImpl이 협력해 필요한 시점마다 지정한 크기만큼 데이터를 조회한다. 이 과정을 시퀀스 다이어그램으로 살펴보면 이해하기 쉽다.
 
 <div align="center">
   <img src="{{ site.image_url_2026 }}/how-to-work-stream-retrun-type-in-jpa-03.png" width="100%" class="image__border">

@@ -13,28 +13,7 @@ classes: wide
 
 <h4>집필 활동</h4>
 
-<div class="book-cards">
-    <article class="book-card">
-        <a class="book-card__link" href="https://www.yes24.com/product/goods/180391041">
-            <div class="book-card__cover">
-                <img
-                    src="{{ '/images/profile/spring-security-book.png' | relative_url }}"
-                    alt="안쪽까지 들여다보는 스프링 시큐리티 표지"
-                    loading="lazy"
-                >
-            </div>
-            <div class="book-card__content">
-                <span class="book-card__eyebrow">BOOK</span>
-                <h4 class="book-card__title">안쪽까지 들여다보는 스프링 시큐리티</h4>
-                <p class="book-card__author">강준현 지음</p>
-                <span class="book-card__action">
-                    책 보러 가기
-                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                </span>
-            </div>
-        </a>
-    </article>
-</div>
+{% include book-card.html %}
 
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 

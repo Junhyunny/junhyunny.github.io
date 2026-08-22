@@ -180,13 +180,16 @@
     }
 
     &__title {
+        display: block;
         margin: 0;
         color: #1e293b;
         font-size: 1.05rem;
+        font-weight: 700;
         line-height: 1.45;
     }
 
     &__author {
+        display: block;
         margin: 0.5rem 0 1.5rem;
         color: #64748b;
         font-size: 0.75rem;
@@ -212,7 +215,81 @@
     }
 }
 
+.page__content .book-promotion {
+    clear: both;
+    margin-top: 3rem;
+    padding: 2rem 0 0;
+    border-top: 1px solid #e5e7eb;
+
+    &__intro {
+        margin-bottom: 1rem;
+    }
+
+    &__eyebrow {
+        display: block;
+        margin-bottom: 0.35rem;
+        color: #d0442d;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+    }
+
+    &__title {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 1.15rem;
+        line-height: 1.45;
+    }
+
+    &__description {
+        margin: 0.4rem 0 0;
+        color: #64748b;
+        font-size: 0.8rem;
+        line-height: 1.6;
+    }
+}
+
+.book-cards--post {
+    grid-template-columns: 1fr;
+    margin: 0;
+
+    .book-card__link {
+        grid-template-columns: minmax(12rem, 36%) 1fr;
+    }
+
+    .book-card__cover {
+        min-height: 8rem;
+        padding: 1rem;
+    }
+
+    .book-card__content {
+        padding: 1.25rem;
+    }
+}
+
+.page__content .book-cards--post .book-card__link {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+
+        img {
+            box-shadow: none;
+        }
+    }
+}
+
 @media all and (max-width: 600px) {
+    .page__content .book-promotion {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+
+        &__description {
+            font-size: 0.75rem;
+        }
+    }
+
     .book-card {
         &__link {
             grid-template-columns: 1fr;
@@ -226,6 +303,10 @@
         &__content {
             padding: 1.25rem;
         }
+    }
+
+    .book-cards--post .book-card__link {
+        grid-template-columns: 1fr;
     }
 }
 

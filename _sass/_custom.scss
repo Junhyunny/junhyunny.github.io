@@ -215,81 +215,49 @@
     }
 }
 
-.page__content .book-promotion {
+.author__book {
     clear: both;
-    margin-top: 3rem;
-    padding: 2rem 0 0;
-    border-top: 1px solid #e5e7eb;
-
-    &__intro {
-        margin-bottom: 1rem;
-    }
-
-    &__eyebrow {
-        display: block;
-        margin-bottom: 0.35rem;
-        color: #d0442d;
-        font-size: 0.65rem;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-    }
-
-    &__title {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 1.15rem;
-        line-height: 1.45;
-    }
-
-    &__description {
-        margin: 0.4rem 0 0;
-        color: #64748b;
-        font-size: 0.8rem;
-        line-height: 1.6;
-    }
+    width: 100%;
 }
 
-.book-cards--post {
+.book-cards--profile {
     grid-template-columns: 1fr;
-    margin: 0;
+    margin: 1rem 0 0;
 
     .book-card__link {
-        grid-template-columns: minmax(12rem, 36%) 1fr;
+        grid-template-columns: minmax(6.5rem, 34%) 1fr;
     }
 
     .book-card__cover {
-        min-height: 8rem;
-        padding: 1rem;
+        min-height: 6.5rem;
+        padding: 0.75rem;
     }
 
     .book-card__content {
-        padding: 1.25rem;
+        padding: 0.85rem;
     }
-}
 
-.page__content .book-cards--post .book-card__link {
-    text-decoration: none;
+    .book-card__eyebrow {
+        margin-bottom: 0.3rem;
+        font-size: 0.6rem;
+    }
 
-    &:hover {
-        text-decoration: none;
+    .book-card__title {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
 
-        img {
-            box-shadow: none;
-        }
+    .book-card__author {
+        margin: 0.3rem 0 0.75rem;
+        font-size: 0.7rem;
+    }
+
+    .book-card__action {
+        font-size: 0.7rem;
     }
 }
 
 @media all and (max-width: 600px) {
-    .page__content .book-promotion {
-        margin-top: 2.5rem;
-        padding-top: 1.5rem;
-
-        &__description {
-            font-size: 0.75rem;
-        }
-    }
-
     .book-card {
         &__link {
             grid-template-columns: 1fr;
@@ -305,8 +273,38 @@
         }
     }
 
-    .book-cards--post .book-card__link {
-        grid-template-columns: 1fr;
+    .book-cards--profile {
+        .book-card__link {
+            grid-template-columns: minmax(6.5rem, 34%) 1fr;
+        }
+
+        .book-card__cover {
+            min-height: 6.5rem;
+            padding: 0.75rem;
+        }
+
+        .book-card__content {
+            padding: 0.85rem;
+        }
+    }
+}
+
+@media all and (min-width: 1024px) {
+    .book-cards--profile {
+        margin-top: 1.25rem;
+
+        .book-card__link {
+            grid-template-columns: 1fr;
+        }
+
+        .book-card__cover {
+            min-height: auto;
+            padding: 0.75rem;
+        }
+
+        .book-card__content {
+            padding: 1rem;
+        }
     }
 }
 

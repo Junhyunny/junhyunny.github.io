@@ -88,4 +88,10 @@
       {% include author-profile-custom-links.html %}
     </ul>
   </div>
+
+  {% if page.id %}
+    <div class="author__book">
+      {% include book-card.html variant="profile" %}
+    </div>
+  {% endif %}
 </div>

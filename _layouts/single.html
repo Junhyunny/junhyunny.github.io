@@ -56,16 +56,6 @@ layout: default
         {{ content }}
         {% if page.link %}<div><a href="{{ page.link }}" class="btn btn--primary">{{
             site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
-        {% if page.id %}
-        <aside class="book-promotion" aria-labelledby="book-promotion-title">
-          <div class="book-promotion__intro">
-            <span class="book-promotion__eyebrow">AUTHOR'S BOOK</span>
-            <h2 id="book-promotion-title" class="book-promotion__title">이 글의 저자가 쓴 책</h2>
-            <p class="book-promotion__description">스프링 시큐리티의 내부 구조와 동작 원리를 더 깊이 만나보세요.</p>
-          </div>
-          {% include book-card.html variant="post" %}
-        </aside>
-        {% endif %}
       </section>
 
       <footer class="page__meta">

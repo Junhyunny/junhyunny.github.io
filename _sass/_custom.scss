@@ -294,6 +294,10 @@
 }
 
 @media all and (min-width: 1024px) {
+    .author__book {
+        width: 100%;
+    }
+
     .book-cards--profile {
         margin-top: 1.25rem;
 

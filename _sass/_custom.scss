@@ -258,6 +258,10 @@
 }
 
 @media all and (max-width: 600px) {
+    .author__book {
+        width: 100%;
+    }
+
     .book-card {
         &__link {
             grid-template-columns: 1fr;

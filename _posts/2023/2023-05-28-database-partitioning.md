@@ -42,7 +42,7 @@ last_modified_at: 2026-09-17T14:32:30+09:00
 - 파티셔닝을 통해 파티션을 추가하거나 삭제하는 방식으로 간단하게 해결할 수 있다.
 
 <div align="center">
-  <img src="{{ site.image_url_2023 }}/database-partitioning-02.png" width="60%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/database-partitioning-02.png" width="80%" class="image__border">
 </div>
 <center>https://aws.amazon.com/blogs/database/archive-and-purge-data-for-amazon-rds-for-postgresql-and-amazon-aurora-with-postgresql-compatibility-using-pg_partman-and-amazon-s3/</center>
 
@@ -57,7 +57,7 @@ last_modified_at: 2026-09-17T14:32:30+09:00
 - 데이터 보안과 격리를 향상시킨다.
   - 민감한 데이터를 별도의 파티션으로 분리하여 액세스 제어 및 보안 정책을 적용할 수 있다.
 
-물론 다음과 같은 단점도 존재한다.
+다음과 같은 단점도 존재한다.
 
 - 파티셔닝된 테이블 사이의 조인(join) 연산의 복잡성이 증가할 수 있다.
   - 파티션 키를 사용하지 않는 조인은 전체 파티션을 스캔해야 할 수 있다.

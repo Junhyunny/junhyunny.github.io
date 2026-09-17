@@ -38,7 +38,7 @@ last_modified_at: 2026-09-17T14:54:18+09:00
   - MongoDB
 
 <div align="center">
-  <img src="{{ site.image_url_2023 }}/database-sharding-01.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2023 }}/database-sharding-01.png" width="100%" class="image__border">
 </div>
 
 <br/>

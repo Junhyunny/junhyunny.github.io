@@ -1,5 +1,5 @@
 ---
-title: "자바스크립트(JavaScript) 비동기 처리(asynchronous task) 동작 원리"
+title: "자바스크립트 비동기 처리(JavaScript Asynchronous Task) 동작 원리"
 search: false
 category:
   - information

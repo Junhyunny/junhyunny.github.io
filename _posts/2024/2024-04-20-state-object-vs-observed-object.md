@@ -11,7 +11,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [MVVM Pattern in SwiftUI][mvvm-pattern-in-ios-link]
+- [SwiftUI MVVM 패턴][mvvm-pattern-in-ios-link]
 
 ## 0. 들어가면서
 

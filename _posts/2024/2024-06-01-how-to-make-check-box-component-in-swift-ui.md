@@ -13,7 +13,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [How to test state change in iOS with ViewInspector][how-to-test-state-change-in-ios-with-view-inspector-link]
+- [ViewInspector iOS 상태 변화(State Change) 테스트하기][how-to-test-state-change-in-ios-with-view-inspector-link]
 
 ## 0. 들어가면서
 

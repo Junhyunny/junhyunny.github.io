@@ -20,7 +20,7 @@ last_modified_at: 2026-09-17T13:56:20+09:00
 
 > int 타입은 없지만, Int 타입은 있다.
 
-자주 사용되는 단일 값 타입은 다음과 같다.
+스위프트의 원시 타입들은 구조체이기 때문에 프로퍼티와 메서드가 있고 해당 타입을 확장(extension)할 수도 있다. 자주 사용되는 단일 값 타입은 다음과 같다.
 
 - Int - 부호 있는 정수
 - UInt - 0 이상의 정수
@@ -146,8 +146,6 @@ print(signedUp)  // 127 &+ 1 == -128
 print(signedDown)  // -128 &- 1 == 127
 print(wrappedProduct)  // 400에서 하위 8bit만 남아 144
 ```
-
-앞서 말한 것처럼 스위프트의 원시 타입들은 구조체이기 때문에 프로퍼티와 메서드가 있고 해당 타입을 확장(extension)할 수도 있다.
 
 ## 3. String, Character and Substring
 

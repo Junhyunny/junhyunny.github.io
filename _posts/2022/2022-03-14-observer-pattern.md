@@ -1,52 +1,53 @@
 ---
-title: "Observer Pattern"
+title: "옵저버 패턴(Observer Pattern)"
 search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2022-03-14T23:55:00
+last_modified_at: 2026-09-19T01:29:54+09:00
 ---
 
 <br/>
 
-👉 이어서 읽기를 추천합니다.
-- [Spring Application Context Event][spring-application-context-event-link] 
+#### RECOMMEND NEXT POSTS
+
+- [스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)][spring-application-context-event-link]
 
 ## 1. 옵저버 패턴(Observer Pattern)
 
-> 객체 사이에 일 대 다의 의존 관계를 정의해 두어, 
-> 어떤 객체의 상태가 변할 때 그 객체에 의존성을 가진 다른 객체들이 그 변화를 통지받고 자동으로 갱신될 수 있게 만듭니다.
+> 객체 사이에 일 대 다의 의존 관계를 정의해 두어, 어떤 객체의 상태가 변할 때 그 객체에 의존성을 가진 다른 객체들이 그 변화를 통지받고 자동으로 갱신될 수 있게 만듭니다.
 
-`GoF 디자인 패턴` 책을 보면 어렵게 설명되어 있지만, 많은 개발자 분들께 친숙한 발행(publish)과 구독(subscribe) 모델을 생각하면 이해가 쉽습니다.
-- 옵저버(observer)들은 자신이 관심있는 정보를 구독하기 위해 자신을 정보 관리하는 곳에 등록합니다.
-- 옵저버들은 상태 변경에 대한 알림을 받습니다.
+`GoF 디자인 패턴` 책에는 어렵게 설명되어 있지만, 많은 개발자에게 친숙한 발행(publish)과 구독(subscribe) 모델을 생각하면 이해하기 쉽다.
 
-##### 옵저버 패턴 클래스 다이어그램
-- 옵저버 패턴을 이해하기 위해선 패턴을 이루는 몇 가지 요소들에 대해 이해할 필요가 있습니다.
+- 옵저버(observer)들은 자신이 관심 있는 정보를 구독하기 위해 자신을 정보 관리하는 곳에 등록한다.
+- 옵저버들은 상태 변경에 대한 알림을 받는다.
+
+옵저버 패턴의 클래스 다이어그램을 살펴보자. 옵저버 패턴은 다음과 같은 요소로 구성된다.
+
 - 서브젝트(Subject)
-    - 옵저버들을 알고 있는 클래스입니다.
-    - 임의의 다수 옵저버들은 서브젝트 객체를 관찰합니다.
+  - 옵저버들을 알고 있는 클래스이다.
+  - 다수의 옵저버가 서브젝트 객체를 관찰한다.
 - 상세 서브젝트(Concrete Subject)
-    - 옵저버 객체에게 알려줘야하는 상태를 저장하고 있는 클래스입니다. 
-    - 상태가 변경되면 감시자들에게 이를 알려야합니다.
+  - 옵저버 객체에 알려야 하는 상태를 저장하는 클래스이다.
+  - 상태가 변경되면 옵저버들에게 이를 알려야 한다.
 - 옵저버(Observer)
-    - 서브젝트에 관심이 있는 인터페이스입니다. 
+  - 서브젝트의 상태 변화를 통지받는 객체의 인터페이스이다.
 - 상세 옵저버(Concrete Observer)
-    - 옵저버 인터페이스를 구현한 클래스입니다.(implement)
-    - 서브젝트 클래스에서 상태 변화가 발생했을 때 주는 알림을 통해 자신의 상태를 업데이트합니다.
+  - 옵저버 인터페이스를 구현한 클래스이다(implement).
+  - 서브젝트 클래스의 상태가 변할 때 전달되는 알림을 통해 자신의 상태를 업데이트한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/observer-pattern-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/observer-pattern-01.png" width="80%" class="image__border">
+</div>
 <center>https://croute.me/316</center>
 
-## 2. Observer pattern in Spring 
+## 2. Observer pattern in Spring
 
-옵저버 패턴과 관련된 포스트들을 보면 좋은 예시 코드들이 많고, 특별한 시나리오가 떠오르지 않아서 이번엔 별도로 구현하진 않았습니다. 
-`Spring` 프레임워크에서 옵저버 패턴이 적용된 케이스를 찾아보겠습니다. 
+옵저버 패턴과 관련된 글에는 좋은 예시 코드가 많고 특별한 시나리오가 떠오르지 않아 이번에는 별도로 구현하지 않았다. 스프링 프레임워크(Spring Framework)에 옵저버 패턴이 적용된 사례를 살펴보겠다.
 
 ### 2.1. ApplicationEventMulticaster 인터페이스
-- 서브젝트 클래스가 수행할 일들을 추상화시킨 인터페이스입니다.
+
+서브젝트 클래스가 수행할 기능을 추상화한 인터페이스이다.
 
 ```java
 package org.springframework.context.event;
@@ -75,14 +76,15 @@ public interface ApplicationEventMulticaster {
 ```
 
 ### 2.2. AbstractApplicationEventMulticaster 클래스
-- `AbstractApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당합니다.
-- 추상 클래스이므로 이를 상속받은 클래스가 존재합니다.
-- 리스너(listener)들을 추가하고, 제거하는 역할을 수행합니다.
-    - `addApplicationListener` 메서드
-    - `addApplicationListenerBean` 메서드
-    - `removeApplicationListener` 메서드
-    - `removeApplicationListenerBean` 메서드
-    - `removeAllListeners` 메서드
+
+`AbstractApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당한다. 추상 클래스이므로 이를 상속받은 클래스가 존재한다.
+
+- 리스너(listener)들을 추가하고 제거하는 역할을 수행한다.
+  - `addApplicationListener` 메서드
+  - `addApplicationListenerBean` 메서드
+  - `removeApplicationListener` 메서드
+  - `removeApplicationListenerBean` 메서드
+  - `removeAllListeners` 메서드
 
 ```java
 package org.springframework.context.event;
@@ -162,10 +164,11 @@ public abstract class AbstractApplicationEventMulticaster implements Application
 ```
 
 ### 2.3. SimpleApplicationEventMulticaster 클래스
-- `SimpleApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당합니다.
-- 추상 클래스인 `AbstractApplicationEventMulticaster`의 기능을 확장합니다.
-- 자신이 관리하는 리스너들에게 이벤트를 전달하는 역할을 수행합니다.
-    - `multicastEvent` 메서드
+
+`SimpleApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당한다.
+
+- 추상 클래스인 `AbstractApplicationEventMulticaster`의 기능을 확장한다.
+- `multicastEvent` 메서드: 자신이 관리하는 리스너들에게 이벤트를 전달하는 역할을 수행한다.
 
 ```java
 package org.springframework.context.event;
@@ -281,9 +284,10 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 ```
 
 ### 2.4. ApplicationListener 인터페이스
-- `ApplicationListener` 인터페이스는 옵저버 패턴에서 옵저버 인터페이스에 해당합니다.
-- 옵저버들이 자신의 상태를 업데이트 할 수 있는 메서드를 제공합니다.
-    - `onApplicationEvent` 메서드
+
+`ApplicationListener` 인터페이스는 옵저버 패턴에서 옵저버 인터페이스에 해당한다.
+
+- `onApplicationEvent` 메서드: 옵저버들이 자신의 상태를 업데이트할 수 있는 메서드를 제공한다.
 
 ```java
 package org.springframework.context;
@@ -297,9 +301,10 @@ public interface ApplicationListener<E extends ApplicationEvent> extends EventLi
 ```
 
 ### 2.5. OrderEventListener 클래스
-- `OrderEventListener` 클래스는 옵저버 패턴에서 상세 옵저버 클래스에 해당합니다.
-- 서브젝크 클래스로부터 업데이트 알림을 받아 자신의 상태를 변경합니다.
-    - `listenOrderDeliveryCompleteEvent` 메서드
+
+`OrderEventListener` 클래스는 옵저버 패턴에서 상세 옵저버 클래스에 해당한다.
+
+- `listenOrderDeliveryCompleteEvent` 메서드: 서브젝트 클래스로부터 업데이트 알림을 받아 자신의 상태를 변경한다.
 
 ```java
 package blog.in.action.order.listner;
@@ -327,20 +332,18 @@ public class OrderEventListener {
 
 ## 3. 구현 시 고려 사항
 
-`GoF 디자인 패턴` 책에서 옵저버 패턴을 구현할 때 몇 가지 고민할 사항들을 알려주고 있습니다. 
-몇 가지 공감되는 내용들을 가져와봤습니다.  
+`GoF 디자인 패턴` 책에서는 옵저버 패턴을 구현할 때 고려할 사항을 소개한다. 그중 공감한 내용을 정리했다.
 
 ### 3.1. 값을 갱신시키는 주체는 누구?
 
-상태 값들을 변경했다면 이를 옵저버들에게 알려주기 위한 `notify` 호출은 누가할지 결정해야합니다. 
-값을 갱신시키는 방법을 크게 두 가지로 보고 있습니다. 
+상태 값을 변경했다면 이를 옵저버들에게 알리는 `notify` 메서드를 누가 호출할지 결정해야 한다. 값을 갱신하는 방법은 크게 두 가지로 나눌 수 있다.
 
-##### 서브젝트 클래스가 수행
+- 서브젝트 클래스가 수행한다.
+- 사용자가 직접 수행한다.
 
-상태 값의 변경이 일어나면 자신이 관리하는 옵저버들에게 이를 알립니다. 
-이 방법의 장점은 사용자가 상태를 변경하면 다른 옵저버들에게 알림이 가기 때문에 편하다는 점입니다. 
-단점은 상태 변경이 많다면 잦은 업데이트가 일어난다는 점입니다.
-간단하게 코드를 보고 이해하면 다음과 같습니다.
+서브젝트 클래스가 수행하는 방식을 먼저 살펴보자. 상태가 변경되면 자신이 관리하는 옵저버들에게 이를 알린다. 이 방법은 사용자가 상태를 변경할 때 다른 옵저버들에게 자동으로 알림을 보내므로 편리하다. 반면 상태가 자주 변경되면 불필요한 업데이트가 반복될 수 있다.
+
+코드로 살펴보면 다음과 같다.
 
 ```java
 class Subject {
@@ -360,14 +363,9 @@ class Subject {
 }
 ```
 
-##### 사용자가 직접 수행
+사용자가 직접 수행하는 방식은 어떨까? 사용자가 적절한 시점에 서브젝트 클래스의 `notify` 메서드를 호출한다. 이 방식은 원하는 시점까지 알림을 미뤄 최종 상태만 전달할 수 있으므로 중간 상태 변경으로 인한 불필요한 업데이트가 발생하지 않는다. 단점은 사용자가 추가 코드를 작성해야 한다는 것이다. 사용자가 `notify` 메서드 호출을 누락하면 값이 갱신되지 않는 버그가 발생할 수 있다.
 
-사용자가 적시에 서브젝트 클래스의 `notify` 메서드를 호출합니다. 
-장점은 상태 변경이 된 최종 모습만 보고 싶은 사용자라면 자신이 보고 싶을 때까지 상태 갱신을 미룰 수 있습니다. 
-중간에 불필요한 수정이 일어나지 않습니다. 
-단점은 사용자가 추가적인 코드를 작성해야 한다는 것입니다. 
-이럴 경우 사용자가 호출을 하지 않는 경우 값이 갱신되지 않는 버그가 발생할 수 있습니다.
-간단하게 코드를 보고 이해하면 다음과 같습니다. 
+코드로 살펴보면 다음과 같다.
 
 ```java
 class Client {
@@ -386,12 +384,12 @@ class Client {
 ```
 
 #### REFERENCE
+
 - [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]
 - [Vanilla Javascript로 상태관리 시스템 만들기][make-state-management-system-link]
 - <https://k0102575.github.io/articles/2020-04/observer-pattern>
 - <https://junhyunny.github.io/spring-boot/spring-application-context-event/>
 
 [spring-application-context-event-link]: https://junhyunny.github.io/spring-boot/spring-application-context-event/
-
 [design-pattern-book-link]: https://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791195444953
 [make-state-management-system-link]: https://junilhwang.github.io/TIL/Javascript/Design/Vanilla-JS-Store/#_1-%E1%84%8B%E1%85%B5%E1%86%AF%E1%84%83%E1%85%A1%E1%86%AB-%E1%84%80%E1%85%AE%E1%84%92%E1%85%A7%E1%86%AB%E1%84%92%E1%85%A2%E1%84%87%E1%85%A9%E1%84%80%E1%85%B5

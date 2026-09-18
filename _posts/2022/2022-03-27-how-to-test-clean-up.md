@@ -1,18 +1,18 @@
 ---
-title: "How to test remove event listener in useEffect hook's clean-up"
+title: "useEffect 훅의 클린업(clean-up)에서 이벤트 리스너 제거 테스트하기"
 search: false
 category:
   - javascript
   - react
   - jest
-last_modified_at: 2022-03-27T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [React useEffect hook and clean-up function][react-use-effect-and-clean-up-link]
+- [리액트(React) useEffect 훅과 클린업(clean-up) 함수][react-use-effect-and-clean-up-link]
 - [테스트 더블(Test Double)][test-double-link]
 
 ## 0. 들어가면서
@@ -21,7 +21,7 @@ last_modified_at: 2022-03-27T23:55:00
 
 ## 1. Problem Context
 
-[React useEffect hook and clean-up function][react-use-effect-and-clean-up-link] 글에서 다룬 예제를 다시 사용한다. 예시 코드에 대한 설명이 필요하다면 이전 글을 참고하길 바란다. 필자는 useEffect 훅에서 등록한 새로운 이벤트를 잘 해제했는지 확인할 수 있는 단위 테스트를 만들고 싶었다. 클린-업 함수에서 등록한 이벤트를 해제하지 않는 경우 메모리 누수가 발생할 수 있기 때문이다.
+[리액트(React) useEffect 훅과 클린업(clean-up) 함수][react-use-effect-and-clean-up-link] 글에서 다룬 예제를 다시 사용한다. 예시 코드에 대한 설명이 필요하다면 이전 글을 참고하길 바란다. 필자는 useEffect 훅에서 등록한 새로운 이벤트를 잘 해제했는지 확인할 수 있는 단위 테스트를 만들고 싶었다. 클린-업 함수에서 등록한 이벤트를 해제하지 않는 경우 메모리 누수가 발생할 수 있기 때문이다.
 
 1. 클릭 이벤트를 등록한다.
 2. 클릭 이벤트를 해제한다.
@@ -69,7 +69,7 @@ export default App;
 
 ## 2. Solve the problem
 
-테스트 코드를 작성할 때 테스트를 어렵게 만드는 객체(혹은 모듈)은 내가 다룰 수 있는 객체로 바꾸면 된다. 자바(java)에서 테스트를 어렵게 만드는 요소 중 하나인 시간을 스텁(stub)으로 만들기 위한 제공자(provider) 객체를 만드는 것을 하나의 예로 들 수 있다. 필자는 이벤트 등록과 제거를 위한 `event-listeners` 모듈을 만들고 이를 테스트 더블로 사용했다. `event-listeners` 모듈은 다음과 같다. 
+테스트 코드를 작성할 때 테스트를 어렵게 만드는 객체(혹은 모듈)은 내가 다룰 수 있는 객체로 바꾸면 된다. 자바(java)에서 테스트를 어렵게 만드는 요소 중 하나인 시간을 스텁(stub)으로 만들기 위한 제공자(provider) 객체를 만드는 것을 하나의 예로 들 수 있다. 나는이벤트 등록과 제거를 위한 `event-listeners` 모듈을 만들고 이를 테스트 더블로 사용했다. `event-listeners` 모듈은 다음과 같다. 
 
 ```js
 export const addClickEvent = (eventListener) => {

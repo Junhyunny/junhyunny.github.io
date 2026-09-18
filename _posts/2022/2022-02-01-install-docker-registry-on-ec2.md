@@ -177,7 +177,7 @@ EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group
 - 선택한 EC2 인스턴스 상세 정보 화면 하단의 `Security` 탭에서 `security groups`를 선택한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2022 }}/install-docker-registry-on-ec2-02.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/install-docker-registry-on-ec2-02.png" width="100%" class="image__border">
 </div>
 
 <br />
@@ -185,7 +185,7 @@ EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group
 컨테이너에 접근하는 트래픽을 제어하는 인바운드 룰(inbound rule)을 변경한다. `Edit inbound rules` 버튼을 눌러 인바운드(inbound) 규칙 설정 화면으로 이동한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2022 }}/install-docker-registry-on-ec2-03.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/install-docker-registry-on-ec2-03.png" width="100%" class="image__border">
 </div>
 
 <br />
@@ -196,7 +196,7 @@ EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group
 - 소스(source)는 `0.0.0.0/0`으로 지정하여 모든 IP에서 접근을 허용한다.
 
 <div align="center">
-  <img src="{{ site.image_url_2022 }}/install-docker-registry-on-ec2-04.png" width="80%" class="image__border">
+  <img src="{{ site.image_url_2022 }}/install-docker-registry-on-ec2-04.png" width="100%" class="image__border">
 </div>
 
 ### 2.3. 도커 이미지 push & pull

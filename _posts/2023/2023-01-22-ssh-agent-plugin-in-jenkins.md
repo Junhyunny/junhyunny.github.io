@@ -13,7 +13,7 @@ last_modified_at: 2023-01-22T23:55:00
 
 * [방화벽(frewall)][firewall-link]
 * [Open Firewall of Linux][open-firewall-of-linux-link]
-* [SSH Copy ID for Easy Connection][ssh-copy-id-for-easy-connection-link]
+* [ssh-copy-id 명령어 - 패스워드 없는 SSH 연결][ssh-copy-id-for-easy-connection-link]
 
 ## 0. 들어가면서
 

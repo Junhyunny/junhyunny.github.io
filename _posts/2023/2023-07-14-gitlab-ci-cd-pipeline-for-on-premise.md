@@ -12,7 +12,7 @@ last_modified_at: 2026-09-17T23:02:52+09:00
 #### RECOMMEND POSTS BEFORE THIS
 
 - [CI/CD 파이프라인][what-is-ci-cd-link]
-- [ssh-copy-id 명령어 - 쉽게 SSH 연결하기][ssh-copy-id-for-easy-connection-link]
+- [ssh-copy-id 명령어 - 패스워드 없는 SSH 연결][ssh-copy-id-for-easy-connection-link]
 
 ## 0. 들어가면서
 

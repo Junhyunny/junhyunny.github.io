@@ -1,5 +1,5 @@
 ---
-title: "ssh-copy-id 명령어 - 쉽게 SSH 연결하기"
+title: "ssh-copy-id 명령어 - 패스워드 없는 SSH 연결"
 search: false
 category:
   - information

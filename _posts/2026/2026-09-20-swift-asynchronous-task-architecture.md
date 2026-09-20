@@ -1,5 +1,5 @@
 ---
-title: "스위프트 비동기 처리(Swift Asynchronous Task)"
+title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task Architecture) "
 search: false
 category:
   - swift

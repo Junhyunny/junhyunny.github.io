@@ -1,5 +1,5 @@
 ---
-title: "waitFor 함수와 UserEvent type 함수 사용 주의사항"
+title: "waitFor() 함수와 UserEvent type() 함수 사용 주의사항"
 search: false
 category:
   - react

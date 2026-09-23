@@ -8,7 +8,7 @@ category:
   - test
   - test-driven-development
   - integration-test
-last_modified_at: 2026-09-24T01:40:46+09:00
+last_modified_at: 2026-09-24T01:55:05+09:00
 ---
 
 <br/>
@@ -179,21 +179,10 @@ enum MockServerError: Error {
 }
 ```
 
-이제 위 래퍼 함수를 활용한 테스트 코드를 살펴볼 차례다. 테스트 코드에서 스터빙(stubbing)한 응답 값이 화면에 잘 보이는지 확인한다. UI 테스트이므로 XCUIApplication 객체를 사용한다.
-
-- API 경로는 "METHOD /path" 패턴으로 지정한다. 테스트 코드에서 지정한 요청 메서드나 경로가 구현 코드의 것과 다르면 함께 전달한 핸들러는 실행되지 않는다.
-- 클로저 파라미터로 전달된 FlyingFox HTTP 서버 주소를 실행 환경 변수(launch environment)로 지정한다.
-- 비동기 요청이므로 스텁 응답에 포함된 "bulbasaur" 텍스트가 화면에 보일 때까지 최대 3초 대기한다.
+이제 위 래퍼 함수를 활용한 테스트 코드를 살펴볼 차례다. 테스트 코드에서 스터빙(stubbing)한 응답 데이터가 화면에 표시되는지 확인한다. 다음과 같은 스텁 응답을 사용했다.
 
 ```swift
-import FlyingFox
-import XCTest
-
 final class action_in_blogUITests: XCTestCase {
-
-    override func setUpWithError() throws {
-        continueAfterFailure = false
-    }
 
     let stubResponse: String = """
         {
@@ -206,6 +195,27 @@ final class action_in_blogUITests: XCTestCase {
             ]
         }
         """
+    ...
+}
+```
+
+UI 테스트이므로 XCUIApplication 객체를 사용한다. 앞서 살펴본 `withMockServer()` 래퍼 함수를 사용하면 클로저에서 FlyingFox HTTP 서버 주소를 파라미터로 전달받을 수 있다.
+
+- API 경로는 "METHOD /path" 패턴으로 지정한다. 테스트 코드에서 지정한 요청 메서드나 경로가 구현 코드의 것과 다르면 함께 전달한 핸들러는 실행되지 않는다.
+- 클로저 파라미터로 전달된 HTTP 서버 주소를 실행 환경 변수(launch environment)로 지정한다.
+- 비동기 요청이므로 스텁 응답에 포함된 "bulbasaur" 텍스트가 화면에 보일 때까지 최대 3초 대기한다.
+
+```swift
+import FlyingFox
+import XCTest
+
+final class action_in_blogUITests: XCTestCase {
+
+    override func setUpWithError() throws {
+        continueAfterFailure = false
+    }
+
+    ...
 
     @MainActor
     func testExample() async throws {

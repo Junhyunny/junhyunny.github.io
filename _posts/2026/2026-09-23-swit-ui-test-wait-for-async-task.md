@@ -135,7 +135,7 @@ enum WaitError: Error {
 }
 ```
 
-위 waitFor 함수로 비동기 처리로 상태가 바뀌는 것을 기다린 후 단언하면 테스트가 통과한다.
+위에서 만든 waitFor() 함수로 비동기 처리에 의해 상태가 바뀌는 것을 기다린 후 단언하면 테스트가 통과한다.
 
 ```swift
 struct ContentViewModelTests {

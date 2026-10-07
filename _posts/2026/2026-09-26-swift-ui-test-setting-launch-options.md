@@ -170,5 +170,5 @@ struct ContentView: View {
 - <https://developer.apple.com/documentation/xcuiautomation/xcuiapplication>
 - <https://developer.apple.com/documentation/foundation/processinfo>
 
-[swift-ui-test-flying-fox-link]: https://junhyunny.github.io/swift/swift-ui/flyingfox/test/test-driven-development/integration-test/swit-ui-test-flying-fox/
+[swift-ui-test-flying-fox-link]: https://junhyunny.github.io/swift/swift-ui/flyingfox/test/test-driven-development/integration-test/swift-ui-test-flying-fox/
 [test-double-link]: https://junhyunny.github.io/test/test-driven-development/test-double/

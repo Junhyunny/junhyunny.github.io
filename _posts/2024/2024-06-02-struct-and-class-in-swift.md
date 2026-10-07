@@ -1,5 +1,5 @@
 ---
-title: "iOS 스위프트(Swift) 구조체(Struct)와 클래스(Class))"
+title: "스위프트 구조체와 클래스(Swift struct and class)"
 search: false
 category:
   - swift

@@ -12,8 +12,6 @@ last_modified_at: 2026-09-23T10:48:32+09:00
 
 <br/>
 
-#### RECOMMEND POSTS BEFORE THIS
-
 ## 0. 들어가면서
 
 이번 글은 SwiftUI 단위 테스트에 비동기 로직이 포함되었을 때 테스트가 간헐적으로 실패하거나 단언(assertion)이 정상적으로 수행되지 않는 문제를 해결하기 위한 팁(tip)을 소개한다.

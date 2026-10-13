@@ -20,7 +20,7 @@ last_modified_at: 2026-10-13T17:42:49+09:00
 
 ## 0. 들어가면서
 
-스위프트(Swift)는 `ARC(Automatic Reference Counting)`라는 메모리 관리 기법으로 클래스 인스턴스의 수명을 관리한다. 이전의 Objective-C에서는 개발자가 메모리 해제를 직접 관리하기도 했지만, 스위프트는 ARC를 통해 사용되지 않는 인스턴스의 메모리를 자동으로 해제한다. ARC는 가비지 컬렉션 방식 중 [참조 카운팅(reference counting) 알고리즘][reference-counting-gc-in-javascript-link]과 같은 원리로 동작한다. 먼저 참조 카운팅 방식을 살펴본 뒤 ARC를 자세히 알아보자.
+스위프트(Swift)는 `ARC(Automatic Reference Counting)`라는 방법을 통해 클래스 인스턴스의 수명을 관리한다. 이전의 Objective-C에서는 개발자가 메모리 해제를 직접 관리하기도 했지만, 스위프트는 ARC를 통해 사용되지 않는 인스턴스의 메모리를 자동으로 해제한다. ARC는 가비지 컬렉션 방식 중 [참조 카운팅(reference counting) 알고리즘][reference-counting-gc-in-javascript-link]과 같은 원리로 동작한다. 먼저 참조 카운팅 방식을 살펴본 뒤 ARC를 자세히 알아보자.
 
 ## 1. 참조 카운팅 (Reference Counting)
 
@@ -87,7 +87,9 @@ Junhyunny 해제
 - retain: 어떤 객체를 새로운 [강한 참조(strong reference)][swift-strong-reference-weak-reference-and-unowned-reference-link]가 가리키는 경우 그 객체의 참조 카운트를 증가시키는 연산
 - release: 기존 강한 참조가 사라질 때 참조 카운트를 감소시키는 연산
 
-retain, release 연산은 스위프트 문법이 아니라 컴파일러가 생성하는 메모리 관리 동작이다. [ARC in Swift: Basics and beyond](https://developer.apple.com/videos/play/wwdc2021/10216/) 영상에서는 짧은 예제 코드로 ARC의 내부 동작을 설명한다. 예제에 등장하는 retain, release 연산도 컴파일러가 추가한 메모리 관리 동작을 시각화한 것이다. 영상에서 소개한 예제 코드를 살펴보자.
+[ARC in Swift: Basics and beyond](https://developer.apple.com/videos/play/wwdc2021/10216/) 영상에서는 짧은 예제 코드와 함께 ARC의 동작을 설명한다. 이 예제에서 등장하는 retain, release 연산도 컴파일러가 추가한 것을 시각화한 것이다. 지금부터 영상에서 소개한 예제 코드를 살펴보자.
+
+예제에서는 Traveler 인스턴스를 생성해 traveler1 변수에 할당한다. 이어 traveler1이 참조하는 인스턴스를 traveler2 변수에도 할당한다. 이로써 두 변수는 동일한 Traveler 인스턴스를 가리킨다. 
 
 ```swift
 class Traveler {
@@ -105,7 +107,7 @@ traveler2.destination = "Big Sur"
 print("Done traveling")
 ```
 
-예제에서는 Traveler 인스턴스를 생성해 traveler1 변수에 할당한다. 이어 traveler1이 참조하는 인스턴스를 traveler2 변수에도 할당한다. 이로써 두 변수는 동일한 Traveler 인스턴스를 가리킨다. 영상에서는 컴파일러가 생성한 메모리 관리 연산을 다음과 같이 나타낸다.
+위 코드는 컴파일 시점에 다음과 같이 컴파일러에 의해 메모리 관리 연산들이 추가된다.
 
 ```swift
 let traveler1 = Traveler(name: "Lily")
@@ -120,19 +122,21 @@ release
 print("Done traveling")
 ```
 
-이 코드를 하나씩 살펴보자. 다음 코드에서 Traveler 인스턴스가 생성된다.
+위 코드를 하나씩 뜯어서 살펴보자. 다음 코드에서 Traveler 인스턴스가 생성된다.
 
 ```swift
 let traveler1 = Traveler(name: "Lily")
+retain
 ```
 
-이후 retain 연산이 수행되고, Traveler(name: "Lily") 인스턴스의 참조 카운트는 1이 된다. 그다음 같은 객체를 다른 변수(traveler2)에 대입한다.
+이후 retain 연산이 수행되고, Traveler(name: "Lily") 인스턴스의 참조 카운트는 1이 된다. 그 다음 같은 객체를 다른 변수(traveler2)에 대입한다. 객체의 참조 카운트가 늘어나므로 retain 연산이 수행될 것 같지만, 예제에서는 release 연산이 실행된다.
 
 ```swift
 let traveler2 = traveler1
+release
 ```
 
-여기서 새로운 Traveler 인스턴스가 만들어지는 것은 아니다. traveler1과 traveler2 변수는 동일한 인스턴스를 가리킨다. 개념적으로 강한 참조가 두 개이므로 참조 카운트가 2가 된다.
+이 코드는 새로운 Traveler 인스턴스가 만들어지는 것은 아니다. traveler1과 traveler2 변수는 동일한 인스턴스를 가리킨다. 개념적으로 강한 참조가 두 개이므로 참조 카운트가 2가 되는 것이 맞다.
 
 ```
 traveler1 ───┐
@@ -144,16 +148,9 @@ traveler1 ───┐
 traveler2 ───┘
 ```
 
-객체의 참조 카운트가 늘어나므로 retain 연산이 수행될 것 같지만, 예제에서는 release 연산이 실행된다.
+다만 이 코드가 traveler1 변수의 마지막 사용 시점이라는 것이 중요하다. 컴파일러는 traveler1의 강한 참조를 더 유지할 필요가 없다고 판단하고 release 연산으로 참조 카운트를 감소시킨다. 컴파일러는 변수가 더 이상 필요하지 않다고 판단하면 release 연산을 실행 추가하게 된다. **객체의 참조 카운트가 코드 블록의 끝까지 반드시 유지되는 것은 아니다.**
 
-```swift
-let traveler2 = traveler1
-release
-```
-
-이 코드가 traveler1 변수의 마지막 사용 시점이다. 컴파일러는 traveler1의 강한 참조를 더 유지할 필요가 없다고 판단하고 release 연산으로 참조 카운트를 감소시킨다. 컴파일러는 변수가 더 이상 필요하지 않다고 판단하면 release 연산을 실행할 수 있다. **참조 카운트가 코드 블록의 끝까지 반드시 유지되는 것은 아니다.**
-
-다음으로 traveler2 변수를 통해 Traveler 인스턴스의 destination 프로퍼티를 변경한다. 이후 traveler2의 강한 참조도 release 처리된다. 이 코드가 traveler2 변수의 마지막 사용 지점이므로 함수 블록의 끝까지 기다리지 않고 참조 카운트를 줄일 수 있다.
+다음 traveler2 변수를 통해 Traveler 인스턴스의 destination 프로퍼티를 변경한다. 이후 traveler2 변수의 강한 참조도 release 처리된다. 이 코드가 traveler2 변수의 마지막 사용 지점이므로 함수 블록의 끝까지 기다리지 않고 참조 카운트를 줄일 수 있다.
 
 ```swift
 traveler2.destination = "Big Sur"
@@ -208,21 +205,18 @@ bb0:
 } // end sil function '$s4main128$s4main0026actioninblogswift_pkFCfcayfMX33_0_33_BCF0FC9F294D000A752CCC1521A6FDF4Ll10PlaygroundfMf_24PlaygroundEntryContainerfMu_01_fghijklM0LLO0b1_cde6_0_33_fghijklmnop3_15q6EntryfT1_yyYaYbKFZyyYaYbScMYcXEfU_'
 ```
 
-## CLOSING
-
 #### TEST CODE REPOSITORY
 
-#### RECOMMEND NEXT POSTS
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2026-10-13-swift-automatic-reference-counting>
+
+#### REFERENCE
 
 - <https://developer.apple.com/videos/play/wwdc2021/10216/>
 - <https://www.swift.org/documentation/swift-compiler>
 - <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/>
+- <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances>
 - <https://velog.io/@knr9144/ARC>
 - <https://velog.io/@knr9144/Swift-ARC2-%EA%B0%95%ED%95%9C%EC%B0%B8%EC%A1%B0%EC%8B%B8%EC%9D%B4%ED%81%B4-Strong-Reference-Cycle>
-
-#### REFERENCE
-
-- <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances>
 
 [reference-counting-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/
 [struct-and-class-in-swift-link]: https://junhyunny.github.io/swift/struct-and-class-in-swift/

@@ -330,16 +330,18 @@ Button deinit
 
 #### RECOMMEND NEXT POSTS
 
+- [스위프트 ARC(Swift Automatic Reference Counting)][swift-automatic-reference-counting-link]
+
+#### REFERENCE
+
 - <https://developer.apple.com/videos/play/wwdc2021/10216/>
 - <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/>
 - <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-for-Closures>
+- <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances>
 - <https://www.swift.org/documentation/swift-compiler>
 - <https://velog.io/@knr9144/ARC>
 - <https://velog.io/@knr9144/Swift-ARC2-%EA%B0%95%ED%95%9C%EC%B0%B8%EC%A1%B0%EC%8B%B8%EC%9D%B4%ED%81%B4-Strong-Reference-Cycle>
 
-#### REFERENCE
-
-- <https://docs.swift.org/latest/documentation/the-swift-programming-language/automaticreferencecounting/#Strong-Reference-Cycles-Between-Class-Instances>
-
 [reference-counting-gc-in-javascript-link]: https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/
 [struct-and-class-in-swift-link]: https://junhyunny.github.io/swift/struct-and-class-in-swift/
+[swift-automatic-reference-counting-link]: https://junhyunny.github.io/swift/swift-ui/arc/automatic-reference-counting/garbage-collecting/swift-automatic-reference-counting/

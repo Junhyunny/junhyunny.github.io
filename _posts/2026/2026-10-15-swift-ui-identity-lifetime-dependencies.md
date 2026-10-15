@@ -478,7 +478,7 @@ SwiftUI에서는 뷰를 값 타입인 구조체로 정의하면서 이 글에서
 
 > Now we also saw that our Custom View is defined as a struct instead of a class. And this goes back to how views are defined declaratively in SwiftUI. In this case, that means our views are not persistent objects that we update over time using imperative event-based code. Instead, our views are defined declaratively as a function of their inputs.
 
-SwiftUI는 선언형 UI 프레임워크이기 때문에 뷰는 특정 시점의 데이터 상태와 입력 값을 바탕으로 UI의 모습을 기술한다. 시간이 지나면서 직접 수정하는 객체가 아니라 입력 값에 따라 새로 만드는 값이다. 이를 위해 참조 타입인 클래스 대신 값 타입인 구조체를 사용했다고 설명한다.
+애플은 SwiftUI는 선언형 UI 프레임워크로써 뷰는 특정 시점의 데이터 상태와 입력 값을 바탕으로 UI의 모습을 기술해야하기 때문에 시간이 지나면서 직접 수정하는 참조 타입의 객체가 아니라 입력 값에 따라 새로 값이 만들어지는 값 타입의 객체를 사용하는 것이 더 맞는 설계라고 판단한 것 같다.
 
 #### TEST CODE REPOSITORY
 

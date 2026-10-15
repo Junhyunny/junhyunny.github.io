@@ -17,7 +17,7 @@ last_modified_at: 2026-10-15T16:07:53+09:00
 
 ## 1. Core concepts
 
-SwiftUI를 이해하려면 다음과 같은 세 가지 핵심 개념을 알아야 한다.
+SwiftUI의 바디(body) 재평가 원리를 이해하려면 다음과 같은 세 가지 핵심 개념을 알아야 한다.
 
 - 정체성 (Identity) - SwiftUI가 뷰(View)를 구별하는 기준
 - 생명주기 (Lifetime) - 뷰의 정체성이 유지되는 기간

@@ -132,7 +132,7 @@ $ npm install typescript@5.9.3
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/todo-agent>
+- <https://github.com/Junhyunny/archived-todo-agent>
 
 #### REFERENCE
 

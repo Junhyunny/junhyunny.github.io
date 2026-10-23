@@ -135,7 +135,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github_access_token',
-                    url: 'https://github.com/Junhyunny/jenkins-github-webhook.git'
+                    url: 'https://github.com/Junhyunny/archived-jenkins-github-webhook.git'
                 sh 'chmod 400 private-key.pem'
             }
         }

@@ -75,7 +75,7 @@ Playwright는 마이크로소프트(microsoft)가 개발한 오픈소스 자동�
 
 ## 3. Example
 
-이제 본격적으로 예제 코드를 살펴보자. 설명의 가독성을 위해 코드를 나눠서 설명한다. 전체 코드는 [이 레포지토리의 778c0a 커밋](https://github.com/Junhyunny/todo-agent/commit/778c0a583fcef2d3e43f024a6b9d30649339a52c)에서 확인할 수 있다. 다음과 같은 의존성이 필요하다.
+이제 본격적으로 예제 코드를 살펴보자. 설명의 가독성을 위해 코드를 나눠서 설명한다. 전체 코드는 [이 레포지토리의 778c0a 커밋](https://github.com/Junhyunny/archived-todo-agent/commit/778c0a583fcef2d3e43f024a6b9d30649339a52c)에서 확인할 수 있다. 다음과 같은 의존성이 필요하다.
 
 ```python
 import asyncio
@@ -423,7 +423,7 @@ AI 에이전트는 다음과 같이 메일 내용을 요약해줬다.
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/todo-agent>
+- <https://github.com/Junhyunny/archived-todo-agent>
 
 #### REFERENCE
 

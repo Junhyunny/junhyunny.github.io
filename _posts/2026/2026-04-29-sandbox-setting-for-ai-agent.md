@@ -86,7 +86,7 @@ last_modified_at: 2026-04-29T16:01:06+09:00
 
 ## 2. Setup docker sandboxes
 
-[토이 프로젝트](https://github.com/Junhyunny/todo-agent)에 샌드박스 환경을 적용해보기로 했다. 도커 데스크탑(docker desktop)에 통합되어 있던 docker sandbox 명령어는 deprecated(사용 중단)되었다. 기존의 통합 명령어는 독립적으로 실행할 수 있는 `sbx` CLI로 대체되었다. 새로운 `sbx` CLI는 완전한 도커 샌드박스 워크플로우를 제공하므로, 이제 샌드박스 기능을 사용하기 위해 더 이상 도커 데스크탑을 설치하거나 실행할 필요가 없다.
+[토이 프로젝트](https://github.com/Junhyunny/archived-todo-agent)에 샌드박스 환경을 적용해보기로 했다. 도커 데스크탑(docker desktop)에 통합되어 있던 docker sandbox 명령어는 deprecated(사용 중단)되었다. 기존의 통합 명령어는 독립적으로 실행할 수 있는 `sbx` CLI로 대체되었다. 새로운 `sbx` CLI는 완전한 도커 샌드박스 워크플로우를 제공하므로, 이제 샌드박스 기능을 사용하기 위해 더 이상 도커 데스크탑을 설치하거나 실행할 필요가 없다.
 
 아래 명령어를 통해 `sbx` CLI를 설치할 수 있다.
 
@@ -288,7 +288,7 @@ Unpublished 127.0.0.1:8080 -> 3000/tcp
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/todo-agent>
+- <https://github.com/Junhyunny/archived-todo-agent>
 
 #### REFERENCE
 

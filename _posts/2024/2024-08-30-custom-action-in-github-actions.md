@@ -203,7 +203,7 @@ runs:
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/custom-github-actions>
+- <https://github.com/Junhyunny/archived-custom-github-actions>
 - <https://github.com/Junhyunny/sum>
 
 #### REFERENCE

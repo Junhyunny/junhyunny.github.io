@@ -21,7 +21,7 @@ last_modified_at: 2026-05-09T12:08:07+09:00
 
 ## 0. 들어가면서
 
-AI 에이전트를 사용해서 [토이 프로젝트](https://github.com/Junhyunny/todo-agent)에서 파이썬 서버 개발을 하고 있다. FastAPI, SQLAlchemy 등 처음 사용해 보는 라이브러리가 많아서 공부할 게 많다. AI 에이전트가 없었으면 토이 프로젝트를 시작할 엄두도 안 났을 거다. 이번 글은 프로젝트 코드를 개선하기 위한 작업 단위(UnitOfWork) 디자인 패턴에 대해 정리했다.
+AI 에이전트를 사용해서 [토이 프로젝트](https://github.com/Junhyunny/archived-todo-agent)에서 파이썬 서버 개발을 하고 있다. FastAPI, SQLAlchemy 등 처음 사용해 보는 라이브러리가 많아서 공부할 게 많다. AI 에이전트가 없었으면 토이 프로젝트를 시작할 엄두도 안 났을 거다. 이번 글은 프로젝트 코드를 개선하기 위한 작업 단위(UnitOfWork) 디자인 패턴에 대해 정리했다.
 
 ## 1. UnitOfWork Pattern
 

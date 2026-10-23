@@ -214,7 +214,7 @@ jobs:
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/github-actions>
+- <https://github.com/Junhyunny/archived-github-actions>
 
 #### RECOMMEND NEXT POSTS
 

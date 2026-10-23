@@ -175,7 +175,7 @@ GitHub 웹 훅이 연결된 젠킨스 파이프라인 만드는 방법은 [젠�
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/jenkins-pipeline-test>
+* <https://github.com/Junhyunny/archived-jenkins-pipeline-test>
 
 #### REFERENCE
 

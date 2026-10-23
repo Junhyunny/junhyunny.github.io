@@ -227,7 +227,7 @@ README.md 파일만 변경했기 때문에 효과가 극적으로 보이지만, 
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/github-actions>
+- <https://github.com/Junhyunny/archived-github-actions>
 
 #### REFERENCE
 

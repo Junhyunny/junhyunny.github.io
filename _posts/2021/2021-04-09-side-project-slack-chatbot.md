@@ -134,7 +134,7 @@ AWS(Amazon Web Service)는 많이 사용해보지 않아서 어려웠다. 이번
 2. [zip(혹은 jar) 파일 빌드 및 배포][java-deploy-link]
 3. 이벤트 트리거 연결
 
-RequestStreamHandler 인터페이스를 구현한 코드를 살펴보자. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/slack-chatbot)에서 확인할 수 있다.
+RequestStreamHandler 인터페이스를 구현한 코드를 살펴보자. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/archived-slack-chatbot)에서 확인할 수 있다.
 
 - 미리 AWS 람다에 등록한 토큰이나 사용자 정보를 추출한다.
 - 추출한 정보에 해당하는 깃허브 레포지토리 정보를 가져온다.
@@ -245,7 +245,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/slack-chatbot>
+- <https://github.com/Junhyunny/archived-slack-chatbot>
 
 #### REFERENCE
 

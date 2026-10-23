@@ -248,7 +248,7 @@ PM, 디자이너, 개발자의 경계가 점점 무너지는 것 같다. 아니,
 
 #### TEST CODE REPOSITORY
 
-- <https://github.com/Junhyunny/playwright-mcp-e2e-workflow>
+- <https://github.com/Junhyunny/archived-playwright-mcp-e2e-workflow>
 
 #### REFERENCE
 

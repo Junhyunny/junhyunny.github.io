@@ -10,7 +10,7 @@ last_modified_at: 2026-03-24T08:03:14+09:00
 
 #### RECOMMEND POSTS BEFORE THIS
 
-- [Filter, Interceptor and AOP in Spring][filter-interceptor-and-aop-link]
+- [스프링(spring) 프레임워크의 필터(Filter), 인터셉터(Interceptor), AOP(Aspect Oriented Programming)][filter-interceptor-and-aop-link]
 - [Redirect and Forwarding][redirect-and-forwarding-link]
 
 ## 0. 들어가면서

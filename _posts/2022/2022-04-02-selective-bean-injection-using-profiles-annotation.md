@@ -3,31 +3,27 @@ title: "@Profile 애너테이션을 사용한 선택적 빈(bean) 주입"
 search: false
 category:
   - spring-boot
-last_modified_at: 2022-04-02T23:55:00
+last_modified_at: 2026-03-28T11:14:57+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-서비스를 개발하다보면 서비스가 배포될 환경에 맞는 적절한 설정 주입이 필요합니다. 
-스프링 프레임워크에선 `spring.profiles.active` 설정 값으로 환경 별로 설정을 나눌 수 있습니다. 
-빈(bean)도 배포 환경에 맞게 선택적으로 주입받아 사용할 수 있습니다. 
-이번 포스트에서는 환경을 나누고 이에 맞는 적절한 빈을 주입받는 방법을 정리해보았습니다. 
+서비스를 개발하다보면 서비스가 배포될 환경에 맞는 적절한 설정 주입이 필요하다. 스프링 프레임워크에선 `spring.profiles.active` 설정 값으로 환경 별로 설정을 나눌 수 있다. 빈(bean)도 배포 환경에 맞게 선택적으로 주입받아 사용할 수 있다. 이번 포스트에서는 환경을 나누고 이에 맞는 적절한 빈을 주입받는 방법을 정리해보았다.
 
 ## 1. 적용 시나리오 예시
 
-다음과 같은 상황이라고 가정해보겠습니다. 
-- 개발자 A는 현재 B 서비스의 API를 호출하는 기능을 개발하는 중 입니다. 
-- B 서비스 개발 팀에 문의해보니 아직 API 기능 개발이 완료되지 않았다고 합니다. 
-- 개발자 A는 B 서비스로부터 필요한 데이터를 조회한 후 다른 기능을 개발해야 합니다. 
-- B 서비스 API 기능 개발이 끝나길 기다릴 수 없으니 응답 메시지 샘플 파일을 먼저 받았습니다. 
-- 개발자 A는 로컬에선 API 응답 메시지 샘플 파일을 사용하고, 다른 실행 환경에선 실제 API 요청을 수행하고 싶습니다. 
+다음과 같은 상황이라고 가정해보겠다.
+- 개발자 A는 현재 B 서비스의 API를 호출하는 기능을 개발하는 중이다. 
+- B 서비스 개발 팀에 문의해보니 아직 API 기능 개발이 완료되지 않았다고 한다. 
+- 개발자 A는 B 서비스로부터 필요한 데이터를 조회한 후 다른 기능을 개발해야 한다. 
+- B 서비스 API 기능 개발이 끝나길 기다릴 수 없으니 응답 메시지 샘플 파일을 먼저 받았다. 
+- 개발자 A는 로컬에선 API 응답 메시지 샘플 파일을 사용하고, 다른 실행 환경에선 실제 API 요청을 수행하고 싶다. 
 
 ## 2. PokeMonProxy 인터페이스 만들기
 
-비즈니스 로직에서 사용할 프록시 인터페이스를 생성합니다. 
-B 서비스에서 포켓몬 정보를 조회하는 기능입니다.
+비즈니스 로직에서 사용할 프록시 인터페이스를 생성한다. B 서비스에서 포켓몬 정보를 조회하는 기능이다.
 
 ```java
 package action.in.blog.proxy;
@@ -42,11 +38,11 @@ public interface PokemonProxy {
 
 ## 3. PokeMonProxy 구현체 만들기
 
-실행 환경 별로 사용할 구현체를 만듭니다. 
+실행 환경 별로 사용할 구현체를 만든다.
 
 ### 3.1. LocalPokeMonProxy 클래스
-- `@Profile` 애너테이션으로 `local` 환경일 때 사용하는 빈으로 설정합니다.
-- 응답 메시지 json 파일을 사용합니다.
+- `@Profile` 애너테이션으로 `local` 환경일 때 사용하는 빈으로 설정한다.
+- 응답 메시지 json 파일을 사용한다.
 
 ```java
 package action.in.blog.proxy;
@@ -94,8 +90,8 @@ public class LocalPokemonProxy implements PokemonProxy {
 ```
 
 ### 3.2. DefaultPokeMonProxy 클래스
-- `@Profile` 애너테이션으로 `local` 환경이 아닐 때 사용하는 빈으로 설정합니다.
-- 실제 API 요청을 수행합니다.
+- `@Profile` 애너테이션으로 `local` 환경이 아닐 때 사용하는 빈으로 설정한다.
+- 실제 API 요청을 수행한다.
 
 ```java
 package action.in.blog.proxy;
@@ -120,10 +116,10 @@ public class DefaultPokemonProxy implements PokemonProxy {
 
 ## 4. application.yml 설정 환경 분할
 
-- 스프링 `application.yml` 설정 파일로 실행 환경을 `local`으로 지정합니다.
-- 필요에 따라서 `dev`, `prod` 등을 사용할 수 있습니다.
-- 지정한 실행 환경이 `local`이므로 `LocalPokemonProxy` 구현체가 빈으로 사용됩니다.
-- 지정한 실행 환경이 `local`이 아닌 경우 `DefaultPokemonProxy` 구현체가 빈으로 사용됩니다.
+- 스프링 `application.yml` 설정 파일로 실행 환경을 `local`으로 지정한다.
+- 필요에 따라서 `dev`, `prod` 등을 사용할 수 있다.
+- 지정한 실행 환경이 `local`이므로 `LocalPokemonProxy` 구현체가 빈으로 사용된다.
+- 지정한 실행 환경이 `local`이 아닌 경우 `DefaultPokemonProxy` 구현체가 빈으로 사용된다.
 
 ```yml
 spring:
@@ -133,12 +129,12 @@ spring:
 
 ## 5. 테스트 코드
 
-환경 별로 적절한 빈이 주입되었는지 확인합니다. 
+환경 별로 적절한 빈이 주입되었는지 확인한다.
 
 ### 5.1. LocalActionInBlogApplicationIT 클래스
 
 - `@ActiveProfiles` 애너테이션을 사용하여 `local` 실행 환경 설정을 활성화시킵니다.
-- 주입된 `Proxy` 빈이 `LocalPokemonProxy` 인스턴스인지 확인합니다.
+- 주입된 `Proxy` 빈이 `LocalPokemonProxy` 인스턴스인지 확인한다.
 
 ```java
 package action.in.blog;
@@ -171,7 +167,7 @@ class LocalActionInBlogApplicationIT {
 ### 5.2. DefaultActionInBlogApplicationIT 클래스
 
 - `@ActiveProfiles` 애너테이션을 사용하여 `dev` 실행 환경 설정을 활성화시킵니다.
-- 주입된 `Proxy` 빈이 `DefaultPokemonProxy` 인스턴스인지 확인합니다.
+- 주입된 `Proxy` 빈이 `DefaultPokemonProxy` 인스턴스인지 확인한다.
 
 ```java
 package action.in.blog;
@@ -203,8 +199,7 @@ class DefaultActionInBlogApplicationIT {
 
 ## CLOSING
 
-`application.yml` 파일의 `spring.profiles.active` 설정을 `local`, `dev` 값으로 변경하여 실행하면 실제 호출할 수 있습니다. 
-설정 값에 따라 실제 일을 수행하는 객체는 다르지만 클라이언트에게 주는 응답 값은 같습니다.
+`application.yml` 파일의 `spring.profiles.active` 설정을 `local`, `dev` 값으로 변경하여 실행하면 실제 호출할 수 있다. 설정 값에 따라 실제 일을 수행하는 객체는 다르지만 클라이언트에게 주는 응답 값은 같다.
 
 ##### PokeomonController 클래스
 

@@ -1,42 +1,42 @@
 ---
-title: "Customizing SwiperJs"
+title: "SwiperJs 커스터마이징"
 search: false
 category:
   - html
   - css
   - javascript
-last_modified_at: 2022-06-11T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-스와이퍼(swiper) 기능이 필요하면 주로 `SwiperJs` 라이브러리를 사용합니다. 
-제공되는 스타일을 그대로 사용하진 않고 변경하여 사용합니다. 
-이번 포스트에서는 스와이퍼를 커스터마이징(customizing)하는 방법과 몇 가지 예시를 작성하였습니다. 
+스와이퍼(swiper) 기능이 필요하면 주로 `SwiperJs` 라이브러리를 사용한다.
+제공되는 스타일을 그대로 사용하진 않고 변경하여 사용한다.
+이번 포스트에서는 스와이퍼를 커스터마이징(customizing)하는 방법과 몇 가지 예시를 작성하였다.
 
 ## 1. 스와이퍼 커스터마이징 방법
 
-다음과 같은 방법으로 스와이퍼를 커스터마이징합니다. 
-- 사용하려는 스와이퍼와 동일한 방식으로 동작하는 스와이퍼를 [SwiperJs Demos][swiper-js-demos-link]에서 찾습니다. 
-- 선택한 스와이퍼를 생성할 수 있는 코드를 페이지에 삽입합니다. 
-- 개발자 도구를 통해 커스터마이징하고 싶은 DOM 요소의 클래스를 찾습니다. 
-- CSS 코드로 이를 오버라이드합니다.
+다음과 같은 방법으로 스와이퍼를 커스터마이징한다.
+- 사용하려는 스와이퍼와 동일한 방식으로 동작하는 스와이퍼를 [SwiperJs Demos][swiper-js-demos-link]에서 찾는다.
+- 선택한 스와이퍼를 생성할 수 있는 코드를 페이지에 삽입한다.
+- 개발자 도구를 통해 커스터마이징하고 싶은 DOM 요소의 클래스를 찾는다.
+- CSS 코드로 이를 오버라이드한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/customizing-swiper-js-01.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/customizing-swiper-js-01.gif" width="100%" class="image__border">
+</div>
 
 ## 2. Customizing Pagination
 
-하단 페이지를 표시하는 불릿(bullet) 스타일을 변경하였습니다. 
+하단 페이지를 표시하는 불릿(bullet) 스타일을 변경하였다.
 
 ### 2.1. HTML 코드
 
-- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였습니다.
-    - 실제 코드에선 `header` 영역에 이를 위치시킵니다.
-- `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담습니다.
+- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였다.
+  - 실제 코드에선 `header` 영역에 이를 위치시킨다.
+- `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담는다.
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -58,8 +58,8 @@ last_modified_at: 2022-06-11T23:55:00
 
 ### 2.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 ```css
 #my-swiper {
@@ -143,8 +143,8 @@ last_modified_at: 2022-06-11T23:55:00
 
 ### 2.3. JavaScript 코드
 
-- 스와이퍼를 생성합니다.
-- 페이징 영역을 변경할 수 있는 `renderBullet` 함수를 재정의합니다.
+- 스와이퍼를 생성한다.
+- 페이징 영역을 변경할 수 있는 `renderBullet` 함수를 재정의한다.
 
 ```javascript
 new Swiper("#my-swiper", {
@@ -168,16 +168,16 @@ new Swiper("#my-swiper", {
 
 ## 3. Customizing Navigation
 
-`SwiperJs` 라이브러리를 사용하면 스와이퍼 내부 컨텐츠들이 `overflow: hidden;` 속성으로 인해 잘리는 현상이 있습니다. 
-어떤 스와이퍼들은 네비게이션 화살표가 경계 영역에 걸쳐서 그릴 필요가 있는데, 이를 해결하기 위한 코드를 예시 코드로 작성하였습니다. 
+`SwiperJs` 라이브러리를 사용하면 스와이퍼 내부 컨텐츠들이 `overflow: hidden;` 속성으로 인해 잘리는 현상이 있다.
+어떤 스와이퍼들은 네비게이션 화살표가 경계 영역에 걸쳐서 그릴 필요가 있는데, 이를 해결하기 위한 코드를 예시 코드로 작성하였다.
 
 ### 3.1. HTML 코드
 
-- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였습니다.
-    - 실제 코드에선 `header` 영역에 이를 위치시킵니다.
-- `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담습니다.
-- 스와이퍼의 화살표 모양을 담당하는 `.swiper-button-prev`, `.swiper-button-next` 클래스를 스와이퍼 외부로 옮깁니다.
-- 스와이퍼 슬라이드들과 네비게이션 화살표 DOM 요소들을 감쌀 수 있는 블록을 만들고, `.swiper-wrap` 클래스로 지정합니다.
+- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였다.
+  - 실제 코드에선 `header` 영역에 이를 위치시킨다.
+- `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담는다.
+- 스와이퍼의 화살표 모양을 담당하는 `.swiper-button-prev`, `.swiper-button-next` 클래스를 스와이퍼 외부로 옮긴다.
+- 스와이퍼 슬라이드들과 네비게이션 화살표 DOM 요소들을 감쌀 수 있는 블록을 만들고, `.swiper-wrap` 클래스로 지정한다.
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
@@ -201,8 +201,8 @@ new Swiper("#my-swiper", {
 
 ### 3.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 ```css
 .swiper-wrap {

@@ -14,7 +14,7 @@ last_modified_at: 2026-04-25T16:22:02+09:00
 
 - [트랜잭션 격리성(transaction isolation) 특징][transcation-isolation-link]
 - [JPA 비관적 락(pessimistic lock)][jpa-pessimitic-lock-link]
-- [Thread Pool in Java][thread-pool-in-java-link]
+- [자바 스레드 풀(Java Thread Pool)][thread-pool-in-java-link]
 
 ## 0. 들어가면서
 

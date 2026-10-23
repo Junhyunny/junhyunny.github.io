@@ -1,74 +1,67 @@
 ---
-title: "Maven Lifecycle and Plugins for Test"
+title: "Maven 라이프사이클과 테스트 플러그인"
 search: false
 category:
   - maven
-last_modified_at: 2022-03-28T23:55:00
+last_modified_at: 2026-03-28T11:14:57+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-메이븐(maven)은 프로젝트 빌드와 의존성(dependency)을 관리해주는 도구입니다. 
-메이븐을 사용하면 프로젝트를 빌드할 때 테스트 코드를 단위 테스트와 결합 테스트로 나눠 실행할 수 있습니다. 
-테스트가 나뉘어 실행되는 원리를 알아보기 전에 먼저 메이븐과 관련된 개념들을 몇 가지 정리하고 글을 이어가겠습니다. 
+메이븐(maven)은 프로젝트 빌드와 의존성(dependency)을 관리해주는 도구이다. 메이븐을 사용하면 프로젝트를 빌드할 때 테스트 코드를 단위 테스트와 결합 테스트로 나눠 실행할 수 있다. 테스트가 나뉘어 실행되는 원리를 알아보기 전에 먼저 메이븐과 관련된 개념들을 몇 가지 정리하고 글을 이어가겠다.
 - 라이프 사이클(lifecycle)
 - 페이즈(phase)와 플러그인(plugin) 골(goal)
 - 메이븐 플러그인으로 테스트 분할 실행하기
 
 ## 1. Maven Lifecycle
 
-메이븐 라이프 사이클에 대해 먼저 알아보겠습니다. 
-라이프 사이클은 크게 세 가지로 구분됩니다. 
+메이븐 라이프 사이클에 대해 먼저 알아보겠다. 라이프 사이클은 크게 세 가지로 구분된다.
 - 클린(clean) 라이프 사이클
-    - 3개의 페이즈(phase)로 구성됩니다.
-    - 빌드 시 생성되었던 산출물들이 삭제하는 과정을 다룹니다.
+  - 3개의 페이즈(phase)로 구성된다.
+  - 빌드 시 생성되었던 산출물들을 삭제하는 과정을 다룬다.
 - 디폴트(default) 라이프 사이클
-    - 21개의 페이즈로 구성됩니다.
-    - 프로젝트를 빌드하고 배포(deployment)하는 과정을 다룹니다.
-- 사이트(site) 라이프 사이클 
-    - 4개의 페이즈로 구성됩니다.
-    - 프로젝트의 웹 사이트 생성 과정을 다룹니다.
+  - 21개의 페이즈로 구성된다.
+  - 프로젝트를 빌드하고 배포(deployment)하는 과정을 다룬다.
+- 사이트(site) 라이프 사이클
+  - 4개의 페이즈로 구성된다.
+  - 프로젝트의 웹 사이트 생성 과정을 다룬다.
 
 ##### 메이븐 라이프 사이클 순서
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/maven-lifecycle-and-surfire-failsafe-plugins-01.png" width="90%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/maven-lifecycle-and-surfire-failsafe-plugins-01.png" width="90%" class="image__border">
+</div>
 <center>https://medium.com/@yetanothersoftwareengineer/maven-lifecycle-phases-plugins-and-goals-25d8e33fa22</center>
 
 ## 2. Phase 
 
-페이즈(phase)는 메이븐 라이프 사이클의 각 단계를 의미합니다. 
-이번 포스트에서 알아볼 `surefire`, `failsafe` 플러그인과 관려된 디폴트 라이프 사이클을 조금 자세히 들여다 보겠습니다. 
-디폴트 라이프 사이클은 21개의 페이즈로 구성되어 있지만, 중요한 8개의 페이즈만 정리해보겠습니다. 
+페이즈(phase)는 메이븐 라이프 사이클의 각 단계를 의미한다. 이번 포스트에서 알아볼 `surefire`, `failsafe` 플러그인과 관련된 디폴트 라이프 사이클을 조금 자세히 들여다 보겠다. 디폴트 라이프 사이클은 21개의 페이즈로 구성되어 있지만, 중요한 8개의 페이즈만 정리해보겠다.
 - `validate` phase
-    - 프로젝트의 구조가 올바른지 확인합니다.
-    - 예를 들어, 필요한 모든 의존성들이 로컬 레포지토리에 다운로드되어 사용 가능한지 확인합니다. 
+  - 프로젝트의 구조가 올바른지 확인한다.
+  - 예를 들어, 필요한 모든 의존성들이 로컬 레포지토리에 다운로드되어 사용 가능한지 확인한다.
 - `compile` phase
-    - `.java` 파일을 `.class` 파일로 컴파일합니다.
-    - `target/classes` 폴더에 컴파일한 클래스 파일들을 저장합니다.
+  - `.java` 파일을 `.class` 파일로 컴파일한다.
+  - `target/classes` 폴더에 컴파일한 클래스 파일들을 저장한다.
 - `test` phase
-    - 프로젝트를 위한 단위 테스트들을 실행합니다.
+  - 프로젝트를 위한 단위 테스트들을 실행한다.
 - `package` phase
-    - 컴파일한 코드들을 배포 가능한 `.jar`, `.war` 포맷으로 변경합니다.
+  - 컴파일한 코드들을 배포 가능한 `.jar`, `.war` 포맷으로 변경한다.
 - `integration-test` phase
-    - 프로젝트를 위한 결합 테스트들을 실행합니다.
+  - 프로젝트를 위한 결합 테스트들을 실행한다.
 - `verify` phase
-    - 프로젝트가 유효하고 품질을 충족하는지 확인합니다.
+  - 프로젝트가 유효하고 품질을 충족하는지 확인한다.
 - `install` phase
-    - 패키징(packaging)한 코드를 로컬 레포지토리에 배포합니다.
+  - 패키징(packaging)한 코드를 로컬 레포지토리에 배포한다.
 - `deploy` phase
-    - 패키징한 코드를 원격 레포지토리에 배포합니다.
+  - 패키징한 코드를 원격 레포지토리에 배포한다.
 
-메이븐 라이프 사이클의 각 페이즈들은 의존 관계가 있기 때문에 특정 페이즈를 실행하기 위해선 이전의 페이즈들이 먼저 실행되어야 합니다. 
-예를 들어, `package` 페이즈를 실행하기 위해선 `validate`, `compile`, `test` 페이즈들이 선행되어야 합니다. 
+메이븐 라이프 사이클의 각 페이즈들은 의존 관계가 있기 때문에 특정 페이즈를 실행하기 위해선 이전의 페이즈들이 먼저 실행되어야 한다. 예를 들어, `package` 페이즈를 실행하기 위해선 `validate`, `compile`, `test` 페이즈들이 선행되어야 한다.
 
 ## 3. Maven Plugins Goals 
 
-메이븐이 제공하는 기능은 모두 플러그인을 기반으로 동작합니다. 
-`pom.xml` 파일의 `<plugins>...</plugins>` 태그를 보면 필요한 플러그인들이 선언되어 있습니다. 
+메이븐이 제공하는 기능은 모두 플러그인을 기반으로 동작한다. `pom.xml` 파일의 `<plugins>...</plugins>` 태그를 보면 필요한 플러그인들이 선언되어 있다.
 
 ##### pom.xml
 
@@ -85,11 +78,10 @@ last_modified_at: 2022-03-28T23:55:00
 
 ##### 메이븐 실행
 
-메이븐에서 사용하는 플러그인을 동작시키는 명령어를 골(goal)이라고 합니다. 
-`페이즈`로 실행하는 것과 `플러그인:플러그인-골`을 이용해 실행하는 것은 명백히 다르며, `페이즈`로 실행 시 선행되어야 하는 `플러그인:플러그인-골`을 모두 수행합니다.
+메이븐에서 사용하는 플러그인을 동작시키는 명령어를 골(goal)이라고 한다. `페이즈`로 실행하는 것과 `플러그인:플러그인-골`을 이용해 실행하는 것은 명백히 다르며, `페이즈`로 실행 시 선행되어야 하는 `플러그인:플러그인-골`을 모두 수행한다.
 
-- 메이븐 명령어를 터미널에서 다음과 같은 방법으로 실행시킬 수 있습니다. 
-- `페이즈`나 `플러그인:플러그인-골`을 입력하여 메이븐 빌드를 실행합니다.
+- 메이븐 명령어를 터미널에서 다음과 같은 방법으로 실행시킬 수 있다.
+- `페이즈`나 `플러그인:플러그인-골`을 입력하여 메이븐 빌드를 실행한다.
 
 ```
 $ mvn -help
@@ -98,17 +90,17 @@ usage: mvn [options] [<goal(s)>] [<phase(s)>]
 ```
 
 ##### 메이븐 실행 명령어 - 페이즈 사용
-- `clean` 페이즈를 실행 후에 `install` 페이즈를 실행합니다.
-- 아래 로그를 살펴보면 다음과 같은 `플러그인:플러그인-골`이 실행됩니다.
-    - maven-clean-plugin:3.1.0:clean
-    - maven-resources-plugin:3.1.0:resources
-    - maven-compiler-plugin:3.8.1:compile
-    - maven-resources-plugin:3.1.0:testResources
-    - maven-compiler-plugin:3.8.1:testCompile
-    - maven-surefire-plugin:2.22.2:test
-    - maven-jar-plugin:3.1.2:jar
-    - spring-boot-maven-plugin:2.2.5.RELEASE:repackage
-    - maven-install-plugin:2.5.2:install
+- `clean` 페이즈를 실행 후에 `install` 페이즈를 실행한다.
+- 아래 로그를 살펴보면 다음과 같은 `플러그인:플러그인-골`이 실행된다.
+  - maven-clean-plugin:3.1.0:clean
+  - maven-resources-plugin:3.1.0:resources
+  - maven-compiler-plugin:3.8.1:compile
+  - maven-resources-plugin:3.1.0:testResources
+  - maven-compiler-plugin:3.8.1:testCompile
+  - maven-surefire-plugin:2.22.2:test
+  - maven-jar-plugin:3.1.2:jar
+  - spring-boot-maven-plugin:2.2.5.RELEASE:repackage
+  - maven-install-plugin:2.5.2:install
 
 ```
 $ mvn clean install
@@ -167,11 +159,11 @@ $ mvn clean install
 ```
 
 ##### 메이븐 실행 명령어 - 플러그인:플러그인-골 사용
-- 명령어에 전달한 `플러그인:플러그인-골`만 실행됩니다.
-- 아래 로그를 살펴보면 다음과 같은 `플러그인:플러그인-골`이 실행됩니다.
-    - maven-clean-plugin:3.1.0:clean
-    - maven-jar-plugin:3.1.2:jar
-    - maven-install-plugin:2.5.2:install
+- 명령어에 전달한 `플러그인:플러그인-골`만 실행된다.
+- 아래 로그를 살펴보면 다음과 같은 `플러그인:플러그인-골`이 실행된다.
+  - maven-clean-plugin:3.1.0:clean
+  - maven-jar-plugin:3.1.2:jar
+  - maven-install-plugin:2.5.2:install
 
 ```
 $ mvn clean:clean jar:jar install:install
@@ -202,23 +194,22 @@ $ mvn clean:clean jar:jar install:install
 
 ### 3.1. 페이즈와 플러그인:플러그인-골
 
-기본적으로 각 `페이즈` 별로 연결되는 `플러그인:플러그인-골`이 있습니다. 
-`페이즈`로 명령어를 실행하면 연결되는 `플러그인:플러그인-골`까지 모든 `플러그인:플러그인-골`들을 실행합니다.
+기본적으로 각 `페이즈` 별로 연결되는 `플러그인:플러그인-골`이 있다. `페이즈`로 명령어를 실행하면 연결되는 `플러그인:플러그인-골`까지 모든 `플러그인:플러그인-골`들을 실행한다.
 
 ##### .jar 패키징 시 연결되는 페이즈와 플러그인:플러그인-골
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/maven-lifecycle-and-surfire-failsafe-plugins-02.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/maven-lifecycle-and-surfire-failsafe-plugins-02.png" width="80%" class="image__border">
+</div>
 <center>https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html</center>
 
 ### 3.2. spring-boot-maven-plugin 살펴보기
 
-`IntelliJ` IDE 도구를 이용해 만든 스프링 프로젝트에 기본적으로 포함되는 `spring-boot-maven-plugin` 플러그인 정보를 따라 올라가면 다음과 같은 플러그인들을 확인할 수 있습니다.
+`IntelliJ` IDE 도구를 이용해 만든 스프링 프로젝트에 기본적으로 포함되는 `spring-boot-maven-plugin` 플러그인 정보를 따라 올라가면 다음과 같은 플러그인들을 확인할 수 있다.
 
 ##### spring-boot-dependencies pom
 - `spring-boot-maven-plugin` > `spring-boot-tools` > `spring-boot-parent` > `spring-boot-dependencies`
-- `spring-boot-dependencies` pom 파일에서 아래와 같은 플러그인들을 확인할 수 있습니다.
+- `spring-boot-dependencies` pom 파일에서 아래와 같은 플러그인들을 확인할 수 있다.
 
 ```xml
         <plugin>
@@ -273,36 +264,36 @@ $ mvn clean:clean jar:jar install:install
 
 ## 4. surefire, failsafe 플러그인
 
-두 메이븐 플러그인 모두 테스트를 위해 사용하지만, 다음과 같은 차이점이 있습니다.
+두 메이븐 플러그인 모두 테스트를 위해 사용하지만, 다음과 같은 차이점이 있다.
 - `maven-surefire-plugin` 플러그인
-    - 단위 테스트(unit test)를 위해 만들어졌습니다.
-    - 테스트가 실패할 경우 빌드를 즉시 실패시킵니다.
+  - 단위 테스트(unit test)를 위해 만들어졌다.
+  - 테스트가 실패할 경우 빌드를 즉시 실패시킨다.
 - `maven-failsafe-plugin` 플러그인
-    - 결합 테스트(integration test)를 위해 만들어졌습니다.
-    - 만약, 결합 테스트 수행 중에 테스트가 실패하더라도 빌드 중단을 차단합니다.
+  - 결합 테스트(integration test)를 위해 만들어졌다.
+  - 만약, 결합 테스트 수행 중에 테스트가 실패하더라도 빌드 중단을 차단한다.
 
-두 플러그인이 각자 어떤 테스트를 지원하는지는 알았는데, 이번엔 단위 테스트와 결합 테스트에 대한 정리가 필요해보입니다. 
+두 플러그인이 각자 어떤 테스트를 지원하는지는 알았는데, 이번엔 단위 테스트와 결합 테스트에 대한 정리가 필요해 보인다.
 - 단위 테스트
-    - 테스트가 가능한 가장 작은 단위를 실행하여 예상대로 동작하는지 확인하는 테스트입니다.
-    - 일반적으로 클래스 또는 메서드 수준으로 테스트합니다.
-    - `Java` 진영에서는 주로 `Junit` 프레임워크를 사용합니다. 
+  - 테스트가 가능한 가장 작은 단위를 실행하여 예상대로 동작하는지 확인하는 테스트이다.
+  - 일반적으로 클래스 또는 메서드 수준으로 테스트한다.
+  - `Java` 진영에서는 주로 `Junit` 프레임워크를 사용한다.
 - 결합 테스트
-    - 시스템을 이루는 여러 모듈들을 모아 이들이 의도대로 협력하는지 확인하는 테스트입니다.
-    - 개발자가 검증할 수 없는 외부 라이브러리, 데이터베이스 등 다양한 환경과 연결되어 제대로 동작하는지 확인합니다.
-    - 저희 팀은 프레임워크의 필요한 기능을 모두 사용하는 테스트를 결합 테스트로 간주하고 있습니다.
-    - 예를 들어, 스프링을 사용하는 경우 `@SpringBootTest` 애너테이션이 붙은 테스트를 결합 테스트로 간주합니다.
+  - 시스템을 이루는 여러 모듈들을 모아 이들이 의도대로 협력하는지 확인하는 테스트이다.
+  - 개발자가 검증할 수 없는 외부 라이브러리, 데이터베이스 등 다양한 환경과 연결되어 제대로 동작하는지 확인한다.
+  - 팀에서는 프레임워크의 필요한 기능을 모두 사용하는 테스트를 결합 테스트로 간주하고 있다.
+  - 예를 들어, 스프링을 사용하는 경우 `@SpringBootTest` 애너테이션이 붙은 테스트를 결합 테스트로 간주한다.
 
-결합 테스트의 경우 개발자가 작성한 코드 이 외의 의존성(dependency)들도 함께 테스트하기 때문에 테스트가 깨지기 쉬울 것 같은데, 그런 취지에서 `maven-failsafe-plugin` 플러그인이 만들어졌는지 알아봐야겠습니다. 
+결합 테스트의 경우 개발자가 작성한 코드 이외의 의존성(dependency)들도 함께 테스트하기 때문에 테스트가 깨지기 쉬울 것 같은데, 그런 취지에서 `maven-failsafe-plugin` 플러그인이 만들어졌는지 알아봐야겠다.
 
 ## 5. surefire, failsafe 플러그인 적용하기
 
 ### 5.1. pom.xml
 
-- `maven-surefire-plugin` 플러그인을 추가합니다.
-    - 기본적으로 테스트 스킵(skip) 여부는 `false` 입니다.
-    - `-Dskip.unit.tests=true` 명령어 옵션으로 단위 테스트를 생략할 수 있는 설정을 추가합니다.
-- `maven-failsafe-plugin` 플러그인을 추가합니다.
-    - 적용 `플러그인-골`은 `integration-test`, `verify` 입니다.
+- `maven-surefire-plugin` 플러그인을 추가한다.
+  - 기본적으로 테스트 스킵(skip) 여부는 `false`이다.
+  - `-Dskip.unit.tests=true` 명령어 옵션으로 단위 테스트를 생략할 수 있는 설정을 추가한다.
+- `maven-failsafe-plugin` 플러그인을 추가한다.
+  - 적용 `플러그인-골`은 `integration-test`, `verify`이다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -374,9 +365,9 @@ $ mvn clean:clean jar:jar install:install
 
 #### 5.2.1. 프로젝트 구조
 
-- 두 개의 테스트 코드를 만듭니다.
-    - ActionInBlogApplicationIT - 결합 테스트를 위한 테스트 코드
-    - ActionInBlogApplicationTests - 단위 테스트를 위한 테스트 코드
+- 두 개의 테스트 코드를 만든다.
+  - ActionInBlogApplicationIT - 결합 테스트를 위한 테스트 코드
+  - ActionInBlogApplicationTests - 단위 테스트를 위한 테스트 코드
 
 ```
 ./
@@ -407,7 +398,7 @@ $ mvn clean:clean jar:jar install:install
 
 #### 5.2.2. ActionInBlogApplicationIT 클래스
 
-- 결합 테스트이므로 `@SpringBootTest` 애너테이션을 추가합니다.
+- 결합 테스트이므로 `@SpringBootTest` 애너테이션을 추가한다.
 
 ```java
 package action.in.blog;
@@ -443,15 +434,15 @@ class ActionInBlogApplicationTests {
 
 ### 5.3. 단위 테스트 실행
 
-- 다음과 같은 명령어를 통해 단위 테스트를 실행합니다.
-    - `mvn test`
-- 실행되는 테스트는 `ActionInBlogApplicationTests` 클래스 1개입니다.
-- `maven-surefire-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원합니다. 
-    - "**/Test*.java" - includes all of its subdirectories and all Java filenames that start with "Test".
-    - "**/*Test.java" - includes all of its subdirectories and all Java filenames that end with "Test".
-    - "**/*Tests.java" - includes all of its subdirectories and all Java filenames that end with "Tests".
-    - "**/*TestCase.java" - includes all of its subdirectories and all Java filenames that end with "TestCase".
-- 필요한 경우 `<configuration>...</configuration>` 태그 안에 설정을 통해 포함, 제거할 클래스 이름을 지정할 수 있습니다.
+- 다음과 같은 명령어를 통해 단위 테스트를 실행한다.
+  - `mvn test`
+- 실행되는 테스트는 `ActionInBlogApplicationTests` 클래스 1개이다.
+- `maven-surefire-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원한다. 
+  - "**/Test*.java" - includes all of its subdirectories and all Java filenames that start with "Test".
+  - "**/*Test.java" - includes all of its subdirectories and all Java filenames that end with "Test".
+  - "**/*Tests.java" - includes all of its subdirectories and all Java filenames that end with "Tests".
+  - "**/*TestCase.java" - includes all of its subdirectories and all Java filenames that end with "TestCase".
+- 필요한 경우 `<configuration>...</configuration>` 태그 안에 설정을 통해 포함, 제거할 클래스 이름을 지정할 수 있다.
 
 ```
 $ mvn test                                   
@@ -501,15 +492,15 @@ $ mvn test
 
 ### 5.4. 결합 테스트 실행
 
-- 다음과 같은 명령어를 통해 결합 테스트를 실행합니다.
-    - `mvn -Dskip.unit.tests=true integration-test`
-    - `integration-test` 페이즈 이전에 실행되어야 하는 `test` 페이즈는 `-Dskip.unit.tests=true` 옵션으로 생략합니다.
-- 실행되는 테스트는 `ActionInBlogApplicationIT` 클래스 1개입니다.
-- `maven-failsafe-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원합니다. 
-    - "**/IT*.java" - includes all of its subdirectories and all Java filenames that start with "IT".
-    - "**/*IT.java" - includes all of its subdirectories and all Java filenames that end with "IT".
-    - "**/*ITCase.java" - includes all of its subdirectories and all Java filenames that end with "ITCase".
-- 필요한 경우 `<configuration>...</configuration>` 태그 안에 설정을 통해 포함, 제거할 클래스 이름을 지정할 수 있습니다.
+- 다음과 같은 명령어를 통해 결합 테스트를 실행한다.
+  - `mvn -Dskip.unit.tests=true integration-test`
+  - `integration-test` 페이즈 이전에 실행되어야 하는 `test` 페이즈는 `-Dskip.unit.tests=true` 옵션으로 생략한다.
+- 실행되는 테스트는 `ActionInBlogApplicationIT` 클래스 1개이다.
+- `maven-failsafe-plugin` 플러그인은 기본적으로 아래와 같은 이름을 가진 클래스들의 테스트를 지원한다. 
+  - "**/IT*.java" - includes all of its subdirectories and all Java filenames that start with "IT".
+  - "**/*IT.java" - includes all of its subdirectories and all Java filenames that end with "IT".
+  - "**/*ITCase.java" - includes all of its subdirectories and all Java filenames that end with "ITCase".
+- 필요한 경우 `<configuration>...</configuration>` 태그 안에 설정을 통해 포함, 제거할 클래스 이름을 지정할 수 있다.
 
 ```
 mvn -Dskip.unit.tests=true integration-test
@@ -596,7 +587,7 @@ mvn -Dskip.unit.tests=true integration-test
 
 ### 5.5. maven-failsafe-plugin 테스트 실패 시 빌드 실패 방지
 
-아래와 같이 테스트를 일부러 실패시키는 코드를 추가하고 테스트를 다시 실행해보겠습니다.
+아래와 같이 테스트를 일부러 실패시키는 코드를 추가하고 테스트를 다시 실행해보겠다.
 
 ##### ActionInBlogApplicationTests 클래스
 
@@ -638,8 +629,8 @@ class ActionInBlogApplicationTests {
 
 #### 5.5.1. 단위 테스트
 
-- 테스트가 실패하면서 빌드가 실패합니다.
-    - `BUILD FAILURE` 로그 출력
+- 테스트가 실패하면서 빌드가 실패한다.
+  - `BUILD FAILURE` 로그 출력
 
 ```
 $ mvn test            
@@ -707,8 +698,8 @@ java.lang.RuntimeException
 
 #### 5.5.2. 결합 테스트
 
-- 테스트가 실패하더라도 빌드는 성공합니다.
-    - `BUILD SUCCESS` 로그 출력
+- 테스트가 실패하더라도 빌드는 성공한다.
+  - `BUILD SUCCESS` 로그 출력
 
 ```
 $ mvn -Dskip.unit.tests=true integration-test
@@ -801,9 +792,9 @@ java.lang.RuntimeException
 
 #### 5.5.3. verify 페이즈 실행
 
-- `verify` 페이즈는 `integration-test` 페이즈의 통과 여부를 확인합니다.
-- `integration-test` 페이즈에서 테스트가 실패하면 `install` 페이즈로 넘어가지 않습니다. 
-    - `BUILD FAILURE` 로그 출력
+- `verify` 페이즈는 `integration-test` 페이즈의 통과 여부를 확인한다.
+- `integration-test` 페이즈에서 테스트가 실패하면 `install` 페이즈로 넘어가지 않는다. 
+  - `BUILD FAILURE` 로그 출력
 
 ```
 mvn -Dskip.unit.tests=true verify          

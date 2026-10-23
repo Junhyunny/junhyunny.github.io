@@ -1,64 +1,62 @@
 ---
-title: "Spring Cloud Sleuth"
+title: "스프링 클라우드 슬루스(Spring Cloud Sleuth)"
 search: false
 category:
-    - spring-boot
-    - spring-cloud
-last_modified_at: 2022-06-27T23:55:00
+  - spring-boot
+  - spring-cloud
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
-👉 해당 포스트를 읽는데 도움을 줍니다.
+👉 해당 포스트를 읽는 데 도움을 준다.
 
-* [마이크로서비스 아키텍처][microservice-architecture-link]
+- [마이크로서비스 아키텍처][microservice-architecture-link]
 
 ## 1. Spring Cloud Sleuth
 
 > Spring Cloud Sleuth API Reference<br/>
 > Spring Cloud Sleuth provides Spring Boot auto-configuration for distributed tracing.
 
-`마이크로서비스 아키텍처`를 지원하는 Spring Cloud 프로젝트 중 하나입니다. 
-서비스들 사이에 발생하는 요청과 응답들 사이의 연결 고리를 쉽게 추적할 수 있도록 돕는 라이브러리입니다. 
-다음과 같은 역할을 수행합니다.
+`마이크로서비스 아키텍처`를 지원하는 Spring Cloud 프로젝트 중 하나다. 서비스들 사이에 발생하는 요청과 응답들 사이의 연결 고리를 쉽게 추적할 수 있도록 돕는 라이브러리다. 다음과 같은 역할을 수행한다.
 
-* TRACE, SPAN ID를 Slf4j MDC에 추가하여, TRACE 혹은 SPAN_ID를 로그에 출력하여 연결된 요청 정보를 추출해낼 수 있습니다.
-* 다음과 같은 Spring 애플리케이션의 일반적인 수신 및 송신 지점을 계측합니다.
-    * servlet filter
-    * rest template
-    * scheduled actions
-    * message channels
-    * feign client
-* `spring-cloud-sleuth-zipkin` 라이브러리를 사용 가능하다면 zipkin 서비스를 통해 추적 리포트를 만들 수 있습니다.
+- TRACE, SPAN ID를 Slf4j MDC에 추가하여, TRACE 혹은 SPAN_ID를 로그에 출력하여 연결된 요청 정보를 추출해낼 수 있다.
+- 다음과 같은 Spring 애플리케이션의 일반적인 수신 및 송신 지점을 계측한다.
+  - servlet filter
+  - rest template
+  - scheduled actions
+  - message channels
+  - feign client
+- `spring-cloud-sleuth-zipkin` 라이브러리를 사용 가능하다면 zipkin 서비스를 통해 추적 리포트를 만들 수 있다.
 
 ## 2. Sleuth 동작 과정
 
-`Sleuth`를 사용하면 서비스들 사이에 다음과 같은 일들이 일어납니다. 
+`Sleuth`를 사용하면 서비스들 사이에 다음과 같은 일들이 일어난다.
 
-* 사용자 요청은 다음과 같은 흐름으로 진행됩니다.
-    * CLIENT > SERVICE1 > SERVICE2 > SERVICE3 > SERVICE2 > SERVICE4 > SERVICE2 > SERVICE1 > CLIENT
-* 사용자 요청이 처음 SERVICE1에 도달하면 TRACE_ID와 SPAN_ID가 생성됩니다.
-    * TRACE_ID - X
-    * SPAN_ID - A
-* SERVICE1에서 SERVICE2로 요청할 때 새로운 SPAN_ID를 만들어 전달합니다.
-    * TRACE_ID - X
-    * SPAN_ID - B
-* SERVICE2는 TRACE_ID는 유지하면서 새로운 SPAN_ID를 사용합니다.
-    * TRACE_ID - X
-    * SPAN_ID - C
-* SERVICE2에서 SERVICE3로 요청할 때 새로운 SPAN_ID를 만들어 전달합니다.
-    * TRACE_ID - X
-    * SPAN_ID - D
-* SERVICE3는 TRACE_ID는 유지하면서 새로운 SPAN_ID를 사용합니다.
-    * TRACE_ID - X
-    * SPAN_ID - E
-* 서비스를 이동할 때마다 위와 같은 과정이 반복됩니다.
-* 클라이언트의 첫 요청 시에 생성되는 TRACE_ID는 여러 서비스를 거치더라도 변경되지 않습니다.
-* 각 서비스 별로 SPAN_ID는 변경됩니다.
+- 사용자 요청은 다음과 같은 흐름으로 진행된다.
+  - CLIENT > SERVICE1 > SERVICE2 > SERVICE3 > SERVICE2 > SERVICE4 > SERVICE2 > SERVICE1 > CLIENT
+- 사용자 요청이 처음 SERVICE1에 도달하면 TRACE_ID와 SPAN_ID가 생성된다.
+  - TRACE_ID - X
+  - SPAN_ID - A
+- SERVICE1에서 SERVICE2로 요청할 때 새로운 SPAN_ID를 만들어 전달한다.
+  - TRACE_ID - X
+  - SPAN_ID - B
+- SERVICE2는 TRACE_ID는 유지하면서 새로운 SPAN_ID를 사용한다.
+  - TRACE_ID - X
+  - SPAN_ID - C
+- SERVICE2에서 SERVICE3로 요청할 때 새로운 SPAN_ID를 만들어 전달한다.
+  - TRACE_ID - X
+  - SPAN_ID - D
+- SERVICE3는 TRACE_ID는 유지하면서 새로운 SPAN_ID를 사용한다.
+  - TRACE_ID - X
+  - SPAN_ID - E
+- 서비스를 이동할 때마다 위와 같은 과정이 반복된다.
+- 클라이언트의 첫 요청 시에 생성되는 TRACE_ID는 여러 서비스를 거치더라도 변경되지 않는다.
+- 각 서비스 별로 SPAN_ID는 변경된다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/spring-cloud-sleuth-01.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/spring-cloud-sleuth-01.png" width="100%" class="image__border">
+</div>
 <center>https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/html/getting-started.html#getting-started-terminology</center>
 
 
@@ -66,28 +64,28 @@ last_modified_at: 2022-06-27T23:55:00
 
 ### 3.1. 테스트 시나리오
 
-Sleuth 라이브러리 적용을 다음과 같은 시나리오로 테스트하였습니다.
+Sleuth 라이브러리 적용을 다음과 같은 시나리오로 테스트하였다.
 
-* 터미널에서 cURL 호출을 클라이언트 요청으로 가정합니다.
-    * 다음과 같은 요청 파라미터를 전달합니다.
-    * 하나의 터미널에서는 `key=allow` 값을 전달합니다.
-    * 또 다른 터미널에서는 `key=deny` 값을 전달합니다.
-* A-SERVICE는 요청을 전달 받고 5초 후에 B-SERVICE로 요청을 전달합니다.
-* B-SERVICE는 요청을 전달 받고 5초 후에 key 값이 `deny`라면 예외(exception)을 던집니다.
+- 터미널에서 cURL 호출을 클라이언트 요청으로 가정한다.
+  - 다음과 같은 요청 파라미터를 전달한다.
+  - 하나의 터미널에서는 `key=allow` 값을 전달한다.
+  - 또 다른 터미널에서는 `key=deny` 값을 전달한다.
+- A-SERVICE는 요청을 전달 받고 5초 후에 B-SERVICE로 요청을 전달한다.
+- B-SERVICE는 요청을 전달 받고 5초 후에 key 값이 `deny`라면 예외(exception)을 던진다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/spring-cloud-sleuth-02.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/spring-cloud-sleuth-02.png" width="80%" class="image__border">
+</div>
 
 ### 3.2. 애플리케이션 코드
 
-각 서비스의 컨트롤러 코드를 살펴보겠습니다.
+각 서비스의 컨트롤러 코드를 살펴보겠다.
 
 #### 3.2.1. A-SERVICE의 AController 클래스
 
-* 반복문을 5회 수행하며, 1회 수행마다 1초씩 기다립니다.
-* `processing...` 로그가 비즈니스 로직이라고 가정하겠습니다.
-* 5회 반복 수행이 끝나면 `RestTemplate`를 이용하여 B-SERVICE로 파리미터와 함께 요청을 전달합니다.
+- 반복문을 5회 수행하며, 1회 수행마다 1초씩 기다린다.
+- `processing...` 로그가 비즈니스 로직이라고 가정한다.
+- 5회 반복 수행이 끝나면 `RestTemplate`를 이용하여 B-SERVICE로 파라미터와 함께 요청을 전달한다.
 
 ```java
 package action.in.blog.controller;
@@ -146,10 +144,10 @@ class Config {
 
 #### 3.2.2. B-SERVICE의 BController 클래스
 
-* 반복문을 5회 수행하며, 1회 수행마다 1초씩 기다립니다.
-* `processing...` 로그가 비즈니스 로직이라고 가정하겠습니다.
-* 5회 반복 수행이 끝나면 전달받은 파라미터에 따라 의도적으로 예외를 발생시킵니다.
-    * 전달 받은 파라미터가 `deny`인 경우 `RuntimeException`을 던집니다.
+- 반복문을 5회 수행하며, 1회 수행마다 1초씩 기다린다.
+- `processing...` 로그가 비즈니스 로직이라고 가정한다.
+- 5회 반복 수행이 끝나면 전달받은 파라미터에 따라 의도적으로 예외를 발생시킨다.
+  - 전달 받은 파라미터가 `deny`인 경우 `RuntimeException`을 던진다.
 
 ```java
 package action.in.blog.controller;
@@ -196,7 +194,7 @@ public class BController {
 
 ### 3.3. 테스트 하기
 
-로그를 한 눈에 보기 쉽도록 `docker-compose`를 사용하여 attatch 모드로 서비스를 실행하였습니다. 
+로그를 한 눈에 보기 쉽도록 `docker-compose`를 사용하여 attatch 모드로 서비스를 실행하였다.
 
 #### 3.3.1. 서비스 별 application.yml
 
@@ -222,10 +220,10 @@ spring:
 
 #### 3.3.2. 프로젝트 별 Dockerfile
 
-* a-service, b-service 프로젝트에 `Dockerfile`을 하나씩 만듭니다.
-* 전반적인 `Dockerfile` 내용은 동일하며, `EXPOSE` 키워드로 노출하는 포트 번호만 다릅니다.
-    * a-service's dockerfile - `EXPOSE 8080`
-    * b-service's dockerfile - `EXPOSE 8081`
+- a-service, b-service 프로젝트에 `Dockerfile`을 하나씩 만든다.
+- 전반적인 `Dockerfile` 내용은 동일하며, `EXPOSE` 키워드로 노출하는 포트 번호만 다르다.
+  - a-service's dockerfile - `EXPOSE 8080`
+  - b-service's dockerfile - `EXPOSE 8081`
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -255,9 +253,9 @@ CMD ["java", "-jar", "app.jar"]
 
 #### 3.3.3. docker-compose.yml
 
-* `docker-compose.yml` 파일을 통해 두 서비스를 실행합니다.
-* a-service는 8080 포트로 노출합니다.
-* b-service는 외부에 노출될 필요가 없으므로 별도로 포트를 매칭하지 않습니다.
+- `docker-compose.yml` 파일을 통해 두 서비스를 실행한다.
+- a-service는 8080 포트로 노출한다.
+- b-service는 외부에 노출될 필요가 없으므로 별도로 포트를 매칭하지 않는다.
 
 ```yml
 version: '3.8'
@@ -274,9 +272,9 @@ services:
 
 #### 3.3.4. 서비스 실행
 
-* `docker-compose up` 명령어로 서비스를 실행합니다.
-    * docker-compose.yml 파일이 위치한 디렉토리에서 실행합니다.
-    * `--build` 옵션 - 매번 이미지를 새로 빌드합니다.
+- `docker-compose up` 명령어로 서비스를 실행한다.
+  - docker-compose.yml 파일이 위치한 디렉토리에서 실행한다.
+  - `--build` 옵션 - 매번 이미지를 새로 빌드한다.
 
 ```
 $  docker-compose up --build
@@ -332,7 +330,7 @@ Building b-service
 Creating a-service ... done
 Creating b-service ... done
 Attaching to b-service, a-service
-b-service    | 
+b-service    |
 b-service    |   .   ____          _            __ _ _
 b-service    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 b-service    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -340,8 +338,8 @@ b-service    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 b-service    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 b-service    |  =========|_|==============|___/=/_/_/_/
 b-service    |  :: Spring Boot ::                (v2.7.1)
-b-service    | 
-a-service    | 
+b-service    |
+a-service    |
 a-service    |   .   ____          _            __ _ _
 a-service    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 a-service    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -349,14 +347,14 @@ a-service    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 a-service    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 a-service    |  =========|_|==============|___/=/_/_/_/
 a-service    |  :: Spring Boot ::                (v2.7.1)
-a-service    | 
+a-service    |
 ```
 
 #### 3.3.5. cURL 서비스 호출
 
-* 두 개의 터미널을 통해 a-service를 호출합니다.
-    * 한 터미널에서는 파라미터 값을 `allow`로 전달합니다.
-    * 다른 터미널에서는 파라미터 값을 `deny`로 전달합니다.
+- 두 개의 터미널을 통해 a-service를 호출한다.
+  - 한 터미널에서는 파라미터 값을 `allow`로 전달한다.
+  - 다른 터미널에서는 파라미터 값을 `deny`로 전달한다.
 
 ```
 $ curl "http://localhost:8080?key=allow"
@@ -367,12 +365,12 @@ $ curl "http://localhost:8080?key=deny"
 
 #### 3.3.6. Spring Cloud Sleuth 미적용 시 로그
 
-* Spring Cloud Sleuth 미적용 시 a-service, b-service의 로그입니다.
-* 어떤 요청인 경우에 예외가 발생했는지 추적이 어렵습니다.
-* 서비스 사이에서 발생하는 API 호출의 연결 고리 파악이 쉽지 않습니다.
+- Spring Cloud Sleuth 미적용 시 a-service, b-service의 로그다.
+- 어떤 요청인 경우에 예외가 발생했는지 추적이 어렵다.
+- 서비스 사이에서 발생하는 API 호출의 연결 고리 파악이 쉽지 않다.
 
 ```
-a-service    | 
+a-service    |
 a-service    |   .   ____          _            __ _ _
 a-service    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 a-service    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -380,8 +378,8 @@ a-service    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 a-service    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 a-service    |  =========|_|==============|___/=/_/_/_/
 a-service    |  :: Spring Boot ::                (v2.7.1)
-a-service    | 
-b-service    | 
+a-service    |
+b-service    |
 b-service    |   .   ____          _            __ _ _
 b-service    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 b-service    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -389,7 +387,7 @@ b-service    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 b-service    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 b-service    |  =========|_|==============|___/=/_/_/_/
 b-service    |  :: Spring Boot ::                (v2.7.1)
-b-service    | 
+b-service    |
 a-service    | 2022-06-27 08:12:23.920  INFO 1 --- [           main] action.in.blog.AServiceApplication       : Starting AServiceApplication v0.0.1-SNAPSHOT using Java 11.0.15 on 415d2a554888 with PID 1 (/app/app.jar started by root in /app)
 a-service    | 2022-06-27 08:12:23.922  INFO 1 --- [           main] action.in.blog.AServiceApplication       : No active profile set, falling back to 1 default profile: "default"
 b-service    | 2022-06-27 08:12:24.014  INFO 1 --- [           main] action.in.blog.BServiceApplication       : Starting BServiceApplication v0.0.1-SNAPSHOT using Java 11.0.15 on c1f9c6ba61fd with PID 1 (/app/app.jar started by root in /app)
@@ -439,7 +437,7 @@ b-service    | 2022-06-27 08:12:37.651  INFO 1 --- [nio-8081-exec-2] action.in.b
 b-service    | 2022-06-27 08:12:38.203  INFO 1 --- [nio-8081-exec-1] action.in.blog.controller.BController    : processing...
 b-service    | 2022-06-27 08:12:38.652  INFO 1 --- [nio-8081-exec-2] action.in.blog.controller.BController    : processing...
 b-service    | 2022-06-27 08:12:39.662 ERROR 1 --- [nio-8081-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.RuntimeException: throw error] with root cause
-b-service    | 
+b-service    |
 b-service    | java.lang.RuntimeException: throw error
 b-service    |  at action.in.blog.controller.BController.throwException(BController.java:27) ~[classes!/:0.0.1-SNAPSHOT]
 b-service    |  at action.in.blog.controller.BController.index(BController.java:38) ~[classes!/:0.0.1-SNAPSHOT]
@@ -452,9 +450,9 @@ b-service    |  at org.springframework.web.method.support.InvocableHandlerMethod
 b-service    |  at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-5.3.21.jar!/:5.3.21]
 b-service    |  at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.3.21.jar!/:5.3.21]
 b-service    |  ...
-b-service    | 
+b-service    |
 a-service    | 2022-06-27 08:12:39.715 ERROR 1 --- [nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.client.HttpServerErrorException$InternalServerError: 500 : "{"timestamp":"2022-06-27T08:12:39.669+00:00","status":500,"error":"Internal Server Error","path":"/"}"] with root cause
-a-service    | 
+a-service    |
 a-service    | org.springframework.web.client.HttpServerErrorException$InternalServerError: 500 : "{"timestamp":"2022-06-27T08:12:39.669+00:00","status":500,"error":"Internal Server Error","path":"/"}"
 a-service    |  at org.springframework.web.client.HttpServerErrorException.create(HttpServerErrorException.java:100) ~[spring-web-5.3.21.jar!/:5.3.21]
 a-service    |  at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:170) ~[spring-web-5.3.21.jar!/:5.3.21]
@@ -465,7 +463,6 @@ a-service    |  at org.springframework.web.client.RestTemplate.doExecute(RestTem
 a-service    |  at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:711) ~[spring-web-5.3.21.jar!/:5.3.21]
 a-service    |  at org.springframework.web.client.RestTemplate.getForObject(RestTemplate.java:334) ~[spring-web-5.3.21.jar!/:5.3.21]
 a-service    |  at action.in.blog.controller.AController.index(AController.java:41) ~[classes!/:0.0.1-SNAPSHOT]
-a-service    |  at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
 a-service    |  ...
 ```
 
@@ -473,7 +470,7 @@ a-service    |  ...
 
 ##### pom.xml
 
-* 다음과 같은 의존성을 추가하면 `Spring Cloud Sleuth`가 자동으로 적용됩니다.
+- 다음과 같은 의존성을 추가하면 `Spring Cloud Sleuth`가 자동으로 적용된다.
 
 ```xml
     <dependencies>
@@ -499,14 +496,14 @@ a-service    |  ...
 
 ##### 애플리케이션 로그
 
-* 적용 후 애플리케이션 로그를 살펴보면 다음과 같은 정보가 추가됩니다.
-    * [APPLICATION_NAME, TRACE_ID, SPAN_ID]
-    * ex) [a-service,a8c3719def75eb27,a8c3719def75eb27]
-* `b-service`에서 확인된 에러 로그의 `TRACE_ID`인 `59447c50de81e252`로 요청 정보를 추적합니다. 
-* `a-service`의 어떤 요청이 해당 예외를 유발시켰는지 쉽게 확인이 가능합니다.  
+- 적용 후 애플리케이션 로그를 살펴보면 다음과 같은 정보가 추가된다.
+  - [APPLICATION_NAME, TRACE_ID, SPAN_ID]
+  - ex) [a-service,a8c3719def75eb27,a8c3719def75eb27]
+- `b-service`에서 확인된 에러 로그의 `TRACE_ID`인 `59447c50de81e252`로 요청 정보를 추적한다.
+- `a-service`의 어떤 요청이 해당 예외를 유발시켰는지 쉽게 확인이 가능하다.
 
 ```
-b-service    | 
+b-service    |
 b-service    |   .   ____          _            __ _ _
 b-service    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 b-service    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -514,8 +511,8 @@ b-service    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 b-service    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 b-service    |  =========|_|==============|___/=/_/_/_/
 b-service    |  :: Spring Boot ::                (v2.7.1)
-b-service    | 
-a-service    | 
+b-service    |
+a-service    |
 a-service    |   .   ____          _            __ _ _
 a-service    |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 a-service    | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -523,7 +520,7 @@ a-service    |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
 a-service    |   '  |____| .__|_| |_|_| |_\__, | / / / /
 a-service    |  =========|_|==============|___/=/_/_/_/
 a-service    |  :: Spring Boot ::                (v2.7.1)
-a-service    | 
+a-service    |
 b-service    | 2022-06-27 08:19:34.981  INFO [b-service,,] 1 --- [           main] action.in.blog.BServiceApplication       : Starting BServiceApplication v0.0.1-SNAPSHOT using Java 11.0.15 on 81a7981709e3 with PID 1 (/app/app.jar started by root in /app)
 b-service    | 2022-06-27 08:19:34.984  INFO [b-service,,] 1 --- [           main] action.in.blog.BServiceApplication       : No active profile set, falling back to 1 default profile: "default"
 a-service    | 2022-06-27 08:19:35.045  INFO [a-service,,] 1 --- [           main] action.in.blog.AServiceApplication       : Starting AServiceApplication v0.0.1-SNAPSHOT using Java 11.0.15 on 4cff3c34052e with PID 1 (/app/app.jar started by root in /app)
@@ -575,7 +572,7 @@ b-service    | 2022-06-27 08:20:17.981  INFO [b-service,59447c50de81e252,e80b008
 b-service    | 2022-06-27 08:20:18.759  INFO [b-service,a8c3719def75eb27,4248dac991ff2062] 1 --- [nio-8081-exec-1] action.in.blog.controller.BController    : processing...
 b-service    | 2022-06-27 08:20:18.982  INFO [b-service,59447c50de81e252,e80b00875dcbca39] 1 --- [nio-8081-exec-2] action.in.blog.controller.BController    : processing...
 b-service    | 2022-06-27 08:20:19.989 ERROR [b-service,59447c50de81e252,e80b00875dcbca39] 1 --- [nio-8081-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.RuntimeException: throw error] with root cause
-b-service    | 
+b-service    |
 b-service    | java.lang.RuntimeException: throw error
 b-service    |  at action.in.blog.controller.BController.throwException(BController.java:27) ~[classes!/:0.0.1-SNAPSHOT]
 b-service    |  at action.in.blog.controller.BController.index(BController.java:38) ~[classes!/:0.0.1-SNAPSHOT]
@@ -584,9 +581,9 @@ b-service    |  at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invok
 b-service    |  at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
 b-service    |  at java.base/java.lang.reflect.Method.invoke(Method.java:566) ~[na:na]
 b-service    |  ...
-b-service    | 
+b-service    |
 a-service    | 2022-06-27 08:20:20.046 ERROR [a-service,59447c50de81e252,59447c50de81e252] 1 --- [nio-8080-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.web.client.HttpServerErrorException$InternalServerError: 500 : "{"timestamp":"2022-06-27T08:20:19.997+00:00","status":500,"error":"Internal Server Error","path":"/"}"] with root cause
-a-service    | 
+a-service    |
 a-service    | org.springframework.web.client.HttpServerErrorException$InternalServerError: 500 : "{"timestamp":"2022-06-27T08:20:19.997+00:00","status":500,"error":"Internal Server Error","path":"/"}"
 a-service    |  at org.springframework.web.client.HttpServerErrorException.create(HttpServerErrorException.java:100) ~[spring-web-5.3.21.jar!/:5.3.21]
 a-service    |  at org.springframework.web.client.DefaultResponseErrorHandler.handleError(DefaultResponseErrorHandler.java:170) ~[spring-web-5.3.21.jar!/:5.3.21]
@@ -602,16 +599,14 @@ a-service    |  ...
 
 ## CLOSE
 
-`Spring Cloud Sleuth`는 마이크로서비스 아키텍처 같은 분산 시스템의 로그 추적성을 향상시키기 위한 라이브러리입니다. 
-더불어 특정 요청을 쉽게 필터링하여 조회할 수 있다는 관점에서 모놀리식 서비스에서 사용해도 큰 이점이 있을 것 같습니다. 
-시간이 된다면 `log4j2.xml` 파일의 로그 레이아웃(layout)을 변경하여 좀 더 보기 쉬운 로그를 구성하는 방법에 대해 정리해보겠습니다.
+`Spring Cloud Sleuth`는 마이크로서비스 아키텍처 같은 분산 시스템의 로그 추적성을 향상시키기 위한 라이브러리다. 더불어 특정 요청을 쉽게 필터링하여 조회할 수 있다는 관점에서 모놀리식 서비스에서 사용해도 큰 이점이 있을 것 같다. 시간이 된다면 `log4j2.xml` 파일의 로그 레이아웃(layout)을 변경하여 좀 더 보기 쉬운 로그를 구성하는 방법에 대해 정리해보겠다.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-27-spring-cloud-sleuth>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-06-27-spring-cloud-sleuth>
 
 #### REFERENCE
 
-* <https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/html/getting-started.html#getting-started-terminology>
+- <https://docs.spring.io/spring-cloud-sleuth/docs/current/reference/html/getting-started.html#getting-started-terminology>
 
 [microservice-architecture-link]: https://junhyunny.github.io/information/msa/microservice-architecture/

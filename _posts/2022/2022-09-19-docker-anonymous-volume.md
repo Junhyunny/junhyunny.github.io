@@ -1,68 +1,65 @@
 ---
-title: "Docker Anonymous Volume"
+title: "도커 익명 볼륨(Docker Anonymous Volume)"
 search: false
 category:
   - docker
-last_modified_at: 2022-09-19T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. 데이터 영속성 문제
 
-도커 컨테이너는 새로운 파일을 만들거나 변경하는 작업을 컨테이너 레이어(container layer)에서 수행합니다. 
-컨테이너 레이어는 컨테이너가 실행될 때 매번 초기화되고, 종료될 때 함께 삭제되므로 컨테이너 레이어에서 수행된 작업들은 컨테이너의 라이프 사이클을 따라 함께 생성, 삭제됩니다. 
+도커 컨테이너는 새로운 파일을 만들거나 변경하는 작업을 컨테이너 레이어(container layer)에서 수행한다. 컨테이너 레이어는 컨테이너가 실행될 때 매번 초기화되고, 종료될 때 함께 삭제되므로 컨테이너 레이어에서 수행된 작업들은 컨테이너의 라이프 사이클을 따라 함께 생성, 삭제된다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-01.png" width="70%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-01.png" width="70%" class="image__border">
+</div>
 <center>https://docs.docker.com/storage/storagedriver/</center>
 
 ## 2. Docker Volume
 
-도커 볼륨은 컨테이너에서 관리하는 데이터를 안전하게 영속화시키는 방법입니다. 
-도커 엔진이 관리하는 영역에 데이터 저장 공간을 마련하여 컨테이너 라이프 사이클과 상관없이 데이터 영속성을 유지합니다. 
-도커가 관리하는 영역은 호스트 머신의 파일 시스템 어딘가에 존재합니다. 
+도커 볼륨은 컨테이너에서 관리하는 데이터를 안전하게 영속화시키는 방법이다. 도커 엔진이 관리하는 영역에 데이터 저장 공간을 마련하여 컨테이너 라이프 사이클과 상관없이 데이터 영속성을 유지한다. 도커가 관리하는 영역은 호스트 머신의 파일 시스템 어딘가에 존재한다.
 
-* 도커 스토리지(storage)는 다음과 같은 종류가 있습니다.
-    * 볼륨(volume) - 호스트 머신의 도커 엔진이 관리 중인 영역에 저장하는 방식
-    * bind mount - 호스트 머신의 파일 시스템에 직접 저장하는 방식
-    * tmpfs mount - 호스트 머신의 메모리에 저장하는 방식
-* 이번 포스트에선 볼륨, 그 중에서도 익명 볼륨(anonymous volume)에 대해서만 다룹니다. 
+- 도커 스토리지(storage)는 다음과 같은 종류가 있다.
+  - 볼륨(volume) - 호스트 머신의 도커 엔진이 관리 중인 영역에 저장하는 방식
+  - bind mount - 호스트 머신의 파일 시스템에 직접 저장하는 방식
+  - tmpfs mount - 호스트 머신의 메모리에 저장하는 방식
+- 이번 포스트에선 볼륨, 그 중에서도 익명 볼륨(anonymous volume)에 대해서만 다룬다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-02.png" width="60%">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-02.png" width="60%">
+</div>
 <center>https://docs.docker.com/storage/volumes/</center>
 
 ### 2.1. Docker Volume Advantages
 
-도커 볼륨을 사용하면 다음과 같은 이점들을 얻을 수 있습니다. 
+도커 볼륨을 사용하면 다음과 같은 이점들을 얻을 수 있다.
 
-* 쉽게 백업과 이전(migration) 작업을 수행할 수 있습니다.
-* Docker CLI 명령어 혹은 Docker API를 통해 볼륨을 관리할 수 있습니다.
-* 리눅스와 윈도우 컨테이너에서 모두 사용 가능합니다.
-* 여러 컨테이너들 사이에서 안전하게 공유될 수 있습니다. 
-    * 쉽게 접근하지 못하는 도커 영역에서 데이터가 저장되므로 직접 변경할 수 있는 호스트 머신의 파일 시스템보다 안전합니다. 
-* 볼륨 드라이버(driver)를 사용하면 원격 호스트나 클라우드 제공자들에 쉽게 데이터를 저장할 수 있습니다.
-    * 볼륨 컨텐츠를 암호화하거나 다른 기능을 추가할 수 있습니다.
+- 쉽게 백업과 이전(migration) 작업을 수행할 수 있다.
+- Docker CLI 명령어 혹은 Docker API를 통해 볼륨을 관리할 수 있다.
+- 리눅스와 윈도우 컨테이너에서 모두 사용 가능하다.
+- 여러 컨테이너들 사이에서 안전하게 공유될 수 있다.
+  - 쉽게 접근하지 못하는 도커 영역에서 데이터가 저장되므로 직접 변경할 수 있는 호스트 머신의 파일 시스템보다 안전하다.
+- 볼륨 드라이버(driver)를 사용하면 원격 호스트나 클라우드 제공자들에 쉽게 데이터를 저장할 수 있다.
+  - 볼륨 컨텐츠를 암호화하거나 다른 기능을 추가할 수 있다.
 
 ## 3. Example Service for Docker Volume Concept
 
-간단한 서비스를 통해 도커 볼륨의 컨셉에 대해 알아보겠습니다. 
+간단한 서비스를 통해 도커 볼륨의 컨셉에 대해 알아보겠다.
 
-* 간단한 TODO 리스트를 화면을 통해 보여주는 서비스입니다.
-* 컨테이너의 파일 시스템에 저장된 TODO 항목들을 보여줍니다. 
-* 간단한 입력 창을 통해 새로운 TODO 항목을 등록할 수 있습니다.
+- 간단한 TODO 리스트를 화면을 통해 보여주는 서비스이다.
+- 컨테이너의 파일 시스템에 저장된 TODO 항목들을 보여준다.
+- 간단한 입력 창을 통해 새로운 TODO 항목을 등록할 수 있다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-03.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-03.png" width="80%" class="image__border">
+</div>
 
 ### 3.1. Dockerfile
 
-* `TODO_FILE_PATH` 환경 변수를 통해 파일 경로를 지정할 수 있습니다.
-* 기본 값은 `/app/volume/todos` 입니다.
+- `TODO_FILE_PATH` 환경 변수를 통해 파일 경로를 지정할 수 있다.
+- 기본 값은 `/app/volume/todos` 이다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -94,8 +91,8 @@ CMD ["java", "-jar", "app.jar"]
 
 ### 3.2. applicaiton.yml
 
-* 도커 환경 변수로 전달받은 `TODO_FILE_PATH` 값을 파일 경로 설정으로 사용합니다.
-* 기본 값은 `files/todos` 입니다.
+- 도커 환경 변수로 전달받은 `TODO_FILE_PATH` 값을 파일 경로 설정으로 사용한다.
+- 기본 값은 `files/todos` 이다.
 
 ```yml
 spring:
@@ -114,13 +111,13 @@ todo:
 
 ### 3.3. 주요 클래스
 
-* `TodoController` 클래스
-    * 생성자 - 설정된 파일 경로를 전달받아 최초 파일 읽기를 수행합니다.
-    * `/` 경로 - TODO 항목들을 보여주는 화면을 보여줍니다.
-    * `/todo` 경로 - 새로운 TODO 항목을 파일 시스템에 저장합니다.
-* `TodoUtil` 클래스
-    * `readTodoList` 메서드 - 파일 읽기를 수행합니다.
-    * `writeTodoList` 메서드 - 파일 쓰기를 수행합니다.
+- `TodoController` 클래스
+  - 생성자 - 설정된 파일 경로를 전달받아 최초 파일 읽기를 수행한다.
+  - `/` 경로 - TODO 항목들을 보여주는 화면을 보여준다.
+  - `/todo` 경로 - 새로운 TODO 항목을 파일 시스템에 저장한다.
+- `TodoUtil` 클래스
+  - `readTodoList` 메서드 - 파일 읽기를 수행한다.
+  - `writeTodoList` 메서드 - 파일 쓰기를 수행한다.
 
 ```java
 package action.in.blog.controller;
@@ -208,7 +205,7 @@ class TodoUtil {
 
 ## 4. Anonymous Volume 사용하기
 
-볼륨을 사용하기 위해 프로젝트 경로에서 이미지를 빌드합니다. 
+볼륨을 사용하기 위해 프로젝트 경로에서 이미지를 빌드한다.
 
 ```
 $ docker build -t volume-test .
@@ -236,16 +233,15 @@ $ docker build -t volume-test .
  => exporting to image                                                                                                                        0.0s
  => => exporting layers                                                                                                                       0.0s
  => => writing image sha256:ee024b70ea56ae720822551849394e6b92bc4800c30320ff2747bba93d0596f7                                                  0.0s
- => => naming to docker.io/library/volume-test  
+ => => naming to docker.io/library/volume-test
 ```
 
 ### 4.1. docker run 명령어
 
-다음 명령어를 통해 컨테이너를 실행합니다. 
-`-v` 옵션을 통해 볼륨을 지정할 수 있으며 없다면 자동으로 생성합니다. 
+다음 명령어를 통해 컨테이너를 실행한다. `-v` 옵션을 통해 볼륨을 지정할 수 있으며 없다면 자동으로 생성한다.
 
-* `-v` 옵션으로 컨테이너의 `/app/volume` 경로를 익명 볼륨으로 연결합니다.
-* `-e` 옵션으로 파일 경로를 `/app/volume/todos`으로 지정합니다.
+- `-v` 옵션으로 컨테이너의 `/app/volume` 경로를 익명 볼륨으로 연결한다.
+- `-e` 옵션으로 파일 경로를 `/app/volume/todos`으로 지정한다.
 
 ```
 $ docker run -d -p 8080:8080\
@@ -259,12 +255,12 @@ $ docker run -d -p 8080:8080\
 
 ### 4.2. Anonymous Volume 확인
 
-다음 도커 명령어들을 통해 볼륨을 확인합니다.
+다음 도커 명령어들을 통해 볼륨을 확인한다.
 
 ##### 볼륨 리스트 확인
 
-* `docker volume ls` 명령어로 볼륨 리스트를 확인합니다.
-* 도커 엔진에 의해 임의의 이름을 가진 볼륨이 생성되었음을 확인할 수 있습니다.
+- `docker volume ls` 명령어로 볼륨 리스트를 확인한다.
+- 도커 엔진에 의해 임의의 이름을 가진 볼륨이 생성되었음을 확인할 수 있다.
 
 ```
 $ docker volume ls
@@ -275,9 +271,9 @@ local     7d8491d610d9ec9cba6bfd65ca49472aa328409accd8f728966ed363b5834da2
 
 ##### 볼륨 상세 정보 확인
 
-* `docker volume inspect ${volume_name}` 명령어로 볼륨 상세 정보를 확인합니다.
-* 마운트 위치는 `/var/lib/docker/volumes/${volume_name}/_data` 경로로 지정됩니다.
-* 해당 위치는 로컬 머신에 실제로 존재하지 않고, 도커 엔진에 의해 가상으로 관리되는 경로입니다.
+- `docker volume inspect ${volume_name}` 명령어로 볼륨 상세 정보를 확인한다.
+- 마운트 위치는 `/var/lib/docker/volumes/${volume_name}/_data` 경로로 지정된다.
+- 해당 위치는 로컬 머신에 실제로 존재하지 않고, 도커 엔진에 의해 가상으로 관리되는 경로이다.
 
 ```
 $ docker volume inspect 7d8491d610d9ec9cba6bfd65ca49472aa328409accd8f728966ed363b5834da2
@@ -295,22 +291,22 @@ $ docker volume inspect 7d8491d610d9ec9cba6bfd65ca49472aa328409accd8f728966ed363
 ]
 ```
 
-### 4.3. 데이터 영속 여부 확인 
+### 4.3. 데이터 영속 여부 확인
 
-다음과 같은 순서로 테스트를 진행합니다. 
+다음과 같은 순서로 테스트를 진행한다.
 
-1. 컨테이너를 실행합니다.
-1. 화면에서 새로운 TODO 항목을 추가합니다.
-1. 컨테이너를 정지 및 제거합니다.
-1. 생성된 익명 볼륨을 확인합니다.
-1. 익명 볼륨을 지정하여 컨테이너를 재실행합니다.
-1. 화면에서 이전 컨테이너 화면에서 입력한 데이터를 확인할 수 있습니다. 
+1. 컨테이너를 실행한다.
+1. 화면에서 새로운 TODO 항목을 추가한다.
+1. 컨테이너를 정지 및 제거한다.
+1. 생성된 익명 볼륨을 확인한다.
+1. 익명 볼륨을 지정하여 컨테이너를 재실행한다.
+1. 화면에서 이전 컨테이너 화면에서 입력한 데이터를 확인할 수 있다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-04.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-04.gif" width="100%" class="image__border">
+</div>
 
-##### 테스트에서 사용한 명령어 
+##### 테스트에서 사용한 명령어
 
 ```
 $ docker run -d -p 8080:8080\
@@ -342,25 +338,24 @@ $ docker run -d -p 8080:8080\
 
 ### 4.4. 볼륨 미사용 컨테이너 데이터 영속 여부 확인
 
-볼륨을 사용하지 않은 컨테이너의 데이터 영속 여부를 확인해보았습니다. 
-다음과 같은 순서로 테스트를 진행합니다. 
+볼륨을 사용하지 않은 컨테이너의 데이터 영속 여부를 확인해보았다. 다음과 같은 순서로 테스트를 진행한다.
 
-1. 컨테이너를 실행합니다.
-1. 화면에서 새로운 TODO 항목을 추가합니다.
-1. 컨테이너를 정지 및 제거합니다.
-1. 익명 볼륨이 없음을 확인합니다.
-1. 컨테이너를 재실행합니다.
-1. 데이터가 저장되지 않아서 빈 화면이 나타납니다.
+1. 컨테이너를 실행한다.
+1. 화면에서 새로운 TODO 항목을 추가한다.
+1. 컨테이너를 정지 및 제거한다.
+1. 익명 볼륨이 없음을 확인한다.
+1. 컨테이너를 재실행한다.
+1. 데이터가 저장되지 않아서 빈 화면이 나타난다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-05.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/docker-anonymous-volume-05.gif" width="100%" class="image__border">
+</div>
 
 ##### 이미지 빌드에 사용한 Dockerfile
 
-* 볼륨을 사용하면 컨테이너 내부에 필요한 디렉토리를 함께 생성합니다. 
-* 익명 볼륨을 만들지 않는 경우 디렉토리를 찾지 못하여 테스트가 실패합니다.
-* `RUN mkdir -p /app/volume` 커맨드를 통해 해당 컨테이너에 테스트에 필요한 디렉토리를 만듭니다.
+- 볼륨을 사용하면 컨테이너 내부에 필요한 디렉토리를 함께 생성한다.
+- 익명 볼륨을 만들지 않는 경우 디렉토리를 찾지 못하여 테스트가 실패한다.
+- `RUN mkdir -p /app/volume` 커맨드를 통해 해당 컨테이너에 테스트에 필요한 디렉토리를 만든다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -379,7 +374,7 @@ FROM openjdk:11-jdk-slim-buster
 
 WORKDIR /app
 
-# 디렉토리 추가 
+# 디렉토리 추가
 RUN mkdir -p /app/volume
 
 ARG JAR_FILE=*.jar
@@ -422,14 +417,14 @@ ca0efde8a72f0b9323faf162dd044e7c4ac9d1b5497b58b0f489a2f129454e2a
 
 ## 5. 추가 설명
 
-기타 추가적인 내용들을 함께 정리하였습니다.
+기타 추가적인 내용들을 함께 정리하였다.
 
 ### 5.1. Dockerfile 사용
 
-Dockerfile을 사용하여 이미지가 사용할 익명 볼륨을 미리 지정할 수 있습니다. 
+Dockerfile을 사용하여 이미지가 사용할 익명 볼륨을 미리 지정할 수 있다.
 
-* `VOLUME` 명령어를 통해 이미지에서 기본적으로 필요한 익명 볼륨을 지정할 수 있습니다. 
-* 컨테이너를 실행할 때 `-v` 옵션 없이도 자동으로 익명 볼륨이 지정됩니다. 
+- `VOLUME` 명령어를 통해 이미지에서 기본적으로 필요한 익명 볼륨을 지정할 수 있다.
+- 컨테이너를 실행할 때 `-v` 옵션 없이도 자동으로 익명 볼륨이 지정된다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -463,15 +458,14 @@ CMD ["java", "-jar", "app.jar"]
 
 ### 5.2. Anonymous Volume 자동 삭제
 
-컨테이너가 종료되도 볼륨은 자동으로 삭제되지 않습니다. 
-하지만 `--rm` 옵션을 사용하면 컨테이너 종료될 때 익명 볼륨을 자동으로 함께 제거할 수 있습니다. 
+컨테이너가 종료되어도 볼륨은 자동으로 삭제되지 않는다. 하지만 `--rm` 옵션을 사용하면 컨테이너 종료될 때 익명 볼륨을 자동으로 함께 제거할 수 있다.
 
-* 컨테이너를 실행합니다.
-* 볼륨 리스트를 확인합니다.
-    * 생성된 익명 볼륨을 확인할 수 있습니다.
-* 컨테이너를 종료하면 동시에 삭제됩니다.
-* 볼륨 리스트를 확인합니다.
-    * 생성된 익명 볼륨이 함께 정리되었습니다. 
+- 컨테이너를 실행한다.
+- 볼륨 리스트를 확인한다.
+  - 생성된 익명 볼륨을 확인할 수 있다.
+- 컨테이너를 종료하면 동시에 삭제된다.
+- 볼륨 리스트를 확인한다.
+  - 생성된 익명 볼륨이 함께 정리되었다.
 
 ```
 $ docker run -d -p 8080:8080\
@@ -503,24 +497,24 @@ DRIVER    VOLUME NAME
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-19-docker-volume>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-19-docker-volume>
 
 #### RECOMMEND NEXT POSTS
 
-* [Docker Named Volume][docker-named-volume-link]
+- [Docker Named Volume][docker-named-volume-link]
 
 #### REFERENCE
 
-* [Docker & Kubernetes: The Practical Guide [2022 Edition]][docker-kube-lecture-link]
-* <https://docs.docker.com/storage/>
-* <https://docs.docker.com/storage/volumes/>
-* <https://www.baeldung.com/ops/docker-container-filesystem>
-* <https://spin.atomicobject.com/2019/07/11/docker-volumes-explained/>
-* <https://stackoverflow.com/questions/44976571/docker-anonymous-volumes>
-* <https://stackoverflow.com/questions/48632059/difference-between-volume-and-run-mkdir-in-dockerfile>
-* <https://stackoverflow.com/questions/41935435/understanding-volume-instruction-in-dockerfile/46992367#46992367>
-* <https://stackoverflow.com/questions/34809646/what-is-the-purpose-of-volume-in-dockerfile>
-* <https://arisu1000.tistory.com/27809>
+- [Docker & Kubernetes: The Practical Guide [2022 Edition]][docker-kube-lecture-link]
+- <https://docs.docker.com/storage/>
+- <https://docs.docker.com/storage/volumes/>
+- <https://www.baeldung.com/ops/docker-container-filesystem>
+- <https://spin.atomicobject.com/2019/07/11/docker-volumes-explained/>
+- <https://stackoverflow.com/questions/44976571/docker-anonymous-volumes>
+- <https://stackoverflow.com/questions/48632059/difference-between-volume-and-run-mkdir-in-dockerfile>
+- <https://stackoverflow.com/questions/41935435/understanding-volume-instruction-in-dockerfile/46992367#46992367>
+- <https://stackoverflow.com/questions/34809646/what-is-the-purpose-of-volume-in-dockerfile>
+- <https://arisu1000.tistory.com/27809>
 
 [docker-kube-lecture-link]: https://www.udemy.com/course/docker-kubernetes-the-practical-guide/
 

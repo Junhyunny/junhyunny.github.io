@@ -1,27 +1,24 @@
 ---
-title: "Throw Custom Exception to Axios from Spring"
+title: "스프링(Spring)에서 Axios 클라이언트로 커스텀 예외 전달하기"
 search: false
 category:
   - spring-boot
   - axios
-last_modified_at: 2023-01-11T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 0. 들어가면서
 
-사용자에게 시스템 상황을 쉽게 피드백하는 방법은 화면에서 팝업 창(popup window)을 띄우는 방법입니다. 
-프론트엔드(frontend)에서 판단할 수 없는 상황은 백엔드(backend)로부터 피드백을 받아야 합니다. 
-업무적으로 정상적인 경우가 아니라면 에러를 통해 피드백을 받는 것이 `if-else` 구문의 사용을 줄이므로 코드의 복잡성을 낮출 수 있습니다. 
-이번 포스트에선 스프링(spring) 애플리케이션에서 `axios` 모듈로 커스텀 예외 메시지를 전달하는 방법에 대해 정리하였습니다. 
+사용자에게 시스템 상황을 쉽게 피드백하는 방법은 화면에서 팝업 창(popup window)을 띄우는 방법이다. 프론트엔드(frontend)에서 판단할 수 없는 상황은 백엔드(backend)로부터 피드백을 받아야 한다. 업무적으로 정상적인 경우가 아니라면 에러를 통해 피드백을 받는 것이 `if-else` 구문의 사용을 줄이므로 코드의 복잡성을 낮출 수 있다. 이번 포스트에선 스프링(spring) 애플리케이션에서 `axios` 모듈로 커스텀 예외 메시지를 전달하는 방법에 대해 정리하였다.
 
 ## 1. Simple Page
 
-간단한 API 요청과 에러 응답에 대한 메시지를 출력하는 페이지입니다. 
+간단한 API 요청과 에러 응답에 대한 메시지를 출력하는 페이지이다.
 
-* 제출(submit) 버튼을 누르면 `axios`를 통해 백엔드 서비스로 API 요청이 수행됩니다. 
-* 서버에 문제가 발생하면 에러 응답을 받고, 메시지를 팝업 창으로 출력합니다.
+- 제출(submit) 버튼을 누르면 `axios`를 통해 백엔드 서비스로 API 요청이 수행된다.
+- 서버에 문제가 발생하면 에러 응답을 받고, 메시지를 팝업 창으로 출력한다.
 
 ```jsx
 import "./App.css";
@@ -88,12 +85,12 @@ export default App;
 
 ## 2. Backend Service
 
-이번엔 스프링 애플리케이션의 코드를 살펴보겠습니다.
+이번엔 스프링 애플리케이션의 코드를 살펴보겠다.
 
 ### 2.1. FooController 클래스
 
-* 해당 컨트롤러는 요청 받는 모든 응답에 대해 의도적으로 예외를 발생시킵니다.
-* "This is intentional exception." 메시지와 함께 예외를 상위 콜스택으로 전달합니다.
+- 해당 컨트롤러는 요청 받는 모든 응답에 대해 의도적으로 예외를 발생시킨다.
+- "This is intentional exception." 메시지와 함께 예외를 상위 콜스택으로 전달한다.
 
 ```java
 package action.in.blog.controller;
@@ -120,17 +117,17 @@ public class FooController {
 
 ### 2.2. GlobalExceptionHandler 클래스
 
-* `@ControllerAdvice` 애너테이션을 사용해 컨트롤러들의 예외를 처리할 수 있는 빈(bean)을 생성합니다. 
-* `@ExceptionHandler` 애너테이션을 사용해 지정한 예외들을 핸들링 할 수 있습니다. 
-    * 이번 예제에선 RuntimeException 예외를 명시적으로 핸들링합니다.
-* `@ResponseStatus` 애너테이션을 사용해 HTTP 응답 상태를 정의합니다.
-    * 이번 예제에선 `INTERNAL_SERVER_ERROR(500)` 상태로 정의합니다.
-* `@ResponseBody` 애너테이션을 사용해 처리한 예외를 에러의 응답 데이터로 반환합니다.
-    * 별도로 정의한 `ErrorResponse` 클래스를 사용합니다.
-    * timestamp - 예외가 발생한 시간
-    * message - 에러 메시지
-    * code - 비즈니스적으로 정의한 에러 코드
-    * status - 서버 에러 상태
+- `@ControllerAdvice` 애너테이션을 사용해 컨트롤러들의 예외를 처리할 수 있는 빈(bean)을 생성한다.
+- `@ExceptionHandler` 애너테이션을 사용해 지정한 예외들을 핸들링 할 수 있다.
+  - 이번 예제에선 RuntimeException 예외를 명시적으로 핸들링한다.
+- `@ResponseStatus` 애너테이션을 사용해 HTTP 응답 상태를 정의한다.
+  - 이번 예제에선 `INTERNAL_SERVER_ERROR(500)` 상태로 정의한다.
+- `@ResponseBody` 애너테이션을 사용해 처리한 예외를 에러의 응답 데이터로 반환한다.
+  - 별도로 정의한 `ErrorResponse` 클래스를 사용한다.
+  - timestamp - 예외가 발생한 시간
+  - message - 에러 메시지
+  - code - 비즈니스적으로 정의한 에러 코드
+  - status - 서버 에러 상태
 
 ```java
 package action.in.blog.handler;
@@ -178,10 +175,10 @@ public class GlobalExceptionHandler {
 
 ### 3.1. AxiosError 객체
 
-`axios` 모듈은 백엔드 서비스로부터 전달 받은 에러 응답을 별도의 에러 객체로 감싸고 있습니다. 
+`axios` 모듈은 백엔드 서비스로부터 전달 받은 에러 응답을 별도의 에러 객체로 감싸고 있다.
 
-* 로그 출력을 통해 에러를 출력하면 다음과 같은 내용을 확인할 수 있습니다. 
-* 백엔드 서비스로부터 전달받은 에러는 response 객체의 내부애 data 객체에 저장됩니다.
+- 로그 출력을 통해 에러를 출력하면 다음과 같은 내용을 확인할 수 있다.
+- 백엔드 서비스로부터 전달받은 에러는 response 객체의 내부에 data 객체에 저장된다.
 
 ```json
 {
@@ -276,8 +273,7 @@ public class GlobalExceptionHandler {
 
 ### 3.2. Axios Interceptor Error Handling
 
-백엔드 서비스로부터 전달 받은 에러를 AxiosError 객체로부터 구조 분해 할당(destructuring)해야 합니다. 
-`axios` 모듈의 인터셉터(interceptor)를 사용하면 처리한 내용을 애플리케이션 전역에 쉽게 적용 가능합니다. 
+백엔드 서비스로부터 전달 받은 에러를 AxiosError 객체로부터 구조 분해 할당(destructuring)해야 한다. `axios` 모듈의 인터셉터(interceptor)를 사용하면 처리한 내용을 애플리케이션 전역에 쉽게 적용 가능하다.
 
 ```js
 axios.interceptors.response.use(
@@ -293,34 +289,32 @@ axios.interceptors.response.use(
 
 ##### 에러 핸들링 결과
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/throw-custom-exception-to-axios-from-spring-01.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/throw-custom-exception-to-axios-from-spring-01.gif" width="100%" class="image__border">
+</div>
 
 ## 4. Why do we handle exceptions in one point?
 
-코드 곳곳에서 `try-catch` 블록을 만드는 것은 가독성을 나쁘게 만듭니다. 
-예외를 상위 메서드에게 예외 처리를 위임하는 것도 코드를 복잡하게 만듭니다. 
-`@ControllerAdvice`, `@ExceptionHandler` 애너테이션을 사용해 예외를 한 곳에서 처리하는 컴포넌트를 만들면 다음과 같은 점이 개선됩니다. 
+코드 곳곳에서 `try-catch` 블록을 만드는 것은 가독성을 나쁘게 만든다. 예외를 상위 메서드에게 예외 처리를 위임하는 것도 코드를 복잡하게 만든다. `@ControllerAdvice`, `@ExceptionHandler` 애너테이션을 사용해 예외를 한 곳에서 처리하는 컴포넌트를 만들면 다음과 같은 점이 개선된다.
 
-* 각 컴포넌트들은 자신이 맡은 비즈니스에 집중할 수 있습니다.
-* 코드 흐름에 문제가 발생하는 경우 이를 과감하게 상위로 던질 수 있습니다.
-    * 코드 흐름 상 문제가 있는 경우 이를 계속 진행해서는 안 됩니다.
-    * 문제가 있는 상태로 프로세스를 계속 진행하면 데이터가 오염되거나 찾기 힘든 버그를 만들 수 있습니다.
-    * 코드 흐름을 중지하고, 예외를 던지거나 적절한 값을 반환합니다.
-* 서비스에서 발생하는 예외들을 모아서 확인할 수 있고, 비즈니스에 맞는 적절한 에러 메시지, 코드 등을 응답할 수 있습니다.
-* 에러 메시지 포맷을 일정하게 만들 수 있습니다.
-    * 이는 클라이언트(client) 입장에서 에러 처리를 간편하게 할 수 있게 만듭니다.
+- 각 컴포넌트들은 자신이 맡은 비즈니스에 집중할 수 있다.
+- 코드 흐름에 문제가 발생하는 경우 이를 과감하게 상위로 던질 수 있다.
+  - 코드 흐름 상 문제가 있는 경우 이를 계속 진행해서는 안 된다.
+  - 문제가 있는 상태로 프로세스를 계속 진행하면 데이터가 오염되거나 찾기 힘든 버그를 만들 수 있다.
+  - 코드 흐름을 중지하고, 예외를 던지거나 적절한 값을 반환한다.
+- 서비스에서 발생하는 예외들을 모아서 확인할 수 있고, 비즈니스에 맞는 적절한 에러 메시지, 코드 등을 응답할 수 있다.
+- 에러 메시지 포맷을 일정하게 만들 수 있다.
+  - 이는 클라이언트(client) 입장에서 에러 처리를 간편하게 할 수 있게 만든다.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-01-11-throw-custom-exception-to-axios-from-spring>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-01-11-throw-custom-exception-to-axios-from-spring>
 
 #### REFERENCE
 
-* <https://stackoverflow.com/questions/63104384/how-to-get-exception-message-in-axios-from-a-spring-boot-backend>
-* <https://tecoble.techcourse.co.kr/post/2021-05-10-controller_advice_exception_handler/>
-* <https://incheol-jung.gitbook.io/docs/q-and-a/spring/controlleradvice-exceptionhandler>
-* <https://mangkyu.tistory.com/246>
-* <https://joojimin.tistory.com/54>
-* <https://jeong-pro.tistory.com/195>
+- <https://stackoverflow.com/questions/63104384/how-to-get-exception-message-in-axios-from-a-spring-boot-backend>
+- <https://tecoble.techcourse.co.kr/post/2021-05-10-controller_advice_exception_handler/>
+- <https://incheol-jung.gitbook.io/docs/q-and-a/spring/controlleradvice-exceptionhandler>
+- <https://mangkyu.tistory.com/246>
+- <https://joojimin.tistory.com/54>
+- <https://jeong-pro.tistory.com/195>

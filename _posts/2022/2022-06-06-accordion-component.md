@@ -1,23 +1,23 @@
 ---
-title: "Accordion View"
+title: "아코디언 뷰"
 search: false
 category:
   - html
   - css
   - javascript
-last_modified_at: 2022-06-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. Accordion View
 
-내용이 많을 경우 내부 컨텐츠를 접거나 펴서 볼 수 있는 아코디언(accordion) 뷰를 구현하였습니다.
+내용이 많을 경우 내부 컨텐츠를 접거나 펴서 볼 수 있는 아코디언(accordion) 뷰를 구현하였다.
 
 ### 1.1. HTML 코드
 
-- `.contract__header` 클래스를 지닌 블록은 헤더 부분이며 이를 눌러 내용이 담긴 블록을 열었다 닫을 수 있습니다.
-- `.contract__content` 클래스를 지닌 블록은 컨텐츠 부분이며 해당 블록이 열리고, 닫힙니다.
+- `.contract__header` 클래스를 지닌 블록은 헤더 부분이며 이를 눌러 내용이 담긴 블록을 열었다 닫을 수 있다.
+- `.contract__content` 클래스를 지닌 블록은 컨텐츠 부분이며 해당 블록이 열리고, 닫힌다.
 
 ```html
 <div class="contract__header">
@@ -27,15 +27,15 @@ last_modified_at: 2022-06-06T23:55:00
 <div class="contract__content">
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
     <p class="contract__content--detail">
-        amet consectetur adipisicing elit. 
-        Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? 
+        amet consectetur adipisicing elit.
+        Magnam facilis maxime minima expedita, error perferendis amet facere veritatis?
         Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!
     </p>
     <br/>
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
     <p class="contract__content--detail">
-        amet consectetur adipisicing elit. 
-        Rerum id atque nesciunt vero, debitis culpa dolor. 
+        amet consectetur adipisicing elit.
+        Rerum id atque nesciunt vero, debitis culpa dolor.
         Perspiciatis illo recusandae, facilis reiciendis exercitationem, incidunt ipsam officiis, aut non maiores quis ullam.
     </p>
 </div>
@@ -47,15 +47,15 @@ last_modified_at: 2022-06-06T23:55:00
 <div class="contract__content">
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
     <p class="contract__content--detail">
-        amet consectetur adipisicing elit. 
-        Magnam facilis maxime minima expedita, error perferendis amet facere veritatis? 
+        amet consectetur adipisicing elit.
+        Magnam facilis maxime minima expedita, error perferendis amet facere veritatis?
         Quibusdam architecto laudantium incidunt, perspiciatis quaerat consequatur provident similique unde aut quisquam!
     </p>
     <br/>
     <p class="contract__content--title">Lorem ipsum dolor sit</p>
     <p class="contract__content--detail">
-        amet consectetur adipisicing elit. 
-        Rerum id atque nesciunt vero, debitis culpa dolor. 
+        amet consectetur adipisicing elit.
+        Rerum id atque nesciunt vero, debitis culpa dolor.
         Perspiciatis illo recusandae, facilis reiciendis exercitationem, incidunt ipsam officiis, aut non maiores quis ullam.
     </p>
 </div>
@@ -63,8 +63,8 @@ last_modified_at: 2022-06-06T23:55:00
 
 ### 1.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 ```css
 body {
@@ -139,10 +139,10 @@ p {
 
 ### 1.3. JavaScript 코드
 
-- `.contract__header` 클래스를 지닌 DOM 객체들을 찾아서 클릭 이벤트를 지정합니다.
+- `.contract__header` 클래스를 지닌 DOM 객체들을 찾아서 클릭 이벤트를 지정한다.
 - `openAccordion(event)` 함수
-    - 현재 선택된 DOM 객체가 `.on` 클래스를 지녔는지 여부에 따라 `.on` 클래스를 제거하거나 추가합니다.
-    - 바로 옆 형제 DOM 객체의 `maxHeight` 값이 존재하지는 여부에 따라 제거하거나 `scrollHeight` 값으로 대체합니다.
+  - 현재 선택된 DOM 객체가 `.on` 클래스를 지녔는지 여부에 따라 `.on` 클래스를 제거하거나 추가한다.
+  - 바로 옆 형제 DOM 객체의 `maxHeight` 값이 존재하는지 여부에 따라 제거하거나 `scrollHeight` 값으로 대체한다.
 
 ```javascript
 const accordionHeaders = document.querySelectorAll(".contract__header");

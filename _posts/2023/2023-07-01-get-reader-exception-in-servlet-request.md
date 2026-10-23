@@ -1,19 +1,19 @@
 ---
-title: "Repeatablely Read Message from Servlet Request"
+title: "서블릿 요청에서 메시지 반복 읽기"
 search: false
 category:
   - java
   - spring-boot
-last_modified_at: 2023-06-30T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 ## 1. Problem Context
 
-[HMAC 인증 필터][hmac-link]를 구현하면서 다음 에러를 만났습니다. 
+[HMAC 인증 필터][hmac-link]를 구현하면서 다음 에러를 만났다.
 
-* 실행 후 런타임에서 발생하는 에러 메시지
+- 실행 후 런타임에서 발생하는 에러 메시지
 
 ```
 java.lang.IllegalStateException: getReader() has already been called for this request
@@ -22,10 +22,10 @@ java.lang.IllegalStateException: getReader() has already been called for this re
     at org.springframework.http.server.ServletServerHttpRequest.getBody(ServletServerHttpRequest.java:206) ~[spring-web-6.0.10.jar:6.0.10]
     at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver$EmptyBodyCheckingHttpInputMessage.<init>(AbstractMessageConverterMethodArgumentResolver.java:323) ~[spring-webmvc-6.0.10.jar:6.0.10]
     at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodArgumentResolver.readWithMessageConverters(AbstractMessageConverterMethodArgumentResolver.java:172) ~[spring-webmvc-6.0.10.jar:6.0.10]
-    ... 
+    ...
 ```
 
-* 테스트 실행 시 발생하는 에러 메시지
+- 테스트 실행 시 발생하는 에러 메시지
 
 ```
 Request processing failed: java.lang.IllegalStateException: Cannot call getInputStream() after getReader() has already been called for the current request
@@ -35,8 +35,7 @@ jakarta.servlet.ServletException: Request processing failed: java.lang.IllegalSt
     ...
 ```
 
-로그에서 볼 수 있듯이 요청(request) 객체에서 getReader() 메서드를 여러번 호출하여 에러가 발생합니다. 
-HMAC 필터에서 application/json 형식의 데이터를 추출하는 작업을 수행했기 때문입니다. 
+로그에서 볼 수 있듯이 요청(request) 객체에서 getReader() 메서드를 여러 번 호출하여 에러가 발생한다. HMAC 필터에서 application/json 형식의 데이터를 추출하는 작업을 수행했기 때문이다.
 
 ```java
 @Component
@@ -71,11 +70,11 @@ public class HmacFilter extends OncePerRequestFilter {
 }
 ```
 
-getReader() 메서드를 호출하지 않게 우회하더라도 문제가 발생합니다. 
+getReader() 메서드를 호출하지 않게 우회하더라도 문제가 발생한다.
 
-* InputStream 객체는 메시지를 읽을 때 인덱스를 사용해 바이트 배열의 읽은 위치를 지나가기 때문에 다시 읽지 못 합니다.
-* 요청 객체에 담긴 메시지가 필터에서 소비되어 컨트롤러 영역까지 전달되지 못합니다.
-    * 요청 핸들러(request handler)에서 메시지가 누락되었다는 예외를 발생시킵니다.
+- InputStream 객체는 메시지를 읽을 때 인덱스를 사용해 바이트 배열의 읽은 위치를 지나가기 때문에 다시 읽지 못한다.
+- 요청 객체에 담긴 메시지가 필터에서 소비되어 컨트롤러 영역까지 전달되지 못한다.
+  - 요청 핸들러(request handler)에서 메시지가 누락되었다는 예외를 발생시킨다.
 
 ```java
 @Component
@@ -109,7 +108,7 @@ public class HmacFilter extends OncePerRequestFilter {
 }
 ```
 
-* 요청 메시지를 필터에서 소비하기 때문에 서블릿 컨테이너에서 메시지를 보내지 않았다는 `bad request(400)`가 발생합니다.
+- 요청 메시지를 필터에서 소비하기 때문에 서블릿 컨테이너에서 메시지를 보내지 않았다는 `bad request(400)`가 발생한다.
 
 ```
 $ ccurl -X POST http://localhost:8080/todos\
@@ -128,7 +127,7 @@ $ ccurl -X POST http://localhost:8080/todos\
 
 ```
 
-* 테스트 실행 시 동일하게 `bad request(400)`가 발생합니다.
+- 테스트 실행 시 동일하게 `bad request(400)`가 발생한다.
 
 ```
 MockHttpServletRequest:
@@ -163,7 +162,7 @@ MockHttpServletResponse:
     Error message = null
           Headers = []
      Content type = null
-             Body = 
+             Body =
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
@@ -175,10 +174,10 @@ Actual   :400
 
 ## 2. Solve the problem
 
-문제 해결을 위해 HttpServletRequestWrapper 클래스를 상속 받은 요청 클래스를 생성합니다. 
+문제 해결을 위해 HttpServletRequestWrapper 클래스를 상속받은 요청 클래스를 생성한다.
 
-* 객체 생성시 메시지 인코딩 방법과 InputStream 객체에 저장된 원장(origin) 데이터를 필드에 저장합니다.
-* 클라이언트(client)가 InputStream 객체나 Reader 객체를 요청하면 원장 데이터를 담은 객체를 전달합니다.
+- 객체 생성 시 메시지 인코딩 방법과 InputStream 객체에 저장된 원장(origin) 데이터를 필드에 저장한다.
+- 클라이언트(client)가 InputStream 객체나 Reader 객체를 요청하면 원장 데이터를 담은 객체를 전달한다.
 
 ```java
 package action.in.blog;
@@ -247,11 +246,11 @@ public class RepeatableReadRequest extends HttpServletRequestWrapper {
 }
 ```
 
-위 요청 객체를 래핑할 수 있는 클래스를 필터에서 사용합니다. 
+위 요청 객체를 래핑할 수 있는 클래스를 필터에서 사용한다.
 
-* 요청 객체를 위에서 생성한 RepeatableReadRequest 클래스로 감쌉니다.
-* 래핑된 객체를 사용해 메시지를 추출합니다.
-* 래핑된 객체를 필터 체인(filter chain)에 전달합니다. 
+- 요청 객체를 위에서 생성한 RepeatableReadRequest 클래스로 감싼다.
+- 래핑된 객체를 사용해 메시지를 추출한다.
+- 래핑된 객체를 필터 체인(filter chain)에 전달한다.
 
 ```java
 @Component
@@ -287,7 +286,7 @@ public class HmacFilter extends OncePerRequestFilter {
 
 ##### Result
 
-위 방법으로 해당 문제를 해결하면 정상적으로 요청 메시지가 전달됩니다.
+위 방법으로 해당 문제를 해결하면 정상적으로 요청 메시지가 전달된다.
 
 ```
 $ curl -X POST http://localhost:8080/todos\
@@ -305,20 +304,20 @@ $ curl -X POST http://localhost:8080/todos\
 
 ## CLOSING
 
-전체 구현 코드를 확인하시려면 [HMAC(Hash-based Message Authentication Code)][hmac-link] 포스트를 참고하시길 바랍니다. 
+전체 구현 코드를 확인하려면 [HMAC(Hash-based Message Authentication Code)][hmac-link] 포스트를 참고하길 바란다.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-28-hmac>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-28-hmac>
 
 #### RECOMMEND NEXT POSTS
 
-* [HMAC(Hash-based Message Authentication Code)][hmac-link]
+- [HMAC(Hash-based Message Authentication Code)][hmac-link]
 
 #### REFERENCE
 
-* <https://meetup.nhncloud.com/posts/44>
-* <https://aljjabaegi.tistory.com/683>
-* <https://dylee.tistory.com/6>
+- <https://meetup.nhncloud.com/posts/44>
+- <https://aljjabaegi.tistory.com/683>
+- <https://dylee.tistory.com/6>
 
 [hmac-link]: https://junhyunny.github.io/information/security/java/spring/hmac/

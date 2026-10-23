@@ -3,26 +3,22 @@ title: "React 환경 변수 설정과 실행 환경 분리"
 search: false
 category:
   - react
-last_modified_at: 2022-09-30T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [React 개발 서버 CORS 문제 해결][react-proxy-link]
+- [React 개발 서버 CORS 문제 해결][react-proxy-link]
 
 ## 0. 들어가면서
 
-`CRA(Create-React-App)`를 사용해 프로젝트를 만드는 경우 `react-scripts`에 의해 개발 서버 실행, 빌드, 테스트 등이 실행됩니다. 
-이번 포스트에서 설명하는 실행 환경 변수를 작성하고 파일을 분리하는 방법은 `CRA`를 통해 만들어진 프로젝트에 한해서 동작합니다. 
-다른 개발 도구를 통해 개발 환경을 구축한 경우엔 정상적으로 동작하지 않을 수 있으니 참고 바랍니다. 
+`CRA(Create-React-App)`를 사용해 프로젝트를 만드는 경우 `react-scripts`에 의해 개발 서버 실행, 빌드, 테스트 등이 실행된다. 이번 포스트에서 설명하는 실행 환경 변수를 작성하고 파일을 분리하는 방법은 `CRA`를 통해 만들어진 프로젝트에 한해서 동작한다. 다른 개발 도구를 통해 개발 환경을 구축한 경우엔 정상적으로 동작하지 않을 수 있으니 참고 바란다.
 
 ## 1. React 환경 변수 설정과 사용
 
-리액트 애플리케이션 개발 시 성격에 따라 환경 변수로 분리하는 값들이 있습니다. 
-환경 변수들은 `.env` 파일 내부에 선언하고 값을 설정하여 사용할 수 있습니다. 
-`REACT_APP_` 키워드가 앞에 붙은 변수들만 환경 변수로 사용 가능합니다. 
+리액트 애플리케이션 개발 시 성격에 따라 환경 변수로 분리하는 값들이 있다. 환경 변수들은 `.env` 파일 내부에 선언하고 값을 설정하여 사용할 수 있다. `REACT_APP_` 키워드가 앞에 붙은 변수들만 환경 변수로 사용 가능하다.
 
 ##### 환경 변수 설정
 
@@ -32,7 +28,7 @@ REACT_APP_SERVER=/api
 
 ##### 환경 변수 사용
 
-* 코드에선 `process.env` 변수를 통해 환경 변수에 접근할 수 있습니다. 
+- 코드에선 `process.env` 변수를 통해 환경 변수에 접근할 수 있다.
 
 ```javascript
 export const getTodos = async () => {
@@ -43,59 +39,54 @@ export const getTodos = async () => {
 
 ### 1.1. 환경 변수 설정 시 주의 사항
 
-`CRA` 공식 문서를 보면 다음과 같은 주의 사항을 볼 수 있습니다. 
+`CRA` 공식 문서를 보면 다음과 같은 주의 사항을 볼 수 있다.
 
 > WARNING: Do not store any secrets (such as private API keys) in your React app
 
-비공개 API 키 같은 값들을 저장하는 것을 지양하는 이유는 환경 변수가 빌드에 내장되어 누구든지 이를 확인할 수 있기 때문입니다. 
+비공개 API 키 같은 값들을 저장하는 것을 지양하는 이유는 환경 변수가 빌드에 내장되어 누구든지 이를 확인할 수 있기 때문이다.
 
 ## 2. 실행 환경 분리
 
-실행 환경에 따라 환경 변수를 분리하는 방법을 알아보겠습니다. 
-`.env` 파일을 다음과 같이 확장할 수 있습니다. 
+실행 환경에 따라 환경 변수를 분리하는 방법을 알아보겠다. `.env` 파일을 다음과 같이 확장할 수 있다.
 
-* .env 
-    * 기본 설정 파일입니다.
-* .env.local 
-    * .env 파일을 오버라이드(override)합니다.
-    * 테스트 환경을 제외하고 모든 환경에서 사용됩니다.
-* .env.development, .env.test, .env.production
-    * 각 실행 환경에 따라 사용됩니다.
-* .env.development.local, .env.test.local, .env.production.local
-    * 각 실행 환경에 따라 사용되는 `.env.{environment}` 파일을 오버라이드합니다. 
+- .env
+  - 기본 설정 파일이다.
+- .env.local
+  - .env 파일을 오버라이드(override)한다.
+  - 테스트 환경을 제외하고 모든 환경에서 사용된다.
+- .env.development, .env.test, .env.production
+  - 각 실행 환경에 따라 사용된다.
+- .env.development.local, .env.test.local, .env.production.local
+  - 각 실행 환경에 따라 사용되는 `.env.{environment}` 파일을 오버라이드한다.
 
 ### 2.1. 설정 파일 우선 순위 적용
 
-`react-scripts` 실행에 따라 다음과 같은 우선 순위가 적용됩니다. 
-왼쪽에 있을수록 우선 순위가 높으며 동일한 이름의 환경 변수가 있다면 우선 순위가 높은 파일의 환경 변수가 사용됩니다. 
+`react-scripts` 실행에 따라 다음과 같은 우선 순위가 적용된다. 왼쪽에 있을수록 우선 순위가 높으며 동일한 이름의 환경 변수가 있다면 우선 순위가 높은 파일의 환경 변수가 사용된다.
 
-* npm start
-    * .env.development.local > .env.local > .env.development > .env
-* npm run build
-    * .env.production.local > .env.local > .env.production > .env
-* npm test
-    * .env.test.local > .env.test > .env
+- npm start
+  - .env.development.local > .env.local > .env.development > .env
+- npm run build
+  - .env.production.local > .env.local > .env.production > .env
+- npm test
+  - .env.test.local > .env.test > .env
 
 ## 3. 환경 변수 분리 예시
 
-환경 변수가 각 실행 환경에서 다르게 적용되는 예시를 살펴보겠습니다. 
-애플리케이션 코드는 별로 중요하지 않으므로 깊게 다루지 않았습니다. 
-필요한 정보들만 가볍게 다뤘습니다. 
+환경 변수가 각 실행 환경에서 다르게 적용되는 예시를 살펴보겠다. 애플리케이션 코드는 별로 중요하지 않으므로 깊게 다루지 않았다. 필요한 정보들만 가볍게 다뤘다.
 
 ##### 프론트엔드 서비스 코드
 
-이번 예시에서는 `CORS` 문제를 해결하기 위해 `axios` 모듈에 전달하는 API 경로 파라미터를 환경 변수로 제어합니다. 
-먼저 프론트엔드 서비스에서 `axios` 모듈을 사용하는 코드를 간략하게 설명하겠습니다. 
+이번 예시에서는 `CORS` 문제를 해결하기 위해 `axios` 모듈에 전달하는 API 경로 파라미터를 환경 변수로 제어한다. 먼저 프론트엔드 서비스에서 `axios` 모듈을 사용하는 코드를 간략하게 설명하겠다.
 
-* `axios` 모듈은 URL 일부 경로만 받는 경우 화면을 서비스하는 서버로 요청을 전달합니다.
-    * `/api/todos`처럼 일부 경로만 사용하는 경우 화면을 서비스하는 서버로 요청을 전달합니다.
-    * `http://google.com`처럼 전체 도메인이 포함된 URL을 사용하는 경우 해당 서버로 요청을 전달합니다.
-* `addTodo` 함수
-    * POST 요청을 수행합니다.
-    * 경로는 `${process.env.REACT_APP_SERVER}/todo` 입니다.
-* `getTodos` 함수
-    * POST 요청을 수행합니다.
-    * 경로는 `${process.env.REACT_APP_SERVER}/todos` 입니다.
+- `axios` 모듈은 URL 일부 경로만 받는 경우 화면을 서비스하는 서버로 요청을 전달한다.
+  - `/api/todos`처럼 일부 경로만 사용하는 경우 화면을 서비스하는 서버로 요청을 전달한다.
+  - `http://google.com`처럼 전체 도메인이 포함된 URL을 사용하는 경우 해당 서버로 요청을 전달한다.
+- `addTodo` 함수
+  - POST 요청을 수행한다.
+  - 경로는 `${process.env.REACT_APP_SERVER}/todo` 이다.
+- `getTodos` 함수
+  - POST 요청을 수행한다.
+  - 경로는 `${process.env.REACT_APP_SERVER}/todos` 이다.
 
 ```javascript
 import axios from "axios";
@@ -116,10 +107,10 @@ export const getTodos = async () => {
 
 ##### 백엔드 서비스 코드
 
-다음은 백엔드 서비스에서 요청을 받아주는 `TodoController` 클래스입니다. 
+다음은 백엔드 서비스에서 요청을 받아주는 `TodoController` 클래스다.
 
-* `/todo` 경로는 POST 요청을 받아 신규 `TODO` 항목을 생성합니다.
-* `/todos` 경로는 GET 요청을 받아 등록된 `TODO` 항목들을 반환합니다. 
+- `/todo` 경로는 POST 요청을 받아 신규 `TODO` 항목을 생성한다.
+- `/todos` 경로는 GET 요청을 받아 등록된 `TODO` 항목들을 반환한다.
 
 ```java
 package action.in.blog.todo.controller;
@@ -156,11 +147,11 @@ public class TodoController {
 
 ### 3.1. npm start 명령어
 
-`npm start` 명령어에서 사용되는 `.env.development` 파일에 환경 변수를 선언하고 결과를 확인합니다.
+`npm start` 명령어에서 사용되는 `.env.development` 파일에 환경 변수를 선언하고 결과를 확인한다.
 
 #### 3.1.1. .env.development
 
-* 환경 변수를 선언하고 값을 지정하진 않습니다.
+- 환경 변수를 선언하고 값을 지정하진 않는다.
 
 ```
 REACT_APP_SERVER=
@@ -168,8 +159,8 @@ REACT_APP_SERVER=
 
 #### 3.1.2. package.json
 
-* `webpack` 개발 서버의 프록시 사용을 위해 `proxy` 값에 백엔드 서버 주소를 설정합니다.
-    * `http://localhost:8080` 값으로 지정합니다.
+- `webpack` 개발 서버의 프록시 사용을 위해 `proxy` 값에 백엔드 서버 주소를 설정한다.
+  - `http://localhost:8080` 값으로 지정한다.
 
 ```json
 {
@@ -216,12 +207,12 @@ REACT_APP_SERVER=
 
 #### 3.1.3. 개발 서버 실행
 
-프론트엔드 서비스와 백엔드 서비스를 터미널에서 각자 실행합니다. 
+프론트엔드 서비스와 백엔드 서비스를 터미널에서 각자 실행한다.
 
 ##### 프론트엔드 서비스 실행
 
 ```
-$ cd frontend && npm start    
+$ cd frontend && npm start
 
 > frontend@0.1.0 start
 > react-scripts start
@@ -244,43 +235,43 @@ You can now view frontend in the browser.
 $ cd backend && mvn spring-boot:run
 
 [INFO] Scanning for projects...
-[WARNING] 
+[WARNING]
 [WARNING] Some problems were encountered while building the effective model for action.in.blog:backend:jar:0.0.1-SNAPSHOT
 [WARNING] 'dependencies.dependency.(groupId:artifactId:type:classifier)' must be unique: org.projectlombok:lombok:jar -> version 1.18.24 vs (?) @ line 37, column 21
-[WARNING] 
+[WARNING]
 [WARNING] It is highly recommended to fix these problems because they threaten the stability of your build.
-[WARNING] 
+[WARNING]
 [WARNING] For this reason, future Maven versions might no longer support building such malformed projects.
-[WARNING] 
-[INFO] 
+[WARNING]
+[INFO]
 [INFO] -----------------------< action.in.blog:backend >-----------------------
 [INFO] Building backend 0.0.1-SNAPSHOT
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO] 
+[INFO]
 [INFO] >>> spring-boot-maven-plugin:2.7.4:run (default-cli) > test-compile @ backend >>>
-[INFO] 
+[INFO]
 [INFO] --- maven-resources-plugin:3.2.0:resources (default-resources) @ backend ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Using 'UTF-8' encoding to copy filtered properties files.
 [INFO] Copying 1 resource
 [INFO] Copying 0 resource
-[INFO] 
+[INFO]
 [INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ backend ---
 [INFO] Changes detected - recompiling the module!
 [INFO] Compiling 7 source files to /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2022-09-30-react-env-variable-setting/backend/target/classes
-[INFO] 
+[INFO]
 [INFO] --- maven-resources-plugin:3.2.0:testResources (default-testResources) @ backend ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources.
 [INFO] Using 'UTF-8' encoding to copy filtered properties files.
 [INFO] skip non existing resourceDirectory /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2022-09-30-react-env-variable-setting/backend/src/test/resources
-[INFO] 
+[INFO]
 [INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ backend ---
 [INFO] Changes detected - recompiling the module!
 [INFO] Compiling 3 source files to /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2022-09-30-react-env-variable-setting/backend/target/test-classes
-[INFO] 
+[INFO]
 [INFO] <<< spring-boot-maven-plugin:2.7.4:run (default-cli) < test-compile @ backend <<<
-[INFO] 
-[INFO] 
+[INFO]
+[INFO]
 [INFO] --- spring-boot-maven-plugin:2.7.4:run (default-cli) @ backend ---
 [INFO] Attaching agents: []
 
@@ -305,21 +296,21 @@ $ cd backend && mvn spring-boot:run
 
 ##### API 요청 동작 과정
 
-* 브라우저를 통해 `http://localhost:3000`에 접근합니다.
-* 최초 렌더링 시 이전에 등록한 `TODO` 항목들을 가져오기 위해 `http://localhost:3000/todos`로 API 요청을 수행합니다. 
-* 개발 서버는 프록시를 통해 `http://localhost:8080/todos`로 요청을 라우팅합니다.
+- 브라우저를 통해 `http://localhost:3000`에 접근한다.
+- 최초 렌더링 시 이전에 등록한 `TODO` 항목들을 가져오기 위해 `http://localhost:3000/todos`로 API 요청을 수행한다.
+- 개발 서버는 프록시를 통해 `http://localhost:8080/todos`로 요청을 라우팅한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/react-env-variable-setting-01.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/react-env-variable-setting-01.png" width="80%" class="image__border">
+</div>
 
 ### 3.2. npm run build 명령어
 
-`npm run build` 명령어에서 사용되는 `.env.production` 파일에 환경 변수를 선언하고 결과를 확인합니다. 
+`npm run build` 명령어에서 사용되는 `.env.production` 파일에 환경 변수를 선언하고 결과를 확인한다.
 
 #### 3.2.1. .env.production
 
-* 환경 변수 `REACT_APP_SERVER`에 `/api` 값을 지정합니다.
+- 환경 변수 `REACT_APP_SERVER`에 `/api` 값을 지정한다.
 
 ```
 REACT_APP_SERVER=/api
@@ -327,7 +318,7 @@ REACT_APP_SERVER=/api
 
 #### 3.2.2. Dockerfile
 
-* 프론트엔드 컨테이너 이미지를 만들 때 `npm run build` 명령어를 사용합니다.
+- 프론트엔드 컨테이너 이미지를 만들 때 `npm run build` 명령어를 사용한다.
 
 ```dockerfile
 FROM node:16-buster-slim as builder
@@ -355,9 +346,9 @@ CMD ["nginx", "-g", "daemon off;"]
 
 #### 3.2.3. nginx.conf
 
-* 컨테이너 이미지를 만들 때 사용한 `nginx` 설정 파일입니다.
-* 요청 경로에 `/api`가 있는 경우 나머지 경로와 파라미터는 유지한 채 `/api` 문자열만 제거합니다.
-* 변경한 경로를 사용하여 `http://backend:8080/todos`로 요청을 재전달합니다.
+- 컨테이너 이미지를 만들 때 사용한 `nginx` 설정 파일이다.
+- 요청 경로에 `/api`가 있는 경우 나머지 경로와 파라미터는 유지한 채 `/api` 문자열만 제거한다.
+- 변경한 경로를 사용하여 `http://backend:8080/todos`로 요청을 재전달한다.
 
 ```conf
 upstream backend {
@@ -373,7 +364,7 @@ server {
         index index.html index.htm;
         try_files $uri /index.html;
     }
-    
+
     location /api {
         rewrite ^/api(.*)$ $1?$args break;
         proxy_pass http://backend;
@@ -383,10 +374,10 @@ server {
 
 #### 3.2.4. 컨테이너 실행
 
-* 도커 컴포즈(compose)를 통해 컨테이너를 실행합니다.
+- 도커 컴포즈(compose)를 통해 컨테이너를 실행한다.
 
 ```
-$ docker-compose up -d 
+$ docker-compose up -d
 
 [+] Building 4.5s (33/33) FINISHED
  => [2022-09-30-react-env-variable-setting-backend internal] load build definition from Dockerfile                                    0.0s
@@ -436,28 +427,28 @@ $ docker-compose up -d
 [+] Running 3/3
  ⠿ Network 2022-09-30-react-env-variable-setting_default       Created                                                                0.0s
  ⠿ Container 2022-09-30-react-env-variable-setting-backend-1   Started                                                                1.0s
- ⠿ Container 2022-09-30-react-env-variable-setting-frontend-1  Starte...                                                              1.1s 
+ ⠿ Container 2022-09-30-react-env-variable-setting-frontend-1  Starte...                                                              1.1s
 ```
 
 ##### API 요청 동작 과정
 
-* 브라우저를 통해 `http://localhost:80`에 접근합니다.
-* 최초 렌더링 시 이전에 등록한 `TODO` 항목들을 가져오기 위해 `http://localhost:80/api/todos`로 API 요청을 수행합니다. 
-    * 환경 변수에 의해 `/api` 문자열이 경로 중간에 추가됩니다.
-* `nginx` 서버는 해당 요청 경로에서 `/api` 문자열을 제거합니다.
-* `nginx` 서버는 `http://backend:8080/todos`로 요청을 재전달합니다.
+- 브라우저를 통해 `http://localhost:80`에 접근한다.
+- 최초 렌더링 시 이전에 등록한 `TODO` 항목들을 가져오기 위해 `http://localhost:80/api/todos`로 API 요청을 수행한다.
+  - 환경 변수에 의해 `/api` 문자열이 경로 중간에 추가된다.
+- `nginx` 서버는 해당 요청 경로에서 `/api` 문자열을 제거한다.
+- `nginx` 서버는 `http://backend:8080/todos`로 요청을 재전달한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/react-env-variable-setting-02.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/react-env-variable-setting-02.png" width="80%" class="image__border">
+</div>
 
 ### 3.3. npm test
 
-`npm test` 명령어에서 사용되는 `.env.test` 파일에 환경 변수를 선언하고 결과를 확인합니다. 
+`npm test` 명령어에서 사용되는 `.env.test` 파일에 환경 변수를 선언하고 결과를 확인한다.
 
 #### 3.2.1. .env.test
 
-* 환경 변수 `REACT_APP_SERVER`에 `/test` 값을 지정합니다.
+- 환경 변수 `REACT_APP_SERVER`에 `/test` 값을 지정한다.
 
 ```
 REACT_APP_SERVER=/test
@@ -465,15 +456,14 @@ REACT_APP_SERVER=/test
 
 #### 3.2.2. 테스트 코드
 
-다음은 테스트 코드입니다. 
-`axios` 모듈을 목(mock)으로 감싸 특정 파라미터가 잘 전달되었는지 검증합니다. 
+다음은 테스트 코드다. `axios` 모듈을 목(mock)으로 감싸 특정 파라미터가 잘 전달되었는지 검증한다.
 
-* `call post method with parameter` 테스트
-    * `addTodo` 함수를 호출합니다.
-    * `axios` 모듈에게 전달되는 요청 경로가 `/test/todo`일 것으로 예상합니다. 
-* `call get method and return todos` 테스트
-    * `getTodos` 함수를 호출합니다.
-    * `axios` 모듈에게 전달되는 요청 경로가 `/test/todos`일 것으로 예상합니다.
+- `call post method with parameter` 테스트
+  - `addTodo` 함수를 호출한다.
+  - `axios` 모듈에게 전달되는 요청 경로가 `/test/todo`일 것으로 예상한다.
+- `call get method and return todos` 테스트
+  - `getTodos` 함수를 호출한다.
+  - `axios` 모듈에게 전달되는 요청 경로가 `/test/todos`일 것으로 예상한다.
 
 ```javascript
 import axios from "axios";
@@ -509,7 +499,7 @@ describe('TodoRepository Test', () => {
 
 ##### 테스트 실행 결과
 
-테스트가 정상적으로 통과합니다.
+테스트가 정상적으로 통과한다.
 
 ```
 $ cd frontend && npm test -- --watchAll=false TodoRepository
@@ -531,10 +521,10 @@ Ran all test suites matching /TodoRepository/i.
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-30-react-env-variable-setting>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-30-react-env-variable-setting>
 
 #### REFERENCE
 
-* <https://create-react-app.dev/docs/adding-custom-environment-variables/>
+- <https://create-react-app.dev/docs/adding-custom-environment-variables/>
 
 [react-proxy-link]: https://junhyunny.github.io/information/react/react-proxy/

@@ -1,23 +1,23 @@
 ---
-title: "JPA Entity Serialize Exception with Redis Session"
+title: "Redis 세션에서 JPA 엔티티 직렬화 예외"
 search: false
 category:
   - kotlin
   - spring-boot
   - jpa
-last_modified_at: 2023-08-15T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Spring Session with Redis][spring-session-with-redis-link]
-* [테스트 컨테이너와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
+- [Spring Session with Redis][spring-session-with-redis-link]
+- [테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트][test-container-for-database-link]
 
 ## 1. Problem Context
 
-레디스(redis)를 위한 스프링 세션(spring session)을 사용하는 중 아래 로그처럼 엔티티(entity)를 직렬화(serialize)할 수 없다는 에러를 만났습니다. 
+레디스(redis)를 위한 스프링 세션(spring session)을 사용하는 중 아래 로그처럼 엔티티(entity)를 직렬화(serialize)할 수 없다는 에러를 만났다.
 
 ```
 org.springframework.data.redis.serializer.SerializationException: Cannot serialize
@@ -38,31 +38,29 @@ Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEn
       ...
 ```
 
-위 예외가 왜 발생했는지 알아보고 이를 해결한 방법에 대해 정리해보았습니다. 
-프로젝트 개발 환경은 다음과 같습니다. 
+위 예외가 왜 발생했는지 알아보고 이를 해결한 방법에 대해 정리해보았다. 프로젝트 개발 환경은 다음과 같다.
 
-* 코틀린 based on JDK 17
-* 스프링 부트 3.0.7 버전
-* 문제가 발생한 의존성
-    * spring-boot-starter-data-jpa
-    * spring-boot-starter-data-redis
+- 코틀린 based on JDK 17
+- 스프링 부트 3.0.7 버전
+- 문제가 발생한 의존성
+  - spring-boot-starter-data-jpa
+  - spring-boot-starter-data-redis
 
-문제가 발생한 상황은 다음과 같습니다. 
+문제가 발생한 상황은 다음과 같다.
 
 1. 사용자 정보를 데이터베이스에서 조회한다.
-1. 사용자 정보 엔티티를 POJO 객체로 변환한 후 세션에 저장한다.
-1. 요청에 대한 응답을 커밋하는 시점에 세션에 데이터를 저장하게 되는데 객체를 직렬화하는 과정에서 예외가 발생한다.
+2. 사용자 정보 엔티티를 POJO 객체로 변환한 후 세션에 저장한다.
+3. 요청에 대한 응답을 커밋하는 시점에 세션에 데이터를 저장하게 되는데 객체를 직렬화하는 과정에서 예외가 발생한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-01.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-01.png" width="100%" class="image__border">
+</div>
 
 ### 1.1. UserController Class
 
-실제 프로덕트 코드를 사용할 수 없으므로 일부 각색하여 작성하였습니다. 
-먼저 컨트롤러 클래스를 살펴보겠습니다.
+실제 프로덕트 코드를 사용할 수 없으므로 일부 각색하여 작성하였다. 먼저 컨트롤러 클래스를 살펴보겠다.
 
-* 사용자 정보가 담긴 User 객체를 세션에 저장합니다.
+- 사용자 정보가 담긴 User 객체를 세션에 저장한다.
 
 ```kotlin
 package action.`in`.blog.controller
@@ -94,8 +92,8 @@ class UserController(
 
 ### 1.2. DefaultUserService Class
 
-* JpaRepository 객체를 사용해 사용자 정보를 조회합니다.
-* User 클래스를 사용해 엔티티를 DTO 객체로 변환합니다.
+- JpaRepository 객체를 사용해 사용자 정보를 조회한다.
+- User 클래스를 사용해 엔티티를 DTO 객체로 변환한다.
 
 ```kotlin
 package action.`in`.blog.service
@@ -112,7 +110,7 @@ interface UserService {
 class DefaultUserService(
     private val userRepository: UserRepository
 ) : UserService {
-    
+
     override fun getUser(id: Long): User {
         val userEntity = userRepository.findById(id).orElseThrow()
         return User.of(userEntity)
@@ -122,10 +120,10 @@ class DefaultUserService(
 
 ### 1.3. UserEntity Class
 
-* @ElementCollection, @CollectionTable 애너테이션을 사용합니다.
-    * 좋아하는 포스트(post)들의 아이디를 컬렉션으로 저장합니다.
-* 컬렉션을 저장하기 위한 별도 테이블이 생성됩니다.
-    * 테이블 이름은 `tb_favorite_posts` 입니다. 
+- @ElementCollection, @CollectionTable 애너테이션을 사용한다.
+  - 좋아하는 포스트(post)들의 아이디를 컬렉션으로 저장한다.
+- 컬렉션을 저장하기 위한 별도 테이블이 생성된다.
+  - 테이블 이름은 `tb_favorite_posts` 이다.
 
 ```kotlin
 package action.`in`.blog.domain.entity
@@ -147,8 +145,8 @@ class UserEntity(
 
 ### 1.4. User Class
 
-* 정적 팩토리 메서드 패턴이 적용된 of 메서드를 통해 User 객체를 생성합니다.
-* 엔티티 프로퍼티들을 참조 값으로 복사합니다.
+- 정적 팩토리 메서드 패턴이 적용된 of 메서드를 통해 User 객체를 생성한다.
+- 엔티티 프로퍼티들을 참조 값으로 복사한다.
 
 ```kotlin
 package action.`in`.blog.domain.dto
@@ -179,13 +177,13 @@ data class User(
 
 ### 1.5. Test
 
-연관된 코드들은 모두 살펴봤으므로 동일한 예외가 발생하도록 테스트 코드를 실행시켜보겠습니다.  
+연관된 코드들은 모두 살펴봤으므로 동일한 예외가 발생하도록 테스트 코드를 실행시켜보겠다.
 
-* 실제 동작 환경과 유사하도록 테스트 컨테이너를 사용합니다.
-    * 레디스 컨테이너를 실행 후 스프링 애플리케이션에서 찾을 수 있도록 프로퍼티를 변경합니다.
-* setup 메서드에서 테스트에 필요한 사용자 데이터를 준비합니다.
-* 문제가 발생하는 경로로 API 요청을 수행합니다.
-    * 정상 응답을 기대합니다. 
+- 실제 동작 환경과 유사하도록 테스트 컨테이너를 사용한다.
+  - 레디스 컨테이너를 실행 후 스프링 애플리케이션에서 찾을 수 있도록 프로퍼티를 변경한다.
+- setup 메서드에서 테스트에 필요한 사용자 데이터를 준비한다.
+- 문제가 발생하는 경로로 API 요청을 수행한다.
+  - 정상 응답을 기대한다.
 
 ```kotlin
 package action.`in`.blog.controller
@@ -250,9 +248,9 @@ class RestControllerIT {
 
 ##### Test Result
 
-테스트 코드를 실행하면 다음 에러 로그를 확인할 수 있습니다.
+테스트 코드를 실행하면 다음 에러 로그를 확인할 수 있다.
 
-* 엔티티 객체를 직렬화하는 과정에서 에러가 발생합니다.
+- 엔티티 객체를 직렬화하는 과정에서 에러가 발생한다.
 
 ```
 01:24:55.120 [Test worker] INFO  action.in.blog.controller.RestControllerIT - Started RestControllerIT in 3.073 seconds (process running for 5.694)
@@ -276,12 +274,12 @@ Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEn
 
 ## 2. Cause
 
-문제의 원인은 살펴보겠습니다. 
+문제의 원인을 살펴보겠다.
 
-* UserEntity 객체를 User 객체로 변환하는 과정에서 객체에 대한 참조 값 복사만 이뤄집니다. 
-* favoritePosts 변수가 참조하는 객체가 일반적인 리스트가 아닌 `PersistentBag`이라는 객체입니다.
-    * 일반적인 컬렉션이 아니라 하이버네이트(hibernate)에서 엔티티들을 관리하기 위한 컬렉션입니다.
-    * 객체 내부에서 다른 엔티티들을 참조하고 있어서 직렬화 문제가 발생합니다. 
+- UserEntity 객체를 User 객체로 변환하는 과정에서 객체에 대한 참조 값 복사만 이뤄진다.
+- favoritePosts 변수가 참조하는 객체가 일반적인 리스트가 아닌 `PersistentBag`이라는 객체이다.
+  - 일반적인 컬렉션이 아니라 하이버네이트(hibernate)에서 엔티티들을 관리하기 위한 컬렉션이다.
+  - 객체 내부에서 다른 엔티티들을 참조하고 있어서 직렬화 문제가 발생한다.
 
 ```kotlin
     fun of(userEntity: UserEntity): User {
@@ -293,34 +291,32 @@ Caused by: java.io.NotSerializableException: action.in.blog.domain.entity.UserEn
     }
 ```
 
-<p align="left">
-    <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-02.png" width="80%" class="image__border">
-</p>
+<div align="left">
+  <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-02.png" width="80%" class="image__border">
+</div>
 
 ### 2.1. Inside PersistentBag Instance
 
-PersistentBag 객체 내부에서 다음과 같은 참조 연결이 존재합니다. 
-이 참조 객체를 통해 엔티티들이 직렬화 대상에 포함됩니다. 
+PersistentBag 객체 내부에서 다음과 같은 참조 연결이 존재한다. 이 참조 객체를 통해 엔티티들이 직렬화 대상에 포함된다.
 
-* PersistentBag 객체은 owner 객체를 가지고 있습니다. 
-    * owner 객체는 UserEntity 객체입니다.
-* owner 객체까지 직렬화 대상이 됩니다.
-    * UserEntity 객체가 참조하는 다른 객체들도 모두 직렬화 대상입니다. 
+- PersistentBag 객체는 owner 객체를 가지고 있다.
+  - owner 객체는 UserEntity 객체이다.
+- owner 객체까지 직렬화 대상이 된다.
+  - UserEntity 객체가 참조하는 다른 객체들도 모두 직렬화 대상이다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-03.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/jpa-entity-serialize-exception-with-redis-session-03.png" width="80%" class="image__border">
+</div>
 
 ## 3. Solve the problem
 
-문제를 해결하는 방법은 두 가지 존재합니다. 
-두 번째 방법을 사용해 이 문제를 해결하였습니다.
+문제를 해결하는 방법은 두 가지 존재한다. 두 번째 방법을 사용해 이 문제를 해결하였다.
 
 1. UserEntity 클래스가 Serializable 인터페이스를 상속받는다.
-    * 첫 번째 방법인 UserEntity 클래스가 Serializable 인터페이스를 구현하는 방법은 임시 방편입니다. 
-    * UserEntity 클래스 내부에 다른 엔티티들에 대한 참조 필드가 추가되는 경우 다른 엔티티들도 직렬화 에러를 겪게 됩니다. 
-1. User 객체로 변환할 때 favoritePosts 리스트에 대한 참조 값 복사를 값 복사로 변경한다. 
-    * ArrayList 생성자를 통해 값을 복사한 새로운 리스트 객체를 할당합니다.
+  - 첫 번째 방법인 UserEntity 클래스가 Serializable 인터페이스를 구현하는 방법은 임시 방편이다.
+  - UserEntity 클래스 내부에 다른 엔티티들에 대한 참조 필드가 추가되는 경우 다른 엔티티들도 직렬화 에러를 겪게 된다.
+2. User 객체로 변환할 때 favoritePosts 리스트에 대한 참조 값 복사를 값 복사로 변경한다.
+  - ArrayList 생성자를 통해 값을 복사한 새로운 리스트 객체를 할당한다.
 
 ```kotlin
 package action.`in`.blog.domain.dto
@@ -353,11 +349,11 @@ data class User(
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-08-15-jpa-entity-serialize-exception-with-redis-session>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-08-15-jpa-entity-serialize-exception-with-redis-session>
 
 #### REFERENCE
 
-* <https://www.baeldung.com/spring-boot-redis-testcontainers>
+- <https://www.baeldung.com/spring-boot-redis-testcontainers>
 
 [spring-session-with-redis-link]: https://junhyunny.github.io/information/spring-boot/redis/spring-session-with-redis/
 [test-container-for-database-link]: https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/

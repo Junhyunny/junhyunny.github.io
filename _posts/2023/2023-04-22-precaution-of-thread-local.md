@@ -200,7 +200,7 @@ ThreadLocal 클래스는 스레드를 재사용하는 스레드 풀 환경일 �
 
 #### RECOMMEND NEXT POSTS
 
-- [Thread Pool in Java][thread-pool-in-java-link]
+- [자바 스레드 풀(Java Thread Pool)][thread-pool-in-java-link]
 
 #### REFERENCE
 

@@ -1,15 +1,15 @@
 ---
-title: "Strategy Pattern"
+title: "전략 패턴(Strategy Pattern)"
 search: false
 category:
   - information
   - design-pattern
-last_modified_at: 2022-03-01T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
-👉 이어서 읽기를 추천합니다.
+#### RECOMMEND NEXT POSTS
 - [Refactoring RPS(Rock, Paper, Scissors) Game][refactoring-rps-game-link]
 
 ## 1. 전략 패턴(Strategy Pattern)
@@ -18,46 +18,44 @@ last_modified_at: 2022-03-01T23:55:00
 > 동일 계열의 알고리즘군을 정의하고, 각 알고리즘을 캡슐화하며, 이들을 상호교환이 가능하도록 만듭니다. 
 > 알고리즘을 사용하는 클라이언트와 상관없이 독립적으로 알고리즘을 다양하게 변경할 수 있게 합니다.
 
-`GoF 디자인 패턴` 내용은 역시 심오합니다. 
-제가 얻은 인사이트(insight)를 바탕으로 내용을 풀어 설명해보겠습니다. 
-- 전략 패턴은 인터페이스를 통한 다형성(polymorphism)을 이용한 패턴입니다.
-- `if-else`, `switch-case` 구문으로 나뉜 로직들을 클래스로 나눕니다.
-- 클래스들이 제공하는 알고리즘(혹은 비즈니스 로직)을 추상화하는 인터페이스를 만듭니다.
+`GoF 디자인 패턴` 내용은 역시 심오하다. 필자가 얻은 인사이트(insight)를 바탕으로 내용을 풀어 설명해보겠다.
+- 전략 패턴은 인터페이스를 통한 다형성(polymorphism)을 이용한 패턴이다.
+- `if-else`, `switch-case` 구문으로 나뉜 로직들을 클래스로 나눈다.
+- 클래스들이 제공하는 알고리즘(혹은 비즈니스 로직)을 추상화하는 인터페이스를 만든다.
 
 ##### 전략 패턴 클래스 다이어그램
-- 전략 패턴을 이해하기 위해선 패턴을 이루는 몇 가지 요소들에 대해 이해할 필요가 있습니다. 
+- 전략 패턴을 이해하기 위해선 패턴을 이루는 몇 가지 요소들에 대해 이해할 필요가 있다.
 - 컨텍스트(Context)
-    - 실제 전략 인터페이스의 구현체를 사용하는 클래스입니다. 
-    - 전략 인터페이스 구현체와 집합 관계이므로 객체를 외부로부터 전달받습니다.(집합 관계, aggregation)
-- 전략 인터페이스(Strategy Interface) 
-    - 전략(혹은 알고리즘) 기능을 명시한 인터페이스입니다.
+  - 실제 전략 인터페이스의 구현체를 사용하는 클래스이다.
+  - 전략 인터페이스 구현체와 집합 관계이므로 객체를 외부로부터 전달받는다.(집합 관계, aggregation)
+- 전략 인터페이스(Strategy Interface)
+  - 전략(혹은 알고리즘) 기능을 명시한 인터페이스이다.
 - 구체적 전략 클래스들(ConcreteStrategies)
-    - 전략 인터페이스를 구현하였습니다.(implement)
-    - 각자 고유한 전략을 구현한 클래스들입니다. 
+  - 전략 인터페이스를 구현하였다.(implement)
+  - 각자 고유한 전략을 구현한 클래스들이다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/strategy-pattern-01.png" width="50%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/strategy-pattern-01.png" width="50%" class="image__border">
+</div>
 <center>https://copynull.tistory.com/125</center>
 
 ## 2. 전략 패턴 적용하기
 
-이해도를 높히고자 간단한 예시 코드를 작성해보았습니다. 
-전략 패턴을 적용하기 위한 시나리오는 다음과 같습니다.
-- 현재 운영 중인 게임의 케릭터는 손에 쥔 무기에 따라 휘두르는 모션이 달라집니다.
-- 게임 초창기에는 맨손, 나이프 그리고 장검이 있었는데, 최근 대규모 업데이트로 무기 5개가 추가 예정입니다. 
-- 지속되는 업데이트로 무기가 추가될 때마다 `GameCharacter` 클래스의 `attack` 메서드를 수정하고 싶지 않습니다.
-- `Charater` 클래스
-    - 전략 패턴에서 컨텍스트 역할을 수행합니다.
-    - 게임 케릭터를 표현한 객체이며 `attack` 메서드를 통해 공격을 수행합니다.
+이해도를 높이고자 간단한 예시 코드를 작성해보았다. 전략 패턴을 적용하기 위한 시나리오는 다음과 같다.
+- 현재 운영 중인 게임의 캐릭터는 손에 쥔 무기에 따라 휘두르는 모션이 달라진다.
+- 게임 초창기에는 맨손, 나이프 그리고 장검이 있었는데, 최근 대규모 업데이트로 무기 5개가 추가 예정이다.
+- 지속되는 업데이트로 무기가 추가될 때마다 `GameCharacter` 클래스의 `attack` 메서드를 수정하고 싶지 않다.
+- `Character` 클래스
+  - 전략 패턴에서 컨텍스트 역할을 수행한다.
+  - 게임 캐릭터를 표현한 객체이며 `attack` 메서드를 통해 공격을 수행한다.
 
 ### 2.1. 기존 레거시 코드 살펴보기
 
-#### 2.1.1. Charater 클래스
-- 전략 패턴에서 컨텍스트 역할을 수행합니다.
+#### 2.1.1. Character 클래스
+- 전략 패턴에서 컨텍스트 역할을 수행한다.
 - `attack` 메서드
-    - 쥐고 있는 무기 타입에 따라 다른 모션으로 공격을 수행합니다.
-    - 10~20 줄의 코드를 간단한 로그로 표현하였습니다.
+  - 쥐고 있는 무기 타입에 따라 다른 모션으로 공격을 수행한다.
+  - 10~20 줄의 코드를 간단한 로그로 표현하였다.
 
 ```java
 package action.in.blog;
@@ -93,15 +91,15 @@ public class GameCharacter {
 ### 2.2. 공격 전략 추상화 및 구현 클래스 만들기
 
 #### 2.2.1. AttackStrategy 인터페이스
-- 전략 패턴에서 전략 인터페이스를 담당합니다.
-- 공격 기능을 추상화하였습니다.
-- 파리미터로 캐릭터를 넘겨준 이유는 각각의 전략마다 필요한 캐릭터의 정보가 다를 수 있기 때문입니다.
-    - 예를 들어, 캐릭터가 남성인지 여성인지에 따라 공격 모션이 달라지는 경우가 있다고 가정해보겠습니다.
-    - 나이프는 가벼워서 공격시 공격 모션에 차이가 없습니다.
-    - 나이프 공격 전략에서 캐릭터의 성별 정보는 사용하지 않습니다.
-    - 장검은 무겁기 때문에 남성은 한손으로 공격이 가능하지만, 여성은 두손으로 공격 모션을 취합니다.
-    - 장검 공격 전략은 캐릭터의 성별 정보가 필요합니다.
-- 전략 별로 필요한 데이터가 다르면 추상화가 어려우므로 `GameCharacter` 인스턴스를 전달합니다. 
+- 전략 패턴에서 전략 인터페이스를 담당한다.
+- 공격 기능을 추상화하였다.
+- 파라미터로 캐릭터를 넘겨준 이유는 각각의 전략마다 필요한 캐릭터의 정보가 다를 수 있기 때문이다.
+  - 예를 들어, 캐릭터가 남성인지 여성인지에 따라 공격 모션이 달라지는 경우가 있다고 가정해보겠다.
+  - 나이프는 가벼워서 공격 시 공격 모션에 차이가 없다.
+  - 나이프 공격 전략에서 캐릭터의 성별 정보는 사용하지 않는다.
+  - 장검은 무겁기 때문에 남성은 한손으로 공격이 가능하지만, 여성은 두손으로 공격 모션을 취한다.
+  - 장검 공격 전략은 캐릭터의 성별 정보가 필요하다.
+- 전략 별로 필요한 데이터가 다르면 추상화가 어려우므로 `GameCharacter` 인스턴스를 전달한다.
 
 ```java
 package action.in.blog.attack;
@@ -115,7 +113,7 @@ public interface AttackStrategy {
 ```
 
 #### 2.2.1. KnifeAttackStrategy 클래스
-- 나이프로 공격하는 기능을 구현합니다.
+- 나이프로 공격하는 기능을 구현한다.
 
 ```java
 package action.in.blog.attack.concrete;
@@ -134,7 +132,7 @@ public class KnifeAttackStrategy implements AttackStrategy {
 ```
 
 #### 2.2.2. SwordAttackStrategy 클래스
-- 장검으로 공격하는 기능을 구현합니다.
+- 장검으로 공격하는 기능을 구현한다.
 
 ```java
 package action.in.blog.attack.concrete;
@@ -153,7 +151,7 @@ public class SwordAttackStrategy implements AttackStrategy {
 ```
 
 #### 2.2.3. DefaultAttackStrategy 클래스
-- 펀치로 공격하는 기능을 구현합니다.
+- 펀치로 공격하는 기능을 구현한다.
 
 ```java
 package action.in.blog.attack.concrete;
@@ -172,9 +170,9 @@ public class DefaultAttackStrategy implements AttackStrategy {
 ```
 
 ### 2.3. 캐릭터 클래스 리팩토링
-- 무기 공격 전략을 외부로부터 전달받습니다.
-- 무기 공격 전략이 없는 경우 기본 공격으로 주먹 공격을 수행합니다.
-- 무기 공격 전략이 있는 경우 자신에 맞는 무기 공격 모션을 수행합니다.
+- 무기 공격 전략을 외부로부터 전달받는다.
+- 무기 공격 전략이 없는 경우 기본 공격으로 주먹 공격을 수행한다.
+- 무기 공격 전략이 있는 경우 자신에 맞는 무기 공격 모션을 수행한다.
 
 ```java
 package action.in.blog;
@@ -206,18 +204,18 @@ public class GameCharacter {
 
 ##### 변경된 클래스 다이어그램
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/strategy-pattern-02.png" width="80%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/strategy-pattern-02.png" width="80%" class="image__border">
+</div>
 
 ### 2.4. 캐릭터 클래스 사용하기
 - `WeaponType` enum
-    - 무기와 무기 전략을 관리하기 위한 enum 클래스를 만들었습니다.
-    - 무기 종류를 통해 무기 전략을 얻을 수 있습니다.
+  - 무기와 무기 전략을 관리하기 위한 enum 클래스를 만들었다.
+  - 무기 종류를 통해 무기 전략을 얻을 수 있다.
 - `weaponPickUpEventHandler` 메서드
-    - 게임 사용자에 의한 이벤트를 처리하는 메서드라고 가정하였습니다.
-    - 게임 사용자가 무기를 줍는 경우 무기 타입에 해당하는 문자열이 전달됩니다.
-    - 무기 타입 문자열로 `WeaponType`에서 적절한 공격 전략을 찾아 매칭합니다. 
+  - 게임 사용자에 의한 이벤트를 처리하는 메서드라고 가정하였다.
+  - 게임 사용자가 무기를 줍는 경우 무기 타입에 해당하는 문자열이 전달된다.
+  - 무기 타입 문자열로 `WeaponType`에서 적절한 공격 전략을 찾아 매칭한다.
 
 ```java
 package action.in.blog;
@@ -280,37 +278,37 @@ public class GameCharacterUsage {
 ## 3. 전략 패턴 장점과 단점
 
 ### 3.1. 장점
-- 전략(무기) 종류가 확장되더라도 컨텍스트(케릭터) 클래스의 코드 변경없이, 전략 클래스만 새롭게 추가됩니다.
-- 전략 패턴은 개방-폐쇄 원칙(OCP, Open-Closed Principle)을 준수합니다.
-    - 확장에 대해 열려있고, 수정에 대해서 닫혀 있어야 합니다.
-- 조건문이 많은 경우 알고리즘들을 캡슐화하여 이를 없앨 수 있습니다. 
+- 전략(무기) 종류가 확장되더라도 컨텍스트(캐릭터) 클래스의 코드 변경없이, 전략 클래스만 새롭게 추가된다.
+- 전략 패턴은 개방-폐쇄 원칙(OCP, Open-Closed Principle)을 준수한다.
+  - 확장에 대해 열려있고, 수정에 대해서 닫혀 있어야 한다.
+- 조건문이 많은 경우 알고리즘들을 캡슐화하여 이를 없앨 수 있다.
 
 ### 3.2. 단점
-- 알고리즘이 몇 개 없고, 추가될 가능성이 없다면 전략 패턴 적용은 고민이 필요합니다.
-    - 단순한 `if-else`, `switch-case` 구문에 비해 전반적인 기능을 파악하기 어렵습니다.
-- 전략 객체와 컨텍스트 객체 사이에 의사소통의 오버헤드가 발생합니다.
-    - 모든 전략 객체가 동일한 데이터를 필요로하지 않습니다.
-    - 전략 알고리즘 기능들을 하나의 메서드로 추상화시키면서 어떤 전략 객체는 불필요한 데이터를 떠안을 수 있습니다.
-    - 이 문제를 해결하기 위해 위 예시에서는 공격 전략 인스턴스에게 `GameCharacter` 인스턴스를 전달하였습니다. 
-    - 각 전략 객체 입장에선 자신이 필요한 정보만 `GameCharacter` 인스턴스로부터 꺼내 사용할 수 있습니다. 
-    - 이로 인해 전략 객체 입장에선 `GameCharacter` 클래스에 대한 의존성이 발생합니다.
-    - 별도로 데이터 전달을 위한 인터페이스와 클래스를 만들면 오버헤드와 결합도를 줄일 수 있을 것으로 보입니다. 
+- 알고리즘이 몇 개 없고, 추가될 가능성이 없다면 전략 패턴 적용은 고민이 필요하다.
+  - 단순한 `if-else`, `switch-case` 구문에 비해 전반적인 기능을 파악하기 어렵다.
+- 전략 객체와 컨텍스트 객체 사이에 의사소통의 오버헤드가 발생한다.
+  - 모든 전략 객체가 동일한 데이터를 필요로 하지 않는다.
+  - 전략 알고리즘 기능들을 하나의 메서드로 추상화시키면서 어떤 전략 객체는 불필요한 데이터를 떠안을 수 있다.
+  - 이 문제를 해결하기 위해 위 예시에서는 공격 전략 인스턴스에게 `GameCharacter` 인스턴스를 전달하였다.
+  - 각 전략 객체 입장에선 자신이 필요한 정보만 `GameCharacter` 인스턴스로부터 꺼내 사용할 수 있다.
+  - 이로 인해 전략 객체 입장에선 `GameCharacter` 클래스에 대한 의존성이 발생한다.
+  - 별도로 데이터 전달을 위한 인터페이스와 클래스를 만들면 오버헤드와 결합도를 줄일 수 있을 것으로 보인다.
 
 ## 4. Strategy pattern in Spring
 
-`Spring` 프레임워크에서 어댑터 패턴이 적용된 케이스를 찾아보았습니다. 
+`Spring` 프레임워크에서 어댑터 패턴이 적용된 케이스를 찾아보았다.
 
 ### 4.1. SecurityContextHolder 클래스
-- `SecurityContextHolder` 클래스는 전략 패턴에서 컨텍스트 클래스에 해당합니다.
-- 시스템 설정 값을 통해 컨텍스트 홀드(hold) 전략을 결정합니다.
-    - `System.getProperty("spring.security.strategy")`
-- 컨텍스트 홀드 전략 객체를 생성합니다.
-    - `initializeStrategy` 메서드
-- `SecurityContextHolderStrategy` 인터페이스는 전략 패턴에서 전략 인터페이스에 해당합니다.
-- 전략 구현 클레스들은 아래와 같습니다.
-    - `ThreadLocalSecurityContextHolderStrategy` 클래스
-    - `InheritableThreadLocalSecurityContextHolderStrategy` 클래스
-    - `GlobalSecurityContextHolderStrategy` 클래스
+- `SecurityContextHolder` 클래스는 전략 패턴에서 컨텍스트 클래스에 해당한다.
+- 시스템 설정 값을 통해 컨텍스트 홀드(hold) 전략을 결정한다.
+  - `System.getProperty("spring.security.strategy")`
+- 컨텍스트 홀드 전략 객체를 생성한다.
+  - `initializeStrategy` 메서드
+- `SecurityContextHolderStrategy` 인터페이스는 전략 패턴에서 전략 인터페이스에 해당한다.
+- 전략 구현 클래스들은 아래와 같다.
+  - `ThreadLocalSecurityContextHolderStrategy` 클래스
+  - `InheritableThreadLocalSecurityContextHolderStrategy` 클래스
+  - `GlobalSecurityContextHolderStrategy` 클래스
 
 ```java
 package org.springframework.security.core.context;

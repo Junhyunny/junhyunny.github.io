@@ -1,44 +1,43 @@
 ---
-title: "Trace User with UUID in Google Tag Manager"
+title: "Google Tag Manager에서 UUID로 사용자 추적하기"
 search: false
 category:
   - information
   - data-science
   - javascript
-last_modified_at: 2023-04-06T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link]
-* [Using Google Tag Manager][using-google-tag-manager-link]
-* [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
-* [Override Method in JavaScript][override-method-in-javascript-link]
-* [LocalStorage in Browser][local-storage-link]
+- [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link]
+- [Using Google Tag Manager][using-google-tag-manager-link]
+- [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
+- [Override Method in JavaScript][override-method-in-javascript-link]
+- [브라우저 로컬 스토리지(local storage)][local-storage-link]
 
 ## 0. 들어가면서
 
-아래와 같은 구현 요건을 만족시키기 위해 [Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메서드를 재정의하는 방법에 대해 정리하였습니다. 
+아래와 같은 구현 요건을 만족시키기 위해 [Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메서드를 재정의하는 방법에 대해 정리하였다.
 
-* 사용자 추적을 위한 UUID 발급한다. 
-* 모든 사용자 이벤트에 UUID 추가가 필요하다.
-* 커스텀 이벤트는 UUID 삽입이 쉽게 가능하다.
-* 엘리먼트(element) 클릭 이벤트는 구글 태그 매니저(GTA, google tag manager)에 의해 자동으로 동작되기 때문에 UUID 삽입이 어렵다.
+- 사용자 추적을 위한 UUID를 발급한다.
+- 모든 사용자 이벤트에 UUID 추가가 필요하다.
+- 커스텀 이벤트는 UUID 삽입이 쉽게 가능하다.
+- 엘리먼트(element) 클릭 이벤트는 구글 태그 매니저(GTM, google tag manager)에 의해 자동으로 동작되기 때문에 UUID 삽입이 어렵다.
 
 ## 1. In React Application
 
-위에서 살펴본 패인 포인트(pain point)를 해결하기 위해 애플리케이션이 시작할 때 `dataLayer` 객체의 push 메서드를 재정의하였습니다. 
-리액트 애플리케이션의 중요한 코드들만 살펴보겠습니다.
+위에서 살펴본 페인 포인트(pain point)를 해결하기 위해 애플리케이션이 시작할 때 `dataLayer` 객체의 push 메서드를 재정의하였다. 리액트 애플리케이션의 중요한 코드들만 살펴보겠다.
 
 ### 1.1. uuid.ts
 
-* getUUID 메서드
-    * 특정 사용자를 위한 UUID를 발급합니다.
-* getUserTransactionId 메서드
-    * 사용자 별로 UUID를 관리하기 위해 로컬 스토리지(local stoage)에 저장합니다.
-    * 저장된 UUID가 존재한다면 재사용하고, 없다면 새로 생성 후 저장하고 이를 반환합니다.
+- getUUID 메서드
+  - 특정 사용자를 위한 UUID를 발급한다.
+- getUserTransactionId 메서드
+  - 사용자 별로 UUID를 관리하기 위해 로컬 스토리지(local storage)에 저장한다.
+  - 저장된 UUID가 존재한다면 재사용하고, 없다면 새로 생성 후 저장하고 이를 반환한다.
 
 ```ts
 export const getUUID = () => {
@@ -61,8 +60,8 @@ export const getUserTransactionId = () => {
 
 ### 1.2. global.d.ts
 
-* 타입스크립트(typescript)는 `dataLayer` 객체 타입을 찾지 못해 컴파일 에러가 발생합니다.
-* 컴파일 에러를 해결하기 위해 전역 타입으로 지정합니다.
+- 타입스크립트(typescript)는 `dataLayer` 객체 타입을 찾지 못해 컴파일 에러가 발생한다.
+- 컴파일 에러를 해결하기 위해 전역 타입으로 지정한다.
 
 ```ts
 declare global {
@@ -78,16 +77,16 @@ export {};
 
 ### 1.3. gtm.ts
 
-* GTM 인스톨이 정상적이지 않은 경우 에러를 막기 위해 디폴트 객체를 지정합니다.
-* `dataLayer` 객체의 원본 push 메서드를 별도 변수로 참조합니다.
-* Object.defineProperty 메서드를 사용해 push 메서드를 재정의합니다.
-    * push 메서드 재정의가 정상적이지 않은 경우 원본 push 메서드를 반환합니다.
-* overrideDataLayer 함수
-    * 파라미터로 전달받은 push 메서드를 실행할 때 `txId`를 추가로 삽입하도록 변경합니다.
-    * 변경한 push 메서드를 `dataLayer` 객체에 추가합니다.
-    * 애플리케이션 실행 커스텀 이벤트(custom event)를 발행합니다.
-* 커스텀 이벤트 발행은 부가적으로 넣은 것이 아닙니다.
-    * 함수 재정의 이후 리액트 라이프사이클을 타기 전 최초 1회 실행해야 오버라이드한 기능이 정상적으로 동작합니다.
+- GTM 인스톨이 정상적이지 않은 경우 에러를 막기 위해 디폴트 객체를 지정한다.
+- `dataLayer` 객체의 원본 push 메서드를 별도 변수로 참조한다.
+- Object.defineProperty 메서드를 사용해 push 메서드를 재정의한다.
+  - push 메서드 재정의가 정상적이지 않은 경우 원본 push 메서드를 반환한다.
+- overrideDataLayer 함수
+  - 파라미터로 전달받은 push 메서드를 실행할 때 `txId`를 추가로 삽입하도록 변경한다.
+  - 변경한 push 메서드를 `dataLayer` 객체에 추가한다.
+  - 애플리케이션 실행 커스텀 이벤트(custom event)를 발행한다.
+- 커스텀 이벤트 발행은 부가적으로 넣은 것이 아니다.
+  - 함수 재정의 이후 리액트 라이프사이클을 타기 전 최초 1회 실행해야 오버라이드한 기능이 정상적으로 동작한다.
 
 ```ts
 window.dataLayer = window.dataLayer
@@ -117,12 +116,12 @@ export const overrideDataLayer = (txId: string) => {
 
 ### 1.4. App.tsx
 
-* App 컴포넌트가 호출되면 `overrideDataLayer` 메서드를 통해 push 메서드를 재정의합니다.
-* clickEventHandler 이벤트
-    * `CLICK` 이라는 알람이 발생합니다.
-* customEventHandler 이벤트
-    * `CUSTOM EVENT` 이라는 알람이 발생합니다.
-    * 별도로 지정한 커스텀 이벤트를 발생시킵니다.
+- App 컴포넌트가 호출되면 `overrideDataLayer` 메서드를 통해 push 메서드를 재정의한다.
+- clickEventHandler 이벤트
+  - `CLICK` 이라는 알람이 발생한다.
+- customEventHandler 이벤트
+  - `CUSTOM EVENT` 이라는 알람이 발생한다.
+  - 별도로 지정한 커스텀 이벤트를 발생시킨다.
 
 ```tsx
 import React from "react";
@@ -162,83 +161,84 @@ export default App;
 
 ## 2. In Google Tag Manager
 
-아래 포스트들에서 일반 이벤트나 커스텀 이벤트를 만드는 방법에 대해서 정리하였습니다. 
+아래 포스트들에서 일반 이벤트나 커스텀 이벤트를 만드는 방법에 대해서 정리하였다.
 
-* [Using Google Tag Manager][using-google-tag-manager-link]
-* [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
+- [Using Google Tag Manager][using-google-tag-manager-link]
+- [Custom Event in Google Tag Manager][custom-event-in-google-tag-manager-link]
 
-이번 포스트에선 자세하게 태그(tag), 트리거(trigger), 변수(variable)을 만드는 방법에 대해서 다루지 않습니다. 
-이전 글을 참조해주시길 바랍니다.
+이번 포스트에선 자세하게 태그(tag), 트리거(trigger), 변수(variable)을 만드는 방법에 대해서 다루지 않는다. 이전 글을 참조하길 바란다.
 
-### 2.1. Create Variable 
+### 2.1. Create Variable
 
-* 사용자를 추적하기 위한 UUID를 이벤트에서 추출하기 위한 변수를 정의합니다.
-* 이름은 `Transaction ID`입니다.
-* 변수 유형은 `데이터 영역 변수`입니다.
-* 변수 영역 내 변수 이름은 `txId`입니다.
-    * 리액트 애플리케이션에서 이벤트를 발행할 때 데이터에 실어보내는 키(key)입니다.
+- 사용자를 추적하기 위한 UUID를 이벤트에서 추출하기 위한 변수를 정의한다.
+- 이름은 `Transaction ID`이다.
+- 변수 유형은 `데이터 영역 변수`이다.
+- 변수 영역 내 변수 이름은 `txId`이다.
+  - 리액트 애플리케이션에서 이벤트를 발행할 때 데이터에 실어보내는 키(key)이다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-01.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-01.png" width="100%" class="image__border">
+</div>
 
 ### 2.2. Create Trigger for Custom Event
 
-* 신규 커스텀 이벤트를 위한 트리거를 생성합니다.
-* 트리거 이름은 `App Start`입니다.
-* 트리거 유형은 `맞춤 이벤트`입니다.
-* 이벤트 이름은 `app_start`입니다.
-    * 리액트 애플리케이션에서 이벤트를 발행할 때 이벤트 객체에 정의하는 값(value)입니다.
+- 신규 커스텀 이벤트를 위한 트리거를 생성한다.
+- 트리거 이름은 `App Start`이다.
+- 트리거 유형은 `맞춤 이벤트`이다.
+- 이벤트 이름은 `app_start`이다.
+  - 리액트 애플리케이션에서 이벤트를 발행할 때 이벤트 객체에 정의하는 값(value)이다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-02.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-02.png" width="100%" class="image__border">
+</div>
 
-### 2.3. Create New Tag for Custom Event 
+### 2.3. Create New Tag for Custom Event
 
-* 신규 커스텀 이벤트를 구글 애널리틱스와 연결하기 위해 태그를 생성합니다.
-* 태그 이름은 `App Start`입니다.
-* 측정 ID는 구글 애널리틱스 생성 시 발급받은 `G-`로 시작하는 코드를 입력합니다.
-* 이벤트 이름은 `app_start`입니다.
-    * 구글 애널리틱스에서 보여지는 이벤트 이름입니다.
-* 이벤트 매개변수에 사용자 ID를 추출할 수 있는 내용을 삽입합니다.
-    * 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름입니다.
-    * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
-* 위 단계에서 정의한 `App Start` 트리거를 사용합니다.
+- 신규 커스텀 이벤트를 구글 애널리틱스와 연결하기 위해 태그를 생성한다.
+- 태그 이름은 `App Start`이다.
+- 측정 ID는 구글 애널리틱스 생성 시 발급받은 `G-`로 시작하는 코드를 입력한다.
+- 이벤트 이름은 `app_start`이다.
+  - 구글 애널리틱스에서 보여지는 이벤트 이름이다.
+- 이벤트 매개변수에 사용자 ID를 추출할 수 있는 내용을 삽입한다.
+  - 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름이다.
+  - 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용한다.
+- 위 단계에서 정의한 `App Start` 트리거를 사용한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-03.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-03.png" width="100%" class="image__border">
+</div>
 
 ### 2.4. Modify Tags
 
-* 일반 클릭 이벤트 매개변수 정보를 변경합니다.
-    * 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름입니다.
-    * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
+- 일반 클릭 이벤트 매개변수 정보를 변경한다.
+  - 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름이다.
+  - 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-04.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-04.png" width="100%" class="image__border">
+</div>
 
-* 커스텀 클릭 이벤트 매개변수 정보를 변경합니다.
-    * 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름입니다.
-    * 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용합니다.
+<br/>
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-05.png" width="100%" class="image__border">
-</p>
+- 커스텀 클릭 이벤트 매개변수 정보를 변경한다.
+  - 매개변수 이름인 `tx_id`는 구글 애널리틱스에서 보여지는 이름이다.
+  - 매개변수 값은 변수에서 정의한 `Transaction ID`를 사용한다.
+
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-05.png" width="100%" class="image__border">
+</div>
 
 ## 3. In Google Analytics
 
-* 사용자 이벤트와 추적 UUID가 함께 수집됩니다.
+- 사용자 이벤트와 추적 UUID가 함께 수집된다.
 
-<p align="center">
-    <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-06.gif" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2023 }}/trace-user-with-uuid-in-gtm-06.gif" width="100%" class="image__border">
+</div>
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-06-trace-user-with-uuid-in-gtm>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2023-04-06-trace-user-with-uuid-in-gtm>
 
 #### REFERENCE
 

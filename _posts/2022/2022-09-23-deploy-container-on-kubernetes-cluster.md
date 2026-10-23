@@ -1,38 +1,35 @@
 ---
-title: "Deploy Simple Container on Kubernetes Cluster"
+title: "쿠버네티스 클러스터에 간단한 컨테이너 배포하기"
 search: false
 category:
   - kubernetes
-last_modified_at: 2022-09-23T23:55:00
+last_modified_at: 2026-03-24T08:03:14+09:00
 ---
 
 <br/>
 
 #### RECOMMEND POSTS BEFORE THIS
 
-* [Kubernetes Architecture][kubernetes-architecture-link]
+- [Kubernetes Architecture][kubernetes-architecture-link]
 
 ## 0. 들어가면서
 
-이번 포스트에서는 간단한 애플리케이션 컨테이너를 쿠버네티스 클러스터(kubernetes cluster)에 배포해보겠습니다. 
-배포를 위해 다음과 같은 도구들을 설치합니다. 
+이번 포스트에서는 간단한 애플리케이션 컨테이너를 쿠버네티스 클러스터(kubernetes cluster)에 배포해보겠다. 배포를 위해 다음과 같은 도구들을 설치한다.
 
-* kubectl - 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI(command line interface) 도구
-* minikube - 로컬 컴퓨터(개발자 PC)에 간단한 쿠버네티스 클러스터를 구축할 수 있는 도구
+- kubectl - 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI(command line interface) 도구
+- minikube - 로컬 컴퓨터(개발자 PC)에 간단한 쿠버네티스 클러스터를 구축할 수 있는 도구
 
-테스트 환경은 다음과 같습니다.
+테스트 환경은 다음과 같다.
 
-* macOS Monterey
-* MacBook pro 
-* Intel Core i9
+- macOS Monterey
+- MacBook pro
+- Intel Core i9
 
 ## 1. kubectl 설치
 
-사용자가 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI 도구입니다. 
-CLI 명령어를 통해 애플리케이션 배포, 클러스터 리소스 모니터링과 제어를 수행할 수 있습니다. 
+사용자가 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI 도구다. CLI 명령어를 통해 애플리케이션 배포, 클러스터 리소스 모니터링과 제어를 수행할 수 있다.
 
-`MacOS`를 사용하는 경우 `Homebrew`를 통해 쉽게 설치할 수 있습니다. 
-추후 포스트가 업데이트 되지 않아 설치에 문제가 발생하시는 분들은 [공식 홈페이지][kubectl-cli-install-link]를 참조하시기 바랍니다. 
+`MacOS`를 사용하는 경우 `Homebrew`를 통해 쉽게 설치할 수 있다. 추후 포스트가 업데이트 되지 않아 설치에 문제가 발생하는 분들은 [공식 홈페이지][kubectl-cli-install-link]를 참조하기 바란다.
 
 ```
 $ brew install kubectl
@@ -110,26 +107,24 @@ Kustomize Version: v4.5.7
 
 ## 2. minikube 설치
 
-컨테이너를 배포할 수 있는 쿠버네티스 클러스터를 구축해야합니다. 
-`minikube`는 쉽게 쿠버네티스를 학습할 수 있도록 로컬 컴퓨터에 간단한 쿠버네티스 클러스터를 구축할 수 있는 도구입니다. 
+컨테이너를 배포할 수 있는 쿠버네티스 클러스터를 구축해야 한다. `minikube`는 쉽게 쿠버네티스를 학습할 수 있도록 로컬 컴퓨터에 간단한 쿠버네티스 클러스터를 구축할 수 있는 도구다.
 
-다음과 같은 사양이 필요합니다. 
+다음과 같은 사양이 필요하다.
 
-* 2 CPUs or more
-* 2GB of free memory
-* 20GB of free disk space
-* Internet connection
-* Container or virtual machine manager, such as: 
-    * Docker 
-    * Hyperkit
-    * Hyper-V
-    * KVM
-    * Parallels
-    * Podman
-    * VirtualBox or VMware Fusion/Workstation
+- 2 CPUs or more
+- 2GB of free memory
+- 20GB of free disk space
+- Internet connection
+- Container or virtual machine manager, such as:
+  - Docker
+  - Hyperkit
+  - Hyper-V
+  - KVM
+  - Parallels
+  - Podman
+  - VirtualBox or VMware Fusion/Workstation
 
-마찬가지로 `Homebrew`를 통해 쉽게 설치할 수 있습니다. 
-추후 포스트가 업데이트 되지 않아 설치에 문제가 발생하시는 분들은 [공식 홈페이지][minikube-install-link]를 참조하시기 바랍니다. 
+마찬가지로 `Homebrew`를 통해 쉽게 설치할 수 있다. 추후 포스트가 업데이트 되지 않아 설치에 문제가 발생하는 분들은 [공식 홈페이지][minikube-install-link]를 참조하기 바란다.
 
 ```
 $ brew install minikube
@@ -152,28 +147,26 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
 
 ## 3. minikube Drivers
 
-`minikube`를 배포하기 위한 환경이 필요합니다. 
-드라이버 설정을 통해 `minikube`를 배포할 가상 머신(virtual machine)을 지정할 수 있습니다. 
+`minikube`를 배포하기 위한 환경이 필요하다. 드라이버 설정을 통해 `minikube`를 배포할 가상 머신(virtual machine)을 지정할 수 있다.
 
-`MacOS`의 `minikube`는 다음과 같은 드라이버들을 지원합니다. 
+`MacOS`의 `minikube`는 다음과 같은 드라이버들을 지원한다.
 
-* Docker - VM + Container (preferred)
-* Hyperkit - VM
-* VirtualBox - VM
-* Parallels - VM
-* VMware Fusion - VM
-* QEMU - VM (experimental)
-* SSH - remote ssh
+- Docker - VM + Container (preferred)
+- Hyperkit - VM
+- VirtualBox - VM
+- Parallels - VM
+- VMware Fusion - VM
+- QEMU - VM (experimental)
+- SSH - remote ssh
 
-이미 설치된 도커를 사용하여 `minikube`를 실행하였습니다. 
-아래와 같은 명령어를 통해 `minikube` 실행이 이뤄집니다. 
+이미 설치된 도커를 사용하여 `minikube`를 실행하였다. 아래와 같은 명령어를 통해 `minikube` 실행이 이뤄진다.
 
-* `minikube start --driver=docker` 
-    * `minikube` 클러스터를 실행할 때 드라이버는 도커로 설정합니다.
-* `minikube config set driver docker`
-    * 기본 드라이버를 도커로 설정합니다.
-* `kubectl get nodes -A`
-    * 해당 명령어를 통해 `minikube` 클러스터가 잘 실행되었는지 확인합니다. 
+- `minikube start --driver=docker`
+  - `minikube` 클러스터를 실행할 때 드라이버는 도커로 설정한다.
+- `minikube config set driver docker`
+  - 기본 드라이버를 도커로 설정한다.
+- `kubectl get nodes -A`
+  - 해당 명령어를 통해 `minikube` 클러스터가 잘 실행되었는지 확인한다.
 
 ```
 $ minikube start --driver=docker
@@ -211,27 +204,25 @@ minikube   Ready    control-plane   2m32s   v1.25.0
 
 ## 4. Deploy Application Container
 
-환경 구축은 완료되었습니다. 
-지금부터 간단한 리액트 애플리케이션을 클러스터에 배포하겠습니다. 
-코드는 중요하지 않으므로 배포하는 과정에서 사용하는 커맨드만 확인해보겠습니다.  
+환경 구축은 완료되었다. 지금부터 간단한 리액트 애플리케이션을 클러스터에 배포하겠다. 코드는 중요하지 않으므로 배포하는 과정에서 사용하는 커맨드만 확인해보겠다.
 
-다음과 같은 과정을 통해 배포가 이뤄집니다. 
+다음과 같은 과정을 통해 배포가 이뤄진다.
 
-1. 애플리케이션 이미지를 빌드합니다.
-1. 빌드한 이미지를 도커 허브(docker hub) 같은 원격 이미지 저장소(registry)에 업로드합니다. 
-1. 쿠버네티스 설정 파일을 사용해 파드를 클러스터에 배포합니다.
-    * 외부에 서비스를 노출할 수 있는 서비스(service) 오브젝트를 배포합니다.
-    * 리액트 애플리케이션 컨테이너를 담은 파드(pod) 오브젝트를 배포합니다.
-1. 사용자는 브라우저를 이용해 외부에 노출된 서비스 오브젝트에게 리액트 애플리케이션 화면을 요청합니다. 
-    * 서비스 오브젝트는 자신이 노출하고 있는 리액트 애플리케이션 파드의 화면을 응답으로 전달합니다.
+1. 애플리케이션 이미지를 빌드한다.
+2. 빌드한 이미지를 도커 허브(docker hub) 같은 원격 이미지 저장소(registry)에 업로드한다.
+3. 쿠버네티스 설정 파일을 사용해 파드를 클러스터에 배포한다.
+  - 외부에 서비스를 노출할 수 있는 서비스(service) 오브젝트를 배포한다.
+  - 리액트 애플리케이션 컨테이너를 담은 파드(pod) 오브젝트를 배포한다.
+4. 사용자는 브라우저를 이용해 외부에 노출된 서비스 오브젝트에게 리액트 애플리케이션 화면을 요청한다.
+  - 서비스 오브젝트는 자신이 노출하고 있는 리액트 애플리케이션 파드의 화면을 응답으로 전달한다.
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/deploy-container-on-kubernetes-cluster-01.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/deploy-container-on-kubernetes-cluster-01.png" width="100%" class="image__border">
+</div>
 
 ### 4.1. Image Build
 
-도커 이미지를 빌드합니다. 
+도커 이미지를 빌드한다.
 
 ```
 docker build -t opop3966/react-application .
@@ -254,48 +245,44 @@ docker build -t opop3966/react-application .
  => CACHED [builder 4/6] RUN npm install --silent                                                                                      0.0s
  => [builder 5/6] COPY . .                                                                                                             6.6s
  => [builder 6/6] RUN npm run build                                                                                                    8.8s
- => [stage-1 3/3] COPY --from=builder /app/build /usr/share/nginx/html                                                                 0.0s 
- => exporting to image                                                                                                                 0.0s 
- => => exporting layers                                                                                                                0.0s 
- => => writing image sha256:e938240a971fd8b2d4dc5d7a20cba5f5ba2290f8296b24b7f6efed1928be32f4                                           0.0s 
- => => naming to docker.io/opop3966/react-application 
+ => [stage-1 3/3] COPY --from=builder /app/build /usr/share/nginx/html                                                                 0.0s
+ => exporting to image                                                                                                                 0.0s
+ => => exporting layers                                                                                                                0.0s
+ => => writing image sha256:e938240a971fd8b2d4dc5d7a20cba5f5ba2290f8296b24b7f6efed1928be32f4                                           0.0s
+ => => naming to docker.io/opop3966/react-application
 ```
 
 ### 4.2. Push Image to Docker Hub
 
-빌드한 도커 이미지를 원격 이미지 저장소에 저장합니다. 
+빌드한 도커 이미지를 원격 이미지 저장소에 저장한다.
 
 ```
 $ docker push opop3966/react-application
 
 Using default tag: latest
 The push refers to repository [docker.io/opop3966/react-application]
-91fcd27654d2: Pushed 
-eb87189a22be: Pushed 
-36665e416ec8: Mounted from library/nginx 
-31192a8593ec: Mounted from library/nginx 
-7ee9bf58503c: Mounted from library/nginx 
-a064c1703bfd: Mounted from library/nginx 
-9388548487b1: Mounted from library/nginx 
-b45078e74ec9: Mounted from library/nginx 
+91fcd27654d2: Pushed
+eb87189a22be: Pushed
+36665e416ec8: Mounted from library/nginx
+31192a8593ec: Mounted from library/nginx
+7ee9bf58503c: Mounted from library/nginx
+a064c1703bfd: Mounted from library/nginx
+9388548487b1: Mounted from library/nginx
+b45078e74ec9: Mounted from library/nginx
 latest: digest: sha256:abd34dacf27f7d9de5f833aac95bc3d952157aee8156b9511130dc6dc95b62ee size: 1987
 ```
 
 ### 4.3. Deploy Objects
 
-커맨드를 사용해 배포할 수도 있고, yml 파일로 각 오브젝트의 원하는 상태를 정의한 후 이를 이용해 배포하기도 합니다. 
-이번 포스트에서는 yml 파일을 사용하여 배포하였습니다. 
+커맨드를 사용해 배포할 수도 있고, yml 파일로 각 오브젝트의 원하는 상태를 정의한 후 이를 이용해 배포하기도 한다. 이번 포스트에서는 yml 파일을 사용하여 배포하였다.
 
 #### 4.3.1. Service Object
 
-애플리케이션 컨테이너를 감싼 파드는 `Internal IP`만 가지며 클러스터 내부에서만 접근 가능합니다. 
-이번 포스트에서 `minikube`로 구축한 쿠버네티스 클러스터는 도커가 제공하는 VM 환경에서 동작합니다. 
-개발자 로컬 컴퓨터는 쿠버네티스 클러스터 입장에선 외부 컴퓨터입니다. 
-쿠버네티스의 파드를 배포하고 로컬 컴퓨터의 브라우저로 확인하려면 서비스(service) 오브젝트를 통해 외부와 연결시켜야 합니다. 
+애플리케이션 컨테이너를 감싼 파드는 `Internal IP`만 가지며 클러스터 내부에서만 접근 가능하다. 이번 포스트에서 `minikube`로 구축한 쿠버네티스 클러스터는 도커가 제공하는 VM 환경에서 동작한다. 개발자 로컬 컴퓨터는 쿠버네티스 클러스터 입장에선 외부 컴퓨터다. 쿠버네티스의 파드를 배포하고 로컬 컴퓨터의 브라우저로 확인하려면 서비스(service) 오브젝트를 통해 외부와 연결시켜야 한다.
 
 ##### service.yml
 
-* 가독성을 위해 주석으로 설명을 추가하였습니다.
+- 가독성을 위해 주석으로 설명을 추가하였다.
 
 ```yml
 apiVersion: v1
@@ -306,7 +293,7 @@ spec:
   selector:
     app-type: frontend # 지정된 라벨 키-값이 "app-type: frontend" 파드만 노출
   ports:
-    - protocol: 'TCP' 
+    - protocol: 'TCP'
       port: 80 # 서비스가 사용할 포트
       targetPort: 80 # 대상 파드들의 포트
   type: LoadBalancer # external IP를 사용하여 해당 오브젝트를 외부로 노출하는 서비스 타입
@@ -314,15 +301,15 @@ spec:
 
 ##### Kubernetes CLI
 
-* `kubectl apply -f service.yml` 명령어를 통해 서비스를 배포합니다.
-* `kubectl get svc` 명령어를 통해 생성된 서비스를 확인합니다.
+- `kubectl apply -f service.yml` 명령어를 통해 서비스를 배포한다.
+- `kubectl get svc` 명령어를 통해 생성된 서비스를 확인한다.
 
 ```
 $  kubectl apply -f service.yml
 
 service/external-connection-service configured
 
-$ kubectl get svc 
+$ kubectl get svc
 
 NAME                          TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 external-connection-service   LoadBalancer   10.104.59.226   <pending>     80:31177/TCP   89m
@@ -331,12 +318,11 @@ kubernetes                    ClusterIP      10.96.0.1       <none>        443/T
 
 #### 4.3.2. Deployment Object
 
-개발한 애플리케이션 컨테이너를 배포합니다. 
-단순한 파드가 아니라 지정한 레플리케이션 개수만큼 파드 개수를 유지해주는 디플로이먼트(deployment) 오브젝트를 배포하였습니다. 
+개발한 애플리케이션 컨테이너를 배포한다. 단순한 파드가 아니라 지정한 레플리케이션 개수만큼 파드 개수를 유지해주는 디플로이먼트(deployment) 오브젝트를 배포하였다.
 
 ##### deployment.yml
 
-* 가독성을 위해 주석으로 설명을 추가하였습니다.
+- 가독성을 위해 주석으로 설명을 추가하였다.
 
 ```yml
 apiVersion: apps/v1
@@ -347,8 +333,8 @@ spec:
   replicas: 3 # 유지할 파드 개수
   selector:
     matchLabels:
-      app-type: frontend # 지정된 라벨 키-값이 "app-type: frontend" 파드만 관리 
-  template: 
+      app-type: frontend # 지정된 라벨 키-값이 "app-type: frontend" 파드만 관리
+  template:
     metadata:
       labels:
         app-type: frontend # 파드에 지정하는 라벨 키-값
@@ -360,18 +346,18 @@ spec:
 
 ##### Kubernetes CLI
 
-* `kubectl apply -f deployment.yml` 명령어를 통해 디플로이먼트를 배포합니다.
-* `kubectl get deployment` 명령어를 통해 배포된 디플로이먼트를 확인합니다.
-* `kubectl get replicaset` 명령어를 통해 배포된 레플리카셋을 확인합니다.
-* `kubectl get pod` 명령어를 통해 배포한 파드들을 확인합니다.
-    * 3개의 파드가 배포되었음을 알 수 있습니다.
+- `kubectl apply -f deployment.yml` 명령어를 통해 디플로이먼트를 배포한다.
+- `kubectl get deployment` 명령어를 통해 배포된 디플로이먼트를 확인한다.
+- `kubectl get replicaset` 명령어를 통해 배포된 레플리카셋을 확인한다.
+- `kubectl get pod` 명령어를 통해 배포한 파드들을 확인한다.
+  - 3개의 파드가 배포되었음을 알 수 있다.
 
 ```
-$ kubectl apply -f deployment.yml 
+$ kubectl apply -f deployment.yml
 
 deployment.apps/react-app-deployment created
 
-$ kubectl get deployment 
+$ kubectl get deployment
 
 NAME                   READY   UP-TO-DATE   AVAILABLE   AGE
 react-app-deployment   3/3     3            3           24s
@@ -391,15 +377,14 @@ react-app-deployment-5fb9b4754d-wrsxr   1/1     Running   0          43s
 
 ## 5. Expose Service
 
-필요한 오브젝트들은 모두 배포했지만, 로컬 컴퓨터에서 서비스에 직접 붙지 못합니다. 
-배포한 서비스 오브젝트의 정보를 다시 살펴보고, 터널링을 통해 외부로 노출시키겠습니다. 
+필요한 오브젝트들은 모두 배포했지만, 로컬 컴퓨터에서 서비스에 직접 붙지 못한다. 배포한 서비스 오브젝트의 정보를 다시 살펴보고, 터널링을 통해 외부로 노출시키겠다.
 
-* `external-connection-service` 서비스의 `EXTERNAL-IP` 값이 `pending` 상태입니다. 
-* `EXTERNAL-IP`은 클라우드 프로바이더(cloud provider)에 의해 제공됩니다. 
-* `minikube` 환경에선 별도로 노출된 IP가 없으므로 `minikube service ${service_name}` 명령어를 통해 터널링(tunneling)을 수행합니다.
+- `external-connection-service` 서비스의 `EXTERNAL-IP` 값이 `pending` 상태다.
+- `EXTERNAL-IP`은 클라우드 프로바이더(cloud provider)에 의해 제공된다.
+- `minikube` 환경에선 별도로 노출된 IP가 없으므로 `minikube service ${service_name}` 명령어를 통해 터널링(tunneling)을 수행한다.
 
 ```
-$ kubectl get svc 
+$ kubectl get svc
 
 NAME                          TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 external-connection-service   LoadBalancer   10.104.59.226   <pending>     80:31177/TCP   89m
@@ -424,17 +409,17 @@ $ minikube service external-connection-service
 
 ##### 서비스 터널링 수행 후 브라우저 접근
 
-<p align="center">
-    <img src="{{ site.image_url_2022 }}/deploy-container-on-kubernetes-cluster-02.png" width="100%" class="image__border">
-</p>
+<div align="center">
+  <img src="{{ site.image_url_2022 }}/deploy-container-on-kubernetes-cluster-02.png" width="100%" class="image__border">
+</div>
 
 ## CLOSING
 
-`minikube tunnel` 명령어를 통해 터널링을 수행할 수 있습니다. 
+`minikube tunnel` 명령어를 통해 터널링을 수행할 수 있다.
 
-* 한 터미널에서 터널링을 수행합니다. 
-* 다른 터미널에서 서비스의 `EXTERNAL-IP` 확인하면 `<pending>`에서 IP 값으로 바뀐 것을 확인할 수 있습니다.
-* `127.0.0.1:80` 주소를 통해 서비스에 접근 가능합니다. 
+- 한 터미널에서 터널링을 수행한다.
+- 다른 터미널에서 서비스의 `EXTERNAL-IP` 확인하면 `<pending>`에서 IP 값으로 바뀐 것을 확인할 수 있다.
+- `127.0.0.1:80` 주소를 통해 서비스에 접근 가능하다.
 
 ```
 $  minikube tunnel
@@ -458,14 +443,14 @@ kubernetes                    ClusterIP      10.96.0.1       <none>        443/T
 
 #### TEST CODE REPOSITORY
 
-* <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-23-deploy-container-on-kubernetes-cluster>
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2022-09-23-deploy-container-on-kubernetes-cluster>
 
 #### REFERENCE
 
-* [Docker & Kubernetes: The Practical Guide [2022 Edition]][docker-kube-lecture-link]
-* <https://kubernetes.io/docs/tasks/tools/>
-* <https://minikube.sigs.k8s.io/docs/drivers/>
-* <https://minikube.sigs.k8s.io/docs/handbook/accessing/>
+- [Docker & Kubernetes: The Practical Guide [2022 Edition]][docker-kube-lecture-link]
+- <https://kubernetes.io/docs/tasks/tools/>
+- <https://minikube.sigs.k8s.io/docs/drivers/>
+- <https://minikube.sigs.k8s.io/docs/handbook/accessing/>
 
 [kubernetes-architecture-link]: https://junhyunny.github.io/kubernetes/kubernetes-architecture/
 [kubectl-cli-install-link]: https://kubernetes.io/docs/tasks/tools/install-kubectl-macos/

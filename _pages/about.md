@@ -8,9 +8,7 @@ classes: wide
 
 <br/>
 
-생각과 경험을 정리하여 누군가에게 도움이 되는 지식으로 만드는 일을 즐깁니다.
-
-8년 차 시니어 풀스택 엔지니어이자 XP 코치로, Toyota, Honda, KB국민은행, LG U+, POSCO 등의 시스템을 만들고 현대화해 왔습니다. 제철소 물류와 실시간 공장 모니터링부터 프런트오피스 트레이딩, 마이데이터 기반 추천까지 복잡한 비즈니스 영역의 도메인 모델을 설계합니다. 새로 시작하는 MVP(그린필드)와 기존 시스템 현대화(브라운필드)를 모두 즐기며, 팀에 TDD, 페어 프로그래밍, 지속적 배포를 코칭합니다.
+8년 차 시니어 풀스택 엔지니어이자 XP 코치로, Toyota, Honda, KB국민은행, LG U+, POSCO 등의 시스템을 만들고 현대화해 왔습니다. 제철소 물류와 실시간 공장 모니터링부터 프런트오피스 트레이딩, 마이데이터 기반 추천까지 복잡한 비즈니스 영역의 도메인 모델을 설계합니다. 새로 시작하는 MVP(그린필드)와 기존 시스템 현대화(브라운필드)를 모두 즐기며, 팀에 TDD, 페어 프로그래밍, 지속적 배포를 코칭합니다. 생각과 경험을 정리하여 누군가에게 도움이 되는 지식으로 만드는 일을 즐깁니다. 
 
 ## 현재
 
@@ -55,28 +53,37 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 #### [Toyota] 사내 직원 간 피드백·소통 플랫폼 <span class="resume__period">2026년 5월 - 7월</span>
 
 - 토요타 사내 매니저와 구성원이 소통하고 상호 피드백을 주고받는 플랫폼의 기술 부채 해소 및 운영 안정화
-- 조회 시점마다 썸네일을 생성하던 구조를 업로드 시점 생성으로 리팩토링하여 API 서버 메모리 사용량 안정화
-- 기존 이미지 썸네일 마이그레이션을 이미지 별 비동기 태스크로 분리해 대용량 PNG 처리 시 발생하는 OOM 문제 해결
-- 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축 API 서버를 경유하는 이미지 트래픽 제거
+- 조회 시점에 썸네일을 생성하던 구조를 업로드 시점 생성으로 리팩토링
+  - API 서버 메모리 사용량 안정화
+- 기존 이미지 썸네일 마이그레이션 작업을 이미지 별 비동기 태스크로 분리
+  - 대용량 PNG 처리 시 발생하는 OOM 문제 해결
+- 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축
+  - API 서버를 경유하는 이미지 트래픽 제거
 - 수동으로 관리하던 인프라를 테라폼(Terraform)으로 임포트(import) 수행
 
 #### [Toyota] 운동선수 재활 운동 치료 서비스 <span class="resume__period">2026년 1월 - 5월</span>
 
-- 운동선수의 재활 운동 치료를 지원하는 신규 서비스 개발
-- ffmpeg 시크(seek) 옵션과 pre-signed URL로 필요한 프레임만 디코딩하도록 AWS 람다(Lambda) 동영상 썸네일 생성 로직 개선
-  - 1GB 4K 영상 처리 시 발생하던 디스크 부족 에러 해소 및 메모리 사용량 절감
+- 운동선수들의 재활 운동 치료를 지원하는 신규 서비스
+- ffmpeg 시크(seek) 옵션과 pre-signed URL을 사용해 필요한 프레임만 디코딩하도록 AWS 람다(Lambda) 동영상 썸네일 생성 로직 개선
+  - 1GB 4K 영상 처리 시 발생하는 디스크 부족 에러 해결 및 메모리 사용량 절감
 - 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축
-  - pre-signed URL 환경에서 동작하지 않던 브라우저 캐시 문제 해결
+  - pre-signed URL 환경에서 동작하지 않는 브라우저 캐시 문제 해결
 - 테라폼(Terraform) 기반 서버리스 인프라 구성 관리
 
 #### [Toyota DIG] ACoE (Agile Center of Excellence) 팀 <span class="resume__period">2025년 1월 - 12월</span>
 
-- 여러 제품 팀의 애자일 프랙티스 강화, 기술 부채 분석·해소 및 테스트 커버리지 향상 지원
-- MS AAD 인증 시 JWKs 조회 스레드 락으로 신규 로그인이 전면 실패하던 장애의 근본 원인 규명 및 RestTemplate 타임아웃·로깅 적용한 프록시 패턴으로 재발 방지
-- 외부 WAF의 호스트 재작성으로 OAuth2 리다이렉트가 내부 도메인으로 향하던 문제를 프록시 패턴 기반 AuthorizationRequestResolver 확장을 통해 해결
-- 세션 만료 후 재로그인 시 웹소켓(WebSocket) 핸드셰이크 경로로 리다이렉트되던 문제를 스프링 시큐리티(Spring Security) RequestCache 동작 분석으로 해결
-- ALB-애플리케이션 구간 프로토콜 변환으로 인한 OAuth2 리다이렉트 URL 불일치 문제를 Forwarded 헤더 처리 설정으로 해결
-- 1.5GB 이상 파일 변환 시 서버 자원 고갈과 504 타임아웃 문제에 대해 S3 pre-signed URL, EventBridge, ECS 태스크 기반 이벤트 드리븐 아키텍처 설계 제안
+- 토요타 DIG 제품 팀들의 애자일 프랙티스 정착을 지원하는 ACoE 팀
+- 제품 팀 별 기술 부채 분석 및 해소, 테스트 커버리지 향상 지원
+- MS AAD 인증 시 JWKs 조회 스레드 락으로 인해 신규 로그인이 실패하는 장애 원인 분석 및 해결
+  - RestTemplate 타임아웃 및 로깅을 적용한 프록시 패턴으로 재발 방지
+- 외부 WAF의 호스트 재작성으로 인해 OAuth2 리다이렉트 경로가 내부 도메인으로 향하는 버그 수정
+  - 프록시 패턴 기반 AuthorizationRequestResolver 확장
+- 세션 만료 후 재로그인 시 웹소켓(WebSocket) 핸드셰이크 경로로 리다이렉트되는 버그 수정
+  - 스프링 시큐리티(Spring Security) RequestCache 동작 분석
+- ALB와 애플리케이션 사이 프로토콜 변환으로 인한 OAuth2 리다이렉트 URL 불일치 버그 수정
+  - Forwarded 헤더 처리 설정 적용
+- 1.5GB 이상 파일 변환 시 발생하는 서버 자원 고갈 및 504 타임아웃 문제 분석
+  - S3 pre-signed URL, EventBridge, ECS 태스크 기반 이벤트 드리븐 아키텍처 설계 제안
 
 <div class="resume-header"> 
   <img src="/images/about/about-4.png" width="5%" class=" image__margin-right image__border"/>
@@ -89,12 +96,14 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 
 #### [Toyota] 토요타 특성화 고등학교 학생 평가 시스템 <span class="resume__period">2024년 7월 - 12월</span>
 
-- 토요타가 운영하는 고등학교의 학생 평가 및 피드백 관리 시스템
+- 토요타가 운영하는 특성화 고등학교의 학생 평가 및 피드백 관리 시스템
 - 평가 및 피드백 프로세스를 위한 도메인 설계 및 구현
-- 메인 스토리지로 AWS DynamoDB 사용, 기능 추가 시 접근 패턴 분석·GSI 설계·데이터 마이그레이션 프로세스를 수립해 잦은 요구사항 변경에 대응
-- 프로젝트 초기 E2E 테스트 구축 및 단위 테스트와 중복되는 검증을 핵심 사용자 시나리오 중심으로 리팩토링
-- 테라폼(Terraform)으로 DynamoDB 마이그레이션, KMS 암호화 등 잦은 인프라 변경을 코드 기반으로 관리
-- 일본어로 고객사 스테이크홀더와 요구사항을 직접 논의하고 고객사 개발자와 페어 프로그래밍 수행
+- AWS DynamoDB 접근 패턴 분석 및 GSI 설계
+- 잦은 요구사항 변경 대응을 위한 DynamoDB 데이터 마이그레이션 프로세스 구축
+- 프로젝트 초기 E2E 테스트 구축
+  - 단위 테스트와 중복되는 검증을 핵심 사용자 시나리오 중심으로 리팩토링
+- 테라폼(Terraform)을 사용한 DynamoDB 마이그레이션, KMS 암호화 등 인프라 변경 관리
+- 고객사 스테이크홀더와 일본어로 요구사항 논의 및 고객사 개발자와 페어 프로그래밍 수행
 
 #### [Toyota] 아마추어 러너 달리기 자세 멘토링 서비스 <span class="resume__period">2024년 4월 - 5월</span>
 

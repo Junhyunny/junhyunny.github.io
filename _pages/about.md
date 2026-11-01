@@ -54,7 +54,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 
 - 토요타 사내 매니저와 구성원이 소통하고 상호 피드백을 주고받는 플랫폼의 기술 부채 해소 및 운영 안정화
 - 조회 시점에 썸네일을 생성하던 구조를 업로드 시점 생성으로 리팩토링
-  - API 서버 메모리 사용량 안정화
+  - 이미지 조회 집중 시 최대 90%까지 치솟던 API 서버 메모리 사용률을 40% 미만으로 안정화
 - 기존 이미지 썸네일 마이그레이션 작업을 이미지 별 비동기 태스크로 분리
   - 대용량 PNG 처리 시 발생하는 OOM 문제 해결
 - 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축

@@ -18,8 +18,8 @@ classes: wide
 
 - **Toyota** (2023 – 2026)
   - 교육, 스포츠, 헬스케어, 행사 등 다양한 도메인의 웹·iOS 신규 서비스 6건을 MVP부터 출시까지 수행
-  - ACoE 팀에서 여러 제품 팀의 애자일 프랙티스 정착을 지원하고, 스프링 시큐리티(Spring Security) 내부 분석으로 OAuth2 인증 장애(스레드 락, WAF 호스트 재작성 등)의 근본 원인 해결
-  - 이미지·영상 처리의 메모리 누수, OOM, 디스크 부족 문제를 해결하고, 썸네일 구조 리팩토링과 클라우드프론트(CloudFront) CDN 구축으로 기술 부채 해소
+  - ACoE 팀에서 여러 제품 팀의 애자일 프랙티스 정착을 지원하고, Spring Security 내부 분석으로 OAuth2 인증 장애(스레드 락, WAF 호스트 재작성 등)의 근본 원인 해결
+  - 이미지·영상 처리의 메모리 누수, OOM, 디스크 부족 문제를 해결하고, 썸네일 구조 리팩토링과 CloudFront CDN 구축으로 기술 부채 해소
 - **Honda** (2024)
   - 공장 PLC 센서 데이터를 MQTT로 실시간 수집하는 용접 공정 모니터링 시스템 구축, 공정 속도와 버퍼 잔량 기반으로 목표 달성 시각 및 라인 정지 위험 시뮬레이션
 - **LG U+** (2023)
@@ -57,7 +57,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   - API 서버 메모리 사용량 안정화
 - 기존 이미지 썸네일 마이그레이션 작업을 이미지 별 비동기 태스크로 분리
   - 대용량 PNG 처리 시 발생하는 OOM 문제 해결
-- 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축
+- 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축
   - API 서버를 경유하는 이미지 트래픽 제거
 - 수동으로 관리하던 인프라를 테라폼(Terraform)으로 임포트(import) 수행
 
@@ -66,7 +66,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 운동선수들의 재활 운동 치료를 지원하는 신규 서비스
 - ffmpeg 시크(seek) 옵션과 pre-signed URL을 사용해 필요한 프레임만 디코딩하도록 AWS 람다(Lambda) 동영상 썸네일 생성 로직 개선
   - 1GB 4K 영상 처리 시 발생하는 디스크 부족 에러 해결 및 메모리 사용량 절감
-- 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축
+- 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축
   - pre-signed URL 환경에서 동작하지 않는 브라우저 캐시 문제 해결
 - 테라폼(Terraform) 기반 서버리스 인프라 구성 관리
 
@@ -79,7 +79,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 외부 WAF의 호스트 재작성으로 인해 OAuth2 리다이렉트 경로가 내부 도메인으로 향하는 버그 수정
   - 프록시 패턴 기반 AuthorizationRequestResolver 확장
 - 세션 만료 후 재로그인 시 웹소켓(WebSocket) 핸드셰이크 경로로 리다이렉트되는 버그 수정
-  - 스프링 시큐리티(Spring Security) RequestCache 동작 분석
+  - Spring Security RequestCache 동작 분석
 - ALB와 애플리케이션 사이 프로토콜 변환으로 인한 OAuth2 리다이렉트 URL 불일치 버그 수정
   - Forwarded 헤더 처리 설정 적용
 - 1.5GB 이상 파일 변환 시 발생하는 서버 자원 고갈 및 504 타임아웃 문제 분석

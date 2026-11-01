@@ -1,5 +1,5 @@
 ---
-title: "코틀린 코루틴 처리 아키텍처 (Kotlin Coroutine Architecture)"
+title: "코틀린 코루틴 아키텍처 (Kotlin Coroutine Architecture)"
 search: false
 category:
   - kotlin

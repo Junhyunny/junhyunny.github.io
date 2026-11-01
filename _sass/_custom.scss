@@ -86,6 +86,39 @@
     }
 }
 
+/* about: section(h2) > company(h3) > project(h4) */
+.layout--about .page__content {
+    h2 {
+        margin-top: 2.5em;
+    }
+
+    .resume-header {
+        margin-top: 3rem;
+
+        & .reusme__company--name {
+            font-size: 1.1em;
+        }
+    }
+
+    h4 {
+        margin: 1.75em 0 0.6em;
+        font-size: 1.05em;
+        line-height: 1.4;
+    }
+
+    .resume-header + h4 {
+        margin-top: 0;
+    }
+
+    .resume__period {
+        margin-left: 0.4em;
+        font-size: 0.8em;
+        font-weight: normal;
+        color: #777;
+        white-space: nowrap;
+    }
+}
+
 @media all and (max-width: 900px) {
     .image__border {
         border-radius: 5px;

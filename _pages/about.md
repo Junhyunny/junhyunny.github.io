@@ -39,7 +39,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 
 ## 집필
 
-- [안쪽까지 들여다보는 스프링 시큐리티](https://www.yes24.com/product/goods/180391041) (비제이퍼블릭, 2026)
+- [안쪽까지 들여다보는 스프링 시큐리티: 구현하며 이해하는 인증·인가·OAuth 2.0·테스트](https://www.yes24.com/product/goods/180391041) (비제이퍼블릭, 2026)
 
 ## 경력
 
@@ -52,7 +52,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   </h3>
 </div>
 
-##### [Toyota] 사내 직원 간 피드백·소통 플랫폼, 2026년 5월 - 7월
+#### [Toyota] 사내 직원 간 피드백·소통 플랫폼 <span class="resume__period">2026년 5월 - 7월</span>
 
 - 토요타 사내 매니저와 구성원이 소통하고 상호 피드백을 주고받는 플랫폼의 기술 부채 해소 및 운영 안정화
 - 조회 시점마다 썸네일을 생성하던 구조를 업로드 시점 생성으로 리팩토링하여 API 서버 메모리 사용량 안정화
@@ -61,14 +61,14 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 수동으로 관리하던 인프라를 Terraform으로 import
 - 장애 대응 플레이북, SLI/SLO 정의 및 New Relic 모니터링 대시보드 구축 참여
 
-##### [Toyota] 운동선수 재활 운동 치료 서비스, 2026년 1월 - 5월
+#### [Toyota] 운동선수 재활 운동 치료 서비스 <span class="resume__period">2026년 1월 - 5월</span>
 
 - 운동선수의 재활 운동 치료를 지원하는 신규 서비스 개발
 - ffmpeg 시크(seek) 옵션과 pre-signed URL로 필요한 프레임만 디코딩하도록 AWS 람다 동영상 썸네일 생성 로직 개선, 1GB 4K 영상 처리 시 발생하던 디스크 부족 에러 해소 및 메모리 사용량 절감
 - 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축으로 pre-signed URL 환경에서 동작하지 않던 브라우저 캐시 문제 해결
 - Terraform 기반 서버리스 인프라 구성 관리
 
-##### [Toyota DIG] ACoE (Agile Center of Excellence) 팀, 2025년 1월 - 12월
+#### [Toyota DIG] ACoE (Agile Center of Excellence) 팀 <span class="resume__period">2025년 1월 - 12월</span>
 
 - 여러 제품 팀의 애자일 프랙티스 강화, 기술 부채 분석·해소 및 테스트 커버리지 향상 지원
 - MS AAD 인증 시 JWKs 조회 스레드 락으로 신규 로그인이 전면 실패하던 장애의 근본 원인 규명 및 RestTemplate 타임아웃·로깅 적용한 프록시 패턴으로 재발 방지
@@ -86,7 +86,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   </h3>
 </div>
 
-##### [Toyota] 토요타 특성화 고등학교 학생 평가 시스템, 2024년 7월 - 12월
+#### [Toyota] 토요타 특성화 고등학교 학생 평가 시스템 <span class="resume__period">2024년 7월 - 12월</span>
 
 - 토요타가 운영하는 고등학교의 학생 평가 및 피드백 관리 시스템
 - 평가 및 피드백 프로세스를 위한 도메인 설계 및 구현
@@ -95,7 +95,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 테라폼(Terraform)으로 DynamoDB 마이그레이션, KMS 암호화 등 잦은 인프라 변경을 코드 기반으로 관리
 - 일본어로 고객사 스테이크홀더와 요구사항을 직접 논의하고 고객사 개발자와 페어 프로그래밍 수행
 
-##### [Toyota] 아마추어 러너 달리기 자세 멘토링 서비스, 2024년 4월 - 5월
+#### [Toyota] 아마추어 러너 달리기 자세 멘토링 서비스 <span class="resume__period">2024년 4월 - 5월</span>
 
 - 아마추어 러너(runner)들을 위한 프로 선수들의 달리기 자세 멘토링 서비스
 - iOS 및 웹 애플리케이션 MS AAD OAuth2 인증 프로세스 통합
@@ -103,7 +103,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - JDK21 기반 스프링 애플리케이션 이미지 업로드 시 다이렉트 메모리(direct memory) 누수 현상 분석 및 해결
 - 러너 달리기 자세 영상에 대한 비동기 스켈레톤 추출 프로세싱 서비스 구현
 
-##### [Honda] 공장 프로세스 모니터링, 2024년 1월 - 3월
+#### [Honda] 공장 프로세스 모니터링 <span class="resume__period">2024년 1월 - 3월</span>
 
 - 혼다 실시간 웰딩(welding) 공정 작업 현황 모니터링 웹 애플리케이션
 - 웰딩 공정 내 유닛(unit) 별 작업 현황 모니터링을 위한 도메인 설계 및 구현
@@ -113,7 +113,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 후속 웰딩 유닛 이전에 위치한 버퍼의 잔여 수와 공정 진행 속도를 기반으로 공장 가동에 문제가 발생할 수 있는 시각 시뮬레이션
 - GitHub Actions CI/CD 파이프라인 구축
 
-##### [Toyota] 어린이 컨퍼런스 네비게이션 웹 애플리케이션, 2023년 9월 - 11월
+#### [Toyota] 어린이 컨퍼런스 네비게이션 웹 애플리케이션 <span class="resume__period">2023년 9월 - 11월</span>
 
 - 어린이 대상 컨퍼런스 참여자들에게 프로그램 정보, 예약 정보, 직소(jigsaw) 퍼즐 게임을 제공하는 웹 애플리케이션
 - 행사 스케줄, 고객 예약 정보 관리 및 퍼즐 수집 게임 도메인 설계 및 구현
@@ -121,27 +121,27 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 퍼즐 게임 디자인 구현 및 애니메이션 처리
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집
 
-##### [Toyota] 사내 컨퍼런스 네비게이션 애플리케이션, 2023년 7월 - 8월
+#### [Toyota] 사내 컨퍼런스 네비게이션 애플리케이션 <span class="resume__period">2023년 7월 - 8월</span>
 
 - 토요타 사내 컨퍼런스 참여자들에게 참여 부스 정보를 제공하는 웹 애플리케이션
 - AAD(Azure Active Directory) OAuth2 인증과 서비스 자체 로그인 기능 통합
 - 사용자 정보를 세션에 저장 시 영속성 컨텍스트가 연결된 상태로 객체가 직렬화 되어 발생하는 버그 수정
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 
-##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 7월
+#### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스 <span class="resume__period">2023년 6월 - 7월</span>
 
 - 차세대 시스템과 클라이언트 사이의 API 하위 호환성 문제를 해결하기 위한 어댑터 서비스
 - 레디스와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
 - 외부 서비스 API 호출 기능 구현 및 와이어 목을 활용한 결합 테스트 검증
 
-##### [Toyota] EXPO 사내 컨퍼런스 네비게이션 애플리케이션, 2023년 3월 - 4월
+#### [Toyota] EXPO 사내 컨퍼런스 네비게이션 애플리케이션 <span class="resume__period">2023년 3월 - 4월</span>
 
 - 토요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 애플리케이션
 - 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
 - 카드 수집 시 등장 애니메이션 버그 수정
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 
-##### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스, 2022년 10월 - 2023년 2월
+#### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스 <span class="resume__period">2022년 10월 - 2023년 2월</span>
 
 - 프론트 오피스 업무 거래용 윈도우 GUI 애플리케이션을 웹 기반 서비스로 재구축
 - 트레이더 정보 및 권한 관리, 코드 관리, 선물(future) 상품 및 거래 도메인 모델 설계 및 개발
@@ -150,7 +150,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 레거시 연계로 인해 발생하는 도메인 오염 방지를 위한 ACL(anti corruption layer) 구축
 - Jenkins CI/CD 파이프라인 구축
 
-##### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스, 2022년 1월 - 6월
+#### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스 <span class="resume__period">2022년 1월 - 6월</span>
 
 - 마이데이터를 활용한 사용자 맞춤 알뜰폰 요금제 추천 MVP 서비스 개발
 - 마이데이터 기반 알뜰폰 추천을 위한 신규 상품 추천 도메인 모델 설계 및 개발
@@ -167,7 +167,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   </h3>
 </div>
 
-##### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트, 2021년 8월 - 11월
+#### [한국보건산업진흥원] IoT 돌봄 서비스 고도화 프로젝트 <span class="resume__period">2021년 8월 - 11월</span>
 
 - 노인 거주지 및 장애인 시설 내 IoT 센서를 사용한 돌봄 서비스 고도화 프로젝트
 - 업무 게시판, 돌봄 대상자 관리, 시설 도면 업로드 및 IoT 센서 맵핑 기능 개발
@@ -175,7 +175,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 사용자 로그아웃 시 브라우저 쿠키 초기화 실패로 인한 재접속 불가능 버그 수정
 - 레거시의 불필요 컴포넌트들 제거 및 코드 리팩토링을 통한 50% 코드 축소
 
-##### [KC Industrial] 반도체 가스 공정 MES 개발 프로젝트, 2021년 5월 - 8월
+#### [KC Industrial] 반도체 가스 공정 MES 개발 프로젝트 <span class="resume__period">2021년 5월 - 8월</span>
 
 - 가스 공정 자동화ㆍ모니터링 웹 서비스 구현
 - 가스 용기 특성과 물류 흐름에 맞는 도메인 모델 설계 및 개발
@@ -193,7 +193,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   </h3>
 </div>
 
-##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영, 2020년 6월 - 2021년 4월
+#### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 운영 <span class="resume__period">2020년 6월 - 2021년 4월</span>
 
 - 포항, 광양 제철소의 야드 관리 시스템 운영 (슬라브, 코일, 후판 및 선재 품종 별 서비스)
 - 각 품종 별로 하루 평균 3000만 건을 초과하는 API 트래픽 처리 
@@ -204,7 +204,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 24시간 야드 관리 시스템 모니터링 및 장애 대응
 - 기타 SR(service request) 처리
 
-##### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 개발, 2018년 7월 – 2020년 5월
+#### [POSCO ICT] POSCO MES3.0 야드 관리 시스템 개발 <span class="resume__period">2018년 7월 – 2020년 5월</span>
 
 - 모노리스 POSCO MES 야드 관리 시스템을 마이크로서비스 아키텍처로 재구축
 - 타 공정, 조업, 운송, 출하 시스템 API 연결 및 폴백(fallback) 처리 구현
@@ -224,12 +224,12 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   </h3>
 </div>
 
-##### [POSCO ICT] Smart CCTV 시스템 애플리케이션 개발, 2017년 8월 - 11월
+#### [POSCO ICT] Smart CCTV 시스템 애플리케이션 개발 <span class="resume__period">2017년 8월 - 11월</span>
 
 - 영상 인식을 통한 다트(dart) 공정 이상(abnormal) 감지 애플리케이션 개발
 - SVM(Support Vector Machine) 머신 러닝 알고리즘 활용
 
-## Education
+## 학력
 
 <div class="resume-header"> 
   <img src="/images/about/about-2.png" width="5%" class=" image__margin-right image__border"/>
@@ -240,7 +240,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
   </h3>
 </div>
 
-##### 정보통신공학과 전공
+#### 정보통신공학과 전공
 
 - 학점 4.45 / 4.5
 - 우촌상 수상

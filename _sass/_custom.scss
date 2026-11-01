@@ -139,13 +139,6 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 
-.book-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-    gap: 1rem;
-    margin: 1rem 0 2.5rem;
-}
-
 .book-card {
     overflow: hidden;
     border: 1px solid #e5e7eb;
@@ -163,7 +156,7 @@
 
     &__link {
         display: grid;
-        grid-template-columns: minmax(10rem, 42%) 1fr;
+        grid-template-columns: minmax(6.5rem, 34%) 1fr;
         height: 100%;
         color: #334155;
         text-decoration: none;
@@ -181,10 +174,10 @@
 
     &__cover {
         display: flex;
-        min-height: 10rem;
+        min-height: 6.5rem;
         align-items: center;
         justify-content: center;
-        padding: 1.25rem;
+        padding: 0.75rem;
         background: #d0442d;
 
         img {
@@ -201,13 +194,13 @@
         min-width: 0;
         flex-direction: column;
         align-items: flex-start;
-        padding: 1.5rem;
+        padding: 0.85rem;
     }
 
     &__eyebrow {
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.3rem;
         color: #d0442d;
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         font-weight: 700;
         letter-spacing: 0.12em;
     }
@@ -216,16 +209,16 @@
         display: block;
         margin: 0;
         color: #1e293b;
-        font-size: 1.05rem;
+        font-size: 0.85rem;
         font-weight: 700;
-        line-height: 1.45;
+        line-height: 1.4;
     }
 
     &__author {
         display: block;
-        margin: 0.5rem 0 1.5rem;
+        margin: 0.3rem 0 0.75rem;
         color: #64748b;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
 
     &__action {
@@ -234,7 +227,7 @@
         gap: 0.45rem;
         margin-top: auto;
         color: #d0442d;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         font-weight: 700;
 
         i {
@@ -251,79 +244,7 @@
 .author__book {
     clear: both;
     width: 80%;
-}
-
-.book-cards--profile {
-    grid-template-columns: 1fr;
-    margin: 1rem 0 0;
-
-    .book-card__link {
-        grid-template-columns: minmax(6.5rem, 34%) 1fr;
-    }
-
-    .book-card__cover {
-        min-height: 6.5rem;
-        padding: 0.75rem;
-    }
-
-    .book-card__content {
-        padding: 0.85rem;
-    }
-
-    .book-card__eyebrow {
-        margin-bottom: 0.3rem;
-        font-size: 0.6rem;
-    }
-
-    .book-card__title {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
-
-    .book-card__author {
-        margin: 0.3rem 0 0.75rem;
-        font-size: 0.7rem;
-    }
-
-    .book-card__action {
-        font-size: 0.7rem;
-    }
-}
-
-@media all and (max-width: 600px) {
-    .author__book {
-        width: 100%;
-    }
-
-    .book-card {
-        &__link {
-            grid-template-columns: 1fr;
-        }
-
-        &__cover {
-            min-height: auto;
-            padding: 1.5rem;
-        }
-
-        &__content {
-            padding: 1.25rem;
-        }
-    }
-
-    .book-cards--profile {
-        .book-card__link {
-            grid-template-columns: minmax(6.5rem, 34%) 1fr;
-        }
-
-        .book-card__cover {
-            min-height: 6.5rem;
-            padding: 0.75rem;
-        }
-
-        .book-card__content {
-            padding: 0.85rem;
-        }
-    }
+    margin-top: 1rem;
 }
 
 @media all and (max-width: 1024px) {
@@ -333,7 +254,7 @@
 }
 
 @media all and (min-width: 1024px) {
-    .book-cards--profile {
+    .author__book {
         margin-top: 1.25rem;
 
         .book-card__link {
@@ -342,7 +263,6 @@
 
         .book-card__cover {
             min-height: auto;
-            padding: 0.75rem;
         }
 
         .book-card__content {

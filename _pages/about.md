@@ -18,8 +18,6 @@ classes: wide
 
 ## 주요 성과
 
-## 주요 성과
-
 - **Toyota** (2023 – 2026)
   - 교육, 스포츠, 헬스케어, 행사 등 다양한 도메인의 웹·iOS 신규 서비스 6건을 MVP부터 출시까지 수행
   - ACoE 팀에서 여러 제품 팀의 애자일 프랙티스 정착을 지원하고, Spring Security 내부 분석으로 OAuth2 인증 장애(스레드 락, WAF 호스트 재작성 등)의 근본 원인 해결
@@ -37,7 +35,7 @@ classes: wide
 
 ## 기술 스택
 
-Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP servers
+Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP servers
 
 ## 집필
 
@@ -60,19 +58,17 @@ Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP 
 - 조회 시점마다 썸네일을 생성하던 구조를 업로드 시점 생성으로 리팩토링하여 API 서버 메모리 사용량 안정화
 - 기존 이미지 썸네일 마이그레이션을 이미지 별 비동기 태스크로 분리해 대용량 PNG 처리 시 발생하는 OOM 문제 해결
 - 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축으로 API 서버를 경유하는 이미지 트래픽 제거
-- 매뉴얼 인프라 관리 프로세스를 Terraform 기반 프로세스로 import 수행
+- 수동으로 관리하던 인프라를 Terraform으로 import
 - 장애 대응 플레이북, SLI/SLO 정의 및 New Relic 모니터링 대시보드 구축 참여
 
 ##### [Toyota] 운동선수 재활 운동 치료 서비스, 2026년 1월 - 5월
 
-- 운동선수의 재활 운동 치료를 지원하는 신규 서비스
+- 운동선수의 재활 운동 치료를 지원하는 신규 서비스 개발
 - ffmpeg 시크(seek) 옵션과 pre-signed URL로 필요한 프레임만 디코딩하도록 AWS 람다 동영상 썸네일 생성 로직 개선, 1GB 4K 영상 처리 시 발생하던 디스크 부족 에러 해소 및 메모리 사용량 절감
 - 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축으로 pre-signed URL 환경에서 동작하지 않던 브라우저 캐시 문제 해결
 - Terraform 기반 서버리스 인프라 구성 관리
 
-#### [Toyota] ACoE (Agile Center of Excellence) 팀, 2025년 1월 - 12월
-
-#### [Toyota DIG] ACoE (Agile Center of Excellence) 팀, 2025년 1월 - 12월
+##### [Toyota DIG] ACoE (Agile Center of Excellence) 팀, 2025년 1월 - 12월
 
 - 여러 제품 팀의 애자일 프랙티스 강화, 기술 부채 분석·해소 및 테스트 커버리지 향상 지원
 - MS AAD 인증 시 JWKs 조회 스레드 락으로 신규 로그인이 전면 실패하던 장애의 근본 원인 규명 및 RestTemplate 타임아웃·로깅 적용한 프록시 패턴으로 재발 방지
@@ -84,8 +80,8 @@ Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP 
 <div class="resume-header"> 
   <img src="/images/about/about-4.png" width="5%" class=" image__margin-right image__border"/>
   <h3 id="vmware" class="reusme__company">
-    <span class="reusme__company--name">VMWare</span>
-    <span class="reusme__company--team-role">Tunzu Labs Software Engineer</span>
+    <span class="reusme__company--name">VMware</span>
+    <span class="reusme__company--team-role">Tanzu Labs Software Engineer</span>
     <span class="reusme__company--period">2021년 11월 - 2025년 1월</span>
   </h3>
 </div>
@@ -115,7 +111,7 @@ Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP 
 - 조업자들의 작업 스케줄을 조정할 때 도움을 주는 실시간 작업 현황을 시각화
 - 실시간 작업 완료 차량 대수와 공정 진행 속도를 기반으로 목표 대수 달성 예상 완료 시간 시뮬레이션
 - 후속 웰딩 유닛 이전에 위치한 버퍼의 잔여 수와 공정 진행 속도를 기반으로 공장 가동에 문제가 발생할 수 있는 시각 시뮬레이션
-- Github Actions CI/CD 파이프라인 구축
+- GitHub Actions CI/CD 파이프라인 구축
 
 ##### [Toyota] 어린이 컨퍼런스 네비게이션 웹 애플리케이션, 2023년 9월 - 11월
 
@@ -129,7 +125,7 @@ Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP 
 
 - 토요타 사내 컨퍼런스 참여자들에게 참여 부스 정보를 제공하는 웹 애플리케이션
 - AAD(Azure Active Directory) OAuth2 인증과 서비스 자체 로그인 기능 통합
-- 사용자 정보를 세션에  저장 시 영속성 컨텍스트가 연결된 상태로 객체가 직렬화 되어 발생하는 버그 수정
+- 사용자 정보를 세션에 저장 시 영속성 컨텍스트가 연결된 상태로 객체가 직렬화 되어 발생하는 버그 수정
 - Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
 
 ##### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스, 2023년 6월 - 7월
@@ -159,7 +155,7 @@ Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP 
 - 마이데이터를 활용한 사용자 맞춤 알뜰폰 요금제 추천 MVP 서비스 개발
 - 마이데이터 기반 알뜰폰 추천을 위한 신규 상품 추천 도메인 모델 설계 및 개발
 - KB 사내 마이데이터 플랫폼 서비스 최초 연계 및 사용
-- KB 레거시 EAI 메세징 서비스 분석 및 리팩토링을 통한 코드 70% 축소
+- KB 레거시 EAI 메시징 서비스 분석 및 리팩토링을 통한 코드 70% 축소
 - Jenkins CI/CD 파이프라인 구축
 
 <div class="resume-header"> 

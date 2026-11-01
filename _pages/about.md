@@ -166,7 +166,7 @@ Java, Kotlin, Spring Boot, TypeScript, React, Kafka, Redis, AWS, Terraform, MCP 
   <img src="/images/about/about-3.png" width="4%" class=" image__margin-right image__border"/>
   <h3 id="geneuin" class="reusme__company">
     <span class="reusme__company--name">Geneuin</span>
-    <span class="reusme__company--team-role">Application Developer</span>
+    <span class="reusme__company--team-role">Lead Developer</span>
     <span class="reusme__company--period">2021년 4월 - 11월</span>
   </h3>
 </div>

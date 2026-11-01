@@ -20,8 +20,8 @@ classes: wide
 
 - **Toyota** (2023 – 2026)
   - 교육, 스포츠, 헬스케어, 행사 등 다양한 도메인의 웹·iOS 신규 서비스 6건을 MVP부터 출시까지 수행
-  - ACoE 팀에서 여러 제품 팀의 애자일 프랙티스 정착을 지원하고, Spring Security 내부 분석으로 OAuth2 인증 장애(스레드 락, WAF 호스트 재작성 등)의 근본 원인 해결
-  - 이미지·영상 처리의 메모리 누수, OOM, 디스크 부족 문제를 해결하고, 썸네일 구조 리팩토링과 CloudFront CDN 구축으로 기술 부채 해소
+  - ACoE 팀에서 여러 제품 팀의 애자일 프랙티스 정착을 지원하고, 스프링 시큐리티(Spring Security) 내부 분석으로 OAuth2 인증 장애(스레드 락, WAF 호스트 재작성 등)의 근본 원인 해결
+  - 이미지·영상 처리의 메모리 누수, OOM, 디스크 부족 문제를 해결하고, 썸네일 구조 리팩토링과 클라우드프론트(CloudFront) CDN 구축으로 기술 부채 해소
 - **Honda** (2024)
   - 공장 PLC 센서 데이터를 MQTT로 실시간 수집하는 용접 공정 모니터링 시스템 구축, 공정 속도와 버퍼 잔량 기반으로 목표 달성 시각 및 라인 정지 위험 시뮬레이션
 - **LG U+** (2023)
@@ -31,7 +31,7 @@ classes: wide
   - 마이데이터 기반 요금제 추천 MVP 개발, 레거시 EAI 메시징 모듈 리팩토링으로 코드 70% 축소
 - **POSCO** (2018 – 2021)
   - 모놀리식 야드 관리 시스템을 마이크로서비스로 재설계, 품종별 일 3,000만 건 이상의 API 트래픽 처리
-  - 인메모리 캐시와 Kafka 기반 동기화로 공용 룰 엔진 응답 시간을 5초 이상에서 1초 미만으로 단축
+  - 인메모리 캐시와 카프카(Kafka) 기반 동기화로 공용 룰 엔진 응답 시간을 5초 이상에서 1초 미만으로 단축
 
 ## 기술 스택
 
@@ -57,24 +57,25 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 토요타 사내 매니저와 구성원이 소통하고 상호 피드백을 주고받는 플랫폼의 기술 부채 해소 및 운영 안정화
 - 조회 시점마다 썸네일을 생성하던 구조를 업로드 시점 생성으로 리팩토링하여 API 서버 메모리 사용량 안정화
 - 기존 이미지 썸네일 마이그레이션을 이미지 별 비동기 태스크로 분리해 대용량 PNG 처리 시 발생하는 OOM 문제 해결
-- 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축으로 API 서버를 경유하는 이미지 트래픽 제거
-- 수동으로 관리하던 인프라를 Terraform으로 import
-- 장애 대응 플레이북, SLI/SLO 정의 및 New Relic 모니터링 대시보드 구축 참여
+- 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축 API 서버를 경유하는 이미지 트래픽 제거
+- 수동으로 관리하던 인프라를 테라폼(Terraform)으로 임포트(import) 수행
 
 #### [Toyota] 운동선수 재활 운동 치료 서비스 <span class="resume__period">2026년 1월 - 5월</span>
 
 - 운동선수의 재활 운동 치료를 지원하는 신규 서비스 개발
-- ffmpeg 시크(seek) 옵션과 pre-signed URL로 필요한 프레임만 디코딩하도록 AWS 람다 동영상 썸네일 생성 로직 개선, 1GB 4K 영상 처리 시 발생하던 디스크 부족 에러 해소 및 메모리 사용량 절감
-- 서명된 쿠키(signed cookie)와 OAC를 적용한 CloudFront CDN 구축으로 pre-signed URL 환경에서 동작하지 않던 브라우저 캐시 문제 해결
-- Terraform 기반 서버리스 인프라 구성 관리
+- ffmpeg 시크(seek) 옵션과 pre-signed URL로 필요한 프레임만 디코딩하도록 AWS 람다(Lambda) 동영상 썸네일 생성 로직 개선
+  - 1GB 4K 영상 처리 시 발생하던 디스크 부족 에러 해소 및 메모리 사용량 절감
+- 서명된 쿠키(signed cookie)와 OAC를 적용한 클라우드프론트(CloudFront) CDN 구축
+  - pre-signed URL 환경에서 동작하지 않던 브라우저 캐시 문제 해결
+- 테라폼(Terraform) 기반 서버리스 인프라 구성 관리
 
 #### [Toyota DIG] ACoE (Agile Center of Excellence) 팀 <span class="resume__period">2025년 1월 - 12월</span>
 
 - 여러 제품 팀의 애자일 프랙티스 강화, 기술 부채 분석·해소 및 테스트 커버리지 향상 지원
 - MS AAD 인증 시 JWKs 조회 스레드 락으로 신규 로그인이 전면 실패하던 장애의 근본 원인 규명 및 RestTemplate 타임아웃·로깅 적용한 프록시 패턴으로 재발 방지
 - 외부 WAF의 호스트 재작성으로 OAuth2 리다이렉트가 내부 도메인으로 향하던 문제를 프록시 패턴 기반 AuthorizationRequestResolver 확장을 통해 해결
-- 세션 만료 후 재로그인 시 웹소켓 핸드셰이크 경로로 리다이렉트되던 문제를 Spring Security RequestCache 동작 분석으로 해결
-- ALB-애플리케이션 구간 프로토콜 변환으로 인한 OAuth2 redirect_uri 불일치 문제를 Forwarded 헤더 처리 설정으로 해결
+- 세션 만료 후 재로그인 시 웹소켓(WebSocket) 핸드셰이크 경로로 리다이렉트되던 문제를 스프링 시큐리티(Spring Security) RequestCache 동작 분석으로 해결
+- ALB-애플리케이션 구간 프로토콜 변환으로 인한 OAuth2 리다이렉트 URL 불일치 문제를 Forwarded 헤더 처리 설정으로 해결
 - 1.5GB 이상 파일 변환 시 서버 자원 고갈과 504 타임아웃 문제에 대해 S3 pre-signed URL, EventBridge, ECS 태스크 기반 이벤트 드리븐 아키텍처 설계 제안
 
 <div class="resume-header"> 
@@ -100,14 +101,14 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 아마추어 러너(runner)들을 위한 프로 선수들의 달리기 자세 멘토링 서비스
 - iOS 및 웹 애플리케이션 MS AAD OAuth2 인증 프로세스 통합
 - iOS 및 웹 애플리케이션 서비스 자체 인증 프로세스 구축
-- JDK21 기반 스프링 애플리케이션 이미지 업로드 시 다이렉트 메모리(direct memory) 누수 현상 분석 및 해결
+- JDK21 기반 스프링(Spring) 애플리케이션 이미지 업로드 시 다이렉트 메모리(direct memory) 누수 현상 분석 및 해결
 - 러너 달리기 자세 영상에 대한 비동기 스켈레톤 추출 프로세싱 서비스 구현
 
 #### [Honda] 공장 프로세스 모니터링 <span class="resume__period">2024년 1월 - 3월</span>
 
 - 혼다 실시간 웰딩(welding) 공정 작업 현황 모니터링 웹 애플리케이션
 - 웰딩 공정 내 유닛(unit) 별 작업 현황 모니터링을 위한 도메인 설계 및 구현
-- 모스키토(mosquitto) MQTT 브로커를 통한 공장 PLC 센서의 데이터를 실시간으로 수집
+- 모스키토(Mosquitto) MQTT 브로커를 통한 공장 PLC 센서의 데이터를 실시간으로 수집
 - 조업자들의 작업 스케줄을 조정할 때 도움을 주는 실시간 작업 현황을 시각화
 - 실시간 작업 완료 차량 대수와 공정 진행 속도를 기반으로 목표 대수 달성 예상 완료 시간 시뮬레이션
 - 후속 웰딩 유닛 이전에 위치한 버퍼의 잔여 수와 공정 진행 속도를 기반으로 공장 가동에 문제가 발생할 수 있는 시각 시뮬레이션
@@ -119,27 +120,27 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 행사 스케줄, 고객 예약 정보 관리 및 퍼즐 수집 게임 도메인 설계 및 구현
 - 동일한 퍼즐 조각이 여러번 수집되는 동시성 문제 해결 및 예외 처리
 - 퍼즐 게임 디자인 구현 및 애니메이션 처리
-- Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집
+- 구글 애널리틱스(Google Analytics), 구글 태그 매니저(Google Tag Manager) 연결을 통한 사용자 데이터 수집
 
 #### [Toyota] 사내 컨퍼런스 네비게이션 애플리케이션 <span class="resume__period">2023년 7월 - 8월</span>
 
 - 토요타 사내 컨퍼런스 참여자들에게 참여 부스 정보를 제공하는 웹 애플리케이션
 - AAD(Azure Active Directory) OAuth2 인증과 서비스 자체 로그인 기능 통합
 - 사용자 정보를 세션에 저장 시 영속성 컨텍스트가 연결된 상태로 객체가 직렬화 되어 발생하는 버그 수정
-- Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
+- 구글 애널리틱스(Google Analytics), 구글 태그 매니저(Google Tag Manager) 연결을 통한 사용자 데이터 수집 기능 개발
 
 #### [LG U+] 차세대 시스템 API 하위 호환 어댑터 서비스 <span class="resume__period">2023년 6월 - 7월</span>
 
 - 차세대 시스템과 클라이언트 사이의 API 하위 호환성 문제를 해결하기 위한 어댑터 서비스
-- 레디스와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
-- 외부 서비스 API 호출 기능 구현 및 와이어 목을 활용한 결합 테스트 검증
+- 레디스(Redis)와 웹 필터를 사용한 클라이언트 인증 프로세스 구현
+- 외부 서비스 API 호출 기능 구현 및 와이어목(WireMock)을 활용한 결합 테스트 검증
 
 #### [Toyota] EXPO 사내 컨퍼런스 네비게이션 애플리케이션 <span class="resume__period">2023년 3월 - 4월</span>
 
 - 토요타 사내 컨퍼런스 참여자들에게 프로그램 정보를 제공하는 웹 애플리케이션
 - 단위 테스트와 리팩토링을 통한 컴포넌트 재구성과 점진적인 신규 기능 확장
 - 카드 수집 시 등장 애니메이션 버그 수정
-- Google Analytics, Google Tag Manager 연결을 통한 사용자 데이터 수집 기능 개발
+- 구글 애널리틱스(Google Analytics), 구글 태그 매니저(Google Tag Manager) 연결을 통한 사용자 데이터 수집 기능 개발
 
 #### [KB 국민은행] 프론트 오피스 업무 전용 거래 서비스 <span class="resume__period">2022년 10월 - 2023년 2월</span>
 
@@ -148,7 +149,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 외국 거래 입력 시 시차로 인해 발생하는 이슈 해결을 위한 타임존 도메인 설계 및 개발
 - SSO 인증 프로세스 개발 및 사용자 권한 서비스 연계
 - 레거시 연계로 인해 발생하는 도메인 오염 방지를 위한 ACL(anti corruption layer) 구축
-- Jenkins CI/CD 파이프라인 구축
+- 젠킨스(Jenkins) CI/CD 파이프라인 구축
 
 #### [KB 국민은행] 마이데이터 기반 맞춤형 LiivM 요금제 추천 서비스 <span class="resume__period">2022년 1월 - 6월</span>
 
@@ -156,7 +157,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 마이데이터 기반 알뜰폰 추천을 위한 신규 상품 추천 도메인 모델 설계 및 개발
 - KB 사내 마이데이터 플랫폼 서비스 최초 연계 및 사용
 - KB 레거시 EAI 메시징 서비스 분석 및 리팩토링을 통한 코드 70% 축소
-- Jenkins CI/CD 파이프라인 구축
+- 젠킨스(Jenkins) CI/CD 파이프라인 구축
 
 <div class="resume-header"> 
   <img src="/images/about/about-3.png" width="4%" class=" image__margin-right image__border"/>
@@ -210,7 +211,7 @@ Java, Kotlin, Spring Boot, Spring Security, TypeScript, React, Kafka, Redis, AWS
 - 타 공정, 조업, 운송, 출하 시스템 API 연결 및 폴백(fallback) 처리 구현
 - 야드 관리 시스템 공통 비즈니스 룰 엔진 컴포넌트 리팩토링
 - 야드 관리 시스템 소재, 제품 적치를 위한 스케줄링 도메인 객체 리팩토링 및 개발
-- 메모리 캐시와 Kafka를 사용한 데이터 동기화로 룰 엔진 컴포넌트 80% 속도 개선
+- 메모리 캐시와 카프카(Kafka)를 사용한 데이터 동기화로 룰 엔진 컴포넌트 80% 속도 개선
   - 5초 이상 소요 시간을 1초 미만으로 개선
 - 이송 물류 개선을 위한 차량 이송 물류 스케줄링 구현
   - 이송될 물류를 미리 그룹화하고 순번을 지정하는 스케줄링 이후 타 운송 시스템으로 목록과 순번을 전송

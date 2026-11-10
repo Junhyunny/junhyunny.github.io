@@ -382,6 +382,36 @@ h1, h2, h3, p { margin: 0; }
 .link-list--posts .link-list__title { font-weight: var(--weight-medium); }
 .link-list--posts .entry-meta { margin-bottom: .25rem; color: var(--accent); }
 
+/* 이전 글·다음 글 ([...path].astro): 기술 글·회고 상세 화면 끝. 왼쪽은 더 오래된 글, 오른쪽은 더 최근 글 */
+.post-nav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+  margin-top: 3.35rem;
+}
+.article-appendix + .post-nav { margin-top: 1.5rem; }
+.post-nav__link {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  padding: .9rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--image-radius);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.post-nav__link:hover { border-color: #6b716a; color: var(--accent); }
+.post-nav__link--newer { grid-column: 2; align-items: flex-end; text-align: right; }
+.post-nav__label { color: var(--accent); font: var(--text-meta)/var(--leading-heading) var(--mono); }
+.post-nav__title { font-size: var(--text-label); font-weight: var(--weight-medium); line-height: var(--leading-ui); text-underline-offset: .25em; }
+.post-nav__link:hover .post-nav__title { text-decoration: underline; }
+.post-nav__date { color: var(--muted); font: var(--text-meta)/var(--leading-heading) var(--mono); }
+@media (max-width: 680px) {
+  .post-nav { grid-template-columns: minmax(0, 1fr); }
+  .post-nav__link--newer { grid-column: auto; }
+}
+
 /* 애드센스 카드 (components/third-party/AdSense.astro): 데스크톱은 목차 아래, 모바일은 본문 끝 */
 .ad-card {
   flex: none;

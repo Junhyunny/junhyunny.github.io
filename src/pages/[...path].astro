@@ -8,16 +8,24 @@ export async function getStaticPaths() {
   const posts = await getPosts();
   const logs = (await getCollection('logs')).sort(newestFirst);
   const books = (await getCollection('books')).sort(newestFirst);
+  // 이전 글(더 오래된 글)·다음 글(더 최근 글)은 같은 목록(기술 글, 회고) 안에서 숨긴 글을 빼고 고른다.
+  const neighbors = (list: Entry[], entry: Entry) => {
+    const visible = list.filter(({ data }) => !data.hidden);
+    const index = visible.indexOf(entry);
+    const link = (item?: Entry) => item && { href: item.data.canonicalPath, title: item.data.title, date: item.data.publishedAt };
+    return index < 0 ? {} : { older: link(visible[index + 1]), newer: link(visible[index - 1]) };
+  };
   return [
-    ...posts.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'post' as const, posts } })),
-    ...logs.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'log' as const, posts } })),
+    ...posts.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'post' as const, posts, ...neighbors(posts, entry) } })),
+    ...logs.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'log' as const, posts, ...neighbors(logs, entry) } })),
     ...books.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'book' as const, posts } })),
   ];
 }
 
 type Post = Awaited<ReturnType<typeof getPosts>>[number];
-interface Props { entry: Entry; kind: 'post' | 'log' | 'book'; posts: Post[] }
-const { entry, kind, posts } = Astro.props;
+type Neighbor = { href: string; title: string; date: string };
+interface Props { entry: Entry; kind: 'post' | 'log' | 'book'; posts: Post[]; older?: Neighbor; newer?: Neighbor }
+const { entry, kind, posts, older, newer } = Astro.props;
 const details = postDetails(entry);
 const isPost = kind === 'post';
 const { Content, headings } = await render(entry);
@@ -103,6 +111,18 @@ const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
             ))}
           </ul>
         </section>}
+        {(older || newer) && <nav class="post-nav" aria-label="이전 글과 다음 글" data-pagefind-ignore>
+          {older && <a class="post-nav__link post-nav__link--older" href={older.href} rel="prev">
+            <span class="post-nav__label"><span aria-hidden="true">←</span> 이전 글</span>
+            <span class="post-nav__title">{older.title}</span>
+            <time class="post-nav__date" datetime={older.date}>{older.date.replaceAll('-', '.')}</time>
+          </a>}
+          {newer && <a class="post-nav__link post-nav__link--newer" href={newer.href} rel="next">
+            <span class="post-nav__label">다음 글 <span aria-hidden="true">→</span></span>
+            <span class="post-nav__title">{newer.title}</span>
+            <time class="post-nav__date" datetime={newer.date}>{newer.date.replaceAll('-', '.')}</time>
+          </a>}
+        </nav>}
         {isPost && <section class="article-appendix" aria-labelledby="discussion-title" data-pagefind-ignore>
           <p class="eyebrow">DISCUSSION</p>
           <h2 id="discussion-title">댓글</h2>

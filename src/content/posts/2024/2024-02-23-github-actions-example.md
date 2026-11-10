@@ -51,27 +51,27 @@ recommendedPosts:
 ./
 ├── README.md
 ├── backend
-│   ├── Dockerfile
-│   ├── HELP.md
-│   ├── build.gradle
-│   ├── settings.gradle
-│   └── src
-│       ├── main
-│       │   ├── kotlin
-│       │   │   └── blog
-│       │   │       └── in
-│       │   │           └── action
-│       │   │               └── ActionInBlogApplication.kt
-│       │   └── resources
-│       │       ├── application.properties
-│       │       ├── static
-│       │       └── templates
-│       └── test
-│           └── kotlin
-│               └── blog
-│                   └── in
-│                       └── action
-│                           └── ActionInBlogApplicationTests.kt
+│   ├── Dockerfile
+│   ├── HELP.md
+│   ├── build.gradle
+│   ├── settings.gradle
+│   └── src
+│       ├── main
+│       │   ├── kotlin
+│       │   │   └── blog
+│       │   │       └── in
+│       │   │           └── action
+│       │   │               └── ActionInBlogApplication.kt
+│       │   └── resources
+│       │       ├── application.properties
+│       │       ├── static
+│       │       └── templates
+│       └── test
+│           └── kotlin
+│               └── blog
+│                   └── in
+│                       └── action
+│                           └── ActionInBlogApplicationTests.kt
 └── frontend
     ├── Dockerfile
     ├── README.md
@@ -79,22 +79,22 @@ recommendedPosts:
     ├── package-lock.json
     ├── package.json
     ├── public
-    │   ├── favicon.ico
-    │   ├── index.html
-    │   ├── logo192.png
-    │   ├── logo512.png
-    │   ├── manifest.json
-    │   └── robots.txt
+    │   ├── favicon.ico
+    │   ├── index.html
+    │   ├── logo192.png
+    │   ├── logo512.png
+    │   ├── manifest.json
+    │   └── robots.txt
     ├── src
-    │   ├── App.css
-    │   ├── App.test.tsx
-    │   ├── App.tsx
-    │   ├── index.css
-    │   ├── index.tsx
-    │   ├── logo.svg
-    │   ├── react-app-env.d.ts
-    │   ├── reportWebVitals.ts
-    │   └── setupTests.ts
+    │   ├── App.css
+    │   ├── App.test.tsx
+    │   ├── App.tsx
+    │   ├── index.css
+    │   ├── index.tsx
+    │   ├── logo.svg
+    │   ├── react-app-env.d.ts
+    │   ├── reportWebVitals.ts
+    │   └── setupTests.ts
     └── tsconfig.json
 ```
 

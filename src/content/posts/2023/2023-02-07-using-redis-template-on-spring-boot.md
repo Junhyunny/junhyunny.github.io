@@ -51,33 +51,33 @@ recommendedPosts:
 ├── run.sh
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.java
-    │   │               ├── client
-    │   │               │   ├── InvitationEventClient.java
-    │   │               │   └── RedisInvitationEventClient.java
-    │   │               ├── config
-    │   │               │   ├── EmbeddedRedisServerConfig.java
-    │   │               │   └── RedisTemplateConfig.java
-    │   │               ├── controller
-    │   │               │   ├── InvitationController.java
-    │   │               │   └── UserController.java
-    │   │               ├── domain
-    │   │               │   ├── Invitation.java
-    │   │               │   ├── InvitationMessage.java
-    │   │               │   ├── InvitationStatus.java
-    │   │               │   └── QueueChannel.java
-    │   │               └── proxy
-    │   │                   ├── EmbbededRedisUserMessageProxy.java
-    │   │                   ├── RedisUserMessageProxy.java
-    │   │                   └── UserMessageProxy.java
-    │   └── resources
-    │       ├── application-dev.yml
-    │       ├── application-local.yml
-    │       └── application.yml
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── client
+    │   │               │   ├── InvitationEventClient.java
+    │   │               │   └── RedisInvitationEventClient.java
+    │   │               ├── config
+    │   │               │   ├── EmbeddedRedisServerConfig.java
+    │   │               │   └── RedisTemplateConfig.java
+    │   │               ├── controller
+    │   │               │   ├── InvitationController.java
+    │   │               │   └── UserController.java
+    │   │               ├── domain
+    │   │               │   ├── Invitation.java
+    │   │               │   ├── InvitationMessage.java
+    │   │               │   ├── InvitationStatus.java
+    │   │               │   └── QueueChannel.java
+    │   │               └── proxy
+    │   │                   ├── EmbbededRedisUserMessageProxy.java
+    │   │                   ├── RedisUserMessageProxy.java
+    │   │                   └── UserMessageProxy.java
+    │   └── resources
+    │       ├── application-dev.yml
+    │       ├── application-local.yml
+    │       └── application.yml
     └── test
         └── java
             └── action

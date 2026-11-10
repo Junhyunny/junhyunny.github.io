@@ -142,11 +142,11 @@ $ tree .
 .
 ├── __init__.py
 ├── events
-│   └── hello.json
+│   └── hello.json
 ├── hello_world
-│   ├── __init__.py
-│   ├── app.py
-│   └── requirements.txt
+│   ├── __init__.py
+│   ├── app.py
+│   └── requirements.txt
 ├── README.md
 ├── samconfig.toml
 ├── template.yaml

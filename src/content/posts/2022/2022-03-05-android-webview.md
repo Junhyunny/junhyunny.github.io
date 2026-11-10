@@ -22,35 +22,35 @@ recommendedPosts:
  % tree -I 'build|libs|test|androidTest|values*|mipmap*' .
 .
 ├── app
-│   ├── build.gradle
-│   ├── proguard-rules.pro
-│   └── src
-│       └── main
-│           ├── AndroidManifest.xml
-│           ├── java
-│           │   └── com
-│           │       └── example
-│           │           └── myapplication
-│           │               ├── FirstFragment.java
-│           │               └── MainActivity.java
-│           └── res
-│               ├── drawable
-│               │   └── ic_launcher_background.xml
-│               ├── drawable-v24
-│               │   └── ic_launcher_foreground.xml
-│               ├── layout
-│               │   ├── activity_main.xml
-│               │   ├── content_main.xml
-│               │   └── fragment_first.xml
-│               ├── menu
-│               │   └── menu_main.xml
-│               └── navigation
-│                   └── nav_graph.xml
+│   ├── build.gradle
+│   ├── proguard-rules.pro
+│   └── src
+│       └── main
+│           ├── AndroidManifest.xml
+│           ├── java
+│           │   └── com
+│           │       └── example
+│           │           └── myapplication
+│           │               ├── FirstFragment.java
+│           │               └── MainActivity.java
+│           └── res
+│               ├── drawable
+│               │   └── ic_launcher_background.xml
+│               ├── drawable-v24
+│               │   └── ic_launcher_foreground.xml
+│               ├── layout
+│               │   ├── activity_main.xml
+│               │   ├── content_main.xml
+│               │   └── fragment_first.xml
+│               ├── menu
+│               │   └── menu_main.xml
+│               └── navigation
+│                   └── nav_graph.xml
 ├── build.gradle
 ├── gradle
-│   └── wrapper
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
 ├── gradle.properties
 ├── gradlew
 ├── gradlew.bat

@@ -32,29 +32,29 @@ recommendedPosts:
 ├── gradlew
 ├── gradlew.bat
 ├── init
-│   ├── create-table.sh
-│   ├── migration-data.sh
-│   └── update-table.sh
+│   ├── create-table.sh
+│   ├── migration-data.sh
+│   └── update-table.sh
 ├── settings.gradle.kts
 └── src
     ├── main
-    │   ├── kotlin
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.kt
-    │   │               ├── config
-    │   │               │   └── DynamoDbConfig.kt
-    │   │               ├── controller
-    │   │               │   └── MovieController.kt
-    │   │               ├── domain
-    │   │               │   └── MovieInfo.kt
-    │   │               └── repository
-    │   │                   └── MovieRepository.kt
-    │   └── resources
-    │       ├── application.yml
-    │       ├── static
-    │       └── templates
+    │   ├── kotlin
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.kt
+    │   │               ├── config
+    │   │               │   └── DynamoDbConfig.kt
+    │   │               ├── controller
+    │   │               │   └── MovieController.kt
+    │   │               ├── domain
+    │   │               │   └── MovieInfo.kt
+    │   │               └── repository
+    │   │                   └── MovieRepository.kt
+    │   └── resources
+    │       ├── application.yml
+    │       ├── static
+    │       └── templates
     └── test
         └── kotlin
             └── action

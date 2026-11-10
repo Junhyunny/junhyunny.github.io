@@ -133,23 +133,23 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 .
 ├── README.md
 ├── backend-gradle
-│   ├── HELP.md
-│   ├── build.gradle
-│   ├── gradlew
-│   ├── gradlew.bat
-│   ├── manifest.yml
-│   ├── package-lock.json
-│   ├── settings.gradle
-│   └── src
+│   ├── HELP.md
+│   ├── build.gradle
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── manifest.yml
+│   ├── package-lock.json
+│   ├── settings.gradle
+│   └── src
 
 ...
 
 ├── backend-maven
-│   ├── HELP.md
-│   ├── mvnw
-│   ├── mvnw.cmd
-│   ├── pom.xml
-│   └── src
+│   ├── HELP.md
+│   ├── mvnw
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src
 
 ...
 
@@ -158,7 +158,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
     ├── index.html
     ├── package.json
     ├── public
-    │   └── vite.svg
+    │   └── vite.svg
     ├── src
 
 ...

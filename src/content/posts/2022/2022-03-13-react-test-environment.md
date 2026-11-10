@@ -81,12 +81,12 @@ Done. Now run:
 ├── package-lock.json
 ├── package.json
 ├── src
-│   ├── App.css
-│   ├── App.jsx
-│   ├── favicon.svg
-│   ├── index.css
-│   ├── logo.svg
-│   └── main.jsx
+│   ├── App.css
+│   ├── App.jsx
+│   ├── favicon.svg
+│   ├── index.css
+│   ├── logo.svg
+│   └── main.jsx
 └── vite.config.js
 ```
 

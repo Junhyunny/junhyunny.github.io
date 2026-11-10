@@ -40,7 +40,7 @@ DyanmoDB는 완전 관리형 데이터베이스다. AWS에서 모두 관리하�
 └── init
     ├── create-table.sh
     ├── data
-    │   └── todo.json
+    │   └── todo.json
     └── migration-data.sh
 ```
 

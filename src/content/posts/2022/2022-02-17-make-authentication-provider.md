@@ -46,29 +46,29 @@ recommendedPosts:
 ├── pom.xml
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.java
-    │   │               ├── filters
-    │   │               │   └── JwtAuthenticationFilter.java
-    │   │               └── security
-    │   │                   ├── config
-    │   │                   │   ├── JwtSecurityConfig.java
-    │   │                   │   └── SecurityConfig.java
-    │   │                   ├── controller
-    │   │                   │   └── AuthController.java
-    │   │                   ├── exception
-    │   │                   │   └── JwtInvalidException.java
-    │   │                   ├── provider
-    │   │                   │   └── JwtAuthenticationProvider.java
-    │   │                   └── tokens
-    │   │                       └── JwtAuthenticationToken.java
-    │   └── resources
-    │       ├── application.yml
-    │       ├── static
-    │       └── templates
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── filters
+    │   │               │   └── JwtAuthenticationFilter.java
+    │   │               └── security
+    │   │                   ├── config
+    │   │                   │   ├── JwtSecurityConfig.java
+    │   │                   │   └── SecurityConfig.java
+    │   │                   ├── controller
+    │   │                   │   └── AuthController.java
+    │   │                   ├── exception
+    │   │                   │   └── JwtInvalidException.java
+    │   │                   ├── provider
+    │   │                   │   └── JwtAuthenticationProvider.java
+    │   │                   └── tokens
+    │   │                       └── JwtAuthenticationToken.java
+    │   └── resources
+    │       ├── application.yml
+    │       ├── static
+    │       └── templates
     └── test
         └── java
             └── action
@@ -76,10 +76,10 @@ recommendedPosts:
                     └── blog
                         ├── ActionInBlogApplicationTests.java
                         ├── filters
-                        │   └── JwtAuthenticationFilterTest.java
+                        │   └── JwtAuthenticationFilterTest.java
                         └── security
                             ├── controller
-                            │   └── AuthControllerTest.java
+                            │   └── AuthControllerTest.java
                             └── provider
                                 └── JwtAuthenticationProviderTest.java
 

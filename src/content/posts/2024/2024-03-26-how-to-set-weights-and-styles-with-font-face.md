@@ -62,26 +62,26 @@ categories:
 ├── package-lock.json
 ├── package.json
 ├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── logo192.png
-│   ├── logo512.png
-│   ├── manifest.json
-│   └── robots.txt
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── robots.txt
 ├── src
-│   ├── App.tsx
-│   ├── assets
-│   │   └── fonts
-│   │       ├── EduNSWACTFoundation-Bold.ttf
-│   │       ├── EduNSWACTFoundation-Medium.ttf
-│   │       ├── EduNSWACTFoundation-Regular.ttf
-│   │       └── EduNSWACTFoundation-SemiBold.ttf
-│   ├── index.css
-│   ├── index.tsx
-│   ├── logo.svg
-│   ├── react-app-env.d.ts
-│   ├── reportWebVitals.ts
-│   └── setupTests.ts
+│   ├── App.tsx
+│   ├── assets
+│   │   └── fonts
+│   │       ├── EduNSWACTFoundation-Bold.ttf
+│   │       ├── EduNSWACTFoundation-Medium.ttf
+│   │       ├── EduNSWACTFoundation-Regular.ttf
+│   │       └── EduNSWACTFoundation-SemiBold.ttf
+│   ├── index.css
+│   ├── index.tsx
+│   ├── logo.svg
+│   ├── react-app-env.d.ts
+│   ├── reportWebVitals.ts
+│   └── setupTests.ts
 └── tsconfig.json
 ```
 

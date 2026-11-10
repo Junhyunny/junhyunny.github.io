@@ -36,15 +36,15 @@ recommendedPosts:
 └── src
     └── main
         ├── java
-        │   └── action
-        │       └── in
-        │           └── blog
-        │               ├── ActionInBlogApplication.java
-        │               ├── config
-        │               │   └── SecurityConfig.java
-        │               └── controller
-        │                   ├── CsrfController.java
-        │                   └── TodoController.java
+        │   └── action
+        │       └── in
+        │           └── blog
+        │               ├── ActionInBlogApplication.java
+        │               ├── config
+        │               │   └── SecurityConfig.java
+        │               └── controller
+        │                   ├── CsrfController.java
+        │                   └── TodoController.java
         └── resources
             ├── application.properties
             ├── static

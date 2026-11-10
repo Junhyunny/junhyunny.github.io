@@ -69,21 +69,21 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
 ./
 ├── ActionInBlogApp.swift
 ├── Assets.xcassets
-│   ├── AccentColor.colorset
-│   │   └── Contents.json
-│   ├── AppIcon.appiconset
-│   │   └── Contents.json
-│   └── Contents.json
+│   ├── AccentColor.colorset
+│   │   └── Contents.json
+│   ├── AppIcon.appiconset
+│   │   └── Contents.json
+│   └── Contents.json
 ├── Domains
-│   ├── Pokemon.swift
-│   └── PokemonPage.swift
+│   ├── Pokemon.swift
+│   └── PokemonPage.swift
 ├── Models
-│   └── PokemonRepository.swift
+│   └── PokemonRepository.swift
 ├── Preview Content
-│   └── Preview Assets.xcassets
-│       └── Contents.json
+│   └── Preview Assets.xcassets
+│       └── Contents.json
 ├── ViewModels
-│   └── ContentViewModel.swift
+│   └── ContentViewModel.swift
 └── Views
     └── ContentView.swift
 ```

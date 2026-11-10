@@ -377,15 +377,15 @@ $ mvn clean:clean jar:jar install:install
 ├── pom.xml
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               └── ActionInBlogApplication.java
-    │   └── resources
-    │       ├── application.properties
-    │       ├── static
-    │       └── templates
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               └── ActionInBlogApplication.java
+    │   └── resources
+    │       ├── application.properties
+    │       ├── static
+    │       └── templates
     └── test
         └── java
             └── action

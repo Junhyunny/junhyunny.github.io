@@ -120,23 +120,23 @@ components:
 ```
 .
 ├── env
-│   ├── main.tf
-│   ├── provider.tf
-│   └── variables.tf
+│   ├── main.tf
+│   ├── provider.tf
+│   └── variables.tf
 └── modules
     ├── apigw
-    │   ├── main.tf
-    │   └── variables.tf
+    │   ├── main.tf
+    │   └── variables.tf
     ├── dynamodb
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   └── variables.tf
+    │   ├── main.tf
+    │   ├── outputs.tf
+    │   └── variables.tf
     ├── iam
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   ├── policy
-    │   │   └── dynamodb_policy.json
-    │   └── variables.tf
+    │   ├── main.tf
+    │   ├── outputs.tf
+    │   ├── policy
+    │   │   └── dynamodb_policy.json
+    │   └── variables.tf
     └── lambda
         ├── main.tf
         ├── outputs.tf
@@ -188,40 +188,40 @@ dynamodb, iam 모듈에 대한 내용은 이번 글의 주제에서 벗어나기
 ```
 .
 ├── .aws-sam
-│   ├── build
-│   │   ├── DeleteTodoFunction
-│   │   │   ├── app.js
-│   │   │   └── app.js.map
-│   │   ├── GetTodoByIdFunction
-│   │   │   ├── app.js
-│   │   │   └── app.js.map
-│   │   ├── GetTodosFunction
-│   │   │   ├── app.js
-│   │   │   └── app.js.map
-│   │   ├── PostTodoFunction
-│   │   │   ├── app.js
-│   │   │   └── app.js.map
-│   │   ├── PutTodoFunction
-│   │   │   ├── app.js
-│   │   │   └── app.js.map
-│   │   └── template.yaml
+│   ├── build
+│   │   ├── DeleteTodoFunction
+│   │   │   ├── app.js
+│   │   │   └── app.js.map
+│   │   ├── GetTodoByIdFunction
+│   │   │   ├── app.js
+│   │   │   └── app.js.map
+│   │   ├── GetTodosFunction
+│   │   │   ├── app.js
+│   │   │   └── app.js.map
+│   │   ├── PostTodoFunction
+│   │   │   ├── app.js
+│   │   │   └── app.js.map
+│   │   ├── PutTodoFunction
+│   │   │   ├── app.js
+│   │   │   └── app.js.map
+│   │   └── template.yaml
 ├── .gitignore
 ├── .npmignore
 ├── biome.json
 ├── jest.config.ts
 ├── main
-│   ├── common
-│   │   └── dynamodb-client.ts
-│   ├── delete-todo
-│   │   └── app.ts
-│   ├── get-todo-by-id
-│   │   └── app.ts
-│   ├── get-todos
-│   │   └── app.ts
-│   ├── post-todo
-│   │   └── app.ts
-│   └── put-todo
-│       └── app.ts
+│   ├── common
+│   │   └── dynamodb-client.ts
+│   ├── delete-todo
+│   │   └── app.ts
+│   ├── get-todo-by-id
+│   │   └── app.ts
+│   ├── get-todos
+│   │   └── app.ts
+│   ├── post-todo
+│   │   └── app.ts
+│   └── put-todo
+│       └── app.ts
 ├── package-lock.json
 ├── package.json
 ├── samconfig.toml

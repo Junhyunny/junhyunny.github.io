@@ -138,7 +138,7 @@ runs:
 ```
 .
 ├── workflows
-│   └── demo-workflow.yml
+│   └── demo-workflow.yml
 └── actions
     └── minus
         └── action.yml

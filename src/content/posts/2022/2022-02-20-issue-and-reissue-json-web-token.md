@@ -69,44 +69,44 @@ recommendedPosts:
 ├── pom.xml
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.java
-    │   │               ├── filters
-    │   │               │   └── JwtAuthenticationFilter.java
-    │   │               └── security
-    │   │                   ├── config
-    │   │                   │   ├── JwtSecurityConfig.java
-    │   │                   │   └── SecurityConfig.java
-    │   │                   ├── controller
-    │   │                   │   └── AuthController.java
-    │   │                   ├── dto
-    │   │                   │   ├── JsonWebTokenDto.java
-    │   │                   │   └── UserDto.java
-    │   │                   ├── entity
-    │   │                   │   └── User.java
-    │   │                   ├── exception
-    │   │                   │   └── JwtInvalidException.java
-    │   │                   ├── provider
-    │   │                   │   └── JwtAuthenticationProvider.java
-    │   │                   ├── repository
-    │   │                   │   └── AuthRepository.java
-    │   │                   ├── service
-    │   │                   │   └── AuthService.java
-    │   │                   ├── tokens
-    │   │                   │   └── JwtAuthenticationToken.java
-    │   │                   └── utils
-    │   │                       └── JsonWebTokenIssuer.java
-    │   └── resources
-    │       ├── application-test.yml
-    │       ├── application.yml
-    │       ├── db
-    │       │   ├── data.sql
-    │       │   └── schema.sql
-    │       ├── static
-    │       └── templates
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.java
+    │   │               ├── filters
+    │   │               │   └── JwtAuthenticationFilter.java
+    │   │               └── security
+    │   │                   ├── config
+    │   │                   │   ├── JwtSecurityConfig.java
+    │   │                   │   └── SecurityConfig.java
+    │   │                   ├── controller
+    │   │                   │   └── AuthController.java
+    │   │                   ├── dto
+    │   │                   │   ├── JsonWebTokenDto.java
+    │   │                   │   └── UserDto.java
+    │   │                   ├── entity
+    │   │                   │   └── User.java
+    │   │                   ├── exception
+    │   │                   │   └── JwtInvalidException.java
+    │   │                   ├── provider
+    │   │                   │   └── JwtAuthenticationProvider.java
+    │   │                   ├── repository
+    │   │                   │   └── AuthRepository.java
+    │   │                   ├── service
+    │   │                   │   └── AuthService.java
+    │   │                   ├── tokens
+    │   │                   │   └── JwtAuthenticationToken.java
+    │   │                   └── utils
+    │   │                       └── JsonWebTokenIssuer.java
+    │   └── resources
+    │       ├── application-test.yml
+    │       ├── application.yml
+    │       ├── db
+    │       │   ├── data.sql
+    │       │   └── schema.sql
+    │       ├── static
+    │       └── templates
     └── test
         └── java
             └── action
@@ -114,16 +114,16 @@ recommendedPosts:
                     └── blog
                         ├── ActionInBlogApplicationTests.java
                         ├── filters
-                        │   └── JwtAuthenticationFilterTest.java
+                        │   └── JwtAuthenticationFilterTest.java
                         └── security
                             ├── controller
-                            │   └── AuthControllerTest.java
+                            │   └── AuthControllerTest.java
                             ├── provider
-                            │   └── JwtAuthenticationProviderTest.java
+                            │   └── JwtAuthenticationProviderTest.java
                             ├── repository
-                            │   └── AuthRepositoryTest.java
+                            │   └── AuthRepositoryTest.java
                             ├── service
-                            │   └── AuthServiceTest.java
+                            │   └── AuthServiceTest.java
                             └── utils
                                 └── JsonWebTokenIssuerTest.java
 ```

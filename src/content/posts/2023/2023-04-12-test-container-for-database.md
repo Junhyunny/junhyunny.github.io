@@ -61,32 +61,32 @@ recommendedPosts:
 ├── HELP.md
 ├── build.gradle
 ├── gradle
-│   └── wrapper
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
+│   └── wrapper
+│       ├── gradle-wrapper.jar
+│       └── gradle-wrapper.properties
 ├── gradlew
 ├── gradlew.bat
 ├── settings.gradle
 └── src
     ├── main
-    │   ├── java
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.java
-    │   │               └── post
-    │   │                   ├── Post.java
-    │   │                   └── PostRepository.java
-    │   └── resources
-    │       ├── application.properties
-    │       ├── static
-    │       └── templates
+    │   ├── java
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.java
+    │   │               └── post
+    │   │                   ├── Post.java
+    │   │                   └── PostRepository.java
+    │   └── resources
+    │       ├── application.properties
+    │       ├── static
+    │       └── templates
     └── test
         ├── java
-        │   └── action
-        │       └── in
-        │           └── blog
-        │               └── ApplicationIT.java
+        │   └── action
+        │       └── in
+        │           └── blog
+        │               └── ApplicationIT.java
         └── resources
             ├── application-test.yml
             └── logback-test.xml

@@ -21,21 +21,21 @@ IDE(Integrated Development Environment) 환경에서 애플리케이션을 실�
 ~/Desktop/action-in-blog-0.0.1-SNAPSHOT % tree BOOT-INF
 BOOT-INF
 ├── classes
-│   ├── action
-│   │   └── in
-│   │       └── blog
-│   │           ├── ActionInBlogApplication.class
-│   │           ├── controller
-│   │           │   └── PokeomonController.class
-│   │           ├── domain
-│   │           │   ├── PokemonResponse$Pokemon.class
-│   │           │   └── PokemonResponse.class
-│   │           └── proxy
-│   │               ├── DefaultPokemonProxy.class
-│   │               ├── LocalPokemonProxy.class
-│   │               └── PokemonProxy.class
-│   ├── application.yml
-│   └── pokemons.json
+│   ├── action
+│   │   └── in
+│   │       └── blog
+│   │           ├── ActionInBlogApplication.class
+│   │           ├── controller
+│   │           │   └── PokeomonController.class
+│   │           ├── domain
+│   │           │   ├── PokemonResponse$Pokemon.class
+│   │           │   └── PokemonResponse.class
+│   │           └── proxy
+│   │               ├── DefaultPokemonProxy.class
+│   │               ├── LocalPokemonProxy.class
+│   │               └── PokemonProxy.class
+│   ├── application.yml
+│   └── pokemons.json
 ├── classpath.idx
 ├── layers.idx
 └── lib

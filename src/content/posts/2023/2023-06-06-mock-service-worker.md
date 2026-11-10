@@ -69,29 +69,29 @@ CRA(Create React App)을 통해 프로젝트를 생성하였으며 전체적인 
 ├── package-lock.json
 ├── package.json
 ├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   ├── logo192.png
-│   ├── logo512.png
-│   ├── manifest.json
-│   ├── mockServiceWorker.js
-│   └── robots.txt
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   ├── mockServiceWorker.js
+│   └── robots.txt
 ├── src
-│   ├── App.css
-│   ├── App.test.tsx
-│   ├── App.tsx
-│   ├── index.css
-│   ├── index.tsx
-│   ├── logo.svg
-│   ├── mocks
-│   │   ├── browser.ts
-│   │   ├── handlers.ts
-│   │   └── server.ts
-│   ├── react-app-env.d.ts
-│   ├── reportWebVitals.ts
-│   ├── setupTests.ts
-│   └── types
-│       └── Todo.ts
+│   ├── App.css
+│   ├── App.test.tsx
+│   ├── App.tsx
+│   ├── index.css
+│   ├── index.tsx
+│   ├── logo.svg
+│   ├── mocks
+│   │   ├── browser.ts
+│   │   ├── handlers.ts
+│   │   └── server.ts
+│   ├── react-app-env.d.ts
+│   ├── reportWebVitals.ts
+│   ├── setupTests.ts
+│   └── types
+│       └── Todo.ts
 ├── tsconfig.json
 └── yarn.lock
 ```

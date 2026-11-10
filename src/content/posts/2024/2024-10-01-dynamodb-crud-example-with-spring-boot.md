@@ -37,37 +37,37 @@ recommendedPosts:
 ├── gradlew
 ├── gradlew.bat
 ├── https
-│   ├── CreateTodo.http
-│   ├── DeleteTodo.http
-│   ├── GetTodo.http
-│   ├── GetTodos.http
-│   └── UpdateTodo.http
+│   ├── CreateTodo.http
+│   ├── DeleteTodo.http
+│   ├── GetTodo.http
+│   ├── GetTodos.http
+│   └── UpdateTodo.http
 ├── init
-│   └── create-table.sh
+│   └── create-table.sh
 ├── settings.gradle.kts
 └── src
     ├── main
-    │   ├── kotlin
-    │   │   └── action
-    │   │       └── in
-    │   │           └── blog
-    │   │               ├── ActionInBlogApplication.kt
-    │   │               ├── config
-    │   │               │   └── DynamoDbConfig.kt
-    │   │               ├── controller
-    │   │               │   ├── TodoController.kt
-    │   │               │   ├── request
-    │   │               │   │   └── TodoRequest.kt
-    │   │               │   └── response
-    │   │               │       └── TodoResponse.kt
-    │   │               └── repository
-    │   │                   ├── TodoRepository.kt
-    │   │                   └── entity
-    │   │                       └── TodoEntity.kt
-    │   └── resources
-    │       ├── application.yml
-    │       ├── static
-    │       └── templates
+    │   ├── kotlin
+    │   │   └── action
+    │   │       └── in
+    │   │           └── blog
+    │   │               ├── ActionInBlogApplication.kt
+    │   │               ├── config
+    │   │               │   └── DynamoDbConfig.kt
+    │   │               ├── controller
+    │   │               │   ├── TodoController.kt
+    │   │               │   ├── request
+    │   │               │   │   └── TodoRequest.kt
+    │   │               │   └── response
+    │   │               │       └── TodoResponse.kt
+    │   │               └── repository
+    │   │                   ├── TodoRepository.kt
+    │   │                   └── entity
+    │   │                       └── TodoEntity.kt
+    │   └── resources
+    │       ├── application.yml
+    │       ├── static
+    │       └── templates
     └── test
         └── kotlin
             └── action

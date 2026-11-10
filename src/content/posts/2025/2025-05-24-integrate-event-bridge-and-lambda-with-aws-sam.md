@@ -47,11 +47,11 @@ $ tree -I ".aws-sam|.idea|.venv|venv" .
 ├── __init__.py
 ├── samconfig.toml
 ├── target-1
-│   ├── __init__.py
-│   └── handler.py
+│   ├── __init__.py
+│   └── handler.py
 ├── target-2
-│   ├── __init__.py
-│   └── handler.py
+│   ├── __init__.py
+│   └── handler.py
 └── template.yaml
 ```
 

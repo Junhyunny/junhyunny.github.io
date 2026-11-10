@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import AdSense from '../components/third-party/AdSense.astro';
 import Base from '../layouts/Base.astro';
 import { getPosts, liveSite, newestFirst, postDetails, type Entry } from '../posts';
 
@@ -69,14 +70,17 @@ const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
           {entry.data.tags?.map((tag) => <li data-pagefind-filter="tag">{tag}</li>)}
         </ul>
       </header>
-      {outline.length > 0 && <aside class="desktop-outline" data-pagefind-ignore>
-        <nav class="outline" aria-label="글 목차">
-          <p class="eyebrow">ON THIS PAGE</p>
-          <ul>
-            {outline.map(({ slug, text, depth }) => <li class:list={{ nested: depth === 3 }}><a href={`#${slug}`}>{text}</a></li>)}
-          </ul>
-        </nav>
-      </aside>}
+      <aside class="desktop-outline" data-pagefind-ignore>
+        <div class="desktop-outline__rail">
+          {outline.length > 0 && <nav class="outline" aria-label="글 목차">
+            <p class="eyebrow">ON THIS PAGE</p>
+            <ul>
+              {outline.map(({ slug, text, depth }) => <li class:list={{ nested: depth === 3 }}><a href={`#${slug}`}>{text}</a></li>)}
+            </ul>
+          </nav>}
+          <AdSense placement="sidebar" />
+        </div>
+      </aside>
       <div class="article-column">
         {outline.length > 0 && <details class="mobile-outline" data-pagefind-ignore>
           <summary>이 글의 목차</summary>
@@ -88,6 +92,7 @@ const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
         </details>}
         <div class="prose"><Content /></div>
         <p class="sr-only" role="status" id="copy-status" data-pagefind-ignore></p>
+        <AdSense placement="article-end" />
         {relatedLinks.length > 0 && <section class="article-appendix" aria-labelledby="related-title" data-pagefind-ignore>
           <p class="eyebrow">KEEP READING</p>
           <h2 id="related-title">함께 읽으면 좋은 글</h2>

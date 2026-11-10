@@ -1,0 +1,37 @@
+---
+// 글 상세의 애드센스 카드. 데스크톱은 목차 아래(sidebar), 모바일은 본문 끝(article-end)에 하나만 보인다.
+// 자동 광고는 쓰지 않고 이 디스플레이 광고 단위만 배치한다. 개발 서버에서는 실제 광고 대신 자리만 표시한다.
+interface Props { placement: 'sidebar' | 'article-end' }
+
+const { placement } = Astro.props;
+const client = 'ca-pub-3270204283865249';
+const slot = '1592931158';
+const live = import.meta.env.PROD;
+---
+<aside class:list={['ad-card', `ad-card--${placement}`]} aria-label="광고" data-pagefind-ignore>
+  <p class="ad-card__label">광고</p>
+  {live
+    ? <ins
+        class="adsbygoogle ad-card__unit"
+        style="display:block"
+        data-ad-client={client}
+        data-ad-slot={slot}
+        data-ad-format="auto"
+        data-full-width-responsive={placement === 'article-end' ? 'true' : 'false'}
+      ></ins>
+    : <div class="ad-card__unit ad-card__placeholder">광고 영역 (운영 빌드에서만 표시)</div>}
+</aside>
+<script>
+  // 화면에 보이는 광고 단위만 요청한다. (숨겨진 단위에 요청하면 크기 0 오류가 나고 노출 집계도 어긋난다)
+  type AdsWindow = Window & { adsbygoogle?: unknown[] };
+  const units = [...document.querySelectorAll<HTMLElement>('ins.adsbygoogle')].filter((unit) => unit.offsetParent !== null);
+  if (units.length > 0) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${units[0].dataset.adClient}`;
+    document.head.append(script);
+    const ads = ((window as AdsWindow).adsbygoogle ??= []);
+    units.forEach(() => ads.push({}));
+  }
+</script>

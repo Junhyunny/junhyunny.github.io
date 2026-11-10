@@ -240,7 +240,9 @@ h1, h2, h3, p { margin: 0; }
 .taxonomy li { padding: .28rem .52rem; border: 1px solid var(--line); color: var(--accent); font: var(--text-meta)/var(--leading-ui) var(--mono); }
 .article-column { grid-area: body; min-width: 0; }
 .desktop-outline { grid-area: outline; min-width: 0; }
-.desktop-outline .outline { position: sticky; top: 2rem; max-height: calc(100vh - 4rem); overflow: auto; border-left: 1px solid var(--line); padding-left: 1.2rem; }
+/* 목차와 광고 카드를 함께 고정한다. 목차가 길면 목차 안에서만 스크롤된다. */
+.desktop-outline__rail { position: sticky; top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; max-height: calc(100vh - 4rem); }
+.desktop-outline .outline { min-height: 0; overflow: auto; border-left: 1px solid var(--line); padding-left: 1.2rem; }
 .outline ul { margin: .85rem 0 0; padding: 0; list-style: none; }
 .outline li + li { margin-top: .45rem; }
 .outline .nested { padding-left: .85rem; }
@@ -367,6 +369,20 @@ h1, h2, h3, p { margin: 0; }
 .link-list--posts .link-list__title { font-weight: var(--weight-medium); }
 .link-list--posts .entry-meta { margin-bottom: .25rem; color: var(--accent); }
 
+/* 애드센스 카드 (components/third-party/AdSense.astro): 데스크톱은 목차 아래, 모바일은 본문 끝 */
+.ad-card {
+  flex: none;
+  padding: .75rem .9rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--image-radius);
+}
+.ad-card__label { margin-bottom: .5rem; color: var(--muted); font: var(--text-meta)/var(--leading-ui) var(--mono); letter-spacing: .07em; }
+/* 광고가 늦게 불러와져도 아래 내용이 밀리지 않도록 높이를 미리 잡는다. */
+.ad-card__unit { min-height: 250px; }
+.ad-card__placeholder { display: grid; place-items: center; padding: 1rem; border: 1px dashed var(--line); color: var(--muted); font-size: var(--text-meta); text-align: center; }
+.ad-card--article-end { display: none; margin-top: 2.5rem; }
+
 .search-dialog {
   width: min(34rem, calc(100% - 2rem));
   margin: min(16vh, 8rem) auto auto;
@@ -409,6 +425,7 @@ h1, h2, h3, p { margin: 0; }
   .article-header { margin-bottom: 1.25rem; padding-bottom: 1.4rem; }
   .article-header .page-title { text-wrap: wrap; }
   .desktop-outline { display: none; }
+  .ad-card--article-end { display: block; }
   .mobile-outline { display: block; padding: .75rem; border: 1px solid var(--line); margin-bottom: 1.25rem; }
   .mobile-outline summary { cursor: pointer; font-size: var(--text-compact); }
   .footer-inner { align-items: start; flex-wrap: wrap; }

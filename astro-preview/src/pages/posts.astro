@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import MenuIntro from '../components/MenuIntro.astro';
+import { liveSite, postDetails } from '../posts';
+
+const posts = (await getCollection('posts')).sort((a, b) => b.id.localeCompare(a.id));
+const entries = posts.map((post) => ({ ...postDetails(post), ...post.data, year: post.id.slice(0, 4) }));
+const years = [...new Set(entries.map((entry) => entry.year))];
+const latestYear = years[0];
+const categories = [...new Set(entries.flatMap((entry) => entry.category))].sort();
+const tags = [...new Set(entries.flatMap((entry) => entry.tags ?? []))].sort();
+---
+<Base page="archive" title="Archive" description="카테고리와 연도로 찾아보는 기술 글 아카이브">
+  <main id="main" class="shell">
+    <MenuIntro kicker="TECHNICAL INDEX" description="관심 있는 기술 주제나 연도를 골라 글을 찾아보세요.">Archive</MenuIntro>
+    <div class="archive-grid">
+      <aside class="archive-sidebar">
+        <h2>글 탐색</h2>
+        <form class="archive-filters">
+          <label>카테고리
+            <select name="category">
+              <option value="">모든 카테고리</option>
+              {categories.map((category) => <option value={category}>{category}</option>)}
+            </select>
+          </label>
+          <label>연도
+            <select name="year">
+              <option value="">모든 연도</option>
+              {years.map((year) => <option value={year} selected={year === latestYear}>{year}</option>)}
+            </select>
+          </label>
+          {tags.length > 0 && <label>태그
+            <select name="tag">
+              <option value="">모든 태그</option>
+              {tags.map((tag) => <option value={tag}>{tag}</option>)}
+            </select>
+          </label>}
+          <button class="text-link reset-filters" type="reset">필터 초기화</button>
+        </form>
+        <p class="preview-note">시안에는 표본 글 {entries.length}편을 담았습니다.</p>
+        <a class="text-link" href={`${liveSite}/posts/`}>운영 아카이브 보기 <span aria-hidden="true">↗</span></a>
+      </aside>
+      <div class="archive-list">
+        <p class="eyebrow archive-count" role="status">{entries.filter((entry) => entry.year === latestYear).length}개 글</p>
+        {years.map((year) => (
+          <section class="archive-year" aria-labelledby={`year-${year}`} hidden={year !== latestYear}>
+            <h2 id={`year-${year}`}>{year}</h2>
+            <ul class="entries">
+              {entries.filter((entry) => entry.year === year).map((entry) => (
+                <li data-category={JSON.stringify(entry.category)} data-tags={JSON.stringify(entry.tags ?? [])} data-year={year}>
+                  <div class="entry-meta"><span>{entry.category[0]}</span><time datetime={entry.date}>{entry.label}</time></div>
+                  <h3><a href={entry.href}>{entry.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
+                  <p>{entry.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+        <p class="archive-empty" hidden>선택한 조건에 맞는 글이 없습니다.</p>
+      </div>
+    </div>
+  </main>
+</Base>
+<script>
+  const filters = document.querySelector<HTMLFormElement>('.archive-filters');
+  const groups = document.querySelectorAll<HTMLElement>('.archive-year');
+  const count = document.querySelector('.archive-count');
+  const empty = document.querySelector<HTMLElement>('.archive-empty');
+
+  function applyFilters() {
+    if (!filters || !count || !empty) return;
+    const values = new FormData(filters);
+    const category = String(values.get('category') ?? '');
+    const year = values.get('year');
+    const tag = String(values.get('tag') ?? '');
+    let visible = 0;
+
+    groups.forEach((group) => {
+      const entries = group.querySelectorAll<HTMLLIElement>('[data-year]');
+      let hasMatches = false;
+      entries.forEach((entry) => {
+        entry.hidden = !(
+          (!year || entry.dataset.year === year) &&
+          (!category || (JSON.parse(entry.dataset.category ?? '[]') as string[]).includes(category)) &&
+          (!tag || (JSON.parse(entry.dataset.tags ?? '[]') as string[]).includes(tag))
+        );
+        if (!entry.hidden) {
+          hasMatches = true;
+          visible += 1;
+        }
+      });
+      group.hidden = !hasMatches;
+    });
+
+    count.textContent = `${visible}개 글`;
+    empty.hidden = visible > 0;
+  }
+
+  filters?.addEventListener('change', applyFilters);
+  filters?.addEventListener('reset', () => window.setTimeout(applyFilters, 0));
+  applyFilters();
+</script>

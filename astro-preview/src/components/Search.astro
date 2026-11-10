@@ -1,0 +1,61 @@
+<button class="search-trigger" type="button" data-search-open aria-haspopup="dialog">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+    <circle cx="10.5" cy="10.5" r="6"/><path d="m15 15 5 5"/>
+  </svg>
+  <span>검색</span>
+</button>
+<dialog class="search-dialog" aria-labelledby="search-title">
+  <div class="search-heading">
+    <h2 id="search-title">글 검색</h2>
+    <form method="dialog"><button class="text-link" aria-label="검색 닫기">닫기 ×</button></form>
+  </div>
+  <label class="sr-only" for="query">검색어</label>
+  <input id="query" type="search" placeholder="코루틴, SwiftUI, javascript…" autocomplete="off" />
+  <p class="search-status" role="status">시안에 포함된 글에서 검색합니다.</p>
+  <ul class="search-results"></ul>
+</dialog>
+<script>
+  type SearchResult = { data: () => Promise<{ url: string; meta: { title: string } }> };
+  type SearchIndex = { debouncedSearch: (query: string) => Promise<{ results: SearchResult[] } | null> };
+  const dialog = document.querySelector<HTMLDialogElement>('.search-dialog');
+  const input = document.querySelector<HTMLInputElement>('#query');
+  const status = dialog?.querySelector('.search-status');
+  const results = dialog?.querySelector('.search-results');
+  const indexPath = '/pagefind/pagefind.js';
+  let index: SearchIndex | undefined;
+  let request = 0;
+
+  document.querySelector('[data-search-open]')?.addEventListener('click', () => {
+    dialog?.showModal();
+    input?.focus();
+  });
+
+  if (input && status && results) {
+    input.addEventListener('input', async () => {
+      const current = ++request;
+      const query = input.value.trim();
+      results.replaceChildren();
+      status.textContent = query ? '검색 중…' : '시안에 포함된 글에서 검색합니다.';
+      if (!query) return;
+
+      try {
+        index ??= await import(/* @vite-ignore */ indexPath) as SearchIndex;
+        const response = await index.debouncedSearch(query);
+        if (!response || current !== request) return;
+        const matches = await Promise.all(response.results.map((result) => result.data()));
+        if (current !== request) return;
+        status.textContent = matches.length ? `${matches.length}개 글을 찾았습니다.` : '일치하는 글이 없습니다.';
+        for (const match of matches) {
+          const item = document.createElement('li');
+          const link = document.createElement('a');
+          link.href = match.url;
+          link.textContent = match.meta.title;
+          item.append(link);
+          results.append(item);
+        }
+      } catch {
+        if (current === request) status.textContent = '검색을 불러오려면 빌드한 시안을 열어 주세요.';
+      }
+    });
+  }
+</script>

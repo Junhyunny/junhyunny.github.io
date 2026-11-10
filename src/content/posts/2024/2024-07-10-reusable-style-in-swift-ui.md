@@ -4,7 +4,7 @@ publishedAt: "2024-07-10"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/ios/swift-ui/design-pattern/reusable-style-in-swift-ui/"
 categories:
-  - "iOS"
+  - "ios"
   - "swift-ui"
   - "design-pattern"
 ---

@@ -4,7 +4,7 @@ publishedAt: "2024-06-01"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/ios/swift/swift-ui/test-driven-development/how-to-make-check-box-component-in-swift-ui/"
 categories:
-  - "iOS"
+  - "ios"
   - "swift"
   - "swift-ui"
   - "test-driven-development"

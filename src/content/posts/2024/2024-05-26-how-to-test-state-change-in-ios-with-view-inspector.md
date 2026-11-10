@@ -4,7 +4,7 @@ publishedAt: "2024-05-26"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/ios/swift/swift-ui/test-driven-development/how-to-test-state-change-in-ios-with-view-inspector/"
 categories:
-  - "iOS"
+  - "ios"
   - "swift"
   - "swift-ui"
   - "test-driven-development"

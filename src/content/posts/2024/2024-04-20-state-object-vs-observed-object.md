@@ -4,7 +4,7 @@ publishedAt: "2024-04-20"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/ios/swift-ui/state-object-vs-observed-object/"
 categories:
-  - "iOS"
+  - "ios"
   - "swift-ui"
 recommendedPosts:
   - title: "SwiftUI MVVM 패턴"

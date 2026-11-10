@@ -4,7 +4,7 @@ publishedAt: "2024-04-19"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/ios/swift-ui/design-pattern/mvvm-pattern-in-ios/"
 categories:
-  - "iOS"
+  - "ios"
   - "swift-ui"
   - "design-pattern"
 ---

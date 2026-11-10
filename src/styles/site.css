@@ -281,6 +281,11 @@ h1, h2, h3, p { margin: 0; }
 .prose img { height: auto; margin: 1.3rem auto; }
 /* 레거시 글에서 블록 뒤에 따로 적었던 <br/>을 대신하는 간격 (scripts/migrate-content.mjs가 붙임). 이미지 아래 여백(1.3rem)에 더해진다. */
 .prose .block-break { padding-bottom: .5lh; }
+/* 이미지 여러 장을 2·3열로 나란히 배치 (기존 Jekyll의 .grid.column-2/3) */
+.prose .image-grid { display: grid; gap: 10px; margin-block: 1.3rem; }
+.prose .image-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.prose .image-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.prose .image-grid img { width: 100%; margin: 0; }
 .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: var(--text-compact); }
 .prose td, .prose th { border: 1px solid var(--line); padding: .4rem .7rem; }
 .prose thead th {

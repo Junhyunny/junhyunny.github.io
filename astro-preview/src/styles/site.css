@@ -485,6 +485,7 @@ h1, h2, h3, p { margin: 0; }
 .resume-highlight { display: block; margin-top: .4rem; color: var(--muted); font-size: var(--text-compact); line-height: var(--leading-ui); word-break: keep-all; }
 .resume-detail > :not(summary) { margin-inline-start: clamp(0rem, 4vw, 3.2rem); }
 .resume-detail :is(h4, h5) { margin-block: 1.25rem .4rem; font-size: var(--text-compact); font-weight: var(--weight-heading); }
+.resume-detail .resume__period { display: inline-block; margin-inline-start: .4em; color: var(--muted); font-size: var(--text-meta); font-weight: 400; }
 .resume-detail summary + :is(h4, h5) { margin-block-start: .45rem; }
 .resume-detail ul { margin-block-end: .8rem; padding-inline-start: 1.25rem; }
 

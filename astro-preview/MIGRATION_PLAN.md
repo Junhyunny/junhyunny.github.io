@@ -11,7 +11,7 @@
 ## 기준 자료 확보
 
 1. 원본 커밋 SHA를 고정한다. 해당 커밋을 현재 배포와 같은 Ruby/Jekyll 설정으로 빌드하고, 운영 사이트맵·목록·RSS와 비교한다. 서로 다른 경로가 발견되면 원인과 처리 방식을 기록한다.
-2. 원본 파일과 공개 경로를 연결하는 목록을 만든다. 글 종류, 원본 파일 SHA-256, 공개 경로, canonical, 게시일·수정일, 카테고리 순서, 본문 앵커, 이미지, 링크, 댓글 이슈 번호를 기록한다. `/posts/`, `/logs/`, `/books/`, 기존 페이지 번호 주소도 조사한다.
+2. 원본 파일과 공개 경로를 연결하는 목록을 만든다. 글 종류, 원본 파일 SHA-256, 공개 경로, canonical, 게시일·수정일, 카테고리 순서, 본문 앵커, 이미지, 링크, 댓글 이슈 번호를 기록한다. `/posts/`, `/categories/`, `/logs/`, `/books/`, 기존 페이지 번호 주소도 조사한다.
 3. `/:categories/:title/`과 `/:categories/:path/`는 기존 구조를 이해하는 데 사용한다. Astro는 Jekyll 출력과 운영 주소에서 확인한 경로를 명시적으로 받아 정적 경로를 만든다. 대소문자, 인코딩, 카테고리 순서와 끝 슬래시를 그대로 비교한다.
 
 현재 감사는 저장소 파일과 운영 페이지 표본을 기준으로 했다. 운영 URL 전체와 Jekyll 산출물의 대조를 마친 뒤 변환을 시작한다.
@@ -22,7 +22,7 @@ Astro 콘텐츠 컬렉션은 다음 필드를 검증한다. 기존 글의 URL은
 
 ```markdown
 ---
-title: "코틀린 코루틴 처리 아키텍처 (Kotlin Coroutine Architecture)"
+title: "코틀린 코루틴 아키텍처 (Kotlin Coroutine Architecture)"
 publishedAt: "2026-10-31"
 updatedAt: "2026-10-31T23:30:18+09:00"
 canonicalPath: "/kotlin/coroutine/asynchronous/architecture/kotlin-coroutine-architecture/"

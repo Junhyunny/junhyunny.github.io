@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://github.com/spring-cloud/spring-cloud-openfeign/issues/516"
 ---
 
-<br/>
-
 ## 1. Context of problem
 
 [스프링 클라우드 히스트릭스에 관련된 글][hystrix-link]을 작성하면서 다음과 같은 예외(exception)를 만났다.
@@ -161,11 +159,9 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 
 깃허브(Github)에 관련된 질문을 올렸다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/incompatible-fallback-factory-instance-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음과 같은 답변을 얻었다.
 

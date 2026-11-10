@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/jvm-execution-engine/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 > JVM 메모리 구조에 대해서 설명해주세요.<br/>
@@ -34,12 +32,12 @@ JVM 구성 요소는 크게 네 가지로 분류할 수 있다. 아래 구성 �
 - Runtime Data Area
 - Garbage Collector
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/what-is-jvm-01.png" width="80%" class="image__border">
 </div>
 <center>https://jeong-pro.tistory.com/148</center>
-
-<br/>
+</div>
 
 `.java` 확장자 파일들은 Java 컴파일러(JAVAC)에 의해 `.class` 확장자 파일로 변환된다. `.class` 파일은 바이트 코드(byte code)로 작성되어 있다. `클래스 로더(Class Loader)`는 생성된 클래스 파일들을 JVM 메모리 영역인 `Runtime Data Area`로 적재하는 역할을 수행한다.
 
@@ -92,12 +90,12 @@ JVM 구성 요소는 크게 네 가지로 분류할 수 있다. 아래 구성 �
   - 클래스 로더에 의해 적재된 클래스들의 정보를 저장
   - JDK1.8부터는 Metaspace
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/what-is-jvm-02.png" width="80%" class="image__border">
 </div>
 <center>자바와 JVM 메모리 구조</center>
-
-<br/>
+</div>
 
 `가비지 컬렉터(Garbage Collector)`는 힙 메모리 영역에 생성된 객체들 중에 참조되지 않은 객체들을 탐색 후 제거하는 역할을 수행한다. 가비지 컬렉터 동작 시 JVM 애플리케이션 실행이 멈추게 되는데 이를 `STOP-THE-WORLD` 라고 표현한다. 시스템 동작이 멈추는 작업이기 때문에 굉장히 비용이 큰 작업이다. 개발자는 `STOP-THE-WORLD` 시간을 줄이기 위해 가비지 컬렉션의 동작 방식과 알고리즘에 관련한 공부가 필요하다.
 

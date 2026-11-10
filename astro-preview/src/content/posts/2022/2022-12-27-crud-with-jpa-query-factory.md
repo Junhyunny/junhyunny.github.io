@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/entity-manager-with-persistence-context-annotation/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `QueryDSL`은 `Java` 코드로 질의문(query)를 작성할 수 있게 해주는 라이브러리입니다. 

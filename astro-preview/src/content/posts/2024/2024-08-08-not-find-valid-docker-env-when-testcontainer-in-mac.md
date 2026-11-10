@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 `TestContainer`를 사용해 결합 테스트를 작성할 때 다음과 같은 에러가 발생했다. 
@@ -55,12 +53,10 @@ Caused by: java.lang.IllegalStateException: Could not find a valid Docker enviro
 
 랜처 데스크탑에서 이 문제를 해결하려면 `Preference > Application > General` 설정에 `Administrative Access` 속성이 활성화한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/not-find-valid-docker-env-when-testcontainer-in-mac-01.png" width="45%" class="image__border image__padding">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/not-find-valid-docker-env-when-testcontainer-in-mac-02.png" width="35%" class="image__border image__padding">
 </div>
-
-<br/>
 
 위 설정이 완료되면 `/var/run/docker.sock` 파일의 심볼릭 링크가 제대로 설정되어 있지 않은 문제도 함께 해결해준다. 랜처 데스트탑 환경에서 심볼릭 링크는 `$HOME/.rd/docker.sock` 경로로 설정되어 한다.
 

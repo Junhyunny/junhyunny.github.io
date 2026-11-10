@@ -19,8 +19,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/e2e-test/playwright/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test/"
 ---
 
-<br/>
-
 ## 1. Github MCP server
 
 MCP(model context protocol)에 대한 개념이 부족하다면 [이 글][mcp-and-mcp-server-link]을 참고하길 바란다. Github MCP 서버는 AI 도구(예: AI 에이전트, 어시스턴트, 챗봇)를 GitHub 플랫폼에 직접 연결해준다. 가장 큰 특징은 사용자가 자연어를 통해 GitHub의 다양한 기능과 상호작용할 수 있게 해준다는 점이다. 공식 문서를 보면 다음과 같은 유즈 케이스를 소개하고 있다.
@@ -156,27 +154,21 @@ AI 에이전트를 통해 E2E 테스트를 일회성으로만 실행하고 버�
 
 트래커 부트 MCP 서버를 위해 필요한 API 키는 [트래커 부트(tracker boot) MCP 서버로 프롬프트 컨텍스트 공유하기 글](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/)을 참조하길 바란다. Github 토큰은 사용자 셋팅(setting) 페이지에서 생성할 수 있다. 프로파일 이미지를 클릭하면 셋팅 페이지로 이동하는 버튼을 볼 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-02.png" width="30%" class="image__border">
 </div>
 
-<br/>
-
 왼쪽 사이드 메뉴 하단의 Developer Settings 페이지로 이동한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-03.png" width="50%" class="image__border">
 </div>
 
-<br/>
-
 클래식 토큰을 선택 후 해당 화면에서 필요한 토큰을 생성한다. 나는 해당 토큰에 `repo`, `user` 권한을 부여했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 [이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/propmtps` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다. 비개발자 직군은 코파일럿이 아니라 클로드 데스크탑 같은 도구를 사용한다. 당연히 프로젝트 코드가 로컬 디렉토리가 존재하지 않기 때문에 코드는 원격 서버에 직접 생성하는 편이 좋다고 생각한다. 이에 관련된 프롬프트를 작성한다.
 
@@ -231,11 +223,9 @@ REPOSITORY=Junhyunny/playwright-mcp-e2e-workflow
 
 AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕으로 E2E 테스트를 수행한다. E2E 테스트가 성공하면 테스트 시나리오를 재현한 코드를 `e2e/{story_id}` 브랜치에 업로드한다. 해당 커밋을 메인 브랜치로 머지하기 위해 풀 리퀘스트를 생성한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-05.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 프롬프트 실행이 완료된 후 AI 에이전트가 명시한 링크로 이동하면 풀 리퀘스트가 만들어진 것을 볼 수 있다.
 

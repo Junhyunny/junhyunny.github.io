@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ios/swift-ui/design-pattern/mvvm-pattern-in-ios/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 내가 개발한 iOS 애플리케이션의 체크 박스(check box) 기능에 버그가 있었다. SwiftUI 프레임워크에 대해 이해도가 낮은 것이 문제였다. 이번 글은 내가 모르는 부분에 대해 정리했다.

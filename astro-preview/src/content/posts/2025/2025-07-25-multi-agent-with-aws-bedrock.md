@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/llms/large-language-model/aws/bedrock/ai-agent/aws-bedrock-agent-api/"
 ---
 
-<br/>
-
 ## 1. What is multi agent?
 
 LLM 시스템의 성능을 향상시키는 방법은 크게 두 가지로 나눌 수 있다. 
@@ -66,11 +64,9 @@ AWS 베드락(bedrock)은 중앙 집중형 아키텍처를 지원한다. 하나�
 - Supervisor with routing
   - 관리자 에이전트는 특정 태스크를 적합한 에이전트에게 전달하고, 그 응답을 반환한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이번 글에선 AWS 베드록을 통해 다음과 같은 멀티 에이전트 시스템을 구성한다.
 
@@ -79,11 +75,9 @@ AWS 베드락(bedrock)은 중앙 집중형 아키텍처를 지원한다. 하나�
 3. 관리자 에이전트는 리서치 에이전트의 응답을 기반으로 차트 에이전트에게 차트 생성을 요청한다. 차트 에이전트는 차트를 생성하는 코드를 반환한다.
 4. 관리자 에이전트는 리서치 에이전트와 차트 에이전트의 응답을 기반으로 사용자에게 적절한 응답을 한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 AWS CLI 커맨드를 사용해서 에이전트를 생성한다. CLI 커맨드를 실행하기 전에 AWS 크레덴셜(credential)을 터미널 세션에 준비한다.
 
@@ -207,19 +201,15 @@ CREATED AGENT_ALIAS_ARN = arn:aws:bedrock:ap-northeast-1:123412341234:agent-alia
 
 위 스크립트를 싱행하면 에이전트가 준비된 상태로 생성된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-04.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 해당 에이전트 정보를 보면 위에서 지정한 지시문이 추가된 것을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음 관리자 에이전트를 생성한다. 다음과 같은 스크립트를 사용한다. 
 
@@ -382,11 +372,9 @@ $ sh scripts/update-collaborators.sh ZLU5WVCBXN chart-agent arn:aws:bedrock:ap-n
 
 협력 에이전트들을 모두 추가한 후. AWS 웹 콘솔에서 관리자 에이전트의 `Multi-agent collaboration` 섹션을 확인해보자. 추가한 협력 에이전트들과 각자의 협력 지시문을 확인할 수 있다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-06.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 마지막으로 관리자 에이전트를 배포한다.
 

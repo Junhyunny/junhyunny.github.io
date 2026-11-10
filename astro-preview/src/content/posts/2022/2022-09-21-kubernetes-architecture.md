@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/kubernetes/deploy-container-on-kubernetes-cluster/"
 ---
 
-<br/>
-
 ## 1. Kubernetes
 
 쿠버네티스(kubernetes)는 컨테이너(container)화 된 애플리케이션의 배포, 스케일링 및 관리를 간편하게 해주는 도구입니다. 

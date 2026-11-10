@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/algorithm/merge-sort/"
 ---
 
-<br/>
-
 ## 1. Quick Sort
 
 퀵 정렬(quick sort)은 다음과 같은 특징을 가진다.
@@ -170,12 +168,12 @@ divideAndConquer 메서드는 배열을 분할하고 부분 배열을 정렬하�
   - = 깊이 X 각 깊이별 비교 횟수
   - = n X log2(n)
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quick-sort-01.png" width="80%" class="image__border">
 </div>
 <center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
-
-<br/>
+</div>
 
 최악의 경우는 어떨까? 이미 정렬된 배열에서 피벗을 선택하는 경우 배열이 균일하지 않게 이등분되는 경우이다. 피벗에 의해 길이가 1, n-1인 배열 두 개로 나뉜다.
 

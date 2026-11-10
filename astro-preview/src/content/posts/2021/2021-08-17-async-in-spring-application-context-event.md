@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)][spring-application-context-event-link] 글을 작성하면서 생긴 궁금증을 주제로 글을 작성했다. 이번 글에서는 비동기 처리 방법을 정리했다. 아래 두 가지를 확인해 보기 위한 예제 코드를 작성했다.

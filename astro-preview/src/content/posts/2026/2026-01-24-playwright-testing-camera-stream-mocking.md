@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/browser/web-api/media-stream/webcam/record-video-web-camera/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 브라우저에서 웹캠으로 촬영하는 기능은 웹 API를 사용하기 때문에 단위 테스트로 검증하는 것에 한계가 있다. Playwright 같은 프레임워크를 통해 E2E 테스트로 검증해야 한다.
@@ -139,11 +137,9 @@ test("download video file", async ({ page }) => {
 
 위 테스트를 실행하면 다음과 같이 사전에 준비한 영상이 실제 카메라 영상 대신 보이는 것을 확인할 수 있다. 녹화한 비디오도 페이크 미디어 스트림 영상임을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/playwright-testing-camera-stream-mocking-02.gif" width="100%" class="image__border">
 </div>
-
-<br />
 
 다음은 사진 촬영 기능에 대한 테스트다.
 

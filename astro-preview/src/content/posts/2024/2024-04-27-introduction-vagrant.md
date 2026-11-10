@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/infrastructure/dev-ops/introduction-terraform/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 필자는 운영체제(operating system) 중에서도 엔지니어라면 친숙해야하는 리눅스(linux) 공부를 시작했다. 어떤 운영체제에서 실습을 하던 가상 머신(virtual machine)을 사용하는 것이 안전할 것이다. 실습 환경을 구성하는 것도 상당히 귀찮은 일인데 하시코프(HashiCorp)에서 코드를 통해 동일한 가상 머신 환경을 프로비저닝(provisioning) 해주는 베이그란트(vagrant)라는 애플리케이션을 제공한다는 사실을 알았다. 이번 글은 베이그란트(Vagrant)를 소개하고 간단하게 환경을 구성하는 방법을 정리했다.

@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/open-firewall-of-linux/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 프로젝트에선 네트워크 관련된 이슈들이 많았습니다. 

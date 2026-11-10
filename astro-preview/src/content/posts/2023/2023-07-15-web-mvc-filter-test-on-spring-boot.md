@@ -8,8 +8,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링(spring) 프레임워크에서 기본적으로 사용하는 톰캣(tomcat)은 필터(filter)라는 강력한 기능을 제공합니다. 

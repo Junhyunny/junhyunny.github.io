@@ -8,8 +8,6 @@ categories:
   - "mysql"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 테이블 스키마 모습이 적절하지 않아 변경 작업이 필요했습니다. 

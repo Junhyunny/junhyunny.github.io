@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/design-pattern/template-method-pattern/"
 ---
 
-<br/>
-
 ## 1. Delegation
 
 요즘 스프링 시큐리티(spring security)를 주제로 책을 집필하면서 프레임워크 내부를 탐구하고 있다. 스프링 프레임워크 내부에는 `Delegating-`이라는 키워드가 붙은 클래스들이 많다는 사실을 알았다. 이름에서 알 수 있듯 이런 클래스들의 인스턴스는 자신이 처리해야 하는 요청을 다른 인스턴스에게 위임(delegation)한다. 스프링 프레임워크가 위임을 많이 사용하는 이유가 궁금하여 관련된 내용을 정리해봤다.

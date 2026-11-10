@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/async-in-spring-application-context-event/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 새로운 비즈니스 기능을 추가하면서 문제가 발생했다.
@@ -33,22 +31,18 @@ recommendedPosts:
 - 하나의 서비스 내에서 분리된 모듈 사이의 정보 교환이 이뤄진다.
 - 동일 서비스이므로 애플리케이션 컨텍스트로 이벤트를 처리한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-application-context-event-01.png" width="65%" class="image__border">
 </div>
-
-<br/>
 
 서비스 사이의 이벤트 처리를 시각화하면 다음과 같다.
 
 - 서로 다른 서비스 사이의 정보 교환이 이뤄진다.
 - 이벤트 처리를 위한 카프카(kafka) 같은 큐(queue) 시스템이 필요하다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-application-context-event-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 이번 글에서는 커스텀 이벤트를 발행하고 수신하는 예시를 다룰 예정이지만, 먼저 기본적으로 어떤 이벤트가 있는지 살펴보겠다. 기본 이벤트를 사용하면 개발자는 자신의 기능을 애플리케이션의 라이프사이클(lifecycle)에 연결할 수 있다.
 

@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/design-pattern/proxy-pattern/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 내가 다뤘던 레거시(legacy) 시스템들은 대부분 스프링 MVC(spring mvc) 프레임워크를 사용했다. 커리어 초반부터 스프링 부트(spring boot) 프레임워크를 사용했던 나는 XML 파일을 이용한 컨텍스트 설정을 많이 어려워하였다. 이번 글도 스프링 MVC 프레임워크가 익숙하지 않아서 발생한 문제에 대해 정리하였다. 스프링 MVC 프레임워크 기반으로 구현된 레거시를 다루는 분들에게 도움이 되길 바란다.
@@ -29,11 +27,9 @@ recommendedPosts:
 
 - Controller 객체에서 Service 객체의 메서드 호출 시 스택이 바로 이어진다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 트랜잭션 처리가 감싸진 프록시 빈 객체의 메서드를 호출하면 다음과 같은 스택 모습을 갖는다.
 
@@ -51,12 +47,12 @@ recommendedPosts:
 - 동일한 객체에 대해 `component-scan` 행위를 두 번 수행한 것으로 예상된다.
 - 처음은 프록시 빈 객체, 두 번째는 일반 빈 객체가 생성된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-03.png" width="80%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
-
-<br/>
+</div>
 
 확인해보니 `applicationContext.xml`, `dispatcher-servlet.xml` 두 파일에서 컴포넌트 스캔(component-scan) 작업을 수행하고 있었다. 컴포넌트 스캔이 두 번 발생한 원인은 스프링의 동작 순서와 연관되어 있지만, 이번 포스트에선 다루지 않는다. 컴포넌트 스캔 설정을 살펴보자.
 
@@ -204,11 +200,9 @@ public class BlogServiceImpl implements BlogService {
 
 테스트를 수행하기 전에 데이터 상태는 다음과 같다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-04.png" width="65%" class="image__border">
 </div>
-
-<br/>
 
 정상 업데이트 엔드포인트에 cURL 명령어를 호출한다.
 
@@ -218,11 +212,9 @@ $ curl http://localhost:8080/update
 
 정상적으로 authorities 컬럼(column)이 널(null) 값으로 업데이트 된다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-05.png" width="65%" class="image__border">
 </div>
-
-<br/>
 
 예외가 발생하는 엔드포인트에 cURL 명령어를 호출한다.
 

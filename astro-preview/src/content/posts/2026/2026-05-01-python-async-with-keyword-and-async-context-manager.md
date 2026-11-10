@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이전 글에서는 [동기식 컨텍스트 매니저(context manager)][python-with-keyword-and-context-manager-link]를 다뤘다. 이번 글에서는 비동기 컨텍스트 매니저에 대해 정리해 보려 한다.
@@ -42,11 +40,9 @@ recommendedPosts:
 
 비동기 컨텍스트 매니저도 특별한 타입이 아니라, `__aenter__()`와 `__aexit__()` 두 메서드를 구현한 객체다. `async with` 문은 이 두 메서드를 적절한 시점에 호출하고 `await`하는 문법적 설탕(syntactic sugar)이라고 볼 수 있다. 비동기 컨텍스트 매니저는 아래 이미지처럼 동작한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/python-async-with-keyword-and-async-context-manager-01.png" width="100%" class="image__border image__background_black">
 </div>
-
-<br/>
 
 ## 2. Practice
 

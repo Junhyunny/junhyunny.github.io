@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. Drop Down Menu
 
 화면 상단 네비게이션으로 자주 사용되는 방법입니다. 

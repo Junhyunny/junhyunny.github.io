@@ -8,8 +8,6 @@ categories:
 summary: "실행 컨텍스트를 바탕으로 자바스크립트 호이스팅의 동작을 예제와 함께 살펴봅니다."
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `JavaScript`의 실행 컨텍스트(exectuion context)를 공부하는데 생각보다 어려웠습니다. 

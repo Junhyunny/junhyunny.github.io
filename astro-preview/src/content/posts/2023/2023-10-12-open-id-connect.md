@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/oauth/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 진행 중인 프로젝트에서 여러 인증 서비스 제공자(IdP, Identity Providers)의 OAuth2.0 클라이언트 인증 방식을 통합하는 작업을 수행했습니다. 

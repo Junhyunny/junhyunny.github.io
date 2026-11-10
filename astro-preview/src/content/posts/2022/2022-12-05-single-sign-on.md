@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/oauth/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 프로젝트에서 `SSO(Single Sign On)`을 통한 사용자 인증 관련된 기능을 구현했습니다. 

@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/jpa/concurrency-problem-update-wrong-data/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 동시성 문제는 서버 개발자 커리어를 시작했던 MES(Manufacturing Execution System) 개발 및 운영할 때 처음 경험했다. 크레인, 트레일러, 컨베이어 벨트에 설치된 센서들에서 밀리초(ms) 단위로 메시지를 수신하면서 트랜잭션 경합이 너무 심하게 발생했다. 데이터베이스 락(lock) 메커니즘을 이용한 비관적인 락(pessimistic lock) 방식이나 애플리케이션에서 제어하는 낙관적인 락(optimistic lock) 방식을 통해 데이터 정합성을 지키기 위한 코드를 많이 작성했다.

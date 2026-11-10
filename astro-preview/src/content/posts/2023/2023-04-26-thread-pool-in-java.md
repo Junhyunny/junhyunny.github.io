@@ -7,18 +7,16 @@ categories:
   - "java"
 ---
 
-<br/>
-
 ## 1. Thread Pool
 
 스레드 풀(thread pool)은 프로그램의 동시성 실행을 지원하는 디자인 패턴이다. 복제된 작업자(replicated workers) 또는 작업자-크루(worker-crew) 모델이라고 불리기도 한다. 스레드 풀은 여러 스레드를 유지·관리하고, 풀 내의 스레드는 작업(task)이 할당되기를 기다린다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/thread-pool-in-java-01.png" width="80%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Thread_pool</center>
-
-<br/>
+</div>
 
 스레드 풀은 다음과 같은 문제를 해결하기 위해 사용한다.
 

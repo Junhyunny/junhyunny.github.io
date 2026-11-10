@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/prototype-in-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 글에선 프로토타입 체인을 통한 객체 탐색과 프로퍼티 오버라이딩(overriding), 쉐도잉(shadowing)에 대한 개념을 정리한다.
@@ -64,11 +62,9 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
 - 모든 객체 혹은 인스턴스는 `Object.prototype`를 상속받는다.
 - `Object.prototype` 객체의 `[[Prototype]]` 내부 슬롯 값은 `null`이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-chain-in-javascript-01.png" width="60%" class="image__border">
 </div>
-
-<br/>
 
 위 프로토타입 체인은 이미지로 시각화하면 아래와 같이 연결된다.
 

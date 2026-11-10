@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/javascript/microtask-macrotask-in-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 면접에서 이런 질문을 받았다.
@@ -36,24 +34,24 @@ recommendedPosts:
 - 콜백 큐(callback queue)
 - 이벤트 루프(event loop)
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-work-javascript-async-01.png" width="75%" class="image__border">
 </div>
 <center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
-
-<br/>
+</div>
 
 대표적인 `자바스크립트 엔진인 크롬 V8 엔진`의 구조를 간략하게 살펴보자. V8 엔진은 크롬과 Node.js에서 사용 중이며, 메모리 힙(memory heap), 콜 스택(call stack) 두 개의 컴포넌트로 구성된다.
 
 - 메모리 힙(Memory Heap) - 변수 및 객체들에게 할당된 메모리가 위치한 공간
 - 콜 스택(Call Stack) - 함수 호출을 스택(stack)으로 관리하는 공간
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-work-javascript-async-02.png" width="40%" class="image__border">
 </div>
 <center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
-
-<br/>
+</div>
 
 V8 엔진의 인터프리터(interpreter)는 코드를 분석하고, 실행 가능한 명령으로 변환한다. 코드에 맞춰 메모리를 할당하고, 호출한 함수는 콜 스택에 추가(push)한다. 최상위 스택에 위치한 함수를 실행하고, 완료되면 콜 스택에서 제거(pop)한다. V8 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 스레드의 동기식 방식으로 실행된다. 최상위 스택에 위치한 함수가 실행되는 동안 하위 스택은 실행되지 않는다.
 

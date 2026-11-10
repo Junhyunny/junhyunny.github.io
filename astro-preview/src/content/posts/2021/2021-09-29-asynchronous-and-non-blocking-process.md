@@ -8,8 +8,6 @@ categories:
   - "java"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 웹플럭스(webflux) 같은 기술 스택이 인기가 많아지면서 비동기(asynchronous), 논-블로킹(non-blocking) 관련된 내용들이 눈에 많이 띈다. 이 글은 비동기, 논-블로킹 처리에 대한 개념을 정리했다. 전적으로 이 [글](https://hamait.tistory.com/930)을 참고했다. 
@@ -18,11 +16,9 @@ categories:
 
 먼저 블로킹(blocking)과 논-블로킹(non-blocking)은 기술적으로 명확하다. 어떤 일을 요청하고 결과(혹은 응답)을 기다리는지 아닌지에 따라 블로킹, 논-블로킹이 구분된다. 먼저 블로킹은 요청을 보낸 후 응답을 기다린다. 예를 들면 서버 요청/응답 방식이나 일반적인 함수 호출을 예로 들 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/asynchronous-and-non-blocking-process-01.gif" width="50%">
 </div>
-
-<br/>
 
 논-블로킹 방식은 요청을 보낸 후 응답을 기다리지 않는다. 응답을 기다리기 위해 자신이 수행하는 일을 멈추지 않는다. 멀티 스레드(multi-thread) 같은 기술을 통해 구현할 수 있다.
 
@@ -56,12 +52,12 @@ categories:
 
 블로킹, 논-블로킹, 동기, 비동기 개념은 서로 조합되어 이야기된다. 자연스러운 조합도 있지만, 직관적인 이해가 어려운 조합도 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/asynchronous-and-non-blocking-process-03.png" width="80%" class="image__border">
 </div>
 <center>https://hamait.tistory.com/930</center>
-
-<br/>
+</div>
 
 블로킹과 동기식 처리에 조합은 자연스럽다. 요청을 보내고 결과를 기다린다. 자연스럽게 모든 행위가 동기식으로 처리된다. 논-블로킹과 비동기 조합도 자연스럽다. 요청을 보낸 후 결과를 기다리지 않고 각자 일을 처리하기 때문에 행위들의 순서가 보장되지 않는다. 블로킹과 동기식 조합과 논-블로킹과 비동기식 조합은 너무 자연스럽기 때문에 각 조합의 용어들이 혼용되어 사용된다. 
 

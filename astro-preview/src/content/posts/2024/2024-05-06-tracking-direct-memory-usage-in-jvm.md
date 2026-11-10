@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/jvm/spring-boot/get-bytes-method-of-multipart-file-in-java21-cause-oome/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 JVM 힙 메모리는 사용량을 추적할 수 있는 GUI 도구는 여러 가지가 있지만, 힙 메모리가 아닌 네이티브 메모리 영역에 대한 사용량을 추적할 때는 jcmd(Java diagnostic command) 도구를 사용해야 하는 것 같다. 이번 글은 jcmd 도구를 사용해 네이티브 메모리 중에서도 다이렉트 메모리(direct memory) 사용량을 측정하는 방법에 대해 정리했다.

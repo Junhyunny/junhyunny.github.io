@@ -9,8 +9,6 @@ categories:
   - "spring-mvc"
 ---
 
-<br/>
-
 👉 이어서 읽기를 추천합니다.
 - [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting-link]
 - [DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어][dom-based-cross-site-scripting-link]

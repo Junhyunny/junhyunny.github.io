@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/data-science/using-google-tag-manager/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 구글 태그 매니저(GTM, google tag manager)는 애플리케이션에서 발생하는 사용자의 움직임을 태그로 정의하여 감지할 수 있습니다. 

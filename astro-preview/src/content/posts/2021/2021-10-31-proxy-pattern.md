@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring/spring-boot/cglib/"
 ---
 
-<br/>
-
 ## 1. Proxy Pattern
 
 > 프록시(Proxy) - 대리자, 대리인
@@ -41,12 +39,12 @@ recommendedPosts:
 - 실제 주체(RealSubject)  
   - 인터페이스에서 명시한 기능을 실제로 처리하는 객체이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/proxy-pattern-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
-
-<br/>
+</div>
 
 다음과 같은 장점들을 가진다.
 

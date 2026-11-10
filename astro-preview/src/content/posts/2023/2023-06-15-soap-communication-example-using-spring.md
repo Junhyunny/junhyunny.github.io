@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/soap/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 부트(spring boot)는 웹 서비스(WS, Web Service) 기술을 지원한다. [SOAP(Simple Object Access Protocol)][soap-link]에서 설명했지만, 여기서 말하는 웹 서비스는 통신 기술을 지칭한다. 월드 와이드 웹(WWW, World Wide Web)을 통해 사용자에게 서비스를 제공한다는 의미가 아니다. 일반적으로 웹 서비스는 다음과 같은 구조를 가진다.

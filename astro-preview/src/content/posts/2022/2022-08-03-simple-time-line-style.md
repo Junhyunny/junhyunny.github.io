@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. Simple Timeline Style
 
 개인이나 회사 이력을 간단하게 표현할 수 있는 타임라인(timeline) 스타일을 구현하였습니다. 

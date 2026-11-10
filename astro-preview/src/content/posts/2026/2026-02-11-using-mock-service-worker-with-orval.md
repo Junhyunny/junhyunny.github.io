@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/openapi/orval/auto-generate-code/react-query/msw/open-api-spec-with-orval/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][open-api-spec-with-orval-link]에 정리한 것처럼 Orval은 OpenAPI 명세서를 기반으로 RESTful 클라이언트 코드를 생성해주는 CLI 도구다. 앵귤라(angular), 리액트(react), 뷰(vue) 같은 주요 프론트엔드 프레임워크를 모두 지원하고, 다양한 클라이언트 라이브러리를 지원한다. 이전 글은 Orval을 통해 코드 자동 생성에만 초점을 맞췄다. 이번에는 Orval을 통해 [MSW(mock service worker)][mock-service-worker-link] 핸들러를 만들고, 이를 사용해 간단한 테스트 코드를 작성해볼 생각이다. 목 서비스 워커에 대한 개념이 부족하다면 [이전 글][mock-service-worker-link]을 참고하길 바란다. 

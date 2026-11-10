@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/llms/large-language-model/aws/bedrock/ai-agent/multi-agent/architecture/multi-agent-with-aws-bedrock/"
 ---
 
-<br/>
-
 ## 1. AWS Bedrock Agent
 
 AWS 베드록(Bedrock)은 앤트로픽(anthropic), Cohere, DeepSeek, Llama 같은 주요 AI 회사의 다양한 고성능 파운데이션 모델(FM)을 단일 API로 제공하는 완전관리형 서비스다. 생성형 AI 애플리케이션 구축에 필요한 광범위한 기능 세트를 제공한다.
@@ -92,11 +90,9 @@ $ sh create-agent-cli.sh arn:aws:iam::123412341234:role/service-role/AmazonBedro
 
 AWS BedRock 에이전트 화면에서 위에서 생성한 에이전트를 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-bedrock-agent-api-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 아래 CLI는 위에서 생성한 에이전트를 준비(prepared) 상태로 만들기 위한 명령어다. 에이전트가 준비 상태가 아니라면 프롬프트가 실행되지 않는다. 위에서 획득한 에이전트 ID를 사용한다.
 
@@ -125,11 +121,9 @@ $ sh prepare-agent-cli.sh SR95VYU66L
 
 명령어 실행이 완료되면 아래처럼 에이전트가 준비 상태가 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-bedrock-agent-api-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 마지막으로 별칭(alias)을 만들어준다. 에이전트는 기본적으로 버전 관리가 된다. 아래와 같은 에이전트 설정들이 변경될 수 있다. 
 
@@ -309,11 +303,9 @@ $ sh create-agent-alias-cli.sh SR95VYU66L V2025072102
 
 새로운 별칭은 새로운 에이전트 버전과 매칭된다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-bedrock-agent-api-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 새로 발급 받은 에이전트 별칭 ID로 `.env` 파일를 업데이트한다. 파이썬 애플리케이션을 실행하면 불친절한 톤의 응답을 받게 된다.
 
@@ -333,11 +325,9 @@ botocore.exceptions.EventStreamError: An error occurred (validationException) wh
 
 `amazon.nova-micro-v1:0` 모델은 온-디맨드 모드를 서포트하지 않는다는 의미이다. 카탈로그에 표시된 모델 ID를 사용하면 위와 같은 에러가 발생한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-bedrock-agent-api-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 크로스 리전 추론(cross-region inference)의 추론 프로파일 ID를 사용하면 이 문제를 해결할 수 있다. AWS 베드록의 크로스 리전 추론은 추론 프로파일(inference profiles)을 사용하여 처리량(throughput)을 증가시키고, 피크 시간대(트래픽 폭주 시)에도 복원력(resiliency)을 향상시키기 위해 여러 AWS 리전에 요청을 분산 라우팅하는 기능이다.
 

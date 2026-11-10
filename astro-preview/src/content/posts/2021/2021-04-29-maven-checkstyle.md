@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/intellij-google-codestyle/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 여러 명이 함께 일할 때 코드 스타일은 중요하다. 중간에 엉뚱한 스타일로 작성된 코드는 개발자의 가독성을 떨어뜨린다. 이번엔 프로젝트 내 같은 코드 컨벤션(convention)을 가지도록 돕는 도구와 메이븐(maven) 플러그인을 통해 코드 확인을 자동화하는 방법에 대해 정리하였다.

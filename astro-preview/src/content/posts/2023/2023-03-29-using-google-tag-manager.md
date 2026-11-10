@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/data-science/custom-event-in-google-tag-manager/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 포스트에선 애널리틱스와 태그 매니저를 연결하는 방법에 대해 정리하였습니다. 

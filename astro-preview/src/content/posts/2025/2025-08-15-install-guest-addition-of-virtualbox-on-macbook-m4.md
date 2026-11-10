@@ -11,8 +11,6 @@ categories:
   - "arm64"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 가상 머신에서 칼리 리눅스를 설치해서 해킹이나 보안에 관련된 공부를 하고 있다. 아무래도 가상머신과 호스트 머신의 클립보드가 공유되지 않아서 복사와 붙여넣기가 불편했다. 게스트 확장 기능(guest addition)을 설치하면 쉽게 가능하지만, M4 맥북에서 설치가 원활하지 않았다. 설치 과정에서 겪은 문제들과 해결 방법에 관련된 내용을 정리했다. 
@@ -45,27 +43,21 @@ VirtualBox의 게스트 확장 기능(guest addition)은 가상 머신 속 게�
 
 칼리 리눅스에서 게스트 확장 기능을 설치한다. 가상 머신에 설치한 칼리 리눅스 이미지는 `kali-linux-2025.2-installer-arm64.iso`다. OS 설치는 되었다고 가정하고, 게스트 확장 기능 설치에 관련된 내용만 다룬다. 가상 머신을 선택 후 화면 `Device` 메뉴를 선택한다. `Insert Guest Additions CD image...` 항목을 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-01.png" width="80%" class="image__border">
 </div>
 
-<br/>
-
 해당 버튼을 누르면 바탕화면에 가상 CDROM 폴더가 생성된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 가상 CDROM 폴더로 진입 후 해당 디렉토리에서 터미널을 오픈한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 폴더에 어떤 파일들이 있는지 `ls` 명령어로 살펴보자. 게스트 확장 기능을 여러 타입의 OS에서 실행할 수 있도록 스크립트 혹은 실행 파일들이 있는 것을 확인할 수 있다.
 

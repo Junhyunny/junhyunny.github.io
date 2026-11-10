@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/terraform/terraform-backend-for-tfstate-management/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][create-alb-and-target-group-in-aws-with-terraform-link]에서 테라폼을 사용해 ALB, 타겟 그룹(target group)을 구성하는 방법에 대해 정리했다. 이번 글은 해당 타겟 그룹에 EC2 컨테이너를 배포하는 방법에 대해 정리했다. 

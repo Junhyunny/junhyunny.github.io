@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. Custom Radio Button
 
 브라우저에서 기본 제공하는 라디오 버튼은 사용하지 않고, 커스터마이징(customizing)하는 방법을 정리하였습니다.

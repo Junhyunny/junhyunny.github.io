@@ -8,8 +8,6 @@ categories:
   - "linux"
 ---
 
-<br/>
-
 ## 1. Package extension
 
 `.rpm` 파일은 레드햇(redhat) 계열 리눅스에서 사용하는 패키지 확장자다. rpm 명령어에 의해 설치, 업데이트, 삭제가 이뤄진다. 레드햇 계열 리눅스는 다음과 같다.

@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/thread-local-class-in-java/"
 ---
 
-<br/>
-
 ## 1. SecurityContextHolder Class
 
 스프링 시큐리티(spring security)는 인증 프로세스에서 인증이 완료된 사용자 정보를 시큐리티 컨텍스트(security context)에 저장합니다. 

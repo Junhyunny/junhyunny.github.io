@@ -10,8 +10,6 @@ categories:
   - "out-of-memory-error"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 프로젝트에서 S3 이미지를 리사이즈(resize)해 마이그레이션하는 과정에서 발생한 에러와 이를 해결하기 위해 트러블 슈팅하며 배운 내용을 글로 정리했다.
@@ -109,37 +107,29 @@ public class ThumbnailController {
 - 12000 × 12000 해상도, 582KB 크기의 이미지
 - 16000 × 16000 해상도, 995KB 크기의 이미지
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/image-compression-and-jvm-oom-error-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 테스트에 사용한 이미지들은 크기가 1MB도 되지 않지만 해상도는 매우 높다. 각 이미지를 JVM 애플리케이션에 올렸을 때 힙(heap) 메모리가 어떻게 변하는지 살펴보자.
 
 8000 × 8000 해상도, 266KB 크기의 이미지를 메모리에 올리면 힙 메모리를 537MB 정도 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/image-compression-and-jvm-oom-error-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 12000 × 12000 해상도, 582KB 크기의 이미지를 메모리에 올리면 힙 메모리를 1.18GB 정도 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/image-compression-and-jvm-oom-error-03.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 16000 × 16000 해상도, 995KB 크기의 이미지를 메모리에 올리면 힙 메모리를 2GB 정도 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/image-compression-and-jvm-oom-error-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이미지 크기는 작은데 JVM 메모리에 올리면 왜 이렇게 많은 메모리를 사용할까? 이는 이미지 압축 방식과 JVM 애플리케이션이 이미지를 로딩하는 방식에 연관이 있다.
 
@@ -267,11 +257,9 @@ public class ThumbnailController {
 
 작은 이미지도 JVM 메모리에 올릴 때 서버에 얼마나 큰 부하를 줄 수 있는지 배웠다. 프로젝트에서 문제를 일으킨 이미지는 피그잼(FigJam) 보드를 저장한 것이었다. 이미지의 배경 색상이 대부분 같고 곳곳에 스티키(sticky)가 있었다. 보드가 매우 커서 해상도는 높았지만, PNG 압축률이 좋아 이미지 크기는 작았던 것으로 보인다. 로컬 환경에서 리사이징해 보니 힙 메모리를 약 5.5GB 사용했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/image-compression-and-jvm-oom-error-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 개인적으로 [Thumbnailator](https://github.com/coobird/thumbnailator) 라이브러리에 실제로 메모리 누수가 있는지 확인해 봤다. 결론적으로 메모리 누수는 없는 것 같다. 로컬 환경에서 Thumbnailator 라이브러리로 리사이즈 작업을 반복해서 수행하고 JVM 메모리 상태를 모니터링해 봤다.
 

@@ -8,8 +8,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 ## 1. 팩토리 메서드 패턴(Factory Method Pattern)
 
 > [Design Patterns: Elements of Reusable Object Oriented Software][design-pattern-book-link]<br/>

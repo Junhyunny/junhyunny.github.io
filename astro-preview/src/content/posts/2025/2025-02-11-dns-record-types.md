@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/dns/aws/route53/dns-and-aws-route53/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 DNS(Domain Name System)를 구성하면 내부에 사용되는 다양한 레코드(record)들이 있다. ChatGPT 같은 도구를 사용하면 잘 정리해주기 때문에 모두 외우고 다닐 필요는 없지만, 레코드 타입에 따른 동작 방식을 잘 이해하기 위해 블로그에 정리했다. 
@@ -20,11 +18,9 @@ DNS(Domain Name System)를 구성하면 내부에 사용되는 다양한 레코�
 
 DNS 레코드는 도메인 이름과 IP 주소 및 기타 정보를 연결할 때 사용하는 데이터베이스 항목이다. AWS Route53에 호스팅 영역을 구축하면 아래와 같은 테이블에 각 레코드에 대한 타입을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 각 레코드 타입에 따라 사용하는 용도가 다르다. 예를 들어 VPC 내부 로드 밸런서에 연결하는 작업에는 `A` 레코드가 필요하고, 외부 DNS 서버 Route53 호스트 영역을 연결할 때는 `NS` 레코드가 필요하다. 각 레코드 타입에 따라 용도가 다르기 때문에 레코드 타입을 잘 이해하면 추후 시스템을 인티그레이션(integration)할 때 큰 어려움을 겪지 않을 수 있다. 
 
@@ -54,12 +50,12 @@ example.com.   3600   IN   AAAA   2001:0db8:85a3:0000:0000:8a2e:0370:7334
 
 `CNAME(Canonical Name) 레코드`는 도메인을 다른 도메인 이름으로 연결한다. 도메인 별명(alias)을 지어주는 것과 동일하다. 예를 들어 www.example.com 도메인을 example.com 도메인 주소로 연결하는 것이다. 도메인을 여러 개 사용하는 경우 CNAME 레코드를 통해 실제 서비스 접근 경로를 하나로 제어할 수 있지만, 클라이언트가 특정 도메인에 대한 IP 주소를 얻기 위해서 두 번의 요청을 주고 받아야 한다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-02.png" width="100%" class="image__border">
 </div>
 <center>https://www.mailersend.com/blog/cname-record</center>
-
-<br/>
+</div>
 
 `MX(Mail Exchanger) 레코드`는 이메일이 특정 도메인으로 전달될 때 어느 메일 서버로 전달해야 하는지 지정한다. 숫자로 우선 순위를 지정하고, 높은 우선 순위를 갖는 메일 서버로 메일을 전달한다.
 
@@ -76,12 +72,12 @@ example.com.    3600    IN    MX   20   mail2.example.com.
 
 `NS(Name Server) 레코드`는 도메인 이름 시스템에서 특정 도메인의 DNS 정보를 관리하는 네임 서버를 지정하는 레코드다. NS 레코드를 통해 접근하는 네임 서버는 해당 도메인의 모든 DNS 레코드(A, MX, TXT 등)를 제공한다. NS 레코드를 사용하면 상위 DNS 서버가 하위 도메인의 정보를 찾는 요청을 다른 네임 서버에 위임한다. 예를 들어 GoDaddy 같은 도메인 구매 서비스를 통해 구매한 example.com 도메인을 다루는 네임 서버를 AWS Route53으로 지정할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-03.png" width="80%" class="image__border">
 </div>
 <center>https://m.blog.naver.com/mogulist/221761776783</center>
-
-<br/>
+</div>
 
 `PTR(Pointer) 레코드`는 IP 주소를 도메인 이름으로 역변환하는 레코드다. 예를 들어 192.168.1.1 IP 주소를 example.com 도메인으로 연결한다.
 

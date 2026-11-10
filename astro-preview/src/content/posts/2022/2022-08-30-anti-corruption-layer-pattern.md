@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/design-pattern/adapter-pattern/"
 ---
 
-<br/>
-
 ## 1. Anti-Corruption Layer
 
 부패 방지 계층(anti-corruption layer)은 Eric Evans의 DDD(Domain Driven Development)에서 등장한 개념이다. 레거시(legacy) 시스템을 새로운 시스템으로 여러 단계에 걸쳐 이전할 때 사용할 수 있는 패턴(pattern)이다. 간단한 그림을 통해 개념을 이해해본다.

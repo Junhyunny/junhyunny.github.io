@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 1. White Box Test
 
 > Wiki<br/>

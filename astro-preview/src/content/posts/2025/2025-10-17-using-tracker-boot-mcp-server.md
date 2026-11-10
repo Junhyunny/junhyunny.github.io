@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/ai-agent/model-context-protocol/mcp-server/mcp-client/mcp-and-mcp-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 우리 팀은 고객들과 일할 때 `피보탈 트래커(pivotal tracker)`를 이슈 트래커로 사용했다. 나는 탄주 랩스일 때 합류했지만, [피보탈 랩스(pivotal labs)](https://en.wikipedia.org/wiki/Pivotal_Labs) 시절 직접 개발한 서비스를 여전히 사용 중이라는 사실이 멋지다고 생각했다. 필요한 도구는 우리가 스스로 개발한다는 정신에 감동한 것 같다.
@@ -30,19 +28,15 @@ MCP(model context protocol)나 MCP 서버에 대한 개념이 부족하다면, [
 
 [트래커 부트](https://trackerboot.com/)에 대한 설명이 먼저 필요할 것 같다. 트래커 부트는 지라(jira) 같은 일반적인 이슈 트래킹 도구는 아니다. [XP(extreme programming)](https://en.wikipedia.org/wiki/Extreme_programming) 애자일 방법론을 따라 프로덕트를 개발할 때 필요한 사용자 스토리(user story)를 관리하는 도구다. 사용자 스토리는 XP 개발 사이클에서 기본적인 작업 단위를 의미한다. 사용자의 요구사항 또는 기능(feature)에 대한 내용이 작성되어 있다. PM(product manager)나 디자이너가 작성한 스토리들은 아이스 박스(ice box)에서 관리된다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-01.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 착수할 수 있는 상태인지 등의 검토가 되지 않은 상태다. IPM(iteration planning meeting), Pre-IPM 같은 활동을 통해 스토리를 검증하고, 구현 복잡도를 고려해 스토리에 점수를 매긴다. 점수가 매겨진 사용자 스토리는 아이스 박스에서 백로그(backlog)으로 옮긴 후 개발에 착수한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 스토리 점수는 매 주 이터레이션이 끝나면 팀의 속도(velocity)를 측정할 때 사용된다. 속도 외에도 프로젝트가 얼마나 건강한지 여부를 확인할 수 있는 지표들을 분석해서 제공한다.
 
@@ -77,11 +71,9 @@ PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 �
 
 아이디어는 간단하다. 파일 시스템에 사용자 스토리에 대한 컨텍스트 파일을 만든다. 새로운 채팅 세션을 열어 사용하더라도 기존 작업에 대한 컨텍스트를 이어서 수행할 수 있다. 컨텍스트 파일에는 사용자 스토리를 개발할 때 수행해야 하는 태스크들에 대한 내용과 각 태스크를 수행했을 때 결과에 대한 로그가 남겨져 있다. 각 프롬프트는 이전 프롬프트들에서 어떤 작업을 수행했는지 참조한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 컨텍스트 파일은 사용자 스토리 단위로 관리되며, `story-{id}.yaml` 이름의 파일로 저장된다. 해당 파일에는 다음과 같은 정보가 포함되어 있다.
 
@@ -130,11 +122,9 @@ logs:
 - 인텔리제이에서 `CMD + ,(comma)`을 단축키로 설정 화면을 연다. 
 - 코파일럿 MCP 설정(configure) 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-05.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 `mcp.json` 파일이 열린다. 해당 파일에 트래커 부트 MCP 서버 설정을 추가한다. MCP 서버를 도커 컨테이너 기반으로 제공하고 있다. MCP 서버를 설정하면 AI 에이전트에 의해 컨테이너가 실행 후 연결된다.
 
@@ -176,11 +166,9 @@ logs:
 
 `YOUR_TRACKER_BOOT_API_KEY` 변수는 트래커 부트에서 확인할 수 있다. 우측 상단에 이니셜 아이콘을 누르면 셋팅(setting) 페이지로 이동할 수 있는 창이 나온다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-06.png" width="40%" class="image__border">
 </div>
-
-<br/>
 
 왼쪽 사이드에서 API 메뉴를 선택하면 내 계정에 연결된 API 키를 획득할 수 있다. API 키를 mcp.json 파일에 추가한다.
 
@@ -361,11 +349,9 @@ description: 프론트엔드 테스트 코드를 작성하는 프롬프트
 
 테스트 코드를 작성하기 전에 스토리 정보, 현재 완료되지 않은 태스크 리스트, 코멘트 리스트를 조회한다. 스토리의 승인 기준(acceptance criteria)나 코멘트에 작성된 이전 활동(activity) 리스트는 AI 에이전트를 위한 컨텍스트가 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-09.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 모든 테스트 코드 구현이 완료되면 작업 내용을 요약하여 트래커 부트 서버에 업데이트한다.
 
@@ -419,11 +405,9 @@ description: 프론트엔드 구현 코드를 작성하는 프롬프트
 
 테스트 프롬프트와 동일하게 스토리 정보, 현재 완료되지 않은 태스크 리스트, 코멘트 리스트를 조회한다. 이전 활동(activity)에 작성된 테스트 코드 작성 내용이 구현 코드를 작성할 때 필요한 컨텍스트가 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-11.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 리팩토링 수행 여부는 선택적이므로 구현 코드가 완료되면 해당 태스크를 완료시킨다. 작업한 내용을 요약하여 트래커 부트 코멘트에 생성한다.
 

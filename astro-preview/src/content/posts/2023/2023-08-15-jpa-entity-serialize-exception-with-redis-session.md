@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 레디스(redis)를 위한 스프링 세션(spring session)을 사용하는 중 아래 로그처럼 엔티티(entity)를 직렬화(serialize)할 수 없다는 에러를 만났습니다. 

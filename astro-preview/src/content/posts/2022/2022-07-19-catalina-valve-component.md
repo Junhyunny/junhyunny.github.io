@@ -7,8 +7,6 @@ categories:
   - "server"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Spring Cloud Sleuth에 관련된 글][spring-cloud-sleuth-link]을 작성하면서 트레이스(trace), 스팬(span) 아이디가 어느 시점에 생기는지 분석해 봤다. 필터로 예상했지만, 생각과 다르게 `TraceValve` 객체에서 트레이스, 스팬 아이디를 생성하고 있었다. `Catalina` 컨테이너의 `CoyoteAdapter` 클래스에서 `TraceValve` 클래스를 호출하였는데, 시점이 서블릿 필터(servlet filter) 진입 전이었다. 필터 기능 이전에도 이렇게 전처리 기능이 있었다는 사실에 놀랐고, 관련된 내용을 정리해 보았다.
@@ -211,12 +209,12 @@ public class CoyoteAdapter implements Adapter {
 
 - 밸브 컴포넌트는 웹 애플리케이션이 아닌 카탈리나 컨테이너에 위치한다. 서블릿 필터가 동작하기 전에 실행된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/catalina-valve-component-01.png" width="80%" class="image__border">
 </div>
 <center>https://m.blog.naver.com/gallechess/221047184041</center>
-
-<br/>
+</div>
 
 상세하게 살펴보면 톰캣 버전에 따라 다르지만, 기본적으로 다음과 같은 Valve 컴포넌트들이 컨테이너에서 실행된다.
 

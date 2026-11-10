@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/http/"
 ---
 
-<br/>
-
 ## 1. Connectionless Characteristic in HTTP
 
 HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보겠다. 이는 비연결성(connectionless) 특징과 연관이 있다.

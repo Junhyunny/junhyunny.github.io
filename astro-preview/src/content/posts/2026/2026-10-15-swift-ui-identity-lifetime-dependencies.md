@@ -11,8 +11,6 @@ categories:
 summary: "정체성, 생명주기, 의존성이라는 세 개념으로 SwiftUI가 뷰를 다시 평가하는 과정을 살펴봅니다."
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Demystify SwiftUI](https://developer.apple.com/videos/play/wwdc2021/10022/) 영상을 보고 배운 내용을 정리했다.

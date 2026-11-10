@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. Slide In/Out 효과
  
 컴포넌트가 아래에서 위 방향 슬라이드(slide)로 등장하고, 사라질 때 위에서 아래로 내려가는 효과입니다.

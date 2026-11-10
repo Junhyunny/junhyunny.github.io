@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `REST` API는 HTTP 메서드(method)를 통해 동작 방식을 정한다. 

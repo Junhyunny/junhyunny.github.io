@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/gitlab-ci/maven/spring-boot/optimize-gitlab-ci-pipeline-for-maven-project/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 프로젝트 MVP(minimum viable product) 릴리즈 일정이 다가오면서 운영 환경을 위한 CI/CD 파이프라인 구축이 필요했다. 현재 프로젝트 상황을 고려했을 때 `깃허브 액션스(Github Actions)`가 가장 최선의 선택이라고 생각됐다. 
@@ -133,19 +131,15 @@ jobs:
   - 추천 워크플로우가 없다면 필요한 템플릿을 검색해서 사용할 수 있다.
   - 필자는 `Simple workflow`를 선택했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/github-actions-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 워크플로우 yml 파일을 생성한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/github-actions-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 액션스 섹션에서 방금 생성한 워크플로우가 실행되는 것을 확인할 수 있다.
 

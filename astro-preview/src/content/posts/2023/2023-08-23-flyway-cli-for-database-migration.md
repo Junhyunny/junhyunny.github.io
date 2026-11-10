@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/database/schema-migration/"
 ---
 
-<br/>
-
 ## 1. Flyway
 
 [Schema Migration][schema-migration-link]에서 이야기했듯이 스키마 마이그레이션 작업은 도구를 사용하는 것이 좋습니다. 

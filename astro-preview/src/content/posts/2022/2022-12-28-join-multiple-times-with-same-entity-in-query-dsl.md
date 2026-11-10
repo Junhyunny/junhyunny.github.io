@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/jpa/query-dsl/crud-with-jpa-query-factory/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 엔티티(entity)는 여러 가지 역할을 할 수 있습니다. 

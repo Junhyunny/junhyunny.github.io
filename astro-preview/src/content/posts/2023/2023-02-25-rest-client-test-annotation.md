@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-request-date-format/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 부트(spring boot) 프레임워크는 `RestTemplate` 객체를 사용해 별다른 의존성 없이도 쉽게 API 요청을 수행할 수 있습니다. 

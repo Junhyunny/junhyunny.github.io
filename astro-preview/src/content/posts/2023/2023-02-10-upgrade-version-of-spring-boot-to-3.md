@@ -10,8 +10,6 @@ categories:
   - "query-dsl"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `spring-boot-starter-parent` 2.7.4 버전에서 3.0.2 버전으로 업그레이드하면서 마주친 에러들에 대해 정리하였습니다. 

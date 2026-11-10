@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/javascript-scope-chain/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스코프(scope)는 모든 프로그래밍 언어에서 중요한 개념입니다. 

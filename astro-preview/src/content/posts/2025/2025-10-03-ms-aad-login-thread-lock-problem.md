@@ -20,8 +20,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/design-pattern/proxy-pattern/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 나는 프로페셔널 서비스(professional service) 팀으로 일하고 있다. 여러 팀들로부터 지원 요청을 받거나 문제가 생겼을 때 이를 해결해주는 역할을 수행한다. 최근 외부 서버와 통신 문제로 인해 시스템 장애가 발생한 케이스에 대한 문의를 받았고, 이 문제를 함께 해결했다. 트러블 슈팅 과정을 정리해 놓으면 좋을 것 같아서 글로 작성했다.
@@ -34,11 +32,9 @@ recommendedPosts:
 - 새로 로그인하는 사용자는 인증이 완료되지 않고 톰캣 화이트 페이지(white page)로 리다이렉트 된다. 
 - 이미 로그인 한 사용자들은 문제 없이 사용이 가능하다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/ms-aad-login-thread-lock-problem-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 그렇다고 다른 문제가 있던 것은 아니다. ALB, 데이터베이스는 잘 동작했고, 애플리케이션 헬스 체크도 정상적으로 응답을 줬다. 서버의 리소스 사용량도 크게 문제가 되지 않은 수준이었다. 클라우드워치(cloudwatch)에도 에러 로그가 보이지 않았다. 힌트가 딱 하나 있었는데, 브라우저 주소 창에 표시된 리다이렉트 URL이 다음과 같았다.
 
@@ -124,11 +120,9 @@ finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 �
 - CachingJWKSetSource 객체는 JWT를 생성하기 위해 필요한 JWks을 획득한다.
 - NimbusJwtDecoder$JwkSetUriJwtDecoderBuilder$SpringJWTSource 객체는 외부 인가 서버로 JWKs을 요청한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/ms-aad-login-thread-lock-problem-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 SpringJWTSource 객체의 fetchJwks 메서드를 살펴보면 내부적으로 `RestOperations` 인스턴스를 사용해 `외부 서버(https://login.microsoftonline.com/{tenant-id}/discovery/v2.0/keys)`에게 JWKs을 요청한다.
 
@@ -164,11 +158,9 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 3. 스레드-1은 락를 해제하지 못한다.
 4. 다른 스레드들은 15초 대기 후 락을 선점하지 못해서 예외를 던지고 인증에 실패한다. 시스템 장애로 이어진다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/ms-aad-login-thread-lock-problem-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 마이크로소프트 인증 서버에 일시적 문제가 있었던 것이라 생각하고, 다음과 같은 조치를 취했다.
 
@@ -325,11 +317,9 @@ class JwtConfig() {
 
 애플리케이션이 실행되면 실제 런타임에선 위에서 만든 프록시 객체들이 주입된다. 클라이언트 타임 아웃이 없어서 발생하는 스레드 락 문제를 해결함과 동시에 로그를 통해 실제로 문제가 발생하는지 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/ms-aad-login-thread-lock-problem-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 서비스를 배포 후 얼마 안 지나서 다음과 같은 에러 메시지를 만났다. 
 

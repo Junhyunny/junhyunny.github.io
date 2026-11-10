@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 프로젝트에서 레거시 서버와 연결하면서 응답 메시지에 다음과 같은 문제가 있었습니다. 

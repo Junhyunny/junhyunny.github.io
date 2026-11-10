@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 1. Port Forwarding 
 
 > Wikipedia<br/>

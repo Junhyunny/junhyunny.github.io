@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/aws/dynamodb/test-container/test-container-for-dynamodb-test/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 데이터베이스나 파일 스토리지 같은 외부 시스템과 연결이 있는 경우 결합 테스트(integration test)가 필요하다. 스파이(spy)처럼 단순 객체의 호출 여부를 확인하는 테스트는 제대로 된 검증이 안 되기 때문에 실제 동작에서 문제가 생기는 경우가 많았다. 네트워크 환경 같이 제약적인 상황이 아니라면 실제 컴포넌트와 동일하게 동작하는 페이크(fake) 서버와 결합 테스트를 수행하는 것이 좋다고 생각한다. 이번 글은 결합 테스트에서 많이 사용하는 테스트 컨테이너(test container)를 통해 AWS S3와 결합 테스트하는 방법에 대해 정리했다.

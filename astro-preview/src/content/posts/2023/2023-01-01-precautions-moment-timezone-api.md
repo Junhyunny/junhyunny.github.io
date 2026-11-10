@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/handling-timezone-on-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 타임존(timezone) 비즈니스를 다루기 위해 `moment-timezone` 라이브러리를 사용한 경험들을 정리했다. 해당 라이브러리가 익숙치 않은 탓에 의도치 않은 동작들이 애플리케이션 곳곳에 발생했다. 간단한 테스트 코드들과 함께 관련된 내용을 정리했다.

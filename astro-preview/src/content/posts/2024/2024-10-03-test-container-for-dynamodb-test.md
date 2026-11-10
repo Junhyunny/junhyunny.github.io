@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][dynamodb-crud-example-with-spring-boot-link]에선 스프링 부트 애플리케이션에서 DynamoDB에 데이터를 읽고 쓰는 예제를 다뤘다. 이번 글을 테스트 컨테이너(TestContainer)를 사용해 애플리케이션이 DynamoDB와 결합 테스트를 수행하는 방법에 대해 정리했다. 일부 변경이 있지만, 대부분의 코드는 이전 글과 동일하다.

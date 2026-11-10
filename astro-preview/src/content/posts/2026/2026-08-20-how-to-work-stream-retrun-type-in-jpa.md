@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring/spring-data-jpa/async-response/performance/csv-download-with-streaming/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][csv-download-with-streaming-link]을 정리할 때 JPA의 Stream 리턴 타입이 어떻게 동작하는지 잘 이해되지 않았다. JPA 인터페이스 내부에 어떤 로직이 숨어 있는지 정리해 봤다. PostgreSQL 데이터베이스를 사용했다. JDBC 구현체가 다르기 때문에 다른 데이터베이스는 이 글에서 설명하는 것과 다르게 동작할 수 있다.
@@ -233,11 +231,9 @@ public interface Iterator<E> {
 
 JPA 리포지토리가 반환하는 Stream 객체가 의존하는 Iterator 인스턴스는 ScrollableResultsIterator 객체이다. JPA 구현체인 하이버네이트는 SqmQueryImpl 객체의 `getResultStream()` 메서드를 통해 ScrollableResultsIterator 객체가 주입된 Stream 객체를 만든다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/how-to-work-stream-retrun-type-in-jpa-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 ScrollableResultsIterator 객체는 ScrollableResultsImpl 객체에 의존하고, ScrollableResultsImpl 객체는 RowProcessingStateStandardImpl 객체에 의존한다. 이 의존 관계 체인을 따라 계속 들어가다 보면 JDBC 레벨까지 도달한다. 스레드 호출 스택을 보면 java.util 패키지에서 org.postgresql.jdbc 패키지까지 도달하게 된다.
 
@@ -247,11 +243,9 @@ ScrollableResultsIterator 객체는 ScrollableResultsImpl 객체에 의존하고
 - RowProcessingStateStandardImpl 객체 (Hibernate 패키지)
 - ScrollableResultsIterator 객체 (Hibernate 패키지)
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/how-to-work-stream-retrun-type-in-jpa-02.png" width="75%" class="image__border">
 </div>
-
-<br/>
 
 Iterator 인스턴스가 `hasNext()` 메서드를 통해 다음 아이템이 있는지 확인하는 과정에서 PgResultSet 객체의 `next()` 메서드가 호출된다. `next()` 메서드 내부에서 다음에 사용할 데이터의 위치가 미리 조회해 놓은 데이터 리스트의 크기를 넘으면 QueryExecutorImpl 객체의 `fetch` 메서드를 호출한다. 이 시점에 지정한 `fetch_size`만큼 데이터를 다시 조회한다.
 

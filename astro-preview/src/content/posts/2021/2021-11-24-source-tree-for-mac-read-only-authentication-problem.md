@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 새로운 회사에서 받은 맥북으로 개발 환경을 만드는 과정에서 문제가 발생했다. 난생처음 사용하는 맥북에 익숙하지 않은 탓도 컸지만, 다른 원인이 있어 보였다. 형상 관리 툴(tool)로 사용하는 소스트리(Sourcetree)가 정상적으로 동작하지 않았는데, 윈도우즈에서 발생했던 문제와는 또 달랐다. 문제 상황을 정리해 보면 다음과 같다.
@@ -28,11 +26,9 @@ SourcetreeForMac 애플리케이션의 설정 및 권한 상태를 확인해보�
 
 - `오른쪽 상단 사용자 이미지 > Settings > Applications > Authorized OAuth Apps > SourcetreeForMac` 선택
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/source-tree-for-mac-read-only-authentication-problem-02.png" width="25%" class="image__border">
 </div>
-
-<br/>
 
 해당 애플리케이션의 권한을 확인하면 `Access public information (read-only)`라는 문구를 확인할 수 있다.
 
@@ -49,11 +45,9 @@ SourcetreeForMac 애플리케이션의 설정 및 권한 상태를 확인해보�
 3. Expiration - `no expiration` 선택
 4. `repo` 체크박스 선택
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/source-tree-for-mac-read-only-authentication-problem-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 발급받은 토큰을 사용해 보자. 먼저 토큰을 복사한다. 소스트리 애플리케이션의 계정 설정 화면으로 이동한 후 복사한 토큰을 암호로 사용한다.
 

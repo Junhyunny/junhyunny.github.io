@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://docs.spring.io/spring-data/redis/reference/redis/pubsub.html"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [레디스 발행/구독(Redis Pub/Sub)][redis-pub-sub-link] 글에서 구독/발행 패턴을 구현할 수 있는 레디스의 메시지 브로커 기능에 대해 정리했다. 이번 글은 스프링 부트 프레임워크에서 구독자, 발행자를 구현하는 방법에 대해 정리한다. 이번 실습은 구독자, 발행자에 상관 없이 다음과 같은 의존성이 필요하다.

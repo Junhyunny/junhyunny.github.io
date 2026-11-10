@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/precaution-of-thread-local/"
 ---
 
-<br/>
-
 ## 1. ThreadLocal Class
 
 JDK 1.2부터 지원된 기능입니다. 

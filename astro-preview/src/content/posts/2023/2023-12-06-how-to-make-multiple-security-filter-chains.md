@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/web-mvc-filter-test-on-spring-boot/"
 ---
 
-<br/>
-
 ## 1. Problem
 
 일반 사용자들을 위한 애플리케이션 프로젝트에 관리자를 위한 애플리케이션이 추가되었다. 해당 프로젝트는 스프링 시큐리티(spring security)를 사용하고 있었는데, 하나의 프로젝트에서 두 개의 도메인을 다루기 시작하면서 리소스(resource)에 대한 두 애플리케이션의 인가(authorization) 정책이 서로 다른 것이 문제가 됐다.

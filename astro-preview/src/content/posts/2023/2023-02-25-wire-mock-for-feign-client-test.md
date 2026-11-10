@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 외부 API 호출을 위해 사용하는 `FeginClient`를 테스트하는 방법을 정리하였습니다. 

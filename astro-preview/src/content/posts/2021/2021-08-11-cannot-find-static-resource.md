@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/when-run-jar-then-fail-to-read-resource/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이 글의 내용은 24년 6월에 다시 정리했다. 이전에 작성된 내용은 명확한 원인 분석과 해결 방법에 대해 제대로 정리되어 있지 않았다.
@@ -55,11 +53,9 @@ jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로
 
 - IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드된다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cannot-find-static-resource-01.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 같은 원리로 war 파일로 패키징한 애플리케이션을 톰캣(tomcat) 서블릿 컨테이너의 wepapp 폴더에 배포하는 방식이라면 에러가 발생하지 않는다. 톰캣 서버는 war 패키징 파일을 폴더 형태로 파일 시스템에 풀어서 서빙(serving)하기 때문이다. 
 
@@ -265,11 +261,9 @@ public class BlogController {
 - 클래스패스 /static/images 디렉토리에 업로드된 이미지를 조회할 수 있다.
 - 애플리케이션 프로세스 현재 경로 /images 디렉토리에 업로드된 이미지를 조회할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cannot-find-static-resource-02.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음 jar 파일로 애플리케이션을 실행해보자.
 

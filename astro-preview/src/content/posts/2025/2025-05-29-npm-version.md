@@ -9,8 +9,6 @@ categories:
   - "dependency-version"
 ---
 
-<br/>
-
 ## 1. Semantic Versioning
 
 시맨틱 버전(semantic versioning)은 가장 많이 사용하는 버전 관리 방법이다. 버전은 3개의 숫자로 구성되며 다음과 같은 의미를 갖는다.

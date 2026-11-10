@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
 ---
 
-<br/>
-
 ## 1. Dynamic URI FeignClient when Runtime
 
 `FeignClient`를 사용한 코드를 살펴보면 일반적으로 `URL`이 고정되어 있다. 유연한 사용이 불가능한 것처럼 보이지만, FeignClient는 URL을 런타임에 바꿀 수 있도록 설계되어 있다.

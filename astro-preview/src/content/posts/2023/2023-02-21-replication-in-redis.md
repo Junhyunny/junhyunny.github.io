@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/failover-using-sentinel-for-redis/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 레디스(redis) 같은 캐시 서비스를 사용할 때 고가용성(high availability)에 대한 고민이 필요하다. 단일 인스턴스로 구성된 캐시 서버에 잠깐이라도 장애가 발생하면 전체 시스템이 마비될 수 있다.
@@ -37,12 +35,12 @@ recommendedPosts:
 - 마스터 인스턴스에 저장된 데이터는 슬레이브 인스턴스에 주기적으로 동기화(synchronize)된다.
 - 마스터 인스턴스에 문제가 발생하는 경우 이를 슬레이브 인스턴스가 대체한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-01.png" width="80%" class="image__border">
 </div>
 <center>https://www.vinsguru.com/redis-master-slave-with-spring-boot/</center>
-
-<br/>
+</div>
 
 슬레이브 인스턴스는 읽기 연산에 대해서만 정상적인 동작을 보장한다. 레디스 버전 2.6부터 슬레이브 인스턴스는 기본적으로 읽기 전용이다. `redis.conf` 설정 파일의 `replica-read-only` 옵션을 통해 변경할 수 있다.
 
@@ -72,11 +70,9 @@ recommendedPosts:
 
 시스템 구성도를 보면 다음과 같다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 읽기 기능은 리스트의 상태를 바꾸지 않는 연산이다. 반대로 쓰기 기능은 리스트의 상태를 바꾸는 연산이다. 앞서 말했듯 마스터 인스턴스는 리스트의 상태를 바꿀 수 있지만, 슬레이브는 리스트의 상태를 읽는 것만 가능하다. 우선 위 시나리오에서 읽기 연산과 쓰기 연산을 분리해서 살펴보자.
 
@@ -512,11 +508,9 @@ $ sh shell/redis-replication.sh
   - 메시지 생성 불가능
   - 읽지 않은 메시지 리스트 비우기 불가능
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-03.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음은 슬레이브 인스턴스가 멈췄을 때 어떻게 동작하는지 살펴보자. 마찬가지로 도커 데스크톱을 사용해 모든 슬레이브 인스턴스를 실행 중지한다.
 

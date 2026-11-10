@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 톰캣(tomcat)의 `sever.xml` 파일 안에 `Host` 태그에 관련된 질문을 받았습니다. 

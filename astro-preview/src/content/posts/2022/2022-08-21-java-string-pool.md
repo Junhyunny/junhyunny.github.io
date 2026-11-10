@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/what-is-jvm/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 경험한 레거시 시스템들을 돌이켜보면 문자열 비교를 위해 동등 연산자(==)를 사용한 코드들을 종종 보곤 했습니다. 

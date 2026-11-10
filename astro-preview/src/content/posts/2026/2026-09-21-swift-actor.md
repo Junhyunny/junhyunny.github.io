@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/swift/asnyc-await/task/executor/thread/swift-asynchronous-task-architecture/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][swift-asynchronous-task-architecture-link]에서는 스위프트(Swift)의 비동기 아키텍처를 살펴봤다. 이번 글에서는 액터(actor)와 격리 도메인(isolation domain)을 살펴본다.

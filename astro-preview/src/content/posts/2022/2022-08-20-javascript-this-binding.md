@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/javascript-scope-chain/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `JavaScript`의 `this` 키워드는 묘합니다. 

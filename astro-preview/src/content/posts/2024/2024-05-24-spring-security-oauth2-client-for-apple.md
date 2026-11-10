@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/design-pattern/spring-boot/multiple-sns-login-with-spring-security-oauth2-client/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 다른 팀에서 애플(Apple) OAuth2 로그인이 잘 동작하지 않는다는 문의가 들어 왔다. 아무래도 내가 스프링 시큐리티(spring security)로 책을 집필 중이기도 하고 구현 경험이 많기 때문에 도움 요청이 온 것 같다. 이번 글에선 애플 OAuth2 인증에 필요한 추가 작업들에 대한 내용을 정리했다. 
@@ -65,11 +63,9 @@ recommendedPosts:
   1. 새로 만든 클라이언트 시크릿을 사용해 액세스 토큰을 요청한다.
   2. 액세스 토큰을 받는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-client-for-apple-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 [공식 문서](https://developer.apple.com/documentation/accountorganizationaldatasharing/creating-a-client-secret)를 살펴보면 클라이언트 시크릿을 만드는 방법을 찾을 수 있었다. 헤더는 다음과 같은 정보를 포함하여 만든다.
 
@@ -132,11 +128,9 @@ recommendedPosts:
   - 애플 인가 서버로 HTTP 요청으로 권한 부여(authorization grant)를 요청한다.
   - 요청 정보가 정상적인 경우 액세스 토큰(access token)을 응답 받는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-client-for-apple-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터 생성하는 createParameters 메서드를 확장했다.
 

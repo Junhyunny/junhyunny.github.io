@@ -9,8 +9,6 @@ categories:
   - "mediapipe"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 프로젝트에서 달리는 사람의 스켈레톤(skeleton) 형상을 추출하는 애플리케이션을 개발했다. [회고 글][project-retrospective-link]에서도 이야기했지만, 구현 코드를 ChatGPT가 순식간에 만들어줬기 때문에 개발하는 시간이 매우 짧았다. 코드를 이해하고 데이터의 의미를 파악하는 데 시간을 더 소비했다. ChatGPT가 만들어준 코드를 이해하기 위해 공부한 내용을 글로 정리했다. 예제에선 이 [샘플 비디오](https://www.pexels.com/video/a-woman-jogs-along-the-riverbank-3048931/)를 사용했다. 
@@ -28,11 +26,9 @@ categories:
 - 상업 용도 가능
 - 사적 용도 가능
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 mediapipe 패키지는 여러 플랫폼에서 다양한 솔루션을 지원한다. 
 
@@ -51,12 +47,12 @@ mediapipe 패키지는 여러 플랫폼에서 다양한 솔루션을 지원한�
 - 각 신체 부위 별로 인덱스가 지정되어 있다.
 - 각 신체 부위 이름을 확인하고 싶다면 이 [링크](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko#pose_landmarker_model)를 참고하길 바란다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-03.png" width="50%" class="image__border image__padding">
 </div>
 <center>https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko</center>
-
-<br/>
+</div>
 
 포즈 랜드마크 모델에 의해 감지되는 랜드마크(landmark) 데이터는 두 가지 존재한다. 동시에 값을 얻을 수 있다. 먼저 정규화 된 랜드마크(Landmarks) 데이터를 살펴보자.
 
@@ -277,11 +273,9 @@ W0000 00:00:1720024465.559157 4643189 inference_feedback_manager.cc:114] Feedbac
 
 실행한 애플리케이션이 종료되면 다음 결과 영상을 output 디렉토리에서 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-04.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 랜드마크 JSON 파일도 output 디렉토리에서 찾을 수 있다.
 

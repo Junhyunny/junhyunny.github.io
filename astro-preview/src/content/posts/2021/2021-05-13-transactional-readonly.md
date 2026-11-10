@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
 ---
 
-<br/>
-
 ## 1. @Transactional readOnly Attribute
 
 먼저 `javadoc`의 내용을 살펴보자.

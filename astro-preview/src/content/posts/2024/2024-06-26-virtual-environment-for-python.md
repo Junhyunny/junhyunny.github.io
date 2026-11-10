@@ -7,8 +7,6 @@ categories:
   - "python"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 대학생 시절 OpenCV를 다뤘던 적이 있다. 당시에 C++, 파이썬(python) 두 가지 언어를 사용할 수 있었다. 필자는 C++을 선택했다. C, C++ 언어가 익숙한 이유도 있었지만, 참조하는 파이썬 예제 코드가 버전에 따라 제대로 동작하지 않는 경우가 허다 했기 때문이다. 파이썬 관련 의존성들의 버전을 잘못 설치하면 애플리케이션이 전체적으로 망가져 라즈베리 파이(raspberry pi)를 몇 번이고 포맷헀다. 당시에 파이썬은 버전에 매우 민감한 언어라는 선입견이 생겨 버린 것 같다. 
@@ -24,11 +22,9 @@ categories:
 
 파이썬 패키지는 리눅스 기준으로 `/usr/local/lib/python3.12/site-packages` 폴더에 설치된다. 설치된 Django 버전에 따라 두 프로젝트 중 하나는 문제가 발생한다. 가상 환경은 이런 문제를 해결한다. 각 프로젝트 내부에 `venv` 폴더를 만들고 여기에서 패키지를 관리한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/virtual-environment-for-python-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 환경을 격리하는 것 뿐만 아니라 프로젝트에 필요한 환경을 다시 구성하는 것도 매우 쉽다. `requirements.txt`라는 파일을 통해 프로젝트에 필요한 의존성들의 버전을 관리한다. 이를 사용해 프로젝트에 필요한 의존성을 다시 설치할 수 있다. 자세한 내용은 실습을 통해 확인해보자. 
 

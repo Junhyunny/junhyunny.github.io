@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/"
 ---
 
-<br/>
-
 ## 1. Netflix Ribbon
 
 리본(ribbon)은 TCP/HTTP 클라이언트 동작을 제어하는 클라이언트 사이드 로드 밸런서(client side load balancer)이다. 클라이언트 사이드 로드 밸런서는 요청을 보내는 클라이언트 측에서 서버의 부하 분산을 위해 직접 나눠 호출하는 행위이다. 서버 사이드 로드 밸런서(server side load balancer)와 구분해서 알아보자. 서버 사이드 로드 밸런서는 다음과 같은 특징을 가진다.
@@ -31,12 +29,12 @@ recommendedPosts:
 - 해당 방법은 클라우드 환경에서 유연성이 떨어진다.
   - 수시로 컨테이너가 죽고, 살아나는 과정에서 IP가 변경되기 때문에 서버 사이드 로드 밸런싱은 어렵다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-01.png" width="80%" class="image__border">
 </div>
 <center>https://sabarada.tistory.com/54</center>
-
-<br />
+</div>
 
 클라이언트 사이드 로드 밸런서는 다음과 같은 특징을 가진다.
 

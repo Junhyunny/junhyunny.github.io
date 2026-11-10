@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-paging/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 Jekyll 문법과 충돌하므로 `{ { someValue } }`으로 표기된 코드는 공백을 제거해야 정상적으로 동작한다.

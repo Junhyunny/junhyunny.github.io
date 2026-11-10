@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/handling-timezone-on-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 여태 경험했던 프로젝트들은 모두 타임존(timezone)과 관련된 이슈나 고민 거리가 없었습니다. 

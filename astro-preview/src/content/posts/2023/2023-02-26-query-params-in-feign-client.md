@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `FeignClient`를 사용하면서 느낀 장점들은 다음과 같습니다.

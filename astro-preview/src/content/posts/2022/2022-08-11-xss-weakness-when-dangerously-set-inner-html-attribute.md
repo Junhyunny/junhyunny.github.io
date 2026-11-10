@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/"
 ---
 
-<br/>
-
 ## 1. dangerouslySetInnerHTML 속성(Attribute)
 
 기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있습니다. 

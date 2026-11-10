@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/msa/design-pattern/distributed-transaction/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 내 첫 프로젝트는 모놀리식 아키텍처(monolithic architecture)기반의 기존 시스템을 마이크로서비스 아키텍처(microservice architecture)로 재구성하는 일이었다. 기존 시스템은 약 20년 가까이 운영되어 온 덩치 큰 괴물이었고, 나는 이 시스템을 비즈니스 영역별로 해체, 재결합하는 개발 프로젝트와 안정화하는 운영 업무를 수행했다. 

@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스와이퍼(swiper) 기능이 필요하면 주로 `SwiperJs` 라이브러리를 사용합니다. 

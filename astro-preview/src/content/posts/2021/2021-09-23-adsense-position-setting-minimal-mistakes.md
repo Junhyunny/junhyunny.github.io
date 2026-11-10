@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/minimal-mistakes-adsense/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `구글 애드센스(Google Adsense)`는 승인도 어렵지만, GitHub 블로그에 광고를 등록하는 일도 쉽지 않았다. 애드센스의 `자동 광고` 설정에 대한 설명을 보면 구글에서 포스트를 분석하여 적절한 위치에 광고를 넣는다고 이야기한다. 실제 적용하면 글의 가독성이나 몰입도를 떨어뜨리는 광고가 많았다. 필자는 글의 가독성을 깨뜨리는 위치에 광고가 삽입되는 것은 원치 않았다. 광고는 부가적인 요소라 생각하기 때문에 부수적인 요소들이 포스트의 내용을 망치는 것은 좋지 않다고 판단했다. 때문에 `자동 광고` 설정 없이 광고를 만들고 포스트에 추가하는 작업을 진행했다.
@@ -27,11 +25,9 @@ recommendedPosts:
   - 콘텐츠 내 자동 삽입 광고
   - 검색 엔진
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/adsense-position-setting-minimal-mistakes-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 광고를 생성하면 이름을 설정해야 한다.
 
@@ -39,22 +35,18 @@ recommendedPosts:
 2. 사각형, 수평형, 수직형인지 종류를 선택한다.
 3. 이름을 작성 후 `만들기` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/adsense-position-setting-minimal-mistakes-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 구글 애드센스의 광고를 원하는 위치에 심으려면 코드가 필요하다.
 
 1. 애드센스 연결시와 동일하게 광고 코드를 받는다.
 2. 받은 광고 코드를 포스트 적절한 위치에 삽입한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/adsense-position-setting-minimal-mistakes-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 받은 코드를 복사하지 않고 `완료` 버튼을 누르는 경우 다음과 같은 방법으로 광고 코드를 재확인할 수 있다.
 

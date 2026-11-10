@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/javascript/polling-long-polling-and-javascript-example/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 클라이언트가 서버의 상태 변경을 주기적으로 반영하기 위해 폴링(polling)을 사용한다. 최근 우연히 만난 글에서 롱 폴링(long polling)에 대한 내용을 읽어보니 갑작스레 의문이 들었다. 
@@ -27,12 +25,12 @@ recommendedPosts:
 
 먼저 폴링을 알아보자. 클라이언트가 일정 주기로 서버에 필요한 데이터를 요청한다. 가장 쉬운 방법이지만, 변경 사항이 있든지 없든지 계속 요청을 보내기 때문에 서버에 부담을 주게 된다. 데이터를 요청하는 주기가 짧아질수록 부하는 커진다. 네트워크나 HTTP 커넥션(connection)을 맺기 위한 비용이 계속 발생한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/polling-long-polling-and-spring-example-01.png" width="50%" class="image__border">
 </div>
 <center>https://rubberduck-debug.tistory.com/123</center>
-
-<br/>
+</div>
 
 롱 폴링은 조금 다르다. 서버는 클라이언트 요청에 대해 즉시 응답을 주지 않는다. 다음과 같이 진행된다.
  

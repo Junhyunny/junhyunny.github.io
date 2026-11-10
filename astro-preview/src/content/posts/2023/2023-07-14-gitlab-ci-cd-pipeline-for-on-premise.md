@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/ssh-copy-id-for-easy-connection/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 시작한 프로젝트는 코드 저장소로 GitLab을 사용했다. 별도의 자원 없이 효율적인 CI/CD 파이프라인을 구축하기 위해 GitLab에서 제공하는 파이프라인 기능을 사용하였고, 이번 글에서는 그 내용을 정리하였다.
@@ -139,11 +137,9 @@ GitLab 프로젝트 저장소의 설정 화면을 통해 필요한 변수를 등
 
 - 화면 왼쪽의 `Settings` 카테고리에서 CI/CD 탭을 선택한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/gitlab-ci-cd-pipeline-for-on-premise-02.png" width="25%" class="image__border">
 </div>
-
-<br/>
 
 - 변수 섹션(section)을 찾아 변수를 지정한다.
   - 변수는 값 혹은 파일로 저장할 수 있다.
@@ -290,11 +286,9 @@ scp -i ~/.ssh/id_rsa -P $HOST_PORT target/$APPLICATION $HOST_USER@$HOST_IP:/home
 
 - 파이프라인 화면
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/gitlab-ci-cd-pipeline-for-on-premise-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 - 파이프라인의 상세한 작업 화면
 

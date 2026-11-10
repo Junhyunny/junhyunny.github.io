@@ -8,8 +8,6 @@ categories:
   - "react"
 ---
 
-<br/>
-
 ## 1. Test Target Component
 
 HTML `input` 태그의 타입을 `file`로 지정하면 호스트 장치의 지원을 받아 파일을 선택할 수 있습니다. 

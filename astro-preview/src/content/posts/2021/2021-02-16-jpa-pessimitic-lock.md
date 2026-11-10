@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 비관적인 락(pessimistic lock) 개념을 다시 정리한 후 글을 이어간다.

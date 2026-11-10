@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/nginx/compression-on-nginx/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 속도가 느린 네트워크 상황에서 브라우저 사용자의 경험 개선을 위한 압축 설정에 관련된 내용을 [이전 글][compression-on-nginx-link]에서 다뤘다. 이전 글을 읽어보면 알 수 있듯이 이미지, 비디오 같은 파일들은 이미 충분히 압축된 바이너리(binary) 파일이기 때문에 압축 효과가 거의 없다. 압축 이외에도 사용성 개선을 위한 방법인 캐시 컨트롤(cache control)을 알아본다.
@@ -188,11 +186,9 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 처음 페이지 요청 시 약 20초 정도 다운로드 받는 시간이 소요된다.
 - 새로고침을 통해 화면을 갱신하면 첫 요청과 마찬가지로 약 20초 정도 다운로드 받는 시간이 동일하게 소요된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/cache-control-on-nginx-01.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음으로 캐시 컨트롤 설정을 적용한 Nginx 서버로부터 페이지를 요청한다.
 

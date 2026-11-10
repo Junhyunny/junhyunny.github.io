@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 AI 코딩 에이전트와 함께 [토이 프로젝트](https://github.com/Junhyunny/archived-todo-agent)로 간단한 AI 에이전트 애플리케이션을 만들어보고 있다. 예전에는 토이 프로젝트를 시작할 엄두조차 나지 않았는데, 지금은 정말 마음만 먹는다면 누구나 원하는 것을 만들 수 있게 되었다. 시간이 부족하다는 변명은 통하지 않는 시대를 살고 있다.
@@ -206,11 +204,9 @@ print(f"최대 메모리 사용량: {peak / 10**6:.2f} MB")
 4. 메인 실행 컨텍스트로 돌아와서 next(gen) 함수를 호출하면 위의 동작이 반복된다.
 5. 함수 끝에 도달하여 더 이상 yield 키워드가 없다면 다음 next(gen) 함수를 호출했을 때 StopIteration 예외가 발생한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/python-generator-function-01.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 _PyInterpreterFrame 객체는 `gi_frame` 멤버 필드를 통해 접근할 수 있다. gi_frame 객체는 다음과 같은 프로퍼티를 갖는다.
 

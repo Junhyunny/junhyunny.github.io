@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/ai-agent/coding-agent/harness-engineering/harness-engineering/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 회사에서 클로드 코드(Claude Code), 코덱스(Codex), 코파일럿(Copilot) 같은 AI 코딩 에이전트 사용을 지원해 줬다. 덕분에 토이 프로젝트에서 AI 에이전트를 여러모로 사용해 보고 있다. 새로운 지식을 배우고 사고를 넓히는 과정이 너무 즐거워 시간 가는 줄 모르겠다. 정말 머리에 새로운 지식을 집어넣는 것에 드는 비용이 매우 저렴해졌다. 토큰이라는 비용을 소모하고 있지만, 시간이라는 단위를 초 단위로 압축하고 있는 기분이 들어서 토큰 비용은 시간에 비해 매우 저렴해 보인다.
@@ -120,12 +118,12 @@ recommendedPosts:
 
 컨테이너, gVisor, 마이크로VM(VM)의 격리 수준을 시각화하면 아래 그림처럼 표현할 수 있다. 마이크로VM(VM)은 하드웨어 가상화를 통해 프로세스의 시스템 콜이 호스트 커널까지 도달하지 못하게 한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/sandbox-for-ai-agent-coding-01.png" width="100%" class="image__border">
 </div>
 <center>https://read.engineerscodex.com/p/every-dev-should-know-about-ai-sandboxes</center>
-
-<br/>
+</div>
 
 위에서 살펴본 샌드박스 기술들의 격리 수준과 실행 속도를 비교해 보면 다음과 같다.
 

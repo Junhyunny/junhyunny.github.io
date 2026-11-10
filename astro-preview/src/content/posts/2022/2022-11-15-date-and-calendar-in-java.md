@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/handling-timezone-on-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 요즘 시간에 예민한 애플리케이션을 개발하면서 시간 도메인에 대해 공부하는 중 입니다. 

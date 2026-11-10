@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/html/css/javascript/restart-css-animation-by-javascript/"
 ---
 
-<br/>
-
 ## 1. Sprite Animation
 
 CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미지를 사용하면 영상처럼 보이는 스프라이트 애니메이션(sprite animation)을 만들 수 있습니다. 

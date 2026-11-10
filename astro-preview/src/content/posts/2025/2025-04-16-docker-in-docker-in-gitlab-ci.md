@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/test-container/aws/test-container-aws-s3-integration-test/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][test-container-aws-s3-integration-test-link]에서 이야기한 것처럼 문제가 있던 S3 테스트를 테스트 컨테이너를 사용한 결합 테스트로 변경했다. 이 후에 코드를 올렸는데 CI/CD 파이프라인에서 문제가 발생헀다. 파이프라인으로 `GitLab CI`를 사용 중이었는데, 파이프라인에서 컨테이너 환경을 기본적으로 지원하지 않기 때문에 문제가 발생한 것이었다. 이에 관련된 내용을 이번 글로 정리했다.  
@@ -88,29 +86,23 @@ test-backend-app:
 
 디폴트는 쉘(shell) 실행자이며, 위에서 문제가 된 방식은 도커 실행자 환경에서 동작한다. 도커 실행자는 CI/CD 잡을 도커 이미지 위에서 실행하는 방식이다. 문제는 여기서 발생한다. 위에서 문제가 된 CI 잡은 도커 이미지 환경에서 동작하다보니 컨테이너 내부에 도커가 준비되어 있지 않다면 테스트 컨테이너가 실행되지 않는다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/docker-in-docker-in-gitlab-ci-01.png" width="80%" class="image__border">
 </div>
 
-<br/>
-
 이런 경우에는 도커-인-도커(DinD, docker in docker) 설정이나 도커-아웃-오브-도커(DooD, docker out of docker) 같은 환경이 필요하다. 도커-인-도커는 도커가 설치된 도커 컨테이너를 사용하는 방식이고, 도커-아웃-오브-도커는 볼륨을 통해 컨테이너의 파일 시스템을 호스트 머신의 파일 시스템으로 마운트(mount)하여 호스트의 `docker.sock`을 공유는 방식이다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/docker-in-docker-in-gitlab-ci-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 도커-인-도커 방식은 컨테이너가 호스트 머신의 커널에 접근할 수 있는 권한을 부여하는 `privileged` 모드가 필요하기 때문에 보안적으로 문제가 된다. 깃랩은 이를 해결하기 위해 CI 잡을 실행하는 컨테이너 외부에 데몬(daemon) 서비스를 제공한다. 도커-인-도커를 지원하는 공식 도커 이미지를 제공하고, 이를 외부에 데몬 서비스로써 실행시킨 후 CI 잡을 실행하는 컨테이너와 연결하는 방식이다. 
 
 - 도커-인-도커가 가능한 데몬 컨테이너를 띄우고 도커-아웃-오브-도커 방식처럼 잡을 실행하는 컨테이너가 외부 서비스 컨테이너의 도커 데몬을 사용한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/docker-in-docker-in-gitlab-ci-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 위 설명이 이해됐다면 이제 실제 스크립트를 살펴보자. 아래 스크립트처럼 변경 후 파이프라인을 실행하면 정상적으로 테스트가 통과한다.
 

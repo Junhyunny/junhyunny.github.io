@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/spring-boot/spring-session/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [JDBC 스프링 세션(Spring Session with JDBC) 글][spring-session-link]의 테스트를 구현할 때 포트(port)를 바꿔가며 요청하는 것이 번거롭다는 생각이 들었다. 그래서 `스프링 클라우드 게이트웨이(Spring Cloud Gateway)`를 사용하여 간단한 기능을 제공하는 게이트웨이를 구성해봤다. 생각보다 구현이 어려웠다. 이번 글은 간단한 게이트웨이를 구현하고 이를 테스트한 내용을 다룬다. 이 글을 읽기 전에 미리 [MSA API 게이트웨이(gateway)][msa-gateway-link]에서 게이트웨이가 무엇인지 읽어보길 추천한다.
@@ -59,11 +57,9 @@ recommendedPosts:
 - 게이트웨이는 요청을 전달받아 적절한 서비스로 라우팅(routing)한다.
 - 요청을 실제로 전달받은 서비스는 적절한 응답을 반환한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-gateway-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 패키지 구조를 살펴보자.
 

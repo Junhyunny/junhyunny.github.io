@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-mvc/quartz-clustering-in-spring-mvc/"
 ---
 
-<br/>
-
 ## 1. 문제 상황
 
 `쿼츠 클러스터링(Quartz Clustering)`을 구현하면서 다음과 같은 에러를 만났다.

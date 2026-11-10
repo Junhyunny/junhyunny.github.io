@@ -8,8 +8,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 마틴 파울러의 [CQRS(Command Query Responsibility Segregation)에 관련된 글][martin-fowler-cqrs-link]을 읽고 들었던 생각에 대해 정리했다. 패턴(pattern)의 원칙 자체는 어렵지 않지만, 구현할 때 시스템의 복잡성이 증가하고 다른 패턴이나 방법론 등이 함께 사용되면서 이해하는데 어려움을 겪는다. 이번 글은 순수하게 CQRS 패턴에 대한 내용만 다룬다. 

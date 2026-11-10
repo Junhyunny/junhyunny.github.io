@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/spring-boot/javascript/content-type-and-spring-annotation/"
 ---
 
-<br/>
-
 ## 1. Problem 
 
 현재 개발 중인 서비스는 다른 시스템과 통신이 필요합니다. 

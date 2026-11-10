@@ -8,8 +8,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 👉 이어서 읽기를 추천합니다.
 - [Refactoring RPS(Rock, Paper, Scissors) Game][refactoring-rps-game-link]
 

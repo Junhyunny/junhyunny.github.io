@@ -8,8 +8,6 @@ categories:
   - "jenkins"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `맥OS(MacOS)` 운영체제에 젠킨스(jenkins)를 사용해 CI/CD 파이프라인을 새로 구축했다. 여러 프로젝트에서 젠킨스를 사용해봤지만, 호스트 머신의 환경 변수를 찾지 못하는 문제는 처음이었다. 이번 글은 호스트 머신의 환경 변수를 직접 지정하는 방법에 대해 정리했다. 
@@ -24,11 +22,9 @@ CI/CD 파이프라인에서 애플리케이션을 빌드하기 위해 필요한 
 
 파이프라인 스크립트를 실행하면 다음과 같은 에러를 만난다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 메이븐이나 노드는 플러그인을 사용해 해결했지만, 도커 문제는 쉽게 해결되지 않았다. 호스트 머신에 설치된 도커를 직접 사용하는 것이 더 쉬운 해결 방법이라 생각했다. 젠킨스가 호스트 머신의 `PATH` 환경 변수를 사용할 수 있는 방법을 찾아봤다.
 
@@ -44,19 +40,15 @@ Jenkins 2.374 버전에서 문제가 발생하는 것 같다. 정확한 원인�
 
 해당 페이지까지 이동해보자. 메인 대시보드 화면에서 `Manage Jenkins` 버튼을 클릭한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 `Status Information` 섹션이 보이면 해당 섹션에서 `Status Information` 버튼을 클릭한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 `Environment Variables` 섹션에서 `PATH` 항목을 확인한다.
 
@@ -118,11 +110,9 @@ Stopping `jenkins`... (might take a while)
 
 애플리케이션 재실행이 끝나면 위 `Environment Variables` 화면에서 환경 변수가 바뀌었는지 확인한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-05.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 이전에 문제가 발생했던 파이프라인을 재실행하면 정상적으로 `mvn` 명령어가 실행된다.
 

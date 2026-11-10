@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 애플리케이션과 데이터베이스의 결합 테스트(integration test)를 위해 사용할 수 있는 `테스트 컨테이너(TestContainer)`에 대해 정리했다. 

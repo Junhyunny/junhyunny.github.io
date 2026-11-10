@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/javascript/typescript/usability/react-skeleton-image/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][react-skeleton-image-link]에서 썸네일(thumbnail)이 생성되는 시점까지 이미지 로딩을 재시도하는 코드를 살펴봤다. 이번 글에서는 사파리(safari) 브라우저가 캐시 컨트롤(cache-control)이 적용된 응답을 다루는 방식이 다른 브라우저와 달라서 발생한 문제를 정리했다.
@@ -23,11 +21,9 @@ recommendedPosts:
 
 클라이언트 사이드에서 S3 presigned URL을 사용해서 이미지를 직접 호출하고 있었다. 이미지와 동영상이 많은 애플리케이션이기 때문에 미디어 리소스들에 브라우저 캐싱(caching)을 적용하고 싶었지만, presigned URL은 매번 변경되기 때문에 [Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control) 헤더를 적용할 수 없었다. 이를 개선하기 위해 AWS 클라우드 프론트(cloudfront)를 CDN(Content Delivery Network)으로 구축했다. 캐시 컨트롤 응답 헤더는 클라우드 프론트의 `Response Headers Policy`를 통해 지정했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 해당 인프라를 구축한 이후 문제가 발생했다. 증상은 다음과 같다.
 
@@ -40,19 +36,15 @@ recommendedPosts:
 
 문제 현상을 확인해봤다. 파이어폭스나 크롬에서는 에러가 발생하면 예상대로 이미지 로딩을 재시도한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 반면, 사파리는 첫 이미지 로딩 시 실패한 응답을 디스크에 캐싱하고, 이를 그대로 사용한다. 아래 이미지처럼 디스크에 저장된 json 응답을 계속 재사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 [RFC 9111](https://httpwg.org/specs/rfc9111.html) 명세서엔 명시적으로 Cache-Control 헤더가 있을 때 상태 코드에 따라 응답을 캐싱할지 말지에 대한 별도 제한이 없다. RFC 9111에서 "저장 가능한 조건"을 충족하면 어떤 상태 코드든 캐싱 가능하다. [RFC 9111의 3번 섹션](https://httpwg.org/specs/rfc9111.html#response.cacheability)에서 캐시가 응답을 저장할 수 있는 조건을 정의하고 있다. 응답 헤더에 다음 중 하나가 포함되어야 한다.
 
@@ -130,19 +122,15 @@ export const loadImageWithRety = async (
 - 이전 fetch() 함수가 로딩에 성공했다면 캐싱된 이미지를 정상적으로 재사용한다.
 - 이전 fetch() 함수가 로딩에 실패했다면 정상적인 이미지가 아니기 때문에 onerror 콜백 함수가 호출되고, 다시 fetch() 함수로 캐시를 갱신한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-04.png" width="80%" class="image__border">
 </div>
 
-<br/>
-
 위 로직을 적용하면 사파리에서도 정상적으로 이미지가 조회된다. 아래 이미지를 보면 이미지 로딩에 실패한 경우 fetch 함수를 호출해서 이미지를 다시 로딩한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이후 호출에서는 재조회 없이 정상적으로 캐싱된 이미지를 사용한다.
 

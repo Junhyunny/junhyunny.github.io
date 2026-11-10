@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/java-atomic/"
 ---
 
-<br/>
-
 ## 1. volatile Keyword
 
 > The Java volatile keyword guarantees visibility of changes to variables across threads.
@@ -22,12 +20,12 @@ recommendedPosts:
 - 각 CPU가 각자 스레드를 실행한다. 각 스레드는 CPU 캐시에서 데이터를 불러와 사용한다.
 - 다중 CPU를 사용하면 멀티 스레드 환경에서 데이터 동기화 문제가 발생한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-volatile-01.png" width="50%" class="image__border image__padding">
 </div>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
-
-<br/>
+</div>
 
 CPU마다 다른 캐시가 연결되어 있기 때문에 서로 다른 스레드에서 같은 객체의 같은 변수를 사용하더라도 다른 값을 읽어 사용할 수 있다.
 
@@ -37,12 +35,12 @@ CPU마다 다른 캐시가 연결되어 있기 때문에 서로 다른 스레드
 - CPU2는 Thread2를 수행하면서 값의 변경 없이 사용한다.
 - 같은 변수를 다른 값으로 사용하게 되면서 로직상의 문제가 발생한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-volatile-02.png" width="50%" class="image__border image__padding">
 </div>
 <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
-
-<br/>
+</div>
 
 위와 같은 문제를 해결하기 위해 **volatile 키워드를 사용**한다. volatile 키워드를 사용하면 CPU 캐시가 아닌 메인 메모리에 저장된 데이터를 사용한다. 데이터 불일치 문제는 해결할 수 있지만, 캐시를 사용하지 않는 만큼 성능이 떨어질 수 있다. 자바는 volatile 키워드 이외에도 멀티 스레드 환경에서 스레드 안전한 프로그래밍을 위해 다음과 같은 기능을 제공한다.
 

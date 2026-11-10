@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/test-driven-development/wire-mock-for-feign-client-test/"
 ---
 
-<br/>
-
 ## 1. Logging Level
 
 로그 레벨은 다음과 같이 정의할 수 있다.

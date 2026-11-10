@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/dev-ops/gitlab-ci-cd-pipeline-for-on-premise/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `깃랩(GitLab) CI`로 메이븐(maven) 프로젝트를 딜리버리할 때 캐싱이 정상적으로 동작하지 않아서 발생했던 문제를 해결한 내용이다. 메이븐 프로젝트에 대한 최적화 내용을 위해 파이프라인 코드를 일부 각색했다.

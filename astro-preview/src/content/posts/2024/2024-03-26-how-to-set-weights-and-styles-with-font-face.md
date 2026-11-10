@@ -8,8 +8,6 @@ categories:
   - "css"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 폰트(font)를 적용할 때 HTML 문서 헤더에 링크를 정의하는 방법도 있지만, 다운로드 받은 폰트를 함께 번들링(bundling)해서 제공할 수 있다. 경험상 네트워크가 불안정하거나 제한된 환경에서 폰트 파일을 함께 빌드했었다. 이런 경우 `@font-face` 지시어를 사용했는데 적용 방법이 매번 헷갈려 시간이 허비한 경우가 종종 있었다. 적용 방법을 정확히 이해하고자 글로 정리했다.
@@ -18,11 +16,9 @@ categories:
 
 [구글 폰트 사이트](https://fonts.google.com/)에 접속해 필요한 폰트를 다운로드 받는다. 이번 예제에선 @font-face 지시어가 제대로 적용되었는지 확인하기 위해 모양이 특이한 폰트를 사용한다. `Get font` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음 `Download all` 버튼을 누른다.
 
@@ -165,11 +161,9 @@ export default App;
 
 애플리케이션을 실행하면 정상적으로 글꼴 스타일이 반영된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 주의할 점은 font-weight, font-style 속성의 값을 정확하게 `normal`로 맞춰 사용해야 한다는 것이다. font-weight 속성을 다른 값으로 지정하면 사파리(safari) 브라우저에서 폰트 굵기가 이상하게 출력된다. 
 

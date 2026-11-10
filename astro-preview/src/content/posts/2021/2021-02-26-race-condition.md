@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/operating-system/dead-lock/"
 ---
 
-<br/>
-
 ## 1. What is Race Condition?
 
 > Wikipedia<br/>
@@ -51,22 +49,18 @@ recommendedPosts:
 - 임계 영역 내에서 한 프로세스가 일을 수행 중이라면 다른 프로세스들은 임계 영역 내에서 일을 할 수 없다.
 - 뮤텍스(Mutex), 세마포어(Semaphore) 같은 lock 메커니즘을 통해 구현할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 임계 영역에 대한 상호 배제를 수행했다면 진행(process)을 가능하도록 만든다.
 
 - 프로세스의 임계 영역 접근을 진행한다.
 - 임계 영역 내에 일하는 프로세스가 없다면, 대기 중인 프로세스 중에서 다음으로 일을 수행할 프로세스를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 특정 프로세스가 진행이 가능하다면, 다른 프로세스들이 무제한 기다려선 안 된다. 대기하는 시간을 제한(bounded waiting)한다.
 

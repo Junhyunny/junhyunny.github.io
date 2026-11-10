@@ -11,8 +11,6 @@ categories:
   - "redirect-strategy"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 올해 5월쯤 지원했던 팀에 있었던 문제와 해결 방법에 대해 정리했다. 
@@ -27,19 +25,15 @@ categories:
 - 외부 사용자들은 외부 업체의 WAF(web application firewall)를 통해 접근한다. 
   - 이 WAF는 호스트 주소를 `example.com`에서 `internal.example.com`로 변경한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/fix-waf-rewriting-host-problem-with-spring-security-oauth2-01.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 문제는 사용자가 OAuth2 프로토콜을 통해 로그인 할 때 발생했다. 서버의 호스트 URL이 `internal.example.com`이기 때문에 스프링 시큐리티 OAuth2 클라이언트(spring-security-oauth2-client)가 인가 코드 승인(authorization code grant) 과정에서 외부 사용자도 `internal.example.com` 주소를 리다이렉트(redirect) URL로 전달했다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/fix-waf-rewriting-host-problem-with-spring-security-oauth2-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 인가 서버에서 사용자 인증과 인가 작업이 모두 완료된 후 브라우저를 서버로 리다이렉트 시키는 과정에서 다음과 같은 문제가 발생했다.
 
@@ -56,22 +50,18 @@ WAF에서 서버로 연결하는 부분이 근본적으로 문제였지만, 외�
   - application YAML 파일에 등록된 클라이언트 정보를 바탕으로 사용자를 인가 서버로 리다이렉트 시키기 위한 URL을 만든다.
   - 실제 사용되는 구현체는 DefaultOAuth2AuthorizationRequestResolver 객체다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/fix-waf-rewriting-host-problem-with-spring-security-oauth2-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 나는 OAuth2AuthorizationRequestResolver 인스턴스의 로직을 [프록시 패턴(proxy pattern)](https://junhyunny.github.io/information/design-pattern/proxy-pattern/)을 통해 확장했다. 
 
 - DefaultOAuth2AuthorizationRequestResolver 객체의 기능은 그대로 사용한다.
 - CustomOAuth2AuthorizationRequestResolverProxy 객체는 DefaultOAuth2AuthorizationRequestResolver 객체에게 인가 서버 리다이렉트 URL 생성을 위임하고, 인가 서버 리다이렉트 URL 쿼리에 포함된 `redirect_url` 값만 변경한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/fix-waf-rewriting-host-problem-with-spring-security-oauth2-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 프록시 패턴을 사용한 이유는 application YAML 파일 기반으로 인가 서버로 리다이렉트 시키는 URL을 만드는 작업은 생각보다 복잡하기 때문이다. 스프링 시큐리티에서 제공하는 OAuth2AuthorizationRequestResolver 컴포넌트의 기능을 그대로 사용하되 필요한 정보만 오버라이딩하고 싶었다. HTTP 헤더에 포함된 레퍼러(referer) 정보를 기반으로 `redirect_url` 값을 변경한다. HTTP 레퍼러 헤더는 사용자가 현재 웹 페이지로 어떤 경로를 통해 왔는지를 나타내는 정보다. 웹사이트의 유입 경로 분석에 사용되지만, 이 문제를 해결할 때 활용할 수 있을 것이라 생각했다. 
 

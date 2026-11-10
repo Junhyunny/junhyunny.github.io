@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/"
 ---
 
-<br/>
-
 ## 1. v-html 디렉티브(Directive)
 
 기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있다. `Vue.js` 프레임워크는 `v-html` 디렉티브가 HTML 코드를 템플릿(template)에 그대로 삽입하는 기능을 제공한다. 간단한 예제 코드를 통해 `v-html` 디렉티브 사용 방법을 알아보자.

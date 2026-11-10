@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/typescript/test-container/localstack/aws/s3/dynamodb/testcontainer-with-localstack-in-typescript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 DynamoDB는 조회할 때 1MB 사이즈 제한이 있다. 그 이상 데이터를 조회하고 싶은 경우 페이지 처리(pagination)가 필요하다. 이 글은 DynamoDB에서 조회 시 데이터 사이즈 제한이 걸린 경우 페이지 처리를 하는 방법에 대해 정리했다. 

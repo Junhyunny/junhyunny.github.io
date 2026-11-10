@@ -10,8 +10,6 @@ categories:
   - "prompt"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 아무래도 AI 관련된 기술들이 많이 등장하면서 이를 통해 어떻게 개발 효율성을 높일 수 있을지 많은 조직에서 고민하고 있는 것 같다. 현재 우리 팀도 AI를 사용해 개발 효율성을 높이기 위한 여러가지 시도를 해보고 있다. 바이브 코딩이라는 개념이 등장했을 때 조만간 개발자의 자리가 없어지진 않을까 걱정도 되었지만, 직접 바이브 코딩을 해보니 아직은 AI가 섬세한 수준의 개발은 어렵다는 생각이 들었다. 매우 구체적인 프롬프트를 작성하고 작업 단위를 아주 작게 쪼개면 가능할 것 같지만, 프롬프트를 작성할 시간에 개발자가 직접 코드를 작성하는 것이 빠르고 효율적이라고 생각한다.
@@ -33,22 +31,18 @@ categories:
 - 서버로 요청이 필요하다면 API 클라이언트를 구현한다.
 - API 요청을 처리하기 위한 컨트롤러, 서비스, 레포지토리 계층을 구현한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/improve-development-process-by-vibe-coding-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위 흐름에서 각 단계를 자세히 들여다보면 다음과 작업을 수행한다.
 
 - TDD 개발 방법론을 따라 각 기능들은 테스트, 구현, 리팩토링 순서를 따라 개발된다.
 - 프론트엔드의 경우 피그마 작업물을 보고 화면, 컴포넌트에 디자인을 적용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/improve-development-process-by-vibe-coding-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 몇 차례 시행착오 끝에 `테스트 작성`, `구현 코드 작성`과 같은 크기 수준의 작업은 AI가 수행할 때 큰 결함 없다는 인사이트를 얻었다. AI가 이 수준의 작업을 수행했을 때 생성하는 결과의 크기는 개발자가 검토하기에 버겁지 않고, 결함이 적었기 때문에 코드 리뷰의 피로도가 낮았다.
 
@@ -76,11 +70,9 @@ categories:
 
 작성된 프롬프트는 VSCode, 인텔리제이(intellij)에서 `/`를 통해 명령어처럼 사용할 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/improve-development-process-by-vibe-coding-04.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 이렇게 각 작업 단위를 위해 작성된 프롬프트들은 개발자가 현재 자신이 수행할 작업을 위해 사용한다. 개발자는 자신의 작업을 프롬프트를 통해 AI에게 대리 수행시킨다. 이후 AI 작업 결과를 리뷰한다. AI 작업 결과가 만족스럽다면 다음 프롬프트를 수행한다. 결과에 문제가 있다면 일부 수정 후 다음 작업을 수행한다. 개발자는 프롬프트를 선택적으로 수행한다. 예를 들어, 굳이 리팩토링이 필요 없는 상태라면 실행하지 않는다.
 
@@ -103,11 +95,9 @@ categories:
 
 프롬프트에 함수처럼 파라미터를 설정한다. 필수 값은 항상 입력 받아야 하므로 없는 경우 프롬프트를 도중에 중단한다. 프롬프트를 실행할 때 `USER_STORY` 항목을 입력하지 않는 경우 다음과 같은 에러가 발생한다. 
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/improve-development-process-by-vibe-coding-05.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 프롬프트를 실행할 때 코파일럿 채팅에 다음과 같이 작성한다.
 

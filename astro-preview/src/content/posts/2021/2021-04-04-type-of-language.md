@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 1. Static Typed Language
 
 > 정적 타입 언어<br/>

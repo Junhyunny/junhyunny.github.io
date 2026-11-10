@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/jvm/spring-boot/out-of-memory-error-case-study-in-jvm/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트에서 OOME(Out of Memory Error)를 만났다. 대용량 트래픽을 처리했던 필자의 첫 프로젝트 이후 정말 오랜만에 마주쳤다. JVM 메모리 사이즈를 늘려 문제를 해결했지만, 문제가 발생한 메모리 영역에 대한 근본적인 이해가 부족하다고 느꼈다. 문제가 발생한 메모리가 무슨 용도인지 사용자의 어떤 행동(behaviour)이 이 문제를 일으킬 가능성이 있는지 합리적인 유추를 할 수 있도록 관련된 내용을 정리했다. 
@@ -40,12 +38,12 @@ recommendedPosts:
 
 JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따라 구체적으로 분류가 된다. 예를 들어 JVM 프로세스가 효율적인 I/O 작업을 위해 네이티브 영역에 위치한 바이트 배열을 사용한다. 이 바이트 배열이 만들 때 필요한 공간을 다이렉트 메모리(direct memory)라고 부른다. 다이렉트 메모리를 사용할 때 왜 효율적인 I/O 작업이 가능한지에 대한 내용도 상당히 많기 때문에 다른 글로 정리할 예정이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-02.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://learn.microsoft.com/en-us/azure/spring-apps/enterprise/concepts-for-java-memory-management</center>
-
-<br/>
+</div>
 
 내가 겪은 OOM 에러는 다이렉트 메모리 공간이 부족해서 발생했다. 문제가 발생한 에러 로그를 살펴보면 `java.nio` 패키지에 위치한 DirectByteBuffer 클래스를 초기화할 때 에러가 발생한다. DirectByteBuffer 객체를 초기화 할 때 필요한 메모리 공간이 다이렉트 메모리이다. 
 

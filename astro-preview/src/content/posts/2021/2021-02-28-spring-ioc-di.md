@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/junit/reson-of-recommendation-to-use-constructor-injection/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링(spring)을 사용하거나 공부하면 반드시 만나는 개념이 있다.
@@ -55,11 +53,9 @@ class A {
 
 클래스 다이어그램으로 표현하면 다음과 같다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-ioc-di-01.png" width="40%" class="image__border">
 </div>
-
-<br/>
 
 스프링 프레임워크는 다음과 같은 방법으로 의존성 주입 기능을 제공한다. 
 

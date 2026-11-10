@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/ai-agent/coding-agent/harness-engineering/harness-engineering/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 참여했던 프로젝트는 꽤 오랫동안 메인테이닝(maintaining)된 서비스라 기술 부채가 많고 코드 복잡도가 높았다. 특히 프론트엔드 프로젝트의 코드 복잡도가 상당히 높았다. 프론트엔드 컴포넌트 중에서도 새로운 기능을 추가하기 어렵고 버그가 수시로 발생하는 복잡한 컴포넌트가 하나 있었다. 메인 비즈니스와 연관된 컴포넌트였기에 나와 동료는 이 컴포넌트의 리팩토링 우선순위가 높다고 생각했다.
@@ -79,11 +77,9 @@ String checkAge(int age) {
 
 위 코드는 아래와 같은 제어 흐름 그래프를 만든다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/code-complexity-01.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 위 그래프를 바탕으로 순환 복잡도를 계산하면 "2"라는 값을 얻을 수 있다.
 

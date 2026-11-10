@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/dynamodb/dynamodb-basics/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 프로젝트에서 DynamoDB를 처음 사용해봤다. 그리 나쁘진 않았지만, 테이블을 디자인 할 때 평소 사용하는 관계형 데이터베이스(RDBMS, relational database)와 전혀 다른 방식으로 접근해야 한다는 점이 상당히 어려웠다. 
@@ -40,43 +38,41 @@ DynamoDB는 데이터 규모에 상관 없이 밀리초 단위의 일관된 읽�
 
 간단한 예를 들어보자. 다음과 같이 User, Order 두 개의 테이블이 DynamoDB에 구성되어 있다고 가정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-single-table-design-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 DynamoDB는 조인 연산을 지원하지 않기 때문에 애플리케이션은 DynamoDB로 두 차례 HTTP 조회 요청을 수행한다.
 
 1. 사용자 정보 조회
 2. username 속성을 통해 해당 사용자의 주문 조회
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-single-table-design-02.png" class="image__border">
 </div>
 <center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
-
-<br/>
+</div>
 
 단순한 예제이기 때문에 두 차례 요청뿐이지만, 복잡한 비즈니스 케이스인 경우 여러 차례 통신이 필요하다. 해당 요청은 순차적인 HTTP 요청이다. 애플리케이션의 가장 불안한 요소(속도, 불확실성 등)인 네트워크 통신을 여러 차례 수행하는 것은 그리 좋지 못한 패턴이다. 
 
 [Alex DeBrie의 글](https://www.alexdebrie.com/posts/dynamodb-single-table/)을 보면 이런 문제를 해결하기 위해 사전에 조인된 형태의 데이터 컬렉션을 하나의 테이블에 저장한다. 다만, 데이터 컬렉션을 저장할 때 조인이 필요한 데이터 그룹은 동일한 파티션 키(partition key)를 사용하도록 설계한다. 이렇게 설계하면 SQL 조인을 한 것처럼 한번의 조회만으로 필요한 데이터를 모두 조회할 수 있다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-single-table-design-03.png" class="image__border">
 </div>
 <center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
-
-<br/>
+</div>
 
 단일 테이블 설계의 핵심은 하나의 테이블에 모든 데이터를 저장하고, 데이터 구조를 튜닝하여 최대한 적은 수의 요청을 통해 DynamoDB로부터 필요한 데이터를 조회하는 것이다. 한번의 조회 요청만으로 필요한 데이터를 가져오는 것을 이상적으로 생각한다. DynamoDB가 제공하는 쿼리(query) 연산을 수행하면 필요한 여러 건의 데이터를 한번에 조회할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-single-table-design-04.png" class="image__border image__padding">
 </div>
 <center>https://www.alexdebrie.com/posts/dynamodb-single-table</center>
-
-<br/>
+</div>
 
 싱글 테이블 디자인의 장점은 요청 횟수를 줄이는 것 이외에 다음과 같은 것들이 있다. 
 

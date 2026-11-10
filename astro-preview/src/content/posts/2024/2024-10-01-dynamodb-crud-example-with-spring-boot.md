@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/aws/dynamodb/test-container/test-container-for-dynamodb-test/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][dynamodb-container-with-docker-compose-link]에 이어서 스프링 부트 애플리케이션에서 DynamoDB에 데이터를 읽고 쓰는 예제를 작성한다. 이 글은 간단한 예시이기 때문에 서비스 레이어(service layer)는 생략하고, 컨트롤러 레이어가 레포지토리(repository) 레이어를 직접 의존한다. AWS DynamoDB를 로컬에 준비하는 과정은 [이전 글][dynamodb-container-with-docker-compose-link]에서 다뤘다.
@@ -82,12 +80,12 @@ recommendedPosts:
 
 AWS SDK를 사용할 때 버전에 주의해야 한다. 많은 예제들이 SDK V1을 사용하고 있지만, 24년 7월 31일부터 유지 관리 모드로 변경되었다. AWS는 25년 12월에 서포트를 중지하기 때문에 V2로 마이그레이션하는 것을 권장한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-crud-example-with-spring-boot-01.png" width="100%" class="image__border">
 </div>
 <center>https://docs.aws.amazon.com/ko_kr/sdk-for-java/v1/developer-guide/examples-dynamodb-items.html</center>
-
-<br/>
+</div>
 
 DynamoDB 관련된 기능을 사용할 때 코드에서 가장 두드러지는 차이는 V1 SDK인 경우 애너테이션에 대문자 B를 사용한다. 예를 들면 `@DynamoDBTable` 같이 대문자 B를 사용한다. DynamoDB, 스프링 부트 예제를 검색하면 가장 먼저 눈에 띄는 Baeldung 예제도 V1을 사용하고 있다. 
 
@@ -135,12 +133,12 @@ data class TodoEntity(
 
 위에서 언급한 Baeldung 포스트에서 사용한 `com.github.derjust.spring-data-dynamodb` 의존성은 거의 5년째 유지 보수 되고 있지 않으니 주의하길 바란다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-crud-example-with-spring-boot-02.png" width="100%" class="image__border">
 </div>
 <center>https://github.com/derjust/spring-data-dynamodb</center>
-
-<br/>
+</div>
 
 이 글에서 사용한 의존성은 다음과 같다.
 

@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/dynamodb/localstack/setup-dynamodb-in-localstack/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 신뢰할 수 있는 테스트(reliable test)를 작성하려면 실제 환경과 유사한 환경에서 테스트를 구축할 필요가 있다. 도커 컨테이너가 등장한 이후로 로컬에서 운영 환경과 유사한 환경을 구축하기 쉬워졌고, 테스트 환경도 [테스트 컨테이너(test container)](https://testcontainers.com/)를 통해 보다 쉽게 결합 테스트(integration test)가 가능해졌다. 
@@ -45,11 +43,9 @@ $ npm install -D typescript @types/node
 
 테스트 코드에서 테스트 컨테이너를 사용하려면 DynamoDB 클라이언트나 S3 클라이언트의 접속 정보를 테스트 컨테이너로 변경해야 한다. 런타임과 테스트 런타임에 서로 다른 접속 정보를 사용해야 하기 때문에 각 클라이언트를 위한 모듈을 만든다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/testcontainer-with-localstack-in-typescript-01.png" width="80%" class="image__border">
 </div>
-
-<br />
 
 다음과 같이 규칙을 따라 코드를 작성한다. 아래는 DynamoDB 클라이언트 모듈이다.
 

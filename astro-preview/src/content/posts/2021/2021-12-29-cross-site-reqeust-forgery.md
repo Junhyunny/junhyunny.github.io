@@ -23,8 +23,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/dom-based-cross-site-scripting/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 시큐리티(spring security) 관련 자료들을 보면 CSRF(Cross-Site Request Forgery) 설정을 비활성화시키는 글들이 종종 보인다. 예전 프로젝트 경험들을 돌이켜보면 CSRF 공격을 대비하기 위한 코드가 많았다. 이를 비활성화 시키는 것이 맞는지 의문스럽다. 이번 글에선 CSRF 공격이 무엇인지 정리하고 왜 CSRF 방어 설정을 비활성화 시키는지 정리해봤다. 

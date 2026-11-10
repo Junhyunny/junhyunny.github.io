@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/vue.js/multipartfile-in-dto/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 Jekyll 문법과 충돌이 있기 때문에 `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.

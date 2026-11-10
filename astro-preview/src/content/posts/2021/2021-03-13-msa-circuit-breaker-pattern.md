@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/"
 ---
 
-<br/>
-
 ## 1. MicroService Architecture
 
 마이크로서비스 아키텍처(MSA, MicroService Architecture)는 한 가지 일만 잘하는 서비스들이 협업하는 아키텍처이다. 서비스들은 서로 협업을 위해 이벤트 혹은 `REST API` 통신을 수행한다. `REST API` 통신은 동기식 처리이기 때문에 한 서비스에서 에러가 발생하거나 느려지면 다른 서비스들로 장애가 전파된다.
@@ -61,11 +59,9 @@ recommendedPosts:
   - `50 ~ 74` 범위의 경우 임의로 런타임 예외(runtime exception)를 던진다.
   - `75 ~ 99` 범위의 경우 다시 정상 응답을 전달한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-circuit-breaker-pattern-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 pom.xml 파일에 `netflix-hystrix` 관련 의존성을 추가한다.
 

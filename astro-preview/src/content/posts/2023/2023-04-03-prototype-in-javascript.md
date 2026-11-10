@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/create-object-in-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 글은 자바스크립트(JavaScript)의 프로토타입(prototype)에 관련된 내용을 다룬다. 주제 특성상 객체라는 말을 많이 사용한다. 자바스크립트에선 함수도 객체이기 때문에 글의 내용이 다소 헷갈릴 수 있다. 이를 구분 짓기 위해 생성자 함수를 통해 만들어진 객체는 인스턴스(instance)라고 명명한다.
@@ -87,22 +85,18 @@ console.log(Circle.prototype.constructor === Circle)
 
 - 동일한 색상의 박스는 동일한 객체 정보를 의미한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-01.png" width="60%" class="image__border">
 </div>
-
-<br/>
 
 생성자 함수와 프로토타입 객체의 관계는 다음과 같다.
 
 - `생성자 함수` 객체는 `prototype` 프로퍼티로 `생성자 함수 프로토타입` 객체를 참조한다.
 - `생성자 함수 프로토타입` 객체는 `constructor` 프로퍼티로 `생성자 함수` 객체를 참조한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-02.png" width="80%" class="image__border">
 </div>
-
-<br />
 
 위에서 소개한 상속이 없는 예제 코드에서 객체들은 다음과 같은 연결 고리를 갖는다.
 
@@ -111,11 +105,9 @@ console.log(Circle.prototype.constructor === Circle)
   - `getArea` 메서드는 생성자 함수 내부에 정의되어 있다.
 - 생성자 함수 내부에 정의된 프로퍼티와 메서드는 인스턴스가 만들어질 때 내부에 함께 생성된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-03.png" width="80%" class="image__border">
 </div>
-
-<br />
 
 프로토타입 객체를 통한 상속 예제 코드에서 객체들은 다음과 같은 연결 고리를 갖는다.
 
@@ -170,11 +162,9 @@ console.dir(circle.__proto__ === Circle.prototype);
   - `[[Prototype]]`를 직접 사용할 수 없으므로 `__proto__` 접근자 프로퍼티를 사용한다.
   - `인스턴스A`는 `함수A`를 통해 만들어졌으므로 `인스턴스A.__proto__`가 가리키는 객체는 `함수A.prototype`과 동일하다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-06.png" width="80%" class="image__border">
 </div>
-
-<br />
 
 자바스크립트에선 함수도 객체이다. `function` 키워드를 통해 함수를 정의하는 행위는 Function 생성자를 통해 함수 객체를 만드는 것과 동일하다. 아래 예제 코드를 살펴보자. `sum`은 함수이기도 하기 때문에 `prototype` 프로퍼티를 가지고 있다. 크롬에서 Function 생성자를 통해 함수를 생성하면 에러가 발생한다. 이에 관련된 내용은 [깃허브(github) 이슈](https://github.com/w3c/trusted-types/wiki/Trusted-Types-for-function-constructor)를 참고 바란다. 
 
@@ -193,11 +183,9 @@ console.dir(sum.__proto__.constructor === Function);
 
 위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-07.png" width="60%" class="image__border">
 </div>
-
-<br />
 
 생성자로 만든 인스턴스를 살펴보자. 인스턴스이므로 `prototype` 프로퍼티가 없다.
 
@@ -216,11 +204,9 @@ console.dir(circle.__proto__.constructor === Circle);
 
 위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-08.png" width="60%" class="image__border">
 </div>
-
-<br />
 
 마지막으로 리터럴 방식으로 만든 인스턴스를 살펴보자. 객체이므로 `prototype` 프로퍼티가 없다.
 

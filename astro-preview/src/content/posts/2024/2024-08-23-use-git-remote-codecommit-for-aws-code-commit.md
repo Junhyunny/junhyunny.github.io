@@ -7,8 +7,6 @@ categories:
   - "aws"
 ---
 
-<br/>
-
 ## 1. GRC(Git Remote CodeCommit) in AWS CodeCommit
 
 코드 커밋(CodeCommit)은 AWS에서 호스팅하는 코드 버전 관리 서비스다. 깃허브(github)나 깃랩(gitlab)처럼 소스 코드의 형상 관리나 병합 서비스를 제공한다. 코드 커밋도 소스 코드를 클론(clone)하는 방법은 HTTPS, SSH 두 가지를 기본적으로 제공한다. 이 두 가지 방법은 IAM 사용자를 사용해 자격 증명이나 공개 키를 등록하는 작업이 필요하다. 

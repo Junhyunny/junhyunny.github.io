@@ -9,8 +9,6 @@ categories:
   - "test-driven-development"
 ---
 
-<br/>
-
 ## 1. 문제 상황
 
 새로운 기능을 위해 테스트를 추가하면서 다음과 같은 문제 상황이 발생했습니다.

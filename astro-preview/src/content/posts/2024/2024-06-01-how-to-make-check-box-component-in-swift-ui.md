@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ios/swift/swift-ui/test-driven-development/how-to-test-state-change-in-ios-with-view-inspector/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 SwiftUI 프레임워크로 iOS 애플리케이션을 개발할 때 체크 박스(check box)가 기본적으로 제공되지 않는다는 사실에 놀랐다. 이번 글은 iOS 애플리케이션에서 체크 박스 컴포넌트를 만드는 방법을 정리했다. 더불어 ViewInspector 라이브러리를 사용해 단위 테스트하는 방법도 함께 정리했다.

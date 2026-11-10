@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/aws-sam-cli/event-bridge/lambda/integrate-event-bridge-and-lambda-with-aws-sam/"
 ---
 
-<br/>
-
 ## 1. AWS SAM(Serverless Application Model)
 
 > AWS Serverless Application Model (AWS SAM)는 코드형 인프라(IaC)를 사용하여 서버리스 애플리케이션을 구축하기 위한 오픈 소스 프레임워크입니다.

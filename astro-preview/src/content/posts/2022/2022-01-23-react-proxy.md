@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/react-env-variable-setting/"
 ---
 
-<br/>
-
 ## 1. CORS(Cross Origin Resource Sharing)
 
 먼저 CORS(Cross Origin Resource Sharing) 개념을 정리해보자. 자세한 내용이 알고 싶다면 [이전 글][cors-link]을 읽어보길 바란다. 일반적으로 브라우저는 보안 때문에 동일 출처 정책(SOP, Same Origin Policy)을 따른다. 두 URL의 **프로토콜, 호스트, 포트**가 모두 같아야 동일한 출처(origin)로 본다. 예를 들어 `a-service.com` 서버에서 받은 HTML 페이지에서 `b-service.com` 호스트로 요청을 보내면 해당 에러가 발생한다. 
@@ -51,11 +49,9 @@ CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로
 - 백엔드 서비스는 요청에 대한 응답을 반환한다.
 - 리액트 애플리케이션은 이를 다시 브라우저에게 전달한다.
 
-<p align="center">
+<p class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-proxy-02.png" width="60%">
 </p>
-
-<br/>
 
 위 흐름이기 때문에 브라우저는 크로스 오리진 요청을 하지 않은 것과 동일하다. 반대로 잠시 언급했던 스프링 부트 서버에서 CORS 처리를 구축하면 다음과 같이 처리된다.
 

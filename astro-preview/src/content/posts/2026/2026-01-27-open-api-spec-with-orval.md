@@ -11,8 +11,6 @@ categories:
   - "msw"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 참여한 프로젝트는 [OpenAPI](https://www.openapis.org/) 사양을 Rest API의 단일 진실 공급원(single source of truth)으로 사용하려는 노력이 엿보인다. 

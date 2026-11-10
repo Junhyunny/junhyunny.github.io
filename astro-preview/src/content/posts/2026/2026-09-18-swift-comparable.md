@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/swift/equatable/comparable/swift-equatable/"
 ---
 
-<br/>
-
 ## 1. Comparable 프로토콜
 
 스위프트(Swift)의 Comparable 프로토콜을 채택(conform)하면 객체의 순서를 결정할 수 있다. 구현할 핵심 요구사항은 `< 연산자`다. Comparable 프로토콜은 Equatable 프로토콜을 상속하기 때문에 `== 연산자`는 직접 구현하거나 컴파일러에 의해 자동 합성될 수 있다. `!=`, `>`, `<=`, `>=` 연산자는 `== 연산자`와 `< 연산자`를 바탕으로 표준 라이브러리가 제공한다.

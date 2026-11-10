@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/auto-boxing-performance-test/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 면접에서 이런 질문을 받았다.
@@ -37,12 +35,12 @@ recommendedPosts:
 
 래퍼 클래스의 상속 관계를 보면 Boolean, Character 클래스를 제외하고 Number 클래스를 상속받는다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-wrapper-class-01.png" width="70%">
 </div>
 <center>https://codepumpkin.com/interview-questions-wrapper-classes/</center>
-
-<br/>
+</div>
 
 간단하게 Integer 래퍼 클래스의 내부 구조를 들여다보자. 다른 래퍼 클래스도 비슷하게 구성되어 있다.
 
@@ -96,12 +94,12 @@ public final class Integer extends Number implements Comparable<Integer> {
 
 래퍼 클래스를 이야기할 때 빠지지 않는 내용이 있다. `박싱(Boxing)`과 `언박싱(Unboxing)`이다. `박싱`은 기본형 데이터를 래퍼 클래스의 인스턴스로 변환하는 과정을 의미한다. 반대로 `언박싱`은 래퍼 클래스의 인스턴스를 기본형 데이터로 변환하는 과정을 의미한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-wrapper-class-02.png" width="45%">
 </div>
 <center>http://tcpschool.com/java/java_api_wrapper</center>
-
-<br/>
+</div>
 
 JDK 1.5 버전부터 박싱과 언박싱이 필요하면 컴파일러가 자동으로 수행한다. 이를 `오토 박싱(auto boxing)`, `오토 언박싱(auto unboxing)`이라고 한다. 간단한 예제 코드를 살펴보자. 아래 코드는 박싱과 언박싱을 코드에서 직접 수행하는 방식이다.
 

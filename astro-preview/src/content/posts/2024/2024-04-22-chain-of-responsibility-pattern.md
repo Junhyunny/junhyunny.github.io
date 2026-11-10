@@ -7,8 +7,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 프레임워크가 익숙한 개발자라면 서블릿 필터(servlet filter), 필터 체인(filter chain) 같은 개념이 익숙할 것이다. 필터 체인에는 책임 연쇄(chain of responsibility)라는 패턴이 적용되어 있다. 이 패턴에 대해 자세히 설명할 일이 생긴 김에 블로그에 글로 정리했다.
@@ -50,12 +48,12 @@ categories:
   - 무차별 대입 공격에 방어하기 위해 같은 IP 주소로부터 반복적으로 오는 실패한 요청을 걸러내는 검사를 추가한다.
   - 같은 데이터가 포함된 반복 요청에 대해 캐시된 결과를 반환한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-02.png" width="100%" class="image__border">
 </div>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
-
-<br/>
+</div>
 
 인증, 인가, 유효성 검사, 무차별 공격 방어, 캐싱 등 너무 많은 기능들이 모여있다. 새로운 기능을 추가할 때마다 코드의 복잡성은 증가하고 이는 코드를 수정, 검증하는 데 더 많은 비용을 들게 만드는 악순환의 고리를 만든다. 비슷한 검증이 필요한 다른 시스템에선 코드 일부분을 복제해가기 때문에 비슷한 코드가 점점 늘어난다.
 

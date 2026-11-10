@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/maven/maven-lifecycle-and-surfire-failsafe-plugins/"
 ---
 
-<br/>
-
 ## 1. JaCoCo(Java Code Coverage)
 
 자바(Java) 기반의 애플리케이션 테스트에 적용할 수 있는 리포트(report) 도구이다. 코드 커버리지(code coverage)는 테스트 코드가 구현체 코드 전체 중 얼만큼 실행시켰는지에 대한 지표이다. `JaCoCo`는 코드 커버리지에 대한 리포트를 만들어 주는 것이 주된 목적이다.
@@ -300,11 +298,9 @@ $ mvn install
 
 프로젝트 `/target/site/jacoco` 경로에 `index.html` 파일로 리포트가 생성된 것을 확인할 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-01.png" width="30%" class="image__border">
 </div>
-
-<br/>
 
 index.html 리포트 파일을 열어보면 다음과 같은 화면을 볼 수 있다.
 

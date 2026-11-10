@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 최근 도커 이미지를 사용할 때 다음과 같은 상황을 마주쳤다.

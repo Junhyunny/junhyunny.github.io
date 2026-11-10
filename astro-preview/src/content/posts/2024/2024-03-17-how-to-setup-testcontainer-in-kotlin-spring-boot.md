@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/use-test-container-on-runtime-in-spring-boot/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 테스트 컨테이너(TestContainer)를 처음 사용했을 때가 23년 3월쯤인 것 같다. 당시엔 지금처럼 스프링에서 정식으로 지원하지 않았기 때문에 사용할 부가적인 작업들이 필요했다. 최근 프로젝트에서 테스트 컨테이너를 다시 적용하면서 다음 같은 사항들 때문에 생각보다 어려움을 겪었다.

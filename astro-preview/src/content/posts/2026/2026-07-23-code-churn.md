@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/software-engineering/code-complexity/code-complexity/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 지난 글에서 정리한 [코드 복잡도(code complexity)][code-complexity-link]에 이어 코드 천(code churn)에 대해 알아보자.

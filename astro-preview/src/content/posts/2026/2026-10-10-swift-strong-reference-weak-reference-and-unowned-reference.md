@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/swift/swift-ui/arc/automatic-reference-counting/garbage-collecting/swift-automatic-reference-counting/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스위프트(Swift)를 사용하다 보니 종종 `weak`라는 키워드가 보였다. 이전에 쓰던 언어에서는 접하지 못한 문법이라 처음에는 어색했다. 이 키워드는 어떤 개념일까? 스위프트를 좀 더 깊이 이해하기 위해 글로 정리해 봤다.
@@ -51,11 +49,9 @@ second = nil  // 두 번째 손가락을 거둔다
 
 참조 카운팅은 객체를 강하게 참조하는 참조의 수를 세는 방식이다. 위 예제 코드에서 Box 객체의 참조 카운트(RC)는 아래 그림처럼 변한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swift-strong-reference-weak-reference-and-unowned-reference-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 스위프트의 클래스 인스턴스를 더 이상 강하게 참조하는 곳이 없으면 해당 객체는 ARC에 의해 해제된다. 객체가 해제되는지는 deinit 호출을 통해 확인할 수 있다. 아래 코드를 실행해 보자.
 
@@ -124,11 +120,9 @@ child = nil  // 두 deinit 모두 호출되지 않는다
 
 위 코드에서는 Parent와 Child 인스턴스의 프로퍼티를 통해 순환 참조가 만들어진다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swift-strong-reference-weak-reference-and-unowned-reference-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 로그를 살펴보면 두 객체의 deinit이 호출되지 않았음을 알 수 있다. ARC는 다른 참조 카운팅 방식과 마찬가지로 순환 참조를 식별하지 못하기 때문에 두 객체는 계속 메모리에 남는다.
 
@@ -187,11 +181,9 @@ Child 해제
 - Child 객체의 parent 프로퍼티는 약한 참조이므로 Parent 인스턴스의 참조 카운트는 1로 유지된다.
 - parent 로컬 변수의 강한 참조만 참조 카운트에 포함되므로 해당 변수가 참조를 잃으면 Parent 객체는 해제된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swift-strong-reference-weak-reference-and-unowned-reference-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 **미소유 참조는 약한 참조처럼 참조 카운트를 올리지 않는다.** 약한 참조와 달리 가리키던 대상이 해제되어도 자동으로 `nil`이 되지 않는다. 따라서 옵셔널이 강제되지 않는다. 다만 참조 대상이 해제된 뒤 접근하면 런타임 오류가 발생할 수 있다. 참조 대상이 미소유 참조를 사용하는 객체보다 오래 살아 있음을 보장할 수 있을 때 사용하는 것이 좋다. 간단한 예제를 살펴보자.
 

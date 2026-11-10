@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/"
 ---
 
-<br/>
-
 ## 1. Recommend of Constructor Injection in Spring
 
 스프링(spring) 프레임워크에서 의존성을 주입받는 방법은 3가지가 있다.

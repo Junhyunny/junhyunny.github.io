@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-boot-actuator/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 액추에이터(spring actuator) 사용법을 정리하다보니 액추에이터가 제공하는 헬스 체크(health check) 기능을 확장하는 방법이 생각보다 복잡했다. 별도 주제로 관련된 내용을 정리했다. 

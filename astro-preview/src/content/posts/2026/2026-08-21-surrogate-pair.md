@@ -10,8 +10,6 @@ categories:
   - "surrogate-pair"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 일본 고객과 소프트웨어를 만들다 보니 자연스럽게 한자와 관련된 예상치 못한 오류 사례를 접하게 된다. [react-pdf](https://react-pdf.org/) 라이브러리를 사용해 PDF를 만들 때 일부 한자와 이모지(emoji)가 제대로 표시되지 않는 문제가 있었다. 이번 글에서는 이 문제와 관련된 서로게이트 페어(Surrogate Pair)라는 개념을 정리했다.
@@ -21,6 +19,8 @@ categories:
 서로게이트 페어와 관련된 개념을 살펴보기 전에 UTF(Unicode Transformation Format)를 이해할 필요가 있다. UTF는 모든 유니코드(Unicode) 코드 포인트를 고유한 바이트 시퀀스로 변환하는 알고리즘적 매핑 방식이다. [ISO/IEC 10646 표준](https://cdn.standards.iteh.ai/samples/76835/46bd0c6c19d04aca81ea546ece3c6417/ISO-IEC-10646-2020.pdf)에서는 UTF를 `UCS Transformation Format`이라고 부르는데, 두 용어는 사실상 같은 개념을 뜻한다. 다소 추상적인 표현이지만, 간단히 말해 UTF는 유니코드 코드 포인트를 컴퓨터가 저장할 수 있는 바이트로 바꾸는 규칙이다.
 
 브라우저, Word, VS Code 같은 프로그램은 내부적으로 유니코드를 해석해 어떤 문자인지 판단한다. 화면에 어떻게 그려질지는 폰트가 담당한다. 유니코드 코드 포인트 `U+0041`은 문자 `A`를 의미한다. 폰트에서 이 유니코드에 해당하는 글리프(Glyph)를 검색한 후 화면에 표시하는 것이다. 이 유니코드 포인트를 컴퓨터 파일에 저장하거나 네트워크로 전송하려면 바이트로 변환해야 한다. 코드 포인트를 바이트로 바꾸는 규칙이 `UTF`이며, 다음과 같은 세 가지 방식이 있다.
+
+<div class="block-break">
 
 | 구분 | UTF-8 | UTF-16 | UTF-32 |
 |---|---|---|---|
@@ -32,7 +32,7 @@ categories:
 | 저장 효율 | 영문에 매우 좋음 | 일부 문자에 효율적 | 대체로 비효율적 |
 | 대표 사용 | 웹, 파일, 네트워크 | Java, JavaScript 내부 문자열 등 | 일부 내부 처리 |
 
-<br/>
+</div>
 
 `A`라는 문자의 유니코드 코드 포인트 `U+0041`을 각 UTF 변환 규칙에 따라 바이트 시퀀스로 변환하면 다음과 같다. 빅 엔디언(big endian) 기준의 바이트 시퀀스를 16진수로 표현한 것이다.
 
@@ -115,12 +115,12 @@ s.slice(0, 1); // D83D DE00 중 D83D 만 잘라서 사용하는 케이스
 
 위 예시처럼 서로게이트 페어로 표현된 문자열의 UTF-16 코드 유닛 기준 길이가 2라는 점을 고려하지 않은 코드가 원인이었다. 한국어와 영어를 주로 사용하는 내게는 미처 고려하지 못했던 오류였다. react-pdf 라이브러리에서 서로게이트 페어가 제대로 처리되지 않으면 아래 이미지의 왼쪽 영역처럼 문자가 비정상적으로 깨져 보인다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/surrogate-pair-01.png" width="100%" class="image__border">
 </div>
 <center>https://github.com/diegomura/react-pdf/pull/3423</center>
-
-<br/>
+</div>
 
 이 문제는 [PR #3423](https://github.com/diegomura/react-pdf/pull/3423)에서 해결됐다. 이전 코드와 개선된 코드를 비교해 보자. 먼저 문제가 있었던 기존 코드는 `for` 루프의 인덱스를 통해 문자를 하나씩 탐색하면서 유니코드를 처리했다. 문제가 발생하는 지점은 주석으로 표시했다.
 

@@ -7,8 +7,6 @@ categories:
   - "database"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 프로젝트 막바지에 레거시 시스템에서 사용 중인 MySQL 데이터베이스의 테이블을 사용하게 되면서 새로운 스키마(schema) 연결이 필요했다. JPA(Java Persistence API) `@Table` 애너테이션의 `schema` 속성을 사용했는데, 생각과 다르게 해당 스키마에서 테이블들을 찾을 수 없었다. 결국 `catalog` 속성에 스키마 정보를 설정하여 문제를 해결했는데, 문제 해결 과정을 글로 정리하기 전에 스키마와 카탈로그에 개념에 대해 먼저 정리가 필요하다고 생각해서 이번 글로 정리했다.
@@ -79,12 +77,12 @@ MySQL 구조를 먼저 살펴보자. 일반적인 데이터베이스는 계층 �
 - `데이터베이스`는 `인스턴스`에서 영속성 관리를 위해 필요한 모든 파일을 의미한다.
 - 오라클의 경우 4계층 형태이지만, 한 개의 인스턴스에 한 개의 데이터베이스만 만들 수 있기 때문에 3계층이라 소개하는 글들도 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/database-schema-and-catalog-03.png" width="80%" class="image__border">
 </div>
 <center>https://hue9010.github.io/db/mysql_schema/</center>
-
-<br/>
+</div>
 
 다음 3계층 데이터베이스 구조를 살펴보자.
 
@@ -92,12 +90,12 @@ MySQL 구조를 먼저 살펴보자. 일반적인 데이터베이스는 계층 �
 - 데이터베이스가 존재하지 않고, 바로 스키마가 위치한다. 이 구조의 경우 데이터베이스와 스키마를 동의어로 사용한다.
 - `MySQL` 데이터베이스를 대표적인 예로 들 수 있으며, 이런 경우에는 데이터베이스와 스키마를 혼동하여 사용하는 경우가 발생한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/database-schema-and-catalog-04.png" width="80%" class="image__border">
 </div>
 <center>https://hue9010.github.io/db/mysql_schema/</center>
-
-<br/>
+</div>
 
 예를 들어 PostgreSQL 데이터베이스는 4계층 구조다.
 
@@ -106,12 +104,12 @@ MySQL 구조를 먼저 살펴보자. 일반적인 데이터베이스는 계층 �
 - 카탈로그는 데이터베이스를 의미한다.
 - 스키마는 네임스페이스(namespace)를 의미하며, 특정 스키마에 접근하는 경우 해당 스키마에 지정된 테이블들만 확인할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/database-schema-and-catalog-05.png" width="80%" class="image__border">
 </div>
 <center>https://stackoverflow.com/questions/7022755/whats-the-difference-between-a-catalog-and-a-schema-in-a-relational-database</center>
-
-<br/>
+</div>
 
 반면, `MySQL` 데이터베이스 구조는 어떨까? 3계층 구조로 **데이터베이스와 스키마가 동일한 의미**로 사용된다. `MySQL`에선 데이터베이스 생성과 스키마 생성은 동일한 결과를 보여준다. 아래 예시 SQL을 통해 자세히 결과를 살펴보자. 먼저 스키마를 생성 후 테이블 생성해본다.
 
@@ -132,11 +130,9 @@ create table TEST_SCHEMA.`tb_test` (
 - MySQL 인스턴스 아래 스키마 정보가 생긴 것을 확인할 수 있다.
 - TEST_SCHEMA 스키마에서 방금 생성한 `tb_test` 테이블을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/database-schema-and-catalog-06.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이번엔 데이터베이스를 생성 후 테이블 생성하는 쿼리를 실행해보자.
 
@@ -157,11 +153,9 @@ create table TEST_SCHEMA.`tb_test` (
 - MySQL 인스턴스 아래 스키마 정보가 생긴 것을 확인할 수 있다.
 - TEST_SCHEMA 데이터베이스에서 방금 생성한 `tb_test` 테이블을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/database-schema-and-catalog-07.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 결론적으로 MySQL에서 데이터베이스를 생성하는 것과 스키마를 생성하는 것은 동일한 결과를 갖게 된다.
 
@@ -183,12 +177,12 @@ MySQL ODBC(Open Database Connectivity) 드라이버는 카탈로그와 데이터
 
 - NO_CATALOG, NO_SCHEMA 설정에 따라 드라이버에서 카탈로그와 스키마를 사용할지 여부를 선택한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/database-schema-and-catalog-08.png" width="80%" class="image__border">
 </div>
 <center>https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html</center>
-
-<br/>
+</div>
 
 결론을 정리하자면 `MySQL`에선 시스템 구조상 `카탈로그 = 스키마 = 데이터베이스`이므로 `MySQL`의 `ODBC` 드라이버는 카탈로그와 스키마를 같은 의미로 취급한다. 동시에 사용할 순 없어서 둘 중 하나를 사용하는데 `NO_CATALOG`, `NO_SCHEMA` 옵션을 통해 이를 설정한다. 디폴트 설정이 어떤 것인지는 확인하진 못 했지만, 옵션 설정에 따라 카탈로그를 사용한 것이라 예상된다.
 

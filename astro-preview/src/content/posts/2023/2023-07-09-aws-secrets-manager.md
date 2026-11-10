@@ -9,8 +9,6 @@ categories:
   - "amazon-web-service"
 ---
 
-<br/>
-
 ## 1. AWS Secrets Manager
 
 데이터베이스 인증서, API 키, 토큰 등 IT 리소스(resource) 접근에 필요한 보안 암호를 보호, 관리하는 AWS 컴포넌트이다. 
@@ -51,40 +49,32 @@ categories:
 
 - `Store a new secret` 버튼을 클릭한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-01.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 다음으로 환경 변수로 주입할 시크릿 값들을 생성한다.
 
 - `Other type of secret`을 선택 후 필요한 설정을 키/값 형태로 입력한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 설정 이름을 작성한다.
 
 - bootstrap.yml 파일에서 별도로 접두어(prefix)를 설정하지 않으면 `/secret/`가 자동으로 추가된다.
 - 이름을 `/secret/action-in-blog`으로 지정하였다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-03.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 해당 화면에서 추가 설정 없이 다음(next) 버튼을 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-04.png" width="100%" class="image__border">
 </div>
-
-<br/> 
 
 해당 화면에서 추가 설정 없이 저장(store) 버튼을 선택한다.
 
@@ -251,11 +241,9 @@ public class ActionInBlogApplication {
   - DB_USER - root
   - DB_PASSWORD - mysql123
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-06.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 로컬 컴퓨터에서 애플리케이션을 실행하면 다음과 같은 에러를 만나게 된다. 해당 에러는 로컬 컴퓨터가 시크릿 매니저에 접근할 수 있는 권한이 없기 때문에 발생한다.
 

@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/security/tool/set-up-key-cloak/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][set-up-key-cloak-link]에서 키클록(keycloak)을 설치하고 관리자 사용자로 렐름(raelm)과 새로운 사용자를 만드는 방법에 대해 정리했다. 이번 글은 OAuth2 인가 프로세스를 위해 클라이언트 애플리케이션을 등록하는 방법에 대해 정리한다. 
@@ -21,19 +19,15 @@ recommendedPosts:
 
 새로운 클라이언트 애플리케이션을 등록한다. 사전에 만든 `spring-security-oauth2-example` 렐름에서 클라이언트(client) 탭을 선택한다. 화면에서 `Create client` 버튼을 누른다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/register-client-in-keycloak-for-oauth2-01.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 OAuth2 클라이언트 아이디를 `oauth2-client-demo`로 지정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/register-client-in-keycloak-for-oauth2-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 OAuth2 클라이언트 타입은 두 가지이다. 
 
@@ -46,11 +40,9 @@ OAuth2 클라이언트 타입은 두 가지이다.
 
 클라이언트 역할을 수행하는 애플리케이션이 서버라면 보통 기밀 클라이언트 타입이다. OAuth2 인가 프로세스에서 클라이언트 인증을 활성화한다. 클라이언트 애플리케이션을 등록하면 발급 받는 클라이언트 아이디와 시크릿(secret)을 사용해 이후 인가 서버로부터 인증을 수행한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/register-client-in-keycloak-for-oauth2-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 필요한 URL을 지정한다. 각 URL에 다음과 같은 정보를 입력한다.
 
@@ -72,11 +64,9 @@ OAuth2 클라이언트 애플리케이션을 위한 리다이렉트 URI 주소�
 - 리소스 소유자(resource owner)가 성공적으로 로그인 후 클라이언트 애플리케이션으로 리다이렉트 되는 주소를 의미한다.
 - 이 리다이렉트 요청에서 클라이언트 애플리케이션은 액세스 토큰을 발급 받는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/register-client-in-keycloak-for-oauth2-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 클라이언트를 생성하면 아래와 같이 클라이언트 애플리케이션 상세 정보를 확인할 수 있다. `Credentials` 탭에서 클라이언트 시크릿을 확인할 수 있다. 
 

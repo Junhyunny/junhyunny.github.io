@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/github/dev-ops/optimize-github-actions/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [GitHub Actions 기초][github-actions-link]에선 깃허브 액션스(github actions)의 기본 개념을 다뤘다. 이번 글은 워크플로우 파일을 작성해 파이프라인을 구성하는 방법에 대해 정리했다. 파이프라인 전체를 자동화할 수 없는 현재 프로젝트 상황에 맞게 컨테이너 이미지를 빌드해서 이미지 레지스트리(registry)에 올리는 단계까지 구축한 예제이다.

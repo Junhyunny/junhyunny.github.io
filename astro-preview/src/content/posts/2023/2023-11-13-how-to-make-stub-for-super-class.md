@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
 ---
 
-<br/>
-
 ## 1. Problem
 
 스프링 시큐리티(spring security) OAuth2 클라이언트 의존성을 사용해 SNS 로그인을 구현할 때 DefaultOAuth2UserService 클래스를 상속받은 클래스를 만들어 확장했습니다. 부모 클래스 기능을 통해 리소스 서버(resource server)로부터 사용자 정보를 조회해야하므로 비즈니스 로직 중간에 부모 클래스의 기능을 호출해야 했습니다. 구현 코드는 정상적으로 동작하지만, 테스트를 작성할 때 다음과 같은 문제가 있었습니다. 

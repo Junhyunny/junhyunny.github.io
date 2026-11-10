@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/jpa/concurrency-problem-insert-same-rows/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 프로젝트에서 겪었던 동시성 문제들 중 한 사례를 [동일 로우(row) 중복 삽입 동시성(concurrency) 문제][concurrency-problem-insert-same-rows-link] 글로 정리했다. 이번 글은 같은 프로젝트에서 발생했던 또 다른 문제를 해결하는 방법에 대해 일부 각색하여 정리했다.
@@ -104,11 +102,9 @@ public class DefaultCardLikeService implements CardLikeService {
 2. 거의 동시에 시작한 2번 트랜잭션이 데이터를 조회하지만, 존재하지 않으므로 추가 쿼리를 수행한다.
 3. 1번 트랜잭션이 먼저 커밋하면 2번 트랜잭션은 기본 키 제약 조건에 의해 예외가 발생하고 트랜잭션을 실패한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 cURL 명령어를 사용해 서버로 동시에 요청을 보내보자.
 
@@ -184,11 +180,9 @@ Connection: close
 3. 두 트랜잭션은 조회한 엔티티의 카운트 값을 증가시킨 후 업데이트한다.
   - "좋아요" 카운트 값이 2인 데이터로 업데이트된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 위와 동일하게 cURL 명령어를 사용해 서버로 동시에 요청을 보내보자.
 
@@ -277,11 +271,9 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
 - 컨트롤러 레이어에서 예외 처리를 수행하면 데이터베이스 제약 조건으로 인해 발생하는 예외와 비관적 락의 타임아웃으로 발생하는 예외를 동일하게 처리할 수 있다.
 - 예외가 발생하면 재시도 핸들러에게 해당 카드 아이디를 전달한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-05.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 다음 재시도 핸들러에서 예외 처리를 하는 과정을 살펴보자.
 

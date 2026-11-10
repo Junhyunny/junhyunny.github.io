@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/replication-in-redis/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Redis 레플리케이션(Replication) 글][replication-in-redis-link]에서 설명했듯이 레디스 레플리케이션은 완벽한 고가용성(HA, high availability)을 책임지지 않는다. 레디스에는 장애 극복(failover) 기능을 향상하기 위한 센티널(sentinel)이 존재한다. 이번 글에서는 센티널을 활용한 레디스의 장애 극복 기능을 살펴보겠다.
@@ -56,11 +54,9 @@ recommendedPosts:
 
 시스템 구성도를 보면 다음과 같다. 클러스터에 포함된 레디스 인스턴스들과 3개의 센티널을 연결했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/failover-using-sentinel-for-redis-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 읽기 기능은 리스트의 상태를 바꾸지 않는 연산이다. 반대로 쓰기 기능은 리스트의 상태를 바꾸는 연산이다. 앞서 말했듯 마스터 인스턴스는 리스트의 상태를 바꿀 수 있지만, 슬레이브는 리스트의 상태를 읽는 것만 가능하다. 우선 위 시나리오에서 읽기 연산과 쓰기 연산을 분리해서 살펴보자.
 
@@ -504,11 +500,9 @@ $  sh shell/redis-sentinel.sh
 - 센티널이 새로운 마스터 승격을 준비하는 잠깐의 시간 동안 딜레이가 발생한다.
 - 슬레이브 중 하나가 마스터로 승격되면 정상적으로 시스템이 동작한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/failover-using-sentinel-for-redis-03.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 장애 극복 기능이 동작하면 레디스 설정 파일이 변경된다. `bind-mount` 방식의 도커 볼륨으로 마스터, 슬레이브의 설정 파일을 적용했기 때문에 센티널에 의해 설정이 변경되는 것을 확인할 수 있다. 마스터 인스턴스를 다운시키면 두 슬레이브 노드의 설정값이 다음과 같이 변경된다.
 

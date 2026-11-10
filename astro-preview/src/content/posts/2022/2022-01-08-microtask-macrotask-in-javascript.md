@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 Jest의 advanceTimersByTime 함수를 사용한 테스트 코드에서 발생한 문제 상황을 글로 정리했다. 글로 정리한 내용을 팀원들에게 소개하는 시간이 있었는 데 생각보다 논리적으로 설명하지 못 했다. 제대로 설명하지 못 한 이유를 곰곰히 생각해보니 마이크로태스크(microtask)나 매크로태스크(macrotask)에 대한 이해도가 낮기 때문이었다. 이번 글에선 마이크로태스크와 매크로태스크에 대해 정리했다. 
@@ -28,12 +26,12 @@ recommendedPosts:
 
 우선 순위에 따라 실행되는 순서가 다르다. 물론 우선 순위가 높은 마이크로태스크 큐에 담긴 콜백 함수들이 먼저 실행된다. 마이크로태스크 큐가 모두 소진되면 다음 매크로태스크 큐에 담긴 콜백 함수들이 실행된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/microtask-macrotask-in-javascript-01.gif" width="100%" class="image__border">
 </div>
 <center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center>
-
-<br/>
+</div>
 
 매크로태스크나 마이크로태스크라는 용어는 자바스크립트 플랫폼에 따라 서로 다르게 표현한다.
 

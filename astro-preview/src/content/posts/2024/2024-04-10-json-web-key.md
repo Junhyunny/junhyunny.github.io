@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/spring-boot/spring-security/spring-security-oauth2-resource-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 iOS 애플리케이션과 웹 애플리케이션을 동시에 개발하는 프로젝트에 참여하게 됐다. 이미 프로젝트가 진행 중이었고 참여하는 시점에 이미 사용자 인증 로직이 구현되어 있었다. 어떻게 돌아가고는 있었지만, iOS 애플리케이션에서 로그인한 사용자와 웹 애플리케이션에서 로그인한 사용자에 대한 추상화가 전혀 되어 있지 않은 상태였다. 

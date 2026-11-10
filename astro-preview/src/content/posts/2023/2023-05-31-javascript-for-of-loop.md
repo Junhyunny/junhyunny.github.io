@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/javascript-for-in-loop/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 JavaScript로 for 반복문을 작성하다보면 헷갈리는 문법이 있습니다. 

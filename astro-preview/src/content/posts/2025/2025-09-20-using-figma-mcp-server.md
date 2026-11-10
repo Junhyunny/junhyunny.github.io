@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/ai-agent/model-context-protocol/mcp-server/mcp-client/mcp-and-mcp-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][improve-development-process-by-vibe-coding-link]에서 테스트 코드와 구현 코드를 작성하는 프롬프트를 살펴봤다. 이번엔 피그마 MCP 서버를 사용해 디자인을 입히는 작업을 살펴보자. MCP(model context protocol)을 잘 모르거나 MCP 서버에 대한 개념이 부족하면 [이 글][mcp-and-mcp-server-link]을 참고하길 바란다.
@@ -43,11 +41,9 @@ MCP 서버는 다음과 같은 방법으로 활성화 할 수 있다.
 - 왼쪽 상단 모서리에서 피그마 메뉴를 연다.
 - `Preferences` 메뉴에서 `Enable Dev Mode MCP Server`를 선택한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-01.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 MCP 서버를 활성화 하면 피그마 애플리케이션 하단에서 접속 주소를 확인할 수 있다.
 
@@ -65,43 +61,33 @@ MCP 호스트에 MCP 서버 정보를 등록해야 한다. VSCode와 인텔리�
 
 `CMD + SHIFT + P`를 누른 후 MCP를 검색한다. `MCP 서버 등록(MCP: Add Server)` 항목을 선택한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-03.png" width="65%" class="image__border">
 </div>
 
-<br/>
-
 다음 HTTP 전송 계층을 선택한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-04.png" width="65%" class="image__border">
 </div>
 
-<br/>
-
 MCP 서버 주소를 등록한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-05.png" width="65%" class="image__border">
 </div>
 
-<br/>
-
 MCP 서버 이름을 등록한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-06.png" width="65%" class="image__border">
 </div>
 
-<br/>
-
 글로벌에 적용할지, 로컬에 적용할지 선택한다. 
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-07.png" width="65%" class="image__border">
 </div>
-
-<br/>
 
 다음 피그마 MCP 서버가 등록되면 mcp.json 파일에 다음과 같은 정보가 등록된다.
 
@@ -123,11 +109,9 @@ MCP 서버 이름을 등록한다.
 
 - Github Copliot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-08.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 configure 버튼을 클릭하면 mcp.json 파일로 연결도니다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다.
 
@@ -187,19 +171,15 @@ get_code 도구가 가장 중요하다. AI 에이전트의 실행 과정을 보�
 
 피그마 디자인을 기반으로 디자인 작업을 수행해보자. 위에서 언급했듯이 피그마 MCP 서버의 get_code 응답은 리액트, 테일윈드 기반이다. 사전에 프로젝트에 테일윈드 환경이 준비되어 있어야 한다. 현재 애플리케이션은 다음과 같다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-10.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 위 애플리케이션에 아래와 같은 피그마 디자인을 입힌다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-11.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 [이전 글][improve-development-process-by-vibe-coding-link]에서 이야기했듯이 프롬프트 템플릿은 `.github/prompts/*.prompt.md` 파일에 작성하고 유연하게 변경되는 부분은 함수 파라미터처럼 사용한다. 사용한 프롬프트는 다음과 같다. 프롬프트 파일 이름은 `figma.prompt.md`다.
 
@@ -243,11 +223,9 @@ FIGMA_URL=https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?nod
 
 디자인 작업 완료되면 필요한 에셋(asset)들이 다운로드 되고, 선택한 피그마 프레임에 해당하는 코드가 생성된다. 
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-12.png" width="45%" class="image__border">
 </div>
-
-<br/>
 
 선택한 피그마 프레임은 Temp.tsx 파일로 생성된다. 이 컴포넌트를 기반으로 특정 컴포넌트를 디자인한다. 아래와 같은 프롬프트를 사용한다. 프롬프트 파일 이름은 `design.prompt.md`다.
 

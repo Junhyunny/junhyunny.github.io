@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/docker/maven/optimize-maven-project-when-dockerizing/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link] 포스트에선 메이븐(maven) 프로젝트를 컨테이너 이미지로 빌드하는 과정을 최적화하는 방법에 대해 다뤘습니다. 

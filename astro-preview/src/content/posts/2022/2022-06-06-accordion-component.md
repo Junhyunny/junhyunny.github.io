@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. Accordion View
 
 내용이 많을 경우 내부 컨텐츠를 접거나 펴서 볼 수 있는 아코디언(accordion) 뷰를 구현하였습니다.

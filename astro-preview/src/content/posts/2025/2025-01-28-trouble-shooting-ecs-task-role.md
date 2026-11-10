@@ -9,8 +9,6 @@ categories:
   - "localstack"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 AWS ECS(elastic container service) 클러스터에 서비스를 배포할 때 발생한 에러와 해결 방법에 대해 정리했다.
@@ -66,11 +64,9 @@ ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때�
 - Task role
 - Task execution role 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/trouble-shooting-ecs-task-role-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 태스크 롤(task role)은 ECS 태스크가 실행 중 AWS 리소스에 접근하는 경우 필요한 역할이다. 즉, 컨테이너 내부에서 실행되는 우리가 개발한 애플리케이션이 S3, DynamoDB, Secret Manager 같은 AWS 리소스에 접근할 때 필요한 역할이다. 예를 들어, ECS 태스크가 아래와 같은 기능이 필요하다면 태스크 롤 설정이 필요하다.
 
@@ -87,11 +83,9 @@ ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때�
 
 - IAM 역할에 `ecs-task-dynamodb-role`라는 이름으로 롤을 만든 후 이를 설정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/trouble-shooting-ecs-task-role-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 IAM 역할에 만든 `ecs-task-dynamodb-role`에 DynamoDB 테이블 접근을 위한 `AmazonDynamoDBFullAccess` 권한을 설정한다.
 

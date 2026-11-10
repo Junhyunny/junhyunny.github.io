@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/"
 ---
 
-<br/>
-
 ## 1. Spring Cloud Openfeign
 
 > Spring Cloud Openfeign API Reference<br/>
@@ -36,11 +34,9 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 4. `서비스A`는 `서비스B` 응답과 자신의 상태를 함께 응답한다.
 5. 사용자는 `서비스A`로부터 결과를 응답 받는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-openfeign-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 pom.xml 파일에 `spring-cloud-starter-openfeign` 의존성을 추가한다.
 

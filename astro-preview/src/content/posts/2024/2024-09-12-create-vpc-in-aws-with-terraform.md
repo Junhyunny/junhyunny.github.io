@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/terraform/create-alb-and-target-group-in-aws-with-terraform/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트는 인프라 관리를 위해 테라폼(terraform)으로 하고 있다. 간단한 실습만 해봤지 실제 프로덕트 개발과 함께 사용해 본 것은 이번이 처음이다. VPC 구성부터 하나씩 작업했던 내용을 블로그에 정리해본다. 

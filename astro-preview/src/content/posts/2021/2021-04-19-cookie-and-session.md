@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/session-storage/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 웹 서비스를 개발한다면 기본적으로 클라이언트, 서버 쪽에서 사용하는 저장소 개념을 알아야 한다. 클라이언트는 보통 다음과 같은 저장 공간을 사용한다. 저장 공간은 브라우저에 의해 관리된다.

@@ -7,8 +7,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 Spring 프레임워크에서 특정 애너테이션만으로 많은 기능들이 빈(bean)을 통해 주입됩니다. 

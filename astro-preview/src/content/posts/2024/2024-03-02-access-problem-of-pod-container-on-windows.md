@@ -8,8 +8,6 @@ categories:
   - "windows"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트 운영 환경은 다음과 같다.
@@ -59,11 +57,9 @@ Windows IP 구성
 
 외부 네트워크와 연결된 IP 주소는 `192.168.0.12`이다. `192.168.0.12` 주소를 통해 애플리케이션에 접근을 시도해보면 실패한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 `localhost`나 `127.0.0.1` 호스트를 사용하면 애플리케이션에 접근할 수 있다.
 

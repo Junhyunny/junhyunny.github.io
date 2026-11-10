@@ -9,8 +9,6 @@ categories:
   - "junit"
 ---
 
-<br/>
-
 #### RECOMMEND POSTS BEFORE THIS
 
 - [트랜잭션(transaction) ACID 특징][transaction-acid-link]
@@ -33,11 +31,9 @@ categories:
 - `orderService` 객체가 빈으로 등록되었고 `createOrder` 메서드 위에 @Transactional 애너테이션이 붙은 경우이다.
 - `createOrder` 메서드가 호출되면 실제 비즈니스 로직 전후에 트랜잭션 처리를 위한 AOP 기능이 호출된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 생성자를 통해 만들어진 객체는 빈 객체로 등록되지 않는다. 이런 경우 @Transactional 애너테이션이 붙었더라도 정상적인 트랜잭션 처리가 이뤄지지 않는다.
 
@@ -94,12 +90,12 @@ logging:
 
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 새로 만든다. 현재 트랜잭션은 유지되고 자식 트랜잭션까지 하나로 묶이기 때문에 자식 트랜잭션에서 예외(exception)가 발생하면 부모 트랜잭션까지 함께 롤백된다. 현재 진행 중인 트랜잭션이 없다면 새로운 트랜잭션을 실행한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-03.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 ChildService 객체는 데이터를 저장하고 ChildException 예외를 던진다.
 
@@ -332,12 +328,12 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 트랜잭션을 만들지 않는다. 현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작한다. 현재 진행 중인 트랜잭션이 없다면 새롭게 만들지 않는다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-04.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 ChildService 객체는 데이터를 저장하고 ChildException 예외를 던진다.
 
@@ -571,12 +567,12 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 현재 트랜잭션을 유지하고, 진행 중인 트랜잭션이 없으면 exception을 던진다. 현재 트랜잭션이 존재한다면 `REQUIRED` 전파 타입과 동일하게 동작한다. 현재 진행 중인 트랜잭션이 없다면 예외를 던진다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-05.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 ChildService 객체는 데이터를 저장하고 별도의 예외는 던지지 않는다.
 
@@ -727,12 +723,12 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 새로운 트랜잭션을 만듭니다. 진행 중인 트랜잭션이 있다면 이를 일시 중단한다. 기존에 진행 중인 트랜잭션이 있더라도 새로운 트랜잭션을 시작한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-06.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 ChildService 객체는 데이터를 저장하고 ChildException 예외를 던진다.
 
@@ -909,12 +905,12 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 트랜잭션 없이 수행한다. 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-07.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 ChildService 객체는 데이터를 저장하고, ChildException 예외를 던진다.
 
@@ -1089,12 +1085,12 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 부모 메서드에서 트랜잭션 시작했다면 자식 메서드에서 exception이 발생한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-08.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 ChildService 객체는 데이터를 저장하고 별도의 예외는 던지지 않는다.
 
@@ -1249,12 +1245,12 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 현재 트랜잭션이 있으면 중첩 트랜잭션 내에서 실행하고, 그렇지 않으면 REQUIRED 처럼 동작한다. 중첩된 트랜잭션을 지원하는 미들웨어(middleware)에서만 사용 가능하다고 한다. 이미 진행 중인 트랜잭션이 있으면 이 트랜잭션은 유지하면서 새로운 트랜잭션을 시작한다. 자식 트랜잭션에서 커밋하기 전까지 처리 중인 내용이 부모 트랜잭션에서 보이지 않는다. 자식 트랜잭션은 자체적으로 커밋과 롤백이 가능하다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transactional-propagation-type-09.png" width="80%" class="image__border">
 </div>
 <center>https://www.nextree.co.kr/p3180/</center>
-
-<br/>
+</div>
 
 중첩 트랜잭션이 지원 안 되는 관계로 부모, 자식 사이에 중첩된 트랜잭션으로 인해 발생하는 현상들은 이번 글에서 확인하지 못 했다. 부모는 `REQUIRED`, 자식은 `NESTED` 전파 타입으로 지정한 경우에 대해 테스트를 수행했다.
 

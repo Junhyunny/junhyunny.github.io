@@ -8,17 +8,13 @@ categories:
   - "github"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 얼마 전까지 깃허브(github)는 간단한 프로젝트 코드나 블로그 글을 작성하는 혼자만의 공간이었다. 그렇다 보니 커밋(commit) 메시지에 대한 내용을 신경 쓰지 않았다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/github-commit-message-rule-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 최근 친구와 함께 일하게 되면서 커밋 메시지 통일에 대한 필요성을 느끼게 되었다. 같이 일할 때 커밋 메시지에 신경을 쓰지 않으니 다음과 같은 문제점이 있었다.
 

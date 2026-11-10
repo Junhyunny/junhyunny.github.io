@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/typescript/test-container/localstack/aws/s3/dynamodb/testcontainer-with-localstack-in-typescript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 서버 애플리케이션에서 데이터베이스에 접근할 때 조회-변경-업데이트(read-modify-write) 패턴이 있는 경우 동시성 문제가 발생한다. RDB(relational database)인 경우 이를 해결할 수 있는 방법은 몇 가지 있다. 
@@ -39,11 +37,9 @@ recommendedPosts:
 
 - 아이템의 특정 컬럼에 '즐겨찾기'를 누른 사람들의 아이디를 저장한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/dynamo-db-atomic-operation-01.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 이렇게 테이블을 디자인하면 사용자가 특정 리소스에 대해 즐겨찾기를 할 때 조회-변경-업데이트(read-modify-write) 로직이 필요하다.
 

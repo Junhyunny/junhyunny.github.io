@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/react/tomcat/not-found-when-hosting-react-app-on-tomcat/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트에서 레거시 시스템의 기술 스택을 변경하고 있다.

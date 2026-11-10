@@ -8,8 +8,6 @@ categories:
   - "jpa"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [EntityManager 특징과 영속성 컨텍스트 장점][persistence-context-advantages-link]
 

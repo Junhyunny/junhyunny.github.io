@@ -8,8 +8,6 @@ categories:
   - "spring-cloud"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
 * [마이크로서비스 아키텍처][microservice-architecture-link]

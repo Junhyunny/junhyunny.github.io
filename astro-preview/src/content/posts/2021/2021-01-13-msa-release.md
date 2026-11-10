@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/msa/msa-api-gateway/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 마이크로서비스 아키텍처의 다양한 배포 전략을 정리했다. 롤링(rolling) 배포 정도만 알고 있었는데, 그 외에도 마이크로서비스 아키텍처의 장점을 살릴 수 있는 다양한 배포 전략들이 있다는 사실을 배울 수 있었다. 

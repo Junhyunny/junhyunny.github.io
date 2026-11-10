@@ -9,8 +9,6 @@ categories:
   - "test-driven-development"
 ---
 
-<br/>
-
 ## 1. 문제 현상
 
 테스트 코드를 작성하다보면 static 메서드를 스터빙(stubbing)할 필요가 생깁니다. 

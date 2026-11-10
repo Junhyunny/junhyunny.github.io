@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/json-web-key/"
 ---
 
-<br/>
-
 ## 1. JWT(Json Web Token)
 
 `Json 웹 토큰(Json Web Token, JWT)`은 다음과 같이 요약할 수 있다. 

@@ -8,8 +8,6 @@ categories:
   - "cloud-development-kit"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 테라폼(terraform)이 겨우 익숙해지는 와중에 새로운 IaC(Infrastructure as Code)를 접하게 됐다. 잠시 다른 프로젝트를 돕기 위해 참여했는데, 여기는 테라폼 대신 AWS CDK(cloud development kit)을 사용하고 있었다. 기본적인 컨셉과 동작을 이해하기 위해 개념과 예시 코드를 글로 정리했다.
@@ -127,12 +125,12 @@ CDK는 다음 요소들을 조합하여 인프라를 구축한다.
 2. 앱, 스택, 컨스트럭트의 계층 구조는 `cdk synth` 명령어를 통해 CloudFormation 템플릿으로 변환된다. CDK 코드가 CloudFormation에서 사용하는 yaml(혹은 json) 형식의 파일로 변환되는 것을 의미한다. CloudFormation 템플릿은 cdk.out 디렉토리에 저장된다. 
 3. 생성된 템플릿을 CloudFormation에 배포하면 필요한 AWS 리소스들이 생성된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-01.png" width="80%" class="image__border">
 </div>
 <center>https://docs.aws.amazon.com/cdk/v2/guide/home.html</center>
-
-<br/>
+</div>
 
 CDK 컨스트럭트도 추상화 수준에 따라 세 가지 레벨로 구분된다. 
 
@@ -407,11 +405,9 @@ Using default execution policy of 'arn:aws:iam::aws:policy/AdministratorAccess'.
 
 최초 부트스트래핑을 수행하면 CloudFormation에 `CDKToolkit`이라는 스택이 생성된다. 부트스트래핑을 수행할 때 파워 유저(power user)는 권한이 충분하지 않지만, 이미 만들어진 CDKToolKit 스택이 있다면 파워 유저도 애플리케이션을 배포하기 위한 인프라 스택을 구축할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 부트스트래핑이 완료되면 `cdk diff` 명령어를 통해 현재 인프라와 차이를 확인할 수 있다. 
 
@@ -542,19 +538,15 @@ arn:aws:cloudformation:ap-northeast-1:123412341234:stack/action-in-blog-dev/6121
 
 배포가 완료되면 CloudFormation에 현재 생성한 스택을 확인할 수 있다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-04.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 브라우저에서 위 배포 결과에 출력된 ALB DNS 주소록 접속하면 `Welcome to Apache`라는 헤더를 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 `cdk destroy` 명령어를 통해 배포한 리소스를 제거한다.
 

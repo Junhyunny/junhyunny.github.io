@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/python/virtual-environment-for-python/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 지난 프로젝트에서 파이썬(python)과 OpenCV 라이브러리를 사용한 비디오 프로세싱 기능을 개발했다. 당시 OpenCV를 통해 생성된 비디오가 브라우저에서 재생되지 않는 문제가 있었다. 문제의 원인과 해결 방법을 글로 정리했다. 예제에선 이 [샘플 비디오](https://www.pexels.com/video/blood-samples-placed-in-specimen-tubes-4074364/)를 사용했다.
@@ -26,11 +24,9 @@ recommendedPosts:
 2. 업로드 된 비디오가 프로세싱 이후 새로운 비디오 파일로 저장된다.
 3. 생성된 비디오 파일이 웹 브라우저에서 재생되지 않는다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 다음과 같은 에러를 만났다.
 
@@ -49,11 +45,9 @@ recommendedPosts:
 - 새로 생성된 비디오
   - MPEG-4 Video 코덱
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 코덱이라는 용어를 많이 들어봤지만, 정확한 개념은 모르기 때문에 찾아 정리해봤다. 코덱이란 `coder-decoder(혹은 compressor-decompressor)`의 약자로 디지털 비디오를 인코딩, 디코딩 할 때 사용하는 소프트웨어(혹은 하드웨어) 도구이다. 주요 기능은 비디오 파일을 압축하여 저장이나 전송하기 위해 크기를 줄인 다음 재생을 위해 압축을 푸는 것이다. 이 과정은 압축되지 않은 비디오 데이터 품질을 크게 손상시키지 않으면서 공간을 덜 차지하는 효율적인 타입으로 변환하는 작업을 포함한다. 
 
@@ -119,12 +113,12 @@ recommendedPosts:
 
 - OpenCV는 별도로 비디오 코덱을 구현하지 않고 FFmpeg, GStreamer 같은 서드 파티(third party) 코덱을 사용한다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-05.png" width="80%" class="image__border">
 </div>
 <center>https://github.com/opencv/opencv-python/issues/912</center>
-
-<br/>
+</div>
 
 호스트 머신엔 필요한 코덱이 설치되어 있기 때문에 문제가 없지만, 컨테이너 이미지에는 필요한 코덱이 설치되어 있지 않기 때문에 문제가 발생한다. 필요한 코덱을 베이스 이미지 위에 설치하면 해결될 것으로 생각했다. 스택 오버플로우(stack overflow), 깃허브(github)나 ChatGPT에서 언급되는 패키지들은 모두 설치해 봤지만, 모두 실패했다. 위 코덱 문제는 해결할 수 없었다. 필자는 `python:3.12-slim` 베이스(base) 컨테이너 이미지를 사용했다. 설치해 본 패키지들은 다음과 같다.
 

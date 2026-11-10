@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 애플리케이션에서 타임리프와 스프링 시큐리티를 사용하는 경우 쉽게 CSRF 토큰 발급이 가능하다. 이를 리액트 같은 싱글 페이지 애플리케이션(SPA, Single Page Application)에 발급 받으려면 서버 사이드 렌더링과 다른 방식으로 접근해야 한다. 이번 예제 코드를 이해하기 위해선 CSRF 공격과 방어에 대한 개념을 잘 이해하고 있어야 한다. CSRF 공격에 대해 잘 모른다면 [이 글][cross-site-reqeust-forgery-link]을 먼저 읽어보길 바란다.

@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/vite/react/setup-vitest-for-react-application/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 CRA(Create React App)를 사용하면 테스트 환경까지 구성해준다. Vite 번들러를 사용하면 리액트 프로젝트를 만들면 테스트 코드를 위한 환경이 구성되어 있지 않다. 이번 글은 Vite 번들러에서 테스트 환경을 구축하는 방법에 대해 정리했다. 이 글을 참조할 때는 다음 내용을 주의하길 바란다.

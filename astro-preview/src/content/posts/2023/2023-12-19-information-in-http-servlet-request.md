@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/tomcat/virtual-host-in-tomcat/"
 ---
 
-<br/>
-
 ## 1. Information in HttpServletRequest
 
 서버 애플리케이션을 개발하다보면 주소, 경로 정보 등을 사용하는 경우가 많다. 공통적인 처리를 수행하는 필터(filter)를 만들 때 필자는 보통 HttpServletRequest 객체의 getServletPath 혹은 getRequestURI 메서드를 사용했다. 여러 시스템을 개발해보니 어떤 상황에선 같은 값인데, 어떤 환경에선 서로 다른 값이어서 혼란을 겪었던 기억이 난다. 매우 기본적인 정보들이지만, 매번 헷갈리기도 하고 최근 글을 쓰다가 궁금증이 생겨서 포스트로 정리했다. 

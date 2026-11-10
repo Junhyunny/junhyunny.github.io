@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/react/react-proxy/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `CRA(Create-React-App)`를 사용해 프로젝트를 만드는 경우 `react-scripts`에 의해 개발 서버 실행, 빌드, 테스트 등이 실행됩니다. 

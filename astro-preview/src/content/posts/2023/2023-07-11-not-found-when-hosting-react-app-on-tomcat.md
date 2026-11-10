@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/spring-boot/how-to-deploy-react-application-on-jar-package/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 현재 개발하는 애플리케이션의 배포 환경은 다음과 같다.

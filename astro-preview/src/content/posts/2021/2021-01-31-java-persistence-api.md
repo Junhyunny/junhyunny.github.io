@@ -23,8 +23,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/jpa-fetch-join-paging-problem/"
 ---
 
-<br/>
-
 ## 1. Java Persistence API
 
 `JPA(Java Persistence API)` 정의를 먼저 살펴보자. 
@@ -37,11 +35,9 @@ recommendedPosts:
 
 영속성 계층이 적용된 애플리케이션의 계층 구조는 다음과 같다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-persistence-api-01.png" width="65%" class="image__border">
 </div>
-
-<br/>
 
 JPA는 영속성 프레임워크의 기능을 사용하기 위한 인터페이스(API, application programming interface)다. JPA가 제공하는 기능을 사용하면 내부적으론 하이버네이트 프레임워크가 실행된다. 하이버네이트는 `ORM(Object-Relation Mapping)` 프레임워크다. 여기서 ORM(Object-Relation Mapping)이란 무엇일까?
 
@@ -55,11 +51,9 @@ JPA는 영속성 프레임워크의 기능을 사용하기 위한 인터페이�
 
 객체의 동작을 프레임워크에서 감지하고 SQL 질의(query)로 만들어 수행한다. `ORM`은 객체의 모습 그대로 데이터로 저장할 수 있게 만듦으로써 객체지향적인 설계가 데이터베이스 모델링에 의해 흐트러지지 않도록 도와준다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-persistence-api-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 ORM 프레임워크는 다음과 같은 장점을 갖는다.
 

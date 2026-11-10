@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/using-module-in-javascript/"
 ---
 
-<br/>
-
 ## 1. 문제 현상
 
 리액트 상태 관리 라이브러리에 관련된 내용을 정리하고자 CRA(create-react-app) 프로젝트를 만들었습니다. 

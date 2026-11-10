@@ -16,17 +16,13 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/failover-using-sentinel-for-redis/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 나는 많은 프로젝트에서 스프링 서버 애플리케이션을 구현할 때 세션을 위해 레디스(redis)를 사용했었다. 최근 새로운 서비스의 세션을 구축하기 위해 AWS 엘라스틱캐시(elasticache)에서 레디스 서버를 배포하려고 했더니 다음과 같은 AWS 추천 메시지를 만났다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 가격도 33% 저렴하고 레디스와 완벽하게 호환된다고 하니 선택하지 않을 이유가 없다고 생각했다. 이번 글은 밸키(Valkey) 서버리스(serverless)를 구축하면서 만났던 에러들에 대해 정리했다.
 
@@ -159,11 +155,9 @@ Caused by: io.lettuce.core.RedisCommandExecutionException: CROSSSLOT Keys in req
 
 다음은 TLS 연결 설정이 필요하다. 서버리스 밸키와 연결하기 위해선 TLS 옵션이 필요하다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-02.png" width="65%" class="image__border">
 </div>
-
-<br/>
 
 AWS 시큐리티 그룹(security group)에 6379 포트에 대한 인바운드 규칙이 설정되어 있음에도 타임아웃이 발생한다면 TLS 연결 옵션 활성화 여부를 확인해보길 바란다. 내가 만난 에러 로그는 다음과 같다.
 
@@ -239,11 +233,9 @@ spring:
 
 - EC2 컨테이너에서 AWS 엘라스틱캐시 서버리스 밸키 클러스터를 세션으로 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 테라폼을 사용해 인프라를 구축한다. 코드에 대한 설명은 별도로 없다. [예제 프로젝트](https://github.com/Junhyunny/blog-in-action/tree/master/2025-03-22-aws-elasticache-valkey-and-spring)의 `/infra` 디렉토리를 참조하길 바란다. AWS 인프라 작업을 위한 자격 증명을 터미널 세션에 준비한다.
 
@@ -284,11 +276,9 @@ valkey_endpoint = tolist([
 
 인프라 배포가 완료되더라도 EC2 컨테이너에서 애플리케이션을 준비하는 시간이 약간 소요된다. 잠시 후 서버 엔드포인트로 접근하면 다음과 같은 화면을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-06.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 엘라스틱캐시 밸키 클러스터 모니터링 화면에서 세션 정보가 저장되었는지 캐시가 히트했는지 확인할 수 있다.
 

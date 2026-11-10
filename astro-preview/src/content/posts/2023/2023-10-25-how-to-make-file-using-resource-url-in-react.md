@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/react/react-proxy/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 서버로부터 받은 이미지를 리액트(react) 상태(state)로 관리하기 위해 File 인스턴스로 만들 필요가 있었습니다. 이미지 URL 정보만 있었기 때문에 이를 사용해 File 인스턴스를 생성하는 방법과 테스트 방법에 대해 정리하였습니다.  

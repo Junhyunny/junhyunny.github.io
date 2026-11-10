@@ -8,8 +8,6 @@ categories:
   - "jpa"
 ---
 
-<br/>
-
 ## 1. @ElementCollection Annotation
 
 JPA @ElementCollection 애너테이션은 일대다 관계 매핑(mapping) 기능을 제공한다. 엔티티(entity)가 아닌 객체를 대상으로 일대다 관계 매핑을 지원한다는 것이 @OneToMany 애너테이션과 차이점이다.

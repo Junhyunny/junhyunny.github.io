@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/spring-boot/javascript/content-type-and-spring-annotation/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 파일 업로드 기능에 대한 단위 테스트를 작성해 본 경험이 없어서 관련된 내용을 정리하였습니다. 

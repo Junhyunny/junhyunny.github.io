@@ -7,8 +7,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. 객체 생성하기
 
 `JavaScript`는 두 가지 방법으로 객체를 생성할 수 있습니다. 

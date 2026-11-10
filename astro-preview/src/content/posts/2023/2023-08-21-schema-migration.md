@@ -8,8 +8,6 @@ categories:
   - "database"
 ---
 
-<br/>
-
 ## 1. Risk of Change Schema 
 
 애플리케이션을 개발하거나 시스템을 운영하다보면 데이터베이스 스키마(schema)에 변경이 발생하게 됩니다. 

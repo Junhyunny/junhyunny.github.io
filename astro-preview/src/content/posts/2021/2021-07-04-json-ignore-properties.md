@@ -8,8 +8,6 @@ categories:
   - "junit"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 API 엔드포인트(endpoint)를 개발하던 중 다음과 같은 에러가 발생했다.
@@ -44,23 +42,21 @@ java.lang.StackOverflowError: null
 - 참조하는 객체가 정리되지 않아 가비지 컬렉션(garbage collection) 대상이 되지 않으므로 메모리 누수가 발생할 수 있다.
 - 메서드를 호출할 때 재귀 호출로 인해 스택 오버플로우 에러가 발생할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/json-ignore-properties-01.png" width="40%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Circular_reference</center>
-
-<br/>
+</div>
 
 도메인 객체를 살펴보니 다음과 같은 구조를 가지고 있었다.
 
 - 포스트(post) 객체는 자신의 댓글(reply) 객체를 리스트로 참조한다.
 - 댓글 객체는 자신과 연관된 포스트 객체를 참조한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/json-ignore-properties-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 먼저 Post 레코드 클래스를 살펴보자.
 

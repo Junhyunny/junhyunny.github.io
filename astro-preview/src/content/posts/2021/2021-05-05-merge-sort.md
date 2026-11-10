@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/algorithm/quick-sort/"
 ---
 
-<br/>
-
 ## 1. Merge Sort
 
 합병 정렬(merge sort)은 다음과 같은 특징을 가진다.

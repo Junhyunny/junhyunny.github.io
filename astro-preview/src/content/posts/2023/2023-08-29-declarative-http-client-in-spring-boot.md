@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링(spring) 팀과 같은 회사라 스프링 프레임워크(spring framework)에 관련된 소식을 다소 빠르게 접합니다. 

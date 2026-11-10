@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/aws-sam-cli/api-gateway/lambda/aws-sam-cli/"
 ---
 
-<br/>
-
 ## 1. Context
 
 최근 서포트 했던 팀은 PDF를 이미지로 만드는 작업이 필요했다. PDF 파일 용량이 20MB~30MB 정도로 컸기 때문에 S3에 업로드하면 오브젝트 생성 이벤트를 AWS 람다(lambda)에서 수신해서 처리하기러 했다. S3에 파일을 업로드 했을 때 람다에서 이벤트를 수신 받을 수 있는 방법은 두 가지 있다.
@@ -224,19 +222,15 @@ Successfully created/updated stack - sam-app in ap-northeast-1
 
 배포가 완료된 후 이벤트 브릿지를 보면 두 개의 규칙이 생성된 것을 확인할 수 있다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 람다 리소스 하위 이벤트에 직접 규칙을 설정하면 각 람다에 대한 허가(permission)과 규칙(rule)이 별도로 생성된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 두 람다에 대해 동일한 규칙을 지정하려면 다음과 같이 템플릿을 변경한다.
 
@@ -325,19 +319,15 @@ Resources:
 
 위 템플릿을 배포하면 다음과 같은 규칙 정보를 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-04.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 해당 규칙의 대상(target)을 보면 두 개의 람다가 연결된 것을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 최종적으로 시스템은 다음과 같이 결합된다.
 

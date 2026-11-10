@@ -13,8 +13,6 @@ categories:
   - "ecs-task"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 상담 받았던 내용과 내가 제시한 대안책에 대해 정리했다.
@@ -28,11 +26,9 @@ categories:
 3. 파일 시스템에 임시로 저장한 파일들을 삭제한다.
 4. 변환된 파일을 사용자에게 응답한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/system-design-for-handling-big-size-file-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위 상황에서 파일을 업로드 했을 때 다음과 같은 현상들이 발견됐다.
 
@@ -61,11 +57,9 @@ categories:
 4. ECS 태스크는 S3 버킷에서 타겟 파일을 다운로드 받은 후 변환한다. 변환 프로세스가 완료되면 S3 버킷에 업로드를 수행한다.
 5. 클라이언트는 S3 버킷으로부터 변환 완료된 파일을 다운로드 받기 위해 지속적으로 폴링(polling)한다. 다운로드 가능한 상태라면 다운로드용 사전 서명된 URL을 통해 변환 완료된 파일을 다운로드 받는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/system-design-for-handling-big-size-file-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위와 같이 시스템 디자인을 변경하면 구조는 다소 복잡해지지만, 시스템은 더 안정적으로 동작한다.
 
@@ -87,11 +81,9 @@ categories:
 4. 파일 업로드가 완료되면 ECS 태스크가 실행된다. S3 객체의 메타 데이터(혹은 경로)를 통해 `job_id`를 받는다. 작업 상태를 `PROCESSING`으로 업데이트한다.
 5. ECS 태스크는 변환 작업 완료 시 `COMPLETED`, 실패 시 `FAILED` 등으로 업데이트한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/system-design-for-handling-big-size-file-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 시스템은 동일한 요청에 항상 같은 결과를 보장하는 멱등성(idempotency)이 필요하다. S3 이벤트가 중복으로 발생하여 ECS 태스크가 여러 번 실행되는 케이스에 대한 처리가 필요하다. ECS 태스크는 시작할 때 데이터베이스에 저장된 `job_id` 상태를 확인한다. 상태가 PENDING이 아니면 작업을 중복 실행하지 않고 바로 종료한다.
 

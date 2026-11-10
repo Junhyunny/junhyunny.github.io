@@ -9,8 +9,6 @@ categories:
   - "jest"
 ---
 
-<br/>
-
 ## 1. redux-thunk 테스트하기
 
 두 단계로 나누어 테스트를 수행한다.

@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-mvc/quartz-clustering-in-spring-mvc/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 시스템을 구성하다 보면 실시간 요청에 따라 서비스를 제공하는 것뿐만 아니라 특정 시간마다 혹은 일정 시간 간격마다 동작하여 필요한 데이터를 처리하는 기능이 필요하다. 이런 경우 스케줄러(scheduler)를 이용하여 작업(job)을 수행하도록 구현한다. 스프링 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능들을 제공한다. 대표적으로 `스프링 스케줄러(Spring Scheduler)`와 `스프링 쿼츠(Spring Quartz)`가 있다. 간단하게 `스프링 스케줄러`를 사용할 수도 있지만, 이번 글은 몇 가지 특장점이 있는 `스프링 쿼츠`에 대해 정리해 보았다.
@@ -38,12 +36,12 @@ recommendedPosts:
 - JobStore 인터페이스
   - Job, Trigger 정보를 저장하는 메커니즘을 정의한다. 메모리 혹은 데이터베이스를 사용한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-in-spring-mvc-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
-
-<br/>
+</div>
 
 쿼츠에 대해 공부해 보기 전인 최근까지도 배치(batch)라는 용어와 혼동하여 사용하였다. 공부하기 전까지는 쿼츠가 제공하는 기능이 `배치 잡(Batch Job)`이라고 생각했는데, 실제로 제공하는 기능은 `잡 스케줄링(Job Scheduling)`이다. 둘은 다른 개념이므로 글을 이어가기 전에 정리해 두고 싶다.
 

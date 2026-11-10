@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/docker/aws/dynamo-db/dynamodb-container-with-docker-compose/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 로컬 환경에서 개발, 테스트를 위해 DynamoDB 로컬 컨테이너를 사용하고 있다. 팀원이 `LocalStack`을 사용해보자는 의견을 내서 사용하기 전에 LocalStack 컨셉과 이를 사용해 어떻게 DynamoDB를 셋업하는지 정리했다.
@@ -132,19 +130,15 @@ localstack-1  | Ready.
 
 이제 NoSQL워크벤치에서 LocalStack 컨테이너로 연결하면 해당 테이블 정보를 확인할 수 있다. NoSQL워크벤치에서 4566 포트번호를 사용해 연결을 만든다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/setup-dynamodb-in-localstack-01.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 "TodoTable" 이름을 갖는 테이블 정보를 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/setup-dynamodb-in-localstack-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 ## 3. Trouble shooting
 

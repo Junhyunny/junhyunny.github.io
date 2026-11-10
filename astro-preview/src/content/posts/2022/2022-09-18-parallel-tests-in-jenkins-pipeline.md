@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/jenkins/using-jenkinsfile-in-pipeline/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 젠킨스(jenkins) 파이프라인은 필요하다면 병렬로 처리할 수 있습니다. 

@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/python/generator-function/python-generator-function/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 지난 글은 파이썬의 비동기 작업을 위한 [제너레이터(generator)][python-generator-function-link]에 대해 정리했다. 이번 글은 파이썬의 전역 인터프리터 락(GIL, Global Interpreter Lock)과 비동기 작업에 대한 내용을 정리해봤다.
@@ -33,12 +31,12 @@ recommendedPosts:
 
 그나마 네트워크 요청이나 파일 입출력(읽기/쓰기)처럼 대기 시간이 긴 I/O 작업이 발생하면 해당 스레드는 자발적으로 GIL을 해제한다. 한 스레드가 I/O 응답을 기다리며 멈춰 있는 동안, 다른 스레드가 즉시 GIL을 획득하여 코드를 실행할 수 있으므로 I/O 대기 시간을 숨기고 병렬적인 처리를 수행하는 효과를 얻게 된다. I/O 작업에 한해서는 멀티 스레드의 이점을 가질 수 있다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/python-global-intpreter-lock-and-asynchronous-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://www.datacamp.com/tutorial/python-global-interpreter-lock</center>
-
-<br />
+</div>
 
 하지만 I/O 처리를 위해 멀티 스레드를 사용할 때 한계와 부작용도 존재한다. 수많은 동시 I/O 연결을 처리하기 위해 그만큼의 스레드를 생성하면, 각각의 OS 스레드가 차지하는 메모리 소모가 커지고 스레드 간 전환 비용이 급격히 늘어나 시스템 부하가 커진다. 메모리 및 문맥 전환(context switching)에 오버헤드가 발생한다.
 
@@ -54,12 +52,12 @@ I/O 작업이 OS의 버퍼링 덕분에 즉시 완료될 수 있는 상황에서
 - 멀티 프로세싱은 여러 개의 프로그램이 동시에 실행되는 것이다. 멀티 스레드와 다르게 코드, 데이터, 파일을 공유하지 않는다. 프로세스 안의 실행 흐름이 스레드다. 컴퓨터에서 브라우저, VSCode, 에디터 같이 별도의 프로그램이 실행되는 것을 예로 들 수 있다.
 - 비동기 I/O는 하나의 프로세스에서 하나의 스레드가 동시에 여러 개의 태스크를 수행하는 것을 의미한다. 하나의 프로세스이기 때문에 코드, 데이터, 파일을 공유하고, 하나의 스레드이기 때문에 레지스터와 스택을 공유한다. 중간에 I/O 작업이 필요하면 다른 곳에 위임하고, 메인 스레드는 다른 작업을 실행한다. 자바스크립트 런타임(JavaScript runtime)인 Node.js 나 브라우저가 이렇게 동작한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/python-global-intpreter-lock-and-asynchronous-02.png" width="100%" class="image__border">
 </div>
 <center>https://semfionetworks.com/blog/multi-threading-vs-multi-processing-programming-in-python/</center>
-
-<br/>
+</div>
 
 파이썬의 비동기 I/O는 [자바스크립트 런타임의 비동기 작업](https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/)과 동일하게 이벤트 루프(event loop)로 구현되어 있다. 두 환경 모두 기본적으로 하나의 메인 스레드에서 이벤트 루프가 돌아가고, 네트워크 I/O, 파일 입출력, 타이머 등 비동기 작업이 끝나는 것을 감지해서 콜백(callback)이나 코루틴(coroutine)을 실행한다. 두 언어 모두 단일 스레드 기반이므로 무거운 수학 연산 같은 CPU를 오래 점유하는 작업이 실행되면 제어권을 양보하지 않아서 이벤트 루프 전체가 정지되고 다른 작업들도 지연되는 단점도 동일하다.
 
@@ -128,12 +126,12 @@ asyncio 중심에는 이벤트 루프가 존재한다. 이벤트 루프는 여�
 - 제어권을 넘겨받은 이벤트 루프는 OS의 셀렉터(epoll, kqueue 등)를 이용해 I/O 상태를 모니터링한다. I/O 작업이 끝나는 것을 기다리지 않고 실행 준비가 된 다른 작업을 찾아서 즉시 실행한다.
 - 완료되지 않은 작업이나 신규 작업들은 작업 큐(task queue)에 들어가서 실행되길 기다린다. 이벤트 루프에 의해 실행 스택으로 올라온 작업은 완료되거나 I/O 처리를 기다릴 필요가 생길 때까지 실행된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/python-global-intpreter-lock-and-asynchronous-03.png" width="100%" class="image__border">
 </div>
 <center>https://ks1171-park.tistory.com/119</center>
-
-<br/>
+</div>
 
 asyncio 라이브러리를 사용하면 멀티 스레드처럼 스레드 생성 비용이 들지 않는다. OS 차원에서 스레드를 강제로 전환하는 것이 아니기 때문에 컨텍스트 스위칭(context switching) 같은 비용도 필요 없다. 스택도 스레드마다 생성하는 것이 아니기 때문에 메모리 소모도 작다. asyncio는 매우 적은 비용만으로 수만 개의 네트워크 소켓 연결을 가볍게 동시에 처리할 수 있는 높은 확장성(scalability)을 갖고 있다.
 

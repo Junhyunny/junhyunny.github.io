@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 진행 중인 프로젝트의 특정 비즈니스에서 데이터를 저장할 수 있는 큐(queue)가 필요했다. 다음과 같은 옵션이 있었다.
@@ -37,11 +35,9 @@ recommendedPosts:
   - 읽은 메시지들은 삭제된다.
 - 사용자 역할은 터미널의 `cURL` 명령어로 대체했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/using-redis-template-on-spring-boot-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음과 같은 패키지 구조를 가진다. 
 

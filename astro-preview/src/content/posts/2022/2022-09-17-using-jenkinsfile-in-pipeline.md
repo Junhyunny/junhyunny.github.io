@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/jenkins/parallel-tests-in-jenkins-pipeline/"
 ---
 
-<br/>
-
 ## 1. Jenkinsfile
 
 `Jenkinsfile`을 사용하면 젠킨스(jenkins)의 파이프라인을 파일로 관리할 수 있습니다. 

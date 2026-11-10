@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/local-storage/"
 ---
 
-<br/>
-
 ## 1. SessionStorage
 
 `sessionStorage` 객체는 웹 스토리지(web storage) 중 하나입니다. 

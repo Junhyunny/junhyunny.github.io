@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 24년 5월 다른 팀의 [애플(apple) OAuth2 클라이언트 기능 개발](https://junhyunny.github.io/spring-boot/spring-security/spring-security-oauth2-client-for-apple/)을 해줬다. 애플은 보안 정책 때문에 OAuth2 인증 과정에서 `http://localhost:port`를 지원하지 않는다. 이 문제 때문에 디버깅이 어려웠는 데 브라우저가 제공하는 HTTP 요청 재시도 기능 덕분에 어렵게나마 원인 분석과 문제 해결이 가능했다. 이번 글은 실패한 HTTP 요청을 재시도하는 방법에 대해 정리했다. 

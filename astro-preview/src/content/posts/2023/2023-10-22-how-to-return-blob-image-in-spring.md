@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/kotlin/spring-boot/postgresql/how-to-save-image-into-database-with-spring/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [How to save image into PostgreSQL with Spring][how-to-save-image-into-database-with-spring-link] 포스트에선 이미지를 데이터베이스 BLOB 형태로 저장하는 방법에 대해 정리했습니다. 이번 포스트에선 BLOB으로 저장된 이미지를 브라우저 표시하는 방법에 대해 정리하였습니다. 실습을 위한 개발 환경은 다음과 같습니다. 

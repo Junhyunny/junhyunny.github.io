@@ -8,8 +8,6 @@ categories:
   - "maven"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 공공 기관 레거시 시스템 기능 확장 프로젝트를 진행하게 되었는데 레거시 코드를 보자마자 당혹스러웠다. 형상 관리가 잘 되고 있지 않아서 컴파일이 되지 않는 상태였다. 라이브러리들을 프로젝트 폴더에 직접 관리하고 있었는데, 프로젝트와 함께 관리되지 않는 의존성(dependency)들도 있었다. 프로젝트 빌드 툴(tool)을 메이븐(maven)으로 변경하고, 필요한 의존성들을 원격에서 받기로 결정하였다. 다음과 같은 에러가 발생했다.
@@ -30,11 +28,9 @@ Could not find artifact *** in central (https://repo.maven.apache.org/maven2)
 
 - 실제 저장소는 오른쪽의 `Repository` 버튼을 통해 확인한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-using-multiple-repositories-02.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 `pom.xml` 파일에 명시적으로 의존성 레포지토리 url 주소를 명시한다. 
 

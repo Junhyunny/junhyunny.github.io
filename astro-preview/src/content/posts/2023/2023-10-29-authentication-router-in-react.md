@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/json-web-token/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 로그인했거나 특정 권한이 있는 사용자만 지정된 페이지에 접근할 수 있도록 제어하기 위한 인증 라우터(authentication router)를 만드는 방법에 대해 정리하였다. 이 글에서 정리한 인증 라우터 기능을 이해하려면 몇 가지 사전 지식이 필요하다.

@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/data-science/custom-event-in-google-tag-manager/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 사용자로부터 인사이트(insight)를 얻으려면 데이터가 필요합니다. 

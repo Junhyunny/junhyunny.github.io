@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/react/react-proxy/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [CORS(Cross Origin Resource Sharing)][cors-link] 글 마지막에 CORS 정책 위반 에러를 방지할 수 있는 방법을 두 가지 소개했다. 
@@ -41,11 +39,9 @@ recommendedPosts:
   - `http://localhost:8082/health` 경로로 요청을 보낸다.
   - 해당 서비스는 CORS 처리를 위한 필터 적용으로 정상 작동한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cors-example-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 프론트엔드 코드는 아래와 같다. axios 모듈을 사용하여 API 요청을 수행한다. 상대 경로(relative path) URI를 사용하면 페이지 출처 서비스로 요청을 보내고, 절대 경로(absolute path) URI를 사용하면 해당 호스트로 직접 요청을 보낸다. 이 글의 예제는 서버 도메인을 직접 사용하기 때문에 브라우저가 스프링 애플리케이션 서버로 요청을 직접 보낸다.
 

@@ -11,8 +11,6 @@ categories:
   - "mcp-client"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 피그마 MCP 서버에 연결하기 전에 MCP(model context protocol)과 이에 관련된 아키텍처, 명세(specification)을 정리하고 넘어간다.
@@ -51,12 +49,12 @@ MCP는 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 �
 
 MCP 클라이언트는 MCP 호스트 내부에서 동작한다. MCP 호스트는 사용자의 입력을 받아 MCP 클라이언트를 구동하고 MCP 서버와 연결하는 오케스트레이션 역할을 담당한다. 예를 들면, 코파일럿 플러그인이 설치된 VSCode는 MCP 호스트다. 사용자가 피그마 링크를 코피일럿에게 챗으로 전달하면 VSCode는 MCP 클라이언트를 구동하고 피그마 MCP 서버와 연결을 시도한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-01.png" width="80%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/docs/learn/architecture</center>
-
-<br/>
+</div>
 
 MCP 서버는 컨텍스트 데이터를 제공하는 모든 프로그램을 지칭한다. 어디에서 동작하는지 중요하지 않다. 로컬 PC에서도 동작할 수 있고 원격에 존재할 수도 있다.
 
@@ -98,12 +96,12 @@ MCP는 두 개의 레이어로 구성된다.
 - 운영(Operation) - 정상적인 프로토콜 통신으로 서버, 클라이언트, 유틸리티 기능들을 사용
 - 종료(Shutdown) - 연결의 정상적인 종료
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-02.png" width="65%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</center>
-
-<br/>
+</div>
 
 [기능 협상](https://modelcontextprotocol.io/specification/2025-06-18/architecture#capability-negotiation)은 클라이언트와 서버가 초기화 과정에서 자신이 지원하는 기능을 명시적으로 선언하는 것이다. 세션 내 선언된 기능만 사용할 수 있다. 기능 협상을 통해 클라이언트와 서버가 지원되는 기능을 명확히 이해하고, 추가 확장성도 확보할 수 있다.
 
@@ -145,12 +143,12 @@ MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어�
 - 클라이언트는 `tools/list`를 통해 사용 가능한 도구를 탐색한다.
 - LLM이 도구를 선택하면 클라이언트는 `tools/call`을 통해 해당 도구를 실행한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-03.png" width="65%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
-
-<br/>
+</div>
 
 구체적으로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 제공하는 도구를 확인할 때 MCP 클라이언트는 아래 요청을 전달한다. 
 
@@ -259,12 +257,12 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
 - 여러 단계의 사람 참여(human-in-the-loop) 같은 검증 지점을 통해 보안(security)을 보장한다.
 - 사용자는 초기 요청과 생성된 응답을 서버로 반환하기 전에 검토(response-review)하고 수정할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-04.png" width="100%" class="image__border">
 </div>
 <center>https://modelcontextprotocol.io/docs/learn/client-concepts</center>
-
-<br/>
+</div>
 
 마찬가지로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 LLM 기능을 사용하고 싶을 때 MCP 클라이언트에게 아래 요청을 전달한다. 
 

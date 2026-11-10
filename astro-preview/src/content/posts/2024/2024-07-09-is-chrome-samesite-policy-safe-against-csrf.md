@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 책의 크로스 사이트 요청 위조(CSRF, Cross-Site Request Forgery) 부분을 집필하고 있다. 내용을 정리하다보니 크로스 사이트 사이에 쿠키를 공유를 제어하는 정책인 `SameSite` 속성을 자세히 살펴볼 필요가 있었다. 관련된 내용을 글로 정리하였다. 이 글은 SameSite 속성 중 `Lax`에 대한 이야기다. 
@@ -26,41 +24,41 @@ recommendedPosts:
 
 - eTLD 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/is-chrome-samesite-policy-safe-against-csrf-01.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 루트 도메인만으로 동일 사이트를 구분하기 힘든 경우가 있다. 예를 들어 깃허브(github)는 .github.io 도메인으로 사용자들의 개인 사이트를 호스팅 해주기 때문에 .io 루트 도메인만으로 동일 사이트 여부를 판단하기 어렵다. 이를 해결하기 위해 [공공 접미사(public suffix)](https://publicsuffix.org/list/)를 만들어 관리한다.
 
 - 공공 접미사 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/is-chrome-samesite-policy-safe-against-csrf-02.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 아래 표는 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/is-chrome-samesite-policy-safe-against-csrf-03.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 도메인 주소 앞의 스키마(schema)까지 비교하여 동일 사이트인지 여부를 판단하면 이를 `스킴풀(schemeful) 동일 사이트`라고 한다. 아래 표는 스킴풀 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/is-chrome-samesite-policy-safe-against-csrf-04.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 브라우저 주소 창에 표시된 주소와 HTTP 요청을 받아 주는 서버의 주소가 동일 사이트인지 여부를 판단할 때 비교 대상이 된다.
 
@@ -118,12 +116,12 @@ Lax 옵션은 GET 요청이 서버의 상태를 변경하지 않는 안전한 �
   - 만료 시간이 지정되지 않은 쿠키의 경우 2분 동안 폼 요청시 POST 메서드에 쿠키 전달 허용
   - 최대 사용 시간이 2분 이내인 쿠키는 폼 요청시 POST 메서드에 쿠키 전달 허용
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/is-chrome-samesite-policy-safe-against-csrf-06.png" width="100%" class="image__border">
 </div>
 <center>https://groups.google.com/a/chromium.org/g/blink-dev/c/AknSSyQTGYs/m/lXBt8xyGAgAJ</center>
-
-<br/>
+</div>
 
 위 대화에서 볼 수 있듯이 크롬의 디폴트 SameSite 쿠키는 저장된 후 최초 2분 동안 POST 메서드 폼 요청에 함께 전달되는 것이 허용된다. 이 말은 크롬의 SameSite 디폴트 정책은 실제 Lax 옵션에 비해 완화된 기준이 적용되어 있다는 의미다. 이 완화된 정책으로 크롬의 디폴트 SameSite 쿠키는 여전히 CSRF 공격에 대한 위험이 존재한다. 
 
@@ -247,11 +245,9 @@ $ sudo vi /etc/hosts
 - DefaultCookie, LaxCookie 쿠키를 개발자 도구 Application 탭에서 확인할 수 있다.
 - 신규 팝업 윈도우가 빈 화면으로 열린다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/is-chrome-samesite-policy-safe-against-csrf-07.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음 http://cross-site.com:8080 주소로 접속한다. 동일한 화면이지만, 주소가 다르다. 이제 링크와 버튼을 하나씩 누르면서 HTTP 요청의 헤더 값을 확인해보자. 버튼을 누르면 브라우저의 주소가 변경되기 때문에 버튼을 누르기 전에 브라우저 주소가 http://cross-site.com:8080 값인지를 확인하길 바란다. 
 

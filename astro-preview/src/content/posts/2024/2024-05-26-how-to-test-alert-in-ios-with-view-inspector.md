@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ios/swift/swift-ui/test-driven-development/how-to-test-state-change-in-ios-with-view-inspector/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트는 iOS 단위 테스트 패키지로 [nalexn/ViewInspector](https://github.com/nalexn/ViewInspector)를 사용하고 있다. ViewInspector 패키지에서 알림(alert) 컴포넌트를 테스트하려면 별도 작업이 필요하다. 이 글은 관련된 내용에 대해 정리했다.

@@ -10,8 +10,6 @@ categories:
   - "test-driven-development"
 ---
 
-<br/>
-
 ## 1. 문제 현상
 
 프론트엔드 테스트 코드를 작성하다보면 이런 경우를 마주치게 됩니다. 

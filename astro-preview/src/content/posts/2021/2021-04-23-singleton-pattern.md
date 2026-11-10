@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 흔하게 접하는 디자인 패턴이다. 너무 친숙한 나머지 싱글톤 패턴(Singleton Pattern)에 대해서 잘 알고 있다고 착각하고 있었다. 관련된 글을 찾아보면서 몰랐던 이야기들도 많다는 사실에 놀랐다. 정리하지 않으면 머릿속에 남지 않으니 글을 쓰면서 싱글톤 패턴의 개념을 정리하였다.
@@ -29,12 +27,12 @@ recommendedPosts:
 - 클래스 내부에 싱글톤 객체를 참조할 수 있는 정적 프라이빗(static private) 변수가 있다.
 - 어디에서든 싱글톤 객체를 참조할 수 있도록 정적 퍼블릿(static public) 함수가 정의되어 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/singleton-pattern-01.png" width="30%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
-
-<br/>
+</div>
 
 싱글톤 패턴을 사용하면 아래와 같은 이점을 얻을 수 있다.
 

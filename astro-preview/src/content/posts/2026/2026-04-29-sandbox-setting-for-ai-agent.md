@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/sandbox/virtual-machine/micro-vm/ai/ai-agent/sandbox-for-ai-agent-coding/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][sandbox-for-ai-agent-coding-link]에서 AI 에이전트를 위한 샌드박스 환경이 무엇인지 살펴봤다. 이번 글에서는 샌드박스 환경을 직접 구축해보면서 배운 내용들을 정리해보려 한다.

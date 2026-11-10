@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/declarative-http-client-in-spring-boot/"
 ---
 
-<br/>
-
 ## 1. Namespace
 
 네임스페이스(namespace)는 단일 클러스터 내에서 리소스 그룹을 격리하는 메커니즘(mechanism)을 제공한다. 파드(pod), 레플리카 세트(replica set), 디플로이먼트(deployment) 같은 오브젝트들은 모두 네임스페이스 내부에 배포된다. 네임스페이스에 오브젝트를 배포할 때 다음과 같은 규칙을 지켜야 한다.

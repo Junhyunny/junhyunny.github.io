@@ -7,8 +7,6 @@ categories:
   - "java"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `Java`에서 람다식(lambda expression)을 사용할 때 이런 에러를 모두 한번씩은 봤을 것입니다. 

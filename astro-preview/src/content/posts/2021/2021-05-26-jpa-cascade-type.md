@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/"
 ---
 
-<br/>
-
 ## 1. Entity Lifecycle
 
 JPA(Java Persistence API)의 `CascadeType`를 정리하기 전에 엔티티 라이프사이클(entity lifecycle)를 먼저 살펴보겠다.
@@ -76,11 +74,9 @@ JPA에서 `Cascade`는 영속성 전이를 위해 사용한다.
 - 부모 엔티티는 `Post` 클래스이다.
 - 종속된 엔티티는 `Comment` 클래스이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-cascade-type-02.png" width="20%" class="image__border">
 </div>
-
-<br/>
 
 먼저 Post 엔티티 클래스를 살펴보자.
 

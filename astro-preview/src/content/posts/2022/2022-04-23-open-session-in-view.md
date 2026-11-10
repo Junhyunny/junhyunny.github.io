@@ -8,8 +8,6 @@ categories:
   - "jpa"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기][jpa-persistence-context-link]
 - [EntityManager 특징과 영속성 컨텍스트 장점][persistence-context-advantages-link]

@@ -7,8 +7,6 @@ categories:
   - "spring"
 ---
 
-<br/>
-
 ## 1. Spring Expression Language
 
 스프링 프레임워크를 사용하다 보면 스프링 표현식 언어(SpEL, Spring Expression Language)를 자주 만나게 된다. 다음 애너테이션들을 한 번쯤은 본 적이 있을 것이다.

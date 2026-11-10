@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"
 ---
 
-<br/>
-
 ## 1. LangChain
 
 공식 홈페이지를 보면 다음과 같은 설명을 볼 수 있다.
@@ -34,12 +32,12 @@ recommendedPosts:
   - LangChain 앱의 실행 흐름을 추적하고, 디버깅하고, 평가하는 플랫폼이다.
   - LangChain, LangGraph를 사용한 앱의 입출력, 중간 과정, LLM 호출 내용을 시각화해서 보여준다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-01.png" width="80%" class="image__border">
 </div>
 <center>https://python.langchain.com/docs/introduction/</center>
-
-<br/>
+</div>
 
 랭체인 프레임워크는 다음과 같은 패키지들을 제공한다.
 
@@ -97,11 +95,9 @@ $ docker exec -it ollama ollama run llama3.2
 2. LLM에게 해당 프롬프트를 전달한다.
 3. LLM 호출 결과를 문자열 파서(parser)에게 전달한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 다음과 같은 컴포넌트를 임포트(import)한다.
 
@@ -188,11 +184,9 @@ In conclusion, deep learning has revolutionized the field of artificial intellig
 
 이제 위 코드를 체이닝을 통해 더 쉽게 만들어보자. 위에서 만든 prompt, llm, parser 객체는 모두 Runnable 클랙스의 인스턴스(istance)다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 RunnableSequence 클래스를 사용하면 Runnable 인스턴스들을 체이닝 할 수 있다.
 

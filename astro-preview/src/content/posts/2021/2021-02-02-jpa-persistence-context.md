@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/"
 ---
 
-<br/>
-
 ## 1. EntityManager 
 
 `JPA`는 내부적으로 ORM(object relation mapping) 프레임워크인 하이버네이트(hibernate)를 사용한다. 하이버네이트 같은 ORM 프레임워크는 데이터를 저장하기 위해 엔티티(entity) 클래스를 사용한다. ORM 프레임워크를 사용할 때 클래스, 객체와 관계형 데이터베이스 사이의 관계를 다음처럼 단순하게 정리할 수 있다.
@@ -58,12 +56,12 @@ EntityManager는 호출되는 메서드에 따라 엔티티 객체의 생명주�
 - 각 상태에서 다른 상태로 이동할 수 있는 방향이 화살표로 표시되어 있다.
 - 각 상태에서 다른 상태로 이동하기 위한 EntityManager의 메서드가 표시되어 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-02.png" width="60%" class="image__border">
 </div>
 <center>https://gunlog.dev/JPA-Persistence-Context/</center>
-
-<br/>
+</div>
 
 지금부터 JPA에서 말하는 엔티티의 상태와 EntityManager의 메서드를 호출에 따라 엔티티 상태가 어떻게 변경되는지 살펴보자. 먼저 비영속(new/transient) 상태를 살펴보자.
 

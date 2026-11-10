@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/large-language-model/langchain/lang-chain/"
 ---
 
-<br/>
-
 ## 1. RAG, Retrieval-Augmented Generation
 
 검색 증강 생성(RAG, Retrieval-Augmented Generation)을 알아보기 전에 등장 배경을 알아보자.
@@ -201,11 +199,9 @@ Created a chunk of size 1043, which is longer than the specified 100
 
 다음과 같이 로컬에 벡터 데이터가 저장된 것을 확인할 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/rag-with-langchain-01.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 지금부터 살펴볼 코드는 `main.py`다. 벡터 데이터베이스로부터 질문에 관련된 데이터를 조회 후 이를 질문의 컨텍스트로 전달하는 RAG 프로세스에 대한 코드를 살펴본다. RAG 프로세스에 대한 설명은 위에서 다뤘기 때문에 여기선 별도로 하지 않는다. 다음과 같은 패키지들을 임포트한다.
 

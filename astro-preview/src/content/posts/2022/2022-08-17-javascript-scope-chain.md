@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/javascript-scope/"
 ---
 
-<br/>
-
 ## 1. 스코프 체인(Scope Chain)
 
 > [모던 자바스크립트 Deep Dive 자바스크립트의 기본 개념과 동작 원리][modern-javascript-book-link]<br/>

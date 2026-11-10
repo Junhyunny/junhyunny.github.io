@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/vue.js/spring-boot-vue-js-paging-table/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 JPA를 사용하면서 편해졌다고 느끼는 부분은 페이징(paging) 처리 방법이다. 간단한 예제 코드를 통해 사용 방법을 알아보자.

@@ -21,8 +21,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/jenkins/jenkins-slack-notification/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 글에서는 도커 개인 이미지 저장소 구축과 관련된 내용을 정리했다. 도커 허브(hub)는 공개 레포지토리를 무제한으로 제공하지만, 개인 레포지토리는 1개만 제공한다. 개인 레포지토리가 1개 이상 필요할 것으로 예상되어 프로젝트에서 사용할 비공개 저장소를 EC2 인스턴스에 하나 만들기로 했다.
@@ -184,19 +182,15 @@ EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group
 - 인스턴스 정보를 확인할 수 있는 대시보드에서 해당 인스턴스를 선택한다.
 - 선택한 EC2 인스턴스 상세 정보 화면 하단의 `Security` 탭에서 `security groups`를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/install-docker-registry-on-ec2-02.png" width="100%" class="image__border">
 </div>
 
-<br />
-
 컨테이너에 접근하는 트래픽을 제어하는 인바운드 룰(inbound rule)을 변경한다. `Edit inbound rules` 버튼을 눌러 인바운드(inbound) 규칙 설정 화면으로 이동한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/install-docker-registry-on-ec2-03.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 인바운드 룰을 추가한다.
 

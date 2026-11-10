@@ -8,8 +8,6 @@ categories:
   - "test-driven-development"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Annotation based AOP(Aspect Oriented Programming)][annotation-based-aop-link] 포스트를 작성할 당시에는 적절한 테스트 코드를 작성했다고 생각했습니다. 

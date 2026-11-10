@@ -8,8 +8,6 @@ categories:
   - "docker"
 ---
 
-<br/>
-
 ## 1. Docker build with Dockerfile
 
 `Dockerfile`을 이용하여 도커 이미지를 만들어보았습니다. 

@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/transcation-isolation/"
 ---
 
-<br/>
-
 ## 1. Transaction
 
 트랜잭션(transaction)은 완결성 있게 처리되어야 하는 하나의 논리적인 작업 단위를 의미한다. 논리적 작업 단위 내에는 여러 동작(질의, query)이 존재하며 이들은 모두 실행되거나 모두 실행되지 않아야 한다. 

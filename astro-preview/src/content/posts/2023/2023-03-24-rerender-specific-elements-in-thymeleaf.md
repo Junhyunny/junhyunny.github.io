@@ -19,8 +19,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/vue.js/security/xss-weakness-when-using-v-html/"
 ---
 
-<br/>
-
 ## 1. Needs
 
 특정 기술의 컨셉을 확인하기 위해 스프링 부트(spring boot), 타임리프(thymeleaf) 프레임워크로 간단한 애플리케이션을 만들어보는 과정에서 다음과 같은 문제를 만났습니다. 

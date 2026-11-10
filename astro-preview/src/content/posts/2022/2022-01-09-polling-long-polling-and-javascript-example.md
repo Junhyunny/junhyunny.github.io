@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/spring-boot/polling-long-polling-and-spring-example/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 폴링, 폴링에 대한 개념은 전에 [작성한 글][polling-long-polling-and-spring-example-link]을 참고하길 바란다. 이번엔 자바스크립트(javascript)로 폴링을 구현하는 방법을 알아보자. 테스트 코드도 함께 살펴본다. 
@@ -21,12 +19,12 @@ recommendedPosts:
 
 setTimeout 함수와 setInterval 함수를 사용하면 쉽게 폴링을 구현할 수 있다. 두 함수는 지정한 시간마다 다시 동작하지만, 미묘한 차이가 있으므로 이를 먼저 살펴보자. setTimeout 함수는 콜백 함수 실행 시간과 상관없이 콜백 함수 실행 간격이 일정하게 보장된다. 콜백 함수가 끝난 시점을 기준으로 시간을 잰다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/polling-long-polling-and-javascript-example-02.png" width="50%" class="image__border">
 </div>
 <center>https://ko.javascript.info/settimeout-setinterval</center>
-
-<br/>
+</div>
 
 setInterval 함수는 콜백 함수의 실행 시간이 길면 콜백 함수 실행 간격이 짧아진다. 콜백 함수가 시작한 시점을 기준으로 시간을 잰다. 예를 들어 지정한 시간 간격이 100ms라고 가정해보자.
 
@@ -239,12 +237,12 @@ describe("PollingClient test", () => {
   - 시간이 오래 걸리는 경우 클라이언트 쪽에서 타임 아웃이 발생한다.
 3. 클라이언트는 서버로부터 응답을 받은 후 다시 서버에게 요청을 보낸다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/polling-long-polling-and-javascript-example-04.png" width="50%" class="image__border">
 </div>
 <center>https://rubberduck-debug.tistory.com/123</center>
-
-<br/>
+</div>
 
 롱 폴링 구현은 [이 글](https://javascript.info/long-polling)의 코드를 일부 변경했다. 롱 폴링의 경우 클라이언트는 타임 아웃이 발생할 때까지 계속 기다리기 때문에 별도로 시간 간격을 지정할 필요가 없다. 다음과 같이 구현한다.
 

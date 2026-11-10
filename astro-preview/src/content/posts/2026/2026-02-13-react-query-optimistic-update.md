@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/react-query/msw/orval/using-mock-service-worker-with-orval/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 AWS 람다(lambda)를 활용한 서버리스(serverless) 아키텍처를 채택하는 경우 [콜드 스타트(cold start)](https://aws.amazon.com/ko/blogs/compute/understanding-and-remediating-cold-starts-an-aws-lambda-perspective/) 문제가 발생한다. 람다는 항상 활성화되어 있지 않으므로 사용자 요청이 들어왔을 때 실행하기 위한 부수적인 준비가 필요하고 이로 인해 대략 수초 정도 지연이 발생한다. 사용자는 좋지 않은 경험을 하게 된다.

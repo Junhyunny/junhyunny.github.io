@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/record-in-java/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 자바(java) 애플리케이션은 Json 객체로 직렬화를 수행할 때 `ObjectMapper`를 사용한다. ObjectMapper는 기본적으로 직렬화(serialize)를 수행할 때 클래스 정보를 함께 직렬화하지 않는다. 하지만 역직렬화(deserialize) 할 때 클래스 정보가 필요하다면 직렬화 할 때 클래스 정보를 함께 직렬화해야 하는 경우도 생긴다. 세션을 통해 서로 다른 서비스 간 정보를 공유하는 경우를 대표적인 예로 들 수 있다. 

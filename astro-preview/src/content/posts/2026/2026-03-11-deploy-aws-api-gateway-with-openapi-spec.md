@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/openapi/orval/auto-generate-code/react-query/msw/open-api-spec-with-orval/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][open-api-spec-with-orval-link]에서 이야기한 것처럼 최근 합류한 팀은 OpenAPI 명세서를 단일 진실 공급원(single source of truth)으로 사용하고 있다. 클라이언트 애플리케이션과 인프라를 배포할 때 OpenAPI 명세 YAML 파일을 적극 활용하고 있다. 이번 글은 OpenAPI 명세서를 사용해서 AWS API 게이트웨이(gateway)와 람다(lambda) 함수를 배포하는 방법에 대해 정리했다.

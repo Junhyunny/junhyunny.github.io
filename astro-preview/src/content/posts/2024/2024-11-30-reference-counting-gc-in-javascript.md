@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/javascript/mark-and-sweep-gc-in-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트에서 첫 MVP 릴리즈 이후 클라이언트(브라우저) 애플리케이션에서 OOM(out of memory)가 의심되는 현상이 발견됐다. 사용자가 약 1시간 30분 정도 장시간 동안 애플리케이션을 사용하는 데, 중간에 화면이 멈추는 현상이 있다는 리포트를 받았다. 메모리 릭(memory leak)에 의해 가비지 컬렉팅(gc, garbage collecting)이 자주 일어나면서 프로세스가 멈춘 것처럼 보였을 것 같다고 추측했다. 크롬 개발자 도구를 사용해 의심 가는 코드를 고쳐 메모리 릭 문제는 해결했다. 관련된 내용은 조만간 정리할 예정이다.
@@ -39,11 +37,9 @@ let y = x;
 
 y 변수를 사용해 x 변수가 참조하는 객체를 참조한다. 이런 상황에선 x 변수가 참조하는 객체의 레퍼런스 카운트는 "2"가 된다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 x 변수에 다른 값을 할당하면 해당 객체의 참조 카운트는 1로 바뀐다.
 
@@ -51,11 +47,9 @@ x 변수에 다른 값을 할당하면 해당 객체의 참조 카운트는 1로
 x = 1;
 ```
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 y 변수가 참조하는 객체의 a 프로퍼티로 참조하는 객체를 z 변수가 참조하도록 만든다. 
 
@@ -65,11 +59,9 @@ let z = y.a;
 
 이렇게 되면 처음 만든 객체의 a 프로퍼티가 참조하고 있는 객체의 참조 카운트는 2가 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 y 변수에 다른 값을 할당하면 최초 x 변수가 참조했던 객체는 참조 카운트가 0이 된다. 
 
@@ -79,11 +71,9 @@ y = "mozilla";
 
 가비지 컬렉팅 대상이 되어 객체가 삭제되지만, a 프로퍼티가 참조하던 객체는 z 변수에 의해 여전히 참조되므로 가비지 컬렉팅 대상이 되지 않는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-04.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 z 변수에 다른 값을 할당하면 내부 객체도 참조 카운트가 0이 되면서 가비지 컬렉팅 대상이 된다.
 

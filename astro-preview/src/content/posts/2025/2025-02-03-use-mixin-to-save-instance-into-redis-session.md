@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/session/object-mapper-active-default-type-error/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 시큐리티(spring security)과 스프링 레디스 세션(spring redis session)을 사용할 때 발생한 문제에 대해 정리한다.
@@ -74,11 +72,9 @@ class CustomAuthenticatedUser(
 
 CustomAuthenticatedUser 클래스는 DefaultOidcUser 클래스를 상속한다. 스프링 시큐리티는 OIDC 인증과 인가 프로세스가 끝나고 만들어지는 OIDC 사용자 정보를 세션에 저장한다. 이 때 애플리케이션 비즈니스 로직에서 필요한 데이터를 함께 저장하고 비즈니스 로직에서 사용할 메서드를 추가하기 위해 커스텀 구현체 클래스를 만들었다. 위 코드는 예제에 불필요한 코드를 제외한 간소화 된 클래스다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/use-mixin-to-save-instance-into-redis-session-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 코드를 봐서 알 수 있듯이 OidcUserInfo 객체 내부에 저장되는 UUID 타입 때문에 역직렬화 할 때 문제가 발생한다. 로그엔 UUID 타입에 대한 에러만 볼 수 있지만, UUID 문제를 해결하더라도 Address 클래스에 관련된 문제가 동일하게 발생한다. 두 타입으로 인해 발생하는 문제를 동시에 해결해줘야 한다.
 

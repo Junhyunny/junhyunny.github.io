@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/react/jest/react-debounce-test-with-jest/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [디바운스(debounce)][react-debounce-test-link]처럼 쓰로틀(throttle)이라는 이벤트 처리를 최적화하는 방법이 있다. 이번 글은 쓰로틀의 개념과 테스트하는 방법에 대해 정리했다.

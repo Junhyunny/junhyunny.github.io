@@ -10,17 +10,13 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 쿼츠(Quartz) 스케줄러를 처음 접했을 때 `'동일한 소스 코드를 다중 서버 환경으로 배포한다면 같은 시간에 같은 기능이 여러 곳에서 실행되니 위험하고 불합리하지 않은가?'`라는 의문이 있었다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-clustering-in-spring-mvc-01.gif" width="80%" class="image__border image__padding">
 </div>
-
-<br/>
 
 처음에는 스케줄러 애플리케이션을 별도로 구현해야 한다고 생각했는데, 정답이 아니었다. [스프링 MVC Quartz 사용하기][quartz-in-spring-mvc-link] 글에서 쿼츠 스케줄러의 장점 중 하나로 클러스터링(clustering)을 언급했었다. `쿼츠 클러스터링(Quartz Clustering)`을 이용하면 고민했던 문제를 해결할 수 있다. 이번 글에서는 클러스터링 사용 시 얻는 이점을 정리하고, 간단한 구현 예제를 소개하겠다.
 
@@ -40,19 +36,15 @@ recommendedPosts:
 
 첫 번째 이점은 고가용성(High Availability)이다. 서버 중 하나가 다운(down)되더라도 다른 서버에 의해 `Job`이 실행된다. 쿼츠 Job 실행에 대한 다운타임(downtime)이 없다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-clustering-in-spring-mvc-04.gif" width="50%" class="image__border image__padding">
 </div>
 
-<br/>
-
 다음은 확장성(Scalability)이다. 쿼츠 설정이 적용된 서버를 구동하면 자동으로 데이터베이스에 스케줄 서버로 등록된다. 스케일아웃(scale-out)으로 서버가 늘어나더라도 함께 클러스터로 관리된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-clustering-in-spring-mvc-05.gif" width="50%" class="image__border image__padding">
 </div>
-
-<br/>
 
 마지막으로 부하 분산(Load Balancing)이 장점이다. 클러스터 구성으로 `Job`이 여러 서버에 분산되어 실행된다. 쿼츠에서는 랜덤 알고리즘(random algorithm)만 구현되어 있다.
 
@@ -113,11 +105,9 @@ ENGINE=InnoDB;
 
 다음과 같은 테이블들이 생성된다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-clustering-in-spring-mvc-07.png" class="image__border">
 </div>
-
-<br/>
 
 applicationContext.xml 파일에 클러스터링을 위한 스프링 빈(bean) 객체들을 정의한다.
 

@@ -8,8 +8,6 @@ categories:
   - "java"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [개발자가 반드시 알아야 할 자바 성능 튜닝 이야기][java-performance-tuning-book-link] 책의 내용 중 Java 애플리케이션에서 데이터베이스를 사용할 때 조금이나마 성능을 올릴 수 있는 방법에 대한 설명을 읽었습니다. 

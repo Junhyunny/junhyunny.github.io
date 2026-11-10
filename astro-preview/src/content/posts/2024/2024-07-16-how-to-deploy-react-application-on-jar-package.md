@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/react/tomcat/not-found-when-hosting-react-app-on-tomcat/"
 ---
 
-<br/>
-
 ## 0. 들어가면서 
 
 최근 참여한 프로젝트들은 SPA(single page application)의 빌드 결과물을 실행 가능한 jar(executable jar) 파일에 함께 패키징하고 있다. jar 패키지은 컨테이너 이미지로 만들어 AWS ECS에 배포한다. 프론트엔드 애플리케이션을 호스팅하기 위한 서버를 별도로 두지 않는 것도 나름대로 장점이 있는 것 같다.
@@ -52,11 +50,9 @@ dist 경로에 빌드 결과물이 생성된다.
 - assets 폴더
   - 이미지, 스타일, 자바스크립트(리액트 애플리케이션) 등이 위치한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-deploy-react-application-on-jar-package-01.png" width="40%" class="image__border">
 </div>
-
-<br/>
 
 사실 위 빌드 결과물은 nginx 같은 웹 서버에 의해 호스팅 될 수 있는 정적 리소스이다. 동적인 인터랙션(interaction)은 자바스크립트 코드가 브라우저에 의해 실행되기 때문에 가능한 것이다. 서버가 리액트 애플리케이션의 빌드 결과물을 브라우저에게 잘 서빙(serving)할 수만 있다면 nginx를 사용하던 톰캣(tomcat)을 사용하던 전혀 문제가 없다.
 
@@ -91,11 +87,9 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 
 - 해당 예제는 메이븐 프로젝트의 빌드 타겟 경로이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-deploy-react-application-on-jar-package-02.png" width="40%" class="image__border">
 </div>
-
-<br/>
 
 서버 애플리케이션을 실행하고 브라우저로 http://localhost:8080/todo.html 접속하면 해당 todo.html 페이지를 받을 수 있다. 만약 파일 이름이 `index.html` 이라면 `http://localhost:8080`처럼 URL 주소에서 파일 이름을 생략할 수 있다.
 
@@ -116,19 +110,15 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 
 그레이들 프로젝트의 static 리소스 경로는 `build/resources/main/static`이다. 
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-deploy-react-application-on-jar-package-04.png" width="40%" class="image__border">
 </div>
 
-<br/>
-
 메이븐 프로젝트의 static 리소스 경로는 `target/classes/static`이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-deploy-react-application-on-jar-package-05.png" width="40%" class="image__border">
 </div>
-
-<br/>
 
 이제 static 리소스 경로에 SPA 빌드 결과물을 옮긴 후 jar 파일로 패키징해보자. 프로젝트 구조는 다음과 같다.
 

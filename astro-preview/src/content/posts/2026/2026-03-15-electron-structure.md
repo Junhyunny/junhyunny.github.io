@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/electron/react/frontend/desktop-application/elctron-react-project-setup/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 일렉트론(electron) 프로젝트를 생성하면 3개의 스크립트 코드가 눈에 띈다.
@@ -30,11 +28,9 @@ recommendedPosts:
 
 크롬 브라우저 팀은 브라우저의 각 탭마다 독립적인 프로세스가 동작하여 화면을 렌더링하도록 만들었다. 이로 인해 버그가 있거나 악의적인 코드가 웹 페이지에 존재하더라도 애플리케이션 전체에 미치는 피해를 제한했다. 일렉트론의 다중 프로세스 모델도 이와 유사한 구조로 설계되었다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/electron-structure-01.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 앱 개발자는 크롬의 프로세스 구조와 상응하는 다음 두 가지 유형의 프로세스를 제어하게 된다.
 
@@ -161,11 +157,9 @@ app.on("activate", () => {
 
 권한이 없는 렌더러 프로세스를 대신해 프리로드 스크립트가 IPC 기능(ipcRenderer)을 가져와 웹 페이지에서 쓸 수 있는 형태로 넘겨준다. 프리로드 스크립트는 IPC 기능을 웹 페이지에 전달하는 가교 역할을 한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/electron-structure-02.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 프리로드 스크립트는 BrowserWindow 생성자의 webPreferences 옵션을 통해 메인 프로세스에 연결할 수 있다.
 

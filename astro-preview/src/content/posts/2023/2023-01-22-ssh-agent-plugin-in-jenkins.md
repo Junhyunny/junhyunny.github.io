@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/ssh-copy-id-for-easy-connection/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 CI/CD 파이프라인을 담당한 젠킨스(jenkins)가 위치한 클러스터와 서비스들을 배포할 쿠버네티스 클러스터가 서로 달라 배포에 어려움이 있었습니다. 

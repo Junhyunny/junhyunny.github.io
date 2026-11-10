@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 AWS ALB(application load balancer) 뒤에 위치한 EC2 컨테이너에 스프링 서버 애플리케이션을 배포했을 때 OAuth2 인증시 리다이렉트 URL의 프로토콜이 변경되는 문제에 대해 정리했다.
@@ -55,11 +53,9 @@ spring:
 
 - 400 오류: redirect_uri_mismatch
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 브라우저의 개발자 모드를 통해 네트워크 탭으로 OAuth2 인가 코드 리다이렉트 요청을 살펴보면 리다이렉트 URL의 프로토콜이 `https`가 아닌 `http`인 것을 확인할 수 있다.
 
@@ -76,11 +72,9 @@ spring:
 - ALB와 EC2 컨테이너 구간
   - HTTP 통신을 수행한다. ALB 리스너(listener)를 통해 트래픽이 EC2 컨테이너 8080 포트로 포워딩된다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위에서 확인할 수 있듯이 각 구간이 다른 통신 프로토콜로 통신하기 때문에 문제가 발생한다. ALB-서버 통신 구간은 HTTP 통신을 하기 때문에 baseUrl에 http://domain.com 값이 주입된다.
 
@@ -136,11 +130,9 @@ AWS ALB는 서버 애플리케이션 기준으로 프록시 서버 역할을 수
 - X-Forwarded-Proto
 - X-Forwarded-Port
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 AWS ALB를 통과할 때 `X-Forwarded-` 헤더가 추가되어 이를 통해 원본 요청의 프로토콜과 포트를 확인할 수 있다는 사실을 알았다. 이제 `server.forward-headers-strategy` 설정이 무엇인지 살펴보자. 해당 설정은 다음과 같은 옵션들이 있다.
 
@@ -154,11 +146,9 @@ AWS ALB를 통과할 때 `X-Forwarded-` 헤더가 추가되어 이를 통해 원
 - `X-Forwarded-` 헤더 값을 사용할 수 있도록 HttpServletRequest 객체를 ForwardedHeaderExtractingRequest 객체로 랩핑(wrapping)하여 다음 체인으로 전달한다.
 - ForwardedHeaderFilter의 다음 필터부터는 요청 객체의 헤더, 프로토콜을 원본 요청의 것을 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 application.yml 파일에 다음 설정을 추가한다.
 

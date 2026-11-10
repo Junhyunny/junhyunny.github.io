@@ -8,8 +8,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 읽은 책들에서 퍼사드 패턴(Facade Pattern)을 사용한 예시나 사례가 상당히 많았습니다. 

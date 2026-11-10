@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/terraform/deploy-ec2-into-target-group-in-aws-with-terraform/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][create-vpc-in-aws-with-terraform-link]에서 테라폼을 사용해 VPC를 구성하는 방법에 대해 정리했다. 이번 글은 기존 VPC를 기준으로 ALB(Application LoadBalancer)와 타겟 그룹(target group)을 구성하는 방법에 대해 정리했다. 이 글에선 VPC, 서브넷(subnet), 라우트 테이블(route table), 게이트웨이(gateway) 등에 대해선 다루지 않기 때문에 이전 글을 참고하길 바란다.

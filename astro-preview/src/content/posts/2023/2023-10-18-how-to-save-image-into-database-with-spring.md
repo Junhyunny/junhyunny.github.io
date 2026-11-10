@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/how-to-test-multipart-file-upload-in-spring/"
 ---
 
-<br/>
-
 ## 1. Development Environment
 
 일반적으로 이미지는 파일 시스템(file system)이나 AWS S3 같은 외부 저장소를 사용해 저장합니다. 

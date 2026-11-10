@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/cloud-development-kit/aws-cloud-development-kit/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [지난 글][aws-cloud-development-kit-link]에서 AWS CDK를 사용해 인프라를 구축하는 방법에 대해 정리했다. 인프라는 보통 개발과 운영 환경을 분리하여 구축하기 때문에 이번 글에선 CDK에서 환경 별로 인프라를 다르게 구축하는 방법에 대해 작성했다. 이 글에선 구체적인 유즈케이스(use case)를 다루진 않지만, 예제를 본다면 구축 요령에 대한 감을 잡을 수 있을 것이다.
@@ -127,12 +125,12 @@ export class MyStack extends cdk.Stack {
 
 캐싱처럼 우선 컨텍스트에 저장된 값을 사용하지만, 없다면 AWS 클라우드에 필요한 정보를 조회 후 컨텍스트에 저장하여 사용한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-multi-environment-01.png" width="80%" class="image__border">
 </div>
 <center>https://quicktechbytes.com/aws-cdk-context-cache-feature-flags-and-configuration-20378d1641ad</center>
-
-<br/>
+</div>
 
 cdk.context.json 파일은 CDK CLI를 통해 자동으로 변경되기 때문에 개발자가 직접 수정하는 것은 위험하다. 그렇기 때문에 다중 환경을 제어하기 위해선 cdk.json 파일을 사용한다. 프로젝트 설정과 CDK 결정적 동작을 위해 cdk.json, cdk.context.json 파일 모두 코드 저장소에 커밋(commit)하여 관리해야 한다. 코드 저장소에서 관리하기 때문에 민감한 정보나 환경 변수는 `SSM Parameter Store`를 사용한다.
 
@@ -290,11 +288,9 @@ $ cdk deploy --context env=prod
 
 배포가 완료되면 다음과 같이 각 환경 별로 CloudFormation에 스택이 생성된 것을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-multi-environment-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 EC2 대시보드를 보면 각 환경의 인스턴스 타입이 다르게 배포된 것을 확인할 수 있다.
 

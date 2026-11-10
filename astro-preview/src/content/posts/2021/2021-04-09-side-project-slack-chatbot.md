@@ -7,8 +7,6 @@ categories:
   - "side-project"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 토이 프로젝트로 간단한 애플리케이션을 만들고 싶었다. 백엔드(backend) 관련된 기술만 다룰 줄 아는 탓에 간단한 애플리케이션 기능을 만들어 보는 것도 쉽지 않다. 그러던 중 [일일커밋 알림봇 개발기][mingrammer-blog-link]에 대한 글을 보게 되었다. 해당 글이나 대부분의 레퍼런스들이 파이썬(python)으로 개발되어 있기 때문에 이를 자바(Java)로 만들어보았다.
@@ -25,11 +23,9 @@ categories:
 - `WRITE` 기능을 수행하는 메서드에 `application/json` 타입을 사용한다.
 - 토큰을 쿼리 파라미터로 바디(body)에 담아 던지고 싶으면 `application/x-www-form-urlencoded`을 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-01.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 위 내용을 바탕으로 채널에 글 작성을 위한 API 요청 코드를 아래와 같이 작성한다.
 
@@ -93,11 +89,9 @@ API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트(endp
   - direction
   - per_page
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 아래와 같이 코드를 작성한다.
 
@@ -191,35 +185,27 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 메이븐(maven) 프로젝트이므로 `mvn package` 등의 명령어를 통해 jar 파일을 만들 수 있다. 빌드한 jar 파일을 배포하는 과정을 위주로 정리했다. 주기적으로 애플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-04.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 빌드된 jar 파일을 업로드하고, RequestStreamHandler 인터페이스를 구현한 클래스를 등록한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-05.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 주기적으로 애플리케이션을 동작시키는 EventBridge(CloudWatch Events) 트리거를 연결했다. 애플리케이션이 동작할 때 필요한 특정 파라미터와 트리거 주기를 설정하기 위한 화면으로 이동한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-06.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 크론 잡(cron job)을 통해 이벤트 트리거 주기를 설정한다. GTM 시간으로 9시부터 14시까지 59분마다 실행되도록 크론 잡을 지정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-07.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 코드에 공개하고 싶지 않은 값들은 람다의 파라미터로 등록한다.
 

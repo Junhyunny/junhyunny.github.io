@@ -19,8 +19,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/exception/incompatible-fallback-factory-instance/"
 ---
 
-<br/>
-
 ## 1. Netflix Hystrix
 
 마이크로서비스 아키텍처(microservice architecture)를 성공적으로 구축한 넷플릭스(netflix)가 제공하는 OSS(open source software)이다. `Hystrix` 컴포넌트는 애너테이션과 설정만으로 손쉽게 회로 차단기(circuit breaker) 패턴을 적용할 수 있다. 서비스 사이에 전파되는 장애를 차단하여 서비스 일부가 망가지더라도 시스템은 정상적 혹은 부분적으로 운영할 수 있도록 돕는다.

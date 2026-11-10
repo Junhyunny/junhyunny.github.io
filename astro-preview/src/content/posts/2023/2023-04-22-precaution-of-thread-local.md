@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/thread-pool-in-java/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [자바(Java) ThreadLocal 클래스][thread-local-class-in-java-link] 글에서 ThreadLocal 클래스에 대한 전반적인 개념을 다뤘다. 이번 글은 ThreadLocal 클래스를 사용할 때 주의할 사항에 대해 정리했다. 

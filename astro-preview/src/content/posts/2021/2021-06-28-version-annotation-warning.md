@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 동시성 문제를 해결하기 위해 낙관적인 락(optimistic lock) 방식으로 구현한 코드에서 문제가 발생했다. JPA 구현체가 엔티티(entity)를 영속성 컨텍스트에 저장하고 인스턴스를 반환하는 과정에서 몇 가지 조건에 의해 의도와 다르게 동작하면서 예외가 발생했다.
@@ -157,12 +155,12 @@ Hibernate: select next value for child_entity_seq
 - Removed
   - 엔티티를 데이터베이스에서 삭제하겠다고 표시한 상태이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-01.png" width="60%" class="image__border">
 </div>
 <center>https://gunlog.dev/JPA-Persistence-Context/</center>
-
-<br/>
+</div>
 
 이제 어떤 요소가 오류를 유발했는지 연관된 코드를 살펴보자. 먼저 spring-data-jpa 라이브러리의 SimpleJpaRepository 클래스는 다음과 같이 구현되어 있다.
 
@@ -231,11 +229,9 @@ public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSu
 
 아래는 버전 필드를 추가하기 전에는 문제가 되지 않던 코드의 흐름이다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 아래는 버전 필드가 추가된 후 문제가 발생한 코드의 흐름이다.
 

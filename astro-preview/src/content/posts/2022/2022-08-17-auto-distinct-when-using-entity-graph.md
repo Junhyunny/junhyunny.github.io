@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/jpa-one-plus-n-problem/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [JPA N+1 문제][jpa-one-plus-n-problem-link] 글을 작성할 때 `@EntityGraph` 애너테이션을 사용하면 추가적인 처리 없이도 자동적으로 중복된 엔티티(entity)들이 제거되는 현상을 발견했다. 당시에 이 현상에 대해 궁금하여 `깃허브(GitHub)`와 `스택 오버플로우(StackOverflow)`에 동일한 문의를 남겼는데, 최근 스택 오버플로우를 통해 얻은 답변을 이번 글에서 공유한다.
@@ -98,11 +96,9 @@ where post0_.title = ?
 
 - Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장된다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-01.png" width="80%" class="image__border">
 </div>
-
-<br />
 
 위와 같은 현상을 방지하기 위한 두 가지 방법이 있다.
 
@@ -167,11 +163,9 @@ where post0_.title = ?
 - 5.2.10 version [HHH-11569][hibernate-release-link]에서 추가되었다.
 - HQL(Hibernate Query Language)나 JPQL 사용 시 `PASS_DISTINCT_THROUGH` 힌트를 사용하면 동일한 효과를 얻을 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 실제 코드를 살펴보자. `QueryTranslatorImpl` 클래스의 `list` 메서드에서 엔티티 중복이 제거된다.
 

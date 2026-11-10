@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 프로젝트에서 사용자 접근 이력 정보를 저장하는 로직이 있었습니다. 

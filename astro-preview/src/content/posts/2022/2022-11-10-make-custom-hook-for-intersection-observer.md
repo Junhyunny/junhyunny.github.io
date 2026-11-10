@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/jest/testing-library/test-driven-development/how-to-test-intersection-observer/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `IntersectionObserver` 기능을 재사용하기 위해 커스텀 훅(custom hook)을 만들어보았습니다. 

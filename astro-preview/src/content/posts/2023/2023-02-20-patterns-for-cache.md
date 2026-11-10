@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/replication-in-redis/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 효과적인 캐싱 전략을 펼치기 위한 캐시 패턴과 관련된 내용을 포스트로 정리하였습니다. 

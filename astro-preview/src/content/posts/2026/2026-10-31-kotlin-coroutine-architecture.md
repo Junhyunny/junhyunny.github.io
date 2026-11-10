@@ -11,8 +11,6 @@ categories:
 summary: "CoroutineScope에서 Dispatcher와 Job까지, 코틀린 코루틴이 비동기 작업을 실행하고 관리하는 구조를 살펴봅니다."
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 강한 네이티브 역량이 필요한 프로젝트에 참여하게 되면서 iOS, 안드로이드 프레임워크 내부에 숨겨진 동작들을 이해하기 위해 많은 노력과 시간을 사용하고 있다. 이전에 SwiftUI와 관련된 내용들만 다뤘는데, 이제부터 안드로이드와 코틀린에 대한 내용들을 하나씩 정리해보려 한다.
@@ -32,12 +30,12 @@ JVM 환경에서 코루틴을 비롯한 모든 동시성 코드는 운영체제�
 
 - 예를 들면, 하나의 코루틴이 데이터가 도착하기를 기다리는 동안 실행을 일시 중단하고, 다른 코루틴이 동일한 스레드에서 실행될 수 있다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/kotlin-coroutine-architecture-01.svg" width="100%" class="image__border">
 </div>
 <center>https://kotlinlang.org/docs/coroutines-basics.html</center>
-
-<br/>
+</div>
 
 코루틴은 JVM에서 스레드와 마찬가지로 코드를 동시에 실행할 수 있는 일시 중단 가능한 연산 단위이지만, 내부적으로 동작하는 방식에 차이가 있다. 둘 사이에는 어떤 차이점이 있을까?
 

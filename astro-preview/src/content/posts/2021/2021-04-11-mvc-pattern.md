@@ -8,8 +8,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 ## 1. Structure of MVC Pattern
 
 애플리케이션을 세 개의 영역으로 분할하고 각 구성 요소에게 고유한 역할을 부여하는 개발 방식이다. MVC 패턴을 도입하면 도메인(비즈니스 로직) 영역과 UI 영역이 분리되므로 서로 영향을 주지 않고 유지보수가 가능하다. MVC 패턴의 구조를 살펴보면서 각 컴포넌트가 무슨 역할을 수행하는지 알아보자. MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트롤러(Controller) 세 개의 컴포넌트로 이루어졌다. 각 컴포넌트는 고유한 역할을 수행한다. 아래 이미지는 MVC 패턴 다이어그램 및 웹 애플리케이션에서 사용하는 일반적인 MVC 패턴이다.
@@ -71,12 +69,12 @@ MVC 패턴은 여러 개의 뷰가 존재할 수 있으며, 모델에게 질의�
 
 세상에 완벽이라는 단어는 없다. MVC 패턴에도 한계가 존재한다. 복잡한 대규모 프로그램의 경우 다수의 뷰와 모델이 컨트롤러를 통해 연결되기 때문에 컨트롤러가 불필요하게 커지는 현상이 발생한다. 복잡한 화면을 구성하는 경우에도 동일한 현상이 발생하는데 이를 **`'Massive-View-Controller'`** 라고 한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mvc-pattern-03.png" width="80%" class="image__border">
 </div>
 <center>https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center>
-
-<br/>
+</div>
 
 이런 문제점을 보완하기 위해 다양한 패턴이 파생되었다.
 
@@ -97,11 +95,9 @@ MVC 패턴은 여러 개의 뷰가 존재할 수 있으며, 모델에게 질의�
 5. 조회한 데이터를 모델 객체를 통해 뷰에게 전달한다.
 6. 화면에 변경이 발생하는지 확인한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mvc-pattern-04.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 다음과 같은 패키지 구조를 갖는다.
 

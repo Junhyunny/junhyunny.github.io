@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/babel/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `JavaScript`는 여러 가지 방법으로 모듈(module)을 정의하고 사용합니다. 

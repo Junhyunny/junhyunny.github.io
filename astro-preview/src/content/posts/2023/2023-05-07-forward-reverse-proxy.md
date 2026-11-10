@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/nginx/spring-boot/docker/docker-compose/using-nginx-as-reverse-proxy/"
 ---
 
-<br/>
-
 ## 1. Proxy Server
 
 > 프록시 서버(proxy server)는 클라이언트가 자신을 통해 다른 네트워크 서비스에 간접적으로 접속할 수 있게 해 주는 컴퓨터 시스템이나 응용 프로그램을 말한다.

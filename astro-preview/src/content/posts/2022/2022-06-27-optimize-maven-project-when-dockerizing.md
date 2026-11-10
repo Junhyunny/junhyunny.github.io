@@ -8,8 +8,6 @@ categories:
   - "maven"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 
 * [Build with Dockerfile and Image Layer][docker-file-build-and-image-layer-link]

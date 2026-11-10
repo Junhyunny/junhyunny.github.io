@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/cors/"
 ---
 
-<br/>
-
 ## 1. 브라우저 페이지 렌더링 문제
 
 [웹팩 (Webpack) 글][webpack-link]을 작성하면서 간단한 테스트 코드를 구현하는 중에 다음과 같은 에러를 만났다.

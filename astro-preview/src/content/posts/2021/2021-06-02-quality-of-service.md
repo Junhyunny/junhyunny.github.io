@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/mqtt-protocol/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 MQTT 프로토콜을 사용하는 프로젝트에 참여했다. QoS 레벨에 관련된 이야기가 나와서 관련된 내용을 찾아봤다. 서비스 품질(QoS, Quality of Service)이라는 검색어로 찾아봤을 때 MQTT 프로토콜에 관련된 내용은 거의 없었다. 이왕 공부한 김에 블로그에 정리했다. MQTT 프로토콜의 QoS 레벨 관련된 내용은 [이 글][mqtt-protocol-link]을 참고하길 바란다.

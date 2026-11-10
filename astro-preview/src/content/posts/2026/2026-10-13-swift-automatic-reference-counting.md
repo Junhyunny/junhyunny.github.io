@@ -19,8 +19,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/swift/swift-ui/strong-reference/weak-reference/garbage-collecting/swift-strong-reference-weak-reference-and-unowned-reference/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스위프트(Swift)는 `ARC(Automatic Reference Counting)`라는 방법을 통해 클래스 인스턴스의 수명을 관리한다. 이전의 Objective-C에서는 개발자가 메모리 해제를 직접 관리하기도 했지만, 스위프트는 ARC를 통해 사용되지 않는 인스턴스의 메모리를 자동으로 해제한다. ARC는 가비지 컬렉션 방식 중 [참조 카운팅(reference counting) 알고리즘][reference-counting-gc-in-javascript-link]과 같은 원리로 동작한다. 먼저 참조 카운팅 방식을 살펴본 뒤 ARC를 자세히 알아보자.
@@ -50,11 +48,9 @@ second = nil  // 두 번째 손가락을 거둔다
 
 참조 카운팅은 객체를 가리키는 참조의 수를 세는 방식이다. 위 예시 코드에서 Box 객체의 참조 카운트(RC)는 아래 그림처럼 변한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swift-strong-reference-weak-reference-and-unowned-reference-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 스위프트의 클래스 인스턴스를 아무도 참조하지 않으면 해당 객체는 ARC에 의해 해제된다. 객체가 해제되는지는 `deinit`을 통해 확인할 수 있다. 아래 코드를 실행해 보자.
 

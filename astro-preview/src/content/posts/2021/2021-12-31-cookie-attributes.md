@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [CSRF(Cross-Site Request Forgery) 공격과 방어][csrf-attack-and-defense-link] 글을 작성하면서 생각보다 쿠키(cookie)에 대해 잘 모르고 있다는 느낌을 받았다. 이번 글에선 친숙하지만, 자세히 알지 못 했던 쿠키에 대해 정리했다. 
@@ -336,23 +334,23 @@ CSRF(Cross-Site Request Forgery) 공격을 방어하기 위해 만들어진 속�
 
 - eTLD 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-attributes-06.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 eTLD만으로 사이트를 구분하기 어려운 도메인들이 있다. .co.kr, .github.io 같은 도메인들은 .kr, .io 같은 루트 도메인만으로 동일 사이트 여부를 판단하기 어렵다. 이를 해결하기 위해 공공 접미사(public suffix)를 사용한다. [publicsuffix 링크](https://publicsuffix.org/list/)에서 해당 리스트를 확인할 수 있다.
 
 - 공공 접미사 도메인과 한 단계 아래 도메인까지 포함한 도메인이 같은 경우 동일 사이트이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-attributes-07.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 아래 표는 동일 사이트와 크로스 사이트를 구분한 예시이다.
 
@@ -365,12 +363,12 @@ eTLD만으로 사이트를 구분하기 어려운 도메인들이 있다. .co.kr
 
 도메인 주소 앞의 스키마(schema)까지 비교하여 동일 사이트인지 여부를 판단하면 이를 `스킴풀(schemeful) 동일 사이트`라고 한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-attributes-09.png" width="40%" class="image__border image__padding">
 </div>
 <center>https://web.dev/same-site-same-origin/</center>
-
-<br/>
+</div>
 
 아래 표는 스킴풀(schemeful) 동일 사이트와 크로스 사이트를 구분한 예시이다.
 

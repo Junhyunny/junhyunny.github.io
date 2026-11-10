@@ -9,8 +9,6 @@ categories:
   - "junit"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `spring-data-jpa` 의존성을 사용하면 메서드 이름 규칙에 따라 쿼리를 생성해 주는 JpaRepository 인터페이스의 기능을 즐겨 사용한다. Optimistic lock 기능을 사용하기 위해 `@Version` 애너테이션을 추가하면서 예기치 않게 만난 에러를 정리하였다. [이전에 작성한 @Version 애너테이션 에러와 관련된 글][version-annotation-link]은 추가(insert) 기능과 관련된 내용이었다면 이번에는 조회(find) 기능에 대한 내용이다.

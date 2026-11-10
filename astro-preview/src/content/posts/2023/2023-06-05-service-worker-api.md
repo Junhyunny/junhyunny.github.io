@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/react/test-driven-development/mock-service-worker/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 프론트엔드 테스트가 복잡해지면서 이를 단순화 하기 위해 공부하던 중 MSW(Mock Service Worker)를 알게 됐다. 목 서비스 워커는 브라우저의 서비스 워커를 테스트 더블로 만드는 라이브러리다. 현재 프론트엔드 애플리케이션의 PWA(Progressive Web Application)로 전환을 고려하면서 서비스 워커를 한번 더 마주쳤다. 이번 글을 통해 서비스 워커가 어떤 역할을 수행하는지 정리한다.

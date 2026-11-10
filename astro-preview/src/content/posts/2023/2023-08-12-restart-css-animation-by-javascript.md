@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/html/css/javascript/sprite-animation-in-css/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 서비스를 개발하다보면 다양한 이유로 애니메이션을 다시 실행할 필요가 생깁니다. 

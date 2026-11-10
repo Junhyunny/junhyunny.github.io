@@ -21,8 +21,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 AI 에이전트를 사용해서 [토이 프로젝트](https://github.com/Junhyunny/archived-todo-agent)에서 파이썬 서버 개발을 하고 있다. FastAPI, SQLAlchemy 등 처음 사용해 보는 라이브러리가 많아서 공부할 게 많다. AI 에이전트가 없었으면 토이 프로젝트를 시작할 엄두도 안 났을 거다. 이번 글은 프로젝트 코드를 개선하기 위한 작업 단위(UnitOfWork) 디자인 패턴에 대해 정리했다.
@@ -64,11 +62,9 @@ class OrderService:
 
 서비스 계층도 영속성 계층의 구현체를 직접 사용하지 않는다. 서비스 계층은 UoW 추상화에 의존하고, UoW 구현체가 ORM 같은 영속성 계층의 세부 기술을 다룬다. 이런 추상화를 통해 모듈 사이의 결합도를 낮춘다. [참고한 글](https://www.cosmicpython.com/book/chapter_06_uow.html)을 보면 추상 UoW도 레포지토리 추상화에 의존한다. 기술 스택을 직접 사용하는 하위 모듈에 직접 의존하지 않아서 기술에 대한 결합도를 낮춘다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/python-work-of-unit-pattern-01.png" width="100%" class="image__border image__padding">
 </div>
-
-<br/>
 
 플라스크(flask) 프레임워크에 대해 잘 몰라서 확실하진 않지만, [위 예제](https://www.cosmicpython.com/book/chapter_06_uow.html)는 플라스크 프레임워크를 사용한 예제라서 그런지 API 계층에서 서비스 계층으로 UoW 객체를 초기화한 후 주입했다. FastAPI 프레임워크는 [Depends 함수][fast-api-depends-di-ioc-link]를 통해 의존성 주입이 가능하기 때문에 API 계층에서 서비스 계층 모듈에만 의존해도 된다.
 

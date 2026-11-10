@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/design-pattern/strategy-pattern/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 TDD(Test Driven Development)를 설명하는 시간을 가지면서 간단한 예시로 가위, 바위, 보 게임을 만들었다. 게임 구현 자체는 매우 쉽다. 테스트 코드를 작성해 가는 과정을 소개하기에 좋은 예제였지만, 리팩토링하기엔 애매한 부분이 있었다. 코드를 리팩토링하거나 변경했을 때 놓칠 수 있는 버그를 잡아주는 것이 `TDD` 개발 방식의 가장 큰 장점이라고 생각한다. 그런 관점에서 코드를 크게 리팩토링하고 싶었는데, 생각보다 쉽지 않았다. 많은 고민 끝에 함수형 인터페이스를 이용해 `enum` 객체를 추상화했는데, 누군가에게 좋은 인사이트가 될 수 있을 것 같아서 글로 정리하였다.
@@ -28,12 +26,12 @@ recommendedPosts:
 
 두 명의 플레이어가 가위, 바위, 보 게임을 한다면 총 9개의 경우의 수가 발생한다. 간단한 테스트 코드와 구현 코드를 살펴보자.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-01.png" width="50%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Rock_paper_scissors</center>
-
-<br/>
+</div>
 
 `RpsGame` 클래스를 먼저 살펴보자. 가위, 바위, 보 게임의 로직이 작성되어 있다.
 
@@ -80,11 +78,9 @@ public enum Hand {
 
 지금까지의 코드를 클래스 다이어그램으로 보면 아래와 같다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-02.png" width="35%" class="image__border">
 </div>
-
-<br/>
 
 위에서 살펴본 가위, 바위, 보 로직에 대한 테스트 코드를 살펴보자. 테스트 코드는 상당히 단순하다.
 
@@ -160,12 +156,12 @@ public class RpsGameTests {
 
 개발 팀은 게임이 앞으로도 계속 확장될 수 있다고 생각했기 때문에 `RpsGame` 클래스의 `play` 메서드를 계속 변경하는 것은 매우 위험하다고 판단했다. 늘어나는 경우의 수와 코드 라인 수는 개발자의 가독성과 이해도를 낮춘다. `RpsGame` 클래스의 `play` 메서드를 사용하는 곳에 영향을 주지 않고 이를 리팩토링하려고 한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-03.png" width="50%" class="image__border">
 </div>
 <center>https://m.post.naver.com/viewer/postView.naver?volumeNo=23912903&memberNo=39735121</center>
-
-<br/>
+</div>
 
 함수형 인터페이스를 이용해 `Hand` enum 클래스의 기능을 확장한다. 가위, 바위, 보 게임의 로직을 분리하여 각 enum 객체에게 위임한다. 자신과 상대방이 대결했을 때 다음과 같은 결과를 반환한다.
 

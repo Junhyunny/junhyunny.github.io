@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/java-wrapper-class/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 성능 분석을 위해 [VisualVM][visualvm-link] 모니터링 툴(tool)을 사용했다. `VisualVM`에 `Visual GC` 플러그인(plugin)을 설치하여 가비지 컬렉션(Garbage Collection, GC)도 확인해 보았다.
@@ -94,11 +92,9 @@ public final class MikeTyson implements Runnable {
 - CPU 사용률은 크게 특이 사항이 없다.
 - Heap 메모리 사용률을 보면 3300MB의 75% 수준인 2500MB까지 높아졌다가 떨어지는 현상이 반복된다. Heap 사용률이 떨어지는 것은 GC(Garbage Collection, 가비지 컬렉션)가 발생했기 때문이다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/auto-boxing-performance-test-01.png" width="85%">
 </div>
-
-<br />
 
 Visual GC 플러그인 화면을 보면 객체가 처음 생성될 때 위치하는 에덴(eden) 영역의 메모리가 높아졌다 떨어지는 현상이 자주 반복된다. 에덴 영역의 메모리가 떨어지는 시점에 `GC Time`이 올라가는 것을 보아 가비지 컬렉션이 동작했음을 확인할 수 있다.
 
@@ -182,11 +178,9 @@ public final class MikeTyson implements Runnable {
 - 원인은 불명이지만, CPU 사용률이 크게 감소하는 지점이 있었다.
 - Heap 메모리 사용률을 보면 3700MB의 33% 수준인 1250MB까지 높아졌다가 감소한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/auto-boxing-performance-test-03.png" width="85%">
 </div>
-
-<br />
 
 오토 박싱 테스트에 비해 가비지 컬렉션 수행 빈도가 현저히 적은 것을 확인할 수 있다. 이번에는 Visual GC 모니터링 화면을 살펴보자.
 

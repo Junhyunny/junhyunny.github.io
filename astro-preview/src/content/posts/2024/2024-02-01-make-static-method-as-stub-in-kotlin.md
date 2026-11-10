@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/test-driven-development/how-to-stub-java-static-method/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 프로젝트는 코틀린(kotlin)을 사용한다. 자바(java)만큼 익숙하지 않은 탓에 종종 단순한 문제임에도 시간을 버리곤 한다. 이번 포스트는 테스트 코드를 작성할 때 정적 메서드를 스텁(stub)으로 만들면서 겪은 문제에 대해 정리했다. 테스트 코드를 작성한 프로젝트 환경은 다음과 같다.

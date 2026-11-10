@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/security/tool/register-client-in-keycloak-for-oauth2/"
 ---
 
-<br/>
-
 ## 1. Keycloak
 
 키클록(keycloak)은 오픈 소스 아이덴티티(identity) 및 접근 관리 솔루션이다. 다음과 같은 특징을 갖는다. 
@@ -43,20 +41,18 @@ recommendedPosts:
 
 키클록을 설치해보자. [이 링크](https://www.keycloak.org/downloads)에서 다운로드 할 수 있다. 키클록 서버 중 ZIP 압축 파일을 다운로드 받는다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.keycloak.org/downloads</center>
-
-<br/>
+</div>
 
 다운로드가 완료되면 압축을 푼다. `bin` 디렉토리에 키클록 서버 실행 파일이 존재한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 프로젝트 경로에서 다음 명령어를 실행한다.
 
@@ -106,19 +102,15 @@ Total change sets:          144
 - 사용자 이름은 "admin"으로 지정한다.
 - 비밀번호도 "admin"으로 지정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-03.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 사용자 생성이 성공하면 다음과 같은 화면을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 관리자 계정으로 로그인하면 마스터 렐름 메인 화면을 볼 수 있다.
 
@@ -137,100 +129,78 @@ Total change sets:          144
   - 마스터 렐름의 관리자에 의해 성성된다.
   - 관리자는 이 렐름에서 조직, 애플리케이션들에서 필요한 사용자들을 관리한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-06.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://www.keycloak.org/docs/latest/server_admin/</center>
-
-<br/>
+</div>
 
 각 렐름은 격리돼 관리된다. 위 시큐리티 모델은 우발적인 변경을 방지하는 데 도움이 되며, 사용자 계정이 현재 작업을 성공적으로 수행하는 데 필요한 최소한의 권한에만 접근하도록 허용하는 전통적인 디자인을 따른다. OAuth2 인증을 위한 렐름을 만들어보자. 로그인 화면 왼쪽 상단에 렐름을 셀렉트 박스(select box)를 선택 후 `Create Raelm` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-07.png" width="80%" class="image__border">
 </div>
 
-<br/>
-
 이름을 `spring-security-oauth2-example`으로 지정 후 렐름을 생성한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-08.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 새로운 렐름 대시보드 화면에서 `Users` 탭을 선택한다. `Create new user` 버튼을 눌러 새로운 사용자를 추가한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-09.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 사용자 이름(username), 이름과 성을 등록 후 생성한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-10.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 생성이 완료되면 사용자 상세 정보 화면으로 이동한다. ID 정보는 자동으로 생성된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-11.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 사용자 최초 비밀번호를 생성해준다. 사용자 상세 화면 상단 `Credential` 탭을 누른다. 해당 화면에서 `Set password` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-12.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 사용자를 위한 최초 비밀번호를 등록한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-13.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 이제 새로 생성한 사용자로 로그인을 해보자. 화면 왼쪽 사이드 `Clients` 탭을 누르면 해당 렐름의 로그인 화면으로 이동할 수 있는 링크가 있다. 해당 링크를 누르면 생성한 렐름의 로그인 화면으로 이동한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-14.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 URL 주소가 경로가 `/raelms/{raelmName}`인 것을 확인할 수 있다. 마스터 렐름에 로그인 할 땐 `/raelms/master`이다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-15.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 위에서 등록한 임시 비밀번호를 사용해 로그인하면 새로운 비밀번호 등록 화면이 보인다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-16.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 다음 화면에선 이메일 정보 등록 화면이 보인다. 필수 값이므로 이를 등록한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-17.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 모든 설정이 완료되면 위에서 생성한 `spring-security-oauth2-example` 렐름 화면과 로그인 한 사용자 정보를 볼 수 있다.
 

@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/docker/install-docker-daemon-into-container-image/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Install Docker Daemon into Container Image][install-docker-daemon-into-container-image-link] 포스트에서 컨테이너 내부의 도커 데몬(docker daemon)을 실행하기 위해 적용한 모드입니다. 

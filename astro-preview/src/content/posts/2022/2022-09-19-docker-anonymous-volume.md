@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/docker/docker-named-volume/"
 ---
 
-<br/>
-
 ## 1. 데이터 영속성 문제
 
 도커 컨테이너는 새로운 파일을 만들거나 변경하는 작업을 컨테이너 레이어(container layer)에서 수행합니다. 

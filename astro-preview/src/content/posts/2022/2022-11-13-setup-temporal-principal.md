@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/once-per-request-filter/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 애플리케이션을 개발하다보면 사용자 인증이나 권한과 관련된 기능들이 필요합니다. 

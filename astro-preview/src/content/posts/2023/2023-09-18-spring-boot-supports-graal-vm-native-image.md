@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/dynamic-proxy-in-java/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 부트(spring boot) 3.X 버전에 관련된 내용들을 보면 GraalVM 지원에 대한 이야기가 있다. 이전 글에서 [GraalVM][graal-vm-link]에 대한 내용을 정리했다. 이번엔 간단한 네이티브 이미지를 만들어본다. 이번 글에서 사용하는 AOT(Ahead of Time) 컴파일러에 대한 내용은 [이전 글][graal-vm-link]을 참조하길 바란다.
@@ -104,21 +102,17 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
 - local 프로파일인 경우 메모리에 있는 포켓몬 정보를 반환한다.
 - dev 프로파일인 경우 외부 서비스에 있는 포켓몬 정보를 반환한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/spring-boot-supports-graal-vm-native-image-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 프로젝트를 생성한 후 모듈 설정에서 SDK를 이전 단계에서 설치한 JDK로 변경한다. 모듈 설정`(COMMAND + ;)` 화면을 연다.
 
 - 준비 단계에서 다운로드 받은 liberica-17 JDK를 설정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/spring-boot-supports-graal-vm-native-image-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 이 예제는 그레이들(gradle) 프로젝트다. 네이티브 이미지를 생성할 수 있는 작업(task)들을 사용하기 위해 build.gradle 파일에 `org.graalvm.buildtools.native` 플러그인을 추가한다.
 

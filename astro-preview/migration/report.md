@@ -12,7 +12,7 @@
 | 운영 사이트맵 대조 | 525개 경로 중 누락 0건, 초과 0건 |
 | 경로 충돌 | 0건 |
 | 추천 글이 있는 글 | 333편 |
-| 원본 묶음 SHA-256 | `5ac1eb940aa1073fa900a8ee9f1b902ad7b74927f6e35b2f5427dd7c89eb99c0` |
+| 원본 묶음 SHA-256 | `235b48152be3b5337db4e4da8ecc3109b01a2eef2a821a6f8163a4cc067ba6b4` |
 
 ## 확인 항목
 
@@ -104,33 +104,3 @@
 ### 제거한 빈 추천 섹션 (1)
 
 - `_posts/2023/2023-09-21-sequence-key-update-with-cursor-in-mysql.md:12` 빈 `RECOMMEND POSTS BEFORE THIS` 섹션을 제거했습니다.
-
-### CRLF 줄바꿈 정규화 (27)
-
-- `_posts/2020/2020-12-23-dev-ops.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2020/2020-12-30-microservice-architecture.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2020/2020-12-31-json-web-token.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-01-31-java-persistence-api.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-02-14-lock-mechanism.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-02-15-jpa-optimistic-lock.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-02-26-race-condition.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-03-04-spring-cloud-openfeign.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-03-22-my-first-github-issue.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-08-spring-cloud-netflix-ribbon.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-09-side-project-slack-chatbot.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-11-mvc-pattern.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-19-cookie-and-session.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-20-maven-using-external-jar.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-21-maven-using-multiple-repositories.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-23-singleton-pattern.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-24-http.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-25-https.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-29-db-index-data-structure.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-04-29-maven-checkstyle.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-01-intellij-google-codestyle.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-03-maven-jacoco.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-05-merge-sort.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-06-quick-sort.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-09-nosql.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-10-transactional-propagation-type.md` CRLF 줄바꿈을 LF로 정규화했습니다.
-- `_posts/2021/2021-05-11-what-is-jvm.md` CRLF 줄바꿈을 LF로 정규화했습니다.

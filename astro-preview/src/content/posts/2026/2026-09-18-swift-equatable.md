@@ -9,8 +9,6 @@ categories:
   - "comparable"
 ---
 
-<br/>
-
 ## 1. Equatable 프로토콜
 
 스위프트(Swift)의 Equatable 프로토콜을 채택(conform)하면 어떤 기준으로 객체가 같은지 비교할 수 있다. Equatable이 요구하는 핵심 기능은 `== 연산자`다.

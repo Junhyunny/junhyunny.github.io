@@ -11,8 +11,6 @@ categories:
   - "thread"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 SwiftUI를 공부하다 보니 자연스럽게 스위프트(Swift)의 비동기 처리 방식을 이해할 필요가 생겼다. [파이썬(Python)][python-global-intpreter-lock-and-asynchronous-link]이나 [자바스크립트(JavaScript)][how-to-work-javascript-async-link] 같은 다른 언어의 비동기 처리 방식과 비슷할 것이라고 생각했는데, 구조가 전혀 달라서 놀랐다. 이번 글에서는 스위프트의 비동기 처리 방식을 정리한다.

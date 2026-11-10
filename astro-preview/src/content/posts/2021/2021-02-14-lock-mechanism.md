@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 엔터프라이즈 애플리케이션은 동시에 많은 요청들을 처리한다. 동일한 데이터에 대한 변경이 여러 트랜잭션(transaction)에 의해 동시 다발적으로 발생하기 때문에 일부 데이터가 유실될 수 있다. 이런 문제를 해결하기 위해 애플리케이션은 데이터베이스에 대한 동시성(concurrency)을 제어할 필요가 있다. 애플리케이션은 데이터 락(lock)을 통해 데이터에 대한 동시성 제어를 수행한다. 어떤 방법이 있는지 어떤 부분이 다른지 살펴본다.

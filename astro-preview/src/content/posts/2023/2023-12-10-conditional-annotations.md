@@ -8,8 +8,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 1. @ConditionalOn- Annotations
 
 스프링 빈(spring bean)을 선택적으로 주입받기 위해 @Qualifier, @Primary, @Autowired 애너테이션들을 사용한다. 이는 스프링 컨텍스트에 이미 생성된 스프링 빈들을 대상으로 어떤 빈을 주입 받을지 결정하는 방법이다. 반대로 `@ConditionalOn-` 애너테이션을 사용하면 스프링 빈을 선택적으로 생성해 스프링 컨텍스트에 등록할 수 있다. @ConditionalOn- 애너테이션이 선언된 경우 해당 조건이 만족되어야 스프링 빈으로 등록된다.

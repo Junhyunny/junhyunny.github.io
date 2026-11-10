@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [참조 카운팅 알고리즘][reference-counting-gc-in-javascript-link]에서 정리한 것처럼 치명적인 단점으로 인해 모던 브라우저의 가비지 컬렉팅(garbage collecting)의 메인 알고리즘으로 사용되지 않는다. 보조적인 역할 정도로 사용되는 것 같다. 이번 글은 메인 알고리즘으로 사용되는 마크-앤-스윕(mark-and-sweep) 알고리즘에 대해 정리한다.
@@ -21,12 +19,12 @@ recommendedPosts:
 
 `도달할 수 없는 객체`를 제거하는 알고리즘이다. 이 알고리즘에션 루트(root)라는 컨셉의 객체를 사용한다. 자바스크립트에서 루트는 전역 객체(global object)다. 주기적으로 실행되는 가비지 컬렉팅은 루트 객체로부터 시작해서 참조되는 모든 객체들을 찾는다. 이 과정에서 접근할 수 있는 모든 객체들(reachable objects)과 접근할 수 없는 모든 객체들(non-reachable objects) 모두 찾아낸다. 이 과정을 마킹(marking)이라고 한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mark-and-sweep-gc-in-javascript-01.gif" width="50%" class="image__border">
 </div>
 <center>https://v8.dev/blog/concurrent-marking</center>
-
-<br/>
+</div>
 
 [MDN 문서](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management#mark-and-sweep_algorithm)에 따르면 모든 모던 브라우저들은 마크-앤-스윕 가비지 컬레터를 기본적으로 제공한다고 한다. 자바스크립트의 가비지 컬렉션은 이 알고리즘의 구현 방식을 개선한 것이지 알고르짐 자체에 대한 근본적인 변화는 없었다고 한다. 마크-앤-스윕 알고리즘이 가비지 컬렉터의 주요 알고리즘으로 자리 잡을 수 있었던 이유는 순환 참조(cycle reference)에 대한 문제를 해결할 수 있기 때문이다.
 
@@ -49,12 +47,12 @@ V8 엔진(크롬)은 가비지 컬렉션으로 인해 발생하는 성능 저하
 
 V8 엔진의 가비지 컬렉션은 JVM과 유사하게 동작한다. 힙 메모리 내부를 젊은 세대(young generation)과 오래된 세대(old generation)로 나누고, 마이너 GC(minor GC)와 메이저 GC(major GC)를 수행한다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mark-and-sweep-gc-in-javascript-03.png" width="80%" class="image__border">
 </div>
 <center>https://deepu.tech/memory-management-in-v8/</center>
-
-<br/>
+</div>
 
 - 젊은 세대에 대한 가비지 컬렉션을 마이너 GC(혹은 scavenger)라고 한다.
 - 모든 힙 영역에 대한 가비지 컬렉션을 메이저 GC라고 한다.

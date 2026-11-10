@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/vue.js/multipartfile/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 Jekyll 문법과 충돌하므로 `{ { someValue } }`으로 표기된 코드는 공백을 제거해야 정상적으로 동작한다.
@@ -197,11 +195,9 @@ public class FileController {
 
 실제로 파일 업로드가 잘 동작하는지 확인해보자. `Multipart in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 백엔드 FileController 객체의 uploadFileInDto 메서드에 브레이킹 포인트를 만들어 메모리 상태를 살펴보자. 엔드포인트 파라미터인 MultipartDto 객체의 file 멤버 변수에 프론트엔드에서 전달한 파일 정보가 담겨 있는 것을 볼 수 있다.
 
@@ -339,19 +335,15 @@ public class FileController {
 
 실제로 파일이 잘 업로드되는지 살펴보자. `Images List in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-03.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 백엔드의 FileController 객체 메서드에 브레이킹 포인트를 만들어 메모리 상태를 살펴보자. 엔드포인트 파라미터인 MultipartListDto 객체의 files 멤버 변수에 프론트엔드에서 전달한 파일 정보 리스트가 담겨 있는 것을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 프론트엔드 FormData 객체의 append 함수는 이름처럼 추가된 항목 뒤에 새로 추가할 항목들을 붙이는 기능을 제공한다. 따라서 `'files'`라는 이름으로 파일을 계속 추가(append)하면 `'files'`라는 이름을 가진 리스트가 생성된다. 간단한 예시 코드를 살펴보자.
 
@@ -502,19 +494,15 @@ public class FileController {
 
 실제로 파일이 잘 업로드되는지 살펴보자. `Images Map in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-06.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 마찬가지로 백엔드의 FileController 객체 메서드에 브레이킹 포인트를 만들어 메모리 상태를 살펴보자. 엔드포인트 파라미터인 MultipartMapDto 객체의 files 멤버 변수에 프론트엔드에서 전달한 파일 정보가 맵에 담겨 있는 것을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-07.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식한다. `'files[index]'` 값은 `files`라는 멤버 변수의 키값으로 `index`를 사용한다는 의미이다.
 
@@ -657,19 +645,15 @@ public class FileController {
 
 실제로 파일이 잘 업로드되는지 살펴보자. `Images Map-List in DTO Upload` 버튼을 누른 후 이미지를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-09.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 마찬가지로 백엔드의 FileController 객체 메서드에 브레이킹 포인트를 만들어 메모리 상태를 살펴보자. 엔드포인트 파라미터인 MultipartMapListDto 객체의 files 멤버 변수에 프론트엔드에서 전달한 파일 정보가 맵에 담겨 있는 것을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multipartfile-in-dto-10.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 FormData 객체의 키(key)로 전달되는 값에 대괄호([])가 포함되는 경우 대괄호 안의 값을 Map의 키(key)로 인식한다. `'files[' + (index % 3) + ']'` 값은 `files`라는 멤버 변수의 키값으로 `(index % 3)` 값을 사용한다는 의미이다. 중첩되는 키가 존재하는 경우 맵의 Value 위치에는 리스트로 데이터가 담긴다.
 

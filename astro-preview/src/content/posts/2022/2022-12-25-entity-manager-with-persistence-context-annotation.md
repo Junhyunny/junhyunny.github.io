@@ -17,8 +17,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/entity-manager-with-entity-manager-factory/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [EntityManagerFactory 클래스][entity-manager-with-entity-manager-factory-link] 포스트에선 스레드 안전(thread safe)하지 않은 엔티티 매니저(EntityManager)를 안전하게 사용하는 방법들 중 한 가지인 `EntityManagerFactory` 클래스에 대해 정리하였습니다. 

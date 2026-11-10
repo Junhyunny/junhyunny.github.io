@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/firewall/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][firewall-link]에서 방화벽에 대한 기본적인 개념을 다뤘다. 이번 글에선 방화벽과 관련된 몇 가지 실습을 진행한다.

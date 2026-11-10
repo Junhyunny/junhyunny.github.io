@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/simple-logging-facade-for-java/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 부트(Spring Boot) 프레임워크는 기본(default) 로거로 `logback`을 사용하고 있습니다. 

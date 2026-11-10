@@ -8,29 +8,25 @@ categories:
   - "test-driven-development"
 ---
 
-<br/>
-
 ## 1. Test Double
 
 테스트 더블은 영화 산업에서 위험한 장면을 촬영할 때 배우의 대역인 스턴트 더블(stunt double)에서 유래한 개념이다. 한국에선 흔히 이를 스턴트 맨이라고 부른다. 테스트 대상 시스템(system under test)의 단위 기능을 검증할 때 외부 컴포넌트(혹은 객체)의 기능을 대체하는 용도로 사용되는 객체이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/test-double-01.png" width="50%" class="image__border">
 </div>
 <center>https://www.crocus.co.kr/1555</center>
-
-<br/>
+</div>
 
 하나의 소프트웨어는 여러 객체들의 협업을 통해 동작하기 때문에 작은 단위 기능을 테스트하기 위해 여러 객체들의 도움이 필요하다. 이는 테스트를 어렵게 만드는 요인이다. 예를 들어보자. 다음과 같은 구현 코드가 있다.
 
 - UserService 객체는 JpaUserRepository 객체를 통해 사용자 정보를 조회한다.
 - JpaUserRepository 객체는 DB에서 데이터를 조회한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/test-double-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 위 기능은 다음과 같은 관점에서 테스트가 어렵다.
 
@@ -38,11 +34,9 @@ categories:
 
 단위 테스트는 어느 상황에서도 성공해야 하지만, findById 메서드가 데이터베이스에 의존하고 있기 때문에 항상 같은 결과를 반환한다는 보장이 없다. 이를 어떻게 해결할 수 있을까? 이런 상황에선 JpaUserRepository 객체를 항상 같은 결과를 반환하는 테스트 더블 객체로 대체한다. 테스트 더블은 항상 고정된 값을 응답하기 때문에 테스트 코드는 항상 성공한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/test-double-03.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 이는 데이터베이스 같이 네트워크를 통해 연결된 외부 시스템이 있을 때만 발생하는 문제가 아니다. 랜덤한 값을 생성하는 객체나 매번 변경되는 시간 등도 테스트를 어렵게 만든다. 항상 고정된 결과를 반환하는 응답으로 테스트를 한다는 사실이 어색할 수 있지만, 중요한 것은 테스트 대상 메서드는 UserService 객체의 userMe 메서드라는 점이다. userMe 메서드는 다음과 같은 기능을 수행한다고 가정한다.
 
@@ -79,12 +73,12 @@ categories:
 - 페이크(fake)
 - 목(mock)
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/test-double-05.png" width="50%" class="image__border">
 </div>
 <center>http://xunitpatterns.com/Test%20Double.html</center>
-
-<br/>
+</div>
 
 간단한 예제 코드를 통해 각 테스트 더블의 개념을 정리한다. 다음과 같은 주문 결제 기능이 있다. OrderService 객체는 추상화된 OrderRepository 인터페이스를 의존하고 있다.
 

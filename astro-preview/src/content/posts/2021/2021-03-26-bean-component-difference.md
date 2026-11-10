@@ -7,8 +7,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 1. @Bean Annotation
 
 @Bean 애너테이션은 개발자가 제어하지 못하는 외부 클래스를 빈(bean) 객체로 만들 때 사용한다. `org.springframework.web.client` 패키지 내부에 존재하는 `RestTemplate` 클래스를 예시로 살펴보자.

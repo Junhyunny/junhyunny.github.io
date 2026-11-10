@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 도커 파일(dockerfile)을 작성할 때 사용하는 `ENTRYPOINT`와 `CMD` 지시문으로 추가한 명령문은 컨테이너가 실행될 때 함께 수행됩니다. 

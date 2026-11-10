@@ -72,16 +72,32 @@ function normalizeTimestamp(value, file) {
   throw new Error(`${file}: 알 수 없는 last_modified_at 형식 ${text}`);
 }
 
+const isLineBreak = (node) => node?.type === 'html' && /^<br\s*\/?>\s*$/i.test(node.value);
+
+// HTML 조각이 하나의 요소로 시작해서 그 요소로 끝나는지 (<div>…</div>, <p>…</p>)
+function isSingleElement(html) {
+  const tag = /^<([a-z][a-z0-9]*)\b/i.exec(html)?.[1];
+  if (!tag) return false;
+  let depth = 0;
+  for (const match of html.matchAll(new RegExp(`<(/?)${tag}\\b[^>]*?(/?)>`, 'gi'))) {
+    if (match[2]) continue;
+    depth += match[1] ? -1 : 1;
+    if (depth === 0) return match.index + match[0].length === html.trimEnd().length;
+  }
+  return false;
+}
+
 function parseMarkdown(body) {
   return fromMarkdown(body, { extensions: [gfm()], mdastExtensions: [gfmFromMarkdown()] });
 }
 
 function convert({ kind, file, text }) {
-  const relative = path.relative(source, file);
+  // overrides.json·manifest·보고서의 키로 쓰므로 Windows에서도 / 구분자로 맞춘다.
+  const relative = path.relative(source, file).split(path.sep).join('/');
   const report = [];
   const note = (type, line, detail) => report.push({ type, file: relative, line, detail });
   const normalized = text.replace(/\r\n/g, '\n');
-  if (normalized !== text) note('crlf', null, 'CRLF 줄바꿈을 LF로 정규화했습니다.');
+  // 줄바꿈은 체크아웃 설정(core.autocrlf)에 따라 달라지므로 LF로 맞춘 내용을 기준으로 변환하고 해시를 계산한다.
 
   const { data, body, bodyLine } = splitFrontmatter(normalized, relative);
   const lineOf = (offset) => bodyLine + body.slice(0, offset).split('\n').length - 1;
@@ -95,7 +111,7 @@ function convert({ kind, file, text }) {
   if (categories.length === 0) throw new Error(`${relative}: category가 없습니다.`);
   if (typeof data.title !== 'string' || !data.title) throw new Error(`${relative}: title이 없습니다.`);
 
-  const collectionPath = path.relative(path.join(source, `_${kind}s`), file).replace(/\.md$/, '');
+  const collectionPath = path.relative(path.join(source, `_${kind}s`), file).split(path.sep).join('/').replace(/\.md$/, '');
   const canonicalPath = kind === 'post'
     ? `/${jekyllCategoryPath(categories)}/${slug}/`
     : `/${kind}s/${collectionPath}/`;
@@ -228,8 +244,39 @@ function convert({ kind, file, text }) {
     recommendedPosts.push(link);
   }
 
+  // 4. 간격용 <br/> → .block-break
+  // 레거시 글은 블록 사이에 <br/>만 따로 적어 간격을 만들었다. (문단·표 안의 줄바꿈 <br/>은 그대로 둔다)
+  // - 본문 맨 앞의 <br/>: 지운다.
+  // - 이미지 블록·표 바로 뒤의 <br/>: 지우고 앞 블록에 block-break 클래스를 붙인다.
+  //   한 요소(<div>…</div>, <p>…</p>)면 그 요소에, 이미지 + <center> 캡션이나 표면 <div class="block-break">로 감싼다.
+  const removeUntilNext = (index) => {
+    const next = children[index + 1];
+    edits.push({ start: children[index].position.start.offset, end: next ? next.position.start.offset : body.length, text: '' });
+  };
+  for (let index = 0; isLineBreak(children[index]); index += 1) removeUntilNext(index);
+  for (let index = 1; index < children.length; index += 1) {
+    if (!isLineBreak(children[index]) || isLineBreak(children[index - 1])) continue;
+    const block = children[index - 1];
+    const { start, end } = block.position;
+    const html = block.type === 'html' ? body.slice(start.offset, end.offset) : '';
+    if (block.type !== 'table' && !/<img\b/i.test(html)) continue;
+    const open = /^<[a-z][a-z0-9]*\b[^>]*>/i.exec(html)?.[0];
+    if (open && isSingleElement(html)) {
+      const marked = /\bclass="/i.test(open)
+        ? open.replace(/\bclass="/i, 'class="block-break ')
+        : open.replace(/^(<[a-z][a-z0-9]*)/i, '$1 class="block-break"');
+      edits.push({ start: start.offset, end: start.offset + open.length, text: marked });
+    } else {
+      // 표처럼 Markdown 블록을 감쌀 때는 빈 줄을 두어야 안쪽이 Markdown으로 처리된다.
+      const gap = block.type === 'table' ? '\n\n' : '\n';
+      edits.push({ start: start.offset, end: start.offset, text: `<div class="block-break">${gap}` });
+      edits.push({ start: end.offset, end: end.offset, text: `${gap}</div>` });
+    }
+    removeUntilNext(index);
+  }
+
   // 편집 적용
-  edits.sort((a, b) => b.start - a.start);
+  edits.sort((a, b) => b.start - a.start || b.end - a.end);
   let converted = body;
   let floor = Infinity;
   for (const edit of edits) {
@@ -239,7 +286,7 @@ function convert({ kind, file, text }) {
   }
   converted = `${converted.replace(/\s+$/, '')}\n`;
 
-  // 4. 변환 후 남은 구문과 Jekyll 렌더링 차이를 기록한다.
+  // 5. 변환 후 남은 구문과 Jekyll 렌더링 차이를 기록한다.
   const after = parseMarkdown(converted);
   const afterCode = [];
   const languages = new Set();
@@ -260,7 +307,7 @@ function convert({ kind, file, text }) {
   }
 
   const images = [];
-  visit(after, 'image', (node) => images.push(node.url));
+  visit(after, 'image', (node) => { images.push(node.url); });
   visit(after, 'html', (node) => {
     for (const match of node.value.matchAll(/<(?:img|iframe)\b[^>]*\bsrc="([^"]+)"/g)) images.push(match[1]);
   });
@@ -272,7 +319,7 @@ function convert({ kind, file, text }) {
     if (url) links.push(url);
   });
   const headings = [];
-  visit(after, 'heading', (node) => headings.push({ depth: node.depth, text: toString(node) }));
+  visit(after, 'heading', (node) => { headings.push({ depth: node.depth, text: toString(node) }); });
   let codeBlocks = 0;
   visit(after, 'code', () => { codeBlocks += 1; });
 
@@ -306,7 +353,7 @@ function convert({ kind, file, text }) {
     manifest: {
       kind,
       source: relative,
-      sourceSha256: sha256(text),
+      sourceSha256: sha256(normalized),
       canonicalPath,
       publishedAt,
       updatedAt: normalizeTimestamp(data.last_modified_at, relative),
@@ -392,7 +439,6 @@ const reportTypes = {
   'code-language': '지원하지 않는 코드 언어 표기',
   'frontmatter-dropped': '옮기지 않은 frontmatter 필드',
   'recommend-empty': '제거한 빈 추천 섹션',
-  crlf: 'CRLF 줄바꿈 정규화',
 };
 const lines = [
   '# 콘텐츠 변환 보고서',

@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Virtual Host in Tomcat][virtual-host-in-tomcat-link] 포스트 마지막에 언급했듯이 이번 포스트는 `nginx`를 리버스 프록시(reverse proxy)로 사용하여 여러 도메인을 서비스하는 방법에 대해 정리하였습니다. 

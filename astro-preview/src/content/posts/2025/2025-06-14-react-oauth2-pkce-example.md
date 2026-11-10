@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/oauth2.0/security/oauth2-pkce/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][oauth2-pkce-link]에서 `PKCE(Proof Key for Code Exchange)`는 공개 클라이언트가 액세스 토큰을 발급 과정에서 발생하는 보안 리스크를 줄이기 위한 장치라는 내용에 대해 정리했다. 이번엔 리액트 애플리케이션에서 인가 코드 승인(authorization code grant) 방식에 PKCE를 추가하여 액세스 토큰을 발급 받는 예제를 다뤘다.
@@ -31,11 +29,9 @@ AWS Cognito는 SPA 클라이언트를 위한 PKCE 인가 코드 승인 방식을
 - 옵션을 구성한다. 식별자와 가입에 필요한 필수 속성으로 `email`을 지정한다.
 - 리다이렉트 URL을 `http://localhost:5173` 주소로 지정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/react-oauth2-pkce-example-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 AWS Congito는 PKCE 인가 코드 승인 방식을 지원하는 패키지를 함께 제공한다. 이를 사용하면 쉽게 구현할 수 있다. 사용자 풀을 만들면 다음과 같은 패키지를 설치하는 스크립트와 리액트 예시 코드들을 볼 수 있다. 
 
@@ -119,27 +115,21 @@ export default App;
 
 예시 코드를 사용해 애플리케이션을 실행하면 다음과 같은 로그인 화면을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/react-oauth2-pkce-example-02.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 `Sign in` 버튼을 누르면 AWS Cognito가 지원하는 로그인 페이지를 볼 수 있다. 테스트를 위한 사용자를 생성한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/react-oauth2-pkce-example-03.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 사용자 생성 후 로그인하면 다음과 같은 화면을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/react-oauth2-pkce-example-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이번 글에선 위 예시 코드와 동일한 동작을 할 수 있는 AuthProvider 컴포넌트와 useAuth 훅을 직접 만들어 볼 에정이다. PKCE 인가 코드 승인 방식은 다음 같은 실행 흐름이 일어난다.
 

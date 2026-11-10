@@ -7,8 +7,6 @@ categories:
   - "react"
 ---
 
-<br/>
-
 ## 1. renderHook
 
 `renderHook` 함수는 리액트의 커스텀 훅(custom hook)을 테스트할 때 사용합니다. 

@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 예전에 스탠포드 STORM(Synthesis of Topic Outlines through Retrieval and Multi-perspective Question Asking)을 사용해 논문을 작성하고 싶다는 요구사항이 있었다. 기존에 보유하고 있는 논문 데이터들을 활용하고 싶다는 내용이었다. 이번 글에선 벡터 데이터베이스를 구성하고 STORM에서 제공하는 RAG(Retrieval-Augmented Generation) API를 확장해서 데이터 조회 후 논문을 작성할 때 활용하는 내용에 대해 정리했다.
@@ -34,12 +32,12 @@ STORM은 글을 쓰기 전에 철저한 사전 조사를 수행하도록 설계�
 1. 사전 작성 단계: 레퍼런스를 수집하기 위한 인터넷 기반 리서치를 수행하고 개요(outline)를 생성한다. 멀티턴 검색(multi-turn retrieval)을 통해 정보를 수집하고, 출처를 확보한다.
 2. 작성 단계: 시스템은 개요와 레퍼런스를 사용해 인용과 함께 논문을 작성한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/stanford-storm-framework-01.png" class="image__border image__padding">
 </div>
 <center>https://github.com/stanford-oval/storm</center>
-
-<br/>
+</div>
 
 STORM은 아티클 작성을 AI가 혼자 다 수행하지만, Co-STORM은 인간이 글을 쓸 때 AI가 실시간으로 개입하여 도와주는 것이다. 인간이 지식의 구조를 잡는 것을 AI가 돕는 협업(collaboration)에 초점을 맞춘다. 인간 주도(HITL, Human in the Loop) 방식으로 사용자가 먼저 주제를 제시하거나 글을 쓰기 시작한다.
 
@@ -291,11 +289,9 @@ class VectorStore:
 
 이제 커스텀 조회 모듈을 만든다. dspy 패키지의 Retrieve 모듈을 상속받은 후 forward 함수를 재정의한다. STORM은 28개 정도의 검색 모듈을 제공한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/stanford-storm-framework-03.png" width="100%" class="image__border image__padding">
 </div>
-
-<br />
 
 아래와 같은 커스텀 검색 모듈을 생성한다. 벡터 데이터베이스를 통해 논문 아이디 리스트를 획득한다. 획득한 논문 아이디는 SQLite 데이터베이스로부터 원본 논문 정보를 검색할 때 사용한다.
 

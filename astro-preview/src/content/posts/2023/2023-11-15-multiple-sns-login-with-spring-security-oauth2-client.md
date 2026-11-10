@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/test/how-to-make-stub-for-super-class/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 프로젝트들이 모두 OAuth2 프로토콜을 통해 사용자 인증을 구현했습니다. 하나의 플랫폼만 연결하는 경우도 있었지만, 다중 플랫폼의 인증을 구현한 케이스도 있었습니다. 다중 플랫폼을 연결할 때는 플랫폼이 늘어날 때마다 확장성을 고려해야 합니다. 스프링 프레임워크(spring framework)의 프로파일 기능과 디자인 패턴을 통해 조금 더 확장하기 쉬운 애플리케이션을 개발한 내용에 대해 정리하였습니다. 

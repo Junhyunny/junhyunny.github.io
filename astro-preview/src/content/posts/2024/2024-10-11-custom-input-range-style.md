@@ -9,8 +9,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 input HTML 엘리먼트를 range 타입의 디자인을 커스터마이징(customizing)하는 방법에 대해 정리했다.
@@ -34,24 +32,24 @@ range 타입 input HTML 엘리먼트를 구성하는 요소들에 대한 용어�
 
 range 타입 input HTML 엘리먼트는 크로스 브라우저(cross browser) 문제가 있다. 브라우저마다 자동으로 색이나 모양을 지정하기 때문에 외형이 다르다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-02.png" width="80%" class="image__border">
 </div>
 <center>https://fuuno.net/web02/range_style/range_style.html</center>
-
-<br/>
+</div>
 
 각 브라우저마다 스타일을 입히기 위해선 벤더 프리픽스(vendor prefix)가 붙은 수도 엘리먼트(pseudo element)를 사용해야 한다. 크롬(chrome), 사파리(safari), 엣지(edge) 브라우저의 경우 다음과 같은 엘리먼트가 있다. 크롬은 2020년 5월 이후 버전부터 지원한다. 
 
 - ::-webkit-slider-runnable-track
 - ::-webkit-slider-thumb
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-03.png" width="80%" class="image__border">
 </div>
 <center>https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-slider-runnable-track</center>
-
-<br/>
+</div>
 
 파이어폭스(firefox)는 수도 엘리먼트가 3개다. 프로그레스 바에 대한 스타일이 별도로 가능하다. 
 
@@ -59,12 +57,12 @@ range 타입 input HTML 엘리먼트는 크로스 브라우저(cross browser) �
 - ::-moz-range-thumb
 - ::-moz-range-progress
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-04.png" width="80%" class="image__border">
 </div>
 <center>https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-range-track</center>
-
-<br/>
+</div>
 
 MDN 사이트에서 파이어폭스 관련된 수도 엘리먼트는 표준이 아니라는 경고 메시지를 볼 수 있다. 이를 참고하길 바란다.
 

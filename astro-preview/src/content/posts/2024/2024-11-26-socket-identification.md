@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 한 1년 전쯤 한번 같이 일하는 동료랑 웹 소켓에 대한 이야기를 나눴던 적이 있다. 웹 소켓을 연결할 때 사용하는 포트 번호에 관련된 이야기였다. 지금에 와서 정확히 기억이 나진 않지만, 클라이언트(브라우저)에서 서버의 80 포트로 웹 소켓을 연결할 때 연결 식별에 대한 이야기였던 것 같다. 당시에 이 주제를 메모장에 짧게 적어뒀다가 1년이 넘게 지난 지금에야 본인 블로그에 정리한다. 
@@ -42,12 +40,12 @@ categories:
 - 애플리케이션 내에서 네트워크 통신 연결 식별은 소켓 기술자(sd)를 사용한다.
   - 2번, 3번, 4번 애플리케이션의 소켓 기술자가 3으로 동일하지만, 한 애플리케이션 내에서만 중복되지 않으면 된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/socket-identification-01.png" width="80%" class="image__border">
 </div>
 <center>https://slidesplayer.org/slide/14140274/</center>
-
-<br/>
+</div>
 
 소켓 기술자는 포인터(pointer)를 관리하는 테이블의 인덱스(index)이다. 애플리케이션은 특정 소켓을 사용할 때 소켓 정보가 담긴 구조체를 참조할 수 있는 포인터가 저장된 테이블을 소켓 기술자를 통해 접근할 수 있다.
 

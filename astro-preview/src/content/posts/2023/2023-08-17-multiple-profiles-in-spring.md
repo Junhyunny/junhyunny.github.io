@@ -7,8 +7,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 1. Use Active Profile
 
 스프링 프레임워크(spring framework)는 실행 환경에 맞는 설정을 주입할 수 있는 강력한 기능을 제공합니다. 

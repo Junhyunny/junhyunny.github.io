@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/https/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 현재 진행 중인 프로젝트에서 [react-qr-scanner][react-qr-scanner-link]라는 라이브러리를 사용했다. 이 라이브러리는 카메라를 사용해 QR 코드를 스캔하는 기능을 제공한다. 적용하는 데 다음과 같은 문제점이 있었다.

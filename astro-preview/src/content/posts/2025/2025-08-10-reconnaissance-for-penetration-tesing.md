@@ -12,8 +12,6 @@ categories:
   - "renossance"
 ---
 
-<br/>
-
 ## 1. Penetration Test
 
 침투 테스트(penetration test, 약칭 펜 테스트)는 실전 공격자처럼 행동해서 시스템, 네트워크, 애플리케이션의 보안 취약점을 식별하고 이를 악용 가능한지 확인하는 활동이다. 펜 테스트는 5단계로 진행된다.

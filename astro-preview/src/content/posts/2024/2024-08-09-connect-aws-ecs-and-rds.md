@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/aws-ecs-service-setup/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][aws-ecs-service-setup-link]에서 ECS 클러스터를 구축할 때 사용했던 애플리케이션은 H2 인-메모리(in-memory) 데이터베이스를 이용했기 때문에 데이터베이스 연결과 관련된 내용을 다루지 않았다. 이번엔 ECS 태스크(task) 인스턴스와 AWS RDS(Relational Database Service)의 데이터베이스를 연결하는 방법에 대해 정리했다. 데이터베이스를 연결하기 전 구축된 ECS 클러스터의 모습은 다음과 같다.
@@ -26,21 +24,17 @@ recommendedPosts:
 
 - `Create database` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 데이터베이스 엔진을 선택한다.
 
 - `Aurora PostgreSQL`을 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 데이터베이스 이름과 접속 정보를 관리하는 방법을 선택한다.
 
@@ -48,21 +42,17 @@ recommendedPosts:
 - `Managed in AWS Secrets Manager` 옵션을 사용한다.
   - 데이터베이스 접속 정보는 AWS 시크릿 매니저(Secrets Manager)에서 관리한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 연결 테스트 용도이기 때문에 데이터베이스 명세(specification)은 가장 작은 타입을 사용한다. 
 
 - `db.rg5.large` 타입을 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 데이터베이스가 실행될 네트워크 환경을 정의한다.
 
@@ -71,22 +61,18 @@ recommendedPosts:
 - 공개 접근(public access)는 불가능하게 막는다.
 - 이름이 `demo-rds-sg` 새로운 VPC 시큐리티 그룹을 만든다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-06.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 한달 예상 가격을 확인하고 데이터베이스를 생성한다.
 
 - 테스트 용도이기 때문에 모니터링 기능은 비활성화한다.
 - `Create database` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-07.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 데이터베이스를 생성하는 데 다소 긴 시간이 걸린다. 데이터베이스 생성이 완료되면 다음과 같은 화면을 볼 수 있다.
 
@@ -146,11 +132,9 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 - `rds!cluster-{UUID}`
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-11.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 해당 시크릿 매니저를 눌러보면 데이터베이스의 접속 정보인 사용자 이름과 비밀번호를 확인할 수 있다.
 
@@ -168,11 +152,9 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 - 최신 버전의 태스크를 선택한다.
 - `태스크 정의 대시보드` 화면 우측 상단에 `Create new revision` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-13.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 직접 입력한 값을 사용하는지 시크릿 매니저로부터 값을 얻는지에 따라 값 타입이 달라진다.
 
@@ -182,11 +164,9 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
   - 시크릿 매니저로부터 필요한 값들을 조회하여 사용한다.
   - 입력 필드에 `{AWS_SECRETS_MANAGER_ARN}:{SECRET_VALUE_KEY}::` 같은 포맷으로 값을 작성한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-14.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 태스크 정의에 새로운 환경 변수를 추가하였으니 이를 생성한다. 새로운 리비전(revision)으로 태스크 정의가 추가된다.
 
@@ -202,32 +182,26 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 - `Deploy > Update service` 버튼을 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-16.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 해당 태스크 인스턴스를 실행할 클러스터와 서비스를 선택한다.
 
 - `demo-ecs-cluster` 클러스터를 선택한다.
 - `demo-ecs-service` 서비스를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-17.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 새로 만든 태스크 정의에 맞게 서비스가 관리하는 태스크 인스턴스들을 교체한다.
 
 - `Force new deployment` 체크 박스를 선택한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-18.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 기타 옵션은 별다른 변경이 없다.
 
@@ -252,22 +226,18 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 - `Create endpoint` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-20.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 엔드포인트 이름과 AWS 서비스를 지정한다.
 
 - 이름은 `demo-ecs-secrets-manager-eni`으로 지정한다.
 - 시크릿 매니저에 접근하기 위해 필요한 서비스는 `com.amazonaws.ap-northeast-2.secretsmanager`이다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-21.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 엔드포인트가 위치할 VPC와 서브넷을 선택하고, 시큐리티 그룹을 지정한다.
 
@@ -292,22 +262,18 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
 
 - `Add permissions > Attach policies` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-23.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 시크릿 매니저에 접근하여 정보를 조회하기 위한 적합한 정책을 찾아 선택한다.
 
 - `SecretsManagerReadWrite` 정책을 찾아 선택한다.
 - `Add permissions` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-24.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 ecsTaskExecutionRole 역할은 최종적으로 다음과 같은 정책들을 갖는다.
 

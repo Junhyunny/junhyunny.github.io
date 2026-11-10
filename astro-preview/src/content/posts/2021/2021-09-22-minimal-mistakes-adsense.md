@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/adsense-position-setting-minimal-mistakes/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 올해 초 시작했던 블로그에 유입되는 사용자 수가 꽤 많이 증가했다. 공부하는 내용을 정리할 겸 시작한 블로그였지만, 사용자 유입량이 늘어나니 광고를 통한 부수입 생각이 문득 들었다. `GitHub` 플랫폼을 이용하는 블로그에 광고를 연결하는 자세한 글들이 없는 것 같아 정리했다. 필자는 `minimal-mistakes` 테마를 사용하고 있으며, 같은 테마를 사용하는 분들에게 도움이 되길 바란다.
@@ -20,11 +18,9 @@ recommendedPosts:
 
 구글 애드센스에 가입이 필요하다. [구글 애드센스](https://www.google.com/intl/ko_kr/adsense/start/) 사이트로 이동한다. `시작하기` 버튼을 클릭한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/minimal-mistakes-adsense-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 구글 애드센스에 가입 정보를 입력한다.
 
@@ -43,11 +39,9 @@ recommendedPosts:
 
 가입에 성공하면 다음과 같은 화면을 볼 수 있다. `애드센스 코드` 영역의 태그를 복사한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/minimal-mistakes-adsense-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 `minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태그를 추가한다.
 
@@ -66,11 +60,9 @@ recommendedPosts:
 
 - `광고 > 개요 > 코드 가져오기` 링크를 누르면 다음 창이 뜨면서 다시 애드센스 코드를 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/minimal-mistakes-adsense-04.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 필자는 블로그의 글들이 많았고 컨텐츠도 충분히 퀄리티가 있다고 생각했지만, 계속 승인이 거부됐다. 다음과 같은 두 작업을 추가적으로 수행하니 성공했다.
 

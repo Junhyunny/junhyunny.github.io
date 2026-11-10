@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [OncePerRequestFilter 클래스에 관련된 글][once-per-request-filter-link]을 작성하면서 리다이렉트(redirect)와 포워딩(forwarding)에 대한 개념을 다시 살펴봤다. 기초적인 내용이고 서버 사이드 렌더링 방식을 사용할 때 많이 접하지만, 이번에 다시 리마인드 할 수 있어서 좋았다. 찾아본 김에 블로그에 정리했다. 동작 과정은 톰캣과 스프링을 기준으로 작성하였다.

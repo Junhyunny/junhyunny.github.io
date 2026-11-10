@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/java/spring/hmac/"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 [HMAC 인증 필터][hmac-link]를 구현하면서 다음 에러를 만났습니다. 

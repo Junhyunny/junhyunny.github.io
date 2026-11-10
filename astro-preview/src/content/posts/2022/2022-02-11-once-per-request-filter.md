@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/redirect-and-forwarding/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 인증 필터(authentication filter)를 구현 예시들을 찾아보면 `OncePerRequestFilter` 클래스를 상속받은 경우를 많이 볼 수 있다. 처음 사용해보는 클래스이고 특수한 성격을 갖고 있어서 관련된 내용을 정리해봤다.
@@ -22,12 +20,12 @@ recommendedPosts:
 
 우선 필터 기능부터 간단히 알아보자. 필터는 웹 애플리케이션(Web Application) 영역에서 동작하는 컴포넌트다. 요청이 서블릿 컨테이너(servlet container)에 전달되기 전에 수행된다. 
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-01.png" width="60%" class="image__border">
 </div>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
-
-<br/>
+</div>
 
 필터는 사용자의 요청 정보에 대해 검증하고, 필요하다면 데이터를 추가하거나 변조할 수 있다. 응답 정보에 대한 변경도 가능하다. 주로 전역적으로 처리해야 하는 인코딩, 보안 관련된 일을 수행한다. 필터를 활용한 유즈-케이스는 다음과 같다.
 
@@ -42,11 +40,9 @@ recommendedPosts:
 
 `OncePerRequestFilter` 클래스는 이름에서 유추할 수 있듯이 한 요청에 대해 한 번만 실행되는 필터이다. 예를 들어, 포워딩(forwarding)이 발생하면 필터 체인이 다시 동작하면서, 인증처럼 한 번만 필요한 처리를 불필요하게 여러 번 수행하게 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 `OncePerRequestFilter` 클래스의 `doFilter` 메서드를 열어보면 어떤 식으로 동작하는지 직관적으로 알 수 있다.
 
@@ -243,11 +239,9 @@ public class TestController {
 
 참고한 글 중에 어떤 사람은 리다이렉트(redirect)를 통해 `OncePerReqeustFilter` 클래스 테스트를 하였는데, 이해가 되지 않는다. 일반적인 리다이렉트는 브라우저가 서버로부터 리다이렉트하라는 302 응답을 받은 후 전달받은 `Location`으로 재요청을 하는 프로세스이다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이 경우 서버 입장에선 2회의 요청이 들어온 것이므로 `OncePerReqeustFilter` 필터라도 동일하게 2회 수행될 것으로 예상된다. 실제로 직접 테스트 해봤을 때 2회 수행되었는데, 리다이렉트로 `OncePerReqeustFilter` 테스트가 성공한 사람은 어떤 설정이었는지 궁금하다.
 

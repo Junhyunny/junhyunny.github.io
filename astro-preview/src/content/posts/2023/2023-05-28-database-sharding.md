@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/database/database-partitioning/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 수평 파티셔닝(horizontal partitioning)을 샤딩(sharding)과 혼동하여 사용하는 경우가 많다. 둘은 비슷한 개념이지만, 다른 의미를 가진다. 이번 글에서는 샤딩 개념을 정리하였다.
@@ -37,11 +35,9 @@ recommendedPosts:
 - 데이터베이스에서 제공
   - MongoDB
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-sharding-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 샤딩 기법은 다음과 같은 장점을 제공한다.
 

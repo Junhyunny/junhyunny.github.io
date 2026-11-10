@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 레디스 템플릿(redis template)으로 데이터를 캐싱할 때 역직렬화하는 과정에서 발생한 에러에 대해 정리했다. 이번 글에선 테스트 컨테이너를 사용해 상황을 재현했다. 테스트 컨테이너에 대한 개념을 모른다면 이전 글을 참고하길 바란다. 

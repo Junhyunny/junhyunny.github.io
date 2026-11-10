@@ -19,8 +19,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/msa/spring-cloud-netflix-ribbon/"
 ---
 
-<br/>
-
 ## 1. Practice
 
 `FeignClient`와 `Eureka`를 함께 사용하는 예제이다. `Eureka` 서버와 클라이언트를 만들어 연결하는 예제는 [스프링 클라우드 넷플릭스 유레카(Spring Cloud Netflix Eureka) 글][spring-cloud-netflix-eureka]을 참고한다. 다음과 같은 연습 환경을 구축했다.

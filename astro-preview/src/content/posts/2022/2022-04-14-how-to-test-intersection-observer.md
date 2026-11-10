@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/typescript/jest/testing-library/test-driven-development/make-custom-hook-for-intersection-observer/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 무한 스크롤(infinite scroll) 기능을 테스트하기 위한 코드를 작성하면서 만난 에러와 해결하는 과정을 정리했다. 
@@ -343,11 +341,9 @@ describe('Intersection Observer', () => {
 
 위에서 실패했던 단위 테스트는 정상적으로 통과한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/how-to-test-intersection-observer-02.png" width="45%" class="image__border">
 </div>
-
-<br />
 
 구현된 코드가 브라우저에서 정상적으로 동작한다.
 

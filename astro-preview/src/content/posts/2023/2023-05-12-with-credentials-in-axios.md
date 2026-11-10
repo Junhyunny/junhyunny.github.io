@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/cookie-attributes/"
 ---
 
-<br/>
-
 ## 1. Background
 
 쿠키(cookie)와 세션(session)을 통한 인증 프로세스를 사용하는 서비스의 구조를 다음과 같이 바꾸면서 문제가 발생했습니다. 

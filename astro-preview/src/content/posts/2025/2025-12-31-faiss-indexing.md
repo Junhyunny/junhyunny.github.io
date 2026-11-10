@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/standford-storm/ai/ai-agent/rag/context-engineering/stanford-storm-framework/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [스탠포드 STORM 프레임워크에서 검색 모듈을 확장][stanford-storm-framework-link]할 때 FAISS 벡터 데이터베이스를 사용했다. FAISS(Facebook AI Similarity Search)는 이름에서 알 수 있듯이, Meta(구 Facebook)의 AI 연구팀이 개발하여 오픈 소스로 공개한 밀집 벡터(dense vectors)의 효율적인 유사도 검색과 클러스터링을 위한 검색 라이브러리다.
@@ -108,11 +106,9 @@ RAG에서 필요한 데이터는 조회하는 쿼리와 의미론적으로 유�
 - FAISS 벡터 데이터베이스에 ["개", "고양이", "코끼리", "사자", "호랑이"]에 대한 벡터들이 저장되어 있다.
 - "라이온 킹"이라는 검색어 벡터로 조회하면 가장 유사한 의미를 갖는 "사자" 벡터와의 거리와 "사자" 벡터의 `인덱스 3`이 반환된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/faiss-indexing-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 벡터 데이터베이스로부터 찾은 인덱스를 갖고 원본 데이터를 찾아야 한다. [이전 글][stanford-storm-framework-link]에선 피클(pickle) 파일을 만들어 활용했다. 아래 예제 코드는 ID 매핑 없이 인덱싱한 예제 코드다. 오픈 소스인 SentenceTransformer 객체를 임베딩 모델로 사용했다.
 
@@ -201,11 +197,9 @@ FAISS를 사용할 때 인덱싱 시점의 벡터의 위치를 얻어 매번 원
 - 저장된 벡터 배열과 매핑되는 아이디 배열 [100, 1030,  302, 9939, 2291]도 함께 저장되어 있다.
 - "라이온 킹"이라는 검색어 벡터로 조회하면 가장 유사한 의미를 갖는 "사자" 벡터와의 거리와 "사자" 벡터의 `아이디 9939`이 반환된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/faiss-indexing-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 단, FAISS 인덱스 객체를 생성하고 IndexIDMap 메서드를 통해 ID 매핑이 가능한 객체로 래핑(wrapping) 후 사용한다. 예제 코드는 다음과 같다.
 

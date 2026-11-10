@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/kotlin/spring-boot/jpa/jpa-entity-serialize-exception-with-redis-session/"
 ---
 
-<br/>
-
 ## 1. Improved Testcontainers Support in Spring Boot 3.1
 
 최근 릴리즈 된 스프링 부트(spring boot) 3.1 버전에서 테스트 컨테이너(TestContainer)에 대한 지원이 향상되었습니다. 

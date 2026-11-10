@@ -273,6 +273,8 @@ h1, h2, h3, p { margin: 0; }
 .prose blockquote { border-left: 2px solid var(--accent); padding: .25rem 1rem; color: var(--muted); }
 .prose blockquote > :last-child { margin-bottom: 0; }
 .prose img { height: auto; margin: 1.3rem auto; }
+/* 레거시 글에서 블록 뒤에 따로 적었던 <br/>을 대신하는 간격 (scripts/migrate-content.mjs가 붙임). 이미지 아래 여백(1.3rem)에 더해진다. */
+.prose .block-break { padding-bottom: .5lh; }
 .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: var(--text-compact); }
 .prose td, .prose th { border: 1px solid var(--line); padding: .4rem .7rem; }
 .prose thead th {

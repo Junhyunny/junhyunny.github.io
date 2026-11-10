@@ -9,8 +9,6 @@ categories:
   - "security"
 ---
 
-<br/>
-
 ## 1. The Basic HTTP Authentication Scheme
 
 HTTP 인증 방식 중 하나입니다. 

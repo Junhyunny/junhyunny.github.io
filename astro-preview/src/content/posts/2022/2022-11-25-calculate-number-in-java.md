@@ -7,8 +7,6 @@ categories:
   - "java"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 올 여름에 읽었던 [이펙티브 자바 3/E][effective-java-book-link]에서 정확한 숫자 연산과 관련된 주의사항이 최근에 도움을 주었다. 금융 관련된 계산에 특히 주의하라는 조언이 있었는데, 마침 금융 프로젝트를 진행하게 되면서 잘못된 설계를 피해갈 수 있었다. 이번 글에서는 `Java`에서 정확한 숫자 연산과 관련된 내용을 간략하게 정리해 보려 한다.
@@ -48,12 +46,12 @@ categories:
   - 실수부 101
   - 나머지는 0으로 패딩(padding)
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-02.png" width="100%" class="image__border">
 </div>
 <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
-
-<br/>
+</div>
 
 고정 소수점 방식은 표현할 수 있는 수의 범위가 좁기 때문에 컴퓨터는 실제로 부동 소수점(floating point) 방식을 사용한다. 고정 소수점 방식과 다르게 소수점이 고정되어 있지 않다. 지수부(exponent)와 가수부(mantissa)를 만들고, 가수부의 소수점을 정규화를 통해 이동시킨다. 예를 들어 7.625를 이진수로 표현한 111.101을 정규화하면 다음과 같다.
 
@@ -70,12 +68,12 @@ categories:
   - 지수는 2 이다.
   - 밑수는 2 이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-03.png" width="30%" class="image__border">
 </div>
 <center>https:/taejunejoung.github.io/2019/12/24/java-primitive/</center>
-
-<br/>
+</div>
 
 32비트 기준으로 부동 소수점 방식을 자세히 살펴보자.
 
@@ -89,12 +87,12 @@ categories:
   - 지수 (2 + 127) 값인 10000001
   - 가수 1.11101 값에서 소수점 아래 11101
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-04.png" width="100%" class="image__border">
 </div>
 <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
-
-<br/>
+</div>
 
 부동 소수점 방식은 고정 소수점 방식에 비해 표현할 수 있는 수의 범위가 굉장히 크다. 
 

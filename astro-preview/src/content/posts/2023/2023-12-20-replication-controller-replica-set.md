@@ -8,8 +8,6 @@ categories:
   - "kubernetes"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 ReplicationController, ReplicaSet 오브젝트에 대해 정리한다. 

@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-security/make-authentication-provider/"
 ---
 
-<br/>
-
 ## 1. Spring Security Authentication Process with JWT
 
 이번 글은 토큰 발행과 재발행과 관련된 로직을 다룬다. 구현 코드를 설명하기에 앞서 스프링 시큐리티(spring security) 프레임워크의 기본적인 인증 프로세스와 의도하고 있는 인증 프로세스를 다시 정리해보자
@@ -29,11 +27,9 @@ recommendedPosts:
   - UserDetailsService 인터페이스를 구현한 CustomUserDetailsService 클래스가 사용된다.
   - 영속성 관련 기술 스택에 따라 적절하게 데이터베이스에서 사용자 정보를 조회한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/issue-and-reissue-json-web-token-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위 인증 프로세스에 JWT(json web token)을 사용한 인증 프로세스를 얹었다. 관련된 내용은 [이전 글][make-authentication-provider-link]에서 다뤘으니 짧게 살펴보자.
 
@@ -42,11 +38,9 @@ recommendedPosts:
 3. AuthenticationManager 인스턴스는 AuthenticationProvider 인스턴스에게 인증 절차를 위임하며, JWT을 전달한다.
 4. 인증 매니저 객체는 [이전 글][make-authentication-provider-link]에서 구현한 JwtAuthenticationProvider 객체를 사용한다. 토큰의 유효성만 확인하기 때문에 UserDetailsService 인스턴스를 사용할 필요가 없다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/issue-and-reissue-json-web-token-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 이제 위 프로세스에서 JWT를 발급, 재발급 하는 기능을 추가한다. AuthController 객체를 통해 엔드포인트를 만들고 아래와 같이 구현을 확장해간다.SecurityConfig 객체를 통한 인가 설정에서 `/auth/**` 경로에 대해 모두 인증 없이도 접근할 수 있도록 허가했다. 토큰 발행과 재발행 시 API 경로는 `/auth/**`에 포함되므로 인증된 사용자가 아니더라도 발급 프로세스는 계속 진행된다. 주요 비즈니스 로직은 AuthService 객체가 책임진다.
 

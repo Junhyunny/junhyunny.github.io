@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/spring-boot/spring-session/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 시스템 리뉴얼 중인 프로젝트의 코드를 보면 많은 사용자 정보가 세션에 담겨 사용되고 있었다. 특히 로그인 성공 시 많은 데이터가 세션에 추가되는데, 모바일 로그인 기능을 추가하려면 세션 동작을 정확히 이해할 필요가 있을 것 같아서 정리해보았다. `Tomcat` 서버, `JSP` 기술 스택을 기준으로 분석하였다.
@@ -28,11 +26,9 @@ recommendedPosts:
 - 첫 응답 헤더(header) `Set-Cookie` 항목에 `JSESSIONID` 값이 전달된다.
 - 그 이후 요청 헤더를 보면 `Cookie` 항목으로 전달받은 `JSESSIONID` 값이 들어간다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-01.png" width="100%" class="image__border image__padding">
 </div>
-
-<br/>
 
 처음 요청 시에는 없었던 쿠키 정보가 어느 시점에 생성되는지 디버깅(debugging)하여 코드를 살펴봤다. 프로세스 순서를 크게 나누면 다음과 같다.
 
@@ -41,12 +37,12 @@ recommendedPosts:
 3. 렌더링 수행 중 `JspServlet` 객체에 의해 PageContext 정보가 초기화되는 시점에 세션이 생성된다.
 4. 세션을 생성하고 세션 ID 정보를 응답 헤더에 쿠키로 담아 전달한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-02.png" width="55%" class="image__border image__padding">
 </div>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
-
-<br/>
+</div>
 
 세션(session) 생성 작업에 참여하는 주요 클래스들과 관련된 메서드는 어떤 것들이 있을까? Request 클래스의 doGetSession 메서드를 먼저 살펴보자. 이 메서드에서 세션 생성을 수행한다.
 
@@ -122,12 +118,12 @@ public class Response implements HttpServletResponse {
 4. URL에서 추출할 수 있다면 URL 요청 정보에서 세션 ID를 획득한다.
 5. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메서드를 통해 쿠키에서 세션 ID를 추출한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-03.png" width="55%" class="image__border image__padding">
 </div>
 <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
-
-<br/>
+</div>
 
 세션 ID를 획득하는 작업에 참여하는 주요 클래스들과 관련된 메서드는 어떤 것들이 있을까? CoyoteAdapter 클래스의 postParseRequest 메서드를 먼저 살펴보자. 이 메서드에서 쿠키로부터 세션 ID를 획득한다.
 

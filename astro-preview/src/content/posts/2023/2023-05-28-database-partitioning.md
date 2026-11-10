@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/database/database-sharding/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 데이터베이스는 볼륨이 커질수록 읽기/쓰기 성능이 감소한다. 성능 향상을 위해 데이터를 분할하여 저장하는 파티셔닝(partitioning) 혹은 샤딩(sharding)이라는 기법을 사용한다. 이번 글에서는 파티셔닝 개념을 정리하였다.
@@ -30,12 +28,12 @@ recommendedPosts:
 - 인덱스가 커지면 `INSERT`, `UPDATE`, `DELETE`, `SELECT` 작업도 함께 느려진다.
 - 인덱스 크기가 데이터베이스가 사용할 수 있는 물리적인 메모리 공간보다 크면 영향을 더 크게 받는다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-01.png" width="80%" class="image__border">
 </div>
 <center>https://gngsn.tistory.com/203</center>
-
-<br/>
+</div>
 
 데이터 특성상 주기적으로 삭제 작업이 필요한 경우에도 파티셔닝이 필요하다. 단기간에 대량으로 누적되고 일정 기간이 지나면 쓸모가 없어지는 로그 성격의 이력 데이터를 예로 들 수 있다. 이런 타입의 데이터는 시간이 지나면 별도로 아카이빙(archiving)하거나 백업한 후 삭제한다.
 
@@ -43,12 +41,12 @@ recommendedPosts:
 
 - 파티셔닝을 통해 파티션을 추가하거나 삭제하는 방식으로 간단하게 해결할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-02.png" width="80%" class="image__border">
 </div>
 <center>https://aws.amazon.com/blogs/database/archive-and-purge-data-for-amazon-rds-for-postgresql-and-amazon-aurora-with-postgresql-compatibility-using-pg_partman-and-amazon-s3/</center>
-
-<br/>
+</div>
 
 파티션 기법은 다음과 같은 장점을 제공한다.
 
@@ -75,11 +73,9 @@ recommendedPosts:
 - 데이터의 특정 열 값을 기준으로 데이터를 분할한다.
 - 각 파티션에는 특정 범위 또는 조건에 해당하는 행들이 포함된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-03.png" class="image__border">
 </div>
-
-<br/>
 
 다음으로 수직 파티셔닝(Vertical Partitioning)을 알아보자. 데이터를 열 단위로 분할한다.
 

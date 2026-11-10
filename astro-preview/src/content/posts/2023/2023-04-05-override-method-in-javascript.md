@@ -7,8 +7,6 @@ categories:
   - "javascript"
 ---
 
-<br/>
-
 ## 1. Requirements and Problem
 
 애플리케이션 사용자를 관찰하기 위한 도구로 구글 애널리틱스(GA, google analytics)와 구글 태그 매니저(GTM, google tag manager)를 연계하였습니다. 

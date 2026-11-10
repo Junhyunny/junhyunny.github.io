@@ -7,8 +7,6 @@ categories:
   - "spring-mvc"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 타 시스템과 데이터를 공유하는 가장 쉬운 방식은 아무래도 API 요청인 것 같다. 필요한 데이터를 요청하고 응답을 받으면 된다. 하지만 경우에 따라 API 요청만으로 문제를 해결하기 어려울 수 있다.
@@ -460,11 +458,9 @@ public interface MySqlDao {
 
 두 데이터소스로부터 데이터를 조회하는 API 요청 테스트 코드를 작성했다. `localhost:8080/mysql` API 요청을 통해 MySQL 데이터베이스에 저장된 데이터를 확인할 수 있다. `localhost:8080/postgresql` API 요청을 통해 PostgreSQL 데이터베이스에 저장된 데이터를 확인할 수 있다. MySQL 데이터베이스 TB_TEST 테이블에 다음과 같은 데이터가 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multi-datasource-in-spring-mvc-02.png" class="image__border">
 </div>
-
-<br/>
 
 cURL 명령어로 `/mysql` 경로에 API 요청을 수행하면 다음과 같은 데이터를 응답으로 받는다.
 
@@ -476,11 +472,9 @@ $ curl localhost:8080/mysql
 
 PostgreSQL 데이터베이스 TB_TEST 테이블에 다음과 같은 데이터가 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/multi-datasource-in-spring-mvc-03.png" class="image__border">
 </div>
-
-<br/>
 
 cURL 명령어로 `/postgresql` 경로에 API 요청을 수행하면 다음과 같은 데이터를 응답으로 받는다.
 

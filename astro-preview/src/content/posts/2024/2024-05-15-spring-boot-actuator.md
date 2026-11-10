@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/health-check-for-external-components-in-actuator/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 OOM(out of memory) 에러를 만났을 때 스프링 애플리케이션 메트릭(metric) 정보를 확인하기 위해 스프링 액추에이터(spring actuator)를 추가했다. 프로젝트마다 매번 설정 방법을 검색하는 것이 번거로워 블로그 글로 기록했다. 

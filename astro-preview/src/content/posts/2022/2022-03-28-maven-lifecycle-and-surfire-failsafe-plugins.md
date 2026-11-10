@@ -7,8 +7,6 @@ categories:
   - "maven"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 메이븐(maven)은 프로젝트 빌드와 의존성(dependency)을 관리해주는 도구입니다. 

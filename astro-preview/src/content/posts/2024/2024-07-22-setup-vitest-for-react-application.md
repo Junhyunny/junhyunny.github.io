@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/vite/jest/react-test-environment/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [22년 글][react-test-environment-link]에서 Vite 번들러를 사용할 때 테스트 환경을 구축하는 방법에 대해 정리했었다. 그 쯤부터 모든 프로젝트에서 Vite를 사용하긴 했다. 문제가 있다면 필자는 항상 프로젝트 중간에 들어가거나 프론트엔드 프로젝트를 다른 분이 셋업해줬다는 사실이다. 그 이후에 많은 것들이 바뀐 것 같다. 그 중 하나는 Vite 번들러를 사용할 때 Jest를 대신해 Vitest를 주요 테스트 라이브러리로 사용한다는 점이다. Vite는 여전히 테스트 환경을 기본으로 제공하지 않기 때문에 이 글을 통해 정리했다. 

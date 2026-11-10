@@ -7,8 +7,6 @@ categories:
   - "e2e-test"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 E2E 테스트를 작성할 때 항상 Cypress 프레임워크를 사용했었다. 이번 프로젝트에선 새로운 `CodeceptJS`, `Playwright` 라는 프레임워크를 사용해 볼 기회가 생겼다. 이번 글에선 두 프레임워크에 대한 간단한 소개한다.
@@ -75,11 +73,9 @@ CodeceptJS 프레임워크는 브라우저를 지원하는 도우미(helper) 프
   - 기타
 - CodeceptJS 프레임워크로 작성한 도우미 프레임워크가 지원하는 브라우저 환경에서 테스트가 가능하다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/codecept-js-with-playwright-01.png" width="100%" class="image__border image__padding">
 </div>
-
-<br/>
 
 ## 3. Testing with Playwright
 

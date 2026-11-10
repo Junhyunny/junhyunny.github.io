@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][swift-ui-test-flying-fox-link] 예제를 보면 테스트에서 주입한 환경 변수가 구현 코드에서 사용됐다. 이 부분에 대한 내용을 자세히 다루지 않았기 때문에 이번 글에서 정리한다.

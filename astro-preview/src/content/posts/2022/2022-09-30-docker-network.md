@@ -7,8 +7,6 @@ categories:
   - "docker"
 ---
 
-<br/>
-
 ## 1. Isolated Docker Containers
 
 도커(docker) 네트워크에 대해 알아보기 전에 도커 네트워크가 없다면 어떤 문제가 발생하는지 살펴보겠습니다. 

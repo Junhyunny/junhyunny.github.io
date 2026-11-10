@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/android/android-webview/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번엔 [안드로이드 웹뷰(Android WebView) 예제][android-webview-link]에서 만든 애플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
@@ -28,11 +26,9 @@ recommendedPosts:
 3. 웹 뷰는 `JavaScript` 코드를 실행할 수 있다.
   - `JavaScript` 코드를 실행하여 자신이 렌더링 중인 HTML 문서를 조작할 수 있다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-android-webview-communication-01.png" width="85%" class="image__border">
 </div>
-
-<br/>
 
 안드로이드 웹 뷰와 HTML 문서의 통신은 아래와 같은 방법을 통해 이루어진다.
 

@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/web-socket/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 글에서는 웹소켓(WebSocket) 예제 코드를 정리해 보겠다. 다음과 같은 환경에서 테스트했다.

@@ -20,8 +20,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/ai-agent/langchain/react-agent/react-agent/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][react-agent-link]에선 리액트(ReAct) 에이전트의 개념과 간단한 예시 코드를 살펴봤다. 이번에는 이전 예제를 확장해서 브라우저를 조작하는 리액트 에이전트를 만들어 볼 생각이다. 이 에이전트는 브라우저를 직접 조작할 수 있기 때문에 웹 검색이나 이메일을 정리하는 등의 작업을 수행할 수 있다. 토이 프로젝트로 TODO 에이전트를 만들어보고 있는데, 브라우저를 조작해서 사용자의 업무를 대신 해주는 에이전트이기 때문에 이 기능이 가장 핵심 역할이라고 생각된다.
@@ -204,11 +202,9 @@ search_prompt = """
 
 위 프롬프트를 실행하면 AI 에이전트가 브라우저를 조작해서 웹 검색을 수행하고 내용을 요약한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/react-agent-web-search-with-playwright-browser-toolkit-01.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 AI 에이전트는 다음과 같이 사이트 내용들을 요약해줬다.
 
@@ -336,11 +332,9 @@ email_prompt = """
 
 위 프롬프트를 실행하면 AI 에이전트가 사용자 로그인을 기다린다. AI 에이전트가 사용자 로그인이 완료되었다고 판단을 내리면, 브라우저를 조작해서 이메일을 읽고 내용을 요약한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/react-agent-web-search-with-playwright-browser-toolkit-02.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 AI 에이전트는 다음과 같이 메일 내용을 요약해줬다.
 

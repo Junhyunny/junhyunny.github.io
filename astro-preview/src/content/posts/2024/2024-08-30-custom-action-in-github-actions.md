@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/github/dev-ops/optimize-github-actions/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 액션(action)은 깃허브 액션스 워크플로우(workflow)에서 재사용 가능한 함수 같은 기능이다. 만들어진 액션을 사용할 수도 있지만, 직접 만들어서 사용할 수 있다. 액션은 별도 레포지토리에 만들 수도 있고, 파이프라인이 동작하는 프로젝트 내부에 만들 수도 있다. 이 글은 커스텀 액션을 만드는 두 가지 방법을 모두 다룬다. 
@@ -84,11 +82,9 @@ jobs:
 
 먼저 별도 레포지토리에 커스텀 액션을 만들어보자. 예제를 위해 `sum`이라는 새로운 레포지토리를 만든다. 해당 레포지토리 루트에 `action.yml` 파일을 만든다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-action-in-github-actions-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 action YAML 파일에는 다음과 같은 내용이 포함된다. 
 
@@ -191,11 +187,9 @@ runs:
 
 외부 레포지토리에 만든 커스텀 액션을 실행하면 다음과 같은 로그를 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-action-in-github-actions-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 동일 레포지토리에 만든 커스텀 액션을 실행하면 다음과 같은 로그를 확인할 수 있다.
 

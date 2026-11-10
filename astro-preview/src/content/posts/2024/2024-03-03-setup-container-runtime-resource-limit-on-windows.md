@@ -9,8 +9,6 @@ categories:
   - "windows"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 윈도우 운영체제에서 컨테이너는 WSL(Windows Subsystem for Linux)에서 동작한다. WSL도 일종의 가상 머신이기 때문에 별도로 리소스를 관리한다. WSL 시스템이 사용 중인 리소스 사이즈는 `vmmem`이라는 가상 머신의 리소스 사용량을 알려주는 프로세스를 통해 확인할 수 있다. 
@@ -39,11 +37,9 @@ WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8
 - 서비스를 릴리즈하기 전 사용한 도커 데스크탑의 리소스 설정 화면이다.
 - 직접 설정할 수 없고 `.wslconfig` 파일을 사용하라는 설명을 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 서비스를 릴리즈한 후 사용한 파드맨 데스크탑의 리소스 설정 화면이다.
 

@@ -9,8 +9,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 스프링 시큐리티(spring security)는 서블릿 필터 체인을 확장하여 인증, 인가 처리를 수행합니다. 

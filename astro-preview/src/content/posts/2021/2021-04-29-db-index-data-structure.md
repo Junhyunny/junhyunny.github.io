@@ -8,8 +8,6 @@ categories:
   - "data-structure"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 데이터베이스(database) 성능을 향상시키는 방법으로 항상 인덱스(index)에 대한 이야기가 나온다. 애플리케이션 팀원으로 일할 때 성능 팀과 인덱스, 힌트(hint) 설정에 관련된 메일을 자주 주고받았었지만, 단순히 `'조회 쿼리를 빠르게 만들기 위해 인덱스를 생성하고, 특정 힌트를 걸어준다.'` 정도로만 알고 지냈다. 정확한 개념을 알고 싶어 관련된 자료나 책을 읽어보니 상당히 내용이 많았다. 글이 너무 길어질 것 같기에 이번엔 인덱스에 대한 전반적인 개념들만 정리하였다.
@@ -22,12 +20,12 @@ categories:
 
 데이터베이스의 인덱스도 같은 형태이다. 다만, 여기서 키워드는 데이터베이스 특정 컬럼(column)의 데이터, 페이지는 데이터가 저장된 주소(address)가 된다. 쿼리 속도를 개선한다는 것은 불필요한 디스크 I/O 횟수를 줄이는 것이다. 인덱스를 사용하면 최소한의 횟수로 꼭 필요한 데이터만 읽도록 쿼리를 개선할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-01.png" width="60%" class="image__border">
 </div>
 <center>https://brunch.co.kr/@skeks463/25</center>
-
-<br/>
+</div>
 
 일반적으로 인덱스를 선언하는 방법은 다음과 같다.
 
@@ -95,12 +93,12 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 
 `B-Tree`의 B는 이진(binary)가 아닌 균형(balance)이다. 루트 노드에서 모든 리프 노드까지의 거리를 균일하게 조정한다. `B-Tree`는 차수에 따라 자식 노드 수가 결정된다. 예를 들어 2차 `B-Tree`는 자식 노드가 2개, 3차인 경우 3개이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-02.png" width="80%" class="image__border">
 </div>
 <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
-
-<br/>
+</div>
 
 데이터베이스의 `B-Tree`는 노드를 구분하는 기준이 페이지(page) 단위이다. 지금부터 트리의 노드를 페이지라고 표현한다. 데이터베이스의 `B-Tree`의 페이지 수는 가변적인데, 이는 페이지 크기와 인덱스 키 값의 크기에 따라 결정된다. 예를 들어보자. 
 

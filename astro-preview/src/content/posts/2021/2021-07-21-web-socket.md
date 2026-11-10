@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/web-socket-example/"
 ---
 
-<br/>
-
 ## 1. WebSocket
 
 웹소켓은 TCP 기반 전이중 통신(full-duplex communication)을 제공하며, [RFC 6455][RFC-6455] 문서에 관련 규격이 작성되어 있다. [RFC 6455][RFC-6455] 문서를 간단하게 살펴보자. 웹소켓(WebSocket) 등장 이전에 실시간 데이터를 확인하고 싶은 경우 클라이언트는 짧은 주기로 서버에 데이터를 요청하였다. 이를 `HTTP 폴링(polling)` 방식이라고 하는데, 다음과 같은 문제가 있다.
@@ -30,12 +28,12 @@ HTTP 폴링과 웹소켓의 차이점을 비교해 보자.
 | 반복 여부 | 일정 주기로 반복 수행한다. | 별도의 주기적 요청 없이 연결을 유지하며 데이터를 주고받는다. |
 | 연결 종료 | 요청과 응답이 끝나면 연결이 종료된다. | 서버와 클라이언트 모두 연결을 종료할 수 있다. |
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-01.png" width="80%">
 </div>
 <center>https://www.programmersought.com/article/55824983394/</center>
-
-<br/>
+</div>
 
 [Can I Use](https://caniuse.com/?search=websocket) 사이트에서 웹소켓 API를 사용할 수 있는 브라우저를 확인할 수 있다.
 

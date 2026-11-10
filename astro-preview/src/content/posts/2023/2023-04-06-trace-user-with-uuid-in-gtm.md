@@ -20,8 +20,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/local-storage/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 아래와 같은 구현 요건을 만족시키기 위해 [Override Method in JavaScript][override-method-in-javascript-link] 포스트에서 객체의 특정 메서드를 재정의하는 방법에 대해 정리하였습니다. 

@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/type-of-language/"
 ---
 
-<br/>
-
 ## 1. Traditional instanceof Operator
 
 레거시 시스템에서 컬렉션을 사용한 코드나 서블릿 컨테이너의 코드를 보면 Object 타입을 사용하는 경우를 종종 볼 수 있다. Object 타입인 경우 객체의 타입을 모르기 때문에 형 변환(type casting)을 수행하는데 이때 ClassCastException 예외가 발생하기도 한다. 이런 예외를 피하기 위해 instanceof 명령어를 사용한다.

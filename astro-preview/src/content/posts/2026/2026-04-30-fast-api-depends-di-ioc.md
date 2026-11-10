@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [토이 프로젝트](https://github.com/Junhyunny/archived-todo-agent)에서 랭체인(langchain)을 사용한 AI 에이전트 애플리케이션을 만들어 보고 있다. AI 에이전트 개발과 관련된 프레임워크를 공부하고 싶었기 때문에 가장 대중적인 랭체인을 선택했다. 단순한 예제가 아니라 실제로 직접 사용할 만큼 가치가 있는 애플리케이션을 만들고 싶었기 때문에 클라이언트-서버 구조를 도입했다. 그러면서 자연스럽게 인기가 많은 FastAPI 서버 프레임워크를 사용하게 됐다.
@@ -46,11 +44,9 @@ class FileSystemRepository:
 
 클래스 다이어그램으로 그려보면 다음과 같이 표현할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/fast-api-depends-di-ioc-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위 코드는 Service 객체와 FileSystemRepository 객체가 강하게 결합(coupling)되어 있다. Service 객체가 자신이 필요한 의존성인 FileSystemRepository 객체를 직접 생성해서 사용하고 있기 때문이다. 예를 들어, 현재는 파일 시스템에 데이터를 저장하고 있지만, 데이터베이스를 사용하게 된다면 어떻게 될까? 데이터베이스에 연결하기 위한 DatabaseRepository 클래스를 작성하고, 해당 Service 객체는 DatabaseRepository 객체를 만들어 사용해야 한다.
 
@@ -70,11 +66,9 @@ class DatabaseRepository:
 
 클래스 다이어그램으로 살펴보자. 데이터베이스와 관련된 새로운 기능이 추가되었고, Service 클래스에 코드 변경이 발생했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/fast-api-depends-di-ioc-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 좋은 설계를 위해 알아야 하는 개념들, 예를 들어 유명한 SOLID 원칙이나 흔히 말하는 결합도(coupling), 응집도(cohesion)라는 개념, 수많은 디자인 패턴의 근간에는 **'코드 변경이 발생하는 영역(scope)을 줄이고, 영향도를 줄이자'**는 생각이 깔려 있다. 아무리 작은 코드 변경이더라도 문제가 발생할 여지가 있기 때문이다. 그렇다면 의존 관계의 변화가 필요할 때 어떻게 하면 코드의 변화를 줄일 수 있을까?
 
@@ -110,11 +104,9 @@ class Service:
 
 Service 객체는 Repository 추상 클래스에 의존하고, 외부로부터 주입받기 때문에 Repository 인스턴스가 실제로 어떤 객체인지 관심이 없다. Repository 인스턴스의 기능이 확장되더라도 Service 클래스의 코드를 변경할 필요가 없다. 이 변경으로 인해 애플리케이션은 하위 모듈에 직접 의존하지 않고 추상화된 계층을 참조하는 의존성 역전 원칙(DIP, Dependency Inversion Principle)을 따르게 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/fast-api-depends-di-ioc-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 좋다. 그런데 의존성 주입은 어떻게 해야 할까? 결국 Service 객체에 필요한 Repository 인스턴스를 누군가 만들어 넣어 줘야 한다. 이런 작업을 해 주는 것이 FastAPI 프레임워크의 역할이다. 개발자가 직접 의존성 주입을 위한 코드를 작성하고, 의존 관계를 제어하는 것이 아니다. 프레임워크가 객체 생성을 제어하고, 필요한 의존성 간의 연결을 도와준다면 의존성 주입을 통해 각 컴포넌트 간 결합도를 낮출 수 있다. 이를 제어의 역전(IoC, Inversion of Control)이라고 한다.
 

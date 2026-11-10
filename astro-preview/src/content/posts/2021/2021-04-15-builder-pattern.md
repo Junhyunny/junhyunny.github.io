@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/mutable-immutable-object/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 빌더 패턴(builder pattern)에 관련된 글들을 읽어보면 서로 다른 이야기를 하는 경우가 있다. 원인을 찾아보니 유명한 저서인 `GoF 디자인 패턴`, `Effective Java`에서 빌더 패턴을 서로 다른 관점에서 이야기하고 있었다. 이번 글에선 두 책에서 설명하는 내용들을 나눠 정리했다.
@@ -35,12 +33,12 @@ recommendedPosts:
   - Builder 인터페이스를 구현한 클래스
   - Product를 만드는 방법을 구체적으로 구현
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/builder-pattern-01.png" width="80%" class="image__border">
 </div>
 <center>https://en.wikipedia.org/wiki/Builder_pattern</center>
-
-<br/>
+</div>
 
 GoF 디자인 패턴에서 이야기하는 빌더 패턴은 다음과 같은 장점을 갖는다.
 

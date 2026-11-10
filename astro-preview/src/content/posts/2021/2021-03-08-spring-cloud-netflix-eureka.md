@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/feignclient-with-eureka/"
 ---
 
-<br/>
-
 ## 1. Spring Cloud Netflix Eureka
 
 클라우드 환경의 서비스들은 수시로 생성, 소멸되면서 IP, 포트(port)가 변경된다. 클러스터(cluster) 내 서비스 컨테이너들을 관리해주는 `K8S` 같은 환경이 아니라면 서비스들의 정보를 별도로 관리할 필요가 있다. 마이크로서비스 아키텍처를 성공적으로 구축한 기업인 넷플릭스(Netflix)는 Netflix OSS(open source software)를 만들고 이를 공개했다. 클라우드 환경에서 마이크로서비스 아키텍처를 구축하는 데 도움이 되는 다양한 기술들이 존재한다.

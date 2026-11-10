@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/integration/mqtt-subscriber-spring-boot/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 공장 센서로부터 주기적으로 수집되는 데이터를 시각화하는 프로젝트에 참여하게 됐다. IoT 센서로부터 데이터를 수신하기 때문인지 IoT 프로젝트에서 많이 사용하는 MQTT(Message Queuing Telemetry Transport) 프로토콜을 사용 중이라고 했다. 개발에 들어가기 전에 기술을 더 잘 활용하기 위해 이 프로토콜에 대해 알아봤다.
@@ -55,24 +53,24 @@ QoS 0 수준(level) 통신은 가장 낮은 레벨이며 메시지 전달을 최
 - 메시지가 브로커에게 정상적으로 전달되었는지 확인하지 않는다.
 - `fire and forget` 전략이므로 발행자는 메시지를 재전송하지 않는다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-01.png" width="80%" class="image__border">
 </div>
 <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
-
-<br/>
+</div>
 
 QoS 1 수준 통신은 메시지가 최소 한번은 전달되는 것을 최우선으로 한다.
 
 - 발행자는 메시지를 브로커에 보낸 후 `PUBACK` 응답을 받기 전까지 메시지 카피(copy)를 보관한다. 
 - `at least once` 전략이므로 발행자는 `PUBACK` 응답을 받지 못하는 경우 일정 시간 후 메시지를 재전송한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-02.png" width="80%" class="image__border">
 </div>
 <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
-
-<br/>
+</div>
 
 QoS 2 수준 통신은 메시지가 정확히 한번 전달되는 것을 최우선으로 한다.
 

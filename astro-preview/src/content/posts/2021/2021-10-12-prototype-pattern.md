@@ -8,8 +8,6 @@ categories:
   - "design-pattern"
 ---
 
-<br/>
-
 ## 1. Prototype Pattern
 
 "프로토타입"이라는 이름처럼 원본을 두고 복사하여 사용하는 방법이다. 이미 생성된 인스턴스로 자신을 닮은 새로운 인스턴스를 복사해내어 사용한다. 새로운 객체를 일반적인 방법(생성자)으로 생성할 때 비용이 큰 경우 이용할 수 있는 디자인 패턴이다. 프로토타입 패턴을 구성하는 요소들은 다음과 같다.
@@ -21,12 +19,12 @@ categories:
 - Client
   - 원형(prototype)에게 자기 복사를 요청하는 클래스
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/prototype-pattern-01.png" width="80%" class="image__border image__padding">
 </div>
 <center>https://www.java2novice.com/java-design-patterns/prototype-pattern/</center>
-
-<br />
+</div>
 
 다음과 같은 상황에 프로토타입 패턴을 활용할 수 있다.
 

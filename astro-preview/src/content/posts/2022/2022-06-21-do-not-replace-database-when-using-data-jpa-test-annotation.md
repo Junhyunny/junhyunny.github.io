@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/database/not-found-schemas-at-h2-database/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][not-found-schemas-at-h2-database-link]에서 다뤘듯 H2 데이터베이스는 스키마 초기화를 `spring.datasource.url` 설정 뒷 부분에 추가해야 한다. 스키마 초기화 설정을 했을 때 서비스는 정상적으로 동작했지만, `@DataJpaTest` 애너테이션을 사용한 테스트들은 깨졌다. 이번 포스트에선 문제 현상, 원인, 해결 방법에 대해 정리했다. 

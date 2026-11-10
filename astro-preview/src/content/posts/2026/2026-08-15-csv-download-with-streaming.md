@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring/spring-data-jpa/postgres/database/stream/how-to-work-stream-retrun-type-in-jpa/"
 ---
 
-<br/>
-
 ## 1. Problem context
 
 문제 현상을 살펴보자. 사용자로부터 “CSV 파일을 다운로드할 때 브라우저에서 반응이 없다”라는 피드백을 받았다. 원인은 단순히 데이터가 너무 많았기 때문이다. 데이터베이스에서 필요한 데이터를 가져오는 쿼리를 실행하는 데 오랜 시간이 걸렸다.
@@ -221,11 +219,9 @@ public interface TodoRepository extends JpaRepository<TodoEntity, Long> {
 
 메모리 효율도 상당히 개선된다. 모든 데이터를 조회해 메모리에 올리는 것보다 1,000개씩 처리한 후 버리는 편이 메모리 부하가 적다. 100만 건의 TODO 데이터를 `findAll` 메서드로 가져오면 아래와 같이 약 1.7GB의 메모리를 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/csv-download-with-streaming-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 반면 스트림 방식을 사용하면 메모리 사용량이 거의 늘지 않는다. 한 번에 1,000건의 데이터만 메모리에 올려 처리한 후 버리기 때문에 메모리 사용량의 변동 폭이 작다.
 

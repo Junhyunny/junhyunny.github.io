@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/react/jest/how-to-test-clean-up/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이 글은 예전에 작성한 [리액트(react) useEffect 훅(hook)의 클린-업(clean-up) 함수를 테스트하는 방법][how-to-test-clean-up-link]에 대해 정리한 글을 다시 다듬는 과정에서 별도 주제로 다시 작성한 것이다. 예시 코드는 2022년 6월 기준이므로 리액트 버전이 매우 낮다. 
@@ -150,11 +148,9 @@ export default App;
 - 커스텀 버튼이 클릭될 때마다 새로운 이벤트가 등록된다. 
 - 이전에 등록된 이벤트는 해제되지 않고 함께 호출된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/react-use-effect-and-clean-up-02.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 결과를 보면 알 수 있듯이 등록한 콜백 함수가 해제되지 않는다. 이는 메모리 누수로 이어진다. 클린-업 함수를 사용해 등록한 함수를 제거해보자.
 

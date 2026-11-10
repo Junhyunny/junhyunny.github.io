@@ -7,8 +7,6 @@ categories:
   - "spring-boot"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `application.yml` 설정에 등록한 값들을 리스트(list)로 사용하는 방법에 대해 정리하였습니다. 

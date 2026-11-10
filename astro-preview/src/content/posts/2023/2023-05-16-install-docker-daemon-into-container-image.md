@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
 ---
 
-<br/>
-
 ## 1. Problem
 
 테스트 컨테이너(test container)를 사용한 결합 테스트 환경을 구축 후 CI/CD 파이프라인에서 문제가 발생했습니다. 

@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/terraform/deploy-ec2-into-target-group-in-aws-with-terraform/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][deploy-ec2-into-target-group-in-aws-with-terraform-link]에서 테라폼을 사용해 EC2 컨테이너를 구성하고 ALB 타겟 그룹(target group)에 연결하는 방법에 대해 정리했다. 이번 글에선 테라폼 상태 파일(tfstate file)을 관리하기 위한 백엔드(backend)라는 메커니즘에 대해 알아본다.
@@ -204,11 +202,9 @@ commands will detect it and remind you to do so if necessary.
 
 백엔드가 구성되었다면 버킷에 업로드 된 파일을 확인할 수 있다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/terraform-backend-for-tfstate-management-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 백엔드 구성이 완료되었다면 프로젝트 경로에 테라폼 상태 파일이 필요 없으니 삭제한다. terraform apply 명령어를 수행하면 상태 파일에 대한 락, 언락(unlock)을 수행한다는 로그를 확인할 수 있다. 
 

@@ -9,8 +9,6 @@ categories:
   - "web-socket"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 웹소켓을 사용하는 팀에서 사용자 로그인 세션이 끊긴 이후에 다시 로그인을 하면 이상한 페이지로 리다이렉트되는 문제가 발생한다는 리포트가 있었다. 이런 문제가 발생한 이유와 해결한 방법에 대해 정리했다. 
@@ -113,11 +111,9 @@ public class SecurityConfig {
 
 최초 로그인은 문제 없이 잘 동작했다. 로그인 한 사용자의 세션이 만료된 후 재로그인을 수행하면 이런 문제가 발생했다. 원인은 무엇일까? 우선 사용자 세션이 만료되면 웹 소켓 클라이언트는 지속적으로 연결을 시도한다. 브라우저 개발자 도구의 네트워크 탭을 보면 연결을 계속 시도하는 것을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/web-socket-hand-shaking-problem-with-spring-security-02.gif" width="100%" class="image__border">
 </div>
-
-<br />
 
 웹 소켓 연결 요청은 만료된 사용자 요청이기 때문에 이 과정에서 사용자 인증 예외가 발생한다. 발생한 예외는 ExceptionTranslationFilter 객체에서 처리된다. 예외를 처리하는 과정에서 sendStartAuthentication 메서드가 실행된다. 여기서 HttpSessionRequestCache 객체를 통해 서버 세션에 현재 요청에 대한 정보를 저장한다. 이는 추후 다시 사용자가 로그인하면 마지막에 실패한 요청으로 사용자를 리다이렉트시키기 위함이다.
 
@@ -159,11 +155,9 @@ public class ExceptionTranslationFilter extends GenericFilterBean implements Mes
 2. 예외 처리를 수행하는 ExceptionTranslationFilter 객체에서 이를 핸들링한다. 요청을 재사용하기 위해 HttpSessionRequestCache 객체를 통해 캐싱한다.
 3. HttpSessionRequestCache 객체는 요청 정보를 세션에 저장한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/web-socket-hand-shaking-problem-with-spring-security-03.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 이후 로그인이 성공하면 세션에 저장된 요청 객체를 꺼내서 재사용한다. 사용자 인증이 완료된 후 실행되는 SavedRequestAwareAuthenticationSuccessHandler 객체의 onAuthenticationSuccess 메서드를 살펴보자. 시큐리티 필터 체인을 생성할 때 defaultSuccessUrl 메서드로 리다이렉트 URL을 지정했다면 기본적으로 SavedRequestAwareAuthenticationSuccessHandler 객체가 사용된다.
 
@@ -215,11 +209,9 @@ public class SavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuth
 
 원인을 파악했으니 문제를 해결해보자. onAuthenticationSuccess 메서드를 보면 isAlwaysUseDefaultTargetUrl() 메서드를 볼 수 있다. isAlwaysUseDefaultTargetUrl() 메서드의 결과가 참(true)인 경우 세션에 저장된 요청 객체가 있더라도 항상 지정한 리다이렉트 URL로 요청을 보낸다. 이 메서드는 부모 클래스인 AbstractAuthenticationTargetUrlRequestHandler에 정의되어 있다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/web-socket-hand-shaking-problem-with-spring-security-05.png" width="60%" class="image__border">
 </div>
-
-<br />
 
 해당 플래그는 시큐리티 필터 체인을 생성할 때 설정할 수 있다.
 

@@ -8,8 +8,6 @@ categories:
   - "security"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [반사형 XSS(Reflected Cross Site Scripting) 공격과 방어][reflected-cross-site-scripting-link]
 - [저장형 XSS(Stored Cross Site Scripting) 공격과 방어][stored-cross-site-scripting-link]

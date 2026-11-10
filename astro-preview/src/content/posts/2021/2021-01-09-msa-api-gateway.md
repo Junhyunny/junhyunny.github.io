@@ -14,20 +14,18 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/spring-boot/spring-cloud/spring-cloud-gateway/"
 ---
 
-<br/>
-
 ## 1. API Gateway
 
 마이크로서비스 아키텍처는 전체 시스템을 각자 책임에 맡은 여러 개의 서비스들로 분산된 아키텍처다. 여기서 말하는 책임이란 간단한 예로 들면 온라인 쇼핑이라는 거대한 이커머스 도메인을 구성하는 사용자 관리, 주문, 결제, 배송 같은 비즈니스 도메인으로 분리하는 것을 의미한다. 그리고 분리된 비즈니스 도메인을 처리하는 서비스들의 협업으로 전체 시스템을 구성하는 것이다. 각 요청 트래픽은 자신을 처리해줄 수 있는 적합한 서비스에게 전달되어야 하지만, 여러 서비스가 있다 보니 클라이언트 애플리케이션(e.g. 웹 서비스, 모바일 애플리케이션) 측에서 어떤 서비스로 요청을 보내야 할지 분기하는 것이 여간 쉬운 일이 아니다. 클라이언트 측에서 이를 처리하려면 코드 복잡도가 상당히 높아질 것이 분명하다.
 
 이를 해결하기 위한 컴포넌트가 `API 게이트웨이(gateway)`이다. 클라이언트 애플리케이션 입장에선 API 서버들을 하나로 묶어 단일화한 것처럼 보이기 때문에 게이트웨이 하나의 호스트를 통해 여러 API 서비스에 접근할 수 있다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-api-gateway-01.png" width="100%" class="image__border">
 </div>
 <center>마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center>
-
-<br/>
+</div>
 
 API 게이트웨이는 엔드포인트 단일화를 위해서만 사용되는 컴포넌트는 아니다. 여러 가지 책임을 게이트웨이에 부여할 수 있다.
 
@@ -44,12 +42,12 @@ API 게이트웨이는 엔드포인트 단일화를 위해서만 사용되는 �
 
 API 게이트웨이는 특성상 모든 API 서버 앞쪽에 위치한다. 즉, 모든 트래픽이 API 게이트웨이를 거쳐간다. 모든 트래픽에 대해 공통적으로 처리해야 하는 공통 기능들을 API 게이트웨이에 구현하면 다른 API 서비스들은 비즈니스에 집중할 수 있다. 게이트웨이는 로그를 수집하기에도 매우 좋은 곳에 위치한다. API 호출 로그는 사용자 사용 패턴을 분석하거나 문제 발생 시 이를 추적하기 위한 자료로 사용된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-api-gateway-02.png" width="75%" class="image__border">
 </div>
 <center>MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center>
-
-<br/>
+</div>
 
 API 게이트웨이는 중재 기능을 수행하는 것이 가능하다. 중재란 서비스가 제공하는 각 API 서버의 응답 스키마(schema)가 클라이언트가 원하는 응답 스키마와 다를 때 이를 맞춰주는 작업을 의미한다. 예를 들면 다음과 같은 중재 작업들이 있다.
 

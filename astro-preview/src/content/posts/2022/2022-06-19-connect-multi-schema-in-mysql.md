@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/database/database-schema-and-catalog/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 프로젝트 중간에 다른 스키마(schema)에 존재하는 테이블에 연결해야 하는 상황이 발생했다. 애플리케이션의 책임을 줄이기 위해 한 개의 스키마를 사용하면 좋겠지만, 규정 등의 사유로 다른 스키마를 바라봐야 하는 상황이었다. JPA(Java Persistence API) `@Table` 애너테이션의 `schema` 속성 값 부여만으로 쉽게 해결될 줄 알았지만, 문제가 해소되진 않았다. 이번 글에선 관련된 문제와 해결 과정을 정리했다. 
@@ -132,11 +130,9 @@ public class MultiSchemaTests {
 
 테스트를 수행하면 실패한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/connect-multi-schema-in-mysql-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 실패 로그를 보면 다음과 같은 `hello` 스키마에 `tb_friend` 테이블을 찾지 못 한다는 중요한 힌트를 확인할 수 있다. 
 
@@ -230,11 +226,9 @@ public class Friend {
 
 위 설정 후 테스트를 수행하면 정상적으로 처리된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/connect-multi-schema-in-mysql-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 쿼리의 수행 로그를 보면 `world` 스키마에서 `tb_friend` 테이블을 탐색한다.
 
@@ -320,12 +314,12 @@ public class MultiSchemaTests {
 - 데이터베이스가 존재하지 않고 바로 스키마가 위치한다. 이 구조의 경우 데이터베이스와 스키마를 동의어로 사용한다.
 - 3계층 데이터베이스의 대표적인 예로 MySQL를 들 수 있으며, 이런 경우에는 데이터베이스와 스키마를 혼동하여 사용하는 경우가 발생한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/connect-multi-schema-in-mysql-04.png" width="80%" class="image__border">
 </div>
 <center>https://hue9010.github.io/db/mysql_schema/</center>
-
-<br/>
+</div>
 
 [MySQL 공식 문서](https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html)를 읽으면 다음과 같은 내용을 찾을 수 있다.
 
@@ -343,12 +337,12 @@ MySQL ODBC(Open Database Connectivity) 드라이버는 카탈로그와 데이터
 
 - NO_CATALOG, NO_SCHEMA 설정에 따라 드라이버에서 카탈로그와 스키마를 사용할지 여부를 선택한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/connect-multi-schema-in-mysql-05.png" width="80%" class="image__border">
 </div>
 <center>https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html</center>
-
-<br/>
+</div>
 
 결론을 정리하자면 `MySQL`에선 시스템 구조상 `카탈로그 = 스키마 = 데이터베이스`이므로 `MySQL`의 `ODBC` 드라이버는 카탈로그와 스키마를 같은 의미로 취급한다. 동시에 사용할 순 없어서 둘 중 하나를 사용하는데 `NO_CATALOG`, `NO_SCHEMA` 옵션을 통해 이를 설정한다. 디폴트 설정이 어떤 것인지는 확인하진 못 했지만, 옵션 설정에 따라 카탈로그를 사용한 것이라 예상된다.
 

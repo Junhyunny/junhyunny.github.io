@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `엔티티 매니저(EntityManager)`는 스레드 안전(thread safety)하지 않습니다. 

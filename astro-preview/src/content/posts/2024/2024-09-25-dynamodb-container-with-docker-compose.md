@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/aws/dynamo-db/dynamodb-crud-example-with-spring-boot/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 프로젝트에서 가장 어려운 부분은 DynamoDB라는 새로운 기술 셋을 사용해야만 한다는 것이다. 패러다임이 완전히 다르기 때문에 데이터베이스 설계나 사용하는 부분에서 애를 먹고 있다. 시작한지 두 달이 넘어가는 중이지만, 여전히 여러가지 것들을 시도해보고 있다. 일단 이번 글은 로컬 환경에 DynamoDB를 준비하는 과정에 대해 정리했다. 

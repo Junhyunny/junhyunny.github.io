@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/ai/ai-agent/ontology/context/context-engineering/ai-ontology/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [이전 글][ai-ontology-link]에서 다룬 것처럼 온톨로지(ontology)는 RDF(Resource Description Framework)와 OWL(Web Ontology Language)을 통해 표현된다. 
@@ -158,19 +156,15 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 지금부터 온톨로지 파일을 임포트해보자. 컨테이너가 정상적으로 실행되었다면 [http://localhost:7474/browser/](http://localhost:7474/browser/) 경로에 접속할 수 있다. 다음과 같은 화면을 볼 수 있다. 컨테이너를 실행할 때 지정한 아이디와 비밀번호를 사용한다. 아이디는 `neo4j`, 비밀번호는 `cool-culture-vodka-beach-eric-9620`다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/import-tutle-file-into-neo4j-browser-01.png" width="100%" class="image__border">
 </div>
 
-<br />
-
 로그인에 성공하면 다음과 같은 왼쪽 사이드 바는 데이터베이스 정보다. 현재는 비어있는 상태다. 화면 상단에는 사이퍼(cypher) 언어를 실행할 수 있는 입력란이 있다. 이후로 살펴보는 사이퍼 쿼리는 화면 상단 입력란에서 실행한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/import-tutle-file-into-neo4j-browser-02.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 RDF 데이터를 임포트하기 전에 먼저 제약 조건을 생성한다. 이 제약 조건은 데이터 무결성과 성능 두 가지 측면에서 필요하다.
 
@@ -190,11 +184,9 @@ CREATE CONSTRAINT n10s_unique_uri FOR (r:Resource) REQUIRE r.uri IS UNIQUE
 
 화면 상단 입력란에서 사이퍼를 실행하면 다음과 같은 결과를 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/import-tutle-file-into-neo4j-browser-03.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 다음으로 `GraphConfig`를 생성한다. 이는 RDF 데이터가 neo4j에 저장되는 방식을 정의한다. 설정에 따라 어떤 동작을 하는지 예시를 살펴보자. handleVocabUris 값은 `SHORTEN`으로 설정된다.
 
@@ -219,11 +211,9 @@ CALL n10s.graphconfig.init()
 
 화면 상단 입력란에서 사이퍼를 실행하면 다음과 같은 결과를 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/import-tutle-file-into-neo4j-browser-04.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 그래프 설정이 생성되면 RDF 데이터를 URL, 인라인(inline), 파일을 통해 임포트 할 수 있다. 이 글은 `import` 디렉토리에 위치한 터틀 파일을 사용한다.
 
@@ -236,11 +226,9 @@ CALL n10s.rdf.import.fetch(
 
 위 명령어를 실행하면 노드 라벨들이 생성된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/import-tutle-file-into-neo4j-browser-05.png" width="100%" class="image__border">
 </div>
-
-<br />
 
 해당 데이터들의 연결을 그래프로 확인할 수 있다.
 

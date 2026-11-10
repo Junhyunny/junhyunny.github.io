@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/service-worker-api/"
 ---
 
-<br/>
-
 ## 1. Mock Service Worker
 
 목 서비스 워커(MSW, Mock Service Worker)는 이름처럼 [서비스 워커(Service Worker)][service-worker-api-link]의 [테스트 더블(test double)][test-double-link]을 의미한다. API 모킹(mocking)을 지원하는 라이브러리이며 서버로 보내는 네트워크 요청을 가로채어 모의 응답을 내려준다. 서비스 워커가 무엇이고 어떤 동작을 하는지 안다면 목 서비스 워커를 이해하는데 도움이 된다. 먼저 서비스 워커에 대해 간단하게 알아본다.

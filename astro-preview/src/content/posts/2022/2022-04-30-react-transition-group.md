@@ -7,8 +7,6 @@ categories:
   - "react"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [Slide In/Out Effect][slide-in-out-effect-link]
 

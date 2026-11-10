@@ -9,8 +9,6 @@ categories:
   - "hibernate"
 ---
 
-<br/>
-
 ## 1. Problem Context
 
 테이블 컬럼 이름을 변경하는 작업을 수행하면서 문제가 발생했습니다. 

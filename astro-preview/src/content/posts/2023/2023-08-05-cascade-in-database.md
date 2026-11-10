@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-cascade-type/"
 ---
 
-<br/>
-
 ## 1. Referential Integrity in Database
 
 관계형 데이터베이스(RDB, Relational Database)는 참조 무결성(referential integrity)이라는 개념이 존재합니다.

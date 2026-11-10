@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/gmt-and-utc/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 공부하다보니 `JavaScript`의 타임존(timezone) 지원은 다른 언어에 비해 미흡하다는 글을 읽었습니다. 

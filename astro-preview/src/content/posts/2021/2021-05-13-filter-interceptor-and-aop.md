@@ -18,20 +18,18 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/test-driven-development/improve-feign-client-aop-test/"
 ---
 
-<br/>
-
 ## 1. Location of Filter, Interceptor and AOP
 
 필터(filter), 인터셉터(interceptor), AOP(aspect oriented programming)은 각자 수행되는 위치가 다르다. 각 기능들에 대한 내용을 정리하기 전에 어느 위치에서 동작하는 컴포넌트인지 살펴본다.
 
 필터는 톰캣 같은 서블릿 컨테이너에서 동작한다. 요청이 서블릿으로 전달되기 전에 실행된다. 반면, 인터셉터는 스프링(spring) 프레임워크 내부에서 동작한다. 서블릿에 의해 요청을 처리할 적절한 핸들러가 결정되었다면, 핸들러 이전에 실행된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/filter-interceptor-and-aop-01.png" width="80%" class="image__border">
 </div>
 <center>https://gowoonsori.com/blog/spring/architecture/</center>
-
-<br/>
+</div>
 
 AOP 스프링 프레임워크 내부에서 동작한다.
 

@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/aws-ecs-service-setup/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 ECS(Elastic Container Service) 클러스터를 구축하려면 컨테이너 이미지가 필요하다. 컨테이너 이미지는 도커 허브(docker hub) 같은 이미지 레포지토리가 필요하다. AWS 클라우드에서 제공하는 이미지 저장소인 ECR(Elastic Container Registry) 컴포넌트를 제공한다. 이번 글에선 AWS ECR 레포지토리를 생성하고 이미지를 푸시(push)하는 방법에 대해 정리한다. 
@@ -26,21 +24,17 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 
 이제 프라이빗 레포지토리를 만들어보자. `ECR 대시보드`에서 프라이빗 레지스트리의 레포지토리 화면으로 이동한다. 
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecr-setup-01.png" class="image__border">
 </div>
-
-<br/>
 
 해당 화면에서 기존에 운영 중인 레포지토리 정보를 확인할 수 있다. 이 화면에서 레포지토리를 생성할 수 있다.
 
 - `Create repository` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecr-setup-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 레포지토리 생성 화면에서 레포지토리를 생성한다.
 
@@ -61,11 +55,9 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 
 레포지토리가 생성되면 이미지를 업로드 할 수 있다. 이미지를 업로드하는 명령어는 레포지토리 화면 상단 `View push commands` 버튼을 누르면 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecr-setup-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 프라이빗 레포지토리에 이미지를 푸시하기 위해선 인증 과정이 필요하다. 터미널에서 도커 명령어로 해당 프라이빗 레포지토리에 로그인 한 이후 이미지를 푸시해야 한다.
 
@@ -74,11 +66,9 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 3. 태그 이름 변경
 4. 이미지 푸시
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecr-setup-06.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 필자는 파워 유저(power user)이기 때문에 클라이언트 액세스(access)를 위해 임시로 획득한 환경 변수를 터미널 세션에 준비한다.
 

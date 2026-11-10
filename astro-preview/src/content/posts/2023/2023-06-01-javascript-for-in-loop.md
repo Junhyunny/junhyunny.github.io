@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/javascript/javascript-for-of-loop/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [JavaScript for-of Loop][javascript-for-of-loop-link] 포스트 도입부에서 언급했듯이 헷갈리는 for 반복문 문법에 대한 이야기입니다. 

@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/nginx/cache-control-on-nginx/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 리액트(react) 애플리케이션으로 간단한 서비스를 개발했다. 서비스를 사용하는 현장의 네트워크 상황이 좋지 않아서 사용자들에게 버그로 인식될 정도였는데, 몇 가지 설정을 통해 이를 개선했다. 이번 글에서는 Nginx 압축(compression) 관련 설정에 대해 정리한다.
@@ -147,11 +145,9 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 컨텐츠 길이가 143,916 바이트이다.
 - 컨텐츠 타입은 `application/javascript`이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/compression-on-nginx-01.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 서버의 응답 타이밍은 다음과 같았다.
 
@@ -159,28 +155,22 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 - 콘텐츠를 다운로드 받는데 걸리는 시간은 855.36ms이다.
 - 총 소요된 시간은 1.44s이다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/compression-on-nginx-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다음으로 압축 설정을 적용한 Nginx 서버로부터 페이지를 요청한다. 다음과 같은 응답 헤더를 받았다.
 
 - 컨텐츠 인코딩(encoding)이 `gzip`으로 표시된다. 원래 컨텐츠 사이즈는 144kB, 압축 후 사이즈는 46.9kB로 표시된다.
 - 컨텐츠 타입은 `application/javascript`이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/compression-on-nginx-03.png" width="50%" class="image__border">
 </div>
 
-<br />
-
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/compression-on-nginx-04.png" width="70%" class="image__border">
 </div>
-
-<br/>
 
 서버의 응답 타이밍은 다음과 같았다.
 
@@ -227,11 +217,9 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
   - 3.4MB
   - 21.67초 소요
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/compression-on-nginx-05.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 압축이 적용되었을 때 다운로드 받은 각 리소스의 크기와 소요된 시간을 살펴본다.
 

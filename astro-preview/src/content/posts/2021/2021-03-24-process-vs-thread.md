@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/operating-system/process-control-block-and-context-switching/"
 ---
 
-<br/>
-
 ## 1. Process
 
 흔히들 프로그램(program)이라는 말을 많이 사용한다. 프로그램은 프로세스와 엄연히 다르다. 프로세스에 대한 개념을 알아보기 전에 프로그램에 대한 정의를 살펴보자.
@@ -56,12 +54,12 @@ recommendedPosts:
 - 각 스레드 별로 레지스터와 스택을 가진다.
 - 코드, 데이터, 파일은 공유한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-vs-thread-02.png" width="60%" class="image__border">
 </div>
 <center>Operating System Concepts 9th</center>
-
-<br/>
+</div>
 
 스레드를 사용했을 때 얻을 수 있는 이점은 무엇일까?
 

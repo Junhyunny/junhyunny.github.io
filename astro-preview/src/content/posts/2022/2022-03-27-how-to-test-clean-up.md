@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이 글은 리액트(react) useEffect 훅(hook)의 클린-업(clean-up) 함수에서 등록된 이벤트 리스너(event listener) 제거를 테스트하는 방법에 대해 정리했다. 

@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/live-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 현재 리뉴얼 중인 시스템에 모바일 기능을 추가하는 데 사용자의 디바이스 식별을 어디에서 수행할지 고민되었다.
@@ -68,11 +66,9 @@ $ live-server
 
 PC 환경의 브라우저에서는 아래 이미지처럼 표시된다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mobile-device-detect-01.png" width="50%" class="image__border">
 </div>
-
-<br/>
 
 모바일 환경의 브라우저에서는 아래 이미지처럼 표시된다.
 
@@ -387,11 +383,9 @@ public class MobileController {
 
 애플리케이션을 실행한 후 PC 환경에서 접근하면 아래와 같은 화면을 볼 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mobile-device-detect-03.gif" class="image__border">
 </div>
-
-<br/>
 
 모바일 환경에서 접근하면 아래와 같은 화면을 볼 수 있다.
 

@@ -8,8 +8,6 @@ categories:
   - "jenkins"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [CI/CD란 무엇인가?][what-is-ci-cd-link]
 - [Install Jenkins][jenkins-install-link]

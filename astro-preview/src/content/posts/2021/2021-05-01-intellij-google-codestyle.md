@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/maven/maven-checkstyle/"
 ---
 
-<br/>
-
 ## 1. Google CodeStyle for IntelliJ
 
 구글에서 공통된 코드 컨벤션(convention)을 적용할 수 있는 XML 파일을 제공한다. `intellij-java-google-style.xml` 파일을 [이 링크](https://github.com/google/styleguide/blob/gh-pages/intellij-java-google-style.xml)에서 다운로드 받을 수 있다. 다운로드 받은 `intellij-java-google-style.xml` 파일은 프로젝트 루트(root) 경로에 위치시킨다. 파일 경로는 상관 없고, 프로젝트 코드들과 함께 관리되도록 위치시킨다.

@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
 ---
 
-<br/>
-
 ## 1. SwiftUI UI 테스트와 테스트 더블
 
 SwiftUI의 UI 테스트는 XCUITest를 사용해 실제 앱을 실행한 뒤 사용자 관점에서 화면을 조작하고 결과를 검증하는 테스트다. 이러한 특성 때문에 E2E 테스트와 비슷하다. 단위 테스트에서는 테스트 대상을 격리하고, [테스트 더블(test double)][test-double-link]을 사용해 필요한 컨텍스트를 준비한다. 반면 UI 테스트는 시뮬레이터에서 실제 애플리케이션을 실행하기 때문에 테스트 코드로 필요한 컨텍스트를 준비하기 어렵다.
@@ -33,11 +31,9 @@ UI 테스트에서도 위 컨텍스트 중 초기 상태나 실행 환경을 제
 - 단위 테스트: 보통 테스트 대상이 의존하는 모듈에 인터페이스로 경계를 만든다. 인터페이스를 구현한 테스트 더블을 준비하고, 테스트 코드에서 이 테스트 더블을 사용해 필요한 컨텍스트를 만든다.
 - UI 테스트: 애플리케이션 자체를 블랙 박스로 간주한다. 사용자처럼 코드로 에뮬레이터에서 실행 중인 애플리케이션을 제어한다. 앱이 실행 중이기 때문에 테스트 코드로 필요한 컨텍스트를 제어하는 데 한계가 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swit-ui-test-flying-fox-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 UI 테스트에서 외부 의존성과 연결된 모듈을 직접 테스트 더블로 만들어 제어하기는 어렵지만, 외부 의존성 자체를 테스트 더블로 만드는 것은 가능하다. 예를 들어 애플리케이션이 서버와 연결되어 있다고 가정해 보자. 애플리케이션 입장에서 서버는 외부 의존성이다. 이 서버를 테스트 더블로 만들면 테스트 코드에서 서버의 응답을 제어하거나 어떤 요청을 받았는지 확인할 수 있다.
 

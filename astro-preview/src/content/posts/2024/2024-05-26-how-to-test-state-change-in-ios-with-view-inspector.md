@@ -10,8 +10,6 @@ categories:
   - "test-driven-development"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 ViewInspector는 SwiftUI 단위 테스트를 위한 패키지다. ViewInspector 패키지는 몇 가지 제약 사항들 때문에 구현체 코드에 테스트를 위한 장치들이 추가되야 한다. @State, @StateObject 필드들의 변경을 감지 못 하는 문제가 그 중 하나이다. 이번 글은 관련된 문제를 해결하는 방법에 대해 정리했다.

@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/transcation-isolation/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 크리스 리차든의 [사가 패턴(Saga Pattern)][chris-saga-pattern-link] 영상을 보고 얻은 인사이트(insight)들을 저의 방식대로 정리하였다. 가볍게 생각하면 간단해 보이지만, 곰곰이 생각해보면 고민할 요소들이 굉장히 많다. 
@@ -67,22 +65,18 @@ recommendedPosts:
 - 코디네이터는 각 데이터베이스 노드들에게 커밋을 위한 준비 요청을 보낸다.
 - 각 데이터베이스 노드들은 준비 성공, 실패 여부를 응답한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/distributed-transaction-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 두 번째 단계(second phase 혹은 commit phase)는 다음과 같이 동작한다.
 
 - 코디네이터는 모든 데이터베이스 노드들로부터 준비 완료 응답을 받으면 커밋을 요청한다.
 - 코디네이터는 단 하나의 데이터베이스 노드라도 준비 실패 응답을 보내면 모든 데이터베이스 노드들에게 롤백을 요청한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/distributed-transaction-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 `JTA` 구현체를 사용하여 `MSA` 환경에서 2단계 커밋을 구현한 예시나 방법을 찾지 못하였다. 하지만 이 외에도 2단계 커밋은 다음과 같은 이유로 `MSA` 환경에서 사용하기 어렵다.
 

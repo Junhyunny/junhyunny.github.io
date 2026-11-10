@@ -13,8 +13,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/server/tomcat-session-management/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [톰캣 세션 관리(Session Management in Tomcat) 글][tomcat-session-management-link]을 작성하면서 이전에 작성한 [쿠키(Cookie)와 세션(Session) 글][cookie-and-session-link]을 다시 읽어봤다. 다중 인스턴스인 경우 세션을 처리하는 방법에 대한 내용을 언급했었는데, 이를 쉽게 구현할 수 있게 도와주는 스프링(spring) 프레임워크의 기능을 발견했다. `스프링 세션(Spring Session)`을 사용하면 `레디스(Redis)`나 `데이터베이스` 등을 통해 세션 정보를 저장 및 관리할 수 있다. 주말에 공부할 겸 간단하게 데이터베이스를 이용해 세션을 구현해봤다.
@@ -55,11 +53,9 @@ public class Config {
 
 여기서 테이블을 만들 때 사용되는 스키마(schema) 정보는 `schema-h2.sql` 파일에 존재하는 것 같다. 해당 파일은 `pom.xml` 파일에 `spring-session-jdbc` 의존성 추가 시 함께 내려받으므로 `IntelliJ` 파일 검색에서 검색된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-session-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위 코드는 H2 데이터베이스를 위한 스키마이므로, MySQL 데이터베이스에서 사용할 수 있도록 변경한다.
 
@@ -96,11 +92,9 @@ SELECT * FROM SPRING_SESSION;
 
 정상적으로 생성된 것을 확인할 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-session-03.png" class="image__border">
 </div>
-
-<br/>
 
 SPRING_SESSION_ATTRIBUTES 테이블 생성 여부도 확인한다.
 
@@ -410,11 +404,9 @@ index.jsp 코드를 살펴보자. 요청 버튼을 누르면 `http://localhost:8
 
 구현 코드는 모두 살펴봤으니 예상대로 동작하는지 살펴보자. 화면에서 요청 버튼을 클릭한다. 서로 다른 서버 애플리케이션에 접근하지만, 세션을 공유하고 있기 때문에 접근 횟수가 증가하는 것을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-session-05.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 데이터베이스에 세션 데이터가 정상적으로 저장되었는지 살펴보자. SPRING_SESSION 테이블 데이터를 확인한다.
 
@@ -424,11 +416,9 @@ SELECT * FROM SPRING_SESSION;
 
 정상적으로 세션 데이터가 저장되었다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-session-06.png" class="image__border">
 </div>
-
-<br/>
 
 SPRING_SESSION_ATTRIBUTES 테이블 데이터도 확인한다.
 

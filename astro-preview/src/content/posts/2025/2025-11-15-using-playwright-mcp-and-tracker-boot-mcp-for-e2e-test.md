@@ -22,8 +22,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/github/github-mcp/playwright/playwright-mcp/ai-agent/large-language-model/model-context-protocol/context-engineering/using-github-mcp-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 지난 달에 한국 멤버들끼리 AI 도구를 사용한 개발 핸즈-온 시간을 가졌다. 나는 [피그마 MCP 서버][using-figma-mcp-server-link]를 사용해 간단한 애플리케이션에 피그마 디자인을 입히는 실습과 Playwright MCP 서버를 사용한 E2E 테스트 워크플로우를 만들어보는 실습을 준비했다. MCP 서버를 통해 개발 프로세스를 개선할 수 있는 사례가 될 것 같아서 블로그에 정리했다. MCP 서버에 대한 개념이 부족하다면 [이 글][mcp-and-mcp-server-link]을 참조하길 바란다.
@@ -36,11 +34,9 @@ recommendedPosts:
 
 LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 수 없다. 물론 AI 에이전트도 직접 브라우저를 제어하는 것은 불가능하다. Playwright MCP 서버는 AI 에이전트가 LLM과 협업하여 브라우저를 조작할 수 있도록 도구다. 사람이 자연어로 작성한 테스트 시나리오는 AI 에이전트에 의해 수행된다. AI 에이전트는 시나리오를 테스트하기 위해 Playwright MCP 서버를 통해 브라우저 조작한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 [이 글][mcp-and-mcp-server-link]에서 설명한 것처럼 MCP 서버는 AI 에이전트가 사용할 수 있는 도구들을 제공한다. Playwright MCP 서버는 어떤 도구들을 제공할까? 아래 테이블에서 볼 수 있듯이 브라우저를 조작하는 도구들을 제공한다. 이 외에도 다른 도구들을 제공하며, 자세한 내용은 [이 링크](https://github.com/microsoft/playwright-mcp?tab=readme-ov-file#tools)를 참조하길 바란다.
 
@@ -194,11 +190,9 @@ Then
 
 AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕으로 테스트 시나리오를 생성한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test-03.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 위 예제에선 다음과 같은 테스트 시나리오가 만들어진다.
 
@@ -221,11 +215,9 @@ AI 에이전트는 트래커 부트에 작성된 사용자 스토리를 바탕�
 
 테스트 실행을 허가하면 AI 에이전트는 자신이 만든 시나리오를 바탕으로 테스트를 실행한다. Playwright MCP 서버로 브라우저를 조작한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test-04.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 AI 에이전트는 E2E 테스트가 통과하면 테스트 코드를 작성한다. 개발자는 테스트 코드를 리뷰 후 커밋한다.
 

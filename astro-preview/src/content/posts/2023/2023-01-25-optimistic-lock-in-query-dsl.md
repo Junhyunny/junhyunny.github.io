@@ -15,8 +15,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-optimistic-lock/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 JPA(java persistence api)는 `@Version` 애너테이션으로 낙관적 락(optimistic lock) 기능을 제공합니다. 

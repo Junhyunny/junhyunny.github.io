@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/database/flyway/flyway-cli-for-database-migration/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 포스트는 스프링 프레임워크(spring framework)에서 `Flyway`를 적용하는 방법에 대해 다룹니다. 

@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/java-volatile/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 자바(Java)는 멀티 스레드 환경에서 스레드 안전성(thread safety)을 위해 `Atomic` 키워드가 붙은 클래스를 제공한다. 이 클래스들은 `java.util.concurrent.atomic` 패키지에 위치한다. `Atomic`이라는 키워드가 붙은 것처럼 원자적 연산(atomic operation)이라는 개념과 연관 있어 보인다. 이 개념을 먼저 살펴보겠다.

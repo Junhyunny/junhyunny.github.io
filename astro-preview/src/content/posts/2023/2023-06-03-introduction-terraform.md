@@ -9,8 +9,6 @@ categories:
   - "dev-ops"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 데브옵스(DevOps, Development and Operations)나 인프라스트럭처(infrastructure) 엔지니어는 아니지만, 테라폼에 관련된 공부를 할 필요가 생겼다. 이번 글에선 자동화 프로비저닝(provisioning) 도구인 테라폼(terraform)을 가볍게 소개한다.

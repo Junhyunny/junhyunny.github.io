@@ -7,8 +7,6 @@ categories:
   - "information"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 새로운 회사의 온보딩 과정에서 많은 내용들을 배우면서 지내고 있다. 팀원과 대화 중 도커 관련된 내용이 나왔는데, 아직도 모르는 게 많다는 점을 다시 느꼈다. 개념은 조금 알고 있지만 업무에서 직접적으로 사용해 보진 않아서 깊은 부분까진 몰랐다. 회사의 주요 솔루션들 대부분이 클라우드 컨테이너를 다루는데, 곰곰이 생각해 보면 컨테이너에 대한 정확한 개념을 잘 모르는 것 같다. 소속한 팀과 맡은 역할은 컨테이너 솔루션과 다소 거리가 있지만, 컨테이너에 대한 기본적인 개념은 알아두면 좋을 것이라 생각한다.
@@ -29,11 +27,9 @@ categories:
 - 가상 머신 내부에서 운영체제(Guest OS)와 실행 파일, 라이브러리, 애플리케이션이 동작한다.
 - 가상 머신들끼리는 독립적(independent)으로 구성되며 서로의 존재를 알 수 없다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-01.gif" width="40%">
 </div>
-
-<br/>
 
 가상 머신은 다음과 같은 장점을 가지고 있다.
 
@@ -59,11 +55,9 @@ categories:
 - 컨테이너 런타임에서 컨테이너 이미지들을 실행한다.
 - 컨테이너 런타임에서 실행되는 프로세스들은 호스트 머신(host machine)의 커널(kernel)을 공유한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-02.gif" width="40%">
 </div>
-
-<br/>
 
 컨테이너로 묶여 실행되는 프로세스들은 커널을 공유하지만, 리눅스의 네임스페이스(namespace), 컨트롤 그룹(control group) 기능을 통해 격리되어 실행된다. 이런 기능을 통해 호스트 머신 입장에서는 단순 프로세스들이지만, 각 프로세스 관점에서는 독립적인 실행 환경으로 보이게 된다. 관련된 내용을 깊이 공부한 후 정리하고 싶었지만, 이해하기 어려운 부분이 있어서 얕은 수준으로 정리한다. 운영체제(OS)에 대한 깊은 이해도를 가지고, 커널 프로그래밍을 다뤄봤다면 더 좋은 글을 쓸 수 있었을 것이다.
 
@@ -91,12 +85,12 @@ categories:
 
 컨테이너는 리눅스의 `PID namespace`가 적용된 것이다. PID namespace 분리 시 특정 네임스페이스 영역의 프로세스는 다른 네임스페이스 영역의 프로세스를 알 수 없다. `NS namespace` 분리까지 이뤄진 경우 정확하게 동작한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-03.png" width="50%">
 </div>
 <center>https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
-
-<br/>
+</div>
 
 다음은 컨트롤 그룹(cgroup)의 개념을 알아야 한다. 마찬가지로 위키피디아를 찾아보면 다음과 같은 설명을 볼 수 있다.
 
@@ -105,12 +99,12 @@ categories:
 
 컨트롤 그룹은 하드웨어 자원(CPU, memory, disk I/O, network, etc.)을 프로세스 집합에게 할당하고 제한하는 기능이다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-04.png" width="50%">
 </div>
 <center>https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
-
-<br/>
+</div>
 
 마지막으로 왜 최근 클라우드 시장을 가상 머신이 아닌 컨테이너가 점유하게 되었는지, 컨테이너의 장점을 정리하면서 이 글을 마무리해보자.
 

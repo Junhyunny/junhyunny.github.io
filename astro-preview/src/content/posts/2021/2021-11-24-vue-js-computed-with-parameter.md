@@ -7,8 +7,6 @@ categories:
   - "vue.js"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이 글의 예시에서 `{ { someValue } }`으로 표기된 코드는 띄어쓰기를 붙여야지 정상적으로 동작한다.
@@ -75,11 +73,9 @@ export default {
 
 위 코드를 브라우저에서 실행하면 `computedMessage`는 함수가 아니라는 에러 메시지를 확인할 수 있다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/vue-js-computed-with-parameter-01.png" width="50%" class="image__border">
 </div>
-
-<br />
 
 스택 오버플로우(Stack Overflow)에서 다음과 같은 답변을 찾을 수 있었다.
 

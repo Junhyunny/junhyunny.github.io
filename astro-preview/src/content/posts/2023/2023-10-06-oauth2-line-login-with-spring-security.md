@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/security/oauth/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 많은 애플리케이션들은 SNS 인증을 통해 로그인 프로세스를 구현합니다. 

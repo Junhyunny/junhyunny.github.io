@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring/spring-boot/cglib/"
 ---
 
-<br/>
-
 ## 1. Proxy Pattern
 
 프록시 패턴(proxy pattern)을 사용하면 특정 구현 클래스를 직접 변경하지 않고도 기능을 확장할 수 있다. 
@@ -85,11 +83,9 @@ public class Proxy implements java.io.Serializable {
 3. invoke 메서드 내부에서 필요한 기능들을 실행한 후 타겟(target) 객체에게 요청을 전달한다. 
 4. 타겟 객체는 전달받은 요청을 수행한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dynamic-proxy-in-java-02.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 JDK 동적 프록시 기능은 다음과 같은 한계점을 가진다. 
 

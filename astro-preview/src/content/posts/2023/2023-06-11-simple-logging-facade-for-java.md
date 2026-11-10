@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/logback-in-spring-boot/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 시스템을 구축이 끝나면 운영으로 넘어가기 전에 로깅(logging) 시스템 구축이 반드시 필요합니다. 

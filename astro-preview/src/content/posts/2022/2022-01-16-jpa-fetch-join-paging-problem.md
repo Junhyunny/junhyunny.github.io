@@ -8,8 +8,6 @@ categories:
   - "jpa"
 ---
 
-<br/>
-
 👉 해당 포스트를 읽는데 도움을 줍니다.
 - [JPA 페이징(paging) 처리][jpa-paging-link]
 - [JPA N+1 Problem][jpa-one-plus-n-problem-link]

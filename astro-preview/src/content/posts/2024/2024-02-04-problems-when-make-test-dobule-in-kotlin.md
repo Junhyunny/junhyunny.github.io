@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 코틀린(kotlin)은 자바(java)를 기반으로 만든 언어이기 때문에 서로 호환된다. 하지만 엄밀히 같은 언어는 아니기 때문에 완벽하게 호환되진 않는다. 이번 글은 테스트 코드를 작성할 때 자바와 다르게 에러가 발생한 부분에 대해 정리했다.

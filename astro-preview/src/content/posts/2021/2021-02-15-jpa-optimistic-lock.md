@@ -20,8 +20,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/spring-boot/query-dsl/jpa/optimistic-lock-in-query-dsl/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 낙관적인 락(optimistic lock) 개념을 다시 정리 후 글을 이어가겠다.

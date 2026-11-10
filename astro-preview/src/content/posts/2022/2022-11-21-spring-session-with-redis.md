@@ -18,8 +18,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Spring Session with JDBC][spring-session-link] 포스트에선 데이터베이스와 `Spring Session`를 통해 다중 인스턴스 환경에서 세션을 공유하는 방법에 대해 다뤘습니다. 

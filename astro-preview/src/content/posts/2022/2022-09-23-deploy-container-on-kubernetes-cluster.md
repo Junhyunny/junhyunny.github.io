@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/kubernetes/kubernetes-architecture/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 포스트에서는 간단한 애플리케이션 컨테이너를 쿠버네티스 클러스터(kubernetes cluster)에 배포해보겠습니다. 

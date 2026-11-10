@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/operating-system/process-vs-thread/"
 ---
 
-<br/>
-
 ## 1. PCB(Process Control Block)
 
 PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스에 대한 정보를 담고 있는 자료구조이다. 운영체제는 PCB에 담긴 프로세스 정보를 이용하여 프로세스를 관리/제어한다. 프로세스가 생성될 때마다 고유의 PCB가 생성되고 프로세스가 완료되면 제거된다. PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사용자가 접근하지 못하는 보호된 메모리 영역에 존재한다.

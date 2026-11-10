@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/linux/maria-db-install/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이번 글에서는 MariaDB 서버에 새로운 사용자 정보를 등록하는 방법과 외부에서 접속하는 데 발생했던 문제를 해결한 방법을 공유해 보려 한다. 테스트 환경은 다음과 같다.
@@ -83,11 +81,9 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 > Can't connect to MySQL server on 'IP Address'(10061)
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maria-db-add-host-01.png" width="50%">
 </div>
-
-<br/>
 
 `netstat -lntp` 명령어로 문제의 원인을 확인할 수 있다. Local Address의 IP 주소가 `0.0.0.0`이라면 모든 인터페이스를 허용하겠다는 의미지만, `127.0.0.1`이라면 자기 자신에서만 호출할 수 있는 상태다.
 

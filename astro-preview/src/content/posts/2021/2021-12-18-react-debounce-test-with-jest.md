@@ -12,8 +12,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/react/jest/throttle-test-with-jest/"
 ---
 
-<br/>
-
 ## 1. Debounce
 
 다음과 같은 방식으로 처리하는 것을 디바운스(debounce)라고 한다.

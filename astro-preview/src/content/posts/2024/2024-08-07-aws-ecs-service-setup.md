@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/connect-aws-ecs-and-rds/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 이 글에선 AWS ECS(Elastic Container Service) 클러스터를 구축하는 방법에 대해 정리한다. ECS 클러스터를 구축하기 전에 [애플리케이션 로드 밸런서(ALB, Application Load Balancer)][aws-alb-and-target-group-setup-link]와 [ECR(Elastic Container Registry)][aws-ecr-setup-link]에 프라이빗 레포지토리가 미리 준비되어 있어야 한다.
@@ -53,11 +51,9 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
 
 - `Create cluster` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 클러스터를 구축한다.
 
@@ -67,11 +63,9 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
   - EC2 인스턴스를 사용하면 필요한 사양에 따라 CPU, 메모리, 스토리지를 변경할 수 있다. 자원 할당, OS 업데이트, 보안 패치, 서버 모니터링 같은 운영 비용이 필요하다.
 - `Create` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-03.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 클러스터 구축에는 다소 시간이 소요된다. 클러스터 구축이 완료되면 다음과 같은 화면을 볼 수 있다.
 
@@ -85,11 +79,9 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 
 - `Create task definition` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 태스크 이름과 인프라스트럭처 타입 등을 정의한다.
 
@@ -104,11 +96,9 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
   - `ecsTaskExecutionRole` 역할엔 `AmazonECSTaskExecutionRolePolicy` 정책이 지정되어 있다.
   - `AmazonECSTaskExecutionRolePolicy` 정책은 CloudWatch 로그 쓰기와 ECR 접근 읽기를 허용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-06.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 태스크에서 실행될 컨테이너를 설정한다.
 
@@ -116,15 +106,13 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - ECR 레포지토리에 저장된 이미지 URI를 지정한다.
 - 포트는 8080으로 지정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-07.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 아래 로그 수집 관련 설정을 하면 컨테이너에서 수집되는 로그는 CloudWatch에서 볼 수 있다. `Create` 버튼을 눌러 태스크 정의를 저장한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <div>
     <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-08.png" width="100%" class="image__border">
   </div>
@@ -132,8 +120,6 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
     <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-09.png" width="100%" class="image__border">
   </div>
 </div>
-
-<br/>
 
 생성된 태스크 정보는 다음과 같다. 
 
@@ -152,33 +138,27 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 
 - `Create service` 버튼을 누른다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-11.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 서비스를 배포할 클러스터와 플랫폼 버전을 정한다.
 
 - `demo-ecs-cluster` 클러스터를 선택한다.
 - 플랫폼은 최신 버전을 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-12.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 서비스 이름과 내부에서 실행되는 태스크 개수를 정한다.
 
 - 서비스 이름은 `demo-ecs-service`으로 정한다.
 - 원하는 태스크 개수는 1개로 정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-13.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 네트워크 관련 설정을 수행한다. 
 
@@ -188,11 +168,9 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
   - 시큐리티 그룹 이름은 `demo-ecs-service-sg`으로 지정한다.
   - 인바운드(inbound) 규칙에 VPC 네트워크 대역인 10.0.0.0/16 IP 주소에서 8080 포트를 통해 접근하는 요청들은 허용하도록 설정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-14.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 로드 밸런싱 관련 설정을 수행한다.
 
@@ -229,11 +207,9 @@ ECR 레포지토리에서 이미지를 가져올 때 에러가 발생한다. 권
 - 엔드포인트 태그 이름을 설정한다.
 - 서비스 카테고리는 `AWS services`로 설정한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-17.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 필요한 서비스는 두 가지다. 하나의 서비스만 선택할 수 있다. 즉, 두 개의 엔드포인트를 만들어야 한다는 이야기이다.
 
@@ -242,7 +218,7 @@ ECR 레포지토리에서 이미지를 가져올 때 에러가 발생한다. 권
 
 ECS 서비스와 동일한 VPC의 프라이빗 서브넷을 선택한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <div>
     <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-18.png" width="100%" class="image__border">
   </div>
@@ -251,15 +227,11 @@ ECS 서비스와 동일한 VPC의 프라이빗 서브넷을 선택한다.
   </div>
 </div>
 
-<br/>
-
 시큐리티 그룹을 선택한다. ECS 서비스를 생성할 때 만든 시큐리티 그룹과 동일한 것을 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-20.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그룹에 새로운 인바운드 규칙을 추가한다.
 
@@ -288,19 +260,15 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 
 서비스가 정상적으로 배포되면 다음과 같이 서비스에서 실행 중인 태스크 정보를 볼 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-23.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 실행 중인 태스크까지 트래픽이 잘 연결되었다면 브라우저에서 서비스 화면을 볼 수 있다. 접근 주소는 [AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정][aws-alb-and-target-group-setup-link] 글에서 만든 로드 밸런서의 DNS 주소를 사용한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-24.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 최종적으로 AWS 인프라 구조는 다음과 같은 모습을 갖는다.
 

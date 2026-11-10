@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/react/authentication-router-in-react/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 인증 라우터를 만들 때 리액트 라우터 v6 Outlet 컴포넌트를 사용했는데 이에 관련된 내용을 정리하였습니다.

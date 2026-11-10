@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/aws/dynamodb/dynamodb-seconary-indexes/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [지난 글][dynamodb-seconary-indexes-link]에서 DynamoDB 보조 인덱스에 대한 개념과 간단한 예제 쿼리를 커맨드라인에서 실행해봤다. 이번엔 스프링 애플리케이션에서 글로벌 보조 인덱스(GSI, global secondary index)를 사용해 DynamoDB 테이블에 쿼리를 수행한다. 

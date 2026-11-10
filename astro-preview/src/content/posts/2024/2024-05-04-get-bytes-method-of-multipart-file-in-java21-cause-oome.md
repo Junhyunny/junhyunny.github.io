@@ -16,8 +16,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/jvm/spring-boot/out-of-memory-error-case-study-in-jvm/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [다이렉트 버퍼 메모리(Direct Buffer Memory) 할당 시 메모리 부족 오류를 다룬 글][out-of-memory-error-case-study-in-jvm-link]에서 잠깐 언급했지만, 글의 주제를 벗어나거나 이야기가 길어질 것 같아 자세한 부분까지 함께 정리하지 못 했다. 이전 글에서 다루지 못 했던 디테일에 대해 이야기해 보려 한다. 간단한 예제 코드와 함께 확인해보자.
@@ -135,11 +133,9 @@ Java 17 환경에서 실행한 애플리케이션의 동작을 확인해보자. 
 
 - 최대 힙 메모리 사이즈까지 메모리 사용량은 계속 늘어나지만, OOM 에러는 발생하지 않는다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-01.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 jcmd 도구로 네이티브 메모리 사용량을 추적해보자. 다이렉트 메모리가 약 2MB(1984KB) 증가했다. 많은 글에서 jcmd 도구로 다이렉트 메모리 사용량을 측정할 때 `Internal` 항목을 확인하지만, 내가 직접 테스트해 본 결과 `Other` 영역의 메모리가 증가한다. Java 버전마다 다른 것일 수 있다. jcmd 도구로 다이렉트 메모리 측정하는 방법은 [이 글][tracking-direct-memory-usage-in-jvm-link]에 정리되어 있으니 참고하길 바란다.
 
@@ -163,11 +159,9 @@ Native Memory Tracking:
 - 모든 요청 중 하나의 요청을 제외하고 모두 실패한다.
 - 실패한 요청은 모두 OOM 에러가 발생했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-02.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 마찬가지로 jcmd 도구로 네이티브 메모리 사용량을 추적해본다. 다이렉트 메모리가 약 18MB(18292KB) 증가했다. 최대 다이렉트 메모리 사용량을 20MB로 제한했기 때문에 그 이상은 할당 받지 못 했다.
 
@@ -193,11 +187,9 @@ Native Memory Tracking:
 
 - 요청의 일부는 성공하지만, 어느 수준에 도달하면 요청들이 실패한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-03.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 jcmd 도구로 다이렉트 메모리 사용량을 확인해보자. 다이렉트 메모리가 약 2GB(2084419KB) 증가했다. 최대 다이렉트 메모리 제한이 없기 때문에 최대 힙 메모리 제한 영역까지 다이렉트 메모리를 늘려 사용한 것으로 보인다.
 
@@ -325,11 +317,9 @@ public class Util {
 - Java 21
   - FileCopyUtils 클래스는 ChannelInputStream 객체의 readAllBytes 메서드를 호출한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-05.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 [2021년 10월 2일 OpenJDK 커밋(commit)](https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca)을 보면 ChannelInputStream 클래스에 readAllBytes 메서드가 새롭게 추가된다. 이 커밋은 `JDK 18+17`과 `JDK 18+18` 태그 사이에 위치하기 때문에 JDK 18에서부터 이 문제가 발생할 것으로 예상된다. 이 변경은 다음과 같은 구조를 만든다. 
 
@@ -340,11 +330,9 @@ public class Util {
   - ChannelInputStream 객체가 런타임에 데이터 읽기에 참여한다.
   - 자신의 readAllBytes 메서드를 사용한다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="80%" class="image__border">
 </div>
-
-<br/>
 
 이제 거의 다 왔다. 두 메서드엔 어떤 차이점이 있을까? InputStream 추상 클래스의 readAllBytes 메서드를 먼저 살펴보자. 
 
@@ -539,11 +527,9 @@ public class FileController {
 
 비주얼VM으로 메모리 사용량을 확인해봤다. 필자의 예상과는 다르게 힙 메모리도 잔잔했다. InputStream 인스턴스를 통해 고정된 사이즈의 버퍼를 사용하는 경우 내부에서 이전에 만든 버퍼를 재사용하기 때문에 힙 메모리 사용량도 크게 증가하지 않는 것으로 보인다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-08.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 jcmd 도구로 다이렉트 메모리 사용량을 측정해 보니 약 2.4MB(2400KB) 정도 다이렉트 메모리가 증가했다. 
 
@@ -600,11 +586,9 @@ public class FileController {
 
 비주얼VM으로 메모리 사용량을 확인해봤다. 위 테스트와 마찬가지로 힙 메모리가 잔잔했다. 코드 내부를 살펴보진 않았지만, 또 다른 방식으로 데이터를 읽어 복사하는 것으로 보인다. 
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-09.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 jcmd 도구로 다이렉트 메모리 사용량을 측정해 보니 약 2MB(1992KB) 정도 다이렉트 메모리가 증가했다. 메모리 효율이 가장 좋았다. 
 

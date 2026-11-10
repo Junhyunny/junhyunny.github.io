@@ -10,8 +10,6 @@ categories:
   - "route53"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 최근 사설 도메인 주소를 AWS 클라우드 서비스에 연결하는 작업을 했다. 도메인을 연결하면서 DNS 개념이나 AWS Route53 서비스가 지원하는 레코드 타입 등에 대해서 다시 찾아봤다. 이 참에 도메인 연결 작업을 수행할 때 필요한 개념들을 개인 블로그에 정리한다.
@@ -56,12 +54,12 @@ PING google.com (142.250.206.206): 56 data bytes
   - 새로운 일반 도메인(new gTLD)
 - TLD 하위에 2단계, 3단계 도메인 순으로 트리가 깊어질수록 단계가 커진다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-02.png" width="100%" class="image__border">
 </div>
 <center>https://better-together.tistory.com/128</center>
-
-<br/>
+</div>
 
 도메인 계층 구조를 살펴본 이유는 도메인 이름 시스템은 계층 구조를 따르는 네임 서버가 사용되기 때문이다. 브라우저에서 `exmample.com`을 입력하는 경우 어떤 흐름이 발생할까?
 
@@ -71,12 +69,12 @@ PING google.com (142.250.206.206): 56 data bytes
 4. .com TLD 도메인의 주소를 관리하는 TLD DNS 서버에 example.com 도메인의 IP 주소를 질의한다. `example.com` SLD 도메인의 주소를 관리하는 SLD DNS 서버 IP 주소를 알려준다.
 5. example.com SLD 도메인의 주소를 관리하는 SLD DNS 서버에 example.com 도메인의 IP 주소를 질의한다. `example.com` 도메인의 IP 주소를 반환한다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-03.png" width="100%" class="image__border">
 </div>
 <center>https://velog.io/@combi_jihoon/Route53</center>
-
-<br/>
+</div>
 
 위 이미지에서 보이듯 로컬 캐시, DNS 서버도 여러 개 존재한다. 각 구성 요소에 대해 살펴보자.
 
@@ -108,23 +106,21 @@ Route53는 AWS의 DNS 웹 서비스다. 사용자의 요청을 AWS 혹은 온프
   - AWS VPC(virtual private cloud) 내부에서만 작동하는 도메인 이름을 관리한다.
   - 인터넷에 노출되지 않고, VPC 내부 리소스에 대한 이름 해석에 사용된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-04.png" width="100%" class="image__border">
 </div>
 <center>https://velog.io/@combi_jihoon/Route53</center>
-
-<br/>
+</div>
 
 Route53를 사용할 때 인터넷 연결이 필요하다면 공용 호스트 영역을 사용해야 한다. Route53을 사용하면 도메인 구매도 가능하지만, 외부 도메인 구매 대행 서비스를 통해 구매한 도메인과 연결하는 것도 가능하다. 만약, 서드파티(3rd party) 도메인 구매 대행 서비스를 사용했다면 다음과 같은 과정을 거친다.
 
 1. 도메인 구매 대행 서비스를 통해 도메인을 구매한다.
 2. 구매한 도메인은 자동으로 TLD DNS 서버와 동기화 된다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-05.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 Route53에서 공용 호스트 영역을 하나 생성하면 다음과 같은 레코드 두 개가 기본적으로 생성된다. 레코드 타입에 대한 내용은 다음 글로 다시 자세히 정리할 예정이다.
 
@@ -136,20 +132,18 @@ Route53에서 공용 호스트 영역을 하나 생성하면 다음과 같은 �
   - 도메인에 대한 주요 정보를 포함하며, DNS 영역 관리에 사용된다.
   - 도메인과 관련된 기본 네임 서버를 지정하고, 도메인 정보가 업데이트 되는 빈도, 캐싱 시간, 관리 책임자 이메일 등 메타 데이터를 제공한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-06.png" width="100%" class="image__border">
 </div>
 
-<br/>
-
 NS 레코드엔 4개의 DNS 네임 서버 정보가 지정되어 있다. 서드파티에서 도메인 구매한 경우 AWS의 DNS 네임 서버와 연결하기 위해선 서드파티 사이트에 AWS DNS 네임 서버 정보를 등록해야 한다. 필자가 사용한 GoDaddy 서비스를 찾아보면 구매한 도메인에 다른 DNS 네임 서버를 등록할 수 있는 화면을 볼 수 있다. 해당 화면에서 AWS Route53의 NS 레코드 정보를 등록하면 된다.
 
+<div class="block-break">
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-07.png" width="80%" class="image__border">
 </div>
 <center>https://m.blog.naver.com/mogulist/221761776783</center>
-
-<br/>
+</div>
 
 whois 명령어를 사용하면 해당 도메인에 연결된 DNS 네임 서버 정보와 메타 데이터를 확인할 수 있다.
 

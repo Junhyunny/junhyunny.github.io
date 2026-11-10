@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/jvm/spring-boot/get-bytes-method-of-multipart-file-in-java21-cause-oome/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Direct Memory in Java][direct-memory-in-java-link] 글 도입부에 언급했듯이 최근 OOME(Out of Memory Error)를 만났다. 해당 에러가 발생한 원인과 해결 방법을 정리해본다. 
@@ -27,11 +25,9 @@ recommendedPosts:
 - 약 5MB 정도의 메모리를 다이렉트 버퍼 메모리에서 할당 받을 수 없다.
 - 최대 10MB 메모리 중 8.8MB 정도가 할당되어 있는 상태이다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-error-case-study-in-jvm-01.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 스택 트레이스(stack trace)를 거슬러 올라가면 업로드 데이터가 담긴 MultipartFile 인스턴스의 `getBytes` 메서드로 바이트 배열을 꺼낼 때 에러가 발생한 것을 볼 수 있다.
 
@@ -64,11 +60,9 @@ JDK 제공사에서 설명할 때 다이렉트 메모리에 제한이 없는데 
 
 - `-XX:MaxDirectMemorySize=N` 옵션을 통해 다이렉트 메모리 사이즈가 10MB로 제한되어 있었다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-error-case-study-in-jvm-02.png" width="100%" class="image__border">
 </div>
-
-<br/>
 
 IBM, 이클립스(eclipse) 문서를 살펴보면 다이렉트 메모리에 대한 사이즈 제한은 별도로 없다. 자바 버전이나 벤더(vendor)에 따라 다르겠지만, 최대 힙 메모리 사이즈까지 허용하는 한 사용할 수 있는 것으로 보인다.
 
@@ -204,11 +198,9 @@ public class FileController {
 - 최대 다이렉트 메모리 사이즈가 100MB이다.
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-error-case-study-in-jvm-04.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 다시 자세한 글로 정리할 예정이지만, 원인을 몇 줄로 요약하면 다음과 같다. 
 
@@ -267,11 +259,9 @@ public class FileController {
 - 최대 다이렉트 메모리 사이즈가 10MB이다.
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-error-case-study-in-jvm-05.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 데이터를 읽을 때 버퍼 사이즈를 고정하는 방법 외에 transferTo 메서드를 사용해도 OOME 문제가 발생하지 않는다.
 

@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
 ---
 
-<br/>
-
 ## 1. Pain Points for Frontend
 
 `Backend For Frontend(이하 BFF)`이 무엇인지 알아보기 전에 어떤 이유로 이런 아키텍처 패턴이 탄생했는지 컨텍스트(context)를 먼저 살펴보자.

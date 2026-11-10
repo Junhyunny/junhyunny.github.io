@@ -10,8 +10,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/docker/docker-anonymous-volume/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [Docker Anonymous Volume][docker-anonymous-volume-link] 포스트에서 도커 볼륨의 전반적인 내용과 익명 볼륨(anonymous volume)에 대해 정리하였습니다. 

@@ -14,8 +14,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 [GitHub Actions 예제][github-actions-example-link]에서 간단한 파이프라인을 구성하는 방법에 대해 다뤘다. 이번 글은 파이프라인을 최적화하는 방법에 대해 정리했다. 

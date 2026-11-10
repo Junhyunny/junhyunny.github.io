@@ -11,8 +11,6 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/jpa-fetch-join-paging-problem/"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 `클린 코드`를 읽다 보니 이런 문구가 있었다.
@@ -27,11 +25,9 @@ recommendedPosts:
 
 `@OneToOne`, `@OneToMany`, `@ManyToOne` 같은 애너테이션으로 엔티티 사이에 관계가 형성되어 있을 때 불필요한 쿼리가 추가로 수행되는 현상을 의미한다. 아래 이미지를 보면 Post 엔티티와 Reply 엔티티는 1 대 N 관계이다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jpa-one-plus-n-problem-01.png" width="20%">
 </div>
-
-<br/>
 
 JPA `findBy-` 메서드를 사용하여 1개의 Post 엔티티를 조회하면 쿼리가 총 2회 수행된다. 지연 로딩(lazy loading)인 경우에는 해당 객체를 사용했다고 가정한다.
 

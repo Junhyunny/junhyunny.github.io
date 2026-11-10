@@ -7,8 +7,6 @@ categories:
   - "vue.js"
 ---
 
-<br/>
-
 ## 0. 들어가면서
 
 VueJS 프로젝트에서 `v-model` 속성을 통해 한글을 입력받으면 정상적으로 처리되지 않는 현상을 발견했다. 이번 글에선 한글 입력 시 발생하는 문제점, 원인, 해결 방법에 대해 정리했다. Jekyll 문법과 충돌하므로 `{ { someValue } }`으로 표기된 코드는 공백을 제거해야 정상적으로 동작한다.
@@ -53,11 +51,9 @@ export default {
 
 위 코드를 실행했을 때 영어와 한글 입력 결과를 비교하면 아래 이미지처럼 한글 입력이 늦게 완료되는 것을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/vue-js-korean-length-01.gif" width="100%" class="image__border">
 </div>
-
-<br/>
 
 VueJS 공식 문서에서 다음과 같은 설명을 볼 수 있다.
 

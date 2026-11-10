@@ -41,7 +41,8 @@ export function formatAboutResume() {
     ['posco-ict', '제철소 야드 관리 시스템을 운영하고, 모놀리스를 마이크로서비스로 재구축하는 프로젝트에 참여했습니다.'],
   ]);
   return (tree, file) => {
-    if (!file.path?.endsWith('/_pages/about.md')) return;
+    // Windows에서는 경로 구분자가 \ 이므로 / 로 맞춘 뒤 비교한다.
+    if (!file.path?.replaceAll('\\', '/').endsWith('/_pages/about.md')) return;
 
     const index = tree.children.findIndex((node) =>
       node.type === 'heading' && node.depth === 2 && node.children[0]?.value === '주요 성과'

@@ -1,9 +1,10 @@
-name: Deploy Jekyll to GitHub Pages
+name: Deploy Astro to GitHub Pages
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,23 +25,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          ruby-version: '3.3'
-          bundler-cache: true
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Setup Pages
-        id: pages
         uses: actions/configure-pages@v5
 
-      - name: Build with Jekyll
-        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
-        env:
-          JEKYLL_ENV: production
+      # prebuild가 public/images 링크를 만들고, build가 Astro 빌드 후 Pagefind 검색 색인을 생성한다.
+      - name: Build
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
   deploy:
     environment:

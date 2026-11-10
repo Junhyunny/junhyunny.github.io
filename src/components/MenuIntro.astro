@@ -1,0 +1,18 @@
+---
+interface Props {
+  kicker: string;
+  description?: string;
+  variant?: 'home' | 'profile';
+  titleId?: string;
+}
+
+const { kicker, description, variant, titleId = 'page-heading' } = Astro.props;
+---
+<header class:list={['menu-intro', variant === 'home' && 'hero', variant === 'profile' && 'profile-intro']} aria-labelledby={titleId}>
+  <div class="menu-intro-content">
+    <p class="eyebrow"><span class="signal"></span> {kicker}</p>
+    <h1 class="page-title" id={titleId}><slot /></h1>
+    {description && <p class="menu-intro-description">{description}</p>}
+  </div>
+  <slot name="aside" />
+</header>

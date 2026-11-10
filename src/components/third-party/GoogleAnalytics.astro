@@ -1,0 +1,16 @@
+---
+// GA4. 개발 서버에서는 수집하지 않도록 운영 빌드에서만 넣는다. (Universal Analytics UA-193106915-2는 서비스 종료로 옮기지 않음)
+const measurementId = 'G-L1KD8VFVBD';
+const live = import.meta.env.PROD;
+---
+{live && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}></script>
+    <script is:inline define:vars={{ measurementId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', measurementId);
+    </script>
+  </>
+)}

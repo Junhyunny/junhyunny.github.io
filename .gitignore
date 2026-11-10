@@ -1,35 +1,17 @@
-# Vim
+# Astro
+node_modules/
+dist/
+.astro/
+npm-debug.log*
+
+# public/images는 루트 images/를 가리키는 링크 (scripts/link-public-images.mjs가 생성)
+public/images
+
+# 로컬 이미지 캐시
+images/posts
+
+# OS / editor
+.DS_Store
+.idea/
 *~
 *.sw[p_]
-
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# Ruby Gem
-*.gem
-.bundle
-Gemfile.lock
-**/vendor/bundle
-
-# Node.js and NPM
-node_modules
-npm-debug.log*
-package-lock.json
-codekit-config.json
-
-# macOS
-.DS_Store
-
-# intellij
-.idea
-
-# Jekyll generated files
-.jekyll-cache
-.jekyll-metadata
-.sass-cache
-_asset_bundler_cache
-_site
-
-# local image cache
-images/posts

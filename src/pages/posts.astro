@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import MenuIntro from '../components/MenuIntro.astro';
+import { getPosts, postDetails } from '../posts';
+
+const pageSize = 20;
+const posts = await getPosts();
+const entries = posts.map((post) => ({ ...postDetails(post), ...post.data }));
+const years = [...new Set(entries.map((entry) => entry.year))];
+const latestYear = years[0];
+const categories = [...new Set(entries.flatMap((entry) => entry.categories))].sort((a, b) => a.localeCompare(b));
+const tags = [...new Set(entries.flatMap((entry) => entry.tags ?? []))].sort((a, b) => a.localeCompare(b));
+const initial = entries.filter((entry) => entry.year === latestYear);
+---
+<Base page="archive" title="Archive" description="카테고리와 연도로 찾아보는 기술 글 아카이브">
+  <main id="main" class="shell">
+    <MenuIntro kicker="TECHNICAL INDEX" description="관심 있는 기술 주제나 연도를 골라 글을 찾아보세요.">Archive</MenuIntro>
+    <div class="archive-grid">
+      <aside class="archive-sidebar">
+        <h2>글 탐색</h2>
+        <form class="archive-filters" data-latest-year={latestYear} data-page-size={pageSize}>
+          <label>카테고리
+            <select name="category">
+              <option value="">모든 카테고리</option>
+              {categories.map((category) => <option value={category}>{category}</option>)}
+            </select>
+          </label>
+          <label>연도
+            <select name="year">
+              <option value="">모든 연도</option>
+              {years.map((year) => <option value={year} selected={year === latestYear}>{year}</option>)}
+            </select>
+          </label>
+          {tags.length > 0 && <label>태그
+            <select name="tag">
+              <option value="">모든 태그</option>
+              {tags.map((tag) => <option value={tag}>{tag}</option>)}
+            </select>
+          </label>}
+          <button class="text-link reset-filters" type="reset">필터 초기화</button>
+        </form>
+        <p class="preview-note">기술 글 {entries.length}편을 연도와 카테고리로 찾아볼 수 있습니다.</p>
+      </aside>
+      <div class="archive-list">
+        <p class="eyebrow archive-count" role="status">{initial.length}개 글</p>
+        {years.map((year) => (
+          <section class="archive-year" aria-labelledby={`year-${year}`} hidden={year !== latestYear}>
+            <h2 id={`year-${year}`}>{year}</h2>
+            <ul class="entries">
+              {entries.filter((entry) => entry.year === year).map((entry) => (
+                <li data-category={JSON.stringify(entry.categories)} data-tags={JSON.stringify(entry.tags ?? [])} data-year={year}>
+                  <div class="entry-meta"><span>{entry.categories[0]}</span><time datetime={entry.date}>{entry.label}</time></div>
+                  <h3><a href={entry.href}>{entry.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
+                  {entry.summary && <p>{entry.summary}</p>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+        <p class="archive-empty" hidden>선택한 조건에 맞는 글이 없습니다.</p>
+        <nav class="archive-pagination" aria-label="아카이브 페이지" hidden>
+          <button class="text-link" type="button" data-page-step="-1"><span aria-hidden="true">←</span> 이전</button>
+          <span class="archive-page-status"></span>
+          <button class="text-link" type="button" data-page-step="1">다음 <span aria-hidden="true">→</span></button>
+        </nav>
+      </div>
+    </div>
+  </main>
+</Base>
+<script>
+  const filters = document.querySelector<HTMLFormElement>('.archive-filters');
+  const groups = document.querySelectorAll<HTMLElement>('.archive-year');
+  const count = document.querySelector('.archive-count');
+  const empty = document.querySelector<HTMLElement>('.archive-empty');
+  const pagination = document.querySelector<HTMLElement>('.archive-pagination');
+  const pageStatus = document.querySelector('.archive-page-status');
+  const latestYear = filters?.dataset.latestYear ?? '';
+  const pageSize = Number(filters?.dataset.pageSize ?? 20);
+  const fields = ['category', 'year', 'tag'] as const;
+  let page = 1;
+
+  // URL의 필터와 페이지를 폼에 반영한다. 연도가 없으면 최신 연도를 연다.
+  function readUrl() {
+    if (!filters) return;
+    const params = new URL(location.href).searchParams;
+    for (const name of fields) {
+      const select = filters.elements.namedItem(name);
+      if (!(select instanceof HTMLSelectElement)) continue;
+      const fallback = name === 'year' ? latestYear : '';
+      const value = params.has(name) ? params.get(name) ?? '' : fallback;
+      select.value = [...select.options].some((option) => option.value === value) ? value : fallback;
+    }
+    page = Math.max(1, Number.parseInt(params.get('page') ?? '1', 10) || 1);
+  }
+
+  function writeUrl() {
+    if (!filters) return;
+    const values = new FormData(filters);
+    const url = new URL(location.href);
+    for (const name of fields) {
+      const value = String(values.get(name) ?? '');
+      const isDefault = name === 'year' ? value === latestYear : value === '';
+      if (isDefault) url.searchParams.delete(name);
+      else url.searchParams.set(name, value);
+    }
+    if (page > 1) url.searchParams.set('page', String(page));
+    else url.searchParams.delete('page');
+    history.replaceState(null, '', url);
+  }
+
+  function applyFilters() {
+    if (!filters || !count || !empty || !pagination || !pageStatus) return;
+    const values = new FormData(filters);
+    const category = String(values.get('category') ?? '');
+    const year = String(values.get('year') ?? '');
+    const tag = String(values.get('tag') ?? '');
+    const matches: HTMLLIElement[] = [];
+
+    groups.forEach((group) => {
+      group.querySelectorAll<HTMLLIElement>('[data-year]').forEach((entry) => {
+        const match = (!year || entry.dataset.year === year) &&
+          (!category || (JSON.parse(entry.dataset.category ?? '[]') as string[]).includes(category)) &&
+          (!tag || (JSON.parse(entry.dataset.tags ?? '[]') as string[]).includes(tag));
+        entry.hidden = true;
+        if (match) matches.push(entry);
+      });
+    });
+
+    const pages = Math.max(1, Math.ceil(matches.length / pageSize));
+    page = Math.min(page, pages);
+    matches.slice((page - 1) * pageSize, page * pageSize).forEach((entry) => { entry.hidden = false; });
+    groups.forEach((group) => { group.hidden = !group.querySelector('[data-year]:not([hidden])'); });
+
+    count.textContent = `${matches.length}개 글`;
+    empty.hidden = matches.length > 0;
+    pagination.hidden = pages <= 1;
+    pageStatus.textContent = `${page} / ${pages}`;
+    pagination.querySelector<HTMLButtonElement>('[data-page-step="-1"]')!.disabled = page <= 1;
+    pagination.querySelector<HTMLButtonElement>('[data-page-step="1"]')!.disabled = page >= pages;
+    writeUrl();
+  }
+
+  filters?.addEventListener('change', () => { page = 1; applyFilters(); });
+  filters?.addEventListener('reset', () => window.setTimeout(() => { page = 1; applyFilters(); }, 0));
+  pagination?.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-page-step]');
+    if (!button) return;
+    page += Number(button.dataset.pageStep);
+    applyFilters();
+    document.querySelector('.archive-list')?.scrollIntoView({ block: 'start' });
+  });
+  readUrl();
+  applyFilters();
+</script>

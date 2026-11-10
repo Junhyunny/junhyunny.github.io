@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import MenuIntro from '../components/MenuIntro.astro';
+import { newestFirst, postDetails } from '../posts';
+
+const books = (await getCollection('books', ({ data }) => !data.hidden))
+  .sort(newestFirst)
+  .map((entry) => ({ ...postDetails(entry), title: entry.data.title }));
+const years = [...new Set(books.map(({ year }) => year))];
+const description = '읽은 책에서 남긴 독서 기록을 연도별로 모았습니다.';
+---
+<Base page="books" title="Books" description={description}>
+  <main id="main" class="shell">
+    <MenuIntro kicker="READING NOTES" description={description}>Books</MenuIntro>
+    <div class="archive-grid">
+      <aside class="archive-sidebar">
+        <h2>연도별 독서 기록</h2>
+        <nav class="log-years" aria-label="독서 기록 연도">
+          {years.map((year) => <a class="text-link" href={`#year-${year}`}>{year}</a>)}
+        </nav>
+      </aside>
+      <div class="archive-list">
+        <p class="eyebrow archive-count">{books.length}개 글</p>
+        {years.map((year) => (
+          <section class="archive-year" aria-labelledby={`year-${year}`}>
+            <h2 id={`year-${year}`}>{year}</h2>
+            <ul class="entries">
+              {books.filter((book) => book.year === year).map(({ date, label, title, href }) => (
+                <li>
+                  <time class="entry-meta" datetime={date}>{label}</time>
+                  <h3><a href={href}>{title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+</Base>

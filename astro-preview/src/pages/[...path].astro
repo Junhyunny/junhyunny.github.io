@@ -88,17 +88,17 @@ const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
         </details>}
         <div class="prose"><Content /></div>
         <p class="sr-only" role="status" id="copy-status" data-pagefind-ignore></p>
-        {relatedLinks.length > 0 && <section class="article-end" aria-labelledby="related-title" data-pagefind-ignore>
+        {relatedLinks.length > 0 && <section class="article-appendix" aria-labelledby="related-title" data-pagefind-ignore>
           <p class="eyebrow">KEEP READING</p>
           <h2 id="related-title">함께 읽으면 좋은 글</h2>
           {curated.length > 0 && <span id="recommend-next-posts"></span>}
-          <ul class="related" id={curated.length ? 'recommend-posts-before-this' : undefined}>
+          <ul class="link-list link-list--grouped link-list--posts" id={curated.length ? 'recommend-posts-before-this' : undefined}>
             {relatedLinks.map(({ href, title, category, external }) => (
-              <li><a href={href} class:list={{ "is-external": external }}><span><span class="entry-meta">{category}</span><span class="related-link-title">{title}</span></span></a></li>
+              <li><a href={href} class:list={["link-list__link", { "link-list__link--external": external }]}><span class="entry-meta">{category}</span><span class="link-list__title">{title}</span></a></li>
             ))}
           </ul>
         </section>}
-        {isPost && <section class="article-end" aria-labelledby="discussion-title" data-pagefind-ignore>
+        {isPost && <section class="article-appendix" aria-labelledby="discussion-title" data-pagefind-ignore>
           <p class="eyebrow">DISCUSSION</p>
           <h2 id="discussion-title">댓글</h2>
           <div class="comments" id="utterances-comments">

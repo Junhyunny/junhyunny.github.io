@@ -159,8 +159,8 @@ h1, h2, h3, p { margin: 0; }
   font-size: clamp(1.2rem, 6.4cqi, var(--text-page-title));
 }
 .hero h1 em { color: var(--accent); font-style: normal; }
-.hero-note { align-self: center; }
-.hero-note p { margin-bottom: 0; color: var(--muted); line-height: var(--leading-reading); word-break: keep-all; }
+.hero-aside { align-self: center; }
+.hero-aside p { margin-bottom: 0; color: var(--muted); line-height: var(--leading-reading); word-break: keep-all; }
 .home-grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: clamp(2rem, 6vw, 5.1rem); }
 .section-heading {
   display: flex;
@@ -263,56 +263,6 @@ h1, h2, h3, p { margin: 0; }
 .prose h5, .prose h6 { font-size: var(--text-compact); }
 .prose li + li { margin-top: .25em; }
 .prose a { color: var(--accent); text-underline-offset: .22em; }
-.prose :is(#test-code-repository, #reference) {
-  color: var(--muted);
-  font-size: var(--text-meta);
-  font-weight: var(--weight-semibold);
-  letter-spacing: .07em;
-}
-.prose :is(#test-code-repository, #reference) + ul { list-style: none; padding-inline-start: 0; }
-.prose :is(#test-code-repository, #reference) + ul a {
-  position: relative;
-  display: block;
-  font-size: var(--text-compact);
-  line-height: var(--leading-ui);
-  text-decoration: none;
-}
-/* 블로그 내부로 이어지는 링크는 →, 외부로 나가는 링크는 ↗ */
-.prose :is(#test-code-repository, #reference) + ul a::after,
-.related a::after {
-  content: '→' / '';
-  color: var(--accent);
-  font: var(--text-compact)/var(--leading-ui) var(--sans);
-}
-.prose :is(#test-code-repository, #reference) + ul a:not([href^="/"], [href^="#"], [href^="https://junhyunny.github.io/"])::after,
-.related a.is-external::after { content: '↗' / ''; }
-.prose :is(#test-code-repository, #reference) + ul a::after { position: absolute; inset-inline-end: 0; }
-.prose :is(#test-code-repository, #reference) + ul a:hover { text-decoration: underline; }
-.prose :is(#test-code-repository, #reference) + ul a,
-.prose #reference + ul li:not(:has(a)) {
-  padding: .75rem 2.25rem .75rem .9rem;
-  overflow-wrap: anywhere;
-}
-/* 화살표를 링크 박스 높이의 세로 가운데에 둔다. (여러 줄 제목·저장소 설명 포함) */
-.prose :is(#test-code-repository, #reference) + ul a::after { inset: 50% .9rem auto auto; translate: 0 -50%; }
-/* 예제 저장소: 링크마다 박스 */
-.prose #test-code-repository + ul li + li { margin-top: .55rem; }
-.prose #test-code-repository + ul a {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--image-radius);
-}
-.prose #test-code-repository + ul a:hover { border-color: #6b716a; }
-/* 참고 자료: 목록 전체를 하나의 박스로 묶고 항목은 구분선으로 나눈다. */
-.prose #reference + ul {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--image-radius);
-}
-.prose #reference + ul li + li { margin-top: 0; border-top: 1px solid var(--line); }
-/* 링크 없이 책 제목만 적은 참고 자료는 화살표 없이 표시한다. */
-.prose #reference + ul li:not(:has(a)) { color: var(--muted); font-size: var(--text-compact); line-height: var(--leading-ui); }
-.prose .repo-link-meta { display: block; margin-top: .15rem; color: var(--muted); font-size: var(--text-meta); }
 .prose :not(pre) > code {
   padding: .08em .28em;
   border-radius: 3px;
@@ -347,37 +297,69 @@ h1, h2, h3, p { margin: 0; }
   font-size: var(--text-meta);
 }
 .prose iframe.codepen { width: 100%; min-height: 23rem; border: 1px solid var(--line); }
-.article-end { border-top: 1px solid var(--line); margin-top: 3.35rem; padding-top: 1.5rem; }
-.article-end h2 { margin-top: .35rem; font-size: var(--text-section); }
+.article-appendix { border-top: 1px solid var(--line); margin-top: 3.35rem; padding-top: 1.5rem; }
+.article-appendix h2 { margin-top: .35rem; font-size: var(--text-section); }
 /* utterances 화면(iframe) 자체에 위쪽 여백이 있어 바깥 여백은 두지 않는다. */
 .comments { min-height: 14rem; margin-top: 0; }
 .comments .utterances { max-width: none; }
-/* 본문의 참고 자료 목록과 같은 형태: 하나의 박스, 항목 사이에만 구분선 */
-.related {
-  margin-top: 1rem;
-  padding: 0;
-  list-style: none;
+
+/* 링크 목록 (.link-list)
+   - 본문의 TEST CODE REPOSITORY·REFERENCE 목록은 remark 플러그인(astro.config.mjs)이, 함께 읽으면 좋은 글은 템플릿이 클래스를 붙인다.
+   - 변형: --cards 링크마다 박스 / --grouped 목록 전체를 하나의 박스로 묶고 항목 사이에만 구분선 / --posts 블로그 글 목록(분류 + 제목)
+   - 화살표: 블로그 내부로 이어지면 →, 외부로 나가면(__link--external) ↗ */
+.link-list-heading {
+  color: var(--muted);
+  font-size: var(--text-meta);
+  font-weight: var(--weight-semibold);
+  letter-spacing: .07em;
+}
+.link-list { padding: 0; list-style: none; }
+.link-list__link,
+.link-list__text {
+  position: relative;
+  display: block;
+  padding: .75rem 2.25rem .75rem .9rem;
+  font-size: var(--text-compact);
+  line-height: var(--leading-ui);
+  overflow-wrap: anywhere;
+}
+.link-list__link { text-decoration: none; }
+.link-list__link::after {
+  position: absolute;
+  inset: 50% .9rem auto auto;
+  translate: 0 -50%;
+  color: var(--accent);
+  content: '→' / '';
+  font: var(--text-compact)/var(--leading-ui) var(--sans);
+}
+.link-list__link--external::after { content: '↗' / ''; }
+.link-list__title { text-underline-offset: .25em; }
+.link-list__link:hover { color: var(--accent); }
+/* 호버 밑줄은 제목에만 (분류·설명·화살표 제외) */
+.link-list__link:hover .link-list__title { text-decoration: underline; }
+.link-list__meta { display: block; margin-top: .15rem; color: var(--muted); font-size: var(--text-meta); }
+/* 링크 없이 책 제목만 적은 참고 자료는 화살표 없이 흐리게 */
+.link-list__text { color: var(--muted); }
+
+.link-list--cards > li + li { margin-top: .55rem; }
+.link-list--cards .link-list__link {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--image-radius);
 }
-.related li + li { border-top: 1px solid var(--line); }
-.related a {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: .75rem;
-  padding: .75rem .9rem;
-  font-size: var(--text-label);
-  line-height: var(--leading-ui);
-  text-decoration: none;
-  text-underline-offset: .25em;
+.link-list--cards .link-list__link:hover { border-color: #6b716a; }
+
+.link-list--grouped {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--image-radius);
 }
-.related .entry-meta { color: var(--accent); margin-bottom: .25rem; }
-.related a > span:first-child { font-weight: var(--weight-medium); }
-/* 호버 밑줄은 글 제목에만 (분류·화살표 제외) */
-.related a:hover { color: var(--accent); }
-.related a:hover .related-link-title { text-decoration: underline; }
+.link-list--grouped > li + li { margin-top: 0; border-top: 1px solid var(--line); }
+
+.link-list--posts { margin-block: 1rem; }
+.link-list--posts .link-list__link { font-size: var(--text-label); }
+.link-list--posts .link-list__title { font-weight: var(--weight-medium); }
+.link-list--posts .entry-meta { margin-bottom: .25rem; color: var(--accent); }
 
 .search-dialog {
   width: min(34rem, calc(100% - 2rem));
@@ -401,7 +383,7 @@ h1, h2, h3, p { margin: 0; }
   .shell { width: calc(100% - 64px); }
   .masthead-inner { gap: 1rem; }
   .hero, .home-grid { grid-template-columns: minmax(0, 1fr) 230px; }
-  .hero-note p { font-size: var(--text-compact); line-height: var(--leading-list); }
+  .hero-aside p { font-size: var(--text-compact); line-height: var(--leading-list); }
   .desktop-break { display: none; }
   .article-grid { grid-template-columns: minmax(0, 1fr) 165px; column-gap: 2rem; }
 }
@@ -414,7 +396,7 @@ h1, h2, h3, p { margin: 0; }
   .hero, .home-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .menu-intro { padding-block: 1rem; }
   .hero { gap: .75rem; }
-  .hero-note { align-self: start; }
+  .hero-aside { align-self: start; }
   .home-rail { padding-top: 0; border-top: 1px solid var(--line); }
   .home-rail section { padding-top: 1.35rem; }
   .article-grid { display: block; }

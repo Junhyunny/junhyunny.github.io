@@ -334,6 +334,8 @@ h1, h2, h3, p { margin: 0; }
 .article-end { border-top: 1px solid var(--line); margin-top: 3.35rem; padding-top: 1.5rem; }
 .article-end h2 { margin-top: .35rem; font-size: var(--text-section); }
 .article-end > p:not(.eyebrow) { color: var(--muted); margin: .75rem 0; font-size: var(--text-compact); line-height: var(--leading-list); }
+.comments { min-height: 14rem; }
+.comments .utterances { max-width: none; }
 .related { padding: 0; list-style: none; }
 .related li { border-top: 1px solid var(--line); }
 .related a {
@@ -432,6 +434,20 @@ h1, h2, h3, p { margin: 0; }
   font: var(--weight-medium) var(--text-list-title)/var(--leading-heading) var(--mono);
 }
 .archive-empty { border-top: 1px solid var(--line); padding: 1.35rem 0; color: var(--muted); font-size: var(--text-compact); }
+.archive-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.8rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--line);
+  font-size: var(--text-small);
+}
+.archive-pagination[hidden] { display: none; }
+.archive-pagination button { padding: .2rem 0; border: 0; background: none; }
+.archive-pagination button:disabled { color: var(--muted); opacity: .45; cursor: default; text-decoration: none; }
+.archive-page-status { color: var(--muted); font-variant-numeric: tabular-nums; }
 .log-years { display: grid; gap: .5rem; }
 
 .profile-intro { grid-template-columns: minmax(0, 1fr) auto; gap: 1rem 2rem; }

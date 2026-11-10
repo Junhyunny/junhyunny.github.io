@@ -3,6 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "migrate": "node scripts/migrate-content.mjs",
+    "migrate:check": "node scripts/migrate-content.mjs --check",
     "dev": "astro dev",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
@@ -15,7 +17,13 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
     "@types/mdast": "^4.0.0",
+    "mdast-util-from-markdown": "^2.0.0",
+    "mdast-util-gfm": "^3.0.0",
+    "mdast-util-to-string": "^4.0.0",
+    "micromark-extension-gfm": "^3.0.0",
     "pagefind": "^1.4.0",
-    "typescript": "^5.9.0"
+    "shiki": "^3.0.0",
+    "typescript": "^5.9.0",
+    "yaml": "^2.0.0"
   }
 }

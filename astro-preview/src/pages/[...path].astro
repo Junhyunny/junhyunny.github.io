@@ -1,89 +1,114 @@
 ---
-import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import { liveSite, postDetails } from '../posts';
+import { getPosts, liveSite, newestFirst, postDetails, type Entry } from '../posts';
 
 export async function getStaticPaths() {
-  const posts = (await getCollection('posts')).sort((a, b) => b.id.localeCompare(a.id));
-  return posts.map((post) => ({
-    params: { path: postDetails(post).path },
-    props: { post, related: posts.filter((entry) => entry.id !== post.id) },
-  }));
+  const posts = await getPosts();
+  const logs = (await getCollection('logs')).sort(newestFirst);
+  const books = (await getCollection('books')).sort(newestFirst);
+  return [
+    ...posts.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'post' as const, posts } })),
+    ...logs.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'log' as const, posts } })),
+    ...books.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'book' as const, posts } })),
+  ];
 }
 
-interface Props { post: CollectionEntry<'posts'>; related: CollectionEntry<'posts'>[] }
-const { post, related } = Astro.props;
-const details = postDetails(post);
-const { Content, headings, remarkPluginFrontmatter } = await render(post);
+type Post = Awaited<ReturnType<typeof getPosts>>[number];
+interface Props { entry: Entry; kind: 'post' | 'log' | 'book'; posts: Post[] }
+const { entry, kind, posts } = Astro.props;
+const details = postDetails(entry);
+const isPost = kind === 'post';
+const { Content, headings } = await render(entry);
 const outline = headings.filter(({ depth }) => depth >= 2 && depth <= 3);
-const curated = (remarkPluginFrontmatter.recommendedPosts ?? []) as { href: string; title: string }[];
-const available = related.map((entry) => ({
-  href: postDetails(entry).href, title: entry.data.title, category: entry.data.category[0],
-}));
+const curated = entry.data.recommendedPosts ?? [];
+const byPath = new Map(posts.map((post) => [post.data.canonicalPath, post]));
 const used = new Set([details.href]);
 const curatedLinks = curated.flatMap(({ href, title }) => {
   const url = new URL(href, new URL(details.href, liveSite));
   const path = url.pathname.endsWith('/') ? url.pathname : `${url.pathname}/`;
   const isBlog = url.origin === liveSite;
-  const key = isBlog ? path : url.href;
+  const key = isBlog ? `${path}${url.search}${url.hash}` : url.href;
   if (used.has(key)) return [];
   used.add(key);
-  const local = isBlog ? available.find((entry) => entry.href === path) : undefined;
-  return [{ href: local ? `${local.href}${url.search}${url.hash}` : url.href, title, category: local?.category ?? '추천 글' }];
+  if (isBlog) used.add(path);
+  const local = isBlog ? byPath.get(decodeURI(path)) : undefined;
+  return [{
+    href: isBlog ? `${path}${url.search}${url.hash}` : url.href,
+    title,
+    category: local?.data.categories[0] ?? (isBlog ? 'Devlogs' : '외부 글'),
+  }];
 });
-const relatedLinks = [...curatedLinks, ...available.filter(({ href }) => !used.has(href)).slice(0, 2)];
+// 작성자가 고른 링크 뒤에 같은 대표 분류의 최신 글을 덧붙인다.
+const automatic = isPost
+  ? posts
+      .filter((post) => post.data.categories[0] === entry.data.categories[0] && !used.has(post.data.canonicalPath))
+      .slice(0, 2)
+      .map((post) => ({ href: post.data.canonicalPath, title: post.data.title, category: post.data.categories[0] }))
+  : [];
+const relatedLinks = [...curatedLinks, ...automatic];
+// 기존 utterances 설정을 유지해야 같은 GitHub 이슈의 댓글을 불러온다.
+const utterances: Record<string, string> = { repo: 'Junhyunny/junhyunny.github.io', 'issue-term': 'pathname', theme: 'github-dark' };
+const back = isPost
+  ? { href: '/#latest', label: '최신 글로 돌아가기', eyebrow: 'ENGINEERING NOTES' }
+  : kind === 'log'
+    ? { href: '/logs/', label: '회고 목록으로 돌아가기', eyebrow: 'RETROSPECTIVE' }
+    : { href: '/', label: '홈으로 돌아가기', eyebrow: 'READING NOTES' };
 ---
-<Base page="article" title={post.data.title} description={details.summary ?? post.data.title}>
+<Base page={kind === 'log' ? 'logs' : 'article'} title={entry.data.title} description={details.summary ?? entry.data.title}>
   <main id="main" class="shell article-shell">
-    <a class="back-link text-link" href="/#latest"><span aria-hidden="true">←</span> 최신 글로 돌아가기</a>
-    <article class="article-grid" data-pagefind-body>
+    <a class="back-link text-link" href={back.href}><span aria-hidden="true">←</span> {back.label}</a>
+    <article class="article-grid" data-pagefind-body={isPost ? '' : undefined}>
       <header class="article-header">
-        <p class="eyebrow"><span class="signal"></span> ENGINEERING NOTES</p>
-        <h1 class="page-title" data-pagefind-meta="title">{post.data.title}</h1>
-        <p class="article-summary">{details.summary}</p>
+        <p class="eyebrow"><span class="signal"></span> {back.eyebrow}</p>
+        <h1 class="page-title" data-pagefind-meta="title">{entry.data.title}</h1>
+        {details.summary && <p class="article-summary">{details.summary}</p>}
         <div class="article-info">
           <span>강준현</span>
           <time datetime={details.date}>{details.label}</time>
         </div>
         <ul class="taxonomy" aria-label="카테고리 및 태그">
-          {post.data.category.map((category) => <li data-pagefind-filter="category">{category}</li>)}
-          {post.data.tags?.map((tag) => <li data-pagefind-filter="tag">{tag}</li>)}
+          {entry.data.categories.map((category) => <li data-pagefind-filter="category">{category}</li>)}
+          {entry.data.tags?.map((tag) => <li data-pagefind-filter="tag">{tag}</li>)}
         </ul>
       </header>
-      <aside class="desktop-outline" data-pagefind-ignore>
+      {outline.length > 0 && <aside class="desktop-outline" data-pagefind-ignore>
         <nav class="outline" aria-label="글 목차">
           <p class="eyebrow">ON THIS PAGE</p>
           <ul>
             {outline.map(({ slug, text, depth }) => <li class:list={{ nested: depth === 3 }}><a href={`#${slug}`}>{text}</a></li>)}
           </ul>
         </nav>
-      </aside>
+      </aside>}
       <div class="article-column">
-        <details class="mobile-outline" data-pagefind-ignore>
+        {outline.length > 0 && <details class="mobile-outline" data-pagefind-ignore>
           <summary>이 글의 목차</summary>
           <nav class="outline" aria-label="글 목차">
             <ul>
               {outline.map(({ slug, text, depth }) => <li class:list={{ nested: depth === 3 }}><a href={`#${slug}`}>{text}</a></li>)}
             </ul>
           </nav>
-        </details>
+        </details>}
         <div class="prose"><Content /></div>
         <p class="sr-only" role="status" id="copy-status" data-pagefind-ignore></p>
         {relatedLinks.length > 0 && <section class="article-end" aria-labelledby="related-title" data-pagefind-ignore>
           <p class="eyebrow">KEEP READING</p>
           <h2 id="related-title">함께 읽으면 좋은 글</h2>
+          {curated.length > 0 && <span id="recommend-next-posts"></span>}
           <ul class="related" id={curated.length ? 'recommend-posts-before-this' : undefined}>
             {relatedLinks.map(({ href, title, category }) => (
               <li><a href={href}><span><span class="entry-meta">{category}</span>{title}</span></a></li>
             ))}
           </ul>
         </section>}
-        <section class="article-end" aria-labelledby="discussion-title" data-pagefind-ignore>
+        {isPost && <section class="article-end" aria-labelledby="discussion-title" data-pagefind-ignore>
           <p class="eyebrow">DISCUSSION</p>
           <h2 id="discussion-title">댓글</h2>
-          <p>이 글에 대한 질문과 의견은 운영 사이트의 댓글에서 이어갈 수 있습니다.</p>
-          <a class="text-link" href={`${liveSite}${details.href}#utterances-comments`}>기존 댓글 보기 <span aria-hidden="true">↗</span></a>
-        </section>
+          <p>이 글에 대한 질문과 의견은 GitHub 계정으로 남길 수 있습니다.</p>
+          <div class="comments" id="utterances-comments">
+            <script is:inline src="https://utteranc.es/client.js" {...utterances} crossorigin="anonymous" async></script>
+          </div>
+        </section>}
       </div>
     </article>
   </main>

@@ -2,16 +2,11 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import MenuIntro from '../components/MenuIntro.astro';
-import { liveSite } from '../posts';
+import { newestFirst, postDetails } from '../posts';
 
 const logs = (await getCollection('logs', ({ data }) => !data.hidden))
-  .sort((a, b) => b.id.localeCompare(a.id))
-  .map(({ id, data }) => ({
-    year: id.slice(0, 4),
-    date: id.split('/')[1].slice(0, 10),
-    title: data.title,
-    href: `${liveSite}/logs/${id}/`,
-  }));
+  .sort(newestFirst)
+  .map((entry) => ({ ...postDetails(entry), title: entry.data.title }));
 const years = [...new Set(logs.map(({ year }) => year))];
 const description = '프로젝트와 커리어, 일상에서 남긴 회고를 연도별로 모았습니다.';
 ---
@@ -31,10 +26,10 @@ const description = '프로젝트와 커리어, 일상에서 남긴 회고를 �
           <section class="archive-year" aria-labelledby={`year-${year}`}>
             <h2 id={`year-${year}`}>{year}</h2>
             <ul class="entries">
-              {logs.filter((log) => log.year === year).map(({ date, title, href }) => (
+              {logs.filter((log) => log.year === year).map(({ date, label, title, href }) => (
                 <li>
-                  <time class="entry-meta" datetime={date}>{date.replaceAll('-', '.')}</time>
-                  <h3><a href={href}>{title}<span class="entry-arrow" aria-hidden="true">↗</span></a></h3>
+                  <time class="entry-meta" datetime={date}>{label}</time>
+                  <h3><a href={href}>{title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
                 </li>
               ))}
             </ul>

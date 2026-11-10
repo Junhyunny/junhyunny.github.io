@@ -1,0 +1,117 @@
+---
+title: "리눅스 alien 명령어로 패키지 확장자 변경하기"
+publishedAt: "2021-08-29"
+updatedAt: "2026-03-24T08:03:14+09:00"
+canonicalPath: "/information/linux/linux-alien/"
+categories:
+  - "information"
+  - "linux"
+---
+
+<br/>
+
+## 1. Package extension
+
+`.rpm` 파일은 레드햇(redhat) 계열 리눅스에서 사용하는 패키지 확장자다. rpm 명령어에 의해 설치, 업데이트, 삭제가 이뤄진다. 레드햇 계열 리눅스는 다음과 같다.
+
+- Red Hat Linux
+- Fedora
+- CentOS
+
+`.deb` 파일은 데비안(debian) 계열 리눅스에서 사용하는 패키지 확장자다. dpkg 명령어에 의해 설치, 업데이트, 삭제가 이뤄진다. 데비안 계열 리눅스는 다음과 같다.
+
+- Debian
+- Ubuntu
+- Linux Mint
+
+## 2. alien command
+
+필자는 우분투를 사용하는 중이다. 필요한 패키지가 있었는 데 .rpm 형식만 찾을 수 있었다. 우분투에서 .rpm 파일을 직접 사용할 수 없기 때문에 alien 명령어를 통해 .rpm 파일을 .deb 파일로 변환했다. 설치 가능한 패키지 목록(버전 정보)을 최신화한다.
+
+```
+$ sudo apt-get update
+```
+
+실제 설치된 소프트웨어를 최신 버전으로 교체하여 버그 수정 및 성능 향상을 적용합니다
+
+```
+$ sudo apt-get upgrade
+```
+
+다음 명령어를 통해 alien 패키지를 설치한다.
+
+```
+$ sudo apt install alien
+```
+
+alien 명령어의 옵션을 살펴보자. 이번 글에서 중요히 다룰 옵션은 다음과 같다.
+
+- `-d` 옵션 - .rpm 형식을 .deb 형식으로 변경할 때 사용한다.
+- `--scripts` 옵션 - 패키지에 스크립트를 포함 시켜야할 때 사용한다.
+
+```
+$ alien -h
+
+Usage: alien [options] file [...]
+  file [...]                Package file or files to convert.
+  -d, --to-deb              Generate a Debian deb package (default).
+     Enables these options:
+       --patch=<patch>      Specify patch file to use instead of automatically
+                            looking for patch in /var/lib/alien.
+       --nopatch            Do not use patches.
+       --anypatch           Use even old version os patches.
+       -s, --single         Like --generate, but do not create .orig
+                            directory.
+       --fixperms           Munge/fix permissions and owners.
+       --test               Test generated packages with lintian.
+  -r, --to-rpm              Generate a Red Hat rpm package.
+      --to-slp              Generate a Stampede slp package.
+  -l, --to-lsb              Generate a LSB package.
+  -t, --to-tgz              Generate a Slackware tgz package.
+     Enables these options:
+       --description=<desc> Specify package description.
+       --version=<version>  Specify package version.
+  -p, --to-pkg              Generate a Solaris pkg package.
+  -i, --install             Install generated package.
+  -g, --generate            Generate build tree, but do not build package.
+  -c, --scripts             Include scripts in package.
+      --target=<arch>       Set architecture of the generated package.
+  -v, --verbose             Display each command alien runs.
+      --veryverbose         Be verbose, and also display output of run commands.
+  -k, --keep-version        Do not change version of generated package.
+      --bump=number         Increment package version by this number.
+  -h, --help                Display this help message.
+  -V, --version             Display alien's version number.
+```
+
+.rpm 패키지 파일이 위치한 디렉토리에서 작업을 수행한다. 다음과 같은 .rpm 파일이 존재한다.
+
+```
+$ ls
+
+galera-4-26.4.9-1.el8.x86_64.rpm
+```
+
+alien 명령어를 통해 패키지 타입을 변경한다.
+
+```
+$ sudo alien --scripts -d galera-4-26.4.9-1.el8.x86_64.rpm 
+
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 1bb943db: NOKEY
+...
+galera-4_26.4.9-2_amd64.deb generated
+```
+
+아래와 같이 .deb 파일 생성된 것을 확인할 수 있다.
+
+```
+$ ls
+galera-4-26.4.9-1.el8.x86_64.rpm  galera-4_26.4.9-2_amd64.deb
+```
+
+#### REFERENCE
+
+- <https://ko.wikipedia.org/wiki/Dpkg>
+- <https://en.wikipedia.org/wiki/RPM_Package_Manager>
+- <https://seulcode.tistory.com/548>

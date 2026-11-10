@@ -11,7 +11,7 @@
   </div>
   <label class="sr-only" for="query">검색어</label>
   <input id="query" type="search" placeholder="코루틴, SwiftUI, javascript…" autocomplete="off" />
-  <p class="search-status" role="status">시안에 포함된 글에서 검색합니다.</p>
+  <p class="search-status" role="status">기술 글 제목, 본문, 카테고리에서 검색합니다.</p>
   <ul class="search-results"></ul>
 </dialog>
 <script>
@@ -35,7 +35,7 @@
       const current = ++request;
       const query = input.value.trim();
       results.replaceChildren();
-      status.textContent = query ? '검색 중…' : '시안에 포함된 글에서 검색합니다.';
+      status.textContent = query ? '검색 중…' : '기술 글 제목, 본문, 카테고리에서 검색합니다.';
       if (!query) return;
 
       try {
@@ -54,7 +54,7 @@
           results.append(item);
         }
       } catch {
-        if (current === request) status.textContent = '검색을 불러오려면 빌드한 시안을 열어 주세요.';
+        if (current === request) status.textContent = '검색 색인은 빌드한 사이트에서만 사용할 수 있습니다.';
       }
     });
   }

@@ -1,15 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import MenuIntro from '../components/MenuIntro.astro';
-import { bookTitle, bookUrl, postDetails } from '../posts';
+import { bookTitle, bookUrl, getPosts, postDetails } from '../posts';
 import profile from '../../../images/profile/profile.jpg';
 import book from '../../../images/profile/spring-security-book.png';
 
-const posts = (await getCollection('posts')).sort((a, b) => b.id.localeCompare(a.id));
+const posts = await getPosts();
 const [featured, ...latest] = posts;
-if (!featured) throw new Error('The preview needs a featured post.');
+if (!featured) throw new Error('홈에 표시할 글이 없습니다.');
 const lead = postDetails(featured);
 ---
 <Base page="home" description="강준현의 소프트웨어 엔지니어링 기술 아카이브">
@@ -28,18 +27,18 @@ const lead = postDetails(featured);
           <span class="eyebrow">RECENT WRITING</span>
         </div>
         <article class="feature">
-          <div class="entry-meta"><span>{featured.data.category[0]}</span><time datetime={lead.date}>{lead.label}</time></div>
+          <div class="entry-meta"><span>{featured.data.categories[0]}</span><time datetime={lead.date}>{lead.label}</time></div>
           <h3><a href={lead.href}>{featured.data.title}<span class="entry-arrow" aria-hidden="true">↗</span></a></h3>
-          <p>{lead.summary}</p>
+          {lead.summary && <p>{lead.summary}</p>}
         </article>
         <ul class="entries">
           {latest.slice(0, 2).map((post) => {
             const details = postDetails(post);
             return (
               <li>
-                <div class="entry-meta"><span>{post.data.category[0]}</span><time datetime={details.date}>{details.label}</time></div>
+                <div class="entry-meta"><span>{post.data.categories[0]}</span><time datetime={details.date}>{details.label}</time></div>
                 <h3><a href={details.href}>{post.data.title}<span class="entry-arrow" aria-hidden="true">↗</span></a></h3>
-                <p>{details.summary}</p>
+                {details.summary && <p>{details.summary}</p>}
               </li>
             );
           })}

@@ -1,33 +1,3 @@
-import { visit } from 'unist-util-visit';
-
-export function moveRecommendedPosts() {
-  return (tree, file) => {
-    const headingIndex = tree.children.findIndex((node) =>
-      node.type === 'heading' && node.children.length === 1 &&
-      node.children[0].type === 'text' &&
-      node.children[0].value.trim().toLowerCase() === 'recommend posts before this'
-    );
-    if (headingIndex < 0) return;
-    const list = tree.children[headingIndex + 1];
-    if (list?.type !== 'list' || list.children.length === 0) return;
-
-    const definitions = new Map();
-    visit(tree, 'definition', (node) => { definitions.set(node.identifier, node.url); });
-    const links = [];
-    for (const item of list.children) {
-      const [paragraph] = item.children;
-      if (item.children.length !== 1 || paragraph?.type !== 'paragraph' || paragraph.children.length !== 1) return;
-      const [link] = paragraph.children;
-      const href = link.type === 'link' ? link.url : link.type === 'linkReference' ? definitions.get(link.identifier) : undefined;
-      if (!href || !link.children?.every((child) => child.type === 'text')) return;
-      links.push({ href, title: link.children.map((child) => child.value).join('') });
-    }
-
-    file.data.astro.frontmatter.recommendedPosts = links;
-    tree.children.splice(headingIndex, 2);
-  };
-}
-
 function element(hName, children, hProperties = {}) {
   return { type: 'previewElement', data: { hName, hProperties }, children };
 }

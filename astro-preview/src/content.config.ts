@@ -1,36 +1,31 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
-const posts = defineCollection({
-  loader: glob({
-    base: '../_posts',
-    pattern: [
-      '2026/2026-10-31-kotlin-coroutine-architecture.md',
-      '2026/2026-10-15-swift-ui-identity-lifetime-dependencies.md',
-      '2026/2026-10-13-swift-automatic-reference-counting.md',
-      '2022/2022-04-04-javascript-hoisting.md',
-    ],
-    generateId: ({ entry }) => entry.split('/').at(-1)!.replace(/\.md$/, ''),
-  }),
-  schema: z.object({
-    title: z.string(),
-    category: z.array(z.string()).min(1),
-    tags: z.array(z.string()).optional(),
-  }),
+// 기술 글·회고·독서 기록은 scripts/migrate-content.mjs가 생성한 같은 형식을 사용한다.
+const entry = z.object({
+  title: z.string(),
+  publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  updatedAt: z.string().datetime({ offset: true }),
+  canonicalPath: z.string().regex(/^\/(?:[^/\s]+\/)+$/),
+  categories: z.array(z.string()).min(1),
+  tags: z.array(z.string()).optional(),
+  summary: z.string().optional(),
+  hidden: z.boolean().optional(),
+  recommendedPosts: z.array(z.object({ title: z.string(), href: z.string() })).optional(),
+});
+
+const collection = (base: string) => defineCollection({
+  loader: glob({ base, pattern: '**/*.md', generateId: ({ entry: file }) => file.replace(/\.md$/, '') }),
+  schema: entry,
 });
 
 const pages = defineCollection({
   loader: glob({ base: '../_pages', pattern: 'about.md' }),
 });
 
-const logs = defineCollection({
-  loader: glob({
-    base: '../_logs',
-    pattern: '**/*.md',
-    retainBody: false,
-    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
-  }),
-  schema: z.object({ title: z.string(), hidden: z.boolean().optional() }),
-});
-
-export const collections = { posts, pages, logs };
+export const collections = {
+  posts: collection('./src/content/posts'),
+  logs: collection('./src/content/logs'),
+  books: collection('./src/content/books'),
+  pages,
+};

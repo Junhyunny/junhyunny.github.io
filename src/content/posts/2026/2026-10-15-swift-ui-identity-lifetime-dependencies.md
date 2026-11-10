@@ -197,7 +197,7 @@ View Value A     View Value B      View Value C
           │                       │
           │    View Identity A    │
           │                       │
-          │   동일한 논리적 View   │
+          │  동일한 논리적 View   │
           │                       │
           └───────────────────────┘
 ```

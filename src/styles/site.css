@@ -1,3 +1,18 @@
+/* D2Coding(OFL, fonts/README.md): 원본에서 필요한 글자만 추려 두 파일로 나눴다.
+   페이지에 쓰인 글자 범위에 해당하는 파일만 내려받는다. */
+@font-face {
+  font-family: 'D2Coding';
+  font-display: swap;
+  src: url('./fonts/d2coding-latin.woff2') format('woff2');
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2010-205E, U+2190-23FF, U+2460-24FF, U+2500-27BF;
+}
+@font-face {
+  font-family: 'D2Coding';
+  font-display: swap;
+  src: url('./fonts/d2coding-hangul.woff2') format('woff2');
+  unicode-range: U+3131-318E, U+AC00-D7A3;
+}
+
 :root {
   color-scheme: dark;
   --bg: #17191c;
@@ -27,6 +42,8 @@
   --weight-heading: 650;
   --sans: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', 'Malgun Gothic', system-ui, sans-serif;
   --mono: 'SFMono-Regular', Consolas, monospace;
+  /* 코드 글꼴: 한글이 영문 두 칸, 선·화살표 기호가 한 칸으로 맞아야 텍스트 다이어그램이 밀리지 않는다. */
+  --code: 'D2Coding', var(--mono);
   font-family: var(--sans);
   line-height: var(--leading-ui);
   color: var(--text);
@@ -275,7 +292,7 @@ h1, h2, h3, p { margin: 0; }
   border-radius: 3px;
   background: var(--surface);
   color: var(--text);
-  font: .88em var(--mono);
+  font: .88em var(--code);
 }
 .prose blockquote { border-left: 2px solid var(--accent); padding: .25rem 1rem; color: var(--muted); }
 .prose blockquote > :last-child { margin-bottom: 0; }
@@ -302,7 +319,7 @@ h1, h2, h3, p { margin: 0; }
   font-weight: var(--weight-heading);
   border-bottom: 2px solid #6b716a;
 }
-.prose pre { margin: 0 0 1.25rem; overflow-x: auto; padding: 1rem; border: 1px solid var(--line); font: var(--text-small)/var(--leading-list) var(--mono); }
+.prose pre { margin: 0 0 1.25rem; overflow-x: auto; padding: 1rem; border: 1px solid var(--line); font: var(--text-small)/var(--leading-list) var(--code); }
 .code-frame { position: relative; margin-bottom: 1.25rem; }
 .code-frame pre { margin: 0; padding-inline-end: 5rem; }
 .code-frame pre > code { display: block; overflow-x: auto; }

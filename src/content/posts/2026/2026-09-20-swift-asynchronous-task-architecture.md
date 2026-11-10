@@ -49,14 +49,14 @@ Task {
            │                           │
          await                         │
            │                           │
-    실제 suspension                     │
+    실제 suspension                    │
            │                           │
            ▼                           │
- continuation state 저장                │
+ continuation state 저장               │
            │                           │
       Task suspended                   │
            │                           │
-    fetchName 완료                      │
+    fetchName 완료                     │
            │                           │
  continuation resume ──────────────────┘
 ```

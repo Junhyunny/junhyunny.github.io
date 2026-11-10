@@ -251,7 +251,7 @@ h1, h2, h3, p { margin: 0; }
   margin-top: 0;
   text-wrap: balance;
 }
-.article-summary { max-width: 670px; margin-top: 1.1rem; color: var(--muted); font-size: var(--text-body); line-height: var(--leading-list); }
+.article-summary { margin-top: 1.1rem; color: var(--muted); font-size: var(--text-body); line-height: var(--leading-list); }
 .article-info { display: flex; gap: .9rem; align-items: baseline; margin-top: 1.3rem; font-size: var(--text-small); }
 .article-info time { color: var(--muted); font: var(--text-meta)/var(--leading-ui) var(--mono); }
 .taxonomy { display: flex; flex-wrap: wrap; gap: .4rem; list-style: none; padding: 0; margin: .9rem 0 0; }
@@ -321,6 +321,8 @@ h1, h2, h3, p { margin: 0; }
   border-bottom: 2px solid #6b716a;
 }
 .prose pre { margin: 0 0 1.25rem; overflow-x: auto; padding: 1rem; border: 1px solid var(--line); font: var(--text-small)/var(--leading-list) var(--code); }
+/* 브라우저 기본 스타일의 code { font-family: monospace }를 덮는다. 한국어 페이지에서 monospace는 선 문자가 두 칸인 한글 글꼴로 잡혀 다이어그램이 밀린다. */
+.prose pre > code { font: inherit; }
 .code-frame { position: relative; margin-bottom: 1.25rem; }
 .code-frame pre { margin: 0; padding-inline-end: 5rem; }
 .code-frame pre > code { display: block; overflow-x: auto; }

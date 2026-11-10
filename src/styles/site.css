@@ -324,8 +324,10 @@ h1, h2, h3, p { margin: 0; }
 /* 브라우저 기본 스타일의 code { font-family: monospace }를 덮는다. 한국어 페이지에서 monospace는 선 문자가 두 칸인 한글 글꼴로 잡혀 다이어그램이 밀린다. */
 .prose pre > code { font: inherit; }
 .code-frame { position: relative; margin-bottom: 1.25rem; }
-.code-frame pre { margin: 0; padding-inline-end: 5rem; }
-.code-frame pre > code { display: block; overflow-x: auto; }
+/* 가로 스크롤은 복사 버튼 자리(pre 오른쪽 여백)를 비워 두도록 code가 맡는다.
+   스크롤바가 마지막 줄 글자를 가리지 않게 code 아래에 여백을 두고, 그만큼 pre 아래 여백을 줄인다. */
+.code-frame pre { margin: 0; padding-inline-end: 5rem; padding-bottom: .25rem; }
+.code-frame pre > code { display: block; overflow-x: auto; padding-bottom: .75rem; }
 .copy-button {
   position: absolute;
   top: .55rem;

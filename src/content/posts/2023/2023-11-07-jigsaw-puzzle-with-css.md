@@ -1,7 +1,7 @@
 ---
-title: "Jigsaw Puzzle with CSS"
+title: "CSS로 만드는 지그소 퍼즐"
 publishedAt: "2023-11-07"
-updatedAt: "2023-11-07T23:55:00+00:00"
+updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/html/css/javascript/jigsaw-puzzle-with-css/"
 categories:
   - "html"
@@ -11,11 +11,11 @@ categories:
 
 ## 0. 들어가면서
 
-개발 중인 애플리케이션에 퍼즐 조각을 수집하는 기능을 추가했습니다. 퍼즐 조각을 만드는 스타일 작업을 어렵게 생각했지만, `.svg` 파일과 CSS `clip-path` 속성을 함께 사용했더니 생각보다 쉽게 구현했습니다. `clip-path`를 사용한 클피링(clipping)은 다른 파트에서 정의한 요소의 일부분을 제거하는 작업입니다. `.svg` 파일과 함께 사용하면 파일 영역을 제외한 부분을 제거합니다. 이번 포스트에선 `clip-path` 속성과 `.svg` 파일을 사용한 퍼즐 조각 스타일과 애니메이션 코드에 관련된 내용을 정리하였습니다.
+개발 중인 애플리케이션에 퍼즐 조각을 수집하는 기능을 추가했다. 퍼즐 조각을 만드는 스타일 작업을 어렵게 생각했지만, `.svg` 파일과 CSS `clip-path` 속성을 함께 사용했더니 생각보다 쉽게 구현했다. `clip-path`를 사용한 클리핑(clipping)은 다른 파트에서 정의한 요소의 일부분을 제거하는 작업이다. `.svg` 파일과 함께 사용하면 파일 영역을 제외한 부분을 제거한다. 이번 포스트에선 `clip-path` 속성과 `.svg` 파일을 사용한 퍼즐 조각 스타일과 애니메이션 코드에 관련된 내용을 정리하였다.
 
-## 1. HTML 
+## 1. HTML
 
-가독성을 위해 주석으로 설명을 추가하였습니다.
+가독성을 위해 주석으로 설명을 추가하였다.
 
 ```html
 <!-- 애니메이션 모달 화면 -->
@@ -64,7 +64,7 @@ categories:
 
 ## 2. CSS
 
-가독성을 위해 주석으로 설명을 추가하였습니다.
+가독성을 위해 주석으로 설명을 추가하였다.
 
 ```scss
 $ease-out-qubic: cubic-bezier(0.33, 1, 0.68, 1);
@@ -83,7 +83,7 @@ $ease-out-qubic: cubic-bezier(0.33, 1, 0.68, 1);
   justify-content: center;
 }
 
-// 각 퍼즐 조각의 위치 지정시 기준이 되기 위해 relative 포지션 
+// 각 퍼즐 조각의 위치 지정시 기준이 되기 위해 relative 포지션
 .item-box {
   border: 1px solid lightgrey;
   position: relative;
@@ -107,7 +107,7 @@ $ease-out-qubic: cubic-bezier(0.33, 1, 0.68, 1);
 
   &:nth-child(2) {
     // 절대 좌표로 오른쪽 상단 위치
-    // 같은 모양의 퍼즐 조각이므로 90도 회전 
+    // 같은 모양의 퍼즐 조각이므로 90도 회전
     transform: translateX(100%) translateY(0) rotate(90deg);
     & .puzzle::before {
       // 퍼즐 조각을 90도 회전시켰으므로 내부 이미지는 -90도 회전
@@ -123,7 +123,7 @@ $ease-out-qubic: cubic-bezier(0.33, 1, 0.68, 1);
 
   &:nth-child(3) {
     // 절대 좌표로 오른쪽 하단 위치
-    // 같은 모양의 퍼즐 조각이므로 180도 회전 
+    // 같은 모양의 퍼즐 조각이므로 180도 회전
     transform: translateX(100%) translateY(100%) rotate(180deg);
     & .puzzle::before {
       // 퍼즐 조각을 180도 회전시켰으므로 내부 이미지는 -180도 회전
@@ -139,7 +139,7 @@ $ease-out-qubic: cubic-bezier(0.33, 1, 0.68, 1);
 
   &:nth-child(4) {
     // 절대 좌표로 오른쪽 하단 위치
-    // 같은 모양의 퍼즐 조각이므로 270도 회전 
+    // 같은 모양의 퍼즐 조각이므로 270도 회전
     transform: translateX(0) translateY(100%) rotate(270deg);
     & .puzzle::before {
       // 퍼즐 조각을 270도 회전시켰으므로 내부 이미지는 -270도 회전
@@ -309,7 +309,7 @@ $ease-out-qubic: cubic-bezier(0.33, 1, 0.68, 1);
 
 ## 3. JavaScript
 
-가독성을 위해 주석으로 설명을 추가하였습니다.
+가독성을 위해 주석으로 설명을 추가하였다.
 
 ```js
 // 특정 조각 스캔 이벤트
@@ -329,7 +329,7 @@ function scan(number) {
 
   // 애니메이션 동작 2초 후 작업
   setTimeout(() => {
-    // 애니메이션 클래스 제거 
+    // 애니메이션 클래스 제거
     modal.classList.remove("on");
     collectedPiece.classList.remove("on");
     // 스캔 완료 클래스 추가
@@ -340,7 +340,7 @@ function scan(number) {
 
 ## 4. Result
 
-코드펜(code)을 통해 테스트 가능합니다.
+코드펜(codepen)을 통해 테스트 가능하다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/bGzwbyW?default-tab=result" title="Puzzle" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/bGzwbyW/">CodePen에서 예제 열기</a></p>

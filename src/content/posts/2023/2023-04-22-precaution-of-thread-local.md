@@ -8,7 +8,7 @@ categories:
 recommendedPosts:
   - title: "자바(Java) ThreadLocal 클래스"
     href: "https://junhyunny.github.io/java/thread-local-class-in-java/"
-  - title: "Thread Pool in Java"
+  - title: "자바 스레드 풀(Java Thread Pool)"
     href: "https://junhyunny.github.io/java/thread-pool-in-java/"
 ---
 

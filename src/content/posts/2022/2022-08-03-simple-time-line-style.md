@@ -1,7 +1,7 @@
 ---
-title: "Simple Timeline Style"
+title: "심플 타임라인 스타일(Simple Timeline Style)"
 publishedAt: "2022-08-03"
-updatedAt: "2022-08-03T23:55:00+00:00"
+updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/html/css/javascript/simple-time-line-style/"
 categories:
   - "html"
@@ -11,12 +11,12 @@ categories:
 
 ## 1. Simple Timeline Style
 
-개인이나 회사 이력을 간단하게 표현할 수 있는 타임라인(timeline) 스타일을 구현하였습니다. 
+개인이나 회사 이력을 간단하게 표현할 수 있는 타임라인(timeline) 스타일을 구현하였다.
 
 ### 1.1. HTML 코드
 
-* `history-items` 클래스 하위에 `li` 요소를 이용하여 타임라인 선을 표현합니다.
-* `history-items` 클래스 하위에 `history-item` 클래스들을 좌, 우에 위치시켜 간단한 타임라인 카드를 구성합니다.
+- `history-items` 클래스 하위에 `li` 요소를 이용하여 타임라인 선을 표현한다.
+- `history-items` 클래스 하위에 `history-item` 클래스들을 좌, 우에 위치시켜 간단한 타임라인 카드를 구성한다.
 
 ```html
 <ul class="history-items">
@@ -26,7 +26,7 @@ categories:
             <div class="history-item__detail">
                 <p class="history-item__date">08.03</p>
                 <p class="history-item__content">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                     Voluptatem, earum!
                     Eum, cupiditate iste quo saepe odio magnam praesentium quis qui possimus laborum, totam dolor hic consequuntur facere magni natus eius?
                 </p>
@@ -94,8 +94,8 @@ categories:
 
 ### 1.2. CSS 코드
 
-* 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-* 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 ```css
 @import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css");

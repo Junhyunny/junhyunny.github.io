@@ -12,7 +12,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/transcation-isolation/"
   - title: "JPA 비관적 락(pessimistic lock)"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-pessimitic-lock/"
-  - title: "Thread Pool in Java"
+  - title: "자바 스레드 풀(Java Thread Pool)"
     href: "https://junhyunny.github.io/java/thread-pool-in-java/"
   - title: "동일 로우(row) 중복 삽입 동시성(concurrency) 문제"
     href: "https://junhyunny.github.io/java/spring-boot/jpa/concurrency-problem-insert-same-rows/"

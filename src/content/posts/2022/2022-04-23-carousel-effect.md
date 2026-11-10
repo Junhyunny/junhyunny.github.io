@@ -1,7 +1,7 @@
 ---
-title: "Carousel Effect"
+title: "캐러셀(Carousel) 효과 구현"
 publishedAt: "2022-04-23"
-updatedAt: "2022-04-23T23:55:00+00:00"
+updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/html/css/javascript/carousel-effect/"
 categories:
   - "html"
@@ -11,15 +11,11 @@ categories:
 
 ## 0. 들어가면서
 
-회사에서 풀스택 개발자를 지향하다보니 최근에 프론트 엔드와 관련된 공부 비중을 많이 늘리고 있습니다. 
-외국은 퍼블리셔(publisher)라는 직업이 없고, 프론트 엔드 개발자가 모든 개발을 한다고 합니다. 
-재직 중인 회사 또한 외국계 회사이다보니 자연스레 `HTML`, `CSS`까지 모두 커버(cover)하게 되었는데, 
-앞으론 기록도 할 겸 프로젝트를 진행하면서 구현한 효과들을 블로그에 하나씩 정리해보려 합니다. 
-이번 포스트에선 캐러셀(carousel) 효과를 정리하였습니다.
+회사에서 풀스택 개발자를 지향하다 보니 최근에 프론트엔드와 관련된 공부 비중을 많이 늘리고 있다. 외국은 퍼블리셔(publisher)라는 직업이 없고, 프론트엔드 개발자가 모든 개발을 한다고 한다. 재직 중인 회사 또한 외국계 회사이다 보니 자연스레 `HTML`, `CSS`까지 모두 커버(cover)하게 되었는데, 앞으론 기록도 할 겸 프로젝트를 진행하면서 구현한 효과들을 블로그에 하나씩 정리해보려 한다. 이번 포스트에선 캐러셀(carousel) 효과를 정리하였다.
 
 ## 1. 텍스트 Fade In 효과
 
-아래에서 위로 텍스트가 올라오는 효과입니다. 
+아래에서 위로 텍스트가 올라오는 효과이다.
 
 ### 1.1. HTML 코드
 
@@ -35,8 +31,8 @@ categories:
 
 ### 1.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-- 설명에 대한  내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 ```css
 .items {
@@ -44,7 +40,7 @@ categories:
     height: 50px;
     border: 1px solid grey;
     /* 자신의 영역 밖에 위치한 엘리먼트(element)가 보이지 않도록 감춘다. */
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 .item {
@@ -83,18 +79,18 @@ categories:
 
 ### 1.3. JavaScript 코드와 결과
 
-- `item` 클래스를 가진 모든 엘리먼트들을 조회합니다.
-- `setInterval` 함수를 이용해 1.2초 주기 별로 내부 콜백 함수를 호출합니다.
-- 현재 인덱스 엘리먼트에서 `active` 클래스를 제거합니다.
-- 인덱스를 증가시키지만, 모듈라 연산을 통해 인덱스가 배열을 넘어가지 않도록 합니다.
-- 다음 인덱스 엘리먼트에 `active` 클래스를 추가합니다.
+- `item` 클래스를 가진 모든 엘리먼트들을 조회한다.
+- `setInterval` 함수를 이용해 1.2초 주기 별로 내부 콜백 함수를 호출한다.
+- 현재 인덱스 엘리먼트에서 `active` 클래스를 제거한다.
+- 인덱스를 증가시키지만, 모듈라 연산을 통해 인덱스가 배열을 넘어가지 않도록 한다.
+- 다음 인덱스 엘리먼트에 `active` 클래스를 추가한다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/JjMVgmN?default-tab=js,result" title="Carousel text fade in" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/JjMVgmN/">CodePen에서 예제 열기</a></p>
 
 ## 2. 이미지 슬라이드 효과
 
-메인 페이지 배너 형태로 가장 많이 사용되는 효과입니다.
+메인 페이지 배너 형태로 가장 많이 사용되는 효과이다.
 
 ### 2.1. HTML 코드
 
@@ -110,8 +106,8 @@ categories:
 
 ### 2.2. CSS 코드
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였습니다.
-- 설명에 대한  내용은 가독성을 높이기 위해 주석에 작성하였습니다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
 
 ```css
 .items {
@@ -200,24 +196,25 @@ categories:
 
 ### 2.3. JavaScript 코드와 결과
 
-- 현재 활성화 된 엘리먼트인 `currentElement`를 획득합니다.
-- 이전 형제 엘리먼트인 `dispearedElement` 찾습니다. 
-    - HTML 문서를 기준으로 현재 엘리먼트와 동일한 레벨에서 상단에 위치한 엘리먼트입니다.  
-    - 효과를 기준으로 현재 엘리먼트가 등장하기 전에 사라진 엘리먼트입니다.
-- 다음 형제 엘리먼트인 `appearedElemnt` 찾으며, 현재 엘리먼트를 기준으로 이번에 등장할 엘리먼트입니다.
-    - HTML 문서를 기준으로 현재 엘리먼트와 동일한 레벨에서 하단에 위치한 엘리먼트입니다.  
-    - 효과를 기준으로 현재 엘리먼트 다음에 등장할 엘리먼트입니다.
-- 현재 활성화 된 엘리먼트에서 `active` 클래스를 제거하고, `inactive` 클래스를 추가합니다.
-- 이전 형제 엘리먼트가 없는 경우 마지막 엘리먼트에서 `inactive` 클래스를 제거합니다. 
-    - 이전 형제 엘리먼트가 없는 경우는 동일 레벨 엘리먼트 중에 처음 엘리먼트라는 의미입니다.
-    - 처음 엘리먼트 이전에 등장한 엘리먼트는 동일 레벨 엘리먼트 중에 마지막 엘리먼트입니다.
-- 다음 형제 엘리먼트가 없는 경우 처음 엘리먼트에 `active` 클래스를 추가합니다. 
-    - 다음 형제 엘리먼트가 없는 경우는 동일 레벨 엘리먼트 중에 마지막 엘리먼트라는 의미입니다.
-    - 마지막 엘리먼트 다음에 등장할 엘리먼트는 동일 레벨 엘리먼트 중에 첫 엘리먼트입니다.
+- 현재 활성화 된 엘리먼트인 `currentElement`를 획득한다.
+- 이전 형제 엘리먼트인 `dispearedElement`를 찾는다.
+  - HTML 문서를 기준으로 현재 엘리먼트와 동일한 레벨에서 상단에 위치한 엘리먼트이다.
+  - 효과를 기준으로 현재 엘리먼트가 등장하기 전에 사라진 엘리먼트이다.
+- 다음 형제 엘리먼트인 `appearedElement`를 찾으며, 현재 엘리먼트를 기준으로 이번에 등장할 엘리먼트이다.
+  - HTML 문서를 기준으로 현재 엘리먼트와 동일한 레벨에서 하단에 위치한 엘리먼트이다.
+  - 효과를 기준으로 현재 엘리먼트 다음에 등장할 엘리먼트이다.
+- 현재 활성화 된 엘리먼트에서 `active` 클래스를 제거하고, `inactive` 클래스를 추가한다.
+- 이전 형제 엘리먼트가 없는 경우 마지막 엘리먼트에서 `inactive` 클래스를 제거한다.
+  - 이전 형제 엘리먼트가 없는 경우는 동일 레벨 엘리먼트 중에 처음 엘리먼트라는 의미이다.
+  - 처음 엘리먼트 이전에 등장한 엘리먼트는 동일 레벨 엘리먼트 중에 마지막 엘리먼트이다.
+- 다음 형제 엘리먼트가 없는 경우 처음 엘리먼트에 `active` 클래스를 추가한다.
+  - 다음 형제 엘리먼트가 없는 경우는 동일 레벨 엘리먼트 중에 마지막 엘리먼트라는 의미이다.
+  - 마지막 엘리먼트 다음에 등장할 엘리먼트는 동일 레벨 엘리먼트 중에 첫 엘리먼트이다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/WNdBeEr?default-tab=js,result" title="Image Carousel Slide" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/WNdBeEr/">CodePen에서 예제 열기</a></p>
 
 #### REFERENCE
+
 - <https://developer.mozilla.org/en-US/docs/Web/API/Element/nextElementSibling>
 - <https://developer.mozilla.org/en-US/docs/Web/API/Element/previousElementSibling>

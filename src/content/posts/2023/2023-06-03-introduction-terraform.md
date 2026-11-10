@@ -7,6 +7,9 @@ categories:
   - "information"
   - "infrastructure"
   - "dev-ops"
+recommendedPosts:
+  - title: "테라폼(Terraform) AWS VPC 생성하기"
+    href: "https://junhyunny.github.io/terraform/create-vpc-in-aws-with-terraform/"
 ---
 
 ## 0. 들어가면서
@@ -383,10 +386,6 @@ new-instance-public-ip = "54.172.203.53"
 #### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2023-06-03-introduction-terraform>
-
-#### RECOMMEND NEXT POSTS
-
-- [테라폼(Terraform) AWS VPC 생성하기][create-vpc-in-aws-with-terraform-link]
 
 #### REFERENCE
 

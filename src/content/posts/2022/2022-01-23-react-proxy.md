@@ -1,7 +1,7 @@
 ---
 title: "React 개발 서버 CORS 문제 해결"
 publishedAt: "2022-01-23"
-updatedAt: "2022-01-23T23:55:00+00:00"
+updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/react/react-proxy/"
 categories:
   - "information"
@@ -9,9 +9,9 @@ categories:
 recommendedPosts:
   - title: "CORS(Cross Origin Resource Sharing)"
     href: "https://junhyunny.github.io/information/cors/"
-  - title: "Spring 서버 CORS(Cross Origin Resource Sharing) 헤더 처리"
+  - title: "스프링(spring) 서버 CORS(Cross Origin Resource Sharing) 헤더 추가하기"
     href: "https://junhyunny.github.io/spring-boot/vue.js/cors-example/"
-  - title: "Forward/Reverse Proxy"
+  - title: "포워드/리버스 프록시(Forward/Reverse Proxy)"
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"
   - title: "React 환경 변수 설정과 실행 환경 분리"
     href: "https://junhyunny.github.io/react/react-env-variable-setting/"
@@ -43,27 +43,27 @@ CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로
 
 리액트 개발 서버에 프록시를 구축하면 다음과 같이 동작한다.
 
-- 리액트 애플리케이션으로부터 화면을 전달받다. 이때 호스트는 `http://localhost:3000`이다. 
-- 화면 버튼을 눌렀을 때 브라우저는 리액트 애플리케이션에게 요청한다. 
+- 리액트 애플리케이션으로부터 화면을 전달받는다. 이때 호스트는 `http://localhost:3000`이다.
+- 화면 버튼을 눌렀을 때 브라우저는 리액트 애플리케이션에게 요청한다.
 - 리액트 애플리케이션에 구축된 프록시를 통해 백엔드 서비스(`http://localhost:8080`)를 호출한다. 
 - 백엔드 서비스는 요청에 대한 응답을 반환한다.
 - 리액트 애플리케이션은 이를 다시 브라우저에게 전달한다.
 
-<p class="block-break" align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-proxy-02.png" width="60%">
-</p>
+</div>
 
 위 흐름이기 때문에 브라우저는 크로스 오리진 요청을 하지 않은 것과 동일하다. 반대로 잠시 언급했던 스프링 부트 서버에서 CORS 처리를 구축하면 다음과 같이 처리된다.
 
-- 리액트 애플리케이션으로부터 화면을 전달받다. 이때 호스트는 `http://localhost:3000`이다. 
-- 화면 버튼을 눌렀을 때 브라우저가 백엔드 서비스(`http://localhost:8080`)로 직접 요청한다. 
+- 리액트 애플리케이션으로부터 화면을 전달받는다. 이때 호스트는 `http://localhost:3000`이다.
+- 화면 버튼을 눌렀을 때 브라우저가 백엔드 서비스(`http://localhost:8080`)로 직접 요청한다.
 - 백엔드 서비스는 요청에 대한 응답을 반환한다.
 - 응답 헤더 정보에 `Access-Control-Allow-Origin: http://localhost:3000`가 추가된다.
   - 이는 백엔드 서비스가 `http://localhost:3000` 출처로부터 오는 요청은 허가한다는 의미이다.
 
-<p align="center">
+<div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-proxy-01.png" width="60%">
-</p>
+</div>
 
 ## 3. Example
 
@@ -252,9 +252,9 @@ CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을
   - 프록시 설정으로 인해 백엔드 서비스로 요청이 전달된다.
   - 서버로부터 전달받은 데이터를 정상적으로 화면에 출력한다.
 
-<p align="center">
+<div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-proxy-03.gif" width="100%" class="image__border">
-</p>
+</div>
 
 ## 3.4. http-proxy-middleware library
 
@@ -268,7 +268,7 @@ package.json 설정처럼 모든 요청이 프록시를 거쳐가는 것이 아�
 > - Enable CORS on your server (here’s how to do it for Express).
 > - Use environment variables to inject the right server host and port into your app.
 
-아래 명령어를 사용하 설치한다.
+아래 명령어를 사용해 설치한다.
 
 ```
 $ npm install http-proxy-middleware
@@ -305,9 +305,9 @@ module.exports = app => {
   - `/proxy` 경로에 해당하는 프록시 설정이 존재한다.
   - `http://localhost:8080` 호스트 서버로부터 전달받은 데이터를 정상적으로 화면에 출력한다.
 
-<p align="center">
+<div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-proxy-04.gif" width="100%" class="image__border">
-</p>
+</div>
 
 ## CLOSING
 

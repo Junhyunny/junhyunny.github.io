@@ -7,11 +7,12 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+recommendedPosts:
+  - title: "트랜잭션(transaction) ACID 특징"
+    href: "https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/"
+  - title: "@Transactional 애너테이션과 UnexpectedRollbackException 발생"
+    href: "https://junhyunny.github.io/spring-boot/jpa/exception/unexpected-rollback-exception/"
 ---
-
-#### RECOMMEND POSTS BEFORE THIS
-
-- [트랜잭션(transaction) ACID 특징][transaction-acid-link]
 
 ## 0. 들어가면서
 
@@ -1345,15 +1346,9 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2021-05-10-transactional-propagation-type>
 
-#### RECOMMEND NEXT POSTS
-
-- [@Transactional 애너테이션과 UnexpectedRollbackException 발생][unexpected-rollback-exception-link]
-
 #### REFERENCE
 
 - <https://www.nextree.co.kr/p3180/>
 - <https://woowabros.github.io/experience/2019/01/29/exception-in-transaction.html>
 - <https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/transaction/annotation/Propagation.html>
 - <https://stackoverflow.com/questions/23132822/what-is-the-difference-between-defining-transactional-on-class-vs-method>
-
-[transaction-acid-link]: https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/ [unexpected-rollback-exception-link]: https://junhyunny.github.io/spring-boot/jpa/exception/unexpected-rollback-exception/

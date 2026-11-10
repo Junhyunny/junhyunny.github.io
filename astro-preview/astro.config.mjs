@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import remarkCjkFriendly from 'remark-cjk-friendly';
 import { visit } from 'unist-util-visit';
 import { formatAboutResume } from './preview-content.mjs';
 
@@ -30,7 +31,8 @@ export default defineConfig({
   site: 'https://junhyunny.github.io',
   trailingSlash: 'always',
   markdown: {
-    remarkPlugins: [labelExampleRepositories, formatAboutResume],
+    // 한국어 조사가 붙은 강조(**'인용'**라는, **용어(Term)**는)를 Jekyll(kramdown)처럼 처리한다.
+    remarkPlugins: [remarkCjkFriendly, labelExampleRepositories, formatAboutResume],
     shikiConfig: { theme: 'github-dark-dimmed' },
   },
 });

@@ -169,7 +169,7 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 
 `2020.0.x` 릴리즈부터 Spring Cloud CircuitBreaker로 `Hystrix`를 대체한다고 한다. `feign.circuitbreaker.*` 설정을 통해 Spring Cloud CircuitBreaker 지원을 활성화하라고 한다.
 
-<divp align="left">
+<div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/incompatible-fallback-factory-instance-02.png" width="100%" class="image__border">
 </div>
 

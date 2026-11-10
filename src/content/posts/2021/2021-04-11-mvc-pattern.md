@@ -12,7 +12,7 @@ categories:
 
 애플리케이션을 세 개의 영역으로 분할하고 각 구성 요소에게 고유한 역할을 부여하는 개발 방식이다. MVC 패턴을 도입하면 도메인(비즈니스 로직) 영역과 UI 영역이 분리되므로 서로 영향을 주지 않고 유지보수가 가능하다. MVC 패턴의 구조를 살펴보면서 각 컴포넌트가 무슨 역할을 수행하는지 알아보자. MVC 패턴은 이름에서도 알 수 있듯이 모델(Model), 뷰(View), 컨트롤러(Controller) 세 개의 컴포넌트로 이루어졌다. 각 컴포넌트는 고유한 역할을 수행한다. 아래 이미지는 MVC 패턴 다이어그램 및 웹 애플리케이션에서 사용하는 일반적인 MVC 패턴이다.
 
-<div align="center" class="image__border">
+<div align="center" class="image-row image__border">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mvc-pattern-01.png" width="30%">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mvc-pattern-02.png" width="50%">
 </div>

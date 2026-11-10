@@ -53,7 +53,7 @@ Caused by: java.lang.IllegalStateException: Could not find a valid Docker enviro
 
 랜처 데스크탑에서 이 문제를 해결하려면 `Preference > Application > General` 설정에 `Administrative Access` 속성이 활성화한다. 
 
-<div class="block-break" align="center">
+<div class="image-row block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/not-find-valid-docker-env-when-testcontainer-in-mac-01.png" width="45%" class="image__border image__padding">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/not-find-valid-docker-env-when-testcontainer-in-mac-02.png" width="35%" class="image__border image__padding">
 </div>

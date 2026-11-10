@@ -225,7 +225,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 정상적으로 배포가 되었다면 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없는 경우 1시간 간격으로 메시지를 전달한다.
 
-<div align="left">
+<div class="image-row" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-09.png" width="30%" class="image__border">
     <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-10.png" width="30%" class="image__border">
 </div>

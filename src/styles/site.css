@@ -286,6 +286,13 @@ h1, h2, h3, p { margin: 0; }
 .prose .image-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .prose .image-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .prose .image-grid img { width: 100%; margin: 0; }
+/* 이미지 2장 이상을 width(%) 그대로 한 줄에 나란히 배치. 기존 인라인 이미지처럼 아래쪽을 맞추고, --top은 위쪽을 맞춘다. */
+.prose .image-row { display: flex; justify-content: center; align-items: flex-end; gap: 1%; margin-block: 1.3rem; }
+.prose .image-row[align="left"] { justify-content: flex-start; }
+.prose .image-row--top { align-items: flex-start; }
+.prose .image-row img { min-width: 0; margin: 0; }
+/* align="left"로 감싼 이미지는 가운데가 아니라 왼쪽에 둔다. */
+.prose :is(div, p)[align="left"] > img { margin-inline: 0; }
 .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: var(--text-compact); }
 .prose td, .prose th { border: 1px solid var(--line); padding: .4rem .7rem; }
 .prose thead th {

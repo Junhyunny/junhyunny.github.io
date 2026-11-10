@@ -49,7 +49,7 @@ MCP 서버를 활성화 하면 피그마 애플리케이션 하단에서 접속 
 
 - `http://127.0.0.1:3845/mcp` 서버를 통해 연결이 가능하다.
 
-<div align="lefr">
+<div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-02.png" width="65%" class="image__border">
 </div>
 

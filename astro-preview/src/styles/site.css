@@ -198,12 +198,12 @@ h1, h2, h3, p { margin: 0; }
 .home-rail section { padding-bottom: 1.65rem; }
 .home-rail section + section { border-top: 1px solid var(--line); padding-top: 1.6rem; }
 .home-rail .text-link { margin-top: .8rem; }
-.author, .book { display: flex; align-items: center; gap: .9rem; margin-top: .9rem; }
+.author, .book { display: flex; align-items: center; gap: .9rem; }
 .author img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; }
 .author h2, .book h2 { font-size: var(--text-body); line-height: var(--leading-ui); letter-spacing: -.03em; }
 .author h2 span { color: var(--muted); font-size: var(--text-small); font-weight: 400; margin-left: .22rem; }
 .author p:not(.eyebrow), .book p:not(.eyebrow) { margin-top: .12rem; font-size: var(--text-meta); }
-.book { align-items: start; }
+.book { align-items: start; margin-top: .9rem; }
 .book img { flex: none; width: 76px; height: auto; }
 .book h2 { word-break: keep-all; }
 .site-footer { border-top: 1px solid var(--line); margin-top: clamp(3.5rem, 8vw, 6rem); color: var(--muted); }

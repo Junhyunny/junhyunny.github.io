@@ -1,5 +1,5 @@
 ---
-title: "스프링 부트(Spring Boot) Redis 발행자(Publisher)/구독자(Subscriber) 구현하기"
+title: "스프링 부트 Redis 발행자(Publisher)/구독자(Subscriber) 구현하기"
 publishedAt: "2024-02-10"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/spring-boot/redis/redis-publisher-and-subscriber-spring-boot/"

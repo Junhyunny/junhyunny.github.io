@@ -1,5 +1,5 @@
 ---
-title: "자바 래퍼 클래스(Java Wrapper Class) 오토 박싱(auto boxing)과 성능 이슈"
+title: "자바 래퍼 클래스 오토 박싱(auto boxing)과 성능 이슈"
 publishedAt: "2021-08-05"
 updatedAt: "2026-05-07T23:47:39+09:00"
 canonicalPath: "/java/auto-boxing-performance-test/"

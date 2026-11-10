@@ -1,5 +1,5 @@
 ---
-title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)와 트랜잭션(transaction)"
+title: "스프링 애플리케이션 컨텍스트 이벤트와 트랜잭션(transaction)"
 publishedAt: "2021-08-16"
 updatedAt: "2026-05-08T02:40:06+09:00"
 canonicalPath: "/spring-boot/transaction-in-spring-application-context-event/"
@@ -8,13 +8,13 @@ categories:
 recommendedPosts:
   - title: "@Transactional 애너테이션의 전파 타입(PropagationType)"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/"
-  - title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)"
+  - title: "스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)"
     href: "https://junhyunny.github.io/spring-boot/spring-application-context-event/"
 ---
 
 ## 0. 들어가면서
 
-[스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)를 다룬 글][spring-application-context-event-link]에서 간단한 시나리오와 함께 스프링 프레임워크의 애플리케이션 컨텍스트 이벤트의 개념과 사용 방법을 알아보았다. 이번 글은 이전 글을 작성하면서 생긴 궁금증을 해소하기 위해 작성하였다. 이번 글에서 사용한 예제의 패키지 구조는 다음과 같다.
+[스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)를 다룬 글][spring-application-context-event-link]에서 간단한 시나리오와 함께 스프링 프레임워크의 애플리케이션 컨텍스트 이벤트의 개념과 사용 방법을 알아보았다. 이번 글은 이전 글을 작성하면서 생긴 궁금증을 해소하기 위해 작성하였다. 이번 글에서 사용한 예제의 패키지 구조는 다음과 같다.
 
 ```
 `-- action-in-blog

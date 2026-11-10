@@ -1,5 +1,5 @@
 ---
-title: "맥(Mac) Sourcetree GitHub 비공개(private) 레포지토리 접근 불가능 문제"
+title: "맥(Mac) Sourcetree에서 GitHub 비공개 레포지토리 접근 불가 문제"
 publishedAt: "2021-11-24"
 updatedAt: "2026-06-06T23:06:02+09:00"
 canonicalPath: "/information/source-tree-for-mac-read-only-authentication-problem/"

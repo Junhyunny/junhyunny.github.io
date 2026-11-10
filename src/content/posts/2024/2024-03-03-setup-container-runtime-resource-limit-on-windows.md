@@ -1,5 +1,5 @@
 ---
-title: "윈도우(Windows) 운영체제에서 도커 컨테이너 런타임 리소스 제한 설정하기"
+title: "윈도우(Windows)에서 도커 컨테이너 런타임 리소스 제한 설정하기"
 publishedAt: "2024-03-03"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/docker/podman/windows/setup-container-runtime-resource-limit-on-windows/"

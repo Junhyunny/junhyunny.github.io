@@ -6,11 +6,11 @@ canonicalPath: "/aws/aws-ecs-service-setup/"
 categories:
   - "aws"
 recommendedPosts:
-  - title: "AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정"
+  - title: "AWS 애플리케이션 로드 밸런서(ALB)와 대상 그룹(Target Group) 설정"
     href: "https://junhyunny.github.io/aws/aws-alb-and-target-group-setup/"
   - title: "AWS ECR(Elastic Container Registry) 설정"
     href: "https://junhyunny.github.io/aws/aws-ecr-setup/"
-  - title: "AWS ECS(Elastic Container Service)와 RDS(Relational Database Service) 연결하기"
+  - title: "AWS ECS(Elastic Container Service)와 RDS 데이터베이스 연결하기"
     href: "https://junhyunny.github.io/aws/connect-aws-ecs-and-rds/"
 ---
 
@@ -264,7 +264,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-23.png" width="100%" class="image__border">
 </div>
 
-실행 중인 태스크까지 트래픽이 잘 연결되었다면 브라우저에서 서비스 화면을 볼 수 있다. 접근 주소는 [AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정][aws-alb-and-target-group-setup-link] 글에서 만든 로드 밸런서의 DNS 주소를 사용한다.
+실행 중인 태스크까지 트래픽이 잘 연결되었다면 브라우저에서 서비스 화면을 볼 수 있다. 접근 주소는 [AWS 애플리케이션 로드 밸런서(ALB)와 대상 그룹(Target Group) 설정][aws-alb-and-target-group-setup-link] 글에서 만든 로드 밸런서의 DNS 주소를 사용한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-24.png" width="100%" class="image__border">

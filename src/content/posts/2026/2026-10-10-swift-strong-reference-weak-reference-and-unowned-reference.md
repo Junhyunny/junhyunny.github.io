@@ -10,7 +10,7 @@ categories:
   - "weak-reference"
   - "garbage-collecting"
 recommendedPosts:
-  - title: "가비지 컬렉션(Garbage Collection) 참조 카운팅(Reference Counting) 알고리즘"
+  - title: "가비지 컬렉션 참조 카운팅(Reference Counting) 알고리즘"
     href: "https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/"
   - title: "스위프트 구조체와 클래스(Swift struct and class)"
     href: "https://junhyunny.github.io/swift/struct-and-class-in-swift/"

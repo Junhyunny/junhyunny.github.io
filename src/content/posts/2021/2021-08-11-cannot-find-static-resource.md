@@ -1,5 +1,5 @@
 ---
-title: "스프링 부트 애플리케이션 이미지 에셋(asset)을 못 찾는 문제 원인과 해결 방법"
+title: "스프링 부트 애플리케이션이 이미지 에셋(asset)을 못 찾는 문제"
 publishedAt: "2021-08-11"
 updatedAt: "2026-04-25T23:19:05+09:00"
 canonicalPath: "/spring-boot/cannot-find-static-resource/"

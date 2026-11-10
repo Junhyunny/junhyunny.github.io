@@ -1,5 +1,5 @@
 ---
-title: "AWS ECS(Elastic Container Service)와 RDS(Relational Database Service) 연결하기"
+title: "AWS ECS(Elastic Container Service)와 RDS 데이터베이스 연결하기"
 publishedAt: "2024-08-09"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/connect-aws-ecs-and-rds/"

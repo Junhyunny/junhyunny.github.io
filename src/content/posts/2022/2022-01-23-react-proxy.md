@@ -9,7 +9,7 @@ categories:
 recommendedPosts:
   - title: "CORS(Cross Origin Resource Sharing)"
     href: "https://junhyunny.github.io/information/cors/"
-  - title: "스프링(spring) 서버 CORS(Cross Origin Resource Sharing) 헤더 추가하기"
+  - title: "스프링 서버에 CORS(Cross Origin Resource Sharing) 헤더 추가하기"
     href: "https://junhyunny.github.io/spring-boot/vue.js/cors-example/"
   - title: "포워드/리버스 프록시(Forward/Reverse Proxy)"
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"

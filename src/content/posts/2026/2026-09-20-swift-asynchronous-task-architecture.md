@@ -1,5 +1,5 @@
 ---
-title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task Architecture) "
+title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task)"
 publishedAt: "2026-09-20"
 updatedAt: "2026-09-21T00:37:18+09:00"
 canonicalPath: "/swift/asnyc-await/task/executor/thread/swift-asynchronous-task-architecture/"

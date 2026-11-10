@@ -1,5 +1,5 @@
 ---
-title: "@JsonIgnoreProperties 애너테이션을 통한 StackOverFlowError 해결"
+title: "@JsonIgnoreProperties 애너테이션으로 StackOverflowError 해결"
 publishedAt: "2021-07-04"
 updatedAt: "2026-05-07T15:58:14+09:00"
 canonicalPath: "/spring-boot/junit/json-ignore-properties/"

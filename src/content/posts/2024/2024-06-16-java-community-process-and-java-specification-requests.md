@@ -1,5 +1,5 @@
 ---
-title: "JCP(Java Community Process)와 JSR(Java Specification Requests)"
+title: "자바 커뮤니티 프로세스(JCP)와 자바 명세 요청(JSR)"
 publishedAt: "2024-06-16"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/java-community-process-and-java-specification-requests/"

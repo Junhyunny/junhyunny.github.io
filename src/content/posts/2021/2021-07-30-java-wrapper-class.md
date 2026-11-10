@@ -6,7 +6,7 @@ canonicalPath: "/java/java-wrapper-class/"
 categories:
   - "java"
 recommendedPosts:
-  - title: "자바 래퍼 클래스(Java Wrapper Class) 오토 박싱(auto boxing)과 성능 이슈"
+  - title: "자바 래퍼 클래스 오토 박싱(auto boxing)과 성능 이슈"
     href: "https://junhyunny.github.io/java/auto-boxing-performance-test/"
 ---
 

@@ -7,7 +7,7 @@ categories:
   - "information"
   - "github"
 recommendedPosts:
-  - title: "MacBook Sourcetree GitHub 비공개(private) 레포지토리 접근 불가능 문제"
+  - title: "맥(Mac) Sourcetree에서 GitHub 비공개 레포지토리 접근 불가 문제"
     href: "https://junhyunny.github.io/information/source-tree-for-mac-read-only-authentication-problem/"
 ---
 

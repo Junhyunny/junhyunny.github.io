@@ -1,5 +1,5 @@
 ---
-title: "JPA 결합 테스트에서 JpaRepository를 준비/검증을 위해 사용하는 것이 좋을까?"
+title: "JPA 결합 테스트의 준비/검증에 JpaRepository를 써도 될까?"
 publishedAt: "2025-06-22"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring/spring-boot/jpa/unit-test/integration-test/jpa-integration-test-and-test-target/"

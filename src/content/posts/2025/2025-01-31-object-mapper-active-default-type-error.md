@@ -1,5 +1,5 @@
 ---
-title: "코틀린(Kotlin) ObjectMapper 클래스 정보와 함께 인스턴스 직렬화 수행 시 문제"
+title: "코틀린(Kotlin) ObjectMapper 클래스 정보 직렬화 문제"
 publishedAt: "2025-01-31"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/redis/session/object-mapper-active-default-type-error/"

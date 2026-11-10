@@ -1,5 +1,5 @@
 ---
-title: "파이썬 비동기 컨텍스트 매니저(Async Context Manager)와 async with 키워드"
+title: "파이썬 비동기 컨텍스트 매니저와 async with 키워드"
 publishedAt: "2026-05-01"
 updatedAt: "2026-05-01T16:33:47+09:00"
 canonicalPath: "/python/async-with/async-context-manager/python-async-with-keyword-and-async-context-manager/"

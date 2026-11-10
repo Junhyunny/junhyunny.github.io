@@ -9,7 +9,7 @@ categories:
 recommendedPosts:
   - title: "비동기 논블로킹(Asynchronous Non-Blocking) 처리"
     href: "https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/"
-  - title: "자바스크립트(JavaScript) 폴링(Polling)과 롱 폴링(Long Polling) 구현하기"
+  - title: "자바스크립트 폴링(Polling)과 롱 폴링(Long Polling) 구현하기"
     href: "https://junhyunny.github.io/information/javascript/polling-long-polling-and-javascript-example/"
 ---
 

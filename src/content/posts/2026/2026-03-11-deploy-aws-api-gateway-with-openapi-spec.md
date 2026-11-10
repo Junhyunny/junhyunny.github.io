@@ -1,5 +1,5 @@
 ---
-title: "OpenAPI 명세서 기반 AWS API 게이트웨이(gateway)와 람다(lambda) 배포"
+title: "OpenAPI 명세 기반 AWS API 게이트웨이와 람다(lambda) 배포"
 publishedAt: "2026-03-11"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/infra/aws/openapi/api-gateway/terraform/deploy-aws-api-gateway-with-openapi-spec/"

@@ -1,5 +1,5 @@
 ---
-title: "스프링 애플리케이션 DynamoDB GSI(global secondary index) 쿼리 예제"
+title: "스프링 DynamoDB GSI(Global Secondary Index) 쿼리 예제"
 publishedAt: "2025-01-21"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/dynamodb/spring-boot/dynamodb-gsi-example-with-spring-boot/"

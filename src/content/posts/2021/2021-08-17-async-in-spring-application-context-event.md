@@ -1,20 +1,20 @@
 ---
-title: "스프링 애플리케이션 컨텍스트 비동기 이벤트(Spring Application Context Async Event)"
+title: "스프링 애플리케이션 컨텍스트 비동기 이벤트(Async Event)"
 publishedAt: "2021-08-17"
 updatedAt: "2026-05-08T03:20:01+09:00"
 canonicalPath: "/spring-boot/async-in-spring-application-context-event/"
 categories:
   - "spring-boot"
 recommendedPosts:
-  - title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)"
+  - title: "스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)"
     href: "https://junhyunny.github.io/spring-boot/spring-application-context-event/"
-  - title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)와 트랜잭션(transaction)"
+  - title: "스프링 애플리케이션 컨텍스트 이벤트와 트랜잭션(transaction)"
     href: "https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/"
 ---
 
 ## 0. 들어가면서
 
-[스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)][spring-application-context-event-link] 글을 작성하면서 생긴 궁금증을 주제로 글을 작성했다. 이번 글에서는 비동기 처리 방법을 정리했다. 아래 두 가지를 확인해 보기 위한 예제 코드를 작성했다.
+[스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)][spring-application-context-event-link] 글을 작성하면서 생긴 궁금증을 주제로 글을 작성했다. 이번 글에서는 비동기 처리 방법을 정리했다. 아래 두 가지를 확인해 보기 위한 예제 코드를 작성했다.
 
 - 비동기 처리 구현 방법
 - 비동기 처리 시 트랜잭션 연결
@@ -49,13 +49,13 @@ public class ActionInBlogApplication {
 
 ## 2. 비동기 처리 시 트랜잭션 연결
 
-비동기 이벤트 처리 시 트랜잭션이 어떻게 연결되는지 궁금했다. [스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)와 트랜잭션(transaction)][transaction-in-spring-application-context-event-link]에서 확인할 수 있듯이 일반적인 이벤트 발행은 트랜잭션이 연결된다. 비동기 이벤트 처리에서 만약 일반적인 이벤트 발행처럼 트랜잭션이 연결된다면 아래와 같은 이상한 상황이 벌어질 수 있다.
+비동기 이벤트 처리 시 트랜잭션이 어떻게 연결되는지 궁금했다. [스프링 애플리케이션 컨텍스트 이벤트와 트랜잭션(transaction)][transaction-in-spring-application-context-event-link]에서 확인할 수 있듯이 일반적인 이벤트 발행은 트랜잭션이 연결된다. 비동기 이벤트 처리에서 만약 일반적인 이벤트 발행처럼 트랜잭션이 연결된다면 아래와 같은 이상한 상황이 벌어질 수 있다.
 
 1. 이벤트를 처리하는 다른 스레드의 실행 결과에 따라 트랜잭션의 커밋(commit), 롤백(rollback) 여부가 결정된다.
 2. 이벤트를 발행한 메인 스레드는 자신의 작업을 모두 끝냈지만 이벤트의 처리 결과를 기다려야 한다.
 3. 이벤트 처리 결과에 따라 대기 중인 메인 스레드의 커밋(commit), 롤백(rollback)이 결정된다.
 
-당연히 트랜잭션이 나뉠 것이라고 예상되지만 정확한 결과는 테스트를 통해 확인해 보자. 예제 시나리오는 [스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)와 트랜잭션(transaction)][transaction-in-spring-application-context-event-link] 글의 내용과 동일하다.
+당연히 트랜잭션이 나뉠 것이라고 예상되지만 정확한 결과는 테스트를 통해 확인해 보자. 예제 시나리오는 [스프링 애플리케이션 컨텍스트 이벤트와 트랜잭션(transaction)][transaction-in-spring-application-context-event-link] 글의 내용과 동일하다.
 
 DeliveryService 클래스에서 배달 완료 여부를 업데이트한다. 주문에 대한 업데이트 요청을 비동기 이벤트로 전달한다. 비동기 여부를 확인하기 위해 AsyncEvent 이벤트 발행 전후 로그를 출력한다.
 

@@ -11,7 +11,7 @@ categories:
 recommendedPosts:
   - title: "파이썬 컨텍스트 매니저(Context Manager)와 with 키워드"
     href: "https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/"
-  - title: "파이썬 비동기 컨텍스트 매니저(Async Context Manager)와 async with 키워드"
+  - title: "파이썬 비동기 컨텍스트 매니저와 async with 키워드"
     href: "https://junhyunny.github.io/python/async-with/async-context-manager/python-async-with-keyword-and-async-context-manager/"
   - title: "FastAPI Depends 함수를 통한 의존성 주입(DI)과 제어의 역전(IoC)"
     href: "https://junhyunny.github.io/fast-api/dependency-injection/inversion-of-control/fast-api-depends-di-ioc/"

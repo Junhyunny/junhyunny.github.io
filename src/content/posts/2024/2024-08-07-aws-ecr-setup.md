@@ -6,7 +6,7 @@ canonicalPath: "/aws/aws-ecr-setup/"
 categories:
   - "aws"
 recommendedPosts:
-  - title: "AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정"
+  - title: "AWS 애플리케이션 로드 밸런서(ALB)와 대상 그룹(Target Group) 설정"
     href: "https://junhyunny.github.io/aws/aws-alb-and-target-group-setup/"
   - title: "AWS ECS(Elastic Container Service) 설정"
     href: "https://junhyunny.github.io/aws/aws-ecs-service-setup/"

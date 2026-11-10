@@ -10,7 +10,7 @@ categories:
 recommendedPosts:
   - title: "EntityManager 특징과 영속성 컨텍스트 장점"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/"
-  - title: "테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트"
+  - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
 ---
 

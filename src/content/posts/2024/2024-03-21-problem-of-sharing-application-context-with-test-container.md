@@ -10,7 +10,7 @@ categories:
 recommendedPosts:
   - title: "@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제"
     href: "https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/"
-  - title: "코틀린 스프링 부트(Kotlin Spring Boot)에서 테스트 컨테이너(TestContainer) 설정하기"
+  - title: "코틀린 스프링 부트에서 테스트 컨테이너(TestContainer) 설정하기"
     href: "https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/"
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "자바스크립트(JavaScript) 폴링(Polling)과 롱 폴링(Long Polling) 구현하기"
+title: "자바스크립트 폴링(Polling)과 롱 폴링(Long Polling) 구현하기"
 publishedAt: "2022-01-09"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/javascript/polling-long-polling-and-javascript-example/"

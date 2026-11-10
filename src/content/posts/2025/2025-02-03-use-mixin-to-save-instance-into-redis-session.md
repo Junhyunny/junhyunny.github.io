@@ -1,5 +1,5 @@
 ---
-title: "스프링 시큐리티(Spring Security)에서 믹스인(Mixin)으로 Redis 세션에 인스턴스 저장하기"
+title: "스프링 시큐리티에서 믹스인(Mixin)으로 Redis 세션에 인스턴스 저장하기"
 publishedAt: "2025-02-03"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/spring-security/redis/session/use-mixin-to-save-instance-into-redis-session/"
@@ -9,7 +9,7 @@ categories:
   - "redis"
   - "session"
 recommendedPosts:
-  - title: "코틀린(Kotlin) ObjectMapper 클래스 정보와 함께 인스턴스 직렬화 수행 시 문제"
+  - title: "코틀린(Kotlin) ObjectMapper 클래스 정보 직렬화 문제"
     href: "https://junhyunny.github.io/spring-boot/redis/session/object-mapper-active-default-type-error/"
 ---
 

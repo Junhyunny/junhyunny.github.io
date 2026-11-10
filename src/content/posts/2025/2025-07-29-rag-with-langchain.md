@@ -1,5 +1,5 @@
 ---
-title: "검색 증강 생성(RAG, Retrieval-Augmented Generation) LangChain 예제"
+title: "LangChain 검색 증강 생성(RAG, Retrieval-Augmented Generation)"
 publishedAt: "2025-07-29"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"

@@ -1,5 +1,5 @@
 ---
-title: "Playwright 페이크 미디어 스트림(fake media stream)으로 웹캠(webcam) 촬영 테스트"
+title: "Playwright 페이크 미디어 스트림(fake media stream)으로 웹캠 테스트"
 publishedAt: "2026-01-24"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/playwright/e2e-test/fake/webcam/media-stream/playwright-testing-camera-stream-mocking/"

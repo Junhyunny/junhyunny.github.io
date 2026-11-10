@@ -1,5 +1,5 @@
 ---
-title: "애플(Apple) 로그인을 위한 스프링 시큐리티(Spring Security) OAuth2 클라이언트"
+title: "애플(Apple) 로그인을 위한 스프링 시큐리티 OAuth2 클라이언트"
 publishedAt: "2024-05-24"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/spring-security/spring-security-oauth2-client-for-apple/"

@@ -1,5 +1,5 @@
 ---
-title: "부모 클래스 메서드(super method)를 테스트 더블(test double)로 만들기"
+title: "부모 클래스 메서드를 테스트 더블(test double)로 만들기"
 publishedAt: "2023-11-13"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/spring-boot/test/how-to-make-stub-for-super-class/"

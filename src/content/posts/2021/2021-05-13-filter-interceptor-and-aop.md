@@ -1,5 +1,5 @@
 ---
-title: "스프링(spring) 프레임워크의 필터(Filter), 인터셉터(Interceptor), AOP(Aspect Oriented Programming)"
+title: "스프링 필터(Filter), 인터셉터(Interceptor) 그리고 AOP"
 publishedAt: "2021-05-13"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/filter-interceptor-and-aop/"

@@ -10,7 +10,7 @@ categories:
   - "rag"
   - "context-engineering"
 recommendedPosts:
-  - title: "검색 증강 생성(RAG, Retrieval-Augmented Generation) LangChain 예제"
+  - title: "LangChain 검색 증강 생성(RAG, Retrieval-Augmented Generation)"
     href: "https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"
 ---
 

@@ -12,7 +12,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/design-pattern/strategy-pattern/"
   - title: "스프링 시큐리티 OAuth2 LINE 로그인"
     href: "https://junhyunny.github.io/java/spring-boot/spring-security/oauth2-line-login-with-spring-security/"
-  - title: "부모 클래스 메서드(super method)를 테스트 더블(test double)로 만들기"
+  - title: "부모 클래스 메서드를 테스트 더블(test double)로 만들기"
     href: "https://junhyunny.github.io/java/spring-boot/test/how-to-make-stub-for-super-class/"
 ---
 
@@ -284,7 +284,7 @@ DefaultOAuth2UserService 클래스를 상속한 클래스를 정의한다. @Serv
 - 처리를 위임할 CustomOAuth2UserService 인스턴스들에게 플랫폼 지원 여부를 확인한다.
 - 해당 플랫폼을 지원하는 서비스 인스턴스를 찾았다면 부모 클래스의 기능을 사용해 외부 리소스 서버로부터 사용자 정보를 조회한다.
   - 새로운 메서드로 감싼 이유는 테스트를 원활하게 만들기 위함이다.
-  - 자세한 내용은 [부모 클래스 메서드(super method)를 테스트 더블(test double)로 만들기][stub-for-super-class-link] 포스트를 참조바란다.
+  - 자세한 내용은 [부모 클래스 메서드를 테스트 더블(test double)로 만들기][stub-for-super-class-link] 포스트를 참조바란다.
 - 리소스 서버로부터 사용자 정보를 획득하면 이를 기반으로 사용자 정보를 생성하거나 조회 후 반환한다.
 
 ```java

@@ -1,5 +1,5 @@
 ---
-title: "AWS ALB(Application Load Balancer)와 대상 그룹(Target Group) 설정"
+title: "AWS 애플리케이션 로드 밸런서(ALB)와 대상 그룹(Target Group) 설정"
 publishedAt: "2024-08-06"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/aws-alb-and-target-group-setup/"

@@ -1,5 +1,5 @@
 ---
-title: "MacOS TestContainer 사용 시 유효한 도커(Docker) 환경을 찾지 못하는 문제"
+title: "macOS에서 TestContainer가 유효한 도커 환경을 찾지 못하는 문제"
 publishedAt: "2024-08-08"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/testcontainer/not-find-valid-docker-env-when-testcontainer-in-mac/"
@@ -7,7 +7,7 @@ categories:
   - "spring-boot"
   - "testcontainer"
 recommendedPosts:
-  - title: "코틀린(Kotlin) 스프링 부트(Spring Boot)에서 TestContainer 설정하기"
+  - title: "코틀린 스프링 부트에서 테스트 컨테이너(TestContainer) 설정하기"
     href: "https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/"
 ---
 

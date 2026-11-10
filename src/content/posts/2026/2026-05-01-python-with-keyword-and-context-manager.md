@@ -10,8 +10,8 @@ categories:
 recommendedPosts:
   - title: "파이썬 제너레이터(Python Generator)"
     href: "https://junhyunny.github.io/python/generator-function/python-generator-function/"
-  - title: "파이썬 비동기 컨텍스트 매니저(Async Context Manager)와 async with 키워드"
-    href: "https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/"
+  - title: "파이썬 비동기 컨텍스트 매니저와 async with 키워드"
+    href: "https://junhyunny.github.io/python/async-with/async-context-manager/python-async-with-keyword-and-async-context-manager/"
 ---
 
 ## 1. Context Manager

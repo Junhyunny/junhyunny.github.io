@@ -9,7 +9,7 @@ categories:
 recommendedPosts:
   - title: "쿠키(Cookie)와 세션(Session)"
     href: "https://junhyunny.github.io/information/cookie-and-session/"
-  - title: "스프링(spring) 프레임워크의 필터(Filter), 인터셉터(Interceptor), AOP(Aspect Oriented Programming)"
+  - title: "스프링 필터(Filter), 인터셉터(Interceptor) 그리고 AOP"
     href: "https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/"
   - title: "JDBC 스프링 세션(Spring Session with JDBC)"
     href: "https://junhyunny.github.io/information/spring-boot/spring-session/"

@@ -15,7 +15,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-flush/"
   - title: "@Transactional 애너테이션의 전파 타입(PropagationType)"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/"
-  - title: "스프링(spring) 프레임워크의 필터(Filter), 인터셉터(Interceptor), AOP(Aspect Oriented Programming)"
+  - title: "스프링 필터(Filter), 인터셉터(Interceptor) 그리고 AOP"
     href: "https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/"
 ---
 

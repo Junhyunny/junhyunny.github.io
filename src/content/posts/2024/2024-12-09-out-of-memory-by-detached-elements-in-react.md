@@ -7,9 +7,9 @@ categories:
   - "javascript"
   - "react"
 recommendedPosts:
-  - title: "가비지 컬렉션(Garbage Collection) 참조 카운팅(Reference Counting) 알고리즘"
+  - title: "가비지 컬렉션 참조 카운팅(Reference Counting) 알고리즘"
     href: "https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/"
-  - title: "가비지 컬렉션(Garbage Collection) 표시 후 제거(Mark-and-Sweep) 알고리즘"
+  - title: "가비지 컬렉션 표시 후 제거(Mark-and-Sweep) 알고리즘"
     href: "https://junhyunny.github.io/information/javascript/mark-and-sweep-gc-in-javascript/"
 ---
 

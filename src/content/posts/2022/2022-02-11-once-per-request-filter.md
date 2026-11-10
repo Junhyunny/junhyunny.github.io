@@ -6,7 +6,7 @@ canonicalPath: "/spring-boot/once-per-request-filter/"
 categories:
   - "spring-boot"
 recommendedPosts:
-  - title: "스프링(spring) 프레임워크의 필터(Filter), 인터셉터(Interceptor), AOP(Aspect Oriented Programming)"
+  - title: "스프링 필터(Filter), 인터셉터(Interceptor) 그리고 AOP"
     href: "https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/"
   - title: "Redirect and Forwarding"
     href: "https://junhyunny.github.io/information/redirect-and-forwarding/"

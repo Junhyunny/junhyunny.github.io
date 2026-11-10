@@ -8,9 +8,9 @@ categories:
   - "test-container"
   - "aws"
 recommendedPosts:
-  - title: "테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트"
+  - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
-  - title: "테스트 컨테이너(TestContainer)와 스프링 애플리케이션 DynamoDB 결합 테스트"
+  - title: "테스트 컨테이너(TestContainer)로 스프링 DynamoDB 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/aws/dynamodb/test-container/test-container-for-dynamodb-test/"
 ---
 

@@ -9,7 +9,7 @@ categories:
 recommendedPosts:
   - title: "비동기 논블로킹(Asynchronous Non-Blocking) 처리"
     href: "https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/"
-  - title: "자바스크립트(JavaScript) 마이크로태스크(Microtask)와 매크로태스크(Macrotask)"
+  - title: "자바스크립트 마이크로태스크(Microtask)와 매크로태스크(Macrotask)"
     href: "https://junhyunny.github.io/information/javascript/microtask-macrotask-in-javascript/"
 ---
 

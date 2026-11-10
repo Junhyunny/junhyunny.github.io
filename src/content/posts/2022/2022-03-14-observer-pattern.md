@@ -7,7 +7,7 @@ categories:
   - "information"
   - "design-pattern"
 recommendedPosts:
-  - title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)"
+  - title: "스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)"
     href: "https://junhyunny.github.io/spring-boot/spring-application-context-event/"
 ---
 

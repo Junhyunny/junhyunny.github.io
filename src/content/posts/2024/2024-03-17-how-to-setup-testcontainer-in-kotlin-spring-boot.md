@@ -1,5 +1,5 @@
 ---
-title: "코틀린 스프링 부트(Kotlin Spring Boot)에서 테스트 컨테이너(TestContainer) 설정하기"
+title: "코틀린 스프링 부트에서 테스트 컨테이너(TestContainer) 설정하기"
 publishedAt: "2024-03-17"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/"
@@ -10,7 +10,7 @@ categories:
 recommendedPosts:
   - title: "@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제"
     href: "https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/"
-  - title: "테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트"
+  - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
   - title: "Use TestContainer on Runtime in Spring Boot"
     href: "https://junhyunny.github.io/spring-boot/use-test-container-on-runtime-in-spring-boot/"

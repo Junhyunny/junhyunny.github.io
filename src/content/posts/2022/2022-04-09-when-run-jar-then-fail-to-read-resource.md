@@ -7,7 +7,7 @@ categories:
   - "java"
   - "spring-boot"
 recommendedPosts:
-  - title: "스프링 부트 애플리케이션 이미지 에셋(asset)을 못 찾는 문제 원인과 해결 방법"
+  - title: "스프링 부트 애플리케이션이 이미지 에셋(asset)을 못 찾는 문제"
     href: "https://junhyunny.github.io/spring-boot/cannot-find-static-resource/"
 ---
 

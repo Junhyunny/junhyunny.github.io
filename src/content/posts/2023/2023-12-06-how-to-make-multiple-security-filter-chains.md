@@ -1,5 +1,5 @@
 ---
-title: "스프링 시큐리티(Spring Security) 다중 필터 체인(multiple filter chain) 구성 방법"
+title: "스프링 시큐리티 다중 필터 체인(multiple filter chain) 구성 방법"
 publishedAt: "2023-12-06"
 updatedAt: "2026-04-25T15:21:05+09:00"
 canonicalPath: "/java/spring-boot/spring-security/how-to-make-multiple-security-filter-chains/"

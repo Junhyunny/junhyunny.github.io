@@ -1,5 +1,5 @@
 ---
-title: "자바스크립트(JavaScript) 마이크로태스크(Microtask)와 매크로태스크(Macrotask)"
+title: "자바스크립트 마이크로태스크(Microtask)와 매크로태스크(Macrotask)"
 publishedAt: "2022-01-08"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/javascript/microtask-macrotask-in-javascript/"

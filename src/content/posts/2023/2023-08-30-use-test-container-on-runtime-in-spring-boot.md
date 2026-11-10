@@ -6,7 +6,7 @@ canonicalPath: "/spring-boot/use-test-container-on-runtime-in-spring-boot/"
 categories:
   - "spring-boot"
 recommendedPosts:
-  - title: "테스트 컨테이너(TestContainer)와 스프링 애플리케이션 MySQL 결합 테스트"
+  - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
   - title: "JPA Entity Serialize Exception with Redis Session"
     href: "https://junhyunny.github.io/kotlin/spring-boot/jpa/jpa-entity-serialize-exception-with-redis-session/"

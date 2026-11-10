@@ -1,5 +1,5 @@
 ---
-title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)"
+title: "스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)"
 publishedAt: "2021-08-16"
 updatedAt: "2026-05-08T01:57:40+09:00"
 canonicalPath: "/spring-boot/spring-application-context-event/"
@@ -8,9 +8,9 @@ categories:
 recommendedPosts:
   - title: "프록시 패턴(proxy pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/proxy-pattern/"
-  - title: "스프링 애플리케이션 컨텍스트 이벤트(Spring Application Context Event)와 트랜잭션(transaction)"
+  - title: "스프링 애플리케이션 컨텍스트 이벤트와 트랜잭션(transaction)"
     href: "https://junhyunny.github.io/spring-boot/transaction-in-spring-application-context-event/"
-  - title: "스프링 애플리케이션 컨텍스트 비동기 이벤트(Spring Application Context Async Event)"
+  - title: "스프링 애플리케이션 컨텍스트 비동기 이벤트(Async Event)"
     href: "https://junhyunny.github.io/spring-boot/async-in-spring-application-context-event/"
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "AWS 코드 커밋(CodeCommit)과 git-remote-codecommit 명령어 사용하기"
+title: "AWS CodeCommit과 git-remote-codecommit 명령어 사용하기"
 publishedAt: "2024-08-23"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/use-git-remote-codecommit-for-aws-code-commit/"

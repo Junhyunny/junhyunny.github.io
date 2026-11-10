@@ -8,7 +8,7 @@ categories:
   - "jpa"
   - "junit"
 recommendedPosts:
-  - title: "스프링 부트(Spring Boot)와 VueJS 프레임워크로 테이블 페이징(paging) 처리"
+  - title: "스프링 부트(Spring Boot)와 VueJS로 테이블 페이징(paging) 처리"
     href: "https://junhyunny.github.io/spring-boot/vue.js/spring-boot-vue-js-paging-table/"
 ---
 

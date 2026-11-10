@@ -1,5 +1,5 @@
 ---
-title: "스프링(spring) 서버 CORS(Cross Origin Resource Sharing) 헤더 추가하기"
+title: "스프링 서버에 CORS(Cross Origin Resource Sharing) 헤더 추가하기"
 publishedAt: "2021-01-15"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/vue.js/cors-example/"

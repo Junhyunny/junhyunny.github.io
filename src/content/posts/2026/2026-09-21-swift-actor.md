@@ -10,7 +10,7 @@ categories:
   - "async-await"
   - "asynchronous-task"
 recommendedPosts:
-  - title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task Architecture)"
+  - title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task)"
     href: "https://junhyunny.github.io/swift/asnyc-await/task/executor/thread/swift-asynchronous-task-architecture/"
 ---
 

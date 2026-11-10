@@ -245,8 +245,9 @@ h1, h2, h3, p { margin: 0; }
   border-bottom: 1px solid #6b716a;
   margin-bottom: 1.75rem;
 }
+/* 글 제목은 목록 화면 제목보다 작게, 본문·목차 영역 전체 너비를 써서 대부분 한 줄에 들어가게 한다. */
 .article-header .page-title {
-  max-width: 1000px;
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
   margin-top: 0;
   text-wrap: balance;
 }

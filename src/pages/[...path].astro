@@ -1,0 +1,154 @@
+---
+import { getCollection, render } from 'astro:content';
+import AdSense from '../components/third-party/AdSense.astro';
+import Base from '../layouts/Base.astro';
+import { getPosts, liveSite, newestFirst, postDetails, type Entry } from '../posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const logs = (await getCollection('logs')).sort(newestFirst);
+  const books = (await getCollection('books')).sort(newestFirst);
+  return [
+    ...posts.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'post' as const, posts } })),
+    ...logs.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'log' as const, posts } })),
+    ...books.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'book' as const, posts } })),
+  ];
+}
+
+type Post = Awaited<ReturnType<typeof getPosts>>[number];
+interface Props { entry: Entry; kind: 'post' | 'log' | 'book'; posts: Post[] }
+const { entry, kind, posts } = Astro.props;
+const details = postDetails(entry);
+const isPost = kind === 'post';
+const { Content, headings } = await render(entry);
+const outline = headings.filter(({ depth }) => depth >= 2 && depth <= 3);
+const curated = entry.data.recommendedPosts ?? [];
+const byPath = new Map(posts.map((post) => [post.data.canonicalPath, post]));
+const used = new Set([details.href]);
+const curatedLinks = curated.flatMap(({ href, title }) => {
+  const url = new URL(href, new URL(details.href, liveSite));
+  const path = url.pathname.endsWith('/') ? url.pathname : `${url.pathname}/`;
+  const isBlog = url.origin === liveSite;
+  const key = isBlog ? `${path}${url.search}${url.hash}` : url.href;
+  if (used.has(key)) return [];
+  used.add(key);
+  if (isBlog) used.add(path);
+  const local = isBlog ? byPath.get(decodeURI(path)) : undefined;
+  return [{
+    href: isBlog ? `${path}${url.search}${url.hash}` : url.href,
+    title,
+    category: local?.data.categories[0] ?? (isBlog ? 'Devlogs' : '외부 글'),
+    external: !isBlog,
+  }];
+});
+// 작성자가 고른 링크 뒤에 같은 대표 분류의 최신 글을 덧붙인다.
+const automatic = isPost
+  ? posts
+      .filter((post) => post.data.categories[0] === entry.data.categories[0] && !used.has(post.data.canonicalPath))
+      .slice(0, 2)
+      .map((post) => ({ href: post.data.canonicalPath, title: post.data.title, category: post.data.categories[0], external: false }))
+  : [];
+const relatedLinks = [...curatedLinks, ...automatic];
+// 기존 utterances 설정을 유지해야 같은 GitHub 이슈의 댓글을 불러온다.
+const utterances: Record<string, string> = { repo: 'Junhyunny/junhyunny.github.io', 'issue-term': 'pathname', theme: 'github-dark' };
+// 이전 화면이 이 블로그일 때는 브라우저 기록으로 돌아가고, 직접 들어온 경우에는 글 종류별 목록으로 이동한다.
+const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
+---
+<Base page={kind === 'log' ? 'logs' : 'article'} type="article" title={entry.data.title} description={details.summary ?? entry.data.title}>
+  <main id="main" class="shell article-shell">
+    <a class="back-link text-link" href={backFallback} data-history-back><span aria-hidden="true">←</span> 이전 화면으로</a>
+    <article class="article-grid" data-pagefind-body={isPost ? '' : undefined}>
+      <header class="article-header">
+        <h1 class="page-title" data-pagefind-meta="title">{entry.data.title}</h1>
+        {details.summary && <p class="article-summary">{details.summary}</p>}
+        <div class="article-info">
+          <span>강준현</span>
+          <time datetime={details.date}>{details.label}</time>
+        </div>
+        <ul class="taxonomy" aria-label="카테고리 및 태그">
+          {entry.data.categories.map((category) => <li data-pagefind-filter="category">{category}</li>)}
+          {entry.data.tags?.map((tag) => <li data-pagefind-filter="tag">{tag}</li>)}
+        </ul>
+      </header>
+      <aside class="desktop-outline" data-pagefind-ignore>
+        <div class="desktop-outline__rail">
+          {outline.length > 0 && <nav class="outline" aria-label="글 목차">
+            <p class="eyebrow">ON THIS PAGE</p>
+            <ul>
+              {outline.map(({ slug, text, depth }) => <li class:list={{ nested: depth === 3 }}><a href={`#${slug}`}>{text}</a></li>)}
+            </ul>
+          </nav>}
+          <AdSense placement="sidebar" />
+        </div>
+      </aside>
+      <div class="article-column">
+        {outline.length > 0 && <details class="mobile-outline" data-pagefind-ignore>
+          <summary>이 글의 목차</summary>
+          <nav class="outline" aria-label="글 목차">
+            <ul>
+              {outline.map(({ slug, text, depth }) => <li class:list={{ nested: depth === 3 }}><a href={`#${slug}`}>{text}</a></li>)}
+            </ul>
+          </nav>
+        </details>}
+        <div class="prose"><Content /></div>
+        <p class="sr-only" role="status" id="copy-status" data-pagefind-ignore></p>
+        <AdSense placement="article-end" />
+        {relatedLinks.length > 0 && <section class="article-appendix" aria-labelledby="related-title" data-pagefind-ignore>
+          <p class="eyebrow">KEEP READING</p>
+          <h2 id="related-title">함께 읽으면 좋은 글</h2>
+          {curated.length > 0 && <span id="recommend-next-posts"></span>}
+          <ul class="link-list link-list--grouped link-list--posts" id={curated.length ? 'recommend-posts-before-this' : undefined}>
+            {relatedLinks.map(({ href, title, category, external }) => (
+              <li><a href={href} class:list={["link-list__link", { "link-list__link--external": external }]}><span class="entry-meta">{category}</span><span class="link-list__title">{title}</span></a></li>
+            ))}
+          </ul>
+        </section>}
+        {isPost && <section class="article-appendix" aria-labelledby="discussion-title" data-pagefind-ignore>
+          <p class="eyebrow">DISCUSSION</p>
+          <h2 id="discussion-title">댓글</h2>
+          <div class="comments" id="utterances-comments">
+            <script is:inline src="https://utteranc.es/client.js" {...utterances} crossorigin="anonymous" async></script>
+          </div>
+        </section>}
+      </div>
+    </article>
+  </main>
+</Base>
+<script>
+  // 같은 블로그에서 넘어왔으면 이전 화면(스크롤·필터 상태 포함)으로 돌아간다.
+  document.querySelector<HTMLAnchorElement>('[data-history-back]')?.addEventListener('click', (event) => {
+    const referrer = document.referrer ? new URL(document.referrer) : undefined;
+    if (referrer?.origin !== location.origin || history.length < 2) return;
+    event.preventDefault();
+    history.back();
+  });
+
+  const status = document.querySelector('#copy-status');
+  document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((block) => {
+    const code = block.querySelector('code');
+    if (!code) return;
+    const frame = document.createElement('div');
+    frame.className = 'code-frame';
+    block.before(frame);
+    frame.append(block);
+
+    const button = document.createElement('button');
+    button.className = 'copy-button';
+    button.type = 'button';
+    button.textContent = '복사';
+    button.setAttribute('aria-label', '코드 복사');
+    frame.prepend(button);
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        button.textContent = '복사됨';
+        if (status) status.textContent = '코드를 복사했습니다.';
+      } catch {
+        button.textContent = '다시 복사';
+        if (status) status.textContent = '코드를 복사하지 못했습니다.';
+      }
+      window.setTimeout(() => { button.textContent = '복사'; }, 1800);
+    });
+  });
+</script>

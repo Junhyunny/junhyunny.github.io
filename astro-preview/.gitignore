@@ -1,4 +1,0 @@
-.astro/
-dist/
-!package-lock.json
-public/images/

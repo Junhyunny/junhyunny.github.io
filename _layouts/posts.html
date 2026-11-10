@@ -1,8 +1,0 @@
----
-layout: archive
----
-
-{{ content }}
-
-{% assign collection = site.posts | where_exp: "item", "item.hidden != true" %}
-{% include archive-by-year.html collection=collection %}

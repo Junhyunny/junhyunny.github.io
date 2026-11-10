@@ -1,8 +1,0 @@
----
-layout: archive
----
-
-{{ content }}
-
-{% assign collection = site.books | where_exp: "item", "item.hidden != true" %}
-{% include archive-by-year.html collection=collection reverse_years=true sort_items=true %}

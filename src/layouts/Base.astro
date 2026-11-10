@@ -1,0 +1,55 @@
+---
+import Search from '../components/Search.astro';
+import GoogleAnalytics from '../components/third-party/GoogleAnalytics.astro';
+import { liveSite, siteName } from '../posts';
+import '../styles/site.css';
+
+interface Props { title?: string; description: string; page: 'home' | 'archive' | 'about' | 'logs' | 'books' | 'article'; type?: 'website' | 'article' }
+const { title, description, page, type = 'website' } = Astro.props;
+const pageTitle = title ? `${title} | ${siteName}` : siteName;
+const canonical = new URL(Astro.url.pathname, liveSite);
+---
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#17191c" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={siteName} href="/feed.xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title ?? siteName} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <title>{pageTitle}</title>
+    <GoogleAnalytics />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+    <header class="masthead">
+      <div class="shell masthead-inner">
+        <a class="wordmark" href="/"><span class="monogram" aria-hidden="true">JD</span>{siteName}</a>
+        <nav aria-label="주 메뉴">
+          <a href="/" aria-current={page === 'home' ? 'page' : undefined}>Home</a>
+          <a href="/about/" aria-current={page === 'about' ? 'page' : undefined}>About</a>
+          <a href="/posts/" aria-current={page === 'archive' ? 'page' : undefined}>Archive</a>
+          <a href="/logs/" aria-current={page === 'logs' ? 'page' : undefined}>Logs</a>
+        </nav>
+        <Search />
+      </div>
+    </header>
+    <slot />
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>{siteName} <span class="footer-divider">/</span> 강준현</span>
+        <div>
+          <a href="https://github.com/Junhyunny">GitHub <span aria-hidden="true">↗</span></a>
+          <a href="/feed.xml">RSS <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import MenuIntro from '../components/MenuIntro.astro';
+import { bookTitle, bookUrl } from '../posts';
+import profile from '../../images/profile/profile.jpg';
+
+const about = await getEntry('pages', 'about');
+if (!about) throw new Error('Missing original About content.');
+const { Content } = await render(about);
+---
+<Base page="about" title="About" description="소프트웨어 엔지니어이자 작가 강준현의 경력과 전문 분야">
+  <main id="main" class="shell">
+    <MenuIntro variant="profile" kicker="ENGINEER PROFILE" description="소프트웨어 엔지니어 · 작가">
+      강준현 <span>Junhyunny</span>
+      <Image src={profile} alt="강준현" width={360} slot="aside" />
+    </MenuIntro>
+    <div class="about-grid">
+      <aside class="about-sidebar" aria-labelledby="expertise">
+        <h2 id="expertise">전문 분야</h2>
+        <ul class="expertise-list">
+          <li>도메인 모델링과 시스템 설계</li>
+          <li>레거시 현대화와 성능 최적화</li>
+          <li>Java·Kotlin / Spring</li>
+          <li>TypeScript / React</li>
+        </ul>
+        <div class="profile-links">
+          <a class="text-link" href="https://github.com/Junhyunny">GitHub <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="https://www.linkedin.com/in/junhyun-kang-32b972201/">LinkedIn <span aria-hidden="true">↗</span></a>
+        </div>
+        <section class="profile-book" aria-labelledby="profile-book-title">
+          <h2 id="profile-book-title">집필 도서</h2>
+          <a class="text-link" href={bookUrl}>{bookTitle} <span aria-hidden="true">↗</span></a>
+        </section>
+      </aside>
+      <div class="prose about-resume"><Content /></div>
+    </div>
+  </main>
+</Base>

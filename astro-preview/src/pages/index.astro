@@ -17,7 +17,6 @@ const lead = postDetails(featured);
       복잡한 기술을, <em>깊고 명료하게.</em>
       <div class="hero-note" slot="aside">
         <p>복잡한 도메인 설계부터 레거시 현대화까지.<br class="desktop-break" /> 현장에서 마주한 문제를 파고들고, 해결 과정과 그 배경이 되는 원리를 기록합니다.</p>
-        <a class="text-link" href="#latest">최신 글 읽기 <span aria-hidden="true">↓</span></a>
       </div>
     </MenuIntro>
     <div class="home-grid">
@@ -28,7 +27,7 @@ const lead = postDetails(featured);
         </div>
         <article class="feature">
           <div class="entry-meta"><span>{featured.data.categories[0]}</span><time datetime={lead.date}>{lead.label}</time></div>
-          <h3><a href={lead.href}>{featured.data.title}<span class="entry-arrow" aria-hidden="true">↗</span></a></h3>
+          <h3><a href={lead.href}>{featured.data.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
           {lead.summary && <p>{lead.summary}</p>}
         </article>
         <ul class="entries">
@@ -37,7 +36,7 @@ const lead = postDetails(featured);
             return (
               <li>
                 <div class="entry-meta"><span>{post.data.categories[0]}</span><time datetime={details.date}>{details.label}</time></div>
-                <h3><a href={details.href}>{post.data.title}<span class="entry-arrow" aria-hidden="true">↗</span></a></h3>
+                <h3><a href={details.href}>{post.data.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
                 {details.summary && <p>{details.summary}</p>}
               </li>
             );

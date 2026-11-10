@@ -37,6 +37,7 @@ const curatedLinks = curated.flatMap(({ href, title }) => {
     href: isBlog ? `${path}${url.search}${url.hash}` : url.href,
     title,
     category: local?.data.categories[0] ?? (isBlog ? 'Devlogs' : '외부 글'),
+    external: !isBlog,
   }];
 });
 // 작성자가 고른 링크 뒤에 같은 대표 분류의 최신 글을 덧붙인다.
@@ -44,23 +45,19 @@ const automatic = isPost
   ? posts
       .filter((post) => post.data.categories[0] === entry.data.categories[0] && !used.has(post.data.canonicalPath))
       .slice(0, 2)
-      .map((post) => ({ href: post.data.canonicalPath, title: post.data.title, category: post.data.categories[0] }))
+      .map((post) => ({ href: post.data.canonicalPath, title: post.data.title, category: post.data.categories[0], external: false }))
   : [];
 const relatedLinks = [...curatedLinks, ...automatic];
 // 기존 utterances 설정을 유지해야 같은 GitHub 이슈의 댓글을 불러온다.
 const utterances: Record<string, string> = { repo: 'Junhyunny/junhyunny.github.io', 'issue-term': 'pathname', theme: 'github-dark' };
-const back = isPost
-  ? { href: '/#latest', label: '최신 글로 돌아가기', eyebrow: 'ENGINEERING NOTES' }
-  : kind === 'log'
-    ? { href: '/logs/', label: '회고 목록으로 돌아가기', eyebrow: 'RETROSPECTIVE' }
-    : { href: '/', label: '홈으로 돌아가기', eyebrow: 'READING NOTES' };
+// 이전 화면이 이 블로그일 때는 브라우저 기록으로 돌아가고, 직접 들어온 경우에는 글 종류별 목록으로 이동한다.
+const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
 ---
 <Base page={kind === 'log' ? 'logs' : 'article'} title={entry.data.title} description={details.summary ?? entry.data.title}>
   <main id="main" class="shell article-shell">
-    <a class="back-link text-link" href={back.href}><span aria-hidden="true">←</span> {back.label}</a>
+    <a class="back-link text-link" href={backFallback} data-history-back><span aria-hidden="true">←</span> 이전 화면으로</a>
     <article class="article-grid" data-pagefind-body={isPost ? '' : undefined}>
       <header class="article-header">
-        <p class="eyebrow"><span class="signal"></span> {back.eyebrow}</p>
         <h1 class="page-title" data-pagefind-meta="title">{entry.data.title}</h1>
         {details.summary && <p class="article-summary">{details.summary}</p>}
         <div class="article-info">
@@ -96,15 +93,14 @@ const back = isPost
           <h2 id="related-title">함께 읽으면 좋은 글</h2>
           {curated.length > 0 && <span id="recommend-next-posts"></span>}
           <ul class="related" id={curated.length ? 'recommend-posts-before-this' : undefined}>
-            {relatedLinks.map(({ href, title, category }) => (
-              <li><a href={href}><span><span class="entry-meta">{category}</span>{title}</span></a></li>
+            {relatedLinks.map(({ href, title, category, external }) => (
+              <li><a href={href} class:list={{ "is-external": external }}><span><span class="entry-meta">{category}</span><span class="related-link-title">{title}</span></span></a></li>
             ))}
           </ul>
         </section>}
         {isPost && <section class="article-end" aria-labelledby="discussion-title" data-pagefind-ignore>
           <p class="eyebrow">DISCUSSION</p>
           <h2 id="discussion-title">댓글</h2>
-          <p>이 글에 대한 질문과 의견은 GitHub 계정으로 남길 수 있습니다.</p>
           <div class="comments" id="utterances-comments">
             <script is:inline src="https://utteranc.es/client.js" {...utterances} crossorigin="anonymous" async></script>
           </div>
@@ -114,6 +110,14 @@ const back = isPost
   </main>
 </Base>
 <script>
+  // 같은 블로그에서 넘어왔으면 이전 화면(스크롤·필터 상태 포함)으로 돌아간다.
+  document.querySelector<HTMLAnchorElement>('[data-history-back]')?.addEventListener('click', (event) => {
+    const referrer = document.referrer ? new URL(document.referrer) : undefined;
+    if (referrer?.origin !== location.origin || history.length < 2) return;
+    event.preventDefault();
+    history.back();
+  });
+
   const status = document.querySelector('#copy-status');
   document.querySelectorAll<HTMLPreElement>('.prose pre').forEach((block) => {
     const code = block.querySelector('code');

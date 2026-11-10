@@ -262,6 +262,10 @@ h1, h2, h3, p { margin: 0; }
 .prose h4 { font-size: var(--text-body); }
 .prose h5, .prose h6 { font-size: var(--text-compact); }
 .prose li + li { margin-top: .25em; }
+/* 목록 들여쓰기: 브라우저 기본값(40px)이 깊어 보여서 줄인다.
+   1단계는 :where()로 우선순위를 낮춰 .link-list·About 이력 목록의 들여쓰기를 덮어쓰지 않게 한다. */
+:where(.prose) :is(ul, ol) { padding-inline-start: 1.5rem; }
+.prose li :is(ul, ol) { padding-inline-start: 1.25rem; }
 .prose a { color: var(--accent); text-underline-offset: .22em; }
 .prose :not(pre) > code {
   padding: .08em .28em;

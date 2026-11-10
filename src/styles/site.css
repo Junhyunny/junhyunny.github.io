@@ -224,11 +224,10 @@ h1, h2, h3, p { margin: 0; }
 .book img { flex: none; width: 76px; height: auto; }
 .book h2 { word-break: keep-all; }
 .site-footer { border-top: 1px solid var(--line); margin-top: clamp(3.5rem, 8vw, 6rem); color: var(--muted); }
-.footer-inner { display: flex; justify-content: space-between; gap: .75rem; align-items: center; padding-block: 1.65rem; font-size: var(--text-small); }
+.footer-inner { display: flex; justify-content: flex-end; gap: .75rem; align-items: center; padding-block: 1.65rem; font-size: var(--text-small); }
 .footer-inner div { display: flex; gap: 1.2rem; }
 .footer-inner a { text-decoration: none; }
 .footer-inner a:hover { color: var(--text); }
-.footer-divider { margin-inline: .45rem; }
 
 .article-shell { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
 .back-link { color: var(--muted); }

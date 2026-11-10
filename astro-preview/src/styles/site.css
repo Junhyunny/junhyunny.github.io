@@ -463,7 +463,7 @@ h1, h2, h3, p { margin: 0; }
 .achievement li + li { margin-top: .35rem; }
 .achievement li::marker { color: var(--muted); }
 .about-resume > br:first-child { display: none; }
-.about-resume > p:first-of-type { font-size: clamp(var(--text-body), 2vw, var(--text-section)); line-height: var(--leading-list); word-break: keep-all; }
+.about-resume > p:first-of-type { font-size: var(--text-section); line-height: var(--leading-heading); }
 .resume-detail { border-top: 1px solid var(--line); }
 .resume-detail:last-child { border-bottom: 1px solid var(--line); }
 .resume-detail summary {

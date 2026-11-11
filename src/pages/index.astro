@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import MenuIntro from '../components/MenuIntro.astro';
+import EntryLink from '../components/EntryLink.astro';
 import { bookTitle, bookUrl, getPosts, postDetails } from '../posts';
 import profile from '../../images/profile/profile.jpg';
 import book from '../../images/profile/spring-security-book.png';
@@ -27,8 +28,7 @@ const lead = postDetails(featured);
         </div>
         <article class="feature">
           <div class="entry-meta"><span>{featured.data.categories[0]}</span><time datetime={lead.date}>{lead.label}</time></div>
-          <h3><a href={lead.href}>{featured.data.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
-          {lead.summary && <p>{lead.summary}</p>}
+          <EntryLink href={lead.href} title={featured.data.title} summary={lead.summary} />
         </article>
         <ul class="entries">
           {latest.slice(0, 4).map((post) => {
@@ -36,8 +36,7 @@ const lead = postDetails(featured);
             return (
               <li>
                 <div class="entry-meta"><span>{post.data.categories[0]}</span><time datetime={details.date}>{details.label}</time></div>
-                <h3><a href={details.href}>{post.data.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
-                {details.summary && <p>{details.summary}</p>}
+                <EntryLink href={details.href} title={post.data.title} summary={details.summary} />
               </li>
             );
           })}

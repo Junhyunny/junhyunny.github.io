@@ -75,7 +75,7 @@ compatibility: Designed for Claude Code
 
 ```html
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/example-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/example-01.png" width="100%" class="image__border">
 </div>
 <center>https://출처-주소</center>
 ```

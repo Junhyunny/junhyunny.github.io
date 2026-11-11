@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import MenuIntro from '../components/MenuIntro.astro';
+import EntryLink from '../components/EntryLink.astro';
 import { getPosts, postDetails } from '../posts';
 
 const pageSize = 20;
@@ -43,8 +44,7 @@ const initial = entries.filter((entry) => entry.year === latestYear);
               {entries.filter((entry) => entry.year === year).map((entry) => (
                 <li data-category={JSON.stringify(entry.categories)} data-year={year}>
                   <div class="entry-meta"><span>{entry.categories[0]}</span><time datetime={entry.date}>{entry.label}</time></div>
-                  <h3><a href={entry.href}>{entry.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
-                  {entry.summary && <p>{entry.summary}</p>}
+                  <EntryLink href={entry.href} title={entry.title} summary={entry.summary} />
                 </li>
               ))}
             </ul>

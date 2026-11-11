@@ -42,7 +42,7 @@ recommendedPosts:
 - 마이크로서비스 아키텍처는 `UI` 서비스와 비즈니스 특성에 맞게 설계된 서비스들이 서로 협업한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/microservice-architecture-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/microservice-architecture-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.redhat.com/ko/topics/microservices/what-are-microservices</center>
 
@@ -63,7 +63,7 @@ recommendedPosts:
 마이크로 서비스는 단일 비즈니스를 수행하기 때문에 서비스의 기능들은 자연스럽게 높은 응집도를 가지게 된다. 각 서비스는 모든 관련된 행위와 데이터를 캡슐화하여 관리한다. 새로운 기능을 구축해야 하는 경우 모든 변경사항이 하나의 단일 서비스에서만 수정되도록 해야 한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/microservice-architecture-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/microservice-architecture-02.png" width="100%" class="image__border">
 </div>
 <center>https://medium.com/dtevangelist/microservice-at-medium-58214fd055b7</center>
 

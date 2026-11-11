@@ -127,7 +127,7 @@ JWT는 Json 객체를 Base64 방식으로 인코딩한 것이다. Base64 인코�
 6. 리소스 서버는 토큰을 이용한 사용자의 권한 정보 등을 확인 후 응답한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/json-web-token-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/json-web-token-03.png" width="100%" class="image__border">
 </div>
 
 ### 4.2. Json Web Token Process
@@ -141,7 +141,7 @@ JWT는 Json 객체를 Base64 방식으로 인코딩한 것이다. Base64 인코�
 6. 리소스 서버는 토큰이 정상적인지 확인한다. JWT의 서명이 정상적인지 확인한다. 이때 필요하다면 인증 서버와 협력한다. 이후 사용자의 권한 정보 등을 확인 후 응답한다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/json-web-token-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/json-web-token-04.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

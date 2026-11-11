@@ -205,6 +205,10 @@ h1, h2, h3, p { margin: 0; }
 .feature h3 { font-size: var(--text-feature); line-height: var(--leading-heading); }
 .feature h3 a, .entries h3 a { display: flex; align-items: baseline; justify-content: space-between; gap: .75rem; text-decoration: none; }
 .feature h3 a:hover, .entries h3 a:hover { color: var(--accent); }
+/* 제목과 요약을 한 덩어리로 묶어 화살표 열을 침범하지 않게 한다. */
+.entry-link { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: .75rem; margin-top: .55rem; text-decoration: none; }
+.entry-link h3 { margin-top: 0; }
+.entry-link:hover h3 { color: var(--accent); }
 .entry-arrow { flex: none; color: var(--accent); font-size: var(--text-body); }
 .feature p, .entries p, .home-rail p:not(.eyebrow) { margin-top: .65rem; color: var(--muted); font-size: var(--text-compact); line-height: var(--leading-list); }
 .entries { list-style: none; padding: 0; margin: 0; }

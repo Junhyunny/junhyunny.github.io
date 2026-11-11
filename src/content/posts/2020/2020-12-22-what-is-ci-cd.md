@@ -32,7 +32,7 @@ recommendedPosts:
 - 지속적인 배포(Continuous Deployment)
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/what-is-ci-cd-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/what-is-ci-cd-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.redhat.com/ko/topics/devops/what-is-ci-cd</center>
 

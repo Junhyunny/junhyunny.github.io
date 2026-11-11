@@ -104,7 +104,7 @@ public class MutableTest {
 상태가 변경될 수 있다는 의미는 변수가 가리키는 객체가 바뀐다는 의미가 아니다. `final` 키워드가 붙은 변수로 객체를 참조한다고 해당 객체가 불변이 되는 것은 아니다. 특정 객체가 자신의 상태를 변경시킬 수 있는 기능을 외부로 노출했다면 `변경 가능한(mutable) 객체`라고 판단할 수 있다. 변경 가능한 객체는 외부 흐름(혹은 제어)에 의해 상태가 변경되면서 의도치 않은 결과가 발생할 수 있다. 이를 `스레드 안전하지 않다(not thread safe)`고 표현한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mutable-immutable-object-01.gif" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mutable-immutable-object-01.gif" width="100%">
 </div>
 
 ## 2. Immutable Object
@@ -186,7 +186,7 @@ public class ImmutableTest {
 - 객체의 상태가 변경될 때마다 새로 생성해야 하기 때문에 성능 저하나 메모리 누수의 위험이 존재한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mutable-immutable-object-02.gif" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mutable-immutable-object-02.gif" width="100%">
 </div>
 
 #### TEST CODE REPOSITORY

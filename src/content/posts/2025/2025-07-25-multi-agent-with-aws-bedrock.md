@@ -45,7 +45,7 @@ LLM 시스템의 성능을 향상시키는 방법은 크게 두 가지로 나눌
 
 멀티 에이전트 아키텍처는 에이전트 네트워크 그래프(agent network graph)를 어떻게 구성하느냐에 따라 달라진다.
 
-- `중앙 집중형`은 네트워크에서 단일 서버가 AI 에이전트의 상호 작용과 정보를 제어한다. 이 오케스트레이터(ochestrator)는 전체 프로세스와 시스템을 추론하여 커뮤니케이션을 간소화하고 정보를 표준화한다.
+- `중앙 집중형`은 네트워크에서 단일 서버가 AI 에이전트의 상호 작용과 정보를 제어한다. 이 오케스트레이터(orchestrator)는 전체 프로세스와 시스템을 추론하여 커뮤니케이션을 간소화하고 정보를 표준화한다.
 - `분산형`은 네트워크에서 AI 에이전트가 서로 직접 상호 작용을 제어한다. 특화된 AI 에이전트들은 각자 달성하고자 하는 목표에 대해 공통의 이해와 공동의 책임을 갖는다.
 
 에이전트 그래프를 어떻게 구성하는지에 따라 다음과 같은 구조들을 만들 수 있다.
@@ -199,7 +199,7 @@ CREATED AGENT_ID = NX3D2AM8YD
 CREATED AGENT_ALIAS_ARN = arn:aws:bedrock:ap-northeast-1:123412341234:agent-alias/NX3D2AM8YD/IIECMJTPXE
 ```
 
-위 스크립트를 싱행하면 에이전트가 준비된 상태로 생성된다.
+위 스크립트를 실행하면 에이전트가 준비된 상태로 생성된다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-04.png" width="100%" class="image__border">
@@ -298,7 +298,7 @@ aws bedrock-agent associate-agent-collaborator \
   --relay-conversation-history TO_COLLABORATOR | jq .
 ```
 
-협력 지시문은 일반 지시문과 다르다. 지시문은 해당 에이전트 자체의 역할과 동작 방식을 정의하는 설명이다. 에이전트는 이 지시문을 바탕으로 사용자 요청에 응답한다. 에이전트가 수행할 업무, 스타일, 톤, 제약 조건 등이 명시되어 이싿. 협력 지시문은 관리자 에이전트가 이 에이전트를 협력자로 호출할 때 참고하는 설명이다. 관리자 에이전트 관점에서 작성한다. 구체적인 협업 시나리오와 함께 스타일이나 톤도 지정 가능하다. 
+협력 지시문은 일반 지시문과 다르다. 지시문은 해당 에이전트 자체의 역할과 동작 방식을 정의하는 설명이다. 에이전트는 이 지시문을 바탕으로 사용자 요청에 응답한다. 에이전트가 수행할 업무, 스타일, 톤, 제약 조건 등이 명시되어 있다. 협력 지시문은 관리자 에이전트가 이 에이전트를 협력자로 호출할 때 참고하는 설명이다. 관리자 에이전트 관점에서 작성한다. 구체적인 협업 시나리오와 함께 스타일이나 톤도 지정 가능하다. 
 
 예를 들어 리서치 에이전트의 협력 지시문은 다음과 같다. 관리자 에이전트는 자료 수집이나 통계적 수치를 수집할 때 리서치 에이전트와 협력하라고 작성되어 있다.
 
@@ -370,7 +370,7 @@ $ sh scripts/update-collaborators.sh ZLU5WVCBXN chart-agent arn:aws:bedrock:ap-n
 }
 ```
 
-협력 에이전트들을 모두 추가한 후. AWS 웹 콘솔에서 관리자 에이전트의 `Multi-agent collaboration` 섹션을 확인해보자. 추가한 협력 에이전트들과 각자의 협력 지시문을 확인할 수 있다. 
+협력 에이전트들을 모두 추가한 후 AWS 웹 콘솔에서 관리자 에이전트의 `Multi-agent collaboration` 섹션을 확인해보자. 추가한 협력 에이전트들과 각자의 협력 지시문을 확인할 수 있다. 
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/multi-agent-with-aws-bedrock-06.png" width="100%" class="image__border">

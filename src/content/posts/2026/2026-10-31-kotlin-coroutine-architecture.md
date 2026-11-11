@@ -8,7 +8,7 @@ categories:
   - "coroutine"
   - "asynchronous"
   - "architecture"
-summary: "CoroutineScope에서 Dispatcher와 Job까지, 코틀린 코루틴이 비동기 작업을 실행하고 관리하는 구조를 살펴봅니다."
+summary: "CoroutineScope에서 Dispatcher와 Job까지, 코틀린 코루틴이 비동기 작업을 실행하고 관리하는 구조를 정리했다."
 ---
 
 ## 0. 들어가면서

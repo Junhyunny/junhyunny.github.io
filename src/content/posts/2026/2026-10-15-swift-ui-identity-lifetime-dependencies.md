@@ -8,7 +8,7 @@ categories:
   - "swift-ui"
   - "view"
   - "lifecycle"
-summary: "정체성, 생명주기, 의존성이라는 세 개념으로 SwiftUI가 뷰를 다시 평가하는 과정을 살펴봅니다."
+summary: "정체성, 생명주기, 의존성이라는 세 개념으로 SwiftUI가 뷰를 다시 평가하는 과정을 정리했다."
 ---
 
 ## 0. 들어가면서

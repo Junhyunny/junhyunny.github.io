@@ -65,7 +65,7 @@ aws bedrock-agent create-agent \
   --agent-resource-role-arn "$AGENT_RESOURCE_ROLE_ARN" | jq .
 ```
 
-위 스크립트를 실행하면 아래와 같은 응답을 통해 에이전트 ID를 획득한다. 에이전트 ID는 이 후에 에이전트를 배포할 때 사용한다.
+위 스크립트를 실행하면 아래와 같은 응답을 통해 에이전트 ID를 획득한다. 에이전트 ID는 이후에 에이전트를 배포할 때 사용한다.
 
 ```
 $ sh create-agent-cli.sh arn:aws:iam::123412341234:role/service-role/AmazonBedrockExecutionRoleForAgents_BH7NZART9Q
@@ -185,7 +185,7 @@ $ source .venv/bin/activate
 $ pip install boto3 python-dotenv
 ```
 
-이제 파이썬 코드를 살펴보자. `.env` 파일 정의된 환경변수를 사용해 에이전트를 호출한다. 다음과 같은 패키지를 임포트(import)한다.
+이제 파이썬 코드를 살펴보자. `.env` 파일에 정의된 환경변수를 사용해 에이전트를 호출한다. 다음과 같은 패키지를 임포트(import)한다.
 
 ```python
 import os
@@ -307,7 +307,7 @@ $ sh create-agent-alias-cli.sh SR95VYU66L V2025072102
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-bedrock-agent-api-03.png" width="100%" class="image__border">
 </div>
 
-새로 발급 받은 에이전트 별칭 ID로 `.env` 파일를 업데이트한다. 파이썬 애플리케이션을 실행하면 불친절한 톤의 응답을 받게 된다.
+새로 발급 받은 에이전트 별칭 ID로 `.env` 파일을 업데이트한다. 파이썬 애플리케이션을 실행하면 불친절한 톤의 응답을 받게 된다.
 
 ```
 $ python main.py "I are Junhyun Kang"

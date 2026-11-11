@@ -13,15 +13,15 @@ categories:
 
 ## 0. 들어가면서
 
-피그마 MCP 서버에 연결하기 전에 MCP(model context protocol)과 이에 관련된 아키텍처, 명세(specification)을 정리하고 넘어간다.
+피그마 MCP 서버에 연결하기 전에 MCP(model context protocol)와 이에 관련된 아키텍처, 명세(specification)를 정리하고 넘어간다.
 
 ## 1. What is the MCP(Model Context Protocol)?
 
-MCP는 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 소스 표준이다. 이 표준을 통해 클로드(claud)나 ChatGPT 같은 AI 애플리케이션이 데이터소소(datasource), 도구(tools) 혹은 워크플로우(workflow)에 연결할 수 있다. 데이터소스, 도구, 워크플로우는 구체적으로 무엇일까?
+MCP는 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 소스 표준이다. 이 표준을 통해 클로드(claude)나 ChatGPT 같은 AI 애플리케이션이 데이터소스(datasource), 도구(tools) 혹은 워크플로우(workflow)에 연결할 수 있다. 데이터소스, 도구, 워크플로우는 구체적으로 무엇일까?
 
 - 데이터소스는 로컬 파일이나 PostgreSQL, SQLite 같은 데이터베이스를 의미한다.
 - 도구는 검색 엔진, 계산기, Git 같은 형상 관리 도구, 슬랙 등이 있다.
-- 워크플로우는 한 번의 동작으로 끝나지 않고, 여러 단계가 순차적, 조건적으로 연견될 작업 흐름이 명시된 특별한 프롬프트 같은 것을 의미한다.
+- 워크플로우는 한 번의 동작으로 끝나지 않고, 여러 단계가 순차적, 조건적으로 연결된 작업 흐름이 명시된 특별한 프롬프트 같은 것을 의미한다.
   - e.g. (CRM 리소스 조회 → FAQ 검색 → 답변 초안 생성 → 필요 시 지원 티켓 툴 호출 → 사용자에게 전달) 같은 고객 지원 워크플로우
 
 공식 문서엔 MCP를 통해 다음과 같은 작업이 가능하다고 명시되어 있다.
@@ -31,11 +31,11 @@ MCP는 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 �
 - 엔터프라이즈 챗봇은 조직 내 여러 데이터베이스에 연결되어, 사용자가 채팅을 통해 데이터를 분석할 수 있도록 한다.
 - AI 모델은 Blender에서 3D 디자인을 만들고 이를 3D 프린터로 출력할 수 있다.
 
-사실 위 설명만 봐선 MCP가 도대체 무엇인지 알 수 없다. MCP는 HTTP와 같은 통신 규격(protocol)이다. 그렇다면 구체적인 명세이 있어야 한다. 어떤 것들이 있는지 살펴보자.
+사실 위 설명만 봐선 MCP가 도대체 무엇인지 알 수 없다. MCP는 HTTP와 같은 통신 규격(protocol)이다. 그렇다면 구체적인 명세가 있어야 한다. 어떤 것들이 있는지 살펴보자.
 
 ## 2. MCP participants
 
-먼저 MCP 참여자들에 대해 알아본다. MCP는 기본적으로 클라이언트-서버 아키텍처를 따른다. 다음과 같은 참여자들이 존재한다.
+먼저 MCP 참여자들에 대해 알아보자. MCP는 기본적으로 클라이언트-서버 아키텍처를 따른다. 다음과 같은 참여자들이 존재한다.
 
 - MCP 호스트(host)
   - 여러 개의 MCP 클라이언트들을 조정 및 관리하는 AI 애플리케이션 
@@ -47,19 +47,19 @@ MCP는 AI 애플리케이션이 외부 시스템과 연결하기 위한 오픈 �
 - MCP 서버(server)
   - MCP 클라이언트에게 컨텍스트를 제공하는 프로그램
 
-MCP 클라이언트는 MCP 호스트 내부에서 동작한다. MCP 호스트는 사용자의 입력을 받아 MCP 클라이언트를 구동하고 MCP 서버와 연결하는 오케스트레이션 역할을 담당한다. 예를 들면, 코파일럿 플러그인이 설치된 VSCode는 MCP 호스트다. 사용자가 피그마 링크를 코피일럿에게 챗으로 전달하면 VSCode는 MCP 클라이언트를 구동하고 피그마 MCP 서버와 연결을 시도한다.
+MCP 클라이언트는 MCP 호스트 내부에서 동작한다. MCP 호스트는 사용자의 입력을 받아 MCP 클라이언트를 구동하고 MCP 서버와 연결하는 오케스트레이션 역할을 담당한다. 예를 들면, 코파일럿 플러그인이 설치된 VSCode는 MCP 호스트다. 사용자가 피그마 링크를 코파일럿에게 챗으로 전달하면 VSCode는 MCP 클라이언트를 구동하고 피그마 MCP 서버와 연결을 시도한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-01.png" width="80%" class="image__border">
-</div>
-<center>https://modelcontextprotocol.io/docs/learn/architecture</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-01.png" width="80%" class="image__border">
+  </div>
+  <center>https://modelcontextprotocol.io/docs/learn/architecture</center>
 </div>
 
 MCP 서버는 컨텍스트 데이터를 제공하는 모든 프로그램을 지칭한다. 어디에서 동작하는지 중요하지 않다. 로컬 PC에서도 동작할 수 있고 원격에 존재할 수도 있다.
 
 - 로컬 MCP 서버
-  - 클로드 데스크탑는 동일한 호스트 머신의 파일 시스템에 접근하기 위해 로컬 머신에 파일 시스템 MCP 서버를 실행 후 MCP 클라이언트를 통해 연결한다.
+  - 클로드 데스크탑은 동일한 호스트 머신의 파일 시스템에 접근하기 위해 로컬 머신에 파일 시스템 MCP 서버를 실행 후 MCP 클라이언트를 통해 연결한다.
   - VSCode 코파일럿은 피그마 디자인 시스템에 접근하기 위해 피그마 MCP 서버와 MCP 클라이언트로 연결한다. 피그마 MCP 서버는 피그마 애플리케이션을 통해 로컬 PC에서 실행된다.
 - 원격 MCP 서버
   - 공식 센트리(sentry) MCP 서버는 센트리 플랫폼에서 동작한다.
@@ -70,7 +70,7 @@ MCP는 두 개의 레이어로 구성된다.
 
 - 데이터 계층(data layer)
   - 클라이언트-서버 간 통신을 위해 사용하는 JSON-RPC 기반의 프로토콜이다. 
-  - 라이프사이클 관리, 핵심 기본 요소(도구, 리소스, 프롬프트, 알림 등)을 위해 사용된다.
+  - 라이프사이클 관리, 핵심 기본 요소(도구, 리소스, 프롬프트, 알림 등)를 위해 사용된다.
 - 전송 계층(transport layer)
   - 클라이언트와 서버 사이의 데이터 교환을 가능하게 하는 통신 메카니즘과 채널을 정의한다.
   - 전송(transport) 방식에 따른 연결 수립, 메시지 프레이밍, 그리고 인증(authorization)을 위해 사용된다.
@@ -97,10 +97,10 @@ MCP는 두 개의 레이어로 구성된다.
 - 종료(Shutdown) - 연결의 정상적인 종료
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-02.png" width="65%" class="image__border">
-</div>
-<center>https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-02.png" width="65%" class="image__border">
+  </div>
+  <center>https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle</center>
 </div>
 
 [기능 협상](https://modelcontextprotocol.io/specification/2025-06-18/architecture#capability-negotiation)은 클라이언트와 서버가 초기화 과정에서 자신이 지원하는 기능을 명시적으로 선언하는 것이다. 세션 내 선언된 기능만 사용할 수 있다. 기능 협상을 통해 클라이언트와 서버가 지원되는 기능을 명확히 이해하고, 추가 확장성도 확보할 수 있다.
@@ -119,7 +119,7 @@ MCP는 두 개의 레이어로 구성된다.
 
 스트리밍 가능한 HTTP 전송 방식의 경우 서버와 클라이언트 사이의 약속된 커뮤니케이션을 위해 HTTP 헤더를 사용한다. 재시도, 재전송, 세션 관리 등을 위한 커스텀 HTTP 헤더들이 있다.
 
-이렇게 보면 네트워크 계층에서 전송 계층(TCP) 위에서 응용 계층(HTTP)가 동작하는 것과 비슷하다. 전송 계층은 클라이언트-서버 사이의 전송 방식을 표준 입출력(STDIO, Stanard Input/Output) 방식 혹은 HTTP 방식으로 결정하는 것이다. 데이터 계층은 MCP 클라이언트 프로세스와 MCP 서버 프로세스 사이에 약속된 포맷의 JSON 요청과 응답을 주고 받는 것이다.
+이렇게 보면 네트워크 계층에서 전송 계층(TCP) 위에서 응용 계층(HTTP)이 동작하는 것과 비슷하다. 전송 계층은 클라이언트-서버 사이의 전송 방식을 표준 입출력(STDIO, Standard Input/Output) 방식 혹은 HTTP 방식으로 결정하는 것이다. 데이터 계층은 MCP 클라이언트 프로세스와 MCP 서버 프로세스 사이에 약속된 포맷의 JSON 요청과 응답을 주고 받는 것이다.
 
 ## 4. Primitives
 
@@ -127,7 +127,7 @@ MCP는 두 개의 레이어로 구성된다.
 
 ### 4.1. MCP server primitives
 
-`MCP 서버`가 노출하는 있는 세 가지 기본 기능은 다음과 같다.
+`MCP 서버`가 노출하는 세 가지 기본 기능은 다음과 같다.
 
 - 도구(Tools)
   - AI 애플리케이션이 동작을 수행하기 위해 호출할 수 있는 실행 가능한 함수들 (예: 파일 작업, API 호출, 데이터베이스 쿼리)
@@ -144,10 +144,10 @@ MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어�
 - LLM이 도구를 선택하면 클라이언트는 `tools/call`을 통해 해당 도구를 실행한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-03.png" width="65%" class="image__border">
-</div>
-<center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-03.png" width="65%" class="image__border">
+  </div>
+  <center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
 </div>
 
 구체적으로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 제공하는 도구를 확인할 때 MCP 클라이언트는 아래 요청을 전달한다. 
@@ -258,15 +258,15 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
 - 사용자는 초기 요청과 생성된 응답을 서버로 반환하기 전에 검토(response-review)하고 수정할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-04.png" width="100%" class="image__border">
-</div>
-<center>https://modelcontextprotocol.io/docs/learn/client-concepts</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-04.png" width="100%" class="image__border">
+  </div>
+  <center>https://modelcontextprotocol.io/docs/learn/client-concepts</center>
 </div>
 
 마찬가지로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 LLM 기능을 사용하고 싶을 때 MCP 클라이언트에게 아래 요청을 전달한다. 
 
-- `sampling/createMessage`은 언어 모델에게 메시지를 기반으로 답변을 생성해달라는 요청이다.
+- `sampling/createMessage`는 언어 모델에게 메시지를 기반으로 답변을 생성해달라는 요청이다.
 
 ```json
 {
@@ -298,7 +298,7 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
 }
 ```
 
-MCP 클라이언트는 위 요청을 받으면 AI 모델(ChatGPT)에게 이를 위임힌다. MCP 클라이언트는 MCP 호스트(VSCode 혹은 클로드 데스크탑)와 연결된 AI 모델에게 요청을 포워딩한다. AI 모델로부터 받은 응답을 사용자 리뷰를 거친 후 MCP 서버에게 전달한다. 메시지 포맷은 다음과 같다.
+MCP 클라이언트는 위 요청을 받으면 AI 모델(ChatGPT)에게 이를 위임한다. MCP 클라이언트는 MCP 호스트(VSCode 혹은 클로드 데스크탑)와 연결된 AI 모델에게 요청을 포워딩한다. AI 모델로부터 받은 응답을 사용자 리뷰를 거친 후 MCP 서버에게 전달한다. 메시지 포맷은 다음과 같다.
 
 ```json
 {
@@ -318,7 +318,7 @@ MCP 클라이언트는 위 요청을 받으면 AI 모델(ChatGPT)에게 이를 �
 
 ## CLOSING
 
-[MCP 명세서](https://modelcontextprotocol.io/specification/2025-06-18)을 보면 위에서 예시로 든 `tools`, `sampling` 외에도 다른 요소들(primitives)에 대한 요청, 응답 예시가 있다. MCP 참여자들의 시퀀스 다이어그램들도 있으니 한번 읽어보면 이 프로토콜에 대한 개념을 잡을 수 있다. 
+[MCP 명세서](https://modelcontextprotocol.io/specification/2025-06-18)를 보면 위에서 예시로 든 `tools`, `sampling` 외에도 다른 요소들(primitives)에 대한 요청, 응답 예시가 있다. MCP 참여자들의 시퀀스 다이어그램들도 있으니 한번 읽어보면 이 프로토콜에 대한 개념을 잡을 수 있다. 
 
 이 프로토콜은 용어가 헷갈린다. 아래 개념들이 나를 혼란에 빠트린 것 같다.
 

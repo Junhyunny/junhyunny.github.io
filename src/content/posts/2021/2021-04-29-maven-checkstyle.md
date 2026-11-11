@@ -6,6 +6,7 @@ canonicalPath: "/information/maven/maven-checkstyle/"
 categories:
   - "information"
   - "maven"
+summary: "구글 체크스타일 XML을 일부 수정해 maven-checkstyle-plugin에 적용하고, 코드 컨벤션을 위반하면 메이븐 빌드가 실패하도록 구성했다."
 recommendedPosts:
   - title: "Maven 라이프사이클과 테스트 플러그인"
     href: "https://junhyunny.github.io/maven/maven-lifecycle-and-surfire-failsafe-plugins/"
@@ -15,16 +16,16 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-여러 명이 함께 일할 때 코드 스타일은 중요하다. 중간에 엉뚱한 스타일로 작성된 코드는 개발자의 가독성을 떨어뜨린다. 이번엔 프로젝트 내 같은 코드 컨벤션(convention)을 가지도록 돕는 도구와 메이븐(maven) 플러그인을 통해 코드 확인을 자동화하는 방법에 대해 정리하였다.
+여러 명이 함께 일할 때 코드 스타일은 중요하다. 중간에 엉뚱한 스타일로 작성된 코드는 개발자의 가독성을 떨어뜨린다. 이번엔 프로젝트 내 같은 코드 컨벤션(convention)을 가지도록 돕는 도구와 메이븐(maven) 플러그인을 통해 코드 확인을 자동화하는 방법에 대해 정리했다.
 
 ## 1. Google CheckStyle
 
 구글은 코드 스타일을 통일할 수 있도록 컨벤션에 대한 내용을 담은 XML 파일을 제공한다. XML 파일에 정의된 규칙대로 코드 스타일을 강제할 수 있다. [이 링크](https://github.com/checkstyle/checkstyle/blob/master/src/main/resources/google_checks.xml)에서 구글에서 사용하는 코드 컨벤션 XML 파일을 다운로드 받을 수 있다.
 
-다운로드 받은 `google_checks.xml` 파일은 프로젝트 루트(root) 경로에 위치시킨다. 파일 경로는 상관 없고, 프로젝트 코드들과 함께 관리되도록 위치시킨다.
+다운로드 받은 `google_checks.xml` 파일은 프로젝트 루트(root) 경로에 위치시킨다. 파일 경로는 상관없고, 프로젝트 코드들과 함께 관리되도록 위치시킨다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-checkstyle-01.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-checkstyle-01.png" width="50%" class="image__border">
 </div>
 
 ## 2. Customize Code Style

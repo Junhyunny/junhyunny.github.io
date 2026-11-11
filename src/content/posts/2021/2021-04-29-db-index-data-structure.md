@@ -6,25 +6,26 @@ canonicalPath: "/information/data-structure/db-index-data-structure/"
 categories:
   - "information"
   - "data-structure"
+summary: "데이터베이스 인덱스의 개념과 좋은 인덱스를 위한 고려 사항, B-Tree 구조와 인덱스가 적용되지 않는 경우, B+Tree와의 차이를 정리했다."
 ---
 
 ## 0. 들어가면서
 
-데이터베이스(database) 성능을 향상시키는 방법으로 항상 인덱스(index)에 대한 이야기가 나온다. 애플리케이션 팀원으로 일할 때 성능 팀과 인덱스, 힌트(hint) 설정에 관련된 메일을 자주 주고받았었지만, 단순히 `'조회 쿼리를 빠르게 만들기 위해 인덱스를 생성하고, 특정 힌트를 걸어준다.'` 정도로만 알고 지냈다. 정확한 개념을 알고 싶어 관련된 자료나 책을 읽어보니 상당히 내용이 많았다. 글이 너무 길어질 것 같기에 이번엔 인덱스에 대한 전반적인 개념들만 정리하였다.
+데이터베이스(database) 성능을 향상시키는 방법으로 항상 인덱스(index)에 대한 이야기가 나온다. 애플리케이션 팀원으로 일할 때 성능 팀과 인덱스, 힌트(hint) 설정에 관련된 메일을 자주 주고받았었지만, 단순히 `'조회 쿼리를 빠르게 만들기 위해 인덱스를 생성하고, 특정 힌트를 걸어준다.'` 정도로만 알고 지냈다. 정확한 개념을 알고 싶어 관련된 자료나 책을 읽어보니 상당히 내용이 많았다. 글이 너무 길어질 것 같기에 이번엔 인덱스에 대한 전반적인 개념들만 정리했다.
 
 ## 1. Database Index
 
 > 데이터베이스 테이블의 검색 속도를 향상시키기 위한 자료구조
 
-인덱스는 책 뒷편에 위치한 색인(index)으로 비유를 많이 한다. 책의 색인은 낱말, 구절 또는 관련된 지시자를 찾아보기 쉽도록 키워드와 페이지 쌍(pair)을 정렬된 순서로 나열한 목록을 의미한다. 독자들은 색인을 통해 특정 정보가 책 어느 페이지에 있는지 쉽게 찾을 수 있다.
+인덱스는 책 뒤편에 위치한 색인(index)으로 비유를 많이 한다. 책의 색인은 낱말, 구절 또는 관련된 지시자를 찾아보기 쉽도록 키워드와 페이지 쌍(pair)을 정렬된 순서로 나열한 목록을 의미한다. 독자들은 색인을 통해 특정 정보가 책 어느 페이지에 있는지 쉽게 찾을 수 있다.
 
 데이터베이스의 인덱스도 같은 형태이다. 다만, 여기서 키워드는 데이터베이스 특정 컬럼(column)의 데이터, 페이지는 데이터가 저장된 주소(address)가 된다. 쿼리 속도를 개선한다는 것은 불필요한 디스크 I/O 횟수를 줄이는 것이다. 인덱스를 사용하면 최소한의 횟수로 꼭 필요한 데이터만 읽도록 쿼리를 개선할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-01.png" width="60%" class="image__border">
-</div>
-<center>https://brunch.co.kr/@skeks463/25</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://brunch.co.kr/@skeks463/25</center>
 </div>
 
 일반적으로 인덱스를 선언하는 방법은 다음과 같다.
@@ -50,7 +51,7 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 
 ## 2. Consideration for Good Index
 
-좋은 인덱스를 만들기 위해선 적절한 통계성 데이터가 필요하다. 기준이 될 수 있는 몇 가지 요소(factor)들을 살펴본다. 먼저 `기수성(cardinality)`은 값의 균형을 나타내는 개념이며, 선택도(selectivity)와 거의 같은 의미로 사용한다. 특정 데이터 집합의 유니크(unique)한 값의 수를 의미한다.
+좋은 인덱스를 만들기 위해선 적절한 통계성 데이터가 필요하다. 기준이 될 수 있는 몇 가지 요소(factor)들을 살펴보자. 먼저 `기수성(cardinality)`은 값의 균형을 나타내는 개념이며, 선택도(selectivity)와 거의 같은 의미로 사용한다. 특정 데이터 집합의 유니크(unique)한 값의 수를 의미한다.
 
 - cardinality = select count(distinct (column)) from table
 
@@ -60,7 +61,7 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 
 > 높은 기수성(선택도)을 가진 컬럼은 좋은 인덱스 후보이다.
 
-`선택률(selectivity rate)`는 한 번의 조회 쿼리로 이에 해당되는 레코드가 얼만큼 존재하는지를 나타내는 개념이다. 기수성이 높으면 자연스럽게 선택률은 낮아진다. 간단한 예를 들어본다.
+`선택률(selectivity rate)`은 한 번의 조회 쿼리로 이에 해당되는 레코드가 얼만큼 존재하는지를 나타내는 개념이다. 기수성이 높으면 자연스럽게 선택률은 낮아진다. 간단한 예를 들어보자.
 
 - 100명의 사용자 데이터가 존재한다.
 - 주민번호로 사용자를 조회한다.
@@ -85,28 +86,28 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 
 ## 3. Index Data Structure
 
-인덱스를 위한 대표적인 데이터 구조 `B-Tree`에 대해 살펴본다. 데이터베이스에서 말하는 인덱스는 보통 `B-Tree`를 의미한다.
+인덱스를 위한 대표적인 데이터 구조 `B-Tree`에 대해 살펴보자. 데이터베이스에서 말하는 인덱스는 보통 `B-Tree`를 의미한다.
 
 - 가장 상단에 위치한 루트 노드(root node)
 - 중간에 위치한 브랜치 노드(branch node)
 - 마지막에 위치한 리프 노드(leaf node)
 
-`B-Tree`의 B는 이진(binary)가 아닌 균형(balance)이다. 루트 노드에서 모든 리프 노드까지의 거리를 균일하게 조정한다. `B-Tree`는 차수에 따라 자식 노드 수가 결정된다. 예를 들어 2차 `B-Tree`는 자식 노드가 2개, 3차인 경우 3개이다.
+`B-Tree`의 B는 이진(binary)이 아닌 균형(balance)이다. 루트 노드에서 모든 리프 노드까지의 거리를 균일하게 조정한다. `B-Tree`는 차수에 따라 자식 노드 수가 결정된다. 예를 들어 2차 `B-Tree`는 자식 노드가 2개, 3차인 경우 3개이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-02.png" width="80%" class="image__border">
-</div>
-<center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
 </div>
 
 데이터베이스의 `B-Tree`는 노드를 구분하는 기준이 페이지(page) 단위이다. 지금부터 트리의 노드를 페이지라고 표현한다. 데이터베이스의 `B-Tree`의 페이지 수는 가변적인데, 이는 페이지 크기와 인덱스 키 값의 크기에 따라 결정된다. 예를 들어보자. 
 
-- InnoDB 스토리 엔진의 기본적인 페이지 사이즈는 16KB이다.
+- InnoDB 스토리지 엔진의 기본적인 페이지 사이즈는 16KB이다.
 - 인덱스 키의 사이즈가 16바이트, 값의 사이즈가 12바이트라고 가정한다.
   - 키는 인덱스로 지정한 컬럼의 값이다.
   - 값은 자식 노드의 주소이다.
-- 하나의 인덱스 페이지에는 키-값 쌍(pair)를 585개(=16*1024/(16+12)) 저장할 수 있다.
+- 하나의 인덱스 페이지에는 키-값 쌍(pair)을 585개(=16*1024/(16+12)) 저장할 수 있다.
 - 한 페이지 당 최대 585개의 자식 페이지를 가질 수 있는 `B-Tree`가 된다.
   - 한 페이지 내 키-값 쌍은 키를 기준으로 정렬되어 있다.
 
@@ -119,13 +120,13 @@ ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)
 대용량 데이터베이스라도 `B-Tree`의 깊이는 5단계 이상까지 깊어지지 않는다고 한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/db-index-data-structure-03.png" width="100%" class="image__border">
 </div>
 <center>https://velog.io/@evelyn82ny/B-Tree-index-feat-difference-from-B-plus-Tree</center>
 
 ## 4. Not Applied Case
 
-인덱스를 만들었더라도 적용되지 않는 케이스가 존재한다. 이는 일반적인 인덱스 구조인 `B-Tree`의 특성으로 발생한다고 한다. 데이터베이스마다 일부 다른 부분들도 있지만, 공부한 내용을 바탕으로 정리하였다.
+인덱스를 만들었더라도 적용되지 않는 케이스가 존재한다. 이는 일반적인 인덱스 구조인 `B-Tree`의 특성으로 발생한다고 한다. 데이터베이스마다 일부 다른 부분들도 있지만, 공부한 내용을 바탕으로 정리했다.
 
 `%VALUE%`, `%VALUE`처럼 앞 부분이 와일드카드처럼 중간 일치, 후방 일치 LIKE 연산을 수행한 경우 인덱스가 적용되지 않는다.
 
@@ -180,7 +181,7 @@ SUBSTRING, LENGTH 같은 데이터베이스 함수를 인덱스 필드에 사용
 - 리프 노드에만 데이터를 저장하고, 루트 노드, 브랜치 노드는 자식 노드를 참조하는 포인터만 지니고 있다.
   - 루트 노드, 브랜치 노드의 저장 공간이 남기 때문에 더 많은 자식 노드를 가질 수 있다.
   - 트리의 깊이를 낮출 수 있다.
-- 리프 노드들을 연결 리스트(linked list)로 이어져 있다.
+- 리프 노드들이 연결 리스트(linked list)로 이어져 있다.
   - 부등호 연산 같은 범위를 검색하는 경우 순차적인 검색을 효율적으로 할 수 있다.
 
 MySQL, Oracle, PostgreSQL 등 일부 데이터베이스들은 `B+Tree`를 인덱스 구조로 사용한다고 한다. 마지막으로 `B-Tree`를 생성, 삭제를 시뮬레이션해주는 사이트가 있다. 해당 사이트에서 `B-Tree`의 차수 별로 노드가 하나씩 추가될 때마다 어떤 변경이 일어나는지 살펴볼 수 있다.

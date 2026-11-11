@@ -6,6 +6,7 @@ canonicalPath: "/information/maven/maven-using-external-jar/"
 categories:
   - "information"
   - "maven"
+summary: "메이븐 저장소에 없는 외부 JAR 파일을 pom.xml에 의존성으로 추가해 사용하는 방법을 정리했다."
 ---
 
 ## 1. Add external JAR as dependency
@@ -18,10 +19,10 @@ categories:
 - Specify scope as system.
 - Specify system path relative to the project location.
 
-메이븐 레포지토리에서 관리하는 의존성이 아닌 서드-파티(3rd party) 라이브러리를 사용할 때 파일 이름과 디렉토리 이름을 위 규칙을 따라 준비한다. 필요한 의존성들을 프로젝트 특정 폴더에 옮겨 놓는다. 예시에선 `/src/libs` 폴더를 사용하였다.
+메이븐 레포지토리에서 관리하는 의존성이 아닌 서드-파티(3rd party) 라이브러리를 사용할 때 파일 이름과 디렉토리 이름을 위 규칙을 따라 준비한다. 필요한 의존성들을 프로젝트 특정 폴더에 옮겨 놓는다. 예시에선 `/src/libs` 폴더를 사용했다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-using-external-jar-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-using-external-jar-01.png" width="100%" class="image__border">
 </div>
 
 `pom.xml`에 프로젝트 디렉토리를 상대 경로로 위 외부 JAR 파일들을 의존성으로 추가한다.

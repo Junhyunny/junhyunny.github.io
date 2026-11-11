@@ -6,6 +6,7 @@ canonicalPath: "/information/maven/maven-jacoco/"
 categories:
   - "information"
   - "maven"
+summary: "자바 코드 커버리지 도구인 JaCoCo를 메이븐 플러그인으로 등록해 리포트를 만들고, 커버리지 기준에 못 미치면 빌드가 실패하도록 설정했다."
 recommendedPosts:
   - title: "Maven 라이프사이클과 테스트 플러그인"
     href: "https://junhyunny.github.io/maven/maven-lifecycle-and-surfire-failsafe-plugins/"
@@ -19,7 +20,7 @@ recommendedPosts:
 
 ## 2. Maven Plugin JaCoCo
 
-메이븐 플러그인으로 `JaCoCo` 플러그인을 추가한 후 골(goal)을 등록할 수 있다. 메이븐 골로 등록하면 CLI(command line interface)를 통해 동작을 자동화시킬 수 있다. pom.xml 설정 파일의 전체 모습을 보고, 각 설정 별로 자세하게 살펴본다.
+메이븐 플러그인으로 `JaCoCo` 플러그인을 추가한 후 골(goal)을 등록할 수 있다. 메이븐 골로 등록하면 CLI(command line interface)를 통해 동작을 자동화시킬 수 있다. pom.xml 설정 파일의 전체 모습을 보고, 각 설정 별로 자세하게 살펴보자.
 
 ```xml
     <plugin>
@@ -78,7 +79,7 @@ recommendedPosts:
     </plugin>
 ```
 
-특정 코드를 테스트 커버리지 측정에서 제외할 수 있다. 해당 포스트에선 `main` 메서드가 포함된 ActionInBlogApplication 클래스는 제외하였다.
+특정 코드를 테스트 커버리지 측정에서 제외할 수 있다. 해당 포스트에선 `main` 메서드가 포함된 ActionInBlogApplication 클래스는 제외했다.
 
 ```xml
     <configuration>
@@ -95,7 +96,7 @@ JaCoCo 플러그인을 사용하면 다음과 같은 골들을 설정할 수 있
 - prepare-agent
   - `JaCoCo` 런타임 에이전트에게 테스트 커버리지 측정을 위한 JVM 실행 인수들을 전달한다.
   - 해당 골을 정의해야지 테스트 커버리지를 측정할 수 있다.
-  - `maven-surefire-plugin`와 함께 사용할 수 있다.
+  - `maven-surefire-plugin`과 함께 사용할 수 있다.
 - prepare-agent-integration
   - `prepare-agent`와 동일하지만, 결합 테스트(integration test)에 적합하다.
 - merge
@@ -299,13 +300,13 @@ $ mvn install
 프로젝트 `/target/site/jacoco` 경로에 `index.html` 파일로 리포트가 생성된 것을 확인할 수 있다.
 
 <div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-01.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-01.png" width="50%" class="image__border">
 </div>
 
 index.html 리포트 파일을 열어보면 다음과 같은 화면을 볼 수 있다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

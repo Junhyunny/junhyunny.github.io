@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/singleton-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "싱글톤 패턴의 구현 방식과 안티 패턴으로 불리는 이유를 정리하고, 스프링이 사용하는 싱글톤 레지스트리 방식과의 차이를 설명한다."
 recommendedPosts:
   - title: "스프링 프레임워크의 제어의 역전(IoC)과 의존성 주입(DI)"
     href: "https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-흔하게 접하는 디자인 패턴이다. 너무 친숙한 나머지 싱글톤 패턴(Singleton Pattern)에 대해서 잘 알고 있다고 착각하고 있었다. 관련된 글을 찾아보면서 몰랐던 이야기들도 많다는 사실에 놀랐다. 정리하지 않으면 머릿속에 남지 않으니 글을 쓰면서 싱글톤 패턴의 개념을 정리하였다.
+흔하게 접하는 디자인 패턴이다. 너무 친숙한 나머지 싱글톤 패턴(Singleton Pattern)에 대해서 잘 알고 있다고 착각하고 있었다. 관련된 글을 찾아보면서 몰랐던 이야기들도 많다는 사실에 놀랐다. 정리하지 않으면 머릿속에 남지 않으니 글을 쓰면서 싱글톤 패턴의 개념을 정리했다.
 
 ## 1. Singleton Pattern
 
@@ -25,13 +26,13 @@ recommendedPosts:
 이름에서 추측이 가능한 디자인 패턴이다. 애플리케이션 내에서 하나의 인스턴스만 존재하도록 강제하는 패턴이다. 여러 곳에서 싱글톤 객체를 공유해서 사용한다. 싱글톤 패턴이 적용된 인스턴스는 전역적인 접근이 가능해야 한다. 싱글톤 패턴의 클래스 다이어그램을 그리면 다음과 같이 그릴 수 있다.
 
 - 클래스 내부에 싱글톤 객체를 참조할 수 있는 정적 프라이빗(static private) 변수가 있다.
-- 어디에서든 싱글톤 객체를 참조할 수 있도록 정적 퍼블릿(static public) 함수가 정의되어 있다.
+- 어디에서든 싱글톤 객체를 참조할 수 있도록 정적 퍼블릭(static public) 함수가 정의되어 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/singleton-pattern-01.png" width="30%" class="image__border">
-</div>
-<center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/singleton-pattern-01.png" width="30%" class="image__border">
+  </div>
+  <center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
 </div>
 
 싱글톤 패턴을 사용하면 아래와 같은 이점을 얻을 수 있다.
@@ -91,7 +92,7 @@ public class Singleton {
 }
 ```
 
-하지만 이 방법은 멀티 스레드 환경에서 스레드 안전하지 않다. 스레드 안전하게 만드려면 getInstance 메서드 호출 시 `synchronized` 키워드를 사용하여 임계 영역을 만든다. 해당 방법은 스레드 안전하지만, getInstance 메서드 호출이 잦은 경우 동기화로 인한 성능 감소가 발생한다.
+하지만 이 방법은 멀티 스레드 환경에서 스레드 안전하지 않다. 스레드 안전하게 만들려면 getInstance 메서드 호출 시 `synchronized` 키워드를 사용하여 임계 영역을 만든다. 해당 방법은 스레드 안전하지만, getInstance 메서드 호출이 잦은 경우 동기화로 인한 성능 감소가 발생한다.
 
 ```java
 public class Singleton {
@@ -111,7 +112,7 @@ public class Singleton {
 }
 ```
 
-동기화로 인한 성능 문제는 싱글톤 객체를 생성할 때 두번 확인하는 방식으로 해결할 수 있다.
+동기화로 인한 성능 문제는 싱글톤 객체를 생성할 때 두 번 확인하는 방식으로 해결할 수 있다.
 
 - 생성된 인스턴스가 없는 경우에만 동기화 블록이 실행된다.
 
@@ -137,9 +138,9 @@ public class Singleton {
 }
 ```
 
-위 에제 코드에서 [volatile 키워드][volatile-reference-link]를 사용하는 이유는 멀티 스레드 환경에서 스레드 안전성을 보장하기 위함이다. 애플리케이션에서는 작업을 수행하는 동안 성능 향상을 위해 메인 메모리(MM, main memory)에서 읽은 값을 CPU 캐시(cache)에 저장한다. 멀티 스레드 환경에서 스레드가 변수의 값을 읽어올 때 CPU 캐시에 저장된 값을 읽는 경우 스레드마다 값이 다를 수 있다. `volatile` 키워드가 붙은 변수는 메인 메모리에 값을 저장하고 읽기 때문에 캐시로 인한 값 불일치 문제를 해결한다.
+위 예제 코드에서 [volatile 키워드][volatile-reference-link]를 사용하는 이유는 멀티 스레드 환경에서 스레드 안전성을 보장하기 위함이다. 애플리케이션에서는 작업을 수행하는 동안 성능 향상을 위해 메인 메모리(MM, main memory)에서 읽은 값을 CPU 캐시(cache)에 저장한다. 멀티 스레드 환경에서 스레드가 변수의 값을 읽어올 때 CPU 캐시에 저장된 값을 읽는 경우 스레드마다 값이 다를 수 있다. `volatile` 키워드가 붙은 변수는 메인 메모리에 값을 저장하고 읽기 때문에 캐시로 인한 값 불일치 문제를 해결한다.
 
-지연 홀더(lazy holder)를 통한 지연 초기화 방법도 있다. 내부 `static` 클래스를 사용해 싱글톤 객체를 만드는 방법이다. 스레드 안정성과 성능에 모두 좋은 지연 객체 생성 방법이다.
+지연 홀더(lazy holder)를 통한 지연 초기화 방법도 있다. 내부 `static` 클래스를 사용해 싱글톤 객체를 만드는 방법이다. 스레드 안전성과 성능에 모두 좋은 지연 객체 생성 방법이다.
 
 - `InnerInstanceClazz` 클래스는 static 멤버 클래스이다.
 - `Singleton` 클래스 내부에 `InnerInstanceClazz` 객체를 참조하는 변수가 없으므로 getInstance 메서드를 호출할 때 클래스 로더(class loader)에 의해 초기화된다.
@@ -153,7 +154,7 @@ public class Singleton {
 
     /**
      * static member class
-     * 내부클래스에서 static변수를 선언해야하는 경우 static 내부 클래스를 선언해야만 한다.
+     * 내부클래스에서 static 변수를 선언해야 하는 경우 static 내부 클래스를 선언해야만 한다.
      * static 멤버, 특히 static 메서드에서 사용될 목적으로 선언
      */
     private static class InnerInstanceClazz {
@@ -173,9 +174,9 @@ public class Singleton {
 }
 ```
 
-`이넘(enum)`을 사용하면 스레드 안정성과 성능 문제를 해결할 수 있다.
+`이넘(enum)`을 사용하면 스레드 안전성과 성능 문제를 해결할 수 있다.
 
-- 이넘 객체 생성은 스레드 안전성을 보장한다. 이넘 객체를 사용하면 복잡한 직렬화 상황이나, 리플렉션 공격에도 제 2의 인스턴스가 생성되는 것을 방지할 수 있다.
+- 이넘 객체 생성은 스레드 안전성을 보장한다. 이넘 객체를 사용하면 복잡한 직렬화 상황이나, 리플렉션 공격에도 제2의 인스턴스가 생성되는 것을 방지할 수 있다.
 - `volatile`, `synchronized` 키워드 없이도 동시성 문제를 해결하기 때문에 성능이 뛰어나다.
 
 ## 3. Singleton Pattern as Anti Pattern
@@ -185,7 +186,7 @@ public class Singleton {
 > 안티 패턴(anti-pattern)<br/>
 > 소프트웨어 공학 분야 용어이며, 실제 많이 사용되는 패턴이지만 비효율적이거나 비생산적인 패턴을 의미한다.
 
-어째서 유명한 싱글톤 패턴이 안티 패턴으로 불리는지 찾아보았다. 싱글톤 패턴이 안티 패턴이 된 이유는 다음과 같다.
+어째서 유명한 싱글톤 패턴이 안티 패턴으로 불리는지 찾아봤다. 싱글톤 패턴이 안티 패턴이 된 이유는 다음과 같다.
 
 - 객체 지향적 설계를 적용할 수 없다.
   - 하나의 객체만 만들기 위해 `private` 생성자를 사용한다.
@@ -203,7 +204,7 @@ public class Singleton {
 
 글을 정리하면서 '스프링 프레임워크에서 싱글톤 패턴을 많이 사용하지 않는가?'라는 의문이 들었다. 스프링은 사실 싱글톤 패턴을 사용하는 것이 아니다. 싱글톤 패턴은 애플리케이션 내에서 객체가 1개만 존재하도록 보장하기 위한 클래스를 정의하는 패턴이다. 실제 스프링은 객체가 1개만 만들어지도록 클래스를 제한하지 않는다. 일반적인 객체를 만들고, 이를 1개만 만들어 등록하고 재사용한다. 이를 싱글톤 레지스트리(singleton registry) 방식이라고 한다.
 
-싱글톤 패턴에 대해 정리하다 보니 `GoF 디자인 패턴`에서 설명하는 싱글톤 패턴은 일부 다른 점이 있어서 함께 정리하였다. GoF 디자인 패턴에서 싱글톤 패턴은 생성자의 접근 제어자를 `protected`로 지정하고, 싱글톤 패턴이 적용된 클래스의 상속을 보장한다.
+싱글톤 패턴에 대해 정리하다 보니 `GoF 디자인 패턴`에서 설명하는 싱글톤 패턴은 일부 다른 점이 있어서 함께 정리했다. GoF 디자인 패턴에서 싱글톤 패턴은 생성자의 접근 제어자를 `protected`로 지정하고, 싱글톤 패턴이 적용된 클래스의 상속을 보장한다.
 
 ```java
 class Singleton {

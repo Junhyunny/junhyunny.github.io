@@ -9,6 +9,7 @@ categories:
   - "web-api"
   - "media-stream"
   - "webcam"
+summary: "MediaStream API와 MediaRecorder, 캔버스를 사용해 리액트 애플리케이션에서 브라우저 웹캠으로 비디오를 녹화하고 사진을 촬영하는 기능을 구현했다."
 ---
 
 ## 0. 들어가면서

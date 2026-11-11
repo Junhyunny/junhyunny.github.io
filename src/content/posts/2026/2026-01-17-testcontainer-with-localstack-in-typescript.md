@@ -10,6 +10,7 @@ categories:
   - "aws"
   - "s3"
   - "dynamodb"
+summary: "AWS 람다 기반 타입스크립트 애플리케이션에서 LocalStack 테스트 컨테이너로 DynamoDB와 S3 결합 테스트를 구축하고, 클라이언트 모듈을 주입 가능하게 설계하는 방법을 정리했다."
 recommendedPosts:
   - title: "테스트 더블(Test Double)"
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
@@ -44,7 +45,7 @@ $ npm install -D typescript @types/node
 테스트 코드에서 테스트 컨테이너를 사용하려면 DynamoDB 클라이언트나 S3 클라이언트의 접속 정보를 테스트 컨테이너로 변경해야 한다. 런타임과 테스트 런타임에 서로 다른 접속 정보를 사용해야 하기 때문에 각 클라이언트를 위한 모듈을 만든다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/testcontainer-with-localstack-in-typescript-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/testcontainer-with-localstack-in-typescript-01.png" width="100%" class="image__border">
 </div>
 
 다음과 같이 규칙을 따라 코드를 작성한다. 아래는 DynamoDB 클라이언트 모듈이다.

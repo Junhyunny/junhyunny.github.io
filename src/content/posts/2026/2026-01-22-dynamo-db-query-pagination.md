@@ -9,6 +9,7 @@ categories:
   - "aws"
   - "dynamodb"
   - "localstack"
+summary: "오프셋을 지원하지 않는 DynamoDB에서 1MB 조회 제한을 넘는 데이터를 LastEvaluatedKey와 ExclusiveStartKey로 커서 기반 페이지 처리하는 방법을 테스트 코드로 정리했다."
 recommendedPosts:
   - title: "타입스크립트 애플리케이션에서 LocalStack 테스트 컨테이너 사용하기"
     href: "https://junhyunny.github.io/typescript/test-container/localstack/aws/s3/dynamodb/testcontainer-with-localstack-in-typescript/"

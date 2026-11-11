@@ -8,6 +8,7 @@ categories:
   - "ai-agent"
   - "rag"
   - "context-engineering"
+summary: "FAISS 벡터 데이터베이스가 거리와 색인만 반환하는 구조를 살펴보고, 검색으로 얻은 색인으로 원본 데이터를 조회하는 인덱싱과 검색 방법을 예제로 정리했다."
 recommendedPosts:
   - title: "LangChain 검색 증강 생성(RAG, Retrieval-Augmented Generation)"
     href: "https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"

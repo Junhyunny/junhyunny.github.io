@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/quality-of-service/"
 categories:
   - "information"
+summary: "MQTT 프로젝트에서 QoS 레벨 이야기가 나와 서비스 품질의 개념과 측정 요소, 트래픽 우선순위와 대역폭 관리 같은 개선 방법을 정리했다."
 recommendedPosts:
   - title: "MQTT(Message Queuing Telemetry Transport) 프로토콜"
     href: "https://junhyunny.github.io/information/mqtt-protocol/"
@@ -44,18 +45,18 @@ MQTT 프로토콜을 사용하는 프로젝트에 참여했다. QoS 레벨에 �
 
 어떻게 서비스 품질을 높일 수 있을까? 서비스 품질을 높이기 위해선 여러 전략과 기술이 함께 동작한다. 몇 가지만 살펴보자. 트래픽의 우선순위를 결정하는 방법이 있다.
 
-- 트래픽의 우선순위를 구분하고 마킹(marking)하기 위해 DSCP(Differentiated Services Code Point)이나 CoS(Class of Service)를 사용한다.
+- 트래픽의 우선순위를 구분하고 마킹(marking)하기 위해 DSCP(Differentiated Services Code Point)나 CoS(Class of Service)를 사용한다.
 - 우선순위 별로 큐를 구분하여 사용한다.
 
 다음으로 네트워크 대역폭을 관리하는 방법이 있다. 
 
 - 중요한 애플리케이션에게 적절한 네트워크 대역폭을 지정한다.
-- 패킷 버퍼나 토큰을 사용해 네트워크 망에 유익, 유출되는 트래픽량과 속도를 조절하는 트래픽 쉐이핑(traffic shaping)을 사용한다. 
+- 패킷 버퍼나 토큰을 사용해 네트워크 망에 유입, 유출되는 트래픽량과 속도를 조절하는 트래픽 쉐이핑(traffic shaping)을 사용한다. 
 - 트래픽 혼잡을 방지하기 위해 최대 데이터 전송률을 지정한다.
 
 네트워크 혼잡을 관리하는 방법도 있다.
 
-- WFQ(Weighted Fair Queuing)이나 LLQ(Low-Latency Queuing) 같은 큐 전략을 사용한다.
+- WFQ(Weighted Fair Queuing)나 LLQ(Low-Latency Queuing) 같은 큐 전략을 사용한다.
 - RED(Random Early Detection) 전략을 통해 네트워크 혼잡이 미리 감지되면 패킷을 드랍(drop)한다.
 
 이 외에도 지터, 지연, 패킷 손실 등을 줄이는 방법이나 네트워크 망을 디자인하고 최적화하는 방법들이 있다. 높은 서비스 품질 유지를 위해선 서비스 품질을 측정할 수 있는 기술과 도구들을 활용해 모니터링과 분석을 수행할 필요가 있다.

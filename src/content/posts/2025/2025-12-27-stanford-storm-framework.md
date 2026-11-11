@@ -9,6 +9,7 @@ categories:
   - "ai-agent"
   - "rag"
   - "context-engineering"
+summary: "스탠포드 STORM과 Co-STORM의 동작을 살펴보고, 보유한 논문 데이터를 FAISS 벡터 데이터베이스에 인덱싱한 뒤 커스텀 검색 모듈로 STORM의 RAG를 확장해 글을 작성하는 방법을 정리했다."
 recommendedPosts:
   - title: "LangChain 검색 증강 생성(RAG, Retrieval-Augmented Generation)"
     href: "https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"

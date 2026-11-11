@@ -12,6 +12,7 @@ categories:
   - "large-language-model"
   - "model-context-protocol"
   - "context-engineering"
+summary: "Github MCP 서버가 제공하는 도구 세트를 살펴보고, AI 에이전트가 E2E 테스트에 성공하면 테스트 코드를 만들어 풀 리퀘스트까지 생성하는 워크플로우를 정리했다."
 recommendedPosts:
   - title: "MCP(Model Context Protocol)와 MCP 서버-클라이언트"
     href: "https://junhyunny.github.io/ai/ai-agent/model-context-protocol/mcp-server/mcp-client/mcp-and-mcp-server/"
@@ -155,7 +156,7 @@ AI 에이전트를 통해 E2E 테스트를 일회성으로만 실행하고 버�
 트래커 부트 MCP 서버를 위해 필요한 API 키는 [트래커 부트(tracker boot) MCP 서버로 프롬프트 컨텍스트 공유하기 글](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/)을 참조하길 바란다. Github 토큰은 사용자 셋팅(setting) 페이지에서 생성할 수 있다. 프로파일 이미지를 클릭하면 셋팅 페이지로 이동하는 버튼을 볼 수 있다.
 
 <div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-02.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-02.png" width="50%" class="image__border">
 </div>
 
 왼쪽 사이드 메뉴 하단의 Developer Settings 페이지로 이동한다.

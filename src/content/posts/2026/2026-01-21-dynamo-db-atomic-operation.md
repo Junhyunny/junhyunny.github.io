@@ -9,6 +9,7 @@ categories:
   - "aws"
   - "dynamodb"
   - "localstack"
+summary: "조회-변경-업데이트 패턴에서 생기는 동시성 문제를 즐겨찾기 기능 예제로 살펴보고, DynamoDB 엔진이 직접 연산하는 원자적 업데이트로 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "데이터베이스 락(Database Lock)"
     href: "https://junhyunny.github.io/information/database/database-lock/lock-mechanism/"

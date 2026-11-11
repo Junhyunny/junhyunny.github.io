@@ -5,6 +5,7 @@ updatedAt: "2026-05-07T21:16:56+09:00"
 canonicalPath: "/spring-boot/web-socket-example/"
 categories:
   - "spring-boot"
+summary: "스프링 부트의 TextWebSocketHandler로 소켓 세션을 관리하며 여러 브라우저 사이에서 메시지를 실시간으로 동기화하는 웹소켓 예제를 구현했다."
 recommendedPosts:
   - title: "웹소켓(WebSocket) 이해하기"
     href: "https://junhyunny.github.io/information/web-socket/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-이번 글에서는 웹소켓(WebSocket) 예제 코드를 정리해 보겠다. 다음과 같은 환경에서 테스트했다.
+이번 글에서는 웹소켓(WebSocket) 예제 코드를 정리했다. 다음과 같은 환경에서 테스트했다.
 
 - Spring Boot 2.2.5.RELEASE
 - spring-boot-starter-thymeleaf
@@ -258,7 +259,7 @@ public class ChatController {
 위 애플리케이션을 실행한 후 두 브라우저 탭에서 애플리케이션에 접속한다. 웹소켓 연결이 완료된 후 메시지를 전송하면 두 브라우저 탭이 서로 동기화되는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-example-02.gif" width="100%" class="image__border" />
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-example-02.gif" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

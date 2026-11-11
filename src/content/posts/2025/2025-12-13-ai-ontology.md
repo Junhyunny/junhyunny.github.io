@@ -9,6 +9,7 @@ categories:
   - "ontology"
   - "context"
   - "context-engineering"
+summary: "AI 분야에서 온톨로지가 개념화에 대한 형식적이고 명시적인 명세라는 의미를 예시로 풀어 보고, 온톨로지의 핵심 구성 요소와 프로그래밍 언어로 표현하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서

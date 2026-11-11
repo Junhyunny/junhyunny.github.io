@@ -9,6 +9,7 @@ categories:
   - "fake"
   - "webcam"
   - "media-stream"
+summary: "카메라가 없는 CI 환경에서도 웹캠 촬영 기능을 검증할 수 있도록 Playwright의 페이크 미디어 스트림과 y4m 비디오 파일로 E2E 테스트를 작성하는 방법을 정리했다."
 recommendedPosts:
   - title: "리액트 브라우저 웹캠(web camera) 촬영/녹화 구현하기"
     href: "https://junhyunny.github.io/react/browser/web-api/media-stream/webcam/record-video-web-camera/"

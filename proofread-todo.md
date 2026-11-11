@@ -1,0 +1,160 @@
+# 첨삭 필요 글 목록
+
+wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 글 151편입니다. 첨삭을 마친 글은 체크합니다.
+
+## 2022 (82편)
+
+- [ ] `src/content/posts/2022/2022-01-16-jpa-fetch-join-paging-problem.md` — JPA Fetch 조인(join)과 페이징(paging) 처리
+- [ ] `src/content/posts/2022/2022-01-23-react-proxy.md` — React 개발 서버 CORS 문제 해결
+- [ ] `src/content/posts/2022/2022-01-29-jenkins-install.md` — 젠킨스(Jenkins) 설치
+- [ ] `src/content/posts/2022/2022-01-30-jenkins-github-webhook.md` — 젠킨스(Jenkins) GitHub Webhooks 연동
+- [ ] `src/content/posts/2022/2022-02-01-make-private-docker-registry-on-ec2.md` — 비공개 도커 레지스트리(Private docker registry) 만들기
+- [ ] `src/content/posts/2022/2022-02-02-jenkins-deploy-ec2-using-docker.md` — 젠킨스(Jenkins) 파이프라인을 통해 EC2 인스턴스에 서비스 배포
+- [ ] `src/content/posts/2022/2022-02-03-jenkins-slack-notification.md` — 젠킨스(Jenkins) 슬랙(Slack) 알림 메시지 전송
+- [ ] `src/content/posts/2022/2022-02-11-once-per-request-filter.md` — OncePerRequestFilter 클래스
+- [ ] `src/content/posts/2022/2022-02-16-make-authentication-filter.md` — JWT AuthenticationFilter 만들기
+- [ ] `src/content/posts/2022/2022-02-17-make-authentication-provider.md` — JWT AuthenticationProvider 만들기
+- [ ] `src/content/posts/2022/2022-03-01-strategy-pattern.md` — 전략 패턴(Strategy Pattern)
+- [ ] `src/content/posts/2022/2022-03-28-maven-lifecycle-and-surfire-failsafe-plugins.md` — Maven 라이프사이클과 테스트 플러그인
+- [ ] `src/content/posts/2022/2022-04-02-selective-bean-injection-using-profiles-annotation.md` — @Profile 애너테이션을 사용한 선택적 빈(bean) 주입
+- [ ] `src/content/posts/2022/2022-04-04-javascript-hoisting.md` — JavaScript 호이스팅(Hoisting)
+- [ ] `src/content/posts/2022/2022-04-05-react-router-test.md` — React Router 테스트
+- [ ] `src/content/posts/2022/2022-04-10-spring-request-date-format.md` — Spring 요청 날짜 포맷 처리
+- [ ] `src/content/posts/2022/2022-04-11-how-to-stub-java-static-method.md` — Java 정적 메서드 스터빙 방법
+- [ ] `src/content/posts/2022/2022-04-23-carousel-effect.md` — 캐러셀(Carousel) 효과 구현
+- [ ] `src/content/posts/2022/2022-04-23-open-session-in-view.md` — OSIV(Open Session In View)
+- [ ] `src/content/posts/2022/2022-04-27-slide-in-out-effect.md` — 슬라이드 인/아웃 효과(Slide In/Out Effect)
+- [ ] `src/content/posts/2022/2022-04-30-react-transition-group.md` — 리액트 트랜지션 그룹(React Transition Group)
+- [ ] `src/content/posts/2022/2022-05-06-docker-file-build-and-image-layer.md` — Dockerfile 빌드와 이미지 레이어(Image Layer)
+- [ ] `src/content/posts/2022/2022-05-08-reflected-cross-site-scripting.md` — 반사형 XSS(Reflected Cross Site Scripting) 공격과 방어
+- [ ] `src/content/posts/2022/2022-05-14-stored-cross-site-scripting.md` — 저장형 XSS(Stored Cross Site Scripting) 공격과 방어
+- [ ] `src/content/posts/2022/2022-05-16-dom-based-cross-site-scripting.md` — DOM 기반 XSS(DOM based Cross Site Scripting) 공격과 방어
+- [ ] `src/content/posts/2022/2022-05-22-create-object-in-javascript.md` — JavaScript에서 객체 생성하기
+- [ ] `src/content/posts/2022/2022-05-29-annotation-based-aop.md` — 애너테이션 기반 AOP(관점 지향 프로그래밍)
+- [ ] `src/content/posts/2022/2022-05-29-deploy-spring-boot-project-as-war.md` — 스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기
+- [ ] `src/content/posts/2022/2022-05-31-improve-feign-client-aop-test.md` — FeignClient AOP 단위 테스트 개선
+- [ ] `src/content/posts/2022/2022-06-06-accordion-component.md` — 아코디언 뷰
+- [ ] `src/content/posts/2022/2022-06-11-customizing-swiper-js.md` — SwiperJs 커스터마이징
+- [ ] `src/content/posts/2022/2022-06-11-drop-down-menu.md` — 드롭 다운 메뉴
+- [ ] `src/content/posts/2022/2022-06-18-jpa-sequece-key-generate-strategy.md` — JPA Sequence Key 생성 전략
+- [ ] `src/content/posts/2022/2022-06-19-unexpected-rollback-exception.md` — @Transactional 애너테이션과 UnexpectedRollbackException 발생
+- [ ] `src/content/posts/2022/2022-06-26-set-react-app-variable-when-docker-build.md` — 도커 빌드 시 React APP 환경 변수 설정
+- [ ] `src/content/posts/2022/2022-06-27-optimize-maven-project-when-dockerizing.md` — 메이븐 프로젝트 도커 빌드 최적화
+- [ ] `src/content/posts/2022/2022-06-27-spring-cloud-sleuth.md` — 스프링 클라우드 슬루스(Spring Cloud Sleuth)
+- [ ] `src/content/posts/2022/2022-07-03-facade-pattern.md` — 퍼사드 패턴(Facade Pattern)
+- [ ] `src/content/posts/2022/2022-07-10-import-auto-configuration-annotation.md` — @Import, @ImportAutoConfiguration 애너테이션
+- [ ] `src/content/posts/2022/2022-07-21-real-static-method-call-when-using-mock.md` — MockedStatic 테스트 더블에서 실제 메서드 호출하기
+- [ ] `src/content/posts/2022/2022-07-22-custom-radio-buttons.md` — 커스텀 라디오 버튼(Custom Radio Button)
+- [ ] `src/content/posts/2022/2022-08-02-factory-method-pattern.md` — 팩토리 메서드 패턴(Factory Method Pattern)
+- [ ] `src/content/posts/2022/2022-08-03-simple-time-line-style.md` — 심플 타임라인 스타일(Simple Timeline Style)
+- [ ] `src/content/posts/2022/2022-08-06-do-not-use-arrow-function-as-methods-in-vue-js.md` — Vue.js에서 메서드에 화살표 함수를 사용하지 말아야 하는 이유
+- [ ] `src/content/posts/2022/2022-08-08-javascript-scope.md` — 자바스크립트 스코프(Scope in JavaScript)
+- [ ] `src/content/posts/2022/2022-08-11-xss-weakness-when-dangerously-set-inner-html-attribute.md` — dangerouslySetInnerHTML 속성과 XSS 공격
+- [ ] `src/content/posts/2022/2022-08-17-javascript-scope-chain.md` — 자바스크립트 스코프 체인(Scope Chain in JavaScript)
+- [ ] `src/content/posts/2022/2022-08-18-get-file-path-and-precaution.md` — Java 파일 경로 획득과 주의사항
+- [ ] `src/content/posts/2022/2022-08-20-javascript-this-binding.md` — 자바스크립트 this 바인딩(this Binding in JavaScript)
+- [ ] `src/content/posts/2022/2022-08-21-java-string-pool.md` — 자바 문자열 풀(Java String Pool)
+- [ ] `src/content/posts/2022/2022-08-25-java-effectively-final.md` — 자바 effectively final
+- [ ] `src/content/posts/2022/2022-09-15-statement-and-prepared-statement.md` — SQL Statement/PreparedStatement 비교
+- [ ] `src/content/posts/2022/2022-09-17-ngrok-multiple-ports-tunneling-on-free-plan.md` — Ngrok 무료 플랜에서 여러 포트 터널링하기
+- [ ] `src/content/posts/2022/2022-09-17-using-jenkinsfile-in-pipeline.md` — 파이프라인에서 Jenkinsfile 사용하기
+- [ ] `src/content/posts/2022/2022-09-18-parallel-tests-in-jenkins-pipeline.md` — 젠킨스 파이프라인 병렬 테스트(Parallel Tests in Jenkins Pipeline)
+- [ ] `src/content/posts/2022/2022-09-19-docker-anonymous-volume.md` — 도커 익명 볼륨(Docker Anonymous Volume)
+- [ ] `src/content/posts/2022/2022-09-20-docker-named-volume.md` — 도커 명명 볼륨(Docker Named Volume)
+- [ ] `src/content/posts/2022/2022-09-21-kubernetes-architecture.md` — 쿠버네티스 아키텍처(Kubernetes Architecture)
+- [ ] `src/content/posts/2022/2022-09-23-deploy-container-on-kubernetes-cluster.md` — 쿠버네티스 클러스터에 간단한 컨테이너 배포하기
+- [ ] `src/content/posts/2022/2022-09-30-docker-network.md` — 도커 네트워크
+- [ ] `src/content/posts/2022/2022-09-30-react-env-variable-setting.md` — React 환경 변수 설정과 실행 환경 분리
+- [ ] `src/content/posts/2022/2022-10-05-layered-architecture.md` — 레이어 아키텍처(Layered Architecture)
+- [ ] `src/content/posts/2022/2022-10-14-using-module-in-javascript.md` — 자바스크립트에서 모듈 사용하기
+- [ ] `src/content/posts/2022/2022-10-15-module-import-error-on-jest.md` — Jest에서 모듈 임포트 에러
+- [ ] `src/content/posts/2022/2022-10-21-order-startup-container-on-docker-compose.md` — 도커 컴포즈에서 컨테이너 시작 순서 제어
+- [ ] `src/content/posts/2022/2022-10-29-optimize-docker-build-with-buildkit.md` — Buildkit으로 도커 빌드 최적화
+- [ ] `src/content/posts/2022/2022-10-31-querying-within-specific-element.md` — Testing Library에서 특정 엘리먼트 내부 쿼리
+- [ ] `src/content/posts/2022/2022-11-05-gmt-and-utc.md` — GMT와 UTC
+- [ ] `src/content/posts/2022/2022-11-06-handling-timezone-on-javascript.md` — 자바스크립트에서 타임존 다루기
+- [ ] `src/content/posts/2022/2022-11-10-make-custom-hook-for-intersection-observer.md` — IntersectionObserver 커스텀 훅 만들기
+- [ ] `src/content/posts/2022/2022-11-13-setup-temporal-principal.md` — 인증된 사용자를 위한 임시 Principal 클래스
+- [ ] `src/content/posts/2022/2022-11-15-date-and-calendar-in-java.md` — Java의 Date와 Calendar
+- [ ] `src/content/posts/2022/2022-11-18-embedded-redis-server.md` — 임베디드 레디스 서버(Embedded Redis Server)
+- [ ] `src/content/posts/2022/2022-11-21-spring-session-with-redis.md` — Redis를 활용한 Spring Session
+- [ ] `src/content/posts/2022/2022-12-02-oauth.md` — OAuth(Open Authorization)
+- [ ] `src/content/posts/2022/2022-12-05-single-sign-on.md` — SSO(Single Sign On)
+- [ ] `src/content/posts/2022/2022-12-14-local-storage.md` — 브라우저 로컬 스토리지(local storage)
+- [ ] `src/content/posts/2022/2022-12-15-session-storage.md` — 브라우저 세션 스토리지(session storage)
+- [ ] `src/content/posts/2022/2022-12-20-entity-manager-with-entity-manager-factory.md` — EntityManagerFactory 클래스
+- [ ] `src/content/posts/2022/2022-12-25-entity-manager-with-persistence-context-annotation.md` — @PersistenceContext 애너테이션
+- [ ] `src/content/posts/2022/2022-12-27-crud-with-jpa-query-factory.md` — JPAQueryFactory로 CRUD 구현
+- [ ] `src/content/posts/2022/2022-12-28-join-multiple-times-with-same-entity-in-query-dsl.md` — QueryDSL에서 같은 엔티티를 여러 번 조인하기
+
+## 2023 (69편)
+
+- [ ] `src/content/posts/2023/2023-01-11-throw-custom-exception-to-axios-from-spring.md` — 스프링(Spring)에서 Axios 클라이언트로 커스텀 예외 전달하기
+- [ ] `src/content/posts/2023/2023-01-22-ssh-agent-plugin-in-jenkins.md` — Jenkins SSH 에이전트 플러그인
+- [ ] `src/content/posts/2023/2023-01-24-port-forwarding-on-mac.md` — Mac에서 포트 포워딩
+- [ ] `src/content/posts/2023/2023-01-25-optimistic-lock-in-query-dsl.md` — QueryDSL에서 낙관적 락 사용하기
+- [ ] `src/content/posts/2023/2023-02-10-upgrade-version-of-spring-boot-to-3.md` — 스프링 부트 3.0.X 버전으로 업그레이드
+- [ ] `src/content/posts/2023/2023-02-11-using-database-column-without-underscore-on-jpa.md` — JPA에서 언더스코어 없는 데이터베이스 컬럼 사용
+- [ ] `src/content/posts/2023/2023-02-12-dmz-in-network.md` — 네트워크의 DMZ
+- [ ] `src/content/posts/2023/2023-02-12-simple-data-format-is-not-thread-safe.md` — SimpleDateFormat은 스레드 안전하지 않다
+- [ ] `src/content/posts/2023/2023-02-20-patterns-for-cache.md` — 캐시 패턴
+- [ ] `src/content/posts/2023/2023-02-25-rest-client-test-annotation.md` — @RestClientTest 애너테이션
+- [ ] `src/content/posts/2023/2023-02-25-wire-mock-for-feign-client-test.md` — FeignClient 테스트를 위한 WireMock
+- [ ] `src/content/posts/2023/2023-02-26-query-params-in-feign-client.md` — FeignClient에서 쿼리 파라미터 사용하기
+- [ ] `src/content/posts/2023/2023-03-03-configuration-properties-annotation.md` — @ConfigurationProperties 애너테이션
+- [ ] `src/content/posts/2023/2023-03-03-custom-feign-decoder.md` — 커스텀 FeignClient 디코더
+- [ ] `src/content/posts/2023/2023-03-24-rerender-specific-elements-in-thymeleaf.md` — Thymeleaf에서 특정 엘리먼트 재렌더링하기
+- [ ] `src/content/posts/2023/2023-03-28-google-analytics-with-google-tag-manager.md` — Google Tag Manager로 Google Analytics 연결하기
+- [ ] `src/content/posts/2023/2023-03-29-using-google-tag-manager.md` — Google Tag Manager 활용하기
+- [ ] `src/content/posts/2023/2023-03-30-custom-event-in-google-tag-manager.md` — Google Tag Manager 커스텀 이벤트
+- [ ] `src/content/posts/2023/2023-04-05-override-method-in-javascript.md` — JavaScript 메서드 오버라이드
+- [ ] `src/content/posts/2023/2023-04-06-trace-user-with-uuid-in-gtm.md` — Google Tag Manager에서 UUID로 사용자 추적하기
+- [ ] `src/content/posts/2023/2023-04-20-thread-local-class-in-java.md` — 자바(Java) ThreadLocal 클래스
+- [ ] `src/content/posts/2023/2023-04-22-precaution-of-thread-local.md` — ThreadLocal 클래스 사용 시 주의점
+- [ ] `src/content/posts/2023/2023-05-08-virtual-host-in-tomcat.md` — Tomcat 가상 호스트
+- [ ] `src/content/posts/2023/2023-05-10-using-nginx-as-reverse-proxy.md` — Nginx 리버스 프록시 활용하기
+- [ ] `src/content/posts/2023/2023-05-12-with-credentials-in-axios.md` — Axios withCredentials 옵션
+- [ ] `src/content/posts/2023/2023-05-16-install-docker-daemon-into-container-image.md` — 컨테이너 이미지에 Docker 데몬 설치하기
+- [ ] `src/content/posts/2023/2023-05-18-privileged-mode-in-docker.md` — Docker Privileged 모드
+- [ ] `src/content/posts/2023/2023-05-21-entry-point-and-cmd-in-dockerfile.md` — Dockerfile ENTRYPOINT와 CMD
+- [ ] `src/content/posts/2023/2023-05-31-javascript-for-of-loop.md` — 자바스크립트 for-of 반복문
+- [ ] `src/content/posts/2023/2023-06-01-javascript-for-in-loop.md` — 자바스크립트 for-in 반복문
+- [ ] `src/content/posts/2023/2023-06-11-simple-logging-facade-for-java.md` — SLF4J(Simple Logging Facade for Java)
+- [ ] `src/content/posts/2023/2023-06-12-logback-in-spring-boot.md` — 스프링 부트 Logback 설정
+- [ ] `src/content/posts/2023/2023-06-14-soap.md` — SOAP(Simple Object Access Protocol)
+- [ ] `src/content/posts/2023/2023-06-21-form-property-annotation-in-feign.md` — FeignClient에서 @FormProperty 애너테이션 사용하기
+- [ ] `src/content/posts/2023/2023-06-25-hash-for-security.md` — 보안을 위한 해시(Hash)
+- [ ] `src/content/posts/2023/2023-07-01-get-reader-exception-in-servlet-request.md` — 서블릿 요청에서 메시지 반복 읽기
+- [ ] `src/content/posts/2023/2023-07-15-web-mvc-filter-test-on-spring-boot.md` — 스프링 부트에서 Web MVC 필터 테스트하기
+- [ ] `src/content/posts/2023/2023-08-05-cascade-in-database.md` — 데이터베이스 Cascade
+- [ ] `src/content/posts/2023/2023-08-05-react-context-test-with-render-hook.md` — renderHook을 사용한 리액트 컨텍스트 테스트
+- [ ] `src/content/posts/2023/2023-08-11-sprite-animation-in-css.md` — CSS 스프라이트 애니메이션
+- [ ] `src/content/posts/2023/2023-08-12-restart-css-animation-by-javascript.md` — JavaScript로 CSS 애니메이션 재시작
+- [ ] `src/content/posts/2023/2023-08-15-jpa-entity-serialize-exception-with-redis-session.md` — Redis 세션에서 JPA 엔티티 직렬화 예외
+- [ ] `src/content/posts/2023/2023-08-17-multiple-profiles-in-spring.md` — 스프링 다중 프로파일 사용
+- [ ] `src/content/posts/2023/2023-08-21-schema-migration.md` — 스키마 마이그레이션
+- [ ] `src/content/posts/2023/2023-08-23-flyway-cli-for-database-migration.md` — Flyway CLI를 활용한 데이터베이스 마이그레이션
+- [ ] `src/content/posts/2023/2023-08-25-flyway-on-spring-boot.md` — 스프링 부트에서 Flyway 사용
+- [ ] `src/content/posts/2023/2023-08-29-declarative-http-client-in-spring-boot.md` — 스프링 부트 선언적 HTTP 클라이언트
+- [ ] `src/content/posts/2023/2023-08-30-use-test-container-on-runtime-in-spring-boot.md` — 스프링 부트 런타임에서 TestContainer 사용
+- [ ] `src/content/posts/2023/2023-09-04-create-san-ssl-certificate.md` — 자체 서명 SAN SSL 인증서 생성
+- [ ] `src/content/posts/2023/2023-09-06-install-harbor-using-docker-compose.md` — Docker Compose로 Harbor 설치
+- [ ] `src/content/posts/2023/2023-09-14-webcam-with-frame-filter.md` — 프레임 필터가 있는 웹캠 구현
+- [ ] `src/content/posts/2023/2023-09-21-sequence-key-update-with-cursor-in-mysql.md` — MySQL 커서를 사용한 시퀀스 키 업데이트
+- [ ] `src/content/posts/2023/2023-09-30-security-context-holder-strategy.md` — 스프링 시큐리티 SecurityContextHolderStrategy
+- [ ] `src/content/posts/2023/2023-10-06-oauth2-line-login-with-spring-security.md` — 스프링 시큐리티 OAuth2 LINE 로그인
+- [ ] `src/content/posts/2023/2023-10-08-delegating-filter-proxy.md` — 스프링 DelegatingFilterProxy 클래스
+- [ ] `src/content/posts/2023/2023-10-09-rfc-7617-http-basic-authentication.md` — RFC 7617 HTTP Basic 인증 방식
+- [ ] `src/content/posts/2023/2023-10-12-open-id-connect.md` — OpenID Connect 개념 정리
+- [ ] `src/content/posts/2023/2023-10-15-how-to-test-image-upload-in-react.md` — 리액트 이미지 업로드 테스트 방법
+- [ ] `src/content/posts/2023/2023-10-15-how-to-test-multipart-file-upload-in-spring.md` — 스프링 파일 업로드 테스트 방법
+- [ ] `src/content/posts/2023/2023-10-18-how-to-save-image-into-database-with-spring.md` — 스프링에서 이미지를 PostgreSQL에 저장하는 방법
+- [ ] `src/content/posts/2023/2023-10-22-how-to-return-blob-image-in-spring.md` — 스프링에서 BLOB 이미지 반환하는 방법
+- [ ] `src/content/posts/2023/2023-10-25-how-to-make-file-using-resource-url-in-react.md` — React에서 이미지 URL로 File 인스턴스 만들기
+- [ ] `src/content/posts/2023/2023-10-26-request-matcher-setup-error-when-spring-security-version-upgrade.md` — 스프링 시큐리티 6.1.5 버전 업그레이드 시 RequestMatcher 설정 에러
+- [ ] `src/content/posts/2023/2023-10-28-outlet-component-in-react-router.md` — 리액트 라우터(React Router) Outlet 컴포넌트
+- [ ] `src/content/posts/2023/2023-11-04-template-method-pattern.md` — 템플릿 메서드 패턴(Template Method Pattern)
+- [ ] `src/content/posts/2023/2023-11-07-jigsaw-puzzle-with-css.md` — CSS로 만드는 지그소 퍼즐
+- [ ] `src/content/posts/2023/2023-11-13-how-to-make-stub-for-super-class.md` — 부모 클래스 메서드를 테스트 더블(test double)로 만들기
+- [ ] `src/content/posts/2023/2023-11-15-multiple-sns-login-with-spring-security-oauth2-client.md` — 스프링 시큐리티 OAuth2 클라이언트 다중 SNS 로그인 구현하기
+- [ ] `src/content/posts/2023/2023-11-22-concurrency-problem-update-wrong-data.md` — 잘못된 데이터 업데이트 동시성(concurrency) 문제

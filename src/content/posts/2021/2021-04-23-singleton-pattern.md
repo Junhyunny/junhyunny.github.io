@@ -30,7 +30,7 @@ recommendedPosts:
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/singleton-pattern-01.png" width="30%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/singleton-pattern-01.png" width="50%" class="image__border">
   </div>
   <center>https://en.wikipedia.org/wiki/singleton-pattern-1.JPG</center>
 </div>

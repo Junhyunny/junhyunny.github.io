@@ -92,7 +92,7 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2023/2023-01-11-throw-custom-exception-to-axios-from-spring.md` — 스프링(Spring)에서 Axios 클라이언트로 커스텀 예외 전달하기
 - [ ] `src/content/posts/2023/2023-01-22-ssh-agent-plugin-in-jenkins.md` — Jenkins SSH 에이전트 플러그인
 - [ ] `src/content/posts/2023/2023-01-24-port-forwarding-on-mac.md` — Mac에서 포트 포워딩
-- [ ] `src/content/posts/2023/2023-01-25-optimistic-lock-in-query-dsl.md` — QueryDSL에서 낙관적 락 사용하기
+- [x] `src/content/posts/2023/2023-01-25-optimistic-lock-in-query-dsl.md` — QueryDSL에서 낙관적 락 사용하기
 - [ ] `src/content/posts/2023/2023-02-10-upgrade-version-of-spring-boot-to-3.md` — 스프링 부트 3.0.X 버전으로 업그레이드
 - [ ] `src/content/posts/2023/2023-02-11-using-database-column-without-underscore-on-jpa.md` — JPA에서 언더스코어 없는 데이터베이스 컬럼 사용
 - [ ] `src/content/posts/2023/2023-02-12-dmz-in-network.md` — 네트워크의 DMZ

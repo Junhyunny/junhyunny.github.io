@@ -25,7 +25,7 @@ summary: "슬랙 API와 깃허브 API를 사용해 저녁 시간에 푸시 이�
 - 토큰을 쿼리 파라미터로 바디(body)에 담아 던지고 싶으면 `application/x-www-form-urlencoded`를 사용한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-01.png" width="100%" class="image__border">
 </div>
 
 위 내용을 바탕으로 채널에 글 작성을 위한 API 요청 코드를 아래와 같이 작성한다.
@@ -91,7 +91,7 @@ API 문서를 찾아보니 원하는 기능을 제공하는 엔드포인트(endp
   - per_page
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-03.png" width="100%" class="image__border">
 </div>
 
 아래와 같이 코드를 작성한다.
@@ -205,7 +205,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 크론 잡(cron job)을 통해 이벤트 트리거 주기를 설정한다. GMT 시간으로 9시부터 14시까지 59분마다 실행되도록 크론 잡을 지정한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-07.png" width="100%" class="image__border">
 </div>
 
 코드에 공개하고 싶지 않은 값들은 람다의 파라미터로 등록한다.
@@ -219,16 +219,16 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 ```
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-08.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-08.png" width="100%" class="image__border">
 </div>
 
 ## 5. Check Application
 
 정상적으로 배포가 되었다면 슬랙 챗 봇은 18시 59분부터 23시 59분까지 푸시 이력이 없는 경우 1시간 간격으로 메시지를 전달한다.
 
-<div class="image-row" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-09.png" width="30%" class="image__border">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-10.png" width="30%" class="image__border">
+<div class="image-row" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-09.png" width="50%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-10.png" width="50%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

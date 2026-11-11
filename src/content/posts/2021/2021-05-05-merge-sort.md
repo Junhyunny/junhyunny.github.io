@@ -6,6 +6,7 @@ canonicalPath: "/information/algorithm/merge-sort/"
 categories:
   - "information"
   - "algorithm"
+summary: "안정 정렬이자 분할 정복 알고리즘인 합병 정렬의 특징과 수행 과정을 설명하고 정수 배열을 정렬하는 자바 코드를 분석했다."
 recommendedPosts:
   - title: "퀵 정렬(Quick Sort)"
     href: "https://junhyunny.github.io/information/algorithm/quick-sort/"
@@ -23,7 +24,7 @@ recommendedPosts:
 
 합병 정렬은 다음과 같은 과정을 통해 수행된다.
 
-1. 리스트의 길이가 0, 1 이면 정렬이 완료된 것으로 본다.
+1. 리스트의 길이가 0, 1이면 정렬이 완료된 것으로 본다.
 2. 그렇지 않은 경우에는 절반으로 리스트를 분할한다.
 3. 각 부분의 리스트를 재귀적인 방법으로 계속 잘라나간다.
 4. 두 부분의 리스트를 다시 하나의 정렬된 리스트로 합병한다.

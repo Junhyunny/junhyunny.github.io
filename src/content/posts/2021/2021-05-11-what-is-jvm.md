@@ -6,6 +6,7 @@ canonicalPath: "/information/java/what-is-jvm/"
 categories:
   - "information"
   - "java"
+summary: "자바 애플리케이션의 실행 환경인 JVM을 클래스 로더, 실행 엔진, 런타임 데이터 영역, 가비지 컬렉터 등 구성 요소 중심으로 정리했다."
 recommendedPosts:
   - title: "JVM 실행 엔진(Execution Engine)"
     href: "https://junhyunny.github.io/information/java/jvm-execution-engine/"
@@ -17,15 +18,15 @@ recommendedPosts:
 > JVM GC 동작 방법에 대해서 설명해주세요.<br/>
 > JVM GC 옵션에 대해서 설명해주세요
 
-자바(Java)를 사용하면 면접에서 반드시 마주치는 질문이다. 자바 가상머신(JVM, Java Virtual Machine)에 대한 정리는 자주 시도했었지만, 매번 끝까지 작성하진 못했다. 관련된 내용들을 읽다 보면 방대한 자료와 어려운 내용에 압도당해 중도에 포기하곤 했다. 큰 내용들을 쪼개고 쪼개어 `JVM`에 대한 넓고 얇은 지식들을 차곡차곡 정리해본다.
+자바(Java)를 사용하면 면접에서 반드시 마주치는 질문이다. 자바 가상머신(JVM, Java Virtual Machine)에 대한 정리는 자주 시도했었지만, 매번 끝까지 작성하진 못했다. 관련된 내용들을 읽다 보면 방대한 자료와 어려운 내용에 압도당해 중도에 포기하곤 했다. 큰 내용들을 쪼개고 쪼개어 `JVM`에 대한 넓고 얇은 지식들을 차곡차곡 정리해보려 한다.
 
 ## 1. JVM(Java Virtual Machine)
 
-자바 가상 머신이라고 불리는 소프트웨어로 자바 애플리케이션이 동작할 수 있는 환경을 제공한다. JVM은 애플리케이션과 운영체제(OS, Operating System) 사이에서 중재자 역할을 수행한다. JVM 덕분에 자바는 어느 운영체제 환경에서도 실행될 수 있고, **`'write once and run anywhere'`**이라는 별명을 얻게 되었다.
+자바 가상 머신이라고 불리는 소프트웨어로 자바 애플리케이션이 동작할 수 있는 환경을 제공한다. JVM은 애플리케이션과 운영체제(OS, Operating System) 사이에서 중재자 역할을 수행한다. JVM 덕분에 자바는 어느 운영체제 환경에서도 실행될 수 있고, **`'write once and run anywhere'`**라는 별명을 얻게 되었다.
 
 ## 2. JVM 구성 요소
 
-JVM 구성 요소는 크게 네 가지로 분류할 수 있다. 아래 구성 요소에 대해서 조금 더 자세히 다뤄본다.
+JVM 구성 요소는 크게 네 가지로 분류할 수 있다. 아래 구성 요소에 대해서 조금 더 자세히 살펴보자.
 
 - Class Loader
 - Execution Engine
@@ -33,10 +34,10 @@ JVM 구성 요소는 크게 네 가지로 분류할 수 있다. 아래 구성 �
 - Garbage Collector
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/what-is-jvm-01.png" width="80%" class="image__border">
-</div>
-<center>https://jeong-pro.tistory.com/148</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/what-is-jvm-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://jeong-pro.tistory.com/148</center>
 </div>
 
 `.java` 확장자 파일들은 Java 컴파일러(JAVAC)에 의해 `.class` 확장자 파일로 변환된다. `.class` 파일은 바이트 코드(byte code)로 작성되어 있다. `클래스 로더(Class Loader)`는 생성된 클래스 파일들을 JVM 메모리 영역인 `Runtime Data Area`로 적재하는 역할을 수행한다.
@@ -91,10 +92,10 @@ JVM 구성 요소는 크게 네 가지로 분류할 수 있다. 아래 구성 �
   - JDK1.8부터는 Metaspace
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/what-is-jvm-02.png" width="80%" class="image__border">
-</div>
-<center>자바와 JVM 메모리 구조</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/what-is-jvm-02.png" width="100%" class="image__border">
+  </div>
+  <center>자바와 JVM 메모리 구조</center>
 </div>
 
 `가비지 컬렉터(Garbage Collector)`는 힙 메모리 영역에 생성된 객체들 중에 참조되지 않은 객체들을 탐색 후 제거하는 역할을 수행한다. 가비지 컬렉터 동작 시 JVM 애플리케이션 실행이 멈추게 되는데 이를 `STOP-THE-WORLD` 라고 표현한다. 시스템 동작이 멈추는 작업이기 때문에 굉장히 비용이 큰 작업이다. 개발자는 `STOP-THE-WORLD` 시간을 줄이기 위해 가비지 컬렉션의 동작 방식과 알고리즘에 관련한 공부가 필요하다.

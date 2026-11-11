@@ -6,6 +6,7 @@ canonicalPath: "/information/algorithm/quick-sort/"
 categories:
   - "information"
   - "algorithm"
+summary: "피벗을 기준으로 분할하는 퀵 정렬의 과정과 자바 구현을 설명하고, 합병 정렬과의 차이와 최선, 최악의 시간 복잡도를 정리했다."
 recommendedPosts:
   - title: "합병 정렬(Merge Sort)"
     href: "https://junhyunny.github.io/information/algorithm/merge-sort/"
@@ -29,7 +30,7 @@ recommendedPosts:
   - 고른 원소를 피벗(pivot)이라고 한다.
 2. 피벗 앞에는 피벗보다 값이 작은 원소들이 오고, 피벗 뒤에는 피벗보다 값이 큰 원소들이 오도록 정렬하면서 리스트를 둘로 나눈다.
 3. 정렬을 마친 뒤에 피벗은 더 이상 움직이지 않는다.
-4. 분할된 두 개의 작은 리스트에 대해 재귀(rcursion)적으로 이 과정을 반복한다.
+4. 분할된 두 개의 작은 리스트에 대해 재귀(recursion)적으로 이 과정을 반복한다.
 5. 재귀는 리스트의 크기가 0이나 1이 될 때까지 반복된다.
 
 퀵 정렬은 분할 정복(divide and conquer) 전략을 사용한다. 분할 정복은 다음과 같은 과정을 통해 수행된다.
@@ -152,7 +153,7 @@ divideAndConquer 메서드는 배열을 분할하고 부분 배열을 정렬하�
 
 ## 4. Difference between Merge Sort and Quick Sort
 
-퀵 정렬과 합병 정렬의 차이점을 비교해보았다.
+퀵 정렬과 합병 정렬의 차이점을 비교해봤다.
 
 - 퀵 정렬은 균등 분할이 아니다.
 - 추가적인 메모리가 필요하지 않다.
@@ -160,7 +161,7 @@ divideAndConquer 메서드는 배열을 분할하고 부분 배열을 정렬하�
 
 ## 5. Time Complexity of Quick Sort
 
-퀵 정렬 시간 복잡도 계산에 관련된 내용을 추가적으로 정리해보았다. 퀵 정렬은 최악과 최적의 경우에 따라 속도 차이가 많이 난다. 좋은 피벗 결정이 정렬 속도를 좌지우지한다. 설명을 위해 정렬할 아이템 개수가 `n(=pow(2, k))`개 있다고 가정한다. 아래 케이스는 피벗에 의해 적절하게 배열이 이등분되는 경우이다.
+퀵 정렬 시간 복잡도 계산에 관련된 내용을 추가적으로 정리해봤다. 퀵 정렬은 최악과 최적의 경우에 따라 속도 차이가 많이 난다. 좋은 피벗 결정이 정렬 속도를 좌지우지한다. 설명을 위해 정렬할 아이템 개수가 `n(=pow(2, k))`개 있다고 가정한다. 아래 케이스는 피벗에 의해 적절하게 배열이 이등분되는 경우이다.
 
 - 분할되는 재귀 함수의 깊이는 `k(=log2(n))`이다.
 - 각 깊이 별로 값 비교를 n번 수행한다.
@@ -169,10 +170,10 @@ divideAndConquer 메서드는 배열을 분할하고 부분 배열을 정렬하�
   - = n X log2(n)
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quick-sort-01.png" width="80%" class="image__border">
-</div>
-<center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quick-sort-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
 </div>
 
 최악의 경우는 어떨까? 이미 정렬된 배열에서 피벗을 선택하는 경우 배열이 균일하지 않게 이등분되는 경우이다. 피벗에 의해 길이가 1, n-1인 배열 두 개로 나뉜다.
@@ -184,7 +185,7 @@ divideAndConquer 메서드는 배열을 분할하고 부분 배열을 정렬하�
   - = n X n
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quick-sort-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quick-sort-02.png" width="100%" class="image__border">
 </div>
 <center>https://gmlwjd9405.github.io/2018/05/10/algorithm-quick-sort.html</center>
 

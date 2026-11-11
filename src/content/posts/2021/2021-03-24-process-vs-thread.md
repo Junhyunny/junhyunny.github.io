@@ -38,7 +38,7 @@ recommendedPosts:
 - 힙(heap) 영역 - 런타임 시 동적으로 메모리를 할당받는 영역
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-vs-thread-01.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-vs-thread-01.png" width="50%" class="image__border">
 </div>
 <center>Operating System Concepts 9th</center>
 

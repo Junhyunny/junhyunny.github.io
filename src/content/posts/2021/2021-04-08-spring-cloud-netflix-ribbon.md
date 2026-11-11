@@ -32,7 +32,7 @@ recommendedPosts:
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-01.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-01.png" width="100%" class="image__border">
   </div>
   <center>https://sabarada.tistory.com/54</center>
 </div>
@@ -47,7 +47,7 @@ recommendedPosts:
   - 로드 밸런서에 집중되는 부하가 없으므로 병목 현상이 완화된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-02.png" width="100%" class="image__border">
 </div>
 <center>https://sabarada.tistory.com/54</center>
 

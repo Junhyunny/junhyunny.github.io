@@ -64,7 +64,7 @@ public interface MultipartFile extends InputStreamSource {
 
 ## 2. Frontend application
 
-VueJS로 프론트엔드 애플리케이션을 구현했다. 파일을 업로드하는 컴포넌트 코드를 먼저 살펴본다. 파일 업로드에 관련된 FileUpload 컴포넌트 코드를 먼저 살펴보자. axios 모듈을 사용하여 API 요청을 수행한다.
+VueJS로 프론트엔드 애플리케이션을 구현했다. 파일 업로드에 관련된 FileUpload 컴포넌트 코드를 먼저 살펴보자. axios 모듈을 사용하여 API 요청을 수행한다.
 
 - fetchFiles 함수
   - 백엔드 서비스의 `/files` 경로로 파일 리스트를 요청한다.

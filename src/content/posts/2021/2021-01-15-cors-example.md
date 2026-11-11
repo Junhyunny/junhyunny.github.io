@@ -205,7 +205,7 @@ public class CorsController {
 
 ### 2.2. Using global CORS configuration
 
-8081 포트 서비스에서 처리한 방식을 살펴본다. 전역 CORS 설정을 통해 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 결정한다. WebMvcConfigurer 인터페이스를 확장해서 addCorsMappings 메서드를 재정의한다. 메서드 내부에 CORS 정책을 작성한다.
+8081 포트 서비스에서 처리한 방식을 살펴보자. 전역 CORS 설정을 통해 해당 서비스로 오는 요청에 대한 CORS 응답 헤더 생성을 결정한다. WebMvcConfigurer 인터페이스를 확장해서 addCorsMappings 메서드를 재정의한다. 메서드 내부에 CORS 정책을 작성한다.
 
 - @EnableWebMvc 애너테이션으로 WebMVC 기능을 위한 설정임을 표시한다.
 - WebMvcConfigurer 인터페이스를 구현하고 addCorsMappings 메서드를 재정의한다.

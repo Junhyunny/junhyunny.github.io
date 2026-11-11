@@ -24,7 +24,7 @@ recommendedPosts:
 
 스프링(spring) 프레임워크는 `@Transactional` 애너테이션을 통해 트랜잭션 원자성을 보장한다. @Transactional 애너테이션은 전파 타입(propagation type) 속성을 통해 메서드 단위 트랜잭션들의 연결과 끊음을 결정할 수 있다. 이번 글을 통해 자세한 내용을 살펴보자.
 
-## 1. @Transactional Annotation
+## 1. @Transactional 애너테이션
 
 스프링 프레임워크는 관점 지향 프로그래밍(AOP, Aspect Oriented Programming)을 지원한다. 개발이 진행되면서 로깅, 보안, 트랜잭션 같은 부가적이지만 공통적으로 사용되는 기능들이 시스템 곳곳에 퍼지기 마련이다. 관점 지향 프로그래밍은 공통적인 기능을 모듈화하는 메커니즘이다.
 
@@ -1254,9 +1254,7 @@ Hibernate: select child0_.id as id1_0_0_ from child child0_ where child0_.id=?
   <center>https://www.nextree.co.kr/p3180/</center>
 </div>
 
-중첩 트랜잭션이 지원 안 되는 관계로 부모, 자식 사이에 중첩된 트랜잭션으로 인해 발생하는 현상들은 이번 글에서 확인하지 못했다. 부모는 `REQUIRED`, 자식은 `NESTED` 전파 타입으로 지정한 경우에 대해 테스트를 수행했다.
-
-- `NestedTransactionNotSupportedException` 예외가 발생한다.
+중첩 트랜잭션이 지원 안 되는 관계로 부모, 자식 사이에 중첩된 트랜잭션으로 인해 발생하는 현상들은 이번 글에서 확인하지 못했다. 부모는 `REQUIRED`, 자식은 `NESTED` 전파 타입으로 지정한 경우에 대해 테스트를 수행하면 `NestedTransactionNotSupportedException` 예외가 발생한다.
 
 ```java
 package blog.in.action.transcation;

@@ -222,9 +222,7 @@ public class BlogAop {
 }
 ```
 
-AOP 로직이 적용될 BlogController 클래스 코드를 살펴보자.
-
-- `/foo` 경로로 요청을 받는다.
+AOP 로직이 적용될 BlogController 클래스는 `/foo` 경로로 요청을 받는다.
 
 ```java
 package blog.in.action.controller;
@@ -253,9 +251,7 @@ public class BlogController {
 }
 ```
 
-마찬가지로 AOP 로직이 적용될 BlogService 클래스 코드다.
-
-- `foo` 문자열을 반환한다.
+마찬가지로 AOP 로직이 적용될 BlogService 클래스는 `foo` 문자열을 반환한다.
 
 ```java
 package blog.in.action.service;

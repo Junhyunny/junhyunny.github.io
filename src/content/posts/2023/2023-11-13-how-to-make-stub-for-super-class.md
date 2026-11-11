@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "test"
+summary: "DefaultOAuth2UserService를 상속한 클래스를 테스트할 때 외부 리소스 서버를 호출하는 부모 메서드를, 우회 호출 메서드와 모키토 스파이로 스텁 처리해 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "테스트 더블(Test Double)"
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
@@ -65,9 +66,7 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
 }
 ```
 
-위 메서드의 단위 테스트 코드를 실행하면 다음과 같은 에러 메시지를 볼 수 있다.
-
-- 스프링 시큐리티 OAuth2 클라이언트가 리소스 서버로부터 사용자 정보를 조회할 때 필요한 정보들을 읽는 과정에서 에러가 발생한다.
+위 메서드의 단위 테스트 코드를 실행하면 다음과 같은 에러 메시지를 볼 수 있다. 스프링 시큐리티 OAuth2 클라이언트가 리소스 서버로부터 사용자 정보를 조회할 때 필요한 정보들을 읽는 과정에서 발생한 에러다.
 
 ```
 java.lang.NullPointerException: Cannot invoke "org.springframework.security.oauth2.client.registration.ClientRegistration.getProviderDetails()" because the return value of "org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest.getClientRegistration()" is null
@@ -82,11 +81,9 @@ java.lang.NullPointerException: Cannot invoke "org.springframework.security.oaut
 
 부모 클래스 메서드를 테스트 더블로 만들 수 있는 PowerMock 같은 의존성이 있지만, Junit4만 지원하는 것 같았다. Junit5를 사용하는 스프링 부트 3.1.X 버전에서 잘 동작하지 않았다. 잘 동작하지 않는 의존성을 억지로 호환성을 맞추고 싶지 않았다.
 
-스프링 부트 프레임워크가 기본으로 사용하는 모키토(mockito)의 스파이(spy) 기능과 부모 클래스 메서드를 우회하여 호출하는 메서드를 만들어 테스트를 작성하였다. 모키토의 스파이는 기본적으로 실제 구현체의 기능을 사용하지만, 필요하다면 테스트 더블로 사용할 수 있다.
+스프링 부트 프레임워크가 기본으로 사용하는 모키토(mockito)의 스파이(spy) 기능과 부모 클래스 메서드를 우회하여 호출하는 메서드를 만들어 테스트를 작성했다. 모키토의 스파이는 기본적으로 실제 구현체의 기능을 사용하지만, 필요하다면 테스트 더블로 사용할 수 있다.
 
-### 2.1. DefaultOAuth2UserServiceDelegator Class
-
-- 새로운 메서드를 만들고 부모 클래스의 loadUser 메서드를 호출하는 코드를 메서드 내부로 옮긴다.
+DefaultOAuth2UserServiceDelegator 클래스는 새로운 메서드를 만들고 부모 클래스의 loadUser 메서드를 호출하는 코드를 메서드 내부로 옮긴다.
 
 ```java
 package action.in.blog.service;
@@ -127,11 +124,7 @@ public class DefaultOAuth2UserServiceDelegator extends DefaultOAuth2UserService 
 }
 ```
 
-### 2.2. Test
-
-- SUT 객체를 스파이로 만든다.
-- `doReturn(expectedValue).when(testDouble).method(params)` 문법을 사용한다.
-  - 부모 클래스 기능을 내부에서 호출하는 loadUserFromParent 메서드의 결과를 스텁한다.
+이제 SUT 객체를 스파이로 만든다. doReturn(expectedValue).when(testDouble).method(params) 문법을 사용한다. 부모 클래스 기능을 내부에서 호출하는 loadUserFromParent 메서드의 결과를 스텁한다.
 
 ```java
 package action.in.blog.service;

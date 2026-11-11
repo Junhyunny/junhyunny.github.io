@@ -6,6 +6,7 @@ canonicalPath: "/spring-mvc/exception/job-persistence-exception-cant-not-seriali
 categories:
   - "spring-mvc"
   - "exception"
+summary: "쿼츠 클러스터링 구현 중 JobDataMap 직렬화 실패로 발생한 JobPersistenceException을 applicationContext 설정과 Job 클래스를 고쳐 해결했다."
 recommendedPosts:
   - title: "스프링 MVC Quartz 사용하기"
     href: "https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/"

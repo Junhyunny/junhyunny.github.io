@@ -37,9 +37,7 @@ summary: "데이터베이스 인덱스의 개념과 좋은 인덱스를 위한 �
 ALTER TABLE table_name ADD INDEX index_name(column_name)
 ```
 
-복수 개의 컬럼을 기준으로 인덱스를 설정하려면 다음과 같다.
-
-- 테이블에 존재하는 특정 컬럼들을 쉼표로 구분하여 인덱스로 설정한다.
+복수 개의 컬럼을 기준으로 인덱스를 설정하려면 테이블에 존재하는 특정 컬럼들을 쉼표로 구분하여 지정한다.
 
 ```sql
 ALTER TABLE table_name ADD INDEX index_name(column_name_1, column_name_2)

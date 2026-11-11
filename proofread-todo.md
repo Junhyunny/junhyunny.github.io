@@ -107,7 +107,7 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2023/2023-03-28-google-analytics-with-google-tag-manager.md` — Google Tag Manager로 Google Analytics 연결하기
 - [ ] `src/content/posts/2023/2023-03-29-using-google-tag-manager.md` — Google Tag Manager 활용하기
 - [ ] `src/content/posts/2023/2023-03-30-custom-event-in-google-tag-manager.md` — Google Tag Manager 커스텀 이벤트
-- [ ] `src/content/posts/2023/2023-04-05-override-method-in-javascript.md` — JavaScript 메서드 오버라이드
+- [x] `src/content/posts/2023/2023-04-05-override-method-in-javascript.md` — JavaScript 메서드 오버라이드
 - [ ] `src/content/posts/2023/2023-04-06-trace-user-with-uuid-in-gtm.md` — Google Tag Manager에서 UUID로 사용자 추적하기
 - [ ] `src/content/posts/2023/2023-04-20-thread-local-class-in-java.md` — 자바(Java) ThreadLocal 클래스
 - [ ] `src/content/posts/2023/2023-04-22-precaution-of-thread-local.md` — ThreadLocal 클래스 사용 시 주의점
@@ -156,5 +156,5 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2023/2023-11-04-template-method-pattern.md` — 템플릿 메서드 패턴(Template Method Pattern)
 - [ ] `src/content/posts/2023/2023-11-07-jigsaw-puzzle-with-css.md` — CSS로 만드는 지그소 퍼즐
 - [ ] `src/content/posts/2023/2023-11-13-how-to-make-stub-for-super-class.md` — 부모 클래스 메서드를 테스트 더블(test double)로 만들기
-- [ ] `src/content/posts/2023/2023-11-15-multiple-sns-login-with-spring-security-oauth2-client.md` — 스프링 시큐리티 OAuth2 클라이언트 다중 SNS 로그인 구현하기
+- [x] `src/content/posts/2023/2023-11-15-multiple-sns-login-with-spring-security-oauth2-client.md` — 스프링 시큐리티 OAuth2 클라이언트 다중 SNS 로그인 구현하기
 - [ ] `src/content/posts/2023/2023-11-22-concurrency-problem-update-wrong-data.md` — 잘못된 데이터 업데이트 동시성(concurrency) 문제

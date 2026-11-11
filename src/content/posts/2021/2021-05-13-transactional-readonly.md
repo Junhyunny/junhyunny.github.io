@@ -245,9 +245,7 @@ Hibernate: insert into post (content,state) values (?,?)
 Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.content=?
 ```
 
-nothing_change_when_update_in_readonly 테스트 결과를 살펴보자.
-
-- 업데이트 쿼리 관련 로그가 출력되지 않는다.
+nothing_change_when_update_in_readonly 테스트를 실행하면 업데이트 쿼리 관련 로그가 출력되지 않는다.
 
 ```
 23:53:07.748 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT
@@ -285,9 +283,7 @@ Hibernate: select p1_0.id,p1_0.content,p1_0.state from post p1_0 where p1_0.id=?
 23:53:07.792 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Closing JPA EntityManager [SessionImpl(1299858199<open>)] after transaction
 ```
 
-마지막으로 nothing_change_when_dirty_check_in_readonly 테스트 수행 결과를 살펴보자.
-
-- 업데이트 쿼리 관련 로그가 출력되지 않는다.
+마지막으로 nothing_change_when_dirty_check_in_readonly 테스트를 실행해도 업데이트 쿼리 관련 로그가 출력되지 않는다.
 
 ```
 23:53:07.694 [main] DEBUG org.springframework.orm.jpa.JpaTransactionManager - Creating new transaction with name [org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteAll]: PROPAGATION_REQUIRED,ISOLATION_DEFAULT

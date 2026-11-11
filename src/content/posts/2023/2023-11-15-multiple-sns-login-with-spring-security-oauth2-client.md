@@ -1,12 +1,13 @@
 ---
 title: "스프링 시큐리티 OAuth2 클라이언트 다중 SNS 로그인 구현하기"
 publishedAt: "2023-11-15"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T01:24:22+09:00"
 canonicalPath: "/java/design-pattern/spring-boot/multiple-sns-login-with-spring-security-oauth2-client/"
 categories:
   - "java"
   - "design-pattern"
   - "spring-boot"
+summary: "스프링 시큐리티 OAuth2 클라이언트의 인증 흐름을 살펴보고, 프로파일 설정과 플랫폼별 사용자 서비스에 위임하는 구조로 확장하기 쉬운 다중 SNS 로그인을 구현했다."
 recommendedPosts:
   - title: "전략 패턴(Strategy Pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/strategy-pattern/"
@@ -18,32 +19,32 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 프로젝트들이 모두 OAuth2 프로토콜을 통해 사용자 인증을 구현했다. 하나의 플랫폼만 연결하는 경우도 있었지만, 다중 플랫폼의 인증을 구현한 케이스도 있었다. 다중 플랫폼을 연결할 때는 플랫폼이 늘어날 때마다 확장성을 고려해야 한다. 스프링 프레임워크(spring framework)의 프로파일 기능과 디자인 패턴을 통해 조금 더 확장하기 쉬운 애플리케이션을 개발한 내용에 대해 정리하였다.
+최근 참여한 프로젝트들은 모두 OAuth2 프로토콜로 사용자 인증을 구현했다. 하나의 플랫폼만 연결하는 경우도 있었지만, 다중 플랫폼의 인증을 구현한 케이스도 있었다. 다중 플랫폼을 연결할 때는 플랫폼이 늘어날 때마다 확장성을 고려해야 한다. 스프링 프레임워크(spring framework)의 프로파일 기능과 디자인 패턴을 통해 조금 더 확장하기 쉬운 애플리케이션을 개발한 내용을 정리했다.
 
 ## 1. Spring Security OAuth2 Client
 
-스프링 시큐리티(spring security) 의존성 중 하나인 `spring-boot-starter-oauth2-client`를 사용하면 OAuth2 프로토콜 표준에 맞춰 사용자 인증과 인가 작업을 쉽게 구현할 수 있다. 다만 스프링 시큐리티는 공부하지 않고 사용하는 경우 블랙 박스(black box)처럼 느껴지기 때문에 사용하기 어려워하는 경우가 있다. OAuth2 프로토콜 인증 흐름을 따라 스프링 시큐리티 OAuth2 클라이언트 의존성이 동작하는 과정을 정리하면서 어느 부분의 기능을 확장하였는지 살펴보겠다.
+스프링 시큐리티(spring security) 의존성 중 하나인 `spring-boot-starter-oauth2-client`를 사용하면 OAuth2 프로토콜 표준에 맞춰 사용자 인증과 인가 작업을 쉽게 구현할 수 있다. 다만 스프링 시큐리티는 공부하지 않고 사용하면 블랙 박스(black box)처럼 보이기 때문에 어려워하는 경우가 많다. OAuth2 프로토콜 인증 흐름을 따라 스프링 시큐리티 OAuth2 클라이언트 의존성이 동작하는 과정을 정리하면서 어느 부분의 기능을 확장했는지 살펴보자.
 
 ### 1.1. Redirect Authentication Page
 
-인터넷 서비스를 사용하는 사람들은 웬만하면 SNS 로그인을 경험해봤을 것이다. 돌이켜보면 SNS 로그인 화면은 해당 플랫폼에서 제공한다는 것을 떠올릴 수 있다. 인증은 사용자 리소스를 관리하는 플랫폼으로부터 전달받는다. 브라우저에서 OAuth2 로그인을 시도하면 클라이언트 서비스는 요청을 인증 플랫폼 화면으로 리다이렉트한다.
+인터넷 서비스를 사용하는 사람들은 대부분 SNS 로그인을 경험해봤을 것이다. 돌이켜보면 SNS 로그인 화면은 해당 플랫폼에서 제공한다는 것을 떠올릴 수 있다. 인증은 사용자 리소스를 관리하는 플랫폼으로부터 전달받는다. 브라우저에서 OAuth2 로그인을 시도하면 클라이언트 서비스는 요청을 인증 플랫폼 화면으로 리다이렉트한다. 과정은 다음과 같다.
 
 - 브라우저에서 백엔드 서비스로 로그인 요청을 보낸다.
 - 백엔드 서비스는 요청을 해당 플랫폼의 인증 서비스로 리다이렉트한다.
 - 브라우저는 해당 플랫폼의 로그인 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/multiple-sns-login-with-spring-security-oauth2-client-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/multiple-sns-login-with-spring-security-oauth2-client-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Get Access Token And User Resource
 
-사용자는 SNS 플랫폼 로그인 화면에서 사용자 아이디와 비밀번호를 입력한다. 인증이 성공하면 해당 플랫폼에 미리 등록한 리다이렉트 URL로 인증 코드와 함께 요청이 돌아온다. 전달받는 인증 코드는 액세스 토큰을 발급받을 때 클라이언트 아이디와 시크릿과 함께 사용된다. 리다이렉트 URL로 돌아온 요청은 다음과 같은 실행 흐름을 가진다.
+사용자는 SNS 플랫폼 로그인 화면에서 사용자 아이디와 비밀번호를 입력한다. 인증이 성공하면 해당 플랫폼에 미리 등록한 리다이렉트 URL로 인가 코드와 함께 요청이 돌아온다. 전달받은 인가 코드는 액세스 토큰을 발급받을 때 클라이언트 아이디, 시크릿과 함께 사용된다. 리다이렉트 URL로 돌아온 요청은 다음과 같은 흐름으로 처리된다.
 
-1. 플랫폼 인증 서버는 브라우저를 미리 등록된 경로로 리다이렉트시킨다.
-2. 리다이렉트 요청을 받으면 시큐리티 필터 체인(security filterchain)의 `OAuth2LoginAuthenticationFilter` 객체가 사용자 인가 작업을 수행한다.
-3. `OAuth2AuthorizationCodeAuthenticationProvider` 객체가 인증 서버로부터 액세스 토큰(access token)을 발급받는다. 미리 등록한 클라이언트 아이디, 시크릿 그리고 리다이렉트 URL과 함께 전달받은 인가 코드를 함께 전달한다.
-4. 액세스 토큰 발급이 성공하면 인가 작업은 완료되었다는 의미이다. `DefaultOAuth2UserService` 객체는 발급받은 액세스 토큰을 사용해 사용자 정보를 리소스 서버로부터 조회한다.
+1. 플랫폼 인증 서버는 브라우저를 미리 등록된 경로로 리다이렉트한다.
+2. 리다이렉트 요청을 받으면 시큐리티 필터 체인(security filter chain)의 `OAuth2LoginAuthenticationFilter` 객체가 사용자 인가 작업을 수행한다.
+3. `OAuth2AuthorizationCodeAuthenticationProvider` 객체가 인증 서버로부터 액세스 토큰(access token)을 발급받는다. 이때 미리 등록한 클라이언트 아이디, 시크릿, 리다이렉트 URL과 전달받은 인가 코드를 함께 보낸다.
+4. 액세스 토큰을 발급받았다면 인가 작업이 완료된 것이다. `DefaultOAuth2UserService` 객체는 발급받은 액세스 토큰을 사용해 사용자 정보를 리소스 서버로부터 조회한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/multiple-sns-login-with-spring-security-oauth2-client-02.png" width="100%" class="image__border">
@@ -51,25 +52,21 @@ recommendedPosts:
 
 ### 1.3. How can we implement SNS login for multiple platforms?
 
-스프링 시큐리티는 OAuth2 프로토콜 표준을 따르기 때문에 인증, 인가, 리소스 획득 작업은 어떤 플랫폼을 사용하든 동일한 과정을 거친다. 플랫폼마다 다른 점은 사용자 정보 스키마이다. 각 플랫폼마다 다른 모습, 다른 프로퍼티 이름으로 사용자 정보를 반환하기 때문에 이 부분을 맞춰 개발할 필요가 있다. 필자는 DefaultOAuth2UserService 클래스를 확장하여 각 플랫폼별로 획득한 인증된 사용자 정보를 신규 생성 혹은 조회하도록 설계하였다. CustomOAuth2UserService 인터페이스로 추상화하여 전략 패턴(strategy pattern)을 적용한 이유는 추후 연결할 플랫폼이 늘어날 것을 고려했기 때문이다. DefaultOAuth2UserService 구현 코드를 설명할 때 이에 대한 추가적인 이야기를 하겠다.
+스프링 시큐리티는 OAuth2 프로토콜 표준을 따르기 때문에 인증, 인가, 리소스 획득 작업은 어떤 플랫폼을 사용하든 동일한 과정을 거친다. 플랫폼마다 다른 점은 사용자 정보 스키마이다. 플랫폼마다 다른 모습, 다른 프로퍼티 이름으로 사용자 정보를 반환하기 때문에 이 부분을 맞춰 개발할 필요가 있다. 필자는 DefaultOAuth2UserService 클래스를 확장하여 플랫폼별로 획득한 인증된 사용자 정보를 신규 생성 혹은 조회하도록 설계했다. CustomOAuth2UserService 인터페이스로 추상화하여 전략 패턴(strategy pattern)을 적용한 이유는 추후 연결할 플랫폼이 늘어날 것을 고려했기 때문이다. 자세한 이야기는 DelegatingOAuth2UserService 구현 코드를 설명할 때 이어서 하겠다. 전체 구조는 다음과 같다.
 
-- DefaultOAuth2UserService 객체는 부모 클래스 기능을 통해 SNS 플랫폼 리소스 서버로부터 인증된 사용자 정보를 획득한다.
-- DefaultOAuth2UserService 객체는 CustomOAuth2UserService 인스턴스들에게 인증된 사용자 처리를 위임한다.
+- DelegatingOAuth2UserService 객체는 부모 클래스(DefaultOAuth2UserService) 기능을 통해 SNS 플랫폼 리소스 서버로부터 인증된 사용자 정보를 획득한다.
+- DelegatingOAuth2UserService 객체는 CustomOAuth2UserService 인스턴스들에게 인증된 사용자 처리를 위임한다.
   - CustomOAuth2UserService 인스턴스는 자신이 지원하는 플랫폼의 사용자만 처리한다.
   - 신규 사용자는 새로 생성한다.
   - 기존 사용자는 조회 후 반환한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/multiple-sns-login-with-spring-security-oauth2-client-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/multiple-sns-login-with-spring-security-oauth2-client-03.png" width="100%" class="image__border">
 </div>
 
 ## 2. Project Setup
 
-먼저 프로젝트 설정부터 살펴보겠다.
-
-### 2.1. build.gradle
-
-다음과 같은 의존성이 필요하다.
+프로젝트 설정부터 살펴보자. 다음과 같은 의존성이 필요하다.
 
 - spring-boot-starter-security
   - 스프링 시큐리티 프레임워크
@@ -116,13 +113,9 @@ tasks.named('test') {
 }
 ```
 
-### 2.2. application-platform.yml
+하나의 파일에 모든 설정을 넣으면 복잡하다. 플랫폼별로 설정 파일을 분할하고 필요에 따라 프로파일을 추가하여 사용한다. `application-{platform}.yml` 이름을 가진 설정 파일을 살펴보자.
 
-하나의 파일에 모든 설정이 들어 있는 것은 복잡하다. 플랫폼별로 설정 파일을 분할하고 필요에 따라 프로파일을 추가하여 사용한다. 각 설정 파일을 살펴보겠다.
-
-#### 2.2.1. application-google.yml
-
-구글은 스프링 시큐리티에서 필요한 정보를 자동으로 채워주기 때문에 제공자 정보는 별도로 추가하지 않는다. 클라이언트 아이디, 시크릿, 리다이렉트 URL, 클라이언트 시크릿 전달 방식, 스코프 등의 정보만 작성한다.
+먼저 `application-google.yml`은 구글을 위한 설정 파일이다. 구글은 스프링 시큐리티에서 필요한 정보를 자동으로 채워주기 때문에 제공자 정보는 별도로 추가하지 않는다. 클라이언트 아이디, 시크릿, 리다이렉트 URL, 클라이언트 시크릿 전달 방식, 스코프 등의 정보만 작성한다.
 
 ```yml
 spring:
@@ -140,9 +133,7 @@ spring:
               - email
 ```
 
-#### 2.2.2. application-kakao.yml
-
-카카오는 클라이언트, 인증 제공자 정보를 모두 입력한다. 가독성을 위해 주석으로 설명을 작성하였다. 스코프나 인증 제공자 정보는 공식 홈페이지를 참조한다.
+`application-kakao.yml`은 카카오를 위한 설정 파일이다. 카카오는 클라이언트, 인증 제공자 정보를 모두 입력한다. 가독성을 위해 주석으로 설명을 작성했다. 스코프나 인증 제공자 정보는 공식 홈페이지를 참고한다.
 
 ```yml
 spring:
@@ -167,9 +158,7 @@ spring:
             user-name-attribute: id # 사용자 정보 스키마에서 사용자 식별자를 찾을 수 있는 키
 ```
 
-#### 2.2.3. application-naver.md
-
-네이버도 카카오와 마찬가지로 클라이언트, 인증 제공자 정보를 모두 입력한다. 가독성을 위해 주석으로 설명을 작성하였다. 스코프나 인증 제공자 정보는 공식 홈페이지를 참조한다.
+`application-naver.yml`은 네이버를 위한 설정 파일이다. 네이버도 카카오와 마찬가지로 클라이언트, 인증 제공자 정보를 모두 입력한다. 가독성을 위해 주석으로 설명을 작성했다. 스코프나 인증 제공자 정보는 공식 홈페이지를 참고한다.
 
 ```yml
 spring:
@@ -192,12 +181,7 @@ spring:
             user-name-attribute: response # 사용자 정보 스키마에서 사용자 식별자를 찾을 수 있는 키
 ```
 
-### 2.3. application.yml
-
-각 플랫폼별 설정 파일을 살펴봤다. 위 설정 파일들을 애플리케이션이 실행될 때 모두 사용하기 위해 `include` 키워드를 이용한다.
-
-- 필요한 프로파일들을 플랫폼 이름으로 추가한다.
-  - 플랫폼 이름이 붙은 설정 파일들이 사용된다.
+지금까지 플랫폼별 설정 파일을 살펴봤다. `application.yml`은 기본으로 사용되는 설정 파일이다. 애플리케이션이 실행될 때 이 설정 파일들을 모두 사용하려면 `include` 키워드로 필요한 프로파일을 플랫폼 이름으로 추가한다. 그러면 플랫폼 이름이 붙은 설정 파일들이 함께 적용된다.
 
 ```yml
 spring:
@@ -217,7 +201,7 @@ spring:
       enabled: true
 ```
 
-### 2.4. SecurityConfig Class
+SecurityConfig 클래스에서는 다음과 같이 접근 권한과 OAuth2 로그인을 설정한다.
 
 - 접근 권한 설정
   - H2 콘솔 경로 허용
@@ -269,22 +253,20 @@ public class SecurityConfig {
 
 ## 3. Implementation
 
-지금부터 구현 코드를 살펴보겠다.
+지금부터 구현 코드를 살펴보자.
 
-### 3.1. DelegatingOAuth2UserService Class
-
-DefaultOAuth2UserService 클래스를 상속한 클래스를 정의한다. @Service 애너테이션을 추가해 스프링 빈(bean)으로 만들면 해당 컴포넌트가 OAuth2LoginAuthenticationProvider 인스턴스에서 사용하는 DefaultOAuth2UserService 인스턴스를 대체한다. CustomOAuth2UserService 인스턴스를 리스트 형태로 주입받는다. CustomOAuth2UserService 인터페이스를 구현한 모든 스프링 빈들이 주입된다. 다음과 같은 장점을 가진다.
+DefaultOAuth2UserService 클래스를 상속한 DelegatingOAuth2UserService 클래스를 정의한다. @Service 애너테이션을 추가해 스프링 빈(bean)으로 만들면 해당 컴포넌트가 OAuth2LoginAuthenticationProvider 인스턴스에서 사용하는 DefaultOAuth2UserService 인스턴스를 대체한다. 생성자에서는 CustomOAuth2UserService 인터페이스를 구현한 모든 스프링 빈을 리스트 형태로 주입받는다. 이렇게 만들면 다음과 같은 장점이 있다.
 
 - 나중에 추가될 플랫폼을 지원하는 스프링 빈을 새롭게 정의하면 자동으로 주입받는다.
 - 인증을 위한 핵심 비즈니스 로직인 loadUser 메서드는 변경이 없다.
 - 변경에 닫혀 있고 확장에 열린 개방-폐쇄 원칙(open–closed principle)을 지킬 수 있다.
 
-다음과 같은 동작을 수행한다.
+loadUser 메서드는 다음과 같이 동작한다.
 
 - 처리를 위임할 CustomOAuth2UserService 인스턴스들에게 플랫폼 지원 여부를 확인한다.
 - 해당 플랫폼을 지원하는 서비스 인스턴스를 찾았다면 부모 클래스의 기능을 사용해 외부 리소스 서버로부터 사용자 정보를 조회한다.
-  - 새로운 메서드로 감싼 이유는 테스트를 원활하게 만들기 위함이다.
-  - 자세한 내용은 [부모 클래스 메서드를 테스트 더블(test double)로 만들기][stub-for-super-class-link] 포스트를 참조바란다.
+  - 부모 클래스의 기능을 새로운 메서드로 감싼 이유는 테스트를 쉽게 작성하기 위해서다.
+  - 자세한 내용은 [부모 클래스 메서드를 테스트 더블(test double)로 만들기][stub-for-super-class-link] 글을 참고하길 바란다.
 - 리소스 서버로부터 사용자 정보를 획득하면 이를 기반으로 사용자 정보를 생성하거나 조회 후 반환한다.
 
 ```java
@@ -325,9 +307,7 @@ public class DelegatingOAuth2UserService extends DefaultOAuth2UserService {
 }
 ```
 
-### 3.2. CustomOAuth2UserService Interface
-
-CustomOAuth2UserService 인스턴스는 어떤 책임을 가지는지 인터페이스를 살펴보겠다.
+CustomOAuth2UserService 인터페이스를 통해 플랫폼별 서비스가 어떤 책임을 갖는지 살펴보자.
 
 - 해당 플랫폼을 지원하는지 확인한다.
 - 사용자 정보를 생성하거나 조회한다.
@@ -347,9 +327,7 @@ public interface CustomOAuth2UserService {
 }
 ```
 
-### 3.3. Google
-
-구글 리소스 서버로부터 전달받은 사용자 정보는 다음과 같은 스키마를 가지고 있다. 이를 처리하기 위한 도메인 객체를 설계하고 서비스 기능을 정의한다.
+지금부터는 플랫폼마다 구현 코드가 조금씩 달라진다. 먼저 구글을 살펴보자. 구글 리소스 서버로부터 전달받은 사용자 정보는 다음과 같은 스키마를 가지고 있다. 이를 처리하기 위한 도메인 객체를 설계하고 서비스 기능을 정의한다.
 
 ```
 {
@@ -364,9 +342,7 @@ public interface CustomOAuth2UserService {
 }
 ```
 
-#### 3.3.1. GoogleUser Class
-
-구글 사용자 정보를 기반으로 UserEntity 객체를 생성한다.
+GoogleUser 클래스는 구글 사용자 정보를 기반으로 UserEntity 객체를 생성한다.
 
 ```java
 package action.in.blog.domain.model;
@@ -410,7 +386,7 @@ public class GoogleUser {
 }
 ```
 
-#### 3.3.2. GoogleOAuth2UserService Class
+GoogleOAuth2UserService 클래스의 각 메서드는 다음과 같이 동작한다.
 
 - supports 메서드
   - 서비스 제공자가 `google`인 경우만 지원한다.
@@ -464,9 +440,7 @@ public class GoogleOAuth2UserService implements CustomOAuth2UserService {
 }
 ```
 
-### 3.4. Kakao
-
-카카오 리소스 서버로부터 전달받은 사용자 정보는 다음과 같은 스키마를 가지고 있다. 이를 처리하기 위한 도메인 객체를 설계하고 서비스 기능을 정의한다.
+다음은 카카오다. 카카오 리소스 서버로부터 전달받은 사용자 정보는 다음과 같은 스키마를 가지고 있다. 이를 처리하기 위한 도메인 객체를 설계하고 서비스 기능을 정의한다.
 
 ```
 {
@@ -489,9 +463,7 @@ public class GoogleOAuth2UserService implements CustomOAuth2UserService {
 }
 ```
 
-#### 3.4.1. KakaoUser Class
-
-카카오 사용자 정보를 기반으로 UserEntity 객체를 생성한다.
+KakaoUser 클래스는 카카오 사용자 정보를 기반으로 UserEntity 객체를 생성한다.
 
 ```java
 package action.in.blog.domain.model;
@@ -539,7 +511,7 @@ public class KakaoUser {
 }
 ```
 
-#### 3.4.2. KakaoOAuth2UserService Class
+KakaoOAuth2UserService 클래스의 각 메서드는 다음과 같이 동작한다.
 
 - supports 메서드
   - 서비스 제공자가 `kakao`인 경우만 지원한다.
@@ -595,9 +567,7 @@ public class KakaoOAuth2UserService implements CustomOAuth2UserService {
 }
 ```
 
-### 3.5. Naver
-
-네이버 리소스 서버로부터 전달받은 사용자 정보는 다음과 같은 스키마를 가지고 있다. 이를 처리하기 위한 도메인 객체를 설계하고 서비스 기능을 정의한다.
+마지막으로 네이버다. 네이버 리소스 서버로부터 전달받은 사용자 정보는 다음과 같은 스키마를 가지고 있다. 이를 처리하기 위한 도메인 객체를 설계하고 서비스 기능을 정의한다.
 
 ```
 {
@@ -611,9 +581,7 @@ public class KakaoOAuth2UserService implements CustomOAuth2UserService {
 }
 ```
 
-#### 3.5.1. NaverUser Class
-
-네이버 사용자 정보를 기반으로 UserEntity 객체를 생성한다.
+NaverUser 클래스는 네이버 사용자 정보를 기반으로 UserEntity 객체를 생성한다.
 
 ```java
 package action.in.blog.domain.model;
@@ -661,7 +629,7 @@ public class NaverUser {
 }
 ```
 
-#### 3.5.2. NaverOAuth2UserService Class
+NaverOAuth2UserService 클래스의 각 메서드는 다음과 같이 동작한다.
 
 - supports 메서드
   - 서비스 제공자가 `naver`인 경우만 지원한다.
@@ -717,9 +685,7 @@ public class NaverOAuth2UserService implements CustomOAuth2UserService {
 }
 ```
 
-### 3.6. AuthenticatedUser Class
-
-인증된 사용자 정보를 시큐리티 컨텍스트(security context)에 보관할 때 사용하는 클래스이다. 사용자 식별자, 권한 리스트, 이메일, 닉네임 정보를 반환한다.
+AuthenticatedUser 클래스는 인증된 사용자 정보를 시큐리티 컨텍스트(security context)에 보관할 때 사용한다. 사용자 식별자, 권한 리스트, 이메일, 닉네임 정보를 반환한다.
 
 ```java
 package action.in.blog.domain.token;
@@ -787,9 +753,7 @@ public class AuthenticatedUser implements Principal, OAuth2User {
 }
 ```
 
-### 3.7. HomeController Class
-
-인증된 사용자 정보를 바탕으로 HTML 페이지를 생성한다.
+HomeController 클래스는 인증된 사용자 정보를 바탕으로 HTML 페이지를 생성한다.
 
 ```java
 package action.in.blog.controller;

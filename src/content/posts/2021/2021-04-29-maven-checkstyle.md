@@ -173,9 +173,7 @@ Audit done.
 
 ## 4. Build Fail when Violation Conventions
 
-코드 컨벤션을 고의로 망가트린 후 빌드가 실패하는지 확인해보자.
-
-- 코드 블록에 줄내림을 만들어 컨벤션을 위반한다.
+코드 컨벤션을 고의로 망가트린 후 빌드가 실패하는지 확인해보자. 다음과 같이 코드 블록에 줄내림을 만들어 컨벤션을 위반한다.
 
 ```java
 package action.in.blog;

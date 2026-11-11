@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/adsense-position-setting-minimal-mistakes/"
 categories:
   - "information"
+summary: "구글 애드센스에서 광고 단위를 만들고, 독자의 몰입을 깨지 않도록 minimal-mistakes 테마 포스트의 최상단과 최하단에만 광고를 배치한 방법을 정리했다."
 recommendedPosts:
   - title: "깃허브(GitHub) 블로그 Google Adsense 연결하기"
     href: "https://junhyunny.github.io/information/minimal-mistakes-adsense/"
@@ -41,7 +42,7 @@ recommendedPosts:
 
 구글 애드센스의 광고를 원하는 위치에 심으려면 코드가 필요하다.
 
-1. 애드센스 연결시와 동일하게 광고 코드를 받는다.
+1. 애드센스 연결 시와 동일하게 광고 코드를 받는다.
 2. 받은 광고 코드를 포스트 적절한 위치에 삽입한다.
 
 <div class="block-break" align="center">

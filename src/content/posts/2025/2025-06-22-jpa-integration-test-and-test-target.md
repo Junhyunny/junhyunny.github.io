@@ -9,6 +9,7 @@ categories:
   - "jpa"
   - "unit-test"
   - "integration-test"
+summary: "JPA 결합 테스트의 준비와 검증에 커스텀 Repository 메서드를 쓰면 결함이 가려져 거짓 음성이 생길 수 있다는 점을 예제로 보이고, EntityManager를 활용한 개선 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -17,13 +18,13 @@ categories:
 
 ## 1. Test scope
 
-JPA 결합 테스트의 스코프(scope)를 생각해보자. 이번 글에선 `@DataJpaTest` 애너테이션을 사용한 테스트의 경우를 예로 들어본다. MemberServiceTest의 테스트 대상은 MemberService 객체이지만, 실제 MemberRepository 인스턴스를 사용한다. 이 경우 [테스트 더블(test double)][test-double-link]은 데이터베이스(H2 혹은 테스트 컨테이너)가 된다. 즉, 테스트에서 검증하고 싶은 대상은 서비스 계층과 레포지토리 계층 모두이다. 두 계층 사이의 상호 작용을 통해 원하는 결과를 얻을 수 있는지 확인하는 것이 테스트의 주된 관심사다.
+JPA 결합 테스트의 스코프(scope)를 생각해보자. 이번 글에선 `@DataJpaTest` 애너테이션을 사용한 테스트의 경우를 예로 든다. MemberServiceTest의 테스트 대상은 MemberService 객체이지만, 실제 MemberRepository 인스턴스를 사용한다. 이 경우 [테스트 더블(test double)][test-double-link]은 데이터베이스(H2 혹은 테스트 컨테이너)가 된다. 즉, 테스트에서 검증하고 싶은 대상은 서비스 계층과 레포지토리 계층 모두이다. 두 계층 사이의 상호 작용을 통해 원하는 결과를 얻을 수 있는지 확인하는 것이 테스트의 주된 관심사다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/jpa-integration-test-and-test-target-01.png" width="100%" class="image__border">
 </div>
 
-본론으로 다시 돌아와서 JPA 결합 테스트에서 MemberRepository 인스턴스를 사용해 테스트 준비와 검증하는 것은 좋은 패턴일까? 나는 아니라고 생각한다. MemberRepository 인스턴스는 결합 테스트로 확인하고 싶은 대상에 포함되기 때문에 이를 사용해 준비와 검증을 하는 것은 신뢰도가 낮은 객체로 준비와 검증을 한다는 이야기다. 이는 거짓 음성(false negative)을 만들 수 있기 때문에 테스트가 신뢰도가 낮아질 수 있다. (거짓 음성은 구현 코드에 문제 혹은 버그가 있는데 테스트가 통과하는 경우를 의미한다.)
+본론으로 다시 돌아와서 JPA 결합 테스트에서 MemberRepository 인스턴스를 사용해 테스트 준비와 검증하는 것은 좋은 패턴일까? 나는 아니라고 생각한다. MemberRepository 인스턴스는 결합 테스트로 확인하고 싶은 대상에 포함되기 때문에 이를 사용해 준비와 검증을 하는 것은 신뢰도가 낮은 객체로 준비와 검증을 한다는 이야기다. 이는 거짓 음성(false negative)을 만들 수 있기 때문에 테스트의 신뢰도가 낮아질 수 있다. (거짓 음성은 구현 코드에 문제 혹은 버그가 있는데 테스트가 통과하는 경우를 의미한다.)
 
 ## 2. Simple example
 
@@ -179,7 +180,7 @@ class GoodCaseMemberServiceTest {
     }
 ```
 
-위에서 살펴본 두 테스트들 createEnableMember 메서드가 갖는 문제에 대해 양성 반응을 보이기 때문에 개발자가 문제가 되는 부분을 찾을 수 있다.
+위에서 살펴본 두 테스트들은 createEnableMember 메서드가 갖는 문제에 대해 양성 반응을 보이기 때문에 개발자가 문제가 되는 부분을 찾을 수 있다.
 
 ## CLOSING
 
@@ -187,7 +188,7 @@ class GoodCaseMemberServiceTest {
 
 나는 Repository를 테스트 준비와 검증을 위해 사용하는 것을 권장하지 않을 뿐 원칙적으로 금지하는 것은 아니다. `findById`, `findAll`, `save`, `saveAll` 같은 메서드들은 Spring Data JPA 내부에서 충분히 검증되었기 때문에 신뢰하고 적절히 활용할 수 있다. 
 
-다만 Repository를 테스트 코드의 준비와 검증에서 사용되기 시작하면, 위 예시처럼 커스텀 메서드들을 아무 의심 없이 준비와 검증에서 사용하는 테스트를 작성할 수 있다. Repository에 결함이 있으면 구현 코드에 결함이 있어도 테스트가 통과하는 **거짓 음성**이 발생할 수 있으며, 이는 테스트의 신뢰도를 떨어뜨린다. 나는 이를 사전에 방지하기 위해 EntityManager 같은 별도 모듈을 사용하는 것을 선호한다. 
+다만 Repository가 테스트 코드의 준비와 검증에서 사용되기 시작하면, 위 예시처럼 커스텀 메서드들을 아무 의심 없이 준비와 검증에서 사용하는 테스트를 작성할 수 있다. Repository에 결함이 있으면 구현 코드에 결함이 있어도 테스트가 통과하는 **거짓 음성**이 발생할 수 있으며, 이는 테스트의 신뢰도를 떨어뜨린다. 나는 이를 사전에 방지하기 위해 EntityManager 같은 별도 모듈을 사용하는 것을 선호한다. 
 
 테스트 준비와 검증에서 테스트 대상으로 포함되는 모듈을 활용하지 말라는 내용을 어디선가 읽은 뒤로 항상 이를 염두에 두고 테스트를 작성하고 있다. 2022년쯤에 읽고 그 이후 프로젝트들은 테스트 코드를 작성할 때 이런 부분들을 고민하기 시작했다. 그런데 출처가 도무지 기억나지 않는다. 집에 있는 책들 중 테스트 관련된 내용을 훑어봤지만, 찾을 수가 없다. 여유가 된다면 관련 책들을 다시 꼼꼼히 읽어봐야겠다.
 

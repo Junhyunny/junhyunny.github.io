@@ -6,6 +6,7 @@ canonicalPath: "/information/java/asynchronous-and-non-blocking-process/"
 categories:
   - "information"
   - "java"
+summary: "블로킹과 논블로킹, 동기와 비동기의 개념과 조합을 설명하고, 블로킹/동기와 논블로킹/비동기 조합을 CompletableFuture 예제로 비교했다."
 ---
 
 ## 0. 들어가면서
@@ -14,7 +15,7 @@ categories:
 
 ## 1. Blocking and Non-Blocking
 
-먼저 블로킹(blocking)과 논-블로킹(non-blocking)은 기술적으로 명확하다. 어떤 일을 요청하고 결과(혹은 응답)을 기다리는지 아닌지에 따라 블로킹, 논-블로킹이 구분된다. 먼저 블로킹은 요청을 보낸 후 응답을 기다린다. 예를 들면 서버 요청/응답 방식이나 일반적인 함수 호출을 예로 들 수 있다.
+먼저 블로킹(blocking)과 논-블로킹(non-blocking)은 기술적으로 명확하다. 어떤 일을 요청하고 결과(혹은 응답)를 기다리는지 아닌지에 따라 블로킹, 논-블로킹이 구분된다. 먼저 블로킹은 요청을 보낸 후 응답을 기다린다. 예를 들면 서버 요청/응답 방식이나 일반적인 함수 호출을 예로 들 수 있다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/asynchronous-and-non-blocking-process-01.gif" width="50%">
@@ -37,7 +38,7 @@ categories:
 3. 작업자B는 AB 업무를 마치고 결과를 작업자A에게 전달한다.
 4. 작업자A는 AB 결과를 받고 A2 업무를 시작한다.
 
-작업 A1, AB, A2는 항상 순서대로 진행되기 때문에 동기식으로 처리된 것이다. 이번엔 비동기식 방식에 대해 알아보자. 비동기식 방식은 작업이 작업 순서가 순차적인 것을 보장하지 않는다. 
+작업 A1, AB, A2는 항상 순서대로 진행되기 때문에 동기식으로 처리된 것이다. 이번엔 비동기식 방식에 대해 알아보자. 비동기식 방식은 작업 순서가 순차적인 것을 보장하지 않는다. 
 
 1. 작업자A는 A1 업무를 진행하는 중이다.
 2. 작업자A는 작업자B에게 AB 업무를 요청하고 A1 업무를 이어서 진행한다.
@@ -46,20 +47,20 @@ categories:
   - B1 업무를 하는 중이기 때문에 바로 AB 업무를 시작하지 못한다.
 4. 작업자A는 A1 업무가 끝나면 A2 업무를 시작한다.
 
-작업자B의 AB 업무는 즉시 시작할 수도 있고, B1 업무가 끝나고 시작될 수 있다. B1 업무량에 따라 금세 시작할 수도 있고, 늦게 시작할 수도 있다. A1, A2, AB의 작업 순서는 보장할 수 없다. 작업자B 상황에 따라 A1, A2, AB 순서대로 진행될 수도 있고, A1, AB, A2 순서대로 진행될 수도 있다. A1과 AB 작업이 혹은 A2과 AB 작업이 병렬적으로 진행될 수도 있다. 작업자B의 상황에 따라 작업들의 순서가 뒤죽박죽이다. 
+작업자B의 AB 업무는 즉시 시작할 수도 있고, B1 업무가 끝나고 시작될 수 있다. B1 업무량에 따라 금세 시작할 수도 있고, 늦게 시작할 수도 있다. A1, A2, AB의 작업 순서는 보장할 수 없다. 작업자B 상황에 따라 A1, A2, AB 순서대로 진행될 수도 있고, A1, AB, A2 순서대로 진행될 수도 있다. A1과 AB 작업이 혹은 A2와 AB 작업이 병렬적으로 진행될 수도 있다. 작업자B의 상황에 따라 작업들의 순서가 뒤죽박죽이다. 
 
 ## 3. Combine situations
 
 블로킹, 논-블로킹, 동기, 비동기 개념은 서로 조합되어 이야기된다. 자연스러운 조합도 있지만, 직관적인 이해가 어려운 조합도 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/asynchronous-and-non-blocking-process-03.png" width="80%" class="image__border">
-</div>
-<center>https://hamait.tistory.com/930</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/asynchronous-and-non-blocking-process-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://hamait.tistory.com/930</center>
 </div>
 
-블로킹과 동기식 처리에 조합은 자연스럽다. 요청을 보내고 결과를 기다린다. 자연스럽게 모든 행위가 동기식으로 처리된다. 논-블로킹과 비동기 조합도 자연스럽다. 요청을 보낸 후 결과를 기다리지 않고 각자 일을 처리하기 때문에 행위들의 순서가 보장되지 않는다. 블로킹과 동기식 조합과 논-블로킹과 비동기식 조합은 너무 자연스럽기 때문에 각 조합의 용어들이 혼용되어 사용된다. 
+블로킹과 동기식 처리의 조합은 자연스럽다. 요청을 보내고 결과를 기다린다. 자연스럽게 모든 행위가 동기식으로 처리된다. 논-블로킹과 비동기 조합도 자연스럽다. 요청을 보낸 후 결과를 기다리지 않고 각자 일을 처리하기 때문에 행위들의 순서가 보장되지 않는다. 블로킹과 동기식 조합과 논-블로킹과 비동기식 조합은 너무 자연스럽기 때문에 각 조합의 용어들이 혼용되어 사용된다. 
 
 직관적인 이해가 어려운 경우도 있다. 블로킹과 비동기식 처리의 조합이다. 작업이 블로킹되는데 왜 순서가 보장되지 않는가? 혹은 논-블로킹과 동기식 처리의 조합이다. 기다리지 않는데 작업의 순서가 어떻게 보장되는가? 자연스럽지 않은 상황에 대한 설명은 내가 [참고한 글](https://hamait.tistory.com/930)의 각 시나리오를 읽어보길 바란다. 
 
@@ -211,7 +212,7 @@ public class AsyncNonBlockingTest {
 }
 ```
 
-WorkerA 객체와 WorkerB 객체가 동시에 일하는 구간이 생긴다. 여러 번 실행하다 보면 업무를 먼저 끝나는 객체가 바뀌기도 한다.
+WorkerA 객체와 WorkerB 객체가 동시에 일하는 구간이 생긴다. 여러 번 실행하다 보면 업무를 먼저 끝내는 객체가 바뀌기도 한다.
 
 ```
 A: doing something for my work.

@@ -7,6 +7,7 @@ categories:
   - "oauth2"
   - "pkce"
   - "react"
+summary: "AWS Cognito를 인증 서버로 사용해 리액트 애플리케이션에서 code_verifier와 code_challenge를 만들고 PKCE 인가 코드 승인 방식으로 액세스 토큰을 발급받는 과정을 직접 구현했다."
 recommendedPosts:
   - title: "OAuth2.0 PKCE(Proof Key for Code Exchange)를 통한 보안 강화"
     href: "https://junhyunny.github.io/oauth2.0/security/oauth2-pkce/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[이전 글][oauth2-pkce-link]에서 `PKCE(Proof Key for Code Exchange)`는 공개 클라이언트가 액세스 토큰을 발급 과정에서 발생하는 보안 리스크를 줄이기 위한 장치라는 내용에 대해 정리했다. 이번엔 리액트 애플리케이션에서 인가 코드 승인(authorization code grant) 방식에 PKCE를 추가하여 액세스 토큰을 발급 받는 예제를 다뤘다.
+[이전 글][oauth2-pkce-link]에서 `PKCE(Proof Key for Code Exchange)`는 공개 클라이언트가 액세스 토큰을 발급받는 과정에서 발생하는 보안 리스크를 줄이기 위한 장치라는 내용에 대해 정리했다. 이번엔 리액트 애플리케이션에서 인가 코드 승인(authorization code grant) 방식에 PKCE를 추가하여 액세스 토큰을 발급 받는 예제를 다뤘다.
 
 ## 1. Setup environment
 
@@ -23,9 +24,9 @@ recommendedPosts:
 - AWS Cognito - SPA 클라이언트
 - 리액트 애플리케이션
 
-AWS Cognito는 SPA 클라이언트를 위한 PKCE 인가 코드 승인 방식을 지원한다. 예제를 위한 AWS Congito에 사용자 풀(user pool)을 하나 만들어보자. 
+AWS Cognito는 SPA 클라이언트를 위한 PKCE 인가 코드 승인 방식을 지원한다. 예제를 위한 AWS Cognito에 사용자 풀(user pool)을 하나 만들어보자. 
 
-- 애플리케이션 이름을 `PKCE example`으로 지정한다.
+- 애플리케이션 이름을 `PKCE example`로 지정한다.
 - 옵션을 구성한다. 식별자와 가입에 필요한 필수 속성으로 `email`을 지정한다.
 - 리다이렉트 URL을 `http://localhost:5173` 주소로 지정한다.
 
@@ -33,7 +34,7 @@ AWS Cognito는 SPA 클라이언트를 위한 PKCE 인가 코드 승인 방식을
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/react-oauth2-pkce-example-01.png" width="100%" class="image__border">
 </div>
 
-AWS Congito는 PKCE 인가 코드 승인 방식을 지원하는 패키지를 함께 제공한다. 이를 사용하면 쉽게 구현할 수 있다. 사용자 풀을 만들면 다음과 같은 패키지를 설치하는 스크립트와 리액트 예시 코드들을 볼 수 있다. 
+AWS Cognito는 PKCE 인가 코드 승인 방식을 지원하는 패키지를 함께 제공한다. 이를 사용하면 쉽게 구현할 수 있다. 사용자 풀을 만들면 다음과 같은 패키지를 설치하는 스크립트와 리액트 예시 코드들을 볼 수 있다. 
 
 ```
 $ npm install oidc-client-ts react-oidc-context --save
@@ -67,7 +68,7 @@ root.render(
 );
 ```
 
-애플리케이션의 페이지(혹은 컴포넌트)에선 `useAuth` 훅을 통해 로그인 함수, 로그아웃 함수, 사용자 정보, 액세스 토큰 등을 꺼내서 한다.
+애플리케이션의 페이지(혹은 컴포넌트)에선 `useAuth` 훅을 통해 로그인 함수, 로그아웃 함수, 사용자 정보, 액세스 토큰 등을 꺼내서 사용한다.
 
 ```tsx
 import { useAuth } from "react-oidc-context";
@@ -131,11 +132,11 @@ export default App;
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/react-oauth2-pkce-example-04.png" width="100%" class="image__border">
 </div>
 
-이번 글에선 위 예시 코드와 동일한 동작을 할 수 있는 AuthProvider 컴포넌트와 useAuth 훅을 직접 만들어 볼 에정이다. PKCE 인가 코드 승인 방식은 다음 같은 실행 흐름이 일어난다.
+이번 글에선 위 예시 코드와 동일한 동작을 할 수 있는 AuthProvider 컴포넌트와 useAuth 훅을 직접 만들어 볼 예정이다. PKCE 인가 코드 승인 방식은 다음과 같은 실행 흐름이 일어난다.
 
 1. 사용자가 myapp.com 서비스에 접속한다.
 2. 사용자가 로그인 버튼을 누른다.
-3. 클라이언트 애플리케이션은 `code_verifier`을 만들고, 이를 기반으로 `code_challenge`을 만든다.
+3. 클라이언트 애플리케이션은 `code_verifier`를 만들고, 이를 기반으로 `code_challenge`를 만든다.
 4. 사용자는 인증 서버로 리다이렉트된다. 리다이렉트 요청에는 `code_challenge`와 해시 알고리즘 정보가 포함된다. 인증 서버는 `code_challenge`와 해시 알고리즘 정보를 저장한다.
 4. 사용자가 리소스 소유자임을 인증한다.
 5. 사용자는 myapp.com 서버로 리다이렉트된다. 인가 코드(code)와 상태(state)가 리다이렉트 URL 경로에 포함된다.
@@ -149,7 +150,7 @@ export default App;
 
 ## 2. Create CustomAuthProvider component
 
-PKCE 인가 코드 승인 방식을 지원하는 CustomAuthProvider 컴포넌트를 만든다. 다음과 같은 인터페이스를 만든다. 위 예제와 동일한 인터페이스를 갖는 리액트 컨택스트(react context)를 만든다.
+PKCE 인가 코드 승인 방식을 지원하는 CustomAuthProvider 컴포넌트를 만든다. 다음과 같은 인터페이스를 만든다. 위 예제와 동일한 인터페이스를 갖는 리액트 컨텍스트(react context)를 만든다.
 
 ```tsx
 type CustomAuthContext = {
@@ -213,8 +214,8 @@ export default CustomAuthProvider;
 - redirect_uri - 인증 서버에 등록한 리다이렉트 URL을 전달한다.
 - scope - OAuth2 스코프를 전달한다.
 - state - CSRF 공격을 방어하기 위한 상태 코드를 전달한다.
-- code_challange - SHA256 해시 함수로 `code_verifier` 코드를 다이제스트(digest)로 만들고 이를 BASE64 인코딩을 수행한 값을 전달한다.
-- code_challange_method - 어떤 방식으로 `code_verifier` 코드를 암호화 헀는지 전달한다. `SHA256` 값을 사용한다.
+- code_challenge - SHA256 해시 함수로 `code_verifier` 코드를 다이제스트(digest)로 만들고 이를 BASE64 인코딩을 수행한 값을 전달한다.
+- code_challenge_method - 어떤 방식으로 `code_verifier` 코드를 암호화 했는지 전달한다. `SHA256` 값을 사용한다.
 
 `code_verifier` 코드는 임의의 문자열로 매번 다른 값을 사용한다. 자세한 스펙은 [이전 글](https://junhyunny.github.io/oauth2.0/security/oauth2-pkce/#3-pkceproof-key-for-code-exchange)을 참고하길 바란다. `signinRedirect` 함수를 살펴보자.
 
@@ -378,7 +379,7 @@ export function generateQueryParams(object: object) {
 - code - 인증 서버로부터 발급 받은 인가 코드를 전달한다.
 - redirect_uri - 인증 서버에 등록한 리다이렉트 URL을 전달한다.
 - client_id - 인증 서버에서 발급받은 클라이언트 ID를 전달한다.
-- code_verifier - PCKE 인증에서 이전 요청에 보낸 code_challenge 값을 검증하기 위한 code_verifier를 전달한다.
+- code_verifier - PKCE 인증에서 이전 요청에 보낸 code_challenge 값을 검증하기 위한 code_verifier를 전달한다.
 
 이제 authentication 함수를 살펴보자. 다음과 같이 구현되어 있다. 위에서 이미 설명한 함수들은 제외하고 설명한다. 
 
@@ -485,7 +486,7 @@ export function saveUser(
 
 ### 2.3. Set initial state
 
-인증 과정이 모두 끝나면 사용자는 인증된 사용자로써 애플리케이션을 이용할 수 있다. 다만, 리프레시를 하거나 새로운 탭을 열었을 때 로그인 상태를 유지해야 한다. 이를 위해 초기 리액트 상태를 다음과 같이 설정한다.
+인증 과정이 모두 끝나면 사용자는 인증된 사용자로서 애플리케이션을 이용할 수 있다. 다만, 리프레시를 하거나 새로운 탭을 열었을 때 로그인 상태를 유지해야 한다. 이를 위해 초기 리액트 상태를 다음과 같이 설정한다.
 
 - 로컬 스토리지에 저장된 사용자 정보를 꺼낸다.
 - 사용자 정보 존재 유무로 인증된 상태를 판단하고 이를 리액트 상태로 저장한다.

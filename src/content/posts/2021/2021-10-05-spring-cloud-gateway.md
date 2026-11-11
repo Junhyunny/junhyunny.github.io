@@ -7,6 +7,7 @@ categories:
   - "information"
   - "spring-boot"
   - "spring-cloud"
+summary: "포트를 바꿔 가며 서비스에 요청하던 불편을 해결하려고 스프링 클라우드 게이트웨이로 요청 경로에 따라 API를 라우팅하는 기능을 구현했다."
 recommendedPosts:
   - title: "MSA API 게이트웨이(gateway)"
     href: "https://junhyunny.github.io/msa/msa-api-gateway/"
@@ -133,10 +134,10 @@ pom.xml 파일에 `spring-cloud-starter-gateway` 의존성을 추가한다.
   - 최종 목적지 URI
 - `predicates`
   - 요청을 최종 목적지 URI와 매칭시킬 조건
-  - 경로에 특정 키워드가 들어가는 경우 목적지 URI가 달라지도록 변경하였다.
+  - 경로에 특정 키워드가 들어가는 경우 목적지 URI가 달라지도록 변경했다.
 - `filters`
   - 요청 정보나 응답을 변경하는 방법
-  - 요청 경로를 변경하는 필터를 사용하였다.
+  - 요청 경로를 변경하는 필터를 사용했다.
   - 예를 들어 게이트웨이가 받은 요청 경로가 `/a-service/index`인 경우 `/index`로 변경하여 `http://localhost:8081`에게 전달한다.
 
 ```yml
@@ -160,7 +161,7 @@ spring:
             - RewritePath=/b-service/(?<path>.*),/$\{path}
 ```
 
-다음은 스프링 빈 객체로 라우트 정보를 제공해보자. 위에서 살펴본 `application.yml` 파일을 이용해 설정한 것과 동일한 결과를 가진다. 메서드로 구현하였지만, 빌더 패턴(builder pattern)을 사용하여 설정처럼 가독성이 높다.
+다음은 스프링 빈 객체로 라우트 정보를 제공해보자. 위에서 살펴본 `application.yml` 파일을 이용해 설정한 것과 동일한 결과를 가진다. 메서드로 구현했지만, 빌더 패턴(builder pattern)을 사용하여 설정처럼 가독성이 높다.
 
 ```java
 package blog.in.action.config;

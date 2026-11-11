@@ -6,6 +6,7 @@ canonicalPath: "/information/server/tomcat-session-management/"
 categories:
   - "information"
   - "server"
+summary: "톰캣 내부 코드를 따라가며 세션이 생성되고, 쿠키의 세션 ID로 획득되고, 백그라운드 스레드에 의해 만료되는 과정을 정리했다."
 recommendedPosts:
   - title: "쿠키(Cookie)와 세션(Session)"
     href: "https://junhyunny.github.io/information/cookie-and-session/"
@@ -17,7 +18,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-이번 시스템 리뉴얼 중인 프로젝트의 코드를 보면 많은 사용자 정보가 세션에 담겨 사용되고 있었다. 특히 로그인 성공 시 많은 데이터가 세션에 추가되는데, 모바일 로그인 기능을 추가하려면 세션 동작을 정확히 이해할 필요가 있을 것 같아서 정리해보았다. `Tomcat` 서버, `JSP` 기술 스택을 기준으로 분석하였다.
+이번 시스템 리뉴얼 중인 프로젝트의 코드를 보면 많은 사용자 정보가 세션에 담겨 사용되고 있었다. 특히 로그인 성공 시 많은 데이터가 세션에 추가되는데, 모바일 로그인 기능을 추가하려면 세션 동작을 정확히 이해할 필요가 있을 것 같아서 정리해봤다. `Tomcat` 서버, `JSP` 기술 스택을 기준으로 분석했다.
 
 ## 1. 세션(Session) 생성
 
@@ -33,15 +34,15 @@ recommendedPosts:
 처음 요청 시에는 없었던 쿠키 정보가 어느 시점에 생성되는지 디버깅(debugging)하여 코드를 살펴봤다. 프로세스 순서를 크게 나누면 다음과 같다.
 
 1. 컨트롤러(controller)에서 응답 값을 반환한다.
-2. `DispatcherServlet`에서 전달받은 페이지를 `JstlViewer` 객체를 이용하여 렌더링(rendering)한다.
+2. `DispatcherServlet`에서 전달받은 페이지를 `JstlView` 객체를 이용하여 렌더링(rendering)한다.
 3. 렌더링 수행 중 `JspServlet` 객체에 의해 PageContext 정보가 초기화되는 시점에 세션이 생성된다.
 4. 세션을 생성하고 세션 ID 정보를 응답 헤더에 쿠키로 담아 전달한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-02.png" width="55%" class="image__border image__padding">
-</div>
-<center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-02.png" width="55%" class="image__border image__padding">
+  </div>
+  <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 </div>
 
 세션(session) 생성 작업에 참여하는 주요 클래스들과 관련된 메서드는 어떤 것들이 있을까? Request 클래스의 doGetSession 메서드를 먼저 살펴보자. 이 메서드에서 세션 생성을 수행한다.
@@ -110,7 +111,7 @@ public class Response implements HttpServletResponse {
 
 ## 2. 세션(Session) 획득
 
-쿠키(Cookie)를 활용한 세션 ID 획득 과정을 살펴보자. 첫 페이지 요청 시 만들어진 세션 ID와 세션을 어떻게 획득하는지 확인해보았다. 세션 ID만 있다면 어디에서든 세션 정보를 꺼낼 수 있다. 톰캣 영역에서 세션 ID를 추출하는 과정을 디버깅을 통해 분석해보자.
+쿠키(Cookie)를 활용한 세션 ID 획득 과정을 살펴보자. 첫 페이지 요청 시 만들어진 세션 ID와 세션을 어떻게 획득하는지 확인해봤다. 세션 ID만 있다면 어디에서든 세션 정보를 꺼낼 수 있다. 톰캣 영역에서 세션 ID를 추출하는 과정을 디버깅을 통해 분석해보자.
 
 1. 세션 ID는 요청을 받은 시점에 요청 헤더에 들어간 쿠키 정보에서 추출한다.
 2. CoyoteAdapter 클래스의 postParseRequest 메서드에서 세션 ID를 추출한다.
@@ -119,10 +120,10 @@ public class Response implements HttpServletResponse {
 5. 요청 URL에서 추출하지 않는다면 parseSessionCookiesId 메서드를 통해 쿠키에서 세션 ID를 추출한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-03.png" width="55%" class="image__border image__padding">
-</div>
-<center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/tomcat-session-management-03.png" width="55%" class="image__border image__padding">
+  </div>
+  <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 </div>
 
 세션 ID를 획득하는 작업에 참여하는 주요 클래스들과 관련된 메서드는 어떤 것들이 있을까? CoyoteAdapter 클래스의 postParseRequest 메서드를 먼저 살펴보자. 이 메서드에서 쿠키로부터 세션 ID를 획득한다.
@@ -351,7 +352,7 @@ public class PageController {
 }
 ```
 
-필터, 인터셉터, 컨트롤러 영역에서 세션을 획득한 후 정상적으로 사용할 수 있는지 확인해보자. 테스트 방법은 다음과 같다. 필터, 인터셉터 그리고 컨트롤러에서 몇 회 접근하였는지 화면으로 표기한다. 쿠키에서 세션 ID를 삭제하는 경우 세션이 없다는 메시지가 출력된다.
+필터, 인터셉터, 컨트롤러 영역에서 세션을 획득한 후 정상적으로 사용할 수 있는지 확인해보자. 테스트 방법은 다음과 같다. 필터, 인터셉터 그리고 컨트롤러에서 몇 회 접근했는지 화면으로 표기한다. 쿠키에서 세션 ID를 삭제하는 경우 세션이 없다는 메시지가 출력된다.
 
 1. 두 개의 브라우저를 이용하여 페이지를 요청한다. (Chrome, Edge)
 2. 화면을 새로고침(F5)하여 서버에 페이지를 요청한다.

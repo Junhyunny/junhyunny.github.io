@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "test-container"
   - "aws"
+summary: "만료되는 S3 목 라이브러리를 대신해 MinIO 테스트 컨테이너로 스프링 애플리케이션과 AWS S3의 결합 테스트를 구축하는 방법을 정리했다."
 recommendedPosts:
   - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
@@ -54,7 +55,7 @@ dependencies {
 
 ## 3. Implementation code
 
-테스트 코드로 검증하고 싶은 테스트 대상 구현 코드를 살펴본다. S3Client 객체를 만드는 설정 빈(bean) 객체는 다음과 같다.
+테스트 코드로 검증하고 싶은 테스트 대상 구현 코드를 살펴보자. S3Client 객체를 만드는 설정 빈(bean) 객체는 다음과 같다.
 
 ```java
 package action.in.blog.config;
@@ -173,7 +174,7 @@ public class FileUploader {
 
 ## 4. Test code
 
-이제 테스트 코드를 살펴보자. 코드를 각 부분으로 나눠서 살펴본다. 설명은 주석으로 대체한다.
+이제 테스트 코드를 각 부분으로 나눠서 살펴보자. 설명은 주석으로 대체한다.
 
 ```java
 package action.in.blog;
@@ -251,7 +252,7 @@ class ActionInBlogApplicationTests {
                                 .build()
                 );
         
-        // 테스트 대상 객체와 협력하는 S3Client 객체가 의도한 설정대로 MinIO 테스트 컨테이너와 연결하여 파일을 저장하는지 테스트 코드에서 확인하기 위해 별도로 별도로 S3Client 객체를 준비한다. 
+        // 테스트 대상 객체와 협력하는 S3Client 객체가 의도한 설정대로 MinIO 테스트 컨테이너와 연결하여 파일을 저장하는지 테스트 코드에서 확인하기 위해 별도로 S3Client 객체를 준비한다. 
         s3Client = S3Client.builder()
                 .region(Region.of("ap-northeast-1"))
                 .endpointOverride(URI.create("http://localhost:" + container.getMappedPort(9000)))

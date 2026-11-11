@@ -8,6 +8,7 @@ categories:
   - "aws-sam-cli"
   - "event-bridge"
   - "lambda"
+summary: "S3에 PDF 파일이 업로드되면 여러 람다가 이벤트를 받도록 AWS SAM 템플릿으로 EventBridge 규칙과 람다를 결합하고 배포한 과정을 정리했다."
 recommendedPosts:
   - title: "AWS SAM(Serverless Application Model) 개념과 CLI 예제"
     href: "https://junhyunny.github.io/aws/aws-sam-cli/api-gateway/lambda/aws-sam-cli/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 1. Context
 
-최근 서포트 했던 팀은 PDF를 이미지로 만드는 작업이 필요했다. PDF 파일 용량이 20MB~30MB 정도로 컸기 때문에 S3에 업로드하면 오브젝트 생성 이벤트를 AWS 람다(lambda)에서 수신해서 처리하기러 했다. S3에 파일을 업로드 했을 때 람다에서 이벤트를 수신 받을 수 있는 방법은 두 가지 있다.
+최근 서포트 했던 팀은 PDF를 이미지로 만드는 작업이 필요했다. PDF 파일 용량이 20MB~30MB 정도로 컸기 때문에 S3에 업로드하면 오브젝트 생성 이벤트를 AWS 람다(lambda)에서 수신해서 처리하기로 했다. S3에 파일을 업로드 했을 때 람다에서 이벤트를 수신 받을 수 있는 방법은 두 가지 있다.
 
 - S3 이벤트 알림(event notification)
   - S3 버킷에서 직접 람다 함수를 이벤트 수신 대상으로 지정한다.
@@ -23,12 +24,12 @@ recommendedPosts:
   - S3 이벤트를 이벤트 브릿지에 전달한다.
   - 이벤트 브릿지는 지정된 규칙에 따라 람다로 이벤트를 전달한다.
 
-파일 업로드 이벤트가 하나의 람다가 아닌 다른 람다에서도 필요했다. 아쉽게도 S3 이벤트 알림은 하나의 이벤트를 동시에 여러 대상에 전송할 수 없기 때문에 이벤트 브릿지를 사용했다. AWS EventBridge는 서버리스 이벤트 버스 서비스로 애플리케이션 간이 이벤트 기반 통합(evnet driven integration)을 코드 없이 쉽게 구현할 수 있도록 돕는 컴포넌트다. 작성한 규칙에 따라 지정된 타겟으로 이벤트를 전달한다. 
+파일 업로드 이벤트가 하나의 람다가 아닌 다른 람다에서도 필요했다. 아쉽게도 S3 이벤트 알림은 하나의 이벤트를 동시에 여러 대상에 전송할 수 없기 때문에 이벤트 브릿지를 사용했다. AWS EventBridge는 서버리스 이벤트 버스 서비스로 애플리케이션 간의 이벤트 기반 통합(event driven integration)을 코드 없이 쉽게 구현할 수 있도록 돕는 컴포넌트다. 작성한 규칙에 따라 지정된 타겟으로 이벤트를 전달한다. 
 
 최종적으로 필요한 구조는 다음과 같다.
 
 - S3 스토리지에 PDF 파일을 업로드한다.
-- PDF 파일 업로드 되면 경우 지정된 타겟 람다 애플리케이션으로 이벤트를 전달한다.
+- PDF 파일이 업로드되는 경우 지정된 타겟 람다 애플리케이션으로 이벤트를 전달한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-01.png" width="100%" class="image__border">
@@ -36,7 +37,7 @@ recommendedPosts:
 
 ## 2. Template for AWS SAM CLI
 
-IaC(infrastructure as code)로 [AWS SAM(Serverless Application Model)][aws-sam-cli-link]를 사용했다. 위에서 언급한 구조를 만들기 위한 예제 코드를 살펴보자. 간소화 된 프로젝트를 구조는 다음과 같다.
+IaC(infrastructure as code)로 [AWS SAM(Serverless Application Model)][aws-sam-cli-link]를 사용했다. 위에서 언급한 구조를 만들기 위한 예제 코드를 살펴보자. 간소화 된 프로젝트 구조는 다음과 같다.
 
 - target-1, target-2 디렉토리에는 람다 핸들러가 포함된다.
 
@@ -226,7 +227,7 @@ Successfully created/updated stack - sam-app in ap-northeast-1
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-02.png" width="100%" class="image__border">
 </div>
 
-람다 리소스 하위 이벤트에 직접 규칙을 설정하면 각 람다에 대한 허가(permission)과 규칙(rule)이 별도로 생성된다.
+람다 리소스 하위 이벤트에 직접 규칙을 설정하면 각 람다에 대한 허가(permission)와 규칙(rule)이 별도로 생성된다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-03.png" width="100%" class="image__border">

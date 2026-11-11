@@ -7,6 +7,7 @@ categories:
   - "ai"
   - "large-language-model"
   - "langchain"
+summary: "LLM 애플리케이션 개발 프레임워크인 랭체인의 구성과 패키지를 살펴보고, ollama로 실행한 llama3.2 모델에 프롬프트 템플릿을 연결하는 간단한 체인 예제를 정리했다."
 recommendedPosts:
   - title: "LangChain 검색 증강 생성(RAG, Retrieval-Augmented Generation)"
     href: "https://junhyunny.github.io/ai/llms/large-language-model/langchain/rag/retrieval-argumented-generation/rag-with-langchain/"
@@ -34,7 +35,7 @@ recommendedPosts:
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-01.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-01.png" width="100%" class="image__border">
   </div>
   <center>https://python.langchain.com/docs/introduction/</center>
 </div>
@@ -96,7 +97,7 @@ $ docker exec -it ollama ollama run llama3.2
 3. LLM 호출 결과를 문자열 파서(parser)에게 전달한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-02.png" width="100%" class="image__border">
 </div>
 
 다음과 같은 컴포넌트를 임포트(import)한다.

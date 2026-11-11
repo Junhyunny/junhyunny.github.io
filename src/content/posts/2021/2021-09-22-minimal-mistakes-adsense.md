@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/minimal-mistakes-adsense/"
 categories:
   - "information"
+summary: "minimal-mistakes 테마의 깃허브 블로그에 구글 애드센스 코드를 추가하고 승인받기까지의 과정을 정리했다."
 recommendedPosts:
   - title: "GitHub 블로그 구글 애드센스 광고 위치 설정"
     href: "https://junhyunny.github.io/information/adsense-position-setting-minimal-mistakes/"
@@ -25,7 +26,7 @@ recommendedPosts:
 구글 애드센스에 가입 정보를 입력한다.
 
 - `웹사이트` 항목에 본인이 운영 중인 블로그 주소를 추가한다.
-  - 중복되는 URL은 입력할 수 없어서 예시 URL으로 GitHub 주소를 사용했다.
+  - 중복되는 URL은 입력할 수 없어서 예시 URL로 GitHub 주소를 사용했다.
 - `이메일 주소`에는 사용 중인 구글 이메일 주소를 입력한다.
 - `애드센스 정보 수신`은 직접 선택한다.
 - `저장하고 계속하기` 버튼을 누른 후 기타 부가적인 정보들을 입력한다.
@@ -66,7 +67,7 @@ recommendedPosts:
 
 필자는 블로그의 글들이 많았고 컨텐츠도 충분히 퀄리티가 있다고 생각했지만, 계속 승인이 거부됐다. 다음과 같은 두 작업을 추가적으로 수행하니 성공했다.
 
-- 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라했다. 
+- 참조한 글에는 `/_layouts/default.html` 파일에 애드센스 코드를 추가했다고 설명되어 있어서 이를 따라 했다. 
   - 하지만 해당 영역은 HTML 파일의 바디(body)이므로 구글 애드센스에서 요구하는 헤드(head) 영역은 아니다.
 - 애드센스 스크립트 코드를 아래와 같이 변경하여 `/_includes/head/custom.html` 파일에 추가했다.
   - 구글 애드센스 객체에 필자의 클라이언트 아이디를 추가하는 스크립트로 변경 후 추가한다.
@@ -88,7 +89,7 @@ recommendedPosts:
 
 ## 3. Waiting and Approval
 
-결과가 승인되는데 1주 정도 시간이 소요된다.
+결과가 승인되는 데 1주 정도 시간이 소요된다.
 
 - 대기 중인 사이트는 `준비 중...` 이라고 표시된다.
 - 승인된 사이트는 `준비됨` 이라고 표시된다.

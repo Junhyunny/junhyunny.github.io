@@ -10,6 +10,7 @@ categories:
   - "aws"
   - "bedrock"
   - "ai-agent"
+summary: "AWS Bedrock 에이전트의 구성 요소를 살펴보고, AWS CLI로 에이전트를 생성, 준비, 별칭 배포한 뒤 파이썬 애플리케이션에서 호출하고 업데이트하는 예제를 정리했다."
 recommendedPosts:
   - title: "AWS Bedrock 멀티 에이전트(multi-agent) 예제"
     href: "https://junhyunny.github.io/ai/llms/large-language-model/aws/bedrock/ai-agent/multi-agent/architecture/multi-agent-with-aws-bedrock/"

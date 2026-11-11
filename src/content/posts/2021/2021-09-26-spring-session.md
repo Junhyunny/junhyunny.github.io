@@ -6,6 +6,7 @@ canonicalPath: "/information/spring-boot/spring-session/"
 categories:
   - "information"
   - "spring-boot"
+summary: "서로 다른 서버 애플리케이션이 세션을 공유할 수 있도록 스프링 세션 JDBC로 세션 정보를 데이터베이스에 저장하는 예제를 구현했다."
 recommendedPosts:
   - title: "쿠키(Cookie)와 세션(Session)"
     href: "https://junhyunny.github.io/information/cookie-and-session/"

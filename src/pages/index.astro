@@ -31,7 +31,7 @@ const lead = postDetails(featured);
           {lead.summary && <p>{lead.summary}</p>}
         </article>
         <ul class="entries">
-          {latest.slice(0, 2).map((post) => {
+          {latest.slice(0, 4).map((post) => {
             const details = postDetails(post);
             return (
               <li>

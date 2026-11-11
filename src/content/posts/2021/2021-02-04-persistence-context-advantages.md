@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "영속성 컨텍스트가 제공하는 1차 캐싱, 쓰기 지연, 변경 감지 같은 특징이 어떻게 동작하고 어떤 장점을 주는지 정리했다."
 recommendedPosts:
   - title: "트랜잭션 격리성(transaction isolation) 특징"
     href: "https://junhyunny.github.io/information/transcation-isolation/"

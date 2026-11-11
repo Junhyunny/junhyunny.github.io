@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/jpa/java-persistence-api/"
 categories:
   - "spring-boot"
   - "jpa"
+summary: "자바 애플리케이션에서 관계형 데이터베이스를 다루는 표준인 JPA의 개념과 이를 한 단계 더 추상화한 Spring Data JPA의 구조를 정리했다."
 recommendedPosts:
   - title: "영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/"

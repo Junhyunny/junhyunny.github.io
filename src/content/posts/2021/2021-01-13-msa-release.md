@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/msa/msa-release/"
 categories:
   - "msa"
+summary: "롤링, 카나리, A/B 테스팅, 블루-그린, 트래픽 섀도잉 등 마이크로서비스 아키텍처에서 사용하는 배포 전략의 특징과 차이를 정리했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"

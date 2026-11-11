@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/msa/msa-api-gateway/"
 categories:
   - "msa"
+summary: "여러 서비스로 분산된 마이크로서비스 아키텍처에서 클라이언트 요청의 진입점 역할을 하는 API 게이트웨이의 주요 기능을 간략하게 정리했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"

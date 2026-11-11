@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/json-web-token/"
 categories:
   - "information"
+summary: "JWT의 헤더, 페이로드, 시그너처 구조와 인코딩 방식을 설명하고, 일반 토큰 방식과 비교해 JWT를 이용한 인증, 인가 과정을 정리했다."
 recommendedPosts:
   - title: "RFC 4648 - Base64 인코딩(encoding)"
     href: "https://junhyunny.github.io/information/base-64-encode-and-decode/"

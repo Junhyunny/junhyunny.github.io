@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/what-is-ci-cd/"
 categories:
   - "information"
+summary: "애플리케이션 개발 단계를 자동화하는 CI/CD의 개념을 지속적인 통합, 지속적인 제공, 지속적인 배포로 나누어 각각의 장점과 도구를 정리했다."
 recommendedPosts:
   - title: "젠킨스(Jenkins) 설치"
     href: "https://junhyunny.github.io/information/jenkins/jenkins-install/"

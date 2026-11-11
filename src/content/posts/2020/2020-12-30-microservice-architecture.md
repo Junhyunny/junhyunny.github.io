@@ -6,6 +6,7 @@ canonicalPath: "/information/msa/microservice-architecture/"
 categories:
   - "information"
   - "msa"
+summary: "모놀리식 아키텍처와 비교해 마이크로서비스 아키텍처의 특징과 원칙을 정리하고, MSA 전환 프로젝트에서 겪은 문제와 비즈니스 도메인 이해의 중요성을 기록했다."
 recommendedPosts:
   - title: "MSA API 게이트웨이(gateway)"
     href: "https://junhyunny.github.io/msa/msa-api-gateway/"

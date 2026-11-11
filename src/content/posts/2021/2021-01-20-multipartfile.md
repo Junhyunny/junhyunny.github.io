@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/vue.js/multipartfile/"
 categories:
   - "spring-boot"
   - "vue.js"
+summary: "Vue.js 화면과 스프링 서버를 만들어 MultipartFile 인터페이스로 파일을 업로드하는 예제를 구현하고, 업로드 용량 초과 예외를 설정으로 해결하는 방법을 다룬다."
 recommendedPosts:
   - title: "스프링 DTO(Data Transfer Object) 객체와 파일 업로드"
     href: "https://junhyunny.github.io/spring-boot/vue.js/multipartfile-in-dto/"

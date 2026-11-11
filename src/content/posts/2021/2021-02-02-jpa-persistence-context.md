@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "EntityManager와 영속성 컨텍스트의 개념, 엔티티 생명주기를 설명하고 persist, remove 등 메서드 동작을 테스트 코드로 확인했다."
 recommendedPosts:
   - title: "JPA(Java Persistence API)"
     href: "https://junhyunny.github.io/spring-boot/jpa/java-persistence-api/"

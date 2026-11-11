@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/cqrs-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "마틴 파울러의 글을 바탕으로 명령과 조회의 책임을 분리하는 CQRS 패턴의 필요성과 코드, 서비스, 데이터베이스 수준의 구현 방식, 적용 시점을 정리했다."
 ---
 
 ## 0. 들어가면서

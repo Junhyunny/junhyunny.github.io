@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/transcation-isolation/"
 categories:
   - "information"
+summary: "더티 리드, 비반복 읽기, 팬텀 리드 같은 문제를 기준으로 네 가지 트랜잭션 격리 수준의 차이를 설명하고 표로 정리했다."
 recommendedPosts:
   - title: "트랜잭션(transaction) ACID 특징"
     href: "https://junhyunny.github.io/information/database/acid/transaction/transcation-acid/"

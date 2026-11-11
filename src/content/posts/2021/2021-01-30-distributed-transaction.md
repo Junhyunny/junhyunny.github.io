@@ -6,6 +6,7 @@ canonicalPath: "/msa/design-pattern/distributed-transaction/"
 categories:
   - "msa"
   - "design-pattern"
+summary: "MSA 환경에서 분산 트랜잭션이 어려운 이유와 2단계 커밋의 한계를 살펴보고, 오케스트레이션과 코리오그래피 방식의 사가 패턴과 고려 사항을 정리했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"

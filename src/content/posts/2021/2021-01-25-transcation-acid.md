@@ -8,6 +8,7 @@ categories:
   - "database"
   - "acid"
   - "transaction"
+summary: "하나의 논리적인 작업 단위인 트랜잭션의 개념과 원자성, 일관성, 격리성, 지속성으로 이뤄진 ACID 특징을 정리했다."
 recommendedPosts:
   - title: "트랜잭션 격리성(transaction isolation) 특징"
     href: "https://junhyunny.github.io/information/transcation-isolation/"

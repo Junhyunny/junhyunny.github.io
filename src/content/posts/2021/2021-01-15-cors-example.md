@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/vue.js/cors-example/"
 categories:
   - "spring-boot"
   - "vue.js"
+summary: "스프링 서버에서 @CrossOrigin 애너테이션, 전역 CORS 설정, CorsFilter 세 가지 방법으로 CORS 응답 헤더를 추가하고 도커 컴포즈로 동작을 확인했다."
 recommendedPosts:
   - title: "CORS(Cross Origin Resource Sharing)"
     href: "https://junhyunny.github.io/information/cors/"

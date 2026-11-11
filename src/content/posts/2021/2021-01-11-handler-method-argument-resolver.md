@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/handler-method-argument-resolver/"
 categories:
   - "spring-boot"
+summary: "HandlerMethodArgumentResolver가 호출되는 시점을 살펴보고, 쿼리 파라미터의 날짜 문자열을 LocalDate 객체로 바꾸는 리졸버를 구현하는 예제를 다룬다."
 ---
 
 ## 1. HandlerMethodArgumentResolver Interface

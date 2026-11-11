@@ -73,9 +73,8 @@ const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
           <span>강준현</span>
           <time datetime={details.date}>{details.label}</time>
         </div>
-        <ul class="taxonomy" aria-label="카테고리 및 태그">
+        <ul class="taxonomy" aria-label="카테고리">
           {entry.data.categories.map((category) => <li data-pagefind-filter="category">{category}</li>)}
-          {entry.data.tags?.map((tag) => <li data-pagefind-filter="tag">{tag}</li>)}
         </ul>
       </header>
       <aside class="desktop-outline" data-pagefind-ignore>

@@ -8,7 +8,6 @@ const entry = z.object({
   updatedAt: z.string().datetime({ offset: true }),
   canonicalPath: z.string().regex(/^\/(?:[^/\s]+\/)+$/),
   categories: z.array(z.string()).min(1),
-  tags: z.array(z.string()).optional(),
   summary: z.string().optional(),
   hidden: z.boolean().optional(),
   recommendedPosts: z.array(z.object({ title: z.string(), href: z.string() })).optional(),

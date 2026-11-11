@@ -9,7 +9,6 @@ const entries = posts.map((post) => ({ ...postDetails(post), ...post.data }));
 const years = [...new Set(entries.map((entry) => entry.year))];
 const latestYear = years[0];
 const categories = [...new Set(entries.flatMap((entry) => entry.categories))].sort((a, b) => a.localeCompare(b));
-const tags = [...new Set(entries.flatMap((entry) => entry.tags ?? []))].sort((a, b) => a.localeCompare(b));
 const initial = entries.filter((entry) => entry.year === latestYear);
 ---
 <Base page="archive" title="Archive" description="카테고리와 연도로 찾아보는 기술 글 아카이브">
@@ -31,12 +30,6 @@ const initial = entries.filter((entry) => entry.year === latestYear);
               {years.map((year) => <option value={year} selected={year === latestYear}>{year}</option>)}
             </select>
           </label>
-          {tags.length > 0 && <label>태그
-            <select name="tag">
-              <option value="">모든 태그</option>
-              {tags.map((tag) => <option value={tag}>{tag}</option>)}
-            </select>
-          </label>}
           <button class="text-link reset-filters" type="reset">필터 초기화</button>
         </form>
         <p class="preview-note">기술 글 {entries.length}편을 연도와 카테고리로 찾아볼 수 있습니다.</p>
@@ -48,7 +41,7 @@ const initial = entries.filter((entry) => entry.year === latestYear);
             <h2 id={`year-${year}`}>{year}</h2>
             <ul class="entries">
               {entries.filter((entry) => entry.year === year).map((entry) => (
-                <li data-category={JSON.stringify(entry.categories)} data-tags={JSON.stringify(entry.tags ?? [])} data-year={year}>
+                <li data-category={JSON.stringify(entry.categories)} data-year={year}>
                   <div class="entry-meta"><span>{entry.categories[0]}</span><time datetime={entry.date}>{entry.label}</time></div>
                   <h3><a href={entry.href}>{entry.title}<span class="entry-arrow" aria-hidden="true">→</span></a></h3>
                   {entry.summary && <p>{entry.summary}</p>}
@@ -76,7 +69,7 @@ const initial = entries.filter((entry) => entry.year === latestYear);
   const pageStatus = document.querySelector('.archive-page-status');
   const latestYear = filters?.dataset.latestYear ?? '';
   const pageSize = Number(filters?.dataset.pageSize ?? 20);
-  const fields = ['category', 'year', 'tag'] as const;
+  const fields = ['category', 'year'] as const;
   let page = 1;
 
   // URL의 필터와 페이지를 폼에 반영한다. 연도가 없으면 최신 연도를 연다.
@@ -113,14 +106,12 @@ const initial = entries.filter((entry) => entry.year === latestYear);
     const values = new FormData(filters);
     const category = String(values.get('category') ?? '');
     const year = String(values.get('year') ?? '');
-    const tag = String(values.get('tag') ?? '');
     const matches: HTMLLIElement[] = [];
 
     groups.forEach((group) => {
       group.querySelectorAll<HTMLLIElement>('[data-year]').forEach((entry) => {
         const match = (!year || entry.dataset.year === year) &&
-          (!category || (JSON.parse(entry.dataset.category ?? '[]') as string[]).includes(category)) &&
-          (!tag || (JSON.parse(entry.dataset.tags ?? '[]') as string[]).includes(tag));
+          (!category || (JSON.parse(entry.dataset.category ?? '[]') as string[]).includes(category));
         entry.hidden = true;
         if (match) matches.push(entry);
       });

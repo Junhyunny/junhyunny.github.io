@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getPosts, liveSite, siteName } from '../posts';
 
-// 기존 Jekyll feed.xml과 같은 주소·형식: 최신 기술 글 10편, 본문 전체, 카테고리·태그.
+// 기존 Jekyll feed.xml과 같은 주소·형식: 최신 기술 글 10편, 본문 전체, 카테고리.
 const escape = (value: string) =>
   value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
 const rfc822 = (value: string | Date) => new Date(value).toUTCString();
@@ -10,7 +10,7 @@ export const GET: APIRoute = async () => {
   const posts = (await getPosts()).slice(0, 10);
   const items = posts.map(({ data, rendered }) => {
     const link = new URL(data.canonicalPath, liveSite).href;
-    const categories = [...(data.tags ?? []), ...data.categories].map((name) => `      <category>${escape(name)}</category>`);
+    const categories = data.categories.map((name) => `      <category>${escape(name)}</category>`);
     return `    <item>
       <title>${escape(data.title)}</title>
       <description>${escape(rendered?.html ?? data.summary ?? '')}</description>

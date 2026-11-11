@@ -25,6 +25,7 @@ npm run preview
 | --- | --- |
 | `src/content/posts`, `logs`, `books` | 기술 글, 회고, 독서 기록 (Markdown) |
 | `src/content/pages/about.md` | About 상세 이력 |
+| `templates/post.md` | 새 기술 글 템플릿 (빌드에 포함되지 않음) |
 | `src/pages` | 페이지와 `sitemap.xml`, `feed.xml` 생성 |
 | `src/components/third-party` | GA4, 애드센스 |
 | `public` | 사이트 루트로 그대로 나가는 파일 (검색 엔진 인증 HTML, `robots.txt`, `ads.txt`) |
@@ -32,7 +33,7 @@ npm run preview
 
 ## 새 글 작성
 
-`src/content/posts/<연도>/<YYYY-MM-DD>-<slug>.md`에 작성합니다. 필드는 `src/content.config.ts`에서 검증합니다.
+`templates/post.md`를 `src/content/posts/<연도>/<YYYY-MM-DD>-<slug>.md`로 복사해 작성합니다. 필드는 `src/content.config.ts`에서 검증합니다.
 
 ```markdown
 ---
@@ -42,8 +43,6 @@ updatedAt: "2026-10-31T23:30:18+09:00"
 canonicalPath: "/kotlin/coroutine/kotlin-coroutine-architecture/"
 categories:
   - kotlin
-tags:            # 선택
-  - coroutine
 summary: "..."   # 선택
 recommendedPosts: # 선택, '함께 읽으면 좋은 글'에 먼저 표시
   - title: "..."

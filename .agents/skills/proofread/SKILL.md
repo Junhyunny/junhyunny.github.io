@@ -15,8 +15,9 @@ compatibility: Designed for Claude Code
 - 글쓴이의 사실, 주장, 경험, 말투를 지킵니다. 글에 없는 사실, 수치, 일화를 지어내지 않습니다. 뜻이 바뀔 수 있으면 고치지 않고 보고합니다.
 - 문단과 섹션의 순서는 필요할 때만 바꿉니다.
 - 다음은 아래 단계에서 정한 경우가 아니면 고치지 않습니다: 코드 블록과 인라인 코드 안의 내용, URL, 링크 정의의 식별자(`[cors-link]: ...`), HTML 속성과 클래스 이름, CodePen 삽입 코드, 고유명사.
-- frontmatter의 `title`, `canonicalPath`, `categories`, `tags`는 고치지 않습니다. `title`의 오타는 보고만 합니다. (예외: 1단계 `PROMPT`, 9단계 새 글)
+- frontmatter의 `title`, `canonicalPath`, `categories`는 고치지 않습니다. `title`의 오타는 보고만 합니다. (예외: 1단계 `PROMPT`, 9단계 새 글)
 - 날짜 필드와 파일 이름은 9단계 규칙으로만 바꿉니다.
+- `templates/post.md`에서 시작한 글은 첨삭할 때 `<!-- -->` 안내 주석, 주석 처리한 채 남은 frontmatter 예시(`# recommendedPosts:` 등), 내용이 없는 소제목, 자리표시자(`YYYY`, `slug`, `참고-자료-주소`)만 남은 `TEST CODE REPOSITORY`와 `REFERENCE` 섹션을 지웁니다.
 
 ## 1. PROMPT 지시문 처리
 
@@ -130,7 +131,7 @@ compatibility: Designed for Claude Code
 
 ## 10. 확인과 보고
 
-1. 코드 블록 밖에 처리하지 않은 `PROMPT(`, `-습니다`, `-입니다`, `-요.`, `-요?`로 끝나는 문장, 1인칭 `저`, `제가`, `{{ site.`, `<p align`, `![`, 간격용 `<br`, `RECOMMEND POSTS`, `*` 목록 기호가 남았는지 검색합니다.
+1. 코드 블록 밖에 처리하지 않은 `PROMPT(`, `<!--`, 자리표시자(`YYYY`, `slug`, frontmatter의 `"카테고리"`), `-습니다`, `-입니다`, `-요.`, `-요?`로 끝나는 문장, 1인칭 `저`, `제가`, `{{ site.`, `<p align`, `![`, 간격용 `<br`, `RECOMMEND POSTS`, `*` 목록 기호가 남았는지 검색합니다.
 2. 새로 쓰거나 바꾼 이미지 주소마다 `curl -sI`로 확인합니다. 빌드는 없는 이미지를 잡아 주지 않으므로, 200이 아니면 저장소에 파일이 없는 것으로 알려 줍니다.
 3. `npm run build`를 실행해 오류와 경고가 없는지 확인합니다.
 4. 루트의 `proofread-todo.md`에 이 글이 있으면 `- [ ]`를 `- [x]`로 바꿉니다.

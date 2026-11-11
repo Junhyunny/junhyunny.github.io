@@ -8,6 +8,7 @@ categories:
   - "design-pattern"
   - "unit-of-work-pattern"
   - "transaction"
+summary: "영속성 계층에서 커밋하던 FastAPI 토이 프로젝트에 비동기 컨텍스트 매니저 기반 작업 단위(UnitOfWork) 패턴을 적용해 서비스 계층에서 트랜잭션 경계를 관리하는 방법을 정리했다."
 recommendedPosts:
   - title: "파이썬 컨텍스트 매니저(Context Manager)와 with 키워드"
     href: "https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/"

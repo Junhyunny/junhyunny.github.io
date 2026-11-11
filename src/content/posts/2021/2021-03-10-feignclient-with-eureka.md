@@ -34,7 +34,7 @@ recommendedPosts:
 - `서비스A`는 응답받은 `서비스B`의 상태와 자신의 상태를 사용자에게 함께 전달한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/feignclient-with-eureka-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/feignclient-with-eureka-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.1. Setup Service A

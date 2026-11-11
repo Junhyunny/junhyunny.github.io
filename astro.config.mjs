@@ -34,6 +34,35 @@ function labelExampleRepository(link) {
   link.data = { ...link.data, meta: 'GitHub · 예제 코드' };
 }
 
+// 번호 목록 아래 2칸 들여쓴 하위 목록·코드 블록·문단을 바로 앞 번호 항목 안으로 넣는다.
+// CommonMark는 번호 너비("1. "은 3칸)만큼 들여써야 하위 내용으로 보므로, 2칸이면 목록이 끊기고 번호가 다시 시작된다.
+function nestUnderOrderedItems() {
+  return (tree) => {
+    visit(tree, (parent) => {
+      const children = parent.children;
+      if (!children) return;
+      for (let i = 0; i < children.length; i++) {
+        const list = children[i];
+        if (list.type !== 'list' || !list.ordered || !list.position) continue;
+        const column = list.position.start.column;
+        while (i + 1 < children.length) {
+          const node = children[i + 1];
+          const nodeColumn = node.position?.start.column ?? column;
+          if (node.type === 'list' && node.ordered && nodeColumn === column && node.start === list.start + list.children.length) {
+            list.children.push(...node.children);
+            list.spread ||= node.spread;
+          } else if (nodeColumn > column) {
+            list.children.at(-1).children.push(node);
+          } else {
+            break;
+          }
+          children.splice(i + 1, 1);
+        }
+      }
+    });
+  };
+}
+
 // 소제목과 바로 뒤 목록에 클래스를 붙여 CSS가 제목 id나 형제 선택자에 의존하지 않게 한다.
 function markLinkLists() {
   return (tree) => {
@@ -77,7 +106,7 @@ export default defineConfig({
   trailingSlash: 'always',
   markdown: {
     // 한국어 조사가 붙은 강조(**'인용'**라는, **용어(Term)**는)를 Jekyll(kramdown)처럼 처리한다.
-    remarkPlugins: [remarkCjkFriendly, markLinkLists, formatAboutResume],
+    remarkPlugins: [remarkCjkFriendly, nestUnderOrderedItems, markLinkLists, formatAboutResume],
     shikiConfig: { theme: 'github-dark-dimmed' },
   },
 });

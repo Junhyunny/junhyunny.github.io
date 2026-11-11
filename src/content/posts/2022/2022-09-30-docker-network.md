@@ -1,28 +1,29 @@
 ---
 title: "도커 네트워크"
 publishedAt: "2022-09-30"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-11T22:58:57+09:00"
 canonicalPath: "/docker/docker-network/"
 categories:
   - "docker"
+summary: "도커 네트워크의 토폴로지와 드라이버를 살펴보고, 커스텀 브릿지로 프론트엔드와 백엔드 컨테이너를 연결하는 방법과 디폴트 브릿지의 제약을 정리했다."
 ---
 
 ## 1. Isolated Docker Containers
 
-도커(docker) 네트워크에 대해 알아보기 전에 도커 네트워크가 없다면 어떤 문제가 발생하는지 살펴보겠다. 도커 컨테이너는 격리된 환경에서 동작하기 때문에 기본적으로 다른 컨테이너와 통신이 불가능하다. 다음과 같은 상황을 예시로 들어보겠다.
+도커(docker) 네트워크에 대해 알아보기 전에 도커 네트워크가 없다면 어떤 문제가 발생하는지 살펴보자. 도커 컨테이너는 격리된 환경에서 동작하기 때문에 기본적으로 다른 컨테이너와 통신이 불가능하다. 다음과 같은 상황을 예로 들 수 있다.
 
 - `frontend` 컨테이너의 리액트 애플리케이션은 `backend` 컨테이너의 스프링 애플리케이션으로부터 데이터를 받고 싶다.
-- 리액트 애플리케이션에서 `http://backend:8080/todos`으로 데이터를 요청한다.
+- 리액트 애플리케이션에서 `http://backend:8080/todos`로 데이터를 요청한다.
 - `frontend` 컨테이너는 `backend`라는 도메인 주소를 찾을 수 없다.
 - 데이터 요청은 실패한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Docker Network
 
-도커 네트워크는 격리된 컨테이너들의 통신을 돕는 논리적인 가상 인터페이스이며, 이를 통해 가상 네트워크 토폴로지(topology)를 구축할 수 있다. 도커 데몬(daemon)을 실행하면 다음과 같은 네트워크들이 기본적으로 함께 생성된다.
+도커 네트워크는 격리된 컨테이너끼리 통신할 수 있게 돕는 논리적인 가상 인터페이스이며, 이를 통해 가상 네트워크 토폴로지(topology)를 구축할 수 있다. 도커 데몬(daemon)을 실행하면 다음과 같은 네트워크들이 기본적으로 함께 생성된다.
 
 ```
 $ docker network ls
@@ -35,31 +36,31 @@ d8cd79053c56   bridge    bridge    local
 
 ### 2.1. Docker Network Topology
 
-도커 네트워크의 디폴트 브릿지(bridge)를 기준으로 살펴보겠다. 브릿지는 동일한 호스트에서 동작하는 서로 다른 컨테이너들 사이의 통신을 위해 사용된다.
+도커 네트워크의 디폴트 브릿지(bridge)를 기준으로 살펴보자. 브릿지는 동일한 호스트에서 동작하는 서로 다른 컨테이너들 사이의 통신을 위해 사용된다.
 
 - 도커 데몬을 실행하면 기본적으로 `docker0`라는 도커 브릿지 가상 인터페이스가 추가된다.
 - 새로운 컨테이너를 실행할 때마다 해당 컨테이너와 연결하기 위한 가상 인터페이스가 호스트 네트워크 스택에 추가된다.
   - 이름이 `veth(virtual ethernet)`으로 시작한다.
 - 격리된 네트워크 환경을 지닌 컨테이너는 내부에 개인 인터페이스와 루프백 인터페이스를 가진다.
-  - 개인 인터페이스는 이름이 `eth`으로 시작하며, 호스트의 가상 인터페이스(veth)와 연결을 위해 사용한다.
-  - 루프백 인터페이스는 다른 프로세스와 연결할 때 사용하지 않고, 동일 컨테이너에 다른 프로그램과 연결할 때 사용한다.
+  - 개인 인터페이스는 이름이 `eth`으로 시작하며, 호스트의 가상 인터페이스(veth)와 연결하는 데 사용한다.
+  - 루프백 인터페이스는 다른 컨테이너의 프로세스가 아니라 같은 컨테이너 안의 다른 프로그램과 통신할 때 사용한다.
 - 컨테이너의 개인 인터페이스(eth)와 호스트의 가상 인터페이스(veth)가 서로 연결된다.
 - 컨테이너와 연결된 가상 인터페이스(veth)는 도커 브릿지 가상 인터페이스(docker0)와 연결된다.
 - 도커 브릿지 가상 인터페이스(docker0)는 호스트의 네트워크 인터페이스에 연결된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-02.png" width="100%" class="image__border">
 </div>
 <center>Docker in Action</center>
 
 ### 2.2. Docker Network Drivers
 
-도커 네트워크 드라이버는 여러 가지 종류가 있다. 각 타입 별로 어떤 기능을 하는지 간략하게 알아보겠다.
+도커 네트워크 드라이버는 여러 가지 종류가 있다. 타입별로 어떤 기능을 하는지 간략하게 알아보자.
 
 - bridge
   - 디폴트 네트워크 드라이버다.
   - 특별히 드라이버를 지정하지 않으면 `bridge` 드라이버로 생성된다.
-  - 독립적으로 실행되는 컨테이너들 간의 통신을 위해 사용된다.
+  - 독립적으로 실행되는 컨테이너 사이의 통신에 사용된다.
   - [details](https://docs.docker.com/network/bridge/)
 - host
   - 독립적으로 실행되는 컨테이너를 위해 네트워크 격리를 제거한다.
@@ -73,24 +74,24 @@ d8cd79053c56   bridge    bridge    local
   - [details](https://docs.docker.com/network/overlay/)
 - ipvlan
   - 사용자에게 IPv4, IPv6 주소 제어권을 준다.
-  - 2계층 태깅(tagging) 제어와 언더레이(underlay) 네트워크 통합에 관심있는 사용자들을 위한 3계층 라우팅 제어가 가능하다.
+  - 2계층 VLAN 태깅(tagging)을 제어할 수 있고, 언더레이(underlay) 네트워크 통합이 필요한 사용자는 3계층 라우팅까지 제어할 수 있다.
   - [details](https://docs.docker.com/network/ipvlan/)
 - macvlan
   - 컨테이너에게 맥(MAC) 주소를 부여할 수 있다.
-  - 네트워크 상의 물리적 디바이스처럼 보이게 만들 수 있다.
+  - 네트워크상의 물리적 디바이스처럼 보이게 만들 수 있다.
   - 도커 데몬은 맥 주소를 통해 트래픽을 컨테이너에게 전달할 수 있다.
   - [details](https://docs.docker.com/network/macvlan/)
 - none
-  - 컨테이너 네트워킹을 불가능하게 만든다.
+  - 컨테이너의 네트워킹을 비활성화한다.
   - 일반적으로 사용자 지정 네트워크 드라이버와 함께 사용된다.
-  - `swarm` 서비스에서 사용 불가능하다.
+  - `swarm` 서비스에서는 사용할 수 없다.
   - [details](https://docs.docker.com/network/none/)
 
 ## 3. Connect Containers
 
-`frontend`, `backend` 컨테이너를 연결하는 간단한 예제를 살펴보겠다. `frontend` 컨테이너는 리액트 애플리케이션을 호스팅한다. `backend` 컨테이너는 스프링 애플리케이션을 호스팅한다. 두 컨테이너는 `custom-bridge`라는 이름의 브릿지 드라이버를 통해 연결되어 있다.
+`frontend`, `backend` 컨테이너를 연결하는 간단한 예제를 살펴보자. `frontend` 컨테이너는 리액트 애플리케이션을, `backend` 컨테이너는 스프링 애플리케이션을 호스팅한다. 두 컨테이너는 브릿지 드라이버로 만든 `custom-bridge` 네트워크를 통해 연결된다.
 
-애플리케이션 코드들은 중요하지 않으므로 이번 포스트에선 다루지 않았다. 편의상 리액트 애플리케이션을 프론트엔드 서비스, 스프링 애플리케이션을 백엔드 서비스로 지칭하였다. 두 서비스는 사용자에게 다음과 같은 서비스를 제공한다.
+애플리케이션 코드는 중요하지 않으므로 이 글에선 다루지 않는다. 편의상 리액트 애플리케이션을 프론트엔드 서비스, 스프링 애플리케이션을 백엔드 서비스라고 부른다. 두 서비스는 사용자에게 다음과 같은 기능을 제공한다.
 
 - 브라우저를 통해 `TODO` 항목을 등록한다.
   - 새로운 `TODO` 항목은 프론트엔드 서비스에 전달된다.
@@ -102,7 +103,7 @@ d8cd79053c56   bridge    bridge    local
   - 백엔드 서비스는 저장하고 있는 `TODO` 항목들을 응답으로 반환한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-03.png" width="100%" class="image__border">
 </div>
 
 ### 3.1. Create Custom Bridge
@@ -113,7 +114,11 @@ d8cd79053c56   bridge    bridge    local
 $ docker network create custom-bridge
 
 9b5ae49f9a0244a893ad878b8a95fb09b658ec876ec9dcf6ef408dd1c153a03a
+```
 
+네트워크가 잘 생성됐는지 확인한다.
+
+```
 $ docker network ls
 
 NETWORK ID     NAME            DRIVER    SCOPE
@@ -125,50 +130,29 @@ d8cd79053c56   bridge          bridge    local
 
 ### 3.2. Connect Backend Container to Custom Bridge
 
-백엔드 컨테이너를 실행하고, 커스텀 브릿지에 연결한다.
-
-- `docker build -t backend ./backend`
-  - 백엔드 컨테이너 이미지를 생성한다.
-- `docker run -d -p 8080:8080 --name backend backend`
-  - 백엔드 컨테이너를 실행한다.
-- `docker network connect custom-bridge backend`
-  - 백엔드 컨테이너를 커스텀 브릿지에 연결한다.
-- `docker network inspect custom-bridge`
-  - 커스텀 브릿지 상세 정보를 확인한다.
-  - `Containers` 항목에 백엔드 컨테이너가 포함된 것을 확인할 수 있다.
+백엔드 컨테이너를 실행하고, 커스텀 브릿지에 연결해보자. 먼저 백엔드 컨테이너 이미지를 생성한다.
 
 ```
 $ docker build -t backend ./backend
+```
 
-[+] Building 1.1s (15/15) FINISHED
- => [internal] load build definition from Dockerfile                                                                                  0.0s
- => => transferring dockerfile: 37B                                                                                                   0.0s
- => [internal] load .dockerignore                                                                                                     0.0s
- => => transferring context: 2B                                                                                                       0.0s
- => [internal] load metadata for docker.io/library/openjdk:11-jdk-slim-buster                                                         1.0s
- => [internal] load metadata for docker.io/library/maven:3.8.6-jdk-11                                                                 1.0s
- => [internal] load build context                                                                                                     0.0s
- => => transferring context: 1.90kB                                                                                                   0.0s
- => [stage-1 1/3] FROM docker.io/library/openjdk:11-jdk-slim-buster@sha256:863ce6f3c27a0a50b458227f23beadda1e7178cda0971fa42b50b05d9  0.0s
- => [maven_build 1/6] FROM docker.io/library/maven:3.8.6-jdk-11@sha256:805f366910aea2a91ed263654d23df58bd239f218b2f9562ff51305be81fa  0.0s
- => CACHED [stage-1 2/3] WORKDIR /app                                                                                                 0.0s
- => CACHED [maven_build 2/6] WORKDIR /build                                                                                           0.0s
- => CACHED [maven_build 3/6] COPY pom.xml .                                                                                           0.0s
- => CACHED [maven_build 4/6] RUN mvn dependency:go-offline                                                                            0.0s
- => CACHED [maven_build 5/6] COPY src ./src                                                                                           0.0s
- => CACHED [maven_build 6/6] RUN mvn package -Dmaven.test.skip=true                                                                   0.0s
- => CACHED [stage-1 3/3] COPY --from=MAVEN_BUILD /build/target/*.jar ./app.jar                                                        0.0s
- => exporting to image                                                                                                                0.0s
- => => exporting layers                                                                                                               0.0s
- => => writing image sha256:a57a2076bf7d956dc71138a1cb433fa1a13c0d38dbf6d1dda9f1de9b7fb4b85d                                          0.0s
- => => naming to docker.io/library/backend                                                                                            0.0s
+백엔드 컨테이너를 실행한다.
 
+```
 $ docker run -d -p 8080:8080 --name backend backend
 
 3b4e0a33065581f7df7b9be505b6a356981d1014face0e341130640835aaf212
+```
 
+백엔드 컨테이너를 커스텀 브릿지에 연결한다.
+
+```
 $ docker network connect custom-bridge backend
+```
 
+커스텀 브릿지의 상세 정보를 확인한다. `Containers` 항목에 백엔드 컨테이너가 포함된 것을 확인할 수 있다.
+
+```
 $ docker network inspect custom-bridge
 
 [
@@ -213,46 +197,23 @@ $ docker network inspect custom-bridge
 
 ### 3.3. Connect Frontend Container to Custom Bridge
 
-프론트엔드 컨테이너를 실행할 때 커스텀 브릿지에 연결한다.
-
-- `docker build -t frontend ./frontend`
-  - 프론트엔드 컨테이너 이미지를 만든다.
-- `docker run -d -p 80:80 --name frontend --network custom-bridge frontend`
-  - `--network` 옵션을 통해 컨테이너 실행 시 네트워크 연결을 함께 수행한다.
-- `docker network inspect custom-bridge`
-  - 커스텀 브릿지 상세 정보를 확인한다.
-  - `Containers` 항목에 프론트엔드 컨테이너가 포함된 것을 확인할 수 있다.
+프론트엔드 컨테이너를 실행할 때 커스텀 브릿지에 연결한다. 앞선 예제와 동일하게 프론트엔드 컨테이너 이미지를 만든다.
 
 ```
 $ docker build -t frontend ./frontend
+```
 
-[+] Building 3.2s (15/15) FINISHED
- => [internal] load build definition from Dockerfile                                                                                  0.0s
- => => transferring dockerfile: 37B                                                                                                   0.0s
- => [internal] load .dockerignore                                                                                                     0.0s
- => => transferring context: 2B                                                                                                       0.0s
- => [internal] load metadata for docker.io/library/nginx:latest                                                                       0.9s
- => [internal] load metadata for docker.io/library/node:16-buster-slim                                                                0.9s
- => [builder 1/6] FROM docker.io/library/node:16-buster-slim@sha256:0070b4ae6bfe264b70947a7d040236cb977a8a6fe42c37b04f554f7c5b1768c3  0.0s
- => [stage-1 1/3] FROM docker.io/library/nginx@sha256:0b970013351304af46f322da1263516b188318682b2ab1091862497591189ff1                0.0s
- => [internal] load build context                                                                                                     2.2s
- => => transferring context: 3.14MB                                                                                                   2.1s
- => CACHED [stage-1 2/3] COPY conf/nginx.conf /etc/nginx/conf.d/default.conf                                                          0.0s
- => CACHED [builder 2/6] WORKDIR /app                                                                                                 0.0s
- => CACHED [builder 3/6] COPY package.json .                                                                                          0.0s
- => CACHED [builder 4/6] RUN npm install --silent                                                                                     0.0s
- => CACHED [builder 5/6] COPY . .                                                                                                     0.0s
- => CACHED [builder 6/6] RUN npm run build                                                                                            0.0s
- => CACHED [stage-1 3/3] COPY --from=builder /app/build /usr/share/nginx/html                                                         0.0s
- => exporting to image                                                                                                                0.0s
- => => exporting layers                                                                                                               0.0s
- => => writing image sha256:3cf9bccf0897e5b565ba6a30c4e673e8776b441554ef7d8191d2ab8fbefbaf1f                                          0.0s
- => => naming to docker.io/library/frontend                                                                                           0.0s
+`--network` 옵션을 사용하면 컨테이너를 실행하면서 네트워크에도 연결할 수 있다.
 
+```
 $ docker run -d -p 80:80 --name frontend --network custom-bridge frontend
 
 a68957f36c09410c0a360668ecdc2ac7fe35912ddd5cbc86a6b98f1c32a25bf9
+```
 
+커스텀 브릿지의 상세 정보를 다시 확인한다. `Containers` 항목에 프론트엔드 컨테이너가 포함된 것을 확인할 수 있다.
+
+```
 $ docker network inspect custom-bridge
 
 [
@@ -304,10 +265,7 @@ $ docker network inspect custom-bridge
 
 ### 3.4. 동작 테스트
 
-- `http://localhost:80`로 접속한다.
-- 새로운 `TODO` 항목들을 추가한다.
-- 새로운 탭에서 `http://localhost:80`로 접속한다.
-- 이전에 등록된 `TODO` 항목들이 조회되는지 확인한다.
+`http://localhost:80`에 접속해 새로운 `TODO` 항목들을 추가하고, 새 탭에서 다시 접속해 앞서 등록한 항목들이 조회되는지 확인해보자.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/docker-network-04.gif" width="100%" class="image__border">
@@ -315,14 +273,19 @@ $ docker network inspect custom-bridge
 
 ## 4. Restriction of Default Bridge
 
-`--network` 옵션 없이 컨테이너를 실행하면 기본적으로 생성되어 있는 디폴트 브릿지 네트워크에 자동으로 연결된다.
+`--network` 옵션 없이 컨테이너를 실행하면 기본으로 만들어져 있는 디폴트 브릿지 네트워크에 자동으로 연결된다.
 
 ```
 $ docker run -d -p 8080:8080 --name backend backend
 
 f8710dab02f3e2fa62f5805afa11c58fe093f64f2a8865e509257728a0c88a02
+```
 
+디폴트 브릿지 네트워크를 살펴보면 방금 실행한 `backend` 컨테이너를 확인할 수 있다.
+
+```
 $ docker network inspect bridge
+
 [
     {
         "Name": "bridge",
@@ -374,13 +337,13 @@ $ docker network inspect bridge
 
 > 왜 사용자 지정 네트워크를 별도로 만들지?
 
-실제로 프론트엔드 컨테이너를 디폴트 브릿지에 연결하면 백엔드 컨테이너와 통신이 되지 않는다. 그 이유는 디폴트 브릿지 위에 컨테이너들은 IP를 통해서만 통신이 가능하기 때문이다. 도커 공식 문서를 보면 다음과 같은 설명이 있다.
+실제로 프론트엔드 컨테이너를 디폴트 브릿지에 연결하면 백엔드 컨테이너와 통신이 되지 않는다. 디폴트 브릿지에 연결된 컨테이너끼리는 IP 주소로만 통신할 수 있기 때문이다. 도커 공식 문서를 보면 다음과 같은 설명이 있다.
 
 > Containers on the default bridge network can only access each other by IP addresses, unless you use the --link option,
 > which is considered legacy.
 > On a user-defined bridge network, containers can resolve each other by name or alias.
 
-사용자 정의 브릿지를 사용해야 컨테이너들을 이름이나 별칭(alias)으로 호출할 수 있다. 프론트엔드 컨테이너에서 호스팅하는 애플리케이션은 `nginx` 서버를 사용해 서비스한다. 해당 `nginx` 설정을 살펴보면 백엔드 컨테이너를 `backend`라는 이름으로 호출하기 때문에 디폴트 브릿지에선 이를 찾지 못 한다.
+사용자 정의 브릿지를 사용해야 컨테이너들을 이름이나 별칭(alias)으로 호출할 수 있다. 프론트엔드 컨테이너에서 호스팅하는 애플리케이션은 `nginx` 서버를 사용해 서비스한다. 아래 `nginx` 설정은 백엔드 컨테이너를 `backend`라는 이름으로 호출하기 때문에, 디폴트 브릿지에서는 이 이름을 찾지 못한다.
 
 ```conf
 upstream backend {

@@ -6,6 +6,7 @@ canonicalPath: "/information/linux/maria-db-install/"
 categories:
   - "information"
   - "linux"
+summary: "리눅스 서버에 MariaDB를 설치하고 unix_socket 인증으로 인한 로그인 문제를 해결한 뒤 비밀번호, 문자셋, 시간대를 설정한 과정을 정리했다."
 ---
 
 ## 1. 설치 환경 준비
@@ -28,7 +29,7 @@ $ sudo apt-get upgrade
 
 ## 2. MariaDB 설치
 
-요청에 따라 MariaDB를 설치하였다. 설치가 완료되면 정상적으로 설치되었는지 확인한다.
+요청에 따라 MariaDB를 설치했다. 설치가 완료되면 정상적으로 설치되었는지 확인한다.
 
 ```
 $ sudo apt-get install mariadb-server
@@ -106,7 +107,7 @@ MariaDB [(none)]> select host, user, password, plugin from mysql.user;
 1 row in set (0.000 sec)
 ```
 
-해당 사용자의 인증 방식을 unix_socket 방식이 아닌 mysql_native_password 방식으로 변경하였다. `set password=password("비밀번호")` 명령어로 비밀번호를 변경하면 인증 방식도 자동으로 변경된다. 변경 후 `flush privileges` 명령어로 GRANT 테이블을 재로딩(reloading)한다.
+해당 사용자의 인증 방식을 unix_socket 방식이 아닌 mysql_native_password 방식으로 변경했다. `set password=password("비밀번호")` 명령어로 비밀번호를 변경하면 인증 방식도 자동으로 변경된다. 변경 후 `flush privileges` 명령어로 GRANT 테이블을 재로딩(reloading)한다.
 
 ```
 MariaDB [(none)]> set password=password("1234");
@@ -173,7 +174,7 @@ MariaDB [(none)]> select @@global.time_zone, @@session.time_zone;
 1 row in set (0.000 sec)
 ```
 
-현재 글을 작성하는 시각은 2021-07-13 11:53이다. 데이터베이스가 인식하는 시간을 확인해 보았다.
+현재 글을 작성하는 시각은 2021-07-13 11:53이다. 데이터베이스가 인식하는 시간을 확인해 봤다.
 
 ```
 MariaDB [(none)]> select now();

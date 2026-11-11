@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "낙관적 락을 위해 추가한 @Version 필드의 기본값 때문에 발생한 TransientPropertyValueException의 원인을 분석하고 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/"
@@ -20,7 +21,7 @@ recommendedPosts:
 
 ## 1. Problem Context
 
-문제가 발생한 코드와 상황을 최대한 유사하게 재현하였다. ParentEntity 클래스를 살펴보자. 낙관적 락을 위해 versionNo 필드를 추가한다.
+문제가 발생한 코드와 상황을 최대한 유사하게 재현했다. ParentEntity 클래스를 살펴보자. 낙관적 락을 위해 versionNo 필드를 추가한다.
 
 - 타입은 Long 래퍼(wrapper) 클래스를 사용한다.
 - 낙관적 락이 동작하도록 @Version 애너테이션을 추가한다.
@@ -156,10 +157,10 @@ Hibernate: select next value for child_entity_seq
   - 엔티티를 데이터베이스에서 삭제하겠다고 표시한 상태이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-01.png" width="60%" class="image__border">
-</div>
-<center>https://gunlog.dev/JPA-Persistence-Context/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://gunlog.dev/JPA-Persistence-Context/</center>
 </div>
 
 이제 어떤 요소가 오류를 유발했는지 연관된 코드를 살펴보자. 먼저 spring-data-jpa 라이브러리의 SimpleJpaRepository 클래스는 다음과 같이 구현되어 있다.
@@ -230,13 +231,13 @@ public class JpaMetamodelEntityInformation<T, ID> extends JpaEntityInformationSu
 아래는 버전 필드를 추가하기 전에는 문제가 되지 않던 코드의 흐름이다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-02.png" width="100%" class="image__border">
 </div>
 
 아래는 버전 필드가 추가된 후 문제가 발생한 코드의 흐름이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/version-annotation-warning-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. Solve the Problem

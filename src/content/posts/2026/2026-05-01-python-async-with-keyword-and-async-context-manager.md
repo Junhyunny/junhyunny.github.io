@@ -7,6 +7,7 @@ categories:
   - "python"
   - "async-with"
   - "async-context-manager"
+summary: "__aenter__와 __aexit__ 코루틴 메서드로 동작하는 파이썬 비동기 컨텍스트 매니저의 원리를 살펴보고, async with 키워드 사용 전후 코드를 예제로 비교했다."
 recommendedPosts:
   - title: "파이썬 제너레이터(Python Generator)"
     href: "https://junhyunny.github.io/python/generator-function/python-generator-function/"

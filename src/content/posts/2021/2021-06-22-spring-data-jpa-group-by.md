@@ -7,11 +7,12 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "GROUP BY 쿼리 결과를 VO 객체로 받다가 발생한 ConverterNotFoundException을 Object 배열, 사용자 클래스, 프로젝션 인터페이스 세 가지 방법으로 해결했다."
 ---
 
 ## 0. 들어가면서
 
-통계성 데이터를 만들 때 보통 `GROUP BY`가 포함된 SQL을 사용한다. 다음과 같은 상황에서 GROUP BY 키워드가 들어간 쿼리를 사용하니 아래와 같은 에러가 발생하였다.
+통계성 데이터를 만들 때 보통 `GROUP BY`가 포함된 SQL을 사용한다. 다음과 같은 상황에서 GROUP BY 키워드가 들어간 쿼리를 사용하니 아래와 같은 에러가 발생했다.
 
 - `spring-boot-starter-data-jpa` 의존성을 사용
 - JpaRepository 인터페이스와 @Query 애너테이션을 통해 `GROUP BY` 키워드가 들어간 쿼리 작성
@@ -20,11 +21,11 @@ categories:
 org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [org.springframework.data.jpa.repository.query.AbstractJpaQuery$TupleConverter$TupleBackedMap] to type [com.geneuin.ksystem.common.domain.vo.ContainerGroupByItemGroup]
 ```
 
-로그를 살펴보면 지정한 타입으로 쿼리 수행 결과를 변환하지 못하는 문제가 있는 것으로 유추된다. 이번 글은 이 문제를 해결할 수 있는 방법들에 대해 정리하였다.
+로그를 살펴보면 지정한 타입으로 쿼리 수행 결과를 변환하지 못하는 문제가 있는 것으로 유추된다. 이번 글은 이 문제를 해결할 수 있는 방법들에 대해 정리했다.
 
 ## 1. Problem Context
 
-먼저 간단한 예제 코드를 통해 문제 상황을 재현해보겠다. 쿼리 결과를 아래 ItemNameGroupVo 객체에 담고 싶었다.
+먼저 간단한 예제 코드를 통해 문제 상황을 재현해보자. 쿼리 결과를 아래 ItemNameGroupVo 객체에 담고 싶었다.
 
 ```java
 package blog.in.action.domain;
@@ -359,7 +360,7 @@ ItemNameCountVO(aCount=0, bCount=0, cCount=0, dCount=5)
 
 ### 2.3. Using Projection Interface
 
-프로젝션을 위한 인터페이스를 선언하는 방법이 있다. 인터페이스에 접근자 함수(getter)만 선언되어 있으면 해당 값에 접근할 수 있다. 다만 쿼리 결과 컬럼들에 별칭(alias)를 맞춰서 작성해야 한다. ItemNameCountProjection 인터페이스를 살펴보자.
+프로젝션을 위한 인터페이스를 선언하는 방법이 있다. 인터페이스에 접근자 함수(getter)만 선언되어 있으면 해당 값에 접근할 수 있다. 다만 쿼리 결과 컬럼들에 별칭(alias)을 맞춰서 작성해야 한다. ItemNameCountProjection 인터페이스를 살펴보자.
 
 - 결과 값 출력을 위한 string() 디폴트 함수를 정의한다.
 
@@ -387,7 +388,7 @@ public interface ItemNameCountProjection {
 }
 ```
 
-쿼리는 아래와 같이 작성한다. ItemNameCountProjection 인터페이스 작성한 접근자 함수 이름에 맞춰 컬럼 별칭을 지정한다.
+쿼리는 아래와 같이 작성한다. ItemNameCountProjection 인터페이스에 작성한 접근자 함수 이름에 맞춰 컬럼 별칭을 지정한다.
 
 ```java
 package blog.in.action.repository;
@@ -509,7 +510,7 @@ ItemNameCountProjection(0, 0, 0, 5)
 
 ## CLOSING
 
-QueryDSL 같은 라이브러리를 사용하면 더 쉽게 쿼리를 작성할 수 있다. 쿼리가 점점 복잡해진다면 이를 고려해봐도 좋을 것 같다. `JDK 13`부터 텍스트 블록(""") 기능을 제공하여 쿼리를 작성하는 작업이 더 용이해졌다. 이를 활용하는 것도 복잡한 쿼리를 작성하는데 도움이 될 것 같다.
+QueryDSL 같은 라이브러리를 사용하면 더 쉽게 쿼리를 작성할 수 있다. 쿼리가 점점 복잡해진다면 이를 고려해봐도 좋을 것 같다. `JDK 13`부터 텍스트 블록(""") 기능을 제공하여 쿼리를 작성하는 작업이 더 용이해졌다. 이를 활용하는 것도 복잡한 쿼리를 작성하는 데 도움이 될 것 같다.
 
 #### TEST CODE REPOSITORY
 

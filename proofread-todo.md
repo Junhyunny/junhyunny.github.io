@@ -63,7 +63,7 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2022/2022-09-20-docker-named-volume.md` — 도커 명명 볼륨(Docker Named Volume)
 - [ ] `src/content/posts/2022/2022-09-21-kubernetes-architecture.md` — 쿠버네티스 아키텍처(Kubernetes Architecture)
 - [ ] `src/content/posts/2022/2022-09-23-deploy-container-on-kubernetes-cluster.md` — 쿠버네티스 클러스터에 간단한 컨테이너 배포하기
-- [ ] `src/content/posts/2022/2022-09-30-docker-network.md` — 도커 네트워크
+- [x] `src/content/posts/2022/2022-09-30-docker-network.md` — 도커 네트워크
 - [ ] `src/content/posts/2022/2022-09-30-react-env-variable-setting.md` — React 환경 변수 설정과 실행 환경 분리
 - [ ] `src/content/posts/2022/2022-10-05-layered-architecture.md` — 레이어 아키텍처(Layered Architecture)
 - [ ] `src/content/posts/2022/2022-10-14-using-module-in-javascript.md` — 자바스크립트에서 모듈 사용하기

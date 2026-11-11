@@ -7,6 +7,7 @@ categories:
   - "fast-api"
   - "dependency-injection"
   - "inversion-of-control"
+summary: "의존성 주입과 제어의 역전이 필요한 이유를 결합도 관점에서 살펴보고, FastAPI의 Depends 함수로 의존성을 주입하는 방법과 의존성 캐싱 동작을 정리했다."
 recommendedPosts:
   - title: "스프링 프레임워크의 제어의 역전(IoC)과 의존성 주입(DI)"
     href: "https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/"

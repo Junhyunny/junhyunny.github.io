@@ -61,7 +61,7 @@ recommendedPosts:
   - `75 ~ 99` 범위의 경우 다시 정상 응답을 전달한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-circuit-breaker-pattern-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-circuit-breaker-pattern-03.png" width="100%" class="image__border">
 </div>
 
 pom.xml 파일에 `netflix-hystrix` 관련 의존성을 추가한다.

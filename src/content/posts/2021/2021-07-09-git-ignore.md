@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/github/git-ignore/"
 categories:
   - "github"
+summary: "이미 추적 중인 설정 파일을 .gitignore, 깃 캐시 삭제, git update-index 명령어로 추적에서 제외하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -52,7 +53,7 @@ rm 'src/main/resources/application.yml'
 추적 대상에서 제외하는 경우 원격 레포지토리에 있는 application.yml 파일이 삭제되기 때문에 문제가 될 수 있다. 필자의 경우 원격 레포지토리에 위치한 application.yml 파일을 삭제하면 안 되기 때문에 이 방법은 사용할 수 없었다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/git-ignore-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/git-ignore-01.png" width="100%" class="image__border">
 </div>
 
 ## 3. Git Command for update-index
@@ -65,7 +66,7 @@ rm 'src/main/resources/application.yml'
 $ git update-index --assume-unchanged src/main/resources/application.yml
 ```
 
-아래 명령어를 사용하면 변경 감지 대상에 제외한 것을 취소한다.
+아래 명령어를 사용하면 변경 감지 대상에서 제외한 것을 취소한다.
 
 ```
 $ git update-index --no-assume-unchanged src/main/resources/application.yml

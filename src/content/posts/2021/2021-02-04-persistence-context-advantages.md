@@ -41,7 +41,7 @@ recommendedPosts:
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-01.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-01.png" width="100%" class="image__border">
   </div>
   <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>
@@ -55,7 +55,7 @@ recommendedPosts:
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-02.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-02.png" width="100%" class="image__border">
   </div>
   <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>
@@ -234,7 +234,7 @@ EntityManager가 관리 중인 엔티티의 상태가 변경되면, 트랜잭션
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-05.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-05.png" width="100%" class="image__border">
   </div>
   <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>

@@ -40,7 +40,7 @@ recommendedPosts:
 EntityManager는 호출되는 메서드에 따라 엔티티 객체의 생명주기 상태를 변경한다. 트랜잭션 마지막에는 엔티티의 생명주기 상태를 기준으로 저장, 변경, 삭제할 수 있는 쿼리를 만들어 엔티티의 모습을 데이터베이스의 데이터로 반영한다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-01.png" width="100%" class="image__border">
 </div>
 
 ## 3. Entity Lifecycle
@@ -59,7 +59,7 @@ EntityManager는 호출되는 메서드에 따라 엔티티 객체의 생명주�
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-02.png" width="60%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-02.png" width="100%" class="image__border">
   </div>
   <center>https://gunlog.dev/JPA-Persistence-Context/</center>
 </div>

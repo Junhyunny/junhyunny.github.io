@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/socket-identification/"
 categories:
   - "information"
+summary: "소켓 기술자와 소켓 주소의 개념을 살펴보고, 같은 서버 포트로 여러 클라이언트가 연결될 때 각 소켓 연결이 어떻게 식별되는지 설명한다."
 ---
 
 ## 0. 들어가면서
@@ -22,7 +23,7 @@ categories:
 - 소켓 기술자(socket descriptor) 혹은 소켓 지시자
 - 소켓 주소(socket address)
 
-기왕 글을 쓰는 김에 각 용어에 대한 개념도 함께 정리헀다.
+기왕 글을 쓰는 김에 각 용어에 대한 개념도 함께 정리했다.
 
 ## 2. Socket Descriptor
 
@@ -41,22 +42,22 @@ categories:
   - 2번, 3번, 4번 애플리케이션의 소켓 기술자가 3으로 동일하지만, 한 애플리케이션 내에서만 중복되지 않으면 된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/socket-identification-01.png" width="80%" class="image__border">
-</div>
-<center>https://slidesplayer.org/slide/14140274/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/socket-identification-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://slidesplayer.org/slide/14140274/</center>
 </div>
 
 소켓 기술자는 포인터(pointer)를 관리하는 테이블의 인덱스(index)이다. 애플리케이션은 특정 소켓을 사용할 때 소켓 정보가 담긴 구조체를 참조할 수 있는 포인터가 저장된 테이블을 소켓 기술자를 통해 접근할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/socket-identification-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/socket-identification-02.png" width="100%" class="image__border">
 </div>
 <center>https://slidesplayer.org/slide/14140274/</center>
 
 ## 3. Socket Address and connection identification
 
-위에서 네트워크에서 소켓 구조체에 대한 개념과 애플리케이션이 소켓 기능을 사용하기 위해 API를 통해 접근한다는 컨셉을 확인했다. 이제 소켓 연결을 식별하는 방법에 대해 살펴본다. 
+위에서 네트워크에서 소켓 구조체에 대한 개념과 애플리케이션이 소켓 기능을 사용하기 위해 API를 통해 접근한다는 컨셉을 확인했다. 이제 소켓 연결을 식별하는 방법에 대해 살펴보자. 
 
 본격적으로 소켓 연결 식별에 대한 이야기를 하기 전에 소켓 주소(socket address)에 대한 개념을 먼저 정리할 필요가 있다. 소켓의 고유한 식별성은 IP 주소, 포트 번호, 프로토콜의 조합으로 이뤄진다. 이 조합을 소켓 주소라고 한다.
 
@@ -68,14 +69,14 @@ categories:
   - 각 프로토콜 마다 잘 알려진 포트 번호를 사용한다. 예를 들어, HTTP는 80, HTTPS는 443, SSH는 22 포트 번호를 사용한다.
 - 프로토콜
   - 데이터가 전송되는 방식과 규칙을 정의한다.
-  - 주요 프로토콜은 TCP(전송 제어 프로토콜), UDP(사용자 데이터그램 프로토콜)이 있다.
+  - 주요 프로토콜은 TCP(전송 제어 프로토콜), UDP(사용자 데이터그램 프로토콜)가 있다.
 
 TCP 통신의 경우 서버, 클라이언트 모델에서 소켓 통신은 서버의 소켓과 클라이언트의 소켓이 서로 연결을 맺고 메시지를 주고 받는 과정이다. 예를 들어 보자. 서버 소켓이 `192.168.1.10:8080`이라고 가정한다. 두 개의 클라이언트가 연결을 수행한다.
 
 - 클라이언트1 - 192.168.1.20:5000
 - 클라이언트2 - 192.168.1.30:5001
 
-서버 소켓은 리스닝(listeening socket)이라고 하여 클라이언트 연결 요청을 기다린다. 클라이언트가 연결 요청을 보내면 서버는 클라이언트의 요청을 수락(accept)한다. 연결 요청을 수락한 해당 클라이언트와 통신을 담당할 새로운 소켓을 생성한다. 새롭게 생성한 소켓은 고유한 4-튜플(tuple) 기반으로 생성되며, 서버와 클라이언트 간의 데이터 송수신에 사용된다. 서버 측 새로 생성된 소켓은 별도 스레드에 의해 독립적으로 수행된다.
+서버 소켓은 리스닝(listening socket)이라고 하여 클라이언트 연결 요청을 기다린다. 클라이언트가 연결 요청을 보내면 서버는 클라이언트의 요청을 수락(accept)한다. 연결 요청을 수락한 해당 클라이언트와 통신을 담당할 새로운 소켓을 생성한다. 새롭게 생성한 소켓은 고유한 4-튜플(tuple) 기반으로 생성되며, 서버와 클라이언트 간의 데이터 송수신에 사용된다. 서버 측 새로 생성된 소켓은 별도 스레드에 의해 독립적으로 수행된다.
 
 여기서 말하는 4-튜플이란 서버, 클라이언트 연결의 고유함을 식별하기 위해 클라이언트 IP, 포트, 서버 IP, 포트를 조합한 정보를 의미한다. 위 예시를 기반으로 4-튜플을 정의하면 다음과 같다.
 

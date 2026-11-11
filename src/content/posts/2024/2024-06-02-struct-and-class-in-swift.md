@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/swift/struct-and-class-in-swift/"
 categories:
   - "swift"
+summary: "Swift 구조체와 클래스로 만든 인스턴스가 값 타입과 참조 타입으로서 복사될 때 어떻게 다르게 동작하는지 예제로 설명한다."
 ---
 
 ## 0. 들어가면서
@@ -15,7 +16,7 @@ categories:
 
 구조체와 클래스로 생성된 객체들은 서로 타입이 다르다. 먼저 구조체를 살펴보자. 구조체로 생성한 객체는 값 타입(value type)이다. 값 타입은 다음과 같은 특징을 갖는다.
 
-- 변수에 값 타입 인스턴스를 저장하면 인스턴스 자체를 저장된다.
+- 변수에 값 타입 인스턴스를 저장하면 인스턴스 자체가 저장된다.
 - 다른 변수에 값 타입 인스턴스를 할당하면 새로운 인스턴스로 복사된다.
 - 값 타입 인스턴스는 스택(stack)에 저장된다.
 - struct, enum 키워드로 정의된 타입의 인스턴스는 값 타입이다.
@@ -62,10 +63,10 @@ print("copied car: ", copiedStructCar)
 "copied car:  CarStruct(brand: "hyunDai", color: "green", name: "sonata", options: [])\n"
 ```
 
-각 변수가 서로 다른 인스턴스를 저장한다. 각 인스턴스의 변화는 서로에게 영향을 주지 않는다. 즉, 기존 객체의 불변성(immutability)가 보장된다.
+각 변수가 서로 다른 인스턴스를 저장한다. 각 인스턴스의 변화는 서로에게 영향을 주지 않는다. 즉, 기존 객체의 불변성(immutability)이 보장된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/struct-and-class-in-swift-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/struct-and-class-in-swift-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Reference Type
@@ -76,7 +77,7 @@ print("copied car: ", copiedStructCar)
 - 다른 변수에 참조 타입 인스턴스를 할당하면 해당 인스턴스의 주소가 복사된다.
 - 참조 타입 인스턴스는 힙(heap)에 저장된다.
 - class 키워드로 정의된 타입의 인스턴스는 참조 타입이다.
-- 함수(function)이나 클로저(closure)는 참조 타입처럼 참조(주소)만 복사한다.
+- 함수(function)나 클로저(closure)는 참조 타입처럼 참조(주소)만 복사한다.
 
 다음과 같은 클래스가 있다. 구조체와 동일하다.
 
@@ -133,10 +134,10 @@ print("copied car: ", copiedClassCar)
 "copied car:  CarClass(brand: hyunDai, color: green, name: sonata, options: [])\n"
 ```
 
-각 변수들은 서로 같은 인스턴스를 가르킨다. 즉, 여러 개의 변수들을 통해 하나의 인스턴스 상태를 변경할 수 있다. 기존 객체의 불변성이 보장되지 않는다. 
+각 변수들은 서로 같은 인스턴스를 가리킨다. 즉, 여러 개의 변수들을 통해 하나의 인스턴스 상태를 변경할 수 있다. 기존 객체의 불변성이 보장되지 않는다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/struct-and-class-in-swift-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/struct-and-class-in-swift-02.png" width="100%" class="image__border">
 </div>
 
 ## 3. Choosing Between Structures and Classes

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring/spring-expression-language/"
 categories:
   - "spring"
+summary: "스프링 표현 언어(SpEL)로 리터럴 표현식, 메서드 호출, 연산자 등을 사용하는 방법을 예제 코드와 함께 정리했다."
 ---
 
 ## 1. Spring Expression Language
@@ -15,7 +16,7 @@ categories:
 - @RequestMapping
 - @PreAuthorize, @PostAuthorize
 
-SpEL는 런타임에 객체 그래프를 쿼리(query)하거나 조작(manipulating)할 수 있는 강력한 표현 언어다. JSP(Java Server Page)에서 사용하는 `Unified EL`과 비슷하지만, 더 강력하고 유연한 기능을 제공한다. 다음과 같은 기능들을 제공한다고 공식 문서에 정리되어 있다. 이 글에서 모든 기능을 다룰 수 없기 때문에 SpEL 사용 방법을 이해하기 위한 몇 가지 예제들만 살펴보자.
+SpEL은 런타임에 객체 그래프를 쿼리(query)하거나 조작(manipulating)할 수 있는 강력한 표현 언어다. JSP(Java Server Page)에서 사용하는 `Unified EL`과 비슷하지만, 더 강력하고 유연한 기능을 제공한다. 다음과 같은 기능들을 제공한다고 공식 문서에 정리되어 있다. 이 글에서 모든 기능을 다룰 수 없기 때문에 SpEL 사용 방법을 이해하기 위한 몇 가지 예제들만 살펴보자.
 
 - 리터럴 표현식
 - 불리언과 관계형 오퍼레이터
@@ -425,7 +426,7 @@ public class ManipulatingTests {
 평가 컨텍스트는 루트 객체를 포함한 더 다양한 정보를 제공한다고 볼 수 있다. 간단한 예시를 살펴보자. 평가 컨텍스트에 저장한 루트 객체의 프로퍼티를 조회해보자.
 
 1. 평가 컨텍스트에 Person 객체를 루트 객체로 지정한다.
-2. 프로퍼티 이름 name, age을 표현식으로 지정한다.
+2. 프로퍼티 이름 name, age를 표현식으로 지정한다.
 3. 평가 컨텍스트를 바탕으로 값을 조회한다.
 4. 값을 확인한다.
 

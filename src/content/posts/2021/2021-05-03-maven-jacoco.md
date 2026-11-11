@@ -356,7 +356,7 @@ $ mvn clean install
 리포트를 열어보면 다음과 같이 부족한 커버리지 내용을 확인할 수 있다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maven-jacoco-03.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

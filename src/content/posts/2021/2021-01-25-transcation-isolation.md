@@ -25,7 +25,7 @@ recommendedPosts:
 - `트랜잭션_2`가 조회한 사용자 정보는 `트랜잭션_1`에서 변경한 모습으로 반영되어 있다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-01.png" alt="더티 리드 예시" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-01.png" alt="더티 리드 예시" width="100%">
 </div>
 
 비반복 읽기(non-repeatable read)는 하나의 트랜잭션에서 같은 쿼리를 두 번 이상 수행할 때 결과가 달라지는 현상이다. 예를 들어, 트랜잭션이 어떤 데이터를 조회한 후 다른 트랜잭션이 그 데이터를 수정하거나 삭제하면, 다시 조회할 때 처음과 다른 결과를 보게 된다.
@@ -39,7 +39,7 @@ recommendedPosts:
 - `트랜잭션_2`가 조회한 사용자 정보는 `트랜잭션_1`에서 변경한 모습으로 반영되어 있다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-02.png" alt="비반복 읽기 예시" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-02.png" alt="비반복 읽기 예시" width="100%">
 </div>
 
 팬텀 리드(phantom read)는 하나의 트랜잭션에서 일정 범위의 레코드를 두 번 이상 수행할 때 처음 수행할 때 없던 레코드가 나타나는 현상이다.
@@ -53,7 +53,7 @@ recommendedPosts:
 - `트랜잭션_2`가 테이블에 저장된 데이터 수를 확인하면 2개이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-03.png" alt="팬텀 리드 예시" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-03.png" alt="팬텀 리드 예시" width="100%">
 </div>
 
 ## 2. Transaction Isolation Level
@@ -67,7 +67,7 @@ recommendedPosts:
 - 더티 리드, 비반복 읽기, 팬텀 리드 현상이 발생한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-04.png" alt="Read Uncommitted 예시" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-04.png" alt="Read Uncommitted 예시" width="100%">
 </div>
 
 확정 읽기(read committed)는 각 트랜잭션은 다른 트랜잭션에서 커밋(완료)된 데이터만 읽을 수 있는 격리 수준이다.
@@ -77,7 +77,7 @@ recommendedPosts:
 - 비반복 읽기, 팬텀 리드 현상이 발생한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-05.png" alt="Read Committed 예시" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-05.png" alt="Read Committed 예시" width="100%">
 </div>
 
 반복 읽기(repeatable read)는 한 트랜잭션이 시작되면, 그 트랜잭션이 종료될 때까지 다른 트랜잭션에서 커밋한 데이터라도 읽을 수 없도록 보장하는 격리 수준이다.
@@ -87,7 +87,7 @@ recommendedPosts:
 - 팬텀 리드 현상이 발생한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-06.png" alt="Repeatable Read 예시" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transcation-isolation-06.png" alt="Repeatable Read 예시" width="100%">
 </div>
 
 직렬화 가능(serializable)은 가장 높은 수준의 격리 수준이다.

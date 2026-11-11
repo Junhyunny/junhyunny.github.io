@@ -7,7 +7,6 @@ import { getPosts, liveSite, newestFirst, postDetails, type Entry } from '../pos
 export async function getStaticPaths() {
   const posts = await getPosts();
   const logs = (await getCollection('logs')).sort(newestFirst);
-  const books = (await getCollection('books')).sort(newestFirst);
   // 이전 글(더 오래된 글)·다음 글(더 최근 글)은 같은 목록(기술 글, 회고) 안에서 숨긴 글을 빼고 고른다.
   const neighbors = (list: Entry[], entry: Entry) => {
     const visible = list.filter(({ data }) => !data.hidden);
@@ -18,13 +17,12 @@ export async function getStaticPaths() {
   return [
     ...posts.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'post' as const, posts, ...neighbors(posts, entry) } })),
     ...logs.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'log' as const, posts, ...neighbors(logs, entry) } })),
-    ...books.map((entry) => ({ params: { path: postDetails(entry).path }, props: { entry, kind: 'book' as const, posts } })),
   ];
 }
 
 type Post = Awaited<ReturnType<typeof getPosts>>[number];
 type Neighbor = { href: string; title: string; date: string };
-interface Props { entry: Entry; kind: 'post' | 'log' | 'book'; posts: Post[]; older?: Neighbor; newer?: Neighbor }
+interface Props { entry: Entry; kind: 'post' | 'log'; posts: Post[]; older?: Neighbor; newer?: Neighbor }
 const { entry, kind, posts, older, newer } = Astro.props;
 const details = postDetails(entry);
 const isPost = kind === 'post';
@@ -60,7 +58,7 @@ const relatedLinks = [...curatedLinks, ...automatic];
 // 기존 utterances 설정을 유지해야 같은 GitHub 이슈의 댓글을 불러온다.
 const utterances: Record<string, string> = { repo: 'Junhyunny/junhyunny.github.io', 'issue-term': 'pathname', theme: 'github-dark' };
 // 이전 화면이 이 블로그일 때는 브라우저 기록으로 돌아가고, 직접 들어온 경우에는 글 종류별 목록으로 이동한다.
-const backFallback = isPost ? '/posts/' : kind === 'log' ? '/logs/' : '/';
+const backFallback = isPost ? '/posts/' : '/logs/';
 ---
 <Base page={kind === 'log' ? 'logs' : 'article'} type="article" title={entry.data.title} description={details.summary ?? entry.data.title}>
   <main id="main" class="shell article-shell">

@@ -3,17 +3,16 @@ import { getCollection } from 'astro:content';
 import { getPosts, liveSite, newestFirst } from '../posts';
 
 // 검색 콘솔·네이버·robots.txt가 참조하는 /sitemap.xml. 기존 Jekyll 사이트맵과 같은 형식(lastmod, changefreq, priority)을 쓴다.
-// 기존에는 기술 글만 넣었지만 회고·독서 기록과 주요 페이지도 함께 넣는다.
+// 기존에는 기술 글만 넣었지만 회고와 주요 페이지도 함께 넣는다.
 const escape = (value: string) => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
 export const GET: APIRoute = async () => {
   const entries = [
     ...(await getPosts()),
     ...(await getCollection('logs', ({ data }) => !data.hidden)).sort(newestFirst),
-    ...(await getCollection('books', ({ data }) => !data.hidden)).sort(newestFirst),
   ];
   const urls: { loc: string; lastmod?: string }[] = [
-    ...['/', '/about/', '/posts/', '/logs/', '/books/'].map((path) => ({ loc: path })),
+    ...['/', '/about/', '/posts/', '/logs/'].map((path) => ({ loc: path })),
     ...entries.map(({ data }) => ({ loc: data.canonicalPath, lastmod: data.updatedAt })),
   ];
 

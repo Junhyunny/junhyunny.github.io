@@ -4,7 +4,7 @@ import GoogleAnalytics from '../components/third-party/GoogleAnalytics.astro';
 import { liveSite, siteName } from '../posts';
 import '../styles/site.css';
 
-interface Props { title?: string; description: string; page: 'home' | 'archive' | 'about' | 'logs' | 'books' | 'article'; type?: 'website' | 'article' }
+interface Props { title?: string; description: string; page: 'home' | 'archive' | 'about' | 'logs' | 'article'; type?: 'website' | 'article' }
 const { title, description, page, type = 'website' } = Astro.props;
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const canonical = new URL(Astro.url.pathname, liveSite);

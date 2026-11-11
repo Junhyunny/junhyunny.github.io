@@ -23,7 +23,7 @@ npm run preview
 
 | 경로 | 내용 |
 | --- | --- |
-| `src/content/posts`, `logs`, `books` | 기술 글, 회고, 독서 기록 (Markdown) |
+| `src/content/posts`, `logs` | 기술 글, 회고 (Markdown) |
 | `src/content/pages/about.md` | About 상세 이력 |
 | `templates/post.md` | 새 기술 글 템플릿 (빌드에 포함되지 않음) |
 | `src/pages` | 페이지와 `sitemap.xml`, `feed.xml` 생성 |

@@ -5,7 +5,7 @@ export const liveSite = 'https://junhyunny.github.io';
 export const bookTitle = '안쪽까지 들여다보는 스프링 시큐리티';
 export const bookUrl = 'https://www.yes24.com/product/goods/180391041';
 
-export type Entry = CollectionEntry<'posts'> | CollectionEntry<'logs'> | CollectionEntry<'books'>;
+export type Entry = CollectionEntry<'posts'> | CollectionEntry<'logs'>;
 
 export function postDetails(entry: Entry) {
   const { publishedAt, canonicalPath, summary } = entry.data;

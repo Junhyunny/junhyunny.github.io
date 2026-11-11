@@ -8,6 +8,7 @@ categories:
   - "swift"
   - "swift-ui"
   - "test-driven-development"
+summary: "SwiftUI에 없는 체크 박스 컴포넌트를 ToggleStyle과 Button으로 각각 구현하고 ViewInspector로 단위 테스트하는 방법을 정리했다."
 recommendedPosts:
   - title: "ViewInspector iOS 상태 변화(State Change) 테스트하기"
     href: "https://junhyunny.github.io/ios/swift/swift-ui/test-driven-development/how-to-test-state-change-in-ios-with-view-inspector/"
@@ -73,7 +74,7 @@ struct SupportedCheckBox: View {
 
 ### 1.2. Tests
 
-ViewInspector 라이브러리로 이제 위에서 만든 커스텀 컴포넌트를 테스트 해보자. SwiftUI 프레임워크는 모키토(mockito)처럼 동적으로 테스트 더블을 만들 수 있는 라이브러리가 없다. 다음과 같은 테스트 더블을 준비한다. 테스트에서만 사용하므로 테스트 대상 폴더에 내부에 만든다.
+ViewInspector 라이브러리로 이제 위에서 만든 커스텀 컴포넌트를 테스트 해보자. SwiftUI 프레임워크는 모키토(mockito)처럼 동적으로 테스트 더블을 만들 수 있는 라이브러리가 없다. 다음과 같은 테스트 더블을 준비한다. 테스트에서만 사용하므로 테스트 대상 폴더 내부에 만든다.
 
 - onChange 함수를 호출했을 때 파라미터로 전달된 값을 저장한다.
 

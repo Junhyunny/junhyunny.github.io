@@ -22,7 +22,7 @@ recommendedPosts:
 롤링 배포(rolling deployment)는 동일 서버의 인스턴스가 여러 개 존재할 때 이를 새로운 버전으로 하나씩 교체하면서 배포하는 방식이다. 이전 버전에서 새로운 버전으로 트래픽을 점진적으로 전환하는 배포 방식이다. 배포 중에 인스턴스 수가 감소되므로 서버 처리 용량을 미리 고려해야 한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-release-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-release-01.png" width="100%" class="image__border">
 </div>
 <center>https://reference-m1.tistory.com/211</center>
 
@@ -31,7 +31,7 @@ recommendedPosts:
 카나리 배포(canary deployment)는 과거 석탄 광산에서 유독가스를 미리 감지하고자 카나리아 새를 날려 보냈던 것에서 유래한 배포 방식이다. 위험을 최소화하면서 실제 프로덕션 배포를 테스트하는 방법이다. 사용자 요청의 일부를 신규 서비스로 라우팅하여 이를 테스트 해본다. 문제가 발견된다면 배포를 중단하고 문제의 원인을 파악하고 수정할 수 있다. 트래픽 라우팅을 통해 신규 서비스를 검증할 수 있고, 트래픽 분산은 랜덤하게 하거나 사용자 별로 분류하는 것도 가능하다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-release-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-release-02.png" width="100%" class="image__border">
 </div>
 <center>https://reference-m1.tistory.com/211</center>
 

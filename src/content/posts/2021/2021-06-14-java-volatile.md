@@ -6,6 +6,7 @@ canonicalPath: "/information/java/java-volatile/"
 categories:
   - "information"
   - "java"
+summary: "변수 변경의 가시성을 보장하는 자바 volatile 키워드를 설명하고, volatile만으로는 여러 스레드의 데이터 동기화가 되지 않음을 테스트로 확인했다."
 recommendedPosts:
   - title: "Java Atomic 클래스"
     href: "https://junhyunny.github.io/information/java/java-atomic/"
@@ -21,10 +22,10 @@ recommendedPosts:
 - 다중 CPU를 사용하면 멀티 스레드 환경에서 데이터 동기화 문제가 발생한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-volatile-01.png" width="50%" class="image__border image__padding">
-</div>
-<center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-volatile-01.png" width="50%" class="image__border image__padding">
+  </div>
+  <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 </div>
 
 CPU마다 다른 캐시가 연결되어 있기 때문에 서로 다른 스레드에서 같은 객체의 같은 변수를 사용하더라도 다른 값을 읽어 사용할 수 있다.
@@ -36,10 +37,10 @@ CPU마다 다른 캐시가 연결되어 있기 때문에 서로 다른 스레드
 - 같은 변수를 다른 값으로 사용하게 되면서 로직상의 문제가 발생한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-volatile-02.png" width="50%" class="image__border image__padding">
-</div>
-<center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-volatile-02.png" width="50%" class="image__border image__padding">
+  </div>
+  <center>http://tutorials.jenkov.com/java-concurrency/volatile.html</center>
 </div>
 
 위와 같은 문제를 해결하기 위해 **volatile 키워드를 사용**한다. volatile 키워드를 사용하면 CPU 캐시가 아닌 메인 메모리에 저장된 데이터를 사용한다. 데이터 불일치 문제는 해결할 수 있지만, 캐시를 사용하지 않는 만큼 성능이 떨어질 수 있다. 자바는 volatile 키워드 이외에도 멀티 스레드 환경에서 스레드 안전한 프로그래밍을 위해 다음과 같은 기능을 제공한다.
@@ -52,7 +53,7 @@ synchronized 키워드나 Atomic 클래스는 동기화를 지원하지만, vola
 
 ## 2. Practice
 
-간단한 테스트 코드를 통해 volatile 키워드만 적용되었을 때 데이터 동기화가 잘 이루어지는지 살펴보겠다. 두 개의 스레드가 NormalInteger 객체를 공유한다.
+간단한 테스트 코드를 통해 volatile 키워드만 적용되었을 때 데이터 동기화가 잘 이루어지는지 살펴보자. 두 개의 스레드가 NormalInteger 객체를 공유한다.
 
 - NormalInteger 객체에서 관리하는 value 데이터는 volatile 키워드가 적용되어 있다.
 - 각 스레드는 값을 증가시키거나 감소시키는 연산을 수행한다.

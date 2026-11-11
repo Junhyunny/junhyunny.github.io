@@ -7,6 +7,7 @@ categories:
   - "information"
   - "software-engineering"
   - "code-churn"
+summary: "일정 기간 동안 코드가 얼마나 바뀌었는지 나타내는 코드 천의 의미와 해석 시 주의점을 살펴보고, Git 명령어로 코드 천을 측정하는 방법을 정리했다."
 recommendedPosts:
   - title: "코드 복잡도(code complexity)"
     href: "https://junhyunny.github.io/information/software-engineering/code-complexity/code-complexity/"

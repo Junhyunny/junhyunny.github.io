@@ -7,6 +7,7 @@ categories:
   - "information"
   - "software-engineering"
   - "code-complexity"
+summary: "리팩토링 대상을 설득력 있게 고르기 위한 지표로 코드 복잡도의 개념과 순환 복잡도, 인지 복잡도를 살펴보고 이를 측정하는 도구를 정리했다."
 recommendedPosts:
   - title: "하네스 엔지니어링(Harness Engineering)"
     href: "https://junhyunny.github.io/ai/ai-agent/coding-agent/harness-engineering/harness-engineering/"

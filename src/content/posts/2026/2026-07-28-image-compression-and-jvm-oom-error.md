@@ -8,6 +8,7 @@ categories:
   - "jvm"
   - "spring-boot"
   - "out-of-memory-error"
+summary: "S3 이미지 썸네일 마이그레이션 중 발생한 JVM OOM 에러의 원인이 파일 크기는 작지만 해상도가 매우 높은 PNG 이미지에 있음을 PNG 압축 방식과 함께 확인한 과정을 기록했다."
 ---
 
 ## 0. 들어가면서

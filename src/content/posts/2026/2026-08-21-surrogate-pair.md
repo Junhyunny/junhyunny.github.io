@@ -8,6 +8,7 @@ categories:
   - "javascript"
   - "typescript"
   - "surrogate-pair"
+summary: "UTF 인코딩 방식을 살펴보고 UTF-16에서 코드 포인트를 16비트 두 개로 표현하는 서로게이트 페어를 설명하며, 이를 고려하지 않아 react-pdf에서 한자와 이모지가 깨진 사례를 정리했다."
 ---
 
 ## 0. 들어가면서

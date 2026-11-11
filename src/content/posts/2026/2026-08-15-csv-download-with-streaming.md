@@ -8,6 +8,7 @@ categories:
   - "spring-data-jpa"
   - "async-response"
   - "performance"
+summary: "대용량 CSV 다운로드 시 브라우저가 반응하지 않던 문제를 StreamingResponseBody와 JPA Stream 반환 타입, 주기적인 flush와 영속성 컨텍스트 clear로 개선한 과정을 정리했다."
 recommendedPosts:
   - title: "JPA Stream 리턴 타입은 어떻게 동작하는가?"
     href: "https://junhyunny.github.io/spring/spring-data-jpa/postgres/database/stream/how-to-work-stream-retrun-type-in-jpa/"

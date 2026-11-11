@@ -9,6 +9,7 @@ categories:
   - "postgres"
   - "database"
   - "stream"
+summary: "JPA Stream 반환 타입이 여러 번 쿼리하는 대신 트랜잭션 안에서 데이터베이스 커서로 fetchSize만큼 데이터를 가져오는 동작 과정을 PostgreSQL 기준으로 정리했다."
 recommendedPosts:
   - title: "대용량 CSV 다운로드 스트리밍(streaming) 처리를 통해 개선하기"
     href: "https://junhyunny.github.io/spring/spring-data-jpa/async-response/performance/csv-download-with-streaming/"

@@ -7,6 +7,7 @@ categories:
   - "swift"
   - "equatable"
   - "comparable"
+summary: "스위프트 Equatable 프로토콜로 값의 동등성을 비교하는 방법을 살펴보고, 구조체와 이넘은 구현이 자동 합성되지만 클래스는 직접 정의해야 하는 차이와 === 연산자를 정리했다."
 ---
 
 ## 1. Equatable 프로토콜

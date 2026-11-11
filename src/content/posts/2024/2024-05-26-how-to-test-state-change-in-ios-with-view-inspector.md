@@ -8,11 +8,12 @@ categories:
   - "swift"
   - "swift-ui"
   - "test-driven-development"
+summary: "ViewInspector가 @State, @StateObject 필드 변경을 감지하지 못하는 문제를 Inspection 클래스와 onReceive 설정으로 해결하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-ViewInspector는 SwiftUI 단위 테스트를 위한 패키지다. ViewInspector 패키지는 몇 가지 제약 사항들 때문에 구현체 코드에 테스트를 위한 장치들이 추가되야 한다. @State, @StateObject 필드들의 변경을 감지 못 하는 문제가 그 중 하나이다. 이번 글은 관련된 문제를 해결하는 방법에 대해 정리했다.
+ViewInspector는 SwiftUI 단위 테스트를 위한 패키지다. ViewInspector 패키지는 몇 가지 제약 사항들 때문에 구현체 코드에 테스트를 위한 장치들이 추가돼야 한다. @State, @StateObject 필드들의 변경을 감지 못 하는 문제가 그중 하나이다. 이번 글은 관련된 문제를 해결하는 방법에 대해 정리했다.
 
 ## 1. Problem
 
@@ -89,7 +90,7 @@ test_whenClickButton_thenChangeState(): unexpected error thrown: <Search did not
 
 ### 2.1. Inspection class
 
-테스트 대상 컴포넌트의 변경을 감지하기 위한 Inspection 클래스 만든다. Inspection 객체는 구현체 코드에 추가해야 하므로 애플리케이션 대상 폴더 내부에 만든다. 
+테스트 대상 컴포넌트의 변경을 감지하기 위한 Inspection 클래스를 만든다. Inspection 객체는 구현체 코드에 추가해야 하므로 애플리케이션 대상 폴더 내부에 만든다. 
 
 ```swift
 import SwiftUI
@@ -188,7 +189,7 @@ final class ContentViewTests: XCTestCase {
 }
 ```
 
-## 3. Deficiecny of Support for @State and @StateObject
+## 3. Deficiency of Support for @State and @StateObject
 
 구현체에 테스트를 위한 코드가 추가되는 모습은 확실히 보기 좋지 않다. 필자도 이를 고쳐보려 했지만, 라이브러리의 한계가 있다. 일부 글들을 보면 아래 예제처럼 테스트에서만 사용할 TestWrapperView 구조체를 만들고 테스트에서만 구현체를 감싸는 방식으로 리팩토링 했지만, 실제로 제대로 동작하지 않는다. 해당 글의 테스트 코드를 보면 wait 함수로 검증하는 작업이 누락됐다. 
 

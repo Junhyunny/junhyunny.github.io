@@ -7,6 +7,7 @@ categories:
   - "swift"
   - "equatable"
   - "comparable"
+summary: "스위프트 Comparable 프로토콜이 지켜야 하는 순서 규칙을 살펴보고, 구조체, 클래스, 이넘에서 프로토콜을 채택하는 방법과 Double.nan 비교 시 주의점을 정리했다."
 recommendedPosts:
   - title: "스위프트(Swift) Equatable 프로토콜"
     href: "https://junhyunny.github.io/swift/equatable/comparable/swift-equatable/"

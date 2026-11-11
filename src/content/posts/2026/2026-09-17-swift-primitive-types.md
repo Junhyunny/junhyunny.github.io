@@ -7,6 +7,7 @@ categories:
   - "swift"
   - "swift-ui"
   - "ios"
+summary: "구조체로 정의된 스위프트 원시 타입의 특징과 타입 추론을 살펴보고, 정수 오버플로우 트랩을 다루는 방법과 String, Character, Substring의 차이를 정리했다."
 ---
 
 ## 0. 들어가면서

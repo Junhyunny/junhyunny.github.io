@@ -8,6 +8,7 @@ categories:
   - "swift"
   - "swift-ui"
   - "test-driven-development"
+summary: "iOS 단위 테스트 패키지 ViewInspector로 알림(alert) 컴포넌트를 테스트하기 위해 InspectableAlert와 확장을 구현하고 단위 테스트를 작성하는 방법을 정리했다."
 recommendedPosts:
   - title: "SwiftUI MVVM 패턴"
     href: "https://junhyunny.github.io/ios/swift-ui/design-pattern/mvvm-pattern-in-ios/"
@@ -123,7 +124,7 @@ final class ContentViewTests: XCTestCase {
 }
 ```
 
-다음은 알림 창일 열린 상태에서 Yes 버튼을 눌렀을 때 숫자가 증가하고 해당 버튼이 화면에서 보이지 않는지 확인한다.
+다음은 알림 창이 열린 상태에서 Yes 버튼을 눌렀을 때 숫자가 증가하고 해당 버튼이 화면에서 보이지 않는지 확인한다.
 
 1. 증가 버튼을 눌러 알림 창이 열린 상태를 만든다.
 2. 알림 화면의 Yes 버튼을 누른다.
@@ -155,7 +156,7 @@ final class ContentViewTests: XCTestCase {
 }
 ```
 
-마지막으로 알림 창일 열린 상태에서 Cancel 버튼을 눌렀을 때 숫자는 변함없이 해당 버튼이 화면에서 보이지 않는지 확인한다.
+마지막으로 알림 창이 열린 상태에서 Cancel 버튼을 눌렀을 때 숫자는 변함없이 해당 버튼이 화면에서 보이지 않는지 확인한다.
 
 1. 증가 버튼을 눌러 알림 창이 열린 상태를 만든다.
 2. 알림 화면의 Cancel 버튼을 누른다.

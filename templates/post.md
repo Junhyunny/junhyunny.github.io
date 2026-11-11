@@ -18,7 +18,7 @@ summary: "PROMPT(글 내용을 보고 글 목록과 검색 결과에 보일 한�
 
   이미지 한 장 (출처나 설명이 있으면 아래 <center>에 씁니다):
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-YYYY/main/slug-01.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-YYYY/main/slug-01.png" width="100%" class="image__border">
   </div>
   <center>https://출처-주소</center>
 

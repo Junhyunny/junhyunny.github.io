@@ -2,9 +2,9 @@
 title: "PROMPT(글 내용을 보고 제목을 작성. 핵심 용어는 '한국어 용어(English Term)'처럼 영어를 함께 표기)"
 publishedAt: "YYYY-MM-DD"
 updatedAt: "YYYY-MM-DDTHH:MM:SS+09:00"
-canonicalPath: "/카테고리/slug/"
+canonicalPath: "PROMPT(카테고리 리스트를 기반으로 URL 설정)"
 categories:
-  - "카테고리"
+  - "PROMPT(글 내용을 보고 적절한 카테고리 설정)"
 summary: "PROMPT(글 내용을 보고 글 목록과 검색 결과에 보일 한두 문장 요약을 작성)"
 # recommendedPosts: # 선택, '함께 읽으면 좋은 글'에 먼저 표시
 #   - title: "글 제목"

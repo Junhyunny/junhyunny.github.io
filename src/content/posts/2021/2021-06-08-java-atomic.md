@@ -6,6 +6,7 @@ canonicalPath: "/information/java/java-atomic/"
 categories:
   - "information"
   - "java"
+summary: "원자적 연산의 의미를 설명하고, 자바 AtomicInteger 클래스가 volatile 변수와 CAS 메커니즘으로 스레드 안전성을 보장하는 방식을 정리했다."
 recommendedPosts:
   - title: "자바(Java) volatile 키워드"
     href: "https://junhyunny.github.io/information/java/java-volatile/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-자바(Java)는 멀티 스레드 환경에서 스레드 안전성(thread safety)을 위해 `Atomic` 키워드가 붙은 클래스를 제공한다. 이 클래스들은 `java.util.concurrent.atomic` 패키지에 위치한다. `Atomic`이라는 키워드가 붙은 것처럼 원자적 연산(atomic operation)이라는 개념과 연관 있어 보인다. 이 개념을 먼저 살펴보겠다.
+자바(Java)는 멀티 스레드 환경에서 스레드 안전성(thread safety)을 위해 `Atomic` 키워드가 붙은 클래스를 제공한다. 이 클래스들은 `java.util.concurrent.atomic` 패키지에 위치한다. `Atomic`이라는 키워드가 붙은 것처럼 원자적 연산(atomic operation)이라는 개념과 연관 있어 보인다. 이 개념을 먼저 살펴보자.
 
 ## 1. Atomic Operation
 
@@ -25,13 +26,13 @@ recommendedPosts:
 - 이런 현상은 프로세스 내 스레드들이 변수를 사용해 데이터를 공유하기 때문에 발생한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-atomic-01.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-atomic-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>[JAVA] concurrent programming</center>
 
 ## 2. Atomic Classes
 
-자바는 동시성 문제를 해결하기 위한 기능을 제공한다. 그중 하나가 `Atomic` 계열 클래스이며, 이번 글에서는 대표적인 AtomicInteger 클래스를 살펴본다.
+자바는 동시성 문제를 해결하기 위한 기능을 제공한다. 그중 하나가 `Atomic` 계열 클래스이며, 이번 글에서는 대표적인 AtomicInteger 클래스를 살펴보자.
 
 - `volatile` 키워드가 붙은 `value` 변수에 데이터를 저장한다.
 - `volatile` 키워드가 붙었기 때문에 CPU 캐시가 아닌 메인 메모리에서 직접 데이터를 읽는다.
@@ -169,7 +170,7 @@ public final class Unsafe {
 }
 ```
 
-자바는 동시성을 제어하기 위해 **synchronized 키워드를 제공**한다. 이미 동시성 제어 기능이 있음에도 `Atomic` 클래스를 제공하는 이유는 성능 때문이라는 글을 읽은 기억이 난다. 정말 성능에 차이가 있는지 직접 살펴보겠다. 컴퓨터 사양(spec)은 다음과 같다.
+자바는 동시성을 제어하기 위해 **synchronized 키워드를 제공**한다. 이미 동시성 제어 기능이 있음에도 `Atomic` 클래스를 제공하는 이유는 성능 때문이라는 글을 읽은 기억이 난다. 정말 성능에 차이가 있는지 직접 확인해보자. 컴퓨터 사양(spec)은 다음과 같다.
 
 - 2019년형 MacBook
 - 2.4 GHz 8코어 Intel Core i9

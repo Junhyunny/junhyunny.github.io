@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/filter-interceptor-and-aop/"
 categories:
   - "spring-boot"
+summary: "스프링 애플리케이션에서 필터, 인터셉터, AOP가 동작하는 위치와 특징을 비교하고, 예제 로그로 실행 순서를 확인했다."
 recommendedPosts:
   - title: "OncePerRequestFilter 클래스"
     href: "https://junhyunny.github.io/spring-boot/once-per-request-filter/"
@@ -20,24 +21,24 @@ recommendedPosts:
 
 ## 1. Location of Filter, Interceptor and AOP
 
-필터(filter), 인터셉터(interceptor), AOP(aspect oriented programming)은 각자 수행되는 위치가 다르다. 각 기능들에 대한 내용을 정리하기 전에 어느 위치에서 동작하는 컴포넌트인지 살펴본다.
+필터(filter), 인터셉터(interceptor), AOP(aspect oriented programming)는 각자 수행되는 위치가 다르다. 각 기능들에 대한 내용을 정리하기 전에 어느 위치에서 동작하는 컴포넌트인지 먼저 살펴보자.
 
 필터는 톰캣 같은 서블릿 컨테이너에서 동작한다. 요청이 서블릿으로 전달되기 전에 실행된다. 반면, 인터셉터는 스프링(spring) 프레임워크 내부에서 동작한다. 서블릿에 의해 요청을 처리할 적절한 핸들러가 결정되었다면, 핸들러 이전에 실행된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/filter-interceptor-and-aop-01.png" width="80%" class="image__border">
-</div>
-<center>https://gowoonsori.com/blog/spring/architecture/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/filter-interceptor-and-aop-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://gowoonsori.com/blog/spring/architecture/</center>
 </div>
 
-AOP 스프링 프레임워크 내부에서 동작한다.
+AOP는 스프링 프레임워크 내부에서 동작한다.
 
 - 스프링에서 관리하는 빈(bean) 객체의 메서드 호출 전이나 후에 시점을 빼앗아 실행된다.
 - 예를 들면 `@Transactional` 애너테이션을 통한 트랜잭션 관리도 AOP 기능의 일종이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/filter-interceptor-and-aop-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/filter-interceptor-and-aop-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Features of Filter, Interceptor and AOP
@@ -62,7 +63,7 @@ AOP 스프링 프레임워크 내부에서 동작한다.
 - 스프링 프레임워크 ``컨텍스트``(context) 영역에서 동작이 수행된다. `org.springframework.web.servlet.HandlerInterceptor` 인터페이스를 구현한다.
 - 요청이 컨트롤러(controller)에게 전달되기 전에 실행된다.
 
-안터셉터는 다음과 같은 역할을 수행한다.
+인터셉터는 다음과 같은 역할을 수행한다.
 
 - 로그인이나 사용자 권한 관리 같은 인증 프로세스 수행
 - 사용자 세션 처리 수행
@@ -75,8 +76,8 @@ AOP는 다음과 같은 특징을 갖는다.
 
 AOP는 다음과 같은 기능을 위해 사용된다.
 
-- 로깅,
-- 트랜잭션,
+- 로깅
+- 트랜잭션
 - 공통 에러 처리
 
 ## 3. Practice

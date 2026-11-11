@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/junit/json-ignore-properties/"
 categories:
   - "spring-boot"
   - "junit"
+summary: "서로 참조하는 응답 객체를 잭슨이 직렬화하다 발생한 StackOverflowError를 @JsonIgnoreProperties 애너테이션으로 순환 참조를 끊어 해결했다."
 ---
 
 ## 1. Problem Context
@@ -43,10 +44,10 @@ java.lang.StackOverflowError: null
 - 메서드를 호출할 때 재귀 호출로 인해 스택 오버플로우 에러가 발생할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/json-ignore-properties-01.png" width="40%" class="image__border">
-</div>
-<center>https://en.wikipedia.org/wiki/Circular_reference</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/json-ignore-properties-01.png" width="50%" class="image__border image__background_white">
+  </div>
+  <center>https://en.wikipedia.org/wiki/Circular_reference</center>
 </div>
 
 도메인 객체를 살펴보니 다음과 같은 구조를 가지고 있었다.
@@ -55,7 +56,7 @@ java.lang.StackOverflowError: null
 - 댓글 객체는 자신과 연관된 포스트 객체를 참조한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/json-ignore-properties-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/json-ignore-properties-02.png" width="100%" class="image__border">
 </div>
 
 먼저 Post 레코드 클래스를 살펴보자.

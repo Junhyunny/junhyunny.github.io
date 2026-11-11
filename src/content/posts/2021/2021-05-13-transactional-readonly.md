@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "@Transactional readOnly 속성의 의미를 javadoc으로 살펴보고, 읽기 전용 트랜잭션에서 데이터 변경이 어떻게 처리되는지 테스트로 확인했다."
 recommendedPosts:
   - title: "EntityManager 특징과 영속성 컨텍스트 장점"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/persistence-context-advantages/"
@@ -52,7 +53,7 @@ recommendedPosts:
 
 ## 2. Practice
 
-데이터소스 연결 설정에 관련된 내용을 제외하고 요약한 내용들을 간단한 테스트 코드를 통해 살펴보겠다. 다음과 같은 환경에서 테스트를 수행한다.
+데이터소스 연결 설정에 관련된 내용을 제외하고 요약한 내용들을 간단한 테스트 코드를 통해 살펴보자. 다음과 같은 환경에서 테스트를 수행한다.
 
 - JDK17
 - Spring Boot 3.1.0
@@ -67,11 +68,9 @@ logging:
     org.hibernate.persister.entity: TRACE
 ```
 
-readOnly 속성을 사용하는 PostService 클래스의 코드를 살펴보자. 클래스에 readonly 속성을 true 값으로 설정한다. 클래스 하위 모든 메서드들에게 적용된다.
-
-- arhive 메서드
-  - 데이터를 조회 후 엔티티의 상태를 변경한다.
-  - 오염 감지 기능이 동작하기를 예상한다.
+readOnly 속성을 사용하는 PostService 클래스의 코드를 살펴보자. 클래스에 readonly 속성을 true 값으로 설정한다. 클래스 하위 모든 메서드들에게 적용된다. 대표적으로 archive 메서드를 살펴보자.
+- 데이터를 조회 후 엔티티의 상태를 변경한다.
+- 오염 감지 기능이 동작하기를 예상한다.
 
 ```java
 @Slf4j
@@ -123,7 +122,7 @@ class Post {
 @Transactional 애너테이션에 readOnly 속성이 부여되면 어떤 동작을 하는지 살펴보기 위한 테스트 코드를 작성한다.
 
 - throw_exception_when_create_in_readonly 테스트
-  - readonly인 경우 새로운 데이터 삽입(insert)시 에러가 발생한다.
+  - readonly인 경우 새로운 데이터 삽입(insert) 시 에러가 발생한다.
   - "Connection is read-only. Queries leading to data modification are not allowed" 에러 메시지를 확인한다.
 - nothing_change_when_update_in_readonly 테스트
   - readonly인 경우 업데이트가 이뤄지지 않는다.

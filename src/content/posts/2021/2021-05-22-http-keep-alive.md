@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/http-keep-alive/"
 categories:
   - "information"
+summary: "HTTP 비연결성의 문제를 개선하는 Keep-Alive의 장단점과 사용 조건을 설명하고, cURL 명령어로 커넥션이 유지되는지 확인했다."
 recommendedPosts:
   - title: "HTTP(HyperText Transfer Protocol)"
     href: "https://junhyunny.github.io/information/http/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 1. Connectionless Characteristic in HTTP
 
-HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보겠다. 이는 비연결성(connectionless) 특징과 연관이 있다.
+HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보자. 이는 비연결성(connectionless) 특징과 연관이 있다.
 
 > 비연결성(connectionless)은 서버가 클라이언트에게 응답을 보낸 후 맺어진 연결을 끊어버리는 것을 의미합니다. 서버는 불특정 다수 클라이언트들을 위해 서비스를 제공합니다. 한번 요청한 클라이언트와 연결을 계속 유지하는 것은 리소스 사용 측면에서 서버에게 많은 부담을 줍니다. 그렇기에 서버는 클라이언트의 요청에 대한 응답 후 연결을 유지하지 않습니다.
 
@@ -26,17 +27,17 @@ HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보
 
 ## 2. Keep-Alive
 
-비연결성 때문에 발생하는 문제를 개선하기 위해 `Keep-Alive`을 사용한다. 이를 통해 `3-Way Handshake`으로 연결된 세션을 계속 사용할 수 있다.
+비연결성 때문에 발생하는 문제를 개선하기 위해 `Keep-Alive`를 사용한다. 이를 통해 `3-Way Handshake`로 연결된 세션을 계속 사용할 수 있다.
 
 - 서버는 클라이언트와 맺은 연결을 특정 시간 동안 유지한다.
 - 연결을 열어 놓은 시간 동안 재사용한다.
 - 서버는 `Keep-Alive` 헤더를 사용하여 연결이 최소한 얼마나 열려있어야 할지 설정한다.
 - 연결된 소켓(socket)에 마지막 접근이 종료된 시점부터 정의된 시간 내에 재접근이 이루어진다면 계속 연결된 상태를 유지한다.
 
-`Keep-Alive` 기능을 사용 여부에 따라 다음과 같은 차이가 발생한다.
+`Keep-Alive` 기능의 사용 여부에 따라 다음과 같은 차이가 발생한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/http-keep-alive-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/http-keep-alive-02.png" width="100%" class="image__border">
 </div>
 <center>https://www.imperva.com/learn/performance/http-keep-alive/</center>
 
@@ -80,7 +81,7 @@ Connection: keep-alive
 - `Keep-Alive: timeout=5, max=1000`
   - 5초간 연결을 유지한다.
   - 1000회 요청에 대해 연결 유지 시간 갱신을 허용한다.
-  - 최대 5000(5 X 1000)초 시간동안 연결을 유지할 수 있다.
+  - 최대 5000(5 X 1000)초 시간 동안 연결을 유지할 수 있다.
   - e.g. 5초 이내에 재요청이 오는 경우 max 값은 999가 된다.
 
 ```
@@ -107,7 +108,7 @@ $ curl -v --http1.1 https://www.naver.com https://www.naver.com > response
 
 위 cURL 명령어를 사용했을 때 아래와 같은 응답을 받는다. 
 
-- 23.210.76.217 서버의 433 포트로 연결한다.
+- 23.210.76.217 서버의 443 포트로 연결한다.
   - Connected to www.naver.com (23.210.76.217) port 443 (#0)
 - HTTP/1.1 버전을 사용한다.
   - ALPN: offers h2,http/1.1
@@ -224,7 +225,7 @@ $ curl -v -0 https://www.naver.com https://www.naver.com > response
 
 위 명령어를 수행하면 다음과 같은 로그를 확인할 수 있다.
 
-- 23.210.76.217 서버의 433 포트로 연결한다.
+- 23.210.76.217 서버의 443 포트로 연결한다.
   - Connected to www.naver.com (23.210.76.217) port 443 (#0)
 - HTTP/1.0 버전을 사용한다.
   - ALPN: offers http/1.0
@@ -361,7 +362,7 @@ $ curl -v -0 https://www.naver.com https://www.naver.com > response
 
 ## CLOSING
 
-살펴본 몇몇 레퍼런스(reference)들은 HTTP/1.0 버전에서 요청 시 "Connection: keep-alive" 헤더를 추가하면 `keep-alive`이 동작한다고 설명한다. 하지만 실제로 헤더에 값을 추가하여 요청하면 커넥션이 유지되지 않는다.
+살펴본 몇몇 레퍼런스(reference)들은 HTTP/1.0 버전에서 요청 시 "Connection: keep-alive" 헤더를 추가하면 `keep-alive`가 동작한다고 설명한다. 하지만 실제로 헤더에 값을 추가하여 요청하면 커넥션이 유지되지 않는다.
 
 - `-v` 옵션을 사용하는 경우 상세한 요청, 응답 내용을 확인할 수 있다.
 - `-0` 옵션을 사용하는 경우 HTTP/1.0 버전을 사용한다.

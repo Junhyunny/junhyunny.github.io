@@ -5,12 +5,10 @@ updatedAt: "2026-04-28T17:36:26+09:00"
 canonicalPath: "/information/white-black-box-test/"
 categories:
   - "information"
+summary: "내부 구조를 보고 검증하는 화이트 박스 테스트와 기능의 입출력만 검증하는 블랙 박스 테스트의 개념과 차이를 정리했다."
 ---
 
 ## 1. White Box Test
-
-> Wiki<br/>
-> White-box testing (also known as clear box testing, glass box testing, transparent box testing, and structural testing) is a method of software testing that tests internal structures or workings of an application
 
 화이트 박스 테스트(white box test)는 내부 구조나 애플리케이션 동작 방식을 테스트한다. 다음과 같이 정리할 수 있다.
 
@@ -36,9 +34,6 @@ categories:
 <center>http://www.splex.co.kr/black-white-box-test</center>
 
 ## 2. Black Box Test
-
-> Wiki<br/>
-> Black-box testing is a method of software testing that examines the functionality of an application without peering into its internal structures or workings.
 
 블랙 박스 테스트(black box test)는 내부 구조나 동작 방식을 확인하지 않고 애플리케이션의 기능을 테스트한다. 다음과 같이 정리할 수 있다.
 
@@ -70,7 +65,7 @@ categories:
 두 종류의 테스트에 대한 내용을 다음과 같이 요약할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/white-box-black-box-test-03.png" width="50%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/white-box-black-box-test-03.png" width="100%">
 </div>
 <center>출처: 블랙박스 테스트와 화이트박스 테스트 비교</center>
 

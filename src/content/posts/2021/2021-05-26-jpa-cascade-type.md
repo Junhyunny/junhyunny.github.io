@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "엔티티의 영속 상태 변화를 연관 엔티티에 전파하는 JPA 영속성 전이를 설명하고, CascadeType별 동작을 테스트 코드로 확인했다."
 recommendedPosts:
   - title: "Cascade in Database"
     href: "https://junhyunny.github.io/information/database/cascade-in-database/"
@@ -18,10 +19,10 @@ recommendedPosts:
 
 ## 1. Entity Lifecycle
 
-JPA(Java Persistence API)의 `CascadeType`를 정리하기 전에 엔티티 라이프사이클(entity lifecycle)를 먼저 살펴보겠다.
+JPA(Java Persistence API)의 `CascadeType`을 정리하기 전에 엔티티 라이프사이클(entity lifecycle)을 먼저 살펴보자.
 
 - 비영속(new/transient)
-  - 엔티티 객체를 새로 생성하였지만 엔티티 매니저(entity manager)에 의해 관리되고 있지 않는 상태이다.
+  - 엔티티 객체를 새로 생성했지만 엔티티 매니저(entity manager)에 의해 관리되고 있지 않는 상태이다.
   - 엔티티 객체가 영속성 컨텍스트와 전혀 관계가 없는 상태이다.
 - 영속(managed)
   - 엔티티 객체가 엔티티 매니저에 의해 관리되고 있는 상태이다.
@@ -46,7 +47,7 @@ JPA에서 `Cascade`는 영속성 전이를 위해 사용한다.
 
 > 영속성 전이는 엔티티의 영속성 상태 변화를 연관된 엔티티에도 함께 적용하는 것이다. 예를 들어, 엔티티를 저장할 때 연관된 엔티티도 함께 저장하고, 엔티티를 삭제할 때 연관된 엔티티도 함께 삭제하는 것이 영속성 전이이다.
 
-엔티티들 사이의 관계는 @OneToOne, @OneToMany, @ManyToOne, @ManyToMany 애너테이션을 사용하여 정의한다. 이 애너테이션들의 `cascade` 속성(attribute)를 사용하면 연관 관계가 맺어진 엔티티들 사이의 전이 여부와 시점을 지정할 수 있다. 다음은 각 `CascadeType`에 따라 영속성 전이가 이루어지는 시점이다.
+엔티티들 사이의 관계는 @OneToOne, @OneToMany, @ManyToOne, @ManyToMany 애너테이션을 사용하여 정의한다. 이 애너테이션들의 `cascade` 속성(attribute)을 사용하면 연관 관계가 맺어진 엔티티들 사이의 전이 여부와 시점을 지정할 수 있다. 다음은 각 `CascadeType`에 따라 영속성 전이가 이루어지는 시점이다.
 
 - PERSIST
   - 엔티티 객체가 `new` 상태에서 `managed` 상태로 변경되는 시점
@@ -143,18 +144,18 @@ public class Comment {
 
 ### 3.1. CascadeType.PERSIST
 
-지금부터 Cascade 타입을 변경해보자. 먼저 `CascadeType.PERSIST`을 적용해본다. 다음과 같이 Post 엔티티 클래스를 변경한다.
+지금부터 Cascade 타입을 변경해보자. 먼저 `CascadeType.PERSIST`를 적용한다. 다음과 같이 Post 엔티티 클래스를 변경한다.
 
 ```java
     @OneToMany(cascade = {CascadeType.PERSIST})
     private List<Comment> commentList;
 ```
 
-CascadeType.PERSIST 인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_persist 테스트는 다음과 같이 동작한다.
+CascadeType.PERSIST인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_persist 테스트는 다음과 같이 동작한다.
 
 - Post 엔티티와 Comment 엔티티 객체를 생성한다.
 - 두 엔티티 객체를 연결한다.
-- persit(E) 메서드를 통해 영속성 컨텍스트에 저장한다.
+- persist(E) 메서드를 통해 영속성 컨텍스트에 저장한다.
 - 영속성 컨텍스트 내용을 데이터베이스에 반영하고 비운다.
 - 데이터베이스에 데이터가 저장되었는지 확인한다.
 
@@ -225,14 +226,14 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
 
 ### 3.2. CascadeType.REMOVE
 
-다음 `CascadeType.REMOVE` 으로 Post 엔티티 클래스를 변경한다.
+다음 `CascadeType.REMOVE`로 Post 엔티티 클래스를 변경한다.
 
 ```java
     @OneToMany(cascade = {CascadeType.REMOVE})
     private List<Comment> comments;
 ```
 
-CascadeType.REMOVE 인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_remove 테스트는 다음과 같이 동작한다.
+CascadeType.REMOVE인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_remove 테스트는 다음과 같이 동작한다.
 
 - beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입한다.
 - Post 엔티티 객체를 조회한다.
@@ -307,9 +308,9 @@ public class RemoveTest {
 }
 ```
 
-실행 결과를 로그를 통해 살펴본다.
+실행 결과를 로그를 통해 살펴보자.
 
-- Post 엔티티 객체를 영속성 컨테이너에서 제거함으로써 Comment 엔티티 객체도 함께 삭제되는 것을 확인할 수 있다.
+- Post 엔티티 객체를 영속성 컨텍스트에서 제거함으로써 Comment 엔티티 객체도 함께 삭제되는 것을 확인할 수 있다.
 - 두 엔티티를 연결하는 매핑 테이블, Comment 테이블, Post 테이블 순으로 데이터가 삭제된다.
 
 ```
@@ -329,20 +330,20 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
 
 ### 3.3. CascadeType.DETACH
 
-다음 `CascadeType.DETACH` 으로 Post 엔티티 클래스를 변경한다.
+다음 `CascadeType.DETACH`로 Post 엔티티 클래스를 변경한다.
 
 ```java
     @OneToMany(cascade = {CascadeType.DETACH})
     private List<Comment> comments;
 ```
 
-CascadeType.DETACH 인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_detach 테스트는 다음과 같이 동작한다.
+CascadeType.DETACH인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_detach 테스트는 다음과 같이 동작한다.
 
 - beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입한다.
 - Post 엔티티 객체를 조회한다.
 - Comment 엔티티 객체의 상태를 변경한다.
 - Post 엔티티 객체를 detach(E) 메서드를 사용해 영속성 컨텍스트가 관리하지 않는 상태로 변경한다.
-- Comment 엔티티 객체의 상태 변경에 대한 오염 감지(dirty checking)이 동작하지 않을 것을 예상한다.
+- Comment 엔티티 객체의 상태 변경에 대한 오염 감지(dirty checking)가 동작하지 않을 것을 예상한다.
 
 ```java
 package blog.in.action.cascade;
@@ -406,9 +407,9 @@ public class DetachTest {
 }
 ```
 
-실행 결과를 로그를 통해 살펴본다.
+실행 결과를 로그를 통해 살펴보자.
 
-- Post 엔티티 객체를 준영속 상태로 변경하였기 때문에 Comment 엔티티 객체도 함께 준영속 상태가 된다.
+- Post 엔티티 객체를 준영속 상태로 변경했기 때문에 Comment 엔티티 객체도 함께 준영속 상태가 된다.
 - Comment 엔티티 객체의 상태 변경이 데이터베이스에 반영되지 않는다.
   - detach(E) 메서드 실행 라인을 주석하면 오염 감지가 수행되어 값이 변경된다.
 
@@ -425,14 +426,14 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
 
 ### 3.4. CascadeType.MERGE
 
-다음 `CascadeType.MERGE` 으로 Post 엔티티 클래스를 변경한다.
+다음 `CascadeType.MERGE`로 Post 엔티티 클래스를 변경한다.
 
 ```java
     @OneToMany(cascade = {CascadeType.MERGE})
     private List<Comment> comments;
 ```
 
-CascadeType.MERGE 인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_merge 테스트는 다음과 같이 동작한다.
+CascadeType.MERGE인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_merge 테스트는 다음과 같이 동작한다.
 
 - beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입한다.
 - Post 엔티티 객체를 조회한다.
@@ -504,7 +505,7 @@ public class MergeTest {
 }
 ```
 
-실행 결과를 로그를 통해 살펴본다.
+실행 결과를 로그를 통해 살펴보자.
 
 - Comment 엔티티 객체의 상태 변경으로 인해 오염 감지 기능이 동작한다.
   - update comment set content=? where id=?
@@ -524,20 +525,20 @@ Hibernate: select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
 
 ### 3.5. CascadeType.REFRESH
 
-마지막으로 `CascadeType.REFRESH` 으로 Post 엔티티 클래스를 변경한다.
+마지막으로 `CascadeType.REFRESH`로 Post 엔티티 클래스를 변경한다.
 
 ```java
     @OneToMany(cascade = {CascadeType.REFRESH})
     private List<Comment> comments;
 ```
 
-CascadeType.MERGE 인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_refresh 테스트는 다음과 같이 동작한다.
+CascadeType.REFRESH인 경우에 어떻게 동작하는지 테스트 코드를 통해 살펴보자. cascade_when_refresh 테스트는 다음과 같이 동작한다.
 
 - beforeEach 메서드를 통해 테스트 실행 전 데이터를 미리 삽입한다.
 - Post 엔티티 객체를 조회한다.
   - Post, Comment 엔티티 객체를 미리 영속성 컨텍스트에서 관리한다.
 - 업데이트 쿼리를 통해 Comment 테이블의 데이터를 직접 변경한다.
-- refresh(E) 메서드를 통해 영속성 컨테이너 내부의 Post 엔티티 객체와 데이터베이스를 동기화한다.
+- refresh(E) 메서드를 통해 영속성 컨텍스트 내부의 Post 엔티티 객체와 데이터베이스를 동기화한다.
 - 미리 조회한 Comment 엔티티 객체의 상태가 데이터베이스와 동일한 것을 기대한다.
 
 ```java
@@ -604,9 +605,9 @@ public class RefreshTest {
 }
 ```
 
-실행 결과를 로그를 통해 살펴본다.
+실행 결과를 로그를 통해 살펴보자.
 
-- refresh(E) 메서드를 통해 영속성 컨테이너와 데이터베이스를 동기화한다.
+- refresh(E) 메서드를 통해 영속성 컨텍스트와 데이터베이스를 동기화한다.
   - select c1_0.id,c1_0.content from comment c1_0 where c1_0.id=?
   - select p1_0.id,c1_0.post_id,c1_1.id,c1_1.content,p1_0.content from post p1_0 left join (post_comments c1_0 join comment c1_1 on c1_1.id=c1_0.comments_id) on p1_0.id=c1_0.post_id where p1_0.id=?
 - 미리 조회한 Comment 엔티티 객체를 직접 동기화하지 않았음에도 데이터베이스와 동일한 데이터를 가지는 것을 알 수 있다.

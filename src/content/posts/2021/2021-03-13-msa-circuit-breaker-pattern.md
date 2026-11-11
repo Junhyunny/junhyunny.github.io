@@ -8,6 +8,7 @@ categories:
   - "spring-cloud"
   - "msa"
   - "design-pattern"
+summary: "마이크로서비스 아키텍처에서 장애 전파를 막는 서킷 브레이커 패턴의 동작 원리를 설명하고, netflix-hystrix 의존성으로 회로 차단기를 적용해 테스트했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
@@ -241,7 +242,7 @@ public class CircuitBreakerTest {
 }
 ```
 
-테스트 결과를 로그를 통해 확인해보자. 로그를 `id` 범위에 맞춰 나눠 살펴보겠다. 요청을 받은 서비스는 `0 ~ 24` 범위 동안 정상적인 응답을 한다.
+테스트 결과 로그를 `id` 범위에 맞춰 나눠 확인해보자. 요청을 받은 서비스는 `0 ~ 24` 범위 동안 정상적인 응답을 한다.
 
 ```
 2023-02-05 23:35:40.610  INFO 20692 --- [           main] c.in.action.hystrix.CircuitBreakerTest   : POST(id: 0)(response time: 252)

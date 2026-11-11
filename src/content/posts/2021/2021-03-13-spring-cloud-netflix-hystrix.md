@@ -8,6 +8,7 @@ categories:
   - "spring-cloud"
   - "msa"
   - "junit"
+summary: "넷플릭스 히스트릭스를 FeignClient와 연동해 응답이 느린 서비스 호출에 회로 차단기와 폴백이 동작하는 모습을 도커 컴포즈 환경에서 테스트했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
@@ -25,7 +26,7 @@ recommendedPosts:
 
 ## 2. Practice
 
-`FeignClient`와 함께 연동한 실습을 수행하였다. `FeignClient` 내부엔 다음과 같은 의존성이 존재하여 별도로 `Hystrix` 컴포넌트에 대한 의존성을 추가하지 않아도 된다.
+`FeignClient`와 함께 연동한 실습을 수행했다. `FeignClient` 내부엔 다음과 같은 의존성이 존재하여 별도로 `Hystrix` 컴포넌트에 대한 의존성을 추가하지 않아도 된다.
 
 ```xml
     <dependency>
@@ -36,7 +37,7 @@ recommendedPosts:
     </dependency>
 ```
 
-다음과 같은 실습 환경을 구축하였다.
+다음과 같은 실습 환경을 구축했다.
 
 - 클라이언트(client) 역할은 `JUnit` 테스트 코드가 수행한다.
 - `서비스A`는 회로 차단기가 적용되어 있다.
@@ -224,7 +225,7 @@ $ docker-compose up
  - Container 2021-03-13-spring-cloud-netflix-hystrix-b-service-1  Created                         0.1s 
 ```
 
-이제 모든 준비가 완료됬다. 테스트 코드를 실행해보자. 테스트 코드는 `서비스A` 모듈에 존재한다.
+이제 모든 준비가 완료됐다. 테스트 코드를 실행해보자. 테스트 코드는 `서비스A` 모듈에 존재한다.
 
 - 테스트에서 타임아웃이 발생하지 않도록 `connectTimeout`, `readTimeout`을 100초씩 설정한다.
 - 테스트를 위한 `FeignClient` 사용 시 회로 차단기가 동작하지 않도록 설정한다.

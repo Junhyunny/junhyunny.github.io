@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "spring-cloud"
   - "msa"
+summary: "IP와 포트가 수시로 바뀌는 클라우드 환경에서 서비스 등록과 탐색을 담당하는 유레카의 구조를 설명하고, 서버 1개와 클라이언트 2개로 예제를 구성했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
@@ -117,7 +118,7 @@ public class EurekaApplication {
 
 ### 3.2. Eureka Client
 
-다음 클라이언트를 구현한다. 프로젝트 내 `a-service`, `b-service` 모듈에서 작업을 수행한다. 아래 설명은 `a-service` 모듈을 기준으로 작성하였으며 `b-service` 모듈에서도 동일한 작업이 필요하다. 클라이언트 애플리케이션을 위한 의존성을 pom.xml 파일에 등록한다.
+다음 클라이언트를 구현한다. 프로젝트 내 `a-service`, `b-service` 모듈에서 작업을 수행한다. 아래 설명은 `a-service` 모듈을 기준으로 작성했으며 `b-service` 모듈에서도 동일한 작업이 필요하다. 클라이언트 애플리케이션을 위한 의존성을 pom.xml 파일에 등록한다.
 
 ```xml
     <properties>
@@ -219,7 +220,7 @@ $ docker-compose up -d
  - Container 2021-03-08-spring-cloud-netflix-eureka-b-service-1       Started                          0.8s 
 ```
 
-실행 결과를 확인해보자. 유레카 서버인 `http://localhost:8761`으로 접속하면 등록된 서비스들 정보를 확인할 수 있다.
+실행 결과를 확인해보자. 유레카 서버인 `http://localhost:8761`로 접속하면 등록된 서비스들 정보를 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-eureka-03.png" width="100%" class="image__border">

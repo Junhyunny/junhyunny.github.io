@@ -8,6 +8,7 @@ categories:
   - "spring-cloud"
   - "msa"
   - "junit"
+summary: "유레카 서버와 클라이언트에 FeignClient를 연동해 서비스 이름으로 다른 서비스를 호출하고, Ribbon을 통해 요청이 자동으로 부하 분산되는 모습을 확인했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
@@ -76,7 +77,7 @@ public interface HealthClient {
 }
 ```
 
-HealthController 컨트롤러는 테스트를 위한 엔드포인다. 현재 자신의 상태와 클라이언트로부터 받은 `서비스B` 상태를 함께 전달한다.
+HealthController 컨트롤러는 테스트를 위한 엔드포인트다. 현재 자신의 상태와 클라이언트로부터 받은 `서비스B` 상태를 함께 전달한다.
 
 ```java
 package cloud.in.action.controller;

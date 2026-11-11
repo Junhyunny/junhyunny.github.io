@@ -33,10 +33,10 @@ recommendedPosts:
   - LangChain, LangGraph를 사용한 앱의 입출력, 중간 과정, LLM 호출 내용을 시각화해서 보여준다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-01.png" width="80%" class="image__border">
-</div>
-<center>https://python.langchain.com/docs/introduction/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-01.png" width="80%" class="image__border">
+  </div>
+  <center>https://python.langchain.com/docs/introduction/</center>
 </div>
 
 랭체인 프레임워크는 다음과 같은 패키지들을 제공한다.
@@ -135,7 +135,7 @@ output = parser.stream(result)
 print(output)
 ```
 
-위 코드가 실행되면 라마 모델이 `deep learning`에 설명을 해준다.
+위 코드가 실행되면 라마 모델이 `deep learning`에 대한 설명을 해준다.
 
 ```
 Deep Learning is a subset of Machine Learning that uses artificial neural networks to analyze and interpret data. It's called "deep" because the neural network consists of multiple layers, each with a larger number of nodes (neurons) than the previous layer.
@@ -182,7 +182,7 @@ Deep Learning is a subset of Machine Learning that uses artificial neural networ
 In conclusion, deep learning has revolutionized the field of artificial intelligence by enabling computers to learn from complex patterns in data and make accurate predictions or decisions. While there are challenges associated with deep learning, ongoing research is addressing these issues, leading to further improvements and advancements in this exciting field.
 ```
 
-이제 위 코드를 체이닝을 통해 더 쉽게 만들어보자. 위에서 만든 prompt, llm, parser 객체는 모두 Runnable 클랙스의 인스턴스(istance)다.
+이제 위 코드를 체이닝을 통해 더 쉽게 만들어보자. 위에서 만든 prompt, llm, parser 객체는 모두 Runnable 클래스의 인스턴스(instance)다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/langchain-03.png" width="100%" class="image__border">

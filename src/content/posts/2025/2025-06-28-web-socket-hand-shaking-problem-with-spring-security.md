@@ -15,7 +15,7 @@ categories:
 
 ## 1. Problem Context
 
-문제가 발생한 컨텍스트를 살펴보자. 예시 코드는 문제 여부만 확인할 수 있을 정도로 간소화했다. 서비스는 OAuth2 클라이언트로써 MS(microsoft) AAD 인가 서버를 사용한다. 프론트엔드 프로젝트는 리액트 애플리케이션으로 웹소켓과 관련된 의존성은 다음과 같다.
+문제가 발생한 컨텍스트를 살펴보자. 예시 코드는 문제 여부만 확인할 수 있을 정도로 간소화했다. 서비스는 OAuth2 클라이언트로서 MS(microsoft) AAD 인가 서버를 사용한다. 프론트엔드 프로젝트는 리액트 애플리케이션으로 웹소켓과 관련된 의존성은 다음과 같다.
 
 - sockjs-client
 - stompjs
@@ -101,7 +101,7 @@ public class SecurityConfig {
 }
 ```
 
-위와 같은 상황에서 사용자가 로그인 후 서비스를 이용한다. 사용자가 서비스를 이용하는 중 긴 시간동안 서버와 인터렉션이 없어서 세션이 만료된 후 다시 로그인을 수행하면 서비스 경로가 아닌 웹 소켓 핸드쉐이킹(handshaking) 경로로 리다이렉트 된다. 브라우저가 로그인 성공 후 설정에 지정한 `http://localhost:5173` 경로가 아닌 `http://localhost:5173/ws/info?t=1751126372382&continue` 경로로 리다이렉트 되는 것이다.
+위와 같은 상황에서 사용자가 로그인 후 서비스를 이용한다. 사용자가 서비스를 이용하는 중 긴 시간 동안 서버와 인터렉션이 없어서 세션이 만료된 후 다시 로그인을 수행하면 서비스 경로가 아닌 웹 소켓 핸드쉐이킹(handshaking) 경로로 리다이렉트 된다. 브라우저가 로그인 성공 후 설정에 지정한 `http://localhost:5173` 경로가 아닌 `http://localhost:5173/ws/info?t=1751126372382&continue` 경로로 리다이렉트 되는 것이다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/web-socket-hand-shaking-problem-with-spring-security-01.png" width="80%" class="image__border">

@@ -1,10 +1,11 @@
 ---
 title: "스프링 부트 런타임에서 TestContainer 사용"
 publishedAt: "2023-08-30"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T00:11:30+09:00"
 canonicalPath: "/spring-boot/use-test-container-on-runtime-in-spring-boot/"
 categories:
   - "spring-boot"
+summary: "스프링 부트 3.1에서 향상된 테스트 컨테이너 지원과 @ServiceConnection을 소개하고, 개발 시점에 컨테이너 데이터베이스로 애플리케이션을 실행하는 방법을 정리했다."
 recommendedPosts:
   - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
@@ -14,20 +15,18 @@ recommendedPosts:
 
 ## 1. Improved Testcontainers Support in Spring Boot 3.1
 
-최근 릴리즈 된 스프링 부트(spring boot) 3.1 버전에서 테스트 컨테이너(TestContainer)에 대한 지원이 향상되었다. 테스트 컨테이너는 애플리케이션에서 경량화 된 도커 컨테이너를 띄워서 사용할 수 있는 오픈 소스 프레임워크이다.
+최근 릴리스된 스프링 부트(spring boot) 3.1 버전에서 테스트 컨테이너(TestContainer)에 대한 지원이 향상됐다. 테스트 컨테이너는 애플리케이션에서 경량화된 도커 컨테이너를 띄워서 사용할 수 있는 오픈 소스 프레임워크이다.
 
 > Testcontainers is an open source framework for providing throwaway, lightweight instances of databases, message brokers, web browsers, or just about anything that can run in a Docker container.
 
-테스트 컨테이너를 지원하는 기능에서 크게 바뀐 부분은 다음과 같다. 자세한 내용들을 살펴보겠다.
+테스트 컨테이너를 지원하는 기능에서 크게 바뀐 부분은 다음과 같다. 자세한 내용을 살펴보자.
 
 - 결합 테스트(integration test)에서 컨테이너 접속 정보 자동 설정
 - 로컬 런타임 환경에서 테스트 컨테이너 활용
 
 ### 1.1. @ServiceConnection Annotation
 
-결합 테스트에서 테스트 컨테이너를 사용하면 애플리케이션이 실행 중인 컨테이너에 접근하기 위한 정보가 필요하다. 3.1 버전 이전에는 접근 정보를 설정하기 위한 별도 코드가 필요했다.
-
-- @DynamicPropertySource 애너테이션과 DynamicPropertyRegistry 클래스를 사용한다.
+결합 테스트에서 테스트 컨테이너를 사용하면 애플리케이션이 실행 중인 컨테이너에 접근하기 위한 정보가 필요하다. 3.1 버전 이전에는 @DynamicPropertySource 애너테이션과 DynamicPropertyRegistry 클래스로 접근 정보를 설정하는 별도 코드가 필요했다.
 
 ```java
 @SpringBootTest
@@ -50,7 +49,7 @@ class MyIntegrationTests {
 }
 ```
 
-- 코틀린(kotlin)의 경우 init 메서드와 시스템 프로퍼티 설정 코드를 사용할 수도 있다.
+코틀린(kotlin)의 경우 init 메서드와 시스템 프로퍼티 설정 코드를 사용할 수도 있다.
 
 ```kotlin
 @Testcontainers
@@ -98,26 +97,20 @@ class RestControllerIT {
 }
 ```
 
-#### 1.1.1. Get Connection Details
+스프링 부트 3.1 버전부터 제공하는 @ServiceConnection 애너테이션을 사용하면 컨테이너 접근 정보를 획득하기 위한 코드가 필요 없다. 스프링 팀은 컨테이너 설정 초기화 문제를 다음과 같이 해결했다.
 
-스프링 부트 3.1 버전부터 제공하는 @ServiceConnection 애너테이션을 사용하면 컨테이너 접근 정보를 획득하기 위한 코드가 필요 없다. 스프링 팀은 컨테이너 설정 초기화 문제를 다음과 같이 해결하였다.
-
-1. @ServiceConnection 애너테이션을 붙이면 컨테이너 객체가 생성되는 시점에 컨테이너 커넥션 정보를 관리하는 ConnectionDetails 인터페이스를 구현 객체가 생성된다.
+1. @ServiceConnection 애너테이션을 붙이면 컨테이너 객체가 생성되는 시점에 컨테이너 커넥션 정보를 관리하는 ConnectionDetails 인터페이스의 구현 객체가 생성된다.
 2. ConnectionDetails 구현체는 내부에서 해당 컨테이너 객체를 참조하고 있다.
   - ConnectionDetails 구현체는 아래 이미지에서 JdbcContainerConnectionDetails 인스턴스이다.
   - 컨테이너 객체는 아래 이미지에서 JdbcDatabaseContainer 인스턴스이다.
 3. 애플리케이션이 커넥션 정보를 ConnectionDetails 구현체에게 요청한다.
 4. ConnectionDetails 구현체는 내부적으로 참조하고 있는 컨테이너 객체에게 접근 정보를 요청한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/use-test-container-on-runtime-in-spring-boot-01.png" width="100%" class="image__border">
 </div>
 
-#### 1.1.2. Usage @ServiceConnection Annotation
-
-@ServiceConnection 애너테이션을 사용하면 다음과 같이 코드를 변경할 수 있다.
-
-- @DynamicPropertySource 애너테이션이 붙은 메서드가 필요하지 않다.
+@ServiceConnection 애너테이션을 사용하면 다음과 같이 코드를 변경할 수 있다. @DynamicPropertySource 애너테이션이 붙은 메서드는 필요 없다.
 
 ```java
 @SpringBootTest
@@ -186,25 +179,25 @@ class RestControllerIT {
 
 ### 1.2. TestContainers at development time
 
-로컬 개발 환경에서 테스트 컨테이너를 애플리케이션과 함께 실행할 수 있다. 로컬 개발 환경에서 겪는 다음과 같은 불편함들을 해소해줄 수 있는 좋은 기능이라고 생각된다.
+로컬 개발 환경에서 테스트 컨테이너를 애플리케이션과 함께 실행할 수 있다. 로컬 개발 환경에서 겪는 다음과 같은 불편함을 해소해 줄 수 있는 좋은 기능이라고 생각한다.
 
 - 로컬 환경에서만 사용하는 임베디드 데이터베이스
   - 필요한 데이터베이스를 로컬 환경에 설치하는 작업은 번거롭기 때문에 H2 같은 임베디드 데이터베이스를 사용한다.
   - 실제 프로덕션에서 사용하는 데이터베이스와 H2 데이터베이스의 초기화 SQL이나 마이그레이션 SQL 스크립트 문법이 다르다.
-  - 애플리케이션 코드는 JPA 같은 추상화 된 계층 덕분에 코드의 변경이 크게 없겠지만 실제로 실행되는 동작이 다를 수 있으므로 주의가 필요하다.
+  - 애플리케이션 코드는 JPA 같은 추상화된 계층 덕분에 코드의 변경이 크게 없겠지만 실제로 실행되는 동작이 다를 수 있으므로 주의가 필요하다.
   - 데이터베이스를 컨테이너를 통해 구축하더라도 컴퓨터를 재부팅하면 매번 재실행해야 한다.
 - 세션이나 캐시를 위해 사용하는 레디스 스토리지
   - 임베디드 레디스를 사용한다면 이를 위한 설정들과 프로파일이 필요하다.
   - 로컬 환경에 레디스 서버를 구축한다면 설치하는 작업이 불편하다.
   - 스토리지를 컨테이너를 통해 구축하더라도 컴퓨터를 재부팅하면 매번 재실행해야 한다.
 
-프로젝트 테스트 컨텍스트에 다음과 같은 main 메서드를 작성하고 실행시키면 테스트 컨테이너들이 연결된 환경으로 애플리케이션을 실행할 수 있다.
+프로젝트 테스트 컨텍스트에 다음과 같은 main 메서드를 작성하고 실행하면 테스트 컨테이너들이 연결된 환경으로 애플리케이션을 실행할 수 있다.
 
 - ActionInBlogApplication 클래스의 main 메서드를 실행한다.
 - TestActionInBlogApplication 클래스의 빈(bean)들을 함께 사용한다.
   - @TestConfiguration 애너테이션이 붙은 설정 빈이다.
   - 내부에 테스트 컨테이너를 빈으로 생성하는 코드가 필요하다.
-  - 애플리케이션이 실행하면서 테스트 컨테이너의 접속 정보를 얻을 수 있도록 @ServiceConnection 애너테이션이 필요하다.
+  - 애플리케이션이 실행되면서 테스트 컨테이너의 접속 정보를 얻을 수 있도록 @ServiceConnection 애너테이션이 필요하다.
 
 ```java
 package action.in.blog;
@@ -236,7 +229,7 @@ public class TestActionInBlogApplication {
 
 ## 2. Practice
 
-간단하게 로컬 개발 환경을 구축해보겠다. 프로젝트 구조는 다음과 같다.
+간단하게 로컬 개발 환경을 구축해보자. 프로젝트 구조는 다음과 같다.
 
 ```
 ./
@@ -302,7 +295,7 @@ spring:
 
 ### 2.2. data.sql
 
-해당 스키마, 데이터 초기화 SQL 스크립트도 테스트 패키지에 위치한다.
+스키마와 데이터를 초기화하는 SQL 스크립트도 테스트 패키지에 위치한다.
 
 ```sql
 create table if not exists tb_user (
@@ -316,9 +309,7 @@ insert into tb_user (name) values ('Jua');
 
 ### 2.3. UserController Class
 
-기능을 제공하는 코드는 메인 패키지에 위치한다.
-
-- 사용자 정보를 조회 후 반환한다.
+기능을 제공하는 코드는 메인 패키지에 위치하며, 사용자 정보를 조회한 후 반환한다.
 
 ```java
 package action.in.blog.controller;
@@ -348,15 +339,15 @@ public class UserController {
 
 ### 2.4. TestActionInBlogApplication Class
 
-테스트 패키지에 위치한 TestActionInBlogApplication 클래스의 main 메서드를 실행한다.
+테스트 패키지에 위치한 TestActionInBlogApplication 클래스를 살펴보자.
 
 - main 메서드
   - 애플리케이션 실행을 위해 ActionInBlogApplication 클래스의 main 메서드를 사용한다.
   - TestActionInBlogApplication 클래스 자신을 설정 빈으로 사용한다.
   - 내부에 정의된 빈들을 컨텍스트에 포함하여 실행한다.
 - postgresContainer 메서드
-  - @Bean 애너테이션을 붙혀 반환하는 객체를 빈으로 관리된다.
-  - @ServiceConnection 애너테이션을 붙혀 애플리케이션이 접속하기 위해 필요한 정보를 제공한다.
+  - @Bean 애너테이션을 붙여 반환하는 객체가 빈으로 관리된다.
+  - @ServiceConnection 애너테이션을 붙여 애플리케이션이 접속하기 위해 필요한 정보를 제공한다.
 
 ```java
 package action.in.blog;
@@ -386,11 +377,7 @@ public class TestActionInBlogApplication {
 }
 ```
 
-##### Run Application with TestContainers
-
-TestActionInBlogApplication 클래스의 main 메서드를 실행한다.
-
-- 테스트 컨테이너와 함께 애플리케이션이 실행된다.
+TestActionInBlogApplication 클래스의 main 메서드를 실행한다. 테스트 컨테이너와 함께 애플리케이션이 실행된다.
 
 ```
 > Task :TestActionInBlogApplication.main()
@@ -409,10 +396,10 @@ TestActionInBlogApplication 클래스의 main 메서드를 실행한다.
 2023-08-30T23:20:55.028+09:00  INFO 65213 --- [           main] action.in.blog.ActionInBlogApplication   : Started ActionInBlogApplication in 14.655 seconds (process running for 15.75)
 ```
 
-##### Test Result
+실행 결과는 다음과 같다.
 
 - 테스트 패키지에 위치한 애플리케이션을 실행했지만, 메인 패키지에 위치한 UserController 클래스의 기능이 정상적으로 수행된다.
-- Postgres 테스트 컨테이너 데이터베이스에 초기화 된 데이터들이 정상적으로 조회된다.
+- Postgres 테스트 컨테이너 데이터베이스에 초기화된 데이터들이 정상적으로 조회된다.
 
 ```
 $ curl http://localhost:8080/users | jq .

@@ -136,7 +136,7 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2023/2023-08-23-flyway-cli-for-database-migration.md` — Flyway CLI를 활용한 데이터베이스 마이그레이션
 - [ ] `src/content/posts/2023/2023-08-25-flyway-on-spring-boot.md` — 스프링 부트에서 Flyway 사용
 - [ ] `src/content/posts/2023/2023-08-29-declarative-http-client-in-spring-boot.md` — 스프링 부트 선언적 HTTP 클라이언트
-- [ ] `src/content/posts/2023/2023-08-30-use-test-container-on-runtime-in-spring-boot.md` — 스프링 부트 런타임에서 TestContainer 사용
+- [x] `src/content/posts/2023/2023-08-30-use-test-container-on-runtime-in-spring-boot.md` — 스프링 부트 런타임에서 TestContainer 사용
 - [ ] `src/content/posts/2023/2023-09-04-create-san-ssl-certificate.md` — 자체 서명 SAN SSL 인증서 생성
 - [ ] `src/content/posts/2023/2023-09-06-install-harbor-using-docker-compose.md` — Docker Compose로 Harbor 설치
 - [ ] `src/content/posts/2023/2023-09-14-webcam-with-frame-filter.md` — 프레임 필터가 있는 웹캠 구현

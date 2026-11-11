@@ -6,6 +6,7 @@ canonicalPath: "/java/spring-boot/spring-boot-supports-graal-vm-native-image/"
 categories:
   - "java"
   - "spring-boot"
+summary: "네이티브 이미지의 동적 기능 제약과 스프링 AOT 처리를 살펴보고, 스프링 부트 3 애플리케이션을 GraalVM 네이티브 이미지로 빌드해 실행한 결과와 느낀 점을 정리했다."
 recommendedPosts:
   - title: "GraalVM"
     href: "https://junhyunny.github.io/information/java/graal-vm/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-스프링 부트(spring boot) 3.X 버전에 관련된 내용들을 보면 GraalVM 지원에 대한 이야기가 있다. 이전 글에서 [GraalVM][graal-vm-link]에 대한 내용을 정리했다. 이번엔 간단한 네이티브 이미지를 만들어본다. 이번 글에서 사용하는 AOT(Ahead of Time) 컴파일러에 대한 내용은 [이전 글][graal-vm-link]을 참조하길 바란다.
+스프링 부트(spring boot) 3.X 버전에 관련된 내용들을 보면 GraalVM 지원에 대한 이야기가 있다. 이전 글에서 [GraalVM][graal-vm-link]에 대한 내용을 정리했다. 이번엔 간단한 네이티브 이미지를 만들어봤다. 이번 글에서 사용하는 AOT(Ahead of Time) 컴파일러에 대한 내용은 [이전 글][graal-vm-link]을 참조하길 바란다.
 
 ## 1. Dynamic Features Limitation of Native Image
 
@@ -106,12 +107,10 @@ OpenJDK 64-Bit Server VM Liberica-NIK-23.0.0-1 (build 17.0.7+7-LTS, mixed mode, 
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/spring-boot-supports-graal-vm-native-image-02.png" width="100%" class="image__border">
 </div>
 
-프로젝트를 생성한 후 모듈 설정에서 SDK를 이전 단계에서 설치한 JDK로 변경한다. 모듈 설정`(COMMAND + ;)` 화면을 연다.
-
-- 준비 단계에서 다운로드 받은 liberica-17 JDK를 설정한다.
+프로젝트를 생성한 후 모듈 설정에서 SDK를 이전 단계에서 설치한 JDK로 변경한다. 모듈 설정`(COMMAND + ;)` 화면을 연다. 준비 단계에서 다운로드 받은 liberica-17 JDK를 설정한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/spring-boot-supports-graal-vm-native-image-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/spring-boot-supports-graal-vm-native-image-03.png" width="100%" class="image__border">
 </div>
 
 이 예제는 그레이들(gradle) 프로젝트다. 네이티브 이미지를 생성할 수 있는 작업(task)들을 사용하기 위해 build.gradle 파일에 `org.graalvm.buildtools.native` 플러그인을 추가한다.
@@ -221,16 +220,14 @@ public class DefaultPokemonProxy implements PokemonProxy {
 
 ## 5. Practice
 
-지금부터 GraalVM을 사용해 네이티브 이미지를 만들어 사용해본다. 네이티브 이미지를 실행하는 방법은 두 가지이다. 
+지금부터 GraalVM을 사용해 네이티브 이미지를 만들어 사용해보자. 네이티브 이미지를 실행하는 방법은 두 가지이다. 
 
 - 로컬 머신에 적합한 네이티브 이미지를 생성하고 실행한다.
   - `jar` 패키지 파일이 아니라 실행 파일이 생성된다.
 - 빌드팩(buildpack) 기반으로 컨테이너 이미지를 생성하고 이를 실행한다.
   - 도커(docker) 같은 컨테이너 런타임이 필요하다.
 
-애플리케이션 실행 속도 차이를 확인해보자. 먼저 네이티브 이미지가 아닌 일반적인 방법으로 자바 애플리케이션을 실행해보자. IDE를 사용해 애플리케이션을 실행한다. 빌드한 `jar` 패키지 파일을 실행해도 좋다.
-
-- 애플리케이션 실행까지 1.221초 소요된다.
+애플리케이션 실행 속도 차이를 확인해보자. 먼저 네이티브 이미지가 아닌 일반적인 방법으로 자바 애플리케이션을 실행해보자. IDE를 사용해 애플리케이션을 실행한다. 빌드한 `jar` 패키지 파일을 실행해도 좋다. 애플리케이션 실행까지 1.221초 소요된다.
 
 ```
   .   ____          _            __ _ _
@@ -458,7 +455,7 @@ $ docker run -p 8080:8080 docker.io/library/action-in-blog:0.0.1-SNAPSHOT
 - 빌드하는데 시간이 오래 소요되기 때문에 로컬 개발 환경이나 프로젝트 애플리케이션이 자주 변경되는 프로젝트 초반일 경우 불편할 것 같다.
 - @Profile 애너테이션을 사용한 선택적인 빈 주입은 정상적으로 수행된다. 공식 문서에서 제약 사항이 있다는 것을 보면 완벽하게 지원하진 않지만, 예제 수준의 간단한 프로파일 사용은 가능할 것으로 보인다.
 - GraalVM JDK를 사용하면 필요에 따라 컴파일 방법을 선택할 수 있다.
-  - OpenJDK 컴파일러와 Graal JIT 컴파일러를 jar 패키징 빌드
+  - OpenJDK 컴파일러와 Graal JIT 컴파일러를 사용한 jar 패키징 빌드
   - AOT 컴파일러를 사용한 네이티브 이미지 빌드
 
 #### TEST CODE REPOSITORY

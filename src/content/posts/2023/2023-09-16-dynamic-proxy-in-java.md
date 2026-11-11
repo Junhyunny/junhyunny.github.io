@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/dynamic-proxy-in-java/"
 categories:
   - "java"
+summary: "프록시 패턴의 구조를 살펴보고, 자바 리플렉션의 Proxy 클래스와 InvocationHandler로 인터페이스 기반 다이나믹 프록시를 만들어 메서드 실행을 가로채는 예제를 정리했다."
 recommendedPosts:
   - title: "프록시 패턴(proxy pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/proxy-pattern/"
@@ -36,7 +37,7 @@ recommendedPosts:
   - 인터페이스에서 명시한 기능을 실제로 처리하는 객체이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dynamic-proxy-in-java-01.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dynamic-proxy-in-java-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 
@@ -84,7 +85,7 @@ public class Proxy implements java.io.Serializable {
 4. 타겟 객체는 전달받은 요청을 수행한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dynamic-proxy-in-java-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dynamic-proxy-in-java-02.png" width="100%" class="image__border">
 </div>
 
 JDK 동적 프록시 기능은 다음과 같은 한계점을 가진다. 
@@ -180,7 +181,7 @@ public class PostInvocationHandler implements InvocationHandler {
 }
 ```
 
-간단한 테스트 코드를 통해 프록시 객체를 생성하고 동작하는 모습을 확인한다. 3개의 테스트 케이스를 살펴본다.
+간단한 테스트 코드를 통해 프록시 객체를 생성하고 동작하는 모습을 확인한다. 3개의 테스트 케이스를 살펴보자.
 
 - invoke_getPosts 메서드
   - 정상적으로 결과를 얻으며 소요 시간을 측정하는 로그가 함께 출력된다.

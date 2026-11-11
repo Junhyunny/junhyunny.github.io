@@ -6,6 +6,7 @@ canonicalPath: "/information/javascript/microtask-macrotask-in-javascript/"
 categories:
   - "information"
   - "javascript"
+summary: "자바스크립트에서 매크로태스크와 마이크로태스크가 생성되고 처리되는 순서를 Promise, async/await 예제와 퀴즈로 정리했다."
 recommendedPosts:
   - title: "자바스크립트 비동기 처리(JavaScript Asynchronous Task) 동작 원리"
     href: "https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/"
@@ -13,24 +14,24 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 Jest의 advanceTimersByTime 함수를 사용한 테스트 코드에서 발생한 문제 상황을 글로 정리했다. 글로 정리한 내용을 팀원들에게 소개하는 시간이 있었는 데 생각보다 논리적으로 설명하지 못 했다. 제대로 설명하지 못 한 이유를 곰곰히 생각해보니 마이크로태스크(microtask)나 매크로태스크(macrotask)에 대한 이해도가 낮기 때문이었다. 이번 글에선 마이크로태스크와 매크로태스크에 대해 정리했다. 
+최근 Jest의 advanceTimersByTime 함수를 사용한 테스트 코드에서 발생한 문제 상황을 글로 정리했다. 글로 정리한 내용을 팀원들에게 소개하는 시간이 있었는데 생각보다 논리적으로 설명하지 못했다. 제대로 설명하지 못한 이유를 곰곰이 생각해보니 마이크로태스크(microtask)나 매크로태스크(macrotask)에 대한 이해도가 낮기 때문이었다. 이번 글에선 마이크로태스크와 매크로태스크에 대해 정리했다. 
 
 ## 1. Macrotask and Microtask
 
 [자바스크립트 비동기 처리(JavaScript Asynchronous Task) 동작 원리][how-to-work-javascript-async-link]에서 설명했듯 브라우저 웹 API 호출이 완료되면 콜백 함수가 큐에 순서대로 담긴다. 콜백 함수가 담기는 큐는 두 가지 종류가 있다.
 
 - 매크로태스크 큐(macrotask queue)
-  - 우선 순위가 낮다.
+  - 우선순위가 낮다.
 - 마이크로태스크 큐(microtask queue)
-  - 우선 순위가 높다.
+  - 우선순위가 높다.
 
-우선 순위에 따라 실행되는 순서가 다르다. 물론 우선 순위가 높은 마이크로태스크 큐에 담긴 콜백 함수들이 먼저 실행된다. 마이크로태스크 큐가 모두 소진되면 다음 매크로태스크 큐에 담긴 콜백 함수들이 실행된다.
+우선순위에 따라 실행되는 순서가 다르다. 물론 우선순위가 높은 마이크로태스크 큐에 담긴 콜백 함수들이 먼저 실행된다. 마이크로태스크 큐가 모두 소진되면 다음 매크로태스크 큐에 담긴 콜백 함수들이 실행된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/microtask-macrotask-in-javascript-01.gif" width="100%" class="image__border">
-</div>
-<center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/microtask-macrotask-in-javascript-01.gif" width="100%" class="image__border">
+  </div>
+  <center>https://dev.to/lydiahallie/javascript-visualized-promises-async-await-5gke</center>
 </div>
 
 매크로태스크나 마이크로태스크라는 용어는 자바스크립트 플랫폼에 따라 서로 다르게 표현한다.
@@ -87,7 +88,7 @@ baz();
 
 ### 2.2. Microtask
 
-마이크로태스크는 Promise, async/await 블록에 의해 생성된다. 각 기능 별로 어떤 부분이 마이크로태스크로 구분되는지 살펴보자.
+마이크로태스크는 Promise, async/await 블록에 의해 생성된다. 각 기능별로 어떤 부분이 마이크로태스크로 구분되는지 살펴보자.
 
 #### 2.2.1. Promise
 

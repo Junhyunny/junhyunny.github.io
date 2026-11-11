@@ -32,7 +32,7 @@ recommendedPosts:
   - `P2` 프로세스가 먼저 수행한 경우에는 +100이 저장된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-01.png" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-01.png" width="100%">
 </div>
 
 ## 2. Critical Section
@@ -51,7 +51,7 @@ recommendedPosts:
 - 뮤텍스(Mutex), 세마포어(Semaphore) 같은 lock 메커니즘을 통해 구현할 수 있다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-02.png" width="100%" class="image__border">
 </div>
 
 임계 영역에 대한 상호 배제를 수행했다면 진행(process)을 가능하도록 만든다.
@@ -60,7 +60,7 @@ recommendedPosts:
 - 임계 영역 내에 일하는 프로세스가 없다면, 대기 중인 프로세스 중에서 다음으로 일을 수행할 프로세스를 선택한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-03.png" width="100%" class="image__border">
 </div>
 
 특정 프로세스가 진행이 가능하다면, 다른 프로세스들이 무제한 기다려선 안 된다. 대기하는 시간을 제한(bounded waiting)한다.
@@ -69,7 +69,7 @@ recommendedPosts:
 - 제한되는 대기 시간을 가진다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/race-condition-04.png" width="100%" class="image__border">
 </div>
 
 ## 3. Practice

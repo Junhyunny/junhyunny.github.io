@@ -7,6 +7,7 @@ categories:
   - "information"
   - "react"
   - "jest"
+summary: "스로틀의 개념과 스크롤 이벤트에 적용한 구현을 살펴보고, Jest 페이크 타이머로 스로틀 동작을 테스트하는 방법을 정리했다."
 recommendedPosts:
   - title: "Jest 디바운스(Debounce) 테스트하기"
     href: "https://junhyunny.github.io/information/react/jest/react-debounce-test-with-jest/"
@@ -20,7 +21,7 @@ recommendedPosts:
  
 다음과 같은 방식으로 처리하는 것을 쓰로틀이라고 한다. 
 
-1. 동일한 이벤트가 짧은 시간 동안 여러번 발생한다.
+1. 동일한 이벤트가 짧은 시간 동안 여러 번 발생한다.
 2. 지정된 시간 간격 이내에 발생한 이벤트들은 무시한다.
 3. 지정된 시간 간격 이후에 발생한 이벤트를 처리한다.
 
@@ -29,16 +30,16 @@ recommendedPosts:
 대표적으로 스로틀을 이용하는 경우는 다음과 같다.
 
 - 화면 확대와 축소
-- 검색어 입력시 자동 완성 혹은 연관 검색어 노출
+- 검색어 입력 시 자동 완성 혹은 연관 검색어 노출
 - 스크롤링(scrolling)으로 발생하는 과도한 이벤트 처리 
 
 스로틀 처리를 시각화하면 다음처럼 표현할 수 있다.
 
 - 최초 이벤트가 실행된다.  
-- 이후 여러번의 동일한 이벤트가 발생하지만, 설정한 시간 간격 이내에 발생한 이벤트는 무시한다.
+- 이후 여러 번의 동일한 이벤트가 발생하지만, 설정한 시간 간격 이내에 발생한 이벤트는 무시한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/throttle-test-with-jest-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/throttle-test-with-jest-01.png" width="100%" class="image__border">
 </div>
 <center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
@@ -72,9 +73,9 @@ export const throttle = (func, timeout) => {
 
 쓰로틀 함수를 애플리케이션에서 다음과 같이 사용한다. 이번 글은 화면의 스크롤 이벤트가 발생했을 때 돔 엘리먼트(dom element)를 다시 그리는 작업을 수행한다.
 
-1. increaseWidth 함수는 엘리먼트 폭을 증가 시킨다.
-2. decreaseWidth 함수는 엘리먼트 폭을 감소 시킨다.
-3. scrollEventHandler 함수는 스크롤 방향에 따라 엘리먼트 폭을 증가, 감소 시키는 함수를 호출한다.
+1. increaseWidth 함수는 엘리먼트 폭을 증가시킨다.
+2. decreaseWidth 함수는 엘리먼트 폭을 감소시킨다.
+3. scrollEventHandler 함수는 스크롤 방향에 따라 엘리먼트 폭을 증가, 감소시키는 함수를 호출한다.
 4. 두 개의 이벤트 함수를 만든다.
   - normalEvent 이벤트 함수는 일반 함수로 제어할 돔 엘리먼트 아이디는 `normal`이다.
   - throttledEvent 이벤트 함수는 스로틀 처리된 함수로 제어할 돔 엘리먼트 아이디는 `throttled`이다.

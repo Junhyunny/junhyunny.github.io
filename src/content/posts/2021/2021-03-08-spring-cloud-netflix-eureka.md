@@ -45,7 +45,7 @@ Netflix OSS 컴포넌트 중에서 `Eureka`는 클러스터 내 다른 서비스
 - 클라이언트는 다른 서비스 정보가 필요하면 서버로부터 전달받는다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-eureka-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-eureka-02.png" width="100%" class="image__border">
 </div>
 <center>https://wonit.tistory.com/497</center>
 

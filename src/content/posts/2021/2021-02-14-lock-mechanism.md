@@ -40,7 +40,7 @@ recommendedPosts:
   - 업데이트 결과가 0건이라면 다른 트랜잭션에 의한 데이터 변경을 인지하여 `OptimisticLockException`을 발생시킨다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/application-lock-mechanism-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/application-lock-mechanism-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Pessimistic Lock
@@ -59,7 +59,7 @@ recommendedPosts:
 2. 다른 트랜잭션들은 잠금된 데이터에 대해 업데이트 수행 시 데이터 락을 선점한 특정 트랜잭션 종료 시점까지 대기한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/application-lock-mechanism-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/application-lock-mechanism-02.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

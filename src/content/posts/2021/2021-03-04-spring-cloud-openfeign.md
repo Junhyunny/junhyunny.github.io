@@ -36,7 +36,7 @@ MSA(MicroService Architecture)를 지원하는 스프링 클라우드(spring clo
 5. 사용자는 `서비스A`로부터 결과를 응답 받는다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-openfeign-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-openfeign-01.png" width="100%" class="image__border">
 </div>
 
 pom.xml 파일에 `spring-cloud-starter-openfeign` 의존성을 추가한다.

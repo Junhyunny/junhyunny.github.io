@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "JPA에서 LockModeType과 @Version 애너테이션으로 낙관적 락을 사용하는 방법을 정리하고, JpaRepository와 EntityManager로 동작을 테스트했다."
 recommendedPosts:
   - title: "데이터베이스 락(Database Lock)"
     href: "https://junhyunny.github.io/information/database/database-lock/lock-mechanism/"
@@ -49,7 +50,7 @@ recommendedPosts:
 
 ### 1.2. @Version Annotation
 
-엔티티(entity) 필드에 버전 정보임을 알려주는 `@Version` 애너테이션을 붙힌다. `@Version` 애너테이션이 붙은 필드를 가진 엔티티는 자동으로 낙관적인 락이 적용된다. 버전으로 사용할 수 있는 타입은 int, Integer, long, Long, short, Short, java.sql.Timestamp 등이 있다.
+엔티티(entity) 필드에 버전 정보임을 알려주는 `@Version` 애너테이션을 붙인다. `@Version` 애너테이션이 붙은 필드를 가진 엔티티는 자동으로 낙관적인 락이 적용된다. 버전으로 사용할 수 있는 타입은 int, Integer, long, Long, short, Short, java.sql.Timestamp 등이 있다.
 
 ```java
 package blog.in.action.post;
@@ -97,7 +98,7 @@ insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'Th
 
 먼저 `JpaRepository` 인터페이스를 사용한 테스트다. `AsyncTransaction` 빈을 사용해 테스트에 필요한 새로운 비동기 트랜잭션을 생성한다. `Propagation.REQUIRES_NEW` 속성을 지정하여 진행 중인 트랜잭션을 잠시 멈추고 새로운 트랜잭션을 만들어 낸다. 이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행한다.
 
-- `트랜잭션1`는 다음과 같은 작업을 수행한다.
+- `트랜잭션1`은 다음과 같은 작업을 수행한다.
   - 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾는다.
   - 내용을 변경한다.
   - 0.5초 대기한다.
@@ -110,7 +111,7 @@ insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'Th
 - `트랜잭션2` 처리 과정에서 예외가 발생하는 것을 예상한다.
   - 해당 예외의 원인은 `ObjectOptimisticLockingFailureException` 이다.
 - 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상한다.
-- 포스트 엔티티의 버전 값이 1만큼 증가하였음을 예상한다.
+- 포스트 엔티티의 버전 값이 1만큼 증가했음을 예상한다.
 
 ```java
 package blog.in.action;
@@ -230,9 +231,9 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 #### 2.2.1. LockModeType.OPTIMISTIC
 
-위 테스트와 마찬가지로 각기 다른 트랜잭션을 만들어 실행하고 이를 커밋한다. 이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행한다. 각 모드 별로 테스트 코드와 결과를 살펴본다. 테스트 실행 전 데이터 버전 값을 초기화한다.
+위 테스트와 마찬가지로 각기 다른 트랜잭션을 만들어 실행하고 이를 커밋한다. 이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행한다. 각 모드 별로 테스트 코드와 결과를 살펴보자. 테스트 실행 전 데이터 버전 값을 초기화한다.
 
-- `트랜잭션1`는 다음과 같은 작업을 수행한다.
+- `트랜잭션1`은 다음과 같은 작업을 수행한다.
   - 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾는다.
   - 내용을 변경한다.
   - 0.5초 대기한다.
@@ -246,7 +247,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
   - 해당 예외의 원인은 `RollbackException` 이다.
   - `RollbackException` 예외의 원인은 `OptimisticLockException` 이다.
 - 포스트 엔티티는 커밋을 성공한 `트랜잭션1`의 업데이트 모습일 것으로 예상한다.
-- 포스트 엔티티의 버전 값이 1만큼 증가하였음을 예상한다.
+- 포스트 엔티티의 버전 값이 1만큼 증가했음을 예상한다.
 
 ```java
 package blog.in.action;
@@ -383,7 +384,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 `OPTIMISTIC` 모드 테스트와 결과가 동일하지만, 증가한 버전 값이 다르다. `OPTIMISTIC_FORCE_INCREMENT` 모드이므로 읽기만으로 버전 값이 증가한다.
 
-- 버전 값이 2만큼 증가하였음을 예상한다.
+- 버전 값이 2만큼 증가했음을 예상한다.
 - 오염 감지를 통해 업데이트가 수행되면서 버전 값이 증가한다.
 
 ```java

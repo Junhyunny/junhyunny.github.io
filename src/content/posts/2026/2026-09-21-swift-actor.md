@@ -9,6 +9,7 @@ categories:
   - "main-actor"
   - "async-await"
   - "asynchronous-task"
+summary: "공유 상태 접근을 직렬화해 데이터 경합을 막는 스위프트 액터와 격리 도메인의 개념을 카운터 예제로 살펴보고, 컴파일러가 이를 보장하는 방식을 정리했다."
 recommendedPosts:
   - title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task)"
     href: "https://junhyunny.github.io/swift/async-await/task/executor/thread/swift-asynchronous-task-architecture/"

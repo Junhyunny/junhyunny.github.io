@@ -7,6 +7,7 @@ categories:
   - "information"
   - "operating-system"
   - "junit"
+summary: "경쟁 상태와 임계 영역의 개념을 설명하고, 자바 멀티 스레드 예제에서 발생한 경쟁 상태를 synchronized 키워드로 해결하는 과정을 다룬다."
 recommendedPosts:
   - title: "프로세스(process)와 스레드(thread)"
     href: "https://junhyunny.github.io/information/operating-system/process-vs-thread/"
@@ -73,7 +74,7 @@ recommendedPosts:
 
 ## 3. Practice
 
-위 설명은 프로세스를 기준으로 정리되었지만, 스레드(thread)도 마찬가지로 작은 실행 흐름으로써 공유 자원에 대한 경쟁 상태를 가질 수 있다. 스레드들끼리는 메모리를 공유할 수 있으며, 이번 포스트에선 하나의 객체를 공유하는 스레드들 사이에 발생하는 경쟁 상태를 간단한 코드로 재현해보자. 
+위 설명은 프로세스를 기준으로 정리되었지만, 스레드(thread)도 마찬가지로 작은 실행 흐름으로서 공유 자원에 대한 경쟁 상태를 가질 수 있다. 스레드들끼리는 메모리를 공유할 수 있으며, 이번 글에선 하나의 객체를 공유하는 스레드들 사이에 발생하는 경쟁 상태를 간단한 코드로 재현해보자. 
 
 - 공유 자원 객체를 생성한다.
 - 동일한 객체를 두 스레드가 동시에 접근한다.
@@ -81,7 +82,7 @@ recommendedPosts:
 - `스레드1`은 다음과 같은 작업을 수행한다.
   - 공유 자원의 상태를 1씩 증가시킨다.
   - 이를 100회 반복한다.
-- `스레드2`은 다음과 같은 작업을 수행한다.
+- `스레드2`는 다음과 같은 작업을 수행한다.
   - 공유 자원의 상태를 1씩 감소시킨다.
   - 이를 100회 반복한다.
 - 위 작업을 100000회 반복 수행하여 공유 자원의 상태가 초기 값 0이 아닌 상태로 끝나는 횟수를 확인한다.
@@ -149,11 +150,9 @@ public class RaceConditionTest {
 Corrupted shared resource count - 17
 ```
 
-### 3.1. Race Condition with synchronized Keyword
-
 `Java`는 임계 영역에 대한 동시성 제어를 `synchronized` 키워드를 통해 수행한다. 이를 사용하면 공유 자원을 안전하게 변경 가능하다. 
 
-- 위와 동일한 방법으로 테스트를 수행하였다.
+- 위와 동일한 방법으로 테스트를 수행했다.
 - `synchronized` 키워드를 사용해 공유 자원에 대한 각 스레드 접근을 동기화시킨다.
 
 ```java

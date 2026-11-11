@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "spring-cloud"
   - "junit"
+summary: "URL이 고정된 것처럼 보이는 FeignClient 메서드에 URI 파라미터를 추가해 런타임에 요청 경로를 동적으로 바꾸는 방법을 예제로 정리했다."
 recommendedPosts:
   - title: "스프링 클라우드(spring cloud) OpenFeign"
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
@@ -47,11 +48,11 @@ public interface MyClient {
 
 ## 3. Practice
 
-[스프링 클라우드(spring cloud) OpenFeign][openfeign-link] 글의 예제를 변경하였다. 변경한 일부 코드만 살펴보겠다.
+[스프링 클라우드(spring cloud) OpenFeign][openfeign-link] 글의 예제를 변경했다. 변경한 코드 중 일부만 살펴보자.
 
-FeignClient 객체로 사용될 HealthClient 인터페이스를 살펴보자.
+먼저 FeignClient 객체로 사용될 HealthClient 인터페이스다.
 
-- 기본 플레이스홀더 URL 정보를 `http://placeholder-url`으로 지정한다.
+- 기본 플레이스홀더 URL 정보를 `http://placeholder-url`로 지정한다.
 - 메서드의 매개변수로 URI 객체를 전달한다.
 
 ```java

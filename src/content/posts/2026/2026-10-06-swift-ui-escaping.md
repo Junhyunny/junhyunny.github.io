@@ -7,6 +7,7 @@ categories:
   - "swift"
   - "swift-ui"
   - "escaping"
+summary: "함수가 끝난 뒤에도 실행될 수 있는 클로저에 @escaping 키워드가 필요한 이유를 컴파일러 최적화와 클로저 수명 계약 관점에서 예제로 정리했다."
 ---
 
 ## 1. SwiftUI @escaping 키워드

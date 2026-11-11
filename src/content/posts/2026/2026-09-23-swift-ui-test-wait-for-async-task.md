@@ -9,6 +9,7 @@ categories:
   - "test"
   - "test-driven-development"
   - "unit-test"
+summary: "SwiftUI 뷰 모델 테스트에서 비동기 상태 변경 때문에 단언이 실패하는 문제를 지정한 시간 동안 조건을 기다리는 waitFor 함수를 만들어 해결했다."
 ---
 
 ## 0. 들어가면서

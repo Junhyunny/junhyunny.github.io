@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "JPA에서 LockModeType과 @Lock 애너테이션으로 비관적 락을 사용하는 방법을 정리하고, 트랜잭션 안에서 락이 동작하는 모습을 테스트 코드로 확인했다."
 recommendedPosts:
   - title: "데이터베이스 락(Database Lock)"
     href: "https://junhyunny.github.io/information/database/database-lock/lock-mechanism/"
@@ -39,7 +40,7 @@ recommendedPosts:
   - works like PESSIMISTIC_WRITE and it additionally increments a version attribute of a versioned entity
   - `exclusive lock`과 동일하며 추가적으로 버전 자동 증가 수행한다.
 
-`PESSIMISTIC_READ`을 지원하지 않는 데이터베이스도 있지만, 그런 경우엔 `PESSIMISTIC_WRITE`으로 대체된다고 한다. 이번 포스트에선 `PESSIMISTIC_WRITE` 모드에 대해서만 다뤘다. 
+`PESSIMISTIC_READ`를 지원하지 않는 데이터베이스도 있지만, 그런 경우엔 `PESSIMISTIC_WRITE`로 대체된다고 한다. 이번 포스트에선 `PESSIMISTIC_WRITE` 모드에 대해서만 다뤘다. 
 
 ### 1.2. @Lock Annotation
 
@@ -74,7 +75,7 @@ insert into Post (ID, TITLE, CONTENTS, VERSION_NO) values (1, 'Hello World', 'Th
 
 먼저 `JpaRepository` 인터페이스를 사용한 테스트다. `AsyncTransaction` 빈을 사용해 테스트에 필요한 새로운 비동기 트랜잭션을 생성한다. `Propagation.REQUIRES_NEW` 속성을 지정하여 진행 중인 트랜잭션을 잠시 멈추고 새로운 트랜잭션을 만들어 낸다. 이를 통해 잠깐의 시간 차이가 발생하는 두 개의 트랜잭션을 실행한다.
 
-- `트랜잭션1`는 다음과 같은 작업을 수행한다.
+- `트랜잭션1`은 다음과 같은 작업을 수행한다.
   - 제목(title)이 `Hello World`인 포스트(post) 엔티티를 찾는다.
   - 데이터 조회만으로 데이터 락을 점유한다.
   - 내용을 변경한다.
@@ -227,7 +228,7 @@ Hibernate: select post0_.id as id1_0_, post0_.contents as contents2_0_, post0_.t
 
 다음은 `EntityManager`를 사용한 테스트다. 위 테스트와 마찬가지로 각기 다른 트랜잭션을 만들어 실행하고 이를 커밋한다. 
 
-- `트랜잭션1`는 다음과 같은 작업을 수행한다.
+- `트랜잭션1`은 다음과 같은 작업을 수행한다.
   - 제목이 `Hello World`인 포스트 엔티티를 찾는다.
   - 데이터 조회만으로 데이터 락을 점유한다.
   - 내용을 변경한다.

@@ -9,6 +9,7 @@ categories:
   - "strong-reference"
   - "weak-reference"
   - "garbage-collecting"
+summary: "스위프트 ARC의 참조 카운팅 동작을 살펴보고, 강한 참조로 생기는 순환 참조를 약한 참조와 미소유 참조로 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "가비지 컬렉션 참조 카운팅(Reference Counting) 알고리즘"
     href: "https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/"

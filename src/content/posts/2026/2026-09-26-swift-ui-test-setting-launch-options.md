@@ -8,6 +8,7 @@ categories:
   - "swift-ui"
   - "test"
   - "test-driven-development"
+summary: "XCUITest의 launchEnvironment로 주입한 테스트용 환경 변수를 AppConfig 모듈에 격리하고 SwiftUI 환경 값으로 등록해 뷰에서 사용하는 방법을 정리했다."
 recommendedPosts:
   - title: "SwiftUI 테스트 - FlyingFox HTTP 서버 목킹(mocking)하기"
     href: "https://junhyunny.github.io/swift/swift-ui/flyingfox/test/test-driven-development/integration-test/swift-ui-test-flying-fox/"

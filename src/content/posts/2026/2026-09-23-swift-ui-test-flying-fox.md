@@ -10,6 +10,7 @@ categories:
   - "test"
   - "test-driven-development"
   - "integration-test"
+summary: "XCUITest 기반 SwiftUI UI 테스트에서 외부 HTTP 서버를 테스트 더블로 제어하기 위해 FlyingFox 라이브러리로 목 서버를 띄우는 방법을 예제로 정리했다."
 recommendedPosts:
   - title: "테스트 더블(Test Double)"
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"

@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/spring-cloud/spring-cloud-openfeign/"
 categories:
   - "spring-boot"
   - "spring-cloud"
+summary: "선언적 HTTP 클라이언트인 스프링 클라우드 OpenFeign을 사용해 서비스 간 API를 호출하는 예제를 구현하고 도커 컴포즈로 동작을 확인했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
@@ -83,7 +84,7 @@ public interface HealthClient {
 }
 ```
 
-`ServiceA` 프로젝트에 요청을 받을 수 있도록 `/health` 경로 생성한다.
+`ServiceA` 프로젝트에 요청을 받을 수 있도록 `/health` 경로를 생성한다.
 
 ```java
 package action.in.blog.controller;
@@ -128,7 +129,7 @@ public class AServiceApplication {
 }
 ```
 
-`ServiceB` 프로젝트에 요청을 받기 위한 `/health` 경로 생성한다.
+`ServiceB` 프로젝트에 요청을 받기 위한 `/health` 경로를 생성한다.
 
 ```java
 package action.in.blog.controller;
@@ -237,7 +238,7 @@ RawContentLength  : 47
 
 ## CLOSING
 
-유틸성 클래스를 만들어 HTTP 요청을 다루는 코드를 오래된 시스템에서 종종 보았다. `HttpURLConnection`, `I/O Stream` 클래스를 사용해 불필요한 코드가 많았는데, `FeignClient`는 인터페이스와 애너테이션을 통해 비즈니스와 관련 없는 코드들을 최대한 단순화시킨다. `spring-cloud` 생태계를 조성하는 다른 컴포넌트들과 함께 사용하면 더욱 좋다. 
+유틸성 클래스를 만들어 HTTP 요청을 다루는 코드를 오래된 시스템에서 종종 봤다. `HttpURLConnection`, `I/O Stream` 클래스를 사용해 불필요한 코드가 많았는데, `FeignClient`는 인터페이스와 애너테이션을 통해 비즈니스와 관련 없는 코드들을 최대한 단순화시킨다. `spring-cloud` 생태계를 조성하는 다른 컴포넌트들과 함께 사용하면 더욱 좋다. 
 
 #### TEST CODE REPOSITORY
 

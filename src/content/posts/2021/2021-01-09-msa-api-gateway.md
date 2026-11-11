@@ -21,10 +21,10 @@ recommendedPosts:
 이를 해결하기 위한 컴포넌트가 `API 게이트웨이(gateway)`이다. 클라이언트 애플리케이션 입장에선 API 서버들을 하나로 묶어 단일화한 것처럼 보이기 때문에 게이트웨이 하나의 호스트를 통해 여러 API 서비스에 접근할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-api-gateway-01.png" width="100%" class="image__border">
-</div>
-<center>마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-api-gateway-01.png" width="100%" class="image__border">
+  </div>
+  <center>마이크로소프트-.NET 마이크로 서비스 - 아키텍처 eBook</center>
 </div>
 
 API 게이트웨이는 엔드포인트 단일화를 위해서만 사용되는 컴포넌트는 아니다. 여러 가지 책임을 게이트웨이에 부여할 수 있다.
@@ -43,10 +43,10 @@ API 게이트웨이는 엔드포인트 단일화를 위해서만 사용되는 �
 API 게이트웨이는 특성상 모든 API 서버 앞쪽에 위치한다. 즉, 모든 트래픽이 API 게이트웨이를 거쳐간다. 모든 트래픽에 대해 공통적으로 처리해야 하는 공통 기능들을 API 게이트웨이에 구현하면 다른 API 서비스들은 비즈니스에 집중할 수 있다. 게이트웨이는 로그를 수집하기에도 매우 좋은 곳에 위치한다. API 호출 로그는 사용자 사용 패턴을 분석하거나 문제 발생 시 이를 추적하기 위한 자료로 사용된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-api-gateway-02.png" width="75%" class="image__border">
-</div>
-<center>MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/msa-api-gateway-02.png" width="75%" class="image__border">
+  </div>
+  <center>MSA 아키텍쳐 구현을 위한 API 게이트웨이의 이해 #1</center>
 </div>
 
 API 게이트웨이는 중재 기능을 수행하는 것이 가능하다. 중재란 서비스가 제공하는 각 API 서버의 응답 스키마(schema)가 클라이언트가 원하는 응답 스키마와 다를 때 이를 맞춰주는 작업을 의미한다. 예를 들면 다음과 같은 중재 작업들이 있다.
@@ -60,7 +60,7 @@ API 게이트웨이는 중재 기능을 수행하는 것이 가능하다. 중재
 
 ## CLOSING
 
-API 게이트웨이의 기능들에 대해 간략하게 정리해보았다. 예시나 사례는 [조대협님의 MSA 아키텍처 구현을 위한 API 게이트웨이의 이해라는 글][cho-blog-link]에 상당히 구체적으로 작성되어 있다. 
+API 게이트웨이의 기능들에 대해 간략하게 정리해봤다. 예시나 사례는 [조대협님의 MSA 아키텍처 구현을 위한 API 게이트웨이의 이해라는 글][cho-blog-link]에 상당히 구체적으로 작성되어 있다. 
 
 #### REFERENCE
 

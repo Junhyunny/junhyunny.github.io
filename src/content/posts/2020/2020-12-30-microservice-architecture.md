@@ -37,11 +37,11 @@ recommendedPosts:
 
 하지만 서비스들끼리 협업하는 분산 환경이기 때문에 통신에 따른 성능 이슈가 있다. 서비스 간에 트랜잭션이 필요한 경우에는 이를 별도로 처리해야 한다. 분산 환경이기 때문에 장애 포인트가 늘어나고 모니터링에 어려움을 겪을 수 있다. 한마디로 시스템의 복잡도가 증가한다. 모놀리식 아키텍처와 마이크로서비스 아키텍처 구조의 차이점을 정리해보자. 
 
-- 모놀리식 아키택처는 `UI`, `Business Logic`, `Data Access Layer` 모두 하나의 서비스에 존재한다.
+- 모놀리식 아키텍처는 `UI`, `Business Logic`, `Data Access Layer` 모두 하나의 서비스에 존재한다.
 - 마이크로서비스 아키텍처는 `UI` 서비스와 비즈니스 특성에 맞게 설계된 서비스들이 서로 협업한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/microservice-architecture-01.png" width="80%" class="image__border"/>
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/microservice-architecture-01.png" width="80%" class="image__border">
 </div>
 <center>https://www.redhat.com/ko/topics/microservices/what-are-microservices</center>
 

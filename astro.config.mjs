@@ -75,8 +75,6 @@ function markLinkLists() {
 export default defineConfig({
   site,
   trailingSlash: 'always',
-  // 기존 Jekyll 주소 호환: 카테고리 목록은 Archive의 카테고리 필터로 대신한다.
-  redirects: { '/categories/': '/posts/' },
   markdown: {
     // 한국어 조사가 붙은 강조(**'인용'**라는, **용어(Term)**는)를 Jekyll(kramdown)처럼 처리한다.
     remarkPlugins: [remarkCjkFriendly, markLinkLists, formatAboutResume],

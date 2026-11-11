@@ -24,14 +24,14 @@ recommendedPosts:
 
 > CI/CD는 애플리케이션 개발 단계를 자동화하여 좋은 품질의 애플리케이션을 보다 짧은 주기로 고객에게 제공하는 방법이다.
 
-처음 용어에 대한 정의를 접하였을 땐 추상적인 개념이라는 생각이 들었다. 여러 프로젝트들을 경험하면서 이 개념을 자연스럽게 이해하게 됐다. CI/CD는 크게 3단계로 나뉜다.
+처음 용어에 대한 정의를 접했을 땐 추상적인 개념이라는 생각이 들었다. 여러 프로젝트들을 경험하면서 이 개념을 자연스럽게 이해하게 됐다. CI/CD는 크게 3단계로 나뉜다.
 
 - 지속적인 통합(Continuous Integration)
 - 지속적인 전달(Continuous Delivery)
 - 지속적인 배포(Continuous Deployment)
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/what-is-ci-cd-01.png" width="80%" class="image__border"/>
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2020/main/what-is-ci-cd-01.png" width="80%" class="image__border">
 </div>
 <center>https://www.redhat.com/ko/topics/devops/what-is-ci-cd</center>
 

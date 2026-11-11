@@ -6,6 +6,7 @@ canonicalPath: "/information/spring-boot/mobile-device-detect/"
 categories:
   - "information"
   - "spring-boot"
+summary: "모바일 기능 추가를 위해 자바스크립트와 스프링 부트 서버에서 User-Agent 정보로 사용자 디바이스를 식별하는 방법을 정리했다."
 recommendedPosts:
   - title: "스프링 필터(Filter), 인터셉터(Interceptor) 그리고 AOP"
     href: "https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-현재 리뉴얼 중인 시스템에 모바일 기능을 추가하는 데 사용자의 디바이스 식별을 어디에서 수행할지 고민되었다.
+현재 리뉴얼 중인 시스템에 모바일 기능을 추가하는데 사용자의 디바이스 식별을 어디에서 수행할지 고민되었다.
 
 - 브라우저에서 판단하여 경로를 다르게 호출한다.
 - 브라우저는 일단 호출하고 서버의 필터(filter) 혹은 인터셉터(interceptor)에서 경로를 라우팅(routing)한다.
@@ -31,7 +32,7 @@ recommendedPosts:
 > - If you want to present the user a different experience (mobile, tablet, laptop, etc) based on browser, do it at the server.
 > - If you want to present the same general experience, but need to account for browser compatibility issues, do it at the client.
 
-모바일, 태블릿, PC 환경에 따라 다른 경험을 제공하고 싶다면 서버 측에서 수행하고, 일반적으로 같은 경험을 제공하고 싶지만, 브라우저 호환성 문제를 고려해야 하는 경우는 클라이언트 측에서 수행하는 것이 좋다고 한다. 이번 프로젝트에서 추가되는 모바일(혹은 태블릿) 서비스는 PC 환경에서 제공하는 서비스와 전혀 다르기 때문에 서버 측에서 수행하기로 하였다. 이제 구현 방법을 알아보자.
+모바일, 태블릿, PC 환경에 따라 다른 경험을 제공하고 싶다면 서버 측에서 수행하고, 일반적으로 같은 경험을 제공하고 싶지만, 브라우저 호환성 문제를 고려해야 하는 경우는 클라이언트 측에서 수행하는 것이 좋다고 한다. 이번 프로젝트에서 추가되는 모바일(혹은 태블릿) 서비스는 PC 환경에서 제공하는 서비스와 전혀 다르기 때문에 서버 측에서 수행하기로 했다. 이제 구현 방법을 알아보자.
 
 ## 1. 자바스크립트(JavaScript)에서 사용자 디바이스 식별
 
@@ -99,7 +100,7 @@ public class HomeController {
 }
 ```
 
-위 방법은 이미 비즈니스 로직 시작 위치까지 진입했다고 보이기 때문에 이런 방식을 사용하고 싶지는 않았다. 필터 혹은 인터셉터를 사용해 경로 라우팅을 수행하고 싶었다. 관련된 내용을 찾다 보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 방법이 나와 있었다. 이번 리뉴얼 프로젝트가 JSP를 사용하는 중이었는데, 운 좋게 API 문서의 예제 코드도 JSP로 제공하고 있었다. 간단한 예제 코드를 통해 잘 동작하는지 확인해보겠다.
+위 방법은 이미 비즈니스 로직 시작 위치까지 진입했다고 보이기 때문에 이런 방식을 사용하고 싶지는 않았다. 필터 혹은 인터셉터를 사용해 경로 라우팅을 수행하고 싶었다. 관련된 내용을 찾다 보니 [Spring Document - Spring Mobile Device Module][spring-doc-link]에 자세한 방법이 나와 있었다. 이번 리뉴얼 프로젝트가 JSP를 사용하는 중이었는데, 운 좋게 API 문서의 예제 코드도 JSP로 제공하고 있었다. 간단한 예제 코드를 통해 잘 동작하는지 확인해보자.
 
 패키지는 다음과 같이 구성되어 있다.
 

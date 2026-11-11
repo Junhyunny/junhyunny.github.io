@@ -5,6 +5,7 @@ updatedAt: "2026-05-08T02:40:06+09:00"
 canonicalPath: "/spring-boot/transaction-in-spring-application-context-event/"
 categories:
   - "spring-boot"
+summary: "스프링 애플리케이션 컨텍스트 이벤트를 처리할 때 트랜잭션이 이벤트까지 이어지는지, 별도 트랜잭션으로 분리할 수 있는지 테스트 코드로 확인했다."
 recommendedPosts:
   - title: "@Transactional 애너테이션의 전파 타입(PropagationType)"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/transactional-propagation-type/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)를 다룬 글][spring-application-context-event-link]에서 간단한 시나리오와 함께 스프링 프레임워크의 애플리케이션 컨텍스트 이벤트의 개념과 사용 방법을 알아보았다. 이번 글은 이전 글을 작성하면서 생긴 궁금증을 해소하기 위해 작성하였다. 이번 글에서 사용한 예제의 패키지 구조는 다음과 같다.
+[스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)를 다룬 글][spring-application-context-event-link]에서 간단한 시나리오와 함께 스프링 프레임워크의 애플리케이션 컨텍스트 이벤트의 개념과 사용 방법을 알아봤다. 이번 글은 이전 글을 작성하면서 생긴 궁금증을 해소하기 위해 작성했다. 이번 글에서 사용한 예제의 패키지 구조는 다음과 같다.
 
 ```
 `-- action-in-blog
@@ -62,7 +63,7 @@ recommendedPosts:
 
 ## 1. 전달한 이벤트까지 트랜잭션이 이어지는가?
 
-전달한 이벤트까지 동일한 트랜잭션으로 처리할 수 있다. 간단한 테스트 코드로 확인해 보겠다. 비즈니스 로직을 담당하는 DeliveryService 클래스를 살펴보자.
+전달한 이벤트까지 동일한 트랜잭션으로 처리할 수 있다. 간단한 테스트 코드로 확인해 보자. 비즈니스 로직을 담당하는 DeliveryService 클래스는 다음과 같이 동작한다.
 
 1. 전달받은 파라미터인 배달 코드에 해당하는 배달 정보를 조회한다.
 2. 배달 완료 여부를 변경한 후 업데이트한다.
@@ -174,8 +175,8 @@ public class TransactionInEventTest {
 
 위 테스트 코드는 정상적으로 통과한다.
 
-<div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-01.png" width="50%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-01.png" width="100%" class="image__border">
 </div>
 
 실제로 데이터베이스가 롤백(rollback)되었는지 SQL을 통해 확인할 수 있다.
@@ -188,8 +189,8 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 
 트랜잭션 내에서 발생한 모든 작업이 롤백되어 배달 완료 여부가 아직 `NULL` 값임을 확인할 수 있다.
 
-<div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-02.png" width="70%" class="image__border">
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-02.png" width="100%" class="image__border">
 </div>
 
 이벤트 리스너(event listener)에서 주문 서비스의 예외를 try-catch 구문으로 묶었음에도 테스트 코드에서 UnexpectedRollbackException 예외가 발생한다. 이유는 다음과 같다.
@@ -316,8 +317,8 @@ public class TransactionInEventTest {
 
 위 테스트 코드는 정상적으로 통과한다.
 
-<div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-03.png" width="50%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-03.png" width="100%" class="image__border">
 </div>
 
 실제로 데이터베이스가 롤백되지 않고 저장되었는지 SQL을 통해 확인할 수 있다.
@@ -330,8 +331,8 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 
 새로 만들어진 트랜잭션 내에서 발생한 작업만 롤백되었기 때문에 배달 완료 여부가 `*` 값임을 확인할 수 있다.
 
-<div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-04.png" width="70%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-04.png" width="100%" class="image__border">
 </div>
 
 동일 트랜잭션으로 묶어서 처리할 때와 다르게 UnexpectedRollbackException 예외가 발생하지 않았다. 이유는 다음과 같다.

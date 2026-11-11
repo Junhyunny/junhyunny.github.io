@@ -9,6 +9,7 @@ categories:
   - "macbook-pro"
   - "m4-chip"
   - "arm64"
+summary: "M4 맥북의 VirtualBox 칼리 리눅스에 게스트 확장 기능을 설치하다 커널 헤더가 없어 실패한 문제를 맞는 커널 헤더를 설치해 해결한 과정을 기록했다."
 ---
 
 ## 0. 들어가면서
@@ -44,7 +45,7 @@ VirtualBox의 게스트 확장 기능(guest addition)은 가상 머신 속 게�
 칼리 리눅스에서 게스트 확장 기능을 설치한다. 가상 머신에 설치한 칼리 리눅스 이미지는 `kali-linux-2025.2-installer-arm64.iso`다. OS 설치는 되었다고 가정하고, 게스트 확장 기능 설치에 관련된 내용만 다룬다. 가상 머신을 선택 후 화면 `Device` 메뉴를 선택한다. `Insert Guest Additions CD image...` 항목을 선택한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-01.png" width="100%" class="image__border">
 </div>
 
 해당 버튼을 누르면 바탕화면에 가상 CDROM 폴더가 생성된다.
@@ -198,7 +199,7 @@ $ sudo reboot
 시스템이 재부팅 된 이후 가상 머신의 클립보드(clipboard)와 드래그-앤-드랍(drag-and-drop) 기능을 양방향으로 활성화한다. 화면 상단 `Devices` 메뉴에서 클립보드, 드래그-앤-드랍 기능을 모두 공유할 수 있다. `Shared Clipboard`에서 `Bidirectional` 항목을 선택한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-04.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

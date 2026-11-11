@@ -315,6 +315,8 @@ h1, h2, h3, p { margin: 0; }
 .prose .image-row img { min-width: 0; margin: 0; }
 /* align="left"로 감싼 이미지는 가운데가 아니라 왼쪽에 둔다. */
 .prose :is(div, p)[align="left"] > img { margin-inline: 0; }
+/* 배경이 투명한 이미지를 다크 모드에서도 읽을 수 있게 흰 배경을 깐다. */
+.prose img.image__background_white { box-sizing: border-box; padding: 1rem; background: #fff; }
 .prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: var(--text-compact); }
 .prose td, .prose th { border: 1px solid var(--line); padding: .4rem .7rem; }
 .prose thead th {

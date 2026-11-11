@@ -8,6 +8,7 @@ categories:
   - "lambda"
   - "serverless"
   - "lambda-layers"
+summary: "서버리스 아키텍처의 백엔드 역할을 하는 AWS 람다의 특징과 메모리, 실행 시간 같은 제약 사항, 초기화와 호출 단계로 이뤄진 실행 환경 아키텍처, 람다 레이어를 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -79,7 +80,7 @@ AWS 람다의 아키텍처를 살펴보자. 우선 람다는 가상 머신(VM, V
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-02.webp" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-02.webp" width="100%" class="image__border">
   </div>
   <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
@@ -147,7 +148,7 @@ MicroVM에 격리되어 실행되는 **사용자 지정 함수**는 **람다 서
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-07.gif" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-07.gif" width="100%" class="image__border">
   </div>
   <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>

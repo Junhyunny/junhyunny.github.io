@@ -5,6 +5,7 @@ updatedAt: "2026-05-08T01:57:40+09:00"
 canonicalPath: "/spring-boot/spring-application-context-event/"
 categories:
   - "spring-boot"
+summary: "패키지 사이의 의존 문제를 풀기 위해 스프링 애플리케이션 컨텍스트 이벤트로 커스텀 이벤트를 발행하고 구독하는 주문, 배달 예제를 구현했다."
 recommendedPosts:
   - title: "프록시 패턴(proxy pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/proxy-pattern/"
@@ -41,10 +42,10 @@ recommendedPosts:
 - 이벤트 처리를 위한 카프카(kafka) 같은 큐(queue) 시스템이 필요하다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-application-context-event-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-application-context-event-02.png" width="100%" class="image__border">
 </div>
 
-이번 글에서는 커스텀 이벤트를 발행하고 수신하는 예시를 다룰 예정이지만, 먼저 기본적으로 어떤 이벤트가 있는지 살펴보겠다. 기본 이벤트를 사용하면 개발자는 자신의 기능을 애플리케이션의 라이프사이클(lifecycle)에 연결할 수 있다.
+이번 글에서는 커스텀 이벤트를 발행하고 수신하는 예시를 다룰 예정이지만, 먼저 기본적으로 어떤 이벤트가 있는지 살펴보자. 기본 이벤트를 사용하면 개발자는 자신의 기능을 애플리케이션의 라이프사이클(lifecycle)에 연결할 수 있다.
 
 - ContextRefreshedEvent
   - 애플리케이션 컨텍스트를 초기화하거나 리프레시(refresh)할 때 발행된다.
@@ -57,7 +58,7 @@ recommendedPosts:
 
 ## 2. Examples
 
-두 모듈 사이의 정보를 커스텀 이벤트로 주고받는 간단한 예시 코드를 살펴보자. 배달이나 주문과 관련된 비즈니스 도메인에 대해서는 잘 모르지만, 간단한 프로세스를 예시로 다뤄 보았다.
+두 모듈 사이의 정보를 커스텀 이벤트로 주고받는 간단한 예시 코드를 살펴보자. 배달이나 주문과 관련된 비즈니스 도메인에 대해서는 잘 모르지만, 간단한 프로세스를 예시로 다뤄 봤다.
 
 1. 배달 정보가 "배달 완료" 상태로 업데이트된다.
 2. 배달 모듈에서 "배달 완료" 이벤트를 발행한다.

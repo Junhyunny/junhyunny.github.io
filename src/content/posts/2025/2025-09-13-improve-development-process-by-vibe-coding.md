@@ -8,6 +8,7 @@ categories:
   - "ai-agent"
   - "copilot"
   - "prompt"
+summary: "코파일럿 에이전트로 바이브 코딩을 시도하며 얻은 인사이트를 바탕으로 개발 작업을 AI가 잘하는 작은 단위로 나누고 재사용 가능한 프롬프트 파일로 만든 과정을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -49,7 +50,7 @@ categories:
 프론트엔드 디자인을 반영하는 작업은 속도를 높이기 위해 피그마 MCP 서버를 사용하기로 했다. 이 부분도 몇 차례 테스트를 통해 피그마 MCP 서버로부터 얻은 정보로 직접 대상 컴포넌트에 디자인을 적용하는 것보다 임시 컴포넌트를 만든 후 이를 기반으로 대상 컴포넌트의 디자인을 적용하는 편이 완성도가 높다는 인사이트를 얻었다. 최종적으로 프론트엔드 개발 작업은 다음과 같이 변경됐다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/improve-development-process-by-vibe-coding-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/improve-development-process-by-vibe-coding-03.png" width="100%" class="image__border">
 </div>
 
 ## 2. Make prompt file

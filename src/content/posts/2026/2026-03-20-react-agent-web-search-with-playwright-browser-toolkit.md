@@ -11,6 +11,7 @@ categories:
   - "playwright-browser-toolkit"
   - "browser"
   - "web-search"
+summary: "Playwright 브라우저 툴킷을 ReAct 에이전트에 연결해 AI 에이전트가 브라우저를 직접 조작하며 웹 검색 결과와 이메일 내용을 요약하는 예제를 구현했다."
 recommendedPosts:
   - title: "LLM 랭체인(LangChain) 예제"
     href: "https://junhyunny.github.io/ai/large-language-model/langchain/lang-chain/"

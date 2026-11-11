@@ -5,6 +5,7 @@ updatedAt: "2026-05-08T03:20:01+09:00"
 canonicalPath: "/spring-boot/async-in-spring-application-context-event/"
 categories:
   - "spring-boot"
+summary: "@EnableAsync와 @Async로 스프링 애플리케이션 컨텍스트 이벤트를 비동기로 처리하고, 이때 트랜잭션이 어떻게 분리되는지 테스트로 확인했다."
 recommendedPosts:
   - title: "스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)"
     href: "https://junhyunny.github.io/spring-boot/spring-application-context-event/"

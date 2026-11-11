@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/vue.js/multipartfile-in-dto/"
 categories:
   - "spring-boot"
   - "vue.js"
+summary: "@ModelAttribute로 DTO 객체에 MultipartFile을 단일 필드, 리스트, 맵, 맵-리스트 형태로 담아 업로드하는 예제를 Vue.js와 스프링 부트로 구현했다."
 recommendedPosts:
   - title: "스프링 MultipartFile 인터페이스와 파일 업로드"
     href: "https://junhyunny.github.io/spring-boot/vue.js/multipartfile/"
@@ -23,7 +24,7 @@ Jekyll 문법과 충돌하므로 `{ { someValue } }`으로 표기된 코드는 �
 - item별로 이미지가 M개 매칭되는데 함께 업로드되어야 한다.
 - item 데이터와 함께 업로드된 이미지는 item 데이터 PK에 매칭되어 저장되어야 한다.
 
-DTO 클래스에 MultipartFile 리스트를 담고 싶었는데, 관련된 내용을 찾아보니 `@ModelAttribute` 애너테이션이 눈에 띄었다. 이번 기능을 구현하면서 몇 가지 추가적인 내용을 확인했는데, 관련 내용은 아래 예제 코드를 통해 설명하겠다. 먼저 `@ModelAttribute` 애너테이션에 대해 알아보겠다.
+DTO 클래스에 MultipartFile 리스트를 담고 싶었는데, 관련된 내용을 찾아보니 `@ModelAttribute` 애너테이션이 눈에 띄었다. 이번 기능을 구현하면서 몇 가지 추가적인 내용을 확인했는데, 관련 내용은 아래 예제 코드를 통해 설명하겠다. 먼저 `@ModelAttribute` 애너테이션에 대해 알아보자.
 
 ## 2. @ModelAttribute 애너테이션
 

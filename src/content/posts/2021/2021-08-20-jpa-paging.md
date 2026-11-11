@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "JPA의 Pageable 인터페이스와 PageRequest, Page 클래스를 사용해 페이징을 처리하는 방법을 세 가지 테스트 코드로 정리했다."
 recommendedPosts:
   - title: "스프링 부트(Spring Boot)와 VueJS로 테이블 페이징(paging) 처리"
     href: "https://junhyunny.github.io/spring-boot/vue.js/spring-boot-vue-js-paging-table/"
@@ -78,7 +79,7 @@ Pageable pageable = PageRequest.of(0, 100, Sort.by(Direction.DESC, "testValue"))
 - getTotalPages 메서드
   - 총 페이지 개수
 
-PageRequest 클래스 `of` 메서드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있다. JpaRepository에서 기본적으로 제공하는 `findAll` 메서드를 이용하였다.
+PageRequest 클래스 `of` 메서드를 통해 얻은 Pageable 구현체는 아래 코드처럼 사용할 수 있다. JpaRepository에서 기본적으로 제공하는 `findAll` 메서드를 이용했다.
 
 ```java
 Pageable pageable = PageRequest.of(0, 10, Sort.by(Direction.DESC, "testValue"));

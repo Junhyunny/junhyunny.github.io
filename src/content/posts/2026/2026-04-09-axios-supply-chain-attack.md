@@ -8,6 +8,7 @@ categories:
   - "javascript"
   - "axios"
   - "cwe-506"
+summary: "메인테이너 계정 탈취로 악성 postinstall 스크립트가 포함된 axios 버전이 배포된 2026년 3월 서플라이 체인 공격의 경과와 타임라인, 감염 확인 및 복구 방법을 정리했다."
 ---
 
 ## 1. Incident Overview

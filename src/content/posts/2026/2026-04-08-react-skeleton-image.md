@@ -8,6 +8,7 @@ categories:
   - "javascript"
   - "typescript"
   - "usability"
+summary: "람다가 썸네일을 비동기로 생성하는 동안 Image 객체로 이미지 로딩을 최대 5회 재시도하고, 로딩 전까지 스켈레톤 이미지를 보여주는 리액트 컴포넌트를 테스트와 함께 구현했다."
 recommendedPosts:
   - title: "사파리(safari) 브라우저 캐시 정책과 이미지 재로딩 문제"
     href: "https://junhyunny.github.io/browser/safari/javascript/typescript/safari-caching-issue/"

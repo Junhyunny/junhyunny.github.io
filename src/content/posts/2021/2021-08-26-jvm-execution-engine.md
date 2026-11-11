@@ -6,6 +6,7 @@ canonicalPath: "/information/java/jvm-execution-engine/"
 categories:
   - "information"
   - "java"
+summary: "바이트 코드를 실행하는 JVM 실행 엔진의 인터프리터와 JIT 컴파일러가 동작하는 방식과 차이를 정리했다."
 recommendedPosts:
   - title: "JVM(Java Virtual Machine)"
     href: "https://junhyunny.github.io/information/java/what-is-jvm/"
@@ -24,10 +25,10 @@ recommendedPosts:
 실행 엔진(execution engine)을 자세히 알아보기 전에 필요한 개념도 함께 정리했다. 개발자는 이클립스(eclipse) 혹은 인텔리제이(IntelliJ) 같은 IDE(Integrated Development Environment)에서 `.java` 확장자를 가진 파일에 소스 코드를 작성한다. 소스 코드는 사람이 알아보기 쉽게 영어로 작성되어 있지만 기계는 이를 해석하지 못한다. 자바(Java) 언어의 경우 JVM에 의해 프로그램이 동작하므로 JVM이 해석할 수 있는 내용으로 소스 코드를 변경해야 한다. 이 과정을 컴파일(compile)이라고 한다. JDK(Java Development Kit)를 설치하면 `/bin` 폴더에 있는 `javac` 프로그램으로 수행된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-01.png" width="80%" class="image__border">
-</div>
-<center>https://math.hws.edu/javanotes/c1/s3.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://math.hws.edu/javanotes/c1/s3.html</center>
 </div>
 
 컴파일이 완료되면 JVM이 해석할 수 있는 `바이트 코드(Byte Code)`로 작성된 `.class` 확장자의 클래스 파일이 생성된다. 클래스 파일은 애플리케이션이 동작할 때 메모리에 적재되어 JVM 실행 엔진에 의해 수행된다. 예를 들어, 다음과 같은 자바 코드가 있다.
@@ -79,16 +80,16 @@ public class blog.in.action.ActionInBlogApplication {
 자바 애플리케이션을 실행할 때, 컴파일된 클래스 파일(.class)들이 클래스 로더(class loader)에 의해 JVM에 적재된다. 클래스 로더에 의해 적재되는 과정은 다른 글을 통해 정리할 생각이다. 클래스 적재 과정을 시각화하면 다음과 같다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-02.png" width="80%" class="image__border">
-</div>
-<center>https://www.tcpschool.com/java/java_intro_programming</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.tcpschool.com/java/java_intro_programming</center>
 </div>
 
 JVM 메모리 구조를 봤을 때 클래스 로더에 의해 JVM에 적재되는 클래스들은 메서드 영역에 보관된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-03.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-03.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://www.geeksforgeeks.org/how-to-increase-heap-size-in-java-virtual-machine/</center>
 
@@ -102,10 +103,10 @@ JVM 메모리 구조를 봤을 때 클래스 로더에 의해 JVM에 적재되�
 인터프리터(Interpreter)는 말 그대로 `통역사`다. 자바의 특징을 나타내는 대표적인 표현 중에 `Write Once Run Anywhere`라는 문구가 있다. 자바가 플랫폼에 독립적이고 이식성이 높은 언어인 이유는 인터프리터 덕분이다. 각 플랫폼에 맞는 인터프리터가 바이트 코드를 실행하기 때문에 Windows, Linux, Mac 어디에서든 실행될 수 있다. 인터프리터는 바이트 코드를 읽고(read), 운영체제가 실행할 수 있도록 기계어로 변경하는 역할을 수행한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-04.png" width="80%">
-</div>
-<center>https://www.javatpoint.com/java-interpreter</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-04.png" width="100%">
+  </div>
+  <center>https://www.javatpoint.com/java-interpreter</center>
 </div>
 
 JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인씩 읽고 실행한다. 여기에서 속도 문제가 발생한다. 바이트 코드 역시 기계어로 변환되어야 하기 때문에 C, C++처럼 미리 컴파일을 통해 기계어로 변경되는 언어에 비해 속도가 느려진다. 반복문 같은 경우 컴파일 언어와 다르게 인터프리터는 코드 각 줄을 매번 읽고, 번역해야 한다.
@@ -113,7 +114,7 @@ JVM 인터프리터는 런타임(runtime) 중에 바이트 코드를 한 라인�
 JIT(Just In Time) 컴파일러는 인터프리터의 속도 문제를 해결하기 위해 설계된 기능이다. **자주 실행되는 바이트 코드 영역을 런타임 중에 기계어로 컴파일하기 위한 기능이다.** 기계어는 바이트 코드에 비해 실행 속도가 빠르기 때문에 애플리케이션의 실행 속도가 개선된다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-06.gif" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-06.gif" width="100%" class="image__border image__padding">
 </div>
 
 JIT 컴파일러가 기계어로 컴파일하기 위해서는 **얼마나 자주 실행되었는지에 대한 기준**이 필요하다. 이를 **컴파일 임계치(compile threshold)**라고 한다. 컴파일 임계치를 만족하는 코드는 JIT 컴파일러에 의해 컴파일된다. 컴파일 임계치는 두 가지 횟수를 합친 것을 의미한다.
@@ -150,7 +151,7 @@ $ java -XX:CompileThreshold=100 -XX:OnStackReplacePercentage=33 src/test/java/bl
 **OSR(On-Stack Replacement)은 컴파일이 완료된 코드로 변경하는 작업을 의미한다.** 대상 코드의 컴파일이 완료되었음에도 최적화되지 않은 코드가 수행되고 있는 것이 발견되는 경우 이를 수행한다. 인터프리터에 의해 수행되는 중에 오랫동안 루프가 지속되는 경우 사용된다. 루프가 끝나지 않고 지속적으로 수행되는 경우에 도움을 준다. 아래 이미지는 이해를 돕기 위해 임의로 그렸다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-05.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jvm-execution-engine-05.png" width="100%" class="image__border image__padding">
 </div>
 
 간단한 예제 코드로 JIT 컴파일러 실행 여부를 확인해 보자. 반복문을 수행하는 코드를 작성하고 실행한다.

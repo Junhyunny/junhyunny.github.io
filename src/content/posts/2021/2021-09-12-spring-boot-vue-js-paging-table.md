@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/vue.js/spring-boot-vue-js-paging-table/"
 categories:
   - "spring-boot"
   - "vue.js"
+summary: "Vue.js 프론트엔드와 스프링 부트 백엔드로 테이블 데이터를 페이지 단위로 조회하고 보여주는 페이징 기능을 구현했다."
 recommendedPosts:
   - title: "JPA 페이징(paging) 처리"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-paging/"

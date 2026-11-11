@@ -6,6 +6,7 @@ canonicalPath: "/information/linux/linux-alien/"
 categories:
   - "information"
   - "linux"
+summary: "우분투에서 쓸 수 없는 .rpm 패키지를 alien 명령어로 .deb 파일로 변환해 설치하는 방법을 정리했다."
 ---
 
 ## 1. Package extension
@@ -24,7 +25,7 @@ categories:
 
 ## 2. alien command
 
-필자는 우분투를 사용하는 중이다. 필요한 패키지가 있었는 데 .rpm 형식만 찾을 수 있었다. 우분투에서 .rpm 파일을 직접 사용할 수 없기 때문에 alien 명령어를 통해 .rpm 파일을 .deb 파일로 변환했다. 설치 가능한 패키지 목록(버전 정보)을 최신화한다.
+필자는 우분투를 사용하는 중이다. 필요한 패키지가 있었는데 .rpm 형식만 찾을 수 있었다. 우분투에서 .rpm 파일을 직접 사용할 수 없기 때문에 alien 명령어를 통해 .rpm 파일을 .deb 파일로 변환했다. 설치 가능한 패키지 목록(버전 정보)을 최신화한다.
 
 ```
 $ sudo apt-get update
@@ -45,7 +46,7 @@ $ sudo apt install alien
 alien 명령어의 옵션을 살펴보자. 이번 글에서 중요히 다룰 옵션은 다음과 같다.
 
 - `-d` 옵션 - .rpm 형식을 .deb 형식으로 변경할 때 사용한다.
-- `--scripts` 옵션 - 패키지에 스크립트를 포함 시켜야할 때 사용한다.
+- `--scripts` 옵션 - 패키지에 스크립트를 포함시켜야 할 때 사용한다.
 
 ```
 $ alien -h
@@ -101,7 +102,7 @@ warning: galera-4-26.4.9-1.el8.x86_64.rpm: Header V4 DSA/SHA1 Signature, key ID 
 galera-4_26.4.9-2_amd64.deb generated
 ```
 
-아래와 같이 .deb 파일 생성된 것을 확인할 수 있다.
+아래와 같이 .deb 파일이 생성된 것을 확인할 수 있다.
 
 ```
 $ ls

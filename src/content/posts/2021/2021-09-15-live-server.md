@@ -5,6 +5,7 @@ updatedAt: "2026-06-03T00:25:30+09:00"
 canonicalPath: "/information/live-server/"
 categories:
   - "information"
+summary: "HTML 파일을 직접 열 때 자바스크립트 모듈이 CORS 에러로 로딩되지 않는 원인을 살펴보고, live-server로 간단한 웹 서버를 실행해 해결했다."
 recommendedPosts:
   - title: "웹팩 (Webpack)"
     href: "https://junhyunny.github.io/information/webpack/"
@@ -19,7 +20,7 @@ recommendedPosts:
 > Access to script at 'file:///C:/Users/kang3/.../hello.js' from origin 'null' has been blocked by CORS policy:
 > Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, chrome-untrusted, https.
 
-흔하게 만나는 CORS(Cross Origin Resource Sharing) 에러지만 의아한 부분이 있었다. 브라우저로 실행한 `index.html` 파일은 로컬 PC 특정 폴더에 위치하고, 모듈(module)로서 추가(import)한 `hello.js` 파일은 같은 디렉토리에 존재했다. 로컬에 위치한 HTML 파일을 브라우저로 실행했는데 동일 디렉토리에 위치한 자바스크립트(JavaScript) 파일을 읽어오는 데 CORS 에러가 발생한다니 이해가 안 됐다. 의심스러운 부분은 스크립트(script) 태그를 이용해 단순하게 정적 자원으로 사용한 것이 아니라 `type="module"` 키워드를 통해 모듈을 사용했다는 점이다. 해당 에러를 해결할 수 있는 방법을 찾아보았다.
+흔하게 만나는 CORS(Cross Origin Resource Sharing) 에러지만 의아한 부분이 있었다. 브라우저로 실행한 `index.html` 파일은 로컬 PC 특정 폴더에 위치하고, 모듈(module)로서 추가(import)한 `hello.js` 파일은 같은 디렉토리에 존재했다. 로컬에 위치한 HTML 파일을 브라우저로 실행했는데 동일 디렉토리에 위치한 자바스크립트(JavaScript) 파일을 읽어오는 데 CORS 에러가 발생한다니 이해가 안 됐다. 의심스러운 부분은 스크립트(script) 태그를 이용해 단순하게 정적 자원으로 사용한 것이 아니라 `type="module"` 키워드를 통해 모듈을 사용했다는 점이다. 해당 에러를 해결할 수 있는 방법을 찾아봤다.
 
 ## 2. 문제 원인
 
@@ -30,7 +31,7 @@ recommendedPosts:
 > <br/>
 > Basically you need to run this code from a (local) server or disable same-origin in the browser for testing (do not do this permanently). See: Access to Image from origin 'null' has been blocked by CORS policy.
 
-일반적인 스크립트와 다르게 ES6 모듈들은 동일 출처 정책(same origin policy)을 따르기 때문에, 파일 시스템이나 교차 출처(cross origin)가 허용되지 않은 모듈은 사용하지 못한다고 한다. 이는 테스트를 위해서 웹 서버가 필요하다는 의미인데, 단순한 자바스크립트 모듈 테스트를 위해 서버 애플리케이션을 만들고 싶지는 않았다. 이를 손쉽게 테스트할 수 있는 방법을 찾아보았다.
+일반적인 스크립트와 다르게 ES6 모듈들은 동일 출처 정책(same origin policy)을 따르기 때문에, 파일 시스템이나 교차 출처(cross origin)가 허용되지 않은 모듈은 사용하지 못한다고 한다. 이는 테스트를 위해서 웹 서버가 필요하다는 의미인데, 단순한 자바스크립트 모듈 테스트를 위해 서버 애플리케이션을 만들고 싶지는 않았다. 이를 손쉽게 테스트할 수 있는 방법을 찾아봤다.
 
 ## 3. live-server 명령어
 

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/bean-component-difference/"
 categories:
   - "spring-boot"
+summary: "개발자가 제어할 수 없는 외부 클래스에 쓰는 @Bean과 직접 작성한 클래스에 쓰는 @Component의 쓰임새 차이를 정리했다."
 ---
 
 ## 1. @Bean Annotation
@@ -66,7 +67,7 @@ public @interface Bean {
 }
 ```
 
-## 2. @Component Annotaion
+## 2. @Component Annotation
 
 @Component 애너테이션은 개발자가 직접 제어 가능한 클래스를 빈 객체로 만들 때 사용한다.
 

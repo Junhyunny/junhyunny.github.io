@@ -5,15 +5,16 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/side-project/side-project-slack-chatbot/"
 categories:
   - "side-project"
+summary: "슬랙 API와 깃허브 API를 사용해 저녁 시간에 푸시 이력이 없으면 알림을 보내는 슬랙 챗봇을 만들고 AWS 람다에 배포한 과정을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-토이 프로젝트로 간단한 애플리케이션을 만들고 싶었다. 백엔드(backend) 관련된 기술만 다룰 줄 아는 탓에 간단한 애플리케이션 기능을 만들어 보는 것도 쉽지 않다. 그러던 중 [일일커밋 알림봇 개발기][mingrammer-blog-link]에 대한 글을 보게 되었다. 해당 글이나 대부분의 레퍼런스들이 파이썬(python)으로 개발되어 있기 때문에 이를 자바(Java)로 만들어보았다.
+토이 프로젝트로 간단한 애플리케이션을 만들고 싶었다. 백엔드(backend) 관련된 기술만 다룰 줄 아는 탓에 간단한 애플리케이션 기능을 만들어 보는 것도 쉽지 않다. 그러던 중 [일일커밋 알림봇 개발기][mingrammer-blog-link]에 대한 글을 보게 됐다. 해당 글이나 대부분의 레퍼런스들이 파이썬(python)으로 개발되어 있기 때문에 이를 자바(Java)로 만들어봤다.
 
 ## 1. Prepare slack bot
 
-우선 슬랙 봇(bot)이 하나 필요하다. 슬랙 API 요청을 수행할 땐 토큰(token) 정보가 필요하다. 자세한 설명은 [이 링크](python-slack-chatbot-blog-link)를 참조하길 바란다.
+우선 슬랙 봇(bot)이 하나 필요하다. 슬랙 API 요청을 수행할 땐 토큰(token) 정보가 필요하다. 자세한 설명은 [이 링크][python-slack-chatbot-blog-link]를 참조하길 바란다.
 
 ## 2. Test slack API
 
@@ -21,7 +22,7 @@ categories:
 
 - 헤더 인가(Authorization) 항목에 `Bearer`를 추가하고, 토큰을 함께 전달한다.
 - `WRITE` 기능을 수행하는 메서드에 `application/json` 타입을 사용한다.
-- 토큰을 쿼리 파라미터로 바디(body)에 담아 던지고 싶으면 `application/x-www-form-urlencoded`을 사용한다.
+- 토큰을 쿼리 파라미터로 바디(body)에 담아 던지고 싶으면 `application/x-www-form-urlencoded`를 사용한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-01.png" width="80%" class="image__border">
@@ -201,7 +202,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-06.png" width="100%" class="image__border">
 </div>
 
-크론 잡(cron job)을 통해 이벤트 트리거 주기를 설정한다. GTM 시간으로 9시부터 14시까지 59분마다 실행되도록 크론 잡을 지정한다.
+크론 잡(cron job)을 통해 이벤트 트리거 주기를 설정한다. GMT 시간으로 9시부터 14시까지 59분마다 실행되도록 크론 잡을 지정한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-07.png" width="80%" class="image__border">
@@ -227,7 +228,7 @@ public class LambdaSlackChatBot implements RequestStreamHandler {
 
 <div class="image-row" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-09.png" width="30%" class="image__border">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-10.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/side-project-slack-chatbot-10.png" width="30%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

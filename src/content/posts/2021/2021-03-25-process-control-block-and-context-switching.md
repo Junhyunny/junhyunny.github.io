@@ -6,6 +6,7 @@ canonicalPath: "/information/operating-system/process-control-block-and-context-
 categories:
   - "information"
   - "operating-system"
+summary: "프로세스 정보를 저장하는 PCB에 담기는 정보를 살펴보고, CPU가 실행할 프로세스를 바꿀 때 일어나는 컨텍스트 스위칭 과정을 설명한다."
 recommendedPosts:
   - title: "프로세스(process)와 스레드(thread)"
     href: "https://junhyunny.github.io/information/operating-system/process-vs-thread/"
@@ -18,7 +19,7 @@ PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스
 ### 1.1. Information in PCB
 
 - Process id - 프로세스 ID
-- Process state - 프로세스의 상태(new ready waiting, running, terminated)
+- Process state - 프로세스의 상태(new, ready, waiting, running, terminated)
 - Program counter - 다음 명령의 주소를 가리키고 있는 계수기
 - CPU register - CPU 레지스터
 - CPU-scheduling - 프로세스의 우선순위, 최종 실행 시간, 스케줄링 큐를 가리키는 포인터 등

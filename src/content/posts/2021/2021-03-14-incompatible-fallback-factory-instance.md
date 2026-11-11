@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "spring-cloud"
   - "exception"
+summary: "히스트릭스 예제를 작성하다 만난 Incompatible FallbackFactory 인스턴스 예외의 원인을 circuitbreaker 설정과 의존성에서 찾아 해결하고 깃허브에 질문한 과정을 기록했다."
 recommendedPosts:
   - title: "스프링 클라우드 넷플릭스 히스트릭스(Spring Cloud Netflix Hystrix)"
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/"
@@ -175,10 +176,10 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 
 ## CLOSING
 
-[스프링 클라우드 히스트릭스에 관련된 글][hystrix-link]을 다시 정리하면서 불필요한 코드나 의존성을 제거하다보니 추가적으로 몇 가지 사실을 발견했다.
+[스프링 클라우드 히스트릭스에 관련된 글][hystrix-link]을 다시 정리하면서 불필요한 코드나 의존성을 제거하다 보니 추가적으로 몇 가지 사실을 발견했다.
 
 - `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하면 해당 문제가 발생한다.
-  - Spring Cloud CircuitBreaker 의존성은 `spring-cloud-starter-netflix-eureka-client`을 통해 적용된다.
+  - Spring Cloud CircuitBreaker 의존성은 `spring-cloud-starter-netflix-eureka-client`를 통해 적용된다.
 - `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하지 않으면 `feign.hystrix.enabled` 설정을 사용한다.
   - OpenFeign 의존성만 사용하는 경우 `feign.hystrix.enabled` 설정으로 회로 차단기를 활성화시킨다.
   - `feign.hystrix.FallbackFactory`로 팩토리를 사용한다.

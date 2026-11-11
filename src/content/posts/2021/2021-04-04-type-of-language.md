@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/type-of-language/"
 categories:
   - "information"
+summary: "변수 타입이 결정되는 시점에 따라 정적 타입 언어와 동적 타입 언어를 구분하고 각각의 장단점을 정리했다."
 ---
 
 ## 1. Static Typed Language

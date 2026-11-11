@@ -6,6 +6,7 @@ canonicalPath: "/information/java/mutable-immutable-object/"
 categories:
   - "information"
   - "java"
+summary: "생성 후 상태가 바뀔 수 있는 가변 객체와 바뀌지 않는 불변 객체의 특징을 단일 스레드와 멀티 스레드 테스트 코드로 비교했다."
 ---
 
 ## 1. Mutable Object
@@ -17,7 +18,7 @@ categories:
   - 결과 값이 1임을 확인한다.
 - change_state_with_multi_thread 메서드
   - 객체를 생성한다.
-  - 스레드 10개를 담긴 스레드 풀(thread pool)을 생성한다.
+  - 스레드 10개를 담은 스레드 풀(thread pool)을 생성한다.
   - 객체의 value 값을 변경하는 작업을 여러 스레드를 통해 수행한다.
     - 100개의 작업을 전달하고, 10개의 스레드가 작업들을 나눠서 수행한다.
     - 루프 인덱스(index) 값으로 객체 상태를 변경한다.
@@ -100,7 +101,7 @@ public class MutableTest {
 23:32:15.953 [main] INFO blog.in.action.MutableTest - result - 98
 ```
 
-상태가 변경될 수 있다는 의미는 변수가 가르키는 객체가 바뀐다는 의미가 아니다. `final` 키워드가 붙은 변수로 객체를 참조한다고 해당 객체가 불변이 되는 것은 아니다. 특정 객체가 자신의 상태를 변경시킬 수 있는 기능을 외부로 노출했다면 `변경 가능한(mutable) 객체`라고 판단할 수 있다. 변경 가능한 객체는 외부 흐름(혹은 제어)에 의해 상태가 변경되면서 의도치 않은 결과가 발생할 수 있다. 이를 `스레드 안전하지 않다(not thread safe)`고 표현한다.
+상태가 변경될 수 있다는 의미는 변수가 가리키는 객체가 바뀐다는 의미가 아니다. `final` 키워드가 붙은 변수로 객체를 참조한다고 해당 객체가 불변이 되는 것은 아니다. 특정 객체가 자신의 상태를 변경시킬 수 있는 기능을 외부로 노출했다면 `변경 가능한(mutable) 객체`라고 판단할 수 있다. 변경 가능한 객체는 외부 흐름(혹은 제어)에 의해 상태가 변경되면서 의도치 않은 결과가 발생할 수 있다. 이를 `스레드 안전하지 않다(not thread safe)`고 표현한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mutable-immutable-object-01.gif" width="80%">
@@ -116,7 +117,7 @@ public class MutableTest {
   - immutableObject 변수가 참조하는 객체의 값은 `Junhyunny`로 변함이 없다.
 - change_state_with_multi_thread 메서드
   - 문자열 객체를 생성한다.
-  - 스레드 10개를 담긴 스레드 풀(thread pool)을 생성한다.
+  - 스레드 10개를 담은 스레드 풀(thread pool)을 생성한다.
   - 객체의 value 값을 변경하는 작업을 여러 스레드를 통해 수행한다.
     - concat 메서드를 사용해 ` Kang`을 추가한다.
     - 100개의 작업을 전달한다.

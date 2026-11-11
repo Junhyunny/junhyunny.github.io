@@ -7,11 +7,12 @@ categories:
   - "spring-boot"
   - "spring-cloud"
   - "github"
+summary: "spring-cloud-openfeign 프로젝트에서 배열이 그대로 문자열로 변환되는 버그를 디버깅해 원인과 해결 방법을 제시한 첫 깃허브 이슈 경험을 기록했다."
 ---
 
 ## 1. Motivation
 
-친애하는 동료이자 친구인 [@jskim1991][jskim1991-github-link]이 spring-cloud-openfeign 프로젝트에 PR(Pull Request)을 넣었다는 이야기를 듣고 한동안 깃허브(Github) 이슈를 찾아. 한동안 퇴근하면 스프링(spring)에 등록된 이슈들을 읽어보면서 호시탐탐 PR을 노렸다. 해결할만한 버그나 이슈가 있는지 찾아보면서 지내다 보니 적당한 이슈를 하나 찾아냈다.
+친애하는 동료이자 친구인 [@jskim1991][jskim1991-github-link]이 spring-cloud-openfeign 프로젝트에 PR(Pull Request)을 넣었다는 이야기를 듣고 나도 깃허브(GitHub) 이슈를 찾아보기 시작했다. 한동안 퇴근하면 스프링(spring)에 등록된 이슈들을 읽어보면서 호시탐탐 PR을 노렸다. 해결할만한 버그나 이슈가 있는지 찾아보면서 지내다 보니 적당한 이슈를 하나 찾아냈다.
 
 ## 2. Pick the issue
 
@@ -24,35 +25,35 @@ categories:
 
 ## 3. Suggestion solution for issue
 
-API 호출 로직 내부를 디버깅해서 문제가 발생하는 코드 위치와 이를 해결할 방법을 제시하였다.
+API 호출 로직 내부를 디버깅해서 문제가 발생하는 코드 위치와 이를 해결할 방법을 제시했다.
 
 - 특정 클래스에서 `Iterable` 상속 여부만 체크하기 때문에 발생한 문제이다.
   - 배열 객체는 `Iterable`을 상속하지 않는다.
 - 배열을 별도로 처리하는 로직이 추가되면 큰 영향 없이 사용할 수 있을 것이라 생각했다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/my-first-github-issue-02.png" width="100%" class="image__border">
-</div>
-<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/my-first-github-issue-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 </div>
 
 `Openfeign`으로 이슈를 옮기라는 답변을 받았다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/my-first-github-issue-03.png" width="100%" class="image__border">
-</div>
-<center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/my-first-github-issue-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/spring-cloud/spring-cloud-openfeign/issues/256</center>
 </div>
 
 `Openfeign` 프로젝트에 해당 이슈를 등록했다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/my-first-github-issue-04.png" width="100%" class="image__border">
-</div>
-<center>https://github.com/OpenFeign/feign/issues/1170</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/my-first-github-issue-04.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/OpenFeign/feign/issues/1170</center>
 </div>
 
 해당 이슈는 버그로 등록되고, 직접 해결하겠다는 답변을 받았다.

@@ -6,6 +6,7 @@ canonicalPath: "/information/operating-system/process-vs-thread/"
 categories:
   - "information"
   - "operating-system"
+summary: "프로그램과 프로세스, 스레드의 개념을 설명하고 자원 할당과 공유, 독립성, 주소 공간 측면에서 프로세스와 스레드의 차이를 표로 정리했다."
 recommendedPosts:
   - title: "PCB(Process Control Block)와 컨텍스트 스위칭(Context Switching)"
     href: "https://junhyunny.github.io/information/operating-system/process-control-block-and-context-switching/"
@@ -23,17 +24,17 @@ recommendedPosts:
 > 프로세스(Process)는 운영체제로부터 자원을 할당받는 작업의 단위<br/>
 > 메모리에 적재되어 실행되고 있는 프로그램
 
-그렇다. 프로그램은 하드디스크에 저장된 일련의 명령어 집합이다. 사용자가 프로그램을 더블 클릭 같은 행위를 통해 실행했을 때 비로소 프로세스가 된다. 프로세스는 실행될 때 운영체제로부터 프로세서, 필요한 주소 공간, 메모리(code, data, stack, heap) 등의 자원을 할당받는다. 프로세스는 서로 메모리 공간을 독자적으로 갖는다. 다른 프로세스의 메모리에 접근하려면 IPC(InterProcess Communication)과 같은 방식이 필요하다. 프로세스는 하나 이상의 스레드를 포함한다.
+그렇다. 프로그램은 하드디스크에 저장된 일련의 명령어 집합이다. 사용자가 프로그램을 더블 클릭 같은 행위를 통해 실행했을 때 비로소 프로세스가 된다. 프로세스는 실행될 때 운영체제로부터 프로세서, 필요한 주소 공간, 메모리(code, data, stack, heap) 등의 자원을 할당받는다. 프로세스는 서로 메모리 공간을 독자적으로 갖는다. 다른 프로세스의 메모리에 접근하려면 IPC(InterProcess Communication)와 같은 방식이 필요하다. 프로세스는 하나 이상의 스레드를 포함한다.
 
 > 프로세스는 프로그램의 인스턴스(instance)
 
-하나의 프로그램에서 여러 개의 프로세스가 실행 가능하다. 예를 들어 Windows `메모장` 이라는 프로그램을 여러 번 동작시키면 여러 개의 `메모장(프로세스)`이 실행된다. 추가적으로 프로세스들은 서로 메모리 공간을 독자적으로 갖는다고 하였는데 예외 사항으로 코드(code) 영역은 같은 프로그램의 프로세스들끼리 공유한다. 
+하나의 프로그램에서 여러 개의 프로세스가 실행 가능하다. 예를 들어 Windows `메모장` 이라는 프로그램을 여러 번 동작시키면 여러 개의 `메모장(프로세스)`이 실행된다. 추가적으로 프로세스들은 서로 메모리 공간을 독자적으로 갖는다고 했는데 예외 사항으로 코드(code) 영역은 같은 프로그램의 프로세스들끼리 공유한다. 
 
 프로세스의 메모리 구조는 다음과 같다.
 
 - 코드(code or text) 영역 - 실행할 프로그램의 코드
 - 데이터(data) 영역 - 전역 변수, 정적 변수가 담기는 영역
-- 스택(stack) 영역 - 지역 변수, 매개 변수같은 임시적인 데이터들이 담기는 영역
+- 스택(stack) 영역 - 지역 변수, 매개 변수 같은 임시적인 데이터들이 담기는 영역
 - 힙(heap) 영역 - 런타임 시 동적으로 메모리를 할당받는 영역
 
 <div align="center">
@@ -55,10 +56,10 @@ recommendedPosts:
 - 코드, 데이터, 파일은 공유한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-vs-thread-02.png" width="60%" class="image__border">
-</div>
-<center>Operating System Concepts 9th</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-vs-thread-02.png" width="60%" class="image__border">
+  </div>
+  <center>Operating System Concepts 9th</center>
 </div>
 
 스레드를 사용했을 때 얻을 수 있는 이점은 무엇일까?

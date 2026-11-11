@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "spring-cloud"
   - "msa"
+summary: "FeignClient에 자동으로 적용되는 클라이언트 사이드 로드 밸런서 리본이 Rule, Ping, ServerList 정보를 바탕으로 하는 일을 정리했다."
 recommendedPosts:
   - title: "스프링 클라우드(spring cloud) OpenFeign"
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
@@ -30,10 +31,10 @@ recommendedPosts:
   - 수시로 컨테이너가 죽고, 살아나는 과정에서 IP가 변경되기 때문에 서버 사이드 로드 밸런싱은 어렵다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-01.png" width="80%" class="image__border">
-</div>
-<center>https://sabarada.tistory.com/54</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/spring-cloud-netflix-ribbon-01.png" width="80%" class="image__border">
+  </div>
+  <center>https://sabarada.tistory.com/54</center>
 </div>
 
 클라이언트 사이드 로드 밸런서는 다음과 같은 특징을 가진다.
@@ -52,9 +53,9 @@ recommendedPosts:
 
 ## 2. Functionality of Ribbon
 
-`FeignClient`를 사용하면 자동으로 리본이 적용된다. 이번 글은 예제 코드 없이 리본이 해주는 일에 대해서만 정리했다. 간단한 로드 밸런싱 기능을 확인하려면 [유레카(Eureka) 서버/클라이언트와 FeignClient 연동하기 글][feign-with-eureka-link]을 참조바란다.
+`FeignClient`를 사용하면 자동으로 리본이 적용된다. 이번 글은 예제 코드 없이 리본이 해주는 일에 대해서만 정리했다. 간단한 로드 밸런싱 기능을 확인하려면 [유레카(Eureka) 서버/클라이언트와 FeignClient 연동하기 글][feign-with-eureka-link]을 참조하길 바란다.
 
-리본이 잘 동작하기 위해선 다음 세가지 정보가 필요하다.
+리본이 잘 동작하기 위해선 다음 세 가지 정보가 필요하다.
 
 - Rule - 로드 밸런싱 전략을 지정한다.
 - Ping - 서버가 살아있는지 감시하는 역할을 수행한다.
@@ -86,7 +87,7 @@ IRule 인터페이스를 구현한 클래스들 중 하나를 선택하여 로�
   - 서비스를 돌아가면서 연결하는 방식이다.
   - 기본 방식이다.
 - com.netflix.loadbalancer.AvailabilityFilteringRule
-  - 가용성이 높은것부터 연결하는 방식이다.
+  - 가용성이 높은 것부터 연결하는 방식이다.
   - 리본에 내장된 별도의 회로 차단기(circuit breaker) 모듈을 이용한다.
 - com.netflix.loadbalancer.WeightedResponseTimeRule
   - 응답 시간이 빠른 서비스 인스턴스부터 연결하는 방식이다.

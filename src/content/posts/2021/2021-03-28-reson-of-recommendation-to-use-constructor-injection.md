@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/junit/reson-of-recommendation-to-use-constructor-in
 categories:
   - "spring-boot"
   - "junit"
+summary: "필드 주입과 생성자 주입을 비교하며 스프링이 생성자 주입을 권장하는 이유를 불변 객체 사용, 널 방지 같은 장점 중심으로 설명한다."
 recommendedPosts:
   - title: "스프링 프레임워크의 제어의 역전(IoC)과 의존성 주입(DI)"
     href: "https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/"
@@ -33,11 +34,11 @@ recommendedPosts:
 - 초기화 된 상태로 사용 가능
 - 특정 클래스에 과도한 책임이 주어질 가능성이 높은 구린내 나는 코드에 대한 리팩토링 여지를 제공
 
-이번 글에선 간단한 예시를 통해 생성자 주입을 사용하면 좋은 이유에 대해 살펴보겠다.
+이번 글에선 간단한 예시를 통해 생성자 주입을 사용하면 좋은 이유에 대해 알아보자.
 
 ## 2. Field Injection and Constructor Injection
 
-우선 두 가지 주입 방법을 비교해보겠다. 먼저 필드 인젝션(field injection) 방식을 살펴보자. 필드 주입은 `@Autowired` 애너테이션을 통해 빈(bean)을 주입받는 방식이다.
+두 가지 주입 방법을 비교하기 위해 먼저 필드 인젝션(field injection) 방식부터 살펴보자. 필드 주입은 `@Autowired` 애너테이션을 통해 빈(bean)을 주입받는 방식이다.
 
 ```java
 @Service
@@ -81,7 +82,7 @@ public class PostService {
 }
 ```
 
-다음 장점으로 객체가 널(null)이 아님을 보장할 수 있다. `final` 키워드가 붙은 필드는 다른 객체를 참조할 수 없다. 생성자를 통해 주입받는 객체가 널(null)이 아닌 경우 `NullPointException`이 발생하지 않는다. 스프링 프레임워크는 필요한 빈 객체를 만들지 못하는 경우 서비스가 실행되지 않으므로 주입받는 객체가 널(null)이 아닌 것이 보장된다.
+다음 장점으로 객체가 널(null)이 아님을 보장할 수 있다. `final` 키워드가 붙은 필드는 다른 객체를 참조할 수 없다. 생성자를 통해 주입받는 객체가 널(null)이 아닌 경우 `NullPointerException`이 발생하지 않는다. 스프링 프레임워크는 필요한 빈 객체를 만들지 못하는 경우 서비스가 실행되지 않으므로 주입받는 객체가 널(null)이 아닌 것이 보장된다.
 
 ```java
 @Component
@@ -103,7 +104,7 @@ public class PostController {
 
 다음으로 하나의 클래스에 너무 많은 책임이 몰려있지 않은지 확인할 수 있다. ['생성자 주입을 @Autowired를 사용하는 필드 주입보다 권장하는 하는 이유' 글][kim-taeng-blog-link]을 참고하자면 생성자 주입을 사용하게 되는 경우 생성자의 인자가 많아짐에 따라 복잡한 코드가 됨을 쉽게 알 수 있고 리팩토링하여 역할을 분리하는 등과 같은 코드의 품질을 높이는 활동의 필요성을 더 쉽게 알 수 있다고 한다.
 
-하나의 컴포넌트가 과도한 책임을 가질 경우 개발자는 생성자 주입을 통해 이를 체감할 수 있다. 아래 클래스를 보면 5개의 의존성이 필요한데, 이를 생성자를 통해 주입받으려하니 코드가 복잡해짐을 감지할 수 있다. 개발자는 이를 보고 리팩토링의 필요성을 느끼게 된다.
+하나의 컴포넌트가 과도한 책임을 가질 경우 개발자는 생성자 주입을 통해 이를 체감할 수 있다. 아래 클래스를 보면 5개의 의존성이 필요한데, 이를 생성자를 통해 주입받으려 하니 코드가 복잡해짐을 감지할 수 있다. 개발자는 이를 보고 리팩토링의 필요성을 느끼게 된다.
 
 ```java
     @Component
@@ -277,7 +278,7 @@ java.lang.IllegalStateException: Failed to load ApplicationContext
     at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.2.6.RELEASE.jar:5.2.6.RELEASE]
 ```
 
-[참고한 글][kim-taeng-blog-link]의 내용에 따르자면 생성자 주입 방법은 필드 주입이나 세터 주입과 빈 객체를 주입하는 순서가 다르다고 한다. 생성자 주입이 순환 참조를 감지할 수 있는 이유가 정리되어 있다. 요약하자면 빈을 주입하는 시점이 다르기 때문인데, 스스로 이해할 수 있도록 이 부분을 다시 정리하였다.
+[참고한 글][kim-taeng-blog-link]의 내용에 따르자면 생성자 주입 방법은 필드 주입이나 세터 주입과 빈 객체를 주입하는 순서가 다르다고 한다. 생성자 주입이 순환 참조를 감지할 수 있는 이유가 정리되어 있다. 요약하자면 빈을 주입하는 시점이 다르기 때문인데, 스스로 이해할 수 있도록 이 부분을 다시 정리했다.
 
 필드 주입이나 세터 주입은 다음과 같은 순서를 따른다.
 

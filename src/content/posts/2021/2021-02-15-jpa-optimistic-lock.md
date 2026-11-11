@@ -48,7 +48,7 @@ recommendedPosts:
   - 엔티티의 변경이 없다면 버전 값은 1 증가한다.
   - 해당 옵션은 조회만으로 다른 트랜잭션의 변경을 방지한다.
 
-### 1.2. @Version Annotation
+### 1.2. @Version 애너테이션
 
 엔티티(entity) 필드에 버전 정보임을 알려주는 `@Version` 애너테이션을 붙인다. `@Version` 애너테이션이 붙은 필드를 가진 엔티티는 자동으로 낙관적인 락이 적용된다. 버전으로 사용할 수 있는 타입은 int, Integer, long, Long, short, Short, java.sql.Timestamp 등이 있다.
 

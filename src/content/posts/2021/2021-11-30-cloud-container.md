@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/cloud-container/"
 categories:
   - "information"
+summary: "가상 머신과 비교하며 애플리케이션 실행 환경을 운영체제 수준에서 격리하는 컨테이너 기술의 개념과 특징을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -86,10 +87,10 @@ categories:
 컨테이너는 리눅스의 `PID namespace`가 적용된 것이다. PID namespace 분리 시 특정 네임스페이스 영역의 프로세스는 다른 네임스페이스 영역의 프로세스를 알 수 없다. `NS namespace` 분리까지 이뤄진 경우 정확하게 동작한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-03.png" width="50%">
-</div>
-<center>https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-03.png" width="50%">
+  </div>
+  <center>https://iamabhishek-dubey.medium.com/linux-namespaces-part-1-b565f3d404af</center>
 </div>
 
 다음은 컨트롤 그룹(cgroup)의 개념을 알아야 한다. 마찬가지로 위키피디아를 찾아보면 다음과 같은 설명을 볼 수 있다.
@@ -100,10 +101,10 @@ categories:
 컨트롤 그룹은 하드웨어 자원(CPU, memory, disk I/O, network, etc.)을 프로세스 집합에게 할당하고 제한하는 기능이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-04.png" width="50%">
-</div>
-<center>https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cloud-container-04.png" width="50%">
+  </div>
+  <center>https://stackoverflow.com/questions/54937542/how-to-enable-cgroups-in-linux</center>
 </div>
 
 마지막으로 왜 최근 클라우드 시장을 가상 머신이 아닌 컨테이너가 점유하게 되었는지, 컨테이너의 장점을 정리하면서 이 글을 마무리해보자.

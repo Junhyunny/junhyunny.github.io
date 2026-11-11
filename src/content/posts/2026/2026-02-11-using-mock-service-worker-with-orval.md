@@ -76,9 +76,7 @@ $ npm run generate
 🎉 api - Your OpenAPI spec has been converted into ready to use orval!
 ```
 
-생성된 코드를 살펴보자. OpenAPI 명세서에 다음과 같은 API 명세가 작성되어 있다.
-
-- /todos 경로에서 모든 할 일 목록을 조회한다.
+생성된 코드를 살펴보자. OpenAPI 명세서에 다음과 같이 /todos 경로에서 모든 할 일 목록을 조회하는 API 명세가 작성되어 있다.
 
 ```yaml
 paths:

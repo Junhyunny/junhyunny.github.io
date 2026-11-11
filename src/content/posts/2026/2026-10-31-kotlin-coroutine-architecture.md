@@ -148,7 +148,7 @@ fun example_02() = runTest {
 }
 ```
 
-위 코드를 실행하면 다음과 같은 로그를 볼 수 있다. "completed" 로그가 아니라 둘 모두 "cancelled" 로그가 출력된다.
+위 코드를 실행하면 아래 로그처럼 "completed" 로그가 아니라 둘 모두 "cancelled" 로그가 출력된다.
 
 ```
 Job 2 cancelled

@@ -104,9 +104,7 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 
 ## 2. Solve the problem
 
-`circuitbreaker` 설정은 내부적으로 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스를 상속한 팩토리 클래스를 사용하도록 구현되어 있다. 적절한 인터페이스를 사용하도록 코드를 변경하면 정상적으로 동작한다.
-
-- `org.springframework.cloud.openfeign` 패키지의 `FallbackFactory` 인터페이스를 사용하도록 코드를 변경한다.
+`circuitbreaker` 설정은 내부적으로 `org.springframework.cloud.openfeign.FallbackFactory` 인터페이스를 상속한 팩토리 클래스를 사용하도록 구현되어 있다. `org.springframework.cloud.openfeign` 패키지의 `FallbackFactory` 인터페이스를 사용하도록 코드를 변경하면 정상적으로 동작한다.
 
 ```java
 package cloud.in.action.proxy;

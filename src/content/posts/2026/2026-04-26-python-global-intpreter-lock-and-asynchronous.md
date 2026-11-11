@@ -81,9 +81,7 @@ if __name__ == "__main__":
   print(type(coroutine)) # <class 'coroutine'>
 ```
 
-`async def fetch_data():`는 코루틴 함수가 된다. `fetch_data()`처럼 함수를 호출하면 바로 실행되는 게 아니라 코루틴 객체가 만들어진다. 나중에 실행될 비동기 작업을 만든 것이다. 위 코드를 실행하면 다음과 같은 로그가 보인다. 
-
-- "run fetch data" 로그는 출력되지 않는다.
+`async def fetch_data():`는 코루틴 함수가 된다. `fetch_data()`처럼 함수를 호출하면 바로 실행되는 게 아니라 코루틴 객체가 만들어진다. 나중에 실행될 비동기 작업을 만든 것이다. 위 코드를 실행하면 아래 로그처럼 "run fetch data" 로그는 출력되지 않는다.
 
 ```
 <class 'coroutine'>
@@ -109,9 +107,7 @@ if __name__ == "__main__":
   print(result)
 ```
 
-위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
-
-- "run fetch data" 로그와 "fetched data" 로그 사이에 1초 정도 시간 간격이 존재한다.
+위 코드를 실행하면 아래 로그처럼 "run fetch data" 로그와 "fetched data" 로그 사이에 1초 정도 시간 간격이 존재한다.
 
 ```
 <class 'coroutine'>
@@ -249,9 +245,7 @@ if __name__ == "__main__":
   asyncio.run(main_coroutine)
 ```
 
-위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
-
-- 코루틴의 반환 값이 태스크 객체의 result 값으로 저장된 것을 볼 수 있다.
+위 코드를 실행하면 아래 로그처럼 코루틴의 반환 값이 태스크 객체의 result 값으로 저장된다.
 
 ```
 task created:  <Task pending name='Task-2' coro=<fetch_data() running at /Users/junhyunny/Desktop/action-in-blog/example-03.py:4>>
@@ -294,9 +288,7 @@ if __name__ == "__main__":
   asyncio.run(main_coroutine)
 ```
 
-fetch_data 코루틴을 태스크 객체로 만들었기 때문에 이벤트 루프에서 스케줄링 중이다. 그렇기 때문에 main 코루틴이 `await asyncio.sleep(0)`에 의해 중단되면 즉시 fetch_data 코루틴이 실행된다. 위 코드를 실행하면 아래와 같은 로그를 볼 수 있다. 
-
-- "before await sleep 0 second" 로그와 "after await sleep 0 second" 로그 사이에 잠시 fetch_data 코루틴이 실행된 것을 확인할 수 있다.
+fetch_data 코루틴을 태스크 객체로 만들었기 때문에 이벤트 루프에서 스케줄링 중이다. 그렇기 때문에 main 코루틴이 `await asyncio.sleep(0)`에 의해 중단되면 즉시 fetch_data 코루틴이 실행된다. 위 코드를 실행하면 아래 로그처럼 "before await sleep 0 second" 로그와 "after await sleep 0 second" 로그 사이에 잠시 fetch_data 코루틴이 실행된다.
 
 ```
 before await sleep 0 second

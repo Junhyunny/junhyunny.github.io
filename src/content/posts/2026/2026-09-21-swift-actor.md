@@ -155,9 +155,7 @@ let store = UserStore()
 }
 ```
 
-위 코드를 컴파일하면 다음과 같은 에러가 발생한다.
-
-- names는 격리된 상태이므로 액터 외부에서 직접 변경하려고 하면 컴파일 에러가 발생한다.
+names는 격리된 상태이므로 액터 외부에서 직접 변경하려고 하면 컴파일 에러가 발생한다. 위 코드를 컴파일하면 다음과 같은 에러가 발생한다.
 
 ```
 actor-isolated property 'names' can not be mutated from the main actor

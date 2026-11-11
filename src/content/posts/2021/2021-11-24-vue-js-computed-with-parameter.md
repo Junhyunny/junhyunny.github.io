@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/vue.js/vue-js-computed-with-parameter/"
 categories:
   - "vue.js"
+summary: "파라미터가 필요한 경우 Vue JS computed 속성이 함수를 반환하도록 만들어 사용하는 방법과 이때 캐싱 이점을 잃는다는 점을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -90,7 +91,7 @@ computed: {
 }
 ```
 
-computed 속성에서 함수를 반환하는 아이디어다. 스택 오버플로우의 답변에 따라 코드를 아래와 같이 수정하였다.
+computed 속성에서 함수를 반환하는 아이디어다. 스택 오버플로우의 답변에 따라 코드를 아래와 같이 수정했다.
 
 ```vue
 <template>

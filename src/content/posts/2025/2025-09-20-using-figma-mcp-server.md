@@ -46,9 +46,7 @@ MCP 서버는 다음과 같은 방법으로 활성화 할 수 있다.
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-01.png" width="50%" class="image__border">
 </div>
 
-MCP 서버를 활성화 하면 피그마 애플리케이션 하단에서 접속 주소를 확인할 수 있다.
-
-- `http://127.0.0.1:3845/mcp` 서버를 통해 연결이 가능하다.
+MCP 서버를 활성화 하면 피그마 애플리케이션 하단에서 접속 주소를 확인할 수 있다. `http://127.0.0.1:3845/mcp` 서버를 통해 연결이 가능하다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-02.png" width="65%" class="image__border">
@@ -106,17 +104,13 @@ MCP 서버 이름을 등록한다.
 
 ### 2.2. IntelliJ Copilot
 
-인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접적으로 연결한다. `CMD + ,(comma)`를 눌러 MCP 관련 설정을 찾는다.
-
-- Github Copilot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
+인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접적으로 연결한다. `CMD + ,(comma)`를 눌러 MCP 관련 설정을 찾는다. Github Copilot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-08.png" width="100%" class="image__border">
 </div>
 
-configure 버튼을 클릭하면 mcp.json 파일로 연결된다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다.
-
-- `mcp-remote` 패키지와 피그마 MCP 서버 주소를 인자(arguments)로 전달한다.
+configure 버튼을 클릭하면 mcp.json 파일로 연결된다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다. `mcp-remote` 패키지와 피그마 MCP 서버 주소를 인자(arguments)로 전달한다.
 
 ```json
 {

@@ -433,9 +433,7 @@ $ terraform apply
 Apply complete! Resources: 19 added, 0 changed, 0 destroyed.           
 ```
 
-정상적으로 배포가 완료되면 다음과 같이 AWS 웹 콘솔에서 API 게이트웨이 배포 결과를 확인할 수 있다.
-
-- OpenAPI 명세 YAML 파일에 정의된 규칙에 맞게 API 엔드포인트가 생성된 것을 확인할 수 있다.
+정상적으로 배포가 완료되면 다음과 같이 AWS 웹 콘솔에서 API 게이트웨이 배포 결과를 확인할 수 있다. OpenAPI 명세 YAML 파일에 정의된 규칙에 맞게 API 엔드포인트가 생성된 것을 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/deploy-aws-api-gateway-with-openapi-spec-01.png" width="100%" class="image__border">

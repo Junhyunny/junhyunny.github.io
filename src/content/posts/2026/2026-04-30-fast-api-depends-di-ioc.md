@@ -117,9 +117,7 @@ Service 객체는 Repository 추상 클래스에 의존하고, 외부로부터 �
 
 Depends 함수는 다른 함수나 클래스 같은 '호출 가능한 객체(Callable)'를 단일 매개변수로 전달한다. 개발자가 함수를 직접 호출하는 것이 아니라 함수 객체 자체만 전달하면, API 요청이 들어왔을 때 FastAPI 프레임워크가 해당 함수를 올바른 매개변수와 함께 대신 실행해 준다.
 
-글로만 읽어서는 이해가 어려우니 예제 코드를 함께 살펴보자. fastapi 패키지에서 Depends 함수를 가져와 사용한다. 파이썬에서 클래스도 Callable 객체이기 때문에 Depends 함수에 클래스 이름을 전달해도 된다.
-
-- / 경로로 요청이 들어오면 FastAPI 프레임워크에 의해 TodoService 객체가 생성되어 get_all 함수에 주입된다.
+글로만 읽어서는 이해가 어려우니 예제 코드를 함께 살펴보자. fastapi 패키지에서 Depends 함수를 가져와 사용한다. 파이썬에서 클래스도 Callable 객체이기 때문에 Depends 함수에 클래스 이름을 전달해도 된다. / 경로로 요청이 들어오면 FastAPI 프레임워크에 의해 TodoService 객체가 생성되어 get_all 함수에 주입된다.
 
 ```python
 from fastapi import Depends, FastAPI
@@ -276,9 +274,7 @@ def get_todo_service(
   return TodoService(todo_repository=todo_repository, reply_repository=reply_repository)
 ```
 
-애플리케이션을 실행한 후 요청을 보내면 다음과 같은 로그를 확인할 수 있다.
-
-- 세션 생성이 1회만 수행된다.
+애플리케이션을 실행한 후 요청을 보내면 아래 로그처럼 세션 생성이 1회만 수행된다.
 
 ```
 [ 세션 생성 ]
@@ -309,9 +305,7 @@ def get_todo_service(
   return TodoService(todo_repository=todo_repository, reply_repository=reply_repository)
 ```
 
-애플리케이션을 실행한 후 요청을 보내면 다음과 같은 로그를 확인할 수 있다.
-
-- 세션 생성, 열림, 닫힘이 각각 2회 수행된다.
+애플리케이션을 실행한 후 요청을 보내면 아래 로그처럼 세션 생성, 열림, 닫힘이 각각 2회 수행된다.
 
 ```
 [ 세션 생성 ]

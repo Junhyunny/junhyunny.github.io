@@ -146,9 +146,7 @@ print(alice == bob)  // false
 print(alice > bob)  // false
 ```
 
-이넘도 Comparable 프로토콜을 채택할 수 있다. 연관 값(associated value)이 없는 단순한 이넘의 경우 컴파일러가 선언된 case 순서를 기준으로 Comparable 구현을 합성한다. 예를 들어 보자.
-
-- `low < medium < high` 순서가 만들어진다.
+이넘도 Comparable 프로토콜을 채택할 수 있다. 연관 값(associated value)이 없는 단순한 이넘의 경우 컴파일러가 선언된 case 순서를 기준으로 Comparable 구현을 합성한다. 예를 들어 다음 이넘은 `low < medium < high` 순서로 비교된다.
 
 ```swift
 enum Priority: Comparable {
@@ -184,9 +182,7 @@ print(scores.min()) // Optional(10)
 print(scores.max()) // Optional(30)
 ```
 
-Double.nan 값은 예외적으로 주의해야 한다. 부동소수점에는 NaN(Not a Number)이라는 특수한 값이 있다. NaN은 일반적인 값과 다른 비교 규칙을 가진다.
-
-- 자기 자신과도 같지 않다.
+Double.nan 값은 예외적으로 주의해야 한다. 부동소수점에는 NaN(Not a Number)이라는 특수한 값이 있다. NaN은 일반적인 값과 다른 비교 규칙을 가진다. 자기 자신과도 같지 않다.
 
 ```swift
 let value = Double.nan

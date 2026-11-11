@@ -58,9 +58,7 @@ eureka:
       defaultZone: http://eureka-service:8761/eureka/
 ```
 
-HealthClient 인터페이스는 `FeignClient`다. 이름을 `Eureka` 서버에 등록된 클라이언트 이름으로 지정한다. FeignClient는 해당 이름을 가진 `Eureka` 클라이언트에게 API 요청을 수행한다. `Eureka` 클라이언트 이름을 사용하면 별도의 URL 정보가 필요 없다.
-
-- `FeignClient`를 사용하면 자동으로 `b-service-as-client` 서비스에게 요청을 수행한다.
+HealthClient 인터페이스는 `FeignClient`다. 이름을 `Eureka` 서버에 등록된 클라이언트 이름으로 지정한다. FeignClient는 해당 이름을 가진 `Eureka` 클라이언트에게 API 요청을 수행한다. `Eureka` 클라이언트 이름을 사용하면 별도의 URL 정보가 필요 없다. `FeignClient`를 사용하면 자동으로 `b-service-as-client` 서비스에게 요청을 수행한다.
 
 ```java
 package cloud.in.action.client;
@@ -193,9 +191,7 @@ public class HealthController {
 }
 ```
 
-main 메서드가 정의된 BServiceApplication 클래스에 애너테이션을 추가한다.
-
-- `Eureka` 서버에 등록하기 위해 `@EnableEurekaClient` 애너테이션을 추가한다.
+`Eureka` 서버에 등록하기 위해 main 메서드가 정의된 BServiceApplication 클래스에 `@EnableEurekaClient` 애너테이션을 추가한다.
 
 ```java
 package cloud.in.action;

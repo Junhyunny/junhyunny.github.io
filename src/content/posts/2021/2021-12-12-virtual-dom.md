@@ -5,6 +5,7 @@ updatedAt: "2026-06-07T00:58:53+09:00"
 canonicalPath: "/information/virtual-dom/"
 categories:
   - "information"
+summary: "HTML 문서가 화면에 렌더링되는 과정과 리플로우, 리페인트 비용을 살펴보고, VueJS와 React가 가상 DOM을 사용하는 이유를 설명한다."
 recommendedPosts:
   - title: "DOM(Document Object Model)"
     href: "https://junhyunny.github.io/information/document-object-model/"
@@ -23,10 +24,10 @@ VueJS, React 같은 프레임워크(혹은 라이브러리)는 모두 `가상 DO
 가상 DOM을 사용하는 이유에 대해 설명하려면 실제 HTML 문서를 브라우저 화면에 보여주기까지의 과정을 이해할 필요가 있다. 크롬이나 사파리에서 사용하는 HTML, CSS 웹 브라우저 렌더링 엔진인 웹킷(WebKit)을 기준으로 브라우저 화면의 렌더링 과정을 간단하게 정리했다. 아래 이미지는 웹킷 엔진을 사용할 때 HTML 문서가 렌더링되는 과정이다. 이 과정을 상세히 들여다보자.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-01.png" width="80%" class="image__border">
-</div>
-<center>https://it-eldorado.tistory.com/87</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://it-eldorado.tistory.com/87</center>
 </div>
 
 먼저 DOM 트리 생성 과정을 살펴보자. HTML 파서는 HTML 파일을 파싱하여 DOM(Document Object Model) 트리를 생성한다. `"바이트 > 문자 > 토큰 > 노드 > 객체 모델"` 과정을 거쳐 DOM 트리를 생성한다. 예를 들어, 다음과 같은 HTML 코드가 있다.
@@ -49,10 +50,10 @@ VueJS, React 같은 프레임워크(혹은 라이브러리)는 모두 `가상 DO
 위 코드를 파싱하면 다음과 같은 DOM 트리가 생성된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-02.png" width="100%" class="image__border">
-</div>
-<center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 </div>
 
 HTML과 마찬가지로 CSS 규칙을 통해 CSS 파일을 브라우저가 이해하고 처리할 수 있는 형태로 변환한다. CSS 파서는 CSS 파일을 파싱하여 CSSOM(CSS Object Model) 트리를 생성한다. 예를 들어, 다음과 같은 CSS 코드가 있다.
@@ -68,49 +69,49 @@ img { float: right }
 위 코드를 파싱하면 다음과 같은 CSSOM 트리가 생성된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-03.png" width="100%" class="image__border">
-</div>
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-04.png" width="100%" class="image__border">
-</div>
-<center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-03.png" width="100%" class="image__border">
+  </div>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-04.png" width="100%" class="image__border">
+  </div>
+  <center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 </div>
 
 DOM 및 CSSOM 트리를 결합하여 렌더 트리(render tree)를 형성한다. 렌더 트리에는 페이지를 렌더링하는 데 필요한 노드만 포함된다. 일부 노드는 CSS를 통해 숨겨지며 렌더 트리에서 생략될 수 있다. 렌더 트리의 노드들은 화면에 최종적으로 출력하기 위한 정보를 각자 지니고 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-05.png" width="100%" class="image__border">
-</div>
-<center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-05.png" width="100%" class="image__border">
+  </div>
+  <center>https://developers.google.com/web/fundamentals/performance/critical-rendering-path/constructing-the-object-model?hl=ko</center>
 </div>
 
 렌더 트리가 생성되었으면 레이아웃(layout) 작업을 수행할 수 있다. 렌더 트리는 스타일 정보를 가지고 있지만, 기기의 뷰포트(viewport) 내에서 정확한 위치와 크기가 계산되어 있지 않다. 레이아웃 프로세스에서는 각 요소의 상대적인 측정값이 절대적인 픽셀(pixel)로 변환된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-06.png" width="100%" class="image__border">
-</div>
-<center>TOSS - 성능 최적화</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-06.png" width="100%" class="image__border">
+  </div>
+  <center>TOSS - 성능 최적화</center>
 </div>
 
 레이아웃 작업을 통해 각 노드의 계산된 스타일과 기하학적 형태에 대한 파악이 끝났으면, 페인트 단계에서 각 노드를 화면의 실제 픽셀로 변환한다. 이 시점에 위치 같은 정보와 관계없는 CSS 속성(색상, 투명도 등)을 적용한다. `렌더 트리 생성 > 레이아웃 > 페인트` 과정을 거쳐 브라우저 화면을 그리는 과정을 렌더링(rendering)이라고 한다. 아래 이미지는 전체적인 브라우저 로딩 과정을 나타낸다. `STYLE 과정`은 렌더 트리 생성과 동일한 과정이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-07.png" width="75%" class="image__border">
-</div>
-<center>TOSS - 성능 최적화</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-07.png" width="75%" class="image__border">
+  </div>
+  <center>TOSS - 성능 최적화</center>
 </div>
 
 DOM 트리나 CSSOM 트리가 변경되면 렌더 트리가 다시 구성된다. DOM 객체가 추가 혹은 삭제되거나 요소의 기하학적 형태에 영향을 주는 CSS 값이 변경되는 경우 레이아웃부터 이후 과정을 다시 수행해야 한다. 이를 `레이아웃(layout) 혹은 리플로우(reflow)`라고 한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-08.png" width="55%" class="image__border">
-</div>
-<center>TOSS - 성능 최적화</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/virtual-dom-08.png" width="55%" class="image__border">
+  </div>
+  <center>TOSS - 성능 최적화</center>
 </div>
 
 반대로 기하적인 변경이 없는 경우에는 레이아웃 과정을 건너뛰고, 페인트부터 수행하므로 이를 `리페인트(repaint)`라고 한다.
@@ -133,7 +134,7 @@ DOM 트리나 CSSOM 트리가 변경되면 렌더 트리가 다시 구성된다.
 
 ## CLOSING
 
-프론트엔드와 관련된 기술 스택을 잘 모르는 편인데, 이번 글을 정리하면서 조금 더 친해졌다. 최근에 들었던 SSR(Server Side Rendering)과 관련된 글도 곁다리로 함께 읽어볼 수 있었고, 프론트엔드 진영의 기술력에 감탄하기도 했다. 참고한 글들 중 [Vanilla Javascript로 가상돔(VirtualDOM) 만들기][vanilla-javascript-virtual-dom-link]라는 글은 순수 자바스크립토로 컴포넌트, 가상 DOM, 리액트 훅스(hooks)를 구현한 코드를 읽어볼 수 있었는데 덕분에 많은 공부가 되었다. 누군가는 프레임워크나 라이브러리의 본질을 파고들기 위한 공부를 하고 있다는 것에 큰 자극을 느꼈다.
+프론트엔드와 관련된 기술 스택을 잘 모르는 편인데, 이번 글을 정리하면서 조금 더 친해졌다. 최근에 들었던 SSR(Server Side Rendering)과 관련된 글도 곁다리로 함께 읽어볼 수 있었고, 프론트엔드 진영의 기술력에 감탄하기도 했다. 참고한 글들 중 [Vanilla Javascript로 가상돔(VirtualDOM) 만들기][vanilla-javascript-virtual-dom-link]라는 글은 순수 자바스크립트로 컴포넌트, 가상 DOM, 리액트 훅스(hooks)를 구현한 코드를 읽어볼 수 있었는데 덕분에 많은 공부가 되었다. 누군가는 프레임워크나 라이브러리의 본질을 파고들기 위한 공부를 하고 있다는 것에 큰 자극을 느꼈다.
 
 #### REFERENCE
 

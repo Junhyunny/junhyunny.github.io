@@ -220,9 +220,7 @@ MCP 서버 설정에 `http://host.docker.internal:<MCP포트번호>` 형식의 U
 - Codex - docker/sandbox-templates:codex
 - Copilot - docker/sandbox-templates:copilot
 
-샌드박스의 기본 환경은 Ubuntu 25.10을 기반으로 구성되어 있으며, 에이전트는 sudo 권한이 있는 루트가 아닌(non-root) 사용자로 실행된다. apt, pip, npm과 같은 패키지 관리자가 기본적으로 포함되어 있다. 커스텀 템플릿 이미지를 만들려면 위 템플릿 이미지를 베이스로 사용하는 도커 파일(Dockerfile)을 호스트 머신에 준비한다. 예를 들어, 아래와 같은 도커 파일을 작성할 수 있다.
-
-- protobuf-compiler 패키지를 설치한다.
+샌드박스의 기본 환경은 Ubuntu 25.10을 기반으로 구성되어 있으며, 에이전트는 sudo 권한이 있는 루트가 아닌(non-root) 사용자로 실행된다. apt, pip, npm과 같은 패키지 관리자가 기본적으로 포함되어 있다. 커스텀 템플릿 이미지를 만들려면 위 템플릿 이미지를 베이스로 사용하는 도커 파일(Dockerfile)을 호스트 머신에 준비한다. 예를 들어, 아래와 같이 protobuf-compiler 패키지를 설치하는 도커 파일을 작성할 수 있다.
 
 ```dockerfile
 FROM docker/sandbox-templates:claude-code

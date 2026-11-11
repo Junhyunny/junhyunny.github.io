@@ -273,7 +273,7 @@ print("vc 변수 참조 정리")
 vc = nil
 ```
 
-위 코드를 실행하면 다음과 같은 로그를 볼 수 있다. Button, ViewController 클래스의 deinit 함수가 호출되지 않는다.
+위 코드를 실행하면 아래 로그처럼 Button, ViewController 클래스의 deinit 함수가 호출되지 않는다.
 
 ```
 Button tapped

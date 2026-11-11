@@ -141,7 +141,7 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2023/2023-09-06-install-harbor-using-docker-compose.md` — Docker Compose로 Harbor 설치
 - [ ] `src/content/posts/2023/2023-09-14-webcam-with-frame-filter.md` — 프레임 필터가 있는 웹캠 구현
 - [ ] `src/content/posts/2023/2023-09-21-sequence-key-update-with-cursor-in-mysql.md` — MySQL 커서를 사용한 시퀀스 키 업데이트
-- [ ] `src/content/posts/2023/2023-09-30-security-context-holder-strategy.md` — 스프링 시큐리티 SecurityContextHolderStrategy
+- [x] `src/content/posts/2023/2023-09-30-security-context-holder-strategy.md` — 스프링 시큐리티 SecurityContextHolderStrategy
 - [ ] `src/content/posts/2023/2023-10-06-oauth2-line-login-with-spring-security.md` — 스프링 시큐리티 OAuth2 LINE 로그인
 - [ ] `src/content/posts/2023/2023-10-08-delegating-filter-proxy.md` — 스프링 DelegatingFilterProxy 클래스
 - [ ] `src/content/posts/2023/2023-10-09-rfc-7617-http-basic-authentication.md` — RFC 7617 HTTP Basic 인증 방식

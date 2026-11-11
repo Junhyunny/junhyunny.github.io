@@ -323,9 +323,7 @@ struct ParentView: View {
 - body 재평가: body를 다시 계산해서 뷰 계층을 기술하는 값을 만드는 것
 - UI 업데이트: SwiftUI가 실제 화면에 변경을 반영하는 것
 
-SwiftUI는 뷰가 사용하는 데이터를 의존성으로 관리한다.
-
-- count 프로퍼티는 CounterView 뷰가 사용하는 상태 데이터다.
+SwiftUI는 뷰가 사용하는 데이터를 의존성으로 관리한다. count 프로퍼티는 CounterView 뷰가 사용하는 상태 데이터다.
 
 ```swift
 struct CounterView: View {

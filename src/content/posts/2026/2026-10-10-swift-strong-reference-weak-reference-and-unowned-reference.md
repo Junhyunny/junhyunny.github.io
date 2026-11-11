@@ -71,9 +71,7 @@ print("second 변수 해제")
 second = nil  // 마지막 강한 참조가 사라져 deinit이 호출된다
 ```
 
-코드를 실행하면 다음과 같은 로그가 출력된다.
-
-- second 변수의 참조가 사라지면 Person("Junhyunny") 객체가 해제된다.
+코드를 실행하면 second 변수의 참조가 사라지면 Person("Junhyunny") 객체가 해제되는 것을 로그로 확인할 수 있다.
 
 ```
 first 변수 해제
@@ -125,9 +123,7 @@ child = nil  // 두 deinit 모두 호출되지 않는다
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swift-strong-reference-weak-reference-and-unowned-reference-02.png" width="100%" class="image__border">
 </div>
 
-로그를 살펴보면 두 객체의 deinit이 호출되지 않았음을 알 수 있다. ARC는 다른 참조 카운팅 방식과 마찬가지로 순환 참조를 식별하지 못하기 때문에 두 객체는 계속 메모리에 남는다.
-
-- Parent와 Child 객체의 deinit이 호출되지 않는다.
+로그를 살펴보면 두 객체의 deinit이 호출되지 않았음을 알 수 있다. ARC는 다른 참조 카운팅 방식과 마찬가지로 순환 참조를 식별하지 못하기 때문에 두 객체는 계속 메모리에 남는다. Parent와 Child 객체의 deinit이 호출되지 않는다.
 
 ```
 부모에게 자식을 할당
@@ -136,9 +132,7 @@ parent 변수 참조 해제
 child 변수 참조 해제
 ```
 
-객체를 해제하려면 순환 참조에 포함된 강한 참조 하나를 약한 참조(weak reference)로 변경해야 한다. 약한 참조는 대상의 참조 카운트를 늘리지 않는다. 약한 참조가 가리키던 대상이 해제되면 참조는 자동으로 `nil`이 된다. 값이 `nil`이 될 수 있으므로 weak 키워드가 붙은 프로퍼티는 옵셔널(optional)이어야 한다. 예제 코드로 객체가 해제되는지 살펴보자.
-
-- 이전 예제에서 Child 클래스의 parent 프로퍼티를 약한 참조로 바꿨다.
+객체를 해제하려면 순환 참조에 포함된 강한 참조 하나를 약한 참조(weak reference)로 변경해야 한다. 약한 참조는 대상의 참조 카운트를 늘리지 않는다. 약한 참조가 가리키던 대상이 해제되면 참조는 자동으로 `nil`이 된다. 값이 `nil`이 될 수 있으므로 weak 키워드가 붙은 프로퍼티는 옵셔널(optional)이어야 한다. 예제 코드로 객체가 해제되는지 살펴보자. 이전 예제에서 Child 클래스의 parent 프로퍼티를 약한 참조로 바꿨다.
 
 ```swift
 final class Parent {
@@ -186,9 +180,7 @@ Child 해제
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/swift-strong-reference-weak-reference-and-unowned-reference-03.png" width="100%" class="image__border">
 </div>
 
-**미소유 참조는 약한 참조처럼 참조 카운트를 올리지 않는다.** 약한 참조와 달리 가리키던 대상이 해제되어도 자동으로 `nil`이 되지 않는다. 따라서 옵셔널이 강제되지 않는다. 다만 참조 대상이 해제된 뒤 접근하면 런타임 오류가 발생할 수 있다. 참조 대상이 미소유 참조를 사용하는 객체보다 오래 살아 있음을 보장할 수 있을 때 사용하는 것이 좋다. 간단한 예제를 살펴보자.
-
-- Child 인스턴스의 parent 프로퍼티는 미소유 참조이기 때문에 옵셔널이 강제되지 않는다.
+**미소유 참조는 약한 참조처럼 참조 카운트를 올리지 않는다.** 약한 참조와 달리 가리키던 대상이 해제되어도 자동으로 `nil`이 되지 않는다. 따라서 옵셔널이 강제되지 않는다. 다만 참조 대상이 해제된 뒤 접근하면 런타임 오류가 발생할 수 있다. 참조 대상이 미소유 참조를 사용하는 객체보다 오래 살아 있음을 보장할 수 있을 때 사용하는 것이 좋다. 간단한 예제를 살펴보자. Child 인스턴스의 parent 프로퍼티는 미소유 참조이기 때문에 옵셔널이 강제되지 않는다.
 
 ```swift
 final class Parent {
@@ -281,9 +273,7 @@ print("vc 변수 참조 정리")
 vc = nil
 ```
 
-위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
-
-- Button, ViewController 클래스의 deinit 함수가 호출되지 않는다.
+위 코드를 실행하면 다음과 같은 로그를 볼 수 있다. Button, ViewController 클래스의 deinit 함수가 호출되지 않는다.
 
 ```
 Button tapped
@@ -300,9 +290,7 @@ func setup() {
 }
 ```
 
-클로저가 self를 약하게 참조하므로 순환 참조 문제가 해결된다.
-
-- Button, ViewController 클래스의 deinit 함수가 정상적으로 호출된다.
+클로저가 self를 약하게 참조하므로 순환 참조 문제가 해결된다. Button, ViewController 클래스의 deinit 함수가 정상적으로 호출된다.
 
 ```
 Button tapped

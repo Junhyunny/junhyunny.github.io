@@ -8,7 +8,7 @@ categories:
 summary: "HandlerMethodArgumentResolver가 호출되는 시점을 살펴보고, 쿼리 파라미터의 날짜 문자열을 LocalDate 객체로 바꾸는 리졸버를 구현하는 예제를 다룬다."
 ---
 
-## 1. HandlerMethodArgumentResolver Interface
+## 1. HandlerMethodArgumentResolver 인터페이스
 
 공식 문서를 보면 다음과 같은 설명을 볼 수 있다.
 
@@ -155,9 +155,7 @@ public class LocalDateHandlerMethodArgumentResolver implements HandlerMethodArgu
 }
 ```
 
-리졸버를 구현했으면 스프링 컨텍스트에 등록한다. 설정 객체를 만들고 위에서 만든 HandlerMethodArgumentResolver 인스턴스를 등록한다.
-
-- WebMvcConfigurer 인터페이스를 구현하여 addArgumentResolvers 메서드를 재구현한다.
+리졸버를 구현했으면 스프링 컨텍스트에 등록한다. 설정 객체를 만들고 위에서 만든 HandlerMethodArgumentResolver 인스턴스를 등록한다. WebMvcConfigurer 인터페이스를 구현하여 addArgumentResolvers 메서드를 재구현한다.
 
 ```java
 package blog.in.action.config;

@@ -69,9 +69,7 @@ print("second 변수 해제")
 second = nil  // 마지막 강한 참조가 사라져 deinit이 호출된다
 ```
 
-위 코드의 실행 결과는 다음과 같다.
-
-- 두 번째 참조인 second 변수가 참조를 잃으면 Person("Junhyunny") 객체가 해제된다.
+위 코드를 실행하면 두 번째 참조인 second 변수가 참조를 잃으면 Person("Junhyunny") 객체가 해제되는 것을 확인할 수 있다.
 
 ```
 first 변수 해제

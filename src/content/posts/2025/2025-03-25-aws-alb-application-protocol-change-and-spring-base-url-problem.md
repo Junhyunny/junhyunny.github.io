@@ -83,13 +83,11 @@ spring:
 
 문제를 해결할 수 있는 방법은 3가지 있다. 
 
-- application.yml 파일에 `server.forward-headers-strategy=framework` 설정을 추가한다.
-- application.yml 파일의 OAuth2 리다이렉트 URL을 환경 변수 처리하여 로컬 환경에서는 `http://localhost:8080`, 클라우드 환경에서는 `https://domain.com`을 주입한다.
-- 구글 OAuth2 개발자 사이트에 등록한 클라이언트 애플리케이션의 관리 페이지에서 `http://domain.com`을 리다이렉트 URL로 추가 등록한다.
+1. application.yml 파일에 `server.forward-headers-strategy=framework` 설정을 추가한다.
+2. application.yml 파일의 OAuth2 리다이렉트 URL을 환경 변수 처리하여 로컬 환경에서는 `http://localhost:8080`, 클라우드 환경에서는 `https://domain.com`을 주입한다.
+3. 구글 OAuth2 개발자 사이트에 등록한 클라이언트 애플리케이션의 관리 페이지에서 `http://domain.com`을 리다이렉트 URL로 추가 등록한다.
 
-구체적으로 2번 해결 방법은 다음과 같다.
-
-- 리다이렉트 URL 값을 `APP_BASE_URL` 환경 변수로 대체한다.
+2번 해결 방법은 리다이렉트 URL 값을 `APP_BASE_URL` 환경 변수로 대체하는 것이다.
 
 ```yml
 spring:

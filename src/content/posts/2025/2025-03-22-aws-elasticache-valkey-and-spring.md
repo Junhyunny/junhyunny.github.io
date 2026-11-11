@@ -7,6 +7,7 @@ categories:
   - "aws"
   - "spring-security"
   - "spring-session"
+summary: "레디스에서 포크한 밸키를 AWS 엘라스틱캐시 서버리스로 구축해 스프링 세션과 연결하면서 만난 CROSSSLOT 에러와 연결 타임아웃을 클러스터, TLS 설정으로 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "Spring Session with Redis"
     href: "https://junhyunny.github.io/information/spring-boot/redis/spring-session-with-redis/"
@@ -21,7 +22,7 @@ recommendedPosts:
 나는 많은 프로젝트에서 스프링 서버 애플리케이션을 구현할 때 세션을 위해 레디스(redis)를 사용했었다. 최근 새로운 서비스의 세션을 구축하기 위해 AWS 엘라스틱캐시(elasticache)에서 레디스 서버를 배포하려고 했더니 다음과 같은 AWS 추천 메시지를 만났다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-01.png" width="100%" class="image__border">
 </div>
 
 가격도 33% 저렴하고 레디스와 완벽하게 호환된다고 하니 선택하지 않을 이유가 없다고 생각했다. 이번 글은 밸키(Valkey) 서버리스(serverless)를 구축하면서 만났던 에러들에 대해 정리했다.
@@ -44,11 +45,11 @@ AWS 공식 홈페이지에서 설명하는 엘라스틱캐시 밸키의 장점�
 - 무중단 마이그레이션
   - Redis OSS용 ElastiCache의 기존 사용자는 가동 중지 시간 없이 Valkey용 ElastiCache로 빠르게 업그레이드 가능
 - 지속적인 혁신
-  - AWS의 지속적인 Valkey를 지원과 기여
+  - AWS의 지속적인 Valkey 지원과 기여
 
 ## 2. Dependencies
 
-이 글에서 사용한 의존성은 다음과 같다. 중요한 의존성은 `spring-boot-starter-data-redis`과 `spring-session-data-redis`이다. 밸키는 레디스와 호환되기 때문에 레디스 의존성을 사용해도 문제가 없다.
+이 글에서 사용한 의존성은 다음과 같다. 중요한 의존성은 `spring-boot-starter-data-redis`와 `spring-session-data-redis`이다. 밸키는 레디스와 호환되기 때문에 레디스 의존성을 사용해도 문제가 없다.
 
 ```gradle
 plugins {
@@ -115,12 +116,10 @@ class TodoController {
 
 스프링 세션을 통해 레디스와 연결하기 위해선 `application.yml` 파일에 설정이 필요하다. 여기서 로컬 개발 환경과 클라우드 환경의 분리가 필요하다. 로컬 환경은 단순하게 단일 밸키 컨테이너와 연결하면 되지만, AWS 엘라스틱캐시의 서버리스 밸키는 고가용성을 위해 클러스터로 구축되어 있다. 다음과 같이 정리할 수 있다. 
 
-- 로컬 환경에선 서버 애플리케이션과 밸키 컨테이너를 연결하면 한다.
-- 클라우드 환경에선 서버 애플리케이션과 밸키 클러스터와 연결해야 한다.
+- 로컬 환경에선 서버 애플리케이션과 밸키 컨테이너를 연결하면 된다.
+- 클라우드 환경에선 서버 애플리케이션과 밸키 클러스터를 연결해야 한다.
 
-스프링 세션을 사용하는 서버 애플리케이션에서 단일 레디스와 레디스 클러스터에 연결할 때 서로 다른 설정이 필요하다. 프로파일(profile)을 구분하여 세션 연결 설정을 분리한다. 먼저 로컬 환경 설정을 위한 `application-local.yml` 파일을 살펴보자. 
-
-- 싱글 밸키 인스턴스와 연결하기 때문에 호스트 정보를 입력한다.
+스프링 세션을 사용하는 서버 애플리케이션에서 단일 레디스와 레디스 클러스터에 연결할 때 서로 다른 설정이 필요하다. 프로파일(profile)을 구분하여 세션 연결 설정을 분리한다. 먼저 로컬 환경 설정을 위한 `application-local.yml` 파일을 살펴보자. 싱글 밸키 인스턴스와 연결하기 때문에 호스트 정보를 입력한다.
 
 ```yml
 spring:
@@ -229,9 +228,7 @@ spring:
 
 ## 6. Verification
 
-다음과 같은 인프라 환경에서 스프링 서버 애플리케이션과 서버리스 밸키 세션이 연결되는지 확인한다. 
-
-- EC2 컨테이너에서 AWS 엘라스틱캐시 서버리스 밸키 클러스터를 세션으로 사용한다.
+다음과 같은 인프라 환경에서 스프링 서버 애플리케이션과 서버리스 밸키 세션이 연결되는지 확인한다. EC2 컨테이너에서 AWS 엘라스틱캐시 서버리스 밸키 클러스터를 세션으로 사용한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-elasticache-valkey-and-spring-05.png" width="100%" class="image__border">
@@ -288,7 +285,7 @@ valkey_endpoint = tolist([
 
 ## CLOSING
 
-위에서 봤듯이 [예제 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2025-03-22-aws-elasticache-valkey-and-spring)에는 AWS 서버리스 밸키를 구성하는 테라폼 코드가 함께 포함되어 있다. 이 외에도 로컬 환경에서 밸키 컨테이너를 구성하는 도커 컴포즈 파일이 있으니 로컬 환경 연결도 확인해볼 수 있다. 다음 글은 CROSSSLOT 문제나 CDK(혹은 테라폼)으로 엘라스틱캐시 서버리스 밸키를 구성하는 방법에 대해 정리할 생각이다. 
+위에서 봤듯이 [예제 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2025-03-22-aws-elasticache-valkey-and-spring)에는 AWS 서버리스 밸키를 구성하는 테라폼 코드가 함께 포함되어 있다. 이 외에도 로컬 환경에서 밸키 컨테이너를 구성하는 도커 컴포즈 파일이 있으니 로컬 환경 연결도 확인해볼 수 있다. 다음 글은 CROSSSLOT 문제나 CDK(혹은 테라폼)로 엘라스틱캐시 서버리스 밸키를 구성하는 방법에 대해 정리할 생각이다. 
 
 #### TEST CODE REPOSITORY
 

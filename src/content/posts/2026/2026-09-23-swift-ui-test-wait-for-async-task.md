@@ -18,9 +18,7 @@ summary: "SwiftUI 뷰 모델 테스트에서 비동기 상태 변경 때문에 �
 
 ## 1. Problem context
 
-예제 코드를 살펴보자. 다음과 같은 비즈니스 로직이 있다.
-
-- observation 함수는 SignalClient 인스턴스로부터 비동기적으로 이벤트를 수신한다.
+예제 코드를 살펴보자. 다음과 같이 observation 함수는 SignalClient 인스턴스로부터 비동기적으로 이벤트를 수신하는 비즈니스 로직이 있다.
 
 ```swift
 final class ContentViewModel {

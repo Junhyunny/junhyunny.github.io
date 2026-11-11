@@ -26,9 +26,7 @@ summary: "CoroutineScope에서 Dispatcher와 Job까지, 코틀린 코루틴이 �
 
 코루틴과 관련된 대부분의 기능은 `kotlinx.coroutines` 라이브러리에서 제공된다. 이 라이브러리에는 코루틴 실행, 동시성 제어, 비동기 스트림 처리 등을 위한 다양한 도구가 포함되어 있다.
 
-JVM 환경에서 코루틴을 비롯한 모든 동시성 코드는 운영체제가 관리하는 스레드 위에서 실행된다. 코루틴은 스레드를 차단하는 대신 자신의 실행을 일시 중단할 수 있다. 이를 통해 코루틴은 다른 코루틴과 동시에 실행될 수 있으며, 경우에 따라 병렬(parallel)로 실행될 수 있다. 이런 방식은 시스템 자원을 효율적으로 활용할 수 있도록 한다.
-
-- 예를 들면, 하나의 코루틴이 데이터가 도착하기를 기다리는 동안 실행을 일시 중단하고, 다른 코루틴이 동일한 스레드에서 실행될 수 있다. 
+JVM 환경에서 코루틴을 비롯한 모든 동시성 코드는 운영체제가 관리하는 스레드 위에서 실행된다. 코루틴은 스레드를 차단하는 대신 자신의 실행을 일시 중단할 수 있다. 이를 통해 코루틴은 다른 코루틴과 동시에 실행될 수 있으며, 경우에 따라 병렬(parallel)로 실행될 수 있다. 이런 방식은 시스템 자원을 효율적으로 활용할 수 있도록 한다. 예를 들면, 하나의 코루틴이 데이터가 도착하기를 기다리는 동안 실행을 일시 중단하고, 다른 코루틴이 동일한 스레드에서 실행될 수 있다.
 
 <div class="block-break">
   <div align="center">
@@ -150,9 +148,7 @@ fun example_02() = runTest {
 }
 ```
 
-위 코드를 실행하면 다음과 같은 로그를 볼 수 있다.
-
-- "completed" 로그가 아니라 둘 모두 "cancelled" 로그가 출력된다.
+위 코드를 실행하면 다음과 같은 로그를 볼 수 있다. "completed" 로그가 아니라 둘 모두 "cancelled" 로그가 출력된다.
 
 ```
 Job 2 cancelled
@@ -191,9 +187,7 @@ fun example_03() {
 }
 ```
 
-사전에 만든 CoroutineContext에서 필요한 요소만 변경하는 방법은 다음과 같다. CoroutineScope의 launch 함수를 실행할 때 변경이 필요한 요소만 파라미터로 전달한다. 기존 CoroutineContext 요소들 중 실행 시점에 새로 추가된 요소만 바뀐 CoroutineContext로 코루틴이 실행된다.
-
-- 2번째 launch 함수를 실행할 때 CoroutineName을 "SpecialWorker"로 변경한다.
+사전에 만든 CoroutineContext에서 필요한 요소만 변경하는 방법은 다음과 같다. CoroutineScope의 launch 함수를 실행할 때 변경이 필요한 요소만 파라미터로 전달한다. 기존 CoroutineContext 요소들 중 실행 시점에 새로 추가된 요소만 바뀐 CoroutineContext로 코루틴이 실행된다. 2번째 launch 함수를 실행할 때 CoroutineName을 "SpecialWorker"로 변경한다.
 
 ```kotlin
 @Test

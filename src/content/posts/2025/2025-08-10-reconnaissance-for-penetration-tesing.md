@@ -10,6 +10,7 @@ categories:
   - "penetration-test"
   - "pentest"
   - "renossance"
+summary: "침투 테스트 단계 중 대상 정보를 수집하는 정찰 단계의 패시브, 액티브 정보 수집을 설명하고 whois, whatweb, theHarvester 같은 정보 수집 도구를 정리했다."
 ---
 
 ## 1. Penetration Test

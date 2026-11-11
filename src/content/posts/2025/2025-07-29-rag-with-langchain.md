@@ -10,6 +10,7 @@ categories:
   - "langchain"
   - "rag"
   - "retrieval-argumented-generation"
+summary: "검색 증강 생성(RAG)이 등장한 배경과 임베딩, 벡터 인덱싱 개념을 살펴보고, 랭체인과 Chroma 벡터 데이터베이스로 RAG 예제를 구현했다."
 recommendedPosts:
   - title: "LLM 랭체인(LangChain) 예제"
     href: "https://junhyunny.github.io/ai/large-language-model/langchain/lang-chain/"

@@ -12,6 +12,7 @@ categories:
   - "ai-agent"
   - "multi-agent"
   - "architecture"
+summary: "멀티 에이전트 아키텍처의 개념을 살펴보고, AWS Bedrock에서 관리자 에이전트가 리서치 에이전트와 차트 에이전트를 조율하는 중앙 집중형 멀티 에이전트 예제를 구성했다."
 recommendedPosts:
   - title: "AWS Bedrock 에이전트(agent) 예제"
     href: "https://junhyunny.github.io/ai/llms/large-language-model/aws/bedrock/ai-agent/aws-bedrock-agent-api/"

@@ -14,7 +14,7 @@ recommendedPosts:
 
 올해 초 시작했던 블로그에 유입되는 사용자 수가 꽤 많이 증가했다. 공부하는 내용을 정리할 겸 시작한 블로그였지만, 사용자 유입량이 늘어나니 광고를 통한 부수입 생각이 문득 들었다. `GitHub` 플랫폼을 이용하는 블로그에 광고를 연결하는 자세한 글들이 없는 것 같아 정리했다. 필자는 `minimal-mistakes` 테마를 사용하고 있으며, 같은 테마를 사용하는 분들에게 도움이 되길 바란다.
 
-## 1. Join Google Adsense 
+## 1. Join Google Adsense
 
 구글 애드센스에 가입이 필요하다. [구글 애드센스](https://www.google.com/intl/ko_kr/adsense/start/) 사이트로 이동한다. `시작하기` 버튼을 클릭한다.
 

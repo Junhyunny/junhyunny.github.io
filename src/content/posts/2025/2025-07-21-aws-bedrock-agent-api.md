@@ -40,7 +40,7 @@ AWS Bedrock의 에이전트(agent)는 사용자의 자연어 요청을 이해하
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-bedrock-agent-api-00.png" width="100%" class="image__border">
 </div>
 
-## 2. Create AWS Bedrock Agent 
+## 2. Create AWS Bedrock Agent
 
 간단하게 베드록 에이전트를 만들어보자. 먼저 커맨드를 실행하기 전에 AWS 크레덴셜(credential)을 터미널 세션에 준비한다.
 

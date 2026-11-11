@@ -91,7 +91,7 @@ Also, this error might show up because:
 2. inside when() you don't call method on mock but on some other object.
 ```
 
-### 2.1. mockito-inline 의존성 사용하기 
+### 2.1. mockito-inline 의존성 사용하기
 
 `Mockito` 클래스를 보면 static 메서드 테스트와 연관있어 보이는 `mockStatic` 메서드가 존재한다. 해당 메서드를 실행시키면 다음과 같은 에러가 발생한다.
 

@@ -201,7 +201,7 @@ dependencies {
 }
 ```
 
-### 2.2. Extend RequestEntityConverter
+### 2.3. Extend RequestEntityConverter
 
 위에서 설명 했듯이 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장한다. 해당 로직에서 확인하는 클라이언트 아이디는 `application.yml` 파일에서 `spring.security.oauth2.client.registration` 속성에 등록된 아이디와 매칭되어야 한다.
 
@@ -252,7 +252,7 @@ public class AppleOAuth2AuthorizationCodeGrantRequestEntityConverter extends OAu
 }
 ```
 
-### 2.3. Apple's Secret Key Generator
+### 2.4. Apple's Secret Key Generator
 
 새로운 클라이언트 시크릿으로 사용할 JWT 객체를 생성한다. 여기서 application.yml 파일에 새롭게 추가한 정보들과 비공개 키가 사용된다. 해당 예제에선 비공개 키가 클래스 패스(class path)의 static 폴더 내부에 존재하지만, 실제 프로젝트라면 보안 문제가 발생할 수 있으니 프로젝트 경로에서 관리하지 않길 바란다. CI/CD 파이프라인에서 추가하거나 클라우드 프로바이더(cloud provider)가 제공하는 컴포넌트를 통해 환경 변수로 주입하여 사용하길 바란다.
 
@@ -344,7 +344,7 @@ public class AppleSecretGenerator {
 }
 ```
 
-### 2.4. Register Spring Beans
+### 2.5. Register Spring Beans
 
 위에서 만든 AppleOAuth2AuthorizationCodeGrantRequestEntityConverter 객체를 인증 매니저에게 주입한다. 위에서 설명했듯 OAuth2 스코프에 따라 다른 인증 매니저를 사용한다. 이 예제는 `oidc` 스코프를 사용하기 때문에 OidcAuthorizationCodeAuthenticationProvider 객체를 스프링 빈(spring bean)으로 등록한다. 
 

@@ -179,7 +179,7 @@ public interface BlogClient {
 }
 ```
 
-### 3. Test
+## 3. Test
 
 - `WireMock`을 사용해 테스트를 수행한다.
   - 이스케이핑된 메시지를 준비하고, 특정 경로에 대한 응답으로 이를 반환한다.

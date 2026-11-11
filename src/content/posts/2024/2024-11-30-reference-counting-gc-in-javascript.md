@@ -17,7 +17,7 @@ recommendedPosts:
 
 이 글은 메모리 릭 문제를 해결할 때 동료와 짧게 이야기를 나눴던 크롬(chrome), 엣지(edge), 노드(node) 같은 자바스크립트 엔진에서 사용하는 가비지 컬렉터 알고리즘에 대해 정리하기 위한 글이다. 알고리즘 종류가 다양해서 별도 글로 작성했다. 
 
-## 1. Reference counting 
+## 1. Reference counting
 
 참조 카운팅(reference counting)은 각 객체에 대한 참조 횟수를 추적한다. 참조 횟수가 0이 되면, 어떤 객체도 참조하지 않는 객체(더 이상 필요 없는 객체)가 된다. 해당 객체를 아무도 사용하지 않기 때문에 가비지 컬렉팅 대상이 된다. [MDN 예시 코드](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_management#reference-counting_garbage_collection)를 살펴보자.
 

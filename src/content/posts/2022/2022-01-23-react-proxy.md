@@ -195,7 +195,7 @@ public class CorsController {
 }
 ```
 
-### 3.3. Setting proxy in package.json 
+### 3.3. Setting proxy in package.json
 
 CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을 통해 쉽게 프록시를 설정할 수 있다. package.json 파일에 `proxy` 프로퍼티를 추가한다. `react-scripts`가 `0.2.3` 버전 이상일 경우에 가능한 것으로 보인다.
 
@@ -256,7 +256,7 @@ CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/react-proxy-03.gif" width="100%" class="image__border">
 </div>
 
-## 3.4. http-proxy-middleware library
+### 3.4. http-proxy-middleware library
 
 위 테스트를 보면 nonProxy 버튼과 proxy 버튼의 차이점을 느끼지 못 했을 것이다. 사실 두 기능은 동일하게 동작한다. package.json 파일을 통해 프록시를 설정한 경우 상대 경로 URI로 보내는 모든 요청은 프록시를 통해 스프링 서버로 연결되기 때문이다. 
 

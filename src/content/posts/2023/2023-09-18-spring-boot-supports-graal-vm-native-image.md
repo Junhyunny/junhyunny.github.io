@@ -17,7 +17,7 @@ recommendedPosts:
 
 스프링 부트(spring boot) 3.X 버전에 관련된 내용들을 보면 GraalVM 지원에 대한 이야기가 있다. 이전 글에서 [GraalVM][graal-vm-link]에 대한 내용을 정리했다. 이번엔 간단한 네이티브 이미지를 만들어본다. 이번 글에서 사용하는 AOT(Ahead of Time) 컴파일러에 대한 내용은 [이전 글][graal-vm-link]을 참조하길 바란다.
 
-## 1. Dynamic Features Limitation of Native Image 
+## 1. Dynamic Features Limitation of Native Image
 
 GraalVM은 AOT 컴파일러를 사용해 네이티브 이미지를 빌드한다. 이 과정에서 AOT 컴파일러는 정적 코드 분석과 최적화를 통해 바이트 코드를 운영체제에 맞는 머신 코드로 컴파일한다. 정적 코드 분석을 통해 머신 코드를 만들기 때문에 다음과 같은 동적 기능들을 사용하는데 제약이 생긴다.
 

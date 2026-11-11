@@ -40,7 +40,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/mock-service-worker-01.png" width="80%" class="image__border">
 </div>
 
-### 1.2. How does Mock Service Worker work? 
+### 1.2. How does Mock Service Worker work?
 
 목 서비스 워커는 브라우저 환경에서 다음과 같은 방법으로 동작한다. 플로우 다이어그램(flow diagram)에는 브라우저로 표현되어 있지만, 더 정확한 표현은 웹 애플리케이션이라고 생각되어 명칭을 바꿔 설명한다.
 

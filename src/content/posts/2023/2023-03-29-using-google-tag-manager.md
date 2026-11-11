@@ -210,7 +210,7 @@ export default App;
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/using-google-tag-manager-17.png" width="100%" class="image__border">
 </div>
 
-### 3. In Google Analytics
+## 3. In Google Analytics
 
 해당 리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠다.
 

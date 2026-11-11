@@ -396,11 +396,11 @@ OSIV 패턴을 적용하지 않았기 때문에 `@Transactional` 애너테이션
 
 뷰를 렌더링하는 시점에 영속성 컨텍스트가 존재하지 않아 준영속 상태가 된 객체의 프록시를 초기화할 수 없는 문제를 해결하기 위해 만든 패턴이다. 초기의 OSIV 패턴을 살펴보고, 스프링 프레임워크의 OSIV 패턴에 대해서 정리해보겠다.
 
-### 2.1. Traditional OSIV Pattern
+### 3.1. Traditional OSIV Pattern
 
 전통적인 OSIV 패턴은 필터에서 세션과 트랜잭션을 시작하고 종료하는 방법을 사용하였다고 한다.
 
-#### 2.1.1. HibernateSessionRequestFilter 클래스
+#### 3.1.1. HibernateSessionRequestFilter 클래스
 
 - 필터에서 데이터베이스 트랜잭션을 시작한다.
 - 다음 필터를 호출한다.
@@ -443,7 +443,7 @@ public class HibernateSessionRequestFilter implements Filter {
 }
 ```
 
-#### 2.1.2. 전통적인 OSIV 패턴의 문제점
+#### 3.1.2. 전통적인 OSIV 패턴의 문제점
 
 전통적인 OSIV 패턴은 서블릿 필터에서 세션을 열고, 트랜잭션을 시작한다. 트랜잭션을 시작할 때 JDBC 커넥션을 획득하게 되는데, 필터에서 커넥션을 획득하고 반환하기 때문에 커넥션의 보유 시간이 증가한다. 또한, 필터까지 트랜잭션이 이어지기 때문에 트랜잭션의 경계가 모호해진다. 뷰나 컨트롤러에서 발생한 혹시 모를 엔티티 필드 변경이 필터에서 커밋하는 시점에 플러시되어 데이터베이스에 반영될 수 있다.
 
@@ -453,7 +453,7 @@ public class HibernateSessionRequestFilter implements Filter {
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/open-session-in-view-04.png" width="100%" class="image__border">
 </div>
 
-### 2.2. OSIV Pattern in Spring
+### 3.2. OSIV Pattern in Spring
 
 스프링에서는 전통적인 OSIV 패턴의 문제점을 보완한 방법을 제공했다고 한다.
 
@@ -473,7 +473,7 @@ public class HibernateSessionRequestFilter implements Filter {
 - 자동 커밋 모드를 사용해서 데이터에 접근하는 하이버네이트 내부 메커니즘
 - 대화형 콘솔에서 SQL 문을 편하게 실행하듯이 트랜잭션 범위를 지정하지 않고 개별 DML 문을 짧은 트랜잭션 내에서 실행할 수 있도록 해주는 모드
 
-#### 2.2.1. OpenSessionInViewInterceptor 클래스
+#### 3.2.1. OpenSessionInViewInterceptor 클래스
 
 - 비즈니스 로직 `@Controller` 클래스의 메서드를 호출하기 전에 실행하는 `preHandle` 메서드에서는 세션을 열기만 한다.
   - 세션을 열면서 플러시 모드를 매뉴얼(manual)로 변경한다.
@@ -621,7 +621,7 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/open-session-in-view-05.png" width="100%" class="image__border">
 </div>
 
-### 2.3. OSIV Pattern in Spring with JPA
+### 3.3. OSIV Pattern in Spring with JPA
 
 여태까지 참고 자료의 OSIV 패턴에 대해 정리해보았다. 상당히 잘 정리되어 있지만, 2011년도 글이다 보니 상당히 많은 변화가 있을 것으로 생각되어 직접 디버깅해보았다. 무엇보다 `"트랜잭션 미적용 데이터 접근"`이라는 개념이 쉽게 이해되진 않았다.
 
@@ -639,7 +639,7 @@ public class OpenSessionInViewInterceptor implements AsyncWebRequestInterceptor 
     </parent>
 ```
 
-#### 2.3.1. OpenEntityManagerInViewInterceptor 클래스
+#### 3.3.1. OpenEntityManagerInViewInterceptor 클래스
 
 - 실제 `spring.jpa.open-in-view` 설정으로 제어되는 클래스는 `OpenEntityManagerInViewInterceptor`이다.
 - 대부분 로직이 `OpenSessionInViewInterceptor` 클래스와 유사하다.
@@ -749,7 +749,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
 }
 ```
 
-#### 2.3.2. JDBC 커넥션 획득과 반환
+#### 3.3.2. JDBC 커넥션 획득과 반환
 
 ##### JDBC 커넥션 획득 콜 스택(call stack)
 
@@ -786,7 +786,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/open-session-in-view-09.png" width="75%" class="image__border">
 </div>
 
-#### 2.3.3. Session 플러시 모드
+#### 3.3.3. Session 플러시 모드
 
 - 세션은 생성되는 시점부터 플러시 모드가 `AUTO`이다.
 - `OpenEntityManagerInViewInterceptor` 클래스의 `preHandler` 메서드에서 생성된 세션의 플러시 모드는 `AUTO`이다.
@@ -801,7 +801,7 @@ public class OpenEntityManagerInViewInterceptor extends EntityManagerFactoryAcce
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/open-session-in-view-11.png" width="100%" class="image__border">
 </div>
 
-## 3. Lazy loading in JSP
+## 4. Lazy loading in JSP
 
 `application.yml` 파일의 `spring.jpa.open-in-view` 설정을 `true`로 변경하고 화면을 조회하면 정상적으로 동작한다.
 

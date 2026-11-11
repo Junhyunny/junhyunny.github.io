@@ -294,7 +294,7 @@ Commands you can use next
 [*] Deploy: sam deploy --guided
 ```
 
-## 4. Run AWS SAM project in local environment
+## 5. Run AWS SAM project in local environment
 
 AWS SAM CLI를 사용하면 서버리스 애플리케이션을 로컬에서 테스트할 수 있다. 몇 가지 명령어가 있지만, 이번 포스트에선 로컬에서 HTTP 서버를 사용해서 AWS 람다 함수를 실행하는 `sam local start-api` 명령어를 사용한다.
 
@@ -330,7 +330,7 @@ $ curl http://127.0.0.1:8080/hello
 {"message":"hello world"}%
 ```
 
-## 5. Deploy AWS SAM project
+## 6. Deploy AWS SAM project
 
 이번엔 AWS SAM 프로젝트를 클라우드 환경에 배포한다. AWS 클라우드에 배포하기 위한 키, 시크릿, 토큰 정보를 터미널 세션에 준비한다.
 

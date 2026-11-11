@@ -195,7 +195,7 @@ module.exports = {
 module.exports = 'test-file-stub'
 ```
 
-### 2.4. jest.setup.js
+### 2.3. jest.setup.js
 
 테스트 코드가 실행되기 전에 동작하는 `jest.setup.js` 파일에 아래 임포트(import) 구문을 추가한다.
 
@@ -203,7 +203,7 @@ module.exports = 'test-file-stub'
 import '@testing-library/jest-dom'
 ```
 
-### 3. Run Test Code
+## 3. Run Test Code
 
 테스트 코드 App.test.jsx 파일을 만들고 다음과 같은 테스트 코드를 작성한다. 기본으로 작성된 코드를 대상으로 테스트 코드를 작성한다.
 
@@ -417,7 +417,7 @@ fileMock.js 파일 내용은 다음과 같다.
 module.exports = 'test-file-stub'
 ```
 
-### 4.3. toBeInTheDocument is not a function 
+### 4.4. toBeInTheDocument is not a function
 
 Jest에서 제공하는 toBeInTheDocument 함수를 인식하지 못한다. 
 
@@ -446,7 +446,7 @@ module.exports = {
 }
 ```
 
-### 4.4. ReferenceError - document is not defined
+### 4.5. ReferenceError - document is not defined
 
 테스트 환경의 HTML 문서에서 돔(dom) 정보를 파싱하지 못하는 에러가 발생한다.
 
@@ -476,7 +476,7 @@ module.exports = {
 }
 ```
 
-### 4.5. ReferenceError - React is not defined
+### 4.6. ReferenceError - React is not defined
 
 `React` 모듈을 찾지 못한다.
 
@@ -514,7 +514,7 @@ ReferenceError: React is not defined
 }
 ```
 
-### 4.6. ReferenceError - regeneratorRuntime is not defined
+### 4.7. ReferenceError - regeneratorRuntime is not defined
 
 이 문제는 `async/await` 문법을 해석하기 위한 `regenerator`가 제공되지 않아 발생한다.
 

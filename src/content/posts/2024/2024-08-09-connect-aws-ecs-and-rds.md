@@ -145,7 +145,7 @@ RDS에서 생성한 데이터베이스의 엔드포인트는 해당 데이터베
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/connect-aws-ecs-and-rds-12.png" width="100%" class="image__border">
 </div>
 
-### 3.3. Add Environment Variable in ECS Task Definition 
+### 3.3. Add Environment Variable in ECS Task Definition
 
 애플리케이션이 실행될 때 필요한 새로운 환경 변수 값을 추가한다. 이 과정에서 ECS 태스크 정의 버전이 증가한다. 
 

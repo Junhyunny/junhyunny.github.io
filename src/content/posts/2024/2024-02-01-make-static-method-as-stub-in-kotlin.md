@@ -144,7 +144,7 @@ Also, this error might show up because:
 2. inside when() you don't call method on mock but on some other object.
 ```
 
-### 2.2. Use Object 
+### 2.2. Use Object
 
 object 키워드와 @JvmStatic 애너테이션을 사용해도 정적 메서드를 선언할 수 있다. 이 경우 정상적으로 테스트 더블이 동작한다.
 

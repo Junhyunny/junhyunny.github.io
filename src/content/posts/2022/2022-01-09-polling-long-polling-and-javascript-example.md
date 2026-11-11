@@ -36,7 +36,7 @@ setInterval 함수는 콜백 함수의 실행 시간이 길면 콜백 함수 실
 </div>
 <center>https://ko.javascript.info/settimeout-setinterval</center>
 
-### 1.1. Polling with setTimeout  
+### 1.1. Polling with setTimeout
 
 먼저 setTimeout 함수를 사용해 폴링을 구현해보자. 
 

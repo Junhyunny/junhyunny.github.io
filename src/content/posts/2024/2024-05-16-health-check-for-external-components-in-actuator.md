@@ -211,7 +211,7 @@ public class ExternalServiceHealthIndicator implements HealthIndicator {
 }
 ```
 
-### 3. Run Example
+## 3. Run Example
 
 이 예제는 여러 시스템 컴포넌트들을 연결해야 하기 때문에 손쉬운 연결을 위해 도커 컴포즈를 사용한다. 다음과 같은 docker-compose.yml 파일을 작성한다.
 
@@ -263,7 +263,7 @@ $ docker-compose up -d
  ✔ Container 2024-05-16-health-check-for-external-components-in-actuator-action-service-1    Started     0.6s 
 ```
 
-### 3.3. Health Check
+### 3.1. Health Check
 
 컨테이너까지 실행했으면 모든 준비가 완료됐다. 테스트 대상 애플리케이션에 헬스 체크를 요청해보자.
 

@@ -81,7 +81,7 @@ STORM을 라이브러리 용도로 사용하고 싶기 때문에 패키지로 �
 $ pip install knowledge-storm
 ```
 
-## 3. Indexing for vector database
+## 4. Indexing for vector database
 
 간단하게 커스텀 검색 모듈을 위한 벡터 데이터 임베딩을 만들어보자. 벡터 데이터베이스는 FAISS(Facebook AI Similarity Search)를 사용한다. 이번 글에선 CPU를 사용하기 때문에 `faiss-cpu` 패키지를 설치한다.
 
@@ -229,7 +229,7 @@ drwxr-xr-x  11 junhyunny  staff      352 Dec 26 11:10 ..
 -rw-r--r--@  1 junhyunny  staff  3072045 Dec 26 11:16 faiss_index.bin
 ```
 
-## 3. Make custom retrieval module
+## 5. Make custom retrieval module
 
 회사에 누적된 데이터를 활용해 벡터 데이터베이스를 구축한 후 RAG 검색을 수행하고 싶은 것이기 때문에 커스텀 검색 모듈을 만들 필요가 있었다. 지금부터 프로젝트 내에서 활용하는 커스텀 검색 모듈을 만들어보자. 커스텀 모듈에서 사용할 벡터 데이터베이스 클래스를 정의한다. 인덱싱할 때와 동일한 임베딩 모델을 사용한다.
 
@@ -365,7 +365,7 @@ class CustomRetrieveModule(dspy.Retrieve):
       raise e
 ```
 
-## 4. Write an article
+## 6. Write an article
 
 커스텀 모듈까지 생성하였으면 이를 STORM의 논문 생성 프로세스에서 사용해보자. STORM 프레임워크를 실행하는 예제 코드는 [공식 사이트](https://github.com/stanford-oval/storm)를 참조했다. 공식 예제는 OpenAI의 chat-gpt 모델을 사용했지만, 여기선 AWS 베드록(bedrock)을 사용했다. boto3 패키지 설치가 필요하다.
 

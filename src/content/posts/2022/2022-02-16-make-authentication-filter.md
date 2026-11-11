@@ -518,7 +518,7 @@ public class JwtAuthenticationFilterTest {
 }
 ```
 
-### 3.2 AuthControllerTest 클래스
+### 3.2. AuthControllerTest 클래스
 
 - `Spring Security` 프레임워크를 통해 생성된 필터 체인이 정상적으로 동작하는지 테스트한다.
 

@@ -284,7 +284,7 @@ XSD(XML Schema Definition)은 서비스 제공자가 노출하는 API 스키마 
 </xs:schema>
 ```
 
-### 3.3 Build Java Class from Schema
+### 3.3. Build Java Class from Schema
 
 서비스 제공자는 XSD 파일을 기준으로 Java 클래스를 생성한다. 아래 명령어를 통해 생성한다.
 

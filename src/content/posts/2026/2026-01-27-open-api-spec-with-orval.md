@@ -225,7 +225,7 @@ $ npm run generate
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/open-api-spec-with-orval-01.png" width="40%" class="image__border">
 </div>
 
-#### TEST CODE REPOSTORY
+#### TEST CODE REPOSITORY
 
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2026-01-27-open-api-spec-with-orval>
 

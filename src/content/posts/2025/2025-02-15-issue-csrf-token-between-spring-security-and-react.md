@@ -101,7 +101,7 @@ public class CsrfController {
 }
 ```
 
-### 1.3. TodoController class
+### 1.4. TodoController class
 
 테스트를 위해 간단한 엔드포인트를 만든다. 스프링 시큐리티는 GET, OPTIONS 같은 안전한 요청에 대해선 CSRF 방어를 수행하지 않는다. CSRF 토큰의 동작 여부를 확인하기 위해서 POST 요청 엔드포인트를 만든다.
 
@@ -127,7 +127,7 @@ public class TodoController {
 }
 ```
 
-### 1.4. Validation CSRF token
+### 1.5. Validation CSRF token
 
 cURL 커맨드를 통해 CSRF 토큰을 발급 받고 유효하게 동작하는지 살펴보자. Todo 엔드포인트에 요청을 보내면 403(forbidden) 에러로 실패한다.
 
@@ -244,7 +244,7 @@ Note: Unnecessary use of -X or --request, POST is already inferred.
 
 스프링 애플리케이션 코드와 cURL 커맨드를 통해 정상적으로 CSRF 공격과 방어가 이뤄지는지 살펴봤다. 이번엔 리액트 애플리케이션 코드를 살펴보자. 
 
-### 2.1. vite config 
+### 2.1. vite config
 
 우선 스프링 애플리케이션과 리액트 애플리케이션을 연결하기 위해선 프록시(proxy) 설정이 필요하다. 로컬 환경에서 프론트엔드 개발 서버와 백엔드 서버를 연결할 때 왜 프록시가 필요한지 궁긍하다면 [CORS(Cross Origin Resource Sharing) 개념](https://junhyunny.github.io/information/cors/)과 [React 프록시 설정](https://junhyunny.github.io/information/react/react-proxy/)을 참조하길 바란다. 
 

@@ -210,7 +210,7 @@ f62a53cf5186   react-app-prod:0.1   "/docker-entrypoint.…"   6 seconds ago    
 8907355ca6fa   react-app-dev:0.1    "/docker-entrypoint.…"   12 seconds ago   Up 11 seconds   0.0.0.0:8080->80/tcp   focused_golick
 ```
 
-### 3. 서비스 실행 결과
+## 3. 서비스 실행 결과
 
 다음과 같은 결과를 얻을 수 있다.
 

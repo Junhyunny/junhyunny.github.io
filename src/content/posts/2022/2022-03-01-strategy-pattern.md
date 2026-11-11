@@ -111,7 +111,7 @@ public interface AttackStrategy {
 }
 ```
 
-#### 2.2.1. KnifeAttackStrategy 클래스
+#### 2.2.2. KnifeAttackStrategy 클래스
 - 나이프로 공격하는 기능을 구현한다.
 
 ```java
@@ -130,7 +130,7 @@ public class KnifeAttackStrategy implements AttackStrategy {
 }
 ```
 
-#### 2.2.2. SwordAttackStrategy 클래스
+#### 2.2.3. SwordAttackStrategy 클래스
 - 장검으로 공격하는 기능을 구현한다.
 
 ```java
@@ -149,7 +149,7 @@ public class SwordAttackStrategy implements AttackStrategy {
 }
 ```
 
-#### 2.2.3. DefaultAttackStrategy 클래스
+#### 2.2.4. DefaultAttackStrategy 클래스
 - 펀치로 공격하는 기능을 구현한다.
 
 ```java

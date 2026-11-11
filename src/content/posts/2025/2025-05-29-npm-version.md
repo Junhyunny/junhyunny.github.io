@@ -127,7 +127,7 @@ package-lock.json 파일이 있는 경우 npm은 기록된 정확한 버전과 �
 
 프로젝트 버전 관리에 도움이 되는 몇 가지 npm 명령어를 살펴보자. 
 
-#### 3.1. npm oudated
+### 3.1. npm oudated
 
 현재 설치된 패키지 중 업데이트가 가능한 것들을 목록으로 출력한다. 터미널 상에서 보면 색상이 표시된다. 
 
@@ -167,7 +167,7 @@ vitest                         2.1.9     3.1.4     3.1.4  node_modules/vitest   
 vitest-sonar-reporter          2.0.0     2.0.1     2.0.1  node_modules/vitest-sonar-reporter        frontend
 ```
 
-#### 3.2. npm update
+### 3.2. npm update
 
 package.json 파일에 명시된 버전 범위 내에서 패키지들을 최신 버전(Wanted 버전)으로 업데이트한다. 업데이트 후에는 package-lock.json 파일도 자동으로 갱신된다.
 
@@ -200,7 +200,7 @@ react-dom                18.3.1   18.3.1  19.1.0  node_modules/react-dom        
 react-router-dom         6.30.1   6.30.1   7.6.1  node_modules/react-router-dom        frontend
 ```
 
-#### 3.3. npm install
+### 3.3. npm install
 
 npm install 명령어는 프로젝트를 만든 후 package.json 파일에 정의된 의존성들을 설치할 때 사용한다. npm update 명령어는 버전 범위 자체를 변경하지 못한다. 버전 범위를 초과하는 주 버전의 변경이 필요한 경우 `npm install <package-name>@<version|tag>` 명령어를 사용한다.
 
@@ -222,7 +222,7 @@ frontend@0.0.0 /Users/junhyunny/Desktop/workspace/projects/project/frontend
 └── date-fns@4.1.0
 ```
 
-#### 3.4. Peer Dependencies
+### 3.4. Peer Dependencies
 
 의존성의 주 버전을 올리다보면 충돌에 의해 설치가 실패할 때가 있다. 보통 피어 의존성들(peer dependencies)이 맞지 않는 경우인 것 같다. 피어 의존성이란 특정 패키지가 제대로 작동하기 위해 필요한 다른 패키지(의존성)의 버전을 명시적으로 요구할 때 사용하는 개념이다. package-lock.json 파일에 정의된 eslint-config-prettier 패키지 정보를 살펴보자.
 

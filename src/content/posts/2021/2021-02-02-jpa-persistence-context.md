@@ -18,7 +18,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-clear/"
 ---
 
-## 1. EntityManager 
+## 1. EntityManager
 
 `JPA`는 내부적으로 ORM(object relation mapping) 프레임워크인 하이버네이트(hibernate)를 사용한다. 하이버네이트 같은 ORM 프레임워크는 데이터를 저장하기 위해 엔티티(entity) 클래스를 사용한다. ORM 프레임워크를 사용할 때 클래스, 객체와 관계형 데이터베이스 사이의 관계를 다음처럼 단순하게 정리할 수 있다.
 
@@ -112,7 +112,7 @@ EntityManager는 호출되는 메서드에 따라 엔티티 객체의 생명주�
     entityManager.remove(member);
 ```
 
-## 3. Tests for EntityManager methods
+## 4. Tests for EntityManager methods
 
 간단한 테스트 코드들을 통해 EntityManager 메서드 동작 결과들을 살펴보자. 처음은 `persist` 메서드이다.
 

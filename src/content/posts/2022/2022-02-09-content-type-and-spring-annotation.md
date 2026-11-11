@@ -238,7 +238,7 @@ Referer: http://localhost:3000/
 {"item":"Hello World"}
 ```
 
-## 4. Spring boot endpoint with Content-Type 
+## 4. Spring boot endpoint with Content-Type
 
 스프링 프레임워크에서 엔드포인트를 담당하는 컨트롤러(controller) 객체의 메서드에 매핑되는 파라미터는 HandlerMethodArgumentResolver 인스턴스들에 의해 처리된다. 스프링 애플리케이션은 서비스가 실행될 때 필요한 HandlerMethodArgumentResolver 인스턴스들이 스프링 컨텍스트에 등록된다.
 

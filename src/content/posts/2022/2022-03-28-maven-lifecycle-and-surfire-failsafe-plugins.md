@@ -34,7 +34,7 @@ categories:
 </div>
 <center>https://medium.com/@yetanothersoftwareengineer/maven-lifecycle-phases-plugins-and-goals-25d8e33fa22</center>
 
-## 2. Phase 
+## 2. Phase
 
 페이즈(phase)는 메이븐 라이프 사이클의 각 단계를 의미한다. 이번 포스트에서 알아볼 `surefire`, `failsafe` 플러그인과 관련된 디폴트 라이프 사이클을 조금 자세히 들여다 보겠다. 디폴트 라이프 사이클은 21개의 페이즈로 구성되어 있지만, 중요한 8개의 페이즈만 정리해보겠다.
 - `validate` phase
@@ -58,7 +58,7 @@ categories:
 
 메이븐 라이프 사이클의 각 페이즈들은 의존 관계가 있기 때문에 특정 페이즈를 실행하기 위해선 이전의 페이즈들이 먼저 실행되어야 한다. 예를 들어, `package` 페이즈를 실행하기 위해선 `validate`, `compile`, `test` 페이즈들이 선행되어야 한다.
 
-## 3. Maven Plugins Goals 
+## 3. Maven Plugins Goals
 
 메이븐이 제공하는 기능은 모두 플러그인을 기반으로 동작한다. `pom.xml` 파일의 `<plugins>...</plugins>` 태그를 보면 필요한 플러그인들이 선언되어 있다.
 

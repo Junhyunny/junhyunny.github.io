@@ -220,7 +220,7 @@ server {
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-deploy-ec2-using-docker-07.png" width="100%" class="image__border">
 </div>
 
-### 3.2. 젠킨스 Declarative 파이프라인 스크립트
+### 3.3. 젠킨스 Declarative 파이프라인 스크립트
 
 - `jenkins-github-webhook 프로젝트 > configure` 화면으로 이동한다.
 - `Pipeline` 항목의 `Script` 영역에 입력한다.

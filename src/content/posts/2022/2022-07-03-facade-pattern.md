@@ -58,7 +58,7 @@ categories:
 
 Spring 프레임워크에서 이름에 `Facade`가 붙은 클래스들을 찾아봤지만, 단순한 래퍼(wrapper) 클래스들만 존재한다. 디버깅할 때 자주 보이는 `RequestFacade`, `ResponseFacade` 모두 래퍼 클래스로 null 여부를 확인하는 로직만 추가되어 있다.
 
-#### 2.2.1. RequestFacade 클래스
+#### 2.1.1. RequestFacade 클래스
 
 - org.apache.catalina.connector 패키지에 존재한다.
 - Request 클래스를 감싼채 단순한 null 여부 확인만 추가 수행한다.

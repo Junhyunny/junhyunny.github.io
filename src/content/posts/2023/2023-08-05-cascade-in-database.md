@@ -157,7 +157,7 @@ VALUES
     (2, 'this is 1st reply for referential integrity');
 ```
 
-### 2.1.1. Delete Record from Parent Table
+#### 2.1.1. Delete Record from Parent Table
 
 - 부모 테이블 레코드를 삭제하는 경우 자식 테이블의 연관된 레코드들도 함께 삭제된다.
 
@@ -182,7 +182,7 @@ mysql> SELECT * FROM TB_POST_REPLY;
 1 row in set (0.00 sec)
 ```
 
-### 2.1.2. Update Record from Parent Table
+#### 2.1.2. Update Record from Parent Table
 
 - 부모 테이블의 레코드의 id를 변경한다.
 - 자식 테이블의 관련된 레코드들의 외래 키 값이 함께 변경된다.
@@ -209,7 +209,7 @@ mysql> SELECT * FROM TB_POST_REPLY;
 1 row in set (0.00 sec)
 ```
 
-## 2.2. Cascade Pros and Cons
+### 2.2. Cascade Pros and Cons
 
 Cascade 옵션 설정은 편리하지만, 주의해서 사용해야 한다. 다음과 같은 장점이 있다.
 

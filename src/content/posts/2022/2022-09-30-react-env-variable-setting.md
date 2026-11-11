@@ -444,7 +444,7 @@ $ docker-compose up -d
 
 `npm test` 명령어에서 사용되는 `.env.test` 파일에 환경 변수를 선언하고 결과를 확인한다.
 
-#### 3.2.1. .env.test
+#### 3.3.1. .env.test
 
 - 환경 변수 `REACT_APP_SERVER`에 `/test` 값을 지정한다.
 
@@ -452,7 +452,7 @@ $ docker-compose up -d
 REACT_APP_SERVER=/test
 ```
 
-#### 3.2.2. 테스트 코드
+#### 3.3.2. 테스트 코드
 
 다음은 테스트 코드다. `axios` 모듈을 목(mock)으로 감싸 특정 파라미터가 잘 전달되었는지 검증한다.
 

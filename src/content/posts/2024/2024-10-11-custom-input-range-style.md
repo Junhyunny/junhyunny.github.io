@@ -79,7 +79,7 @@ MDN 사이트에서 파이어폭스 관련된 수도 엘리먼트는 표준이 �
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-05.png" width="80%" class="image__border">
 </div>
 
-### 3.1. HTML 
+### 3.1. HTML
 
 코드를 하나씩 살펴보자. 먼저 HTML 코드를 살펴보자.
 

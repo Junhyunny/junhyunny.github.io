@@ -37,7 +37,7 @@ recommendedPosts:
   - 키클록은 자체 호스팅할 수 있다.
   - 도커와 쿠버네티스 같은 컨테이너 환경에서도 운영 가능하다.
 
-## 2. Install and run Keycloak server 
+## 2. Install and run Keycloak server
 
 키클록을 설치해보자. [이 링크](https://www.keycloak.org/downloads)에서 다운로드 할 수 있다. 키클록 서버 중 ZIP 압축 파일을 다운로드 받는다. 
 

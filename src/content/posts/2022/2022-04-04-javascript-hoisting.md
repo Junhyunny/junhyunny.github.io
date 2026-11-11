@@ -328,7 +328,7 @@ const myCar = new MuscleCar('blue', '300HP');
 myCar.power; // => '300HP'
 ```
 
-#### 2.4. TDZ 영향을 받지 않는 구문 
+### 2.4. TDZ 영향을 받지 않는 구문
 
 다음과 같은 경우 `TDZ` 영향을 받지 않는다.
 

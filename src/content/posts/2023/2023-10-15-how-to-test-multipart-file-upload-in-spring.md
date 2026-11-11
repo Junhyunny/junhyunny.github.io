@@ -257,7 +257,7 @@ class ProfileControllerTest {
 }
 ```
 
-### 2.3. Test uploadProfile Method
+### 2.4. Test uploadProfile Method
 
 uploadProfile 메서드를 테스트한다.
 

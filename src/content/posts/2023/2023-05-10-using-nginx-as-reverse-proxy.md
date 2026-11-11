@@ -124,7 +124,7 @@ server {
 }
 ```
 
-### 2.2. Docker Compose File
+### 2.3. Docker Compose File
 
 - 볼륨으로 nginx 컨테이너가 사용할 `default.conf` 파일을 연결한다.
 

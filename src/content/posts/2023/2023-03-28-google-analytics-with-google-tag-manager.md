@@ -57,7 +57,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/google-analytics-with-google-tag-manager-03.png" width="100%" class="image__border">
 </div>
 
-## 2.2. Add Data Stream for Property
+### 2.2. Add Data Stream for Property
 
 - 만든 속성에서 데이터 스트림을 지정한다.
 - 웹 플랫폼 방식을 사용한다.
@@ -84,7 +84,7 @@ recommendedPosts:
 
 태그 매니저에서 필요한 작업을 살펴보겠다. 이번 포스트에선 태그 매니저의 기능들에 대한 상세한 설명은 다루지 않는다. 간단한 클릭 이벤트만 만들어 구글 애널리틱스에서 감지되는지 살펴보겠다.
 
-### 2.1. Create Account
+### 3.1. Create Account
 
 - 계정 만들기 버튼을 클릭한다.
 
@@ -109,7 +109,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/google-analytics-with-google-tag-manager-09.png" width="100%" class="image__border">
 </div>
 
-### 2.2. Install Tag Manager
+### 3.2. Install Tag Manager
 
 - 계정을 생성한 직후 스크립트를 복사하는 페이지를 놓쳤다면 다음 페이지에서 찾을 수 있다.
 - 관리 탭에서 Google 태그 관리자 설치를 선택한다.
@@ -183,7 +183,7 @@ recommendedPosts:
 </html>
 ```
 
-### 2.3. Create Trigger
+### 3.3. Create Trigger
 
 - 트리거를 만들어 이벤트를 감지할 방법을 정의한다.
 - 새로 만들기 버튼을 클릭한다.
@@ -199,7 +199,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/google-analytics-with-google-tag-manager-13.png" width="100%" class="image__border">
 </div>
 
-### 2.4. Create Tag
+### 3.4. Create Tag
 
 - 태그를 만들어 이벤트를 구글 애널리틱스에 연결한다.
 - 새로 만들기 버튼을 클릭한다.
@@ -237,7 +237,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/google-analytics-with-google-tag-manager-18.png" width="100%" class="image__border">
 </div>
 
-### 2.5. Public Tag
+### 3.5. Public Tag
 
 - 태그 매니저에서 만든 변경 사항들을 배포한다.
 - 상단 제출 버튼을 클릭한다.
@@ -259,7 +259,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/google-analytics-with-google-tag-manager-21.png" width="100%" class="image__border">
 </div>
 
-## 3. In Google Analytics
+## 4. In Google Analytics
 
 해당 리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠다.
 

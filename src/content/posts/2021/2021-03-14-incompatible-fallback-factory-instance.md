@@ -173,10 +173,6 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/incompatible-fallback-factory-instance-02.png" width="100%" class="image__border">
 </div>
 
-#### TEST CODE REPOSITORY
-
-- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-spring-cloud-netflix-hystrix>
-
 ## CLOSING
 
 [스프링 클라우드 히스트릭스에 관련된 글][hystrix-link]을 다시 정리하면서 불필요한 코드나 의존성을 제거하다보니 추가적으로 몇 가지 사실을 발견했다.
@@ -186,5 +182,9 @@ class BlogClientFallbackFactory implements FallbackFactory<BlogClient> {
 - `spring-cloud-starter-netflix-eureka-client` 의존성을 사용하지 않으면 `feign.hystrix.enabled` 설정을 사용한다.
   - OpenFeign 의존성만 사용하는 경우 `feign.hystrix.enabled` 설정으로 회로 차단기를 활성화시킨다.
   - `feign.hystrix.FallbackFactory`로 팩토리를 사용한다.
+
+#### TEST CODE REPOSITORY
+
+- <https://github.com/Junhyunny/blog-in-action/tree/master/2021-03-13-spring-cloud-netflix-hystrix>
 
 [hystrix-link]: https://junhyunny.github.io/spring-boot/spring-cloud/msa/junit/spring-cloud-netflix-hystrix/

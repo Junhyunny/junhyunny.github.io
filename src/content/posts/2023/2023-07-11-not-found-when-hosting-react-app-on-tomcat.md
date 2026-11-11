@@ -32,7 +32,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/page-not-found-when-hosting-react-app-on-tomcat-01.gif" width="100%" class="image__border">
 </div>
 
-## 2. Cause of the problem 
+## 2. Cause of the problem
 
 문제 원인은 SPA(single page application)의 동작 방식과 연관되어 있다. SPA 실행 흐름을 따라가면 문제가 발생하는 원인을 찾을 수 있다.
 
@@ -49,7 +49,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/page-not-found-when-hosting-react-app-on-tomcat-02.png" width="80%" class="image__border">
 </div>
 
-## 3. Solve the Proglem 
+## 3. Solve the Proglem
 
 문제를 해결하는 방법은 다양하다. 
 

@@ -61,7 +61,7 @@ tasks.named('test') {
 
 발행자 서비스를 구현한다. 
 
-### 1.1. application.yml 
+### 1.1. application.yml
 
 레디스 접속 정보를 정의한다.
 
@@ -265,7 +265,7 @@ public interface MessageListener {
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-publisher-and-subscriber-spring-boot-02.png" width="80%" class="image__border">
 </div>
 
-### 2.2.1. EventSubscriber Interface
+#### 2.2.1. EventSubscriber Interface
 
 - channelName 메서드는 해당 인스턴스가 관심을 갖는 채널 이름을 반환한다.
 
@@ -280,7 +280,7 @@ public interface EventSubscriber extends MessageListener {
 }
 ```
 
-### 2.2.2. ReadEventSubscriber Class
+#### 2.2.2. ReadEventSubscriber Class
 
 총 4개 구현 클래스가 존재하지만, 코드가 크게 다르지 않기 때문에 하나만 대표로 살펴본다.
 

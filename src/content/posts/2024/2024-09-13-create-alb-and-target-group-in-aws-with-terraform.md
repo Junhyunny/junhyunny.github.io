@@ -49,7 +49,7 @@ recommendedPosts:
 └── vpc.tf
 ```
 
-## 3. Security Group 
+## 3. Security Group
 
 먼저 시큐리티 그룹을 하나 생성한다. 이 시큐리티 그룹은 외부에서 로드 밸런서로 접근할 때 필요한 규칙이다. `security-group.tf` 파일에 정의한다.
 
@@ -171,7 +171,7 @@ output "alb-dns" {
 }
 ```
 
-## 9. Apply Terraform
+## 5. Apply Terraform
 
 위에서 코드로 정의한 인프라를 테라폼으로 적용한다. 필자는 파워 유저(power user)이기 때문에 클라이언트 액세스(access)를 위해 임시로 획득한 환경 변수를 터미널 세션에 준비한다.
 

@@ -39,7 +39,7 @@ dependencies {
 }
 ```
 
-## 1. Setup TestContainer in the first time 
+## 1. Setup TestContainer in the first time
 
 처음엔 테스트 컨테이너를 예전 방식처럼 설정했다. 
 

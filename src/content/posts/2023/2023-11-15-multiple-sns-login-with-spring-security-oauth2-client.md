@@ -410,7 +410,7 @@ public class GoogleUser {
 }
 ```
 
-#### 3.2.2. GoogleOAuth2UserService Class
+#### 3.3.2. GoogleOAuth2UserService Class
 
 - supports 메서드
   - 서비스 제공자가 `google`인 경우만 지원한다.

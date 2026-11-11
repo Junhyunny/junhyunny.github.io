@@ -155,7 +155,7 @@ export default App;
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/querying-within-specific-element-01.png" width="50%" class="image__border">
 </div>
 
-### 2.2. 수정된 테스트 코드
+### 2.1. 수정된 테스트 코드
 
 다음과 같이 테스트 코드를 수정할 수 있다.
 

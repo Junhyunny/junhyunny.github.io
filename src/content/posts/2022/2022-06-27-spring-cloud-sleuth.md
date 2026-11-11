@@ -464,7 +464,7 @@ a-service    |  at action.in.blog.controller.AController.index(AController.java:
 a-service    |  ...
 ```
 
-#### 3.3.4. Spring Cloud Sleuth 적용
+#### 3.3.7. Spring Cloud Sleuth 적용
 
 ##### pom.xml
 
@@ -595,7 +595,7 @@ a-service    |  at action.in.blog.controller.AController.index(AController.java:
 a-service    |  ...
 ```
 
-## CLOSE
+## CLOSING
 
 `Spring Cloud Sleuth`는 마이크로서비스 아키텍처 같은 분산 시스템의 로그 추적성을 향상시키기 위한 라이브러리다. 더불어 특정 요청을 쉽게 필터링하여 조회할 수 있다는 관점에서 모놀리식 서비스에서 사용해도 큰 이점이 있을 것 같다. 시간이 된다면 `log4j2.xml` 파일의 로그 레이아웃(layout)을 변경하여 좀 더 보기 쉬운 로그를 구성하는 방법에 대해 정리해보겠다.
 

@@ -294,7 +294,7 @@ public class EffectiveJavaBuilderPatttern {
 }
 ```
 
-### 2.3. Builder Pattern of Effective Java
+### 2.1. Builder Pattern of Effective Java
 
 마지막으로 `Effective Java`의 빌더 패턴을 통해 객체를 생성하는 방법이다. 생성자의 접근 제어자를 `private`으로 설정하여 외부에서 해당 객체를 만들 때 반드시 빌더 패턴을 사용하도록 만든다. 세터 메서드는 존재하지 않으므로 생성한 객체의 상태를 변경하지 못 한다.
 

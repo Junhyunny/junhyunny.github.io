@@ -192,7 +192,7 @@ jobs:
 
 프로젝트 변경 사항을 커밋(commit) 후 푸시한다.
 
-### 3.1. Check Pipeline 
+### 3.1. Check Pipeline
 
 `Actions` 탭에서 CI/CD 파이프라인의 동작 모습을 확인할 수 있다.
 

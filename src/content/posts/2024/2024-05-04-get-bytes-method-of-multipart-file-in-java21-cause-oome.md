@@ -65,7 +65,7 @@ java.lang.OutOfMemoryError: Cannot reserve 6234342 bytes of direct buffer memory
   ... 
 ```
 
-## 2. Java Memory Profiling 
+## 2. Java Memory Profiling
 
 필자는 여러 프로젝트 경험이 있지만, 파일을 업로드하는 기능을 개발할 때 이런 에러는 처음 만났다. [이전 글][out-of-memory-error-case-study-in-jvm-link]에서 이야기 했듯이 처음엔 빌드팩(buildpack)에서 제한하는 다이렉트 메모리가 너무 작은 것이 문제라고 생각했다. 일시적으로 해결된 것처럼 보였지만, 혹시나 하는 생각에 Java 버전을 17로 낮춰 테스트해 봤다. 동일한 메모리 제약 사항에도 Java 21 버전과 다르게 OOM(out of memory) 에러가 발생하지 않았다. 
 
@@ -544,7 +544,7 @@ Native Memory Tracking:
         (malloc=2434KB +2400KB #405 +400)
 ```
 
-### 4.2.transferTo method in MultipartFile instance
+### 4.2. transferTo method in MultipartFile instance
 
 애플리케이션 코드는 다음과 같다.
 

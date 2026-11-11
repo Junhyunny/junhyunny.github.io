@@ -41,7 +41,7 @@ Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unabl
 
 애플리케이션이 운영되는 환경에 맞도록 설정 파일을 분할한다.
 
-### 1.2.1. application.yml
+#### 1.2.1. application.yml
 
 ```yml
 spring:
@@ -49,7 +49,7 @@ spring:
     active: local
 ```
 
-### 1.2.2. application-local.yml
+#### 1.2.2. application-local.yml
 
 ```yml
 spring:

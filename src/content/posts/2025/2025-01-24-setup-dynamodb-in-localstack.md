@@ -244,7 +244,7 @@ $ ls -la init/dynamodb.sh
 -rwxr-xr-x@ 1 junhyunny  staff  251 Jan 23 14:28 init/dynamodb.sh
 ```
 
-### 3.3 Exec format error
+### 3.3. Exec format error
 
 초기화 스크립트를 실행할 때 스크립트 위에 쉘(shell)에 대한 힌트가 없는 경우 에러가 발생한다. 예를 들어 아래 스크립트를 사용하면 초기화가 실패한다.
 

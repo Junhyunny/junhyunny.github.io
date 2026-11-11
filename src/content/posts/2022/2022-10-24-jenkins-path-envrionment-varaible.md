@@ -56,7 +56,7 @@ Jenkins 2.374 버전에서 문제가 발생하는 것 같다. 정확한 원인�
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-04.png" width="80%" class="image__border">
 </div>
 
-### 2.2. Change PATH Variable 
+### 2.2. Change PATH Variable
 
 젠킨스 시스템 설정 파일을 변경한다. 시스템 설정 파일은 다음 경로에서 찾을 수 있다. 
 

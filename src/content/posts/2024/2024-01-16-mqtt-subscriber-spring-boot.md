@@ -30,7 +30,7 @@ MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queui
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-subscriber-spring-boot-01.png" width="80%" class="image__border">
 </div>
 
-## 2. Install mqtt-cli 
+## 2. Install mqtt-cli
 
 발행자 역할을 수행하는 CLI를 설치한다. 여러가지 설치 방법이 있지만, 필자는 홈브루(homebrew)를 사용했다. 다른 설치 방법은 아래 링크를 참고하길 바란다.
 

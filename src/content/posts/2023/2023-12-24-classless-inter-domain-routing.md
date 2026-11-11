@@ -14,7 +14,7 @@ categories:
 
 최근까지 CIDR(Classless Inter-Domain Routing)은 네트워크 방화벽 기준을 정의할 때 많이 사용하는 IP 표기 방법 정도로만 알고 있었다. 정확한 개념은 몰랐지만, 여태 경험한 프로젝트들은 개발, 스테이징(staging) 환경에서나 IP 대역을 제한했기 때문에 정확한 메커니즘을 몰라도 상관없었다. 이번에 CIDR 방식으로 표현된 IP 주소를 일반적인 IP 주소 범위로 변환하는 기능을 개발하면서 제대로 이해하기 위해 대학교 시절 전공 서적을 다시 펼쳤다. 공부한 내용을 공유하고 구현한 코드와 설명도 함께 첨부한다. 
 
-### 1. CIDR(Classless Inter-Domain Routing)
+## 1. CIDR(Classless Inter-Domain Routing)
 
 CIDR(Classless Inter-Domain Routing)을 직역하면 "클래스 없는 도메인 간 라우팅"이다. 클래스라는 개념을 없앤 라우팅 방법이라는 것을 이름을 통해 유추할 수 있다. 클래스 기반 주소 지정(classful addressing) 방식의 어떤 문제를 해결하고 싶어서 CIDR 개념이 등장했는지 먼저 살펴보자. 
 
@@ -202,7 +202,7 @@ function fromIp(ipBlocks: number[], maskBlocks: number[]) {
 }
 ```
 
-### 3.4. End IP Address
+### 3.1. End IP Address
 
 종료 IP 주소를 구하는 과정은 조금 이해가 필요하다. 마스크 주소의 블록이 0인 케이스와 아닌 케이스로 구분한다. 먼저 마스크 주소 블록이 0인 케이스다. 이 블록으로 표현할 수 있는 주소는 모두 허용이기 때문에 255 값과 OR 연산을 수행한 결과가 담긴다. 255 값을 그대로 넣어도 무방하다. 
 

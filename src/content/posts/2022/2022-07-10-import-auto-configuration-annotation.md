@@ -151,7 +151,7 @@ public class ImportTests {
 
 간단하게 이전에 살펴봤던 `@AutoConfigureDataJpa` 애너테이션을 기준으로 사용 예시를 살펴보겠다.
 
-### 2.1.1. @AutoConfigureDataJpa 애너테이션
+#### 2.1.1. @AutoConfigureDataJpa 애너테이션
 
 - `@AutoConfigureDataJpa` 애너테이션 위에 `@ImportAutoConfiguration` 애너테이션이 추가되어 있다.
 

@@ -149,7 +149,7 @@ public class RaceConditionTest {
 Corrupted shared resource count - 17
 ```
 
-### 3.2. Race Condition with synchronized Keyword
+### 3.1. Race Condition with synchronized Keyword
 
 `Java`는 임계 영역에 대한 동시성 제어를 `synchronized` 키워드를 통해 수행한다. 이를 사용하면 공유 자원을 안전하게 변경 가능하다. 
 

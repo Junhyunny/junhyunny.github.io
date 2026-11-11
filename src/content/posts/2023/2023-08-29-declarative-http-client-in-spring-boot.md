@@ -76,7 +76,7 @@ HTTP 클라이언트에 선언된 메서드는 다음과 같은 응답들을 반
 - `ResponseEntity<T>`, `Mono<ResponseEntity<T>>`
 - `Mono<ResponseEntity<Flux<T>>`
 
-### 1.3 HTTP Method Support
+### 1.3. HTTP Method Support
 
 HTTP 메서드를 다음과 같은 애너테이션들을 통해 지원한다.
 
@@ -158,7 +158,7 @@ HTTP 메서드를 다음과 같은 애너테이션들을 통해 지원한다.
                         └── ActionInBlogApplicationTests.java
 ```
 
-### 2.1. build.gradle
+### 2.2. build.gradle
 
 - spring-boot-starter-webflux 의존성이 필요하다.
   - `WebClient`를 사용하기 때문에 리액티브 관련 의존성을 추가한다.
@@ -193,7 +193,7 @@ tasks.named('test') {
 }
 ```
 
-### 2.2. application.yml
+### 2.3. application.yml
 
 - 외부 API 서버 주소를 설정으로 관리한다.
 
@@ -203,7 +203,7 @@ external-service:
   pokemon-url: https://pokeapi.co
 ```
 
-### 2.3. ExternalUrlConfig Class
+### 2.4. ExternalUrlConfig Class
 
 - 설정으로 관리하는 외부 API 서버 주소 정보를 객체로 바인딩(binding)한다.
 
@@ -224,7 +224,7 @@ public record ExternalUrlConfig(
 }
 ```
 
-### 2.4. HttpClientConfig Class
+### 2.5. HttpClientConfig Class
 
 - `ExternalUrlConfig` 빈을 사용해 각 클라이언트에서 필요한 URL을 설정한다.
   - PokemonClient - https://pokeapi.co

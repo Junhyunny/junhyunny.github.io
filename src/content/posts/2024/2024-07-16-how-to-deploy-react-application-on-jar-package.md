@@ -11,7 +11,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/react/tomcat/not-found-when-hosting-react-app-on-tomcat/"
 ---
 
-## 0. 들어가면서 
+## 0. 들어가면서
 
 최근 참여한 프로젝트들은 SPA(single page application)의 빌드 결과물을 실행 가능한 jar(executable jar) 파일에 함께 패키징하고 있다. jar 패키지은 컨테이너 이미지로 만들어 AWS ECS에 배포한다. 프론트엔드 애플리케이션을 호스팅하기 위한 서버를 별도로 두지 않는 것도 나름대로 장점이 있는 것 같다.
 

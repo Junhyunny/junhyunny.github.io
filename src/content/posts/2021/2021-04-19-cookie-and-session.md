@@ -50,7 +50,7 @@ HTTP(Hyper Text Transfer Protocol) 통신에서 요청을 보내는 측을 클�
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-and-session-01.png" width="100%" class="image__border">
 </div>
 
-## 2. Session 
+## 2. Session
 
 세션은 다양한 기술을 통해 구현된다. 서버 고가용성, 성능, 시스템 요구 사항에 따라 적절한 기술을 선택하면 된다.
 

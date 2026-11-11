@@ -35,7 +35,7 @@ recommendedPosts:
 
 ## 2. Practice
 
-## 2.1. packages
+### 2.1. packages
 
 - 다음과 같은 패키지 구조를 가진다.
 
@@ -75,7 +75,7 @@ recommendedPosts:
                         └── ActionInBlogApplicationTests.java
 ```
 
-## 2.2. build.gradle
+### 2.2. build.gradle
 
 - 다음과 같은 의존성이 필요하다.
 

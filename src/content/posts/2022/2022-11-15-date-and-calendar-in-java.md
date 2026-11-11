@@ -85,7 +85,7 @@ recommendedPosts:
     }
 ```
 
-### 2.2. Month starts from zero
+### 2.3. Month starts from zero
 
 - 1월의 값은 0부터 시작하여 12월의 값은 11이다.
 
@@ -215,7 +215,7 @@ recommendedPosts:
     }
 ```
 
-## 3. java.time Packages since JDK 8
+## 5. java.time Packages since JDK 8
 
 `JDK 8`이 릴리즈되기 전엔 기본으로 제공되는 날짜, 시간 API 기능을 대체할 수 있는 라이브러리를 사용했다고 한다.
 

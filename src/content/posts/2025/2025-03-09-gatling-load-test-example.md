@@ -105,7 +105,7 @@ setUp(scn.injectOpen(injectionProfile))
 
 간단한 부하 테스트 코드를 작성해보자. 부하 테스트를 수행하기 위한 프로젝트와 테스트 대상 서비스 프로젝트 두 개가 필요하다. 먼저 테스트 대상 서비스를 살펴본다.
 
-### 3.1. Test target service 
+### 3.1. Test target service
 
 테스트 대상 서비스의 엔드포인트를 살펴보자. 테스트 대상 엔드포인트는 80% 확률로 성공한다. 성공하는 경우 파라미터로 전달 받는 username 정보와 UUID 값을 함께 반환한다. 실패하는 경우 RuntimeException이 발생하지만, @Retryable 애너테이션에 의해 기본적으로 재시도를 수행한다. 재시도 백오프(backoff) 시간은 기본 값인 1초를 사용한다.
 

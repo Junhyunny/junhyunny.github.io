@@ -98,7 +98,7 @@ public class AirPlane extends Transport {
 }
 ```
 
-### 2.1.3. TransportManager 클래스
+#### 2.1.3. TransportManager 클래스
 
 - 기존 시스템에선 일반 트럭과 비행기만 예약 기능을 제공했다.
 - 운송 수단을 예약하고, 이를 반환한다.
@@ -205,7 +205,7 @@ public class TransportManager {
 }
 ```
 
-#### 2.2.3 RoadTransportManager 클래스
+#### 2.2.3. RoadTransportManager 클래스
 
 - 지상 운송과 관련된 운송 수단 객체들을 만든다.
 
@@ -283,7 +283,7 @@ public class AirTransportManager extends TransportManager {
 }
 ```
 
-### 2.4. 테스트 코드
+### 2.3. 테스트 코드
 
 - 기존 `TransportManager` 클래스가 신규 운송 수단은 지원하지 않는지 확인한다.
 - `TransportManager` 클래스를 구현한 신규 매니저들이 적절한 운송 수단만 지원하는지 확인한다.

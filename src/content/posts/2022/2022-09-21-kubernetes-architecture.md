@@ -28,7 +28,7 @@ recommendedPosts:
 - 컨테이너에 문제가 발생하거나 노드에 장애가 발생하는 경우 자동적으로 문제가 없는 다른 노드로 스케줄링한다.
 - 특정 앱 컨테이너의 부하가 급격하게 발생하는 경우 이를 모니터링하고 있다가 자동으로 스케일 아웃(scale out)한다.
 
-## 1. Cluster
+## 2. Cluster
 
 쿠버네티스가 어떤 아키텍처 구조를 통해 다수의 컨테이너들을 다루는지 살펴보겠다. 쿠버네티스는 클러스터(cluster) 단위로 자원들을 관리한다. 클러스터는 논리적으론 노드(node)들의 집합이고, 실제로는 물리 혹은 가상 머신들의 집합이다.
 
@@ -37,7 +37,7 @@ recommendedPosts:
 </div>
 <center>[Kubernetes] 쿠버네티스 설치 및 클러스터 설정</center>
 
-## 2. Node
+## 3. Node
 
 클러스터에 속한 물리 혹은 가상 머신들이다. 정해진 역할에 따라 마스터 노드(master node)와 워커 노드(worker node)로 구분된다.
 
@@ -54,7 +54,7 @@ recommendedPosts:
 </div>
 <center>Kubernetes in Action</center>
 
-### 2.1. Master Node Components
+### 3.1. Master Node Components
 
 클러스터의 마스터 노드가 수행하는 기능들은 아래 컴포넌트들을 통해 이뤄진다. 클러스터의 노드를 살펴보면 `kube-system` 이름 영역(namespace)에 파드 형태로 동작하고 있다. 미니 큐브(minikube) 클러스터 환경에서 아래 `kubectl get pods -A` 커맨드로 조회하면 `kube-system` 이름 영역에 다음과 같은 파드들을 살펴볼 수 있다.
 
@@ -82,7 +82,7 @@ kubernetes-dashboard   dashboard-metrics-scraper-78dbd9dbf5-nrlml   1/1     Runn
 kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Running   8 (8h ago)    76d
 ```
 
-#### 2.1.1. etcd
+#### 3.1.1. etcd
 
 클러스터 안에 각 구성 요소들에 대한 정보를 키-값(key-value) 형태로 저장하고 있는 데이터베이스이다. `etcd` 컴포넌트는 API 서버를 통해서만 통신 가능하며 다음과 같은 정보들이 저장된다.
 
@@ -94,7 +94,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 
 - [etcd 고가용성 구축 가이드](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/)
 
-#### 2.1.2. Scheduler
+#### 3.1.2. Scheduler
 
 애플리케이션 컨테이너가 담긴 파드를 클러스터 내 워커 노드에 최적의 배포를 수행하는 컴포넌트이다. 파드를 어느 노드에 배치할지 결정만 수행한다. 실제로 해당 노드에 파드를 배치하는 작업은 워커 노드의 컴포넌트인 `kubelet`이 수행한다.
 
@@ -103,7 +103,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 1. 파드가 요구하는 컴퓨팅 자원(CPU, 메모리)를 기준으로 필터를 수행한다.
 1. 파드가 배치된 후 해당 노드에 남는 잔여 컴퓨팅 자원의 양을 기준으로 삼는다.
 
-#### 2.1.3. Controller Manager
+#### 3.1.3. Controller Manager
 
 클러스터 안에서 구동 중인 다양한 리소스들을 모니터링한다. 다음과 같은 리소스들을 관리한다.
 
@@ -123,7 +123,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 
 논리적으로 여러 개의 컨트롤러가 존재하지만, 복잡성을 낮추기 위해 하나의 바이너리로 컴파일되고 단일 프로세스 내에서 실행된다.
 
-#### 2.1.4. API Server
+#### 3.1.4. API Server
 
 클러스터의 모든 컴포넌트들은 컨트롤 플레인에 있는 API 서버를 통해 통신한다. 각 컴포넌트들을 모니터링하면서 작업을 수행할 수 있도록 중앙 접근 포인트 역할을 수행한다. 스테이트리스(stateless) 특징을 가지지만, 세션을 유지하기 위해 `etcd` 컴포넌트를 사용한다.
 
@@ -134,13 +134,13 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 </div>
 <center>https://sysdig.com/blog/monitor-kubernetes-api-server/</center>
 
-### 2.2. Worker Node Components
+### 3.2. Worker Node Components
 
-#### 2.2.1. kubelet
+#### 3.2.1. kubelet
 
 클러스터 안에 각 노드에서 동작하는 에이전트이다. API 서버와 노드를 연결하는 역할을 수행한다. 파드 안에 컨테이너가 정상적으로 동작하는지 주기적으로 확인하여 API 서버에게 전달한다. 쿠버네티스에 의해 만들어진 컨테이너가 아닌 경우 관리하지 않는다. 마스터 노드의 스케줄러가 파드를 노드에게 할당하면 `kubelet`이 해당 파드와 컨테이너를 배치한다.
 
-#### 2.2.2. kube-proxy
+#### 3.2.2. kube-proxy
 
 클러스터 안에 각 노드에서 동작하는 네트워크 프록시이다. 노드나 파드는 죽을 수 있고, 새로 생성되는 경우 `IP`가 계속 바뀔 수 있다. 이런 유동적인 네트워크 상황에서 파드들 간의 상호 네트워크를 보장하는 컴포넌트이다.
 
@@ -151,7 +151,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
 - 1.2 버전 이전에는 user space proxy 역할을 직접 수행
 - 1.2 버전 이후에는 `iptables`를 통해 `netfilter`을 조작, 관리하는 역할을 수행
 
-#### 2.2.3. Container Runtime
+#### 3.2.3. Container Runtime
 
 컨테이너 실행을 담당하는 소프트웨어이다. 워커 노드 내부에서 컨테이너 이미지를 가져오고 구동시키는 엔진이다.
 
@@ -164,7 +164,7 @@ kubernetes-dashboard   kubernetes-dashboard-5fd5574d9f-6mzvg        1/1     Runn
   - 1.24 버전부터 완전 중단
 - Mirntis Container Runtime
 
-## 3. Addons
+## 4. Addons
 
 각 노드의 주요 컴포넌트 이 외에도 클러스터의 기능을 구현, 확장하기 위한 것들이 존재한다.
 

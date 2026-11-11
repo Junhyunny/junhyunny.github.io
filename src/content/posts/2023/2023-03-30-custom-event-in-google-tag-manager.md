@@ -186,7 +186,7 @@ function App() {
 export default App;
 ```
 
-## 5. In Google Analytics
+## 6. In Google Analytics
 
 해당 리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠다.
 

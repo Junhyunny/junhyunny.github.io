@@ -159,7 +159,7 @@ create table TEST_SCHEMA.`tb_test` (
 
 결론적으로 MySQL에서 데이터베이스를 생성하는 것과 스키마를 생성하는 것은 동일한 결과를 갖게 된다.
 
-## 4. Characteristic of MySQL 
+## 4. Characteristic of MySQL
 
 [MySQL 문서](https://dev.mysql.com/doc/connector-odbc/en/connector-odbc-usagenotes-functionality-catalog-schema.html)를 읽어보면 다음과 같은 내용을 찾을 수 있다.
 

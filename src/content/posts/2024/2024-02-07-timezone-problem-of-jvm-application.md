@@ -80,7 +80,7 @@ insert into tb_todo (title, content, created_at)
 values ('hello world', 'this is first todo', '2024-02-07 22:00:00');
 ```
 
-### 1.1. In Local Environment 
+### 1.1. In Local Environment
 
 IDE(Integrate Development Environment) 도구에서 애플리케이션을 실행 후 해당 API 경로로 요청을 보내면 다음과 같은 응답을 받는다. 
 
@@ -144,7 +144,7 @@ JVM 애플리케이션은 기본적으로 호스트 PC의 타임존을 사용한
 
 타임존이 `Asia/Seoul` 값으로 지정되어 있는 필자의 컴퓨터 IDE에서 애플리케이션을 실행하면 정상적으로 동작하고, 격리된 환경을 제공하는 컨테이너 환경에서 실행했을 때 이상하게 동작한 이유는 시스템 기본 타임존 정보가 다르기 때문이다. 몇 가지 해결 방법들을 알아보자. 
 
-### 3.1. Setup Timezone in Code
+### 2.1. Setup Timezone in Code
 
 온-프레미스(on-premise)에서 서버에 직접 애플리케이션을 배포한다면 가장 쉽게 애플리케이션 타임존을 변경할 수 있는 방법이다. 필자는 격리된 네트워크 환경을 가진 온-프레미스 서버에 애플리케이션을 배포하는 상황이었기 때문에 이 방법을 사용했다. 다음과 같이 코드를 수정하고 도커 컨테이너를 다시 빌드 후 실행하면 정상적으로 동작한다.
 
@@ -165,7 +165,7 @@ fun main(args: Array<String>) {
 }
 ```
 
-### 3.2. Setup Timezone at Container Runtime
+### 2.2. Setup Timezone at Container Runtime
 
 도커 파일 이미지를 만들 때 환경 변수를 생성해 -Duser.timezone 설정을 바꾸는 것도 좋은 방법이지만, 사실 이미지를 다시 만들 필요가 없다. 격리된 환경을 제공하는 컨테이너의 TZ 환경 변수를 변경하는 것만으로 애플리케이션은 정상적으로 동작한다. 애플리케이션 입장에선 호스트 PC의 TZ 환경 변수처럼 느껴질 것이다. 컨테이너를 실행할 때 다음과 같은 환경 변수를 추가한다.
 

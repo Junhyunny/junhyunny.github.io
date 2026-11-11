@@ -37,7 +37,7 @@ Hadoop 설치, 설정 및 배포, 모니터링, 알림 등의 운영 편의성�
 </div>
 <center>https://docs.microsoft.com/ko-kr/azure/hdinsight/hdinsight-cluster-availability</center>
 
-## 2. Install Environment for Ambari 
+## 2. Install Environment for Ambari
 
 다음과 같은 환경에서 암바리를 설치했다.
 
@@ -205,7 +205,7 @@ $ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b
      </configuration>
 ```
 
-### 4.3. Compile error for ambari-metrics-common 
+### 4.3. Compile error for ambari-metrics-common
 
 특정 클래스, 애너테이션들을 찾을 수 없다는 컴파일 에러가 발생한다.
 
@@ -285,7 +285,7 @@ Download HBase:
   - ambari-metrics/pom.xml
 - 3개의 파일 모두를 다운받아서 각 폴더 위치에 있는 pom.xml 파일과 변경한다.
 
-### 4.4. Error Ambari Metrics Monitor
+### 4.5. Error Ambari Metrics Monitor
 
 파이썬 헤더를 찾지 못하는 에러가 발생했다.
 
@@ -312,7 +312,7 @@ ild/psutil
 $ sudo apt-get install python-dev libffi-dev 
 ```
 
-### 5. Ambari server page
+## 5. Ambari server page
 
 암바리 서버가 정상적으로 동작하는지 웹 브라우저를 통해 확인해보자. 아이디, 비밀번호를 변경하지 않았다면 초기 값은 모두 `admin`이다.
 

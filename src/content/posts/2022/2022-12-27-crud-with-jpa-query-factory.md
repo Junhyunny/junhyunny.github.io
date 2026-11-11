@@ -125,7 +125,7 @@ recommendedPosts:
 
 간단하게 엔티티를 만들고 CRUD 기능을 실행시켜보겠다.
 
-### 2.1. DslEntity 클래스
+### 3.1. DslEntity 클래스
 
 ```java
 package action.in.blog.dsl;
@@ -156,7 +156,7 @@ public class DslEntity {
 }
 ```
 
-### 2.2. DslStore 클래스
+### 3.2. DslStore 클래스
 
 - 엔티티 매니저(EntityManager)를 생성자 주입(constructor injection)을 통해 전달 받는다.
   - `@PersistenceContext`를 사용하는 것을 권장하지만, 특정 버전 이상부터는 동일한 프록시 객체를 주입하므로 동일하다.

@@ -20,7 +20,7 @@ recommendedPosts:
 
 이번 글에서는 두 개념에 대해 정리하고, 어떤 연관성이 있는지 정리하였다. 
 
-## 1. Inversion of Control 
+## 1. Inversion of Control
 
 > Inversion of Control is a principle in software engineering which transfers the control of objects or portions of a program to a container or framework.
 

@@ -89,7 +89,7 @@ baz();
 
 마이크로태스크는 Promise, async/await 블록에 의해 생성된다. 각 기능 별로 어떤 부분이 마이크로태스크로 구분되는지 살펴보자.
 
-### 2.2.1. Promise
+#### 2.2.1. Promise
 
 Promise를 사용할 때 resolve, reject 함수를 사용한다. 
 
@@ -119,7 +119,7 @@ Promise
   .then(fallback);
 ```
 
-### 2.2.2. async/await block
+#### 2.2.2. async/await block
 
 간단한 예시 코드로 async/await 블록의 구조를 뜯어보자. 다음 코드를 실행하면 아래 보이는 순서대로 로그가 출력된다.
 

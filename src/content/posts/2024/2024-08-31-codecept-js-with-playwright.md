@@ -158,7 +158,7 @@ CodeceptJS Installed! Enjoy supercharged testing! 🤩
 Find more information at https://codecept.io
 ```
 
-## 3.2. Write Login Test
+### 3.2. Write Login Test
 
 간단하게 로그인 테스트를 작성해보자. 로그인 화면을 서비스하는 애플리케이션 코드는 이 글 하단 예제 코드 레포지토리에 함께 포함되어 있다. 이제 E2E 테스트 코드를 살펴보자. 
 
@@ -232,7 +232,7 @@ login --
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/codecept-js-with-playwright-02.gif" width="100%" class="image__border">
 </div>
 
-## 3.3. Refactoring with autoLogin plugin
+### 3.3. Refactoring with autoLogin plugin
 
 위 테스트 코드는 몇 가지 개선이 필요하다.
 

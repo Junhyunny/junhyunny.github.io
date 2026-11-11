@@ -77,7 +77,7 @@ processors=2
 memory=2GB
 ```
 
-### 2.3. Re-run WSL 
+### 2.3. Re-run WSL
 
 설정을 변경했다면 적용을 위해 WSL 시스템을 재실행한다. WSL 시스템을 종료하는 것은 컨테이너들을 호스팅하는 가상 머신을 종료하는 것과 동일하기 때문에 실제 운영 환경이라면 주의하길 바란다. 특정 배포판 WSL만 종료하려면 `wsl --terminate <distroName>` 명령어를 사용한다.
 

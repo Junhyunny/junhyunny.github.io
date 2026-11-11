@@ -209,7 +209,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-#### 1.2.4. 경고 메시지 및 수행 쿼리
+#### 1.2.3. 경고 메시지 및 수행 쿼리
 
 ##### 경고 메시지
 - 쿼리 수행 결과를 모두 애플리케이션 메모리에 올려서 페이징 처리를 수행했다는 의미이다.
@@ -643,7 +643,7 @@ public interface ReplyRepository extends JpaRepository<Reply, Long> {
 }
 ```
 
-#### 3.6.3. SQL 로그
+#### 3.5.3. SQL 로그
 
 ```sql
 -- limit, offset, fetch 처리된 쿼리

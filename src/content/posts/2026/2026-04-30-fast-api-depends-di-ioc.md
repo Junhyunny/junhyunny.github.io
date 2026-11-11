@@ -12,7 +12,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/spring-boot/design-pattern/spring-ioc-di/"
   - title: "파이썬 제너레이터(Python Generator)"
     href: "https://junhyunny.github.io/python/generator-function/python-generator-function/"
-  - title: "파이썬 GIL(Global Interpreter Lock)와 asyncio 라이브러리"
+  - title: "파이썬 GIL(Global Interpreter Lock)과 asyncio 라이브러리"
     href: "https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/"
 ---
 

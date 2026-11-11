@@ -119,10 +119,10 @@ recommendedPosts:
 컨테이너, gVisor, 마이크로VM(VM)의 격리 수준을 시각화하면 아래 그림처럼 표현할 수 있다. 마이크로VM(VM)은 하드웨어 가상화를 통해 프로세스의 시스템 콜이 호스트 커널까지 도달하지 못하게 한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/sandbox-for-ai-agent-coding-01.png" width="100%" class="image__border">
-</div>
-<center>https://read.engineerscodex.com/p/every-dev-should-know-about-ai-sandboxes</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/sandbox-for-ai-agent-coding-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://read.engineerscodex.com/p/every-dev-should-know-about-ai-sandboxes</center>
 </div>
 
 위에서 살펴본 샌드박스 기술들의 격리 수준과 실행 속도를 비교해 보면 다음과 같다.

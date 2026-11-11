@@ -16,7 +16,7 @@ categories:
 
 ## 1. AWS Lambda
 
-간략하게 AWS 람다에 대해 정리해 보았다. AWS 람다는 서버를 직접 프로비저닝(provisioning)하거나 유지 관리할 필요 없이 코드를 실행할 수 있게 해주는 **서버리스(Serverless) 컴퓨팅 서비스**다. 클라우드 환경에서 운영 체제, 컴퓨팅 용량, 스케일링, 보안 등 인프라의 모든 측면을 AWS가 전적으로 관리하므로, 개발자는 오직 애플리케이션의 비즈니스 로직 작성에만 집중할 수 있다. 간단히 말하면 코드만 업로드하면 AWS 람다가 그 기능을 실행해준다.
+간략하게 AWS 람다에 대해 정리해 봤다. AWS 람다는 서버를 직접 프로비저닝(provisioning)하거나 유지 관리할 필요 없이 코드를 실행할 수 있게 해주는 **서버리스(Serverless) 컴퓨팅 서비스**다. 클라우드 환경에서 운영 체제, 컴퓨팅 용량, 스케일링, 보안 등 인프라의 모든 측면을 AWS가 전적으로 관리하므로, 개발자는 오직 애플리케이션의 비즈니스 로직 작성에만 집중할 수 있다. 간단히 말하면 코드만 업로드하면 AWS 람다가 그 기능을 실행해준다.
 
 Lambda의 핵심 특징은 다음과 같다.
 
@@ -51,10 +51,10 @@ AWS 람다는 편리하지만, 여러 제약사항이 있다. 람다를 선택�
   - 전체 종료 단계는 **최대 2초**로 엄격하게 제한된다. 런타임이나 확장이 2초 내에 응답하지 않으면 람다는 강제 종료(`SIGKILL`) 신호를 보내 환경을 강제로 꺼버린다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-01.webp" width="100%" class="image__border">
-</div>
-<center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-01.webp" width="100%" class="image__border">
+  </div>
+  <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
 
 마지막으로 배포 패키지에 대한 사이즈 제약이 있다. 배포를 위한 .zip 아카이브 파일의 최대 크기는 `50MB`이다. 함수 코드 및 추가된 모든 레이어의 압축을 푼 후의 총 용량은 `250MB`를 초과할 수 없다. 더 큰 패키지가 필요한 경우 도커(docker) 등 컨테이너 이미지를 활용할 수 있으며, 이 경우 최대 10GB 크기까지 지원된다. 단일 람다 함수에 연결할 수 있는 레이어는 최대 5개까지만 허용된다.
@@ -78,10 +78,10 @@ AWS 람다의 아키텍처를 살펴보자. 우선 람다는 가상 머신(VM, V
   - 함수 코드는 필요한 라이브러리 및 종속성과 함께 .zip 파일이나 컨테이너 이미지와 같은 배포 패키지(소스 번들)로 묶여 람다 환경에 업로드됩니다
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-02.webp" width="80%" class="image__border">
-</div>
-<center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-02.webp" width="80%" class="image__border">
+  </div>
+  <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
 
 AWS 람다 워커(Lambda Worker)는 수많은 MicroVM을 관리하고 호스팅하는 백엔드의 Amazon EC2 스팟(spot) 인스턴스다. 데이터 플레인(Data Plane)에서 함수가 호출될 때 이 워커에 실행 환경이 할당되어 코드가 처리된다. 각 워커는 **최대 14시간의 임대 수명(lease lifetime)**을 가지며, 이 수명에 도달하면 더 이상 새로운 함수 호출이 라우팅되지 않고 내부의 `MicroVM`들과 함께 안전하게 종료된다.
@@ -89,10 +89,10 @@ AWS 람다 워커(Lambda Worker)는 수많은 MicroVM을 관리하고 호스팅�
 람다 워커에서 MicroVM을 실행시키는 것은 `Firecracker`라는 아마존이 Rust 언어로 직접 개발한 오픈 소스 가상화 기술이다. Firecracker는 **가상 머신 모니터(VMM)**로, 모든 Lambda 함수를 구동하는 핵심 엔진이다. KVM(커널 기반 가상 머신)을 활용해 하드웨어 가상화를 지원하며 수 밀리초 만에 부팅된다. 다중 테넌트 환경에서의 철저한 보안과 격리를 위해, **각 MicroVM은 오직 단일 함수 호출에만 독점적으로 할당**된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-03.webp" width="100%" class="image__border">
-</div>
-<center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-03.webp" width="100%" class="image__border">
+  </div>
+  <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
 
 AWS Lambda를 호출하는 방식은 다양하지만, 서비스 이면의 핵심적인 내부 아키텍처는 일관되게 유지된다. 모든 람다 호출의 중심이자 진입점 역할은 **프런트엔드 서비스(Frontend Service)**가 담당한다. 함수가 호출되면 프런트엔드 서비스는 요청을 관리하고 적절한 데이터 플레인 서비스로 전달하여 실행 프로세스를 시작하며, 호출 방식(동기식/비동기식)에 따라 처리 흐름이 달라진다.
@@ -101,19 +101,19 @@ AWS Lambda를 호출하는 방식은 다양하지만, 서비스 이면의 핵심
 - 비동기식 호출 (Asynchronous Invocation): 프런트엔드 서비스가 요청을 즉시 처리하지 않고 Lambda 내부 대기열(Internal queue)에 보관한다. 이러한 내부 큐잉 메커니즘은 대기 중인 이벤트를 사용 가능한 MicroVM에 효율적으로 분배하는 역할을 하며, 트래픽이 몰리거나 수요가 급증하는 시기에도 원활하게 로드 밸런싱을 유지하고 성능을 최적화할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-04.webp" width="100%" class="image__border">
-</div>
-<center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-04.webp" width="100%" class="image__border">
+  </div>
+  <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
 
 추가적으로 Kinesis, DynamoDB Streams와 같은 이벤트 소스 매핑(Event Source Mapping) 환경에서는 이 프런트엔드 서비스를 호출하기 위한 별도의 내부 구성 요소가 존재한다. 내부의 **폴링 컨슈머(Polling Consumer)**가 레코드를 지속적으로 읽어오고, **어그리게이터(Aggregator)**가 크기나 시간 등의 기준에 맞춰 데이터를 배치 형태로 묶는다. 조건이 충족되면 인보커 프로세스(Invoker Process)가 프런트엔드 서비스에 동기식 호출을 시작하여, 최종적으로 MicroVM 내부에서 함수 코드가 실행되도록 유도한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-05.webp" width="100%" class="image__border">
-</div>
-<center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-05.webp" width="100%" class="image__border">
+  </div>
+  <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
 
 MicroVM에 격리되어 실행되는 **사용자 지정 함수**는 **람다 서비스(데이터 플레인)와 통신**하기 위해 람다 런타임 HTTP API 엔드포인트를 활용한다. 런타임은 `AWS_LAMBDA_RUNTIME_API` 환경 변수에서 API 엔드포인트를 가져와 통신을 구성한다. 런타임 API는 주로 다음과 같은 핵심 HTTP 메서드를 통해 상호작용한다.
@@ -146,10 +146,10 @@ MicroVM에 격리되어 실행되는 **사용자 지정 함수**는 **람다 서
 - AWS 환경에 임베드된 기본 SDK 버전은 예고 없이 변경될 수 있으나, 필요한 특정 버전을 레이어에 포함하면 SDK 버전을 안전하게 고정할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-07.gif" width="80%" class="image__border">
-</div>
-<center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/aws-lambda-07.gif" width="80%" class="image__border">
+  </div>
+  <center>https://joudwawad.medium.com/aws-lambda-architecture-deep-dive-bef856b9b2c4</center>
 </div>
 
 위에서 제약사항을 언급한 것처럼 하나의 람다 함수에는 **최대 5개의 레이어**까지만 추가할 수 있다. 함수 코드와 모든 레이어의 압축 해제 후 총합 크기는 **최대 250MB**를 넘을 수 없다. 레이어는 한 번 생성되면 변경할 수 없는(Immutable) 스냅샷 형태로 버전 관리가 이루어진다. 패키지를 수정해야 할 경우 새로운 zip 파일을 올려 새 버전을 생성해야 한다.

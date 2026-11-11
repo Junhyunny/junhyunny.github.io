@@ -207,7 +207,7 @@ $ sbx policy allow network localhost:11434
 $ curl http://host.docker.internal:11434
 ```
 
-MCP 서버 설정에 `http://host.docker.internal:<MCP포트번호>` 형시의 URL을 설정하면 호스트 머신의 로컬 호스트에서 실행 중인 MCP 서버에 접근이 가능하다.
+MCP 서버 설정에 `http://host.docker.internal:<MCP포트번호>` 형식의 URL을 설정하면 호스트 머신의 로컬 호스트에서 실행 중인 MCP 서버에 접근이 가능하다.
 
 ### 2.2. Customize template
 

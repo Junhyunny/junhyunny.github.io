@@ -25,7 +25,7 @@ recommendedPosts:
 
 이번 예제에서 사용할 OpenAPI 명세서는 [이 링크](https://github.com/Junhyunny/blog-in-action/blob/master/2026-02-11-using-mock-service-worker-with-orval/action-in-blog/api/openapi-specification.yaml)를 참고하길 바란다. 명세서가 길기 때문에 필요한 내용만 부분적으로 살펴본다. 우선 Orval을 통해 코드를 생성해보자. 다음과 같이 Orval 설정 파일(orval.config.js)을 작성한다.
 
-- mock 속성을 'true'로 설정하면 MWS 목킹을 위한 핸들러 함수들을 생성한다.
+- mock 속성을 'true'로 설정하면 MSW 목킹을 위한 핸들러 함수들을 생성한다.
 - client 속성을 'react-query'로 설정하면 리액트 쿼리(react query) 커스텀 훅을 생성한다.
 
 ```js
@@ -304,7 +304,7 @@ afterAll(() => server.close());
 이전에 작성한 TODO 항목들이 보이는 기능에 대한 테스트 코드는 다음과 같다. 
 
 1. 목 서버의 응답을 재정의한다. 자동 생성된 getGetTodosMockHandler 핸들러를 사용한다.
-2. App 화면을 랜더링한다.
+2. App 화면을 렌더링한다.
 3. 목 서버로부터 받은 응답을 기반으로 화면이 표시되는지 확인한다.
 
 ```tsx

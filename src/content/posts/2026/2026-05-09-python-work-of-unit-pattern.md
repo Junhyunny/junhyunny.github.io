@@ -70,7 +70,7 @@ class OrderService:
 
 ## 2. Example
 
-간단한 예제 코드를 통해 FastAPI 프로젝트에서 UoW 패턴을 적용한 코드를 살펴보자. 필요한 코드의 일부분만 살펴본다. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-05-09-python-work-of-unit-pattern)에서 확인할 수 있다. 프로젝트의 패키지 구조는 다음과 같다.
+간단한 예제 코드를 통해 FastAPI 프로젝트에서 UoW 패턴을 적용한 코드를 살펴보자. 필요한 코드 일부분만 다룬다. 전체 코드는 [이 레포지토리](https://github.com/Junhyunny/blog-in-action/tree/master/2026-05-09-python-work-of-unit-pattern)에서 확인할 수 있다. 프로젝트의 패키지 구조는 다음과 같다.
 
 ```
 .

@@ -10,7 +10,7 @@ categories:
 recommendedPosts:
   - title: "파이썬 제너레이터(Python Generator)"
     href: "https://junhyunny.github.io/python/generator-function/python-generator-function/"
-  - title: "파이썬 GIL(Global Interpreter Lock)와 asyncio 라이브러리"
+  - title: "파이썬 GIL(Global Interpreter Lock)과 asyncio 라이브러리"
     href: "https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/"
   - title: "파이썬 컨텍스트 매니저(Context Manager)와 with 키워드"
     href: "https://junhyunny.github.io/python/with/context-manager/python-with-keyword-and-context-manager/"

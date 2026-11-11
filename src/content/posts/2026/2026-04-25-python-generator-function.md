@@ -7,7 +7,7 @@ categories:
   - "python"
   - "generator-function"
 recommendedPosts:
-  - title: "파이썬 GIL(Global Interpreter Lock)와 asyncio 라이브러리"
+  - title: "파이썬 GIL(Global Interpreter Lock)과 asyncio 라이브러리"
     href: "https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/"
 ---
 
@@ -15,7 +15,9 @@ recommendedPosts:
 
 AI 코딩 에이전트와 함께 [토이 프로젝트](https://github.com/Junhyunny/archived-todo-agent)로 간단한 AI 에이전트 애플리케이션을 만들어보고 있다. 예전에는 토이 프로젝트를 시작할 엄두조차 나지 않았는데, 지금은 정말 마음만 먹는다면 누구나 원하는 것을 만들 수 있게 되었다. 시간이 부족하다는 변명은 통하지 않는 시대를 살고 있다.
 
-AI 에이전트 애플리케이션을 구현하면서 익숙하지 않은 파이썬(python), FastAPI, 랭체인(langchain) 같은 기술들을 사용하고 있다. 테스트와 구현 자체는 AI 코딩 에이전트와 함께 하기 때문에 수월하다. 하지만 기술에 대한 깊은 이해도가 없어서 그런지 리뷰가 어렵다. AI 결과물의 품질을 판단하고 교정하는 능력을 키우기 위해 최근에는 초심자의 마음으로 기술의 깊이를 파들어가는 시간을 가지고 있다. 뇌나 신체에 부하(load)가 가해지지 않으면 장기 기억에 남지 않기 때문에 배운 내용을 블로그 글로 남겨본다.
+AI 에이전트 애플리케이션을 구현하면서 익숙하지 않은 파이썬(python), FastAPI, 랭체인(langchain) 같은 기술들을 사용하고 있다. 테스트와 구현 자체는 AI 코딩 에이전트와 함께 하기 때문에 수월하다. 하지만 기술에 대한 깊은 이해도가 없어서 그런지 리뷰가 어렵다.
+
+AI 결과물의 품질을 판단하고 교정하는 능력을 키우기 위해 최근에는 초심자의 마음으로 기술의 깊이를 파들어가는 시간을 가지고 있다. 뇌나 신체에 부하(load)가 가해지지 않으면 장기 기억에 남지 않기 때문에 배운 내용을 블로그 글로 남긴다.
 
 이번 글은 파이썬의 제너레이터(generator)에 대해 정리했다.
 
@@ -108,7 +110,7 @@ generating number:  5
 
 ## 2. Background
 
-제너레이터 함수의 등장 배경을 살펴보자. [PEP-255(Simple Iterators) 제안서](https://peps.python.org/pep-0255/)을 통해 처음 도입되었다. 몇 가지 페인 포인트가 있었던 것 같다.
+제너레이터 함수의 등장 배경을 살펴보자. [PEP-255(Simple Iterators) 제안서](https://peps.python.org/pep-0255/)를 통해 처음 도입되었다. 몇 가지 페인 포인트가 있었던 것 같다.
 
 - 이전에는 값을 연속적으로 생산하면서 내부 상태를 유지해야 하는 작업(예: 코드 파싱, 토크나이저 등)을 할 때, 콜백(callback) 함수를 넘겨주거나 전역 변수를 사용해야 해서 코드가 매우 복잡해졌다. 
 - 결과를 리스트로 한 번에 모아서 반환하는 방식은 코드는 자연스럽지만, 파일이나 데이터가 너무 크면 메모리를 극심하게 낭비하는 문제가 있었다.

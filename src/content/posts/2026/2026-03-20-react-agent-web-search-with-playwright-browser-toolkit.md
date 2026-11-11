@@ -59,7 +59,7 @@ Playwright는 마이크로소프트(microsoft)가 개발한 오픈소스 자동�
 
 [Playwright MCP 서버][using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test-link]를 사용하면 Github 코파일럿(copilot), 클로드 코드(claude code) 같은 AI 에이전트가 브라우저를 조작할 수 있다. 이를 응용해서 토이 프로젝트의 AI 에이전트가 Playwright MCP 서버를 통해 브라우저를 조작하도록 구현하려고 했다. 
 
-찾아보니 이미 마이크로소프트에서 AI 에이전트가 브라우저를 조작할 수 있는 [Playwright 브라우저 툴킷(toolkit)](https://docs.langchain.com/oss/python/integrations/providers/microsoft#playwright-browser-toolkit)를 만들어뒀다. 랭체인(langchain)은 Playwright 브라우저 툴킷을 langchain-community 패키지를 통해 제공한다. AI 에이전트는 이를 통해 브라우저를 직접 다룰 수 있다. Requests 같은 도구는 정적 사이트에 적합하지만, PlayWright 브라우저 툴킷은 에이전트가 웹을 탐색하고 동적으로 렌더링된 사이트와 상호작용할 수 있도록 한다.
+찾아보니 이미 마이크로소프트에서 AI 에이전트가 브라우저를 조작할 수 있는 [Playwright 브라우저 툴킷(toolkit)](https://docs.langchain.com/oss/python/integrations/providers/microsoft#playwright-browser-toolkit)을 만들어뒀다. 랭체인(langchain)은 Playwright 브라우저 툴킷을 langchain-community 패키지를 통해 제공한다. AI 에이전트는 이를 통해 브라우저를 직접 다룰 수 있다. Requests 같은 도구는 정적 사이트에 적합하지만, PlayWright 브라우저 툴킷은 에이전트가 웹을 탐색하고 동적으로 렌더링된 사이트와 상호작용할 수 있도록 한다.
 
 다음과 같은 도구들을 제공한다.
 

@@ -158,7 +158,7 @@ with FileManager() as m:
   raise Exception("something went wrong")
 ```
 
-위 코드를 실행하면 with 블록 없이 에러 핸들리을 구현한 코드와 동일한 로그를 볼 수 있다.
+위 코드를 실행하면 with 블록 없이 에러 핸들링을 구현한 코드와 동일한 로그를 볼 수 있다.
 
 ```
 initialize file manager

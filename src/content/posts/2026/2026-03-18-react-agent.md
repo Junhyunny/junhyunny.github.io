@@ -27,10 +27,10 @@ categories:
 에이전트는 주어진 작업이 성공적으로 완료되거나 만족스러운 결론에 도달할 때까지 이 `추론-행동-관찰` 루프를 자율적으로 반복한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/react-agent-01.png" width="100%" class="image__border">
-</div>
-<center>https://www.leewayhertz.com/react-agents-vs-function-calling-agents/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/react-agent-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.leewayhertz.com/react-agents-vs-function-calling-agents/</center>
 </div>
 
 [프린스턴 대학교(princeton university) 컴퓨터 과학과와 구글 리서치 브레인 팀의 연구진들이 공동으로 진행한 연구 내용](https://openreview.net/pdf?id=WE_vluYUL-X)을 보면 리액트 에이전트를 4가지 벤치마크인 질의응답, 팩트 검증, 텍스트 기반 게임, 웹페이지 탐색에 대해 평가했고, 다음과 같은 결과를 얻었다고 한다. 

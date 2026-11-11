@@ -9,6 +9,7 @@ categories:
   - "large-language-model"
   - "model-context-protocol"
   - "context-engineering"
+summary: "컨텍스트 엔지니어링 관점에서 이슈 트래커인 트래커 부트의 MCP 서버를 설정하고, 사용자 스토리를 기반으로 태스크 생성, 테스트, 구현 작업 기록을 공유하는 방법을 정리했다."
 recommendedPosts:
   - title: "바이브 코딩(vibe coding)을 통한 개발 프로세스 개선"
     href: "https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/"
@@ -123,7 +124,7 @@ logs:
 - 코파일럿 MCP 설정(configure) 버튼을 누른다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-05.png" width="100%" class="image__border">
 </div>
 
 `mcp.json` 파일이 열린다. 해당 파일에 트래커 부트 MCP 서버 설정을 추가한다. MCP 서버를 도커 컨테이너 기반으로 제공하고 있다. MCP 서버를 설정하면 AI 에이전트에 의해 컨테이너가 실행 후 연결된다.
@@ -167,13 +168,13 @@ logs:
 `YOUR_TRACKER_BOOT_API_KEY` 변수는 트래커 부트에서 확인할 수 있다. 우측 상단에 이니셜 아이콘을 누르면 셋팅(setting) 페이지로 이동할 수 있는 창이 나온다.
 
 <div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-06.png" width="40%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-06.png" width="50%" class="image__border">
 </div>
 
 왼쪽 사이드에서 API 메뉴를 선택하면 내 계정에 연결된 API 키를 획득할 수 있다. API 키를 mcp.json 파일에 추가한다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-07.png" width="100%" class="image__border">
 </div>
 
 ## 4. Tools of Tracker Boot MCP server

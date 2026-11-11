@@ -7,6 +7,7 @@ categories:
   - "react"
   - "react-query"
   - "optimistic-update"
+summary: "람다 콜드 스타트로 인한 지연을 줄이기 위해 리액트 쿼리의 UI 기반, 캐시 기반 낙관적 업데이트 방식과 onMutate에서 스냅샷을 저장하고 실패 시 롤백하는 방법을 정리했다."
 recommendedPosts:
   - title: "OpenAPI 명세서를 사용한 Orval 클라이언트 코드 자동 생성하기"
     href: "https://junhyunny.github.io/openapi/orval/auto-generate-code/react-query/msw/open-api-spec-with-orval/"

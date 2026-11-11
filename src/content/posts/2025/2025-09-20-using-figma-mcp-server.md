@@ -10,6 +10,7 @@ categories:
   - "mcp-server"
   - "copilot"
   - "prompt"
+summary: "피그마 Dev Mode MCP 서버를 활성화하고 VSCode와 인텔리제이 코파일럿에 등록해 AI 에이전트가 프론트엔드 코드에 피그마 디자인을 입히도록 하는 방법을 정리했다."
 recommendedPosts:
   - title: "바이브 코딩(vibe coding)을 통한 개발 프로세스 개선"
     href: "https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/"
@@ -110,7 +111,7 @@ MCP 서버 이름을 등록한다.
 - Github Copilot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-08.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-08.png" width="100%" class="image__border">
 </div>
 
 configure 버튼을 클릭하면 mcp.json 파일로 연결된다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다.

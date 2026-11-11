@@ -9,6 +9,7 @@ categories:
   - "micro-vm"
   - "ai"
   - "ai-agent"
+summary: "AI 코딩 에이전트에게 큰 권한을 줄 때 샌드박스가 필요한 이유를 살펴보고, 클로드 코드와 코덱스의 내장 샌드박스와 컨테이너, 마이크로VM 같은 다른 격리 방법을 정리했다."
 recommendedPosts:
   - title: "하네스 엔지니어링(Harness Engineering)"
     href: "https://junhyunny.github.io/ai/ai-agent/coding-agent/harness-engineering/harness-engineering/"

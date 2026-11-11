@@ -6,6 +6,7 @@ canonicalPath: "/infrastructure/dev-ops/introduction-vagrant/"
 categories:
   - "infrastructure"
   - "dev-ops"
+summary: "리눅스 실습 환경을 위해 코드로 동일한 가상 머신을 프로비저닝하는 베이그란트를 소개하고, Vagrantfile을 작성해 단일 가상 머신을 띄우고 SSH로 접속하는 방법을 정리했다."
 recommendedPosts:
   - title: "테라폼(Terraform) 소개"
     href: "https://junhyunny.github.io/information/infrastructure/dev-ops/introduction-terraform/"
@@ -13,15 +14,15 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-필자는 운영체제(operating system) 중에서도 엔지니어라면 친숙해야하는 리눅스(linux) 공부를 시작했다. 어떤 운영체제에서 실습을 하던 가상 머신(virtual machine)을 사용하는 것이 안전할 것이다. 실습 환경을 구성하는 것도 상당히 귀찮은 일인데 하시코프(HashiCorp)에서 코드를 통해 동일한 가상 머신 환경을 프로비저닝(provisioning) 해주는 베이그란트(vagrant)라는 애플리케이션을 제공한다는 사실을 알았다. 이번 글은 베이그란트(Vagrant)를 소개하고 간단하게 환경을 구성하는 방법을 정리했다.
+필자는 운영체제(operating system) 중에서도 엔지니어라면 친숙해야하는 리눅스(linux) 공부를 시작했다. 어떤 운영체제에서 실습을 하든 가상 머신(virtual machine)을 사용하는 것이 안전할 것이다. 실습 환경을 구성하는 것도 상당히 귀찮은 일인데 하시코프(HashiCorp)에서 코드를 통해 동일한 가상 머신 환경을 프로비저닝(provisioning) 해주는 베이그란트(vagrant)라는 애플리케이션을 제공한다는 사실을 알았다. 이번 글은 베이그란트(Vagrant)를 소개하고 간단하게 환경을 구성하는 방법을 정리했다.
 
 ## 1. Vagrant
 
-프로비저닝이라는 단어가 익숙하지 않는 사람들을 위해서 간단하게 개념을 정리해보자.
+프로비저닝이라는 단어가 익숙하지 않은 사람들을 위해서 간단하게 개념을 정리해보자.
 
 > 프로비저닝은 IT 인프라를 생성하고 설정하는 프로세스
 
-베이그란트는 프로비저닝의 여러 종류 중 서버 프로비저닝을 지원한다. 서버 프로비저닝은 물리적 혹은 가상화 된 하드웨어를 세팅하고, 운영체제나 애플리케이션 등을 설치하는 작업을 의미한다. 베이그란트는 가상 머신 환경을 구축하고 관리하는 도구이다. 가상 머신 환경 구축을 자동화하여 개발 환경 설정 시간을 줄여준다. VirtualBox, VMWare 같은 가상 머신 제공자들(providers) 위에서 프로비저닝을 수행한다. 소프트웨어 업계 표준으로 사용되는 
+베이그란트는 프로비저닝의 여러 종류 중 서버 프로비저닝을 지원한다. 서버 프로비저닝은 물리적 혹은 가상화 된 하드웨어를 세팅하고, 운영체제나 애플리케이션 등을 설치하는 작업을 의미한다. 베이그란트는 가상 머신 환경을 구축하고 관리하는 도구이다. 가상 머신 환경 구축을 자동화하여 개발 환경 설정 시간을 줄여준다. VirtualBox, VMWare 같은 가상 머신 제공자들(providers) 위에서 프로비저닝을 수행한다. 업계 표준 기술을 기반으로 쉽게 설정할 수 있고, 재현 가능하며, 이식성 있는 작업 환경을 제공한다.
 
 개발자들은 다른 의존성들로부터 격리되고 일관성 있지만, 쉽게 사용하고 처분할 수 있는 환경을 쉽게 구성할 수 있다. DevOps 엔지니어인 경우 인프라를 관리할 수 있는 스크립트를 만들 수 있고, 일관된 일회성 테스트 환경을 구성할 수 있다. 
 
@@ -33,12 +34,12 @@ recommendedPosts:
   - 가상 머신 이미지 정보는 베이그란트 파일에 명시되어 있다.
   - 가상 머신 구축을 위해 필요한 이미지가 호스트 머신에 없다면 베이그란트 클라우드에서 다운로드 받는다.
 4. 베이그란트 파일에 명시된 프로비저닝을 실행한다.
-  - 프로비저닝은 쉘 스크립트, 앤서블, 도커 등 어떤 프로비저를 사용해도 상관 없다.
+  - 프로비저닝은 쉘 스크립트, 앤서블, 도커 등 어떤 프로비저너를 사용해도 상관 없다.
   - 준비된 가상 머신에 필요한 애플리케이션을 설치한다.
 5. 프로비저닝까지 완료되면 `vagrant ssh` 명령어를 사용해 가상 머신에 접속한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/introduction-vagrant-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/introduction-vagrant-01.png" width="100%" class="image__border">
 </div>
 <center>https://quintagroup.com/blog/what-is-vagrant-and-when-should-one-turn-to-it</center>
 
@@ -73,7 +74,7 @@ the comments in the Vagrantfile as well as documentation on
 
 ### 2.2. Make Vagrant File
 
-프로젝트를 초기화가 완료되면 베이그란트 파일이 생성된다. 
+프로젝트 초기화가 완료되면 베이그란트 파일이 생성된다. 
 
 ```
 $ ls
@@ -102,7 +103,7 @@ Vagrant.configure("2") do |config|
   end
 
   # 프로비저너를 설정한다. 
-  # 위에서 설명했듯 쉘 스크립트(shell script), 앤서블(ansible), 도커(docker), 퍼팻(puppet) 어떤 것을 사용해도 무관하다.
+  # 위에서 설명했듯 쉘 스크립트(shell script), 앤서블(ansible), 도커(docker), 퍼핏(puppet) 어떤 것을 사용해도 무관하다.
   # 이번 예시에선 쉘 스크립트를 사용해 apache2 애플리케이션을 미리 준비한다.
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
@@ -163,7 +164,7 @@ Bringing machine 'default' up with 'virtualbox' provider...
 가상 머신 프로비저닝이 완료되면 VirtualBox 윈도우에서 가상 머신이 실행되고 있는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/introduction-vagrant-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/introduction-vagrant-02.png" width="100%" class="image__border">
 </div>
 
 ### 2.4. Connect via SSH

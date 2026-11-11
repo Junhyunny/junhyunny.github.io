@@ -8,6 +8,7 @@ categories:
   - "ai-agent"
   - "coding-agent"
   - "harness-engineering"
+summary: "AI 에이전트가 의도대로 동작하도록 환경을 설계하는 하네스 엔지니어링의 개념과 구성 요소를 살펴보고, 토이 프로젝트에서 컨텍스트 동기화 스킬을 만들어 적용한 경험을 정리했다."
 ---
 
 ## 0. 들어가면서

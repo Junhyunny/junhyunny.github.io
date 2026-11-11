@@ -8,6 +8,7 @@ categories:
   - "react-query"
   - "msw"
   - "orval"
+summary: "Orval로 OpenAPI 명세에서 리액트 쿼리 훅과 MSW 핸들러를 자동 생성하고, 이를 사용해 컴포넌트 테스트 코드를 작성하는 방법을 정리했다."
 recommendedPosts:
   - title: "리액트(React) 앱 Vitest 설정하기"
     href: "https://junhyunny.github.io/vite/react/setup-vitest-for-react-application/"

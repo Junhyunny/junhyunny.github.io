@@ -7,6 +7,7 @@ categories:
   - "electron"
   - "desktop-application"
   - "chromium"
+summary: "크로미움의 다중 프로세스 아키텍처를 이어받은 일렉트론의 메인 프로세스, 렌더러 프로세스, 프리로드 스크립트가 각각 어떤 역할을 하는지 정리했다."
 recommendedPosts:
   - title: "일렉트론(electron) 프레임워크 기반 리액트(react) 프로젝트 준비"
     href: "https://junhyunny.github.io/electron/react/frontend/desktop-application/elctron-react-project-setup/"

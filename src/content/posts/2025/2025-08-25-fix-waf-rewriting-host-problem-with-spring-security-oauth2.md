@@ -9,6 +9,7 @@ categories:
   - "waf"
   - "rewriting-domain"
   - "redirect-strategy"
+summary: "외부 WAF가 호스트 주소를 내부 도메인으로 바꿔 OAuth2 로그인 후 엉뚱한 주소로 리다이렉트되는 문제를 OAuth2AuthorizationRequestResolver 프록시로 해결한 과정을 기록했다."
 ---
 
 ## 0. 들어가면서

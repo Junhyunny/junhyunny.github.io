@@ -11,6 +11,7 @@ categories:
   - "large-language-model"
   - "model-context-protocol"
   - "context-engineering"
+summary: "트래커 부트 MCP 서버로 사용자 스토리를 가져와 AI 에이전트가 테스트 시나리오를 만들고 Playwright MCP 서버로 E2E 테스트를 수행한 뒤 테스트 코드까지 작성하는 워크플로우를 정리했다."
 recommendedPosts:
   - title: "MCP(Model Context Protocol)와 MCP 서버-클라이언트"
     href: "https://junhyunny.github.io/ai/ai-agent/model-context-protocol/mcp-server/mcp-client/mcp-and-mcp-server/"

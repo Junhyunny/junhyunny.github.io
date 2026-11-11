@@ -9,6 +9,7 @@ categories:
   - "openapi"
   - "api-gateway"
   - "terraform"
+summary: "OpenAPI 명세서에 API 게이트웨이 통합 확장 설정을 작성하고, 이를 기반으로 AWS API 게이트웨이와 람다 함수를 배포하는 방법을 예제로 정리했다."
 recommendedPosts:
   - title: "AWS SAM(Serverless Application Model) 개념과 CLI 예제"
     href: "https://junhyunny.github.io/aws/aws-sam-cli/api-gateway/lambda/aws-sam-cli/"

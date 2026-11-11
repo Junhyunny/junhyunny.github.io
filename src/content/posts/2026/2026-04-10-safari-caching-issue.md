@@ -8,6 +8,7 @@ categories:
   - "safari"
   - "javascript"
   - "typescript"
+summary: "사파리가 캐시 헤더가 있는 실패 응답을 디스크에 캐싱해 썸네일 이미지 재로딩이 되지 않던 문제의 원인을 RFC 9111로 살펴보고, 재시도 요청의 cache 옵션을 reload로 바꿔 해결했다."
 recommendedPosts:
   - title: "리액트(React) 스켈레톤 이미지(Skeleton Image)"
     href: "https://junhyunny.github.io/react/javascript/typescript/usability/react-skeleton-image/"
@@ -22,7 +23,7 @@ recommendedPosts:
 클라이언트 사이드에서 S3 presigned URL을 사용해서 이미지를 직접 호출하고 있었다. 이미지와 동영상이 많은 애플리케이션이기 때문에 미디어 리소스들에 브라우저 캐싱(caching)을 적용하고 싶었지만, presigned URL은 매번 변경되기 때문에 [Cache-Control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Cache-Control) 헤더를 적용할 수 없었다. 이를 개선하기 위해 AWS 클라우드 프론트(cloudfront)를 CDN(Content Delivery Network)으로 구축했다. 캐시 컨트롤 응답 헤더는 클라우드 프론트의 `Response Headers Policy`를 통해 지정했다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-01.png" width="100%" class="image__border">
 </div>
 
 해당 인프라를 구축한 이후 문제가 발생했다. 증상은 다음과 같다.
@@ -123,7 +124,7 @@ export const loadImageWithRety = async (
 - 이전 fetch() 함수가 로딩에 실패했다면 정상적인 이미지가 아니기 때문에 onerror 콜백 함수가 호출되고, 다시 fetch() 함수로 캐시를 갱신한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/safari-caching-issue-04.png" width="100%" class="image__border">
 </div>
 
 위 로직을 적용하면 사파리에서도 정상적으로 이미지가 조회된다. 아래 이미지를 보면 이미지 로딩에 실패한 경우 fetch 함수를 호출해서 이미지를 다시 로딩한다. 

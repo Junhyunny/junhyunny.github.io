@@ -8,6 +8,7 @@ categories:
   - "generator-function"
   - "async-await"
   - "asynchronous-task"
+summary: "파이썬 GIL이 생긴 이유와 멀티 스레드의 한계를 살펴보고, async/await 코루틴과 asyncio 라이브러리로 비동기 I/O를 처리하는 방법을 정리했다."
 recommendedPosts:
   - title: "자바스크립트 비동기 처리(JavaScript Asynchronous Task) 동작 원리"
     href: "https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/"

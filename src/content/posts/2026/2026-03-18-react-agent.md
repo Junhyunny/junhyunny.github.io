@@ -8,6 +8,7 @@ categories:
   - "ai-agent"
   - "langchain"
   - "react-agent"
+summary: "추론, 행동, 관찰을 반복하는 ReAct 에이전트의 개념과 연구 배경을 살펴보고, 랭체인과 AWS 베드록으로 도구를 사용하는 ReAct 에이전트 예제를 구현했다."
 ---
 
 ## 0. 들어가면서

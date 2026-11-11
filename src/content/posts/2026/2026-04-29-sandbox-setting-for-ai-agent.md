@@ -8,6 +8,7 @@ categories:
   - "micro-vm"
   - "ai"
   - "ai-agent"
+summary: "호스트 커널을 공유하지 않는 마이크로VM 기반 도커 샌드박스의 구조를 살펴보고, AI 에이전트 개발 환경을 구축하며 MCP 서버, 템플릿 커스터마이징, 포트 포워딩을 설정한 과정을 정리했다."
 recommendedPosts:
   - title: "하네스 엔지니어링(Harness Engineering)"
     href: "https://junhyunny.github.io/ai/ai-agent/coding-agent/harness-engineering/harness-engineering/"

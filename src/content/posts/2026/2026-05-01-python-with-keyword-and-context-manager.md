@@ -7,6 +7,7 @@ categories:
   - "python"
   - "with"
   - "context-manager"
+summary: "__enter__와 __exit__ 메서드로 리소스를 안전하게 관리하는 파이썬 컨텍스트 매니저의 동작 원리를 살펴보고, with 블록이 try-finally 보일러플레이트와 예외 처리를 어떻게 대신하는지 정리했다."
 recommendedPosts:
   - title: "파이썬 제너레이터(Python Generator)"
     href: "https://junhyunny.github.io/python/generator-function/python-generator-function/"

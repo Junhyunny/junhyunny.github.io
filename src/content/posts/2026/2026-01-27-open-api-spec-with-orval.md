@@ -9,6 +9,7 @@ categories:
   - "auto-generate-code"
   - "react-query"
   - "msw"
+summary: "OpenAPI 명세를 API의 단일 진실 공급원으로 활용하는 이유를 살펴보고, Orval CLI로 명세에서 타입스크립트 모델과 HTTP 요청 함수 같은 프론트엔드 클라이언트 코드를 생성하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서

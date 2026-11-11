@@ -11,6 +11,7 @@ categories:
   - "oauth2"
   - "oidc"
   - "trouble-shooting"
+summary: "MS AAD 로그인 시 JWKs 캐시 갱신 락을 잡은 스레드가 타임아웃 없는 RestTemplate 호출에 묶여 생긴 장애를 분석하고, 클라이언트 타임아웃을 설정해 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "클라이언트 요청 타임아웃(request timeout)"
     href: "https://junhyunny.github.io/information/kind-of-request-timeout/"

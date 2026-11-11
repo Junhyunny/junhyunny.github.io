@@ -6,6 +6,7 @@ canonicalPath: "/aws/spring-security/aws-alb-application-protocol-change-and-spr
 categories:
   - "aws"
   - "spring-security"
+summary: "ALB와 서버 사이가 HTTP로 통신해 OAuth2 리다이렉트 URL의 baseUrl 프로토콜이 바뀌는 문제의 원인을 살펴보고, 세 가지 해결 방법을 정리했다."
 recommendedPosts:
   - title: "포워드/리버스 프록시(Forward/Reverse Proxy)"
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-AWS ALB(application load balancer) 뒤에 위치한 EC2 컨테이너에 스프링 서버 애플리케이션을 배포했을 때 OAuth2 인증시 리다이렉트 URL의 프로토콜이 변경되는 문제에 대해 정리했다.
+AWS ALB(application load balancer) 뒤에 위치한 EC2 컨테이너에 스프링 서버 애플리케이션을 배포했을 때 OAuth2 인증 시 리다이렉트 URL의 프로토콜이 변경되는 문제에 대해 정리했다.
 
 ## 1. Problem Context
 
@@ -54,13 +55,13 @@ spring:
 - 400 오류: redirect_uri_mismatch
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-01.png" width="100%" class="image__border">
 </div>
 
 브라우저의 개발자 모드를 통해 네트워크 탭으로 OAuth2 인가 코드 리다이렉트 요청을 살펴보면 리다이렉트 URL의 프로토콜이 `https`가 아닌 `http`인 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Cause of the problem
@@ -179,7 +180,7 @@ server:
 FRAMEWORK 설정 후 서비스를 배포하면 정상적으로 리다이렉트 URL이 설정되는 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-06.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-alb-application-protocol-change-and-spring-base-url-problem-06.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

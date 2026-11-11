@@ -9,6 +9,7 @@ categories:
   - "ontology"
   - "context"
   - "context-engineering"
+summary: "AI 에이전트가 온톨로지를 활용할 수 있도록 neosemantics(n10s) 플러그인을 설치한 neo4j 컨테이너에 터틀 형식의 온톨로지 파일을 임포트하는 방법을 정리했다."
 recommendedPosts:
   - title: "인공지능(AI)과 온톨로지(ontology)"
     href: "https://junhyunny.github.io/ai/ai-agent/ontology/context/context-engineering/ai-ontology/"

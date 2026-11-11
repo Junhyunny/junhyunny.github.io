@@ -9,6 +9,7 @@ categories:
   - "model-context-protocol"
   - "mcp-server"
   - "mcp-client"
+summary: "AI 애플리케이션이 외부 시스템과 연결하기 위한 표준인 MCP의 개념과 호스트, 클라이언트, 서버로 이뤄진 참여자 구조, 프로토콜 명세를 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -51,7 +52,7 @@ MCP 클라이언트는 MCP 호스트 내부에서 동작한다. MCP 호스트는
 
 <div class="block-break">
   <div align="center">
-    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-01.png" width="80%" class="image__border">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/mcp-and-mcp-server-01.png" width="100%" class="image__border">
   </div>
   <center>https://modelcontextprotocol.io/docs/learn/architecture</center>
 </div>

@@ -6,6 +6,7 @@ canonicalPath: "/python/generator-function/python-generator-function/"
 categories:
   - "python"
   - "generator-function"
+summary: "yield 키워드로 값을 하나씩 반환하는 파이썬 제너레이터 함수의 실행 흐름과 PEP-255에 나온 등장 배경을 예제로 정리했다."
 recommendedPosts:
   - title: "파이썬 GIL(Global Interpreter Lock)과 asyncio 라이브러리"
     href: "https://junhyunny.github.io/python/generator-function/async-await/asynchronous-task/python-global-intpreter-lock-and-asynchronous/"

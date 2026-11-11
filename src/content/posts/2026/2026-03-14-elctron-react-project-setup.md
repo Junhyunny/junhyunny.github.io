@@ -8,6 +8,7 @@ categories:
   - "react"
   - "frontend"
   - "desktop-application"
+summary: "AI 에이전트 토이 프로젝트의 첫 단계로 일렉트론 프로젝트에 리액트를 설정하고, react 모듈 임포트 시 발생한 타입스크립트 컴파일 에러를 버전 업데이트로 해결한 과정을 정리했다."
 ---
 
 ## 0. 들어가면서

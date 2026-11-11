@@ -6,6 +6,7 @@ canonicalPath: "/information/security/meaning-of-terms-related-with-security/"
 categories:
   - "information"
   - "security"
+summary: "SW 보안 공부를 시작하며 보안 취약점을 식별하고 평가하는 데 쓰이는 CVE, CWE, CNA, CVSS 용어의 의미를 정리했다."
 ---
 
 ## 0. 들어가면서

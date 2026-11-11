@@ -7,9 +7,6 @@ npm-debug.log*
 # public/images는 루트 images/를 가리키는 링크 (scripts/link-public-images.mjs가 생성)
 public/images
 
-# 로컬 이미지 캐시
-images/posts
-
 # OS / editor
 .DS_Store
 .idea/

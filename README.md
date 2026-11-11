@@ -29,7 +29,6 @@ npm run preview
 | `src/components/third-party` | GA4, 애드센스 |
 | `public` | 사이트 루트로 그대로 나가는 파일 (검색 엔진 인증 HTML, `robots.txt`, `ads.txt`) |
 | `images` | 회고·About·프로필 이미지. `public/images`는 이 디렉터리를 가리키는 링크로, `npm run dev`·`build` 전에 `scripts/link-public-images.mjs`가 만듭니다. |
-| `docs/migration-plan.md` | Jekyll에서 옮겨 올 때의 마이그레이션 기록 |
 
 ## 새 글 작성
 

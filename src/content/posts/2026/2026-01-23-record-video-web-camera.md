@@ -31,7 +31,7 @@ const stream = navigator.mediaDevices.getUserMedia(constraints)
 
 MediaStream 인스턴스의 getTracks() 메서드를 사용하면 종류에 상관없이 모든 MediaStreamTrack 인스턴스들을 반환한다.
 
-해당 메서드를 호출하면 사용자 허가(permssion) 여부를 확인하고, 허가하지 않는 경우 `NotAllowedError` 에러를 던진다. 위에서 사용된 constraints 객체에는 `video`와 `audio` 요소가 모두 포함되며 요청하는 미디어 타입의 관련된 제약 조건을 명시한다.
+해당 메서드를 호출하면 사용자 허가(permission) 여부를 확인하고, 허가하지 않는 경우 `NotAllowedError` 에러를 던진다. 위에서 사용된 constraints 객체에는 `video`와 `audio` 요소가 모두 포함되며 요청하는 미디어 타입의 관련된 제약 조건을 명시한다.
 
 getUserMedia() 메서드 API는 심각한 개인정보 보호 우려가 포함되어 있기 때문에 브라우저가 의무적으로 만족해야 하는 보안 요구사항들이 명시되어 있다. 안전하지 않은 컨텍스트에서 navigator.mediaDevices 객체는 undefined이므로 getUserMedia() 메서드는 호출할 수 없다. 안전한 컨텍스트인 HTTPS, 'file:///' URL 스키마, localhost인 경우에만 사용할 수 있다.
 
@@ -204,7 +204,7 @@ const VideoRecorder = () => {
 
 ## 3. Photo capture
 
-사진을 촬영하는 코드를 살펴보자. 비디오 레코딩과 유사하지만, 이미지를 촬영하기 위해서는 캔버스(canvas) 객체를 사용한다. 비디오 녹화 코드와 대부분 동일하므로 다른 부분만 살펴본다. 영상 촬영과 마찬가지로 video 요소를 연결한다. 
+사진을 촬영하는 코드를 살펴보자. 비디오 레코딩과 유사하지만, 이미지를 촬영하기 위해서는 캔버스(canvas) 객체를 사용한다. 비디오 녹화 코드와 대부분 동일하므로 다른 부분만 다룬다. 영상 촬영과 마찬가지로 video 요소를 연결한다. 
 
 ```tsx
 const PhotoCapture = () => {
@@ -231,7 +231,7 @@ const PhotoCapture = () => {
 };
 ```
 
-useEffect 훅에 작성된 코드는 비디오 녹화와 동일하다. 현재 비디오 스트림을 기준으로 사진을 캡처하는 코드만 살펴본다. 
+useEffect 훅에 작성된 코드는 비디오 녹화와 동일하다. 현재 비디오 스트림을 기준으로 사진을 캡처하는 코드만 살펴보자. 
 
 캔버스 요소 객체를 만들고 현재 video 요소에서 재생되는 스트림 기준으로 png 이미지를 생성한다. 이미지 사이즈는 video 요소와 동일하게 설정한다. 생성한 이미지를 Base64 인코딩 한 데이터 URL 형식으로 변경 후 앵커 태그를 통해 다운로드 받는다.
 

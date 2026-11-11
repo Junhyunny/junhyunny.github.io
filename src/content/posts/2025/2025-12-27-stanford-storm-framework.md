@@ -33,10 +33,10 @@ STORM은 글을 쓰기 전에 철저한 사전 조사를 수행하도록 설계�
 2. 작성 단계: 시스템은 개요와 레퍼런스를 사용해 인용과 함께 논문을 작성한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/stanford-storm-framework-01.png" class="image__border image__padding">
-</div>
-<center>https://github.com/stanford-oval/storm</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/stanford-storm-framework-01.png" class="image__border image__padding">
+  </div>
+  <center>https://github.com/stanford-oval/storm</center>
 </div>
 
 STORM은 아티클 작성을 AI가 혼자 다 수행하지만, Co-STORM은 인간이 글을 쓸 때 AI가 실시간으로 개입하여 도와주는 것이다. 인간이 지식의 구조를 잡는 것을 AI가 돕는 협업(collaboration)에 초점을 맞춘다. 인간 주도(HITL, Human in the Loop) 방식으로 사용자가 먼저 주제를 제시하거나 글을 쓰기 시작한다.
@@ -44,7 +44,7 @@ STORM은 아티클 작성을 AI가 혼자 다 수행하지만, Co-STORM은 인�
 사용자가 작성하는 내용을 바탕으로 AI는 백그라운드에서 검색을 수행한다. 수집한 정보를 기반으로 AI는 능동적으로 개입한다. 계층적인 개념 구조로 조직화되고, 동적으로 업데이트되는 마인드맵을 유지하며, 이를 통해 인간 사용자와 시스템 사이에 공유된 개념 공간을 구축하는 것을 목표로 한다. Co-STORM은 다음과 같은 주체들 간의 원활한 협업을 지원하기 위해 턴 관리 정책(turn management policy)을 구현한 협업 담화 프로토콜을 제안하고 있다.
 
 - Co-STORM LLM 전문가(Co-STORM LLM experts): 외부 지식 소스에 근거하여 답변을 생성하거나, 이전 담화 기록을 바탕으로 후속 질문을 제기하는 에이전트다.
-- 중재자(Moderator): 검색기(Retriever)에 의해 발견되었으나 이전 턴에서 직접 사용되지 않은 정보에서 영감을 얻어, 사고를 자극하는 질문을 생성하는 에이전트다. 질문 생성 과정 또한 근거(gounded)를 바탕으로 이루어질 수 있다.
+- 중재자(Moderator): 검색기(Retriever)에 의해 발견되었으나 이전 턴에서 직접 사용되지 않은 정보에서 영감을 얻어, 사고를 자극하는 질문을 생성하는 에이전트다. 질문 생성 과정 또한 근거(grounded)를 바탕으로 이루어질 수 있다.
 - 인간 사용자(Human user): 사용자는 주도권을 가지고 담화를 관찰하며 주제에 대한 더 깊은 이해를 얻거나, 대화에 직접 참여하여 발화를 입력함으로써 토론의 초점을 유도할 수 있다.
 
 <div align="center">
@@ -91,7 +91,7 @@ $ pip install faiss-cpu
 
 의미론적(semantic)으로 유사한 데이터를 찾을 때는 벡터 데이터베이스를 사용하지만, 이에 연관된 실제 논문 제목, 내용, DOI 등을 찾기 위해 보조로 SQLite 데이터베이스를 사용한다.
 
-이번 글에선 실제 데이터를 사용하지 않고 페이크 데이터 1000건 정도를 사용한다. 실제로는 정제된 논문 데이터를 MySQL에서 불러오도록 구현하였지만, 이 글에선 `faker` 라이브러리를 사용한다.
+이번 글에선 실제 데이터를 사용하지 않고 페이크 데이터 1000건 정도를 사용한다. 실제로는 정제된 논문 데이터를 MySQL에서 불러오도록 구현했지만, 이 글에선 `faker` 라이브러리를 사용한다.
 
 ```
 $ pip install faker
@@ -367,7 +367,7 @@ class CustomRetrieveModule(dspy.Retrieve):
 
 ## 6. Write an article
 
-커스텀 모듈까지 생성하였으면 이를 STORM의 논문 생성 프로세스에서 사용해보자. STORM 프레임워크를 실행하는 예제 코드는 [공식 사이트](https://github.com/stanford-oval/storm)를 참조했다. 공식 예제는 OpenAI의 chat-gpt 모델을 사용했지만, 여기선 AWS 베드록(bedrock)을 사용했다. boto3 패키지 설치가 필요하다.
+커스텀 모듈까지 생성했으면 이를 STORM의 논문 생성 프로세스에서 사용해보자. STORM 프레임워크를 실행하는 예제 코드는 [공식 사이트](https://github.com/stanford-oval/storm)를 참조했다. 공식 예제는 OpenAI의 chat-gpt 모델을 사용했지만, 여기선 AWS 베드록(bedrock)을 사용했다. boto3 패키지 설치가 필요하다.
 
 ```
 $ pip install boto3
@@ -382,7 +382,7 @@ STORM을 실행하는 코드는 다음과 같다.
 - create_runner 함수
   - STORM runner 객체를 생성 후 반환한다.
 - main 함수
-  - STORM runner 객체를 통해 "artificial intelligence" 이라는 토픽으로 글을 작성한다.
+  - STORM runner 객체를 통해 "artificial intelligence"라는 토픽으로 글을 작성한다.
 
 ```python
 from dsp import LM, AWSAnthropic, Bedrock

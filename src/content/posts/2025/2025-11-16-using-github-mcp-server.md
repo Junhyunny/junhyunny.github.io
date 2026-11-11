@@ -170,7 +170,7 @@ AI 에이전트를 통해 E2E 테스트를 일회성으로만 실행하고 버�
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-github-mcp-server-04.png" width="100%" class="image__border">
 </div>
 
-[이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/propmtps` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다. 비개발자 직군은 코파일럿이 아니라 클로드 데스크탑 같은 도구를 사용한다. 당연히 프로젝트 코드가 로컬 디렉토리가 존재하지 않기 때문에 코드는 원격 서버에 직접 생성하는 편이 좋다고 생각한다. 이에 관련된 프롬프트를 작성한다.
+[이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/prompts` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다. 비개발자 직군은 코파일럿이 아니라 클로드 데스크탑 같은 도구를 사용한다. 당연히 프로젝트 코드가 로컬 디렉토리에 존재하지 않기 때문에 코드는 원격 서버에 직접 생성하는 편이 좋다고 생각한다. 이에 관련된 프롬프트를 작성한다.
 
 - 프로젝트 내 코드를 직접 생성하거나 수정하지 않도록 금지사항을 지정한다.
 - E2E 테스트가 성공하면 특정 브랜치에 테스트 코드를 푸쉬(push)하고 풀 리퀘스트(pull request)를 만들도록 후속 작업을 지정한다.

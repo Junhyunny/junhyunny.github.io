@@ -5,6 +5,7 @@ updatedAt: "2026-05-07T21:45:56+09:00"
 canonicalPath: "/java/java-wrapper-class/"
 categories:
   - "java"
+summary: "면접 질문을 계기로 자바 래퍼 클래스와 박싱, 언박싱의 개념, 사용 시 주의 사항, 기본형이 있는데도 래퍼 클래스가 필요한 이유를 정리했다."
 recommendedPosts:
   - title: "자바 래퍼 클래스 오토 박싱(auto boxing)과 성능 이슈"
     href: "https://junhyunny.github.io/java/auto-boxing-performance-test/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 > 자바(Java) primitive type 변수가 존재하는데 래퍼(wrapper) 클래스가 생긴 이유가 무엇일까요?<br/>
 
-선뜻 대답이 나오지 않는 어려운 질문이었다. 이 글에서는 래퍼 클래스가 무엇인지 알아보고, 마지막으로 위 질문에 대한 답변을 정리해 보았다.
+선뜻 대답이 나오지 않는 어려운 질문이었다. 이 글에서는 래퍼 클래스가 무엇인지 알아보고, 마지막으로 위 질문에 대한 답변을 정리해 봤다.
 
 ## 1. Wrapper class
 
@@ -36,10 +37,10 @@ recommendedPosts:
 래퍼 클래스의 상속 관계를 보면 Boolean, Character 클래스를 제외하고 Number 클래스를 상속받는다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-wrapper-class-01.png" width="70%">
-</div>
-<center>https://codepumpkin.com/interview-questions-wrapper-classes/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-wrapper-class-01.png" width="70%">
+  </div>
+  <center>https://codepumpkin.com/interview-questions-wrapper-classes/</center>
 </div>
 
 간단하게 Integer 래퍼 클래스의 내부 구조를 들여다보자. 다른 래퍼 클래스도 비슷하게 구성되어 있다.
@@ -95,10 +96,10 @@ public final class Integer extends Number implements Comparable<Integer> {
 래퍼 클래스를 이야기할 때 빠지지 않는 내용이 있다. `박싱(Boxing)`과 `언박싱(Unboxing)`이다. `박싱`은 기본형 데이터를 래퍼 클래스의 인스턴스로 변환하는 과정을 의미한다. 반대로 `언박싱`은 래퍼 클래스의 인스턴스를 기본형 데이터로 변환하는 과정을 의미한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-wrapper-class-02.png" width="45%">
-</div>
-<center>http://tcpschool.com/java/java_api_wrapper</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/java-wrapper-class-02.png" width="45%">
+  </div>
+  <center>http://tcpschool.com/java/java_api_wrapper</center>
 </div>
 
 JDK 1.5 버전부터 박싱과 언박싱이 필요하면 컴파일러가 자동으로 수행한다. 이를 `오토 박싱(auto boxing)`, `오토 언박싱(auto unboxing)`이라고 한다. 간단한 예제 코드를 살펴보자. 아래 코드는 박싱과 언박싱을 코드에서 직접 수행하는 방식이다.
@@ -194,7 +195,7 @@ null 값을 가지는 래퍼 클래스 객체와 기본형(primitive type) 값�
 
 ## 4. 래퍼 클래스는 왜 필요한가?
 
-이유를 찾기 위해 관련된 내용을 찾아보고 고민도 해 보았다. 아래와 같은 몇 가지 이유로 추려진다.
+이유를 찾기 위해 관련된 내용을 찾아보고 고민도 해 봤다. 아래와 같은 몇 가지 이유로 추려진다.
 
 - List, Map 같은 Collection은 객체만 담을 수 있다.
 - 자바 제네릭스(Generics) 기능을 사용하려면 클래스를 명시해야 한다.

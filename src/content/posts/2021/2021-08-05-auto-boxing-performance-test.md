@@ -5,6 +5,7 @@ updatedAt: "2026-05-07T23:47:39+09:00"
 canonicalPath: "/java/auto-boxing-performance-test/"
 categories:
   - "java"
+summary: "VisualVM과 Visual GC 플러그인으로 오토 박싱이 일어나는 코드와 그렇지 않은 코드의 가비지 컬렉션 발생을 비교하며 성능 이슈를 확인했다."
 recommendedPosts:
   - title: "자바 래퍼 클래스(Java Wrapper Class)"
     href: "https://junhyunny.github.io/java/java-wrapper-class/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-성능 분석을 위해 [VisualVM][visualvm-link] 모니터링 툴(tool)을 사용했다. `VisualVM`에 `Visual GC` 플러그인(plugin)을 설치하여 가비지 컬렉션(Garbage Collection, GC)도 확인해 보았다.
+성능 분석을 위해 [VisualVM][visualvm-link] 모니터링 툴(tool)을 사용했다. `VisualVM`에 `Visual GC` 플러그인(plugin)을 설치하여 가비지 컬렉션(Garbage Collection, GC)도 확인해 봤다.
 
 ## 1. Test with auto boxing
 
@@ -87,7 +88,7 @@ public final class MikeTyson implements Runnable {
 }
 ```
 
-위에서 실행한 프로세스를 약 11분 동안 모니터링하였다. CPU/Heap 메모리 사용률에서 다음과 같은 결과를 확인할 수 있다.
+위에서 실행한 프로세스를 약 11분 동안 모니터링했다. CPU/Heap 메모리 사용률에서 다음과 같은 결과를 확인할 수 있다.
 
 - CPU 사용률은 크게 특이 사항이 없다.
 - Heap 메모리 사용률을 보면 3300MB의 75% 수준인 2500MB까지 높아졌다가 떨어지는 현상이 반복된다. Heap 사용률이 떨어지는 것은 GC(Garbage Collection, 가비지 컬렉션)가 발생했기 때문이다.
@@ -173,7 +174,7 @@ public final class MikeTyson implements Runnable {
 }
 ```
 
-오토 박싱 테스트와 동일하게 11분 동안 모니터링하였다. CPU/Heap 메모리 사용률에서 다음과 같은 결과를 확인할 수 있다.
+오토 박싱 테스트와 동일하게 11분 동안 모니터링했다. CPU/Heap 메모리 사용률에서 다음과 같은 결과를 확인할 수 있다.
 
 - 원인은 불명이지만, CPU 사용률이 크게 감소하는 지점이 있었다.
 - Heap 메모리 사용률을 보면 3700MB의 33% 수준인 1250MB까지 높아졌다가 감소한다.

@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "JPA 엔티티가 영속화되기 전에 실행되는 @PrePersist, @PreUpdate의 쓰임새를 설명하고, 생성 시점과 수정 시점 필드를 자동으로 채우는 예제를 테스트했다."
 ---
 
 ## 1. @PrePersist and @PreUpdate Annotations
@@ -16,7 +17,7 @@ categories:
 - JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/pre-persist-pre-update-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/pre-persist-pre-update-01.png" width="100%" class="image__border">
 </div>
 
 @PreUpdate 애너테이션은 언제 실행될까?
@@ -24,14 +25,14 @@ categories:
 - 영속 상태인 엔티티의 변경 사항이 데이터베이스에 반영되는 시점 이전에 실행된다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/pre-persist-pre-update-02.png" width="80%" class="image__border">
-  </div>
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/pre-persist-pre-update-02.png" width="100%" class="image__border">
+</div>
 
 ## 2. Usage
 
 두 애너테이션을 추가한 메서드는 엔티티가 데이터베이스에 영속화 되기 전에 실행된다. 다음과 같은 작업을 수행할 수 있다.
 
-- 데이터 무결성을 보장하기 위해 특정 엔티티 필드의 값이 조건을 만족하지 못 하는 경우 예외를 발생시킬 수 있다.
+- 데이터 무결성을 보장하기 위해 특정 엔티티 필드의 값이 조건을 만족하지 못하는 경우 예외를 발생시킬 수 있다.
 - 엔티티의 필드 값을 암호화하거나 사용자의 권한을 확인하는 작업을 수행할 수 있다.
 - 엔티티 필드 값이 변경될 때마다 이를 일관성 있게 처리하거나 데이터를 검증할 수 있다.
 
@@ -46,7 +47,7 @@ categories:
 
 ### 3.1. BaseEntity Class
 
-두 필드를 모든 JPA 엔티티에 포함시키고 싶은 경우 @MappedSuperclass 애너테이션과 함께 활용한다. 먼저 부모 클래스를 만들고 모든 엔티티들이 이를 상속 받도록 만든다. @MappedSuperclass 애너테이션을 사용하면 부모 클래스의 위치한 필드를 테이블의 컬럼으로 매핑할 수 있다.
+두 필드를 모든 JPA 엔티티에 포함시키고 싶은 경우 @MappedSuperclass 애너테이션과 함께 활용한다. 먼저 부모 클래스를 만들고 모든 엔티티들이 이를 상속 받도록 만든다. @MappedSuperclass 애너테이션을 사용하면 부모 클래스에 위치한 필드를 테이블의 컬럼으로 매핑할 수 있다.
 
 1. createAt 필드  
   - 업데이트 시 변경되지 않도록 updatable 속성을 false 값으로 설정한다.
@@ -241,7 +242,7 @@ public class PrePersistTest {
 }
 ```
 
-다음은 @PreUpdate 애너테이션의 동작을 확인해보자. @PreUpdate 시점엔 updatedAt 필드만 최신화하므로 updateAt 필드가 createAt 필드보다 값이 크다. 이를 테스트 코드에서 확인한다.
+다음은 @PreUpdate 애너테이션의 동작을 확인해보자. @PreUpdate 시점엔 updatedAt 필드만 최신화하므로 updatedAt 필드가 createAt 필드보다 값이 크다. 이를 테스트 코드에서 확인한다.
 
 1. Given
   - 시간 차이를 확실히 만들기 위해 100ms 뒤에 테스트를 실행한다.

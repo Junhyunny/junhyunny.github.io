@@ -7,15 +7,16 @@ categories:
   - "spring-boot"
   - "jpa"
   - "junit"
+summary: "@Version 애너테이션이 있는 엔티티로 findBy 메서드를 조회할 때 발생한 TransientObjectException을 재현하고, 버전 값으로 저장 여부를 판단하는 원인을 분석했다."
 ---
 
 ## 0. 들어가면서
 
-`spring-data-jpa` 의존성을 사용하면 메서드 이름 규칙에 따라 쿼리를 생성해 주는 JpaRepository 인터페이스의 기능을 즐겨 사용한다. Optimistic lock 기능을 사용하기 위해 `@Version` 애너테이션을 추가하면서 예기치 않게 만난 에러를 정리하였다. [이전에 작성한 @Version 애너테이션 에러와 관련된 글][version-annotation-link]은 추가(insert) 기능과 관련된 내용이었다면 이번에는 조회(find) 기능에 대한 내용이다.
+`spring-data-jpa` 의존성을 사용하면 메서드 이름 규칙에 따라 쿼리를 생성해 주는 JpaRepository 인터페이스의 기능을 즐겨 사용한다. Optimistic lock 기능을 사용하기 위해 `@Version` 애너테이션을 추가하면서 예기치 않게 만난 에러를 정리했다. [이전에 작성한 @Version 애너테이션 에러와 관련된 글][version-annotation-link]은 추가(insert) 기능과 관련된 내용이었다면 이번에는 조회(find) 기능에 대한 내용이다.
 
 ## 1. TransientObjectException 발생
 
-단순한 조회에서 아래와 같은 에러가 발생하였다.
+단순한 조회에서 아래와 같은 에러가 발생했다.
 
 ```
 org.springframework.dao.InvalidDataAccessApiUsageException: org.hibernate.TransientObjectException: object references an unsaved transient instance - save the transient instance before flushing: blog.in.action.findby.ParentEntity; nested exception is java.lang.IllegalStateException: org.hibernate.TransientObjectException: object references an unsaved transient instance - save the transient instance before flushing: blog.in.action.findby.ParentEntity
@@ -39,11 +40,11 @@ org.springframework.dao.InvalidDataAccessApiUsageException: org.hibernate.Transi
 - blog.in.action.findby.ParentEntity
   - 문제가 된 객체 클래스는 `ParentEntity`이다.
 
-[이전 글][version-annotation-link]에서도 유사한 에러 로그를 보았기 때문에 `@Version` 애너테이션이 문제가 되는 것임을 직감하였다. 테스트 코드로 비슷한 상황을 연출하고 해결 방법을 정리해 보았다.
+[이전 글][version-annotation-link]에서도 유사한 에러 로그를 봤기 때문에 `@Version` 애너테이션이 문제가 되는 것임을 직감했다. 테스트 코드로 비슷한 상황을 연출하고 해결 방법을 정리해 봤다.
 
 ## 2. 테스트 코드
 
-에러 상황을 재현해 본다. 먼저 ParentEntity 클래스 코드를 살펴보자.
+에러 상황을 재현한다. 먼저 ParentEntity 클래스 코드를 살펴보자.
 
 - ChildEntity 클래스와 1:1 연관 관계를 가지는 ParentEntity 클래스를 생성한다.
 - 테스트 데이터를 쉽게 생성하기 위해 `CascadeType.ALL` 모드로 ChildEntity 클래스와 관계를 맺는다.
@@ -156,7 +157,7 @@ interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
 
 ## 3. 원인 분석
 
-에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행하였기 때문이다. 분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는 데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각된다. 에러가 발생한 콜 스택(call stack)을 추적해 보면 AbstractEntityPersister 클래스의 isTransient 메서드에서 버전 관리 여부에 따라 임시 객체 판단이 이루어지는 것을 확인할 수 있다.
+에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행했기 때문이다. 분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는 데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각된다. 에러가 발생한 콜 스택(call stack)을 추적해 보면 AbstractEntityPersister 클래스의 isTransient 메서드에서 버전 관리 여부에 따라 임시 객체 판단이 이루어지는 것을 확인할 수 있다.
 
 - this.isVersioned() 메서드를 통해 버전 관리가 되는 엔티티인지 확인한다.
 - 버전 관리가 되는 엔티티는 버전 값의 존재 여부를 추가로 확인한다.

@@ -5,6 +5,7 @@ updatedAt: "2026-05-07T20:56:01+09:00"
 canonicalPath: "/information/web-socket/"
 categories:
   - "information"
+summary: "TCP 기반 전이중 통신을 제공하는 웹소켓의 개념과 HTTP를 이용한 핸드셰이크 과정에서 주고받는 주요 헤더를 정리했다."
 recommendedPosts:
   - title: "웹소켓(WebSocket)을 사용한 메시지 실시간 동기화 예제"
     href: "https://junhyunny.github.io/spring-boot/web-socket-example/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 1. WebSocket
 
-웹소켓은 TCP 기반 전이중 통신(full-duplex communication)을 제공하며, [RFC 6455][RFC-6455] 문서에 관련 규격이 작성되어 있다. [RFC 6455][RFC-6455] 문서를 간단하게 살펴보자. 웹소켓(WebSocket) 등장 이전에 실시간 데이터를 확인하고 싶은 경우 클라이언트는 짧은 주기로 서버에 데이터를 요청하였다. 이를 `HTTP 폴링(polling)` 방식이라고 하는데, 다음과 같은 문제가 있다.
+웹소켓은 TCP 기반 전이중 통신(full-duplex communication)을 제공하며, [RFC 6455][RFC-6455] 문서에 관련 규격이 작성되어 있다. [RFC 6455][RFC-6455] 문서를 간단하게 살펴보자. 웹소켓(WebSocket) 등장 이전에 실시간 데이터를 확인하고 싶은 경우 클라이언트는 짧은 주기로 서버에 데이터를 요청했다. 이를 `HTTP 폴링(polling)` 방식이라고 하는데, 다음과 같은 문제가 있다.
 
 - 서버는 클라이언트가 보내는 요청마다 TCP 연결(connection)을 수행하므로 많은 수의 연결이 필요하다.
 - 모든 클라이언트-서버 통신 메시지에 HTTP 헤더(header) 데이터가 필요하다.
@@ -29,22 +30,22 @@ HTTP 폴링과 웹소켓의 차이점을 비교해 보자.
 | 연결 종료 | 요청과 응답이 끝나면 연결이 종료된다. | 서버와 클라이언트 모두 연결을 종료할 수 있다. |
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-01.png" width="80%">
-</div>
-<center>https://www.programmersought.com/article/55824983394/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-01.png" width="100%">
+  </div>
+  <center>https://www.programmersought.com/article/55824983394/</center>
 </div>
 
 [Can I Use](https://caniuse.com/?search=websocket) 사이트에서 웹소켓 API를 사용할 수 있는 브라우저를 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-02.png" width="80%">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/web-socket-02.png" width="100%">
 </div>
 <center>https://caniuse.com/?search=websocket</center>
 
 ## 2. WebSocket Handshake
 
-웹소켓 연결 요청인 핸드셰이크(handshake) 과정에서 서버와 주고받는 정보를 확인해 보겠다. 핸드셰이크 과정은 HTTP 통신을 이용하며 주고받은 데이터에서 중요한 정보만 확인해 보자. 요청 정보에는 다음과 같은 헤더가 필요하다.
+웹소켓 연결 요청인 핸드셰이크(handshake) 과정에서 서버와 주고받는 정보 중 중요한 것만 확인해 보자. 핸드셰이크 과정은 HTTP 통신을 이용한다. 요청 정보에는 다음과 같은 헤더가 필요하다.
 
 - `Connection: Upgrade`
   - 연결을 지속할 것인지 여부를 전달, 프로토콜 변경을 위해서는 `Upgrade` 정보 필수 포함

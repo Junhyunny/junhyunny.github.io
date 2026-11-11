@@ -5,6 +5,7 @@ updatedAt: "2026-04-25T23:19:05+09:00"
 canonicalPath: "/spring-boot/cannot-find-static-resource/"
 categories:
   - "spring-boot"
+summary: "jar로 실행한 스프링 부트 애플리케이션이 새로 생성한 이미지를 찾지 못하는 문제의 원인을 분석하고, 파일 시스템 경로를 리소스 위치로 지정해 해결했다."
 recommendedPosts:
   - title: "jar 파일 실행 시 리소스 읽기 오류"
     href: "https://junhyunny.github.io/java/spring-boot/when-run-jar-then-fail-to-read-resource/"
@@ -51,13 +52,13 @@ java.io.FileNotFoundException: file:/Users/junhyunkang/Desktop/workspace/blog/bl
 
 jar 파일은 zip 파일처럼 압축된 파일이기 때문에 내부에 새로운 파일을 직접 만들 수 없다. IDE 환경에서 실행한 애플리케이션이 정상적으로 동작하는 이유는 빌드한 결과물이 jar 파일로 패키징 되어 있지 않고 target 폴더에 풀어져 있기 때문이다. 
 
-- IDE 환경에서 애플리케이션 실행시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드된다.
+- IDE 환경에서 애플리케이션 실행 시 target 폴더 하위 클래스패스 /static/images 디렉토리에 이미지가 정상적으로 업로드된다.
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cannot-find-static-resource-01.png" width="50%" class="image__border">
 </div>
 
-같은 원리로 war 파일로 패키징한 애플리케이션을 톰캣(tomcat) 서블릿 컨테이너의 wepapp 폴더에 배포하는 방식이라면 에러가 발생하지 않는다. 톰캣 서버는 war 패키징 파일을 폴더 형태로 파일 시스템에 풀어서 서빙(serving)하기 때문이다. 
+같은 원리로 war 파일로 패키징한 애플리케이션을 톰캣(tomcat) 서블릿 컨테이너의 webapp 폴더에 배포하는 방식이라면 에러가 발생하지 않는다. 톰캣 서버는 war 패키징 파일을 폴더 형태로 파일 시스템에 풀어서 서빙(serving)하기 때문이다. 
 
 ## 3. Solve the problem
 
@@ -99,8 +100,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 이해를 돕기 위해 간단한 예시 코드를 만들어봤다. 먼저 application.yml 파일 설정은 다음과 같다.
 
-1. 정적 이미지 경로의 접미사를 `/static`으로 지정한다.
-  - 해당 설정을 통해 HTTP 요청 경로가 `/static`으로 시작하는 경우 클래스패스의 /static 디렉토리를 탐색한다.
+1. 정적 이미지 경로의 접두사를 `/static`으로 지정한다. 해당 설정을 통해 HTTP 요청 경로가 `/static`으로 시작하는 경우 클래스패스의 /static 디렉토리를 탐색한다.
 2. 타임리프(thymeleaf) 템플릿 파일 경로를 지정한다.
 
 ```yml
@@ -117,7 +117,7 @@ spring:
 
 다음 브라우저에서 이미지를 렌더링하는 웹 페이지인 image HTML 파일을 살펴보자. 
 
-1. 클래스패스 /static/images 경로에 미리 저장된 이미지를 조회를 요청한다. 
+1. 클래스패스 /static/images 경로에 미리 저장된 이미지 조회를 요청한다. 
 2. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.
   - 클래스패스 /static/images 디렉토리에 이미지를 저장한다.
 3. 특정 문자열에 대한 바코드 이미지 생성을 요청한다.

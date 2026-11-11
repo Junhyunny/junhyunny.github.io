@@ -6,6 +6,7 @@ canonicalPath: "/information/linux/maria-db-add-host/"
 categories:
   - "information"
   - "linux"
+summary: "MariaDB에 사용자와 접근 허용 호스트를 등록하고, 127.0.0.1에만 바인딩되어 외부에서 접속할 수 없던 문제를 해결한 방법을 정리했다."
 recommendedPosts:
   - title: "리눅스(Linux) MariaDB 설치하기"
     href: "https://junhyunny.github.io/information/linux/maria-db-install/"

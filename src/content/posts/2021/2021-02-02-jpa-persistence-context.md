@@ -57,13 +57,13 @@ EntityManager는 호출되는 메서드에 따라 엔티티 객체의 생명주�
 - 각 상태에서 다른 상태로 이동하기 위한 EntityManager의 메서드가 표시되어 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-02.png" width="60%" class="image__border">
-</div>
-<center>https://gunlog.dev/JPA-Persistence-Context/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-persistence-context-02.png" width="60%" class="image__border">
+  </div>
+  <center>https://gunlog.dev/JPA-Persistence-Context/</center>
 </div>
 
-지금부터 JPA에서 말하는 엔티티의 상태와 EntityManager의 메서드를 호출에 따라 엔티티 상태가 어떻게 변경되는지 살펴보자. 먼저 비영속(new/transient) 상태를 살펴보자.
+지금부터 JPA에서 말하는 엔티티의 상태와 EntityManager의 메서드 호출에 따라 엔티티 상태가 어떻게 변경되는지 살펴보자. 먼저 비영속(new/transient) 상태를 살펴보자.
 
 - 엔티티 객체를 새로 생성한 상태이다.
 - 애플리케이션 메모리에만 존재하는 상태이며 EntityManager에 의해 별도로 관리되지 않는다. 
@@ -187,7 +187,7 @@ Hibernate: insert into tb_member (name, id) values (?, ?)
 Hibernate: select member0_.id as id1_0_0_, member0_.name as name2_0_0_ from tb_member member0_ where member0_.id=?
 ```
 
-다음은 `detach` 메서드를 테스트해본다. 두 가지를 테스트한다.
+다음은 `detach` 메서드를 테스트해보자. 두 가지를 테스트한다.
 
 - 준영속 상태 엔티티를 변경하면 데이터베이스에 반영되는가?
 - 준영속 상태 엔티티를 제거(remove)하면 무슨 현상이 발생하는가?

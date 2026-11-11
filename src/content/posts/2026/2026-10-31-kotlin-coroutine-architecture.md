@@ -31,10 +31,10 @@ JVM 환경에서 코루틴을 비롯한 모든 동시성 코드는 운영체제�
 - 예를 들면, 하나의 코루틴이 데이터가 도착하기를 기다리는 동안 실행을 일시 중단하고, 다른 코루틴이 동일한 스레드에서 실행될 수 있다. 
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/kotlin-coroutine-architecture-01.svg" width="100%" class="image__border">
-</div>
-<center>https://kotlinlang.org/docs/coroutines-basics.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/kotlin-coroutine-architecture-01.svg" width="100%" class="image__border">
+  </div>
+  <center>https://kotlinlang.org/docs/coroutines-basics.html</center>
 </div>
 
 코루틴은 JVM에서 스레드와 마찬가지로 코드를 동시에 실행할 수 있는 일시 중단 가능한 연산 단위이지만, 내부적으로 동작하는 방식에 차이가 있다. 둘 사이에는 어떤 차이점이 있을까?

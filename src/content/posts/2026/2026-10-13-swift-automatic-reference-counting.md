@@ -128,7 +128,7 @@ let traveler1 = Traveler(name: "Lily")
 retain
 ```
 
-이후 retain 연산이 수행되고, Traveler(name: "Lily") 인스턴스의 참조 카운트는 1이 된다. 그 다음 같은 객체를 다른 변수(traveler2)에 대입한다. 객체의 참조 카운트가 늘어나므로 retain 연산이 수행될 것 같지만, 예제에서는 release 연산이 실행된다.
+이후 retain 연산이 수행되고, Traveler(name: "Lily") 인스턴스의 참조 카운트는 1이 된다. 그다음 같은 객체를 다른 변수(traveler2)에 대입한다. 객체의 참조 카운트가 늘어나므로 retain 연산이 수행될 것 같지만, 예제에서는 release 연산이 실행된다.
 
 ```swift
 let traveler2 = traveler1
@@ -147,7 +147,7 @@ traveler1 ───┐
 traveler2 ───┘
 ```
 
-다만 이 코드가 traveler1 변수의 마지막 사용 시점이라는 것이 중요하다. 컴파일러는 traveler1의 강한 참조를 더 유지할 필요가 없다고 판단하고 release 연산으로 참조 카운트를 감소시킨다. 컴파일러는 변수가 더 이상 필요하지 않다고 판단하면 release 연산을 실행 추가하게 된다. **객체의 참조 카운트가 코드 블록의 끝까지 반드시 유지되는 것은 아니다.**
+다만 이 코드가 traveler1 변수의 마지막 사용 시점이라는 것이 중요하다. 컴파일러는 traveler1의 강한 참조를 더 유지할 필요가 없다고 판단하고 release 연산으로 참조 카운트를 감소시킨다. 컴파일러는 변수가 더 이상 필요하지 않다고 판단하면 release 연산을 추가하게 된다. **객체의 참조 카운트가 코드 블록의 끝까지 반드시 유지되는 것은 아니다.**
 
 다음 traveler2 변수를 통해 Traveler 인스턴스의 destination 프로퍼티를 변경한다. 이후 traveler2 변수의 강한 참조도 release 처리된다. 이 코드가 traveler2 변수의 마지막 사용 지점이므로 함수 블록의 끝까지 기다리지 않고 참조 카운트를 줄일 수 있다.
 
@@ -176,7 +176,7 @@ $ swiftc -emit-sil -Onone action-in-blog.swift
 
 연산이 추가된 위치는 앞선 설명과 조금 다르지만, retain 연산 1회와 release 연산 2회가 수행되는 것은 동일하다.
 
-- `%20`는 Traveler 객체를 가리키는 SIL 값이다. traveler1과 traveler2의 debug_value가 모두 `%20`을 사용하므로 객체가 복사된 것이 아니라 같은 객체에 대한 강한 참조가 하나 늘어난 것을 볼 수 있다.
+- `%20`은 Traveler 객체를 가리키는 SIL 값이다. traveler1과 traveler2의 debug_value가 모두 `%20`을 사용하므로 객체가 복사된 것이 아니라 같은 객체에 대한 강한 참조가 하나 늘어난 것을 볼 수 있다.
 - `%20`에 대한 strong_retain 연산은 1회, strong_release 연산은 2회 수행된다.
 
 ```

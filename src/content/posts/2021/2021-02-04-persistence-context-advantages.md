@@ -22,7 +22,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-이번 글에서는 `EntityManager`와 영속성 컨텍스트의 특징들로 인해 생기는 장점들에 대해 정리하였다. 
+이번 글에서는 `EntityManager`와 영속성 컨텍스트의 특징들로 인해 생기는 장점들에 대해 정리했다. 
 
 ## 1. 1차 캐싱(Caching)
 
@@ -39,10 +39,10 @@ recommendedPosts:
 2. 캐싱된 엔티티가 있으므로 이를 반환한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-01.png" width="80%" class="image__border">
-</div>
-<center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-01.png" width="80%" class="image__border">
+  </div>
+  <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>
 
 캐싱된 엔티티가 아닌 경우엔 다음과 같은 과정을 통해 엔티티를 찾는다.
@@ -53,10 +53,10 @@ recommendedPosts:
 4. 신규 엔티티를 반환한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-02.png" width="80%" class="image__border">
-</div>
-<center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-02.png" width="80%" class="image__border">
+  </div>
+  <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>
 
 실제로 1차 캐싱이 잘 동작하는지 테스트를 통해 확인해보자. 동일한 식별자를 가진 엔티티를 두 번 조회했을 때 같은 객체인지 주소와 참조 값 비교를 통해 확인한다.
@@ -151,13 +151,13 @@ EntityManager는 커밋(commit) 직전까지 `insert`, `update`, `delete` 쿼리
 5. 커밋 수행 시 쓰기 지연 SQL 저장소에 담긴 쿼리들을 데이터베이스로 전달하여 데이터를 저장한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-04.png" width="100%" class="image__border">
-</div>
-<center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-04.png" width="100%" class="image__border">
+  </div>
+  <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>
 
-1차 캐싱과 동일하게 테스트 코드를 작성한다. 검증(assert) 방법은 애매하기 때문에 로그를 통해 결과를 확인하였다. `before commit` 로그와 `after commit` 로그 사이에 `insert` 쿼리가 2회 실행되는 것을 확인한다.
+1차 캐싱과 동일하게 테스트 코드를 작성한다. 검증(assert) 방법은 애매하기 때문에 로그를 통해 결과를 확인했다. `before commit` 로그와 `after commit` 로그 사이에 `insert` 쿼리가 2회 실행되는 것을 확인한다.
 
 ```java
 package blog.in.action.advantages;
@@ -232,10 +232,10 @@ EntityManager가 관리 중인 엔티티의 상태가 변경되면, 트랜잭션
 4. 쓰기 지연 SQL에 저장된 쿼리들을 데이터베이스로 전달하여 데이터를 저장한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-05.png" width="80%" class="image__border">
-</div>
-<center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/persistence-context-advantages-05.png" width="80%" class="image__border">
+  </div>
+  <center>conatuseus님 블로그 - [JPA] 영속성 컨텍스트 #2</center>
 </div>
 
 아래 테스트 코드를 통해 변경 감지가 잘 수행되는지 확인한다.

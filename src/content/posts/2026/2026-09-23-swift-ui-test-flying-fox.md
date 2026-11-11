@@ -153,7 +153,7 @@ func withMockServer(
             print("HTTP Server is failed to start")
         }
     }
-    try? await server.waitUntilListening() // FlygingFox HTTP 서버가 실행되는 것을 대기
+    try? await server.waitUntilListening() // FlyingFox HTTP 서버가 실행되는 것을 대기
     guard let address = await server.listeningAddress else { // 실행 중인 HTTP 서버의 주소를 획득, 포트 번호가 랜덤이기 때문에 포트 정보를 추출하기 위해 사용
         throw MockServerError.notFoundAddress
     }

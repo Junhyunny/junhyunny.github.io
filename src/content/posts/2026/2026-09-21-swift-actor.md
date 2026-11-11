@@ -11,7 +11,7 @@ categories:
   - "asynchronous-task"
 recommendedPosts:
   - title: "스위프트 비동기 처리 아키텍처(Swift Asynchronous Task)"
-    href: "https://junhyunny.github.io/swift/asnyc-await/task/executor/thread/swift-asynchronous-task-architecture/"
+    href: "https://junhyunny.github.io/swift/async-await/task/executor/thread/swift-asynchronous-task-architecture/"
 ---
 
 ## 0. 들어가면서
@@ -371,4 +371,4 @@ func foo() { }
 - <https://docs.swift.org/latest/documentation/the-swift-programming-language/concurrency/>
 - <https://docs.swift.org/latest/documentation/diagnostics/actor-isolated-call>
 
-[swift-asynchronous-task-architecture-link]: https://junhyunny.github.io/swift/asnyc-await/task/executor/thread/swift-asynchronous-task-architecture/
+[swift-asynchronous-task-architecture-link]: https://junhyunny.github.io/swift/async-await/task/executor/thread/swift-asynchronous-task-architecture/

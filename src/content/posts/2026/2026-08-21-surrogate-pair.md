@@ -116,10 +116,10 @@ s.slice(0, 1); // D83D DE00 중 D83D 만 잘라서 사용하는 케이스
 위 예시처럼 서로게이트 페어로 표현된 문자열의 UTF-16 코드 유닛 기준 길이가 2라는 점을 고려하지 않은 코드가 원인이었다. 한국어와 영어를 주로 사용하는 내게는 미처 고려하지 못했던 오류였다. react-pdf 라이브러리에서 서로게이트 페어가 제대로 처리되지 않으면 아래 이미지의 왼쪽 영역처럼 문자가 비정상적으로 깨져 보인다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/surrogate-pair-01.png" width="100%" class="image__border">
-</div>
-<center>https://github.com/diegomura/react-pdf/pull/3423</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2026/main/surrogate-pair-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/diegomura/react-pdf/pull/3423</center>
 </div>
 
 이 문제는 [PR #3423](https://github.com/diegomura/react-pdf/pull/3423)에서 해결됐다. 이전 코드와 개선된 코드를 비교해 보자. 먼저 문제가 있었던 기존 코드는 `for` 루프의 인덱스를 통해 문자를 하나씩 탐색하면서 유니코드를 처리했다. 문제가 발생하는 지점은 주석으로 표시했다.

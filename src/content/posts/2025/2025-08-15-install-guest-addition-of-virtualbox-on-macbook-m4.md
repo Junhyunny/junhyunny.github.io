@@ -17,7 +17,7 @@ categories:
 
 ## 1. Guest addition on VirtualBox
 
-VirtualBox의 게스트 확장 기능(guest addition)은 가상 머신 속 게스트 OS에 설치하는 드라이버와 유티리티 모음이다. 목적은 게스트 OS와 호스트 OS 간의 통합성을 높이고, 가상 머신을 더 자연스럽게 사용할 수 있도록 하기 위함이다.
+VirtualBox의 게스트 확장 기능(guest addition)은 가상 머신 속 게스트 OS에 설치하는 드라이버와 유틸리티 모음이다. 목적은 게스트 OS와 호스트 OS 간의 통합성을 높이고, 가상 머신을 더 자연스럽게 사용할 수 있도록 하기 위함이다.
 
 게스트 확장 기능의 주요 내용은 다음과 같다.
 
@@ -117,7 +117,7 @@ $ sudo apt-get update
 $ sudo apt-get upgrade
 ```
 
-이제 필요한 커널 헤더를 설치한다. `linux-headears-` 접두어까지만 작성 후 탭(tab) 키를 누르면 설치할 수 있는 후보 리스트를 볼 수 있다. 
+이제 필요한 커널 헤더를 설치한다. `linux-headers-` 접두어까지만 작성 후 탭(tab) 키를 누르면 설치할 수 있는 후보 리스트를 볼 수 있다. 
 
 ```
 $ sudo apt-get install linux-headers-
@@ -195,7 +195,7 @@ update-initramfs: Generating /boot/initrd.img-6.12.33-kali-arm64
 $ sudo reboot
 ```
 
-시스템이 재부팅 된 이후 가상 머신의 클립보드(clipboard)와 드래그-앤-드랍(drag-and-drop) 기능을 양방향으로 활성화한다. 화면 상단 `Devices` 메뉴에서 클립보드, 드래그-앤-드랍 기능을 모두 공유할 수 있다. `Shared Clipbaord`에서 `Bidirectional` 항목을 선택한다.
+시스템이 재부팅 된 이후 가상 머신의 클립보드(clipboard)와 드래그-앤-드랍(drag-and-drop) 기능을 양방향으로 활성화한다. 화면 상단 `Devices` 메뉴에서 클립보드, 드래그-앤-드랍 기능을 모두 공유할 수 있다. `Shared Clipboard`에서 `Bidirectional` 항목을 선택한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/install-guest-addition-of-virtualbox-on-macbook-m4-04.png" width="80%" class="image__border">

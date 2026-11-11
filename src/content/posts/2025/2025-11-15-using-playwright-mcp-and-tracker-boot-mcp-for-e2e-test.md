@@ -32,7 +32,7 @@ recommendedPosts:
 
 `User Journey as Code`라고 할 수 있다. Playwright 프레임워크를 통해 실제 사용자가 경험하는 시나리오 전체를 처음부터 끝까지 테스트하는 코드를 작성할 수 있다. Playwright 프레임워크에 작성된 코드는 브라우저를 직접 조작할 수 있기 때문에 사용자 플로우를 테스트하고, 자동화 할 수 있다.
 
-LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 수 없다. 물론 AI 에이전트도 직접 브라우저를 제어하는 것은 불가능하다. Playwright MCP 서버는 AI 에이전트가 LLM과 협업하여 브라우저를 조작할 수 있도록 도구다. 사람이 자연어로 작성한 테스트 시나리오는 AI 에이전트에 의해 수행된다. AI 에이전트는 시나리오를 테스트하기 위해 Playwright MCP 서버를 통해 브라우저 조작한다.
+LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 수 없다. 물론 AI 에이전트도 직접 브라우저를 제어하는 것은 불가능하다. Playwright MCP 서버는 AI 에이전트가 LLM과 협업하여 브라우저를 조작할 수 있도록 돕는 도구다. 사람이 자연어로 작성한 테스트 시나리오는 AI 에이전트에 의해 수행된다. AI 에이전트는 시나리오를 테스트하기 위해 Playwright MCP 서버를 통해 브라우저를 조작한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-playwright-mcp-and-tracker-boot-mcp-for-e2e-test-01.png" width="100%" class="image__border">
@@ -107,7 +107,7 @@ LLM(large language model) 같은 AI 모델은 브라우저를 직접 제어할 �
 }
 ```
 
-트래커 부트 MCP 서버를 사용할 때 필요한 API 키는 [트래커 부트(tracker boot) MCP 서버로 프롬프트 컨텍스트 공유하기](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/)를 참조하길 바란다. [이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/propmtps` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다.
+트래커 부트 MCP 서버를 사용할 때 필요한 API 키는 [트래커 부트(tracker boot) MCP 서버로 프롬프트 컨텍스트 공유하기](https://junhyunny.github.io/tracker-boot/ai-agent/large-language-model/model-context-protocol/context-engineering/using-tracker-boot-mcp-server/)를 참조하길 바란다. [이전 글](https://junhyunny.github.io/ai/ai-agent/copilot/prompt/improve-development-process-by-vibe-coding/)에서 설명했듯이 코파일럿은 프롬프트를 파일로 작성해서 재사용할 수 있다. `.github/prompts` 경로에 아래와 같은 `user-journey-test.prompt.md` 프롬프트 파일을 만들었다.
 
 ```
 ---

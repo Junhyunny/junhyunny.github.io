@@ -36,7 +36,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/ms-aad-login-thread-lock-problem-01.png" width="100%" class="image__border">
 </div>
 
-그렇다고 다른 문제가 있던 것은 아니다. ALB, 데이터베이스는 잘 동작했고, 애플리케이션 헬스 체크도 정상적으로 응답을 줬다. 서버의 리소스 사용량도 크게 문제가 되지 않은 수준이었다. 클라우드워치(cloudwatch)에도 에러 로그가 보이지 않았다. 힌트가 딱 하나 있었는데, 브라우저 주소 창에 표시된 리다이렉트 URL이 다음과 같았다.
+그렇다고 다른 문제가 있던 것은 아니다. ALB, 데이터베이스는 잘 동작했고, 애플리케이션 헬스 체크도 정상적으로 응답을 줬다. 서버의 리소스 사용량도 크게 문제가 되지 않는 수준이었다. 클라우드워치(cloudwatch)에도 에러 로그가 보이지 않았다. 힌트가 딱 하나 있었는데, 브라우저 주소 창에 표시된 리다이렉트 URL이 다음과 같았다.
 
 ```
 https://application.com/?error=[invalid_id_token]%20An%20error%20occurred%20while%20attempting%20to%20decode%20the%20Jwt:%20Timeout%20while%20waiting%20for%20cache%20refresh%20(15000ms%20exceeded)
@@ -112,12 +112,12 @@ CachingJWKSetSource 클래스의 `lock.tryLock(getCacheRefreshTimeout(), TimeUni
 
 1. 특정 스레드가 ReentrantLock 객체를 통해 락을 잡는다.
 2. 임계 영역(critical section)에 진입한 스레드가 행(hang)에 걸려 락을 해제하지 못한다.
-3. 다른 스레드들은 락을 잡기 위해 tryLock 메서드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 에외를 던진다.
+3. 다른 스레드들은 락을 잡기 위해 tryLock 메서드를 호출하고 15초 대기하지만, 락을 잡지 못하고 JWKSetUnavailableException 예외를 던진다.
 
-finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 무한 루프나 무한 대기에 빠지지 않았다면 락은 반드시 해제되어야 한다. 예전 디버깅 경험을 돌이켜보니 스프링 시큐리티는 JWT을 디코딩 할 때 내부적으로 인가 서버에게 [JWKs(Json Web Key Set)][json-web-key-link]을 요청했다. 이 원격 요청에 무엇인가 문제가 있다고 판단했다. 원격 요청을 하는 지점은 디버깅을 통해 찾아냈다.
+finally 블럭에 `lock.unlock` 코드가 위치하기 때문에 스레드가 무한 루프나 무한 대기에 빠지지 않았다면 락은 반드시 해제되어야 한다. 예전 디버깅 경험을 돌이켜보니 스프링 시큐리티는 JWT를 디코딩 할 때 내부적으로 인가 서버에게 [JWKs(Json Web Key Set)][json-web-key-link]을 요청했다. 이 원격 요청에 무엇인가 문제가 있다고 판단했다. 원격 요청을 하는 지점은 디버깅을 통해 찾아냈다.
 
 - NimbusJwtDecoder 객체는 JWT를 생성한다.
-- CachingJWKSetSource 객체는 JWT를 생성하기 위해 필요한 JWks을 획득한다.
+- CachingJWKSetSource 객체는 JWT를 생성하기 위해 필요한 JWKs을 획득한다.
 - NimbusJwtDecoder$JwkSetUriJwtDecoderBuilder$SpringJWTSource 객체는 외부 인가 서버로 JWKs을 요청한다.
 
 <div class="block-break" align="left">
@@ -155,7 +155,7 @@ public final class NimbusJwtDecoder implements JwtDecoder {
 
 1. 스레드-1이 API 호출하기 전 락을 선점한다.
 2. 스레드-1은 마이크로소프트(microsoft) 인증 서버로 API 호출을 수행하지만, 인증 서버와의 연결에 문제가 있어서 행이 걸린다.
-3. 스레드-1은 락를 해제하지 못한다.
+3. 스레드-1은 락을 해제하지 못한다.
 4. 다른 스레드들은 15초 대기 후 락을 선점하지 못해서 예외를 던지고 인증에 실패한다. 시스템 장애로 이어진다.
 
 <div class="block-break" align="center">
@@ -332,7 +332,7 @@ class JwtConfig() {
 
 ## CLOSING
 
-이 글의 내용을 요약해보자. 사용자 인증 과정에서 JWT 유효성 검사를 위해 외부 마이크로소프트 인증 서버로부터 JWKs을 받아 오는 과정에 문제가 있었다. 우리는 문제가 발생하는 지점을 특정했고, 클라이언트 타임아웃을 설정해 시스템 장애가 발생하는 것을 방지했다. 인프라 문제인지 MS 인증 서버 문제인지 정확하게 알 수는 없지만, 우리가 다루지 못하는 외부 서비스와의 연결을 주의해야 한다는 교훈을 다시끔 얻었다. 인프라 쪽에 문제가 있었는지 함께 살펴보지 못해서 아쉽다.
+이 글의 내용을 요약해보자. 사용자 인증 과정에서 JWT 유효성 검사를 위해 외부 마이크로소프트 인증 서버로부터 JWKs을 받아 오는 과정에 문제가 있었다. 우리는 문제가 발생하는 지점을 특정했고, 클라이언트 타임아웃을 설정해 시스템 장애가 발생하는 것을 방지했다. 인프라 문제인지 MS 인증 서버 문제인지 정확하게 알 수는 없지만, 우리가 다루지 못하는 외부 서비스와의 연결을 주의해야 한다는 교훈을 다시금 얻었다. 인프라 쪽에 문제가 있었는지 함께 살펴보지 못해서 아쉽다.
 
 이 팀은 나와 트러블 슈팅을 마친 후 장애 대응 프로세스 수립, 후속 조치, 그리고 포스트모템(postmortem)까지 수행했다. 최근 같이 일했던 팀 중에 가장 훌륭한 팀이다.
 

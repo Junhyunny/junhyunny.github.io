@@ -23,7 +23,7 @@ categories:
   - 내부 사용자들이 서비스를 이용할 땐 `internal.example.com` 주소로 접근한다.
   - 외부 사용자들이 서비스를 이용할 땐 `example.com` 주소로 접근한다.
 - 외부 사용자들은 외부 업체의 WAF(web application firewall)를 통해 접근한다. 
-  - 이 WAF는 호스트 주소를 `example.com`에서 `internal.example.com`로 변경한다.
+  - 이 WAF는 호스트 주소를 `example.com`에서 `internal.example.com`으로 변경한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/fix-waf-rewriting-host-problem-with-spring-security-oauth2-01.png" width="100%" class="image__border">
@@ -38,7 +38,7 @@ categories:
 인가 서버에서 사용자 인증과 인가 작업이 모두 완료된 후 브라우저를 서버로 리다이렉트 시키는 과정에서 다음과 같은 문제가 발생했다.
 
 - 사용자가 `외부 네트워크`에서 example.com 주소로 접근한 경우 인증 완료 후 `internal.example.com` 주소로 리다이렉트 되므로 접근이 막힌다.
-- 사용자가 `내부 네트워크`에서 example.com 주소로 접근한 경우 인증 완료 후 `internal.example.com` 주소로 리다이렉트 되면서 `example.com` 주소에 연결된 쿠키를 잃게 된다. 인가 코드 승인 과정에서 CSRF 공격을 방어하기 위한 state 코드 비교 로직에서 문제가 발생한다. 스프링 시큐리티는 state 코드를 세션에 저장하기 때문이다. 세션 키는 example.com 도메인 쿠기에 담겨 있다.
+- 사용자가 `내부 네트워크`에서 example.com 주소로 접근한 경우 인증 완료 후 `internal.example.com` 주소로 리다이렉트 되면서 `example.com` 주소에 연결된 쿠키를 잃게 된다. 인가 코드 승인 과정에서 CSRF 공격을 방어하기 위한 state 코드 비교 로직에서 문제가 발생한다. 스프링 시큐리티는 state 코드를 세션에 저장하기 때문이다. 세션 키는 example.com 도메인 쿠키에 담겨 있다.
 
 ## 2. Solve the problem
 

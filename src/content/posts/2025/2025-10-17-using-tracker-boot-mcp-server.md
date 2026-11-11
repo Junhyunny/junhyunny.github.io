@@ -32,7 +32,7 @@ MCP(model context protocol)나 MCP 서버에 대한 개념이 부족하다면, [
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-01.png" width="100%" class="image__border">
 </div>
 
-PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 착수할 수 있는 상태인지 등의 검토가 되지 않은 상태다. IPM(iteration planning meeting), Pre-IPM 같은 활동을 통해 스토리를 검증하고, 구현 복잡도를 고려해 스토리에 점수를 매긴다. 점수가 매겨진 사용자 스토리는 아이스 박스에서 백로그(backlog)으로 옮긴 후 개발에 착수한다.
+PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 착수할 수 있는 상태인지 등의 검토가 되지 않은 상태다. IPM(iteration planning meeting), Pre-IPM 같은 활동을 통해 스토리를 검증하고, 구현 복잡도를 고려해 스토리에 점수를 매긴다. 점수가 매겨진 사용자 스토리는 아이스 박스에서 백로그(backlog)로 옮긴 후 개발에 착수한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-02.png" width="100%" class="image__border">
@@ -58,7 +58,7 @@ PM, 디자이너들이 작성한 스토리는 기술적 검증이나 개발에 �
 - 사용 가능한 도구 - 모델이 호출할 수 있는 함수, 내장 툴들의 정의 (e.g. check_inventory, send_email 등)
 - 구조화 된 출력 - 모델이 따라야 할 응답 형식 정의 (e.g. JSON)
 
-[이전 글][improve-development-process-by-vibe-coding-link]에서 이야기했지만, AI가 만드는 작업 결과물은 매우 크다. 한번에 많은 내용을 검토하는 일은 개발자의 피로도를 높이고, 놓치는 부분이 많아질 확률이 커진다. 한 번의 프롬프트(prompt)로 실행할 작업의 크기를 의미있는 결과를 얻을 수 있지만, 너무 크지 않도록 최대한 작게 분리헀다. 하나의 사용자 스토리를 개발한다면 여러 개의 프롬프트들을 실행한다. 
+[이전 글][improve-development-process-by-vibe-coding-link]에서 이야기했지만, AI가 만드는 작업 결과물은 매우 크다. 한 번에 많은 내용을 검토하는 일은 개발자의 피로도를 높이고, 놓치는 부분이 많아질 확률이 커진다. 한 번의 프롬프트(prompt)로 실행할 작업의 크기를 의미있는 결과를 얻을 수 있지만, 너무 크지 않도록 최대한 작게 분리했다. 하나의 사용자 스토리를 개발한다면 여러 개의 프롬프트들을 실행한다. 
 
 예를 들어, 사용자 스토리를 개발할 때 다음과 같은 태스크(task)들을 실행한다고 가정해보자. 각 태스크에 매칭되는 프롬프트 파일을 만들어 사용한다.
 
@@ -119,7 +119,7 @@ logs:
 
 우선 MCP 서버 셋팅이 필요하다. 인텔리제이 코파일럿 플러그인을 기준으로 설명한다. VSCode에서 연결하고 싶다면, [이 글](https://junhyunny.github.io/ai/ai-agent/figma-mcp/mcp-server/copilot/prompt/using-figma-mcp-server/#21-vscode-copilot)을 참고하길 바란다. 
 
-- 인텔리제이에서 `CMD + ,(comma)`을 단축키로 설정 화면을 연다. 
+- 인텔리제이에서 `CMD + ,(comma)` 단축키로 설정 화면을 연다. 
 - 코파일럿 MCP 설정(configure) 버튼을 누른다.
 
 <div class="block-break" align="center">
@@ -295,7 +295,7 @@ description: 사용자 스토리를 태스크로 분리하는 프롬프트
 사용자의 수정 사항이 있다면 이를 반영 후 태스크로 생성한다.
 ```
 
-AI는 프롬프트의 내용을 이해하기 때문에 필요한 도구를 직접적으로 명시할 필요는 없다. AI는 도구 이름이 없더라도 스스로 판단 후 사용한다. 하지만, 매번 정확하게 동작하지 않기 때문에 프롬프트에 직접 명시하는 편이 사용하기 원할하다. 위 프롬프트를 실행하면 해당 스토리를 조회한다. 이후 해당 스토리를 구현할 때 필요한 태스크들을 정리 후 트래커 부트 서비스에 생성한다. 
+AI는 프롬프트의 내용을 이해하기 때문에 필요한 도구를 직접적으로 명시할 필요는 없다. AI는 도구 이름이 없더라도 스스로 판단 후 사용한다. 하지만, 매번 정확하게 동작하지 않기 때문에 프롬프트에 직접 명시하는 편이 사용하기 원활하다. 위 프롬프트를 실행하면 해당 스토리를 조회한다. 이후 해당 스토리를 구현할 때 필요한 태스크들을 정리 후 트래커 부트 서비스에 생성한다. 
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-08.gif" width="100%" class="image__border">
@@ -347,7 +347,7 @@ description: 프론트엔드 테스트 코드를 작성하는 프롬프트
 - 100자 이내로 요약된 작업 내용
 ```
 
-테스트 코드를 작성하기 전에 스토리 정보, 현재 완료되지 않은 태스크 리스트, 코멘트 리스트를 조회한다. 스토리의 승인 기준(acceptance criteria)나 코멘트에 작성된 이전 활동(activity) 리스트는 AI 에이전트를 위한 컨텍스트가 된다.
+테스트 코드를 작성하기 전에 스토리 정보, 현재 완료되지 않은 태스크 리스트, 코멘트 리스트를 조회한다. 스토리의 승인 기준(acceptance criteria)이나 코멘트에 작성된 이전 활동(activity) 리스트는 AI 에이전트를 위한 컨텍스트가 된다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-tracker-boot-mcp-server-09.gif" width="100%" class="image__border">
@@ -417,9 +417,9 @@ description: 프론트엔드 구현 코드를 작성하는 프롬프트
 
 ## CLOSING
 
-지난 팀을 서포트하면서 처음으로 유료 AI 에이전트를 사용해 바이브 코딩(vibe coding)을 해봤다. AI 도구라곤 무료 ChatGPT 정도만 사용해 본 나로썬 매우 흥미로웠다. AI는 분명 대단한 발전이고 세상을 바꿀 힘이 있다고 생각한다. 다만, 아직까지 모든 개발 업무를 AI에게 맡기기엔 부족한 면이 많다는 인상을 받았다. 그래도 작은 단위의 작업들은 꽤 잘하는 편이기 때문에 이런 부분들을 맡겨도 좋을 것 같다.
+지난 팀을 서포트하면서 처음으로 유료 AI 에이전트를 사용해 바이브 코딩(vibe coding)을 해봤다. AI 도구라곤 무료 ChatGPT 정도만 사용해 본 나로선 매우 흥미로웠다. AI는 분명 대단한 발전이고 세상을 바꿀 힘이 있다고 생각한다. 다만, 아직까지 모든 개발 업무를 AI에게 맡기기엔 부족한 면이 많다는 인상을 받았다. 그래도 작은 단위의 작업들은 꽤 잘하는 편이기 때문에 이런 부분들을 맡겨도 좋을 것 같다.
 
-트래커 부트 MCP 서버와 AI 도구를 사용하면, 트래커 부트 서비스를 중심으로 프로젝트에 참여하는 PM, 디자이너, 개발자들의 협업이나 워크플로우를 개선할 여지가 있을 것 같다는 생각이 들었다. 종종 아이디어가 떠오르면 글로 정리해야곘다.
+트래커 부트 MCP 서버와 AI 도구를 사용하면, 트래커 부트 서비스를 중심으로 프로젝트에 참여하는 PM, 디자이너, 개발자들의 협업이나 워크플로우를 개선할 여지가 있을 것 같다는 생각이 들었다. 종종 아이디어가 떠오르면 글로 정리해야겠다.
 
 #### TEST CODE REPOSITORY
 

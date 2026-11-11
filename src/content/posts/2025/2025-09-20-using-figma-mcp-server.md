@@ -19,7 +19,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[이전 글][improve-development-process-by-vibe-coding-link]에서 테스트 코드와 구현 코드를 작성하는 프롬프트를 살펴봤다. 이번엔 피그마 MCP 서버를 사용해 디자인을 입히는 작업을 살펴보자. MCP(model context protocol)을 잘 모르거나 MCP 서버에 대한 개념이 부족하면 [이 글][mcp-and-mcp-server-link]을 참고하길 바란다.
+[이전 글][improve-development-process-by-vibe-coding-link]에서 테스트 코드와 구현 코드를 작성하는 프롬프트를 살펴봤다. 이번엔 피그마 MCP 서버를 사용해 디자인을 입히는 작업을 살펴보자. MCP(model context protocol)를 잘 모르거나 MCP 서버에 대한 개념이 부족하면 [이 글][mcp-and-mcp-server-link]을 참고하길 바란다.
 
 ## 1. Figma MCP server
 
@@ -33,7 +33,7 @@ MCP 호스트(VSCode 혹은 IntelliJ 코파일럿)에서 AI 에이전트가 프�
 사람도 마찬가지지만 AI 에이전트도 여러 정보가 필요하다. 디자인 도구로 사용되는 피그마(figma)도 MCP(model context protocol) 서버를 통해 AI 에이전트에게 디자인에 관련된 컨텍스트를 제공한다. 피그마는 로컬 MCP 서버 방식을 지원한다. 서버가 활성화 되면 다음과 같은 기능을 수행할 수 있다.
 
 - 피그마 애플리케이션에서 선택한 프레임의 코드를 생성할 수 있다. 
-- 디자인 컨텍스트 추출할 수 있다. 변수, 컴포넌트, 레이아웃 데이터를 직접 IDE로 가져올 수 있다.
+- 디자인 컨텍스트를 추출할 수 있다. 변수, 컴포넌트, 레이아웃 데이터를 직접 IDE로 가져올 수 있다.
 
 MCP 서버는 다음과 같은 방법으로 활성화 할 수 있다.
 
@@ -105,15 +105,15 @@ MCP 서버 이름을 등록한다.
 
 ### 2.2. IntelliJ Copilot
 
-인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접적으로 연결한다. `CMD + ,(comma)`을 눌러 MCP 관련 설정을 찾는다.
+인텔리제이에선 직접 http 전송 방식을 사용하지 못 한다. `mcp-remote` 패키지를 통해 간접적으로 연결한다. `CMD + ,(comma)`를 눌러 MCP 관련 설정을 찾는다.
 
-- Github Copliot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
+- Github Copilot 도구의 MCP 화면에서 configure 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-08.png" width="80%" class="image__border">
 </div>
 
-configure 버튼을 클릭하면 mcp.json 파일로 연결도니다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다.
+configure 버튼을 클릭하면 mcp.json 파일로 연결된다. 이 파일에 피그마 MCP 서버와 연결하기 위한 설정을 추가한다.
 
 - `mcp-remote` 패키지와 피그마 MCP 서버 주소를 인자(arguments)로 전달한다.
 
@@ -152,7 +152,7 @@ https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345
 
 - `get_code` 도구
   - 피그마 선택 영역에 대한 코드를 생성한다.
-  - 기본 출력은 리액트(react), 테일윈드(tailwind) 이다. 
+  - 기본 출력은 리액트(react), 테일윈드(tailwind)이다. 
   - 프롬프트에 "Figma 선택 항목을 일반 HTML + CSS로 생성한다." 같은 프레임워크 변경에 대한 내용이 있다면 이를 AI 에이전트가 처리한다.
 - `get_variable_defs` 도구
   - 선택된 프레임에 사용된 변수와 스타일(e.g. 색상, 간격, 타이포그래피)를 반환한다.
@@ -165,7 +165,7 @@ https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345
 - `get_image` 도구
   - 선택 항목의 레이아웃을 정확히 보존하기 위한 스크린샷을 찍는다.
 
-get_code 도구가 가장 중요하다. AI 에이전트의 실행 과정을 보면 get_code를 통해 선택 영역의 코드를 가져온다. 이 코드를 기반으로 실제 컴포넌트의 디자인을 변경한다. get_variable_defs는 피그마에 정리된 디자인 시스템을 코드로 정리하기에 유용할 것 같다. 이에 관련된 내용은 앞으로 경험이 쌓이면 정리해보겠다.
+get_code 도구가 가장 중요하다. AI 에이전트의 실행 과정을 보면 get_code를 통해 선택 영역의 코드를 가져온다. 이 코드를 기반으로 실제 컴포넌트의 디자인을 변경한다. get_variable_defs는 피그마에 정리된 디자인 시스템을 코드로 정리하기에 유용할 것 같다. 이에 관련된 내용은 앞으로 경험이 쌓이면 정리해 보려고 한다.
 
 ## 4. Run design prompts
 
@@ -213,7 +213,7 @@ get_code 도구가 가장 중요하다. AI 에이전트의 실행 과정을 보�
 - 기능적인 부분(예: event handler, state, useState 등)은 **절대** 작성하지 않습니다.
 ```
 
-위 프롬프트를 템플릿으로 기반으로 코파일럿 채팅에 아래 프롬프트를 실행한다.
+위 프롬프트를 템플릿으로 코파일럿 채팅에 아래 프롬프트를 실행한다.
 
 ```
 /figma
@@ -221,7 +221,7 @@ get_code 도구가 가장 중요하다. AI 에이전트의 실행 과정을 보�
 FIGMA_URL=https://www.figma.com/design/abcdefghijklmnopqrstuvwxyz/helloworld?node-id=12345-1234567&m=dev
 ```
 
-디자인 작업 완료되면 필요한 에셋(asset)들이 다운로드 되고, 선택한 피그마 프레임에 해당하는 코드가 생성된다. 
+디자인 작업이 완료되면 필요한 에셋(asset)들이 다운로드 되고, 선택한 피그마 프레임에 해당하는 코드가 생성된다. 
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/using-figma-mcp-server-12.png" width="45%" class="image__border">
@@ -286,7 +286,7 @@ BASE=src/temp/Temp.tsx
 1. 피그마 MCP 서버를 통해 Temp.tsx 파일 생성
 2. Temp.tsx 파일을 기반으로 디자인 작업
 
-이유는 한 단계로 한번에 실행하는 경우 AI 에이전트가 내놓는 결과가 그렇게 좋지 않았다. 에이전트가 피그마 MCP 서버로부터 정보를 받고, 이를 바탕으로 디자인까지 반영하는 작업을 수행하면서 일부 컨텍스트가 누락되는 것 같다. 두 단계로 나눈 것이 번거롭긴 하지만, 장점도 있다. 
+이유는 한 단계로 한 번에 실행하는 경우 AI 에이전트가 내놓는 결과가 그렇게 좋지 않았다. 에이전트가 피그마 MCP 서버로부터 정보를 받고, 이를 바탕으로 디자인까지 반영하는 작업을 수행하면서 일부 컨텍스트가 누락되는 것 같다. 두 단계로 나눈 것이 번거롭긴 하지만, 장점도 있다. 
 
 - 피그마 디자인 원본을 Temp.tsx 파일을 통해 확인할 수 있다. 디자인을 입히는 과정에 문제가 발생된 것인지 피그마 디자인 자체가 잘못된 것인지 확인하기 쉽다.  
 - data-node-id 값과 같이 유니크한 정보가 있다면, id 맵핑을 통해 점진적으로 디자인을 반영하는 것이 가능하다.

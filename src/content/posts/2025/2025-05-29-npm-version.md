@@ -227,9 +227,9 @@ frontend@0.0.0 /Users/junhyunny/Desktop/workspace/projects/project/frontend
 
 ### 3.4. Peer Dependencies
 
-의존성의 주 버전을 올리다보면 충돌에 의해 설치가 실패할 때가 있다. 보통 피어 의존성들(peer dependencies)이 맞지 않는 경우인 것 같다. 피어 의존성이란 특정 패키지가 제대로 작동하기 위해 필요한 다른 패키지(의존성)의 버전을 명시적으로 요구할 때 사용하는 개념이다. package-lock.json 파일에 정의된 eslint-config-prettier 패키지 정보를 살펴보자.
+의존성의 주 버전을 올리다보면 충돌에 의해 설치가 실패할 때가 있다. 보통 피어 의존성들(peer dependencies)이 맞지 않는 경우인 것 같다. 피어 의존성이란 특정 패키지가 제대로 작동하기 위해 필요한 다른 패키지(의존성)의 버전을 명시적으로 요구할 때 사용하는 개념이다.
 
-- eslint-config-prettier 패키지가 정상적으로 동작하기 위해선 7.0.0 이상 버전의 eslint 패키지가 필요하다. 
+package-lock.json 파일에 정의된 eslint-config-prettier 패키지 정보를 살펴보자. eslint-config-prettier 패키지가 정상적으로 동작하기 위해선 7.0.0 이상 버전의 eslint 패키지가 필요하다.
 
 ```json
     "node_modules/eslint-config-prettier": {
@@ -247,9 +247,7 @@ frontend@0.0.0 /Users/junhyunny/Desktop/workspace/projects/project/frontend
     },
 ```
 
-피어 의존성을 확인하는 방법이 몇 가지 있다. `npm view` 명령어를 통해 피어 의존성을 확인할 수 있다.
-
-- eslint-config-prettier 패키지는 7.0.0 이상 버전의 eslint 패키지가 필요하다.
+피어 의존성을 확인하는 방법이 몇 가지 있다. `npm view` 명령어를 통해 피어 의존성을 확인할 수 있다. eslint-config-prettier 패키지는 7.0.0 이상 버전의 eslint 패키지가 필요하다.
 
 ```
 $ npm view eslint-config-prettier peerDependencies

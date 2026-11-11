@@ -54,9 +54,7 @@ Finished generating test html results (0.019 secs) into: /builds/opop3966/2025-0
 ...
 ```
 
-유효한 테스트 환경을 찾을 수 없다는 에러였다. 문제가 발생한 `.gitlab-ci.yml` 스크립트를 살펴보자. 불필요한 스크립트는 제외하고 테스트에 관련된 잡(job)만 살펴보면 다음과 같이 작성되어 있다.
-
-- `openjdk:17-ea-33-jdk-buster` 이미지를 사용한 컨테이너 위에서 파이프라인 잡이 동작한다. 
+유효한 테스트 환경을 찾을 수 없다는 에러였다. 문제가 발생한 `.gitlab-ci.yml` 스크립트를 살펴보자. 불필요한 스크립트는 제외하고 테스트에 관련된 잡(job)만 살펴보면 다음과 같이 `openjdk:17-ea-33-jdk-buster` 이미지를 사용한 컨테이너 위에서 파이프라인 잡이 동작한다.
 
 ```yml
 stages:
@@ -97,17 +95,15 @@ test-backend-app:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/docker-in-docker-in-gitlab-ci-02.png" width="100%" class="image__border">
 </div>
 
-도커-인-도커 방식은 컨테이너가 호스트 머신의 커널에 접근할 수 있는 권한을 부여하는 `privileged` 모드가 필요하기 때문에 보안적으로 문제가 된다. 깃랩은 이를 해결하기 위해 CI 잡을 실행하는 컨테이너 외부에 데몬(daemon) 서비스를 제공한다. 도커-인-도커를 지원하는 공식 도커 이미지를 제공하고, 이를 외부에 데몬 서비스로서 실행시킨 후 CI 잡을 실행하는 컨테이너와 연결하는 방식이다. 
+도커-인-도커 방식은 컨테이너가 호스트 머신의 커널에 접근할 수 있는 권한을 부여하는 `privileged` 모드가 필요하기 때문에 보안적으로 문제가 된다. 깃랩은 이를 해결하기 위해 CI 잡을 실행하는 컨테이너 외부에 데몬(daemon) 서비스를 제공한다.
 
-- 도커-인-도커가 가능한 데몬 컨테이너를 띄우고 도커-아웃-오브-도커 방식처럼 잡을 실행하는 컨테이너가 외부 서비스 컨테이너의 도커 데몬을 사용한다. 
+도커-인-도커를 지원하는 공식 도커 이미지를 제공하고, 이를 외부에 데몬 서비스로서 실행시킨 후 CI 잡을 실행하는 컨테이너와 연결하는 방식이다. 도커-인-도커가 가능한 데몬 컨테이너를 띄우고 도커-아웃-오브-도커 방식처럼 잡을 실행하는 컨테이너가 외부 서비스 컨테이너의 도커 데몬을 사용한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/docker-in-docker-in-gitlab-ci-03.png" width="100%" class="image__border">
 </div>
 
-위 설명이 이해됐다면 이제 실제 스크립트를 살펴보자. 아래 스크립트처럼 변경 후 파이프라인을 실행하면 정상적으로 테스트가 통과한다.
-
-- [services](https://docs.gitlab.com/ci/services/) 키워드는 CI/CD 파이프라인이 동작할 때 필요한 컨테이너를 실행할 수 있도록 지원하는 기능이다. 여러 개의 컨테이너를 동시에 실행할 수 있다.
+위 설명이 이해됐다면 이제 실제 스크립트를 살펴보자. 아래 스크립트처럼 변경 후 파이프라인을 실행하면 정상적으로 테스트가 통과한다. [services](https://docs.gitlab.com/ci/services/) 키워드는 CI/CD 파이프라인이 동작할 때 필요한 컨테이너를 실행할 수 있도록 지원하는 기능이다. 여러 개의 컨테이너를 동시에 실행할 수 있다.
 
 ```yml
 services:

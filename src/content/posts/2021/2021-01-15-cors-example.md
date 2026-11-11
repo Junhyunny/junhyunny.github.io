@@ -238,9 +238,7 @@ public class WebConfig implements WebMvcConfigurer {
 }
 ```
 
-그리고 다음과 같은 컨트롤러 객체를 구현한다.
-
-- `/health` 경로에서 "It's okay because of global CORS configuration." 응답 메시지를 반환한다.
+그리고 `/health` 경로에서 "It's okay because of global CORS configuration." 응답 메시지를 반환하는 컨트롤러 객체를 구현한다.
 
 ```java
 package blog.in.action.controller;
@@ -300,9 +298,7 @@ public class WebConfig {
 }
 ```
 
-아래와 같은 컨트롤러 객체를 만든다.
-
-- `/health` 경로에서 "It's okay because of CORS filter." 응답 메시지를 반환한다.
+`/health` 경로에서 "It's okay because of CORS filter." 응답 메시지를 반환하는 컨트롤러 객체를 만든다.
 
 ```java
 package blog.in.action.controller;

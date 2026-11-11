@@ -124,9 +124,7 @@ public class DefaultDeliveryService {
 }
 ```
 
-프레임워크에서 제공하는 애너테이션을 통해 주입이 가능하다.
-
-- @Autowired 애너테이션을 필드 위에 추가한다.
+프레임워크에서 제공하는 애너테이션을 통해 주입할 수 있다. 다음과 같이 @Autowired 애너테이션을 필드 위에 추가한다.
 
 ```java
 package action.in.blog.service;

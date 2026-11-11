@@ -37,9 +37,7 @@ recommendedPosts:
 
 ## 2. Template for AWS SAM CLI
 
-IaC(infrastructure as code)로 [AWS SAM(Serverless Application Model)][aws-sam-cli-link]를 사용했다. 위에서 언급한 구조를 만들기 위한 예제 코드를 살펴보자. 간소화 된 프로젝트 구조는 다음과 같다.
-
-- target-1, target-2 디렉토리에는 람다 핸들러가 포함된다.
+IaC(infrastructure as code)로 [AWS SAM(Serverless Application Model)][aws-sam-cli-link]를 사용했다. 위에서 언급한 구조를 만들기 위한 예제 코드를 살펴보자. 간소화된 프로젝트 구조는 다음과 같다. target-1, target-2 디렉토리에는 람다 핸들러가 포함된다.
 
 ```
 $ tree -I ".aws-sam|.idea|.venv|venv" .
@@ -175,9 +173,7 @@ Commands you can use next
 [*] Deploy: sam deploy --guided
 ```
 
-빌드가 완료되면 이를 배포한다.
-
-- 각 타겟 람다에 대한 Permission, Rule 리소스가 생성된다.
+빌드가 완료되면 이를 배포한다. 다음과 같이 각 타겟 람다에 대한 Permission, Rule 리소스가 생성된다.
 
 ```
 $ sam deploy
@@ -233,9 +229,7 @@ Successfully created/updated stack - sam-app in ap-northeast-1
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/integrate-event-bridge-and-lambda-with-aws-sam-03.png" width="100%" class="image__border">
 </div>
 
-두 람다에 대해 동일한 규칙을 지정하려면 다음과 같이 템플릿을 변경한다.
-
-- 아래 템플릿을 배포하면 하나의 이벤트 브릿지 규칙과 각 람다를 수행하기 위한 두 개의 권한이 생성된다.
+두 람다에 대해 동일한 규칙을 지정하려면 다음과 같이 템플릿을 변경한다. 아래 템플릿을 배포하면 하나의 이벤트 브릿지 규칙과 각 람다를 수행하기 위한 두 개의 권한이 생성된다.
 
 ```yml
 AWSTemplateFormatVersion: '2010-09-09'

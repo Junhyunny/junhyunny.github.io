@@ -210,9 +210,7 @@ public class WriteBehindTest {
 }
 ```
 
-테스트는 정상적으로 통과하며, 다음과 같은 로그를 확인할 수 있다.  
-
-- 커밋 시작 전, 후에 찍은 로그 사이에 `insert` 쿼리가 2회 실행된다.
+테스트는 정상적으로 통과하며, 아래 로그처럼 커밋 시작 전, 후에 찍은 로그 사이에 `insert` 쿼리가 2회 실행된다.
 
 ```
 2022-09-27 01:47:00.018  INFO 69048 --- [           main] b.in.action.advantages.WriteBehindTest   : before commit

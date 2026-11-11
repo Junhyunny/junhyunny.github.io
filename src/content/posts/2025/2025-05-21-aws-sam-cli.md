@@ -28,9 +28,7 @@ SAM을 사용하면 AWS에서 제공하는 람다(lambda), DynamoDB 같은 서�
 
 ## 2. Install AWS SAM CLI
 
-CLI 명령어 도구를 설치해 간단한 AWS SAM 프로젝트를 만들고 로컬 환경과 클라우드 환경에 배포해보자. 우선 CLI 명령어 도구를 설치한다. 홈브루는 공식 저장소(homebrew/core)에서 패키지를 설치한다. AWS에서 제공하는 패키지를 설치하기 위해 홈브루(homebrew) 탭(tap)을 등록한다.
-
-- `aws/tap` 탭을 등록한다.
+CLI 명령어 도구를 설치해 간단한 AWS SAM 프로젝트를 만들고 로컬 환경과 클라우드 환경에 배포해보자. 우선 CLI 명령어 도구를 설치한다. 홈브루는 공식 저장소(homebrew/core)에서 패키지를 설치한다. AWS에서 제공하는 패키지를 설치하기 위해 홈브루(homebrew)에 `aws/tap` 탭(tap)을 등록한다.
 
 ```
 $ brew tap aws/tap

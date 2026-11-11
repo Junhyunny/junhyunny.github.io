@@ -6,11 +6,12 @@ canonicalPath: "/information/hadoop/hadoop-ambari/"
 categories:
   - "information"
   - "hadoop"
+summary: "우분투 환경에서 Hadoop 클러스터 관리 도구인 Ambari 2.7.5를 소스 코드로 빌드해 설치한 과정과 그 과정에서 만난 에러의 해결 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-클라이언트로부터 Ambari 설치를 요청 받았다. 쉽게 생각했던 일이었지만, 암바리(Ambari) 버전 때문에 만만치 않았다. 암바리 2.4.0 버전 설치를 거의 하루를 소비했다. 나중에 확인해보니 너무 하위 버전이었다. 버전을 올리니 정상적으로 설치가 가능했다. 다른 사람들은 같은 문제를 겪지 않도록 글로 정리했다.
+클라이언트로부터 Ambari 설치를 요청 받았다. 쉽게 생각했던 일이었지만, 암바리(Ambari) 버전 때문에 만만치 않았다. 암바리 2.4.0 버전 설치에 거의 하루를 소비했다. 나중에 확인해보니 너무 하위 버전이었다. 버전을 올리니 정상적으로 설치가 가능했다. 다른 사람들은 같은 문제를 겪지 않도록 글로 정리했다.
 
 ## 1. What is Ambari?
 
@@ -75,7 +76,7 @@ $ cd apache-ambari-2.7.5-src
 $ sudo mvn versions:set -DnewVersion=2.7.5.0.0
 ```
 
-다음과 명령어를 사용해도 된다.
+다음 명령어를 사용해도 된다.
 
 ```
 $ pushd ambari-metrics
@@ -143,9 +144,7 @@ $ sudo ambari-agent start
 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
 ```
 
-`-Drat.skip=true` 옵션을 통해 해결 가능하다.
-
-- 해당 옵션을 추가한 명령어는 아래와 같다. 
+`-Drat.skip=true` 옵션을 통해 해결 가능하다. 해당 옵션을 추가한 명령어는 아래와 같다.
 
 ```
 $ mvn -B clean install jdeb:jdeb -DnewVersion=2.7.5.0.0 -DbuildNumber=5895e4ed6b30a2da8a90fee2403b6cab91d19972 -DskipTests -Drat.skip=true -Dpython.ver="python >= 2.6"
@@ -259,9 +258,7 @@ OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 
 ### 4.4. Installation error Ambari Metrics Collector
 
-`ambari-metrics-timelineservice` 의존성 빌드시 아마존 스토리지에 접근할 때 다음과 같은 에러가 발생한다.
-
-- 해당 URL을 브라우저를 통해 접근해보면 `Access Denied` 상태이다. 
+`ambari-metrics-timelineservice` 의존성 빌드 시 아마존 스토리지에 접근할 때 다음과 같은 에러가 발생한다. 해당 URL을 브라우저를 통해 접근해보면 `Access Denied` 상태이다.
 
 ```
 Download HBase:

@@ -6,11 +6,12 @@ canonicalPath: "/aws/cloud-development-kit/aws-cloud-development-kit/"
 categories:
   - "aws"
   - "cloud-development-kit"
+summary: "코드로 AWS 인프라를 정의하는 AWS CDK의 개념과 CLI 명령어, 컨스트럭트, 스택, 앱 구조를 살펴보고 타입스크립트 예제로 인프라를 구축하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-테라폼(terraform)이 겨우 익숙해지는 와중에 새로운 IaC(Infrastructure as Code)를 접하게 됐다. 잠시 다른 프로젝트를 돕기 위해 참여했는데, 여기는 테라폼 대신 AWS CDK(cloud development kit)을 사용하고 있었다. 기본적인 컨셉과 동작을 이해하기 위해 개념과 예시 코드를 글로 정리했다.
+테라폼(terraform)이 겨우 익숙해지는 와중에 새로운 IaC(Infrastructure as Code)를 접하게 됐다. 잠시 다른 프로젝트를 돕기 위해 참여했는데, 여기는 테라폼 대신 AWS CDK(cloud development kit)를 사용하고 있었다. 기본적인 컨셉과 동작을 이해하기 위해 개념과 예시 코드를 글로 정리했다.
 
 ## 1. AWS CDK(Cloud Development Kit)
 
@@ -21,7 +22,7 @@ categories:
 - AWS CDK Constructor 라이브러리 - 인프라를 빠르게 개발하기 위해 미리 작성된 모듈 및 재사용 가능한 코드의 컬렉션.
 - AWS CDK CLI(Command Line Interface) - CDK 앱과 상호 작용하기 위한 명령어 도구.
 
-IaC 도구이기 때문에 코딩을 통해 인프라를 구축할 수 있다. 테라폼은 고유한 언어가 사용하지만, AWS CDK는 아래와 같이 다양한 언어를 지원한다.
+IaC 도구이기 때문에 코딩을 통해 인프라를 구축할 수 있다. 테라폼은 고유한 언어를 사용하지만, AWS CDK는 아래와 같이 다양한 언어를 지원한다.
 
 - TypeScript
 - JavaScript
@@ -30,7 +31,7 @@ IaC 도구이기 때문에 코딩을 통해 인프라를 구축할 수 있다. �
 - C#/.Net
 - Go
 
-투입된 프로젝트는 타입스크립트(typescript)를 사용했다. 타입스크립트는 어느 정도 익숙하기 때문에 현재 인프라를 이해하거나 코드를 작성하는 것은 크게 어려지 않았다. 다만, AWS CloudFormation과 통합되어 실행되기 때문에 결국 AWS CloudFormation에 대한 이해도를 높일 필요가 있다는 생각이 들었다. 이제부터 CDK를 사용해보자.
+투입된 프로젝트는 타입스크립트(typescript)를 사용했다. 타입스크립트는 어느 정도 익숙하기 때문에 현재 인프라를 이해하거나 코드를 작성하는 것은 크게 어렵지 않았다. 다만, AWS CloudFormation과 통합되어 실행되기 때문에 결국 AWS CloudFormation에 대한 이해도를 높일 필요가 있다는 생각이 들었다. 이제부터 CDK를 사용해보자.
 
 ## 2. Install AWS CDK
 
@@ -119,17 +120,17 @@ CDK는 다음 요소들을 조합하여 인프라를 구축한다.
 - 스택(stack) - CDK 애플리케이션의 배포 단위이다. 하나 이상의 스택을 생성하고, 각 스택에는 여러 개의 AWS 리소스가 포함된다.
 - 앱(app) - CDK 애플리케이션 전체를 의미한다. 여러 개의 스택이 포함된다.
 
-위 요소들은 계층 구조를 갖는다. 최상위는 앱으로 내부에 여러 개의 스택을 갖을 수 있다. 스택은 AWS CloudFormation의 스택과 1:1로 매핑된다. 하나의 스택에 여러 개의 컨스트럭트가 포함된다. 컨스트럭트는 AWS 리소스와 매핑된다. CDK 라이브러리로 작성한 코드는 아래 과정을 통해 AWS 클라우드에 실제 리소스로 배포된다.
+위 요소들은 계층 구조를 갖는다. 최상위는 앱으로 내부에 여러 개의 스택을 가질 수 있다. 스택은 AWS CloudFormation의 스택과 1:1로 매핑된다. 하나의 스택에 여러 개의 컨스트럭트가 포함된다. 컨스트럭트는 AWS 리소스와 매핑된다. CDK 라이브러리로 작성한 코드는 아래 과정을 통해 AWS 클라우드에 실제 리소스로 배포된다.
 
 1. CDK 라이브러리를 사용해 코드를 작성한다.
 2. 앱, 스택, 컨스트럭트의 계층 구조는 `cdk synth` 명령어를 통해 CloudFormation 템플릿으로 변환된다. CDK 코드가 CloudFormation에서 사용하는 yaml(혹은 json) 형식의 파일로 변환되는 것을 의미한다. CloudFormation 템플릿은 cdk.out 디렉토리에 저장된다. 
 3. 생성된 템플릿을 CloudFormation에 배포하면 필요한 AWS 리소스들이 생성된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-01.png" width="80%" class="image__border">
-</div>
-<center>https://docs.aws.amazon.com/cdk/v2/guide/home.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://docs.aws.amazon.com/cdk/v2/guide/home.html</center>
 </div>
 
 CDK 컨스트럭트도 추상화 수준에 따라 세 가지 레벨로 구분된다. 
@@ -140,7 +141,7 @@ CDK 컨스트럭트도 추상화 수준에 따라 세 가지 레벨로 구분된
 
 ## 4. Examples
 
-위 설명이 이해되지 않을 수 있으니 지금부터 예제 코드를 작성하면서 다시 살펴보자. 다음과 같은 인프라를 구축해본다.
+위 설명이 이해되지 않을 수 있으니 지금부터 예제 코드를 작성하면서 다시 살펴보자. 다음과 같은 인프라를 구축한다.
 
 - VPC
 - Application Load Balancer(ALB)
@@ -154,7 +155,7 @@ CDK 컨스트럭트도 추상화 수준에 따라 세 가지 레벨로 구분된
 
 ### 4.1. ActionInBlogStack
 
-우선 CDK가 실행되는 시작점인 `bin/action-in-blog.ts` 파일을 살펴본다. 
+우선 CDK가 실행되는 시작점인 `bin/action-in-blog.ts` 파일을 살펴보자. 
 
 1. 앱을 생성한다.
 2. 스택을 생성한다.
@@ -184,7 +185,7 @@ new ActionInBlogStack(app, "ActionInBlogStack", { // 2
 
 ### 4.2. ActionInBlogStack
 
-이제 본격적으로 필요한 인프라 구축을 정의한 스택 코드를 살펴본다. 여기서 사용된 대부분의 AWS 리소스 클래스의 생성자가 L2 수준의 추상화 된 API이다. 아래 예제 코드에서 CfnOutput 생성자만 L1 수준의 추상화 API이다. 우선 스택의 생성자 햠수를 살펴본다.
+이제 본격적으로 필요한 인프라 구축을 정의한 스택 코드를 살펴보자. 여기서 사용된 대부분의 AWS 리소스 클래스의 생성자가 L2 수준의 추상화 된 API이다. 아래 예제 코드에서 CfnOutput 생성자만 L1 수준의 추상화 API이다. 우선 스택의 생성자 함수다.
 
 1. 각 리소스의 접두사(prefix)로 사용하기 위해 스택 이름을 변수에 담는다.
 2. VPC를 구성한다.  
@@ -245,7 +246,7 @@ export class ActionInBlogStack extends cdk.Stack {
 }
 ```
 
-이제 각 함수를 자세히 들여다본다. 우선 시큐리티 그룹을 생성하는 함수를 살펴본다.
+이제 각 함수를 자세히 들여다보자. 우선 시큐리티 그룹을 생성하는 함수다.
 
 1. ALB를 위한 시큐리티 그룹을 생성한다.
   - 특정 IP 주소에서 80 포트로 접근하는 트래픽을 허용한다.
@@ -293,7 +294,7 @@ export class ActionInBlogStack extends cdk.Stack {
 }
 ```
 
-이번엔 EC2 컨테이너를 생성하는 함수를 살펴본다.
+이번엔 EC2 컨테이너를 생성하는 함수를 살펴보자.
 
 1. EC2 컨테이너를 생성한다. 
   - 인스턴스 타입은 t2.micro를 사용한다.
@@ -391,7 +392,7 @@ $ export AWS_SECRET_ACCESS_KEY="YOUR_SECRET_ACCESS_KEY"
 $ export AWS_SESSION_TOKEN="YOUR_SESSION_TOKEN"
 ```
 
-우선 `cdk bootstrap` 명령어를 실행한다. AWS CDK를 처음 사용할 때 필요한 인프라(S3, IAM, ECR 등)를 자동으로 생성하는 명령어다. CDK는 AWS 리소스를 배포할 때 CloudFormation을 사용한다. CloudFormation가 인프라를 구축하기 위해선 애셋(코드, 컨테이너 이미지 등)을 저장할 공간과 실행 권한이 필요하다. 이 명령어는 CDK가 정상적으로 동작할 수 있도록 사전 준비 작업을 수행한다.
+우선 `cdk bootstrap` 명령어를 실행한다. AWS CDK를 처음 사용할 때 필요한 인프라(S3, IAM, ECR 등)를 자동으로 생성하는 명령어다. CDK는 AWS 리소스를 배포할 때 CloudFormation을 사용한다. CloudFormation이 인프라를 구축하기 위해선 애셋(코드, 컨테이너 이미지 등)을 저장할 공간과 실행 권한이 필요하다. 이 명령어는 CDK가 정상적으로 동작할 수 있도록 사전 준비 작업을 수행한다.
 
 ```
 $ cdk bootstrap
@@ -542,7 +543,7 @@ arn:aws:cloudformation:ap-northeast-1:123412341234:stack/action-in-blog-dev/6121
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-04.png" width="100%" class="image__border">
 </div>
 
-브라우저에서 위 배포 결과에 출력된 ALB DNS 주소록 접속하면 `Welcome to Apache`라는 헤더를 확인할 수 있다.
+브라우저에서 위 배포 결과에 출력된 ALB DNS 주소로 접속하면 `Welcome to Apache`라는 헤더를 확인할 수 있다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-05.png" width="100%" class="image__border">
@@ -571,7 +572,7 @@ action-in-blog-dev |  34 | 5:45:54 PM | DELETE_IN_PROGRESS   | AWS::EC2::VPC    
 처음 사용해보면서 느낀 장점은 다음과 같다. 테라폼을 처음 접했을 때와 느낀 점과 크게 다르진 않은 것 같다.
 
 - 타입스크립트로 구성되어 있어서 코드를 읽는 것만으로 현재 인프라 상황을 어느 정도 이해할 수 있었다. 구성 자체를 직관적으로 파악하기 쉬웠다.
-- IDE(integrated development kit)의 이점을 얻을 수 있다. 라이브러리 함수를 열어보고 어떤 값들을 필요한지 사용할 수 있는지 확인할 수 있다. 함수 자동 완성 기능이 제안하는 후보들 중에 사용할 만한 함수가 있는지 확인하기 쉬웠다.
+- IDE(integrated development environment)의 이점을 얻을 수 있다. 라이브러리 함수를 열어보고 어떤 값들이 필요한지 사용할 수 있는지 확인할 수 있다. 함수 자동 완성 기능이 제안하는 후보들 중에 사용할 만한 함수가 있는지 확인하기 쉬웠다.
 
 느낀 단점은 다음과 같다.
 

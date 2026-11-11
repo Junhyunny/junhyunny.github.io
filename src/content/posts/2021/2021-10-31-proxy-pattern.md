@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/proxy-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "실제 객체를 대신하는 프록시 패턴을 가상 프록시, 원격 프록시, 보호 프록시로 나누어 각각의 역할을 예제 코드로 정리했다."
 recommendedPosts:
   - title: "자바(Java) 다이나믹 프록시(Dynamic Proxy)"
     href: "https://junhyunny.github.io/java/dynamic-proxy-in-java/"
@@ -19,7 +20,7 @@ recommendedPosts:
 
 패턴 이름에서 알 수 있듯이 실제 객체를 대신하는 대리인 객체가 존재하는 패턴이다.
 
-- 프록시 객체는 대리인으로써 외부 요청을 대신 받아준다.
+- 프록시 객체는 대리인으로서 외부 요청을 대신 받아준다.
 - 프록시 객체는 실제 서비스를 수행하는 객체를 내부 멤버로 가지고 있다.
 - 특정 객체의 실제 기능이 수행되기 전이나 후에 필요한 로직을 추가적으로 처리할 수 있다.
   - 특정 클래스의 메서드를 직접 변경하지 않고 기능을 확장할 수 있다.
@@ -40,10 +41,10 @@ recommendedPosts:
   - 인터페이스에서 명시한 기능을 실제로 처리하는 객체이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/proxy-pattern-01.png" width="80%" class="image__border image__padding">
-</div>
-<center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/proxy-pattern-01.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 </div>
 
 다음과 같은 장점들을 가진다.
@@ -64,7 +65,7 @@ recommendedPosts:
 1. 가상 프록시(Virtual Proxy)  
   - 요청이 있을 때만 고비용 객체를 생성한다.
   - 필요 시점까지 객체의 생성을 연기하여 해당 객체가 생성된 것처럼 동작하도록 만드는 패턴이다. 
-  - 만드는데 많은 비용이 들어가는 객체에 대한 생성, 접근 시점을 제어한다. 
+  - 만드는 데 많은 비용이 들어가는 객체에 대한 생성, 접근 시점을 제어한다. 
 2. 원격 프록시(Remote Proxy)  
   - 다른 시스템에 위치하는 원격 객체의 역할을 대신 수행한다.
   - 원격 프록시 객체가 대변하는 원격 시스템에 위치한 객체를 마치 로컬(local)에 있는 것처럼 사용할 수 있다. 
@@ -79,9 +80,7 @@ recommendedPosts:
 
 ### 3.1. Virtual Proxy
 
-가상 프록시는 요청이 있기 전까지 고비용 객체 생성을 미룬다. 먼저 VirtualSubject 인터페이스를 정의한다. 다음과 같은 책임을 갖는다.
-
-- 특정 데이터를 출력한다.
+가상 프록시는 요청이 있기 전까지 고비용 객체 생성을 미룬다. 먼저 특정 데이터를 출력하는 책임을 갖는 VirtualSubject 인터페이스를 정의한다.
 
 ```java
 package blog.in.action.virtual;
@@ -140,7 +139,7 @@ public class VirtualProxy implements VirtualSubject {
 
 ### 3.2. Remote Proxy
 
-타 시스템에 있는 객체를 로컬에 위치한 객체처럼 사용하기 위한 프록시 패턴이다. 자바(Java)에서는 RMI(Remote Method Invocation)이라는 API 기능을 제공한다. RMI 서버와 클라이언트 개발이 필요하기 때문에 이번 포스트에선 간단하게 개념만 살펴본다. 
+타 시스템에 있는 객체를 로컬에 위치한 객체처럼 사용하기 위한 프록시 패턴이다. 자바(Java)에서는 RMI(Remote Method Invocation)라는 API 기능을 제공한다. RMI 서버와 클라이언트 개발이 필요하기 때문에 이번 포스트에선 간단하게 개념만 살펴본다. 
 
 - 원격 프록시  
   - 원격 객체에 대한 로컬 대변자 역할을 수행한다.
@@ -149,7 +148,7 @@ public class VirtualProxy implements VirtualSubject {
   - 결과는 다시 네트워크를 타고 반환되어 클라이언트에게 전달된다.
   - 스텁(stub)이라고 부르기도 한다.
 - 원격 객체  
-  - 다른 JVM 힙(heap) 메모리에서 존재하는 객체이다.
+  - 다른 JVM 힙(heap) 메모리에 존재하는 객체이다.
   - 일반적으로 다른 주소 공간에 존재하는 원격 객체이다.
   - 프록시로부터 전달된 명령을 이해하고 적합한 메서드를 호출하는 스켈레톤(skeleton)에 의해 실행된다.
 

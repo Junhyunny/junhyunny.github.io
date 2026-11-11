@@ -1,24 +1,25 @@
 ---
 title: "JavaScript 메서드 오버라이드"
 publishedAt: "2023-04-05"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T01:02:52+09:00"
 canonicalPath: "/javascript/override-method-in-javascript/"
 categories:
   - "javascript"
+summary: "GTM 클릭 이벤트에 사용자 추적용 UUID를 넣기 위해 Object.defineProperty 메서드로 dataLayer 객체의 push 메서드를 재정의하는 방법을 정리했다."
 ---
 
 ## 1. Requirements and Problem
 
-애플리케이션 사용자를 관찰하기 위한 도구로 구글 애널리틱스(GA, google analytics)와 구글 태그 매니저(GTM, google tag manager)를 연계하였다. 다음과 같은 요구사항들이 있었다.
+애플리케이션 사용자를 관찰하기 위한 도구로 구글 애널리틱스(GA, google analytics)와 구글 태그 매니저(GTM, google tag manager)를 연계했다. 요구 사항은 다음과 같았다.
 
 - 사용자 추적을 위한 UUID 발급
 - 모든 사용자 이벤트에 UUID 추가
 
-추적을 위해 발급한 UUID를 커스텀 이벤트(custom event)에 실어서 보내는 것은 어렵지 않았다. 문제는 엘리먼트(element) 클릭 이벤트였다. 클릭 이벤트는 태그 매니저에서 제공하는 라이브러리에 의해 자동으로 호출되기 때문에 UUID를 이벤트에 삽입하는게 까다로웠다. 이를 해결하기 위해 `dataLayer` 객체의 `push` 메서드를 재정의하였다.
+추적을 위해 발급한 UUID를 커스텀 이벤트(custom event)에 실어서 보내는 것은 어렵지 않았다. 문제는 엘리먼트(element) 클릭 이벤트였다. 클릭 이벤트는 태그 매니저에서 제공하는 라이브러리에 의해 자동으로 호출되기 때문에 UUID를 이벤트에 삽입하는 게 까다로웠다. 이를 해결하기 위해 `dataLayer` 객체의 `push` 메서드를 재정의했다.
 
-## 2. Object.defineProperty Method
+## 2. Object.defineProperty 메서드
 
-메서드를 재정의하기 위한 방법으로 Object 객체의 `defineProperty` 메서드를 사용하였다. `defineProperty` 메서드는 특정 프로퍼티에 대한 게터(getter), 세터(setter)를 정의할 수 있다. 아래와 같은 방식으로 기존 push 메서드를 재정의한 push 메서드로 대체하였다. 코드에 대한 설명은 주석을 참고하길 바란다. 예제 코드는 브라우저 개발자 도구(F12) 콘솔에서 실행할 수 있다.
+메서드를 재정의하기 위해 Object 객체의 `defineProperty` 메서드를 사용했다. `defineProperty` 메서드를 사용하면 특정 프로퍼티의 게터(getter)와 세터(setter)를 정의할 수 있다. 아래 코드처럼 기존 `push` 메서드를 새로 정의한 `push` 메서드로 대체했다. 코드에 대한 설명은 주석을 참고하길 바란다. 예제 코드는 브라우저 개발자 도구(F12) 콘솔에서 실행할 수 있다.
 
 ```javascript
 // UUID를 생성합니다.
@@ -61,10 +62,7 @@ dataLayer.push({ event: 'World' });
 console.log(dataLayer);
 ```
 
-##### Result
-
-- `push` 메서드에 전달하는 객체는 `event` 밖에 없지만, 실제 저장된 데이터는 `txId` 값을 가지고 있다.
-- `txId` 값은 새로 정의한 `push` 메서드에 의해 자동으로 삽입된다.
+실행하면 다음과 같이 `push` 메서드에는 `event` 값만 전달했지만, 실제로 저장된 데이터에는 `txId` 값이 들어 있다. `txId` 값은 새로 정의한 `push` 메서드가 자동으로 삽입한 것이다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/override-method-in-javascript-01.png" width="60%" class="image__border">
@@ -72,7 +70,7 @@ console.log(dataLayer);
 
 ## CLOSING
 
-이번 포스트는 메서드를 오버라이드하는 방법에 대해서만 정리하였다. 다음 포스트에서 사용자 추적을 위해 오버라이드한 메서드를 리액트 애플리케이션에 적용한 내용을 다뤄보겠다.
+이번 글에서는 메서드를 오버라이드하는 방법만 정리했다. 사용자 추적을 위해 오버라이드한 메서드를 리액트 애플리케이션에 적용한 내용은 다음 글에서 다룬다.
 
 #### REFERENCE
 

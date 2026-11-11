@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "jpa"
+summary: "카드 '좋아요' 기능에서 동시 삽입, 동시 업데이트로 생긴 동시성 문제를 비관적인 락과 재시도, 큐와 별도 스레드 풀을 이용한 비동기 처리로 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "트랜잭션 격리성(transaction isolation) 특징"
     href: "https://junhyunny.github.io/information/transcation-isolation/"
@@ -24,7 +25,7 @@ recommendedPosts:
 
 ## 1. Problem Context
 
-사용자들이 QR 스캔으로 수집한 카드에 "좋아요(like)"를 누르거나 취소하는 기능을 개발했다. 동시에 많은 사람들이 하나의 카드에 대해 "좋아요", "좋아요 취소"를 누르면서 두 가지 동시성 문제가 있었다. 문제가 발생한 원인을 잘 이해할 수 있도록 도메인 엔티티(domain entity)와 서비스 코드를 먼저 살펴보겠다. 아래와 같은 CardLikeEntity 클래스가 존재한다.
+사용자들이 QR 스캔으로 수집한 카드에 "좋아요(like)"를 누르거나 취소하는 기능을 개발했다. 동시에 많은 사람들이 하나의 카드에 대해 "좋아요", "좋아요 취소"를 누르면서 두 가지 동시성 문제가 있었다. 문제가 발생한 원인을 잘 이해할 수 있도록 도메인 엔티티(domain entity)와 서비스 코드를 먼저 살펴보자. 아래와 같은 CardLikeEntity 클래스가 존재한다.
 
 - 카드 아이디가 기본 키(primary key)이다.
 - 사용자들이 누르는 "좋아요", "좋아요 취소" 버튼에 따라 카운트 값이 증감한다.
@@ -103,7 +104,7 @@ public class DefaultCardLikeService implements CardLikeService {
 3. 1번 트랜잭션이 먼저 커밋하면 2번 트랜잭션은 기본 키 제약 조건에 의해 예외가 발생하고 트랜잭션을 실패한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-01.png" width="100%" class="image__border">
 </div>
 
 cURL 명령어를 사용해 서버로 동시에 요청을 보내보자.
@@ -168,7 +169,7 @@ Connection: close
 - 첫 트랜잭션만 성공하고 나머지 트랜잭션은 실패한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Update Problem
@@ -181,7 +182,7 @@ Connection: close
   - "좋아요" 카운트 값이 2인 데이터로 업데이트된다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-03.png" width="100%" class="image__border">
 </div>
 
 위와 동일하게 cURL 명령어를 사용해 서버로 동시에 요청을 보내보자.
@@ -242,7 +243,7 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
 - 모든 트랜잭션이 성공했지만, 동시성 문제로 인해 정상적인 값으로 업데이트되지 않았다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-04.png" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -272,7 +273,7 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
 - 예외가 발생하면 재시도 핸들러에게 해당 카드 아이디를 전달한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-05.png" width="100%" class="image__border">
 </div>
 
 다음 재시도 핸들러에서 예외 처리를 하는 과정을 살펴보자.
@@ -281,16 +282,11 @@ Date: Tue, 21 Nov 2023 17:57:09 GMT
 - 스레드 풀은 재시도 큐에 담긴 카드 아이디가 모두 비워질 때까지 반복 수행한다.
 - 타임아웃 예외가 발생하면 해당 카드 아이디를 다시 재시도 큐에 담는다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-06.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-missing-count-06.png" width="100%" class="image__border">
 </div>
 
-### 2.1. CardLikeRepository Interface
-
-@Lock 애너테이션을 통해 비관적인 락 방식을 설정한다. 카드 아이디로 데이터를 조회한다.
-  
-- `PESSIMISTIC_WRITE` 설정으로 늦게 시작한 트랜잭션들은 락이 풀리기 전까지 해당 데이터에 접근할 수 없도록 한다.
-- 데이터를 먼저 조회한 트랜잭션이 해당 데이터를 선점한다.
+CardLikeRepository 인터페이스는 @Lock 애너테이션을 통해 비관적인 락 방식을 설정하고, 카드 아이디로 데이터를 조회한다. `PESSIMISTIC_WRITE` 설정을 사용하면 데이터를 먼저 조회한 트랜잭션이 해당 데이터를 선점하고, 늦게 시작한 트랜잭션들은 락이 풀리기 전까지 해당 데이터에 접근할 수 없다.
 
 ```java
 package action.in.blog.repository;
@@ -311,9 +307,7 @@ public interface CardLikeRepository extends JpaRepository<CardLikeEntity, String
 }
 ```
 
-### 2.2. DefaultCardLikeService Class
-
-findById 메서드를 findByIdWithLock 메서드로 변경한다. 데이터가 존재하는 경우 데이터를 먼저 선점한 트랜잭션만 이후 로직을 진행할 수 있다.
+DefaultCardLikeService 클래스에서는 findById 메서드를 findByIdWithLock 메서드로 변경한다. 데이터가 존재하는 경우 데이터를 먼저 선점한 트랜잭션만 이후 로직을 진행할 수 있다.
 
 ```java
 package action.in.blog.service;
@@ -482,9 +476,7 @@ select c1_0.card_id,c1_0.count from card_like_entity c1_0 where c1_0.card_id=? f
 Hibernate: update card_like_entity set count=? where card_id=?
 ```
 
-### 2.3. CardLikeController Class
-
-서비스 레이어에서 예외가 발생하는 경우 핸들러를 통해 재시도를 수행한다.
+CardLikeController 클래스는 서비스 레이어에서 예외가 발생하면 핸들러를 통해 재시도를 수행한다.
 
 ```java
 package action.in.blog.controller;

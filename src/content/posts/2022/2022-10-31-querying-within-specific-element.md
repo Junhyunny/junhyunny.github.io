@@ -8,11 +8,12 @@ categories:
   - "jest"
   - "testing-library"
   - "test-driven-development"
+summary: "화면에 같은 데이터가 여러 개 있어 쿼리가 실패하는 문제를 Testing Library의 within 함수로 특정 엘리먼트 내부만 조회해 해결하는 방법을 정리했다."
 ---
 
 ## 1. 문제 현상
 
-프론트엔드 테스트 코드를 작성하다보면 이런 경우를 마주치게 된다.
+프론트엔드 테스트 코드를 작성하다 보면 이런 경우를 마주치게 된다.
 
 - 화면에 33이라는 동일한 데이터가 존재해서 문제가 발생한다.
 - 동일한 데이터가 있으니 `*AllBy*`가 붙은 쿼리를 사용하라는 안내 문구를 볼 수 있다.
@@ -38,9 +39,7 @@ Ignored nodes: comments, script, style
 
 ```
 
-### 1.1. 테스트 코드
-
-해당 문제가 발생하는 테스트 코드를 살펴보겠다.
+해당 문제가 발생하는 테스트 코드를 살펴보자.
 
 - 스텁(stub)이 반환하는 데이터를 보면 중복되는 데이터를 볼 수 있다.
   - 나이, 성별
@@ -84,9 +83,7 @@ describe('App Tests', () => {
 })
 ```
 
-### 1.2. App.tsx
-
-실제 구현 코드를 살펴보겠다.
+테스트 대상인 `App.tsx`의 실제 구현 코드를 살펴보자.
 
 - 테이블 구조로 되어 있다.
 - 한 행(row) 안에서 나이, 성별 같은 데이터는 유일하게 존재한다.
@@ -141,25 +138,23 @@ export default App;
 
 ## 2. within 함수
 
-`Testing Library`의 `within` 함수는 이런 문제를 해결하는데 도움을 줄 수 있다. `getQueriesForElement` 함수의 다른 이름이다. 특정 DOM 엘리먼트(element)를 컨텍스트로 삼고, 엘리먼트 내부 트리에 대해서만 쿼리(query)를 수행할 수 있다.
+`Testing Library`의 `within` 함수는 이런 문제를 해결하는 데 도움을 줄 수 있다. `getQueriesForElement` 함수의 다른 이름이다. 특정 DOM 엘리먼트(element)를 컨텍스트로 삼고, 엘리먼트 내부 트리에 대해서만 쿼리(query)를 수행할 수 있다.
 
-간단하게 테이블 이미지를 통해 알아보겠다.
+간단하게 테이블 이미지를 통해 알아보자.
 
 - 33, Female 이라는 정보는 `App` 컴포넌트 전체를 기준으로 삼으면 여러 개 존재한다.
-  - `screen` 객체를 통해 쿼리를 수행하는 것은 `App` 컴포넌트를 전체를 기준으로 탐색하는 것과 동일하다.
+  - `screen` 객체를 통해 쿼리를 수행하는 것은 `App` 컴포넌트 전체를 기준으로 탐색하는 것과 동일하다.
 - 테이블 내 하나의 행을 기준으로 삼으면 유일한 데이터이다.
   - `within` 함수를 이용해 테이블 행에 해당하는 DOM 엘리먼트를 획득한다.
   - `screen`이 아닌 테이블 행 DOM 엘리먼트를 기준으로 텍스트를 탐색한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/querying-within-specific-element-01.png" width="50%" class="image__border">
 </div>
 
-### 2.1. 수정된 테스트 코드
-
 다음과 같이 테스트 코드를 수정할 수 있다.
 
-- `ESLint`에 감지되어 `parentElement`에 직접 접근하지 않고, 디스트럭처링(destructuring)하였다.
+- `ESLint`에 감지되어 `parentElement`에 직접 접근하지 않고, 디스트럭처링(destructuring)했다.
   - `screen.getByText("Junhyunny").parentElement` 처럼 직접 접근도 가능하다.
 - 각 행에 사용자 이름을 기준으로 부모 엘리먼트를 구한다.
 - `within` 함수를 이용해 부모 엘리먼트를 기준으로 쿼리를 수행할 수 있는 객체를 만든다.

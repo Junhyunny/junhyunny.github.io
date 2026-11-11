@@ -151,9 +151,7 @@ MCP 클라이언트는 요청을 보낼 때 `method`라는 프로퍼티에 어�
   <center>https://modelcontextprotocol.io/specification/2025-06-18/server/tools</center>
 </div>
 
-구체적으로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 제공하는 도구를 확인할 때 MCP 클라이언트는 아래 요청을 전달한다. 
-
-- `tools/list` 사용할 수 있는 도구 리스트를 볼 때 사용한다.
+구체적으로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 제공하는 도구를 확인할 때 MCP 클라이언트는 아래 요청을 전달한다. `tools/list` 요청은 사용할 수 있는 도구 리스트를 볼 때 사용한다.
 
 ```json
 {
@@ -265,9 +263,7 @@ MCP 서버는 다음과 같은 응답을 보낸다. 사용할 수 있는 도구 
   <center>https://modelcontextprotocol.io/docs/learn/client-concepts</center>
 </div>
 
-마찬가지로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 LLM 기능을 사용하고 싶을 때 MCP 클라이언트에게 아래 요청을 전달한다. 
-
-- `sampling/createMessage`는 언어 모델에게 메시지를 기반으로 답변을 생성해달라는 요청이다.
+마찬가지로 어떤 요청과 응답이 오고 가는지 살펴보자. MCP 서버가 LLM 기능을 사용하고 싶을 때 MCP 클라이언트에게 아래 요청을 전달한다. `sampling/createMessage`는 언어 모델에게 메시지를 기반으로 답변을 생성해달라는 요청이다.
 
 ```json
 {

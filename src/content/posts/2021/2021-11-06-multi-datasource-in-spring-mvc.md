@@ -5,6 +5,7 @@ updatedAt: "2026-06-03T22:11:23+09:00"
 canonicalPath: "/spring-mvc/multi-datasource-in-spring-mvc/"
 categories:
   - "spring-mvc"
+summary: "스프링 MVC 프레임워크에서 MySQL과 PostgreSQL 두 데이터소스를 연결하고 각각의 데이터를 조회하는 API를 구현했다."
 ---
 
 ## 0. 들어가면서
@@ -14,7 +15,7 @@ categories:
 - 대용량의 데이터 요청으로 인해 타 서비스에 부하를 유발할 수 있는 경우
 - 잦은 데이터 요청으로 타 서비스, 시스템 네트워크에 부하를 유발할 수 있는 경우
 
-이런 경우에는 타 시스템 데이터베이스에 직접 연결이 필요할 수 있다. 애플리케이션 서버에서 별개의 데이터소스(datasource)를 만들어 타 시스템 데이터베이스 연결에 사용해야 한다. 스프링 프레임워크에서 다중 데이터소스를 만들어 두 개의 데이터베이스에 연결해보겠다.
+이런 경우에는 타 시스템 데이터베이스에 직접 연결이 필요할 수 있다. 애플리케이션 서버에서 별개의 데이터소스(datasource)를 만들어 타 시스템 데이터베이스 연결에 사용해야 한다. 스프링 프레임워크에서 다중 데이터소스를 만들어 두 개의 데이터베이스에 연결해보자.
 
 - 기존에 사용하고 있는 데이터베이스가 MySQL이라고 가정한다.
 - 신규로 연결할 데이터베이스가 PostgreSQL이라고 가정한다.
@@ -424,7 +425,7 @@ public class MySqlServiceImpl implements MySqlService {
 }
 ```
 
-마찬가지로 인터페이스 이름만 다르기 때문에 MySQL 데이터베이스에 접근할 수 있는 MySqlDao 인터페이스만 살펴본다.
+마찬가지로 인터페이스 이름만 다르기 때문에 MySQL 데이터베이스에 접근할 수 있는 MySqlDao 인터페이스만 살펴보자.
 
 ```java
 package blog.in.action.mysql.dao;
@@ -438,7 +439,7 @@ public interface MySqlDao {
 }
 ```
 
-마지막으로 Mapper XML 파일을 살펴본다. XML 파일 이름과 위치만 다르므로 MySQL 데이터베이스에서 사용하는 XML 파일만 살펴본다.
+마지막으로 Mapper XML 파일이다. XML 파일 이름과 위치만 다르므로 MySQL 데이터베이스에서 사용하는 XML 파일만 살펴보자.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

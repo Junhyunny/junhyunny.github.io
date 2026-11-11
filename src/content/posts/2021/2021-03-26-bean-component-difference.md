@@ -8,7 +8,7 @@ categories:
 summary: "개발자가 제어할 수 없는 외부 클래스에 쓰는 @Bean과 직접 작성한 클래스에 쓰는 @Component의 쓰임새 차이를 정리했다."
 ---
 
-## 1. @Bean Annotation
+## 1. @Bean 애너테이션
 
 @Bean 애너테이션은 개발자가 제어하지 못하는 외부 클래스를 빈(bean) 객체로 만들 때 사용한다. `org.springframework.web.client` 패키지 내부에 존재하는 `RestTemplate` 클래스를 예시로 살펴보자.
 
@@ -67,7 +67,7 @@ public @interface Bean {
 }
 ```
 
-## 2. @Component Annotation
+## 2. @Component 애너테이션
 
 @Component 애너테이션은 개발자가 직접 제어 가능한 클래스를 빈 객체로 만들 때 사용한다.
 

@@ -12,7 +12,7 @@ wip 브랜치에서 고쳐 쓴 뒤 `9b7e90c4`에서 master로 병합한 기술 �
 - [ ] `src/content/posts/2022/2022-02-02-jenkins-deploy-ec2-using-docker.md` — 젠킨스(Jenkins) 파이프라인을 통해 EC2 인스턴스에 서비스 배포
 - [ ] `src/content/posts/2022/2022-02-03-jenkins-slack-notification.md` — 젠킨스(Jenkins) 슬랙(Slack) 알림 메시지 전송
 - [ ] `src/content/posts/2022/2022-02-11-once-per-request-filter.md` — OncePerRequestFilter 클래스
-- [ ] `src/content/posts/2022/2022-02-16-make-authentication-filter.md` — JWT AuthenticationFilter 만들기
+- [x] `src/content/posts/2022/2022-02-16-make-authentication-filter.md` — JWT AuthenticationFilter 만들기
 - [ ] `src/content/posts/2022/2022-02-17-make-authentication-provider.md` — JWT AuthenticationProvider 만들기
 - [ ] `src/content/posts/2022/2022-03-01-strategy-pattern.md` — 전략 패턴(Strategy Pattern)
 - [ ] `src/content/posts/2022/2022-03-28-maven-lifecycle-and-surfire-failsafe-plugins.md` — Maven 라이프사이클과 테스트 플러그인

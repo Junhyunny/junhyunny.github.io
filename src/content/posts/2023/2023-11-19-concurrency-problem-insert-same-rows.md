@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "jpa"
+summary: "빠른 QR 스캔으로 동시에 시작된 트랜잭션들이 같은 카드 수집 정보를 중복 저장한 문제를 유니크 키 제약 조건과 예외 처리로 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "트랜잭션 격리성(transaction isolation) 특징"
     href: "https://junhyunny.github.io/information/transcation-isolation/"
@@ -33,7 +34,7 @@ recommendedPosts:
 3. 두 트랜잭션이 커밋을 수행하면 동일한 두 개의 데이터가 추가된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-insert-same-rows-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-insert-same-rows-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -72,11 +73,7 @@ public class CollectEntity {
 - 사용자 아이디와 카드 아이디 조합을 유니크 키(unique key)로 만들어 중복 insert 쿼리 동작을 실패시킨다.
 - 중복 데이터 추가에 대한 예외(exception)를 던지고 클라이언트와의 프로토콜을 전역 예외 핸들러(exception handler)에 정의한다.
 
-### 2.1. CollectEntity Class
-
-@Table 애너테이션을 통해 유니크 키 제약 조건을 명시한다. 개발, 스테이지, 운영 환경 데이터베이스에 테이블이 존재했기 때문에 제약 조건 추가는 DDL(Data Definition Language)을 통해 직접 변경하였다.
-
-- cardId, userId 컬럼을 조합하여 유니크 키를 생성한다.
+CollectEntity 클래스는 @Table 애너테이션을 통해 cardId, userId 컬럼을 조합한 유니크 키 제약 조건을 명시한다. 개발, 스테이지, 운영 환경 데이터베이스에는 이미 테이블이 존재했기 때문에 제약 조건은 DDL(Data Definition Language)로 직접 추가했다.
 
 ```java
 package action.in.blog.domain;
@@ -103,12 +100,7 @@ public class CollectEntity {
 }
 ```
 
-### 2.2. CardService Class
-
-다음 비즈니스 로직을 수행하는 CardService 클래스의 코드를 살펴보자.
-
-- 중복하는 데이터가 존재하는 경우 DuplicatedCollectException 예외를 던진다.
-- save 메서드를 실행할 때 유니크 키 제약 조건으로 인해 실패하는 경우도 동일하게 DuplicatedCollectException 예외를 던진다.
+CardService 클래스는 중복하는 데이터가 존재하면 DuplicatedCollectException 예외를 던진다. save 메서드를 실행할 때 유니크 키 제약 조건으로 실패하는 경우에도 동일하게 DuplicatedCollectException 예외를 던진다.
 
 ```java
 package action.in.blog.service;
@@ -201,9 +193,7 @@ class DefaultCollectServiceTest {
 }
 ```
 
-### 2.3. GlobalExceptionHandler Class
-
-DuplicatedCollectException 예외를 처리할 핸들러를 정의한다. 프론트엔드와의 프로토콜을 정의한다. 이번 글에선 600 상태 코드와 예외 메시지를 전달한다.
+GlobalExceptionHandler 클래스에는 DuplicatedCollectException 예외를 처리할 핸들러를 정의한다. 프론트엔드와 정한 프로토콜에 따라 이번 글에선 600 상태 코드와 예외 메시지를 전달한다.
 
 ```java
 package action.in.blog.handler;
@@ -333,14 +323,12 @@ Already collected card< HTTP/1.1 200
 데이터베이스를 확인하면 정상적으로 하나의 로우만 추가된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-insert-same-rows-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-insert-same-rows-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING
 
-엔티티의 유니크 키 제약 조건 없이 cURL 명령어를 동시에 실행하면 엔티티가 여러 개 추가되는 것을 확인할 수 있다.
-
-- 세 번의 호출 모두 200 상태 코드를 응답받는다.
+엔티티의 유니크 키 제약 조건 없이 cURL 명령어를 동시에 실행하면 엔티티가 여러 개 추가되는 것을 확인할 수 있다. 세 번의 호출 모두 200 상태 코드를 응답받는다.
 
 ```
 $ curl -X POST -v http://localhost:8080/api/cards/card-01 &\
@@ -392,7 +380,7 @@ Connection #0 to host localhost left intact
 데이터베이스를 확인하면 세 개의 로우가 모두 추가된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-insert-same-rows-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/concurrency-problem-insert-same-rows-03.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

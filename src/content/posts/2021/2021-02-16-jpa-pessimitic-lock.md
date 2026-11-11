@@ -42,7 +42,7 @@ recommendedPosts:
 
 `PESSIMISTIC_READ`를 지원하지 않는 데이터베이스도 있지만, 그런 경우엔 `PESSIMISTIC_WRITE`로 대체된다고 한다. 이번 포스트에선 `PESSIMISTIC_WRITE` 모드에 대해서만 다뤘다. 
 
-### 1.2. @Lock Annotation
+### 1.2. @Lock 애너테이션
 
 `spring-data-jpa` 라이브러리의 `JpaRepository` 인터페이스를 사용하는 경우 `@Lock` 애너테이션으로 잠금 모드를 설정한다. 
 

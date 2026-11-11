@@ -181,9 +181,7 @@ public class ImmutableTest {
 - 생성자, 접근 메서드에 대한 방어 복사가 필요하지 않다.
 - 멀티 스레드 환경에서 동기화 처리 없이 객체를 공유할 수 있다.
 
-다음과 같은 단점이 있다.
-
-- 객체의 상태가 변경될 때마다 새로 생성해야 하기 때문에 성능 저하나 메모리 누수의 위험이 존재한다.
+단점도 있다. 객체의 상태가 변경될 때마다 새로 생성해야 하기 때문에 성능 저하나 메모리 누수의 위험이 존재한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mutable-immutable-object-02.gif" width="100%">

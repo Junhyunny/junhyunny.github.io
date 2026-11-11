@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/javascript/auto-distinct-when-using-entity-graph/"
 categories:
   - "javascript"
+summary: "@EntityGraph 애너테이션을 사용하면 중복 엔티티가 자동으로 제거되는 현상을 살펴보고, 그 원인에 대해 스택 오버플로우에서 약 7개월 만에 받은 답변을 공유한다."
 recommendedPosts:
   - title: "SQL 조인(join)"
     href: "https://junhyunny.github.io/information/sql-join/"
@@ -67,9 +68,7 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 | 1 | this is the first post. | first post | 10 | first-reply-10 | 1 |
 
 
-이런 현상은 JPA를 사용하더라도 똑같이 발생한다. JPA에서 발생하는 N+1 문제를 해결하기 위해 사용하는 `JOIN FETCH` 쿼리를 수행하면 다음과 같은 결과를 얻는다. 코드는 아래와 같다.
-
-- Post 엔티티를 기준으로 FETCH JOIN 쿼리를 수행한다.
+이런 현상은 JPA를 사용하더라도 똑같이 발생한다. JPA에서 발생하는 N+1 문제를 해결하기 위해 사용하는 `JOIN FETCH` 쿼리를 수행하면 다음과 같은 결과를 얻는다. 다음 코드는 Post 엔티티를 기준으로 FETCH JOIN 쿼리를 수행한다.
 
 ```java
     @Query(value = "SELECT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
@@ -92,12 +91,10 @@ from post post0_
 where post0_.title = ?
 ```
 
-위 메서드가 실행된 후 반환된 결과를 디버깅 모드로 살펴보면 다음과 같다.
-
-- Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장된다.
+위 메서드가 실행된 후 반환된 결과를 디버깅 모드로 살펴보면 Post 테이블과 Reply 테이블이 조인하면서 동일한 Post 엔티티 객체가 리스트에 10개 저장된다.
 
 <div class="block-break" align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-01.png" width="100%" class="image__border">
 </div>
 
 위와 같은 현상을 방지하기 위한 두 가지 방법이 있다.
@@ -105,7 +102,7 @@ where post0_.title = ?
 - DISTINCT 키워드 사용
 - Java Set 자료구조 사용
 
-JPQL(Java Persistence Query Language) 쿼리에 DISTINCT 키워드 추가하여 중복된 결과를 제거한다.
+JPQL(Java Persistence Query Language) 쿼리에 DISTINCT 키워드를 추가하여 중복된 결과를 제거한다.
 
 ```java
     @Query(value = "SELECT DISTINCT p FROM Post p JOIN FETCH p.replies WHERE p.title = :title")
@@ -119,9 +116,7 @@ JPQL(Java Persistence Query Language) 쿼리에 DISTINCT 키워드 추가하여 
     Set<Post> findByTitleFetchJoin(String title);
 ```
 
-이번엔 N+1 문제의 또 다른 해결책인 `@EntityGraph` 애너테이션을 살펴보자. @EntityGraph 애너테이션을 추가한 코드는 다음과 같다.
-
-- `@EntityGraph` 애너테이션의 `attributePaths` 속성을 통해 Post 엔티티와 함께 조회할 필드를 지정한다.
+이번엔 N+1 문제의 또 다른 해결책인 `@EntityGraph` 애너테이션을 살펴보자. 다음과 같이 `@EntityGraph` 애너테이션의 `attributePaths` 속성을 통해 Post 엔티티와 함께 조회할 필드를 지정한다.
 
 ```java
     @EntityGraph(attributePaths = {"replies"})
@@ -129,9 +124,7 @@ JPQL(Java Persistence Query Language) 쿼리에 DISTINCT 키워드 추가하여 
     List<Post> findByTitleEntityGraphWithoutDistinct(String title);
 ```
 
-위 메소드가 실행되면 다음과 같은 쿼리가 실행된다.
-
-- Post 테이블을 기준으로 `LEFT OUTER JOIN` 쿼리를 수행한다.
+위 메서드가 실행되면 다음과 같이 Post 테이블을 기준으로 `LEFT OUTER JOIN` 쿼리가 수행된다.
 
 ```sql
 select post0_.id         as id1_0_0_,
@@ -147,12 +140,10 @@ from post post0_
 where post0_.title = ?
 ```
 
-중복 제거를 위한 `DISTINCT` 키워드 혹은 `Set` 자료구조 사용하지 않았음에도 자동으로 중복이 제거되어 있다. 위 메서드가 실행된 후 반환된 결과를 디버깅 모드로 살펴보면 다음과 같다. 
+중복 제거를 위한 `DISTINCT` 키워드 혹은 `Set` 자료구조를 사용하지 않았음에도 자동으로 중복이 제거되어 있다. 위 메서드가 실행된 후 반환된 결과를 디버깅 모드로 살펴보면 `LEFT OUTER JOIN`을 수행했고, 별도의 중복 처리를 하지 않았음에도 Post 엔티티 객체가 리스트에 1개 저장된다.
 
-- `LEFT OUTER JOIN`을 수행하였고, 별도의 중복 처리를 하지 않았음에도 Post 엔티티 객체가 리스트에 1개 저장된다. 
-
-<div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-02.png" width="80%" class="image__border">
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. StackOverflow 답변
@@ -161,16 +152,16 @@ where post0_.title = ?
 
 - 엔티티 그래프는 하이버네이트(hibernate) 프레임워크 내부에서 기본적으로 중복 처리를 수행한다.
 - 5.2.10 version [HHH-11569][hibernate-release-link]에서 추가되었다.
-- HQL(Hibernate Query Language)나 JPQL 사용 시 `PASS_DISTINCT_THROUGH` 힌트를 사용하면 동일한 효과를 얻을 수 있다.
+- HQL(Hibernate Query Language)이나 JPQL 사용 시 `PASS_DISTINCT_THROUGH` 힌트를 사용하면 동일한 효과를 얻을 수 있다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/auto-distinct-when-using-entity-graph-03.png" width="100%" class="image__border">
 </div>
 
 실제 코드를 살펴보자. `QueryTranslatorImpl` 클래스의 `list` 메서드에서 엔티티 중복이 제거된다.
 
 - `getEntityGraphQueryHint` 메서드 수행 시 결과가 `null`이 아닌 경우 중복을 제거한다.
-  - `hasLimit` 값이나 `query.getSelectClause().isDistinct()` 메서드 수행 결과와 상관 없이 중복이 제거된다.
+  - `hasLimit` 값이나 `query.getSelectClause().isDistinct()` 메서드 수행 결과와 상관없이 중복이 제거된다.
 - `IdentitySet` 클래스를 통해 중복을 제거한다.
 
 ```java

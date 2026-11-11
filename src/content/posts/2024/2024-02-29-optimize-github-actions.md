@@ -7,6 +7,7 @@ categories:
   - "information"
   - "github"
   - "dev-ops"
+summary: "깃허브 액션스 파이프라인에 cache 액션과 setup-* 액션의 캐싱, buildx를 이용한 도커 캐싱을 적용하고 첫 실행과 재실행의 속도 차이를 비교했다."
 recommendedPosts:
   - title: "GitHub Actions 예제"
     href: "https://junhyunny.github.io/information/github/dev-ops/github-actions-example/"
@@ -22,7 +23,7 @@ recommendedPosts:
 
 CI/CD 파이프라인을 여러번 구축해보니 가장 시간을 많이 차지하는 작업은 필요한 의존성들을 다운로드 받는 것이다. 젠킨스(jenkins)나 깃랩(gitlab)에서 파이프라인을 구축할 때도 다운로드 받은 의존성을 재사용해서 빌드 시간을 줄이는 방법들이 존재한다. 깃허브 액션스에도 마찬가지로 의존성 재사용을 통한 파이프라인 시간을 단축하는 방법이 있다. 
 
-캐시 액션(cache action)라는 액션을 사용하면 다운로드 의존성을 재사용할 수 있다. 공식 문서에서 다음과 같은 설명을 볼 수 있다.
+캐시 액션(cache action)이라는 액션을 사용하면 다운로드 의존성을 재사용할 수 있다. 공식 문서에서 다음과 같은 설명을 볼 수 있다.
 
 > To make your workflows faster and more efficient, you can create and use caches for dependencies and other commonly reused files.
 
@@ -85,13 +86,13 @@ jobs:
 공식 문서를 살펴보면 `setup-*` 액션을 사용하면 직접 캐시 액션을 사용하지 않아도 캐시를 적용할 수 있는 방법이 소개되어 있다. 많은 캐시 액션 예제 글들이 직접 의존성 파일들을 캐싱하지만, `setup-*` 액션에 포함된 캐시 기능을 사용할 생각이다. 다음과 같은 `setup-*` 액션들을 지원한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/optimize-github-actions-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/optimize-github-actions-01.png" width="100%" class="image__border">
 </div>
 <center>https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows</center>
 
 ## 2. Caching setup-* Actions
 
-백엔드 애플리케이션은 의존성 관리를 위해 그래이들(gradle)를 사용한다. 파이프라인 설정을 다음과 같이 변경한다. 모노 레포 환경이기 때문에 캐시 의존성 경로를 기본 값으로 사용하지 못 한다. 그래이들 프로젝트의 캐시 의존성 경로를 지정한다.
+백엔드 애플리케이션은 의존성 관리를 위해 그레이들(gradle)을 사용한다. 파이프라인 설정을 다음과 같이 변경한다. 모노 레포 환경이기 때문에 캐시 의존성 경로를 기본 값으로 사용하지 못 한다. 그레이들 프로젝트의 캐시 의존성 경로를 지정한다.
 
 - distribution
   - Java 배포자를 의미한다.

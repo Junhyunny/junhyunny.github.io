@@ -269,9 +269,7 @@ class AServiceApplicationTests {
 }
 ```
 
-위 테스트 코드를 실행하면 다음과 같은 로그를 확인할 수 있다.
-
-- `서비스A`로 요청한 두 경로 모두 `BlogClientFallbackPlan` 객체에 의해 대체된 응답을 전달받는다.
+위 테스트 코드를 실행하면 아래 로그처럼 `서비스A`로 요청한 두 경로 모두 `BlogClientFallbackPlan` 객체에 의해 대체된 응답을 전달받는다.
 
 ```
 2023-02-16 00:39:10.921  INFO 22208 --- [           main] c.in.action.AServiceApplicationTests     : timeout fallback

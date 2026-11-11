@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/javascript/prototype-in-javascript/"
 categories:
   - "javascript"
+summary: "생성자 함수, prototype 객체, 인스턴스의 관계와 __proto__ 접근자 프로퍼티를 통해 자바스크립트 프로토타입의 동작 방식을 정리했다."
 recommendedPosts:
   - title: "Create Object in JavaScript"
     href: "https://junhyunny.github.io/javascript/create-object-in-javascript/"
@@ -63,7 +64,7 @@ console.log(firstCircle.getArea()); // 3.141592653589793
 console.log(secondCircle.getArea()); // 12.566370614359172
 ```
 
-`Circle` 함수는 생성자로써 사용했다. 자바스크립트에서 모든 함수는 생성자로써 사용할 수 있다. 함수와 생성자는 단지 구분해서 사용할 뿐이다. 일반 함수 호출과 다르게 생성자는 `new` 키워드를 함께 사용한다. 생성자 함수의 이름 맨 앞 글자가 대문자인 이유는 일반 함수와 용도를 나누기 위한 이름 규칙(naming convention)이다.
+`Circle` 함수는 생성자로서 사용했다. 자바스크립트에서 모든 함수는 생성자로서 사용할 수 있다. 함수와 생성자는 단지 구분해서 사용할 뿐이다. 일반 함수 호출과 다르게 생성자는 `new` 키워드를 함께 사용한다. 생성자 함수의 이름 맨 앞 글자가 대문자인 이유는 일반 함수와 용도를 나누기 위한 이름 규칙(naming convention)이다.
 
 프로토타입 객체는 함수가 선언될 때 항상 쌍(pair)으로 함께 생성된다. 생성자 함수는 `prototype`, 프로토타입 객체는 `constructor`라는 프로퍼티를 사용해 서로를 참조한다. 생성자 함수로 인스턴스를 생성하는 경우 생성된 인스턴스는 `내부 링크`를 통해 프로토타입 객체를 참조한다. 각 함수 객체의 구조를 살펴보기 위해 아래와 같은 코드를 실행해보자.
 
@@ -81,9 +82,7 @@ console.log(foo.prototype.constructor === foo)
 console.log(Circle.prototype.constructor === Circle)
 ```
 
-위 코드를 실행하면 다음과 같은 결과를 볼 수 있다.
-
-- 동일한 색상의 박스는 동일한 객체 정보를 의미한다.
+위 코드를 실행하면 다음과 같은 결과를 볼 수 있다. 동일한 색상의 박스는 동일한 객체 정보를 의미한다.
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-01.png" width="60%" class="image__border">
@@ -95,7 +94,7 @@ console.log(Circle.prototype.constructor === Circle)
 - `생성자 함수 프로토타입` 객체는 `constructor` 프로퍼티로 `생성자 함수` 객체를 참조한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-02.png" width="100%" class="image__border">
 </div>
 
 위에서 소개한 상속이 없는 예제 코드에서 객체들은 다음과 같은 연결 고리를 갖는다.
@@ -106,7 +105,7 @@ console.log(Circle.prototype.constructor === Circle)
 - 생성자 함수 내부에 정의된 프로퍼티와 메서드는 인스턴스가 만들어질 때 내부에 함께 생성된다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-03.png" width="100%" class="image__border">
 </div>
 
 프로토타입 객체를 통한 상속 예제 코드에서 객체들은 다음과 같은 연결 고리를 갖는다.
@@ -119,7 +118,7 @@ console.log(Circle.prototype.constructor === Circle)
   - 인스턴스 내부 링크를 통해 참조하는 프로토타입 객체의 기능을 재사용한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-04.png" width="100%" class="image__border">
 </div>
 
 ## 2. `__proto__` Accessor Property
@@ -151,7 +150,7 @@ console.dir(circle.__proto__ === Circle.prototype);
 
 ## 3. Summary
 
-위의 내용들을 다시 정리해보자. 요약한 내용을 따라 객체들의 참조 모습을 직접 그려보면 이해하는데 큰 도움이 된다.
+위의 내용들을 다시 정리해보자. 요약한 내용을 따라 객체들의 참조 모습을 직접 그려보면 이해하는 데 큰 도움이 된다.
 
 - `함수A`가 존재한다.
   - `함수A`를 선언하면 `함수A`가 생성자로 사용될 때 필요한 프로토타입 객체가 함께 생성된다.
@@ -159,11 +158,11 @@ console.dir(circle.__proto__ === Circle.prototype);
   - `함수A`의 프로토타입 객체는 `constructor` 프로퍼티를 통해 `함수A`를 참조한다.
 - `함수A`를 생성자로 사용해 만든 `인스턴스A`가 존재한다.
   - `인스턴스A`는 `[[Prototype]]`이라는 내부 슬롯을 통해 자신의 프로토타입 객체를 참조한다.
-  - `[[Prototype]]`를 직접 사용할 수 없으므로 `__proto__` 접근자 프로퍼티를 사용한다.
+  - `[[Prototype]]`을 직접 사용할 수 없으므로 `__proto__` 접근자 프로퍼티를 사용한다.
   - `인스턴스A`는 `함수A`를 통해 만들어졌으므로 `인스턴스A.__proto__`가 가리키는 객체는 `함수A.prototype`과 동일하다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-06.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-in-javascript-06.png" width="100%" class="image__border">
 </div>
 
 자바스크립트에선 함수도 객체이다. `function` 키워드를 통해 함수를 정의하는 행위는 Function 생성자를 통해 함수 객체를 만드는 것과 동일하다. 아래 예제 코드를 살펴보자. `sum`은 함수이기도 하기 때문에 `prototype` 프로퍼티를 가지고 있다. 크롬에서 Function 생성자를 통해 함수를 생성하면 에러가 발생한다. 이에 관련된 내용은 [깃허브(github) 이슈](https://github.com/w3c/trusted-types/wiki/Trusted-Types-for-function-constructor)를 참고 바란다. 
@@ -235,7 +234,7 @@ console.dir(foo.__proto__.constructor === Object);
 
 > This feature is no longer recommended. Though some browsers might still support it, it may have already been removed from the relevant web standards, may be in the process of being dropped, or may only be kept for compatibility purposes. Avoid using it, and update existing code if possible; see the compatibility table at the bottom of this page to guide your decision. Be aware that this feature may cease to work at any time.
 
-객체의 `[[Prototype]]`을 변경하는 것은 모든 브라우저 및 자바스크립트 엔진에서 매우 느린 작업이라고 한다. 오늘날 대부분의 브라우저에서 호환성을 보장하기 위해 지원되지만 더 나은 기능으로 `Object.getPrototypeof()` 메서드 사용이 권장된다.
+객체의 `[[Prototype]]`을 변경하는 것은 모든 브라우저 및 자바스크립트 엔진에서 매우 느린 작업이라고 한다. 오늘날 대부분의 브라우저에서 호환성을 보장하기 위해 지원되지만 더 나은 기능으로 `Object.getPrototypeOf()` 메서드 사용이 권장된다.
 
 #### REFERENCE
 

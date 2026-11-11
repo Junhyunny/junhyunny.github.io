@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/aws-cloud-development-kit-multi-environment/"
 categories:
   - "aws"
+summary: "cdk.json과 cdk.context.json의 용도를 비교하고, CDK 컨텍스트로 개발과 운영 환경마다 인프라 설정을 다르게 배포하는 방법을 정리했다."
 recommendedPosts:
   - title: "AWS CDK(Cloud Development Kit) 개념과 예제"
     href: "https://junhyunny.github.io/aws/cloud-development-kit/aws-cloud-development-kit/"
@@ -20,7 +21,7 @@ recommendedPosts:
 
 > 컨텍스트 값은 앱(app), 스택(stack) 또는 구성(construct)과 연결할 수 있는 키-값 페어입니다. 파일(일반적으로 프로젝트 디렉터리의 cdk.json 또는 cdk.context.json) 또는 명령줄에서 앱에 제공될 수 있습니다.
 
-조금 더 쉽게 설명하면 CDK로 인프라를 구축할 때 사용되는 키-값 페어 정보다. 정보는 cdk.json 또는 cdk.context.json 파일에 저장된다. CLI를 통해 필요한 값을 주입할 수도 있다. AWS 공식 문서에서 말하는 cdk.json와 cdk.context.json 둘은 서로 각각 용도가 다르다. 우선 cdk.json에 대해 알아보자.
+조금 더 쉽게 설명하면 CDK로 인프라를 구축할 때 사용되는 키-값 페어 정보다. 정보는 cdk.json 또는 cdk.context.json 파일에 저장된다. CLI를 통해 필요한 값을 주입할 수도 있다. AWS 공식 문서에서 말하는 cdk.json과 cdk.context.json 둘은 서로 각각 용도가 다르다. 우선 cdk.json에 대해 알아보자.
 
 - CDK 프로젝트가 생성될 때 자동으로 생성된다.
 - CDK 애플리케이션의 설정 파일로 CDK 프로젝트의 전반적인 설정을 정의한다. 
@@ -78,7 +79,7 @@ cdk.context.json의 용도는 다음과 같다.
 }
 ```
 
-이번 글의 주제와 크게 상관은 없지만, 나처럼 궁금한 사람을 위해 cdk.context.json를 사용한 결정적 배포에 대해 잠깐 짚고 넘어가보자. AWS 비결정적 리소스란 실행할 때마다 다른 결과를 생성하는 가능성이 있는 리소스를 의미한다. 동일한 CDK 코드를 실행하더라도 다른 결과를 나오기 때문에 문제가 된다. 예를 들어 최신 AMI 사용하는 다음과 같은 CDK 코드가 있다.
+이번 글의 주제와 크게 상관은 없지만, 나처럼 궁금한 사람을 위해 cdk.context.json을 사용한 결정적 배포에 대해 잠깐 짚고 넘어가보자. AWS 비결정적 리소스란 실행할 때마다 다른 결과를 생성하는 가능성이 있는 리소스를 의미한다. 동일한 CDK 코드를 실행하더라도 다른 결과가 나오기 때문에 문제가 된다. 예를 들어 최신 AMI 사용하는 다음과 같은 CDK 코드가 있다.
 
 ```ts
 import * as cdk from 'aws-cdk-lib';
@@ -126,10 +127,10 @@ export class MyStack extends cdk.Stack {
 캐싱처럼 우선 컨텍스트에 저장된 값을 사용하지만, 없다면 AWS 클라우드에 필요한 정보를 조회 후 컨텍스트에 저장하여 사용한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-multi-environment-01.png" width="80%" class="image__border">
-</div>
-<center>https://quicktechbytes.com/aws-cdk-context-cache-feature-flags-and-configuration-20378d1641ad</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-multi-environment-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://quicktechbytes.com/aws-cdk-context-cache-feature-flags-and-configuration-20378d1641ad</center>
 </div>
 
 cdk.context.json 파일은 CDK CLI를 통해 자동으로 변경되기 때문에 개발자가 직접 수정하는 것은 위험하다. 그렇기 때문에 다중 환경을 제어하기 위해선 cdk.json 파일을 사용한다. 프로젝트 설정과 CDK 결정적 동작을 위해 cdk.json, cdk.context.json 파일 모두 코드 저장소에 커밋(commit)하여 관리해야 한다. 코드 저장소에서 관리하기 때문에 민감한 정보나 환경 변수는 `SSM Parameter Store`를 사용한다.
@@ -295,7 +296,7 @@ $ cdk deploy --context env=prod
 EC2 대시보드를 보면 각 환경의 인스턴스 타입이 다르게 배포된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-multi-environment-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/aws-cloud-development-kit-multi-environment-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. Considerations

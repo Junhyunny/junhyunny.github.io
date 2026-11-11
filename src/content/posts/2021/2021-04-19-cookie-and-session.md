@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/cookie-and-session/"
 categories:
   - "information"
+summary: "HTTP의 무상태 특징 때문에 필요한 서버 저장소인 세션과 브라우저 저장소인 쿠키의 동작 방식과 특징을 설명하고, 둘의 관계를 정리했다."
 recommendedPosts:
   - title: "쿠키(Cookie) 심층 분석"
     href: "https://junhyunny.github.io/information/security/cookie-attributes/"
@@ -39,7 +40,7 @@ HTTP(Hyper Text Transfer Protocol) 통신에서 요청을 보내는 측을 클�
 
 기본적인 HTTP 통신은 모든 요청이 독립적이어야 한다. 상태를 저장하지 않기 때문에 이전 요청이 현재 요청에 영향을 주지 않는다. HTTP 프로토콜의 무상태 특징은 HTML 문서를 전달하는 용도로만 사용했던 초기 HTTP 통신에선 문제가 없었다. 현재는 HTTP 통신을 기반으로 다양한 서비스를 제공하기 때문에 무상태 특징은 서비스 운영에 큰 걸림돌이 된다. 
 
-그런데 실제로 웹 서비스들은 사용하면 상태가 유지되는 것처럼 느껴진다. 클라이언트의 동작으로 변경된 상태들을 계속 유지한다. 
+그런데 실제로 웹 서비스를 사용하면 상태가 유지되는 것처럼 느껴진다. 클라이언트의 동작으로 변경된 상태들을 계속 유지한다. 
 
 - 사용자가 로그인한 상태를 계속 유지
 - 쇼핑몰 사용자가 로그인 없이도 장바구니에 담은 항목들을 유지
@@ -77,7 +78,7 @@ HTTP(Hyper Text Transfer Protocol) 통신에서 요청을 보내는 측을 클�
 5. 서버는 요청에 대한 적절한 처리를 수행한 후 세션 ID를 클라이언트에게 응답과 함께 전달한다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-and-session-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-and-session-02.png" width="100%" class="image__border">
 </div>
 <center>쿠키(Cookie)와 세션(Session)</center>
 
@@ -124,7 +125,7 @@ Connection: keep-alive
 5. 서버는 HTTP 요청 헤더에 담긴 쿠키의 세션 ID를 사용해 특정 사용자에 맞춘 적합한 요청 처리를 수행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-and-session-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cookie-and-session-03.png" width="100%" class="image__border">
 </div>
 <center>쿠키(Cookie)와 세션(Session)</center>
 
@@ -133,10 +134,10 @@ Connection: keep-alive
 쿠키는 브라우저가 사용자 PC에 정보를 저장하기 위해 사용하는 임시 파일이다. 키-값(key-value) 형태로 저장된다. 서버로 요청을 보낼 때 브라우저에 의해 자동으로 전달되기 때문에 서버는 사용자의 상태를 유지한 서비스가 가능하다. 쿠키는 다음과 같은 요소들로 구성되어 있다.
 
 - `Name`은 각각의 쿠키를 구별하는 데 사용된다.
-- `Value`은 쿠키 값이다.
+- `Value`는 쿠키 값이다.
 - `Domain`은 쿠키가 종속된 도메인 주소를 의미한다.
 - `Path`는 쿠키가 유효한 리소스 경로 정보를 의미한다.
-- `Expires/Max-Age`은 쿠키의 유지 시간이다.
+- `Expires/Max-Age`는 쿠키의 유지 시간이다.
 - `HttpOnly`는 브라우저에서 자바스크립트로 쿠키를 조작할 수 있는지 여부이다.
 - `Secure`는 HTTPS 통신에서만 쿠키를 전송할 것인지 여부이다.
 

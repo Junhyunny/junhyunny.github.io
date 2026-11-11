@@ -6,6 +6,7 @@ canonicalPath: "/information/github/sourcetree-not-found-organization-repository
 categories:
   - "information"
   - "github"
+summary: "소스트리에서 깃허브 조직 저장소가 조회되지 않는 문제를 깃허브 Authorized OAuth Apps 설정에서 접근을 승인해 해결한 방법을 기록했다."
 recommendedPosts:
   - title: "맥(Mac) Sourcetree에서 GitHub 비공개 레포지토리 접근 불가 문제"
     href: "https://junhyunny.github.io/information/source-tree-for-mac-read-only-authentication-problem/"
@@ -18,7 +19,7 @@ recommendedPosts:
 - 유효한 소스 경로 URL이 아닙니다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-01.png" width="100%" class="image__border">
 </div>
 
 분명히 존재하는 저장소인데 해당 URL을 찾지 못하는 것이 이상했다. 개인(private) 저장소들은 정상적으로 탐색되었기 때문에 조직(organization) 저장소라는 점이 수상했다. 문제 원인은 소스트리 애플리케이션이 조직에 대한 접근 승인이 되지 않았던 것이다. 
@@ -28,17 +29,17 @@ recommendedPosts:
 다음과 같은 과정을 통해 문제를 해결할 수 있다. 우선 `Settings > Applications > Authorized OAuth Apps` 경로로 접근하여 소스트리 애플리케이션을 선택한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-02.png" width="100%" class="image__border">
 </div>
 
 SourcetreeForWindows 이미지 아래 빨간 네모 칸에 `grant` 버튼을 눌러 해당 애플리케이션 접근을 승인한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-03.png" width="100%" class="image__border">
 </div>
 
 애플리케이션에 대한 접근을 허가하면 소스트리에서 정상적으로 해당 레포지토리가 조회된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/grant-sourcetree-app-04.png" width="100%" class="image__border">
 </div>

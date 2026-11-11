@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/mvc-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "애플리케이션을 모델, 뷰, 컨트롤러로 나누는 MVC 패턴의 구조와 사용 이유, 한계를 설명하고 스프링 부트와 Thymeleaf로 예제를 구현했다."
 ---
 
 ## 1. Structure of MVC Pattern
@@ -70,10 +71,10 @@ MVC 패턴은 여러 개의 뷰가 존재할 수 있으며, 모델에게 질의�
 세상에 완벽이라는 단어는 없다. MVC 패턴에도 한계가 존재한다. 복잡한 대규모 프로그램의 경우 다수의 뷰와 모델이 컨트롤러를 통해 연결되기 때문에 컨트롤러가 불필요하게 커지는 현상이 발생한다. 복잡한 화면을 구성하는 경우에도 동일한 현상이 발생하는데 이를 **`'Massive-View-Controller'`** 라고 한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mvc-pattern-03.png" width="80%" class="image__border">
-</div>
-<center>https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/mvc-pattern-03.png" width="80%" class="image__border">
+  </div>
+  <center>https://www.infoq.com/news/2014/05/facebook-mvc-flux/</center>
 </div>
 
 이런 문제점을 보완하기 위해 다양한 패턴이 파생되었다.
@@ -86,7 +87,7 @@ MVC 패턴은 여러 개의 뷰가 존재할 수 있으며, 모델에게 질의�
 
 ## 4. Example of MVC Pattern
 
-서버 사이드 렌더링으로 많이 사용되는 JSP, Thymeleaf 기술 스택을 통해 MVC 패턴을 적용할 수 있다. 스프링 부트(spring boot) 프레임워크는 공식적으로 JSP를 지원하지 않지만, 개발은 가능하므로 간단한 예제를 만들어 보았다.
+서버 사이드 렌더링으로 많이 사용되는 JSP, Thymeleaf 기술 스택을 통해 MVC 패턴을 적용할 수 있다. 스프링 부트(spring boot) 프레임워크는 공식적으로 JSP를 지원하지 않지만, 개발은 가능하므로 간단한 예제를 만들어 봤다.
 
 1. 브라우저 화면에서 서버로 데이터를 전달한다.
 2. 컨트롤러에서 데이터를 전달받아 서비스에게 데이터를 전달한다.
@@ -132,7 +133,7 @@ MVC 패턴은 여러 개의 뷰가 존재할 수 있으며, 모델에게 질의�
 
 - javax.servlet.jstl 의존성
   - JSP 페이지를 작성할 때 사용할 수 있는 액션과 함수가 포함된 라이브러리
-- org.apache.tomcat.embe.jasper 의존성
+- org.apache.tomcat.embed.jasper 의존성
   - Tomcat의 JSP 엔진, JSP 파일을 구문 분석하여 서블릿 Java 코드로 변환하는 기능 제공
 
 ```xml
@@ -350,7 +351,7 @@ public class MemberService {
 
 ## CLOSING
 
-사용자 인터페이스가 필요한 애플리케이션에서 가장 즐겨 사용되는 디자인 패턴이다. MVC 패턴에 대해 주워들은 건 있어서 어느 정도 설명은 가능하지만, 구체적으로 정리해보지 않았기 때문에 포스트로 한번 정리해보았다. 디자인 패턴에 대해 공부하는 것은 어렵다. 책으로만 읽어본다고 쉽게 이해되지 않는다. 프레임워크나 라이브러리를 다루다 보면 알게 모르게 디자인 패턴을 마주치게 된다. 이를 응용하다 보면 자신도 모르게 디자인 패턴을 사용하기도 한다. 다만 이를 의식적으로 연습하고, 의도해야지 실력이 향상된다는 점을 최근 느끼고 있다.
+사용자 인터페이스가 필요한 애플리케이션에서 가장 즐겨 사용되는 디자인 패턴이다. MVC 패턴에 대해 주워들은 건 있어서 어느 정도 설명은 가능하지만, 구체적으로 정리해보지 않았기 때문에 포스트로 한번 정리해봤다. 디자인 패턴에 대해 공부하는 것은 어렵다. 책으로만 읽어본다고 쉽게 이해되지 않는다. 프레임워크나 라이브러리를 다루다 보면 알게 모르게 디자인 패턴을 마주치게 된다. 이를 응용하다 보면 자신도 모르게 디자인 패턴을 사용하기도 한다. 다만 이를 의식적으로 연습하고, 의도해야지 실력이 향상된다는 점을 최근 느끼고 있다.
 
 - 지금 사용하는 기능은 어떤 점을 고려한 구조인지?
 - 내가 마주친 문제를 해결하기 위해 고안해낸 구조가 어떤 패턴과 유사한지?

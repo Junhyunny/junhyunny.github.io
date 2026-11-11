@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/builder-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "GoF 디자인 패턴과 Effective Java에서 말하는 빌더 패턴이 어떻게 다른지 예제 코드로 비교해 정리했다."
 recommendedPosts:
   - title: "가변(Mutable) 객체와 불변(Immutable) 객체"
     href: "https://junhyunny.github.io/information/java/mutable-immutable-object/"
@@ -34,10 +35,10 @@ recommendedPosts:
   - Product를 만드는 방법을 구체적으로 구현
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/builder-pattern-01.png" width="80%" class="image__border">
-</div>
-<center>https://en.wikipedia.org/wiki/Builder_pattern</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/builder-pattern-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://en.wikipedia.org/wiki/Builder_pattern</center>
 </div>
 
 GoF 디자인 패턴에서 이야기하는 빌더 패턴은 다음과 같은 장점을 갖는다.
@@ -183,7 +184,7 @@ public class GofBuilderPattern {
 > whose constructors or static factories would have more than a handful of parameters, 
 > especially if many of the parameters are optional or of identical type.
 
-직역하자면 `생성자나 정적 팩토리에 파라미터가 많은 경우 사용하기 좋다.`이다. `Effective Java`에서 이야기하는 생성자나 정적 팩토리에 파라미터가 많은 경우 어떤 문제점이 있는지 살펴보면서 빌더 패턴의 활용성을 살펴본다.
+직역하자면 `생성자나 정적 팩토리에 파라미터가 많은 경우 사용하기 좋다.`이다. `Effective Java`에서 이야기하는 생성자나 정적 팩토리에 파라미터가 많은 경우 어떤 문제점이 있는지 살펴보면서 빌더 패턴의 활용성을 알아보자.
 
 점층적 생성자(incremental constructor) 방식은 생성자를 오버로딩(Overloading)하여 사용하는 방법이다. 생성자의 멤버 변수가 많아질수록 생성자의 종류가 많아진다.
 
@@ -225,7 +226,7 @@ class Rectangular {
 이 부분에 다음과 같은 불편함이 발생한다.
 
 - 불필요한 값 설정이 발생한다.
-  - 객체 생성 시 필수인 값 width, height 이 외에 padding 값이 필요한데 반드시 margin 값에 0 을 넣어줘야 한다.
+  - 객체 생성 시 필수인 값 width, height 이 외에 padding 값이 필요한데 반드시 margin 값에 0을 넣어줘야 한다.
 - 생성자가 많아질수록 생성자에 값을 설정하는 코드의 의도를 파악하기 어려워진다.
   - 객체 생성 시 생성자에 숫자들이 들어가면서 어떤 항목에 어떤 값을 추가하는지 코드만 봐서 확인하기 힘들다.
 
@@ -296,7 +297,7 @@ public class EffectiveJavaBuilderPatttern {
 
 ### 2.1. Builder Pattern of Effective Java
 
-마지막으로 `Effective Java`의 빌더 패턴을 통해 객체를 생성하는 방법이다. 생성자의 접근 제어자를 `private`으로 설정하여 외부에서 해당 객체를 만들 때 반드시 빌더 패턴을 사용하도록 만든다. 세터 메서드는 존재하지 않으므로 생성한 객체의 상태를 변경하지 못 한다.
+마지막으로 `Effective Java`의 빌더 패턴을 통해 객체를 생성하는 방법이다. 생성자의 접근 제어자를 `private`으로 설정하여 외부에서 해당 객체를 만들 때 반드시 빌더 패턴을 사용하도록 만든다. 세터 메서드는 존재하지 않으므로 생성한 객체의 상태를 변경하지 못한다.
 
 ```java
 public class EffectiveJavaBuilderPatttern {

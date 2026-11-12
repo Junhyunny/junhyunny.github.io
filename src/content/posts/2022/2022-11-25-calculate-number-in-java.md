@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/calculate-number-in-java/"
 categories:
   - "java"
+summary: "이진수와 고정 소수점, 부동 소수점 방식을 바탕으로 자바 실수 연산이 부정확한 이유를 살펴보고, 정확한 계산을 위한 BigDecimal 클래스 사용법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -13,7 +14,7 @@ categories:
 
 ## 1. Binary Number
 
-0과 1만으로 값을 표현하는 컴퓨터는 숫자를 이진법으로 표현한다. 예를 들어 숫자 `21`을 이진수로 표현하면 `10101`가 된다.
+0과 1만으로 값을 표현하는 컴퓨터는 숫자를 이진법으로 표현한다. 예를 들어 숫자 `21`을 이진수로 표현하면 `10101`이 된다.
 
 > 10101 = (2^4 * 1) + (2^3 * 0) + (2^2 * 1) + (2^1 * 0) + (2^0 * 1)
 
@@ -35,7 +36,7 @@ categories:
 
 ## 2. Fixed Point and Floating Point
 
-컴퓨터는 자신의 연산 비트들을 갖고 최대한 다양한 값들을 표현하고자 다음과 같은 방법을 사용한다. 컴퓨터가 실수를 표현하는 방법 중 고정 소수점(fixed point) 방식에 대해 먼저 알아보자. 32비트 기준으로 고정 소수점 방식에 대해 정리해 보았다.
+컴퓨터는 자신의 연산 비트들을 갖고 최대한 다양한 값들을 표현하고자 다음과 같은 방법을 사용한다. 컴퓨터가 실수를 표현하는 방법 중 고정 소수점(fixed point) 방식에 대해 먼저 알아보자. 32비트 기준으로 고정 소수점 방식에 대해 정리해 봤다.
 
 - 부호(1비트), 정수부(15비트)와 소수부(16비트)로 나눈다. 
 - 정수부는 일반적인 이진수 표기법을 따른다.
@@ -47,10 +48,10 @@ categories:
   - 나머지는 0으로 패딩(padding)
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-02.png" width="100%" class="image__border">
-</div>
-<center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
 </div>
 
 고정 소수점 방식은 표현할 수 있는 수의 범위가 좁기 때문에 컴퓨터는 실제로 부동 소수점(floating point) 방식을 사용한다. 고정 소수점 방식과 다르게 소수점이 고정되어 있지 않다. 지수부(exponent)와 가수부(mantissa)를 만들고, 가수부의 소수점을 정규화를 통해 이동시킨다. 예를 들어 7.625를 이진수로 표현한 111.101을 정규화하면 다음과 같다.
@@ -69,10 +70,10 @@ categories:
   - 밑수는 2 이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-03.png" width="30%" class="image__border">
-</div>
-<center>https:/taejunejoung.github.io/2019/12/24/java-primitive/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-03.png" width="50%" class="image__border">
+  </div>
+  <center>https:/taejunejoung.github.io/2019/12/24/java-primitive/</center>
 </div>
 
 32비트 기준으로 부동 소수점 방식을 자세히 살펴보자.
@@ -88,10 +89,10 @@ categories:
   - 가수 1.11101 값에서 소수점 아래 11101
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-04.png" width="100%" class="image__border">
-</div>
-<center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/calculate-number-in-java-04.png" width="100%" class="image__border">
+  </div>
+  <center>https://gguguk.github.io/posts/fixed_point_and_floating_point/</center> 
 </div>
 
 부동 소수점 방식은 고정 소수점 방식에 비해 표현할 수 있는 수의 범위가 굉장히 크다. 

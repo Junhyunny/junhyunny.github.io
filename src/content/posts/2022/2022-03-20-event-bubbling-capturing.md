@@ -6,11 +6,12 @@ canonicalPath: "/information/javascript/event-bubbling-capturing/"
 categories:
   - "information"
   - "javascript"
+summary: "표준 DOM 이벤트 흐름의 세 단계와 이벤트 버블링, 캡처 동작을 event.target, currentTarget, stopPropagation 예제와 함께 정리했다."
 ---
 
 ## 0. 들어가면서
 
-프론트엔드로 커리어를 시작한 개발자들에겐 기본적인 개념이다. 최근 웹 프론트엔드 관련 공부를 하면서 배운 이벤트 캡처(capture)와 버블링(bubbling)에 대해 정리하였다.
+프론트엔드로 커리어를 시작한 개발자들에겐 기본적인 개념이다. 최근 웹 프론트엔드 관련 공부를 하면서 배운 이벤트 캡처(capture)와 버블링(bubbling)에 대해 정리했다.
 
 ## 1. Event Phase
 
@@ -24,7 +25,7 @@ categories:
   - 이벤트가 상위 엘리먼트로 전파되는 단계
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/event-bubbling-capturing-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/event-bubbling-capturing-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.w3.org/TR/DOM-Level-3-Events/</center>
 
@@ -52,8 +53,8 @@ categories:
 
 이벤트 버블링이 발생할 때 부모 엘리먼트의 이벤트 핸들러는 `event` 객체를 통해 해당 이벤트가 어디서 발생했는지 알 수 있다. 이벤트를 시작한 엘리먼트는 타겟(target)이다. `event.target` 참조를 통해 사용할 수 있다. 현재 이벤트를 핸들링하는 엘리먼트는 `event.currentTarget` 참조를 통해 사용할 수 있다. 다음과 같이 정리할 수 있다. 
 
-- `event.target`는 이벤트가 발생한 엘리먼트다.
-- `event.currentTarget`는 현재 이벤트를 핸들링하고 있는 엘리먼트다.
+- `event.target`은 이벤트가 발생한 엘리먼트다.
+- `event.currentTarget`은 현재 이벤트를 핸들링하고 있는 엘리먼트다.
   - `event.currentTarget`은 이벤트 핸들러 안에서 `this` 키워드와 동일하다.
 
 간단한 이벤트 핸들러를 통해 확인해보자.
@@ -69,7 +70,7 @@ categories:
 
 `stopPropagation` 함수를 사용하면 버블링에 의해 이벤트가 부모 엘리먼트에게 전달되는 것을 막을 수 있다. 현재 단계에서 이벤트 버블링을 중단하는 것과 동일하다. 버블링 차단은 유용하지만, 다음과 같은 사항들을 주의해야 한다.
 
-- 반드시 멈춰야하는 상황이 아닌 경우엔 버블링을 차단하지 않는 것을 권장한다. 
+- 반드시 멈춰야 하는 상황이 아닌 경우엔 버블링을 차단하지 않는 것을 권장한다. 
 - `stopPropagation` 함수에 의해 이벤트 버블링이 중단된 구역은 죽은 영역(dead zone)이 된다.
 
 간단한 예시 코드로 stopPropagation 함수 동작을 살펴보자.

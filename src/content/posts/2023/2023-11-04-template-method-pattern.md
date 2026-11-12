@@ -6,6 +6,7 @@ canonicalPath: "/java/design-pattern/template-method-pattern/"
 categories:
   - "java"
   - "design-pattern"
+summary: "알고리즘의 뼈대는 부모 클래스에 두고 단계별 처리를 서브 클래스에서 재정의하는 템플릿 메서드 패턴의 장단점을 정리하고, 스프링 시큐리티 인증 필터에서 쓰이는 사례를 살펴봤다."
 ---
 
 ## 1. Template Method Pattern
@@ -14,7 +15,7 @@ categories:
 
 코드 재사용을 위한 디자인 패턴이다. 부모 클래스의 메서드에 실행 흐름을 제어하는 코드를 정의한다. 실행 흐름을 제어하는 코드는 비즈니스 로직의 골격 역할을 수행한다. 부모 클래스는 공통 알고리즘을 일련의 단계들로 나누고 이를 메서드로 정의한다. 각 단계들은 비즈니스에 따라 실제 구현 방법이 다를 수 있으므로 자식 클래스들은 이를 재정의한다.
 
-간단하게 여러 문서로부터 데이터를 추출하는 애플리케이션을 예로 들어보겠다. `.doc`, `.csv`, `.pdf` 확장자를 가진 파일들로부터 데이터를 추출한다. 데이터를 추출하는 일련의 작업은 동일하다.
+간단하게 여러 문서로부터 데이터를 추출하는 애플리케이션을 예로 들어보자. `.doc`, `.csv`, `.pdf` 확장자를 가진 파일들로부터 데이터를 추출한다. 데이터를 추출하는 일련의 작업은 동일하다.
 
 1. 파일 열기
 2. 로우 데이터 추출하기
@@ -26,10 +27,10 @@ categories:
 큰 실행 흐름은 어떤 문서를 분석하더라도 변경이 없다. 파일을 열고 닫는 작업, 파일로부터 로우 데이터를 추출하는 방법, 로우 데이터로부터 데이터 분석을 위한 정보를 정리하는 작업은 각 문서 종류마다 다를 수 있다. 이런 이유로 서로 다른 확장자 파일들을 다룰 수 있는 별도 클래스가 필요하다.
 
 - 알고리즘은 DataMiner 추상 클래스의 mine 메서드에 정의되어 있다.
-- openFile, extractData, parseData, closeFile 메서드들은 추상 메서드로써 각 구현 클래스가 반드시 재정의(override)해야 하는 책임을 가진다.
+- openFile, extractData, parseData, closeFile 메서드들은 추상 메서드로서 각 구현 클래스가 반드시 재정의(override)해야 하는 책임을 가진다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/template-method-pattern-01.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/template-method-pattern-01.png" width="100%" class="image__border image__padding">
 </div>
 
 ### 1.1. Pros and Cons
@@ -44,7 +45,7 @@ categories:
 - 일부 자식 클래스들의 기능 확장에 제한적이다. 비즈니스 변화에 유연하게 대응하기 어려울 수 있다.
 - 기능 확장을 위해 추상화 레이어를 늘린다면 코드 복잡도가 높아진다.
 
-### 1.2. Considerations
+### 1.2. Abstract Method and Hook Operation
 
 템플릿 메서드 패턴에서 자식 클래스들이 재정의할 수 있는 메서드 종류는 두 가지이다.
 
@@ -73,7 +74,7 @@ categories:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/template-method-pattern-02.png" width="100%" class="image__border">
 </div>
 
-### 2.1. AbstractAuthenticationProcessingFilter Class
+### 2.1. AbstractAuthenticationProcessingFilter 클래스
 
 doFilter 메서드에서 인증 작업에 대한 큰 알고리즘을 정의한다.
 
@@ -116,7 +117,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 }
 ```
 
-### 2.2. UsernamePasswordAuthenticationFilter Class
+### 2.2. UsernamePasswordAuthenticationFilter 클래스
 
 오버라이드한 attemptAuthentication 메서드에서 아이디, 비밀번호로 사용자 인증을 수행한다.
 
@@ -141,7 +142,7 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
 }
 ```
 
-### 2.3. OAuth2LoginAuthenticationFilter Class
+### 2.3. OAuth2LoginAuthenticationFilter 클래스
 
 오버라이드한 attemptAuthentication 메서드에서 OAuth2 인증 작업을 수행한다.
 

@@ -7,6 +7,7 @@ categories:
   - "information"
   - "http"
   - "security"
+summary: "RFC 7617에 정의된 HTTP Basic 인증 방식에서 클라이언트가 Base64로 인코딩한 자격 증명을 보내는 방법과 서버가 401 응답과 WWW-Authenticate 헤더로 응답하는 방법을 정리했다."
 ---
 
 ## 1. The Basic HTTP Authentication Scheme
@@ -19,7 +20,7 @@ HTTP Basic 인증은 사용자 아이디와 비밀번호 한 쌍을 Base64 방�
 
 다음과 같은 진행 흐름을 가진다.
 
-1. 클라이언트는 자격 증명 없거나 유효하지 않은 자격 증명으로 서버로 요청을 보낸다.
+1. 클라이언트는 자격 증명이 없거나 유효하지 않은 자격 증명으로 서버로 요청을 보낸다.
 2. 서버는 401 Unauthorized 응답을 반환한다.
 3. 클라이언트는 정상적인 자격 증명을 HTTP 요청 헤더에 담아 서버로 요청을 보낸다.
 4. 서버는 정상적인 응답을 전달하거나 권한이 없는 경우 403 Forbidden 응답을 반환한다.
@@ -35,13 +36,13 @@ HTTP Basic 인증 프레임워크를 사용하는 클라이언트는 [RFC 7235](
 
 - `type`은 인증 스키마이다.
   - HTTP Basic 인증 프레임워크를 사용하는 경우 `Basic` 값을 사용한다.
-- `credentials`은 클라이언트를 식별할 수 있는 자격 증명이다.
+- `credentials`는 클라이언트를 식별할 수 있는 자격 증명이다.
 
 ```
 Authorization: <type> <credentials>
 ```
 
-클라이언트는 사용자 아이디와 비밀번호를 사용해 각 렐름(realm)에 대한 인증을 받는다. 렐름은 HTTP 인증에서 서버의 보호되는 범위 혹은 영역을 의미한다. HTTP Basic 인증을 사용하는 클라이언트는 아이디와 비밀번호를 콜론(:)으로 구분하여 자격 증명(credentials)을 만든다. 이때 자격 증명은 평문(plaintext)가 아닌 Base64 방식으로 인코딩 된 값을 사용한다.
+클라이언트는 사용자 아이디와 비밀번호를 사용해 각 렐름(realm)에 대한 인증을 받는다. 렐름은 HTTP 인증에서 서버의 보호되는 범위 혹은 영역을 의미한다. HTTP Basic 인증을 사용하는 클라이언트는 아이디와 비밀번호를 콜론(:)으로 구분하여 자격 증명(credentials)을 만든다. 이때 자격 증명은 평문(plaintext)이 아닌 Base64 방식으로 인코딩 된 값을 사용한다.
 
 ```
 Authorization: Basic base64({USERNAME}:{PASSWORD})
@@ -72,7 +73,7 @@ WWW-Authenticate: <type> realm=<realm>
 
 위와 같은 응답 헤더를 통해 클라이언트는 자격 증명에 따라 응답이 달라질 수 있다는 점을 예상할 수 있다. HTTP Basic 인증에 참여하는 서버는 401 응답을 전달할 때 다음과 같은 응답 헤더를 전달한다.
 
-- 헤더 키는 `WWW-Authenticate`을 사용한다.
+- 헤더 키는 `WWW-Authenticate`를 사용한다.
 - 헤더 값에 타입은 `Basic`을 사용한다.
 - 헤더 값에 렐름 정보를 전달한다.
   - 서버는 클라이언트가 해당 렐름에 유효한 자격 증명을 보내기를 유도한다.

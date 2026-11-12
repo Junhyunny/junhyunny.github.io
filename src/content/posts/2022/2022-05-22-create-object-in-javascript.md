@@ -1,22 +1,20 @@
 ---
 title: "JavaScript에서 객체 생성하기"
 publishedAt: "2022-05-22"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:19+09:00"
 canonicalPath: "/javascript/create-object-in-javascript/"
 categories:
   - "javascript"
+summary: "자바스크립트에서 리터럴과 생성자 함수로 객체를 만드는 방법, 두 방식의 프로토타입 차이, new.target과 instanceof를 사용한 강제 객체 생성 패턴을 정리했다."
 ---
 
 ## 1. 객체 생성하기
 
-`JavaScript`는 두 가지 방법으로 객체를 생성할 수 있다.
-두 가지 방법을 모두 살펴보고 차이점에 대해 정리해본다.
-예시 코드들은 브라우저 개발자 모드(F12)의 콘솔(console)에서 실행할 수 있다.
+`JavaScript`는 두 가지 방법으로 객체를 생성할 수 있다. 두 방법을 모두 살펴보고 차이점을 정리했다. 예시 코드는 브라우저 개발자 도구(F12)의 콘솔(console)에서 실행할 수 있다.
 
 ### 1.1. Literal Object
 
-- 리터럴 객체(literal object)는 직관적이고 쉽게 객체를 생성하는 방법이다.
-- `{}` 안에 객체가 가진 속성(property)들을 정의한다.
+리터럴 객체(literal object)는 직관적이고 쉽게 객체를 생성하는 방법이다. `{}` 안에 객체가 가진 속성(property)을 정의한다.
 
 ```javascript
 let person = {
@@ -31,10 +29,7 @@ person.sayName();
 console.dir(person);
 ```
 
-##### Result
-
-- "My name is Junhyunny" 라는 문구를 볼 수 있다.
-- `dir` 함수를 통해 객체 구조를 살펴볼 수 있다.
+실행하면 "My name is Junhyunny"라는 문구를 볼 수 있고, `dir` 함수로 객체 구조를 살펴볼 수 있다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/create-object-in-javascript-01.png" width="50%" class="image__border">
@@ -42,10 +37,7 @@ console.dir(person);
 
 ### 1.2. Pain Point of Literal Object
 
-리터럴 객체는 쉽고 직관적이지만, 다음과 같은 불합리함이 존재한다.
-
-- 하나의 객체만 생성한다.
-- 동일한 속성들을 가지는 객체를 여러 개 생성하는 경우 불합리하다.
+리터럴 객체는 쉽고 직관적이지만, 한 번에 하나의 객체만 생성한다. 그래서 같은 속성을 가진 객체를 여러 개 생성할 때는 다음처럼 같은 코드를 반복해야 한다.
 
 ```javascript
 let junhyunny = {
@@ -68,11 +60,7 @@ jua.sayName();
 
 ## 2. Constructor Function
 
-`JavaScript`는 동일한 모습의 객체를 여러개 만들기 위해 더 효율적인 방법을 제공한다.
-
-- 생성자 함수(constructor function)로 객체를 만들 수 있다.
-  - `new` 연산자와 함께 함수를 호출하면 객체를 만들기 위한 생성자 함수로서 실행된다.
-- 파스칼 네이밍 컨벤션(pascal naming convention)을 따라 생성자로 사용하는 함수의 앞 글자는 대문자를 사용한다.
+`JavaScript`는 같은 모습의 객체를 여러 개 만들 수 있는 더 효율적인 방법을 제공한다. 바로 생성자 함수(constructor function)다. `new` 연산자와 함께 함수를 호출하면 그 함수는 객체를 만드는 생성자 함수로서 실행된다. 파스칼 네이밍 컨벤션(pascal naming convention)을 따라 생성자로 사용하는 함수의 첫 글자는 대문자로 쓴다.
 
 ```javascript
 function Person(name) {
@@ -91,12 +79,7 @@ jua.sayName();
 console.dir(junhyunny);
 ```
 
-##### Result
-
-- 다음과 같은 문장을 콘솔에서 볼 수 있다.
-  - "My name is Junhyunny"
-  - "My name is Jua"
-- `dir` 함수를 통해 Person 객체의 구조를 살펴볼 수 있다.
+실행하면 콘솔에서 "My name is Junhyunny", "My name is Jua" 문장을 볼 수 있고, `dir` 함수로 Person 객체의 구조를 살펴볼 수 있다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/create-object-in-javascript-02.png" width="50%" class="image__border">
@@ -106,10 +89,10 @@ console.dir(junhyunny);
 
 `new` 연산자와 함께 함수를 호출하면 다음과 같은 과정이 일어난다.
 
-1. 처음 함수를 호출하면 객체(instance)가 생성된다.
+1. 함수를 호출하면 먼저 객체(instance)가 생성된다.
   - 생성된 객체는 `this` 키워드에 바인딩된다.
-1. `this` 키워드에 바인딩 된 객체의 속성들을 초기화한다.
-1. `return` 키워드가 없는 경우 암묵적으로 `this` 키워드에 바인딩 된 객체가 반환된다.
+2. `this` 키워드에 바인딩된 객체의 속성을 초기화한다.
+3. `return` 키워드가 없으면 암묵적으로 `this` 키워드에 바인딩된 객체를 반환한다.
 
 ```javascript
 function Person(name) {
@@ -129,7 +112,7 @@ new Person('Junhyunny');
 
 ### 2.2. Call constructor without new keyword
 
-`new` 연산자 없이 생성자 함수를 호출하면 어떤 현상이 있는지 확인해본다.
+`new` 연산자 없이 생성자 함수를 호출하면 어떻게 되는지 확인해 보자.
 
 ```javascript
 function Person(name) {
@@ -147,13 +130,9 @@ console.log('window.name - ', window.name);
 window.sayName();
 ```
 
-##### Result
+`new` 키워드 없이 생성자 함수를 호출하면 일반 함수를 호출한 것과 똑같이 동작한다. 별도의 반환 값이 없기 때문에 코드의 `junhyunny` 객체는 `undefined`이다.
 
-- `new` 키워드 없이 생성자 함수를 호출하는 것은 일반 함수를 호출하는 것과 동일하게 동작한다.
-  - 별도 반환 값이 없기 때문에 코드의 `junhyunny` 객체는 `undefined` 이다.
-- `Person` 함수는 전역 객체가 호출하였기 때문에 `this` 키워드에는 `window` 객체가 바인딩된다.
-  - `Person` 함수 호출 시 내부 `this` 키워드에 바인딩되는 객체는 해당 함수를 호출한 객체이다.
-  - `window` 객체에 `name` 속성과 `sayName()` 메서드가 만들어진다.
+`Person` 함수를 호출할 때 내부 `this` 키워드에 바인딩되는 객체는 그 함수를 호출한 객체다. `Person` 함수는 전역 객체가 호출했기 때문에 `this` 키워드에는 `window` 객체가 바인딩되고, `window` 객체에 `name` 속성과 `sayName()` 메서드가 만들어진다. 실행 결과는 다음과 같다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/create-object-in-javascript-03.png" width="50%" class="image__border">
@@ -161,14 +140,11 @@ window.sayName();
 
 ### 2.3. Constructor Function with Return Value
 
-`new` 연산자와 함께 호출하는 생성자 함수는 별도로 반환하는 값이 없다.
-하지만 암묵적으로 `this` 키워드에 바인딩 된 객체를 반환한다.
-생성자 함수가 특정 값을 반환하는 경우 어떤 현상이 있는지 살펴본다.
+`new` 연산자와 함께 호출하는 생성자 함수는 별도로 값을 반환하지 않지만, 암묵적으로 `this` 키워드에 바인딩된 객체를 반환한다. 생성자 함수가 특정 값을 반환하면 어떻게 되는지 살펴보자.
 
 #### 2.3.1. Return Literal Object
 
-- 리터럴 객체를 반환하는 경우 생성자를 통해 만들어진 객체가 반환되지 않는다.
-- 리터럴 객체가 그대로 반환된다.
+리터럴 객체를 반환하면 생성자로 만들어진 객체가 아니라 리터럴 객체가 그대로 반환된다.
 
 ```javascript
 function Person(name) {
@@ -190,7 +166,7 @@ junhyunny.sayHello();
 console.dir(junhyunny);
 ```
 
-##### Result
+실행 결과는 다음과 같다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/create-object-in-javascript-04.png" width="50%" class="image__border">
@@ -198,17 +174,17 @@ console.dir(junhyunny);
 
 #### 2.3.2. Return Primitive Type
 
-- 원시 값을 반환하는 경우 `new` 연산자를 통해 함수를 만드는 것과 동일하게 동작한다.
-- 반환된 원시 타입의 값은 무시된다.
-- `JavaScript`에서 취급하는 원시 타입은 다음과 같다.
-  - Boolean 타입
-  - Null 타입
-  - Undefined 타입
-  - Number 타입
-  - BigInt 타입
-  - String 타입
-  - Symbol 타입
-- 생성자 함수 내부에서 명시적으로 다른 값을 반환하는 코드는 생성자 함수의 기본 동작을 훼손하기 때문에 지양한다.
+원시 값을 반환하면 반환한 원시 값은 무시되고, 값을 반환하지 않고 `new` 연산자로 객체를 만들 때와 똑같이 동작한다. `JavaScript`에서 취급하는 원시 타입은 다음과 같다.
+
+- Boolean 타입
+- Null 타입
+- Undefined 타입
+- Number 타입
+- BigInt 타입
+- String 타입
+- Symbol 타입
+
+생성자 함수 안에서 명시적으로 다른 값을 반환하는 코드는 생성자 함수의 기본 동작을 훼손하므로 지양한다.
 
 ```javascript
 function Person(name) {
@@ -225,7 +201,7 @@ junhyunny.sayName();
 console.dir(junhyunny);
 ```
 
-##### Result
+실행 결과는 다음과 같다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/create-object-in-javascript-05.png" width="50%" class="image__border">
@@ -233,13 +209,9 @@ console.dir(junhyunny);
 
 ## 3. Difference between two methods of object creation
 
-리터럴 방식으로 만들어진 객체와 생성자를 통해 만들어진 객체는 어떤 차이점이 있는지 살펴본다.
+리터럴 방식으로 만든 객체와 생성자로 만든 객체는 어떤 차이가 있는지 살펴보자. 리터럴 방식으로 생성한 객체의 `[[Prototype]]` 객체는 `Object(Object.prototype)`이다.
 
-- 리터럴 방식으로 생성한 객체의 `[[Prototype]]` 객체는 `Object(Object.prototype)` 이다.
-- 생성자 방식으로 생성한 객체의 `[[Prototype]]` 객체는 `Person(Person.prototype)` 이다.
-  - `constructor` 속성에 `Person` 함수가 지정되어 있다.
-  - 한 단계 더 아래 `[[Prototype]]` 객체는 `Object(Object.prototype)` 이다.
-- 생성자 함수를 통해 객체를 생성하는 경우 프로토타입(prototype) 객체가 지정된다.
+생성자 방식으로 생성한 객체의 `[[Prototype]]` 객체는 `Person(Person.prototype)`이다. 이 객체의 `constructor` 속성에는 `Person` 함수가 지정되어 있고, 한 단계 더 아래의 `[[Prototype]]` 객체는 `Object(Object.prototype)`이다. 이처럼 생성자 함수로 객체를 생성하면 그 생성자의 프로토타입(prototype) 객체가 지정된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/create-object-in-javascript-06.png" width="100%" class="image__border">
@@ -247,17 +219,11 @@ console.dir(junhyunny);
 
 ## 4. Pattern of Forced Object Creation
 
-생성자 함수는 일반 함수처럼 사용할 수 있다.
-맨 앞 글자가 대문자더라도 개발자가 실수로 `new` 연산자 없이 사용할 수 있다.
-이런 실수를 보완하고자 생성자 함수를 `new` 연산자 없이 호출했을 때 인스턴스가 생성되도록 구현할 수 있다.
+생성자 함수는 일반 함수처럼 사용할 수 있다. 첫 글자가 대문자더라도 개발자가 실수로 `new` 연산자 없이 호출할 수 있다. 이런 실수를 보완하려고 생성자 함수를 `new` 연산자 없이 호출해도 인스턴스가 생성되도록 구현할 수 있다.
 
 ### 4.1. new.target keyword
 
-- `ES6`부터 지원한다.
-  - 생성자 함수로서 호출하면 `new.target`은 함수 자신을 가리킨다.
-  - 일반 함수로서 호출하면 `new.target`은 `undefined` 값을 가진다.
-- 함수 내부에서 `new.target` 키워드를 사용하여 `new` 연산자와 함께 호출되었는지 확인한다.
-- 아닌 경우 내부에서 생성자 함수를 `new` 연산자와 함께 호출하여 그 결과를 반환한다.
+`new.target`은 `ES6`부터 지원한다. 생성자 함수로서 호출하면 `new.target`은 함수 자신을 가리키고, 일반 함수로서 호출하면 `undefined` 값을 가진다. 함수 내부에서 `new.target` 키워드로 `new` 연산자와 함께 호출됐는지 확인하고, 아니라면 내부에서 생성자 함수를 `new` 연산자와 함께 호출해 그 결과를 반환한다.
 
 ```javascript
 function Person(name) {
@@ -281,8 +247,7 @@ console.dir(junhyunny);
 
 ### 4.2. instanceof keyword
 
-- `new.target` 키워드는 `ES6`에서 도입된 최신 문법이며, IE(Internet Explorer)에선 지원하지 않는다.
-- `instanceof` 키워드로 대체하여 구현할 수 있다.
+`new.target` 키워드는 `ES6`에서 도입된 최신 문법이라 IE(Internet Explorer)에서는 지원하지 않는다. 이때는 `instanceof` 키워드로 대체해 구현할 수 있다.
 
 ```javascript
 function Person(name) {

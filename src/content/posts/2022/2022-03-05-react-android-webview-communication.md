@@ -6,6 +6,7 @@ canonicalPath: "/react/android/react-android-webview-communication/"
 categories:
   - "react"
   - "android"
+summary: "@JavascriptInterface 애너테이션으로 안드로이드 웹뷰에 자바스크립트 인터페이스를 추가하고, 리액트 화면에서 window 객체의 android 객체로 네이티브 기능을 호출하는 방법을 정리했다."
 recommendedPosts:
   - title: "안드로이드 웹뷰(Android WebView) 예제"
     href: "https://junhyunny.github.io/android/android-webview/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-이번엔 [안드로이드 웹뷰(Android WebView) 예제][android-webview-link]에서 만든 애플리케이션과 리액트 서비스 화면끼리 데이터를 주고 받는다.
+이번엔 [안드로이드 웹뷰(Android WebView) 예제][android-webview-link]에서 만든 애플리케이션과 리액트 서비스 화면끼리 데이터를 주고받는다.
 
 ## 1. Android WebView
 
@@ -47,7 +48,7 @@ recommendedPosts:
   - HTML 문서에서 전달한 메시지를 토스트 기능을 통해 화면에 띄운다.
 - `callJavaScriptFunction` 메서드
   - 5초 뒤 `JavaScript` 코드를 이용해 커스텀 이벤트(CustomEvent)를 발행한다.
-  - 커스텀 이벤트의 이름은 `"javascriptFunction"` 이다.
+  - 커스텀 이벤트의 이름은 `"javascriptFunction"`이다.
   - 발행한 이벤트를 이용해 리액트 서비스의 상태를 변경한다.
 
 ```java

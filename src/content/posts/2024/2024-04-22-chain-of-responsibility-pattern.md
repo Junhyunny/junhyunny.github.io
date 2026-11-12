@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/design-pattern/chain-of-responsibility-pattern/"
 categories:
   - "design-pattern"
+summary: "요청을 처리할 객체들을 사슬처럼 연결하는 책임 연쇄 패턴의 구조와 고려 사항을 정리하고, 스프링 시큐리티 필터 체인에 적용된 사례를 살펴봤다."
 ---
 
 ## 0. 들어가면서
@@ -32,27 +33,27 @@ categories:
 - 자신이 해결할 수 없는 요청은 다음 후보 객체에게 전달한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.cs.unc.edu/~stotts/GOF/hires/pat5afso.htm</center>
 
 ### 1.2. In Refactoring Guru
 
-디자인 패턴에 대해 잘 정리된 [Refacotring Guru](https://refactoring.guru/ko)라는 사이트에서도 좋은 예시를 들고 있다. 내가 익숙한 스프링 시큐리티(spring security)와 유사한 사례이기 때문에 더 이해하기 쉬웠다. 
+디자인 패턴에 대해 잘 정리된 [Refactoring Guru](https://refactoring.guru/ko)라는 사이트에서도 좋은 예시를 들고 있다. 내가 익숙한 스프링 시큐리티(spring security)와 유사한 사례이기 때문에 더 이해하기 쉬웠다. 
 
 1. 온라인 주문 시스템을 개발하고 있다.
   - 인증된 사용자만 주문할 수 있다.
   - 관리 권한이 있는 사용자들은 모든 주문에 접근 권한을 부여할 수 있다.
 2. 몇 가지 기능들이 더 추가됐다.
-  - 검증되지 않은 데이터를 주문 시스템에 직접 전달하는 것이 안정하지 않아 데이터를 정제(sanitize)하는 추가 유효성 검사를 추가한다.
+  - 검증되지 않은 데이터를 주문 시스템에 직접 전달하는 것이 안전하지 않아 데이터를 정제(sanitize)하는 추가 유효성 검사를 추가한다.
   - 무차별 대입 공격에 방어하기 위해 같은 IP 주소로부터 반복적으로 오는 실패한 요청을 걸러내는 검사를 추가한다.
   - 같은 데이터가 포함된 반복 요청에 대해 캐시된 결과를 반환한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-02.png" width="100%" class="image__border">
-</div>
-<center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 </div>
 
 인증, 인가, 유효성 검사, 무차별 공격 방어, 캐싱 등 너무 많은 기능들이 모여있다. 새로운 기능을 추가할 때마다 코드의 복잡성은 증가하고 이는 코드를 수정, 검증하는 데 더 많은 비용을 들게 만드는 악순환의 고리를 만든다. 비슷한 검증이 필요한 다른 시스템에선 코드 일부분을 복제해가기 때문에 비슷한 코드가 점점 늘어난다.
@@ -68,7 +69,7 @@ categories:
   - 비슷한 검증이 필요한 다른 시스템들은 자신의 상황에 맞는 핸들러들로 체인을 조합하여 사용한다.   
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-03.png" width="100%" class="image__border">
 </div>
 <center>https://refactoring.guru/ko/design-patterns/chain-of-responsibility</center>
 
@@ -84,7 +85,7 @@ categories:
   - 선택적(optional)으로 구현하며 공통적인 코드를 넣는다.
 - 구현 핸들러(concrete handler)
   - 요청을 처리하기 위한 실제 코드가 포함되어 있다.
-  - 요청을 받으면 요청을 처리할지 체인의 다른 핸들러에게 전달하지 결정한다.
+  - 요청을 받으면 요청을 처리할지 체인의 다른 핸들러에게 전달할지 결정한다.
   - 요청을 처리하면 체인을 계속 진행할지 중단할지 결정한다.
 - 클라이언트(client)
   - 핸들러 체인에게 요청을 전달한다.
@@ -100,7 +101,7 @@ categories:
 다음과 같은 상황에 책임 연쇄 패턴을 적용한다.
 
 - 애플리케이션이 다양한 방식으로 다양한 종류의 요청들을 처리하지만, 정확한 요청 유형들과 순서를 미리 알 수 없다.
-- 메시지를 받을 받을 객체를 명시하지 않은 채 여러 객체들 중 하나에게 처리를 요청한다.
+- 메시지를 받을 객체를 명시하지 않은 채 여러 객체들 중 하나에게 처리를 요청한다.
 - 요청을 처리할 수 있는 객체 집합이 동적으로 변경될 수 있어야 한다. 
 
 책임 연쇄 패턴에서 체인을 구성하는 핸들러들은 개발자가 계획한 특정 순서대로 실행되어야 한다. 다음과 같은 장점이 있다.
@@ -126,7 +127,7 @@ categories:
 
 ## 4. An example in Spring Security
 
-스프링 프레임워크의 서블릿 필터 체인(servlet filter chain)도 책임 연쇄 패턴의 좋은 예이지만, 서블릿 필터 체인을 확장한 스프링 시큐리티 프레임워크의 시큐리티 필터 체인도 좋은 에시 중 하나이다. 인증이나 인가, 공격 방어에 대한 책임들을 여러 필터들로 분리하고 이들을 하나의 필터 체인으로 연결했다. 
+스프링 프레임워크의 서블릿 필터 체인(servlet filter chain)도 책임 연쇄 패턴의 좋은 예이지만, 서블릿 필터 체인을 확장한 스프링 시큐리티 프레임워크의 시큐리티 필터 체인도 좋은 예시 중 하나이다. 인증이나 인가, 공격 방어에 대한 책임들을 여러 필터들로 분리하고 이들을 하나의 필터 체인으로 연결했다. 
 
 Filter 클래스를 살펴보면 doFilter 메서드가 선언되어 있다. 구현 클래스들은 이 메서드 내부에서 자신의 책임을 수행한다. 
 
@@ -196,7 +197,7 @@ public class SecurityContextHolderFilter extends GenericFilterBean {
     - ExceptionTranslationFilter 객체는 인증, 인가 예외 처리를 수행한다.
     - AuthorizationFilter 객체는 인가 처리를 수행한다.
 - 요청 정보는 HttpServletRequest, 응답 정보는 HttpServletResponse 객체에 담겨 있다.
-- 핸들러 역할을 수행하는 필터들은 서로의 존재를 모르고 FilterChain 인스턴스를 통해 다음 필터에게 요청을 건낸다.
+- 핸들러 역할을 수행하는 필터들은 서로의 존재를 모르고 FilterChain 인스턴스를 통해 다음 필터에게 요청을 건넨다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/chain-of-responsibility-pattern-05.png" width="100%" class="image__border">

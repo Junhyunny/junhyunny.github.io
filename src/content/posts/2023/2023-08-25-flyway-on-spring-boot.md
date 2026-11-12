@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "database"
   - "flyway"
+summary: "스프링 부트 애플리케이션에 Flyway를 적용해 실행 시점에 마이그레이션 스크립트를 반영하고, 실패 복구와 낮은 버전 스크립트, 스크립트 변경 상황의 동작을 실습했다."
 recommendedPosts:
   - title: "Schema Migration"
     href: "https://junhyunny.github.io/information/database/schema-migration/"
@@ -65,9 +66,7 @@ recommendedPosts:
                         └── ActionInBlogApplicationTests.java
 ```
 
-### 1.1. build.gradle
-
-가독성을 위해 주석으로 관련 의존성들을 설명한다.
+`build.gradle` 파일의 관련 의존성은 가독성을 위해 주석으로 설명했다.
 
 ```groovy
 buildscript {
@@ -120,7 +119,7 @@ flyway {
 flywayMigrate.dependsOn classes
 ```
 
-### 1.2. application.yml
+`application.yml` 파일에는 다음과 같은 설정을 추가한다.
 
 - JPA ddl-auto 설정을 `validate`로 지정한다.
   - 애플리케이션 실행 시 엔티티와 데이터베이스 스키마가 일치하는지 여부를 확인한다.
@@ -143,9 +142,7 @@ spring:
     locations: classpath:db/migration,classpath:db/seed
 ```
 
-### 1.3. UserEntity Class
-
-스키마 마이그레이션 작업을 병행할 엔티티 클래스를 하나 준비한다.
+스키마 마이그레이션 작업을 함께 확인할 UserEntity 엔티티 클래스를 하나 준비한다.
 
 ```java
 package action.in.blog.domain;
@@ -224,7 +221,7 @@ insert into `junhyunny-db`.`tb_user` (name) values ('jua');
 - Migrating schema `junhyunny-db` with repeatable migration "insert users repeatable"
   - 사용자 정보를 추가하는 마이그레이션 작업을 수행한다.
 - Successfully applied 2 migrations to schema `junhyunny-db`, now at version v1.0.0
-  - 두 마이그레이션 작업들이 성공하였고 버전은 1.0.0 이다.
+  - 두 마이그레이션 작업들이 성공했고 버전은 1.0.0 이다.
 
 ```
 ...
@@ -257,7 +254,7 @@ insert into `junhyunny-db`.`tb_user` (name) values ('jua');
   - 마이그레이션에 사용된 스크립트에 대한 정보가 체크섬으로 저장된다.
 - 사용자 테이블에 사용자 정보가 저장된다.
   - R__insert_users_repeatable 파일에 작성한 스크립트에 의해 데이터가 저장된다.
-  - 반복 수행 스크립트는 한번만 적용되지만, 파일에 변경이 발생하여 체크섬이 바뀌면 다시 실행된다.
+  - 반복 수행 스크립트는 한 번만 적용되지만, 파일에 변경이 발생하여 체크섬이 바뀌면 다시 실행된다.
 
 ```
 mysql> select * from flyway_schema_history;
@@ -309,7 +306,7 @@ ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50) NOT NULL;
 ```
 
 - V1.0.3__alerter_user_add_colum_address
-  - 일부러 오타로 작성하여 마이그레이션을 실패를 유도한다.
+  - 일부러 오타로 작성하여 마이그레이션 실패를 유도한다.
 
 ```sql
 AALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN address VARCHAR(50) NOT NULL;
@@ -411,9 +408,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 ...
 ```
 
-flywayRepair 명령어를 수행한다.
-
-- flywayRepair 명령어를 통해 실패한 이력을 대기 상태로 변경한다.
+flywayRepair 명령어를 수행해 실패한 이력을 대기 상태로 변경한다.
 
 ```
 $ gradle flywayRepair
@@ -527,9 +522,7 @@ Need more flexibility with validation rules? Learn more: https://rd.gt/3AbJUZE
 ...
 ```
 
-flywayRepair 작업을 수행한다.
-
-- flywayRepair 명령어를 통해 마이그레이션 이력 테이블의 체크섬을 최신화한다.
+flywayRepair 작업을 수행해 마이그레이션 이력 테이블의 체크섬을 최신화한다.
 
 ```
 $ gradle flywayRepair

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/pattern-matching-for-instanceof-in-java/"
 categories:
   - "java"
+summary: "instanceof로 타입을 확인한 뒤 형 변환하던 기존 코드를 자바의 instanceof 패턴 매칭으로 간결하게 바꾸는 방법을 예제 코드로 정리했다."
 recommendedPosts:
   - title: "정적 타입(static typed)/동적 타입(dynamic typed) 언어"
     href: "https://junhyunny.github.io/information/type-of-language/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 레거시 시스템에서 컬렉션을 사용한 코드나 서블릿 컨테이너의 코드를 보면 Object 타입을 사용하는 경우를 종종 볼 수 있다. Object 타입인 경우 객체의 타입을 모르기 때문에 형 변환(type casting)을 수행하는데 이때 ClassCastException 예외가 발생하기도 한다. 이런 예외를 피하기 위해 instanceof 명령어를 사용한다.
 
-사용하기 전에 타입을 확인하기 위해 instanceof 명령어를 사용하면 인스턴스를 캐스팅(casting)하는 코드가 자연스럽게 따라온다. 타입이 지정되지 않은 맵(map)에서 객체를 꺼내는 간단한 예제 코드를 살펴보겠다.
+사용하기 전에 타입을 확인하기 위해 instanceof 명령어를 사용하면 인스턴스를 캐스팅(casting)하는 코드가 자연스럽게 따라온다. 타입이 지정되지 않은 맵(map)에서 객체를 꺼내는 간단한 예제 코드를 살펴보자.
 
 - 꺼낸 객체의 타입을 instanceof 명령어로 확인한다.
 - 타입이 일치하는 경우 인스턴스를 캐스팅한 후 비즈니스 로직을 수행한다.
@@ -82,9 +83,7 @@ public class Main {
     }
 ```
 
-컨텍스트가 유효하지 않은 외부 스코프에서 호출하는 경우 컴파일 에러가 발생한다. 예를 들면 다음과 같은 코드는 컴파일 에러가 발생한다.
-
-- if 블록 외부에서 cat 변수를 사용하면 변수를 찾을 수 없다는 컴파일 에러가 발생한다.
+컨텍스트가 유효하지 않은 외부 스코프에서 호출하는 경우 컴파일 에러가 발생한다. 예를 들어 다음 코드처럼 if 블록 외부에서 cat 변수를 사용하면 변수를 찾을 수 없다는 컴파일 에러가 발생한다.
 
 ```java
     public static void main(String[] args) {

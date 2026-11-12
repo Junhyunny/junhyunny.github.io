@@ -6,6 +6,7 @@ canonicalPath: "/java/spring-boot/when-run-jar-then-fail-to-read-resource/"
 categories:
   - "java"
   - "spring-boot"
+summary: "IDE에서는 읽히던 리소스 파일이 jar 실행 시 읽히지 않는 원인을 살펴보고, getResourceAsStream 메서드로 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "스프링 부트 애플리케이션이 이미지 에셋(asset)을 못 찾는 문제"
     href: "https://junhyunny.github.io/spring-boot/cannot-find-static-resource/"
@@ -13,9 +14,7 @@ recommendedPosts:
 
 ## 1. Problem Context
 
-IDE(Integrated Development Environment) 환경에서 애플리케이션을 실행하면 리소스(resource) 파일을 정상적으로 읽을 수 있다. 빌드 결과물인 `jar` 패키징 파일을 실행하면 리소스 파일에 접근할 수 없는 현상이 있었다. jar 패키지 파일을 압축 해제 후 내부를 열어보면 필요한 리소스 파일을 정상적으로 찾을 수 있다.
-
-- 클래스패스(classpath)에서 pokemons.json 파일을 찾을 수 있다.
+IDE(Integrated Development Environment) 환경에서 애플리케이션을 실행하면 리소스(resource) 파일을 정상적으로 읽을 수 있다. 빌드 결과물인 `jar` 패키징 파일을 실행하면 리소스 파일에 접근할 수 없는 현상이 있었다. jar 패키지 파일을 압축 해제 후 내부를 열어보면 필요한 리소스 파일을 정상적으로 찾을 수 있다. 클래스패스(classpath)에서 pokemons.json 파일을 찾을 수 있다.
 
 ```
 ~/Desktop/action-in-blog-0.0.1-SNAPSHOT % tree BOOT-INF
@@ -181,7 +180,7 @@ public class PokeomonController {
 }
 ```
 
-jar 패키지 파일로 애플리케이션을 실행 후 테스트 해보면 getResourceAsStream 메서드를 사용했을 때 정상적으로 응답하는 것을 확인할 수 있다.
+jar 패키지 파일로 애플리케이션을 실행 후 테스트해 보면 getResourceAsStream 메서드를 사용했을 때 정상적으로 응답하는 것을 확인할 수 있다.
 
 - /pokemons-fail 경로
   - getResource 메서드를 사용해 얻은 경로를 파일로 오픈한다.

@@ -6,6 +6,7 @@ canonicalPath: "/ios/swift-ui/state-object-vs-observed-object/"
 categories:
   - "ios"
   - "swift-ui"
+summary: "체크 박스 버그를 계기로 SwiftUI의 @ObservedObject와 @StateObject 애너테이션이 뷰가 다시 그려질 때 객체를 다루는 방식의 차이를 예제와 시뮬레이터로 비교했다."
 recommendedPosts:
   - title: "SwiftUI MVVM 패턴"
     href: "https://junhyunny.github.io/ios/swift-ui/design-pattern/mvvm-pattern-in-ios/"
@@ -19,7 +20,7 @@ recommendedPosts:
 
 SwiftUI 프레임워크는 [MVVM(Model-View-ViewModel)][mvvm-pattern-in-ios-link] 패턴을 기술적으로 지원한다. 뷰 컴포넌트는 뷰-모델 컴포넌트에게 상태 관리를 의존한다. 뷰-모델 컴포넌트는 상태 변경을 뷰에게 알릴 수 있도록 @Published 애너테이션을 사용한다. 뷰 컴포넌트는 뷰-모델 객체를 선언할 때 @ObservedObject 혹은 @StateObject 애너테이션을 사용할 수 있다. 동작하는 모습은 동일한데 둘 사이엔 어떤 차이점이 있길래 구분하여 사용할까? 우선 공식 홈페이지 설명을 먼저 살펴보자.
 
-### 1.1. @ObservedObject Annotation
+### 1.1. @ObservedObject 애너테이션
 
 iOS 13.0 이상부터 사용할 수 있다. 뷰 컴포넌트 안에 선언한 ObservableObject 인스턴스 필드 앞에 @ObservedObject 애너테이션을 추가한다. ObservableObject 인스턴스가 공개한(published) 상태가 변화할 때마다 화면을 다시 그리려면 이 애너테이션이 필드 앞에 붙어 있어야 한다.
 
@@ -59,13 +60,13 @@ struct MySubView: View {
 }
 ```
 
-### 1.2. @StateObject Annotation
+### 1.2. @StateObject 애너테이션
 
 iOS 14.0 이상부터 사용할 수 있다. @StateObject 애너테이션도 @ObservedObject 애너테이션과 동일하게 ObservableObject 인스턴스 필드 앞에 추가한다. 거의 동일하게 동작하지만, 일부 다른 점이 있다. 공식 홈페이지를 보면 다음과 같은 설명을 볼 수 있다.
 
 > Use a state object as the single source of truth for a reference type that you store in a view hierarchy.
 
-@StateObject 애너테이션은 뷰 계층에서 단일 진실 공급원(the single source of truth)로써 상태를 사용할 수 있게 만든다. SwiftUI 프레임워크는 상태 객체를 선언한 컨테이너의 생명 주기 동안 모델 인스턴스를 단 한번만 만든다. 화면의 입력(input) 값이 바뀌어 화면이 다시 그려지더라도 상태 객체를 새롭게 생성하지 않는다. 
+@StateObject 애너테이션은 뷰 계층에서 단일 진실 공급원(the single source of truth)로서 상태를 사용할 수 있게 만든다. SwiftUI 프레임워크는 상태 객체를 선언한 컨테이너의 생명 주기 동안 모델 인스턴스를 단 한번만 만든다. 화면의 입력(input) 값이 바뀌어 화면이 다시 그려지더라도 상태 객체를 새롭게 생성하지 않는다. 
 
 예제 코드를 살펴보자.
 
@@ -104,7 +105,7 @@ struct MySubView: View {
 
 공식 홈페이지 설명을 보면 두 애너테이션의 사용 용도를 명확하게 구분한다. 
 
-- @StateObject 애너테이션은 `단일 진실 공급원(the single source of truth)`으로써 상태 객체를 화면 컨테이너에서 유일하게 관리한다.
+- @StateObject 애너테이션은 `단일 진실 공급원(the single source of truth)`으로서 상태 객체를 화면 컨테이너에서 유일하게 관리한다.
   - 이를 쉽게 다시 표현하면 화면(뷰)의 상태가 변경되어 다시 그려질 때 상태가 초기화되지 않는다는 의미이다.
 - @ObservedObject 애너테이션은 상태 객체의 변화를 감지할 수 있지만, 부모 컨테이너로부터 상태 객체를 주입 받을 때 사용한다.
 
@@ -133,7 +134,7 @@ struct MySubView: View {
 2. 상태 값 변경이 발생하면 화면이 변경되는지 확인한다.
 3. 버튼을 누르면 상태 값이 변경된다.
 4. ObservedClickCount 자식 컴포넌트를 그린다.
-4. StateClickCount 자식 컴포넌트를 그린다.
+5. StateClickCount 자식 컴포넌트를 그린다.
 
 ```swift
 import SwiftUI
@@ -252,7 +253,7 @@ extension StateClickCount {
 - StateClickCount 컴포넌트는 부모 컴포넌트의 상태가 변경되더라도 초기화되지 않는다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/state-object-vs-observed-object-02.gif" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/state-object-vs-observed-object-02.gif" width="50%" class="image__border">
 </div>
 
 ## CLOSING
@@ -260,7 +261,7 @@ extension StateClickCount {
 필자는 체크박스를 만들 때 @ObservedObject 애너테이션을 사용해 버그가 발생했다. 버그를 고치려고 SwiftUI 프레임워크에 대한 내용을 살펴보면서 이런 생각이 들었다. 
 
 - 애플리케이션 개발자는 프레임워크에 대한 이해도가 높아야 된다.
-- 단위 테스트로 각 컴포넌트의 기능을 검증하는 것만으로 부족하다. 시스템을 구성하는 실제 컴포넌트들 사이의 복합적인 상호 작용을 확인할 수 있는 테스크 코드들이 필요하다.
+- 단위 테스트로 각 컴포넌트의 기능을 검증하는 것만으로 부족하다. 시스템을 구성하는 실제 컴포넌트들 사이의 복합적인 상호 작용을 확인할 수 있는 테스트 코드들이 필요하다.
 
 #### TEST CODE REPOSITORY
 

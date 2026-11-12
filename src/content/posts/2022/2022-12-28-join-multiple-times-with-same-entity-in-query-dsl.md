@@ -7,6 +7,7 @@ categories:
   - "java"
   - "jpa"
   - "query-dsl"
+summary: "QueryDSL에서 같은 엔티티를 한 쿼리에 여러 번 조인할 때 잘못된 결과가 나오는 문제를 엔티티별로 다른 Q 객체를 사용해 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "@PersistenceContext 애너테이션"
     href: "https://junhyunny.github.io/spring-boot/jpa/entity-manager-with-persistence-context-annotation/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-엔티티(entity)는 여러 가지 역할을 할 수 있다. 그에 따라 하나의 쿼리(query)에서 여러 번 조인(join)이 필요할 수 있다. 이런 케이스를 `QueryDSL`를 통해 조인 쿼리로 작성하면 정상적인 결과를 얻지 못할 수 있다. 실제 프로젝트의 비즈니스 케이스를 다룰 수는 없으니 간단한 예시를 통해 문제 현상과 해결 방법을 알아보겠다.
+엔티티(entity)는 여러 가지 역할을 할 수 있다. 그에 따라 하나의 쿼리(query)에서 여러 번 조인(join)이 필요할 수 있다. 이런 케이스를 `QueryDSL`을 통해 조인 쿼리로 작성하면 정상적인 결과를 얻지 못할 수 있다. 실제 프로젝트의 비즈니스 케이스를 다룰 수는 없으니 간단한 예시를 통해 문제 현상과 해결 방법을 정리했다.
 
 ## 1. Context
 
@@ -24,14 +25,12 @@ recommendedPosts:
 
 - 회사 간의 거래(trade)를 중개하는 시스템이 있다.
 - 회사는 거래에서 제공자(provider)이거나 소비자(consumer)일 수 있다.
-- 시스템은 회사를 구분하는 방법으로 사업자 번호 이 외에 제공자 ID, 소비자 ID를 별도로 만들어 관리한다.
+- 시스템은 회사를 구분하는 방법으로 사업자 번호 이외에 제공자 ID, 소비자 ID를 별도로 만들어 관리한다.
 - 시스템을 통해 거래 정보를 조회할 때 관련된 회사 정보를 함께 보고자 한다.
 
 ## 2. 문제 현상
 
-문제가 되는 코드를 살펴보고 실행되는 쿼리를 살펴보겠다.
-
-### 2.1. 문제 코드
+문제가 되는 코드와 실행되는 쿼리를 살펴보자.
 
 - 거래 정보를 조회한다.
 - 제공자 ID, 소비자 ID를 이용해 거래와 제공자, 소비자 사이의 `LEFT OUTER JOIN`을 수행한다.
@@ -81,7 +80,7 @@ public class TradeStore {
 }
 ```
 
-##### 실행 결과
+실행 결과는 다음과 같다.
 
 - 제공자에 대한 `LEFT OUTER JOIN`은 실행되었다.
 - 소비자에 대한 `LEFT OUTER JOIN`은 실행되지 않았다.
@@ -102,7 +101,7 @@ from trade_entity tradeentit0_
 
 같은 엔티티를 하나의 질의문에서 여러 번 조인하는 경우 각 엔티티를 다른 객체로 구분해줘야 한다. 기본 엔티티를 같이 사용하는 경우 동일한 객체로 판단되어 정상적인 쿼리가 수행되지 않는다.
 
-### 3.1. 문제 해결 코드
+엔티티를 구분하도록 수정한 코드는 다음과 같다.
 
 - 제공자 객체와 소비자 객체에 대한 식별자를 각자 지정해주어 구분한다.
 - 제공자, 소비자 객체를 사용해 조인 쿼리를 수행한다.
@@ -151,9 +150,7 @@ public class TradeStore {
 }
 ```
 
-##### 실행 결과
-
-- 제공자와 소비자에 대한 `LEFT OUTER JOIN`이 각각 실행되었다.
+실행하면 제공자와 소비자에 대한 `LEFT OUTER JOIN`이 각각 실행된다.
 
 ```sql
 select tradeentit0_.id            as col_0_0_,
@@ -168,7 +165,7 @@ from trade_entity tradeentit0_
          left outer join company_entity companyent2_ on (tradeentit0_.consumer_id = companyent2_.consumer_id)
 ```
 
-### 3.2. 테스트 코드
+수정한 코드를 검증하는 테스트 코드는 다음과 같다.
 
 ```java
 package action.in.blog.join;

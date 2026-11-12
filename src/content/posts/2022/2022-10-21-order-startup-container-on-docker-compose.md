@@ -1,19 +1,16 @@
 ---
 title: "도커 컴포즈에서 컨테이너 시작 순서 제어"
 publishedAt: "2022-10-21"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:14:08+09:00"
 canonicalPath: "/docker/order-startup-container-on-docker-compose/"
 categories:
   - "docker"
+summary: "도커 컴포즈의 depends_on 설정만으로는 MySQL 컨테이너가 준비되기 전에 백엔드 컨테이너가 접속해 실패하는 문제를 healthcheck 설정으로 해결한 과정을 정리했다."
 ---
 
 ## 1. 문제 현상
 
-도커 컴포즈(compose)를 사용하여 데이터베이스와 서버 컨테이너를 동시에 실행할 때 문제가 발생했다. `depends_on` 설정으로 `backend` 컨테이너는 `mysql` 컨테이너에 의존하고 있음을 표시했지만, 컴포즈 업(up) 실행 중 에러가 발생하였다.
-
-##### 문제 발생 - docker-compose.yml 파일
-
-- `depends_on` 설정으로 `backend` 컨테이너가 `mysql` 컨테이너에 의존하고 있음을 표시한다.
+도커 컴포즈(compose)를 사용해 데이터베이스와 서버 컨테이너를 동시에 실행할 때 문제가 발생했다. 다음 `docker-compose.yml` 파일처럼 `depends_on` 설정으로 `backend` 컨테이너가 `mysql` 컨테이너에 의존한다고 표시했지만, 컴포즈 업(up) 실행 중 에러가 발생했다.
 
 ```yml
 version: '3.8'
@@ -35,14 +32,12 @@ services:
       - mysql
 ```
 
-##### 문제 로그
+다음은 이때 출력된 로그다. `mysql` 컨테이너는 `database-host`, `backend` 컨테이너는 `action-in-blog-backend-1`이라는 이름을 가진다. 로그는 다음 순서로 진행된다.
 
-`mysql` 컨테이너는 `database-host`, `backend` 컨테이너는 `action-in-blog-backend-1`라는 이름을 가진다.
-
-- `mysql` 컨테이너가 먼저 실행된다.
-- `mysql` 컨테이너가 준비를 완료하기 전에 `backend` 컨테이너가 실행된다.
-- `backend` 컨테이너가 데이터베이스에 연결하지 못하고 종료된다.
-- `mysql` 컨테이너는 준비를 마친다.
+1. `mysql` 컨테이너가 먼저 실행된다.
+2. `mysql` 컨테이너가 준비를 마치기 전에 `backend` 컨테이너가 실행된다.
+3. `backend` 컨테이너가 데이터베이스에 연결하지 못하고 종료된다.
+4. `mysql` 컨테이너가 준비를 마친다.
 
 ```
 $ docker-compose up
@@ -150,32 +145,27 @@ database-host             | 2022-10-21T14:48:00.048952Z 0 [System] [MY-010931] [
 
 ## 2. 문제 원인
 
-로그를 통해 문제 원인을 짐작할 수 있다. `mysql` 컨테이너가 완전히 준비되기 전에 `backend` 컨테이너가 데이터베이스에 접근하려다 에러가 발생한 것이다. `depends_on` 설정을 통해 컨테이너 사이의 의존성을 표시했는데 어째서 `backend` 컨테이너가 시작했는지 찾아봤다.
+로그를 보면 문제 원인을 짐작할 수 있다. `mysql` 컨테이너가 완전히 준비되기 전에 `backend` 컨테이너가 데이터베이스에 접근하려다 에러가 발생한 것이다. `depends_on` 설정으로 컨테이너 사이의 의존성을 표시했는데 왜 `backend` 컨테이너가 먼저 시작했는지 찾아봤다.
 
 > There are several things to be aware of when using depends_on:<br/>
 > * depends_on does not wait for db and redis to be "ready" before starting web - only until they have been started.
 > * If you need to wait for a service to be ready, see Controlling startup order for more on this problem and strategies for solving it.
 
-`depends_on`에 정의된 의존 컨테이너들이 완벽히 준비되길 기다리지 않았기 때문에 문제가 발생하였다. 도커 컴포즈는 `depends_on` 설정을 따라 컨테이너 실행, 종료 순서를 결정하지만, 의존하는 컨테이너들이 완벽히 준비되길 기다리진 않는다.
+`depends_on`에 정의된 의존 컨테이너들이 완전히 준비되길 기다리지 않았기 때문에 문제가 발생했다. 도커 컴포즈는 `depends_on` 설정에 따라 컨테이너 실행, 종료 순서를 결정하지만, 의존하는 컨테이너들이 완전히 준비되길 기다리지는 않는다.
 
 ## 3. 문제 해결
 
-시작 순서를 제어하여 `depends_on`에 정의된 컨테이너들이 준비되길 기다리도록 만들어야 한다. 이 문제를 해결하기 위해 다음과 같은 다양한 전략들이 있다.
+시작 순서를 제어해 `depends_on`에 정의된 컨테이너들이 준비되길 기다리도록 만들어야 한다. 이 문제를 해결하는 데 다음과 같은 다양한 도구가 있다.
 
 - [wait-for-it](https://github.com/vishnubob/wait-for-it)
 - [dockerize](https://github.com/powerman/dockerize)
 - [Wait4X](https://github.com/atkrad/wait4x)
 
-##### 문제 해결 - docker-compose.yml 파일
+이번 글에선 위 3가지 방법 외에 다른 방법을 정리했다. `backend` 컨테이너가 `mysql` 컨테이너의 상태를 확인하면서 완전히 준비될 때까지 기다리도록 `docker-compose.yml` 파일을 다음과 같이 설정한다.
 
-이번 포스트에선 위의 3가지 방법 외에 다른 방법을 정리하였다. `backend` 컨테이너는 `mysql` 컨테이너의 상태를 확인하면서 완벽히 준비될 때까지 기다린다.
-
-- `backend.depends_on` 설정
-  - `mysql` 컨테이너에 의존적임을 표시한다.
-  - `mysql` 상태가 `service_healthy`일 때까지 대기한다.
-- `backend.restart` 설정
-  - 컨테이너가 실행에 실패하는 경우 재시도한다.
-- `mysql.healthcheck` 설정
+- `backend.depends_on` 설정은 `mysql` 컨테이너에 의존한다고 표시하고, `mysql` 상태가 `service_healthy`가 될 때까지 대기한다.
+- `backend.restart` 설정은 컨테이너 실행에 실패하면 재시도한다.
+- `mysql.healthcheck` 설정은 다음 값을 정의한다.
   - test - 문자열 혹은 리스트 형태이며 컨테이너 상태를 확인하는 명령어, 옵션 등을 정의한다.
   - timeout - 타임아웃 시간을 정의한다.
   - retries - 반복 횟수를 정의한다.
@@ -206,9 +196,7 @@ services:
     restart: on-failure
 ```
 
-##### 도커 컴포즈 실행 로그
-
-- 순서에 맞게 동기적으로 컨테이너들이 실행된다.
+도커 컴포즈를 실행하면 다음 로그처럼 컨테이너들이 순서에 맞게 실행된다.
 
 ```
 $ docker-compose up

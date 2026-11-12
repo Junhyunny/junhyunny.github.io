@@ -6,9 +6,10 @@ canonicalPath: "/java/spring-boot/conditional-annotations/"
 categories:
   - "java"
   - "spring-boot"
+summary: "조건을 만족할 때만 스프링 빈을 생성하는 @ConditionalOn- 애너테이션의 개념과 빈 메서드, 설정 클래스, 스테레오타입 빈에 적용한 결과를 프로파일별 테스트로 확인했다."
 ---
 
-## 1. @ConditionalOn- Annotations
+## 1. @ConditionalOn- 애너테이션들
 
 스프링 빈(spring bean)을 선택적으로 주입받기 위해 @Qualifier, @Primary, @Autowired 애너테이션들을 사용한다. 이는 스프링 컨텍스트에 이미 생성된 스프링 빈들을 대상으로 어떤 빈을 주입 받을지 결정하는 방법이다. 반대로 `@ConditionalOn-` 애너테이션을 사용하면 스프링 빈을 선택적으로 생성해 스프링 컨텍스트에 등록할 수 있다. @ConditionalOn- 애너테이션이 선언된 경우 해당 조건이 만족되어야 스프링 빈으로 등록된다.
 
@@ -21,7 +22,7 @@ categories:
 
 ## 2. Annotation Targets
 
-@ConditionalOn- 애너테이션을 적용할 수 있는 대상들을 하나씩 알아보겠다. 먼저 자주 사용되는 @ConditionalOnProperty 애너테이션을 예시로 살펴보겠다.
+@ConditionalOn- 애너테이션을 적용할 수 있는 대상들을 자주 사용되는 @ConditionalOnProperty 애너테이션부터 하나씩 알아보자.
 
 ### 2.1. Bean Method
 
@@ -70,9 +71,7 @@ public class FooConfig {
 
 ### 2.2. Configuration Class
 
-스프링 빈을 선언하는 @Configuration 객체에도 적용할 수 있다. 조건 만족 여부에 따라 해당 클래스에 선언된 모든 스프링 빈들이 선택적으로 스프링 컨텍스트에 등록된다.
-
-- property.ba-components 설정 값이 `enabled`인 경우 BarService, BazService 객체가 스프링 빈으로 등록된다.
+스프링 빈을 선언하는 @Configuration 객체에도 적용할 수 있다. 조건 만족 여부에 따라 해당 클래스에 선언된 모든 스프링 빈들이 선택적으로 스프링 컨텍스트에 등록된다. property.ba-components 설정 값이 `enabled`인 경우 BarService, BazService 객체가 스프링 빈으로 등록된다.
 
 ```java
 package action.in.blog.config;
@@ -101,7 +100,7 @@ public class BaConfig {
 
 ### 2.3. Stereotype Bean
 
-@Component, @Controller, @RestController, @Service, @Repository 같은 애너테이션이 붙은 스테레오 타입 스프링 빈에도 적용할 수 있다. 이번엔 @ConditionalOnBean, @ConditionalOnMissingBean 애너테이션을 사용한 예제를 살펴보겠다. @ConditionalOnBean 애너테이션을 사용해 BarService 스프링 빈이 등록된 경우 함께 등록한다.
+@Component, @Controller, @RestController, @Service, @Repository 같은 애너테이션이 붙은 스테레오 타입 스프링 빈에도 적용할 수 있다. 이번엔 @ConditionalOnBean, @ConditionalOnMissingBean 애너테이션을 사용한 예제를 살펴보자. @ConditionalOnBean 애너테이션을 사용해 BarService 스프링 빈이 등록된 경우 함께 등록한다.
 
 ```java
 package action.in.blog.service;
@@ -145,9 +144,7 @@ public class BarFooService {
   - property.foo 설정 값이 `enabled`인 경우 이름이 "foo.enabled"인 FooService 객체가 빈으로 등록
   - property.foo 설정 값이 `disabled`인 경우 이름이 "foo.disabled"인 FooService 객체가 빈으로 등록되거나 매칭되는 설정이 없는 경우 해당 객체가 스프링 빈으로 등록
 
-### 3.1. DefaultProfileActiveTests Class
-
-각 객체들이 조건에 맞게 스프링 빈으로 생성되는지 살펴보겠다. 스프링 빈이 조건에 따라 선택적으로 생성되기 때문에 @Autowired 애너테이션의 필수 속성은 false 값으로 지정한다. 디폴트 프로파일을 사용할 때 빈 객체 주입에 관련된 테스트를 살펴보자.
+각 객체들이 조건에 맞게 스프링 빈으로 생성되는지 확인할 차례다. 스프링 빈이 조건에 따라 선택적으로 생성되기 때문에 @Autowired 애너테이션의 필수 속성은 false 값으로 지정한다. 먼저 디폴트 프로파일을 사용할 때 빈 객체 주입을 확인하는 DefaultProfileActiveTests 클래스를 살펴보자.
 
 - property.ba-components 설정 값이 없다.
   - barService 객체가 스프링 빈으로 등록되지 않는다.
@@ -200,9 +197,7 @@ class DefaultProfileActiveTests {
 }
 ```
 
-### 3.2. BaProfileActiveTests Class
-
-아래는 ba-components 설정이 `enabled`인 경우 빈 객체 주입에 관련된 테스트다.
+BaProfileActiveTests 클래스는 ba-components 설정이 `enabled`인 경우 빈 객체 주입을 확인한다.
 
 - property.ba-components 설정 값이 `enabled`이다.
   - barService 객체가 스프링 빈으로 등록된다.
@@ -257,9 +252,7 @@ class BaProfileActiveTests {
 }
 ```
 
-### 3.3. FooProfileActiveTests Class
-
-foo 설정이 `enabled`일 때 빈 객체 주입에 관련된 테스트 코드를 살펴보자.
+FooProfileActiveTests 클래스는 foo 설정이 `enabled`일 때 빈 객체 주입을 확인한다.
 
 - property.ba-components 설정 값이 없다.
   - barService 객체가 스프링 빈으로 등록되지 않는다.

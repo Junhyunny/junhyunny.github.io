@@ -1,17 +1,16 @@
 ---
 title: "스프링 다중 프로파일 사용"
 publishedAt: "2023-08-17"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:15:07+09:00"
 canonicalPath: "/spring-boot/multiple-profiles-in-spring/"
 categories:
   - "spring-boot"
+summary: "spring.profiles.active로 실행 환경을 지정하는 방법과 스프링 부트 2.4 이후 바뀐 spring.profiles.group 설정으로 여러 프로파일을 조합해 사용하는 방법을 정리했다."
 ---
 
 ## 1. Use Active Profile
 
-스프링 프레임워크(spring framework)는 실행 환경에 맞는 설정을 주입할 수 있는 강력한 기능을 제공한다. `spring.profiles.active`라는 설정을 통해 애플리케이션이 어느 실행 환경에서 동작 중인지 결정할 수 있다. application.yml 설정이나 스프링 애플리케이션을 실행하는 커맨드를 통해서 주입할 수 있다.
-
-##### application.yml
+스프링 프레임워크(spring framework)는 실행 환경에 맞는 설정을 주입할 수 있는 강력한 기능을 제공한다. `spring.profiles.active`라는 설정을 통해 애플리케이션이 어느 실행 환경에서 동작 중인지 결정할 수 있다. 이 설정은 application.yml 파일이나 스프링 애플리케이션을 실행하는 커맨드로 주입할 수 있다. application.yml 파일에는 다음과 같이 설정한다.
 
 ```yml
 spring:
@@ -19,10 +18,7 @@ spring:
     active: dev
 ```
 
-##### Run command
-
-- 실행할 때 적용된 프로파일(profile)이 `dev`인 것을 로그로 확인할 수 있다.
-  - The following 1 profile is active: "dev"
+실행 커맨드로 주입할 때는 다음과 같이 실행한다. 실행 로그의 `The following 1 profile is active: "dev"` 메시지를 보면 적용된 프로파일(profile)이 `dev`인 것을 확인할 수 있다.
 
 ```
 $ java -jar -Dspring.profiles.active=dev action-in-blog-0.0.1-SNAPSHOT.jar
@@ -44,20 +40,12 @@ $ java -jar -Dspring.profiles.active=dev action-in-blog-0.0.1-SNAPSHOT.jar
 
 애플리케이션을 개발하면 상황에 맞게 여러 프로파일을 조합해서 사용하는 경우가 있다.
 
-- 환경 별로 로깅 전략을 프로파일을 통해 제어하는 경우
-- 특정 테스트에서만 필요한 빈(bean)을 프로파일을 통해 제어하는 경우
+- 환경별 로깅 전략을 프로파일로 제어하는 경우
+- 특정 테스트에서만 필요한 빈(bean)을 프로파일로 제어하는 경우
 
-프로파일을 조합하는 방법이 스프링 부트(spring boot) 2.4.X 버전 이후로 변경되었다. 이번 포스트에선 현재 최신 3.1.2 버전을 기준으로 다중 프로파일을 사용하는 방법에 대해 정리하였다.
+프로파일을 조합하는 방법은 스프링 부트(spring boot) 2.4.X 버전 이후로 변경됐다. 이 글에서는 글을 쓴 시점의 최신 버전인 3.1.2 버전을 기준으로 다중 프로파일을 사용하는 방법을 정리했다.
 
-### 2.1. application.yml
-
-- spring.profiles.group 설정을 사용한다.
-- 그룹에 사용 중인 프로파일을 정의한다.
-  - 각 프로파일 별로 함께 사용될 프로파일들을 추가한다.
-- local 프로파일 활성화
-  - etc-1, etc-2 프로파일도 함께 사용된다.
-- dev 프로파일 활성화
-  - etc-1, etc-3 프로파일도 함께 사용된다.
+`application.yml` 파일은 다음과 같이 설정한다. spring.profiles.group 설정으로 그룹에 사용 중인 프로파일을 정의하고, 각 프로파일마다 함께 사용할 프로파일을 추가한다. local 프로파일을 활성화하면 etc-1, etc-2 프로파일이, dev 프로파일을 활성화하면 etc-1, etc-3 프로파일이 함께 사용된다.
 
 ```yml
 spring:
@@ -72,12 +60,7 @@ spring:
         - etc-3
 ```
 
-### 2.2. Test
-
-각 환경 별로 애플리케이션을 실행했을 때 함께 적용되는 프로파일들을 살펴보겠다.
-
-- local 환경
-  - The following 3 profiles are active: "dev", "etc-1", "etc-3"
+환경별로 애플리케이션을 실행했을 때 함께 적용되는 프로파일을 살펴보자. local 환경에서는 `The following 3 profiles are active: "local", "etc-1", "etc-2"` 로그를 볼 수 있다.
 
 ```
 $ java -jar -Dspring.profiles.active=local action-in-blog-0.0.1-SNAPSHOT.jar
@@ -95,8 +78,7 @@ $ java -jar -Dspring.profiles.active=local action-in-blog-0.0.1-SNAPSHOT.jar
 2023-08-17T11:15:58.474+09:00  INFO 71164 --- [           main] action.in.blog.ActionInBlogApplication   : Started ActionInBlogApplication in 0.741 seconds (process running for 1.064)
 ```
 
-- dev 환경
-  - The following 3 profiles are active: "dev", "etc-1", "etc-3"
+dev 환경에서는 `The following 3 profiles are active: "dev", "etc-1", "etc-3"` 로그를 볼 수 있다.
 
 ```
 $ java -jar -Dspring.profiles.active=dev action-in-blog-0.0.1-SNAPSHOT.jar

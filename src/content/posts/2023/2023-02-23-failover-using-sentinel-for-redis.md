@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/redis/failover-using-sentinel-for-redis/"
 categories:
   - "spring-boot"
   - "redis"
+summary: "레플리케이션의 한계를 보완하기 위해 Redis 센티널로 장애 극복(failover)을 구성하고, 인스턴스를 내리며 슬레이브가 마스터로 승격되는 과정을 테스트한 내용을 정리했다."
 recommendedPosts:
   - title: "Redis 레플리케이션(Replication)"
     href: "https://junhyunny.github.io/spring-boot/redis/replication-in-redis/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[Redis 레플리케이션(Replication) 글][replication-in-redis-link]에서 설명했듯이 레디스 레플리케이션은 완벽한 고가용성(HA, high availability)을 책임지지 않는다. 레디스에는 장애 극복(failover) 기능을 향상하기 위한 센티널(sentinel)이 존재한다. 이번 글에서는 센티널을 활용한 레디스의 장애 극복 기능을 살펴보겠다.
+[Redis 레플리케이션(Replication) 글][replication-in-redis-link]에서 설명했듯이 레디스 레플리케이션은 완벽한 고가용성(HA, high availability)을 책임지지 않는다. 레디스에는 장애 극복(failover) 기능을 향상하기 위한 센티널(sentinel)이 존재한다. 이번 글에서는 센티널을 활용한 레디스의 장애 극복 기능을 정리했다.
 
 ## 1. Redis Sentinel
 
@@ -34,7 +35,7 @@ recommendedPosts:
   - 장애 극복 기능이 완료되면 센티널은 클라이언트들에게 새로운 주소를 보고한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/failover-using-sentinel-for-redis-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/failover-using-sentinel-for-redis-01.png" width="100%" class="image__border">
 </div>
 <center>Redis Sentinel — High Availability</center>
 
@@ -74,7 +75,7 @@ recommendedPosts:
 
 ## 3. Implementation
 
-[이전 글][replication-in-redis-link]의 구현 코드와 거의 유사하다. 사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용하였다. 패키지 구조는 다음과 같다.
+[이전 글][replication-in-redis-link]의 구현 코드와 거의 유사하다. 사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용했다. 패키지 구조는 다음과 같다.
 
 ```
 ./
@@ -468,9 +469,7 @@ services:
 port 6379
 ```
 
-슬레이브 인스턴스를 위한 설정 파일인 `redis-slave-1.conf`, `redis-slave-2.conf`에는 아래와 같이 복제할 마스터 인스턴스 정보를 추가한다.
-
-- 복제할 마스터 인스턴스 정보를 추가한다. 4.X 버전까지는 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
+슬레이브 인스턴스를 위한 설정 파일인 `redis-slave-1.conf`, `redis-slave-2.conf`에는 아래와 같이 복제할 마스터 인스턴스 정보를 추가한다. 4.X 버전까지는 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
 
 ```conf
 port 6379

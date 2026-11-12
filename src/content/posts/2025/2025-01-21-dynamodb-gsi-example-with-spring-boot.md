@@ -7,6 +7,7 @@ categories:
   - "aws"
   - "dynamodb"
   - "spring-boot"
+summary: "로컬 DynamoDB 컨테이너에 글로벌 보조 인덱스를 추가하고, 스프링 애플리케이션에서 GSI를 사용해 테이블을 쿼리하는 예제를 정리했다."
 recommendedPosts:
   - title: "도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기"
     href: "https://junhyunny.github.io/docker/aws/dynamo-db/dynamodb-container-with-docker-compose/"
@@ -65,7 +66,7 @@ recommendedPosts:
                         └── TestcontainersConfiguration.kt
 ```
 
-## 2. Prepare local DyanmoDB container
+## 2. Prepare local DynamoDB container
 
 도커 컴포즈(docker compose)를 통해 로컬 환경에 DynamoDB 컨테이너를 준비하는 자세한 방법은 [이 글][dynamodb-container-with-docker-compose-link]을 참고하길 바란다. 애플리케이션에서 사용할 "ActorsPortfolioTable" 테이블을 생성하는 스크립트 파일을 먼저 살펴보자. [보조 인덱스 개념을 정리한 글][dynamodb-seconary-indexes-link]의 예제와 동일한 테이블을 사용한다.
 
@@ -117,7 +118,7 @@ aws dynamodb put-item \
 다음 스크립트를 사용해 "ActorsPortfolioTable" 테이블에 글로벌 보조 인덱스를 추가한다.
 
 - 예제 프로젝트의 `init/update-table.sh` 파일 내용과 동일하다.
-- 글로벌 보조 인덱스 이름은 "GenreYearIndex"을 사용한다.
+- 글로벌 보조 인덱스 이름은 "GenreYearIndex"를 사용한다.
 - 글로벌 보조 인덱스를 위한 새로운 파티션 키는 "Genre", 정렬 키는 "Year"를 사용한다.
 
 ```sh
@@ -200,7 +201,7 @@ NoSQL Workbench 도구를 사용하면 로컬 환경에 준비된 테이블과 �
 
 ## 3. Setup DynamoDB client
 
-애플리케이션이 DynamoDB에 접속할 때 사용하는 클라이언트 객체를 정의한다. 우선 DynamoDB 접속 정보이 작성된 application YAML 파일을 살펴보자.
+애플리케이션이 DynamoDB에 접속할 때 사용하는 클라이언트 객체를 정의한다. 우선 DynamoDB 접속 정보가 작성된 application YAML 파일을 살펴보자.
 
 1. DynamoDB 테이블 이름
 2. DynamoDB 인스턴스 URL
@@ -212,7 +213,7 @@ amazon:
     endpoint: ${AMAZON_DYNAMODB_ENDPOINT:default} # 2
 ```
 
-`AMAZON_DYNAMODB_ENDPOINT` 환경 변수는 DynamoDB 클라이언트 객체의 엔드포인트를 오버라이딩(overriding)하기 위해 사용한다. 우선 DynamoDBClient 객체를 생성한 설정 클래스 코드를 살펴본다.
+`AMAZON_DYNAMODB_ENDPOINT` 환경 변수는 DynamoDB 클라이언트 객체의 엔드포인트를 오버라이딩(overriding)하기 위해 사용한다. 우선 DynamoDBClient 객체를 생성한 설정 클래스 코드를 살펴보자.
 
 1. 엔드포인트 URL 주소를 주입받는다.
 2. 오버라이딩 할 엔드포인트 URL 주소가 존재하는 경우 DynamoDB 클라이언트 객체의 엔드포인트를 변경한다. 
@@ -252,7 +253,7 @@ class DynamoDbConfig(
 
 실제 운영 환경은 AWS 클라우드에 위치한 DynamoDB를 사용하지만, 로컬 환경이나 테스트 코드에선 다른 URL 주소를 사용하기 때문에 이런 식으로 설정한다.
 
-- 운영 환경에선 `default` 값을 사용하기 때문에 DynamoDB 클라이언트 객체의 엔트포인트를 오버라이딩 하지 않는다. 지역(region) 정보만 있다면 AWS 환경의 DynamoDB 서비스로 연결할 수 있다.
+- 운영 환경에선 `default` 값을 사용하기 때문에 DynamoDB 클라이언트 객체의 엔드포인트를 오버라이딩 하지 않는다. 지역(region) 정보만 있다면 AWS 환경의 DynamoDB 서비스로 연결할 수 있다.
 - 개발 환경에선 `http://localhost:8000` 값을 사용해 DynamoDB 클라이언트 객체가 로컬 환경의 DynamoDB 로컬 컨테이너에 접속한다.
 - 테스트 코드에선 테스트 컨테이너 등에 의해 생성된 랜덤한 컨테이너에 접속한다.
 
@@ -285,7 +286,7 @@ class MovieController(
 
 ## 5. MovieRepository Instance
 
-MovieRepository 인스턴스 코드를 살펴본다. DynamoDBClient 객체와 협업하여 DynamoDB 테이블로부터 데이터를 조회한다. DynamoDBClient 객체는 쿼리 요청을 만들 때 QueryRequest 클래스 빌더를 사용한다. 코드가 직관적이기 때문에 이해하기 쉽다.
+MovieRepository 인스턴스 코드를 살펴보자. DynamoDBClient 객체와 협업하여 DynamoDB 테이블로부터 데이터를 조회한다. DynamoDBClient 객체는 쿼리 요청을 만들 때 QueryRequest 클래스 빌더를 사용한다. 코드가 직관적이기 때문에 이해하기 쉽다.
 
 1. 테이블 이름을 설정한다.
 2. 글로벌 보조 인덱스 이름을 지정한다.

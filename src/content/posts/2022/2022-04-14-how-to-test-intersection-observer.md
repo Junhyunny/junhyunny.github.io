@@ -8,6 +8,7 @@ categories:
   - "jest"
   - "testing-library"
   - "test-driven-development"
+summary: "무한 스크롤 기능에 사용한 IntersectionObserver를 단위 테스트하면서 만난 에러와 이를 보완하는 방법을 정리했다."
 recommendedPosts:
   - title: "자바스크립트 비동기 처리(JavaScript Asynchronous Task) 동작 원리"
     href: "https://junhyunny.github.io/information/javascript/how-to-work-javascript-async/"
@@ -21,32 +22,32 @@ recommendedPosts:
 
 ## 1. Intersection Observer API
 
-`인터셉터 옵저버(Intersection Observer)`는 타겟 엘리먼트(target element)가 관찰하고 있는 화면에 보여지는지 확인하는 Web API 기능이다. 이 글은 인터셉터 옵저버 API를 테스트하는 방법에 대해 정리했기 때문에 간단한 설명만 한다. 아래 용어들에 이해가 필요하다.
+`인터섹션 옵저버(Intersection Observer)`는 타겟 엘리먼트(target element)가 관찰하고 있는 화면에 보여지는지 확인하는 Web API 기능이다. 이 글은 인터섹션 옵저버 API를 테스트하는 방법에 대해 정리했기 때문에 간단한 설명만 한다. 아래 용어들에 이해가 필요하다.
 
 - 뷰 포트(View Port)는 관찰하고 있는 영역이다.
 - 타겟 엘리먼트(Target Element)는 관심 대상이다.
 
-인터셉터 옵저버는 다음과 같이 동작한다.
+인터섹션 옵저버는 다음과 같이 동작한다.
 
-- 인터셉터 옵저버는 타겟 엘리먼트와 뷰 포트 사이의 교차(cross)를 관찰한다.
+- 인터섹션 옵저버는 타겟 엘리먼트와 뷰 포트 사이의 교차(cross)를 관찰한다.
 - Web API 기능이므로 메인 스레드에 영향을 주지 않고 비동기적인 콜백 함수 호출로 관찰이 가능하다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/how-to-test-intersection-observer-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/how-to-test-intersection-observer-01.png" width="100%" class="image__border">
 </div>
 <center>https://cross-code.github.io/posts/IntersectionObserver/</center>
 
 ## 2. Example codes
 
-구현 코드, 테스트 코드 순서로 기능을 살펴보겠다. 발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리했다.
+구현 코드, 테스트 코드 순서로 기능을 살펴보자. 발생한 에러를 확인하고, 이를 보완하기 위한 방법을 정리했다.
 
 - `componentDidMount` 시점에 다음과 같은 동작을 수행한다.
-  - 포켓몬 API를 사용한 데이터 조회한다.
-  - 인터셉터 옵저버 객체를 생성하고 뷰 포트를 등록한다. 인터셉터 옵저버 객체의 콜백 함수에서 현재 타겟을 관찰 대상에서 제거하고, 데이터를 조회한다.
+  - 포켓몬 API를 사용한 데이터를 조회한다.
+  - 인터섹션 옵저버 객체를 생성하고 뷰 포트를 등록한다. 인터섹션 옵저버 객체의 콜백 함수에서 현재 타겟을 관찰 대상에서 제거하고, 데이터를 조회한다.
 - `componentDidUpdate` 시점에 다음과 같은 동작을 수행한다.
-  - `pokemos` 상태가 변경될 때마다 관찰하고 싶은 신규 타겟을 등록한다.
+  - `pokemons` 상태가 변경될 때마다 관찰하고 싶은 신규 타겟을 등록한다.
 - `componentWillUnmount` 시점에 다음과 같은 동작을 수행한다.
-  - 사용한 인터셉터 옵저버 객체를 정리한다.
+  - 사용한 인터섹션 옵저버 객체를 정리한다.
 
 ```jsx
 import { useCallback, useEffect, useState } from 'react'
@@ -119,7 +120,7 @@ export default () => {
 
 구현 코드를 살펴봤으니 테스트 코드를 작성해보자.
 
-- `axis` 모듈의 `get` 함수를 스터빙(stubbing)한다.
+- `axios` 모듈의 `get` 함수를 스터빙(stubbing)한다.
   - 1회 호출 시 이름이 1에서 10까지 숫자를 가지는 객체 리스트 반환한다.
   - 2회 호출 시 이름이 11, 12인 객체 리스트를 반환한다.
 - 화면을 렌더링한다.
@@ -215,7 +216,7 @@ global.IntersectionObserver = class IntersectionObserver {
   - 관찰 중인 타겟이 `viewPort`에 존재하는지 판단한다.
   - 콜백 함수를 실행한다.
 - `isInViewPort` 함수
-  - `jsdom`은 `getBoundingClientRect` 기능을 지원하지 않으므로 실제 브라우저 환경과 동일한 기능을 구현하지 못 한다. ([출처](https://github.com/jsdom/jsdom/issues/1590))
+  - `jsdom`은 `getBoundingClientRect` 기능을 지원하지 않으므로 실제 브라우저 환경과 동일한 기능을 구현하지 못한다. ([출처](https://github.com/jsdom/jsdom/issues/1590))
 - `observe` 함수
   - 새로운 타겟을 등록한다.
 - `unobserve` 함수

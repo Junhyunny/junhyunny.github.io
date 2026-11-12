@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/spring-cloud/logging-for-feign-client/"
 categories:
   - "spring-boot"
   - "spring-cloud"
+summary: "application.yml의 로그 레벨과 Logger.Level 설정 빈으로 FeignClient의 요청, 응답 정보를 로그로 출력하는 방법을 레벨별 출력 예시와 함께 정리했다."
 recommendedPosts:
   - title: "스프링 클라우드(spring cloud) OpenFeign"
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
@@ -23,9 +24,7 @@ recommendedPosts:
 
 스프링(spring) 애플리케이션의 기본적인 로그 레벨은 `INFO`이기 때문에 `TRACE`, `DEBUG` 레벨은 보이지 않는다. `FeignClient`의 `DEBUG` 로그들을 살펴보기 위해선 로깅 관련 설정이 필요하다. 몇 가지 설정을 적용하면 `FeignClient` API 통신 과정에서 발생하는 정보들을 로그로 확인할 수 있다.
 
-### 1.1. application.yml
-
-`FeignClient` 기능을 사용하는 패키지의 로그 레벨을 지정한다. `application.yml` 파일에서 특정 패키지의 로깅 레벨을 변경할 수 있다.
+`application.yml` 파일에서 특정 패키지의 로깅 레벨을 변경할 수 있다. `FeignClient` 기능을 사용하는 패키지의 로그 레벨을 다음과 같이 지정한다.
 
 - 특정 클래스 이름, 패키지 이름을 사용해 로그 레벨을 지정할 수 있다.
 - 패키지 이름을 지정한 경우 하위 패키지 객체들의 로그 레벨에 모두 적용된다.
@@ -99,7 +98,7 @@ public interface BlogClient {
 }
 ```
 
-테스트 코드를 통해 각 메서드별로 호출 시 출력되는 로그를 살펴본다. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
+테스트 코드를 통해 각 메서드별로 호출 시 출력되는 로그를 살펴보자. 클라이언트 객체를 통해 `/health` 경로로 요청을 보낸다.
 
 ```java
 package action.in.blog;

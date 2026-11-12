@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/terraform/terraform-backend-for-tfstate-management/"
 categories:
   - "terraform"
+summary: "테라폼 상태 파일 관리의 어려움을 살펴보고, S3 버킷과 DynamoDB 락을 사용하는 테라폼 백엔드로 이를 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "테라폼(Terraform) AWS 대상 그룹(Target Group)에 EC2 배포하기"
     href: "https://junhyunny.github.io/terraform/deploy-ec2-into-target-group-in-aws-with-terraform/"
@@ -20,7 +21,7 @@ recommendedPosts:
 
 이 테라폼 상태 파일을 관리하는 것은 다음과 같은 이유 때문에 까다롭다. 
 
-- 테라폼 상태 파일에 민감한 시크릿(secret)이 포함되기 때문에 깃(git) 같은 형상 관리하는 것은 권장되지 않는다.
+- 테라폼 상태 파일에 민감한 시크릿(secret)이 포함되기 때문에 깃(git) 같은 형상 관리 도구로 관리하는 것은 권장되지 않는다.
 - 테라폼을 사용해 인프라를 변경할 때 반드시 최신화 된 테라폼 상태 파일을 사용해야 한다.
 - 여러 명이 동시에 인프라를 변경한다면 서로 다른 테라폼 상태가 만들어질 수 있다.
 
@@ -40,7 +41,7 @@ recommendedPosts:
   - 해당 아이템에 락이 걸려 있기 때문에 인프라 변경에 실패한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/terraform-backend-for-tfstate-management-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/terraform-backend-for-tfstate-management-01.png" width="100%" class="image__border">
 </div>
 
 ## 3. Project structure
@@ -85,9 +86,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
 }
 ```
 
-DynamoDB를 생성한다. 
-
-- LockID 이름을 갖는 파티션 키(partition key)를 하나 생성한다.
+DynamoDB를 생성한다. LockID 이름을 갖는 파티션 키(partition key)를 하나 생성한다.
 
 ```tf
 resource "aws_dynamodb_table" "terraform_state_lock" {

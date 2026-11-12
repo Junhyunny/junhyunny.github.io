@@ -6,6 +6,7 @@ canonicalPath: "/java/jvm/direct-memory-in-java/"
 categories:
   - "java"
   - "jvm"
+summary: "프로젝트에서 만난 OOME를 이해하기 위해 JVM의 네이티브 메모리와 자바 NIO ByteBuffer가 사용하는 다이렉트 메모리, 다이렉트 버퍼와 논-다이렉트 버퍼의 차이를 정리했다."
 recommendedPosts:
   - title: "JVM(Java Virtual Machine)"
     href: "https://junhyunny.github.io/information/java/what-is-jvm/"
@@ -30,19 +31,19 @@ recommendedPosts:
 - JVM 프로세스에게 할당된 메모리 중 JVM 가비지 컬렉터에 의해 관리되는 힙 메모리를 제외한 영역이 네이티브 메모리이다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-01.png" width="100%" class="image__border">
 </div>
 <center>https://veribilimleri.wordpress.com/2017/03/15/java-jvm-memory-model-memory-management-in-java/</center>
 
 ## 2. Direct Memory and ByteBuffer in Java NIO
 
-JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따라 구체적으로 분류가 된다. 예를 들어 JVM 프로세스가 효율적인 I/O 작업을 위해 네이티브 영역에 위치한 바이트 배열을 사용한다. 이 바이트 배열이 만들 때 필요한 공간을 다이렉트 메모리(direct memory)라고 부른다. 다이렉트 메모리를 사용할 때 왜 효율적인 I/O 작업이 가능한지에 대한 내용도 상당히 많기 때문에 다른 글로 정리할 예정이다.
+JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따라 구체적으로 분류가 된다. 예를 들어 JVM 프로세스가 효율적인 I/O 작업을 위해 네이티브 영역에 위치한 바이트 배열을 사용한다. 이 바이트 배열을 만들 때 필요한 공간을 다이렉트 메모리(direct memory)라고 부른다. 다이렉트 메모리를 사용할 때 왜 효율적인 I/O 작업이 가능한지에 대한 내용도 상당히 많기 때문에 다른 글로 정리할 예정이다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-02.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://learn.microsoft.com/en-us/azure/spring-apps/enterprise/concepts-for-java-memory-management</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-02.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://learn.microsoft.com/en-us/azure/spring-apps/enterprise/concepts-for-java-memory-management</center>
 </div>
 
 내가 겪은 OOM 에러는 다이렉트 메모리 공간이 부족해서 발생했다. 문제가 발생한 에러 로그를 살펴보면 `java.nio` 패키지에 위치한 DirectByteBuffer 클래스를 초기화할 때 에러가 발생한다. DirectByteBuffer 객체를 초기화 할 때 필요한 메모리 공간이 다이렉트 메모리이다. 
@@ -54,7 +55,7 @@ JVM 프로세스가 사용하는 네이티브 메모리 영역도 용도에 따�
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-03.png" width="100%" class="image__border">
 </div>
 
-### 2.1. ByteBuffer Class
+### 2.1. ByteBuffer 클래스
 
 OOM 에러가 발생한 DirectByteBuffer 클래스는 무엇일까? 예전으로 거슬러 올라가면 I/O 작업이 느린 자바의 한계를 극복하기 위해 Java 1.4 버전부터 Java NIO(New I/O) 기능이 추가됐다. 이 `java.nio` 패키지에 포함된 ByteBuffer 추상 클래스의 구현체가 DirectByteBuffer 클래스다. Java NIO가 어떻게 I/O 속도를 개선했는지 관련된 설명은 이 [링크](http://eincs.com/2009/08/java-nio-bytebuffer-channel-file/) 글에 잘 되어 있다.
 
@@ -69,7 +70,7 @@ Java NIO는 파일을 읽을 때 다음과 같은 추상화 된 구조를 갖는
 - 예를 들어 FileChannel 인스턴스에 의해 파일과 연결되고 ByteBuffer 인스턴스에 의해 읽기, 쓰기가 수행된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-04.png" width="100%" class="image__border">
 </div>
 <center>https://www.happycoders.eu/java/filechannel-memory-mapped-io-locks/</center>
 
@@ -125,7 +126,7 @@ public abstract sealed class ByteBuffer
 }
 ```
 
-공식 문서와 코드로부터 어떤 ByteBuffer 인스턴스를 사용하느지에 따라서 JVM 힙 메모리를 사용할지 네이티브 메모리를 사용할지 결정된다는 사실을 유추할 수 있다. DirectByteBuffer, HeapByteBuffer 클래스의 추상 레이어 구조는 다음과 같다.
+공식 문서와 코드로부터 어떤 ByteBuffer 인스턴스를 사용하는지에 따라서 JVM 힙 메모리를 사용할지 네이티브 메모리를 사용할지 결정된다는 사실을 유추할 수 있다. DirectByteBuffer, HeapByteBuffer 클래스의 추상 레이어 구조는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/direct-memory-in-java-05.png" width="60%" class="image__border">

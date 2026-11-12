@@ -6,6 +6,7 @@ canonicalPath: "/architecture/pattern/backend-for-frontend/"
 categories:
   - "architecture"
   - "pattern"
+summary: "새로운 디바이스 타입과 마이크로서비스 아키텍처로 생긴 프론트엔드의 어려움을 바탕으로 BFF 패턴의 개념, 이점, 고려 사항을 정리했다."
 recommendedPosts:
   - title: "마이크로서비스 아키텍처"
     href: "https://junhyunny.github.io/information/msa/microservice-architecture/"
@@ -13,25 +14,25 @@ recommendedPosts:
 
 ## 1. Pain Points for Frontend
 
-`Backend For Frontend(이하 BFF)`이 무엇인지 알아보기 전에 어떤 이유로 이런 아키텍처 패턴이 탄생했는지 컨텍스트(context)를 먼저 살펴보자.
+`Backend For Frontend(이하 BFF)`가 무엇인지 알아보기 전에 어떤 이유로 이런 아키텍처 패턴이 탄생했는지 컨텍스트(context)를 먼저 살펴보자.
 
 ### 1.1. 새로운 디바이스 타입의 등장
 
-오래 전 사용자들은 웹 UI 기반의 애플리케이션 서비스들을 이용하였다. 스마트 폰의 등장과 함께 모바일 애플리케이션 시장이 빠르게 성장했다. 기존 웹 UI 애플리케이션의 기존 백엔드 서비스가 모바일 애플리케이션의 요구사항까지 함께 지원하는 범용 서비스가 되면서 문제가 발생한다.
+오래전 사용자들은 웹 UI 기반의 애플리케이션 서비스들을 이용했다. 스마트 폰의 등장과 함께 모바일 애플리케이션 시장이 빠르게 성장했다. 기존 웹 UI 애플리케이션의 기존 백엔드 서비스가 모바일 애플리케이션의 요구사항까지 함께 지원하는 범용 서비스가 되면서 문제가 발생한다.
 
 - 모바일의 기능, 인터랙션(interaction), 성능, 디스플레이 측면에서 데스크탑(desktop)과 다르다.
   - 화면에 보여주는 데이터가 달라지기 때문에 백엔드에게 요구하는 API 요구사항이 다르다.
-- 기존 백엔드 서비스의 API 기능들은 모바일 요구사항을 충족시키지 못 한다.
+- 기존 백엔드 서비스의 API 기능들은 모바일 요구사항을 충족시키지 못한다.
 - 상충되는 요구사항으로 백엔드 개발 프로세스에 병목(bottleneck)이 생기면서 프론트엔드 서비스의 시장 진입이 늦어진다.(time to market)
 - 백엔드 서비스가 여러 플랫폼의 요구사항들을 만족하기 위해 모든 데이터를 내리게 되는 상황으로 이어질 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/backend-for-frontend-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/backend-for-frontend-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. 마이크로서비스 아키텍처(MSA)
 
-빠르게 변경되는 비즈니스 요구사항에 기민하게 대처하기 위한 마이크로서비스 아키텍처가 등장하였다. 많은 시스템들이 마이크로서비스 아키텍처로 전환되면서 프론트엔드 서비스에 문제가 발생한다.
+빠르게 변경되는 비즈니스 요구사항에 기민하게 대처하기 위한 마이크로서비스 아키텍처가 등장했다. 많은 시스템들이 마이크로서비스 아키텍처로 전환되면서 프론트엔드 서비스에 문제가 발생한다.
 
 - 한 화면에서 보여줘야 하는 데이터 조각들을 각기 다른 서비스들로부터 받아야 하는 경우가 발생한다.
 - 단일 페이지에서 다른 서비스들에게 따로 API 요청을 수행하게 된다.
@@ -39,7 +40,7 @@ recommendedPosts:
 - 프론트엔드 서비스에 불필요한 비즈니스 로직이 침투될 수 있고, 브라우저 리소스는 과도하게 사용하게 된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/backend-for-frontend-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/backend-for-frontend-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Backend For Frontend
@@ -55,7 +56,7 @@ recommendedPosts:
 - 프론트엔드 서비스가 마이크로 서비스들의 리소스를 얻을 수 있도록 간단한 인터페이스를 제공한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/backend-for-frontend-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/backend-for-frontend-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. Benefits

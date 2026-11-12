@@ -6,11 +6,12 @@ canonicalPath: "/vite/react/eslint-and-prettier-setup-in-vite/"
 categories:
   - "vite"
   - "react"
+summary: "Vite 리액트 프로젝트에 Prettier를 추가하고 ESLint가 Prettier 포맷 규칙을 따르도록 설정한 뒤 인텔리제이 자동 포맷팅까지 적용하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-프론트엔드 관련된 기술들은 특히 빠르게 변하는 것 같다. 이 글을 읽는 개발자들이 오래된 버전 때문에 헤메지 않도록 이 글에서 사용한 프로젝트의 버전을 먼저 확인하길 바란다. 
+프론트엔드 관련된 기술들은 특히 빠르게 변하는 것 같다. 이 글을 읽는 개발자들이 오래된 버전 때문에 헤매지 않도록 이 글에서 사용한 프로젝트의 버전을 먼저 확인하길 바란다. 
 
 ```json
 {
@@ -185,10 +186,10 @@ $ npm run lint
   - 코드 저장 시 자동으로 포맷팅 된다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/eslint-and-prettier-setup-in-vite-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/eslint-and-prettier-setup-in-vite-01.png" width="100%" class="image__border">
 </div>
 
-코드를 저장하면 자동으로 포매팅이 완료면서 린팅 에러가 사라지는 것을 확인할 수 있다.
+코드를 저장하면 자동으로 포매팅이 완료되면서 린팅 에러가 사라지는 것을 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/eslint-and-prettier-setup-in-vite-02.gif" width="100%" class="image__border">

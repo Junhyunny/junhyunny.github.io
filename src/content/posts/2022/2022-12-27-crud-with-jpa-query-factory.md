@@ -1,12 +1,13 @@
 ---
 title: "JPAQueryFactory로 CRUD 구현"
 publishedAt: "2022-12-27"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:17:28+09:00"
 canonicalPath: "/java/jpa/query-dsl/crud-with-jpa-query-factory/"
 categories:
   - "java"
   - "jpa"
   - "query-dsl"
+summary: "메이븐과 IntelliJ 환경에 QueryDSL을 설정하고, JPAQueryFactory 클래스로 CRUD 기능을 구현하며 insert를 지원하지 않는 한계와 대안을 정리했다."
 recommendedPosts:
   - title: "@PersistenceContext 애너테이션"
     href: "https://junhyunny.github.io/spring-boot/jpa/entity-manager-with-persistence-context-annotation/"
@@ -14,17 +15,19 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-`QueryDSL`은 `Java` 코드로 질의문(query)를 작성할 수 있게 해주는 라이브러리다. `Java` 코드로 질의문을 작성하면 다음과 같은 이점들을 얻을 수 있다.
+`QueryDSL`은 `Java` 코드로 질의문(query)을 작성할 수 있게 해주는 라이브러리다. `Java` 코드로 질의문을 작성하면 다음과 같은 이점을 얻을 수 있다.
 
 - IDE(integrated development environment)의 코드 자동 완성 기능의 도움을 받을 수 있다.
 - 문법적으로 잘못된 쿼리는 컴파일 시점에 찾아준다.
-- 도메인 객체의 필드(field)들을 사용하기 때문에 도메인 객체 변경에 따른 에러 가능성을 빌드(build) 시점에 찾을 수 있다.
+- 도메인 객체의 필드(field)를 사용하기 때문에 도메인 객체 변경에 따른 에러 가능성을 빌드(build) 시점에 찾을 수 있다.
 
-`XML`, 문자열 기반 쿼리는 단순한 에러를 런타임까지 발견하지 못할 가능성이 `QueryDSL`보다 높다. `QueryDSL`을 사용하면 에러를 런타임 이전에 미리 발견할 수 있게 됨으로써 더 안정적인 시스템을 구축할 수 있다. 예전 기술 도입을 위해 간단한 예제 코드를 작성해 본 경험만 있을 뿐 비즈니스 코드에 적극적으로 사용해 본 적은 없었다. 이번 프로젝트에선 강력한 동적 쿼리 기능이 필요하여 `QueryDSL`을 도입했고, 익숙해지기까지 다소 시간이 걸렸다. 이번 포스트에선 `QueryDSL` 설정 방법과 간단한 CRUD(create, read, update, delete) 코드를 살펴보겠다.
+`XML`이나 문자열 기반 쿼리는 `QueryDSL`보다 단순한 에러를 런타임까지 발견하지 못할 가능성이 높다. `QueryDSL`을 사용하면 런타임 이전에 에러를 발견할 수 있으므로 더 안정적인 시스템을 구축할 수 있다.
+
+예전에 기술 도입을 검토하며 간단한 예제 코드를 작성해 본 경험만 있을 뿐 비즈니스 코드에 적극적으로 사용해 본 적은 없었다. 이번 프로젝트에서는 강력한 동적 쿼리 기능이 필요해 `QueryDSL`을 도입했고, 익숙해지기까지 다소 시간이 걸렸다. 이 글에서는 `QueryDSL` 설정 방법과 간단한 CRUD(create, read, update, delete) 코드를 정리했다.
 
 ## 1. QueryDSL Settings
 
-다음과 같은 환경에서 구축하였다.
+다음과 같은 환경에서 구축했다.
 
 - macOS Ventura with Intel Core
 - IntelliJ IDEA 2022.3 (Ultimate Edition)
@@ -76,12 +79,11 @@ recommendedPosts:
 
 ### 1.2. IntelliJ 환경 및 프로젝트 설정
 
-`QueryDSL`은 애너테이션 프로세서(annotation processor)를 통해 엔티티(entity)들을 `Q`가 붙은 클래스로 컴파일하여 사용한다. IDE에서 컴파일된 `Q-Type` 클래스들을 사용하려면 컴파일 위치를 잡아줘야 한다. 이 과정이 없으면 컴파일 된 `Q-Type` 클래스를 찾지 못하거나 빌드 과정에서 에러가 발생한다.
+`QueryDSL`은 애너테이션 프로세서(annotation processor)로 엔티티(entity)를 `Q`가 붙은 클래스로 컴파일해 사용한다. IDE에서 컴파일된 `Q-Type` 클래스를 사용하려면 컴파일 위치를 잡아 줘야 한다. 이 과정이 없으면 컴파일된 `Q-Type` 클래스를 찾지 못하거나 빌드 과정에서 에러가 발생한다.
 
 #### 1.2.1. 환경 설정
 
-- 환경 설정(command + ',')에서 `Annotation Processors` 관련 설정을 찾는다.
-- 해당 프로젝트의 `production sources directory`를 pom.xml 파일의 플러그인에 정의한 `outputDirectory`와 일치시킨다.
+환경 설정(command + ',')에서 `Annotation Processors` 관련 설정을 찾는다. 해당 프로젝트의 `production sources directory`를 pom.xml 파일의 플러그인에 정의한 `outputDirectory`와 일치시킨다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/crud-with-jpa-query-factory-01.png" width="100%" class="image__border">
@@ -89,8 +91,7 @@ recommendedPosts:
 
 #### 1.2.2. 프로젝트 모듈 설정
 
-- 프로젝트 설정(command + ';')에서 모듈 관련 설정을 찾는다.
-- 코드 에디터에서 컴파일 된 `Q-Type` 클래스를 임포트(import)할 수 있도록 모듈의 소스 경로로 설정한다.
+프로젝트 설정(command + ';')에서 모듈 관련 설정을 찾는다. 코드 에디터에서 컴파일된 `Q-Type` 클래스를 임포트(import)할 수 있도록 출력 경로를 모듈의 소스 경로로 설정한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/crud-with-jpa-query-factory-02.png" width="100%" class="image__border">
@@ -98,7 +99,7 @@ recommendedPosts:
 
 ## 2. Types of Query Class in QueryDSL
 
-`QueryDSL`에서 쿼리 작성을 지원하는 클래스는 5가지 있다. 각 클래스마다 다른 특징을 가지며 이번에 포스트에서 사용한 클래스는 `JPAQueryFactory` 이다.
+`QueryDSL`에서 쿼리 작성을 지원하는 클래스는 5가지다. 클래스마다 특징이 다르며, 이 글에서 사용한 클래스는 `JPAQueryFactory`다.
 
 - SQLQuery 클래스
   - 생성자로 매번 만들어 사용
@@ -123,9 +124,7 @@ recommendedPosts:
 
 ## 3. Example
 
-간단하게 엔티티를 만들고 CRUD 기능을 실행시켜보겠다.
-
-### 3.1. DslEntity 클래스
+간단한 엔티티를 만들고 CRUD 기능을 실행해 보자. 먼저 DslEntity 클래스다.
 
 ```java
 package action.in.blog.dsl;
@@ -156,13 +155,7 @@ public class DslEntity {
 }
 ```
 
-### 3.2. DslStore 클래스
-
-- 엔티티 매니저(EntityManager)를 생성자 주입(constructor injection)을 통해 전달 받는다.
-  - `@PersistenceContext`를 사용하는 것을 권장하지만, 특정 버전 이상부터는 동일한 프록시 객체를 주입하므로 동일하다.
-  - 참고 - [@PersistenceContext 애너테이션][entity-manager-with-persistence-context-annotation-link]
-- 생성자를 통해 엔티티 매니저를 전달 받으면 `@DataJpaTest` 애너테이션을 사용한 테스트를 쉽게 풀어낼 수 있다.
-- 각 메서드들은 가장 단순한 CRUD 기능을 수행한다.
+DslStore 클래스는 엔티티 매니저(EntityManager)를 생성자 주입(constructor injection)으로 전달받는다. `@PersistenceContext` 애너테이션 사용이 권장되지만, 특정 버전부터는 같은 프록시 객체를 주입하므로 결과는 같다. 자세한 내용은 [@PersistenceContext 애너테이션][entity-manager-with-persistence-context-annotation-link] 글을 참고하길 바란다. 생성자로 엔티티 매니저를 전달받으면 `@DataJpaTest` 애너테이션을 사용한 테스트를 쉽게 작성할 수 있다. 각 메서드는 가장 단순한 CRUD 기능을 수행한다.
 
 ```java
 package action.in.blog.dsl;
@@ -222,14 +215,14 @@ public class DslStore {
 
 ### 4.1. @DataJpaTest 애너테이션
 
-테스트 코드 전에 `@DataJpaTest` 애너테이션을 먼저 살펴보겠다.
+테스트 코드를 보기 전에 `@DataJpaTest` 애너테이션의 특징을 먼저 살펴보자.
 
 - `@Transactional` 애너테이션이 함께 선언되어 있다.
-  - 테스트가 종료되면 작업한 내용들에 대해 자동으로 롤백(rollback) 처리한다.
+  - 테스트가 끝나면 작업한 내용을 자동으로 롤백(rollback)한다.
 - 기저에 깔린 `@Transactional` 애너테이션은 다음과 같은 관점에서 테스트를 어렵게 만든다.
-  - 스토어(store) 객체를 `@Autowired` 애너테이션을 통해 빈으로 주입 받아 테스트 하는 경우라면 테스트에서 이미 시작된 트랜잭션이 스토어 객체까지 전파되어 외부 트랜잭션에서 확인할 수 있는 방법이 없다. 그렇기 때문에 검증(assert)하려면 스토어 객체를 사용해야 한다.
+  - 스토어(store) 객체를 `@Autowired` 애너테이션으로 주입받아 테스트하는 경우, 테스트에서 이미 시작된 트랜잭션이 스토어 객체까지 전파되어 외부 트랜잭션에서 확인할 방법이 없다. 그렇기 때문에 검증(assert)하려면 스토어 객체를 사용해야 한다.
   - 테스트 메서드에서 `@Transactional` 애너테이션의 전파 타입을 `NOT_SUPPORTED` 같은 것으로 오버라이딩(overriding)하면 테스트 전역에 쓰레기 데이터가 남기 때문에 다른 테스트의 정합성이 떨어진다.
-  - 엔티티 매니저의 1차 캐싱 기능 때문에 검증 또한 정확하지 않을 수 있다. 영속성 컨텍스트 캐시에 준비된 데이터가 나오는 경우엔 정확하게 쿼리가 수행되었는지 검증할 수 없다.
+  - 엔티티 매니저의 1차 캐싱 기능 때문에 검증이 정확하지 않을 수 있다. 영속성 컨텍스트 캐시에 준비된 데이터가 나오면 쿼리가 제대로 수행되었는지 검증할 수 없다.
 
 ```java
 package org.springframework.boot.test.autoconfigure.orm.jpa;
@@ -293,12 +286,12 @@ public @interface DataJpaTest {
 }
 ```
 
-### 4.2. 테스트 코드
+### 4.2. 엔티티 매니저를 제어하는 테스트 코드
 
-위에서 설명한 문제점 때문에 엔티티 매니저의 동작을 테스트에서 제어할 필요가 있다.
+위에서 설명한 문제 때문에 테스트에서 엔티티 매니저의 동작을 직접 제어해야 한다. 테스트 코드는 다음과 같은 방식으로 작성했다.
 
 - 테스트 코드에서 트랜잭션의 시작, 롤백 등을 제어한다.
-- 적절한 위치에서 플러시(flush)와 클리어(clear)를 호출하여 쿼리를 실행하고 영속성 컨텍스트 내부 캐시를 비운다.
+- 적절한 위치에서 플러시(flush)와 클리어(clear)를 호출해 쿼리를 실행하고 영속성 컨텍스트 내부 캐시를 비운다.
 
 ```java
 package action.in.blog.dsl;
@@ -415,10 +408,7 @@ public class DslStoreIT {
 
 ## CLOSING
 
-`JPAQueryFactory` 클래스는 `insert` 쿼리를 지원하지 않는다. `insert` 코드를 작성할 순 있지만, 테스트 코드를 실행하면 다음과 같은 에러를 만나게 된다. `insert` 기능을 사용하기 위해 다음과 같은 옵션이 있다.
-
-- 간단한 방법으로 엔티티 매니저의 `persist` 메서드를 사용
-- 동일한 문법 체계를 사용하고자 한다면 `SQLQueryFactory` 클래스를 사용
+`JPAQueryFactory` 클래스는 `insert` 쿼리를 지원하지 않는다. `insert` 코드를 작성할 수는 있지만, 테스트 코드를 실행하면 다음과 같은 에러를 만난다.
 
 ```
 2022-12-27 21:56:55.341 ERROR 81152 --- [           main] o.h.hql.internal.ast.ErrorTracker        : line 2:1: unexpected token: dslEntity
@@ -452,6 +442,11 @@ antlr.NoViableAltException: unexpected token: dslEntity
     at action.in.blog.dsl.DslStoreIT.createEntity(DslStoreIT.java:43) ~[test-classes/:na]
     ...
 ```
+
+`insert` 기능이 필요하다면 다음 방법을 사용할 수 있다.
+
+- 간단한 방법으로 엔티티 매니저의 `persist` 메서드를 사용
+- 같은 문법 체계를 사용하고 싶다면 `SQLQueryFactory` 클래스를 사용
 
 #### TEST CODE REPOSITORY
 

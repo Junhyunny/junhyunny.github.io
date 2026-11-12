@@ -6,6 +6,7 @@ canonicalPath: "/information/docker/docker-file-expose-instruction/"
 categories:
   - "information"
   - "docker"
+summary: "Dockerfile의 EXPOSE 명령어 역할과 컨테이너 실행 시 -p, -P 옵션으로 포트를 연결할 때의 차이를 정리했다."
 ---
 
 ## 1. EXPOSE command
@@ -19,9 +20,7 @@ categories:
 > To actually publish the port when running the container, use the -p flag on docker run to publish and map one or more ports, 
 > or the -P flag to publish all exposed ports and map them to high-order ports.
 
-EXPOSE 명령어에 명시된 포트는 실제로 노출하는 포트를 의미하지는 않지만, 이미지를 만드는 사람과 컨테이너를 실행시키는 사람 사이에 컨텍스트 공유를 위한 지침 정도로 보인다. 아래 리액트 애플리케이션 도커 파일을 기준으로 `-P`, `-p` 플래그 옵션이 어떻게 동작하는지 살펴보자. 
-
-- `EXPOSE` 명령으로 노출할 포트를 80으로 명시한다. 
+EXPOSE 명령어에 명시된 포트는 실제로 노출하는 포트를 의미하지는 않지만, 이미지를 만드는 사람과 컨테이너를 실행시키는 사람 사이에 컨텍스트 공유를 위한 지침 정도로 보인다. 아래 리액트 애플리케이션 도커 파일을 기준으로 `-P`, `-p` 플래그 옵션이 어떻게 동작하는지 살펴보자. 이 도커 파일은 `EXPOSE` 명령으로 노출할 포트를 80으로 명시한다.
 
 ```dockerfile
 FROM node as builder
@@ -72,9 +71,7 @@ server {
 
 ### 2.1. -P option
 
--P(--publish-all) 옵션을 사용하면 호스트(host) 컴퓨터의 임의의 포트를 컨테이너에 바인딩(binding)한다. 바인딩 된 포트로 요청을 보내면 해당 요청은 EXPOSE 명령어에 정의된 포트 애플리케이션으로 포트 포워딩(port forwarding)된다. 즉 `-P` 플래그를 사용하면 호스트의 랜덤한 포트가 도커 파일에 `EXPOSE` 명령어로 명시한 포트와 연결된다. -P 옵션을 사용해 컨테이너를 실행해보자.
-
-- 별도로 포트를 지정하진 않았음에도 호스트(host)의 55001 포트가 컨테이너의 80 포트로 연결됩니다.
+-P(--publish-all) 옵션을 사용하면 호스트(host) 컴퓨터의 임의의 포트를 컨테이너에 바인딩(binding)한다. 바인딩된 포트로 요청을 보내면 해당 요청은 EXPOSE 명령어에 정의된 포트 애플리케이션으로 포트 포워딩(port forwarding)된다. 즉 `-P` 플래그를 사용하면 호스트의 랜덤한 포트가 도커 파일에 `EXPOSE` 명령어로 명시한 포트와 연결된다. -P 옵션을 사용해 컨테이너를 실행해보자. 별도로 포트를 지정하진 않았음에도 호스트(host)의 55001 포트가 컨테이너의 80 포트로 연결된다.
 
 ```
 $ docker images 
@@ -91,9 +88,7 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED         STATUS   
 
 ### 2.2. -p option
 
--p(--expose) 옵션은 바인딩 할 호스트의 포트와 컨테이너의 포트를 명시적으로 작성하는 방법이다. 아래 예시에선 호스트의 3030 포트와 컨테이너의 80 포트를 연결했다. 호스트 컴퓨터의 3030 포트로 요청을 보내면 컨테이너의 80 포트로 요청이 포트 포워딩된다.
-
-- `-p` 플래그 뒤에 `{host.port}:{container.port}`를 추가해 바인딩 정보를 전달한다.
+-p(--expose) 옵션은 바인딩할 호스트의 포트와 컨테이너의 포트를 명시적으로 작성하는 방법이다. 아래 예시에선 호스트의 3030 포트와 컨테이너의 80 포트를 연결했다. 호스트 컴퓨터의 3030 포트로 요청을 보내면 컨테이너의 80 포트로 요청이 포트 포워딩된다. `-p` 플래그 뒤에 `{host.port}:{container.port}`를 추가해 바인딩 정보를 전달한다.
 
 ```
 $ docker images                             

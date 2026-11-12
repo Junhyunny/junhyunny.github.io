@@ -327,9 +327,7 @@ public class CollectionTests {
 
 ## 6. Instance Manipulating
 
-객체 상태를 변경할 수 있다. 다음과 같은 Car 클래스가 있다.
-
-- 값을 변경할 수 있도록 세터(setter) 메서드가 있다.
+객체 상태를 변경할 수 있다. 다음 Car 클래스에는 값을 변경할 수 있는 세터(setter) 메서드가 있다.
 
 ```java
 package com.example.demo.model;
@@ -402,7 +400,7 @@ public class ManipulatingTests {
 }
 ```
 
-## 7. EvaluationContext Interface
+## 7. EvaluationContext 인터페이스
 
 위 예제들을 살펴보면 알 수 있듯이 표현식을 사용해 값을 꺼낼 때 루트 객체를 지정하면 루트 객체의 프로퍼티와 메서드를 사용할 수 있다.
 
@@ -516,9 +514,7 @@ public class EvaluationContextTests {
 }
 ```
 
-스프링 빈 객체를 참조해 사용할 수 있다. 다음과 같은 스프링 빈 객체를 준비한다.
-
-- get 메서드를 호출하면 "Hello Foo Service" 문자열을 반환한다.
+스프링 빈 객체를 참조해 사용할 수 있다. get 메서드를 호출하면 "Hello Foo Service" 문자열을 반환하는 스프링 빈 객체를 준비한다.
 
 ```java
 package com.example.demo.service;

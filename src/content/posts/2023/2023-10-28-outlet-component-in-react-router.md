@@ -6,6 +6,7 @@ canonicalPath: "/react/react-router-dom/outlet-component-in-react-router/"
 categories:
   - "react"
   - "react-router-dom"
+summary: "리액트 라우터 v6의 Outlet 컴포넌트로 공통 레이아웃 안에 중첩 라우트의 자식 컴포넌트를 렌더링하는 방법을 예제로 정리했다."
 recommendedPosts:
   - title: "React 인증 라우터 구현하기"
     href: "https://junhyunny.github.io/react/authentication-router-in-react/"
@@ -13,23 +14,21 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 인증 라우터를 만들 때 리액트 라우터 v6 Outlet 컴포넌트를 사용했는데 이에 관련된 내용을 정리하였다.
+최근 인증 라우터를 만들 때 리액트 라우터 v6 Outlet 컴포넌트를 사용했는데 이에 관련된 내용을 정리했다.
 
-## 1. Outlet Component
+## 1. Outlet 컴포넌트
 
 공식 홈페이지에는 다음과 같이 소개되어 있다.
 
 > An <Outlet> should be used in parent route elements to render their child route elements. This allows nested UI to show up when child routes are rendered. If the parent route matched exactly, it will render a child index route or nothing if there is no index route.
 
-Outlet 컴포넌트는 중첩된 라우터를 구성하였을 때 부모 라우터에 지정된 컴포넌트에서 자식 라우터에 지정된 컴포넌트를 렌더링할 때 사용된다. 헤더(header)나 푸터(footer) 같은 공통 부분을 재사용하기 위해 사용한다. 간단한 예제 코드를 통해 동작 모습을 확인해보겠다.
+Outlet 컴포넌트는 중첩된 라우터를 구성했을 때 부모 라우터에 지정된 컴포넌트에서 자식 라우터에 지정된 컴포넌트를 렌더링할 때 사용된다. 헤더(header)나 푸터(footer) 같은 공통 부분을 재사용하기 위해 사용한다. 간단한 예제 코드를 통해 동작 모습을 확인해보자.
 
-## 2. Components
+## 2. 컴포넌트들
 
-화면을 구성할 컴포넌트들을 살펴보겠다.
+화면을 구성할 컴포넌트들을 살펴보자.
 
-### 2.1. MainContainer Component
-
-헤더와 푸터 영역을 정의한다. 자식 라우터의 컴포넌트가 렌더링될 위치에 Outlet 컴포넌트를 추가한다.
+MainContainer 컴포넌트는 헤더와 푸터 영역을 정의한다. 자식 라우터의 컴포넌트가 렌더링될 위치에 Outlet 컴포넌트를 추가한다.
 
 ```tsx
 import React from "react";
@@ -50,12 +49,7 @@ const MainContainer = () => {
 export default MainContainer;
 ```
 
-### 2.2. Home Component
-
-다음과 같은 항목들을 렌더링한다.
-
-- "Home" 텍스트
-- 사용자 페이지로 이동할 수 있는 링크
+Home 컴포넌트는 "Home" 텍스트와 사용자 페이지로 이동할 수 있는 링크를 렌더링한다.
 
 ```tsx
 import React from "react";
@@ -73,12 +67,7 @@ const Home = () => {
 export default Home;
 ```
 
-### 2.3. UserInformation Component
-
-다음과 같은 항목들을 렌더링한다.
-
-- "UserInformation" 텍스트
-- 사용자 페이지로 이동할 수 있는 링크
+UserInformation 컴포넌트도 "UserInformation" 텍스트와 사용자 페이지로 이동할 수 있는 링크를 렌더링한다.
 
 ```tsx
 import React from "react";
@@ -98,9 +87,7 @@ export default UserInformation;
 
 ## 3. App
 
-App 컴포넌트에서 다음과 같이 루트를 정의한다.
-
-- 인덱스로 접근하는 경우 `/home` 경로로 리다이렉트한다.
+App 컴포넌트에서 다음과 같이 루트를 정의한다. 인덱스로 접근하는 경우 `/home` 경로로 리다이렉트한다.
 
 ```tsx
 import React from "react";

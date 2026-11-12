@@ -6,6 +6,7 @@ canonicalPath: "/architecture/pattern/anti-corruption-layer-pattern/"
 categories:
   - "architecture"
   - "pattern"
+summary: "레거시 시스템과 신규 시스템을 연계할 때 사용하는 DDD의 부패 방지 계층 개념과 사용 이유, 구현 구조, 고려 사항을 정리했다."
 recommendedPosts:
   - title: "퍼사드 패턴(Facade Pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/facade-pattern/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 1. Anti-Corruption Layer
 
-부패 방지 계층(anti-corruption layer)은 Eric Evans의 DDD(Domain Driven Development)에서 등장한 개념이다. 레거시(legacy) 시스템을 새로운 시스템으로 여러 단계에 걸쳐 이전할 때 사용할 수 있는 패턴(pattern)이다. 간단한 그림을 통해 개념을 이해해본다.
+부패 방지 계층(anti-corruption layer)은 Eric Evans의 DDD(Domain Driven Design)에서 등장한 개념이다. 레거시(legacy) 시스템을 새로운 시스템으로 여러 단계에 걸쳐 이전할 때 사용할 수 있는 패턴(pattern)이다. 간단한 그림을 통해 개념을 이해해보자.
 
 - 다음과 같은 레거시 시스템이 존재한다.
   - 모놀리스 아키텍처로 구성된 하나의 서비스다.

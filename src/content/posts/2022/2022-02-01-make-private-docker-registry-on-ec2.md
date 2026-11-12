@@ -1,11 +1,12 @@
 ---
 title: "비공개 도커 레지스트리(Private docker registry) 만들기"
 publishedAt: "2022-02-01"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:26:00+09:00"
 canonicalPath: "/information/docker/make-private-docker-registry-on-ec2/"
 categories:
   - "information"
   - "docker"
+summary: "EC2 인스턴스에 설치한 도커 레지스트리에 openssl로 만든 SSL 인증서와 사용자 계정을 적용해 비공개 저장소로 만드는 과정을 정리했다."
 recommendedPosts:
   - title: "CI/CD란 무엇인가?"
     href: "https://junhyunny.github.io/information/what-is-ci-cd/"
@@ -25,14 +26,9 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[EC2 인스턴스에 도커 레지스트리(Docker registry) 설치][install-docker-registry-on-ec2-link] 포스트에선 이미지 저장소를 만드는 내용에 대해 다뤘다. 단순히 이미지 저장소를 만든 것이므로 별도의 비공개 처리를 하지 않았다면 IP와 포트(port)를 알고 있는 사용자들은 모두 해당 레지스트리를 공개 저장소처럼 사용할 수 있다. 프로젝트를 위한 비공개 이미지들을 올릴 예정이므로 이전에 만들었던 레지스트리를 비공개 처리해보겠다. 이번 포스트에선 이미 도커 레지스트리가 설치되어 있다는 가정하에 설명을 진행하겠다.
+[EC2 인스턴스에 도커 레지스트리(Docker registry) 설치][install-docker-registry-on-ec2-link] 글에선 이미지 저장소를 만드는 방법을 다뤘다. 단순히 이미지 저장소를 만든 것이므로 따로 비공개 처리를 하지 않으면 IP와 포트(port)를 아는 사용자는 누구나 해당 레지스트리를 공개 저장소처럼 사용할 수 있다. 프로젝트용 비공개 이미지를 올릴 예정이므로 이전에 만든 레지스트리를 비공개로 바꾸려고 한다. 이번 글은 도커 레지스트리가 이미 설치되어 있다고 가정하고 설명한다.
 
-터미널 명령어들이 섞여서 나오기 때문에 헷갈릴 수 있어서 별도로 표시하였다.
-
-- `on EC2 인스턴스` 접미사가 붙은 것은 AWS EC2 인스턴스에서 작업한 내용이다.
-- `on Macbook` 접미사가 붙은 것은 맥북에서 작업한 내용이다.
-
-##### 비공개 도커 레지스트리 만들기 작업 영역
+AWS EC2 인스턴스와 맥북의 터미널 명령어가 섞여 나와 헷갈릴 수 있으므로, 각 명령어를 어디에서 실행하는지 본문에 밝혔다. 이번 글에서 다루는 작업 영역은 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/make-private-docker-registry-on-ec2-01.png" width="85%" class="image__border">
@@ -40,23 +36,21 @@ recommendedPosts:
 
 ## 1. SSL 인증서 생성
 
-도커 레지스트리가 원격에 위치한 경우 `https` 프로토콜이 사용되므로 SSL(Secure Socket Layer)에서 필요한 인증서가 필요하다. `openssl`을 이용하여 인증서를 만들고 적용해보겠다.
+도커 레지스트리가 원격에 있으면 `https` 프로토콜을 사용하므로 SSL(Secure Socket Layer) 인증서가 필요하다. `openssl`을 이용해 인증서를 만들고 적용해 보자. 이 절의 작업은 모두 EC2 인스턴스에서 수행한다.
 
-##### 개인 키와 공개 키 만들기 on EC2 인스턴스
-
-- 인증서를 저장할 디렉토리를 만들고, 해당 디렉토리로 이동한다.
+먼저 인증서를 저장할 디렉토리를 만들고, 해당 디렉토리로 이동한다.
 
 ```
 ~ $ mkdir -p ~/docker-registry/cert
 ~ $ cd ~/docker-registry/cert
 ```
 
-- 개인 키를 만든다.
-  - `openssl genrsa` - 키를 생성하는 명령어이다.
-  - `-des3` - `3DES` 알고리즘으로 암호화한다.
-  - `-out server.key` - 파일명 `server.key`으로 키를 생성한다.
-  - `2048` - `2048` bit long modulus 사용
-  - 암호화 비밀번호를 입력하고, 확인을 위한 재입력을 수행한다.
+다음 명령어로 개인 키를 만든다. 암호화 비밀번호를 입력하고, 확인을 위해 한 번 더 입력한다. 명령어의 각 부분은 다음과 같다.
+
+- `openssl genrsa` - 키를 생성하는 명령어이다.
+- `-des3` - `3DES` 알고리즘으로 암호화한다.
+- `-out server.key` - `server.key`라는 파일 이름으로 키를 생성한다.
+- `2048` - `2048` bit long modulus 사용
 
 ```
 cert $ openssl genrsa -des3 -out server.key 2048
@@ -68,10 +62,7 @@ Enter pass phrase for server.key:
 Verifying - Enter pass phrase for server.key:
 ```
 
-- 인증 요청서(CSR, Certificate Signing Request) 만들기
-  - SSL 서버를 운영하는 회사의 정보를 암호화하여 인증 기관으로 보내 인증서를 발급받기 위한 신청서이다.
-  - `Common Name (eg, your name or your server's hostname)` 항목에서 EC2 인스턴스 공개 IP를 등록한다.
-  - `Common Name`은 레지스트리로 사용할 서버의 도메인 이름과 동일해야 하며 반드시 IP가 들어가지는 않는다.
+다음으로 인증 요청서(CSR, Certificate Signing Request)를 만든다. 인증 요청서는 SSL 서버를 운영하는 회사의 정보를 암호화해 인증 기관에 보내고 인증서를 발급받기 위한 신청서이다. `Common Name (eg, your name or your server's hostname)` 항목에는 EC2 인스턴스의 공개 IP를 등록한다. `Common Name`은 레지스트리로 사용할 서버의 도메인 이름과 같아야 하며, 반드시 IP를 넣어야 하는 것은 아니다.
 
 ```
 cert $ openssl req -new -key server.key -out server.csr
@@ -97,13 +88,14 @@ A challenge password []:
 An optional company name []:
 ```
 
-- 자체 인증서(.crt) 만들기
-  - `openssl x509` - 인증서를 만드는 명령어이다.
-  - `-req` - 입력 값으로 `certificate request`, `sign` 그리고 `output`이 필요하다는 옵션이다.
-  - `-days 365` - 인증서 유효기간이다.
-  - `-in server.csr` - 인증서 생성 시 필요한 요청서는 `server.csr`이다.
-  - `-signkey server.key` - 인증서 생성 시 필요한 개인 키를 지정한다.
-  - `-out server.crt` - 생성할 인증서 이름을 `server.crt`로 지정한다.
+다음 명령어로 자체 인증서(.crt)를 만든다. 명령어의 각 부분은 다음과 같다.
+
+- `openssl x509` - 인증서를 만드는 명령어이다.
+- `-req` - 입력 값으로 `certificate request`, `sign`, `output`이 필요하다는 옵션이다.
+- `-days 365` - 인증서 유효 기간이다.
+- `-in server.csr` - 인증서를 생성할 때 필요한 요청서로 `server.csr`을 사용한다.
+- `-signkey server.key` - 인증서를 생성할 때 필요한 개인 키를 지정한다.
+- `-out server.crt` - 생성할 인증서 이름을 `server.crt`로 지정한다.
 
 ```
 cert $ openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
@@ -113,7 +105,7 @@ Getting Private key
 Enter pass phrase for server.key:
 ```
 
-- 개인 키 복호화를 통한 RSA Private Key 추출
+개인 키를 복호화해 RSA Private Key를 추출한다.
 
 ```
 cert $ cp server.key server.key.origin
@@ -122,7 +114,7 @@ Enter pass phrase for server.key.origin:
 writing RSA key
 ```
 
-- 인증서 생성 확인
+인증서가 생성됐는지 확인한다.
 
 ```
 cert $ ls
@@ -131,11 +123,7 @@ server.crt  server.csr  server.key  server.key.origin
 
 ## 2. 클라이언트 인증서 적용
 
-우선 서버에서 만든 인증서를 클라이언트(맥북)으로 복사시켜야 한다. `scp` 명령어로 서버에서 만든 인증서를 맥북으로 복사하겠다.
-
-##### 인증서 복사 on Macbook
-
-- EC2 컨테이너의 `~/docker-registry/cert` 디렉토리 파일을 맥북의 `~/Desktop/cert` 폴더로 복사한다.
+우선 서버에서 만든 인증서를 클라이언트(맥북)로 복사해야 한다. 맥북에서 `scp` 명령어를 실행해 EC2 인스턴스의 `~/docker-registry/cert` 디렉토리 파일을 맥북의 `~/Desktop/cert` 폴더로 복사한다.
 
 ```
 ~ % scp -r -i ~/Downloads/private-key.pem ec2-user@{ec2-instance-public-domain}.ap-northeast-1.compute.amazonaws.com:~/docker-registry/cert ~/Desktop
@@ -145,17 +133,13 @@ server.crt                                                                      
 server.key.origin                                                                                                       100% 1743    43.5KB/s   00:00
 ```
 
-##### 인증서 적용하기 on Macbook
-
-- 다운받은 인증서를 맥북에 등록하고, 도커를 재시작한다.
+내려받은 인증서를 맥북에 등록하고, 도커를 재시작한다.
 
 ```
 ~ % security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ~/Desktop/cert/server.crt
 ```
 
-##### 인증서 적용하기 on other OS
-
-- ubuntu
+다른 운영체제에서도 인증서를 적용할 수 있다. 우분투(ubuntu)에서는 다음 명령어를 실행한다.
 
 ```
 ~ $ cp ~/Desktop/cert/server.crt /usr/share/ca-certificates/
@@ -163,7 +147,7 @@ server.key.origin                                                               
 ~ $ update-ca-certificates
 ```
 
-- centos
+센트OS(centos)에서는 다음 명령어를 실행한다.
 
 ```
 ~ $ cp ~/Desktop/cert/server.crt /etc/pki/ca-trust/source/anchors/
@@ -172,35 +156,29 @@ server.key.origin                                                               
 
 ## 3. 로그인 정보 설정 및 레지스트리 실행
 
-클라이언트에서 로그인할 수 있는 사용자 아이디와 비밀번호를 만들고 레지스트리 서비스를 재실행하겠다.
+클라이언트에서 로그인할 수 있는 사용자 아이디와 비밀번호를 만들고 레지스트리 서비스를 다시 실행한다. 이 절의 작업은 모두 EC2 인스턴스에서 수행한다.
 
-##### 사용자 아이디와 비밀번호 만들기 on EC2 인스턴스
-
-- 아이디와 비밀번호를 만들어 저장할 디렉토리를 만든다.
+먼저 아이디와 비밀번호를 저장할 디렉토리를 만든다.
 
 ```
 ~ $ mkdir -p ~/docker-registry/auth
 ~ $ cd ~/docker-registry/auth
 ```
 
-- 이전 레지스트리 버전에 포함되었던 `htpasswd` 기능이 최근 이미지에서 빠진 것 같다.
-- htpasswd 툴(tool) 설치 후 아이디와 비밀번호를 만들어준다.
-  - 아이디는 `cicduser`, 비밀번호는 `0000`이다.
+이전 레지스트리 버전에 포함됐던 `htpasswd` 기능이 최근 이미지에서 빠진 것 같다. htpasswd 툴(tool)을 설치한 뒤 아이디와 비밀번호를 만든다. 아이디는 `cicduser`, 비밀번호는 `0000`이다.
 
 ```
 auth $ sudo yum install httpd-tools -y
 auth $ htpasswd -Bbn cicduser 0000 > ./htpasswd
 ```
 
-##### 도커 레지스트리 실행 on EC2 인스턴스
-
-- 레지스트리에서 사용할 루트 디렉토리를 생성한다.
+레지스트리에서 사용할 루트 디렉토리를 생성한다.
 
 ```
 ~ $ mkdir -p ~/docker-registry/volume
 ```
 
-- 이전에 실행 중인 레지스트리 컨테이너가 있다면 종료 후 재실행한다.
+실행 중인 레지스트리 컨테이너가 있다면 종료한 뒤 다시 실행한다.
 
 ```
 ~ $ docker run -d \
@@ -225,9 +203,9 @@ d204d32fc574   registry   "/entrypoint.sh /etc…"   9 seconds ago   Up 8 second
 
 ## 4. 도커 이미지 push & pull
 
-이제 맥북에서 이미지를 만들어 `push`, `pull` 해보겠다. 간단한 테스트로 도커 허브에서 nginx 이미지를 다운받아서 EC2 인스턴스에 위치한 개인 저장소에 올리겠다.
+이제 맥북에서 이미지를 만들어 `push`, `pull` 해 보자. 이 절의 작업은 모두 맥북에서 수행한다. 간단한 테스트로 도커 허브에서 nginx 이미지를 내려받아 EC2 인스턴스에 있는 개인 저장소에 올린다.
 
-##### nginx 이미지 pull from 도커 허브 on Macbook
+먼저 도커 허브에서 nginx 이미지를 pull 한다.
 
 ```
 ~ % docker pull nginx
@@ -244,9 +222,7 @@ Status: Downloaded newer image for nginx:latest
 docker.io/library/nginx:latest
 ```
 
-##### nginx 이미지 태그 변경 및 확인 on Macbook
-
-- `{ec2-instance-public-ip}`에는 본인의 EC2 인스턴스 공개 IP를 사용하면 된다.
+nginx 이미지의 태그를 변경하고 확인한다. `{ec2-instance-public-ip}`에는 자신의 EC2 인스턴스 공개 IP를 사용하면 된다.
 
 ```
 ~ % docker tag nginx {ec2-instance-public-ip}:5000/nginx
@@ -257,9 +233,7 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 nginx                     latest    c316d5a335a5   5 days ago   142MB
 ```
 
-##### 이미지 push 실패 on Macbook
-
-- 맥북에 도커 로그인이 다른 사용자로 되어 있는 경우 `docker push` 명령어 수행이 실패한다.
+맥북의 도커에 다른 사용자로 로그인되어 있으면 `docker push` 명령어가 실패한다.
 
 ```
 ~ % docker push {ec2-instance-public-ip}:5000/nginx
@@ -274,9 +248,7 @@ The push refers to repository [{ec2-instance-public-ip}:5000/nginx]
 unauthorized: authentication required
 ```
 
-##### 이미지 push 성공 on Macbook
-
-- 맥북에서 레지스트리 사용자로 로그인 후 `docker push` 명령어를 수행하면 성공한다.
+레지스트리 사용자로 로그인한 뒤 `docker push` 명령어를 수행하면 성공한다.
 
 ```
 ~ % docker login {ec2-instance-public-ip}:5000 --username cicduser
@@ -295,19 +267,14 @@ The push refers to repository [{ec2-instance-public-ip}:5000/nginx]
 latest: digest: sha256:bb129a712c2431ecce4af8dde831e980373b26368233ef0f3b2bae9e9ec515ee size: 1570
 ```
 
-##### 이미지 push 성공 여부 확인 on Macbook
-
-- `curl` 명령어를 통해 push 된 이미지를 확인할 수 있다.
-- 이미지 확인을 위해 사용자 아이디와 비밀번호를 함께 전달한다.
+`curl` 명령어로 push 된 이미지를 확인할 수 있다. 이미지를 확인하려면 사용자 아이디와 비밀번호를 함께 전달한다.
 
 ```
 ~ % curl -X GET -u cicduser:0000 https://{ec2-instance-public-ip}:5000/v2/_catalog
 {"repositories":["element","nginx","openjdk"]}
 ```
 
-##### 이미지 pull 실패 from 레지스트리 on Macbook
-
-- 이전 단계에서 로그인하여 생긴 `credential`와 도커 이미지를 제거한다.
+이번엔 레지스트리에서 이미지를 pull 해 보자. 먼저 이전 단계에서 로그인해 생긴 `credential`과 도커 이미지를 제거한다.
 
 ```
 ~ % docker logout {ec2-instance-public-ip}:5000
@@ -316,7 +283,7 @@ Removing login credentials for {ec2-instance-public-ip}:5000
 ~ % docker rmi -f $(docker images -aq)
 ```
 
-- 레지스트리에서 pull 시도 시 에러가 발생한다.
+로그인하지 않은 상태로 레지스트리에서 pull 하면 에러가 발생한다.
 
 ```
 ~ % docker pull {ec2-instance-public-ip}:5000/nginx
@@ -324,9 +291,7 @@ Using default tag: latest
 Error response from daemon: Get "http://{ec2-instance-public-ip}:5000/v2/": net/http: HTTP/1.x transport connection broken: malformed HTTP response "\x15\x03\x01\x00\x02\x02"
 ```
 
-##### 이미지 pull 성공 from 레지스트리 on Macbook
-
-- 로그인 후 이미지 pull 시도 시 정상적으로 실행된다.
+로그인한 뒤 이미지를 pull 하면 정상적으로 실행된다.
 
 ```
 ~ % docker login {ec2-instance-public-ip}:5000 --username cicduser

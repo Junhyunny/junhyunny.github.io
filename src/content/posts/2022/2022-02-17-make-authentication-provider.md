@@ -1,11 +1,12 @@
 ---
 title: "JWT AuthenticationProvider 만들기"
 publishedAt: "2022-02-17"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:26:00+09:00"
 canonicalPath: "/spring-boot/spring-security/make-authentication-provider/"
 categories:
   - "spring-boot"
   - "spring-security"
+summary: "JWT를 파싱해 사용자를 인증하는 JwtAuthenticationProvider 클래스를 구현하고, ProviderManager가 인증 예외를 처리하는 방식을 정리했다."
 recommendedPosts:
   - title: "JWT(Json Web Token)"
     href: "https://junhyunny.github.io/information/json-web-token/"
@@ -17,25 +18,22 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[JWT AuthenticationFilter 만들기][make-authentication-filter-link] 포스트에 이어서 이번엔 `JWT(Json Web Token)`을 통한 사용자 인증과 관련된 내용을 구현하였다.
+[JWT AuthenticationFilter 만들기][make-authentication-filter-link] 글에 이어 이번엔 `JWT(Json Web Token)`를 이용한 사용자 인증을 구현했다.
 
-##### Spring Security Authentication Process
-- 파란색 박스 부분은 `Spring Security` 프레임워크에서 제공하는 `ProvideManager` 클래스를 사용하였다.
-- 빨간색 박스 부분이 이번에 구현할 `JwtAuthenticationProvider` 클래스가 속하는 부분이다.
+아래 그림은 스프링 시큐리티(Spring Security)의 인증 과정이다. 파란색 박스 부분은 `Spring Security` 프레임워크에서 제공하는 `ProviderManager` 클래스를 그대로 사용했다. 빨간색 박스 부분이 이번에 구현할 `JwtAuthenticationProvider` 클래스가 속하는 부분이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/make-authentication-provider-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/make-authentication-provider-01.png" width="100%" class="image__border">
 </div>
 <center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center>
 
 ## 1. 패키지 구성 및 설정 변경 내용
 
-[JWT AuthenticationFilter 만들기][make-authentication-filter-link] 포스트와 비교하여 어떤 내용이 변경되었는지 확인해보겠다.
+[JWT AuthenticationFilter 만들기][make-authentication-filter-link] 글과 비교해 어떤 내용이 바뀌었는지 확인해 보자.
 
 ### 1.1. 패키지 구성
-- `JwtAuthenticationProviderTest` 클래스에서 `JwtAuthenticationProvider` 구현을 위한 테스트를 작성하였다.
-- `JwtAuthenticationProvider` 클래스를 구현하였다.
-- `AuthControllerTest` 클래스에서 API 테스트를 추가하였다.
+
+`JwtAuthenticationProviderTest` 클래스에 `JwtAuthenticationProvider` 구현을 위한 테스트를 작성하고, `JwtAuthenticationProvider` 클래스를 구현했다. `AuthControllerTest` 클래스에는 API 테스트를 추가했다.
 
 ```
 .
@@ -87,7 +85,8 @@ recommendedPosts:
 ```
 
 ### 1.2. application.yml
-- `JwtAuthenticationProvider` 클래스에서 사용할 비밀 키 값을 설정에 추가하였다.
+
+`JwtAuthenticationProvider` 클래스에서 사용할 비밀 키 값을 설정에 추가했다.
 
 ```yml
 jwt:
@@ -96,17 +95,12 @@ jwt:
 
 ## 2. 기능 구현하기
 
-### 2.1. JwtAuthenticationProvider 클래스
-- `Spring Security` 프레임워크에서 제공하는 `AuthenticationProvider` 인터페이스를 구현하였다.
-- `supports` 메서드를 통해 해당 `AuthenticationProvider`가 지원하는 인증 타입인지 확인한다.
-- `authenticate` 메서드는 아래와 같은 기능을 제공한다.
-  - 전달 받은 JWT(Json Web Token)을 파싱(parsing)하여 인증된 토큰 정보를 생성한다.
-  - 유효하지 않거나 시간이 만료된 토큰에 대해 예외(exception)을 던진다.
-  - `JwtParser` 클래스의 `parse` 메서드는 아래와 같은 예외를 던질 수 있으며, 이에 대한 처리를 하였다.
-    - MalformedJwtException
-    - SignatureException
-    - ExpiredJwtException
-    - IllegalArgumentException
+JwtAuthenticationProvider 클래스는 스프링 시큐리티 프레임워크에서 제공하는 `AuthenticationProvider` 인터페이스를 구현한다. `supports` 메서드는 전달받은 인증 객체가 이 `AuthenticationProvider`가 지원하는 인증 타입인지 확인한다. `authenticate` 메서드는 전달받은 JWT(Json Web Token)를 파싱(parsing)하여 인증된 토큰 정보를 생성하고, 유효하지 않거나 시간이 만료된 토큰이면 예외(exception)를 던진다. `JwtParser` 클래스의 `parse` 메서드는 다음과 같은 예외를 던질 수 있으며, 각 예외를 처리했다.
+
+- MalformedJwtException
+- SignatureException
+- ExpiredJwtException
+- IllegalArgumentException
 
 ```java
 package action.in.blog.security.provider;
@@ -177,12 +171,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 }
 ```
 
-### 2.2. SecurityConfig 클래스
-- [JWT AuthenticationFilter 만들기][make-authentication-filter-link] 포스트와 코드는 동일하지만, 리마인드 차원에서 코드를 가져왔다.
-- `SecurityConfig` 생성자
-  - `AuthenticationManagerBuilder` 빈을 주입 받는다.
-  - 구현한 `AuthenticationProvider` 빈을 주입 받는다.
-  - `AuthenticationManager`에서 사용할 `AuthenticationProvider`를 `AuthenticationManagerBuilder`에 추가한다.
+SecurityConfig 클래스는 [JWT AuthenticationFilter 만들기][make-authentication-filter-link] 글의 코드와 동일하지만, 다시 짚어 보기 위해 가져왔다. 생성자에서 `AuthenticationManagerBuilder` 빈과 구현한 `AuthenticationProvider` 빈을 주입받고, `AuthenticationManager`에서 사용할 `AuthenticationProvider`를 `AuthenticationManagerBuilder`에 추가한다.
 
 ```java
 package action.in.blog.security.config;
@@ -246,7 +235,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 ## 3. 테스트하기
 
-### 3.1. JwtAuthenticationProviderTest 클래스
+먼저 JwtAuthenticationProvider 클래스의 테스트 코드를 살펴보자.
 
 ```java
 package action.in.blog.security.provider;
@@ -381,8 +370,7 @@ public class JwtAuthenticationProviderTest {
 }
 ```
 
-### 3.2. AuthControllerTest 클래스
-- [JWT AuthenticationFilter 만들기][make-authentication-filter-link] 포스트에서 작성한 테스트 코드는 주석하였다.
+다음은 AuthControllerTest 클래스다. [JWT AuthenticationFilter 만들기][make-authentication-filter-link] 글에서 작성한 테스트 코드는 주석 처리했다.
 
 ```java
 package action.in.blog.security.controller;
@@ -485,18 +473,11 @@ public class AuthControllerTest {
 
 ## CLOSING
 
-`JwtAuthenticationProvider` 클래스를 보면 토큰을 파싱 과정에서 예외가 발생하는지 여부만으로 토큰의 유효성을 검사한다. 발생한 예외는 모두 `JwtInvalidException` 클래스로 감싸서 외부로 던졌다. 던져진 예외는 모두 `Spring Security` 프레임워크의 `ProviderManager` 클래스에 의해 처리된다.
+`JwtAuthenticationProvider` 클래스는 토큰을 파싱하는 과정에서 예외가 발생하는지만으로 토큰의 유효성을 검사한다. 발생한 예외는 모두 `JwtInvalidException` 클래스로 감싸서 외부로 던졌다. 던져진 예외는 모두 `Spring Security` 프레임워크의 `ProviderManager` 클래스가 처리한다.
 
-`ProviderManager`는 자신이 관리하는 `Provider`들에게 인증 행위를 위임한다. `Provider`가 내부에서 `AuthenticationException` 예외를 던지면 인증 실패에 대한 로직을 수행해준다. 인증 성공이나 실패에 대한 이벤트 발행도 해주기 때문에 `ProviderManager`를 그대로 사용하였다.
+`ProviderManager`는 자신이 관리하는 `Provider`들에게 인증 행위를 위임한다. `Provider`가 내부에서 `AuthenticationException` 예외를 던지면 인증 실패 로직을 수행한다. 인증 성공이나 실패 이벤트도 발행해 주기 때문에 `ProviderManager`를 그대로 사용했다.
 
-##### ProviderManager 클래스
-- `ProviderManager` 클래스 인증 로직에서 일부만 살펴보겠다.
-- 이번 포스트에서 구현한 `JwtAuthenticationProvider` 클래스는 `List<AuthenticationProvider>`에 담긴다.
-- `JwtAuthenticationProvider` 클래스가 오버라이딩(overriding) 메서드는 `supports`, `authenticate` 이다.
-  - `supports` 메서드를 통해 지원하는 타입의 인증인지 먼저 확인한다.
-  - `authenticate` 메서드를 통해 인증을 수행한다.
-  - `supports` 메서드를 먼저 수행함으로써 `ClassCastException`을 피할 수 있다.
-    - `authenticate` 메서드의 `((JwtAuthenticationToken) authentication)` 라인은 `ClassCastException` 발생 위험이 있다.
+`ProviderManager` 클래스의 인증 로직 중 일부를 살펴보자. 이번 글에서 구현한 `JwtAuthenticationProvider` 클래스는 `List<AuthenticationProvider>`에 담긴다. `JwtAuthenticationProvider` 클래스가 오버라이딩(overriding)한 메서드는 `supports`, `authenticate`이다. `ProviderManager`는 `supports` 메서드로 지원하는 타입의 인증인지 먼저 확인한 뒤 `authenticate` 메서드로 인증을 수행한다. `authenticate` 메서드의 `((JwtAuthenticationToken) authentication)` 라인은 `ClassCastException`이 발생할 위험이 있는데, `supports` 메서드를 먼저 수행하므로 이를 피할 수 있다.
 
 ```java
 package org.springframework.security.authentication;
@@ -519,12 +500,12 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 
             AuthenticationProvider provider = (AuthenticationProvider)var9.next();
 
-            // JwtAuthenticationProvider 클래스에서 오버라이딩하였하였습니다.
+            // JwtAuthenticationProvider 클래스에서 오버라이딩했습니다.
             // 해당 위치에서 자신이 처리할 인증 타입인지 확인합니다. 
             if (provider.supports(toTest)) {
                 try {
 
-                    // JwtAuthenticationProvider 클래스에서 오버라이딩하였하였습니다.
+                    // JwtAuthenticationProvider 클래스에서 오버라이딩했습니다.
                     // JwtAuthenticationProvider가 지원하는 경우에만 authenticate 메서드를 수행합니다.
                     result = provider.authenticate(authentication);
                     if (result != null) {
@@ -562,9 +543,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
     }
 ```
 
-##### JwtInvalidException 클래스
-- `JwtInvalidException` 클래스는 `AuthenticationException` 클래스를 상속하였다.
-- `ProviderManager` 클래스 내부 `catch (AuthenticationException var15)` 위치에서 처리된다.
+`JwtInvalidException` 클래스는 `AuthenticationException` 클래스를 상속했으므로 `ProviderManager` 클래스 내부의 `catch (AuthenticationException var15)` 위치에서 처리된다.
 
 ```java
 package action.in.blog.security.exception;
@@ -584,9 +563,11 @@ public class JwtInvalidException extends AuthenticationException {
 ```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-02-15-make-authentication-filter>
 
 #### REFERENCE
+
 - <https://bcp0109.tistory.com/301>
 - <https://silvernine.me/wp/?p=1135>
 - <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>

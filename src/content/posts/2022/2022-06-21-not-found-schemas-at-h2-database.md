@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "database"
+summary: "다중 스키마를 사용하는 엔티티를 로컬 H2 데이터베이스에서 실행할 때 스키마를 찾지 못하는 문제를 접속 URL에 초기화 질의를 추가해 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "MySQL 데이터베이스 JPA 다중 스키마 사용"
     href: "https://junhyunny.github.io/spring-boot/jpa/database/connect-multi-schema-in-mysql/"
@@ -18,9 +19,7 @@ JPA를 통해 여러 스키마에 접근하도록 구현하니 로컬 호스트�
 
 ## 1. Problem Context
 
-MySQL 데이터베이스 환경에서 다중 스키마에 접근하기 위해 엔티티(entity) 클래스에 아래와 같이 스키마 정보를 추가했다. `@Table` 애너테이션의 `catalog` 속성을 사용했다. 
-
-- MySQL 데이터베이스의 `hello` 스키마에 접근하기 위한 정보를 추가한다.
+MySQL 데이터베이스 환경에서 다중 스키마에 접근하기 위해 엔티티(entity) 클래스에 아래와 같이 스키마 정보를 추가했다. `@Table` 애너테이션의 `catalog` 속성을 사용했다. MySQL 데이터베이스의 `hello` 스키마에 접근하기 위한 정보를 추가한다.
 
 ```java
 package blog.in.action.hello;
@@ -39,9 +38,7 @@ public class Member {
 }
 ```
 
-다른 엔티티엔 다른 스키마에 접근하기 위한 정보를 추가한다.
-
-- MySQL 데이터베이스의 `world` 스키마에 접근하기 위한 정보를 추가한다.
+다른 엔티티엔 다른 스키마에 접근하기 위한 정보를 추가한다. MySQL 데이터베이스의 `world` 스키마에 접근하기 위한 정보를 추가한다.
 
 ```java
 package blog.in.action.world;

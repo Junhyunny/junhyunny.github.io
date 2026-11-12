@@ -8,6 +8,7 @@ categories:
   - "dns"
   - "aws"
   - "route53"
+summary: "사설 도메인을 AWS에 연결한 경험을 바탕으로 도메인 계층 구조, 네임 서버가 도메인을 질의하는 과정, AWS Route53 서비스를 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -16,7 +17,7 @@ categories:
 
 ## 1. DNS(Domain Name System)
 
-도메인 이름 시스템(DNS)는 사람이 이해하기 쉬운 도메인 이름을 컴퓨터가 이해할 수 있는 주소로 변환해주는 역할을 수행하는 시스템이다. 서버의 IP 주소를 일일이 기억하고 있는 사람은 없을 것이다. 예를 들어, 도메인 이름은 `google.com`이고 이에 해당하는 IP 주소는 `142.250.206.206`이다. 터미널에서 ping 명령어를 사용하면 해당 도메인 이름의 IP 주소를 확인할 수 있다.
+도메인 이름 시스템(DNS)은 사람이 이해하기 쉬운 도메인 이름을 컴퓨터가 이해할 수 있는 주소로 변환해주는 역할을 수행하는 시스템이다. 서버의 IP 주소를 일일이 기억하고 있는 사람은 없을 것이다. 예를 들어, 도메인 이름은 `google.com`이고 이에 해당하는 IP 주소는 `142.250.206.206`이다. 터미널에서 ping 명령어를 사용하면 해당 도메인 이름의 IP 주소를 확인할 수 있다.
 
 ```
 $ ping google.com
@@ -32,7 +33,7 @@ PING google.com (142.250.206.206): 56 data bytes
 
 - TLD(Top Level Domain) 
   - 도메인 이름의 최상위 계층으로 도메인의 종류나 지역을 나타낸다.
-  - .com, .org, .net, .kr, .jp .us 등
+  - .com, .org, .net, .kr, .jp, .us 등
 - SLD(Second Level Domain)
   - TLD 바로 아래 위치하는 도메인 이름으로 주로 브랜드나 기관 이름을 나타낸다.
   - google, naver 등
@@ -55,13 +56,13 @@ PING google.com (142.250.206.206): 56 data bytes
 - TLD 하위에 2단계, 3단계 도메인 순으로 트리가 깊어질수록 단계가 커진다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-02.png" width="100%" class="image__border">
-</div>
-<center>https://better-together.tistory.com/128</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://better-together.tistory.com/128</center>
 </div>
 
-도메인 계층 구조를 살펴본 이유는 도메인 이름 시스템은 계층 구조를 따르는 네임 서버가 사용되기 때문이다. 브라우저에서 `exmample.com`을 입력하는 경우 어떤 흐름이 발생할까?
+도메인 계층 구조를 살펴본 이유는 도메인 이름 시스템은 계층 구조를 따르는 네임 서버가 사용되기 때문이다. 브라우저에서 `example.com`을 입력하는 경우 어떤 흐름이 발생할까?
 
 1. 사용자가 브라우저에 `example.com` 도메인을 입력한다. 로컬 호스트에서 관리 중인 캐시 정보를 우선 확인한다.
 2. 로컬 DNS 서버에 example.com 도메인의 IP 주소를 질의한다. 
@@ -70,10 +71,10 @@ PING google.com (142.250.206.206): 56 data bytes
 5. example.com SLD 도메인의 주소를 관리하는 SLD DNS 서버에 example.com 도메인의 IP 주소를 질의한다. `example.com` 도메인의 IP 주소를 반환한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-03.png" width="100%" class="image__border">
-</div>
-<center>https://velog.io/@combi_jihoon/Route53</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://velog.io/@combi_jihoon/Route53</center>
 </div>
 
 위 이미지에서 보이듯 로컬 캐시, DNS 서버도 여러 개 존재한다. 각 구성 요소에 대해 살펴보자.
@@ -91,14 +92,14 @@ PING google.com (142.250.206.206): 56 data bytes
   - 특정 TLD(e.g. .com, .kr, .org) 도메인 이름 정보를 관리하는 서버다.
 - SLD DNS 서버
   - SLD 도메인과 관련된 정보를 관리하는 네임 서버다.
-- Authorittative DNS 서버
+- Authoritative DNS 서버
   - 특정 도메인에 대한 최종 정보를 가진 DNS 서버다.
   - 도메인의 IP 주소 또는 기타 DNS 레코드(e.g. A, CNAME)를 제공한다.
   - 최종적인 IP 주소를 반환하여 클라이언트의 요청을 완료한다.
 
 ## 2. AWS Route53
 
-Route53는 AWS의 DNS 웹 서비스다. 사용자의 요청을 AWS 혹은 온프레미스에서 실행되는 애플리케이션에 연결한다. AWS Route53는 도메인 이름 시스템에서 `Authorittative DNS 서버` 역할을 수행한다. Route53는 두 개의 호스트 영역이 있다. 
+Route53는 AWS의 DNS 웹 서비스다. 사용자의 요청을 AWS 혹은 온프레미스에서 실행되는 애플리케이션에 연결한다. AWS Route53는 도메인 이름 시스템에서 `Authoritative DNS 서버` 역할을 수행한다. Route53는 두 개의 호스트 영역이 있다. 
 
 - 공용 호스트 영역 (Public Hosted Zone)
   - 인터넷에 노출된 도메인 이름과 해당 DNS 레코드를 관리한다.
@@ -107,10 +108,10 @@ Route53는 AWS의 DNS 웹 서비스다. 사용자의 요청을 AWS 혹은 온프
   - 인터넷에 노출되지 않고, VPC 내부 리소스에 대한 이름 해석에 사용된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-04.png" width="100%" class="image__border">
-</div>
-<center>https://velog.io/@combi_jihoon/Route53</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-04.png" width="100%" class="image__border">
+  </div>
+  <center>https://velog.io/@combi_jihoon/Route53</center>
 </div>
 
 Route53를 사용할 때 인터넷 연결이 필요하다면 공용 호스트 영역을 사용해야 한다. Route53을 사용하면 도메인 구매도 가능하지만, 외부 도메인 구매 대행 서비스를 통해 구매한 도메인과 연결하는 것도 가능하다. 만약, 서드파티(3rd party) 도메인 구매 대행 서비스를 사용했다면 다음과 같은 과정을 거친다.
@@ -128,7 +129,7 @@ Route53에서 공용 호스트 영역을 하나 생성하면 다음과 같은 �
   - 특정 도메인의 네임 서버를 지정한다.
   - 도메인의 DNS 정보를 관리하는 서버를 가리킨다.
 - SOA 레코드(Start of Authority Record)
-  - 특정 도메인의 시작 지점(start of authority)를 정의한다.
+  - 특정 도메인의 시작 지점(start of authority)을 정의한다.
   - 도메인에 대한 주요 정보를 포함하며, DNS 영역 관리에 사용된다.
   - 도메인과 관련된 기본 네임 서버를 지정하고, 도메인 정보가 업데이트 되는 빈도, 캐싱 시간, 관리 책임자 이메일 등 메타 데이터를 제공한다.
 
@@ -139,10 +140,10 @@ Route53에서 공용 호스트 영역을 하나 생성하면 다음과 같은 �
 NS 레코드엔 4개의 DNS 네임 서버 정보가 지정되어 있다. 서드파티에서 도메인 구매한 경우 AWS의 DNS 네임 서버와 연결하기 위해선 서드파티 사이트에 AWS DNS 네임 서버 정보를 등록해야 한다. 필자가 사용한 GoDaddy 서비스를 찾아보면 구매한 도메인에 다른 DNS 네임 서버를 등록할 수 있는 화면을 볼 수 있다. 해당 화면에서 AWS Route53의 NS 레코드 정보를 등록하면 된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-07.png" width="80%" class="image__border">
-</div>
-<center>https://m.blog.naver.com/mogulist/221761776783</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-and-aws-route53-07.png" width="100%" class="image__border">
+  </div>
+  <center>https://m.blog.naver.com/mogulist/221761776783</center>
 </div>
 
 whois 명령어를 사용하면 해당 도메인에 연결된 DNS 네임 서버 정보와 메타 데이터를 확인할 수 있다.

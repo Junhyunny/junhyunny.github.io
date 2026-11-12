@@ -7,6 +7,7 @@ categories:
   - "kotlin"
   - "spring-boot"
   - "test-container"
+summary: "테스트 컨테이너 설정을 상위 클래스로 옮긴 뒤 ApplicationContext 캐싱으로 테스트가 실패한 원인을 살펴보고, @DirtiesContext와 컨테이너 공유로 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제"
     href: "https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-코틀린 스프링 부트(Kotlin Spring Boot) 프로젝트에서 테스트 컨테이너(TestContainer)를 사용하는 방법을 [이전 글][testcontainer-in-kotlin-spring-boot-link]에서 다뤘다. 이번 글은 테스트 컨테이너(TestConatiner)를 설정하는 코드를 상위 클래스에 옮기는 리팩토링을 수행했을 때 발생하는 문제에 대해 정리했다. 예제 코드는 문제가 발생했던 상황을 일부 각색했다.
+코틀린 스프링 부트(Kotlin Spring Boot) 프로젝트에서 테스트 컨테이너(TestContainer)를 사용하는 방법을 [이전 글][testcontainer-in-kotlin-spring-boot-link]에서 다뤘다. 이번 글은 테스트 컨테이너(TestContainer)를 설정하는 코드를 상위 클래스에 옮기는 리팩토링을 수행했을 때 발생하는 문제에 대해 정리했다. 예제 코드는 문제가 발생했던 상황을 일부 각색했다.
 
 ## 1. Problem Context
 
@@ -68,10 +69,10 @@ class TodoRepositoryTest {
 - 테스트 컨테이너를 연결하는 설정 클래스와 데이터베이스 결합 테스트 관련 클래스를 나눈 이유는 데이터베이스와 관련 없는 결합 테스트(@SpringBootTest)에서도 데이터베이스 연결이 필요하기 때문이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-01.png" width="100%" class="image__border">
 </div>
 
-### 1.1. TestContainerDatabase Class
+### 1.1. TestContainerDatabase 클래스
 
 테스트 컨테이너를 만들고 연결하는 추상 클래스는 다음과 같다. TestContainerDatabase 추상 클래스를 상속한 테스트 클래스는 Postgres 데이터베이스를 컨테이너로 만들고 테스트 환경과 연결한다.
 
@@ -95,7 +96,7 @@ abstract class TestContainerDatabase {
 }
 ```
 
-### 1.2. TestStoreConfig Class
+### 1.2. TestStoreConfig 클래스
 
 데이터베이스 결합 테스트를 위한 @DataJpaTest 애너테이션, @AutoConfigureTestDatabase 애너테이션을 클래스 위에 명시한다. 테스트 대상 시스템을 도와줄 엔티티 매니저(EntityManager) 인스턴스와 메서드를 함께 정의한다.
 
@@ -121,7 +122,7 @@ abstract class TestStoreConfig : TestContainerDatabase() {
 }
 ```
 
-### 1.3. TodoRepositoryTest Class
+### 1.3. TodoRepositoryTest 클래스
 
 실제 테스트 코드는 다음과 같이 변경한다. TestStoreConfig 추상 클래스를 상속 받는 것으로 테스트에 필요한 모든 환경이 준비된다. 테스트 대상 시스템을 제외한 코드가 모두 정리된다.
 
@@ -157,7 +158,7 @@ class TodoRepositoryTest : TestStoreConfig() {
 
 ### 1.4. Failed running tests
 
-모든 리팩토링은 끝났다. 이제 테스트를 실행해보자. 각 클래스 별로 테스트를 실행하면 문제가 없지만, 모든 테스트를 한번에 실행하면 문제가 발생한다. 
+모든 리팩토링은 끝났다. 이제 테스트를 실행해보자. 각 클래스 별로 테스트를 실행하면 문제가 없지만, 모든 테스트를 한 번에 실행하면 문제가 발생한다. 
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-02.png" width="100%" class="image__border">
@@ -175,9 +176,7 @@ class TodoRepositoryTest : TestStoreConfig() {
 > ... <br/>
 > By default, once loaded, the configured ApplicationContext is reused for each test. Thus, the setup cost is incurred only once per test suite, and subsequent test execution is much faster. 
 
-결합 테스트는 스프링 애플리케이션 컨텍스트(application context)를 준비하는데 비용이 크기 때문에 테스트 속도 향상을 위해 한번 로드한 애플리케이션 컨텍스트를 캐싱(caching)하고 재사용한다. 애플리케이션 컨텍스트 캐싱과 테스트 컨테이너의 기능이 충돌하면서 문제가 발생한다. 자세한 설명을 이어가기 전에 테스트 코드의 로그를 먼저 살펴보자. 성공한 테스트의 로그 일부분이다. 
-
-- jdbc:postgresql://localhost:54671/test 주소를 갖는 데이터베이스 테스트 컨테이너가 실행된다. 
+결합 테스트는 스프링 애플리케이션 컨텍스트(application context)를 준비하는데 비용이 크기 때문에 테스트 속도 향상을 위해 한번 로드한 애플리케이션 컨텍스트를 캐싱(caching)하고 재사용한다. 애플리케이션 컨텍스트 캐싱과 테스트 컨테이너의 기능이 충돌하면서 문제가 발생한다. 자세한 설명을 이어가기 전에 테스트 코드의 로그를 먼저 살펴보자. 성공한 테스트의 로그 일부를 보면 jdbc:postgresql://localhost:54671/test 주소를 갖는 데이터베이스 테스트 컨테이너가 실행된다.
 
 ```
 Creating container for image: testcontainers/ryuk:0.6.0
@@ -228,14 +227,12 @@ Caught exception while invoking 'beforeTestMethod' callback on TestExecutionList
 6. ReplyRepositoryTest 테스트는 현재 생성된 B 데이터베이스가 아닌 이전 테스트가 종료되면서 함께 삭제된 A 데이터베이스에 연결을 시도한다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-03.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. Using @DirtiesContext Annotation
 
-두 가지 기능이 충돌하면서 문제를 일으켰다. 두 기능 중 한 가지를 막으면 문제가 해결된다. 먼저 애플리케이션 컨텍스트를 공유하지 않도록 막는 방법을 알아보자. @DirtiesContext 애너테이션을 사용하면 애플리케이션 컨텍스트를 매번 새로 만들어 테스트를 격리한다. 
-
-- 테스트 컨테이너를 사용하는 모든 테스트 클래스에 적용될 수 있도록 TestContainerDatabase 추상 클래스 위에 @DirtiesContext 애너테이션을 추가한다.
+두 가지 기능이 충돌하면서 문제를 일으켰다. 두 기능 중 한 가지를 막으면 문제가 해결된다. 먼저 애플리케이션 컨텍스트를 공유하지 않도록 막는 방법을 알아보자. @DirtiesContext 애너테이션을 사용하면 애플리케이션 컨텍스트를 매번 새로 만들어 테스트를 격리한다. 테스트 컨테이너를 사용하는 모든 테스트 클래스에 적용될 수 있도록 TestContainerDatabase 추상 클래스 위에 @DirtiesContext 애너테이션을 추가한다.
 
 ```kotlin
 package blog.`in`.action
@@ -259,10 +256,10 @@ abstract class TestContainerDatabase {
 }
 ```
 
-매 테스트마다 테스트 컨테이너와 애플리케이션 컨텍스트를 매번 새로 만들어 테스트들을 완벽히 격리한다. 테스트를 격리할 수 있다는 장점이 있지만, 매 테스트마다 컨텍스트 로딩이 수행하는 비효율성을 감수해야 한다.
+매 테스트마다 테스트 컨테이너와 애플리케이션 컨텍스트를 매번 새로 만들어 테스트들을 완벽히 격리한다. 테스트를 격리할 수 있다는 장점이 있지만, 매 테스트마다 컨텍스트 로딩을 수행하는 비효율성을 감수해야 한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-04.png" width="100%" class="image__border">
 </div>
 
 ### 2.3. Using same database test container
@@ -304,7 +301,7 @@ abstract class TestContainerDatabase {
 정적(static) 영역 필드가 준비되는 시점에 테스트 컨테이너가 한번만 실행된다. 애플리케이션 컨텍스트를 재사용하고 컨테이너를 생성하는 비용을 줄일 수 있지만, 데이터베이스를 모든 테스트에서 공유하기 때문에 테스트가 격리되지 않는다. 이는 각 테스트들이 서로 다른 테스트에 영향을 주지 않도록 코드 수준에서 고려할 것들이 생기게 된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/problem-of-sharing-application-context-with-test-container-05.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

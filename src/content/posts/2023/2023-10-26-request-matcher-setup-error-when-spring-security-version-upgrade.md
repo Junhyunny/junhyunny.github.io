@@ -7,11 +7,12 @@ categories:
   - "java"
   - "spring-boot"
   - "spring-security"
+summary: "스프링 부트 3.1.5 업그레이드 후 스프링 시큐리티가 경로 패턴이 모호하다며 부팅에 실패한 원인을 분석하고, MvcRequestMatcher나 AntPathRequestMatcher를 명시해 해결했다."
 ---
 
 ## 0. 들어가면서
 
-스프링 부트(spring boot) 프레임워크를 3.0.7 버전에서 3.1.5 버전으로 업그레이드한 후 서비스를 부팅할 때 이전에 발생하지 않던 에러가 발생했다. 스프링 시큐리티(spring security) 버전이 함께 업그레이드되면서 문제가 생겼는데 이번 글에서 예외가 발생한 이유와 해결 방법을 정리하였다.
+스프링 부트(spring boot) 프레임워크를 3.0.7 버전에서 3.1.5 버전으로 업그레이드한 후 서비스를 부팅할 때 이전에 발생하지 않던 에러가 발생했다. 스프링 시큐리티(spring security) 버전이 함께 업그레이드되면서 문제가 생겼는데 이번 글에서 예외가 발생한 이유와 해결 방법을 정리했다.
 
 - 서블릿 컨텍스트에 이미 존재하는 API 경로를 처리하기 위한 RequestMatcher 객체를 만들 때 문제가 발생한다.
   - `/h2-console/*`, `/` 경로에 대한 RequestMatcher 객체를 생성한다.
@@ -155,7 +156,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 - 스프링 MVC가 클래스 패스에 존재
 - 문자열로 인가 처리 API 경로를 등록하는 requestMatchers(String) 메서드 사용
 
-[Improve CVE-2023-34035 detection](https://github.com/spring-projects/spring-security/issues/13568) 이슈에 내용들을 살펴보면 여러 종류의 서블릿이 등록되는 케이스가 더러 있는 편인 것 같다. 에러 로그를 보면 H2 콘솔을 위한 서블릿이 별도로 추가되는 것을 확인할 수 있다. 필자는 로컬 환경과 테스트 코드에서 H2 데이터베이스를 사용하고, H2 콘솔 기능이 활성화되어 있어서 문제가 발생했다. H2 콘솔 기능이 활성화되면 `/h2-console` 경로를 서비스하기 위해 `org.h2.server.web.JakartaWebServlet`이 추가된다. 이 서블릿과 `DispatcherServlet`이 함께 공존하면서 위 에러가 발생했다.
+[Improve CVE-2023-34035 detection](https://github.com/spring-projects/spring-security/issues/13568) 이슈의 내용들을 살펴보면 여러 종류의 서블릿이 등록되는 케이스가 더러 있는 편인 것 같다. 에러 로그를 보면 H2 콘솔을 위한 서블릿이 별도로 추가되는 것을 확인할 수 있다. 필자는 로컬 환경과 테스트 코드에서 H2 데이터베이스를 사용하고, H2 콘솔 기능이 활성화되어 있어서 문제가 발생했다. H2 콘솔 기능이 활성화되면 `/h2-console` 경로를 서비스하기 위해 `org.h2.server.web.JakartaWebServlet`이 추가된다. 이 서블릿과 `DispatcherServlet`이 함께 공존하면서 위 에러가 발생했다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/request-matcher-setup-error-when-spring-security-version-upgrade-01.png" width="100%" class="image__border">
@@ -170,7 +171,7 @@ public abstract class AbstractRequestMatcherRegistry<C> {
 - AntPathRequestMatcher(String pattern) 생성자 함수
   - AntPathRequestMatcher 클래스의 antMatcher 메서드도 사용 가능하다.
 
-본인은 MvcRequestMatcher 객체를 생성할 수 있는 빌더(builder) 객체를 사용하였다.
+본인은 MvcRequestMatcher 객체를 생성할 수 있는 빌더(builder) 객체를 사용했다.
 
 ```java
 package action.in.blog.config;

@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "spring-security"
+summary: "사용자와 관리자 애플리케이션의 인가 정책이 다른 문제를 경로별로 나눈 두 개의 시큐리티 필터 체인으로 해결하고, @WebMvcTest로 각 필터 체인의 동작을 검증했다."
 recommendedPosts:
   - title: "스프링 부트에서 Web MVC 필터 테스트하기"
     href: "https://junhyunny.github.io/java/spring-boot/web-mvc-filter-test-on-spring-boot/"
@@ -33,7 +34,7 @@ SecurityFilterChain 빈(bean)을 여러 개 만들면 하나의 애플리케이�
 3. 적합한 시큐리티 필터 체인을 통해 인증, 인가 처리를 수행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-make-multiple-security-filter-chains-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-make-multiple-security-filter-chains-01.png" width="100%" class="image__border">
 </div>
 
 ### 2.1. API Design
@@ -47,7 +48,7 @@ SecurityFilterChain 빈(bean)을 여러 개 만들면 하나의 애플리케이�
   - /app/api/**
   - /app/login
 
-### 2.2. SecurityConfig Class
+### 2.2. SecurityConfig 클래스
 
 코드를 일부 각색한 설정(configuration) 클래스이다.
 
@@ -178,7 +179,7 @@ public class MockUsers {
 
 ### 3.1. Admin Resource
 
-관리자 애플리케이션의 컨트롤러 클래스를 먼저 살펴본다. AdminController 클래스는 다음과 같이 구성된다.
+관리자 애플리케이션의 컨트롤러 클래스를 먼저 살펴보자. AdminController 클래스는 다음과 같이 구성된다.
 
 ```java
 package action.in.blog.controller;
@@ -330,7 +331,7 @@ class AdminControllerTest {
 
 ### 3.2. User Resource
 
-다음으로 사용자 애플리케이션의 컨트롤러 클래스를 살펴본다. UserController 클래스는 다음과 같이 구현했다.
+다음으로 사용자 애플리케이션의 컨트롤러 클래스를 살펴보자. UserController 클래스는 다음과 같이 구현했다.
 
 ```java
 package action.in.blog.controller;

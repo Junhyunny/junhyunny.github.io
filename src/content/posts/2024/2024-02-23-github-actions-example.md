@@ -7,6 +7,7 @@ categories:
   - "information"
   - "github"
   - "dev-ops"
+summary: "모노레포 프로젝트에서 깃허브 액션스 워크플로우 파일과 시크릿을 설정해 컨테이너 이미지를 빌드하고 도커 허브 레지스트리에 올리는 파이프라인을 구성했다."
 recommendedPosts:
   - title: "GitHub Actions 기초"
     href: "https://junhyunny.github.io/information/github/dev-ops/github-actions/"
@@ -33,7 +34,7 @@ recommendedPosts:
 3. 파이프라인이 모두 성공하면 컨테이너 이미지를 만들어 배포한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/github-actions-example-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/github-actions-example-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Build Pipeline
@@ -147,7 +148,7 @@ jobs:
   image-build-and-deploy:
     # 러너 OS는 우분투 환경을 사용한다.
     runs-on: ubuntu-latest
-    steps: # frontend-test 작업에서 실행될 스텝들을 정의한다.
+    steps: # image-build-and-deploy 작업에서 실행될 스텝들을 정의한다.
       - name: Check out # 코드 체크아웃
         uses: actions/checkout@v4
       - name: Set up QEMU # QEMU 설정

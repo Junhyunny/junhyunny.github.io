@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/testcontainer/not-find-valid-docker-env-when-testco
 categories:
   - "spring-boot"
   - "testcontainer"
+summary: "랜처 데스크탑을 쓰는 맥OS에서 TestContainer가 도커 환경을 찾지 못하는 문제를 docker.sock 심볼릭 링크와 환경 변수 설정으로 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "코틀린 스프링 부트에서 테스트 컨테이너(TestContainer) 설정하기"
     href: "https://junhyunny.github.io/kotlin/spring-boot/test-container/how-to-setup-testcontainer-in-kotlin-spring-boot/"
@@ -39,7 +40,7 @@ Caused by: java.lang.IllegalStateException: Could not find a valid Docker enviro
 
 ## 2. Solve the problem
 
-이 문제는 `도커 데스크탑(Docker Desktop)`을 사용하지 않으면 발생할 수 있다. 고객사 개발자와 함께 페어링 중에 이 문제가 발생했는 데, 페어링 한 개발자는 라이센스 문제로 `랜처 데스크탑(Rancher Desktop)`을 사용했기 때문에 이 에러가 발생했다. 테스트 컨테이너 공식 문서를 보면 다음과 같은 설명을 볼 수 있다.
+이 문제는 `도커 데스크탑(Docker Desktop)`을 사용하지 않으면 발생할 수 있다. 고객사 개발자와 함께 페어링 중에 이 문제가 발생했는데, 페어링 한 개발자는 라이센스 문제로 `랜처 데스크탑(Rancher Desktop)`을 사용했기 때문에 이 에러가 발생했다. 테스트 컨테이너 공식 문서를 보면 다음과 같은 설명을 볼 수 있다.
 
 > During development, Testcontainers is actively tested against recent versions of Docker on Linux, as well as against Docker Desktop on Mac and Windows.<br/>
 > ...<br/>
@@ -51,21 +52,21 @@ Caused by: java.lang.IllegalStateException: Could not find a valid Docker enviro
 - Podman
 - Rancher Desktop
 
-랜처 데스크탑에서 이 문제를 해결하려면 `Preference > Application > General` 설정에 `Administrative Access` 속성이 활성화한다. 
+랜처 데스크탑에서 이 문제를 해결하려면 `Preference > Application > General` 설정에 `Administrative Access` 속성을 활성화한다. 
 
 <div class="image-row block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/not-find-valid-docker-env-when-testcontainer-in-mac-01.png" width="45%" class="image__border image__padding">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/not-find-valid-docker-env-when-testcontainer-in-mac-02.png" width="35%" class="image__border image__padding">
 </div>
 
-위 설정이 완료되면 `/var/run/docker.sock` 파일의 심볼릭 링크가 제대로 설정되어 있지 않은 문제도 함께 해결해준다. 랜처 데스트탑 환경에서 심볼릭 링크는 `$HOME/.rd/docker.sock` 경로로 설정되어 한다.
+위 설정이 완료되면 `/var/run/docker.sock` 파일의 심볼릭 링크가 제대로 설정되어 있지 않은 문제도 함께 해결해준다. 랜처 데스크탑 환경에서 심볼릭 링크는 `$HOME/.rd/docker.sock` 경로로 설정되어야 한다.
 
 ```
 $ ls -al /var/run/docker.sock
 lrwxr-xr-x  1 root  daemon  34 Aug  9 15:11 /var/run/docker.sock -> /Users/junhyunkang/.rd/docker.sock
 ```
 
-심볼링 링크가 제대로 설정되어 있지 않은 경우 다음 명령어를 통해 심볼링 링크를 다시 설정한다.
+심볼릭 링크가 제대로 설정되어 있지 않은 경우 다음 명령어를 통해 심볼릭 링크를 다시 설정한다.
 
 ```
 $ sudo ln -s $HOME/.rd/docker.sock /var/run/docker.sock
@@ -77,7 +78,7 @@ $ sudo ln -s $HOME/.rd/docker.sock /var/run/docker.sock
 $ export TESTCONTAINERS_HOST_OVERRIDE=$(rdctl shell ip a show rd0 | awk '/inet / {sub("/.*",""); print $2}')
 ```
 
-만약, 위 명령어를 다음과 같은 에러를 만날 수 있다. 이 에러를 만난다면 `Administrative Access` 설정이 제대로 활성화 되었는지 다시 확인하길 바란다.
+만약, 위 명령어를 실행할 때 다음과 같은 에러를 만날 수 있다. 이 에러를 만난다면 `Administrative Access` 설정이 제대로 활성화 되었는지 다시 확인하길 바란다.
 
 ```
 ip: can't find device 'rd0'
@@ -86,9 +87,7 @@ Error: exit status 1
 
 ## CLOSING
 
-위 해결 방법은 랜처 데스크탑을 사용할 때 인텔리제이 IDE 환경이나 그레이들(gradle) CLI로 테스트를 실행할 때 발생하는 문제는 해결한다. 하지만 컨테이너 이미지를 빌드하는 시점에 테스트 스테이지(stage)가 있다면 `TestContainer`를 실행할 때 다시 같은 문제가 발생한다. 도커 데스크탑과는 다르게 이미지를 빌드하는 시점에 호스트 머신의 `docker.sock` 파일을 사용하지 못하는 문제가 있는 것으로 보인다.
-
-- `/var/run/docker.sock` 파일을 찾을 수 없어서 `NoSuchFileException` 예외가 발생한다.
+위 해결 방법은 랜처 데스크탑을 사용할 때 인텔리제이 IDE 환경이나 그레이들(gradle) CLI로 테스트를 실행할 때 발생하는 문제는 해결한다. 하지만 컨테이너 이미지를 빌드하는 시점에 테스트 스테이지(stage)가 있다면 `TestContainer`를 실행할 때 다시 같은 문제가 발생한다. 도커 데스크탑과는 다르게 이미지를 빌드하는 시점에 호스트 머신의 `docker.sock` 파일을 사용하지 못하는 문제가 있는 것으로 보인다. `/var/run/docker.sock` 파일을 찾을 수 없어서 `NoSuchFileException` 예외가 발생한다.
 
 ```
 30.32     2024-08-09T15:49:00.523+09:00 ERROR 159 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Could not find a valid Docker environment. Please check configuration. Attempted configurations were:

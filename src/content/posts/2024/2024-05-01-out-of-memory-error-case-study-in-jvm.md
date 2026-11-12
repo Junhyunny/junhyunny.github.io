@@ -7,6 +7,7 @@ categories:
   - "java"
   - "jvm"
   - "spring-boot"
+summary: "비디오 업로드 중 다이렉트 버퍼 메모리 OOME가 발생한 원인을 파케토 빌드팩의 메모리 계산 방식에서 찾고, 메모리 크기 조정과 고정 크기 버퍼 읽기로 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "Direct Memory in Java"
     href: "https://junhyunny.github.io/java/jvm/direct-memory-in-java/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[Direct Memory in Java][direct-memory-in-java-link] 글 도입부에 언급했듯이 최근 OOME(Out of Memory Error)를 만났다. 해당 에러가 발생한 원인과 해결 방법을 정리해본다. 
+[Direct Memory in Java][direct-memory-in-java-link] 글 도입부에 언급했듯이 최근 OOME(Out of Memory Error)를 만났다. 해당 에러가 발생한 원인과 해결 방법을 정리했다. 
 
 ## 1. Problem Context
 
@@ -33,7 +34,7 @@ recommendedPosts:
 
 - StandardMultipartFile 객체의 getBytes 메서드가 스택 트레이스에 포함되어 있다.
 - FileChannelImpl 객체를 통해 파일이나 소켓과 통신할 채널을 만든다.
-- DirectByteBuffer 객체에 메모리를 할당할 때 에러가 발상한다. 
+- DirectByteBuffer 객체에 메모리를 할당할 때 에러가 발생한다. 
 
 ```
 java.lang.OutOfMemoryError: Cannot reserve 10498677 bytes of direct buffer memory (allocated: 40960, limit: 10485760)
@@ -56,9 +57,7 @@ java.lang.OutOfMemoryError: Cannot reserve 10498677 bytes of direct buffer memor
 
 ## 2. Cause of the problem
 
-JDK 제공사에서 설명할 때 다이렉트 메모리에 제한이 없는데 어디서 문제가 발생한 것일까? 애플리케이션 시작 로그에서 힌트를 찾을 수 있었다. 
-
-- `-XX:MaxDirectMemorySize=N` 옵션을 통해 다이렉트 메모리 사이즈가 10MB로 제한되어 있었다.
+JDK 제공사에서 설명할 때 다이렉트 메모리에 제한이 없는데 어디서 문제가 발생한 것일까? 애플리케이션 시작 로그에서 힌트를 찾을 수 있었다. `-XX:MaxDirectMemorySize=N` 옵션을 통해 다이렉트 메모리 사이즈가 10MB로 제한되어 있었다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-error-case-study-in-jvm-02.png" width="100%" class="image__border">
@@ -69,7 +68,7 @@ IBM, 이클립스(eclipse) 문서를 살펴보면 다이렉트 메모리에 대�
 > Eclipse Open J9 - Start of content that applies to Java 11 plus.<br/> 
 > By default, the amount of native memory used for Direct Byte Buffers is limited to the maximum heap size.
 
-그렇다면 어디서 다이렉트 메모리 사이즈를 제한하는 것일까? 지금 프로젝트는 필자의 회사에서 메인테이닝(maintaining)하는 파케토 빌드팩(paketo buildpack)을 사용하고 있다. 위 로그를 보면 빌드팩에서 어떤 공식으로 메모리를 할당하는지 확인할 수 있는 [링크](https://paketo.io/docs/reference/java-reference/#memory-calculator)를 제공하고 있다. 해당 링크를 들어가보면 파케토 빌드팩은 컨테이너 환경에서 실행되는 자바 애플리케이션의 최적화를 위해 메모리 제한하는 메모리 계산기(Java Memory Calculator)를 사용한다는 설명을 볼 수 있다.
+그렇다면 어디서 다이렉트 메모리 사이즈를 제한하는 것일까? 지금 프로젝트는 필자의 회사에서 메인테이닝(maintaining)하는 파케토 빌드팩(paketo buildpack)을 사용하고 있다. 위 로그를 보면 빌드팩에서 어떤 공식으로 메모리를 할당하는지 확인할 수 있는 [링크](https://paketo.io/docs/reference/java-reference/#memory-calculator)를 제공하고 있다. 해당 링크를 들어가보면 파케토 빌드팩은 컨테이너 환경에서 실행되는 자바 애플리케이션의 최적화를 위해 메모리를 제한하는 메모리 계산기(Java Memory Calculator)를 사용한다는 설명을 볼 수 있다.
 
 > The Java Memory Calculator is a tool used by the Paketo Java Buildpack to provide an optimized memory configuration for Java applications running in containers with enforced memory limits.
 
@@ -96,7 +95,7 @@ Non-Heap = (Direct Memory) + (Metaspace) + (Reserved Code Cache) + (Thread Stack
 
 표면적으론 다이렉트 메모리가 충분하지 않아서 에러가 발생한 것처럼 보이지만, 실상은 그렇지 않다. 몇 가지 조건들이 맞물리면서 문제가 발생했다. 일단 문제가 발생한 [다이렉트 메모리][direct-memory-in-java-link]에 관련된 공부를 위해 딥-다이브(deep dive) 해보길 잘했다. 관련된 내용을 파고들지 않았다면 해결 방법을 찾는데 많은 시간을 허비했을 것 같다. 
 
-이 글에선 문제를 해결하기 위해 접근한 두 가지 접근 방법에 대해 모두 정리했다. 실제 프로덕트 코드가 아닌 간단한 예제로 다시 OOM 에러를 재현했다. 파일 업로드를 위해 사용할 샘플 비디오는 이 [링크](https://archive.org/details/big-bunny-sample-video) 다운로드 받을 수 있다. 
+이 글에선 문제를 해결하기 위해 접근한 두 가지 접근 방법에 대해 모두 정리했다. 실제 프로덕트 코드가 아닌 간단한 예제로 다시 OOM 에러를 재현했다. 파일 업로드를 위해 사용할 샘플 비디오는 이 [링크](https://archive.org/details/big-bunny-sample-video)에서 다운로드 받을 수 있다. 
 
 ### 3.1. First Approach
 
@@ -155,7 +154,7 @@ Picked up JAVA_TOOL_OPTIONS: -XX:MaxDirectMemorySize=100M -Djava.security.proper
 
 실제 프로젝트에선 100MB보다 더 큰 값을 설정했다. 일시적으로 문제가 해결된 듯 보였으나 시간이 지나면서 다시 OOM 문제를 만났다. 이 문제는 Java 17 버전에선 발생하지 않고 Java 21 버전에선 발생한다. Java 21 버전에서 발생하는 이 문제를 분석한 내용은 글의 주제를 벗어나기 때문에 [다른 글][multipart-file-in-java21-cause-oome-link]에서 다뤘다.
 
-문제가 발생한 예제 코드를 살펴보자 파일 업로드를 위해 MultipartFile 인스턴스를 File 객체로 변환하는 작업을 수행한다. MultipartFile 인스턴스의 getBytes 메서드로 파일 데이터를 모두 읽으면 시간이 지나 다이렉트 메모리가 다시 고갈된다. 
+문제가 발생한 예제 코드를 살펴보자. 파일 업로드를 위해 MultipartFile 인스턴스를 File 객체로 변환하는 작업을 수행한다. MultipartFile 인스턴스의 getBytes 메서드로 파일 데이터를 모두 읽으면 시간이 지나 다이렉트 메모리가 다시 고갈된다. 
 
 ```java
 package action.in.blog.controller;
@@ -206,7 +205,7 @@ public class FileController {
 
 - NIO 패키지 내부에서 스레드 별로 다이렉트 메모리를 사용하는 DirectByteBuffer 객체를 캐시하여 사용한다.
   - 캐시의 키(key)는 필요한 바이트 버퍼 사이즈를 사용한다.
-  - 캐시의 값(value)는 DirectByteBuffer 객체가 담겨 있다.
+  - 캐시의 값(value)은 DirectByteBuffer 객체가 담겨 있다.
 - 스레드가 종료될 때 DirectByteBuffer 객체를 해제하지만, 서블릿 컨테이너는 스레드 풀을 사용하므로 DirectByteBuffer 객체의 메모리 자원이 해제되지 않는다. 
 - 서블릿 컨테이너 스레드 풀에 담긴 일정 수의 스레드들이 다이렉트 메모리를 모두 차지하면 OOM 에러가 발생한다.
 
@@ -254,7 +253,7 @@ public class FileController {
 }
 ```
 
-일정 사이즈의 버퍼로 데이터를 읽으면 OOM 에러가 발생하지 않는다. 스레드 풀의 모든 스레드가 버퍼를 사용하더라도 2MB 정도 밖에 하지 않으므로 다시 최대 다이렉트 메모리 사이즈를 다시 10MB로 줄이더라도 문제가 발생하지 않는다. 
+일정 사이즈의 버퍼로 데이터를 읽으면 OOM 에러가 발생하지 않는다. 스레드 풀의 모든 스레드가 버퍼를 사용하더라도 2MB 정도 밖에 하지 않으므로 다시 최대 다이렉트 메모리 사이즈를 10MB로 줄이더라도 문제가 발생하지 않는다. 
 
 - 최대 다이렉트 메모리 사이즈가 10MB이다.
 - 아파치 제이미터를 사용해 사용자 스레드 200개로 5초동안 파일 업로드 요청을 보낸다.

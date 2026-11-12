@@ -7,11 +7,12 @@ categories:
   - "java"
   - "spring"
   - "spring-boot"
+summary: "스프링 시큐리티가 서블릿 필터 체인을 확장할 때 쓰는 DelegatingFilterProxy 클래스가 스프링 빈으로 등록된 필터에 요청을 위임하는 방식을 레거시 스프링 MVC와 스프링 부트 환경으로 나눠 설명한다."
 ---
 
 ## 0. 들어가면서
 
-스프링 시큐리티(spring security)는 서블릿 필터 체인을 확장하여 인증, 인가 처리를 수행한다. 이 과정에서 DelegatingFilterProxy 클래스를 사용한다. 스프링 시큐리티는 직접 서블릿 필터들을 만들지 않고 DelegatingFilterProxy 클래스를 통해 서블릿 필터 체인을 확장했는지 궁금했다. 이번 포스트는 관련된 내용에 대해 정리하였다.
+스프링 시큐리티(spring security)는 서블릿 필터 체인을 확장하여 인증, 인가 처리를 수행한다. 이 과정에서 DelegatingFilterProxy 클래스를 사용한다. 스프링 시큐리티는 직접 서블릿 필터들을 만들지 않고 DelegatingFilterProxy 클래스를 통해 서블릿 필터 체인을 확장했는지 궁금했다. 이번 포스트는 관련된 내용에 대해 정리했다.
 
 ## 1. Legacy Spring MVC
 
@@ -26,7 +27,7 @@ categories:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/delegating-filter-proxy-01.png" width="100%" class="image__border">
 </div>
 
-### 1.1. DelegatingFilterProxy Class
+### 1.1. DelegatingFilterProxy 클래스
 
 DelegatingFilterProxy 클래스는 스프링 빈으로 등록된 필터를 사용하기 위해 스프링 1.2 버전에 추가되었다. 클래스 이름처럼 전달받은 작업을 전달하는 대리인(proxy) 역할을 수행하는 클래스이다. 다음과 같은 방법으로 DelegatingFilterProxy 인스턴스는 스프링 필터 빈에게 요청을 전달한다.
 
@@ -41,7 +42,7 @@ DelegatingFilterProxy 클래스는 스프링 빈으로 등록된 필터를 사�
   - 탐색된 필터가 있다면 해당 요청을 전달한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/delegating-filter-proxy-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/delegating-filter-proxy-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Inside DelegatingFilterProxy Class

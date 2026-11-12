@@ -6,6 +6,7 @@ canonicalPath: "/kotlin/mockito/make-static-method-as-stub-in-kotlin/"
 categories:
   - "kotlin"
   - "mockito"
+summary: "코틀린 동반 객체의 정적 메서드가 모키토 mockStatic으로 스텁되지 않는 원인을 디컴파일 결과로 분석하고, object 선언과의 차이와 정적 메서드를 감싸 테스트하는 방식을 정리했다."
 recommendedPosts:
   - title: "테스트 더블(Test Double)"
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
@@ -93,7 +94,7 @@ LocalDateTime 클래스의 특정 정적 메서드를 직접 스텁으로 만들
 
 ### 2.1. Use Companion Object
 
-코틀린에서 정적 메서드를 선언하는 방법으로 보통 동반 객체(companion object)을 사용한다. 동반 객체에 선언한 정적 메서드는 스텁으로 잘 만들어지지 않는다. 다음과 같은 테스트를 작성해 실행하면 @JvmStatic 애너테이션 존재 유무와 상관 없이 에러가 발생한다.
+코틀린에서 정적 메서드를 선언하는 방법으로 보통 동반 객체(companion object)를 사용한다. 동반 객체에 선언한 정적 메서드는 스텁으로 잘 만들어지지 않는다. 다음과 같은 테스트를 작성해 실행하면 @JvmStatic 애너테이션 존재 유무와 상관 없이 에러가 발생한다.
 
 ```kotlin
 package blog.`in`.action
@@ -183,7 +184,7 @@ object ObjectTimeProvider {
 
 ### 2.3. Difference between Companion Object and Object
 
-겉으로 보기엔 같은 정적 메서드인데 왜 이런 차이점이 발생한지 궁금했다. 각 클래스를 인텔리제이(intellij)의 도움을 받아 디컴파일(decompile)하면 서로 약간 다른 모습을 하고 있다. 먼저 동반 객체에서 @JvmStatic 애너테이션이 있는 경우 디컴파일하면 다음과 같은 모습을 하고 있다. 
+겉으로 보기엔 같은 정적 메서드인데 왜 이런 차이점이 발생하는지 궁금했다. 각 클래스를 인텔리제이(intellij)의 도움을 받아 디컴파일(decompile)하면 서로 약간 다른 모습을 하고 있다. 먼저 동반 객체에서 @JvmStatic 애너테이션이 있는 경우 디컴파일하면 다음과 같은 모습을 하고 있다. 
 
 - Companion 정적 멤버 변수로 Companion 인스턴스를 참조한다.
 - CompanionObjectTimeProvider 클래스에 currentDateTime 정적 메서드가 선언되어 있다.
@@ -257,11 +258,11 @@ public final class CompanionObjectTimeProvider {
     CompanionObjectTimeProvider.currentDateTime()
 ```
 
-다시 모키토의 에러 메시지를 살펴보자 에러가 발생할 수 있는 두 번째 예시를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
+다시 모키토의 에러 메시지를 살펴보자. 에러가 발생할 수 있는 두 번째 예시를 살펴보면 다음과 같은 내용을 확인할 수 있다. 
 
 > inside when() you don't call method on mock but on some other object.
 
-"모의 객체가 아닌 다른 객체의 메서드를 호출하는 경우 에러가 발생한다."라고 설명이다. 결론을 이야기하면 필자는 테스트 코드에서 CompanionObjectTimeProvider 클래스 객체를 모의 객체로 만들었지만, when 메서드 안에선 CompanionObjectTimeProvider 클래스의 정적 멤버인 Companion 인스턴스의 currentDateTime 메서드를 호출했기 때문에 에러가 발생한 것이다.
+"모의 객체가 아닌 다른 객체의 메서드를 호출하는 경우 에러가 발생한다."라는 설명이다. 결론을 이야기하면 필자는 테스트 코드에서 CompanionObjectTimeProvider 클래스 객체를 모의 객체로 만들었지만, when 메서드 안에선 CompanionObjectTimeProvider 클래스의 정적 멤버인 Companion 인스턴스의 currentDateTime 메서드를 호출했기 때문에 에러가 발생한 것이다.
 
 마지막으로 object 객체를 살펴보자. 다음과 같은 모습으로 디컴파일된다. 
 

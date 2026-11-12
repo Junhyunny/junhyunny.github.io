@@ -1,11 +1,12 @@
 ---
 title: "데이터베이스 Cascade"
 publishedAt: "2023-08-05"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:15:07+09:00"
 canonicalPath: "/information/database/cascade-in-database/"
 categories:
   - "information"
   - "database"
+summary: "관계형 데이터베이스의 참조 무결성 개념과 외래 키 제약 조건의 Cascade 옵션 동작을 MySQL 실습으로 확인하고 Cascade의 장단점을 정리했다."
 recommendedPosts:
   - title: "JPA CascadeType"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-cascade-type/"
@@ -13,11 +14,11 @@ recommendedPosts:
 
 ## 1. Referential Integrity in Database
 
-관계형 데이터베이스(RDB, Relational Database)는 참조 무결성(referential integrity)이라는 개념이 존재한다.
+관계형 데이터베이스(RDB, Relational Database)에는 참조 무결성(referential integrity)이라는 개념이 있다.
 
 > Referential integrity is a property of data stating that all its references are valid. In the context of relational databases, it requires that if a value of one attribute (column) of a relation (table) references a value of another attribute (either in the same or a different relation), then the referenced value must exist.
 
-참조 무결성이란 기본 키(primary key)와 외래 키(foreign key)로 연결된 테이블들의 데이터 관계(혹은 상태)를 일관성 있게 유지하려는 데이터베이스의 규칙이다. 참조 무결성 제약 조건(constraint)은 불법적인 연결이나 무효한 값이 삽입되는 것을 방지함으로써 데이터 무결성, 일관성을 보장한다.
+참조 무결성이란 기본 키(primary key)와 외래 키(foreign key)로 연결된 테이블의 데이터 관계(혹은 상태)를 일관성 있게 유지하려는 데이터베이스의 규칙이다. 참조 무결성 제약 조건(constraint)은 불법적인 연결이나 무효한 값이 삽입되는 것을 방지함으로써 데이터 무결성과 일관성을 보장한다.
 
 - 데이터 무결성
   - 외래 키가 참조하는 기본 키의 값은 항상 유효해야 한다.
@@ -28,7 +29,7 @@ recommendedPosts:
 
 ### 1.1. Practice
 
-간단한 예시를 살펴보겠다. 다음과 같은 테이블과 데이터를 준비한다.
+간단한 예시를 살펴보자. 다음과 같은 테이블과 데이터를 준비한다.
 
 ```sql
 CREATE TABLE TB_POST (
@@ -60,12 +61,9 @@ VALUES
 
 #### 1.1.1. Delete Record from Parent Table
 
-TB_POST 테이블에서 아이디가 1인 레코드(record)를 삭제하려면 다음과 같은 에러를 만난다.
+TB_POST 테이블에서 아이디가 1인 레코드(record)를 삭제하면 에러가 발생한다. TB_POST_REPLY 테이블에 걸려 있는 외래 키 제약 조건 때문에 부모 테이블의 레코드를 업데이트하거나 삭제하지 못한다. 관련된 제약 조건은 `TB_POST_REPLY_ibfk_1`의 외래 키 `post_id`이다.
 
-- TB_POST_REPLY 테이블에 걸려있는 외래 키 제약 조건에 의해 부모 테이블의 레코드를 업데이트 혹은 삭제하지 못 한다.
-  - 관련된 제약 조건은 `TB_POST_REPLY_ibfk_1`의 외래 키 `post_id` 이다.
-- 삭제하려는 레코드를 참조하는 자식 테이블의 레코드가 존재하기 때문에 발생하는 에러이다.
-  - 자식 테이블의 레코드가 참조하는 부모 테이블의 레코드가 없는 것은 부자연스러운 모습이다.
+삭제하려는 레코드를 참조하는 자식 테이블의 레코드가 존재하기 때문에 발생하는 에러다. 자식 테이블의 레코드가 참조하는 부모 테이블의 레코드가 없는 것은 부자연스러운 모습이다. 에러 메시지는 다음과 같다.
 
 ```
 mysql> DELETE FROM TB_POST WHERE id = 1;
@@ -75,10 +73,7 @@ ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constrai
 
 #### 1.1.2. Delete Record from Child Table
 
-삭제 순서를 바꿔 자식 테이블 TB_POST_REPLY의 레코드를 삭제하고 부모 테이블 TB_POST의 레코드를 삭제하면 정상적으로 성공한다.
-
-- 참조 당하지 않는 자식 테이블의 레코드를 모두 삭제한다.
-- 부모 테이블의 레코드를 삭제한다.
+삭제 순서를 바꿔 자식 테이블 TB_POST_REPLY의 레코드를 먼저 삭제하고 부모 테이블 TB_POST의 레코드를 삭제하면 정상적으로 성공한다. 부모 테이블의 레코드를 참조하는 자식 테이블의 레코드를 모두 삭제한 뒤 부모 테이블의 레코드를 삭제한다.
 
 ```
 mysql> DELETE FROM TB_POST_REPLY WHERE POST_ID = 1;
@@ -90,20 +85,20 @@ Query OK, 1 row affected (0.00 sec)
 
 ## 2. Cascade in Database
 
-`Cascade`는 참조 무결성에 관련된 옵션들 중 하나로 외래 키 제약 조건에 추가한다. 관계형 데이터베이스는 참조 관계를 맺은 테이블들의 상태를 신뢰성 있게 유지하기 위해 Cascade 옵션을 사용한다. 외래 키와 기본 키 사이의 관계를 유지하면서 특정 작업(업데이트 혹은 삭제)을 수행한다. 예를 들어 부모 테이블의 레코드를 삭제하는 경우 해당 변경을 적용할 때 영향을 받는 자식 테이블에 레코드도 자동으로 삭제하는 기능을 의미한다.
+`Cascade`는 참조 무결성에 관련된 옵션 중 하나로, 외래 키 제약 조건에 추가한다. 관계형 데이터베이스는 참조 관계를 맺은 테이블의 상태를 신뢰성 있게 유지하기 위해 Cascade 옵션을 사용한다. 외래 키와 기본 키 사이의 관계를 유지하면서 특정 작업(업데이트 혹은 삭제)을 수행한다. 예를 들어 부모 테이블의 레코드를 삭제할 때 영향을 받는 자식 테이블의 레코드도 자동으로 삭제한다.
 
-MySQL의 경우 외래 키 제약 조건에 다음과 같은 조건들을 추가할 수 있다.
+MySQL에서는 외래 키 제약 조건에 다음과 같은 옵션을 추가할 수 있다.
 
 - RESTRICT
   - 부모 테이블의 레코드가 삭제되거나 업데이트되는 것을 금지한다.
 - Cascade
-  - 부모 테이블의 레코드가 삭제되거나 업데이트 시 자식 테이블에 매칭되는 레코드를 삭제하거나 업데이트한다.
+  - 부모 테이블의 레코드가 삭제되거나 업데이트될 때 자식 테이블에 매칭되는 레코드를 삭제하거나 업데이트한다.
 - SET NULL
-  - 부모 테이블의 레코드가 삭제되거나 업데이트 시 자식 테이블에 매칭되는 레코드의 외래 키를 NULL로 변경한다.
+  - 부모 테이블의 레코드가 삭제되거나 업데이트될 때 자식 테이블에 매칭되는 레코드의 외래 키를 NULL로 변경한다.
 - NO ACTION
   - InnoDB의 경우 RESTRICT 설정과 동일하다.
   - NDB의 경우 지연 검사를 지원하므로 NO ACTION은 지연 검사를 지정한다.
-    - 제한 조건 검사는 커밋 시간까지 수행되지 않는다.
+    - 제약 조건 검사는 커밋할 때까지 수행되지 않는다.
 - SET DEFAULT
   - MySQL 파서(parser)에 의해 정의된다.
   - InnoDB와 NDB 모두 SET DEFAULT 절을 허용하지 않는다.
@@ -121,10 +116,7 @@ reference_option:
 
 ### 2.1. Practice
 
-다음과 같은 테이블과 데이터를 준비한다.
-
-- 답글 테이블에 만드는 외래 키에 Cascade 옵션을 추가한다.
-  - 업데이트와 삭제에 대해 Cascade 작업을 수행한다.
+다음과 같은 테이블과 데이터를 준비한다. 답글 테이블에 만드는 외래 키에 Cascade 옵션을 추가해 업데이트와 삭제에 대해 Cascade 작업을 수행하도록 한다.
 
 ```sql
 CREATE TABLE TB_POST (
@@ -159,7 +151,7 @@ VALUES
 
 #### 2.1.1. Delete Record from Parent Table
 
-- 부모 테이블 레코드를 삭제하는 경우 자식 테이블의 연관된 레코드들도 함께 삭제된다.
+부모 테이블의 레코드를 삭제하면 자식 테이블의 연관된 레코드도 함께 삭제된다.
 
 ```
 mysql> DELETE FROM TB_POST WHERE ID = 1;
@@ -184,8 +176,7 @@ mysql> SELECT * FROM TB_POST_REPLY;
 
 #### 2.1.2. Update Record from Parent Table
 
-- 부모 테이블의 레코드의 id를 변경한다.
-- 자식 테이블의 관련된 레코드들의 외래 키 값이 함께 변경된다.
+부모 테이블 레코드의 id를 변경하면 자식 테이블의 관련된 레코드의 외래 키 값도 함께 변경된다.
 
 ```
 mysql> UPDATE TB_POST SET ID = 1 WHERE ID = 2;
@@ -215,14 +206,14 @@ Cascade 옵션 설정은 편리하지만, 주의해서 사용해야 한다. 다�
 
 - 외래 키와 기본 키 사이의 관계가 유지됨으로써 데이터 무결성이 보장된다.
   - 부모 테이블의 레코드가 삭제되거나 갱신될 때 자동으로 자식 테이블의 레코드들도 변경되므로 일관성이 유지된다.
-- 데이터를 관리에 관련된 작업이 간소해질 수 있다.
+- 데이터 관리에 관련된 작업이 간소해질 수 있다.
   - 관련된 데이터를 일일이 삭제할 필요가 없다.
   - 부모 테이블의 레코드를 삭제할 때 자식 테이블의 관련 레코드들도 함께 자동으로 삭제된다.
 
 다음과 같은 단점이 있다.
 
 - 데이터 손실의 위험성이 있다.
-  - 부모 테이블의 레코드를 삭제하면 연결된 자식 테이블이 레코드들도 자동으로 삭제된다.
+  - 부모 테이블의 레코드를 삭제하면 연결된 자식 테이블의 레코드들도 자동으로 삭제된다.
   - 실수로 데이터를 삭제하거나 잘못된 레코드를 삭제하는 경우 영향을 받는 다른 테이블들의 데이터도 함께 삭제된다.
 - Cascade 설정을 사용하면 데이터베이스의 관계가 복잡해진다.
 - Cascade 설정에 의해 수행되는 작업은 여러 테이블에 영향을 미치기 때문에 대량의 데이터가 있는 경우 성능에 영향을 줄 수 있다.

@@ -6,6 +6,7 @@ canonicalPath: "/aws/dynamodb/dynamodb-seconary-indexes/"
 categories:
   - "aws"
   - "dynamodb"
+summary: "파티션 키와 정렬 키만으로 조회해야 하는 DynamoDB의 한계를 보완하는 로컬 보조 인덱스와 글로벌 보조 인덱스의 특징을 예제 쿼리와 함께 정리했다."
 recommendedPosts:
   - title: "DynamoDB 기초"
     href: "https://junhyunny.github.io/aws/dynamodb/dynamodb-basics/"
@@ -16,10 +17,10 @@ recommendedPosts:
 [지난 글][dynamodb-basics-link]에서 DynamoDB의 기본 컨셉이나 특징에 대해 정리했다. 이전 글에서 언급했듯이 DynamoDB의 쿼리(query)는 제한적이다. 쿼리를 통해 데이터를 조회하려면 파티션 키(partition key)와 정렬 키(sort key)만 조회 조건으로 사용할 수 있다. 파티션 키는 필수 값이고 정렬 키는 선택적으로 사용 가능하다. 기본 키가 아닌 속성(attribute)로 데이터를 사용해서 데이터를 조회할 수 없다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dynamodb-seconary-indexes-01.png" width="80%" class="image__border">
-</div>
-<center>https://www.youtube.com/watch?v=I7zcRxHbo98</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dynamodb-seconary-indexes-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.youtube.com/watch?v=I7zcRxHbo98</center>
 </div>
 
 DynamoDB를 사용할 때 유연한 설계가 어려운 이유는 쿼리 조회 조건을 만들 때 파티션 키와 정렬 키만 사용할 수 있기 때문이다. 다른 조건을 만들어 데이터를 조회하기 위해선 `보조 인덱스(secondary index)`라는 새로운 메커니즘이 필요하다. 보조 인덱스를 사용하지 않아도 스캔(scan) 연산을 사용하면 기본 키가 아닌 속성들로 데이터를 조회할 수 있지만, 비용이나 퍼포먼스 측면에서 권장되지 않는 방법이다. 기본적으로 새로운 데이터 접근 패턴을 정의할 땐 보조 인덱스를 고려하는 것이 좋다. DynamoDB의 보조 인덱스 개념을 아래와 같이 쉽게 설명할 수 있다.
@@ -33,7 +34,7 @@ DynamoDB의 보조 인덱스는 두 가지 타입이 있다. 각 타입에 대�
 
 ## 2. Local Secondary Index
 
-로컬 보조 인덱스는 테이블과 동일한 파티션 키를 사용하지만, 정렬 키를 다른 값으로 지정하는 방식이다. 로컬 보조 인덱스는 테이블의 쓰기 용량 단위(WCU, write capacity unit), 읽기 용량 단위(RCU, read capacity unit)을 함께 사용하기 때문에 별도 처리 용량을 프로비저닝 하지 않아도 된다. 로컬 보조 인덱스를 사용할 때 다음과 같은 제약 사항들이 있다.
+로컬 보조 인덱스는 테이블과 동일한 파티션 키를 사용하지만, 정렬 키를 다른 값으로 지정하는 방식이다. 로컬 보조 인덱스는 테이블의 쓰기 용량 단위(WCU, write capacity unit), 읽기 용량 단위(RCU, read capacity unit)를 함께 사용하기 때문에 별도 처리 용량을 프로비저닝 하지 않아도 된다. 로컬 보조 인덱스를 사용할 때 다음과 같은 제약 사항들이 있다.
 
 - 테이블 하나당 최대 5개의 로컬 보조 인덱스를 만들 수 있다.
 - DynamoDB 테이블을 생성할 때 함께 생성해야 한다. 테이블이 삭제되는 경우 해당 테이블의 로컬 보조 인덱스도 삭제된다.

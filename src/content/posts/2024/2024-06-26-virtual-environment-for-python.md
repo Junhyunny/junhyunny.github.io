@@ -5,25 +5,26 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/python/virtual-environment-for-python/"
 categories:
   - "python"
+summary: "파이썬 가상 환경으로 프로젝트별 의존성을 격리하는 개념과 venv, requirements.txt 사용법, 관련 도구를 정리했다."
 ---
 
 ## 0. 들어가면서
 
-대학생 시절 OpenCV를 다뤘던 적이 있다. 당시에 C++, 파이썬(python) 두 가지 언어를 사용할 수 있었다. 필자는 C++을 선택했다. C, C++ 언어가 익숙한 이유도 있었지만, 참조하는 파이썬 예제 코드가 버전에 따라 제대로 동작하지 않는 경우가 허다 했기 때문이다. 파이썬 관련 의존성들의 버전을 잘못 설치하면 애플리케이션이 전체적으로 망가져 라즈베리 파이(raspberry pi)를 몇 번이고 포맷헀다. 당시에 파이썬은 버전에 매우 민감한 언어라는 선입견이 생겨 버린 것 같다. 
+대학생 시절 OpenCV를 다뤘던 적이 있다. 당시에 C++, 파이썬(python) 두 가지 언어를 사용할 수 있었다. 필자는 C++을 선택했다. C, C++ 언어가 익숙한 이유도 있었지만, 참조하는 파이썬 예제 코드가 버전에 따라 제대로 동작하지 않는 경우가 허다 했기 때문이다. 파이썬 관련 의존성들의 버전을 잘못 설치하면 애플리케이션이 전체적으로 망가져 라즈베리 파이(raspberry pi)를 몇 번이고 포맷했다. 당시에 파이썬은 버전에 매우 민감한 언어라는 선입견이 생겨 버린 것 같다. 
 
-최근 프로젝트에서 파이썬을 다룰 일이 있었다. 이때 파이썬에 가상 환경을 구축해서 프로젝트 별로 의존성을 관리하는 방법이 있다는 처음 알았다. 대학교를 졸업한지 7년이 넘어가기 때문에 기술이 많이 발전한 것이겠지만, 어쨋든 매우 흥미로웠다. 이번 글은 파이썬 프로젝트를 구축할 때 가상 환경을 만들고 사용하는 방법에 대해 정리했다.
+최근 프로젝트에서 파이썬을 다룰 일이 있었다. 이때 파이썬에 가상 환경을 구축해서 프로젝트 별로 의존성을 관리하는 방법이 있다는 것을 처음 알았다. 대학교를 졸업한지 7년이 넘어가기 때문에 기술이 많이 발전한 것이겠지만, 어쨌든 매우 흥미로웠다. 이번 글은 파이썬 프로젝트를 구축할 때 가상 환경을 만들고 사용하는 방법에 대해 정리했다.
 
 ## 1. What is a virtual environment in Python?
 
 파이썬에서 가상 환경(virtual environment)은 가상 머신(virtual machine)처럼 논리적으로 격리된 공간을 의미한다. 파이썬 가상 환경은 가상 머신과 다르게 프로젝트 단위로 적용된다. 기본적으로 파이썬 패키지를 설치하면 호스트 머신에 글로벌하게 설치된다. 패키지가 글로벌하게 설치되면 무슨 문제가 있을까? 파이썬 프로젝트가 두 개 있다고 가정해보자. 두 프로젝트는 서로 다른 의존성을 사용한다.
 
 - `프로젝트 A`는 `Django 3.2`를 사용한다. 
-- `프로젝트 B`는 `Django 4.0`를 사용한다.
+- `프로젝트 B`는 `Django 4.0`을 사용한다.
 
 파이썬 패키지는 리눅스 기준으로 `/usr/local/lib/python3.12/site-packages` 폴더에 설치된다. 설치된 Django 버전에 따라 두 프로젝트 중 하나는 문제가 발생한다. 가상 환경은 이런 문제를 해결한다. 각 프로젝트 내부에 `venv` 폴더를 만들고 여기에서 패키지를 관리한다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/virtual-environment-for-python-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/virtual-environment-for-python-01.png" width="100%" class="image__border">
 </div>
 
 환경을 격리하는 것 뿐만 아니라 프로젝트에 필요한 환경을 다시 구성하는 것도 매우 쉽다. `requirements.txt`라는 파일을 통해 프로젝트에 필요한 의존성들의 버전을 관리한다. 이를 사용해 프로젝트에 필요한 의존성을 다시 설치할 수 있다. 자세한 내용은 실습을 통해 확인해보자. 
@@ -218,7 +219,7 @@ $ deactivate
 3. pipenv
   - Pipfile, pip, virtualenv 등을 하나의 커맨드로 실행할 수 있는 라이브러리다.
   - pip 명령어 대신 pipenv 명령어를 사용하면 루트 디렉토리에 가상 환경이 생성된다.
-  - 가상 환경에서 작업을 수행하기 위해선 마찬기자로 pipenv 명령어를 사용한다.
+  - 가상 환경에서 작업을 수행하기 위해선 마찬가지로 pipenv 명령어를 사용한다.
 
 #### TEST CODE REPOSITORY
 

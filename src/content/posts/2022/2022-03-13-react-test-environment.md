@@ -7,6 +7,7 @@ categories:
   - "react"
   - "vite"
   - "jest"
+summary: "테스트 환경이 없는 Vite 리액트 17 프로젝트에 Babel과 Jest 설정을 추가하는 방법과 설정 중 만난 에러들의 해결 방법을 정리했다."
 recommendedPosts:
   - title: "리액트(React) 앱 Vitest 설정하기"
     href: "https://junhyunny.github.io/vite/react/setup-vitest-for-react-application/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-CRA(Create React App)를 사용하면 테스트 환경까지 구성해준다. Vite 번들러를 사용하면 리액트 프로젝트를 만들면 테스트 코드를 위한 환경이 구성되어 있지 않다. 이번 글은 Vite 번들러에서 테스트 환경을 구축하는 방법에 대해 정리했다. 이 글을 참조할 때는 다음 내용을 주의하길 바란다.
+CRA(Create React App)를 사용하면 테스트 환경까지 구성해준다. Vite 번들러를 사용해 리액트 프로젝트를 만들면 테스트 코드를 위한 환경이 구성되어 있지 않다. 이번 글은 Vite 번들러에서 테스트 환경을 구축하는 방법에 대해 정리했다. 이 글을 참조할 때는 다음 내용을 주의하길 바란다.
 
 - 이 글은 리액트 17버전을 사용한다. 
 - 현 시점 Vite 최신 버전을 사용하면 리액트 18 버전이 설치된다. 
@@ -280,7 +281,7 @@ describe("App", () => {
       at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
 ```
 
-jest.setup.js 파일에서 `import` 구문을 정상적으로 인식하지 못하는 케이스다. .babelrc 파일 presets 설정에 `@babel/preset-env`을 추가하면 해당 에러가 해결된다.
+jest.setup.js 파일에서 `import` 구문을 정상적으로 인식하지 못하는 케이스다. .babelrc 파일 presets 설정에 `@babel/preset-env`를 추가하면 해당 에러가 해결된다.
 
 ```json
 {

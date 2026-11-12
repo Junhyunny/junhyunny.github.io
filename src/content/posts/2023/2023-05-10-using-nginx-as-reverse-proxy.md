@@ -1,13 +1,14 @@
 ---
 title: "Nginx 리버스 프록시 활용하기"
 publishedAt: "2023-05-10"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:19:33+09:00"
 canonicalPath: "/nginx/spring-boot/docker/docker-compose/using-nginx-as-reverse-proxy/"
 categories:
   - "nginx"
   - "spring-boot"
   - "docker"
   - "docker-compose"
+summary: "nginx를 리버스 프록시로 설정해 도메인에 따라 서로 다른 백엔드 서비스로 요청을 전달하는 구성을 도커 컴포즈로 실습했다."
 recommendedPosts:
   - title: "포워드/리버스 프록시(Forward/Reverse Proxy)"
     href: "https://junhyunny.github.io/information/forward-reverse-proxy/"
@@ -15,24 +16,23 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[Virtual Host in Tomcat][virtual-host-in-tomcat-link] 포스트 마지막에 언급했듯이 이번 포스트는 `nginx`를 리버스 프록시(reverse proxy)로 사용하여 여러 도메인을 서비스하는 방법에 대해 정리하였다.
+[Virtual Host in Tomcat][virtual-host-in-tomcat-link] 글 마지막에 언급했듯이 이번 글은 `nginx`를 리버스 프록시(reverse proxy)로 사용해 여러 도메인을 서비스하는 방법을 정리했다.
 
 ## 1. Reverse Proxy
 
-리버스 프록시는 애플리케이션을 호스팅하는 서버와 직접 연결된 서버이다. 클라이언트들의 요청이 인터넷을 통해 전달되면 리버스 프록시가 서버 대신 전달받는다. 보안, 성능, 안정성 등의 이유로 리버스 프록시를 사용한다.
+리버스 프록시는 애플리케이션을 호스팅하는 서버와 직접 연결된 서버다. 클라이언트의 요청이 인터넷을 통해 전달되면 리버스 프록시가 서버 대신 전달받는다. 보안, 성능, 안정성 등의 이유로 리버스 프록시를 사용한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/using-nginx-as-reverse-proxy-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/using-nginx-as-reverse-proxy-01.png" width="100%" class="image__border">
 </div>
 <center>https://surfshark.com/ko/blog/proxy-server</center>
 
 ## 2. Practice
 
-`nginx`는 로드 밸런서, 웹 서버, 리버스 프록시 역할로 사용한다. 아래와 같은 시나리오로 리버스 프록시 서버를 구축해보겠다.
+`nginx`는 로드 밸런서, 웹 서버, 리버스 프록시 역할로 사용한다. URL 경로(path)를 이용하는 방법도 있지만, 톰캣의 가상 호스트를 대체하기 위해 도메인을 사용한 리버스 프록시를 구현했다. 아래 시나리오로 리버스 프록시 서버를 구축해 보자.
 
-- URL 경로(path)를 이용한 방법을 사용할 수 있지만, 톰캣의 가상 호스트를 대체하기 위해 도메인을 사용한 리버스 프록시를 구현하였다.
-- `pc-service.com` 도메인 주소로 오는 요청은 `pc-backend` 서비스로 요청을 전달한다.
-- `mobile-servcice.com` 도메인 주소로 오는 요청은 `mobile-backend` 서비스로 요청을 전달한다.
+- `pc-service.com` 도메인 주소로 오는 요청은 `pc-backend` 서비스로 전달한다.
+- `mobile-service.com` 도메인 주소로 오는 요청은 `mobile-backend` 서비스로 전달한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/using-nginx-as-reverse-proxy-02.png" width="100%" class="image__border">
@@ -40,11 +40,7 @@ recommendedPosts:
 
 ### 2.1. Backend Service
 
-두 개의 백엔드 서비스를 구축하지만, 프로젝트 구조가 같으므로 하나만 살펴보겠다.
-
-#### 2.1.1. HelloController Class
-
-- "hello pc" 문자열을 반환한다.
+백엔드 서비스 두 개를 구축하지만 프로젝트 구조가 같으므로 하나만 살펴보자. HelloController 클래스는 "hello pc" 문자열을 반환한다.
 
 ```java
 package action.in.blog;
@@ -62,10 +58,7 @@ public class HelloController {
 }
 ```
 
-#### 2.1.2. Dockerfile
-
-- pc 서비스는 9000 포트 번호로 실행된다.
-- mobile 서비스는 9090 포트 번호로 실행된다.
+pc 서비스는 9000 포트로, mobile 서비스는 9090 포트로 실행되도록 Dockerfile을 작성한다.
 
 ```dockerfile
 FROM gradle:jdk17 as build
@@ -95,12 +88,7 @@ ENTRYPOINT ["java", "-jar", "-Dserver.port=9000", "./app.jar"]
 
 ### 2.2. Configuration for Nginx
 
-nginx 서버가 리버스 프록시로 동작하기 위해 `default.conf` 설정 파일을 다음과 같이 작성한다.
-
-- `pc-service.com` 도메인 서버
-  - 요청을 받으면 `http://pc-backend:9000` 서비스로 전달한다.
-- `mobile-service.com` 도메인 서버
-  - 요청을 받으면 `http://mobile-backend:9090` 서비스로 전달한다.
+nginx 서버가 리버스 프록시로 동작하도록 `default.conf` 설정 파일을 다음과 같이 작성한다. `pc-service.com` 도메인 서버는 요청을 받으면 `http://pc-backend:9000` 서비스로, `mobile-service.com` 도메인 서버는 `http://mobile-backend:9090` 서비스로 전달한다.
 
 ```conf
 server {
@@ -126,7 +114,7 @@ server {
 
 ### 2.3. Docker Compose File
 
-- 볼륨으로 nginx 컨테이너가 사용할 `default.conf` 파일을 연결한다.
+도커 컴포즈 파일은 다음과 같다. 볼륨으로 nginx 컨테이너가 사용할 `default.conf` 파일을 연결한다.
 
 ```yml
 version: '3.8'
@@ -149,7 +137,7 @@ services:
 
 ## 3. Run Docker Compose
 
-도커 컴포즈(docker compose)를 통해 애플리케이션들을 실행한다.
+도커 컴포즈(docker compose)로 애플리케이션을 실행한다.
 
 ```
 $ docker-compose up -d
@@ -215,10 +203,7 @@ $ docker-compose up -d
  ✔ Container pc-backend                                               Started                                                        1.0s
 ```
 
-##### Result of Practice
-
-- `pc-service.com` 도메인 주소로 접근시 "hello pc"을 응답받는다.
-- `mobile-servcice.com` 도메인 주소로 접근시 "hello mobile"을 응답받는다.
+`pc-service.com` 도메인 주소로 접근하면 "hello pc"를, `mobile-service.com` 도메인 주소로 접근하면 "hello mobile"을 응답받는다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/using-nginx-as-reverse-proxy-03.gif" width="100%" class="image__border">

@@ -5,18 +5,19 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/base-64-encode-and-decode/"
 categories:
   - "information"
+summary: "인코딩과 디코딩의 개념, RFC 4648의 Base64 인코딩 방식과 변환 예시를 살펴보고, 데이터 크기가 커지는데도 Base64를 사용하는 이유를 정리했다."
 ---
 
 ## 0. 들어가면서
 
-시스템 개발을 하면 Base64 인코딩(encoding)과 디코딩(decoding)을 수행하는 코드들을 많이 보게 된다. 예전에는 데이터를 암복호화하는 작업이라 잘못 이해하고 있었지만, Base64 인코딩은 엄밀히 암호화하는 작업이 아니기 때문에 언제든지 디코딩을 통해 데이터를 확인할 수 있다. 최근 프로젝트들에서도 Base64 인코딩, 디코딩 작업을 수행하는 코드를 작성했는데, 어떤 이유에서 이런 작업이 필요한지 궁금하여 관련된 내용을 공부 후 글로 정리하였다.
+시스템 개발을 하면 Base64 인코딩(encoding)과 디코딩(decoding)을 수행하는 코드들을 많이 보게 된다. 예전에는 데이터를 암복호화하는 작업이라 잘못 이해하고 있었지만, Base64 인코딩은 엄밀히 암호화하는 작업이 아니기 때문에 언제든지 디코딩을 통해 데이터를 확인할 수 있다. 최근 프로젝트들에서도 Base64 인코딩, 디코딩 작업을 수행하는 코드를 작성했는데, 어떤 이유에서 이런 작업이 필요한지 궁금하여 관련된 내용을 공부 후 글로 정리했다.
 
 ## 1. Encoding and Decoding
 
 인코딩은 정보의 형태나 형식을 변환하는 처리 방식을 의미한다. 텍스트, 이미지, 비디오 같은 정보나 데이터를 정해진 규칙에 의해 다른 형식으로 변환하는 작업이다. 디코딩은 인코딩과 반대 작업을 의미한다. 다른 형태의 데이터를 다시 텍스트, 이미지, 비디오 같은 정보 혹은 데이터로 변환하는 작업이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/base-64-encoding-and-decoding-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/base-64-encoding-and-decoding-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Base64 Encoding
@@ -34,13 +35,13 @@ categories:
 RFC 표준에서 Base64 인코딩에 사용되는 문자들을 다음과 같이 정의한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/base-64-encoding-and-decoding-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/base-64-encoding-and-decoding-02.png" width="100%" class="image__border">
 </div>
 <center>https://datatracker.ietf.org/doc/html/rfc4648</center>
 
 ### 2.1. Encoding Examples
 
-어떤 과정을 통해 인코딩 작업이 이뤄지는지 살펴본다. 8비트로 표현된 데이터 3글자를 6비트로 표현하면 4글자로 변경된다.
+어떤 과정을 통해 인코딩 작업이 이뤄지는지 살펴보자. 8비트로 표현된 데이터 3글자를 6비트로 표현하면 4글자로 변경된다.
 
 - 앞에서부터 6비트씩 나눈다.
 - 6비트 값을 10진수로 표현한다.
@@ -70,7 +71,7 @@ Decimal: 5      15     46     28       0      61     37     62
 Output:  F      P      u      c        A      9      l      +
 ```
 
-비트 길이가 맞지 않는 경우 패딩을 사용한다. 패딩을 사용하는 경우 다음과 같은 방법으로 변환된다. 첫 번쨰 예시는 2비트가 부족한 경우다.
+비트 길이가 맞지 않는 경우 패딩을 사용한다. 패딩을 사용하는 경우 다음과 같은 방법으로 변환된다. 첫 번째 예시는 2비트가 부족한 경우다.
 
 - 앞에서부터 6비트로 나눈다.
 - 6비트들을 10진수로 표현한다.
@@ -119,7 +120,7 @@ Output:  F      P      u      c        A      w      =      =
   - 패딩 비트가 추가된 횟수만큼 = 문자를 추가한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/base-64-encoding-and-decoding-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/base-64-encoding-and-decoding-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. Why do we use Base64 encoding?

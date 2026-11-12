@@ -6,6 +6,7 @@ canonicalPath: "/java/spring-boot/how-to-test-multipart-file-upload-in-spring/"
 categories:
   - "java"
   - "spring-boot"
+summary: "MultipartFile로 파일을 받는 스프링 컨트롤러 메서드를 MockMultipartFile 클래스와 테스트 더블로 단건, 다건, DTO 업로드 케이스별로 테스트하는 방법을 정리했다."
 recommendedPosts:
   - title: "스프링 MultipartFile 인터페이스와 파일 업로드"
     href: "https://junhyunny.github.io/spring-boot/vue.js/multipartfile/"
@@ -17,7 +18,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-파일 업로드 기능에 대한 단위 테스트를 작성해 본 경험이 없어서 관련된 내용을 정리하였다. 스프링 프레임워크를 사용해 개발하는 경우 MultipartFile 인터페이스를 통해 쉽게 파일 업로드 기능을 구현할 수 있다. MultipartFile 인터페이스에 대한 내용은 [스프링 MultipartFile 인터페이스와 파일 업로드][multipartfile-link] 포스트를 참고하길 바란다. DTO(Data Transfer Object) 클래스를 통해 파일 업로드하는 예제는 [스프링 DTO(Data Transfer Object) 객체와 파일 업로드][multipartfile-in-dto-link] 포스트를 참고하길 바란다.
+파일 업로드 기능에 대한 단위 테스트를 작성해 본 경험이 없어서 관련된 내용을 정리했다. 스프링 프레임워크를 사용해 개발하는 경우 MultipartFile 인터페이스를 통해 쉽게 파일 업로드 기능을 구현할 수 있다. MultipartFile 인터페이스에 대한 내용은 [스프링 MultipartFile 인터페이스와 파일 업로드][multipartfile-link] 포스트를 참고하길 바란다. DTO(Data Transfer Object) 클래스를 통해 파일 업로드하는 예제는 [스프링 DTO(Data Transfer Object) 객체와 파일 업로드][multipartfile-in-dto-link] 포스트를 참고하길 바란다.
 
 ## 1. Test Target Method
 
@@ -67,9 +68,7 @@ public class ProfileController {
 }
 ```
 
-다음 Profile 클래스를 살펴보겠다.
-
-- 이름, 나이, 사진 프로퍼티를 가진다.
+다음 Profile 클래스는 이름, 나이, 사진 프로퍼티를 가진다.
 
 ```java
 package action.in.blog.domain;
@@ -88,9 +87,9 @@ public record Profile(
 
 컨트롤러(controller)의 각 메서드들을 검증하기 위한 테스트 코드를 작성한다. 메서드들의 반환 타입이 `void`이므로 ProfileService 인스턴스를 테스트 더블(test double)로 사용하여 파일 업로드 여부를 검증한다.
 
-### 2.1. MockMultipartFile Class
+### 2.1. MockMultipartFile 클래스
 
-파일 업로드 테스트를 위해 MockMultipartFile 클래스를 사용한다. 테스트 객체 생성을 위해 생성자 함수를 살펴보겠다.
+파일 업로드 테스트를 위해 MockMultipartFile 클래스를 사용한다. 테스트 객체 생성을 위해 생성자 함수를 살펴보자.
 
 - name
   - 스프링 API 엔드포인트(end point) 메서드에서 파일을 받을 때 사용하는 이름이다.
@@ -102,7 +101,7 @@ public record Profile(
 - contentType
   - 파일 타입을 의미한다.
 - content
-  - 파일을 이진화(binary)하였을 때 바이트 배열(byte array) 값을 의미한다.
+  - 파일을 이진화(binary)했을 때 바이트 배열(byte array) 값을 의미한다.
 
 ```java
     public MockMultipartFile(String name, @Nullable String originalFilename, @Nullable String contentType, @Nullable byte[] content) {

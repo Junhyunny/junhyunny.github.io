@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/json-web-key/"
 categories:
   - "information"
+summary: "iOS와 웹 사용자의 인증 흐름을 통일하는 과정에서 살펴본 JWK의 개념과 형식을 정리하고, 리소스 서버가 인가 서버의 JWK로 액세스 토큰(JWT)을 검증하는 흐름을 설명한다."
 recommendedPosts:
   - title: "JWT(Json Web Token)"
     href: "https://junhyunny.github.io/information/json-web-token/"
@@ -24,7 +25,7 @@ recommendedPosts:
 
 ## 1. JWK(JSON Web Key)
 
-JWT(Json Web Token)은 대부분의 개발자라면 모두 알고 있을 것이다. 그렇다면 JWK(Json Web Key)는 무엇일까? RFC 표준을 살펴보자. 
+JWT(Json Web Token)는 대부분의 개발자라면 모두 알고 있을 것이다. 그렇다면 JWK(Json Web Key)는 무엇일까? RFC 표준을 살펴보자. 
 
 > A JSON Web Key (JWK) is a JavaScript Object Notation (JSON) data structure that represents a cryptographic key.<br/>
 > ...
@@ -126,10 +127,10 @@ JWK 객체는 어디에 사용할까? JWT 객체의 유효성을 검증할 때 �
 1. iOS 애플리케이션에서 마이크로소프트 인가 서버로부터 사용자 인증을 수행한다. 인증 작업이 완료되면 특정 리소스에 접근할 수 있는 액세스 토큰(access token)을 전달 받는다.
 2. iOS 애플리케이션은 필요한 사용자 정보를 얻기 위해 백엔드 서버 애플리케이션으로 API 요청을 보낸다. 마이크로소프트 인가 서버에서 획득한 액세스 토큰을 함께 전달한다.
 3. 백엔드 서버 애플리케이션은 사용자가 해당 리소스에 접근할 권한이 있는지 확인하기 위해 요청과 함께 전달된 액세스 토큰의 유효성을 검증해야 한다. 
-  - 액세스 토큰 유효성 검증을 위해선 JWT 객체 서명(signature)를 확인해야 한다.
+  - 액세스 토큰 유효성 검증을 위해선 JWT 객체 서명(signature)을 확인해야 한다.
   - 서명은 헤더, 페이로드(payload), 암호 키를 암호화하여 만들기 때문에 서명 검증을 위해선 암호 키 정보가 필요하다.
   - 백엔드 서버 애플리케이션은 마이크로소프트 인가 서버로부터 JWKs 객체를 요청한다.
-4. 백엔드 서버 애플리케이션는 JWKs 객체 중 JWT 액세스 토큰과 매칭되는 JWK 객체를 찾아 유효성 검증을 수행한다.
+4. 백엔드 서버 애플리케이션은 JWKs 객체 중 JWT 액세스 토큰과 매칭되는 JWK 객체를 찾아 유효성 검증을 수행한다.
   - JWK 객체로부터 암호 키를 획득한다.
   - JWT 객체에 포함된 헤더, 페이로드, JWK 객체로부터 얻은 암호 키를 사용해 새로운 서명을 만든다.
   - JWT 객체에 포함된 서명과 새롭게 만든 서명을 비교한다. 

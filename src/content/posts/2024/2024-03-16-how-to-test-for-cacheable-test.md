@@ -6,6 +6,7 @@ canonicalPath: "/kotlin/spring-boot/how-to-test-for-cacheable-test/"
 categories:
   - "kotlin"
   - "spring-boot"
+summary: "@Cacheable 애너테이션이 적용된 메서드의 결과가 캐시에 저장되고 재사용되는지를, 실제 캐시 매니저와 목 빈 저장소를 사용한 @SpringBootTest 결합 테스트로 검증하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -16,7 +17,7 @@ categories:
 
 코드는 실제 비즈니스를 다른 도메인으로 각색했다. 다음과 같은 카테고리, 서브 카테고리 아이디를 사용해 관련 상품들을 조회하는 비즈니스 로직이 있다. 자주 검색되는 카테고리 상품 리스트는 캐시를 통해 재사용한다.
 
-- 캐시 이름은 `items`을 사용한다.
+- 캐시 이름은 `items`를 사용한다.
 - 캐시 키는 카테고리, 서브 카테고리 아이디를 조합해서 사용한다.
 
 ```kotlin
@@ -35,7 +36,7 @@ class ItemStore(private val itemRepository: ItemRepository) {
 
 ## 2. Tests
 
-@Cacheable 애너테이션를 단위 테스트하는 것은 불가능하다. AOP(Aspect Oriented Programming) 내부에서 동작하고 캐시 매니저는 스프링 빈으로 관리되기 때문에 스프링 프레임워크의 지원을 받아야 정상적인 테스트가 가능하다. 그렇기 때문에 다음과 같은 결합 테스트를 준비한다.
+@Cacheable 애너테이션을 단위 테스트하는 것은 불가능하다. AOP(Aspect Oriented Programming) 내부에서 동작하고 캐시 매니저는 스프링 빈으로 관리되기 때문에 스프링 프레임워크의 지원을 받아야 정상적인 테스트가 가능하다. 그렇기 때문에 다음과 같은 결합 테스트를 준비한다.
 
 - @SpringBootTest 애너테이션을 사용한다.
   - itemStore, cacheManager 인스턴스는 실제 빈을 사용한다.

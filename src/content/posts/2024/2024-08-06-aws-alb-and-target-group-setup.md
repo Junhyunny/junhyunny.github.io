@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/aws-alb-and-target-group-setup/"
 categories:
   - "aws"
+summary: "ECS Fargate 클러스터에서 사용할 AWS 대상 그룹과 애플리케이션 로드 밸런서(ALB)를 만들고 연결하는 과정을 웹 콘솔 기준으로 정리했다."
 recommendedPosts:
   - title: "AWS ECR(Elastic Container Registry) 설정"
     href: "https://junhyunny.github.io/aws/aws-ecr-setup/"
@@ -24,15 +25,13 @@ recommendedPosts:
 
 ## 1. Create Target Group
 
-타겟 그룹은 애플리케이션 로드 밸런서가 트래픽을 분산시키는 대상 그룹을 의미한다. 지정한 프로토콜과 포트 번호를 사용해 EC2 인스턴스 같은 개별 등록된 대상으로 요청을 라우팅한다. 하나의 타겟 그룹에 하나 이상의 인스턴스를 등록할 수 있다. 타겟 그룹은 로드 밸런서를 생성할 때 함께 만들 수 있지만, 새로운 탭 화면으로 이동되기 때문에 설명을 읽을 때 헷갈릴 수 있다. 설명의 흐름이 끊키지 않도록 타겟 그룹부터 만든다. 타겟 그룹은 `EC2 대시보드` 왼쪽 하단 `Load Balancing` 항목에서 찾을 수 있다. 
+타겟 그룹은 애플리케이션 로드 밸런서가 트래픽을 분산시키는 대상 그룹을 의미한다. 지정한 프로토콜과 포트 번호를 사용해 EC2 인스턴스 같은 개별 등록된 대상으로 요청을 라우팅한다. 하나의 타겟 그룹에 하나 이상의 인스턴스를 등록할 수 있다. 타겟 그룹은 로드 밸런서를 생성할 때 함께 만들 수 있지만, 새로운 탭 화면으로 이동되기 때문에 설명을 읽을 때 헷갈릴 수 있다. 설명의 흐름이 끊기지 않도록 타겟 그룹부터 만든다. 타겟 그룹은 `EC2 대시보드` 왼쪽 하단 `Load Balancing` 항목에서 찾을 수 있다. 
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-02.png" class="image__border">
 </div>
 
-타겟 그룹 대시보드로 진입하면 타겟 그룹 리스트 화면이 보인다. 이 곳에서 새로운 타겟 그룹을 생성한다.
-
-- `Create target group` 버튼을 누른다.
+타겟 그룹 대시보드로 진입하면 타겟 그룹 리스트 화면이 보인다. 이 곳에서 새로운 타겟 그룹을 생성한다. `Create target group` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-03.png" width="100%" class="image__border">
@@ -43,7 +42,7 @@ recommendedPosts:
 - ECS 서비스의 타겟 그룹은 `IP 주소` 타입을 사용한다.
 - 이름을 지정한다.
 - 프로토콜과 포트 번호를 지정한다.
-  - HTTP(HyperText Transfer Protoco)과 8080 포트를 사용한다. 
+  - HTTP(HyperText Transfer Protocol)와 8080 포트를 사용한다. 
   - 로드 밸런서로부터 라우팅 되는 요청들은 HTTP 기반으로 8080 포트 서비스로 전달된다.
 
 <div class="block-break" align="center">
@@ -59,9 +58,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-05.png" width="100%" class="image__border">
 </div>
 
-그룹에 포함될 타겟은 ECS에 의해 자동으로 등록되므로 별다른 설정이 필요 없다.
-
-- `Create target group` 버튼을 누른다.
+그룹에 포함될 타겟은 ECS에 의해 자동으로 등록되므로 별다른 설정이 필요 없다. `Create target group` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <div>
@@ -85,29 +82,27 @@ recommendedPosts:
 - Application Load Balancer
 - Network Load Balancer
 - Gateway Load Balancer
-- Class Load Balancer
+- Classic Load Balancer
 
 필자는 외부에서 보내는 HTTP, HTTPS 요청을 처리할 로드 밸런서가 필요하기 때문에 애플리케이션 로드 밸런서를 사용했다. 로드 밸런서는 브라우저 같은 클라이언트(client)에 대한 단일 접점 역할을 수행하며 가용 영역에 위치한 EC2 인스턴스 같은 수신 애플리케이션을 호스팅하는 컨테이너로 트래픽을 분산한다. 애플리케이션 로드 밸런서는 다음과 같은 구성 요소를 갖는다.
 
 - 리스너(listener)
   - 프로토콜 및 포트를 사용하여 클라이언트 연결 요청을 확인한다.
   - 리스너에 정의한 규칙과 일치하는 요청은 타겟 그룹으로 연결된다. 
-  - 하나의 리스너에 여러 개의 타겟 그룹을 연결할 수 있으며 
+  - 하나의 리스너에 여러 개의 타겟 그룹을 연결할 수 있으며, 규칙에 따라 요청을 각 타겟 그룹으로 나눠 보낼 수 있다.
 - 타겟 그룹(target group)
   - 타겟 그룹에는 EC2 인스턴스 같은 수신 애플리케이션을 호스팅하는 서비스 컨테이너가 하나 이상 등록된다.
   - 프로토콜과 포트 번호를 사용해 타겟 그룹에 속한 컨테이너에게 요청을 라우팅한다.
-  - 헬스 체크(health check)을 통해 대상 그룹에 속한 컨테이너들의 상태를 확인할 수 있다.
+  - 헬스 체크(health check)를 통해 대상 그룹에 속한 컨테이너들의 상태를 확인할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-08.png" width="80%" class="image__border">
-</div>
-<center>https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/introduction.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-08.png" width="100%" class="image__border">
+  </div>
+  <center>https://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/application/introduction.html</center>
 </div>
 
-이제 본격적으로 애플리케이션 로드 밸런서를 생성해보자. 타겟 그룹은 이전 단계에서 만든 것을 사용한다. 타겟 그룹과 동일하게 로드 밸런서도 `EC2 대시보드` 왼쪽 하단 `Load Balancing` 항목에서 찾을 수 있다. 
-
-- `Create load balancer` 버튼을 누른다.
+이제 본격적으로 애플리케이션 로드 밸런서를 생성해보자. 타겟 그룹은 이전 단계에서 만든 것을 사용한다. 타겟 그룹과 동일하게 로드 밸런서도 `EC2 대시보드` 왼쪽 하단 `Load Balancing` 항목에서 찾을 수 있다. `Create load balancer` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-09.png" width="100%" class="image__border">
@@ -130,9 +125,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-11.png" width="100%" class="image__border">
 </div>
 
-VPC를 지정한다. 위에서도 언급했듯이 반드시 퍼블릭 서브넷을 사용한다. 
-
-- AZ(Availability Zones)을 선택하고 해당 존의 퍼블릭 서브넷을 선택한다.
+VPC를 지정한다. 위에서도 언급했듯이 반드시 퍼블릭 서브넷을 사용한다. AZ(Availability Zones)를 선택하고 해당 존의 퍼블릭 서브넷을 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-12.png" width="100%" class="image__border">
@@ -145,9 +138,7 @@ VPC를 지정한다. 위에서도 언급했듯이 반드시 퍼블릭 서브넷�
 
 > The selected subnet does not have a route to an internet gateway. This means that your load balancer will not receive internet traffic. You can proceed with this selection; however, for internet traffic to reach your load balancer, you must update the subnet’s route table in the VPC console.
 
-다음은 시큐리티 그룹이다. 여기서 만드는 애플리케이션 로드 밸런서는 80 포트에 대한 접근이 허용되어 있어야 한다. 사전에 만들어 둔 시큐리티 그룹이 없다면 `create a new security group` 링크로 이동하여 시큐리티 그룹을 만들면 된다. 시큐리티 그룹 생성 방법은 [아래](#3-create-security-group)에 정리되어 있다.
-
-- 사전에 만들어 둔 `public-ecs-service-alb-sg` 시큐리티 그룹을 선택한다.
+다음은 시큐리티 그룹이다. 여기서 만드는 애플리케이션 로드 밸런서는 80 포트에 대한 접근이 허용되어 있어야 한다. 사전에 만들어 둔 시큐리티 그룹이 없다면 `create a new security group` 링크로 이동하여 시큐리티 그룹을 만들면 된다. 시큐리티 그룹 생성 방법은 [아래](#3-create-security-group)에 정리되어 있다. 사전에 만들어 둔 `public-ecs-service-alb-sg` 시큐리티 그룹을 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-13.png" width="100%" class="image__border">
@@ -162,17 +153,13 @@ VPC를 지정한다. 위에서도 언급했듯이 반드시 퍼블릭 서브넷�
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-14.png" width="100%" class="image__border">
 </div>
 
-준비가 모두 끝났다. 화면 맨 아래로 이동하면 다음과 같은 요약 정보를 확인할 수 있다. 요약 정보에 이상이 없다면 로드 밸런서를 생성한다.
-
-- `Create load balancer` 버튼을 누른다.
+준비가 모두 끝났다. 화면 맨 아래로 이동하면 다음과 같은 요약 정보를 확인할 수 있다. 요약 정보에 이상이 없다면 로드 밸런서를 생성한다. `Create load balancer` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-15.png" width="100%" class="image__border">
 </div>
 
-생성이 완료되면 다음과 같은 화면을 확인할 수 있다.
-
-- DNS 이름에 보이는 주소로 접근하면 해당 로드 밸런서로 연결된다.
+생성이 완료되면 다음과 같은 화면을 확인할 수 있다. DNS 이름에 보이는 주소로 접근하면 해당 로드 밸런서로 연결된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-16.png" width="100%" class="image__border">
@@ -180,7 +167,7 @@ VPC를 지정한다. 위에서도 언급했듯이 반드시 퍼블릭 서브넷�
 
 ## 3. Create Security Group
 
-위 로드 밸런서를 위한 시큐리티 그룹을 생성한다. 시큐리티 그룹은 `EC2 대시보드`에서 찾을 수 있다. 이전 단계에서 생성한 로드 밸런서로 접근하기 위해선 80 포트 대한 접근이 허용되도록 인바운드(inbound) 규칙이 설정되어야 한다. IP 주소 대역은 상황에 맞게 설정한다. 글 작성을 위한 실습이므로 필자의 IP에서만 접근할 수 있도록 설정했다.
+위 로드 밸런서를 위한 시큐리티 그룹을 생성한다. 시큐리티 그룹은 `EC2 대시보드`에서 찾을 수 있다. 이전 단계에서 생성한 로드 밸런서로 접근하기 위해선 80 포트에 대한 접근이 허용되도록 인바운드(inbound) 규칙이 설정되어야 한다. IP 주소 대역은 상황에 맞게 설정한다. 글 작성을 위한 실습이므로 필자의 IP에서만 접근할 수 있도록 설정했다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-17.png" width="100%" class="image__border">
@@ -198,7 +185,7 @@ ECS 클러스터에서 사용할 로드 밸런서 준비가 끝났다. 다음과
 
 - 퍼블릭 서브넷에 애플리케이션 로드 밸런서가 위치한다.
 - 애플리케이션 로드 밸런서의 시큐리티 그룹은 80 포트에 대한 접근이 허용되어 있어야 한다.
-- 해당 VPC 전역에 위치한 모든 리소스는 모두 타겟 그룹은 대상이 된다.  
+- 해당 VPC 전역에 위치한 모든 리소스는 모두 타겟 그룹의 대상이 된다.  
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-alb-and-target-group-setup-19.png" width="100%" class="image__border">

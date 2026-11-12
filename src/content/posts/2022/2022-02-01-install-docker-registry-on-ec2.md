@@ -1,11 +1,12 @@
 ---
 title: "EC2 인스턴스에 도커 레지스트리(Docker registry) 설치"
 publishedAt: "2022-02-01"
-updatedAt: "2026-09-19T01:14:02+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/information/docker/install-docker-registry-on-ec2/"
 categories:
   - "information"
   - "docker"
+summary: "도커 허브의 개인 레포지토리 제한 때문에 EC2 인스턴스에 도커와 도커 레지스트리를 설치하고 이미지를 push, pull 하는 과정을 정리했다."
 recommendedPosts:
   - title: "CI/CD란 무엇인가?"
     href: "https://junhyunny.github.io/information/what-is-ci-cd/"
@@ -25,12 +26,9 @@ recommendedPosts:
 
 이번 글에서는 도커 개인 이미지 저장소 구축과 관련된 내용을 정리했다. 도커 허브(hub)는 공개 레포지토리를 무제한으로 제공하지만, 개인 레포지토리는 1개만 제공한다. 개인 레포지토리가 1개 이상 필요할 것으로 예상되어 프로젝트에서 사용할 비공개 저장소를 EC2 인스턴스에 하나 만들기로 했다.
 
-내용이 길어져 이번 글에서는 도커 레지스트리(registry) 설치와 관련된 내용만 다룬다. 다음 글에서는 설치한 도커 레지스트리를 비공개로 사용할 수 있도록 암호화하는 과정을 정리할 예정이다. 터미널 명령어를 실행하는 환경이 섞여 있어 헷갈릴 수 있으므로 접미사로 구분했다.
+내용이 길어져 이번 글에서는 도커 레지스트리(registry) 설치와 관련된 내용만 다룬다. 다음 글에서는 설치한 도커 레지스트리를 비공개로 사용할 수 있도록 암호화하는 과정을 정리할 예정이다. 터미널 명령어를 실행하는 환경(AWS EC2 인스턴스, 맥북)이 섞여 있어 헷갈릴 수 있으므로 단계마다 명령어를 실행하는 곳을 함께 적었다.
 
-- `on EC2 인스턴스` 접미사는 AWS EC2 인스턴스에서 작업한 내용이라는 뜻이다.
-- `on Macbook` 접미사는 맥북에서 작업한 내용이라는 뜻이다.
-
-EC2 인스턴스에 도커 개인 이미지 저장소를 구축하였다.
+EC2 인스턴스에 도커 개인 이미지 저장소를 구축했다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/install-docker-registry-on-ec2-01.png" width="85%" class="image__border">
@@ -40,25 +38,19 @@ EC2 인스턴스에 도커 개인 이미지 저장소를 구축하였다.
 
 맥북에는 도커가 설치되어 있고, 무료 티어 AWS EC2 인스턴스도 생성되어 있다는 가정하에 설명을 진행한다.
 
-##### EC2 서비스 접속 on Macbook
-
-EC2 서비스를 만들 때 발급받은 `.pem` 파일로 해당 서비스에 접속한다. 접속 여부를 묻는 메시지가 나타나면 `yes`를 입력한다.
+먼저 맥북에서 EC2 서비스를 만들 때 발급받은 `.pem` 파일로 해당 서비스에 접속한다. 접속 여부를 묻는 메시지가 나타나면 `yes`를 입력한다.
 
 ```
 ~ % ssh -i private-key.pem ec2-user@{your-own-ec2-service-address}.ap-northeast-1.compute.amazonaws.com
 ```
 
-##### 도커 설치 on EC2 인스턴스
-
-다음 명령어를 통해 도커를 설치한다.
+EC2 인스턴스에 접속했다면 다음 명령어로 도커를 설치한다.
 
 ```
 ~ $ sudo yum install docker
 ```
 
-#### 도커 설치 로그 on EC2 인스턴스
-
-도커 설치에 성공하면 다음과 같은 로그를 볼 수 있다.
+설치에 성공하면 다음과 같은 로그를 볼 수 있다.
 
 ```
 Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
@@ -117,11 +109,11 @@ Complete!
 > The Registry is a stateless, highly scalable server side application that stores and lets you distribute Docker images.
 > The Registry is open-source, under the permissive Apache license.
 
-도커 레지스트리 컨테이너는 도커 명령어를 통해 쉽게 생성할 수 있다.
+도커 레지스트리 컨테이너는 도커 명령어로 쉽게 생성할 수 있다.
 
-##### 도커 레지스트리 이미지 PULL on EC2 인스턴스
+### 2.1. 도커 레지스트리 컨테이너 실행
 
-도커 명령어로 이미지를 다운로드한다.
+EC2 인스턴스에서 도커 명령어로 레지스트리 이미지를 다운로드한다.
 
 ```
 ~ $ sudo docker pull registry
@@ -138,9 +130,7 @@ Status: Downloaded newer image for registry:latest
 docker.io/library/registry:latest
 ```
 
-##### 도커 레지스트리 이미지 확인 on EC2 인스턴스
-
-도커 레지스트리 이미지가 정상적으로 다운로드됐는지 확인한다.
+이미지가 정상적으로 다운로드됐는지 확인한다.
 
 ```
 ~ $ sudo docker images
@@ -149,9 +139,7 @@ REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
 registry     latest    b8604a3fe854   2 months ago   26.2MB
 ```
 
-##### 도커 레지스트리 컨테이너 실행 on EC2 인스턴스
-
-도커 레지스트리 컨테이너를 실행한다.
+다운로드한 이미지로 도커 레지스트리 컨테이너를 실행한다.
 
 ```
 ~ $ sudo docker run -d --name private-registry -p 5000:5000 registry
@@ -159,9 +147,7 @@ registry     latest    b8604a3fe854   2 months ago   26.2MB
 fe931afc77b0a65dedf75451c0fd598664fe0d5a077d6f5f8f4dc0d76b65faef
 ```
 
-### 2.1. 도커 레지스트리 컨테이너 실행 확인 on EC2 인스턴스
-
-도커 레지스트리 컨테이너가 실행 중인지 확인한다.
+컨테이너가 실행 중인지 확인한다.
 
 ```
 ~ $ sudo docker ps
@@ -174,13 +160,11 @@ fe931afc77b0   registry   "/entrypoint.sh /etc…"   6 seconds ago   Up 4 second
 
 외부에서 EC2 인스턴스에 접근할 수 있도록 포트를 열어야 한다. AWS EC2 설정 대시보드에서 포트 접근을 설정할 수 있다.
 
-##### Security Groups 설정 화면 이동
+EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group)을 설정해야 한다. 다음 순서로 시큐리티 그룹 설정 화면으로 이동한다.
 
-EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group)을 설정해야 한다.
-
-- `EC2 > Instances > {container id}` 화면으로 이동한다.
-- 인스턴스 정보를 확인할 수 있는 대시보드에서 해당 인스턴스를 선택한다.
-- 선택한 EC2 인스턴스 상세 정보 화면 하단의 `Security` 탭에서 `security groups`를 선택한다.
+1. `EC2 > Instances > {container id}` 화면으로 이동한다.
+2. 인스턴스 정보를 확인할 수 있는 대시보드에서 해당 인스턴스를 선택한다.
+3. 선택한 EC2 인스턴스 상세 정보 화면 하단의 `Security` 탭에서 `security groups`를 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/install-docker-registry-on-ec2-02.png" width="100%" class="image__border">
@@ -203,11 +187,7 @@ EC2 대시보드에서 해당 인스턴스의 시큐리티 그룹(security group
 
 ### 2.3. 도커 이미지 push & pull
 
-이제 맥북에서 이미지를 만들어 `push`, `pull` 해 보자.
-
-##### nginx 이미지 pull from 도커 허브 on Macbook
-
-간단한 테스트를 위해 도커 허브에서 nginx 이미지를 다운로드한다.
+이제 맥북에서 이미지를 만들어 `push`, `pull` 해 보자. 간단한 테스트를 위해 맥북에서 도커 허브의 nginx 이미지를 다운로드한다.
 
 ```
 ~ % docker pull nginx
@@ -225,11 +205,7 @@ Status: Downloaded newer image for nginx:latest
 docker.io/library/nginx:latest
 ```
 
-##### nginx 이미지 태그 변경 및 확인 on Macbook
-
-다운로드한 nginx 이미지를 EC2 인스턴스의 도커 레지스트리에 올린다.
-
-- `{ec2-instance-public-ip}`에는 본인의 EC2 인스턴스 공개 IP를 사용하면 된다.
+다운로드한 nginx 이미지를 EC2 인스턴스의 도커 레지스트리에 올리기 위해 이미지 태그를 변경하고 확인한다. `{ec2-instance-public-ip}`에는 본인의 EC2 인스턴스 공개 IP를 사용하면 된다.
 
 ```
 ~ % docker tag nginx {ec2-instance-public-ip}:5000/nginx
@@ -240,8 +216,6 @@ REPOSITORY                TAG       IMAGE ID       CREATED      SIZE
 {ec2-instance-public-ip}:5000/nginx   latest    c316d5a335a5   5 days ago   142MB
 nginx                     latest    c316d5a335a5   5 days ago   142MB
 ```
-
-##### 이미지 push on Macbook
 
 `docker push` 명령어로 이미지를 쉽게 업로드할 수 있다.
 
@@ -259,9 +233,7 @@ The push refers to repository [{ec2-instance-public-ip}:5000/nginx]
 latest: digest: sha256:bb129a712c2431ecce4af8dde831e980373b26368233ef0f3b2bae9e9ec515ee size: 1570
 ```
 
-##### http: server gave HTTP response to HTTPS client 에러
-
-도커의 `push`, `pull`은 `https` 기반으로 동작하지만, 레지스트리는 `http`로 동작하여 문제가 발생한다. `Get "https://{ec2-instance-public-ip}:5000/v2/": http: server gave HTTP response to HTTPS client`라는 에러 메시지를 볼 수 있다. 도커 레지스트리를 이용하는 클라이언트의 `daemon.json` 파일에 `insecure-registries` 설정을 추가하면 해결된다. 
+이때 `Get "https://{ec2-instance-public-ip}:5000/v2/": http: server gave HTTP response to HTTPS client`라는 에러가 발생할 수 있다. 도커의 `push`, `pull`은 `https` 기반으로 동작하지만, 레지스트리는 `http`로 동작하기 때문이다. 도커 레지스트리를 이용하는 클라이언트의 `daemon.json` 파일에 `insecure-registries` 설정을 추가하면 해결된다.
 
 각 운영체제마다 daemon.json 파일의 위치가 다르다. 이번 글에서 도커 레지스트리를 이용하는 클라이언트는 맥북이다.
 
@@ -287,9 +259,7 @@ latest: digest: sha256:bb129a712c2431ecce4af8dde831e980373b26368233ef0f3b2bae9e9
 }
 ```
 
-##### 이미지 push 성공 여부 확인 on Macbook
-
-`curl` 명령어로 push된 이미지를 확인할 수 있다.
+설정을 추가한 뒤 이미지를 push하고, `curl` 명령어로 push된 이미지를 확인할 수 있다.
 
 ```
 ~ % curl -X GET http://{ec2-instance-public-ip}:5000/v2/_catalog
@@ -297,9 +267,7 @@ latest: digest: sha256:bb129a712c2431ecce4af8dde831e980373b26368233ef0f3b2bae9e9
 {"repositories":["nginx"]}
 ```
 
-##### 개인 도커 레지스트리에서 이미지 pull on Macbook
-
-개인 도커 레지스트리에서 이미지를 다운로드해 보자. 우선 로컬 이미지 목록을 확인한다.
+이번엔 맥북에서 개인 도커 레지스트리의 이미지를 다운로드해 보자. 우선 로컬 이미지 목록을 확인한다.
 
 ```
 ~ % docker images -a

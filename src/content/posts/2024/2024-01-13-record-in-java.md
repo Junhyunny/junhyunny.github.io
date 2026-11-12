@@ -5,11 +5,12 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/record-in-java/"
 categories:
   - "java"
+summary: "JDK 17과 함께 자주 보게 된 자바 record 키워드의 등장 배경과 목표, 레코드 클래스의 사용 방법과 상속, 필드 선언 같은 규칙을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-스프링 부트 3.X 버전은 JDK17를 사용하기 때문에 기존에 보지 못 했던 새로운 문법들을 종종 보게 된다. 레코드(record) 키워드가 그 중 하나이다. 이번 포스트에서 레코드에 등장 배경과 사용 방법을 정리했다.
+스프링 부트 3.X 버전은 JDK17를 사용하기 때문에 기존에 보지 못 했던 새로운 문법들을 종종 보게 된다. 레코드(record) 키워드가 그중 하나이다. 이번 포스트에서 레코드의 등장 배경과 사용 방법을 정리했다.
 
 ## 1. Record
 
@@ -40,8 +41,8 @@ JDK14에 처음 등장해 JDK16에 정식으로 추가됐다. 핵심은 `compact
 일반적으로 데이터 전달을 위해 사용하는 불변 클래스는 다음과 같이 선언한다. 
 
 - final 키워드로 필드를 선언한다.
-- 접근 메서드가 제공한다.
-- equals, hashCode, toString 메서드가 제공한다.
+- 접근 메서드를 제공한다.
+- equals, hashCode, toString 메서드를 제공한다.
 
 ```java
 class Point {
@@ -72,7 +73,7 @@ class Point {
 }
 ```
 
-데이터 운반 클래스를 만들 때 생성자, 접근자, equals, hashCode, toString 메서드 때문에 코드가 길어진다. IDE(Integrated Devleopment Environment) 도구의 도움을 받아 자동으로 생성할 수 있으며 만약 코드가 길어지는 것이 싫다면 애너테이션 기반으로 코드를 생성하는 롬복(lombok) 같은 라이브러리를 사용할 수도 있다. 개발자들에게 지루하고 실수가 생길 수도 있는 작업을 레코드 클래스로 해결할 수 있다.
+데이터 운반 클래스를 만들 때 생성자, 접근자, equals, hashCode, toString 메서드 때문에 코드가 길어진다. IDE(Integrated Development Environment) 도구의 도움을 받아 자동으로 생성할 수 있으며 만약 코드가 길어지는 것이 싫다면 애너테이션 기반으로 코드를 생성하는 롬복(lombok) 같은 라이브러리를 사용할 수도 있다. 개발자들에게 지루하고 실수가 생길 수도 있는 작업을 레코드 클래스로 해결할 수 있다.
 
 레코드 클래스를 사용하면 불필요한 의존성을 추가하거나 IDE의 도움을 받아 클래스를 작성할 필요가 없다. 
 
@@ -238,7 +239,7 @@ record Person(String name, String contact) {
 }
 ```
 
-컴팩트 생성자(compact constructor)를 사용하면 비공개 필드를 초기하는 것 이상의 작업을 수행할 수 있다. 컴팩트 생성자는 매개 변수를 받는 부분이 없는 형태다. 주로 유효성 확인(validation)이나 간단한 초기화 작업을 수행한다.  
+컴팩트 생성자(compact constructor)를 사용하면 비공개 필드를 초기화하는 것 이상의 작업을 수행할 수 있다. 컴팩트 생성자는 매개 변수를 받는 부분이 없는 형태다. 주로 유효성 확인(validation)이나 간단한 초기화 작업을 수행한다.  
 
 ```java
 record Person(String name, String contact) {

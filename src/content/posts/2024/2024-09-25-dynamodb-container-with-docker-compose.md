@@ -7,6 +7,7 @@ categories:
   - "docker"
   - "aws"
   - "dynamo-db"
+summary: "도커 컴포즈로 DynamoDB 로컬 컨테이너를 실행하고 초기화 스크립트로 테이블 생성과 데이터 마이그레이션까지 자동화하는 방법을 정리했다."
 recommendedPosts:
   - title: "스프링 부트(Spring Boot) DynamoDB CRUD 예제"
     href: "https://junhyunny.github.io/spring-boot/aws/dynamo-db/dynamodb-crud-example-with-spring-boot/"
@@ -18,13 +19,13 @@ recommendedPosts:
 
 ## 1. Local environment support of DynamoDB
 
-DyanmoDB는 완전 관리형 데이터베이스다. AWS에서 모두 관리하기 때문에 서버를 프로비저닝(provisioning)하거나 소프트웨어 패치, 관리, 설치, 유지 보수, 운영할 필요가 없다. 그렇다면 소프트웨어를 개발하기 위해선 반드시 AWS 클라우드에 리소스를 준비하고 연결해야 할까? 그렇진 않다. AWS는 로컬 환경에서 DynamoDB를 실행할 수 있는 환경을 제공한다. 다음과 같은 3가지 방식을 지원한다.
+DynamoDB는 완전 관리형 데이터베이스다. AWS에서 모두 관리하기 때문에 서버를 프로비저닝(provisioning)하거나 소프트웨어 패치, 관리, 설치, 유지 보수, 운영할 필요가 없다. 그렇다면 소프트웨어를 개발하기 위해선 반드시 AWS 클라우드에 리소스를 준비하고 연결해야 할까? 그렇진 않다. AWS는 로컬 환경에서 DynamoDB를 실행할 수 있는 환경을 제공한다. 다음과 같은 3가지 방식을 지원한다.
 
 - DynamoDBLocal jar 패키지 
 - 도커 컨테이너
 - Apache Maven 종속성
 
-도커 컨테이너를 사용한 방법이 여러모로 편리하기 때문에 이를 선택했다. 공식 홈페이지를 도커 컴포즈를 사용한 보면 자세하게 나와있지만, 거기에 데이터베이스 초기화 스크립트를 실행하는 방법까지 함께 정리했다.
+도커 컨테이너를 사용한 방법이 여러모로 편리하기 때문에 이를 선택했다. 도커 컴포즈를 사용한 방법은 공식 홈페이지를 보면 자세하게 나와있지만, 거기에 데이터베이스 초기화 스크립트를 실행하는 방법까지 함께 정리했다.
 
 ## 2. Project structure
 

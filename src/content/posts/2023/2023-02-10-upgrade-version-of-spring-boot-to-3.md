@@ -8,11 +8,12 @@ categories:
   - "spring-cloud"
   - "jpa"
   - "query-dsl"
+summary: "스프링 부트 2.7.4에서 3.0.2로 업그레이드하며 만난 JDK 17과 Jakarta EE 9 전환, QueryDSL 호환성, Sleuth를 대체하는 micrometer-tracing 설정 문제를 정리했다."
 ---
 
 ## 0. 들어가면서
 
-`spring-boot-starter-parent` 2.7.4 버전에서 3.0.2 버전으로 업그레이드하면서 마주친 에러들에 대해 정리하였다. 문제가 발생한 것들은 다음과 같다.
+`spring-boot-starter-parent` 2.7.4 버전에서 3.0.2 버전으로 업그레이드하면서 마주친 에러들에 대해 정리했다. 문제가 발생한 것들은 다음과 같다.
 
 - JDK 17 and Jakarta EE 9
 - JPA QueryDSL
@@ -23,18 +24,18 @@ categories:
 2018년 2월 28일부터 약 4년 동안 운영된 2.X 버전이 3.X 버전으로 업그레이드되었다. 다음과 같은 사항들이 변경되었다.
 
 - `JDK17` 버전 이상을 사용해야 한다.
-- `Java EE(enterprise edition)`은 `Jakarta EE`로 되었다.
+- `Java EE(enterprise edition)`는 `Jakarta EE`로 되었다.
   - `javax.*` 패키지에 속하는 기능들이 `jakarta.*` 패키지로 대체되었다.
 
 > This next major revision will be based on Spring Framework 6.0 and will require Java 17 or above.
 > It will also be the first version of Spring Boot that makes use of Jakarta EE 9 APIs (jakarta.*) instead of EE 8 (javax.*).
 
-해당 문제로 다음과 같은 작업들을 수행하였다.
+해당 문제로 다음과 같은 작업들을 수행했다.
 
 - `IDE(integrated development environment)`의 JDK 컴파일러를 변경한다.
-  - `JDK8`에서 `JDK17`으로 변경한다.
-- `pom.xml` 파일의 `java.version` 변경한다.
-  - `1.8`에서 `17`으로 변경한다.
+  - `JDK8`에서 `JDK17`로 변경한다.
+- `pom.xml` 파일의 `java.version`을 변경한다.
+  - `1.8`에서 `17`로 변경한다.
 
 ```xml
     <parent>
@@ -51,7 +52,7 @@ categories:
 ```
 
 - `Dockerfile`에서 사용하는 이미지를 변경한다.
-  - `maven:3.8.6-jdk-8`에서 `maven:3.8.3-openjdk-17`으로 변경한다.
+  - `maven:3.8.6-jdk-8`에서 `maven:3.8.3-openjdk-17`로 변경한다.
   - `openjdk:8`에서 `openjdk:17-alpine`으로 변경한다.
 
 ```dockerfile
@@ -107,9 +108,7 @@ public class BlogController {
 
 ## 2. JPA QueryDSL Compatibility
 
-`JPA`, `QueryDSL`을 사용한다면 `EntityManager`가 호환이 되지 않는 문제가 발생한다. 기존 `EntityManager`는 `javax.persistence.*` 패키지에 속한다. `jakarta.persistence.*` 패키지로 대체되면서 `JPAQueryFactory` 클래스에서 컴파일 에러가 발생한다.
-
-- `pom.xml` 파일의 `QueryDSL` 관련 의존성에 `jakarta` 식별자(classifier)를 추가한다.
+`JPA`, `QueryDSL`을 사용한다면 `EntityManager`가 호환이 되지 않는 문제가 발생한다. 기존 `EntityManager`는 `javax.persistence.*` 패키지에 속한다. `jakarta.persistence.*` 패키지로 대체되면서 `JPAQueryFactory` 클래스에서 컴파일 에러가 발생한다. `pom.xml` 파일의 `QueryDSL` 관련 의존성에 `jakarta` 식별자(classifier)를 추가한다.
 
 ```xml
     <dependency>
@@ -131,7 +130,7 @@ public class BlogController {
 
 스프링 부트를 `3.0.X` 버전으로 업그레이드되었으므로 이에 맞는 스프링 클라우드 버전을 사용한다. 스프링 클라우드 공식 홈페이지에 릴리즈 트레인(release train)이 표로 정리되어 있다.
 
-| Release Train | Release Train |
+| Release Train | Boot Version |
 |:---:|:---|
 | 2022.0.x aka Kilburn | 3.0.x |
 | 2021.0.x aka Jubilee | 2.6.x, 2.7.x (Starting with 2021.0.3) |
@@ -142,9 +141,7 @@ public class BlogController {
 | Edgware | 1.5.x |
 | Dalston | 1.5.x |
 
-다음과 같이 `pom.xml` 파일의 스프링 클라우드 버전을 변경한다.
-
-- `2021.0.3`에서 `2022.0.1`으로 변경한다.
+다음과 같이 `pom.xml` 파일의 스프링 클라우드 버전을 `2021.0.3`에서 `2022.0.1`로 변경한다.
 
 ```xml
     <properties>
@@ -159,7 +156,7 @@ public class BlogController {
 org.springframework.cloud:spring-cloud-starter-sleuth:jar:unknown was not found in https://repo.maven.apache.org/maven2 during a previous attempt. This failure was cached in the local repository and resolution is not reattempted until the update interval of central has elapsed or updates are forced
 ```
 
-클라우드 환경에서 트랜잭션 추적을 위해 사용했던 `Spring Cloud Sleuth`는 릴리즈 체인에서 제외되었다. 대신 `Micrometer Tracing` 프로젝트에서 관리하는 의존성으로 대체되었다.
+클라우드 환경에서 트랜잭션 추적을 위해 사용했던 `Spring Cloud Sleuth`는 릴리즈 트레인에서 제외되었다. 대신 `Micrometer Tracing` 프로젝트에서 관리하는 의존성으로 대체되었다.
 
 > Spring Cloud Sleuth<br/>
 > This project has been removed from the release train.
@@ -215,8 +212,6 @@ logging:
   pattern:
     level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 ```
-
-##### TraceID and SpanID in Log
 
 위 작업을 수행하면 다음과 같은 로그를 볼 수 있다.
 

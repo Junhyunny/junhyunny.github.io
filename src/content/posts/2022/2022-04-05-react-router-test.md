@@ -7,14 +7,14 @@ categories:
   - "javascript"
   - "react"
   - "jest"
+summary: "화면 전환을 검증하는 React Router 테스트 방법으로 실제 화면 컴포넌트, 화면 컴포넌트 스텁, useNavigate 스파이를 사용하는 방식을 비교해 정리했다."
 ---
 
 ## 0. 들어가면서
 
-화면이 정상적으로 바뀌었는지 확인할 수 있는 테스트 방법을 몇 가지 정리해보았다. 상황에 맞고, 팀원들 혹은 페어(pair)가 동의하는 방법으로 테스트를 작성하면 좋을 것 같다. 테스트 코드를 읽고 이해하는데 도움을 주는 구현체 코드를 우선 확인해보겠다.
+화면이 정상적으로 바뀌었는지 확인할 수 있는 테스트 방법을 몇 가지 정리해봤다. 상황에 맞고, 팀원들 혹은 페어(pair)가 동의하는 방법으로 테스트를 작성하면 좋을 것 같다. 테스트 코드를 읽고 이해하는 데 도움을 주는 구현체 코드를 우선 확인해보자.
 
-##### 실제 구현 코드
-- `React Router V6`를 사용하였다.
+- `React Router V6`를 사용했다.
 - 간단하게 버튼을 눌러 다음 화면으로 넘어가는 기능이 존재한다.
 
 ```jsx
@@ -49,7 +49,7 @@ export default App
 - `FirstPage` 화면 컴포넌트에 문구가 변경된다면 해당 테스트가 깨진다.
 - 실제 구현된 화면 컴포넌트가 없다면 테스트가 불가능하다. 
 
-##### 테스트 코드
+테스트 코드는 다음과 같다.
 
 ```jsx
 import { render, screen } from '@testing-library/react'
@@ -84,7 +84,7 @@ it('route FirstPage', () => {
   - 에러 발생 - `Error: useNavigate() may be used only in the context of a <Router> component.`
 - 아직 개발되지 않은 화면 컴포넌트 테스트에 유용하다.
 
-##### 테스트 코드
+테스트 코드는 다음과 같다.
 
 ```jsx
 import { render, screen } from '@testing-library/react'
@@ -117,10 +117,10 @@ it('route FirstPage - 2', () => {
 - 화면 전환 이벤트가 발생했을 때 적절한 횟수, 경로로 `navigate` 스파이를 호출했는지 확인한다.
 
 다음과 같은 특징이 있다.
-- `useNavigate` 훅을 오버라이딩하였기 때문에 `MemoryRouter`가 불필요하다.
+- `useNavigate` 훅을 오버라이딩했기 때문에 `MemoryRouter`가 불필요하다.
 - 아직 개발되지 않은 화면 컴포넌트 테스트에 유용하다.
 
-##### 테스트 코드
+테스트 코드는 다음과 같다.
 
 ```jsx
 import { render, screen } from '@testing-library/react'

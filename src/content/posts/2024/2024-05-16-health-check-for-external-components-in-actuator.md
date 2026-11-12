@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/health-check-for-external-components-in-actuator/"
 categories:
   - "spring-boot"
+summary: "스프링 액추에이터의 기본 헬스 체크를 살펴보고, HealthIndicator를 구현해 외부 서비스 상태까지 헬스 체크에 포함하는 방법을 도커 컴포즈 예제로 정리했다."
 recommendedPosts:
   - title: "Spring Boot Actuator"
     href: "https://junhyunny.github.io/spring-boot/spring-boot-actuator/"
@@ -16,9 +17,7 @@ recommendedPosts:
 
 ## 1. Default Health Check in Actuator
 
-액추에이터가 기본으로 제공하는 애플리케이션 헬스 체크를 수행하면 다음과 같은 응답을 받는다. 이 헬스 체크 결과는 액추에이터 의존성을 추가하기만 해도 얻을 수 있다.
-
-- 상태(status) 키에 "UP"이라는 값을 응답으로 받는다.
+액추에이터가 기본으로 제공하는 애플리케이션 헬스 체크를 수행하면 다음과 같은 응답을 받는다. 이 헬스 체크 결과는 액추에이터 의존성을 추가하기만 해도 얻을 수 있다. 상태(status) 키에 "UP"이라는 값을 응답으로 받는다.
 
 ```
 $ curl http://localhost:8080/actuator/health | jq .
@@ -32,19 +31,17 @@ $ curl http://localhost:8080/actuator/health | jq .
 
 ## 2. Health check for external components
 
-서버 애플리케이션은 데이터베이스(database), 캐시(cache) 혹은 다른 서비스 같은 외부 컴포넌트들과 협력한다. 액추에이터는 서버 애플리케이션이 협력하는 외부 컴포넌트들의 헬스 체크까지 함께 수행할 수 있다. 다음과 같은 연결 구조를 갖는 애플리케이션의 액추에이터를 통해 외부 컴포넌트들의 헬스 체크를 해본다. 도커 컴포즈(docker compose)를 사용해 테스트 애플리케이션과 컴포넌트들 사이의 연결 고리를 만든다.
+서버 애플리케이션은 데이터베이스(database), 캐시(cache) 혹은 다른 서비스 같은 외부 컴포넌트들과 협력한다. 액추에이터는 서버 애플리케이션이 협력하는 외부 컴포넌트들의 헬스 체크까지 함께 수행할 수 있다. 다음과 같은 연결 구조를 갖는 애플리케이션의 액추에이터를 통해 외부 컴포넌트들의 헬스 체크를 해보자. 도커 컴포즈(docker compose)를 사용해 테스트 애플리케이션과 컴포넌트들 사이의 연결 고리를 만든다.
 
 - Postgres 데이터베이스를 사용한다.
 - 레디스(redis) 세션을 사용한다.
 - 외부 서비스와 통신한다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/health-check-for-external-components-in-actuator-01.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/health-check-for-external-components-in-actuator-01.png" width="100%" class="image__border">
 </div>
 
-### 2.1. build.gradle
-
-먼저 의존성을 확인해보자. Postgres 데이터베이스와 레디스 세션을 사용하기 때문에 다음과 같은 의존성이 필요하다.
+먼저 `build.gradle` 파일의 의존성을 확인해보자. Postgres 데이터베이스와 레디스 세션을 사용하기 때문에 다음과 같은 의존성이 필요하다.
 
 - postgresql - Postgres 데이터베이스 드라이버
 - spring-session-data-redis - 레디스 세션
@@ -83,15 +80,13 @@ tasks.named('test') {
 }
 ```
 
-### 2.2. application.yml
-
-데이터베이스, 레디스 그리고 액추에이터에 대한 설정을 추가한다.
+`application.yml` 파일에는 데이터베이스, 레디스 그리고 액추에이터에 대한 설정을 추가한다.
 
 - 데이터베이스 연결 타임 아웃 시간을 5초로 설정한다.
   - 기본 연결 타임 아웃 시간이 30초다.
   - 헬스 체크 요청이 30초 동안 대기(pending)하는 것을 5초로 줄인다.
 - `management.endpoint.health.show-details` 속성을 `always` 값으로 설정한다.
-  - 데이터베이스와 디스크는 상태 확인은 기본적으로 포함된다.
+  - 데이터베이스와 디스크 상태 확인은 기본적으로 포함된다.
   - 레디스, 외부 서비스 상태 확인은 별도 컴포넌트로 구현해야 한다.
 
 ```yml
@@ -118,9 +113,7 @@ management:
         include: health
 ```
 
-### 2.3. AppConfig Class
-
-액추에이터는 외부 컴포넌트의 헬스 체크를 위해 HealthIndicator 인터페이스를 제공한다. 외부 컴포넌트와 헬스 체크가 필요한 경우 HealthIndicator 인터페이스를 확장한다.
+액추에이터는 외부 컴포넌트의 헬스 체크를 위해 HealthIndicator 인터페이스를 제공한다. 외부 컴포넌트와 헬스 체크가 필요한 경우 HealthIndicator 인터페이스를 확장한다. AppConfig 클래스에는 다음과 같이 레디스 헬스 체크에 필요한 빈을 등록한다.
 
 1. 레디스 연결 상태를 확인하기 위해 RedisHealthIndicator 객체를 스프링 빈(bean)으로 등록한다. 
   - RedisHealthIndicator 클래스는 액추에이터에서 제공한다. 
@@ -164,8 +157,6 @@ public class AppConfig {
     }
 }
 ```
-
-### 2.4. ExternalServiceHealthIndicator Class
 
 외부 서비스의 헬스 체크를 위한 ExternalServiceHealthIndicator 클래스를 생성한다. 외부 서비스도 액추에이터를 사용하고 있다고 가정하고 RestTemplate 객체와 협업한다. 
 

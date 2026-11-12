@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/javascript/javascript-for-of-loop/"
 categories:
   - "javascript"
+summary: "자바스크립트 for-of 반복문이 순회하는 반복 가능(iterable) 객체의 조건을 살펴보고, 이터레이터 프로토콜과 Symbol.iterator 함수로 일반 객체를 반복 가능하게 만드는 방법을 정리했다."
 recommendedPosts:
   - title: "자바스크립트 프로토타입 (JavaScript Prototype)"
     href: "https://junhyunny.github.io/javascript/prototype-in-javascript/"
@@ -21,13 +22,13 @@ JavaScript로 for 반복문을 작성하다 보면 헷갈리는 문법이 있다
 - for-of
 - for-in
 
-매번 찾아보거나 테스트 코드를 통해 미리 실행해보는 식으로 작업했다. 간략하게라도 정리하면 한동안 사용 기준을 잊지 않을 것 같아서 간단하게 포스트로 작성하였다. 먼저 `for-of` 반복문에 대해 살펴보겠다.
+매번 찾아보거나 테스트 코드를 통해 미리 실행해보는 식으로 작업했다. 간략하게라도 정리하면 한동안 사용 기준을 잊지 않을 것 같아서 간단하게 포스트로 작성했다. 먼저 `for-of` 반복문에 대해 살펴보자.
 
 ## 1. Iterable Object
 
 > The for...of statement executes a loop that operates on a sequence of values sourced from an iterable object.
 
-`for-of` 루프(loop)는 반복 가능 객체(iterable object)로부터 순차적으로 값을 사용하는 방식이다. 먼저 반복 가능 객체에 대해 살펴보겠다.
+`for-of` 루프(loop)는 반복 가능 객체(iterable object)로부터 순차적으로 값을 사용하는 방식이다. 먼저 반복 가능 객체에 대해 살펴보자.
 
 - `반복 가능 객체`는 ES2015에 도입되었으며 객체 속성 중 `Symbol.iterator`라는 특별한 함수가 존재한다.
 - `Symbol.iterator` 함수를 가진 객체는 `이터러블 프로토콜(iterable protocol)`을 만족한다고 표현한다.
@@ -42,7 +43,7 @@ JavaScript로 for 반복문을 작성하다 보면 헷갈리는 문법이 있다
 
 ## 2. for-of Loop Example
 
-간단한 코드를 통해 동작을 살펴보겠다.
+간단한 코드를 통해 동작을 살펴보자.
 
 - `array` 배열 객체 순환
   - 배열에 담긴 문자열이 순차적으로 출력된다.
@@ -81,7 +82,7 @@ for(const item of object) {
 
 ## 3. Make Iterable Object
 
-`이터러블 프로토콜`을 만족하는 객체는 반복 가능 객체이다. 마찬가지로 일반 객체라도 `이터러블 프로토콜`을 만족하게 만든다면 반복 가능 객체로 만들 수 있다. 아래 코드처럼 반복 불가능한 객체라 에러가 발생한 상황을 변경해보겠다.
+`이터러블 프로토콜`을 만족하는 객체는 반복 가능 객체이다. 마찬가지로 일반 객체라도 `이터러블 프로토콜`을 만족하게 만든다면 반복 가능 객체로 만들 수 있다. 아래 코드처럼 반복 불가능한 객체라 에러가 발생한 상황을 변경해보자.
 
 ```js
 const object = {
@@ -110,7 +111,7 @@ for(const item of object) {
 
 ### 3.2. Define Symbol.iterator Function
 
-이터레이터 객체를 반환하는 `Symbol.iterator` 함수를 선언하고 코드를 실행해보겠다.
+이터레이터 객체를 반환하는 `Symbol.iterator` 함수를 선언하고 코드를 실행해보자.
 
 - `Symbol.iterator` 함수는 객체를 반환한다.
   - position 속성 - 현재 가리키는 값의 위치 정보

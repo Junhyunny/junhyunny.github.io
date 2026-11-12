@@ -7,6 +7,7 @@ categories:
   - "react"
   - "jest"
   - "test-driven-development"
+summary: "waitFor 함수의 콜백 안에서 userEvent type 함수로 타이핑해 리-렌더링이 일어나지 않고 테스트가 실패한 원인을 분석하고, 렌더링 대기와 find- 쿼리로 해결한 과정을 기록했다."
 ---
 
 ## 1. 문제 현상
@@ -92,7 +93,7 @@ function App() {
 export default App
 ```
 
-테스트 코드를 실행할 때 출력되는 에러 로그를 통해 텍스트 박스에 입력 문장의 맨 마지막 문자만 할당됨을 확인하였다. 현상의 원인을 확인하기 위해 많은 시간을 들였지만, 뚜렷한 이유를 찾지는 못했다. 에러 로그를 보면 텍스트 박스의 `value` 값에 "o"만 할당되어 있다.
+테스트 코드를 실행할 때 출력되는 에러 로그를 통해 텍스트 박스에 입력 문장의 맨 마지막 문자만 할당됨을 확인했다. 현상의 원인을 확인하기 위해 많은 시간을 들였지만, 뚜렷한 이유를 찾지는 못했다. 에러 로그를 보면 텍스트 박스의 `value` 값에 "o"만 할당되어 있다.
 
 ```
 Error: expect(element).not.toBeInTheDocument()
@@ -132,7 +133,7 @@ Ignored nodes: comments, <script />, <style />
     ...
 ```
 
-디버깅을 위해 로그를 출력해보았다.
+디버깅을 위해 로그를 출력해봤다.
 
 ```jsx
 function App() {
@@ -230,7 +231,7 @@ export default App
 
 ## 2. 문제 원인
 
-타이핑 이벤트가 발생할 때 리-렌더링이 되지 않은 것이 문제였다. 어떤 코드가 이런 현상을 일으키는지 디버깅해보았다. 결과만 보면 `waitFor` 함수의 콜백 함수 내에서 타이핑 이벤트를 수행하였기 때문에 문제가 발생했다.
+타이핑 이벤트가 발생할 때 리-렌더링이 되지 않은 것이 문제였다. 어떤 코드가 이런 현상을 일으키는지 디버깅해봤다. 결과만 보면 `waitFor` 함수의 콜백 함수 내에서 타이핑 이벤트를 수행했기 때문에 문제가 발생했다.
 
 디버깅 모드로 콜 스택을 살펴보면 `waitFor` 함수와 `userEvent.type` 함수 내부에서 모두 react-dom.development.js 모듈의 `batchedUpdates` 함수를 호출한다. `batchedUpdates` 함수 내부 `try-finally` 구문의 `finally` 블록에서 리-렌더링을 수행하기 위한 함수를 호출하는데, 현재 실행 중인 컨텍스트가 `NoContext`여야 리-렌더링을 수행한다.
 
@@ -269,7 +270,7 @@ function batchedUpdates$1(fn, a) {
 3. 타이핑이 모두 완료된 후 `waitFor` 콜 스택 `batchedUpdates` 함수의 `finally` 블록에서 `executionContext === NoContext` 조건이 만족된다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/warn-using-user-event-type-in-wait-for-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/warn-using-user-event-type-in-wait-for-01.png" width="100%" class="image__border">
 </div>
 
 ## 3. 해결 방법
@@ -342,7 +343,7 @@ function batchedUpdates$1(fn, a) {
 최초 에러가 발생한 테스트와 새로 만든 두 개 테스트의 실행 결과이다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/warn-using-user-event-type-in-wait-for-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/warn-using-user-event-type-in-wait-for-02.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

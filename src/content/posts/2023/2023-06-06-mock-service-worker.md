@@ -7,6 +7,7 @@ categories:
   - "information"
   - "react"
   - "test-driven-development"
+summary: "네트워크 요청을 가로채 모의 응답을 내려주는 목 서비스 워커(MSW)의 동작 원리를 살펴보고, 테스트와 개발 런타임에서 API를 모킹하는 방법을 정리했다."
 recommendedPosts:
   - title: "테스트 더블(Test Double)"
     href: "https://junhyunny.github.io/test/test-driven-development/test-double/"
@@ -18,7 +19,7 @@ recommendedPosts:
 
 ## 1. Mock Service Worker
 
-목 서비스 워커(MSW, Mock Service Worker)는 이름처럼 [서비스 워커(Service Worker)][service-worker-api-link]의 [테스트 더블(test double)][test-double-link]을 의미한다. API 모킹(mocking)을 지원하는 라이브러리이며 서버로 보내는 네트워크 요청을 가로채어 모의 응답을 내려준다. 서비스 워커가 무엇이고 어떤 동작을 하는지 안다면 목 서비스 워커를 이해하는데 도움이 된다. 먼저 서비스 워커에 대해 간단하게 알아본다.
+목 서비스 워커(MSW, Mock Service Worker)는 이름처럼 [서비스 워커(Service Worker)][service-worker-api-link]의 [테스트 더블(test double)][test-double-link]을 의미한다. API 모킹(mocking)을 지원하는 라이브러리이며 서버로 보내는 네트워크 요청을 가로채어 모의 응답을 내려준다. 서비스 워커가 무엇이고 어떤 동작을 하는지 안다면 목 서비스 워커를 이해하는 데 도움이 된다. 먼저 서비스 워커에 대해 간단하게 알아보자.
 
 ### 1.1. Service Worker
 
@@ -37,7 +38,7 @@ recommendedPosts:
 - 설치를 통해 백그라운드에서 별도로 동작할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/mock-service-worker-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/mock-service-worker-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. How does Mock Service Worker work?
@@ -53,15 +54,15 @@ recommendedPosts:
 5. 서비스 워커는 모의 응답을 웹 애플리케이션에 전달한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/mock-service-worker-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/mock-service-worker-02.png" width="100%" class="image__border">
 </div>
 <center>https://mswjs.io/docs/#request-flow-diagram</center>
 
 ## 2. Practice
 
-간단한 TODO 리스트 애플리케이션 예시를 통해 목 서비스 워커의 사용 방법을 알아본다.
+간단한 TODO 리스트 애플리케이션 예시를 통해 목 서비스 워커의 사용 방법을 알아보자.
 
-CRA(Create React App)을 통해 프로젝트를 생성하였으며 전체적인 구조는 다음과 같다. 
+CRA(Create React App)를 통해 프로젝트를 생성했으며 전체적인 구조는 다음과 같다. 
 
 ```
 ./
@@ -186,7 +187,7 @@ afterAll(() => server.close());
 
 ### 2.2. Mock Service Worker for test
 
-간단한 TODO 리스트 애플리케이션으로 목 서비스 워커를 사용한 테스트 코드를 작성해보자. 먼저 테스트 대상이 될 구현 코드를 살펴본다.
+간단한 TODO 리스트 애플리케이션으로 목 서비스 워커를 사용한 테스트 코드를 작성해보자. 먼저 테스트 대상이 될 구현 코드다.
 
 - 이전에 작성한 TODO 항목들을 화면에 표시한다.
 - 신규 TODO를 추가하면 서버로 저장 요청 후 정상적인 응답을 받는 경우 화면에 추가한다.
@@ -282,9 +283,7 @@ import { setupWorker } from "msw";
 export const worker = setupWorker(...handlers);
 ```
 
-리액트 애플리케이션이 실행될 때 개발 서버에서만 목 서비스 워커가 함께 실행되도록 아래 코드를 추가한다.
-
-- 개발 서버로 애플리케이션을 실행하면 `NODE_ENV` 환경 변수는 `development`이므로 이를 확인한다.
+리액트 애플리케이션이 실행될 때 개발 서버에서만 목 서비스 워커가 함께 실행되도록 아래 코드를 추가한다. 개발 서버로 애플리케이션을 실행하면 `NODE_ENV` 환경 변수는 `development`이므로 이를 확인한다.
 
 ```tsx
 import React from "react";

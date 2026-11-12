@@ -1,11 +1,12 @@
 ---
 title: "Buildkit으로 도커 빌드 최적화"
 publishedAt: "2022-10-29"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:15:20+09:00"
 canonicalPath: "/information/docker/optimize-docker-build-with-buildkit/"
 categories:
   - "information"
   - "docker"
+summary: "의존성이 자주 바뀌는 메이븐 프로젝트에서 도커 Buildkit의 RUN --mount=type=cache 옵션으로 의존성을 캐싱해 이미지 재빌드 시간을 줄인 과정을 정리했다."
 recommendedPosts:
   - title: "Optimize Docker Build of Maven Project"
     href: "https://junhyunny.github.io/docker/maven/optimize-maven-project-when-dockerizing/"
@@ -13,26 +14,28 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link] 포스트에선 메이븐(maven) 프로젝트를 컨테이너 이미지로 빌드하는 과정을 최적화하는 방법에 대해 다뤘다. 해당 포스트에서 설명한 방법은 소스 코드가 바뀌었을 때 캐싱된 레이어를 통해 빌드 속도를 최적화한다는 내용이었다. 안정된 프로젝트인 경우 의존성(dependency) 변경이 거의 없지만, 프로젝트 초기엔 잦은 변경이 발생한다. 이러면 의존성들을 미리 받아 놓는 캐싱(caching) 레이어를 통해 얻을 수 있는 이점이 거의 없게 된다. `Docker Buildkit`을 사용하면 이런 문제를 완화할 수 있다. 이번 포스트에선 `Buildkit`에 대한 내용과 메이븐 프로젝트 빌드를 최적화하는 방법에 대해 알아보겠다.
+[Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link] 글에선 메이븐(maven) 프로젝트를 컨테이너 이미지로 빌드하는 과정을 최적화하는 방법을 다뤘다. 그 글에서 설명한 방법은 소스 코드가 바뀌었을 때 캐싱된 레이어를 이용해 빌드 속도를 높이는 것이었다.
+
+안정된 프로젝트는 의존성(dependency)이 거의 바뀌지 않지만, 프로젝트 초기엔 자주 바뀐다. 이러면 의존성을 미리 받아 놓는 캐싱(caching) 레이어로 얻을 수 있는 이점이 거의 없다. `Docker Buildkit`을 사용하면 이런 문제를 완화할 수 있다. 이번 글에선 `Buildkit`에 관한 내용과 메이븐 프로젝트 빌드를 최적화하는 방법을 정리했다.
 
 ## 1. Docker Buildkit
 
-18.09 릴리즈부터 지원하는 기능이다. `Buildkit`은 `Dockerfile`의 재사용성을 개선하고 빌드 성능을 개선하는 도구다. 다음과 같은 복잡한 시나리오에 도움을 준다.
+`Buildkit`은 18.09 릴리스부터 지원하는 기능으로, `Dockerfile`의 재사용성과 빌드 성능을 개선하는 도구다. 다음과 같은 복잡한 시나리오에 도움을 준다.
 
-- 사용하지 않는 빌드 스테이지(stage)를 감지하고 제외시킨다.
-- 독립적인 빌드 스테이지는 병렬적으로 수행한다.
-- 빌드 컨텍스트와 빌드 사이의 변경된 파일을 점진적으로 전달한다.
-- 빌드 컨텍스트에서 사용하지 않는 파일을 감지하고 전달에서 제외시킨다.
+- 사용하지 않는 빌드 스테이지(stage)를 감지하고 제외한다.
+- 독립적인 빌드 스테이지는 병렬로 수행한다.
+- 빌드 컨텍스트와 빌드 사이에 변경된 파일만 점진적으로 전달한다.
+- 빌드 컨텍스트에서 사용하지 않는 파일을 감지하고 전달에서 제외한다.
 - `REST API`를 사용할 때 부수 효과(side effect)를 피할 수 있다.
-- 자동적인 프루닝(pruning)을 위해 빌드 캐시에 우선 순위를 정한다.
+- 자동 프루닝(pruning)을 위해 빌드 캐시에 우선순위를 정한다.
 
-다양한 기능들을 제공하지만, `Buildkit`은 빌드 성능, 스토리지 관리, 확장성 등을 향상시키는 것이 주 역할이다.
+다양한 기능을 제공하지만, `Buildkit`의 주된 역할은 빌드 성능, 스토리지 관리, 확장성 등을 향상하는 것이다.
 
 ### 1.1. LLB(Low Level Build)
 
-`LLB(Low Level Build)`의 기술적 세부 사항은 상당히 복잡하기 때문에 소개 페이지에 있는 내용들을 위주로 가볍게 살펴보겠다. `Buildkit`은 `LLB`라는 `binary intermediate format`을 기반으로 동작한다. `LLB`는 컨텐츠 주소를 정의할 수 있는 의존성 그래프를 정의한다. 이는 매우 복잡한 빌드를 통합하는데 사용할 수 있다.
+`LLB(Low Level Build)`의 기술적 세부 사항은 상당히 복잡하기 때문에 소개 페이지에 있는 내용을 위주로 가볍게 살펴보자. `Buildkit`은 `LLB`라는 `binary intermediate format`을 기반으로 동작한다. `LLB`는 콘텐츠 주소를 정의할 수 있는 의존성 그래프를 정의하며, 이는 매우 복잡한 빌드를 통합하는 데 사용할 수 있다.
 
-빌드의 실행과 캐싱과 관련된 모든 것들이 `LLB`에 정의된다. 캐싱 모델 전체가 다시 써지는 레거시 빌드와 다르게 `LLB`는 빌드 그래프와 구체적인 동작들이 정의된 컨텐츠의 체크섬(checksum)들을 직접 추적한다. 이런 동작 방법은 빌드를 빠르고, 간결하고, 이식성 좋게 만들어준다.
+빌드의 실행, 캐싱과 관련된 모든 것이 `LLB`에 정의된다. 캐싱 모델 전체를 다시 쓰는 레거시 빌드와 달리 `LLB`는 빌드 그래프와 구체적인 동작이 정의된 콘텐츠의 체크섬(checksum)을 직접 추적한다. 이런 동작 방식은 빌드를 빠르고, 간결하고, 이식성 좋게 만들어 준다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/optimize-docker-build-with-buildkit-01.png" width="75%" class="image__border">
@@ -41,62 +44,61 @@ recommendedPosts:
 
 ### 1.2. Frontend
 
-프론트엔드(Frontend)는 사람이 읽을 수 있는 빌드 형식을 가지고 `LLB`로 변환하는 컴포넌트다. 프론트엔드는 이미지로써 배포될 수 있으며 사용자는 특정 프론트엔드 버전을 지정하여 사용하는 것이 가능하다.
+프론트엔드(Frontend)는 사람이 읽을 수 있는 빌드 형식을 `LLB`로 변환하는 컴포넌트다. 프론트엔드는 이미지로 배포될 수 있으며, 사용자는 특정 프론트엔드 버전을 지정해 사용할 수 있다.
 
 ### 1.3. RUN --mount Types
 
-`RUN --mount` 옵션을 통해 마운트(mount) 타입을 지정하면 이미지 빌드 프로세스가 접근할 수 있는 임시 마운트를 생성할 수 있다. 4가지 종류의 마운트가 존재한다.
+`RUN --mount` 옵션으로 마운트(mount) 타입을 지정하면 이미지 빌드 프로세스가 접근할 수 있는 임시 마운트를 생성할 수 있다. 마운트에는 다음 4가지 종류가 있다.
 
-- `bind` - 컨텍스트 디렉토리를 읽기 전용으로 `bind-mount`한다.
-- `cache` - 컴파일러나 패키지 매니저가 사용할 수 있는 임시 디렉토리를 마운트한다.
-- `secret` - 빌드 이미지에 함께 추가하지 않고 개인 키 같은 보안 파일에 액세스할 수 있다.
-- `ssh` - 빌드 시 암호 구문을 지원하여 SSH 에이전트를 통해 SSH 키에 접근할 수 있다.
+- `bind` - 컨텍스트 디렉터리를 읽기 전용으로 `bind-mount`한다.
+- `cache` - 컴파일러나 패키지 매니저가 사용할 수 있는 임시 디렉터리를 마운트한다.
+- `secret` - 빌드 이미지에 함께 추가하지 않고 개인 키 같은 보안 파일에 접근할 수 있다.
+- `ssh` - 빌드 시 암호 구문을 지원해 SSH 에이전트를 통해 SSH 키에 접근할 수 있다.
 
 #### 1.3.1. --mount=type=cache 상세 옵션
 
-이번 포스트에서 다루는 빌드 속도 개선 방법은 `cache` 타입을 통해 이뤄졌다. 이와 관련된 옵션들만 알아보겠다.
+이번 글에서 다루는 빌드 속도 개선 방법은 `cache` 타입을 사용한다. 이와 관련된 옵션은 다음과 같다.
 
 - id 옵션
-  - 다른 캐시를 구분할 수 있는 아이디 값이며 기본 값은 `target`이다.
+  - 다른 캐시와 구분하는 아이디 값이며 기본값은 `target`이다.
 - target 옵션
   - 마운트할 경로(path)를 지정한다.
 - ro, readonly 옵션
-  - 해당 옵션을 사용하면 읽기 전용으로 캐시로 지정한다.
+  - 이 옵션을 사용하면 캐시를 읽기 전용으로 지정한다.
 - sharing 옵션
   - `shared`, `private`, `locked` 3가지 중 한 가지 값을 가진다.
-  - 기본 값은 `shared`이다.
-  - `shared` 값 - 다른 사용자(writer)들에게 동시적으로 사용된다.
-  - `private` 값 - 다른 사용자들이 존재하는 경우 새로운 마운트를 생성한다.
+  - 기본값은 `shared`이다.
+  - `shared` 값 - 여러 사용자(writer)가 동시에 사용한다.
+  - `private` 값 - 다른 사용자가 있으면 새로운 마운트를 생성한다.
   - `locked` 값 - 두 번째 사용자는 첫 번째 사용자가 마운트 사용을 마칠 때까지 대기한다.
 - from 옵션
-  - 캐시 마운트를 기준으로 스테이지를 빌드한다.
-  - 기본 값은 빈 디렉토리이다.
+  - 캐시 마운트의 기준이 되는 빌드 스테이지다.
+  - 기본값은 빈 디렉터리다.
 - source 옵션
-  - `from` 값의 하위 경로이다.
-  - 기본 값은 `from` 값의 루트 경로이다.
+  - `from` 값의 하위 경로다.
+  - 기본값은 `from` 값의 루트 경로다.
 - mode 옵션
-  - 새로운 캐시 디렉토리의 파일 모드이다.
-  - 기본 값은 `0755`이다.
+  - 새로운 캐시 디렉터리의 파일 모드다.
+  - 기본값은 `0755`이다.
 - uid 옵션
-  - 캐시 디렉토리를 위한 사용자 아이디이다.
-  - 기본 값은 0이다.
+  - 캐시 디렉터리의 사용자 아이디다.
+  - 기본값은 0이다.
 - gid 옵션
-  - 캐시 디렉토리를 위한 그룹 아이디이다.
-  - 기본 값은 0이다.
+  - 캐시 디렉터리의 그룹 아이디다.
+  - 기본값은 0이다.
 
 ## 2. Optimize Maven Project Build
 
-[Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link] 예시를 기준으로 의존성이 바뀌었을 때 빌드 속도 차이가 얼마나 나는지 확인해보겠다.
+[Optimize Docker Build of Maven Project][optimize-maven-project-when-dockerizing-link] 예시를 기준으로 의존성이 바뀌었을 때 빌드 속도 차이가 얼마나 나는지 확인해 보자.
 
 ### 2.1. Activate Buildkit
 
-`Buildkit` 지원을 활성화시킨다. 18.09 버전부터 지원하였고, 19.03 버전까진 기본 방식이 아니므로 활성화 여부를 확인 후 적용한다. 환경 변수를 통해 지정하는 방법과 `daemon.json` 파일 설정을 변경하는 방법이 있다. 이번 포스트에선 `daemon.json` 설정을 변경하였다.
+먼저 `Buildkit` 지원을 활성화한다. 18.09 버전부터 지원했지만 19.03 버전까진 기본 방식이 아니므로 활성화 여부를 확인한 뒤 적용한다. 환경 변수로 지정하는 방법과 `daemon.json` 파일 설정을 변경하는 방법이 있는데, 이번 글에선 `daemon.json` 설정을 변경했다. 이 파일의 위치는 운영체제별로 다르다.
 
-##### daemon.json 설정 변경
+- MacOS - /Users/{userName}/.docker/daemon.json
+- Linux - /etc/docker/daemon.json
 
-- 운영체제 별로 해당 파일 위치가 다르다.
-  - MacOS - /Users/{userName}/.docker/daemon.json
-  - Linux - /etc/docker/daemon.json
+`daemon.json` 파일을 다음과 같이 변경한다.
 
 ```json
 {
@@ -108,10 +110,7 @@ recommendedPosts:
 
 ### 2.2. 시간 측정 - Buildkit 미적용
 
-#### 2.2.1. Dockerfile Script
-
-- 의존성을 변경하는 `pom.xml` 파일에 변경이 있을 때만 필요한 의존성을 받는 레이어를 재실행한다.
-  - RUN mvn dependency:go-offline
+`Buildkit`을 적용하지 않은 `Dockerfile` 스크립트는 다음과 같다. 의존성을 정의하는 `pom.xml` 파일이 바뀌었을 때만 필요한 의존성을 받는 레이어(`RUN mvn dependency:go-offline`)를 다시 실행한다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -139,10 +138,7 @@ EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
 ```
 
-#### 2.2.2. 최초 빌드 시간
-
-- 최초 이미지 빌드 시 필요한 의존성들을 준비하는 `RUN mvn dependency:go-offline` 레이어에서 607초 소요된다.
-- 빌드 시간이 총 662.4초 소요된다.
+최초 이미지 빌드 시 필요한 의존성을 준비하는 `RUN mvn dependency:go-offline` 레이어에서 607초가 걸렸고, 빌드에 총 662.4초가 걸렸다.
 
 ```
 $ docker build .
@@ -164,9 +160,7 @@ $ docker build .
  => => writing image sha256:56616a82fa61cb0a6c559edcc0861e6f9ce6b7b0046338a5b8725ddd5b4b41ae                                                                0.0s
 ```
 
-#### 2.2.3. 의존성 변경
-
-- `pom.xml` 파일에 다음과 같은 의존성을 추가한다.
+이제 `pom.xml` 파일에 다음과 같은 의존성을 추가한다.
 
 ```xml
     <dependency>
@@ -177,12 +171,7 @@ $ docker build .
     </dependency>
 ```
 
-#### 2.2.4. 이미지 재빌드 시간
-
-- `pom.xml` 파일이 변경되었으므로 그 아래 캐싱 레이어를 사용하지 못 한다.
-- 최초 빌드와 마찬가지로 `RUN mvn dependency:go-offline` 레이어에서 559.4초 소요된다.
-  - 캐싱된 레이어를 재사용하지 못하므로 모든 의존성을 다시 다운로드 받는다.
-- 빌드 시간이 총 573.7초 소요된다.
+이미지를 다시 빌드하면 `pom.xml` 파일이 바뀌었으므로 그 아래 캐싱 레이어를 사용하지 못한다. 캐싱된 레이어를 재사용하지 못해 모든 의존성을 다시 내려받기 때문에 최초 빌드와 마찬가지로 `RUN mvn dependency:go-offline` 레이어에서 559.4초가 걸렸다. 빌드에는 총 573.7초가 걸렸다.
 
 ```
 $ docker build .
@@ -199,16 +188,14 @@ $ docker build .
 
 ### 2.3. 시간 측정 - Buildkit 적용
 
-`Buildkit`을 적용한 후 의존성에 변경이 있었을 때 속도 차이가 얼마나 있는지 살펴보겠다.
-
-#### 2.3.1. Dockerfile Script
+`Buildkit`을 적용한 뒤 의존성이 바뀌었을 때 속도 차이가 얼마나 나는지 살펴보자. `Dockerfile` 스크립트에서 사용한 옵션은 다음과 같다.
 
 - `RUN --mount=type=cache` 옵션
-  - 컴파일러나 패키지 매니저들을 위한 캐시 디렉토리를 임의의 디렉토리에 연결한다.
-  - 컨테이너를 빌드할 때 컴파일러나 패키지 매니저는 캐시 디렉토리를 사용할 수 있다.
+  - 컴파일러나 패키지 매니저를 위한 캐시 디렉터리를 임의의 디렉터리에 연결한다.
+  - 컨테이너를 빌드할 때 컴파일러나 패키지 매니저는 캐시 디렉터리를 사용할 수 있다.
 - `target=/root/.m2` 옵션
   - 마운트할 경로를 지정한다.
-  - 메이븐 이미지가 사용하는 로컬 레포지토리 경로를 캐시 디렉토리로 지정한다.
+  - 메이븐 이미지가 사용하는 로컬 저장소 경로를 캐시 디렉터리로 지정한다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -236,10 +223,7 @@ EXPOSE 8080
 CMD ["java", "-jar", "app.jar"]
 ```
 
-#### 2.3.2. 최초 빌드 시간
-
-- 최초 이미지 빌드 시 필요한 의존성들을 준비하는 `RUN mvn dependency:go-offline` 레이어에서 1020.7초 소요된다.
-- 빌드 시간이 총 1063.1초 소요된다.
+최초 이미지 빌드 시 필요한 의존성을 준비하는 `RUN mvn dependency:go-offline` 레이어에서 1020.7초가 걸렸고, 빌드에 총 1063.1초가 걸렸다.
 
 ```
 $ docker build .
@@ -254,9 +238,7 @@ $ docker build .
  => => writing image sha256:c40d22d9c3b0b8467a859ce0bf545ea69fd6356006957f044f164767e14c6cc3                                                              0.0s
 ```
 
-#### 2.3.3. 의존성 변경
-
-- `pom.xml` 파일에 다음과 같은 의존성을 추가한다.
+앞에서와 같이 `pom.xml` 파일에 다음 의존성을 추가한다.
 
 ```xml
     <dependency>
@@ -267,12 +249,7 @@ $ docker build .
     </dependency>
 ```
 
-#### 2.3.4. 이미지 재빌드 시간
-
-- `pom.xml` 파일이 변경되었으므로 그 아래 캐싱 레이어를 사용하지 못 한다.
-- 최초 빌드에 사용한 캐시 디렉토리를 사용하므로 `RUN mvn dependency:go-offline` 레이어에서 4.7초 소요된다.
-  - 모든 의존성이 아니라 추가된 `lombok`만 다운로드 받는다.
-- 빌드 시간이 총 11.1초 소요된다.
+이미지를 다시 빌드하면 `pom.xml` 파일이 바뀌었으므로 그 아래 캐싱 레이어는 사용하지 못한다. 하지만 최초 빌드에 사용한 캐시 디렉터리를 사용하므로 모든 의존성이 아니라 추가된 `lombok`만 내려받는다. 그 결과 `RUN mvn dependency:go-offline` 레이어에서 4.7초, 빌드에 총 11.1초가 걸렸다.
 
 ```
 $ docker build .
@@ -289,7 +266,7 @@ $ docker build .
 
 ## CLOSING
 
-의존성 변경이 발생했을 때 단축된 시간을 간단한 표로 정리하면 다음과 같다. 최초 빌드 시간이 차이나는 것은 네트워크 등에 영향을 받을 수 있기 때문에 크게 고려할 사항이 아니다. 집중해야 하는 정보는 의존성 변경이 발생했을 때 빌드 시간의 차이다.
+의존성이 바뀌었을 때 단축된 시간을 간단한 표로 정리하면 다음과 같다. 최초 빌드 시간의 차이는 네트워크 등의 영향을 받을 수 있기 때문에 크게 고려할 사항이 아니다. 주목할 정보는 의존성이 바뀌었을 때의 빌드 시간 차이다.
 
 | | 최초 빌드 시간 | 의존성 변경 후 빌드 시간 |
 |:---:|:---:|:---:|

@@ -1,11 +1,12 @@
 ---
 title: "젠킨스 파이프라인 병렬 테스트(Parallel Tests in Jenkins Pipeline)"
 publishedAt: "2022-09-18"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/information/jenkins/parallel-tests-in-jenkins-pipeline/"
 categories:
   - "information"
   - "jenkins"
+summary: "프론트엔드와 백엔드 코드를 함께 가진 프로젝트에서 Jenkinsfile의 parallel 블록으로 테스트를 병렬 실행하는 방법을 정리했다."
 recommendedPosts:
   - title: "젠킨스(Jenkins) 설치"
     href: "https://junhyunny.github.io/information/jenkins/jenkins-install/"
@@ -17,11 +18,11 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-젠킨스(jenkins) 파이프라인은 필요하다면 병렬로 처리할 수 있다. 프론트엔드, 백엔드 서비스 코드를 모두 가진 하나의 프로젝트를 가지고 파이프라인 병렬 처리 방법을 알아보겠다.
+젠킨스(jenkins) 파이프라인은 필요하다면 병렬로 처리할 수 있다. 프론트엔드, 백엔드 서비스 코드를 모두 가진 하나의 프로젝트를 가지고 파이프라인 병렬 처리 방법을 정리했다.
 
 ## 1. 프로젝트 구조
 
-코드는 중요하지 않으니 프로젝트 구조만 살펴보겠다.
+코드는 중요하지 않으니 프로젝트 구조만 살펴보자.
 
 - backend 폴더는 Spring Boot 프로젝트이다.
   - BackendApplicationTests 클래스는 단위 테스트를 수행한다.
@@ -87,7 +88,7 @@ recommendedPosts:
 
 ## 2. Jenkinsfile 작성하기
 
-각 스테이지(stage) 별로 동작하는 모습을 살펴보겠다.
+각 스테이지(stage)별로 동작하는 모습을 살펴보자.
 
 - `tests` 스테이지
   - `parallel` 블록을 사용하여 백엔드, 프론트엔드 테스트를 병렬로 수행한다.
@@ -147,23 +148,21 @@ GitHub 웹 훅(web hook)이 연결된 젠킨스 파이프라인 잡(job) 하나�
 - Credentials(optional) - 저장소에서 소스 코드를 받을 때 필요한 인증키
 - Branch Specifier - 원격 저장소에서 사용하는 특정 브랜치
 - Script Path - `Jenkinsfile`이 위치한 경로와 파일명
-  - 프로젝트 루트 경로에 위치하였기 때문에 파일명만 추가한다.
+  - 프로젝트 루트 경로에 위치했기 때문에 파일명만 추가한다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/parallel-tests-in-jenkins-pipeline-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/parallel-tests-in-jenkins-pipeline-01.png" width="100%" class="image__border">
 </div>
 
 ## 4. Trigger Pipeline by Web Hook
 
-원격 저장소에 변경 이력을 만들면 웹 훅을 통해 파이프라인이 실행된다. `Jenkinsfile`에 정의한 대로 파이프라인이 실행되는지 확인한다. `Pipeline Graph View` 플러그인을 설치하면 병렬로 실행됐는지 여부를 확인할 수 있다.
+원격 저장소에 변경 이력을 만들면 웹 훅을 통해 파이프라인이 실행된다. `Jenkinsfile`에 정의한 대로 파이프라인이 실행되는지 확인한다. 파이프라인은 다음과 같이 동작한다.
 
-##### 파이프라인 동작
-
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/parallel-tests-in-jenkins-pipeline-02.gif" width="100%" class="image__border">
 </div>
 
-#### Pipeline Graph View 플러그인으로 확인한 실행 결과
+`Pipeline Graph View` 플러그인을 설치하면 병렬로 실행됐는지 여부를 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/parallel-tests-in-jenkins-pipeline-03.png" width="100%" class="image__border">

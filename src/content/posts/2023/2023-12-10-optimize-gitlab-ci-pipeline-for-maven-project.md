@@ -7,6 +7,7 @@ categories:
   - "gitlab-ci"
   - "maven"
   - "spring-boot"
+summary: "깃랩 CI에서 프로젝트 외부의 메이븐 로컬 저장소가 캐싱되지 않던 문제를, $CI_PROJECT_DIR 내부 경로를 캐싱하고 MAVEN_OPTS로 로컬 저장소 위치를 바꿔 해결했다."
 recommendedPosts:
   - title: "온-프레미스 환경을 위한 GitLab CI/CD 파이프라인"
     href: "https://junhyunny.github.io/information/dev-ops/gitlab-ci-cd-pipeline-for-on-premise/"
@@ -76,7 +77,7 @@ deploy-app:
 - 각 잡마다 원격 레포지토리에서 필요한 의존성을 다운로드 받는 작업이 발생한다. 각 잡이 10초 이상씩 수행된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/optimize-gitlab-ci-pipeline-for-maven-project-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/optimize-gitlab-ci-pipeline-for-maven-project-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -154,9 +155,7 @@ deploy-app:
       echo "Deploy Application"
 ```
 
-다음과 같이 파이프라인을 구성하면 경고 로그가 다음과 같이 변경된다.
-
-- builds/opop3966/optimize-maven/.m2/repository 경로에서 아티팩트를 정상적으로 찾는다.
+다음과 같이 파이프라인을 구성하면 경고 로그가 아래처럼 바뀌고, builds/opop3966/optimize-maven/.m2/repository 경로에서 아티팩트를 정상적으로 찾는다.
 
 ```
 ...
@@ -181,15 +180,15 @@ Job succeeded
 - #1101629627 파이프라인
   - build-app 잡 12.324초 수행
   - test-app 잡 12.559초 수행
-  - dpeloy-app 잡 6.150초 수행
+  - deploy-app 잡 6.150초 수행
 - #1101631553 파이프라인
   - 캐시가 공유되기 때문에 의존성을 다운로드 받는 시간이 줄어든다.
   - build-app 잡 3.333초 수행
   - test-app 잡 9.513초 수행
-  - dpeloy-app 잡 4.373초 수행
+  - deploy-app 잡 4.373초 수행
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/optimize-gitlab-ci-pipeline-for-maven-project-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/optimize-gitlab-ci-pipeline-for-maven-project-02.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

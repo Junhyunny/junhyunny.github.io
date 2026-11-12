@@ -1,23 +1,20 @@
 ---
 title: "드롭 다운 메뉴"
 publishedAt: "2022-06-11"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:19+09:00"
 canonicalPath: "/html/css/javascript/drop-down-menu/"
 categories:
   - "html"
   - "css"
   - "javascript"
+summary: "상단 메뉴에 마우스를 올리면 하위 메뉴가 나타나는 드롭 다운 메뉴를 HTML, CSS, JavaScript로 구현했다."
 ---
 
 ## 1. Drop Down Menu
 
-화면 상단 네비게이션으로 자주 사용되는 방법이다.
-상단 메뉴 영역에 마우스가 호버(hover)되면 아래로 하위 메뉴들이 나타난다.
+드롭 다운 메뉴는 화면 상단 내비게이션에 자주 사용되는 방법이다. 상단 메뉴 영역에 마우스를 올리면(hover) 아래로 하위 메뉴가 나타난다.
 
-### 1.1. HTML 코드
-
-- `.menus` 클래스를 지닌 블록은 메뉴 영역이다.
-- `.sub-menus` 클래스를 지닌 블록은 하위 메뉴 영역이다.
+먼저 HTML 코드를 살펴보자. `.menus` 클래스를 가진 블록은 메뉴 영역이고, `.sub-menus` 클래스를 가진 블록은 하위 메뉴 영역이다.
 
 ```html
 <div class="wrap">
@@ -60,10 +57,7 @@ categories:
 </div>
 ```
 
-### 1.2. CSS 코드
-
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
+CSS 코드는 다음과 같다. 영역 표시나 크기를 설정한 속성의 설명은 제외했고, 가독성을 높이기 위해 설명은 주석으로 작성했다.
 
 ```css
 a {
@@ -175,13 +169,7 @@ li {
 }
 ```
 
-### 1.3. JavaScript 코드
-
-- `.menus__item` 클래스를 지닌 DOM 객체들을 찾아서 `mouseover`, `mouseout` 이벤트를 지정한다.
-- `mouseover` 이벤트
-  - `.sub-menus` 클래스를 지닌 블록에 `.on` 클래스를 추가한다.
-- `mouseout` 이벤트
-  - `.sub-menus` 클래스를 지닌 블록에 `.on` 클래스를 제거한다.
+JavaScript 코드는 `.menus__item` 클래스를 가진 DOM 객체를 찾아 `mouseover`, `mouseout` 이벤트를 지정한다. `mouseover` 이벤트가 발생하면 `.sub-menus` 클래스를 가진 블록에 `.on` 클래스를 추가하고, `mouseout` 이벤트가 발생하면 `.on` 클래스를 제거한다.
 
 ```javascript
 const menusItems = document.querySelectorAll(".menus__item");

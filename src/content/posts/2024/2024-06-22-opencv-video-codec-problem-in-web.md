@@ -7,6 +7,7 @@ categories:
   - "web"
   - "python"
   - "opencv"
+summary: "OpenCV로 생성한 비디오가 웹 브라우저에서 재생되지 않는 문제의 원인을 코덱에서 찾고, 브라우저가 지원하는 코덱으로 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "Virtual Environment for Python"
     href: "https://junhyunny.github.io/python/virtual-environment-for-python/"
@@ -25,7 +26,7 @@ recommendedPosts:
 3. 생성된 비디오 파일이 웹 브라우저에서 재생되지 않는다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-01.png" width="100%" class="image__border">
 </div>
 
 다음과 같은 에러를 만났다.
@@ -33,12 +34,12 @@ recommendedPosts:
 - 지원되는 형식 및 MIME 유형의 동영상를 찾을 수 없습니다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Problem Cause
 
-파일 시스템에 새롭게 저장된 비디오는 플레이어로 재생되지만, 웹 브라우저에선 재생 되지 않는다. 원본 비디오는 플레이어, 웹 브라우저에서 모두 정상적으로 저장된다. 두 포맷은 어떤 차이점이 있을까? 확장자는 mp4 동일하지만, 코덱(codec) 정보가 다르다.
+파일 시스템에 새롭게 저장된 비디오는 플레이어로 재생되지만, 웹 브라우저에선 재생 되지 않는다. 원본 비디오는 플레이어, 웹 브라우저에서 모두 정상적으로 재생된다. 두 포맷은 어떤 차이점이 있을까? 확장자는 mp4로 동일하지만, 코덱(codec) 정보가 다르다.
 
 - 원본 비디오
   - H.264 코덱
@@ -46,7 +47,7 @@ recommendedPosts:
   - MPEG-4 Video 코덱
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-03.png" width="100%" class="image__border">
 </div>
 
 코덱이라는 용어를 많이 들어봤지만, 정확한 개념은 모르기 때문에 찾아 정리해봤다. 코덱이란 `coder-decoder(혹은 compressor-decompressor)`의 약자로 디지털 비디오를 인코딩, 디코딩 할 때 사용하는 소프트웨어(혹은 하드웨어) 도구이다. 주요 기능은 비디오 파일을 압축하여 저장이나 전송하기 위해 크기를 줄인 다음 재생을 위해 압축을 푸는 것이다. 이 과정은 압축되지 않은 비디오 데이터 품질을 크게 손상시키지 않으면서 공간을 덜 차지하는 효율적인 타입으로 변환하는 작업을 포함한다. 
@@ -54,7 +55,7 @@ recommendedPosts:
 이제 웹 브라우저에서 사용할 수 있는 코덱들을 찾아보자. [mdn web docs](https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs) 문서를 보면 웹 환경에서 사용하는 비디오 코덱에 대한 가이드가 있다. 영상 길이, 비디오 사이즈, 네트워크 통신에 대한 구체적인 예시를 들어 코덱이 왜 필요한지 이야기하고 있으니 읽어 보는 것을 추천한다. 이 링크엔 웹 환경에서 사용하는 코덱과 확장자에 대한 설명도 함께 제공한다. 문제가 발생하는 `MPEG-4 Video` 코덱은 웹 환경에서 사용되지 않으며 브라우저에서도 역시 재생되지 않는다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-04.png" width="100%" class="image__border">
 </div>
 <center>https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs</center>
 
@@ -109,15 +110,13 @@ recommendedPosts:
 [ERROR:0@4.306] global cap_ffmpeg_impl.hpp:3211 open VIDEOIO/FFMPEG: Failed to initialize VideoWriter
 ```
 
-필자의 맥북(호스트 머신)에서 애플리케이션을 직접 실행하면 AV1, AVC(H.264) 코덱을 사용하더라도 위와 같은 에러가 발생하지 않는다. 컨테이너 환경에서 에러가 발생하는 이유를 OpenCV 이슈를 통해 유추할 수 있었다. 
-
-- OpenCV는 별도로 비디오 코덱을 구현하지 않고 FFmpeg, GStreamer 같은 서드 파티(third party) 코덱을 사용한다. 
+필자의 맥북(호스트 머신)에서 애플리케이션을 직접 실행하면 AV1, AVC(H.264) 코덱을 사용하더라도 위와 같은 에러가 발생하지 않는다. 컨테이너 환경에서 에러가 발생하는 이유를 OpenCV 이슈를 통해 유추할 수 있었다. OpenCV는 별도로 비디오 코덱을 구현하지 않고 FFmpeg, GStreamer 같은 서드 파티(third party) 코덱을 사용한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-05.png" width="80%" class="image__border">
-</div>
-<center>https://github.com/opencv/opencv-python/issues/912</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-05.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/opencv/opencv-python/issues/912</center>
 </div>
 
 호스트 머신엔 필요한 코덱이 설치되어 있기 때문에 문제가 없지만, 컨테이너 이미지에는 필요한 코덱이 설치되어 있지 않기 때문에 문제가 발생한다. 필요한 코덱을 베이스 이미지 위에 설치하면 해결될 것으로 생각했다. 스택 오버플로우(stack overflow), 깃허브(github)나 ChatGPT에서 언급되는 패키지들은 모두 설치해 봤지만, 모두 실패했다. 위 코덱 문제는 해결할 수 없었다. 필자는 `python:3.12-slim` 베이스(base) 컨테이너 이미지를 사용했다. 설치해 본 패키지들은 다음과 같다.
@@ -145,7 +144,7 @@ RUN apt-get install -y \
 
 ### 4.1. Create requirements.txt file
 
-파이썬과 OpenCV은 패키지 버전에 민감하다. 동일한 환경에서 동일한 패키지를 사용할 수 있도록 도커 빌드를 통해 requirements.txt 파일을 만든다. requirements.txt는 파이썬 애플리케이션이 필요한 패키지 정보를 관리하는 파일이다.
+파이썬과 OpenCV는 패키지 버전에 민감하다. 동일한 환경에서 동일한 패키지를 사용할 수 있도록 도커 빌드를 통해 requirements.txt 파일을 만든다. requirements.txt는 파이썬 애플리케이션이 필요한 패키지 정보를 관리하는 파일이다.
 
 ```dockerfile
 FROM python:3.12-slim AS extract_requirements
@@ -322,7 +321,7 @@ $ docker run --name processor -p 8000:8000 processor
 AVC(H.264) 코덱은 GPL 라이센스 문제로 OpenCV에서 지원되지 않는 것으로 보이니 주의하길 바란다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/opencv-video-codec-problem-in-opencv-07.png" width="100%" class="image__border">
 </div>
 <center>https://github.com/opencv/opencv-python/issues/207</center>
 

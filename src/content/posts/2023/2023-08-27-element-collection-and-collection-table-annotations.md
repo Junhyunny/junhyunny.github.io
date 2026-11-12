@@ -6,9 +6,10 @@ canonicalPath: "/spring-boot/jpa/element-collection-and-collection-table-annotat
 categories:
   - "spring-boot"
   - "jpa"
+summary: "값 객체의 일대다 관계를 매핑하는 JPA @ElementCollection, @CollectionTable 애너테이션을 실습하고, 수정, 삭제 시 불필요한 쿼리가 수행되는 한계를 정리했다."
 ---
 
-## 1. @ElementCollection Annotation
+## 1. @ElementCollection 애너테이션
 
 JPA @ElementCollection 애너테이션은 일대다 관계 매핑(mapping) 기능을 제공한다. 엔티티(entity)가 아닌 객체를 대상으로 일대다 관계 매핑을 지원한다는 것이 @OneToMany 애너테이션과 차이점이다.
 
@@ -24,7 +25,7 @@ JPA @ElementCollection 애너테이션은 일대다 관계 매핑(mapping) 기�
 - 생성되는 테이블에 자동적으로 부모 엔티티의 ID 컬럼이 추가된다.
 - 식별자(@Id) 개념이 없어서 컬렉션의 변경이 발생하면 전체 삭제 후 새로 추가한다.
 
-## 2. @CollectionTable Annotation
+## 2. @CollectionTable 애너테이션
 
 @CollectionTable 애너테이션은 @ElementCollection 애너테이션을 사용해 맺은 일대다 관계에 대한 테이블 정보를 추가할 수 있다.
 
@@ -36,24 +37,18 @@ JPA @ElementCollection 애너테이션은 일대다 관계 매핑(mapping) 기�
 
 다음과 같은 테이블 관계를 가진 엔티티를 만들고 몇 가지 기능을 테스트해보자.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/element-collection-and-collection-table-annotations-01.png" width="50%" class="image__border">
 </div>
 
-### 3.1. UserEntity Class
+먼저 UserEntity 엔티티 클래스를 만든다. 사용자 테이블 이름은 `TB_USER`, 좋아하는 포스트(post) 테이블 이름은 `TB_FAVORITE_POSTS`이다. 좋아하는 포스트 테이블의 외래 키(foreign key) 이름은 user_id이며, user_id, post_id 컬럼을 조합한 유니크 키(unique key) 제약 조건을 추가한다. 각 메서드는 다음과 같다.
 
-먼저 UserEntity 엔티티 클래스를 만든다.
-
-- 사용자 테이블 이름은 `TB_USER` 이다.
-- 좋아하는 포스트(post) 테이블 이름은 `TB_FAVORITE_POSTS` 이다.
-  - 외래 키(forign key) 이름은 user_id 이다.
-  - user_id, post_id 컬럼을 조합한 유니크 키(unique key) 제약 조건을 추가한다.
 - addFavoritePosts 메서드
-  - 전달 받은 리스트를 추가한다.
+  - 전달받은 리스트를 추가한다.
 - removeFavoritePosts 메서드
-  - 전달 받은 리스트를 제거한다.
+  - 전달받은 리스트를 제거한다.
 - updateFavoritePost 메서드
-  - 전달 받은 포스트와 동일한 데이터의 리마크(remark) 정보를 업데이트한다.
+  - 전달받은 포스트와 동일한 데이터의 리마크(remark) 정보를 업데이트한다.
 
 ```java
 package action.in.blog.domain;
@@ -113,12 +108,7 @@ public class UserEntity {
 }
 ```
 
-### 3.2. FavoritePost Class
-
-자식 클래스인 FavoritePost 클래스는 다음과 같다.
-
-- @Embeddable 애너테이션을 통해 데이터베이스에서 관리가 필요한 대상 객체임을 표시한다.
-- @Column 애너테이션으로 유니크 키 생성에서 필요한 컬럼을 명시한다.
+자식 클래스인 FavoritePost 클래스는 @Embeddable 애너테이션을 통해 데이터베이스에서 관리가 필요한 대상 객체임을 표시한다. @Column 애너테이션으로 유니크 키 생성에 필요한 컬럼을 명시한다.
 
 ```java
 package action.in.blog.domain;
@@ -139,8 +129,6 @@ public class FavoritePost {
     private String remark;
 }
 ```
-
-### 3.3. UserRepository Interface
 
 UserRepository 인터페이스에는 다음과 같은 메서드를 작성한다.
 
@@ -180,9 +168,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 ### 4.1. application.yml
 
-테스트 경로에 위치한 리소스(resource)에 다음과 같은 설정 파일을 추가한다.
-
-- 데이터 초기화를 위해 data.sql 파일을 사용한다.
+테스트 경로에 위치한 리소스(resource)에 다음과 같은 설정 파일을 추가한다. 데이터 초기화를 위해 data.sql 파일을 사용한다.
 
 ```yml
 spring:
@@ -228,7 +214,7 @@ public class Helper {
 }
 ```
 
-### 4.4. Add Favoirte Posts
+### 4.4. Add Favorite Posts
 
 조회한 사용자 객체에 좋아하는 포스트 객체들을 추가한다.
 
@@ -424,7 +410,7 @@ class UpdateFavoritePostTest {
 }
 ```
 
-오염 감지 기능을 통해 특정 데이터에 대한 업데이트 쿼리가 실행될 것을 예상하였지만, 모든 데이터를 삭제하고 필요한 데이터만 다시 추가한다.
+오염 감지 기능을 통해 특정 데이터에 대한 업데이트 쿼리가 실행될 것을 예상했지만, 모든 데이터를 삭제하고 필요한 데이터만 다시 추가한다.
 
 - 사용자 ID에 해당하는 모든 포스트 데이터를 삭제하는 delete 쿼리가 1회 수행된다.
 - 두 개의 포스트 데이터를 다시 추가하는 insert 쿼리가 2회 수행된다.
@@ -541,7 +527,7 @@ class RemoveFavoritePostsTest {
 }
 ```
 
-오염 감지 기능을 통해 특정 데이터만 삭제하는 쿼리가 실행될 것을 예상하였지만, 모든 데이터를 삭제하고 필요한 데이터를 다시 추가한다.
+오염 감지 기능을 통해 특정 데이터만 삭제하는 쿼리가 실행될 것을 예상했지만, 모든 데이터를 삭제하고 필요한 데이터를 다시 추가한다.
 
 - 사용자 ID에 해당하는 모든 포스트 데이터를 삭제하는 delete 쿼리가 1회 수행된다.
 - 두 개의 포스트 데이터를 다시 추가하는 insert 쿼리가 2회 수행된다.

@@ -6,6 +6,7 @@ canonicalPath: "/information/nginx/adapt-temporal-certificate-on-nginx/"
 categories:
   - "information"
   - "nginx"
+summary: "카메라 기반 QR 스캔 기능을 테스트 환경에서 쓰기 위해 임시 인증서를 만들고 Nginx에 적용해 HTTPS 서비스를 제공하는 방법을 정리했다."
 recommendedPosts:
   - title: "HTTPS(HyperText Transfer Protocol over Secure Socket Layer)"
     href: "https://junhyunny.github.io/information/https/"
@@ -165,7 +166,7 @@ CMD ["nginx", "-g", "daemon off;"]
 - AWS EC2 컨테이너의 공개 도메인 주소를 사용하는 경우
 - 사전에 발급받은 도메인 주소가 있는 경우
 
-운영체제에 따라 호스트 파일을 관리하는 방법이 다르다. 필자는 맥북(macbook)에서 작업하고 있기 때문에 이를 기준으로 작성하였다. `/etc/hosts` 파일을 수정한다.
+운영체제에 따라 호스트 파일을 관리하는 방법이 다르다. 필자는 맥북(macbook)에서 작업하고 있기 때문에 이를 기준으로 작성했다. `/etc/hosts` 파일을 수정한다.
 
 ```
 $ sudo vi /etc/hosts

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/git/reduce-git-folder-size/"
 categories:
   - "git"
+summary: "저장소에 올렸다 지운 컨테이너 이미지 이력으로 .git 폴더가 12GB를 넘어 파이프라인 체크아웃이 타임아웃된 문제를 git filter-branch로 히스토리의 파일을 제거해 해결했다."
 ---
 
 ## 1. Problem Context

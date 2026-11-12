@@ -6,6 +6,7 @@ canonicalPath: "/information/dev-ops/gitlab-ci-cd-pipeline-for-on-premise/"
 categories:
   - "information"
   - "dev-ops"
+summary: "GitLab의 CI/CD 파이프라인 기능으로 SSH 키와 GitLab 변수를 등록해 코드 푸시 시 온-프레미스 서버에 자동 배포하는 파이프라인을 구성했다."
 recommendedPosts:
   - title: "CI/CD 파이프라인"
     href: "https://junhyunny.github.io/information/what-is-ci-cd/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 시작한 프로젝트는 코드 저장소로 GitLab을 사용했다. 별도의 자원 없이 효율적인 CI/CD 파이프라인을 구축하기 위해 GitLab에서 제공하는 파이프라인 기능을 사용하였고, 이번 글에서는 그 내용을 정리하였다.
+최근 시작한 프로젝트는 코드 저장소로 GitLab을 사용했다. 별도의 자원 없이 효율적인 CI/CD 파이프라인을 구축하기 위해 GitLab에서 제공하는 파이프라인 기능을 사용했고, 이번 글에서는 그 내용을 정리했다.
 
 ## 1. GitLab CI/CD Pipeline
 
@@ -57,7 +58,7 @@ GitLab CI/CD 파이프라인에서 사용되는 용어를 먼저 정리해보자
 4. 프로젝트 코드에 변경 사항을 만들어 원격 저장소에 올린 후 파이프라인 동작 과정을 확인한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/gitlab-ci-cd-pipeline-for-on-premise-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/gitlab-ci-cd-pipeline-for-on-premise-01.png" width="100%" class="image__border">
 </div>
 
 ### 3.1. Copy Public Key by SSH
@@ -133,9 +134,7 @@ and check to make sure that only the key(s) you wanted were added.
 
 ### 3.2. Register Variables on GitLab
 
-GitLab 프로젝트 저장소의 설정 화면을 통해 필요한 변수를 등록한다.
-
-- 화면 왼쪽의 `Settings` 카테고리에서 CI/CD 탭을 선택한다.
+GitLab 프로젝트 저장소의 설정 화면을 통해 필요한 변수를 등록한다. 화면 왼쪽의 `Settings` 카테고리에서 CI/CD 탭을 선택한다.
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/gitlab-ci-cd-pipeline-for-on-premise-02.png" width="25%" class="image__border">
@@ -154,7 +153,7 @@ GitLab 프로젝트 저장소의 설정 화면을 통해 필요한 변수를 등
 
 ### 3.3. Write Script
 
-`.gitlab-ci.yml` 파일을 작성한다. 스크립트 설명은 가독성을 위해 주석으로 작성하였다. 각 작업마다 크게 차이가 없으므로 첫 번째 작업만 작성하였다.
+`.gitlab-ci.yml` 파일을 작성한다. 스크립트 설명은 가독성을 위해 주석으로 작성했다. 각 작업마다 크게 차이가 없으므로 첫 번째 작업만 작성했다.
 
 ```yml
 # 총 4개의 스테이지가 아래 순서로 실행됩니다.

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/terraform/deploy-ec2-into-target-group-in-aws-with-terraform/"
 categories:
   - "terraform"
+summary: "테라폼으로 웹 애플리케이션과 데이터베이스 EC2 인스턴스를 각각 퍼블릭, 프라이빗 서브넷에 배포하고 ALB 대상 그룹에 연결하는 방법을 정리했다."
 recommendedPosts:
   - title: "테라폼(Terraform) AWS ALB/대상 그룹(TargetGroup) 생성하기"
     href: "https://junhyunny.github.io/terraform/create-alb-and-target-group-in-aws-with-terraform/"
@@ -153,7 +154,7 @@ resource "aws_instance" "web" {
 - AMI
   - 위와 동일하게 아마존 리눅스 ami-066784287e358dad1 이미지를 사용한다.
 - 서브넷
-  - 웹 애플리케이션 컨테이너는 프라이빗 서브넷 1에 배포한다.
+  - 데이터베이스 컨테이너는 프라이빗 서브넷 1에 배포한다.
 - 시큐리티 그룹
   - 위에서 생성한 웹 애플리케이션 EC2 컨테이너와 데이터베이스 EC2 컨테이너 사이 트래픽을 위한 시큐리티 그룹을 사용한다.
 - 유저 데이터

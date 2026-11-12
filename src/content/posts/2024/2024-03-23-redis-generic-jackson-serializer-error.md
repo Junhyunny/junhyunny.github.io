@@ -8,6 +8,7 @@ categories:
   - "spring-boot"
   - "redis"
   - "test-container"
+summary: "GenericJackson2JsonRedisSerializer가 배열이나 불변 컬렉션을 타입 정보 없이 직렬화해 역직렬화에 실패하는 원인을 테스트 컨테이너로 재현하고, 객체로 감싸 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "테스트 컨테이너(TestContainer)로 스프링 MySQL 결합 테스트"
     href: "https://junhyunny.github.io/spring-boot/test-container/mysql/test-container-for-database/"
@@ -131,7 +132,7 @@ GenericJackson2JsonRedisSerializer 클래스는 원시(primitive) 타입이나 �
 "1"
 ```
 
-객체가 직렬 대상인 경우 대상 객체의 타입이나 클래스 이름을 힌트로 함께 바이트 배열에 담긴다. 먼저 ArrayList 객체를 살펴보자.
+객체가 직렬화 대상인 경우 대상 객체의 타입이나 클래스 이름을 힌트로 함께 바이트 배열에 담긴다. 먼저 ArrayList 객체를 살펴보자.
 
 ```
 "["java.util.ArrayList",[1,2,3]]"

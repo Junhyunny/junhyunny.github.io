@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "amazon-web-service"
+summary: "보안 암호를 관리하는 AWS 시크릿 매니저에 데이터베이스 접속 정보를 등록하고, 스프링 클라우드 AWS 설정으로 스프링 부트 애플리케이션이 프로파일별 값을 주입받도록 연결했다."
 ---
 
 ## 1. AWS Secrets Manager
@@ -22,7 +23,7 @@ categories:
 
 ## 2. AWS Secrets Manager Config in Spring Cloud
 
-스프링 클라우드(spring cloud)는 AWS 시크릿 매니저를 쉽게 사용할 수 있도록 의존성(dependency)를 제공한다.
+스프링 클라우드(spring cloud)는 AWS 시크릿 매니저를 쉽게 사용할 수 있도록 의존성(dependency)을 제공한다.
 
 - 아래 의존성들을 추가한다.
   - spring-cloud-starter-bootstrap
@@ -45,17 +46,13 @@ categories:
 
 ## 3. Create AWS Secret Manager
 
-`AWS Secrets Manager`에 간단한 프로퍼티를 설정하고 애플리케이션에서 주입 받는 예제를 살펴보자. 먼저 AWS 콘솔의 `Secrets Manager`에서 다음과 같은 과정을 통해 설정들을 추가한다.
-
-- `Store a new secret` 버튼을 클릭한다.
+`AWS Secrets Manager`에 간단한 프로퍼티를 설정하고 애플리케이션에서 주입 받는 예제를 살펴보자. 먼저 AWS 콘솔의 `Secrets Manager`에서 다음과 같은 과정을 통해 설정들을 추가한다. `Store a new secret` 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-01.png" width="100%" class="image__border">
 </div>
 
-다음으로 환경 변수로 주입할 시크릿 값들을 생성한다.
-
-- `Other type of secret`을 선택 후 필요한 설정을 키/값 형태로 입력한다.
+다음으로 환경 변수로 주입할 시크릿 값들을 생성한다. `Other type of secret`을 선택 후 필요한 설정을 키/값 형태로 입력한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-02.png" width="100%" class="image__border">
@@ -64,7 +61,7 @@ categories:
 설정 이름을 작성한다.
 
 - bootstrap.yml 파일에서 별도로 접두어(prefix)를 설정하지 않으면 `/secret/`가 자동으로 추가된다.
-- 이름을 `/secret/action-in-blog`으로 지정하였다.
+- 이름을 `/secret/action-in-blog`로 지정했다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/aws-secrets-manager-03.png" width="100%" class="image__border">
@@ -258,7 +255,7 @@ io.awspring.cloud.secretsmanager.AwsSecretsManagerPropertySources$AwsSecretsMana
     at org.springframework.cloud.bootstrap.config.PropertySourceLocator.locateCollection(PropertySourceLocator.java:46) ~[spring-cloud-context-4.0.3.jar:4.0.3]
 ```
 
-AWS 콘솔에서 IAM(Identity and Access Management)를 통해 발급받은 ID, Secret을 로컬 컴퓨터에 설정한다. 해당 작업은 AWS CLI(command line interface) 설치가 필요하다.
+AWS 콘솔에서 IAM(Identity and Access Management)을 통해 발급받은 ID, Secret을 로컬 컴퓨터에 설정한다. 해당 작업은 AWS CLI(command line interface) 설치가 필요하다.
 
 ```
 $ aws configure
@@ -273,7 +270,7 @@ $ aws configure set aws_session_token ${YOUR_AWS_SESSION_TOKEN}
 AWS 시크릿이 설정되면 애플리케이션이 정상적으로 실행된다. 주요하게 살펴볼 로그는 다음과 같다.
 
 - 시크릿 매니저에 준비한 4개의 설정이 로딩된다.
-- 활성화 된 프로파일은 `dev` 이므로 `/secret/action-in-blog_dev`이 사용된다.
+- 활성화 된 프로파일은 `dev` 이므로 `/secret/action-in-blog_dev`가 사용된다.
 
 ```
 : Located property source: [BootstrapPropertySource {name='bootstrapProperties-/secret/action-in-blog_dev'}, BootstrapPropertySource {name='bootstrapProperties-/secret/action-in-blog'}, BootstrapPropertySource {name='bootstrapProperties-/secret/application_dev'}, BootstrapPropertySource {name='bootstrapProperties-/secret/application'}]

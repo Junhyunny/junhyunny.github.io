@@ -5,6 +5,7 @@ updatedAt: "2026-09-23T00:24:35+09:00"
 canonicalPath: "/java/thread-pool-in-java/"
 categories:
   - "java"
+summary: "스레드 풀이 해결하는 문제와 사용 시 고려할 점을 설명하고, Executors 클래스로 만들 수 있는 자바 스레드 풀의 종류와 특징을 정리했다."
 ---
 
 ## 1. Thread Pool
@@ -12,10 +13,10 @@ categories:
 스레드 풀(thread pool)은 프로그램의 동시성 실행을 지원하는 디자인 패턴이다. 복제된 작업자(replicated workers) 또는 작업자-크루(worker-crew) 모델이라고 불리기도 한다. 스레드 풀은 여러 스레드를 유지·관리하고, 풀 내의 스레드는 작업(task)이 할당되기를 기다린다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/thread-pool-in-java-01.png" width="80%" class="image__border">
-</div>
-<center>https://en.wikipedia.org/wiki/Thread_pool</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/thread-pool-in-java-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://en.wikipedia.org/wiki/Thread_pool</center>
 </div>
 
 스레드 풀은 다음과 같은 문제를 해결하기 위해 사용한다.
@@ -197,7 +198,7 @@ class CachedThreadPoolTests {
 - 스레드 풀에서 반드시 유지되어야 하는 코어 스레드 수는 파라미터로 전달받은 `nThreads` 값이다.
 - 스레드 풀에 담을 수 있는 최대 스레드 수는 파라미터로 전달받은 `nThreads` 값이다.
 - 0초 동안 작업을 할당받지 못하면 스레드가 종료된다.
-  - 지정된 코어 스레드 개수는 0이 아니라면 `keepAliveTime` 시간이 적용되지 않는다.
+  - 지정된 코어 스레드 개수가 0이 아니라면 `keepAliveTime` 시간이 적용되지 않는다.
   - 작업이 없다면 얻을 때까지 대기하므로 실제 스레드의 개수는 줄어들지 않는다.
 - LinkedBlockingQueue 인스턴스에 작업을 담는다.
   - 타임아웃이 없으므로 내부에서 take 메서드를 통해 작업을 얻는다.
@@ -327,7 +328,7 @@ public class ScheduledThreadPoolExecutor extends ThreadPoolExecutor implements S
 
 예제 코드를 살펴보자.
 
-- 두 테스트를 통해 동작을 살펴보겠다.
+- 두 테스트를 통해 동작을 확인한다.
 - run_scheduled_task 메서드
   - 코어 사이즈를 5로 지정한다.
   - 10개의 작업을 전달한다.

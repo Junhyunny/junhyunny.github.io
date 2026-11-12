@@ -1,24 +1,25 @@
 ---
 title: "도커 빌드 시 React APP 환경 변수 설정"
 publishedAt: "2022-06-26"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:19+09:00"
 canonicalPath: "/react/docker/set-react-app-variable-when-docker-build/"
 categories:
   - "react"
   - "docker"
+summary: "젠킨스 파일을 수정할 수 없는 제약에서 배포 환경별 Dockerfile을 활용해 리액트 애플리케이션의 환경 변수를 설정하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-리액트 애플리케이션 배포 시 개발, 운영 환경 별로 다르게 동작하도록 변수 설정이 필요했다. CI/CD 파이프라인의 젠킨스 파일을 직접 수정할 수 없다는 제약 사항이 있었지만, 각 배포 환경 별로 사용하는 도커 파일(Dockerfile)이 다른 점을 이용하여 배포 환경에 맞는 환경 변수를 설정하였다. 이번 포스트에선 배포 환경 별로 도커 파일을 사용하여 리액트 애플리케이션에 환경 변수를 설정하는 방법에 대해 정리하였다.
+리액트 애플리케이션을 배포할 때 개발, 운영 환경별로 다르게 동작하도록 변수를 설정해야 했다. CI/CD 파이프라인의 젠킨스 파일을 직접 수정할 수 없다는 제약이 있었지만, 배포 환경마다 사용하는 도커 파일(Dockerfile)이 다르다는 점을 이용해 배포 환경에 맞는 환경 변수를 설정했다. 이번 글에서는 배포 환경별 도커 파일로 리액트 애플리케이션에 환경 변수를 설정하는 방법을 정리했다.
 
 ## 1. 간단한 리액트 애플리케이션
 
-CRA(create-react-app)을 사용하여 생성한 프로젝트를 간단하게 변경하였다.
+CRA(create-react-app)로 생성한 프로젝트를 간단하게 변경했다.
 
 ### 1.1. 패키지 구조
 
-우선 리액트 프로젝트의 패키지 구조를 살펴본다.
+우선 리액트 프로젝트의 패키지 구조를 살펴보자. 주요 파일은 다음과 같다.
 
 - Dockerfile-dev - 개발계 배포를 위한 도커 파일
 - Dockerfile-prod - 운영계 배포를 위한 도커 파일
@@ -53,9 +54,7 @@ CRA(create-react-app)을 사용하여 생성한 프로젝트를 간단하게 변
 
 ### 1.2. index.js
 
-- Node 전역 변수인 `process.env`의 `REACT_APP_ALLOW` 설정 값에 따라 다르게 동작한다.
-  - 값이 `ALLOW`인 경우 `<App />` 컴포넌트가 화면에 렌더링(rendering) 된다.
-  - 값이 `ALLOW`가 아닌 경우 `NOT FOUND` 문장이 화면에 렌더링 된다.
+`index.js` 파일은 Node 전역 변수인 `process.env`의 `REACT_APP_ALLOW` 설정 값에 따라 다르게 동작한다. 값이 `ALLOW`이면 `<App />` 컴포넌트가 화면에 렌더링(rendering)되고, `ALLOW`가 아니면 `NOT FOUND` 문장이 렌더링된다.
 
 ```jsx
 import React from 'react';
@@ -86,15 +85,11 @@ reportWebVitals();
 
 ## 2. 도커 이미지 빌드 및 컨테이너 실행
 
-각 환경 별로 이미지를 빌드하고 도커 컨테이너를 실행해본다.
+환경별로 이미지를 빌드하고 도커 컨테이너를 실행해 보자.
 
 ### 2.1. 도커 파일
 
-우선 도커 파일 별로 애플리케이션에서 사용할 변수를 다르게 설정한다.
-
-- `ENV REACT_APP_ALLOW` 명령어를 통해 환경 변수를 설정한다.
-  - Dockerfile-dev 파일에서 `ALLOW` 값으로 설정
-  - Dockerfile-prod 파일에서 `DENY` 값으로 설정
+우선 도커 파일마다 애플리케이션에서 사용할 변수를 다르게 설정한다. `ENV REACT_APP_ALLOW` 명령어로 환경 변수를 설정하는데, Dockerfile-dev 파일에서는 `ALLOW` 값으로, Dockerfile-prod 파일에서는 `DENY` 값으로 설정한다.
 
 ```dockerfile
 FROM node:14-alpine as builder
@@ -126,7 +121,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ### 2.2. 도커 빌드
 
-다음과 같은 명령어를 통해 도커 이미지를 빌드한다.
+다음 명령어로 도커 이미지를 빌드한다. 명령어와 플래그의 의미는 다음과 같다.
 
 - `docker build` - 도커 이미지를 빌드한다.
 - `-f` 플래그 - 도커 빌드에 사용할 파일을 지정한다.
@@ -189,7 +184,7 @@ react-app-dev    0.1       55549a2fee4d   51 minutes ago   23.2MB
 
 ### 2.3. 도커 컨테이너 실행
 
-다음과 같은 명령어를 통해 도커 컨테이너를 실행한다.
+다음 명령어로 도커 컨테이너를 실행한다. 명령어와 플래그의 의미는 다음과 같다.
 
 - `docker run` - 도커 컨테이너를 실행한다.
 - `-p` 플래그 - 호스트의 포트와 컨테이너의 포트를 연결한다.
@@ -212,10 +207,7 @@ f62a53cf5186   react-app-prod:0.1   "/docker-entrypoint.…"   6 seconds ago    
 
 ## 3. 서비스 실행 결과
 
-다음과 같은 결과를 얻을 수 있다.
-
-- `localhost:8080` 접속 시 기본 리액트 애플리케이션 화면이 보인다.
-- `localhost:8081` 접속 시 `NOT FOUND` 화면이 보인다.
+`localhost:8080`에 접속하면 기본 리액트 애플리케이션 화면이 보이고, `localhost:8081`에 접속하면 `NOT FOUND` 화면이 보인다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/set-react-app-variable-when-docker-build-01.gif" width="100%" class="image__border">

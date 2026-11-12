@@ -6,6 +6,7 @@ canonicalPath: "/vite/react/setup-vitest-for-react-application/"
 categories:
   - "vite"
   - "react"
+summary: "Vite로 만든 리액트 앱에 Vitest, jsdom, React Testing Library를 설치하고 테스트 환경을 구성하는 방법을 정리했다."
 recommendedPosts:
   - title: "Vite 리액트(React) 테스트 환경 설정하기"
     href: "https://junhyunny.github.io/react/vite/jest/react-test-environment/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[22년 글][react-test-environment-link]에서 Vite 번들러를 사용할 때 테스트 환경을 구축하는 방법에 대해 정리했었다. 그 쯤부터 모든 프로젝트에서 Vite를 사용하긴 했다. 문제가 있다면 필자는 항상 프로젝트 중간에 들어가거나 프론트엔드 프로젝트를 다른 분이 셋업해줬다는 사실이다. 그 이후에 많은 것들이 바뀐 것 같다. 그 중 하나는 Vite 번들러를 사용할 때 Jest를 대신해 Vitest를 주요 테스트 라이브러리로 사용한다는 점이다. Vite는 여전히 테스트 환경을 기본으로 제공하지 않기 때문에 이 글을 통해 정리했다. 
+[22년 글][react-test-environment-link]에서 Vite 번들러를 사용할 때 테스트 환경을 구축하는 방법에 대해 정리했었다. 그 쯤부터 모든 프로젝트에서 Vite를 사용하긴 했다. 문제가 있다면 필자는 항상 프로젝트 중간에 들어가거나 프론트엔드 프로젝트를 다른 분이 셋업해줬다는 사실이다. 그 이후에 많은 것들이 바뀐 것 같다. 그중 하나는 Vite 번들러를 사용할 때 Jest를 대신해 Vitest를 주요 테스트 라이브러리로 사용한다는 점이다. Vite는 여전히 테스트 환경을 기본으로 제공하지 않기 때문에 이 글을 통해 정리했다. 
 
 ## 1. Create React App with Vite
 
@@ -35,7 +36,7 @@ Done. Now run:
   npm run dev
 ```
 
-## 2. Install depenencies
+## 2. Install dependencies
 
 이제 필요한 의존성들을 설치해보자. 
 
@@ -75,7 +76,7 @@ package.json 파일에 CLI(Command Line Interface)에서 테스트를 실행하�
 
 ### 2.2. jsdom library
 
-`jsdom`은 순수 자바스크립트(JavaScript)를 사용해 다양한 WHATWG DOM, HTML 같은 웹 표준을 구현한 것이다. jsom 라이브러리의 용도는 실제 웹 애플리케이션을 스크래핑(scraping)하거나 테스트할 수 있도록 웹 브라우저의 서브셋(subset) 에뮬레이트(emulate)하는 것이다. 이 라이브러리 덕분에 실제 웹 브라우저 DOM을 대상으로 테스트하는 것이 가능하다.
+`jsdom`은 순수 자바스크립트(JavaScript)를 사용해 다양한 WHATWG DOM, HTML 같은 웹 표준을 구현한 것이다. jsdom 라이브러리의 용도는 실제 웹 애플리케이션을 스크래핑(scraping)하거나 테스트할 수 있도록 웹 브라우저의 서브셋(subset)을 에뮬레이트(emulate)하는 것이다. 이 라이브러리 덕분에 실제 웹 브라우저 DOM을 대상으로 테스트하는 것이 가능하다.
 
 아래 명령어로 jsdom 라이브러리를 설치한다. 
 
@@ -116,7 +117,7 @@ Object literal may only specify known properties, and test does not exist in typ
 
 ### 2.3. React Testing Library
 
-리액트 애플리케이션을 테스트를 위해 RTL(React Testing Library) 라이브러리를 설치한다. 리액트 컴포넌트를 렌더(render)하거나 screen 객체를 통해 테스트 코드로 그린 컴포넌트 화면에서 DOM 객체를 찾을 수 있다. 다음과 같은 라이브러리들을 설치한다.
+리액트 애플리케이션 테스트를 위해 RTL(React Testing Library) 라이브러리를 설치한다. 리액트 컴포넌트를 렌더(render)하거나 screen 객체를 통해 테스트 코드로 그린 컴포넌트 화면에서 DOM 객체를 찾을 수 있다. 다음과 같은 라이브러리들을 설치한다.
 
 - @testing-library/react, @testing-library/dom
   - RTL 코어 라이브러리들이다.
@@ -139,7 +140,7 @@ $ npm install -D @testing-library/react\
 설치가 완료되면 추가적으로 테스트 셋업(setup) 파일이 필요하다. 프로젝트 루트 경로에 `vitest-setup.ts` 파일을 만들고 다음 설정을 추가한다.
 
 1. jest-dom 라이브러리를 사용해 Jest에서 사용하는 매처를 확장한다.
-  - 해당 라이브러리를 임포트(import)함으로써 toHaveValue, toBeInTheDoument 매처를 사용할 수 있다.
+  - 해당 라이브러리를 임포트(import)함으로써 toHaveValue, toBeInTheDocument 매처를 사용할 수 있다.
 2. Vitest는 테스트가 끝나면 메모리에 그려진 화면이 지워지지 않기 때문에 매 테스트가 끝날 때마다 초기화(cleanup)가 필요하다.
   - 초기화 코드가 없는 경우 테스트 코드마다 렌더링 한 컴포넌트가 화면에 계속 중복되어 추가된다.
 

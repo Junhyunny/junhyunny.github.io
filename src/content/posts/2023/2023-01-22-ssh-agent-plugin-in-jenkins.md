@@ -1,11 +1,12 @@
 ---
 title: "Jenkins SSH 에이전트 플러그인"
 publishedAt: "2023-01-22"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:17:28+09:00"
 canonicalPath: "/information/jenkins/ssh-agent-plugin-in-jenkins/"
 categories:
   - "information"
   - "jenkins"
+summary: "젠킨스와 쿠버네티스 클러스터가 분리된 환경에서 SSH 키를 등록하고 SSH 에이전트 플러그인으로 마스터 노드에 직접 명령어를 전달하는 방법을 정리했다."
 recommendedPosts:
   - title: "방화벽(firewall)"
     href: "https://junhyunny.github.io/information/firewall/"
@@ -17,29 +18,29 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-CI/CD 파이프라인을 담당한 젠킨스(jenkins)가 위치한 클러스터와 서비스들을 배포할 쿠버네티스 클러스터가 서로 달라 배포에 어려움이 있었다. 마스터 노드를 담당하는 가상 머신(virtual machine)에 직접 명령어(command)를 전달할 방법이 필요했다. 젠킨스의 SSH 에이전트(secure shell agent) 플러그인을 사용하면 명령어를 직접 전달할 수 있는 데, 이번 포스트에선 이에 대해 정리하였다.
+CI/CD 파이프라인을 담당하는 젠킨스(jenkins)가 있는 클러스터와 서비스를 배포할 쿠버네티스 클러스터가 서로 달라 배포에 어려움이 있었다. 마스터 노드를 담당하는 가상 머신(virtual machine)에 명령어(command)를 직접 전달할 방법이 필요했다. 젠킨스의 SSH 에이전트(secure shell agent) 플러그인을 사용하면 명령어를 직접 전달할 수 있는데, 이 글에서는 그 방법을 정리했다.
 
 ## 1. Context of Practice
 
-다음과 같은 실습 환경을 구축하였다.
+실습 환경으로 Windows 운영체제를 사용하는 호스트(host) PC 위에 가상 머신(virtual machine) 두 대를 실행했다. 가상 머신의 운영체제는 Ubuntu 22.04.1이며, 각 가상 머신의 IP는 다음과 같다.
 
-- Windows 운영체제를 사용하는 호스트(host) PC 위에 가상 머신(virtual machine) 두 대를 실행시킨다.
-  - 운영체제 - Ubuntu 22.04.1
-  - Jenkins VM IP - 192.168.78.131
-  - Master VM IP - 192.168.78.133
-- 다음과 같은 진행 과정을 통해 실습을 진행한다.
-  1. `Jenkins VM`에서 공개 키, 비밀 키를 생성한다.
-  2. 공개 키를 `Master VM`에 등록하여 비밀 키로 접속 시 재인증을 막는다.
-  3. 비밀 키를 젠킨스 시크릿으로 등록한다.
-  4. 젠킨스 SSH 에이전트를 사용해 쉘(shell) 명령어를 실행한다.
+- Jenkins VM IP - 192.168.78.131
+- Master VM IP - 192.168.78.133
+
+실습은 다음 순서로 진행한다.
+
+1. `Jenkins VM`에서 공개 키와 비밀 키를 생성한다.
+2. 공개 키를 `Master VM`에 등록해 비밀 키로 접속할 때 재인증하지 않도록 한다.
+3. 비밀 키를 젠킨스 시크릿으로 등록한다.
+4. 젠킨스 SSH 에이전트를 사용해 셸(shell) 명령어를 실행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Generate Public/Private Key on Jenkins VM
 
-`Jenkins VM`에서 해당 작업을 수행한다. `ssh-keygen` 명령어를 사용해 공개 키와 비밀 키를 생성한다. 별도 옵션을 주지 않는다면 `~/.ssh` 경로에 키가 생성된다.
+이 작업은 `Jenkins VM`에서 수행한다. `ssh-keygen` 명령어로 공개 키와 비밀 키를 생성한다. 별도 옵션을 주지 않으면 `~/.ssh` 경로에 키가 생성된다.
 
 ```
 $ ssh-keygen
@@ -67,10 +68,7 @@ The key's randomart image is:
 
 ## 3. Copy SSH Key on Jenkins VM
 
-`Jenkins VM`에서 해당 작업을 수행한다. 이전 단계에서 만든 공개 키를 `MasterVM`에 복사한다.
-
-- 이 단계에서 비밀번호 한번 입력이 필요하다.
-- 이 후엔 비밀 키를 사용한 접근 시에 비밀번호 입력이 필요 없다.
+이 작업도 `Jenkins VM`에서 수행한다. 이전 단계에서 만든 공개 키를 `Master VM`에 복사한다. 이 단계에서는 비밀번호를 한 번 입력해야 하지만, 이후에는 비밀 키로 접근할 때 비밀번호를 입력하지 않아도 된다.
 
 ```
 $ ssh-copy-id -i ~/.ssh/id_rsa.pub master@192.168.78.133
@@ -91,34 +89,25 @@ and check to make sure that only the key(s) you wanted were added.
 
 ## 4. Register Private SSH Key on Jenkins VM
 
-젠킨스에 비밀 키를 등록한다. 다음과 같은 과정을 통해 비밀 키 등록이 이뤄진다.
+젠킨스에 비밀 키를 등록한다. 먼저 메인 화면에서 `Manage Jenkins`를 누르고, 이어지는 화면에서 `Manage Credentials` 버튼을 눌러 새 크레덴셜을 등록한다.
 
-##### Manage Jenkins
-
-- 메인 화면에서 `Manager Jenkins`을 누른다.
-- 해당 화면에서 `Manage Credentials` 버튼을 눌러 신규 암호를 등록한다.
-
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-02.png" width="100%" class="image__border">
 </div>
 
-##### Credentials
+`Credentials` 화면에서 `global` 링크를 누른다.
 
-- 해당 화면에서 `global` 링크를 누른다.
-
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-03.png" width="100%" class="image__border">
 </div>
 
-##### Global credentials
+`Global credentials` 화면에서 `Add Credentials` 버튼을 눌러 비밀 키를 등록한다.
 
-- Add Credentials 버튼을 눌러 비밀 키를 등록한다.
-
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-04.png" width="100%" class="image__border">
 </div>
 
-##### New credentials
+`New credentials` 화면에서는 다음과 같이 입력한다.
 
 - 비밀 키 타입은 `SSH Username with private key`를 선택한다.
 - ID를 지정한다.
@@ -128,14 +117,11 @@ and check to make sure that only the key(s) you wanted were added.
 - 이전 단계에서 만든 비밀 키를 직접 입력한다.
   - `cat .ssh/id_rsa` 명령어 실행 결과
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-05.png" width="100%" class="image__border">
 </div>
 
-##### Check Secret Key
-
-- 홈(home) 경로의 `.ssh` 경로에 만들어진 비밀 키를 확인한다.
-  - `.pub` 확장자가 없는 파일이다.
+비밀 키는 홈(home) 경로 아래 `.ssh` 경로에 만들어진다. `.pub` 확장자가 없는 파일이 비밀 키이며, 다음 명령어로 내용을 확인할 수 있다.
 
 ```
 $ cat .ssh/id_rsa
@@ -145,7 +131,7 @@ $ cat .ssh/id_rsa
 
 ### 5.1. Install SSH Agent Plugin
 
-- 사용 가능한 플러그인에서 `SSH Agent`를 검색하여 해당 플러그인을 설치한다.
+사용 가능한 플러그인에서 `SSH Agent`를 검색해 플러그인을 설치한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-06.png" width="100%" class="image__border">
@@ -153,13 +139,13 @@ $ cat .ssh/id_rsa
 
 ### 5.2. Run Jenkins Pipeline
 
-실습을 위한 프로젝트를 만들고 아래와 같은 파이프라인 스크립트(script)를 실행시킨다. 별다른 설정 없이 해당 스크립트 실행만으로 SSH 명령어 실행이 정상적으로 수행된다.
+실습용 프로젝트를 만들고 아래 파이프라인 스크립트(script)를 실행한다. 별다른 설정 없이 이 스크립트를 실행하는 것만으로 SSH 명령어가 정상적으로 실행된다. 스크립트 내용은 다음과 같다.
 
-- 대상 호스트는 `master@192.168.78.133` 이다.
+- 대상 호스트는 `master@192.168.78.133`이다.
 - 이전 단계에서 생성한 `SSH-Agent-Key` 크레덴셜을 사용한다.
-- `ssh` 명령어를 통해 원격 호스트에 커맨드를 실행한다.
-  - pwd - 쉘이 실행되는 디렉토리 위치를 확인한다.
-  - mkdir workspace - 해당 위치에 workspace 디렉토리를 생성한다.
+- `ssh` 명령어로 원격 호스트에서 커맨드를 실행한다.
+  - pwd - 셸이 실행되는 디렉터리 위치를 확인한다.
+  - mkdir workspace - 해당 위치에 workspace 디렉터리를 생성한다.
 
 ```
 pipeline {
@@ -184,7 +170,7 @@ pipeline {
 }
 ```
 
-##### Result of Pipeline
+파이프라인 실행 결과는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/ssh-agent-plugin-in-jenkins-07.gif" width="100%" class="image__border">

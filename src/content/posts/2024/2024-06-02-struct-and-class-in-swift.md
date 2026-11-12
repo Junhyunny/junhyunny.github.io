@@ -22,9 +22,7 @@ summary: "Swift 구조체와 클래스로 만든 인스턴스가 값 타입과 �
 - struct, enum 키워드로 정의된 타입의 인스턴스는 값 타입이다.
 - Int, Float, Double, Bool, String, Array, Dictionary, Set, Tuple 등은 구조체로 정의되어 있기 때문에 값 타입 인스턴스다.
 
-내가 겪었던 문제는 구조체로 선언한 값 타입 인스턴스의 복사가 일어나면서 실제 원본 인스턴스의 값이 설정되지 않아서 발생했다. 간단한 예제 코드를 통해 살펴보자. 다음과 같은 구조체가 있다.
-
-- 브랜드, 색상, 이름, 옵션 등의 정보를 갖고 있다.
+내가 겪었던 문제는 구조체로 선언한 값 타입 인스턴스의 복사가 일어나면서 실제 원본 인스턴스의 값이 설정되지 않아서 발생했다. 간단한 예제 코드를 통해 살펴보자. 다음 구조체는 브랜드, 색상, 이름, 옵션 등의 정보를 갖고 있다.
 
 ```swift
 struct CarStruct {
@@ -79,9 +77,7 @@ print("copied car: ", copiedStructCar)
 - class 키워드로 정의된 타입의 인스턴스는 참조 타입이다.
 - 함수(function)나 클로저(closure)는 참조 타입처럼 참조(주소)만 복사한다.
 
-다음과 같은 클래스가 있다. 구조체와 동일하다.
-
-- 브랜드, 색상, 이름, 옵션 등의 정보를 갖고 있다.
+다음 클래스도 구조체와 동일하게 브랜드, 색상, 이름, 옵션 등의 정보를 갖고 있다.
 
 ```swift
 class CarClass: CustomStringConvertible {
@@ -125,9 +121,7 @@ print("original car: ", classCar)
 print("copied car: ", copiedClassCar)
 ```
 
-다음과 같은 결과를 얻는다.
-
-- copiedClassCar 인스턴스의 상태 변화가 classCar 인스턴스에 반영된다.
+실행하면 다음과 같이 copiedClassCar 인스턴스의 상태 변화가 classCar 인스턴스에 반영된다.
 
 ```
 "original car:  CarClass(brand: hyunDai, color: green, name: sonata, options: [])\n"

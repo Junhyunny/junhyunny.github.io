@@ -1,11 +1,12 @@
 ---
 title: "젠킨스(Jenkins) 슬랙(Slack) 알림 메시지 전송"
 publishedAt: "2022-02-03"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:26:00+09:00"
 canonicalPath: "/information/jenkins/jenkins-slack-notification/"
 categories:
   - "information"
   - "jenkins"
+summary: "슬랙 Jenkins CI 앱과 젠킨스 Slack Notification 플러그인을 연동해 파이프라인 시작과 빌드 결과를 슬랙 메시지로 알리는 방법을 정리했다."
 recommendedPosts:
   - title: "CI/CD란 무엇인가?"
     href: "https://junhyunny.github.io/information/what-is-ci-cd/"
@@ -23,9 +24,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-도커 비공개 레지스트리와 젠킨스 CI/CD 파이프라인까지 모두 구축 완료한 후에 조금 아쉬움이 남았다. 파이프라인 수행 성공/실패 여부나 테스트 URL 등을 파이프라인 종료 시 자동으로 팀원들에게 알림을 주고 싶었다. 슬랙과 젠킨스를 쉽게 연결하는 방법을 발견하여 이를 이용하였다.
-
-##### 슬랙(Slack) 알림 메시지 전송 작업 영역
+도커 비공개 레지스트리와 젠킨스 CI/CD 파이프라인까지 모두 구축한 뒤에 조금 아쉬움이 남았다. 파이프라인이 끝나면 수행 성공/실패 여부나 테스트 URL 등을 팀원들에게 자동으로 알려 주고 싶었다. 슬랙과 젠킨스를 쉽게 연결하는 방법을 발견해 이를 이용했다. 이번 글에서 다루는 슬랙(Slack) 알림 메시지 전송 작업 영역은 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-01.png" width="85%" class="image__border">
@@ -33,89 +32,69 @@ recommendedPosts:
 
 ## 1. Slack - Jenkins CI 앱 추가
 
-슬랙과 젠킨스를 연동하려면 워크스페이스(workspace)와 채널(channel)이 필요하다. 없으신 분께서는 우선 워크스페이스를 생성하시길 바란다. 저는 테스트를 위한 워크스페이스를 별도로 생성하여 진행하였다.
+슬랙과 젠킨스를 연동하려면 워크스페이스(workspace)와 채널(channel)이 필요하다. 워크스페이스가 없다면 먼저 생성하길 바란다. 나는 테스트용 워크스페이스를 따로 생성해 진행했다.
 
-##### Slack 워크스페이스 URL 확인
+Slack 애플리케이션 왼쪽 상단의 워크스페이스 이미지를 누르면 워크스페이스 URL 정보를 확인할 수 있다.
 
-- Slack 애플리케이션 왼쪽 상단 워크스페이스 이미지를 누르면 워크스페이스 URL 정보를 확인할 수 있다.
-
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-02.png" width="45%" class="image__border">
 </div>
 
-##### Slack app directory 화면
+이전 단계에서 확인한 워크스페이스 URL에 `/apps` 경로를 붙여 Slack app directory 화면에 접근한다. 내 경우에는 <http://slack-3s15482.slack.com/apps> 링크이다. 이 화면에서 Jenkins CI 애플리케이션을 검색한다.
 
-- 이전 단계에서 확인한 워크스페이스 URL에 `/apps` 경로를 추가하여 접근한다.
-- 저의 경우 <http://slack-3s15482.slack.com/apps> 링크이다.
-- 해당 화면에서 Jenkins CI 애플리케이션을 검색한다.
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-03.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-03.png" width="100%" class="image__border">
 </div>
 
-##### Jenkins CI 앱 설치
-
-- Add to Slack 버튼을 눌러 설치 화면으로 이동한다.
-- 채널을 선택 후 앱을 설치한다.
+Add to Slack 버튼을 눌러 설치 화면으로 이동한 뒤 채널을 선택하고 Jenkins CI 앱을 설치한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-04.png" width="100%" class="image__border">
 </div>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-05.png" width="100%" class="image__border">
 </div>
 
 ## 2. Jenkins - Slack Notification 플러그인 설치 및 설정
 
-채널에 `Jenkins CI` 앱을 설치하면 젠킨스에서 설치해야 할 플러그인과 설정 방법을 상세히 알려준다. 일부 달라진 부분이 있어서 해당 부분만 다시 정리하였다. 우선 젠킨스 서버 메인 대시보드에 접속한다.
+채널에 `Jenkins CI` 앱을 설치하면 젠킨스에 설치해야 할 플러그인과 설정 방법을 상세히 알려 준다. 일부 달라진 부분이 있어서 그 부분만 다시 정리했다.
 
-##### 젠킨스 Slack Notification 플러그인 설치
+우선 젠킨스 서버 메인 대시보드에 접속한 뒤 `Manage Jenkins > Manage Plugins` 화면으로 이동한다. `Available`에서 `Slack Notification` 플러그인을 검색하고 설치한다.
 
-- 젠킨스 메인 대시보드에서 `Manage Jenkins > Manage Plugins` 화면으로 이동한다.
-- `Available`에서 `Slack Notification` 플러그인을 검색하고 설치한다.
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-06.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-06.png" width="100%" class="image__border">
 </div>
 
-##### 젠킨스 플러그인 프로퍼티 설정
+다음으로 플러그인 프로퍼티를 설정한다. 순서는 다음과 같다.
 
-- 젠킨스 메인 대시보드에서 `Manage Jenkins > Configure System` 화면으로 이동한다.
-- `Jenkins CI` 가이드 화면에서 제공하는 `Team Subdomain`과 `Integration Token Credential ID`를 Slack 속성에 입력한다.
-  - 가이드에서 제공하는 이전 화면과 다르다.
-  - `Team Subdomain` 값을 `Workspace` 항목에 입력한다.
-  - `Integration Token Credential ID` 값은 신규 `credential` 추가 시 사용한다.
-- 기본 채널명을 입력한다.
-- `Test Connection` 버튼을 눌러 연결이 정상적인지 확인한다.
+1. 젠킨스 메인 대시보드에서 `Manage Jenkins > Configure System` 화면으로 이동한다.
+2. `Jenkins CI` 가이드 화면에서 제공하는 `Team Subdomain`과 `Integration Token Credential ID`를 Slack 속성에 입력한다. 실제 화면은 가이드에서 보여 주는 이전 화면과 다르다.
+  - `Team Subdomain` 값은 `Workspace` 항목에 입력한다.
+  - `Integration Token Credential ID` 값은 새로운 `credential`을 추가할 때 사용한다.
+3. 기본 채널명을 입력한다.
+4. `Test Connection` 버튼을 눌러 정상적으로 연결되는지 확인한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-07.png" width="100%" class="image__border">
 </div>
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-08.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-08.png" width="100%" class="image__border">
 </div>
 
-##### Slack Credential 추가 팝업 화면
-
-- 이전 단계에서 `Add` 버튼을 누르면 아래와 같은 창이 열린다.
-- `Credential` 타입은 `Secret text` 종류로 선택한다.
-- 슬랙에서 발급한 `Integration Token Credential ID`를 `Secret` 항목에 입력한다.
-- 젠킨스에서 사용할 ID를 새로 입력한다.
+이전 단계에서 `Add` 버튼을 누르면 아래와 같은 Slack Credential 추가 팝업 창이 열린다. `Credential` 타입은 `Secret text`를 선택한다. 슬랙에서 발급한 `Integration Token Credential ID`를 `Secret` 항목에 입력하고, 젠킨스에서 사용할 ID를 새로 입력한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-09.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-09.png" width="100%" class="image__border">
 </div>
 
 ## 3. Jenkins 파이프라인 스크립트 변경
 
-- `jenkins-github-webhook 프로젝트 > configure` 화면으로 이동한다.
-- `Pipeline` 항목의 `Script` 영역에 입력한다.
-- `{ec2-instance-public-ip}`는 EC2 인스턴스 공개 IP이다.
-- `slackSend` 함수를 사용하여 필요한 메시지를 전달한다.
-  - `channel` - 메시지를 전달할 채널
-  - `message` - 슬랙 해당 채널에 전달할 메시지
+`jenkins-github-webhook 프로젝트 > configure` 화면으로 이동해 `Pipeline` 항목의 `Script` 영역에 다음 스크립트를 입력한다. `{ec2-instance-public-ip}`는 EC2 인스턴스의 공개 IP이다. `slackSend` 함수를 사용해 필요한 메시지를 전달하며, 함수의 파라미터는 다음과 같다.
+
+- `channel` - 메시지를 전달할 채널
+- `message` - 슬랙 해당 채널에 전달할 메시지
 
 ```s
 pipeline {
@@ -199,7 +178,7 @@ SUCCESS: Job ${env.JOB_NAME} [${env.BUILD_NUMBER}] (${NGROK_DOMAIN})
 
 ## 4. 슬랙 알림 테스트
 
-GitHub 웹훅을 통해 프로젝트 코드의 변경 사항을 감지한다. 젠킨스 파이프라인이 동작하면서 빌드 시작 정보를 슬랙 메시지로 전달한다. 빌드가 정상적으로 완료된 후 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 URL이 담긴 메시지를 슬랙에서 확인할 수 있다.
+GitHub 웹훅을 통해 프로젝트 코드의 변경 사항을 감지하면 젠킨스 파이프라인이 동작하면서 빌드 시작 정보를 슬랙 메시지로 전달한다. 빌드가 정상적으로 완료되면 테스트할 수 있는 URL과 빌드 정보를 확인할 수 있는 URL이 담긴 메시지를 슬랙에서 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-slack-notification-10.gif" width="100%" class="image__border">

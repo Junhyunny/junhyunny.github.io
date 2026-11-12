@@ -7,6 +7,7 @@ categories:
   - "java"
   - "design-pattern"
   - "test-driven-development"
+summary: "TDD 예제로 만든 가위바위보 게임을 도마뱀과 스팍 규칙 추가에 대비해 함수형 인터페이스로 enum을 추상화하고 전략 패턴을 적용하며 리팩토링한 과정을 정리했다."
 recommendedPosts:
   - title: "전략 패턴(Strategy Pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/strategy-pattern/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 TDD(Test Driven Development)를 설명하는 시간을 가지면서 간단한 예시로 가위, 바위, 보 게임을 만들었다. 게임 구현 자체는 매우 쉽다. 테스트 코드를 작성해 가는 과정을 소개하기에 좋은 예제였지만, 리팩토링하기엔 애매한 부분이 있었다. 코드를 리팩토링하거나 변경했을 때 놓칠 수 있는 버그를 잡아주는 것이 `TDD` 개발 방식의 가장 큰 장점이라고 생각한다. 그런 관점에서 코드를 크게 리팩토링하고 싶었는데, 생각보다 쉽지 않았다. 많은 고민 끝에 함수형 인터페이스를 이용해 `enum` 객체를 추상화했는데, 누군가에게 좋은 인사이트가 될 수 있을 것 같아서 글로 정리하였다.
+최근 TDD(Test Driven Development)를 설명하는 시간을 가지면서 간단한 예시로 가위, 바위, 보 게임을 만들었다. 게임 구현 자체는 매우 쉽다. 테스트 코드를 작성해 가는 과정을 소개하기에 좋은 예제였지만, 리팩토링하기엔 애매한 부분이 있었다. 코드를 리팩토링하거나 변경했을 때 놓칠 수 있는 버그를 잡아주는 것이 `TDD` 개발 방식의 가장 큰 장점이라고 생각한다. 그런 관점에서 코드를 크게 리팩토링하고 싶었는데, 생각보다 쉽지 않았다. 많은 고민 끝에 함수형 인터페이스를 이용해 `enum` 객체를 추상화했는데, 누군가에게 좋은 인사이트가 될 수 있을 것 같아서 글로 정리했다.
 
 ## 1. RPS 게임 소개
 
@@ -27,10 +28,10 @@ recommendedPosts:
 두 명의 플레이어가 가위, 바위, 보 게임을 한다면 총 9개의 경우의 수가 발생한다. 간단한 테스트 코드와 구현 코드를 살펴보자.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-01.png" width="50%" class="image__border">
-</div>
-<center>https://en.wikipedia.org/wiki/Rock_paper_scissors</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-01.png" width="50%" class="image__border">
+  </div>
+  <center>https://en.wikipedia.org/wiki/Rock_paper_scissors</center>
 </div>
 
 `RpsGame` 클래스를 먼저 살펴보자. 가위, 바위, 보 게임의 로직이 작성되어 있다.
@@ -152,15 +153,15 @@ public class RpsGameTests {
 
 ## 2. RPS 게임 확장을 위한 리팩토링
 
-사용자들은 오랜 시간 가위, 바위, 보 게임을 즐겼다. 슬슬 인기가 식어가기 시작한다. 개발 팀은 몇 가지 규칙을 더해 게임을 확장하자고 결정하였다. 이번에는 도마뱀(lizard)과 스팍(spock)을 추가하려고 한다.
+사용자들은 오랜 시간 가위, 바위, 보 게임을 즐겼다. 슬슬 인기가 식어가기 시작한다. 개발 팀은 몇 가지 규칙을 더해 게임을 확장하자고 결정했다. 이번에는 도마뱀(lizard)과 스팍(spock)을 추가하려고 한다.
 
 개발 팀은 게임이 앞으로도 계속 확장될 수 있다고 생각했기 때문에 `RpsGame` 클래스의 `play` 메서드를 계속 변경하는 것은 매우 위험하다고 판단했다. 늘어나는 경우의 수와 코드 라인 수는 개발자의 가독성과 이해도를 낮춘다. `RpsGame` 클래스의 `play` 메서드를 사용하는 곳에 영향을 주지 않고 이를 리팩토링하려고 한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-03.png" width="50%" class="image__border">
-</div>
-<center>https://m.post.naver.com/viewer/postView.naver?volumeNo=23912903&memberNo=39735121</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/refactoring-rps-game-03.png" width="50%" class="image__border">
+  </div>
+  <center>https://m.post.naver.com/viewer/postView.naver?volumeNo=23912903&memberNo=39735121</center>
 </div>
 
 함수형 인터페이스를 이용해 `Hand` enum 클래스의 기능을 확장한다. 가위, 바위, 보 게임의 로직을 분리하여 각 enum 객체에게 위임한다. 자신과 상대방이 대결했을 때 다음과 같은 결과를 반환한다.
@@ -247,9 +248,7 @@ public class RpsGame {
 
 ## 3. 더 나아가 전략 패턴 적용하기
 
-코드는 변경하지 않는 것이 가장 안전하다. 리팩토링으로 `RpsGame` 클래스의 `play` 메서드 변경에 대한 위험은 줄였다. 그런데 이번에는 `Hand` enum 클래스가 문제다. 앞으로 객체가 추가되거나 삭제되면 `Hand` enum 클래스에 많은 변경이 생길 것 같다. 더 안정적인 게임 확장을 원하는 개발자는 [전략 패턴(strategy pattern)][strategy-pattern-link]을 적용하기로 한다. 다음과 같이 가위, 바위, 보 게임 전략 인터페이스를 정의한다.
-
-- versus 메서드는 다른 플레이어와 대결해서 결과를 반환한다.
+코드는 변경하지 않는 것이 가장 안전하다. 리팩토링으로 `RpsGame` 클래스의 `play` 메서드 변경에 대한 위험은 줄였다. 그런데 이번에는 `Hand` enum 클래스가 문제다. 앞으로 객체가 추가되거나 삭제되면 `Hand` enum 클래스에 많은 변경이 생길 것 같다. 더 안정적인 게임 확장을 원하는 개발자는 [전략 패턴(strategy pattern)][strategy-pattern-link]을 적용하기로 한다. 다음과 같이 가위, 바위, 보 게임 전략 인터페이스를 정의한다. versus 메서드는 다른 플레이어와 대결해서 결과를 반환한다.
 
 ```java
 package action.in.blog.rps.strategy;

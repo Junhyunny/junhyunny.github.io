@@ -1,24 +1,22 @@
 ---
 title: "프레임 필터가 있는 웹캠 구현"
 publishedAt: "2023-09-14"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:15:07+09:00"
 canonicalPath: "/html/css/javascript/webcam-with-frame-filter/"
 categories:
   - "html"
   - "css"
   - "javascript"
+summary: "브라우저 웹캠 영상을 화면에 띄우고 프레임 이미지를 입혀 사진을 촬영하는 기능을 HTML, CSS, 자바스크립트 코드와 코드펜 예제로 구현했다."
 ---
 
 ## 0. 들어가면서
 
-브라우저 웹캠을 사용해 간단한 프레임을 입힌 이미지를 촬영해보았다. 코드에 대한 설명 후 코드펜(codepen)을 통해 실제로 동작하는 모습을 살펴보겠다. 코드가 긴 경우 가독성을 위해 설명이 필요한 부분에 주석을 작성하였다.
+브라우저 웹캠을 사용해 간단한 프레임을 입힌 이미지를 촬영해 봤다. 코드를 설명한 뒤 코드펜(codepen)으로 실제로 동작하는 모습을 살펴보자. 코드가 긴 경우에는 가독성을 위해 설명이 필요한 부분에 주석을 작성했다.
 
 ## 1. HTML Code
 
-- 프레임 필터를 변경할 수 있는 버튼들이 있다.
-- `Take Photo` 버튼을 누르면 이미지를 생성해 저장한다.
-- 비디오 이미지 위에 위치할 프레임(frame) 캔버스가 존재한다.
-- 비디오를 표시하기 위한 사진(photo) 캔버스가 존재한다.
+HTML 코드에는 프레임 필터를 변경할 수 있는 버튼들이 있고, `Take Photo` 버튼을 누르면 이미지를 생성해 저장한다. 비디오 이미지 위에 위치할 프레임(frame) 캔버스와 비디오를 표시하기 위한 사진(photo) 캔버스도 있다.
 
 ```html
 <div class="photobooth">
@@ -283,8 +281,9 @@ video.addEventListener("canplay", paintToCanvas);
 
 ## 4. Result
 
-- 블로그 화면에선 웹캠이 동작하지 않으므로 웹캠 동작을 위해 코드펜으로 접속한다.
-  - <https://codepen.io/junhyunny/pen/MWZoRmw>
+블로그 화면에서는 웹캠이 동작하지 않으므로 웹캠이 동작하는 모습은 다음 코드펜 주소로 접속해 확인한다.
+
+- <https://codepen.io/junhyunny/pen/MWZoRmw>
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/MWZoRmw?default-tab=html,js" title="Webcam Frame Filters" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/MWZoRmw/">CodePen에서 예제 열기</a></p>

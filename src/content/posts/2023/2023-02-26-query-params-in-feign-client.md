@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/spring-cloud/query-params-in-feign-client/"
 categories:
   - "spring-boot"
   - "spring-cloud"
+summary: "FeignClient에서 쿼리 파라미터가 많아질 때 @RequestParam 대신 @SpringQueryMap 애너테이션으로 DTO 객체를 쿼리 파라미터로 전달하는 방법을 정리했다."
 recommendedPosts:
   - title: "스프링 클라우드(spring cloud) OpenFeign"
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
@@ -21,15 +22,13 @@ recommendedPosts:
 - `@GetMapping`, `@PostMapping` 같은 애너테이션으로 요청 메서드를 지정할 수 있다.
 - `@RequestHeader`, `@RequestBody`, `@RequestParam` 같은 애너테이션으로 요청 시 필요한 데이터를 지정할 수 있다.
 
-컨트롤러(controller)를 만드는 규칙과 동일하기 때문에 더 쉽게 사용할 수 있다. 클라이언트로써 필요한 요청 정보들을 선언만 하면 된다. 요청 URL에 포함되는 쿼리(query) 파라미터는 `@RequestParam` 애너테이션을 통해 지정할 수 있다. 다만, 항목이 많아질수록 코드의 가독성은 떨어지고, 개발자가 파라미터의 순서를 맞추는 과정에서 실수가 일어날 확률이 높아진다.
+컨트롤러(controller)를 만드는 규칙과 동일하기 때문에 더 쉽게 사용할 수 있다. 클라이언트로서 필요한 요청 정보들을 선언만 하면 된다. 요청 URL에 포함되는 쿼리(query) 파라미터는 `@RequestParam` 애너테이션을 통해 지정할 수 있다. 다만, 항목이 많아질수록 코드의 가독성은 떨어지고, 개발자가 파라미터의 순서를 맞추는 과정에서 실수가 일어날 확률이 높아진다.
 
-이번 포스트에선 쿼리 파라미터 수가 많은 경우 DTO(data transfer object) 객체로 대체하는 방법을 정리하였다. `FeignClient`의 사용법이나 테스트 방법은 이번 포스트에서 자세히 다루지 않았다. 이전 포스트를 참고하길 바란다.
+이번 포스트에선 쿼리 파라미터 수가 많은 경우 DTO(data transfer object) 객체로 대체하는 방법을 정리했다. `FeignClient`의 사용법이나 테스트 방법은 이번 포스트에서 자세히 다루지 않았다. 이전 포스트를 참고하길 바란다.
 
-## 1. @RequestParam Annotation
+## 1. @RequestParam 애너테이션
 
-일반적으로 URL 쿼리를 만들 때 사용하는 애너테이션이다. `FeignClient`를 적용한 인터페이스와 테스트 코드를 살펴보겠다.
-
-### 1.1. Implementation
+일반적으로 URL 쿼리를 만들 때 사용하는 애너테이션이다. `FeignClient`를 적용한 인터페이스와 테스트 코드를 살펴보자.
 
 - 클라이언트가 요청할 URL은 설정 파일에 `blog-server.url` 키의 값으로 지정한다.
 - getBlogResponsesWithParams 메서드
@@ -62,7 +61,7 @@ public interface BlogClient {
 }
 ```
 
-### 1.2. Test
+테스트 코드는 다음과 같다.
 
 - `action.in.blog.client` 패키지에서 발생하는 디버그(debug) 로깅(logging) 레벨을 활성화한다.
 - `FeignClient` 요청 시 발생하는 로그를 모두 보기 위해 로거 레벨을 `FULL` 레벨로 지정한다.
@@ -167,7 +166,7 @@ public class ActionInBlogApplicationTests {
 }
 ```
 
-##### Test Result
+테스트를 실행하면 다음과 같은 로그를 확인할 수 있다.
 
 - GET 메서드 요청이 수행된다.
 - 요청 URL이 `http://localhost:11962/search?name=jun&age=20&address=Seoul` 이다.
@@ -186,9 +185,7 @@ public class ActionInBlogApplicationTests {
 BUILD SUCCESSFUL in 4s
 ```
 
-### 1.3. Pain Point
-
-쿼리 파라미터가 많지 않다면 문제가 없다. 다만, 파라미터 수가 많아지면 가독성을 떨어뜨리고, 실수를 유발한다. 예를 들어 다음과 같이 요청 파라미터가 5개라고 가정해보겠다.
+쿼리 파라미터가 많지 않다면 문제가 없다. 다만, 파라미터 수가 많아지면 가독성을 떨어뜨리고, 실수를 유발한다. 예를 들어 다음과 같이 요청 파라미터가 5개라고 가정해보자.
 
 ```java
 package action.in.blog.client;
@@ -232,11 +229,11 @@ public interface BlogClient {
     );
 ```
 
-## 2. @SpringQueryMap Annotation
+## 2. @SpringQueryMap 애너테이션
 
 이런 불편한 점을 개선하기 위해 `@SpringQueryMap` 애너테이션을 사용할 수 있다. 해당 애너테이션을 통해 DTO 객체를 사용해 URL 요청을 만들 수 있다.
 
-### 2.1. Implementation
+`@SpringQueryMap` 애너테이션을 적용한 인터페이스는 다음과 같다.
 
 - 쿼리 파라미터를 담은 DTO 객체를 메서드 파라미터로 받는다.
 - `@SpringQueryMap` 애너테이션을 메서드 파라미터 앞에 추가한다.
@@ -261,7 +258,7 @@ public interface BlogClient {
 }
 ```
 
-### 2.2. Test
+테스트 코드를 살펴보자.
 
 요청 시 `BlogQuery` 객체를 사용하는 것을 제외하곤 이전에 수행한 테스트와 동일하다.
 
@@ -375,7 +372,7 @@ public class ActionInBlogApplicationTests {
 }
 ```
 
-##### Test Result
+테스트를 실행하면 다음과 같은 로그를 확인할 수 있다.
 
 - GET 메서드 요청이 수행된다.
 - 요청 URL이 `http://localhost:11962/search?name=jun&age=20&address=Seoul` 이다.
@@ -396,7 +393,7 @@ BUILD SUCCESSFUL in 4s
 
 ## CLOSING
 
-`OpenFeign`은 객체를 사용해 쿼리를 만드는 방식을 `@QueryMap` 애너테이션으로 제공하고 있었다. 하지만 `@QueryMap` 애너테이션은 스프링(spring) 프레임워크에선 사용하지 못 하기 때문에 `@SpringQueryMap`으로 이 기능을 대체하고 있다.
+`OpenFeign`은 객체를 사용해 쿼리를 만드는 방식을 `@QueryMap` 애너테이션으로 제공하고 있었다. 하지만 `@QueryMap` 애너테이션은 스프링(spring) 프레임워크에선 사용하지 못하기 때문에 `@SpringQueryMap`으로 이 기능을 대체하고 있다.
 
 > The OpenFeign @QueryMap annotation provides support for POJOs to be used as GET parameter maps. Unfortunately, the default OpenFeign QueryMap annotation is incompatible with Spring because it lacks a value property. <br/>
 > Spring Cloud OpenFeign provides an equivalent @SpringQueryMap annotation, which is used to annotate a POJO or Map parameter as a query parameter map.

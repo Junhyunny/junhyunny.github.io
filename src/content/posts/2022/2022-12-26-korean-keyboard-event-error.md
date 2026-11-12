@@ -6,11 +6,12 @@ canonicalPath: "/react/typescript/korean-keyboard-event-error/"
 categories:
   - "react"
   - "typescript"
+summary: "리액트에서 한글 입력 후 엔터를 누르면 마지막 문자가 중복 입력되는 원인을 IME와 CompositionEvent로 설명하고, isComposing 속성으로 해결하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-리액트(React) 프로젝트에서 한글을 입력할 때 마지막 문자가 중복으로 입력되는 현상을 발견하였다. 문제의 원인과 해결 방법을 정리하였다.
+리액트(React) 프로젝트에서 한글을 입력할 때 마지막 문자가 중복으로 입력되는 현상을 발견했다. 문제의 원인과 해결 방법을 정리했다.
 
 ## 1. 문제 현상
 

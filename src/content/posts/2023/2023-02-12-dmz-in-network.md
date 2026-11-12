@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/dmz-in-network/"
 categories:
   - "information"
+summary: "프로젝트에서 겪은 네트워크 이슈를 계기로 외부 네트워크와 내부 네트워크 사이에 위치한 DMZ의 개념과 방화벽 정책을 정리했다."
 recommendedPosts:
   - title: "방화벽(firewall)"
     href: "https://junhyunny.github.io/information/firewall/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-이번 프로젝트에선 네트워크 관련된 이슈들이 많았다. 네트워크 구성이나 관련 용어들에 익숙치 않다면 문제의 원인을 파악하는 데 어려움을 겪는다. 네트워크를 담당하는 인프라 팀과의 의사 소통도 문제가 되므로 기본적인 개념들에 대해선 정리할 필요가 있다는 생각이 들었다. 이번 포스트에선 `DMZ`에 대한 내용을 다뤘다.
+이번 프로젝트에선 네트워크 관련된 이슈들이 많았다. 네트워크 구성이나 관련 용어들에 익숙지 않다면 문제의 원인을 파악하는 데 어려움을 겪는다. 네트워크를 담당하는 인프라 팀과의 의사 소통도 문제가 되므로 기본적인 개념들에 대해선 정리할 필요가 있다는 생각이 들었다. 이번 포스트에선 `DMZ`에 대한 내용을 다뤘다.
 
 ## 1. DMZ(Demilitarized Zone)
 
@@ -25,7 +26,7 @@ recommendedPosts:
 - 사설 네트워크(private network)
   - 내부 네트워크를 의미하며 보안상 신뢰할 수 있는 네트워크다.
 
-신뢰할 수 없는 외부 네트워크와 내부 네트워크 사이의 연결은 방화벽(firewall)을 통해 제어된다. 방화벽은 서로 다른 신뢰 수준을 가진 두 네트워크 사이에서 내부 네트워크를 외부 네트워크로부터 보호하기 위해 데이터 교환을 허용, 거부한다. 외부에서 내부로의 접근이 방화벽에 의해 모두 차단되면 내부 네트워크에 위치한 서비스를 외부에서 이용할 수 없다. 편의를 위해 직접 접근을 허용한다면 예상치 못한 보안 문제가 발생할 수 있다. 이런 문제를 해결하기 위해 `DMZ(Demilitarized Zone)`을 구축한다.
+신뢰할 수 없는 외부 네트워크와 내부 네트워크 사이의 연결은 방화벽(firewall)을 통해 제어된다. 방화벽은 서로 다른 신뢰 수준을 가진 두 네트워크 사이에서 내부 네트워크를 외부 네트워크로부터 보호하기 위해 데이터 교환을 허용, 거부한다. 외부에서 내부로의 접근이 방화벽에 의해 모두 차단되면 내부 네트워크에 위치한 서비스를 외부에서 이용할 수 없다. 편의를 위해 직접 접근을 허용한다면 예상치 못한 보안 문제가 발생할 수 있다. 이런 문제를 해결하기 위해 `DMZ(Demilitarized Zone)`를 구축한다.
 
 `DMZ`는 두 네트워크 사이에 위치한 서브넷(subnet)이다. 기본적으로 다음과 같은 구조로 설계된다.
 
@@ -44,7 +45,7 @@ recommendedPosts:
   - 내부망에서 프로그램 설치, 보안 패치 등의 작업을 수행할 때 외부 네트워크 연결이 필요할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dmz-in-network-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dmz-in-network-01.png" width="100%" class="image__border">
 </div>
 <center>https://m.blog.naver.com/innoviss/222246852119</center>
 
@@ -55,7 +56,7 @@ recommendedPosts:
 - 외부 네트워크와 `DMZ` 영역 사이
 - `DMZ` 영역과 내부 네트워크 사이
 
-간단한 사례를 통해 `DMZ` 영역과 방화벽 정책에 대해 알아보겠다. 구체적인 요구사항에 따라 방화벽 정책을 정의하지만, 이번 포스트에선 개념 이해를 위한 간단한 사례만 살펴보겠다.
+간단한 사례를 통해 `DMZ` 영역과 방화벽 정책에 대해 알아보자. 구체적인 요구사항에 따라 방화벽 정책을 정의하지만, 이번 포스트에선 개념 이해를 위한 간단한 사례만 다룬다.
 
 방화벽은 다음과 같은 방향으로의 접근은 막는다.
 
@@ -78,7 +79,7 @@ recommendedPosts:
   - 내부망에서 프로그램 설치, 보안 패치 등의 작업을 수행하기 위해 접근 허용한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dmz-in-network-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/dmz-in-network-02.png" width="100%" class="image__border">
 </div>
 <center>https://brunch.co.kr/@ka3211/4</center>
 

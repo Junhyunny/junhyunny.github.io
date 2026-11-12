@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/date-of-year-exceeding-error-in-java/"
 categories:
   - "java"
+summary: "DateTimeFormatter에 Day of Year를 뜻하는 D 패턴을 잘못 지정해 발생한 필드 너비 초과 에러의 원인과 dd 패턴으로 해결하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -73,12 +74,12 @@ class ActionInBlogApplicationTests {
 
 ## 2. Cause of the problem
 
-DateTimeFormatter 클래스을 사용할 때 잘못된 패턴을 지정했다.
+DateTimeFormatter 클래스를 사용할 때 잘못된 패턴을 지정했다.
 
 - `D`는 Day of Year 값이므로 년 중 몇 번째 날인지 표현한다.
 - `d`는 Day of Month 값으로 월 중 몇 번째 날인지 표현한다.
 
-2022년 11월 25일은 년 중 359일인데, 이를 표현하는데 `DD`로 두 자리로만 지정했기 때문에 에러가 발생한 것이다. 
+2022년 12월 25일은 년 중 359일인데, 이를 표현하는 데 `DD`로 두 자리로만 지정했기 때문에 에러가 발생한 것이다. 
 
 - 아래 표는 Java에서 사용하는 날짜 포맷이다.
 - 자세한 설명은 [이 링크][date-time-symbol-table-link]에서 확인할 수 있다. 

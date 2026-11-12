@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/how-to-return-blob-image-in-spring/"
 categories:
   - "information"
+summary: "데이터베이스에 BLOB으로 저장한 이미지를 브라우저에 표시하기 위해 이미지 리소스 URL을 내려주고 해당 경로에서 이미지 바이너리를 반환하는 스프링 컨트롤러 구현과 테스트를 정리했다."
 recommendedPosts:
   - title: "How to test image upload in React"
     href: "https://junhyunny.github.io/typescript/react/how-to-test-image-upload-in-react/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[How to save image into PostgreSQL with Spring][how-to-save-image-into-database-with-spring-link] 포스트에선 이미지를 데이터베이스 BLOB 형태로 저장하는 방법에 대해 정리했다. 이번 포스트에선 BLOB으로 저장된 이미지를 브라우저에 표시하는 방법에 대해 정리하였다. 실습을 위한 개발 환경은 다음과 같다.
+[How to save image into PostgreSQL with Spring][how-to-save-image-into-database-with-spring-link] 포스트에선 이미지를 데이터베이스 BLOB 형태로 저장하는 방법에 대해 정리했다. 이번 포스트에선 BLOB으로 저장된 이미지를 브라우저에 표시하는 방법에 대해 정리했다. 실습을 위한 개발 환경은 다음과 같다.
 
 - 코틀린(kotlin)
 - 스프링 부트(spring boot) 3.0.7
@@ -31,23 +32,14 @@ recommendedPosts:
 4. 서버는 해당 URL 정보를 바탕으로 데이터베이스에서 바이너리 데이터를 조회 후 반환한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-return-blob-image-in-spring-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-return-blob-image-in-spring-01.png" width="100%" class="image__border">
 </div>
 
 ## 1. Return Image Resource URL
 
 파일을 업로드하고 데이터베이스에 이미지 바이너리 데이터를 저장하는 기능은 이미 구현되어 있다고 가정한다. 해당 저장된 데이터를 기반으로 이미지 리소스 URL 정보를 만들어 반환한다. 전달받은 URL 정보를 바탕으로 데이터베이스를 조회한다.
 
-### 1.1. FileEntity Class
-
-엔티티 클래스는 다음과 같은 모습을 가진다.
-
-- 바이너리 데이터를 저장할 수 있는 엔티티 클래스이다.
-  - 바이너리 데이터는 바이트 배열 형태로 저장한다.
-  - 데이터베이스마다 동작이 다르므로 추가적으로 필요한 컬럼 정보를 추가한다.
-- resourceLocation 메서드
-  - 메서드 파라미터로 전달받은 호스트 이름을 기준으로 리소스 위치 URL을 만들어 반환한다.
-  - 엔티티 ID, 이름이 사용된다.
+FileEntity 클래스는 바이너리 데이터를 저장할 수 있는 엔티티 클래스다. 바이너리 데이터는 바이트 배열 형태로 저장하고, 데이터베이스마다 동작이 다르므로 추가로 필요한 컬럼 정보를 지정한다. resourceLocation 메서드는 파라미터로 전달받은 호스트 이름과 엔티티 ID, 이름을 사용해 리소스 위치 URL을 만들어 반환한다.
 
 ```kotlin
 package action.`in`.blog.domain
@@ -72,12 +64,7 @@ class FileEntity(
 }
 ```
 
-### 1.2. FileController Class
-
-- `hostname` 변수 값은 application.yml 파일 설정으로 지정한다.
-  - 이번 포스트에서 지정된 값은 `http://localhost:8080`이다.
-- 업로드된 파일을 데이터베이스에 바이너리 형식으로 저장한다.
-- 저장된 엔티티 정보를 기준으로 이미지 리소스 URL 위치를 만들어 반환한다.
+FileController 클래스는 업로드된 파일을 데이터베이스에 바이너리 형식으로 저장하고, 저장된 엔티티 정보를 기준으로 이미지 리소스 URL 위치를 만들어 반환한다. `hostname` 변수 값은 application.yml 파일 설정으로 지정하며, 이번 글에서는 `http://localhost:8080`을 사용한다.
 
 ```kotlin
 package action.`in`.blog.controller
@@ -114,7 +101,7 @@ class FileController(
 
 ## 2. Set Image Source
 
-간단하게 타임리프(thymeleaf)를 사용해 페이지를 구성하였다. JavaScript 코드에 대한 설명은 가독성을 위해 주석으로 작성하였다.
+간단하게 타임리프(thymeleaf)를 사용해 페이지를 구성했다. JavaScript 코드에 대한 설명은 가독성을 위해 주석으로 작성했다.
 
 ```html
 <html lang="ko">

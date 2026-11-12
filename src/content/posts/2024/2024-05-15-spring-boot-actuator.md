@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/spring-boot-actuator/"
 categories:
   - "spring-boot"
+summary: "애플리케이션 메트릭을 확인하기 위한 스프링 부트 액추에이터의 기본 엔드-포인트와 노출 설정, 포트와 API 경로 변경 방법을 정리했다."
 recommendedPosts:
   - title: "Health Check for External Components in Actuator"
     href: "https://junhyunny.github.io/spring-boot/health-check-for-external-components-in-actuator/"
@@ -88,9 +89,7 @@ $ curl http://localhost:8080/actuator | jq .
 
 ### 2.1. Expose Endpoints
 
-간단한 확인을 위해 액추에이터가 제공하는 모든 엔드-포인트를 노출해보자. application.yml 파일을 다음과 같이 설정한다.
-
-- 웹에서 노출할 정보에 '*'(애스터리스크)를 지정한다.
+간단한 확인을 위해 액추에이터가 제공하는 모든 엔드-포인트를 노출해보자. 다음과 같이 application.yml 파일에서 웹으로 노출할 정보에 '*'(애스터리스크)를 지정한다.
 
 ```yml
 management:
@@ -196,9 +195,7 @@ $ curl http://localhost:8080/actuator | jq .
 }
 ```
 
-각 엔드-포인트마다 제공하는 정보가 다르다. 예를 들어 애플리케이션 메트릭 정보를 요청해보자. 
-
-- 액추에이터가 제공하는 메트릭 정보의 종류를 리스트로 보여준다.
+각 엔드-포인트마다 제공하는 정보가 다르다. 예를 들어 애플리케이션 메트릭 정보를 요청해보자. 액추에이터가 제공하는 메트릭 정보의 종류를 리스트로 보여준다.
 
 ```
 $ curl http://localhost:8080/actuator/metrics | jq .
@@ -372,7 +369,7 @@ $ curl http://localhost:8080/actuator | jq .
 
 ### 2.2. Change port and API path
 
-액추에이터는 많이 사용되는 라이브러리이기 때문에 잘 알려진 포트(port)나 기본 API 경로를 사용하지 않고 변경하여 사용하는 것이 안전하다. 다음과 같은 설정하면 액추에이터 포트 번호와 앤드-포인트 경로를 변경할 수 있다.
+액추에이터는 많이 사용되는 라이브러리이기 때문에 잘 알려진 포트(port)나 기본 API 경로를 사용하지 않고 변경하여 사용하는 것이 안전하다. 다음과 같이 설정하면 액추에이터 포트 번호와 엔드-포인트 경로를 변경할 수 있다.
 
 ```yml
 management:

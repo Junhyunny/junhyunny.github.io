@@ -1,10 +1,11 @@
 ---
 title: "renderHook을 사용한 리액트 컨텍스트 테스트"
 publishedAt: "2023-08-05"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:15:07+09:00"
 canonicalPath: "/react/react-context-test-with-render-hook/"
 categories:
   - "react"
+summary: "리액트 컨텍스트를 실제 컴포넌트로 간접 테스트하는 방법과 renderHook 함수로 직접 테스트하는 방법을 비교해 정리했다."
 ---
 
 ## 1. renderHook
@@ -14,7 +15,7 @@ categories:
 - 실제 컴포넌트를 활용한 간접적인 테스트
 - renderHook 함수를 통한 직접적인 테스트
 
-리액트 컨텍스트(react context) 테스트도 마찬가지로 실제 컴포넌트를 사용해 간접적인 테스트를 수행하거나 renderHook 함수를 사용해 직접적인 테스트가 가능하다. renderHook 함수를 사용하는 것은 실제 컴포넌트를 사용해 컨텍스트의 기능 테스트가 분산되거나 테스트를 위한 컴포넌트를 별도로 만들어야 하는 경우 유용하다. 간단한 예시를 살펴보겠다.
+리액트 컨텍스트(react context)도 마찬가지로 실제 컴포넌트를 사용해 간접적으로 테스트하거나 renderHook 함수를 사용해 직접 테스트할 수 있다. renderHook 함수는 실제 컴포넌트를 사용하면 컨텍스트의 기능 테스트가 분산되거나 테스트를 위한 컴포넌트를 별도로 만들어야 하는 경우에 유용하다. 간단한 예시를 살펴보자.
 
 ## 2. React Context Test
 
@@ -62,12 +63,7 @@ export default UserContextProvider;
 
 ### 2.1. Using Real Component
 
-실제 컨텍스트를 사용하는 컴포넌트를 통해 간접적으로 테스트를 수행한다.
-
-#### 2.1.1. Header Compnent
-
-- 헤더 컴포넌트는 사용자 컨텍스트로부터 사용자 정보를 얻는다.
-- 사용자 정보를 화면에 표시한다.
+실제 컨텍스트를 사용하는 컴포넌트를 통해 간접적으로 테스트한다. Header 컴포넌트는 사용자 컨텍스트로부터 사용자 정보를 얻어 화면에 표시한다.
 
 ```tsx
 import { useContext } from "react";
@@ -86,10 +82,7 @@ const Header = () => {
 export default Header;
 ```
 
-#### 2.1.2. Header Component Test
-
-- 헤더 컴포넌트와 사용자 컨텍스트를 함께 렌더(render)한다.
-- 사용자 정보가 화면에 표시되는지 확인한다.
+테스트에서는 Header 컴포넌트와 사용자 컨텍스트를 함께 렌더(render)하고, 사용자 정보가 화면에 표시되는지 확인한다.
 
 ```tsx
 import { render, screen } from "@testing-library/react";
@@ -120,19 +113,16 @@ it("사용자는 자신의 이름과 이메일 정보를 헤더에서 확인할 
 
 ### 2.2. Using renderHook
 
-컴포넌트와 함께 결합하여 테스트하는 방식은 다음과 같은 제한점이 있다.
+컴포넌트와 결합해 테스트하는 방식에는 다음과 같은 제약이 있다.
 
 - 컨텍스트를 사용하는 컴포넌트와 함께 테스트해야 하므로 컨텍스트의 기능 테스트가 분산된다.
-- 컨텍스트의 기능을 한 곳에서 테스트하기 위해선 테스트용 컴포넌트를 만들어야 한다.
+- 컨텍스트의 기능을 한 곳에서 테스트하려면 테스트용 컴포넌트를 만들어야 한다.
 
-renderHook 함수를 사용하면 이런 문제점을 해결할 수 있다. 컨텍스트 기능을 한 곳에서 테스트할 수 있고 필요하다면 프로퍼티를 변경하여 다시 렌더할 수 있다.
+renderHook 함수를 사용하면 이런 문제점을 해결할 수 있다. 컨텍스트 기능을 한 곳에서 테스트할 수 있고, 필요하다면 프로퍼티를 변경해 다시 렌더할 수 있다. UserContextProvider 컴포넌트를 테스트하는 순서는 다음과 같다.
 
-#### 2.2.1. UserContextProvicer Test
-
-- renderHook 함수에 UserContextProvicer 컴포넌트를 래퍼(wrapper) 객체로 제공한다.
-- renderHook의 콜백 함수에서 useContext 훅을 수행한다.
-  - 필요한 경우 useContext 훅이 포함된 커스텀 훅을 실행할 수 있다.
-- renderHook 실행 결과로 원하는 값이 나오는지 확인한다.
+1. renderHook 함수에 UserContextProvider 컴포넌트를 래퍼(wrapper) 객체로 제공한다.
+2. renderHook의 콜백 함수에서 useContext 훅을 실행한다. 필요한 경우 useContext 훅이 포함된 커스텀 훅을 실행할 수 있다.
+3. renderHook 실행 결과로 원하는 값이 나오는지 확인한다.
 
 ```tsx
 import { useContext } from "react";
@@ -167,7 +157,7 @@ it("사용자 컨텍스트는 사용자 정보를 제공한다.", async () => {
 
 ## CLOSING
 
-[advanced-hooks](https://react-hooks-testing-library.com/usage/advanced-hooks) 글을 보면 useContext 훅을 사용하는 커스텀 훅을 테스트한다. 컨텍스트 프로바이더(context provider)를 통해 전달되는 값을 확인할 수 있다. 초기 상태를 지정할 수 있으며 필요한 경우 프로퍼티를 변환하면서 리-렌더링할 수 있다.
+[advanced-hooks](https://react-hooks-testing-library.com/usage/advanced-hooks) 글에서는 useContext 훅을 사용하는 커스텀 훅을 테스트한다. 컨텍스트 프로바이더(context provider)를 통해 전달되는 값을 확인할 수 있고, 초기 상태를 지정할 수 있으며, 필요한 경우 프로퍼티를 바꿔 가며 리렌더링할 수 있다.
 
 #### TEST CODE REPOSITORY
 

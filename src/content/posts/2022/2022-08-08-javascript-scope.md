@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/javascript/javascript-scope/"
 categories:
   - "javascript"
+summary: "자바스크립트 스코프의 개념과 전역, 지역 스코프, 함수 레벨과 블록 레벨 스코프, 렉시컬 스코프와 다이나믹 스코프의 차이를 정리했다."
 recommendedPosts:
   - title: "Scope Chain in JavaScript"
     href: "https://junhyunny.github.io/javascript/javascript-scope-chain/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-스코프(scope)는 모든 프로그래밍 언어에서 중요한 개념이다. `JavaScript`의 스코프는 다른 언어들과 조금 다른 특징들이 존재한다. 이번 포스트에서 이에 관련된 내용들을 정리하였다.
+스코프(scope)는 모든 프로그래밍 언어에서 중요한 개념이다. `JavaScript`의 스코프는 다른 언어들과 조금 다른 특징들이 존재한다. 이번 포스트에서 이에 관련된 내용들을 정리했다.
 
 ## 1. Scope
 
@@ -23,7 +24,7 @@ recommendedPosts:
 
 ### 1.1. What is valid scope?
 
-간단한 예제 코드를 통해 확인해보겠다. 예제 코드는 브라우저 개발자 도구(F12) 콘솔에서 실행할 수 있다. 아래 코드를 실행하면 다음과 같은 결과를 얻는다.
+간단한 예제 코드를 통해 확인해보자. 예제 코드는 브라우저 개발자 도구(F12) 콘솔에서 실행할 수 있다. 아래 코드를 실행하면 다음과 같은 결과를 얻는다.
 
 - foo 변수는 전역 스코프(global scope)에 선언한다.
 - bar 변수는 baz 함수 내 지역 스코프(local scope)에 선언한다.
@@ -52,8 +53,8 @@ console.log(bar); // Uncaught ReferenceError: bar is not defined
 
 - foo 변수를 전역 스코프에 선언한다.
 - foo 변수를 bar 함수 내 지역 스코프에 선언한다.
-- bar 함수 실행 시 foo 변수는 "World" 이다.
-- 전역에서 foo 변수는 "Hello" 이다.
+- bar 함수 실행 시 foo 변수는 "World"이다.
+- 전역에서 foo 변수는 "Hello"이다.
 
 ```javascript
 var foo = "Hello";
@@ -70,7 +71,7 @@ console.log(foo); // Hello
 
 ## 2. Types of Scope
 
-`JavaScript` 스코프는 전역(global)과 지역(local)으로 나눌 수 있다. 예제 코드와 함께 각 스코프의 특징을 살펴보겠다.
+`JavaScript` 스코프는 전역(global)과 지역(local)으로 나눌 수 있다. 예제 코드와 함께 각 스코프의 특징을 살펴보자.
 
 - 변수 `x`는 전역 스코프에 속한다.
   - 전역은 코드 가장 바깥 영역이며 전역 스코프를 만든다.
@@ -115,10 +116,10 @@ console.log("global", y); // Uncaught ReferenceError: y is not defined
 
 ### 3.1. Function Level Scope
 
-예시 코드를 통해 함수 레벨 스코프를 살펴보겠다.
+예시 코드를 통해 함수 레벨 스코프를 살펴보자.
 
 - `var` 키워드로 선언한 변수는 함수 코드 블록 내에서만 지역 스코프에 포함된다.
-- `if` 블록에서 선언한 foo 변수는 지역 스코프로써 유효하지 않으므로 전역 변수로 취급되며 전역에서 정상적으로 출력된다.
+- `if` 블록에서 선언한 foo 변수는 지역 스코프로서 유효하지 않으므로 전역 변수로 취급되며 전역에서 정상적으로 출력된다.
 - `bar` 함수 내에서 선언한 baz 변수는 지역 스코프에 선언되었으므로 지역 변수로 취급되며 전역에서 호출 시 에러가 발생한다.
 
 ```javascript
@@ -172,14 +173,14 @@ console.log(index); // Uncaught ReferenceError: index is not defined
 
 ## 4. How to decide scope?
 
-프로그래밍 언어마다 스코프를 정의하는 방법이 조금씩 다르다. 어떤 방식이 있는지 정리하면서 `JavaScript`는 어떤 방식을 따르는지 살펴보겠다.
+프로그래밍 언어마다 스코프를 정의하는 방법이 조금씩 다르다. 어떤 방식이 있는지 정리하면서 `JavaScript`는 어떤 방식을 따르는지 살펴보자.
 
 ### 4.1. Lexical Scope
 
 > [Programming Languages Lecture 9 - Lexical Scope, Closures][zach-tatlock-pdf-link]<br/>
 > Lexical scope: use environment where function [and variable] is defined
 
-`Java`와 `JavaScript`는 모두 렉시컬(lexcial) 스코프 방식을 사용한다. 렉시컬 스코프 방식은 함수가 `선언된 위치의 컨텍스트`를 사용하여 스코프를 정의한다. 아래 예시 코드를 통해 확인해보겠다.
+`Java`와 `JavaScript`는 모두 렉시컬(lexical) 스코프 방식을 사용한다. 렉시컬 스코프 방식은 함수가 `선언된 위치의 컨텍스트`를 사용하여 스코프를 정의한다. 아래 예시 코드를 통해 확인해보자.
 
 - baz 함수가 선언된 위치는 전역이다.
 - baz 함수 내부에서 사용한 foo 변수는 전역 스코프를 참조한다.
@@ -206,7 +207,7 @@ bar();
 > [Programming Languages Lecture 9 - Lexical Scope, Closures][zach-tatlock-pdf-link]<br/>
 > Dynamic scope: use environment where function [and variable] is called
 
-`Perl`, `Bash Shell` 같은 오래된 언어들이 사용하는 방식이다. 다이나믹 스코프 방식은 함수가 `실행된 위치의 컨텍스트`를 사용하여 스코프를 정의한다. 다음과 같은 쉘(shell) 스크립트를 통해 확인해보았다.
+`Perl`, `Bash Shell` 같은 오래된 언어들이 사용하는 방식이다. 다이나믹 스코프 방식은 함수가 `실행된 위치의 컨텍스트`를 사용하여 스코프를 정의한다. 다음과 같은 쉘(shell) 스크립트를 통해 확인해봤다.
 
 - baz 함수가 선언된 위치는 전역이다.
 - bar 함수 내부에서 baz 함수가 실행되면 baz 함수 내부의 foo 변수는 지역 스코프를 참조한다.

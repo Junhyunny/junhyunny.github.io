@@ -6,6 +6,7 @@ canonicalPath: "/information/nginx/cache-control-on-nginx/"
 categories:
   - "information"
   - "nginx"
+summary: "HTTP Cache-Control 헤더의 개념과 Nginx 캐시 컨트롤 설정 방법을 정리하고, 느린 네트워크 환경에서 적용 전후의 다운로드 시간을 비교했다."
 recommendedPosts:
   - title: "Nginx 압축(Compression) 설정"
     href: "https://junhyunny.github.io/information/nginx/compression-on-nginx/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-속도가 느린 네트워크 상황에서 브라우저 사용자의 경험 개선을 위한 압축 설정에 관련된 내용을 [이전 글][compression-on-nginx-link]에서 다뤘다. 이전 글을 읽어보면 알 수 있듯이 이미지, 비디오 같은 파일들은 이미 충분히 압축된 바이너리(binary) 파일이기 때문에 압축 효과가 거의 없다. 압축 이외에도 사용성 개선을 위한 방법인 캐시 컨트롤(cache control)을 알아본다.
+속도가 느린 네트워크 상황에서 브라우저 사용자의 경험 개선을 위한 압축 설정에 관련된 내용을 [이전 글][compression-on-nginx-link]에서 다뤘다. 이전 글을 읽어보면 알 수 있듯이 이미지, 비디오 같은 파일들은 이미 충분히 압축된 바이너리(binary) 파일이기 때문에 압축 효과가 거의 없다. 압축 이외에도 사용성 개선을 위한 방법인 캐시 컨트롤(cache control)을 정리했다.
 
 ## 1. Cache-Control in HTTP Header
 

@@ -1,12 +1,13 @@
 ---
 title: "반사형 XSS(Reflected Cross Site Scripting) 공격과 방어"
 publishedAt: "2022-05-08"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:19:45+09:00"
 canonicalPath: "/information/security/spring-mvc/reflected-cross-site-scripting/"
 categories:
   - "information"
   - "security"
   - "spring-mvc"
+summary: "XSS 공격의 개념과 반사형 XSS 공격을 예제로 재현하고, 입력 값 제한, 특수 문자 치환, JSTL c:out 태그를 사용한 방어 방법을 정리했다."
 recommendedPosts:
   - title: "저장형 XSS(Stored Cross Site Scripting) 공격과 방어"
     href: "https://junhyunny.github.io/information/security/spring-mvc/stored-cross-site-scripting/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-레거시 시스템을 살펴보면 필터에서 요청 파라미터나 메시지에 담긴 `<`, `>` 등의 특수 문자를 다른 문자열로 치환하는 코드를 종종 보곤 한다. 이런 시큐어 코딩(secure coding)의 필요성을 잘 몰랐을 땐 요청 파라미터나 메시지가 변환되는 것에 대해 불편함을 토로하곤 했다. 이 포스트에선 XSS 공격에 대한 전반적인 개념과 대표적인 공격 유형 중 반사형 XSS(Reflected XSS) 공격에 대한 내용을 위주로 다뤘다.
+레거시 시스템을 살펴보면 필터에서 요청 파라미터나 메시지에 담긴 `<`, `>` 등의 특수 문자를 다른 문자열로 치환하는 코드를 종종 본다. 이런 시큐어 코딩(secure coding)의 필요성을 잘 몰랐을 땐 요청 파라미터나 메시지가 변환되는 것이 불편하다고 토로하곤 했다. 이 글에선 XSS 공격의 전반적인 개념과 대표적인 공격 유형 중 반사형 XSS(Reflected XSS) 공격을 위주로 다뤘다.
 
 ## 1. XSS(Cross Site Scripting) 공격
 
@@ -28,16 +29,17 @@ recommendedPosts:
 > 이 취약점으로 해커가 사용자의 정보(쿠키, 세션 등)를 탈취하거나, 자동으로 비정상적인 기능을 수행하게 할 수 있다.
 > 주로 다른 웹사이트와 정보를 교환하는 식으로 작동하므로 사이트 간 스크립팅이라고 한다.
 
-위키피디아의 XSS 공격에 대한 정의를 읽어보면 매우 잘 설명해주고 있지만, 이해가 안 되거나 정확한 컨셉이 와닿지 않는 분들을 위해 간단한 시나리오를 바탕으로 예시 코드를 살펴보겠다.
+위키피디아의 XSS 공격 정의는 매우 잘 설명되어 있지만, 이해가 안 되거나 개념이 정확히 와닿지 않는 분들을 위해 간단한 시나리오를 바탕으로 예시 코드를 살펴보자.
 
 ## 2. 반사형 XSS(Reflected XSS)
 
-XSS 공격은 다음과 같은 유형들이 존재한다.
+XSS 공격에는 다음과 같은 유형이 있다.
+
 - 반사형 XSS(Reflected XSS)
 - 저장형 XSS(Stored or Persistent XSS)
 - DOM 기반 XSS(DOM Based XSS)
 
-이번 포스트에선 반사형 XSS 공격과 이를 방어하는 방법에 대해 정리하였다. 악의적인 사용자가 악성 스크립트가 담긴 URL을 만들어 일반 사용자에게 전달하는 경우이다. 악의적인 사용자는 URL 주소 뒤에 붙는 쿼리에 악성 스크립트를 작성해서 전달한다.
+이번 글에선 반사형 XSS 공격과 이를 방어하는 방법을 정리했다. 반사형 XSS는 악의적인 사용자가 악성 스크립트가 담긴 URL을 만들어 일반 사용자에게 전달하는 경우다. 악의적인 사용자는 URL 주소 뒤에 붙는 쿼리에 악성 스크립트를 작성해서 전달한다.
 
 ```
 $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</script>
@@ -45,9 +47,11 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 
 ### 2.1. 반사형 XSS 공격 시나리오
 
+반사형 XSS 공격 시나리오는 다음과 같다.
+
 1. 악의적인 사용자가 보안이 취약한 사이트를 발견했다.
 1. 보안이 취약한 사이트에서 사용자 정보를 빼돌릴 수 있는 스크립트가 담긴 URL을 만들어 일반 사용자에게 스팸 메일로 전달한다.
-1. 일반 사용자는 메일을 통해 전달받은 URL 링크를 클릭한다. 일반 사용자 브라우저에서 보안이 취약한 사이트로 요청을 전달한다.
+1. 일반 사용자는 메일로 전달받은 URL 링크를 클릭한다. 일반 사용자 브라우저는 보안이 취약한 사이트로 요청을 전달한다.
 1. 일반 사용자의 브라우저에서 응답 메시지를 실행하면서 악성 스크립트가 실행된다.
 1. 악성 스크립트를 통해 사용자 정보가 악의적인 사용자에게 전달된다.
 
@@ -57,12 +61,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 
 ### 2.2. 반사형 XSS 공격 취약 서비스의 코드
 
-이제 보안이 취약한 서버의 코드를 살펴보겠다. 불필요한 코드는 제외하고 문제를 일으키는 코드만 확인해보겠다.
-
-#### 2.2.1. ReflectedXssAttack JSP
-
-- 사용자에게 검색 키워드를 입력받는다.
-- 사용자가 자신이 어떤 검색 키워드를 사용했는지 확인할 수 있도록 화면에 보여준다.
+이제 보안이 취약한 서버의 코드를 살펴보자. 불필요한 코드는 제외하고 문제를 일으키는 코드만 확인한다. `ReflectedXssAttack` JSP는 사용자에게 검색 키워드를 입력받고, 사용자가 어떤 검색 키워드를 사용했는지 확인할 수 있도록 화면에 보여 준다.
 
 ```jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -100,10 +99,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 </html>
 ```
 
-#### 2.2.2. XssAttackController 클래스
-
-- 화면에서 전달한 조회 키워드 파라미터를 그대로 화면에 담아서 전달한다.
-- 사용자의 입력을 검증 없이 사용한다.
+`XssAttackController` 클래스는 화면에서 전달한 조회 키워드 파라미터를 그대로 화면에 담아 전달한다. 사용자의 입력을 검증 없이 사용하는 것이다.
 
 ```java
     @GetMapping(path = "/reflected")
@@ -115,9 +111,11 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 
 ### 2.3. 반사형 XSS 공격 결과
 
-1. 악의적인 사용자는 악성 스크립트를 만들어 URL로 만들어지는 것을 확인한다.
-1. 공격 URL 주소를 다른 일반 사용자가 알아보지 못하도록 다른 URL 주소로 변경한 후 일반 사용자에게 전달한다.
-1. 공격 URL 주소를 클릭한 사용자의 브라우저는 악성 스크립트를 실행하게 된다.
+반사형 XSS 공격은 다음 순서로 진행된다.
+
+1. 악의적인 사용자는 악성 스크립트를 입력해 URL이 만들어지는 것을 확인한다.
+1. 일반 사용자가 공격 URL 주소를 알아보지 못하도록 다른 URL 주소로 바꾼 후 일반 사용자에게 전달한다.
+1. 공격 URL 주소를 클릭한 사용자의 브라우저는 악성 스크립트를 실행한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/reflected-cross-site-scripting-02.gif" width="100%" class="image__border">
@@ -125,15 +123,11 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 
 ## 3. 반사형 XSS 방어
 
-반사형 XSS 공격을 방어하는 방법을 정리해보겠다.
+반사형 XSS 공격을 방어하는 방법을 정리해 보자.
 
 ### 3.1. 입력 값 제한
 
-브라우저에서 사용자 입력 시 특수 문자를 제한한다. 다음과 같은 정규식을 통해 입력을 제한할 수 있다.
-
-##### 클라이언트 입력 제한 정규식 사용
-
-- 한글, 영어, 숫자, 공백만 입력 가능하다.
+브라우저에서 사용자가 입력할 때 특수 문자를 제한한다. 다음과 같은 정규식으로 입력을 제한할 수 있다. 한글, 영어, 숫자, 공백만 입력할 수 있다.
 
 ```jsp
     <script type="text/javascript">
@@ -167,7 +161,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 </body>
 ```
 
-##### 적용 결과
+적용한 결과는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/reflected-cross-site-scripting-03.gif" width="100%" class="image__border">
@@ -175,9 +169,7 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 
 ### 3.2. 입력 값 치환
 
-악성 스크립트를 만들 수 있는 특수 문자들을 치환한다. 모든 요청에 대해 치환을 적용할 수 있도록 필터를 만들어 이를 적용한다.
-
-##### 악성 스크립트를 만들 수 있는 특수 문자
+악성 스크립트를 만들 수 있는 특수 문자를 치환한다. 모든 요청에 치환을 적용할 수 있도록 필터를 만들어 적용한다. 악성 스크립트를 만들 수 있는 특수 문자는 다음과 같다.
 
 | ASCII 문자 | 참조 문자 | ASCII 문자 | 참조 문자 |
 |:---:|:---:|:---:|:---:|
@@ -186,13 +178,11 @@ $ curl http://vulnerable-site.com/query?keyworkd=<script>malicious-script-code</
 | > | `&gt;` | / | `&#x2F;` |
 | ( | `&#40;` | ) | `&#41;` |
 
-##### XssAttackFilter 클래스
+`XssAttackFilter` 클래스는 요청 정보를 담고 있는 `ServletRequest` 객체를 `RequestWrapper` 클래스로 래핑한다. 요청에서 다음 데이터를 추출할 때 오버라이딩한 메서드를 통해 전달한다.
 
-- 요청 정보를 담고 있는 `ServletRequest` 객체를 `RequestWrapper` 클래스로 래핑한다.
-- 요청에서 다음과 같은 데이터를 추출할 때 오버라이딩한 메서드를 통해 전달한다.
-  - `getParameterValues` 메서드 - 요청 파라미터 값들을 전달할 때 특수 문자를 치환 후 반환한다.
-  - `getParameter` 메서드 - 요청 파라미터 값을 전달할 때 특수 문자를 치환 후 반환한다.
-  - `getHeader` 메서드 - 요청 헤더 값을 전달할 때 특수 문자를 치환 후 반환한다.
+- `getParameterValues` 메서드 - 요청 파라미터 값들을 전달할 때 특수 문자를 치환한 후 반환한다.
+- `getParameter` 메서드 - 요청 파라미터 값을 전달할 때 특수 문자를 치환한 후 반환한다.
+- `getHeader` 메서드 - 요청 헤더 값을 전달할 때 특수 문자를 치환한 후 반환한다.
 
 ```java
 package blog.in.action.filter;
@@ -273,7 +263,7 @@ public class XssAttackFilter implements Filter {
 }
 ```
 
-##### 적용 결과
+적용한 결과는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/reflected-cross-site-scripting-04.gif" width="100%" class="image__border">
@@ -281,9 +271,7 @@ public class XssAttackFilter implements Filter {
 
 ### 3.3. 직접 출력 금지
 
-사용자의 입력을 그대로 출력하는 일은 위험하므로 라이브러리의 출력 함수를 사용하는 방법이 있다. JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c:out />`)를 사용하면 문자열을 그대로 출력한다. 문자열을 그대로 출력하기 때문에 스크립트가 실행되지 않으므로 XSS 공격을 방어할 수 있다.
-
-##### JSTL <c:out /> 태그 사용
+사용자의 입력을 그대로 출력하는 일은 위험하므로 라이브러리의 출력 함수를 사용하는 방법이 있다. JSP 프레임워크에서 사용하는 JSTL 라이브러리의 출력 태그(`<c:out />`)를 사용하면 문자열을 그대로 출력한다. 문자열을 그대로 출력하기 때문에 스크립트가 실행되지 않으므로 XSS 공격을 방어할 수 있다. 다음과 같이 JSTL `<c:out />` 태그를 사용한다.
 
 ```jsp
 <div class="container">
@@ -291,7 +279,7 @@ public class XssAttackFilter implements Filter {
 </div>
 ```
 
-##### 적용 결과
+적용한 결과는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/reflected-cross-site-scripting-05.gif" width="100%" class="image__border">
@@ -299,7 +287,7 @@ public class XssAttackFilter implements Filter {
 
 ## 4. XSS 공격의 위험성
 
-악성 스크립트를 통한 XSS 공격은 쿠키나 스토리지로부터 사용자 정보를 획득하는 방법만 있는 것이 아니다. 다음과 같은 스크립트를 통해 악성 코드를 다운받는 사이트 혹은 유사 사이트로 리다이렉트(redirect) 시킬 수 있다.
+악성 스크립트를 이용한 XSS 공격은 쿠키나 스토리지에서 사용자 정보를 획득하는 방법만 있는 것이 아니다. 다음과 같은 스크립트로 악성 코드를 내려받는 사이트나 유사 사이트로 리다이렉트(redirect)시킬 수 있다.
 
 ```jsp
 <script>
@@ -309,12 +297,14 @@ public class XssAttackFilter implements Filter {
 
 ## CLOSING
 
-이번 포스트에서 XSS 공격의 모든 유형을 다루기엔 너무 내용이 길어질 것 같아서 분리하였다. 다음 포스트는 저장형 XSS(Stored or Persistent XSS) 공격과 방어에 대한 내용을 다뤄보겠다.
+이번 글에서 XSS 공격의 모든 유형을 다루기엔 내용이 너무 길어질 것 같아서 나눴다. 다음 글에선 저장형 XSS(Stored or Persistent XSS) 공격과 방어를 다루려고 한다.
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-05-08-reflected-cross-site-scripting>
 
 #### REFERENCE
+
 - [XSS(Cross Site Scripting) 공격][xss-wiki-link]
 - <https://bitly.com/>
 - <https://kevinthegrey.tistory.com/36>

@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/redis/embedded-redis-server/"
 categories:
   - "spring-boot"
   - "redis"
+summary: "로컬 개발 시 매번 레디스를 띄워야 하는 불편함을 임베디드 레디스 서버로 해소하는 방법과 SLF4J 클래스 중복 문제를 해결한 과정을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -19,13 +20,13 @@ Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unabl
     at org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory$SharedConnection.getNativeConnection(LettuceConnectionFactory.java:1383) ~[spring-data-redis-2.7.5.jar:2.7.5]
 ```
 
-로그에서 확인할 수 있듯이 레디스 서비스와 연결하지 못해 발생하는 문제이다. 서비스 가동 환경이라면 당연히 레디스 서비스와 연결해야 하지만, 개발자의 로컬 환경이라면 굉장히 불편한 상황이다. 이번 포스트에선 개발자가 애플리케이션을 테스트하기 위해 매번 레디스 서비스를 띄워야 하는 불편함을 해소할 수 있는 임베디드 레디스(embedded redis)에 대해 살펴보겠다.
+로그에서 확인할 수 있듯이 레디스 서비스와 연결하지 못해 발생하는 문제이다. 서비스 가동 환경이라면 당연히 레디스 서비스와 연결해야 하지만, 개발자의 로컬 환경이라면 굉장히 불편한 상황이다. 이번 포스트에선 개발자가 애플리케이션을 테스트하기 위해 매번 레디스 서비스를 띄워야 하는 불편함을 해소할 수 있는 임베디드 레디스(embedded redis)에 대해 정리했다.
 
 ## 1. Embedded Redis
 
-내장 레디스를 지원하는 라이브러리인 `kstyrc/embedded-redis`은 2018년 9월 17일이 마지막 커밋(commit)이다. 이번 포스트에선 이를 포크(fork)하여 2020년 6월 11일까지 업데이트했었던 `ozimov/embedded-redis` 라이브러리를 사용하였다.
+내장 레디스를 지원하는 라이브러리인 `kstyrc/embedded-redis`는 2018년 9월 17일이 마지막 커밋(commit)이다. 이번 포스트에선 이를 포크(fork)하여 2020년 6월 11일까지 업데이트했었던 `ozimov/embedded-redis` 라이브러리를 사용했다.
 
-### 1.1. Add Depedency
+### 1.1. Add Dependency
 
 다음과 같은 정보를 `pom.xml` 파일에 추가한다.
 
@@ -41,7 +42,7 @@ Caused by: org.springframework.data.redis.RedisConnectionFailureException: Unabl
 
 애플리케이션이 운영되는 환경에 맞도록 설정 파일을 분할한다.
 
-#### 1.2.1. application.yml
+`application.yml` 파일에서는 활성 프로파일을 `local`로 지정한다.
 
 ```yml
 spring:
@@ -49,7 +50,7 @@ spring:
     active: local
 ```
 
-#### 1.2.2. application-local.yml
+`application-local.yml` 파일에서는 레디스 포트를 6370으로 지정한다.
 
 ```yml
 spring:

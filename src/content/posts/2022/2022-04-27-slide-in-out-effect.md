@@ -1,19 +1,18 @@
 ---
 title: "슬라이드 인/아웃 효과(Slide In/Out Effect)"
 publishedAt: "2022-04-27"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:19:45+09:00"
 canonicalPath: "/html/css/javascript/slide-in-out-effect/"
 categories:
   - "html"
   - "css"
   - "javascript"
+summary: "컴포넌트가 아래에서 위로 등장하고 위에서 아래로 사라지는 슬라이드 인/아웃 효과를 HTML, CSS, JavaScript로 구현했다."
 ---
 
 ## 1. Slide In/Out 효과
 
-컴포넌트가 아래에서 위 방향 슬라이드(slide)로 등장하고, 사라질 때 위에서 아래로 내려가는 효과이다.
-
-### 1.1. HTML 코드
+컴포넌트가 아래에서 위로 슬라이드(slide)하며 등장하고, 사라질 때는 위에서 아래로 내려가는 효과다. HTML 코드는 다음과 같다.
 
 ```html
 <div class="wrapper">
@@ -34,11 +33,7 @@ categories:
 </div>
 ```
 
-### 1.2. CSS 코드
-
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
-
+CSS 코드는 다음과 같다. 영역 표시나 크기를 설정한 속성의 설명은 제외했고, 가독성을 높이기 위해 설명은 주석으로 작성했다.
 
 ```css
 .wrapper {
@@ -150,13 +145,7 @@ categories:
 }
 ```
 
-### 1.3. JavaScript 코드
-
-- `openButton` 클릭 이벤트
-  - `slide` 컴포넌트의 `on` 클래스를 추가한다.
-- `closeButton` 클릭 이벤트
-  - `slide` 컴포넌트의 `off` 클래스를 추가한다.
-  - 타이머를 이용해 애니메이션이 끝나는 시점에 `slide` 컴포넌트의 `on`, `off` 클래스를 제거한다.
+JavaScript 코드는 다음과 같다. `openButton`을 클릭하면 `slide` 컴포넌트에 `on` 클래스를 추가한다. `closeButton`을 클릭하면 `slide` 컴포넌트에 `off` 클래스를 추가하고, 타이머를 이용해 애니메이션이 끝나는 시점에 `slide` 컴포넌트의 `on`, `off` 클래스를 제거한다.
 
 ```javascript
 const slide = document.querySelector(".slide");
@@ -176,7 +165,7 @@ closeButton.addEventListener("click", () => {
 });
 ```
 
-## 2. 결과
+결과는 다음과 같다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/bGaXeWE?default-tab=js,result" title="Slide In/Out Effect" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/bGaXeWE/">CodePen에서 예제 열기</a></p>

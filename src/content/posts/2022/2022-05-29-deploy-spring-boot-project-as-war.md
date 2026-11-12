@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/server/deploy-spring-boot-project-as-war/"
 categories:
   - "spring-boot"
   - "server"
+summary: "톰캣 배포 환경에 맞추기 위해 pom.xml 설정과 SpringBootServletInitializer 클래스 상속으로 스프링 부트 프로젝트를 war 패키지로 배포하는 방법을 정리했다."
 recommendedPosts:
   - title: "리액트(React) 애플리케이션을 톰캣(Tomcat)에서 호스팅 시 404 오류"
     href: "https://junhyunny.github.io/spring-boot/react/tomcat/not-found-when-hosting-react-app-on-tomcat/"
@@ -18,7 +19,7 @@ recommendedPosts:
 - `JSP`를 `Vue`로 전환
 - `Spring MVC`를 `Spring Boot`로 전환
 
-애플리케이션의 프레임워크는 변경했지만, 배포 환경까지 바꾸진 못 했다. 여전히 톰캣 서버에 war 패키지로 배포한다. 스프링 부트는 기본적으로 실행 가능한 jar(executable jar)로 패키징 되므로 war 파일로 패키징 하려면 별도 작업이 필요하다. 이번 글은 스프링 부트 프레임워크를 war 파일로 패키징하는 방법에 대해 정리했다.
+애플리케이션의 프레임워크는 변경했지만, 배포 환경까지 바꾸진 못했다. 여전히 톰캣 서버에 war 패키지로 배포한다. 스프링 부트는 기본적으로 실행 가능한 jar(executable jar)로 패키징되므로 war 파일로 패키징하려면 별도 작업이 필요하다. 이번 글은 스프링 부트 프레임워크를 war 파일로 패키징하는 방법에 대해 정리했다.
 
 ## 1. POM XML
 
@@ -163,16 +164,14 @@ Using CATALINA_OPTS:
 Tomcat started.
 ```
 
-위에서 패키징 한 war 파일을 톰캣 서버의 `webapps` 디렉토리로 옮기면 애플리케이션이 호스팅된다. war 파일 이름은 `ROOT`를 지정한다. 톰캣 서버는 ROOT 폴더 내 자원을 서비스하기 때문에 별다른 설정이 없다면 반드시 `ROOT`를 사용해야 한다.
-
-- 톰캣 서버 webapps 디렉토리에 ROOT 폴더를 삭제한다.
+위에서 패키징한 war 파일을 톰캣 서버의 `webapps` 디렉토리로 옮기면 애플리케이션이 호스팅된다. war 파일 이름은 `ROOT`를 지정한다. 톰캣 서버는 ROOT 폴더 내 자원을 서비스하기 때문에 별다른 설정이 없다면 반드시 `ROOT`를 사용해야 한다. 톰캣 서버 webapps 디렉토리에 ROOT 폴더를 삭제한다.
 
 ```
 $ rm -rf ~/apache-tomcat-8.5.79/webapps/ROOT
 ```
 
-- 스프링 부트 프로젝트의 target 경로에 생성된 `.war` 파일을 `${TOMCAT_HOME}/webapp` 경로로 이동한다.
-  - 파일 이름은 `ROOT.war`을 사용한다.
+- 스프링 부트 프로젝트의 target 경로에 생성된 `.war` 파일을 `${TOMCAT_HOME}/webapps` 경로로 이동한다.
+  - 파일 이름은 `ROOT.war`를 사용한다.
 - 시간이 지나면 ROOT.war 파일이 자동으로 언패키징(unpackaging)된다.
   - ROOT 폴더가 생성된다.
 

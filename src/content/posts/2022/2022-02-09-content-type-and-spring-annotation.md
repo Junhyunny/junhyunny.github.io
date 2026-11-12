@@ -7,6 +7,7 @@ categories:
   - "information"
   - "spring-boot"
   - "javascript"
+summary: "Content-Type 헤더와 MIME 타입을 살펴보고, 요청 데이터 형식에 맞는 스프링 부트 컨트롤러 애너테이션을 사용해 데이터 수신 에러를 피하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -82,7 +83,7 @@ Content-Type 헤더에 사용되는 MIME(Multipurpose Internet Mail Extensions)�
 > 전자우편은 7비트 ASCII 문자를 사용하여 전송되기 때문에, 8비트 이상의 코드를 사용하는 문자나 이진 파일들은 MIME 포맷으로 변환되어 SMTP로 전송된다. 
 > 실질적으로 SMTP로 전송되는 대부분의 전자 우편은 MIME 형식이다.
 
-Content-Type 헤더와 MIME 타입은 전자 우편을 위해 정의되었지만, HTTP, SIP 같은 인터넷 프로토콜에서 전송 데이터를 표현하기 위해 사용되고 있다. 위에서 설명했듯이 MIME 타입의 구조는 `타입/서브타입` 형태를 가진다. 간단히 어떤 종류가 있는지 알아보겠다. 
+Content-Type 헤더와 MIME 타입은 전자 우편을 위해 정의되었지만, HTTP, SIP 같은 인터넷 프로토콜에서 전송 데이터를 표현하기 위해 사용되고 있다. 위에서 설명했듯이 MIME 타입의 구조는 `타입/서브타입` 형태를 가진다. 간단히 어떤 종류가 있는지 알아보자. 
 
 - 아래 표에는 없지만, `application/json` 타입이 있다.
 - 이 외에도 멀티파트(multipart) 타입이 있다. 하나의 메시지 바디에 서로 다른 타입들이 들어가는 경우 사용한다.
@@ -126,7 +127,7 @@ Referer: http://localhost:3000/
 item=Hello+World
 ```
 
-form 태그를 사용할 때 Content-Type 헤더를 변경할 수 있다. 파일을 서버로 전송하는 경우 `multipart/form-data` 타입을 사용해야 한다. 이 경우 `enctype` 속성을 통해 `multipart/form-data`으로 `MIME` 타입을 변경한다.
+form 태그를 사용할 때 Content-Type 헤더를 변경할 수 있다. 파일을 서버로 전송하는 경우 `multipart/form-data` 타입을 사용해야 한다. 이 경우 `enctype` 속성을 통해 `multipart/form-data`로 `MIME` 타입을 변경한다.
 
 ```html
 <form action="http://localhost:8080/file" method="post" enctype="multipart/form-data">
@@ -135,9 +136,7 @@ form 태그를 사용할 때 Content-Type 헤더를 변경할 수 있다. 파일
 </form>
 ```
 
-form 태그의 Content-Type 헤더를 변경했을 때 전송되는 POST 요청은 다음과 같다.
-
-- "Hello World" 문자열과 JPEG 이미지 파일을 전송하였다.
+form 태그의 Content-Type 헤더를 변경한 뒤 "Hello World" 문자열과 JPEG 이미지 파일을 전송했을 때의 POST 요청은 다음과 같다.
 
 ```
 POST /nothing HTTP/1.1
@@ -246,7 +245,7 @@ Referer: http://localhost:3000/
 2. 해당 메서드의 파라미터 앞에 붙은 애너테이션을 지원하는 `Resolver` 클래스를 찾는다.
 3. 이후 `Resolver` 클래스의 `resolveArgument` 메서드를 통해 메시지에 담긴 데이터를 엔드포인트 메서드의 파라미터로 변경한다.
 
-이번 글에선 자주 사용하는 Content-Type 헤더와 이를 처리하는 애너테이션을 정리했다. 간단한 테스트 코드를 통해 확인하였으며, 데이터를 받을 때 사용하는 DTO(Data Transfer Object)는 다음과 같다.
+이번 글에선 자주 사용하는 Content-Type 헤더와 이를 처리하는 애너테이션을 정리했다. 간단한 테스트 코드를 통해 확인했으며, 데이터를 받을 때 사용하는 DTO(Data Transfer Object)는 다음과 같다.
 
 ```java
 package action.in.blog.dto;

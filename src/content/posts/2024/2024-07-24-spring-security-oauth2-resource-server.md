@@ -8,6 +8,7 @@ categories:
   - "java"
   - "spring-boot"
   - "spring-security"
+summary: "MS AAD로 인증하는 iOS 앱 프로젝트를 바탕으로 스프링 시큐리티 OAuth2 리소스 서버가 JWKs로 액세스 토큰을 검증하는 아키텍처와 흐름을 정리했다."
 recommendedPosts:
   - title: "JWT(Json Web Token)"
     href: "https://junhyunny.github.io/information/json-web-token/"
@@ -17,7 +18,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 프로젝트는 iOS 애플리케이션을 개발했고 사용자 인증을 위해 마이크로소프트 AAD(Azure Active Directory)를 사용했다.  평소 개발하는 웹 서비스에선 백엔드 애플리케이션이 클라이언트로써 참여하지만, iOS 애플리케이션 인증 과정에선 리소스 서버 역할을 수행한다. 오래 전에 스프링 시큐리티 인가 서버, 리소스 서버 의존성을 사용해 본 경험이 있지만, 당시엔 충분히 이해하지 못한 채 사용했기 때문에 구현에만 급급했다. 이번 글은 오랜만에 다시 사용해 본 스프링 시큐리티 OAuth2 리소스 서버의 아키텍처 일부분과 인증 흐름에 대해 정리했다. 
+최근 프로젝트는 iOS 애플리케이션을 개발했고 사용자 인증을 위해 마이크로소프트 AAD(Azure Active Directory)를 사용했다.  평소 개발하는 웹 서비스에선 백엔드 애플리케이션이 클라이언트로서 참여하지만, iOS 애플리케이션 인증 과정에선 리소스 서버 역할을 수행한다. 오래 전에 스프링 시큐리티 인가 서버, 리소스 서버 의존성을 사용해 본 경험이 있지만, 당시엔 충분히 이해하지 못한 채 사용했기 때문에 구현에만 급급했다. 이번 글은 오랜만에 다시 사용해 본 스프링 시큐리티 OAuth2 리소스 서버의 아키텍처 일부분과 인증 흐름에 대해 정리했다. 
 
 ## 1. Project Context
 
@@ -33,7 +34,7 @@ recommendedPosts:
   - 리소스 오너의 정보가 인가 서버로 제출된다.
   - 인가 서버는 리소스 오너의 인증 정보가 유효한지 확인한다.
 4. Access Token
-  - 리소스 오너의 인증 정보가 유효한다면 액세스 토큰을 반환한다.
+  - 리소스 오너의 인증 정보가 유효하다면 액세스 토큰을 반환한다.
 5. Access Token
   - 리소스 서버에 접근할 때 액세스 토큰을 사용한다.
   - 백엔드 서버 애플리케이션은 `5-1` 과정을 통해 해당 액세스 토큰의 유효성을 확인한다.
@@ -41,12 +42,12 @@ recommendedPosts:
   - 액세스 토큰이 유효한 경우 리소스 오너의 보호된 정보를 반환한다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-resource-server-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-resource-server-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Validate Access Token Process in Spring Boot OAuth2 Resource Server
 
-내가 개발한 백엔드 서버 애플리케이션은 마이크로소프트 서버가 아니다. 백엔드 애플리케이션은 어떤 과정을 통해 해당 토큰의 유효성을 검증하고 있을까? 내가 개발한 백엔드 서버는 `spring-boot-starter-oauth2-resource-server` 의존성을 사용하고 있다. 해당 의존성을 사용하면 `applicaiton.yml` 파일에 공개 키를 조회할 수 있는 URL 주소를 설정하는 것만으로 쉽게 해당 액세스 토큰의 유효성을 검증할 수 있다. 설정과 구현 코드를 함께 살펴보자. 
+내가 개발한 백엔드 서버 애플리케이션은 마이크로소프트 서버가 아니다. 백엔드 애플리케이션은 어떤 과정을 통해 해당 토큰의 유효성을 검증하고 있을까? 내가 개발한 백엔드 서버는 `spring-boot-starter-oauth2-resource-server` 의존성을 사용하고 있다. 해당 의존성을 사용하면 `application.yml` 파일에 공개 키를 조회할 수 있는 URL 주소를 설정하는 것만으로 쉽게 해당 액세스 토큰의 유효성을 검증할 수 있다. 설정과 구현 코드를 함께 살펴보자. 
 
 ### 2.1. build.gradle
 
@@ -68,9 +69,7 @@ dependencies {
 
 ### 2.2. application YAML
 
-아래와 같이 [JWKs(Json Web Key Set)][json-web-key-link] 정보를 조회할 수 있는 URL 주소를 추가한다. 필자의 프로젝트는 마이크로소프트 AAD 로그인를 사용하고 있기 때문에 마이크로소프트가 제공하는 공개 키 URL를 지정한다.
-
-- 해당 경로는 마이크로소프트에서 제공한 `MICROSOFT_TENANT_ID` 값만 있다면 해당 URL에서 공개 키 리스트를 획득할 수 있다.
+아래와 같이 [JWKs(Json Web Key Set)][json-web-key-link] 정보를 조회할 수 있는 URL 주소를 추가한다. 필자의 프로젝트는 마이크로소프트 AAD 로그인을 사용하고 있기 때문에 마이크로소프트가 제공하는 공개 키 URL을 지정한다. 해당 경로는 마이크로소프트에서 제공한 `MICROSOFT_TENANT_ID` 값만 있다면 해당 URL에서 공개 키 리스트를 획득할 수 있다.
 
 ```yml
 spring:
@@ -128,15 +127,15 @@ public class SecurityConfig {
 
 1. iOS 애플리케이션에서 JWT 타입의 액세스 토큰을 서버로 보낸다.
 2. 시큐리티 필터 체인 내 BearerTokenAuthenticationFilter 객체에서 액세스 토큰 인증을 수행한다.
-  - 인가 매니저 인스턴스에게 토큰 인증을 위임한다.
+  - 인증 매니저 인스턴스에게 토큰 인증을 위임한다.
 3. JwtAuthenticationProvider 인증 제공자 객체가 액세스 토큰 검증을 수행한다.
   - 액세스 토큰 디코딩은 NimbusJwtDecoder 객체에게 위임한다.
   - 액세스 토큰을 디코딩 하는 과정에서 토큰의 서명 정보(signature)를 검증한다.
-4. DefaultJWTProcessor 객체에서 액세스 토큰 검증에 필요한 [JWks(JWK Set)][json-web-key-link]를 인가 서버에게 요청한다.
+4. DefaultJWTProcessor 객체에서 액세스 토큰 검증에 필요한 [JWKs(JWK Set)][json-web-key-link]를 인가 서버에게 요청한다.
   - 인가 서버 요청 시 사용하는 URL 주소는 `application.yml` 파일에 정의되어 있다.
-  - DefaultJWTProcessor 객체는 JKWs를 조회할 때 `RemoteJWKSet` 객체와 협업한다.
+  - DefaultJWTProcessor 객체는 JWKs를 조회할 때 `RemoteJWKSet` 객체와 협업한다.
   - 인가 서버로부터 획득한 JWKs는 캐시에 저장하여 재사용한다. 액세스 토큰을 검증할 때마다 JWKs를 요청하는 과정을 생략할 수 있다.
-5. DefaultJWTProcessor 객체는 JWK를 사용해 JWT 액세스 토큰의 서명 정보 검증한다.
+5. DefaultJWTProcessor 객체는 JWK를 사용해 JWT 액세스 토큰의 서명 정보를 검증한다.
   - JWKs(JWK Set)에 담긴 JWK 중에서 JWT 헤더의 `kid` 값과 매칭되는 JWK 객체를 사용한다.
   - JWK 객체에 담긴 정보를 바탕으로 공개 키를 만든다.
   - 공개 키를 사용해 동일한 서명이 만들어지는지 확인한다.

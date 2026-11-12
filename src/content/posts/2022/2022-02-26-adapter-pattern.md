@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/adapter-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "세션 저장소를 바꾸는 예제로 클래스 상속과 인스턴스 위임 방식의 어댑터 패턴을 구현해보고, 스프링 프레임워크에 적용된 사례를 살펴본다."
 ---
 
 ## 0. 들어가면서
@@ -36,13 +37,13 @@ categories:
   - 레거시 클래스는 인터페이스를 구현하고 있다.(Implement)
 - 어댑터(Adapter)
   - 기능 확장을 위해 대상 인터페이스를 구현한 클래스다.
-  - 오버라이드(Override) 한 메서드 내부를 신규 기능을 제공하는 코드로 대체한다.
+  - 오버라이드(Override)한 메서드 내부를 신규 기능을 제공하는 코드로 대체한다.
 - 어댑티(Adaptee)
   - 새로운 기능을 제공하는 클래스다.
   - 어댑터는 어댑티를 상속(Inheritance)받거나, 어댑티에게 기능을 위임(Delegating)한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/adapter-pattern-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/adapter-pattern-01.png" width="100%" class="image__border">
 </div>
 <center>https://yaboong.github.io/design-pattern/2018/10/15/adapter-pattern/</center>
 
@@ -67,12 +68,12 @@ categories:
   - SessionRegistry 인터페이스를 구현하며, 데이터베이스에 세션 정보를 저장, 획득, 삭제한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/adapter-pattern-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/adapter-pattern-02.png" width="100%" class="image__border">
 </div>
 
 ### 2.1. Legacy codes
 
-기존 레거시 코드를 살펴보자. 먼저 어댑터 패턴에서 클라이언트 역할을 수행하는 SessionHandler 클래스를 살펴본다.
+기존 레거시 코드를 살펴보자. 먼저 어댑터 패턴에서 클라이언트 역할을 수행하는 SessionHandler 클래스다.
 
 - getSession 메서드 
   - SessionRegistry 구현체를 이용하여 세션 아이디(sessionId)에 해당하는 세션 정보를 가져온다.
@@ -136,7 +137,7 @@ public interface SessionRegistry {
 }
 ```
 
-지금부터 구현체를 SessionRegistry 인터페이스의 구현체 클래스를 살펴본다. 먼저 JDBC를 사용하는 JdbcSessionRegistry 클래스부터 살펴본다. 실제 쿼리를 수행하지 않고 로그로 기능을 표현했다. 기존에 사용하는 레거시 코드로 SessionRegistry 인터페이스의 기능을 구현하고 있다.
+지금부터 SessionRegistry 인터페이스의 구현체 클래스를 살펴보자. 먼저 JDBC를 사용하는 JdbcSessionRegistry 클래스다. 실제 쿼리를 수행하지 않고 로그로 기능을 표현했다. 기존에 사용하는 레거시 코드로 SessionRegistry 인터페이스의 기능을 구현하고 있다.
 
 ```java
 package action.in.blog;
@@ -196,7 +197,7 @@ public class RedisSessionClient {
 
 ### 2.2. Make adapter class
 
-기존 레지스트리를 사용하는 코드를 레디스 클라이언트를 사용할 수 있도록 확장한다. 중간 어댑터 클래스가 우리가 일상 생활에 사용하는 콘센트 어댑터처럼 중간 변환 작업을 수행해 준다. 세션 핸들러 쪽에선 여전히 세션 레지스트리를 사용하는 것처럼 보이지만, 실제 내부에선 기존과 전혀 다른 메커니즘으로 세션 관리가 수행된다. 
+기존 레지스트리를 사용하는 코드를 레디스 클라이언트를 사용할 수 있도록 확장한다. 중간 어댑터 클래스가 우리가 일상생활에 사용하는 콘센트 어댑터처럼 중간 변환 작업을 수행해 준다. 세션 핸들러 쪽에선 여전히 세션 레지스트리를 사용하는 것처럼 보이지만, 실제 내부에선 기존과 전혀 다른 메커니즘으로 세션 관리가 수행된다. 
 
 #### 2.2.1. Adapter pattern through class inheritance
 
@@ -333,7 +334,7 @@ public class DelegateUsage {
 
 ## 3. Adapter pattern in Spring
 
-스프링 프레임워크(spring framework)에서 어댑터 패턴이 적용된 케이스를 찾아보았다. 먼저 GsonBuilderUtils 클래스를 살펴보자. 클래스 내부에 Base64TypeAdapter 클래스를 만들고 이 객체를 사용한다.
+스프링 프레임워크(spring framework)에서 어댑터 패턴이 적용된 케이스를 찾아봤다. 먼저 GsonBuilderUtils 클래스를 살펴보자. 클래스 내부에 Base64TypeAdapter 클래스를 만들고 이 객체를 사용한다.
 
 - 클라이언트는 Gson 클래스다.
   - GsonBuilder 클래스는 Gson 객체를 만들 때 바이트 배열 (역)직렬화를 위한 어댑터를 주입할 것으로 예상된다.

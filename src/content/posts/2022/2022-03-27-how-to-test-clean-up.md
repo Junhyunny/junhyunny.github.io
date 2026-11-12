@@ -7,6 +7,7 @@ categories:
   - "javascript"
   - "react"
   - "jest"
+summary: "useEffect 훅의 클린업 함수에서 이벤트 리스너가 제거되는지 확인하기 위해 이벤트 등록, 제거 로직을 별도 모듈로 분리하고 테스트 더블로 검증하는 방법을 정리했다."
 recommendedPosts:
   - title: "리액트(React) useEffect 훅과 클린업(clean-up) 함수"
     href: "https://junhyunny.github.io/javascript/react/jest/react-use-effect-and-clean-up/"
@@ -68,7 +69,7 @@ export default App;
 
 ## 2. Solve the problem
 
-테스트 코드를 작성할 때 테스트를 어렵게 만드는 객체(혹은 모듈)은 내가 다룰 수 있는 객체로 바꾸면 된다. 자바(java)에서 테스트를 어렵게 만드는 요소 중 하나인 시간을 스텁(stub)으로 만들기 위한 제공자(provider) 객체를 만드는 것을 하나의 예로 들 수 있다. 나는이벤트 등록과 제거를 위한 `event-listeners` 모듈을 만들고 이를 테스트 더블로 사용했다. `event-listeners` 모듈은 다음과 같다. 
+테스트 코드를 작성할 때 테스트를 어렵게 만드는 객체(혹은 모듈)은 내가 다룰 수 있는 객체로 바꾸면 된다. 자바(java)에서 테스트를 어렵게 만드는 요소 중 하나인 시간을 스텁(stub)으로 만들기 위한 제공자(provider) 객체를 만드는 것을 하나의 예로 들 수 있다. 나는 이벤트 등록과 제거를 위한 `event-listeners` 모듈을 만들고 이를 테스트 더블로 사용했다. `event-listeners` 모듈은 다음과 같다. 
 
 ```js
 export const addClickEvent = (eventListener) => {
@@ -83,7 +84,7 @@ export const removeClickEvent = (eventListener) => {
 CustomButton 컴포넌트를 별도로 분리한 후 테스트를 수행한다. 테스트 코드는 다음과 같다.
 
 1. `event-listeners` 모듈에서 제공하는 이벤트 리스너 등록, 삭제 함수들을 테스트 더블로 만든다.
-2. 컴포넌트를 언마운트(unmount) 한다.
+2. 컴포넌트를 언마운트(unmount)한다.
 3. 다음과 같은 내용을 확인한다.
   - 각 테스트 더블이 예상되는 파라미터로 호출되었는지 확인한다.
   - 두 테스트 더블에 전달된 인자가 동일한 함수 객체인지 확인한다. 이벤트 리스너를 추가하고 삭제할 때 동일한 함수 객체가 아닌 경우 삭제가 제대로 되지 않으므로 이를 확인할 필요가 있다.
@@ -111,9 +112,7 @@ describe("CustomButton", () => {
 });
 ```
 
-CustomButton 컴포넌트를 다음과 같이 변경한다.
-
-- `event-listeners` 모듈을 통해 클릭 이벤트 리스너를 등록, 삭제한다.
+`event-listeners` 모듈을 통해 클릭 이벤트 리스너를 등록, 삭제하도록 CustomButton 컴포넌트를 다음과 같이 변경한다.
 
 ```jsx
 import { useEffect } from "react";

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/javascript/prototype-chain-in-javascript/"
 categories:
   - "javascript"
+summary: "자바스크립트가 프로토타입 체인을 따라 프로퍼티를 탐색하는 과정과 프로퍼티 오버라이딩, 쉐도잉 개념을 예제 코드로 정리했다."
 recommendedPosts:
   - title: "자바스크립트 프로토타입 (JavaScript Prototype)"
     href: "https://junhyunny.github.io/javascript/prototype-in-javascript/"
@@ -16,7 +17,7 @@ recommendedPosts:
 
 ## 1. Prototype Chain
 
-[자바스크립트 프로토타입 (JavaScript Prototype)에 관련된 글][prototype-in-javascript-link]에서 정리한 것처럼 자바스크립트는 프로토타입을 통해 상속을 지원한다. 프로토타입은 생성자 함수를 통해 만들어진 인스턴스의 부모 객체이다. 생성자 함수는 `prototype`이라는 프로퍼티(property)를 사용해 접근한다. 인스턴스는 `__proto__`이라는 접근자 프로퍼티를 사용해 접근한다.
+[자바스크립트 프로토타입 (JavaScript Prototype)에 관련된 글][prototype-in-javascript-link]에서 정리한 것처럼 자바스크립트는 프로토타입을 통해 상속을 지원한다. 프로토타입은 생성자 함수를 통해 만들어진 인스턴스의 부모 객체이다. 생성자 함수는 `prototype`이라는 프로퍼티(property)를 사용해 접근한다. 인스턴스는 `__proto__`라는 접근자 프로퍼티를 사용해 접근한다.
 
 프로토타입 체인은 인스턴스가 `__proto__` 접근자 프로퍼티를 사용해 상위 부모 프로토타입 객체를 탐색하는 행위이다. 부모 프로토타입 객체도 해당 프로퍼티가 없다면 자신의 상위 프로토타입 객체를 탐색한다. 순차적으로 부모 역할을 하는 프로토타입들의 프로퍼티를 검색한다. 프로토타입 체인은 자바스크립트에서 객체지향 프로그래밍의 상속 구현과 프로퍼티 탐색을 위한 메커니즘이다.
 
@@ -59,19 +60,17 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
 
 - 프로토타입 체인의 최상위에 위치하는 객체는 항상 `Object.prototype`이다.
   - `Object.prototype`은 프로토타입 체인의 종점이다.
-- 모든 객체 혹은 인스턴스는 `Object.prototype`를 상속받는다.
+- 모든 객체 혹은 인스턴스는 `Object.prototype`을 상속받는다.
 - `Object.prototype` 객체의 `[[Prototype]]` 내부 슬롯 값은 `null`이다.
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-chain-in-javascript-01.png" width="60%" class="image__border">
 </div>
 
-위 프로토타입 체인은 이미지로 시각화하면 아래와 같이 연결된다.
-
-- firstCircle 인스턴스의 프로토타입 체인은 Circle 프로토타입과 Object 프로토타입 객체로 연결된다.
+firstCircle 인스턴스의 프로토타입 체인은 Circle 프로토타입과 Object 프로토타입 객체로 연결된다. 이를 이미지로 시각화하면 다음과 같다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-chain-in-javascript-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-chain-in-javascript-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Property Overriding and Shadowing
@@ -81,9 +80,9 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
 - 오버라이딩(overriding)
   - 상위 프로토타입 객체에 위치한 프로퍼티를 하위 인스턴스가 재정의한 것을 의미한다.
 - 쉐도잉(shadowing)
-  - 하위 인스턴스에서 재정의하였기 때문에 상위 프로토타입 객체에 위치한 프로퍼티가 가려지는 현상이다.
+  - 하위 인스턴스에서 재정의했기 때문에 상위 프로토타입 객체에 위치한 프로퍼티가 가려지는 현상이다.
 
-간단한 코드를 통해 오버라이딩과 쉐도잉에 대해 알아보겠다.
+간단한 코드를 통해 오버라이딩과 쉐도잉에 대해 알아보자.
 
 - person 인스턴스의 sayHello 메서드를 호출한다.
   - `Hi! Instance person's name is Junhyunny` 로그가 출력된다.
@@ -96,7 +95,7 @@ console.dir(Object.prototype === firstCircle.__proto__.__proto__); // true
   - delete 키워드를 사용한다.
 - person 인스턴스의 sayHello 메서드를 호출한다.
   - `Uncaught TypeError`가 발생한다.
-  - 인스턴스와 프로토타입 객체에서 삭제하였으므로 해당 프로퍼티를 프로토타입 체인 내에서 찾을 수 없다.
+  - 인스턴스와 프로토타입 객체에서 삭제했으므로 해당 프로퍼티를 프로토타입 체인 내에서 찾을 수 없다.
 
 ```javascript
 function Person(name) {
@@ -126,7 +125,7 @@ person.sayHello(); // Uncaught TypeError: person.sayHello is not a function
 위 코드는 다음과 같은 프로토타입 체인을 갖고 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-chain-in-javascript-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/prototype-chain-in-javascript-03.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

@@ -5,19 +5,18 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/create-san-ssl-certificate/"
 categories:
   - "information"
+summary: "하버 접속 중 레거시 Common Name 인증서 오류를 만나 X.509 인증서의 CN과 SANs의 차이를 살펴보고, OpenSSL로 임시 CA와 자체 서명 SANs 인증서를 만드는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-테스트를 위해 로컬 머신에 하버(harbor)를 설치하고 접근하는 과정에서 다음과 같은 인증서 문제가 발생했다.
-
-- 레거시 Common Name 방식이 아닌 SANs 방식의 인증서를 사용해야 한다.
+테스트를 위해 로컬 머신에 하버(harbor)를 설치하고 접근하는 과정에서 다음과 같은 인증서 문제가 발생했다. 레거시 Common Name 방식이 아닌 SANs 방식의 인증서를 사용해야 한다는 내용이다.
 
 ```
 x509: certificate relies on legacy Common Name field, use SANs instead
 ```
 
-문제를 일으키는 Common Name 인증서와 이를 대신해 사용하라는 SANs 인증서에 대해 알아보겠다.
+문제를 일으키는 Common Name 인증서와 이를 대신해 사용하라는 SANs 인증서에 대해 알아보자.
 
 ## 1. Legacy Common Name(CN)
 
@@ -28,7 +27,7 @@ X.509는 국제전기통신연합(ITU, International Telecommunication Union)에
 - 버전(Version)
   - X.509 인증서의 버전을 나타내며, 1, 2, 3 혹은 4 같은 정수 값으로 표현한다.
   - 각 버전은 다른 필드 및 확장을 지원한다.
-  - 현재 3 버전이 주로 사용되며 Subject Alternaticve Name(SAN)과 같은 중요한 기능을 지원한다.
+  - 현재 3 버전이 주로 사용되며 Subject Alternative Name(SAN)과 같은 중요한 기능을 지원한다.
 - 일련 번호(Serial Number)
   - X.509 인증서의 고유한 식별자로 CA(인증 기관)가 각 인증서에 할당한다.
 - 서명 알고리즘(Signature Algorithm)
@@ -88,13 +87,11 @@ X.509 인증서에서 주체 정보는 인증서가 인증하는 개체에 대�
 
 ## 3. How to make Self-Signed SANs Certificate?
 
-글 처음에 봤던 에러에서 레거시 Common Name을 사용하는 인증서의 의미는 CN 값은 지정되어 있지만, Subject Alternative Name 값이 설정되어 있지 않은 인증서를 의미한다. OpenSSL을 사용하여 자체 서명 SANs 인증서를 만들어보겠다.
+글 처음에 봤던 에러에서 레거시 Common Name을 사용하는 인증서의 의미는 CN 값은 지정되어 있지만, Subject Alternative Name 값이 설정되어 있지 않은 인증서를 의미한다. OpenSSL을 사용하여 자체 서명 SANs 인증서를 만들어보자.
 
 ### 3.1. Temporal CA Certificate
 
-루트 CA(신뢰할 수 있는 CA) 인증서를 사용하지 않는다면 직접 CA 인증서를 생성하여 사용할 수 있다. 테스트 용도로 사용하기 때문에 CA 인증서를 임의로 생성한다.
-
-- CA 인증서를 생성할 때 사용할 개인 키(private key)를 생성한다.
+루트 CA(신뢰할 수 있는 CA) 인증서를 사용하지 않는다면 직접 CA 인증서를 생성하여 사용할 수 있다. 테스트 용도로 사용하기 때문에 CA 인증서를 임의로 생성한다. CA 인증서를 생성할 때 사용할 개인 키(private key)를 생성한다.
 
 ```
 $ openssl genrsa -out ca.key 4096
@@ -146,9 +143,7 @@ $ echo 'subjectAltName=DNS:myharbor.io,DNS:www.myharbor.io' > version3extions.cn
 
 ### 3.3. Self-Signed Certificate for Server
 
-하버 서버에서 사용할 인증서를 생성한다.
-
-- 서버에서 사용할 개인 키(private key)를 생성한다.
+하버 서버에서 사용할 인증서를 생성한다. 서버에서 사용할 개인 키(private key)를 생성한다.
 
 ```
 $ openssl genrsa -out server.key 4096
@@ -156,7 +151,7 @@ $ openssl genrsa -out server.key 4096
 
 - CSR 파일을 생성한다.
   - 인증서를 발급하기 위해 필요한 주체 정보를 담은 파일이다.
-  - 위 CA 인증서 발급에서는 인증서 발급과 동시에 수행하였다.
+  - 위 CA 인증서 발급에서는 인증서 발급과 동시에 수행했다.
   - CN 정보를 입력할 때 하버 서버의 도메인 이름을 작성한다.
 
 ```

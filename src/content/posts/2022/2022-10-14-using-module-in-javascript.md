@@ -1,10 +1,11 @@
 ---
 title: "자바스크립트에서 모듈 사용하기"
 publishedAt: "2022-10-14"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/javascript/using-module-in-javascript/"
 categories:
   - "javascript"
+summary: "자바스크립트 모듈 시스템인 CommonJS와 ECMAScript 모듈에서 모듈을 내보내고 사용하는 방법을 정리했다."
 recommendedPosts:
   - title: "웹팩 (Webpack)"
     href: "https://junhyunny.github.io/information/webpack/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-`JavaScript`는 여러 가지 방법으로 모듈(module)을 정의하고 사용한다. 문법에 따라 다양한 모듈 시스템이 생기게 되었는데, 이번 포스트에선 문법 별로 모듈을 정의하고 사용하는 방법에 대해 정리하였다.
+`JavaScript`는 여러 가지 방법으로 모듈(module)을 정의하고 사용한다. 문법에 따라 다양한 모듈 시스템이 생기게 되었는데, 이번 포스트에선 문법 별로 모듈을 정의하고 사용하는 방법에 대해 정리했다.
 
 ## 1. CommonJS
 
@@ -33,11 +34,7 @@ recommendedPosts:
 
 #### 1.1.1. exports 키워드
 
-여러 개의 객체를 내보내는 경우 사용한다.
-
-##### common-math-first.js 파일
-
-다음과 같은 코드를 통해 함수 객체 여러 개를 모듈로 내보낸다.
+여러 개의 객체를 내보내는 경우 사용한다. `common-math-first.js` 파일에서 다음과 같이 함수 객체 여러 개를 모듈로 내보낸다.
 
 ```javascript
 function sum(first, second) {
@@ -54,11 +51,7 @@ exports.substract = substract;
 
 #### 1.1.2. module.exports 키워드
 
-딱 하나의 객체를 내보내는 경우 사용한다.
-
-##### common-math-second.js 파일
-
-다음과 같은 코드를 통해 단 하나의 객체를 모듈로 내보낸다.
+딱 하나의 객체를 내보내는 경우 사용한다. `common-math-second.js` 파일에서 다음과 같이 단 하나의 객체를 모듈로 내보낸다.
 
 ```javascript
 module.exports = {
@@ -87,9 +80,7 @@ console.log(`5 * 3 = ${customMathSecond.multiply(5, 3)}`);
 console.log(`5 / 3 = ${customMathSecond.divide(5, 3)}`);
 ```
 
-##### 모듈 사용 코드 실행 결과
-
-`Node.js`를 사용하여 해당 코드를 실행하면 다음과 같은 결과를 얻을 수 있다.
+`Node.js`로 이 코드를 실행하면 다음과 같은 결과를 얻을 수 있다.
 
 ```
 $ node commonjs/test-module.js
@@ -108,11 +99,7 @@ $ node commonjs/test-module.js
 
 #### 2.1.1. Named Export
 
-`export` 키워드로 여러 개의 객체를 모듈로 내보낼 수 있다. 내보낼 때 이름을 그대로 사용할 수 있으므로 `Named Export`라고 한다.
-
-##### es-math-first.js 파일
-
-다음과 같은 코드를 통해 함수 객체 여러 개에 이름을 지정하여 모듈로 내보낸다.
+`export` 키워드로 여러 개의 객체를 모듈로 내보낼 수 있다. 내보낼 때 이름을 그대로 사용할 수 있으므로 `Named Export`라고 한다. `es-math-first.js` 파일에서 다음과 같이 함수 객체 여러 개에 이름을 지정해 모듈로 내보낸다.
 
 ```javascript
 export function sum(first, second) {
@@ -126,11 +113,7 @@ export function substract(first, second) {
 
 #### 2.1.2. Default Export
 
-`export default` 키워드로 하나의 `JavaScript` 모듈 파일에서 기본 객체 한 개를 모듈로 내보낼 수 있다. 하나의 파일에서 한번만 사용할 수 있으며 별도로 이름을 지정하지 않는다.
-
-##### es-math-second.js 파일
-
-다음과 같은 코드를 통해 모듈 파일의 기본 객체를 모듈로 내보낸다.
+`export default` 키워드로 하나의 `JavaScript` 모듈 파일에서 기본 객체 한 개를 모듈로 내보낼 수 있다. 하나의 파일에서 한번만 사용할 수 있으며 별도로 이름을 지정하지 않는다. `es-math-second.js` 파일에서 다음과 같이 모듈 파일의 기본 객체를 모듈로 내보낸다.
 
 ```javascript
 export default {
@@ -147,10 +130,10 @@ export default {
 
 `import` 키워드를 통해 위에서 지정한 모듈들을 사용할 수 있다.
 
-- `Named Export` 방식을 사용한 `es-math-first.js` 모듈을 사용하는 코드를 자세히 살펴보겠다.
+- `Named Export` 방식을 사용한 `es-math-first.js` 모듈을 사용하는 코드를 자세히 살펴보자.
   - 노출한 이름으로 디스트럭처링(destructuring)하여 필요한 객체만 선택적으로 사용 가능하다.
   - 파일 내 모든 모듈 객체를 `as` 키워드를 통해 다른 이름으로 변경하여 하나의 객체처럼 사용한다.
-- `Node.js` 환경에서 ECMAScript 문법을 사용할 수 있도록 `.js` 확장자를 추가하였다.
+- `Node.js` 환경에서 ECMAScript 문법을 사용할 수 있도록 `.js` 확장자를 추가했다.
   - 브라우저 환경에서 실행하는 경우 `.js` 확장자 정보는 필요 없다.
 
 ```javascript
@@ -169,9 +152,7 @@ console.log(`5 * 3 = ${customMathSecond.multiply(5, 3)}`);
 console.log(`5 / 3 = ${customMathSecond.divide(5, 3)}`);
 ```
 
-##### package.json 파일
-
-브라우저 환경이 아닌 `Node.js` 환경에서 테스트하였으므로 `package.json` 파일에 다음과 같은 추가 설정이 필요하다.
+브라우저 환경이 아닌 `Node.js` 환경에서 테스트했으므로 `package.json` 파일에 다음과 같은 추가 설정이 필요하다.
 
 ```json
 {
@@ -179,9 +160,7 @@ console.log(`5 / 3 = ${customMathSecond.divide(5, 3)}`);
 }
 ```
 
-##### 모듈 사용 코드 실행 결과
-
-`Node.js`를 사용하여 해당 코드를 실행하면 다음과 같은 결과를 얻을 수 있다.
+`Node.js`로 이 코드를 실행하면 다음과 같은 결과를 얻을 수 있다.
 
 ```
 $ node ecmascript/test-module.js

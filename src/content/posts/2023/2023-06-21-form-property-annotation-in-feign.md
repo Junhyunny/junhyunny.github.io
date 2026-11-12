@@ -1,11 +1,12 @@
 ---
 title: "FeignClient에서 @FormProperty 애너테이션 사용하기"
 publishedAt: "2023-06-21"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/spring-boot/spring-cloud/form-property-annotation-in-feign/"
 categories:
   - "spring-boot"
   - "spring-cloud"
+summary: "form-urlencoded 요청에서 상대 시스템과 필드명 규칙이 달라 생긴 문제를 FeignClient의 @FormProperty 애너테이션으로 도메인 객체를 오염시키지 않고 해결했다."
 recommendedPosts:
   - title: "스프링 클라우드(spring cloud) OpenFeign"
     href: "https://junhyunny.github.io/spring-boot/spring-cloud/spring-cloud-openfeign/"
@@ -24,25 +25,19 @@ recommendedPosts:
 현재 문제를 일으키는 요인은 다음과 같다.
 
 - 현재 개발 중인 시스템의 이름 규칙(naming convention)과 맞지 않는 필드명을 사용한다.
-- `Content-Type`이 `application/x-www-form-urlencoded`을 사용한다.
+- `Content-Type`이 `application/x-www-form-urlencoded`를 사용한다.
 
 저희 도메인 객체는 단어를 조합한 카멜 케이스(camelCase) 형식의 필드명을 사용한다. 반대로 상대 시스템은 약어를 조합한 스네이크 케이스(snake_case) 형식으로 요청 파라미터를 원했다. `application/x-www-form-urlencoded` 컨텐트 타입(content type)이 필요한 요청에서는 @JsonProperty 애너테이션을 사용할 수 없었다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/form-property-annotation-in-feign-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/form-property-annotation-in-feign-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
 
-페인 클라이언트 측에서 폼 데이터(form data)를 보낼 때 프로퍼티 이름을 정해줄 수 있는 @FormProperty 애너테이션을 제공한다. 이를 통해 우리 서비스 도메인 객체의 프로퍼티 이름과 상대편 서비스가 원하는 데이터 양식 모두를 만족시킬 수 있었다. 간단한 테스트 코드를 통해 사용 방법을 알아보겠다.
+페인 클라이언트 측에서 폼 데이터(form data)를 보낼 때 프로퍼티 이름을 정해줄 수 있는 @FormProperty 애너테이션을 제공한다. 이를 통해 우리 서비스 도메인 객체의 프로퍼티 이름과 상대편 서비스가 원하는 데이터 양식 모두를 만족시킬 수 있었다. 간단한 테스트 코드를 통해 사용 방법을 알아보자.
 
-### 2.1. PostClient Interface
-
-다음과 같은 페인 클라이언트를 사용한다.
-
-- POST 요청을 수행한다.
-- `application/x-www-form-urlencoded` 컨텐트 타입을 소비하는 엔드-포인트(end-point)로 요청을 보낸다.
-- Todo 객체를 요청 메시지로 사용한다.
+PostClient 인터페이스는 `application/x-www-form-urlencoded` 컨텐트 타입을 소비하는 엔드포인트(end-point)로 POST 요청을 보내는 페인 클라이언트다. Todo 객체를 요청 메시지로 사용한다.
 
 ```java
 package action.in.blog.client;
@@ -65,12 +60,7 @@ interface TodoClient {
 }
 ```
 
-### 2.2. Todo Class
-
-현재 도메인에서 사용하는 Todo 클래스다.
-
-- 비즈니스 로직에서 content라는 이름으로 사용한다.
-- 페인 클라이언트를 사용해 데이터를 전송할 때 `todo_ctnt`라는 이름으로 변경하여 전달한다.
+Todo 클래스는 현재 도메인에서 사용하는 클래스다. 비즈니스 로직에서는 content라는 이름으로 사용하지만, 페인 클라이언트로 데이터를 전송할 때는 `todo_ctnt`라는 이름으로 변경하여 전달한다.
 
 ```java
 package action.in.blog.domain;
@@ -93,12 +83,7 @@ class Todo {
 }
 ```
 
-### 2.3. FormDataFeignTest Class
-
-[WireMock][wire-mock-for-feign-client-test-link]의 도움을 받아 요청과 응답에 대한 테스트를 수행한다. 이번 테스트는 페인 클라이언트가 Todo 객체를 다른 서비스가 원하는 적절한 형식의 요청 메시지로 변환 후 전달하는지를 검증한다.
-
-- 요청과 응답 과정에 전달되는 메시지를 확인하기 위해 페인 클라이언트의 로깅 레벨을 FULL 값으로 지정한다.
-- 사용하는 로거(logger)의 로그 레벨을 DEBUG 값으로 지정한다.
+FormDataFeignTest 클래스에서는 [WireMock][wire-mock-for-feign-client-test-link]의 도움을 받아 요청과 응답에 대한 테스트를 수행한다. 이번 테스트는 페인 클라이언트가 Todo 객체를 다른 서비스가 원하는 형식의 요청 메시지로 변환해 전달하는지 검증한다. 요청과 응답 과정에 전달되는 메시지를 확인하기 위해 페인 클라이언트의 로깅 레벨은 FULL, 사용하는 로거(logger)의 로그 레벨은 DEBUG로 지정한다.
 
 ```java
 package action.in.blog;
@@ -184,7 +169,7 @@ public class FormDataFeignTest {
 }
 ```
 
-##### Result Log
+테스트를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 ```
 2023-06-22T05:39:55.525+09:00 DEBUG 16970 --- [    Test worker] action.in.blog.TodoClient                : [TodoClient#createTodo] ---> POST http://localhost:10073/todo HTTP/1.1

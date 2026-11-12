@@ -6,6 +6,7 @@ canonicalPath: "/information/database/database-partitioning/"
 categories:
   - "information"
   - "database"
+summary: "데이터베이스 볼륨이 커질 때 성능을 높이기 위한 파티셔닝의 개념과 수평, 수직 분할 방식, MySQL의 레인지, 리스트, 해시, 키 파티션 유형을 정리했다."
 recommendedPosts:
   - title: "데이터베이스 인덱스(index)와 자료구조"
     href: "https://junhyunny.github.io/information/data-structure/db-index-data-structure/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-데이터베이스는 볼륨이 커질수록 읽기/쓰기 성능이 감소한다. 성능 향상을 위해 데이터를 분할하여 저장하는 파티셔닝(partitioning) 혹은 샤딩(sharding)이라는 기법을 사용한다. 이번 글에서는 파티셔닝 개념을 정리하였다.
+데이터베이스는 볼륨이 커질수록 읽기/쓰기 성능이 감소한다. 성능 향상을 위해 데이터를 분할하여 저장하는 파티셔닝(partitioning) 혹은 샤딩(sharding)이라는 기법을 사용한다. 이번 글에서는 파티셔닝 개념을 정리했다.
 
 ## 1. Partitioning
 
@@ -29,23 +30,21 @@ recommendedPosts:
 - 인덱스 크기가 데이터베이스가 사용할 수 있는 물리적인 메모리 공간보다 크면 영향을 더 크게 받는다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-01.png" width="80%" class="image__border">
-</div>
-<center>https://gngsn.tistory.com/203</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://gngsn.tistory.com/203</center>
 </div>
 
 데이터 특성상 주기적으로 삭제 작업이 필요한 경우에도 파티셔닝이 필요하다. 단기간에 대량으로 누적되고 일정 기간이 지나면 쓸모가 없어지는 로그 성격의 이력 데이터를 예로 들 수 있다. 이런 타입의 데이터는 시간이 지나면 별도로 아카이빙(archiving)하거나 백업한 후 삭제한다.
 
-불필요해진 데이터를 백업하거나 삭제하는 작업은 일반 테이블에서는 상당히 고부하 작업이므로 미리 파티셔닝을 통해 데이터를 작업 단위로 나눠두고 편리하게 작업한다.
-
-- 파티셔닝을 통해 파티션을 추가하거나 삭제하는 방식으로 간단하게 해결할 수 있다.
+불필요해진 데이터를 백업하거나 삭제하는 작업은 일반 테이블에서는 상당히 고부하 작업이므로 미리 파티셔닝을 통해 데이터를 작업 단위로 나눠두고 편리하게 작업한다. 파티셔닝을 통해 파티션을 추가하거나 삭제하는 방식으로 간단하게 해결할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-02.png" width="80%" class="image__border">
-</div>
-<center>https://aws.amazon.com/blogs/database/archive-and-purge-data-for-amazon-rds-for-postgresql-and-amazon-aurora-with-postgresql-compatibility-using-pg_partman-and-amazon-s3/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-partitioning-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://aws.amazon.com/blogs/database/archive-and-purge-data-for-amazon-rds-for-postgresql-and-amazon-aurora-with-postgresql-compatibility-using-pg_partman-and-amazon-s3/</center>
 </div>
 
 파티션 기법은 다음과 같은 장점을 제공한다.

@@ -5,31 +5,30 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/java/simple-data-format-is-not-thread-safe/"
 categories:
   - "java"
+summary: "SimpleDateFormat 클래스가 스레드 안전하지 않은 이유를 테스트 코드로 확인하고, 안전하게 사용하는 방법과 대안인 DateTimeFormatter 클래스를 정리했다."
 ---
 
 ## 0. 들어가면서
 
-`Java`에서 스레드 안정성(thread-safe)을 이야기하면 항상 문제가 있다고 거론되는 클래스들이 있다.
+`Java`에서 스레드 안전성(thread-safe)을 이야기하면 항상 문제가 있다고 거론되는 클래스들이 있다.
 
 - `java.util.Date`
 - `java.text.SimpleDateFormat`
 
-이번 포스트에선 간단한 예시 코드를 통해 `SimpleDateFormat` 클래스를 스레드 안전하게 사용하는 방법에 대해 살펴보겠다.
+이번 포스트에선 간단한 예시 코드를 통해 `SimpleDateFormat` 클래스를 스레드 안전하게 사용하는 방법에 대해 정리했다.
 
 ## 1. Why is SimpleDateFormat class not thread-safe?
 
-원인은 완벽하게 캡슐화(encapsulation) 되지 않은 객체가 여러 스레드에 의해 사용되었기 때문이다. 스레드 안정성이 깨지는 일은 다음과 같은 조건들에 의해 발생한다.
+원인은 완벽하게 캡슐화(encapsulation) 되지 않은 객체가 여러 스레드에 의해 사용되었기 때문이다. 스레드 안전성이 깨지는 일은 다음과 같은 조건들에 의해 발생한다.
 
 - 객체는 상태(state)를 가지고 있다.
   - 객체의 상태란 클래스의 필드를 의미한다.
 - 객체의 상태를 외부에서 변경할 수 있다.
 - 캡슐화가 되지 않은 객체가 여러 스레드에 의해 사용된다.
 
-##### applyPattern Method in SimpleDateFormat Class
+`applyPattern` 메서드를 통해 `SimpleDateFormat` 클래스의 문제점을 살펴보자.
 
-`applyPattern` 메서드를 통해 `SimpleDateFormat` 클래스의 문제점을 살펴보겠다.
-
-- `SimpleDateFormat` 클래스는 `compiledPattern`, `pattern`라는 상태를 가진다.
+- `SimpleDateFormat` 클래스는 `compiledPattern`, `pattern`이라는 상태를 가진다.
 - `applyPattern` 메서드는 내부에서 `compiledPattern`, `pattern` 상태를 변경한다.
 
 ```java
@@ -59,7 +58,7 @@ public class SimpleDateFormat extends DateFormat {
 - `ThreadNotSafeSimpleDateFormat` 객체를 생성한다.
 - 해당 객체에 `HH:mm:ss.sss` 패턴을 적용한다.
 - `CompletableFuture` 클래스를 통해 두 개의 스레드를 실행한다.
-  - 먼저 실행한 스레드에서 적용 패턴을 `yyyy-MM-dd`으로 변경한다.
+  - 먼저 실행한 스레드에서 적용 패턴을 `yyyy-MM-dd`로 변경한다.
   - 다음 실행한 스레드에서 날짜를 적용된 포맷으로 출력한다.
 
 ```java
@@ -109,9 +108,7 @@ public class ThreadNotSafeSimpleDateFormatTest {
 }
 ```
 
-##### Test Result
-
-- 먼저 실행된 스레드에서 변경한 포맷으로 결과가 출력된다.
+실행하면 먼저 실행된 스레드에서 변경한 포맷으로 결과가 출력된다.
 
 ```
 result of formatting - 2023-02-12
@@ -123,7 +120,7 @@ result of formatting - 2023-02-12
 
 - `HH:mm:ss.sss` 패턴을 적용한 `ThreadSafeSimpleDateFormat` 객체를 생성한다.
 - `CompletableFuture` 클래스를 통해 두 개의 스레드를 실행한다.
-  - 먼저 실행한 스레드에서 적용 패턴을 `yyyy-MM-dd`으로 변경한다.
+  - 먼저 실행한 스레드에서 적용 패턴을 `yyyy-MM-dd`로 변경한다.
   - 다음 실행한 스레드에서 날짜를 적용된 포맷으로 출력한다.
 
 ```java
@@ -178,9 +175,7 @@ public class ThreadSafeSimpleDateFormatTest {
 }
 ```
 
-##### Test Result
-
-- 먼저 실행된 스레드에서 포맷을 변경하였지만, 처음 설정한 포맷에 맞는 결과가 출력된다.
+실행하면 먼저 실행된 스레드에서 포맷을 변경했지만, 처음 설정한 포맷에 맞는 결과가 출력된다.
 
 ```
 result of formatting - 02:08:58.058
@@ -221,10 +216,10 @@ public class SimpleDateFormatParseTest {
 }
 ```
 
-##### Test Result
+실행 결과는 다음과 같다.
 
 - 파싱(parsing) 작업이 정상적으로 수행되지 않는다.
-  - 같은 값을 파싱하지만 결과가 동일하지 않는다.
+  - 같은 값을 파싱하지만 결과가 동일하지 않다.
 - 일부 스레드에서 에러가 발생한다.
 
 ```
@@ -276,9 +271,7 @@ public class SimpleDateFormatParseTest {
 }
 ```
 
-##### Test Result
-
-- 정상적으로 파싱 작업이 수행된다.
+실행하면 정상적으로 파싱 작업이 수행된다.
 
 ```
 Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
@@ -301,7 +294,7 @@ Successfully Parsing - Sun Feb 12 02:35:00 KST 2023
 `JDK1.8`부터 제공된 `DateTimeFormatter` 클래스를 사용하는 것이 좋다.
 
 - `java.time.DateTimeFormatter`
-  - `java.time.*` 패키지에 대한 형식 변환한다.
+  - `java.time.*` 패키지에 대한 형식을 변환한다.
   - 날짜를 텍스트로 변경하거나 텍스트를 날짜로 변경한다.
 
 #### TEST CODE REPOSITORY

@@ -7,6 +7,7 @@ categories:
   - "kotlin"
   - "spring-boot"
   - "test-container"
+summary: "코틀린 스프링 부트 프로젝트에 테스트 컨테이너를 @DynamicPropertySource 방식으로 처음 설정한 방법과, 스프링 부트 3.1 이후 @ServiceConnection 방식으로 바꾼 과정을 정리했다."
 recommendedPosts:
   - title: "@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제"
     href: "https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/"
@@ -18,7 +19,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-테스트 컨테이너(TestContainer)를 처음 사용했을 때가 23년 3월쯤인 것 같다. 당시엔 지금처럼 스프링에서 정식으로 지원하지 않았기 때문에 사용할 부가적인 작업들이 필요했다. 최근 프로젝트에서 테스트 컨테이너를 다시 적용하면서 다음 같은 사항들 때문에 생각보다 어려움을 겪었다.
+테스트 컨테이너(TestContainer)를 처음 사용했을 때가 23년 3월쯤인 것 같다. 당시엔 지금처럼 스프링에서 정식으로 지원하지 않았기 때문에 사용하기 위한 부가적인 작업들이 필요했다. 최근 프로젝트에서 테스트 컨테이너를 다시 적용하면서 다음 같은 사항들 때문에 생각보다 어려움을 겪었다.
 
 - 이전엔 자바(java)를 사용했었지만, 이번엔 코틀린(kotlin)을 사용했다.
 - 스프링이 공식적으로 지원하면서 사용 방법이 일부 변경됐다.

@@ -1,10 +1,11 @@
 ---
 title: "컨테이너 이미지에 Docker 데몬 설치하기"
 publishedAt: "2023-05-16"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:19:33+09:00"
 canonicalPath: "/docker/install-docker-daemon-into-container-image/"
 categories:
   - "docker"
+summary: "젠킨스 쿠버네티스 파드 에이전트의 메이븐 이미지에 도커가 없어 테스트 컨테이너가 실패한 문제를, systemd와 docker.io를 설치한 이미지를 만들어 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "Dockerfile 빌드와 이미지 레이어(Image Layer)"
     href: "https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/"
@@ -16,16 +17,12 @@ recommendedPosts:
 
 ## 1. Problem
 
-테스트 컨테이너(test container)를 사용한 결합 테스트 환경을 구축 후 CI/CD 파이프라인에서 문제가 발생했다. 다음과 같은 환경을 가진 파이프라인이었다.
+테스트 컨테이너(test container)를 사용한 결합 테스트 환경을 구축한 뒤 CI/CD 파이프라인에서 문제가 발생했다. 파이프라인은 젠킨스(jenkins)를 사용하고, 쿠버네티스(kubernetes)의 파드(pod)를 에이전트(agent)로 사용하는 환경이었다.
 
-- 젠킨스(jenkins)
-- 쿠버네티스(kubernetes)의 파드(pod)를 에이전트(agent)로 사용
+쿠버네티스 파드에서 사용한 메이븐(maven) 이미지 내부엔 도커(docker)가 없기 때문에 테스트 컨테이너를 실행할 수 없었다. 테스트 컨테이너를 적용한 애플리케이션을 메이븐 이미지 위에서 테스트하면 이미지 내부에 도커가 없어서 실행할 수 없다는 다음과 같은 에러 메시지를 만난다.
 
-쿠버네티스 파드에서 사용한 메이븐(maven) 이미지 내부엔 도커(docker)가 없기 때문에 테스트 컨테이너가 실행될 수 없었다. 테스트 컨테이너가 적용된 애플리케이션을 메이븐 이미지 위에서 테스트하면 다음과 같은 에러를 만난다.
-
-- 이미지 내부에 도커가 없어서 실행할 수 없다는 에러 메시지
-  - UnixSocketClientProviderStrategy: failed with exception InvalidConfigurationException (Could not find unix domain socket)
-  - Root cause NoSuchFileException (/var/run/docker.sock)As no valid configuration was found, execution cannot continue.
+- UnixSocketClientProviderStrategy: failed with exception InvalidConfigurationException (Could not find unix domain socket)
+- Root cause NoSuchFileException (/var/run/docker.sock)As no valid configuration was found, execution cannot continue.
 
 ```
 ...
@@ -64,13 +61,13 @@ java.lang.IllegalStateException: Could not find a valid Docker environment. Plea
 
 ## 2. Solve the problem
 
-[Install Nonexistent Commands into Container Image][build-docker-image-with-nonexistent-commands-link] 포스트처럼 도커가 설치된 커스텀 이미지를 만들면 이를 해결할 수 있다. 단순히 이미지 레이어를 추가하는 정도로 해결되지 않았기 때문에 일부는 중복된 내용이지만, 별도 포스트로 정리하였다.
+[Install Nonexistent Commands into Container Image][build-docker-image-with-nonexistent-commands-link] 글처럼 도커가 설치된 커스텀 이미지를 만들면 이 문제를 해결할 수 있다. 단순히 이미지 레이어를 추가하는 정도로는 해결되지 않았기 때문에 일부 내용이 중복되지만 별도 글로 정리했다.
 
 ### 2.1. Install systemd
 
 > systemd - An alternative boot manager
 
-`systemd`는 리눅스의 시스템과 세션 관리자이다. 도커 데몬 실행을 위해 이미지 레이어에 추가되어야 한다. `systemd`는 다음과 같은 역할을 수행한다.
+`systemd`는 리눅스의 시스템과 세션 관리자다. 도커 데몬을 실행하려면 이미지 레이어에 추가해야 한다. `systemd`는 다음과 같은 역할을 수행한다.
 
 - 실행되는 서비스를 위한 소켓(socket)이나 D-버스(D-Bus)를 활성화
 - 데몬(daemon) 실행
@@ -80,14 +77,14 @@ java.lang.IllegalStateException: Could not find a valid Docker environment. Plea
 
 ### 2.2. Install init
 
-`systemd`를 설치한 이미지에서 도커 데몬을 실행하면 다음과 같은 에러 메시지를 마주친다.
+`systemd`를 설치한 이미지에서 도커 데몬을 실행하면 다음과 같은 에러 메시지를 만난다.
 
 ```
 2023-05-16 10:23:56 System has not been booted with systemd as init system (PID 1). Can't operate.
 2023-05-16 10:23:56 Failed to connect to bus: Host is down
 ```
 
-`systemd`는 `init` 프로세스가 될 수 없기 때문에 발생하는 에러이다. `init` 프로세스는 사용자들을 위해 시스템 설정을 수행하는 부팅(booting) 프로세스의 일부이다. 모든 프로세스의 부모 역할을 수행하기 때문에 `systemd`로 도커 데몬을 실행하기 위해선 `init` 설치가 필요하다. `init` 프로세스는 다음과 같은 역할을 수행한다.
+`systemd`가 `init` 프로세스가 될 수 없기 때문에 발생하는 에러다. `init` 프로세스는 사용자를 위해 시스템 설정을 수행하는 부팅(booting) 프로세스의 일부다. 모든 프로세스의 부모 역할을 하기 때문에 `systemd`로 도커 데몬을 실행하려면 `init`을 설치해야 한다. `init` 프로세스는 다음과 같은 역할을 수행한다.
 
 - 파일 시스템의 구조 검사
 - 파일 시스템의 마운트
@@ -96,14 +93,7 @@ java.lang.IllegalStateException: Could not find a valid Docker environment. Plea
 
 ### 2.3. Install docker.io and Build Image
 
-마지막으로 도커 데몬을 설치하는 이미지 레이어를 추가하고 이미지를 빌드한다. 최종적으로 다음과 같은 도커 파일이 작성된다.
-
-##### Dockerfile
-
-- 테스트 실행을 위한 이미지 레이어도 추가한다.
-- 컨테이너를 실행할 때 `init` 프로세스를 실행할 수 있도록 엔트리 포인트(entry point)로 지정한다.
-  - 이미지를 빌드하는 과정에서 `init` 프로세스를 실행할 수 없다.
-  - 컨테이너를 실행하는 시점에 `init` 프로세스를 실행한다.
+마지막으로 도커 데몬을 설치하는 이미지 레이어를 추가하고 이미지를 빌드한다. 테스트 실행을 위한 이미지 레이어도 함께 추가한다. 이미지를 빌드하는 과정에서는 `init` 프로세스를 실행할 수 없으므로, 컨테이너를 실행하는 시점에 `init` 프로세스를 실행하도록 엔트리 포인트(entry point)로 지정한다. 최종 도커 파일은 다음과 같다.
 
 ```dockerfile
 FROM maven:3-eclipse-temurin-17
@@ -125,9 +115,7 @@ COPY src ./src
 ENTRYPOINT ["/sbin/init"]
 ```
 
-##### Build Image
-
-- 위에서 작성한 도커 파일을 기준으로 이미지를 생성한다.
+작성한 도커 파일로 이미지를 생성한다.
 
 ```
 $ docker build -t maven:3-eclipse-temurin-17-docker .

@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "redis"
+summary: "스프링 부트로 레디스에 이벤트 로그를 발행하는 서비스와 채널을 구독하는 서비스를 구현하고, 도커 컴포즈로 실행해 메시지 전달을 확인했다."
 recommendedPosts:
   - title: "레디스 발행/구독(Redis Pub/Sub)"
     href: "https://junhyunny.github.io/redis/redis-pub-sub/"
@@ -54,7 +55,7 @@ tasks.named('test') {
 3. 구독자 서비스는 레디스로부터 이벤트 로그를 전달받는다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-publisher-and-subscriber-spring-boot-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-publisher-and-subscriber-spring-boot-01.png" width="100%" class="image__border">
 </div>
 
 ## 1. Implement Publisher Service
@@ -63,9 +64,7 @@ tasks.named('test') {
 
 ### 1.1. application.yml
 
-레디스 접속 정보를 정의한다.
-
-- 도커 컴포즈(docker compose) 환경이므로 컨테이너 이름을 사용한다.
+레디스 접속 정보를 정의한다. 도커 컴포즈(docker compose) 환경이므로 컨테이너 이름을 사용한다.
 
 ```yml
 spring:
@@ -76,7 +75,7 @@ spring:
       port: 6379
 ```
 
-### 1.2. AppConfig Class
+### 1.2. AppConfig 클래스
 
 RedisTemplate 객체를 스프링 빈(bean)으로 등록한다. RedisTemplate 객체를 사용하면 발행 기능을 쉽게 구현할 수 있다. 
 
@@ -104,7 +103,7 @@ public class AppConfig {
 }
 ```
 
-### 1.3. EventLogPublisher Class
+### 1.3. EventLogPublisher 클래스
 
 RedisTemplate 클래스의 convertAndSend 메서드를 사용한다. 채널 이름과 이벤트 객체를 전달한다.
 
@@ -150,7 +149,7 @@ public enum Channel {
 }
 ```
 
-### 1.5. TodoController Class
+### 1.5. TodoController 클래스
 
 TODO CRUD 기능을 제공하는 간단한 컨트롤러 클래스다. 
 
@@ -255,19 +254,17 @@ public interface MessageListener {
 }
 ```
 
-단순히 구현 클래스를 만드는 것은 단순하지만, 구독하는 비즈니스 케이스의 확장을 고려해 다음과 같은 구조로 설계하였다. 
+단순히 구현 클래스를 만드는 것은 단순하지만, 구독하는 비즈니스 케이스의 확장을 고려해 다음과 같은 구조로 설계했다. 
 
-- MessageListener 인터페이스를 확장한 EventSubscriber 인터페이스를 정의힌다.
+- MessageListener 인터페이스를 확장한 EventSubscriber 인터페이스를 정의한다.
 - EventSubscriber 인터페이스에는 channelName 메서드가 존재하며 구독자 객체가 구독할 채널 이름을 제공한다.
 - 각 채널 별로 비즈니스 로직을 처리하기 위한 구독자 구현 클래스들이 존재한다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-publisher-and-subscriber-spring-boot-02.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-publisher-and-subscriber-spring-boot-02.png" width="100%" class="image__border">
 </div>
 
-#### 2.2.1. EventSubscriber Interface
-
-- channelName 메서드는 해당 인스턴스가 관심을 갖는 채널 이름을 반환한다.
+EventSubscriber 인터페이스의 channelName 메서드는 해당 인스턴스가 관심을 갖는 채널 이름을 반환한다.
 
 ```java
 package blog.in.action.subscriber;
@@ -280,12 +277,7 @@ public interface EventSubscriber extends MessageListener {
 }
 ```
 
-#### 2.2.2. ReadEventSubscriber Class
-
-총 4개 구현 클래스가 존재하지만, 코드가 크게 다르지 않기 때문에 하나만 대표로 살펴본다.
-
-- channelName 메서드는 자신이 담당하는 채널 이름을 반환한다.
-- onMessage 메서드에서 구독 중인 채널을 통해 전달 받은 메시지를 처리한다.
+구현 클래스는 총 4개지만, 코드가 크게 다르지 않기 때문에 ReadEventSubscriber 클래스만 대표로 살펴보자. channelName 메서드는 자신이 담당하는 채널 이름을 반환하고, onMessage 메서드에서 구독 중인 채널을 통해 전달받은 메시지를 처리한다.
 
 ```java
 package blog.in.action.subscriber.impl;
@@ -311,7 +303,7 @@ public class ReadEventSubscriber implements EventSubscriber {
 }
 ```
 
-### 2.3. RedisConfig Class
+### 2.3. RedisConfig 클래스
 
 구독자 인스턴스들을 리스트로 전달 받아 RedisMessageListenerContainer 인스턴스에 메시지 리스너로 등록한다. 
 

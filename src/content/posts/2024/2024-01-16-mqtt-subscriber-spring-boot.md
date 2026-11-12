@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/integration/mqtt-subscriber-spring-boot/"
 categories:
   - "spring-boot"
   - "integration"
+summary: "Mosquitto 브로커 컨테이너와 mqtt-cli를 준비하고, 스프링 부트로 MQTT 토픽 메시지를 구독하는 구독자 애플리케이션을 구현해 테스트했다."
 recommendedPosts:
   - title: "MQTT(Message Queuing Telemetry Transport) 프로토콜"
     href: "https://junhyunny.github.io/information/mqtt-protocol/"
@@ -27,7 +28,7 @@ MQTT 프로토콜에 대한 개념을 확인하고 싶으면 [MQTT(Message Queui
   - 브로커로부터 메시지를 수신 후 메시지를 로그로 출력한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-subscriber-spring-boot-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-subscriber-spring-boot-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Install mqtt-cli
@@ -85,11 +86,11 @@ allow_anonymous false
 
 ### 3.3. Run Mosquitto Broker
 
-위 단계에서 생성한 모스키토 설정 파일을 사용해 브로커 서버를 실행한다. 다음 명령어로 모스키토 컨테이터를 실행한다.
+위 단계에서 생성한 모스키토 설정 파일을 사용해 브로커 서버를 실행한다. 다음 명령어로 모스키토 컨테이너를 실행한다.
 
 - 1883 포트로 메시지를 수신한다.
 - 프로젝트 경로에 만든 `passwordfile`을 컨테이너 볼륨과 연결한다.
-- 프로젝트 경로에 만든 `mosquitto.conf`을 컨테이너 볼륨과 연결한다.
+- 프로젝트 경로에 만든 `mosquitto.conf`를 컨테이너 볼륨과 연결한다.
 
 ```
 $ docker run -d -p 1883:1883\
@@ -104,9 +105,7 @@ $ docker run -d -p 1883:1883\
 
 구독자 스프링 부트 애플리케이션을 구현한다. 
 
-### 4.1. build.gradle
-
-다음과 같은 의존성이 필요하다. MQTT 구독자를 개발하기 위해 필요한 의존성은 다음과 같다.
+MQTT 구독자를 개발하려면 `build.gradle` 파일에 다음과 같은 의존성이 필요하다.
 
 - spring-boot-starter-integration
   - 다른 시스템과의 결합을 지원하는 의존성
@@ -143,9 +142,7 @@ tasks.named('test') {
 }
 ```
 
-### 4.2. MqttBrokerConfig Class
-
-구독 핸들러를 브로커에 연결하기 위한 설정 클래스를 만든다. 설명 가독성을 위해 코드에 주석으로 작성한다.
+먼저 구독 핸들러를 브로커에 연결하기 위한 MqttBrokerConfig 설정 클래스를 만든다. 설명은 가독성을 위해 코드에 주석으로 작성했다.
 
 ```java
 package blog.in.action.config;
@@ -217,12 +214,7 @@ public class MqttBrokerConfig {
 
 채널 어댑터는 MqttConnectOptions 객체에 담긴 데이터로 IMqttAsyncClient 객체를 생성한다. 메시지를 수신했을 때 채널 인스턴스와 핸들러 인스턴스를 연결한다. 채널 인스턴스는 메시지 핸들링 전략에 따라 다양한 구현체들이 존재한다. 예를 들어 동기식 혹은 비동기식이라던지 큐 사용 여부라던지 메시지 순서 보장 여부 등이 있다. 수신한 메시지를 핸들링하는 비즈니스 로직이 실행되기 전에 애플리케이션이 메시지를 어떻게 다룰지 전략이 정의되어 있다. 핸들러는 메시지를 수신해 어떻게 처리할 것인지 관심사를 정의한 인스턴스이다. 
 
-### 4.3. MqttMessageSubscriber Class
-
-메시지를 수신하면 어떻게 처리할 것인지 비즈니스 로직을 정의한 핸들러 클래스를 생성한다. 
-
-- MessageHandler 인터페이스를 구현한다.
-- 단순히 로그를 출력한다.
+MqttMessageSubscriber 클래스는 메시지를 수신했을 때 처리할 비즈니스 로직을 정의한 핸들러다. MessageHandler 인터페이스를 구현하며, 단순히 로그를 출력한다.
 
 ```java
 package blog.in.action.listen;

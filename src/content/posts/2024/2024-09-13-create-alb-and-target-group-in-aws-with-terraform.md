@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/terraform/create-alb-and-target-group-in-aws-with-terraform/"
 categories:
   - "terraform"
+summary: "테라폼으로 기존 VPC의 퍼블릭 서브넷에 시큐리티 그룹, ALB, 대상 그룹과 리스너를 구성하는 방법을 정리했다."
 recommendedPosts:
   - title: "테라폼(Terraform) AWS VPC 생성하기"
     href: "https://junhyunny.github.io/terraform/create-vpc-in-aws-with-terraform/"
@@ -21,7 +22,7 @@ recommendedPosts:
 테라폼을 사용해 구성할 ALB, 타겟 그룹은 다음과 같다.
 
 - ALB는 퍼블릭 서브넷에 위치한다.
-  - AZ(Availability Zone)이 서로 다른 서브넷이 2개 필요하다.
+  - AZ(Availability Zone)가 서로 다른 서브넷이 2개 필요하다.
 - 타겟 그룹을 하나 만든다.
   - 타겟 그룹은 이전에 생성한 VPC 내부 인스턴스들을 기준으로 동작한다. 
 
@@ -105,16 +106,16 @@ resource "aws_lb" "junhyunny_alb" {
 }
 ```
 
-타겟 그룹은 다음과 같이 정의힌다.
+타겟 그룹은 다음과 같이 정의한다.
 
 - 포트
-  - 8080 사용한다.
+  - 8080 포트를 사용한다.
 - 프로토콜
   - HTTP 프로토콜을 사용한다.
 - VPC
   - 이전 글에서 생성한 VPC를 대상으로 적용한다.
 - 타겟 타입
-  - instance 으로 지정한다.
+  - instance로 지정한다.
   - VPC에 배포된 EC2 인스턴스를 대상으로 동작한다.
 
 ```tf
@@ -161,7 +162,7 @@ resource "aws_lb_listener" "junhyunny_alb_listener" {
 }
 ```
 
-위와 같은 인프라 설정은 리스너 규칙과 타겟 그룹을 지정을 통해 외부에서 로드 밸런서의 80 포트로 접근하는 트래픽은 타겟 그룹에 속한 인스턴스의 8080 포트로 연결된다. 
+위와 같은 인프라 설정은 리스너 규칙과 타겟 그룹 지정을 통해 외부에서 로드 밸런서의 80 포트로 접근하는 트래픽은 타겟 그룹에 속한 인스턴스의 8080 포트로 연결된다. 
 
 마지막으로 인프라 배포가 완료되면 로드 밸런서의 DNS(Domain Name Server)를 확인할 수 있도록 output 블럭을 정의한다.
 
@@ -246,7 +247,7 @@ Do you want to perform these actions?
   Enter a value: yes
 ```
 
-테라폼 작업이 완료되면 터미널에 ALB DNS 주소를 확인할 수 있다.
+테라폼 작업이 완료되면 터미널에서 ALB DNS 주소를 확인할 수 있다.
 
 ```
 ...
@@ -258,7 +259,7 @@ Outputs:
 alb-dns = "tf-lb-20240913202006675800000003-83453087.us-east-1.elb.amazonaws.com"
 ```
 
-해당 DNS 주소로 접근하면 브라우저에서 다음 화면을 볼 수 있다. 아직 EC2 인스턴스가 없기 때문에 서버가 요청에 처리할 준비가 되지 않았다는 `503 Service Unavailable` 에러를 확인할 수 있다.
+해당 DNS 주소로 접근하면 브라우저에서 다음 화면을 볼 수 있다. 아직 EC2 인스턴스가 없기 때문에 서버가 요청을 처리할 준비가 되지 않았다는 `503 Service Unavailable` 에러를 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/create-alb-and-target-group-in-aws-with-terraform-02.png" width="100%" class="image__border">

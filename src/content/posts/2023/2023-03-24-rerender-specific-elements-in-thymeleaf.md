@@ -1,11 +1,12 @@
 ---
 title: "Thymeleaf에서 특정 엘리먼트 재렌더링하기"
 publishedAt: "2023-03-24"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:17:28+09:00"
 canonicalPath: "/spring-boot/thymeleaf/rerender-specific-elements-in-thymeleaf/"
 categories:
   - "spring-boot"
   - "thymeleaf"
+summary: "타임리프 SSR 페이지에서 새로고침, 뒤로가기 시 데이터가 꼬이는 문제를 fetch 함수로 받은 HTML로 페이지의 특정 영역만 다시 렌더링해 해결한 방법을 정리했다."
 recommendedPosts:
   - title: "반사형 XSS(Reflected Cross Site Scripting) 공격과 방어"
     href: "https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/"
@@ -21,23 +22,21 @@ recommendedPosts:
 
 ## 1. Needs
 
-특정 기술의 컨셉을 확인하기 위해 스프링 부트(spring boot), 타임리프(thymeleaf) 프레임워크로 간단한 애플리케이션을 만들어보는 과정에서 다음과 같은 문제를 만났다.
+특정 기술의 콘셉트를 확인하려고 스프링 부트(spring boot), 타임리프(thymeleaf) 프레임워크로 간단한 애플리케이션을 만들어 보다가 다음과 같은 문제를 만났다.
 
 - 타임리프는 SSR(server side rendering) 방식이라 요청에 대한 응답을 페이지로 받는다.
-- 매번 신규 페이지를 받아 처리하다보니 브라우저의 새로고침이나 뒤로가기를 하면 데이터가 꼬인다.
+- 매번 신규 페이지를 받아 처리하다 보니 브라우저의 새로고침이나 뒤로가기를 하면 데이터가 꼬인다.
 
-위 문제들을 해결하기 위해 다음과 같은 방식으로 기능을 구현했다.
+이 문제를 해결하기 위해 다음과 같은 방식으로 기능을 구현했다.
 
 - SPA(single page application) 방식처럼 페이지는 유지한 채 특정 영역만 다시 렌더링(rendering)
 - `jquery`, `axios` 같은 외부 의존성을 추가하지 않고 기능 구현
 
-이번 포스트에선 브라우저가 기본으로 제공하는 웹 API `fetch` 함수와 타임리프 프레임워크를 사용해 페이지의 특정 부분만 렌더링하는 방법에 대해 정리하였다.
+이 글에서는 브라우저가 기본으로 제공하는 웹 API인 `fetch` 함수와 타임리프 프레임워크를 사용해 페이지의 특정 부분만 렌더링하는 방법을 정리했다.
 
 ## 2. Practice
 
-### 2.1. packages
-
-- 다음과 같은 패키지 구조를 가진다.
+예제 프로젝트는 다음과 같은 패키지 구조를 가진다.
 
 ```
 ./
@@ -75,9 +74,7 @@ recommendedPosts:
                         └── ActionInBlogApplicationTests.java
 ```
 
-### 2.2. build.gradle
-
-- 다음과 같은 의존성이 필요하다.
+`build.gradle` 파일에는 다음과 같은 의존성이 필요하다.
 
 ```
 plugins {
@@ -113,9 +110,7 @@ tasks.named('test') {
 }
 ```
 
-### 2.3. application.yml
-
-- 타임리프를 위한 설정이다.
+`application.yml` 파일에는 타임리프를 위한 설정을 추가한다.
 
 ```yml
 spring:
@@ -129,14 +124,13 @@ spring:
     cache: false
 ```
 
-### 2.4. index.html
+`index.html` 파일의 `submit` 함수는 다음 순서로 동작한다.
 
-- submit 함수
-  - `preventDefault` 함수를 통해 폼(form) `submit` 이벤트의 고유 기능인 페이지 이동을 막는다.
-  - 폼 엘리먼트(element)를 데이터 객체로 변경한다.
-  - API 요청을 수행한다.
-  - 비동기 콜백을 통해 응답을 텍스트로 변경한다.
-  - `#user` 영역의 HTML 텍스트를 응답 결과로 대체한다.
+1. `preventDefault` 함수로 폼(form) `submit` 이벤트의 고유 기능인 페이지 이동을 막는다.
+2. 폼 엘리먼트(element)를 데이터 객체로 변경한다.
+3. API 요청을 수행한다.
+4. 비동기 콜백으로 응답을 텍스트로 변경한다.
+5. `#user` 영역의 HTML 텍스트를 응답 결과로 대체한다.
 
 ```html
 <html>
@@ -200,11 +194,7 @@ spring:
 </html>
 ```
 
-### 2.5. FormController Class
-
-- `/user` 경로
-  - 요청으로 들어온 정보를 그대로 모델(model) 객체에 담는다.
-  - 응답 경로는 `index.html` 내부에 `#user` 영역만 페이지로 만들어 반환한다.
+`FormController` 클래스의 `/user` 경로는 요청으로 들어온 정보를 그대로 모델(model) 객체에 담는다. 응답으로는 `index.html` 내부의 `#user` 영역만 페이지로 만들어 반환한다.
 
 ```java
 package action.in.blog.controller;
@@ -234,9 +224,7 @@ public class FormController {
 }
 ```
 
-##### Result of Practice
-
-- 오른쪽 폼에서 입력한 값들이 왼쪽 창에 그대로 반영된다.
+실습해 보면 오른쪽 폼에 입력한 값이 왼쪽 창에 그대로 반영된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/rerender-specific-elements-in-thymeleaf-01.gif" width="100%" class="image__border">
@@ -244,7 +232,7 @@ public class FormController {
 
 ## CLOSING
 
-REST API 방식처럼 필요한 데이터만 주고 받진 않지만, 사용자에겐 같은 경험을 제공한다. 다만 HTML 엘리먼트를 통째로 바꾸기 때문에 XSS(cross site script) 공격에 취약하므로 주의해야 한다.
+REST API 방식처럼 필요한 데이터만 주고받지는 않지만, 사용자에게는 같은 경험을 제공한다. 다만 HTML 엘리먼트를 통째로 바꾸기 때문에 XSS(cross site script) 공격에 취약하므로 주의해야 한다.
 
 #### TEST CODE REPOSITORY
 

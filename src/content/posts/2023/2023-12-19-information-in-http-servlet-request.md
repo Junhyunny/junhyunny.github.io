@@ -7,6 +7,7 @@ categories:
   - "information"
   - "java"
   - "spring-boot"
+summary: "HttpServletRequest 객체가 제공하는 URI, URL 정보를 살펴보고, 톰캣에 컨텍스트 패스를 설정해 컨텍스트 패스, 서블릿 패스, 요청 URI의 차이를 확인했다."
 recommendedPosts:
   - title: "스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기"
     href: "https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/"
@@ -20,9 +21,9 @@ recommendedPosts:
 
 ## 2. URI and URL in HttpServletRequest
 
-서블릿 패스(servlet path)와 요청 URI의 차이점을 알아보기 전에 HttpServletRequest 객체은 URL 정보를 반환하는 getRequestURL 메서드가 있다. 서블릿 컨테이너에서 URI과 URL 정보를 어떻게 구분하는지 궁금했다. 둘 사이의 차이점을 살펴보자.
+서블릿 패스(servlet path)와 요청 URI의 차이점을 알아보기 전에 HttpServletRequest 객체는 URL 정보를 반환하는 getRequestURL 메서드가 있다. 서블릿 컨테이너에서 URI와 URL 정보를 어떻게 구분하는지 궁금했다. 둘 사이의 차이점을 살펴보자.
 
-먼저 URI과 URL 의미를 정확하게 짚고 넘어가자. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) 인터넷 표준에서 정의한 URI와 URL의 정의를 참조했다. 통합 자원 식별자(uniform resource identifier, URI)는 숫자, 문자, 기호의 짧은 문자열을 사용해 문서를 식별하는 표준이다. URI는 다음과 같이 표현한다.
+먼저 URI와 URL 의미를 정확하게 짚고 넘어가자. [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986) 인터넷 표준에서 정의한 URI와 URL의 정의를 참조했다. 통합 자원 식별자(uniform resource identifier, URI)는 숫자, 문자, 기호의 짧은 문자열을 사용해 문서를 식별하는 표준이다. URI는 다음과 같이 표현한다.
 
 ```
 URI         = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
@@ -96,7 +97,7 @@ $ curl -v "http://localhost:8080/home?hello=world"
 2023-12-19T10:59:51.238+09:00  INFO 10977 --- [nio-8080-exec-1] b.in.action.controller.HomeController    : requestURL - http://localhost:8080/home
 ```
 
-로그를 통해 서블릿 컨테이너에서 요청 URI과 URL의 의미를 다음과 같이 정리할 수 있다.
+로그를 통해 서블릿 컨테이너에서 요청 URI와 URL의 의미를 다음과 같이 정리할 수 있다.
 
 - 요청 URI는 요청 경로를 의미한다.
 - 요청 URL은 스키마, 호스트, 포트 번호까지 모두 포함된 리소스 위치를 의미한다. 
@@ -144,7 +145,7 @@ $ curl -v "http://localhost:8080/home?hello=world"
 2023-12-19T11:13:02.110+09:00  INFO 13529 --- [nio-8080-exec-1] b.in.action.controller.HomeController    : getServletPath - /home
 ```
 
-로그로 확인한 두 값은 같지만, 엄밀히 말하면 따지면 컨텍스트 패스(context path) 정보가 비어있기 때문에 같은 값을 가지는 것이다. 두 정보 사이의 차이점은 다음과 같다.
+로그로 확인한 두 값은 같지만, 엄밀히 따지면 컨텍스트 패스(context path) 정보가 비어있기 때문에 같은 값을 가지는 것이다. 두 정보 사이의 차이점은 다음과 같다.
 
 - 요청 URI는 클라이언트가 서버로 요청을 보낼 때 사용한 경로이다. 
 - 서블릿 패스는 컨텍스트 패스 정보를 제외한 서블릿 컨테이너가 받은 경로이다.
@@ -153,7 +154,7 @@ $ curl -v "http://localhost:8080/home?hello=world"
 
 ### 3.1. Tomcat Server Config
 
-설정 파일을 변경하기 전에 톰캣 서버는 디폴트 설정에 대해 먼저 정리한다. 
+설정 파일을 변경하기 전에 톰캣 서버의 디폴트 설정에 대해 먼저 정리한다. 
 
 - 톰캣 서버는 기본적으로 8080 포트에서 서비스한다.
 - 해당 서비스를 수행하는 호스트의 별도 컨텍스트 설정이 없다면 루트 컨텍스트를 사용한다.
@@ -293,7 +294,7 @@ BUILD SUCCESSFUL in 7s
 $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apache-tomcat/webapps/ROOT.war
 ```
 
-### 3.3. Test
+### 3.3. Check in Browser
 
 톰캣 서버는 프로젝트 경로를 모니터링하다 ROOT.war 파일이 변경되면 패키징을 해제한다. 파일을 이동시킨 후 잠시 기다리면 브라우저를 통해 확인할 수 있다. 
 
@@ -306,7 +307,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /home 이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/information-in-http-servlet-request-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/information-in-http-servlet-request-01.png" width="100%" class="image__border">
 </div>
 
 #### 3.3.2. /app 경로
@@ -318,7 +319,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /app/home 이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/information-in-http-servlet-request-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/information-in-http-servlet-request-02.png" width="100%" class="image__border">
 </div>
 
 #### 3.3.3. /admin 경로
@@ -330,7 +331,7 @@ $ cp build/libs/action-in-blog-0.0.1-SNAPSHOT-plain.war ~/Desktop/workspace/apac
 - 요청 URI는 /admin/home 이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/information-in-http-servlet-request-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/information-in-http-servlet-request-03.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

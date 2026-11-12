@@ -1,12 +1,13 @@
 ---
 title: "Redis를 활용한 Spring Session"
 publishedAt: "2022-11-21"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:54+09:00"
 canonicalPath: "/information/spring-boot/redis/spring-session-with-redis/"
 categories:
   - "information"
   - "spring-boot"
   - "redis"
+summary: "레디스와 Spring Session으로 다중 인스턴스 환경에서 세션을 공유하는 방법을 구현하고, 도커 컴포즈로 두 백엔드 서비스의 세션 공유와 직렬화 설정을 확인했다."
 recommendedPosts:
   - title: "쿠키(Cookie)와 세션(Session)"
     href: "https://junhyunny.github.io/information/cookie-and-session/"
@@ -20,28 +21,30 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[JDBC 스프링 세션(Spring Session with JDBC)][spring-session-link] 포스트에선 데이터베이스와 `Spring Session`을 통해 다중 인스턴스 환경에서 세션을 공유하는 방법에 대해 다뤘다. 이번 포스트에선 레디스(redis)와 `Spring Session`을 사용해 세션을 공유하는 방법에 대해 정리하였다. [임베디드 레디스 서버(Embedded Redis Server)][embedded-redis-server-link] 포스트에서 사용한 예제 프로젝트를 확장하였으며 다음과 같은 방식으로 세션의 공유 여부를 확인하였다.
+[JDBC 스프링 세션(Spring Session with JDBC)][spring-session-link] 글에선 데이터베이스와 `Spring Session`으로 다중 인스턴스 환경에서 세션을 공유하는 방법을 다뤘다. 이번 글에선 레디스(redis)와 `Spring Session`을 사용해 세션을 공유하는 방법을 정리했다.
 
-- 도커 컴포즈(compose)를 사용해 백엔드 서비스 2개와 레디스 서비스 1개를 실행한다.
+[임베디드 레디스 서버(Embedded Redis Server)][embedded-redis-server-link] 글에서 사용한 예제 프로젝트를 확장했으며, 다음과 같은 방식으로 세션 공유 여부를 확인했다.
+
+1. 도커 컴포즈(compose)를 사용해 백엔드 서비스 2개와 레디스 서비스 1개를 실행한다.
   - backend-1 - exposed port number 8080
   - backend-2 - exposed port number 8081
   - redis-server - exposed port number 6379
-- 사용자 브라우저로 두 백엔드 서비스에 번갈아 접근한다.
+2. 사용자 브라우저로 두 백엔드 서비스에 번갈아 접근한다.
   - `localhost:8080/session`, `localhost:8081/session` 주소에 접근한다.
   - 세션 정보를 식별할 때 사용하는 아이디(id)는 쿠키에 함께 전달된다.
-  - `SameSite`인 경우 쿠키를 공유하므로 두 요청은 동일한 세션을 사용하게 된다.
-  - `SameSite` 기준에 따라 포트 번호는 상관하지 않는다.
+  - `SameSite`인 경우 쿠키를 공유하므로 두 요청은 같은 세션을 사용한다.
+  - `SameSite` 기준에서 포트 번호는 상관하지 않는다.
   - [쿠키(Cookie) 심층 분석][cookie-attributes-link]
-- 세션 접근 카운트가 증가하는지 확인한다.
-  - 동일한 세션 정보를 사용한다면 세션 접근 카운트는 이어지면서 증가할 것이다.
+3. 세션 접근 카운트가 증가하는지 확인한다.
+  - 같은 세션 정보를 사용한다면 세션 접근 카운트가 이어서 증가할 것이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/spring-session-with-redis-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/spring-session-with-redis-01.png" width="100%" class="image__border">
 </div>
 
 ## 1. Spring Session 의존성 추가
 
-다음과 같은 의존성들을 추가한다.
+다음과 같은 의존성을 추가한다.
 
 ```xml
     <dependency>
@@ -56,11 +59,11 @@ recommendedPosts:
 
 ## 2. application-dev.yml
 
-- 레디스 접속 정보를 다음과 같이 설정한다.
-  - host - 도커 컴포즈 파일의 레디스 컨테이너의 이름
-  - password - 레디스 애플리케이션 접속 비밀번호 (임의 지정)
-  - port - 레디스 애플리케이션 포트 번호
-- 세션 저장소 타입을 `redis`로 설정한다.
+`application-dev.yml` 파일에서 세션 저장소 타입을 `redis`로 설정하고, 레디스 접속 정보를 다음과 같이 설정한다.
+
+- host - 도커 컴포즈 파일에 정의한 레디스 컨테이너의 이름
+- password - 레디스 애플리케이션 접속 비밀번호 (임의 지정)
+- port - 레디스 애플리케이션 포트 번호
 
 ```yml
 spring:
@@ -74,11 +77,7 @@ spring:
 
 ## 3. SessionFilter 클래스
 
-- 세션 정보를 조회할 때 파라미터를 `false`인 경우 세션을 새롭게 생성하지 않고, 존재하는 세션을 반환한다.
-- 세션 생성 URL 호출 시 해당 요청을 계속 진행한다.
-- 세션 생성 URL이 아닌 경우 다음과 같이 수행한다.
-  - 세션이 없는 경우 세션을 생성하는 경로로 리다이렉트(redirect)한다.
-  - 세션이 있는 경우 해당 요청을 계속 진행한다.
+`SessionFilter` 클래스는 세션 정보를 조회할 때 파라미터로 `false`를 전달해 세션을 새로 생성하지 않고, 이미 있는 세션을 반환받는다. 세션 생성 URL을 호출하면 요청을 그대로 진행한다. 세션 생성 URL이 아니면 세션이 없을 때 세션을 생성하는 경로로 리다이렉트(redirect)하고, 세션이 있을 때 요청을 그대로 진행한다.
 
 ```java
 package action.in.blog.filter;
@@ -114,14 +113,15 @@ public class SessionFilter extends OncePerRequestFilter {
 
 ## 4. SessionController 클래스
 
-- 세션 정보를 조회할 때 파라미터가 없는 경우 세션 존재 여부에 따라 필요한 경우 새로운 세션을 생성 후 반환한다.
+`SessionController` 클래스는 파라미터 없이 세션 정보를 조회하므로, 세션이 없으면 새로운 세션을 생성해 반환받는다. 각 경로는 다음과 같이 동작한다.
+
 - `/session/creation` 경로 접근
-  - 기존 세션이 존재하는 경우 존재하는 세션을 획득한다.
-  - 기존 세션이 존재하지 않다면 새로운 세션을 생성 후 획득한다.
-  - `accessCount`를 키(key)로 세션에 초기 값 `0`을 저장한다.
+  - 기존 세션이 있으면 그 세션을 가져온다.
+  - 기존 세션이 없으면 새로운 세션을 생성해 가져온다.
+  - `accessCount`를 키(key)로 세션에 초깃값 `0`을 저장한다.
 - `/session` 경로 접근
   - `accessCount`를 키로 세션 정보에 저장된 데이터를 찾는다.
-  - 저장된 데이터에 1을 더하여 세션에 다시 저장한다.
+  - 저장된 데이터에 1을 더해 세션에 다시 저장한다.
   - 현재 조회한 데이터를 사용해 응답 문자열을 만들어 반환한다.
 
 ```java
@@ -160,9 +160,7 @@ public class SessionController {
 
 ### 5.1. 직렬화 방법 부재 시 문제점
 
-별도로 `직렬화(serialize)` 방법을 정의해주지 않고, 데이터를 저장하면 다음과 같은 알아보기 힘든 데이터가 저장된다.
-
-- 기본적으로 `JdkSerializationRedisSerializer`를 사용한다.
+`직렬화(serialize)` 방법을 따로 정의하지 않으면 기본적으로 `JdkSerializationRedisSerializer`를 사용하기 때문에 다음과 같이 알아보기 힘든 데이터가 저장된다.
 
 ```
 $ docker exec -it redis-server /bin/sh
@@ -189,7 +187,7 @@ OK
 
 ### 5.2. 직렬화 방법 추가
 
-- 레디스에 저장되는 값들을 알아보기 쉬운 데이터로 직렬화하는 빈(bean)을 생성한다.
+`BaseConfig` 클래스에서 레디스에 저장되는 값을 알아보기 쉬운 데이터로 직렬화하는 빈(bean)을 생성한다.
 
 ```java
 package action.in.blog.config;
@@ -211,14 +209,12 @@ public class BaseConfig {
 
 ## 6. 테스트
 
-도커 컴포즈를 사용해 서비스를 실행 후 다음과 같은 내용들을 확인한다.
+도커 컴포즈로 서비스를 실행한 뒤 다음 내용을 확인한다.
 
-- 브라우저를 통해 세션이 공유되는지 확인한다.
-- redis-server 컨테이너에 접근 후 `redis-cli` 커맨드를 통해 저장된 데이터를 확인한다.
+- 브라우저에서 세션이 공유되는지 확인한다.
+- redis-server 컨테이너에 접속한 뒤 `redis-cli` 커맨드로 저장된 데이터를 확인한다.
 
-##### Dockerfile
-
-- 실행 환경을 `dev`로 주입 받는다.
+`Dockerfile`에선 실행 환경을 `dev`로 주입받는다.
 
 ```dockerfile
 FROM maven:3.8.6-jdk-11 as MAVEN_BUILD
@@ -248,9 +244,7 @@ ENV RUN_ENV dev
 CMD ["java", "-Dspring.profiles.active=${RUN_ENV}", "-jar", "app.jar"]
 ```
 
-##### docker-compose.yml
-
-- 테스트를 위해 다음과 같은 yml 파일을 실행한다.
+테스트에는 다음과 같은 `docker-compose.yml` 파일을 사용한다.
 
 ```yml
 version: "3.9"
@@ -277,7 +271,7 @@ services:
     restart: on-failure
 ```
 
-##### 실행 로그
+도커 컴포즈를 실행하면 다음과 같은 로그를 볼 수 있다.
 
 ```
 $ docker-compose up
@@ -342,13 +336,13 @@ action-in-blog-backend-2-1  | 2022-11-21 15:49:33.843  INFO 1 --- [           ma
 action-in-blog-backend-2-1  | 2022-11-21 15:49:33.852  INFO 1 --- [           main] action.in.blog.ActionInBlogApplication   : Started ActionInBlogApplication in 3.761 seconds (JVM running for 4.187)
 ```
 
-##### 브라우저 테스트
+브라우저에서 두 백엔드 서비스에 번갈아 접근하면 다음과 같이 세션 접근 카운트가 이어서 증가한다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/spring-session-with-redis-02.gif" width="100%" class="image__border">
 </div>
 
-##### redis-cli 데이터 확인
+`redis-cli`로 레디스에 저장된 데이터를 확인한다.
 
 ```
 $ docker exec -it redis-server /bin/sh

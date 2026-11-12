@@ -6,6 +6,7 @@ canonicalPath: "/information/database/database-sharding/"
 categories:
   - "information"
   - "database"
+summary: "수평 파티셔닝과 혼동되는 샤딩의 개념을 정리하고, 해시 샤딩과 레인지 샤딩의 방식과 유의 사항을 설명한다."
 recommendedPosts:
   - title: "데이터베이스 파티셔닝(Database Partitioning)"
     href: "https://junhyunny.github.io/information/database/database-partitioning/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-수평 파티셔닝(horizontal partitioning)을 샤딩(sharding)과 혼동하여 사용하는 경우가 많다. 둘은 비슷한 개념이지만, 다른 의미를 가진다. 이번 글에서는 샤딩 개념을 정리하였다.
+수평 파티셔닝(horizontal partitioning)을 샤딩(sharding)과 혼동하여 사용하는 경우가 많다. 둘은 비슷한 개념이지만, 다른 의미를 가진다. 이번 글에서는 샤딩 개념을 정리했다.
 
 ## 1. Sharding
 
@@ -46,7 +47,7 @@ recommendedPosts:
   - 데이터베이스의 용량과 처리량을 필요에 따라 비교적 쉽게 확장할 수 있다.
 - 데이터를 분산하여 병렬 처리를 가능하게 한다.
   - 각 샤드는 독립적으로 동작하므로 여러 샤드에서 작업을 동시에 처리할 수 있다.
-- 데이터를 여러 개의 노드에 분산하였기 때문에 부하가 분산된다.
+- 데이터를 여러 개의 노드에 분산했기 때문에 부하가 분산된다.
   - 트래픽이 집중되는 단일 노드로 인한 병목 현상을 줄일 수 있다.
 
 물론 다음과 같은 단점도 존재한다.
@@ -75,7 +76,7 @@ recommendedPosts:
 - 데이터베이스가 추가되거나 삭제되는 경우 해시 함수의 변경과 저장된 데이터 재정렬이 필요하다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-sharding-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-sharding-02.png" width="100%" class="image__border">
 </div>
 <center>https://www.digitalocean.com/community/tutorials/understanding-database-sharding</center>
 
@@ -90,7 +91,7 @@ recommendedPosts:
 - 데이터가 고르게 분산되어 저장되지 않을 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-sharding-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/database-sharding-03.png" width="100%" class="image__border">
 </div>
 <center>https://www.digitalocean.com/community/tutorials/understanding-database-sharding</center>
 

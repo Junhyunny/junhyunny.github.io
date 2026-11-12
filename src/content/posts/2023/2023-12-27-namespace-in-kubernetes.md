@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/kubernetes/namespace-in-kubernetes/"
 categories:
   - "kubernetes"
+summary: "단일 클러스터 안에서 리소스 그룹을 격리하는 쿠버네티스 네임스페이스의 개념과 장점을 정리하고, 같은 네임스페이스와 다른 네임스페이스의 서비스 사이 통신을 실습했다."
 recommendedPosts:
   - title: "Kubernetes Architecture"
     href: "https://junhyunny.github.io/kubernetes/kubernetes-architecture/"
@@ -21,23 +22,23 @@ recommendedPosts:
 - 하나의 네임스페이스 내에서 리소스 이름은 유일해야 한다.
 - 동일한 이름을 가진 리소스가 서로 다른 네임스페이스에 존재하는 것은 가능하다.
 
-네임스페이스는 논리적인 구분일 뿐 네임스페이스 내부 리소스를 완전히 격리한 것은 아니기 때문에 다른 네임스페이스에 위치한 오브젝트들과 통신할 수 있다. 통신하는 방법은 아래 실습을 통해 살펴볼 예정이다. 쿠버네티스 환경을 구축하면 기본적으로 4개의 네임스페이스가 만들진다.
+네임스페이스는 논리적인 구분일 뿐 네임스페이스 내부 리소스를 완전히 격리한 것은 아니기 때문에 다른 네임스페이스에 위치한 오브젝트들과 통신할 수 있다. 통신하는 방법은 아래 실습을 통해 살펴볼 예정이다. 쿠버네티스 환경을 구축하면 기본적으로 4개의 네임스페이스가 만들어진다.
 
 - default
   - 별도로 네임스페이스를 생성하지 않았다면 기본으로 사용되는 네임스페이스다.
 - kube-node-lease
   - 각 노드와 연관된 리스(lease) 오브젝트가 존재하는 네임스페이스다.
-  - 노드 리스는 kublet이 하트 비트(heart beat)를 보내 컨트롤 플레인이 노드의 장애가 발생한 것을 탐지하는 용도로 사용한다.
+  - 노드 리스는 kubelet이 하트 비트(heart beat)를 보내 컨트롤 플레인이 노드의 장애가 발생한 것을 탐지하는 용도로 사용한다.
 - kube-public
   - 인증되지 않은 클라이언트를 포함한 모든 클라이언트가 읽기 권한으로 접근할 수 있는 네임스페이스다.
   - 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다.
 - kube-system
   - 쿠버네티스 시스템에서 생성한 오브젝트들을 위한 네임스페이스다.
 
-만약 워커 노드 3개에 dev, prod 네임스페이스를 추가했다면 아래와 같은 모습을 가진다. `kube-` 접미사로 시작하는 네임스페이스들은 제외했다. 위에서 설명했듯 각 네임스페이스에서 관리되는 오브젝트들은 각자 이름은 고유해야 한다. 동일한 이름을 가진 리소스가 서로 다른 네임스페이스에 존재하는 것은 가능하다. 
+만약 워커 노드 3개에 dev, prod 네임스페이스를 추가했다면 아래와 같은 모습을 가진다. `kube-` 접두사로 시작하는 네임스페이스들은 제외했다. 위에서 설명했듯 각 네임스페이스에서 관리되는 오브젝트들은 각자 이름은 고유해야 한다. 동일한 이름을 가진 리소스가 서로 다른 네임스페이스에 존재하는 것은 가능하다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/namespace-in-kubernetes-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/namespace-in-kubernetes-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.1. Objects in Namespace
@@ -88,7 +89,7 @@ apiservices                                    apiregistration.k8s.io/v1        
 
 ## 2. Practice
 
-네임스페이스 개념을 확인할 수 있는 실습을 해본다. 필자는 관리자보단 개발자로서 쿠버네티스를 사용하기 때문에 애플리케이션 통신 부분에 초점이 맞춰진 실습이다. 다음과 같은 내용들을 확인한다.
+네임스페이스 개념을 확인할 수 있는 실습을 해보자. 필자는 관리자보단 개발자로서 쿠버네티스를 사용하기 때문에 애플리케이션 통신 부분에 초점이 맞춰진 실습이다. 다음과 같은 내용들을 확인한다.
 
 - 네임스페이스를 만들기
 - 리소스 쿼터(resource quota)를 통해 네임스페이스 리소스 제한하기
@@ -114,18 +115,18 @@ apiservices                                    apiregistration.k8s.io/v1        
 
 ### 2.1. Spring Application
 
-먼저 실습을 위한 컨테어너 이미지를 하나 생성한다. 배포될 모든 파드들은 이 단계에서 만들어지는 컨테이너 이미지를 사용한다. 전체 코드 중 중요한 부분만 살펴본다. 전체 코드를 보고 싶다면 글 아래 코드 저장소를 확인하길 바란다. 
+먼저 실습을 위한 컨테이너 이미지를 하나 생성한다. 배포될 모든 파드들은 이 단계에서 만들어지는 컨테이너 이미지를 사용한다. 전체 코드 중 중요한 부분만 살펴보자. 전체 코드를 보고 싶다면 글 아래 코드 저장소를 확인하길 바란다. 
 
 #### 2.1.1. application.yml
 
-SERVICE_NAME 환경 변수를 통해 서비스 이름을 주입 받는다. 환경 변수는 파드 스펙이 정의된 yml 파일을 설정된다. 기본 값은 `action-in-blog`이다.
+SERVICE_NAME 환경 변수를 통해 서비스 이름을 주입 받는다. 환경 변수는 파드 스펙이 정의된 yml 파일에 설정된다. 기본 값은 `action-in-blog`이다.
 
 ```yml
 service:
   name: ${SERVICE_NAME:action-in-blog}
 ```
 
-#### 2.1.2. CommunicationController Class
+#### 2.1.2. CommunicationController 클래스
 
 API 엔드-포인트(end-point)가 정의된 컨트롤러이다. 다음과 같은 요청을 처리한다.
 
@@ -174,7 +175,7 @@ public class CommunicationController {
 }
 ```
 
-#### 2.1.3. ExternalServiceClient Class
+#### 2.1.3. ExternalServiceClient 클래스
 
 명시적인(declarative) HTTP 클라이언트를 통해 통신한다. 스프링 부트 3.X 버전부터 사용할 수 있다. 상세한 사용법은 [Declarative HTTP Client in Spring Boot][declarative-http-client-in-spring-boot-link] 글을 참조하길 바란다. 
 
@@ -295,9 +296,7 @@ kube-public       Active   9d
 kube-system       Active   9d
 ```
 
-각 네임스페이스 상세 내용을 살펴본다. 먼저 foo-ns 네임스페이스 정보이다. 
-
-- 리소스 쿼터 정보를 확인할 수 있다.
+각 네임스페이스 상세 내용을 살펴보자. 먼저 foo-ns 네임스페이스 정보에서는 리소스 쿼터 정보를 확인할 수 있다.
 
 ```
 $ kubectl describe ns foo-ns
@@ -320,9 +319,7 @@ Resource Quotas
 No LimitRange resource.
 ```
 
-다음 bar-ns 네임스페이스 정보를 살펴본다. 
-
-- 리소스 쿼터 정보를 확인할 수 없다.
+다음 bar-ns 네임스페이스 정보에서는 리소스 쿼터 정보를 확인할 수 없다.
 
 ```
 $ kubectl describe ns bar-ns
@@ -602,9 +599,7 @@ foo-service   ClusterIP   10.105.15.27   <none>        80/TCP    69s
 
 ## 3. Practice
 
-foo-ns 네임스페이스에 배포된 foo-pod 파드를 통해 다른 서비스들과 통신해본다. 애플리케이션 코드를 보면 알 수 있듯이 `/external/{serviceName}` 경로로 GET 요청을 보내면 `{serviceName}/server-name` 경로로 요청을 포워딩(forwarding)한다. cURL 명령어를 통해 foo-pod 파드와 동일한 네임스페이스에 배포된 qux-pod 파드 사이의 통신을 테스트한다. 
-
-- qux-pod 파드를 생성할 때 주입한 환경 변수 값을 응답으로 받는다.
+foo-ns 네임스페이스에 배포된 foo-pod 파드를 통해 다른 서비스들과 통신해보자. 애플리케이션 코드를 보면 알 수 있듯이 `/external/{serviceName}` 경로로 GET 요청을 보내면 `{serviceName}/service-name` 경로로 요청을 포워딩(forwarding)한다. cURL 명령어를 통해 foo-pod 파드와 동일한 네임스페이스에 배포된 qux-pod 파드 사이의 통신을 테스트한다. qux-pod 파드를 생성할 때 주입한 환경 변수 값을 응답으로 받는다.
 
 ```
 $ curl localhost:30496/external/qux-service
@@ -612,9 +607,7 @@ $ curl localhost:30496/external/qux-service
 qux-pod-in-foo-ns
 ```
 
-다른 네임스페이스에 배포된 foo-pod 파드와 통신한다. 다른 네임스페이스에 위치한 서비스와 통신할 때 주소는 전혀 다르다. 먼저 결과를 확인하고 관련된 내용을 살펴보자.
-
-- foo-pod 파드를 생성할 때 주입한 환경 변수 값을 응답으로 받는다. 
+다른 네임스페이스에 배포된 foo-pod 파드와 통신한다. 다른 네임스페이스에 위치한 서비스와 통신할 때 주소는 전혀 다르다. 먼저 결과를 확인하고 관련된 내용을 살펴보자. foo-pod 파드를 생성할 때 주입한 환경 변수 값을 응답으로 받는다.
 
 ```
 $ curl localhost:30496/external/foo-service.bar-ns.svc.cluster.local
@@ -622,13 +615,13 @@ $ curl localhost:30496/external/foo-service.bar-ns.svc.cluster.local
 foo-pod-in-bar-ns
 ```
 
-같은 네임스페이스에 배포된 서비스는 이름만으로 통신할 수 있다. 쿠버네티스는 클러스터 내부에서 사용할 수 있는 DNS(domain name system)이 존재하기 때문에 이름만으로 통신이 가능하다. 서비스를 생성하면 해당 DNS 엔트리(entry)가 생성된다. 엔트리는 다음과 같은 형식을 가진다.
+같은 네임스페이스에 배포된 서비스는 이름만으로 통신할 수 있다. 쿠버네티스는 클러스터 내부에서 사용할 수 있는 DNS(domain name system)가 존재하기 때문에 이름만으로 통신이 가능하다. 서비스를 생성하면 해당 DNS 엔트리(entry)가 생성된다. 엔트리는 다음과 같은 형식을 가진다.
 
 ```
 <서비스-이름>.<네임스페이스-이름>.svc.cluster.local
 ```
 
-`<서비스-이름>`만으로 통신하는 경우 같은 네임스페이스 내에 국한된 서비스로 연결시킨다. 네임스페이스를 넘어 통신하기 위해선 전체 주소 도메인 이름(Full Qualified Domain Name, FQDN)을 사용해야 한다. foo-ns 네임스페이스의 foo-pod 파드가 bar-ns 네임스페이스의 foo-pod 파드와 통신하기 위해 foo-service 서비스의 이름을 `foo-service.bar-ns.svc.cluster.local`으로 사용한 이유다. 
+`<서비스-이름>`만으로 통신하는 경우 같은 네임스페이스 내에 국한된 서비스로 연결시킨다. 네임스페이스를 넘어 통신하기 위해선 전체 주소 도메인 이름(Fully Qualified Domain Name, FQDN)을 사용해야 한다. foo-ns 네임스페이스의 foo-pod 파드가 bar-ns 네임스페이스의 foo-pod 파드와 통신하기 위해 foo-service 서비스의 이름을 `foo-service.bar-ns.svc.cluster.local`로 사용한 이유다. 
 
 #### TEST CODE REPOSITORY
 

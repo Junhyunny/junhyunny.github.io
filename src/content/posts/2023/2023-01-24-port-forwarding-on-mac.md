@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/port-forwarding-on-mac/"
 categories:
   - "information"
+summary: "포트 포워딩의 개념을 살펴보고, Mac 호스트에서 앵커 파일을 만들어 적용해 다른 PC에서 리액트 애플리케이션에 접근하도록 포트 포워딩한 과정을 정리했다."
 ---
 
 ## 1. Port Forwarding
@@ -12,15 +13,13 @@ categories:
 > Wikipedia<br/>
 > 포트 포워딩(port forwarding) 또는 포트 매핑(port mapping)은 컴퓨터 네트워크에서 패킷(packet)이 라우터나 방화벽과 같은 네트워크 게이트웨이를 가로지르는 동안 하나의 IP 주소와 포트 번호 결합의 통신 요청을 다른 곳으로 넘겨주는 네트워크 주소 변환(NAT)의 응용이다.
 
-네트워크 패킷은 출발지(source)와 목적지(destination) 주소 정보를 모두 갖고 있다. 네트워크 주소는 IP, 포트로 구성되어 있다. 포트 포워딩은 라우터(router) 같은 네트워크 중간에 위치한 기기에서 전달받은 패킷을 목적지 포트 정보에 의거해 다른 목적지로 보내는 것을 의미한다. 중간에 주소가 바뀌기 때문에 네트워크 주소 변환(NAT, network address transfer) 기술의 응용으로 볼 수 있다.
+네트워크 패킷은 출발지(source)와 목적지(destination) 주소 정보를 모두 갖고 있다. 네트워크 주소는 IP, 포트로 구성되어 있다. 포트 포워딩은 라우터(router) 같은 네트워크 중간에 위치한 기기에서 전달받은 패킷을 목적지 포트 정보에 의거해 다른 목적지로 보내는 것을 의미한다. 중간에 주소가 바뀌기 때문에 네트워크 주소 변환(NAT, network address translation) 기술의 응용으로 볼 수 있다.
 
 포트 포워딩을 사용하면 원격에 위치한 컴퓨터가 공개 인터넷 망을 거쳐 근거리 통신망(LAN) 내에 위치한 특정 컴퓨터나 서비스에 연결할 수 있다. 다음과 같이 여러 가지 용도로 사용된다.
 
 - 원격으로 개인 네트워크(private network)에 위치한 특정 서버 혹은 서비스에 접근하는 경우
 - 스마트 홈 기기를 가정용 네트워크에 연결하는 경우
 - 원격 데스크톱 소프트웨어를 사용해 개인 컴퓨터에 접속하는 경우
-
-##### How to Work Port Forwarding
 
 포트 포워딩은 다음과 같은 방법으로 동작한다.
 
@@ -40,11 +39,11 @@ categories:
 
 ## 2. Practice
 
-일반적인 컴퓨터 역시 라우터처럼 운영체제(OS, operating system)의 도움을 받아서 포트 포워딩이 가능하다. 최근에 작업했던 Mac PC의 포트 포워딩에 대한 내용을 바탕으로 이번 포스트를 정리하였다.
+일반적인 컴퓨터 역시 라우터처럼 운영체제(OS, operating system)의 도움을 받아서 포트 포워딩이 가능하다. 최근에 작업했던 Mac PC의 포트 포워딩에 대한 내용을 바탕으로 이번 포스트를 정리했다.
 
 ### 2.1. Context of Practice
 
-다음과 같은 실습 환경을 구축하였다.
+다음과 같은 실습 환경을 구축했다.
 
 - Mac 운영체제를 사용하는 호스트에서 3000번 포트를 사용하는 애플리케이션을 실행한다.
   - 간단한 리액트(react) 애플리케이션을 실행한다.
@@ -53,7 +52,7 @@ categories:
   - 해당 요청이 정상적으로 3000번 포트의 애플리케이션으로 연결되었다면 리액트 메인 화면을 볼 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/port-forwarding-on-mac-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/port-forwarding-on-mac-02.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. Check IP Address on Mac Host
@@ -172,8 +171,6 @@ To create a production build, use npm run build.
 
 webpack compiled successfully
 ```
-
-##### Result of Port Forwarding on Windows Client
 
 Windows 클라이언트의 브라우저에서 `192.168.1.100:8080`로 접근한다.
 

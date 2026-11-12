@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "docker"
+summary: "스프링 부트의 웹 서비스 지원을 이용해 XSD 스키마로 SOAP 서비스 제공자와 소비자 애플리케이션을 만들고 도커 컴포즈로 통신하는 예제를 정리했다."
 recommendedPosts:
   - title: "SOAP(Simple Object Access Protocol)"
     href: "https://junhyunny.github.io/information/soap/"
@@ -25,16 +26,16 @@ recommendedPosts:
 7. 제공자는 처리가 완료되면 HTTP를 통해 소비자에게 `SOAP` 메시지 응답을 전달한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-01.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://gruuuuu.github.io/programming/soap/</center>
 
 ## 1. Background
 
-웹 서비스의 메시지 프로토콜인 `SOAP`을 사용해 두 개의 서비스가 통신하는 예제를 살펴본다. 다음과 같은 백그라운(background)로 인해 실습은 위에서 설명한 웹 서비스와 다른 흐름을 가진다.
+웹 서비스의 메시지 프로토콜인 `SOAP`을 사용해 두 개의 서비스가 통신하는 예제를 살펴보자. 다음과 같은 백그라운드(background)로 인해 실습은 위에서 설명한 웹 서비스와 다른 흐름을 가진다.
 
 - IBM, Microsoft, SAP에서 제공하는 공용 UDDI 서비스가 2007년에 종료되었다.
-  - 아파치(apache)에서 UDDI 서버를 구축을 위한 오픈 소스 [JUDDI][juddi-link]를 제공한다.
+  - 아파치(apache)에서 UDDI 서버 구축을 위한 오픈 소스 [JUDDI][juddi-link]를 제공한다.
 - 스프링(spring) 프레임워크는 UDDI 서버 없이 웹 서비스를 제공한다.
   - 서비스 제공자가 직접 WSDL 파일을 호스팅한다.
 - 웹 서비스 개발 시 `Contract Last` 방식과 `Contract First` 방식이 있다.
@@ -55,25 +56,25 @@ recommendedPosts:
 5. 소비자는 생성한 클래스를 사용해 필요한 API 호출 기능을 개발한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Web Service in Spring
 
 스프링 부트 프레임워크는 `spring-boot-starter-web-services` 의존성을 통해 쉽게 웹 서비스 애플리케이션을 구축할 수 있다.
 
-- 내장 톰캣(embedded tomcat)이 서블릿 컨테이너를 사용한다.
-- 스프링의 웹 서비스 코어 모듈이 사용한다.
+- 내장 톰캣(embedded tomcat)을 서블릿 컨테이너로 사용한다.
+- 스프링의 웹 서비스 코어 모듈을 사용한다.
   - 기본적인 스프링의 기능에 웹 서비스를 위한 기능들이 추가된다.
 - WSDL 문서를 생성하기 위한 모듈을 추가한다.
   - 해당 의존성은 서비스 제공자만 필요하다.
-- XML 문서를 Java 클래스나 객체(instance)로 변환하는 JAXB 모듈이 추가한다.
+- XML 문서를 Java 클래스나 객체(instance)로 변환하는 JAXB 모듈을 추가한다.
   - XML 문서를 JAVA 클래스나 객체로 변환하는 작업을 OXM(Object XML Mapping)이라고 한다.
   - 객체와 `SOAP` 메시지 사이의 변환을 처리한다.
   - 서비스 소비자에서는 WSDL 문서를 기반으로 Java 클래스 파일을 생성한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-03.png" width="100%" class="image__border">
 </div>
 
 ## 2. Scenario
@@ -93,7 +94,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-04.png" width="100%" class="image__border">
 </div>
 
-## 3. Serivce Provider Application
+## 3. Service Provider Application
 
 서비스 제공자부터 개발한다. 다음과 같은 프로젝트 구조를 가진다.
 
@@ -154,7 +155,7 @@ recommendedPosts:
 
 ### 3.1. build.gradle
 
-다음과 같은 의존성을 가진다. 주석으로 필요한 설명을 대체하였다.
+다음과 같은 의존성을 가진다. 주석으로 필요한 설명을 대체했다.
 
 ```groovy
 plugins {
@@ -235,7 +236,7 @@ tasks.register('genJaxb') {
 
 ### 3.2. author.xsd
 
-XSD(XML Schema Definition)은 서비스 제공자가 노출하는 API 스키마 정보를 담은 XML 파일이다. `book.xsd` 파일도 있지만, 크게 다르지 않으므로 생략한다. 주석으로 필요한 설명을 대체하였다.
+XSD(XML Schema Definition)는 서비스 제공자가 노출하는 API 스키마 정보를 담은 XML 파일이다. `book.xsd` 파일도 있지만, 크게 다르지 않으므로 생략한다. 주석으로 필요한 설명을 대체했다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -298,10 +299,10 @@ BUILD SUCCESSFUL in 1s
 다음 위치에 클래스들이 생성된다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-05.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-05.png" width="50%" class="image__border">
 </div>
 
-### 3.4. AuthorEndPoint Class
+### 3.4. AuthorEndPoint 클래스
 
 서비스 요청을 받을 수 있는 엔드-포인트(end-point)를 생성한다. BookEndPoint 클래스도 존재하지만, 크게 다르지 않으므로 생략한다. `author.xsd`에 정보를 맞춰 코드를 작성한다.
 
@@ -353,9 +354,9 @@ public class AuthorEndPoint {
 }
 ```
 
-### 3.5. WebServiceConfig Class
+### 3.5. WebServiceConfig 클래스
 
-API 스키마를 정의한 XSD을 기준으로 WSDL 파일을 생성하고 호스팅하기 위한 빈(bean)들을 정의한다. 서비스 소비자는 DefaultWsdl11Definition 빈 이름을 기준으로 WSDL 파일을 찾을 수 있다.
+API 스키마를 정의한 XSD를 기준으로 WSDL 파일을 생성하고 호스팅하기 위한 빈(bean)들을 정의한다. 서비스 소비자는 DefaultWsdl11Definition 빈 이름을 기준으로 WSDL 파일을 찾을 수 있다.
 
 ```java
 package action.in.blog.config;
@@ -414,9 +415,9 @@ public class WebServiceConfig extends WsConfigurerAdapter {
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-06.png" width="100%" class="image__border">
 </div>
 
-## 4. Serivce Consumer Application
+## 4. Service Consumer Application
 
-서비스 소비자를 개발한다. 제공자에서 제공하는 WSDL 문서를 기반으로 클래스를 생성해야하므로 제공자 애플리케이션 제작 이후 진행한다. 다음과 같은 프로젝트 구조를 가진다.
+서비스 소비자를 개발한다. 제공자에서 제공하는 WSDL 문서를 기반으로 클래스를 생성해야 하므로 제공자 애플리케이션 제작 이후 진행한다. 다음과 같은 프로젝트 구조를 가진다.
 
 ```
 ./
@@ -477,7 +478,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 ### 4.1. build.gradle
 
-다음과 같은 의존성을 가진다. 주석으로 필요한 설명을 대체하였다.
+다음과 같은 의존성을 가진다. 주석으로 필요한 설명을 대체했다.
 
 ```groovy
 plugins {
@@ -575,14 +576,12 @@ BUILD SUCCESSFUL in 1s
 다음과 같은 경로에 클래스들이 생성된 것을 확인할 수 있다.
 
 <div align="left">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-07.png" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/soap-communication-example-using-spring-07.png" width="50%" class="image__border">
 </div>
 
-### 4.3. SoapConfig Class
+### 4.3. SoapConfig 클래스
 
-`SOAP` 메시지와 Java 객체 사이의 변환을 도와주는 마샴러(marshaller)를 정의한다.
-
-- `SOAP` 메시지에 대한 마샴(marshall)과 언마샴(unmarshall) 작업을 수행한다.
+`SOAP` 메시지와 Java 객체 사이의 변환을 도와주는 마샬러(marshaller)를 정의한다. `SOAP` 메시지에 대한 마샬(marshall)과 언마샬(unmarshall) 작업을 수행한다.
 
 ```java
 package action.in.blog.config;
@@ -603,7 +602,7 @@ public class SoapConfig {
 }
 ```
 
-### 4.4. DefaultBookStoreProxy Class
+### 4.4. DefaultBookStoreProxy 클래스
 
 WebServiceGatewaySupport 클래스를 확장(extends)하여 `SOAP` 통신을 구현한다.
 
@@ -674,7 +673,7 @@ public class DefaultBookStoreProxy extends WebServiceGatewaySupport implements B
 }
 ```
 
-### 4.5. AuthorController Class
+### 4.5. AuthorController 클래스
 
 클라이언트로부터 REST 요청을 받을 수 있는 컨트롤러 객체이다.
 

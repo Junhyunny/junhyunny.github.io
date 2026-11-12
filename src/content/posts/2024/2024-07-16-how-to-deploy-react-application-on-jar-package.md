@@ -6,6 +6,7 @@ canonicalPath: "/react/spring-boot/how-to-deploy-react-application-on-jar-packag
 categories:
   - "react"
   - "spring-boot"
+summary: "리액트 빌드 결과물을 스프링 부트의 static 경로에 넣어 실행 가능한 jar 파일 하나로 패키징하고 배포하는 방법을 정리했다."
 recommendedPosts:
   - title: "리액트(React) 애플리케이션을 톰캣(Tomcat)에서 호스팅 시 404 오류"
     href: "https://junhyunny.github.io/spring-boot/react/tomcat/not-found-when-hosting-react-app-on-tomcat/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 참여한 프로젝트들은 SPA(single page application)의 빌드 결과물을 실행 가능한 jar(executable jar) 파일에 함께 패키징하고 있다. jar 패키지은 컨테이너 이미지로 만들어 AWS ECS에 배포한다. 프론트엔드 애플리케이션을 호스팅하기 위한 서버를 별도로 두지 않는 것도 나름대로 장점이 있는 것 같다.
+최근 참여한 프로젝트들은 SPA(single page application)의 빌드 결과물을 실행 가능한 jar(executable jar) 파일에 함께 패키징하고 있다. jar 패키지는 컨테이너 이미지로 만들어 AWS ECS에 배포한다. 프론트엔드 애플리케이션을 호스팅하기 위한 서버를 별도로 두지 않는 것도 나름대로 장점이 있는 것 같다.
 
 - 크로스 사이트 요청에 대한 처리가 필요없다.
   - 프론트엔드, 백엔드 서버가 분리되어 있지 않기 때문에 동일 출처로 요청을 보낸다.
@@ -25,9 +26,7 @@ recommendedPosts:
 
 ## 1. Understand build result of SPA
 
-필자는 SPA 라이브러리로 리액트를 사용한다. 이번 예제는 비트(vite) 번들러(bundler)에서 리액트 애플리케이션을 빌드한다. 먼저 리액트 애플리케이션을 빌드해보자.
-
-- `npm run build` 명령어를 사용한다.
+필자는 SPA 라이브러리로 리액트를 사용한다. 이번 예제는 비트(vite) 번들러(bundler)에서 리액트 애플리케이션을 빌드한다. 먼저 리액트 애플리케이션을 빌드해보자. `npm run build` 명령어를 사용한다.
 
 ```
 $ npm run build
@@ -54,7 +53,7 @@ dist 경로에 빌드 결과물이 생성된다.
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-deploy-react-application-on-jar-package-01.png" width="40%" class="image__border">
 </div>
 
-사실 위 빌드 결과물은 nginx 같은 웹 서버에 의해 호스팅 될 수 있는 정적 리소스이다. 동적인 인터랙션(interaction)은 자바스크립트 코드가 브라우저에 의해 실행되기 때문에 가능한 것이다. 서버가 리액트 애플리케이션의 빌드 결과물을 브라우저에게 잘 서빙(serving)할 수만 있다면 nginx를 사용하던 톰캣(tomcat)을 사용하던 전혀 문제가 없다.
+사실 위 빌드 결과물은 nginx 같은 웹 서버에 의해 호스팅 될 수 있는 정적 리소스이다. 동적인 인터랙션(interaction)은 자바스크립트 코드가 브라우저에 의해 실행되기 때문에 가능한 것이다. 서버가 리액트 애플리케이션의 빌드 결과물을 브라우저에게 잘 서빙(serving)할 수만 있다면 nginx를 사용하든 톰캣(tomcat)을 사용하든 전혀 문제가 없다.
 
 ## 2. Understand serving static resource in Spring Boot
 
@@ -83,9 +82,7 @@ $ java -jar backend-gradle/build/libs/backend-0.0.1-SNAPSHOT.jar
 ...
 ```
 
-스프링 부트 프레임워크가 내부적으로 톰캣 서버를 사용한다는 사실이 중요하다. 톰캣 서버는 프로젝트 static 폴더에 위치한 정적 자원을 별다른 설정 없이 서빙해준다. 예를 들어 static 폴더에 todo.html 파일이 존재한다면 가정해보자. 
-
-- 해당 예제는 메이븐 프로젝트의 빌드 타겟 경로이다.
+스프링 부트 프레임워크가 내부적으로 톰캣 서버를 사용한다는 사실이 중요하다. 톰캣 서버는 프로젝트 static 폴더에 위치한 정적 자원을 별다른 설정 없이 서빙해준다. 예를 들어 static 폴더에 todo.html 파일이 존재한다고 가정해보자. 해당 예제는 메이븐 프로젝트의 빌드 타겟 경로이다.
 
 <div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-deploy-react-application-on-jar-package-02.png" width="40%" class="image__border">

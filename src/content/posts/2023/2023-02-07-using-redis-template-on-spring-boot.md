@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/redis/using-redis-template-on-spring-boot/"
 categories:
   - "spring-boot"
   - "redis"
+summary: "사용자 초대 시나리오에서 레디스 리스트를 메시지 큐로 사용하기 위해 RedisTemplate으로 이벤트를 넣고 꺼내는 기능을 구현하고 도커 컴포즈로 확인했다."
 recommendedPosts:
   - title: "임베디드 레디스 서버(Embedded Redis Server)"
     href: "https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/"
@@ -126,16 +127,9 @@ spring:
 
 ## 2. Implementation
 
-실제 구현 코드를 살펴보자. 인터페이스를 통해 추상화한 코드도 있지만, 설명은 제외한다. 서비스 구현체와 도메인 객체들에 대해 주로 설명하였다. 
+실제 구현 코드를 살펴보자. 인터페이스를 통해 추상화한 코드도 있지만, 설명은 제외한다. 서비스 구현체와 도메인 객체들에 대해 주로 설명한다. 
 
-### 2.1. RedisTemplateConfig Class
-
-RedisTemplate 빈(bean) 객체를 생성한다.
-
-- 레디스 커넥션(connection)을 생성하는 팩토리 빈을 생성한다.
-  - `LettuceConnectionFactory` 클래스를 사용한다.
-- 레디스에 객체를 `JSON` 형태로 저장할 수 있도록 `ValueSerializer` 빈을 생성한다.
-  - `GenericJackson2JsonRedisSerializer` 클래스를 사용한다.
+RedisTemplateConfig 클래스는 RedisTemplate 빈(bean) 객체를 생성한다. 레디스 커넥션(connection)을 생성하는 팩토리 빈은 `LettuceConnectionFactory` 클래스를 사용하고, 레디스에 객체를 `JSON` 형태로 저장할 수 있도록 `GenericJackson2JsonRedisSerializer` 클래스로 `ValueSerializer` 빈을 생성한다.
 
 ```java
 package action.in.blog.config;
@@ -184,14 +178,7 @@ public class RedisTemplateConfig {
 }
 ```
 
-### 2.2. InvitationController Class
-
-컨트롤러 객체에 엔드포인트를 구현한다.
-
-- `/invitation` 경로
-  - 초대 요청을 받으면 해당 이벤트 메시지를 InvitationEventClient 객체를 통해 전달한다.
-- `/invitation/cancel` 경로
-  - 초대 취소 요청을 받으면 해당 이벤트 메시지를 InvitationEventClient 객체를 통해 전달한다. 
+InvitationController 클래스에 엔드포인트를 구현한다. `/invitation` 경로로 초대 요청을 받거나 `/invitation/cancel` 경로로 초대 취소 요청을 받으면 해당 이벤트 메시지를 InvitationEventClient 객체를 통해 전달한다.
 
 ```java
 package action.in.blog.controller;
@@ -243,16 +230,7 @@ public class Invitation {
 }
 ```
 
-### 2.3. RedisInvitationEventClient Class
-
-초대 이벤트를 전달하는 클라이언트 객체를 살펴보자.
-
-- pushInvitationMessage 메서드
-  - RedisTemplate 객체를 통해 초대 메시지를 전달한다.
-  - 초대자, 초대 상태 정보를 메시지에 담는다. 키 값은 채널명과 초대받는 사람 정보를 조합한다.
-- pushInvitationCancelMessage 메서드
-  - RedisTemplate 객체를 통해 초대 메시지를 전달한다.
-  - 초대자, 초대 취소 상태 정보를 메시지에 담는다. 키 값은 채널명과 초대받는 사람 정보를 조합한다.
+초대 이벤트를 전달하는 RedisInvitationEventClient 클래스의 pushInvitationMessage 메서드와 pushInvitationCancelMessage 메서드는 모두 RedisTemplate 객체를 통해 메시지를 전달한다. 메시지에는 초대자와 초대 상태(또는 초대 취소 상태) 정보를 담고, 키 값은 채널명과 초대받는 사람 정보를 조합한다.
 
 ```java
 package action.in.blog.client;
@@ -328,12 +306,7 @@ public enum QueueChannel {
 }
 ```
 
-### 2.4. UserController Class
-
-사용자는 ID를 사용해 자신에게 전달된 메시지를 볼 수 있다. 사용자가 전달받은 메시지를 볼 수 있는 엔드포인트를 구현한다.
-
-- `/user/messages/{userId}` 경로
-  - 사용자에게 전달된 메시지를 수신한다.
+사용자는 ID를 사용해 자신에게 전달된 메시지를 볼 수 있다. UserController 클래스에 사용자가 전달받은 메시지를 볼 수 있는 `/user/messages/{userId}` 엔드포인트를 구현한다.
 
 ```java
 package action.in.blog.controller;
@@ -360,12 +333,7 @@ public class UserController {
 }
 ```
 
-### 2.5. RedisUserMessageProxy Class
-
-이벤트를 수신할 수 있는 프록시 객체를 생성한다. RedisTemplate 객체를 통해 메시지를 수신한다.
-
-- `ID`에 해당하는 메시지를 수신한다.
-- 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메서드를 사용한다.
+RedisUserMessageProxy 클래스는 RedisTemplate 객체를 통해 `ID`에 해당하는 메시지를 수신한다. 메시지를 꺼냄과 동시에 레디스 리스트에서 제거하기 위해 `leftPop` 메서드를 사용한다.
 
 ```java
 package action.in.blog.proxy;

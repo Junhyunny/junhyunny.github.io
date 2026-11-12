@@ -6,6 +6,7 @@ canonicalPath: "/security/tool/set-up-key-cloak/"
 categories:
   - "security"
   - "tool"
+summary: "오픈 소스 아이덴티티 및 접근 관리 솔루션인 키클록의 특징을 살펴보고, 개발 모드로 서버를 실행해 관리자, 렐름, 사용자를 만드는 방법을 정리했다."
 recommendedPosts:
   - title: "SSO(Single Sign On)"
     href: "https://junhyunny.github.io/information/security/single-sign-on/"
@@ -31,7 +32,7 @@ recommendedPosts:
 - 소셜 로그인
   - Google, Facebook 같은 외부 인증 제공자와의 통합을 지원한다.
 - 세분화 된 권한 부여
-  - 역할 기반 접근 제어(RBAC, Role-Based Access Control)을 제공한다. 
+  - 역할 기반 접근 제어(RBAC, Role-Based Access Control)를 제공한다. 
   - 애플리케이션의 다양한 리소스에 대한 세밀한 권한 부여가 가능하다.
 - 배포 옵션
   - 키클록은 자체 호스팅할 수 있다.
@@ -42,16 +43,16 @@ recommendedPosts:
 키클록을 설치해보자. [이 링크](https://www.keycloak.org/downloads)에서 다운로드 할 수 있다. 키클록 서버 중 ZIP 압축 파일을 다운로드 받는다. 
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-01.png" width="100%" class="image__border">
-</div>
-<center>https://www.keycloak.org/downloads</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.keycloak.org/downloads</center>
 </div>
 
 다운로드가 완료되면 압축을 푼다. `bin` 디렉토리에 키클록 서버 실행 파일이 존재한다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-02.png" width="100%" class="image__border">
 </div>
 
 프로젝트 경로에서 다음 명령어를 실행한다.
@@ -118,28 +119,28 @@ Total change sets:          144
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-05.png" width="100%" class="image__border">
 </div>
 
-## 3. Create new raelm and user
+## 3. Create new realm and user
 
-새로운 렐름(raelm)과 사용자를 만든다. 렐름은 사용자, 인증, 인가, 권한 등을 관리하는 범위다. 렐름은 두 가지 타입이 있다. 
+새로운 렐름(realm)과 사용자를 만든다. 렐름은 사용자, 인증, 인가, 권한 등을 관리하는 범위다. 렐름은 두 가지 타입이 있다. 
 
-- 마스터 렐름(master raelm)
+- 마스터 렐름(master realm)
   - 키클록을 시작하면 최초에 생성되는 렐름이다.
   - 관리자 계정이 포함된 렐름으로 마스터 렐름만 다른 렐름을 생성 관리할 수 있다.
-- 마스터 외 다른 렐름(other raelm)
-  - 마스터 렐름의 관리자에 의해 성성된다.
+- 마스터 외 다른 렐름(other realm)
+  - 마스터 렐름의 관리자에 의해 생성된다.
   - 관리자는 이 렐름에서 조직, 애플리케이션들에서 필요한 사용자들을 관리한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-06.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://www.keycloak.org/docs/latest/server_admin/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-06.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://www.keycloak.org/docs/latest/server_admin/</center>
 </div>
 
-각 렐름은 격리돼 관리된다. 위 시큐리티 모델은 우발적인 변경을 방지하는 데 도움이 되며, 사용자 계정이 현재 작업을 성공적으로 수행하는 데 필요한 최소한의 권한에만 접근하도록 허용하는 전통적인 디자인을 따른다. OAuth2 인증을 위한 렐름을 만들어보자. 로그인 화면 왼쪽 상단에 렐름을 셀렉트 박스(select box)를 선택 후 `Create Raelm` 버튼을 누른다.
+각 렐름은 격리돼 관리된다. 위 시큐리티 모델은 우발적인 변경을 방지하는 데 도움이 되며, 사용자 계정이 현재 작업을 성공적으로 수행하는 데 필요한 최소한의 권한에만 접근하도록 허용하는 전통적인 디자인을 따른다. OAuth2 인증을 위한 렐름을 만들어보자. 로그인 화면 왼쪽 상단에 렐름 셀렉트 박스(select box)를 선택 후 `Create Realm` 버튼을 누른다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-07.png" width="100%" class="image__border">
 </div>
 
 이름을 `spring-security-oauth2-example`으로 지정 후 렐름을 생성한다.
@@ -184,7 +185,7 @@ Total change sets:          144
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-14.png" width="100%" class="image__border">
 </div>
 
-URL 주소가 경로가 `/raelms/{raelmName}`인 것을 확인할 수 있다. 마스터 렐름에 로그인 할 땐 `/raelms/master`이다.
+URL 주소의 경로가 `/realms/{realmName}`인 것을 확인할 수 있다. 마스터 렐름에 로그인 할 땐 `/realms/master`이다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/set-up-key-cloak-15.png" width="100%" class="image__border">

@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "jpa"
   - "test-driven-development"
+summary: "H2 스키마 초기화 설정 후 @DataJpaTest 테스트가 깨진 원인을 살펴보고, @AutoConfigureTestDatabase 애너테이션의 replace 속성을 NONE으로 바꿔 해결한 과정을 정리했다."
 recommendedPosts:
   - title: "다중 스키마 H2 데이터베이스의 not found schemas 문제"
     href: "https://junhyunny.github.io/spring-boot/jpa/database/not-found-schemas-at-h2-database/"
@@ -18,9 +19,7 @@ recommendedPosts:
 
 ## 1. Problem Context
 
-우선 문제가 발생한 상황을 살펴보자. 다음과 같은 엔티티 클래스가 있다.
-
-- `hello` 스키마에 접근하기 위한 정보를 추가한다.
+우선 문제가 발생한 상황을 살펴보자. 다음 엔티티 클래스에 `hello` 스키마에 접근하기 위한 정보를 추가한다.
 
 ```java
 package blog.in.action.hello;
@@ -39,9 +38,7 @@ public class Member {
 }
 ```
 
-application-local YAML 설정 파일은 다음과 같다.
-
-- `spring.datasource.url` 값에 스키마 초기화와 관련된 설정을 추가한다. HELLO, WORLD 스키마가 없는 경우 이를 생성한다.
+application-local YAML 설정 파일의 `spring.datasource.url` 값에 스키마 초기화와 관련된 설정을 추가한다. HELLO, WORLD 스키마가 없는 경우 이를 생성한다.
 
 ```yml
 spring:
@@ -60,9 +57,7 @@ spring:
       ddl-auto: create
 ```
 
-다음과 같은 테스트 코드가 있다. 위에서 설정한 설정 파일을 사용하기 위해 @ActiveProfiles 애너테이션을 통해 프로파일을 `local`로 활성화한다.
-
-- 간단한 `count` 쿼리를 실행한다.
+다음과 같은 테스트 코드가 있다. 위에서 설정한 설정 파일을 사용하기 위해 @ActiveProfiles 애너테이션을 통해 프로파일을 `local`로 활성화한다. 간단한 `count` 쿼리를 실행한다.
 
 ```java
 package blog.in.action;
@@ -90,9 +85,7 @@ public class DatabaseReplaceTests {
 }
 ```
 
-위 테스트 코드를 실행하면 실패한다. 다음과 같은 에러가 발생한다.
-
-- `HELLO` 스키마를 찾을 수 없다는 `Schema "HELLO" not found` 에러 메시지가 보인다.
+위 테스트 코드를 실행하면 실패한다. 다음과 같이 `HELLO` 스키마를 찾을 수 없다는 `Schema "HELLO" not found` 에러가 발생한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/do-not-replace-database-when-using-data-jpa-test-annotation-01.png" width="100%" class="image__border">
@@ -269,9 +262,7 @@ public class TestDatabaseAutoConfiguration {
 }
 ```
 
-위에서 설명한 것처럼 `EmbeddedDataSourceFactory` 클래스의 `getEmbeddedDatabase` 메서드를 통해 내장 데이터베이스 객체가 만들어진다. 코드를 살펴보면 데이터베이스 연결 정보는 `EmbeddedDatabaseConnection` 이넘(enum)의 `get` 메서드를 통해 획득한다. 
-
-- get 메서드 코드를 보면 드라이버 클래스가 클래스 로더(class loader)에 존재하는지 확인 후 존재하면 이를 사용한다.
+위에서 설명한 것처럼 `EmbeddedDataSourceFactory` 클래스의 `getEmbeddedDatabase` 메서드를 통해 내장 데이터베이스 객체가 만들어진다. 코드를 살펴보면 데이터베이스 연결 정보는 `EmbeddedDatabaseConnection` 이넘(enum)의 `get` 메서드를 통해 획득한다. get 메서드 코드를 보면 드라이버 클래스가 클래스 로더(class loader)에 존재하는지 확인 후 존재하면 이를 사용한다.
 
 ```java
 public enum EmbeddedDatabaseConnection {
@@ -314,7 +305,7 @@ public enum EmbeddedDatabaseConnection {
 
 관련된 내용들을 구구절절 써내려갔지만, 읽는 사람들에겐 결론이 명확하지 않을 수 있다. 위 내용들은 다음과 같이 정리할 수 있다.
 
-1. `@DataJpaTest` 애너테이션으로 `JPA` 테스트를 수행하면 `application.yml` 파일에 정의된 데이터베이스 설정을 사용하지 못 한다.
+1. `@DataJpaTest` 애너테이션으로 `JPA` 테스트를 수행하면 `application.yml` 파일에 정의된 데이터베이스 설정을 사용하지 못한다.
 2. 원인은 `@DataJpaTest` 애너테이션과 함께 사용되는 `@AutoConfigureTestDatabase` 애너테이션 때문이다. 
 3. `@AutoConfigureTestDatabase` 애너테이션의 `replace` 속성의 기본 값이 `ANY`이므로 내장 데이터베이스 객체를 생성하는 로직이 별도로 수행된다.
 4. 내장 데이터베이스 객체를 만들 때 필요한 커넥션 객체는 `EmbeddedDatabaseConnection` 이넘을 통해 획득한다.

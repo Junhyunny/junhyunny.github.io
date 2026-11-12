@@ -6,6 +6,7 @@ canonicalPath: "/information/javascript/reference-counting-gc-in-javascript/"
 categories:
   - "information"
   - "javascript"
+summary: "객체의 참조 횟수를 추적하는 참조 카운팅 가비지 컬렉션 알고리즘의 동작을 예제로 살펴보고, 순환 참조 등 모던 자바스크립트 엔진이 사용하지 않는 이유를 정리했다."
 recommendedPosts:
   - title: "가비지 컬렉션 표시 후 제거(Mark-and-Sweep) 알고리즘"
     href: "https://junhyunny.github.io/information/javascript/mark-and-sweep-gc-in-javascript/"
@@ -38,7 +39,7 @@ let y = x;
 y 변수를 사용해 x 변수가 참조하는 객체를 참조한다. 이런 상황에선 x 변수가 참조하는 객체의 레퍼런스 카운트는 "2"가 된다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-01.png" width="100%" class="image__border">
 </div>
 
 x 변수에 다른 값을 할당하면 해당 객체의 참조 카운트는 1로 바뀐다.
@@ -48,7 +49,7 @@ x = 1;
 ```
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-02.png" width="100%" class="image__border">
 </div>
 
 y 변수가 참조하는 객체의 a 프로퍼티로 참조하는 객체를 z 변수가 참조하도록 만든다. 
@@ -60,7 +61,7 @@ let z = y.a;
 이렇게 되면 처음 만든 객체의 a 프로퍼티가 참조하고 있는 객체의 참조 카운트는 2가 된다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-03.png" width="100%" class="image__border">
 </div>
 
 y 변수에 다른 값을 할당하면 최초 x 변수가 참조했던 객체는 참조 카운트가 0이 된다. 
@@ -72,7 +73,7 @@ y = "mozilla";
 가비지 컬렉팅 대상이 되어 객체가 삭제되지만, a 프로퍼티가 참조하던 객체는 z 변수에 의해 여전히 참조되므로 가비지 컬렉팅 대상이 되지 않는다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-04.png" width="100%" class="image__border">
 </div>
 
 z 변수에 다른 값을 할당하면 내부 객체도 참조 카운트가 0이 되면서 가비지 컬렉팅 대상이 된다.
@@ -82,7 +83,7 @@ z = null;
 ```
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-05.png" width="100%" class="image__border">
 </div>
 
 ## 2. Disadvantages
@@ -111,10 +112,10 @@ function f() {
 f();
 ```
 
-함수 스코프가 끝나면 스택 메모리의 x, y 변수는 사라지지만, 각 a 프로퍼티를 통해 참조 중이기 때문에 참조 카운팅이 0이 되지 않는다. 가비지 컬레팅 대상이 되지 않아 메모리가 회수되지 않는다.
+함수 스코프가 끝나면 스택 메모리의 x, y 변수는 사라지지만, 각 a 프로퍼티를 통해 참조 중이기 때문에 참조 카운팅이 0이 되지 않는다. 가비지 컬렉팅 대상이 되지 않아 메모리가 회수되지 않는다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-06.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/reference-counting-gc-in-javascript-06.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

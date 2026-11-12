@@ -1,10 +1,11 @@
 ---
 title: "캐시 패턴"
 publishedAt: "2023-02-20"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:17:28+09:00"
 canonicalPath: "/design-pattern/patterns-for-cache/"
 categories:
   - "design-pattern"
+summary: "인라인 캐시(Read-Through, Write-Through, Write-Behind)와 캐시 배제(Cache Aside) 패턴의 읽기, 쓰기 방식을 비교하고 캐시 만료, 제거, 일관성 같은 고려 사항을 정리했다."
 recommendedPosts:
   - title: "Redis 레플리케이션(Replication)"
     href: "https://junhyunny.github.io/spring-boot/redis/replication-in-redis/"
@@ -12,28 +13,24 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-효과적인 캐싱 전략을 펼치기 위한 캐시 패턴과 관련된 내용을 포스트로 정리하였다.
+효과적인 캐싱 전략을 세우는 데 필요한 캐시 패턴을 정리했다.
 
 ## 1. Inline Cache Pattern
 
-- 인라인 캐시(inline cache)는 애플리케이션과 데이터 저장소(data store) 사이에 존재한다.
-- 애플리케이션은 캐시 서버랑만 통신한다.
-  - 애플리케이션은 코드의 변경 없이 일관된 방법으로 캐시를 사용할 수 있다.
-- 캐시와 데이터 저장소의 동기화는 캐시 서버를 통해 이뤄진다.
+인라인 캐시(inline cache)는 애플리케이션과 데이터 저장소(data store) 사이에 존재한다. 애플리케이션은 캐시 서버하고만 통신하므로 코드 변경 없이 일관된 방법으로 캐시를 사용할 수 있다. 캐시와 데이터 저장소의 동기화는 캐시 서버를 통해 이뤄진다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.1. Read-Through
 
-인라인 캐시 패턴에서 데이터를 조회하는 방법은 `read-through`다.
+인라인 캐시 패턴에서 데이터를 조회하는 방법은 `read-through`다. 조회 과정은 다음과 같다.
 
-- 클라이언트 애플리케이션은 캐시 서버에서 데이터를 확인한다.
-- 캐시 서버는 자신에게 해당 데이터가 존재하는지 확인한다.
-  - 데이터가 존재하면 이를 반환한다.
-- 데이터가 없다면 캐시 서버는 데이터 저장소로부터 데이터를 조회 후 자신을 최신화한다.
-- 캐시 서버는 최신화 이후 클라이언트 애플리케이션에게 데이터를 전달한다.
+1. 클라이언트 애플리케이션은 캐시 서버에서 데이터를 확인한다.
+2. 캐시 서버는 자신에게 해당 데이터가 존재하는지 확인하고, 데이터가 존재하면 이를 반환한다.
+3. 데이터가 없다면 캐시 서버는 데이터 저장소에서 데이터를 조회한 뒤 자신을 최신화한다.
+4. 캐시 서버는 최신화한 뒤 클라이언트 애플리케이션에 데이터를 전달한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-02.png" width="50%" class="image__border">
@@ -42,11 +39,7 @@ recommendedPosts:
 
 ### 1.2. Write-Through and Write-Behind
 
-- 캐시 서버가 데이터 저장소에 데이터를 저장하는 책임을 가진다.
-- 클라이언트 애플리케이션은 캐시 서버에 데이터를 저장하거나 변경한다.
-- 캐시 서버는 변경된 내용을 데이터 저장소에 반영한다.
-  - 동기적으로 수행하는 경우 `write-through` 방식이다.
-  - 비동기적으로 수행하는 경우 `write-behind` 방식이다.
+인라인 캐시 패턴에서는 캐시 서버가 데이터 저장소에 데이터를 저장하는 책임을 가진다. 클라이언트 애플리케이션이 캐시 서버에 데이터를 저장하거나 변경하면 캐시 서버는 변경된 내용을 데이터 저장소에 반영한다. 이 반영을 동기적으로 수행하면 `write-through` 방식, 비동기적으로 수행하면 `write-behind` 방식이다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-03.png" width="50%" class="image__border">
@@ -55,24 +48,25 @@ recommendedPosts:
 
 ## 2. Cache Aside Pattern
 
-인라인 캐시 패턴처럼 캐시 서버가 자동적인 읽기, 쓰기를 통해 데이터 저장소와의 동기화를 해주지 않으면 캐시 배제(cache aside) 패턴을 고려한다.
+인라인 캐시 패턴처럼 캐시 서버가 자동으로 읽고 쓰며 데이터 저장소와 동기화해 주지 않는다면 캐시 배제(cache aside) 패턴을 고려한다. 캐시 배제 패턴의 특징은 다음과 같다.
 
-- 캐시 서버와 데이터 저장소 사이에 별도 통신은 수행하지 않는다.
+- 캐시 서버와 데이터 저장소 사이에는 별도로 통신하지 않는다.
 - 애플리케이션은 캐시 서버와 데이터 저장소 모두와 통신한다.
 - 애플리케이션이 캐시와 데이터 저장소 사이의 데이터를 직접 동기화한다.
-- 한번 읽었던 데이터는 잇따라 다시 읽을 가능성이 높기 때문에 캐시 적중률(hit rate)가 높다.
+- 한 번 읽었던 데이터는 잇따라 다시 읽을 가능성이 높기 때문에 캐시 적중률(hit rate)이 높다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-04.png" width="100%" class="image__border">
 </div>
 
 ### 2.1. Read in Cache Aside Pattern
 
-- 클라이언트 애플리케이션은 먼저 캐시를 조회한다.
-  - 데이터가 존재하면 이를 사용한다.
-- 애플리케이션은 원하는 데이터가 존재하지 않으면 데이터 저장소에서 이를 조회한다.
-- 애플리케이션은 조회한 데이터를 캐시 서버에 저장한다.
-- 캐시 최신화 이후 애플리케이션은 조회한 데이터를 사용한다.
+캐시 배제 패턴에서 데이터를 읽는 과정은 다음과 같다.
+
+1. 클라이언트 애플리케이션은 먼저 캐시를 조회하고, 데이터가 존재하면 이를 사용한다.
+2. 원하는 데이터가 존재하지 않으면 애플리케이션은 데이터 저장소에서 이를 조회한다.
+3. 애플리케이션은 조회한 데이터를 캐시 서버에 저장한다.
+4. 캐시를 최신화한 뒤 애플리케이션은 조회한 데이터를 사용한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-05.png" width="50%" class="image__border">
@@ -81,11 +75,7 @@ recommendedPosts:
 
 ### 2.2. Write in Cache Aside Pattern
 
-- 클라이언트 애플리케이션은 데이터를 저장하고자 한다.
-- 애플리케이션은 캐시에 데이터를 저장한다.
-- 애플리케이션은 데이터 저장소에 데이터를 저장한다.
-- 데이터를 저장하는 순서는 중요하지 않지만, 둘 중 하나라도 실패하는 경우 데이터 불일치가 발생할 수 있다.
-  - 두 저장소의 데이터 일관성을 위해 어느 한 곳의 저장이 실패하는 경우 이를 위한 예외 처리를 수행해야 한다.
+클라이언트 애플리케이션이 데이터를 저장할 때는 애플리케이션이 캐시와 데이터 저장소에 각각 데이터를 저장한다. 데이터를 저장하는 순서는 중요하지 않지만, 둘 중 하나라도 실패하면 데이터 불일치가 발생할 수 있다. 두 저장소의 데이터 일관성을 위해 어느 한 곳의 저장이 실패하는 경우에 대한 예외 처리를 해야 한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/patterns-for-cache-06.png" width="50%" class="image__border">
@@ -94,7 +84,7 @@ recommendedPosts:
 
 ## 3. Considerations
 
-인라인 캐시 혹은 캐시 배제 패턴 적용할 때 다음과 같은 사항들을 고려해야 한다.
+인라인 캐시 혹은 캐시 배제 패턴을 적용할 때 다음 사항을 고려해야 한다.
 
 - 시간에 따른 캐시 만료
   - 대부분의 캐시는 규정된 기간 동안 접근하지 않으면 데이터를 무효화하고 캐시를 삭제한다.
@@ -102,7 +92,7 @@ recommendedPosts:
   - 캐싱은 변경이 적은 정적인 데이터 또는 자주 읽는 데이터에 가장 효과적이다.
 - 저장 용량에 따른 캐시 제거
   - 캐시는 메모리 크기가 제한되기 때문에 필요한 경우 데이터를 제거해야 한다.
-  - 대부분의 캐시는 오래 전에 사용한 항목을 제거하지만, 정책은 사용자가 지정할 수 있다.
+  - 대부분의 캐시는 오래전에 사용한 항목을 제거하지만, 정책은 사용자가 지정할 수 있다.
   - 높은 캐시 적중률을 보장할 수 있는 캐시 크기를 계산한다.
   - 최대 용량에 도달했을 때 캐시를 지우며 일반적인 제거 정책은 [LRU(least recently used)][lru-algorithm-link]이다.
 - 캐시 초기화
@@ -110,7 +100,7 @@ recommendedPosts:
 - 일관성
   - 데이터 저장소와 캐시의 일관성은 항상 보장되지 않는다.
   - 데이터 저장소의 항목은 외부 프로세스를 통해 언제든지 변경될 수 있다.
-  - 데이터 저장소에 변경된 내용들은 다시 캐시에 로드되지 않으면 반영되지 않는다.
+  - 데이터 저장소에서 변경된 내용은 다시 캐시에 로드되지 않으면 반영되지 않는다.
 
 #### REFERENCE
 

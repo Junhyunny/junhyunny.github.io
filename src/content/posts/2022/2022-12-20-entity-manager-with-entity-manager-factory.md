@@ -1,11 +1,12 @@
 ---
 title: "EntityManagerFactory 클래스"
 publishedAt: "2022-12-20"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:17:28+09:00"
 canonicalPath: "/spring-boot/jpa/entity-manager-with-entity-manager-factory/"
 categories:
   - "spring-boot"
   - "jpa"
+summary: "스레드 안전하지 않은 엔티티 매니저를 EntityManagerFactory로 매번 생성해 사용하는 방법과 이때 직접 구현해야 하는 트랜잭션 관리 방식을 예제로 정리했다."
 recommendedPosts:
   - title: "영속성 컨텍스트(persistent context)와 엔티티(entity) 생명주기"
     href: "https://junhyunny.github.io/spring-boot/jpa/junit/jpa-persistence-context/"
@@ -15,11 +16,11 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-`엔티티 매니저(EntityManager)`는 스레드 안전(thread safety)하지 않다. 내부 영속성 컨텍스트(persistence context)에 1차 캐시를 관리하기 때문에 하나의 엔티티 매니저에 다중 스레드가 접근하면 동시성 문제가 발생할 수 있다. 동시성 문제를 해결하려면 각 스레드 별로 고유한 엔티티 매니저를 사용해야 한다. 이번 포스트에선 동시성 문제가 발생하지 않도록 엔티티 매니저를 사용하는 방법 중 하나인 `EntityManagerFactory`에 대해 살펴보겠다.
+`엔티티 매니저(EntityManager)`는 스레드 안전(thread safety)하지 않다. 내부 영속성 컨텍스트(persistence context)에 1차 캐시를 관리하기 때문에 하나의 엔티티 매니저에 다중 스레드가 접근하면 동시성 문제가 발생할 수 있다. 동시성 문제를 해결하려면 스레드마다 고유한 엔티티 매니저를 사용해야 한다. 이 글에서는 동시성 문제가 발생하지 않도록 엔티티 매니저를 사용하는 방법 중 하나인 `EntityManagerFactory`를 정리했다.
 
 ## 1. EntityManagerFactory 클래스
 
-스레드에 안전하지 않은 엔티티 매니저는 매번 만들어 사용해야 한다. `EntityManagerFactory` 클래스를 사용하면 엔티티 매니저를 만들 수 있다. `EntityManagerFactory` 클래스는 생성할 때 비용이 비싸기 때문에 애플리케이션 전역에 하나만 만들어 사용하는 것이 좋다. `@PersistenceUnit` 애너테이션을 사용하면 `EntityManagerFactory` 빈(bean)을 주입 받을 수 있다.
+스레드에 안전하지 않은 엔티티 매니저는 매번 만들어 사용해야 한다. `EntityManagerFactory` 클래스를 사용하면 엔티티 매니저를 만들 수 있다. `EntityManagerFactory` 클래스는 생성 비용이 크기 때문에 애플리케이션 전역에 하나만 만들어 사용하는 것이 좋다. `@PersistenceUnit` 애너테이션을 사용하면 `EntityManagerFactory` 빈(bean)을 주입받을 수 있다.
 
 ```java
     @PersistenceUnit
@@ -28,7 +29,7 @@ recommendedPosts:
 
 ## 2. Create EntityManager
 
-`createEntityManager` 메서드를 통해 엔티티 매니저를 생성할 수 있다. 엔티티 매니저는 매번 새로운 객체를 생성한다. 새로 생성될 때마다 세션을 매번 새롭게 맺기 때문에 비즈니스 로직을 하나의 트랜잭션으로 관리하고 싶다면 하나의 엔티티 매니저를 같이 사용해야 한다.
+`createEntityManager` 메서드로 엔티티 매니저를 생성할 수 있다. 이 메서드는 호출할 때마다 새로운 엔티티 매니저 객체를 만든다. 엔티티 매니저는 생성될 때마다 세션을 새로 맺기 때문에 비즈니스 로직을 하나의 트랜잭션으로 관리하고 싶다면 하나의 엔티티 매니저를 함께 사용해야 한다.
 
 ```java
     @Test
@@ -44,13 +45,9 @@ recommendedPosts:
 
 ## 3. Example
 
-`EntityManagerFactory`를 사용하면 `@Transactional` 애너테이션을 통해 트랜잭션 관리가 불가능하다. 트랜잭션 관리 프로세스를 직접 만들어야 한다. 간단하게 트랜잭션 관리 프로세스를 구현한 코드를 적용한 예시 코드를 살펴보겠다.
+`EntityManagerFactory`를 사용하면 `@Transactional` 애너테이션으로 트랜잭션을 관리할 수 없으므로 트랜잭션 관리 프로세스를 직접 만들어야 한다. 트랜잭션 관리 프로세스를 간단하게 구현해 적용한 예시 코드를 살펴보자.
 
-### 3.1. AbstractFactoryService 클래스
-
-- 외부에서 전달한 함수를 트랜잭션 내부에서 실행한다.
-- `readonly` 여부에 따라 비즈니스 로직 처리 후 롤백(rollback) 혹은 커밋(commit)을 수행한다.
-- 예외(exception)가 발생하면 롤백 처리한다.
+AbstractFactoryService 클래스는 외부에서 전달한 함수를 트랜잭션 내부에서 실행한다. `readonly` 여부에 따라 비즈니스 로직을 처리한 뒤 롤백(rollback) 혹은 커밋(commit)을 수행하고, 예외(exception)가 발생하면 롤백한다.
 
 ```java
 package action.in.blog.factory;
@@ -97,10 +94,7 @@ public abstract class AbstractFactoryService {
 }
 ```
 
-### 3.2. FactoryService 클래스
-
-- 데이터 생성 후 조회하는 간단한 비즈니스 로직을 `transaction` 메서드에 전달한다.
-- 롤백을 유도하기 위해 플래그(flag) 값으로 의도적인 예외를 던진다.
+FactoryService 클래스는 데이터를 생성한 뒤 조회하는 간단한 비즈니스 로직을 `transaction` 메서드에 전달한다. 롤백을 유도하기 위해 플래그(flag) 값에 따라 의도적으로 예외를 던진다.
 
 ```java
 package action.in.blog.factory;
@@ -128,9 +122,7 @@ public class FactoryService extends AbstractFactoryService {
 }
 ```
 
-### 3.3. FactoryStore 클래스
-
-- 데이터 추가, 조회 기능을 제공한다.
+FactoryStore 클래스는 데이터 추가와 조회 기능을 제공한다.
 
 ```java
 package action.in.blog.factory;
@@ -158,6 +150,8 @@ public class FactoryStore {
 ```
 
 ## 4. Tests
+
+테스트 시나리오는 다음과 같다.
 
 - 예외가 발생하지 않는 경우
   - 데이터가 정상적으로 추가된다.

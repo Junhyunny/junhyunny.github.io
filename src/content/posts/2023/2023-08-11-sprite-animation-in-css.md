@@ -7,6 +7,7 @@ categories:
   - "html"
   - "css"
   - "javascript"
+summary: "여러 프레임으로 나눈 이미지와 CSS @keyframes를 이용해 배경 위치를 한 프레임씩 이동시키는 스프라이트 애니메이션 구현 방법을 정리했다."
 recommendedPosts:
   - title: "Restart CSS Animation by JavaScript"
     href: "https://junhyunny.github.io/html/css/javascript/restart-css-animation-by-javascript/"
@@ -35,9 +36,9 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 
 ## 2. Practice
 
-코드펜(codepen)을 사용해 스프라이트 애니메이션을 구현하였다.
+코드펜(codepen)을 사용해 스프라이트 애니메이션을 구현했다.
 
-### 2.1. HTML Code
+HTML 코드부터 살펴보자.
 
 - wrapper 클래스를 가진 엘리먼트가 프레임 사이즈를 제한한다.
 - sprite-animation 클래스를 가진 엘리먼트 영역에서 애니메이션이 수행된다.
@@ -48,7 +49,7 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 </div>
 ```
 
-### 2.2. CSS Code
+CSS 코드는 다음과 같다.
 
 - wrapper 클래스
   - 한 프레임 사이즈만큼 영역을 제한한다.
@@ -86,7 +87,7 @@ CSS @keyframes 기능과 여러 개의 프레임(frame)으로 나눠진 이미�
 }
 ```
 
-### 2.3. Result
+완성한 결과는 다음과 같다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/JjeQRKj?default-tab=css,result" title="Sprite Image Animation" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/JjeQRKj/">CodePen에서 예제 열기</a></p>

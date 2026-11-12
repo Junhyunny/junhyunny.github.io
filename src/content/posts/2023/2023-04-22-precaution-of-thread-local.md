@@ -5,6 +5,7 @@ updatedAt: "2026-04-26T00:26:58+09:00"
 canonicalPath: "/java/precaution-of-thread-local/"
 categories:
   - "java"
+summary: "스레드를 재사용하는 스레드 풀 환경에서 ThreadLocal 객체에 이전 요청의 데이터가 남는 문제를 재현하고, remove 메서드로 정리해 해결하는 방법을 다룬다."
 recommendedPosts:
   - title: "자바(Java) ThreadLocal 클래스"
     href: "https://junhyunny.github.io/java/thread-local-class-in-java/"
@@ -18,7 +19,7 @@ recommendedPosts:
 
 ## 1. Thread Pool
 
-ThreadLocal 클래스를 사용 시 주의사항에 대해 이야기하려면 먼저 스레드 풀(thread pool)에 대한 개념을 알아야 한다. 자바(java) 스레드(thread)는 운영체제 리소스를 사용한다. 스레드를 생성하고 제거하는데 비용이 적지 않으므로 스레드 풀 패턴을 통해 스레드의 효율적인 사용을 도모한다. 
+ThreadLocal 클래스를 사용 시 주의사항에 대해 이야기하려면 먼저 스레드 풀(thread pool)에 대한 개념을 알아야 한다. 자바(java) 스레드(thread)는 운영체제 리소스를 사용한다. 스레드를 생성하고 제거하는 데 비용이 적지 않으므로 스레드 풀 패턴을 통해 스레드의 효율적인 사용을 도모한다. 
 
 스레드 풀은 여러 개의 스레드를 만들어두고 이를 재사용하는 방식이다. 어떤 작업을 위해 스레드가 필요하면 새롭게 생성하지 않고 스레드 풀에서 꺼내 사용하고 이를 반납한다. 이를 통해 스레드 자원을 생성, 제거할 때 발생하는 비용을 절약할 수 있다. 
 
@@ -27,7 +28,7 @@ ThreadLocal 클래스를 사용 시 주의사항에 대해 이야기하려면 �
 - 작업을 마친 스레드들은 큐가 빈 상태가 될 때까지 작업을 꺼내 처리하는 것을 반복 수행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/precaution-of-thread-local-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/precaution-of-thread-local-01.png" width="100%" class="image__border">
 </div>
 <center>https://www.baeldung.com/thread-pool-java-and-guava</center>
 
@@ -42,7 +43,7 @@ ThreadLocal 클래스를 스레드 풀 환경에서 사용할 때 문제가 발�
 - 다음 작업을 위해 스레드가 재사용되는 경우 남아 있는 데이터로 인해 비정상적인 동작이 발생할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/precaution-of-thread-local-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/precaution-of-thread-local-02.png" width="100%" class="image__border">
 </div>
 
 ## 3. Solve the problem

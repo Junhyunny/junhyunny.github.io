@@ -6,6 +6,7 @@ canonicalPath: "/information/jenkins/jenkins-path-envrionment-varaible/"
 categories:
   - "information"
   - "jenkins"
+summary: "맥OS에 구축한 젠킨스가 메이븐, 노드, 도커 같은 호스트 머신의 도구를 찾지 못하는 문제를 젠킨스 시스템 환경 변수의 PATH를 지정해 해결한 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -30,7 +31,7 @@ CI/CD 파이프라인에서 애플리케이션을 빌드하기 위해 필요한 
 
 ## 2. Solve the problem
 
-Jenkins 2.374 버전에서 문제가 발생하는 것 같다. 정확한 원인을 찾지 못 했다. 해결 방법에 대해서만 정리한다. 
+Jenkins 2.374 버전에서 문제가 발생하는 것 같다. 정확한 원인을 찾지 못했다. 해결 방법에 대해서만 정리한다. 
 
 ### 2.1. Jenkins System Environment Variable
 
@@ -47,13 +48,13 @@ Jenkins 2.374 버전에서 문제가 발생하는 것 같다. 정확한 원인�
 `Status Information` 섹션이 보이면 해당 섹션에서 `Status Information` 버튼을 클릭한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-03.png" width="100%" class="image__border">
 </div>
 
 `Environment Variables` 섹션에서 `PATH` 항목을 확인한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-04.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. Change PATH Variable
@@ -111,7 +112,7 @@ Stopping `jenkins`... (might take a while)
 애플리케이션 재실행이 끝나면 위 `Environment Variables` 화면에서 환경 변수가 바뀌었는지 확인한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/jenkins-path-envrionment-varaible-05.png" width="100%" class="image__border">
 </div>
 
 이전에 문제가 발생했던 파이프라인을 재실행하면 정상적으로 `mvn` 명령어가 실행된다.

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-boot/once-per-request-filter/"
 categories:
   - "spring-boot"
+summary: "포워딩으로 필터 체인이 다시 동작하는 상황에서 일반 필터와 OncePerRequestFilter 클래스의 실행 횟수를 비교하며 그 특징을 정리했다."
 recommendedPosts:
   - title: "스프링 필터(Filter), 인터셉터(Interceptor) 그리고 AOP"
     href: "https://junhyunny.github.io/spring-boot/filter-interceptor-and-aop/"
@@ -14,17 +15,17 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-인증 필터(authentication filter)를 구현 예시들을 찾아보면 `OncePerRequestFilter` 클래스를 상속받은 경우를 많이 볼 수 있다. 처음 사용해보는 클래스이고 특수한 성격을 갖고 있어서 관련된 내용을 정리해봤다.
+인증 필터(authentication filter)를 구현한 예시들을 찾아보면 `OncePerRequestFilter` 클래스를 상속받은 경우를 많이 볼 수 있다. 처음 사용해보는 클래스이고 특수한 성격을 갖고 있어서 관련된 내용을 정리해봤다.
 
 ## 1. 필터(Filter)
 
 우선 필터 기능부터 간단히 알아보자. 필터는 웹 애플리케이션(Web Application) 영역에서 동작하는 컴포넌트다. 요청이 서블릿 컨테이너(servlet container)에 전달되기 전에 수행된다. 
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-01.png" width="60%" class="image__border">
-</div>
-<center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-01.png" width="60%" class="image__border">
+  </div>
+  <center>https://justforchangesake.wordpress.com/2014/05/07/spring-mvc-request-life-cycle/</center>
 </div>
 
 필터는 사용자의 요청 정보에 대해 검증하고, 필요하다면 데이터를 추가하거나 변조할 수 있다. 응답 정보에 대한 변경도 가능하다. 주로 전역적으로 처리해야 하는 인코딩, 보안 관련된 일을 수행한다. 필터를 활용한 유즈-케이스는 다음과 같다.
@@ -46,7 +47,7 @@ recommendedPosts:
 
 `OncePerRequestFilter` 클래스의 `doFilter` 메서드를 열어보면 어떤 식으로 동작하는지 직관적으로 알 수 있다.
 
-1. 최초 실행 시 `ServletRequest` 객체에 자신의 이름과 수행하였음을 표시하기 위한 `true` 값을 함께 저장한다.
+1. 최초 실행 시 `ServletRequest` 객체에 자신의 이름과 수행했음을 표시하기 위한 `true` 값을 함께 저장한다.
 2. `doFilterInternal` 메서드를 통해 자신의 기능을 수행한다.
 3. 포워딩 등으로 다시 실행되는 경우 이전 수행에서 요청 객체에 담아뒀던 수행 여부를 확인한다. 이미 수행되었다면 자신의 동작은 스킵하고, 다음 필터를 실행한다.
 
@@ -237,7 +238,7 @@ public class TestController {
 
 ## CLOSING
 
-참고한 글 중에 어떤 사람은 리다이렉트(redirect)를 통해 `OncePerReqeustFilter` 클래스 테스트를 하였는데, 이해가 되지 않는다. 일반적인 리다이렉트는 브라우저가 서버로부터 리다이렉트하라는 302 응답을 받은 후 전달받은 `Location`으로 재요청을 하는 프로세스이다. 
+참고한 글 중에 어떤 사람은 리다이렉트(redirect)를 통해 `OncePerReqeustFilter` 클래스 테스트를 했는데, 이해가 되지 않는다. 일반적인 리다이렉트는 브라우저가 서버로부터 리다이렉트하라는 302 응답을 받은 후 전달받은 `Location`으로 재요청을 하는 프로세스이다. 
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-03.png" width="100%" class="image__border">
@@ -248,7 +249,7 @@ public class TestController {
 `MockMvc`를 이용한 포워딩 테스트를 진행하고 싶었지만, 관련된 기능은 제공되지 않은 것 같다. 찾아보니 스프링 진영에서도 관련된 내용에 대한 의견을 나누고는 있는 것 같다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/once-per-request-filter-04.png" width="100%" class="image__border">
 </div>
 <center>https://github.com/spring-attic/spring-mvc-showcase/issues/42</center>
 

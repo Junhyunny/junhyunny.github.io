@@ -1,11 +1,12 @@
 ---
 title: "JWT AuthenticationFilter 만들기"
 publishedAt: "2022-02-16"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T00:47:42+09:00"
 canonicalPath: "/spring-boot/spring-security/make-authentication-filter/"
 categories:
   - "spring-boot"
   - "spring-security"
+summary: "스프링 시큐리티의 OAuth2.0 인증 서버 지원 종료를 계기로 JWT 인증을 직접 구현하며, JwtAuthenticationFilter 클래스와 테스트 코드를 정리했다."
 recommendedPosts:
   - title: "OncePerRequestFilter 클래스"
     href: "https://junhyunny.github.io/spring-boot/once-per-request-filter/"
@@ -33,18 +34,16 @@ recommendedPosts:
 > Due to this feedback and some internal discussions, we are taking another look at this decision.
 > We'll notify the community on any progress.
 
-`'그러면 Spring Security 프레임워크를 이용한 사용자 인증 과정은 어떻게 처리하지?'`라는 의문이 들어서 관련된 내용을 찾아보았다. 좋은 글들이 많았지만, 필터에서 `AuthenticationProvider` 클래스나 `UserDetailsService` 인터페이스 구현체를 직접 사용하는 예제들이 대부분이었다. 저는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 변경하고 정리하였다.
+`'그러면 Spring Security 프레임워크를 이용한 사용자 인증 과정은 어떻게 처리하지?'`라는 의문이 들어서 관련된 내용을 찾아봤다. 좋은 글들이 많았지만, 필터에서 `AuthenticationProvider` 클래스나 `UserDetailsService` 인터페이스 구현체를 직접 사용하는 예제들이 대부분이었다. 나는 참고한 글들을 바탕으로 `Spring Security` 진영에서 소개했던 인증 아키텍처 방식에 맞게 구조를 변경하고 정리했다.
 
-##### Spring Security Authentication Process
+아래 그림은 스프링 시큐리티의 인증 프로세스다. 이번 글은 AuthenticationFilter 부분을 JWT(Json Web Token)를 사용한다는 가정하에 구현했다.
 
-- 아래 그림에 AuthenticationFilter 부분을 JWT(Json Web Token)을 사용한다는 가정하에 구현하였다.
-
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/make-authentication-filter-01.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/make-authentication-filter-01.png" width="100%" class="image__border">
 </div>
 <center>https://springbootdev.com/2017/08/23/spring-security-authentication-architecture/</center>
 
-## 1. 패키지 구조
+패키지 구조는 다음과 같다.
 
 ```
 .
@@ -93,14 +92,12 @@ recommendedPosts:
 24 directories, 17 files
 ```
 
-## 2. 기능 구현하기
+## 1. 기능 구현하기
 
-이번 포스트에선 `JwtAuthenticationFilter` 클래스에 초점을 맞추었으며, 일부 클래스들은 메서드 구현 부분이 비어있다. 다음에 이어지는 포스트를 통해 구현할 예정이다.
+이번 글에선 `JwtAuthenticationFilter` 클래스에 초점을 맞췄기 때문에 일부 클래스는 메서드 구현 부분이 비어 있다. 비어 있는 부분은 이어지는 글에서 구현한다.
 
-### 2.1. JwtAuthenticationFilter 클래스
+JwtAuthenticationFilter 클래스는 OncePerRequestFilter 클래스를 상속받아서 한 요청에 대해 한 번만 수행된다. 필터 내부에서 사용할 `AuthenticationManager` 객체는 외부로부터 전달받는다. 인증 결과를 담는 `SecurityContextHolder` 클래스는 별도 설정이 없으면 `ThreadLocal` 클래스를 이용해 스레드별로 컨텍스트를 관리한다. 각 메서드는 다음과 같이 동작한다.
 
-- `OncePerRequestFilter` 클래스를 상속받아서 한 요청에 대해 한 번만 수행한다.
-- 필터 내부에서 사용할 `AuthenticationManager` 객체를 외부로부터 전달받는다.
 - `resolveToken` 메서드
   - 헤더에 `Authorization` 키가 존재하는지 확인한다.
   - 인증 토큰의 인증 타입(grant type)이 `Bearer `인지 확인한다.
@@ -110,7 +107,6 @@ recommendedPosts:
   - `AuthenticationManager` 객체에게 `JwtAuthenticationToken` 객체를 전달하여 인증을 요청한다.
   - 인증이 성공하면 `SecurityContextHolder` 클래스에 담는다.
   - 인증 과정에서 예외가 발생하면 `SecurityContextHolder` 클래스에 담긴 인증 정보를 제거한다.
-- `SecurityContextHolder` 클래스는 별도로 설정이 없는 경우 `ThreadLocal` 클래스를 이용해 스레드 별로 컨텍스트를 관리한다.
 
 ```java
 package action.in.blog.filters;
@@ -168,10 +164,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 }
 ```
 
-### 2.2. JwtAuthenticationToken 클래스
-
-- 인증을 위해 `AuthenticationManager` 클래스에게 전달될 클래스이다.
-- `AuthenticationProvider`에서 사용하기 위해 `AbstractAuthenticationToken` 클래스를 상속받았다.
+JwtAuthenticationToken 객체는 인증을 위해 AuthenticationManager 인스턴스에게 전달된다. AuthenticationProvider 인스턴스가 사용할 수 있도록 AbstractAuthenticationToken 클래스를 상속받았다. 토큰 내부에는 인증과 관련된 사용자 컨텍스트가 담긴다.
 
 ```java
 package action.in.blog.security.tokens;
@@ -214,11 +207,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 }
 ```
 
-### 2.3. JwtSecurityConfig 클래스
-
-- `SecurityConfigurerAdapter` 클래스를 상속받아서 추가로 필요한 설정들을 추가할 수 있는 `configure` 메서드를 구현한다.
-- `AuthenticationManager` 객체는 `SecurityConfig` 클래스로부터 주입받는다.
-- 구현한 `JwtAuthenticationFilter`를 `LogoutFilter` 다음에 실행되도록 추가한다.
+JwtSecurityConfig 클래스는 SecurityConfigurerAdapter 클래스를 상속받아 필요한 설정을 더할 수 있는 configure 메서드를 구현한다. AuthenticationManager 인스턴스는 SecurityConfig 객체로부터 주입받고, 앞에서 구현한 JwtAuthenticationFilter 객체가 LogoutFilter 객체 다음에 실행되도록 필터 체인에 추가한다.
 
 ```java
 package action.in.blog.security.config;
@@ -244,10 +233,7 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
 }
 ```
 
-### 2.4. JwtAuthenticationProvider 클래스
-
-- 이번 포스트에서 구현을 하진 않지만, `AuthenticationManager` 클래스에 등록하기 위한 `AuthenticationProvider` 클래스이다.
-- `@Component` 애너테이션을 붙여 빈(bean)으로 생성한다.
+JwtAuthenticationProvider 클래스는 AuthenticationManager 인스턴스에 등록할 AuthenticationProvider 인터페이스의 구현체다. 이번 글에서는 내부를 구현하지 않고, @Component 애너테이션을 붙여 빈(bean)으로 생성만 한다.
 
 ```java
 package action.in.blog.security.provider;
@@ -276,14 +262,14 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 }
 ```
 
-### 2.5. SecurityConfig 클래스
+마지막으로 SecurityConfig 클래스는 스프링 시큐리티의 전체 설정을 담당한다.
 
-- `SecurityConfig` 생성자
-  - `AuthenticationManagerBuilder` 빈을 주입 받는다.
-  - 구현한 `AuthenticationProvider` 빈을 주입 받는다.
-  - `AuthenticationManager`에서 사용할 `AuthenticationProvider`를 `AuthenticationManagerBuilder`에 추가한다.
-- `configure` 메서드
-  - 코드 주석을 참고하시기 바란다.
+- 생성자 메서드
+  - AuthenticationManagerBuilder 빈을 주입받는다.
+  - 구현한 AuthenticationProvider 빈을 주입받는다.
+  - AuthenticationManager 인스턴스에서 사용할 AuthenticationProvider 인스턴스를 AuthenticationManagerBuilder 인스턴스에 추가한다.
+- configure 메서드
+  - 설명이 길기 때문에 코드 주석을 참고하길 바란다.
 
 ```java
 package action.in.blog.security.config;
@@ -345,9 +331,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-### 2.6. AuthController 클래스
-
-- 테스트를 위해 간단한 컨트롤러 클래스를 만들었다.
+테스트를 위해 간단한 AuthController 클래스를 만들었다.
 
 ```java
 package action.in.blog.security.controller;
@@ -369,15 +353,15 @@ public class AuthController {
 }
 ```
 
-## 3. 테스트하기
+## 2. 테스트하기
 
-`given-when-then` 이름 규칙에 맞추어 메서드를 작명하였다.
+`given-when-then` 이름 규칙에 맞추어 메서드를 작명했다.
 
 - given - 이전 상황, 문맥, 조건
 - when - 행동
 - then - 결과
 
-### 3.1. JwtAuthenticationFilterTest 클래스
+먼저 JwtAuthenticationFilter 클래스의 테스트 코드를 살펴보자.
 
 ```java
 package action.in.blog.filters;
@@ -518,9 +502,7 @@ public class JwtAuthenticationFilterTest {
 }
 ```
 
-### 3.2. AuthControllerTest 클래스
-
-- `Spring Security` 프레임워크를 통해 생성된 필터 체인이 정상적으로 동작하는지 테스트한다.
+다음 AuthControllerTest 클래스는 스프링 시큐리티 프레임워크를 통해 생성된 필터 체인이 정상적으로 동작하는지 테스트한다.
 
 ```java
 package action.in.blog.security.controller;
@@ -570,6 +552,5 @@ public class AuthControllerTest {
 - <https://bcp0109.tistory.com/301>
 - <https://silvernine.me/wp/?p=1135>
 - <https://jskim1991.medium.com/spring-boot-tdd-with-spring-boot-starter-security-jwt-d29e455c08cb>
-
 
 [json-web-token-link]: https://junhyunny.github.io/information/json-web-token/

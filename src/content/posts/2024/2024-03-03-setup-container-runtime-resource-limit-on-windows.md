@@ -7,6 +7,7 @@ categories:
   - "docker"
   - "podman"
   - "windows"
+summary: "윈도우에서 컨테이너가 동작하는 WSL의 vmmem 메모리 사용량이 계속 늘어 서버가 다운된 문제를 .wslconfig 파일로 WSL 리소스를 제한해 해결했다."
 ---
 
 ## 1. Problem Context
@@ -18,7 +19,7 @@ categories:
 `vmmem` 프로세스가 사용 중인 CPU, 메모리는 윈도우 작업 관리자에서 확인할 수 있다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -38,7 +39,7 @@ WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8
 - 직접 설정할 수 없고 `.wslconfig` 파일을 사용하라는 설명을 볼 수 있다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-02.png" width="100%" class="image__border">
 </div>
 
 서비스를 릴리즈한 후 사용한 파드맨 데스크탑의 리소스 설정 화면이다.
@@ -47,12 +48,12 @@ WSL 시스템의 메모리는 기본적으로 윈도우 운영체제의 50%나 8
 - 직접 리소스 제한을 설정할 수 있는 방법은 없다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-03.png" width="100%" class="image__border">
 </div>
 
 ### 2.2. Setup .wslconfig file
 
-도커 데스크탑 리소스 설정 화면에서 알려주듯 윈도우 운영체제에서 컨테이너 런타임 리소스를 제한하라면 `.wslconfig` 파일을 통해 WSL 리소스를 직접 제한해야한다. `.wslconfig`은 해당 운영체제에 설치된 모든 WSL 시스템들에 대해 전역 설정을 할 수 있는 파일이다. `C:\Users\<UserName>` 경로에 `.wslconfig` 파일을 만든다.
+도커 데스크탑 리소스 설정 화면에서 알려주듯 윈도우 운영체제에서 컨테이너 런타임 리소스를 제한하려면 `.wslconfig` 파일을 통해 WSL 리소스를 직접 제한해야한다. `.wslconfig`는 해당 운영체제에 설치된 모든 WSL 시스템들에 대해 전역 설정을 할 수 있는 파일이다. `C:\Users\<UserName>` 경로에 `.wslconfig` 파일을 만든다.
 
 ```
 > ls .wslconfig
@@ -109,7 +110,7 @@ Machine "podman-machine-default" started successfully
 파드맨 데스크탑 리소스 설정을 보면 메모리가 최대 2GB로 제한된 것을 확인할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/setup-container-runtime-resource-limit-on-windows-04.png" width="100%" class="image__border">
 </div>
 
 #### REFERENCE

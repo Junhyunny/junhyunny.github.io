@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/aws-ecs-service-setup/"
 categories:
   - "aws"
+summary: "클러스터, 서비스, 태스크 정의 같은 ECS 구성 요소를 살펴보고 Fargate 기반 ECS 클러스터와 서비스를 구축하는 과정을 정리했다."
 recommendedPosts:
   - title: "AWS 애플리케이션 로드 밸런서(ALB)와 대상 그룹(Target Group) 설정"
     href: "https://junhyunny.github.io/aws/aws-alb-and-target-group-setup/"
@@ -29,7 +30,7 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
   - 클러스터에 지정된 수의 태스크를 동시에 실행하고 관리할 수 있게 해주는 컴포넌트이다.
   - 오토 스케일링(auto scaling)과 로드 밸런싱(load balancing)을 관리한다.
   - 배포 유형(e.g. 롤링, 블루/그린)을 지정할 수 있다.
-  - 태스크가 배포될 네트워크(VPC, 서브넷, 보안 그룹)을 지정할 수 있다.
+  - 태스크가 배포될 네트워크(VPC, 서브넷, 보안 그룹)를 지정할 수 있다.
 - 태스크 정의(Task Definition)
   - JavaScript Object Notation(JSON) 템플릿을 통해 태스크를 정의할 수 있다.
   - 실행할 컨테이너의 도커 레포지토리 및 이미지를 설정할 수 있다.
@@ -41,15 +42,13 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
   - 클러스터에 속한 컨테이너 인스턴스(EC2 인스턴스)나 Fargate에 배포한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-01.png" width="100%" class="image__border">
 </div>
 <center>https://tech.cloud.nongshim.co.kr/2021/08/30/%EC%86%8C%EA%B0%9C-amazon-ecs%EB%9E%80/</center>
 
 ## 2. Create ECS Cluster
 
-클러스터를 먼저 구축한다. `ECS 대시보드`에서 클러스터 화면으로 이동한다.
-
-- `Create cluster` 버튼을 누른다.
+클러스터를 먼저 구축한다. `ECS 대시보드`에서 클러스터 화면으로 이동한다. `Create cluster` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-02.png" width="100%" class="image__border">
@@ -59,7 +58,7 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
 
 - 클러스터 이름은 `demo-ecs-cluster`를 사용한다.
 - 인프라스트럭처는 `Fargate`를 사용한다.
-  - `Fargate`는 컨테이너요 서버리스(serverless) 컴퓨팅 엔진이다. 서버 확장, OS 업데이트, 보안 패치 같은 운영이 필요 없다. AWS에서 항상 최신으로 관리한다. 가격은 EC2 인스턴스보다 비싸다.
+  - `Fargate`는 컨테이너용 서버리스(serverless) 컴퓨팅 엔진이다. 서버 확장, OS 업데이트, 보안 패치 같은 운영이 필요 없다. AWS에서 항상 최신으로 관리한다. 가격은 EC2 인스턴스보다 비싸다.
   - EC2 인스턴스를 사용하면 필요한 사양에 따라 CPU, 메모리, 스토리지를 변경할 수 있다. 자원 할당, OS 업데이트, 보안 패치, 서버 모니터링 같은 운영 비용이 필요하다.
 - `Create` 버튼을 누른다.
 
@@ -75,9 +74,7 @@ AWS ECS(Elastic Container Service)는 컨테이너화 된 애플리케이션을 
 
 ## 3. Create ECS Task Definition
 
-ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보드`의 태스크 정의 화면으로 이동한다.
-
-- `Create task definition` 버튼을 누른다.
+ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보드`의 태스크 정의 화면으로 이동한다. `Create task definition` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-05.png" width="100%" class="image__border">
@@ -87,12 +84,12 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 
 - 태스크 이름은 `demo-ecs-task`이다.
 - 런치 타입은 클러스터 타입과 동일하게 `Fargate`로 지정한다.
-- 컨테이너 아키텍처는 `Linux/ARM64`으로 지정한다.
+- 컨테이너 아키텍처는 `Linux/ARM64`로 지정한다.
   - 컨테이너 이미지는 필자의 M1 맥북에서 빌드했기 때문에 아키텍처 타입이 `Linux/ARM64`이다. 
 - 태스크 스펙을 정의한다.
   - 1CPU
   - 3GB Memory
-- 태스크 실행 역할을 `ecsTaskExecutionRole`으로 선택한다.
+- 태스크 실행 역할을 `ecsTaskExecutionRole`로 선택한다.
   - `ecsTaskExecutionRole` 역할엔 `AmazonECSTaskExecutionRolePolicy` 정책이 지정되어 있다.
   - `AmazonECSTaskExecutionRolePolicy` 정책은 CloudWatch 로그 쓰기와 ECR 접근 읽기를 허용한다.
 
@@ -134,9 +131,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - ECS 클러스터
 - ECS 태스크 정의
 
-필자는 ECS 태스크 정의 화면에서 서비스를 배포했다. 
-
-- `Create service` 버튼을 누른다.
+필자는 ECS 태스크 정의 화면에서 서비스를 배포했다. `Create service` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-11.png" width="100%" class="image__border">
@@ -153,7 +148,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 
 서비스 이름과 내부에서 실행되는 태스크 개수를 정한다.
 
-- 서비스 이름은 `demo-ecs-service`으로 정한다.
+- 서비스 이름은 `demo-ecs-service`로 정한다.
 - 원하는 태스크 개수는 1개로 정한다.
 
 <div class="block-break" align="center">
@@ -165,7 +160,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 - 사전에 만든 `demo-service-vpc`를 선택한다. 
 - 서비스 배포 영역은 프라이빗 서브넷으로 지정한다.
 - 새로운 시큐리티 그룹을 생성한다.
-  - 시큐리티 그룹 이름은 `demo-ecs-service-sg`으로 지정한다.
+  - 시큐리티 그룹 이름은 `demo-ecs-service-sg`로 지정한다.
   - 인바운드(inbound) 규칙에 VPC 네트워크 대역인 10.0.0.0/16 IP 주소에서 8080 포트를 통해 접근하는 요청들은 허용하도록 설정한다.
 
 <div class="block-break" align="center">
@@ -187,7 +182,7 @@ ECS 클러스터에서 실행할 태스크 정의를 만든다. `ECS 대시보�
 
 ## 5. Trouble shooting
 
-위에서 생성한 서비스는 배포는 실패한다. ECS 서비스 화면의 `Deployment` 탭의 이벤트 섹션의 태스크 아이디를 누르면 확인할 수 있다. 에러가 발생한 이유를 확인하고 하나씩 해결해보자.
+위에서 생성한 서비스의 배포는 실패한다. ECS 서비스 화면의 `Deployment` 탭의 이벤트 섹션의 태스크 아이디를 누르면 확인할 수 있다. 에러가 발생한 이유를 확인하고 하나씩 해결해보자.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-16.png" width="100%" class="image__border">
@@ -233,9 +228,7 @@ ECS 서비스와 동일한 VPC의 프라이빗 서브넷을 선택한다.
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-20.png" width="100%" class="image__border">
 </div>
 
-ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그룹에 새로운 인바운드 규칙을 추가한다.
-
-- 인바운드 규칙에 VPC 네트워크 대역인 10.0.0.0/16 IP 주소에서 443 포트를 통해 접근하는 요청들은 허용하도록 설정한다.
+ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그룹에 새로운 인바운드 규칙을 추가한다. 인바운드 규칙에 VPC 네트워크 대역인 10.0.0.0/16 IP 주소에서 443 포트를 통해 접근하는 요청들은 허용하도록 설정한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-21.png" width="100%" class="image__border">
@@ -248,9 +241,7 @@ ECR 레포지토리와 HTTPS 통신을 수행한다. 선택한 시큐리티 그�
 > Task is stopping<br/>
 > ResourceInitializationError: failed to validate logger args: The task cannot find the Amazon CloudWatch log group defined in the task definition. There is a connection issue between the task and Amazon CloudWatch. Check your network configuration. : signal: killed
 
-위와 마찬가지로 프라이비 서브넷에서 CloudWatch 서비스에 접근할 수 없기 때문에 에러가 발생한다. 다음 서비스를 위한 엔드포인트를 생성한다. VPC, 서브넷, 시큐리티 그룹 설정은 ECR 엔드포인트 설정과 동일하게 수행한다.
-
-- com.amazonaws.ap-northeast-2.logs 서비스를 생성한다.
+위와 마찬가지로 프라이빗 서브넷에서 CloudWatch 서비스에 접근할 수 없기 때문에 에러가 발생한다. 다음 서비스를 위한 엔드포인트를 생성한다. VPC, 서브넷, 시큐리티 그룹 설정은 ECR 엔드포인트 설정과 동일하게 수행한다. com.amazonaws.ap-northeast-2.logs 서비스를 생성한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecs-service-setup-22.png" width="100%" class="image__border">

@@ -1,10 +1,11 @@
 ---
 title: "Dockerfile ENTRYPOINT와 CMD"
 publishedAt: "2023-05-21"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:19:33+09:00"
 canonicalPath: "/docker/entry-point-and-cmd-in-dockerfile/"
 categories:
   - "docker"
+summary: "도커 파일의 ENTRYPOINT와 CMD 지시문이 컨테이너 실행 시 추가한 명령어와 어떻게 결합되는지 비교하고, 둘을 함께 쓰는 권장 방식을 정리했다."
 recommendedPosts:
   - title: "Dockerfile 빌드와 이미지 레이어(Image Layer)"
     href: "https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/"
@@ -12,18 +13,15 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-도커 파일(dockerfile)을 작성할 때 사용하는 `ENTRYPOINT`와 `CMD` 지시문으로 추가한 명령문은 컨테이너가 실행될 때 함께 수행된다. 동일한 기능을 수행하는 듯 보이지만, 구분하여 사용하는 이유는 분명히 있다. 도커 파일을 작성하면서 종종 차이점에 대해 찾아보곤 하는데 개념을 명확히 세우고자 이번에 포스트로 정리하였다.
+도커 파일(dockerfile)을 작성할 때 `ENTRYPOINT`와 `CMD` 지시문으로 추가한 명령문은 컨테이너가 실행될 때 함께 수행된다. 같은 기능을 하는 듯 보이지만, 구분해서 사용하는 이유가 분명히 있다. 도커 파일을 작성하면서 종종 차이점을 찾아보곤 했는데, 개념을 명확히 세우고자 이번 글로 정리했다.
 
 ## 1. ENTRYPOINT Instruction
 
 > 컨테이너가 실행될 때 반드시 함께 실행되는 명령어
 
-`ENTRYPOINT`에 작성된 명령문은 반드시 실행된다. 이름처럼 컨테이너 실행의 시작 지점이다. `ENTRYPOINT` 지시문으로 작성된 명령문으로 실행된 프로세스가 종료될 때 컨테이너도 함께 종료된다. 간단한 도커 파일로 이미지를 만들고 컨테이너를 실행하는 예시를 통해 해당 기능에 대해 살펴보겠다.
+`ENTRYPOINT`에 작성된 명령문은 반드시 실행된다. 이름처럼 컨테이너 실행의 시작 지점이다. `ENTRYPOINT` 지시문으로 작성한 명령문으로 실행된 프로세스가 종료되면 컨테이너도 함께 종료된다. 간단한 도커 파일로 이미지를 만들고 컨테이너를 실행하는 예시로 이 기능을 살펴보자.
 
-##### Dockerfile-entrypoint
-
-- 우분투 이미지를 기반으로 이미지를 빌드한다.
-- 해당 파일로 빌드된 이미지를 컨테이너로써 실행하면 `ls` 명령문이 수행된다.
+다음 `Dockerfile-entrypoint` 파일은 우분투 이미지를 기반으로 이미지를 빌드한다. 이 파일로 빌드한 이미지를 컨테이너로 실행하면 `ls` 명령문이 수행된다.
 
 ```dockerfile
 FROM ubuntu
@@ -31,7 +29,7 @@ FROM ubuntu
 ENTRYPOINT ["ls"]
 ```
 
-##### Build Image
+다음 명령어로 이미지를 빌드한다.
 
 ```
 $ docker build -t ubuntu:entry-point -f Dockerfile-entrypoint .
@@ -48,9 +46,7 @@ $ docker build -t ubuntu:entry-point -f Dockerfile-entrypoint .
  => => naming to docker.io/library/ubuntu:entry-point                                          0.0s
 ```
 
-##### Run Container
-
-- 컨테이너를 실행하면 `ls` 명령문이 실행된다.
+컨테이너를 실행하면 `ls` 명령문이 실행된다.
 
 ```
 $ docker run --name entry-point ubuntu:entry-point
@@ -78,11 +74,7 @@ usr
 var
 ```
 
-##### Run Container with other command
-
-- 컨테이너를 실행할 때 `Hello World` 문자열을 출력하는 명령어를 파라미터로 추가한다.
-- `ls` 명령문의 파라미터로 전달된다.
-- `ls` 명령문이 `echo`, `Hello World` 파일이나 디렉토리에 접근할 수 없다는 에러 메시지가 출력된다.
+이번엔 컨테이너를 실행할 때 `Hello World` 문자열을 출력하는 명령어를 파라미터로 추가한다. 추가한 명령어는 `ls` 명령문의 파라미터로 전달되기 때문에 `ls` 명령문이 `echo`, `Hello World` 파일이나 디렉터리에 접근할 수 없다는 에러 메시지가 출력된다.
 
 ```
 $ docker run --name entry-point ubuntu:entry-point echo "Hello World"
@@ -95,12 +87,9 @@ ls: cannot access 'Hello World': No such file or directory
 
 > 컨테이너가 실행될 때 선택적으로 실행되는 명령어
 
-컨테이너가 실행될 때 함께 수행될 디폴트(default) 명령문을 지정한다. 컨테이너를 실행하면서 추가적인 명령문이 전달되면 도커 파일에 작성된 명령문은 무시된다.
+`CMD` 지시문은 컨테이너가 실행될 때 함께 수행될 기본(default) 명령문을 지정한다. 컨테이너를 실행하면서 추가 명령문을 전달하면 도커 파일에 작성된 명령문은 무시된다.
 
-##### Dockerfile-cmd
-
-- 우분투 이미지를 기반으로 이미지를 빌드한다.
-- 해당 파일로 빌드된 이미지를 컨테이너로써 실행하면 `ls` 명령문이 수행된다.
+다음 `Dockerfile-cmd` 파일도 우분투 이미지를 기반으로 이미지를 빌드한다. 이 파일로 빌드한 이미지를 컨테이너로 실행하면 `ls` 명령문이 수행된다.
 
 ```dockerfile
 FROM ubuntu
@@ -108,7 +97,7 @@ FROM ubuntu
 CMD ["ls"]
 ```
 
-##### Build Image
+다음 명령어로 이미지를 빌드한다.
 
 ```
 $ docker build -t ubuntu:cmd -f Dockerfile-cmd .
@@ -126,9 +115,7 @@ $ docker build -t ubuntu:cmd -f Dockerfile-cmd .
  => => naming to docker.io/library/ubuntu:cmd                                                   0.0s
 ```
 
-##### Run Container
-
-- 컨테이너를 실행하면 `ls` 명령문이 실행된다.
+컨테이너를 실행하면 `ls` 명령문이 실행된다.
 
 ```
 $ docker run --name cmd ubuntu:cmd
@@ -156,10 +143,7 @@ usr
 var
 ```
 
-##### Run Container with other command
-
-- 컨테이너를 실행할 때 `Hello World` 문자열을 출력하는 명령어를 파라미터로 추가한다.
-- `ls` 명령문이 실행되지 않고 `Hello World` 문자열이 출력된다.
+컨테이너를 실행할 때 `Hello World` 문자열을 출력하는 명령어를 파라미터로 추가하면 `ls` 명령문은 실행되지 않고 `Hello World` 문자열이 출력된다.
 
 ```
 $ docker run --name cmd ubuntu:cmd echo "Hello World"
@@ -169,26 +153,17 @@ Hello World
 
 ## 3. Best Practice
 
-다음과 같이 정리할 수 있다.
+두 지시어 모두 컨테이너가 실행되면 함께 실행된다. 차이점은 다음과 같다.
 
-- `ENTRYPOINT` 지시어
-  - 컨테이너가 실행되면 함께 실행된다.
-  - `ENTRYPOINT` 지시어로 작성된 명령문이 있는 경우 컨테이너 실행 시점에 추가되는 명령어는 파일에 작성된 명령문 뒤에 붙어서 실행된다.
-- `CMD` 지시어
-  - 컨테이너가 실행되면 함께 실행된다.
-  - `CMD` 지시어로 작성된 명령문이 있는 경우 컨테이너 실행 시점에 추가되는 명령어가 있다면 파일에 작성된 명령문은 무시된다.
+- `ENTRYPOINT` 지시어로 작성한 명령문이 있으면 컨테이너 실행 시점에 추가한 명령어는 파일에 작성된 명령문 뒤에 붙어서 실행된다.
+- `CMD` 지시어로 작성한 명령문이 있을 때 컨테이너 실행 시점에 추가한 명령어가 있으면 파일에 작성된 명령문은 무시된다.
 
 컨테이너 실행 시점에 반드시 함께 실행되어야 하는 명령문이 있다면 다음과 같은 방식으로 도커 파일을 작성한다.
 
 - 반드시 실행될 명령문은 `ENTRYPOINT` 지시어로 작성한다.
-- 컨테이너 실행 시점에 결정할 수 있는 옵션이나 파라미터가 없을 경우를 대비하여 디폴트 값을 `CMD` 지시어로 추가한다.
+- 컨테이너 실행 시점에 옵션이나 파라미터를 전달하지 않는 경우를 대비해 기본값을 `CMD` 지시어로 추가한다.
 
-간단한 도커 파일을 작성하고, 이미지를 만들어 컨테이너를 실행해보겠다.
-
-##### Dockerfile-together
-
-- `ls` 명령문은 반드시 수행한다.
-- `.` 명령문은 `ls` 명령문 뒤에 파라미터로 추가된다.
+간단한 도커 파일을 작성하고, 이미지를 만들어 컨테이너를 실행해 보자. 다음 `Dockerfile-together` 파일은 `ls` 명령문을 반드시 수행하고, `.` 명령문을 `ls` 명령문 뒤에 파라미터로 추가한다.
 
 ```dockerfile
 FROM ubuntu
@@ -197,7 +172,7 @@ ENTRYPOINT ["ls"]
 CMD ["."]
 ```
 
-##### Build Image
+다음 명령어로 이미지를 빌드한다.
 
 ```
 $ docker build -t ubuntu:together -f Dockerfile-together .
@@ -215,9 +190,7 @@ $ docker build -t ubuntu:together -f Dockerfile-together .
  => => naming to docker.io/library/ubuntu:together                                              0.0s
 ```
 
-##### Run Container
-
-- 컨테이너 실행 시 별도로 전달되는 파라미터가 없으므로 `ls .` 명령문이 실행된다.
+컨테이너를 실행할 때 별도로 전달한 파라미터가 없으므로 `ls .` 명령문이 실행된다.
 
 ```
 $ docker run --name together ubuntu:together
@@ -245,9 +218,7 @@ usr
 var
 ```
 
-##### Run Container with other command
-
-- 컨테이너 실행 시 함께 전달되는 파라미터가 있으므로 `ls -la dev` 명령문이 실행된다.
+컨테이너를 실행할 때 파라미터를 함께 전달하면 `CMD` 지시어의 기본값 대신 전달한 파라미터가 사용되므로 `ls -la dev` 명령문이 실행된다.
 
 ```
 $ docker run --name together ubuntu:together -la dev

@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "react"
   - "tomcat"
+summary: "리액트 애플리케이션을 스프링 부트와 함께 WAR로 묶어 톰캣에 배포했을 때 새로고침 시 404가 발생하는 원인을 살펴보고, ErrorController로 index.html을 반환해 해결했다."
 recommendedPosts:
   - title: "스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기"
     href: "https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/"
@@ -21,12 +22,10 @@ recommendedPosts:
 - 화면 애플리케이션 개발은 리액트(react) 라이브러리를 사용한다. 
   - `react-router-dom`으로 페이지 이동을 처리한다.
 - 서버 애플리케이션 개발은 스프링 부트(spring boot) 프레임워크를 사용한다.
-- 빌드한 리액트 애플리케이션을 스프링 부트 프로젝트와 함께 WAR 파일로 패키징(pacakge)한다.
+- 빌드한 리액트 애플리케이션을 스프링 부트 프로젝트와 함께 WAR 파일로 패키징(package)한다.
 - WAR 패키지 파일을 톰캣(tomcat) 미들웨어에서 호스팅한다.
 
-위와 같은 방식으로 배포하니 다음과 같은 문제가 발생했다.
-
-- 브라우저에서 새로고침(refresh)을 수행하면 Not Found(404) 에러가 발생한다.
+위와 같은 방식으로 배포하니 브라우저에서 새로고침(refresh)을 수행하면 Not Found(404) 에러가 발생하는 문제가 생겼다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/page-not-found-when-hosting-react-app-on-tomcat-01.gif" width="100%" class="image__border">
@@ -42,21 +41,21 @@ recommendedPosts:
   - 예를 들어 http://localhost:8080/first-page로 이동하는 경우 /first-page 경로에 해당하는 페이지를 자바스크립트 코드가 그린다.
   - 이 과정에서 서버로 새로운 페이지 요청은 없다.
 3. 브라우저가 새로고침을 수행하면 URL 경로에 해당하는 페이지를 서버로부터 새롭게 요청한다.
-  - 예를 들어 http://localhost:8080/first-page 경로에서 새로고침을 서버로부터 /first-page 경로에 해당하는 페이지를 요청한다.
+  - 예를 들어 http://localhost:8080/first-page 경로에서 새로고침을 하면 서버로부터 /first-page 경로에 해당하는 페이지를 요청한다.
   - SPA이기 때문에 프론트엔드 애플리케이션 서버엔 /first-page 경로에 해당하는 페이지가 존재하지 않습니다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/page-not-found-when-hosting-react-app-on-tomcat-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/page-not-found-when-hosting-react-app-on-tomcat-02.png" width="100%" class="image__border">
 </div>
 
-## 3. Solve the Proglem
+## 3. Solve the Problem
 
 문제를 해결하는 방법은 다양하다. 
 
 - 톰캣 서버의 web.xml 파일에 에러 처리를 위한 페이지 설정 추가
 - 톰캣 서버의 server.xml 파일에 RewriteValve 클래스를 추가 후 rewrite.config 파일에 리다이렉트 룰(rule) 작성
 
-위에서 설명한 두 방법은 이 문제를 해결해주지 못 했다. 이 문제는 애플리케이션 코드를 통해 더 쉽게 해결할 수 있는 방법이 있다. 문제 해결 방법에 대해 알아보기 전 프로젝트 구조를 먼저 살펴보자.
+위에서 설명한 두 방법은 이 문제를 해결해주지 못했다. 이 문제는 애플리케이션 코드를 통해 더 쉽게 해결할 수 있는 방법이 있다. 문제 해결 방법에 대해 알아보기 전 프로젝트 구조를 먼저 살펴보자.
 
 - backend 폴더
   - 스프링 부트(spring boot) 애플리케이션 프로젝트다.
@@ -128,7 +127,7 @@ recommendedPosts:
     └── tsconfig.json
 ```
 
-### 3.1. NotFoundErrorController Class
+### 3.1. NotFoundErrorController 클래스
 
 스프링 부트에서 400, 401, 403, 404, 500 등의 오류를 쉽게 처리할 수 있도록 ErrorController 인터페이스를 제공한다. ErrorController 인터페이스를 구현한 컨트롤러(controller)를 사용하면 쉽게 에러를 처리할 수 있다. 브라우저가 요청한 경로에 해당되는 자원이 없는 경우 index.html 파일을 보내주는 방식으로 이 문제를 해결할 수 있다. 
 
@@ -226,9 +225,9 @@ Tomcat started.
 
 ## CLOSING
 
-많은 곳에서 컨테이너, 클라우드 기술을 사용하지만, 작은 회사들이나 공공기관은 여전히 온-프레미스(on-premiss) 서버에서 서비스를 호스팅한다. 언어나 프레임워크는 최신 기술을 따라 가려고 하지만, 인프라 환경은 비용이나 보안 측면에서 문제가 되기 때문에 빨리 따라가지 못하는 것 같다. 이런 오래된 배포 방식은 여전히 사용되고 있다. 
+많은 곳에서 컨테이너, 클라우드 기술을 사용하지만, 작은 회사들이나 공공기관은 여전히 온-프레미스(on-premise) 서버에서 서비스를 호스팅한다. 언어나 프레임워크는 최신 기술을 따라 가려고 하지만, 인프라 환경은 비용이나 보안 측면에서 문제가 되기 때문에 빨리 따라가지 못하는 것 같다. 이런 오래된 배포 방식은 여전히 사용되고 있다. 
 
-프론트엔드 애플리케이션과 백엔드 애플리케이션을 함께 배포할 때 주의 사항은 프론트엔드 애플리케이션의 URL 경로와 백엔드 애플리케이션의 엔드-포인트(end-point) 경로가 겹치지 않아야 한다. 경로가 겹치면 새로고침 할 때 백엔드 서비스로부터 JSON 응답을 직접 받게 된다. 이를 방지하기 위해 리소스 요청은 URL 경로 앞에 /api 같은 접미사를 붙이는 것이 바람한 것 같다.
+프론트엔드 애플리케이션과 백엔드 애플리케이션을 함께 배포할 때 주의 사항은 프론트엔드 애플리케이션의 URL 경로와 백엔드 애플리케이션의 엔드-포인트(end-point) 경로가 겹치지 않아야 한다. 경로가 겹치면 새로고침 할 때 백엔드 서비스로부터 JSON 응답을 직접 받게 된다. 이를 방지하기 위해 리소스 요청은 URL 경로 앞에 /api 같은 접두사를 붙이는 것이 바람직한 것 같다.
 
 ```java
 package action.in.blog.controller;

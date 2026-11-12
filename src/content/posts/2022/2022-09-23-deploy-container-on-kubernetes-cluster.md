@@ -1,10 +1,11 @@
 ---
 title: "쿠버네티스 클러스터에 간단한 컨테이너 배포하기"
 publishedAt: "2022-09-23"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:37+09:00"
 canonicalPath: "/kubernetes/deploy-container-on-kubernetes-cluster/"
 categories:
   - "kubernetes"
+summary: "kubectl과 minikube로 로컬 쿠버네티스 클러스터를 구축하고, 리액트 애플리케이션을 서비스와 디플로이먼트 오브젝트로 배포해 터널링으로 노출하는 과정을 정리했다."
 recommendedPosts:
   - title: "Kubernetes Architecture"
     href: "https://junhyunny.github.io/kubernetes/kubernetes-architecture/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-이번 포스트에서는 간단한 애플리케이션 컨테이너를 쿠버네티스 클러스터(kubernetes cluster)에 배포해보겠다. 배포를 위해 다음과 같은 도구들을 설치한다.
+이번 글에서는 간단한 애플리케이션 컨테이너를 쿠버네티스 클러스터(kubernetes cluster)에 배포해 봤다. 배포를 위해 다음과 같은 도구를 설치한다.
 
 - kubectl - 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI(command line interface) 도구
 - minikube - 로컬 컴퓨터(개발자 PC)에 간단한 쿠버네티스 클러스터를 구축할 수 있는 도구
@@ -25,9 +26,9 @@ recommendedPosts:
 
 ## 1. kubectl 설치
 
-사용자가 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI 도구다. CLI 명령어를 통해 애플리케이션 배포, 클러스터 리소스 모니터링과 제어를 수행할 수 있다.
+`kubectl`은 사용자가 쿠버네티스 클러스터에 명령을 보낼 수 있는 CLI 도구다. CLI 명령어로 애플리케이션을 배포하고, 클러스터 리소스를 모니터링하고 제어할 수 있다.
 
-`MacOS`를 사용하는 경우 `Homebrew`를 통해 쉽게 설치할 수 있다. 추후 포스트가 업데이트 되지 않아 설치에 문제가 발생하는 분들은 [공식 홈페이지][kubectl-cli-install-link]를 참조하기 바란다.
+`MacOS`를 사용한다면 `Homebrew`로 쉽게 설치할 수 있다. 이 글이 업데이트되지 않아 설치에 문제가 생긴다면 [공식 홈페이지][kubectl-cli-install-link]를 참고하기 바란다.
 
 ```
 $ brew install kubectl
@@ -105,9 +106,7 @@ Kustomize Version: v4.5.7
 
 ## 2. minikube 설치
 
-컨테이너를 배포할 수 있는 쿠버네티스 클러스터를 구축해야 한다. `minikube`는 쉽게 쿠버네티스를 학습할 수 있도록 로컬 컴퓨터에 간단한 쿠버네티스 클러스터를 구축할 수 있는 도구다.
-
-다음과 같은 사양이 필요하다.
+컨테이너를 배포할 수 있는 쿠버네티스 클러스터를 구축해야 한다. `minikube`는 쿠버네티스를 쉽게 학습할 수 있도록 로컬 컴퓨터에 간단한 쿠버네티스 클러스터를 구축하는 도구다. 설치하려면 다음과 같은 사양이 필요하다.
 
 - 2 CPUs or more
 - 2GB of free memory
@@ -122,7 +121,7 @@ Kustomize Version: v4.5.7
   - Podman
   - VirtualBox or VMware Fusion/Workstation
 
-마찬가지로 `Homebrew`를 통해 쉽게 설치할 수 있다. 추후 포스트가 업데이트 되지 않아 설치에 문제가 발생하는 분들은 [공식 홈페이지][minikube-install-link]를 참조하기 바란다.
+마찬가지로 `Homebrew`로 쉽게 설치할 수 있다. 이 글이 업데이트되지 않아 설치에 문제가 생긴다면 [공식 홈페이지][minikube-install-link]를 참고하기 바란다.
 
 ```
 $ brew install minikube
@@ -145,9 +144,7 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
 
 ## 3. minikube Drivers
 
-`minikube`를 배포하기 위한 환경이 필요하다. 드라이버 설정을 통해 `minikube`를 배포할 가상 머신(virtual machine)을 지정할 수 있다.
-
-`MacOS`의 `minikube`는 다음과 같은 드라이버들을 지원한다.
+`minikube`를 배포할 환경이 필요하다. 드라이버 설정으로 `minikube`를 배포할 가상 머신(virtual machine)을 지정할 수 있다. `MacOS`의 `minikube`는 다음과 같은 드라이버를 지원한다.
 
 - Docker - VM + Container (preferred)
 - Hyperkit - VM
@@ -157,14 +154,14 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
 - QEMU - VM (experimental)
 - SSH - remote ssh
 
-이미 설치된 도커를 사용하여 `minikube`를 실행하였다. 아래와 같은 명령어를 통해 `minikube` 실행이 이뤄진다.
+이미 설치된 도커를 사용해 `minikube`를 실행했다. 사용한 명령어는 다음과 같다.
 
 - `minikube start --driver=docker`
-  - `minikube` 클러스터를 실행할 때 드라이버는 도커로 설정한다.
+  - `minikube` 클러스터를 실행할 때 드라이버를 도커로 설정한다.
 - `minikube config set driver docker`
   - 기본 드라이버를 도커로 설정한다.
 - `kubectl get nodes -A`
-  - 해당 명령어를 통해 `minikube` 클러스터가 잘 실행되었는지 확인한다.
+  - `minikube` 클러스터가 잘 실행되었는지 확인한다.
 
 ```
 $ minikube start --driver=docker
@@ -202,16 +199,14 @@ minikube   Ready    control-plane   2m32s   v1.25.0
 
 ## 4. Deploy Application Container
 
-환경 구축은 완료되었다. 지금부터 간단한 리액트 애플리케이션을 클러스터에 배포하겠다. 코드는 중요하지 않으므로 배포하는 과정에서 사용하는 커맨드만 확인해보겠다.
-
-다음과 같은 과정을 통해 배포가 이뤄진다.
+환경 구축을 마쳤다. 지금부터 간단한 리액트 애플리케이션을 클러스터에 배포한다. 코드는 중요하지 않으므로 배포 과정에서 사용하는 커맨드만 확인해 보자. 배포는 다음과 같은 과정으로 이뤄진다.
 
 1. 애플리케이션 이미지를 빌드한다.
 2. 빌드한 이미지를 도커 허브(docker hub) 같은 원격 이미지 저장소(registry)에 업로드한다.
 3. 쿠버네티스 설정 파일을 사용해 파드를 클러스터에 배포한다.
   - 외부에 서비스를 노출할 수 있는 서비스(service) 오브젝트를 배포한다.
   - 리액트 애플리케이션 컨테이너를 담은 파드(pod) 오브젝트를 배포한다.
-4. 사용자는 브라우저를 이용해 외부에 노출된 서비스 오브젝트에게 리액트 애플리케이션 화면을 요청한다.
+4. 사용자는 브라우저로 외부에 노출된 서비스 오브젝트에 리액트 애플리케이션 화면을 요청한다.
   - 서비스 오브젝트는 자신이 노출하고 있는 리액트 애플리케이션 파드의 화면을 응답으로 전달한다.
 
 <div align="center">
@@ -272,15 +267,13 @@ latest: digest: sha256:abd34dacf27f7d9de5f833aac95bc3d952157aee8156b9511130dc6dc
 
 ### 4.3. Deploy Objects
 
-커맨드를 사용해 배포할 수도 있고, yml 파일로 각 오브젝트의 원하는 상태를 정의한 후 이를 이용해 배포하기도 한다. 이번 포스트에서는 yml 파일을 사용하여 배포하였다.
+커맨드로 배포할 수도 있고, yml 파일에 각 오브젝트의 원하는 상태를 정의한 뒤 이를 이용해 배포할 수도 있다. 이번 글에서는 yml 파일을 사용해 배포했다.
 
 #### 4.3.1. Service Object
 
-애플리케이션 컨테이너를 감싼 파드는 `Internal IP`만 가지며 클러스터 내부에서만 접근 가능하다. 이번 포스트에서 `minikube`로 구축한 쿠버네티스 클러스터는 도커가 제공하는 VM 환경에서 동작한다. 개발자 로컬 컴퓨터는 쿠버네티스 클러스터 입장에선 외부 컴퓨터다. 쿠버네티스의 파드를 배포하고 로컬 컴퓨터의 브라우저로 확인하려면 서비스(service) 오브젝트를 통해 외부와 연결시켜야 한다.
+애플리케이션 컨테이너를 감싼 파드는 `Internal IP`만 가지며 클러스터 내부에서만 접근할 수 있다. 이번 글에서 `minikube`로 구축한 쿠버네티스 클러스터는 도커가 제공하는 VM 환경에서 동작한다. 개발자의 로컬 컴퓨터는 쿠버네티스 클러스터 입장에선 외부 컴퓨터다. 쿠버네티스에 파드를 배포하고 로컬 컴퓨터의 브라우저로 확인하려면 서비스(service) 오브젝트로 외부와 연결해야 한다.
 
-##### service.yml
-
-- 가독성을 위해 주석으로 설명을 추가하였다.
+서비스 오브젝트를 정의한 `service.yml` 파일은 다음과 같다. 가독성을 위해 주석으로 설명을 추가했다.
 
 ```yml
 apiVersion: v1
@@ -297,10 +290,7 @@ spec:
   type: LoadBalancer # external IP를 사용하여 해당 오브젝트를 외부로 노출하는 서비스 타입
 ```
 
-##### Kubernetes CLI
-
-- `kubectl apply -f service.yml` 명령어를 통해 서비스를 배포한다.
-- `kubectl get svc` 명령어를 통해 생성된 서비스를 확인한다.
+`kubectl apply -f service.yml` 명령어로 서비스를 배포하고, `kubectl get svc` 명령어로 생성된 서비스를 확인한다.
 
 ```
 $  kubectl apply -f service.yml
@@ -316,11 +306,7 @@ kubernetes                    ClusterIP      10.96.0.1       <none>        443/T
 
 #### 4.3.2. Deployment Object
 
-개발한 애플리케이션 컨테이너를 배포한다. 단순한 파드가 아니라 지정한 레플리케이션 개수만큼 파드 개수를 유지해주는 디플로이먼트(deployment) 오브젝트를 배포하였다.
-
-##### deployment.yml
-
-- 가독성을 위해 주석으로 설명을 추가하였다.
+개발한 애플리케이션 컨테이너를 배포한다. 단순한 파드가 아니라 지정한 레플리카 개수만큼 파드 개수를 유지해 주는 디플로이먼트(deployment) 오브젝트를 배포했다. 디플로이먼트 오브젝트를 정의한 `deployment.yml` 파일은 다음과 같다. 가독성을 위해 주석으로 설명을 추가했다.
 
 ```yml
 apiVersion: apps/v1
@@ -342,13 +328,7 @@ spec:
           image: opop3966/react-application:latest # 컨테이너를 만들 때 필요한 이미지
 ```
 
-##### Kubernetes CLI
-
-- `kubectl apply -f deployment.yml` 명령어를 통해 디플로이먼트를 배포한다.
-- `kubectl get deployment` 명령어를 통해 배포된 디플로이먼트를 확인한다.
-- `kubectl get replicaset` 명령어를 통해 배포된 레플리카셋을 확인한다.
-- `kubectl get pod` 명령어를 통해 배포한 파드들을 확인한다.
-  - 3개의 파드가 배포되었음을 알 수 있다.
+`kubectl apply -f deployment.yml` 명령어로 디플로이먼트를 배포한다. 이어서 `kubectl get deployment`, `kubectl get replicaset`, `kubectl get pod` 명령어로 배포된 디플로이먼트, 레플리카셋, 파드를 차례로 확인하면 3개의 파드가 배포되었음을 알 수 있다.
 
 ```
 $ kubectl apply -f deployment.yml
@@ -375,11 +355,11 @@ react-app-deployment-5fb9b4754d-wrsxr   1/1     Running   0          43s
 
 ## 5. Expose Service
 
-필요한 오브젝트들은 모두 배포했지만, 로컬 컴퓨터에서 서비스에 직접 붙지 못한다. 배포한 서비스 오브젝트의 정보를 다시 살펴보고, 터널링을 통해 외부로 노출시키겠다.
+필요한 오브젝트는 모두 배포했지만, 로컬 컴퓨터에서 서비스에 직접 접속할 수는 없다. 배포한 서비스 오브젝트의 정보를 다시 살펴보고, 터널링으로 외부에 노출해 보자.
 
 - `external-connection-service` 서비스의 `EXTERNAL-IP` 값이 `pending` 상태다.
-- `EXTERNAL-IP`은 클라우드 프로바이더(cloud provider)에 의해 제공된다.
-- `minikube` 환경에선 별도로 노출된 IP가 없으므로 `minikube service ${service_name}` 명령어를 통해 터널링(tunneling)을 수행한다.
+- `EXTERNAL-IP`는 클라우드 프로바이더(cloud provider)가 제공한다.
+- `minikube` 환경에선 따로 노출된 IP가 없으므로 `minikube service ${service_name}` 명령어로 터널링(tunneling)을 수행한다.
 
 ```
 $ kubectl get svc
@@ -405,7 +385,7 @@ $ minikube service external-connection-service
 ❗  Because you are using a Docker driver on darwin, the terminal needs to be open to run it.
 ```
 
-##### 서비스 터널링 수행 후 브라우저 접근
+서비스 터널링을 수행한 뒤 브라우저로 접근하면 다음과 같은 화면을 볼 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/deploy-container-on-kubernetes-cluster-02.png" width="100%" class="image__border">
@@ -413,11 +393,7 @@ $ minikube service external-connection-service
 
 ## CLOSING
 
-`minikube tunnel` 명령어를 통해 터널링을 수행할 수 있다.
-
-- 한 터미널에서 터널링을 수행한다.
-- 다른 터미널에서 서비스의 `EXTERNAL-IP` 확인하면 `<pending>`에서 IP 값으로 바뀐 것을 확인할 수 있다.
-- `127.0.0.1:80` 주소를 통해 서비스에 접근 가능하다.
+`minikube tunnel` 명령어로도 터널링을 수행할 수 있다. 한 터미널에서 터널링을 수행하고 다른 터미널에서 서비스의 `EXTERNAL-IP`를 확인하면 `<pending>`에서 IP 값으로 바뀐 것을 볼 수 있다. 이제 `127.0.0.1:80` 주소로 서비스에 접근할 수 있다.
 
 ```
 $  minikube tunnel

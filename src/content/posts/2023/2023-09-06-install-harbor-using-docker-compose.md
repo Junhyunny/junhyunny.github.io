@@ -1,10 +1,11 @@
 ---
 title: "Docker Compose로 Harbor 설치"
 publishedAt: "2023-09-06"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/information/install-harbor-using-docker-compose/"
 categories:
   - "information"
+summary: "쿠버네티스와 도커를 위한 오픈 소스 이미지 저장소인 하버의 특징을 소개하고, 자체 서명 인증서를 적용해 도커 컴포즈로 설치하고 웹 페이지에 접속하는 과정을 정리했다."
 recommendedPosts:
   - title: "Create Self-Signed SAN SSL Ceriticate"
     href: "https://junhyunny.github.io/information/create-san-ssl-certificate/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 > Our mission is to be the trusted cloud native repository for Kubernetes
 
-클라우드 네이티브 플랫폼인 쿠버네티스(kubernetes)나 도커(docker)를 위한 오픈 소스 이미지 저장소이다. 하버는 다음과 같은 특징들은 가지고 있다.
+클라우드 네이티브 플랫폼인 쿠버네티스(kubernetes)나 도커(docker)를 위한 오픈 소스 이미지 저장소이다. 하버는 다음과 같은 특징들을 가지고 있다.
 
 - CNCF(Cloud Native Computing Foundation)에서 보장하는 오픈 소스 프레임워크
 - 웹 UI 제공
@@ -23,14 +24,14 @@ recommendedPosts:
 - 이미지 스캔을 통한 취약점 분석
 - 서명을 통한 이미지 유효성 검증
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/install-harbor-using-docker-compose-01.png" width="80%" class="image__border">
+<div class="block-break">
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/install-harbor-using-docker-compose-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://engineering.linecorp.com/ko/blog/harbor-for-private-docker-registry</center>
 </div>
-<center>https://engineering.linecorp.com/ko/blog/harbor-for-private-docker-registry</center>
 
-##### Harbor Architecture
-
-다음과 같은 아키텍처 구조를 가지고 주변 컴포넌트들과 상호 작용한다.
+Harbor는 다음과 같은 아키텍처로 주변 컴포넌트들과 상호 작용한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/install-harbor-using-docker-compose-02.png" width="100%" class="image__border image__padding">
@@ -39,11 +40,11 @@ recommendedPosts:
 
 ## 2. Installation
 
-도커 컴포즈(docker compose)를 이용해 하버를 설치할 수 있다. 설치 과정을 살펴보겠다.
+도커 컴포즈(docker compose)를 이용해 하버를 설치할 수 있다. 설치 과정을 살펴보자.
 
 ### 2.1. Create Self-Signed Certificate
 
-하버 설치와 접근을 위한 인증서가 필요하다. 테스트 용도이기 때문에 `OpenSSL`을 사용해 자체 증명서를 발급한다. 발급 과정과 각 명령어에 대한 자세한 설명은 [Create Self-Signed SAN SSL Ceriticate][create-san-ssl-certificate-link] 포스트를 참고하길 바란다.
+하버 설치와 접근을 위한 인증서가 필요하다. 테스트 용도이기 때문에 `OpenSSL`을 사용해 자체 증명서를 발급한다. 발급 과정과 각 명령어에 대한 자세한 설명은 [Create Self-Signed SAN SSL Certificate][create-san-ssl-certificate-link] 포스트를 참고하길 바란다.
 
 - 서버 인증서 발급을 위한 자체 CA 인증서를 생성한다.
   - 인증서 폴더 생성
@@ -122,7 +123,7 @@ subject=C = KR, ST = Seoul, L = Seoul, O = VMWare, OU = Tanzu Labs, CN = myharbo
 
 ### 2.2. Harbor Package Download
 
-23년 9월 기준 최신 버전인 2.9.0를 오프라인 방식으로 설치한다.
+23년 9월 기준 최신 버전인 2.9.0을 오프라인 방식으로 설치한다.
 
 - 이전 경로로 이동하여 패키지를 다운로드 받는다.
 - 다운 받은 패키지의 압축을 해제한다.
@@ -149,9 +150,9 @@ $ cp -rf ../certs ./
 $ cp harbor.yml.tmpl harbor.yml
 ```
 
-불필요한 주석들을 제거하고 변경한 내용만 살펴보겠다.
+불필요한 주석들을 제거하고 변경한 내용만 살펴보자.
 
-- 호스트 이름을 `myharbor.io`으로 설정한다.
+- 호스트 이름을 `myharbor.io`로 설정한다.
   - 인증서를 만들 때 CN(common name)으로 지정한 도메인과 동일해야 한다.
 - 인증서 위치를 지정한다.
 - 데이터 볼륨을 하버 설치 경로에 `data` 디렉토리로 지정한다.
@@ -257,16 +258,14 @@ FileNotFoundError: [Errno 2] No such file or directory: '/hostfs/certs/server.ke
 - 원인은 `prepare` 파일에서 도커 컨테이너를 실행할 때 볼륨 경로를 호스트 머신의 루트(root)로 지정해놨기 때문이다.
 - 볼륨 경로를 다시 설정하면 해당 문제가 해결된다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/install-harbor-using-docker-compose-03.png" width="80%" class="image__border">
+<div class="block-break">
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/install-harbor-using-docker-compose-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/goharbor/harbor/issues/13461</center>
 </div>
-<center>https://github.com/goharbor/harbor/issues/13461</center>
 
-##### Fix prepare script
-
-문제 해결을 위해 하버 패키지 경로에 위치한 `prepare` 파일을 수정한다.
-
-- 루트 경로를 현재 하버 설치 경로로 변경한다.
+문제 해결을 위해 하버 패키지 경로에 위치한 `prepare` 파일을 수정한다. 루트 경로를 현재 하버 설치 경로로 변경한다.
 
 ```sh
 # Run prepare script
@@ -340,7 +339,7 @@ Note: stopping existing Harbor instance ...
 
 ### 3.1. Add Host Name
 
-도메인 이름으로 설정한 `myharbor.io`를 호스트 파일에 등록한다. 맥북(macbook)에서 실습하여 다음과 같은 과정을 통해 호스트 이름을 등록하였다. 각 운영체제에 따라 호스트 등록 방법이 다르므로 확인하길 바란다.
+도메인 이름으로 설정한 `myharbor.io`를 호스트 파일에 등록한다. 맥북(macbook)에서 실습하여 다음과 같은 과정을 통해 호스트 이름을 등록했다. 각 운영체제에 따라 호스트 등록 방법이 다르므로 확인하길 바란다.
 
 ```
 $ sudo vi /etc/hosts
@@ -376,7 +375,7 @@ $ sudo vi /etc/hosts
 
 ## CLOSING
 
-도커 컴포즈를 사용해 설치하였으므로 `docker-compose` 명령어를 사용하면 하버 컨테이너를 종료하거나 재실행하는 것이 가능하다.
+도커 컴포즈를 사용해 설치했으므로 `docker-compose` 명령어를 사용하면 하버 컨테이너를 종료하거나 재실행하는 것이 가능하다.
 
 #### REFERENCE
 

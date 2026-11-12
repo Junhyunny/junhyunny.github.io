@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/mqtt-protocol/"
 categories:
   - "information"
+summary: "공장 IoT 센서 데이터 수집 프로젝트를 앞두고 발행/구독 기반 경량 메시징 프로토콜인 MQTT의 구조와 특징, QoS 수준별 메시지 전달 방식을 정리했다."
 recommendedPosts:
   - title: "스프링 부트 MQTT 구독자(subscriber) 구현하기"
     href: "https://junhyunny.github.io/spring-boot/integration/mqtt-subscriber-spring-boot/"
@@ -54,10 +55,10 @@ QoS 0 수준(level) 통신은 가장 낮은 레벨이며 메시지 전달을 최
 - `fire and forget` 전략이므로 발행자는 메시지를 재전송하지 않는다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-01.png" width="80%" class="image__border">
-</div>
-<center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
 </div>
 
 QoS 1 수준 통신은 메시지가 최소 한번은 전달되는 것을 최우선으로 한다.
@@ -66,10 +67,10 @@ QoS 1 수준 통신은 메시지가 최소 한번은 전달되는 것을 최우�
 - `at least once` 전략이므로 발행자는 `PUBACK` 응답을 받지 못하는 경우 일정 시간 후 메시지를 재전송한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-02.png" width="80%" class="image__border">
-</div>
-<center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
 </div>
 
 QoS 2 수준 통신은 메시지가 정확히 한번 전달되는 것을 최우선으로 한다.
@@ -83,7 +84,7 @@ QoS 2 수준 통신은 메시지가 정확히 한번 전달되는 것을 최우�
 - `exactly once` 전략이므로 발행자는 `PUBCOMP` 응답을 받지 못하는 경우 일정 시간 후 메시지를 재전송한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mqtt-protocol-03.png" width="100%" class="image__border">
 </div>
 <center>https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/</center>
 

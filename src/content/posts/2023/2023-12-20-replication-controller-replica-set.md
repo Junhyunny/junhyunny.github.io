@@ -6,6 +6,7 @@ canonicalPath: "/container/kubernetes/replication-controller-replica-set/"
 categories:
   - "container"
   - "kubernetes"
+summary: "고가용성, 로드 밸런싱, 롤링 업데이트를 위한 쿠버네티스 ReplicationController와 ReplicaSet을 비교하고, 레플리카 세트가 선택자로 기존 파드를 재활용하는 모습을 실습했다."
 ---
 
 ## 0. 들어가면서
@@ -17,7 +18,7 @@ ReplicationController, ReplicaSet 오브젝트에 대해 정리한다.
 두 오브젝트의 사용 목적은 동일하다. 파드(pod) 수를 원하는 상태로 유지하는 것이다. 단일 파드로 서비스를 한다고 가정해보면 단순하다. 파드에 문제가 생기면 서비스가 중단된다. 서비스에 대한 신뢰도가 떨어진다. 쿠버네티스의 레플리케이션 컨트롤러(replication controller)는 이런 문제점을 해결한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.1. High Availability
@@ -29,7 +30,7 @@ ReplicationController, ReplicaSet 오브젝트에 대해 정리한다.
 파드 하나만 사용하더라도 레플리케이션 컨트롤러를 사용하는 것이 좋다. 파드에 문제가 생기더라도 자동화 된 복구 메커니즘은 시스템 운영자를 덜 피곤하게 만든다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-02.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. Load balancing
@@ -37,15 +38,15 @@ ReplicationController, ReplicaSet 오브젝트에 대해 정리한다.
 사용자 수가 늘어나면 노드(node) 리소스가 부족할 수 있다. 레플리케이션 컨트롤러를 사용하면 클러스터(cluster)를 구성하는 다른 노드에 쉽게 파드를 스케일 아웃(scale out)할 수 있다. 레플리케이션 컨트롤러 오브젝트만 사용하는 경우 시스템 운영자의 수작업이 필요하지만, 다른 오브젝트를 사용하면 스케일 아웃도 자동화할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-03.png" width="100%" class="image__border">
 </div>
 
 ### 1.3. Rolling Update
 
-레플리케이션 컨트롤러는 롤링 업데이트(rolling update)가 가능하다. 중단 없이 시스템 업데이트가 할 수 있다. 파드가 하나씩 교체되는 동안 다른 파드들이 서비스를 지속해준다. 
+레플리케이션 컨트롤러는 롤링 업데이트(rolling update)가 가능하다. 중단 없이 시스템 업데이트를 할 수 있다. 파드가 하나씩 교체되는 동안 다른 파드들이 서비스를 지속해준다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-controller-replica-set-04.png" width="100%" class="image__border">
 </div>
 
 ## 2. ReplicationController and ReplicaSet

@@ -6,6 +6,7 @@ canonicalPath: "/database/flyway/flyway-cli-for-database-migration/"
 categories:
   - "database"
   - "flyway"
+summary: "데이터베이스 마이그레이션 도구 Flyway의 주요 명령어와 스크립트 이름 규칙을 설명하고, CLI로 초기화, 실패 복구, 이미 적용된 스크립트 변경 같은 상황을 실습했다."
 recommendedPosts:
   - title: "Schema Migration"
     href: "https://junhyunny.github.io/information/database/schema-migration/"
@@ -22,7 +23,7 @@ recommendedPosts:
 - Maven
 - Gradle
 
-CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
+CLI 환경에서 Flyway를 사용하는 방법에 대해 정리했다.
 
 ### 1.1. Commands
 
@@ -34,10 +35,10 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
   - 마이그레이션 이력 테이블을 생성한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-01.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://documentation.red-gate.com/fd/baseline-184127456.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-01.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://documentation.red-gate.com/fd/baseline-184127456.html</center>
 </div>
 
 - info
@@ -45,10 +46,10 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
   - 로컬에 저장된 적용되지 않은 마이그레이션 스크립트 파일에 대한 정보를 보여준다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-02.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://documentation.red-gate.com/fd/info-184127459.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-02.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://documentation.red-gate.com/fd/info-184127459.html</center>
 </div>
 
 - migrate
@@ -56,10 +57,10 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
   - 변경 작업에 대한 내용을 마이그레이션 이력 테이블에 저장한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-03.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://documentation.red-gate.com/fd/migrate-184127460.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-03.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://documentation.red-gate.com/fd/migrate-184127460.html</center>
 </div>
 
 - repair
@@ -68,20 +69,20 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
   - 이전에 수행된 마이그레이션 스크립트가 변경된 경우 이력 테이블의 해당 체크섬(checksum)을 업데이트한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-04.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://documentation.red-gate.com/fd/repair-184127461.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-04.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://documentation.red-gate.com/fd/repair-184127461.html</center>
 </div>
 
 - validate
   - 마이그레이션 이력 테이블 상태와 로컬에 저장된 마이그레이션 스크립트 상태를 비교한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-05.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://documentation.red-gate.com/fd/validate-184127464.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-05.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://documentation.red-gate.com/fd/validate-184127464.html</center>
 </div>
 
 - undo
@@ -89,10 +90,10 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
   - 이전 상태로 롤백한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-06.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://documentation.red-gate.com/fd/undo-184127463.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/flyway-cli-for-database-migration-06.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://documentation.red-gate.com/fd/undo-184127463.html</center>
 </div>
 
 - clean
@@ -127,7 +128,7 @@ CLI 환경에서 Flyway를 사용하는 방법에 대해 정리하였다.
 
 ## 2. Practice
 
-맥북(mac book)에서 실습을 진행하였다. 프로젝트 구조는 다음과 같다.
+맥북(mac book)에서 실습을 진행했다. 프로젝트 구조는 다음과 같다.
 
 ```
 ./
@@ -195,7 +196,7 @@ Flyway는 다음과 같은 경로에 작성된 설정 파일을 사용한다.
 - workingDir/flyway.conf
   - 프로젝트 경로
 
-이번 실습은 프로젝트 경로의 `flyway.conf` 파일을 사용하였다. 설정 파일에 다음과 같은 정보를 작성한다.
+이번 실습은 프로젝트 경로의 `flyway.conf` 파일을 사용했다. 설정 파일에 다음과 같은 정보를 작성한다.
 
 - 데이터베이스 접속 정보
 - 마이그레이션 파일 경로
@@ -252,9 +253,7 @@ Schema version: << Empty Schema >>
 A Flyway report has been generated here: /Users/junhyunk/Desktop/workspace/blog/blog-in-action/2023-08-23-flyway-cli-for-database-migration/action-in-blog/report.html
 ```
 
-migrate 명령어를 수행한다.
-
-- 설정 파일에서 지정한 데이터베이스에 마이그레이션을 수행한다.
+migrate 명령어로 설정 파일에서 지정한 데이터베이스에 마이그레이션을 수행한다.
 
 ```
 $ flyway migrate
@@ -281,7 +280,7 @@ A Flyway report has been generated here: /Users/junhyunk/Desktop/workspace/blog/
   - 마이그레이션에 사용된 스크립트에 대한 정보가 체크섬으로 저장된다.
 - 사용자 테이블에 사용자 정보가 저장된다.
   - R__insert_users_repeatable 파일에 작성한 스크립트에 의해 데이터가 저장된다.
-  - 반복 수행 스크립트는 한번만 적용되지만, 파일에 변경이 발생하여 체크섬이 바뀌면 다시 실행된다.
+  - 반복 수행 스크립트는 한 번만 적용되지만, 파일에 변경이 발생하여 체크섬이 바뀌면 다시 실행된다.
 
 ```
 mysql> show tables;
@@ -323,15 +322,13 @@ ALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN email VARCHAR(50) NOT NULL;
 ```
 
 - V1.0.3__alerter_user_add_colum_address
-  - 일부러 오타로 작성하여 마이그레이션을 실패를 유도한다.
+  - 일부러 오타로 작성하여 마이그레이션 실패를 유도한다.
 
 ```sql
 AALTER TABLE `junhyunny-db`.`tb_user` ADD COLUMN address VARCHAR(50) NOT NULL;
 ```
 
-마이그레이션을 진행한다.
-
-- 1.0.3 버전의 마이그레이션이 실패한다.
+마이그레이션을 진행하면 1.0.3 버전의 마이그레이션이 실패한다.
 
 ```
 $ flyway migrate

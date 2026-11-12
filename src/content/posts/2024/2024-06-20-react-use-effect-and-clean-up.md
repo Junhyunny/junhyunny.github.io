@@ -7,6 +7,7 @@ categories:
   - "javascript"
   - "react"
   - "jest"
+summary: "클래스 컴포넌트의 라이프사이클과 비교해 useEffect 훅의 동작을 살펴보고, 클린업 함수로 이벤트 등록 메모리 누수를 막는 방법을 설명한다."
 recommendedPosts:
   - title: "How to test useEffect hook's clean-up function"
     href: "https://junhyunny.github.io/javascript/react/jest/how-to-test-clean-up/"
@@ -34,15 +35,13 @@ useEffect 훅에 대해 먼저 살펴보자.
 - 클래스 기반 리액트 컴포넌트 라이프사이클
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/react-use-effect-and-clean-up-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/react-use-effect-and-clean-up-01.png" width="100%" class="image__border">
 </div>
 <center>https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/</center>
 
 ### 1.1. Component did mount
 
-componentDidMount 함수는 컴포넌트를 처음 렌더링 한 후 실행된다. 최초로 렌더링 되는 시점에만 단 한번 실행된다. useEffect 훅으로 동일하게 구현하려면 다음과 같이 구성한다.
-
-- 두 번째 인자를 빈 배열로 전달한다.
+componentDidMount 함수는 컴포넌트를 처음 렌더링 한 후 실행된다. 최초로 렌더링 되는 시점에만 단 한번 실행된다. useEffect 훅으로 동일하게 구현하려면 다음과 같이 두 번째 인자를 빈 배열로 전달한다.
 
 ```jsx
   useEffect(() => {
@@ -59,9 +58,7 @@ componentDidMount 함수는 컴포넌트를 처음 렌더링 한 후 실행된�
 - 부모 컴포넌트가 리-렌더링되는 시점
 - `forceUpdate` 함수를 통해 강제로 렌더링되는 시점
 
-useEffect 훅으로 구현하면 다음과 같다.
-
-- 두 번째 인자를 전달하지 않는다.
+useEffect 훅으로 구현하려면 다음과 같이 두 번째 인자를 전달하지 않는다.
 
 ```jsx
   useEffect(() => {
@@ -79,9 +76,7 @@ useEffect 훅으로 구현하면 다음과 같다.
 
 ### 1.3. Component will unmount
 
-리액트 컴포넌트가 돔-트리(dom-tree)에서 제거될 때 실행된다. 메모리 누수가 발생하지 않도록 할당한 메모리를 해제해주는 작업을 이 함수에서 수행하는 것이 좋다. useEffect 훅을 사용하면 다음과 같이 구현할 수 있다.
-
-- useEffect 훅의 등록한 함수의 결과 값으로 콜백 함수를 반환한다.
+리액트 컴포넌트가 돔-트리(dom-tree)에서 제거될 때 실행된다. 메모리 누수가 발생하지 않도록 할당한 메모리를 해제해주는 작업을 이 함수에서 수행하는 것이 좋다. useEffect 훅을 사용하면 다음과 같이 등록한 함수의 결과 값으로 콜백 함수를 반환하도록 구현할 수 있다.
 
 ```jsx
   useEffect(() => {
@@ -143,7 +138,7 @@ function App() {
 export default App;
 ```
 
-애플리케이션이 실행 후 버튼을 여러 번 클릭해보면서 콘솔 로그를 살펴보자.
+애플리케이션을 실행 후 버튼을 여러 번 클릭해보면서 콘솔 로그를 살펴보자.
 
 - 커스텀 버튼이 클릭될 때마다 새로운 이벤트가 등록된다. 
 - 이전에 등록된 이벤트는 해제되지 않고 함께 호출된다.
@@ -206,7 +201,7 @@ export default App;
 
 ## CLOSING
 
-예전 글들을 볼 때마다 느끼지만, 전달하고 싶은 메시지에 집중하지 못 하거나 불필요한 내용이 포함된 경우가 많다. 내가 쓴 글들이지만, 엉망진창에 부끄러운 글들 있다. 써놓은 글들을 모두 고치고 싶지만, 시간이 부족하다. 오늘도 어디 내놓기 부끄러운 글을 하나 다시 정리했다. 
+예전 글들을 볼 때마다 느끼지만, 전달하고 싶은 메시지에 집중하지 못 하거나 불필요한 내용이 포함된 경우가 많다. 내가 쓴 글들이지만, 엉망진창에 부끄러운 글들이 있다. 써놓은 글들을 모두 고치고 싶지만, 시간이 부족하다. 오늘도 어디 내놓기 부끄러운 글을 하나 다시 정리했다. 
 
 #### TEST CODE REPOSITORY
 

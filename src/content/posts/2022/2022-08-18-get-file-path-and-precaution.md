@@ -1,28 +1,26 @@
 ---
 title: "Java 파일 경로 획득과 주의사항"
 publishedAt: "2022-08-18"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:37+09:00"
 canonicalPath: "/java/get-file-path-and-precaution/"
 categories:
   - "java"
+summary: "공백이 포함된 경로에서 라이브러리가 설정 파일을 찾지 못한 원인이 %20으로 인코딩된 URL 경로임을 확인하고, 자바에서 파일 경로를 얻을 때의 주의사항을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-다른 업체에서 제공하는 암호화 라이브러리를 사용할 때 서버에서 정상적으로 필요한 설정 파일을 찾지 못하는 현상이 있었다. 원인은 사소한 것으로 밝혀졌는데, 이와 관련하여 몇 가지 추가적인 내용들을 함께 정리하였다.
+다른 업체에서 제공하는 암호화 라이브러리를 사용할 때 서버에서 필요한 설정 파일을 찾지 못하는 현상이 있었다. 원인은 사소한 것으로 밝혀졌는데, 이와 관련된 몇 가지 내용을 함께 정리했다.
 
 ## 1. 문제 상황
 
 > "로컬에서는 정상적으로 동작하는데, 서버에서 잘 동작하지 않아요."
 
-도움을 요청한 친구에게 그럴리가 없다면서 함께 확인했는데, 라이브러리의 설정 파일을 읽어오는 클래스 인스턴스가 정상적으로 생성되지 않는 것을 로그로 확인하였다. 현상은 다음과 같았다.
+도움을 요청한 친구에게 그럴 리가 없다면서 함께 확인했는데, 라이브러리의 설정 파일을 읽어 오는 클래스 인스턴스가 정상적으로 생성되지 않는 것을 로그로 확인했다. 현상은 다음과 같았다.
 
 ### 1.1. 문제 발생 코드
 
-문제가 된 코드를 일부 각색하였다.
-
-- 클래스로부터 파일 경로를 탐색한다.
-- `getLocation` 메서드로부터 클래스의 경로를 추출한다.
+문제가 된 코드를 일부 각색했다. 클래스에서 파일 경로를 탐색하는데, `getLocation` 메서드로 클래스의 경로를 추출한다.
 
 ```java
 package action.in.blog.config;
@@ -59,11 +57,7 @@ public class FileConfig {
 
 ### 1.2. 실행 jar 만들기
 
-실행 `jar`를 만들어서 코드를 실행해보겠다.
-
-#### 1.2.1. ActionInBlogApplication 클래스
-
-- 프로그램 시작점인 main 메서드에서 `FileConfig` 클래스가 설정 파일 경로를 잘 획득하는지 출력한다.
+실행 `jar`를 만들어서 코드를 실행해 보자. 프로그램 시작점인 `ActionInBlogApplication` 클래스의 `main` 메서드에서 `FileConfig` 클래스가 설정 파일 경로를 잘 획득하는지 출력한다.
 
 ```java
 package action.in.blog;
@@ -83,9 +77,7 @@ public class ActionInBlogApplication {
 }
 ```
 
-#### 1.2.2. 실행 jar 빌드
-
-- mvn package 명령어를 실행한다.
+`mvn package` 명령어를 실행해 실행 jar를 빌드한다.
 
 ```
 $ mvn package
@@ -138,12 +130,7 @@ $ mvn package
 
 ### 1.3. 출력 로그 확인
 
-- 빌드에 성공한 실행 jar 파일을 프로젝트 `/src/main/webapp/WEB-INF/libs`로 이동시킨다.
-- 해당 경로로 이동한다.
-- `action-in-blog-0.0.1-SNAPSHOT.jar` 파일을 실행하면 다음과 같은 로그를 확인할 수 있다.
-  - `FileConfig` 클래스 내부에서 파일 경로를 정확히 찾은 것을 확인할 수 있다.
-  - `ActionInBlogApplication` 클래스에 반환한 경로는 `null` 이다.
-- `/src/main/webapp/WEB-INF/config` 경로를 확인해보면 `security.properties` 파일이 존재한다.
+빌드에 성공한 실행 jar 파일을 프로젝트의 `/src/main/webapp/WEB-INF/libs` 경로로 옮기고, 해당 경로로 이동해 `action-in-blog-0.0.1-SNAPSHOT.jar` 파일을 실행하면 다음과 같은 로그를 확인할 수 있다. `FileConfig` 클래스 내부에서는 파일 경로를 정확히 찾았지만, `ActionInBlogApplication` 클래스에 반환한 경로는 `null`이다. `/src/main/webapp/WEB-INF/config` 경로를 확인해 보면 `security.properties` 파일이 존재한다.
 
 ```
 $ mv target/action-in-blog-0.0.1-SNAPSHOT.jar src/main/webapp/WEB-INF/libs
@@ -162,23 +149,16 @@ security.properties
 
 ## 2. 문제 원인
 
-현상을 살펴보았으니 문제 원인을 알아보겠다. `FileConfig` 클래스에서 출력하는 로그에 파일 경로를 살펴보면 이상한 부분이 있다.
+현상을 살펴봤으니 문제 원인을 알아보자. `FileConfig` 클래스에서 출력하는 로그의 파일 경로를 살펴보면 이상한 부분이 있다.
 
 - 파일 경로에 공백이 `%20` 값으로 인코딩되어 출력된다.
-- 인코딩된 공백으로 인해 `File` 클래스의 `isFile` 메서드가 정상적인 파일 탐색에 실패한다.
+- 인코딩된 공백 때문에 `File` 클래스의 `isFile` 메서드가 파일을 찾지 못한다.
 
 ```
 20:24:42.173 [main] INFO action.in.blog.config.FileConfig - file:/Users/junhyunk/Desktop/workspace/blog/blog-in-action/2022-08-18-precaution-to-get-file-path/action-in-blog%20bad/src/main/webapp/WEB-INF/config/security.properties
 ```
 
-### 2.1. URL 클래스
-
-공백이 `%20` 값으로 출력된 이유는 URL 클래스로부터 경로를 획득했기 때문이다.
-
-##### CodeSource 클래스 getLocation 메서드
-
-- `getLocation` 메서드를 살펴보면 URL 객체를 반환한다.
-- URL 객체로부터 경로를 획득할 시 인코딩된 경로가 반환된다.
+공백이 `%20` 값으로 출력된 이유는 URL 클래스에서 경로를 얻었기 때문이다. 다음 `CodeSource` 클래스의 `getLocation` 메서드를 살펴보면 URL 객체를 반환한다. URL 객체에서 경로를 얻으면 인코딩된 경로가 반환된다.
 
 ```java
     public final URL getLocation() {
@@ -190,22 +170,22 @@ security.properties
 
 ## 3. 문제 해결 방법
 
-해당 클래스는 라이브러리 형태로 제공되었고, 코드를 확장할 수 없도록 `private` 키워드가 붙어 있었기 때문에 결국 톰캣 컨테이너 위치를 `C:/Program Files`에서 `C:/`로 옮겼다. 만약 코드를 고칠 수 있었다면 어떤 방법들이 있었을지 찾아서 정리하였다.
+해당 클래스는 라이브러리 형태로 제공되었고, 코드를 확장할 수 없도록 `private` 키워드가 붙어 있었기 때문에 결국 톰캣 컨테이너 위치를 `C:/Program Files`에서 `C:/`로 옮겼다.
 
-### 3.1. FindFilePathTests 클래스
+만약 코드를 고칠 수 있었다면 어떤 방법이 있었을지 찾아서 정리했다. `FindFilePathTests` 클래스에서는 다음과 같은 방법으로 현재 경로를 얻는다.
 
-- `Paths` 클래스를 사용한다.
-  - `get` 메서드에 빈 문자열("")을 전달하면 현재 경로를 획득한다.
-  - `toAbsolutePath` 메서드를 통해 절대 경로를 획득한다.
+- `Paths` 클래스
+  - `get` 메서드에 빈 문자열("")을 전달하면 현재 경로를 얻는다.
+  - `toAbsolutePath` 메서드로 절대 경로를 얻는다.
 - `System` 클래스
   - 시스템 속성을 얻을 수 있는 `getProperty` 메서드를 사용한다.
   - `user.dir` 키 값으로 현재 작업 중인 경로를 얻을 수 있다.
 - `FileSystems` 클래스 `getDefault` 메서드
-  - `getPath` 메서드에 빈 문자열을 전달하면 현재 경로를 획득한다.
-  - `toAbsolutePath` 메서드를 통해 절대 경로를 획득한다.
+  - `getPath` 메서드에 빈 문자열을 전달하면 현재 경로를 얻는다.
+  - `toAbsolutePath` 메서드로 절대 경로를 얻는다.
 - `File` 클래스
-  - 빈 문자열을 전달하여 `File` 객체를 생성한다.
-  - `getAbsolutePath` 메서드를 통해 절대 경로를 획득한다.
+  - 빈 문자열을 전달해 `File` 객체를 생성한다.
+  - `getAbsolutePath` 메서드로 절대 경로를 얻는다.
 
 ```java
 package action.in.blog.domain;

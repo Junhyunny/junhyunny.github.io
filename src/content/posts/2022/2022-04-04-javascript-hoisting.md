@@ -1,39 +1,39 @@
 ---
 title: "JavaScript 호이스팅(Hoisting)"
 publishedAt: "2022-04-04"
-updatedAt: "2026-03-28T11:14:57+09:00"
+updatedAt: "2026-11-12T16:19:45+09:00"
 canonicalPath: "/javascript/javascript-hoisting/"
 categories:
   - "javascript"
-summary: "실행 컨텍스트를 바탕으로 자바스크립트 호이스팅의 동작을 예제와 함께 살펴봅니다."
+summary: "실행 컨텍스트를 바탕으로 자바스크립트 호이스팅의 동작을 예제와 함께 정리했다."
 ---
 
 ## 0. 들어가면서
 
-`JavaScript`의 실행 컨텍스트(exectuion context)를 공부하는데 생각보다 어려웠다. 기본적으로 친숙하지 않은 용어들이 많아서 이해도가 떨어진다는 생각이 들었다. 실행 컨텍스트를 탐구하기 위한 기본적인 지식들을 차근 차근 정리해보겠다. 이번 포스트의 주제는 호이스팅(hoisting)이다.
+`JavaScript`의 실행 컨텍스트(execution context)를 공부해 보니 생각보다 어려웠다. 친숙하지 않은 용어가 많아서 잘 이해되지 않았다. 실행 컨텍스트를 탐구하는 데 필요한 기본 지식을 차근차근 정리하려고 한다. 이번 글의 주제는 호이스팅(hoisting)이다.
 
 ## 1. 호이스팅(Hoisting)
 
 > MDN - 호이스팅<br/>
 > 인터프리터가 변수와 함수의 메모리 공간을 선언 전에 미리 할당하는 것을 의미합니다. 
 
-다소 말이 어려웠는데, 조금 더 풀어서 정리를 하면 다음과 같다.
-- 호이스팅(hoisting)은 `JavaScript` 엔진이 코드를 실행하기 전 선언한 변수나 함수를 실행 컨텍스트에 저장하는 것을 의미한다.
+다소 어려운 말인데, 조금 더 풀어서 정리하면 다음과 같다.
+
+- 호이스팅(hoisting)은 `JavaScript` 엔진이 코드를 실행하기 전에 선언한 변수나 함수를 실행 컨텍스트에 저장하는 것을 의미한다.
   - `var`, `let`, `const`, `class`, `function` 등
-- 호이스팅을 변수나 함수 선언을 스코프 최상단으로 끌어올리는 일이라고 알려져 있지만, 실제로 변수 선언이나 함수 선언이 스코프 최상단으로 끌어올려지는 것은 아니다. 
-- 실행 컨텍스트는 코드가 실행되기 위해 필요한 환경이며, `JavaScript` 엔진이 코드를 실행하기 위해 필요한 여러 가지 정보를 가지고 있다. 
+- 호이스팅은 변수나 함수 선언을 스코프 최상단으로 끌어올리는 일로 알려져 있지만, 실제로 변수 선언이나 함수 선언이 스코프 최상단으로 끌어올려지는 것은 아니다.
+- 실행 컨텍스트는 코드를 실행하는 데 필요한 환경이며, `JavaScript` 엔진이 코드를 실행하는 데 필요한 여러 가지 정보를 가지고 있다.
 - 실행 컨텍스트를 만드는 과정에서 선언한 변수나 함수가 모두 등록되기 때문에 선언부보다 먼저 참조나 호출이 가능하다.
 - `let`이나 `const` 키워드로 선언한 변수가 호이스팅이 일어나지 않는 것처럼 보이는 이유는 `TDZ(Temporal Dead Zone)` 때문이다.
 
 ### 1.1. var 키워드 변수
 
-간단한 예제 코드를 이용해 이해를 도와보겠다.
+간단한 예제 코드로 알아보자.
 
 #### 1.1.1. 예시 1
 
-`var` 키워드로 선언한 변수는 선언 위치에 관계 없이 참조나 호출은 가능하다.
+`var` 키워드로 선언한 변수는 선언 위치와 관계없이 참조할 수 있다. 작성한 코드를 실행하면 다음과 같이 동작한다.
 
-##### 작성한 코드
 - `undefined` 값이 출력된다.
 - 변수 `foo`를 선언하기 전에 `print` 함수에서 사용한다.
 - `foo`라는 이름의 변수가 선언되었음을 인지한 `JavaScript` 엔진은 `undefined` 값을 출력한다.
@@ -41,54 +41,50 @@ summary: "실행 컨텍스트를 바탕으로 자바스크립트 호이스팅의
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/LYeeLQj?default-tab=js,result" title="var keyword before hoisting" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/LYeeLQj/">CodePen에서 예제 열기</a></p>
 
-##### 동작한 코드 모습
-- 호이스팅이 일어나면 아래 작성한 코드처럼 동작된다.
-  - 변수 `foo`가 코드 상단에 선언한 것처럼 동작한다. 
-  - 선언 시 별도 값을 지정하지 않았으므로 `undefined` 값으로 초기화한다.
+실제로 동작하는 코드의 모습을 살펴보자. 호이스팅이 일어나면 아래 코드처럼 동작한다. 변수 `foo`를 코드 상단에 선언한 것처럼 동작하고, 선언할 때 별도 값을 지정하지 않았으므로 `undefined` 값으로 초기화한다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/YzYYQva?default-tab=js,result" title="var keyword after hoisting" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/YzYYQva/">CodePen에서 예제 열기</a></p>
 
 #### 1.1.2. 예시 2
 
-함수를 선언한 경우 함수를 호출하는 코드가 선언한 위치보다 먼저 실행되어도 에러 없이 동작한다. `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 내부이다.
+함수를 선언한 경우 함수를 호출하는 코드가 선언한 위치보다 먼저 실행되어도 에러 없이 동작한다. `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 내부다. 작성한 코드를 실행하면 다음과 같이 동작한다.
 
-##### 작성한 코드
 - `"hello"` 문자열이 출력된다.
 - `ReferenceError: bar is not defined` 에러 메시지가 출력된다.
 - 전역 코드 동작
   - 함수 `foo`를 선언하기 전에 `foo()`로 함수를 호출한다.
-  - 함수 선언이 나중에 되었음에도 함수 호출에 에러가 발생하지 않는다.
+  - 함수를 나중에 선언했는데도 함수 호출에 에러가 발생하지 않는다.
   - `JavaScript` 엔진은 `foo`라는 이름의 함수를 인지하고 있다.
 - `foo` 함수 내부 동작
   - 변수 `bar`를 `if` 블록 내부에서 선언하고, `print` 함수에서 사용한다.
-  - 변수 `bar`는 함수 내부에선 사용이 가능하지만, 변수를 선언한 함수 외부에선 사용이 불가능하다.
+  - 변수 `bar`는 함수 내부에선 사용할 수 있지만, 변수를 선언한 함수 외부에선 사용할 수 없다.
   - `print` 함수를 호출하는 시점에 `JavaScript` 엔진은 `if` 블록 내부에 선언한 `bar` 변수를 인지하고 있다.
 - 전역에 위치한 `print(bar)` 코드가 실행되면 `ReferenceError: bar is not defined` 에러 메시지를 출력한다.
-- 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있다.
+  - 이 시점에 `JavaScript` 엔진은 `bar`라는 이름의 변수를 인지하지 못하고 있다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/NWXXgQK?default-tab=js,result" title="var keyword before hoisting - 2" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/NWXXgQK/">CodePen에서 예제 열기</a></p>
 
-##### 동작한 코드 모습
+호이스팅이 일어난 뒤 실제로 동작하는 코드의 모습은 다음과 같다.
+
 - 함수 `foo`의 선언부는 코드 최상단에 위치한다.
 - 변수 `bar`의 호이스팅은 함수 `foo` 내부에서만 동작한다.
-  - `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 블록 내부이다.
+  - `var` 키워드로 선언한 변수의 호이스팅이 발생하는 유효 범위는 함수 블록 내부다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/OJzzjbL?default-tab=js,result" title="var keyword after hoisting - 2" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/OJzzjbL/">CodePen에서 예제 열기</a></p>
 
 #### 1.1.3. 예시 3
 
-변수와 함수의 호이스팅 적용 우선 순위는 누가 높은지 확인해보겠다.
+변수와 함수 중 호이스팅 우선순위가 누가 높은지 확인해 보자.
 
 > StackOverflow<br/>
 > Functions are hoisted first, then variable declarations<br/>
 > ECMAScript 5, section 10.5 - <https://262.ecma-international.org/5.1/#sec-10.5>
 
-스택 오버플로우를 살펴보면 함수가 먼저 호이스팅 되고, 그 다음 변수가 호이스팅이 발생한다고 한다. 다음과 같은 테스트 코드를 통해 확인할 수 있다.
+스택 오버플로우를 살펴보면 함수가 먼저 호이스팅되고, 그다음 변수가 호이스팅된다고 한다. 다음 테스트 코드로 확인할 수 있다. 작성한 코드를 실행하면 다음과 같이 동작한다.
 
-##### 작성한 코드
 - `function foo() {}`, `function bar() {}`가 출력된다.
 - `foo` 케이스
   - `var` 키워드로 변수 `foo`를 선언한다.
@@ -100,12 +96,13 @@ summary: "실행 컨텍스트를 바탕으로 자바스크립트 호이스팅의
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/BaJJdZy?default-tab=js,result" title="var keyword before hoisting - 3" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/BaJJdZy/">CodePen에서 예제 열기</a></p>
 
-##### 동작한 코드 모습
-- 우선 함수 선언부가 먼저 호이스팅 된다. 
-  - `foo`, `bar` 이름의 함수가 먼저 코드 위 부분에 선언된다.
-- `var` 키워드로 선언한 변수가 호이스팅 된다.
+호이스팅이 일어난 뒤 실제로 동작하는 코드의 모습은 다음과 같다.
+
+- 함수 선언부가 먼저 호이스팅된다.
+  - `foo`, `bar` 이름의 함수가 먼저 코드 윗부분에 선언된다.
+- `var` 키워드로 선언한 변수가 호이스팅된다.
   - `foo`, `bar` 변수가 코드 최상단에 선언된다.
-  - 먼저 호이스팅 된 함수보다 위로 올라간다.
+  - 먼저 호이스팅된 함수보다 위로 올라간다.
 - 코드의 흐름에 따라 `function foo() {}`, `function bar() {}`가 출력된다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/eYyyELV?default-tab=js,result" title="var keyword after hoisting - 3" loading="lazy" allowfullscreen></iframe>
@@ -113,10 +110,7 @@ summary: "실행 컨텍스트를 바탕으로 자바스크립트 호이스팅의
 
 #### 1.1.4. 예시 4
 
-함수를 선언하는 방식에 따라 호이스팅 결과가 다르게 나타날 수 있다. `JavaScript`에서 함수를 선언하는 방법은 두 가지 있으며, 이를 먼저 정리하고 예시를 살펴보겠다.
-
-##### 함수 선언문
-- 일반적인 함수 선언 방식이다.
+함수를 선언하는 방식에 따라 호이스팅 결과가 다르게 나타날 수 있다. `JavaScript`에서 함수를 선언하는 방법은 두 가지가 있으며, 이를 먼저 정리하고 예시를 살펴보자. 첫 번째는 일반적인 함수 선언 방식인 함수 선언문이다.
 
 ```js
 function foo() {
@@ -124,10 +118,7 @@ function foo() {
 }
 ```
 
-##### 함수 표현식
-- `JavaScript`에선 함수도 객체이므로 변수에 할당하여 사용할 수 있다.
-- 익명 함수 표현식 - 함수에 식별자가 주어지지 않는다.
-- 기명 함수 표현식 - 함수의 식별자가 존재한다.
+두 번째는 함수 표현식이다. `JavaScript`에선 함수도 객체이므로 변수에 할당해 사용할 수 있다. 함수에 식별자가 주어지지 않으면 익명 함수 표현식, 함수의 식별자가 있으면 기명 함수 표현식이다.
 
 ```js
 // (익명) 함수 표현식
@@ -141,24 +132,23 @@ var bar = function bar () {
 }
 ```
 
-##### 작성한 모습
+예시 코드를 실행하면 다음과 같이 동작한다.
+
 - `function foo() {}`, `undefined`가 출력된다.
-- 기명 함수 표현식의 경우 변수를 사용하는 것과 동일한 호이스팅 결과를 가진다.
+- 기명 함수 표현식은 변수를 사용하는 것과 같은 호이스팅 결과를 가진다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/poppONE?default-tab=js,result" title="var keyword before hoisting - 4" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/poppONE/">CodePen에서 예제 열기</a></p>
 
-##### 동작한 코드 모습
-- `var` 키워드로 선언한 변수 `bar`는 상단으로 배치되지만 함수 할당은 아래에서 이루어지므로 `undefined`가 출력된다.
+`var` 키워드로 선언한 변수 `bar`는 상단에 배치되지만 함수 할당은 아래에서 이뤄지므로 `undefined`가 출력된다. 실제로 동작하는 코드의 모습은 다음과 같다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/LYeeJxr?default-tab=js,result" title="var keyword after hoisting - 4" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/LYeeJxr/">CodePen에서 예제 열기</a></p>
 
 ## 2. TDZ(Temporal Dead Zone)
 
-`TDZ`을 알기 전에 우선 변수의 라이프 사이클을 살펴보겠다.
+`TDZ`를 알기 전에 우선 변수의 라이프 사이클을 살펴보자. 변수의 라이프 사이클은 다음 세 단계로 이뤄진다.
 
-##### 변수 라이프 사이클
 - 선언 단계(declaration phase)
   - 변수를 실행 컨텍스트의 변수 객체에 등록한다.
   - 코드가 실행되기 전 컴파일되는 시점에 실행 컨텍스트에 저장된다.
@@ -168,14 +158,14 @@ var bar = function bar () {
 - 할당 단계(assignment phase)
   - 사용자가 `undefined`로 초기화된 메모리에 다른 값을 할당한다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/javascript-hoisting-01.png" width="45%" class="image__border">
+<div class="block-break">
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/javascript-hoisting-01.png" width="45%" class="image__border">
+  </div>
+  <center>https://noogoonaa.tistory.com/78</center>
 </div>
-<center>https://noogoonaa.tistory.com/78</center>
 
-##### TDZ, Temporal Dead Zone
-- 선언 단계와 초기화 단계 사이의 단계를 `TDZ`라고 부릅니다.
-- 이 사이에 위치한 변수는 메모리 초기화가 이뤄지지 않았기 때문에 사용 시 에러가 발생한다.
+선언 단계와 초기화 단계 사이의 구간을 `TDZ(Temporal Dead Zone)`라고 부른다. 이 구간에 있는 변수는 메모리가 초기화되지 않았기 때문에 사용하면 에러가 발생한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/javascript-hoisting-02.png" width="45%" class="image__border">
@@ -184,9 +174,7 @@ var bar = function bar () {
 
 ### 2.1. var 키워드 변수의 선언, 초기화 그리고 할당
 
-다음과 같이 `var` 키워드로 선언된 변수 `foo`를 살펴보겠다.
-
-##### 테스트 코드
+다음과 같이 `var` 키워드로 선언된 변수 `foo`를 살펴보자.
 
 ```js
 console.log(foo);
@@ -200,7 +188,7 @@ foo = "value";
 console.log(foo === "value");
 ```
 
-##### 테스트 코드 로그
+실행 결과는 다음과 같다.
 
 ```
 undefined pen.js:44:9
@@ -208,12 +196,7 @@ true pen.js:48:9
 true pen.js:52:9
 ```
 
-##### var 변수의 라이프 사이클
-- 코드가 실행되기 전 컴파일 과정에서 실행 컨텍스트에 변수 `foo`를 등록한다.
-- 이 때, `var` 키워드로 선언된 변수는 초기화 작업이 함께 이뤄진다.
-  - `foo` 변수에 `undefined` 값이 할당된다.
-- 실행 컨텍스트에 변수를 저장할 때 선언 단계와 초기화 단계가 한번에 이뤄진다.
-- `var` 키워드로 선언된 변수는 `TDZ`가 존재하지 않는다.
+`var` 변수의 라이프 사이클을 살펴보면 코드가 실행되기 전 컴파일 과정에서 실행 컨텍스트에 변수 `foo`를 등록한다. 이때 `var` 키워드로 선언된 변수는 초기화 작업이 함께 이뤄져 `foo` 변수에 `undefined` 값이 할당된다. 즉, 실행 컨텍스트에 변수를 저장할 때 선언 단계와 초기화 단계가 한 번에 이뤄지므로 `var` 키워드로 선언된 변수에는 `TDZ`가 없다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/javascript-hoisting-03.png" width="70%" class="image__border">
@@ -222,9 +205,7 @@ true pen.js:52:9
 
 ### 2.2. let 키워드 변수의 선언, 초기화 그리고 할당
 
-다음과 같이 `let` 키워드로 선언된 변수 `bar`를 살펴보겠다.
-
-##### 테스트 코드
+다음과 같이 `let` 키워드로 선언된 변수 `bar`를 살펴보자.
 
 ```js
 console.log(bar);
@@ -238,9 +219,7 @@ bar = "value";
 console.log(bar === "value");
 ```
 
-##### 테스트 코드 로그
-- `bar` 변수를 초기화하기 전에 접근할 수 없다는 에러가 발생한다.
-- `JavaScript` 엔진은 변수 `bar`에 존재를 알고는 있지만, 초기화시키지 않고 사용하여 에러를 발생시킨다.
+실행하면 다음과 같이 `bar` 변수를 초기화하기 전에 접근할 수 없다는 에러가 발생한다. `JavaScript` 엔진은 변수 `bar`의 존재를 알고 있지만, 초기화하지 않은 변수를 사용했기 때문에 에러가 발생한다.
 
 ```
 Uncaught ReferenceError: can't access lexical declaration 'bar' before initialization
@@ -248,11 +227,7 @@ Uncaught ReferenceError: can't access lexical declaration 'bar' before initializ
 poppxwV:44:1
 ```
 
-##### let 변수의 라이프 사이클 
-- 코드가 실행되기 전 컴파일 과정에서 실행 컨텍스트에 변수 `bar`를 등록한다.
-- 이 때, `let` 키워드로 선언된 변수는 초기화 작업이 함께 이뤄지지 않는다.
-- 코드 실행 중 `let bar;` 코드를 만나면 초기화가 이뤄진다.
-- 실행 컨텍스트에 변수를 저장할 때 변수의 선언 단계만 진행된다.
+`let` 변수의 라이프 사이클을 살펴보면 코드가 실행되기 전 컴파일 과정에서 실행 컨텍스트에 변수 `bar`를 등록한다. 이때 `let` 키워드로 선언된 변수는 초기화 작업이 함께 이뤄지지 않는다. 실행 컨텍스트에 변수를 저장할 때는 선언 단계만 진행되고, 코드 실행 중 `let bar;` 코드를 만나면 초기화가 이뤄진다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/javascript-hoisting-04.png" width="70%" class="image__border">
@@ -363,10 +338,7 @@ import { myFunction } from './myModule';
 
 ## CLOSING
 
-마지막으로 함수의 라이프사이클을 확인하고 포스트를 마치도록 하겠다.
-
-##### 함수의 라이프 사이클
-- 3 단계의 변수 라이프 사이클을 모두 동시에 수행한다.
+마지막으로 함수의 라이프 사이클을 확인하고 글을 마친다. 함수는 변수 라이프 사이클의 세 단계를 모두 동시에 수행한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/javascript-hoisting-05.png" width="70%" class="image__border">
@@ -374,6 +346,7 @@ import { myFunction } from './myModule';
 <center>https://noogoonaa.tistory.com/78</center>
 
 #### REFERENCE
+
 - <https://developer.mozilla.org/ko/docs/Glossary/Hoisting>
 - <https://262.ecma-international.org/5.1/#sec-10.5>
 - <https://stackoverflow.com/questions/28246589/order-of-hoisting-in-javascript>

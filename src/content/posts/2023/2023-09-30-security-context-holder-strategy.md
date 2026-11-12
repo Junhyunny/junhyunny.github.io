@@ -1,13 +1,14 @@
 ---
 title: "스프링 시큐리티 SecurityContextHolderStrategy"
 publishedAt: "2023-09-30"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T00:18:21+09:00"
 canonicalPath: "/java/spring/spring-boot/spring-security/security-context-holder-strategy/"
 categories:
   - "java"
   - "spring"
   - "spring-boot"
   - "spring-security"
+summary: "스프링 시큐리티가 인증 정보를 담은 시큐리티 컨텍스트를 운반하는 SecurityContextHolder의 ThreadLocal, InheritableThreadLocal, Global 전략별 동작 방식을 정리했다."
 recommendedPosts:
   - title: "전략 패턴(Strategy Pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/strategy-pattern/"
@@ -15,20 +16,20 @@ recommendedPosts:
     href: "https://junhyunny.github.io/java/thread-local-class-in-java/"
 ---
 
-## 1. SecurityContextHolder Class
+## 1. SecurityContextHolder 클래스
 
 스프링 시큐리티(spring security)는 인증 프로세스에서 인증이 완료된 사용자 정보를 시큐리티 컨텍스트(security context)에 저장한다. 인증 정보가 담긴 시큐리티 컨텍스트는 해당 요청이 처리되는 동안 다른 로직들에서 사용되는데, 이를 운반하는 것이 SecurityContextHolder 클래스이다. 컨텍스트 운반 전략은 시스템 설정에 따라 변경되며 스프링 시큐리티는 기본적으로 세 가지 전략을 지원한다.
 
 - 시스템 설정에서 `spring.security.strategy` 키로 저장된 값을 사용한다.
-- 별도로 지정된 값이 없다면 `MODE_THREADLOCAL`를 사용하며 필요한 경우 직접 구현한 전략을 사용할 수 있다.
+- 별도로 지정된 값이 없다면 `MODE_THREADLOCAL`을 사용하며, 직접 구현한 전략을 사용할 수도 있다.
 - 필요한 경우 setStrategyName 메서드를 통해 런타임 중 시큐리티 컨텍스트 보관 전략을 변경할 수 있다.
 - 각 모드에 따라 다음과 같은 기능을 수행한다.
   - MODE_THREADLOCAL 모드
     - ThreadLocalSecurityContextHolderStrategy 클래스를 사용한다.
-    - 내부적으로 ThreadLocal 클래스를 사용하여 각 스레드 별로 고유한 시큐리티 컨텍스트 정보를 사용한다.
+    - 내부적으로 ThreadLocal 클래스를 사용하여 스레드별로 고유한 시큐리티 컨텍스트 정보를 사용한다.
   - MODE_INHERITABLETHREADLOCAL 모드
     - InheritableThreadLocalSecurityContextHolderStrategy 클래스를 사용한다.
-    - 내부적으로 InheritableThreadLocal 클래스를 사용하여 각 스레드 별로 고유한 시큐리티 컨텍스트 정보를 사용한다.
+    - 내부적으로 InheritableThreadLocal 클래스를 사용하여 스레드별로 고유한 시큐리티 컨텍스트 정보를 사용한다.
     - 특정 스레드가 자식 스레드를 만드는 경우 자식 스레드는 부모 스레드와 동일한 시큐리티 컨텍스트 정보를 사용한다.
   - MODE_GLOBAL 모드
     - GlobalSecurityContextHolderStrategy 클래스를 사용한다.
@@ -102,17 +103,17 @@ public class SecurityContextHolder {
 }
 ```
 
-## 2. SecurityContextHolderStrategy Classes
+## 2. SecurityContextHolderStrategy 클래스들
 
-지금부터 각 전략 클래스들에 대해 살펴보겠다.
+지금부터 각 전략 클래스를 살펴보자.
 
-### 2.1. ThreadLocalSecurityContextHolderStrategy Class
+### 2.1. ThreadLocalSecurityContextHolderStrategy 클래스
 
-ThreadLocalSecurityContextHolderStrategy 클래스를 이해하려면 ThreadLocal 클래스에 대한 이해가 필요하다. 이번 포스트 주제에서 벗어나는 이야기이므로 간략한 개념만 살펴보겠다. 자세한 내용은 [자바(Java) ThreadLocal 클래스][thread-local-class-in-java-link] 포스트를 참고하길 바란다.
+ThreadLocalSecurityContextHolderStrategy 클래스를 이해하려면 ThreadLocal 클래스에 대한 이해가 필요하다. 이 글의 주제에서 벗어나는 이야기이므로 간략한 개념만 살펴보자. 자세한 내용은 [자바(Java) ThreadLocal 클래스][thread-local-class-in-java-link] 글을 참고하길 바란다.
 
 > ThreadLocal 클래스는 JDK 1.2부터 지원된 기능이다. ThreadLocal 클래스를 사용하면 각 스레드(thread)마다 특정 메모리 공간에 필요한 데이터를 저장하고 꺼내 사용할 수 있다. 스레드 별로 고유한 영역에 데이터를 보관하기 때문에 스레드 사이에 정보가 공유되는 일이 없다.
 
-ThreadLocalSecurityContextHolderStrategy 클래스는 ThreadLocal 클래스를 사용해 시큐리티 컨텍스트 정보를 보관한다. 스프링 시큐리티는 주로 서버 환경에서 사용되므로 요청을 처리하는 각 스레드 별로 고유한 컨텍스트 정보를 사용할 수 있도록 돕는다.
+ThreadLocalSecurityContextHolderStrategy 클래스는 ThreadLocal 클래스를 사용해 시큐리티 컨텍스트 정보를 보관한다. 스프링 시큐리티는 주로 서버 환경에서 사용되므로 요청을 처리하는 스레드별로 고유한 컨텍스트 정보를 사용할 수 있도록 돕는다.
 
 ```java
 final class ThreadLocalSecurityContextHolderStrategy implements SecurityContextHolderStrategy {
@@ -171,13 +172,11 @@ final class ThreadLocalSecurityContextHolderStrategy implements SecurityContextH
 - A 스레드가 요청 처리 중간에 별도 스레드를 만든다.
 - A 스레드의 자식 A' 스레드는 A 스레드의 시큐리티 컨텍스트 정보를 알 수 없다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/security-context-holder-strategy-01.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/security-context-holder-strategy-01.png" width="100%" class="image__border">
 </div>
 
-#### 2.1.1. Test
-
-테스트 코드를 통해 동작 모습을 살펴본다.
+테스트 코드를 통해 동작 모습을 살펴보자.
 
 - 테스트를 위한 인증 토큰 정보를 생성한다.
 - 토큰을 시큐리티 컨텍스트에 저장한다.
@@ -235,17 +234,17 @@ class ThreadLocalModeTest {
 }
 ```
 
-##### Result
+실행 결과는 다음과 같다.
 
 - 테스트 메인 스레드에서 획득한 시큐리티 컨텍스트에는 정상적으로 테스트 토큰이 담겨 있다.
-- 자식 스레드에서 획득한 시큐리티 컨텍스트에는 토큰 정보가 담겨있지 않다.
-- 스레드 풀의 스레드에서 획득한 시큐리티 컨텍스트에는 토큰 정보가 담겨있지 않다.
+- 자식 스레드에서 획득한 시큐리티 컨텍스트에는 토큰 정보가 담겨 있지 않다.
+- 스레드 풀의 스레드에서 획득한 시큐리티 컨텍스트에는 토큰 정보가 담겨 있지 않다.
 
 ```
 Fin
 ```
 
-### 2.2. InheritableThreadLocalSecurityContextHolderStrategy Class
+### 2.2. InheritableThreadLocalSecurityContextHolderStrategy 클래스
 
 InheritableThreadLocalSecurityContextHolderStrategy 클래스는 InheritableThreadLocal 클래스를 사용해 시큐리티 컨텍스트 정보를 보관한다. InheritableThreadLocal 클래스는 ThreadLocal 클래스와 다르게 자식 스레드까지 저장된 정보를 이어준다.
 
@@ -305,13 +304,11 @@ final class InheritableThreadLocalSecurityContextHolderStrategy implements Secur
 - A 스레드가 요청 처리 중간에 별도 스레드를 만든다.
 - A 스레드의 자식 A' 스레드도 A 스레드의 시큐리티 컨텍스트 정보를 함께 사용한다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/security-context-holder-strategy-02.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/security-context-holder-strategy-02.png" width="100%" class="image__border">
 </div>
 
-#### 2.2.1. Test
-
-테스트 코드를 통해 동작 모습을 살펴본다.
+테스트 코드를 통해 동작 모습을 살펴보자.
 
 - SecurityContextHolder 클래스의 시큐리티 컨텍스트 보관 전략을 `MODE_INHERITABLETHREADLOCAL`로 변경한다.
 - 테스트를 위한 인증 토큰 정보를 생성한다.
@@ -372,21 +369,21 @@ public class InheritableThreadLocalModeTest {
 }
 ```
 
-##### Result
+실행 결과는 다음과 같다.
 
 - 테스트 메인 스레드에서 획득한 시큐리티 컨텍스트에는 정상적으로 테스트 토큰이 담겨 있다.
 - 자식 스레드에서 획득한 시큐리티 컨텍스트에는 정상적으로 테스트 토큰이 담겨 있다.
   - 자식 스레드에서 획득한 인증 토큰은 메인 스레드에서 생성한 토큰과 동일하다.
-- 스레드 풀의 스레드에서 획득한 시큐리티 컨텍스트에는 토큰 정보가 담겨있지 않다.
-  - CompletableFuture 클래스는 이미 만들어져있는 스레드 풀을 사용하기 때문에 자식 스레드가 아니다.
+- 스레드 풀의 스레드에서 획득한 시큐리티 컨텍스트에는 토큰 정보가 담겨 있지 않다.
+  - CompletableFuture 클래스는 이미 만들어져 있는 스레드 풀을 사용하기 때문에 자식 스레드가 아니다.
 
 ```
 Fin
 ```
 
-### 2.3. GlobalSecurityContextHolderStrategy Class
+### 2.3. GlobalSecurityContextHolderStrategy 클래스
 
-클래스 정적 변수를 사용해 시큐리티 컨텍스트를 보관한다. 이를 통해 애플리케이션 영역 어디에서든 동일한 시큐리티 컨텍스트를 획득할 수 있다. 서버처럼 다중 스레드가 사용되는 환경에서는 동시성 문제를 일으키기 때문에 사용할 수 없다. Java 스윙(swing)처럼 동일한 스레드를 사용하는 클라이언트 환경에서 사용한다.
+GlobalSecurityContextHolderStrategy 클래스는 정적 변수를 사용해 시큐리티 컨텍스트를 보관한다. 이를 통해 애플리케이션 영역 어디에서든 동일한 시큐리티 컨텍스트를 획득할 수 있다. 서버처럼 다중 스레드가 사용되는 환경에서는 동시성 문제를 일으키기 때문에 사용할 수 없다. Java 스윙(swing)처럼 동일한 스레드를 사용하는 클라이언트 환경에서 사용한다.
 
 ```java
 final class GlobalSecurityContextHolderStrategy implements SecurityContextHolderStrategy {
@@ -426,13 +423,11 @@ final class GlobalSecurityContextHolderStrategy implements SecurityContextHolder
 - A 스레드가 요청 처리 중간에 별도 스레드를 만든다.
 - A 스레드의 자식 A' 스레드도 전역으로 사용되는 시큐리티 컨텍스트를 공유한다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/security-context-holder-strategy-03.png" width="80%" class="image__border">
+<div class="block-break" align="center">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/security-context-holder-strategy-03.png" width="100%" class="image__border">
 </div>
 
-#### 2.3.1. Test
-
-테스트 코드를 통해 동작 모습을 살펴본다.
+테스트 코드를 통해 동작 모습을 살펴보자.
 
 - SecurityContextHolder 클래스의 시큐리티 컨텍스트 보관 전략을 `MODE_GLOBAL`로 변경한다.
 - 테스트를 위한 인증 토큰 정보를 생성한다.
@@ -491,13 +486,13 @@ public class GlobalThreadLocalModeTest {
 }
 ```
 
-##### Result
+실행 결과는 다음과 같다.
 
 - 테스트 메인 스레드에서 획득한 시큐리티 컨텍스트에는 정상적으로 테스트 토큰이 담겨 있다.
 - 자식 스레드에서 획득한 시큐리티 컨텍스트에는 정상적으로 테스트 토큰이 담겨 있다.
   - 자식 스레드에서 획득한 인증 토큰은 메인 스레드에서 생성한 토큰과 동일하다.
 - 스레드 풀의 스레드에서 획득한 시큐리티 컨텍스트에는 정상적으로 테스트 토큰이 담겨 있다.
-  - 자식 스레드에서 획득한 인증 토큰은 메인 스레드에서 생성한 토큰과 동일하다.
+  - 스레드 풀의 스레드에서 획득한 인증 토큰은 메인 스레드에서 생성한 토큰과 동일하다.
 
 ```
 Fin

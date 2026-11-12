@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/aws/aws-ecr-setup/"
 categories:
   - "aws"
+summary: "AWS ECR 프라이빗 레포지토리를 만들고 도커 로그인, 태그 변경을 거쳐 컨테이너 이미지를 푸시하는 방법을 정리했다."
 recommendedPosts:
   - title: "AWS 애플리케이션 로드 밸런서(ALB)와 대상 그룹(Target Group) 설정"
     href: "https://junhyunny.github.io/aws/aws-alb-and-target-group-setup/"
@@ -18,7 +19,7 @@ ECS(Elastic Container Service) 클러스터를 구축하려면 컨테이너 이�
 
 ## 1. AWS ECR(Elastic Container Registry)
 
-ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스이다. ECS 서비스는 IAM(Identity and Access Management)을 통해 인가 처리가 가능한 프라이빗 레포지토리(private repository)를 제공한다. 프라이빗 레포지토리인만큼 지정된 사용자 또는 EC2 인스턴스가 ECR 레포지토리 및 이미지에 접근할 수 있다. ECR 서비스는 퍼블릭 레포지토리(public repository)도 지원한다.
+ECR은 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스이다. ECR 서비스는 IAM(Identity and Access Management)을 통해 인가 처리가 가능한 프라이빗 레포지토리(private repository)를 제공한다. 프라이빗 레포지토리인만큼 지정된 사용자 또는 EC2 인스턴스가 ECR 레포지토리 및 이미지에 접근할 수 있다. ECR 서비스는 퍼블릭 레포지토리(public repository)도 지원한다.
 
 ## 2. Create ECR Private Repository
 
@@ -28,9 +29,7 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecr-setup-01.png" class="image__border">
 </div>
 
-해당 화면에서 기존에 운영 중인 레포지토리 정보를 확인할 수 있다. 이 화면에서 레포지토리를 생성할 수 있다.
-
-- `Create repository` 버튼을 누른다.
+해당 화면에서 기존에 운영 중인 레포지토리 정보를 확인할 수 있다. 이 화면에서 레포지토리를 생성할 수 있다. `Create repository` 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/aws-ecr-setup-02.png" width="100%" class="image__border">
@@ -39,7 +38,7 @@ ECR는 컨테이너 이미지를 저장할 수 있는 AWS 클라우드 서비스
 레포지토리 생성 화면에서 레포지토리를 생성한다.
 
 - 레포지토리 가시성 세팅은 `Private`을 선택한다.
-- 레포지토리 이름은 `demo-service`으로 정한다.
+- 레포지토리 이름은 `demo-service`로 정한다.
 - `Create repository` 버튼을 누른다.
 
 <div align="center">

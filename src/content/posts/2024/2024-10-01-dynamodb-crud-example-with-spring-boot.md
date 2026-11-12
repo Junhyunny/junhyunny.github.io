@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "aws"
   - "dynamo-db"
+summary: "AWS SDK V2의 dynamodb-enhanced 의존성으로 스프링 부트 애플리케이션에서 DynamoDB 테이블에 데이터를 읽고 쓰는 CRUD 예제를 정리했다."
 recommendedPosts:
   - title: "도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기"
     href: "https://junhyunny.github.io/docker/aws/dynamo-db/dynamodb-container-with-docker-compose/"
@@ -81,10 +82,10 @@ recommendedPosts:
 AWS SDK를 사용할 때 버전에 주의해야 한다. 많은 예제들이 SDK V1을 사용하고 있지만, 24년 7월 31일부터 유지 관리 모드로 변경되었다. AWS는 25년 12월에 서포트를 중지하기 때문에 V2로 마이그레이션하는 것을 권장한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-crud-example-with-spring-boot-01.png" width="100%" class="image__border">
-</div>
-<center>https://docs.aws.amazon.com/ko_kr/sdk-for-java/v1/developer-guide/examples-dynamodb-items.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-crud-example-with-spring-boot-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://docs.aws.amazon.com/ko_kr/sdk-for-java/v1/developer-guide/examples-dynamodb-items.html</center>
 </div>
 
 DynamoDB 관련된 기능을 사용할 때 코드에서 가장 두드러지는 차이는 V1 SDK인 경우 애너테이션에 대문자 B를 사용한다. 예를 들면 `@DynamoDBTable` 같이 대문자 B를 사용한다. DynamoDB, 스프링 부트 예제를 검색하면 가장 먼저 눈에 띄는 Baeldung 예제도 V1을 사용하고 있다. 
@@ -134,10 +135,10 @@ data class TodoEntity(
 위에서 언급한 Baeldung 포스트에서 사용한 `com.github.derjust.spring-data-dynamodb` 의존성은 거의 5년째 유지 보수 되고 있지 않으니 주의하길 바란다. 
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-crud-example-with-spring-boot-02.png" width="100%" class="image__border">
-</div>
-<center>https://github.com/derjust/spring-data-dynamodb</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/dynamodb-crud-example-with-spring-boot-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://github.com/derjust/spring-data-dynamodb</center>
 </div>
 
 이 글에서 사용한 의존성은 다음과 같다.
@@ -225,7 +226,7 @@ class DynamoDbConfig(
 엔티티(entity) 클래스를 살펴보자. 애너테이션들은 모두 dynamodb-enhanced 의존성의 API이다. 애너테이션을 사용해 DynamoDB에 저장된 아이템 속성(attribute)을 클래스 객체에 매핑한다. 애너테이션들은 필드 위에 명시하는 것 같지만, Java 코드에선 게터(getter) 위에 명시하는 것과 동일하다. 다음 같은 사항을 명심하길 바란다.
 
 - 게터 위에 애너테이션을 사용해야 한다.
-- 불변 객체(immutable) 객체인 경우 데이터를 클래스에 매핑하지 못한다. 코틀린의 경우 var 키워드를 사용한다.
+- 불변(immutable) 객체인 경우 데이터를 클래스에 매핑하지 못한다. 코틀린의 경우 var 키워드를 사용한다.
 - 기본 생성자가 필요하다.
 
 ```kotlin
@@ -262,7 +263,7 @@ java.lang.NoSuchMethodException: action.in.blog.repository.entity.TodoEntity.<in
 
 ## 6. TodoRequest class
 
-컨트롤러 엔드포인트에서 전달 받은 데이터를 엔티티로 매핑하는 과정이 생략되면 이해하기 어려울 것 같다. 관련된 내용을 살펴보자. DynamoDB에서 파티션을 구분할 때 파티션 키(partiton key)를 사용한다. 동일한 비즈니스 의미를 같는 데이터가 동일한 파티션에 저장된다. 정렬 키(sort key)는 파티션에 저장된 데이터를 정렬할 때 사용한다. 예제에선 다음과 같이 파티션 키와 정렬 키를 정의힌다.
+컨트롤러 엔드포인트에서 전달 받은 데이터를 엔티티로 매핑하는 과정이 생략되면 이해하기 어려울 것 같다. 관련된 내용을 살펴보자. DynamoDB에서 파티션을 구분할 때 파티션 키(partition key)를 사용한다. 동일한 비즈니스 의미를 갖는 데이터가 동일한 파티션에 저장된다. 정렬 키(sort key)는 파티션에 저장된 데이터를 정렬할 때 사용한다. 예제에선 다음과 같이 파티션 키와 정렬 키를 정의한다.
 
 - 파티션 키
   - "TODO" 문자열로 고정한다.
@@ -464,7 +465,7 @@ $ docker compose up -d
  ✔ Container action-in-blog-setup-dynamo-1  Started   
 ```
 
-애플리케이션을 실행 후 https 디렉토리에 있는 `.http` 파일들을 실행하면서 결과를 확인해본다.
+애플리케이션을 실행 후 https 디렉토리에 있는 `.http` 파일들을 실행하면서 결과를 확인해보자.
 
 - CreateTodo.http
   - 데이터 생성

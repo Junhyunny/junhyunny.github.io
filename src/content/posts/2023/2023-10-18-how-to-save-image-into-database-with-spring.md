@@ -7,6 +7,7 @@ categories:
   - "kotlin"
   - "spring-boot"
   - "postgresql"
+summary: "스프링 부트에서 이미지를 PostgreSQL에 저장할 때 H2 테스트 환경과의 차이로 생긴 @Lob 매핑 문제를 해결하고, 하이버네이트 6의 @Type 변화와 BYTEA, OID 타입을 정리했다."
 recommendedPosts:
   - title: "How to test file upload in Spring"
     href: "https://junhyunny.github.io/java/spring-boot/how-to-test-multipart-file-upload-in-spring/"
@@ -25,17 +26,17 @@ recommendedPosts:
 - 코틀린(kotlin)
 - 스프링 부트(spring boot) 3.0.7
 - JPA
-- PostgresSQL
+- PostgreSQL
 
 테스트 환경은 다음과 같다.
 
 - H2 데이터베이스 PostgreSQL 모드
 
-이번 포스트는 파일을 업로드 후 파일을 데이터베이스에 저장하는 과정에서 겪은 문제와 테스트 방법에 대해 정리하였다. 스프링 프레임워크에서 파일을 업로드 하는 방법이나 단위 테스트에 대한 내용은 [How to test file upload in Spring][multipart-file-upload-in-spring-link] 포스트를 참고하길 바란다.
+이번 포스트는 파일을 업로드 후 파일을 데이터베이스에 저장하는 과정에서 겪은 문제와 테스트 방법에 대해 정리했다. 스프링 프레임워크에서 파일을 업로드 하는 방법이나 단위 테스트에 대한 내용은 [How to test file upload in Spring][multipart-file-upload-in-spring-link] 포스트를 참고하길 바란다.
 
-## 2. Solve the probloms
+## 2. Solve the problems
 
-개발 과정에서 겪은 문제들을 하나씩 확인해보면서 해결 방법들에 대해서 정리해나가겠다. 문제의 원인은 요약하자면 테스트 환경과 개발, 운영 환경의 데이터베이스가 서로 다르기 때문에 발생한 것이다. H2 데이터베이스를 PostgresSQL 모드로 사용했더라도 JDBC 드라이버가 서로 다르기 때문에 애플리케이션이 다르게 동작한 것으로 예상된다.
+개발 과정에서 겪은 문제들을 하나씩 확인해보면서 해결 방법들에 대해서 정리해나가겠다. 문제의 원인은 요약하자면 테스트 환경과 개발, 운영 환경의 데이터베이스가 서로 다르기 때문에 발생한 것이다. H2 데이터베이스를 PostgreSQL 모드로 사용했더라도 JDBC 드라이버가 서로 다르기 때문에 애플리케이션이 다르게 동작한 것으로 예상된다.
 
 처음 작성한 엔티티 모습은 다음과 같다.
 
@@ -60,7 +61,7 @@ class FileEntity(
 
 ### 2.1. Test in H2 Database with PostgreSQL Mode
 
-PostreSQL 모드의 H2 데이터베이스에서 테스트를 실행한다.
+PostgreSQL 모드의 H2 데이터베이스에서 테스트를 실행한다.
 
 - 엔티티 객체를 하나 생성 후 저장한다.
 - 엔티티 매니저를 정리 후 데이터베이스에 엔티티를 조회한다.
@@ -288,7 +289,7 @@ org.springframework.dao.InvalidDataAccessResourceUsageException: could not execu
 
 #### 2.2.2. Solve the problem
 
-@JdbcType 애너테이션을 사용해 타입에 하이버네이트(hibernate) 프레임워크에게 타입에 대한 힌트를 제공한다.
+@JdbcType 애너테이션을 사용해 하이버네이트(hibernate) 프레임워크에게 타입에 대한 힌트를 제공한다.
 
 ```kotlin
 package action.`in`.blog.domain
@@ -338,11 +339,11 @@ Hibernate: drop table if exists file_entity cascade
 
 ## 3. Other Information
 
-해결 방법을 찾는 과정에서 얻은 기타 정보들에 대해 함께 정리하였다.
+해결 방법을 찾는 과정에서 얻은 기타 정보들에 대해 함께 정리했다.
 
-### 3.1. @Type Annotation
+### 3.1. @Type 애너테이션
 
-스택 오버플로우(stack overflow)을 살펴보면 @Type 애너테이션에 타입을 명시하면 해결된다는 답변들이 많다. 이 답변은 하이버네이트 5 버전을 사용하는 경우 유효하지만, 하이버네이트 6 버전에선 사용할 수 없다. 스프링 부트 데이터 JPA 3.X 버전을 사용하는 경우 하이버네이트 6버전을 사용하므로 주의바란다.
+스택 오버플로우(stack overflow)를 살펴보면 @Type 애너테이션에 타입을 명시하면 해결된다는 답변들이 많다. 이 답변은 하이버네이트 5 버전을 사용하는 경우 유효하지만, 하이버네이트 6 버전에선 사용할 수 없다. 스프링 부트 데이터 JPA 3.X 버전을 사용하는 경우 하이버네이트 6버전을 사용하므로 주의바란다.
 
 - 하이버네이트 5 버전 @Type 애너테이션
   - <https://docs.jboss.org/hibernate/orm/5.2/javadocs/org/hibernate/annotations/Type.html>
@@ -352,7 +353,7 @@ Hibernate: drop table if exists file_entity cascade
   - <https://github.com/spring-projects/spring-data-commons/wiki/Spring-Data-2022.0-%28Turing%29-Release-Notes#spring-data-jpa---30>
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-save-image-into-database-with-spring-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-save-image-into-database-with-spring-01.png" width="100%" class="image__border">
 </div>
 <center>https://stackoverflow.com/questions/9114510/seam-file-upload-to-postgres-bytea-column-column-is-bytea-but-expression-is-of</center>
 

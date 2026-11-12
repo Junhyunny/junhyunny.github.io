@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/spring-security/spring-security-oauth2-client-for-a
 categories:
   - "spring-boot"
   - "spring-security"
+summary: "스프링 시큐리티 OAuth2 클라이언트로 애플 로그인을 할 때 토큰 요청이 실패하는 원인을 살펴보고, 클라이언트 시크릿을 JWT로 생성하도록 요청 변환기를 확장해 해결했다."
 recommendedPosts:
   - title: "OAuth(Open Authorization)"
     href: "https://junhyunny.github.io/information/security/oauth/"
@@ -42,7 +43,7 @@ recommendedPosts:
 
 스프링 시큐리티 내부에서 발생하는 에러에 대한 로그가 빈약하기 때문에 원인을 찾기 힘들다. 로컬 환경에서 디버깅이 필요한데, 애플은 보안을 이유로 콜백(callback) URL(혹은 리다이렉트 URL)에 `로컬 호스트(localhost)`를 지원하지 않는다. 이런 문제 때문에 로컬 환경에서 테스트가 힘들지만, 방법이 없진 않다. 디버깅 방법은 이 글의 주제를 벗어나므로 [다른 글](https://junhyunny.github.io/information/how-to-retry-http-request-in-chrome/)에서 소개하겠다.
 
-로컬 호스트에서 디버깅을 해보면 인증 제공자(AuthenticationProvider) 인스턴스가 애플 인가 서버에서 액세스 토큰(혹은 아이디 토큰)를 받을 때 다음과 같은 에러가 발생하고 있었다.
+로컬 호스트에서 디버깅을 해보면 인증 제공자(AuthenticationProvider) 인스턴스가 애플 인가 서버에서 액세스 토큰(혹은 아이디 토큰)을 받을 때 다음과 같은 에러가 발생하고 있었다.
  
 ```
 [invalid_client]
@@ -54,7 +55,7 @@ recommendedPosts:
 
 ### 1.2. What is the problem?
 
-무엇이 문제일까? 공식 문서와 깃허브 이슈들을 살펴 보고 힌트를 얻을 수 있었다. 리다이렉트 요청을 받아 처리할 때 애플 인가 서버로 액세스 토큰(혹은 아이디 토큰)를 발급 받는다. 이 때 애플 개발자 센터에서 사전에 발급 받은 클라이언트 시크릿을 사용하면 에러가 발생한다. 새로운 클라이언트 시크릿(client secret)을 만들어야 한다. 
+무엇이 문제일까? 공식 문서와 깃허브 이슈들을 살펴 보고 힌트를 얻을 수 있었다. 리다이렉트 요청을 받아 처리할 때 애플 인가 서버로 액세스 토큰(혹은 아이디 토큰)을 발급 받는다. 이 때 애플 개발자 센터에서 사전에 발급 받은 클라이언트 시크릿을 사용하면 에러가 발생한다. 새로운 클라이언트 시크릿(client secret)을 만들어야 한다. 
 
 - 왼쪽 실패 케이스
   1. 사전에 발급 받은 클라이언트 시크릿을 사용해 액세스 토큰을 요청한다.
@@ -108,7 +109,7 @@ recommendedPosts:
 마지막으로 JWT 토큰 서명(signature)을 만들 때 `AuthKey_XXXXXXXXXX.p8` 포맷의 비공개 키 파일을 사용한다. 애플 개발자 센터에서 해당 파일을 발급 받는다. 헤더, 페이로드, 서명까지 모두 Base64 인코딩하면 새로운 클라이언트 시크릿이 만들어진다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-client-for-apple-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-client-for-apple-04.png" width="100%" class="image__border">
 </div>
 
 ## 2. Solve the problem
@@ -121,7 +122,7 @@ recommendedPosts:
 
 기존 기능에 영향을 주지 않으면서, 새로운 기능을 확장할 수 있는 지점을 찾아야 했다. 아무리 테스트 코드가 있더라도 영향도 파악이 되지 않기 때문에 기존 코드를 고치는 것은 최대한 피하고 싶었다. OAuth2 인증 프로세스에 참여하는 컴포넌트들을 훑어보다 기능을 확장하기 가장 적합한 컴포넌트를 발견했다. 
 
-- 다음과 같은 두 인증 매니저가 OAuth2 인증 프로세스에 참여한다. 스코프(scope)에 `oidc` 값이 있는지 여부에 따라 인가 매니저가 결정된다. 
+- 다음과 같은 두 인증 매니저가 OAuth2 인증 프로세스에 참여한다. 스코프(scope)에 `oidc` 값이 있는지 여부에 따라 인증 매니저가 결정된다. 
   - OAuth2AuthorizationCodeAuthenticationProvider 클래스
   - OidcAuthorizationCodeAuthenticationProvider 클래스
 - 두 인증 매니저는 모두 OAuth2AccessTokenResponseClient 인스턴스에 의존해 액세스 토큰(혹은 아이디 토큰)을 획득한다.
@@ -132,11 +133,11 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-client-for-apple-05.png" width="100%" class="image__border">
 </div>
 
-여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터 생성하는 createParameters 메서드를 확장했다.
+여기서 OAuth2AccessTokenResponseClient 인스턴스가 의존하는 OAuth2AuthorizationCodeGrantRequestEntityConverter 클래스를 확장했다. 클라이언트 인스턴스는 해당 컨버터(converter) 객체에게 권한 부여 요청에 필요한 파라미터 생성을 요구한다. 필자는 이 파라미터를 생성하는 createParameters 메서드를 확장했다.
 
 - 애플 인가 서버로 보내는 요청인 경우
   - AppleSecretGenerator 객체로 새로운 클라이언트 시크릿을 생성한다.
-  - 부모 클래스의 createParameters 메서드로 만든 요청 파라미터 중 클라이언트 시크릿을 새로운 만든 시크릿으로 변경한다.
+  - 부모 클래스의 createParameters 메서드로 만든 요청 파라미터 중 클라이언트 시크릿을 새로 만든 시크릿으로 변경한다.
 - 애플 외 다른 인가 서버로 보내는 요청인 경우 
   - 부모 클래스의 createParameters 메서드로 만든 요청 파라미터를 반환한다.
 
@@ -182,7 +183,7 @@ apple:
 
 ### 2.2. build.gradle
 
-새로운 시크릿을 만들 때 비공개 키를 읽고, JWT을 만드는 작업이 필요하기 때문에 다음과 같은 의존성이 추가적으로 필요하다.
+새로운 시크릿을 만들 때 비공개 키를 읽고, JWT를 만드는 작업이 필요하기 때문에 다음과 같은 의존성이 추가적으로 필요하다.
 
 ```groovy
 dependencies {
@@ -401,9 +402,7 @@ public class SecurityConfig {
 
 ## 3. Verification
 
-새로 만든 시크릿을 사용했을 때 정상적으로 토큰을 획득하는지 살펴보자. 위에서도 언급했듯이 로컬에서 테스트하는 방법은 다른 글로 소개할 예정이다. 간단하게 설명하면 리다이렉트 요청을 cURL 명령어로 재현하는 것이다. 리다이렉트 요청을 cURL 명령어로 재현할 때 로컬 호스트 서버로 요청을 보낸다. 해당 요청을 처리할 때 애플 인가 서버로부터 아이디 토큰을 잘 발급 받는지 확인했다.
-
-- 정상적으로 액세스 토큰, 리프레시 토큰, 아이디 토큰을 발급 받는다.
+새로 만든 시크릿을 사용했을 때 정상적으로 토큰을 획득하는지 살펴보자. 위에서도 언급했듯이 로컬에서 테스트하는 방법은 다른 글로 소개할 예정이다. 간단하게 설명하면 리다이렉트 요청을 cURL 명령어로 재현하는 것이다. 리다이렉트 요청을 cURL 명령어로 재현할 때 로컬 호스트 서버로 요청을 보낸다. 해당 요청을 처리할 때 애플 인가 서버로부터 아이디 토큰을 잘 발급 받는지 확인했다. 정상적으로 액세스 토큰, 리프레시 토큰, 아이디 토큰을 발급 받는다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/spring-security-oauth2-client-for-apple-07.png" width="100%" class="image__border">

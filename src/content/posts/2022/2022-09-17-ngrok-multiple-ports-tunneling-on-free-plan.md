@@ -1,10 +1,11 @@
 ---
 title: "Ngrok 무료 플랜에서 여러 포트 터널링하기"
 publishedAt: "2022-09-17"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/information/ngrok-multiple-ports-tunneling-on-free-plan/"
 categories:
   - "information"
+summary: "ngrok 무료 플랜에서 authtoken 설정으로 세션 만료를 없애고, ngrok.yml 파일을 수정해 여러 포트를 동시에 터널링하는 방법을 정리했다."
 ---
 
 ## 1. ngrok
@@ -13,7 +14,7 @@ categories:
 
 ## 2. Multiple Ports Tunneling
 
-MacOS 환경에서 설치와 터널링을 진행하였다.
+MacOS 환경에서 설치와 터널링을 진행했다.
 
 ### 2.1. ngrok 설치
 
@@ -25,9 +26,7 @@ $ brew install --cask ngrok
 
 ### 2.2. 세션 만료 없애기
 
-ngrok 터널링은 기본적으로 2시간 세션이 유효하다. 세션 만료 시간을 없애려면 [ngrok](https://ngrok.com/) 사이트에 로그인하여 `authtoken`을 받아 등록한다.
-
-##### authtoken 설정
+ngrok 터널링은 기본적으로 2시간 세션이 유효하다. 세션 만료 시간을 없애려면 [ngrok](https://ngrok.com/) 사이트에 로그인하여 `authtoken`을 받아 등록한다. `authtoken` 설정 화면은 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/ngrok-multiple-ports-tunneling-on-free-plan-01.png" width="100%" class="image__border">
@@ -35,7 +34,7 @@ ngrok 터널링은 기본적으로 2시간 세션이 유효하다. 세션 만료
 
 ### 2.3. ngrok.yml 파일 수정
 
-`/Users/${userName}/.ngrok2` 이동하면 `ngrok.yml` 파일을 확인할 수 있다. 해당 파일을 다음과 같이 수정한다.
+`/Users/${userName}/.ngrok2`로 이동하면 `ngrok.yml` 파일을 확인할 수 있다. 해당 파일을 다음과 같이 수정한다.
 
 - 8080 포트를 점유하고 있는 젠킨스 애플리케이션을 터널링한다.
 - 3000 포트를 점유하고 있는 리액트 애플리케이션을 터널링한다.
@@ -62,7 +61,7 @@ tunnels:
 $ ngrok start --all
 ```
 
-##### 실행 결과
+실행 결과는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/ngrok-multiple-ports-tunneling-on-free-plan-02.gif" width="100%" class="image__border">

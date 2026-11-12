@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/redis/redis-pub-sub/"
 categories:
   - "redis"
+summary: "사용자 이벤트 로그를 관리자 애플리케이션으로 넘기기 위해 레디스를 메시지 브로커로 사용하는 Pub/Sub 기능의 메시지 전달 특성을 살펴보고, redis-cli로 채널과 패턴 구독을 실습했다."
 ---
 
 ## 0. 들어가면서
@@ -14,11 +15,11 @@ categories:
 - 일반 사용자 애플리케이션에서 사용자 행동을 이벤트 로그로 저장한다.
 - 사용자 이벤트 데이터는 관리자만 볼 수 있기 때문에 관리자 애플리케이션에서 관리한다.
 
-시작은 클라이언트 애플리케이션이고 종착지는 관리자 애플리케이션이다보니 둘 사이에 메시지 큐(message queue)를 두어 결합도 낮은 연결 고리를 만들고자 했다. 마침 세션으로 레디스(redis)를 사용하고 있었기 때문에 이를 메시지 큐로 사용했다. 이번 글은 구현에 대한 이야기가 아니라 구독/발행 패턴 적용할 수 있도록 메시지 큐 기능을 제공하는 레디스에 대한 내용을 정리했다.
+시작은 클라이언트 애플리케이션이고 종착지는 관리자 애플리케이션이다보니 둘 사이에 메시지 큐(message queue)를 두어 결합도 낮은 연결 고리를 만들고자 했다. 마침 세션으로 레디스(redis)를 사용하고 있었기 때문에 이를 메시지 큐로 사용했다. 이번 글은 구현에 대한 이야기가 아니라 구독/발행 패턴을 적용할 수 있도록 메시지 큐 기능을 제공하는 레디스에 대한 내용을 정리했다.
 
 ## 1. Redis as a Message Broker
 
-레디스 공식 홈페이지에선 메시지 브로커 기능을 할 수 있는 레디스의 세 가지 피처(feature)를 언급힌다.
+레디스 공식 홈페이지에선 메시지 브로커 기능을 할 수 있는 레디스의 세 가지 피처(feature)를 언급한다.
 
 - Redis Streams
   - 지속적인 데이터를 위한 로그와 같은 데이터 구조를 가지므로 이벤트 소싱을 위해 사용한다.
@@ -71,7 +72,7 @@ categories:
 - redis-cli 명령어를 실행한 터미널이 구독자, 발행자 역할을 수행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-pub-sub-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/redis-pub-sub-01.png" width="100%" class="image__border">
 </div>
 
 ### 2.1. Run Redis Container
@@ -124,7 +125,7 @@ subscribe 명령어와 채널 이름을 나열하면 구독을 시작한다. 다
 publish [channel] [message]
 ```
 
-각 채널에 메시지를 하나씩 전송해본다. 
+각 채널에 메시지를 하나씩 전송해보자. 
 
 - 발행자는 메시지 전송이 성공한 경우 1을 응답 받는다.
 - 메시지 전송이 실패한 경우 0을 응답 받는다.
@@ -142,9 +143,7 @@ publish [channel] [message]
 psubscribe [patterns ...]
 ```
 
-다음과 같은 패턴을 적용한 채널을 구독해보자.
-
-- 접두어가 `logs.`인 채널로부터 메시지를 수신받는다. 
+다음과 같이 패턴을 적용해 접두어가 `logs.`인 채널을 구독해보자.
 
 ```
 127.0.0.1:6379> psubscribe logs.*

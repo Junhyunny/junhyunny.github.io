@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/spring-security/issue-and-reissue-json-web-token/"
 categories:
   - "spring-boot"
   - "spring-security"
+summary: "스프링 시큐리티 인증 프로세스에 맞춰 로그인 시 액세스 토큰과 리프레시 토큰을 발행하고, 리프레시 토큰으로 JWT를 재발행하는 기능을 구현했다."
 recommendedPosts:
   - title: "JWT(Json Web Token)"
     href: "https://junhyunny.github.io/information/json-web-token/"
@@ -31,18 +32,18 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/issue-and-reissue-json-web-token-01.png" width="100%" class="image__border">
 </div>
 
-위 인증 프로세스에 JWT(json web token)을 사용한 인증 프로세스를 얹었다. 관련된 내용은 [이전 글][make-authentication-provider-link]에서 다뤘으니 짧게 살펴보자.
+위 인증 프로세스에 JWT(json web token)를 사용한 인증 프로세스를 얹었다. 관련된 내용은 [이전 글][make-authentication-provider-link]에서 다뤘으니 짧게 살펴보자.
 
-1. AuthenticationFilter 인스턴스에서 HTTP 요청 헤더로부터 JWT을 추출한다.
-2. AuthenticationFilter 인스턴스는 AuthenticationManager 인스턴스에게 인증 절차를 위임하며, JWT을 전달한다.
-3. AuthenticationManager 인스턴스는 AuthenticationProvider 인스턴스에게 인증 절차를 위임하며, JWT을 전달한다.
+1. AuthenticationFilter 인스턴스에서 HTTP 요청 헤더로부터 JWT를 추출한다.
+2. AuthenticationFilter 인스턴스는 AuthenticationManager 인스턴스에게 인증 절차를 위임하며, JWT를 전달한다.
+3. AuthenticationManager 인스턴스는 AuthenticationProvider 인스턴스에게 인증 절차를 위임하며, JWT를 전달한다.
 4. 인증 매니저 객체는 [이전 글][make-authentication-provider-link]에서 구현한 JwtAuthenticationProvider 객체를 사용한다. 토큰의 유효성만 확인하기 때문에 UserDetailsService 인스턴스를 사용할 필요가 없다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/issue-and-reissue-json-web-token-02.png" width="100%" class="image__border">
 </div>
 
-이제 위 프로세스에서 JWT를 발급, 재발급 하는 기능을 추가한다. AuthController 객체를 통해 엔드포인트를 만들고 아래와 같이 구현을 확장해간다.SecurityConfig 객체를 통한 인가 설정에서 `/auth/**` 경로에 대해 모두 인증 없이도 접근할 수 있도록 허가했다. 토큰 발행과 재발행 시 API 경로는 `/auth/**`에 포함되므로 인증된 사용자가 아니더라도 발급 프로세스는 계속 진행된다. 주요 비즈니스 로직은 AuthService 객체가 책임진다.
+이제 위 프로세스에서 JWT를 발급, 재발급 하는 기능을 추가한다. AuthController 객체를 통해 엔드포인트를 만들고 아래와 같이 구현을 확장해간다. SecurityConfig 객체를 통한 인가 설정에서 `/auth/**` 경로에 대해 모두 인증 없이도 접근할 수 있도록 허가했다. 토큰 발행과 재발행 시 API 경로는 `/auth/**`에 포함되므로 인증된 사용자가 아니더라도 발급 프로세스는 계속 진행된다. 주요 비즈니스 로직은 AuthService 객체가 책임진다.
 
 - 토큰 발행
   - ID와 비밀번호를 통해 정상적인 사용자임을 확인한다.
@@ -141,7 +142,7 @@ application-test YAML 파일에 테스트를 위한 설정을 추가한다.
 - `spring.sql.init` 속성을 통해 서비스가 시작하는 시점에 미리 테이블 스키마와 데이터를 추가한다.
   - `schema-locations` - 데이터베이스 스키마 SQL 설정
   - `data-locations` - 데이터베이스 초기 데이터 INSERT SQL 설정
-- `jwt.refresh-secret` 속성을 통해 리프레시 토큰(refresh token)을 만들 때 사용할 키를 추가하였다.
+- `jwt.refresh-secret` 속성을 통해 리프레시 토큰(refresh token)을 만들 때 사용할 키를 추가했다.
 - JPA와 H2 설정을 추가한다.
 
 ```yml
@@ -185,9 +186,7 @@ create table tb_user
 );
 ```
 
-사용자 정보를 준비하기 위한 SQL 스크립트도 추가한다.
-
-- 비밀번호는 문자열 "123"을 미리 인코딩한 값이다.
+사용자 정보를 준비하기 위한 SQL 스크립트도 추가한다. 비밀번호는 문자열 "123"을 미리 인코딩한 값이다.
 
 ```sql
 insert into tb_user (user_name, password, authority)
@@ -211,7 +210,7 @@ values ('Junhyunny', '{bcrypt}$2a$10$LDwzHdFsoeeo0CjXoYdmwelLK4CjdiMtGvPHDYPQ039
 - AuthRepository 클래스
   - 사용자 조회 기능 제공
 
-단순하게 필드만 있는 DTO(Data Transfer Object)와 엔티티(Entity) 클래스에 대한 내용은 다루지 않았다. AuthRepository 인터페이스도 JpaRepository 인터페이스를 상속하였을 뿐 추가한 기능이 없으므로 설명하지 않았다.
+단순하게 필드만 있는 DTO(Data Transfer Object)와 엔티티(Entity) 클래스에 대한 내용은 다루지 않았다. AuthRepository 인터페이스도 JpaRepository 인터페이스를 상속했을 뿐 추가한 기능이 없으므로 설명하지 않았다.
 
 ### 3.1. JsonWebTokenIssuer class
 
@@ -699,7 +698,7 @@ public class AuthServiceTest {
 }
 ```
 
-다음은 AuthController 객체에 대한 테스트 코드다. 추가된 테스트 메서드들만 확인해본다.
+다음은 AuthController 객체에 대한 테스트 코드다. 추가된 테스트 메서드들만 확인해보자.
 
 ```java
 package action.in.blog.security.controller;

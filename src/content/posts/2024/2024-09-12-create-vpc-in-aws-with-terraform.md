@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/terraform/create-vpc-in-aws-with-terraform/"
 categories:
   - "terraform"
+summary: "테라폼으로 퍼블릭, 프라이빗 서브넷과 인터넷 게이트웨이, NAT 게이트웨이를 갖춘 AWS VPC를 구성하는 과정을 정리했다."
 recommendedPosts:
   - title: "테라폼(Terraform) 소개"
     href: "https://junhyunny.github.io/information/infrastructure/dev-ops/introduction-terraform/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-현재 프로젝트는 인프라 관리를 위해 테라폼(terraform)으로 하고 있다. 간단한 실습만 해봤지 실제 프로덕트 개발과 함께 사용해 본 것은 이번이 처음이다. VPC 구성부터 하나씩 작업했던 내용을 블로그에 정리해본다. 
+현재 프로젝트는 인프라 관리를 테라폼(terraform)으로 하고 있다. 간단한 실습만 해봤지 실제 프로덕트 개발과 함께 사용해 본 것은 이번이 처음이다. VPC 구성부터 하나씩 작업했던 내용을 블로그에 정리했다. 
 
 ## 1. Expected VPC in AWS
 
@@ -131,7 +132,7 @@ resource "aws_vpc" "jun_vpc" {
 
 ## 6. Subnets
 
-다음과 같은 3개의 서브넷을 `subnet.tf` 파일에 정의한다. AZ(Availability Zone)과 서브넷 이름을 지정할 때 변수를 사용한다. 서브넷이 속할 VPC는 위에서 정의한 VPC 자원의 ID를 사용해 지정한다.
+다음과 같은 3개의 서브넷을 `subnet.tf` 파일에 정의한다. AZ(Availability Zone)와 서브넷 이름을 지정할 때 변수를 사용한다. 서브넷이 속할 VPC는 위에서 정의한 VPC 자원의 ID를 사용해 지정한다.
 
 - 퍼블릭 서브넷 1(public_subnet_1)
   - CIDR 블록은 10.0.0.0/20 이다.

@@ -6,6 +6,7 @@ canonicalPath: "/javascript/react/out-of-memory-by-detached-elements-in-react/"
 categories:
   - "javascript"
   - "react"
+summary: "장시간 사용 시 화면이 멈추는 리액트 앱에서 크롬 메모리 탭으로 Detached DOM 누수 위치를 찾고, 컴포넌트를 감싸지 않고 직접 사용하도록 바꿔 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "가비지 컬렉션 참조 카운팅(Reference Counting) 알고리즘"
     href: "https://junhyunny.github.io/information/javascript/reference-counting-gc-in-javascript/"
@@ -31,10 +32,10 @@ recommendedPosts:
 
 - Distance
   - 특정 객체가 루트(root)에서 얼마나 떨어져 있는지를 나타낸다.
-  - 루트와의 거리가 짦을수록 오래 생존할 가능성이 높다.
+  - 루트와의 거리가 짧을수록 오래 생존할 가능성이 높다.
 - Shallow Size
   - 해당 객체 자체가 차지하는 메모리의 크기다.
-  - 개별 객체가 얼마나 많은 메모미를 소비하는지 확인할 수 있다.
+  - 개별 객체가 얼마나 많은 메모리를 소비하는지 확인할 수 있다.
 - Retained Size
   - 해당 객체가 해제될 경우 가비지 컬렉션으로 회수될 총 메모리 크기를 나타낸다. 
   - 해당 객체와 그 객체가 직접 또는 간접적으로 참조하는 모든 객체의 크기를 합산한다.
@@ -55,17 +56,13 @@ recommendedPosts:
 
 메모리 누수의 원인을 살펴보기 전에 Detached DOM 개념을 알아보자. Detached DOM 객체는 리-렌더링 시 DOM 트리에서 제거된 객체를 의미한다. Detached DOM 객체에 의해 발생하는 메모리 릭(leak)은 DOM 트리에서 제거되었지만, 여전히 JavaScript 코드에서 참조 중인 DOM 객체들에 의해 발생한다. 정리하자면 JavaScript 코드에 의해 참조 중인 Detached DOM 객체들은 가비지 컬렉터에 의해 회수되지 못 하면서 메모리 누수가 발생한다.
 
-코드 어디서 Detached DOM 누수가 발생했을까? 문제가 발생한 실제 코드를 블로그엔 올릴 수 없으니 조금 재구성했다. DOM 트리 구조는 다음과 같다.
-
-- Sheets 컴포넌트 하단에 3개의 카테고리 컴포넌트가 존재한다. 
+코드 어디서 Detached DOM 누수가 발생했을까? 문제가 발생한 실제 코드를 블로그엔 올릴 수 없으니 조금 재구성했다. DOM 트리 구조를 보면 Sheets 컴포넌트 하단에 3개의 카테고리 컴포넌트가 존재한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-by-detached-elements-in-react-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/out-of-memory-by-detached-elements-in-react-04.png" width="100%" class="image__border">
 </div>
 
-메모리 누수 여부를 확인하기 위해 메모리가 큰 BigDom 컴포넌트를 Category 컴포넌트 하단에 그린다. BigDom 컴포넌트는 다음과 같다. 
-
-- 10000개의 div DOM 객체를 그린다. 
+메모리 누수 여부를 확인하기 위해 메모리가 큰 BigDom 컴포넌트를 Category 컴포넌트 하단에 그린다. BigDom 컴포넌트는 10000개의 div DOM 객체를 그린다.
 
 ```tsx
 import { useEffect } from "react";

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/docker/build-docker-image-with-nonexistent-commands/"
 categories:
   - "docker"
+summary: "폐쇄망에서 컨테이너에 vim, telnet 같은 명령어가 없는 문제를 외부망에서 명령어를 설치한 이미지를 만들어 저장하고 폐쇄망에 로드하는 방식으로 해결했다."
 recommendedPosts:
   - title: "Dockerfile 빌드와 이미지 레이어(Image Layer)"
     href: "https://junhyunny.github.io/information/docker/docker-file-build-and-image-layer/"
@@ -109,7 +110,7 @@ $ docker run --name nifi-custom -d apache/nifi:custom
 b77cfcfa25b65559e8f287b9bdd64fa72ffc2e1af563832471ebf6cdfd85400e
 ```
 
-실행된 컨테이너 내부에 접근 후 기존에 없던 명령어가 잘 실행되는지 확인해본다.
+실행된 컨테이너 내부에 접근 후 기존에 없던 명령어가 잘 실행되는지 확인해보자.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/build-docker-image-with-nonexistent-commands-02.gif" width="100%" class="image__border">

@@ -1,12 +1,13 @@
 ---
 title: "dangerouslySetInnerHTML 속성과 XSS 공격"
 publishedAt: "2022-08-11"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:49:01+09:00"
 canonicalPath: "/javascript/react/security/xss-weakness-when-dangerously-set-inner-html-attribute/"
 categories:
   - "javascript"
   - "react"
   - "security"
+summary: "React의 dangerouslySetInnerHTML 속성으로 HTML 코드를 그대로 삽입할 때 XSS 공격에 취약해지는 이유를 예제 코드로 정리했다."
 recommendedPosts:
   - title: "반사형 XSS(Reflected Cross Site Scripting) 공격과 방어"
     href: "https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/"
@@ -18,11 +19,9 @@ recommendedPosts:
 
 ## 1. dangerouslySetInnerHTML 속성(Attribute)
 
-기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있다. `React` 라이브러리는 `dangerouslySetInnerHTML` 속성으로 HTML 코드를 그대로 삽입할 수 있다. 이름에서 확인할 수 있듯이 위험한 방법이다. 자세한 내용은 예제 코드를 살펴본 후에 알아보겠다.
+기능(feature)에 따라 HTML 코드를 그대로 사용하는 경우가 있다. `React` 라이브러리는 `dangerouslySetInnerHTML` 속성으로 HTML 코드를 그대로 삽입할 수 있다. 이름에서 확인할 수 있듯이 위험한 방법이다. 자세한 내용은 예제 코드를 살펴본 후에 설명한다.
 
-### 1.1. 예제 코드
-
-간단한 예제 코드를 통해 `dangerouslySetInnerHTML` 속성 사용 방법을 알아보겠다.
+간단한 예제 코드로 `dangerouslySetInnerHTML` 속성 사용 방법을 알아보자.
 
 - `App` 함수를 정의한다.
   - `htmlCode` 함수를 통해 HTML 코드를 `__html` 키에 매칭한 객체를 반환한다.
@@ -84,9 +83,7 @@ recommendedPosts:
 </html>
 ```
 
-##### 결과
-
-- `htmlCode` 함수에서 반환하는 HTML 코드가 화면에 비순차 리스트 형태로 출력되는 것을 확인할 수 있다.
+실행하면 `htmlCode` 함수에서 반환하는 HTML 코드가 화면에 비순차 리스트 형태로 출력되는 것을 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/xss-weakness-when-dangerously-set-inner-html-attribut-01.png" width="100%" class="image__border">
@@ -101,11 +98,9 @@ HTML 코드를 화면에서 그대로 사용하는 것은 XSS 공격에 취약�
 - 공격자는 악성 스크립트가 담긴 HTML 문서를 일반 사용자에게 전달한다.
 - 일반 사용자가 공격 HTML 문서를 자신의 브라우저에서 열면 악성 스크립트가 실행된다.
 
-`dangerouslySetInnerHTML` 속성을 사용하면 HTML 코드를 그대로 사용하기 때문에 함께 전달된 스크립트가 실행된다. 때문에 `dangerouslySetInnerHTML` 속성은 XSS 공격에 취약하다. 외부 사용자에 의해 입력된 데이터를 검증 없이 `dangerouslySetInnerHTML` 속성을 통해 화면에 직접 출력하는 것은 지양해야 한다.
+`dangerouslySetInnerHTML` 속성을 사용하면 HTML 코드를 그대로 사용하기 때문에 함께 전달된 스크립트가 실행된다. 그래서 `dangerouslySetInnerHTML` 속성은 XSS 공격에 취약하다. 외부 사용자가 입력한 데이터를 검증 없이 `dangerouslySetInnerHTML` 속성으로 화면에 직접 출력하는 것은 지양해야 한다.
 
-### 2.1. 예제 코드
-
-`dangerouslySetInnerHTML` 속성을 사용할 때 스크립트 코드가 실행되는지 예제 코드를 통해 확인해보겠다.
+`dangerouslySetInnerHTML` 속성을 사용할 때 스크립트 코드가 실행되는지 예제 코드로 확인해보자.
 
 - `htmlCode` 함수는 이미지 태그를 이용하여 `alert` 함수를 실행하는 코드를 담은 객체를 반환한다.
   - 이미지 태그의 크기를 0으로 만들어 화면에서 보이지 않게 만든다.
@@ -166,9 +161,7 @@ HTML 코드를 화면에서 그대로 사용하는 것은 XSS 공격에 취약�
 </html>
 ```
 
-##### 결과
-
-- `onerror` 이벤트에 지정된 `alert` 함수가 실행되는 것을 확인할 수 있다.
+실행하면 `onerror` 이벤트에 지정된 `alert` 함수가 실행되는 것을 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/xss-weakness-when-dangerously-set-inner-html-attribut-02.gif" width="100%" class="image__border">

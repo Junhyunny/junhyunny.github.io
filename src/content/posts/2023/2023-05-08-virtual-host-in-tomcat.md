@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/tomcat/virtual-host-in-tomcat/"
 categories:
   - "spring-boot"
   - "tomcat"
+summary: "톰캣 server.xml의 Host 태그로 가상 호스트를 구성해 하나의 톰캣에서 도메인별로 다른 애플리케이션을 서비스하는 방법을 실습으로 정리했다."
 recommendedPosts:
   - title: "스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기"
     href: "https://junhyunny.github.io/spring-boot/server/deploy-spring-boot-project-as-war/"
@@ -15,7 +16,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-최근 톰캣(tomcat)의 `sever.xml` 파일 안에 `Host` 태그에 관련된 질문을 받았다. 한번도 사용해본 적 없는 기능이라 공부해보고 알려준다는 답변만 남겼다. 이후 배운 내용을 공유하기 위해 포스트 글로 정리하였다.
+최근 톰캣(tomcat)의 `server.xml` 파일 안에 `Host` 태그에 관련된 질문을 받았다. 한 번도 사용해본 적 없는 기능이라 공부해보고 알려준다는 답변만 남겼다. 이후 배운 내용을 공유하기 위해 포스트 글로 정리했다.
 
 ## 1. Virtual Host
 
@@ -30,7 +31,7 @@ recommendedPosts:
 톰캣 폴더에 `conf/server.xml` 파일을 열면 다음과 같은 정보를 볼 수 있다. 이번 포스트에서 사용한 톰캣은 9 버전이다.
 
 - 호스트 이름이 `localhost`인 경우 `webapps` 경로를 루트(root) 폴더로 설정한다.
-  - `Context` 정보를 별도로 명시하지 않았으므로 `webapps/ROOT` 경로를 웹 애플리케이션의 컨텍스트 폴더를 설정한다.
+  - `Context` 정보를 별도로 명시하지 않았으므로 `webapps/ROOT` 경로를 웹 애플리케이션의 컨텍스트 폴더로 설정한다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -60,7 +61,7 @@ recommendedPosts:
 
 ## 2. Practice
 
-다음과 같은 시나리오로 실습을 진행하였다.
+다음과 같은 시나리오로 실습을 진행했다.
 
 - 스프링 부트(spring-boot) 프로젝트를 두 개 준비한다.
 - 각 프로젝트를 `war` 패키지 파일로 빌드한다.
@@ -72,7 +73,7 @@ recommendedPosts:
 
 HTML 페이지의 내용만 다르고 같은 구조의 프로젝트를 배포하기 때문에 하나만 확인하겠다. 프로젝트 코드는 별다른 내용이 없으므로 자세한 설명 없이 글을 이어가겠다. 프로젝트의 모든 내용을 확인하고 싶은 분들은 포스트 맨 하단의 예제 코드 링크를 참고 바란다.
 
-다음과 같은 환경을 가진 프로젝트를 빌드하였다.
+다음과 같은 환경을 가진 프로젝트를 빌드했다.
 
 - Spring Boot
   - spring-boot-starter-parent - 2.7.11
@@ -85,9 +86,7 @@ HTML 페이지의 내용만 다르고 같은 구조의 프로젝트를 배포하
 - 패키지 환경을 구성하는 자세한 방법은 아래 포스트를 참고 바란다.
 - [스프링 부트(Spring Boot) 프레임워크에서 WAR 패키지로 배포하기][deploy-spring-boot-project-as-war-link]
 
-다음 명령어를 통해 빌드하고, 패키징 된 파일을 톰캣에 이동한다.
-
-- 빌드가 주된 목적이므로 테스트는 스킵한다.
+다음 명령어를 통해 빌드하고, 패키징 된 파일을 톰캣에 이동한다. 빌드가 주된 목적이므로 테스트는 스킵한다.
 
 ```
 $ mvn package -Dmaven.test.skip=true
@@ -138,10 +137,10 @@ $ mvn package -Dmaven.test.skip=true
 
 - `pc-service.com` 도메인 주소
   - 루트 폴더를 `pc`로 설정한다.
-  - 웹 애플리케이션 컨텍스트 폴더를 `pc/ROOT`으로 지정한다.
+  - 웹 애플리케이션 컨텍스트 폴더를 `pc/ROOT`로 지정한다.
 - `mobile-service.com` 도메인 주소
   - 루트 폴더를 `mobile`로 설정한다.
-  - 웹 애플리케이션 컨텍스트 폴더를 `mobile/ROOT`으로 지정한다.
+  - 웹 애플리케이션 컨텍스트 폴더를 `mobile/ROOT`로 지정한다.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -223,7 +222,7 @@ $ sudo vi /etc/hosts
 127.0.0.1       mobile-service.com
 ```
 
-##### Result of Practice
+실습 결과는 다음과 같다.
 
 - 브라우저를 통해 각 도메인 주소에 접근한다.
 - 서로 다른 화면이 보이는 것을 확인할 수 있다.
@@ -234,7 +233,7 @@ $ sudo vi /etc/hosts
 
 ## CLOSING
 
-스프링 부트 프레임워크에서 사용하는 내장 톰캣은 가상 호스트 기능을 활용하기 어렵다고 한다. nginx 같은 리버스 프록시(reverse proxy)를 사용하면 동일한 구조를 쉽게 구성할 수 있다. 관련된 내용은 다음 포스트를 통해 알아보겠다.
+스프링 부트 프레임워크에서 사용하는 내장 톰캣은 가상 호스트 기능을 활용하기 어렵다고 한다. nginx 같은 리버스 프록시(reverse proxy)를 사용하면 동일한 구조를 쉽게 구성할 수 있다. 관련된 내용은 다음 포스트에서 다룬다.
 
 #### TEST CODE REPOSITORY
 

@@ -7,6 +7,7 @@ categories:
   - "html"
   - "css"
   - "javascript"
+summary: "한 번 실행된 CSS 애니메이션이 다시 실행되지 않는 문제를 브라우저 렌더링 과정과 리플로우를 이용한 트릭으로 자연스럽게 재시작해 해결했다."
 recommendedPosts:
   - title: "DOM(Document Object Model)"
     href: "https://junhyunny.github.io/information/document-object-model/"
@@ -16,19 +17,17 @@ recommendedPosts:
 
 ## 1. Problem Context
 
-서비스를 개발하다 보면 다양한 이유로 애니메이션을 다시 실행할 필요가 생긴다. 하지만 CSS @keyframes 기능으로 애니메이션을 구현한 경우 해당 애니메이션을 다시 실행하는 것은 생각보다 쉽지 않다. 일반적으로 HTML 엘리먼트(element)에서 한번 애니메이션이 실행되면 다른 애니메이션이 동작하지 않는다. 먼저 문제 상황과 코드를 살펴보겠다.
+서비스를 개발하다 보면 다양한 이유로 애니메이션을 다시 실행할 필요가 생긴다. 하지만 CSS @keyframes 기능으로 애니메이션을 구현한 경우 해당 애니메이션을 다시 실행하는 것은 생각보다 쉽지 않다. 일반적으로 HTML 엘리먼트(element)에서 한번 애니메이션이 실행되면 다른 애니메이션이 동작하지 않는다. 먼저 문제 상황과 코드를 살펴보자.
 
 - 클릭 이벤트로 버튼 내부 하트 이미지의 색상 온/오프(on/off)
 - 하트의 색상 변경은 스프라이트 애니메이션(sprite animation)으로 적용
-  - 아래와 같은 이미지를 사용하였다.
+  - 아래와 같은 이미지를 사용했다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/restart-css-animation-by-javascript-01.png" width="100%" class="image__border image__padding">
 </div>
 
-### 1.1. HTML Code
-
-다음과 같은 엘리먼트 구조를 가진다.
+HTML 코드는 다음과 같은 엘리먼트 구조를 가진다.
 
 - 버튼을 클릭한 경우 restart() 이벤트를 통해 애니메이션을 재실행한다.
 - like-animation 클래스를 가진 엘리먼트는 스프라이트 애니메이션이 적용되어 있다.
@@ -43,9 +42,7 @@ recommendedPosts:
 </div>
 ```
 
-### 1.2. CSS Code
-
-가독성을 위해 설명 코드에 주석으로 추가하였다.
+CSS 코드는 가독성을 위해 설명을 코드에 주석으로 추가했다.
 
 ```css
 .app {
@@ -99,9 +96,7 @@ recommendedPosts:
 }
 ```
 
-### 1.3. JavaScript Code
-
-각 함수 별로 다음과 같은 동작을 수행한다.
+JavaScript 코드는 함수별로 다음과 같은 동작을 수행한다.
 
 - restart 함수
   - 애니메이션을 다시 실행한다.
@@ -138,8 +133,6 @@ function restart() {
 }
 ```
 
-##### Wrong Button Animation
-
 해당 코드를 실행하면 다음과 같이 동작한다.
 
 - 애니메이션이 엘리먼트에 처음으로 추가되는 첫 번째 클릭에서만 애니메이션이 동작한다.
@@ -151,7 +144,7 @@ function restart() {
 
 ## 2. Solve the problem
 
-타이머를 사용해 클래스를 삭제/추가하도록 작성한 코드도 기능은 동작하지만, 애니메이션에 끊기는 현상이 있었다. 자연스럽게 애니메이션을 재실행하려면 리플로우(reflow)를 사용한 트릭(trick)이 필요하다. 먼저 리플로우 개념에 대해 알아보겠다.
+타이머를 사용해 클래스를 삭제/추가하도록 작성한 코드도 기능은 동작하지만, 애니메이션에 끊기는 현상이 있었다. 자연스럽게 애니메이션을 재실행하려면 리플로우(reflow)를 사용한 트릭(trick)이 필요하다. 먼저 리플로우 개념에 대해 알아보자.
 
 ### 2.1. Rendering Process in Browser
 
@@ -172,7 +165,7 @@ function restart() {
   - 배경, 테두리, 텍스트 및 기타 시각적인 요소들을 렌더링한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/restart-css-animation-by-javascript-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/restart-css-animation-by-javascript-03.png" width="100%" class="image__border">
 </div>
 <center>https://it-eldorado.tistory.com/87</center>
 
@@ -185,7 +178,7 @@ function restart() {
   - 애니메이션의 방향만 바뀌었으므로 재실행하지 않는다.
 - 브라우저가 화면을 다시 그려야 한다고 판단할 수 있도록 추가 코드가 필요하다.
 
-### 2.3. JavaSript Code
+### 2.3. JavaScript Code
 
 리플로우를 실행시키는 코드를 추가한다.
 
@@ -222,11 +215,9 @@ function restart() {
 }
 ```
 
-### 2.4. Result
-
 버튼을 클릭하면 애니메이션이 동작하는 것을 확인할 수 있다.
 
-<iframe class="codepen" src="https://codepen.io/Junhyunny/embed/eYQwBgZ?default-tab=css,result" title="Resatrt CSS Animation by JavaScript" loading="lazy" allowfullscreen></iframe>
+<iframe class="codepen" src="https://codepen.io/Junhyunny/embed/eYQwBgZ?default-tab=css,result" title="Restart CSS Animation by JavaScript" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/eYQwBgZ/">CodePen에서 예제 열기</a></p>
 
 #### REFERENCE

@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "test-container"
   - "mysql"
+summary: "인메모리 데이터베이스로 테스트할 때의 한계를 짚고, 테스트 컨테이너로 실제 MySQL과 스프링 애플리케이션의 결합 테스트를 구성하는 방법과 과도한 로그 문제의 해결법을 정리했다."
 recommendedPosts:
   - title: "@DataJpaTest 애너테이션과 임베디드 데이터베이스 문제"
     href: "https://junhyunny.github.io/spring-boot/jpa/test-driven-development/do-not-replace-database-when-using-data-jpa-test-annotation/"
@@ -21,7 +22,7 @@ recommendedPosts:
 나는 데이터베이스가 필요한 비즈니스 로직을 테스트하기 위해 주로 인-메모리(in-memory) 데이터베이스를 사용했다. 인-메모리 데이터베이스는 다음과 같은 장점이 있다.
 
 - 메모리 데이터베이스를 사용하기 때문에 실행 속도가 빠르다.
-- 테스트마다 메모리에 데이터베이스를 구성하고, 테스트가 종료될 때 삭제하므로 멱등성(idempotent)이 보장된다. 멱등성이란 여러번 실행하더라도 결과가 바뀌지 않는 성질을 의미한다.
+- 테스트마다 메모리에 데이터베이스를 구성하고, 테스트가 종료될 때 삭제하므로 멱등성(idempotent)이 보장된다. 멱등성이란 여러 번 실행하더라도 결과가 바뀌지 않는 성질을 의미한다.
 - 로컬 환경에서 테스트를 실행할 때 별도의 데이터베이스 연결이 필요하지 않다. 
 
 아쉽게도 메모리 데이터베이스는 만능이 아니다. 장점도 많지만, 실제 사용하는 데이터베이스와 다르기 때문에 문제가 발생한다.
@@ -34,7 +35,7 @@ recommendedPosts:
 
 - 개발자 로컬 데이터베이스
   - 개발자 PC에 로컬 데이터베이스를 설치하고 이를 통해 테스트를 수행한다.
-  - 테스트가 끝난 후에 데이터가 남게되면 다음 실행 시 동일한 결과를 얻지 못할 수 있으므로 멱등성 관리가 어렵다.
+  - 테스트가 끝난 후에 데이터가 남게 되면 다음 실행 시 동일한 결과를 얻지 못할 수 있으므로 멱등성 관리가 어렵다.
   - 개발자마다 로컬 데이터베이스에 관련된 설정이 다를 수 있기 때문에 통일된 설정 파일을 통해 관리하기 어렵다.
   - CI/CD 파이프라인에서 사용할 수 없다.
 - 도커 컴포즈(docker compose)
@@ -142,7 +143,7 @@ tasks.named('test') {
 
 테스트 컨텍스트에서 사용하는 `application-test.yml` 파일에 다음과 같은 설정을 추가한다. 프로파일(profile)을 `test`로 설정 후 사용하는 설정 파일이다.
 
-- 컨테이너 URL정보를 입력한다.
+- 컨테이너 URL 정보를 입력한다.
   - jdbc:tc:mysql:8.0.32:///{database_name}
 - 테스트 컨테이너에 접근할 때 사용하는 드라이버를 지정한다.
   - `ContainerDatabaseDriver`를 사용하지만, 내부에서 MySQL 드라이버를 사용하기 때문에 커넥터 의존성이 필요하다.
@@ -162,9 +163,7 @@ spring:
       ddl-auto: create-drop
 ```
 
-다음과 같은 구현 코드를 작성한다. JpaRepository 인스턴스를 통해 간단한 조회 쿼리 기능을 제공한다.
-
-- 네이티브(native) 쿼리를 실행하는 메서드를 선언한다.
+다음과 같은 구현 코드를 작성한다. JpaRepository 인스턴스를 통해 간단한 조회 쿼리 기능을 제공한다. 네이티브(native) 쿼리를 실행하는 메서드를 선언한다.
 
 ```java
 package action.in.blog.post;
@@ -182,7 +181,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-결합 테스트를 위한 코드는 다음과 같다. 애너테이션이 여러개 사용된다. 각 애너테이션이 어떤 기능을 제공하는지 확인하길 바란다.
+결합 테스트를 위한 코드는 다음과 같다. 애너테이션이 여러 개 사용된다. 각 애너테이션이 어떤 기능을 제공하는지 확인하길 바란다.
 
 - @ActiveProfiles 애너테이션
   - 실행 시 프로파일을 `test`로 지정한다.
@@ -196,7 +195,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 - @Container 애너테이션
   - 테스트 컨테이너를 생성하기 위해 사용한다.
   - 해당 애너테이션이 붙은 필드가 있는 경우 생성될 인스턴스를 통해 컨테이너 생성에 필요한 정보를 파악한다.
-  - @TestContainers 애너테이션에 의해 생성, 소멸 라이프사이클이 관리된다.
+  - @Testcontainers 애너테이션에 의해 생성, 소멸 라이프사이클이 관리된다.
 - @Container 애너테이션이 붙은 필드에 따라 라이프사이클이 다르게 관리된다.
   - `static` 필드는 테스트들 사이에서 공유할 수 있는 컨테이너가 생성되며 한 번만 컨테이너를 실행하고, 마지막 테스트가 종료되면 컨테이너를 소멸시킨다.
   - `static` 키워드가 붙지 않은 `instance` 필드는 모든 테스트마다 컨테이너를 실행하고 소멸시킨다.
@@ -264,9 +263,7 @@ Hibernate: select - from post p where p.title like trim(?)
 
 ## 4. Logging problem
 
-테스트 컨테이너를 사용할 때 로그가 과도하게 출력된다. 이를 방지하기 위해 다음과 같은 로그 설정을 추가한다.
-
-- 로그백(logback) 설정을 통해 로그를 제한한다.
+테스트 컨테이너를 사용할 때 로그가 과도하게 출력된다. 이를 방지하기 위해 다음과 같이 로그백(logback) 설정으로 로그를 제한한다.
 
 ```xml
 <configuration>

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/open-firewall-of-linux/"
 categories:
   - "information"
+summary: "두 대의 우분투 가상 머신에서 telnet, bash 내장 기능, cURL로 방화벽 개방 여부를 확인하고, ufw와 iptables로 방화벽을 여는 실습을 정리했다."
 recommendedPosts:
   - title: "방화벽(firewall)"
     href: "https://junhyunny.github.io/information/firewall/"
@@ -19,19 +20,19 @@ recommendedPosts:
 
 ## 1. Context of Practice
 
-다음과 같은 실습 환경을 구축하였다.
+다음과 같은 실습 환경을 구축했다.
 
 - Windows 운영체제를 사용하는 호스트(host) PC 위에 가상 머신(virtual machine) 두 대를 실행시킨다.
   - 운영체제 - Ubuntu 22.04.1
   - `VM1` IP - 192.168.78.130
   - `VM2` IP - 192.168.78.132
-- `VM1`에서 `VM2`로  SSH 접근을 수행한다.
+- `VM1`에서 `VM2`로 SSH 접근을 수행한다.
   - `VM1`에서 `VM2`의 "22" 포트가 열렸는지 확인한다.
   - `VM2`에서 "22" 포트에 대한 방화벽을 열어준다.
   - `VM1`에서 SSH 접근을 수행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/open-firewall-of-linux-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/open-firewall-of-linux-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Practice

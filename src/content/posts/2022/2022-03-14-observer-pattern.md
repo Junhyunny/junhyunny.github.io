@@ -6,6 +6,7 @@ canonicalPath: "/information/design-pattern/observer-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "옵저버 패턴의 개념과 스프링 ApplicationEventMulticaster, ApplicationListener에 적용된 사례를 살펴보고, 구현 시 고려 사항을 정리했다."
 recommendedPosts:
   - title: "스프링 애플리케이션 컨텍스트 이벤트(Application Context Event)"
     href: "https://junhyunny.github.io/spring-boot/spring-application-context-event/"
@@ -35,17 +36,15 @@ recommendedPosts:
   - 서브젝트 클래스의 상태가 변할 때 전달되는 알림을 통해 자신의 상태를 업데이트한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/observer-pattern-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/observer-pattern-01.png" width="100%" class="image__border">
 </div>
 <center>https://croute.me/316</center>
 
 ## 2. Observer pattern in Spring
 
-옵저버 패턴과 관련된 글에는 좋은 예시 코드가 많고 특별한 시나리오가 떠오르지 않아 이번에는 별도로 구현하지 않았다. 스프링 프레임워크(Spring Framework)에 옵저버 패턴이 적용된 사례를 살펴보겠다.
+옵저버 패턴과 관련된 글에는 좋은 예시 코드가 많고 특별한 시나리오가 떠오르지 않아 이번에는 별도로 구현하지 않았다. 스프링 프레임워크(Spring Framework)에 옵저버 패턴이 적용된 사례를 살펴보자.
 
-### 2.1. ApplicationEventMulticaster 인터페이스
-
-서브젝트 클래스가 수행할 기능을 추상화한 인터페이스이다.
+ApplicationEventMulticaster 인터페이스는 서브젝트 클래스가 수행할 기능을 추상화한다.
 
 ```java
 package org.springframework.context.event;
@@ -73,16 +72,13 @@ public interface ApplicationEventMulticaster {
 }
 ```
 
-### 2.2. AbstractApplicationEventMulticaster 클래스
+`AbstractApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당한다. 추상 클래스이므로 이를 상속받은 클래스가 존재한다. 다음 메서드들로 리스너(listener)를 추가하고 제거한다.
 
-`AbstractApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당한다. 추상 클래스이므로 이를 상속받은 클래스가 존재한다.
-
-- 리스너(listener)들을 추가하고 제거하는 역할을 수행한다.
-  - `addApplicationListener` 메서드
-  - `addApplicationListenerBean` 메서드
-  - `removeApplicationListener` 메서드
-  - `removeApplicationListenerBean` 메서드
-  - `removeAllListeners` 메서드
+- `addApplicationListener` 메서드
+- `addApplicationListenerBean` 메서드
+- `removeApplicationListener` 메서드
+- `removeApplicationListenerBean` 메서드
+- `removeAllListeners` 메서드
 
 ```java
 package org.springframework.context.event;
@@ -161,12 +157,7 @@ public abstract class AbstractApplicationEventMulticaster implements Application
 }
 ```
 
-### 2.3. SimpleApplicationEventMulticaster 클래스
-
-`SimpleApplicationEventMulticaster` 클래스는 옵저버 패턴에서 서브젝트 클래스에 해당한다.
-
-- 추상 클래스인 `AbstractApplicationEventMulticaster`의 기능을 확장한다.
-- `multicastEvent` 메서드: 자신이 관리하는 리스너들에게 이벤트를 전달하는 역할을 수행한다.
+`AbstractApplicationEventMulticaster` 클래스를 상속받은 `SimpleApplicationEventMulticaster` 클래스도 옵저버 패턴에서 서브젝트 클래스에 해당한다. `multicastEvent` 메서드에서 자신이 관리하는 리스너들에게 이벤트를 전달한다.
 
 ```java
 package org.springframework.context.event;
@@ -281,11 +272,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 }
 ```
 
-### 2.4. ApplicationListener 인터페이스
-
-`ApplicationListener` 인터페이스는 옵저버 패턴에서 옵저버 인터페이스에 해당한다.
-
-- `onApplicationEvent` 메서드: 옵저버들이 자신의 상태를 업데이트할 수 있는 메서드를 제공한다.
+`ApplicationListener` 인터페이스는 옵저버 패턴에서 옵저버 인터페이스에 해당한다. `onApplicationEvent` 메서드는 옵저버들이 자신의 상태를 업데이트할 수 있는 메서드를 제공한다.
 
 ```java
 package org.springframework.context;
@@ -298,11 +285,7 @@ public interface ApplicationListener<E extends ApplicationEvent> extends EventLi
 }
 ```
 
-### 2.5. OrderEventListener 클래스
-
-`OrderEventListener` 클래스는 옵저버 패턴에서 상세 옵저버 클래스에 해당한다.
-
-- `listenOrderDeliveryCompleteEvent` 메서드: 서브젝트 클래스로부터 업데이트 알림을 받아 자신의 상태를 변경한다.
+`OrderEventListener` 클래스는 옵저버 패턴에서 상세 옵저버 클래스에 해당한다. `listenOrderDeliveryCompleteEvent` 메서드는 서브젝트 클래스로부터 업데이트 알림을 받아 자신의 상태를 변경한다.
 
 ```java
 package blog.in.action.order.listner;

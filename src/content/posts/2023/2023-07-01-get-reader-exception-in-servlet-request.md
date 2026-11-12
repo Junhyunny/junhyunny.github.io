@@ -6,6 +6,7 @@ canonicalPath: "/java/spring-boot/get-reader-exception-in-servlet-request/"
 categories:
   - "java"
   - "spring-boot"
+summary: "HMAC 인증 필터에서 요청 메시지를 읽은 뒤 컨트롤러에서 다시 읽지 못하는 getReader 예외를, 메시지를 캐싱하는 요청 래퍼 클래스로 해결한 과정을 기록했다."
 recommendedPosts:
   - title: "HMAC(Hash-based Message Authentication Code)"
     href: "https://junhyunny.github.io/information/security/java/spring/hmac/"
@@ -285,8 +286,6 @@ public class HmacFilter extends OncePerRequestFilter {
     }
 }
 ```
-
-##### Result
 
 위 방법으로 해당 문제를 해결하면 정상적으로 요청 메시지가 전달된다.
 

@@ -6,6 +6,7 @@ canonicalPath: "/react/design-pattern/high-order-component-pattern/"
 categories:
   - "react"
   - "design-pattern"
+summary: "여러 입력 컴포넌트에 반복되던 유효성 검사 코드를 리액트 고차 컴포넌트(HOC) 패턴으로 리팩토링한 과정을 정리하고, 횡단 관심사에 적용할 수 있는 패턴임을 설명한다."
 ---
 
 ## 0. 들어가면서
@@ -14,7 +15,7 @@ categories:
 
 ## 1. Problem
 
-현재 텍스트 박스(text box)를 통해 사용자에게 다양한 정보를 입력 받고 있다. 입력 받는 데이터 중 형식(format)을 확인해야하는 경우가 있다. 잘못된 포맷으로 입력된 데이터는 시스템이 동작하는 중간에 런타임 예외(runtime exception)을 발생시킬 확률이 높기 때문이다. 현재 다음과 같은 데이터에 대한 포맷을 확인하고 있다.
+현재 텍스트 박스(text box)를 통해 사용자에게 다양한 정보를 입력 받고 있다. 입력 받는 데이터 중 형식(format)을 확인해야하는 경우가 있다. 잘못된 포맷으로 입력된 데이터는 시스템이 동작하는 중간에 런타임 예외(runtime exception)를 발생시킬 확률이 높기 때문이다. 현재 다음과 같은 데이터에 대한 포맷을 확인하고 있다.
 
 - IP 주소
 - 이메일
@@ -45,10 +46,10 @@ categories:
 
 > 고차 컴포넌트(HOC, Higher Order Component)는 컴포넌트 로직을 재사용하기 위한 React의 고급 기술입니다. 고차 컴포넌트(HOC)는 React API의 일부가 아니며, React의 구성적 특성에서 나오는 패턴입니다. 구체적으로, 고차 컴포넌트는 컴포넌트를 가져와 새 컴포넌트를 반환하는 함수입니다.
 
-고차 컴포넌트 패턴은 컴포넌트를 파라미터(parameter)로 받아 새로운 컴포넌트를 반환하는 함수라는 내용이 핵심이다. 또 하나 중요한 컨셉은 횡단 관심사(cross-cutting concenrs)다. 서로 다른 비즈니스 로직들을 처리할 때 매번 반복되는 전, 후처리 작업을 횡단 관심사라고 한다. 횡단 관심사를 별도 모듈로 분리하여 비즈니스 로직이 수행되기 전, 후에 호출되도록 구성한다. 예를 들어 스프링 프레임워크는 애너테이션만 추가하면 프레임워크에 의해 횡단 관심사 모듈이 호출되지만, 리액트는 손수 횡단 관심사를 처리하기 위한 함수를 만들어야 한다. 
+고차 컴포넌트 패턴은 컴포넌트를 파라미터(parameter)로 받아 새로운 컴포넌트를 반환하는 함수라는 내용이 핵심이다. 또 하나 중요한 컨셉은 횡단 관심사(cross-cutting concerns)다. 서로 다른 비즈니스 로직들을 처리할 때 매번 반복되는 전, 후처리 작업을 횡단 관심사라고 한다. 횡단 관심사를 별도 모듈로 분리하여 비즈니스 로직이 수행되기 전, 후에 호출되도록 구성한다. 예를 들어 스프링 프레임워크는 애너테이션만 추가하면 프레임워크에 의해 횡단 관심사 모듈이 호출되지만, 리액트는 손수 횡단 관심사를 처리하기 위한 함수를 만들어야 한다. 
 
 - 예를 들어 로깅, 인증, 인가, 트랜잭션 처리 등은 대부분의 비즈니스 로직에서 필요한 횡단 관심사다.
-- 공통적인 횡단 관심사 코드 비즈니스 로직마다 작성하지 않는다. 별도 모듈로 구성하고, 비즈니스 로직이 수행될 때 자동으로 호출되도록 구현한다.
+- 공통적인 횡단 관심사 코드를 비즈니스 로직마다 작성하지 않는다. 별도 모듈로 구성하고, 비즈니스 로직이 수행될 때 자동으로 호출되도록 구현한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/with-validation-by-hoc-02.png" width="100%" class="image__border">
@@ -98,7 +99,7 @@ export const withValidation =
   };
 ```
 
-### 2.2. TextInput Component
+### 2.2. TextInput 컴포넌트
 
 고차 컴포넌트 패턴 함수를 통해 새로운 컴포넌트를 만들기 위한 TextInput 컴포넌트를 정의한다. 단순하게 전달 받은 프롭스를 input 태그에 그대로 매핑한다.
 
@@ -134,7 +135,7 @@ const TextInput = ({
 export default TextInput;
 ```
 
-### 2.3. ValidateTextInput Component
+### 2.3. ValidateTextInput 컴포넌트
 
 고차 컴포넌트 패턴을 적용한 컴포넌트를 만든다. TextInput 컴포넌트를 withValidation 함수의 파라미터로 전달한다. 반환된 ValidationTextInput 함수가 고차 컴포넌트 패턴이 적용된 새로운 컴포넌트다.
 
@@ -149,9 +150,7 @@ export const ValidationTextInput = withValidation(TextInput);
 
 ### 3.1. Refactoring Components
 
-기존 컴포넌트들에서 반복되는 코드를 없앤다. 큰 코드 변경이 있었지만, 기존 컴포넌트에 대한 테스트 코드가 있다면 문제될 것이 없다. 테스트 코드를 이 글에 포함시키지 않았지만, 예제 코드에 모두 포함되어 있으니 궁금하다면 글 아래 코드 저장소를 참고하길 바란다. 유효성 확인 함수와 에러 메시지만 다르기 때문에 IpInput 컴포넌트만 대표로 살펴본다.
-
-- 유효성 확인을 위한 함수와 에러 메시지를 프롭스로 전달받는 ValidationTextInput 컴포넌트를 반환한다.
+기존 컴포넌트들에서 반복되는 코드를 없앤다. 큰 코드 변경이 있었지만, 기존 컴포넌트에 대한 테스트 코드가 있다면 문제될 것이 없다. 테스트 코드를 이 글에 포함시키지 않았지만, 예제 코드에 모두 포함되어 있으니 궁금하다면 글 아래 코드 저장소를 참고하길 바란다. 유효성 확인 함수와 에러 메시지만 다르기 때문에 IpInput 컴포넌트만 대표로 살펴보자. IpInput 컴포넌트는 유효성 확인을 위한 함수와 에러 메시지를 프롭스로 전달받는 ValidationTextInput 컴포넌트를 반환한다.
 
 ```tsx
 import { isIpAddress } from "../util/validate";
@@ -229,7 +228,7 @@ export const ValidationTextArea = withValidation(TextArea);
 withValidation 함수를 통과한 컴포넌트들은 유효성 검사와 에러 메시지 출력이 자동으로 이뤄진다. 
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/with-validation-by-hoc-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/with-validation-by-hoc-03.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

@@ -7,6 +7,7 @@ categories:
   - "information"
   - "security"
   - "java"
+summary: "단방향 암호화인 해시와 해시 함수의 특징, 레인보우 테이블 같은 공격과 솔트, 키 스트레칭 대응을 설명하고, 스프링 시큐리티 BCrypt와 JDK MessageDigest 사용 예제를 정리했다."
 ---
 
 ## 1. Hash
@@ -17,7 +18,7 @@ categories:
 - 복호화할 필요가 없는 비밀번호, 전자투표, 전자상거래 등에 사용된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/hash-for-security-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/hash-for-security-01.png" width="100%" class="image__border">
 </div>
 <center>https://st-lab.tistory.com/100</center>
 
@@ -43,7 +44,7 @@ categories:
   - 2017년 2월에 해시 충돌 약점을 이용한 브루트 포스 공격으로 돌파되어 현재는 사용하지 않는다.
 - SHA-2(Secure Hash Algorithm-2)
   - SHA-1을 개량하여 2001년 NIST(미국 표준 기술 연구소)에 의해 표준화된 규격이다.
-  - 뒤에 붙는 숫자에 따라 해시 값의 길이와 블록 크기 등이 결정되며 길수록 안정성이 높아진다.
+  - 뒤에 붙는 숫자에 따라 해시 값의 길이와 블록 크기 등이 결정되며 길수록 안전성이 높아진다.
   - 현재는 SHA-256이나 SHA-512가 주로 사용된다.
 
 ## 2. Problems
@@ -70,10 +71,10 @@ categories:
   - 해시 값을 알더라도 레인보우 테이블에서 일치하는 비밀번호를 찾기 어렵다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/hash-for-security-02.png" width="80%" class="image__border">
-</div>
-<center>https://st-lab.tistory.com/100</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/hash-for-security-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://st-lab.tistory.com/100</center>
 </div>
 
 - 키 스트레칭(key stretching)
@@ -81,7 +82,7 @@ categories:
   - 여러 차례 해싱을 수행하기 때문에 더 많은 시간이 소요된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/hash-for-security-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/hash-for-security-03.png" width="100%" class="image__border">
 </div>
 <center>https://st-lab.tistory.com/100</center>
 
@@ -89,7 +90,7 @@ categories:
 
 스프링 시큐리티(spring security)에 포함된 해시 기능들을 살펴보자.
 
-- PBKDF2(Password-Based Key Derivation Fucntion)
+- PBKDF2(Password-Based Key Derivation Function)
   - 솔트를 적용한 후 해시 함수를 임의의 반복 횟수만큼 적용한다.
 - BCrypt
   - 패스워드 저장을 목적으로 설계되었다.
@@ -98,7 +99,7 @@ categories:
   - 다이제스트를 생성할 때 메모리 오버헤드를 갖도록 설계되었다.
   - 브루트 포스 공격을 방지할 때 사용되며 PBKDF2, BCrypt보다 강력한 보안을 제공한다.
 
-이들 중 `BCrypt`와 JDK(Java Development Kit)이 기본적으로 제공하는 `MessageDigest`를 사용한 예제를 살펴보자.
+이들 중 `BCrypt`와 JDK(Java Development Kit)가 기본적으로 제공하는 `MessageDigest`를 사용한 예제를 살펴보자.
 
 ### 3.1. Use Bcrypt in Spring Security
 
@@ -106,7 +107,7 @@ Bcrypt 클래스를 먼저 사용해보자.
 
 - BCrypt 클래스는 랜덤한 솔트를 사용해 매번 새로운 해시 값을 생성한다.
 - checkpw 메서드는 전달받은 평문과 다이제스트가 동일한지 확인한다.
-- BCrypt 알고리즘의 다이제스트는 솔트 정보를 함께 포함하고 있기 때문에 매번 새로운 해시 값을 만들어져도 동일한지 확인 가능하다.
+- BCrypt 알고리즘의 다이제스트는 솔트 정보를 함께 포함하고 있기 때문에 매번 새로운 해시 값이 만들어져도 동일한지 확인 가능하다.
 
 ```java
 package action.in.blog;
@@ -189,9 +190,7 @@ class SpringSecurityCryptoTests {
 }
 ```
 
-다음과 같은 로그를 볼 수 있다.
-
-- 같은 평문을 암호화하지만 서로 다른 다이제스트 값이 출력된다.
+아래 로그처럼 같은 평문을 암호화해도 서로 다른 다이제스트 값이 출력된다.
 
 ```
 21:42:00.038 [Test worker] INFO action.in.blog.SpringSecurityCryptoTests -- $2a$10$Q.LHWjEFfe36IFNDgvlLteEP8ESU.AALYFNWr/MpFLvSO.fA88mZe
@@ -200,7 +199,7 @@ class SpringSecurityCryptoTests {
 
 ### 3.2. Use MessageDigest with SHA-256 Algorithm in JDK
 
-이번엔 MessageDigest 클래스를 사용해 평문을 암호화해본다.
+이번엔 MessageDigest 클래스를 사용해 평문을 암호화해보자.
 
 1. MessageDigest 클래스를 사용할 때 원하는 알고리즘을 지정한다.
   - SHA-256 알고리즘을 사용한다.

@@ -6,6 +6,7 @@ canonicalPath: "/information/nginx/compression-on-nginx/"
 categories:
   - "information"
   - "nginx"
+summary: "네트워크가 느린 현장에서 리액트 애플리케이션 로딩을 개선하기 위해 Nginx gzip 압축을 설정하고, 압축 적용 시 서버 사양과 파일 종류 등 고려할 점을 정리했다."
 recommendedPosts:
   - title: "Cache-Control on Nginx"
     href: "https://junhyunny.github.io/information/nginx/cache-control-on-nginx/"
@@ -25,7 +26,7 @@ recommendedPosts:
   - 압축을 적용하지 않을 브라우저를 지정한다.
   - 예전 IE(Internet Explorer)는 압축을 지원하지 않으므로 "msie6"를 예외 항목으로 설정한다.
 - gzip_vary on;
-  - gzip 설정을 사용할 때 응답 헤더에 `Vary: Accept-Encoding`를 넣을지 여부이다.
+  - gzip 설정을 사용할 때 응답 헤더에 `Vary: Accept-Encoding`을 넣을지 여부이다.
 - gzip_proxied any;
   - 프록시(proxy)나 캐시 서버에서 요청할 경우 동작 여부를 설정한다.
   - 다음과 같은 설정들을 가질 수 있다.
@@ -151,8 +152,8 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 
 서버의 응답 타이밍은 다음과 같았다.
 
-- 서버 응답을 기다리는데 걸리는 시간은 577.20ms이다.
-- 콘텐츠를 다운로드 받는데 걸리는 시간은 855.36ms이다.
+- 서버 응답을 기다리는 데 걸리는 시간은 577.20ms이다.
+- 콘텐츠를 다운로드 받는 데 걸리는 시간은 855.36ms이다.
 - 총 소요된 시간은 1.44s이다.
 
 <div class="block-break" align="center">
@@ -174,9 +175,9 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 
 서버의 응답 타이밍은 다음과 같았다.
 
-- 서버 응답을 기다리는데 걸리는 시간은 582.17ms이다.
-  - 서버의 응답이 10ms 정도 증가했으며 이는 서버가 자원을 압축하는데 걸리는 시간이다.
-- 콘텐츠를 다운로드 받는데 걸리는 시간은 255.91ms이다.
+- 서버 응답을 기다리는 데 걸리는 시간은 582.17ms이다.
+  - 서버의 응답이 10ms 정도 증가했으며 이는 서버가 자원을 압축하는 데 걸리는 시간이다.
+- 콘텐츠를 다운로드 받는 데 걸리는 시간은 255.91ms이다.
   - 컨텐츠 사이즈가 작아진 만큼 다운로드 속도가 감소했다.
 - 총 소요된 시간은 841.87ms이다.
 
@@ -192,7 +193,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 2. 작아진 용량의 데이터가 네트워크를 통해 클라이언트에게 전달된다.
 3. 클라이언트는 압축된 자원을 해제한다.
 
-그렇기 때문에 압축이 항상 좋은 결과를 만들진 않는다. 네트워크를 통한 다운로드 시간은 단축시키지만, 서버의 사양이 좋지 않다면 압축하는데 시간이 더 오래 걸릴 수 있다. 압축을 적용하려면 다음과 같은 사항들을 고려하는 것이 좋다.
+그렇기 때문에 압축이 항상 좋은 결과를 만들진 않는다. 네트워크를 통한 다운로드 시간은 단축시키지만, 서버의 사양이 좋지 않다면 압축하는 데 시간이 더 오래 걸릴 수 있다. 압축을 적용하려면 다음과 같은 사항들을 고려하는 것이 좋다.
 
 - 서버 사양
   - 서버가 자원을 압축 후 전달하기 때문에 서버 사양이 낮으면 속도가 느려질 수 있다.
@@ -205,7 +206,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
 
 텍스트(text) 파일은 압축 효율이 좋기 때문에 적용 전후에 많은 차이가 있다. 이미지, 비디오, gif, zip 파일들은 이미 충분히 압축된 바이너리(binary) 파일이므로 추가적인 압축 작업이 효율적으로 적용되지 않는다. 데이터 크기가 줄어든다는 보장이 없고 불필요한 압축/해제 단계만 추가된다. 이 경우 캐시 컨트롤(cache control)을 활용하여 클라이언트의 속도 향상을 노리는 것이 더 효과적이다.
 
-아래 예시를 보면 압축 적용 전후 고용량 이미지들을 다운로드 받는데 걸리는 시간 차이가 얼마 없음을 확인할 수 있다. 압축이 적용되지 않았을 때 다운로드 받은 각 리소스의 크기와 소요된 시간을 살펴보면 다음과 같다.
+아래 예시를 보면 압축 적용 전후 고용량 이미지들을 다운로드 받는 데 걸리는 시간 차이가 얼마 없음을 확인할 수 있다. 압축이 적용되지 않았을 때 다운로드 받은 각 리소스의 크기와 소요된 시간을 살펴보면 다음과 같다.
 
 - image-1.jpg
   - 201kB
@@ -221,7 +222,7 @@ $ docker run -d -p 80:80 --name nginx-compression nginx-compression
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/compression-on-nginx-05.gif" width="100%" class="image__border">
 </div>
 
-압축이 적용되었을 때 다운로드 받은 각 리소스의 크기와 소요된 시간을 살펴본다.
+압축이 적용되었을 때 다운로드 받은 각 리소스의 크기와 소요된 시간을 살펴보자.
 
 - image-1.jpg
   - 188kB

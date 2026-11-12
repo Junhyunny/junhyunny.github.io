@@ -24,7 +24,7 @@ recommendedPosts:
 - 결합 테스트(integration test)에서 컨테이너 접속 정보 자동 설정
 - 로컬 런타임 환경에서 테스트 컨테이너 활용
 
-### 1.1. @ServiceConnection Annotation
+### 1.1. @ServiceConnection 애너테이션
 
 결합 테스트에서 테스트 컨테이너를 사용하면 애플리케이션이 실행 중인 컨테이너에 접근하기 위한 정보가 필요하다. 3.1 버전 이전에는 @DynamicPropertySource 애너테이션과 DynamicPropertyRegistry 클래스로 접근 정보를 설정하는 별도 코드가 필요했다.
 
@@ -307,7 +307,7 @@ insert into tb_user (name) values ('Junhyunny');
 insert into tb_user (name) values ('Jua');
 ```
 
-### 2.3. UserController Class
+### 2.3. UserController 클래스
 
 기능을 제공하는 코드는 메인 패키지에 위치하며, 사용자 정보를 조회한 후 반환한다.
 
@@ -337,7 +337,7 @@ public class UserController {
 }
 ```
 
-### 2.4. TestActionInBlogApplication Class
+### 2.4. TestActionInBlogApplication 클래스
 
 테스트 패키지에 위치한 TestActionInBlogApplication 클래스를 살펴보자.
 

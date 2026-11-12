@@ -1,23 +1,18 @@
 ---
 title: "Java 정적 메서드 스터빙 방법"
 publishedAt: "2022-04-11"
-updatedAt: "2026-03-28T11:14:57+09:00"
+updatedAt: "2026-11-12T16:19:45+09:00"
 canonicalPath: "/java/spring-boot/test-driven-development/how-to-stub-java-static-method/"
 categories:
   - "java"
   - "spring-boot"
   - "test-driven-development"
+summary: "LocalDate 클래스의 now 같은 정적 메서드를 mockito-inline 의존성과 mockStatic 메서드로 스터빙하는 방법과 다른 테스트에 영향을 주지 않기 위한 주의 사항을 정리했다."
 ---
 
 ## 1. 문제 현상
 
-테스트 코드를 작성하다보면 static 메서드를 스터빙(stubbing)할 필요가 생긴다. 먼저 간단한 예시 코드를 통해 문제점을 살펴보겠다.
-
-### 1.1. 구현 코드
-
-- 4월, 8월, 12월인 경우에는 20% 할인된 가격을 반환하는 메서드를 테스트하고 싶습니다.
-- 오늘 날짜가 4월, 8월, 12월인 경우에는 20% 할인된 가격이 반환된다.
-- 기타 다른 월인 경우에는 기본 가격이 그대로 반환된다.
+테스트 코드를 작성하다 보면 static 메서드를 스터빙(stubbing)할 필요가 생긴다. 먼저 간단한 예시 코드로 문제를 살펴보자. 4월, 8월, 12월에는 20% 할인된 가격을 반환하는 메서드를 테스트하고 싶다. 오늘 날짜가 4월, 8월, 12월이면 20% 할인된 가격을 반환하고, 다른 달이면 기본 가격을 그대로 반환한다.
 
 ```java
 package action.in.blog.service;
@@ -39,9 +34,7 @@ public class StaticMethodService {
 }
 ```
 
-### 1.2. 테스트 코드
-
-- 해당 테스트 코드는 4월, 8월, 12월인 경우에만 통과한다.
+다음 테스트 코드는 4월, 8월, 12월인 경우에만 통과한다.
 
 ```java
 package action.in.blog.service;
@@ -65,18 +58,13 @@ public class StaticMethodServiceTests {
 
 ## 2. 문제 해결
 
-위의 테스트 코드는 특정 월에만 통과한다. 이벤트 기간마다 테스트를 통과시키기 위해 테스트 코드를 수정할 수는 없다. 이 경우 `LocalDate` 클래스의 `now` 메서드를 특정 날짜로 스터빙할 필요가 있다. `now` 메서드는 static 메서드이기 때문에 일반적인 방법으로 스터빙이 불가능하다.
-
-##### static 메서드 잘못된 스터빙
+위 테스트 코드는 특정 달에만 통과한다. 이벤트 기간마다 테스트를 통과시키려고 테스트 코드를 수정할 수는 없다. 이 경우 `LocalDate` 클래스의 `now` 메서드를 특정 날짜로 스터빙해야 한다. 하지만 `now` 메서드는 static 메서드이기 때문에 일반적인 방법으로는 스터빙할 수 없다. 다음은 static 메서드를 잘못 스터빙한 코드다.
 
 ```java
     Mockito.when(LocalDate.now()).thenReturn(onApril);
 ```
 
-##### 에러 메시지
-
-- 위 코드를 실행시키면 `mock` 객체의 메서드를 `when` 메서드에 전달하라는 에러 메시지를 받습니다.
-- `LocalDate` 클래스 자체는 `mock` 객체가 될 수 없다.
+위 코드를 실행하면 `mock` 객체의 메서드를 `when` 메서드에 전달하라는 에러 메시지를 받는다. `LocalDate` 클래스 자체는 `mock` 객체가 될 수 없다.
 
 ```
 org.mockito.exceptions.misusing.MissingMethodInvocationException: 
@@ -93,11 +81,7 @@ Also, this error might show up because:
 
 ### 2.1. mockito-inline 의존성 사용하기
 
-`Mockito` 클래스를 보면 static 메서드 테스트와 연관있어 보이는 `mockStatic` 메서드가 존재한다. 해당 메서드를 실행시키면 다음과 같은 에러가 발생한다.
-
-##### mockStatic 메서드 호출 시 에러 메시지
-
-- `mockito-inline` 아티팩트(artifact)로 변경하면 테스트가 가능할 것 같다.
+`Mockito` 클래스를 보면 static 메서드 테스트와 연관 있어 보이는 `mockStatic` 메서드가 있다. 이 메서드를 실행하면 다음과 같은 에러가 발생한다. 에러 메시지를 보면 `mockito-inline` 아티팩트(artifact)로 바꾸면 테스트할 수 있을 것 같다.
 
 ```
 org.mockito.exceptions.base.MockitoException: 
@@ -108,9 +92,7 @@ You can simply enable this mock mode, by placing the 'mockito-inline' artifact w
 Note that Mockito's inline mock maker is not supported on Android.
 ```
 
-##### 의존성 추가하기 - pom.xml
-
-- 아래 의존성을 `pom.xml` 파일에 추가한다.
+아래 의존성을 `pom.xml` 파일에 추가한다.
 
 ```xml
 <dependency>
@@ -121,12 +103,11 @@ Note that Mockito's inline mock maker is not supported on Android.
 </dependency>
 ```
 
-### 2.2. 테스트 코드
+`mockito-inline` 의존성을 추가했다면 다음과 같이 테스트 코드를 변경한다.
 
-- `mockito-inline` 의존성을 추가했다면 다음과 같이 테스트 코드를 변경한다.
 - `LocalDate` 클래스를 `static mock`으로 대체하기 전에 4월 1일 날짜를 미리 만든다.
-  - `Mockito.mockStatic(LocalDate.class)` 실행 이후 `LocalDate` 클래스의 static 메서드 호출 시 에러 발생
-- `MockedStatic` 인스턴스를 이용해 `LocalDate` 클래스 `now` 메서드를 스터빙한다.
+  - `Mockito.mockStatic(LocalDate.class)`를 실행한 뒤에 `LocalDate` 클래스의 static 메서드를 호출하면 에러가 발생한다.
+- `MockedStatic` 인스턴스를 이용해 `LocalDate` 클래스의 `now` 메서드를 스터빙한다.
 
 ```java
 package action.in.blog.service;
@@ -156,7 +137,7 @@ public class StaticMethodServiceTests {
 }
 ```
 
-##### 테스트 통과
+테스트를 실행하면 통과한다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/how-to-stub-java-static-method-01.png" width="45%" class="image__border">
@@ -164,7 +145,7 @@ public class StaticMethodServiceTests {
 
 ## 3. static method stubbing 주의 사항
 
-static 메서드를 스터빙하면 다른 테스트 코드에서 문제가 발생한다. 인스턴스를 `mock`으로 만든 것이 아니기 때문에 일회성으로 사용되는 것이 아니라 다음 테스트들까지 영향을 미친다. 8월에도 가격이 정상적으로 할인되는지 테스트 코드를 하나 추가해보았다.
+static 메서드를 스터빙하면 다른 테스트 코드에서 문제가 발생한다. 인스턴스를 `mock`으로 만든 것이 아니기 때문에 한 번 쓰고 끝나지 않고 다음 테스트까지 영향을 미친다. 8월에도 가격이 정상적으로 할인되는지 확인하는 테스트 코드를 하나 추가해 봤다.
 
 ### 3.1. 8월 이벤트 할인 금액 확인 테스트 코드 추가
 
@@ -208,13 +189,13 @@ public class StaticMethodServiceTests {
 }
 ```
 
-##### 테스트 실패
+두 테스트를 함께 실행하면 테스트가 실패한다.
 
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/how-to-stub-java-static-method-02.png" width="45%" class="image__border">
 </div>
 
-##### 에러 메시지
+다음과 같이 현재 스레드에 이미 static mock이 등록되어 있다는 에러 메시지를 볼 수 있다.
 
 ```
 org.mockito.exceptions.base.MockitoException: 
@@ -230,7 +211,7 @@ To create a new mock, the existing static mock registration must be deregistered
 
 ### 3.2. 테스트 충돌 문제 해결
 
-- 테스트마다 사용한 클래스 `static mock`을 해제한다.
+테스트마다 사용한 클래스의 `static mock`을 해제한다.
 
 ```java
 package action.in.blog.service;
@@ -276,17 +257,17 @@ public class StaticMethodServiceTests {
 }
 ```
 
-##### 테스트 성공
+테스트를 실행하면 모두 성공한다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/how-to-stub-java-static-method-03.png" width="45%" class="image__border">
 </div>
 
-
 ### 3.3. 테스트 코드 정리
 
-- 테스트 코드를 정리하였다. 
-- 필요한 날짜들은 미리 만든다.
+테스트 코드를 다음과 같이 정리했다.
+
+- 필요한 날짜는 미리 만든다.
 - 테스트 실행 전 `LocalDate` 클래스를 `static mock`으로 만든다.
 - 테스트 코드마다 필요한 결과 값을 스터빙한다.
 - 테스트 종료 후 사용한 `static mock`을 해제한다.
@@ -344,4 +325,5 @@ public class StaticMethodServiceTests {
 ```
 
 #### TEST CODE REPOSITORY
+
 - <https://github.com/Junhyunny/blog-in-action/tree/master/2022-04-11-how-to-stub-java-static-method>

@@ -6,6 +6,7 @@ canonicalPath: "/javascript/react/how-to-make-file-using-resource-url-in-react/"
 categories:
   - "javascript"
   - "react"
+summary: "서버 이미지를 리액트 상태로 관리하기 위해 fetch API로 이미지 URL의 Blob을 받아 File 인스턴스를 만드는 방법과 이를 검증하는 테스트 코드 작성법을 정리했다."
 recommendedPosts:
   - title: "React 개발 서버 CORS 문제 해결"
     href: "https://junhyunny.github.io/information/react/react-proxy/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-서버로부터 받은 이미지를 리액트(react) 상태(state)로 관리하기 위해 File 인스턴스로 만들 필요가 있었다. 이미지 URL 정보만 있었기 때문에 이를 사용해 File 인스턴스를 생성하는 방법과 테스트 방법에 대해 정리하였다.
+서버로부터 받은 이미지를 리액트(react) 상태(state)로 관리하기 위해 File 인스턴스로 만들 필요가 있었다. 이미지 URL 정보만 있었기 때문에 이를 사용해 File 인스턴스를 생성하는 방법과 테스트 방법에 대해 정리했다.
 
 ## 1. Fetch API
 
@@ -44,9 +45,7 @@ fetch(url)
 
 ## 2. How to make test code?
 
-fetch 함수를 사용하면 테스트가 어렵다. 비트(Vite)로 생성한 프로젝트의 테스트 환경에서 fetch 함수를 직접 호출하면 다음과 같은 에러 메시지를 만난다.
-
-- 웹 API fetch 함수를 찾을 수 없다.
+fetch 함수를 사용하면 테스트가 어렵다. 비트(Vite)로 생성한 프로젝트의 테스트 환경에서 fetch 함수를 직접 호출하면 다음과 같이 웹 API fetch 함수를 찾을 수 없다는 에러 메시지를 만난다.
 
 ```
 fetch is not defined
@@ -74,9 +73,7 @@ TypeError: Network request failed
 
 fetch 함수는 기본적으로 제공되는 웹 API이기 때문에 기능 자체를 테스트할 필요는 없다. 응답 바디 인스턴스의 blob 함수를 테스트하는 것도 물론 비합리적이다. `이미지를 로드(load)하고 블랍 인스턴스를 만드는 일련의 과정`을 함수로 정의하고 모듈로써 이를 호출하도록 구성한다면 테스트를 쉽게 작성할 수 있다.
 
-### 2.1. image.ts
-
-이미지를 로드하고 블랍 인스턴스를 만드는 작업을 별도 함수로 정의한다. 웹 API 기능을 나열한 것이기 때문에 이 모듈을 위한 테스트 코드는 작성하지 않는다.
+이미지를 로드하고 블랍 인스턴스를 만드는 작업을 `image.ts` 파일에 별도 함수로 정의한다. 웹 API 기능을 나열한 것이기 때문에 이 모듈을 위한 테스트 코드는 작성하지 않는다.
 
 ```ts
 export const loadImage = (url: string): Promise<Blob> => {
@@ -84,9 +81,7 @@ export const loadImage = (url: string): Promise<Blob> => {
 };
 ```
 
-### 2.2. App.tsx
-
-구현체 코드는 다음과 같이 구현한다.
+`App.tsx` 파일의 컴포넌트는 다음과 같이 구현한다.
 
 - `img` 태그를 눌러 필요한 이미지를 서버로부터 로딩한다.
 - 이미지 로드가 완료되면 블랍 인스턴스를 기반으로 File 인스턴스를 생성한다.
@@ -138,9 +133,7 @@ function App() {
 export default App;
 ```
 
-### 2.3. App.test.tsx
-
-간단한 테스트 코드로 몇 가지 비즈니스 기능을 검증한다. 테스트 코드는 정상적으로 통과한다.
+`App.test.tsx` 파일에서는 간단한 테스트 코드로 몇 가지 비즈니스 기능을 검증한다. 테스트 코드는 정상적으로 통과한다.
 
 - 빈 이미지를 눌러 서버로부터 새로운 이미지를 로드한다.
 - 이미지 로드가 완료되면 next 버튼이 활성화된다.

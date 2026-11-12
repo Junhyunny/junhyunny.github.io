@@ -7,6 +7,7 @@ categories:
   - "html"
   - "css"
   - "javascript"
+summary: "range 타입 input 엘리먼트의 thumb, track 구성 요소와 브라우저별 수도 엘리먼트를 살펴보고, 스텝마다 색상과 표시가 다른 슬라이더를 CSS로 만드는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -24,7 +25,7 @@ range 타입 input HTML 엘리먼트를 구성하는 요소들에 대한 용어�
   - input 엘리먼트에 지정된 min, max, step 값에 따라 thumb 요소가 멈추는 구간과 지정된 값이 달라진다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-01.png" width="100%" class="image__border">
 </div>
 <center>https://fuuno.net/web02/range_style/range_style.html</center>
 
@@ -33,10 +34,10 @@ range 타입 input HTML 엘리먼트를 구성하는 요소들에 대한 용어�
 range 타입 input HTML 엘리먼트는 크로스 브라우저(cross browser) 문제가 있다. 브라우저마다 자동으로 색이나 모양을 지정하기 때문에 외형이 다르다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-02.png" width="80%" class="image__border">
-</div>
-<center>https://fuuno.net/web02/range_style/range_style.html</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://fuuno.net/web02/range_style/range_style.html</center>
 </div>
 
 각 브라우저마다 스타일을 입히기 위해선 벤더 프리픽스(vendor prefix)가 붙은 수도 엘리먼트(pseudo element)를 사용해야 한다. 크롬(chrome), 사파리(safari), 엣지(edge) 브라우저의 경우 다음과 같은 엘리먼트가 있다. 크롬은 2020년 5월 이후 버전부터 지원한다. 
@@ -45,10 +46,10 @@ range 타입 input HTML 엘리먼트는 크로스 브라우저(cross browser) �
 - ::-webkit-slider-thumb
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-03.png" width="80%" class="image__border">
-</div>
-<center>https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-slider-runnable-track</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://developer.mozilla.org/en-US/docs/Web/CSS/::-webkit-slider-runnable-track</center>
 </div>
 
 파이어폭스(firefox)는 수도 엘리먼트가 3개다. 프로그레스 바에 대한 스타일이 별도로 가능하다. 
@@ -58,10 +59,10 @@ range 타입 input HTML 엘리먼트는 크로스 브라우저(cross browser) �
 - ::-moz-range-progress
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-04.png" width="80%" class="image__border">
-</div>
-<center>https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-range-track</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-04.png" width="100%" class="image__border">
+  </div>
+  <center>https://developer.mozilla.org/en-US/docs/Web/CSS/::-moz-range-track</center>
 </div>
 
 MDN 사이트에서 파이어폭스 관련된 수도 엘리먼트는 표준이 아니라는 경고 메시지를 볼 수 있다. 이를 참고하길 바란다.
@@ -76,7 +77,7 @@ MDN 사이트에서 파이어폭스 관련된 수도 엘리먼트는 표준이 �
 - 값 위치에 작은 표시가 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/custom-input-range-style-05.png" width="100%" class="image__border">
 </div>
 
 ### 3.1. HTML

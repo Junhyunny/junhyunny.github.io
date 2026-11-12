@@ -7,15 +7,16 @@ categories:
   - "ios"
   - "swift-ui"
   - "design-pattern"
+summary: "SwiftUI 프로젝트에 적용된 MVVM 패턴의 구조를 정리하고, View, ViewModel, Repository로 나눠 포켓몬 목록을 보여주는 예제를 구현했다."
 ---
 
 ## 0. 들어가면서
 
-iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스프링 프레임워크와 리액트과 익숙한 나에게 새로운 활력소가 되어주고 있다. 개발자로써 어느 정도 경험치가 쌓였고, 유명한 프레임워크들은 비슷한 패턴이나 컨샙들을 갖고 있기 때문에 생각보다 금새 적응했다. 이미 진행 중인 프로젝트 중간에 참여한 것도 소프트 랜딩(soft landing)이 가능했다. 
+iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스프링 프레임워크와 리액트에 익숙한 나에게 새로운 활력소가 되어주고 있다. 개발자로서 어느 정도 경험치가 쌓였고, 유명한 프레임워크들은 비슷한 패턴이나 컨셉들을 갖고 있기 때문에 생각보다 금세 적응했다. 이미 진행 중인 프로젝트 중간에 참여한 것도 소프트 랜딩(soft landing)이 가능했다. 
 
-지금 프로젝트는 SwiftUI 프레임워크를 사용하고 MVVM(Model-View-ViewModel) 패턴이 적용되어 있다. 이번 글을 작성하면서 MVVM 패턴이 무엇인지 정리해 봤다. 필자는 iOS 개발은 무뇌한이기 때문에 기존 UIKit 프레임워크와 비교한다거나 MVVM 패턴에 대한 장단점, 인사이트에 대해 정리하진 않았다. 각 컴포넌트마다 갖는 책임과 실제 구현 방법을 위주로 글을 작성했다.
+지금 프로젝트는 SwiftUI 프레임워크를 사용하고 MVVM(Model-View-ViewModel) 패턴이 적용되어 있다. 이번 글을 작성하면서 MVVM 패턴이 무엇인지 정리해 봤다. 필자는 iOS 개발은 문외한이기 때문에 기존 UIKit 프레임워크와 비교한다거나 MVVM 패턴에 대한 장단점, 인사이트에 대해 정리하진 않았다. 각 컴포넌트마다 갖는 책임과 실제 구현 방법을 위주로 글을 작성했다.
 
-## 1. MVVM(Model-View-ModelView) Pattern
+## 1. MVVM(Model-View-ViewModel) Pattern
 
 내가 익숙한 스프링 프레임워크도 백엔드 애플리케이션을 구성할 때 각 컴포넌트 별로 책임을 나눠 개발한다. 이를 MVC 패턴이라고 한다. SwiftUI 프레임워크에서도 애플리케이션을 구성할 때 동일하게 컴포넌트들 간에 책임을 분할한다. 각 컴포넌트는 다음과 같은 책임을 갖는다.
 
@@ -29,7 +30,7 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
   - 화면 표현을 위해 필요한 데이터는 뷰-모델 컴포넌트로부터 전달 받는다.
 - ViewModel(뷰-모델)
   - 뷰와 모델을 연결하는 책임을 갖는다.
-  - 뷰에게 데이터나 커맨드(데이터를 변경하는 요청)을 노출한다.
+  - 뷰에게 데이터나 커맨드(데이터를 변경하는 요청)를 노출한다.
   - 뷰에서 발생한 사용자 이벤트에 필요한 비즈니스 로직을 처리한다.
   - 모델에서 발생하는 데이터 변경을 뷰에게 전달(notify) 한다.
 
@@ -42,12 +43,12 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
 5. `뷰 컴포넌트`는 상태 변경을 감지하고 화면을 다시 그린다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mvvm-pattern-in-ios-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mvvm-pattern-in-ios-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. How do we implement?
 
-필자는 애플리케이션의 전반적인 아키텍처가 세 개의 그룹으로 나뉘는 것이나 각 그룹 별로 갖는 책임은 스프링 부트로 구성하는 백엔드 애플리케이션의 구조와 비슷하다고 느꼈다. 상태가 변경됨에 따라 화면이 다시 랜더링 되는 것은 리액트나 뷰(Vue) 같은 프론트엔드와 비슷하다는 생각이 들었다. 리액트나 스프링 부트가 익숙한 덕분에 MVVM 패턴의 컨셉을 쉽게 이해할 수 있었다. 
+필자는 애플리케이션의 전반적인 아키텍처가 세 개의 그룹으로 나뉘는 것이나 각 그룹 별로 갖는 책임은 스프링 부트로 구성하는 백엔드 애플리케이션의 구조와 비슷하다고 느꼈다. 상태가 변경됨에 따라 화면이 다시 렌더링 되는 것은 리액트나 뷰(Vue) 같은 프론트엔드와 비슷하다는 생각이 들었다. 리액트나 스프링 부트가 익숙한 덕분에 MVVM 패턴의 컨셉을 쉽게 이해할 수 있었다. 
 
 큰 그림은 살펴봤으니 이번엔 실제 SwiftUI 프레임워크를 사용해 구현한 애플리케이션 코드는 어떤 모습인지 살펴보자. [PokeApi](https://pokeapi.co/)라는 오픈 API 서버를 사용한다. 간단한 리스트 화면과 페이징 처리까지 구현했다.
 
@@ -101,7 +102,7 @@ iOS 애플리케이션을 개발하는 프로젝트에 참여하게 됐다. 스�
   - 뷰-모델 객체는 상태 객체로 관리되기 때문에 pokemons 값에 변경이 발생하는 경우 화면이 다시 그려진다.
 4. 뷰 컴포넌트에서 버튼이 눌렸을 때 이벤트를 어떻게 처리할 것인지 정의한다. 
   - 예제는 prevPage, nextPage 함수가 호출된다. 
-  - 각 함수는 뷰-모델 객체을 사용해 특정 오프셋의 데이터를 다시 조회힌다.
+  - 각 함수는 뷰-모델 객체를 사용해 특정 오프셋의 데이터를 다시 조회한다.
 5. 최초 화면이 그려지기 전 뷰-모델 객체를 통해 데이터를 조회한다.
 
 ```swift
@@ -165,7 +166,7 @@ struct ContentView: View {
 }
 ```
 
-### 2.3. ContentViewModel Class
+### 2.3. ContentViewModel 클래스
 
 다음은 뷰-모델 객체를 살펴보자. 
 
@@ -235,7 +236,7 @@ struct PokemonRepository {
 iOS 시뮬레이터를 실행하면 다음과 같이 동작한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mvvm-pattern-in-ios-02.gif" width="30%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/mvvm-pattern-in-ios-02.gif" width="50%" class="image__border">
 </div>
 
 ## CLOSING

@@ -5,6 +5,7 @@ updatedAt: "2026-09-17T23:12:58+09:00"
 canonicalPath: "/information/ssh-copy-id-for-easy-connection/"
 categories:
   - "information"
+summary: "ssh-keygen으로 만든 공개 키를 ssh-copy-id 명령어로 서버에 복사해 비밀번호 입력 없이 SSH 연결을 맺는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -13,7 +14,7 @@ categories:
 
 ## 1. Practice
 
-간단한 실습을 통해 사용 방법을 알아보겠다. 이번 글은 다음과 같은 시나리오를 따라 진행된다.
+간단한 실습을 통해 사용 방법을 알아보자. 이번 글은 다음과 같은 시나리오를 따라 진행된다.
 
 1. 클라이언트 PC에서 `ssh-keygen` 명령어를 사용해 공개 키와 비밀 키를 생성한다.
 2. 공개 키를 SSH 서버에 복사한다.

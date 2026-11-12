@@ -5,11 +5,12 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/e2e-test/codecept-js-with-playwright/"
 categories:
   - "e2e-test"
+summary: "Playwright와 CodeceptJS 프레임워크의 특징을 소개하고, Playwright를 도우미로 사용하는 CodeceptJS 프로젝트에서 로그인 E2E 테스트를 작성하는 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-E2E 테스트를 작성할 때 항상 Cypress 프레임워크를 사용했었다. 이번 프로젝트에선 새로운 `CodeceptJS`, `Playwright` 라는 프레임워크를 사용해 볼 기회가 생겼다. 이번 글에선 두 프레임워크에 대한 간단한 소개한다.
+E2E 테스트를 작성할 때 항상 Cypress 프레임워크를 사용했었다. 이번 프로젝트에선 새로운 `CodeceptJS`, `Playwright` 라는 프레임워크를 사용해 볼 기회가 생겼다. 이번 글에선 두 프레임워크에 대한 간단히 소개한다.
 
 ## 1. Playwright Framework
 
@@ -48,7 +49,7 @@ test('get started link', async ({ page }) => {
 
 ## 2. CodeceptJS Framework
 
-Playwright 프레임워크는 Cypress 프레임워크과 크게 다르지 않다는 인상을 받았다. 반면 `CodeceptJS` 프레임워크는 코드 스타일에 큰 변화를 준다. Playwright, Cypress는 애플리케이션(혹은 브라우저) 관점에서 테스트 코드를 작성한 것 같은 느낌을 주지만, CodeceptJS는 사용자 관점에서 테스트를 작성하는 것처럼 느껴진다. 테스트에 주체가 `page`가 아닌 `I`이기 때문일지도 모르지만, 자연어로 테스트 코드를 작성하기 때문에 코드의 가독성이 좋고 유저 플로우(user flow)를 이해하기 쉽다.
+Playwright 프레임워크는 Cypress 프레임워크와 크게 다르지 않다는 인상을 받았다. 반면 `CodeceptJS` 프레임워크는 코드 스타일에 큰 변화를 준다. Playwright, Cypress는 애플리케이션(혹은 브라우저) 관점에서 테스트 코드를 작성한 것 같은 느낌을 주지만, CodeceptJS는 사용자 관점에서 테스트를 작성하는 것처럼 느껴진다. 테스트의 주체가 `page`가 아닌 `I`이기 때문일지도 모르지만, 자연어로 테스트 코드를 작성하기 때문에 코드의 가독성이 좋고 유저 플로우(user flow)를 이해하기 쉽다.
 
 ```js
 Feature('ToDo');
@@ -79,7 +80,7 @@ CodeceptJS 프레임워크는 브라우저를 지원하는 도우미(helper) 프
 
 ## 3. Testing with Playwright
 
-도우미로 Playwright 프레임워크를 사용한 예제를 살펴본다. 공식 홈페이지에 자세히 나와 있지만, 간단한 로그인 기능을 테스트해본다. 
+도우미로 Playwright 프레임워크를 사용한 예제를 살펴보자. 공식 홈페이지에 자세히 나와 있지만, 여기선 간단한 로그인 기능을 테스트한다. 
 
 ### 3.1. Setup project for E2E test
 
@@ -297,7 +298,7 @@ login --
 I.login(secret("junhyunny"), secret("12345"));
 ```
 
-위처럼 actor 객체에 함수 추가함으로써 로그인 기능 재사용, 아이디와 비밀번호가 로그에 표시되는 문제는 해결되었다. 다음 문제인 로그인 세션 재사용을 위해선 플러그인을 사용한다. `codecept.conf.ts` 파일에 autoLogin 플러그인을 활성화한다.
+위처럼 actor 객체에 함수를 추가함으로써 로그인 기능 재사용, 아이디와 비밀번호가 로그에 표시되는 문제는 해결되었다. 다음 문제인 로그인 세션 재사용을 위해선 플러그인을 사용한다. `codecept.conf.ts` 파일에 autoLogin 플러그인을 활성화한다.
 
 - autoLogin 플러그인을 활성화한다.
 - 로그인 함수 이름을 지정한다.
@@ -375,9 +376,7 @@ declare namespace CodeceptJS {
 }
 ```
 
-테스트 코드는 다음과 같이 변경할 수 있다.
-
-- `"JUNHYUNNY"` 사용자로 로그인한다.
+테스트 코드는 다음과 같이 `"JUNHYUNNY"` 사용자로 로그인하도록 변경할 수 있다.
 
 ```ts
 Feature("login");

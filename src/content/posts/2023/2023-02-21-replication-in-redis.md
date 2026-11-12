@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/redis/replication-in-redis/"
 categories:
   - "spring-boot"
   - "redis"
+summary: "Redis 고가용성을 위해 마스터-슬레이브 레플리케이션을 구성하고 스프링 부트 애플리케이션으로 테스트하며, 레플리케이션만으로는 마스터 장애에 대응하기 어렵다는 한계를 확인했다."
 recommendedPosts:
   - title: "임베디드 레디스 서버(Embedded Redis Server)"
     href: "https://junhyunny.github.io/spring-boot/redis/embedded-redis-server/"
@@ -36,10 +37,10 @@ recommendedPosts:
 - 마스터 인스턴스에 문제가 발생하는 경우 이를 슬레이브 인스턴스가 대체한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-01.png" width="80%" class="image__border">
-</div>
-<center>https://www.vinsguru.com/redis-master-slave-with-spring-boot/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.vinsguru.com/redis-master-slave-with-spring-boot/</center>
 </div>
 
 슬레이브 인스턴스는 읽기 연산에 대해서만 정상적인 동작을 보장한다. 레디스 버전 2.6부터 슬레이브 인스턴스는 기본적으로 읽기 전용이다. `redis.conf` 설정 파일의 `replica-read-only` 옵션을 통해 변경할 수 있다.
@@ -56,7 +57,7 @@ recommendedPosts:
 
 ## 2. Practice
 
-간단한 시나리오를 바탕으로 애플리케이션을 구현하고 레디스 레플리케이션을 구축해 보겠다.
+간단한 시나리오를 바탕으로 애플리케이션을 구현하고 레디스 레플리케이션을 구축해 보자.
 
 1. 사용자가 애플리케이션 화면을 통해 간단한 메시지를 전송한다.
 2. 전송한 메시지는 레디스 마스터 인스턴스의 리스트(list)에 저장된다. 리스트는 두 종류가 있다.
@@ -92,7 +93,7 @@ recommendedPosts:
 
 ## 3. Implementation
 
-사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용하였다. 지금부터 구현 코드와 설정을 살펴보자. 모든 클래스를 살펴보진 않고, 중요한 기능만 살펴보겠다. 프로젝트 패키지는 다음과 같다.
+사용자 화면은 타임리프(thymeleaf) 템플릿 엔진을 사용했다. 지금부터 구현 코드와 설정을 살펴보자. 모든 클래스를 다루진 않고, 중요한 기능만 설명한다. 프로젝트 패키지는 다음과 같다.
 
 ```
 ./
@@ -476,9 +477,7 @@ services:
 port 6379
 ```
 
-슬레이브 인스턴스를 위한 설정 파일인 `redis-slave-1.conf`, `redis-slave-2.conf`에는 아래와 같이 복제할 마스터 인스턴스 정보를 추가한다.
-
-- 복제할 마스터 인스턴스 정보를 추가한다. 4.X 버전까진 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
+슬레이브 인스턴스를 위한 설정 파일인 `redis-slave-1.conf`, `redis-slave-2.conf`에는 아래와 같이 복제할 마스터 인스턴스 정보를 추가한다. 4.X 버전까진 `slaveof`였으며 5.X 버전부터 `replicaof`로 변경되었다.
 
 ```conf
 port 6379
@@ -512,9 +511,7 @@ $ sh shell/redis-replication.sh
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-03.gif" width="100%" class="image__border">
 </div>
 
-다음은 슬레이브 인스턴스가 멈췄을 때 어떻게 동작하는지 살펴보자. 마찬가지로 도커 데스크톱을 사용해 모든 슬레이브 인스턴스를 실행 중지한다.
-
-- 모든 기능이 정상적으로 동작한다.
+다음은 슬레이브 인스턴스가 멈췄을 때 어떻게 동작하는지 살펴보자. 마찬가지로 도커 데스크톱을 사용해 모든 슬레이브 인스턴스를 실행 중지해도 모든 기능이 정상적으로 동작한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/replication-in-redis-04.gif" width="100%" class="image__border">

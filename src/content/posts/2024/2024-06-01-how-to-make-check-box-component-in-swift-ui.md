@@ -22,8 +22,6 @@ SwiftUI 프레임워크로 iOS 애플리케이션을 개발할 때 체크 박스
 
 iOS 애플리케이션은 토글(toggle) 스위치 스타일을 바꿔 체크 박스 컴포넌트를 만든다. 
 
-### 1.1. Implementation
-
 ToggleStyle 프로토콜을 상속 받아 체크 박스 스타일을 만든다. 오버라이드(override) 한 makeBody 함수의 configuration 객체로부터 토글 컴포넌트에 설정된 정보를 얻을 수 있다.
 
 1. 버튼이 눌리면 isOn 값을 토글한다.
@@ -72,11 +70,7 @@ struct SupportedCheckBox: View {
 }
 ```
 
-### 1.2. Tests
-
-ViewInspector 라이브러리로 이제 위에서 만든 커스텀 컴포넌트를 테스트 해보자. SwiftUI 프레임워크는 모키토(mockito)처럼 동적으로 테스트 더블을 만들 수 있는 라이브러리가 없다. 다음과 같은 테스트 더블을 준비한다. 테스트에서만 사용하므로 테스트 대상 폴더 내부에 만든다.
-
-- onChange 함수를 호출했을 때 파라미터로 전달된 값을 저장한다.
+ViewInspector 라이브러리로 이제 위에서 만든 커스텀 컴포넌트를 테스트 해보자. SwiftUI 프레임워크는 모키토(mockito)처럼 동적으로 테스트 더블을 만들 수 있는 라이브러리가 없다. 다음과 같은 테스트 더블을 준비한다. 테스트에서만 사용하므로 테스트 대상 폴더 내부에 만든다. onChange 함수를 호출했을 때 파라미터로 전달된 값을 저장한다.
 
 ```swift
 class OnChangeSpy {   
@@ -162,9 +156,7 @@ In the meanwhile, please add XCTSkip for iOS 16 and use an earlier OS version fo
 
 이 문제는 Button 컴포넌트로 직접 구현한다면 해결할 수 있다.
 
-### 2.1. Implementation
-
-iOSCheckboxToggleStyle 구조체와 유사한 구조를 갖는다. 
+직접 구현한 체크 박스도 iOSCheckboxToggleStyle 구조체와 유사한 구조를 갖는다.
 
 1. 버튼을 클릭하면 isOn 값을 토글한다.
 2. 상위 컴포넌트로부터 전달 받은 onChange 클로저에게 상태 변경 이벤트를 전달한다.
@@ -200,8 +192,6 @@ struct CheckBox: View {
     }
 }
 ```
-
-### 2.2. Tests
 
 단위 테스트 방법은 동일하다.
 

@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/service-worker-api/"
 categories:
   - "information"
+summary: "브라우저와 서버 사이에서 네트워크 프록시 역할을 하는 서비스 워커의 개념과 생명주기를 정리하고, fetch 이벤트로 이미지를 캐싱하는 예제를 다룬다."
 recommendedPosts:
   - title: "live-server 명령어 간단 웹 서버 실행"
     href: "https://junhyunny.github.io/information/live-server/"
@@ -14,7 +15,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-프론트엔드 테스트가 복잡해지면서 이를 단순화 하기 위해 공부하던 중 MSW(Mock Service Worker)를 알게 됐다. 목 서비스 워커는 브라우저의 서비스 워커를 테스트 더블로 만드는 라이브러리다. 현재 프론트엔드 애플리케이션의 PWA(Progressive Web Application)로 전환을 고려하면서 서비스 워커를 한번 더 마주쳤다. 이번 글을 통해 서비스 워커가 어떤 역할을 수행하는지 정리한다.
+프론트엔드 테스트가 복잡해지면서 이를 단순화 하기 위해 공부하던 중 MSW(Mock Service Worker)를 알게 됐다. 목 서비스 워커는 브라우저의 서비스 워커를 테스트 더블로 만드는 라이브러리다. 현재 프론트엔드 애플리케이션의 PWA(Progressive Web Application)로 전환을 고려하면서 서비스 워커를 한 번 더 마주쳤다. 이번 글을 통해 서비스 워커가 어떤 역할을 수행하는지 정리한다.
 
 ## 1. Service Worker
 
@@ -36,14 +37,14 @@ recommendedPosts:
 - 웹 애플리케이션과 웹 서버 사이의 새로운 계층에서 동작한다.
   - 웹 애플리케이션 입장에선 네트워크 프록시 역할을 수행한다.
 - 브라우저의 캐시 저장소를 사용해 필요한 리소스들을 저장한다.
-  - 오프라인 상태에서도 캐시에 저장된 리소스를 사용하므로 일부 기능이 제한되지만, 정상적인 동작이 가능한다.
+  - 오프라인 상태에서도 캐시에 저장된 리소스를 사용하므로 일부 기능이 제한되지만, 정상적인 동작이 가능하다.
   - 캐시 저장소는 브라우저 캐시와 독립적으로 동작하며 영구적으로 보관된다.
 - 서비스 워커는 웹 애플리케이션과 독립적으로 동작하기 위해 설치를 통해 사용한다.
   - 웹 페이지와 독립적으로 동작하기 때문에 DOM 엘리먼트나 window 객체에 접근할 수 없습니다. 
   - 백그라운드 동기화나 푸시 알림을 받아 처리할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/service-worker-api-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/service-worker-api-01.png" width="100%" class="image__border">
 </div>
 
 ## 2. Service Worker Lifecycle and States
@@ -68,16 +69,16 @@ recommendedPosts:
   - 서비스 워커가 활성화 된 상태이며 이 시점부터 fetch, push, sync 등의 이벤트 콜백을 받아 처리할 수 있다.
 5. redundant
   - 서비스 워커가 설치 중 실패하거나 새로운 버전으로 교체되면 redundant 상태가 된다.
-  - redundant 상태의 서비스 워커는 앱에 아무런 영향을 미치지 못 한다.
+  - redundant 상태의 서비스 워커는 앱에 아무런 영향을 미치지 못한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/service-worker-api-02.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/service-worker-api-02.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://www.oreilly.com/library/view/building-progressive-web/9781491961643/ch04.html</center>
 
 ## 3. Practice
 
-서비스 워커는 이벤트 기반으로 동작한다. 이번 글에선 간단하게 fetch 이벤트를 통해 이미지를 캐싱하는 예제를 다뤄본다. 아래 목록은 서비스 워커에서 다룰 수 있는 이벤트 종류다.
+서비스 워커는 이벤트 기반으로 동작한다. 이번 글에선 간단하게 fetch 이벤트를 통해 이미지를 캐싱하는 예제를 다룬다. 아래 목록은 서비스 워커에서 다룰 수 있는 이벤트 종류다.
 
 - Lifecycle Events
   - install
@@ -98,7 +99,7 @@ recommendedPosts:
 
 메인 화면인 `index.html` 파일을 먼저 살펴보자. 
 
-- HTML 문서 마지막 부분에서 regsiterServiceWorker 함수를 호출해 서비스 워커를 등록한다.
+- HTML 문서 마지막 부분에서 registerServiceWorker 함수를 호출해 서비스 워커를 등록한다.
   - 서비스 워커는 프로젝트 폴더에 `service-worker.js` 스크립트 파일로 존재한다.
 - 두 개의 버튼이 존재하며 각 버튼은 다음과 같은 동작을 수행한다.
   - `Clear Cache` 버튼은 브라우저 캐시를 삭제하는 기능이다.
@@ -128,7 +129,7 @@ recommendedPosts:
 </body>
 
 <script>
-    function regsiterServiceWorker() {
+    function registerServiceWorker() {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
                 .register('./service-worker.js')
@@ -164,7 +165,7 @@ recommendedPosts:
             .catch(error => console.log(error));
     }
 
-    regsiterServiceWorker();
+    registerServiceWorker();
 </script>
 
 </html>
@@ -238,7 +239,7 @@ GET /favicon.ico 404 1.793 ms - 150
 - 사용 중인 캐시 정보는 `개발자 도구 > 애플리케이션 > 캐시 저장공간`에서 확인할 수 있다.
 - `Cat Image` 버튼 클릭 시
   - fetch 함수를 통해 API 요청 시 고양이 이미지 리소스 주소가 담긴 JSON 응답을 받는다.
-  - 요청 정보를 키로 JSON 응답 캐시에 저장한다.
+  - 요청 정보를 키로 JSON 응답을 캐시에 저장한다.
   - img 엘리먼트의 src 속성을 변경하면 새로운 이미지를 다운로드 받는다. 네트워크를 통해 이미지를 다운로드 받을 때도 서비스 워커의 fetch 이벤트 콜백 함수가 실행된다. 
   - 요청 정보를 키로 다운로드 받은 이미지를 캐시에 저장한다.
   - 캐시된 데이터가 있으므로 다시 버튼을 누르면 이미지 변경이 발생하지 않는다.

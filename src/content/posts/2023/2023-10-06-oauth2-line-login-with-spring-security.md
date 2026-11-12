@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "spring-security"
+summary: "스프링 시큐리티의 OAuth2 인증 흐름을 살펴보고, LINE 개발자 콘솔에 클라이언트를 등록해 스프링 부트 애플리케이션에 LINE 로그인 기능을 추가한 과정을 정리했다."
 recommendedPosts:
   - title: "Redirect and Forwarding"
     href: "https://junhyunny.github.io/information/redirect-and-forwarding/"
@@ -16,13 +17,13 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-많은 애플리케이션들은 SNS 인증을 통해 로그인 프로세스를 구현한다. 보통 SNS 인증 방식에는 [OAuth(Open Authorization)][oauth-link] 프로토콜이 사용되는데 현재 개발 중인 애플리케이션에도 LINE 로그인 기능을 추가하였다.
+많은 애플리케이션들은 SNS 인증을 통해 로그인 프로세스를 구현한다. 보통 SNS 인증 방식에는 [OAuth(Open Authorization)][oauth-link] 프로토콜이 사용되는데 현재 개발 중인 애플리케이션에도 LINE 로그인 기능을 추가했다.
 
-스프링 프레임워크(spring framework) 기반으로 백엔드 서비스가 구성되었기 때문에 자연스레 스프링 시큐리티(spring security)를 사용하여 Line 로그인 기능을 추가하였다. 기존 AAD(Azure Active Directory) 인증 프로세스와 충돌이 있어서 정리하는 과정이 있었지만, 이번 포스트에선 LINE 로그인 기능에 대한 내용만 다루었다.
+스프링 프레임워크(spring framework) 기반으로 백엔드 서비스가 구성되었기 때문에 자연스레 스프링 시큐리티(spring security)를 사용하여 Line 로그인 기능을 추가했다. 기존 AAD(Azure Active Directory) 인증 프로세스와 충돌이 있어서 정리하는 과정이 있었지만, 이번 포스트에선 LINE 로그인 기능에 대한 내용만 다뤘다.
 
 ## 1. OAuth2 Authentication Process in Spring Security
 
-스프링 시큐리티를 사용하면 어떤 인증 프로세스가 진행되는지 정리하였다. 이 내용을 이해하기 위해선 스프링 시큐리티 아키텍처에 대한 배경 지식이 필요하다. 간략히 설명하자면 스프링 시큐리티는 서블릿 필터 체인(servlet filter chain)의 기능을 확장한다. 서블릿 필터 체인 중간에 시큐리티 필터 체인을 추가하여 인증, 인가를 처리한다.
+스프링 시큐리티를 사용하면 어떤 인증 프로세스가 진행되는지 정리했다. 이 내용을 이해하기 위해선 스프링 시큐리티 아키텍처에 대한 배경 지식이 필요하다. 간략히 설명하자면 스프링 시큐리티는 서블릿 필터 체인(servlet filter chain)의 기능을 확장한다. 서블릿 필터 체인 중간에 시큐리티 필터 체인을 추가하여 인증, 인가를 처리한다.
 
 ### 1.1. Redirect to Login Page
 
@@ -84,9 +85,7 @@ OAuth2 클라이언트 애플리케이션의 로그인 기능 구현을 위한 �
 
 ### 2.1. Line Developers Console
 
-LINE 개발자 사이트에 가입 후 로그인한다.
-
-- 우측 상단 콘솔 버튼을 누른다.
+LINE 개발자 사이트에 가입 후 로그인한다. 우측 상단 콘솔 버튼을 누른다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/oauth2-line-login-with-spring-security-04.png" width="100%" class="image__border">
@@ -94,9 +93,7 @@ LINE 개발자 사이트에 가입 후 로그인한다.
 
 ### 2.2. Create Provider and Channel
 
-프로바이더를 신규로 등록한다.
-
-- 생성 버튼을 누른다.
+프로바이더를 신규로 등록한다. 생성 버튼을 누른다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/oauth2-line-login-with-spring-security-05.png" width="100%" class="image__border">
@@ -145,11 +142,7 @@ LINE 개발자 사이트에 가입 후 로그인한다.
 
 본격적으로 스프링 시큐리티를 사용해 LINE 로그인을 구현한다.
 
-### 3.1. build.gradle
-
-- 스프링 시큐리티 관련 의존성을 추가한다.
-  - spring-boot-starter-security
-  - spring-boot-starter-oauth2-client
+먼저 `build.gradle` 파일에 스프링 시큐리티 관련 의존성인 spring-boot-starter-security, spring-boot-starter-oauth2-client를 추가한다.
 
 ```groovy
 plugins {
@@ -183,13 +176,7 @@ tasks.named('test') {
 }
 ```
 
-### 3.2. application.yml
-
-- LINE 개발자 센터에 등록한 클라이언트 정보를 입력한다.
-  - LINE_CLIENT_ID
-  - LINE_CLIENT_SECRET
-  - 콜백 URL
-- 기타 정보에 대한 설명은 가독성을 위해 주석으로 작성하였다.
+`application.yml` 파일에는 LINE 개발자 센터에 등록한 클라이언트 정보(LINE_CLIENT_ID, LINE_CLIENT_SECRET, 콜백 URL)를 입력한다. 기타 정보에 대한 설명은 가독성을 위해 주석으로 작성했다.
 
 ```yml
 spring:
@@ -211,9 +198,7 @@ spring:
             user-name-attribute: userId # 전달 받은 사용자 정보에서 PK 역할을 수행하는 키
 ```
 
-### 3.3. WebSecurityConfig Class
-
-스프링 시큐리티의 시큐리티 필터 체인을 정의한다. 설명은 가독성을 위해 주석으로 작성하였다.
+WebSecurityConfig 클래스에는 스프링 시큐리티의 시큐리티 필터 체인을 정의한다. 설명은 가독성을 위해 주석으로 작성했다.
 
 ```java
 package action.in.blog.config;
@@ -234,7 +219,7 @@ public class WebSecurityConfig {
                 configurer -> configurer
                         .defaultSuccessUrl("/home") // 로그인에 성공 시 /home 경로로 리다이렉트
                         .redirectionEndpoint(
-                                config -> config.baseUri("/oauth2/authorized/line") // 리다이렉트 URL을 지정합
+                                config -> config.baseUri("/oauth2/authorized/line") // 리다이렉트 URL을 지정한다.
                         )
         ).authorizeHttpRequests(
                 registry -> registry
@@ -246,9 +231,7 @@ public class WebSecurityConfig {
 }
 ```
 
-### 3.4. HomeController Class
-
-스프링 시큐리티는 인증된 사용자 정보를 시큐리티 컨텍스트에 담아 SecurityContextHolder 클래스를 통해 운반한다.
+스프링 시큐리티는 인증된 사용자 정보를 시큐리티 컨텍스트에 담아 SecurityContextHolder 클래스를 통해 운반한다. HomeController 클래스는 다음과 같이 인증된 사용자 정보를 사용한다.
 
 - 컨트롤러에서 인증된 사용자 정보를 획득하기 위해 `@AuthenticationPrincipal` 애너테이션을 사용한다.
 - home 페이지에 사용자 이름과 사진 URL 값을 전달한다.
@@ -285,7 +268,7 @@ public class HomeController {
 
 ## CLOSING
 
-웹 기반 [OAuth2 표준][rfc6749-link]에 흐름에 대해 이해하고 있다면 SNS 로그인 인증 프로세스를 구현하는 것은 크게 어렵지 않다. OAuth2 프로토콜에서 클라이언트 애플리케이션을 구현하기 어렵게 느껴진다면 인증 표준에 참여하는 각 컴포넌트들의 역할과 웹 기반 인증 과정에서 개발자를 헷갈리게 만드는 브라우저 리다이렉트에 대한 개념을 잘 정리할 필요가 있다.
+웹 기반 [OAuth2 표준][rfc6749-link]의 흐름에 대해 이해하고 있다면 SNS 로그인 인증 프로세스를 구현하는 것은 크게 어렵지 않다. OAuth2 프로토콜에서 클라이언트 애플리케이션을 구현하기 어렵게 느껴진다면 인증 표준에 참여하는 각 컴포넌트들의 역할과 웹 기반 인증 과정에서 개발자를 헷갈리게 만드는 브라우저 리다이렉트에 대한 개념을 잘 정리할 필요가 있다.
 
 #### TEST CODE REPOSITORY
 

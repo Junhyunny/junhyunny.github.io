@@ -6,11 +6,12 @@ canonicalPath: "/typescript/react/how-to-test-image-upload-in-react/"
 categories:
   - "typescript"
   - "react"
+summary: "file 타입 input과 FileReader로 선택한 이미지를 미리 보여주는 리액트 컴포넌트를 RTL userEvent의 upload 함수로 테스트하는 방법을 정리했다."
 ---
 
 ## 1. Test Target Component
 
-HTML `input` 태그의 타입을 `file`로 지정하면 호스트 장치의 지원을 받아 파일을 선택할 수 있다. 파일 선택 후 서버로 업로드하거나 자바스크립트(JavaScript) 코드로 HTML 문서를 조작할 수 있다. 이번 글은 리액트(react) 애플리케이션으로 간단한 파일 업로드 기능을 구현할 때 이를 테스트하는 방법에 대해 정리하였다.
+HTML `input` 태그의 타입을 `file`로 지정하면 호스트 장치의 지원을 받아 파일을 선택할 수 있다. 파일 선택 후 서버로 업로드하거나 자바스크립트(JavaScript) 코드로 HTML 문서를 조작할 수 있다. 이번 글은 리액트(react) 애플리케이션으로 간단한 파일 업로드 기능을 구현할 때 이를 테스트하는 방법에 대해 정리했다.
 
 테스트 대상 컴포넌트는 다음과 같다.
 
@@ -91,7 +92,7 @@ test("when choose an image file then change image on screen", async () => {
 });
 ```
 
-##### Test Result
+테스트를 실행한 결과는 다음과 같다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/how-to-test-image-upload-in-react-01.gif" width="100%" class="image__border">

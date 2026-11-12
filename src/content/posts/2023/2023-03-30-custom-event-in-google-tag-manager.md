@@ -1,11 +1,12 @@
 ---
 title: "Google Tag Manager 커스텀 이벤트"
 publishedAt: "2023-03-30"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:19:33+09:00"
 canonicalPath: "/information/data-science/custom-event-in-google-tag-manager/"
 categories:
   - "information"
   - "data-science"
+summary: "구글 태그 매니저에서 사용자 정의 변수와 맞춤 이벤트 트리거를 만들고, 리액트 애플리케이션에서 dataLayer로 커스텀 이벤트를 보내 애널리틱스에서 수집하는 방법을 정리했다."
 recommendedPosts:
   - title: "Google Analytics with Google Tag Manager"
     href: "https://junhyunny.github.io/information/data-science/google-analytics-with-google-tag-manager/"
@@ -15,28 +16,27 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-구글 태그 매니저(GTM, google tag manager)는 애플리케이션에서 발생하는 사용자의 움직임을 태그로 정의하여 감지할 수 있다. 기본으로 제공하는 기능을 사용할 수도 있지만, 서비스 요건에 맞춘 이벤트를 정의할 수 있다. 이번 포스트는 구글 태그 매니저에서 사용자 정의 변수(variable)와 맞춤 이벤트(custom event)를 만들고 적용하는 방법에 대해 정리하였다.
+구글 태그 매니저(GTM, google tag manager)를 사용하면 애플리케이션에서 발생하는 사용자의 움직임을 태그로 정의해 감지할 수 있다. 기본으로 제공하는 기능을 사용할 수도 있지만, 서비스 요건에 맞춘 이벤트를 직접 정의할 수도 있다. 이번 글은 구글 태그 매니저에서 사용자 정의 변수(variable)와 맞춤 이벤트(custom event)를 만들고 적용하는 방법을 정리했다.
 
 ## 1. Create Custom Variable
 
-- 사용자 정의 변수를 생성한다.
-- 새로 만들기 버튼을 클릭한다.
+먼저 사용자 정의 변수를 생성한다. 새로 만들기 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-01.png" width="100%" class="image__border">
 </div>
 
+변수는 다음과 같이 설정하고 저장 버튼을 클릭한다.
+
 - 변수 유형은 `데이터 영역 변수`를 사용한다.
-- 데이터 영역 변수 이름은 `customData`이다.
-  - 애플리케이션에서 `customData`라는 키(key)에 데이터를 매칭하여 전달한다.
+- 데이터 영역 변수 이름은 `customData`이다. 애플리케이션에서 `customData`라는 키(key)에 데이터를 매칭해 전달한다.
 - 데이터 영역 버전은 `버전 2`를 선택한다.
-- 저장 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-02.png" width="100%" class="image__border">
 </div>
 
-- 사용자 정의 변수에 `Custom Data`라는 변수가 생성된다.
+사용자 정의 변수에 `Custom Data`라는 변수가 생성된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-03.png" width="100%" class="image__border">
@@ -44,27 +44,25 @@ recommendedPosts:
 
 ## 2. Create Custom Event Trigger
 
-- 사용자 정의 트리거를 생성한다.
-- 새로 만들기 버튼을 클릭한다.
+다음으로 사용자 정의 트리거를 생성한다. 새로 만들기 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-04.png" width="100%" class="image__border">
 </div>
 
-- 트리거 구성에서 `맞춤 이벤트`를 선택한다.
+트리거 구성에서 `맞춤 이벤트`를 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-05.png" width="100%" class="image__border">
 </div>
 
-- 이벤트 이름을 `custom_event`으로 지정한다.
-  - 애플리케이션에서 `custom_event`으로 이벤트를 발행하는 코드가 필요하다.
+이벤트 이름을 `custom_event`로 지정한다. 애플리케이션에는 `custom_event`로 이벤트를 발행하는 코드가 필요하다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-06.png" width="100%" class="image__border">
 </div>
 
-- `Custom Event` 트리거가 생성된다.
+`Custom Event` 트리거가 생성된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-07.png" width="100%" class="image__border">
@@ -72,52 +70,48 @@ recommendedPosts:
 
 ## 3. Create Tag
 
-- 신규 태그를 생성한다.
-- 새로 만들기 버튼을 클릭한다.
+이제 신규 태그를 생성한다. 새로 만들기 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-08.png" width="100%" class="image__border">
 </div>
 
-- 태그 구성을 클릭한다.
-- GA4 이벤트를 선택한다.
+태그 구성을 클릭하고 GA4 이벤트를 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-09.png" width="100%" class="image__border">
 </div>
 
-- 측정 ID는 구글 애널리틱스 생성 시 발급받은 `G-`로 시작하는 코드를 입력한다.
-- 이벤트 이름을 `custom_click`으로 지정한다.
-  - 지정한 이벤트 이름으로 구글 애널리틱스에서 확인 가능하다.
-- 이벤트 매개변수를 추가한다.
-- 키(key)는 `custom_data`로 정의한다.
-  - 지정한 이름으로 구글 애널리틱스에서 확인 가능하다.
+태그는 다음과 같이 설정한다.
+
+- 측정 ID는 구글 애널리틱스를 생성할 때 발급받은 `G-`로 시작하는 코드를 입력한다.
+- 이벤트 이름을 `custom_click`으로 지정한다. 구글 애널리틱스에서 이 이름으로 이벤트를 확인할 수 있다.
+- 이벤트 매개변수를 추가한다. 키(key)는 `custom_data`로 정의한다. 구글 애널리틱스에서 이 이름으로 매개변수를 확인할 수 있다.
 - 값(value)은 변수에서 선택하기 위해 오른쪽 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-10.png" width="100%" class="image__border">
 </div>
 
-- 이전 단계에서 생성한 `Custom Data` 변수를 선택한다.
+이전 단계에서 생성한 `Custom Data` 변수를 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-11.png" width="100%" class="image__border">
 </div>
 
-- 트리거를 선택한다.
+다음으로 트리거를 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-12.png" width="100%" class="image__border">
 </div>
 
-- 이전 단계에서 생성한 `Custom Event` 트리거를 선택한다.
+이전 단계에서 생성한 `Custom Event` 트리거를 선택한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-13.png" width="100%" class="image__border">
 </div>
 
-- 최종적인 태그 모습이다.
-- 저장을 클릭한다.
+최종적인 태그 모습은 다음과 같다. 저장을 클릭한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-14.png" width="100%" class="image__border">
@@ -125,13 +119,13 @@ recommendedPosts:
 
 ## 4. Publish Tag
 
-- 제출 버튼을 클릭한다.
+제출 버튼을 클릭한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-15.png" width="100%" class="image__border">
 </div>
 
-- 게시 버튼을 클릭하여 변경사항을 반영한다.
+게시 버튼을 클릭해 변경 사항을 반영한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-16.png" width="100%" class="image__border">
@@ -139,12 +133,9 @@ recommendedPosts:
 
 ## 5. React Application
 
-리액트 애플리케이션 코드를 살펴보겠다. 커스텀 이벤트는 일반 이벤트와 다르게 개발자와 협업이 더 많이 필요하다. 특정 이벤트에 대한 비즈니스적인 정의가 이뤄지면 이를 적절한 위치에서 호출해야 한다. 커스텀 이벤트를 애플리케이션에서 호출하는 방법에 대해 알아보겠다. 구글 태그 매니저를 설치하는 과정은 [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 포스트를 참고하길 바란다.
+리액트 애플리케이션 코드를 살펴보자. 커스텀 이벤트는 일반 이벤트와 달리 개발자와 더 많이 협업해야 한다. 특정 이벤트의 비즈니스 정의가 정해지면 이를 적절한 위치에서 호출해야 한다. 아래 코드에서 애플리케이션이 커스텀 이벤트를 호출하는 방법을 확인할 수 있다. 구글 태그 매니저를 설치하는 과정은 [Google Analytics with Google Tag Manager][google-analytics-with-google-tag-manager-link] 글을 참고하길 바란다.
 
-### 5.1. global.d.ts
-
-- 타입스크립트(typescript)를 사용하는 경우엔 전역 변수로 지정이 필요하다.
-- 전역에서 `dataLayer` 객체를 사용할 수 있도록 `global.d.ts` 파일에 타입을 정의한다.
+타입스크립트(typescript)를 사용하는 경우엔 전역 변수를 선언해야 한다. 전역에서 `dataLayer` 객체를 사용할 수 있도록 `global.d.ts` 파일에 타입을 정의한다.
 
 ```ts
 declare global {
@@ -158,11 +149,7 @@ declare global {
 export {}
 ```
 
-### 5.2. App.tsx
-
-- 특정 클릭 이벤트가 발생했을 때 `dataLayer` 객체를 사용해 이벤트를 발행한다.
-  - 이벤트 종류는 `custom_event`로 지정한다.
-  - 변수로 지정되어 추적하는 `customData` 키에 랜덤한 값을 매칭하여 전달한다.
+`App.tsx` 파일에서는 특정 클릭 이벤트가 발생했을 때 `dataLayer` 객체를 사용해 이벤트를 발행한다. 이벤트 종류는 `custom_event`로 지정하고, 변수로 지정해 추적하는 `customData` 키에 랜덤한 값을 매칭해 전달한다.
 
 ```tsx
 import React from 'react';
@@ -188,10 +175,7 @@ export default App;
 
 ## 6. In Google Analytics
 
-해당 리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트들을 살펴보겠다.
-
-- 버튼을 클릭함에 따라 `custom_event`가 감지되는 것을 확인할 수 있다.
-- `custom_event` 이벤트에서 `custom_data`가 수집됨을 확인할 수 있다.
+리액트 애플리케이션을 서버에 배포한 후 구글 애널리틱스에서 발생하는 이벤트를 살펴보자. 버튼을 클릭할 때마다 `custom_event`가 감지되고, `custom_event` 이벤트에서 `custom_data`가 수집되는 것을 확인할 수 있다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/custom-event-in-google-tag-manager-17.gif" width="100%" class="image__border">

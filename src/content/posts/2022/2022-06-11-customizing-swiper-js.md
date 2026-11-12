@@ -7,13 +7,14 @@ categories:
   - "html"
   - "css"
   - "javascript"
+summary: "SwiperJs 데모를 바탕으로 스와이퍼를 커스터마이징하는 방법과 페이지네이션 불릿 스타일 변경, 경계에 걸친 네비게이션 화살표 구현 예시를 정리했다."
 ---
 
 ## 0. 들어가면서
 
 스와이퍼(swiper) 기능이 필요하면 주로 `SwiperJs` 라이브러리를 사용한다.
 제공되는 스타일을 그대로 사용하진 않고 변경하여 사용한다.
-이번 포스트에서는 스와이퍼를 커스터마이징(customizing)하는 방법과 몇 가지 예시를 작성하였다.
+이번 포스트에서는 스와이퍼를 커스터마이징(customizing)하는 방법과 몇 가지 예시를 작성했다.
 
 ## 1. 스와이퍼 커스터마이징 방법
 
@@ -29,11 +30,11 @@ categories:
 
 ## 2. Customizing Pagination
 
-하단 페이지를 표시하는 불릿(bullet) 스타일을 변경하였다.
+하단 페이지를 표시하는 불릿(bullet) 스타일을 변경했다.
 
-### 2.1. HTML 코드
+HTML 코드부터 살펴보자.
 
-- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였다.
+- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가했다.
   - 실제 코드에선 `header` 영역에 이를 위치시킨다.
 - `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담는다.
 
@@ -55,10 +56,10 @@ categories:
 </div>
 ```
 
-### 2.2. CSS 코드
+CSS 코드는 다음과 같다.
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외했다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성했다.
 
 ```css
 #my-swiper {
@@ -84,7 +85,7 @@ categories:
     margin: 0;
     width: 10%;
     height: 100%;
-    /* 동그라미 모양을 제거하기 위해 border-radidus 값을 변경합니다. */
+    /* 동그라미 모양을 제거하기 위해 border-radius 값을 변경합니다. */
     border-radius: 0;
     /* 왼쪽 border를 그립니다. */
     border-left: 1px solid #e4eaef;
@@ -140,7 +141,7 @@ categories:
 }
 ```
 
-### 2.3. JavaScript 코드
+JavaScript 코드는 다음과 같다.
 
 - 스와이퍼를 생성한다.
 - 페이징 영역을 변경할 수 있는 `renderBullet` 함수를 재정의한다.
@@ -161,7 +162,7 @@ new Swiper("#my-swiper", {
 });
 ```
 
-### 2.4. 결과
+완성한 결과는 다음과 같다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/RwQqveE?default-tab=result" title="Customizing Pagination Swiper" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/RwQqveE/">CodePen에서 예제 열기</a></p>
@@ -169,11 +170,11 @@ new Swiper("#my-swiper", {
 ## 3. Customizing Navigation
 
 `SwiperJs` 라이브러리를 사용하면 스와이퍼 내부 컨텐츠들이 `overflow: hidden;` 속성으로 인해 잘리는 현상이 있다.
-어떤 스와이퍼들은 네비게이션 화살표가 경계 영역에 걸쳐서 그릴 필요가 있는데, 이를 해결하기 위한 코드를 예시 코드로 작성하였다.
+어떤 스와이퍼들은 네비게이션 화살표가 경계 영역에 걸쳐서 그릴 필요가 있는데, 이를 해결하기 위한 코드를 예시 코드로 작성했다.
 
-### 3.1. HTML 코드
+HTML 코드부터 살펴보자.
 
-- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가하였다.
+- 코드 상단의 `stylesheet` 링크와 script 코드는 `SwiperJs` 라이브러리를 사용하기 위해 추가했다.
   - 실제 코드에선 `header` 영역에 이를 위치시킨다.
 - `.swiper-slide` 클래스를 지닌 DOM 블록에 필요한 컨텐츠들을 담는다.
 - 스와이퍼의 화살표 모양을 담당하는 `.swiper-button-prev`, `.swiper-button-next` 클래스를 스와이퍼 외부로 옮긴다.
@@ -199,10 +200,10 @@ new Swiper("#my-swiper", {
 </div>
 ```
 
-### 3.2. CSS 코드
+CSS 코드는 다음과 같다.
 
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
+- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외했다.
+- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성했다.
 
 ```css
 .swiper-wrap {
@@ -272,7 +273,7 @@ new Swiper("#my-swiper", {
 }
 ```
 
-### 3.3. JavaScript 코드
+JavaScript 코드는 다음과 같다.
 
 ```javascript
 new Swiper("#my-swiper", {
@@ -287,7 +288,7 @@ new Swiper("#my-swiper", {
 });
 ```
 
-### 3.4. 결과
+완성한 결과는 다음과 같다.
 
 <iframe class="codepen" src="https://codepen.io/Junhyunny/embed/oNEQVER?default-tab=result" title="Customizing Navigation" loading="lazy" allowfullscreen></iframe>
 <p><a href="https://codepen.io/Junhyunny/pen/oNEQVER/">CodePen에서 예제 열기</a></p>

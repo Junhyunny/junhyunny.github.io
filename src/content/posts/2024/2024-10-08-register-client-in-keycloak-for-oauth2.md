@@ -6,6 +6,7 @@ canonicalPath: "/security/tool/register-client-in-keycloak-for-oauth2/"
 categories:
   - "security"
   - "tool"
+summary: "OAuth2 클라이언트 타입과 리다이렉트 URI 같은 설정 항목을 살펴보며 키클록 렐름에 OAuth2 클라이언트 애플리케이션을 등록하는 방법을 정리했다."
 recommendedPosts:
   - title: "키클록(Keycloak) 설정하기"
     href: "https://junhyunny.github.io/security/tool/set-up-key-cloak/"
@@ -13,7 +14,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[이전 글][set-up-key-cloak-link]에서 키클록(keycloak)을 설치하고 관리자 사용자로 렐름(raelm)과 새로운 사용자를 만드는 방법에 대해 정리했다. 이번 글은 OAuth2 인가 프로세스를 위해 클라이언트 애플리케이션을 등록하는 방법에 대해 정리한다. 
+[이전 글][set-up-key-cloak-link]에서 키클록(keycloak)을 설치하고 관리자 사용자로 렐름(realm)과 새로운 사용자를 만드는 방법에 대해 정리했다. 이번 글은 OAuth2 인가 프로세스를 위해 클라이언트 애플리케이션을 등록하는 방법에 대해 정리한다. 
 
 ## 1. Create new client
 
@@ -31,7 +32,7 @@ OAuth2 클라이언트 아이디를 `oauth2-client-demo`로 지정한다.
 
 OAuth2 클라이언트 타입은 두 가지이다. 
 
-- 기밀 클라이언트(condfidential client)
+- 기밀 클라이언트(confidential client)
   - 클라이언트 자격 증명(e.g. 클라이언트 ID, 시크릿)의 기밀성을 유지할 수 있는 클라이언트를 의미한다. 
   - 예를 들어 클라이언트가 보안 서버에 구현되어 있어 클라이언트 자격 증명에 대한 접근이 제한되는 경우이다. 
 - 공개 클라이언트(public client)

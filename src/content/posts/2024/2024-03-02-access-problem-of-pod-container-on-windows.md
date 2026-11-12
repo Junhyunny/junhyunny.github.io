@@ -6,6 +6,7 @@ canonicalPath: "/podman/windows/access-problem-of-pod-container-on-windows/"
 categories:
   - "podman"
   - "windows"
+summary: "윈도우 서버에서 컨테이너 런타임을 파드맨으로 바꾼 뒤 외부에서 컨테이너에 접근하지 못한 문제의 원인을 살펴보고, netsh 포트 포워딩으로 WSL에 트래픽을 연결해 해결했다."
 ---
 
 ## 0. 들어가면서
@@ -58,13 +59,13 @@ Windows IP 구성
 외부 네트워크와 연결된 IP 주소는 `192.168.0.12`이다. `192.168.0.12` 주소를 통해 애플리케이션에 접근을 시도해보면 실패한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-01.png" width="100%" class="image__border">
 </div>
 
 `localhost`나 `127.0.0.1` 호스트를 사용하면 애플리케이션에 접근할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-02.png" width="100%" class="image__border">
 </div>
 
 ## 2. Problem Cause
@@ -117,10 +118,10 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 1. 파드맨으로 실행한 컨테이너는 WSL 시스템에서 동작 중이다. 
   - WSL 시스템은 `172.28.241.140` IP 주소를 갖는다. 
 2. 외부 네트워크와 연결된 `192.168.0.12` IP 주소, 80 포트로 요청 트래픽이 들어온다.
-3. 요청 트래픽은 WLS 시스템(`172.28.241.140`)으로 자동으로 전달되지 못하고 누락된다.
+3. 요청 트래픽은 WSL 시스템(`172.28.241.140`)으로 자동으로 전달되지 못하고 누락된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-03.png" width="100%" class="image__border">
 </div>
 
 ## 3. Solve the Problem
@@ -138,7 +139,7 @@ veth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
     - WSL 리눅스 배포판 머신의 주소는 임시적이고 변경될 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-04.png" width="100%" class="image__border">
 </div>
 
 ### 3.2. Windows Port Forwarding
@@ -167,12 +168,10 @@ ipv4 수신 대기:             ipv4에 연결:
 0.0.0.0         80          172.28.241.140  80
 ```
 
-### 3.3. Result
-
 외부 네트워크와 연결된 `192.168.0.12` IP 주소를 통해 애플리케이션에 접근할 수 있다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/access-problem-of-pod-container-on-windows-05.png" width="100%" class="image__border">
 </div>
 
 ## CLOSING

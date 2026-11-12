@@ -6,11 +6,12 @@ canonicalPath: "/html/css/how-to-set-weights-and-styles-with-font-face/"
 categories:
   - "html"
   - "css"
+summary: "번들링한 폰트 파일을 @font-face 지시어로 적용할 때 굵기별로 고유한 font-family 이름을 쓰는 방법과 같은 이름에 font-weight, font-style을 연결하는 스타일 링킹 방법을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-폰트(font)를 적용할 때 HTML 문서 헤더에 링크를 정의하는 방법도 있지만, 다운로드 받은 폰트를 함께 번들링(bundling)해서 제공할 수 있다. 경험상 네트워크가 불안정하거나 제한된 환경에서 폰트 파일을 함께 빌드했었다. 이런 경우 `@font-face` 지시어를 사용했는데 적용 방법이 매번 헷갈려 시간이 허비한 경우가 종종 있었다. 적용 방법을 정확히 이해하고자 글로 정리했다.
+폰트(font)를 적용할 때 HTML 문서 헤더에 링크를 정의하는 방법도 있지만, 다운로드 받은 폰트를 함께 번들링(bundling)해서 제공할 수 있다. 경험상 네트워크가 불안정하거나 제한된 환경에서 폰트 파일을 함께 빌드했었다. 이런 경우 `@font-face` 지시어를 사용했는데 적용 방법이 매번 헷갈려 시간을 허비한 경우가 종종 있었다. 적용 방법을 정확히 이해하고자 글로 정리했다.
 
 ## 1. Download font files
 
@@ -52,9 +53,7 @@ categories:
 
 ## 3. Using @font-face directive
 
-이번 예시에선 @font-face 지시어로 폰트를 적용하는 두 가지 방법을 알아본다. CRA(create react app)으로 생성한 프로젝트 구조는 다음과 같다.
-
-- src/assets/fonts 경로에 폰트 파일들이 위치한다.
+이번 예시에선 @font-face 지시어로 폰트를 적용하는 두 가지 방법을 알아보자. CRA(create react app)로 생성한 프로젝트에서 폰트 파일들은 다음과 같이 src/assets/fonts 경로에 위치한다.
 
 ```
 ./
@@ -162,7 +161,7 @@ export default App;
 애플리케이션을 실행하면 정상적으로 글꼴 스타일이 반영된다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-03.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-03.png" width="100%" class="image__border">
 </div>
 
 주의할 점은 font-weight, font-style 속성의 값을 정확하게 `normal`로 맞춰 사용해야 한다는 것이다. font-weight 속성을 다른 값으로 지정하면 사파리(safari) 브라우저에서 폰트 굵기가 이상하게 출력된다. 
@@ -195,7 +194,7 @@ export default App;
 font-weight 속성에 normal 값이 아닌 실제 굵기를 주면 아래 사진과 같이 사파리 브라우저에서 이상하게 표시된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-04.png" width="100%" class="image__border">
 </div>
 
 ### 3.2. Style Linking
@@ -262,7 +261,7 @@ body {
 애플리케이션을 실행하면 정상적으로 글꼴 스타일이 반영된다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/how-to-set-weights-and-styles-with-font-face-05.png" width="100%" class="image__border">
 </div>
 
 #### TEST CODE REPOSITORY

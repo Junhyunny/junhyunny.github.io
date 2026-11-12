@@ -7,6 +7,7 @@ categories:
   - "java"
   - "jvm"
   - "spring-boot"
+summary: "JDK 21에서 MultipartFile getBytes 메서드가 다이렉트 메모리 OOME를 일으키는 원인을 JDK 17과 비교 분석하고, 고정 크기 버퍼와 transferTo 메서드로 피하는 방법을 정리했다."
 recommendedPosts:
   - title: "자바(Java) ThreadLocal 클래스"
     href: "https://junhyunny.github.io/java/thread-local-class-in-java/"
@@ -28,9 +29,7 @@ recommendedPosts:
 - 최대 다이렉트 메모리 사이즈 10MB
 - 최대 힙 메모리 사이즈 2.8GB 
 
-비디오를 업로드하는 기능이고, 문제가 발생한 코드는 다음과 같다.
-
-- 업로드 파일 데이터가 담긴 MultipartFile 인스턴스로부터 데이터를 복사한다.
+비디오를 업로드하는 기능이고, 문제가 발생한 코드는 업로드 파일 데이터가 담긴 MultipartFile 인스턴스로부터 데이터를 복사한다.
 
 ```java
     private File convertToFile(MultipartFile multipartFile) {
@@ -129,9 +128,7 @@ public class FileController {
 
 ### 2.1. Profiling in Java 17
 
-Java 17 환경에서 실행한 애플리케이션의 동작을 확인해보자. `-XX:MaxDirectMemorySize=20M` 옵션을 사용해 최대 다이렉트 메모리 사이즈를 20MB으로 제한한 상태에서 아파치 제이미터로 요청을 보낸다.
-
-- 최대 힙 메모리 사이즈까지 메모리 사용량은 계속 늘어나지만, OOM 에러는 발생하지 않는다.
+Java 17 환경에서 실행한 애플리케이션의 동작을 확인해보자. `-XX:MaxDirectMemorySize=20M` 옵션을 사용해 최대 다이렉트 메모리 사이즈를 20MB로 제한한 상태에서 아파치 제이미터로 요청을 보낸다. 최대 힙 메모리 사이즈까지 메모리 사용량은 계속 늘어나지만, OOM 에러는 발생하지 않는다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-01.gif" width="100%" class="image__border">
@@ -154,7 +151,7 @@ Native Memory Tracking:
 
 #### 2.2.1. With Max Direct Memory Size Limit
 
-이번엔 Java 21 환경에서 실행한 애플리케이션의 동작을 확인해보자. 위 테스트와 동일하게 `-XX:MaxDirectMemorySize=20M` 옵션을 사용해 최대 다이렉트 메모리 사이즈를 20MB으로 제한한 상태에서 아파치 제이미터로 요청을 보낸다.
+이번엔 Java 21 환경에서 실행한 애플리케이션의 동작을 확인해보자. 위 테스트와 동일하게 `-XX:MaxDirectMemorySize=20M` 옵션을 사용해 최대 다이렉트 메모리 사이즈를 20MB로 제한한 상태에서 아파치 제이미터로 요청을 보낸다.
 
 - 모든 요청 중 하나의 요청을 제외하고 모두 실패한다.
 - 실패한 요청은 모두 OOM 에러가 발생했다.
@@ -163,7 +160,7 @@ Native Memory Tracking:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-02.gif" width="100%" class="image__border">
 </div>
 
-마찬가지로 jcmd 도구로 네이티브 메모리 사용량을 추적해본다. 다이렉트 메모리가 약 18MB(18292KB) 증가했다. 최대 다이렉트 메모리 사용량을 20MB로 제한했기 때문에 그 이상은 할당 받지 못 했다.
+마찬가지로 jcmd 도구로 네이티브 메모리 사용량을 추적해보자. 다이렉트 메모리가 약 18MB(18292KB) 증가했다. 최대 다이렉트 메모리 사용량을 20MB로 제한했기 때문에 그 이상은 할당 받지 못 했다.
 
 ```
 $ jcmd 51766 VM.native_memory summary.diff
@@ -183,9 +180,7 @@ Native Memory Tracking:
 > Eclipse Open J9 - Start of content that applies to Java 11 plus.<br/>
 > By default, the amount of native memory used for Direct Byte Buffers is limited to the maximum heap size.
 
-최대 다이렉트 메모리 사이즈 제한이 없는 정확한 공식 문서를 찾진 못 했지만, 위 정보를 바탕으로 유추해보면 힙 메모리까지 다이렉트 메모리로 사용하는 것처럼 보인다. 제이미터를 사용해 요청을 보내면 다음과 같은 결과를 얻는다.
-
-- 요청의 일부는 성공하지만, 어느 수준에 도달하면 요청들이 실패한다.
+최대 다이렉트 메모리 사이즈 제한이 없는 정확한 공식 문서를 찾진 못 했지만, 위 정보를 바탕으로 유추해보면 힙 메모리까지 다이렉트 메모리로 사용하는 것처럼 보인다. 제이미터를 사용해 요청을 보내면 다음과 같이 요청의 일부는 성공하지만, 어느 수준에 도달하면 요청들이 실패한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-03.gif" width="100%" class="image__border">
@@ -221,7 +216,7 @@ MultipartFile 인스턴스의 getBytes 메서드를 호출했을 때 데이터�
   - 캐시 히트가 실패하면 요청 받은 사이즈의 새로운 DirectByteBuffer 객체를 생성한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-04.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-04.png" width="100%" class="image__border">
 </div>
 
 ### 3.2. BufferCache Instance
@@ -302,13 +297,13 @@ public class Util {
 이 구조로 인해 문제를 일으킬 수 있는 조건들이 갖춰진다.
 
 - 서블릿 컨테이너는 스레드 풀을 사용한다.
-  - 스레드 풀에 담긴 애플리케이션 생명 주기 동안 종료되지 않는다.
+  - 스레드 풀에 담긴 스레드는 애플리케이션 생명 주기 동안 종료되지 않는다.
 - ThreadLocal 객체를 통해 저장된 객체들은 모두 스레드 객체 내부 테이블에 저장된다.
   - ThreadLocal 클래스에 대한 자세한 개념은 [링크 글][thread-local-class-in-java-link]을 참고하길 바란다.
 
 요청을 처리하는 서블릿 컨테이너 스레드들이 캐싱을 위해 할당 받은 버퍼 객체들의 메모리는 애플리케이션이 종료되기 전까지 해제되지 않는다. 
 
-### 3.3. Overrided readAllBytes method in ChannelInputStream class
+### 3.3. Overridden readAllBytes method in ChannelInputStream class
 
 그렇다면 왜 Java 21 버전부터 문제가 발생했을까? Java 17과 Java 21 환경에서 콜 스택을 비교해보면 다음과 같은 차이점을 찾을 수 있다. 
 
@@ -318,7 +313,7 @@ public class Util {
   - FileCopyUtils 클래스는 ChannelInputStream 객체의 readAllBytes 메서드를 호출한다.
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-05.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-05.png" width="100%" class="image__border">
 </div>
 
 [2021년 10월 2일 OpenJDK 커밋(commit)](https://github.com/openjdk/jdk/commit/0786d8b7b367e3aa3ffa54a3e339572938378dca)을 보면 ChannelInputStream 클래스에 readAllBytes 메서드가 새롭게 추가된다. 이 커밋은 `JDK 18+17`과 `JDK 18+18` 태그 사이에 위치하기 때문에 JDK 18에서부터 이 문제가 발생할 것으로 예상된다. 이 변경은 다음과 같은 구조를 만든다. 
@@ -331,12 +326,10 @@ public class Util {
   - 자신의 readAllBytes 메서드를 사용한다. 
 
 <div class="block-break" align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-06.png" width="100%" class="image__border">
 </div>
 
-이제 거의 다 왔다. 두 메서드엔 어떤 차이점이 있을까? InputStream 추상 클래스의 readAllBytes 메서드를 먼저 살펴보자. 
-
-- 데이터를 읽을 때 요청 받은 사이즈와 기본 버퍼 사이즈 중 작은 값을 사용한다.
+이제 거의 다 왔다. 두 메서드엔 어떤 차이점이 있을까? InputStream 추상 클래스의 readAllBytes 메서드를 먼저 살펴보자. 데이터를 읽을 때 요청 받은 사이즈와 기본 버퍼 사이즈 중 작은 값을 사용한다.
 
 ```java
 package java.io;
@@ -373,9 +366,7 @@ public abstract class InputStream implements Closeable {
 }
 ```
 
-다음 ChannelInputStream 추상 클래스의 readAllBytes 메서드를 살펴보자. 
-
-- 데이터를 읽을 때 요청 받은 사이즈를 사용한다.
+다음 ChannelInputStream 추상 클래스의 readAllBytes 메서드를 살펴보자. 데이터를 읽을 때 요청 받은 사이즈를 사용한다.
 
 ```java
 package sun.nio.ch;
@@ -441,7 +432,7 @@ class ChannelInputStream extends InputStream {
   - Java 21 버전일 때 필요한 다이렉트 메모리는 3.5GB(= 17.6MB X 200)이다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/get-bytes-method-of-multipart-file-in-java21-cause-oome-07.png" width="100%" class="image__border">
 </div>
 
 ## 4. To avoid out of memory error in Java 21
@@ -460,7 +451,7 @@ class ChannelInputStream extends InputStream {
   - 약 113(= 2GB / 17.6MB) 개 스레드만 요청 처리에 성공할 수 있다.
   - jcmd 측정 시 증가한 다이렉트 메모리 사이즈는 약 2GB 정도이다.
 
-정확한 원인을 분석하진 않았지만, Java 21 버전에서 최대 다이렉트 메모리 제한이 테스트했을 때 발생한 OOM 에러는 힙 메모리가 부족해서 발생한 것으로 보인다. 우리는 앞으로 Java 17 버전에 머무를 수 없다. 이 문제를 피할 수 있는 방법은 무엇이 있을까? 
+정확한 원인을 분석하진 않았지만, Java 21 버전에서 최대 다이렉트 메모리 제한 없이 테스트했을 때 발생한 OOM 에러는 힙 메모리가 부족해서 발생한 것으로 보인다. 우리는 앞으로 Java 17 버전에 머무를 수 없다. 이 문제를 피할 수 있는 방법은 무엇이 있을까? 
 
 - 바이트를 읽을 때 사이즈를 고정한다.
 - 파일을 복사할 때 MultipartFile 인스턴스의 transferTo 메서드를 사용한다.
@@ -546,9 +537,7 @@ Native Memory Tracking:
 
 ### 4.2. transferTo method in MultipartFile instance
 
-애플리케이션 코드는 다음과 같다.
-
-- MultipartFile 인스턴스가 제공하는 transferTo 메서드를 사용한다.
+다음 애플리케이션 코드는 MultipartFile 인스턴스가 제공하는 transferTo 메서드를 사용한다.
 
 ```java
 package action.in.blog.controller;
@@ -605,7 +594,7 @@ Native Memory Tracking:
 
 ## CLOSING
 
-이 글의 결론은 Java 18 버전부터 MultipartFile 인스턴스의 getBytes 메서드를 호출하는 것은 다이렉트 메모리 영역에서 OOM 에러가 발생할 수 있으니 조심해야 한다는 것이다. Java 17 버전도 getBytes 메서드를 사용했을 때 에러는 발생하지 않지만, 힙 메모리가 요동치는 것을 보니 얼마나 비효율적인지 확인할 수 있었다. 힙 메모리 사용량이 증가할수록 GC(garbage collection)을 계속 유발하고 이는 애플리케이션 전체 성능의 악영향을 주게 되니 주의하자.
+이 글의 결론은 Java 18 버전부터 MultipartFile 인스턴스의 getBytes 메서드를 호출하는 것은 다이렉트 메모리 영역에서 OOM 에러가 발생할 수 있으니 조심해야 한다는 것이다. Java 17 버전도 getBytes 메서드를 사용했을 때 에러는 발생하지 않지만, 힙 메모리가 요동치는 것을 보니 얼마나 비효율적인지 확인할 수 있었다. 힙 메모리 사용량이 증가할수록 GC(garbage collection)를 계속 유발하고 이는 애플리케이션 전체 성능에 악영향을 주게 되니 주의하자.
 
 #### TEST CODE REPOSITORY
 

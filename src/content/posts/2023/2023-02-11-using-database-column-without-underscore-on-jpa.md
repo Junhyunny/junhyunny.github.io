@@ -1,29 +1,28 @@
 ---
 title: "JPA에서 언더스코어 없는 데이터베이스 컬럼 사용"
 publishedAt: "2023-02-11"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:17:28+09:00"
 canonicalPath: "/spring-boot/jpa/hibernate/using-database-column-without-underscore-on-jpa/"
 categories:
   - "spring-boot"
   - "jpa"
   - "hibernate"
+summary: "카멜 방식으로 만든 테이블 컬럼을 JPA가 스네이크 방식으로 바꿔 발생한 에러를 PhysicalNamingStrategyStandardImpl 명칭 전략으로 해결한 과정을 정리했다."
 ---
 
 ## 1. Problem Context
 
-테이블 컬럼 이름을 변경하는 작업을 수행하면서 문제가 발생했다. 간단하게 정리하면 다음과 같다.
+테이블 컬럼 이름을 변경하는 작업을 하면서 문제가 발생했다. 간단히 정리하면 다음과 같다.
 
-- 실제 데이터베이스에 생성된 테이블의 컬럼명들은 카멜 방식(camelCase)으로 생성되어 있다.
-- 엔티티(entity)의 `@Column` 애너테이션을 사용하여 이름을 스네이크 방식(snake_case)으로 지정한다.
+- 실제 데이터베이스에 생성된 테이블의 컬럼명은 카멜 방식(camelCase)이다.
+- 엔티티(entity)의 `@Column` 애너테이션을 사용해 이름을 스네이크 방식(snake_case)으로 지정한다.
 - 런타임(runtime) 혹은 테스트 코드 실행 시 컬럼을 찾을 수 없다는 에러가 발생한다.
 
-간단하게 문제가 발생한 상황을 재현해보았다.
+문제가 발생한 상황을 간단히 재현했다.
 
 ### 1.1. Table Schema
 
-실제 데이터베이스에 테이블은 다음과 같이 생성되어 있다.
-
-- 컬럼이 카멜 방식으로 선언되어 있다.
+실제 데이터베이스의 테이블은 다음과 같이 컬럼이 카멜 방식으로 선언되어 있다.
 
 ```sql
 create table post (postId bigint not null, postContent varchar(255), postTitle varchar(255), postTp varchar(255), primary key (postId))
@@ -31,9 +30,7 @@ create table post (postId bigint not null, postContent varchar(255), postTitle v
 
 ### 1.2. Entity
 
-`JPA` 엔티티는 다음과 같이 설정한다.
-
-- 각 필드들 위에 `@Column` 애너테이션을 추가하여 이름을 카멜 방식으로 변경한다.
+`JPA` 엔티티는 다음과 같이 각 필드 위에 `@Column` 애너테이션을 추가해 이름을 카멜 방식으로 지정한다.
 
 ```java
 package action.in.blog.domain;
@@ -67,11 +64,7 @@ public class Post {
 
 ### 1.3. Runtime Error
 
-간단한 테스트 코드를 통해 문제 상황을 재현하였다.
-
-- 데이터베이스 스키마는 `schema.sql`을 통해 초기화한다.
-  - 테이블은 위에서 정의한 모습과 동일하다.
-- 신규 엔티티를 추가하고 ID를 사용해 조회하는 간단한 테스트이다.
+간단한 테스트 코드로 문제 상황을 재현했다. 데이터베이스 스키마는 `schema.sql`로 초기화하며, 테이블은 위에서 정의한 모습과 같다. 새 엔티티를 추가하고 ID를 사용해 조회하는 간단한 테스트다.
 
 ```java
 package action.in.blog;
@@ -121,14 +114,7 @@ class ActionInBlogApplicationTests {
 }
 ```
 
-##### Test Result
-
-테스트 코드를 실행하면 다음과 같은 에러를 만난다.
-
-- 실행된 쿼리를 살펴보면 스네이크 방식을 따르는 컬럼 이름을 사용하였다.
-  - 테이블 컬럼명은 카멜 방식이지만, 실행된 쿼리의 컬럼명은 스네이크 방식이므로 에러가 발생한다.
-  - SQL Error: 42122, SQLState: 42S22
-  - Column "POST_CONTENT" not found
+테스트 코드를 실행하면 다음과 같은 에러를 만난다. 실행된 쿼리를 살펴보면 스네이크 방식을 따르는 컬럼 이름을 사용했다. 테이블 컬럼명은 카멜 방식이지만 실행된 쿼리의 컬럼명은 스네이크 방식이므로 `Column "POST_CONTENT" not found` 에러(`SQL Error: 42122, SQLState: 42S22`)가 발생한다.
 
 ```
 Hibernate: call next value for hibernate_sequence
@@ -140,19 +126,19 @@ insert into post (post_content, post_title, post_tp, post_id) values (?, ?, ?, ?
 
 ## 2. Solve the problem
 
-스프링 부트 `JPA`의 기본적인 컬럼 이름 규칙은 `lower_snake_case`다. 암시적이거나 물리적인 방법으로 지정한 이름들은 모두 스네이크 방식으로 변경된다.
+스프링 부트 `JPA`의 기본 컬럼 이름 규칙은 `lower_snake_case`다. 암시적이거나 물리적인 방법으로 지정한 이름은 모두 스네이크 방식으로 변경된다. 두 명칭 전략은 다음과 같다.
 
 - 암시적인 명칭 전략(implicit naming strategy)
-  - 명시적으로 이름이 지정되지 않은 엔티티들의 이름을 만드는 방식이다.
-  - `ImplicitNamingStrategy` 인터페이스를 구현하여 적용하면 커스텀한 명칭 전략을 세울 수 있다.
+  - 명시적으로 이름이 지정되지 않은 엔티티의 이름을 만드는 방식이다.
+  - `ImplicitNamingStrategy` 인터페이스를 구현해 적용하면 커스텀한 명칭 전략을 세울 수 있다.
   - 스프링 부트는 `SpringImplicitNamingStrategy` 클래스에 정의된 전략을 따른다.
 - 물리적인 명칭 전략(physical naming strategy)
   - `@Table`, `@Column` 등의 애너테이션으로 명칭을 지정하는 방식이다.
-  - `PhysicalNamingStrategy` 인터페이스를 구현하여 적용하면 커스텀한 명칭 전략을 세울 수 있다.
+  - `PhysicalNamingStrategy` 인터페이스를 구현해 적용하면 커스텀한 명칭 전략을 세울 수 있다.
   - 스프링 부트는 `CamelCaseToUnderscoresNamingStrategy` 클래스에 정의된 전략을 따른다.
   - 물리적인 명칭 전략은 항상 마지막으로 적용되기 때문에 엔티티는 해당 전략으로 지정한 이름을 가지게 된다.
 
-해당 문제를 해결하기 위해선 적합한 물리적인 명칭 전략을 사용하면 된다. 다음과 같은 설정을 통해 변경할 수 있다.
+이 문제를 해결하려면 적합한 물리적인 명칭 전략을 사용하면 된다. 다음과 같은 설정으로 변경할 수 있다.
 
 ```yml
 spring:
@@ -162,9 +148,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 ```
 
-##### PhysicalNamingStrategyStandardImpl Class
-
-- 해당 이름 규칙 전략을 살펴보면 전달 받은 이름을 그대로 사용하는 것을 확인할 수 있다.
+`PhysicalNamingStrategyStandardImpl` 클래스를 살펴보면 전달받은 이름을 그대로 사용하는 것을 확인할 수 있다.
 
 ```java
 package org.hibernate.boot.model.naming;
@@ -204,9 +188,7 @@ public class PhysicalNamingStrategyStandardImpl implements PhysicalNamingStrateg
 }
 ```
 
-###### Test Result
-
-- 명시적으로 지정한 이름을 따라 `insert` 쿼리가 실행된다.
+설정을 바꾼 뒤 테스트를 실행하면 명시적으로 지정한 이름을 따라 `insert` 쿼리가 실행된다.
 
 ```
 Hibernate: call next value for hibernate_sequence

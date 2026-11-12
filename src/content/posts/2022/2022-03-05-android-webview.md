@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/android/android-webview/"
 categories:
   - "android"
+summary: "리액트 서비스와 네이티브 앱의 통신을 이해하기 위해 권한, 레이아웃, 콜백 설정을 갖춘 간단한 안드로이드 웹뷰 애플리케이션을 만드는 과정을 정리했다."
 recommendedPosts:
   - title: "React 서비스 화면과 Android WebView 통신"
     href: "https://junhyunny.github.io/react/android/react-android-webview-communication/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-네이티브 애플리케이션에서 웹뷰(Webview)를 이용해 새로 개발하는 리액트 서비스를 호출할 생각이다. 웹뷰로 단순히 화면을 보여주면 문제가 없겠지만, 네이티브에서 제공하는 모듈들을 리액트 서비스에서 호출할 가능성이 컸다. 네이티브 애플리케이션은 우리 팀의 일이 아니었지만, 리액트 서비스가 어떻게 네이티브 앱과 통신하는지 이해하고자 간단한 예시 코드를 작성했다. 이번에는 리액트 서비스와 통신할 간단한 웹뷰 애플리케이션을 만들어본다.
+네이티브 애플리케이션에서 웹뷰(Webview)를 이용해 새로 개발하는 리액트 서비스를 호출할 생각이다. 웹뷰로 단순히 화면을 보여주면 문제가 없겠지만, 네이티브에서 제공하는 모듈들을 리액트 서비스에서 호출할 가능성이 컸다. 네이티브 애플리케이션은 우리 팀의 일이 아니었지만, 리액트 서비스가 어떻게 네이티브 앱과 통신하는지 이해하고자 간단한 예시 코드를 작성했다. 이번에는 리액트 서비스와 통신할 간단한 웹뷰 애플리케이션을 만들어봤다.
 
 ## 1. Packages
 
@@ -156,7 +157,7 @@ fragment_first XML 파일을 다음과 같이 수정한다.
 
 화면 이동 관계를 표현하는 nav_graph XML 파일을 살펴보자. 베이직 프로젝트를 만들면 기본적으로 존재하는 SecondFragment 관련 내용은 삭제했다.
 
-- 네비게이션에서 가장 먼저 시작하되는 프래그먼트(fragment)는 FirstFragment이다. 
+- 네비게이션에서 가장 먼저 시작되는 프래그먼트(fragment)는 FirstFragment이다. 
   - navigation 태그 - app:startDestination="@id/FirstFragment"
 - fragment_first 레이아웃과 FirstFragment 클래스를 매칭한다.
   - fragment 태그 - android:name="com.example.myapplication.FirstFragment"

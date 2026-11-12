@@ -7,6 +7,7 @@ categories:
   - "python"
   - "opencv"
   - "mediapipe"
+summary: "파이썬 mediapipe 패키지의 자세 랜드마크 감지로 달리는 사람의 스켈레톤을 추출하고, 랜드마크 좌표 데이터의 의미와 영상 생성 예제를 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -36,7 +37,7 @@ mediapipe 패키지는 여러 플랫폼에서 다양한 솔루션을 지원한�
 - 자세 랜드마크(스켈레톤 감지) 외에도 다양한 솔루션을 제공한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-02.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-02.png" width="100%" class="image__border">
 </div>
 <center>https://ai.google.dev/edge/mediapipe/solutions/guide?hl=ko#available_solutions</center>
 
@@ -48,10 +49,10 @@ mediapipe 패키지는 여러 플랫폼에서 다양한 솔루션을 지원한�
 - 각 신체 부위 이름을 확인하고 싶다면 이 [링크](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko#pose_landmarker_model)를 참고하길 바란다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-03.png" width="50%" class="image__border image__padding">
-</div>
-<center>https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2024/main/skeleton-detection-in-python-with-mediapipe-03.png" width="50%" class="image__border image__padding">
+  </div>
+  <center>https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker?hl=ko</center>
 </div>
 
 포즈 랜드마크 모델에 의해 감지되는 랜드마크(landmark) 데이터는 두 가지 존재한다. 동시에 값을 얻을 수 있다. 먼저 정규화 된 랜드마크(Landmarks) 데이터를 살펴보자.
@@ -97,7 +98,7 @@ landmark {
 
 - opencv-python
   - 비디오를 읽고 각 프레임을 추출한다.
-  - 스크레톤 라인이 그려진 프레임을 새로운 비디오 파일로 만든다.
+  - 스켈레톤 라인이 그려진 프레임을 새로운 비디오 파일로 만든다.
 - mediapipe
   - 비디오 프레임으로부터 스켈레톤 데이터를 추출한다.
   - 스켈레톤 데이터를 비디오 프레임에 그린다.
@@ -194,9 +195,9 @@ def process():
 위 비디오 프로세스에서 사용한 커스텀 함수들을 살펴보자. 먼저 output_video 함수는 다음과 같다.
 
 1. 원본 비디오로부터 화면 너비, 높이, FPS 정보를 획득한다.
-2. 원본 비디오와 동일한 사이즈, FPS 비디오를 생성할 수 있는 VideoWriter 객체를 반화한다.
+2. 원본 비디오와 동일한 사이즈, FPS 비디오를 생성할 수 있는 VideoWriter 객체를 반환한다.
   - output 디렉토리에 result.mp4 비디오 파일을 생성한다.
-  - MPEG-4 Part 2 코덱(codec)을 사용하기 위해 fourcc(four character code)를 MP4V으로 지정한다.
+  - MPEG-4 Part 2 코덱(codec)을 사용하기 위해 fourcc(four character code)를 MP4V로 지정한다.
 
 ```python
 def output_video(input_video):

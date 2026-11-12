@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/class-diagram-in-uml/"
 categories:
   - "information"
+summary: "의사소통 도구로서 UML 클래스 다이어그램의 가치를 짚고, 클래스 다이어그램의 구성 요소와 연관, 의존, 애그리게이션, 컴포지션 같은 관계 표기법을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -34,7 +35,7 @@ categories:
   - 유스 케이스(use case) 다이어그램과 시퀀스(sequence) 다이어그램이 행동 다이어그램에 속한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-01.png" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-01.png" width="100%" class="image__border image__padding">
 </div>
 <center>https://www.nextree.co.kr/p6753/</center>
 
@@ -51,7 +52,7 @@ categories:
 
 ### 2.1. Class Diagram Element
 
-클래스 다이어그램을 구성하는 엘리먼트(element)들을 먼저 알아본다. 자바 애플리케이션을 기준으로 설명한다. UML에는 속성(attribute)와 기능(operation)으로 표현하지만, 이 글에선 필드(field)와 메서드(method)로 표현했다. 언어에 따라 특성이 다르기 때문에 설명이 맞지 않을 수 있다. 만약 다른 언어가 주 무기라면 그에 맞는 표현 방법을 공부해 보길 바란다.
+클래스 다이어그램을 구성하는 엘리먼트(element)들을 먼저 알아보자. 자바 애플리케이션을 기준으로 설명한다. UML에는 속성(attribute)과 기능(operation)으로 표현하지만, 이 글에선 필드(field)와 메서드(method)로 표현했다. 언어에 따라 특성이 다르기 때문에 설명이 맞지 않을 수 있다. 만약 다른 언어가 주 무기라면 그에 맞는 표현 방법을 공부해 보길 바란다.
 
 #### 2.1.1. Access Modifier
 
@@ -66,7 +67,7 @@ categories:
 
 #### 2.1.2. Class
 
-객체 생성을 위한 클래스를 먼저 살펴본다. 다음과 같은 User 클래스가 있다.
+객체 생성을 위한 클래스를 먼저 살펴보자. 다음과 같은 User 클래스가 있다.
 
 ```java
 public class User {
@@ -109,7 +110,7 @@ public abstract class Computer {
 
 #### 2.1.4. Stereotype
 
-클래스 외에도 인터페이스(interface), 이넘(enum) 같은 요소들도 애플리케이션을 함께 구성한다. 이런 요소들은 스테레오타입(stereotype)을 통해 추가 정보를 제공한다. 스테레오타입은 길러멧(guillemet)이라는 쌍꺽쇠 기호 사이에 타입을 명시한 표현 방법이다. 인터페이스를 예로 들어 본다.
+클래스 외에도 인터페이스(interface), 이넘(enum) 같은 요소들도 애플리케이션을 함께 구성한다. 이런 요소들은 스테레오타입(stereotype)을 통해 추가 정보를 제공한다. 스테레오타입은 길러멧(guillemet)이라는 쌍꺽쇠 기호 사이에 타입을 명시한 표현 방법이다. 인터페이스를 예로 들어 보자.
 
 ```java
 public interface AuthenticationManager {
@@ -142,7 +143,7 @@ public class Math {
 
 ### 2.2. Class Diagram Relation
 
-클래스 다이어그램을 구성하는 요소들 사이의 관계 표현을 살펴본다. 
+클래스 다이어그램을 구성하는 요소들 사이의 관계 표현을 살펴보자. 
 
 #### 2.2.1. Generalization
 
@@ -156,7 +157,7 @@ public class Math {
 일반화 관계는 실선과 삼각형으로 표현한다. 자식이 부모를 참조하는 방향으로 화살표를 그린다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-06.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-06.png" width="100%" class="image__border">
 </div>
 
 #### 2.2.2. Realization
@@ -169,7 +170,7 @@ public class Math {
 실체화 관계는 점선과 삼각형으로 표현한다. 일반화와 마찬가지로 자식이 부모를 참조하는 방향으로 화살표를 그린다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-07.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-07.png" width="100%" class="image__border">
 </div>
 
 #### 2.2.3. Dependency
@@ -242,7 +243,7 @@ public class Contact {
   - Employee 객체는 Contact 객체를 1개 이상 가질 수 있기 때문에 일-대-다로 표기한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-09.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-09.png" width="100%" class="image__border">
 </div>
 
 #### 2.2.5. Aggregation and Composition
@@ -269,7 +270,7 @@ public class Contact {
 한국어로 표기하면 애그리게이션은 집합, 컴포지션은 합성이다. 집합과 합성은 비슷한 느낌을 주기 때문에 필자도 글을 다시 읽어보면서 헷갈렸다. 가독성을 위해 영어 발음을 그대로 작성했다. 애그리게이션(shared aggregation)은 개발자, 분석가, 모델러들 사이에 해석이 달라 객체 관리 그룹(OMG)의 UML 문서에도 자세한 설명이 없다고 한다. 다이어그램 해석에 오해를 일으킬 수 있으니 애그리게이션이나 컴포지션은 사용하지 않는 것이 좋을 것 같다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-11.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/class-diagram-in-uml-11.png" width="100%" class="image__border">
 </div>
 <center>https://www.omg.org/spec/UML/2.4.1/Superstructure/PDF</center>
 

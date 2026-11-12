@@ -7,6 +7,7 @@ categories:
   - "javascript"
   - "vue.js"
   - "security"
+summary: "Vue.js의 v-html 디렉티브로 HTML 코드를 템플릿에 그대로 삽입할 때 XSS 공격에 취약해지는 이유를 정리했다."
 recommendedPosts:
   - title: "반사형 XSS(Reflected Cross Site Scripting) 공격과 방어"
     href: "https://junhyunny.github.io/information/security/spring-mvc/reflected-cross-site-scripting/"
@@ -85,9 +86,7 @@ HTML 코드를 화면에서 그대로 사용하는 것은 XSS 공격에 취약�
 - 공격자는 악성 스크립트가 담긴 HTML 문서를 일반 사용자에게 전달한다.
 - 일반 사용자가 공격 HTML 문서를 자신의 브라우저에서 열면 악성 스크립트가 실행된다.
 
-`v-html` 디렉티브를 사용하면 HTML 코드를 그대로 사용하기 때문에 함께 전달된 스크립트가 실행된다. 때문에 `v-html` 디렉티브는 XSS 공격에 취약하다. 외부 사용자에 의해 입력된 데이터를 검증 없이 `v-html` 디렉티브를 통해 화면에 직접 출력하는 것은 지양해야 한다. `v-html` 디렉티브를 사용할 때 악성 스크립트가 어떤 식으로 실행되는지 예제 코드를 통해 확인해보자.
-
-- `htmlCode` 변수에 이미지 태그를 이용하여 `alert` 함수를 실행하는 코드를 저장한다. 이미지 태그의 크기를 0으로 만들어 화면에서 보이지 않게 만든다.
+`v-html` 디렉티브를 사용하면 HTML 코드를 그대로 사용하기 때문에 함께 전달된 스크립트가 실행된다. 때문에 `v-html` 디렉티브는 XSS 공격에 취약하다. 외부 사용자에 의해 입력된 데이터를 검증 없이 `v-html` 디렉티브를 통해 화면에 직접 출력하는 것은 지양해야 한다. `v-html` 디렉티브를 사용할 때 악성 스크립트가 어떤 식으로 실행되는지 예제 코드를 통해 확인해보자. `htmlCode` 변수에 이미지 태그를 이용하여 `alert` 함수를 실행하는 코드를 저장한다. 이미지 태그의 크기를 0으로 만들어 화면에서 보이지 않게 만든다.
 
 ```html
 <!DOCTYPE html>

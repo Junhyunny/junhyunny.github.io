@@ -8,6 +8,7 @@ categories:
   - "aws"
   - "dynamodb"
   - "test-container"
+summary: "테스트 컨테이너로 DynamoDB 컨테이너를 띄우고 엔드포인트 설정을 바꿔 스프링 부트 애플리케이션의 DynamoDB 결합 테스트를 수행하는 방법을 정리했다."
 recommendedPosts:
   - title: "스프링 부트(Spring Boot) DynamoDB CRUD 예제"
     href: "https://junhyunny.github.io/spring-boot/aws/dynamo-db/dynamodb-crud-example-with-spring-boot/"
@@ -19,7 +20,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-[이전 글][dynamodb-crud-example-with-spring-boot-link]에선 스프링 부트 애플리케이션에서 DynamoDB에 데이터를 읽고 쓰는 예제를 다뤘다. 이번 글을 테스트 컨테이너(TestContainer)를 사용해 애플리케이션이 DynamoDB와 결합 테스트를 수행하는 방법에 대해 정리했다. 일부 변경이 있지만, 대부분의 코드는 이전 글과 동일하다.
+[이전 글][dynamodb-crud-example-with-spring-boot-link]에선 스프링 부트 애플리케이션에서 DynamoDB에 데이터를 읽고 쓰는 예제를 다뤘다. 이번 글은 테스트 컨테이너(TestContainer)를 사용해 애플리케이션이 DynamoDB와 결합 테스트를 수행하는 방법에 대해 정리했다. 일부 변경이 있지만, 대부분의 코드는 이전 글과 동일하다.
 
 ## 1. Dependencies
 
@@ -67,7 +68,7 @@ amazon:
   - 기본적으로 "default" 값을 주입 받는다. AWS 클라우드 환경에선 AMAZON_DYNAMODB_ENDPOINT 환경 변수를 설정하지 않으므로 동일하게 "default" 값이 주입된다.
   - 테스트 환경에서 테스트 컨테이너가 실행된 후 환경 설정 값이 변경되었다면 테스트 컨테이너의 엔드포인트 주소가 주입된다.
   - 로컬 환경에서 IDE로 실행할 땐 AMAZON_DYNAMODB_ENDPOINT 환경 변수 값에 로컬 DynamoDB 엔드포인트 주소를 설정한다.
-2. 엔드포인트 값이 "default"가 아닌 경우에만 클라이언트의 엔드포인트 정보를 설정된다.
+2. 엔드포인트 값이 "default"가 아닌 경우에만 클라이언트의 엔드포인트 정보가 설정된다.
   - 위 조건에 따라 AWS 클라우드 환경을 제외한 로컬, 테스트 환경은 DynamoDB 컨테이너의 엔드포인트 주소가 주입된 설정 값으로 변경된다.
 
 ```kotlin
@@ -101,7 +102,7 @@ class DynamoDbConfig(
 
 ## 4. MockRepositoryConfig class
 
-예전에 작성했던 [테스트 컨테이너와 스프링 애플리케이션 컨텍스트와 관련된 글][problem-of-sharing-application-context-with-test-container-link]처럼 테스트 컨테이너를 준비하는 작업을 여러 레포지토리 테스트에서 사용할 수 있도록 추상 클래스를 만든다. 코드가 길기 때문에 일부분씩 살펴본다.
+예전에 작성했던 [테스트 컨테이너와 스프링 애플리케이션 컨텍스트와 관련된 글][problem-of-sharing-application-context-with-test-container-link]처럼 테스트 컨테이너를 준비하는 작업을 여러 레포지토리 테스트에서 사용할 수 있도록 추상 클래스를 만든다. 코드가 길기 때문에 일부분씩 살펴보자.
 
 1. 테스트 컨테이너에 생성할 테이블 이름이다.
 2. 테스트 컨테이너가 실행되면 테이블이나 필요한 데이터를 만들기 위한 클라이언트 객체다.
@@ -191,7 +192,7 @@ abstract class MockRepositoryConfig {
 }
 ```
 
-테이블을 생성 요청을 보낸다. 테이블이 생성될 때까지 기다린다.
+테이블 생성 요청을 보낸다. 테이블이 생성될 때까지 기다린다.
 
 ```kotlin
 abstract class MockRepositoryConfig {
@@ -268,9 +269,7 @@ abstract class MockRepositoryConfig {
 }
 ```
 
-DynamoDB는 @Transactional 애너테이션이 동작하지 않는다. 각 테스트마다 실행하기 전 테이블에 저장된 아이템들을 정리하는 코드가 필요하다.
-
-- clearDatabase 메서드는 테이블에 존재하는 모든 아이템을 정리한다.
+DynamoDB는 @Transactional 애너테이션이 동작하지 않는다. 각 테스트마다 실행하기 전 테이블에 저장된 아이템들을 정리하는 코드가 필요하다. clearDatabase 메서드는 테이블에 존재하는 모든 아이템을 정리한다.
 
 ```kotlin
 abstract class MockRepositoryConfig {
@@ -302,7 +301,7 @@ abstract class MockRepositoryConfig {
 
 ## 5. TodoRepositoryTest class
 
-이제 테스트 코드를 살펴보자. 테스트 코드만 살펴본다. 구현체 코드는 [이전 글][dynamodb-crud-example-with-spring-boot-link]을 참고하길 바란다.
+이제 테스트 코드를 살펴보자. 이 글에선 테스트 코드만 다루고, 구현체 코드는 [이전 글][dynamodb-crud-example-with-spring-boot-link]을 참고하길 바란다.
 
 1. 위에서 생성한 MockRepositoryConfig 추상 클래스를 상속받는다. 
 2. 테스트 대상은 @Autowired 애너테이션을 통해 주입 받는다.

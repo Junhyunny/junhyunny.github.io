@@ -1,23 +1,24 @@
 ---
 title: "스프링 부트에서 Web MVC 필터 테스트하기"
 publishedAt: "2023-07-15"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:15:07+09:00"
 canonicalPath: "/java/spring-boot/web-mvc-filter-test-on-spring-boot/"
 categories:
   - "java"
   - "spring-boot"
+summary: "인증 필터를 대상으로 순수 단위 테스트, MockMvc standaloneSetup 테스트, 결합 테스트를 각각 작성해 보고 결합 테스트로 필터를 검증할 때의 단점을 정리했다."
 ---
 
 ## 0. 들어가면서
 
-스프링(spring) 프레임워크에서 기본적으로 사용하는 톰캣(tomcat)은 필터(filter)라는 강력한 기능을 제공한다. 인증이나 인가 같은 공통적인 처리는 필터에 구현하는데 단위 테스트와 결합 테스트를 적절하게 활용하면 필터 기능을 보다 더 확실하게 검증할 수 있다.
+스프링(spring) 프레임워크에서 기본적으로 사용하는 톰캣(tomcat)은 필터(filter)라는 강력한 기능을 제공한다. 인증이나 인가 같은 공통 처리는 필터에 구현하는데, 단위 테스트와 결합 테스트를 적절하게 활용하면 필터 기능을 더 확실하게 검증할 수 있다.
 
 ## 1. System Under Test
 
 다음과 같은 인증 필터가 테스트 대상이다.
 
 - AuthProvider를 의존한다.
-- 인증이 필요하지 않은 요청은 리스트를 통해 관리한다.
+- 인증이 필요하지 않은 요청 경로는 리스트로 관리한다.
   - 인증이 필요하지 않은 경우 다음 필터를 실행한다.
 - 인증에 실패하면 예외가 발생한다.
   - 예외가 발생하면 401 코드와 에러 메시지를 전달한다.
@@ -88,14 +89,14 @@ public class AuthFilter extends OncePerRequestFilter {
 
 ## 2. Unit Test
 
-단위 테스트를 통해 필터의 기능을 검증한다.
+단위 테스트로 필터의 기능을 검증한다. 테스트 방법은 다음과 같다.
 
 - AuthProvider 의존성은 테스트 더블(test double)로 사용한다.
   - 각 테스트마다 스텁(stub) 혹은 스파이(spy) 역할을 수행한다.
 - 각 비즈니스 케이스에 맞는 동작을 수행하는지 검증한다.
   - 인증 처리가 필요 없는 경로는 다음 필터를 실행하는지 확인한다.
-  - 인증 실패인 경우 적절한 에러 메시지와 상태 코드를 확인한다.
-  - 인증 성공인 경우 다음 필터를 실행하는지 확인한다.
+  - 인증에 실패한 경우 적절한 에러 메시지와 상태 코드를 반환하는지 확인한다.
+  - 인증에 성공한 경우 다음 필터를 실행하는지 확인한다.
 
 ```java
 package action.in.blog.filter;
@@ -178,21 +179,21 @@ public class AuthFilterTest {
 
 ## 3. Unit Test with MockMvc
 
-필터의 동작만 확인하려면 위에 단위 테스트만으로 충분하다. 하지만 필터는 단순하게 동작하지 않는다. 여러 필터들과 함께 동작하고 필터를 지나면 컨트롤러(controller)까지 요청이 연결되어야 한다. 그런 관점에서 단순한 단위 테스트는 다음과 같은 제약사항이 있다.
+필터의 동작만 확인하려면 위의 단위 테스트만으로 충분하다. 하지만 필터는 단순하게 동작하지 않는다. 여러 필터와 함께 동작하고, 필터를 지나면 컨트롤러(controller)까지 요청이 연결되어야 한다. 그런 관점에서 단순한 단위 테스트에는 다음과 같은 제약 사항이 있다.
 
 - 필터를 통과해 컨트롤러까지 연결되는 것이 확인되지 않는다.
 - 에러가 발생했을 때 에러 코드와 메시지가 클라이언트에게 전달되는지 확인하기 어렵다.
 
-MockMvc를 사용하면 단위 테스트를 보완할 수 있다.
+MockMvc를 사용하면 단위 테스트를 보완할 수 있다. 테스트 방법은 다음과 같다.
 
 - MockMvcBuilders 클래스를 통해 생성한 MockMvc 객체를 사용한다.
 - 테스트를 위한 컨트롤러 객체가 필요하다.
   - 실제 구현체를 사용하거나 테스트 전용 컨트롤러를 만들어 사용한다.
-  - 이번 포스트에서는 테스트를 위한 전용 컨트롤러를 하나 만들었다.
+  - 이 글에서는 테스트 전용 컨트롤러를 하나 만들었다.
 - 각 비즈니스 케이스에 맞는 동작을 수행하는지 검증한다.
-  - 요청이 인증 처리가 필요 없는 경우 클라이언트는 정상적인 응답 메시지를 받는다.
-  - 요청이 인증 실패인 경우 클라이언트는 401 에러 코드와 메시지를 받는다.
-  - 요청이 성공인 경우 정상적인 응답 메시지를 받는다.
+  - 인증 처리가 필요 없는 요청이면 클라이언트는 정상적인 응답 메시지를 받는다.
+  - 인증에 실패하면 클라이언트는 401 에러 코드와 메시지를 받는다.
+  - 인증에 성공하면 클라이언트는 정상적인 응답 메시지를 받는다.
 
 ```java
 package action.in.blog.filter;
@@ -276,27 +277,24 @@ public class AuthFilterMockMvcTest {
 
 ## 4. Integration Test
 
-API 요청에 대한 필터 기능에 대한 검증은 MockMvc를 사용한 테스트로 커버 가능하다. 애플리케이션 실행 시 설정(config) 혹은 빈(bean) 주입까지 정상적으로 수행되는지 확인하려면 결합 테스트를 수행해야 한다. @SpringBootTest 애너테이션을 활용한 결합 테스트는 모든 컨텍스트를 필요로 하기 때문에 실행 속도가 느리다. 테스트를 통해 조금이라도 빠른 피드백을 받기 위해 @WebMvcTest 애너테이션을 사용한다.
+API 요청에 대한 필터 기능은 MockMvc를 사용한 테스트로 검증할 수 있다. 하지만 애플리케이션을 실행할 때 설정(config)이나 빈(bean) 주입까지 정상적으로 수행되는지 확인하려면 결합 테스트를 수행해야 한다.
+
+@SpringBootTest 애너테이션을 활용한 결합 테스트는 모든 컨텍스트를 필요로 하기 때문에 실행 속도가 느리다. 테스트에서 조금이라도 빠른 피드백을 받기 위해 @WebMvcTest 애너테이션을 사용한다. 두 애너테이션의 차이는 다음과 같다.
 
 - @SpringBootTest 애너테이션을 사용하면 애플리케이션 실행에 필요한 모든 컨텍스트를 띄운다.
-  - 필터 기능을 점검하기 위해 서비스(service), 레포지토리(repository) 영역의 컨텍스트까지 올리는 것은 비합리적이다.
+  - 필터 기능을 점검하려고 서비스(service), 레포지토리(repository) 영역의 컨텍스트까지 올리는 것은 비합리적이다.
 - @WebMvcTest 애너테이션을 사용하면 컨트롤러가 요청과 응답할 때 필요한 컨텍스트만 띄운다.
   - 필터, 인터셉터, 컨트롤러 등이 이에 속한다.
-  - 엔드-포인트(end-point) 요청, 응답과 관계 없지만, 반드시 필요한 의존성은 @MockBean 애너테이션을 사용해 주입한다.
+  - 엔드포인트(end-point) 요청, 응답과 관계없지만 반드시 필요한 의존성은 @MockBean 애너테이션을 사용해 주입한다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/web-mvc-filter-test-on-spring-boot-01.png" width="100%" class="image__border">
+<div class="block-break">
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2023/main/web-mvc-filter-test-on-spring-boot-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://gowoonsori.com/blog/spring/architecture/</center>
 </div>
-<center>https://gowoonsori.com/blog/spring/architecture/</center>
 
-##### Code for Integration Test
-
-- `controllers` 속성을 사용해 특정 컨트롤러만 선택적으로 띄운다.
-  - 테스트를 위한 컨트롤러를 만든다.
-  - 프로파일을 통해 빈 생성 시 다른 컨트롤러와의 충돌 발생을 방지한다.
-- `properties` 속성을 사용해 해당 테스트에서 필요한 설정들을 정의한다.
-  - 프로파일은 auth-filter이다.
-  - 인증 처리를 하지 않는 경로는 /bar이다.
+결합 테스트 코드는 `controllers` 속성을 사용해 테스트를 위해 만든 컨트롤러만 선택적으로 띄운다. 이 컨트롤러는 프로파일을 지정해 빈을 생성할 때 다른 컨트롤러와 충돌하지 않게 한다. `properties` 속성으로는 해당 테스트에 필요한 설정을 정의한다. 프로파일은 `auth-filter`이고, 인증 처리를 하지 않는 경로는 `/bar`이다.
 
 ```java
 package action.in.blog.filter;
@@ -362,7 +360,7 @@ public class AuthFilterIT {
 
 ## CLOSING
 
-필터의 기능 점검을 결합 테스트로 수행했을 때 좋지 않다고 생각되는 점들은 다음과 같다.
+필터의 기능을 결합 테스트로 점검할 때 좋지 않다고 생각하는 점은 다음과 같다.
 
 - 테스트 대상은 `AuthFilter`이지만, 테스트 코드에서 보이지 않는다.
 - 최소한의 컨텍스트만 사용하더라도 결합 테스트이므로 단위 테스트에 비해 속도가 느리다.

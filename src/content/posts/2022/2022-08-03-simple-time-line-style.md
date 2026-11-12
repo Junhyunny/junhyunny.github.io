@@ -1,22 +1,20 @@
 ---
 title: "심플 타임라인 스타일(Simple Timeline Style)"
 publishedAt: "2022-08-03"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:18:37+09:00"
 canonicalPath: "/html/css/javascript/simple-time-line-style/"
 categories:
   - "html"
   - "css"
   - "javascript"
+summary: "개인이나 회사 이력을 간단하게 표현하는 타임라인 스타일을 HTML과 CSS로 구현했다."
 ---
 
 ## 1. Simple Timeline Style
 
-개인이나 회사 이력을 간단하게 표현할 수 있는 타임라인(timeline) 스타일을 구현하였다.
+개인이나 회사 이력을 간단하게 표현할 수 있는 타임라인(timeline) 스타일을 구현했다.
 
-### 1.1. HTML 코드
-
-- `history-items` 클래스 하위에 `li` 요소를 이용하여 타임라인 선을 표현한다.
-- `history-items` 클래스 하위에 `history-item` 클래스들을 좌, 우에 위치시켜 간단한 타임라인 카드를 구성한다.
+먼저 HTML 코드를 살펴보자. `history-items` 클래스 하위의 `li` 요소로 타임라인 선을 표현하고, `history-item` 클래스 요소들을 좌우에 번갈아 배치해 간단한 타임라인 카드를 구성한다.
 
 ```html
 <ul class="history-items">
@@ -92,10 +90,7 @@ categories:
 </ul>
 ```
 
-### 1.2. CSS 코드
-
-- 영역 표시나 크기를 설정한 속성들에 대한 설명은 제외하였다.
-- 설명에 대한 내용은 가독성을 높이기 위해 주석에 작성하였다.
+다음은 CSS 코드다. 영역 표시나 크기를 설정한 속성의 설명은 제외했고, 가독성을 높이기 위해 설명은 주석으로 작성했다.
 
 ```css
 @import url("https://hangeul.pstatic.net/hangeul_static/css/nanum-square.css");

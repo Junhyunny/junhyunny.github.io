@@ -7,6 +7,7 @@ categories:
   - "java"
   - "spring-boot"
   - "test-driven-development"
+summary: "MockedStatic으로 LocalDate 클래스를 모킹하자 다른 정적 메서드까지 동작하지 않던 문제를 Mockito.CALLS_REAL_METHODS 옵션으로 해결한 과정을 정리했다."
 ---
 
 ## 1. 문제 상황
@@ -14,13 +15,13 @@ categories:
 새로운 기능을 위해 테스트를 추가하면서 다음과 같은 문제 상황이 발생했다.
 
 - MockedStatic 클래스를 이용해 LocalDate 클래스의 정적(static) 메서드들을 테스트 더블(Test Double)로 만들었다.
-- 의도하지 않은 곳에서 스터빙(stubbing)되지 않은 정적 메서드가 호출되어 에러가 발생하였다.
+- 의도하지 않은 곳에서 스터빙(stubbing)되지 않은 정적 메서드가 호출되어 에러가 발생했다.
 
 ### 1.1. 기존 코드
 
-간단하게 재구성한 예시 코드를 통해 문제 현상을 살펴보겠다. 사용자들은 4월, 8월에 80% 저렴한 이벤트 가격으로 제품을 구매할 수 있다.
+간단하게 재구성한 예시 코드를 통해 문제 현상을 살펴보자. 사용자들은 4월, 8월에 80% 저렴한 이벤트 가격으로 제품을 구매할 수 있다.
 
-#### 1.1.1. 테스트 코드
+테스트 코드는 다음과 같다.
 
 - 4월, 8월에 할인된 가격을 `getEventPrice` 메서드를 통해 획득한다.
 - `LocalDate` 클래스의 `now` 정적 메서드가 각 테스트 별로 적당한 값을 반환하도록 스터빙한다.
@@ -78,9 +79,7 @@ public class StaticMethodServiceTests {
 }
 ```
 
-#### 1.1.2. 실행 코드
-
-- 4월과 8월은 전달받은 가격을 이벤트 가격으로 변경하여 반환한다.
+테스트 대상 코드는 4월과 8월에 전달받은 가격을 이벤트 가격으로 변경하여 반환한다.
 
 ```java
 package action.in.blog.service;
@@ -102,9 +101,7 @@ public class StaticMethodService {
 }
 ```
 
-#### 1.1.3. 테스트 결과
-
-- 정상적으로 테스트가 통과한다.
+테스트를 실행하면 정상적으로 통과한다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/real-static-method-call-when-using-mock-01.png" width="95%" class="image__border">
@@ -114,7 +111,7 @@ public class StaticMethodService {
 
 사용자 스토리가 추가되었다. 4월, 8월뿐만 아니라 만 나이가 10대인 사람들은 모두 이벤트 가격을 얻을 수 있다.
 
-#### 1.2.1. 테스트 코드
+테스트 코드는 다음과 같다.
 
 - 만 나이가 10대인 사람들만 할인을 받는지 경계 조건을 테스트한다.
 - 하루 차이로 9세, 10세와 19세, 20세 나이를 파라미터로 전달한다.
@@ -174,9 +171,9 @@ public class StaticMethodServiceTests {
 }
 ```
 
-#### 1.2.2. 구현 코드
+구현 코드는 다음과 같다.
 
-- `Period` 클래스 `between` 메서드를 사용하여 두 날짜 사이의 년도 차이를 구한다.
+- `Period` 클래스 `between` 메서드를 사용하여 두 날짜 사이의 연도 차이를 구한다.
 - 10대에 속하는 경우 할인 가격을 반환한다.
 
 ```java
@@ -202,19 +199,17 @@ public class StaticMethodService {
 }
 ```
 
-#### 1.2.3. 테스트 결과
+테스트를 실행하면 `NullPointerException`이 발생하여 실패한다.
 
-- `NullPointException`가 발생하여 테스트가 실패한다.
-
-<div align="left">
+<div class="block-break" align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/real-static-method-call-when-using-mock-02.png" width="95%" class="image__border">
 </div>
 
-#### 1.2.4. 예외 발생 코드
+예외가 발생한 코드를 살펴보자.
 
 - `LocalDate` 클래스 `until` 메서드에서 에러가 발생한다.
 - `LocalDate` 클래스 `from` 정적 메서드가 스터빙되지 않아 `null`을 반환한다.
-- 다음 라인에서 `end` 객체를 참조하는 시점에 `NullPointException`이 발생한다.
+- 다음 라인에서 `end` 객체를 참조하는 시점에 `NullPointerException`이 발생한다.
 
 ```java
     @Override
@@ -242,11 +237,11 @@ public class StaticMethodService {
 
 ### 2.1. Mockito.CALLS_REAL_METHODS 사용
 
-`LocalDate` 클래스의 모킹할 때 `Mockito.CALLS_REAL_METHODS`을 함께 전달한다. 이럴 경우 스터빙하지 않은 다른 메서드들은 모두 원래대로 동작한다.
+`LocalDate` 클래스를 모킹할 때 `Mockito.CALLS_REAL_METHODS`를 함께 전달한다. 이럴 경우 스터빙하지 않은 다른 메서드들은 모두 원래대로 동작한다.
 
-#### 2.1.1. 테스트 코드
+테스트 코드는 다음과 같다.
 
-- `mockLocalDate` 객체를 만들 때 `CALLS_REAL_METHODS`을 두 번째 파라미터로 함께 전달한다.
+- `mockLocalDate` 객체를 만들 때 `CALLS_REAL_METHODS`를 두 번째 파라미터로 함께 전달한다.
   - 정적 메서드를 따로 스터빙하지 않는 경우 모두 원래 기능대로 동작한다.
 
 ```java
@@ -318,7 +313,7 @@ public class StaticMethodServiceTests {
 }
 ```
 
-#### 2.1.2. 테스트 결과
+테스트를 실행한 결과는 다음과 같다.
 
 <div align="left">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/real-static-method-call-when-using-mock-03.png" width="95%" class="image__border">

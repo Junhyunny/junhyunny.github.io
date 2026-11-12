@@ -6,6 +6,7 @@ canonicalPath: "/information/javascript/how-to-work-javascript-async/"
 categories:
   - "information"
   - "javascript"
+summary: "면접 질문을 계기로 싱글 스레드인 자바스크립트 엔진이 런타임의 웹 API, 콜백 큐, 이벤트 루프를 통해 비동기 작업을 처리하는 원리를 정리했다."
 recommendedPosts:
   - title: "비동기 논블로킹(Asynchronous Non-Blocking) 처리"
     href: "https://junhyunny.github.io/information/java/asynchronous-and-non-blocking-process/"
@@ -35,10 +36,10 @@ recommendedPosts:
 - 이벤트 루프(event loop)
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-work-javascript-async-01.png" width="75%" class="image__border">
-</div>
-<center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-work-javascript-async-01.png" width="100%" class="image__border">
+  </div>
+  <center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 </div>
 
 대표적인 `자바스크립트 엔진인 크롬 V8 엔진`의 구조를 간략하게 살펴보자. V8 엔진은 크롬과 Node.js에서 사용 중이며, 메모리 힙(memory heap), 콜 스택(call stack) 두 개의 컴포넌트로 구성된다.
@@ -47,10 +48,10 @@ recommendedPosts:
 - 콜 스택(Call Stack) - 함수 호출을 스택(stack)으로 관리하는 공간
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-work-javascript-async-02.png" width="40%" class="image__border">
-</div>
-<center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-work-javascript-async-02.png" width="50%" class="image__border">
+  </div>
+  <center>https://blog.sessionstack.com/how-does-javascript-actually-work-part-1-b0bacc073cf</center>
 </div>
 
 V8 엔진의 인터프리터(interpreter)는 코드를 분석하고, 실행 가능한 명령으로 변환한다. 코드에 맞춰 메모리를 할당하고, 호출한 함수는 콜 스택에 추가(push)한다. 최상위 스택에 위치한 함수를 실행하고, 완료되면 콜 스택에서 제거(pop)한다. V8 엔진은 하나의 콜 스택을 가지고 있기 때문에 싱글 스레드의 동기식 방식으로 실행된다. 최상위 스택에 위치한 함수가 실행되는 동안 하위 스택은 실행되지 않는다.
@@ -115,7 +116,7 @@ HTML 코드에는 클릭 이벤트를 처리할 수 있는 버튼을 하나 추�
 
 ## CLOSING
 
-이해한 내용들을 나중에 쉽게 알아보기 위해 요약해보았다.
+이해한 내용들을 나중에 쉽게 알아보기 위해 요약해봤다.
 
 - 사용자에게 보이는 브라우저의 기능은 자바스크립트 엔진에 위치한 콜 스택에서 실행되는 함수들이 동작하는 모습이다.
 - 자바스크립트 엔진은 싱글 스레드로 동작함에도 불구하고 여러 가지 기능을 동시에 처리하는 것처럼 비동기적인 모습을 보인다.

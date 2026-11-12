@@ -267,9 +267,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
-SessionConfiguration 클래스를 살펴보자. 세션에서 데이터베이스를 사용할 수 있도록 PlatformTransactionManager 객체에 데이터소스(DataSource) 객체를 연결한다.
-
-- 해당 애플리케이션이 사용하는 데이터소스를 주입한다.
+SessionConfiguration 클래스를 살펴보자. 세션에서 데이터베이스를 사용할 수 있도록 PlatformTransactionManager 객체에 데이터소스(DataSource) 객체를 연결한다. 해당 애플리케이션이 사용하는 데이터소스를 주입한다.
 
 ```java
 package blog.in.action.config;

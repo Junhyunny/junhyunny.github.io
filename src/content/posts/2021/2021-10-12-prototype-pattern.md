@@ -1,38 +1,39 @@
 ---
 title: "프로토타입 패턴 (Prototype Pattern)"
 publishedAt: "2021-10-12"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:09:37+09:00"
 canonicalPath: "/information/design-pattern/prototype-pattern/"
 categories:
   - "information"
   - "design-pattern"
+summary: "이미 만든 인스턴스를 복제해 새 인스턴스를 만드는 프로토타입 패턴을 설명하고, Cloneable 인터페이스로 생산 비용이 높은 객체를 복제하는 예제를 다룬다."
 ---
 
 ## 1. Prototype Pattern
 
-"프로토타입"이라는 이름처럼 원본을 두고 복사하여 사용하는 방법이다. 이미 생성된 인스턴스로 자신을 닮은 새로운 인스턴스를 복사해내어 사용한다. 새로운 객체를 일반적인 방법(생성자)으로 생성할 때 비용이 큰 경우 이용할 수 있는 디자인 패턴이다. 프로토타입 패턴을 구성하는 요소들은 다음과 같다.
+프로토타입 패턴은 "프로토타입(prototype)"이라는 이름처럼 원본을 두고 복사해 사용하는 방법이다. 이미 생성된 인스턴스를 복제해 자신을 닮은 새로운 인스턴스를 만든다. 일반적인 방법(생성자)으로 새로운 객체를 만드는 비용이 클 때 활용할 수 있는 디자인 패턴이다. 프로토타입 패턴의 구성 요소는 다음과 같다.
 
 - Prototype
-  - 자신을 복제하는데 필요한 기능을 명세한 인터페이스
+  - 자신을 복제하는 데 필요한 기능을 명세한 인터페이스
 - ConcretePrototype
   - 인터페이스에 명세한 기능을 구현한 클래스
 - Client
   - 원형(prototype)에게 자기 복사를 요청하는 클래스
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/prototype-pattern-01.png" width="80%" class="image__border image__padding">
-</div>
-<center>https://www.java2novice.com/java-design-patterns/prototype-pattern/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/prototype-pattern-01.png" width="100%" class="image__border image__background_white">
+  </div>
+  <center>https://www.java2novice.com/java-design-patterns/prototype-pattern/</center>
 </div>
 
 다음과 같은 상황에 프로토타입 패턴을 활용할 수 있다.
 
-- 인스턴스 생산 비용이 높은 경우 사용할 수 있다.
-- 종류가 많아서 클래스로 정리할 수 없는 경우 사용할 수 있다.
-- 클래스로부터 인스턴스 생성이 어려운 경우 사용할 수 있다.
+- 인스턴스 생산 비용이 높은 경우
+- 종류가 많아서 클래스로 정리할 수 없는 경우
+- 클래스로부터 인스턴스를 생성하기 어려운 경우
 
-핵심은 `clone` 메서드이며 구현에 주의해야 한다.
+핵심은 `clone` 메서드다. 이 메서드를 구현할 때는 다음 사항에 주의해야 한다.
 
 - 순환 참조(circular reference)가 있는 경우 구현이 어렵다.
 - 얕은 복사(shallow copy)와 깊은 복사(deep copy) 문제에 주의해야 한다.
@@ -40,14 +41,14 @@ categories:
 
 ## 2. Example
 
-간단한 예시 코드를 통해 개념을 정리해보자. 좋은 예시가 떠오르지 않은 `클래스로부터 인스턴스 생성이 어려운 경우`는 제외했다. `Prototype` 인터페이스 역할로 `Java`에서 제공하는 Cloneable 인터페이스를 사용했다.
+간단한 예시 코드로 개념을 정리해보자. `클래스로부터 인스턴스 생성이 어려운 경우`는 좋은 예시가 떠오르지 않아 제외했다. `Prototype` 인터페이스 역할은 `Java`에서 제공하는 Cloneable 인터페이스가 맡는다.
 
-인스턴스 생산 비용이 높은 경우 프로토타입 패턴을 활용한 사례를 살펴보자. 데이터베이스에서 데이터를 매번 조회해서 사용하는 것은 큰 비용이 필요하다. 조회용(read-only) 데이터로 사용한다면 프로토타입 패턴을 사용하는 것도 좋다.
+먼저 인스턴스 생산 비용이 높은 경우에 프로토타입 패턴을 활용한 사례다. 데이터베이스에서 데이터를 매번 조회하면 비용이 크다. 조회용(read-only) 데이터라면 프로토타입 패턴을 사용하는 것도 좋은 방법이다.
 
 - fetch_data_only_first_time 메서드
-  - 프로토타입 패턴을 사용하는 경우 최초 한번만 조회 후 이를 복사하여 사용한다.
+  - 프로토타입 패턴을 사용하는 경우다. 최초 한 번만 조회한 뒤 이를 복사해 사용한다.
 - fetch_data_every_times 메서드
-  - 프로토타입 패턴을 사용하지 않는 경우 매번 데이터베이스에서 조회한다.
+  - 프로토타입 패턴을 사용하지 않는 경우다. 매번 데이터베이스에서 조회한다.
 
 ```java
 package blog.in.action;
@@ -141,7 +142,7 @@ class Item implements Cloneable {
 }
 ```
 
-실행 결과를 로그로 살펴보자. fetch_data_only_first_time 메서드 수행 결과 79ms 소요된다.
+실행 결과를 로그로 살펴보자. fetch_data_only_first_time 메서드는 79ms가 걸린다.
 
 ```
 Hibernate: call next value for hibernate_sequence
@@ -150,7 +151,7 @@ Hibernate: select item0_.id as id1_0_, item0_.name as name2_0_ from item item0_ 
 2023-04-01 01:17:44.575  INFO 81794 --- [           main] blog.in.action.SearchDataTests           : total running time - 79
 ```
 
-fetch_data_every_times 메서드 수행 결과 1071ms 소요된다.
+fetch_data_every_times 메서드는 1071ms가 걸린다.
 
 ```
 Hibernate: call next value for hibernate_sequence
@@ -163,15 +164,15 @@ Hibernate: select item0_.id as id1_0_, item0_.name as name2_0_ from item item0_ 
 2023-04-01 01:19:37.165  INFO 82119 --- [           main] blog.in.action.SearchDataTests           : total running time - 1071
 ```
 
-두 번째 사례로 사용자가 특정 소프트웨어를 사용해 도형을 그렸을 때 이를 복사하는 경우를 살펴보자. 점, 선 등을 사용해 도형을 표현하였지만, 임의로 그려졌기 때문에 점, 선이라는 클래스에서 다시 객체를 생성하기 어렵다.
+두 번째 사례로 사용자가 특정 소프트웨어로 그린 도형을 복사하는 경우를 살펴보자. 도형은 점, 선 등으로 표현하지만, 사용자가 임의로 그렸기 때문에 점, 선 클래스로부터 같은 객체를 다시 생성하기 어렵다.
 
-- 사용자가 임의로 그렸기 때문에 임의의 값을 가지고 있는 도형 객체가 생성된다.
-- 원본 도형을 복사하는 경우 서로 다른 객체이므로 각 도형의 변경이 서로에게 영향이 없도록 복사되어야 한다.
+- 사용자가 임의로 그렸기 때문에 도형 객체는 임의의 값을 가진다.
+- 원본 도형과 복사한 도형은 서로 다른 객체이므로 한 도형을 변경해도 다른 도형에 영향이 없도록 복사해야 한다.
 
-위와 같은 상황을 고려한 프로토타입 패턴 적용이 필요하다. 다음과 같은 Point 클래스를 생성한다.
+이런 상황을 고려해 프로토타입 패턴을 적용해야 한다. 먼저 다음과 같은 Point 클래스를 만든다.
 
 - Point 클래스는 x, y 좌표로 구성된다.
-- clone 메서드에서 새로운 Point 객체를 만들어 반환한다.
+- clone 메서드는 새로운 Point 객체를 만들어 반환한다.
 
 ```java
 @Getter
@@ -198,10 +199,10 @@ class Point implements Cloneable {
 }
 ```
 
-다음 아래와 같은 Line 클래스를 생성한다. Line 클래스는 2개의 Point 클래스로 구성된다.
+다음으로 Line 클래스를 만든다. Line 클래스는 Point 객체 2개로 구성된다.
 
-- clone 메서드에서 새로운 Line 객체를 만들어 반환한다.
-- Point 객체를 복사하여 새로운 객체로 할당한다. 깊은 복사를 수행한다.
+- clone 메서드는 새로운 Line 객체를 만들어 반환한다.
+- 각 Point 객체도 복사해 새로운 객체를 할당한다. 즉, 깊은 복사를 수행한다.
 
 ```java
 class Line implements Cloneable {
@@ -234,10 +235,10 @@ class Line implements Cloneable {
 }
 ```
 
-이번엔 Shape 클래스를 살펴보자. Shape 클래스는 여러 개의 Line 클래스로 구성된다.
+이번엔 Shape 클래스를 살펴보자. Shape 클래스는 여러 개의 Line 객체로 구성된다.
 
-- clone 메서드에서 새로운 Shape 객체를 만들어 반환한다.
-- 새로운 리스트 객체를 만들고 Line 객체를 복사하여 담는다. 깊은 복사를 수행한다.
+- clone 메서드는 새로운 Shape 객체를 만들어 반환한다.
+- 새로운 리스트 객체를 만들고 각 Line 객체를 복사해 담는다. 마찬가지로 깊은 복사를 수행한다.
 
 ```java
 class Shape implements Cloneable {
@@ -281,12 +282,12 @@ class Shape implements Cloneable {
 }
 ```
 
-테스트 코드를 통해 위에서 작성한 객체들에 프로토타입 패턴이 잘 적용되었는지 살펴보자.
+테스트 코드로 위에서 작성한 클래스들에 프로토타입 패턴이 잘 적용되었는지 확인해보자.
 
-- 사용자가 임의로 그린 도형 `originShape` 객체를 만든다.
-- clone 메서드를 이용해 `originShape` 객체를 복사한다.
-- 복사된 `clonedShape` 객체의 정보를 변경한다. 첫 번째 선의 두 번째 점의 좌표를 변경한다.
-- 두 도형의 데이터가 서로 다른지 확인하고 로그를 살펴본다.
+1. 사용자가 임의로 그린 도형 `originShape` 객체를 만든다.
+2. clone 메서드로 `originShape` 객체를 복사한다.
+3. 복사한 `clonedShape` 객체에서 첫 번째 선의 두 번째 점 좌표를 변경한다.
+4. 두 도형의 데이터가 서로 다른지 확인하고 로그를 출력한다.
 
 ```java
 @Slf4j
@@ -317,10 +318,10 @@ public class CloneMaterialExample {
 }
 ```
 
-로그를 통해 객체 복사가 정상적으로 처리되었는지 살펴보자. 
+로그를 통해 객체가 정상적으로 복사되었는지 살펴보자.
 
-- 복사한 도형의 값을 변경하였으므로 원본과 데이터가 다르다.
-- 복사한 도형의 변경이 원본에 영향을 끼치지 않음을 확인할 수 있다.
+- 복사한 도형의 값을 변경했으므로 원본과 데이터가 다르다.
+- 복사한 도형을 변경해도 원본에는 영향이 없다.
 
 ```
 01:48:22.194 [main] INFO blog.in.action.CloneMaterialExample - origin shape -

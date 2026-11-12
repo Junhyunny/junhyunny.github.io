@@ -5,6 +5,7 @@ updatedAt: "2026-06-06T11:09:40+09:00"
 canonicalPath: "/spring-mvc/quartz-clustering-in-spring-mvc/"
 categories:
   - "spring-mvc"
+summary: "다중 서버에서 같은 작업이 중복 실행되지 않도록 JobStore를 이용한 쿼츠 클러스터링을 스프링 MVC에 구현하고 고가용성을 테스트했다."
 recommendedPosts:
   - title: "스프링 MVC Quartz 사용하기"
     href: "https://junhyunny.github.io/spring-mvc/quartz-in-spring-mvc/"

@@ -5,6 +5,7 @@ updatedAt: "2026-06-06T23:06:02+09:00"
 canonicalPath: "/information/source-tree-for-mac-read-only-authentication-problem/"
 categories:
   - "information"
+summary: "맥 소스트리에서 깃허브 비공개 레포지토리에 접근할 수 없던 문제를 개인 액세스 토큰을 발급해 계정 설정에 등록하는 방법으로 해결했다."
 ---
 
 ## 1. Problem Context
@@ -18,7 +19,7 @@ categories:
 
 - `Public Data Only` 문구 확인
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/source-tree-for-mac-read-only-authentication-problem-01.png" width="50%" class="image__border">
 </div>
 

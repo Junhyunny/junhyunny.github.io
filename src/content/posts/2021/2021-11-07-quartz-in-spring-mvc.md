@@ -5,6 +5,7 @@ updatedAt: "2026-06-06T09:38:11+09:00"
 canonicalPath: "/spring-mvc/quartz-in-spring-mvc/"
 categories:
   - "spring-mvc"
+summary: "정해진 시간 간격으로 작업을 실행하기 위해 스프링 MVC 프레임워크에 쿼츠 스케줄러를 구성하고 5초마다 테이블이 갱신되는지 확인했다."
 recommendedPosts:
   - title: "스프링 MVC Quartz 클러스터링(Clustering)"
     href: "https://junhyunny.github.io/spring-mvc/quartz-clustering-in-spring-mvc/"
@@ -12,7 +13,9 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-시스템을 구성하다 보면 실시간 요청에 따라 서비스를 제공하는 것뿐만 아니라 특정 시간마다 혹은 일정 시간 간격마다 동작하여 필요한 데이터를 처리하는 기능이 필요하다. 이런 경우 스케줄러(scheduler)를 이용하여 작업(job)을 수행하도록 구현한다. 스프링 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능들을 제공한다. 대표적으로 `스프링 스케줄러(Spring Scheduler)`와 `스프링 쿼츠(Spring Quartz)`가 있다. 간단하게 `스프링 스케줄러`를 사용할 수도 있지만, 이번 글은 몇 가지 특장점이 있는 `스프링 쿼츠`에 대해 정리해 보았다.
+시스템을 구성하다 보면 실시간 요청에 따라 서비스를 제공하는 것뿐만 아니라 특정 시간마다 혹은 일정 시간 간격마다 동작하여 필요한 데이터를 처리하는 기능이 필요하다. 이런 경우 스케줄러(scheduler)를 이용하여 작업(job)을 수행하도록 구현한다.
+
+스프링 프레임워크는 Job 스케줄링을 쉽게 구현할 수 있는 기능들을 제공한다. 대표적으로 `스프링 스케줄러(Spring Scheduler)`와 `스프링 쿼츠(Spring Quartz)`가 있다. 간단하게 `스프링 스케줄러`를 사용할 수도 있지만, 이번 글은 몇 가지 특장점이 있는 `스프링 쿼츠`에 대해 정리해 봤다.
 
 ## 1. Spring Quartz
 
@@ -20,7 +23,9 @@ recommendedPosts:
 
 > Quartz is a richly featured, open source job scheduling library that can be integrated within virtually any Java application - from the smallest stand-alone application to the largest e-commerce system. Quartz can be used to create simple or complex schedules for executing tens, hundreds, or even tens-of-thousands of jobs; jobs whose tasks are defined as standard Java components that may execute virtually anything you may program them to do.
 
-쿼츠(Quartz)는 Job 스케줄링을 구현할 수 있는 오픈 소스 라이브러리이며 자바(Java) 애플리케이션에서 사용하거나 통합할 수 있다. 간단하거나 복잡한 스케줄을 수십 개에서 수만 개까지 구현할 수 있다. 스케줄의 종료 시점부터 다음 실행 시점까지 시간 간격을 두는 인터벌(interval) 형식의 스케줄링이 가능하다. 혹은 크론 표현식(cron expression) 방식을 이용한 복잡한 스케줄링도 지원한다. 쿼츠 구조도와 주요 인터페이스들의 역할을 정리해 보았다.
+쿼츠(Quartz)는 Job 스케줄링을 구현할 수 있는 오픈 소스 라이브러리이며 자바(Java) 애플리케이션에서 사용하거나 통합할 수 있다. 간단하거나 복잡한 스케줄을 수십 개에서 수만 개까지 구현할 수 있다.
+
+스케줄의 종료 시점부터 다음 실행 시점까지 시간 간격을 두는 인터벌(interval) 형식의 스케줄링이 가능하다. 혹은 크론 표현식(cron expression) 방식을 이용한 복잡한 스케줄링도 지원한다. 쿼츠 구조도와 주요 인터페이스들의 역할을 정리해 봤다.
 
 - Job 인터페이스
   - 실제 수행되는 execute 메서드를 명시한다.
@@ -37,20 +42,18 @@ recommendedPosts:
   - Job, Trigger 정보를 저장하는 메커니즘을 정의한다. 메모리 혹은 데이터베이스를 사용한다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-in-spring-mvc-01.png" width="100%" class="image__border image__padding">
-</div>
-<center>https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/quartz-in-spring-mvc-01.png" width="100%" class="image__border image__padding">
+  </div>
+  <center>https://blog.advenoh.pe.kr/spring/Quartz-Job-Scheduler%EB%9E%80/</center>
 </div>
 
-쿼츠에 대해 공부해 보기 전인 최근까지도 배치(batch)라는 용어와 혼동하여 사용하였다. 공부하기 전까지는 쿼츠가 제공하는 기능이 `배치 잡(Batch Job)`이라고 생각했는데, 실제로 제공하는 기능은 `잡 스케줄링(Job Scheduling)`이다. 둘은 다른 개념이므로 글을 이어가기 전에 정리해 두고 싶다.
+쿼츠에 대해 공부해 보기 전인 최근까지도 배치(batch)라는 용어와 혼동하여 사용했다. 공부하기 전까지는 쿼츠가 제공하는 기능이 `배치 잡(Batch Job)`이라고 생각했는데, 실제로 제공하는 기능은 `잡 스케줄링(Job Scheduling)`이다. 둘은 다른 개념이므로 글을 이어가기 전에 정리해 두고 싶다.
 
 - 잡 스케줄링은 특정한 시간에 등록한 작업(job)을 자동으로 실행시키는 일을 의미한다.
 - 배치 잡은 일괄 처리, 여러 개의 작업(job)을 중단 없이 연속적으로 처리하는 일을 의미한다. 사용자와의 상호 작용 없이 여러 작업(job)들을 미리 정해진 순서에 따라 일괄적으로 처리한다.
 
-배치 잡을 정기적으로 수행하려면 잡 스케줄링 기능을 이용해야 한다.
-
-글 초반에 말했듯 쿼츠는 몇 가지 특장점이 있다. 어떤 특장점들이 있을까?
+배치 잡을 정기적으로 수행하려면 잡 스케줄링 기능을 이용해야 한다. 글 초반에 말했듯 쿼츠는 몇 가지 특장점이 있다. 어떤 특장점들이 있을까?
 
 - 데이터베이스를 기반으로 클러스터링(clustering) 기능을 제공한다.
 - 시스템의 `failover`와 라운드-로빈(round-robin) 방식의 분산 처리를 지원한다.
@@ -133,7 +136,7 @@ recommendedPosts:
 </project>
 ```
 
-applicationContext.xml 파일에 쿼츠 실행을 위한 빈(bean) 객체 설정을 하나씩 살펴보겠다. 전체 XML 파일 내용은 테스트 코드 [GitHub 링크](https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-07-quartz-in-spring-mvc)에서 확인할 수 있다. 먼저, `JobDetail` 객체를 만드는 `JobDetailFactoryBean` 객체를 정의한다.
+applicationContext.xml 파일에 쿼츠 실행을 위한 빈(bean) 객체 설정을 하나씩 살펴보자. 전체 XML 파일 내용은 테스트 코드 [GitHub 링크](https://github.com/Junhyunny/blog-in-action/tree/master/2021-11-07-quartz-in-spring-mvc)에서 확인할 수 있다. 먼저, `JobDetail` 객체를 만드는 `JobDetailFactoryBean` 객체를 정의한다.
 
 - `jobClass`
   - Job 역할을 수행할 클래스를 지정한다.
@@ -166,9 +169,7 @@ applicationContext.xml 파일에 쿼츠 실행을 위한 빈(bean) 객체 설정
     </bean>
 ```
 
-마지막으로 스케줄러(scheduler)를 생성하는 `SchedulerFactoryBean` 객체에 대해 정의한다.
-
-- `triggers` - 사용할 트리거들을 지정한다.
+마지막으로 스케줄러(scheduler)를 생성하는 `SchedulerFactoryBean` 객체에 대해 정의한다. `triggers`에는 사용할 트리거들을 지정한다.
 
 ```xml
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">

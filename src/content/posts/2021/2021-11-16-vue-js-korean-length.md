@@ -5,6 +5,7 @@ updatedAt: "2026-06-06T22:56:28+09:00"
 canonicalPath: "/vue.js/vue-js-korean-length/"
 categories:
   - "vue.js"
+summary: "VueJS에서 v-model로 한글을 입력하면 한 박자 늦게 반영되는 문제를 IME 개념으로 설명하고, input 이벤트 핸들러를 사용해 해결했다."
 ---
 
 ## 0. 들어가면서
@@ -13,13 +14,7 @@ VueJS 프로젝트에서 `v-model` 속성을 통해 한글을 입력받으면 �
 
 ## 1. 문제 현상
 
-`v-model`을 사용해 한글을 입력받으면 다음과 같은 문제가 발생한다.
-
-- 한 박자 늦게 한글 입력이 완성된다. 그에 따라 입력된 문자열의 길이가 정상적으로 확인되지 않는다.
-
-문제 코드를 살펴보자.
-
-- `v-model` 속성에 스테이트(state)를 바로 연결한 양방향 바인딩을 통해 데이터를 입력받는다.
+`v-model`을 사용해 한글을 입력받으면 한 박자 늦게 한글 입력이 완성되는 문제가 발생한다. 그에 따라 입력된 문자열의 길이가 정상적으로 확인되지 않는다. 문제 코드를 살펴보자. `v-model` 속성에 스테이트(state)를 바로 연결한 양방향 바인딩을 통해 데이터를 입력받는다.
 
 ```vue
 <template>
@@ -68,13 +63,13 @@ VueJS 공식 문서에서 다음과 같은 설명을 볼 수 있다.
 > IME(Input Method Editor)<br/>
 > An input method (or input method editor, commonly abbreviated IME) is an operating system component or program that enables users to generate characters not natively available on their input devices by using sequences of characters (or mouse operations) that are natively available on their input devices. Using an input method is usually necessary for languages that have more graphemes than there are keys on the keyboard.
 
-`IME`는 한글 같은 조합이 필요한 문자의 입력을 지원하기 위한 운영체제(operating system)의 컴포넌트(component) 혹은 프로그램이다. 이 기능을 통해 사용자는 입력 기기를 사용해 직접 입력할 수 없는 문자들을 조합하여 작성할 수 있다. 예를 들면 사용자는 라틴(latin) 계열 키보드로 중국어, 일본어, 한국어 등을 입력할 수 있다. 한글처럼 IME 기능이 필요한 언어를 브라우저에서 입력할 땐 정상적인 처리가 안 될 수 있다. 문제 양상은 운영체제, 브라우저 종류마다 다를 수 있다.
+`IME`는 한글 같은 조합이 필요한 문자의 입력을 지원하기 위한 운영체제(operating system)의 컴포넌트(component) 혹은 프로그램이다. 이 기능을 통해 사용자는 입력 기기를 사용해 직접 입력할 수 없는 문자들을 조합하여 작성할 수 있다.
+
+예를 들면 사용자는 라틴(latin) 계열 키보드로 중국어, 일본어, 한국어 등을 입력할 수 있다. 한글처럼 IME 기능이 필요한 언어를 브라우저에서 입력할 땐 정상적인 처리가 안 될 수 있다. 문제 양상은 운영체제, 브라우저 종류마다 다를 수 있다.
 
 ## 3. 문제 해결
 
-공식 문서 설명에 따라 `input` 이벤트를 통해 한글 입력을 받는다.
-
-- 입력 이벤트를 처리할 핸들러 메서드를 `@input` 속성에 연결한다.
+공식 문서 설명에 따라 `input` 이벤트를 통해 한글 입력을 받는다. 입력 이벤트를 처리할 핸들러 메서드를 `@input` 속성에 연결한다.
 
 ```vue
 <template>
@@ -108,9 +103,7 @@ export default {
 </style>
 ```
 
-위 코드를 반영한 뒤 실행 결과를 살펴보자.
-
-- 입력과 동시에 문자열 길이가 정확하게 변경된다.
+위 코드를 반영한 뒤 실행하면 입력과 동시에 문자열 길이가 정확하게 변경된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/vue-js-korean-length-02.gif" width="100%" class="image__border">

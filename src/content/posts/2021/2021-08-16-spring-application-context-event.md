@@ -196,7 +196,9 @@ public class DeliveryService {
 }
 ```
 
-ApplicationContextDeliveryEventProxy 클래스는 앞서 살펴본 DeliveryEventProxy 인터페이스를 구현한다. 클라이언트에게 배달 완료 이벤트 발행 기능을 제공하지만, 실제 구현은 숨긴다. 현재는 스프링 애플리케이션 컨텍스트를 사용하지만, 나중에는 다른 기술로 이벤트를 발행할 수 있다. publishDeliveryCompleteEvent 메서드에서 배달 완료 이벤트를 발행한다.
+ApplicationContextDeliveryEventProxy 클래스는 앞서 살펴본 DeliveryEventProxy 인터페이스를 구현한다. 클라이언트에게 배달 완료 이벤트 발행 기능을 제공하지만, 실제 구현은 숨긴다.
+
+현재는 스프링 애플리케이션 컨텍스트를 사용하지만, 나중에는 다른 기술로 이벤트를 발행할 수 있다. publishDeliveryCompleteEvent 메서드에서 배달 완료 이벤트를 발행한다.
 
 ```java
 package blog.in.action.delivery.proxy;

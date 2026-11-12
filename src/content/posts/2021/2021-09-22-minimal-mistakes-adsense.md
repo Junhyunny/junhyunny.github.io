@@ -44,9 +44,7 @@ recommendedPosts:
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/minimal-mistakes-adsense-03.png" width="100%" class="image__border">
 </div>
 
-`minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태그를 추가한다.
-
-- 구글 애드센스에서 발급 받은 스크립트를 추가한다.
+`minimal-mistakes` 테마 블로그에 존재하는 `/_includes/head/custom.html` 파일에 복사한 태그를 추가한다. 구글 애드센스에서 발급 받은 스크립트를 추가한다.
 
 ```html
 <!-- start custom head snippets -->
@@ -57,9 +55,7 @@ recommendedPosts:
 <!-- end custom head snippets -->
 ```
 
-실수로 `애드센스 코드`를 복사하지 않고 지나간 경우 이를 다시 찾아야 한다. 아래 카테고리를 따라가면 코드를 찾을 수 있다.
-
-- `광고 > 개요 > 코드 가져오기` 링크를 누르면 다음 창이 뜨면서 다시 애드센스 코드를 확인할 수 있다.
+실수로 `애드센스 코드`를 복사하지 않고 지나간 경우 이를 다시 찾아야 한다. 아래 카테고리를 따라가면 코드를 찾을 수 있다. `광고 > 개요 > 코드 가져오기` 링크를 누르면 다음 창이 뜨면서 다시 애드센스 코드를 확인할 수 있다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/minimal-mistakes-adsense-04.png" width="100%" class="image__border">

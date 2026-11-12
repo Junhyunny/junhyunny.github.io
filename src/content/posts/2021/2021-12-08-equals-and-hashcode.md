@@ -6,6 +6,7 @@ canonicalPath: "/information/java/equals-and-hashcode/"
 categories:
   - "information"
   - "java"
+summary: "스파이 테스트 더블을 쓴 테스트에서 객체 비교가 실패한 문제를 Lombok @EqualsAndHashCode로 해결하고, of와 exclude 같은 속성을 디컴파일 코드로 살펴봤다."
 ---
 
 ## 1. 문제 상황
@@ -35,9 +36,7 @@ categories:
     }
 ```
 
-위 테스트를 실행하면 다음과 같은 에러 로그를 확인할 수 있다.
-
-- `Argument(s) are different!` 로그를 통해 사용된 인스턴스가 다르다는 것을 판단할 수 있다.
+위 테스트를 실행하면 다음과 같은 에러 로그를 확인할 수 있다. `Argument(s) are different!` 로그를 통해 사용된 인스턴스가 다르다는 것을 판단할 수 있다.
 
 ```
 Argument(s) are different! Wanted:
@@ -54,9 +53,11 @@ todoService.createTodo(
 
 ## 2. 문제 해결
 
-에러 로그를 보고 `equals` 메서드와 `hashCode` 메서드 오버라이딩을 떠올렸지만 이를 구현하는 일이 상당히 귀찮았다. 클래스에 정의된 필드를 모두 비교해야 한다거나 해시 코드 계산이 필요하기 때문이다. 이를 쉽게 해결할 수 있는 방법을 찾아보니 `Lombok`에 `@EqualsAndHashCode` 애너테이션이 있었다. 해당 애너테이션을 클래스 위에 정의하면 컴파일 시점에 자동으로 `equals` 메서드와 `hashCode` 메서드가 오버라이딩된다. 디컴파일(decompile)한 코드를 살펴보면 클래스에 있는 모든 필드를 비교한다.
+에러 로그를 보고 `equals` 메서드와 `hashCode` 메서드 오버라이딩을 떠올렸지만 이를 구현하는 일이 상당히 귀찮았다. 클래스에 정의된 필드를 모두 비교해야 한다거나 해시 코드 계산이 필요하기 때문이다.
 
-- `@EqualsAndHashCode` 애너테이션은 클래스 위에 추가해서 사용한다.
+이를 쉽게 해결할 수 있는 방법을 찾아보니 `Lombok`에 `@EqualsAndHashCode` 애너테이션이 있었다. 해당 애너테이션을 클래스 위에 정의하면 컴파일 시점에 자동으로 `equals` 메서드와 `hashCode` 메서드가 오버라이딩된다.
+
+디컴파일(decompile)한 코드를 살펴보면 클래스에 있는 모든 필드를 비교한다. `@EqualsAndHashCode` 애너테이션은 클래스 위에 추가해서 사용한다.
 
 ```java
 @EqualsAndHashCode

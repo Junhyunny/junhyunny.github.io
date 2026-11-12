@@ -1,7 +1,7 @@
 ---
 title: "PCB(Process Control Block)와 컨텍스트 스위칭(Context Switching)"
 publishedAt: "2021-03-25"
-updatedAt: "2026-03-24T08:03:14+09:00"
+updatedAt: "2026-11-12T16:26:00+09:00"
 canonicalPath: "/information/operating-system/process-control-block-and-context-switching/"
 categories:
   - "information"
@@ -14,9 +14,9 @@ recommendedPosts:
 
 ## 1. PCB(Process Control Block)
 
-PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스에 대한 정보를 담고 있는 자료구조이다. 운영체제는 PCB에 담긴 프로세스 정보를 이용하여 프로세스를 관리/제어한다. 프로세스가 생성될 때마다 고유의 PCB가 생성되고 프로세스가 완료되면 제거된다. PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사용자가 접근하지 못하는 보호된 메모리 영역에 존재한다.
+PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스에 대한 정보를 담고 있는 자료구조이다. 운영체제는 PCB에 담긴 프로세스 정보를 이용해 프로세스를 관리하고 제어한다. 프로세스가 생성될 때마다 고유한 PCB가 생성되고, 프로세스가 완료되면 제거된다. PCB는 프로세스의 중요한 정보를 포함하고 있으므로 일반 사용자가 접근하지 못하는 보호된 메모리 영역에 존재한다.
 
-### 1.1. Information in PCB
+PCB에 담기는 정보는 다음과 같다.
 
 - Process id - 프로세스 ID
 - Process state - 프로세스의 상태(new, ready, waiting, running, terminated)
@@ -39,21 +39,21 @@ PCB(Process Control Block) 혹은 TCB(Task Control Block)는 특정 프로세스
 > **문맥(Context)**<br/>
 > 현재 CPU가 실행하고 있는 프로세스의 정보
 
-현재 CPU가 실행하고 있는 프로세스의 정보를 문맥이라고 하니 이를 교환하는 행위를 문맥 교환이라고 정의 내릴 수 있다. 현재 실행 중인 프로세스의 정보를 담고 있는 CPU 레지스터의 내용이 다음 실행할 프로세스의 정보로 변경되는 것을 의미한다.
+현재 CPU가 실행하고 있는 프로세스의 정보를 문맥이라고 하니, 이를 교환하는 행위를 문맥 교환이라고 정의할 수 있다. 즉, 현재 실행 중인 프로세스의 정보를 담고 있는 CPU 레지스터의 내용이 다음에 실행할 프로세스의 정보로 바뀌는 것을 의미한다.
 
-예를 들어 `프로세스A`를 실행 중이던 CPU가 `프로세스B`를 실행하기 위해 `프로세스A`의 정보를 `어딘가`에 저장하고, `프로세스B`의 정보를 `어딘가`로부터 꺼내온다. 여기서 말하는 `어딘가`가 바로 PCB이다.
+예를 들어 `프로세스A`를 실행 중이던 CPU가 `프로세스B`를 실행하기 위해 `프로세스A`의 정보를 `어딘가`에 저장하고, `프로세스B`의 정보를 `어딘가`에서 꺼내온다. 여기서 말하는 `어딘가`가 바로 PCB이다.
 
-프로세스의 문맥교환은 다음과 같이 일어난다.
+프로세스의 문맥 교환은 다음과 같이 일어난다.
 
 1. P0 프로세스가 인터럽트되면서 PCB0에 P0 프로세스의 상태 정보를 저장한다.
-2. 다음 수행할 P1 프로세스의 PCB1에서 P1 프로세스의 상태 정보가 CPU에 재로딩된다.
+2. 다음에 수행할 P1 프로세스의 PCB1에서 P1 프로세스의 상태 정보가 CPU에 재로딩된다.
 3. P1 프로세스를 일정 시간 수행한다.
 4. P1 프로세스가 인터럽트되면서 PCB1에 P1 프로세스의 상태 정보를 저장한다.
-5. 다음 수행할 P0 프로세스의 PCB0에서 P0 프로세스의 상태 정보가 CPU에 재로딩된다.
+5. 다음에 수행할 P0 프로세스의 PCB0에서 P0 프로세스의 상태 정보가 CPU에 재로딩된다.
 6. P0 프로세스를 일정 시간 수행한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-control-block-and-context-switching-02.png" width="70%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/process-control-block-and-context-switching-02.png" width="100%" class="image__border">
 </div>
 <center>Operating System Concepts 9th</center>
 

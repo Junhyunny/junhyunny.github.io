@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/spring-mvc/do-not-bind-proxy-spring-mvc-transaction/"
 categories:
   - "spring-mvc"
+summary: "스프링 MVC에서 트랜잭션이 동작하지 않던 문제가 두 컨텍스트의 중복 컴포넌트 스캔으로 프록시가 아닌 빈이 주입되어 생긴 것임을 밝히고 스캔 설정을 나눠 해결했다."
 recommendedPosts:
   - title: "프록시 패턴(proxy pattern)"
     href: "https://junhyunny.github.io/information/design-pattern/proxy-pattern/"
@@ -12,7 +13,7 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-내가 다뤘던 레거시(legacy) 시스템들은 대부분 스프링 MVC(spring mvc) 프레임워크를 사용했다. 커리어 초반부터 스프링 부트(spring boot) 프레임워크를 사용했던 나는 XML 파일을 이용한 컨텍스트 설정을 많이 어려워하였다. 이번 글도 스프링 MVC 프레임워크가 익숙하지 않아서 발생한 문제에 대해 정리하였다. 스프링 MVC 프레임워크 기반으로 구현된 레거시를 다루는 분들에게 도움이 되길 바란다.
+내가 다뤘던 레거시(legacy) 시스템들은 대부분 스프링 MVC(spring mvc) 프레임워크를 사용했다. 커리어 초반부터 스프링 부트(spring boot) 프레임워크를 사용했던 나는 XML 파일을 이용한 컨텍스트 설정을 많이 어려워했다. 이번 글도 스프링 MVC 프레임워크가 익숙하지 않아서 발생한 문제에 대해 정리했다. 스프링 MVC 프레임워크 기반으로 구현된 레거시를 다루는 분들에게 도움이 되길 바란다.
 
 ## 1. Problem context
 
@@ -23,9 +24,7 @@ recommendedPosts:
 
 처음엔 트랜잭션 처리를 위한 AOP(aspect oriented programming) 설정에 문제가 있는 줄 알았다. 오타를 찾거나 스프링 버전에 따라 트랜잭션 AOP 설정 방법이 달라졌는지 확인했다. `@Transactional` 애너테이션을 사용해보기도 했지만, 트랜잭션 처리가 안 되긴 마찬가지였다. 거의 1시간 정도를 허비하고 나서야 디버깅(debugging)을 통해 문제를 정확히 파악할 수 있었다.
 
-**사용된 빈 객체가 프록시(proxy) 객체가 아니라 일반 객체였다.** 스프링 프레임워크에서 제공하는 트랜잭션 처리는 프록시 객체를 통해 이루어진다. 그렇기 때문에 메서드 콜 스택(method call stack)이 달라진다. 일반 빈 객체의 메서드를 호출하면 다음과 같은 스택 모습을 갖는다.
-
-- Controller 객체에서 Service 객체의 메서드 호출 시 스택이 바로 이어진다.
+**사용된 빈 객체가 프록시(proxy) 객체가 아니라 일반 객체였다.** 스프링 프레임워크에서 제공하는 트랜잭션 처리는 프록시 객체를 통해 이루어진다. 그렇기 때문에 메서드 콜 스택(method call stack)이 달라진다. 일반 빈 객체의 메서드를 호출하면 다음과 같이 Controller 객체에서 Service 객체의 메서드를 호출할 때 스택이 바로 이어진다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-01.png" width="100%" class="image__border">
@@ -42,16 +41,16 @@ recommendedPosts:
 
 ## 2. Reason of problem
 
-트랜잭션 처리가 실패하는 현상이 프록시 객체가 아닌 일반 객체를 주입 받아서 발생한다는 것은 확인했다. 어떤 이유로 이런 현상이 일어나는지 문제의 원인을 찾아보았다. 언제나 그렇듯 스택 오버플로우(stack overflow)에서 해답을 찾을 수 있었다.
+트랜잭션 처리가 실패하는 현상이 프록시 객체가 아닌 일반 객체를 주입 받아서 발생한다는 것은 확인했다. 어떤 이유로 이런 현상이 일어나는지 문제의 원인을 찾아봤다. 언제나 그렇듯 스택 오버플로우(stack overflow)에서 해답을 찾을 수 있었다.
 
 - 동일한 객체에 대해 `component-scan` 행위를 두 번 수행한 것으로 예상된다.
 - 처음은 프록시 빈 객체, 두 번째는 일반 빈 객체가 생성된다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-03.png" width="80%" class="image__border">
-</div>
-<center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/do-not-bind-proxy-spring-mvc-transaction-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://en.wikipedia.org/wiki/Proxy_pattern</center>
 </div>
 
 확인해보니 `applicationContext.xml`, `dispatcher-servlet.xml` 두 파일에서 컴포넌트 스캔(component-scan) 작업을 수행하고 있었다. 컴포넌트 스캔이 두 번 발생한 원인은 스프링의 동작 순서와 연관되어 있지만, 이번 포스트에선 다루지 않는다. 컴포넌트 스캔 설정을 살펴보자.
@@ -94,9 +93,7 @@ applicationContext.xml 파일은 다음과 같이 설정한다.
     </context:component-scan>
 ```
 
-이제 결과를 확인해보자. 로그를 통해 어떤 빈 객체가 주입되는지 확인할 수 있다. BlogController 클래스 생성자에서 로그를 출력한다.
-
-- 생성자 주입 시 빈(bean) 객체에 대한 정보를 로그로 출력한다.
+이제 결과를 확인해보자. 로그를 통해 어떤 빈 객체가 주입되는지 확인할 수 있다. BlogController 클래스 생성자에서 로그를 출력한다. 생성자 주입 시 빈(bean) 객체에 대한 정보를 로그로 출력한다.
 
 ```java
 package blog.in.action.controller;
@@ -135,7 +132,7 @@ public class BlogController {
 }
 ```
 
-컴포넌트 스캔시 별도 설정이 없다면 생성자 주입이 2번 발생한다.
+컴포넌트 스캔 시 별도 설정이 없다면 생성자 주입이 2번 발생한다.
 
 - BlogController 생성자 주입: blog.in.action.service.impl.BlogServiceImpl@68fbc8b8
 - BlogController 생성자 주입: blog.in.action.service.impl.BlogServiceImpl@51f4704b

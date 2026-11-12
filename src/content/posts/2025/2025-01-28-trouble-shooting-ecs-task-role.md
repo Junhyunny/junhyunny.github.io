@@ -7,6 +7,7 @@ categories:
   - "aws"
   - "dynamodb"
   - "localstack"
+summary: "ECS에 배포한 애플리케이션이 DynamoDB 자격 증명을 로드하지 못한 원인이 태스크 롤 누락임을 확인하고, 태스크 롤과 태스크 실행 롤의 차이와 함께 해결 과정을 정리했다."
 ---
 
 ## 0. 들어가면서
@@ -59,7 +60,7 @@ class DynamoDbConfig {
 
 ## 2. Solve the problem
 
-ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때문에 코드에 문제가 없을 것이라고 확신했다. 그렇다면 어디에 문제가 있었을까? ECS 클러스터에 서비스를 배포할 때 필요한 태스크 정의(task definition)을 만들 때 권한과 관련이 있다. 태스크 정의를 만들 때 두 개의 권한을 설정할 수 있다.
+ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때문에 코드에 문제가 없을 것이라고 확신했다. 그렇다면 어디에 문제가 있었을까? ECS 클러스터에 서비스를 배포할 때 필요한 태스크 정의(task definition)를 만들 때 권한과 관련이 있다. 태스크 정의를 만들 때 두 개의 권한을 설정할 수 있다.
 
 - Task role
 - Task execution role 
@@ -74,14 +75,12 @@ ECS에 DynamoDB를 사용하는 서비스를 배포해 본 경험이 있기 때�
 - DynamoDB 테이블 접근
 - Secrets Manager에서 비밀 정보 가져오기
 
-태스크 실행 롤(task execution role)은 AWS ECS 에이전트(agent)가 태스크를 실행하고 관리하기 할 때 필요한 AWS 리소스에 접근할 때 필요한 역할이다. 에이전트란 Fargate 플랫폼(혹은 ECS 자체)를 의미한다. 예를 들어, ECS 에이전트가 클러스터에 서비스를 배포할 때 필요한 기능들은 다음과 같다.
+태스크 실행 롤(task execution role)은 AWS ECS 에이전트(agent)가 태스크를 실행하고 관리할 때 필요한 AWS 리소스에 접근할 때 필요한 역할이다. 에이전트란 Fargate 플랫폼(혹은 ECS 자체)을 의미한다. 예를 들어, ECS 에이전트가 클러스터에 서비스를 배포할 때 필요한 기능들은 다음과 같다.
 
 - ECR(elastic container registry)에서 도커 이미지를 가져오기
 - CloudWatch에 로그 전송
 
-위 설명을 보면 살펴보면 애플리케이션에서 발생하는 원인을 예상할 수 있다. 문제가 발생한 이유는 서비스를 배포할 때 사용한 태스크 정의에 태스크 롤 설정이 없기 때문이다. 다음과 같이 적절한 IAM 롤을 만든 후 ECS 태스크 정의를 업데이트한다.
-
-- IAM 역할에 `ecs-task-dynamodb-role`라는 이름으로 롤을 만든 후 이를 설정한다.
+위 설명을 살펴보면 애플리케이션에서 발생하는 원인을 예상할 수 있다. 문제가 발생한 이유는 서비스를 배포할 때 사용한 태스크 정의에 태스크 롤 설정이 없기 때문이다. 다음과 같이 `ecs-task-dynamodb-role`이라는 이름으로 IAM 롤을 만든 후 ECS 태스크 정의에 설정한다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/trouble-shooting-ecs-task-role-02.png" width="100%" class="image__border">

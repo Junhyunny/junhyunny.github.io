@@ -5,6 +5,7 @@ updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/information/dns-record-types/"
 categories:
   - "information"
+summary: "A, AAAA, CNAME, MX, NS, PTR, TXT 등 DNS 레코드 타입별 용도와 레코드 구성 예시를 정리했다."
 recommendedPosts:
   - title: "DNS(Domain Name System)와 AWS Route53"
     href: "https://junhyunny.github.io/information/dns/aws/route53/dns-and-aws-route53/"
@@ -51,10 +52,10 @@ example.com.   3600   IN   AAAA   2001:0db8:85a3:0000:0000:8a2e:0370:7334
 `CNAME(Canonical Name) 레코드`는 도메인을 다른 도메인 이름으로 연결한다. 도메인 별명(alias)을 지어주는 것과 동일하다. 예를 들어 www.example.com 도메인을 example.com 도메인 주소로 연결하는 것이다. 도메인을 여러 개 사용하는 경우 CNAME 레코드를 통해 실제 서비스 접근 경로를 하나로 제어할 수 있지만, 클라이언트가 특정 도메인에 대한 IP 주소를 얻기 위해서 두 번의 요청을 주고 받아야 한다. 
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-02.png" width="100%" class="image__border">
-</div>
-<center>https://www.mailersend.com/blog/cname-record</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-02.png" width="100%" class="image__border">
+  </div>
+  <center>https://www.mailersend.com/blog/cname-record</center>
 </div>
 
 `MX(Mail Exchanger) 레코드`는 이메일이 특정 도메인으로 전달될 때 어느 메일 서버로 전달해야 하는지 지정한다. 숫자로 우선 순위를 지정하고, 높은 우선 순위를 갖는 메일 서버로 메일을 전달한다.
@@ -73,10 +74,10 @@ example.com.    3600    IN    MX   20   mail2.example.com.
 `NS(Name Server) 레코드`는 도메인 이름 시스템에서 특정 도메인의 DNS 정보를 관리하는 네임 서버를 지정하는 레코드다. NS 레코드를 통해 접근하는 네임 서버는 해당 도메인의 모든 DNS 레코드(A, MX, TXT 등)를 제공한다. NS 레코드를 사용하면 상위 DNS 서버가 하위 도메인의 정보를 찾는 요청을 다른 네임 서버에 위임한다. 예를 들어 GoDaddy 같은 도메인 구매 서비스를 통해 구매한 example.com 도메인을 다루는 네임 서버를 AWS Route53으로 지정할 수 있다.
 
 <div class="block-break">
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-03.png" width="80%" class="image__border">
-</div>
-<center>https://m.blog.naver.com/mogulist/221761776783</center>
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2025/main/dns-record-types-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://m.blog.naver.com/mogulist/221761776783</center>
 </div>
 
 `PTR(Pointer) 레코드`는 IP 주소를 도메인 이름으로 역변환하는 레코드다. 예를 들어 192.168.1.1 IP 주소를 example.com 도메인으로 연결한다.
@@ -91,7 +92,7 @@ example.com.    3600    IN    MX   20   mail2.example.com.
 1.168.192.in-addr.arpa.   3600   IN   PTR   example.com.
 ```
 
-`TXT(Text) 레코드`는 텍스트 정보를 저장하는 레코드다. 텍스트는 따옴표로 묶인 하나 이상의 문자열 형태로 저장된다. 원래는 사람을 읽을 수 있는 메모를 저장하거나 도메인 소유 인증인 SPF(Sender Policy Framework)이나 DKIM(DomainKeys Identified Mail) 등에 사용된다. 아래는 메일을 보낼 수 있는 허가 서버 목록을 작성한 SPF 텍스트 레코드의  존 파일 예시이다.
+`TXT(Text) 레코드`는 텍스트 정보를 저장하는 레코드다. 텍스트는 따옴표로 묶인 하나 이상의 문자열 형태로 저장된다. 원래는 사람이 읽을 수 있는 메모를 저장하거나 도메인 소유 인증인 SPF(Sender Policy Framework)나 DKIM(DomainKeys Identified Mail) 등에 사용된다. 아래는 메일을 보낼 수 있는 허가 서버 목록을 작성한 SPF 텍스트 레코드의  존 파일 예시이다.
 
 - 도메인 - example.com.
 - 인터넷 클래스 - IN
@@ -102,7 +103,7 @@ example.com.    3600    IN    MX   20   mail2.example.com.
 example.com. IN TXT "v=spf1 include:_spf.google.com ~all"
 ```
 
-`SRV(Service) 레코드`는 통신 서비스 같은 특정 서비스에 대한 호스트 이름, 포트 번호, 우선순위 및 가중치 정보를 제공하는 DNS 레코드다. 주로 SIP(VoIP), XMPP 채팅, LDAP, 게임 서버 등에서 사용된다. 예를 들어 VoIP 전화기가 특정 도메인에서 SIP 서비스를 찾기 위해 DNS 조회 요청을 보낸다. DNS 서버는 해당 도메인의 SRV 레코드 반환하고, 클라이언트는 우선 순위 값에 따라 서버에 연겨을 시도한다. 연결이 성공하면 서비스가 시작된다.
+`SRV(Service) 레코드`는 통신 서비스 같은 특정 서비스에 대한 호스트 이름, 포트 번호, 우선순위 및 가중치 정보를 제공하는 DNS 레코드다. 주로 SIP(VoIP), XMPP 채팅, LDAP, 게임 서버 등에서 사용된다. 예를 들어 VoIP 전화기가 특정 도메인에서 SIP 서비스를 찾기 위해 DNS 조회 요청을 보낸다. DNS 서버는 해당 도메인의 SRV 레코드를 반환하고, 클라이언트는 우선 순위 값에 따라 서버에 연결을 시도한다. 연결이 성공하면 서비스가 시작된다.
 
 - 서비스.프로토콜.도메인 - _sip._tcp.example.com.
 - TTL - 3600초
@@ -142,7 +143,7 @@ example.com.    IN  SOA  ns1.example.com. admin.example.com. (
 )
 ```
 
-`CAA(Certification Authority Authoriztion) 레코드`는 인증 기관(certificate authority)에 대한 허가를 명시하는 DNS 레코드다. 이 레코드는 도메인 이름에 대해 어떤 인증 기관이 SSL/TLS 인증서를 발급할 수 있는지를 제어한다. 이를 통해 도메인 소유자는 특정 인증 기관만 인증서를 발급할 수 있도록 허용하고 신뢰할 수 없는 인증 기관에서 발급된 인증서를 방지할 수 있다.
+`CAA(Certification Authority Authorization) 레코드`는 인증 기관(certificate authority)에 대한 허가를 명시하는 DNS 레코드다. 이 레코드는 도메인 이름에 대해 어떤 인증 기관이 SSL/TLS 인증서를 발급할 수 있는지를 제어한다. 이를 통해 도메인 소유자는 특정 인증 기관만 인증서를 발급할 수 있도록 허용하고 신뢰할 수 없는 인증 기관에서 발급된 인증서를 방지할 수 있다.
 
 - 도메인 - example.com.
 - 인터넷 클래스 - IN
@@ -154,7 +155,7 @@ example.com.    IN  SOA  ns1.example.com. admin.example.com. (
   - issue - 인증서 발급을 허용하는 인증 기관을 지정한다.
   - issuewild - 와일드카드 인증서 발급을 허용하는 인증 기관을 지정한다.
   - iodef - 인증 기관에 문제 발생 시 보고할 URL을 설정한다.
-- 깂 - 인증 기관을 지정한다.
+- 값 - 인증 기관을 지정한다.
 
 ```
 example.com.  IN  CAA  0 issue "letsencrypt.org"

@@ -7,6 +7,7 @@ categories:
   - "aws"
   - "dynamodb"
   - "localstack"
+summary: "AWS 리소스 에뮬레이터인 LocalStack의 개념을 살펴보고, 초기화 훅 스크립트로 컨테이너 실행과 동시에 DynamoDB 테이블을 준비하는 방법과 트러블 슈팅을 정리했다."
 recommendedPosts:
   - title: "도커 컴포즈(Docker Compose) DynamoDB 로컬 컨테이너 실행하기"
     href: "https://junhyunny.github.io/docker/aws/dynamo-db/dynamodb-container-with-docker-compose/"
@@ -50,7 +51,7 @@ services:
 
 `DYNAMODB_SHARE_DB` 환경 변수를 1로 설정하여 DynamoDB가 지역마다 별도 데이터베이스를 사용하지 않도록 한다. 단일 데이터베이스로 사용하지 않는 경우 각 지역마다 다른 데이터베이스를 사용하기 때문에 지역(region) 설정이 불가능한 NoSQL워크벤치에선 DynamoDB에 생성된 테이블을 확인할 수 없다. DynamoDB에 생성한 테이블을 NoSQL워크벤치(workbench) 같은 도구를 통해 확인하기 위해선 이 설정이 필요하다. 
 
-나는 LocalStack 컨테이너를 실행함과 동시에 DyanmoDB에 테이블을 준비하고 싶었다. LocalStack 컨테이너의 초기화 훅을 사용하면 테이블 초기화가 가능하다. LocalStack 컨테이너는 다음과 같은 라이프사이클을 갖는다.
+나는 LocalStack 컨테이너를 실행함과 동시에 DynamoDB에 테이블을 준비하고 싶었다. LocalStack 컨테이너의 초기화 훅을 사용하면 테이블 초기화가 가능하다. LocalStack 컨테이너는 다음과 같은 라이프사이클을 갖는다.
 
 - BOOT - the container is running but the LocalStack runtime has not been started
 - START - the Python process is running and the LocalStack runtime is starting
@@ -146,9 +147,7 @@ localstack-1  | Ready.
 
 ### 3.1. M4 Apple chip issue
 
-나는 M4 맥북(macbook)을 사용 중이다. M4 맥북을 사용하는 경우 localstack/localstack:latest 이미지를 사용하면 에러가 발생한다. M3 맥북에선 문제가 없는 것을 확인헀다.
-
-- DynamoDBLocal.jar 파일을 계속 재시작한다. 무한 루프처럼 재시작이 빠르게 반복된다.
+나는 M4 맥북(macbook)을 사용 중이다. M4 맥북을 사용하는 경우 localstack/localstack:latest 이미지를 사용하면 에러가 발생한다. M3 맥북에선 문제가 없는 것을 확인했다. DynamoDBLocal.jar 파일을 계속 재시작한다. 무한 루프처럼 재시작이 빠르게 반복된다.
 
 ```
 ...
@@ -216,7 +215,7 @@ localstack-1  | }
 localstack-1  | Ready.
 ```
 
-해당 에러는 이미 논-이슈(known-issue)이지만, 아직 해결되진 않은 것 같다.
+해당 에러는 이미 알려진 이슈이지만, 아직 해결되진 않은 것 같다.
 
 - <https://github.com/localstack/localstack/issues/12054>
 

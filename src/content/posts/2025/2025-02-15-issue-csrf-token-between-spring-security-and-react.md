@@ -1,5 +1,5 @@
 ---
-title: "스프링 시큐리티 CSRF 토큰 리액트 애플리케션에서 발급"
+title: "스프링 시큐리티 CSRF 토큰 리액트 애플리케이션에서 발급"
 publishedAt: "2025-02-15"
 updatedAt: "2026-03-24T08:03:14+09:00"
 canonicalPath: "/react/spring-boot/spring-security/issue-csrf-token-between-spring-security-and-react/"
@@ -7,6 +7,7 @@ categories:
   - "react"
   - "spring-boot"
   - "spring-security"
+summary: "스프링 시큐리티의 모바일 애플리케이션 연동 방식을 참고해 CSRF 토큰 발급 엔드포인트를 만들고, 리액트 앱이 토큰을 받아 axios 기본 헤더로 사용하는 방법을 정리했다."
 recommendedPosts:
   - title: "CSRF(Cross-Site Request Forgery) 공격과 방어"
     href: "https://junhyunny.github.io/information/security/spring-boot/spring-security/cross-site-reqeust-forgery/"
@@ -246,7 +247,7 @@ Note: Unnecessary use of -X or --request, POST is already inferred.
 
 ### 2.1. vite config
 
-우선 스프링 애플리케이션과 리액트 애플리케이션을 연결하기 위해선 프록시(proxy) 설정이 필요하다. 로컬 환경에서 프론트엔드 개발 서버와 백엔드 서버를 연결할 때 왜 프록시가 필요한지 궁긍하다면 [CORS(Cross Origin Resource Sharing) 개념](https://junhyunny.github.io/information/cors/)과 [React 프록시 설정](https://junhyunny.github.io/information/react/react-proxy/)을 참조하길 바란다. 
+우선 스프링 애플리케이션과 리액트 애플리케이션을 연결하기 위해선 프록시(proxy) 설정이 필요하다. 로컬 환경에서 프론트엔드 개발 서버와 백엔드 서버를 연결할 때 왜 프록시가 필요한지 궁금하다면 [CORS(Cross Origin Resource Sharing) 개념](https://junhyunny.github.io/information/cors/)과 [React 프록시 설정](https://junhyunny.github.io/information/react/react-proxy/)을 참조하길 바란다. 
 
 1. `/api` 접두어로 시작하는 경로의 요청은 `http://localhost:8080` 애플리케이션으로 전달한다.
 

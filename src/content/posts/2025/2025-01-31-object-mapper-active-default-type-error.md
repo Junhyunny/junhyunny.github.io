@@ -7,6 +7,7 @@ categories:
   - "spring-boot"
   - "redis"
   - "session"
+summary: "activateDefaultTyping 메서드를 써도 코틀린 객체에 클래스 정보가 직렬화되지 않는 원인이 final 클래스에 있음을 확인하고, final 클래스를 처리하는 방법을 정리했다."
 recommendedPosts:
   - title: "자바(java) record 키워드"
     href: "https://junhyunny.github.io/java/record-in-java/"
@@ -20,7 +21,7 @@ ObjectMapper는 인스턴스 직렬화를 수행할 때 명시적인 타입 정�
 
 ## 1. Problem Context
 
-간단한 테스트 코드로 ObjectMapper 객체가 동작하는 모습을 살펴보자. 우선 자바 코드를 확인해본다. 아래 코드를 보면 알 수 있듯이 ObjectMapper 객체는 클래스 정보 없이 객체를 Json 객체로 직렬화한다.
+간단한 테스트 코드로 ObjectMapper 객체가 동작하는 모습을 자바 코드부터 살펴보자. 아래 코드를 보면 알 수 있듯이 ObjectMapper 객체는 클래스 정보 없이 객체를 Json 객체로 직렬화한다.
 
 ```java
 package action.in.blog;
@@ -100,7 +101,7 @@ public class JavaObjectMapperSerializeTest {
 }
 ```
 
-이제 코틀린 코드를 살펴본다. 자바와 동일한 코드이지만, 아래 테스트 코드는 실패한다.
+이제 코틀린 코드를 살펴보자. 자바와 동일한 코드이지만, 아래 테스트 코드는 실패한다.
 
 ```kotlin
 package action.`in`.blog
@@ -151,7 +152,7 @@ Actual   :{"name":"junhyunny"}
 
 ## 2. Solve the problem
 
-코틀린이 익숙한 사용자라면 어디서 문제가 발생하는지 금새 짐작할 수 있다. 나는 코틀린이라는 언어를 깊이 공부하지 않았기 때문에 이 문제의 원인을 짐작하는데 많은 시간이 소요된 것 같다. 라이브러리 문제라고 판단하고 관련된 이슈를 뒤지는 등 헛짓거리를 많이 한 것 같다. 그 대단한 ChatGPT도 계속 잘못된 답변을 내줬다. 
+코틀린이 익숙한 사용자라면 어디서 문제가 발생하는지 금세 짐작할 수 있다. 나는 코틀린이라는 언어를 깊이 공부하지 않았기 때문에 이 문제의 원인을 짐작하는데 많은 시간이 소요된 것 같다. 라이브러리 문제라고 판단하고 관련된 이슈를 뒤지는 등 헛짓거리를 많이 한 것 같다. 그 대단한 ChatGPT도 계속 잘못된 답변을 내줬다. 
 
 문제의 원인은 코틀린의 클래스 특징에 있었다. 코틀린의 클래스는 기본적으로 `final`이다. 불필요한 상속을 막기 위해 모든 클래스를 final 클래스로 만든다. 
 
@@ -303,7 +304,7 @@ class KotlinObjectMapperSerializeTest {
 }
 ```
 
-주의 사항으로 `DefaultTyping.EVERYTHING`은 3.0 버전에 삭제될 예정이다. JavaDoc 주석에 해당 옵션에 설명을 볼 있다. 
+주의 사항으로 `DefaultTyping.EVERYTHING`은 3.0 버전에 삭제될 예정이다. JavaDoc 주석에 해당 옵션의 설명을 볼 수 있다. 
 
 ```java
     /**

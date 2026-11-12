@@ -86,9 +86,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/maria-db-add-host-01.png" width="50%">
 </div>
 
-`netstat -lntp` 명령어로 문제의 원인을 확인할 수 있다. Local Address의 IP 주소가 `0.0.0.0`이라면 모든 인터페이스를 허용하겠다는 의미지만, `127.0.0.1`이라면 자기 자신에서만 호출할 수 있는 상태다.
-
-- 현재 3306 포트(port)를 사용하는 프로세스 정보를 보면 Local Address가 `127.0.0.1` IP 주소이므로 로컬 호스트만 접근할 수 있는 상태다.
+`netstat -lntp` 명령어로 문제의 원인을 확인할 수 있다. Local Address의 IP 주소가 `0.0.0.0`이라면 모든 인터페이스를 허용하겠다는 의미지만, `127.0.0.1`이라면 자기 자신에서만 호출할 수 있는 상태다. 현재 3306 포트(port)를 사용하는 프로세스 정보를 보면 Local Address가 `127.0.0.1` IP 주소이므로 로컬 호스트만 접근할 수 있는 상태다.
 
 ```
 $ netstat -lntp | grep 3306

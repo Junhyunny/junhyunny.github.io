@@ -360,9 +360,7 @@ ItemNameCountVO(aCount=0, bCount=0, cCount=0, dCount=5)
 
 ### 2.3. Using Projection Interface
 
-프로젝션을 위한 인터페이스를 선언하는 방법이 있다. 인터페이스에 접근자 함수(getter)만 선언되어 있으면 해당 값에 접근할 수 있다. 다만 쿼리 결과 컬럼들에 별칭(alias)을 맞춰서 작성해야 한다. ItemNameCountProjection 인터페이스를 살펴보자.
-
-- 결과 값 출력을 위한 string() 디폴트 함수를 정의한다.
+프로젝션을 위한 인터페이스를 선언하는 방법이 있다. 인터페이스에 접근자 함수(getter)만 선언되어 있으면 해당 값에 접근할 수 있다. 다만 쿼리 결과 컬럼들에 별칭(alias)을 맞춰서 작성해야 한다. ItemNameCountProjection 인터페이스에는 결과 값 출력을 위한 string() 디폴트 함수를 정의한다.
 
 ```java
 package blog.in.action.domain;

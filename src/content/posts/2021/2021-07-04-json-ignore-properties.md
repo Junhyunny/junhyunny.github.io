@@ -11,9 +11,7 @@ summary: "서로 참조하는 응답 객체를 잭슨이 직렬화하다 발생�
 
 ## 1. Problem Context
 
-API 엔드포인트(endpoint)를 개발하던 중 다음과 같은 에러가 발생했다.
-
-- 잭슨(Jackson) 라이브러리가 직렬화(serialize)를 수행하는 과정에서 무한 재귀(infinite recursion)에 빠지면 `StackOverflowError`가 발생한다.
+API 엔드포인트(endpoint)를 개발하던 중 잭슨(Jackson) 라이브러리가 직렬화(serialize)를 수행하는 과정에서 무한 재귀(infinite recursion)에 빠지면서 다음과 같은 `StackOverflowError`가 발생했다.
 
 ```
 2023-09-14T00:42:29.816+09:00 ERROR 15028 --- [nio-8080-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)] with root cause
@@ -256,9 +254,7 @@ Caused by: com.fasterxml.jackson.databind.JsonMappingException: Infinite recursi
     ...
 ```
 
-이번에는 `@JsonIgnoreProperties` 애너테이션을 추가한 후 테스트를 실행해 보자. Reply 클래스를 다음과 같이 변경한다.
-
-- Post 객체의 프로퍼티 중 `replies`를 JSON 직렬화 대상에서 제외한다.
+이번에는 `@JsonIgnoreProperties` 애너테이션을 추가한 후 테스트를 실행해 보자. Post 객체의 프로퍼티 중 `replies`를 JSON 직렬화 대상에서 제외하도록 Reply 클래스를 다음과 같이 변경한다.
 
 ```java
 package blog.in.action.domain;

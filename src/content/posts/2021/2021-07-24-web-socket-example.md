@@ -157,9 +157,7 @@ public class CustomWebsocketConfiguration implements WebSocketConfigurer {
 }
 ```
 
-채팅 화면 페이지를 반환하는 ChatController 클래스는 다음과 같다.
-
-- `/chat` 경로의 요청에 대해 `chat.html` 페이지를 반환한다.
+ChatController 클래스는 `/chat` 경로의 요청에 대해 채팅 화면 페이지인 `chat.html`을 반환한다.
 
 ```java
 package blog.in.action.controller;

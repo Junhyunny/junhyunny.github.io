@@ -79,9 +79,7 @@ JPA에서 `Cascade`는 영속성 전이를 위해 사용한다.
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/jpa-cascade-type-02.png" width="20%" class="image__border">
 </div>
 
-먼저 Post 엔티티 클래스를 살펴보자.
-
-- @OneToMany 애너테이션의 cascade 속성을 사용해 영속성 전이 시점을 바꿔가면서 테스트한다.
+먼저 Post 엔티티 클래스를 살펴보자. @OneToMany 애너테이션의 cascade 속성을 사용해 영속성 전이 시점을 바꿔가면서 테스트한다.
 
 ```java
 package blog.in.action.cascade.entity;

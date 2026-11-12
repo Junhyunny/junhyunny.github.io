@@ -12,7 +12,7 @@ recommendedPosts:
     href: "https://junhyunny.github.io/information/java/java-atomic/"
 ---
 
-## 1. volatile Keyword
+## 1. volatile 키워드
 
 > The Java volatile keyword guarantees visibility of changes to variables across threads.
 

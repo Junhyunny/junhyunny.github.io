@@ -12,17 +12,13 @@ summary: "JPA 엔티티가 영속화되기 전에 실행되는 @PrePersist, @Pre
 
 ## 1. @PrePersist and @PreUpdate Annotations
 
-@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메서드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다. @PrePersist 애너테이션의 실행 시점을 먼저 살펴보자.
-
-- JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다. 
+@PrePersist, @PreUpdate 두 애너테이션은 JPA 엔티티의 라이프사이클을 따라 자동으로 실행돼야 하는 메서드를 지정할 때 사용한다. 두 애너테이션은 서로 실행 시점이 다르다. 먼저 @PrePersist 애너테이션은 JPA 엔티티(entity)가 비영속 상태에서 영속 상태가 되는 시점 이전에 실행된다.
 
 <div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/pre-persist-pre-update-01.png" width="100%" class="image__border">
 </div>
 
-@PreUpdate 애너테이션은 언제 실행될까?
-
-- 영속 상태인 엔티티의 변경 사항이 데이터베이스에 반영되는 시점 이전에 실행된다. 
+@PreUpdate 애너테이션은 언제 실행될까? 영속 상태인 엔티티의 변경 사항이 데이터베이스에 반영되는 시점 이전에 실행된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/pre-persist-pre-update-02.png" width="100%" class="image__border">
@@ -45,7 +41,7 @@ summary: "JPA 엔티티가 영속화되기 전에 실행되는 @PrePersist, @Pre
 
 두 필드의 값을 설정할 때 주로 두 애너테이션을 활용한다.
 
-### 3.1. BaseEntity Class
+### 3.1. BaseEntity 클래스
 
 두 필드를 모든 JPA 엔티티에 포함시키고 싶은 경우 @MappedSuperclass 애너테이션과 함께 활용한다. 먼저 부모 클래스를 만들고 모든 엔티티들이 이를 상속 받도록 만든다. @MappedSuperclass 애너테이션을 사용하면 부모 클래스에 위치한 필드를 테이블의 컬럼으로 매핑할 수 있다.
 
@@ -93,7 +89,7 @@ class BaseEntity {
 }
 ```
 
-### 3.2. BookEntity Class
+### 3.2. BookEntity 클래스
 
 예제를 위한 북 엔티티를 만들어보자. 
 
@@ -145,7 +141,7 @@ public class BookEntity extends BaseEntity {
 }
 ```
 
-### 3.3. Test
+### 3.3. 테스트
 
 JPA 의존성에 의해 자동으로 실행되기 때문에 단위 테스트로 검증하기 어렵다. 스프링 애플리케이션의 실행 환경과 동일한 환경을 만들어주는 @SpringBootTest 애너테이션을 사용해 결합 테스트를 수행해야 한다. @PrePersist 애너테이션의 동작을 살펴보자. 먼저 정상적인 케이스를 확인한다.
 

@@ -17,9 +17,7 @@ HTTP의 `Keep-Alive` 기능을 살펴보기 전에 등장 배경부터 알아보
 
 > 비연결성(connectionless)은 서버가 클라이언트에게 응답을 보낸 후 맺어진 연결을 끊어버리는 것을 의미합니다. 서버는 불특정 다수 클라이언트들을 위해 서비스를 제공합니다. 한번 요청한 클라이언트와 연결을 계속 유지하는 것은 리소스 사용 측면에서 서버에게 많은 부담을 줍니다. 그렇기에 서버는 클라이언트의 요청에 대한 응답 후 연결을 유지하지 않습니다.
 
-비연결성이라는 특징 때문에 매번 연결을 생성해야 하기 때문에 네트워크 측면에서 불필요한 비용이 발생한다.
-
-- HTTP는 비연결성 특징 때문에 매 요청마다 연결 성립과 종료 작업을 수행해야 한다.
+HTTP는 비연결성이라는 특징 때문에 매 요청마다 연결 성립과 종료 작업을 수행해야 하므로 네트워크 측면에서 불필요한 비용이 발생한다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/http-keep-alive-01.png" width="40%" class="image__border image__padding">

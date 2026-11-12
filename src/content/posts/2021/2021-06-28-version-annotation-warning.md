@@ -321,9 +321,7 @@ public class ActionInBlogTest {
 }
 ```
 
-테스트를 실행하면 다음과 같은 쿼리 로그를 확인할 수 있다.
-
-- 자식 엔티티에 대한 insert 쿼리가 정상적으로 수행된다.
+테스트를 실행하면 아래 쿼리 로그처럼 자식 엔티티에 대한 insert 쿼리가 정상적으로 수행된다.
 
 ```
 Hibernate: select next value for parent_entity_seq

@@ -6,6 +6,7 @@ canonicalPath: "/information/react/react-proxy/"
 categories:
   - "information"
   - "react"
+summary: "React 개발 서버에서 API를 호출할 때 발생하는 CORS 문제를 package.json 프록시 설정과 http-proxy-middleware 라이브러리로 해결하는 방법을 정리했다."
 recommendedPosts:
   - title: "CORS(Cross Origin Resource Sharing)"
     href: "https://junhyunny.github.io/information/cors/"
@@ -23,9 +24,7 @@ recommendedPosts:
 
 CORS 프리플라이트(preflight)가 필요하지 않은 요청인 경우에 서버는 요청을 정상적으로 처리하고 응답한다. 다만, 응답을 받은 브라우저에서 에러가 발생한다. 보통 리액트 같은 싱글 페이지 애플리케이션(SPA, Single Page Application)은 데이터를 별도 API 서비스에서 받아오기 때문에 크로스 오리진(cross origin) 요청이 되는 것이다.
 
-아래 표를 통해 동일 출처 여부를 확인해보자.
-
-- `http://store.company.com(기본 포트, 80)`와 동일한 출처는 다음과 같다.
+아래 표를 통해 동일 출처 여부를 확인해보자. `http://store.company.com(기본 포트, 80)`와 동일한 출처는 다음과 같다.
 
 | URL | 동일 여부 | 이유 |
 |---|:---:|:---|
@@ -37,7 +36,7 @@ CORS 프리플라이트(preflight)가 필요하지 않은 요청인 경우에 �
 
 ## 2. React dev server proxy setting
 
-CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로부터 적절한 응답 헤더를 받지 못 했을 때 발생한다. CORS 정책 위반 문제를 정석으로 해결하는 방법은 서버에서 응답 헤더에 필요한 값들을 담아서 반환하는 것이다. [이전 예제][cors-server-example-link]에선 @CrossOrigin 애너테이션을 통해 CORS 정책 문제를 해결했다. 
+CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로부터 적절한 응답 헤더를 받지 못했을 때 발생한다. CORS 정책 위반 문제를 정석으로 해결하는 방법은 서버에서 응답 헤더에 필요한 값들을 담아서 반환하는 것이다. [이전 예제][cors-server-example-link]에선 @CrossOrigin 애너테이션을 통해 CORS 정책 문제를 해결했다. 
 
 로컬 개발 환경에서 서버 쪽에 별도로 CORS 설정을 하고 싶지 않다면 어떻게 처리할 수 있을까? 프론트 개발 서버에 [프록시(proxy)][forward-reverse-proxy-link]를 설정하면 이를 해결할 수 있다. 이 글은 CRA(Create React App) 보일러 플레이트로 생성한 리액트 애플리케이션을 대상으로 설명한다. 다른 도구를 사용한다면 다른 방식으로 프록시를 설정해야 한다. 이 글을 통해 컨셉을 이해한다면 설정하는 방법은 쉬울 것이다.
 
@@ -71,12 +70,12 @@ CORS 위반은 크로스 오리진 요청인 경우에 브라우저가 서버로
 
 ### 3.1. React application
 
-리액트 코드를 먼저 살펴본다. `axios`는 `URI`가 상대 경로인지 절대 경로인지에 따라 동작 방법이 다르다. 상대 경로는 페이지 출처(origin)로 요청을 보내고, 절대 경로는 지정한 도메인에 해당하는 서버로 요청을 보낸다.
+리액트 코드를 먼저 살펴보자. `axios`는 `URI`가 상대 경로인지 절대 경로인지에 따라 동작 방법이 다르다. 상대 경로는 페이지 출처(origin)로 요청을 보내고, 절대 경로는 지정한 도메인에 해당하는 서버로 요청을 보낸다.
 
 - non cors header 버튼 
   - `localhost:8080` 서버로 직접 요청하고, CORS 관련 응답 헤더 정보를 받지 못한다.
 - cors header 버튼 
-  - `localhost:8080` 서버로 직접 요청하고, CORS 관련 응답 헤더 정보를 받다.
+  - `localhost:8080` 서버로 직접 요청하고, CORS 관련 응답 헤더 정보를 받는다.
 - nonProxy 버튼 
   - `localhost:3000` 리액트 애플리케이션으로 요청하고, 경로에 따른 프록시 설정을 하지 않는다. 
 - proxy 버튼 
@@ -258,7 +257,7 @@ CRA를 통해 생성한 리액트 애플리케이션은 `package.json` 파일을
 
 ### 3.4. http-proxy-middleware library
 
-위 테스트를 보면 nonProxy 버튼과 proxy 버튼의 차이점을 느끼지 못 했을 것이다. 사실 두 기능은 동일하게 동작한다. package.json 파일을 통해 프록시를 설정한 경우 상대 경로 URI로 보내는 모든 요청은 프록시를 통해 스프링 서버로 연결되기 때문이다. 
+위 테스트를 보면 nonProxy 버튼과 proxy 버튼의 차이점을 느끼지 못했을 것이다. 사실 두 기능은 동일하게 동작한다. package.json 파일을 통해 프록시를 설정한 경우 상대 경로 URI로 보내는 모든 요청은 프록시를 통해 스프링 서버로 연결되기 때문이다. 
 
 package.json 설정처럼 모든 요청이 프록시를 거쳐가는 것이 아니라 특정 요청만 프록시를 사용하고 싶다면 어떻게 해야 할까? 이를 조금 더 유연하게 설정하고 싶은 경우 `http-proxy-middleware` 라이브러리를 사용할 수 있다. 라이브러리이기 때문에 CRA 프로젝트 여부는 중요하지 않다.
 
@@ -298,7 +297,7 @@ module.exports = app => {
 
 - nonProxy 버튼 
   - `localhost:3000` 리액트 애플리케이션으로 요청한다.
-  - `/not-proxy` 경로에 해당하는 프록시 설정이 존재하지 않다.
+  - `/not-proxy` 경로에 해당하는 프록시 설정이 존재하지 않는다.
   - `localhost:3000` 호스트에는 `/not-proxy` 요청을 받아줄 경로가 없으므로 `404(NOT FOUND)` 에러가 발생한다.
 - proxy 버튼
   - `localhost:3000` 리액트 애플리케이션으로 요청한다.

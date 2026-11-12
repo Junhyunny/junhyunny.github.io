@@ -123,9 +123,7 @@ recommendedPosts:
                                 └── DeliveryServiceTest.java
 ```
 
-도메인 엔티티 객체 역할을 하는 Delivery 클래스를 먼저 살펴보자.
-
-- finishDelivery 메서드를 통해 객체의 배달 상태를 완료로 변경한다.
+먼저 도메인 엔티티 객체 역할을 하는 Delivery 클래스를 살펴보자. finishDelivery 메서드는 객체의 배달 상태를 완료로 변경한다.
 
 ```java
 package blog.in.action.delivery.domain;
@@ -198,9 +196,7 @@ public class DeliveryService {
 }
 ```
 
-ApplicationContextDeliveryEventProxy 클래스는 앞서 살펴본 DeliveryEventProxy 인터페이스를 구현한다. 클라이언트에게 배달 완료 이벤트 발행 기능을 제공하지만, 실제 구현은 숨긴다. 현재는 스프링 애플리케이션 컨텍스트를 사용하지만, 나중에는 다른 기술로 이벤트를 발행할 수 있다.
-
-- publishDeliveryCompleteEvent 메서드에서 배달 완료 이벤트를 발행한다.
+ApplicationContextDeliveryEventProxy 클래스는 앞서 살펴본 DeliveryEventProxy 인터페이스를 구현한다. 클라이언트에게 배달 완료 이벤트 발행 기능을 제공하지만, 실제 구현은 숨긴다. 현재는 스프링 애플리케이션 컨텍스트를 사용하지만, 나중에는 다른 기술로 이벤트를 발행할 수 있다. publishDeliveryCompleteEvent 메서드에서 배달 완료 이벤트를 발행한다.
 
 ```java
 package blog.in.action.delivery.proxy;
@@ -265,9 +261,7 @@ public class Order {
 }
 ```
 
-이벤트를 수신하는 OrderEventListener 클래스를 살펴보자.
-
-- listenOrderDeliveryCompleteEvent 메서드를 통해 이벤트를 수신하면 주문 서비스(orderService)에 배달 정보를 전달한다.
+이벤트를 수신하는 OrderEventListener 클래스를 살펴보자. listenOrderDeliveryCompleteEvent 메서드를 통해 이벤트를 수신하면 주문 서비스(orderService)에 배달 정보를 전달한다.
 
 ```java
 package blog.in.action.order.listner;

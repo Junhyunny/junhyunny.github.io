@@ -449,9 +449,7 @@ public class MultipartMapDto {
 }
 ```
 
-FileController 클래스 코드는 다음과 같다.
-
-- `/dto/multipart/map` 경로에 대한 요청을 받아주는 메서드의 파라미터로 MultipartMapDto 객체를 받는다.
+FileController 클래스에서 `/dto/multipart/map` 경로에 대한 요청을 받아주는 메서드는 MultipartMapDto 객체를 파라미터로 받는다.
 
 ```java
 package blog.in.action.controller;

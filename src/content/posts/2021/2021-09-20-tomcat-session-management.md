@@ -372,9 +372,7 @@ public class PageController {
 3. Manager 클래스는 backgroundProcess 메서드를 수행할 때 자신이 관리하는 세션들 중 만료 처리가 필요한 세션이 있는지 확인한다.
 4. 설정된 시간이 지난 세션들은 모두 만료 처리 후 세션 풀(pool)에서 제거한다.
 
-세션을 만료시키는 작업에 참여하는 주요 클래스들과 관련된 메서드는 어떤 것들이 있을까? ManagerBase 클래스의 processExpires 메서드를 먼저 살펴보자. 이 메서드에서 세션 만료 처리가 수행된다.
-
-- Session 객체의 isValid 메서드를 통해 유효성 여부를 확인하고, 유효하지 않은 경우 만료 처리한다.
+세션을 만료시키는 작업에 참여하는 주요 클래스들과 관련된 메서드는 어떤 것들이 있을까? ManagerBase 클래스의 processExpires 메서드를 먼저 살펴보자. 이 메서드에서 세션 만료 처리가 수행된다. Session 객체의 isValid 메서드를 통해 유효성 여부를 확인하고, 유효하지 않은 경우 만료 처리한다.
 
 ```java
 package org.apache.catalina.session;

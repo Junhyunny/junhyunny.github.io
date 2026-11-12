@@ -189,7 +189,7 @@ INNER JOIN tb_delivery d ON o.id = d.order_id;
 
 트랜잭션 내에서 발생한 모든 작업이 롤백되어 배달 완료 여부가 아직 `NULL` 값임을 확인할 수 있다.
 
-<div align="center">
+<div class="block-break" align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/transaction-in-spring-application-context-event-02.png" width="100%" class="image__border">
 </div>
 
@@ -275,7 +275,7 @@ public class OrderEventListener {
 
 마지막으로 비즈니스 로직을 수행하는 OrderService 클래스 코드를 살펴보자. 이전과 마찬가지로 RuntimeException을 의도적으로 던지지만, 해당 메서드에 @Transactional 애너테이션을 추가하여 트랜잭션 전파(propagation) 타입을 변경한다.
 
-- `Propagation.REQUIRES_NEW` 트랜잭션 전파 타입을 사용한다. 이 전파 타입은 새로운 트랜잭션을 만들고, 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
+`Propagation.REQUIRES_NEW` 트랜잭션 전파 타입을 사용한다. 이 전파 타입은 새로운 트랜잭션을 만들고, 진행 중인 트랜잭션이 있다면 이를 일시 중단한다.
 
 ```java
 @Component

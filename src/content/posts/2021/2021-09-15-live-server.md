@@ -35,9 +35,7 @@ recommendedPosts:
 
 ## 3. live-server 명령어
 
-`npm` 명령어를 통해 설치가 가능하다. 아래와 같이 명령어를 실행하면 `live-server`가 설치된다.
-
-- 로컬 PC 전역에서 사용할 것이므로 -g 옵션을 사용한다.
+`npm` 명령어를 통해 설치가 가능하다. 아래와 같이 명령어를 실행하면 `live-server`가 설치된다. 로컬 PC 전역에서 사용할 것이므로 -g 옵션을 사용한다.
 
 ```
 $ npm install -g live-server

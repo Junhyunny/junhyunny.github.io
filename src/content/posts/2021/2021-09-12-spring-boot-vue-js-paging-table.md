@@ -275,9 +275,7 @@ const service = axios.create({
 export default service;
 ```
 
-`post.js` 파일에서 전달받은 질의를 request 객체를 이용해 API 엔드포인트를 호출한다.
-
-- `/posts` 경로로 `GET` 요청 방식으로 데이터를 요청한다. 전달받은 질의(query)는 params 값으로 전달한다.
+`post.js` 파일에서 전달받은 질의를 request 객체를 이용해 API 엔드포인트를 호출한다. `/posts` 경로로 `GET` 요청 방식으로 데이터를 요청한다. 전달받은 질의(query)는 params 값으로 전달한다.
 
 ```javascript
 import request from '@/utils/request';

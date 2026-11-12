@@ -107,9 +107,7 @@ interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
 }
 ```
 
-테스트 코드를 실행하기 전에 조회에 필요한 데이터를 생성하는 코드를 살펴보자. `@BeforeEach` 애너테이션을 통해 테스트마다 데이터를 초기화한다.
-
-- `parentKey` 값을 PK로 갖는 부모 데이터와 `childKey` 값을 PK로 갖는 자식 데이터를 각각 하나씩 생성한다.
+테스트 코드를 실행하기 전에 조회에 필요한 데이터를 생성하는 코드를 살펴보자. `@BeforeEach` 애너테이션을 통해 테스트마다 데이터를 초기화한다. `parentKey` 값을 PK로 갖는 부모 데이터와 `childKey` 값을 PK로 갖는 자식 데이터를 각각 하나씩 생성한다.
 
 ```java
 
@@ -126,9 +124,7 @@ interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
     }
 ```
 
-에러가 발생하는 테스트 코드는 다음과 같다. 아래 코드를 실행하면 `InvalidDataAccessApiUsageException` 에러가 발생한다.
-
-- `parentKey` 값을 가지는 부모 객체를 만든 후 이를 이용해 조회한다.
+에러가 발생하는 테스트 코드는 다음과 같다. 아래 코드처럼 `parentKey` 값을 가지는 부모 객체를 만든 후 이를 이용해 조회하면 `InvalidDataAccessApiUsageException` 에러가 발생한다.
 
 ```java
     @Test
@@ -157,7 +153,9 @@ interface ChildEntityRepository extends JpaRepository<ChildEntity, String> {
 
 ## 3. 원인 분석
 
-에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행했기 때문이다. 분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는 데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각된다. 에러가 발생한 콜 스택(call stack)을 추적해 보면 AbstractEntityPersister 클래스의 isTransient 메서드에서 버전 관리 여부에 따라 임시 객체 판단이 이루어지는 것을 확인할 수 있다.
+에러가 발생한 원인은 저장되지 않은 객체를 이용해 조회를 수행했기 때문이다. 분명히 저장된 데이터이지만, `@Version` 애너테이션이 사용되는 경우 저장 여부를 판단하는 데 버전 관리에 사용되는 값의 null 여부를 함께 확인하기 때문에 이런 문제가 발생한 것으로 생각된다.
+
+에러가 발생한 콜 스택(call stack)을 추적해 보면 AbstractEntityPersister 클래스의 isTransient 메서드에서 버전 관리 여부에 따라 임시 객체 판단이 이루어지는 것을 확인할 수 있다.
 
 - this.isVersioned() 메서드를 통해 버전 관리가 되는 엔티티인지 확인한다.
 - 버전 관리가 되는 엔티티는 버전 값의 존재 여부를 추가로 확인한다.

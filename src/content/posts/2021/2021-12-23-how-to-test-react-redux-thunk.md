@@ -7,6 +7,7 @@ categories:
   - "information"
   - "react"
   - "jest"
+summary: "redux-thunk를 사용하는 화면과 미들웨어를 테스트 더블로 나눠 검증하는 방법을 정리하고, 리덕스 공식 테스트 작성 원칙과 비교했다."
 ---
 
 ## 1. redux-thunk 테스트하기
@@ -22,7 +23,7 @@ categories:
   - 아래 이미지에서 `Middleware > Dispatch` 과정을 테스트한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-test-react-redux-thunk-01.gif" width="80%" class="image__border image__padding">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/how-to-test-react-redux-thunk-01.gif" width="100%" class="image__border image__padding">
 </div>
 <center>https://redux.js.org/tutorials/fundamentals/part-6-async-logic</center>
 

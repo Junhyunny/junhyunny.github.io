@@ -68,9 +68,7 @@ recommendedPosts:
 
 스프링 애플리케이션의 서블릿 엔진은 기본적으로 리퀘스트-퍼-스레드(request-per-thread) 모델이다. 리퀘스트-퍼-스레드 방식인 경우 요청을 받은 스레드가 타임 아웃이 발생하기 전까지 다른 작업을 수행하지 못한다. 이는 불합리하고 성능 문제도 발생한다. 스프링은 이런 문제를 해결하기 위한 비동기 응답 기능이 존재한다. 
 
-### 3.1. DeferredResult Class
-
-비동기 처리를 위해 DeferredResult 클래스가 등장했다. 스프링 3.2부터 사용할 수 있다. 처리가 길어지는 연산을 `http-worker` 스레드가 아닌 다른 별도 스레드에게 분산하기 위해 사용한다. 
+DeferredResult 클래스가 바로 이런 비동기 처리를 위해 등장했다. 스프링 3.2부터 사용할 수 있으며, 처리가 길어지는 연산을 `http-worker` 스레드가 아닌 별도 스레드에 분산하기 위해 사용한다.
 
 > Guide to DeferredResult in Spring<br/>
 > DeferredResult, available from Spring 3.2 onwards, 
@@ -87,14 +85,14 @@ recommendedPosts:
 5. 스레드 풀에 담겨 있던 nio-http-worker 스레드가 타임 아웃 처리를 하거나 클라이언트에게 응답을 반환한다.
    - DeferredResult 객체의 변화가 참조를 따라 ServletResponse 객체까지 전달된다.
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/polling-long-polling-and-spring-example-03.png" width="100%" class="image__border">
+<div class="block-break">
+  <div align="center">
+    <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2022/main/polling-long-polling-and-spring-example-03.png" width="100%" class="image__border">
+  </div>
+  <center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center>
 </div>
-<center>https://jongmin92.github.io/2019/03/31/Java/java-async-1/</center>
 
-### 3.2. DeferredResultController Class
-
-특정 이벤트에 의해 컨트롤러에서 반환된 DeferredResult 객체의 상태를 변경해야 한다. 그러므로 컨트롤러에서 반환하는 DeferredResult 객체를 임시로 보관할 필요가 있다. 이번 예제에선 ConcurrentHashMap 객체에 임시로 보관한다.
+이제 DeferredResultController 클래스를 구현해보자. 특정 이벤트에 의해 컨트롤러에서 반환된 DeferredResult 객체의 상태를 변경해야 하므로, 컨트롤러에서 반환하는 DeferredResult 객체를 임시로 보관할 필요가 있다. 이번 예제에선 ConcurrentHashMap 객체에 보관한다. 구현 내용은 다음과 같다.
 
 1. 메모리 누수가 발생할 수 있으니 다음과 같은 경우에 참조를 끊는다.
    - 이벤트 처리 완료

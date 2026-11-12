@@ -7,6 +7,7 @@ categories:
   - "information"
   - "react"
   - "jest"
+summary: "디바운스 개념과 검색어 입력에 적용한 구현을 살펴보고, Jest 페이크 타이머로 디바운스 동작을 테스트하는 방법을 정리했다."
 recommendedPosts:
   - title: "Jest 스로틀(Throttle) 테스트하기"
     href: "https://junhyunny.github.io/information/react/jest/throttle-test-with-jest/"
@@ -24,15 +25,13 @@ recommendedPosts:
 대표적으로 디바운스를 이용하는 경우는 다음과 같다.
 
 - 화면 확대와 축소
-- 검색어 입력시 자동 완성 혹은 연관 검색어 노출
+- 검색어 입력 시 자동 완성 혹은 연관 검색어 노출
 - 스크롤링(scrolling)으로 발생하는 과도한 이벤트 처리 
 
-디바운스 처리를 시각화하면 다음처럼 표현할 수 있다.
-
-- 여러번의 동일한 이벤트 중 마지막 이벤트만 처리한다.
+디바운스 처리는 여러 번의 동일한 이벤트 중 마지막 이벤트만 처리한다. 이를 시각화하면 다음과 같다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/react-debounce-test-with-jest-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/react-debounce-test-with-jest-01.png" width="100%" class="image__border">
 </div>
 <center>https://codepen.io/jaehee/pen/XoKeRW</center>
 
@@ -44,7 +43,7 @@ recommendedPosts:
   - timer 변수는 타임아웃 객체를 참조한다.
   - 반환된 함수는 클로저(closure)이므로 timer 변수가 참조하는 객체는 동일하게 유지된다.
 2. 기존 타임아웃 타이머가 있는 경우 이를 제거한다.
-3. 지정한 타임아웃 시간 이후에 파라미터로 전달 받은 함수를 실행한다.
+3. 지정한 타임아웃 시간 이후에 파라미터로 전달받은 함수를 실행한다.
 
 ```js
 export const debounce = (func, timeout) => {
@@ -66,7 +65,7 @@ export const debounce = (func, timeout) => {
 1. 키워드로 검색하는 searchKeyword 함수를 만든다.
 2. searchKeyword 함수를 debounce 함수로 감싸 디바운스 처리가 되도록 만든다.
   - 리-렌더링(re-rendering)할 때 함수가 매번 생성되지 않도록 useCallback 훅(hook)을 사용한다.
-3. input 태그의 onChange 이벤트에서 디바운드 처리한 검색 함수를 사용한다.
+3. input 태그의 onChange 이벤트에서 디바운스 처리한 검색 함수를 사용한다.
 
 ```jsx
 import { useCallback, useState } from 'react';
@@ -145,9 +144,7 @@ test('when search keyword then request one time after 500ms', () => {
 
 ## 4. Run application
 
-애플리케이션을 실행하면 다음과 같이 처리되는 것을 확인할 수 있다.
-
-- 타이핑 완료되면 짧은 딜레이 이후 요청이 처리 된다.
+애플리케이션을 실행하면 다음과 같이 타이핑을 마치고 짧은 딜레이가 지난 뒤 요청이 처리된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/react-debounce-test-with-jest-02.gif" width="100%" class="image__border">

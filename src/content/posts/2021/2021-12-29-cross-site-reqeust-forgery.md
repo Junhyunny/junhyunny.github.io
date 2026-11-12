@@ -8,6 +8,7 @@ categories:
   - "security"
   - "spring-boot"
   - "spring-security"
+summary: "CSRF 공격의 원리와 GET, POST 공격 예제, Referrer 검사, CSRF 토큰, 더블 서브밋 쿠키 같은 방어법을 정리하고 방어 설정을 꺼도 되는지 살펴본다."
 recommendedPosts:
   - title: "쿠키(Cookie)와 세션(Session)"
     href: "https://junhyunny.github.io/information/cookie-and-session/"
@@ -25,9 +26,9 @@ recommendedPosts:
 
 ## 0. 들어가면서
 
-스프링 시큐리티(spring security) 관련 자료들을 보면 CSRF(Cross-Site Request Forgery) 설정을 비활성화시키는 글들이 종종 보인다. 예전 프로젝트 경험들을 돌이켜보면 CSRF 공격을 대비하기 위한 코드가 많았다. 이를 비활성화 시키는 것이 맞는지 의문스럽다. 이번 글에선 CSRF 공격이 무엇인지 정리하고 왜 CSRF 방어 설정을 비활성화 시키는지 정리해봤다. 
+스프링 시큐리티(spring security) 관련 자료들을 보면 CSRF(Cross-Site Request Forgery) 설정을 비활성화시키는 글들이 종종 보인다. 예전 프로젝트 경험들을 돌이켜보면 CSRF 공격을 대비하기 위한 코드가 많았다. 이를 비활성화시키는 것이 맞는지 의문스럽다.
 
-- 다음과 같이 CSRF 공격에 대한 방어 설정을 비활성화한다. 
+이번 글에선 CSRF 공격이 무엇인지, 그리고 왜 CSRF 방어 설정을 비활성화하는지 정리했다. 보통 다음과 같이 CSRF 공격에 대한 방어 설정을 비활성화한다.
 
 ```java
     @Override
@@ -47,14 +48,14 @@ CSRF 공격이란 정상적인 사용자가 의도하지 않았지만, 자신도
 
 우선 [쿠키와 세션][cookie-and-session-link]에 대한 이해가 필요하다. 사용자가 특정 서버에 로그인하면 일반적으로 다음과 같은 작업들이 수행된다.
 
-1. 서버는 로그인 시 인증된 사용자의 정보를 세션(session)에 저장하고 이에 매칭되는 `세션 아이디(session ID)`을 만든다.
+1. 서버는 로그인 시 인증된 사용자의 정보를 세션(session)에 저장하고 이에 매칭되는 `세션 아이디(session ID)`를 만든다.
 2. 서버는 저장된 세션 정보를 클라이언트(브라우저)가 사용할 수 있도록 `세션 아이디`를 `Set-Cookie` 헤더에 담아서 전달한다. 
 3. 클라이언트(브라우저)는 전달된 `세션 아이디`를 쿠키에 저장한다.
 4. 클라이언트(브라우저)는 해당 도메인을 가진 서버로 요청 시 쿠키에 저장된 `세션 아이디`를 자동으로 전달한다.
 5. 서버는 쿠키에 담긴 `세션 아이디`를 통해 인증된 사용자인지 여부를 확인한다.
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cross-site-reqeust-forgery-01.png" width="80%" class="image__border">
+  <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cross-site-reqeust-forgery-01.png" width="100%" class="image__border">
 </div>
 
 ### 1.2. CSRF Prerequisites and Attack Process
@@ -76,7 +77,7 @@ CSRF 공격을 위한 조건과 과정에 대해 알아보자. CSRF 공격을 �
   - 메일 등으로 악성 스크립트를 직접 전달하거나 악성 스크립트가 작성된 페이지 링크를 전달한다.
 3. 사용자가 악성 페이지 접속한다.
   - 악성 페이지에는 서버를 공격하기 위한 HTTP 요청 스크립트가 있다.
-  - 악성 스크립트에 의해 실행된 HTTP 요청시 쿠키에 저장된 세션 키는 브라우저에 의해 자동으로 요청 헤더에 담겨 서버로 전달된다.
+  - 악성 스크립트에 의해 실행된 HTTP 요청 시 쿠키에 저장된 세션 키는 브라우저에 의해 자동으로 요청 헤더에 담겨 서버로 전달된다.
 4. 사용자가 접속한 악성 페이지에서 사용자 몰래 악의적인 요청을 보낸다.
   - 악의적인 요청에는 사전에 인증된 사용자의 쿠키가 함께 전달된다.
   - 쿠키 SameSite 정책에 따라 다르지만, 크로스 사이트에서 쿠키가 요청에 함께 전달될 수 있다는 취약점을 사용한 것이다.
@@ -92,10 +93,10 @@ CSRF 공격을 위한 조건과 과정에 대해 알아보자. CSRF 공격을 �
 
 - backend - 보안이 취약한 서버
   - 도메인 주소는 `localhost`를 사용한다.
-  - 포트 번호는 `8081`를 사용한다.
+  - 포트 번호는 `8081`을 사용한다.
 - attacker - 공격자 서버 
-  - 도메인 주소는 `127.0.0.1`를 사용한다.
-  - 포트 번호는 `8080`를 사용한다.
+  - 도메인 주소는 `127.0.0.1`을 사용한다.
+  - 포트 번호는 `8080`을 사용한다.
 
 보안이 취약한 서버에는 다음과 같은 인증 인터셉터(interceptor)가 존재한다. 해당 인증 코드 덕분에 사용자가 로그인하기 전에 악성 페이지에 접근하더라도 사용자 정보를 변경할 수 없다.
 
@@ -126,9 +127,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 }
 ```
 
-다음과 같은 웹 MVC 설정을 통해 위 AuthenticationInterceptor 객체가 적용되지 않는 경로를 지정한다.
-
-- `/`, `/login` 경로를 제외한 모든 경로에 대한 요청은 AuthenticationInterceptor 객체를 통과한다.
+다음과 같은 웹 MVC 설정을 통해 위 AuthenticationInterceptor 객체가 적용되지 않는 경로를 지정한다. `/`, `/login` 경로를 제외한 모든 경로에 대한 요청은 AuthenticationInterceptor 객체를 통과한다.
 
 ```java
 package blog.in.action.config;
@@ -183,9 +182,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
 ### 2.2. POST Method Attack
 
-`<form></form>` 태그와 hidden 타입의 `<input />` 태그를 사용한다. 페이지가 로딩되면 폼 요청을 시도한다.
-
-- form 태그와 hidden 타입의 input 태그로 POST 요청을 수행한다.
+`<form></form>` 태그와 hidden 타입의 `<input />` 태그를 사용한다. 페이지가 로딩되면 폼 요청을 시도한다. form 태그와 hidden 타입의 input 태그로 POST 요청을 수행한다.
 
 ```html
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -224,10 +221,10 @@ GET 공격과 마찬가지로 로그인 완료된 사용자가 공격자가 만�
 
 - enhanced-backend - 보안이 강화된 서버
   - 도메인 주소는 `localhost`를 사용한다.
-  - 포트 번호는 `8081`를 사용한다.
+  - 포트 번호는 `8081`을 사용한다.
 - attacker - 공격자 서버 
-  - 도메인 주소는 `127.0.0.1`를 사용한다.
-  - 포트 번호는 `8080`를 사용한다.
+  - 도메인 주소는 `127.0.0.1`을 사용한다.
+  - 포트 번호는 `8080`을 사용한다.
 
 ### 3.1. Check Referrer
 
@@ -389,7 +386,7 @@ public class CsrfTokenInterceptor implements HandlerInterceptor {
 }
 ```
 
-로그인 한 사용자가 악성 페이지를 로딩하더라도 사용자의 이름이 변경되지 않는다. 토큰이 요청 파라미터에 전달된 요청인 경우에만 정상적으로 이름이 변경된다.
+로그인한 사용자가 악성 페이지를 로딩하더라도 사용자의 이름이 변경되지 않는다. 토큰이 요청 파라미터에 전달된 요청인 경우에만 정상적으로 이름이 변경된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cross-site-reqeust-forgery-05.gif" width="100%" class="image__border">
@@ -399,9 +396,7 @@ public class CsrfTokenInterceptor implements HandlerInterceptor {
 
 브라우저의 `SameOrigin 정책`을 이용한다. `SameOrigin`이 아닌 경우 `JavaScript`로 쿠키 값을 확인하거나 수정하지 못한다는 점을 이용한 검증 방법이다. 동일한 도메인 주소에서 동작하도록 해당 사이트에 게시글 등을 통해 악성 스크립트를 심는 경우 이 방어는 무효하다. 이 글의 예제처럼 도메인이 다른 사이트를 이용해 공격하는 경우에만 방어 코드가 유효하다.
 
-클라이언트(브라우저)에서 `JavaScript`로 임의의 생성한 토큰을 쿠키와 요청 헤더에 각각 담아서 서버에게 전달한다. 서버는 전달받은 쿠키와 요청 헤더에서 각자 토큰 값을 꺼내어 이를 비교하고 쿠키에 저장된 토큰 정보를 이후에 재사용하지 못하도록 만료 처리한다. 
-
-- DoubleSubmitCookieInterceptor 인터셉터를 경로에 추가한다.
+클라이언트(브라우저)에서 `JavaScript`로 임의로 생성한 토큰을 쿠키와 요청 헤더에 각각 담아서 서버에게 전달한다. 서버는 전달받은 쿠키와 요청 헤더에서 각자 토큰 값을 꺼내어 이를 비교하고 쿠키에 저장된 토큰 정보를 이후에 재사용하지 못하도록 만료 처리한다. 이를 위해 다음과 같이 DoubleSubmitCookieInterceptor 인터셉터를 경로에 추가한다.
 
 ```java
 package blog.in.action.config;
@@ -490,7 +485,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 1. 헤더로 전달된 CSRF 토큰을 찾는다.
 2. 쿠키로 전달된 CSRF 토큰을 찾는다.
 3. 쿠키에 전달된 CSRF 토큰을 변수에 저장 후 해당 쿠키를 만료한다.
-4. 두 값이 일치하는 지 검증한다.
+4. 두 값이 일치하는지 검증한다.
 
 ```java
 package blog.in.action.handler;
@@ -530,7 +525,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 }
 ```
 
-로그인 한 사용자가 악성 페이지를 로딩하더라도 사용자의 이름이 변경되지 않는다. Double-Submit 쿠키가 함께 전달된 요청인 경우에만 정상적으로 이름이 변경된다.
+로그인한 사용자가 악성 페이지를 로딩하더라도 사용자의 이름이 변경되지 않는다. Double-Submit 쿠키가 함께 전달된 요청인 경우에만 정상적으로 이름이 변경된다.
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/Junhyunny/junhyunny-blog-2021/main/cross-site-reqeust-forgery-06.gif" width="100%" class="image__border">
@@ -538,7 +533,7 @@ public class DoubleSubmitCookieInterceptor implements HandlerInterceptor {
 
 ## 4. Is it safe to turn off CSRF defence?
 
-스프링 시큐리티 프레임워크는 기본적으로 CSRF 공격에 대한 방어를 수행한다. CSRF 공격에 대처할 수 설정을 `disable` 시키는 것이 과연 좋은 방법일까? 예전 MVC 구조는 세션과 쿠키를 통해 사용자 인증을 수행했기 때문에 CSRF 공격에 취약했다. 상태를 유지하는(stateful) 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생했다.
+스프링 시큐리티 프레임워크는 기본적으로 CSRF 공격에 대한 방어를 수행한다. CSRF 공격에 대처할 수 있는 설정을 `disable` 시키는 것이 과연 좋은 방법일까? 예전 MVC 구조는 세션과 쿠키를 통해 사용자 인증을 수행했기 때문에 CSRF 공격에 취약했다. 상태를 유지하는(stateful) 서비스를 제공하기 위해 인증된 사용자 정보를 세션에 저장하고, 세션 ID가 쿠키에 저장되기 때문에 문제가 발생했다.
 
 > StackExchange - Should I use CSRF protection on Rest API endpoints?<br/>
 > No cookies = No CSRF

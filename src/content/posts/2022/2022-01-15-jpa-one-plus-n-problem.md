@@ -6,6 +6,7 @@ canonicalPath: "/spring-boot/jpa/jpa-one-plus-n-problem/"
 categories:
   - "spring-boot"
   - "jpa"
+summary: "엔티티 연관 관계에서 발생하는 JPA N+1 문제를 테스트로 재현하고, fetch 조인과 @EntityGraph 애너테이션으로 해결하는 방법과 주의사항을 정리했다."
 recommendedPosts:
   - title: "JPA Fetch 조인(join)과 페이징(paging) 처리"
     href: "https://junhyunny.github.io/spring-boot/jpa/jpa-fetch-join-paging-problem/"
@@ -19,7 +20,7 @@ recommendedPosts:
 
 책을 읽고 나니 이전 프로젝트에서 JPA N+1 현상 때문에 성능 문제가 있었던 코드가 떠올랐다. 갑자기 이를 개선하고 싶어졌다.
 
-문제가 있는 코드에 대한 테스트를 작성해 나가면서 관련 기능을 천천히 고쳐 나가는 일은 생각보다 재미있었다. 성능을 개선하는 과정을 통해 몇 가지를 배웠는데, JPA N+1 현상과 관련된 내용을 정리해 놓지 않았기 때문에 공부할 겸 글로 정리하였다. 이번 포스트에서는 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 진행한다.
+문제가 있는 코드에 대한 테스트를 작성해 나가면서 관련 기능을 천천히 고쳐 나가는 일은 생각보다 재미있었다. 성능을 개선하는 과정을 통해 몇 가지를 배웠는데, JPA N+1 현상과 관련된 내용을 정리해 놓지 않았기 때문에 공부할 겸 글로 정리했다. 이번 글에선 `@OneToMany`, `@ManyToOne` 애너테이션을 기준으로 이야기를 진행한다.
 
 ## 1. JPA N+1 문제
 
@@ -54,7 +55,7 @@ Hibernate: select replies0_.post_id as post_id3_1_0_, replies0_.id as id1_1_0_, 
 
 ## 2. N+1 문제 해결하기
 
-N+1 문제를 살펴보았으니 이를 해결할 수 있는 방법을 찾아보자. 우선 테스트에 사용할 엔티티를 살펴보고, 다음으로 해결 방법을 알아본다. Post 엔티티는 다음과 같이 구현했다.
+N+1 문제를 살펴봤으니 이를 해결할 수 있는 방법을 찾아보자. 우선 테스트에 사용할 엔티티를 살펴보고, 다음으로 해결 방법을 알아본다. Post 엔티티는 다음과 같이 구현했다.
 
 ```java
 package blog.in.action.post;
@@ -250,9 +251,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-테스트를 실행했을 때 로그가 어떻게 출력되는지 살펴보자. 먼저 `whenFindDistinctByTitleFetchJoin_thenJustOneQuery` 테스트를 실행했을 때 쿼리를 살펴보자.
-
-- inner join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
+테스트를 실행했을 때 로그가 어떻게 출력되는지 살펴보자. 먼저 `whenFindDistinctByTitleFetchJoin_thenJustOneQuery` 테스트를 실행하면 inner join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
 
 ```sql
 select distinct post0_.id         as id1_0_0_,
@@ -268,9 +267,7 @@ from post post0_
 where post0_.title = ?
 ```
 
-다음 `whenFindByTitleFetchJoin_thenJustOneQuery` 테스트를 실행했을 때 쿼리는 다음과 같다.
-
-- inner join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
+`whenFindByTitleFetchJoin_thenJustOneQuery` 테스트를 실행해도 inner join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
 
 ```sql
 select post0_.id         as id1_0_0_,
@@ -406,9 +403,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 }
 ```
 
-이제 테스트 실행 결과를 살펴보자. `whenFindDistinctByTitleEntityGraph_thenJustOneQuery` 테스트 메서드를 실행하면 다음과 같은 쿼리 로그를 볼 수 있다.
-
-- left outer join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
+이제 테스트 실행 결과를 살펴보자. `whenFindDistinctByTitleEntityGraph_thenJustOneQuery` 테스트 메서드를 실행하면 left outer join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
 
 ```sql
 select distinct post0_.id         as id1_0_0_,
@@ -424,9 +419,7 @@ from post post0_
 where post0_.title = ?
 ```
 
-`whenFindByTitleEntityGraph_thenJustOneQuery` 테스트 메서드를 실행하면 다음과 같은 쿼리 로그를 볼 수 있다.
-
-- left outer join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
+`whenFindByTitleEntityGraph_thenJustOneQuery` 테스트 메서드를 실행해도 left outer join 쿼리가 수행되면서 한 번에 Reply 엔티티 정보를 조회한다.
 
 ```sql
 select post0_.id         as id1_0_0_,
@@ -510,7 +503,7 @@ from test.post inner join test.reply on test.post.id = test.reply.post_id;
 
 나도 같은 의견이기 때문에 추가로 정리하지 않았다. 혹시 나중에 사용할 일이 생긴다면 그때 관련된 내용을 정리해 보려고 한다.
 
-추가로 `@EntityGraph` 애너테이션을 사용하면 데이터 중복 현상을 없애기 위한 처리 없이도 정상적으로 엔티티가 조회된다. 반환 타입을 `Set`으로 지정하지 않아도, 쿼리 내부에 `DISTINCT` 키워드가 없어도 중복되지 않은 엔티티 리스트가 반환된다. GitHub `spring-data-jpa` 리포지토리 이슈와 `StackOverflow` 질문으로 `@EntityGraph` 애너테이션을 사용할 때 왜 중복 현상이 발생하지 않는지 문의하였다.
+추가로 `@EntityGraph` 애너테이션을 사용하면 데이터 중복 현상을 없애기 위한 처리 없이도 정상적으로 엔티티가 조회된다. 반환 타입을 `Set`으로 지정하지 않아도, 쿼리 내부에 `DISTINCT` 키워드가 없어도 중복되지 않은 엔티티 리스트가 반환된다. GitHub `spring-data-jpa` 리포지토리 이슈와 `StackOverflow` 질문으로 `@EntityGraph` 애너테이션을 사용할 때 왜 중복 현상이 발생하지 않는지 문의했다.
 
 - GitHub 이슈 - [Why does not @EntityGraph annotation in JPA need to use "distinct" keyword or "Set" data structure?][github-issue-link]
 - StackOverflow 질문 - [Why does not @EntityGraph annotation in JPA need to use "distinct" keyword or "Set" data structure?][stack-overflow-question-link]
